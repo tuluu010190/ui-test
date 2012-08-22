@@ -38,7 +38,7 @@
 
 	<modules>
 		<module>ui-common</module>
-		<module>ui-test</module>
+		<module>ui-testsuite</module>
 	</modules>
 
 </project>

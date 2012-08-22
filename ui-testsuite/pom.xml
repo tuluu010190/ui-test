@@ -8,7 +8,7 @@
 		<version>1.0</version>
 	</parent>
 
-	<artifactId>ui-test</artifactId>
+	<artifactId>ui-testsuite</artifactId>
 	<packaging>jar</packaging>
 
 	<dependencies>
