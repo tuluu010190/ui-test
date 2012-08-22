@@ -4,7 +4,7 @@
 
 	<parent>
 		<groupId>org.exoplatform.selenium</groupId>
-		<artifactId>exo-selenium</artifactId>
+		<artifactId>ui-test</artifactId>
 		<version>1.0</version>
 	</parent>
 
