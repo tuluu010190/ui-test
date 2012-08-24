@@ -161,7 +161,7 @@ public class EcmsBase extends PlatformBase {
 		
 	//logout ECMS
 	public void logoutEcms (){
-		action.moveToElement(waitForAndGetElementByXpath(ELEMENT_LOGOUT_LINK)).build().perform();
+		actions.moveToElement(waitForAndGetElementByXpath(ELEMENT_LOGOUT_LINK)).build().perform();
 		waitForAndGetElementByLinkText("Logout").click();
 	}
 	
@@ -188,15 +188,15 @@ public class EcmsBase extends PlatformBase {
 	
 	//Enter sites management Form 
 	public void enterSiteForm(){
-		action.moveToElement(waitForAndGetElementByXpath(ELEMENT_MENU_SETUP_IMG)).build().perform();
-		action.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_CONTENT_LINK)).build().perform();
+		actions.moveToElement(waitForAndGetElementByXpath(ELEMENT_MENU_SETUP_IMG)).build().perform();
+		actions.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_CONTENT_LINK)).build().perform();
 		waitForAndGetElementByLinkText(ELEMENT_MENU_SITE_EXPLORER_LINK).click();
 	}
 	
 	//Enter create new page form
 	public void enterNewPageForm(){
-		action.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_EDIT_LINK)).build().perform();
-		action.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_PAGE_LINK)).build().perform();
+		actions.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_EDIT_LINK)).build().perform();
+		actions.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_PAGE_LINK)).build().perform();
 		waitForAndGetElementByLinkText(ELEMENT_MENU_ADD_PAGE_LINK).click();	
 	}
 	
@@ -389,7 +389,7 @@ public class EcmsBase extends PlatformBase {
 	
 	//delete level 1 node
 	public void deleteDocument(String xpath){
-		action.contextClick(waitForAndGetElementByXpath(xpath)).perform();
+		actions.contextClick(waitForAndGetElementByXpath(xpath)).perform();
 		pause(1000);
 		waitForAndGetElementByXpath(ELEMENT_PARTIALLINK_DELETE_DOCUMENT).click();
 		pause(1000);
@@ -461,8 +461,8 @@ public class EcmsBase extends PlatformBase {
 	
 	//search Page
 	public boolean searchPage(String pageTitle){	
-		action.moveToElement(waitForAndGetElementByXpath("//img[@alt='Setup']")).build().perform();
-		action.moveToElement(waitForAndGetElementByLinkText("Portal")).build().perform();
+		actions.moveToElement(waitForAndGetElementByXpath("//img[@alt='Setup']")).build().perform();
+		actions.moveToElement(waitForAndGetElementByLinkText("Portal")).build().perform();
 		pause(100);
 		waitForAndGetElementByLinkText("Pages").click();
 		
@@ -486,15 +486,15 @@ public class EcmsBase extends PlatformBase {
 	
 	//delete node of page, node is subnode of node
 	public void deleteNode(String node, String pageTitle){
-		action.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_EDIT_LINK)).build().perform();
-		action.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_SITE_LINK)).build().perform();
+		actions.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_EDIT_LINK)).build().perform();
+		actions.moveToElement(waitForAndGetElementByLinkText(ELEMENT_MENU_SITE_LINK)).build().perform();
 		waitForAndGetElementByLinkText(ELEMENT_MENU_NAVIGATION_LINK).click();
 		
 		waitForElementPresent(By.id(ELEMENT_SITE_NAVIGATION_POPUP));
 		if (node != ""){
 		waitForAndGetElementByLinkText(node).click();
 		}
-		action.contextClick(waitForAndGetElementByLinkText(pageTitle)).perform();
+		actions.contextClick(waitForAndGetElementByLinkText(pageTitle)).perform();
 		driver.findElement(By.partialLinkText(ELEMENT_SITE_NAVIGATION_DELETE_NODE_PARTIALLINK)).click();
 		acceptAlert();	
 		waitForAndGetElementByLinkText(ELEMENT_SITE_NAVIGATION_SAVE_BUTTON).click();
@@ -529,7 +529,7 @@ public class EcmsBase extends PlatformBase {
 	
 	//Select "ContentPath" in Edit Mode
 	public void selectContentPath(){
-		action.moveToElement(waitForAndGetElementByXpath(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
+		actions.moveToElement(waitForAndGetElementByXpath(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
 		waitForAndGetElementByXpath(ELEMENT_EDIT_PORTLET_LINK).click();
 		waitForAndGetElementByXpath(ELEMENT_SELECT_CONTENT_PATH_LINK).click();
 		waitForAndGetElementById(ELEMENT_SELECT_CONTENT_PATH_GENEGAL_LINK).click();
@@ -543,7 +543,7 @@ public class EcmsBase extends PlatformBase {
 	
 	//Select "CLVPath" in Edit Mode
 	public void selectCLVPath(){
-		action.moveToElement(waitForAndGetElementByXpath(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
+		actions.moveToElement(waitForAndGetElementByXpath(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
 		waitForAndGetElementByXpath(ELEMENT_EDIT_PORTLET_LINK).click();
 		waitForAndGetElementByXpath(ELEMENT_SELECT_CONTENT_PATH_LINK).click();
 		waitForAndGetElementById(ELEMENT_SELECT_CONTENT_PATH_GENEGAL_LINK).click();
