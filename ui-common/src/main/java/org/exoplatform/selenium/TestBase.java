@@ -1,6 +1,7 @@
 package org.exoplatform.selenium;
 
 import java.util.List;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -21,7 +22,8 @@ public class TestBase {
   protected static WebDriver driver;
   protected static Actions actions ;
   protected String baseUrl;
-  protected static int timeoutSecInt = 10; //10 seconds
+  protected static int DEFAULT_TIMEOUT = 10000; //milliseconds = 10 seconds
+  protected static int WAIT_INTERVAL = 100; //milliseconds  
   public static int loopCount = 0;	
   protected  static boolean ieFlag;	 
   protected  static boolean chromeFlag;
@@ -45,34 +47,72 @@ public class TestBase {
 	  
   }
   
-  public boolean isElementPresent(By by) {
-	  try {
-		  driver.findElement(by);
-		  return true;
-	  } catch (NoSuchElementException e) {
-		  return false;
-	  }
+  public WebElement getElement(Object locator) {
+    By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
+    WebElement elem = null;
+    try {
+      elem = driver.findElement(by);
+    } catch (NoSuchElementException e) {
+    }
+    return elem;
+  }
+
+  public boolean isElementPresent(Object locator) {
+    return getElement(locator) != null;
+  }
+
+  public boolean isElementNotPresent(Object locator) {
+    return !isElementPresent(locator);
+  }
+
+  public void waitForElementPresent(Object locator, int... timeInMillis) {
+    WebElement elem = null;
+    int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
+    for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
+      elem = getElement(locator);
+      if (null != elem) break;
+      pause(WAIT_INTERVAL);
+    }
+    debug("Timeout after " + timeout + "ms waiting for element present: " + locator);
+  }
+
+  public void waitForElementNotPresent(Object locator, int... timeInMillis) {
+    WebElement elem = null;
+    int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
+    for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
+      elem = getElement(locator);
+      if (null == elem) break;
+      pause(WAIT_INTERVAL);
+    }
+    debug("Timeout after " + timeout + "ms waiting for element not present: " + locator);
+  }
+
+  public WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
+    WebElement elem = null;
+    int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
+    for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
+      elem = getElement(locator);
+      if (null != elem) break;
+      pause(WAIT_INTERVAL);
+    }
+    debug("Timeout after " + timeout + "ms waiting for element " + locator);
+    return elem;
   }
   
-  public static boolean isElementNotPresent(String xpath) {
-	  return !isElementPresent(xpath);
-  }
-
-  public static boolean isTextPresent(String text) {
+  public boolean isTextPresent(String text) {
 	  pause(500);
-	  String allVisibleTexts = getText("//body");
-
+	  String allVisibleTexts = getText(By.xpath("//body"));
 	  return allVisibleTexts.contains(text);
   }
 
-  public static String getText(String xpath) {
+  public String getText(Object locator) {
 	  WebElement element = null;
 	  try {
-		  element = waitForAndGetElementByXpath(xpath);
+		  element = waitForAndGetElement(locator);
 		  return element.getText();
 	  } catch (StaleElementReferenceException e) {
 		  pause(1000);
-		  return getText(xpath);
+		  return getText(locator);
 	  }
   }
 
@@ -87,16 +127,8 @@ public class TestBase {
       }
   }
   
-  public static boolean isTextNotPresent(String text) {
+  public boolean isTextNotPresent(String text) {
 	  return !isTextPresent(text);
-  }
-
-  public void waitForElementPresent(By by) {
-	  for (int second = 0;; second++) {
-		  if (second >= 60) Assert.fail("timeout");
-		  try { if (isElementPresent(by)) break; } catch (Exception e) {}
-		  pause(1000);
-	  }
   }
 
   public static String getTextFromAlert() {
@@ -124,146 +156,12 @@ public class TestBase {
 	  }
   }
 
-  public static boolean isElementPresent(String xpath) {
-	  try {
-		  driver.findElement(By.xpath(xpath));
-		  return true;
-	  } catch (NoSuchElementException e) {
-		  return false;
-	  }
-  }
-
-  //waitfor and get Element by xpath
-  public static WebElement waitForAndGetElement(By by) {
-	  WebElement element = null;
-	  for (int second = 0;; second++) {
-		  if (second >= 2 * timeoutSecInt) {
-			  Assert.fail("Timeout at waitForElementPresent: " + by);
-		  }
-		  try {
-			  element = driver.findElement(by);
-			  boolean isLoadingDisplayed = false;
-			  try {
-				  WebElement loading = driver.findElement(By.xpath(AJAX_LOADING_MASK));
-				  isLoadingDisplayed = loading.isDisplayed();
-			  } catch (Exception e) {
-			  }
-			  if (element.isDisplayed() && !isLoadingDisplayed) {
-				  break;
-			  }
-		  } catch (Exception e) {
-		  }
-		  pause(500);
-	  }
-	  return element;
-  }
-  
-  //waitfor and get Element by xpath
-  public static WebElement waitForAndGetElementByXpath(String xpath) {
-	  WebElement element = null;
-	  for (int second = 0;; second++) {
-		  if (second >= 2 * timeoutSecInt) {
-			  Assert.fail("Timeout at waitForElementPresent: " + xpath);
-		  }
-		  try {
-			  element = driver.findElement(By.xpath(xpath));
-			  boolean isLoadingDisplayed = false;
-			  try {
-				  WebElement loading = driver.findElement(By.xpath(AJAX_LOADING_MASK));
-				  isLoadingDisplayed = loading.isDisplayed();
-			  } catch (Exception e) {
-			  }
-			  if (element.isDisplayed() && !isLoadingDisplayed) {
-				  break;
-			  }
-		  } catch (Exception e) {
-		  }
-		  pause(500);
-	  }
-	  return element;
-  }
-  
-  //waitfor and get Element by id
-  public static WebElement waitForAndGetElementById(String id) {
-	  WebElement element = null;
-	  for (int second = 0;; second++) {
-		  if (second >= 2 * timeoutSecInt) {
-			  Assert.fail("Timeout at waitForElementPresent: " + id);
-		  }
-		  try {
-			  element = driver.findElement(By.id(id));
-			  boolean isLoadingDisplayed = false;
-			  try {
-				  WebElement loading = driver.findElement(By.xpath(AJAX_LOADING_MASK));
-				  isLoadingDisplayed = loading.isDisplayed();
-			  } catch (Exception e) {
-			  }
-			  if (element.isDisplayed() && !isLoadingDisplayed) {
-				  break;
-			  }
-		  } catch (Exception e) {
-		  }
-		  pause(500);
-	  }
-	  return element;
-  }
-
-  //waitfor and get Element by name
-  public static WebElement waitForAndGetElementByName(String name) {
-	  WebElement element = null;
-	  for (int second = 0;; second++) {
-		  if (second >= 2 * timeoutSecInt) {
-			  Assert.fail("Timeout at waitForElementPresent: " + name);
-		  }
-		  try {
-			  element = driver.findElement(By.name(name));
-			  boolean isLoadingDisplayed = false;
-			  try {
-				  WebElement loading = driver.findElement(By.xpath(AJAX_LOADING_MASK));
-				  isLoadingDisplayed = loading.isDisplayed();
-			  } catch (Exception e) {
-			  }
-			  if (element.isDisplayed() && !isLoadingDisplayed) {
-				  break;
-			  }
-		  } catch (Exception e) {
-		  }
-		  pause(500);
-	  }
-	  return element;
-  }
-	  
-  //waitfor and get Element by linktext
-  public static WebElement waitForAndGetElementByLinkText(String link) {
-	  WebElement element = null;
-	  for (int second = 0;; second++) {
-		  if (second >= 2 * timeoutSecInt) {
-			  Assert.fail("Timeout at waitForElementPresent: " + link);
-		  }
-		  try {
-			  element = driver.findElement(By.linkText(link));
-			  boolean isLoadingDisplayed = false;
-			  try {
-				  WebElement loading = driver.findElement(By.xpath(AJAX_LOADING_MASK));
-				  isLoadingDisplayed = loading.isDisplayed();
-			  } catch (Exception e) {
-			  }
-			  if (element.isDisplayed() && !isLoadingDisplayed) {
-				  break;
-			  }
-		  } catch (Exception e) {
-		  }
-		  pause(500);
-	  }
-	  return element;
-  }
-	  
-  public static void dragAndDropToObject(String xpathSource, String xpathTarget) {
+  public void dragAndDropToObject(Object sourceLocator, Object targetLocator) {
 	  info("--Drag and drop to object--");
 	  Actions action = new Actions(driver);
 	  try {
-		  WebElement source = waitForAndGetElementByXpath(xpathSource);
-		  WebElement target = waitForAndGetElementByXpath(xpathTarget);
+		  WebElement source = waitForAndGetElement(sourceLocator);
+		  WebElement target = waitForAndGetElement(targetLocator);
 
 		  action.dragAndDrop(source, target).build().perform();
 	  } catch (StaleElementReferenceException e) {
@@ -271,7 +169,7 @@ public class TestBase {
 	  } 
   }
 
-  public static void click(String locator) {
+  public void click(Object locator) {
 	  try {
 		  WebElement element = waitForAndGetElement(locator);
 		  actions.click(element).perform();
@@ -289,7 +187,7 @@ public class TestBase {
   }
 
   //Use this function to verify if a checkbox is checked (using when creating a portal/publicMode)
-  public void check(String locator) {
+  public void check(Object locator) {
 	  try {
 		  WebElement element = waitForAndGetElement(locator);
 
@@ -306,7 +204,7 @@ public class TestBase {
 	  }
   }
 
-  public static  String getValue(String locator) {
+  public  String getValue(Object locator) {
 	  try {
 		  return waitForAndGetElement(locator).getAttribute("value");
 	  } catch (StaleElementReferenceException e) {
@@ -317,9 +215,7 @@ public class TestBase {
 	  }
   }
 
-
-
-  public  void mouseOver(String locator, boolean safeToSERE) {
+  public  void mouseOver(Object locator, boolean safeToSERE) {
 	  if (safeToSERE) {
 		  try {
 			  WebElement element = waitForAndGetElement(locator);
@@ -336,7 +232,7 @@ public class TestBase {
 	  }
   }
 
-  public void mouseOverAndClick(String locator) {
+  public void mouseOverAndClick(Object locator) {
 	  WebElement element;
 	  if (ieFlag) {
 		  element = getElement(locator);
@@ -345,54 +241,10 @@ public class TestBase {
 	  }
 	  actions.moveToElement(element).click(element).build().perform();
   }
-
-  public WebElement getElement(String locator) {
-	  pause(500);
-	  return driver.findElement(By.xpath(locator));
-  }
-
-  public static WebElement waitForAndGetElement(String locator) {
-	  WebElement element = null;
-	  for (int second = 0;; second++) {
-		  if (second >= timeoutSecInt) {
-			  Assert.fail("Timeout at waitForElementPresent: " + locator);
-		  }
-		  try {
-			  element = driver.findElement(By.xpath(locator));
-			  boolean isLoadingDisplayed = false;
-			  try {
-				  WebElement loading = driver.findElement(By.xpath(AJAX_LOADING_MASK));
-				  isLoadingDisplayed = loading.isDisplayed();
-			  } catch (Exception e) {
-			  }
-			  if (element.isDisplayed() && !isLoadingDisplayed) {
-				  break;
-			  }
-		  } catch (Exception e) {
-		  }
-		  pause(100);
-	  }
-	  return element;
-  }
-
-  public static void waitForElementNotPresent(String locator) {
-	  for (int second = 0;; second++) {
-		  if (second >= timeoutSecInt) {
-			  Assert.fail("Timeout at waitForElementNotPresent: " + locator);
-		  }
-		  try {
-			  driver.findElement(By.xpath(locator));
-		  } catch (NoSuchElementException e) {
-			  break;
-		  } catch (Exception e) {
-		  }
-		  pause(100);
-	  }
-  }
-
+  
   public  void waitForTextPresent(String text) {
 	  for (int second = 0;; second++) {
-		  if (second >= timeoutSecInt) {
+		  if (second >= DEFAULT_TIMEOUT) {
 			  Assert.fail("Timeout at waitForTextPresent: " + text);
 		  }
 		  if (isTextPresent(text)) {
@@ -404,7 +256,7 @@ public class TestBase {
 
   public void waitForTextNotPresent(String text) {
 	  for (int second = 0;; second++) {
-		  if (second >= timeoutSecInt) {
+		  if (second >= DEFAULT_TIMEOUT) {
 			  Assert.fail("Timeout at waitForTextNotPresent: " + text);
 		  }
 		  if (isTextNotPresent(text)) {
@@ -420,10 +272,10 @@ public class TestBase {
 	  waitForTextPresent(message);
   }
 
-  public static void type(String locator, String value, boolean validate) {
+  public void type(Object locator, String value, boolean validate) {
 	  try {
 		  for (int second = 0;; second++) {
-			  if (second >= timeoutSecInt) {
+			  if (second >= DEFAULT_TIMEOUT) {
 				  Assert.fail("Timeout at type: " + value + " into " + locator);
 			  }
 			  WebElement element = waitForAndGetElement(locator);
@@ -444,10 +296,10 @@ public class TestBase {
   }
 
   // Select option from combo box
-  public void select(String locator, String option) {
+  public void select(Object locator, String option) {
 	  try {
 		  for (int second = 0;; second++) {
-			  if (second >= timeoutSecInt) {
+			  if (second >= DEFAULT_TIMEOUT) {
 				  Assert.fail("Timeout at select: " + option + " into " + locator);
 			  }
 			  Select select = new Select(waitForAndGetElement(locator));
@@ -481,7 +333,7 @@ public class TestBase {
 	  }
 
 	  for (int second = 0;; second++) {
-		  if (second >= timeoutSecInt) {
+		  if (second >= DEFAULT_TIMEOUT) {
 			  Assert.fail("Timeout at waitForConfirmation: " + confirmationText);
 		  }
 		  if (message.equals(confirmationText)) {
