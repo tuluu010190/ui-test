@@ -14,7 +14,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import static org.exoplatform.selenium.TestLogger.*;
 
@@ -22,7 +24,7 @@ public class TestBase {
   protected static WebDriver driver;
   protected static Actions actions ;
   protected String baseUrl;
-  protected static int DEFAULT_TIMEOUT = 10000; //milliseconds = 10 seconds
+	protected static int DEFAULT_TIMEOUT = 10000; //milliseconds = 10 seconds
   protected static int WAIT_INTERVAL = 100; //milliseconds  
   public static int loopCount = 0;	
   protected  static boolean ieFlag;	 
@@ -46,17 +48,16 @@ public class TestBase {
 	  if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 	  
   }
-  
   public WebElement getElement(Object locator) {
-    By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
-    WebElement elem = null;
-    try {
-      elem = driver.findElement(by);
-    } catch (NoSuchElementException e) {
-    }
-    return elem;
+	  By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
+	  WebElement elem = null;
+	  try {
+		  elem = driver.findElement(by);
+	  } catch (NoSuchElementException e) {
+	  }
+	  return elem;
   }
-
+  
   public boolean isElementPresent(Object locator) {
     return getElement(locator) != null;
   }
@@ -70,7 +71,7 @@ public class TestBase {
     int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
     for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
       elem = getElement(locator);
-      if (null != elem) break;
+      if (null != elem) return;
       pause(WAIT_INTERVAL);
     }
     debug("Timeout after " + timeout + "ms waiting for element present: " + locator);
@@ -78,25 +79,33 @@ public class TestBase {
 
   public void waitForElementNotPresent(Object locator, int... timeInMillis) {
     WebElement elem = null;
-    int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
+    int timeout = timeInMillis.length > 0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
     for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
       elem = getElement(locator);
-      if (null == elem) break;
+      if (null == elem) return;
       pause(WAIT_INTERVAL);
     }
     debug("Timeout after " + timeout + "ms waiting for element not present: " + locator);
   }
-
+//
+//  public WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
+//    WebElement elem = null;
+//    int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
+//    for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
+//      elem = getElement(locator);
+//      if (null != elem) return elem;
+//      pause(WAIT_INTERVAL);
+//    }
+//    debug("Timeout after " + timeout + "ms waiting for element " + locator);
+//    return elem;
+//  }
+  
   public WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
-    WebElement elem = null;
-    int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
-    for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
-      elem = getElement(locator);
-      if (null != elem) break;
-      pause(WAIT_INTERVAL);
-    }
-    debug("Timeout after " + timeout + "ms waiting for element " + locator);
-    return elem;
+	    By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
+	    WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT/1000);
+	    wait.until(ExpectedConditions.presenceOfElementLocated(by));
+
+	    return getElement(by);
   }
   
   public boolean isTextPresent(String text) {
@@ -111,8 +120,11 @@ public class TestBase {
 		  element = waitForAndGetElement(locator);
 		  return element.getText();
 	  } catch (StaleElementReferenceException e) {
+		  checkCycling(e, 5);
 		  pause(1000);
 		  return getText(locator);
+	  } finally {
+		  loopCount = 0;
 	  }
   }
 
@@ -120,6 +132,7 @@ public class TestBase {
       try {
           return driver.findElements(By.xpath(xpath));
       } catch (StaleElementReferenceException e) {
+    	  checkCycling(e, 5);
           pause(1000);
           return getElements(xpath);
       } finally {
@@ -165,7 +178,12 @@ public class TestBase {
 
 		  action.dragAndDrop(source, target).build().perform();
 	  } catch (StaleElementReferenceException e) {
-		  debug("drag and drop error!");
+		  debug("drag and drop error! Retry...");
+		  checkCycling(e, 5);
+          pause(500);
+          dragAndDropToObject(sourceLocator, targetLocator);
+      } finally {
+          loopCount = 0;
 	  } 
   }
 
@@ -174,6 +192,7 @@ public class TestBase {
 		  WebElement element = waitForAndGetElement(locator);
 		  actions.click(element).perform();
 	  } catch (StaleElementReferenceException e) {
+		  checkCycling(e, 7);
 		  pause(1000);
 		  click(locator);
 	  } finally {
@@ -197,7 +216,8 @@ public class TestBase {
 			  Assert.fail("Element " + locator + " is already checked.");
 		  }
 	  } catch (StaleElementReferenceException e) {
-		  pause(100);
+		  checkCycling(e, 7);
+		  pause(500);
 		  check(locator);
 	  } finally {
 		  loopCount = 0;
@@ -208,7 +228,8 @@ public class TestBase {
 	  try {
 		  return waitForAndGetElement(locator).getAttribute("value");
 	  } catch (StaleElementReferenceException e) {
-		  pause(100);
+		  checkCycling(e, 5);
+		  pause(500);
 		  return getValue(locator);
 	  } finally {
 		  loopCount = 0;
@@ -221,6 +242,7 @@ public class TestBase {
 			  WebElement element = waitForAndGetElement(locator);
 			  actions.moveToElement(element).perform();
 		  } catch (StaleElementReferenceException e) {
+			  checkCycling(e, 5);
 			  pause(1000);
 			  mouseOver(locator, safeToSERE);
 		  } finally {
@@ -288,6 +310,7 @@ public class TestBase {
 			  pause(100);
 		  }
 	  } catch (StaleElementReferenceException e) {
+		  checkCycling(e, 7);
 		  pause(1000);
 		  type(locator, value, validate);
 	  } finally {
@@ -310,6 +333,7 @@ public class TestBase {
 			  pause(100);
 		  }
 	  } catch (StaleElementReferenceException e) {
+		  checkCycling(e, 7);
 		  pause(1000);
 		  select(locator, option);
 	  } finally {
@@ -347,9 +371,17 @@ public class TestBase {
   }
   
   //This function return absolute path from relative path
-  public String getAbsoluteFilePath(String relativeFilePath){
+  public static String getAbsoluteFilePath(String relativeFilePath){
 	  String curDir = System.getProperty("user.dir");
 	  String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
 	  return absolutePath;
   }
+  public static void checkCycling(Exception e, int loopCountAllowed) {
+      debug("Exception:" + e.getClass().toString());
+      if (loopCount > loopCountAllowed) {
+          Assert.fail("Cycled: " + e.getMessage());
+      } 
+      loopCount++;
+  }
+
 }

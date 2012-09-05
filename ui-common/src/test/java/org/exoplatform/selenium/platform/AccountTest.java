@@ -34,10 +34,6 @@ public class AccountTest extends PlatformBase{
 	@AfterTest(groups = {"platform"})
 	public void afterTest() throws Exception {
 		driver.quit();
-		String verificationErrorString = verificationErrors.toString();
-		if (!"".equals(verificationErrorString)) {
-			Assert.fail(verificationErrorString);
-		}
 	}
 	
 	@Test(groups={"paltform", "AccountTest"})

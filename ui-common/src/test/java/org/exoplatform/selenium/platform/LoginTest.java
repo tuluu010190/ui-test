@@ -23,10 +23,6 @@ public class LoginTest extends PlatformBase{
 	@AfterGroups(groups = {"platform"})
 	public void afterTest() throws Exception {
 		driver.quit();
-		String verificationErrorString = verificationErrors.toString();
-		if (!"".equals(verificationErrorString)) {
-			Assert.fail(verificationErrorString);
-		}
 	}
 	
 	@Test(groups = {"platform", "LoginTest"})
