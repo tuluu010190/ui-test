@@ -13,7 +13,6 @@ import org.testng.Assert;
 import static org.exoplatform.selenium.TestLogger.info; 
 
 
-
 public class PlatformBase extends TestBase {
 
 	/*------------- ---- Data for Portal ------------------------------*/
@@ -55,12 +54,12 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_CHECKBOX_PUBLIC_MODE = "//input[@name='publicMode']";
 	public static final String ELEMENT_LINK_EDIT_PERMISSION = "//a[text()='Edit Permission Settings']";
 	public static final String ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM = "//a[text()='${membership}']";
-	public static final String ELEMENT_SELECTED_ACCESS_PERM_GROUP = "//div[@id='PermissionGrid']/table/tbody//div[text()='/${groupId}']";
-	public static final String ELEMENT_SELECTED_ACCESS_PERM_MEMBERSHIP = "//div[@id='PermissionGrid']/table/tbody//div[text()='${membership}']";
+	public static final String ELEMENT_SELECTED_ACCESS_PERMISSION_GROUP = "//div[@id='PermissionGrid']/table/tbody//div[text()='/${groupId}']";
+	public static final String ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP = "//div[@id='PermissionGrid']/table/tbody//div[text()='${membership}']";
 	public static final String ELEMENT_ADD_PERMISSION_BUTTON = "//a[text()='Add Permission']";
 	public static final String ELEMENT_SELECT_EDIT_MEMBERSHIP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${membership}']";
-	public static final String ELEMENT_SELECTED_EDIT_PERM_GROUP = "// div[@class='SelectedPermissionInfo']/div[2]/div[.='/${groupId}']";
-	public static final String ELEMENT_SELECTED_EDIT_PERM_MEMBERSHIP = "//div[@class='SelectedPermissionInfo']/div[3]/div[.='${membership}']";
+	public static final String ELEMENT_SELECTED_EDIT_PERMISSION_GROUP = "// div[@class='SelectedPermissionInfo']/div[2]/div[.='/${groupId}']";
+	public static final String ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP = "//div[@class='SelectedPermissionInfo']/div[3]/div[.='${membership}']";
 	public static final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
 	public static final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//a[@title='${group}']";
 	public static final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${group}']";
@@ -179,11 +178,6 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_TAB_LINK = "//div[@id='UITabPaneDashboard']//span[text()='${tabName}']";
 	/*------------ End of data for Dashboard tab --------------------------*/
 
-	//Sign in as Root
-	public void signInAsRoot() {
-		signIn("root", "gtn");
-	}
-
 	//Sign in function for eXoGTN
 	public void signIn(String username, String password) {
 		info("--Sign in as " + username + "--");
@@ -196,7 +190,6 @@ public class PlatformBase extends TestBase {
 	}
 
 	//Sign out for eXoGTN
-
 	public void signOut(){
 		Actions action_logout = new Actions(driver);
 		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
@@ -518,7 +511,7 @@ public class PlatformBase extends TestBase {
 	public void setViewPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM.replace("${membership}", membership);
 		//String selectedGroup = ELEMENT_SELECTED_ACCESS_PERM_GROUP.replace("${groupId}", groupId.replace(" ", "-").toLowerCase());
-		String selectedMembership = ELEMENT_SELECTED_ACCESS_PERM_MEMBERSHIP.replace("${membership}", membership);
+		String selectedMembership = ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP.replace("${membership}", membership);
 
 		info("--Setting view permission to " + groupId + ", " + membership + "--");
 		String[] groups = groupId.split("/");
@@ -541,7 +534,7 @@ public class PlatformBase extends TestBase {
 	public void setEditPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_EDIT_MEMBERSHIP_ITEM.replace("${membership}", membership);
 		//String selectedGroup = ELEMENT_SELECTED_EDIT_PERM_GROUP.replace("${groupId}", groupId.replace(" ", "-").toLowerCase());
-		String selectedMembership = ELEMENT_SELECTED_EDIT_PERM_MEMBERSHIP.replace("${membership}", membership);
+		String selectedMembership = ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP.replace("${membership}", membership);
 
 		info("--Setting edit permission to " + groupId + ", " + membership + "--");
 		String[] groups = groupId.split("/");
@@ -714,12 +707,9 @@ public class PlatformBase extends TestBase {
 		pause(500);
 		click(ELEMENT_PAGE_FINISH_BUTTON);
 		waitForTextNotPresent("Page Editor");
-
 	}
-
-
+	
 	/*---------------- Add node for Portal ---------------------*/
-
 
 	// Add a node for portal at portal navigation
 	public void addNodeForPortal(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode, 
@@ -743,7 +733,6 @@ public class PlatformBase extends TestBase {
 			} else {
 				click(ELEMENT_NODE_ADD_NEW);
 			}		
-
 		}
 		waitForTextPresent("Page Node Settings");
 		type(ELEMENT_INPUT_NAME, nodeName, true);
@@ -752,7 +741,6 @@ public class PlatformBase extends TestBase {
 			for (String language : languages.keySet()) {
 				select(ELEMENT_SELECT_LANGUAGE, language);
 				pause(500);
-
 			}
 		} else {
 			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
@@ -787,7 +775,6 @@ public class PlatformBase extends TestBase {
 			save();
 			waitForTextNotPresent("Navigation Management");
 		}
-
 	}
 
 	// Edit a node 
@@ -814,7 +801,6 @@ public class PlatformBase extends TestBase {
 			for (String language : languages.keySet()) {
 				select(ELEMENT_SELECT_LANGUAGE, language);
 				pause(500);
-
 			}
 		} else {
 			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
@@ -879,7 +865,6 @@ public class PlatformBase extends TestBase {
 		element = waitForAndGetElement(ELEMENT_LINK_GROUP);
 		actions.moveToElement(element).click(element).build().perform();
 		pause(500);
-
 	}
 
 	//Add a node for group at group navigation
@@ -904,7 +889,6 @@ public class PlatformBase extends TestBase {
 			} else {
 				click(ELEMENT_NODE_ADD_NEW);
 			}		
-
 		}
 		waitForTextPresent("Page Node Settings");
 		type(ELEMENT_INPUT_NAME, nodeName, true);
@@ -913,7 +897,6 @@ public class PlatformBase extends TestBase {
 			for (String language : languages.keySet()) {
 				select(ELEMENT_SELECT_LANGUAGE, language);
 				pause(500);
-
 			}
 		} else {
 			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
@@ -948,23 +931,16 @@ public class PlatformBase extends TestBase {
 			save();
 			waitForTextNotPresent("Navigation Management");
 		}
-
 	}
-
-
 	/*-------------- Actions (Copy, Cut, Clone) at Portal/Group navigation ---------------*/
 
-	
-
 	/*---------------------- Add tab at Dashboard ---------------------------------*/
-
 	//Go to Dashboard
 	public void goToDashboard(){
 		info("--Go to Dashboard page--");
 		WebElement element = driver.findElement(By.id("UserNavigationTabsContainer"));
 		actions.moveToElement(element).build().perform();
 		driver.findElement(By.linkText("Dashboard")).click();	
-
 	}
 
 	//Add new page on Dashboard
@@ -977,7 +953,6 @@ public class PlatformBase extends TestBase {
 		if (verify) {
 			waitForAndGetElement("//span[text()='" + displayName + "']");
 		}
-
 	}
 
 
@@ -1032,7 +1007,6 @@ public class PlatformBase extends TestBase {
 		waitForAndGetElement("//span[text()='" + newName + "']");
 		waitForElementNotPresent("//span[text()='" + currentName + "']");
 	}
-
 
 	//Delete a tab
 	public void deleteTabOnDashboard(String currentName, boolean confirm){
