@@ -100,7 +100,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		deleteDocument(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"));
 		waitForElementNotPresent(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"));
 		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"):"Can node delete content folder";
+		assert isElementNotPresent("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"):"Can not delete content folder";
 		//logout
 		logoutEcms();
 	}
@@ -215,7 +215,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		//check can not add new file document to created file document -> has not new content link
 		goToNode(By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']"));
 		boolean check2= isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
-		assert check2:"False: New content link is still available";
+		assert check2:" New content link is still available";
 		info("Check can not add a file document to a file document:"+check2);
 		//delete file document
 		deleteDocument(By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']"));
@@ -249,7 +249,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		//check can not add new file document to created podcast document -> has not new content link
 		goToNode(By.xpath("//a[@title='"+DATA_PODCAST_NAME+" "+"']"));
 		boolean check2 = isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
-		assert check2:"False: New content link is still available";
+		assert check2:" New content link is still available";
 		info("check can not add a file document to podcast document:"+check2);
 		//delete podcast document
 		deleteDocument(By.xpath("//a[@title='"+DATA_PODCAST_NAME+" "+"']"));
@@ -293,7 +293,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		checkPreferenceOption(ELEMENT_DMS_OPTION_CHECKBOX_ID);
 		waitForElementPresent("//a[@title='"+DATA_FILE_NAME+" "+"']");
 		boolean check2= isElementPresent(By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']"));
-		assert check2:"Can not add file document into sample node";
+		assert check2:"Cannot add file document into sample node";
 		info("Add a file document to a sample node:"+ check2);
 		//delete sample node document
 		goToNode(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
@@ -301,7 +301,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		deleteDocument(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
 		waitForElementNotPresent("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']");
 		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"):"Can not delete sample node";
+		assert isElementNotPresent("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"):"Cannot delete sample node";
 		//logout
 		logoutEcms();
 	}
@@ -345,7 +345,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		deleteDocument(By.xpath("//a[@title='"+DATA_FILE_PLAN_NAME+" "+"']"));
 		waitForElementNotPresent(By.xpath("//a[@title='"+DATA_FILE_PLAN_NAME+" "+"']"));
 		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_FILE_PLAN_NAME+" "+"']"):"Can not delete file plan";
+		assert isElementNotPresent("//a[@title='"+DATA_FILE_PLAN_NAME+" "+"']"):"Cannot delete file plan";
 		//logout
 		logoutEcms();
 	}
@@ -417,7 +417,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		goToNode(By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']"));
 		pause(500);
 		boolean check2 = isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
-		assert check2:"False: New content link is still available";
+		assert check2:" New content link is still available";
 		info("Check can not add new file document to a uploaded file:"+check2);
 		//delete podcast document
 		deleteDocument(By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']"));
@@ -442,7 +442,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		goToSiteExplorerForm();
 		goToNode(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		createNewFile(DATA_FILE_NAME, "", "");
-		assert isElementPresent(By.xpath(ELEMENT_NEWFILE_POPUP_MESSAGE_XPATH)):"Not has arlert";	
+		assert isElementPresent(By.xpath(ELEMENT_NEWFILE_POPUP_MESSAGE_XPATH)):"No alert";	
 		//check message when save
 		boolean check1= getText(ELEMENT_NEWFILE_MESSAGE_XPATH).contains(ELEMENT_NEWFILE_MESSAGE_CONTENT_BLANK);
 		assert check1:"Not found message alert when content blank";

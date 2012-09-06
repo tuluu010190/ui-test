@@ -117,7 +117,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		goToNode(By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']"));
 		pause(500);
 		goToAddNewContent();
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"False: Article link is still available";
+		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
 		//delete document folder
 		goToNode(By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']"));
 		pause(500);
@@ -153,7 +153,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		goToNode(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
 		pause(500);
 		goToAddNewContent();
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"False: Article link is still available";
+		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
 		//delete article document
 		goToNode(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
 		pause(500);
@@ -187,7 +187,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		info("Create new file document:"+check1);
 		//check can not add article to file document
 		goToNode(By.xpath("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']"));
-		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH):"False - New content link is still available";
+		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH):"New content link is still available";
 		//delete file document
 		deleteDocument(By.xpath("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']"));
 		waitForElementNotPresent("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']");
@@ -218,7 +218,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		assert check1:"Can not create new podcast";
 		info("Create new podcast document:"+check1);
 		//check can not add article to podcast document -> has not new content link
-		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH):"False - New content link is still available";
+		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH):"New content link is still available";
 		//delete podcast
 		goToNode(By.xpath("//a[@title='"+DATA_PODCAST_DOCUMENT_TITLE+" "+"']"));
 		pause(500);
@@ -254,7 +254,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		goToNode(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
 		pause(500);
 		goToAddNewContent();
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"False - Article link is still available";
+		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
 		pause(500);
 		//delete sample node
 		goToNode(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
@@ -292,7 +292,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		pause(500);
 		goToAddNewContent();
 		pause(500);
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"False - Article link is still available";
+		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
 		//delete file plan
 		goToNode(By.xpath("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']"));
 		pause(500);
@@ -367,7 +367,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		info("Upload file:"+check1);
 		//check can not add article document to uploaded file: has not new content link
 		goToNode(By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']"));
-		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH):"False - New content link is still available";
+		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH):"New content link is still available";
 		//delete uploaded file
 		deleteDocument(By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']"));
 		waitForElementNotPresent("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
@@ -390,17 +390,17 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		goToSiteExplorerForm();
 		goToNode(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		createNewArticle("", DATA_ARTICLE_TITLE, "", "");
-	    assert isElementPresent(By.xpath(ELEMENT_NEW_ARTICLE_POPUP_XPATH)):"Not found alert when title blank";
+	    assert isElementPresent(By.xpath(ELEMENT_NEW_ARTICLE_POPUP_XPATH)):"No title blank alert";
 	    //check message when save
-	    assert getText(ELEMENT_NEW_ARTICLE_MESSAGE_XPATH).contains(ELEMENT_NEW_ARTICLE_MESSAGE_TITLE_BLANK):"Not found message when title blank";
+	    assert getText(ELEMENT_NEW_ARTICLE_MESSAGE_XPATH).contains(ELEMENT_NEW_ARTICLE_MESSAGE_TITLE_BLANK):"Wrong message";
 	    waitForAndGetElement(By.linkText("OK")).click();
 	    //add article with name blank;
 		waitForAndGetElement(ELEMENT_ARTICLE_TITLE_TEXTBOX).sendKeys(DATA_ARTICLE_TITLE);
 		waitForAndGetElement(ELEMENT_ARTICLE_NAME_TEXTBOX).clear();
 	    waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON).click();
-	    assert isElementPresent(By.xpath(ELEMENT_NEW_ARTICLE_POPUP_XPATH)):"Not found alert when name blank";
+	    assert isElementPresent(By.xpath(ELEMENT_NEW_ARTICLE_POPUP_XPATH)):"No name blank alert";
 	    //check message when save
-	    assert getText(ELEMENT_NEW_ARTICLE_MESSAGE_XPATH).contains(ELEMENT_NEW_ARTICLE_MESSAGE_NAME_BLANK):"not found message when name blank";
+	    assert getText(ELEMENT_NEW_ARTICLE_MESSAGE_XPATH).contains(ELEMENT_NEW_ARTICLE_MESSAGE_NAME_BLANK):"Wrong message";
 	    waitForAndGetElement(By.linkText("OK")).click();
 	    //logout
 	    logoutEcms();		
@@ -425,8 +425,8 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		waitForElementPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
 		assert isElementPresent(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']")):"Can not create new article with summary, content blank";
 	    //view summary & content
-	    assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_SUMMARY_BLANK):"Not found message when summary blank";
-	    assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_CONTENT_BLANK):"Not found message when content blank";
+	    assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_SUMMARY_BLANK):"Wrong message";
+	    assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_CONTENT_BLANK):"Wrong message";
 	    deleteDocument(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
 	    waitForElementNotPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
 	    //check delete successfully
@@ -508,7 +508,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		goToNode(By.xpath("//a[contains(text(),'"+DATA_DOCUMENT_FOLDER_TITLE+"')]"));
 		pause(500);
 		goToAddNewContent();
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"False: Article link is still available";	
+		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";	
 		//delete document folder
 		goToNode(By.xpath("//a[contains(text(),'"+DATA_DOCUMENT_FOLDER_TITLE+"')]"));
 		pause(500);
@@ -599,7 +599,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		pause(500);
 		goToAddNewContent();
 		pause(500);
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"False: Article link is still available";
+		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
 		//delete sample node
 		goToNode(By.xpath("//a[contains(text(),'"+DATA_SAMPLE_NODE_TITLE+"')]"));
 		pause(500);
