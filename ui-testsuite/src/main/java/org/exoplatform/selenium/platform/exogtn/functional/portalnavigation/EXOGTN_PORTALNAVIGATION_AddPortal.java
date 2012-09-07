@@ -10,6 +10,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 public class EXOGTN_PORTALNAVIGATION_AddPortal extends PlatformBase{
 	
+	String ELEMENT_CANCEL_BUTTON = "//a[text()='Cancel']";
 	String MESSAGE_PORTAL_NAME_REQUIRED = "The field \"Portal Name:\" is required." ;
 	String MESSAGE_PORTAL_NAME_SPECIAL_CHARACTERS = "The field \"Portal Name:\" must start with a character and must not contain special characters.";
 	String MESSAGE_PORTAL_NAME_EXISTS = "This portal name already exists.";
@@ -180,6 +181,11 @@ public class EXOGTN_PORTALNAVIGATION_AddPortal extends PlatformBase{
 		deletePortal("TEST011_DEMO_PORTAL");
 		
 		signOut();	
+	}
+
+	public void cancel(){
+		waitForAndGetElement(ELEMENT_CANCEL_BUTTON);
+		click(ELEMENT_CANCEL_BUTTON);		
 	}
 		
 }
