@@ -1,9 +1,13 @@
 package org.exoplatform.selenium;
 
+import static org.exoplatform.selenium.TestLogger.debug;
+import static org.exoplatform.selenium.TestLogger.info;
+
 import java.util.List;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
@@ -18,21 +22,19 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-import static org.exoplatform.selenium.TestLogger.*;
 
 public class TestBase {
   protected static WebDriver driver;
   protected static Actions actions ;
   protected String baseUrl;
-	protected static int DEFAULT_TIMEOUT = 10000; //milliseconds = 10 seconds
-  protected static int WAIT_INTERVAL = 100; //milliseconds  
+  protected static int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
+  protected static int WAIT_INTERVAL = 500; //milliseconds  
   public static int loopCount = 0;	
-  protected  static boolean ieFlag;	 
-  protected  static boolean chromeFlag;
-
-  public static final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
+  protected static boolean ieFlag;	 
+  protected static boolean chromeFlag;
+//  public static final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
   public static final String DEFAULT_BASEURL="http://localhost:8080";
-   
+
   public void initSeleniumTest(){
 	  String browser = System.getProperty("browser");
 	  if("chrome".equals(browser)){
@@ -48,6 +50,7 @@ public class TestBase {
 	  if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 	  
   }
+  
   public WebElement getElement(Object locator) {
 	  By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
 	  WebElement elem = null;
@@ -74,7 +77,7 @@ public class TestBase {
       if (null != elem) return;
       pause(WAIT_INTERVAL);
     }
-    debug("Timeout after " + timeout + "ms waiting for element present: " + locator);
+    assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
   }
 
   public void waitForElementNotPresent(Object locator, int... timeInMillis) {
@@ -85,7 +88,7 @@ public class TestBase {
       if (null == elem) return;
       pause(WAIT_INTERVAL);
     }
-    debug("Timeout after " + timeout + "ms waiting for element not present: " + locator);
+    assert false: ("Timeout after " + timeout + "ms waiting for element not present: " + locator);
   }
 //
 //  public WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
@@ -101,11 +104,11 @@ public class TestBase {
 //  }
   
   public WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
-	    By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
-	    WebDriverWait wait = new WebDriverWait(driver, DEFAULT_TIMEOUT/1000);
-	    wait.until(ExpectedConditions.presenceOfElementLocated(by));
-
-	    return getElement(by);
+	  int timeout = timeInMillis.length > 0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
+	  By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
+	  WebDriverWait wait = new WebDriverWait(driver, timeout/1000);
+	  wait.until(ExpectedConditions.presenceOfElementLocated(by));
+	  return getElement(by);
   }
   
   public boolean isTextPresent(String text) {
@@ -120,8 +123,8 @@ public class TestBase {
 		  element = waitForAndGetElement(locator);
 		  return element.getText();
 	  } catch (StaleElementReferenceException e) {
-		  checkCycling(e, 5);
-		  pause(1000);
+		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+		  pause(WAIT_INTERVAL);
 		  return getText(locator);
 	  } finally {
 		  loopCount = 0;
@@ -178,9 +181,9 @@ public class TestBase {
 
 		  action.dragAndDrop(source, target).build().perform();
 	  } catch (StaleElementReferenceException e) {
-		  debug("drag and drop error! Retry...");
-		  checkCycling(e, 5);
-          pause(500);
+		  debug("Drag and drop error! Retry...");
+		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+          pause(WAIT_INTERVAL);
           dragAndDropToObject(sourceLocator, targetLocator);
       } finally {
           loopCount = 0;
@@ -192,9 +195,13 @@ public class TestBase {
 		  WebElement element = waitForAndGetElement(locator);
 		  actions.click(element).perform();
 	  } catch (StaleElementReferenceException e) {
-		  checkCycling(e, 7);
-		  pause(1000);
+		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+		  pause(WAIT_INTERVAL);
 		  click(locator);
+	  } catch (ElementNotVisibleException e) {
+          checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+          pause(WAIT_INTERVAL);
+          click(locator);
 	  } finally {
 		  loopCount = 0;
 	  }
@@ -216,8 +223,8 @@ public class TestBase {
 			  Assert.fail("Element " + locator + " is already checked.");
 		  }
 	  } catch (StaleElementReferenceException e) {
-		  checkCycling(e, 7);
-		  pause(500);
+		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+		  pause(WAIT_INTERVAL);
 		  check(locator);
 	  } finally {
 		  loopCount = 0;
@@ -228,8 +235,8 @@ public class TestBase {
 	  try {
 		  return waitForAndGetElement(locator).getAttribute("value");
 	  } catch (StaleElementReferenceException e) {
-		  checkCycling(e, 5);
-		  pause(500);
+		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+		  pause(WAIT_INTERVAL);
 		  return getValue(locator);
 	  } finally {
 		  loopCount = 0;
@@ -242,8 +249,8 @@ public class TestBase {
 			  WebElement element = waitForAndGetElement(locator);
 			  actions.moveToElement(element).perform();
 		  } catch (StaleElementReferenceException e) {
-			  checkCycling(e, 5);
-			  pause(1000);
+			  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			  pause(WAIT_INTERVAL);
 			  mouseOver(locator, safeToSERE);
 		  } finally {
 			  loopCount = 0;
@@ -297,7 +304,7 @@ public class TestBase {
   public void type(Object locator, String value, boolean validate) {
 	  try {
 		  for (int second = 0;; second++) {
-			  if (second >= DEFAULT_TIMEOUT) {
+			  if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 				  Assert.fail("Timeout at type: " + value + " into " + locator);
 			  }
 			  WebElement element = waitForAndGetElement(locator);
@@ -307,12 +314,18 @@ public class TestBase {
 			  if (!validate || value.equals(getValue(locator))) {
 				  break;
 			  }
-			  pause(100);
+			  pause(WAIT_INTERVAL);
 		  }
 	  } catch (StaleElementReferenceException e) {
-		  checkCycling(e, 7);
-		  pause(1000);
+		  debug("StaleElementReferenceException, Retrying...");
+		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+		  pause(WAIT_INTERVAL);
 		  type(locator, value, validate);
+	  }  catch (ElementNotVisibleException e) {
+          debug("ElementNotVisibleException, Retrying...");
+          checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+          pause(WAIT_INTERVAL);
+          type(locator, value, validate);
 	  } finally {
 		  loopCount = 0;
 	  }
@@ -322,7 +335,7 @@ public class TestBase {
   public void select(Object locator, String option) {
 	  try {
 		  for (int second = 0;; second++) {
-			  if (second >= DEFAULT_TIMEOUT) {
+			  if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 				  Assert.fail("Timeout at select: " + option + " into " + locator);
 			  }
 			  Select select = new Select(waitForAndGetElement(locator));
@@ -330,11 +343,11 @@ public class TestBase {
 			  if (option.equals(select.getFirstSelectedOption().getText())) {
 				  break;
 			  }
-			  pause(100);
+			  pause(WAIT_INTERVAL);
 		  }
 	  } catch (StaleElementReferenceException e) {
 		  checkCycling(e, 7);
-		  pause(1000);
+		  pause(WAIT_INTERVAL);
 		  select(locator, option);
 	  } finally {
 		  loopCount = 0;
