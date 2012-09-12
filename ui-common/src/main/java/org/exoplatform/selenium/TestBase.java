@@ -123,6 +123,7 @@ public class TestBase {
 		  element = waitForAndGetElement(locator);
 		  return element.getText();
 	  } catch (StaleElementReferenceException e) {
+		  debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
 		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 		  pause(WAIT_INTERVAL);
 		  return getText(locator);
@@ -135,6 +136,7 @@ public class TestBase {
       try {
           return driver.findElements(By.xpath(xpath));
       } catch (StaleElementReferenceException e) {
+    	  debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
     	  checkCycling(e, 5);
           pause(1000);
           return getElements(xpath);
@@ -195,6 +197,7 @@ public class TestBase {
 		  WebElement element = waitForAndGetElement(locator);
 		  actions.click(element).perform();
 	  } catch (StaleElementReferenceException e) {
+		  debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
 		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 		  pause(WAIT_INTERVAL);
 		  click(locator);
@@ -223,6 +226,7 @@ public class TestBase {
 			  Assert.fail("Element " + locator + " is already checked.");
 		  }
 	  } catch (StaleElementReferenceException e) {
+		  debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
 		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 		  pause(WAIT_INTERVAL);
 		  check(locator);
@@ -235,6 +239,7 @@ public class TestBase {
 	  try {
 		  return waitForAndGetElement(locator).getAttribute("value");
 	  } catch (StaleElementReferenceException e) {
+		  debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
 		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 		  pause(WAIT_INTERVAL);
 		  return getValue(locator);
@@ -249,6 +254,7 @@ public class TestBase {
 			  WebElement element = waitForAndGetElement(locator);
 			  actions.moveToElement(element).perform();
 		  } catch (StaleElementReferenceException e) {
+			  debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
 			  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			  pause(WAIT_INTERVAL);
 			  mouseOver(locator, safeToSERE);
@@ -273,25 +279,25 @@ public class TestBase {
   
   public  void waitForTextPresent(String text) {
 	  for (int second = 0;; second++) {
-		  if (second >= DEFAULT_TIMEOUT) {
+		  if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 			  Assert.fail("Timeout at waitForTextPresent: " + text);
 		  }
 		  if (isTextPresent(text)) {
 			  break;
 		  }
-		  pause(500);
+		  pause(WAIT_INTERVAL);
 	  }
   }
 
   public void waitForTextNotPresent(String text) {
 	  for (int second = 0;; second++) {
-		  if (second >= DEFAULT_TIMEOUT) {
+		  if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 			  Assert.fail("Timeout at waitForTextNotPresent: " + text);
 		  }
 		  if (isTextNotPresent(text)) {
 			  break;
 		  }
-		  pause(500);
+		  pause(WAIT_INTERVAL);
 	  }
   }
 
@@ -308,7 +314,7 @@ public class TestBase {
 				  Assert.fail("Timeout at type: " + value + " into " + locator);
 			  }
 			  WebElement element = waitForAndGetElement(locator);
-			  element.clear();
+			  if (validate) element.clear();
 			  element.click();
 			  element.sendKeys(value);
 			  if (!validate || value.equals(getValue(locator))) {
@@ -346,7 +352,8 @@ public class TestBase {
 			  pause(WAIT_INTERVAL);
 		  }
 	  } catch (StaleElementReferenceException e) {
-		  checkCycling(e, 7);
+		  debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
+		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 		  pause(WAIT_INTERVAL);
 		  select(locator, option);
 	  } finally {
@@ -354,6 +361,19 @@ public class TestBase {
 	  }
   }
 
+	public void rightClickOnElement(By locator) {
+		pause(500);
+		try {
+			WebElement element = waitForAndGetElement(locator);
+			actions.contextClick(element).perform();
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			pause(WAIT_INTERVAL);
+			rightClickOnElement(locator);
+		} finally {
+			loopCount = 0;
+		}
+	}
   public void waitForConfirmation(String confirmationText) {
 	  String message = getTextFromAlert();
 

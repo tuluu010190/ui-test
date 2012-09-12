@@ -10,6 +10,8 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
+
+import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info; 
 
 
@@ -199,7 +201,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	// Add new user account 
-	public  void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
+	public void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
 			String lastName, String email, String userNameGiven, String language, boolean verify) {
 
 		info("--Create new user using \"New Staff\" portlet--");
@@ -222,18 +224,18 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	public  void goToUsersAndGroupsManagement() {
+	public void goToUsersAndGroupsManagement() {
 		info("--Go to Users and groups management--");
 		goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_USERS_MANAGEMENT);
 	}
 
-	public  void chooseUserTab(){
+	public void chooseUserTab(){
 		info("-- Choose User tab--");
 		click(ELEMENT_USER_MANAGEMENT);
 		waitForTextPresent("User Name");
 	}
 
-	public  void deleteUser(String username) {
+	public void deleteUser(String username) {
 		String userDeleteIcon = ELEMENT_USER_DELETE_ICON.replace("${username}", username);
 
 		info("--Deleting user " + username + "--");
@@ -247,7 +249,7 @@ public class PlatformBase extends TestBase {
 		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
 	}
 
-	public  void searchUser(String user, String searchOption){
+	public void searchUser(String user, String searchOption){
 		info("--Search user " + user + "--");
 		if (isTextPresent("Search")){
 			type(ELEMENT_INPUT_SEARCH_USER_NAME, user, true);
@@ -258,7 +260,7 @@ public class PlatformBase extends TestBase {
 		waitForTextPresent(user);
 	}
 
-	public  void editUser(String username) {
+	public void editUser(String username) {
 		String userEditIcon = ELEMENT_USER_EDIT_ICON.replace("${username}", username);
 
 		info("--Editing user " + username + "--");
@@ -266,13 +268,13 @@ public class PlatformBase extends TestBase {
 		pause(1000);
 	}
 
-	public  void chooseGroupTab() {
+	public void chooseGroupTab() {
 		info("-- Choose Group Management tab--");
 		click(ELEMENT_TAB_GROUP_MANAGEMENT);
 		waitForTextPresent("Group Info");
 	}
 
-	public  void addGroup(String groupName, String groupLabel, String groupDesc, boolean verify){
+	public void addGroup(String groupName, String groupLabel, String groupDesc, boolean verify){
 		info("--Add a new group--");
 		pause(500);
 		click(ELEMENT_GROUP_ADD_NEW_ICON);
@@ -286,20 +288,20 @@ public class PlatformBase extends TestBase {
 
 	}
 
-	public  void selectGroup(String groupName) {
+	public void selectGroup(String groupName) {
 		info("--Select category (" + groupName + ")--");
 		String groupID = "//a[@title='"+ groupName +"']"; 
 		waitForAndGetElement("//a[@title='"+ groupName +"']");
 		click(groupID);
 	}
 
-	public  void editGroup(String groupName, boolean verify){
+	public void editGroup(String groupName, boolean verify){
 		info("-- Edit group: " + groupName + "--");
 		click(ELEMENT_GROUP_EDIT_ICON);
 		pause(1000);
 	}
 
-	public  void deleteGroup(String groupName, boolean verify) {
+	public void deleteGroup(String groupName, boolean verify) {
 		info("-- Delete group: " + groupName + "--");
 		click(ELEMENT_GROUP_REMOVE_ICON);
 
@@ -310,7 +312,7 @@ public class PlatformBase extends TestBase {
 		pause(1000);
 	}
 
-	public  void addUsersToGroup(String userNames, String memberShip, boolean select, boolean verify) {
+	public void addUsersToGroup(String userNames, String memberShip, boolean select, boolean verify) {
 
 		info("--Adding users to group--");
 		String[] users = userNames.split(",");
@@ -340,14 +342,14 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	public  void chooseMembershipTab() {
+	public void chooseMembershipTab() {
 		info("-- Choose Membership Management tab--");
 		pause(500);
 		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
 		waitForTextPresent("Add/Edit Membership");
 	}
 
-	public  void addMembership(String membershipName, String membershipDesc, boolean verify){
+	public void addMembership(String membershipName, String membershipDesc, boolean verify){
 		boolean verifyMembership;
 		info("--Creating new membership--");
 		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
@@ -366,7 +368,7 @@ public class PlatformBase extends TestBase {
 
 	}
 
-	public  void editMembership(String membershipName, String newDesc){
+	public void editMembership(String membershipName, String newDesc){
 		info("-- Edit membership: " + membershipName + "--");
 
 		boolean verifyMembership;
@@ -394,7 +396,7 @@ public class PlatformBase extends TestBase {
 		waitForTextPresent(newDesc);
 	}
 
-	public  void deleteMembership(String membershipName, boolean verify){
+	public void deleteMembership(String membershipName, boolean verify){
 
 		boolean verifyMembership;
 		verifyMembership = isTextPresent(membershipName);
@@ -421,7 +423,7 @@ public class PlatformBase extends TestBase {
 	/*--------------------- Functions for portal  -----------------------------------*/
 
 	//Go to portal sites
-	public  void goToPortalSites() {
+	public void goToPortalSites() {
 		info("--Go to Portal Site Management--");
 		mouseOver(ELEMENT_LINK_SETUP, false);
 		pause(500);
@@ -569,7 +571,7 @@ public class PlatformBase extends TestBase {
 
 
 	//Go to Portal Manage Pages	
-	public  void goToManagePages() {
+	public void goToManagePages() {
 		info("--Go to Portal Site Management--");			
 		mouseOver(ELEMENT_LINK_SETUP, false);
 		pause(500);
@@ -1058,12 +1060,6 @@ public class PlatformBase extends TestBase {
 
 	}
 	/*---------------------- Auxiliary Functions --------------------------*/
-
-	public void setup(){
-		ieFlag = "true".equals(System.getProperty("selenium.browser"));
-		chromeFlag = "true".equals(System.getProperty("selenium.browser"));
-	}
-
 	//uncheck a checked-box
 	public void uncheck(String locator) {
 		try {
@@ -1112,51 +1108,10 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	//dragAndDropToObject
-	public void dragAndDropToObject(String xpathSource, String xpathTarget) {
-		info("--Drag and drop to object--");
-		Actions action = new Actions(driver);
-		try {
-			WebElement source = waitForAndGetElement(xpathSource);
-			WebElement target = waitForAndGetElement(xpathTarget);
-
-			action.dragAndDrop(source, target).build().perform();
-		} catch (StaleElementReferenceException e) {
-			info("drag and drop error!");
-		}
-	}
-
-	//verifyDragAndDrop
-	private void verifyDragAndDrop(String xpath, String xpathSource, String xpathTarget) {
-		int seconds = 0;
-		for (; ieFlag && isElementNotPresent(xpath); seconds++) {
-            if (seconds >= (DEFAULT_TIMEOUT/50 ) ) {
-                Assert.fail("Timeout at dragAndDropToObject");
-            }
-            pause(500);
-            try {
-                WebElement source = waitForAndGetElement(xpathSource);
-                WebElement target = waitForAndGetElement(xpathTarget);
-
-                actions.dragAndDrop(source, target).build().perform();
-            } catch (StaleElementReferenceException e) {
-            	checkCycling(e, 5);
-                verifyDragAndDrop(xpath, xpathSource, xpathTarget);
-                break;
-            } finally {
-                loopCount = 0;
-            }
-        }
-        seconds = 0;
-        if (!ieFlag) {
-            waitForAndGetElement(xpath);
-        }
-       }
-
 	//Close message pop-up
 	public void closeMessageDialog() {
 		//info("--Closing message dialog--");
-		setup();
+//		setup();
 		if (ieFlag) {
 			click(ELEMENT_MESSAGE_DIALOG_CLOSE_ICON_IE);
 		} else {
@@ -1205,7 +1160,8 @@ public class PlatformBase extends TestBase {
 			}
 			mouseOverAndClick(page);
 		} catch (StaleElementReferenceException e) {
-			checkCycling(e, 5);
+			debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			goToPage(verification, navigation);
 			needToBeVerified = false;
 		} finally {
@@ -1229,12 +1185,12 @@ public class PlatformBase extends TestBase {
 	private  void verifyLocation(String locator, List<String> navigation, String page) {
 		info("verifyLocation, element: " + locator);
 		int seconds = 0;
-		setup();
+//		setup();
 		if (isElementNotPresent(locator)) {
 			pause(1000);
 		}
 		for (; isElementNotPresent(locator); seconds++) {
-			if (seconds >= (DEFAULT_TIMEOUT/50) ) {
+			if (seconds >= (DEFAULT_TIMEOUT/WAIT_INTERVAL) ) {
 				Assert.fail("Timeout at goToPage");
 			}
 			pause(500);
@@ -1248,7 +1204,8 @@ public class PlatformBase extends TestBase {
 				}
 				mouseOverAndClick(page);
 			} catch (StaleElementReferenceException e) {
-				checkCycling(e, 5);
+				debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
+				checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 				verifyLocation(locator, navigation, page);
 				break;
 			} finally {
