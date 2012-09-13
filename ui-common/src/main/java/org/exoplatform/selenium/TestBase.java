@@ -370,6 +370,10 @@ public class TestBase {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			pause(WAIT_INTERVAL);
 			rightClickOnElement(locator);
+		} catch (ElementNotVisibleException e) {
+	        checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+	        pause(WAIT_INTERVAL);
+	        click(locator);
 		} finally {
 			loopCount = 0;
 		}

@@ -12,8 +12,10 @@ public class TestLogger {
 		String logMessage = message;
 		StackTraceElement[] elements = t.getStackTrace();
 		Logger logger = Logger.getLogger(TestBase.class);
+		String Filename = elements[2].getFileName();
+		String sClassName = Filename.substring(0, Filename.length() - 5);//remove .java
 		String sMethodName = elements[2].getMethodName();
-		logMessage = String.format("[%s] %s", sMethodName, message);
+		logMessage = String.format("[%-25s][%s] %s", sClassName, sMethodName, message);
 		logger.log(level, logMessage);
 	}
 
