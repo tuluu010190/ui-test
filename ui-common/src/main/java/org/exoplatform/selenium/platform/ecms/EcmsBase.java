@@ -305,17 +305,22 @@ public class EcmsBase extends PlatformBase {
 		type(ELEMENT_WEBCONTENT_NAME_TEXTBOX, name, true);
 		inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME,cont);
 	    switchToParentWindow();
-	    
-	    click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_WEBCONTENT_UPLOAD_FRAME));
-		type(ELEMENT_WEBCONTENT_FILE_IMAGE, img, false);
-	    switchToParentWindow();
-		inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME,sum);
-	    switchToParentWindow();
-
-	    click(ELEMENT_WEBCONTENT_ADVANCE_TAB);
-	    type(ELEMENT_WEBCONTENT_CSS_TEXTAREA, css, false);
-	    type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, false);
+	    if (cont!="" || img !=""){
+	    	click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
+	    	if (img!=""){
+				driver.switchTo().frame(waitForAndGetElement(ELEMENT_WEBCONTENT_UPLOAD_FRAME));
+				type(ELEMENT_WEBCONTENT_FILE_IMAGE, getAbsoluteFilePath(img), false);
+			    switchToParentWindow();
+			    waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+	    	}
+			inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME,sum);
+		    switchToParentWindow();
+	    }
+	    if(css!="" || js !=""){
+		    click(ELEMENT_WEBCONTENT_ADVANCE_TAB);
+		    type(ELEMENT_WEBCONTENT_CSS_TEXTAREA, css, false);
+		    type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, false);
+	    }
 	    click(ELEMENT_SAVE_CLOSE_BUTTON);			
 	}
 	
