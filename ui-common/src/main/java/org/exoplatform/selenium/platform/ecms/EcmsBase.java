@@ -183,6 +183,14 @@ public class EcmsBase extends PlatformBase {
     public static final By ELEMENT_CLOSE_BUTTON = By.linkText("Close");
     public static final By ELEMENT_DELETE_PERMISSION = By.xpath("//*[@id='PermissionInfo']/table/tbody/tr[4]/td[6]/div/img[2]");
     
+    public static final By ELEMENT_DRIVE= By.xpath("//a[@title='Show Drives']");
+	public static final By ELEMENT_BUTTON_ADD_CATE=By.linkText("Add Category");
+	public static final By ELEMENT_ADD_CATE_POP=By.xpath("//span[text()='Add Category']");
+	public static final By ELEMENT_INPUT_CATE_NAME=By.id("name");
+	public static final By ELEMENT_BUTTON_SAVE=By.linkText("Save");
+	public static final By ELEMENT_LINK_CONTENT_ADMIN=By.linkText("Content administration");
+	public static final By ELEMENT_LINK_CONTENT=By.linkText("Content");
+    
 	//login ECMS
 	public void loginEcms(String username, String password) {
 		driver.manage().window().maximize();
@@ -721,4 +729,42 @@ public class EcmsBase extends PlatformBase {
         click(ELEMENT_SAVE_BUTTON);
         click(ELEMENT_CLOSE_BUTTON);
     }
+    
+  //choose a drive
+  	public void chooseDrive(By locator)
+  	{
+  		waitForAndGetElement(ELEMENT_DRIVE).click();
+  		waitForAndGetElement(locator).click();	
+  	}
+  	
+  	//go to a node
+  	//input: path: path of a node, splitted by  "/" character 
+  	public void goToNodeByPath(String path)
+  	{
+  		String[] nodes = path.split("/");
+  		for (String node: nodes)
+  		{
+  			goToNode(By.xpath("//a[@title='" + node + " ']"));
+  			pause(100);
+  		}
+  		
+  	}
+  	
+  	// add a category
+  	public void addCategory(String name)
+  	{
+  		click(ELEMENT_BUTTON_ADD_CATE);
+  		waitForElementPresent(ELEMENT_ADD_CATE_POP);
+  		type(ELEMENT_INPUT_CATE_NAME, name, false);
+  		click(ELEMENT_BUTTON_SAVE);
+  		waitForElementPresent(By.xpath("//a[@title='"+ name+ " ']"));
+  	}
+  	
+  	// go to content administration
+  	public void goToContentAdministration()
+  	{
+  		mouseOver(ELEMENT_LINK_SETUP, true);
+  		mouseOver(ELEMENT_LINK_CONTENT, true);
+  		mouseOverAndClick(ELEMENT_LINK_CONTENT_ADMIN);
+  	}
 }
