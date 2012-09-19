@@ -1,12 +1,7 @@
 package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation.edit;
 
-import java.io.File;
-import java.io.IOException;
-import org.apache.commons.io.FileUtils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -39,7 +34,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	public static final By ELEMENT_ONE_ROW_LAYOUT = By.id("oneRow");		
 	public static final By ELEMENT_PAGE_BODY = By.xpath(".//*[@id='UIPageBody']/div/div[1]/div");
 	public static final By ELEMENT_CANCEL_BUTTON = By.xpath("//a[text()='Cancel']");
-	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']"); 
+	 
 	public static final By ELEMENT_ROWS_LAYOUT = By.linkText("Rows Layout")             ;
 	public static final By ELEMENT_EMPTY_CONTAINER = By.cssSelector("div.UIRowContainer.EmptyContainer");
 
@@ -500,28 +495,5 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		signOut();			
 	}
 
-	/*---- Auxiliary functions ----*/
-	public String captureScreen(String fileName){
-		String path;
-		String relativeFilePath;
-		try {
-			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			relativeFilePath = "TestData/" + fileName;
-			path = getAbsoluteFilePath(relativeFilePath);
-			FileUtils.copyFile(scrFile, new File(path));
-		} catch (IOException e) {
-			path = "Failed to capture screenshot: " + e.getMessage();
-		}
-		return path;
-	}
 
-	public void cancel(){
-		waitForAndGetElement(ELEMENT_CANCEL_BUTTON);
-		click(ELEMENT_CANCEL_BUTTON);
-	}
-
-	public void saveAndClose(){
-		waitForAndGetElement(ELEMENT_SAVEANDCLOSE_BUTTON);
-		click(ELEMENT_SAVEANDCLOSE_BUTTON);
-	}
 }

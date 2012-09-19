@@ -3,7 +3,6 @@ package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation;
 import java.util.HashMap;
 import java.util.Map;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -79,8 +78,7 @@ public class EXOGTN_PortalNavigation_DeletePortal extends PlatformBase{
 	
 	/*-- Auxiliary functions --*/
 	public void hoverMySites(){
-		WebElement element = driver.findElement(ELEMENT_PORTAL_TOP_CONTAINER);
-		actions.moveToElement(element).build().perform();
+		mouseOver(ELEMENT_PORTAL_TOP_CONTAINER, true);
 		mouseOver(ELEMENT_HOME_LINK, true);
 		click(ELEMENT_HOME_LINK);
 		waitForTextPresent("John Smith");

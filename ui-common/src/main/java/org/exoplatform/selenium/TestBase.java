@@ -3,15 +3,20 @@ package org.exoplatform.selenium;
 import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -420,5 +425,20 @@ public class TestBase {
       } 
       loopCount++;
   }
+  
+	/*---- Auxiliary functions ----*/
+	public void captureScreen(String fileName){
+		String path;
+		String relativeFilePath;
+		try {
+			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+			relativeFilePath = "TestData/" + fileName;
+			path = getAbsoluteFilePath(relativeFilePath);
+			FileUtils.copyFile(scrFile, new File(path));
+		} catch (IOException e) {
+			path = "Failed to capture screenshot: " + e.getMessage();
+		}
+	}
+	
 
 }

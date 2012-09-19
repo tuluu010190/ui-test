@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -59,6 +58,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
 
 	@AfterMethod
 	public void afterTest() throws Exception {
+		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
 	
@@ -185,8 +185,8 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
 		for (int i = 0; i < (pageTitle.length-1); i++) {	
 			String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle[i]);
 			String pageDeleteIconNext = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle[i+1]);
-			searchPageByTitle(ELEMENT_PAGE_TYPE, pageTitle[i]);
-			pause(1000);
+			type(ELEMENT_INPUT_SEARCH_TITLE, pageTitle[i], true);
+			click(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
 			click(pageDeleteIcon);
 			waitForConfirmation(MESSAGE_DELETE_PAGE);
 			waitForElementNotPresent(By.xpath(pageDeleteIconNext));		
@@ -267,29 +267,13 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
 		info("-- Start Case 04:  Check Clone system node --");	
 	}*/
 	
-	/*---- Auxiliary functions ----*/
-	public String captureScreen(String fileName){
-		String path;
-		String relativeFilePath;
-		try {
-			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			relativeFilePath = "TestData/" + fileName;
-			path = getAbsoluteFilePath(relativeFilePath);
-			FileUtils.copyFile(scrFile, new File(path));
-		} catch (IOException e) {
-			path = "Failed to capture screenshot: " + e.getMessage();
-		}
-		return path;
-	}
-	
+
 	public void goToNodesPage(String parentNode, String nodePageName){
-		WebElement element = driver.findElement(ELEMENT_PORTAL_TOP_CONTAINER);
-		actions.moveToElement(element).build().perform();
+		mouseOver(ELEMENT_PORTAL_TOP_CONTAINER, true);
 	    mouseOver(ELEMENT_MY_SITES, true);
 	    mouseOver(By.xpath("//a[text()='" + ELEMENT_CURRENT_NAVIGATION + "']"),true);
 	    mouseOver(By.xpath("//a[text()= '" + parentNode + "']"),true);
 	    mouseOver(By.xpath("//a[text()= '" + nodePageName + "']"), true);
-	    WebElement elementNode = waitForAndGetElement(By.linkText(nodePageName));
-		actions.moveToElement(elementNode).click(elementNode).build().perform();   
+		click(By.linkText(nodePageName));
 	}	
 }

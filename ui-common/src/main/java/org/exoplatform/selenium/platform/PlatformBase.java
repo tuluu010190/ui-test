@@ -179,6 +179,8 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_DASHBOARD_HOME_TAB = "div[@class='UITab SelectedTab']";
 	public static final String ELEMENT_TAB_LINK = "//div[@id='UITabPaneDashboard']//span[text()='${tabName}']";
 	/*------------ End of data for Dashboard tab --------------------------*/
+	
+	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
 
 	//Sign in function for eXoGTN
 	public void signIn(String username, String password) {
@@ -1240,5 +1242,15 @@ public class PlatformBase extends TestBase {
 	public void close(){
 		waitForAndGetElement(ELEMENT_CLOSE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
+	}
+	
+	public void cancel(){
+		waitForAndGetElement(ELEMENT_CANCEL_BUTTON);
+		click(ELEMENT_CANCEL_BUTTON);
+	}
+
+	public void saveAndClose(){
+		waitForAndGetElement(ELEMENT_SAVEANDCLOSE_BUTTON);
+		click(ELEMENT_SAVEANDCLOSE_BUTTON);
 	}
 }
