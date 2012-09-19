@@ -1,6 +1,6 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
@@ -9,6 +9,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.exoplatform.selenium.TestLogger.*;
+
+/*
+ * @author: Lientm
+ * @date: 9/2012
+ */
 
 public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 	public static final String DATA_USER = "john";
@@ -21,35 +26,35 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 	 @BeforeMethod
 	  public void beforeMethods() throws Exception {
 		initSeleniumTest();
-	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	    //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	    driver.get(baseUrl);
 	    actions = new Actions(driver);
+		info("Login to ECMS with user: "+DATA_USER);
+		loginEcms(DATA_USER, DATA_PASS);
 	  }
 
 	  @AfterMethod
 	  public void afterMethods() throws Exception {
+		info("Logout to ECMS");
+		logoutEcms();
 	    driver.manage().deleteAllCookies();
 		driver.quit();
 	    actions = null;
 	  }
 	  
 	  /*case1: Add free layout content in Web Content folder
-	   * login
 	   * goto acme/web content
 	   * add new free layout web content
 	   * Check web content having Free layout template is listed with status=Draft
 	   * delete free layout
-	   * login
 	   */
 	  @Test
 	  public void test01_AddFreeLayoutInWebContentfolder(){
-		  String DATA_FREE_LAYOUT_TITLE = "Freelayout_01";
+		  String DATA_FREE_LAYOUT_TITLE = "ECMS_DMS_SE_ContentFreeLayout_01";
 		  By ELEMENT_FREE_LAYOUT = By.xpath("//a[@title='"+DATA_FREE_LAYOUT_TITLE+" "+"']");
 		  String DATA_IMG = "TestData/ECMS_DMS_SE_ContentFreeLayout.jpg";
 		  By ELEMENT_STATUS = By.xpath("//div[@title='"+DATA_FREE_LAYOUT_TITLE+" "+"']/../../..//div[@title='status']");
 		  
-		  //login
-		  loginEcms(DATA_USER, DATA_PASS);
 		  //go to web content folder
 		  info("Go to web content folder");
 		  goToSiteExplorerForm();
@@ -68,27 +73,20 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  //delete data
 		  goToNode(ELEMENT_FREE_LAYOUT);
 		  deleteDocument(ELEMENT_FREE_LAYOUT);
-		  waitForElementNotPresent(ELEMENT_FREE_LAYOUT);
-		  assert isElementNotPresent(ELEMENT_FREE_LAYOUT):"Can node delete free layput webcontent";
-		  //logout
-		  logoutEcms();		  	  
+		  waitForElementNotPresent(ELEMENT_FREE_LAYOUT);	  	  
 	  }
 	  
 	  /*case2: Add free layout content in web content folder with blank Name
-	   * login
 	   * go to acme/web content
 	   * add new free layout content with name blank
 	   * check can not add
-	   * logout
 	   */
 	  @Test
 	  public void test02_AddFreeLayoutWithNameBlank(){
-		  String DATA_FREE_LAYOUT_TITLE = "Freelayout_02";
+		  String DATA_FREE_LAYOUT_TITLE = "ECMS_DMS_SE_ContentFreeLayout_02";
 		  By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
 		  By ELEMENT_TEXT_ALERT = By.xpath("//span[@class='PopupIcon WarningMessageIcon']");
 		  
-		  //login
-		  loginEcms(DATA_USER, DATA_PASS);
 		  //go to web content
 		  info("Go to web content folder");
 		  goToSiteExplorerForm();
@@ -101,26 +99,20 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  assert isElementPresent(ELEMENT_ALERT):"Has not message";
 		  assert getText(ELEMENT_TEXT_ALERT).contains("The field \"Name\" is required."):"Wrong message";		  
 		  click(By.linkText("OK"));
-		  //logout
-		  logoutEcms();
 	  }
 	  
 	  /*case3: Add free layout content in Web Content folder with special characters in Name
-	   * login
 	   * go to acme/web content folder
 	   * add new free layout content with special characters in Name (! @  #  $  %  &  *  (  )  .  /  :  [  ] { } < >  "  ' , ; ~ `)
 	   * check can not add 
-	   * logout
 	   */
 	  @Test
 	  public void test03_AddFreeLayoutWithNameContainsSpecialCharacters(){
-		  String DATA_FREE_LAYOUT_TITLE = "Freelayout_03";
+		  String DATA_FREE_LAYOUT_TITLE = "ECMS_DMS_SE_ContentFreeLayout_03";
 		  String DATA_FREE_LAYOUT_NAME = "Freelayout_!@#$%^&*()`~<>,./?'{}[]|\"\\";
 		  By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
 		  By ELEMENT_TEXT_ALERT = By.xpath("//span[@class='PopupIcon WarningMessageIcon']");
 		  
-		  //login
-		  loginEcms(DATA_USER, DATA_PASS);
 		  //go to web content
 		  info("Go to web content folder");
 		  goToSiteExplorerForm();
@@ -132,9 +124,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  createNewFreeLayoutWebContent(DATA_FREE_LAYOUT_TITLE, DATA_FREE_LAYOUT_NAME, "", "", "", "", "");
 		  assert isElementPresent(ELEMENT_ALERT):"Has not message";
 		  assert getText(ELEMENT_TEXT_ALERT).contains("The field 'Name' contains some invalid characters. Please enter another value."):"Wrong message";		  
-		  click(By.linkText("OK"));
-		  //logout
-		  logoutEcms();  
+		  click(By.linkText("OK"));  
 	  }
 	  
 	  /*case4: Create free layout content in Web Content folder with Name in different languages
@@ -147,13 +137,11 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 	   */
 	  @Test
 	  public void test04_CreateFreeLayoutWithNameInDifferentLanguage(){
-		  String DATA_FREE_LAYOUT_TITLE = "Freelayout_04";
+		  String DATA_FREE_LAYOUT_TITLE = "ECMS_DMS_SE_ContentFreeLayout_04";
 		  By ELEMENT_FREE_LAYOUT = By.xpath("//a[@title='"+DATA_FREE_LAYOUT_TITLE+" "+"']");
 		  String DATA_FREE_LAYOUT_NAME_VIETNAMESE = "kiểm thử";
 		  String DATA_FREE_LAYOUT_NAME_FRANCE  = "qui sest formé";
 		  
-		  //login
-		  loginEcms(DATA_USER, DATA_PASS);
 		  //go to web content
 		  info("Go to web content folder");
 		  goToSiteExplorerForm();
@@ -168,7 +156,6 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  info("Create new free layout webcontent with name in vietnamese successfully");
 		  deleteDocument(ELEMENT_FREE_LAYOUT);
 		  waitForElementNotPresent(ELEMENT_FREE_LAYOUT);
-		  assert isElementNotPresent(ELEMENT_FREE_LAYOUT):"Can not delete free layout webcontent with name in vietnamese";
 		  //add new free layout webcontent with name in France
 		  goToNode(ELEMENT_WEB_CONTENT_LINK);
 		  goToAddNewContent();
@@ -179,8 +166,5 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  info("Create new free layout webcontent with name in france successfully");
 		  deleteDocument(ELEMENT_FREE_LAYOUT);
 		  waitForElementNotPresent(ELEMENT_FREE_LAYOUT);
-		  assert isElementNotPresent(ELEMENT_FREE_LAYOUT):"Can not delete free layout webcontent with name in france";
-		  //logout
-		  logoutEcms();
 		  }
 }

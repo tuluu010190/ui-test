@@ -307,7 +307,7 @@ public class PlatformBase extends TestBase {
 
 		waitForConfirmation("Are you sure to delete this group?");
 		if (verify) {
-			waitForElementNotPresent(groupName);
+			waitForElementNotPresent("//a[@title='"+ groupName +"']");
 		}
 		pause(1000);
 	}

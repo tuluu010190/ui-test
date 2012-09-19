@@ -1,6 +1,6 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
@@ -13,10 +13,16 @@ import org.testng.annotations.Test;
 
 import static org.exoplatform.selenium.TestLogger.*;
 
+/*
+ * @author: Lientm
+ * @date: 9/2012
+ */
+
 public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 	
 	public static final String DATA_USER = "john";
 	public static final String DATA_PASS = "gtn";
+	
 	public static final By ELEMENT_ACME_LINK = By.xpath("//a[@title='acme ']");
 	public static final By ELEMENT_CSS_LINK = By.xpath("//a[@title='css ']");
 	public static final By ELEMENT_CSS_NAME = By.id("name");
@@ -31,32 +37,32 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 	 @BeforeMethod
 	  public void beforeMethods() throws Exception {
 		initSeleniumTest();
-	    driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+	    //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	    driver.get(baseUrl);
 	    actions = new Actions(driver);
+		info("Login to ECMS with user: "+DATA_USER);
+		loginEcms(DATA_USER, DATA_PASS);
 	  }
 
 	  @AfterMethod
 	  public void afterMethods() throws Exception {
-	    driver.manage().deleteAllCookies();
+		info("Logout to ECMS");
+		logoutEcms();
+		driver.manage().deleteAllCookies();
 		driver.quit();
 	    actions = null;
 	  }
 	  
 	  /*case1: Create CSS file on sites explorer with Active is True and the priority is highest
-	   * login
 	   * go to acme/css
 	   * create new css file: active =true, set priority lowest
 	   * delete css file
-	   * logout
 	   */
 	  @Test
 	  public void test01_CreateCssFileActive(){
-		  String DATA_CSS_NAME = "CssFiletest_01";
+		  String DATA_CSS_NAME = "ECMS_DMS_SE_CSSFile_01";
 		  By ELEMENT_CSS = By.xpath("//a[@title='"+DATA_CSS_NAME+" "+"']");
 		  	  
-		  //login
-		  loginEcms(DATA_USER, DATA_PASS);
 		  //go to acme/css
 		  goToSiteExplorerForm();
 		  info("Go to acme/css");
@@ -82,28 +88,21 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  goToNode(ELEMENT_CSS);
 		  deleteDocument(ELEMENT_CSS);
 		  waitForElementNotPresent(ELEMENT_CSS);
-		  assert isElementNotPresent(ELEMENT_CSS):"Can not delete css file";
-		  //logout
-		  logoutEcms();
 	  }
 	  
 	  /*case2: Check CSS priority on Sites Explorer when have two CSS files which have the different priority level.
-	   * login
 	   * go to acme/css
 	   * create new 2 css file different priority level
 	   * check the interface of acme site will be defined follow the file which has the lower value in Priority
 	   * delete css file
-	   * logout
 	   */
 	  @Test
 	  public void test02_CheckSiteWhen2FileCssDifferentPriority(){
-		  String DATA_CSS_NAME = "CssFiletest_02";
-		  String DATA_CSS_NAME_2 = "CssFiletest_02_2";
+		  String DATA_CSS_NAME = "ECMS_DMS_SE_CSSFile_02";
+		  String DATA_CSS_NAME_2 = "ECMS_DMS_SE_CSSFile_02_2";
 		  By ELEMENT_CSS = By.xpath("//a[@title='"+DATA_CSS_NAME+" "+"']");
 		  By ELEMENT_CSS_2 = By.xpath("//a[@title='"+DATA_CSS_NAME_2+" "+"']");
-		  
-		  //login
-		  loginEcms(DATA_USER, DATA_PASS);
+
 		  //go to acme/css
 		  goToSiteExplorerForm();
 		  info("Go to acme/css");
@@ -127,21 +126,17 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  //check the interface of acme site will be defined follow the file which has the highest value in Priority
 		  mouseOver((ELEMENT_MYSITE_LINK), true);
 		  click(ELEMENT_ACME_SITE_LINK);
-		  pause(1000);
 		  clearCache();
-		  pause(1000);
 		  WebElement body = waitForAndGetElement(ELEMENT_BODY);
 		  assert body.getCssValue("color").contains("rgba(0,0,255,1)"):"Set up for page is not right";
 		  //delete css file
 		  goToSiteExplorerForm();
 		  goToNode(ELEMENT_CSS);
 		  deleteDocument(ELEMENT_CSS);
+		  waitForElementNotPresent(ELEMENT_CSS);
 		  goToNode(ELEMENT_CSS_2);
 		  deleteDocument(ELEMENT_CSS_2);
 		  waitForElementNotPresent(ELEMENT_CSS_2);
-		  assert isElementNotPresent(ELEMENT_CSS_2):"Can not delete css file";
-		  //logout
-		  logoutEcms();
 	  }
 	  
 	  /*case03: Check CSS priority on Sites Explorer when have two CSS files which have the different content.
@@ -153,13 +148,11 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 	   */
 	  @Test
 	  public void test03_CheckSiteWhen2CssDifferentContent(){
-		  String DATA_CSS_NAME = "CssFiletest_03";
-		  String DATA_CSS_NAME_2 = "CssFiletest_03_2";
+		  String DATA_CSS_NAME = "ECMS_DMS_SE_CSSFile_03";
+		  String DATA_CSS_NAME_2 = "ECMS_DMS_SE_CSSFile_03_2";
 		  By ELEMENT_CSS = By.xpath("//a[@title='"+DATA_CSS_NAME+" "+"']");
 		  By ELEMENT_CSS_2 = By.xpath("//a[@title='"+DATA_CSS_NAME_2+" "+"']");
-		  
-		  //login
-		  loginEcms(DATA_USER, DATA_PASS);
+
 		  //go to acme/css
 		  goToSiteExplorerForm();
 		  info("Go to acme/css");
@@ -190,27 +183,22 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  goToSiteExplorerForm();
 		  goToNode(ELEMENT_CSS);
 		  deleteDocument(ELEMENT_CSS);
+		  waitForElementNotPresent(ELEMENT_CSS);
 		  goToNode(ELEMENT_CSS_2);
 		  deleteDocument(ELEMENT_CSS_2);
 		  waitForElementNotPresent(ELEMENT_CSS_2);
-		  assert isElementNotPresent(ELEMENT_CSS_2):"Can not delete css file";
-		  //logout
-		  logoutEcms();
 	  }
 	  
 	  /*case04: Check the affection of CSS file in Share site
-	   * login
 	   * goto shared
 	   * create new CSS file
 	   * check 
 	   */
 	  @Test
 	  public void test04_CreateCssInShared(){
-		  String DATA_CSS_NAME = "CssFiletest_04";
+		  String DATA_CSS_NAME = "ECMS_DMS_SE_CSSFile_04";
 		  By ELEMENT_CSS = By.xpath("//a[@title='"+DATA_CSS_NAME+" "+"']");
 		  
-		  //login
-		  loginEcms(DATA_USER, DATA_PASS);
 		  //go to acme/css
 		  goToSiteExplorerForm();
 		  info("Go to acme/css");
@@ -242,9 +230,6 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  goToNode(ELEMENT_CSS);
 		  deleteDocument(ELEMENT_CSS);
 		  waitForElementNotPresent(ELEMENT_CSS);
-		  assert isElementNotPresent(ELEMENT_CSS):"Can not delete css file";
-		  //logout
-		  logoutEcms();
 	  }
 	  
 	  

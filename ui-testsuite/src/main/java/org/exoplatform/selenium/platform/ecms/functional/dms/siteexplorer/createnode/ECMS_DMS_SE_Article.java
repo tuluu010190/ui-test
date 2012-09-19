@@ -1,6 +1,6 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
-import java.util.concurrent.TimeUnit;
+//import java.util.concurrent.TimeUnit;
 
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
@@ -11,27 +11,19 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.exoplatform.selenium.TestLogger.*;
 
-
+/*
+ * @author: Lientm
+ * @date: 8/2012
+ */
 public class ECMS_DMS_SE_Article extends EcmsBase{
 	
-	public static final String ELEMENT_USER = "john";
-	public static final String ELEMENT_PASS = "gtn";
+	public static final String DATA_USER = "john";
+	public static final String DATA_PASS = "gtn";
 	
-	public static final String DATA_CONTENT_FOLDER_TITLE = "Testcontent";
-	public static final String DATA_ARTICLE_TITLE= "Testarticle";
-	public static final String DATA_DOCUMENT_FOLDER_TITLE = "Testdocument";
-	public static final String DATA_FILE_DOCUMENT_TITLE = "Testfile";
-	public static final String DATA_PODCAST_DOCUMENT_TITLE = "Testpodcast";
 	public static final By ELEMENT_NEW_CONTENT_LINK_XPATH =By.xpath("//a[@title = 'New Content']") ; 
-	public static final String DATA_SAMPLE_NODE_TITLE = "Testsample";
-	public static final String DATA_SAMPLE_NODE_IMG = "TestData/test.jpg";
-	public static final String DATA_FILE_PLAN_TITLE = "Testfileplan";
-	public static final String DATA_KOFAX_TITLE = "Testkofax";
-	public static final String DATA_UPLOAD_FILE_NAME = "Testuploadfile";
-	public static final String DATA_UPLOAD_FILE_LINK = "TestData/test.jpg";
 	
-	public static final String ELEMENT_NEW_ARTICLE_POPUP_XPATH = "//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']";
-	public static final String ELEMENT_NEW_ARTICLE_MESSAGE_XPATH = "//span[@class='PopupIcon WarningMessageIcon']";
+	public static final By ELEMENT_NEW_ARTICLE_POPUP_XPATH = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
+	public static final By ELEMENT_NEW_ARTICLE_MESSAGE_XPATH = By.xpath("//span[@class='PopupIcon WarningMessageIcon']");
 	public static final String ELEMENT_NEW_ARTICLE_MESSAGE_TITLE_BLANK = "The field \"Title\" is required.";
 	public static final String ELEMENT_NEW_ARTICLE_MESSAGE_NAME_BLANK = "The field \"Name\" is required.";
 	public static final String ELEMENT_NEW_ARTICLE_MESSAGE_SUMMARY_BLANK = "Summary is empty";
@@ -40,575 +32,464 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 	 @BeforeMethod
 	  public void beforeMethods() throws Exception {
 		initSeleniumTest();
-	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+	    //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	    driver.get(baseUrl);
 	    actions = new Actions(driver);
+	    info("Login ECMS with "+DATA_USER);
+		loginEcms(DATA_USER, DATA_PASS);
 	  }
 
 	  @AfterMethod
 	  public void afterMethods() throws Exception {
+		info("Logout ECMS");
+		logoutEcms();
 	    driver.manage().deleteAllCookies();
 		driver.quit();
 	    actions = null;
 	  }
 
 	/*case1: Add Article document in Content folder
-	* login
 	* create a new content folder
 	* add new article to content folder just add
 	* delete content folder
-	* logout
 	*/
 	@Test
 	public void test01_AddArticleToContentFolder(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_Article_Contentfolder_01";
+		By ELEMENT_CONTENT_FOLDER = By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
+		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Article_article_01";
+		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
+
 		//create new content folder
 		goToSiteExplorerForm();
 		debug("Create new content folder with title:"+ DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"));
-		assert check1:"Can not create new content folder";		
-		info("Create new content folder:"+ check1);
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Create content folder is not successful";
+		info("Create new content folder is successful");
 		//add new article to content folder just add
-		goToNode(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"));
-		pause(500);
+		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToAddNewContent();
 		debug("Add new article document with title:"+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
-		pause(500);
-		//check add successfully
-		goToNode(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"));
-		boolean check2 = isElementPresent(By.xpath("//div[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
-		assert check2:"Can not add new article into content folder";	
-		info("Add new article document to content folder:"+check2);
+		waitForElementPresent(ELEMENT_ARTICLE);
+		assert isElementPresent(ELEMENT_ARTICLE):"Add new article in content folder is not successful";	
+		info("Add new article document to content folder is successful");
 		//delete content folder
-		goToNode(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"));
-		pause(500);
-		deleteDocument(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"));
-		waitForElementNotPresent("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
-		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"):"Can not delete this content folder";
-		//logout
-		logoutEcms();
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		deleteDocument(ELEMENT_CONTENT_FOLDER);
+		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);
 	}
 	
 	/*case2: Add Article document in Document folder
-	 * login
 	 * create new document folder
 	 * check has not article link in new conntent
 	 * delete document folder
-	 * logout
 	 */
 	@Test
 	public void test02_AddArticleToDocumentFolder(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_DOCUMENT_FOLDER_TITLE = "ECMS_DMS_SE_Article_document_folder_02";
+		By ELEMENT_DOCUMENT_FOLDER = By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']");
+
 		//create new document folder
 		goToSiteExplorerForm();
 		debug("Create new document folder with title:"+ DATA_DOCUMENT_FOLDER_TITLE);
 		createNewDocumentFolder(DATA_DOCUMENT_FOLDER_TITLE, DATA_DOCUMENT_FOLDER_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']"));
-		assert check1:"Can not create document folder";
-		info("Create new document folder:"+check1);
+		waitForElementPresent(ELEMENT_DOCUMENT_FOLDER);
+		assert isElementPresent(ELEMENT_DOCUMENT_FOLDER):"Create new document folder is not successful";
+		info("Create new document folder is successful");
 		//check can not add article to document folder
-		goToNode(By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']"));
-		pause(500);
+		goToNode(ELEMENT_DOCUMENT_FOLDER);
 		goToAddNewContent();
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
+		waitForElementNotPresent(ELEMENT_ARTICLE_LINK);
 		//delete document folder
-		goToNode(By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']"));
-		pause(500);
-		deleteDocument(By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']"));
-		waitForElementNotPresent("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']");
-		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']"):"Can not delete document folder";
-		//logout
-		logoutEcms();
+		goToNode(ELEMENT_DOCUMENT_FOLDER);
+		deleteDocument(ELEMENT_DOCUMENT_FOLDER);
+		waitForElementNotPresent(ELEMENT_DOCUMENT_FOLDER);
 	}
 	
 	/*case3: Add Article document in Article document
-	 * login
 	 * add new article
 	 * check cant not add new article to added article
 	 * delete document
-	 * logout
 	 */
 	@Test
 	public void test03_AddArticleToArticleDocument(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Article_article_03";
+		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
+		
 		//create new article
 		goToSiteExplorerForm();
 		goToAddNewContent();
 		info("Create new article with title:"+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
-		assert check1:"Can not create new article document";
-		debug("Create new article document:"+check1);
+		waitForElementPresent(ELEMENT_ARTICLE);
+		assert isElementPresent(ELEMENT_ARTICLE):"Create new article is not successful";
+		info("Create new article document is successful");
 		//check can not add article to article document
-		goToNode(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
-		pause(500);
+		goToNode(ELEMENT_ARTICLE);
 		goToAddNewContent();
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
+		waitForElementNotPresent(ELEMENT_ARTICLE_LINK);
 		//delete article document
-		goToNode(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
-		pause(500);
-		deleteDocument(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
-		waitForElementNotPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
-		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"):"Can not delete article document";
-		//logout
-		logoutEcms();
+		goToNode(ELEMENT_ARTICLE);
+		deleteDocument(ELEMENT_ARTICLE);
+		waitForElementNotPresent(ELEMENT_ARTICLE);
 	}
 	
 	/*case4: Add Article document in File document
-	 * login
 	 * add a new File document
 	 * check cant not add new article document to File document
 	 * delete new File document
-	 * logout
 	 */
 	@Test
 	public void test04_AddArticleToFileDocument(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_FILE_DOCUMENT_TITLE = "ECMS_DMS_SE_Article_filedocument_04";
+		By ELEMENT_FILE_DOCUMENT = By.xpath("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']");
+		
 		//add new File Document
 		goToSiteExplorerForm();
 		goToAddNewContent();
 		debug("Create new file document with title:"+DATA_FILE_DOCUMENT_TITLE);
 		createNewFile(DATA_FILE_DOCUMENT_TITLE, DATA_FILE_DOCUMENT_TITLE, DATA_FILE_DOCUMENT_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']"));
-		assert check1:"Can not create new file document";
-		info("Create new file document:"+check1);
+		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
+		assert isElementPresent(ELEMENT_FILE_DOCUMENT);
+		info("Create new file document is successful");
 		//check can not add article to file document
-		goToNode(By.xpath("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']"));
-		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH):"New content link is still available";
+		goToNode(ELEMENT_FILE_DOCUMENT);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		//delete file document
-		deleteDocument(By.xpath("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']"));
-		waitForElementNotPresent("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']");
-		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']"):"Can not delete file document";
-		//logout
-		logoutEcms();
+		deleteDocument(ELEMENT_FILE_DOCUMENT);
+		waitForElementNotPresent(ELEMENT_FILE_DOCUMENT);
 	}
 	
 	/*case5: Add Article document in Podcast document
-	 * login
 	 * add new Podcast 
 	 * check cant not add article to podcast document
 	 * delete podcast document
-	 * logout
 	 */
 	@Test
 	public void test05_AddArticleToPodcastDocument(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_PODCAST_DOCUMENT_TITLE = "ECMS_DMS_SE_Article_podcast_05";
+		By ELEMENT_PODCAST = By.xpath("//a[@title='"+DATA_PODCAST_DOCUMENT_TITLE+" "+"']");
+		
 		//add new podcast document
 		goToSiteExplorerForm();
 		goToAddNewContent();
 		debug("Create new podcast document with title:"+DATA_PODCAST_DOCUMENT_TITLE);
 		createNewPodcast(DATA_PODCAST_DOCUMENT_TITLE, DATA_PODCAST_DOCUMENT_TITLE, DATA_PODCAST_DOCUMENT_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_PODCAST_DOCUMENT_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_PODCAST_DOCUMENT_TITLE+" "+"']"));
-		assert check1:"Can not create new podcast";
-		info("Create new podcast document:"+check1);
+		waitForElementPresent(ELEMENT_PODCAST);
+		assert isElementPresent(ELEMENT_PODCAST):"Create new podcast is not successful";
+		info("Create new podcast document is successful");
 		//check can not add article to podcast document -> has not new content link
-		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH):"New content link is still available";
+		goToNode(ELEMENT_PODCAST);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		//delete podcast
-		goToNode(By.xpath("//a[@title='"+DATA_PODCAST_DOCUMENT_TITLE+" "+"']"));
-		pause(500);
-		deleteDocument(By.xpath("//a[@title='"+DATA_PODCAST_DOCUMENT_TITLE+" "+"']"));
-		waitForElementNotPresent("//a[@title='"+DATA_PODCAST_DOCUMENT_TITLE+" "+"']");
-		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_PODCAST_DOCUMENT_TITLE+" "+"']"):"Can not delete podcast document";
-		//logout
-		logoutEcms();
+		deleteDocument(ELEMENT_PODCAST);
+		waitForElementNotPresent(ELEMENT_PODCAST);
 	}
 	
 	/*case6: Add Article document in Sample Node document
-	 * login
 	 * add new sample node document
 	 * check cant not add article to sample node document
 	 * delete sample node document
-	 * logout
 	 */
 	@Test
 	public void test06_AddArticleToSampleNode(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_SAMPLE_NODE_TITLE = "ECMS_DMS_SE_Article_samplenode_06";
+		String DATA_SAMPLE_NODE_IMG = "TestData/ECMS_DMS_SE_Article.jpg";
+		By ELEMENT_SAMPLE_NODE = By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']");
+
 		//add new sample node document
 		goToSiteExplorerForm();
 		goToAddNewContent();
 		debug("Create new sample node with title:"+DATA_SAMPLE_NODE_TITLE);
 		createNewSampleNode(DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_IMG);
-		waitForElementPresent("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
-		assert check1:"Can not create new sample node document";
-		info("Create new sample document:"+check1);
+		waitForElementPresent(ELEMENT_SAMPLE_NODE);
+		info("Create new sample document is successful");
 		//check no add article to sample document -. has not article link
-		goToNode(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
-		pause(500);
+		goToNode(ELEMENT_SAMPLE_NODE);
 		goToAddNewContent();
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
-		pause(500);
+		waitForElementNotPresent(ELEMENT_ARTICLE_LINK);
 		//delete sample node
-		goToNode(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
-		pause(500);
-		deleteDocument(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
-		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"):"Can not delete sample document";
-		//logout
-		logoutEcms();	
+		goToNode(ELEMENT_SAMPLE_NODE);
+		deleteDocument(ELEMENT_SAMPLE_NODE);
+		waitForElementNotPresent(ELEMENT_SAMPLE_NODE);	
 	}
 
 	/*case7: Add Article document in File Plan document
-	 * login
 	 * add new File plan document
 	 * check cant not add article to File plan document
 	 * delete file plan document
-	 * logout
 	 */
 	@Test
 	public void test07_AddArticleToFilePlan(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_FILE_PLAN_TITLE = "ECMS_DMS_SE_Article_article_07";
+		By ELEMENT_FILE_PLAN = By.xpath("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']");
+
 		//add new file plan document
 		goToSiteExplorerForm();
 		goToAddNewContent();
 		debug("Create new file plan with title:"+DATA_FILE_PLAN_TITLE);
 		createNewFilePlan(DATA_FILE_PLAN_TITLE, DATA_FILE_PLAN_TITLE, DATA_FILE_PLAN_TITLE, DATA_FILE_PLAN_TITLE, DATA_FILE_PLAN_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']"));
-		assert check1:"Can not create new file plan document";
-		info("Create new file plan document:"+check1);
+		waitForElementPresent(ELEMENT_FILE_PLAN);
+		info("Create new file plan document is successful");
 		//check can not add article to podcast document -> has not article link
-		goToNode(By.xpath("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']"));
-		pause(500);
+		goToNode(ELEMENT_FILE_PLAN);
 		goToAddNewContent();
-		pause(500);
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
+		waitForElementNotPresent(ELEMENT_ARTICLE_LINK);
 		//delete file plan
-		goToNode(By.xpath("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']"));
-		pause(500);
-		deleteDocument(By.xpath("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']"));
-		waitForElementNotPresent("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']");
-		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']"):"Can not delete file plan document";
-		//logout
-		logoutEcms();	
+		goToNode(ELEMENT_FILE_PLAN);
+		deleteDocument(ELEMENT_FILE_PLAN);
+		waitForElementNotPresent(ELEMENT_FILE_PLAN);
 	}
 	
 	/*case8: Add Article document in Kofax document
-	 * login
 	 * add new kofax document
 	 * add new article document to kofax document
 	 * check add document successfully
 	 * delete kofax document
-	 * logout
 	 */
 	@Test
 	public void test08_AddArticleToKofax(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Article_article_08";
+		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
+		String DATA_KOFAX_TITLE = "ECMS_DMS_SE_Article_kofax_08";
+		By ELEMENT_KOFAX = By.xpath("//a[@title='"+DATA_KOFAX_TITLE+" "+"']");
+		
 		//add new kofax document
 		goToSiteExplorerForm();
 		goToAddNewContent();
 		debug("Create new kofax document with title:"+ DATA_KOFAX_TITLE);
 		createNewKofax(DATA_KOFAX_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_KOFAX_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_KOFAX_TITLE+" "+"']"));
-		assert check1:"Can not create new kofax document";
-		info("Create new kofax document:"+check1);
+		waitForElementPresent(ELEMENT_KOFAX);
+		info("Create new kofax document is successful");
 		//add new article document
-		goToNode(By.xpath("//a[@title='"+DATA_KOFAX_TITLE+" "+"']"));
-		pause(500);
+		goToNode(ELEMENT_KOFAX);
 		goToAddNewContent();
 		debug("Add new article document to kofax document with title:"+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
-		boolean check2 = isElementPresent(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
-		assert check2:"Can not add new article into kofax document";
-		info("Add new article document to a kofax document:"+check2);
+		waitForElementPresent(ELEMENT_ARTICLE);
+		info("Add new article document to a kofax document is successful");
 		//delete kofax document
-		goToNode(By.xpath("//a[@title='"+DATA_KOFAX_TITLE+" "+"']"));
-		pause(500);
-		deleteDocument(By.xpath("//a[@title='"+DATA_KOFAX_TITLE+" "+"']"));
-		waitForElementNotPresent("//a[@title='"+DATA_KOFAX_TITLE+" "+"']");
-		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_KOFAX_TITLE+" "+"']"):"Can not delete kofax document";
-		//logout
-		logoutEcms();		
+		goToNode(ELEMENT_KOFAX);
+		deleteDocument(ELEMENT_KOFAX);
+		waitForElementNotPresent(ELEMENT_KOFAX);	
 	}
 	
 	/*case9: Select an uploaded file and see on action bar
-	 * login
 	 * upload a file
 	 * check can not add article document to this uploaded file
-	 * delete uploaded file
-	 * logout  
+	 * delete uploaded file 
 	 */
 	@Test
 	public void test09_AddArticleToUploadFile(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_UPLOAD_FILE_NAME = "ECMS_DMS_SE_Article_upload_09";
+		String DATA_UPLOAD_FILE_LINK = "TestData/ECMS_DMS_SE_Article.jpg";
+		By ELEMENT_UPLOAD = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
+		
 		//upload file
 		goToSiteExplorerForm();
 		debug("Upload new file with nam:"+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_LINK);
-		waitForElementPresent("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']"));
-		assert check1:"Can not upload new file";
-		info("Upload file:"+check1);
+		waitForElementPresent(ELEMENT_UPLOAD);
+		info("Upload file is successful");
 		//check can not add article document to uploaded file: has not new content link
-		goToNode(By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']"));
-		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH):"New content link is still available";
+		goToNode(ELEMENT_UPLOAD);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		//delete uploaded file
-		deleteDocument(By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']"));
-		waitForElementNotPresent("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
-		//check delete successfully
-		assert isElementNotPresent("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']"):"Can not delete uploaded file";
-		//logout
-		logoutEcms();
+		deleteDocument(ELEMENT_UPLOAD);
+		waitForElementNotPresent(ELEMENT_UPLOAD);
 	}
 
 	/*case10: Add Article with blank name or title
-	 * login
 	 * add article document with name blank or title blank
-	 * logout
 	 */
 	@Test
 	public void test10_AddArticleWithNameOrTitleBlank(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Article_article_10";
+		
 		//add article with title blank
 		goToSiteExplorerForm();
 		goToNode(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		createNewArticle("", DATA_ARTICLE_TITLE, "", "");
-	    assert isElementPresent(By.xpath(ELEMENT_NEW_ARTICLE_POPUP_XPATH)):"No title blank alert";
+	    assert isElementPresent(ELEMENT_NEW_ARTICLE_POPUP_XPATH):"No title blank alert";
 	    //check message when save
 	    assert getText(ELEMENT_NEW_ARTICLE_MESSAGE_XPATH).contains(ELEMENT_NEW_ARTICLE_MESSAGE_TITLE_BLANK):"Wrong message";
-	    waitForAndGetElement(By.linkText("OK")).click();
+	    click(By.linkText("OK"));
 	    //add article with name blank;
-		waitForAndGetElement(ELEMENT_ARTICLE_TITLE_TEXTBOX).sendKeys(DATA_ARTICLE_TITLE);
+	    type(ELEMENT_ARTICLE_TITLE_TEXTBOX,DATA_ARTICLE_TITLE,false);
 		waitForAndGetElement(ELEMENT_ARTICLE_NAME_TEXTBOX).clear();
-	    waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON).click();
-	    assert isElementPresent(By.xpath(ELEMENT_NEW_ARTICLE_POPUP_XPATH)):"No name blank alert";
+	    click(ELEMENT_SAVE_CLOSE_BUTTON);
+	    assert isElementPresent(ELEMENT_NEW_ARTICLE_POPUP_XPATH):"No name blank alert";
 	    //check message when save
 	    assert getText(ELEMENT_NEW_ARTICLE_MESSAGE_XPATH).contains(ELEMENT_NEW_ARTICLE_MESSAGE_NAME_BLANK):"Wrong message";
-	    waitForAndGetElement(By.linkText("OK")).click();
-	    //logout
-	    logoutEcms();		
+	    click(By.linkText("OK"));		
 	}
 	
 	/*case11: Add Article with blank 'Summary' or 'Content'
-	 * login
 	 * create new article with summary or conntent blank
 	 * view summary & content
 	 * delete this article document
-	 * logout
 	 */
 	@Test
 	public void test11_AddArticleWithSummaryOrContentBlank(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Article_article_11";
+		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
+		
 		//create new article with summary blank
 		goToSiteExplorerForm();
 		goToNode(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		debug("Create new article with title:"+DATA_ARTICLE_TITLE+" and summary, content blank");
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, "", "");
-		waitForElementPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
-		assert isElementPresent(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']")):"Can not create new article with summary, content blank";
+		waitForElementPresent(ELEMENT_ARTICLE);
+		assert isElementPresent(ELEMENT_ARTICLE):"Can not create new article with summary, content blank";
 	    //view summary & content
 	    assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_SUMMARY_BLANK):"Wrong message";
 	    assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_CONTENT_BLANK):"Wrong message";
-	    deleteDocument(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
-	    waitForElementNotPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
-	    //check delete successfully
-	    assert isElementNotPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"):"Can not delete article document";
-	    //logout
-	    logoutEcms();	    
+	    //delete data
+	    deleteDocument(ELEMENT_ARTICLE);
+	    waitForElementNotPresent(ELEMENT_ARTICLE);	    
 	}
 	
 	/*case12: Add Article document in a locked Content folder by locker
-	 * login
 	 * create new content folder
 	 * lock this content folder
 	 * add new article document to this content folder successfully
 	 * delete content folder
-	 * logout
 	 */
 	@Test
 	public void test12_AddArticleToLockedContentFolder(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_Article_contentfolder_12";
+		By ELEMENT_CONTENT_FOLDER = By.xpath("//a[contains(text(),'"+DATA_CONTENT_FOLDER_TITLE+"')]");
+		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Article_article_12";
+		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
+		
 		//create new content folder
 		goToSiteExplorerForm();
 		debug("Create new content folder with title: "+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"));
-		assert 	check1:"Can not crate new content folder";
-		info("Create new content folder: "+check1);
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
+		info("Create new content foldeR is successful");
 		//lock this content folder
-		lockNode(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"));
-		pause(500);
+		lockNode(ELEMENT_CONTENT_FOLDER);
 		//check lock successfully
-		assert checkLockNode("//a[contains(text(),'"+DATA_CONTENT_FOLDER_TITLE+"')]"):"Can not lock this content folder";
+		assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Can not lock this content folder";
 		//add new article to this content folder successfully
-		goToNode(By.xpath("//a[contains(text(),'"+DATA_CONTENT_FOLDER_TITLE+"')]"));
-		pause(500);
+		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToAddNewContent();
 		debug("Add new article with title: "+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
-		assert isElementPresent(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']")):"Can not add new article into content folder";	
+		waitForElementPresent(ELEMENT_ARTICLE);
+		assert isElementPresent(ELEMENT_ARTICLE):"Can not add new article into content folder";	
 		//delete content folder
-		goToNode(By.xpath("//a[contains(text(),'"+DATA_CONTENT_FOLDER_TITLE+"')]"));
-		pause(500);
-		deleteDocument(By.xpath("//a[contains(text(),'"+DATA_CONTENT_FOLDER_TITLE+"')]"));
-		waitForElementNotPresent("//a[contains(text(),'"+DATA_CONTENT_FOLDER_TITLE+"')]");
-		//check delete successfully
-		assert isElementNotPresent("//a[contains(text(),'"+DATA_CONTENT_FOLDER_TITLE+"')]"):"Can not delete content folder";
-		//logout
-		logoutEcms();		
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		deleteDocument(ELEMENT_CONTENT_FOLDER);
+		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);		
 	}
 
 	/*case13: Add Article document in a locked Document folder by locker
-	 * login
 	 * create new document folder
 	 * lock this document folder
 	 * check can not add new article to document folder
 	 * delete document folder
-	 * logout
 	 */
 	@Test
 	public void test13_AddArticleToLockedDocumentFolder(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_DOCUMENT_FOLDER_TITLE = "ECMS_DMS_SE_Article_documentfolder_13";
+		By ELEMENT_DOCUMENT_FOLDER = By.xpath("//a[contains(text(),'"+DATA_DOCUMENT_FOLDER_TITLE+"')]");
+		
+		
 		//create new document folder
 		goToSiteExplorerForm();
 		debug("Create new document folder with title: "+DATA_DOCUMENT_FOLDER_TITLE);
 		createNewDocumentFolder(DATA_DOCUMENT_FOLDER_TITLE, DATA_DOCUMENT_FOLDER_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']"));
-		assert check1:"Can not create new document folder";
-		info("create new document folder: "+ check1);
+		waitForElementPresent(ELEMENT_DOCUMENT_FOLDER);
+		info("create new document folder is successful");
 		//lock this document folder
-		lockNode(By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']"));
-		pause(500);
+		lockNode(ELEMENT_DOCUMENT_FOLDER);
 		//check lock successfully
-		assert checkLockNode("//a[contains(text(),'"+DATA_DOCUMENT_FOLDER_TITLE+"')]"):"Can not lock this document folder";
+		assert checkLockNode(ELEMENT_DOCUMENT_FOLDER):"Can not lock this document folder";
 		//check can not add new article to document folder -> has not article link
-		goToNode(By.xpath("//a[contains(text(),'"+DATA_DOCUMENT_FOLDER_TITLE+"')]"));
-		pause(500);
+		goToNode(ELEMENT_DOCUMENT_FOLDER);
 		goToAddNewContent();
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";	
+		waitForElementNotPresent(ELEMENT_ARTICLE_LINK);
 		//delete document folder
-		goToNode(By.xpath("//a[contains(text(),'"+DATA_DOCUMENT_FOLDER_TITLE+"')]"));
-		pause(500);
-		deleteDocument(By.xpath("//a[contains(text(),'"+DATA_DOCUMENT_FOLDER_TITLE+"')]"));
-		waitForElementNotPresent("//a[contains(text(),'"+DATA_DOCUMENT_FOLDER_TITLE+"')]");
-		//check delete successfully
-		assert isElementNotPresent("//a[contains(text(),'"+DATA_DOCUMENT_FOLDER_TITLE+"')]"):"Can not delete document folder";
-		logoutEcms();
+		goToNode(ELEMENT_DOCUMENT_FOLDER);
+		deleteDocument(ELEMENT_DOCUMENT_FOLDER);
+		waitForElementNotPresent(ELEMENT_DOCUMENT_FOLDER);
 	}
 
 	
 	/*case14: Add Article document in a locked node: Kofax document  by locker
-	 * login
 	 * create new Kofax document
 	 * lock this Kofax document
 	 * add new article to this Kofax Document successfully
 	 * delete Kofax document
-	 * logout
 	 */
 	@Test
 	public void test14_AddArticleToLockedKofaxDocument(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_KOFAX_TITLE = "ECMS_DMS_SE_Article_kofax_14";
+		By ELEMENT_KOFAX = By.xpath("//a[contains(text(),'"+DATA_KOFAX_TITLE+"')]");
+		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Article_article_14";
+		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
+		
 		//add new kofax document
 		goToSiteExplorerForm();
 		goToAddNewContent();
 		debug("Create new kofax document with title "+DATA_KOFAX_TITLE);
 		createNewKofax(DATA_KOFAX_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_KOFAX_TITLE+" "+"']");
-		boolean check1 = isElementPresent(By.xpath("//a[@title='"+DATA_KOFAX_TITLE+" "+"']"));
-		assert check1:"Can not create new kofax document";
+		waitForElementPresent(ELEMENT_KOFAX);
+		info("Create new kofax document successful");
 		//lock this Kofax
-		lockNode(By.xpath("//a[@title='"+DATA_KOFAX_TITLE+" "+"']"));
-		pause(500);
+		lockNode(ELEMENT_KOFAX);
 		//check lock successfully
-		assert checkLockNode("//a[contains(text(),'"+DATA_KOFAX_TITLE+"')]"):"Can not lock fofax document";
+		assert checkLockNode(ELEMENT_KOFAX):"Can not lock fofax document";
 		//add new article document successfully
-		goToNode(By.xpath("//a[contains(text(),'"+DATA_KOFAX_TITLE+"')]"));
-		pause(500);
+		goToNode(ELEMENT_KOFAX);
 		//Add new article into kofax document
 		goToAddNewContent();
-		pause(500);
 		debug("add new article with title: "+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
-		waitForElementPresent("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
-		boolean check2 = isElementPresent(By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']"));
-		assert check2:"Can not add new article into kofax document";
-		info("Add new article into koafax document: "+check2);
+		waitForElementPresent(ELEMENT_ARTICLE);
+		info("Add new article into koafax document is successful");
 		//delete kofax document
-		goToNode(By.xpath("//a[contains(text(),'"+DATA_KOFAX_TITLE+"')]"));
-		pause(500);
-		deleteDocument(By.xpath("//a[contains(text(),'"+DATA_KOFAX_TITLE+"')]"));
-		waitForElementNotPresent("//a[contains(text(),'"+DATA_KOFAX_TITLE+"')]");
-		//check delete successfully
-		assert isElementNotPresent("//a[contains(text(),'"+DATA_KOFAX_TITLE+"')]"):"Can not delete kofax document";
-		//logout
-		logoutEcms();
+		goToNode(ELEMENT_KOFAX);
+		deleteDocument(ELEMENT_KOFAX);
+		waitForElementNotPresent(ELEMENT_KOFAX);
 	}
 
 	/*case15: Add Article document in a locked node (Article, Sample node, File Flan document) by locker
-	 * login
 	 * create new Sample nodet
 	 * lock this Sample node
 	 * check can not add new article to this Sample node
 	 * delete this Sample node
-	 * logout
 	 */
 	@Test
 	public void test15_AddArticleToLockSampleNode(){
-		//login
-		loginEcms(ELEMENT_USER, ELEMENT_PASS);
+		String DATA_SAMPLE_NODE_TITLE = "ECMS_DMS_SE_Article_samplenode_15";
+		String DATA_SAMPLE_NODE_IMG = "TestData/ECMS_DMS_SE_Article.jpg";
+		By ELEMENT_SAMPLE_NODE = By.xpath("//a[contains(text(),'"+DATA_SAMPLE_NODE_TITLE+"')]");
+		
 		//add new sample node document
 		goToSiteExplorerForm();
 		goToAddNewContent();
 		debug("create new sample node with title: "+DATA_SAMPLE_NODE_TITLE);
 		createNewSampleNode(DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_IMG);
-		waitForElementPresent("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']");
-		boolean check1= isElementPresent(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
-		assert check1:"Can not create new sample node";
-		info("Create new sample node: "+check1);
+		waitForElementPresent(ELEMENT_SAMPLE_NODE);
+		info("Create new sample node is successful");
 		//lock this sample node document
-		lockNode(By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']"));
-		pause(500);
+		lockNode(ELEMENT_SAMPLE_NODE);
 		//check lock successfully
-		assert checkLockNode("//a[contains(text(),'"+DATA_SAMPLE_NODE_TITLE+"')]"):"Can not lock sample node";
+		assert checkLockNode(ELEMENT_SAMPLE_NODE):"Can not lock sample node";
 		//check can not add article to sample node
-		goToNode(By.xpath("//a[contains(text(),'"+DATA_SAMPLE_NODE_TITLE+"')]"));
-		pause(500);
+		goToNode(ELEMENT_SAMPLE_NODE);
 		goToAddNewContent();
-		pause(500);
-		assert isElementNotPresent(ELEMENT_ARTICLE_LINK):"Article link is still available";
+		waitForElementNotPresent(ELEMENT_ARTICLE_LINK);
 		//delete sample node
-		goToNode(By.xpath("//a[contains(text(),'"+DATA_SAMPLE_NODE_TITLE+"')]"));
+		goToNode(ELEMENT_SAMPLE_NODE);
 		pause(500);
-		deleteDocument(By.xpath("//a[contains(text(),'"+DATA_SAMPLE_NODE_TITLE+"')]"));
-		waitForElementNotPresent("//a[contains(text(),'"+DATA_SAMPLE_NODE_TITLE+"')]");
-		//check delete successfully
-		assert isElementNotPresent("//a[contains(text(),'"+DATA_SAMPLE_NODE_TITLE+"')]"):"Can not delete sample node";
-		//logout
-		logoutEcms();
+		deleteDocument(ELEMENT_SAMPLE_NODE);
+		waitForElementNotPresent(ELEMENT_SAMPLE_NODE);
 	}
 
 }

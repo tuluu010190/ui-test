@@ -443,7 +443,7 @@ public class EcmsBase extends PlatformBase {
 //		actions.contextClick(waitForAndGetElement(locator)).perform();
 		rightClickOnElement(locator);
 		pause(1000);
-		mouseOver(locator, true);
+//		mouseOver(locator, true);
 		click(ELEMENT_PARTIALLINK_DELETE_DOCUMENT);
 		pause(1000);
 		click(By.linkText("OK"));
