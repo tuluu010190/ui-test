@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation;
+package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation.edit;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-public class EXOGTN_PORTALNAVIGATION_EditLayout extends PlatformBase{
+public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 
 	/*---- Data for test case ----*/
 	public static final By ELEMENT_SITE_CONFIG_LINK = By.className("PageProfileIcon") ;

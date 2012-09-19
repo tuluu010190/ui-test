@@ -1,19 +1,21 @@
 package org.exoplatform.selenium.platform.exogtn.functional.loginout;
 
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.exoplatform.selenium.TestLogger.info;
 
-public class EXOGTN_LOGINOUT_SignInOut extends PlatformBase{
+public class EXOGTN_LogInOut extends PlatformBase{
 	
 	public String MESSAGE_FAILED = "Sign in failed. Wrong username or password.";
 	
 	@BeforeMethod
 	public void setUpBeforeTest() throws Exception {
 		initSeleniumTest();
-		driver.get(baseUrl);		
+		driver.get(baseUrl);
+		actions = new Actions(driver);
 	}
 	
 	@AfterMethod

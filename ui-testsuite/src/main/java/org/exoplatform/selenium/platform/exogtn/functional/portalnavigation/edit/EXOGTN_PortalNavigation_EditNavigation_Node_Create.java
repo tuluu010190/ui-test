@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation.node;
+package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation.edit;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -12,7 +12,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.exoplatform.selenium.TestLogger.*;
-public class EXOGTN_FUNC_PORNAV_NODE_CreateNode extends PlatformBase {
+public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends PlatformBase {
 	//Define data
 	public static final By ADD_NODE_BUTTON = By.xpath("//a[text()='Add Node']");
 	public static final By NODE_NAME = By.xpath("//input[@id='name']");

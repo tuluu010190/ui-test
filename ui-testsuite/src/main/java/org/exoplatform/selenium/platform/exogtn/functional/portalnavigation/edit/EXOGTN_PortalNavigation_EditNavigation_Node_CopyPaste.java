@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation.edit.editnavigation.node;
+package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation.edit;
 
 import java.util.concurrent.TimeUnit;
 

@@ -3,12 +3,13 @@ package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation;
 import java.util.Map;
 
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.exoplatform.selenium.TestLogger.info;
 
-public class EXOGTN_PORTALNAVIGATION_AddPortal extends PlatformBase{
+public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 	
 	String ELEMENT_CANCEL_BUTTON = "//a[text()='Cancel']";
 	String MESSAGE_PORTAL_NAME_REQUIRED = "The field \"Portal Name:\" is required." ;
@@ -18,7 +19,8 @@ public class EXOGTN_PORTALNAVIGATION_AddPortal extends PlatformBase{
 	@BeforeMethod
 	public void setUpBeforeTest() throws Exception {
 		initSeleniumTest();
-		driver.get(baseUrl);		
+		driver.get(baseUrl);
+		actions = new Actions(driver);
 	}
 	
 	@AfterMethod

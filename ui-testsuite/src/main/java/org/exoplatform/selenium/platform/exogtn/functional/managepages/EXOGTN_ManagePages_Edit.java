@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.exogtn.functional.managepages.edit;
+package org.exoplatform.selenium.platform.exogtn.functional.managepages;
 
 import static org.exoplatform.selenium.TestLogger.debug;
 
@@ -14,7 +14,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class EXOGTN_FUNC_MANAGEPAGES_EDIT_Advanced extends PlatformBase {
+public class EXOGTN_ManagePages_Edit extends PlatformBase {
 	//Define data
 	By ELEMENT_VIEWPAGEPRO_BUTTON = By.linkText("View Page properties");
 	By ELEMENT_PERMISSION_SET_TAB = By.xpath("//div[text()='Permission Settings']");
