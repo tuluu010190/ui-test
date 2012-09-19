@@ -21,6 +21,7 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
+		driver.manage().window().maximize();
 	}
 	
 	@AfterMethod
@@ -34,7 +35,7 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 	 --*/
 	
 	@Test
-	public void test04_AddNewPortalWithValidValue(){
+	public void test02_AddNewPortalWithValidValue(){
 		String portalName   = "demoPortal"; 
 		String portalLocale = "English";
 		String portalSkin   = "Default"; 
@@ -61,7 +62,7 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 	    Create new portal with blank name
 	 --*/
 	@Test
-	public void test05_AddNewPortalWithBlankName(){
+	public void test03_AddNewPortalWithBlankName(){
 		
 		String portalName   = ""; 
 		String portalLocale = "English";
@@ -89,7 +90,7 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 	 * Create new portal with name starts with number
 	 * --*/
 	@Test
-	public void test06_AddNewPortalWithNameStartWithNumber(){
+	public void test04_AddNewPortalWithNameStartWithNumber(){
 		
 		String portalName   = "123exo"; 
 		String portalLocale = "English";
@@ -117,7 +118,7 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 	 * Create new portal with name is the same with existing one
 	 * --*/
 	@Test
-	public void test10_AddNewPortalWithNameIsTheSameWithExistingOne(){
+	public void test08_AddNewPortalWithNameIsTheSameWithExistingOne(){
 		String portalName   = "demoPortal"; 
 		String portalLocale = "English";
 		String portalSkin   = "Default"; 
@@ -152,7 +153,7 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 	 * existing but different by lower/upper case
 	 * --*/
 	@Test
-	public void test11_AddNewPortalWithTheSameNameWithExistingButDiffByLowerUpperCase(){
+	public void test09_AddNewPortalWithTheSameNameWithExistingButDiffByLowerUpperCase(){
 		String portalName   = "test011_demo_portal"; 
 		String portalLocale = "English";
 		String portalSkin   = "Default"; 

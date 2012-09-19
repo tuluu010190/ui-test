@@ -79,7 +79,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	 *  Edit current portal with no one for edit right
 	 * --*/
 	@Test
-	public void test50_EditCurrentPortalWithNoOneForEditRight(){
+	public void test07_EditCurrentPortalWithNoOneForEditRight(){
 
 		signIn("root", "gtn");
 
@@ -113,7 +113,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	 *  Check when drag & drop Page Body in edit current portal
 	 * --*/
 	@Test
-	public void test60_CheckWhenDragAndDropPageBodyInEditCurrentPortal(){		
+	public void test17_CheckWhenDragAndDropPageBodyInEditCurrentPortal(){		
 
 		signIn("root", "gtn");
 
@@ -165,7 +165,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	 * Check Finish function after changed container layout
 	 * --*/
 	@Test
-	public void test62_CheckFinishFunctionAfterChangedContainerLayout(){
+	public void test19_CheckFinishFunctionAfterChangedContainerLayout(){
 
 		signIn("root", "gtn");
 		String username = "Root Root";
@@ -226,7 +226,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	 * Check editing container with new valid title while edit current portal
 	 * --*/
 	@Test
-	public void test64_CheckEditingContainerWithNewValidTitleWhileEditCurrentPorta(){
+	public void test21_CheckEditingContainerWithNewValidTitleWhileEditCurrentPorta(){
 
 		signIn("root", "gtn");
 
@@ -271,7 +271,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	 *  Check Finish function after edited container
 	 * --*/
 	@Test
-	public void test69_CheckFinishFunctionAfterEditedContainer(){
+	public void test26_CheckFinishFunctionAfterEditedContainer(){
 		signIn("root", "gtn");
 		String username = "Root Root";
 		waitForTextPresent(username);
@@ -332,7 +332,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	 *  Check Finish function after changed portlet layout
 	 * --*/
 	@Test
-	public void test75_CheckFinishFunctionAfterChangedPortletLayout(){
+	public void test32_CheckFinishFunctionAfterChangedPortletLayout(){
 		signIn("root", "gtn");
 		String username = "Root Root";
 		waitForTextPresent(username);
@@ -387,7 +387,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	 *  Check when change width/height of portlet with valid value while editing portal
 	 * --*/
 	@Test
-	public void test80_CheckWhenChangeWidthHeightOfPortletWithValidValueWhileEditingPortal(){
+	public void test37_CheckWhenChangeWidthHeightOfPortletWithValidValueWhileEditingPortal(){
 		signIn("root", "gtn");
 		String username = "Root Root";
 		waitForTextPresent(username);
@@ -450,7 +450,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	 *  Check Finish function after edited portlet
 	 * --*/
 	@Test
-	public void test92_CheckFinishFunctionAfterEditedPortlet(){
+	public void test49_CheckFinishFunctionAfterEditedPortlet(){
 		signIn("root", "gtn");
 		String username = "Root Root";
 		waitForTextPresent(username);

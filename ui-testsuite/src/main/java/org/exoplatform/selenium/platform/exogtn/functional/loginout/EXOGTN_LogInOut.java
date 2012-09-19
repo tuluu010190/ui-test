@@ -16,6 +16,7 @@ public class EXOGTN_LogInOut extends PlatformBase{
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
+		driver.manage().window().maximize();
 	}
 	
 	@AfterMethod
@@ -26,16 +27,16 @@ public class EXOGTN_LogInOut extends PlatformBase{
 	/*-- tests cases of : Portal\Login_out\Sign In --*/	
 	//Check displaying portal after signing in successfully by admin account
 	@Test
-	public void test01_SignInByAdminAccount(){
+	public void test02_SignInByAdminAccount(){
 			info("--Login by Admin account--");
 			signIn("root", "gtn");
-			waitForAndGetElement("Root Root");
+			waitForTextPresent("Root Root");
 			signOut();		
 	}
 	
 	//Check displaying portal after signing in successfully by normal account
 	@Test
-	public void test02_SignInByNormalAccount(){
+	public void test03_SignInByNormalAccount(){
 		info("--Login by Normal account--");
 		
 		//Sign in as Jack Miller
@@ -54,7 +55,7 @@ public class EXOGTN_LogInOut extends PlatformBase{
 	
 	//Sign in with blank User name/Password
 	@Test
-	public void test03_SignInWithBlankUserNameAndPassword(){
+	public void test04_SignInWithBlankUserNameAndPassword(){
 		info("--Sign in with blank password");
 		signIn("root","");
 		waitForTextPresent(MESSAGE_FAILED);
@@ -67,7 +68,7 @@ public class EXOGTN_LogInOut extends PlatformBase{
 	
 	//Sign in by unregistered User name
 	@Test
-	public void test04_SignInByUnRegisteredUsername(){
+	public void test05_SignInByUnRegisteredUsername(){
 		info("--Sign in with unregistered account--");
 		signIn("exogtn", "gtn");
 		waitForTextPresent(MESSAGE_FAILED);	
