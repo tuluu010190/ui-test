@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.exogtn.functional.group.organization.groupmanagement;
 
 import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.platform.ManageAccount.*;
 
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
@@ -9,6 +10,8 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+
 
 /**
  *@author NhungVT

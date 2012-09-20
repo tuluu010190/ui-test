@@ -2,19 +2,17 @@ package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation.edi
 
 import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.PlatformBase;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
+import static org.exoplatform.selenium.platform.ManageAccount.*;
+import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.PageManagement.*;
+import static org.exoplatform.selenium.platform.NavigationManagement.*;
 
 /**
  *@author VuNA2

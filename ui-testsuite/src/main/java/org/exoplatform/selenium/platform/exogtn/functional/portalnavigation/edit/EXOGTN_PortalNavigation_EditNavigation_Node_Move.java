@@ -10,6 +10,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ManageAccount.*;
+import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 
 public class EXOGTN_PortalNavigation_EditNavigation_Node_Move extends PlatformBase
 {

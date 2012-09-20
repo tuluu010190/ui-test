@@ -12,6 +12,13 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ManageAccount.*;
+import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.UserGroupManagement.*;
+import static org.exoplatform.selenium.platform.PageManagement.*;
+import static org.exoplatform.selenium.platform.NavigationManagement.*;
+
+
 public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends PlatformBase {
 	//Define data
 	public static final By ADD_NODE_BUTTON = By.xpath("//a[text()='Add Node']");
@@ -318,7 +325,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 
 		//Add child node for existing node by right click
 		info("Add child node for existing node by right click");
-		addNodeForPortal("intranet", "Home", false, "PORNAV_14_01_007", true, languages, "PORNAV_14_01_007", null, null, true, true);
+		addNodeForPortal("intranet", "Home", false, "PORNAV_14_01_007", true, languages, "PORNAV_14_01_007", null, null, true, true, true);
 
 		//Delete data
 		info("Delete node");

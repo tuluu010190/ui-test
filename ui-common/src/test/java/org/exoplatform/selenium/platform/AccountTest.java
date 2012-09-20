@@ -3,10 +3,13 @@ package org.exoplatform.selenium.platform;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+import static org.exoplatform.selenium.platform.ManageAccount.*;
+import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.UserGroupManagement.*;
+
 
 public class AccountTest extends PlatformBase{
 	String username      = "testaccountexosea" ; 

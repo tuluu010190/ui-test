@@ -9,7 +9,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.exoplatform.selenium.platform.PlatformBase;
 import static org.exoplatform.selenium.TestLogger.info;
-
+import static org.exoplatform.selenium.platform.ManageAccount.*;
+import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.PortalManagement.*;
 
 /**
  *@author VuNA2

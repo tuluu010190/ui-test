@@ -2,13 +2,11 @@ package org.exoplatform.selenium.platform;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import org.exoplatform.selenium.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 import static org.exoplatform.selenium.TestLogger.debug;
@@ -170,349 +168,18 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 	/*------------- End of Data for Portal/Manage Pages --------------------*/
 
-	/*------------- Data for Dashboard tab --------------------------------*/
-	public static final String ELEMENT_DASHBOARD_NEW_ICON = "//div[@id='UITabPaneDashboard']/a[@class='AddDashboard']";
-	public static final String ELEMENT_DASHBOARD_NEW_INPUT = "//div[@id='UITabPaneDashboard']//div[contains(@class, 'UITab SelectedTab')]/input";
-	public static final String ELEMENT_DASHBOARD_SELECTED_PAGE_WITH_SPECIFIED_NAME = "//div[@id='UITabPaneDashboard']//span[text()='${dashboardName}']";
-	public static final String ELEMENT_DASHBOARD_SELECTED = "//div[contains(@class, 'SelectedTab')]//span";
-	public static final String ELEMENT_DASHBOARD_SELECTED_DELETE = "//div[contains(@class, 'SelectedTab')]//a[@class='CloseIcon']";
-	public static final String ELEMENT_DASHBOARD_HOME_TAB = "div[@class='UITab SelectedTab']";
-	public static final String ELEMENT_TAB_LINK = "//div[@id='UITabPaneDashboard']//span[text()='${tabName}']";
-	/*------------ End of data for Dashboard tab --------------------------*/
-	
+		
 	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
 
-	//Sign in function for eXoGTN
-	public void signIn(String username, String password) {
-		info("--Sign in as " + username + "--");
-		click(ELEMENT_GO_TO_PORTAL);
-		click(ELEMENT_SIGN_IN_LINK);
-		type(ELEMENT_INPUT_USERNAME, username, true);
-		type(ELEMENT_INPUT_PASSWORD, password, true);
-		click(ELEMENT_SIGN_IN_CONFIRM_BUTTON);
-		waitForElementNotPresent(ELEMENT_SIGN_IN_CONFIRM_BUTTON);
-	}
-
-	//Sign out for eXoGTN
-	public void signOut(){
-		Actions action_logout = new Actions(driver);
-		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
-		action_logout.moveToElement(UI).build().perform();
-		driver.findElement(By.linkText("Logout")).click();	
-		pause(500);
-	}
-
-	// Add new user account 
-	public void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
-			String lastName, String email, String userNameGiven, String language, boolean verify) {
-
-		info("--Create new user using \"New Staff\" portlet--");
-		type(ELEMENT_INPUT_USERNAME, username, true);
-		type(ELEMENT_INPUT_PASSWORD, password, true);
-		type(ELEMENT_INPUT_CONFIRM_PASSWORD, confirmPassword, true);
-		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
-		type(ELEMENT_INPUT_LASTNAME, lastName, true);
-		type(ELEMENT_INPUT_EMAIL, email, true);
-		click(ELEMENT_USER_PROFILE_TAB);
-		waitForTextPresent("Given Name:");
-		type(ELEMENT_INPUT_USER_NAME_GIVEN, userNameGiven, true);
-		select(ELEMENT_SELECT_USER_LANGUAGE, language);
-		click(ELEMENT_ACCOUNT_SETTING_TAB);
-		save();
-
-		if (verify) {
-			waitForMessage("You have registered a new account.");
-			closeMessageDialog();
-		}
-	}
-
-	public void goToUsersAndGroupsManagement() {
-		info("--Go to Users and groups management--");
-		goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_USERS_MANAGEMENT);
-	}
-
-	public void chooseUserTab(){
-		info("-- Choose User tab--");
-		click(ELEMENT_USER_MANAGEMENT);
-		waitForTextPresent("User Name");
-	}
-
-	public void deleteUser(String username) {
-		String userDeleteIcon = ELEMENT_USER_DELETE_ICON.replace("${username}", username);
-
-		info("--Deleting user " + username + "--");
-		if (isTextPresent("Total pages")) {
-			usePaginator(userDeleteIcon, "User " + username + "not found in group");
-		}
-		pause(500);
-		click(userDeleteIcon);
-		waitForConfirmation("Are you sure to delete user " + username + "?");
-		waitForTextNotPresent(username);
-		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
-	}
-
-	public void searchUser(String user, String searchOption){
-		info("--Search user " + user + "--");
-		if (isTextPresent("Search")){
-			type(ELEMENT_INPUT_SEARCH_USER_NAME, user, true);
-			select(ELEMENT_SELECT_SEARCH_OPTION, searchOption);
-		}	
-
-		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
-		waitForTextPresent(user);
-	}
-
-	public void editUser(String username) {
-		String userEditIcon = ELEMENT_USER_EDIT_ICON.replace("${username}", username);
-
-		info("--Editing user " + username + "--");
-		click(userEditIcon);
-		pause(1000);
-	}
-
-	public void chooseGroupTab() {
-		info("-- Choose Group Management tab--");
-		click(ELEMENT_TAB_GROUP_MANAGEMENT);
-		waitForTextPresent("Group Info");
-	}
-
-	public void addGroup(String groupName, String groupLabel, String groupDesc, boolean verify){
-		info("--Add a new group--");
-		pause(500);
-		click(ELEMENT_GROUP_ADD_NEW_ICON);
-		type(ELEMENT_INPUT_GROUP_NAME, groupName, true);
-		type(ELEMENT_INPUT_LABEL, groupLabel, true);
-		type(ELEMENT_TEXTAREA_DESCRIPTION, groupDesc, true);
-		save();
-		if (verify) {
-			waitForAndGetElement("//a[@title='" + (groupLabel.length() > 0 ? groupLabel : groupName) + "']");
-		}
-
-	}
-
-	public void selectGroup(String groupName) {
-		info("--Select category (" + groupName + ")--");
-		String groupID = "//a[@title='"+ groupName +"']"; 
-		waitForAndGetElement("//a[@title='"+ groupName +"']");
-		click(groupID);
-	}
-
-	public void editGroup(String groupName, boolean verify){
-		info("-- Edit group: " + groupName + "--");
-		click(ELEMENT_GROUP_EDIT_ICON);
-		pause(1000);
-	}
-
-	public void deleteGroup(String groupName, boolean verify) {
-		info("-- Delete group: " + groupName + "--");
-		click(ELEMENT_GROUP_REMOVE_ICON);
-
-		waitForConfirmation("Are you sure to delete this group?");
-		if (verify) {
-			waitForElementNotPresent("//a[@title='"+ groupName +"']");
-		}
-		pause(1000);
-	}
-
-	public void addUsersToGroup(String userNames, String memberShip, boolean select, boolean verify) {
-
-		info("--Adding users to group--");
-		String[] users = userNames.split(",");
-		if (select) {
-			click(ELEMENT_GROUP_SEARCH_USER_ICON);
-			waitForTextPresent("Select User");
-			for (String user : users) {
-				check("//input[@name='" + user + "']");
-			}
-			click(ELEMENT_GROUP_SEARCH_POPUP_ADD_ICON);
-			pause(500);
-			Assert.assertEquals(getValue(ELEMENT_INPUT_USERNAME), userNames);
-		} else {
-			type(ELEMENT_INPUT_USERNAME, userNames, true);
-		}
-		select(ELEMENT_SELECT_MEMBERSHIP, memberShip);
-		save();
-		if (verify) {
-			for (String user : users) {
-				String addedUser = ELEMENT_GROUP_USER_IN_TABLE.replace("${username}", user);
-				if (isTextPresent("Total pages")) {
-					usePaginator(addedUser, "User " + user + "not found in group");
-				} else {
-					waitForAndGetElement(addedUser);
-				}
-			}
-		}
-	}
-
-	public void chooseMembershipTab() {
-		info("-- Choose Membership Management tab--");
-		pause(500);
-		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
-		waitForTextPresent("Add/Edit Membership");
-	}
-
-	public void addMembership(String membershipName, String membershipDesc, boolean verify){
-		boolean verifyMembership;
-		info("--Creating new membership--");
-		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
-
-		type(ELEMENT_INPUT_NAME, membershipName, true);
-		type(ELEMENT_TEXTAREA_DESCRIPTION, membershipDesc, true);
-		save();
-		verifyMembership = isTextPresent(membershipName);
-		if (verifyMembership){
-			waitForTextPresent(membershipName);
-		}
-		else if (verify){
-			click(ELEMENT_NEXT_PAGE_ICON);	
-			waitForTextPresent(membershipName);
-		}
-
-	}
-
-	public void editMembership(String membershipName, String newDesc){
-		info("-- Edit membership: " + membershipName + "--");
-
-		boolean verifyMembership;
-		verifyMembership = isTextPresent(membershipName);
-		if (verifyMembership){
-			waitForTextPresent(membershipName);
-		}
-		else {
-			click(ELEMENT_NEXT_PAGE_ICON);
-		}
-
-		String editIcon = ELEMENT_MEMBERSHIP_EDIT_ICON.replace("${membership}", membershipName);
-		String membershipInput = "//input[@value='" + membershipName + "']";
-		click(editIcon);
-		pause(1000);
-		waitForAndGetElement(membershipInput);
-		type(ELEMENT_TEXTAREA_DESCRIPTION, newDesc, true);
-		save();
-		if (verifyMembership){
-			waitForTextPresent(membershipName);
-		}
-		else {
-			click(ELEMENT_NEXT_PAGE_ICON);
-		}
-		waitForTextPresent(newDesc);
-	}
-
-	public void deleteMembership(String membershipName, boolean verify){
-
-		boolean verifyMembership;
-		verifyMembership = isTextPresent(membershipName);
-		if (verifyMembership){
-			waitForTextPresent(membershipName);
-		}
-		else {
-			click(ELEMENT_NEXT_PAGE_ICON);
-		}
-		String deleteIcon = ELEMENT_MEMBERSHIP_DELETE_ICON.replace("${membership}", membershipName);
-		info("--Deleting membership--");
-		click(deleteIcon);
-		waitForConfirmation("Are you sure to delete this membership?");
-		if (!verifyMembership){
-			waitForTextNotPresent(membershipName);
-		}
-		else if (verify) {
-			click(ELEMENT_NEXT_PAGE_ICON);
-			waitForTextNotPresent(membershipName);
-		}
-
-	}
+	
 
 	/*--------------------- Functions for portal  -----------------------------------*/
 
-	//Go to portal sites
-	public void goToPortalSites() {
-		info("--Go to Portal Site Management--");
-		mouseOver(ELEMENT_LINK_SETUP, false);
-		pause(500);
-		mouseOver(ELEMENT_LINK_PORTAL, false);
-		pause(500);
-		WebElement element;
-		element = waitForAndGetElement(ELEMENT_LINK_SITE);
-		actions.moveToElement(element).click(element).build().perform();
-		pause(500);
-
-	}
 
 	/*-----------------------  Add new portal  ------------------------------*/
 
-	//Add new portal
-	public void addNewPortal(String portalName, String portalLocale, String portalSkin, String portalSession, 
-			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership){
-		info("--Create new portal--");
-
-		click(ELEMENT_ADD_NEW_PORTAL_LINK);
-		waitForTextPresent("Portal Setting");
-		type(ELEMENT_INPUT_NAME, portalName, true);
-		select(ELEMENT_SELECT_LOCALE, portalLocale);
-		select(ELEMENT_SELECT_SKIN, portalSkin);
-		click(ELEMENT_PROPERTIES_TAB);
-		select(ELEMENT_SELECT_SESSION_ALIVE, portalSession);
-		click(ELEMENT_PERMISSION_SETTING_TAB);
-
-		if (publicMode) {
-			waitForAndGetElement(ELEMENT_ADD_PERMISSION_BUTTON);
-			check(ELEMENT_CHECKBOX_PUBLIC_MODE);
-			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
-		} else {
-			for (String key : permissions.keySet()) {
-				setViewPermissions(key, permissions.get(key));
-			}
-		}
-		click(ELEMENT_LINK_EDIT_PERMISSION);
-		setEditPermissions(editGroupId, editMembership);
-		save();
-	}
-
-	//Edit a portal
-	public void editPortal(String portalName, String portalLocale, String portalSkin, String portalSession, 
-			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership){
-		info("--Create new portal--");
-
-		String editIcon = ELEMENT_SELECT_EDIT_PORTAL_CONFIG.replace("${portalName}", portalName);		
-		click(editIcon);
-
-		waitForTextPresent("Portal Setting");
-
-		select(ELEMENT_SELECT_LOCALE, portalLocale);
-		select(ELEMENT_SELECT_SKIN, portalSkin);
-		click(ELEMENT_PROPERTIES_TAB);
-		select(ELEMENT_SELECT_SESSION_ALIVE, portalSession);
-		click(ELEMENT_PERMISSION_SETTING_TAB);
-
-		click (ELEMENT_CHECKBOX_PUBLIC_MODE);
-
-		if (publicMode) {
-			waitForAndGetElement(ELEMENT_ADD_PERMISSION_BUTTON);
-			check(ELEMENT_CHECKBOX_PUBLIC_MODE);
-			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
-		} else {
-			for (String key : permissions.keySet()) {
-				setViewPermissions(key, permissions.get(key));
-			}
-		}
-		click(ELEMENT_LINK_EDIT_PERMISSION);
-		setEditPermissions(editGroupId, editMembership);
-		save();
-	}
-
-	//Delete a portal	
-	public void deletePortal(String portalName){
-		String portalDeleteIcon = ELEMENT_PORTAL_DELETE_ICON.replace("${portalName}", portalName);
-		info("--Delete portal (" + portalName + ")--");		
-		click(portalDeleteIcon);
-		waitForConfirmation("Are you sure to delete this portal?");
-		//info("--Verify portal deleted--");		
-		waitForTextNotPresent(portalName);
-
-	}
-
 	//Set view permissions for portal
-	public void setViewPermissions(String groupId, String membership) {
+	public static void setViewPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM.replace("${membership}", membership);
 		//String selectedGroup = ELEMENT_SELECTED_ACCESS_PERM_GROUP.replace("${groupId}", groupId.replace(" ", "-").toLowerCase());
 		String selectedMembership = ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP.replace("${membership}", membership);
@@ -535,7 +202,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	//Set edit permissions for portal
-	public void setEditPermissions(String groupId, String membership) {
+	public static void setEditPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_EDIT_MEMBERSHIP_ITEM.replace("${membership}", membership);
 		//String selectedGroup = ELEMENT_SELECTED_EDIT_PERM_GROUP.replace("${groupId}", groupId.replace(" ", "-").toLowerCase());
 		String selectedMembership = ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP.replace("${membership}", membership);
@@ -555,15 +222,6 @@ public class PlatformBase extends TestBase {
 		waitForAndGetElement(selectedMembership);
 	}
 
-	//verify the existence of portal
-	public void verifyPortalExists(String portalName) {
-		String portal = ELEMENT_PORTAL_IN_LIST.replace("${portalName}", portalName);
-
-		info("--Verify portal (" + portalName + ") exist--");
-		goToPortalSites();
-		waitForAndGetElement(portal);
-	}
-
 	/*------------ Add new page for Portal --------------*/
 
 	//Define a type of page
@@ -572,498 +230,17 @@ public class PlatformBase extends TestBase {
 	}
 
 
-	//Go to Portal Manage Pages	
-	public void goToManagePages() {
-		info("--Go to Portal Site Management--");			
-		mouseOver(ELEMENT_LINK_SETUP, false);
-		pause(500);
-		mouseOver(ELEMENT_LINK_PORTAL, false);
-		pause(500);
-		WebElement element;
-		element = waitForAndGetElement(ELEMENT_LINK_PAGES);
-		actions.moveToElement(element).click(element).build().perform();
-		pause(500);
-
-	}
-
-	//Add a new page at manage pages
-	public void addNewPageAtManagePages(PageType type, String pageName, String title, boolean publicMode, 
-			Map<String, String> permissions, String groupId, String membership ){
-
-		click(ELEMENT_ADD_NEW_PAGE_LINK);
-		waitForTextPresent("Page Settings");	
-		switch (type){
-
-		case PORTAL:
-			select(ELEMENT_SELECT_OWNER_TYPE, "portal");
-			break;
-		case GROUP:	
-			select(ELEMENT_SELECT_OWNER_TYPE, "group");
-			break;
-		default:
-			break;
-		}		
-		type(ELEMENT_INPUT_NAME, pageName, true);
-		type(ELEMENT_INPUT_TITLE, title, true);		
-		//showMaxWindow
-		check(ELEMENT_CHECKBOX_MAX_WINDOWS);
-		click(ELEMENT_PERMISSION_SETTING_TAB);	
-		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_PUBLIC_MODE);		
-		if (publicMode & !element.isSelected()) {
-			waitForAndGetElement(ELEMENT_ADD_PERMISSION_BUTTON);
-			check(ELEMENT_CHECKBOX_PUBLIC_MODE);
-			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
-		} else if (publicMode & element.isSelected()){
-			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
-		} else {
-			for (String key : permissions.keySet()) {
-				setViewPermissions(key, permissions.get(key));
-			}
-		}		
-		click(ELEMENT_LINK_EDIT_PERMISSION);
-		setEditPermissions(groupId, membership);
-		save();
-		pause(1000);
-		searchPageByTitle(type, title);
-
-	}
-
-	//Edit a page at Manage Pages
-	public void editPageAtManagePages(PageType type, String pageName){
-		String pageEditIcon = ELEMENT_PAGE_EDIT_ICON.replace("${page}", pageName);
-		searchPageByTitle(type, pageName);
-		click(pageEditIcon);
-		pause(1000);
-
-	}
-
-	//Delete a page
-	public void deletePage(PageType type, String pageName){
-		String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageName);
-		searchPageByTitle(type, pageName);
-		click(pageDeleteIcon);
-		waitForConfirmation("Are you sure to delete this page?");
-		closeMessageDialog();
-		pause(1000);
-
-	}
-
-	// Search a page in Manage Pages
-	public void searchPageByTitle(PageType type, String pageTitle){
-		type(ELEMENT_INPUT_SEARCH_TITLE, pageTitle, true);
-		switch (type){
-		case PORTAL:
-			select(ELEMENT_SELECT_SEARCH_OPTION, "portal");
-			break;
-		case GROUP:
-			select(ELEMENT_SELECT_SEARCH_OPTION, "group");
-			break;
-		default:
-			break;
-		}
-		click(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
-		pause(1000);
-		waitForTextPresent(pageTitle);
-
-	}
-
-	//Go to add page locator with Editor
-
-	public void goToAddPageEditor(){
-		mouseOver(ELEMENT_LINK_EDITOR, true);
-		pause(500);
-		mouseOver(ELEMENT_LINK_EDITOR_PAGE, true);
-		pause(500);
-		WebElement element = waitForAndGetElement(ELEMENT_LINK_EDITOR_ADD_PAGE);
-		actions.moveToElement(element).click(element).build().perform();
-		pause(500);
-
-	}
-
-	// Input data for page
-
-	public void addNewPageEditor(String nodeName, String displayName, String language, String categoryTitle, 
-			Map<String, String> portletIds, boolean extendedLabelMode){
-
-		type(ELEMENT_INPUT_NODE_NAME, nodeName, true);
-		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
-		if (extendedLabelMode){
-			Assert.assertTrue(element.isSelected());
-			select(ELEMENT_SELECT_LANGUAGE, language);
-
-		}else {
-			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
-			type(ELEMENT_INPUT_PAGE_DISPLAY_NAME, displayName, true);
-		}
-
-		click(ELEMENT_PAGE_EDITOR_NEXT_STEP);
-		waitForTextPresent("Empty Layout");
-		click(ELEMENT_PAGE_EDITOR_NEXT_STEP);
-
-		String category = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", categoryTitle);
-		click(category);
-
-		for (String portletId : portletIds.keySet()) {
-			String elementEditPagePage = ELEMENT_EDIT_PAGE_PAGE;
-			//String verification = PORTLET_LABEL.replace("${portletName}", portletIdsAndVerifications.get(portletId));
-			dragAndDropToObject("//div[@id='" + portletId + "']//img", elementEditPagePage);
-		}
-		pause(500);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForTextNotPresent("Page Editor");
-	}
 	
-	/*---------------- Add node for Portal ---------------------*/
-
-	// Add a node for portal at portal navigation
-	public void addNodeForPortal(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode, 
-			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode){
-
-		//String node = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeLabel);
-		String currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel);
-		editNavigation(currentNavigation);
-
-		info("--Adding new node at navigation--");		
-		if (useAddNodeLink){
-			click(currentNode);
-			click(ELEMENT_ADD_NODE_LINK);
-		}else{
-
-			click(currentNode);
-			pause(500);
-			rightClickOnElement(currentNode);
-			if (currentNode.equals(ELEMENT_NAVIGATION_HOME_NODE)) {
-				click(ELEMENT_NODE_ADD_NEW_TOP_NODE);
-			} else {
-				click(ELEMENT_NODE_ADD_NEW);
-			}		
-		}
-		waitForTextPresent("Page Node Settings");
-		type(ELEMENT_INPUT_NAME, nodeName, true);
-
-		if (extendedLabelMode) {
-			for (String language : languages.keySet()) {
-				select(ELEMENT_SELECT_LANGUAGE, language);
-				pause(500);
-			}
-		} else {
-			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
-			type(ELEMENT_INPUT_LABEL, nodeLabel, true);
-		}
-
-		click(ELEMENT_PAGE_SELECTOR_TAB);
-
-		if (pageName != null & pageTitle != null) {
-			info("--Create new page");
-			type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
-			type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
-			click(ELEMENT_CREATE_PAGE_LINK);
-			if (verifyPage) {
-				waitForElementNotPresent(ELEMENT_CREATE_PAGE_LINK);
-			} else {
-				return;
-			}
-		} else {
-			//info("-- Select Page --");
-			pause(500);
-			click(ELEMENT_SEARCH_SELECT_PAGE_LINK);
-			click(ELEMENT_SELECT_HOME_PAGE);
-		}
-
-		info("-- Save add node for portal --");
-		pause(1000);
-		save();
-		if (verifyNode) {
-			waitForTextNotPresent("Page Node Settings");
-			waitForTextPresent(nodeName);
-			save();
-			waitForTextNotPresent("Navigation Management");
-		}
-	}
-
-	// Edit a node 
-	public void editNode(String currentNavigation, String nodeNameHome, String nodeName, boolean extendedLabelMode, Map<String, String> languages, 
-			String nodeLabel, String pageName, String pageTitle, boolean firstLevel){
-
-		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);
-		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
-		editNavigation(currentNavigation);
-		//currentNodeHome.equals(ELEMENT_NAVIGATION_NODE_AREA)
-		if (firstLevel){
-			click(currentNodeName);
-			rightClickOnElement(currentNodeName);
-			click(ELEMENT_NODE_EDIT);	
-		}else {
-			click(currentNodeHome);
-			click(currentNodeName);
-			rightClickOnElement(currentNodeName);
-			click(ELEMENT_NODE_EDIT);	
-
-		}
-		waitForTextPresent("Page Node Settings");
-		if (extendedLabelMode) {
-			for (String language : languages.keySet()) {
-				select(ELEMENT_SELECT_LANGUAGE, language);
-				pause(500);
-			}
-		} else {
-			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
-			type(ELEMENT_INPUT_LABEL, nodeLabel, true);
-		}
-
-		click(ELEMENT_PAGE_SELECTOR_TAB);
-		click(ELEMENT_CLEAR_PAGE_LINK);
-		type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
-		type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
-		click(ELEMENT_CREATE_PAGE_LINK);
-		pause(1000);
-		save();
-		pause(1000);
-		save();
-		waitForTextNotPresent("Navigation Management");
-	}
-
-	//Delete a node from Portal navigation
-	public void deleteNode(String currentNavigation, String nodeNameHome, String nodeName, boolean firstLevel){
-		info("--Deleting node from navigation--");
-		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);	
-		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
-		editNavigation(currentNavigation);
-		//currentNodeHome.equals(ELEMENT_NAVIGATION_NODE_AREA)
-		if (firstLevel){
-			click(currentNodeName);
-			rightClickOnElement(currentNodeName);
-			click(ELEMENT_NODE_DELETE);
-			waitForConfirmation("Are you sure to delete this node?");
-			waitForTextNotPresent(nodeName);
-			save();		
-		}else {
-			click(currentNodeHome);
-			click(currentNodeName);
-			rightClickOnElement(currentNodeName);
-			click(ELEMENT_NODE_DELETE);
-			waitForConfirmation("Are you sure to delete this node?");
-			waitForTextNotPresent(nodeName);
-			save();		
-		}
-		waitForTextNotPresent("Navigation Management");
-	}
-
+	
 	//Link to Edit a navigation
-	public void editNavigation(String currentNavigation) {
+	public static void editNavigation(String currentNavigation) {
 		String navigation = ELEMENT_EDIT_NAVIGATION.replace("${navigation}", currentNavigation);
 		click(navigation);
 		waitForTextPresent("Navigation Management");
 	}
 
-	/*---------------- Add node for Group ---------------------*/
-
-	//Go to Portal/Group Sites
-	public void goToGroupSites(){
-		info("--Go to Portal Site Management--");
-		mouseOver(ELEMENT_LINK_SETUP, false);
-		pause(500);
-		mouseOver(ELEMENT_LINK_PORTAL, false);
-		pause(500);
-		WebElement element;
-		element = waitForAndGetElement(ELEMENT_LINK_GROUP);
-		actions.moveToElement(element).click(element).build().perform();
-		pause(500);
-	}
-
-	//Add a node for group at group navigation
-	public void addNodeForGroup(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode, 
-			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode){
-
-		//String node = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeLabel);
-		String currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel);
-		editNavigation(currentNavigation);
-
-		info("--Adding new node at navigation--");		
-		if (useAddNodeLink){
-			click(currentNode);
-			click(ELEMENT_ADD_NODE_LINK);
-		}else{
-
-			click(currentNode);
-			pause(500);
-			rightClickOnElement(currentNode);
-			if (currentNode.equals(ELEMENT_NAVIGATION_HOME_NODE)) {
-				click(ELEMENT_NODE_ADD_NEW_TOP_NODE);
-			} else {
-				click(ELEMENT_NODE_ADD_NEW);
-			}		
-		}
-		waitForTextPresent("Page Node Settings");
-		type(ELEMENT_INPUT_NAME, nodeName, true);
-
-		if (extendedLabelMode) {
-			for (String language : languages.keySet()) {
-				select(ELEMENT_SELECT_LANGUAGE, language);
-				pause(500);
-			}
-		} else {
-			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
-			type(ELEMENT_INPUT_LABEL, nodeLabel, true);
-		}
-
-		click(ELEMENT_PAGE_SELECTOR_TAB);
-
-		if (pageName != null & pageTitle != null) {
-			info("--Create new page");
-			type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
-			type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
-			click(ELEMENT_CREATE_PAGE_LINK);
-			if (verifyPage) {
-				waitForElementNotPresent(ELEMENT_CREATE_PAGE_LINK);
-			} else {
-				return;
-			}
-		} else {
-			//info("-- Select Page --");
-			pause(500);
-			click(ELEMENT_SEARCH_SELECT_PAGE_LINK);
-			click(ELEMENT_SELECT_HOME_PAGE);
-		}
-
-		info("-- Save add node for portal --");
-		pause(1000);
-		save();
-		if (verifyNode) {
-			waitForTextNotPresent("Page Node Settings");
-			waitForTextPresent(nodeName);
-			save();
-			waitForTextNotPresent("Navigation Management");
-		}
-	}
-	/*-------------- Actions (Copy, Cut, Clone) at Portal/Group navigation ---------------*/
-
-	/*---------------------- Add tab at Dashboard ---------------------------------*/
-	//Go to Dashboard
-	public void goToDashboard(){
-		info("--Go to Dashboard page--");
-		WebElement element = driver.findElement(By.id("UserNavigationTabsContainer"));
-		actions.moveToElement(element).build().perform();
-		driver.findElement(By.linkText("Dashboard")).click();	
-	}
-
-	//Add new page on Dashboard
-	public void addNewTabOnDashboard(String displayName, boolean verify) {
-		info("--Add new page on dashboard--");
-		click(ELEMENT_DASHBOARD_NEW_ICON);
-		type(ELEMENT_DASHBOARD_NEW_INPUT, displayName, true);
-		WebElement element = waitForAndGetElement(ELEMENT_DASHBOARD_NEW_INPUT);
-		element.sendKeys(Keys.RETURN);
-		if (verify) {
-			waitForAndGetElement("//span[text()='" + displayName + "']");
-		}
-	}
-
-
-	//Add new page on Dashboard with Editor
-	public void addNewTabOnDashboardWithEditor(String nodeName, boolean extendedLabelMode, String displayName, 
-			String language, String categoryTitle, Map<String, String> portletIds, boolean verify){
-
-		goToAddPageEditor();
-		type(ELEMENT_INPUT_NODE_NAME, nodeName, true);
-		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
-		if (extendedLabelMode){
-			Assert.assertTrue(element.isSelected());
-			select(ELEMENT_SELECT_LANGUAGE, language);
-		}else {
-			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
-			type(ELEMENT_INPUT_PAGE_DISPLAY_NAME, displayName, true);
-		}
-		click(ELEMENT_PAGE_EDITOR_NEXT_STEP);
-		waitForTextPresent("Empty Layout");
-		click(ELEMENT_PAGE_EDITOR_NEXT_STEP);
-
-		String category = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", categoryTitle);
-		click(category);
-
-		for (String portletId : portletIds.keySet()) {
-			String elementEditPagePage = ELEMENT_EDIT_PAGE_PAGE;
-			//String verification = PORTLET_LABEL.replace("${portletName}", portletIdsAndVerifications.get(portletId));
-			dragAndDropToObject("//div[@id='" + portletId + "']//img", elementEditPagePage);
-		}
-		pause(500);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForTextNotPresent("Page Editor");
-		if (verify) {
-			waitForAndGetElement("//span[text()='" + nodeName + "']");
-		}
-	}
-
-	//Edit a tab name
-	public void editTabNameOnDashboard(String currentName, String newName) {
-
-		info("--Edit name of page on dashboard--");
-		WebElement element;
-		element = waitForAndGetElement("//a[@class='Tablabel' and text()='" + currentName + "']");
-		actions.moveToElement(element).click(element).build().perform();
-
-		doubleClickOnElement(ELEMENT_DASHBOARD_SELECTED);
-
-		type(ELEMENT_DASHBOARD_NEW_INPUT, newName, true);
-		WebElement elementbis = waitForAndGetElement(ELEMENT_DASHBOARD_NEW_INPUT);
-		elementbis.sendKeys(Keys.RETURN);
-
-		waitForAndGetElement("//span[text()='" + newName + "']");
-		waitForElementNotPresent("//span[text()='" + currentName + "']");
-	}
-
-	//Delete a tab
-	public void deleteTabOnDashboard(String currentName, boolean confirm){
-		info("--Delete selected page on dashboard--");
-
-		if(confirm){ 
-
-			WebElement element;
-			element = waitForAndGetElement("//a[@class='Tablabel' and text()='" + currentName + "']");
-			actions.moveToElement(element).click(element).build().perform();
-			click(ELEMENT_DASHBOARD_SELECTED_DELETE);
-		} else {
-			click(ELEMENT_DASHBOARD_SELECTED_DELETE);
-		}	
-		waitForConfirmation("Are you sure to remove this dashboard?");
-		waitForElementNotPresent("//span[text()='" + currentName + "']");
-	}
-
-	/*---------------------- Edit user in My account ---------------------------------*/
-
-	//Go to My Account
-	public void goToMyAccount(){
-		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
-		actions.moveToElement(UI).build().perform();
-		driver.findElement(By.linkText("My Account")).click();	
-		pause(500);
-	}
-
-	//Edit user in My Account
-	public void editUserInMyAccount(String firstName, String lastName, String email, String currentPassword, String newPassword, 
-			String confirmNewPassword){
-		info("-- Edit user in My Account --");
-
-		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
-		type(ELEMENT_INPUT_LASTNAME, lastName, true);
-		type(ELEMENT_INPUT_EMAIL, email, true);
-		click(ELEMENT_CHANGE_PASSWORD_TAB);
-		waitForTextPresent("Current Password:");
-
-		type(ELEMENT_INPUT_CURRENTPASSWORD, currentPassword, true);
-		type(ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT, newPassword, true);
-		type(ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT, confirmNewPassword, true);
-		click(ELEMENT_ACCOUNT_PROFILE_TAB);
-
-		save();		
-		waitForMessage("The account information has been updated.")		;
-		closeMessageDialog();
-		close();
-
-	}
-	/*---------------------- Auxiliary Functions --------------------------*/
 	//uncheck a checked-box
-	public void uncheck(String locator) {
+	public static void uncheck(String locator) {
 		try {
 			WebElement element = waitForAndGetElement(locator);
 
@@ -1082,7 +259,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	//rightClickOnElement
-	public void rightClickOnElement(String locator) {
+	public static void rightClickOnElement(String locator) {
 		pause(500);
 		try {
 			WebElement element = waitForAndGetElement(locator);
@@ -1097,7 +274,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	//doubleClickOnElement
-	public void doubleClickOnElement(String locator) {
+	public static void doubleClickOnElement(String locator) {
 		try {
 			WebElement element = waitForAndGetElement(locator);
 			actions.doubleClick(element).perform();
@@ -1111,7 +288,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	//Close message pop-up
-	public void closeMessageDialog() {
+	public static void closeMessageDialog() {
 		//info("--Closing message dialog--");
 //		setup();
 		if (ieFlag) {
@@ -1122,7 +299,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	//Copy value from Source and paste to Target
-	public void copyPaste(String Source, String value, String Target){ 	
+	public static void copyPaste(String Source, String value, String Target){ 	
 		WebElement element = waitForAndGetElement(Source);
 		element.sendKeys(value);
 		actions.doubleClick(element).perform();
@@ -1133,14 +310,10 @@ public class PlatformBase extends TestBase {
 		b.sendKeys(Keys.LEFT_CONTROL + "v");
 	}
 
-	//Go to Users and management page
-	public void goToNewStaff() {
-		//info("Go to New Staff");
-		goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADDUSERS);
-	}
+	
 
 	//Go to the desired locator
-	public void goToPage(String verification, String... navigation) {
+	public static void goToPage(String verification, String... navigation) {
 		String page = makeLink(navigation[navigation.length - 1]);
 		boolean needToBeVerified = true;
 
@@ -1184,7 +357,7 @@ public class PlatformBase extends TestBase {
 		return node;
 	}
 
-	private  void verifyLocation(String locator, List<String> navigation, String page) {
+	private static void verifyLocation(String locator, List<String> navigation, String page) {
 		info("verifyLocation, element: " + locator);
 		int seconds = 0;
 //		setup();
@@ -1217,7 +390,7 @@ public class PlatformBase extends TestBase {
 		seconds = 0;
 	}
 
-	public void usePaginator(String locator, String exceptionMessage) {
+	public static void usePaginator(String locator, String exceptionMessage) {
 		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
 
 		click(page1);
@@ -1234,22 +407,22 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	public void save() {
+	public static void save() {
 		waitForAndGetElement(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_SAVE_BUTTON);
 	}
 
-	public void close(){
+	public static void close(){
 		waitForAndGetElement(ELEMENT_CLOSE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 	}
 	
-	public void cancel(){
+	public static void cancel(){
 		waitForAndGetElement(ELEMENT_CANCEL_BUTTON);
 		click(ELEMENT_CANCEL_BUTTON);
 	}
 
-	public void saveAndClose(){
+	public static void saveAndClose(){
 		waitForAndGetElement(ELEMENT_SAVEANDCLOSE_BUTTON);
 		click(ELEMENT_SAVEANDCLOSE_BUTTON);
 	}

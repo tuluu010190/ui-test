@@ -31,7 +31,7 @@ import org.testng.Assert;
 public class TestBase {
   protected static WebDriver driver;
   protected static Actions actions ;
-  protected String baseUrl;
+  protected static String baseUrl;
   protected static int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
   protected static int WAIT_INTERVAL = 500; //milliseconds  
   public static int loopCount = 0;	
@@ -40,7 +40,7 @@ public class TestBase {
 //  public static final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
   public static final String DEFAULT_BASEURL="http://localhost:8080";
 
-  public void initSeleniumTest(){
+  public static void initSeleniumTest(){
 	  String browser = System.getProperty("browser");
 	  if("chrome".equals(browser)){
 		  driver = new ChromeDriver();
@@ -56,7 +56,7 @@ public class TestBase {
 	  
   }
   
-  public WebElement getElement(Object locator) {
+  public static WebElement getElement(Object locator) {
 	  By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
 	  WebElement elem = null;
 	  try {
@@ -66,15 +66,15 @@ public class TestBase {
 	  return elem;
   }
   
-  public boolean isElementPresent(Object locator) {
+  public static boolean isElementPresent(Object locator) {
     return getElement(locator) != null;
   }
 
-  public boolean isElementNotPresent(Object locator) {
+  public static boolean isElementNotPresent(Object locator) {
     return !isElementPresent(locator);
   }
 
-  public void waitForElementPresent(Object locator, int... timeInMillis) {
+  public static void waitForElementPresent(Object locator, int... timeInMillis) {
     WebElement elem = null;
     int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
     for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
@@ -85,7 +85,7 @@ public class TestBase {
     assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
   }
 
-  public void waitForElementNotPresent(Object locator, int... timeInMillis) {
+  public static void waitForElementNotPresent(Object locator, int... timeInMillis) {
     WebElement elem = null;
     int timeout = timeInMillis.length > 0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
     for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
@@ -108,7 +108,7 @@ public class TestBase {
 //    return elem;
 //  }
   
-  public WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
+  public static WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
 	  int timeout = timeInMillis.length > 0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
 	  By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
 	  WebDriverWait wait = new WebDriverWait(driver, timeout/1000);
@@ -116,13 +116,13 @@ public class TestBase {
 	  return getElement(by);
   }
   
-  public boolean isTextPresent(String text) {
+  public static boolean isTextPresent(String text) {
 	  pause(500);
 	  String allVisibleTexts = getText(By.xpath("//body"));
 	  return allVisibleTexts.contains(text);
   }
 
-  public String getText(Object locator) {
+  public static String getText(Object locator) {
 	  WebElement element = null;
 	  try {
 		  element = waitForAndGetElement(locator);
@@ -150,7 +150,7 @@ public class TestBase {
       }
   }
   
-  public boolean isTextNotPresent(String text) {
+  public static boolean isTextNotPresent(String text) {
 	  return !isTextPresent(text);
   }
 
@@ -179,7 +179,7 @@ public class TestBase {
 	  }
   }
 
-  public void dragAndDropToObject(Object sourceLocator, Object targetLocator) {
+  public static void dragAndDropToObject(Object sourceLocator, Object targetLocator) {
 	  info("--Drag and drop to object--");
 	  Actions action = new Actions(driver);
 	  try {
@@ -197,7 +197,7 @@ public class TestBase {
 	  } 
   }
 
-  public void click(Object locator) {
+  public static void click(Object locator) {
 	  try {
 		  WebElement element = waitForAndGetElement(locator);
 		  actions.click(element).perform();
@@ -215,13 +215,13 @@ public class TestBase {
 	  }
   }
 
-  public void clearCache(){
+  public static void clearCache(){
 	  Actions actionObject = new Actions(driver);	 
 	  actionObject.sendKeys(Keys.CONTROL).sendKeys(Keys.F5).build().perform();
   }
 
   //Use this function to verify if a checkbox is checked (using when creating a portal/publicMode)
-  public void check(Object locator) {
+  public static void check(Object locator) {
 	  try {
 		  WebElement element = waitForAndGetElement(locator);
 
@@ -240,7 +240,7 @@ public class TestBase {
 	  }
   }
 
-  public  String getValue(Object locator) {
+  public static String getValue(Object locator) {
 	  try {
 		  return waitForAndGetElement(locator).getAttribute("value");
 	  } catch (StaleElementReferenceException e) {
@@ -253,7 +253,7 @@ public class TestBase {
 	  }
   }
 
-  public  void mouseOver(Object locator, boolean safeToSERE) {
+  public static void mouseOver(Object locator, boolean safeToSERE) {
 	  if (safeToSERE) {
 		  try {
 			  WebElement element = waitForAndGetElement(locator);
@@ -272,7 +272,7 @@ public class TestBase {
 	  }
   }
 
-  public void mouseOverAndClick(Object locator) {
+  public static void mouseOverAndClick(Object locator) {
 	  WebElement element;
 	  if (ieFlag) {
 		  element = getElement(locator);
@@ -282,7 +282,7 @@ public class TestBase {
 	  actions.moveToElement(element).click(element).build().perform();
   }
   
-  public  void waitForTextPresent(String text) {
+  public static void waitForTextPresent(String text) {
 	  for (int second = 0;; second++) {
 		  if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 			  Assert.fail("Timeout at waitForTextPresent: " + text);
@@ -294,7 +294,7 @@ public class TestBase {
 	  }
   }
 
-  public void waitForTextNotPresent(String text) {
+  public static void waitForTextNotPresent(String text) {
 	  for (int second = 0;; second++) {
 		  if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 			  Assert.fail("Timeout at waitForTextNotPresent: " + text);
@@ -306,13 +306,13 @@ public class TestBase {
 	  }
   }
 
-  public void waitForMessage(String message) {
+  public static void waitForMessage(String message) {
 	  //info("--Verify message: " + message);
 	  pause(500);
 	  waitForTextPresent(message);
   }
 
-  public void type(Object locator, String value, boolean validate) {
+  public static void type(Object locator, String value, boolean validate) {
 	  try {
 		  for (int second = 0;; second++) {
 			  if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
@@ -343,7 +343,7 @@ public class TestBase {
   }
 
   // Select option from combo box
-  public void select(Object locator, String option) {
+  public static void select(Object locator, String option) {
 	  try {
 		  for (int second = 0;; second++) {
 			  if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
@@ -366,7 +366,7 @@ public class TestBase {
 	  }
   }
 
-	public void rightClickOnElement(By locator) {
+	public static void rightClickOnElement(By locator) {
 		pause(500);
 		try {
 			WebElement element = waitForAndGetElement(locator);
@@ -383,7 +383,7 @@ public class TestBase {
 			loopCount = 0;
 		}
 	}
-  public void waitForConfirmation(String confirmationText) {
+  public static void waitForConfirmation(String confirmationText) {
 	  String message = getTextFromAlert();
 
 	  //log("confirmation: " + message);
@@ -427,7 +427,7 @@ public class TestBase {
   }
   
 	/*---- Auxiliary functions ----*/
-	public void captureScreen(String fileName){
+	public static void captureScreen(String fileName){
 		String path;
 		String relativeFilePath;
 		try {

@@ -3,10 +3,11 @@ package org.exoplatform.selenium.platform;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.testng.Assert;
 import org.testng.annotations.AfterGroups;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
+import static org.exoplatform.selenium.platform.ManageAccount.*;
+
 
 public class LoginTest extends PlatformBase{
 	
