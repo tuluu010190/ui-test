@@ -1,11 +1,13 @@
 package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
 import org.testng.Assert;
 
 public class UserGroupManagement extends PlatformBase {
-	
+	public static final String ELEMENT_MESSAGE_DUPLICATE_USER = "User \"${username}\" has already the same membership ";
+	public static final String ELEMENT_MESSAGE_DUPLICATE_GROUP = "in the group \"${groupName}\", please select another one.";
+	public static final String ELEMENT_USER_INGROUP_DELETE_ICON = "//div[@id='UIGridUser']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
+
 	public static void chooseUserTab(){
 		info("-- Choose User tab--");
 		click(ELEMENT_USER_MANAGEMENT);
@@ -17,6 +19,7 @@ public class UserGroupManagement extends PlatformBase {
 		click(ELEMENT_TAB_GROUP_MANAGEMENT);
 		waitForTextPresent("Group Info");
 	}
+
 	public static void addGroup(String groupName, String groupLabel, String groupDesc, boolean verify){
 		info("--Add a new group--");
 		pause(500);
@@ -28,9 +31,8 @@ public class UserGroupManagement extends PlatformBase {
 		if (verify) {
 			waitForAndGetElement("//a[@title='" + (groupLabel.length() > 0 ? groupLabel : groupName) + "']");
 		}
-
 	}
-	
+
 	public static void addUsersToGroup(String userNames, String memberShip, boolean select, boolean verify) {
 
 		info("--Adding users to group--");
@@ -60,7 +62,20 @@ public class UserGroupManagement extends PlatformBase {
 			}
 		}
 	}
-	
+
+	//Add a duplicate user into group with the same role
+	public static void addDuplicateUserToGroup(String groupName, String userName, String memberShip){
+		info("-- Add a duplicate user into group with the same role --");
+		String MESSAGE_DUPLICATE_USER = ELEMENT_MESSAGE_DUPLICATE_USER.replace("${username}", userName);
+		String MESSAGE_DUPLICATE_USER_WITH_SAME_ROLE = MESSAGE_DUPLICATE_USER + ELEMENT_MESSAGE_DUPLICATE_GROUP.replace("${groupName}", groupName);
+		selectGroup(groupName);
+		type(ELEMENT_INPUT_USERNAME, userName, true);
+		select(ELEMENT_SELECT_MEMBERSHIP, memberShip);
+		save();
+		waitForMessage(MESSAGE_DUPLICATE_USER_WITH_SAME_ROLE);
+		click(ELEMENT_OK_BUTTON);	
+	}	
+
 	public static void deleteUser(String username) {
 		String userDeleteIcon = ELEMENT_USER_DELETE_ICON.replace("${username}", username);
 
@@ -74,7 +89,22 @@ public class UserGroupManagement extends PlatformBase {
 		waitForTextNotPresent(username);
 		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
 	}
-	
+
+	//Delete a user in current group
+	public static void deleteUserInGroup(String groupName, String username){
+		String userDeleteIcon = ELEMENT_USER_INGROUP_DELETE_ICON.replace("${username}", username);
+		String MESSAGE_DELETE_CONFIRMATION = "Are you sure to delete user " + username + " from group " + groupName + "?";
+		selectGroup(groupName);
+		info("--Deleting user " + username + "--");
+		if (isTextPresent("Total pages")) {
+			usePaginator(userDeleteIcon, "User " + username + "not found in group");
+		}
+		pause(500);
+		click(userDeleteIcon);
+		waitForConfirmation(MESSAGE_DELETE_CONFIRMATION);
+		waitForTextNotPresent(username);	
+	}
+
 	public static void searchUser(String user, String searchOption){
 		info("--Search user " + user + "--");
 		if (isTextPresent("Search")){
@@ -85,7 +115,6 @@ public class UserGroupManagement extends PlatformBase {
 		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
 		waitForTextPresent(user);
 	}
-	
 
 	public static void editUser(String username) {
 		String userEditIcon = ELEMENT_USER_EDIT_ICON.replace("${username}", username);
@@ -94,6 +123,7 @@ public class UserGroupManagement extends PlatformBase {
 		click(userEditIcon);
 		pause(1000);
 	}
+
 	public static void selectGroup(String groupName) {
 		info("--Select category (" + groupName + ")--");
 		String groupID = "//a[@title='"+ groupName +"']"; 
@@ -117,8 +147,6 @@ public class UserGroupManagement extends PlatformBase {
 		}
 		pause(1000);
 	}
-
-	
 
 	public static void chooseMembershipTab() {
 		info("-- Choose Membership Management tab--");
@@ -196,53 +224,51 @@ public class UserGroupManagement extends PlatformBase {
 			waitForTextNotPresent(membershipName);
 		}
 	}
-	
-	
 
 	// Add new user account 
-		public static void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
-				String lastName, String email, String userNameGiven, String language, boolean verify) {
+	public static void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
+			String lastName, String email, String userNameGiven, String language, boolean verify) {
 
-			info("--Create new user using \"New Staff\" portlet--");
-			type(ELEMENT_INPUT_USERNAME, username, true);
-			type(ELEMENT_INPUT_PASSWORD, password, true);
-			type(ELEMENT_INPUT_CONFIRM_PASSWORD, confirmPassword, true);
-			type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
-			type(ELEMENT_INPUT_LASTNAME, lastName, true);
-			type(ELEMENT_INPUT_EMAIL, email, true);
-			click(ELEMENT_USER_PROFILE_TAB);
-			waitForTextPresent("Given Name:");
-			type(ELEMENT_INPUT_USER_NAME_GIVEN, userNameGiven, true);
-			select(ELEMENT_SELECT_USER_LANGUAGE, language);
-			click(ELEMENT_ACCOUNT_SETTING_TAB);
-			save();
+		info("--Create new user using \"New Staff\" portlet--");
+		type(ELEMENT_INPUT_USERNAME, username, true);
+		type(ELEMENT_INPUT_PASSWORD, password, true);
+		type(ELEMENT_INPUT_CONFIRM_PASSWORD, confirmPassword, true);
+		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
+		type(ELEMENT_INPUT_LASTNAME, lastName, true);
+		type(ELEMENT_INPUT_EMAIL, email, true);
+		click(ELEMENT_USER_PROFILE_TAB);
+		waitForTextPresent("Given Name:");
+		type(ELEMENT_INPUT_USER_NAME_GIVEN, userNameGiven, true);
+		select(ELEMENT_SELECT_USER_LANGUAGE, language);
+		click(ELEMENT_ACCOUNT_SETTING_TAB);
+		save();
 
-			if (verify) {
-				waitForMessage("You have registered a new account.");
-				closeMessageDialog();
-			}
-		}
-		
-		//Edit user in My Account
-		public void editUserInMyAccount(String firstName, String lastName, String email, String currentPassword, String newPassword, 
-				String confirmNewPassword){
-			info("-- Edit user in My Account --");
-
-			type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
-			type(ELEMENT_INPUT_LASTNAME, lastName, true);
-			type(ELEMENT_INPUT_EMAIL, email, true);
-			click(ELEMENT_CHANGE_PASSWORD_TAB);
-			waitForTextPresent("Current Password:");
-
-			type(ELEMENT_INPUT_CURRENTPASSWORD, currentPassword, true);
-			type(ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT, newPassword, true);
-			type(ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT, confirmNewPassword, true);
-			click(ELEMENT_ACCOUNT_PROFILE_TAB);
-
-			save();		
-			waitForMessage("The account information has been updated.")		;
+		if (verify) {
+			waitForMessage("You have registered a new account.");
 			closeMessageDialog();
-			close();
 		}
+	}
+
+	//Edit user in My Account
+	public void editUserInMyAccount(String firstName, String lastName, String email, String currentPassword, String newPassword, 
+			String confirmNewPassword){
+		info("-- Edit user in My Account --");
+
+		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
+		type(ELEMENT_INPUT_LASTNAME, lastName, true);
+		type(ELEMENT_INPUT_EMAIL, email, true);
+		click(ELEMENT_CHANGE_PASSWORD_TAB);
+		waitForTextPresent("Current Password:");
+
+		type(ELEMENT_INPUT_CURRENTPASSWORD, currentPassword, true);
+		type(ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT, newPassword, true);
+		type(ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT, confirmNewPassword, true);
+		click(ELEMENT_ACCOUNT_PROFILE_TAB);
+
+		save();		
+		waitForMessage("The account information has been updated.")		;
+		closeMessageDialog();
+		close();
+	}
 
 }

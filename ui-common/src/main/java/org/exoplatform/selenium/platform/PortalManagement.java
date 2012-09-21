@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform;
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.Map;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+
 public class PortalManagement extends PlatformBase {
 
 	//Add new portal
@@ -73,9 +74,7 @@ public class PortalManagement extends PlatformBase {
 		waitForConfirmation("Are you sure to delete this portal?");
 		//info("--Verify portal deleted--");		
 		waitForTextNotPresent(portalName);
-
 	}
-
 
 	//verify the existence of portal
 	public static void verifyPortalExists(String portalName) {

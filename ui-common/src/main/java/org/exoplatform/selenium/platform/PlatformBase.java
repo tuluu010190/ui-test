@@ -78,10 +78,10 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_NODE_CLONE = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon CloneNode16x16Icon']";		
 	public static final String ELEMENT_NODE_PASTE_HOME = "//div[@id='UINavigationNodeSelectorPopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon PasteNode16x16Icon']";
 	public static final String ELEMENT_NODE_PASTE = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon PasteNode16x16Icon']";
-	/*------------- ---- End of Data for Portal ------------------------------*/
+	/*------------- ----- End of Data for Portal ------------------------------*/
 
-	/*------------- Data for Portal/Account -------------------------*/
-
+	
+	/*------------------- Data for Portal/Account -------------------------*/
 	public static final String ELEMENT_CHANGE_PASSWORD_TAB = "//a[text()='Change Password' and @class='Icon ChangePass']";
 	public static final String ELEMENT_USER_PROFILE_TAB = "//div[text()='User Profile' and @class='MiddleTab']";
 	public static final String ELEMENT_SELECT_USER_LANGUAGE = "//select[@name='user.language']";
@@ -168,16 +168,9 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 	/*------------- End of Data for Portal/Manage Pages --------------------*/
 
-		
 	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
-
+	public static final By ELEMENT_OK_BUTTON = By.xpath("//a[text()='OK']");
 	
-
-	/*--------------------- Functions for portal  -----------------------------------*/
-
-
-	/*-----------------------  Add new portal  ------------------------------*/
-
 	//Set view permissions for portal
 	public static void setViewPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM.replace("${membership}", membership);
@@ -222,16 +215,11 @@ public class PlatformBase extends TestBase {
 		waitForAndGetElement(selectedMembership);
 	}
 
-	/*------------ Add new page for Portal --------------*/
-
 	//Define a type of page
 	public static enum PageType {
 		PORTAL, GROUP;
 	}
 
-
-	
-	
 	//Link to Edit a navigation
 	public static void editNavigation(String currentNavigation) {
 		String navigation = ELEMENT_EDIT_NAVIGATION.replace("${navigation}", currentNavigation);
@@ -289,8 +277,7 @@ public class PlatformBase extends TestBase {
 
 	//Close message pop-up
 	public static void closeMessageDialog() {
-		//info("--Closing message dialog--");
-//		setup();
+		info("--Closing message dialog--");
 		if (ieFlag) {
 			click(ELEMENT_MESSAGE_DIALOG_CLOSE_ICON_IE);
 		} else {
@@ -309,8 +296,6 @@ public class PlatformBase extends TestBase {
 		WebElement b = waitForAndGetElement(Target);
 		b.sendKeys(Keys.LEFT_CONTROL + "v");
 	}
-
-	
 
 	//Go to the desired locator
 	public static void goToPage(String verification, String... navigation) {
@@ -360,7 +345,6 @@ public class PlatformBase extends TestBase {
 	private static void verifyLocation(String locator, List<String> navigation, String page) {
 		info("verifyLocation, element: " + locator);
 		int seconds = 0;
-//		setup();
 		if (isElementNotPresent(locator)) {
 			pause(1000);
 		}

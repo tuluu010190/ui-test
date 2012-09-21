@@ -6,116 +6,112 @@ import org.testng.Assert;
 
 public class PageManagement extends PlatformBase {
 	//Add a new page at manage pages
-		public static void addNewPageAtManagePages(PageType type, String pageName, String title, boolean publicMode, 
-				Map<String, String> permissions, String groupId, String membership ){
+	public static void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
+			Map<String, String> permissions, String groupId, String membership ){
 
-			click(ELEMENT_ADD_NEW_PAGE_LINK);
-			waitForTextPresent("Page Settings");	
-			switch (type){
+		click(ELEMENT_ADD_NEW_PAGE_LINK);
+		waitForTextPresent("Page Settings");	
+		switch (type){
 
-			case PORTAL:
-				select(ELEMENT_SELECT_OWNER_TYPE, "portal");
-				break;
-			case GROUP:	
-				select(ELEMENT_SELECT_OWNER_TYPE, "group");
-				break;
-			default:
-				break;
-			}		
-			type(ELEMENT_INPUT_NAME, pageName, true);
-			type(ELEMENT_INPUT_TITLE, title, true);		
-			//showMaxWindow
-			check(ELEMENT_CHECKBOX_MAX_WINDOWS);
-			click(ELEMENT_PERMISSION_SETTING_TAB);	
-			WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_PUBLIC_MODE);		
-			if (publicMode & !element.isSelected()) {
-				waitForAndGetElement(ELEMENT_ADD_PERMISSION_BUTTON);
-				check(ELEMENT_CHECKBOX_PUBLIC_MODE);
-				waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
-			} else if (publicMode & element.isSelected()){
-				waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
-			} else {
-				for (String key : permissions.keySet()) {
-					setViewPermissions(key, permissions.get(key));
-				}
-			}		
-			click(ELEMENT_LINK_EDIT_PERMISSION);
-			setEditPermissions(groupId, membership);
-			save();
-			pause(1000);
-			searchPageByTitle(type, title);
-
-		}
-
-		//Edit a page at Manage Pages
-		public static void editPageAtManagePages(PageType type, String pageName){
-			String pageEditIcon = ELEMENT_PAGE_EDIT_ICON.replace("${page}", pageName);
-			searchPageByTitle(type, pageName);
-			click(pageEditIcon);
-			pause(1000);
-
-		}
-
-		//Delete a page
-		public static void deletePage(PageType type, String pageName){
-			String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageName);
-			searchPageByTitle(type, pageName);
-			click(pageDeleteIcon);
-			waitForConfirmation("Are you sure to delete this page?");
-			closeMessageDialog();
-			pause(1000);
-
-		}
-
-		// Search a page in Manage Pages
-		public static void searchPageByTitle(PageType type, String pageTitle){
-			type(ELEMENT_INPUT_SEARCH_TITLE, pageTitle, true);
-			switch (type){
-			case PORTAL:
-				select(ELEMENT_SELECT_SEARCH_OPTION, "portal");
-				break;
-			case GROUP:
-				select(ELEMENT_SELECT_SEARCH_OPTION, "group");
-				break;
-			default:
-				break;
+		case PORTAL:
+			select(ELEMENT_SELECT_OWNER_TYPE, "portal");
+			break;
+		case GROUP:	
+			select(ELEMENT_SELECT_OWNER_TYPE, "group");
+			break;
+		default:
+			break;
+		}		
+		type(ELEMENT_INPUT_NAME, pageName, true);
+		type(ELEMENT_INPUT_TITLE, pageTitle, true);		
+		//showMaxWindow
+		check(ELEMENT_CHECKBOX_MAX_WINDOWS);
+		click(ELEMENT_PERMISSION_SETTING_TAB);	
+		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_PUBLIC_MODE);		
+		if (publicMode & !element.isSelected()) {
+			waitForAndGetElement(ELEMENT_ADD_PERMISSION_BUTTON);
+			check(ELEMENT_CHECKBOX_PUBLIC_MODE);
+			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
+		} else if (publicMode & element.isSelected()){
+			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
+		} else {
+			for (String key : permissions.keySet()) {
+				setViewPermissions(key, permissions.get(key));
 			}
-			click(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
-			pause(1000);
-			waitForTextPresent(pageTitle);
+		}		
+		click(ELEMENT_LINK_EDIT_PERMISSION);
+		setEditPermissions(groupId, membership);
+		save();
+		pause(1000);
+		searchPageByTitle(type, pageTitle);
+	}
 
+	//Edit a page at Manage Pages
+	public static void editPageAtManagePages(PageType type, String pageTitle){
+		String pageEditIcon = ELEMENT_PAGE_EDIT_ICON.replace("${page}", pageTitle);
+		searchPageByTitle(type, pageTitle);
+		click(pageEditIcon);
+		pause(1000);
+	}
+
+	//Delete a page
+	public static void deletePage(PageType type, String pageTitle){
+		String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle);
+		searchPageByTitle(type, pageTitle);
+		click(pageDeleteIcon);
+		waitForConfirmation("Are you sure to delete this page?");
+		closeMessageDialog();
+		pause(1000);
+	}
+
+	// Search a page in Manage Pages
+	public static void searchPageByTitle(PageType type, String pageTitle){
+		type(ELEMENT_INPUT_SEARCH_TITLE, pageTitle, true);
+		switch (type){
+		case PORTAL:
+			select(ELEMENT_SELECT_SEARCH_OPTION, "portal");
+			break;
+		case GROUP:
+			select(ELEMENT_SELECT_SEARCH_OPTION, "group");
+			break;
+		default:
+			break;
 		}
-		
-		// Input data for page
-		public static void addNewPageEditor(String nodeName, String displayName, String language, String categoryTitle, 
-				Map<String, String> portletIds, boolean extendedLabelMode){
+		click(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
+		pause(1000);
+		waitForTextPresent(pageTitle);
+	}
 
-			type(ELEMENT_INPUT_NODE_NAME, nodeName, true);
-			WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
-			if (extendedLabelMode){
-				Assert.assertTrue(element.isSelected());
-				select(ELEMENT_SELECT_LANGUAGE, language);
+	// Input data for page
+	public static void addNewPageEditor(String nodeName, String displayName, String language, String categoryTitle, 
+			Map<String, String> portletIds, boolean extendedLabelMode){
 
-			}else {
-				uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
-				type(ELEMENT_INPUT_PAGE_DISPLAY_NAME, displayName, true);
-			}
+		type(ELEMENT_INPUT_NODE_NAME, nodeName, true);
+		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
+		if (extendedLabelMode){
+			Assert.assertTrue(element.isSelected());
+			select(ELEMENT_SELECT_LANGUAGE, language);
 
-			click(ELEMENT_PAGE_EDITOR_NEXT_STEP);
-			waitForTextPresent("Empty Layout");
-			click(ELEMENT_PAGE_EDITOR_NEXT_STEP);
-
-			String category = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", categoryTitle);
-			click(category);
-
-			for (String portletId : portletIds.keySet()) {
-				String elementEditPagePage = ELEMENT_EDIT_PAGE_PAGE;
-				//String verification = PORTLET_LABEL.replace("${portletName}", portletIdsAndVerifications.get(portletId));
-				dragAndDropToObject("//div[@id='" + portletId + "']//img", elementEditPagePage);
-			}
-			pause(500);
-			click(ELEMENT_PAGE_FINISH_BUTTON);
-			waitForTextNotPresent("Page Editor");
+		}else {
+			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
+			type(ELEMENT_INPUT_PAGE_DISPLAY_NAME, displayName, true);
 		}
+
+		click(ELEMENT_PAGE_EDITOR_NEXT_STEP);
+		waitForTextPresent("Empty Layout");
+		click(ELEMENT_PAGE_EDITOR_NEXT_STEP);
+
+		String category = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", categoryTitle);
+		click(category);
+
+		for (String portletId : portletIds.keySet()) {
+			String elementEditPagePage = ELEMENT_EDIT_PAGE_PAGE;
+			//String verification = PORTLET_LABEL.replace("${portletName}", portletIdsAndVerifications.get(portletId));
+			dragAndDropToObject("//div[@id='" + portletId + "']//img", elementEditPagePage);
+		}
+		pause(500);
+		click(ELEMENT_PAGE_FINISH_BUTTON);
+		waitForTextNotPresent("Page Editor");
+	}
 
 }
