@@ -6,6 +6,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
@@ -18,14 +19,13 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class TestBase {
@@ -85,15 +85,26 @@ public class TestBase {
     assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
   }
 
-  public static void waitForElementNotPresent(Object locator, int... timeInMillis) {
+/*
+ * @opPram[0]: timeout
+ * @opPram[1]: 0,1
+ * 				0: No Asert
+ * 				1: Assert
+ */
+  public static WebElement waitForElementNotPresent(Object locator, int... opParams) {
     WebElement elem = null;
-    int timeout = timeInMillis.length > 0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
+    int timeout = opParams.length > 0 ? opParams[0] : DEFAULT_TIMEOUT;
+    int isAssert = opParams.length > 1 ? opParams[1]: 1;
+    
     for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
       elem = getElement(locator);
-      if (null == elem) return;
+      if (null == elem) break;
       pause(WAIT_INTERVAL);
     }
-    assert false: ("Timeout after " + timeout + "ms waiting for element not present: " + locator);
+    
+   	if (isAssert == 1)
+   		assert false: ("Timeout after " + timeout + "ms waiting for element not present: " + locator);
+   	return elem;
   }
 //
 //  public WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
@@ -108,13 +119,26 @@ public class TestBase {
 //    return elem;
 //  }
   
-  public static WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
-	  int timeout = timeInMillis.length > 0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
-	  By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
-	  WebDriverWait wait = new WebDriverWait(driver, timeout/1000);
-	  wait.until(ExpectedConditions.presenceOfElementLocated(by));
-	  return getElement(by);
-  }
+  /*
+   * @opPram[0]: timeout
+   * @opPram[1]: 0,1
+   * 				0: No Asert
+   * 				1: Assert
+   */
+  public static WebElement waitForAndGetElement(Object locator, int... opParams) {
+		WebElement elem = null;
+		int timeout = opParams.length > 0 ? opParams[0] : DEFAULT_TIMEOUT;
+	    int isAssert = opParams.length > 1 ? opParams[1]: 1;
+	    
+		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
+			elem = getElement(locator);
+			if ((null != elem) && elem.isDisplayed()) return elem;
+			pause(WAIT_INTERVAL);
+		}
+		if (isAssert == 1)		
+			assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
+		return null;
+	}
   
   public static boolean isTextPresent(String text) {
 	  pause(500);
@@ -162,10 +186,12 @@ public class TestBase {
 	  }
   }
 
+	
   public static void acceptAlert() {
 	  try {
 		  Alert alert = driver.switchTo().alert();
 		  alert.accept();
+		  switchToParentWindow();
 	  } catch (NoAlertPresentException e) {
 	  }
   }
@@ -213,8 +239,14 @@ public class TestBase {
   }
 
   public static void clearCache(){
-	  Actions actionObject = new Actions(driver);	 
-	  actionObject.sendKeys(Keys.CONTROL).sendKeys(Keys.F5).build().perform();
+	  Actions actionObject = new Actions(driver);
+	  try{
+
+		  actionObject.sendKeys(Keys.CONTROL).sendKeys(Keys.F5).build().perform();
+	  } catch(WebDriverException e){	
+		  debug("Retrying clear cache...");
+		  actionObject.sendKeys(Keys.CONTROL).sendKeys(Keys.F5).build().perform();
+	  }
   }
 
   //Use this function to verify if a checkbox is checked (using when creating a portal/publicMode)
@@ -470,5 +502,25 @@ public class TestBase {
 		}
 	}
 	
-
+	//function switch to parent windows
+	public static void switchToParentWindow (){
+		try
+		{
+			Set<String> availableWindows = driver.getWindowHandles();
+			String WindowIdParent= null;
+			int counter = 1;
+			for (String windowId : availableWindows) {
+				if (counter == 1){
+					WindowIdParent = windowId;
+				}
+				counter++;
+			}
+			driver.switchTo().window(WindowIdParent);
+			pause(1000);
+		}
+		catch (WebDriverException e)
+		{
+			e.printStackTrace();
+		}
+	}
 }

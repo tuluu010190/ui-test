@@ -8,14 +8,22 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class ContextMenu extends EcmsBase {
-
+	
 	//lock node
-	public static void lockNode(By locator){
-//		WebElement lock = waitForAndGetElement(locator);
-//		actions.contextClick(lock).build().perform();
-		rightClickOnElement(locator);
-		click(ELEMENT_LOCK_OPTION_XPATH);
-	}
+		public static void lockNode(By locator){
+			for(int repeat=0;; repeat ++)
+			{
+				if (repeat >= ACTION_REPEAT) {
+					Assert.fail("Cannot perfotrm this action after " + ACTION_REPEAT + " tries");
+				}
+				rightClickOnElement(locator);
+				if (isDisplay(waitForAndGetElement(ELEMENT_LOCK_OPTION_XPATH))) break;
+				pause(WAIT_INTERVAL);
+				info("Retry...[" + repeat + "]");
+			}
+			
+			click(ELEMENT_LOCK_OPTION_XPATH);
+		}
 
 	//check node is being locked
 	public static boolean checkLockNode(Object locator){
@@ -33,46 +41,63 @@ public class ContextMenu extends EcmsBase {
 		return locked;
 	}
 	
-	 //check in a node
-    public static void checkInNode(By locator){
-            rightClickOnElement(locator);
-            WebElement in = waitForAndGetElement(ELEMENT_CHECKIN_OPTION_XPATH);
-            if (in !=null){
-                    click(ELEMENT_CHECKIN_OPTION_XPATH);
-                    info("Check in node successfully");
-            }else{
-                    info("Node has checked in or can not check in");
-            }
-    }
-    
-    //check out a node
-    public static void checkOutNode(By locator){
-            rightClickOnElement(locator);
-            WebElement out = waitForAndGetElement(ELEMENT_CHECKOUT_OPTION_XPATH);                
-            if (out !=null){
-                    click(ELEMENT_CHECKOUT_OPTION_XPATH);
-                    info("Check out node successfully");
-            }else{
-                    info("Node has checkout or can not chekout");
-            }
-    }
-    
-	
-	//delete level 1 node
-	public static void deleteDocument(By locator, int...timeout){
-		int iTimeout = timeout.length > 0 ? timeout[0] : DEFAULT_TIMEOUT;
+	public static void checkInNode(By locator){
 		for(int repeat=0;; repeat ++)
 		{
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot perfotrm this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
-			if (waitForAndGetElement(ELEMENT_PARTIALLINK_DELETE_DOCUMENT) != null) break;
+			if (isDisplay(waitForAndGetElement(ELEMENT_CHECKIN_OPTION_XPATH, 30000, 0))) break;
 			info("Retry...[" + repeat + "]");
 		}
-		mouseOver(ELEMENT_PARTIALLINK_DELETE_DOCUMENT, true);
-		click(ELEMENT_PARTIALLINK_DELETE_DOCUMENT);
-		click(By.linkText("OK"));
+
+		click(ELEMENT_CHECKIN_OPTION_XPATH);
+		info("Check in node successfully");
+
+	}
+
+	//check out a node
+	public static void checkOutNode(By locator){
+		rightClickOnElement(locator);
+		WebElement out = waitForAndGetElement(ELEMENT_CHECKOUT_OPTION_XPATH);                
+		if (isDisplay(out)){
+			click(ELEMENT_CHECKOUT_OPTION_XPATH);
+			info("Check out node successfully");
+		}else{
+			if (loopCount > 10)
+			{
+				loopCount=0;
+				return;
+			}
+			loopCount++;
+			checkOutNode(locator);    
+			info("Can not checkout the node!");
+		}
+	}  
+
+	//delete level 1 node
+	public static void deleteDocument(By locator, int...timeout){
+		int iTimeout = timeout.length > 0 ? timeout[0] : DEFAULT_TIMEOUT;
+		for(int repeat=0;; repeat ++)
+		{
+			if (repeat >= ACTION_REPEAT) {
+				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
+			}
+			rightClickOnElement(locator);
+			info("before display " + repeat);
+			if (isDisplay(waitForAndGetElement(ELEMENT_PARTIALLINK_DELETE_DOCUMENT, DEFAULT_TIMEOUT, 0))) 
+			{	
+				info("element is displayed ");
+				click(ELEMENT_PARTIALLINK_DELETE_DOCUMENT);
+				waitForTextPresent("Confirm Deletion");
+				click(By.linkText("OK"));
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+
+		}
+
 		info(locator.toString() + "was deleted successfully");
 		waitForElementNotPresent(locator, iTimeout);
 	}

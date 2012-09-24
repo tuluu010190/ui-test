@@ -1,20 +1,18 @@
 package org.exoplatform.selenium.platform.ecms;
 
+import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.ELEMENT_ADD_ITEM;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.createNewContentFolder;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.deleteDocument;
 
-import java.util.Set;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-
 
 public class EcmsBase extends PlatformBase {
 	
@@ -280,16 +278,46 @@ public class EcmsBase extends PlatformBase {
 //		inputsummary.sendKeys(data);
 //	}
 	//function add data to frame
-	public static void inputDataToFrame (By framelocator, String data){
+//	public static void inputDataToFrame (By framelocator, String data){
+//		try {
+//			WebElement inputsummary = null;
+// 
+//			for (int repeat = 0;; repeat++) {
+//				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+//					Assert.fail("Fail to input data to frame " + framelocator);
+//				}
+//				driver.switchTo().frame(waitForAndGetElement(framelocator));
+//				inputsummary = driver.switchTo().activeElement();
+//				inputsummary.sendKeys(data);
+//				if (data.equals(inputsummary.getText())) break;
+//				switchToParentWindow();
+//			}
+//		} catch (StaleElementReferenceException e) {
+//			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+//			pause(WAIT_INTERVAL);
+//			inputDataToFrame (framelocator, data);
+//		} catch (ElementNotVisibleException e) {
+//			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+//			pause(WAIT_INTERVAL);
+//			inputDataToFrame (framelocator,data);
+//		} finally {
+//			loopCount = 0;
+//		}
+//	}
+	//function add data to frame
+	public static void inputDataToFrame (By framelocator, String data, boolean...validate){
 		try {
 			WebElement inputsummary = null;
- 
+
 			for (int repeat = 0;; repeat++) {
 				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 					Assert.fail("Fail to input data to frame " + framelocator);
 				}
 				driver.switchTo().frame(waitForAndGetElement(framelocator));
 				inputsummary = driver.switchTo().activeElement();
+				if (validate.length >0)
+					if (validate[0])
+						inputsummary.clear();
 				inputsummary.sendKeys(data);
 				if (data.equals(inputsummary.getText())) break;
 				switchToParentWindow();
@@ -307,27 +335,6 @@ public class EcmsBase extends PlatformBase {
 		}
 	}
 	
-	//function switch to parent windows
-	public static void switchToParentWindow (){
-		try
-		{
-			Set<String> availableWindows = driver.getWindowHandles();
-			String WindowIdParent= null;
-			int counter = 1;
-			for (String windowId : availableWindows) {
-				if (counter == 1){
-					WindowIdParent = windowId;
-				}
-				counter++;
-			}
-			driver.switchTo().window(WindowIdParent);
-			pause(1000);
-		}
-		catch (WebDriverException e)
-		{
-			e.printStackTrace();
-		}
-	}
 	
 	
 	//delete node of page, node is subnode of node
@@ -432,5 +439,23 @@ public class EcmsBase extends PlatformBase {
 		  click(By.xpath("//a[contains(text(),'Paste')]"));
 		  pause(1000);
 	  }
-	
+	  
+		
+	  public static boolean isDisplay(WebElement e){ 
+		  boolean bool = false;
+		  try{
+			  if(e != null)
+			  {bool= e.isDisplayed();
+			  debug("check to display: " + bool);}
+			  else 
+				  debug("element is null " + bool);
+		  }catch(StaleElementReferenceException ex){
+			  debug("Retry display...");
+		  }
+		  finally{
+			  loopCount=0;
+		  }
+
+		  return bool;
+	  }
 }
