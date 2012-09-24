@@ -5,6 +5,7 @@ import java.util.List;
 import org.exoplatform.selenium.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -170,6 +171,10 @@ public class PlatformBase extends TestBase {
 
 	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
 	public static final By ELEMENT_OK_BUTTON = By.xpath("//a[text()='OK']");
+	
+	public static final By ELEMENT_ERROR_ICON=By.xpath("//span[@class='PopupIcon ErrorMessageIcon']");
+	
+	public static final int ACTION_REPEAT = 5;
 	
 	//Set view permissions for portal
 	public static void setViewPermissions(String groupId, String membership) {
@@ -409,5 +414,18 @@ public class PlatformBase extends TestBase {
 	public static void saveAndClose(){
 		waitForAndGetElement(ELEMENT_SAVEANDCLOSE_BUTTON);
 		click(ELEMENT_SAVEANDCLOSE_BUTTON);
+	}
+	
+	
+	// Check UnexpectedError
+	public boolean checkUnexpectedError()
+	{
+		try {
+			driver.findElement(ELEMENT_ERROR_ICON);
+			return false;
+
+		} catch (NoSuchElementException e) {
+			return true;
+		}
 	}
 }

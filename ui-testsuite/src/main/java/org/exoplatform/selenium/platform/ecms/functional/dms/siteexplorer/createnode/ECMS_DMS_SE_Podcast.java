@@ -8,7 +8,10 @@ import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import static org.exoplatform.selenium.TestLogger.*;
-
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 
 public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
@@ -102,11 +105,9 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='"+ POD_TITLE_65 + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+ POD_TITLE_65 + " ']"));
 		
 		//delete content folder
 		deleteDocument(By.xpath("//a[@title='"+ CONT_TITLE + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+ CONT_TITLE + " ']"));
 		
 	}
 	/**add a podcast document in a document folder
@@ -135,11 +136,9 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 	
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='" + POD_TITLE_66 + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='" + POD_TITLE_66 + " ']"));
 		
 		//delete document folder
 		deleteDocument(By.xpath("//a[@title='"+ DOC_TITLE + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+ DOC_TITLE + " ']"));
 	} 
 
 	/**add a podcast document in an article document
@@ -174,11 +173,9 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 			
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='"+POD_TITLE_67 + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+POD_TITLE_67 + " ']"));
 		
 		//delete article document
 		deleteDocument(By.xpath("//a[@title='" + ART_TITLE + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='" + ART_TITLE + " ']"));
 	}
 
 	/**add a podcast document in a file document
@@ -205,7 +202,6 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		
 		//delete file document	
 		deleteDocument(By.xpath("//a[@title='"+FILE_TITLE + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+FILE_TITLE + " ']"));
 		
 	}
 
@@ -237,7 +233,6 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		//assert isElementPresent(By.linkText(POD_TITLE_69)): "Fail to create a podcast!";
 		deleteDocument(By.xpath("//a[@title='"+ POD_TITLE_69 + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+ POD_TITLE_69 + " ']"));
 
 	}
 
@@ -275,11 +270,9 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='" + POD_TITLE_70 + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='" + POD_TITLE_70 + " ']"));
 
 		//delete sample node document
 		deleteDocument(By.xpath("//a[@title='"+ SAM_TITLE + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+ SAM_TITLE + " ']"));
 	}
 
 	/**add a podcast document in a file plan document
@@ -316,12 +309,10 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='" + POD_TITLE_71 + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='" + POD_TITLE_71 + " ']"));
 		assert checkError(): "Error";
 
 		//delete file plan document
 		deleteDocument(By.xpath("//a[@title='"+ FPLAN_NAME + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+ FPLAN_NAME + " ']"));
 		
 	}
 
@@ -359,13 +350,11 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='" + POD_TITLE_72 + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='" + POD_TITLE_72 + " ']"));
 		assert checkError(): "Error";
 
 		//delete file plan document
 		
 		deleteDocument(By.xpath("//a[@title='" + KOX_NAME + " ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='" + KOX_NAME + " ']"));
 	}
 
 	
@@ -396,7 +385,6 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		//delete document
 		pause(1000);
 		deleteDocument(By.xpath("//a[@title='"+UPLOAD_NAME + ".png ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+UPLOAD_NAME + ".png ']"));
 	}
 	public boolean checkError()
 	{
@@ -429,7 +417,6 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		
 		//check message popup
 		waitForElementPresent(By.xpath(ELEMENT_PODCAST_LINK_BLANK));
-		//assert isElementPresent(ELEMENT_PODCAST_LINK_BLANK): "Fail! The system doesn't validate the Link field";
 		waitForAndGetElement(By.linkText(ELEMENT_PODCAST_VALIDATE_OK)).click();
 
 	}
@@ -484,7 +471,7 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		driver.get(baseUrl);
 		actions = new Actions(driver);
 		loginEcms("john", "gtn");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 	}
 

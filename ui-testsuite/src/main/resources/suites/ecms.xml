@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="ECMS Functional Test" verbose="1">
+	<test name="ecms-func" enabled="true">
+		<packages>
+			<package name="org.exoplatform.selenium.platform.ecms.functional.*" />
+		</packages>
+	</test>
+
+	<listeners>
+    <listener class-name="org.exoplatform.selenium.TestReportListener"/>
+  </listeners>
+</suite>

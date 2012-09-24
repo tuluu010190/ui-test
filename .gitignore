@@ -23,7 +23,7 @@
 
 # Maven 
 target/
-
+test-output/
 # IntelliJ project files 
 *.iml
 *.iws

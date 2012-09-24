@@ -1,13 +1,17 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
+
 
 /*
  * @author HaKT
@@ -44,7 +48,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 
 	@AfterMethod
 	public void afterTest() throws Exception {
-		logoutEcms ();
+//		logoutEcms ();
 		driver.quit();
 	}
 
@@ -59,7 +63,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 	public void test01_AddContentWhenClickSaveAndClose()
 	{ 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -77,8 +81,6 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		info("Delete Article");
 		deleteDocument(ARTICLE_PATH);
 
-		info("Verify article is deleted");
-		waitForElementNotPresent(ARTICLE_PATH);
 	}
 
 	/* Go to Sites Management/ acme
@@ -92,7 +94,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 	public void test02_AddContentWhenClickSave()
 	{ 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -125,8 +127,6 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		info("Delete Article");
 		deleteDocument(ARTICLE_PATH);
 
-		info("Verify article is deleted");
-		waitForElementNotPresent(ARTICLE_PATH);
 	}
 
 	/* Go to Sites Management/ acme
@@ -140,7 +140,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 	public void test03_AddContentWhenClickClose()
 	{ 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -168,8 +168,6 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		waitForElementNotPresent(ELEMENT_ARTICLE_SUMMARY_FRAME);
 		waitForElementNotPresent(ELEMENT_ARTICLE_CONTENT_FRAME);
 
-		info("Verify article does not exist");
-		waitForElementNotPresent(ARTICLE_PATH);
 	}
 
 	/* Go to Sites Management/ acme
@@ -183,7 +181,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 	public void test04_AddContentWhenClickSaveThenClose()
 	{ 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -215,8 +213,6 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		info("Delete Article");
 		deleteDocument(ARTICLE_PATH);
 
-		info("Verify article is deleted");
-		waitForElementNotPresent(ARTICLE_PATH);
 	}
 
 	/* Go to Sites Management/ acme
@@ -232,7 +228,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		By ELEMENT_TEMPLATE_LIST=By.xpath("//div[@class='SelectTemplateThumbnailView']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -274,7 +270,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		By ELEMENT_MINIMIZE=By.xpath("//a[@class='MinimizeScreen20x20Icon']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -332,7 +328,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		By ELEMENT_CANCEL_TEMPLATE=By.xpath("//div[@title='Cancel']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -363,7 +359,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		By VERIFY_AT_ROOT_PATH=By.xpath("//a[@title='acme ']/following::a[@title='"+ARTICLE_NAME_TITLE+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -377,8 +373,6 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		info("Delete Article");
 		deleteDocument(ARTICLE_PATH);
 
-		info("Verify article is deleted");
-		waitForElementNotPresent(ARTICLE_PATH);
 	}
 
 	/* Go to Sites Management/ acme
@@ -395,7 +389,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		String WARNING_MESSAGE="The field 'Name' contains some invalid characters. Please enter another value.";
 		
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -406,7 +400,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 			info("Click New Content");
 			goToAddNewContent();
 			
-			info("Fill special chars repectively");
+			info("Fill special chars repectively:" + SPECIAL_CHAR_NAME[i]);
 			createNewArticle(SPECIAL_CHAR_NAME[i],  SPECIAL_CHAR_NAME[i], ARTICLE_SUM, ARTICLE_CONTENT);
 			
 			info("Verify warning message: Special is not allowed");
@@ -433,7 +427,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 	public void test11_AddContentInCheckinNode()
 	{
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -459,8 +453,6 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		info("Delete Article");
 		deleteDocument(ARTICLE_PATH);
 
-		info("Verify article is deleted");
-		waitForElementNotPresent(ARTICLE_PATH);
 	}
 
 	/* Go to Sites Management/ acme
@@ -483,7 +475,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		By KOFAX_PATH = By.xpath("//a[@title='"+KOFAX_NAME+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -523,15 +515,13 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 
 		info("Checkout article");
 		checkOutNode(ARTICLE_PATH);
-
+		
+		info("Delete Kofax");
+		deleteDocument(KOFAX_PATH);
+		
 		info("Delete Article including Kofax");
 		deleteDocument(ARTICLE_PATH);
 
-		info("Verify article is deleted");
-		waitForElementNotPresent(ARTICLE_PATH);
-
-		info("Verify Kofax is not present");
-		waitForElementNotPresent(KOFAX_PATH);
 	}
 
 	/* Create 1 Article
@@ -567,7 +557,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		String MSS_NO_RIGHT_TO_ADD_NODE="You do not have permission to add a new node.";
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -614,7 +604,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		loginEcms("james", "gtn");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Click article");
 		goToNode(ARTICLE_PATH);
@@ -633,15 +623,15 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		info("Logout then login as John to delete data");
 		logoutEcms();
 		loginEcms("john", "gtn");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToNode(ARTICLE_PATH);
 		deleteDocument(ARTICLE_PATH);
-		waitForElementNotPresent(ARTICLE_PATH);
 	} 
 
-	@Test
+	//This case is 2 user-cases, temporary postpone
+//	@Test
 	public void test14_AddContentInLockedNodeByNotLocker()
 	{
-
+		
 	} 
 }

@@ -1,8 +1,5 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
-//import java.util.concurrent.TimeUnit;
-
-
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
@@ -10,6 +7,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 /*
  * @author: Lientm
@@ -56,29 +56,31 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 	@Test
 	public void test01_AddArticleToContentFolder(){
 		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_Article_Contentfolder_01";
-		By ELEMENT_CONTENT_FOLDER = By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
+		By ELEMENT_CONTENT_FOLDER = By.xpath("//a[@title='" + DATA_CONTENT_FOLDER_TITLE + " " +"']");
 		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Article_article_01";
-		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
+		By ELEMENT_ARTICLE = By.xpath("//a[@title='" + DATA_ARTICLE_TITLE +" " + "']");
 
 		//create new content folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
+		
 		debug("Create new content folder with title:"+ DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Create content folder is not successful";
-		info("Create new content folder is successful");
+		
 		//add new article to content folder just add
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToAddNewContent();
+		
 		debug("Add new article document with title:"+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Add new article in content folder is not successful";	
-		info("Add new article document to content folder is successful");
+		
+
+		deleteDocument(ELEMENT_ARTICLE);
+		
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		deleteDocument(ELEMENT_CONTENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);
 	}
 	
 	/*case2: Add Article document in Document folder
@@ -92,12 +94,12 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_DOCUMENT_FOLDER = By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']");
 
 		//create new document folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
+		
 		debug("Create new document folder with title:"+ DATA_DOCUMENT_FOLDER_TITLE);
 		createNewDocumentFolder(DATA_DOCUMENT_FOLDER_TITLE, DATA_DOCUMENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_DOCUMENT_FOLDER);
-		assert isElementPresent(ELEMENT_DOCUMENT_FOLDER):"Create new document folder is not successful";
-		info("Create new document folder is successful");
+		
 		//check can not add article to document folder
 		goToNode(ELEMENT_DOCUMENT_FOLDER);
 		goToAddNewContent();
@@ -105,7 +107,6 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		//delete document folder
 		goToNode(ELEMENT_DOCUMENT_FOLDER);
 		deleteDocument(ELEMENT_DOCUMENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_DOCUMENT_FOLDER);
 	}
 	
 	/*case3: Add Article document in Article document
@@ -119,13 +120,13 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
 		
 		//create new article
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
+		
 		info("Create new article with title:"+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Create new article is not successful";
-		info("Create new article document is successful");
+
 		//check can not add article to article document
 		goToNode(ELEMENT_ARTICLE);
 		goToAddNewContent();
@@ -133,7 +134,6 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		//delete article document
 		goToNode(ELEMENT_ARTICLE);
 		deleteDocument(ELEMENT_ARTICLE);
-		waitForElementNotPresent(ELEMENT_ARTICLE);
 	}
 	
 	/*case4: Add Article document in File document
@@ -147,19 +147,17 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_FILE_DOCUMENT = By.xpath("//a[@title='"+DATA_FILE_DOCUMENT_TITLE+" "+"']");
 		
 		//add new File Document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new file document with title:"+DATA_FILE_DOCUMENT_TITLE);
 		createNewFile(DATA_FILE_DOCUMENT_TITLE, DATA_FILE_DOCUMENT_TITLE, DATA_FILE_DOCUMENT_TITLE);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT);
 		info("Create new file document is successful");
 		//check can not add article to file document
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		//delete file document
 		deleteDocument(ELEMENT_FILE_DOCUMENT);
-		waitForElementNotPresent(ELEMENT_FILE_DOCUMENT);
 	}
 	
 	/*case5: Add Article document in Podcast document
@@ -173,19 +171,17 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_PODCAST = By.xpath("//a[@title='"+DATA_PODCAST_DOCUMENT_TITLE+" "+"']");
 		
 		//add new podcast document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new podcast document with title:"+DATA_PODCAST_DOCUMENT_TITLE);
 		createNewPodcast(DATA_PODCAST_DOCUMENT_TITLE, DATA_PODCAST_DOCUMENT_TITLE, DATA_PODCAST_DOCUMENT_TITLE);
 		waitForElementPresent(ELEMENT_PODCAST);
-		assert isElementPresent(ELEMENT_PODCAST):"Create new podcast is not successful";
 		info("Create new podcast document is successful");
 		//check can not add article to podcast document -> has not new content link
 		goToNode(ELEMENT_PODCAST);
 		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		//delete podcast
 		deleteDocument(ELEMENT_PODCAST);
-		waitForElementNotPresent(ELEMENT_PODCAST);
 	}
 	
 	/*case6: Add Article document in Sample Node document
@@ -200,7 +196,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_SAMPLE_NODE = By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']");
 
 		//add new sample node document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new sample node with title:"+DATA_SAMPLE_NODE_TITLE);
 		createNewSampleNode(DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_IMG);
@@ -213,7 +209,6 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		//delete sample node
 		goToNode(ELEMENT_SAMPLE_NODE);
 		deleteDocument(ELEMENT_SAMPLE_NODE);
-		waitForElementNotPresent(ELEMENT_SAMPLE_NODE);	
 	}
 
 	/*case7: Add Article document in File Plan document
@@ -227,7 +222,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_FILE_PLAN = By.xpath("//a[@title='"+DATA_FILE_PLAN_TITLE+" "+"']");
 
 		//add new file plan document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new file plan with title:"+DATA_FILE_PLAN_TITLE);
 		createNewFilePlan(DATA_FILE_PLAN_TITLE, DATA_FILE_PLAN_TITLE, DATA_FILE_PLAN_TITLE, DATA_FILE_PLAN_TITLE, DATA_FILE_PLAN_TITLE);
@@ -240,7 +235,6 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		//delete file plan
 		goToNode(ELEMENT_FILE_PLAN);
 		deleteDocument(ELEMENT_FILE_PLAN);
-		waitForElementNotPresent(ELEMENT_FILE_PLAN);
 	}
 	
 	/*case8: Add Article document in Kofax document
@@ -257,7 +251,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_KOFAX = By.xpath("//a[@title='"+DATA_KOFAX_TITLE+" "+"']");
 		
 		//add new kofax document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new kofax document with title:"+ DATA_KOFAX_TITLE);
 		createNewKofax(DATA_KOFAX_TITLE);
@@ -270,10 +264,10 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
 		waitForElementPresent(ELEMENT_ARTICLE);
 		info("Add new article document to a kofax document is successful");
+		deleteDocument(ELEMENT_ARTICLE);
 		//delete kofax document
 		goToNode(ELEMENT_KOFAX);
 		deleteDocument(ELEMENT_KOFAX);
-		waitForElementNotPresent(ELEMENT_KOFAX);	
 	}
 	
 	/*case9: Select an uploaded file and see on action bar
@@ -288,7 +282,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_UPLOAD = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
 		
 		//upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload new file with nam:"+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD);
@@ -298,7 +292,6 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		//delete uploaded file
 		deleteDocument(ELEMENT_UPLOAD);
-		waitForElementNotPresent(ELEMENT_UPLOAD);
 	}
 
 	/*case10: Add Article with blank name or title
@@ -309,7 +302,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Article_article_10";
 		
 		//add article with title blank
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToNode(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		createNewArticle("", DATA_ARTICLE_TITLE, "", "");
 	    assert isElementPresent(ELEMENT_NEW_ARTICLE_POPUP_XPATH):"No title blank alert";
@@ -337,18 +330,17 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
 		
 		//create new article with summary blank
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToNode(ELEMENT_NEW_CONTENT_LINK_XPATH);
 		debug("Create new article with title:"+DATA_ARTICLE_TITLE+" and summary, content blank");
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, "", "");
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Can not create new article with summary, content blank";
+		
 	    //view summary & content
 	    assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_SUMMARY_BLANK):"Wrong message";
 	    assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_CONTENT_BLANK):"Wrong message";
 	    //delete data
 	    deleteDocument(ELEMENT_ARTICLE);
-	    waitForElementNotPresent(ELEMENT_ARTICLE);	    
 	}
 	
 	/*case12: Add Article document in a locked Content folder by locker
@@ -365,7 +357,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
 		
 		//create new content folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Create new content folder with title: "+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
@@ -380,11 +372,13 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		debug("Add new article with title: "+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Can not add new article into content folder";	
+		
+		//delete article
+		deleteDocument(ELEMENT_ARTICLE);
+		
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		deleteDocument(ELEMENT_CONTENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);		
 	}
 
 	/*case13: Add Article document in a locked Document folder by locker
@@ -400,7 +394,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		
 		
 		//create new document folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Create new document folder with title: "+DATA_DOCUMENT_FOLDER_TITLE);
 		createNewDocumentFolder(DATA_DOCUMENT_FOLDER_TITLE, DATA_DOCUMENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_DOCUMENT_FOLDER);
@@ -416,7 +410,6 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		//delete document folder
 		goToNode(ELEMENT_DOCUMENT_FOLDER);
 		deleteDocument(ELEMENT_DOCUMENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_DOCUMENT_FOLDER);
 	}
 
 	
@@ -434,7 +427,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
 		
 		//add new kofax document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new kofax document with title "+DATA_KOFAX_TITLE);
 		createNewKofax(DATA_KOFAX_TITLE);
@@ -452,10 +445,13 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
 		waitForElementPresent(ELEMENT_ARTICLE);
 		info("Add new article into koafax document is successful");
+		
+		//delete article
+		deleteDocument(ELEMENT_ARTICLE);
+
 		//delete kofax document
 		goToNode(ELEMENT_KOFAX);
 		deleteDocument(ELEMENT_KOFAX);
-		waitForElementNotPresent(ELEMENT_KOFAX);
 	}
 
 	/*case15: Add Article document in a locked node (Article, Sample node, File Flan document) by locker
@@ -471,7 +467,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		By ELEMENT_SAMPLE_NODE = By.xpath("//a[contains(text(),'"+DATA_SAMPLE_NODE_TITLE+"')]");
 		
 		//add new sample node document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("create new sample node with title: "+DATA_SAMPLE_NODE_TITLE);
 		createNewSampleNode(DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_IMG);
@@ -489,7 +485,6 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		goToNode(ELEMENT_SAMPLE_NODE);
 		pause(500);
 		deleteDocument(ELEMENT_SAMPLE_NODE);
-		waitForElementNotPresent(ELEMENT_SAMPLE_NODE);
 	}
 
 }

@@ -1,13 +1,15 @@
 package org.exoplatform.selenium.platform.ecms;
 
+import static org.exoplatform.selenium.TestLogger.info;
 import java.util.Set;
+import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
-import org.exoplatform.selenium.platform.PlatformBase;
-import static org.exoplatform.selenium.TestLogger.*;
+import org.testng.Assert;
 
 
 public class EcmsBase extends PlatformBase {
@@ -192,7 +194,7 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_LINK_CONTENT=By.linkText("Content");
     
 	//login ECMS
-	public void loginEcms(String username, String password) {
+	public static void loginEcms(String username, String password) {
 		driver.manage().window().maximize();
 		click(ELEMENT_ACME_LINKTEXT);
 		click(ELEMENT_LOGIN_LINK);
@@ -202,14 +204,36 @@ public class EcmsBase extends PlatformBase {
 	}
 		
 	//logout ECMS
-	public void logoutEcms (){
+	public static void logoutEcms (){
 		actions.moveToElement(waitForAndGetElement(ELEMENT_LOGOUT_LINK)).build().perform();
 		click(By.linkText("Logout"));
 		driver.get(baseUrl);
 	}
 	
+	// go to content administration
+	  	public static void goToContentAdministration()
+	  	{
+	  		mouseOver(ELEMENT_LINK_SETUP, true);
+	  		mouseOver(ELEMENT_LINK_CONTENT, true);
+	  		mouseOverAndClick(ELEMENT_LINK_CONTENT_ADMIN);
+	  	}
+	  	
+	  //Enter sites MANAGEDement Form 
+	  	public static void goToSiteExplorer(){
+	  		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_SETUP_IMG)).build().perform();
+	  		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK)).build().perform();
+	  		click(ELEMENT_MENU_SITE_EXPLORER_LINK);
+	  	}
+	  	
+	  	//Enter create new page form
+	  	public static void goToPageCreationWinzard(){
+	  		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_EDIT_LINK)).build().perform();
+	  		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_PAGE_LINK)).build().perform();
+	  		click(ELEMENT_MENU_ADD_PAGE_LINK);	
+	  	}
+	  	
 	//Select option from combobox
-	public void selectOption(By locator,String value){
+	public static void selectOption(By locator,String value){
 		Select typeFolder = null;
 		pause(100);
 		while (typeFolder ==null){
@@ -217,51 +241,61 @@ public class EcmsBase extends PlatformBase {
 			typeFolder = new Select(waitForAndGetElement(locator));
 		}
 		typeFolder.selectByValue(value);
-	}
-	//Select option from combobox
-	public void selectOptionByXpath(By locator,String value){
-		Select typeFolder = null;
-		pause(100);
-		while (typeFolder ==null){
-			pause(100);
-			typeFolder = new Select(waitForAndGetElement(locator));
-		}
-		typeFolder.selectByValue(value);
-	}
-	
-	//Enter sites MANAGEDement Form 
-	public void goToSiteExplorerForm(){
-		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_SETUP_IMG)).build().perform();
-		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK)).build().perform();
-		click(ELEMENT_MENU_SITE_EXPLORER_LINK);
-	}
-	
-	//Enter create new page form
-	public void goToNewPageForm(){
-		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_EDIT_LINK)).build().perform();
-		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_PAGE_LINK)).build().perform();
-		click(ELEMENT_MENU_ADD_PAGE_LINK);	
-	}
-	
-	//go to new content
-	public void goToAddNewContent(){
-		click(ELEMENT_MENU_NEW_CONTENT_LINK);	
 	}
 	
 	//function go to Node
-	public void goToNode(By locator){
-		click(locator);
-	}
-	
+  	public static void goToNode(By locator){
+  		click(locator);
+  	}
+  	
+  //go to a node
+  	//input: path: path of a node, splitted by  "/" character 
+  	public static void goToNodeByPath(String path)
+  	{
+  		String[] nodes = path.split("/");
+  		for (String node: nodes)
+  		{
+  			goToNode(By.xpath("//a[@title='" + node + " ']"));
+  			pause(100);
+  		}
+  		
+  	}
+  	
+//	public static void inputDataToFrame (By framelocator, String data){
+//		driver.switchTo().frame(waitForAndGetElement(framelocator));
+//		WebElement inputsummary = driver.switchTo().activeElement();
+//		inputsummary.sendKeys(data);
+//	}
 	//function add data to frame
-	public void inputDataToFrame (By framelocator, String data){
-		driver.switchTo().frame(waitForAndGetElement(framelocator));
-		WebElement inputsummary = driver.switchTo().activeElement();
-		inputsummary.sendKeys(data);
+	public static void inputDataToFrame (By framelocator, String data){
+		try {
+			WebElement inputsummary = null;
+ 
+			for (int repeat = 0;; repeat++) {
+				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+					Assert.fail("Fail to input data to frame " + framelocator);
+				}
+				driver.switchTo().frame(waitForAndGetElement(framelocator));
+				inputsummary = driver.switchTo().activeElement();
+				inputsummary.sendKeys(data);
+				if (data.equals(inputsummary.getText())) break;
+				switchToParentWindow();
+			}
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			pause(WAIT_INTERVAL);
+			inputDataToFrame (framelocator, data);
+		} catch (ElementNotVisibleException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			pause(WAIT_INTERVAL);
+			inputDataToFrame (framelocator,data);
+		} finally {
+			loopCount = 0;
+		}
 	}
 	
 	//function switch to parent windows
-	public void switchToParentWindow (){
+	public static void switchToParentWindow (){
 		try
 		{
 			Set<String> availableWindows = driver.getWindowHandles();
@@ -282,261 +316,9 @@ public class EcmsBase extends PlatformBase {
 		}
 	}
 	
-	// addnew article
-	public void createNewArticle(String title, String name, String sum, String cont) {
-		click(ELEMENT_ARTICLE_LINK);
-		// Input information
-		type(ELEMENT_ARTICLE_TITLE_TEXTBOX,title,false);
-		type(ELEMENT_ARTICLE_NAME_TEXTBOX, name, true);
-		inputDataToFrame(ELEMENT_ARTICLE_SUMMARY_FRAME,sum);
-	    switchToParentWindow();
-	    inputDataToFrame(ELEMENT_ARTICLE_CONTENT_FRAME,cont);
-	    switchToParentWindow();
-	    //save
-	    click(ELEMENT_SAVE_CLOSE_BUTTON);
-	}
-	
-	//add new annoucement
-	public void createNewAnnouncement (String name, String sum){
-		click(ELEMENT_ANNOUCEMENT_LINK);
-		type(ELEMENT_ANNOUCEMENT_NAME_TEXTBOX, name, true);
-		inputDataToFrame(ELEMENT_ANNOUCEMENT_SUMMARY_FRAME,sum);
-	    switchToParentWindow();
-	    click(ELEMENT_SAVE_CLOSE_BUTTON);
-	}
-	
-	//add new Free layout webcontent
-	public void createNewFreeLayoutWebContent(String title, String name, String cont, String img, String sum, String css, String js) {
-		click(ELEMENT_WEBCONTENT_LINK);
-		type(ELEMENT_WEBCONTENT_TITLE_TEXTBOX, title, false);
-//		waitForAndGetElement(ELEMENT_WEBCONTENT_NAME_TEXTBOX).clear();
-		type(ELEMENT_WEBCONTENT_NAME_TEXTBOX, name, true);
-		inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME,cont);
-	    switchToParentWindow();
-	    if (cont!="" || img !=""){
-	    	click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
-	    	if (img!=""){
-				driver.switchTo().frame(waitForAndGetElement(ELEMENT_WEBCONTENT_UPLOAD_FRAME));
-				type(ELEMENT_WEBCONTENT_FILE_IMAGE, getAbsoluteFilePath(img), false);
-			    switchToParentWindow();
-			    waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
-	    	}
-			inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME,sum);
-		    switchToParentWindow();
-	    }
-	    if(css!="" || js !=""){
-		    click(ELEMENT_WEBCONTENT_ADVANCE_TAB);
-		    type(ELEMENT_WEBCONTENT_CSS_TEXTAREA, css, false);
-		    type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, false);
-	    }
-	    click(ELEMENT_SAVE_CLOSE_BUTTON);			
-	}
-	
-	//add new file
-	public void createNewFile(String name, String cont, String title){
-		click(ELEMENT_NEWFILE_LINK);	
-		type(ELEMENT_NEWFILE_NAME_TEXTBOX, name, false);
-		inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME,cont);
-	    switchToParentWindow();
-	    type(ELEMENT_NEWFILE_TITLE_TEXTBOX, title, false);
-	    click(ELEMENT_SAVE_CLOSE_BUTTON);
-	}
-	
-	//add new Sample Node
-	public void createNewSampleNode(String title, String name, String img){
-		click(ELEMENT_SAMPLENODE_LINK);
-		type(ELEMENT_SAMPLENODE_TITLE_TEXTBOX, title, false);
-//		waitForAndGetElement(ELEMENT_SAMPLENODE_NAME_TEXTBOX).clear();
-		type(ELEMENT_SAMPLENODE_NAME_TEXTBOX, name, true);
-		click(ELEMENT_SAMPLENODE_ADD_ITEM_LINK);
-		selectOption(ELEMENT_SAMPLENODE_SELECTITEM,ELEMENT_SAMPLENODE_SELECTITEM_OPTION);
-		click(ELEMENT_SAMPLENODE_SELECTITEM_OPTION_LINK);
-		type(ELEMENT_SAMPLENODE_DESCRIPTION_TEXTBOX, title, false);
-		if (img !=""){
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_SAMPLENODE_UPLOAD_IMG_FRAME));
-		type(ELEMENT_SAMPLENODE_FILE_IMG, getAbsoluteFilePath(img), false);
-		switchToParentWindow();
-		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
-		}
-		type(ELEMENT_SAMPLENODE_CONTENT_TEXTAREA, title, false);
-		type(ELEMENT_SAMPLENODE_SUMMARY_TEXTAREA, title, false);
-		click(ELEMENT_SAVE_CLOSE_BUTTON);
-	}
-
-	// add new Kofax document
-	public void createNewKofax(String name){
-		click(ELEMENT_KOFAX_LINK);
-		type(ELEMENT_KOFAX_NAME_TEXTBOX, name, false);
-		click(ELEMENT_KOFAX_ADDNODE_LINK);
-		selectOption(ELEMENT_KOFAX_ADDNODE_SELECT,ELEMENT_KOFAX_ADDNODE_OPTION);	
-		click(ELEMENT_KOFAX_ADDNODE_OPTION_LINK);
-		click(ELEMENT_SAVE_CLOSE_BUTTON);
-	}
-	
-	// add new File Plan
-	public void createNewFilePlan(String name, String catInden, String disAut, String oriOrg, String event){
-		click(ELEMENT_FILEPLAN_LINK);	
-		type(ELEMENT_FILEPLAN_NAME, name, false);
-		click(ELEMENT_FILEPLAN_RECORD_TAB);
-		type(ELEMENT_FILEPLAN_RECORD_TEXTBOX, catInden, false);
-		type(ELEMENT_FILEPLAN_DISPOS_TEXTBOX, disAut, false);
-		type(ELEMENT_FILEPLAN_DEFAULT_TEXTBOX, oriOrg, false);
-		
-		click(ELEMENT_FILEPLAN_RPROCESS_TAB);
-		type(ELEMENT_FILEPLAN_RPROCESS_TRIGER, event, false);
-		click(ELEMENT_SAVE_CLOSE_BUTTON);
-	}
-
-	// add new podcast
-	public void createNewPodcast(String name, String title, String link){
-		click(ELEMENT_PODCAST_LINK);
-		type(ELEMENT_PODCAST_NAME_TEXTBOX, name, false);
-		type(ELEMENT_PODCAST_TITLE_TEXTBOX, title, false);
-		type(ELEMENT_PODCAST_LINK_TEXTBOX, link, false);
-		click(ELEMENT_SAVE_CLOSE_BUTTON);
-	}
-	
-	//add new Picture on head layout webcontent
-	public void createNewPictureOnHeadLayout (String name, String title, String file){
-		click(ELEMENT_HEAD_LAYOUT_LINK);
-		type(ELEMENT_HEAD_LAYOUT_NAME_TEXTBOX, name, false);
-		type(ELEMENT_HEAD_LAYOUT_TITLE_TEXTBOX, title, false);
-		if (file!=""){
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_HEAD_LAYOUT_UPLOAD_FRAME));
-		type(ELEMENT_HEAD_LAYOUT_UPLOAD_FILE, getAbsoluteFilePath(file), false);
-		switchToParentWindow();
-		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
-		}
-		click(ELEMENT_SAVE_CLOSE_BUTTON);
-	}
-	
-	//add new product
-	public void createNewProduct (String name, String title){
-		click(ELEMENT_PRODUCT_LINK);
-		type(ELEMENT_PRODUCT_NAME_TEXTBOX, name, false);
-		type(ELEMENT_PRODUCT_TITLE_TEXTBOX, title, false);
-		click(ELEMENT_SAVE_CLOSE_BUTTON);
-	}
-	
-	//add new Content Folder
-	public void createNewContentFolder(String title, String name) {
-		click(ELEMENT_NEW_FOLDER_LINK);
-		selectOption(ELEMENT_FOLDER_TYPE_OPTION,ELEMENT_CONTENT_FOLDER_TYPE);
-		type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, false);
-//		waitForAndGetElement(ELEMENT_FOLDER_NAME_TEXTBOX).clear();
-		type(ELEMENT_FOLDER_NAME_TEXTBOX, name, true);
-		click(ELEMENT_SAVE_BUTTON);
-	}
-	
-	//add new Document Folder
-	public void createNewDocumentFolder(String title, String name){
-		click(ELEMENT_NEW_FOLDER_LINK);
-		selectOption(ELEMENT_FOLDER_TYPE_OPTION, ELEMENT_DOCUMENT_FOLDER_TYPE);
-		type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, false);
-//		waitForAndGetElement(ELEMENT_FOLDER_NAME_TEXTBOX).clear();
-		type(ELEMENT_FOLDER_NAME_TEXTBOX, name, true);
-		click(ELEMENT_SAVE_BUTTON);
-	}
-	
-	//delete level 1 node
-	public void deleteDocument(By locator){
-//		actions.contextClick(waitForAndGetElement(locator)).perform();
-		rightClickOnElement(locator);
-		pause(1000);
-//		mouseOver(locator, true);
-		click(ELEMENT_PARTIALLINK_DELETE_DOCUMENT);
-		pause(1000);
-		click(By.linkText("OK"));
-		info(locator.toString() + "was deleted successfully");
-	}
-
-	
-	//simple search
-	public boolean simpleSearch(String keyword){
-		boolean delete = true;
-//		waitForAndGetElement(ELEMENT_SIMPLESEARCH_TEXTBOX).clear();
-		type(ELEMENT_SIMPLESEARCH_TEXTBOX, keyword, true);
-		click(ELEMENT_SIMPLESEARCH_SUBMIT);
-		if (isElementPresent(By.xpath("//div[contains(text(),'"+keyword+"')]")))
-		{
-			return delete;}
-		else {
-			delete = false;
-			return delete;}
-	}
-	
-	//simple search not return result
-    public boolean notSimpleSearch(String keyword) {
-        return !simpleSearch(keyword);
-    }
-    
-    //create page wizard with step 1,2 without layout
-    public void gotoPageEditor_EmptyLayout(String namePage){
-		goToNewPageForm();
-		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, namePage, false);
-		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
-		pause(500);
-		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
-    }
-	
-	//create new page without layout 
-	public void createNewPageEmptyLayout(String namePage){	
-		gotoPageEditor_EmptyLayout(namePage);
-		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
-	}
-	
-	//create new page has layout - step 1,2
-	public void gotoPageEditor_Layout(String namePage, int numberLayout){
-		goToNewPageForm();
-		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, namePage, false);
-		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
-		click(ELEMENT_NEWPAGE_LAYOUT_OPTION);
-		switch (numberLayout){
-		case 1: click(ELEMENT_NEWPAGE_LAYOUT_COLUMN_PAGE_OPTION);
-				break;
-		case 2: click(ELEMENT_NEWPAGE_LAYOUT_ROW_PAGE_OPTION);
-				break;
-		case 3: click(ELEMENT_NEWPAGE_LAYOUT_TAB_PAGE_OPTION);
-				break;
-		case 4: click(ELEMENT_NEWPAGE_LAYOUT_MIX_PAGE_OPTION);
-				break;		
-		default: click(ELEMENT_NEWPAGE_LAYOUT_DEFAULT_OPTION);
-				break;
-		}
-		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
-	}
-	
-	//create new page has layout 
-	public void createNewPageWithLayout(String namePage, int numberLayout){
-		gotoPageEditor_Layout(namePage, numberLayout);
-		click(ELEMENT_NEWPAGE_SAVE_BUTTON);		
-	}
-	
-	//search Page
-	public boolean searchPage(String pageTitle){	
-		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_SETUP_IMG)).build().perform();
-		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_PORTAL_LINK_LINKTEXT)).build().perform();
-		pause(100);
-		click(ELEMENT_MENU_PAGE_LINK_LINKTEXT);
-		
-//		waitForAndGetElement(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX).clear();
-		type(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX, pageTitle, true);
-		click(ELEMENT_SEARCH_PAGE_ICON);
-		if (isElementNotPresent(ELEMENT_SEARCH_PAGE_ALERT))
-		return true;	
-		else return false;
-	}
-	
-	//delete page
-	public void deletePage(){
-		click(ELEMENT_DELETE_PAGE_ICON);
-		acceptAlert();
-		click(By.linkText("OK"));
-		info("Delete page successfully");
-	}
 	
 	//delete node of page, node is subnode of node
-	public void deleteNode(By node, String pageTitle){
+	public static void deleteNode(By node, String pageTitle){
 		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_EDIT_LINK)).build().perform();
 		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_SITE_LINK)).build().perform();
 		click(ELEMENT_MENU_NAVIGATION_LINK);
@@ -553,218 +335,4 @@ public class EcmsBase extends PlatformBase {
 		info("Delete node of page successfully");
 		pause(1000);
 	}
-	
-	//add contentdetail to a page EmptyLayout of portal
-	public void addContentDetailEmptyLayout(){
-		click(ELEMENT_CONTENT_LINK);
-		dragAndDropToObject(ELEMENT_ADD_CONTENT_DETAIL_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);	
-	}
-	
-	//Add "ContentDetail" to page with selected layout
-	public void addContentDetail(){
-		click(ELEMENT_CONTENT_LINK);
-		dragAndDropToObject(ELEMENT_ADD_CONTENT_DETAIL_PORTLET,ELEMENT_DROP_TARGET_HAS_LAYOUT);		
-	}
-	
-	//Add "ContentList" to page EmptyLayout
-	public void addContentListEmptyLayout(){
-		click(ELEMENT_CONTENT_LINK);
-		dragAndDropToObject(ELEMENT_ADD_CONTENT_LIST_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
-	}
-	
-	//Add "ContentList" to page with selected layout
-	public void addContentList(){
-		click(ELEMENT_CONTENT_LINK);
-		dragAndDropToObject(ELEMENT_ADD_CONTENT_LIST_PORTLET,ELEMENT_DROP_TARGET_HAS_LAYOUT);		
-	}
-	
-	//Select "ContentPath" in Edit Mode
-	public void selectContentPath(){
-		actions.moveToElement(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
-		click(ELEMENT_EDIT_PORTLET_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_MANAGED_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_ACME_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_ACME_DOC_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH);
-		click(ELEMENT_SELECT_CONTENT_PATH_SAVE_BUTTON);
-		click(ELEMENT_SELECT_CONTENT_PATH_CLOSE_BUTTON);
-	}
-	
-	//Select "CLVPath" in Edit Mode
-	public void selectCLVPath(){
-		actions.moveToElement(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
-		click(ELEMENT_EDIT_PORTLET_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_MANAGED_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_ACME_LINK);
-		pause(500);
-		click(ELEMENT_SELECT_CLV_PATH);
-		click(ELEMENT_SELECT_CONTENT_PATH_SAVE_BUTTON);
-		click(ELEMENT_SELECT_CONTENT_PATH_CLOSE_BUTTON);
-	}
-	
-	//Create new page empty layout add contentdetail, choose ContentPath
-	public void createPage_Empty_ContentDetail_ContentPath(String pageName){
-		gotoPageEditor_EmptyLayout(pageName);
-		pause(500);
-		addContentDetailEmptyLayout();
-		pause(500);
-		selectContentPath();
-		pause(500);
-		click(ELEMENT_NEWPAGE_SAVE_BUTTON);			
-	}
-	
-	//Create new page has layout, add contentlist, choose clv path
-	public void createPage_ContentList_CLVpath(String pageName){
-		gotoPageEditor_Layout(pageName, 1);
-		pause(500);
-		addContentList();
-		pause(500);
-		selectCLVPath();
-		pause(500);
-		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
-	}
-	
-	//Enable preferenes option
-	public void checkPreferenceOption(String optionId){
-		goToNode(ELEMENT_PREFERENCE_LINK);
-		click(By.linkText("Advanced"));
-		pause(500);
-		WebElement check = waitForAndGetElement(By.id(optionId));
-		if (check.isSelected()!= true){
-			check.click();
-		}
-		click(By.linkText("Save"));
-	}
-	
-	//upload file
-	public void uploadFile(String fileName, String link){
-		goToNode(ELEMENT_UPLOAD_LINK_XPATH);
-		type(ELEMENT_UPLOAD_FILE_NAME_ID, fileName, false);
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
-		type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(link), false);
-		info("Upload file "+getAbsoluteFilePath(link));
-		switchToParentWindow();
-		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
-		click(ELEMENT_UPLOAD_SAVE_BUTTON_LINKTEXT);
-		click(ELEMENT_UPLOAD_CLOSE_BUTTON_LINKTEXT);
-	}
-
-	//lock node
-	public void lockNode(By locator){
-//		WebElement lock = waitForAndGetElement(locator);
-//		actions.contextClick(lock).build().perform();
-		rightClickOnElement(locator);
-		click(ELEMENT_LOCK_OPTION_XPATH);
-	}
-
-	//check node is being locked
-	public boolean checkLockNode(Object locator){
-		boolean locked;
-		By by = locator instanceof By ? (By)locator : By.xpath((String)locator);
-//		actions.contextClick(unlock).build().perform();
-		rightClickOnElement(by);
-		pause(500);
-		if (isElementPresent(ELEMENT_UNLOCK_OPTION_XPATH)) {
-			locked = true;
-		} else 
-			locked =false;
-		WebElement unlock = waitForAndGetElement(by);
-		unlock.sendKeys(Keys.RETURN);
-		return locked;
-	}
-	
-	 //check in a node
-    public void checkInNode(By locator){
-            rightClickOnElement(locator);
-            WebElement in = waitForAndGetElement(ELEMENT_CHECKIN_OPTION_XPATH);
-            if (in !=null){
-                    click(ELEMENT_CHECKIN_OPTION_XPATH);
-                    info("Check in node successfully");
-            }else{
-                    info("Node has checked in or can not check in");
-            }
-    }
-    
-    //check out a node
-    public void checkOutNode(By locator){
-            rightClickOnElement(locator);
-            WebElement out = waitForAndGetElement(ELEMENT_CHECKOUT_OPTION_XPATH);                
-            if (out !=null){
-                    click(ELEMENT_CHECKOUT_OPTION_XPATH);
-                    info("Check out node successfully");
-            }else{
-                    info("Node has checkout or can not chekout");
-            }
-    }
-    
-    public void setPermissionAddNodeForUser(String user,int permission,int delete){
-        click(ELEMENT_SYSTEM_LINK);
-        click(ELEMENT_PERMISSION_TAB);
-        click(ELEMENT_SELECT_USER);
-        if (delete ==1){
-                click(ELEMENT_DELETE_PERMISSION);
-                acceptAlert();
-        }
-        type(ELEMENT_SEARCH_TEXTBOX,user, false);
-        click(ELEMENT_SEARCH_LINK);
-        pause(500);
-        click(ELEMENT_SEARCH_CHOOSE);
-        pause(500);
-        if (waitForAndGetElement(ELEMENT_READ_CHECKBOX).isSelected()==false){
-                click(ELEMENT_READ_CHECKBOX);
-        }
-        if (permission==1){
-                if (waitForAndGetElement(ELEMENT_ADD_NODE_CHECKBOX).isSelected()==true){
-                        click(ELEMENT_ADD_NODE_CHECKBOX);
-                }
-        }else{
-                if (waitForAndGetElement(ELEMENT_ADD_NODE_CHECKBOX).isSelected()==false){
-                        click(ELEMENT_ADD_NODE_CHECKBOX);
-                }
-        }
-        click(ELEMENT_SAVE_BUTTON);
-        click(ELEMENT_CLOSE_BUTTON);
-    }
-    
-  //choose a drive
-  	public void chooseDrive(By locator)
-  	{
-  		waitForAndGetElement(ELEMENT_DRIVE).click();
-  		waitForAndGetElement(locator).click();	
-  	}
-  	
-  	//go to a node
-  	//input: path: path of a node, splitted by  "/" character 
-  	public void goToNodeByPath(String path)
-  	{
-  		String[] nodes = path.split("/");
-  		for (String node: nodes)
-  		{
-  			goToNode(By.xpath("//a[@title='" + node + " ']"));
-  			pause(100);
-  		}
-  		
-  	}
-  	
-  	// add a category
-  	public void addCategory(String name)
-  	{
-  		click(ELEMENT_BUTTON_ADD_CATE);
-  		waitForElementPresent(ELEMENT_ADD_CATE_POP);
-  		type(ELEMENT_INPUT_CATE_NAME, name, false);
-  		click(ELEMENT_BUTTON_SAVE);
-  		waitForElementPresent(By.xpath("//a[@title='"+ name+ " ']"));
-  	}
-  	
-  	// go to content administration
-  	public void goToContentAdministration()
-  	{
-  		mouseOver(ELEMENT_LINK_SETUP, true);
-  		mouseOver(ELEMENT_LINK_CONTENT, true);
-  		mouseOverAndClick(ELEMENT_LINK_CONTENT_ADMIN);
-  	}
 }

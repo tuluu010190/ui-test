@@ -7,6 +7,10 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+
 
 public class ECMS_DMS_SE_JSFile extends EcmsBase {
 	public static String USER = "john";
@@ -91,7 +95,6 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 
 		//delete js file
 		deleteDocument(bJs);
-		waitForElementNotPresent(bJs);
 
 	}
 	//Check JS priority on Sites Explorer when there are two JS files which have been defined by calling function
@@ -119,9 +122,7 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 
 		//delete js file
 		deleteDocument(bJs);
-		waitForElementNotPresent(bJs);
 		deleteDocument(bJs2);
-		waitForElementNotPresent(bJs2);
 	}	
 	//Check JS priority on Sites Explorer when there are two JS files which have been defined by calling function
 	@Test
@@ -149,11 +150,8 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 
 		//delete js file
 		deleteDocument(bJs);
-		waitForElementNotPresent(bJs);
 		deleteDocument(bJs2);
-		waitForElementNotPresent(bJs2);
 		deleteDocument(bJs3);
-		waitForElementNotPresent(bJs3);
 	}	
 	//Check the affection of JS file in Share site
 	@Test
@@ -173,7 +171,6 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 		pause(1000);
 		//delete js file
 		deleteDocument(bJs);
-		waitForElementNotPresent(bJs);
 	}	
 	@BeforeMethod
 	public void beforeMethod() {
@@ -182,7 +179,7 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 
 		actions = new Actions(driver);
 		loginEcms(USER, PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 	}
 
 	@AfterMethod

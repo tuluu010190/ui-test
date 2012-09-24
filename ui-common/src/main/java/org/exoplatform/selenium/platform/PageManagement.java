@@ -114,4 +114,29 @@ public class PageManagement extends PlatformBase {
 		waitForTextNotPresent("Page Editor");
 	}
 
+//	//search Page
+//		public boolean searchPage(String pageTitle){	
+//			actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_SETUP_IMG)).build().perform();
+//			actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_PORTAL_LINK_LINKTEXT)).build().perform();
+//			pause(100);
+//			click(ELEMENT_MENU_PAGE_LINK_LINKTEXT);
+//			
+////			waitForAndGetElement(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX).clear();
+//			type(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX, pageTitle, true);
+//			click(ELEMENT_SEARCH_PAGE_ICON);
+//			if (isElementNotPresent(ELEMENT_SEARCH_PAGE_ALERT))
+//			return true;	
+//			else return false;
+//		}
+//		
+//		//delete page
+//		public static void deletePage(){
+//			click(ELEMENT_DELETE_PAGE_ICON);
+//			acceptAlert();
+//			click(By.linkText("OK"));
+//			info("Delete page successfully");
+//		}
+//		
+	
+	
 }

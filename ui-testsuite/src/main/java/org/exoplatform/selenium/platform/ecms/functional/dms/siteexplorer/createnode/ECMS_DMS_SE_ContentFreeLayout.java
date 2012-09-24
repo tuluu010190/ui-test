@@ -1,7 +1,5 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
-//import java.util.concurrent.TimeUnit;
-
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
@@ -9,6 +7,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 /*
  * @author: Lientm
@@ -26,7 +27,6 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 	 @BeforeMethod
 	  public void beforeMethods() throws Exception {
 		initSeleniumTest();
-	    //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	    driver.get(baseUrl);
 	    actions = new Actions(driver);
 		info("Login to ECMS with user: "+DATA_USER);
@@ -57,7 +57,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  
 		  //go to web content folder
 		  info("Go to web content folder");
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  goToNode(ELEMENT_ACME_LINK);
 		  goToNode(ELEMENT_WEB_CONTENT_LINK);
 		  goToAddNewContent();
@@ -65,7 +65,6 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  debug("Add new free layout webcontent with title: "+DATA_FREE_LAYOUT_TITLE );
 		  createNewFreeLayoutWebContent(DATA_FREE_LAYOUT_TITLE, DATA_FREE_LAYOUT_TITLE, "", DATA_IMG, DATA_FREE_LAYOUT_TITLE, "", "");
 		  waitForElementPresent(ELEMENT_FREE_LAYOUT);
-		  assert isElementPresent(ELEMENT_FREE_LAYOUT):"Can not add new free layout webcontent";
 		  info("Add new free layout webcontent successfully");
 		  //check status of free layout is draft
 		  goToNode(ELEMENT_WEB_CONTENT_LINK);
@@ -73,7 +72,6 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  //delete data
 		  goToNode(ELEMENT_FREE_LAYOUT);
 		  deleteDocument(ELEMENT_FREE_LAYOUT);
-		  waitForElementNotPresent(ELEMENT_FREE_LAYOUT);	  	  
 	  }
 	  
 	  /*case2: Add free layout content in web content folder with blank Name
@@ -89,7 +87,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  
 		  //go to web content
 		  info("Go to web content folder");
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  goToNode(ELEMENT_ACME_LINK);
 		  goToNode(ELEMENT_WEB_CONTENT_LINK);
 		  goToAddNewContent();
@@ -115,7 +113,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  
 		  //go to web content
 		  info("Go to web content folder");
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  goToNode(ELEMENT_ACME_LINK);
 		  goToNode(ELEMENT_WEB_CONTENT_LINK);
 		  goToAddNewContent();
@@ -144,7 +142,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  
 		  //go to web content
 		  info("Go to web content folder");
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  goToNode(ELEMENT_ACME_LINK);
 		  goToNode(ELEMENT_WEB_CONTENT_LINK);
 		  goToAddNewContent();
@@ -155,7 +153,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  assert isElementPresent(ELEMENT_FREE_LAYOUT):"Can not add free layout content with name in viettelese";
 		  info("Create new free layout webcontent with name in vietnamese successfully");
 		  deleteDocument(ELEMENT_FREE_LAYOUT);
-		  waitForElementNotPresent(ELEMENT_FREE_LAYOUT);
+
 		  //add new free layout webcontent with name in France
 		  goToNode(ELEMENT_WEB_CONTENT_LINK);
 		  goToAddNewContent();
@@ -165,6 +163,5 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  assert isElementPresent(ELEMENT_FREE_LAYOUT):"Can not add free layout content with name in france";
 		  info("Create new free layout webcontent with name in france successfully");
 		  deleteDocument(ELEMENT_FREE_LAYOUT);
-		  waitForElementNotPresent(ELEMENT_FREE_LAYOUT);
-		  }
+	}
 }

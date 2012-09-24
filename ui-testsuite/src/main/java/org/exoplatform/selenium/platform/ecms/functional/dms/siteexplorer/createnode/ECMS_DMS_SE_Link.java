@@ -1,18 +1,16 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
-import java.io.File;
-import java.io.IOException;
-
-import org.apache.commons.io.FileUtils;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import static org.exoplatform.selenium.TestLogger.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+
 /*
  * @author: Thuntn
  * @date: 18/09/2012
@@ -52,16 +50,7 @@ public class ECMS_DMS_SE_Link extends EcmsBase {
 		}
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
-	public void takeScreenShot(String fileName)
-	{
-		File screenshot = ((TakesScreenshot) driver)
-                .getScreenshotAs(OutputType.FILE);
-		try {
-            FileUtils.copyFile(screenshot, new File(fileName));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-	}
+	
 	//Create a link in site explorer
 	@Test
 	public void test01_CreateLinkInSiteExplorer() {
@@ -96,11 +85,10 @@ public class ECMS_DMS_SE_Link extends EcmsBase {
 			//verify expected result
 			click(By.linkText(DATA_LINK_URL_02));
 			waitForElementPresent(bLink);
-			takeScreenShot(getAbsoluteFilePath(fileName));
+			captureScreen(fileName);
 			pause(2000);
 			//delete link
 			deleteDocument(bLink);
-			waitForElementNotPresent(bLink);
 		} 
 	
 	@BeforeMethod
@@ -110,7 +98,7 @@ public class ECMS_DMS_SE_Link extends EcmsBase {
 
 		actions = new Actions(driver);
 		loginEcms(USER, PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 	}
 
 	@AfterMethod

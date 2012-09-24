@@ -7,6 +7,9 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 
 public class ECMS_DMS_SE_Category extends EcmsBase{
 	public static String USER = "john";
@@ -44,7 +47,6 @@ public class ECMS_DMS_SE_Category extends EcmsBase{
 		//delete data
 		deleteDocument(bCate);
 		waitForElementNotPresent(bCate);
-		assert isElementNotPresent(bCate): "Fail to delete a categort";
 		
 	}
 	//Add category, then check if to display in ECM administration
@@ -74,15 +76,12 @@ public class ECMS_DMS_SE_Category extends EcmsBase{
 		pause(500);
 		click(ELEMENT_LINK_SYSTEM);
 		waitForElementPresent(By.linkText(DATA_CATE_NAME_08_TITLE));
-		assert isElementPresent(By.linkText(DATA_CATE_NAME_08_TITLE)):"Fail to display the category!" ;
 		click(ELEMENT_BUTTON_CLOSE);
 			
 		//go to Site explorer and delete data
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		deleteDocument(bCate);
 		waitForElementNotPresent(bCate);
-		assert isElementNotPresent(bCate): "Fail to delete a category";
-		
 	}
 	@BeforeMethod
 	public void beforeMethod() {
@@ -91,7 +90,7 @@ public class ECMS_DMS_SE_Category extends EcmsBase{
 
 		actions = new Actions(driver);
 		loginEcms(USER, PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 	}
 
 	@AfterMethod

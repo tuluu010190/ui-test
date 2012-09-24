@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 
 public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 	public static String DATA_CONTENT_FOLDER_NAME_01 = "FNC_ECMS_FEX_CREATE_02_01_con";
@@ -38,7 +40,6 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 		//create a content folder
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE_01,DATA_CONTENT_FOLDER_NAME_01);
 		waitForElementPresent(bContent);
-		assert isElementPresent(bContent): "Fail to create a content folder!";
 		pause(500);
 		goToNode(bContent);
 		pause(500);
@@ -46,15 +47,10 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 		//create a document folder
 		createNewDocumentFolder(DATA_DOC_FOLDER_TITLE_01, DATA_DOC_FOLDER_NAME_01);
 		waitForElementPresent(bDoc);
-		assert isElementPresent(bDoc): "Fail to create a docment folder!";
 
 		//delete data
 		deleteDocument(bDoc);
-		waitForElementNotPresent(bDoc);
-		assert isElementNotPresent(bDoc);
 		deleteDocument(bContent);
-		waitForElementNotPresent(bContent);
-		assert isElementNotPresent(bContent);
 	}
 
 	// add a document folder in a document folder 
@@ -67,7 +63,6 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 		//create a document folder
 		createNewDocumentFolder(DATA_DOC_FOLDER_TITLE_02,DATA_DOC_FOLDER_NAME_02);
 		waitForElementPresent(bDoc);
-		assert isElementPresent(bDoc): "Fail to create a content folder!";
 		pause(500);
 		goToNode(bDoc);
 		pause(500);
@@ -75,15 +70,10 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 		//create a child document folder
 		createNewDocumentFolder(DATA_DOC_FOLDER_TITLE_02_SUB, DATA_DOC_FOLDER_NAME_02_SUB);
 		waitForElementPresent(bDocSub);
-		assert isElementPresent(bDocSub): "Fail to create a docment folder!";
 
 		//delete data
 		deleteDocument(bDocSub);
-		waitForElementNotPresent(bDocSub);
-		assert isElementNotPresent(bDocSub);
 		deleteDocument(bDoc);
-		waitForElementNotPresent(bDoc);
-		assert isElementNotPresent(bDoc);
 	}
 
 	// add a document folder in a locked document folder 
@@ -98,7 +88,6 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 		//create a document folder
 		createNewDocumentFolder(DATA_DOC_FOLDER_TITLE_21_LOCK,DATA_DOC_FOLDER_NAME_21_LOCK);
 		waitForElementPresent(bDoc);
-		assert isElementPresent(bDoc): "Fail to create a content folder!";
 		pause(500);
 		lockNode(bDoc);
 		goToNode(bDocLock);
@@ -107,15 +96,10 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 		//create a child document folder
 		createNewDocumentFolder(DATA_DOC_FOLDER_TITLE_21_SUB, DATA_DOC_FOLDER_NAME_21_SUB);
 		waitForElementPresent(bDocSub);
-		assert isElementPresent(bDocSub): "Fail to create a docment folder!";
 
 		//delete data
 		deleteDocument(bDocSub);
-		waitForElementNotPresent(bDocSub);
-		assert isElementNotPresent(bDocSub);
 		deleteDocument(bDocLock);
-		waitForElementNotPresent(bDocLock);
-		assert isElementNotPresent(bDocLock);
 	}
 
 	// add a document folder in a locked content folder 
@@ -129,7 +113,6 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 			//create a document folder
 			createNewContentFolder(DATA_CON_FOLDER_TITLE_21,DATA_CON_FOLDER_NAME_21);
 			waitForElementPresent(bCon);
-			assert isElementPresent(bCon): "Fail to create a content folder!";
 			pause(500);
 			lockNode(bCon);
 			goToNode(bConLock);
@@ -138,15 +121,10 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 			//create a child document folder
 			createNewDocumentFolder(DATA_DOC_FOLDER_TITLE_21, DATA_DOC_FOLDER_NAME_21);
 			waitForElementPresent(bDoc);
-			assert isElementPresent(bDoc): "Fail to create a docment folder!";
 
 			//delete data
 			deleteDocument(bDoc);
-			waitForElementNotPresent(bDoc);
-			assert isElementNotPresent(bDoc);
 			deleteDocument(bConLock);
-			waitForElementNotPresent(bConLock);
-			assert isElementNotPresent(bConLock);
 		}
 	@BeforeMethod
 	public void beforeMethod() {
@@ -155,7 +133,7 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 
 		actions = new Actions(driver);
 		loginEcms(USER, PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 	}
 
 	@AfterMethod

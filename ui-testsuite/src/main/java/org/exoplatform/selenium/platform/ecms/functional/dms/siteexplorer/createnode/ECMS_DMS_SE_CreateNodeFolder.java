@@ -9,9 +9,13 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 /*
- * @author: meri
+ * @author: Marine
  * @edit: Lientm
  * @date: 9/2012
  */
@@ -37,7 +41,7 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		actions = new Actions(driver);		
 		info("Login to ECMS with user: "+DATA_USER);
 		loginEcms(DATA_USER, DATA_PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 	}
 
@@ -70,7 +74,6 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		deleteDocument(ELEMENT_CONTENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);
 	}
 	
 	
@@ -86,7 +89,6 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		debug("Create new content folder with the title: "+DATA_CONTENT_FOLDER_TITLE +"and name blank");
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,"");	
 		waitForElementPresent(ELEMENT_WARNING_MESSAGE_ICON);
-		assert isElementPresent(ELEMENT_WARNING_MESSAGE_ICON):"Warning message is not displayed";
 		click(By.linkText("OK"));
 	}
 
@@ -106,11 +108,9 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		debug("Create new content folder with the title: "+DATA_CONTENT_FOLDER_TITLE+"and name contains special characters");
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_NAME);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Node has not been created";
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		deleteDocument(ELEMENT_CONTENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);
 	}
 	
 	/*case4: Add folder in a node is in 'Check in' status
@@ -130,7 +130,6 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		goToAddNewContent();
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, "", "");
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Node has not been created";
 		info("Create new node (article document) successfully");
 		//check in node
 		goToNode(ELEMENT_ARTICLE);
@@ -142,7 +141,6 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		goToNode(ELEMENT_ARTICLE);
 		checkOutNode(ELEMENT_ARTICLE);
 		deleteDocument(ELEMENT_ARTICLE);
-		waitForElementNotPresent(ELEMENT_ARTICLE);
 		
 	}
 	
@@ -169,7 +167,6 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		goToAddNewContent();
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, "", "");
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Node has not been created";
 		info("Create new parent node (article document) successfully");
 		//create new child node: kofax document
 		info("add new kofax document in this article document");
@@ -180,7 +177,6 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		checkPreferenceOption("enableStructure");
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementPresent(ELEMENT_KOFAX);
-		assert isElementPresent(ELEMENT_KOFAX):"Can not add new child node";
 		info("Create new child node (kofax document) sucessfully");
 		//check in parent node
 		info("Check-in the parent node");
@@ -192,12 +188,10 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE, DATA_CONTENT_FOLDER_TITLE);
 		goToNode(ELEMENT_KOFAX);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Can node add new folder in child node";
 		//check out node and delete data
 		goToNode(ELEMENT_ARTICLE);
 		checkOutNode(ELEMENT_ARTICLE);
 		deleteDocument(ELEMENT_ARTICLE);
-		waitForElementNotPresent(ELEMENT_ARTICLE);
 	}
 	
 	/*
@@ -218,7 +212,6 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		debug("Create new content folder with the title: "+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Can not create new content folder";
 		//set permission for user mary
 		info("Set permission for user Mary does not has add node permission");
 		goToNode(ELEMENT_CONTENT_FOLDER);
@@ -228,7 +221,7 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		driver.get(baseUrl);
 		loginEcms("mary", "gtn");
 		//check can not add folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		click(ELEMENT_NEW_FOLDER_LINK);			
 		assert isElementPresent(ELEMENT_SEARCH_PAGE_ALERT):"Not have alert";
@@ -238,10 +231,9 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		//login with john to delete data
 		driver.get(baseUrl);
 		loginEcms(DATA_USER, DATA_PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		deleteDocument(ELEMENT_CONTENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);
 	}
 	
 	
@@ -273,7 +265,7 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 //
 //		info("Login with Mary");
 //		loginEcms("mary", "gtn");
-//		goToSiteExplorerForm();
+//		goToSiteExplorer();
 //		waitForAndGetElement(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" (Locked by john)"+"']")).click();
 //		assert isTextNotPresent(ELEMENT_NEW_FOLDER):"Action to add a node is still possible";
 //
@@ -287,7 +279,7 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 //		waitForAndGetElement(By.name("password")).sendKeys("gtn");
 //		waitForAndGetElement(ELEMENT_LOGIN_BUTTON).click();	
 //		info ("go to site explorer");
-//		goToSiteExplorerForm();
+//		goToSiteExplorer();
 //		info ("go to node");
 //		goToNode(By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" (Locked by john)"+"']"));
 //		info ("delete");
@@ -310,7 +302,6 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		debug("Create content folder with the title: "+DATA_CONTENT_FOLDER_NAME);
 		createNewContentFolder("",DATA_CONTENT_FOLDER_NAME);
 		waitForElementPresent(ELEMENT_WARNING_MESSAGE_ICON);
-		assert isElementPresent(ELEMENT_WARNING_MESSAGE_ICON):"The alert popup is not displayed";
 		assert getText(ELEMENT_WARNING_MESSAGE_ICON).contains(ELEMENT_NEW_FOLDER_ALERT):"wrong message";
 		click(By.linkText("OK"));
 	}
@@ -328,12 +319,10 @@ public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//div[@class='UIPop
 		debug("Create content folder with the title: "+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_NAME);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Node has not been created";
 		//delete data
 		info("Delete special node");
  		goToNode(ELEMENT_CONTENT_FOLDER);
 	 	deleteDocument(ELEMENT_CONTENT_FOLDER);
-	 	waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);
 	 	}
 	
 }

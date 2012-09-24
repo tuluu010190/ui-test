@@ -7,6 +7,11 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+
 
 public class ECMS_DMS_SE_PictureOnHeadLayoutContent extends EcmsBase {
 	public static String USER = "john";
@@ -52,7 +57,6 @@ public class ECMS_DMS_SE_PictureOnHeadLayoutContent extends EcmsBase {
 
 		//delete picture on head layout content
 		deleteDocument(bPic);
-		waitForElementNotPresent(bPic);
 	}
 	//add picture on head layout content with blank required fields
 	@Test
@@ -87,7 +91,6 @@ public class ECMS_DMS_SE_PictureOnHeadLayoutContent extends EcmsBase {
 
 		//delete picture on head layout content
 		deleteDocument(bPic);
-		waitForElementNotPresent(bPic);		    
 	}
 
 	@BeforeMethod
@@ -97,7 +100,7 @@ public class ECMS_DMS_SE_PictureOnHeadLayoutContent extends EcmsBase {
 
 		actions = new Actions(driver);
 		loginEcms(USER, PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 	}
 
 	@AfterMethod

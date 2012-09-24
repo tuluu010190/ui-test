@@ -7,6 +7,10 @@ import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 	public static final String USER = "john";
@@ -44,12 +48,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 	public static final String DATA_SAM_NAME_12= "FNC_ECMS_FEX_CREATE_08_06_SAM";
 	public static final String DATA_SAM_TITLE_12= "FNC_ECMS_FEX_CREATE_08_06_SAM";
 	public static final String DATA_SAM_FILE_12="TestData/FNC_ECMS_FEX_CREATE_08_12.png";
-	//choose a drive
-	public void chooseDrive(By locator)
-	{
-		waitForAndGetElement(ELEMENT_DRIVE).click();
-		waitForAndGetElement(locator).click();	
-	}
+	
 	//add a file plan in a content folder
 	@Test
 	public void test01_AddFilePlanInContentFolder() {
@@ -71,11 +70,9 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		pause(10000);
 		//delete file plan
 		deleteDocument(bFilePlan);
-		waitForElementNotPresent(bFilePlan);
 
 		//delete content folder
 		deleteDocument(bContentFolder);
-		waitForElementNotPresent(bContentFolder);
 	}
 
 	//add a file plan in a document folder
@@ -98,11 +95,9 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		pause(10000);
 		//delete file plan
 		deleteDocument(bFilePlan);
-		waitForElementNotPresent(bFilePlan);
 
 		//delete content folder
 		deleteDocument(bDocFolder);
-		waitForElementNotPresent(bDocFolder);
 	}
 
 	//add a file plan in an article document
@@ -125,7 +120,6 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 
 		//delete content folder
 		deleteDocument(bArticle);
-		waitForElementNotPresent(bArticle);
 	}
 
 	//add a file plan in a file document
@@ -145,7 +139,6 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 
 		//delete content folder
 		deleteDocument(bFile);
-		waitForElementNotPresent(bFile);
 	}
 
 	//add a file plan in a podcast document
@@ -165,7 +158,6 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 
 		//delete content folder
 		deleteDocument(bPodcast);
-		waitForElementNotPresent(bPodcast);
 	}
 
 	//add a file plan in a sample node document
@@ -188,7 +180,6 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		
 		//delete content folder
 		deleteDocument(bSam);
-		waitForElementNotPresent(bSam);
 	}
 	//add a file plan in a file plan
 	@Test
@@ -211,7 +202,6 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		goToNode(bFPlan);
 		pause(5000);
 		deleteDocument(bFPlan);
-		waitForElementNotPresent(bFPlan);
 	}
 
 	//add a file plan in a kofax document 
@@ -236,11 +226,9 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 
 		//delete file plan
 		deleteDocument(bFilePlan);
-		waitForElementNotPresent(bFilePlan);
 
 		//delete content folder
 		deleteDocument(bKox);
-		waitForElementNotPresent(bKox);
 	}
 
 	//add a file plan in an uploaded file
@@ -260,7 +248,6 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 
 		//delete content folder
 		deleteDocument(bUpload);
-		waitForElementNotPresent(bUpload);
 	}
 	//add a file plan in a locked content folder
 	@Test
@@ -285,11 +272,9 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		pause(10000);
 		//delete file plan
 		deleteDocument(bFilePlan);
-		waitForElementNotPresent(bFilePlan);
 
 		//delete content folder
 		deleteDocument(bLockedContentFolder);
-		waitForElementNotPresent(bLockedContentFolder);
 	}
 	//add a file plan in a locked kofax document 
 	@Test
@@ -315,11 +300,9 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 
 		//delete file plan
 		deleteDocument(bFilePlan);
-		waitForElementNotPresent(bFilePlan);
 
 		//delete content folder
 		deleteDocument(bLockedKox);
-		waitForElementNotPresent(bLockedKox);
 	}
 	//add a file plan in a locked article document
 	@Test
@@ -343,7 +326,6 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 
 		//delete content folder
 		deleteDocument(bLockedArticle);
-		waitForElementNotPresent(bLockedArticle);
 	}
 
 	//add a file plan in a locked sample node document
@@ -367,7 +349,6 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		goToNode(bLockedSam);
 		//delete content folder
 		deleteDocument(bLockedSam);
-		waitForElementNotPresent(bLockedSam);
 	}
 	@BeforeMethod
 	public void beforeMethod() {
@@ -375,7 +356,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		driver.get(baseUrl);
 		actions = new Actions(driver);
 		loginEcms(USER, PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 	}
 
 	@AfterMethod

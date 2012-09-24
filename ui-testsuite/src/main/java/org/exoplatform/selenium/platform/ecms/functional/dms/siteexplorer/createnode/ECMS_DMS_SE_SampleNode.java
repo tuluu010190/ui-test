@@ -8,7 +8,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 
@@ -56,7 +58,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By SAMPLE_LINK01 =By.xpath("//a[@title='"+SAMPLE_TITLE01+" "+"']");
 
 		info("Go to Site Explorer");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info ("Create new content folder" );
 		createNewContentFolder(FOLDER_NAME01,FOLDER_TITLE01);
@@ -79,9 +81,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		info ("Delete Content Folder" );
 		deleteDocument(FOLDER_LINK01);
 		pause(1000);
-
-		info("Verify folder is not exisiting");
-		assert isElementNotPresent(FOLDER_LINK01): "Content Folder still existing";
 	}
 
 	/* Case 2: Add Sample Node document in Document Folder
@@ -97,7 +96,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By FOLDER_LINK02= By.xpath("//a[@title='"+FOLDER_TITLE02+" "+"']");
 
 		info("Go to Site Explorer");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info ("Create new document folder" );
 		createNewDocumentFolder(FOLDER_TITLE02,FOLDER_NAME02);
@@ -139,7 +138,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By ARTICLE_LINK= By.xpath("//a[@title='"+ARTICLE_TITLE+" "+"']");
 
 		info("Go to Site Explorer");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Click on Add Content icon in action bar");
 		goToAddNewContent();
@@ -166,9 +165,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		info("Delete document");
 		deleteDocument(ARTICLE_LINK);
 		pause(1000);
-
-		info("Verify doucment is not existing");
-		assert isElementNotPresent(ARTICLE_LINK): "Article document still existing";
 	}
 
 	/* Case 4: Add Sample Node document in Sample Node document
@@ -184,7 +180,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By SAMPLE_LINK= By.xpath("//a[@title='"+SAMPLE_TITLE+" "+"']");
 
 		info("Go to Site Explorer");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info ("Click on Add Content icon in action bar" );
 		goToAddNewContent();
@@ -211,9 +207,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		info("Delete document");
 		deleteDocument(SAMPLE_LINK);
 		pause(1000);
-
-		info("Verify document is not exisitng");
-		assert isElementNotPresent(SAMPLE_LINK):"Sample Node document still existing";
 	}
 
 	/* Case 5: Add Sample Node in File Plan document
@@ -228,7 +221,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By FILEPLAN_LINK= By.xpath("//a[@title='"+FILEPLAN_NAME+" "+"']");
 
 		info("Go to Site Explorer");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info ("Click New content in action bar" );
 		goToAddNewContent();
@@ -255,9 +248,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		info("Delete document");
 		deleteDocument(FILEPLAN_LINK);
 		pause(1000);
-
-		info("Verify document is not existing");
-		assert isElementNotPresent(FILEPLAN_LINK): "File Plan document still existing";
 	}
 
 	/* Case 6: Create Sample Node document in Kofax document
@@ -275,7 +265,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By SAMPLE_LINK08= By.xpath("//a[@title='"+SAMPLE_TITLE08+" "+"']");
 
 		info("Go to Site Explorer");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info ("Click on Add Content icon" );
 		goToAddNewContent();
@@ -303,9 +293,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		deleteDocument(KOFAX_LINK);
 		pause(1000);
 
-		info("Verify Kofax document is not existing");
-		assert isElementNotPresent(KOFAX_LINK): "Kofax document still existing";
-
 	}
 
 	/* Case 09: Create Sample Node In Uploaded File
@@ -322,7 +309,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By UPLOADED_FILE = By.xpath("//a[@title='"+DATA_UPLOADED_FILE_NAME+".jpg "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		pause(500);
@@ -349,7 +336,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 
 		info("Verify uploaded file is deleted");
 		pause(1000);
-		assert isElementNotPresent(UPLOADED_FILE):"Uploaded file is not deleted";
 	}
 
 	/* Case 10: Create Sample Node Without Title
@@ -363,7 +349,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		String SAMPLE_NODE_TITLE="FNC_ECMS_FEX_CREATE_07_010";
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		pause(500);
@@ -380,6 +366,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		pause(1000);
 		assert isTextPresent(MESSAGE_NO_TITLE):"Message not found!";
 	}
+	
 	/* Case 12: Create Sample Node In Locked Content Folder By Locker
 	 * Create content folder
 	 * Lock content folder
@@ -397,7 +384,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By CONTENT_FOLDER_PATH=By.xpath("//a[@title='"+CONTENT_FOLDER_NAME+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		pause(500);
@@ -434,9 +421,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		pause(500);
 		deleteDocument(By.xpath(CONTENT_FOLDER_LOCK));
 		pause(1000);
-
-		info("Verify Content folder is deleted");
-		assert isElementNotPresent(By.xpath(CONTENT_FOLDER_LOCK)):"Content folder is not deleted";
 	}
 
 	/* Case 12: Create Sample Node In Locked Document Folder By Locker
@@ -455,7 +439,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		String DOCUMENT_FOLDER_LOCK="//a[contains(text(), '"+DOCUMENT_FOLDER_NAME+"')]";
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		pause(500);
@@ -491,9 +475,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		pause(1000);
 		deleteDocument(By.xpath(DOCUMENT_FOLDER_LOCK));
 		pause(1000);
-
-		info("Verify document folder is deleted");
-		assert isElementNotPresent(By.xpath(DOCUMENT_FOLDER_LOCK)):"Document folder is not deleted";
 	}
 
 	/* Case 13: Create Sample Node In Locked Kofax document By Locker
@@ -514,7 +495,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		pause(500);
@@ -552,9 +533,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		pause(1000);
 		deleteDocument(By.xpath(KOFAX_LOCK));
 		pause(1000);
-
-		info("Verify Kofax is deleted");
-		assert isElementNotPresent(By.xpath(KOFAX_LOCK)):"Kofax is not deleted";
 	}
 	/* Case 14_01: Create Sample Node In Locked Article By Locker
 	 * Create Article
@@ -574,7 +552,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By ARTICLE_PATH=By.xpath("//a[@title='"+ARTICLE_NAME+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		pause(500);
@@ -609,10 +587,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		info("Delete Article");
 		pause(1000);
 		deleteDocument(By.xpath(ARTICLE_LOCK));
-
-		info("Verify Article is deleted");
 		pause(1000);
-		assert isElementNotPresent(By.xpath(ARTICLE_LOCK)):"Article is not deleted";
 	}
 
 	/* Case 14_02: Create Sample Node In Locked SampleNode By Locker
@@ -631,7 +606,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By SAMPLE_NODE_PATH=By.xpath("//a[@title='"+SAMPLE_NODE_NAME+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		pause(500);
@@ -666,9 +641,6 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		pause(500);
 		deleteDocument(By.xpath(SAMPLE_NODE_LOCK));
 		pause(500);
-
-		info("Verify Sample node is deleted");
-		assert isElementNotPresent(By.xpath(SAMPLE_NODE_LOCK)):"Sample node is not deleted";
 	}
 
 	/* Case 14_03: Create Sample Node In Locked FilePlan By Locker
@@ -687,7 +659,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		By FILE_PLAN_PATH=By.xpath("//a[@title='"+FILE_PLAN_INFO+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		pause(500);
@@ -722,8 +694,5 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 		pause(500);
 		deleteDocument(By.xpath(FILE_PLAN_LOCK));
 		pause(500);
-
-		info("Verify File plan is deleted");
-		assert isElementNotPresent(By.xpath(FILE_PLAN_LOCK)):"File plan is not deleted";
 	}
 }

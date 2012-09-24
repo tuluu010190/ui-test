@@ -141,7 +141,6 @@ public class TestBase {
       try {
           return driver.findElements(By.xpath(xpath));
       } catch (StaleElementReferenceException e) {
-    	  debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
     	  checkCycling(e, 5);
           pause(1000);
           return getElements(xpath);
@@ -188,7 +187,6 @@ public class TestBase {
 
 		  action.dragAndDrop(source, target).build().perform();
 	  } catch (StaleElementReferenceException e) {
-		  debug("Drag and drop error! Retry...");
 		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
           pause(WAIT_INTERVAL);
           dragAndDropToObject(sourceLocator, targetLocator);
@@ -202,7 +200,6 @@ public class TestBase {
 		  WebElement element = waitForAndGetElement(locator);
 		  actions.click(element).perform();
 	  } catch (StaleElementReferenceException e) {
-		  debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
 		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 		  pause(WAIT_INTERVAL);
 		  click(locator);
@@ -419,7 +416,7 @@ public class TestBase {
 	  return absolutePath;
   }
   public static void checkCycling(Exception e, int loopCountAllowed) {
-      debug("Exception:" + e.getClass().toString());
+      debug("Exception:" + e.getClass().getName());
       if (loopCount > loopCountAllowed) {
           Assert.fail("Cycled: " + e.getMessage());
       } 

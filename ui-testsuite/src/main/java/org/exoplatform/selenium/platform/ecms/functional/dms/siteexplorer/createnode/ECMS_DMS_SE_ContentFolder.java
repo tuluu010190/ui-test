@@ -1,7 +1,6 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
 import java.util.List;
-import static  org.exoplatform.selenium.TestLogger.*;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,6 +9,11 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static  org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+
 public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 	public String DATA_CONT_NAME_01 = "FNC_ECMS_FEX_CREATE_01_001";
 	public String DATA_CONT_TITLE_01 = "FNC_ECMS_FEX_CREATE_01_001";
@@ -51,11 +55,9 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 
 		//pause(1000);
 		deleteDocument(By.xpath("//a[@title='"+ DATA_SUB_TITLE_01+" ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+ DATA_SUB_TITLE_01+" ']"));
 
 		//delete parent node
 		deleteDocument(By.xpath("//a[@title='"+ DATA_CONT_TITLE_01+" ']"));
-		waitForElementNotPresent(By.xpath("//a[@title='" + DATA_CONT_TITLE_01 + " ']") );
 	}
 
 	//create a Content folder in a Document folder 
@@ -82,8 +84,6 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 		//delete parent node
 		deleteDocument(By.xpath("//a[@title='" + DATA_DOC_TITLE_02 + " ']"));
 		//pause(4000);
-		waitForElementNotPresent(By.xpath("//a[@title='" + DATA_DOC_TITLE_02 + " ']" ));
-
 	} 
 
 	//create a content folder inside Locked Document Folder, File Plan
@@ -115,7 +115,6 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 
 		//delete parent node
 		deleteDocument(By.xpath("//a[@title='"+ DATA_DOC_TITLE_11 + " (Locked by "+ USER +")']"));
-		waitForElementNotPresent(By.xpath("//a[@title='"+ DATA_DOC_TITLE_11 + " (Locked by "+ USER +")']"));
 	}
 
 	// create a content folder inside a locked file plan
@@ -151,8 +150,6 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 
 		//delete parent node
 		deleteDocument(By.xpath("//a[@title='" + DATA_FPLAN_NAME_11 + " (Locked by "+ USER +")']"));
-
-		waitForElementNotPresent("//a[@title='" + DATA_FPLAN_NAME_11 + " (Locked by "+ USER +")']");
 	}
 
 	@BeforeMethod
@@ -161,7 +158,7 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 		driver.get(baseUrl);
 		actions = new Actions(driver);
 		loginEcms(USER, PASSWORD);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 	}
 
 	@AfterMethod

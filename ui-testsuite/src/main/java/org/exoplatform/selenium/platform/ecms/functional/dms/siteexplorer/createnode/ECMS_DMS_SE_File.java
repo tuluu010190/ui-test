@@ -1,14 +1,16 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
-//import java.util.concurrent.TimeUnit;
 import static org.exoplatform.selenium.TestLogger.*;
-
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 
 /*
  * @author: Lientm
@@ -75,24 +77,23 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_FILE_DOCUMENT = By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']");
 		
 		//create new content folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("create new content with title:"+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Can not create new content folder";
 		info("Create new content folder successfully");
+		
 		//add new file to content folder just add
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToAddNewContent();
 		debug("add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT):"Add new file document into content folder is not successful";
 		info("Add new file document in content folder is successful");
+		
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		deleteDocument(ELEMENT_CONTENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);
 	}
 	
 
@@ -112,24 +113,24 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_FILE_DOCUMENT = By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']");
 		
 		//Create new document folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
+		
 		debug("create new document folder with title: "+DATA_DOCUMENT_FOLDER_TITLE);
 		createNewDocumentFolder(DATA_DOCUMENT_FOLDER_TITLE, DATA_DOCUMENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_DOCUMENT_FOLDER);
-		assert isElementPresent(ELEMENT_DOCUMENT_FOLDER):"Create new document foder is not successful";
 		info("create new document folder successfully");
+		
 		//add new file document to this document folder
 		goToNode(ELEMENT_DOCUMENT_FOLDER);
 		goToAddNewContent();
 		debug("add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT):"Add new file document in document folder is not successful";
 		info("Add new file document in document folder is successful");
+		
 		//delete document folder
 		goToNode(ELEMENT_DOCUMENT_FOLDER);
 		deleteDocument(ELEMENT_DOCUMENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_DOCUMENT_FOLDER);
 	}
 
 	/*case3: Add File document in Article document
@@ -147,13 +148,13 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_FILE_DOCUMENT = By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']");
 		
 		//create new article document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new article document with title:"+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Create new article document is not successful";
 		info("Create new article document is successful");
+
 		//add new file document to this article document
 		goToNode(ELEMENT_ARTICLE);
 		goToAddNewContent();
@@ -162,12 +163,11 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		checkPreferenceOption(ELEMENT_DMS_OPTION_CHECKBOX_ID);
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT):"Add new file document in document folder is not successfull";
 		info("Add new file document in article document is successful");
+		
 		//delete article document
 		goToNode(ELEMENT_ARTICLE);
 		deleteDocument(ELEMENT_ARTICLE);
-		waitForElementNotPresent(ELEMENT_ARTICLE);
 	}
 
 	/*case4: Add File document in File document
@@ -183,19 +183,17 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_FILE_DOCUMENT = By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']");
 		
 		//create new file document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("create new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT):"Create new file document is not successful";
 		info("create new file document is successful");
 		//check can not add new file document to created file document -> has not new content link
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 		//delete file document
 		deleteDocument(ELEMENT_FILE_DOCUMENT);
-		waitForElementNotPresent(ELEMENT_FILE_DOCUMENT);
 	}
 	
 	/*case5: Add File document in Podcast document
@@ -211,19 +209,17 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_PODCAST = By.xpath("//a[@title='"+DATA_PODCAST_NAME+" "+"']");
 		
 		//create new podcast document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("create new podcast with name:"+DATA_PODCAST_NAME);
 		createNewPodcast(DATA_PODCAST_NAME, DATA_PODCAST_NAME, DATA_PODCAST_NAME);
 		waitForElementPresent(ELEMENT_PODCAST);
-		assert isElementPresent(ELEMENT_PODCAST):"Create new podcast is not successful";
 		info("create new podcast is successful");
 		//check can not add new file document to created podcast document -> has not new content link
 		goToNode(ELEMENT_PODCAST);
 		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 		//delete podcast document
 		deleteDocument(ELEMENT_PODCAST);
-		waitForElementNotPresent(ELEMENT_PODCAST);
 	}
 	
 	/*case6: Add File document in Sample Node document
@@ -243,12 +239,11 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_SAMPLE_NODE = By.xpath("//a[@title='"+DATA_SAMPLE_NODE_TITLE+" "+"']");
 		
 		//create new sample node document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new sample node document with title:"+DATA_SAMPLE_NODE_TITLE);
 		createNewSampleNode(DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_TITLE,"");
 		waitForElementPresent(ELEMENT_SAMPLE_NODE);
-		assert isElementPresent(ELEMENT_SAMPLE_NODE):"Create new sample node is not successful";
 		info("Create new sample node is successful");
 		//add new file document to this sample node document
 		debug("add new file document into sample node with name:"+DATA_FILE_NAME);
@@ -257,12 +252,10 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		checkPreferenceOption("enableStructure");
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT):"Add new file document in sample node is not successful";
 		info("Add a file document to a sample node is successful");
 		//delete sample node document
 		goToNode(ELEMENT_SAMPLE_NODE);
 		deleteDocument(ELEMENT_SAMPLE_NODE);
-		waitForElementNotPresent(ELEMENT_SAMPLE_NODE);
 	}
 	
 	/*case7: Add File document in File Plan document
@@ -280,25 +273,24 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_FILE_PLAN = By.xpath("//a[@title='"+DATA_FILE_PLAN_NAME+" "+"']");
 		
 		//create new file plan
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("create new file plan document with name: "+ DATA_FILE_PLAN_NAME);
 		createNewFilePlan(DATA_FILE_PLAN_NAME, DATA_FILE_PLAN_NAME, DATA_FILE_PLAN_NAME, DATA_FILE_PLAN_NAME, DATA_FILE_PLAN_NAME);
 		waitForElementPresent(ELEMENT_FILE_PLAN);
-		assert isElementPresent(ELEMENT_FILE_PLAN):"Create new file plan is not successful";
 		info("Create new file plan is successful");
+
 		//add new file document to this file plan document
 		goToNode(ELEMENT_FILE_PLAN);
 		goToAddNewContent();
 		debug("Add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT):"Add file document in file plan is not successful";
 		info("Add a file document to a file plan document is successful");
+		
 		//delete file plan document
 		goToNode(ELEMENT_FILE_PLAN);
 		deleteDocument(ELEMENT_FILE_PLAN);
-		waitForElementNotPresent(ELEMENT_FILE_PLAN);
 	}
 	
 	/*case8: Add File document in Kofax document
@@ -316,12 +308,11 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_KOFAX = By.xpath("//a[@title='"+DATA_KOFAX_NAME+" "+"']");
 		
 		//create new kofax document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new kofax document with name:"+DATA_KOFAX_NAME);
 		createNewKofax(DATA_KOFAX_NAME);
 		waitForElementPresent(ELEMENT_KOFAX);
-		assert isElementPresent(ELEMENT_KOFAX):"Create new kofax document is not successful";
 		info("Create new Kofax document is successful");
 		//add new file document to this kofax document
 		goToNode(ELEMENT_KOFAX);
@@ -329,12 +320,10 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT):"Can not add new file document into kofax document";
 		info("add new file document to kofax document is successful");
 		//delete kofax document
 		goToNode(ELEMENT_KOFAX);
 		deleteDocument(ELEMENT_KOFAX);
-		waitForElementNotPresent(ELEMENT_KOFAX);
 	}
 	
 	/*case9: Add File document in uploaded file
@@ -351,18 +340,16 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
 		
 		//upload a file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload 1 file with name:"+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME,DATA_UPLOAD_FILE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE); 
-		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Upload file is not successful";
 		info("Upload a file is successful");
 		//check can not add new file document to upload file -> has not new content link
 		goToNode(ELEMENT_UPLOAD_FILE);
 		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 		//delete podcast document
 		deleteDocument(ELEMENT_UPLOAD_FILE);
-		waitForElementNotPresent(ELEMENT_UPLOAD_FILE);
 	
 	}
 	
@@ -377,7 +364,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		String DATA_FILE_NAME = "ECMS_DMS_SE_File_filedocument_10";
 		
 		//add file with content blank;
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToNode(ELEMENT_NEW_CONTENT_LINK);
 		createNewFile(DATA_FILE_NAME, "", "");
 		assert isElementPresent(ELEMENT_NEWFILE_POPUP_MESSAGE_XPATH):"No alert";	
@@ -409,7 +396,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		
 		
 		//create new text/html file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		info("Create new file document with name: "+DATA_FILE_NAME);
 		click(ELEMENT_NEWFILE_LINK);
@@ -418,7 +405,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		type(ELEMENT_NEWFILE_SOURCE_TEXTAREA_XPATH, DATA_NEWFILE_SOURCE_CONTENT, false);
 	    click(ELEMENT_SAVE_CLOSE_BUTTON);
 	    waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT):"Can not create new text/html file";
+
 	    //check view as html tab
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_NEWFILE_FRAME_HTML_TAB_XPATH));
@@ -432,7 +419,6 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 	    //delete text/html file
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		deleteDocument(ELEMENT_FILE_DOCUMENT);
-		waitForElementNotPresent(ELEMENT_FILE_DOCUMENT);
 	}
 	
 	/*case12: Add new text/html File document (2) input not source content
@@ -446,7 +432,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_FILE_DOCUMENT = By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']");
 		
 		//create new text/html file, not choose source
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		info("Create new file document with name: "+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_NEWFILE_SOURCE_CONTENT_VIEW, DATA_FILE_NAME);
@@ -464,7 +450,6 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 	    //delete text/html file
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		deleteDocument(ELEMENT_FILE_DOCUMENT);
-		waitForElementNotPresent(ELEMENT_FILE_DOCUMENT);
 	}
 	
 	/*case13: Add new text/plain File document 
@@ -478,7 +463,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_FILE_DOCUMENT = By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']");
 		
 		//create new text/plan file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		click(ELEMENT_NEWFILE_LINK);	
 		type(ELEMENT_NEWFILE_NAME_TEXTBOX,DATA_FILE_NAME,false);
@@ -486,14 +471,12 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		type(ELEMENT_NEWFILE_TEXTAREA_ID,DATA_NEWFILE_TEXTAREA_CONTENT,false);
 	    click(ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT):"Can not create new text/plan file";
 		//check view content
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		assert getText(By.cssSelector(ELEMENT_NEWFILE_PRE_CSS)).contains(DATA_NEWFILE_TEXTAREA_CONTENT):"Not found content of file document";
 	    info("Check plan text fomat of content file is successful");
 		//delete file document
 		deleteDocument(ELEMENT_FILE_DOCUMENT);
-		waitForElementNotPresent(ELEMENT_FILE_DOCUMENT);
 	}
 	
 	/*case14: Add new File document in locked node by locker
@@ -513,11 +496,10 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		By ELEMENT_CONTENT_FOLDER_2 = By.xpath("//a[contains(@title,'"+DATA_CONTENT_FOLDER_TITLE+"')]");
 		
 		//create new content folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("create new content with title:"+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Create new content folder is not successful";
 		info("create content folder is successful");
 		//lock content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
@@ -530,12 +512,10 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		//check add successfully
-		assert isElementPresent(ELEMENT_FILE_DOCUMENT): "add new file document to content folder is not successful";
 		info("add new file document to content document is successful");
+		
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER_2);
 		deleteDocument(ELEMENT_CONTENT_FOLDER_2);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER_2);
 	}
 }

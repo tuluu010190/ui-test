@@ -10,6 +10,10 @@
 
 	<artifactId>ui-testsuite</artifactId>
 	<packaging>jar</packaging>
+	
+	<properties>
+    <maven.test.skip>false</maven.test.skip>
+  </properties>
 
 	<dependencies>
 		<dependency>
@@ -35,11 +39,25 @@
 		</profile>
 
 		<profile>
-			<id>func</id>
+			<id>plf</id>
 			<properties>
-				<testSuite>functional.xml</testSuite>
+				<testSuite>plf-func.xml</testSuite>
 			</properties>
 		</profile>
+		
+		<profile>
+      <id>ecms</id>
+      <properties>
+        <testSuite>ecms.xml</testSuite>
+      </properties>
+    </profile>
+    
+    <profile>
+      <id>exogtn</id>
+      <properties>
+        <testSuite>exogtn.xml</testSuite>
+      </properties>
+    </profile>
 
 		<profile>
 			<id>regression</id>

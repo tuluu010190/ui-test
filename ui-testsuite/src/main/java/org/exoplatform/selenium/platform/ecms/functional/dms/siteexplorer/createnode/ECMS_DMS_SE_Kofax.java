@@ -1,15 +1,15 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
-import java.util.concurrent.TimeUnit;
-
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 public class ECMS_DMS_SE_Kofax extends EcmsBase {
 
@@ -17,9 +17,9 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 
 	public static By KOFAX_LINHTEXT = By.xpath("//a[@title='Kofax document']");
 
-	public static String KOFAX_NAME="Kofax_Document_Name";
+	public static String KOFAX_NAME = "Kofax_Document_Name";
 
-	public static By KOFAX_PATH = By.xpath("//a[@title='"+KOFAX_NAME+" "+"']");	
+	public static By KOFAX_PATH = By.xpath("//a[@title='"+ KOFAX_NAME +" "+"']");	
 
 	public static By NEW_CONTENT_LINHTEXT = By.xpath("//a[@title='New Content']");
 
@@ -54,7 +54,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		By CONTENT_FOLDER_PATH = By.xpath("//a[@title='"+CONTENT_FOLDER_NAME+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -74,14 +74,12 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		info("Verify Kofax is created");
 		waitForElementPresent(KOFAX_PATH);
 
-		info("Delete Content Folder including Kofax");
+		//delete kofax
+		deleteDocument(KOFAX_PATH);
+		
+		info("Delete Content Folder");
 		deleteDocument(CONTENT_FOLDER_PATH);
 
-		info("Verify Content folder is deleted");
-		waitForElementNotPresent(CONTENT_FOLDER_PATH);
-
-		info("Verify Kofax does not exist.");
-		waitForElementNotPresent(KOFAX_PATH);
 	}
 
 	/* Create document folder and select it
@@ -96,7 +94,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		By DOCUMENT_FOLDER_PATH = By.xpath("//a[@title='"+DOCUMENT_FOLDER_NAME+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -118,10 +116,6 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 
 		info("Delete Document Folder");
 		deleteDocument(DOCUMENT_FOLDER_PATH);
-
-		info("Verify document folder is deleted");
-		waitForElementNotPresent(DOCUMENT_FOLDER_PATH);
-		pause(1000);
 	}
 
 	/* Create an article
@@ -138,7 +132,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		By ARTICLE_PATH = By.xpath("//a[@title='"+ARTICLE_NAME_TITLE+" "+"']");	
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -161,15 +155,9 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		info("Click Article");
 		goToNode(ARTICLE_PATH);
 
-		info("Delete Article including Kofax");
+		info("Delete Article and Kofax");
+		deleteDocument(KOFAX_PATH);
 		deleteDocument(ARTICLE_PATH);
-
-		info("Verify article is deleted");
-		waitForElementNotPresent(ARTICLE_PATH);
-
-		info("Verify Kofax does not exist");
-		waitForElementNotPresent(KOFAX_PATH);
-		pause(500);
 	}
 
 	/* Create 1 file
@@ -184,7 +172,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		By FILE_PATH = By.xpath("//a[@title='"+FILE_NAME_TITLE+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -201,9 +189,6 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 
 		info("Delete File");
 		deleteDocument(FILE_PATH);
-
-		info("Verify File is deleted.");
-		waitForElementNotPresent(FILE_PATH);
 	}
 
 	/* Create 1 Podcast
@@ -218,7 +203,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		By PODCAST_PATH = By.xpath("//a[@title='"+PODCAST_TITLE_NAME+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -235,8 +220,6 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		info("Delete Podcast");
 		deleteDocument(PODCAST_PATH);
 
-		info("Verify Podcast is deleted.");
-		waitForElementNotPresent(PODCAST_PATH);
 	}
 
 	/* Create 1 Sample Node
@@ -251,7 +234,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		By SAMPLE_NODE_PATH=By.xpath("//a[@title='"+SAMPLE_NODE_NAME_TITLE+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -271,14 +254,9 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		info("Verify Kofax is created");
 		waitForTextPresent(KOFAX_NAME);
 
-		info("Delete Sample node including Kofax");
+		deleteDocument(KOFAX_PATH);
 		deleteDocument(SAMPLE_NODE_PATH);
 
-		info("Verify Sample node is deleted");
-		waitForElementNotPresent(SAMPLE_NODE_PATH);
-
-		info("Verify Kofax does not exist.");
-		waitForElementNotPresent(KOFAX_PATH);
 	}
 
 	/* Create 1 File plan
@@ -293,7 +271,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		By FILE_PLAN_PATH=By.xpath("//a[@title='"+FILE_PLAN_INFO+" "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -316,14 +294,8 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		info("Select File Plan");
 		goToNode(FILE_PLAN_PATH);
 
-		info("Delete File plan including Kofax");
+		deleteDocument(KOFAX_PATH);
 		deleteDocument(FILE_PLAN_PATH);
-
-		info("Verify File plan is deleted");
-		waitForElementNotPresent(FILE_PLAN_INFO);
-		
-		info("Verify Kofax does not exist.");
-		waitForElementNotPresent(KOFAX_PATH);
 	}
 
 	/* Create 1 file
@@ -334,7 +306,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 	public void test08_AddKoFaxInKofax()
 	{
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -356,9 +328,6 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 
 		info("Delete Kofax");
 		deleteDocument(KOFAX_PATH);
-
-		info("Verify Kofax is deleted.");
-		waitForElementNotPresent(KOFAX_PATH);
 	}
 
 	/* Upload 1 file
@@ -372,7 +341,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		By UPLOADED_FILE_XPATH = By.xpath("//a[@title='"+UPLOADED_FILE_NAME+".jpg "+"']");
 
 		info("Go to CE");
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
 		goToNode(SITE_MANAGEMENT_ACME);
@@ -389,7 +358,5 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		info("Delete File");
 		deleteDocument(UPLOADED_FILE_XPATH);
 
-		info("Verify File is deleted.");
-		waitForElementNotPresent(UPLOADED_FILE_NAME);
 	}
 }

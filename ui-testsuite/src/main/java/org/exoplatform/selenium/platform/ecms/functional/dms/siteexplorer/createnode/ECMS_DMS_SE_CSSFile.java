@@ -9,9 +9,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 /*
  * @author: Lientm
@@ -64,16 +64,17 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  By ELEMENT_CSS = By.xpath("//a[@title='"+DATA_CSS_NAME+" "+"']");
 		  	  
 		  //go to acme/css
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  info("Go to acme/css");
 		  goToNode(ELEMENT_ACME_LINK);
 		  goToNode(ELEMENT_CSS_LINK);
 		  //create new css file
 		  goToAddNewContent();
+		  
 		  debug("Create new css file with name: "+DATA_CSS_NAME);
 		  createNewCssFile(DATA_CSS_NAME, "10", "body {color:red;}");
 		  waitForElementPresent(ELEMENT_CSS);
-		  assert isElementPresent(ELEMENT_CSS):"Can not create new css file";
+
 		  info("Create new css file successfully");
 		  //check CSS file must be affected to interface
 		  mouseOver((ELEMENT_MYSITE_LINK), true);
@@ -82,12 +83,11 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  WebElement body = waitForAndGetElement(ELEMENT_BODY);
 		  assert body.getCssValue("color").contains("rgba(255,0,0,1)"):"Set up for page is not right";	  
 		  //delete css file
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  goToNode(ELEMENT_ACME_LINK);
 		  goToNode(ELEMENT_CSS_LINK);
 		  goToNode(ELEMENT_CSS);
 		  deleteDocument(ELEMENT_CSS);
-		  waitForElementNotPresent(ELEMENT_CSS);
 	  }
 	  
 	  /*case2: Check CSS priority on Sites Explorer when have two CSS files which have the different priority level.
@@ -104,7 +104,7 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  By ELEMENT_CSS_2 = By.xpath("//a[@title='"+DATA_CSS_NAME_2+" "+"']");
 
 		  //go to acme/css
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  info("Go to acme/css");
 		  goToNode(ELEMENT_ACME_LINK);
 		  goToNode(ELEMENT_CSS_LINK);
@@ -113,7 +113,6 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  debug("Create new css file with name: "+DATA_CSS_NAME+" and Priority: 20");
 		  createNewCssFile(DATA_CSS_NAME, "20", "body {color:blue;}");
 		  waitForElementPresent(ELEMENT_CSS);
-		  assert isElementPresent(ELEMENT_CSS):"Can not create new css file 1";
 		  info("Create new css file 1 successfully");
 		  //create new css file with name = CssFiletest_02_2, priority = 21
 		  goToNode(ELEMENT_CSS_LINK);
@@ -121,7 +120,7 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  debug("Create new css file with name: "+DATA_CSS_NAME_2+" and Priority: 21");
 		  createNewCssFile(DATA_CSS_NAME_2, "30", "body {color:red;}");
 		  waitForElementPresent(ELEMENT_CSS_2);
-		  assert isElementPresent(ELEMENT_CSS_2):"Can not create new css file 2";
+
 		  info("Create new css file 2 successfully");
 		  //check the interface of acme site will be defined follow the file which has the highest value in Priority
 		  mouseOver((ELEMENT_MYSITE_LINK), true);
@@ -130,13 +129,12 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  WebElement body = waitForAndGetElement(ELEMENT_BODY);
 		  assert body.getCssValue("color").contains("rgba(0,0,255,1)"):"Set up for page is not right";
 		  //delete css file
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  goToNode(ELEMENT_CSS);
 		  deleteDocument(ELEMENT_CSS);
-		  waitForElementNotPresent(ELEMENT_CSS);
+		  
 		  goToNode(ELEMENT_CSS_2);
 		  deleteDocument(ELEMENT_CSS_2);
-		  waitForElementNotPresent(ELEMENT_CSS_2);
 	  }
 	  
 	  /*case03: Check CSS priority on Sites Explorer when have two CSS files which have the different content.
@@ -154,7 +152,7 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  By ELEMENT_CSS_2 = By.xpath("//a[@title='"+DATA_CSS_NAME_2+" "+"']");
 
 		  //go to acme/css
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  info("Go to acme/css");
 		  goToNode(ELEMENT_ACME_LINK);
 		  goToNode(ELEMENT_CSS_LINK);
@@ -163,7 +161,6 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  debug("Create new css file with name: "+ELEMENT_CSS_NAME+" and content: body {color:blue;}");
 		  createNewCssFile(DATA_CSS_NAME, "20", "body {color:blue;}");
 		  waitForElementPresent(ELEMENT_CSS);
-		  assert isElementPresent(ELEMENT_CSS):"Can not create new css file 1";
 		  info("Create new css file 1 successfully");
 		  //create new css file with name = CssFiletest_03_2, content = 21
 		  goToNode(ELEMENT_CSS_LINK);
@@ -171,7 +168,6 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  debug("Create new css file with name: "+DATA_CSS_NAME_2+" and Priority: 21");
 		  createNewCssFile(DATA_CSS_NAME_2, "30", "background{color:gray;}");
 		  waitForElementPresent(ELEMENT_CSS_2);
-		  assert isElementPresent(ELEMENT_CSS_2):"Can not create new css file 2";
 		  info("Create new css file 2 successfully");
 		  //check the interface of acme site will be defined follow the file which has the highest value in Priority
 		  mouseOver((ELEMENT_MYSITE_LINK), true);
@@ -179,14 +175,14 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  clearCache();
 		  WebElement body = waitForAndGetElement(ELEMENT_BODY);
 		  assert body.getCssValue("color").contains("rgba(0,0,255,1)"):"Set up for page is not right";
+		  
 		  //delete css file
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  goToNode(ELEMENT_CSS);
 		  deleteDocument(ELEMENT_CSS);
-		  waitForElementNotPresent(ELEMENT_CSS);
+		  
 		  goToNode(ELEMENT_CSS_2);
 		  deleteDocument(ELEMENT_CSS_2);
-		  waitForElementNotPresent(ELEMENT_CSS_2);
 	  }
 	  
 	  /*case04: Check the affection of CSS file in Share site
@@ -200,7 +196,7 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  By ELEMENT_CSS = By.xpath("//a[@title='"+DATA_CSS_NAME+" "+"']");
 		  
 		  //go to acme/css
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  info("Go to acme/css");
 		  goToNode(ELEMENT_SHARED_LINK);
 		  goToNode(ELEMENT_CSS_LINK);
@@ -209,7 +205,6 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  debug("Create new css file with name: "+ELEMENT_CSS_NAME);
 		  createNewCssFile(DATA_CSS_NAME, "0", "body {color:blue;}");
 		  waitForElementPresent(ELEMENT_CSS);
-		  assert isElementPresent(ELEMENT_CSS):"Can not create new css file";
 		  info("Create new css file successfully");
 		  //check CSS file must be affected to interface of intranet
 		  mouseOver((ELEMENT_MYSITE_LINK), true);
@@ -223,13 +218,13 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		  clearCache();
 		  WebElement body_acme = waitForAndGetElement(ELEMENT_BODY);
 		  assert body_acme.getCssValue("color").contains("rgba(0,0,255,1)"):"Set up for page acme is not right";
+
 		  //delete css file
-		  goToSiteExplorerForm();
+		  goToSiteExplorer();
 		  goToNode(ELEMENT_SHARED_LINK);
 		  goToNode(ELEMENT_CSS_LINK);
 		  goToNode(ELEMENT_CSS);
 		  deleteDocument(ELEMENT_CSS);
-		  waitForElementNotPresent(ELEMENT_CSS);
 	  }
 	  
 	  

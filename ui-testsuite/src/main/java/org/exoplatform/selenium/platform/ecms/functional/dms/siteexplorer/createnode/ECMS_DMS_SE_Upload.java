@@ -1,8 +1,6 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
 
-//import java.util.concurrent.TimeUnit;
-
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
@@ -10,6 +8,10 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 
 /*
  * @author: Lientm
@@ -63,17 +65,17 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".doc "+"']");
 		
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_DOC_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
+		
 		//check upload successfully
 		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Can not upload new file";
 		info("Upload new file is successful");
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD_FILE);
 		deleteDocument(ELEMENT_UPLOAD_FILE);
-		waitForElementNotPresent(ELEMENT_UPLOAD_FILE);
 	}
 	
 	/*Case2: Upload a file in Content folder 
@@ -90,7 +92,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
 		
 		//create new content folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Create new content folder with title: "+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE, DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
@@ -101,13 +103,11 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		debug("Upload new file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
-		//check upload file successfully
-		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Can not upload file in content folder";
 		info("Upload file is successful");
+		
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		deleteDocument(ELEMENT_CONTENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);	
 	}
 	
 	/*Case3: Upload a file in Document folder
@@ -123,24 +123,20 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
 		
 		//create new document folder
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Create new document folder with title: "+DATA_DOCUMENT_FOLDER_TITLE);
 		createNewDocumentFolder(DATA_DOCUMENT_FOLDER_TITLE, DATA_DOCUMENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_DOCUMENT_FOLDER);
-		assert isElementPresent(ELEMENT_DOCUMENT_FOLDER):"Can not create new document folder";
-		info("Create new document folder is successful");
+		
 		//upload new file into document folder
 		goToNode(ELEMENT_DOCUMENT_FOLDER);
-		debug("Upload new file with name: "+DATA_UPLOAD_FILE_NAME);
+		debug("Upload new file with name: " + DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
-		//check upload file successfully
-		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Can not upload file in document folder";
-		info("Upload file is successful");
+		
 		//delete document folder
 		goToNode(ELEMENT_DOCUMENT_FOLDER);
 		deleteDocument(ELEMENT_DOCUMENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_DOCUMENT_FOLDER);
 	}
 	
 	/*Case4: Upload a file in document 
@@ -156,13 +152,12 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
 		
 		//create new article
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new article with title: "+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, "", "");
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Can not create new article";
-		info("Create new article is successful");
+
 		//upload new file into article document
 		goToNode(ELEMENT_ARTICLE);
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
@@ -171,12 +166,10 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		checkPreferenceOption("enableStructure");
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
-		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Can not upload file in article";
-		info("Upload file successfully");
+		
 		//delete article document
 		goToNode(ELEMENT_ARTICLE);
 		deleteDocument(ELEMENT_ARTICLE);
-		waitForElementNotPresent(ELEMENT_ARTICLE);
 	}
 	
 	/*Case7: Upload a file in path is in 'check in' status
@@ -192,7 +185,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_DOCUMENT_TITLE+" "+"']");
 
 		//create new node: article document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new content folder with title: "+DATA_ARTICLE_DOCUMENT_TITLE);
 		createNewArticle(DATA_ARTICLE_DOCUMENT_TITLE, DATA_ARTICLE_DOCUMENT_TITLE,"","");
@@ -231,13 +224,12 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_KOFAX = By.xpath("//a[@title='"+DATA_KOFAX_DOCUMENT_NAME+" "+"']");
 		
 		//create new parent node: article document
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToAddNewContent();
 		debug("Create new parent node (article document) with title: "+DATA_ARTICLE_DOCUMENT_TITLE);
 		createNewArticle(DATA_ARTICLE_DOCUMENT_TITLE, DATA_ARTICLE_DOCUMENT_TITLE,"","");
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Can not create new article document";
-		info("Create new parent node (article document) successfully");
+
 		//create child node: kofax document
 		goToNode(ELEMENT_ARTICLE);
 		goToAddNewContent();
@@ -246,11 +238,11 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		checkPreferenceOption("enableStructure");
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementPresent(ELEMENT_KOFAX);
-		assert isElementPresent(ELEMENT_KOFAX):"Can not create new kofax document";
-		info("create new child node in parent node successfully");
+
 		//check in parent node
 		goToNode(ELEMENT_ARTICLE);
 		checkInNode(ELEMENT_ARTICLE);
+		
 		//check can upload file in child node
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementNotPresent(ELEMENT_UPLOAD_LINK_XPATH);
@@ -260,7 +252,6 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		checkOutNode(ELEMENT_ARTICLE);
 		//delete parent node
 		deleteDocument(ELEMENT_ARTICLE);
-		waitForElementNotPresent(ELEMENT_ARTICLE);
 	}
 	
 	/*case9: Upload a file when user does not have add node right
@@ -278,11 +269,11 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_CONTENT_FOLDER = By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
 
 		//create new content
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Create new node (content folder) with title: "+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE, DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Can not crate new content folder";
+
 		//set permission for user Mary: has not add node permission
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		setPermissionAddNodeForUser("mary",1,1);
@@ -290,7 +281,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		//login with user Mary
 		driver.get(DEFAULT_BASEURL);
 		loginEcms("mary", DATA_PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		//check can not upload file into node
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		click(ELEMENT_UPLOAD_LINK_XPATH);
@@ -303,13 +294,12 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		//delete Uploaded file with John
 		driver.get(DEFAULT_BASEURL);
 		loginEcms(DATA_USER, DATA_PASS);
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		deleteDocument(ELEMENT_CONTENT_FOLDER);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);	
 	}
 	
-	/*case11: Upload a file in locked node by user is not locker
+	/* Case11: Upload a file in locked node by user is not locker
 	 * create new node: content folder
 	 * lock node
 	 * login with user Mary in other driver
@@ -321,7 +311,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 //		String DATA_CONTENT_FOLDER_TITLE = "Testcontentfolder_11";
 //		
 //		//create new content folder
-//		goToSiteExplorerForm();
+//		goToSiteExplorer();
 //		goToNode("//a[@title='acme ']");
 //		goToNode("//a[@title='documents ']");
 //		pause(500);
@@ -339,7 +329,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 //		initSeleniumTest();
 //	    driver.get(baseUrl);
 //		loginEcms("mary",ELEMENT_PASS );
-//		goToSiteExplorerForm();
+//		goToSiteExplorer();
 //		goToNode("//a[@title='acme ']");
 //		goToNode("//a[@title='documents ']");
 //		goToNode("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
@@ -372,17 +362,14 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_UPLOAD = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
 		
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD);
-		//check upload successfully
-		assert isElementPresent(ELEMENT_UPLOAD):"Can not upload new file";
-		info("Upload new file successfully");
+
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD);
 		deleteDocument(ELEMENT_UPLOAD);
-		waitForElementNotPresent(ELEMENT_UPLOAD);
 	}
 	
 	/*Case13: Upload a file is Microsoft office file
@@ -396,17 +383,14 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".doc "+"']");
 
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_DOC_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
-		//check upload successfully
-		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Can not upload new file";
-		info("Upload new file successfully");
+
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD_FILE);
 		deleteDocument(ELEMENT_UPLOAD_FILE);
-		waitForElementNotPresent(ELEMENT_UPLOAD_FILE);
 	}
 	
 	/*Case14: Upload a file is open office file
@@ -421,17 +405,14 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		String DATA_UPLOAD_HTML_LINK = "TestData/ECMS_DMS_SE_Upload_odsfile.ods";
 
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_HTML_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
-		//check upload successfully
-		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Can not upload new file";
-		info("Upload new file successfully");
+
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD_FILE);
 		deleteDocument(ELEMENT_UPLOAD_FILE);
-		waitForElementNotPresent(ELEMENT_UPLOAD_FILE);
 
 	}
 	
@@ -447,12 +428,10 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		String DATA_UPLOAD_PDF_LINK = "TestData/ECMS_DMS_SE_Upload_pdffile.pdf";
 
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_PDF_LINK);
-		//check upload successfully
-		assert isElementPresent(ELEMENT_UPLOAD):"Can not upload new file";
-		info("Upload new file successfully");
+
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD);
 		deleteDocument(ELEMENT_UPLOAD);
@@ -471,17 +450,14 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		String DATA_UPLOAD_HTML_LINK = "TestData/ECMS_DMS_SE_Upload_htmlfile.html";
 
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_HTML_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD);
-		//check upload successfully
-		assert isElementPresent(ELEMENT_UPLOAD):"Can not upload new file";
-		info("Upload new file successfully");
+
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD);
 		deleteDocument(ELEMENT_UPLOAD);
-		waitForElementNotPresent(ELEMENT_UPLOAD);
 	}
 	
 	/*case17: Upload a file is .xml file
@@ -496,17 +472,14 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		String DATA_UPLOAD_XML_LINK = "TestData/ECMS_DMS_SE_Upload_xmlfile.xml";
 		
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_XML_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD);
-		//check upload successfully
-		assert isElementPresent(ELEMENT_UPLOAD):"Can not upload new file";
-		info("Upload new file successfully");
+
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD);
 		deleteDocument(ELEMENT_UPLOAD);
-		waitForElementNotPresent(ELEMENT_UPLOAD);
 	}
 	
 	/*case18: Upload a file is .exe file
@@ -521,17 +494,14 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		String DATA_UPLOAD_EXE_LINK = "TestData/ECMS_DMS_SE_Upload_exefile.exe";
 		
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_EXE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD);
-		//check upload sucessfully
-		assert isElementPresent(ELEMENT_UPLOAD):"Can not upload new file";
-		info("Upload new file successfully");
+
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD);
 		deleteDocument(ELEMENT_UPLOAD);
-		waitForElementNotPresent(ELEMENT_UPLOAD);
 	}
 	
 	/*case19: Upload a file and put data in 'Name' field
@@ -545,20 +515,17 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_UPLOAD = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".doc "+"']");
 		
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		goToNode(ELEMENT_ACME_LINK);
 		goToNode(ELEMENT_DOCUMENTS_LINK);
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_DOC_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD);
 		goToNode(ELEMENT_UPLOAD);
-		//check File is uploaded in selected path with name is value in 'Name' field
-		assert isElementPresent(ELEMENT_UPLOAD):"Can not upload new file";
-		info("File is uploaded in selected path with name is value in 'Name' field");
+
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD);
 		deleteDocument(ELEMENT_UPLOAD);
-		waitForElementNotPresent(ELEMENT_UPLOAD);
 	}
 	
 	/*case21:
@@ -572,17 +539,14 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_UPLOAD = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".doc "+"']");
 		
 		//Upload file
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_DOC_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD);
-		//check File is uploaded in selected path with name is value in 'Name' field
-		assert isElementPresent(ELEMENT_UPLOAD):"Can not upload new file";
-		info("Upload file successful");
+
 		//delete uploaded file
 		goToNode(ELEMENT_UPLOAD);
 		deleteDocument(ELEMENT_UPLOAD);
-		waitForElementNotPresent(ELEMENT_UPLOAD);
 	}
 	
 	/*case24: Upload multi file at the same time
@@ -598,7 +562,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		By ELEMENT_FILE_DOC = By.xpath("//a[@title='"+DATA_FILE_DOC_NAME+".doc "+"']");
 
 		//choose 1 file .jpg
-		goToSiteExplorerForm();
+		goToSiteExplorer();
 		click(ELEMENT_UPLOAD_LINK_XPATH);
 		type(ELEMENT_UPLOAD_FILE_NAME_ID,DATA_FILE_IMG_NAME,false);
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
@@ -626,6 +590,5 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		pause(500);
 		goToNode(ELEMENT_FILE_DOC);
 		deleteDocument(ELEMENT_FILE_DOC);
-		waitForElementNotPresent(ELEMENT_FILE_DOC);
 	}
 }
