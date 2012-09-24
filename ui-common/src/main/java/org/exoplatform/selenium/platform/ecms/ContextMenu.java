@@ -76,4 +76,10 @@ public class ContextMenu extends EcmsBase {
 		info(locator.toString() + "was deleted successfully");
 		waitForElementNotPresent(locator, iTimeout);
 	}
+	
+	//Define common function
+	public static void unLockNode(By locator){
+		rightClickOnElement(locator);
+		click(ELEMENT_UNLOCK_OPTION_XPATH);
+	}
 }
