@@ -170,15 +170,11 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 	/*------------- End of Data for Portal/Manage Pages --------------------*/
 
-//	public static By ELEMENT_CUT_NODE = By.linkText("Cut Node");	
-// 	public static By ELEMENT_PASTE_NODE = By.linkText("Paste Node");
 	public static By ELEMENT_CUT_NODE = By.xpath("//a[contains(text(),'Cut')]");
 	public static By ELEMENT_PASTE_NODE = By.xpath("//a[contains(text(),'Paste')]");
     public static By ELEMENT_COPY_NODE = By.xpath("//a[contains(text(),'Copy')]");
 	
-	//	language setting
-	
-//	public static final By ELEMENT_CLOSE_BUTTON = By.id("Close");
+	/**********************************************/
 	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
 	public static final By ELEMENT_OK_BUTTON = By.xpath("//a[text()='OK']");
 	public static final By ELEMENT_APPLY_BUTTON = By.linkText("Apply");
@@ -447,7 +443,7 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	public void pasteNode(By locator) {
+	public static void pasteNode(By locator) {
 		for (int i =0;; i++){
 			if (i>DEFAULT_TIMEOUT/WAIT_INTERVAL){
 				Assert.fail("Timeout");
