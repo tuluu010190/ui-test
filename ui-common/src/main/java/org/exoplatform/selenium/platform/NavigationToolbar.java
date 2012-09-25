@@ -6,7 +6,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class NavigationToolbar extends PlatformBase {
-
+	
+	public static By ELEMENT_APPLICATIONS_LINK = By.linkText("Applications");
+	
 	//Go to portal sites
 	public static void goToPortalSites() {
 		info("--Go to Portal Site Management--");
@@ -83,6 +85,17 @@ public class NavigationToolbar extends PlatformBase {
 	public static void goToUsersAndGroupsManagement() {
 		info("--Go to Users and groups management--");
 		goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_USERS_MANAGEMENT);
+	}
+	
+	//Define common function
+	public static void goToApplicationRegistry() {
+
+		info("--Go to Portal Application Registry--");
+		mouseOver(ELEMENT_LINK_SETUP, false);
+		pause(500);
+		waitForElementPresent(ELEMENT_APPLICATIONS_LINK);
+		click(ELEMENT_APPLICATIONS_LINK);
+		pause(500);
 	}
 
 }
