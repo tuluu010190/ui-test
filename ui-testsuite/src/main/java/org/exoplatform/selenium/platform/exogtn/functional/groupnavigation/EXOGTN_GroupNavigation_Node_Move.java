@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation.edit;
+package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation;
 
 /**
  *@author HangNTT
@@ -16,7 +16,7 @@ import static org.exoplatform.selenium.TestLogger.*;
 import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 
-public class EXOGTN_GroupNavigation_EditNavigation_Node_Move extends PlatformBase
+public class EXOGTN_GroupNavigation_Node_Move extends PlatformBase
 {
 	By ELEMENT_EDIT_NAV_GROUP = By.xpath("//td/div[text()='Administration']/ancestor::tr/td/a[text()='Edit Navigation']");
 	String MOVE_UP_LINK = "Move Up";

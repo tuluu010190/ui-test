@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation.edit;
+package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +21,7 @@ import static org.exoplatform.selenium.platform.PageManagement.*;
  *@date: 24/09/2012
  */
 
-public class EXOGTN_GroupNavigation_EditNavigation_Node_Delete extends PlatformBase
+public class EXOGTN_GroupNavigation_Node_Delete extends PlatformBase
 {
 	//Define data
 	public By ADMIN_EDIT_NAVIGATION_LINK = By.xpath("//td/div[text()='Administration']/ancestor::tr/td/a[text()='Edit Navigation']");

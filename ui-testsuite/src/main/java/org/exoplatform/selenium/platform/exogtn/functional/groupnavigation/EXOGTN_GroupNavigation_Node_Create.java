@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation.edit;
+package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation;
 
 import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
@@ -19,7 +19,7 @@ import org.testng.annotations.Test;
  *@author HangNTT
  * @date: 20/09/2012
  */
-public class EXOGTN_GroupNavigation_EditNavigation_Node_Create extends PlatformBase{
+public class EXOGTN_GroupNavigation_Node_Create extends PlatformBase{
 
 	By ELEMENT_EDIT_NAV_GROUP = By.xpath("//td/div[text()='Administration']/ancestor::tr/td/a[text()='Edit Navigation']");
 	By UP_LEVEL = By.xpath("//a[@title='Up Level']");

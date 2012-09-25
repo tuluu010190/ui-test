@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation.edit;
+package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation;
 
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
@@ -15,7 +15,7 @@ import static org.exoplatform.selenium.platform.NavigationToolbar.*;
  *@date: 20/09/2012
  */
 
-public class EXOGTN_GroupNavigation_EditNavigation_EditProperties extends PlatformBase
+public class EXOGTN_GroupNavigation_Navigation_EditProperties extends PlatformBase
 {
 	//Define data
 	public By ADMIN_EDIT_PROPERTIES_LINK = By.xpath("//td/div[text()='Administration']/ancestor::tr/td/a[text()='Edit Properties']");

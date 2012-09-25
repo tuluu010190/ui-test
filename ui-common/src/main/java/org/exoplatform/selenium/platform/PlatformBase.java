@@ -169,11 +169,14 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 	/*------------- End of Data for Portal/Manage Pages --------------------*/
 
+	public static By CUT_NODE_LINK = By.linkText("Cut Node");
+    public static By PASTE_NODE_LINK = By.linkText("Paste Node");
+
+	/**********************************************/
 	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
 	public static final By ELEMENT_OK_BUTTON = By.xpath("//a[text()='OK']");
 	
 	public static final By ELEMENT_ERROR_ICON=By.xpath("//span[@class='PopupIcon ErrorMessageIcon']");
-	
 	public static final int ACTION_REPEAT = 5;
 	
 	//Set view permissions for portal
@@ -418,14 +421,39 @@ public class PlatformBase extends TestBase {
 	
 	
 	// Check UnexpectedError
-	public boolean checkUnexpectedError()
-	{
+	public boolean checkUnexpectedError() {
 		try {
 			driver.findElement(ELEMENT_ERROR_ICON);
 			return false;
 
 		} catch (NoSuchElementException e) {
 			return true;
+		}
+	}
+	
+	public void cutNode(By locator)	{
+		for (int i =0;; i++){
+			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+				Assert.fail("Timeout");
+			}
+			rightClickOnElement(locator);
+			if (isElementPresent(CUT_NODE_LINK)){
+				click((CUT_NODE_LINK));
+				return;
+			}
+		}
+	}
+
+	public void pasteNode(By locator) {
+		for (int i =0;; i++){
+			if (i>DEFAULT_TIMEOUT/WAIT_INTERVAL){
+				Assert.fail("Timeout");
+			}
+			rightClickOnElement(locator);
+			if (isElementPresent(PASTE_NODE_LINK)){
+				click(PASTE_NODE_LINK);
+				return;
+			}
 		}
 	}
 }
