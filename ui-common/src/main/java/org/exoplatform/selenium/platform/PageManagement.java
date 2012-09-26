@@ -61,7 +61,8 @@ public class PageManagement extends PlatformBase {
 		click(pageDeleteIcon);
 		waitForConfirmation("Are you sure to delete this page?");
 		closeMessageDialog();
-		pause(1000);
+		waitForTextNotPresent(pageTitle);
+//		pause(1000);
 	}
 
 	// Search a page in Manage Pages

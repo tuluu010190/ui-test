@@ -8,6 +8,9 @@ import org.openqa.selenium.WebElement;
 public class NavigationToolbar extends PlatformBase {
 	
 	public static By ELEMENT_APPLICATIONS_LINK = By.linkText("Applications");
+	public static By ELEMENT_EDIT_LINK = By.linkText("Edit");
+	public static By ELEMENT_PAGE_LINK = By.linkText("Page");
+	public static By ELEMENT_EDIT_LAYOUT = By.linkText("Layout");
 	
 	//Go to portal sites
 	public static void goToPortalSites() {
@@ -97,5 +100,14 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_APPLICATIONS_LINK);
 		pause(500);
 	}
-
+	
+	public static void goToEditPageEditor () {
+		info("----Go to Edit page editor----");
+		mouseOver(ELEMENT_EDIT_LINK,false);
+		pause(500);
+		mouseOver(ELEMENT_PAGE_LINK,false);
+		pause(500);
+		click(ELEMENT_EDIT_LAYOUT);
+		pause(500);
+	}
 }
