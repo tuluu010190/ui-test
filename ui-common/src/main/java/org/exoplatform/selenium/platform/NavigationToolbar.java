@@ -12,7 +12,7 @@ public class NavigationToolbar extends PlatformBase {
 	public static By ELEMENT_EDIT_LINK = By.linkText("Edit");
 	public static By ELEMENT_PAGE_LINK = By.linkText("Page");
 	public static By ELEMENT_EDIT_LAYOUT = By.linkText("Layout");
-	public static By ELEMENT_LINK_EDITOR_EDIT_LAYOUT = By.linkText("Layout");
+
 	//Go to portal sites
 	public static void goToPortalSites() {
 		info("--Go to Portal Site Management--");
@@ -122,19 +122,6 @@ public class NavigationToolbar extends PlatformBase {
 		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
 		actions.moveToElement(UI).build().perform();
 		driver.findElement(By.linkText("Change Language")).click();	
-		pause(500);
-	}
-
-
-	//Go to edit page layout
-	public static void goToEditPageLayout(){
-		info("--Go to edit page layout--");
-		waitForAndGetElement(By.xpath(ELEMENT_LINK_EDITOR));
-		mouseOver(ELEMENT_LINK_EDITOR, true);
-		pause(500);
-		mouseOver(ELEMENT_LINK_EDITOR_PAGE, true);
-		pause(500);
-		mouseOverAndClick(ELEMENT_LINK_EDITOR_EDIT_LAYOUT);
 		pause(500);
 	}
 

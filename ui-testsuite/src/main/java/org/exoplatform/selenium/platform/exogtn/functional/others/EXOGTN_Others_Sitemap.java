@@ -13,6 +13,8 @@ import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 import static org.exoplatform.selenium.TestLogger.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
 import static org.exoplatform.selenium.platform.NavigationManagement.*;
+import static org.exoplatform.selenium.platform.ManageApplications.*;
+
 
 /**
  * 
@@ -43,11 +45,6 @@ public class EXOGTN_Others_Sitemap extends ManageAccount {
 	 */
 	@Test
 	public void test01_CheckSiteMapPortlet () {
-		By ELEMENT_APPS_REG_PORTLET = By.className("PortletLayoutDecorator");
-		By ELEMENT_EDIT_ICON = By.xpath("//a[@title='Edit Portlet']");
-		By ELEMENT_SHOW_IMPORT = By.id("showImport");
-		By ELEMENT_CLOSE_BUTTON = By.linkText("Close");
-		By ELEMENT_FINSISH_BUTTON = By.xpath("//a[@title='Finish']");
 		By ELEMENT_IMPORT_ALL_BUTTON = By.xpath("//div[text()='Import Applications']");
 		String DATA_NODE_NAME = "Sitemap1";
 		String DATA_LANGUAGE = "English";
@@ -59,26 +56,8 @@ public class EXOGTN_Others_Sitemap extends ManageAccount {
 		By ELEMENT_FORUM_ACTION_BAR = By.id("UIForumActionBar");
 		
 		signIn("john", "gtn");
-		
-		info("Go to application registry");
-		goToApplicationRegistry();
-		
-		info("Go to edit page layout");
-		goToEditPageEditor();
-		
-		info("Edit application registry portlet");
-		mouseOver(ELEMENT_APPS_REG_PORTLET, true);
-		click(ELEMENT_EDIT_ICON);
-		
-		info("Check into check box: Change show import");
-		check(ELEMENT_SHOW_IMPORT);
-		save();
-		click(ELEMENT_CLOSE_BUTTON);
-		
-		info("Save change page");
-		click(ELEMENT_FINSISH_BUTTON);
-		pause(1000);
-		
+		showImportApplication(true);
+			
 		info("Import all apps");
 		click(ELEMENT_IMPORT_ALL_BUTTON);
 		waitForConfirmation("This will automatically import all gadgets and portlets into new categories.");
@@ -105,27 +84,7 @@ public class EXOGTN_Others_Sitemap extends ManageAccount {
 		deletePage(PageType.GROUP,DATA_NODE_NAME);
 		goToGroupSites();
 		deleteNode("Administration", "Application Manager", DATA_NODE_NAME, false);
+		showImportApplication(false);
 		
-		
-		info("Change show import option to default: unchecked");
-		info("Go to application registry");
-		goToApplicationRegistry();
-		
-		info("Go to edit page layout");
-		goToEditPageEditor();
-		
-		info("Edit application registry portlet");
-		mouseOver(ELEMENT_APPS_REG_PORTLET, true);
-		click(ELEMENT_EDIT_ICON);
-		
-		info("Check into check box: Change show import");
-		uncheck("//input[@id='showImport']");
-		save();
-		click(ELEMENT_CLOSE_BUTTON);
-		
-		info("Save change page");
-		click(ELEMENT_FINSISH_BUTTON);
-		pause(1500);
-		waitForElementNotPresent(ELEMENT_IMPORT_ALL_BUTTON);
 	}
 }

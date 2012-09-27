@@ -1,14 +1,8 @@
 package org.exoplatform.selenium.platform.exogtn.functional.portalsettings.language;
 
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.NavigationToolbar.goToChangeLanguageForUserInterface;
-import static org.exoplatform.selenium.platform.NavigationToolbar.goToEditPageLayout;
-import static org.exoplatform.selenium.platform.NavigationToolbar.goToNewStaff;
-import static org.exoplatform.selenium.platform.NavigationToolbar.goToRegisterPageInPublicMode;
-import static org.exoplatform.selenium.platform.NavigationToolbar.goToUsersAndGroupsManagement;
-import static org.exoplatform.selenium.platform.UserGroupManagement.addNewUserAccount;
-import static org.exoplatform.selenium.platform.UserGroupManagement.deleteUser;
-import static org.exoplatform.selenium.platform.UserGroupManagement.editUser;
+import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.UserGroupManagement.*;
 
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.openqa.selenium.By;
@@ -301,7 +295,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		signIn("root", "gtn");
 		
 		goToRegisterPageInPublicMode(driver);
-		goToEditPageLayout();
+		goToEditPageEditor();
 		setUseCaptcha(false, false);
 		signOut();
 		deleteCookieTest(driver);
@@ -332,7 +326,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		driverTest.get(baseUrl);
 		signIn("root", "gtn");
 		goToRegisterPageInPublicMode(driverTest);
-		goToEditPageLayout();
+		goToEditPageEditor();
 		setUseCaptcha(true, false);
 		deleteCookieTest(driverTest);
 		driverTest.close();

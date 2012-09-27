@@ -47,7 +47,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 		// Disable use captcha to run automated test case
 		signIn("root", "gtn");
 		goToRegisterPageInPublicMode(driver);
-		goToEditPageLayout();
+		goToEditPageEditor();
 		setUseCaptcha(false, false);
 		signOut();
 
@@ -68,7 +68,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 		info("-- Restore Original data values after testing --");
 		deleteUser(username);
 		goToRegisterPageInPublicMode(driver);
-		goToEditPageLayout();
+		goToEditPageEditor();
 		setUseCaptcha(true, false);
 
 		info("-- Sign Out --");
@@ -91,7 +91,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 		// Disable use captcha to run automated test case
 		signIn("root", "gtn");
 		goToRegisterPageInPublicMode(driver);
-		goToEditPageLayout();
+		goToEditPageEditor();
 		setUseCaptcha(false, false);
 		signOut();
 
@@ -111,7 +111,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 		goToUsersAndGroupsManagement();
 		deleteUser(username);
 		goToRegisterPageInPublicMode(driver);
-		goToEditPageLayout();
+		goToEditPageEditor();
 		setUseCaptcha(true, false);
 
 		info("-- Sign Out --");
@@ -131,7 +131,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 
 		info("-- Step 1: Show register new account form --");
 		goToRegisterPageInPublicMode(driver);
-		goToEditPageLayout();
+		goToEditPageEditor();
 		// Disable use captcha to run automated test case
 		setUseCaptcha(false, false);
 
@@ -148,7 +148,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 		click(ELEMENT_RESET_BUTTON);
 
 		info("-- Restore Original data values after testing --");
-		goToEditPageLayout();
+		goToEditPageEditor();
 		setUseCaptcha(true, false);
 
 		info("-- Sign Out --");
@@ -167,7 +167,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 
 		info("-- Step 1: Show register new account form --");
 		goToRegisterPageInPublicMode(driver);
-		goToEditPageLayout();
+		goToEditPageEditor();
 		// Disable use captcha to run automated test case
 		setUseCaptcha(false, false);
 
@@ -178,7 +178,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 		click(ELEMENT_RESET_BUTTON);
 
 		info("-- Restore Original data values after testing --");
-		goToEditPageLayout();
+		goToEditPageEditor();
 		setUseCaptcha(true, false);
 
 		info("-- Sign Out --");

@@ -170,9 +170,9 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 	/*------------- End of Data for Portal/Manage Pages --------------------*/
 
-	public static By ELEMENT_CUT_NODE = By.xpath("//a[contains(text(),'Cut')]");
+	public static By ELEMENT_CUT_NODE = By.xpath("//a[contains(text(),'Cut')]"); 
 	public static By ELEMENT_PASTE_NODE = By.xpath(".//*[@id='NavigationNodePopupMenu']//a[@class='ItemIcon PasteNode16x16Icon']");
-    	public static By ELEMENT_COPY_NODE = By.xpath("//a[contains(text(),'Copy')]");
+    public static By ELEMENT_COPY_NODE = By.xpath("//a[contains(text(),'Copy')]");
 	
 	/**********************************************/
 	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");

@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 
 import java.util.Map;
 
@@ -15,6 +16,15 @@ public class ManageApplications extends PlatformBase {
 	public static By ELEMENT_ADD_REMOTE_GADGET_LINK = By.xpath("//div[text()='Add a Remote Gadget']");
 	public static By ELEMENT_URL_TEXBOX = By.id("url");
 	public static By ELEMENT_ADD_BUTTON = By.linkText("Add");
+	public static By APPS_REG_PORTLET = By.className("PortletLayoutDecorator");
+	public static By EDIT_PORTLET = By.xpath("//a[@title='Edit Portlet']");
+	public static By IMPORT_APPLICATION = By.xpath("//div[text()='Import Applications']");
+	public static By ELEMENT_SHOW_IMPORT_CHECKBOX = By.xpath("//input[@id='showImport']");
+	public static By SHOW_IMPORT_UNCHECK = By.xpath("//input[@id='showImport' and @value='false']");
+	public static By SHOW_IMPORT_CHECKED = By.xpath("//input[@id='showImport' and @value='true']");
+	public static By FINISH_ICON = By.xpath("//a[@title='Finish']");
+
+
 
 	//category
 	public static final By ELEMENT_ADD_NEW_CATEGORY = By.xpath("//div[@id = 'UIApplicationOrganizer']//div//div[@class = 'IconControl AddCategoryIcon']");
@@ -26,9 +36,11 @@ public class ManageApplications extends PlatformBase {
 	public static final String MESSAGE_EMPTY_CATEGORY = "This category is empty. Click the (+) button to add an application.";
 	public static final String MESSAGE_CONFIRM_DELETE_CATEGORY = "Are you sure to delete this category and all its applications?";
 	public static final String ELEMENT_CATEGORY_NAME = "//a[@title='${categoryName}']";
+	public static By CATEGORIES_FORM = By.xpath("//div[text()='Categories']"); 
 
 
-	
+
+
 	// Gadget functions
 	public static void addRemoteGadget (String Url) {
 		for (int i =0;; i++)
@@ -46,7 +58,7 @@ public class ManageApplications extends PlatformBase {
 			}
 		}
 	}
-	
+
 	public static void deleteGadget (String gadgetName) {
 		waitForElementPresent(By.xpath("//a[@title='"+gadgetName+"']"));
 		click(By.xpath("//a[@title='"+gadgetName+"']/following::a[@title='Delete Gadget']"));
@@ -123,15 +135,15 @@ public class ManageApplications extends PlatformBase {
 		}
 		pause(500);
 	}
-	
+
 	//Select a category
-    	public static void selectCategoryAtManageApplications(String categoryName) {
-            info("--Select category (" + categoryName + ")--");
-            String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
-            waitForAndGetElement(ELEMENT_CURRENT_CATEGORY_NAME);
-            click(ELEMENT_CURRENT_CATEGORY_NAME);
-            pause(500);
-    	}
+	public static void selectCategoryAtManageApplications(String categoryName) {
+		info("--Select category (" + categoryName + ")--");
+		String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
+		waitForAndGetElement(ELEMENT_CURRENT_CATEGORY_NAME);
+		click(ELEMENT_CURRENT_CATEGORY_NAME);
+		pause(500);
+	}
 
 	public static void makeItPublic(boolean checked){
 		By ELEMNT_PUBLIC_OPTION = By.xpath("//input[@id='publicMode']");
@@ -191,5 +203,46 @@ public class ManageApplications extends PlatformBase {
 		pause(1000);
 		waitForTextNotPresent(applicationName);
 		info("'"+applicationName+"' was deleted successfully");
+	}
+
+
+	//Check show import
+	public static void showImportApplication (boolean checkShowImport) {
+
+		//goto Application
+		goToApplicationRegistry();
+
+		//Verify Categories display as default
+		waitForElementPresent(CATEGORIES_FORM);
+		//goto Edit Page
+		goToEditPageEditor();
+
+		//Click on Edit Portlet icon
+		mouseOver(APPS_REG_PORTLET, false);
+		click(EDIT_PORTLET);
+		WebElement element = waitForAndGetElement(ELEMENT_SHOW_IMPORT_CHECKBOX);
+		String status = element.getAttribute("value");
+
+		if (checkShowImport)
+		{
+			if (!(status.equalsIgnoreCase("true"))) check(ELEMENT_SHOW_IMPORT_CHECKBOX);    				
+		} 
+		else 
+		{
+			if (status.equalsIgnoreCase("true")) click(ELEMENT_SHOW_IMPORT_CHECKBOX);
+		}
+		save();
+		close();
+		click(FINISH_ICON);
+		pause(1000);
+		//Verify after change show import
+		if (checkShowImport)
+		{
+			waitForElementPresent(IMPORT_APPLICATION);
+		} 
+		else 
+		{
+			waitForElementNotPresent(IMPORT_APPLICATION);
+		}
 	}
 }
