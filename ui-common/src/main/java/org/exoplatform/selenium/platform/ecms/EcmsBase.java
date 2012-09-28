@@ -1,6 +1,10 @@
 package org.exoplatform.selenium.platform.ecms;
 
 import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.ELEMENT_ADD_ITEM;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.createNewContentFolder;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.deleteDocument;
+
 import java.util.Set;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
@@ -193,6 +197,15 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_LINK_CONTENT_ADMIN=By.linkText("Content administration");
 	public static final By ELEMENT_LINK_CONTENT=By.linkText("Content");
     
+	//For symlink
+	public static final By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
+	public static final By ELEMENT_MESSAGE = By.xpath("//span[@class='PopupIcon WarningMessageIcon']");
+	public static final By ELEMENT_ADD_SYMLINK_POPUP = By.id("UIPopupWindow");
+	public static final By ELEMENT_SITE_CONTENT = By.xpath("//div[@title='sites content']");
+	public static final By ELEMENT_LIVE_DIV = By.xpath("//div[@title='live']");
+	public static final By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
+	public static final By ELEMENT_INFO = By.xpath("//span[@class='PopupIcon InfoMessageIcon']");
+	
 	//login ECMS
 	public static void loginEcms(String username, String password) {
 		driver.manage().window().maximize();
@@ -335,4 +348,89 @@ public class EcmsBase extends PlatformBase {
 		info("Delete node of page successfully");
 		pause(1000);
 	}
+	
+	///////for Symlink
+	 
+	  //go to target node in root when add symlink
+	  public void goToTargetNodeInRoot(){
+		  waitForElementPresent(ELEMENT_ADD_SYMLINK);
+		  click(ELEMENT_ADD_SYMLINK);
+		  waitForElementPresent(ELEMENT_ADD_SYMLINK_POPUP);
+		  click(ELEMENT_ADD_ITEM);
+		  click(ELEMENT_SITE_CONTENT);
+		  click(ELEMENT_LIVE_DIV);
+		  //click(ELEMENT_ACME_DIV);  
+	  }
+	  
+	  //delete data
+	  public void deleteData(By data){
+		  goToNode(data);
+		  deleteDocument(data);
+		  pause(1000);
+		  waitForElementNotPresent(data);
+	  }
+	  
+	  //check alert
+	  public void checkAlertWarning(String message){
+		  //waitForElementPresent(ELEMENT_ALERT);
+		  assert isElementPresent(ELEMENT_ALERT):"Not found alert";
+		  assert getText(ELEMENT_MESSAGE).contains(message):"Message is wrong";
+		  click(By.linkText("OK"));
+	  }
+	  
+	  public void checkAlertInfo(String message){
+		  waitForElementPresent(ELEMENT_ALERT);
+		  assert isElementPresent(ELEMENT_ALERT):"Not found alert";
+		  assert getText(ELEMENT_INFO).contains(message):"Message is wrong";
+		  click(By.linkText("OK"));
+	  }
+	  
+	  //rename node
+	  public void renameNode(By nodePath, String newName, By nodePathNew){
+		  rightClickOnElement(nodePath);
+		  click(By.xpath("//a[contains(text(),'Rename')]"));
+		  type(By.id("titleField"),newName,true);
+		  type(By.id("nameField"),newName,true);
+		  click(ELEMENT_SAVE_BUTTON);
+		  //check rename successfully
+		  waitForElementPresent(nodePathNew);
+		  assert isElementPresent(nodePathNew):"Rename node is not successful";
+		  info("Rename node is successful");
+	  }
+	  
+	  //create content folder and check
+	  public void createAndCheckContentFolder(String name, By path){
+		  info("Create new content folder with name: "+name);
+		  createNewContentFolder(name, name);
+		  waitForElementPresent(path);
+		  assert isElementPresent(path):"Create new content folder is not successful";
+		  info("Create new content folder is successful"); 
+	  }	  
+	  
+	  //copy and paste node
+	  public void copyAndPasteNode(By source, By target){
+		  goToNode(source);
+		  rightClickOnElement(source);
+		  pause(500);
+		  click(By.xpath("//a[contains(text(),'Copy')]"));
+		  goToNode(target);
+		  rightClickOnElement(target);
+		  pause(500);
+		  click(By.xpath("//a[contains(text(),'Paste')]"));
+		  pause(1000);
+	  }
+	  
+	  //cut node
+	  public void cutAndPasteNode(By source, By target){
+		  goToNode(source);
+		  rightClickOnElement(source);
+		  pause(500);
+		  click(By.xpath("//a[contains(text(),'Cut')]"));
+		  goToNode(target);
+		  rightClickOnElement(target);
+		  pause(500);
+		  click(By.xpath("//a[contains(text(),'Paste')]"));
+		  pause(1000);
+	  }
+	
 }

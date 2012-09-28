@@ -6,6 +6,11 @@ import static org.exoplatform.selenium.TestLogger.*;
 
 public class ActionBar extends EcmsBase {
 	public static final By ELEMENT_TEXT_TEMPLATE_LIST = By.xpath("//div[contains(text(),'Select your template in the list below')]");
+	public static final By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
+	public static final By ELEMENT_ADD_SYMLINK_POPUP = By.id("UIPopupWindow");
+	public static final By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
+	public static final By ELEMENT_ADD_ITEM	 = By.xpath("//img[@title='Add Item']");
+	
 	// add a category
 	public static void addCategory(String name)
 	{
@@ -59,4 +64,20 @@ public class ActionBar extends EcmsBase {
 			info("retry...[" + repeat + "]");
 		}
 	}
+	
+	 //add symlink for node with target node = documents
+	  public static void addSymlink(By path, String name){
+		  click(ELEMENT_ADD_SYMLINK);
+		  waitForElementPresent(ELEMENT_ADD_SYMLINK_POPUP);
+		  click(ELEMENT_ADD_ITEM);
+		  if (path!=null){
+			  click(path);
+		  }
+		  if (name!="Documents.lnk" ){
+			  type(ELEMENT_SYMLINK_NAME,name,true);
+		  }
+		  assert getValue(ELEMENT_SYMLINK_NAME).contentEquals(name):"Symlink name is not true";
+		  click(ELEMENT_SAVE_BUTTON); 
+	  }
+	  
 }
