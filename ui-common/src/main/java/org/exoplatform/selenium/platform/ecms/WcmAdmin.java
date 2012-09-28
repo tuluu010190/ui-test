@@ -31,5 +31,4 @@ public class WcmAdmin extends EcmsBase {
 		  }
 		  click(ELEMENT_SAVE_BUTTON);		  
 	  }
-	  
 }

@@ -246,8 +246,6 @@ public class PlatformBase extends TestBase {
 		waitForTextPresent("Navigation Management");
 	}
 
-	
-
 	//rightClickOnElement
 	public static void rightClickOnElement(String locator) {
 		pause(500);
@@ -405,7 +403,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	// Check UnexpectedError
-	public boolean checkUnexpectedError() {
+	public static boolean checkUnexpectedError() {
 		try {
 			driver.findElement(ELEMENT_ERROR_ICON);
 			return false;

@@ -98,7 +98,7 @@ public class TestBase {
     
     for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
       elem = getElement(locator);
-      if (null == elem) break;
+      if (null == elem) return null;
       pause(WAIT_INTERVAL);
     }
     

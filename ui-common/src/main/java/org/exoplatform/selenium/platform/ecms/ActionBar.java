@@ -7,12 +7,31 @@ import static org.exoplatform.selenium.platform.ecms.ContentTemplate.ELEMENT_EDI
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.ELEMENT_REMOVE_NODE_CHECKBOX;
 
 public class ActionBar extends EcmsBase {
-	public static final By ELEMENT_TEXT_TEMPLATE_LIST = By.xpath("//div[contains(text(),'Select your template in the list below')]");
-	public static final By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
-	public static final By ELEMENT_ADD_SYMLINK_POPUP = By.id("UIPopupWindow");
-	public static final By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
-	public static final By ELEMENT_ADD_ITEM	 = By.xpath("//img[@title='Add Item']");
-	public static final By ELEMENT_LINK_EDIT= By.xpath("//a[@title='Edit']");
+	public static By ELEMENT_TEXT_TEMPLATE_LIST = By.xpath("//div[contains(text(),'Select your template in the list below')]");
+	public static By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
+	public static By ELEMENT_ADD_SYMLINK_POPUP = By.id("UIPopupWindow");
+	public static By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
+	public static By ELEMENT_ADD_ITEM	 = By.xpath("//img[@title='Add Item']");
+	public static By ELEMENT_LINK_EDIT= By.xpath("//a[@title='Edit']");
+	
+	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[@class='TabLabel' and @title='System']");
+	public static By ELEMENT_EXPORT_BUTTON = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ExportNodeIcon' and @title='Export']");
+	public static By ELEMENT_DOC_VIEW = By.id("format_docview");
+	public static By ELEMENT_ZIP = By.id("zip");
+	public static By ELEMENT_EXPORT_VERSION = By.linkText("Export Version History");
+	public static By ELEMENT_EXPORT = By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Export']");
+	public static By ELEMENT_IMPORT_BUTTON = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ImportNodeIcon' and @title='Import']");
+	public static By ELEMENT_UPLOAD_FILE_FRAME = By.xpath("//label[contains(text(),'Upload File:')]/following::div/iframe[contains(@id,'uploadFrame')]");
+	public static By ELEMENT_UPLOAD_VERSION_FRAME = By.xpath("//label[contains(text(),'Version History:')]/following::div/iframe[contains(@id,'uploadFrame')]");
+	public static By ELEMENT_BEHAVIOR = By.name("behavior");
+	public static By ELEMENT_IMPORT = By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Import']");
+	public static By ELEMENT_ADD_CAT_BUTTON = By.xpath("//a[text()='Categories']");
+	public static By ELEMENT_SELECT_CAT_TAB = By.xpath("//div[text()='Select Category']");
+	public static By ELEMENT_CATEGORY_TREE_BOX = By.id("taxonomyTree");
+	public static By ELEMENT_ADD_ROOT_BUTTON = By.xpath("//label[text()='Root Tree']/following::img[@title='Add Root Node']");
+	public static By ELEMENT_CLOSE_BUTTON = By.xpath("//a[text()='Close']");
+	public static By ELEMENT_OK_BUTTON = By.linkText("OK");
+
 	
 	// add a category
 	public static void addCategory(String name)
@@ -154,5 +173,105 @@ public class ActionBar extends EcmsBase {
 		click(ELEMENT_CLOSE_BUTTON);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
 	}
+	
+	//Export node
+		public static void exportNode (boolean systemView, boolean zip, boolean exportVersionHistory) {
+			waitForElementPresent(ELEMENT_SYSTEM_TAB);
+			click(ELEMENT_SYSTEM_TAB);
+			pause(500);
+			waitForElementPresent(ELEMENT_EXPORT_BUTTON);
+			click(ELEMENT_EXPORT_BUTTON);
+			if (!systemView)
+			{
+				click(ELEMENT_DOC_VIEW);
+			}
+
+			if (zip)
+			{
+				check(ELEMENT_ZIP);
+			}
+
+			if (exportVersionHistory)
+			{
+				click(ELEMENT_EXPORT_VERSION);
+			}
+			else
+			{
+				click(ELEMENT_EXPORT);
+			}
+			pause(10000);
+		}
+
+		//Import node
+		public static void importNode (String linkFile, String linkVersion, String behavior, boolean version) {
+			//Click system tab
+			waitForElementPresent(ELEMENT_SYSTEM_TAB);
+			click(ELEMENT_SYSTEM_TAB);
+			//Click import button
+			waitForElementPresent(ELEMENT_IMPORT_BUTTON);
+			click(ELEMENT_IMPORT_BUTTON);
+			//Switch to frame upload file
+			driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME));
+			waitForElementPresent(ELEMENT_UPLOAD_IMG_ID);
+			type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(linkFile), false);
+			pause(500);
+			switchToParentWindow();
+
+			select(ELEMENT_BEHAVIOR, behavior);
+			if (version)
+			{		
+				driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_VERSION_FRAME));
+				waitForElementPresent(ELEMENT_UPLOAD_IMG_ID);
+				type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(linkVersion), false);
+				pause(500);
+				switchToParentWindow();
+				click(ELEMENT_IMPORT);
+				pause(500);
+				waitForMessage("Import successfully.");
+				click(ELEMENT_OK_BUTTON);
+			}
+			else 
+			{
+				click(ELEMENT_IMPORT);
+				pause(500);
+				waitForMessage("Import successfully.");
+				click(ELEMENT_OK_BUTTON);
+			}
+
+		}
+
+		//Add category for node
+		public static void addCategoryForNode (String categoryTree, boolean rootTree, String categoryPath, String categoryName) {
+			By ELEMENT_ADD_CATEGORY_SPECIFIC = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@title='select']");
+//			By ELEMENT_CATEGORY_LIST = By.xpath("//th[text()='Category']");
+			
+			waitForElementPresent(ELEMENT_ADD_CAT_BUTTON);
+			click(ELEMENT_ADD_CAT_BUTTON);
+			waitForElementPresent(ELEMENT_SELECT_CAT_TAB);
+			click(ELEMENT_SELECT_CAT_TAB);
+			pause(500);
+			select(ELEMENT_CATEGORY_TREE_BOX, categoryTree);
+			if (rootTree) {
+				click(ELEMENT_ADD_ROOT_BUTTON);
+				waitForTextPresent(categoryTree);
+				checkUnexpectedError();			
+			}
+			else {
+				String paths [] = categoryPath.split("/");
+				for (String path : paths)
+					click(By.xpath("//div[@title='"+path+"']"));
+				waitForElementPresent(ELEMENT_ADD_CATEGORY_SPECIFIC);
+				click(ELEMENT_ADD_CATEGORY_SPECIFIC);
+				pause(500);
+				checkUnexpectedError();
+				waitForTextPresent(categoryPath);
+				
+			}
+			
+			waitForElementPresent(ELEMENT_CLOSE_BUTTON);
+			click(ELEMENT_CLOSE_BUTTON);
+			info ("------Category "+categoryName+" is added succesfully");
+		}
+
 	
 }
