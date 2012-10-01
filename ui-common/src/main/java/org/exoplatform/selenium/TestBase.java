@@ -363,23 +363,56 @@ public class TestBase {
 	  }
   }
 
-	public static void rightClickOnElement(By locator) {
-		pause(500);
-		try {
-			WebElement element = waitForAndGetElement(locator);
-			actions.contextClick(element).perform();
-		} catch (StaleElementReferenceException e) {
-			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			pause(WAIT_INTERVAL);
-			rightClickOnElement(locator);
-		} catch (ElementNotVisibleException e) {
-	        checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-	        pause(WAIT_INTERVAL);
-	        click(locator);
-		} finally {
-			loopCount = 0;
-		}
-	}
+  //uncheck a checked-box
+  public static void uncheck(Object locator) {
+	  try {
+		  WebElement element = waitForAndGetElement(locator);
+
+		  if (element.isSelected()) {
+			  actions.click(element).perform();
+		  } else {
+			  Assert.fail("Element " + locator + " is already unchecked.");
+		  }
+	  } catch (StaleElementReferenceException e) {
+		  checkCycling(e, 5);
+		  pause(1000);
+		  uncheck(locator);
+	  } finally {
+		  loopCount = 0;
+	  }
+  }
+  public static void rightClickOnElement(Object locator) {
+	  pause(500);
+	  try {
+		  WebElement element = waitForAndGetElement(locator);
+		  actions.contextClick(element).perform();
+	  } catch (StaleElementReferenceException e) {
+		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+		  pause(WAIT_INTERVAL);
+		  rightClickOnElement(locator);
+	  } catch (ElementNotVisibleException e) {
+		  checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+		  pause(WAIT_INTERVAL);
+		  click(locator);
+	  } finally {
+		  loopCount = 0;
+	  }
+  }
+
+  //doubleClickOnElement
+  public static void doubleClickOnElement(String locator) {
+	  try {
+		  WebElement element = waitForAndGetElement(locator);
+		  actions.doubleClick(element).perform();
+	  } catch (StaleElementReferenceException e) {
+		  checkCycling(e, 5);
+		  pause(1000);
+		  doubleClickOnElement(locator);
+	  } finally {
+		  loopCount = 0;
+	  }
+  }
+
   public static void waitForConfirmation(String confirmationText) {
 	  String message = getTextFromAlert();
 
@@ -408,7 +441,7 @@ public class TestBase {
 	  alert.accept();
 	  pause(500);
   }
-  
+
   //This function return absolute path from relative path
   public static String getAbsoluteFilePath(String relativeFilePath){
 	  String curDir = System.getProperty("user.dir");

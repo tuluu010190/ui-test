@@ -86,15 +86,26 @@ public class UserGroupManagement extends PlatformBase {
 		pause(500);
 		click(userDeleteIcon);
 		waitForConfirmation("Are you sure to delete user " + username + "?");
-		waitForTextNotPresent(username);
+		type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
+		select(ELEMENT_SELECT_SEARCH_OPTION, "User Name");
 		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
+		waitForMessage("No result found.");
+		closeMessageDialog();
+		waitForTextNotPresent(username);
 	}
 
 	//Delete a user in current group
-	public static void deleteUserInGroup(String groupName, String username){
+	public static void deleteUserInGroup(String groupName, String groupLabel, String username){
 		String userDeleteIcon = ELEMENT_USER_INGROUP_DELETE_ICON.replace("${username}", username);
 		String MESSAGE_DELETE_CONFIRMATION = "Are you sure to delete user " + username + " from group " + groupName + "?";
-		selectGroup(groupName);
+
+		if (groupLabel != ""){
+			selectGroup(groupLabel);
+		}
+		else {
+			selectGroup(groupName);
+		}
+
 		info("--Deleting user " + username + "--");
 		if (isTextPresent("Total pages")) {
 			usePaginator(userDeleteIcon, "User " + username + "not found in group");
@@ -250,7 +261,7 @@ public class UserGroupManagement extends PlatformBase {
 	}
 
 	//Edit user in My Account
-	public void editUserInMyAccount(String firstName, String lastName, String email, String currentPassword, String newPassword, 
+	public static void editUserInMyAccount(String firstName, String lastName, String email, String currentPassword, String newPassword, 
 			String confirmNewPassword){
 		info("-- Edit user in My Account --");
 

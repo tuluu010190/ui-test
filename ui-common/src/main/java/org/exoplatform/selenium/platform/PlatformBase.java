@@ -1,7 +1,11 @@
 package org.exoplatform.selenium.platform;
 
+import static org.exoplatform.selenium.TestLogger.debug;
+import static org.exoplatform.selenium.TestLogger.info;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import org.exoplatform.selenium.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -9,9 +13,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-
-import static org.exoplatform.selenium.TestLogger.debug;
-import static org.exoplatform.selenium.TestLogger.info; 
 
 
 public class PlatformBase extends TestBase {
@@ -62,7 +63,7 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_SELECTED_EDIT_PERMISSION_GROUP = "// div[@class='SelectedPermissionInfo']/div[2]/div[.='/${groupId}']";
 	public static final String ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP = "//div[@class='SelectedPermissionInfo']/div[3]/div[.='${membership}']";
 	public static final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
-	public static final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//a[@title='${group}']";
+	public static final String  ELEMENT_SELECT_ACCESS_GROUP_ITEM = ".//*[@id='ListPermissionSelector']//a[@title='${group}']";
 	public static final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${group}']";
 	public static final String ELEMENT_SELECT_EDIT_PORTAL_CONFIG = "//div[@id='UISiteManagement']//table//tr/td/div[text()='${portalName}']/../../td[2]//a[@class='EditPortIcon']";
 	public static final String ELEMENT_SAVE_BUTTON 	 = "//a[text()='Save']";
@@ -171,11 +172,22 @@ public class PlatformBase extends TestBase {
 
 	public static By CUT_NODE_LINK = By.linkText("Cut Node");
     public static By PASTE_NODE_LINK = By.linkText("Paste Node");
-
-	/**********************************************/
+	
+	//	language setting
+	
+//	public static final By ELEMENT_CLOSE_BUTTON = By.id("Close");
 	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
 	public static final By ELEMENT_OK_BUTTON = By.xpath("//a[text()='OK']");
-	
+	public static final By ELEMENT_APPLY_BUTTON = By.linkText("Apply");
+	public static final By ELEMENT_REGISTER_ACCOUNT_PORTLET = By.className("PortletLayoutDecorator");
+	public static final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON = By.xpath("//a[@title='Edit Portlet']");
+	public static final By ELEMENT_CHECK_BOX_USE_CAPTCHA = By.id("useCaptcha");
+	public static final By ELEMENT_EDIT_LAYOUT_FINISH_BUTTON = By.xpath("//div[@id='UIPortalComposer']//a[@class='EdittedSaveButton']");
+	public static final By ELEMENT_PAGE_FINISH_BUTTON_INFRENCH = By.xpath("//div[@id='UIPageEditor']//a[@title='Terminer']");
+	public static final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH = By.xpath("//a[@title='Editer la Portlet']");
+
+    
+    /**********************************************/
 	public static final By ELEMENT_ERROR_ICON=By.xpath("//span[@class='PopupIcon ErrorMessageIcon']");
 	public static final int ACTION_REPEAT = 5;
 	
@@ -235,24 +247,7 @@ public class PlatformBase extends TestBase {
 		waitForTextPresent("Navigation Management");
 	}
 
-	//uncheck a checked-box
-	public static void uncheck(String locator) {
-		try {
-			WebElement element = waitForAndGetElement(locator);
-
-			if (element.isSelected()) {
-				actions.click(element).perform();
-			} else {
-				Assert.fail("Element " + locator + " is already unchecked.");
-			}
-		} catch (StaleElementReferenceException e) {
-			checkCycling(e, 5);
-			pause(1000);
-			uncheck(locator);
-		} finally {
-			loopCount = 0;
-		}
-	}
+	
 
 	//rightClickOnElement
 	public static void rightClickOnElement(String locator) {
@@ -269,20 +264,6 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	//doubleClickOnElement
-	public static void doubleClickOnElement(String locator) {
-		try {
-			WebElement element = waitForAndGetElement(locator);
-			actions.doubleClick(element).perform();
-		} catch (StaleElementReferenceException e) {
-			checkCycling(e, 5);
-			pause(1000);
-			doubleClickOnElement(locator);
-		} finally {
-			loopCount = 0;
-		}
-	}
-
 	//Close message pop-up
 	public static void closeMessageDialog() {
 		info("--Closing message dialog--");
@@ -294,7 +275,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	//Copy value from Source and paste to Target
-	public static void copyPaste(String Source, String value, String Target){ 	
+	public static void copyPaste(Object Source, String value, Object Target){ 	
 		WebElement element = waitForAndGetElement(Source);
 		element.sendKeys(value);
 		actions.doubleClick(element).perform();
@@ -419,7 +400,11 @@ public class PlatformBase extends TestBase {
 		click(ELEMENT_SAVEANDCLOSE_BUTTON);
 	}
 	
-	
+	public static void apply(){
+		waitForAndGetElement(ELEMENT_APPLY_BUTTON);
+		click(ELEMENT_APPLY_BUTTON);
+	}
+
 	// Check UnexpectedError
 	public boolean checkUnexpectedError() {
 		try {
@@ -454,6 +439,40 @@ public class PlatformBase extends TestBase {
 				click(PASTE_NODE_LINK);
 				return;
 			}
+		}
+	}
+
+	//Set to use captcha when registry a new account in public mode
+	public static void setUseCaptcha(boolean useCaptcha, boolean useFrench){
+		waitForTextPresent("Register Account");
+		mouseOver(ELEMENT_REGISTER_ACCOUNT_PORTLET, true);
+		if (useFrench){
+			mouseOverAndClick(ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH);
+			waitForTextPresent("Mode d'édition");
+		}else{
+			mouseOverAndClick(ELEMENT_EDIT_ACCOUNT_PORTLET_ICON);
+			waitForTextPresent("Edit Mode");
+		}
+
+		WebElement element = waitForAndGetElement(ELEMENT_CHECK_BOX_USE_CAPTCHA);
+		if (useCaptcha){
+			if(!element.isSelected()){
+				check(ELEMENT_CHECK_BOX_USE_CAPTCHA);
+			}
+		}
+		else{
+			if(element.isSelected()){
+				uncheck(ELEMENT_CHECK_BOX_USE_CAPTCHA);
+			}
+		}
+		save();
+		close();
+		if (useFrench){
+			click(ELEMENT_PAGE_FINISH_BUTTON_INFRENCH);
+			waitForTextNotPresent("Editeur de page");
+		}else{
+			click(ELEMENT_PAGE_FINISH_BUTTON);
+			waitForTextNotPresent("Page Editor");
 		}
 	}
 }
