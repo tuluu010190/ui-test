@@ -170,8 +170,11 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 	/*------------- End of Data for Portal/Manage Pages --------------------*/
 
-	public static By CUT_NODE_LINK = By.linkText("Cut Node");
-    public static By PASTE_NODE_LINK = By.linkText("Paste Node");
+//	public static By ELEMENT_CUT_NODE = By.linkText("Cut Node");	
+// 	public static By ELEMENT_PASTE_NODE = By.linkText("Paste Node");
+	public static By ELEMENT_CUT_NODE = By.xpath("//a[contains(text(),'Cut')]");
+	public static By ELEMENT_PASTE_NODE = By.xpath("//a[contains(text(),'Paste')]");
+    public static By ELEMENT_COPY_NODE = By.xpath("//a[contains(text(),'Copy')]");
 	
 	//	language setting
 	
@@ -422,10 +425,25 @@ public class PlatformBase extends TestBase {
 				Assert.fail("Timeout");
 			}
 			rightClickOnElement(locator);
-			if (isElementPresent(CUT_NODE_LINK)){
-				click((CUT_NODE_LINK));
+			if (isElementPresent(ELEMENT_CUT_NODE)){
+				click((ELEMENT_CUT_NODE));
 				return;
 			}
+			pause(WAIT_INTERVAL);
+		}
+	}
+
+	public void copyNode(By locator){
+		for (int i =0;; i++){
+			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+				Assert.fail("Timeout");
+			}
+			rightClickOnElement(locator);
+			if (isElementPresent(ELEMENT_COPY_NODE)){
+				click((ELEMENT_COPY_NODE));
+				return;
+			}
+			pause(WAIT_INTERVAL);
 		}
 	}
 
@@ -435,10 +453,11 @@ public class PlatformBase extends TestBase {
 				Assert.fail("Timeout");
 			}
 			rightClickOnElement(locator);
-			if (isElementPresent(PASTE_NODE_LINK)){
-				click(PASTE_NODE_LINK);
+			if (isElementPresent(ELEMENT_PASTE_NODE)){
+				click(ELEMENT_PASTE_NODE);
 				return;
 			}
+			pause(WAIT_INTERVAL);
 		}
 	}
 

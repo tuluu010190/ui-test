@@ -134,9 +134,7 @@ public class EXOGTN_GroupNavigation_Node_CutPaste extends PlatformBase
 		waitForElementPresent(DEVELOP_EDIT_NAVIGATION_LINK);
 		click(DEVELOP_EDIT_NAVIGATION_LINK);
 		waitForElementPresent(IDE_LINK);
-		rightClickOnElement(IDE_LINK);
-		waitForElementNotPresent(PASTE_NODE_LINK);
-		
+		pasteNode(IDE_LINK);
 		click(CLOSE_NAVIGATION_ICON);
 	}
 	
