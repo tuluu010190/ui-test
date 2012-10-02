@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation.edit;
+package org.exoplatform.selenium.platform.exogtn.functional.groupnavigation;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +24,7 @@ import static org.exoplatform.selenium.platform.PageManagement.*;
  *@author HangNTT
  * @date: 26/09/2012
  */
-public class EXOGTN_GroupNavigation_EditPage_Portlet extends PlatformBase {
+public class EXOGTN_GroupNavigation_Node_EditPage_Portlet extends PlatformBase {
 	/**
 	 * @param args
 	 */

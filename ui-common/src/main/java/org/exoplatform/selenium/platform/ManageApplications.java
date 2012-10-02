@@ -122,4 +122,13 @@ public class ManageApplications extends PlatformBase {
 		}
 		pause(500);
 	}
+	
+	//Select a category
+    public static void selectCategoryAtManageApplications(String categoryName) {
+            info("--Select category (" + categoryName + ")--");
+            String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
+            waitForAndGetElement(ELEMENT_CURRENT_CATEGORY_NAME);
+            click(ELEMENT_CURRENT_CATEGORY_NAME);
+            pause(500);
+    }
 }
