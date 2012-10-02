@@ -74,15 +74,19 @@ public class TestBase {
     return !isElementPresent(locator);
   }
 
-  public static void waitForElementPresent(Object locator, int... timeInMillis) {
+  public static WebElement waitForElementPresent(Object locator, int... opParams) {
     WebElement elem = null;
-    int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
+    int timeout = opParams.length>0 ? opParams[0] : DEFAULT_TIMEOUT;
+    int isAssert = opParams.length > 1 ? opParams[1]: 1;
+    
     for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
       elem = getElement(locator);
-      if (null != elem) return;
+      if ((null != elem) && isDisplay(locator)) return elem;
       pause(WAIT_INTERVAL);
     }
-    assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
+    if (isAssert == 1)
+    	assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
+    return elem;
   }
 
 /*
@@ -522,5 +526,23 @@ public class TestBase {
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public static boolean isDisplay(Object locator) { 
+		boolean bool = false;
+		WebElement e = getElement(locator);
+		try{
+			if (e!=null)
+				bool = e.isDisplayed();
+		}catch(StaleElementReferenceException ex) 
+		{
+			checkCycling(ex, 10);
+			pause(WAIT_INTERVAL);
+			isDisplay(locator);
+		}
+		finally{
+			loopCount=0;
+		}
+		return bool;
 	}
 }

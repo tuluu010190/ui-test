@@ -335,8 +335,6 @@ public class EcmsBase extends PlatformBase {
 		}
 	}
 	
-	
-	
 	//delete node of page, node is subnode of node
 	public static void deleteNode(By node, String pageTitle){
 		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_EDIT_LINK)).build().perform();
