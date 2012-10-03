@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.util.Map;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class ManageApplications extends PlatformBase {

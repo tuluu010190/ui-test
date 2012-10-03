@@ -3,6 +3,8 @@ package org.exoplatform.selenium.platform;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.Map;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -99,4 +101,13 @@ public class DashBoard extends PlatformBase {
 		waitForElementNotPresent("//span[text()='" + currentName + "']");
 	}
 
+	public static void deleteGadgetOnDashboard(String gadgetTitleDisplay)
+	{
+		String action = "Delete Gadget";
+		By deleteGadgetIcon = By.xpath("//span[text()='"+gadgetTitleDisplay+"']/preceding::span[@title='"+action+"']");
+		waitForAndGetElement(deleteGadgetIcon);
+		click(deleteGadgetIcon);
+		waitForConfirmation("Are you sure to delete this gadget?");
+		waitForTextNotPresent(gadgetTitleDisplay);
+	}
 }
