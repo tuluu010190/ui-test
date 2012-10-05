@@ -124,11 +124,71 @@ public class ManageApplications extends PlatformBase {
 	}
 	
 	//Select a category
-    public static void selectCategoryAtManageApplications(String categoryName) {
+    	public static void selectCategoryAtManageApplications(String categoryName) {
             info("--Select category (" + categoryName + ")--");
             String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
             waitForAndGetElement(ELEMENT_CURRENT_CATEGORY_NAME);
             click(ELEMENT_CURRENT_CATEGORY_NAME);
             pause(500);
-    }
+    	}
+
+	public static void makeItPublic(boolean checked){
+		By ELEMNT_PUBLIC_OPTION = By.xpath("//input[@id='publicMode']");
+		WebElement element = waitForAndGetElement(ELEMNT_PUBLIC_OPTION);
+		String status = element.getAttribute("checked"); // checked if check otherwise blank
+
+		if (checked) {
+			if (!status.equalsIgnoreCase("true")) check(ELEMNT_PUBLIC_OPTION);
+		} else {
+			if (status.equalsIgnoreCase("true")) click(ELEMNT_PUBLIC_OPTION);
+		}
+	}
+
+	public static void addApplicationToCategory (String categoryTitle, boolean addNewApps, String newDisplayName, String applicationType, String displayName, boolean publicMode, String groupId, String membership ) {
+		By ELEMENT_ADD_APPS_BUTTON = By.xpath("//a[@title='"+categoryTitle+"']/following::a[@title='Add an Application to this Category']");
+		By ELEMENT_DISPLAY_NAME_TEXTBOX = By.id("displayName");
+		By ELEMNET_ADD_BUTTON = By.linkText("Add");
+		By ELEMENT_APPS_TYPE = By.id("type");
+		By ELEMENT_APPS_EXISTING = By.xpath("//span[@class='label' and text()='"+displayName+"']/../..//input[@name='application']");
+		String ELEMENT_APP_LOCATOR = "//span[@id='label' and text()='"+displayName+"']";
+
+		waitForElementPresent(ELEMENT_ADD_APPS_BUTTON);
+		click(ELEMENT_ADD_APPS_BUTTON);
+		waitForElementPresent(ELEMNET_ADD_BUTTON);
+
+		//add new app
+		if (addNewApps) {
+			waitForElementPresent(ELEMENT_DISPLAY_NAME_TEXTBOX);
+			type(ELEMENT_DISPLAY_NAME_TEXTBOX, newDisplayName, true);
+			select(ELEMENT_APPS_TYPE, applicationType);
+		}
+		else
+		{
+			select(ELEMENT_APPS_TYPE, applicationType);
+			usePaginator(ELEMENT_APP_LOCATOR, "Application "+displayName+" is not found");
+			click(ELEMENT_APPS_EXISTING);
+		}
+		click(ELEMNET_ADD_BUTTON);
+
+		//set permission
+		if (publicMode) makeItPublic(true);
+		else {
+			makeItPublic(false);
+			setViewPermissions(groupId, membership);
+		}
+	}
+
+	public void deleteApplication(String categoryTitle, String applicationName) {
+		By CAT_XPATH = By.xpath("//a[@title='"+categoryTitle+"']");
+		By DELETE_APP_ICON = By.xpath("//a[@title='"+applicationName+"']/following::a[@title='Delete Application']");
+		//By DELETE_APP_ICON= By.xpath("//span[@class='label' and text()='"+applicationName+"']/../..//input[@name='application']");
+		waitForElementPresent(CAT_XPATH);
+		click(CAT_XPATH);
+		waitForElementPresent(DELETE_APP_ICON);
+		click(DELETE_APP_ICON);
+		waitForConfirmation("Are you sure to delete this application?");
+		pause(1000);
+		waitForTextNotPresent(applicationName);
+		info("'"+applicationName+"' was deleted successfully");
+	}
 }

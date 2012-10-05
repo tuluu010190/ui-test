@@ -60,6 +60,7 @@ public class PageManagement extends PlatformBase {
 		searchPageByTitle(type, pageTitle);
 		click(pageDeleteIcon);
 		waitForConfirmation("Are you sure to delete this page?");
+		waitForMessage("No result found.");
 		closeMessageDialog();
 		waitForTextNotPresent(pageTitle);
 //		pause(1000);
