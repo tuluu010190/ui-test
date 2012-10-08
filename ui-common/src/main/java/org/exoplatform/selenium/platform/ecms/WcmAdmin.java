@@ -67,6 +67,14 @@ public class WcmAdmin extends EcmsBase {
 	public static final By ELEMENT_ALLOW_CREATE_FOLDER = By.id("allowCreateFolders");
 	public static final By ELEMENT_DRIVER_NAME = By.id("name");
 	
+	
+	/* Manage View Page */
+	public static By ELEMENT_ICON_VIEW_WCM_EDIT= By.xpath("//div[@title='WCM View']/../..//*[@class='EditInfoIcon']");
+	
+	//Edit View Form 
+	public static By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
+	public static By ELEMENT_CHECKBOX_VERSION=By.id("manageVersions");
+	public static By ELEMENT_BUTTON_BACK=By.linkText("Back");
 
 	//Setup to show [Add symlink] in action bar
 	//set Add symlink view in action bar
@@ -264,6 +272,19 @@ public class WcmAdmin extends EcmsBase {
 		waitForElementPresent(ELEMENT_CATEGORY_TREE);
 		assert isElementPresent(ELEMENT_CATEGORY_TREE):"Add new category tree is not successful";
 		info("Add new category is successful");
+	}
+	public static void addFunctionToActionBar(By locator){
+		goToContentAdministration();
+		click(ELEMENT_CONTENT_PRESENT);
+		click(ELEMENT_MANAGEMENT_VIEW);
+		click(ELEMENT_ICON_VIEW_WCM_EDIT);
+		click(ELEMENT_LINK_TAB_PUBLICATION);
+		if (!waitForAndGetElement(locator).isSelected())
+		click(locator);
+		click(ELEMENT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_BUTTON_BACK);
+		click(ELEMENT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
 	}
 
 	  //------------manage driver------------------

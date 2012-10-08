@@ -14,27 +14,28 @@ public class ContextMenu extends EcmsBase {
 	public static final By ELEMENT_CHECKIN_OPTION_XPATH = By.xpath("//a[contains(text(),'CheckIn')]");
 	public static final By ELEMENT_CHECKOUT_OPTION_XPATH = By.xpath("//a[contains(text(),'CheckOut')]");
 	public static final By ELEMENT_RENAME_NODE = By.linkText("Rename");
+	public static final By ELEMENT_PASTE_NODE = By.xpath("//a[contains(text(),'Paste')]");
 	//lock node
-		public static void lockNode(By locator){
-			for(int repeat=0;; repeat ++)
-			{
-				if (repeat >= ACTION_REPEAT) {
-					Assert.fail("Cannot perfotrm this action after " + ACTION_REPEAT + " tries");
-				}
-				rightClickOnElement(locator);
-				if (isDisplay(waitForAndGetElement(ELEMENT_LOCK_OPTION_XPATH))) break;
-				pause(WAIT_INTERVAL);
-				info("Retry...[" + repeat + "]");
+	public static void lockNode(By locator){
+		for(int repeat=0;; repeat ++)
+		{
+			if (repeat >= ACTION_REPEAT) {
+				Assert.fail("Cannot perfotrm this action after " + ACTION_REPEAT + " tries");
 			}
-			
-			click(ELEMENT_LOCK_OPTION_XPATH);
+			rightClickOnElement(locator);
+			if (isDisplay(waitForAndGetElement(ELEMENT_LOCK_OPTION_XPATH))) break;
+			pause(WAIT_INTERVAL);
+			info("Retry...[" + repeat + "]");
 		}
+
+		click(ELEMENT_LOCK_OPTION_XPATH);
+	}
 
 	//check node is being locked
 	public static boolean checkLockNode(Object locator){
 		boolean locked;
 		By by = locator instanceof By ? (By)locator : By.xpath((String)locator);
-//		actions.contextClick(unlock).build().perform();
+		//		actions.contextClick(unlock).build().perform();
 		rightClickOnElement(by);
 		pause(500);
 		if (isElementPresent(ELEMENT_UNLOCK_OPTION_XPATH)) {
@@ -45,7 +46,7 @@ public class ContextMenu extends EcmsBase {
 		unlock.sendKeys(Keys.RETURN);
 		return locked;
 	}
-	
+
 	public static void checkInNode(By locator){
 		for(int repeat=0;; repeat ++)
 		{
@@ -102,14 +103,27 @@ public class ContextMenu extends EcmsBase {
 			info("Retry...[" + repeat + "]");
 
 		}
-
-		info(locator.toString() + "was deleted successfully");
 		waitForElementNotPresent(locator, iTimeout);
+		info(locator.toString() + "was deleted successfully");		
 	}
-	
+
 	//Define common function
 	public static void unLockNode(By locator){
 		rightClickOnElement(locator);
 		click(ELEMENT_UNLOCK_OPTION_XPATH);
+	}
+
+	public static void pasteNode(By locator) {
+		for (int i =0;; i++){
+			if (i>DEFAULT_TIMEOUT/WAIT_INTERVAL){
+				Assert.fail("Timeout");
+			}
+			rightClickOnElement(locator);
+			if (isElementPresent(ELEMENT_PASTE_NODE)){
+				click(ELEMENT_PASTE_NODE);
+				return;
+			}
+			pause(WAIT_INTERVAL);
+		}
 	}
 }

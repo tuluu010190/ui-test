@@ -15,7 +15,9 @@ public class ActionBar extends EcmsBase {
 	public static By ELEMENT_LINK_EDIT= By.xpath("//a[@title='Edit']");
 	public static By ELEMENT_MENU_NEW_CONTENT_LINK = By.linkText("New Content");
 	public static By ELEMENT_CATEGORIES_LINK = By.xpath("//a[text()='Categories']");
-
+	public static By ELEMENT_LINK_VERSION=By.linkText("Versions");
+	public static By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
+	
 	//System TAB
 	//	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[@class='TabLabel' and @title='System']");
 	public static By ELEMENT_SYSTEM_TAB = By.linkText("System");
@@ -52,6 +54,12 @@ public class ActionBar extends EcmsBase {
 	//Collaboration TAB
 	public static By ELEMENT_COLLABORATION_TAB = By.xpath("//a[contains(text(),'Collaboration')]");
 	public static By ELEMENT_TAG = By.linkText("Tag");
+	
+	
+	//Version Info form
+	public static By ELEMENT_ICON_VERSION_ADD=By.xpath("//div[@title='Add Label']");
+	public static By ELEMENT_TEXTBOX_VERSION=By.id("label");
+	
 
 	// add a category
 	public static void addCategory(String name)
@@ -381,4 +389,25 @@ public class ActionBar extends EcmsBase {
 			info("Not found user");
 		}
 	}
+		/*
+		 * Add version for a node
+		 * + locator: locator of node
+		   + version: version name
+		 */
+		public static void addVersionForNode(By locator, String vesion){
+			goToNode(locator);
+			click(ELEMENT_LINK_TAB_PUBLICATION);
+			clearCache();
+			click(ELEMENT_LINK_VERSION);
+			click(ELEMENT_ICON_VERSION_ADD);
+			type(ELEMENT_TEXTBOX_VERSION,vesion,true);
+			click(ELEMENT_SAVE_BUTTON);
+			waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
+			click(ELEMENT_CLOSE_BUTTON);
+		}
+		/*
+		 * Add function icon to the Publication tab on action bar
+		 * locator: locator of checkbox icon of function on the edit View form
+		 */
+		
 }

@@ -4,7 +4,7 @@ import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.ELEMENT_ADD_ITEM;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.createNewContentFolder;
-import static org.exoplatform.selenium.platform.ecms.ContextMenu.deleteDocument;
+import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
@@ -115,9 +115,11 @@ public class EcmsBase extends PlatformBase {
 	public static By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
 	public static final By ELEMENT_INFO = By.xpath("//span[@class='PopupIcon InfoMessageIcon']");
 
+
 	//Rename Form in Sites Explorer (Righ-click -> Rename
 	public static final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");
 	public static final By ELEMENT_INPUT_NAME_NODE = By.xpath("//input[@id = 'nameField']");
+	
 
 	//login ECMS
 	public static void loginEcms(String username, String password) {
@@ -171,10 +173,6 @@ public class EcmsBase extends PlatformBase {
 		typeFolder.selectByValue(value);
 	}
 
-	//function go to Node
-	public static void goToNode(By locator){
-		click(locator);
-	}
 
 	//go to a node
 	//input: path: path of a node, splitted by  "/" character 
@@ -202,6 +200,24 @@ public class EcmsBase extends PlatformBase {
 	//		WebElement inputsummary = driver.switchTo().activeElement();
 	//		inputsummary.sendKeys(data);
 	//	}
+
+	public static void goToNode(Object locator){	
+		if (locator instanceof By) 
+			click(locator);
+		else 
+		{
+			By by = By.xpath("//a[@title='"+ locator +" ']");
+			for (int i =0;; i++){
+				if (i>DEFAULT_TIMEOUT/WAIT_INTERVAL){
+					Assert.fail("Timeout");
+				}
+				click(by);
+				if (waitForAndGetElement(By.xpath("//input[contains(@value,'/"+locator+"')]"),40000,0) !=null) return;
+				//if (waitForAndGetElement(By.xpath("//div[contains(@class,'SelectedNode SelectedNode')]/div/div/a[@title='"+title+" ']"),40000,0) !=null) return;
+			}	
+		}
+	}
+  
 	//function add data to frame
 	//	public static void inputDataToFrame (By framelocator, String data){
 	//		try {
@@ -352,15 +368,8 @@ public class EcmsBase extends PlatformBase {
 
 	//cut node
 	public void cutAndPasteNode(By source, By target){
-		goToNode(source);
-		rightClickOnElement(source);
-		pause(500);
-		click(By.xpath("//a[contains(text(),'Cut')]"));
-		goToNode(target);
-		rightClickOnElement(target);
-		pause(500);
-		click(By.xpath("//a[contains(text(),'Paste')]"));
-		pause(1000);
+		cutNode(source);
+		ContextMenu.pasteNode(target);
 	}
 
 
@@ -381,4 +390,6 @@ public class EcmsBase extends PlatformBase {
 
 		return bool;
 	}
+
+	 
 }

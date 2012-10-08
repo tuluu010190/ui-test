@@ -473,7 +473,8 @@ public class PlatformBase extends TestBase {
 				Assert.fail("Timeout");
 			}
 			rightClickOnElement(locator);
-			if (isElementPresent(ELEMENT_CUT_NODE)){
+			if (waitForAndGetElement(ELEMENT_CUT_NODE,30000,0)!=null){
+				debug("==Cut node " + locator + "==");
 				click((ELEMENT_CUT_NODE));
 				return;
 			}
