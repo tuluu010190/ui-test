@@ -1,12 +1,18 @@
 package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
+import org.openqa.selenium.By;
 import org.testng.Assert;
 
 public class UserGroupManagement extends PlatformBase {
-	public static final String ELEMENT_MESSAGE_DUPLICATE_USER = "User \"${username}\" has already the same membership ";
-	public static final String ELEMENT_MESSAGE_DUPLICATE_GROUP = "in the group \"${groupName}\", please select another one.";
+	public static final String MESSAGE_DUPLICATE_USERS = "User \"${username}\" has already the same membership ";
+	public static final String MESSAGE_DUPLICATE_GROUPS = "in the group \"${groupName}\", please select another one.";
 	public static final String ELEMENT_USER_INGROUP_DELETE_ICON = "//div[@id='UIGridUser']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
+
+	/*
+	 *  Choose TAB actions
+	 * */
 
 	public static void chooseUserTab(){
 		info("-- Choose User tab--");
@@ -16,9 +22,62 @@ public class UserGroupManagement extends PlatformBase {
 
 	public static void chooseGroupTab() {
 		info("-- Choose Group Management tab--");
-		click(ELEMENT_TAB_GROUP_MANAGEMENT);
+		click(ELEMENT_GROUP_MANAGEMENT_TAB);
 		waitForTextPresent("Group Info");
 	}
+
+	public static void chooseMembershipTab() {
+		info("-- Choose Membership Management tab--");
+		pause(500);
+		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
+		waitForTextPresent("Add/Edit Membership");
+	}
+
+	/*
+	 * User Management
+	 * */
+
+	public static void deleteUser(String username) {
+		String userDeleteIcon = ELEMENT_USER_DELETE_ICON.replace("${username}", username);
+
+		info("--Deleting user " + username + "--");
+		if (isTextPresent("Total pages")) {
+			usePaginator(userDeleteIcon, "User " + username + "not found in group");
+		}
+		pause(500);
+		click(userDeleteIcon);
+		waitForConfirmation("Are you sure to delete user " + username + "?");
+		type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
+		select(ELEMENT_SELECT_SEARCH_OPTION, "User Name");
+		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
+		waitForMessage("No result found.");
+		closeMessageDialog();
+		waitForTextNotPresent(username);
+	}
+
+	public static void searchUser(String user, String searchOption){
+		info("--Search user " + user + "--");
+		if (isTextPresent("Search")){
+			type(ELEMENT_INPUT_SEARCH_USER_NAME, user, true);
+			select(ELEMENT_SELECT_SEARCH_OPTION, searchOption);
+		}	
+
+		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
+		waitForTextPresent(user);
+	}
+
+	public static void editUser(String username) {
+		String userEditIcon = ELEMENT_USER_EDIT_ICON.replace("${username}", username);
+
+		info("--Editing user " + username + "--");
+		click(userEditIcon);
+		pause(1000);
+	}
+
+
+	/*
+	 *  Group Management 
+	 * */
 
 	public static void addGroup(String groupName, String groupLabel, String groupDesc, boolean verify){
 		info("--Add a new group--");
@@ -34,7 +93,6 @@ public class UserGroupManagement extends PlatformBase {
 	}
 
 	public static void addUsersToGroup(String userNames, String memberShip, boolean select, boolean verify) {
-
 		info("--Adding users to group--");
 		String[] users = userNames.split(",");
 		if (select) {
@@ -66,8 +124,8 @@ public class UserGroupManagement extends PlatformBase {
 	//Add a duplicate user into group with the same role
 	public static void addDuplicateUserToGroup(String groupName, String userName, String memberShip){
 		info("-- Add a duplicate user into group with the same role --");
-		String MESSAGE_DUPLICATE_USER = ELEMENT_MESSAGE_DUPLICATE_USER.replace("${username}", userName);
-		String MESSAGE_DUPLICATE_USER_WITH_SAME_ROLE = MESSAGE_DUPLICATE_USER + ELEMENT_MESSAGE_DUPLICATE_GROUP.replace("${groupName}", groupName);
+		String MESSAGE_DUPLICATE_USER = MESSAGE_DUPLICATE_USERS.replace("${username}", userName);
+		String MESSAGE_DUPLICATE_USER_WITH_SAME_ROLE = MESSAGE_DUPLICATE_USER + MESSAGE_DUPLICATE_GROUPS.replace("${groupName}", groupName);
 		selectGroup(groupName);
 		type(ELEMENT_INPUT_USERNAME, userName, true);
 		select(ELEMENT_SELECT_MEMBERSHIP, memberShip);
@@ -75,24 +133,6 @@ public class UserGroupManagement extends PlatformBase {
 		waitForMessage(MESSAGE_DUPLICATE_USER_WITH_SAME_ROLE);
 		click(ELEMENT_OK_BUTTON);	
 	}	
-
-	public static void deleteUser(String username) {
-		String userDeleteIcon = ELEMENT_USER_DELETE_ICON.replace("${username}", username);
-
-		info("--Deleting user " + username + "--");
-		if (isTextPresent("Total pages")) {
-			usePaginator(userDeleteIcon, "User " + username + "not found in group");
-		}
-		pause(500);
-		click(userDeleteIcon);
-		waitForConfirmation("Are you sure to delete user " + username + "?");
-		type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
-		select(ELEMENT_SELECT_SEARCH_OPTION, "User Name");
-		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
-		waitForMessage("No result found.");
-		closeMessageDialog();
-		waitForTextNotPresent(username);
-	}
 
 	//Delete a user in current group
 	public static void deleteUserInGroup(String groupName, String groupLabel, String username){
@@ -116,30 +156,19 @@ public class UserGroupManagement extends PlatformBase {
 		waitForTextNotPresent(username);	
 	}
 
-	public static void searchUser(String user, String searchOption){
-		info("--Search user " + user + "--");
-		if (isTextPresent("Search")){
-			type(ELEMENT_INPUT_SEARCH_USER_NAME, user, true);
-			select(ELEMENT_SELECT_SEARCH_OPTION, searchOption);
-		}	
+	//function select group
+	public static void selectGroup(String groupPath){
+		String[] temp;			 
+		/* delimiter */
+		String delimiter = "/";
 
-		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
-		waitForTextPresent(user);
-	}
-
-	public static void editUser(String username) {
-		String userEditIcon = ELEMENT_USER_EDIT_ICON.replace("${username}", username);
-
-		info("--Editing user " + username + "--");
-		click(userEditIcon);
-		pause(1000);
-	}
-
-	public static void selectGroup(String groupName) {
-		info("--Select category (" + groupName + ")--");
-		String groupID = "//a[@title='"+ groupName +"']"; 
-		waitForAndGetElement("//a[@title='"+ groupName +"']");
-		click(groupID);
+		temp = groupPath.split(delimiter);
+		/* go to group */
+		for(int i =0; i < temp.length ; i++){
+			info("Go to " + temp[i]);
+			click(By.linkText(temp[i]));
+			pause(500);
+		}
 	}
 
 	public static void editGroup(String groupName, boolean verify){
@@ -159,12 +188,10 @@ public class UserGroupManagement extends PlatformBase {
 		pause(1000);
 	}
 
-	public static void chooseMembershipTab() {
-		info("-- Choose Membership Management tab--");
-		pause(500);
-		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
-		waitForTextPresent("Add/Edit Membership");
-	}
+	/*
+	 * Membership Management
+	 * 
+	 * */
 
 	public static void addMembership(String membershipName, String membershipDesc, boolean verify){
 		boolean verifyMembership;
@@ -236,50 +263,11 @@ public class UserGroupManagement extends PlatformBase {
 		}
 	}
 
-	// Add new user account 
-	public static void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
-			String lastName, String email, String userNameGiven, String language, boolean verify) {
-
-		info("--Create new user using \"New Staff\" portlet--");
-		type(ELEMENT_INPUT_USERNAME, username, true);
-		type(ELEMENT_INPUT_PASSWORD, password, true);
-		type(ELEMENT_INPUT_CONFIRM_PASSWORD, confirmPassword, true);
-		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
-		type(ELEMENT_INPUT_LASTNAME, lastName, true);
-		type(ELEMENT_INPUT_EMAIL, email, true);
-		click(ELEMENT_USER_PROFILE_TAB);
-		waitForTextPresent("Given Name:");
-		type(ELEMENT_INPUT_USER_NAME_GIVEN, userNameGiven, true);
-		select(ELEMENT_SELECT_USER_LANGUAGE, language);
-		click(ELEMENT_ACCOUNT_SETTING_TAB);
-		save();
-
-		if (verify) {
-			waitForMessage("You have registered a new account.");
-			closeMessageDialog();
-		}
+	//function select a group and membership on permission management popup
+	//Go to siteExplorer - System - Permission - Select Membership
+	public static void selectGroupAndMembership(String groupPath, String membership){
+		click(By.xpath("//img[@title='Select Membership']"));
+		selectGroup(groupPath);	
+		click(By.linkText(membership));
 	}
-
-	//Edit user in My Account
-	public static void editUserInMyAccount(String firstName, String lastName, String email, String currentPassword, String newPassword, 
-			String confirmNewPassword){
-		info("-- Edit user in My Account --");
-
-		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
-		type(ELEMENT_INPUT_LASTNAME, lastName, true);
-		type(ELEMENT_INPUT_EMAIL, email, true);
-		click(ELEMENT_CHANGE_PASSWORD_TAB);
-		waitForTextPresent("Current Password:");
-
-		type(ELEMENT_INPUT_CURRENTPASSWORD, currentPassword, true);
-		type(ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT, newPassword, true);
-		type(ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT, confirmNewPassword, true);
-		click(ELEMENT_ACCOUNT_PROFILE_TAB);
-
-		save();		
-		waitForMessage("The account information has been updated.")		;
-		closeMessageDialog();
-		close();
-	}
-
 }

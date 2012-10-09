@@ -52,7 +52,7 @@ public class NavigationToolbar extends PlatformBase {
 	//Go to Users and management page
 	public static void goToNewStaff() {
 		//info("Go to New Staff");
-		goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADDUSERS);
+		goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADD_USERS);
 	}
 
 	//Go to My Account
@@ -92,7 +92,7 @@ public class NavigationToolbar extends PlatformBase {
 
 	public static void goToUsersAndGroupsManagement() {
 		info("--Go to Users and groups management--");
-		goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_USERS_MANAGEMENT);
+		goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_GROUP_AND_ROLE_LINK);
 	}
 	
 	//Define common function

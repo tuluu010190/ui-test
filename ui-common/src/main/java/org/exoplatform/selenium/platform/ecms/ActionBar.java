@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.ecms;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import static org.exoplatform.selenium.TestLogger.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.ELEMENT_EDIT_NODE_CHECKBOX;
@@ -8,8 +9,6 @@ import static org.exoplatform.selenium.platform.ecms.ContentTemplate.ELEMENT_REM
 
 public class ActionBar extends EcmsBase {
 	public static By ELEMENT_TEXT_TEMPLATE_LIST = By.xpath("//div[contains(text(),'Select your template in the list below')]");
-	public static By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
-	public static By ELEMENT_ADD_SYMLINK_POPUP = By.id("UIPopupWindow");
 	public static By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
 	public static By ELEMENT_ADD_ITEM	 = By.xpath("//img[@title='Add Item']");
 	public static By ELEMENT_LINK_EDIT= By.xpath("//a[@title='Edit']");
@@ -31,6 +30,17 @@ public class ActionBar extends EcmsBase {
 	public static By ELEMENT_ADD_ROOT_BUTTON = By.xpath("//label[text()='Root Tree']/following::img[@title='Add Root Node']");
 	public static By ELEMENT_CLOSE_BUTTON = By.xpath("//a[text()='Close']");
 	public static By ELEMENT_OK_BUTTON = By.linkText("OK");
+	public static By ELEMENT_SYSTEM_LINK = By.linkText("System");
+	public static By ELEMENT_PERMISSION_LINK = By.linkText("Permissions");
+	public static By ELEMENT_PER_MANA_POPUP = By.id("UIPopupWindow");
+	public static String ELEMENT_PER_MANA_TEXT = "Permission Management";
+	public static By ELEMENT_PER_MANA_GRID = By.xpath("//table[@class='UIGrid']");
+	public static By READ_CHECKBOX = By.id("read");
+	public static By ADDNODE_CHECKBOX = By.id("add_node");
+	public static By SETPRO_CHECKBOX = By.id("set_property");
+	public static By REMOVE_CHECKBOX = By.id("remove");
+	public static By ELEMENT_USERS_LINK = By.linkText("Users");
+	public static By ELEMENT_GROUP_AND_ROLES = By.linkText("Group and Roles");
 	
 	//Collaboration
 	public static By ELEMENT_COLLABORATION_TAB = By.xpath("//a[contains(text(),'Collaboration')]");
@@ -350,4 +360,86 @@ public class ActionBar extends EcmsBase {
 			click(ELEMENT_CLOSE_EDIT_PUBLIC_TAG_FORM);
 			waitForTextNotPresent(name);
 		}
+	//--------------permission of node------------------------------------
+		  public static void goToPermissionManagement(){
+			  goToNode(ELEMENT_SYSTEM_LINK);
+			  goToNode(ELEMENT_PERMISSION_LINK);
+		  }
+		  
+		  //function view permission management pop up of node
+		  public static void viewPermissionOfNode(By locator){
+			  goToNode(locator);
+			  info("go to Permission Management popup");
+			  goToPermissionManagement();
+			  
+			  waitForElementPresent(ELEMENT_PER_MANA_POPUP);
+			  assert isElementPresent(ELEMENT_PER_MANA_POPUP):"Not found permission management";
+			  assert isTextPresent(ELEMENT_PER_MANA_TEXT):"Permission management popup is wrong";
+			  assert isElementPresent(ELEMENT_PER_MANA_GRID):"Permission management popup is wrong";
+			  info("View permission of node is successful");
+			  click(ELEMENT_CLOSE_BUTTON);
+		  }
+
+		  
+		  //function set permission for node
+		  public static void setPermissionOfNode(boolean read, boolean add, boolean pro, boolean remove){
+			  info("Set user has read permission: "+read);
+			  waitForElementPresent(READ_CHECKBOX);
+			  if ((read && !waitForAndGetElement(READ_CHECKBOX).isSelected()) || (!read && waitForAndGetElement(READ_CHECKBOX).isSelected())){
+				  click(READ_CHECKBOX);
+			  }
+			  info("Set user has add node permission: "+add);
+			  if ((add && !waitForAndGetElement(ADDNODE_CHECKBOX).isSelected())||(!add && waitForAndGetElement(ADDNODE_CHECKBOX).isSelected())){
+				  click(ADDNODE_CHECKBOX);
+			  }
+			  info("Set user has set propeties permission: "+pro);
+			  if ((pro && !waitForAndGetElement(SETPRO_CHECKBOX).isSelected())||(!pro && waitForAndGetElement(SETPRO_CHECKBOX).isSelected())){
+				  click(SETPRO_CHECKBOX);
+			  }
+			  info("Set user has set remove permission: "+remove);
+			  if ((remove && !waitForAndGetElement(REMOVE_CHECKBOX).isSelected())|| (!remove && waitForAndGetElement(REMOVE_CHECKBOX).isSelected())){
+				  click(REMOVE_CHECKBOX);
+			  }
+			  
+		  }
+		  
+		  //function delete permission
+		  public static void deletePermission(String user){
+			  By ELEMENT_DELETE = By.xpath("//div[@title='"+user+"']/../../td/div/img[@class='DeleteIcon']");
+			  click(ELEMENT_DELETE);
+			  acceptAlert();
+		  }
+		  
+		  
+		  //function remove default user and group permission of node except owner
+		  public static void removePermissionDefaultOfNode(){ 
+			  deletePermission("*:/platform/web-contributors");
+			  waitForTextNotPresent("*:/platform/web-contributors");
+			  deletePermission("*:/platform/administrators");
+			  waitForTextNotPresent("*:/platform/administrators");
+			  deletePermission("any");
+			  waitForTextNotPresent("any");
+		  }
+		  
+		  //function add a user to group and choose membership type
+		  public static void clickUpLevel(){
+			  By ELEMENT_ROOT = By.xpath("//div[@class='BreadcumbsInfoBar ClearFix']/a[1]");
+			  
+			  WebElement root = getElement(ELEMENT_ROOT);
+			  if (root != null){
+				  click(ELEMENT_ROOT);
+				  click(By.xpath("//a[@class='LevelUpArrowIcon']"));
+			  }
+		  }
+		  
+		  
+		  
+		  //function select user to set permission on permission management popup
+		  public static void selectUser(String user){
+			  By ELEMENT_USER = By.xpath("//div[@title='"+user+"']/../../td/div/img[@class='SelectPageIcon']"); 
+			  
+			  info("Set add node permission for user "+user+" to node");
+			  click(By.xpath("//img[@title='Select User']"));
+			  click(ELEMENT_USER);
+		  }
 }

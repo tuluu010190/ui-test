@@ -72,7 +72,8 @@ public class PortalManagement extends PlatformBase {
 		info("--Delete portal (" + portalName + ")--");		
 		click(portalDeleteIcon);
 		waitForConfirmation("Are you sure to delete this portal?");
-		//info("--Verify portal deleted--");		
+		//info("--Verify portal deleted--");
+		pause(30000);
 		waitForTextNotPresent(portalName);
 	}
 

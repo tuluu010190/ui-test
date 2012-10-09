@@ -15,7 +15,7 @@ public class WcmAdmin extends EcmsBase {
 	
 	 //set Add symlink view in action bar
 	  public static void setViewSymlink(){
-		  mouseOver(ELEMENT_MENU_SETUP_IMG, false);
+		  mouseOver(ELEMENT_LINK_SETUP, false);
 		  mouseOver(ELEMENT_MENU_CONTENT_LINK, false);
 		  click(ELEMENT_CONTENT_MANAGER);
 		  click(ELEMENT_CONTENT_PRESENT);

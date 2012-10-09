@@ -35,6 +35,7 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_SAMPLE_TITLE_ACCEPT=By.xpath("//form[contains(@id,'EditTdGtmplTitleForm')]/a[2]");
 	public static final By ELEMENT_SAMPLE_TITLE_INPUT=By.xpath("//input[contains(@id,'newTdGtmplTitle')]");
 	public static final String ELEMENT_SAMPLE_TITLE_INLINE="//div[contains(@id,'CurrentTdGtmplTitle') and @title='Double-click to edit']";
+	
 	//Podcast
 	public static final String ELEMENT_PODCAST_TITLE_INLINE="//div[contains(@id,'CurrentTdGtmplTitle') and @title='Double-click to edit']";
 	public static final By ELEMENT_PODCAST_TITLE_INPUT=By.xpath("//input[contains(@id,'newTdGtmplTitle')]");

@@ -16,96 +16,92 @@ import org.testng.Assert;
 
 
 public class PlatformBase extends TestBase {
-
-	/*------------- ---- Data for Portal ------------------------------*/
+	/*
+	 * Default Page - http://localhost:8080/portal/default/
+	 * */
+	public static final String ELEMENT_GO_TO_PORTAL = "//a[text()='Login to the ACME social intranet']";
+	public static final By ELEMENT_GOTO_ACME = By.linkText("Login to the ACME website");
+	/*
+	 * Intranet
+	 * */
 	public static final String ELEMENT_SIGN_IN_LINK = "//b[contains(text(),'Sign in')]";
+	
+	
+	/*
+	 * Log in Form - Signout 
+	 * */
 	public static final String ELEMENT_INPUT_USERNAME = "//input[@name='username']";
 	public static final String ELEMENT_INPUT_PASSWORD = "//input[@name='password']";
-	public static final String ELEMENT_SIGN_IN_CONFIRM_BUTTON = "//form[@id='UIPortalComponentLogin']//div[@class='UIAction']/*";	
+	
+	/*
+	 * Navigation Bar /Administration Bar
+	 * */
+	//My site
+	// My spaces
+	// Dashboard
+	//setting Icon
+	public static final String ELEMENT_LINK_SETUP ="//img[@alt='Setup']";
+	public static final String ELEMENT_LINK_USERS ="//a[text()='Users']";
+	public static final String ELEMENT_LINK_ADD_USERS="//a[text()='Add Users']";
+	public static final String ELEMENT_LINK_PORTAL = "//a[text()='Portal']";
+	public static final String ELEMENT_LINK_SITE   = "//a[text()='Sites']";
+	public static final String ELEMENT_LINK_GROUP = "//a[text()='Group Sites']";
+	public static final String ELEMENT_LINK_PAGES   = "//a[text()='Pages']";
+	
+	/* Username link -BEGIN */
+	//My Account form [Username] -> My Account
+	public static final String ELEMENT_CHANGE_PASSWORD_TAB = "//a[text()='Change Password' and @class='Icon ChangePass']";
+	public static final String ELEMENT_ACCOUNT_PROFILE_TAB = "//a[text()='Account Profiles' and @class='Icon AccountProfiles']";
+	//Account Profile Tab
+	
+	//change PasswordTab
 	public static final String ELEMENT_INPUT_CURRENTPASSWORD = "//input[@name='currentpass']";
 	public static final String ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT = "//input[@id='newpass']";
 	public static final String ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT = "//input[@id='confirmnewpass']";
+	//End My Account Form
 
+	//Add user Form - (Setting -> User -> add User)
+	//Account setting
+	public static final String ELEMENT_ACCOUNT_SETTING_TAB = "//div[text()='Account Settings' and @class='MiddleTab']";
 	public static final String ELEMENT_INPUT_CONFIRM_PASSWORD = "//input[@id='Confirmpassword']";
 	public static final String ELEMENT_INPUT_NEW_PASSWORD = "//input[@id='newPassword']";
 	public static final String ELEMENT_INPUT_NEW_CONFIRM_PASSWORD = "//input[@id='confirmPassword']";
 	public static final String ELEMENT_INPUT_FIRSTNAME = "//input[@id='firstName']";
 	public static final String ELEMENT_INPUT_LASTNAME = "//input[@id='lastName']";
-	public static final String ELEMENT_INPUT_EMAIL = "//input[@id='email']";   
-	public static final String ELEMENT_LINK_PORTAL_TOP_CONTAINER = "//ul[contains (@id, 'PortalNavigationContainer')]/..";
-	public static final String ELEMENT_SIGN_OUT_LINK = "//a[@class='LogoutIcon']";
-	public static final String ELEMENT_MESSAGE_TEXT = "//li[@class='MessageContainer']/span[contains(@class, 'PopupIcon')]";
-
-	public static final String ELEMENT_ADD_NEW_PORTAL_LINK = "//a[text()='Add New Portal']";	
-	public static final String ELEMENT_CHECKBOX_SHOW_INFO_BAR_BY_DEFAULT = "//input[@name='showInfobar']";
-	public static final String ELEMENT_PORTAL_IN_LIST = "//td[@class='Content']/div[@class='Label' and text()='${portalName}']";
-	public static final String ELEMENT_PORTAL_DELETE_ICON = "//div[@id='UISiteManagement']//table//tr/td/div[text()='${portalName}']/../../td[2]//a[@class='DeleteIcon']";
-	public static final String ELEMENT_PORTAL_EDIT_ICON = "//td[@class='Content']/div[@class='Label' and text()='${portalName}']/../../td[3]/a[@class='EditNavIcon'][2]";
-	public static final String ELEMENT_EDIT_FIRST_PORTAL_CONFIG = "//div[@id='UISiteManagement']//a[@class='EditNavIcon'][2]";
-	public static final String ELEMENT_SWITCH_VIEW_MODE_PORTAL = "//a[text()='Switch View Mode']";
-	public static final String ELEMENT_LINK_PORTAL = "//a[text()='Portal']";
-	public static final String ELEMENT_LINK_SITE   = "//a[text()='Sites']";
-	public static final String ELEMENT_LINK_GROUP = "//a[text()='Group Sites']";
-	public static final String ELEMENT_GO_TO_PORTAL = "//a[text()='Login to the ACME social intranet']";
-
-	public static final String ELEMENT_SELECT_LOCALE = "//select[@name='locale']";
-	public static final String ELEMENT_SELECT_SKIN 	 = "//select[@name='skin']";
-	public static final String ELEMENT_SELECT_SESSION_ALIVE= "//select[@name='sessionAlive']"; 
-	public static final String ELEMENT_PROPERTIES_TAB = "//div[text()='Properties' and @class='MiddleTab']";
-	public static final String ELEMENT_PERMISSION_SETTING_TAB= "//div[text()='Permission Settings' and @class='MiddleTab']";
-	public static final String ELEMENT_CHECKBOX_PUBLIC_MODE = "//input[@name='publicMode']";
-	public static final String ELEMENT_LINK_EDIT_PERMISSION = "//a[text()='Edit Permission Settings']";
-	public static final String ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM = "//a[text()='${membership}']";
-	public static final String ELEMENT_SELECTED_ACCESS_PERMISSION_GROUP = "//div[@id='PermissionGrid']/table/tbody//div[text()='/${groupId}']";
-	public static final String ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP = "//div[@id='PermissionGrid']/table/tbody//div[text()='${membership}']";
-	public static final String ELEMENT_ADD_PERMISSION_BUTTON = "//a[text()='Add Permission']";
-	public static final String ELEMENT_SELECT_EDIT_MEMBERSHIP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${membership}']";
-	public static final String ELEMENT_SELECTED_EDIT_PERMISSION_GROUP = "// div[@class='SelectedPermissionInfo']/div[2]/div[.='/${groupId}']";
-	public static final String ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP = "//div[@class='SelectedPermissionInfo']/div[3]/div[.='${membership}']";
-	public static final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
-	public static final String  ELEMENT_SELECT_ACCESS_GROUP_ITEM = ".//*[@id='ListPermissionSelector']//a[@title='${group}']";
-	public static final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${group}']";
-	public static final String ELEMENT_SELECT_EDIT_PORTAL_CONFIG = "//div[@id='UISiteManagement']//table//tr/td/div[text()='${portalName}']/../../td[2]//a[@class='EditPortIcon']";
-	public static final String ELEMENT_SAVE_BUTTON 	 = "//a[text()='Save']";
-	public static final String ELEMENT_CLOSE_BUTTON  = "//a[text()='Close']";
-	public static final String ELEMENT_CANCEL_BUTTON = "//a[text()='Cancel']";
-	public static final String ELEMENT_PAGINATOR_PAGE_LINK = "//a[contains(@class, 'Number') and text()='${number}']";
-	public static final String ELEMENT_PAGINATOR_TOTAL_NUMBER = "//a[@class='PagesTotalNumber']";
-	public static final String ELEMENT_PAGINATOR_NEXT_ICON = "//a[@class='Icon NextPageIcon']";
-	public static final String ELEMENT_PAGINATOR_SELECTED_PAGE = "//a[@class='Number PageSelected' and text()='${number}']";
-	public static final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON_IE = ELEMENT_MESSAGE_TEXT + "/../../../../../..//a";
-	public static final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON = "//div[contains(@class, 'UIPopupWindow') and contains(@style, 'visibility: visible')]//span[text()='Messages']/..//a[@class='CloseButton']";
-	public static final String ELEMENT_NODE_COPY = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon CopyNode16x16Icon']";
-	public static final String ELEMENT_NODE_CUT = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon CutNode16x16Icon']";
-	public static final String ELEMENT_NODE_CLONE = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon CloneNode16x16Icon']";		
-	public static final String ELEMENT_NODE_PASTE_HOME = "//div[@id='UINavigationNodeSelectorPopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon PasteNode16x16Icon']";
-	public static final String ELEMENT_NODE_PASTE = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon PasteNode16x16Icon']";
-	/*------------- ----- End of Data for Portal ------------------------------*/
-
-	
-	/*------------------- Data for Portal/Account -------------------------*/
-	public static final String ELEMENT_CHANGE_PASSWORD_TAB = "//a[text()='Change Password' and @class='Icon ChangePass']";
-	public static final String ELEMENT_USER_PROFILE_TAB = "//div[text()='User Profile' and @class='MiddleTab']";
-	public static final String ELEMENT_SELECT_USER_LANGUAGE = "//select[@name='user.language']";
-	public static final String ELEMENT_SEARCH_ICON_REGISTER = "//img[@class='SearchIcon']";
+	public static final String ELEMENT_INPUT_EMAIL = "//input[@id='email']";
+	//User Profile
+	public static final String ELEMENT_USER_PROFILE_TAB = "//div[text()='User Profile' and @class='MiddleTab']";	
 	public static final String ELEMENT_INPUT_USER_NAME_GIVEN = "//input[@id='user.name.given']";
-	public static final String ELEMENT_ACCOUNT_SETTING_TAB = "//div[text()='Account Settings' and @class='MiddleTab']";
-	public static final String ELEMENT_ACCOUNT_PROFILE_TAB = "//a[text()='Account Profiles' and @class='Icon AccountProfiles']";
-	public static final String ELEMENT_USER_DELETE_ICON ="//div[@id='UIListUsersGird']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
+	public static final String ELEMENT_SELECT_USER_LANGUAGE = "//select[@name='user.language']";
+	//end User Profile
+	//End - Add User Form
+	//Setting -> user -> Groups and roles
+	public static final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles')]";
+	//	
+	//signout
+	public static final String ELEMENT_SIGN_OUT_LINK = "//a[@class='LogoutIcon']";
+	/* Username link - END*/
+	
+	/*
+	 * Context menu
+	 * */
+	public static final By ELEMENT_CUT_NODE = By.xpath("//a[contains(text(),'Cut')]"); 
+	public static final By ELEMENT_PASTE_NODE = By.xpath(".//*[@id='NavigationNodePopupMenu']//a[@class='ItemIcon PasteNode16x16Icon']");
+    public static final By ELEMENT_COPY_NODE = By.xpath("//a[contains(text(),'Copy')]");
+	
+	/*
+	 * User and Group Management
+	 * */
+    public static final String ELEMENT_USER_DELETE_ICON ="//div[@id='UIListUsersGird']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
 	public static final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
-	public static final String ELEMENT_LINK_USERS_MANAGEMENT="//a[contains(text(),'Group and Roles')]";
-	public static final String ELEMENT_INPUT_SEARCH_USER_NAME = "//input[@name='searchTerm']"; 
-	public static final String ELEMENT_EDIT_USER_INFO =  "//img[@title='Edit User Info']" ;      
-	public static final String ELEMENT_SELECT_SEARCH_OPTION = "//select[@name='searchOption']";
-	public static final String ELEMENT_USER_EDIT_ICON = "//div[@id='UIListUsersGird']/table//tr/td/div[text()='${username}']/../../td[5]//img[@class='ViewUserInfoIcon']";
-
+	public static final String ELEMENT_INPUT_SEARCH_USER_NAME = "//input[@name='searchTerm']";
 	public static final String ELEMENT_GROUP_ADD_NEW_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon AddGroupIcon']";
 	public static final String ELEMENT_INPUT_GROUP_NAME = "//input[@name='groupName']";
 	public static final String ELEMENT_INPUT_LABEL = "//input[@id='label']";
 	public static final String ELEMENT_TEXTAREA_DESCRIPTION = "//textarea[@id='description']";
 	public static final String ELEMENT_GROUP_REMOVE_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon RemoveGroupIcon']";
 	public static final String ELEMENT_GROUP_EDIT_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon EditGroupIcon']";
-	public static final String ELEMENT_TAB_GROUP_MANAGEMENT = "//div[@class='GroupManagementIcon']/..";
+	public static final String ELEMENT_GROUP_MANAGEMENT_TAB = "//div[@class='GroupManagementIcon']/..";
 	public static final String ELEMENT_GROUP_TO_SELECT_LINK = "//a[contains(@class, 'NodeIcon') and @title='${group}']";
 	public static final String ELEMENT_GROUP_SELECTED = "//a[@class='NodeIcon PortalIcon NodeSelected' and @title='${group}']";
 	public static final String ELEMENT_GROUP_SEARCH_USER_ICON = "//form[@id='UIGroupMembershipForm']/div[2]/div/table/tbody/tr[1]/td[2]/a";
@@ -117,25 +113,67 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_MEMBERSHIP_EDIT_ICON = "//div[@class='UIListMembershipType']//table//tr/td/div[text()='${membership}']/../../td[5]//img[@class='EditMembershipIcon']";
 	public static final String ELEMENT_MEMBERSHIP_DELETE_ICON = "//div[@class='UIListMembershipType']//table//tr/td/div[text()='${membership}']/../../td[5]//img[@class='DeleteMembershipIcon']";
 	public static final String ELEMENT_NEXT_PAGE_ICON = "//a[@title='Next Page']";
-	public static final String ELEMENT_USER_MANAGEMENT = "//div[@class='UserManagementIcon']/.."; 
-	public static final String ELEMENT_LINK_SETUP ="//img[@alt='Setup']";
-	public static final String ELEMENT_LINK_USERS ="//a[text()='Users']";
-	public static final String ELEMENT_LINK_ADDUSERS="//a[text()='Add Users']";
+	public static final String ELEMENT_USER_MANAGEMENT = "//div[@class='UserManagementIcon']/..";
+	
+	/*
+	 * Manage Account
+	 * */
+	public static final String ELEMENT_SIGN_IN_CONFIRM_BUTTON = "//form[@id='UIPortalComponentLogin']//div[@class='UIAction']/*";
+	public static final String ELEMENT_SELECT_SEARCH_OPTION = "//select[@name='searchOption']";
+	public static final String ELEMENT_USER_EDIT_ICON = "//div[@id='UIListUsersGird']/table//tr/td/div[text()='${username}']/../../td[5]//img[@class='ViewUserInfoIcon']";
+	public static final String ELEMENT_SEARCH_ICON_REGISTER = "//img[@class='SearchIcon']";
+	public static final String ELEMENT_ADD_NEW_PORTAL_LINK = "//a[text()='Add New Portal']";	
+	public static final String ELEMENT_CHECKBOX_SHOW_INFO_BAR_BY_DEFAULT = "//input[@name='showInfobar']";
+	public static final String ELEMENT_PORTAL_IN_LIST = "//td[@class='Content']/div[@class='Label' and text()='${portalName}']";
+	public static final String ELEMENT_PORTAL_DELETE_ICON = "//div[@id='UISiteManagement']//table//tr/td/div[text()='${portalName}']/../../td[2]//a[@class='DeleteIcon']";
+	public static final String ELEMENT_PORTAL_EDIT_ICON = "//td[@class='Content']/div[@class='Label' and text()='${portalName}']/../../td[3]/a[@class='EditNavIcon'][2]";
+	public static final String ELEMENT_EDIT_FIRST_PORTAL_CONFIG = "//div[@id='UISiteManagement']//a[@class='EditNavIcon'][2]";
+	public static final String ELEMENT_SWITCH_VIEW_MODE_PORTAL = "//a[text()='Switch View Mode']";
+	
+	/* Add New Portal Form */
+	//Portal Setting TAB
+	public static final String ELEMENT_SELECT_LOCALE = "//select[@name='locale']";
+	public static final String ELEMENT_SELECT_SKIN 	 = "//select[@name='skin']";
+	//Propertiest TAB
+	public static final String ELEMENT_SELECT_SESSION_ALIVE= "//select[@name='sessionAlive']"; 
+	public static final String ELEMENT_PROPERTIES_TAB = "//div[text()='Properties' and @class='MiddleTab']";
+	//Permission Setting TAB
+	public static final String ELEMENT_PERMISSION_SETTING_TAB= "//div[text()='Permission Settings' and @class='MiddleTab']";
+	public static final String ELEMENT_CHECKBOX_PUBLIC_MODE = "//input[@name='publicMode']";
+	public static final String ELEMENT_LINK_EDIT_PERMISSION = "//a[text()='Edit Permission Settings']";
+	public static final String ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM = "//a[text()='${membership}']";
+	public static final String ELEMENT_SELECTED_ACCESS_PERMISSION_GROUP = "//div[@id='PermissionGrid']/table/tbody//div[text()='/${groupId}']";
+	public static final String ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP = "//div[@id='PermissionGrid']/table/tbody//div[text()='${membership}']";
+	public static final String ELEMENT_ADD_PERMISSION_BUTTON = "//a[text()='Add Permission']";
+	public static final String ELEMENT_SELECT_EDIT_MEMBERSHIP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${membership}']";
+	public static final String ELEMENT_SELECTED_EDIT_PERMISSION_GROUP = "// div[@class='SelectedPermissionInfo']/div[2]/div[.='/${groupId}']";
+	public static final String ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP = "//div[@class='SelectedPermissionInfo']/div[3]/div[.='${membership}']";
+	public static final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
+	public static final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = ".//*[@id='ListPermissionSelector']//a[@title='${group}']";
+	public static final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${group}']";
+	public static final String ELEMENT_SELECT_EDIT_PORTAL_CONFIG = "//div[@id='UISiteManagement']//table//tr/td/div[text()='${portalName}']/../../td[2]//a[@class='EditPortIcon']";
+	
+	////
+	public static final String ELEMENT_PAGINATOR_PAGE_LINK = "//a[contains(@class, 'Number') and text()='${number}']";
+	public static final String ELEMENT_PAGINATOR_TOTAL_NUMBER = "//a[@class='PagesTotalNumber']";
+	public static final String ELEMENT_PAGINATOR_NEXT_ICON = "//a[@class='Icon NextPageIcon']";
+	public static final String ELEMENT_PAGINATOR_SELECTED_PAGE = "//a[@class='Number PageSelected' and text()='${number}']";
+	public static final String ELEMENT_MESSAGE_TEXT = "//li[@class='MessageContainer']/span[contains(@class, 'PopupIcon')]";
+	public static final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON_IE = ELEMENT_MESSAGE_TEXT + "/../../../../../..//a";
+	public static final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON = "//div[contains(@class, 'UIPopupWindow') and contains(@style, 'visibility: visible')]//span[text()='Messages']/..//a[@class='CloseButton']";
 
-	/*------------- End of Data for Portal/Account -------------------------*/
-
-
-	/*------------- Data for Portal/Manage Pages ---------------------------*/
+	/*
+	 * Page Management
+	 * */
 	public static final String ELEMENT_ADD_NEW_PAGE_LINK = "//a[text()='Add New Page']";
-	public static final String ELEMENT_LINK_PAGES   = "//a[text()='Pages']";
-	public static final String ELEMENT_CHECKBOX_MAX_WINDOWS = "//input[@id='showMaxWindow']";
 	public static final String ELEMENT_INPUT_TITLE = "//input[@id='title']";
 	public static final String ELEMENT_SELECT_OWNER_TYPE = "//select[@name='ownerType']";
 	public static final String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
 	public static final String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//form[@id='UIPageSearchForm']/div[2]/a[@class='SearchIcon']";
-
 	public static final String ELEMENT_PAGE_EDIT_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='EditInfoIcon']";
 	public static final String ELEMENT_PAGE_DELETE_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='DeleteIcon']";
+	/* Add New Page Form */
+	public static final String ELEMENT_CHECKBOX_MAX_WINDOWS = "//input[@id='showMaxWindow']";
 	public static final String ELEMENT_LINK_EDITOR = "//a[@class='EditorIcon TBIcon' and text() = 'Edit']";
 	public static final String ELEMENT_LINK_EDITOR_PAGE = "//a[text()='Page']";
 	public static final String ELEMENT_LINK_EDITOR_ADD_PAGE = "//a[text()='Add Page']";	
@@ -150,11 +188,12 @@ public class PlatformBase extends TestBase {
 	public static final String PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
 	public static final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//a[@title='Finish']";
 
+	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	public static final String ELEMENT_NODE_LINK = "//div[@id='UINavigationNodeSelector']//a[@title='${nodeLabel}']";
 	public static final String ELEMENT_EDIT_NAVIGATION = "//div[@class='Label' and text()='${navigation}']/../../td[2]//a[@class='EditNavIcon']";
 	public static final String ELEMENT_ADD_NODE_LINK = "//a[text()='Add Node']";
 	public static final String ELEMENT_PAGE_SELECTOR_TAB = "//div[text()='Page Selector' and @class='MiddleTab']";
-	public static final String ELEMENT_INPUT_LOCALIZED_LABEL = "//input[@id='i18nizedLabel']";
+//	public static final String ELEMENT_INPUT_LOCALIZED_LABEL = "//input[@id='i18nizedLabel']";
 	public static final String ELEMENT_INPUT_PAGE_NAME = "//input[@id='pageName']";
 	public static final String ELEMENT_INPUT_PAGE_TITLE = "//input[@id='pageTitle']";
 	public static final String ELEMENT_CREATE_PAGE_LINK = "//a[text()='Create Page']";
@@ -167,28 +206,32 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_NODE_ADD_NEW = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
 	public static final String ELEMENT_NODE_DELETE = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon DeleteNode16x16Icon']";
 	public static final String ELEMENT_NODE_EDIT = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
-	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
-	/*------------- End of Data for Portal/Manage Pages --------------------*/
-
-	public static By ELEMENT_CUT_NODE = By.xpath("//a[contains(text(),'Cut')]"); 
-	public static By ELEMENT_PASTE_NODE = By.xpath(".//*[@id='NavigationNodePopupMenu']//a[@class='ItemIcon PasteNode16x16Icon']");
-    public static By ELEMENT_COPY_NODE = By.xpath("//a[contains(text(),'Copy')]");
+//	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
+	/*
+	 * END Page Management
+	 * */
 	
-	/**********************************************/
+	/*
+	 * General
+	 * */
 	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
 	public static final By ELEMENT_OK_BUTTON = By.xpath("//a[text()='OK']");
 	public static final By ELEMENT_APPLY_BUTTON = By.linkText("Apply");
+	public static final String ELEMENT_SAVE_BUTTON 	 = "//a[text()='Save']";
+	public static final String ELEMENT_CLOSE_BUTTON  = "//a[text()='Close']";
+	public static final String ELEMENT_CANCEL_BUTTON = "//a[text()='Cancel']";
+	
+	//Account Portlet
 	public static final By ELEMENT_REGISTER_ACCOUNT_PORTLET = By.className("PortletLayoutDecorator");
 	public static final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON = By.xpath("//a[@title='Edit Portlet']");
 	public static final By ELEMENT_CHECK_BOX_USE_CAPTCHA = By.id("useCaptcha");
 	public static final By ELEMENT_EDIT_LAYOUT_FINISH_BUTTON = By.xpath("//div[@id='UIPortalComposer']//a[@class='EdittedSaveButton']");
 	public static final By ELEMENT_PAGE_FINISH_BUTTON_INFRENCH = By.xpath("//div[@id='UIPageEditor']//a[@title='Terminer']");
 	public static final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH = By.xpath("//a[@title='Editer la Portlet']");
-
-    
-    /**********************************************/
 	public static final By ELEMENT_ERROR_ICON=By.xpath("//span[@class='PopupIcon ErrorMessageIcon']");
 	public static final int ACTION_REPEAT = 5;
+    /* End General
+     * */
 	
 	//Set view permissions for portal
 	public static void setViewPermissions(String groupId, String membership) {
@@ -244,21 +287,6 @@ public class PlatformBase extends TestBase {
 		String navigation = ELEMENT_EDIT_NAVIGATION.replace("${navigation}", currentNavigation);
 		click(navigation);
 		waitForTextPresent("Navigation Management");
-	}
-
-	//rightClickOnElement
-	public static void rightClickOnElement(String locator) {
-		pause(500);
-		try {
-			WebElement element = waitForAndGetElement(locator);
-			actions.contextClick(element).perform();
-		} catch (StaleElementReferenceException e) {
-			checkCycling(e, 5);
-			pause(1000);
-			rightClickOnElement(locator);
-		} finally {
-			loopCount = 0;
-		}
 	}
 
 	//Close message pop-up

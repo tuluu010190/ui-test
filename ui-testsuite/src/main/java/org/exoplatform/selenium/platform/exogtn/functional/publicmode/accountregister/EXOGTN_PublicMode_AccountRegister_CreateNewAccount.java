@@ -173,7 +173,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 
 		info("-- Add new account with invalid format Email address --");
 		addNewUserAccountInPublicMode(username, password, confirmPassword, firstName, lastName, "exo.com", false);
-		waitForMessage(ELEMENT_MESSAGE_INVALID_EMAIL_ADDRESS);
+		waitForMessage(MESSAGE_INVALID_EMAIL_ADDRESS);
 		closeMessageDialog();
 		click(ELEMENT_RESET_BUTTON);
 

@@ -2,9 +2,7 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
-
 import java.util.Map;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -24,8 +22,6 @@ public class ManageApplications extends PlatformBase {
 	public static By SHOW_IMPORT_CHECKED = By.xpath("//input[@id='showImport' and @value='true']");
 	public static By FINISH_ICON = By.xpath("//a[@title='Finish']");
 
-
-
 	//category
 	public static final By ELEMENT_ADD_NEW_CATEGORY = By.xpath("//div[@id = 'UIApplicationOrganizer']//div//div[@class = 'IconControl AddCategoryIcon']");
 	public static final By ELEMENT_FIELD_CATEGORY_NAME = By.id("name");
@@ -37,9 +33,6 @@ public class ManageApplications extends PlatformBase {
 	public static final String MESSAGE_CONFIRM_DELETE_CATEGORY = "Are you sure to delete this category and all its applications?";
 	public static final String ELEMENT_CATEGORY_NAME = "//a[@title='${categoryName}']";
 	public static By CATEGORIES_FORM = By.xpath("//div[text()='Categories']"); 
-
-
-
 
 	// Gadget functions
 	public static void addRemoteGadget (String Url) {
