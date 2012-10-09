@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.ecms.functional.administration;
+package org.exoplatform.selenium.platform.ecms.functional.admin.contenttype;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.List;
@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
  *          dunghm@exoplatform.com
  * Oct 11, 2012  
  */
-public class ECMS_ADMIN_ContentType extends EcmsBase {
+public class ECMS_Admin_ContentType_ManageNodeType extends EcmsBase {
   String DATA_USER = "john";
   String DATA_PASS = "gtn";
   @BeforeMethod

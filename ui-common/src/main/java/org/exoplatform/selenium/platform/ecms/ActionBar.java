@@ -7,7 +7,7 @@ import static org.exoplatform.selenium.TestLogger.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 
 public class ActionBar extends EcmsBase {
-	
+
 	//publication TAB
 	public static By ELEMENT_TEXT_TEMPLATE_LIST = By.xpath("//div[contains(text(),'Select your template in the list below')]");
 	public static By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
@@ -15,9 +15,9 @@ public class ActionBar extends EcmsBase {
 	public static By ELEMENT_LINK_EDIT= By.xpath("//a[@title='Edit']");
 	public static By ELEMENT_MENU_NEW_CONTENT_LINK = By.linkText("New Content");
 	public static By ELEMENT_CATEGORIES_LINK = By.xpath("//a[text()='Categories']");
-	
+
 	//System TAB
-//	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[@class='TabLabel' and @title='System']");
+	//	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[@class='TabLabel' and @title='System']");
 	public static By ELEMENT_SYSTEM_TAB = By.linkText("System");
 	public static By ELEMENT_PERMISSION_LINK = By.linkText("Permissions");
 	public static By ELEMENT_EXPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ExportNodeIcon' and @title='Export']");
@@ -28,20 +28,18 @@ public class ActionBar extends EcmsBase {
 	public static By ELEMENT_ZIP = By.id("zip");
 	public static By ELEMENT_EXPORT_VERSION = By.linkText("Export Version History");
 	public static By ELEMENT_EXPORT = By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Export']");
-	
+
 	//Import Form
 	public static By ELEMENT_UPLOAD_FILE_FRAME = By.xpath("//label[contains(text(),'Upload File:')]/following::div/iframe[contains(@id,'uploadFrame')]");
 	public static By ELEMENT_UPLOAD_VERSION_FRAME = By.xpath("//label[contains(text(),'Version History:')]/following::div/iframe[contains(@id,'uploadFrame')]");
 	public static By ELEMENT_BEHAVIOR = By.name("behavior");
 	public static By ELEMENT_IMPORT = By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Import']");
-	
+
 	//Add Category Form
 	public static By ELEMENT_SELECT_CAT_TAB = By.xpath("//div[text()='Select Category']");
 	public static By ELEMENT_CATEGORY_TREE_BOX = By.id("taxonomyTree");
 	public static By ELEMENT_ADD_ROOT_BUTTON = By.xpath("//label[text()='Root Tree']/following::img[@title='Add Root Node']");
-//	public static By ELEMENT_CLOSE_BUTTON = By.xpath("//a[text()='Close']");
-//	public static By ELEMENT_OK_BUTTON = By.linkText("OK");
-	
+
 	//Permission Management Form
 	public static By ELEMENT_PER_MANA_POPUP = By.id("UIPopupWindow");
 	public static String ELEMENT_PER_MANA_TEXT = "Permission Management";
@@ -50,15 +48,11 @@ public class ActionBar extends EcmsBase {
 	public static By ADDNODE_CHECKBOX = By.id("add_node");
 	public static By SETPRO_CHECKBOX = By.id("set_property");
 	public static By REMOVE_CHECKBOX = By.id("remove");
-//	public static By ELEMENT_USERS_LINK = By.linkText("Users");
-//	public static By ELEMENT_GROUP_AND_ROLES = By.linkText("Group and Roles");
 
 	//Collaboration TAB
 	public static By ELEMENT_COLLABORATION_TAB = By.xpath("//a[contains(text(),'Collaboration')]");
 	public static By ELEMENT_TAG = By.linkText("Tag");
-	
-	
-	
+
 	// add a category
 	public static void addCategory(String name)
 	{
@@ -312,26 +306,12 @@ public class ActionBar extends EcmsBase {
 		info ("------Category "+categoryName+" is added succesfully");
 	}
 
-	
-	
+
+
 	//--------------permission of node------------------------------------
 	public static void goToPermissionManagement(){
 		goToNode(ELEMENT_SYSTEM_TAB);
 		goToNode(ELEMENT_PERMISSION_LINK);
-	}
-
-	//function view permission management pop up of node
-	public static void viewPermissionOfNode(By locator){
-		goToNode(locator);
-		info("go to Permission Management popup");
-		goToPermissionManagement();
-
-		waitForElementPresent(ELEMENT_PER_MANA_POPUP);
-		assert isElementPresent(ELEMENT_PER_MANA_POPUP):"Not found permission management";
-		assert isTextPresent(ELEMENT_PER_MANA_TEXT):"Permission management popup is wrong";
-		assert isElementPresent(ELEMENT_PER_MANA_GRID):"Permission management popup is wrong";
-		info("View permission of node is successful");
-		click(ELEMENT_CLOSE_BUTTON);
 	}
 
 	//function set permission for node
@@ -353,23 +333,29 @@ public class ActionBar extends EcmsBase {
 		if ((remove && !waitForAndGetElement(REMOVE_CHECKBOX).isSelected())|| (!remove && waitForAndGetElement(REMOVE_CHECKBOX).isSelected())){
 			click(REMOVE_CHECKBOX);
 		}
+
 	}
 
 	//function delete permission
 	public static void deletePermission(String user){
 		By ELEMENT_DELETE = By.xpath("//div[@title='"+user+"']/../../td/div/img[@class='DeleteIcon']");
-		click(ELEMENT_DELETE);
-		acceptAlert();
+
+		if (getElement(ELEMENT_DELETE) != null){
+			click(ELEMENT_DELETE);
+			acceptAlert();
+			waitForElementNotPresent(ELEMENT_DELETE);
+			info("Delete permission is successful");
+		}else{
+			info("Do not see element to delete");
+		}
 	}
+
 
 	//function remove default user and group permission of node except owner
 	public static void removePermissionDefaultOfNode(){ 
 		deletePermission("*:/platform/web-contributors");
-		waitForTextNotPresent("*:/platform/web-contributors");
 		deletePermission("*:/platform/administrators");
-		waitForTextNotPresent("*:/platform/administrators");
 		deletePermission("any");
-		waitForTextNotPresent("any");
 	}
 
 	//function add a user to group and choose membership type
@@ -387,8 +373,12 @@ public class ActionBar extends EcmsBase {
 	public static void selectUser(String user){
 		By ELEMENT_USER = By.xpath("//div[@title='"+user+"']/../../td/div/img[@class='SelectPageIcon']"); 
 
-		info("Set add node permission for user "+user+" to node");
+		info("Set permission for user "+user);
 		click(By.xpath("//img[@title='Select User']"));
-		click(ELEMENT_USER);
+		if (waitForAndGetElement(ELEMENT_USER) != null){
+			click(ELEMENT_USER);
+		}else{
+			info("Not found user");
+		}
 	}
 }

@@ -15,7 +15,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class ECMS_ADMIN_AdvancedConfiguration_ManageLock extends ActionBar{
+public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 	public String DATA_USER = "john";
 	public String DATA_PASS = "gtn";
 	
