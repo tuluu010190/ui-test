@@ -2,12 +2,13 @@ package org.exoplatform.selenium.platform.ecms;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.UserGroupManagement.selectGroup;
-
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
 import static org.exoplatform.selenium.platform.ecms.ActionBar.selectUser;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.setPermissionOfNode;
+
+import org.apache.commons.lang.RandomStringUtils;
+import org.exoplatform.selenium.platform.UserGroupManagement;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class WcmAdmin extends EcmsBase {
 
@@ -87,6 +88,17 @@ public class WcmAdmin extends EcmsBase {
 	public static By ELEMENT_SITE_MAP_CHECKBOX = By.id("sitemap");
 	public static By ELEMENT_FREQUENCY_COMBOX = By.id("frequency");
 	public static By ELEMENT_PRIORITY = By.id("priority");
+	
+	//Manage Template    
+  public static final By ELEMENT_MANAGE_TEMPLATE = By.linkText("Manage Templates");
+  public static final By ELEMENT_TEMPLATE_LABEL = By.id("label");
+  public static final By ELEMENT_TEMPLATE_NAME = By.id("name");
+  public static final By ELEMENT_MANAGE_TEMPLATE_SCREEN = By.xpath("//div[contains(text(),'Manage Templates')]");
+  public static final By ELEMENT_IS_DOCUMENT_TEMPLATE = By.id("isDocumentTemplate");  
+  public static final By ELEMENT_DIALOG_TAB = By.xpath("//div[@class='MiddleTab' and text()='Dialog']");
+  public static final By ELEMENT_VIEW_TAB = By.xpath("//div[@class='MiddleTab' and text()='View']");
+  public static final By ELEMENT_CSS_TAB = By.xpath("//div[@class='MiddleTab' and text()='CSS']");
+	  
 	
 	//Setup to show [Add symlink] in action bar
 	//set Add symlink view in action bar
@@ -383,7 +395,7 @@ public class WcmAdmin extends EcmsBase {
 			  info("Input checkbox list wrong");
 		  }
 	  }
-	  
+  
 	  //-----------SEO management------------------------------------
 		/* function input data on SEO management Form
 		 * @des: data input to description
@@ -421,6 +433,71 @@ public class WcmAdmin extends EcmsBase {
 			info("finish input data on SEO management");
 		}
 		
+	  /**
+     * 
+     * @param anchor: Button's label to open form
+     * @param formTitle: Form's title
+     */
+    public static void openForm(String anchor, String formTitle){
+      click(By.linkText(anchor));     
+      waitForElementPresent(By.xpath("//span[@class='PopupTitle' and text()='" + formTitle + "']"));
+    }
+    
+	  /**
+     * Select Membership
+     * @param groupId: Group string is separate by slash, for example platform/web-contributors
+     * @param membership: Membership 
+     * @param optParams: optional parameters, first one is membership icon, second one is membership form title
+     */
+    public static void selectMembership(String groupPath, String membership, String anchor) throws Exception{
+      click(By.xpath("//img[@title='" + anchor + "']"));
+      UserGroupManagement.selectGroup(groupPath);
+      click(By.linkText(membership));
+    }
+
+	  /**
+	   * Open Manage Template Screen
+	   */
+	  public static void openManageTemplateForm(){	    
+	    goToContentAdministration();
+	    click(ELEMENT_CONTENT_PRESENT);
+	    click(ELEMENT_MANAGE_TEMPLATE);
+	    waitForElementPresent(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
+	  }	 
+	  
+	  /**
+	   * Open Add New Template Form
+	   */
+	  public static void openAddNewTemplateForm() {
+	    openForm("Add","Template Form");	    
+	  }
+	  /**
+	   * Fill data to Add New Template Form
+	   * @param label: Template's label
+	   * @param groupId: Group string is separate by slash, for example platform/web-contributors
+	   * @param membership: Membership
+	   * @throws Exception
+	   */
+	 
+	  public static void fillAddNewTemplateForm(String templateLabel, String templateName, String groupPath, String membership) throws Exception{   
+      type(ELEMENT_TEMPLATE_LABEL,templateLabel, false);
+      select(ELEMENT_TEMPLATE_NAME, templateName);
+      click(ELEMENT_IS_DOCUMENT_TEMPLATE);
+      selectMembership(groupPath,membership,"Add Permission");      
+      //Switch between tabs
+      click(ELEMENT_DIALOG_TAB);      
+      click(ELEMENT_VIEW_TAB);
+      click(ELEMENT_CSS_TAB);
+      save();
+      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));      
+    }
+	  
+	  public static void deleleTemplate(String templateName, String confirmMessage) throws Exception{
+      By locator = By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]/ancestor::tr//img[@class='DeleteIcon']");
+      click(locator);     
+      waitForConfirmation(confirmMessage);
+      waitForElementNotPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
+	  }
 	  
 }
 
