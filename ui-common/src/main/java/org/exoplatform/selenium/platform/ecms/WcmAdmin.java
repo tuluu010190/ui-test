@@ -105,7 +105,19 @@ public class WcmAdmin extends EcmsBase {
 	public static By ELEMENT_DIALOG_TAB = By.xpath("//div[@class='MiddleTab' and text()='Dialog']");
 	public static By ELEMENT_VIEW_TAB = By.xpath("//div[@class='MiddleTab' and text()='View']");
 	public static By ELEMENT_CSS_TAB = By.xpath("//div[@class='MiddleTab' and text()='CSS']");
-	  
+
+	//----- Manage Tags form  
+	public static final By ELEMENT_MANAGE_TAGS = By.linkText("Manage Tags");
+	public static final By ELEMENT_TAG_PERMISSION = By.xpath("//div[contains(text(),'Tag Permission Manager')]");
+	public static final By ELEMENT_SELECT_MEMBERSHIP = By.xpath("//img[@alt='Select Membership']");
+	public static final By ELEMENT_SELECT_USERGROUP = By.id("SelectUserOrGroup");
+	public static final By ELEMENT_SELECT_MEMBERSHIP_TYPE = By.linkText("platform");
+	public static final By ELEMENT_SELECT_MEMBERSHIP_WEB_CONTRIBUTORS = By.linkText("web-contributors");
+
+	public static final By ELEMENT_TAG_CLOUD = By.xpath("//div[@title='Tag Cloud']");
+	public static final By ELEMENT_EDIT_PUBLIC_TAGS = By.xpath("//div[@title='Edit Public Tags']");
+	public static final By ELEMENT_EDIT_TAGS_FORM = By.xpath("//span[contains(text(),'Edit Tag')]");
+	public static final By ELEMENT_TEMPLATE_FORM = By.xpath("//span[contains(text(),'Template Form')]");
 	
 	//Setup to show [Add symlink] in action bar
 	//set Add symlink view in action bar
@@ -617,5 +629,33 @@ public class WcmAdmin extends EcmsBase {
       save();      
       waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
     }
-}
 
+  //Go to Tag Permission Screen
+  public static void gotoTagPermission(){
+    goToContentAdministration();
+    click(ELEMENT_MANAGE_TAGS);
+    click(ELEMENT_TAG_PERMISSION);
+  }
+  /**
+   * Remove permission 
+   * @param groupPath Group string separate by slash
+   * @param membership Memembership 
+   */
+  public static void removeTagPermission(String groupPath,String membership) {
+    String str = membership + ":/" + groupPath;
+    By locator = By.xpath("//div[@class='Text' and contains(text(),'" + str + "')]/ancestor::tr//img[@class='DeleteIcon']");
+    By permission = By.xpath("//div[@class='Text' and contains(text(),'" + str + "')]");
+    click(locator);
+    waitForConfirmation("Are you sure to delete this permission?");
+    waitForElementNotPresent(permission);
+  }
+
+  public static void editPublicTag(){
+    goToSiteExplorer();     
+    waitForElementPresent(ELEMENT_TAG_CLOUD);
+    click(ELEMENT_TAG_CLOUD);
+    waitForElementPresent(ELEMENT_EDIT_PUBLIC_TAGS);
+    click(ELEMENT_EDIT_PUBLIC_TAGS);
+    waitForElementPresent(ELEMENT_EDIT_TAGS_FORM);
+  }
+}
