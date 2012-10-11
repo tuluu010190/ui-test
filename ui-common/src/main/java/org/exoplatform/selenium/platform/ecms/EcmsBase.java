@@ -203,6 +203,14 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
 	public static final By ELEMENT_INFO = By.xpath("//span[@class='PopupIcon InfoMessageIcon']");
 
+	//Driver Sites Management in Sites Explorer
+	public static final By ELEMENT_DRIVER_SITES_MANAGEMENT = By.xpath("//a[@class='DriveLabel' and @title = 'Sites Management']");
+
+	//Rename folder or document in Sites Explorer
+	public static final By ELEMENT_RENAME_NODE = By.linkText("Rename");
+	public static final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");
+	public static final By ELEMENT_INPUT_NAME_NODE = By.xpath("//input[@id = 'nameField']");
+
 	//login ECMS
 	public static void loginEcms(String username, String password) {
 		driver.manage().window().maximize();
@@ -269,6 +277,14 @@ public class EcmsBase extends PlatformBase {
 			pause(100);
 		}
 
+	}
+	
+	//Go To Content Administration / Advanced Configuration / Manage Lock Tab
+	public void goToContentAdminManageLockTab(){
+		goToContentAdministration();
+		click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+		click(ELEMENT_MANAGE_LOCKS);
+		click(ELEMENT_MANAGE_LOCK_TAB);
 	}
 
 	//	public static void inputDataToFrame (By framelocator, String data){

@@ -233,6 +233,11 @@ public class PlatformBase extends TestBase {
     /* End General
      * */
 	
+	//Content Administration / Advanced Configuration 
+	public static final By ELEMENT_ADVANCED_CONFIGURATION_TAB = By.xpath("//div[@class = 'TabLabel' and @title = 'Advanced Configuration']");
+	public static final By ELEMENT_MANAGE_LOCK_TAB = By.xpath("//div[@class = 'MiddleTab' and text() = 'Manage Lock']");
+	public static final By ELEMENT_MANAGE_LOCKS = By.linkText("Manage Locks");
+
 	//Set view permissions for portal
 	public static void setViewPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM.replace("${membership}", membership);
