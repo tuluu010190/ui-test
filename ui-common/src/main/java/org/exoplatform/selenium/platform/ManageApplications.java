@@ -106,6 +106,7 @@ public class ManageApplications extends PlatformBase {
 			check(ELEMENT_CHECKBOX_PUBLIC_MODE);
 			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
 		} else {
+			makeItPublic(false);
 			for (String key : permissions.keySet()) {
 				setViewPermissions(key, permissions.get(key));
 			}
@@ -120,7 +121,10 @@ public class ManageApplications extends PlatformBase {
 	//Delete a category at ManageApplications
 	public static void deleteCategoryAtManageApplications(String categoryName, boolean verify){
 		info("--Delete category (" + categoryName + ")--");
-		String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
+//		String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
+		By ELEMENT_CURRENT_CATEGORY_NAME = By.linkText(categoryName) ;
+		click(ELEMENT_CURRENT_CATEGORY_NAME);
+		pause(500);
 		click(ELEMENT_CATEGORY_REMOVE_ICON);
 		waitForConfirmation(MESSAGE_CONFIRM_DELETE_CATEGORY);
 		if (verify) {
@@ -144,9 +148,9 @@ public class ManageApplications extends PlatformBase {
 		String status = element.getAttribute("checked"); // checked if check otherwise blank
 
 		if (checked) {
-			if (!status.equalsIgnoreCase("true")) check(ELEMNT_PUBLIC_OPTION);
+			if (!"true".equalsIgnoreCase(status)) check(ELEMNT_PUBLIC_OPTION);
 		} else {
-			if (status.equalsIgnoreCase("true")) click(ELEMNT_PUBLIC_OPTION);
+			if ("true".equalsIgnoreCase(status)) click(ELEMNT_PUBLIC_OPTION);
 		}
 	}
 

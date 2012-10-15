@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.ecms.functional.ecms.admin.advancedconfiguration;
+package org.exoplatform.selenium.platform.ecms.functional.admin.advancedconfiguration;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;

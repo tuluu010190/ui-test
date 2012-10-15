@@ -223,8 +223,10 @@ public class EcmsBase extends PlatformBase {
 
 	//logout ECMS
 	public static void logoutEcms (){
-		actions.moveToElement(waitForAndGetElement(ELEMENT_SIGN_OUT_LINK)).build().perform();
-		click(By.linkText("Logout"));
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		mouseOver(ELEMENT_SIGN_OUT_LINK, true);
+//		actions.moveToElement(waitForAndGetElement(ELEMENT_SIGN_OUT_LINK)).build().perform();
+		click(ELEMENT_SIGN_OUT_LINK);
 		driver.get(baseUrl);
 	}
 

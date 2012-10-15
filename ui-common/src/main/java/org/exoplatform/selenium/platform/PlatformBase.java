@@ -79,6 +79,7 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles')]";
 	//	
 	//signout
+	public static final String ELEMENT_ACCOUNT_NAME_LINK = "//a[@class='TBIcon']";
 	public static final String ELEMENT_SIGN_OUT_LINK = "//a[@class='LogoutIcon']";
 	/* Username link - END*/
 	

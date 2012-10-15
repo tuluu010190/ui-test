@@ -32,7 +32,8 @@ public class ManageAccount extends PlatformBase {
 	//Sign out for eXoGTN
 	public static void signOut(){
 		Actions action_logout = new Actions(driver);
-		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
+		WebElement UI = waitForAndGetElement(By.id("UserNavigationTabsContainer"));
+//		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
 		action_logout.moveToElement(UI).build().perform();
 		driver.findElement(By.linkText("Logout")).click();	
 		pause(500);
