@@ -28,8 +28,8 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	public static final String DATA_PASS = "gtn";
 	
 	public static final By ELEMENT_ACME = By.xpath("//a[@title='acme ']");
-	public static final By ELEMENT_SAVE_BUTTON = By.linkText("Save");
-	public static final By ELEMENT_CLOSE_BUTTON = By.linkText("Close");
+//	public static final By ELEMENT_SAVE_BUTTON = By.linkText("Save");
+//	public static final By ELEMENT_CLOSE_BUTTON = By.linkText("Close");
 	public static final By ELEMENT_ADD_SYMLINK_RIGHT_CLICK = By.xpath("//contains(text(),'Add Symlink')");
 	public static final By ELEMENT_PATH_NODE = By.id("pathNode0");
 	public static final By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
@@ -699,8 +699,8 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  //set permission for this node: user mary does not have permission view node 
 		  info("Set for user mary does not have view permission");
 		  goToNode(ELEMENT_CONTENT_FOLDER);
-	      click(ELEMENT_SYSTEM_LINK);
-	      click(ELEMENT_PERMISSION_TAB);
+	      click(ELEMENT_SYSTEM_TAB);
+	      click(ELEMENT_PERMISSION_LINK);
 	      if (isTextPresent("any")){
 	          click(ELEMENT_DELETE_ANY);
 	          acceptAlert();  

@@ -1,20 +1,16 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.collaboration;
 
-import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.ecms.ActionBar.goToAddNewContent;
-import static org.exoplatform.selenium.platform.ecms.ContentTemplate.createNewArticle;
-
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
-//import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
-import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
-//import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.deleteDocument;
+import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 
 public class ECMS_DMS_SE_Collaboration_TagPrivate  extends EcmsBase {
 

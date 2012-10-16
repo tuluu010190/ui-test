@@ -39,6 +39,11 @@ public class PlatformBase extends TestBase {
 	//My site
 	// My spaces
 	// Dashboard
+	// Edit
+	public static final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
+	public static final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
+	public static final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
+	
 	//setting Icon
 	public static final String ELEMENT_LINK_SETUP ="//img[@alt='Setup']";
 	public static final String ELEMENT_LINK_USERS ="//a[text()='Users']";
@@ -47,6 +52,10 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_LINK_SITE   = "//a[text()='Sites']";
 	public static final String ELEMENT_LINK_GROUP = "//a[text()='Group Sites']";
 	public static final String ELEMENT_LINK_PAGES   = "//a[text()='Pages']";
+	public static final By ELEMENT_MENU_CONTENT_LINK = By.linkText("Content");
+	public static final By ELEMENT_MENU_SITE_EXPLORER = By.linkText("Sites Explorer");
+	public static final By ELEMENT_LINK_CONTENT_ADMIN = By.linkText("Content administration");
+//	public static final By ELEMENT_LINK_CONTENT=By.linkText("Content");
 	
 	/* Username link -BEGIN */
 	//My Account form [Username] -> My Account
@@ -93,28 +102,36 @@ public class PlatformBase extends TestBase {
 	/*
 	 * User and Group Management
 	 * */
+    //User Management TAB
+    public static final String ELEMENT_USER_MANAGEMENT = "//div[@class='UserManagementIcon']/..";
     public static final String ELEMENT_USER_DELETE_ICON ="//div[@id='UIListUsersGird']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
-	public static final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
 	public static final String ELEMENT_INPUT_SEARCH_USER_NAME = "//input[@name='searchTerm']";
+	public static final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
+	
+	//Group Management TAB
+	public static final String ELEMENT_GROUP_MANAGEMENT_TAB = "//div[@class='GroupManagementIcon']/..";
 	public static final String ELEMENT_GROUP_ADD_NEW_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon AddGroupIcon']";
+	public static final String ELEMENT_GROUP_REMOVE_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon RemoveGroupIcon']";
+	public static final String ELEMENT_GROUP_EDIT_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon EditGroupIcon']";
+	
+	//Add Group Form
 	public static final String ELEMENT_INPUT_GROUP_NAME = "//input[@name='groupName']";
 	public static final String ELEMENT_INPUT_LABEL = "//input[@id='label']";
 	public static final String ELEMENT_TEXTAREA_DESCRIPTION = "//textarea[@id='description']";
-	public static final String ELEMENT_GROUP_REMOVE_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon RemoveGroupIcon']";
-	public static final String ELEMENT_GROUP_EDIT_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon EditGroupIcon']";
-	public static final String ELEMENT_GROUP_MANAGEMENT_TAB = "//div[@class='GroupManagementIcon']/..";
-	public static final String ELEMENT_GROUP_TO_SELECT_LINK = "//a[contains(@class, 'NodeIcon') and @title='${group}']";
-	public static final String ELEMENT_GROUP_SELECTED = "//a[@class='NodeIcon PortalIcon NodeSelected' and @title='${group}']";
+	
+//	public static final String ELEMENT_GROUP_TO_SELECT_LINK = "//a[contains(@class, 'NodeIcon') and @title='${group}']";
+//	public static final String ELEMENT_GROUP_SELECTED = "//a[@class='NodeIcon PortalIcon NodeSelected' and @title='${group}']";
 	public static final String ELEMENT_GROUP_SEARCH_USER_ICON = "//form[@id='UIGroupMembershipForm']/div[2]/div/table/tbody/tr[1]/td[2]/a";
 	public static final String ELEMENT_GROUP_SEARCH_POPUP_ADD_ICON = "//form[@id='UIUserSelector']//div[@class='UIAction']//a[@class='ActionButton LightBlueStyle']";
 	public static final String ELEMENT_SELECT_MEMBERSHIP = "//select[@name='membership']";
 	public static final String ELEMENT_GROUP_USER_IN_TABLE = "//div[@class='UIUserInGroup']//div[@title='${username}']";
-	public static final String ELEMENT_INPUT_NAME = "//input[@id='name']";    
+	
+	//Membership Management
 	public static final String ELEMENT_TAB_MEMBERSHIP_MANAGEMENT = "//div[@class='MembershipManagementIcon']/..";
 	public static final String ELEMENT_MEMBERSHIP_EDIT_ICON = "//div[@class='UIListMembershipType']//table//tr/td/div[text()='${membership}']/../../td[5]//img[@class='EditMembershipIcon']";
 	public static final String ELEMENT_MEMBERSHIP_DELETE_ICON = "//div[@class='UIListMembershipType']//table//tr/td/div[text()='${membership}']/../../td[5]//img[@class='DeleteMembershipIcon']";
 	public static final String ELEMENT_NEXT_PAGE_ICON = "//a[@title='Next Page']";
-	public static final String ELEMENT_USER_MANAGEMENT = "//div[@class='UserManagementIcon']/..";
+	public static final String ELEMENT_INPUT_NAME = "//input[@id='name']";
 	
 	/*
 	 * Manage Account
@@ -215,12 +232,15 @@ public class PlatformBase extends TestBase {
 	/*
 	 * General
 	 * */
-	public static final By ELEMENT_SAVEANDCLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
+	public static final By ELEMENT_SAVE_CLOSE_BUTTON = By.linkText("Save & Close");
+//	public static final By ELEMENT_SAVE_CLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
 	public static final By ELEMENT_OK_BUTTON = By.xpath("//a[text()='OK']");
 	public static final By ELEMENT_APPLY_BUTTON = By.linkText("Apply");
-	public static final String ELEMENT_SAVE_BUTTON 	 = "//a[text()='Save']";
-	public static final String ELEMENT_CLOSE_BUTTON  = "//a[text()='Close']";
+//	public static final String ELEMENT_SAVE_BUTTON 	 = "//a[text()='Save']";
+	public static final By ELEMENT_SAVE_BUTTON = By.linkText("Save");
+//	public static final String ELEMENT_CLOSE_BUTTON  = "//a[text()='Close']";
 	public static final String ELEMENT_CANCEL_BUTTON = "//a[text()='Cancel']";
+	public static final By ELEMENT_CLOSE_BUTTON = By.linkText("Close");
 	
 	//Account Portlet
 	public static final By ELEMENT_REGISTER_ACCOUNT_PORTLET = By.className("PortletLayoutDecorator");
@@ -427,8 +447,8 @@ public class PlatformBase extends TestBase {
 	}
 
 	public static void saveAndClose(){
-		waitForAndGetElement(ELEMENT_SAVEANDCLOSE_BUTTON);
-		click(ELEMENT_SAVEANDCLOSE_BUTTON);
+		waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON);
+		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 	
 	public static void apply(){

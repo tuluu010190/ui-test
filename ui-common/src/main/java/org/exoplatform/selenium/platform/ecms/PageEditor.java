@@ -69,25 +69,25 @@ public class PageEditor extends EcmsBase {
 	
 	//add contentdetail to a page EmptyLayout of portal
 	public static void addContentDetailEmptyLayout(){
-		click(ELEMENT_CONTENT_LINK);
+		click(ELEMENT_MENU_CONTENT_LINK);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_DETAIL_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);	
 	}
 	
 	//Add "ContentDetail" to page with selected layout
 	public static void addContentDetail(){
-		click(ELEMENT_CONTENT_LINK);
+		click(ELEMENT_MENU_CONTENT_LINK);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_DETAIL_PORTLET,ELEMENT_DROP_TARGET_HAS_LAYOUT);		
 	}
 	
 	//Add "ContentList" to page EmptyLayout
 	public static void addContentListEmptyLayout(){
-		click(ELEMENT_CONTENT_LINK);
+		click(ELEMENT_MENU_CONTENT_LINK);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_LIST_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
 	}
 	
 	//Add "ContentList" to page with selected layout
 	public static void addContentList(){
-		click(ELEMENT_CONTENT_LINK);
+		click(ELEMENT_MENU_CONTENT_LINK);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_LIST_PORTLET,ELEMENT_DROP_TARGET_HAS_LAYOUT);		
 	}
 	
@@ -101,8 +101,8 @@ public class PageEditor extends EcmsBase {
 		click(ELEMENT_SELECT_CONTENT_PATH_ACME_LINK);
 		click(ELEMENT_SELECT_CONTENT_PATH_ACME_DOC_LINK);
 		click(ELEMENT_SELECT_CONTENT_PATH);
-		click(ELEMENT_SELECT_CONTENT_PATH_SAVE_BUTTON);
-		click(ELEMENT_SELECT_CONTENT_PATH_CLOSE_BUTTON);
+		click(ELEMENT_SAVE_BUTTON);
+		click(ELEMENT_CLOSE_BUTTON);
 	}
 	
 	//Select "CLVPath" in Edit Mode
@@ -115,8 +115,8 @@ public class PageEditor extends EcmsBase {
 		click(ELEMENT_SELECT_CONTENT_PATH_ACME_LINK);
 		pause(500);
 		click(ELEMENT_SELECT_CLV_PATH);
-		click(ELEMENT_SELECT_CONTENT_PATH_SAVE_BUTTON);
-		click(ELEMENT_SELECT_CONTENT_PATH_CLOSE_BUTTON);
+		click(ELEMENT_SAVE_BUTTON);
+		click(ELEMENT_CLOSE_BUTTON);
 	}
 	
 }

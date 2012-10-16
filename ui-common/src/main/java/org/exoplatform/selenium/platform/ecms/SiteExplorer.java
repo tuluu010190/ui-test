@@ -1,9 +1,39 @@
 package org.exoplatform.selenium.platform.ecms;
 
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+import static org.exoplatform.selenium.TestLogger.*;
 
 public class SiteExplorer extends EcmsBase {
+	//Show Drives link
+	public static final By ELEMENT_DRIVE= By.xpath("//a[@title='Show Drives']");
+	
+	//Driver Sites Management in Sites Explorer
+	public static final By ELEMENT_DRIVER_SITES_MANAGEMENT = By.xpath("//a[@class='DriveLabel' and @title = 'Sites Management']");
+	// Preference
+	public static final By ELEMENT_PREFERENCE_LINK =By.xpath("//a[@class='SetupPreferencesButton']");
+
+	// Edit Tag Form
+	public static By ELEMENT_EDIT_PUBLIC_TAG = By.xpath("//div[@title='Edit Public Tags']");
+	public static By ELEMENT_EDIT_PRIVATE_TAG = By.xpath("//div[@title='Edit Private Tags']");
+	public static By ELEMENT_REMOVE_TAG = By.xpath("//img[@alt='RemoveTag']");
+	public static By ELEMENT_CLOSE_EDIT_PUBLIC_TAG_FORM = By.xpath("//a[@title='Close Window']");
+	public static String WARNING_MESSAGE_AFTER_DELETE_TAG = "Are you sure to delete this tag?";
+	
+	//Tag Manager Form
+	public static By ELEMENT_ADD_TAGS_BUTTON = By.xpath("//a[contains(text(),'Add Tags')]");
+	public static By ELEMENT_CLOSE_TAG_FORM = By.xpath("//a[contains(text(),'Close')]");
+	public static By ELEMENT_TAG_NAME = By.id("names");
+	public static By ELEMENT_TAG_SCOPE = By.id("tagScopes");
+
+	//SideBar
+	public static By ELEMENT_TAG_CLOUD = By.xpath("//div[3]/div[4]/div");
+	public static By ELEMENT_FILE_EXPLORER = By.xpath("//div[@id='UISideBar']/div/div/div[3]/div/div");
+	//		public static boolean SELECT = true; 
+
+	
 	  //choose a drive
   	public static void chooseDrive(By locator)
   	{
@@ -41,5 +71,54 @@ public class SiteExplorer extends EcmsBase {
     public static boolean notSimpleSearch(String keyword) {
         return !simpleSearch(keyword);
     }
+    
+    public static void addTagForNode(String name, boolean isPublic) {
+		// go to collaboration tab
+		info("Go to Collaboration tab");
+		goToCollaboration();
+
+		// Click Tags
+		waitForElementPresent(ELEMENT_TAG);
+		click(ELEMENT_TAG);
+
+		// Input information
+		type(ELEMENT_TAG_NAME, name, true);
+
+		//save
+		if (isPublic){
+			selectOption(ELEMENT_TAG_SCOPE, "Public");
+		} else 
+			selectOption(ELEMENT_TAG_SCOPE, "Private");
+		click(ELEMENT_ADD_TAGS_BUTTON);
+
+		//verify new tag
+		waitForElementPresent(By.linkText(name));
+
+		//close tag form
+		click(ELEMENT_CLOSE_TAG_FORM);
+
+		//verify add new tag
+		click(ELEMENT_TAG_CLOUD);
+
+		//			waitForTextPresent("Private Tags");
+		waitForTextPresent(name);
+	}
+
+	public static void deleteTag(String name, boolean isPublic){
+		// Delete tags
+		if (isPublic){
+			waitForElementPresent(ELEMENT_EDIT_PUBLIC_TAG);
+			click(ELEMENT_EDIT_PUBLIC_TAG);
+		}
+		else {
+			waitForElementPresent(ELEMENT_EDIT_PRIVATE_TAG);
+			click(ELEMENT_EDIT_PRIVATE_TAG);
+		}
+		waitForElementPresent(ELEMENT_REMOVE_TAG);
+		click(ELEMENT_REMOVE_TAG);
+		waitForConfirmation(WARNING_MESSAGE_AFTER_DELETE_TAG);
+		click(ELEMENT_CLOSE_EDIT_PUBLIC_TAG_FORM);
+		waitForTextNotPresent(name);
+	}
     
 }

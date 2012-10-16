@@ -8,7 +8,12 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class ContextMenu extends EcmsBase {
-	
+
+	public static final By ELEMENT_LOCK_OPTION_XPATH = By.xpath("//a[contains(text(),'Lock')]");
+	public static final By ELEMENT_UNLOCK_OPTION_XPATH = By.xpath("//a[contains(text(),'UnLock')]");
+	public static final By ELEMENT_CHECKIN_OPTION_XPATH = By.xpath("//a[contains(text(),'CheckIn')]");
+	public static final By ELEMENT_CHECKOUT_OPTION_XPATH = By.xpath("//a[contains(text(),'CheckOut')]");
+	public static final By ELEMENT_RENAME_NODE = By.linkText("Rename");
 	//lock node
 		public static void lockNode(By locator){
 			for(int repeat=0;; repeat ++)

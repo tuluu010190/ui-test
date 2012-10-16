@@ -577,8 +577,8 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		switchToParentWindow();
 		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH_2);
 		
-		click(ELEMENT_UPLOAD_SAVE_BUTTON_LINKTEXT);
-		click(ELEMENT_UPLOAD_CLOSE_BUTTON_LINKTEXT);
+		click(ELEMENT_SAVE_BUTTON);
+		click(ELEMENT_CLOSE_BUTTON);
 		//check upload file successful
 		waitForElementPresent(ELEMENT_FILE_IMG);
 		assert isElementPresent(ELEMENT_FILE_IMG):"Can not upload file .jpg";

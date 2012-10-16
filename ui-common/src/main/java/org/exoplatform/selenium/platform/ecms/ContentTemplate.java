@@ -8,6 +8,78 @@ import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebElement;
 
 public class ContentTemplate extends EcmsBase {
+	
+	//Article
+	public static final By ELEMENT_ARTICLE_LINK = By.xpath("//div[@title='Article']");
+	public static final By ELEMENT_ARTICLE_TITLE_TEXTBOX = By.id("title");	
+	public static final By ELEMENT_ARTICLE_NAME_TEXTBOX = By.id("name");
+	public static final By ELEMENT_ARTICLE_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_summary']/iframe");
+	public static final By ELEMENT_ARTICLE_CONTENT_FRAME = By.xpath("//td[@id='cke_contents_content']/iframe");
+	//public static final By ELEMENT_SAVE_CLOSE_BUTTON = By.linkText("Save & Close");
+
+	//Annoucement
+	public static final By ELEMENT_ANNOUCEMENT_LINK = By.linkText("Announcement");
+	public static final By ELEMENT_ANNOUCEMENT_NAME_TEXTBOX = By.id("name");
+	public static final By ELEMENT_ANNOUCEMENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
+
+	//WebContent
+	public static final By ELEMENT_WEBCONTENT_LINK =By.linkText("Free layout webcontent");
+	public static final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX =By.id("title");	
+	public static final By ELEMENT_WEBCONTENT_NAME_TEXTBOX =By.id("name");	
+	public static final By ELEMENT_WEBCONTENT_CONTENT_FRAME = By.xpath("//td[contains(@id,'cke_contents_htmlData')]/iframe");
+	public static final By ELEMENT_WEBCONTENT_ILLUSTRATION_TAB = By.xpath("//div[contains(text(),'Illustration')]");
+	public static final By ELEMENT_WEBCONTENT_UPLOAD_FRAME =By.xpath("//*[contains(@id,'uploadFrame')]");
+	public static final By ELEMENT_WEBCONTENT_FILE_IMAGE = By.id("file");
+	public static final By ELEMENT_WEBCONTENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
+	public static final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.xpath("//div[contains(text(),'Advanced')]");
+	public static final By ELEMENT_WEBCONTENT_CSS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentCSS')]");
+	public static final By ELEMENT_WEBCONTENT_JS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentJS')]");
+	//File
+	public static final By ELEMENT_NEWFILE_LINK =By.linkText("File");
+	public static final By ELEMENT_NEWFILE_NAME_TEXTBOX =By.id("name");
+	public static final By ELEMENT_NEWFILE_CONTENT_FRAME = By.xpath("//td[@id='cke_contents_contentHtml']/iframe");
+	public static final By ELEMENT_NEWFILE_TITLE_TEXTBOX =By.id("title0");
+	//SampleNode
+	public static final By ELEMENT_SAMPLENODE_LINK =By.linkText("Sample node");
+	public static final By ELEMENT_SAMPLENODE_TITLE_TEXTBOX = By.id("title");
+	public static final By ELEMENT_SAMPLENODE_NAME_TEXTBOX = By.id("name");
+	public static final By ELEMENT_SAMPLENODE_ADD_ITEM_LINK = By.xpath("//img[@title = 'Add Item']");	
+	public static final By ELEMENT_SAMPLENODE_SELECTITEM = By.id("taxonomyTree");
+	public static final String ELEMENT_SAMPLENODE_SELECTITEM_OPTION = "acme";
+	public static final By ELEMENT_SAMPLENODE_SELECTITEM_OPTION_LINK = By.xpath("//div[@class='Select16x16Icon']");
+	public static final By ELEMENT_SAMPLENODE_DESCRIPTION_TEXTBOX = By.id("description");
+	public static final By ELEMENT_SAMPLENODE_UPLOAD_IMG_FRAME = By.xpath("//iframe[contains(@id,'uploadFrame')]");
+	public static final By ELEMENT_SAMPLENODE_FILE_IMG = By.id("file") ;
+	public static final By ELEMENT_SAMPLENODE_CONTENT_TEXTAREA = By.id("summary");
+	public static final By ELEMENT_SAMPLENODE_SUMMARY_TEXTAREA = By.id("content");
+	//Kofax
+	public static final By ELEMENT_KOFAX_LINK = By.linkText("Kofax document");
+	public static final By ELEMENT_KOFAX_NAME_TEXTBOX = By.id("name");
+	public static final By ELEMENT_KOFAX_ADDNODE_LINK = By.xpath("//img[@class='MultiFieldAction AddNewNodeIcon']") ;
+	public static final By ELEMENT_KOFAX_ADDNODE_SELECT = By.id("taxonomyTree");
+	public static final String ELEMENT_KOFAX_ADDNODE_OPTION = "acme";
+	public static final By ELEMENT_KOFAX_ADDNODE_OPTION_LINK = By.xpath("//div[@class='Select16x16Icon']");
+	//FilePlan
+	public static final By ELEMENT_FILEPLAN_LINK = By.linkText("File Plan");
+	public static final By ELEMENT_FILEPLAN_NAME = By.id("name");
+	public static final By ELEMENT_FILEPLAN_RECORD_TAB = By.xpath("//div[contains(text(),'Record Properties')]");
+	public static final By ELEMENT_FILEPLAN_RECORD_TEXTBOX = By.id("recordCategoryIdentifier");
+	public static final By ELEMENT_FILEPLAN_DISPOS_TEXTBOX = By.id("dispositionAuthority");
+	public static final By ELEMENT_FILEPLAN_DEFAULT_TEXTBOX  = By.id("defaultOriginatingOrganization");
+	public static final By ELEMENT_FILEPLAN_RPROCESS_TAB = By.xpath("//div[contains(text(),'Process Properties')]");
+	public static final By ELEMENT_FILEPLAN_RPROCESS_TRIGER = By.id("eventTrigger");	
+
+	//Head Layout
+	public static final By ELEMENT_HEAD_LAYOUT_LINK = By.linkText("Picture on head layout webcontent");
+	public static final By ELEMENT_HEAD_LAYOUT_NAME_TEXTBOX = By.id("name");
+	public static final By ELEMENT_HEAD_LAYOUT_TITLE_TEXTBOX = By.id("title");	
+	public static final By ELEMENT_HEAD_LAYOUT_UPLOAD_FRAME = By.xpath("//iframe[contains(@id,'uploadFrame')]")	;
+	public static final By ELEMENT_HEAD_LAYOUT_UPLOAD_FILE = By.id("file") ;
+	//Product
+	public static final By ELEMENT_PRODUCT_LINK = By.linkText("Product");
+	public static final By ELEMENT_PRODUCT_NAME_TEXTBOX = By.id("name") ;
+	public static final By ELEMENT_PRODUCT_TITLE_TEXTBOX = By.id("title");
+
 	public static final By ELEMENT_EDIT_NODE_CHECKBOX = By.id("set_property");
 	public static final By ELEMENT_REMOVE_NODE_CHECKBOX = By.id("remove");
 	public static final By ELEMENT_MENU_CONTENT=By.linkText("Content");
@@ -21,7 +93,7 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_UPLOAD_DESC=By.id("description0");
 	public static final By ELEMENT_UPLOAD_CREATOR=By.id("creator0");
 	public static final By ELEMENT_UPLOAD_SOURCE=By.id("source0");
-	
+
 	public static final By ELEMENT_FREE_CONT_ACCEPT=By.xpath("//form[contains(@id,'EditTextForm')]/a[2]");
 	public static final By ELEMENT_FREE_CONT_INPUT=By.xpath("//iframe[contains(@title,'Rich text editor, newText')]");
 	public static final String ELEMENT_FREE_CONT_INLINE="//div[contains(@id,'CurrentText') and @title='Double-click to edit']";
@@ -37,6 +109,10 @@ public class ContentTemplate extends EcmsBase {
 	public static final String ELEMENT_SAMPLE_TITLE_INLINE="//div[contains(@id,'CurrentTdGtmplTitle') and @title='Double-click to edit']";
 	
 	//Podcast
+	public static final By ELEMENT_PODCAST_LINK = By.linkText("Podcast");
+	public static final By ELEMENT_PODCAST_NAME_TEXTBOX = By.id("name");
+	public static final By ELEMENT_PODCAST_TITLE_TEXTBOX = By.id("title");
+	public static final By ELEMENT_PODCAST_LINK_TEXTBOX = By.id("link");
 	public static final String ELEMENT_PODCAST_TITLE_INLINE="//div[contains(@id,'CurrentTdGtmplTitle') and @title='Double-click to edit']";
 	public static final By ELEMENT_PODCAST_TITLE_INPUT=By.xpath("//input[contains(@id,'newTdGtmplTitle')]");
 	public static final By ELEMENT_PODCAST_TITLE_ACCEPT=By.xpath("//a[@title='Accept'][1]");
@@ -57,11 +133,19 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_MYSITE_LINK = By.xpath("//a[contains(text(),'My Sites')]");
 	public static final By ELEMENT_ACME_SITE_LINK = By.linkText("acme");
 	public static final By ELEMENT_BODY = By.xpath("//p");
+	
 	public static final By ELEMENT_JS_NAME= By.id("name");
 	public static final By ELEMENT_JS_ACTIVE= By.id("activeJS");
 	public static final By ELEMENT_JS_PRIORITY= By.id("JSpriority");
 	public static final By ELEMENT_JS_LANG= By.id("content-lang");
 	public static final By ELEMENT_JS_DATA= By.id("contentHtml");
+	
+	//upload
+	public static final By ELEMENT_UPLOAD_LINK_XPATH = By.xpath("//a[@title='Upload']");
+	public static final By ELEMENT_UPLOAD_FILE_NAME_ID = By.id("name");
+	public static final By ELEMENT_UPLOAD_IMG_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
+	public static final By ELEMENT_UPLOAD_IMG_ID = By.id("file");
+	public static final By ELEMENT_UPLOAD_FINISH_XPATH = By.xpath("//div[@class='FileNameLabel']");
 	
 	// add new article
 	public static void createNewArticle(String title, String name, String sum, String cont) {
@@ -231,8 +315,8 @@ public class ContentTemplate extends EcmsBase {
 		info("Upload file "+getAbsoluteFilePath(link));
 		switchToParentWindow();
 		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
-		click(ELEMENT_UPLOAD_SAVE_BUTTON_LINKTEXT);
-		click(ELEMENT_UPLOAD_CLOSE_BUTTON_LINKTEXT);
+		click(ELEMENT_SAVE_BUTTON);
+		click(ELEMENT_CLOSE_BUTTON);
 	}
 
 	public static void addJSFile(String name, String... data)
