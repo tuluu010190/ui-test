@@ -4,7 +4,6 @@ import org.apache.log4j.Level;
 import org.testng.ITestResult;
 import org.testng.TestListenerAdapter;
 
-
 public class TestReportListener extends TestListenerAdapter {
 
     private static void logResult(ITestResult result) {
@@ -38,6 +37,8 @@ public class TestReportListener extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult result) {
+		String sMethodName = result.getMethod().getMethodName();
+    	TestBase.captureScreen(sMethodName + ".PNG");
     	logResult(result);
     }
 

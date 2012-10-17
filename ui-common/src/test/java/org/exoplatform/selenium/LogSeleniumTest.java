@@ -51,17 +51,9 @@ public class LogSeleniumTest extends EcmsBase{
 	
 	 @BeforeMethod
 	  public void beforeMethods() throws Exception {
-	    String browser = System.getProperty("browser");
-	    BasicConfigurator.configure();
-	    if(browser.equals("chrome")){
-	      driver = new ChromeDriver();
-	    } else {
-	      driver = new FirefoxDriver();
-	    }
-	    baseUrl = System.getProperty("baseUrl");
-	    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-	    driver.get(baseUrl);
+	   initSeleniumTest();
 	    actions = new Actions(driver);
+	    driver.get(baseUrl);
 	  }
 
 	  @AfterMethod
@@ -89,6 +81,7 @@ public class LogSeleniumTest extends EcmsBase{
 		//login
 		loginEcms(ELEMENT_USER, ELEMENT_PASS);
 		//create new content folder
+		assert false;
 		logoutEcms();
 	}
 }

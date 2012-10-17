@@ -521,11 +521,11 @@ public class TestBase {
 	/*---- Auxiliary functions ----*/
 	public static void captureScreen(String fileName){
 		String path;
-		String relativeFilePath;
 		try {
 			File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-			relativeFilePath = "TestData/" + fileName;
-			path = getAbsoluteFilePath(relativeFilePath);
+//			relativeFilePath = "target/screenshot/" + fileName;
+			String curDir = System.getProperty("user.dir");
+			path = curDir + "/target/screenshoot/" + fileName;
 			FileUtils.copyFile(scrFile, new File(path));
 		} catch (IOException e) {
 			path = "Failed to capture screenshot: " + e.getMessage();
