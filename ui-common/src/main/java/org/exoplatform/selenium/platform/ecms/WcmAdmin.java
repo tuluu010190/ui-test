@@ -273,6 +273,10 @@ public class WcmAdmin extends EcmsBase {
 		assert isElementPresent(ELEMENT_CATEGORY_TREE):"Add new category tree is not successful";
 		info("Add new category is successful");
 	}
+	/*
+	 * Add function icon to the Publication tab on action bar
+	 * locator: locator of checkbox icon of function on the edit View form
+	 */
 	public static void addFunctionToActionBar(By locator){
 		goToContentAdministration();
 		click(ELEMENT_CONTENT_PRESENT);

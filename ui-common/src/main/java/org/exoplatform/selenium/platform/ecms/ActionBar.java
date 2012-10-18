@@ -17,6 +17,7 @@ public class ActionBar extends EcmsBase {
 	public static By ELEMENT_CATEGORIES_LINK = By.xpath("//a[text()='Categories']");
 	public static By ELEMENT_LINK_VERSION=By.linkText("Versions");
 	public static By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
+	public static By OVERLOAD_THUMBNAIL = By.linkText("Overload Thumbnail");
 	
 	//System TAB
 	//	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[@class='TabLabel' and @title='System']");
@@ -405,9 +406,15 @@ public class ActionBar extends EcmsBase {
 			waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
 			click(ELEMENT_CLOSE_BUTTON);
 		}
-		/*
-		 * Add function icon to the Publication tab on action bar
-		 * locator: locator of checkbox icon of function on the edit View form
-		 */
 		
+		//Upload file Thumbnail
+		public static void uploadThumb(String link){
+			click(OVERLOAD_THUMBNAIL);
+			driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
+			type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(link), false);
+			info("Upload file "+getAbsoluteFilePath(link));
+			switchToParentWindow();
+			waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+			click(ELEMENT_SAVE_BUTTON);
+		}
 }
