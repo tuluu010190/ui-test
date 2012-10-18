@@ -18,6 +18,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
@@ -228,11 +229,19 @@ public class TestBase {
 			WebElement target = waitForAndGetElement(targetLocator);
 
 			action.dragAndDrop(source, target).build().perform();
+			
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			pause(WAIT_INTERVAL);
 			dragAndDropToObject(sourceLocator, targetLocator);
-		} finally {
+		}catch (UnhandledAlertException e) {
+			/*checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			pause(WAIT_INTERVAL);
+			dragAndDropToObject(sourceLocator, targetLocator);*/
+			acceptAlert();
+		}
+		
+		finally {
 			loopCount = 0;
 		} 
 	}
