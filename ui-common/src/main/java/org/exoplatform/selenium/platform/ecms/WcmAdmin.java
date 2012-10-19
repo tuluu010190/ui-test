@@ -316,7 +316,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//add new category tree: step 4 - Edit the taxonomy tree by adding, copying, cutting and selecting permissions.
-	public static void addNewCategoryTree_Step4(String name, String childname1, String childname2 ){
+	public static void addNewCategoryTree_Step4(String name, String childname1, String childname2, String user_Per, boolean read, boolean add, boolean set, boolean remove ){
 		//--add child category
 		addChildCategory(name, childname1);
 		click(ELEMENT_UP_LEVEL);
@@ -331,8 +331,9 @@ public class WcmAdmin extends EcmsBase {
 		cutAndPasteCategory(childname1, childname2);
 
 		//--set permission
-		//		  info("Set permission for category");
-		//		  click(ELEMENT_CLOSE_BUTTON);
+		click(By.xpath("//div[@title='" + childname2 + "']/../../td/div/img[@title='Permission Management']"));
+		setPermissionForUserOnManageCategory(true, user_Per, false, "", "", read,add,set,remove);
+		click(ELEMENT_CLOSE_BUTTON);
 		deleteCategory(childname2);
 	}
 

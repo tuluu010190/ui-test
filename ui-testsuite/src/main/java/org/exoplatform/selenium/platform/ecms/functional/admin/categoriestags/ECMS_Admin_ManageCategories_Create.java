@@ -62,7 +62,7 @@ public class ECMS_Admin_ManageCategories_Create extends EcmsBase {
 		//edit category tree at step 4
 		info("Edit category tree");
 		click(By.xpath("//div[@title='" + DATA_CATEGORY_TREE_NAME + "']/../../td/div/img[@class='Edit16x16Icon']"));
-		addNewCategoryTree_Step4(DATA_CATEGORY_TREE_NAME, DATA_CATEGORY_TREE_CHILD_01, DATA_CATEGORY_TREE_CHILD_02);
+		addNewCategoryTree_Step4(DATA_CATEGORY_TREE_NAME, DATA_CATEGORY_TREE_CHILD_01, DATA_CATEGORY_TREE_CHILD_02,"demo",true,false,false,false);
 
 		//delete data
 		deleteCategory(DATA_CATEGORY_TREE_NAME);
