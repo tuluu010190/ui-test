@@ -1,7 +1,7 @@
 package org.exoplatform.selenium.platform.ecms;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import static org.exoplatform.selenium.TestLogger.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
@@ -18,7 +18,7 @@ public class ActionBar extends EcmsBase {
 	public static By ELEMENT_LINK_VERSION=By.linkText("Versions");
 	public static By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
 	public static By OVERLOAD_THUMBNAIL = By.linkText("Overload Thumbnail");
-	
+
 	//System TAB
 	//	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[@class='TabLabel' and @title='System']");
 	public static By ELEMENT_SYSTEM_TAB = By.linkText("System");
@@ -55,12 +55,12 @@ public class ActionBar extends EcmsBase {
 	//Collaboration TAB
 	public static By ELEMENT_COLLABORATION_TAB = By.xpath("//a[contains(text(),'Collaboration')]");
 	public static By ELEMENT_TAG = By.linkText("Tag");
-	
-	
+
+
 	//Version Info form
 	public static By ELEMENT_ICON_VERSION_ADD=By.xpath("//div[@title='Add Label']");
 	public static By ELEMENT_TEXTBOX_VERSION=By.id("label");
-	
+
 
 	// add a category
 	public static void addCategory(String name)
@@ -346,36 +346,53 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//function delete permission
-	public static void deletePermission(String user){
-		By ELEMENT_DELETE = By.xpath("//div[@title='"+user+"']/../../td/div/img[@class='DeleteIcon']");
-
-		if (getElement(ELEMENT_DELETE) != null){
-			click(ELEMENT_DELETE);
-			acceptAlert();
-			waitForElementNotPresent(ELEMENT_DELETE);
-			info("Delete permission is successful");
-		}else{
-			info("Do not see element to delete");
+	public static void deletePermission(String user, boolean verify){
+		By ELEMENT_DELETE_USER_PERMISSION = By.xpath("//div[@title='"+ user +"']/../../td/div/img[@class='DeleteIcon']");
+		By ELEMENT_DELETE_USER_PERMISSION_AUX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//div[@title='"+ user +"']/../../td/div/img[@class='DeleteIcon']");
+		if (isTextPresent("Add permissions to this node")){
+			if (getElement(ELEMENT_DELETE_USER_PERMISSION) != null){
+				click(ELEMENT_DELETE_USER_PERMISSION);
+				acceptAlert();
+				if(verify){
+					waitForElementNotPresent(ELEMENT_DELETE_USER_PERMISSION);
+				}
+				info("Delete a permission is successful");
+			}else{
+				info("Do not see an element to delete");
+			}
 		}
+		else if (isTextPresent("Add permission to that node")){
+			if (getElement(ELEMENT_DELETE_USER_PERMISSION_AUX) != null){
+				click(ELEMENT_DELETE_USER_PERMISSION_AUX);
+				acceptAlert();
+				if(verify){
+					waitForElementNotPresent(ELEMENT_DELETE_USER_PERMISSION_AUX);
+				}
+				info("Delete a permission is successful");
+			}else{
+				info("Do not see an element to delete");
+			}
+		}
+		pause(500);
 	}
-
 
 	//function remove default user and group permission of node except owner
 	public static void removePermissionDefaultOfNode(){ 
-		deletePermission("*:/platform/web-contributors");
-		deletePermission("*:/platform/administrators");
-		deletePermission("any");
+		deletePermission("*:/platform/web-contributors", true);
+		deletePermission("*:/platform/administrators", true);
+		deletePermission("any", true);
 	}
 
 	//function add a user to group and choose membership type
 	public static void clickUpLevel(){
-		By ELEMENT_ROOT = By.xpath("//div[@class='BreadcumbsInfoBar ClearFix']/a[1]");
+		//By ELEMENT_ROOT = By.xpath("//div[@class='BreadcumbsInfoBar ClearFix']/a[1]");
 
-		WebElement root = getElement(ELEMENT_ROOT);
-		if (root != null){
-			click(ELEMENT_ROOT);
-			click(By.xpath("//a[@class='LevelUpArrowIcon']"));
-		}
+		//WebElement root = getElement(ELEMENT_ROOT);
+		//if (root != null){
+		//	click(ELEMENT_ROOT);
+		click(By.xpath("//*[@id='UITaxonomyTreeCreateChild']//a[@class='LevelUpArrowIcon']"));
+		//}
+		pause(500);
 	}
 
 	//function select user to set permission on permission management popup
@@ -390,31 +407,31 @@ public class ActionBar extends EcmsBase {
 			info("Not found user");
 		}
 	}
-		/*
-		 * Add version for a node
-		 * + locator: locator of node
+	/*
+	 * Add version for a node
+	 * + locator: locator of node
 		   + version: version name
-		 */
-		public static void addVersionForNode(By locator, String vesion){
-			goToNode(locator);
-			click(ELEMENT_LINK_TAB_PUBLICATION);
-			clearCache();
-			click(ELEMENT_LINK_VERSION);
-			click(ELEMENT_ICON_VERSION_ADD);
-			type(ELEMENT_TEXTBOX_VERSION,vesion,true);
-			click(ELEMENT_SAVE_BUTTON);
-			waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
-			click(ELEMENT_CLOSE_BUTTON);
-		}
-		
-		//Upload file Thumbnail
-		public static void uploadThumb(String link){
-			click(OVERLOAD_THUMBNAIL);
-			driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
-			type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(link), false);
-			info("Upload file "+getAbsoluteFilePath(link));
-			switchToParentWindow();
-			waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
-			click(ELEMENT_SAVE_BUTTON);
-		}
+	 */
+	public static void addVersionForNode(By locator, String vesion){
+		goToNode(locator);
+		click(ELEMENT_LINK_TAB_PUBLICATION);
+		clearCache();
+		click(ELEMENT_LINK_VERSION);
+		click(ELEMENT_ICON_VERSION_ADD);
+		type(ELEMENT_TEXTBOX_VERSION,vesion,true);
+		click(ELEMENT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
+		click(ELEMENT_CLOSE_BUTTON);
+	}
+
+	//Upload file Thumbnail
+	public static void uploadThumb(String link){
+		click(OVERLOAD_THUMBNAIL);
+		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
+		type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(link), false);
+		info("Upload file "+getAbsoluteFilePath(link));
+		switchToParentWindow();
+		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+		click(ELEMENT_SAVE_BUTTON);
+	}
 }

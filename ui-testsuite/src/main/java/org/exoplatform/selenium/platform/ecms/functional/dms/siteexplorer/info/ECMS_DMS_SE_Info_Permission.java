@@ -476,8 +476,8 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToPermissionManagement();
 		info("Remove user permission of node");
-		deletePermission("*:/platform/web-contributors");
-		deletePermission("any");
+		deletePermission("*:/platform/web-contributors",true);
+		deletePermission("any",true);
 		logoutEcms();
 
 		//check user james can not see content folder
@@ -513,7 +513,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToPermissionManagement();
 		info("Remove permission of user John  of node");
-		deletePermission("john");
+		deletePermission("john",true);
 
 		//check can node delete
 		checkAlertWarning("You cannot remove the owner.");

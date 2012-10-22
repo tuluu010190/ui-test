@@ -2,7 +2,7 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
-
+import static org.exoplatform.selenium.platform.ecms.EcmsBase.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -556,5 +556,10 @@ public class PlatformBase extends TestBase {
 			click(ELEMENT_PAGE_FINISH_BUTTON);
 			waitForTextNotPresent("Page Editor");
 		}
+	}
+	
+	public static void next(){
+		waitForAndGetElement(ELEMENT_NEWPAGE_NEXT_BUTTON);
+		click(ELEMENT_NEWPAGE_NEXT_BUTTON);	
 	}
 }

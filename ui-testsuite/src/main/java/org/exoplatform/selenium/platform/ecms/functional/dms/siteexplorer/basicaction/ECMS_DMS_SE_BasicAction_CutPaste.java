@@ -12,7 +12,6 @@ import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 import static org.exoplatform.selenium.platform.ecms.WcmAdmin.*;
-import org.exoplatform.selenium.platform.ecms.PageEditor.*; 
 /*
  * @author: Thuntn
  * @date: 08/10/2012

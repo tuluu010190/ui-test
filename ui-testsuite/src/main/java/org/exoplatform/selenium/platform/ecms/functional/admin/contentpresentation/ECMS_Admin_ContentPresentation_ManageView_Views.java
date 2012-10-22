@@ -34,7 +34,7 @@ public class ECMS_Admin_ContentPresentation_ManageView_Views extends EcmsBase{
   String DATA_USER = "john";
   String DATA_PASS = "gtn";
   @BeforeMethod
-  public void beforeMethods() throws Exception {
+  public void beforeMethods(){
     initSeleniumTest();
     driver.get(baseUrl);
     actions = new Actions(driver);
@@ -44,7 +44,7 @@ public class ECMS_Admin_ContentPresentation_ManageView_Views extends EcmsBase{
   }
 
   @AfterMethod
-  public void afterMethods() throws Exception {
+  public void afterMethods(){
     info("Logout ECMS");
     logoutEcms();
     driver.manage().deleteAllCookies();
@@ -56,7 +56,7 @@ public class ECMS_Admin_ContentPresentation_ManageView_Views extends EcmsBase{
    * delete not using view
    */
   @Test
-  public void test01_AddNewView() throws Exception{
+  public void test01_AddNewView(){
     info("Add New View");
     //Open Add New Vew Form
     WcmAdmin.openForm("Add View", "Add View");
@@ -70,7 +70,7 @@ public class ECMS_Admin_ContentPresentation_ManageView_Views extends EcmsBase{
    * Delete using view  
    */
   @Test
-  public void test16_DeleteUsingView() throws Exception{
+  public void test16_DeleteUsingView(){
     info("Delete a view that using");
     WcmAdmin.deleteView("WCM View","Are you sure to delete this view?", false);
     waitForMessage("Cannot delete WCM View. It is currently in use.");
@@ -82,7 +82,7 @@ public class ECMS_Admin_ContentPresentation_ManageView_Views extends EcmsBase{
    * Delete ECM template
    */
   @Test
-  public void test17_AddEcmTemplate() throws Exception{
+  public void test17_AddEcmTemplate(){
     info("Add Ecm Template");
     WcmAdmin.gotoEcmTemplates();
     WcmAdmin.openForm("Add", "Add ECM Template");
@@ -94,7 +94,7 @@ public class ECMS_Admin_ContentPresentation_ManageView_Views extends EcmsBase{
    * Restore view a specific version
    */
   @Test
-  public void test08_RestoreVersion() throws Exception{
+  public void test08_RestoreVersion(){
     info("Restore Version");
     String viewName = "Simple View";
     WcmAdmin.createVersion(viewName, 2);

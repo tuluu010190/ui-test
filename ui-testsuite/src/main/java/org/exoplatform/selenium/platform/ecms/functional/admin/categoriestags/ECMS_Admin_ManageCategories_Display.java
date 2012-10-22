@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.ecms.functional.admin.managecategories;
+package org.exoplatform.selenium.platform.ecms.functional.admin.categoriestags;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
@@ -50,11 +50,15 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_01";
 		By ELEMENT_CATEGORY_TREE = By.xpath("//div[@title='" + DATA_CATEGORY_TREE_NAME + "']");
 		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_01";
+		
+		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites content/live/acme"};
+		String[] DATA2 = {"",""};
+		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:ecm"};
 
 		//add new category tree
 		goToContentAdministration();
-		addNewCategoryTree(DATA_CATEGORY_TREE_NAME, "collaboration", "sites content/live/acme", "mary", true, false, false, false, DATA_ACTION_NAME, "", "" );
-
+		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
+		
 		//go to AMS Administration Driver
 		goToSiteExplorer();
 		click(ELEMENT_SHOW_DRIVES);
@@ -83,10 +87,13 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 		String DATA_ARTICLE = "ECMS_Admin_ManageCategories_Display_article_02";
 		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE);
 		By ELEMENT_CATEGORY_OPTION = By.xpath("//select[@id='taxonomyTree']/option[@value='" + DATA_CATEGORY_TREE_NAME + "']");
+		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites content/live/acme"};
+		String[] DATA2 = {"",""};
+		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:ecm"};
 
 		//add new category tree
 		goToContentAdministration();
-		addNewCategoryTree(DATA_CATEGORY_TREE_NAME, "collaboration", "sites content/live/acme", "mary", true, false, false, false, DATA_ACTION_NAME, "", "" );
+		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
 
 		//create new document: article document
 		goToSiteExplorer();
@@ -126,21 +133,24 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 		String DATA_ARTICLE = "ECMS_Admin_ManageCategories_Display_article_03";
 		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE);
 		By ELEMENT_CATEGORY_OPTION = By.xpath("//select[@id='taxonomyTree']/option[@value='" + DATA_CATEGORY_TREE_NAME + "']");
-
+		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites content/live/acme"};
+		String[] DATA2 = {"",""};
+		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:ecm"};
+		
 		//add new category tree
 		goToContentAdministration();
-		addNewCategoryTree(DATA_CATEGORY_TREE_NAME, "collaboration", "sites content/live/acme", "mary", true, false, false, false, DATA_ACTION_NAME, "", "" );
-
+		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
+		
 		//delete permission default
 		info("Edit category tree");
 		click(By.xpath("//div[@title='" + DATA_CATEGORY_TREE_NAME + "']/../../td/div/img[@class='Edit16x16Icon']"));
 		click(ELEMENT_PREVIOUS_BUTTON);
 		click(ELEMENT_PREVIOUS_BUTTON);
-		deletePermission("*:/platform/administrators");
-		deletePermission("*:/platform/users");
-		deletePermission("mary");
-		deletePermission("any");
-		deletePermission("*:/platform/web-contributors");
+		deletePermission("*:/platform/administrators",true);
+		deletePermission("*:/platform/users",true);
+		deletePermission("mary",true);
+		deletePermission("any",true);
+		deletePermission("*:/platform/web-contributors",true);
 		click(ELEMENT_CLOSE_BUTTON);
 		logoutEcms();
 
@@ -183,11 +193,14 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 		String DATA_UPLOAD_FILE_NAME = "ECMS_Admin_ManageCategories_Display_UploadFile_04";
 		String DATA_UPLOAD_FILE_LINK = "TestData/ECMS_Admin_ManageCategories_Display.jpg";
 		By ELEMENT_CATEGORY_OPTION = By.xpath("//select[@id='taxonomyTree']/option[@value='" + DATA_CATEGORY_TREE_NAME + "']");
-
+		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites content/live/acme"};
+		String[] DATA2 = {"",""};
+		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:ecm"};
+		
 		//add new category tree
 		goToContentAdministration();
-		addNewCategoryTree(DATA_CATEGORY_TREE_NAME, "collaboration", "sites content/live/acme", "mary", true, false, false, false, DATA_ACTION_NAME, "", "" );
-
+		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
+		
 		//upload new file
 		goToSiteExplorer();
 		goToNode(ELEMENT_UPLOAD_LINK_XPATH);
@@ -221,9 +234,13 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_04_2";
 		By ELEMENT_CATEGORY_OPTION = By.xpath("//select[@id='taxonomyTree']/option[@value='" + DATA_CATEGORY_TREE_NAME + "']");
 
+		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites content/live/acme"};
+		String[] DATA2 = {"",""};
+		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:ecm"};
+		
 		//add new category tree
 		goToContentAdministration();
-		addNewCategoryTree(DATA_CATEGORY_TREE_NAME, "collaboration", "sites content/live/acme", "mary", true, false, false, false, DATA_ACTION_NAME, "", "" );
+		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
 
 		//create new kofax document
 		goToSiteExplorer();
@@ -252,11 +269,14 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_05";
 		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_05";
 		By ELEMENT_CATEGORY_OPTION = By.xpath("//select[@id='taxonomyTree']/option[@value='" + DATA_CATEGORY_TREE_NAME + "']");
-
+		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites content/live/acme"};
+		String[] DATA2 = {"",""};
+		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:ecm"};
+		
 		//add new category tree
 		goToContentAdministration();
-		addNewCategoryTree(DATA_CATEGORY_TREE_NAME, "collaboration", "sites content/live/acme", "mary", true, false, false, false, DATA_ACTION_NAME, "", "" );
-
+		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
+		
 		//check can see category when do advanced search using category
 		info("Go to Saved Search/Advanced Search/Constraint Form");
 		goToSiteExplorer();
@@ -289,21 +309,24 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_06";
 		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_06";
 		By ELEMENT_CATEGORY_OPTION = By.xpath("//select[@id='taxonomyTree']/option[@value='" + DATA_CATEGORY_TREE_NAME + "']");
-
+		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites content/live/acme"};
+		String[] DATA2 = {"",""};
+		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:ecm"};
+		
 		//add new category tree
 		goToContentAdministration();
-		addNewCategoryTree(DATA_CATEGORY_TREE_NAME, "collaboration", "sites content/live/acme", "mary", true, false, false, false, DATA_ACTION_NAME, "", "" );
+		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
 
 		//delete permission default
 		info("Edit category tree");
 		click(By.xpath("//div[@title='" + DATA_CATEGORY_TREE_NAME + "']/../../td/div/img[@class='Edit16x16Icon']"));
 		click(ELEMENT_PREVIOUS_BUTTON);
 		click(ELEMENT_PREVIOUS_BUTTON);
-		deletePermission("*:/platform/administrators");
-		deletePermission("*:/platform/users");
-		deletePermission("mary");
-		deletePermission("any");
-		deletePermission("*:/platform/web-contributors");
+		deletePermission("*:/platform/administrators",true);
+		deletePermission("*:/platform/users",true);
+		deletePermission("mary",true);
+		deletePermission("any",true);
+		deletePermission("*:/platform/web-contributors",true);
 		logoutEcms();
 
 		//check can not see category when do advanced search using category

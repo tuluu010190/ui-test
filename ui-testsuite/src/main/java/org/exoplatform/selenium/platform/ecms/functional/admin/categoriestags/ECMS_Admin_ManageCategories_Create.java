@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.ecms.functional.admin.managecategories;
+package org.exoplatform.selenium.platform.ecms.functional.admin.categoriestags;
 
 import static org.exoplatform.selenium.TestLogger.*;
 import org.openqa.selenium.interactions.Actions;
@@ -49,12 +49,16 @@ public class ECMS_Admin_ManageCategories_Create extends EcmsBase {
 		String DATA_CATEGORY_TREE_CHILD_01 = "ECMS_Admin_ManageCategories_Create_tree_child_01";
 		String DATA_CATEGORY_TREE_CHILD_02 = "ECMS_Admin_ManageCategories_Create_tree_child_02";
 
+		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites content/live/acme"};
+		String[] DATA2 = {"",""};
+		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:ecm"};
+		
 		//go to add new category tree
 		goToContentAdministration();
 
 		//add new category tree
-		addNewCategoryTree(DATA_CATEGORY_TREE_NAME, "collaboration", "sites content/live/acme", "mary", true, false, false, false, DATA_ACTION_NAME, DATA_CATEGORY_TREE_CHILD_01, DATA_CATEGORY_TREE_CHILD_02 );
-
+		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
+		
 		//edit category tree at step 4
 		info("Edit category tree");
 		click(By.xpath("//div[@title='" + DATA_CATEGORY_TREE_NAME + "']/../../td/div/img[@class='Edit16x16Icon']"));

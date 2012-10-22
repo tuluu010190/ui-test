@@ -24,14 +24,15 @@
 package org.exoplatform.selenium.platform.ecms.functional.admin.categoriestags;
 
 import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
-import org.exoplatform.selenium.platform.ecms.WcmAdmin;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 public class ECMS_Admin_ManageTags_Management extends EcmsBase {
   public static final String DATA_USER_ADMIN = "john";
   public static final String DATA_USER_NORMAL = "mary";
@@ -61,18 +62,18 @@ public class ECMS_Admin_ManageTags_Management extends EcmsBase {
   @Test
   public void test06_CheckRightGroupContentExplorer() throws Exception{
     //Go to tag permission    
-    WcmAdmin.gotoTagPermission();
+    gotoTagPermission();
     //Add tag permission
     UserGroupManagement.selectGroupAndMembership("platform/web-contributors", "*"); 
     save();
     //Open Edit Tag form
     logoutEcms();
     loginEcms(DATA_USER_NORMAL, DATA_PASS);  
-    WcmAdmin.editPublicTag();
+    editPublicTag();
     info("Reset data");
     logoutEcms();
     loginEcms(DATA_USER_ADMIN, DATA_PASS);
-    WcmAdmin.gotoTagPermission();
-    WcmAdmin.removeTagPermission("platform/web-contributors", "*");
+    gotoTagPermission();
+    removeTagPermission("platform/web-contributors", "*");
   }
 }

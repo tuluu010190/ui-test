@@ -414,4 +414,14 @@ public class EcmsBase extends PlatformBase {
 		mouseOver(ELEMENT_ACME, true);
 		mouseOverAndClick(ELEMENT_NEWS);
 	}
+	
+	/**
+	 * 
+	 * @param anchor: Button's label to open form
+	 * @param formTitle: Form's title
+	 */
+	public static void openForm(String anchor, String formTitle){
+		click(By.linkText(anchor));     
+		waitForElementPresent(By.xpath("//span[@class='PopupTitle' and text()='" + formTitle + "']"));
+	}
 }

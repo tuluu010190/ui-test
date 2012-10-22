@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.basic
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.platform.ecms.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
@@ -33,7 +34,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 	public void copyPasteNode(By source, By destination){
 		click(source);
 		copyNode(source);
-		pasteNode(destination);
+		ContextMenu.pasteNode(destination);
 	}
 
 	@BeforeMethod

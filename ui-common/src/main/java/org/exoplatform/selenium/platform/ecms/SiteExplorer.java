@@ -23,6 +23,11 @@ public class SiteExplorer extends EcmsBase {
 	public static By ELEMENT_REMOVE_TAG = By.xpath("//img[@alt='RemoveTag']");
 	public static By ELEMENT_CLOSE_EDIT_PUBLIC_TAG_FORM = By.xpath("//a[@title='Close Window']");
 	public static String MESSAGE_WARNING_AFTER_DELETE_TAG = "Are you sure to delete this tag?";
+	//public static By ELEMENT_TAG_CLOUD = By.xpath("//div[@title='Tag Cloud']");
+	//public static By ELEMENT_EDIT_PUBLIC_TAGS = By.xpath("//div[@title='Edit Public Tags']");
+	public static By ELEMENT_EDIT_TAGS_FORM = By.xpath("//span[contains(text(),'Edit Tag')]");
+	public static final By ELEMENT_MANAGE_TAGS = By.linkText("Manage Tags");
+	public static final By ELEMENT_TAG_PERMISSION = By.xpath("//div[contains(text(),'Tag Permission Manager')]");
 
 	//Tag Manager Form
 	public static By ELEMENT_ADD_TAGS_BUTTON = By.xpath("//a[contains(text(),'Add Tags')]");
@@ -128,11 +133,41 @@ public class SiteExplorer extends EcmsBase {
 		click(ELEMENT_CLOSE_EDIT_PUBLIC_TAG_FORM);
 		waitForTextNotPresent(name);
 	}
+	
+	/**
+	 * Remove permission 
+	 * @param groupPath Group string separate by slash
+	 * @param membership Memembership 
+	 */
+	public static void removeTagPermission(String groupPath,String membership) {
+		String str = membership + ":/" + groupPath;
+		By locator = By.xpath("//div[@class='Text' and contains(text(),'" + str + "')]/ancestor::tr//img[@class='DeleteIcon']");
+		By permission = By.xpath("//div[@class='Text' and contains(text(),'" + str + "')]");
+		click(locator);
+		waitForConfirmation("Are you sure to delete this permission?");
+		waitForElementNotPresent(permission);
+	}
+
+	public static void editPublicTag(){
+		goToSiteExplorer();     
+		waitForElementPresent(ELEMENT_TAG_CLOUD);
+		click(ELEMENT_TAG_CLOUD);
+		waitForElementPresent(ELEMENT_EDIT_PUBLIC_TAG);
+		click(ELEMENT_EDIT_PUBLIC_TAG);
+		waitForElementPresent(ELEMENT_EDIT_TAGS_FORM);
+	}
 
 	//go to advanced search in content explorer
 	public static void goToAdvancedSearch(){
 		click(ELEMENT_SAVED_SEARCH_ICON);
 		click(ELEMENT_ADVANCED_SEARCH_ICON);
 		click(ELEMENT_ADVANCED_SEARCH_TAB);
+	}
+	
+	//Go to Tag Permission Screen
+	public static void gotoTagPermission(){
+		goToContentAdministration();
+		click(ELEMENT_MANAGE_TAGS);
+		click(ELEMENT_TAG_PERMISSION);
 	}
 }

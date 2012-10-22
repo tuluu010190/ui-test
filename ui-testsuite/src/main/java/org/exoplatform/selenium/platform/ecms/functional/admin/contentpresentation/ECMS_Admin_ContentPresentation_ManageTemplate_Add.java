@@ -57,7 +57,7 @@ public class ECMS_Admin_ContentPresentation_ManageTemplate_Add extends EcmsBase 
    * 
    */
   @Test 
-  public void test01_AddNewTempate() throws Exception{
+  public void test01_AddNewTempate(){
     //Open Manage Template screen
     WcmAdmin.openManageTemplateForm();
     //Open Add New Template Form

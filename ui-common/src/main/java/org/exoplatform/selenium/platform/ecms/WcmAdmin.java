@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.UserGroupManagement.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 public class WcmAdmin extends EcmsBase {
@@ -20,7 +21,7 @@ public class WcmAdmin extends EcmsBase {
 	public static final By ELEMENT_SYMLINK_CHECKBOX = By.id("addSymLink");
 	public static final By ELEMENT_BACK_BUTTON = By.linkText("Back");
 	public static final By ELEMENT_MANAGE_DRIVER_LINK = By.linkText("Manage Drives");
-	
+
 	//Content type
 	public static final By ELEMENT_CONTENT_TYPES = By.xpath("//div[contains(text(),'Content Types')]");
 	public static final By ELEMENT_MANAGE_NODETYPE = By.linkText("Manage Node Type");
@@ -28,6 +29,7 @@ public class WcmAdmin extends EcmsBase {
 	public static final By ELEMENT_NODETYPE_SEARCH = By.xpath("//a[@title = 'Search']");
 
 	//-Add Category tree Form - Screen1
+	public static final By ELEMENT_ADD_CATEGORY_TREE_BUTTON = By.linkText("Add Category Tree");
 	public static final By ELEMENT_CATEGORIES_TREE_NAME = By.id("TaxoTreeName");
 	public static final By ELEMENT_CATEGORIES_WORKSPACE = By.id("TaxoTreeWorkspace");
 	public static final By ELEMENT_ADD_PATH_LINK = By.xpath("//img[@title='Add Path']");
@@ -43,14 +45,30 @@ public class WcmAdmin extends EcmsBase {
 	public static final By ELEMENT_UP_LEVEL = By.xpath("//*[@id='UITaxonomyTreeCreateChild']//..//a[@title='Up Level']");
 	public static final By ELEMENT_ALERT_VISIBLE = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator' and contains(@style,'visible')]");	
 
-	public static final By ELEMENT_ADD_CATEGORY_BUTTON = By.linkText("Add Category Tree");
+	public static final String ELEMENT_COPY_CATEGORY_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Copy']";
+	public static final String ELEMENT_PASTE_TO_CATEGORY_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Paste']";
+	public static final String ELEMENT_CUT_CATEGORY_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Cut']";
+	public static final String MESSAGE_INFO_CUT_TO_CATEGORY =  "You cannot paste here. The category node '${pathCategory}' might be being cut.";
+	public static final String MESSAGE_INFO_PASTE_TO_CATEGORY = "Cannot read from the source file, or the destination category is a sub-category.";
+	
+	//Permission management screen
+	public static final String MEESAGE_INFO_DELETE_PERMISSION_SYSTEM = "You cannot remove the owner or the system user.";
+	public static final String ELEMENT_PERMISSION_MANAGEMENT_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Permission Management']";
+	public static final By ELEMENT_READ_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='read']");
+	public static final By ELEMENT_ADDNODE_CHECKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='add_node']");
+	public static final By ELEMENT_SET_PRO_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='set_property']");
+	public static final By ELEMENT_REMOVE_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='remove']");
+	public static final By ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select User']");
+	public static final By ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Membership']");
+	public static final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Everyone']");
+	public static final By ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[contains(text(),'Save')]");
 
 	/*Manage Drive Page */
 	//add drive
 	public static final By ELEMENT_ADD_DRIVER_BUTTON = By.linkText("Add Drive"); 
 	//edit drive
 	public static final By ELEMENT_DRIVER_EDIT_POPUP = By.id("EditDriveManagerPopup");
-	
+
 	//Add Driver form 
 	public static final By ELEMENT_ADD_DRIVER_POPUP = By.id("AddDriveManagerPopup");
 	public static final By ELEMENT_APPLY_VIEW_TAB = By.xpath("//div[contains(text(),'Apply Views')]");
@@ -64,8 +82,8 @@ public class WcmAdmin extends EcmsBase {
 	public static final By ELEMENT_PERMISSION_TEXTBOX = By.id("permissions");
 	public static final By ELEMENT_ALLOW_CREATE_FOLDER = By.id("allowCreateFolders");
 	public static final By ELEMENT_DRIVER_NAME = By.id("name");
-	
-	
+
+
 	/* Manage View Page */
 	public static By ELEMENT_ICON_VIEW_WCM_EDIT= By.xpath("//div[@title='WCM View']/../..//*[@class='EditInfoIcon']");
 	//public static By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
@@ -84,8 +102,8 @@ public class WcmAdmin extends EcmsBase {
 	public static By ELEMENT_VERSION_OPTION = By.id("version"); 
 	public static By ELEMENT_ECM_TEMPLATE_FORM = By.xpath("span[@class='PopupTitle' and text()='Add ECM Template']");
 	public static By ELEMENT_ADDVIEW_FORM = By.xpath("span[@class='PopupTitle' and text()='Add New']");
-	  
-	
+
+
 	//-------SEO Management Form--------------------
 	public static By ELEMENT_SEO_FORM = By.id("UISEOPopupWindow");
 	public static By ELEMENT_DESCRIPTION_TEXTAREA = By.id("description");
@@ -95,7 +113,7 @@ public class WcmAdmin extends EcmsBase {
 	public static By ELEMENT_SITE_MAP_CHECKBOX = By.id("sitemap");
 	public static By ELEMENT_FREQUENCY_COMBOX = By.id("frequency");
 	public static By ELEMENT_PRIORITY = By.id("priority");
-	
+
 	//Manage Template    
 	public static By ELEMENT_MANAGE_TEMPLATE = By.linkText("Manage Templates");
 	public static By ELEMENT_TEMPLATE_LABEL = By.id("label");
@@ -105,20 +123,14 @@ public class WcmAdmin extends EcmsBase {
 	public static By ELEMENT_DIALOG_TAB = By.xpath("//div[@class='MiddleTab' and text()='Dialog']");
 	public static By ELEMENT_VIEW_TAB = By.xpath("//div[@class='MiddleTab' and text()='View']");
 	public static By ELEMENT_CSS_TAB = By.xpath("//div[@class='MiddleTab' and text()='CSS']");
+	public static By ELEMENT_TEMPLATE_FORM = By.xpath("//span[contains(text(),'Template Form')]");
 
-	//----- Manage Tags form  
-	public static final By ELEMENT_MANAGE_TAGS = By.linkText("Manage Tags");
-	public static final By ELEMENT_TAG_PERMISSION = By.xpath("//div[contains(text(),'Tag Permission Manager')]");
-	public static final By ELEMENT_SELECT_MEMBERSHIP = By.xpath("//img[@alt='Select Membership']");
-	public static final By ELEMENT_SELECT_USERGROUP = By.id("SelectUserOrGroup");
-	public static final By ELEMENT_SELECT_MEMBERSHIP_TYPE = By.linkText("platform");
-	public static final By ELEMENT_SELECT_MEMBERSHIP_WEB_CONTRIBUTORS = By.linkText("web-contributors");
+	public static By ELEMENT_SELECT_MEMBERSHIP = By.xpath("//img[@alt='Select Membership']");
+	public static By ELEMENT_SELECT_USERGROUP = By.id("SelectUserOrGroup");
+	public static By ELEMENT_SELECT_MEMBERSHIP_TYPE = By.linkText("platform");
+	//public static final By ELEMENT_SELECT_MEMBERSHIP_WEB_CONTRIBUTORS = By.linkText("web-contributors");
 
-	public static final By ELEMENT_TAG_CLOUD = By.xpath("//div[@title='Tag Cloud']");
-	public static final By ELEMENT_EDIT_PUBLIC_TAGS = By.xpath("//div[@title='Edit Public Tags']");
-	public static final By ELEMENT_EDIT_TAGS_FORM = By.xpath("//span[contains(text(),'Edit Tag')]");
-	public static final By ELEMENT_TEMPLATE_FORM = By.xpath("//span[contains(text(),'Template Form')]");
-	
+
 	//Setup to show [Add symlink] in action bar
 	//set Add symlink view in action bar
 	public static void setViewSymlink(){
@@ -234,32 +246,73 @@ public class WcmAdmin extends EcmsBase {
 		click(By.xpath("//div[contains(text(),'" + temp[temp.length - 1] + "')]/../../td/a[@title='select']"));
 	}
 
+	//////
+	/*-- Update common functions for Manage ECM Main Functions
+	 *-- Manage categories 
+	 *-- The category management includes adding, editing and deleting a category tree
+	 *-- @author: VuNA
+	 *-- @date: 15/10/2012
+	 *--*/	
+
 	//add new category tree: step 1 - Specify the category name, workspace and home path.
-	public static void addNewCategoryTree_Step1(String name, String workspace, String homePath){
-		type(ELEMENT_CATEGORIES_TREE_NAME,name, false);
+	public static void addNewCategoryTree_Step1(String categoryTreeName, String workspace, String homePath){
+		info("-- Adding a workspace/homepath to: " + categoryTreeName + " --");
+		type(ELEMENT_CATEGORIES_TREE_NAME, categoryTreeName, false);
 		select(ELEMENT_CATEGORIES_WORKSPACE, workspace);
 		click(ELEMENT_ADD_PATH_LINK);
 		waitForElementPresent(ELEMENT_POPUP_HOME_PATH);
 		selectHomePath(homePath);
+		waitForTextNotPresent("Select Home Path");
 	}
 
 	//add new category tree: step 2 - Set permission for the category tree.
-	public static void addNewCategoryTree_Step2(String user_Per, boolean read, boolean add, boolean set, boolean remove){
-		selectUser(user_Per);
+	public static void addNewCategoryTree_Step2(boolean selectUserOrGroup, boolean selectMembership, String groupID, String membership, 
+			String user_Per, boolean read, boolean add, boolean set, boolean remove){
+		info("-- Add permissions to the category tree --");
+		if (!selectUserOrGroup && !selectMembership){
+			click(By.xpath("//img[@title='Select Everyone']"));
+		}
+		else{
+			if(selectUserOrGroup){
+				selectUser(user_Per);
+			}
+			if(selectMembership){
+				click(By.xpath("//img[@title='Select Membership']"));
+				selectGroup(groupID);
+				click(By.linkText(membership));
+			}
+		}
+		pause(500);
 		setPermissionOfNode(read,add,set,remove);
 		click(ELEMENT_SAVE_BUTTON);
-		waitForElementPresent(By.xpath("//div[@title='" + user_Per + "']"));
+		if (!selectUserOrGroup && !selectMembership){
+			waitForElementPresent(By.xpath("//div[@title='any']"));
+		}
+		else if (selectUserOrGroup){
+			waitForElementPresent(By.xpath("//div[@title='"+ user_Per +"']"));
+		}
+		else if (selectMembership){
+			waitForElementPresent(By.xpath("//div[@title='"+ membership +":/"+ groupID +"']"));
+		}
 		info("Add user permission for category is successfull");
 	}
 
 	//add new category tree: step 3 - Add an action to the category tree to complete the creation or update
-	public static void addNewCategoryTree_Step3(String actionName){
-		select(ELEMENT_ACTION_TYPE, "exo:taxonomyAction");
-		type(ELEMENT_ACTION_NAME,actionName,false);
-		select(ELEMENT_LIFE_CYCLE, "User Action");
+	public static void addNewCategoryTree_Step3(String actionName, String optionsLifeCycle, String nodeTargetPath){
+		info("-- Add an action to the category tree --");
+		String ELEMENT_LIFE_CYCLE_LIST_OPTIONS = ".//*[@id='lifecycle']/option[contains(text(), '${option}')]";  
+		type(ELEMENT_ACTION_NAME,actionName,false);		
+		String[] optionsLC = optionsLifeCycle.split("/");
+		select(ELEMENT_LIFE_CYCLE, optionsLC[0]);
+		actions.keyDown(Keys.CONTROL);
+		for (int i = 1; i < optionsLC.length; i++) {
+			click(ELEMENT_LIFE_CYCLE_LIST_OPTIONS.replace("${option}", optionsLC[i]));
+		}
+		pause(500);	
 		click(ELEMENT_SELECT_PATH_ICON);
-		click(By.xpath("//div[contains(text(),'jcr:system')]/../../td/a[@title='select']"));
+		selectHomePath(nodeTargetPath);
 		click(ELEMENT_SAVE_BUTTON);
+		pause(500);
 	}
 
 	//add new category tree: step 4 - Edit the taxonomy tree by adding, copying, cutting and selecting permissions.
@@ -283,31 +336,33 @@ public class WcmAdmin extends EcmsBase {
 		deleteCategory(childname2);
 	}
 
-
 	//function add new category tree
-	public static void addNewCategoryTree(String name,String workspace, String homePath, String user_Per, boolean read, boolean add, boolean set, boolean remove, String actionName, String childname1, String childname2 ){
-		By ELEMENT_CATEGORY_TREE = By.xpath("//div[@title='" + name + "']");
+	public static void addNewCategoryTree(String[] nameWorkspaceHomePath, boolean selectUserOrGroup, boolean selectMembership, String[] groupIDAndMembership, 
+			String user_Per, boolean read, boolean add, boolean set, boolean remove, String[] actions){
+		By ELEMENT_CATEGORY_TREE = By.xpath("//div[@title='" + nameWorkspaceHomePath[0] + "']");
 
-		info("Add new category tree with name: " + name);
+		info("Add new category tree with name: " + nameWorkspaceHomePath[0]);
 		click(ELEMENT_MANAGE_CATEGORIES_LINK);
-		click(ELEMENT_ADD_CATEGORY_BUTTON);
+		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
 
 		//Step 1: Specify the category name, workspace and home path. 
 		info("Add new category tree - step 1: Specify the category name, workspace and home path.");
-		addNewCategoryTree_Step1(name, workspace, homePath);
+		addNewCategoryTree_Step1(nameWorkspaceHomePath[0], nameWorkspaceHomePath[1], nameWorkspaceHomePath[2]);
 		click(ELEMENT_NEXT_BUTTON);
 
 		//step 2: Set permission for the category tree.
 		info("Add new category tree - step 2: Set permission for the category tree.");
-		addNewCategoryTree_Step2(user_Per,read,add,set,remove);
+		addNewCategoryTree_Step2(selectUserOrGroup, selectMembership, groupIDAndMembership[0], groupIDAndMembership[1], 
+				user_Per, read, add, set, remove);
 		click(ELEMENT_NEXT_BUTTON);
 
 		//step 3: Add an action to the category tree to complete the creation or update
 		info("Add new category tree - step 3: Add an action to the category tree to complete the creation or update");
-		addNewCategoryTree_Step3(actionName);
+		//actions[0]: actionName, actions[1]: optionsLifeCycle, actions[2]: nodeTargetPath
+		addNewCategoryTree_Step3(actions[0], actions[1], actions[2]);
 
 		//step 4: Edit the taxonomy tree by adding, copying, cutting and selecting permissions.
-		info("Add new category tree - step 4: Edit the taxonomy tree by adding, copying, cutting and selecting permissions");
+		//info("Add new category tree - step 4: Edit the taxonomy tree by adding, copying, cutting and selecting permissions");
 		//addNewCategoryTree_Step4(name, childname1, childname2);
 		click(ELEMENT_CLOSE_BUTTON);
 
@@ -316,6 +371,79 @@ public class WcmAdmin extends EcmsBase {
 		assert isElementPresent(ELEMENT_CATEGORY_TREE):"Add new category tree is not successful";
 		info("Add new category is successful");
 	}
+
+	//function set permission for user on manage category screen
+	public static void setPermissionForUserOnManageCategory(boolean selectUser, String user, boolean selectMembership, String groupID, String membership,
+			boolean read, boolean add, boolean set, boolean remove){
+		info("Set permission for category with user " + user);
+		if (!selectUser && !selectMembership){
+			click(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT);
+		}
+		else if (selectUser){
+			click(ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT);
+			if (isTextPresent("Add permissions to this node")){
+				click(By.xpath("//div[@title='" + user + "']/../../td/div/img[@class='SelectPageIcon']"));
+			}
+			else if (isTextPresent("Add permission to that node")){
+				click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//div[@title='" + user + "']/../../td/div/img[@class='SelectPageIcon']"));
+			}
+		}
+		else if (selectMembership){
+			click(ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT);
+			selectGroup(groupID);
+			click(By.linkText(membership));
+		}
+		pause(500);
+		info("Set read permission for user");
+		if (read){
+			click(ELEMENT_READ_CHEKBOX);
+		}
+		if (add){
+			click(ELEMENT_ADDNODE_CHECKBOX);
+		}
+		if (set){
+			click(ELEMENT_SET_PRO_CHEKBOX);
+		}
+		if (remove){
+			click(ELEMENT_REMOVE_CHEKBOX);
+		}
+		if (read || add || set || remove){
+			click(ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT);
+		}else{
+			info("Input permission is wrong");
+		}
+	}
+
+	//Edit a permission for user or group
+	public static void editPermissionUserOrGroup(String userOrGroupName, boolean read, boolean add, boolean set, boolean remove){
+		info("-- Edit a permission for user/group: "+ userOrGroupName +" --");
+		By ELEMENT_EDIT_USER_PERMISSION = By.xpath("//div[@title='"+ userOrGroupName +"']/../../td/div/img[@class='EditIcon']");
+		By ELEMENT_EDIT_USER_PERMISSION_AUX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//div[@title='"+ userOrGroupName +"']/../../td/div/img[@class='EditIcon']");		
+		waitForTextPresent("Permission Management");
+		if (isTextPresent("Add permissions to this node")){
+			click(ELEMENT_EDIT_USER_PERMISSION);
+		}else if (isTextPresent("Add permission to that node")){
+			click(ELEMENT_EDIT_USER_PERMISSION_AUX);
+		}
+		pause(500);
+		if (read){
+			click(ELEMENT_READ_CHEKBOX);
+		}
+		if (add){
+			click(ELEMENT_ADDNODE_CHECKBOX);
+		}
+		if (set){
+			click(ELEMENT_SET_PRO_CHEKBOX);
+		}
+		if (remove){
+			click(ELEMENT_REMOVE_CHEKBOX);
+		}
+		if (read || add || set || remove){
+			click(ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT);
+		}
+	}
+	/// End of Manage categories
+
 	/*
 	 * Add function icon to the Publication tab on action bar
 	 * locator: locator of checkbox icon of function on the edit View form
@@ -327,335 +455,296 @@ public class WcmAdmin extends EcmsBase {
 		click(ELEMENT_ICON_VIEW_WCM_EDIT);
 		click(ELEMENT_LINK_TAB_PUBLICATION);
 		if (!waitForAndGetElement(locator).isSelected())
-		click(locator);
+			click(locator);
 		click(ELEMENT_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_BUTTON_BACK);
 		click(ELEMENT_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
 	}
 
-	  //------------manage driver------------------
-	  //function go to Manage Driver from main screen
-	  public static void goToManageDriver(){
-		  info("Go to manage driver form");
-		  goToContentAdministration();
-		  click(ELEMENT_CONTENT_PRESENT);
-		  click(ELEMENT_MANAGE_DRIVER_LINK);
-	  }
-	  
-	  //function add new driver in manage driver form
-	  public static void addNewDriver(String driverName, String workspace, String path, String group, String member, String permission, String view ){
-		  By ELEMENT_EXO_ECM = By.xpath("//div[contains(text(),'" + path + "')]/../../td/a[@title='select']/div");
-		  By ELEMENT_DRIVER = By.xpath("//div[@title='" + driverName + "']");
+	//------------manage driver------------------
+	//function go to Manage Driver from main screen
+	public static void goToManageDriver(){
+		info("Go to manage driver form");
+		goToContentAdministration();
+		click(ELEMENT_CONTENT_PRESENT);
+		click(ELEMENT_MANAGE_DRIVER_LINK);
+	}
 
-		  
-		  click(ELEMENT_ADD_DRIVER_BUTTON);
-		  
-		  //check add driver form
-		  info("Add new driver with name " + driverName);
-		  waitForElementPresent(ELEMENT_ADD_DRIVER_POPUP);
-		  assert isElementPresent(ELEMENT_DRIVER_TAB):"Add driver form is wrong";
-		  assert isElementPresent(ELEMENT_APPLY_VIEW_TAB):"Add driver form is wrong";
-		  
-		  //input name
-		  type(ELEMENT_DRIVER_NAME,driverName,false);
-		  
-		  // Select workspace for new drive
-		  select(ELEMENT_WORKSPACE, workspace);
-		  
-		  //select path for new drive
-		  click(ELEMENT_ADD_PATH);
-		  waitForElementPresent(ELEMENT_ADD_PATH_POPUP);
-		  assert waitForAndGetElement(By.xpath("//select[@id='workspaceName']/option[@value='" + workspace + "']")).isSelected():"Homepath display wrong";
-		  if (waitForAndGetElement(ELEMENT_EXO_ECM) != null){
-			  click(ELEMENT_EXO_ECM);
-		  }else{
-			  info("list node of homepath display false");
-		  }
-		  assert getValue(ELEMENT_HOME_PATH).equals("/" + path + ""):"select homepath is false";
-		  
-		  //Set permission on new drive
-		  info("Set Permission for driver");
-		  click(ELEMENT_ADD_PERMISSION);
-		  selectGroup(group);	
-		  click(By.linkText(member));
-		  assert getValue(ELEMENT_PERMISSION_TEXTBOX).contains(permission):"Set permission is not true";
-		  
-		  //Select Allow Folder Creation
-		  select(ELEMENT_ALLOW_CREATE_FOLDER, "Folder");
-		  
-		  //Choose applied view
-		  click(ELEMENT_APPLY_VIEW_TAB);
-		  selectCheckboxList(view);
-		  
-		  //Complete add new drive
-		  click(ELEMENT_SAVE_BUTTON);
-		  select(By.xpath("//select[contains(@id,'maxPageSize')]"),"20");
-		  waitForElementPresent(ELEMENT_DRIVER);
-		  assert isElementPresent(ELEMENT_DRIVER):"Add new driver is unsuccessful";
-		  info("Create new driver is successful");
-	  }
-	  
-	  //function select checkbox list using id of checkbox
-	  public static void selectCheckboxList(String viewList){
-		  String[] temp = viewList.split("/");
-		  if (temp.length != 0){
-			  for (int i=0; i < temp.length ; i++ ){
-				  if (waitForAndGetElement(By.id(temp[i])) != null){
-					  if(waitForAndGetElement(By.id(temp[i])).isSelected() == false){
-						  click(By.id(temp[i]));
-						  info("Select checkbox with id " + temp[i]);
-					  }
-				  }else{
-					  info("Can not found checkbox with id " + temp[i]);
-				  }
-			  }
-		  }else{
-			  info("Input checkbox list wrong");
-		  }
-	  }
-  
-	  //-----------SEO management------------------------------------
-		/* function input data on SEO management Form
-		 * @des: data input to description
-		 * @key: data input to keyword
-		 * @index: option of checkbox robot index
-		 * @follow: option of checkbox robot follow
-		 * @sitemap: = true: tick, = false: no tick
-		 * @fre: option of checkbox frequency
-		 * @pri: data input to priority
-		 */
-		public static void inputDataSeo(String des, String key, String index, String follow, boolean sitemap, String fre, String pri){
-			
-			waitForElementPresent(ELEMENT_SEO_FORM);
-			waitForAndGetElement(ELEMENT_DESCRIPTION_TEXTAREA).clear();
-			waitForAndGetElement(ELEMENT_KEYWORD_TEXTAREA).clear();
-			waitForAndGetElement(ELEMENT_PRIORITY).clear();
-			type(ELEMENT_KEYWORD_TEXTAREA, key, true);
-			info("Input data on SEO management");
-			if (des != ""){
-				type(ELEMENT_DESCRIPTION_TEXTAREA, des, true);
-			}
-			if (key != ""){
-				type(ELEMENT_KEYWORD_TEXTAREA, key, true);
-			}
-			select(ELEMENT_ROBOT_INDEX_COMBOX, index);
-			select(ELEMENT_ROBOT_FOLLOW_COMBOX, follow);
-			if ((sitemap && waitForAndGetElement(ELEMENT_SITE_MAP_CHECKBOX).isSelected() == false) || (sitemap == false && waitForAndGetElement(ELEMENT_SITE_MAP_CHECKBOX).isSelected())){
-				click(ELEMENT_SITE_MAP_CHECKBOX);
-			}
-			select(ELEMENT_FREQUENCY_COMBOX, fre);
-			if (pri != ""){
-				type(ELEMENT_PRIORITY, pri, true);
-			}
-			click(ELEMENT_SAVE_BUTTON);
-			info("finish input data on SEO management");
+	//function add new driver in manage driver form
+	public static void addNewDriver(String driverName, String workspace, String path, String group, String member, String permission, String view ){
+		By ELEMENT_EXO_ECM = By.xpath("//div[contains(text(),'" + path + "')]/../../td/a[@title='select']/div");
+		By ELEMENT_DRIVER = By.xpath("//div[@title='" + driverName + "']");
+
+
+		click(ELEMENT_ADD_DRIVER_BUTTON);
+
+		//check add driver form
+		info("Add new driver with name " + driverName);
+		waitForElementPresent(ELEMENT_ADD_DRIVER_POPUP);
+		assert isElementPresent(ELEMENT_DRIVER_TAB):"Add driver form is wrong";
+		assert isElementPresent(ELEMENT_APPLY_VIEW_TAB):"Add driver form is wrong";
+
+		//input name
+		type(ELEMENT_DRIVER_NAME,driverName,false);
+
+		// Select workspace for new drive
+		select(ELEMENT_WORKSPACE, workspace);
+
+		//select path for new drive
+		click(ELEMENT_ADD_PATH);
+		waitForElementPresent(ELEMENT_ADD_PATH_POPUP);
+		assert waitForAndGetElement(By.xpath("//select[@id='workspaceName']/option[@value='" + workspace + "']")).isSelected():"Homepath display wrong";
+		if (waitForAndGetElement(ELEMENT_EXO_ECM) != null){
+			click(ELEMENT_EXO_ECM);
+		}else{
+			info("list node of homepath display false");
 		}
-		
-	  /**
-     * 
-     * @param anchor: Button's label to open form
-     * @param formTitle: Form's title
-     */
-    public static void openForm(String anchor, String formTitle){
-      click(By.linkText(anchor));     
-      waitForElementPresent(By.xpath("//span[@class='PopupTitle' and text()='" + formTitle + "']"));
-    }
-      
-    /**
-     * Select Membership
-     * @param groupPath: Group string is separate by slash, for example platform/web-contributors
-     * @param membership: Membership 
-     * @param anchor: link icon to open select memebership form
-     */
-    public static void selectMembership(String groupPath, String membership, String anchor) throws Exception{
-      click(By.xpath("//img[@title='" + anchor + "']"));
-      selectGroup(groupPath);
-      click(By.linkText(membership));
-    }
+		assert getValue(ELEMENT_HOME_PATH).equals("/" + path + ""):"select homepath is false";
 
-	  /**
-	   * Open Manage Template Screen
-	   */
-	  public static void openManageTemplateForm(){	    
-	    goToContentAdministration();
-	    click(ELEMENT_CONTENT_PRESENT);
-	    click(ELEMENT_MANAGE_TEMPLATE);
-	    waitForElementPresent(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
-	  }	 
-	  
-	  /**
-	   * Open Add New Template Form
-	   */
-	  public static void openAddNewTemplateForm() {
-	    openForm("Add","Template Form");	    
-	  }
-	  /**
-	   * Fill data to Add New Template Form
-	   * @param label: Template's label
-	   * @param groupId: Group string is separate by slash, for example platform/web-contributors
-	   * @param membership: Membership
-	   * @throws Exception
-	   */
-	 
-	  public static void fillAddNewTemplateForm(String templateLabel, String templateName, String groupPath, String membership) throws Exception{   
-      type(ELEMENT_TEMPLATE_LABEL,templateLabel, false);
-      select(ELEMENT_TEMPLATE_NAME, templateName);
-      click(ELEMENT_IS_DOCUMENT_TEMPLATE);
-      selectMembership(groupPath,membership,"Add Permission");      
-      //Switch between tabs
-      click(ELEMENT_DIALOG_TAB);      
-      click(ELEMENT_VIEW_TAB);
-      click(ELEMENT_CSS_TAB);
-      save();
-      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));      
-    }
-	  
-	  public static void deleleTemplate(String templateName, String confirmMessage) throws Exception{
-      By locator = By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]/ancestor::tr//img[@class='DeleteIcon']");
-      click(locator);     
-      waitForConfirmation(confirmMessage);
-      waitForElementNotPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
-	  }
-	  
-    /**
-     * Go to Manage View Screen
-     */
-    public static void gotoManageViews(){
-      goToContentAdministration();
-      click(ELEMENT_CONTENT_PRESENT);
-      click(ELEMENT_MANAGEMENT_VIEW);
-      waitForElementPresent(By.xpath("//div[contains(text(),'Manage View')]"));
-    }
-    
-    public static void gotoEcmTemplates(){
-      //gotoManageViews();
-      click(ELEMENT_TAB_ECM_TEMPLATE);
-    }
-    /**
-     * 
-     * @param name : Template name
-     * @param template : Template view
-     * @throws Exception
-     */
-    public static void fillAddNewViewForm(String name, String template) throws Exception{
-      type(ELEMENT_TEMPLATE_VIEW_NAME, name, true);
-      selectMembership("Organization/Management/Human Resources", "*","Add Permission");
-      select(ELEMENT_TEMPLATE_VIEW, template);
-      addTab("Test Tab", "addCategory");
-      save();
-      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + name + "')]"));
-    }
-    
-    /**
-     * Add tab to view
-     * @param tabname : Tab name
-     * @param property : Tab Property
-     * @throws Exception
-     */
-    public static void addTab(String tabname, String property) throws Exception{
-      click(By.linkText("Add Tab"));
-      waitForTextPresent("Tab Form");
-      type(ELEMENT_TAB_NAME, tabname, true);
-      click(By.id(property));
-      save();
-      waitForTextNotPresent("Tab Form");
-    }
-    /**
-     * Delete a view
-     * @param viewName : View Name
-     * @param confirmMessage : Confirm Message
-     * @throws Exception
-     */
-    public static void deleteView(String viewName, String confirmMessage, boolean verify) throws Exception{
-      By locator = By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//img[@class='DeleteIcon']");
-      click(locator);     
-      waitForConfirmation(confirmMessage);
-      if(verify == true) waitForElementNotPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]"));      
-    }
-    /**
-     * Edit View 
-     * @param viewName : View Name
-     * @throws Exception
-     */
-    public static void editView(String viewName) throws Exception{
-      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]"));
-      By locator = By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//img[@class='EditInfoIcon']");
-      click(locator);
-      waitForElementPresent(ELEMENT_EDIT_VIEW_FORM);
-    }
-    /**
-     * Create version for a view
-     * @param viewName : View Name
-     * @param versionNumber : Number of version that you want to create. It require 2 version at least
-     * @throws Exception
-     */
-    public static void createVersion(String viewName, int versionNumber) throws Exception{
-      if(versionNumber < 2){
-        assert false : ("Number of versions is required 2 at least");
-      }
-      for(int i = 0; i < versionNumber ; i++) {
-        editView(viewName);
-        if(getElement(ELEMENT_ENABLE_VERSION).isEnabled()) check(ELEMENT_ENABLE_VERSION);          
-        save();
-        pause(500);
-      }
-    }
-    /**
-     * Restore a view to a certain version
-     * @param viewName : View Name
-     * @param orderVersion : Version that want to restore
-     * @throws Exception
-     */
-    public static void restoreVersion(String viewName, int orderVersion) throws Exception{
-      editView(viewName);
-      String order = "" + orderVersion;
-      select(ELEMENT_VERSION_OPTION, order);
-      click(By.linkText("Restore"));
-      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//div[@class='Text' and text()='" + orderVersion + "']"));
-    }
-    
-    /**
-     * Fill data to Add New ECM Template Form
-     * @param templateContent : Template Content
-     * @param templateName : Template Name
-     * @param templateType : Template Type
-     * @throws Exception
-     */
-    public static void fillEcmTemplateForm(String templateContent, String templateName, String templateType) throws Exception{
-      type(ELEMENT_ECM_TEMPLATE_CONTENT, templateContent, true);
-      type(ELEMENT_ECM_TEMPLATE_NAME, templateName, true);
-      select(ELEMENT_ECM_TEMPLATE_TYPE, templateType);
-      save();      
-      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
-    }
+		//Set permission on new drive
+		info("Set Permission for driver");
+		click(ELEMENT_ADD_PERMISSION);
+		selectGroup(group);	
+		click(By.linkText(member));
+		assert getValue(ELEMENT_PERMISSION_TEXTBOX).contains(permission):"Set permission is not true";
 
-  //Go to Tag Permission Screen
-  public static void gotoTagPermission(){
-    goToContentAdministration();
-    click(ELEMENT_MANAGE_TAGS);
-    click(ELEMENT_TAG_PERMISSION);
-  }
-  /**
-   * Remove permission 
-   * @param groupPath Group string separate by slash
-   * @param membership Memembership 
-   */
-  public static void removeTagPermission(String groupPath,String membership) {
-    String str = membership + ":/" + groupPath;
-    By locator = By.xpath("//div[@class='Text' and contains(text(),'" + str + "')]/ancestor::tr//img[@class='DeleteIcon']");
-    By permission = By.xpath("//div[@class='Text' and contains(text(),'" + str + "')]");
-    click(locator);
-    waitForConfirmation("Are you sure to delete this permission?");
-    waitForElementNotPresent(permission);
-  }
+		//Select Allow Folder Creation
+		select(ELEMENT_ALLOW_CREATE_FOLDER, "Folder");
 
-  public static void editPublicTag(){
-    goToSiteExplorer();     
-    waitForElementPresent(ELEMENT_TAG_CLOUD);
-    click(ELEMENT_TAG_CLOUD);
-    waitForElementPresent(ELEMENT_EDIT_PUBLIC_TAGS);
-    click(ELEMENT_EDIT_PUBLIC_TAGS);
-    waitForElementPresent(ELEMENT_EDIT_TAGS_FORM);
-  }
+		//Choose applied view
+		click(ELEMENT_APPLY_VIEW_TAB);
+		selectCheckboxList(view);
+
+		//Complete add new drive
+		click(ELEMENT_SAVE_BUTTON);
+		select(By.xpath("//select[contains(@id,'maxPageSize')]"),"20");
+		waitForElementPresent(ELEMENT_DRIVER);
+		assert isElementPresent(ELEMENT_DRIVER):"Add new driver is unsuccessful";
+		info("Create new driver is successful");
+	}
+
+	//function select checkbox list using id of checkbox
+	public static void selectCheckboxList(String viewList){
+		String[] temp = viewList.split("/");
+		if (temp.length != 0){
+			for (int i=0; i < temp.length ; i++ ){
+				if (waitForAndGetElement(By.id(temp[i])) != null){
+					if(waitForAndGetElement(By.id(temp[i])).isSelected() == false){
+						click(By.id(temp[i]));
+						info("Select checkbox with id " + temp[i]);
+					}
+				}else{
+					info("Can not found checkbox with id " + temp[i]);
+				}
+			}
+		}else{
+			info("Input checkbox list wrong");
+		}
+	}
+
+	//-----------SEO management------------------------------------
+	/* function input data on SEO management Form
+	 * @des: data input to description
+	 * @key: data input to keyword
+	 * @index: option of checkbox robot index
+	 * @follow: option of checkbox robot follow
+	 * @sitemap: = true: tick, = false: no tick
+	 * @fre: option of checkbox frequency
+	 * @pri: data input to priority
+	 */
+	public static void inputDataSeo(String des, String key, String index, String follow, boolean sitemap, String fre, String pri){
+
+		waitForElementPresent(ELEMENT_SEO_FORM);
+		waitForAndGetElement(ELEMENT_DESCRIPTION_TEXTAREA).clear();
+		waitForAndGetElement(ELEMENT_KEYWORD_TEXTAREA).clear();
+		waitForAndGetElement(ELEMENT_PRIORITY).clear();
+		type(ELEMENT_KEYWORD_TEXTAREA, key, true);
+		info("Input data on SEO management");
+		if (des != ""){
+			type(ELEMENT_DESCRIPTION_TEXTAREA, des, true);
+		}
+		if (key != ""){
+			type(ELEMENT_KEYWORD_TEXTAREA, key, true);
+		}
+		select(ELEMENT_ROBOT_INDEX_COMBOX, index);
+		select(ELEMENT_ROBOT_FOLLOW_COMBOX, follow);
+		if ((sitemap && waitForAndGetElement(ELEMENT_SITE_MAP_CHECKBOX).isSelected() == false) || (sitemap == false && waitForAndGetElement(ELEMENT_SITE_MAP_CHECKBOX).isSelected())){
+			click(ELEMENT_SITE_MAP_CHECKBOX);
+		}
+		select(ELEMENT_FREQUENCY_COMBOX, fre);
+		if (pri != ""){
+			type(ELEMENT_PRIORITY, pri, true);
+		}
+		click(ELEMENT_SAVE_BUTTON);
+		info("finish input data on SEO management");
+	}
+
+	/**
+	 * Select Membership
+	 * @param groupPath: Group string is separate by slash, for example platform/web-contributors
+	 * @param membership: Membership 
+	 * @param anchor: link icon to open select memebership form
+	 */
+	public static void selectMembership(String groupPath, String membership, String anchor){
+		click(By.xpath("//img[@title='" + anchor + "']"));
+		selectGroup(groupPath);
+		click(By.linkText(membership));
+	}
+
+	/**
+	 * Open Manage Template Screen
+	 */
+	public static void openManageTemplateForm(){	    
+		goToContentAdministration();
+		click(ELEMENT_CONTENT_PRESENT);
+		click(ELEMENT_MANAGE_TEMPLATE);
+		waitForElementPresent(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
+	}	 
+
+	/**
+	 * Open Add New Template Form
+	 */
+	public static void openAddNewTemplateForm() {
+		openForm("Add","Template Form");	    
+	}
+	/**
+	 * Fill data to Add New Template Form
+	 * @param label: Template's label
+	 * @param groupId: Group string is separate by slash, for example platform/web-contributors
+	 * @param membership: Membership
+	 * @throws Exception
+	 */
+
+	public static void fillAddNewTemplateForm(String templateLabel, String templateName, String groupPath, String membership) {   
+		type(ELEMENT_TEMPLATE_LABEL,templateLabel, false);
+		select(ELEMENT_TEMPLATE_NAME, templateName);
+		click(ELEMENT_IS_DOCUMENT_TEMPLATE);
+		selectMembership(groupPath,membership,"Add Permission");      
+		//Switch between tabs
+		click(ELEMENT_DIALOG_TAB);      
+		click(ELEMENT_VIEW_TAB);
+		click(ELEMENT_CSS_TAB);
+		save();
+		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));      
+	}
+
+	public static void deleleTemplate(String templateName, String confirmMessage){
+		By locator = By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]/ancestor::tr//img[@class='DeleteIcon']");
+		click(locator);     
+		waitForConfirmation(confirmMessage);
+		waitForElementNotPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
+	}
+
+	/**
+	 * Go to Manage View Screen
+	 */
+	public static void gotoManageViews(){
+		goToContentAdministration();
+		click(ELEMENT_CONTENT_PRESENT);
+		click(ELEMENT_MANAGEMENT_VIEW);
+		waitForElementPresent(By.xpath("//div[contains(text(),'Manage View')]"));
+	}
+
+	public static void gotoEcmTemplates(){
+		//gotoManageViews();
+		click(ELEMENT_TAB_ECM_TEMPLATE);
+	}
+	/**
+	 * 
+	 * @param name : Template name
+	 * @param template : Template view
+	 * @throws Exception
+	 */
+	public static void fillAddNewViewForm(String name, String template) {
+		type(ELEMENT_TEMPLATE_VIEW_NAME, name, true);
+		selectMembership("Organization/Management/Human Resources", "*","Add Permission");
+		select(ELEMENT_TEMPLATE_VIEW, template);
+		addTab("Test Tab", "addCategory");
+		save();
+		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + name + "')]"));
+	}
+
+	/**
+	 * Add tab to view
+	 * @param tabname : Tab name
+	 * @param property : Tab Property
+	 * @throws Exception
+	 */
+	public static void addTab(String tabname, String property){
+		click(By.linkText("Add Tab"));
+		waitForTextPresent("Tab Form");
+		type(ELEMENT_TAB_NAME, tabname, true);
+		click(By.id(property));
+		save();
+		waitForTextNotPresent("Tab Form");
+	}
+	/**
+	 * Delete a view
+	 * @param viewName : View Name
+	 * @param confirmMessage : Confirm Message
+	 * @throws Exception
+	 */
+	public static void deleteView(String viewName, String confirmMessage, boolean verify){
+		By locator = By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//img[@class='DeleteIcon']");
+		click(locator);     
+		waitForConfirmation(confirmMessage);
+		if(verify == true) waitForElementNotPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]"));      
+	}
+	/**
+	 * Edit View 
+	 * @param viewName : View Name
+	 * @throws Exception
+	 */
+	public static void editView(String viewName){
+		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]"));
+		By locator = By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//img[@class='EditInfoIcon']");
+		click(locator);
+		waitForElementPresent(ELEMENT_EDIT_VIEW_FORM);
+	}
+	/**
+	 * Create version for a view
+	 * @param viewName : View Name
+	 * @param versionNumber : Number of version that you want to create. It require 2 version at least
+	 * @throws Exception
+	 */
+	public static void createVersion(String viewName, int versionNumber){
+		if(versionNumber < 2){
+			assert false : ("Number of versions is required 2 at least");
+		}
+		for(int i = 0; i < versionNumber ; i++) {
+			editView(viewName);
+			if(getElement(ELEMENT_ENABLE_VERSION).isEnabled()) check(ELEMENT_ENABLE_VERSION);          
+			save();
+			pause(500);
+		}
+	}
+	/**
+	 * Restore a view to a certain version
+	 * @param viewName : View Name
+	 * @param orderVersion : Version that want to restore
+	 * @throws Exception
+	 */
+	public static void restoreVersion(String viewName, int orderVersion){
+		editView(viewName);
+		String order = "" + orderVersion;
+		select(ELEMENT_VERSION_OPTION, order);
+		click(By.linkText("Restore"));
+		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//div[@class='Text' and text()='" + orderVersion + "']"));
+	}
+
+	/**
+	 * Fill data to Add New ECM Template Form
+	 * @param templateContent : Template Content
+	 * @param templateName : Template Name
+	 * @param templateType : Template Type
+	 * @throws Exception
+	 */
+	public static void fillEcmTemplateForm(String templateContent, String templateName, String templateType){
+		type(ELEMENT_ECM_TEMPLATE_CONTENT, templateContent, true);
+		type(ELEMENT_ECM_TEMPLATE_NAME, templateName, true);
+		select(ELEMENT_ECM_TEMPLATE_TYPE, templateType);
+		save();      
+		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
+	}
 }
