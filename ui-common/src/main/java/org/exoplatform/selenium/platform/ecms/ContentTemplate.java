@@ -511,7 +511,7 @@ public class ContentTemplate extends EcmsBase {
 
 	public static void editUploadedFile(String name,String uploadFile, String title,String desc, String creator, String source)
 	{
-		goToEditDocument(name);
+		//goToEditDocument(name);
 		click(ELEMENT_UPLOAD_REMOVE);
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FRAME_EDIT));
 		type(ELEMENT_UPLOAD_ID, getAbsoluteFilePath(uploadFile), false);

@@ -607,6 +607,7 @@ public class ECMS_DMS_SE_BasicAction_Edit extends EcmsBase {
 		goToNode(bDocument);
 		
 		// edit a uploaded file
+		goToEditDocument(DATA_UPLOAD_TITLE_29 + ".png");
 		editUploadedFile(DATA_UPLOAD_TITLE_29 + ".png", DATA_UPLOAD_IMG_1, DATA_UPLOAD_TITLE_29_EDIT, DATA_UPLOAD_TITLE_29_EDIT, DATA_UPLOAD_TITLE_29_EDIT, DATA_UPLOAD_TITLE_29_EDIT);
 		deleteDocument(bDocument);
 	}

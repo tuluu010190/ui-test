@@ -197,6 +197,7 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_LINK_EDITOR_ADD_PAGE = "//a[text()='Add Page']";	
 	public static final String ELEMENT_INPUT_NODE_NAME = "//input[@id='pageName']";
 	public static final String ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE = "//input[@name='switchmode']";
+	public static final String ELEMENT_LINK_EDITOR_PAGE_LAYOUT="//a[@class='ItemIcon EditPageIcon' and text()='Layout']";
 
 	public static final String ELEMENT_SELECT_LANGUAGE = "//select[@name='languages']";
 	public static final String ELEMENT_INPUT_PAGE_DISPLAY_NAME = "//input[@id='pageDisplayName']";
@@ -205,6 +206,8 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_EDIT_PAGE_PAGE = "//div[@id='UIPage']";
 	public static final String PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
 	public static final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//a[@title='Finish']";
+	public static final By ELEMENT_PAGE_EDIT_FINISH = By.xpath("//a[@title='Finish']");
+	
 
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	public static final String ELEMENT_NODE_LINK = "//div[@id='UINavigationNodeSelector']//a[@title='${nodeLabel}']";
@@ -258,6 +261,11 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_ADVANCED_CONFIGURATION_TAB = By.xpath("//div[@class = 'TabLabel' and @title = 'Advanced Configuration']");
 	public static final By ELEMENT_MANAGE_LOCK_TAB = By.xpath("//div[@class = 'MiddleTab' and text() = 'Manage Lock']");
 	public static final By ELEMENT_MANAGE_LOCKS = By.linkText("Manage Locks");
+	
+	//Edit Inline a SCV
+	public static final By ELEMENT_PREFERENCE_TITLE=By.xpath("//span[contains(text(),'Content Detail Preferences')]");
+	public static final By ELEMENT_CONTAINER_CONTENT = By.xpath("//div[@class='NavigationContainer']");
+	public static final By ELEMENT_BUTTON_BACK = By.xpath("//a[@class='URLBackToButton']");
 
 	//Set view permissions for portal
 	public static void setViewPermissions(String groupId, String membership) {

@@ -1,7 +1,7 @@
 package org.exoplatform.selenium;
 
-import static org.exoplatform.selenium.TestLogger.debug;
-import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.TestLogger.*;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -26,6 +26,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.ErrorHandler.UnknownServerException;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
@@ -529,6 +530,9 @@ public class TestBase {
 			FileUtils.copyFile(scrFile, new File(path));
 		} catch (IOException e) {
 			path = "Failed to capture screenshot: " + e.getMessage();
+		}catch(UnknownServerException e)
+		{
+			error("Failed to capture screenshot");
 		}
 	}
 

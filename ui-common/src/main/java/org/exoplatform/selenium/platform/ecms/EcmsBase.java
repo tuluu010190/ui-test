@@ -81,7 +81,7 @@ public class EcmsBase extends PlatformBase {
 	//	public static final By ELEMENT_SELECT_CONTENT_PATH_CLOSE_BUTTON =By.linkText("Close") ;
 
 	public static final By ELEMENT_SELECT_CONTENT_PATH = By.xpath("//a[@title='offices.jpg']");
-	public static final By ELEMENT_SELECT_CLV_PATH = By.xpath("//a[@path='/sites content/live/acme/documents']");
+	//public static final By ELEMENT_SELECT_CLV_PATH = By.xpath("//a[@path='/sites content/live/acme/documents']");
 
 	//	public static final String ELEMENT_PREFERENCE_ADVANCE_LINK = "Advanced";
 

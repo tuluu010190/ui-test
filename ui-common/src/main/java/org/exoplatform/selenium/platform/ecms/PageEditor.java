@@ -1,4 +1,7 @@
 package org.exoplatform.selenium.platform.ecms;
+import static org.exoplatform.selenium.platform.UserGroupManagement.*;
+
+import org.openqa.selenium.By;
 
 public class PageEditor extends EcmsBase {
   	
@@ -46,23 +49,23 @@ public class PageEditor extends EcmsBase {
 	
 
 	//Create new page empty layout add contentdetail, choose ContentPath
-	public static void createPage_Empty_ContentDetail_ContentPath(String pageName){
+	public static void createPage_Empty_ContentDetail_ContentPath(String pageName, String contentPath){
 		gotoPageEditor_EmptyLayout(pageName);
 		pause(500);
 		addContentDetailEmptyLayout();
 		pause(500);
-		selectContentPath();
+		selectContentPath(contentPath);
 		pause(500);
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);			
 	}
 	
 	//Create new page has layout, add contentlist, choose clv path
-	public static void createPage_ContentList_CLVpath(String pageName){
+	public static void createPage_ContentList_CLVpath(String pageName, String path, String clv){
 		gotoPageEditor_Layout(pageName, 1);
 		pause(500);
 		addContentList();
 		pause(500);
-		selectCLVPath();
+		selectCLVPath(path, clv);
 		pause(500);
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 	}
@@ -91,29 +94,36 @@ public class PageEditor extends EcmsBase {
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_LIST_PORTLET,ELEMENT_DROP_TARGET_HAS_LAYOUT);		
 	}
 	
-	//Select "ContentPath" in Edit Mode
-	public static void selectContentPath(){
-		actions.moveToElement(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
+//	//Select "ContentPath" in Edit Mode
+//	public static void selectContentPath(){
+//		actions.moveToElement(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
+//		click(ELEMENT_EDIT_PORTLET_LINK);
+//		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
+//		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_LINK);
+//		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_MANAGED_LINK);
+//		click(ELEMENT_SELECT_CONTENT_PATH_ACME_LINK);
+//		click(ELEMENT_SELECT_CONTENT_PATH_ACME_DOC_LINK);
+//		click(ELEMENT_SELECT_CONTENT_PATH);
+//		click(ELEMENT_SAVE_BUTTON);
+//		click(ELEMENT_CLOSE_BUTTON);
+//	}
+	//Select "ContentPath" in edit portlet
+	public static void selectContentPath(String pathContent){
+		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET,true);	
 		click(ELEMENT_EDIT_PORTLET_LINK);
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_MANAGED_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_ACME_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_ACME_DOC_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH);
+		selectGroup(pathContent);
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 	}
-	
 	//Select "CLVPath" in Edit Mode
-	public static void selectCLVPath(){
-		actions.moveToElement(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
+	public static void selectCLVPath(String path, String clv){
+		By ELEMENT_SELECT_CLV_PATH = By.xpath("//td/a[text()='" + clv + "']");
+		
+		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
 		click(ELEMENT_EDIT_PORTLET_LINK);
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_MANAGED_LINK);
-		click(ELEMENT_SELECT_CONTENT_PATH_ACME_LINK);
-		pause(500);
+		selectGroup(path);
 		click(ELEMENT_SELECT_CLV_PATH);
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
