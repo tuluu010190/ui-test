@@ -1,12 +1,8 @@
 package org.exoplatform.selenium.platform.ecms;
 
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.UserGroupManagement.selectGroup;
-import static org.exoplatform.selenium.platform.ecms.ActionBar.selectUser;
-import static org.exoplatform.selenium.platform.ecms.ActionBar.setPermissionOfNode;
-
-import org.apache.commons.lang.RandomStringUtils;
-import org.exoplatform.selenium.platform.UserGroupManagement;
+import static org.exoplatform.selenium.platform.UserGroupManagement.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -72,12 +68,23 @@ public class WcmAdmin extends EcmsBase {
 	
 	/* Manage View Page */
 	public static By ELEMENT_ICON_VIEW_WCM_EDIT= By.xpath("//div[@title='WCM View']/../..//*[@class='EditInfoIcon']");
-	
-	//Edit View Form 
-	public static By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
+	//public static By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
 	public static By ELEMENT_CHECKBOX_VERSION=By.id("manageVersions");
 	public static By ELEMENT_BUTTON_BACK=By.linkText("Back");
-
+	public static By ELEMENT_ADDNEW_BUTTON = By.linkText("Add View");
+	public static By ELEMENT_TEMPLATE_VIEW_NAME = By.id("viewName");
+	public static By ELEMENT_TEMPLATE_VIEW = By.id("template");
+	public static By ELEMENT_TAB_NAME = By.id("tabName");
+	public static By ELEMENT_TAB_ECM_TEMPLATE = By.xpath("//div[@class='MiddleTab' and text()='ECM Templates']");
+	public static By ELEMENT_ECM_TEMPLATE_CONTENT = By.id("content");
+	public static By ELEMENT_ECM_TEMPLATE_NAME = By.id("name");
+	public static By ELEMENT_ECM_TEMPLATE_TYPE = By.id("homeTemplate");
+	public static By ELEMENT_ENABLE_VERSION = By.id("enableVersion");
+	public static By ELEMENT_EDIT_VIEW_FORM = By.xpath("//span[@class='PopupTitle' and text()='Edit View']");
+	public static By ELEMENT_VERSION_OPTION = By.id("version"); 
+	public static By ELEMENT_ECM_TEMPLATE_FORM = By.xpath("span[@class='PopupTitle' and text()='Add ECM Template']");
+	public static By ELEMENT_ADDVIEW_FORM = By.xpath("span[@class='PopupTitle' and text()='Add New']");
+	  
 	
 	//-------SEO Management Form--------------------
 	public static By ELEMENT_SEO_FORM = By.id("UISEOPopupWindow");
@@ -90,14 +97,14 @@ public class WcmAdmin extends EcmsBase {
 	public static By ELEMENT_PRIORITY = By.id("priority");
 	
 	//Manage Template    
-  public static final By ELEMENT_MANAGE_TEMPLATE = By.linkText("Manage Templates");
-  public static final By ELEMENT_TEMPLATE_LABEL = By.id("label");
-  public static final By ELEMENT_TEMPLATE_NAME = By.id("name");
-  public static final By ELEMENT_MANAGE_TEMPLATE_SCREEN = By.xpath("//div[contains(text(),'Manage Templates')]");
-  public static final By ELEMENT_IS_DOCUMENT_TEMPLATE = By.id("isDocumentTemplate");  
-  public static final By ELEMENT_DIALOG_TAB = By.xpath("//div[@class='MiddleTab' and text()='Dialog']");
-  public static final By ELEMENT_VIEW_TAB = By.xpath("//div[@class='MiddleTab' and text()='View']");
-  public static final By ELEMENT_CSS_TAB = By.xpath("//div[@class='MiddleTab' and text()='CSS']");
+	public static By ELEMENT_MANAGE_TEMPLATE = By.linkText("Manage Templates");
+	public static By ELEMENT_TEMPLATE_LABEL = By.id("label");
+	public static By ELEMENT_TEMPLATE_NAME = By.id("name");
+	public static By ELEMENT_MANAGE_TEMPLATE_SCREEN = By.xpath("//div[contains(text(),'Manage Templates')]");
+	public static By ELEMENT_IS_DOCUMENT_TEMPLATE = By.id("isDocumentTemplate");  
+	public static By ELEMENT_DIALOG_TAB = By.xpath("//div[@class='MiddleTab' and text()='Dialog']");
+	public static By ELEMENT_VIEW_TAB = By.xpath("//div[@class='MiddleTab' and text()='View']");
+	public static By ELEMENT_CSS_TAB = By.xpath("//div[@class='MiddleTab' and text()='CSS']");
 	  
 	
 	//Setup to show [Add symlink] in action bar
@@ -442,16 +449,16 @@ public class WcmAdmin extends EcmsBase {
       click(By.linkText(anchor));     
       waitForElementPresent(By.xpath("//span[@class='PopupTitle' and text()='" + formTitle + "']"));
     }
-    
-	  /**
+      
+    /**
      * Select Membership
-     * @param groupId: Group string is separate by slash, for example platform/web-contributors
+     * @param groupPath: Group string is separate by slash, for example platform/web-contributors
      * @param membership: Membership 
-     * @param optParams: optional parameters, first one is membership icon, second one is membership form title
+     * @param anchor: link icon to open select memebership form
      */
     public static void selectMembership(String groupPath, String membership, String anchor) throws Exception{
       click(By.xpath("//img[@title='" + anchor + "']"));
-      UserGroupManagement.selectGroup(groupPath);
+      selectGroup(groupPath);
       click(By.linkText(membership));
     }
 
@@ -499,5 +506,116 @@ public class WcmAdmin extends EcmsBase {
       waitForElementNotPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
 	  }
 	  
+    /**
+     * Go to Manage View Screen
+     */
+    public static void gotoManageViews(){
+      goToContentAdministration();
+      click(ELEMENT_CONTENT_PRESENT);
+      click(ELEMENT_MANAGEMENT_VIEW);
+      waitForElementPresent(By.xpath("//div[contains(text(),'Manage View')]"));
+    }
+    
+    public static void gotoEcmTemplates(){
+      //gotoManageViews();
+      click(ELEMENT_TAB_ECM_TEMPLATE);
+    }
+    /**
+     * 
+     * @param name : Template name
+     * @param template : Template view
+     * @throws Exception
+     */
+    public static void fillAddNewViewForm(String name, String template) throws Exception{
+      type(ELEMENT_TEMPLATE_VIEW_NAME, name, true);
+      selectMembership("Organization/Management/Human Resources", "*","Add Permission");
+      select(ELEMENT_TEMPLATE_VIEW, template);
+      addTab("Test Tab", "addCategory");
+      save();
+      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + name + "')]"));
+    }
+    
+    /**
+     * Add tab to view
+     * @param tabname : Tab name
+     * @param property : Tab Property
+     * @throws Exception
+     */
+    public static void addTab(String tabname, String property) throws Exception{
+      click(By.linkText("Add Tab"));
+      waitForTextPresent("Tab Form");
+      type(ELEMENT_TAB_NAME, tabname, true);
+      click(By.id(property));
+      save();
+      waitForTextNotPresent("Tab Form");
+    }
+    /**
+     * Delete a view
+     * @param viewName : View Name
+     * @param confirmMessage : Confirm Message
+     * @throws Exception
+     */
+    public static void deleteView(String viewName, String confirmMessage, boolean verify) throws Exception{
+      By locator = By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//img[@class='DeleteIcon']");
+      click(locator);     
+      waitForConfirmation(confirmMessage);
+      if(verify == true) waitForElementNotPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]"));      
+    }
+    /**
+     * Edit View 
+     * @param viewName : View Name
+     * @throws Exception
+     */
+    public static void editView(String viewName) throws Exception{
+      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]"));
+      By locator = By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//img[@class='EditInfoIcon']");
+      click(locator);
+      waitForElementPresent(ELEMENT_EDIT_VIEW_FORM);
+    }
+    /**
+     * Create version for a view
+     * @param viewName : View Name
+     * @param versionNumber : Number of version that you want to create. It require 2 version at least
+     * @throws Exception
+     */
+    public static void createVersion(String viewName, int versionNumber) throws Exception{
+      if(versionNumber < 2){
+        assert false : ("Number of versions is required 2 at least");
+      }
+      for(int i = 0; i < versionNumber ; i++) {
+        editView(viewName);
+        if(getElement(ELEMENT_ENABLE_VERSION).isEnabled()) check(ELEMENT_ENABLE_VERSION);          
+        save();
+        pause(500);
+      }
+    }
+    /**
+     * Restore a view to a certain version
+     * @param viewName : View Name
+     * @param orderVersion : Version that want to restore
+     * @throws Exception
+     */
+    public static void restoreVersion(String viewName, int orderVersion) throws Exception{
+      editView(viewName);
+      String order = "" + orderVersion;
+      select(ELEMENT_VERSION_OPTION, order);
+      click(By.linkText("Restore"));
+      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//div[@class='Text' and text()='" + orderVersion + "']"));
+    }
+    
+    /**
+     * Fill data to Add New ECM Template Form
+     * @param templateContent : Template Content
+     * @param templateName : Template Name
+     * @param templateType : Template Type
+     * @throws Exception
+     */
+    public static void fillEcmTemplateForm(String templateContent, String templateName, String templateType) throws Exception{
+      type(ELEMENT_ECM_TEMPLATE_CONTENT, templateContent, true);
+      type(ELEMENT_ECM_TEMPLATE_NAME, templateName, true);
+      select(ELEMENT_ECM_TEMPLATE_TYPE, templateType);
+      save();      
+      waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
+    }
 }
 
