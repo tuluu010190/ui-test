@@ -37,12 +37,18 @@ public class PlatformBase extends TestBase {
 	 * Navigation Bar /Administration Bar
 	 * */
 	//My site
+	public static final By ELEMENT_MY_SITE = By.linkText("My Sites");
+	public static final By ELEMENT_ACME = By.linkText("acme");
+	public static final By ELEMENT_OVERVIEW = By.linkText("Overview");
+	public static final By ELEMENT_NEWS = By.linkText("News");
+	
 	// My spaces
 	// Dashboard
 	// Edit
 	public static final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
 	public static final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	public static final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
+	public static final By ELEMENT_MENU_SEO_LINK = By.xpath("//a[@title='SEO Management']");
 	
 	//setting Icon
 	public static final String ELEMENT_LINK_SETUP ="//img[@alt='Setup']";

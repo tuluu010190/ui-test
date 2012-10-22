@@ -391,5 +391,27 @@ public class EcmsBase extends PlatformBase {
 		return bool;
 	}
 
-	 
+	//function go to SEO management
+	public static void goToSeoManagement(){
+		info("Go to SEO management form");
+		mouseOver(ELEMENT_MENU_EDIT_LINK, true);
+		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
+		mouseOverAndClick(ELEMENT_MENU_SEO_LINK);		
+	}
+	
+	//function go to acme/overview page
+	public static void goToOverView(){
+		info("Go to OverView form");
+		mouseOver(ELEMENT_MY_SITE, true);
+		mouseOver(ELEMENT_ACME, true);
+		mouseOverAndClick(ELEMENT_OVERVIEW);
+	}
+	
+	//function go to acme/new
+	public static void goToNews(){
+		info("Go to News form");
+		mouseOver(ELEMENT_MY_SITE, true);
+		mouseOver(ELEMENT_ACME, true);
+		mouseOverAndClick(ELEMENT_NEWS);
+	}
 }
