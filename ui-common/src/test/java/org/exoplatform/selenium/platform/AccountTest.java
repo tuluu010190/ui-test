@@ -39,7 +39,7 @@ public class AccountTest extends PlatformBase{
 		driver.quit();
 	}
 	
-	@Test(groups={"paltform", "AccountTest"})
+	@Test()
 	public void testAccountAddNewUser(){
 		System.out.println("--Create new user account--");
         signIn("root", "gtn");
@@ -54,7 +54,7 @@ public class AccountTest extends PlatformBase{
 		
 	}
 	
-	@Test(groups={"paltform", "AccountTest"})
+	@Test()
 	public void testSearchUser(){
 		System.out.println("--Search user --");
 		signIn("root", "gtn");

@@ -39,6 +39,7 @@ public class TestBase {
 	protected static boolean ieFlag;	 
 	protected static boolean chromeFlag;
 	public static final int ACTION_REPEAT = 5;
+	public static boolean agreementCheck = false;
 
 	//public static final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public static final String DEFAULT_BASEURL="http://localhost:8080";
@@ -56,9 +57,20 @@ public class TestBase {
 		}
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		termsAndConditions();
 	}
-
-	// return element in both cases displayed and hidden
+	public static void termsAndConditions(){
+		if (agreementCheck) return;
+		actions = new Actions(driver);
+		driver.get(baseUrl);
+		WebElement element = waitForAndGetElement(By.id("agreement"), 5000, 0);
+		if (element != null) {
+			check(By.id("agreement"));
+			click(By.linkText("Continue"));
+			agreementCheck = true;
+		}
+	}
+	
 	public static WebElement getElement(Object locator) {
 		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
 		WebElement elem = null;
