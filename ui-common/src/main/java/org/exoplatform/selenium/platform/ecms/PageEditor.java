@@ -10,7 +10,7 @@ public class PageEditor extends EcmsBase {
 	/*-- Site Editor/Edit Page/Edit Mode 
 	 *-- Select Content Path/Content Search Form Tab  
 	 * --*/
-		
+
 	public static final By ELEMENT_SEARCH_BUTTON = By.xpath("//a[text()='Search']");
 	public static final By ELEMENT_CLOSE_WINDOWS_BUTTON = By.xpath("//a[@class='CloseButton']"); 
 	public static final By ELEMENT_CONFIRM_YES_BUTTON = By.xpath("//a[contains(text(), 'Yes')]");
@@ -145,7 +145,7 @@ public class PageEditor extends EcmsBase {
 	 */
 	public static void selectCLVPath(String path, String clv, String...mode){
 		By ELEMENT_SELECT_CLV_PATH = By.xpath("//td/a[text()='" + clv + "']");
-		
+
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
 		click(ELEMENT_EDIT_PORTLET_LINK);
 		if (mode.length >0){ 
@@ -154,7 +154,7 @@ public class PageEditor extends EcmsBase {
 			else 
 				click(ELEMENT_RADIO_MODE_FOLDER);
 		}
-		
+
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		selectGroup(path);
 		click(ELEMENT_SELECT_CLV_PATH);
@@ -162,7 +162,7 @@ public class PageEditor extends EcmsBase {
 			if (mode[0] == "content"){
 				click(ELEMENT_SAVE_BUTTON);
 				waitForElementNotPresent(ELEMENT_SELECT_CLV_PATH);
-				}		
+			}		
 		}
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
@@ -216,5 +216,48 @@ public class PageEditor extends EcmsBase {
 		click(ELEMENT_MENU_CONTENT_LINK);
 		dragAndDropToObject(ELEMENT_CONTENTS_BY_QUERY_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
 		pause(500);
+	}
+
+	//function enable edit mode
+	public static void enableEditMode(boolean enable){
+		mouseOver(ELEMENT_MENU_EDIT_LINK, true);
+		waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK);
+		if ((enable == true && isElementPresent(ELEMENT_EDIT_MODE) == true) || (enable == false && isElementPresent(ELEMENT_EDIT_MODE) == false)){
+			click(ELEMENT_MENU_CONTENT_LINK); 
+		}
+
+	}
+
+	//function select home path on content list reference form
+	public static void selectHomePathOnContentList(String groupPath, String node){
+		By ELEMENT_NODE = By.xpath("//td/a[contains(text(),'" + node + "')]");
+
+		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
+		waitForElementPresent(ELEMENT_FOLDER_BROWSER);
+		if (getElement(ELEMENT_HOMEPATH_ROOT) != null){
+			click(ELEMENT_HOMEPATH_ROOT);
+		}
+		selectGroup(groupPath);
+		waitForAndGetElement(ELEMENT_NODE);
+		if (getElement(ELEMENT_NODE) != null){
+			click(ELEMENT_NODE);
+		}else{
+			info("Not found category");
+		}
+	}
+
+	//function remove a portlet
+	public static void removePortlet(By sign, By elementPortlet, By iconDelete){
+		if (waitForAndGetElement(sign) != null){
+			mouseOver(elementPortlet, true);
+			click(iconDelete);
+			acceptAlert();
+			click(ELEMENT_PAGE_EDIT_FINISH);
+			info("remove portlet is successful");
+		}else{
+			info("portlet has already deleted");
+			click(ELEMENT_PAGE_CLOSE);
+		}
+		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH,50000);
 	}
 }

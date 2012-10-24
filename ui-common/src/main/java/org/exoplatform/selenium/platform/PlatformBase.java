@@ -47,6 +47,7 @@ public class PlatformBase extends TestBase {
 	// Edit
 	public static final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
 	public static final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
+	public static final By ELEMENT_EDIT_MODE = By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
 	public static final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
 	public static final By ELEMENT_MENU_SEO_LINK = By.xpath("//a[@title='SEO Management']");
 	
@@ -213,7 +214,7 @@ public class PlatformBase extends TestBase {
 	public static final String PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
 	public static final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//a[@title='Finish']";
 	public static final By ELEMENT_PAGE_EDIT_FINISH = By.xpath("//a[@title='Finish']");
-	
+	public static final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
 
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	public static final String ELEMENT_NODE_LINK = "//div[@id='UINavigationNodeSelector']//a[@title='${nodeLabel}']";

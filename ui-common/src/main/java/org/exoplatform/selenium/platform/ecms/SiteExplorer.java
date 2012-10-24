@@ -13,14 +13,16 @@ public class SiteExplorer extends EcmsBase {
 	//Driver Sites Management in Sites Explorer
 	public static final By ELEMENT_DRIVER_SITES_MANAGEMENT = By.xpath("//a[@class='DriveLabel' and @title = 'Sites Management']");
 	public static final By ELEMENT_DMS_ADMIN_DRIVER = By.linkText("DMS Administration");
+	public static final By ELEMENT_ACME_DRIVER = By.linkText("acme-category");
 
 	// Preference
 	public static final By ELEMENT_PREFERENCE_LINK =By.xpath("//a[@class='SetupPreferencesButton']");
 
 	// Edit Tag Form
+	public static By ELEMENT_TAG_COULD = By.xpath("//div[@class='ItemIcon DefaultIcon TagExplorerIcon']");
 	public static By ELEMENT_EDIT_PUBLIC_TAG = By.xpath("//div[@title='Edit Public Tags']");
 	public static By ELEMENT_EDIT_PRIVATE_TAG = By.xpath("//div[@title='Edit Private Tags']");
-	public static By ELEMENT_REMOVE_TAG = By.xpath("//img[@alt='RemoveTag']");
+	public static String REMOVE_TAG = "//div[text()='${TagsName}']/../../td/div/img[@title='Remove Tag']";
 	public static By ELEMENT_CLOSE_EDIT_PUBLIC_TAG_FORM = By.xpath("//a[@title='Close Window']");
 	public static String MESSAGE_WARNING_AFTER_DELETE_TAG = "Are you sure to delete this tag?";
 	//public static By ELEMENT_TAG_CLOUD = By.xpath("//div[@title='Tag Cloud']");
@@ -48,6 +50,11 @@ public class SiteExplorer extends EcmsBase {
 	public static final By ELEMENT_SIMPLESEARCH_TEXTBOX = By.id("simpleSearch");
 	public static final By ELEMENT_SIMPLESEARCH_SUBMIT = By.id("SimpleSearch");
 
+	//publication form
+	public static By ELEMENT_PUBLIC_STATUS = By.xpath("//a[contains(text(), 'Published')]");
+	public static By EMENET_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
+	public static By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
+	
 	//choose a drive
 	public static void chooseDrive(By locator)
 	{
@@ -120,6 +127,7 @@ public class SiteExplorer extends EcmsBase {
 
 	public static void deleteTag(String name, boolean isPublic){
 		// Delete tags
+		By ELEMENT_REMOVE_TAG = By.xpath(REMOVE_TAG.replace("${TagsName}", name));
 		if (isPublic){
 			waitForElementPresent(ELEMENT_EDIT_PUBLIC_TAG);
 			click(ELEMENT_EDIT_PUBLIC_TAG);
@@ -170,5 +178,19 @@ public class SiteExplorer extends EcmsBase {
 		goToContentAdministration();
 		click(ELEMENT_MANAGE_TAGS);
 		click(ELEMENT_TAG_PERMISSION);
+	}
+	
+	//function public a document
+	public static void publicDocument(){
+		info("Public this document");
+		waitForElementPresent(ELEMENT_PUBLICATION);
+		click(ELEMENT_PUBLICATION);
+		WebElement current = waitForAndGetElement(EMENET_CURRENT_STATUS);
+		if (current.getText().contains("Published") == false){
+			click(ELEMENT_PUBLIC_STATUS);
+		}
+		waitForElementPresent(ELEMENT_CURRENT_PUBLIC_STATUS);
+		save();
+		info("Public document is successful");
 	}
 }

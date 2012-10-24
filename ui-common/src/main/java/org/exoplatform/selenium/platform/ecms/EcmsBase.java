@@ -47,7 +47,7 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_ADD_CONTENT_DETAIL_PORTLET = By.xpath("//div[contains(text(),'Content Detail')]");
 	public static final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.xpath("//div[@id='UIPage']");
 	public static final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
-	public static final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[contains(@title,'Content List')]");
+	public static final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[text()='Content List']");
 	public static final By ELEMENT_FRAME_CONTAIN_PORTLET = By.xpath("//div[contains(@id,'UIPortlet')]");
 	public static final By ELEMENT_EDIT_PORTLET_LINK = By.xpath("//a[@title='Edit Portlet']");
 	public static final By ELEMENT_SELECT_CONTENT_PATH_LINK = By.xpath("//img[@class='AddIcon16x16 SelectFolderPathIcon']");
@@ -62,6 +62,35 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_PAGE_EDIT_ABORT = By.xpath("//a[@title='Abort']");
 
 	public static final By ELEMENT_SELECT_CONTENT_PATH = By.xpath("//a[@title='offices.jpg']");
+	public static final By ELEMENT_ADD_TARGET = By.xpath("//img[@class='AddIcon16x16 SelectTargetPageIcon']");
+	public static final By ELEMENT_HEADER_PORTLET = By.id("UICLVConfigHeaderFormStringInput");
+	public static final By ELEMENT_TEMPLATE_PORTLET = By.id("UICLVConfigDisplayTemplateFormSelectBox");
+	public static final By ELEMENT_ADVANCE_PORTLET = By.linkText("Advanced");
+	public static final By ELEMENT_NEW_TARGET_PATH = By.xpath("//div[text()='news']/../../td/a/div[@class='Select16x16Icon']");
+	public static final By ELEMENT_CONTENT_BYURL_PORTLET = By.xpath("//div[text()='Content by URL']");
+	public static final By ELEMENT_NEWS_PORTLET = By.xpath("//div[text()='News']/../../../../../..");
+	public static final By ELEMENT_NEW_EDIT_PORTLET = By.xpath("//div[text()='News']/../a[@class='EditIcon']");
+	public static final By ELEMENT_HOMEPATH_ROOT = By.xpath("//div[@class='BreadcumbsPortlet']/div[2]/div[1]/a");
+	public static final By ELEMENT_FOLDER_BROWSER = By.xpath("//div[contains(text(),'Folder Browser')]");
+	
+	//-------------News page form---------------------------------------
+	public static final By ELEMENT_CATEGORY_CONTAINER = By.xpath("//div[text()='Browse by']");
+	public static final By ELEMENT_CATEGORY_PREFER = By.xpath("//div[text()='Browse by']/../../../*//a[@title='Preferences']");
+	public static final By ELEMENT_CATEGORY_ACME = By.xpath("//div[text()='Browse by']/../../*//a[text()='acme']");
+	public static final By ELEMENT_CATEGORY_DEFENCE = By.xpath("//div[text()='Browse by']/../../*//a[text()='Defense']");
+	public static final By ELEMENT_CATEGORY_VISION = By.xpath("//h5/a[text()='Defense']/../../*//a[text()='Vision']");
+	public static final By ELEMENT_CATEGORY_VISIBILITY = By.xpath("//h5/a[text()='Defense']/../../*//a[text()='Invisibility']");
+	public static final By ELEMENT_CATEGORY_HEALING = By.xpath("//h5/a[text()='Defense']/../../*//a[text()='Healing']");
+	public static final By ELEMENT_CATEGORY_IMMUNITY = By.xpath("//h5/a[text()='Defense']/../../*//a[text()='Immunity']");
+	public static final By ELEMENT_CATEGORY_MOVEMENT = By.xpath("//div[text()='Browse by']/../*//a[text()='Movement']");
+	public static final By ELEMENT_CATEGORY_NATURAL = By.xpath("//div[text()='Browse by']/../*//a[text()='Natural Elements']");
+	public static final By ELEMENT_UPLEVEL = By.xpath("//a[@class='LevelUpArrowIcon']");
+	public static final By ELEMENT_PCLV_CONTAINER = By.xpath("//div[text()='Top News']");
+	public static final By ELEMENT_PCLV_PREFER = By.xpath("//div[text()='Top News']/../../../../../*//a[@title='Preferences']");
+	public static final By ELEMENT_ORDER_BY = By.id("UICLVConfigOrderByFormSelectBox");
+	public static final By ELEMENT_ASCE_RADIO = By.id("UICLVConfigOrderTypeFormRadioBoxInput_ASC");
+	public static final By ELEMENT_DESC_RADIO = By.id("UICLVConfigOrderTypeFormRadioBoxInput_DESC");
+	//--------------End News page form---------------------------------------------
 
 	//Locator of SetPermission
 	public static final By ELEMENT_SELECT_USER = By.xpath("//img[@alt='Select User']");
@@ -71,7 +100,6 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_READ_CHECKBOX = By.id("read");
 	public static final By ELEMENT_ADD_NODE_CHECKBOX = By.id("add_node");
 	public static final By ELEMENT_DELETE_PERMISSION = By.xpath("//*[@id='PermissionInfo']/table/tbody/tr[4]/td[6]/div/img[2]");
-
 
 	public static final By ELEMENT_BUTTON_ADD_CATE = By.linkText("Add Category");
 	public static final By ELEMENT_ADD_CATE_POP = By.xpath("//span[text()='Add Category']");
@@ -91,7 +119,7 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");
 	public static final By ELEMENT_INPUT_NAME_NODE = By.xpath("//input[@id = 'nameField']");
 	
-
+	
 	//login ECMS
 	public static void loginEcms(String username, String password) {
 		driver.manage().window().maximize();
@@ -121,15 +149,15 @@ public class EcmsBase extends PlatformBase {
 
 	//Enter sites MANAGEDement Form 
 	public static void goToSiteExplorer(){
-		actions.moveToElement(waitForAndGetElement(ELEMENT_LINK_SETUP)).build().perform();
-		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK)).build().perform();
+		mouseOver(ELEMENT_LINK_SETUP,true);
+		mouseOver(ELEMENT_MENU_CONTENT_LINK,true);
 		click(ELEMENT_MENU_SITE_EXPLORER);
 	}
 
 	//Enter create new page form
 	public static void goToPageCreationWinzard(){
-		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_EDIT_LINK)).build().perform();
-		actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_PAGE_LINK)).build().perform();
+		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
+		mouseOver(ELEMENT_MENU_PAGE_LINK,true);
 		click(ELEMENT_MENU_ADD_PAGE_LINK);	
 	}
 

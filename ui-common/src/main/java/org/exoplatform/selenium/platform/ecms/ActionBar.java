@@ -16,9 +16,10 @@ public class ActionBar extends EcmsBase {
 	public static By ELEMENT_MENU_NEW_CONTENT_LINK = By.linkText("New Content");
 	public static By ELEMENT_CATEGORIES_LINK = By.xpath("//a[text()='Categories']");
 	public static By ELEMENT_LINK_VERSION=By.linkText("Versions");
-	public static By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
+	public static By ELEMENT_LINK_TAB_PUBLICATION= By.linkText("Publication");
 	public static By OVERLOAD_THUMBNAIL = By.linkText("Overload Thumbnail");
-
+	public static By ELEMENT_PUBLICATION = By.linkText("Publications");
+	
 	//System TAB
 	//	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[@class='TabLabel' and @title='System']");
 	public static By ELEMENT_SYSTEM_TAB = By.linkText("System");
@@ -53,7 +54,7 @@ public class ActionBar extends EcmsBase {
 	public static By REMOVE_CHECKBOX = By.id("remove");
 
 	//Collaboration TAB
-	public static By ELEMENT_COLLABORATION_TAB = By.xpath("//a[contains(text(),'Collaboration')]");
+	public static By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
 	public static By ELEMENT_TAG = By.linkText("Tag");
 
 
@@ -349,29 +350,22 @@ public class ActionBar extends EcmsBase {
 	public static void deletePermission(String user, boolean verify){
 		By ELEMENT_DELETE_USER_PERMISSION = By.xpath("//div[@title='"+ user +"']/../../td/div/img[@class='DeleteIcon']");
 		By ELEMENT_DELETE_USER_PERMISSION_AUX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//div[@title='"+ user +"']/../../td/div/img[@class='DeleteIcon']");
-		if (isTextPresent("Add permissions to this node")){
-			if (getElement(ELEMENT_DELETE_USER_PERMISSION) != null){
-				click(ELEMENT_DELETE_USER_PERMISSION);
-				acceptAlert();
-				if(verify){
-					waitForElementNotPresent(ELEMENT_DELETE_USER_PERMISSION);
-				}
-				info("Delete a permission is successful");
-			}else{
-				info("Do not see an element to delete");
+		if (waitForAndGetElement(ELEMENT_DELETE_USER_PERMISSION_AUX,5000,0) != null){
+			click(ELEMENT_DELETE_USER_PERMISSION_AUX);
+			acceptAlert();
+			if(verify){
+				waitForElementNotPresent(ELEMENT_DELETE_USER_PERMISSION_AUX);
 			}
-		}
-		else if (isTextPresent("Add permission to that node")){
-			if (getElement(ELEMENT_DELETE_USER_PERMISSION_AUX) != null){
-				click(ELEMENT_DELETE_USER_PERMISSION_AUX);
-				acceptAlert();
-				if(verify){
-					waitForElementNotPresent(ELEMENT_DELETE_USER_PERMISSION_AUX);
-				}
-				info("Delete a permission is successful");
-			}else{
-				info("Do not see an element to delete");
+			info("Delete a permission is successful");
+		}else if (waitForAndGetElement(ELEMENT_DELETE_USER_PERMISSION,30000,0) != null){
+			click(ELEMENT_DELETE_USER_PERMISSION);
+			acceptAlert();
+			if(verify){
+				waitForElementNotPresent(ELEMENT_DELETE_USER_PERMISSION);
 			}
+			info("Delete a permission is successful");
+		}else{
+			info("Do not see an element to delete");
 		}
 		pause(500);
 	}
