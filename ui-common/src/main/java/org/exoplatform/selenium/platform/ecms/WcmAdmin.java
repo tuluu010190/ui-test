@@ -6,6 +6,7 @@ import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.MoveMouseAction;
 
 public class WcmAdmin extends EcmsBase {
 
@@ -748,4 +749,23 @@ public class WcmAdmin extends EcmsBase {
 		save();      
 		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
 	}
+	
+	  /**
+	   * Change mode
+	   * @param mode : 1 for edit mode, 0 for published mode
+	   * @throws Exception
+	   */
+	  public static void changeMode(int mode) throws Exception{
+	    WebElement content = null;
+	    mouseOver(ELEMENT_MENU_EDIT_LINK, false);
+	    if(mode == 1) { //Edit mode
+	      content = waitForAndGetElement(By.cssSelector("a.ItemIcon.QuickEditUnchecked"));	      
+	    }else{ //Public mode
+	      content = waitForAndGetElement(By.cssSelector("a.ItemIcon.QuickEditChecked"));
+	    }
+	    if(content != null) {
+        mouseOverAndClick(ELEMENT_MENU_CONTENT_LINK);         
+        mouseOver(By.xpath("//div[@class='InlineEditing']"), false);	      
+      }
+	  }
 }
