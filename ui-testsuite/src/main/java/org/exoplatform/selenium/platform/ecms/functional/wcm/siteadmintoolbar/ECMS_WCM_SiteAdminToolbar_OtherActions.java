@@ -15,8 +15,8 @@
  * along with this program; if not, see<http://www.gnu.org/licenses/>.
  */
 package org.exoplatform.selenium.platform.ecms.functional.wcm.siteadmintoolbar;
-import static org.exoplatform.selenium.TestLogger.info;
 
+import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.ecms.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
@@ -32,10 +32,14 @@ import org.testng.annotations.Test;
  * Oct 22, 2012  
  */
 
-public class ECMS_WCM_siteadmintoolbar_OtherActions extends EcmsBase{
+public class ECMS_WCM_SiteAdminToolbar_OtherActions extends EcmsBase{
   public static final String DATA_USER_ADMIN = "john";
   public static final String DATA_PASS = "gtn";
   public static final String ELEMENT_INLINE_EDITING = "//div[contains(@class,'InlineEditing')]";
+  public static final By ELEMENT_ACME_IMAGE = By.xpath("//*[contains(@id,'CurrentText_p')]/p/a/img"); 
+  public static final By ELEMENT_EDIT_ICON_EDIT_MODE = By.xpath("//*[@class='EditContentIcon']");
+  public static final By ELEMENT_RSS_ICON = By.xpath("//a[@class='RssIcon']");
+
   @BeforeMethod
   public void beforeMethod(){
     initSeleniumTest();
@@ -44,11 +48,11 @@ public class ECMS_WCM_siteadmintoolbar_OtherActions extends EcmsBase{
     info("Login ECMS with "+ DATA_USER_ADMIN);
     loginEcms(DATA_USER_ADMIN, DATA_PASS);
   }
-  
+
   @AfterMethod
   public void afterMethod(){
     info("Logout ECMS");
-    //logoutEcms();
+    logoutEcms();
     driver.manage().deleteAllCookies();
     driver.quit();
     actions = null;
@@ -58,18 +62,24 @@ public class ECMS_WCM_siteadmintoolbar_OtherActions extends EcmsBase{
    * 
    */
   @Test
-  public static void  test01_DisplayInEditMode() throws Exception {
+  public void  test01_DisplayInEditMode(){
     ContentTemplate.changeEditMode();
     waitForElementPresent(ELEMENT_INLINE_EDITING);
+    mouseOver(ELEMENT_ACME_IMAGE, true);
+    waitForElementPresent(ELEMENT_EDIT_ICON_EDIT_MODE);
   }
+
   /*
    * Change to publised mode 
    */
   @Test
-  public static void test02_DisplayInPublishedMode() throws Exception {
+  public void test02_DisplayInPublishedMode() {
     ContentTemplate.changeEditMode();
     waitForElementPresent(ELEMENT_INLINE_EDITING);
     ContentTemplate.changeEditMode();
     waitForElementNotPresent(ELEMENT_INLINE_EDITING);
+    mouseOver(ELEMENT_RSS_ICON, true);
+    waitForElementNotPresent(ELEMENT_EDIT_ICON_EDIT_MODE);
   }
+
 }
