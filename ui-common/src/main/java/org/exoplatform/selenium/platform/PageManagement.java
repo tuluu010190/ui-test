@@ -1,5 +1,8 @@
 package org.exoplatform.selenium.platform;
 
+import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.NavigationManagement.deleteNode;
 import java.util.Map;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -63,7 +66,7 @@ public class PageManagement extends PlatformBase {
 		waitForMessage("No result found.");
 		closeMessageDialog();
 		waitForTextNotPresent(pageTitle);
-//		pause(1000);
+		//		pause(1000);
 	}
 
 	// Search a page in Manage Pages
@@ -116,29 +119,43 @@ public class PageManagement extends PlatformBase {
 		waitForTextNotPresent("Page Editor");
 	}
 
-//	//search Page
-//		public boolean searchPage(String pageTitle){	
-//			actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_SETUP_IMG)).build().perform();
-//			actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_PORTAL_LINK_LINKTEXT)).build().perform();
-//			pause(100);
-//			click(ELEMENT_MENU_PAGE_LINK_LINKTEXT);
-//			
-////			waitForAndGetElement(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX).clear();
-//			type(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX, pageTitle, true);
-//			click(ELEMENT_SEARCH_PAGE_ICON);
-//			if (isElementNotPresent(ELEMENT_SEARCH_PAGE_ALERT))
-//			return true;	
-//			else return false;
-//		}
-//		
-//		//delete page
-//		public static void deletePage(){
-//			click(ELEMENT_DELETE_PAGE_ICON);
-//			acceptAlert();
-//			click(By.linkText("OK"));
-//			info("Delete page successfully");
-//		}
-//		
-	
-	
+	//	//search Page
+	//		public boolean searchPage(String pageTitle){	
+	//			actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_SETUP_IMG)).build().perform();
+	//			actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_PORTAL_LINK_LINKTEXT)).build().perform();
+	//			pause(100);
+	//			click(ELEMENT_MENU_PAGE_LINK_LINKTEXT);
+	//			
+	////			waitForAndGetElement(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX).clear();
+	//			type(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX, pageTitle, true);
+	//			click(ELEMENT_SEARCH_PAGE_ICON);
+	//			if (isElementNotPresent(ELEMENT_SEARCH_PAGE_ALERT))
+	//			return true;	
+	//			else return false;
+	//		}
+	//		
+	//		//delete page
+	//		public static void deletePage(){
+	//			click(ELEMENT_DELETE_PAGE_ICON);
+	//			acceptAlert();
+	//			click(By.linkText("OK"));
+	//			info("Delete page successfully");
+	//		}
+	//		
+	public static void deletePageAtManagePageAndPortalNavigation(String pageName, boolean PageTypePortal, String portalName, boolean PageTypeGroup, String groupName){
+		info("-- Deleting "+ pageName +" at Manage page and Portal Navigation--");
+		goToManagePages();
+		if (PageTypePortal){
+			deletePage(PageType.PORTAL, pageName);
+			//delete page at Portal navigation
+			goToPortalSites();
+			deleteNode(portalName, "", pageName, true);
+		}
+		if (PageTypeGroup){
+			deletePage(PageType.GROUP, pageName);
+			//delete page at Portal/Group navigation
+			goToGroupSites();
+			deleteNode(groupName, "", pageName, true);
+		}
+	}
 }
