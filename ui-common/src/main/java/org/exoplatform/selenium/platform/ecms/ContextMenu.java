@@ -15,6 +15,7 @@ public class ContextMenu extends EcmsBase {
 	public static final By ELEMENT_CHECKOUT_OPTION_XPATH = By.xpath("//a[contains(text(),'CheckOut')]");
 	public static final By ELEMENT_RENAME_NODE = By.linkText("Rename");
 	public static final By ELEMENT_PASTE_NODE = By.xpath("//a[contains(text(),'Paste')]");
+	public static final By ELEMENT_REFRESH_BUTTON=By.xpath("//a[@title='refresh']");
 	//lock node
 	public static void lockNode(By locator){
 		for(int repeat=0;; repeat ++)
@@ -103,6 +104,8 @@ public class ContextMenu extends EcmsBase {
 			info("Retry...[" + repeat + "]");
 
 		}
+		waitForElementNotPresent(By.linkText("OK"));
+		click(ELEMENT_REFRESH_BUTTON);
 		waitForElementNotPresent(locator, iTimeout);
 		info(locator.toString() + "was deleted successfully");		
 	}

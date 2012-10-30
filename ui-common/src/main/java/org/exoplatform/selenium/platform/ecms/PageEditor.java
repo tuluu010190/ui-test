@@ -10,14 +10,22 @@ public class PageEditor extends EcmsBase {
 	/*-- Site Editor/Edit Page/Edit Mode 
 	 *-- Select Content Path/Content Search Form Tab  
 	 * --*/
-	public static final By ELEMENT_CONTENT_SEARCH_FORM_TAB = By.xpath("//div[@class='MiddleTab' and text() = 'Content Search Form']"); 
+		
+	public static final By ELEMENT_SEARCH_BUTTON = By.xpath("//a[text()='Search']");
+	public static final By ELEMENT_CLOSE_WINDOWS_BUTTON = By.xpath("//a[@class='CloseButton']"); 
+	public static final By ELEMENT_CONFIRM_YES_BUTTON = By.xpath("//a[contains(text(), 'Yes')]");
+	public static final By ELEMENT_RADIO_MODE_CONTENT = By.id("UICLVConfigDisplayModeFormRadioBoxInput_ManualViewerMode"); 
+	public static final By ELEMENT_RADIO_MODE_FOLDER = By.id("UICLVConfigDisplayModeFormRadioBoxInput_AutoViewerMode");
+
+	//Edit "content list" portlet 
+	public static By ELEMENT_EDITPAGE_CONTENT_DELETE = By.xpath("//div[@class='DeleteIcon']");
+	public static By ELEMENT_TAB_SEARCH_RESULT=By.xpath("//div[@class='SelectedTab']/div/div/div[contains(text(),'Search Result')]");
+	public static By ELEMENT_CLOSE_POPUP_BUTTON=By.xpath("//a[@title='Close Window']");
+	public static By ELEMENT_SEARCH_FORM_CONTENT = By.xpath("//input[@name='WcmRadio' and @id='content']");
 	public static final By ELEMENT_INPUT_NAME_SEARCH_FORM_EDIT_MODE = By.xpath("//input[@id='name' and @type='text']");
 	public static final By ELEMENT_CHECK_BOX_WORD_PHRASE_EDIT_MODE = By.xpath("//input[@id='content' and @type='radio']");
 	public static final By ELEMENT_INPUT_NAME_SEARCH_WORD_PHRASE_EDIT_MODE = By.xpath("//input[@id='content' and @type='text']");
-	public static final By ELEMENT_SEARCH_BUTTON = By.xpath("//a[text()='Search']");
-	public static final By ELEMENT_CLOSE_WINDOWS_BUTTON = By.xpath("//a[@class='CloseButton']"); 
-	public static final By ELEMENT_CONFIRM_YES_BUTTON = By.xpath("//a[contains(text(), 'Yes')]"); 
-
+	public static final By ELEMENT_CONTENT_SEARCH_FORM_TAB = By.xpath("//div[@class='MiddleTab' and text() = 'Content Search Form']");
 	//////
 
 	//create page wizard with step 1,2 without layout
@@ -131,15 +139,31 @@ public class PageEditor extends EcmsBase {
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 	}
-	//Select "CLVPath" in Edit Mode
-	public static void selectCLVPath(String path, String clv){
+	/*Select "CLVPath" in Edit Mode
+	 * @mode:  content: if select mode "By content"
+	 * 		   other value: if select mode "By folder"	
+	 */
+	public static void selectCLVPath(String path, String clv, String...mode){
 		By ELEMENT_SELECT_CLV_PATH = By.xpath("//td/a[text()='" + clv + "']");
-
+		
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
 		click(ELEMENT_EDIT_PORTLET_LINK);
+		if (mode.length >0){ 
+			if (mode[0] == "content")
+				click(ELEMENT_RADIO_MODE_CONTENT);
+			else 
+				click(ELEMENT_RADIO_MODE_FOLDER);
+		}
+		
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		selectGroup(path);
 		click(ELEMENT_SELECT_CLV_PATH);
+		if (mode.length >0){ 
+			if (mode[0] == "content"){
+				click(ELEMENT_SAVE_BUTTON);
+				waitForElementNotPresent(ELEMENT_SELECT_CLV_PATH);
+				}		
+		}
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 	}

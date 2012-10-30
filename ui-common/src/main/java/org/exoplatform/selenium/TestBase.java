@@ -34,7 +34,7 @@ public class TestBase {
 	protected static WebDriver driver;
 	protected static Actions actions ;
 	protected static String baseUrl;
-	protected static int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
+	protected static int DEFAULT_TIMEOUT = 60000; //milliseconds = 30 seconds
 	protected static int WAIT_INTERVAL = 1000; //milliseconds  
 	public static int loopCount = 0;	
 	protected static boolean ieFlag;	 
