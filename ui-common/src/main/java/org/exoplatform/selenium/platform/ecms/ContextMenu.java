@@ -1,7 +1,6 @@
 package org.exoplatform.selenium.platform.ecms;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -109,7 +108,7 @@ public class ContextMenu extends EcmsBase {
 		waitForElementNotPresent(By.linkText("OK"));
 		click(ELEMENT_MENU_REFRESH);
 		waitForElementNotPresent(locator, iTimeout);
-		info(locator.toString() + "was deleted successfully");		
+		info(locator.toString() + " was deleted successfully");		
 	}
 
 	//Define common function
