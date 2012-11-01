@@ -342,9 +342,10 @@ public class TestBase {
 		actions.moveToElement(element).click(element).build().perform();
 	}
 
-	public static void waitForTextPresent(String text) {
+	public static void waitForTextPresent(String text,int...wait) {
+		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		for (int second = 0;; second++) {
-			if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+			if (second >= waitTime/WAIT_INTERVAL) {
 				Assert.fail("Timeout at waitForTextPresent: " + text);
 			}
 			if (isTextPresent(text)) {
@@ -354,9 +355,10 @@ public class TestBase {
 		}
 	}
 
-	public static void waitForTextNotPresent(String text) {
+	public static void waitForTextNotPresent(String text,int...wait) {
+		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		for (int second = 0;; second++) {
-			if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+			if (second >= waitTime/WAIT_INTERVAL) {
 				Assert.fail("Timeout at waitForTextNotPresent: " + text);
 			}
 			if (isTextNotPresent(text)) {
@@ -366,10 +368,11 @@ public class TestBase {
 		}
 	}
 
-	public static void waitForMessage(String message) {
+	public static void waitForMessage(String message,int...wait) {
+		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		//info("--Verify message: " + message);
 		pause(500);
-		waitForTextPresent(message);
+		waitForTextPresent(message,waitTime);
 	}
 
 	public static void type(Object locator, String value, boolean validate) {

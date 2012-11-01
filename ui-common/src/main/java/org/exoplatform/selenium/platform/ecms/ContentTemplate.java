@@ -6,6 +6,7 @@ import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.UnhandledAlertException;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 
 public class ContentTemplate extends EcmsBase {
 	
@@ -292,7 +293,17 @@ public class ContentTemplate extends EcmsBase {
 
 	//add new Content Folder
 	public static void createNewContentFolder(String title, String name) {
-		click(ELEMENT_NEW_FOLDER_LINK);
+		for (int repeat = 0;; repeat++)	{	
+			if (repeat >= ACTION_REPEAT) {
+				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
+			}
+			mouseOver(ELEMENT_MENU_NEW_CONTENT_LINK, true);
+			click(ELEMENT_NEW_FOLDER_LINK);
+
+			if (waitForElementPresent(ELEMENT_FOLDER_TITLE_TEXTBOX,30000,0) != null) break;
+			pause(WAIT_INTERVAL);
+			info("retry...[" + repeat + "]");
+		}
 		selectOption(ELEMENT_FOLDER_TYPE_OPTION,ELEMENT_CONTENT_FOLDER_TYPE);
 		type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, false);
 		//			waitForAndGetElement(ELEMENT_FOLDER_NAME_TEXTBOX).clear();

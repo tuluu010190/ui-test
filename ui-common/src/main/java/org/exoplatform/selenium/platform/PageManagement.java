@@ -58,14 +58,16 @@ public class PageManagement extends PlatformBase {
 	}
 
 	//Delete a page
-	public static void deletePage(PageType type, String pageTitle){
+	public static void deletePage(PageType type, String pageTitle, int...wait){
+		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle);
 		searchPageByTitle(type, pageTitle);
 		click(pageDeleteIcon);
 		waitForConfirmation("Are you sure to delete this page?");
-		waitForMessage("No result found.");
+		waitForMessage("No result found.",waitTime);
 		closeMessageDialog();
 		waitForTextNotPresent(pageTitle);
+		
 		//		pause(1000);
 	}
 
