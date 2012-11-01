@@ -464,7 +464,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 		goToSiteExplorer();
 		goToNode(ELEMENT_ACME_NODE);
 		rightClickOnElement(ARTICLE_PATH_LOCKED);
-		waitForElementPresent(ELEMENT_LOCK_OPTION_XPATH);
+		waitForElementPresent(ELEMENT_MENU_LOCK);
 		
 		//Delete data
 		deleteDocument(ARTICLE_PATH);

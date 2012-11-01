@@ -44,8 +44,9 @@ public class SiteExplorer extends EcmsBase {
 	public static By ELEMENT_ADVANCED_SEARCH_ICON = By.xpath("//div[@title='Advanced Search']");
 	public static By ELEMENT_ADVANCED_SEARCH_TAB = By.xpath("//div[contains(text(),'Advanced Search')]");
 
-	//		public static boolean SELECT = true; 
-
+	//Simple Search
+	public static final By ELEMENT_SIMPLESEARCH_TEXTBOX = By.id("simpleSearch");
+	public static final By ELEMENT_SIMPLESEARCH_SUBMIT = By.id("SimpleSearch");
 
 	//choose a drive
 	public static void chooseDrive(By locator)

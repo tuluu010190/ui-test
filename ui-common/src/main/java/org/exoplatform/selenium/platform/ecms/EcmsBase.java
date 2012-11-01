@@ -23,12 +23,6 @@ public class EcmsBase extends PlatformBase {
 	//SignIn form
 	public static final By ELEMENT_LOGIN_BUTTON = By.xpath("//*[@id='UIPortalLoginFormAction']");
 
-	//	public static final By ELEMENT_MENU_PORTAL_LINK_LINKTEXT = By.linkText("Portal");
-	//	public static final By ELEMENT_MENU_PAGE_LINK_LINKTEXT = By.linkText("Pages");
-	//	public static final By ELEMENT_MENU_SITE_LINK = By.linkText("Site");
-	//	public static final By ELEMENT_MENU_NAVIGATION_LINK = By.linkText("Navigation");
-
-
 	//New Folder
 	public static final By ELEMENT_NEW_FOLDER_LINK = By.linkText("New Folder");
 	public static final By ELEMENT_FOLDER_TITLE_TEXTBOX = By.id("title");
@@ -36,36 +30,20 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_FOLDER_TYPE_OPTION = By.id("type");
 	public static final String ELEMENT_CONTENT_FOLDER_TYPE = "nt:unstructured";
 	public static final String ELEMENT_DOCUMENT_FOLDER_TYPE = "nt:folder";
-	//	public static final By ELEMENT_SAVE_BUTTON = By.linkText("Save");
 
+	//Add new Page
 	public static final By ELEMENT_NEWPAGE_NAME_TEXTBOX = By.id("pageName");	
 	public static final By ELEMENT_NEWPAGE_NEXT_BUTTON = By.linkText("Next");	
 	public static final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//a[@class='EdittedSaveButton']");
 	public static final By ELEMENT_NEWPAGE_LAYOUT_OPTION = By.xpath("//div[@class='DropDownSelectLabel']") ;
+	
+	//Page Creation Wizard -> Page Configs
 	public static final By ELEMENT_NEWPAGE_LAYOUT_COLUMN_PAGE_OPTION = By.linkText("Column Page Configs") ;
 	public static final By ELEMENT_NEWPAGE_LAYOUT_ROW_PAGE_OPTION = By.linkText("Row Page Configs");
 	public static final By ELEMENT_NEWPAGE_LAYOUT_TAB_PAGE_OPTION = By.linkText("Tabs Page Config");
 	public static final By ELEMENT_NEWPAGE_LAYOUT_MIX_PAGE_OPTION = By.linkText("Mix Page Configs");
 	public static final By ELEMENT_NEWPAGE_LAYOUT_DEFAULT_OPTION = By.linkText("Page Configs");
 
-	public static final By ELEMENT_SEARCH_TITLEPAGE_TEXTBOX = By.id("pageTitle");
-	public static final By ELEMENT_SEARCH_PAGE_ICON = By.xpath("//a[@class='SearchIcon']");
-	public static final By ELEMENT_SEARCH_PAGE_ALERT = By.xpath("//[@class= 'UIPopupWindow UIDragObject ExoMessageDecorator']");	
-	public static final By ELEMENT_PARTIALLINK_DELETE_DOCUMENT = By.xpath("//a[contains(text(),'Delete')]");
-	public static final String ELEMENT_ALERT_CONFIRM_DELETE_DOCUMENT = "Are you sure to delete the node";
-	public static final String ELEMENT_ALERT_CONFIRM_DELETE_PAGE = "Are you sure to delete this page?";
-	public static final String ELEMENT_ALERT_FIND_AFTER_DELETE_PAGE = "Information" ;
-
-	public static final By ELEMENT_SIMPLESEARCH_TEXTBOX = By.id("simpleSearch");
-	public static final By ELEMENT_SIMPLESEARCH_SUBMIT = By.id("SimpleSearch");
-
-	public static final By ELEMENT_DELETE_PAGE_ICON = By.xpath("//img[@class='DeleteIcon']");
-	public static final String ELEMENT_SITE_NAVIGATION_POPUP = "UIPopupWindow-UIEditNavigationPopupContainer";
-	public static final By ELEMENT_SITE_NAVIGATION_DELETE_ERROR_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
-	//	public static final String ELEMENT_SITE_NAVIGATION_DELETE_NODE_PARTIALLINK = "Delete";
-	//	public static final By ELEMENT_SITE_NAVIGATION_SAVE_BUTTON = By.linkText("Save");
-
-	//	public static final By ELEMENT_CONTENT_LINK = By.xpath("//a[@title='Content']");
 	public static final By ELEMENT_ADD_CONTENT_DETAIL_PORTLET = By.xpath("//div[contains(text(),'Content Detail')]");
 	public static final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.xpath("//div[@id='UIPage']");
 	public static final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
@@ -73,25 +51,19 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_FRAME_CONTAIN_PORTLET = By.xpath("//div[contains(@id,'UIPortlet')]");
 	public static final By ELEMENT_EDIT_PORTLET_LINK = By.xpath("//a[@title='Edit Portlet']");
 	public static final By ELEMENT_SELECT_CONTENT_PATH_LINK = By.xpath("//img[@class='AddIcon16x16 SelectFolderPathIcon']");
-	public static final By ELEMENT_SELECT_CONTENT_PATH_GENERAL_LINK = By.id("GeneralDrives_");
-	public static final By ELEMENT_SELECT_CONTENT_PATH_GENERAL_MANAGED_LINK = By.id("GeneralDrives_MANAGEDedSites_");
-	public static final By ELEMENT_SELECT_CONTENT_PATH_ACME_LINK = By.id("GeneralDrives_MANAGEDedSites__acme");
-	public static final By ELEMENT_SELECT_CONTENT_PATH_ACME_DOC_LINK =By.id("GeneralDrives_MANAGEDedSites__acme_documents") ;
-	//	public static final By ELEMENT_SELECT_CONTENT_PATH_SAVE_BUTTON = By.linkText("Save");
-	//	public static final By ELEMENT_SELECT_CONTENT_PATH_CLOSE_BUTTON =By.linkText("Close") ;
+	
+	public static final By ELEMENT_CONTENTS_BY_QUERY_PORTLET = By.xpath("//div[contains(text(),'Content By Query')]");
+	public static final By ELEMENT_BY_QUERY_TEXTAREA = By.xpath("//textarea[@id='UICLVConfigContentByQueryTextArea']");
+	public static final By ELEMENT_WORKSPACE_SELECT = By.xpath("//select[@id='UICLVConfigWorkspaceFormSelectBox']");
+	public static final By ELEMENT_ACME_CATEGORY = By.xpath("//*[@id='ListRecords']/thead/tr[2]/td/a");
+	public static final By ELEMENT_FLIGHT = By.xpath("//a[@title='Flight']");
+	public static final By ELEMENT_SELECT_BY_CONTENT_PATH = By.xpath("//input[@id='UICLVConfigDisplayModeFormRadioBoxInput_ManualViewerMode']");
+	public static final By BLOCK_LAYOUT = By.xpath("//div[@class='LAYOUT-BLOCK LAYOUT-PORTLET']");
+	public static final By ELEMENT_PAGE_EDIT_ABORT = By.xpath("//a[@title='Abort']");
 
 	public static final By ELEMENT_SELECT_CONTENT_PATH = By.xpath("//a[@title='offices.jpg']");
-	//public static final By ELEMENT_SELECT_CLV_PATH = By.xpath("//a[@path='/sites content/live/acme/documents']");
-
-	//	public static final String ELEMENT_PREFERENCE_ADVANCE_LINK = "Advanced";
-
-
-	//	public static final By ELEMENT_UPLOAD_SAVE_BUTTON_LINKTEXT = By.linkText("Save");
-	//	public static final By ELEMENT_UPLOAD_CLOSE_BUTTON_LINKTEXT =By.linkText("Close");
 
 	//Locator of SetPermission
-	//	public static final By ELEMENT_SYSTEM_LINK = By.linkText("System");
-	//	public static final By ELEMENT_PERMISSION_TAB = By.linkText("Permissions");
 	public static final By ELEMENT_SELECT_USER = By.xpath("//img[@alt='Select User']");
 	public static final By ELEMENT_SEARCH_TEXTBOX = By.id("QuickSearch");
 	public static final By ELEMENT_SEARCH_LINK = By.xpath("//a[@class='SearchIcon' and @title='Quick Search']");
@@ -114,7 +86,6 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_LIVE_DIV = By.xpath("//div[@title='live']");
 	public static By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
 	public static final By ELEMENT_INFO = By.xpath("//span[@class='PopupIcon InfoMessageIcon']");
-
 
 	//Rename Form in Sites Explorer (Righ-click -> Rename
 	public static final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");

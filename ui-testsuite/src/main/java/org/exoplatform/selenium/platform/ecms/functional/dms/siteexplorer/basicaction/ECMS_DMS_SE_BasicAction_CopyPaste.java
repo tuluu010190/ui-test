@@ -85,16 +85,16 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		info("Delete data");
 		goToNode(CONTENT_FOLDER_PATH);
 		rightClickOnElement(CONTENT_FOLDER_PATH);
-		mouseOver(ELEMENT_PARTIALLINK_DELETE_DOCUMENT, true);
-		click(ELEMENT_PARTIALLINK_DELETE_DOCUMENT);
+		mouseOver(ELEMENT_MENU_DELETE, true);
+		click(ELEMENT_MENU_DELETE);
 		click(By.linkText("OK"));
 		info(CONTENT_FOLDER_PATH.toString() + "was deleted successfully");
 
 		pause(1000);
 		goToNode(CONTENT_FOLDER_PATH);
 		rightClickOnElement(CONTENT_FOLDER_PATH);
-		mouseOver(ELEMENT_PARTIALLINK_DELETE_DOCUMENT, true);
-		click(ELEMENT_PARTIALLINK_DELETE_DOCUMENT);
+		mouseOver(ELEMENT_MENU_DELETE, true);
+		click(ELEMENT_MENU_DELETE);
 		click(By.linkText("OK"));
 		info(CONTENT_FOLDER_PATH.toString() + "was deleted successfully");
 		waitForElementNotPresent(CONTENT_FOLDER_PATH);
@@ -448,16 +448,16 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		info("Delete data");
 		goToNode(DOCUMENT_FOLDER_PATH);
 		rightClickOnElement(DOCUMENT_FOLDER_PATH);
-		mouseOver(ELEMENT_PARTIALLINK_DELETE_DOCUMENT, true);
-		click(ELEMENT_PARTIALLINK_DELETE_DOCUMENT);
+		mouseOver(ELEMENT_MENU_DELETE, true);
+		click(ELEMENT_MENU_DELETE);
 		click(By.linkText("OK"));
 		info(DOCUMENT_FOLDER_PATH.toString() + "was deleted successfully");
 
 		pause(1000);
 		goToNode(DOCUMENT_FOLDER_PATH);
 		rightClickOnElement(DOCUMENT_FOLDER_PATH);
-		mouseOver(ELEMENT_PARTIALLINK_DELETE_DOCUMENT, true);
-		click(ELEMENT_PARTIALLINK_DELETE_DOCUMENT);
+		mouseOver(ELEMENT_MENU_DELETE, true);
+		click(ELEMENT_MENU_DELETE);
 		click(By.linkText("OK"));
 		info(DOCUMENT_FOLDER_PATH.toString() + "was deleted successfully");
 		waitForElementNotPresent(DOCUMENT_FOLDER_PATH);

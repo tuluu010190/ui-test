@@ -209,5 +209,12 @@ public class PageEditor extends EcmsBase {
 	}
 
 	////////
-
+	//---function add create new page with add content by query portlet, @author: Nhungvt
+	public static void createPage_ContentByQuery_EmptyLayout(String pageName)
+	{
+		gotoPageEditor_EmptyLayout(pageName);
+		click(ELEMENT_MENU_CONTENT_LINK);
+		dragAndDropToObject(ELEMENT_CONTENTS_BY_QUERY_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
+		pause(500);
+	}
 }

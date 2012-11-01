@@ -9,13 +9,15 @@ import org.testng.Assert;
 
 public class ContextMenu extends EcmsBase {
 
-	public static final By ELEMENT_LOCK_OPTION_XPATH = By.xpath("//a[contains(text(),'Lock')]");
-	public static final By ELEMENT_UNLOCK_OPTION_XPATH = By.xpath("//a[contains(text(),'UnLock')]");
-	public static final By ELEMENT_CHECKIN_OPTION_XPATH = By.xpath("//a[contains(text(),'CheckIn')]");
-	public static final By ELEMENT_CHECKOUT_OPTION_XPATH = By.xpath("//a[contains(text(),'CheckOut')]");
-	public static final By ELEMENT_RENAME_NODE = By.linkText("Rename");
-	public static final By ELEMENT_PASTE_NODE = By.xpath("//a[contains(text(),'Paste')]");
-	public static final By ELEMENT_REFRESH_BUTTON=By.xpath("//a[@title='refresh']");
+	public static final By ELEMENT_MENU_LOCK = By.xpath("//a[contains(text(),'Lock')]");
+	public static final By ELEMENT_MENU_UNLOCK = By.xpath("//a[contains(text(),'UnLock')]");
+	public static final By ELEMENT_MENU_CHECKIN = By.xpath("//a[contains(text(),'CheckIn')]");
+	public static final By ELEMENT_MENU_CHECKOUT = By.xpath("//a[contains(text(),'CheckOut')]");
+	public static final By ELEMENT_MENU_RENAME_NODE = By.linkText("Rename");
+	public static final By ELEMENT_MENU_PASTE = By.xpath("//a[contains(text(),'Paste')]");
+	public static final By ELEMENT_MENU_REFRESH=By.xpath("//a[@title='refresh']");
+	public static final By ELEMENT_MENU_DELETE = By.xpath("//a[contains(text(),'Delete')]");
+	
 	//lock node
 	public static void lockNode(By locator){
 		for(int repeat=0;; repeat ++)
@@ -24,12 +26,12 @@ public class ContextMenu extends EcmsBase {
 				Assert.fail("Cannot perfotrm this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
-			if (isDisplay(waitForAndGetElement(ELEMENT_LOCK_OPTION_XPATH))) break;
+			if (isDisplay(waitForAndGetElement(ELEMENT_MENU_LOCK))) break;
 			pause(WAIT_INTERVAL);
 			info("Retry...[" + repeat + "]");
 		}
 
-		click(ELEMENT_LOCK_OPTION_XPATH);
+		click(ELEMENT_MENU_LOCK);
 	}
 
 	//check node is being locked
@@ -39,7 +41,7 @@ public class ContextMenu extends EcmsBase {
 		//		actions.contextClick(unlock).build().perform();
 		rightClickOnElement(by);
 		pause(500);
-		if (isElementPresent(ELEMENT_UNLOCK_OPTION_XPATH)) {
+		if (isElementPresent(ELEMENT_MENU_UNLOCK)) {
 			locked = true;
 		} else 
 			locked =false;
@@ -55,11 +57,11 @@ public class ContextMenu extends EcmsBase {
 				Assert.fail("Cannot perfotrm this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
-			if (isDisplay(waitForAndGetElement(ELEMENT_CHECKIN_OPTION_XPATH, 30000, 0))) break;
+			if (isDisplay(waitForAndGetElement(ELEMENT_MENU_CHECKIN, 30000, 0))) break;
 			info("Retry...[" + repeat + "]");
 		}
 
-		click(ELEMENT_CHECKIN_OPTION_XPATH);
+		click(ELEMENT_MENU_CHECKIN);
 		info("Check in node successfully");
 
 	}
@@ -67,9 +69,9 @@ public class ContextMenu extends EcmsBase {
 	//check out a node
 	public static void checkOutNode(By locator){
 		rightClickOnElement(locator);
-		WebElement out = waitForAndGetElement(ELEMENT_CHECKOUT_OPTION_XPATH);                
+		WebElement out = waitForAndGetElement(ELEMENT_MENU_CHECKOUT);                
 		if (isDisplay(out)){
-			click(ELEMENT_CHECKOUT_OPTION_XPATH);
+			click(ELEMENT_MENU_CHECKOUT);
 			info("Check out node successfully");
 		}else{
 			if (loopCount > 10)
@@ -93,10 +95,10 @@ public class ContextMenu extends EcmsBase {
 			}
 			rightClickOnElement(locator);
 			info("before display " + repeat);
-			if (isDisplay(waitForAndGetElement(ELEMENT_PARTIALLINK_DELETE_DOCUMENT, DEFAULT_TIMEOUT, 0))) 
+			if (isDisplay(waitForAndGetElement(ELEMENT_MENU_DELETE, DEFAULT_TIMEOUT, 0))) 
 			{	
 				info("element is displayed ");
-				click(ELEMENT_PARTIALLINK_DELETE_DOCUMENT);
+				click(ELEMENT_MENU_DELETE);
 				waitForTextPresent("Confirm Deletion");
 				click(By.linkText("OK"));
 				break;
@@ -105,7 +107,7 @@ public class ContextMenu extends EcmsBase {
 
 		}
 		waitForElementNotPresent(By.linkText("OK"));
-		click(ELEMENT_REFRESH_BUTTON);
+		click(ELEMENT_MENU_REFRESH);
 		waitForElementNotPresent(locator, iTimeout);
 		info(locator.toString() + "was deleted successfully");		
 	}
@@ -113,7 +115,7 @@ public class ContextMenu extends EcmsBase {
 	//Define common function
 	public static void unLockNode(By locator){
 		rightClickOnElement(locator);
-		click(ELEMENT_UNLOCK_OPTION_XPATH);
+		click(ELEMENT_MENU_UNLOCK);
 	}
 
 	public static void pasteNode(By locator) {

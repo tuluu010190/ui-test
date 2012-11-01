@@ -171,7 +171,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 		//Rename locked node
 		rightClickOnElement(elementArticleToLock);
 
-		click(ELEMENT_RENAME_NODE);
+		click(ELEMENT_MENU_RENAME_NODE);
 
 		waitForTextPresent("Rename");
 
@@ -525,7 +525,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 		
 		rightClickOnElement(elementArticleToLock);
 
-		click(ELEMENT_UNLOCK_OPTION_XPATH);
+		click(ELEMENT_MENU_UNLOCK);
 		
 		waitForElementNotPresent(elementArticleToLock);
 		

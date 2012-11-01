@@ -118,17 +118,17 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 		
 		//Right click and check-in node
 		rightClickOnElement(UPLOAD_FILE_NAME);
-		waitForElementPresent(ELEMENT_CHECKIN_OPTION_XPATH);
-		click(ELEMENT_CHECKIN_OPTION_XPATH);
+		waitForElementPresent(ELEMENT_MENU_CHECKIN);
+		click(ELEMENT_MENU_CHECKIN);
 		
 		//Verify item Delete item not exist
 		waitForElementPresent(UPLOAD_FILE_NAME);
 		rightClickOnElement(UPLOAD_FILE_NAME);
-		waitForElementPresent(ELEMENT_CHECKOUT_OPTION_XPATH);
+		waitForElementPresent(ELEMENT_MENU_CHECKOUT);
 		waitForElementNotPresent(DELETE_LINK);
 		
 		//Delete data
-		click(ELEMENT_CHECKOUT_OPTION_XPATH);
+		click(ELEMENT_MENU_CHECKOUT);
 		waitForElementPresent(UPLOAD_FILE_NAME);
 		deleteDocument(UPLOAD_FILE_NAME);
 	}
