@@ -628,10 +628,50 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		deleteDocument(ARTICLE_PATH);
 	} 
 
-	//This case is 2 user-cases, temporary postpone
-//	@Test
+	/*case14: Add Content in a locked node by user is not locker
+	 * create 1 document node
+	 * lock this node by user John
+	 * login by user Mary
+	 * check user mary can not add content for this node
+	 */
+	@Test
 	public void test14_AddContentInLockedNodeByNotLocker()
 	{
+		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Document_article_14";
+		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE_TITLE);
 		
+		//create new article
+		goToSiteExplorer();
+		goToAddNewContent();
+		info("Create new article document");
+		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, "", "");
+		waitForElementPresent(ELEMENT_ARTICLE);
+		
+		//lock node
+		info("Lock node");
+		goToNode(ELEMENT_ARTICLE);
+		lockNode(ELEMENT_ARTICLE);
+		
+		//check lock node
+		checkLockNode(ELEMENT_ARTICLE);
+		driver.close();
+		
+		//login with user mary
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		loginEcms("mary", "gtn");
+		goToSiteExplorer();
+		
+		//check user mary can not add content for this node
+		goToNode(ELEMENT_ARTICLE);
+		waitForElementNotPresent(ELEMENT_MENU_NEW_CONTENT_LINK);
+		info("User can not add content for this node");
+		logoutEcms();
+		
+		//delete date with user John
+		loginEcms("john", "gtn");
+		goToSiteExplorer();
+		deleteData(ELEMENT_ARTICLE);
 	} 
 }

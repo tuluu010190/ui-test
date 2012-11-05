@@ -25,10 +25,6 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	
 	public static final String DATA_UPLOAD_FILE_LINK = "TestData/ECMS_DMS_SE_Upload_imgfile.jpg";
 	public static final String DATA_UPLOAD_FILE_DOC_LINK = "TestData/ECMS_DMS_SE_Upload_docfile.doc";
-	public static final By ELEMENT_POPUP_PERMISSION = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
-	public static final By ELEMENT_MESSAGE_NO_PERMISSION = By.xpath("//span[@class='PopupIcon WarningMessageIcon']"); 
-	public static final By ELEMENT_ACME_LINK = By.xpath("//a[@title='acme ']");
-	public static final By ELEMENT_DOCUMENTS_LINK = By.xpath("//a[@title='documents ']");
 	public static final By ELEMENT_UPLPAD_FILE_NAME_ID_2 = By.id("1name");
 	public static final By ELEMENT_UPLOAD_IMG_FRAME_XPATH_2 = By.xpath("//table[@class='UIFormGrid']/tbody/tr[3]/*//iframe");
 	public static final By ELEMENT_UPLOAD_FINISH_XPATH_2 = By.xpath("//div[@class='FileNameLabel'][1]");
@@ -73,9 +69,9 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		//check upload successfully
 		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Can not upload new file";
 		info("Upload new file is successful");
+		
 		//delete uploaded file
-		goToNode(ELEMENT_UPLOAD_FILE);
-		deleteDocument(ELEMENT_UPLOAD_FILE);
+		deleteData(ELEMENT_UPLOAD_FILE);
 	}
 	
 	/*Case2: Upload a file in Content folder 
@@ -87,7 +83,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	@Test
 	public void test02_UploadFileInContentFolder(){
 		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_Upload_contentfolder_02";
-		By ELEMENT_CONTENT_FOLDER = By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
+		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER_TITLE);
 		String DATA_UPLOAD_FILE_NAME = "ECMS_DMS_SE_Upload_uploadfile_02";
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
 		
@@ -98,6 +94,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
 		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Can not create new content folder";
 		info("Create new content folder successfully");
+		
 		//upload new file into content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		debug("Upload new file with name: "+DATA_UPLOAD_FILE_NAME);
@@ -118,7 +115,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	@Test
 	public void test03_UploadFileInDocumentFolder(){
 		String DATA_DOCUMENT_FOLDER_TITLE = "ECMS_DMS_SE_Upload_documentfolder_03";
-		By ELEMENT_DOCUMENT_FOLDER = By.xpath("//a[@title='"+DATA_DOCUMENT_FOLDER_TITLE+" "+"']");
+		By ELEMENT_DOCUMENT_FOLDER = By.linkText(DATA_DOCUMENT_FOLDER_TITLE);
 		String DATA_UPLOAD_FILE_NAME = "ECMS_DMS_SE_Upload_uploadfile_03";
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
 		
@@ -147,7 +144,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	@Test
 	public void test04_UploadFileInDocument(){
 		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_Upload_article_04";
-		By ELEMENT_ARTICLE =By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']") ;
+		By ELEMENT_ARTICLE =By.linkText(DATA_ARTICLE_TITLE) ;
 		String DATA_UPLOAD_FILE_NAME = "ECMS_DMS_SE_Upload_uploadfile_04";
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".jpg "+"']");
 		
@@ -162,6 +159,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		goToNode(ELEMENT_ARTICLE);
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_LINK);
+		
 		//check upload file successfully
 		checkPreferenceOption("enableStructure");
 		goToNode(ELEMENT_ARTICLE);
@@ -182,7 +180,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	@Test
 	public void test07_UploadFileInNodeCheckIn(){
 		String DATA_ARTICLE_DOCUMENT_TITLE = "ECMS_DMS_SE_Upload_article_07";
-		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_DOCUMENT_TITLE+" "+"']");
+		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE_DOCUMENT_TITLE);
 
 		//create new node: article document
 		goToSiteExplorer();
@@ -192,20 +190,22 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		waitForElementPresent(ELEMENT_ARTICLE);
 		assert isElementPresent(ELEMENT_ARTICLE):"Can not create new article document";
 		info("Create new article successfully");
+		
 		//check in article document
 		goToNode(ELEMENT_ARTICLE);
 		checkInNode(ELEMENT_ARTICLE);
+		
 		//check can not upload file in checked in Node
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementNotPresent(ELEMENT_UPLOAD_LINK_XPATH);
 		info("Can not upload new file into a Node has been checked in");
+		
 		//check out article document
 		checkOutNode(ELEMENT_ARTICLE);
+		
 		//delete article document
 		goToNode(ELEMENT_ARTICLE);
 		deleteDocument(ELEMENT_ARTICLE);
-		waitForElementNotPresent(ELEMENT_ARTICLE);
-		
 	}
 	
 	/*Case8: Upload file in a node has parent node is in 'Check in' status
@@ -219,9 +219,9 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	@Test
 	public void test08_UploadFileInNodeHasParentNodeCheckin(){
 		String DATA_ARTICLE_DOCUMENT_TITLE = "ECMS_DMS_SE_Upload_article_08";
-		By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE_DOCUMENT_TITLE+" "+"']");
+		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE_DOCUMENT_TITLE);
 		String DATA_KOFAX_DOCUMENT_NAME = "ECMS_DMS_SE_Upload_kofax_08";
-		By ELEMENT_KOFAX = By.xpath("//a[@title='"+DATA_KOFAX_DOCUMENT_NAME+" "+"']");
+		By ELEMENT_KOFAX = By.linkText(DATA_KOFAX_DOCUMENT_NAME);
 		
 		//create new parent node: article document
 		goToSiteExplorer();
@@ -247,9 +247,11 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementNotPresent(ELEMENT_UPLOAD_LINK_XPATH);
 		info("Can upload file in child node");
+		
 		//check out parent node
 		goToNode(ELEMENT_ARTICLE);
 		checkOutNode(ELEMENT_ARTICLE);
+		
 		//delete parent node
 		deleteDocument(ELEMENT_ARTICLE);
 	}
@@ -266,7 +268,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	@Test
 	public void test09_UploadFileUserNotPermission(){
 		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_Upload_contentfolder_09";
-		By ELEMENT_CONTENT_FOLDER = By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
+		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER_TITLE);
 
 		//create new content
 		goToSiteExplorer();
@@ -278,21 +280,22 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		setPermissionAddNodeForUser("mary",1,1);
 		logoutEcms();
+		
 		//login with user Mary
 		driver.get(DEFAULT_BASEURL);
 		loginEcms("mary", DATA_PASS);
 		goToSiteExplorer();
+		
 		//check can not upload file into node
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		click(ELEMENT_UPLOAD_LINK_XPATH);
+		
 		//check can not upload file
-		assert isElementPresent(ELEMENT_POPUP_PERMISSION);
-		assert getText(ELEMENT_MESSAGE_NO_PERMISSION).contains("You do not have permission to add a new node.");
+		checkAlertWarning("You do not have permission to add a new node.");
 		info("Check user does not have add not permission: true");
-		click(By.linkText("OK"));
 		logoutEcms();
+		
 		//delete Uploaded file with John
-		driver.get(DEFAULT_BASEURL);
 		loginEcms(DATA_USER, DATA_PASS);
 		goToSiteExplorer();
 		goToNode(ELEMENT_CONTENT_FOLDER);
@@ -302,52 +305,50 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	/* Case11: Upload a file in locked node by user is not locker
 	 * create new node: content folder
 	 * lock node
+	 * add new browser
 	 * login with user Mary in other driver
 	 * check can not upload file to content folder
 	 * on driver with user John: delete node
 	 */
-//	@Test
-//	public void test11_UploadFileToLockedNode(){
-//		String DATA_CONTENT_FOLDER_TITLE = "Testcontentfolder_11";
-//		
-//		//create new content folder
-//		goToSiteExplorer();
-//		goToNode("//a[@title='acme ']");
-//		goToNode("//a[@title='documents ']");
-//		pause(500);
-//		debug("Create new node (content folder) with title: "+DATA_CONTENT_FOLDER_TITLE);
-//		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE, DATA_CONTENT_FOLDER_TITLE);
-//		waitForElementPresent("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
-//		assert isElementPresent("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']"):"Can not crate new content folder";
-//		//lock node
-//		lockNode("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
-//		goToNode("//a[contains(@title,'"+DATA_CONTENT_FOLDER_TITLE+"')]");
-//		pause(1000);
-//		assert checkLockNode("//a[contains(@title,'"+DATA_CONTENT_FOLDER_TITLE+"')]"):"Can not lock node";
-//		//open new session with user mary
-//		info("login by user mery");
-//		initSeleniumTest();
-//	    driver.get(baseUrl);
-//		loginEcms("mary",ELEMENT_PASS );
-//		goToSiteExplorer();
-//		goToNode("//a[@title='acme ']");
-//		goToNode("//a[@title='documents ']");
-//		goToNode("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
-//		click(ELEMENT_UPLOAD_LINK_XPATH);
-//		//check can not uplpoad file
-//		assert isElementPresent(ELEMENT_POPUP_PERMISSION);
-//		assert getText(ELEMENT_MESSAGE_NO_PERMISSION).contains("You do not have permission to add a new node.");
-//		info("Check user does not have add not permission: true");
-//		click(By.linkText("OK"));
-//		logoutEcms();
-//		driver.quit();
-//		//delete content folder with user John
-//		goToNode("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
-//		deleteDocument("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
-//		pause(500);
-//		//check delete successfully
-//		waitForElementNotPresent("//a[@title='"+DATA_CONTENT_FOLDER_TITLE+" "+"']");
-//	}
+	@Test
+	public void test11_UploadFileToLockedNode(){
+		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_Upload_content_folder_11";
+		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER_TITLE);
+		
+		//create new content folder
+		goToSiteExplorer();
+		info("Create new node (content folder) with title: "+DATA_CONTENT_FOLDER_TITLE);
+		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE, DATA_CONTENT_FOLDER_TITLE);
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Can not crate new content folder";
+		
+		//lock node
+		lockNode(ELEMENT_CONTENT_FOLDER);
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Can not lock node";
+		driver.close();
+		
+		//open new session
+		info("login by user mary");
+		initSeleniumTest();
+	    driver.get(baseUrl);
+	    actions = new Actions(driver);
+	    
+		//login with use mary
+		loginEcms("mary","gtn");
+		goToSiteExplorer();
+
+		//check user mary can not uplpoad file in locked folder
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		waitForElementNotPresent(ELEMENT_UPLOAD_LINK_XPATH);
+		info("Can not see link upload file");
+		logoutEcms();
+
+		//delete content folder with user John
+		loginEcms(DATA_USER, DATA_PASS);
+		goToSiteExplorer();
+		deleteData(ELEMENT_CONTENT_FOLDER);
+	}
 	
 	/*case12: Upload a file is image file
 	 * login
@@ -516,8 +517,6 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		
 		//Upload file
 		goToSiteExplorer();
-		goToNode(ELEMENT_ACME_LINK);
-		goToNode(ELEMENT_DOCUMENTS_LINK);
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_DOC_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD);
@@ -569,6 +568,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		type(ELEMENT_UPLOAD_IMG_ID,getAbsoluteFilePath(DATA_UPLOAD_FILE_LINK),false);
 		switchToParentWindow();
 		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+		
 		//choose 1 file .doc
 		click(ELEMENT_UPLOAD_ADD_FILE);
 		type(ELEMENT_UPLPAD_FILE_NAME_ID_2,DATA_FILE_DOC_NAME,false);
@@ -576,14 +576,15 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		type(ELEMENT_UPLOAD_IMG_ID,getAbsoluteFilePath(DATA_UPLOAD_FILE_DOC_LINK),false);
 		switchToParentWindow();
 		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH_2);
-		
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
+		
 		//check upload file successful
 		waitForElementPresent(ELEMENT_FILE_IMG);
 		assert isElementPresent(ELEMENT_FILE_IMG):"Can not upload file .jpg";
 		assert isElementPresent(ELEMENT_FILE_DOC):"Can not upload file .doc";
 		info("Upload multi file successfully");
+		
 		//delete file
 		goToNode(ELEMENT_FILE_IMG);
 		deleteDocument(ELEMENT_FILE_IMG);

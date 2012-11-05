@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.InvalidElementStateException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.By.ByCssSelector;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -631,6 +632,53 @@ public class ECMS_DMS_SE_BasicAction_Edit extends EcmsBase {
 		waitForElementNotPresent(ELEMENT_SAVE_CLOSE_BUTTON);
 		deleteDocument(bDocument);
 	}
+	
+	/*case31: Edit locked document by user isn't locker
+	 * create new document with user John
+	 * Lock document by John
+	 * check can not edit this document with user Mary
+	 */
+	@Test
+	public void test31_EditLockedDocumentByUserIsNotLocker(){
+		String DATA_ARTICLE_TITLE="FNC_ECMS_FEX_ACTION_09_31";
+		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE_TITLE);
+		
+		//create new document with John: article document
+		goToSiteExplorer();
+		goToAddNewContent();
+		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, "", "");
+		waitForElementPresent(ELEMENT_ARTICLE);
+		info("Create new article document is successful");
+		
+		//lock node with John
+		goToNode(ELEMENT_ARTICLE);
+		lockNode(ELEMENT_ARTICLE);
+		
+		//check lock node
+		checkLockNode(ELEMENT_ARTICLE);
+		driver.close();
+		
+		//login with mary
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		loginEcms("mary", "gtn");
+		goToSiteExplorer();
+		
+		//check can not edit this document with user Mary
+		goToNode(ELEMENT_ARTICLE);
+		waitForElementNotPresent(ELEMENT_LINK_EDIT);
+		rightClickOnElement(ELEMENT_ARTICLE);
+		waitForElementNotPresent(ELEMENT_MENU_EDIT_ITEM);
+		info("Can not edit locked document with user is not locker");
+		logoutEcms();
+		
+		//delete data with John
+		loginEcms(USER, PASS);
+		goToSiteExplorer();
+		deleteData(ELEMENT_ARTICLE);		
+	}
+	
 	//edit a document in a locked document
 	@Test
 	public void test32_EditDocumentInLockedDocument(){	

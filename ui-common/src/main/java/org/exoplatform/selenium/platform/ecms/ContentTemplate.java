@@ -147,6 +147,10 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_UPLOAD_IMG_ID = By.id("file");
 	public static final By ELEMENT_UPLOAD_FINISH_XPATH = By.xpath("//div[@class='FileNameLabel']");
 	
+	//data test
+	public static final String[] DATA_SPECIAL_CHARACTER = {"`","~","!","@","#","$","%","^","&","*","(",")","-","_","+","=","{","}","[","]","|","\\",";",":","'","\"","<",",",".","/","?"};
+	public static final String DATA_SPECIAL_CHARACTER_STRING = "~`!@#$%^&*()-_=+[]{}\\|;:'\",<.>?/";
+	
 	// add new article
 	public static void createNewArticle(String title, String name, String sum, String cont) {
 		click(ELEMENT_ARTICLE_LINK);

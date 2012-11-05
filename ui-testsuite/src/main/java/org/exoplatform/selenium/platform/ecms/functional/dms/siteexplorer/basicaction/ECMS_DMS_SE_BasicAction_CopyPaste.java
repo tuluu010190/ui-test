@@ -304,6 +304,58 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToNode(DOCUMENT_FOLDER_PATH);
 		deleteDocument(DOCUMENT_FOLDER_PATH);
 	}
+	
+	/*case17: Copy folder and paste into locked node by user is not locker
+	 * login with John: create new node (folder/document/upload file). Lock node
+	 * login with mary: create new node. Check can not copy this node to locked node
+	 */
+	@Test
+	public void test17_CopyFolderAndPasteIntoLockedNodeByUserIsNotLock(){		
+		String DOCUMENT_FOLDER_NAME_1 = "ECMS_DMS_SE_BasicAction_CopyPaste_folder_17_1";
+		By DOCUMENT_FOLDER_PATH_1 = By.linkText(DOCUMENT_FOLDER_NAME_1);
+		
+		String DOCUMENT_FOLDER_NAME_2 = "ECMS_DMS_SE_BasicAction_CopyPaste_folder_17_2";
+		By DOCUMENT_FOLDER_PATH_2 = By.linkText(DOCUMENT_FOLDER_NAME_2);
+		
+		//create new document folder
+		goToSiteExplorer();
+		info("Create Document folder");
+		createNewDocumentFolder(DOCUMENT_FOLDER_NAME_1, DOCUMENT_FOLDER_NAME_1);
+		waitForElementPresent(DOCUMENT_FOLDER_PATH_1);
+		
+		//lock node
+		goToNode(DOCUMENT_FOLDER_PATH_1);
+		lockNode(DOCUMENT_FOLDER_PATH_1);
+		
+		//check lock node
+		checkLockNode(DOCUMENT_FOLDER_PATH_1);
+		driver.close();
+		
+		//login with mary
+		info("login with mary");
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		loginEcms("mary", "gtn");
+		goToSiteExplorer();
+		
+		//create new document folder
+		info("Create Document folder");
+		createNewDocumentFolder(DOCUMENT_FOLDER_NAME_2, DOCUMENT_FOLDER_NAME_2);
+		waitForElementPresent(DOCUMENT_FOLDER_PATH_2);
+		
+		//Check can not copy this node to locked node
+		copyPasteNode(DOCUMENT_FOLDER_PATH_2, DOCUMENT_FOLDER_PATH_1);
+		checkAlertWarning("The item with the path collaboration:/sites content/live/"+ DOCUMENT_FOLDER_NAME_1 + " or upper level is locked.");
+		info("Can not copy a node to locked node by user is not locker");
+		deleteData(DOCUMENT_FOLDER_PATH_2);
+		logoutEcms();
+		
+		//delete data with john
+		loginEcms("john", "gtn");
+		goToSiteExplorer();
+		deleteData(DOCUMENT_FOLDER_PATH_1);
+	}
 
 	/* Go to Sites Management
 	 * Create document folder

@@ -16,7 +16,8 @@ public class ContextMenu extends EcmsBase {
 	public static final By ELEMENT_MENU_PASTE = By.xpath("//a[contains(text(),'Paste')]");
 	public static final By ELEMENT_MENU_REFRESH=By.xpath("//a[@title='refresh']");
 	public static final By ELEMENT_MENU_DELETE = By.xpath("//a[contains(text(),'Delete')]");
-	
+	public static final By ELEMENT_MENU_EDIT_ITEM = By.xpath("//a[@class='ItemIcon DefaultAction16x16Icon EditDocument16x16Icon']");
+
 	//lock node
 	public static void lockNode(By locator){
 		for(int repeat=0;; repeat ++)

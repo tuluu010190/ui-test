@@ -604,38 +604,41 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	 * login by user mary
 	 * view permission of node
 	 */
-	//	  @Test
-	//	  public void test23_ViewPermissionOfLockedNodeByNotLocker(){
-	//		  String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_Info_Permission_contentfolder_23";
-	//		  By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-	//		  
-	//		  //create new content folder with user John
-	//		  goToSiteExplorer();
-	//		  createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
-	//		  
-	//		  //lock node
-	//		  goToNode(ELEMENT_CONTENT_FOLDER);
-	//		  info("Lock node by user John");
-	//		  lockNode(ELEMENT_CONTENT_FOLDER);
-	//		  pause(500);
-	//		  checkLockNode(ELEMENT_CONTENT_FOLDER);
-	//		  logoutEcms();
-	//		  
-	//		  //login with user mary
-	//		  driver.get(baseUrl);
-	//		  loginEcms("mary", "gtn");
-	//		  goToSiteExplorer();
-	//		  
-	//		  //view permission of node
-	//		  viewPermissionOfNode(ELEMENT_CONTENT_FOLDER);
-	//		  logoutEcms();
-	//		  
-	//		  //delete data
-	//		  driver.get(baseUrl);
-	//		  loginEcms(DATA_USER, DATA_PASS);
-	//		  goToSiteExplorer();
-	//		  deleteData(ELEMENT_CONTENT_FOLDER);
-	//	  }
+	@Test
+	public void test23_ViewPermissionOfLockedNodeByNotLocker(){
+		String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_Info_Permission_contentfolder_23";
+		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
+	  
+		//create new content folder with user John
+		goToSiteExplorer();
+		createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
+	  
+		//lock node
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		info("Lock node by user John");
+		lockNode(ELEMENT_CONTENT_FOLDER);
+		pause(500);
+		checkLockNode(ELEMENT_CONTENT_FOLDER);
+		driver.close();
+	  
+		//login with user mary in other browser
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		loginEcms("mary", "gtn");
+		goToSiteExplorer();
+	  
+		//view permission of node
+		click(ELEMENT_CONTENT_FOLDER);
+		click(ELEMENT_PERMISSION_LINK);
+		waitForElementPresent(ELEMENT_PER_MANA_POPUP);
+		logoutEcms();
+	  
+		//delete data
+	  	loginEcms(DATA_USER, DATA_PASS);
+	  	goToSiteExplorer();
+	  	deleteData(ELEMENT_CONTENT_FOLDER);
+	}
 
 	/*case24:  Add/Edit/Delete Permission of locked node by locker
 	 * create new node: content folder
@@ -673,8 +676,52 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	}
 
 	/*case25:   Add/Edit/Delete Permission of locked node by user is not locker
-	 * pending: 2 driver
+	 * create new node (content folder)
+	 * lock node by user John
+	 * Login with mary, check user Mary can not add, edit, delete on permission management of node
 	 */
+	@Test
+	public void test25_CheckPermissionOfLockedNodeByNotLocker(){
+		String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_Info_Permission_contentfolder_25";
+		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
+
+		//create new content folder with user John
+		goToSiteExplorer();
+		createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
+
+		//lock node
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		info("Lock node by user John");
+		lockNode(ELEMENT_CONTENT_FOLDER);
+		pause(500);
+		checkLockNode(ELEMENT_CONTENT_FOLDER);
+		driver.close();
+		
+		//login with mary
+		info("login with mary");
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		loginEcms("mary", "gtn");
+		goToSiteExplorer();
+
+		//check permission of user
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		click(ELEMENT_PERMISSION_LINK);
+		waitForElementPresent(ELEMENT_PER_MANA_POPUP);
+		
+		//check user does not have add/edit/delete permission
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_DELETE);
+		waitForElementNotPresent(ELEMENT_EDIT);
+		info("User does not have add/delete/edit permission of node");
+		logoutEcms();
+		
+		//delete date with use John
+		loginEcms(DATA_USER, DATA_PASS);
+		goToSiteExplorer();
+		deleteData(ELEMENT_CONTENT_FOLDER);		
+	}
 
 	/*case26: Add/Edit/Delete Permission of node when node is in 'check in' status
 	 * create new node: article document
@@ -699,7 +746,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToNode(ELEMENT_ARTICLE);
 		checkInNode(ELEMENT_ARTICLE);
 
-		//check can node add permission of node if node being check in status
+		//check can not add permission of node if node being check in status
 		goToPermissionManagement();
 		selectUser("mary");
 		pause(500);
@@ -708,13 +755,13 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		checkAlertWarning(MESSAGE);
 		info("Can not add permission for node when node being check in");
 
-		//check can node edit permission of node if node being check in status
+		//check can not edit permission of node if node being check in status
 		click(ELEMENT_EDIT);
 		click(ELEMENT_SAVE_BUTTON);
 		checkAlertWarning(MESSAGE);
 		info("Can not edit permission for node when node being check in");
 
-		//check can node delete permission of node if node being check in status
+		//check can not delete permission of node if node being check in status
 		click(ELEMENT_DELETE);
 		acceptAlert();
 		checkAlertWarning(MESSAGE);

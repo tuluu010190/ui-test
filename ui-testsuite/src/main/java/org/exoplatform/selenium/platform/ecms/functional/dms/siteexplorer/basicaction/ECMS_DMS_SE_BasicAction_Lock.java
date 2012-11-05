@@ -107,6 +107,53 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 		//Delete data
 		deleteDocument(ARTICLE_PATH);
 	}
+	
+	/*Case03: Unlock a node by user is  not locker 
+	 * create new node
+	 * lock node by user John
+	 * login with mary
+	 * check mary can not unlock this node
+	 */
+	@Test
+	public void test03_UnlockNodeByUserIsNotLocker(){
+		String DATA_ARTICLE_TITLE = "EMCS_SE_BasicAction_Lock_Case03";
+		By ARTICLE_PATH = By.linkText(DATA_ARTICLE_TITLE);
+		
+		//create new node: article document
+		goToSiteExplorer();
+		goToAddNewContent();
+		info("Create new article document");
+		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, "", "");
+		waitForElementPresent(ARTICLE_PATH);
+		
+		//lock node
+		goToNode(ARTICLE_PATH);
+		lockNode(ARTICLE_PATH);
+		
+		//check log node
+		checkLockNode(ARTICLE_PATH);
+		driver.close();
+		
+		//login with mary
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		loginEcms("mary", "gtn");
+		goToSiteExplorer();
+		
+		//check mary can not unlock this node
+		goToNode(ARTICLE_PATH);
+		rightClickOnElement(ARTICLE_PATH);
+		waitForElementNotPresent(ELEMENT_MENU_UNLOCK);
+		waitForElementNotPresent(ELEMENT_MENU_LOCK);
+		info("User can not lock or unlock node");
+		logoutEcms();
+		
+		//delete data with user John
+		loginEcms(DATA_USER, DATA_PASS);
+		goToSiteExplorer();
+		deleteData(ARTICLE_PATH);
+	}
 
 	/*Case 04: Lock a node while parent node is being in locked status
 	 * Login
