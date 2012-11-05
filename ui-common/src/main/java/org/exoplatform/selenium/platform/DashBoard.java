@@ -22,7 +22,7 @@ public class DashBoard extends PlatformBase {
 
 	//Add new page on Dashboard
 	public static void addNewTabOnDashboard(String displayName, boolean verify) {
-		info("--Add new page on dashboard--");
+		info("--Add new page on Dashboard--");
 		click(ELEMENT_DASHBOARD_NEW_ICON);
 		type(ELEMENT_DASHBOARD_NEW_INPUT, displayName, true);
 		WebElement element = waitForAndGetElement(ELEMENT_DASHBOARD_NEW_INPUT);
@@ -32,7 +32,7 @@ public class DashBoard extends PlatformBase {
 		}
 	}
 
-	//Add new page on Dashboard with Editor
+	//Add new page in Dashboard with Editor
 	public static void addNewTabOnDashboardWithEditor(String nodeName, boolean extendedLabelMode, String displayName, 
 			String language, String categoryTitle, Map<String, String> portletIds, boolean verify){
 
@@ -69,7 +69,7 @@ public class DashBoard extends PlatformBase {
 	//Edit a tab name
 	public static void editTabNameOnDashboard(String currentName, String newName) {
 
-		info("--Edit name of page on dashboard--");
+		info("--Edit page name on dashboard--");
 		WebElement element;
 		element = waitForAndGetElement("//a[@class='Tablabel' and text()='" + currentName + "']");
 		actions.moveToElement(element).click(element).build().perform();
@@ -89,7 +89,6 @@ public class DashBoard extends PlatformBase {
 		info("--Delete selected page on dashboard--");
 
 		if(confirm){ 
-
 			WebElement element;
 			element = waitForAndGetElement("//a[@class='Tablabel' and text()='" + currentName + "']");
 			actions.moveToElement(element).click(element).build().perform();

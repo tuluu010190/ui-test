@@ -34,7 +34,6 @@ public class EXOGTN_GroupNavigation_Node_Move extends PlatformBase
 	By GROUP_NAVIGATION_OLD_POSITION = By.xpath("//div[5]/div/a");
 	By GROUP_NAVIGATION_NEW_POSITION = By.xpath("//div[6]/div/a");
 	
-	
 	@BeforeMethod()
 	public void beforeTest() throws Exception
 	{
@@ -74,7 +73,7 @@ public class EXOGTN_GroupNavigation_Node_Move extends PlatformBase
 		click(By.linkText(MOVE_UP_LINK));
 		
 		//Verify nothing happens ~ position of node PORTAL_ADMINISTRATION is not changed
-		info("-----Verify position of node PORTAL_ADMINISTRATION is not changed after Move Up");
+		info("-----Verify position of node PORTAL_ADMINISTRATION is not changed after Moving Up");
 		waitForElementPresent(PORTAL_ADMINISTRATION_POSITION);
 				
 		info("---Verify can't Move Down order of last node");
@@ -91,13 +90,13 @@ public class EXOGTN_GroupNavigation_Node_Move extends PlatformBase
 		click(By.linkText(MOVE_DOWN_LINK));
 		
 		//Verify nothing happens ~ position of node SITES_MANAGEMENT is not changed
-		info("-----Verify position of node SITES_MANAGEMENT is not changed after Move Down");
+		info("-----Verify position of node SITES_MANAGEMENT is not changed after Moveing Down");
 		waitForElementPresent(SITES_MANAGEMENT_POSITION);
 			
-		info("---Verify can Move Up node is not first node");
+		info("---Verify Moving Up node is not first node");
 		
 		//Verify position of node MONITORING
-		info("-----Verify position of node MONITORING before Move Up");
+		info("-----Verify position of node MONITORING before Moving Up");
 		waitForElementPresent(MONITORING_OLD_POSITION);
 				
 		info("-----Click on Move Up item of node MONITORING");
@@ -111,10 +110,10 @@ public class EXOGTN_GroupNavigation_Node_Move extends PlatformBase
 		info("-----Verify position of node MONITORING is changed after Move Up");
 		waitForElementPresent(MONITORING_NEW_POSITION);
 				
-		info("---Verify can Move Down node is not last node");
+		info("---Verify user can move down node which is not last node");
 		
 		//Verify position of node GROUP_NAVIGATION
-		info("-----Verify position of node QUESTIONS? before Move Down");
+		info("-----Verify position of node QUESTIONS? before Moving Down");
 		waitForElementPresent(GROUP_NAVIGATION_OLD_POSITION);
 				
 		info("-----Click on Move Down item of node GROUP_NAVIGATION");
@@ -125,7 +124,7 @@ public class EXOGTN_GroupNavigation_Node_Move extends PlatformBase
 		click(By.linkText(MOVE_DOWN_LINK));
 		
 		//Verify position of GROUP_NAVIGATION is changed
-		info("-----Verify position of node GROUP_NAVIGATION is changed after Move Down");
+		info("-----Verify position of node GROUP_NAVIGATION is changed after Moving Down");
 		waitForElementPresent(GROUP_NAVIGATION_NEW_POSITION);
 		info("-END test01_ChangeNodeOrder");
 	}

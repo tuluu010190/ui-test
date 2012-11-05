@@ -26,7 +26,7 @@ public class EXOGTN_LogInOut extends PlatformBase{
 	}
 	
 	/*-- tests cases of : Portal\Login_out\Sign In --*/	
-	//Check displaying portal after signing in successfully by admin account
+	//Check displaying of portal after signing in successfully by admin account
 	@Test
 	public void test02_SignInByAdminAccount(){
 			info("--Login by Admin account--");
@@ -67,12 +67,11 @@ public class EXOGTN_LogInOut extends PlatformBase{
 		waitForTextPresent(MESSAGE_FAILED);	
 	}
 	
-	//Sign in by unregistered User name
+	//Sign in by unregistered User
 	@Test
 	public void test05_SignInByUnRegisteredUsername(){
 		info("--Sign in with unregistered account--");
 		signIn("exogtn", "gtn");
 		waitForTextPresent(MESSAGE_FAILED);	
 	}
-	
 }

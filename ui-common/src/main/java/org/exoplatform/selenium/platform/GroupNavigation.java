@@ -13,7 +13,7 @@ public class GroupNavigation extends PlatformBase {
 		String currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel);
 		editNavigation(currentNavigation);
 
-		info("--Adding new node at navigation--");		
+		info("--Add new node at navigation--");		
 		if (useAddNodeLink){
 			click(currentNode);
 			click(ELEMENT_ADD_NODE_LINK);
@@ -60,7 +60,7 @@ public class GroupNavigation extends PlatformBase {
 			click(ELEMENT_SELECT_HOME_PAGE);
 		}
 
-		info("-- Save add node for portal --");
+		info("-- Save to add node for portal --");
 		pause(1000);
 		save();
 		if (verifyNode) {

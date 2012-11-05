@@ -37,8 +37,8 @@ public class ECMS_Admin_ManageCategories_Create extends EcmsBase {
 		actions = null;
 	}
 
-	/*case01+11+12: Add new Category Tree when put valid data in all fields
-	 * create new category tree with 4 step
+	/*case01+11+12: Add new Category Tree when input valid data in all fields
+	 * create new category tree with 4 steps
 	 * edit category
 	 * delete category
 	 */

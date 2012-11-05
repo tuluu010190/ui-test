@@ -37,28 +37,28 @@ public class ECMS_Admin_ContentPresentation_ManageDriver_Action extends EcmsBase
 	  
 	  
 	  /*case01+02+03: Add drive
-	   * go to add driver
-	   * add new driver
-	   * edit driver
-	   * delete driver
+	   * go to add drive
+	   * add new drive
+	   * edit drive
+	   * delete drive
 	   */
 	  @Test
-	  public void test01_02_03_AddEditDeleteDriver(){
-		  String DATA_DRIVER_NAME = "ECMS_Admin_ContentPresentation_ManageDriver_Action_01";
-		  By ELEMENT_DRIVER_EDIT = By.xpath("//div[@title='" + DATA_DRIVER_NAME + "']/../../td/div/img[@title='Edit']");
-		  By ELEMENT_DRIVER_DELETE = By.xpath("//div[@title='" + DATA_DRIVER_NAME + "']/../../td/div/img[@title='Delete']");
-		  By ELEMENT_DRIVER = By.xpath("//div[@title='" + DATA_DRIVER_NAME + "']");
+	  public void test01_02_03_AddEditDeleteDrive(){
+		  String DATA_DRIVE_NAME = "ECMS_Admin_ContentPresentation_ManageDriver_Action_01";
+		  By ELEMENT_DRIVE_EDIT = By.xpath("//div[@title='" + DATA_DRIVE_NAME + "']/../../td/div/img[@title='Edit']");
+		  By ELEMENT_DRIVE_DELETE = By.xpath("//div[@title='" + DATA_DRIVE_NAME + "']/../../td/div/img[@title='Delete']");
+		  By ELEMENT_DRIVE = By.xpath("//div[@title='" + DATA_DRIVE_NAME + "']");
 		  
-		  //go to add driver
+		  //go to add drive
 		  goToContentAdministration();
-		  info("Go to add new driver");
+		  info("Go to add new drive");
 		  goToManageDriver();
-		  addNewDriver(DATA_DRIVER_NAME,"dms-system","exo:ecm", "Organization/Management/Executive Board","member","member:/organization/management/executive-board","e_admin-view/c_icon-view/b_list-view" );
+		  addNewDriver(DATA_DRIVE_NAME,"dms-system","exo:ecm", "Organization/Management/Executive Board","member","member:/organization/management/executive-board","e_admin-view/c_icon-view/b_list-view" );
 		  
-		  //edit driver
-		  info("Edit driver");
-		  click(ELEMENT_DRIVER_EDIT);
-		  waitForElementPresent(ELEMENT_DRIVER_EDIT_POPUP);
+		  //edit drive
+		  info("Edit drive");
+		  click(ELEMENT_DRIVE_EDIT);
+		  waitForElementPresent(ELEMENT_DRIVE_EDIT_POPUP);
 		  //--select workspace
 		  select(ELEMENT_WORKSPACE, "system");
 		  click(ELEMENT_ADD_PATH);
@@ -74,11 +74,11 @@ public class ECMS_Admin_ContentPresentation_ManageDriver_Action extends EcmsBase
 		  selectCheckboxList("authoring-view");
 		  click(ELEMENT_SAVE_BUTTON);
 		  
-		  //delete driver
-		  info("Delete driver");
-		  click(ELEMENT_DRIVER_DELETE);
+		  //delete drive
+		  info("Delete drive");
+		  click(ELEMENT_DRIVE_DELETE);
 		  acceptAlert();
-		  waitForElementNotPresent(ELEMENT_DRIVER);
-		  info("Delete driver is successful");
+		  waitForElementNotPresent(ELEMENT_DRIVE);
+		  info("Delete driver successfully");
 	  }
 }

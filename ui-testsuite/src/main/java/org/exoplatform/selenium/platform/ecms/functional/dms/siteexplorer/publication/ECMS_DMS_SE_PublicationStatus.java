@@ -16,7 +16,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * 
  * @author VuNA
  * Date: 09/10/2012
  */
@@ -487,7 +486,6 @@ public class ECMS_DMS_SE_PublicationStatus extends ActionBar{
 		info("-- Sign Out --");
 	}
 
-	
 	/*-- Case ID 009
 	 *-- Publish content when only set time in To field
 	 *-- */
@@ -564,7 +562,6 @@ public class ECMS_DMS_SE_PublicationStatus extends ActionBar{
 		info("-- Sign Out --");
 	}
 
-	
 	/*-- Case 010
 	 *-- Publish content when put invalid 
 	 * --*/
@@ -623,9 +620,7 @@ public class ECMS_DMS_SE_PublicationStatus extends ActionBar{
 		info("-- Sign Out --");
 	}
 	
-	
 	/*---- Auxiliary function ----*/
-	////
 	public void verifyFileIsDisplayed(String titleOfFile, String fileName){
 		pause(1000);
 		mouseOver(By.linkText("My Sites"), true);
@@ -649,5 +644,4 @@ public class ECMS_DMS_SE_PublicationStatus extends ActionBar{
 		cal.add(Calendar.MINUTE, 3);
 		return (dateFormat.format(cal.getTime()));			
 	}
-
 }

@@ -15,7 +15,6 @@ import static org.exoplatform.selenium.platform.PageManagement.*;
 import static org.exoplatform.selenium.platform.NavigationManagement.*;
 import static org.exoplatform.selenium.platform.ManageApplications.*;
 
-
 /**
  * 
  * @author thaopth

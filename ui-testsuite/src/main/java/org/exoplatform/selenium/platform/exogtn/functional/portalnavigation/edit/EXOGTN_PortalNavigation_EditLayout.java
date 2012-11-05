@@ -69,7 +69,6 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	@AfterMethod
 	public void afterTest() throws Exception {
 		driver.quit();
-
 	}
 
 	/*--Case 050 Portal\Portal Navigation\Edit\Edit Layout 
@@ -159,16 +158,16 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	}	
 
 	/*--Case 062 Portal\Portal Navigation\Edit\Edit Layout
-	 * Check Finish function after changed container layout
+	 * Check Finish function after changing container layout
 	 * --*/
 	@Test
-	public void test19_CheckFinishFunctionAfterChangedContainerLayout(){
+	public void test19_CheckFinishFunctionAfterChangingContainerLayout(){
 
 		signIn("root", "gtn");
 		String username = "Root Root";
 		waitForTextPresent(username);
 
-		info("--View layout of portal before change container in portal--");
+		info("--View layout of portal before changing container in portal--");
 		captureScreen("case062_BeforeChange");
 
 		info("--Edit layout of current Portal--");
@@ -176,7 +175,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		String editLayout = ELEMENT_EDIT_LAYOUT.replace("${navigation}", ELEMENT_CURRENT_NAVIGATION);
 		click(editLayout);
 
-		info("--Select Container tab on edit inline composer--");
+		info("--Select Container tab on editting inline composer--");
 		waitForTextPresent("Applications");
 		click(ELEMENT_TAB_CONTAINERS);
 		waitForAndGetElement(ELEMENT_ROWS_LAYOUT);
@@ -198,13 +197,13 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		waitForTextPresent(username);
 		signOut();
 
-		info("--Verify that the changes on container was saved--");
+		info("--Verify that changes on container is saved--");
 		driver.get(baseUrl);
 		signIn("root", "gtn");
 		waitForTextPresent(username);
 		captureScreen("case062_AfterChange");
 
-		info("--Delete a test case data--");
+		info("--Delete data--");
 		goToPortalSites();
 		click(editLayout);
 		click(ELEMENT_TAB_CONTAINERS) ;
@@ -233,7 +232,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		String editLayout = ELEMENT_EDIT_LAYOUT.replace("${navigation}", ELEMENT_CURRENT_NAVIGATION);
 		click(editLayout);
 
-		info("--Select Container tab on edit inline composer--");
+		info("--Select Container tab on editing inline composer--");
 		waitForTextPresent("Applications");
 		click(ELEMENT_TAB_CONTAINERS);
 		waitForAndGetElement(ELEMENT_ROWS_LAYOUT);
@@ -265,15 +264,15 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	}
 
 	/*--Case 069 Portal\Portal Navigation\Edit\Edit Layout
-	 *  Check Finish function after edited container
+	 *  Check Finish function after editing container
 	 * --*/
 	@Test
-	public void test26_CheckFinishFunctionAfterEditedContainer(){
+	public void test26_CheckFinishFunctionAfterEditingContainer(){
 		signIn("root", "gtn");
 		String username = "Root Root";
 		waitForTextPresent(username);
 
-		info("--View layout of portal before change container in portal--");
+		info("--View layout of portal before changing container in portal--");
 		captureScreen("case069_BeforeChange");
 
 		info("--Edit layout of current Portal--");
@@ -281,7 +280,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		String editLayout = ELEMENT_EDIT_LAYOUT.replace("${navigation}", ELEMENT_CURRENT_NAVIGATION);
 		click(editLayout);
 
-		info("--Select Container tab on edit inline composer--");
+		info("--Select Container tab on editing inline composer--");
 		waitForTextPresent("Applications");
 		click(ELEMENT_TAB_CONTAINERS);
 		waitForAndGetElement(ELEMENT_ROWS_LAYOUT);
@@ -304,13 +303,13 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		waitForTextPresent(username);
 		signOut();
 
-		info("--Verify that the changes on container was saved--");
+		info("--Verify that changes on container are saved--");
 		driver.get(baseUrl)  ;
 		signIn("root", "gtn");
 		waitForTextPresent(username);
 		captureScreen("case069_AfterChange");
 
-		info("--Delete a test case data--");
+		info("--Delete data--");
 		goToPortalSites();
 		click(editLayout);
 		click(ELEMENT_TAB_CONTAINERS) ;
@@ -326,15 +325,15 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	}
 
 	/*--Case 075 Portal\Portal Navigation\Edit\Edit Layout
-	 *  Check Finish function after changed portlet layout
+	 *  Check Finish function after changing portlet layout
 	 * --*/
 	@Test
-	public void test32_CheckFinishFunctionAfterChangedPortletLayout(){
+	public void test32_CheckFinishFunctionAfterChangingPortletLayout(){
 		signIn("root", "gtn");
 		String username = "Root Root";
 		waitForTextPresent(username);
 
-		info("--View layout of portal before change portlet layout--");
+		info("--View layout of portal before changing portlet layout--");
 		captureScreen("case075_BeforeChange");
 
 		info("--Edit layout of current Portal--");
@@ -360,13 +359,13 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		waitForTextPresent(username);
 		signOut();
 
-		info("--Verify that the changes on container was saved--");	
+		info("--Verify changes on container are saved--");	
 		driver.get(baseUrl);
 		signIn("root", "gtn");
 		waitForTextPresent(username);
 		captureScreen("case075_AfterChange");
 
-		info("--Delete a test case data--");	
+		info("--Delete data--");	
 		goToPortalSites();
 		click(editLayout);
 		click(ELEMENT_TAB_CONTAINERS) ;
@@ -389,7 +388,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		String username = "Root Root";
 		waitForTextPresent(username);
 
-		info("--View layout of portal before change portlet layout--");
+		info("--View layout of portal before changing portlet layout--");
 		captureScreen("case080_BeforeChange");
 
 		info("--Edit width/height of portlet of current Portal--");
@@ -426,7 +425,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		type(ELEMENT_INPUT_HEIGHT,"", true);
 		saveAndClose();
 
-		info("--Switch view mode portal--");
+		info("--Switch to view mode portal--");
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 		waitForTextPresent("Applications");
 		captureScreen("case080_DefaultWidthHeight");	
@@ -444,7 +443,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	}
 
 	/*--Case 092 Portal\Portal Navigation\Edit\Edit Layout
-	 *  Check Finish function after edited portlet
+	 *  Check Finish function after editing portlet
 	 * --*/
 	@Test
 	public void test49_CheckFinishFunctionAfterEditedPortlet(){
@@ -452,7 +451,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		String username = "Root Root";
 		waitForTextPresent(username);
 
-		info("--View layout of portal before change portlet layout--");
+		info("--View layout of portal before changing portlet layout--");
 		captureScreen("case092_BeforeChange");
 
 		info("--Edit width/height of portlet of current Portal--");
@@ -477,13 +476,13 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		waitForTextPresent(username);
 		signOut();
 
-		info("--Verify that the changes on portlet was saved--");	
+		info("--Verify changes on portlet are saved--");	
 		driver.get(baseUrl);
 		signIn("root", "gtn");
 		waitForTextPresent(username);
 		captureScreen("case092_AfterChange");
 
-		info("--Delete a test case data--");	
+		info("--Delete data--");	
 		goToPortalSites();
 		click(editLayout);
 		waitForTextPresent("Applications") ;
@@ -496,6 +495,4 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		waitForTextPresent(username);
 		signOut();			
 	}
-
-
 }

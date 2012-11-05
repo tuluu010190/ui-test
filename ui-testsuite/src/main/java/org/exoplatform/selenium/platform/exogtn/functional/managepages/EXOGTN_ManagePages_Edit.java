@@ -241,7 +241,5 @@ public class EXOGTN_ManagePages_Edit extends PlatformBase {
 		//Delete data
 		deletePage(PageType.PORTAL, "FNC_GTN_POR_MNP_22_021_test");
 		waitForTextNotPresent("FNC_GTN_POR_MNP_22_021_test");
-
-
 	}
 }

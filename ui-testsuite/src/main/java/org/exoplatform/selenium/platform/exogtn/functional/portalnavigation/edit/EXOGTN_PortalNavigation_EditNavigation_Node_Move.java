@@ -87,16 +87,16 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Move extends PlatformBa
 		click(By.linkText(MOVE_DOWN_LINK));
 		
 		//Verify nothing happens ~ position of node New ACCOUNT is not changed
-		info("-----Verify position of node NEW ACCOUNT is not changed after Move Down");
+		info("-----Verify position of node NEW ACCOUNT is not changed after Moving Down");
 		waitForElementPresent(ACCOUNT_POSITION);
 		assert isElementPresent(ACCOUNT_POSITION):"Get position of New Account failed";
 		
 		info("---Verify can Move Up node is not first node");
 		
 		//Verify position of node PRODUCTS
-		info("-----Verify position of node PRODUCTS before Move Up");
+		info("-----Verify position of node PRODUCTS before Moving Up");
 		waitForElementPresent(PRODUCTS_OLD_POSITION);
-		assert isElementPresent(PRODUCTS_OLD_POSITION):"Get position of Products before Move Up failed";
+		assert isElementPresent(PRODUCTS_OLD_POSITION):"Get position of Products before Moving Up failed";
 		
 		info("-----Click on Move Up item of node PRODUCTS");
 		//Right click on node PRODUCTS
@@ -106,16 +106,16 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Move extends PlatformBa
 		click(By.linkText(MOVE_UP_LINK));
 		
 		//Verify position of PRODUCTS is changed
-		info("-----Verify position of node PRODUCTS is changed after Move Up");
+		info("-----Verify position of node PRODUCTS is changed after Moving Up");
 		waitForElementPresent(PRODUCTS_NEW_POSITION);
 		assert isElementPresent(PRODUCTS_NEW_POSITION):"Get position of Products after Move Up failed";
 		
-		info("---Verify can Move Down node is not last node");
+		info("---Verify can Move Down node which is not last node");
 		
 		//Verify position of node QUESTIONS?
-		info("-----Verify position of node QUESTIONS? before Move Down");
+		info("-----Verify position of node QUESTIONS? before Moving Down");
 		waitForElementPresent(QUESTIONS_OLD_POSITION);
-		assert isElementPresent(QUESTIONS_OLD_POSITION):"Get position of Questions before Move Down failed";
+		assert isElementPresent(QUESTIONS_OLD_POSITION):"Get position of Questions before Moving Down failed";
 		
 		info("-----Click on Move Down item of node QUESTIONS?");
 		//Right click on node QUESTIONS?
@@ -125,9 +125,9 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Move extends PlatformBa
 		click(By.linkText(MOVE_DOWN_LINK));
 		
 		//Verify position of QUESTIONS? is changed
-		info("-----Verify position of node QUESTIONS? is changed after Move Down");
+		info("-----Verify position of node QUESTIONS? is changed after Moving Down");
 		waitForElementPresent(QUESTIONS_NEW_POSITION);
-		assert isElementPresent(QUESTIONS_NEW_POSITION):"Get position of Questions after Move Down failed";
+		assert isElementPresent(QUESTIONS_NEW_POSITION):"Get position of Questions after Moving Down failed";
 		
 		info("-END test01_ChangeNodeOrder");
 	}

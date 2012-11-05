@@ -89,7 +89,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		info("Add new file document in content folder is successful");
+		info("Add new file document in content folder successfully");
 		
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
@@ -126,7 +126,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		info("Add new file document in document folder is successful");
+		info("Add new file document in document folder successfully");
 		
 		//delete document folder
 		goToNode(ELEMENT_DOCUMENT_FOLDER);
@@ -153,7 +153,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("Create new article document with title:"+DATA_ARTICLE_TITLE);
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
 		waitForElementPresent(ELEMENT_ARTICLE);
-		info("Create new article document is successful");
+		info("Create new article document successfully");
 
 		//add new file document to this article document
 		goToNode(ELEMENT_ARTICLE);
@@ -163,7 +163,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		checkPreferenceOption(ELEMENT_DMS_OPTION_CHECKBOX_ID);
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		info("Add new file document in article document is successful");
+		info("Add new file document in article document successfully");
 		
 		//delete article document
 		goToNode(ELEMENT_ARTICLE);
@@ -188,7 +188,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("create new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		info("create new file document is successful");
+		info("create new file document successfully");
 		//check can not add new file document to created file document -> has not new content link
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
@@ -214,7 +214,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("create new podcast with name:"+DATA_PODCAST_NAME);
 		createNewPodcast(DATA_PODCAST_NAME, DATA_PODCAST_NAME, DATA_PODCAST_NAME);
 		waitForElementPresent(ELEMENT_PODCAST);
-		info("create new podcast is successful");
+		info("create new podcast successfully");
 		//check can not add new file document to created podcast document -> has not new content link
 		goToNode(ELEMENT_PODCAST);
 		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
@@ -244,7 +244,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("Create new sample node document with title:"+DATA_SAMPLE_NODE_TITLE);
 		createNewSampleNode(DATA_SAMPLE_NODE_TITLE, DATA_SAMPLE_NODE_TITLE,"");
 		waitForElementPresent(ELEMENT_SAMPLE_NODE);
-		info("Create new sample node is successful");
+		info("Create new sample node successfully");
 		//add new file document to this sample node document
 		debug("add new file document into sample node with name:"+DATA_FILE_NAME);
 		goToNode(ELEMENT_SAMPLE_NODE);
@@ -252,7 +252,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		checkPreferenceOption("enableStructure");
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		info("Add a file document to a sample node is successful");
+		info("Add a file document to a sample node successfully");
 		//delete sample node document
 		goToNode(ELEMENT_SAMPLE_NODE);
 		deleteDocument(ELEMENT_SAMPLE_NODE);
@@ -278,7 +278,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("create new file plan document with name: "+ DATA_FILE_PLAN_NAME);
 		createNewFilePlan(DATA_FILE_PLAN_NAME, DATA_FILE_PLAN_NAME, DATA_FILE_PLAN_NAME, DATA_FILE_PLAN_NAME, DATA_FILE_PLAN_NAME);
 		waitForElementPresent(ELEMENT_FILE_PLAN);
-		info("Create new file plan is successful");
+		info("Create new file plan successfully");
 
 		//add new file document to this file plan document
 		goToNode(ELEMENT_FILE_PLAN);
@@ -286,7 +286,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("Add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		info("Add a file document to a file plan document is successful");
+		info("Add a file document to a file plan document successfully");
 		
 		//delete file plan document
 		goToNode(ELEMENT_FILE_PLAN);
@@ -313,14 +313,14 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("Create new kofax document with name:"+DATA_KOFAX_NAME);
 		createNewKofax(DATA_KOFAX_NAME);
 		waitForElementPresent(ELEMENT_KOFAX);
-		info("Create new Kofax document is successful");
+		info("Create new Kofax document successfully");
 		//add new file document to this kofax document
 		goToNode(ELEMENT_KOFAX);
 		goToAddNewContent();
 		debug("add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		info("add new file document to kofax document is successful");
+		info("add new file document to kofax document successfully");
 		//delete kofax document
 		goToNode(ELEMENT_KOFAX);
 		deleteDocument(ELEMENT_KOFAX);
@@ -344,7 +344,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		debug("Upload 1 file with name:"+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME,DATA_UPLOAD_FILE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE); 
-		info("Upload a file is successful");
+		info("Upload a file successfully");
 		//check can not add new file document to upload file -> has not new content link
 		goToNode(ELEMENT_UPLOAD_FILE);
 		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
@@ -411,11 +411,11 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_NEWFILE_FRAME_HTML_TAB_XPATH));
 		assert getText(ELEMENT_NEWFILE_HTML_TAB_P_XPATH).contains(DATA_NEWFILE_SOURCE_CONTENT_VIEW):"content is not true in html form";
 	    switchToParentWindow();
-	    info("Check html fomat of content file is successful");
+	    info("Check html fomat of content file successfully");
 	    //check view as plan text
 	    click(ELEMENT_NEWFILE_TEXT_TAB_XPATH);
 	    assert getText(By.cssSelector(ELEMENT_NEWFILE_TEXT_TAB_P_CSS)).contains(DATA_NEWFILE_SOURCE_CONTENT):"content is not true in text form";
-	    info("Check plan text fomat of content file is successful");
+	    info("Check plan text fomat of content file successfully");
 	    //delete text/html file
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		deleteDocument(ELEMENT_FILE_DOCUMENT);
@@ -442,11 +442,11 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_NEWFILE_FRAME_HTML_TAB_XPATH));
 		assert getText(ELEMENT_NEWFILE_HTML_TAB_P_XPATH).contains(DATA_NEWFILE_SOURCE_CONTENT_VIEW):"content is not true in html form";
 	    switchToParentWindow();
-	    info("Check html fomat of content file is successful");
+	    info("Check html fomat of content file successfully");
 	    //check view as plan text
 	    click(ELEMENT_NEWFILE_TEXT_TAB_XPATH);
 	    assert getText(By.cssSelector(ELEMENT_NEWFILE_TEXT_TAB_P_CSS)).contains(DATA_NEWFILE_NOSOURCE_CONTENT):"content is not true in text form";
-	    info("Check plan text fomat of content file is successful");
+	    info("Check plan text fomat of content file successfully");
 	    //delete text/html file
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		deleteDocument(ELEMENT_FILE_DOCUMENT);
@@ -474,7 +474,7 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		//check view content
 		goToNode(ELEMENT_FILE_DOCUMENT);
 		assert getText(By.cssSelector(ELEMENT_NEWFILE_PRE_CSS)).contains(DATA_NEWFILE_TEXTAREA_CONTENT):"Not found content of file document";
-	    info("Check plan text fomat of content file is successful");
+	    info("Check plan text fomat of content file successfully");
 		//delete file document
 		deleteDocument(ELEMENT_FILE_DOCUMENT);
 	}
@@ -497,10 +497,10 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		
 		//create new content folder
 		goToSiteExplorer();
-		debug("create new content with title:"+DATA_CONTENT_FOLDER_TITLE);
+		debug("Create new content with title:"+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE,DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		info("create content folder is successful");
+		info("Create content folder successfully");
 		//lock content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		lockNode(ELEMENT_CONTENT_FOLDER);
@@ -509,10 +509,10 @@ public class ECMS_DMS_SE_File extends EcmsBase {
 		//add new file to content folder just add
 		goToNode(ELEMENT_CONTENT_FOLDER_2);
 		goToAddNewContent();
-		debug("add new file document with name:"+DATA_FILE_NAME);
+		debug("Add new file document with name:"+DATA_FILE_NAME);
 		createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		waitForElementPresent(ELEMENT_FILE_DOCUMENT);
-		info("add new file document to content document is successful");
+		info("Add new file document to content document successfully");
 		
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER_2);

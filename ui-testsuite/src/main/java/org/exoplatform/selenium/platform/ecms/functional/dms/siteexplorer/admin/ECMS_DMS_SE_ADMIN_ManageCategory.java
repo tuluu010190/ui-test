@@ -15,13 +15,12 @@ import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 /**
- * 
  * @author thaopth
  * Date: 28/09/2012
  */
 
 public class ECMS_DMS_SE_ADMIN_ManageCategory extends EcmsBase {
-	
+
 	String DATA_USER = "john";
 	String DATA_PASS = "gtn";
 	@BeforeMethod
@@ -46,32 +45,29 @@ public class ECMS_DMS_SE_ADMIN_ManageCategory extends EcmsBase {
 	public void test02_AddCategoryForDocument () {
 		By ELEMENT_ACME_NODE = By.xpath("//a[@title='acme ']");
 		String DATA_ARTICLE_TITLE = "EMCS_DMS_ManageCat_01";
-		By DATA_ARTICLE_PATH = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
+		By ELEMENT_ARTICLE_PATH = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
 		String DATA_CAT_TREE = "acme";
 		String DATA_CAT_PATH = "Defense";
 		String DATA_CAT_NAME = "Vision";
 
-		
-		
 		goToSiteExplorer();
 		goToNode(ELEMENT_ACME_NODE);
 		goToAddNewContent();
 
-			
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
 		pause(500);
-		
-		goToNode(DATA_ARTICLE_PATH);
+
+		goToNode(ELEMENT_ARTICLE_PATH);
 		addCategoryForNode(DATA_CAT_TREE, false, DATA_CAT_PATH, DATA_CAT_NAME);
 		pause(500);
-		
+
 		//Delete data
-		deleteDocument(DATA_ARTICLE_PATH);
-		
+		deleteDocument(ELEMENT_ARTICLE_PATH);
+		waitForElementNotPresent(ELEMENT_ARTICLE_PATH);
 	}
-	
+
 	@Test
-	public void test03_AddCategoryForUploadedFile ()
+	public void test03_AddCategoryForUploadedFile()
 	{
 		String DATA_FILE_NAME = "Uploadfile02";
 		String DATA_FILE_LINK = "TestData/Winter.jpg";
@@ -81,19 +77,19 @@ public class ECMS_DMS_SE_ADMIN_ManageCategory extends EcmsBase {
 		String DATA_CAT_PATH = "cms/news";
 		String DATA_CAT_NAME = "world";
 
-		
 		goToSiteExplorer();
 		goToNode(ELEMENT_ACME_NODE);
 		uploadFile(DATA_FILE_NAME, DATA_FILE_LINK);
 		pause(1000);
-		
+
 		goToNode(ELEMENT_FILE_PATH);
 		pause(500);
-		
+
 		addCategoryForNode(DATA_CAT_TREE, false, DATA_CAT_PATH, DATA_CAT_NAME);
 		pause(500);
-		
+
 		//Delete data
 		deleteDocument(ELEMENT_FILE_PATH);
+		waitForElementNotPresent(ELEMENT_FILE_PATH);
 	}
 }

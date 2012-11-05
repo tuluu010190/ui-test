@@ -52,7 +52,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	
 	/*Case1: Upload a file in root path
 	 * Upload File at root path
-	 * check upload successfully
+	 * check uploading successfully
 	 * delete uploaded file
 	 */
 	@Test
@@ -67,8 +67,8 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
 		
 		//check upload successfully
-		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Can not upload new file";
-		info("Upload new file is successful");
+		assert isElementPresent(ELEMENT_UPLOAD_FILE):"Cannot upload new file";
+		info("Upload new file successfully");
 		
 		//delete uploaded file
 		deleteData(ELEMENT_UPLOAD_FILE);
@@ -77,7 +77,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	/*Case2: Upload a file in Content folder 
 	 * create new content folder
 	 * upload new file into content folder
-	 * check upload successfully
+	 * check uploading successfully
 	 * delete content folder
 	 */
 	@Test
@@ -92,7 +92,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		debug("Create new content folder with title: "+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE, DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Can not create new content folder";
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Cannot create new content folder";
 		info("Create new content folder successfully");
 		
 		//upload new file into content folder
@@ -100,7 +100,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		debug("Upload new file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
-		info("Upload file is successful");
+		info("Upload file successfully");
 		
 		//delete content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
@@ -160,7 +160,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		debug("Upload file with name: "+DATA_UPLOAD_FILE_NAME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_LINK);
 		
-		//check upload file successfully
+		//check uploading file successfully
 		checkPreferenceOption("enableStructure");
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
@@ -188,7 +188,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		debug("Create new content folder with title: "+DATA_ARTICLE_DOCUMENT_TITLE);
 		createNewArticle(DATA_ARTICLE_DOCUMENT_TITLE, DATA_ARTICLE_DOCUMENT_TITLE,"","");
 		waitForElementPresent(ELEMENT_ARTICLE);
-		assert isElementPresent(ELEMENT_ARTICLE):"Can not create new article document";
+		assert isElementPresent(ELEMENT_ARTICLE):"Cannot create new article document";
 		info("Create new article successfully");
 		
 		//check in article document
@@ -198,7 +198,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		//check can not upload file in checked in Node
 		goToNode(ELEMENT_ARTICLE);
 		waitForElementNotPresent(ELEMENT_UPLOAD_LINK_XPATH);
-		info("Can not upload new file into a Node has been checked in");
+		info("Cannot upload new file into a Node which has been checked in");
 		
 		//check out article document
 		checkOutNode(ELEMENT_ARTICLE);
@@ -292,7 +292,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		
 		//check can not upload file
 		checkAlertWarning("You do not have permission to add a new node.");
-		info("Check user does not have add not permission: true");
+		info("Check user does not have add node permission: true");
 		logoutEcms();
 		
 		//delete Uploaded file with John
@@ -306,9 +306,9 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	 * create new node: content folder
 	 * lock node
 	 * add new browser
-	 * login with user Mary in other driver
+	 * login with user Mary in other drive
 	 * check can not upload file to content folder
-	 * on driver with user John: delete node
+	 * on drive with user John: delete node
 	 */
 	@Test
 	public void test11_UploadFileToLockedNode(){
@@ -320,12 +320,12 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		info("Create new node (content folder) with title: "+DATA_CONTENT_FOLDER_TITLE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_TITLE, DATA_CONTENT_FOLDER_TITLE);
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Can not crate new content folder";
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Cannot crate new content folder";
 		
 		//lock node
 		lockNode(ELEMENT_CONTENT_FOLDER);
 		goToNode(ELEMENT_CONTENT_FOLDER);
-		assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Can not lock node";
+		assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Cannot lock node";
 		driver.close();
 		
 		//open new session
@@ -338,10 +338,10 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		loginEcms("mary","gtn");
 		goToSiteExplorer();
 
-		//check user mary can not uplpoad file in locked folder
+		//check user mary cannot uplpoad file in locked folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		waitForElementNotPresent(ELEMENT_UPLOAD_LINK_XPATH);
-		info("Can not see link upload file");
+		info("Cannot see link upload file");
 		logoutEcms();
 
 		//delete content folder with user John
@@ -548,10 +548,10 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		deleteDocument(ELEMENT_UPLOAD);
 	}
 	
-	/*case24: Upload multi file at the same time
-	 * upload 2 file in one time
-	 * check upload sccessfully
-	 * delete 2 file
+	/*case24: Upload multiple files at the same time
+	 * upload 2 files in one time
+	 * check uploading successfully
+	 * delete 2 files
 	 */
 	@Test
 	public void test24_UploadMultiFileSameTime(){
@@ -579,10 +579,10 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 		
-		//check upload file successful
+		//check upload file successfully
 		waitForElementPresent(ELEMENT_FILE_IMG);
-		assert isElementPresent(ELEMENT_FILE_IMG):"Can not upload file .jpg";
-		assert isElementPresent(ELEMENT_FILE_DOC):"Can not upload file .doc";
+		assert isElementPresent(ELEMENT_FILE_IMG):"Cannot upload file .jpg";
+		assert isElementPresent(ELEMENT_FILE_DOC):"Cannot upload file .doc";
 		info("Upload multi file successfully");
 		
 		//delete file

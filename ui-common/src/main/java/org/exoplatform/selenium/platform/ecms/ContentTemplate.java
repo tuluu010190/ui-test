@@ -18,10 +18,10 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_ARTICLE_CONTENT_FRAME = By.xpath("//td[@id='cke_contents_content']/iframe");
 	//public static final By ELEMENT_SAVE_CLOSE_BUTTON = By.linkText("Save & Close");
 
-	//Annoucement
-	public static final By ELEMENT_ANNOUCEMENT_LINK = By.linkText("Announcement");
-	public static final By ELEMENT_ANNOUCEMENT_NAME_TEXTBOX = By.id("name");
-	public static final By ELEMENT_ANNOUCEMENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
+	// Announcement
+	public static final By ELEMENT_ANNOUNCEMENT_LINK = By.linkText("Announcement");
+	public static final By ELEMENT_ANNOUNCEMENT_NAME_TEXTBOX = By.id("name");
+	public static final By ELEMENT_ANNOUNCEMENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
 
 	//WebContent
 	public static final By ELEMENT_WEBCONTENT_LINK =By.linkText("Free layout webcontent");
@@ -35,6 +35,7 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.xpath("//div[contains(text(),'Advanced')]");
 	public static final By ELEMENT_WEBCONTENT_CSS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentCSS')]");
 	public static final By ELEMENT_WEBCONTENT_JS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentJS')]");
+	
 	//File
 	public static final By ELEMENT_NEWFILE_LINK =By.linkText("File");
 	public static final By ELEMENT_NEWFILE_NAME_TEXTBOX =By.id("name");
@@ -53,6 +54,7 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_SAMPLENODE_FILE_IMG = By.id("file") ;
 	public static final By ELEMENT_SAMPLENODE_CONTENT_TEXTAREA = By.id("summary");
 	public static final By ELEMENT_SAMPLENODE_SUMMARY_TEXTAREA = By.id("content");
+
 	//Kofax
 	public static final By ELEMENT_KOFAX_LINK = By.linkText("Kofax document");
 	public static final By ELEMENT_KOFAX_NAME_TEXTBOX = By.id("name");
@@ -60,6 +62,7 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_KOFAX_ADDNODE_SELECT = By.id("taxonomyTree");
 	public static final String ELEMENT_KOFAX_ADDNODE_OPTION = "acme";
 	public static final By ELEMENT_KOFAX_ADDNODE_OPTION_LINK = By.xpath("//div[@class='Select16x16Icon']");
+	
 	//FilePlan
 	public static final By ELEMENT_FILEPLAN_LINK = By.linkText("File Plan");
 	public static final By ELEMENT_FILEPLAN_NAME = By.id("name");
@@ -70,12 +73,13 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_FILEPLAN_RPROCESS_TAB = By.xpath("//div[contains(text(),'Process Properties')]");
 	public static final By ELEMENT_FILEPLAN_RPROCESS_TRIGER = By.id("eventTrigger");	
 
-	//Head Layout
+	//Picture on Head Layout
 	public static final By ELEMENT_HEAD_LAYOUT_LINK = By.linkText("Picture on head layout webcontent");
 	public static final By ELEMENT_HEAD_LAYOUT_NAME_TEXTBOX = By.id("name");
 	public static final By ELEMENT_HEAD_LAYOUT_TITLE_TEXTBOX = By.id("title");	
 	public static final By ELEMENT_HEAD_LAYOUT_UPLOAD_FRAME = By.xpath("//iframe[contains(@id,'uploadFrame')]")	;
 	public static final By ELEMENT_HEAD_LAYOUT_UPLOAD_FILE = By.id("file") ;
+	
 	//Product
 	public static final By ELEMENT_PRODUCT_LINK = By.linkText("Product");
 	public static final By ELEMENT_PRODUCT_NAME_TEXTBOX = By.id("name") ;
@@ -123,13 +127,13 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_PODCAST_DESC_ACCEPT=By.xpath("//form[contains(@id,'EditDescriptionForm')]/a[2]");
 	public static final String ELEMENT_MESSAGE_EDIT_INLINE="An error occurred while modifying the required property.";
 	public static final String ELEMENT_MESSAGE_EDIT_CLOSE="The changes you made will be lost if you close this form.";
-	public static final String ELEMENT_PREFER_DMS_STRUCTURE= "enableStructure";
+	public static final String ELEMENT_ENABLE_DMS_STRUCTURE= "enableStructure";
 	public static final By ELEMENT_PIC_IMGWIDTH=By.id("imageWidth");
 	public static final By ELEMENT_PIC_IMGHEIGHT=By.id("imageHeight");
 	public static final By ELEMENT_PIC_LANG=By.id("content-lang");
 	public static final By ELEMENT_PIC_CONT=By.xpath("//iframe[contains(@title,'Rich text editor, htmlData')]");
 	public static final By ELEMENT_CSS_NAME = By.id("name");
-	public static final By ELEMENT_CSS_PRIOR = By.id("CSSpriority");
+	public static final By ELEMENT_CSS_PRIORITY = By.id("CSSpriority");
 	public static final By ELEMENT_CSS_DATA	= By.id("contentHtml");
 	public static final By ELEMENT_MYSITE_LINK = By.xpath("//a[contains(text(),'My Sites')]");
 	public static final By ELEMENT_ACME_SITE_LINK = By.linkText("acme");
@@ -138,7 +142,7 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_JS_NAME= By.id("name");
 	public static final By ELEMENT_JS_ACTIVE= By.id("activeJS");
 	public static final By ELEMENT_JS_PRIORITY= By.id("JSpriority");
-	public static final By ELEMENT_JS_LANG= By.id("content-lang");
+	public static final By ELEMENT_JS_LANGUAGE= By.id("content-lang");
 	public static final By ELEMENT_JS_DATA= By.id("contentHtml");
 	
 	//upload
@@ -168,9 +172,9 @@ public class ContentTemplate extends EcmsBase {
 
 	//add new announcement
 	public static void createNewAnnouncement (String name, String sum){
-		click(ELEMENT_ANNOUCEMENT_LINK);
-		type(ELEMENT_ANNOUCEMENT_NAME_TEXTBOX, name, true);
-		inputDataToFrame(ELEMENT_ANNOUCEMENT_SUMMARY_FRAME,sum);
+		click(ELEMENT_ANNOUNCEMENT_LINK);
+		type(ELEMENT_ANNOUNCEMENT_NAME_TEXTBOX, name, true);
+		inputDataToFrame(ELEMENT_ANNOUNCEMENT_SUMMARY_FRAME,sum);
 		switchToParentWindow();
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
@@ -349,13 +353,13 @@ public class ContentTemplate extends EcmsBase {
 			selectOption(ELEMENT_JS_ACTIVE, data[2]);
 
 		if (data.length > 3)
-			selectOption(ELEMENT_JS_LANG, data[3]);
+			selectOption(ELEMENT_JS_LANGUAGE, data[3]);
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 	
 	public static void createNewCssFile(String name, String prior, String data){
 		type(ELEMENT_CSS_NAME, name, false);
-		type(ELEMENT_CSS_PRIOR, prior, false);
+		type(ELEMENT_CSS_PRIORITY, prior, false);
 		type(ELEMENT_CSS_DATA, data, true);
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
@@ -386,7 +390,7 @@ public class ContentTemplate extends EcmsBase {
 	
 	public static void editCssFile(String name, String prior, String data){
 		goToEditDocument(name); 
-		type(ELEMENT_CSS_PRIOR, prior, true);
+		type(ELEMENT_CSS_PRIORITY, prior, true);
 		type(ELEMENT_CSS_DATA, data, true);
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(ELEMENT_SAVE_CLOSE_BUTTON);
@@ -504,7 +508,7 @@ public class ContentTemplate extends EcmsBase {
 			selectOption(ELEMENT_JS_ACTIVE, data[2]);
 
 		if (data.length > 3)
-			selectOption(ELEMENT_JS_LANG, data[3]);
+			selectOption(ELEMENT_JS_LANGUAGE, data[3]);
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
@@ -539,7 +543,7 @@ public class ContentTemplate extends EcmsBase {
 		waitForElementNotPresent(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 
-	public static void editFreeLayoutContentInline(String openField, By inputField, String value, By accept)
+	public static void editFreeLayoutWebContentInline(String openField, By inputField, String value, By accept)
 	{
 		changeEditMode();
 		doubleClickOnElement(openField);
@@ -549,7 +553,7 @@ public class ContentTemplate extends EcmsBase {
 		waitForElementPresent(By.xpath("//p[contains(text(),'"+value+"')]"));
 	}
 
-	public static void editFreeLayoutContent(String title, String title_edit,  String cont, String img, String sum, String css, String js) 
+	public static void editFreeLayoutWebContent(String title, String title_edit,  String cont, String img, String sum, String css, String js) 
 	{
 		goToEditDocument(title);
 		type(ELEMENT_WEBCONTENT_TITLE_TEXTBOX, title_edit, true);

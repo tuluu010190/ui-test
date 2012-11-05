@@ -30,7 +30,7 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 	public static final By ELEMENT_DROP_TARGET = By.xpath("//*[@id='ACMECategories']/div");
 	public static final By ELEMENT_EDIT_PORTLET_TAG = By.xpath("//*[contains(@id,'UIPortlet')][1]/div/div[2]/div/div[2]/*//a[@class='EditIcon']");
 	public static final By ELEMENT_DELETE_PORTLET_TAG = By.xpath("//*[contains(@id,'UIPortlet')][1]/div/div[2]/div/div[2]/*//a[@class='DeleteIcon']");
-	
+
 	@BeforeMethod
 	public void beforeMethods() throws Exception {
 		initSeleniumTest();
@@ -47,17 +47,17 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		goToEditPageEditor();
 		removePortlet(ELEMENT_CAT_PORTLET,ELEMENT_PORTLET_TAG,ELEMENT_DELETE_PORTLET_TAG);
 		pause(1000);
-		
+
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();
 		driver.quit();
 		actions = null;
 	}
-	
 
-	/*function create new article document and public it ->function for only this class
-	 */
+
+	//	Function to create new article document and public it ->Function to for only this class
+
 	public void createNewArticleAndTags(String title, String tag, boolean isPublic){
 		By ELEMENT_DOCUMENT = By.linkText(title);
 
@@ -73,10 +73,10 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		info("Create new article document is successful");
 		addTagForNode(tag, isPublic);
 	}
-	
-	/*function add content list viewer portlet for New page, config its -> function for only this class
+
+	/*Function to add content list viewer portlet for New page, Configure it -> Function for only this class
 	 * add content list portlet for News page
-	 * config this portlet with homepath, template, header, show in page 
+	 * Configure this portlet with homepath, template, header, show in page 
 	 */
 	public void addContentListViewerTagForNewsPage(String homepath, String homenode, String header, String template ){
 		info("Add Content List portlet for News page");
@@ -91,17 +91,17 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		mouseOver(ELEMENT_PORTLET_TAG, true);
 		click(ELEMENT_EDIT_PORTLET_TAG);
 		waitForElementPresent(ELEMENT_SELECT_CONTENT_PATH_LINK);
-		
+
 		info("Select homepath = " + homepath + "/" + homenode);
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		selectGroup(homepath);
 		click(By.xpath("//td/a[text()='" + homenode + "']"));
-		
+
 		info("Input header and choose template");
 		type(ELEMENT_HEADER_PORTLET, header, true);
 		select(ELEMENT_TEMPLATE_PORTLET, template);
 		click(ELEMENT_ADVANCE_PORTLET);
-		
+
 		info("Select show in page = news");
 		waitForElementPresent(ELEMENT_ADD_TARGET);
 		click(ELEMENT_ADD_TARGET);
@@ -115,52 +115,52 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 	}
 
 	/*case01: Check the displaying of private tag
-	 * config News page to display tags:
+	 * Configure News page to display tags:
 	 *   +, go to News page -> page layout
 	 *   +, add new content list portlet
-	 *   +, config portlet: homepath = collaboration/tags, template = TagsCloud.gtmpl, target = news
+	 *   +, Configure portlet: homepath = collaboration/tags, template = TagsCloud.gtmpl, target = news
 	 * create new document in site explorer, public its
-	 * add private tag for this document
-	 * go to News page: check can not see private tag
+	 * Add private tag for this document
+	 * Go to News page: check can not see private tag
 	 */
 	@Test
 	public void test01_CheckDisplayOfPrivateTag(){
 		String DATA_ARTICLE = "ECMS_WCM_Categories_Tags_article_01";
 		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE);
 		String DATA_TAG = "ECMS_WCM_Categories_Tags_01";
-		
-		//config News page to display tags
+
+		//Configure News page to display tags
 		goToNews();
 		goToEditPageEditor();
 		addContentListViewerTagForNewsPage("General Drives/collaboration","tags", "Tags", "TagsCloud.gtmpl");
-		
+
 		//create new article document in root and private tags
 		goToSiteExplorer();
 		createNewArticleAndTags(DATA_ARTICLE, DATA_TAG, false);
-		
+
 		//public this document
 		click(ELEMENT_FILE_EXPLORER);
 		goToNode(ELEMENT_ARTICLE);
-		click(ELEMENT_LINK_TAB_PUBLICATION);
+		click(ELEMENT_PUBLICATION_TAB_LINK);
 		publicDocument();
-		
+
 		//go to News page check private tags is not displayed
 		goToNews();
 		waitForElementNotPresent(By.linkText(DATA_TAG));
 		info("Private tag is not display in News page");
-		
+
 		//delete data
 		goToSiteExplorer();
 		deleteData(ELEMENT_ARTICLE);
 		click(ELEMENT_TAG_COULD);
 		deleteTag(DATA_TAG, false);
 	}
-	
+
 	/*case02: Check the displaying of public tag
-	 * config News page to display tags:
+	 * Configure News page to display tags:
 	 *   +, go to News page -> page layout
 	 *   +, add new content list portlet
-	 *   +, config portlet: homepath = collaboration/tags, template = TagsCloud.gtmpl, target = news
+	 *   +, Configure portlet: homepath = collaboration/tags, template = TagsCloud.gtmpl, target = news
 	 * create new document in site explorer, public its
 	 * add public tag for this document
 	 * go to News page: check can see and view content of private tag
@@ -171,22 +171,22 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE);
 		String DATA_TAG = "ECMS_WCM_Categories_Tags_02";
 		By ELEMENT_TAG = By.linkText(DATA_TAG);
-		
-		//config News page to display tags
+
+		//Configure News page to display tags
 		goToNews();
 		goToEditPageEditor();
 		addContentListViewerTagForNewsPage("General Drives/collaboration","tags", "Tags", "TagsCloud.gtmpl");
-		
+
 		//create new article document in root and public tags
 		goToSiteExplorer();
 		createNewArticleAndTags(DATA_ARTICLE, DATA_TAG, true);
-		
+
 		//public this document
 		click(ELEMENT_FILE_EXPLORER);
 		goToNode(ELEMENT_ARTICLE);
-		click(ELEMENT_LINK_TAB_PUBLICATION);
+		click(ELEMENT_PUBLICATION_TAB_LINK);
 		publicDocument();
-		
+
 		//go to News page check public tags is displayed
 		goToNews();
 		waitForElementPresent(ELEMENT_TAG);
@@ -195,19 +195,19 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		waitForElementPresent(ELEMENT_ARTICLE);
 		assert isElementPresent(ELEMENT_ARTICLE):"Tags wrong";
 		info("Check content of public tag is displayed");
-				
+
 		//delete data
 		goToSiteExplorer();
 		deleteData(ELEMENT_ARTICLE);
 		click(ELEMENT_TAG_COULD);
 		deleteTag(DATA_TAG, true);
 	}
-	
+
 	/*case04: View document/web content while user doesn't have permission to view
-	 * config News page to display tags:
+	 * Configure News page to display tags:
 	 *   +, go to News page -> page layout
 	 *   +, add new content list portlet
-	 *   +, config portlet: homepath = collaboration/tags, template = TagsCloud.gtmpl, target = news
+	 *   +, Configure portlet: homepath = collaboration/tags, template = TagsCloud.gtmpl, target = news
 	 * create new document in site explorer
 	 * add public tag for this document
 	 * set permission for document to user mary does not have view permission
@@ -219,31 +219,31 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE);
 		String DATA_TAG = "ECMS_WCM_Categories_Tags_04";
 		By ELEMENT_TAG = By.linkText(DATA_TAG);
-		
-		//config News page to display tags
+
+		//Configure News page to display tags
 		goToNews();
 		goToEditPageEditor();
 		addContentListViewerTagForNewsPage("General Drives/collaboration","tags", "Tags", "TagsCloud.gtmpl");
-		
+
 		//create new article document in root and public tags
 		goToSiteExplorer();
 		createNewArticleAndTags(DATA_ARTICLE, DATA_TAG, true);
-		
+
 		//public this document
 		click(ELEMENT_FILE_EXPLORER);
 		goToNode(ELEMENT_ARTICLE);
-		click(ELEMENT_LINK_TAB_PUBLICATION);
+		click(ELEMENT_PUBLICATION_TAB_LINK);
 		publicDocument();
-		
+
 		//set permission for document
 		goToNode(ELEMENT_ARTICLE);
-	    click(ELEMENT_SYSTEM_TAB);
-	    click(ELEMENT_PERMISSION_LINK);
-	    removePermissionDefaultOfNode();
-	    close();
+		click(ELEMENT_SYSTEM_TAB);
+		click(ELEMENT_PERMISSION_LINK);
+		removeDefaultPermissionOfNode();
+		close();
 		logoutEcms();
-		
-		//go to News page check public tags is displayed
+
+		//go to News page to check public tags is displayed
 		loginEcms("mary", "gtn");
 		goToNews();
 		waitForElementPresent(ELEMENT_TAG);
@@ -252,7 +252,7 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		waitForElementNotPresent(ELEMENT_ARTICLE);
 		info("Check content of public tag is not displayed");
 		logoutEcms();
-		
+
 		//delete data
 		loginEcms(DATA_USER, DATA_PASS);
 		waitForElementPresent(ELEMENT_LINK_SETUP, 50000);

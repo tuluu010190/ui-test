@@ -269,5 +269,4 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_SetRightApplication
 		click(DATA_CATEGORY_PATH);
 		deleteCategoryAtManageApplications(DATA_CATEGORY_NAME, true);
 	}
-
 }

@@ -26,27 +26,26 @@ public class PageEditor extends EcmsBase {
 	public static final By ELEMENT_CHECK_BOX_WORD_PHRASE_EDIT_MODE = By.xpath("//input[@id='content' and @type='radio']");
 	public static final By ELEMENT_INPUT_NAME_SEARCH_WORD_PHRASE_EDIT_MODE = By.xpath("//input[@id='content' and @type='text']");
 	public static final By ELEMENT_CONTENT_SEARCH_FORM_TAB = By.xpath("//div[@class='MiddleTab' and text() = 'Content Search Form']");
-	//////
 
-	//create page wizard with step 1,2 without layout
-	public static void gotoPageEditor_EmptyLayout(String namePage){
+	//Create page wizard without layout
+	public static void goToPageEditor_EmptyLayout(String pageName){
 		goToPageCreationWinzard();
-		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, namePage, false);
+		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, pageName, false);
 		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
 		pause(500);
 		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
 	}
 
-	//create new page without layout 
-	public static void createNewPageEmptyLayout(String namePage){	
-		gotoPageEditor_EmptyLayout(namePage);
+	//Create new page without content 
+	public static void createNewPageEmptyLayout(String pageName){	
+		goToPageEditor_EmptyLayout(pageName);
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 	}
 
-	//create new page has layout - step 1,2
-	public static void gotoPageEditor_Layout(String namePage, int numberLayout){
+	//create new page having layout - step 1,2
+	public static void gotoPageEditor_Layout(String pageName, int numberLayout){
 		goToPageCreationWinzard();
-		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, namePage, false);
+		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, pageName, false);
 		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
 		click(ELEMENT_NEWPAGE_LAYOUT_OPTION);
 		switch (numberLayout){
@@ -64,16 +63,16 @@ public class PageEditor extends EcmsBase {
 		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
 	}
 
-	//create new page has layout 
-	public static void createNewPageWithLayout(String namePage, int numberLayout){
-		gotoPageEditor_Layout(namePage, numberLayout);
+	//Create new page having layout 
+	public static void createNewPageWithLayout(String pageName, int numberLayout){
+		gotoPageEditor_Layout(pageName, numberLayout);
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);		
 	}
 
 
-	//Create new page empty layout add contentdetail, choose ContentPath
-	public static void createPage_Empty_ContentDetail_ContentPath(String pageName, String contentPath){
-		gotoPageEditor_EmptyLayout(pageName);
+	//Create empty layout SCV (Single Content Viewer) with content
+	public static void createPage_EmptyLayout_ContentDetail_ContentPath(String pageName, String contentPath){
+		goToPageEditor_EmptyLayout(pageName);
 		pause(500);
 		addContentDetailEmptyLayout();
 		pause(500);
@@ -82,7 +81,7 @@ public class PageEditor extends EcmsBase {
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);			
 	}
 
-	//Create new page has layout, add contentlist, choose clv path
+	//Create new CLV with layout and content
 	public static void createPage_ContentList_CLVpath(String pageName, String path, String clv){
 		gotoPageEditor_Layout(pageName, 1);
 		pause(500);
@@ -93,7 +92,7 @@ public class PageEditor extends EcmsBase {
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 	}
 
-	//add contentdetail to a page EmptyLayout of portal
+	//Add content detail to an empty layout page
 	public static void addContentDetailEmptyLayout(){
 		click(ELEMENT_MENU_CONTENT_LINK);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_DETAIL_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);	
@@ -105,7 +104,7 @@ public class PageEditor extends EcmsBase {
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_DETAIL_PORTLET,ELEMENT_DROP_TARGET_HAS_LAYOUT);		
 	}
 
-	//Add "ContentList" to page EmptyLayout
+	//Add "ContentList" to EmptyLayout page
 	public static void addContentListEmptyLayout(){
 		click(ELEMENT_MENU_CONTENT_LINK);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_LIST_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
@@ -130,6 +129,7 @@ public class PageEditor extends EcmsBase {
 	//		click(ELEMENT_SAVE_BUTTON);
 	//		click(ELEMENT_CLOSE_BUTTON);
 	//	}
+	
 	//Select "ContentPath" in edit portlet
 	public static void selectContentPath(String pathContent){
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET,true);	
@@ -139,6 +139,7 @@ public class PageEditor extends EcmsBase {
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 	}
+	
 	/*Select "CLVPath" in Edit Mode
 	 * @mode:  content: if select mode "By content"
 	 * 		   other value: if select mode "By folder"	
@@ -168,25 +169,24 @@ public class PageEditor extends EcmsBase {
 		click(ELEMENT_CLOSE_BUTTON);
 	}
 
-	//////
-	/*-- Add common functions for Single Content Viewer/Add (SCV)
+	/*-- Add common functions for Single Content Viewer/Add SCV
 	 *-- Page Editor 
 	 *-- Add a new SCV page and select a content path 
 	 *-- @author: VuNA
 	 *-- @date: 23/10/2012
 	 *--*/
 
-	//Add a news SCV page and add a selected content path to this page
+	//Add a new SCV page and add a selected content path to this page
 	//Use a default page with Empty layout 
 	public static void addSCVPageAndContentFolderPaths(String pageName, String contentPath){
 		info("-- Add a content path to SCV page: "+ pageName +" --");
-		gotoPageEditor_EmptyLayout(pageName);
+		goToPageEditor_EmptyLayout(pageName);
 		//Drag and drop Content Detail portlet into this page
 		addContentDetailEmptyLayout();
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_NEWPAGE_SAVE_BUTTON);
 		goToEditPageEditor();
-		//selectContentPath
+		//Select ContentPath
 		selectContentPathInEditMode(contentPath, false);
 		click(By.xpath("//*[@id='UIPageEditor']/div[1]/a[2]"));
 	}
@@ -208,11 +208,10 @@ public class PageEditor extends EcmsBase {
 		}	
 	}
 
-	////////
-	//---function add create new page with add content by query portlet, @author: Nhungvt
+	//---Function to create new page with content by query portlet, @author: Nhungvt
 	public static void createPage_ContentByQuery_EmptyLayout(String pageName)
 	{
-		gotoPageEditor_EmptyLayout(pageName);
+		goToPageEditor_EmptyLayout(pageName);
 		click(ELEMENT_MENU_CONTENT_LINK);
 		dragAndDropToObject(ELEMENT_CONTENTS_BY_QUERY_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
 		pause(500);

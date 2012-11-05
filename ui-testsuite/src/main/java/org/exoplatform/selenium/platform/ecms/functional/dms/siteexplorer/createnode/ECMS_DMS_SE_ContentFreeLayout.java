@@ -92,7 +92,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  goToNode(ELEMENT_WEB_CONTENT_LINK);
 		  goToAddNewContent();
 		  //add new free layout webcontent with name blank
-		  debug("Add new free layout webcontent with name blank");
+		  debug("Add new free layout webcontent with blank name");
 		  createNewFreeLayoutWebContent(DATA_FREE_LAYOUT_TITLE, "", "", "", "", "", "");
 		  assert isElementPresent(ELEMENT_ALERT):"Has not message";
 		  assert getText(ELEMENT_TEXT_ALERT).contains("The field \"Name\" is required."):"Wrong message";		  

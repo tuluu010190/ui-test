@@ -271,7 +271,7 @@ public class ECMS_WCM_Viewer_SingleContent_PublishIcon extends ActionBar{
 			String nameArticle, String summaryArticle, String contentArticle, boolean publish){
 		info("-- Create a new article --");
 		goToSiteExplorer();
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 		goToNodeByPath("acme/documents");
 		goToAddNewContent();
 		createNewArticle(titleArticle, nameArticle, summaryArticle, contentArticle);

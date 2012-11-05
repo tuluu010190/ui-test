@@ -383,6 +383,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 		goToManagePages();
 		deletePage(PageType.PORTAL, "page_PORNAV_14_01_016");
 	}
+	
 	//FNC_GTN_POR_PORNAVIGATION_14_01_017: Add 2 nodes with same name in Different Level
 	@Test 
 	public void test17_AddNodeSameNameInDifferentLevel()
@@ -439,8 +440,8 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 		deletePage(PageType.PORTAL,"page01_PORNAV_14_01_017");
 		//Delete page2
 		deletePage(PageType.PORTAL,"page02_PORNAV_14_01_017");
-
 	}
+	
 	//FNC_GTN_POR_PORNAVIGATION_14_01_032: Add node with page name is same with existing
 	@Test
 	public void test32_AddNodeWithPageNameSameWithExisting()
@@ -460,7 +461,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 		addNodeForPortal("acme", "Overview", true, "PORNAV_14_01_032", true, languages, "PORNAV_14_01_032", "page_PORNAV_14_01_032", "page_PORNAV_14_01_032", true, true,false);
 
 		/*Add node with same page name*/
-		info("Add node same page name");
+		info("Add node with name the same as page name");
 		editNavigation("acme");
 		//Select parent node
 		click(By.linkText("News"));
@@ -483,8 +484,8 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 		//Delete Page
 		goToManagePages();
 		deletePage(PageType.PORTAL, "page_PORNAV_14_01_032");
-
 	}
+
 	//FNC_GTN_POR_PORNAVIGATION_14_01_043: Show site editor
 	@Test
 	public void test43_ShowSiteEditor()
@@ -577,22 +578,22 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 		waitForElementPresent(ELEMENT_LINK_EDITOR, 500);
 		mouseOver(ELEMENT_LINK_EDITOR, true);
 		//Verify edit content link
-		assert isElementPresent(ELEMENT_EDIT_CONTENT_LINK):"Edit content link is present";
+		assert isElementPresent(ELEMENT_EDIT_CONTENT_LINK):"Edit content link presently";
 		//Verify edit page link
-		assert isElementPresent(ELEMENT_PAGE_MENU):"Edit page menu is present";
+		assert isElementPresent(ELEMENT_PAGE_MENU):"Edit page menu presently";
 		//Mouse over edit page link
 		mouseOver(ELEMENT_PAGE_MENU, true);
 		//Verify edit page layout link
-		assert isElementPresent(ELEMENT_LAYOUT_MENU):"Edit page layout is present";
+		assert isElementPresent(ELEMENT_LAYOUT_MENU):"Edit page layout presently";
 		//Verify add page link
-		assert isElementPresent(ELEMENT_ADD_PAGE_MENU):"Add page link is present";
+		assert isElementPresent(ELEMENT_ADD_PAGE_MENU):"Add page link presently";
 		//Mouse over Edit site link
 		waitForElementPresent(ELEMENT_SITE_MENU, 500);
 		mouseOver(ELEMENT_SITE_MENU, true);
 		//Verify edit site layout link
-		assert isElementPresent(ELEMENT_EDIT_SITE_LAYOUT):"Edit site link is present";
+		assert isElementPresent(ELEMENT_EDIT_SITE_LAYOUT):"Edit site link presently";
 		//Verify add site link
-		assert isElementPresent( ELEMENT_ADD_SITE_LINK):"Add site link is present";
+		assert isElementPresent( ELEMENT_ADD_SITE_LINK):"Add site link presently";
 		driver.get(baseUrl);
 		signOut();
 		
@@ -795,8 +796,5 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 			//delete node
 			goToPortalSites();
 			deleteNode("intranet", "Home", nodeName, true);
-			
 		}
-	
 }
-

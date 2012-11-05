@@ -72,16 +72,16 @@ public class PortalManagement extends PlatformBase {
 		info("--Delete portal (" + portalName + ")--");		
 		click(portalDeleteIcon);
 		waitForConfirmation("Are you sure to delete this portal?");
-		//info("--Verify portal deleted--");
+		//info("--Verify portal is deleted--");
 		pause(30000);
 		waitForTextNotPresent(portalName);
 	}
 
-	//verify the existence of portal
+	//Verify the existence of portal
 	public static void verifyPortalExists(String portalName) {
 		String portal = ELEMENT_PORTAL_IN_LIST.replace("${portalName}", portalName);
 
-		info("--Verify portal (" + portalName + ") exist--");
+		info("--Verify portal (" + portalName + ") exists--");
 		goToPortalSites();
 		waitForAndGetElement(portal);
 	}

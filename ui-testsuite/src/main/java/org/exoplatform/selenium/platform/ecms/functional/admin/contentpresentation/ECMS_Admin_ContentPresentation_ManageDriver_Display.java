@@ -35,7 +35,7 @@ public class ECMS_Admin_ContentPresentation_ManageDriver_Display extends EcmsBas
 	    actions = null;
 	  }
 	  
-	  //function delete driver on manage driver
+	  //function to delete drive on manage drive
 	  public void deleteDriver(String driver){
 		  By ELEMENT_DRIVER = By.xpath("//*[@title='" + driver + "']");
 		  By ELEMENT_DRIVER_DELETE = By.xpath("//div[@title='" + driver + "']/../../td/div/img[@title='Delete']");
@@ -46,50 +46,50 @@ public class ECMS_Admin_ContentPresentation_ManageDriver_Display extends EcmsBas
 		  click(ELEMENT_DRIVER_DELETE);
 		  acceptAlert();
 		  waitForElementNotPresent(ELEMENT_DRIVER);
-		  info("Delete driver is successful");
+		  info("Delete driver successfully");
 	  }
 	  
-	  /*case01: Check the displaying of drive after create  by user has access right
-	   * add new driver 
-	   * check display of driver in site explorer when user has access permission
+	  /*case01: Check the displaying of drive after being created by user has access right
+	   * add new drive
+	   * check displaying of drive in site explorer when user has access permission
 	   */
 	  @Test
 	  public void test01_CheckDisplayOfDriverByUserHasAccessPermission(){
-		  String DATA_DRIVER_NAME = "ECMS_Admin_ContentPresentation_ManageDriver_Display_01";
-		  By ELEMENT_DRIVER = By.xpath("//*[@title='" + DATA_DRIVER_NAME + "']");
+		  String DATA_DRIVE_NAME = "ECMS_Admin_ContentPresentation_ManageDriver_Display_01";
+		  By ELEMENT_DRIVE = By.xpath("//*[@title='" + DATA_DRIVE_NAME + "']");
   
-		  //add driver
+		  //add drive
 		  goToContentAdministration();
 		  goToManageDriver();
-		  addNewDriver(DATA_DRIVER_NAME,"collaboration","sites content", "Platform/Administration","*","*:/platform/administrators","e_admin-view/c_icon-view/b_list-view" );
+		  addNewDriver(DATA_DRIVE_NAME,"collaboration","sites content", "Platform/Administration","*","*:/platform/administrators","e_admin-view/c_icon-view/b_list-view" );
 		  
-		  //check display of driver in site explorer when user has access permission
+		  //check displaying of drive in site explorer when user has access permission
 		  goToSiteExplorer();
 		  click(ELEMENT_SHOW_DRIVES);
-		  waitForElementPresent(ELEMENT_DRIVER);
+		  waitForElementPresent(ELEMENT_DRIVE);
 		  info("Drive display true");
 		  
 		  //delete data
-		  deleteDriver(DATA_DRIVER_NAME);
+		  deleteDriver(DATA_DRIVE_NAME);
 	  }
 	  
-	  /*case02: Check the displaying of drive after create by user does not have access right with this drive
-	   * add new driver 
-	   * check display of driver in site explorer when user does not have access permission
+	  /*case02: Check the displaying of drive after being created by user does not have access right with this drive
+	   * add new drive
+	   * check displaying of driver in site explorer when user does not have access permission
 	   */
 	  @Test
 	  public void test02_CheckDisplayOfDriverOfUserNotHaveAccessPermission(){
 		  String DATA_DRIVER_NAME = "ECMS_Admin_ContentPresentation_ManageDriver_Display_02";
 		  By ELEMENT_DRIVER = By.xpath("//*[@title='" + DATA_DRIVER_NAME + "']");
 	  	  
-		  //add driver
+		  //add drive
 		  goToContentAdministration();
 		  goToManageDriver();
 		  addNewDriver(DATA_DRIVER_NAME,"collaboration","sites content", "Platform/Administration","*","*:/platform/administrators","e_admin-view/c_icon-view/b_list-view" );
 		  logoutEcms();
 		  
 		  //login with user mary
-		  info("Login with user mary does not have access permission on driver");
+		  info("Login as mary who does not have access permission on drive");
 		  loginEcms("mary", "gtn");
 		  goToSiteExplorer();
 		  click(ELEMENT_SHOW_DRIVES);
@@ -102,10 +102,10 @@ public class ECMS_Admin_ContentPresentation_ManageDriver_Display extends EcmsBas
 		  deleteDriver(DATA_DRIVER_NAME);
 	  }
 	  
-	  /*case03: Check the displaying of drive after being deleted it 
-	   * add new driver
-	   * delete driver
-	   * check display of driver in site explorer
+	  /*case03: Check the displaying of drive after deleting it 
+	   * add new drive
+	   * delete drive
+	   * check displaying of drive in site explorer
 	   */
 	  @Test
 	  public void test03_CheckDisplayOfDriverAfterDelete(){
@@ -117,7 +117,7 @@ public class ECMS_Admin_ContentPresentation_ManageDriver_Display extends EcmsBas
 		  goToManageDriver();
 		  addNewDriver(DATA_DRIVER_NAME,"collaboration","sites content", "Platform/Administration","*","*:/platform/administrators","e_admin-view/c_icon-view/b_list-view" );
 		  
-		  //check display of driver in site explorer when user has access permission
+		  //check displaying of driver in site explorer when user has access permission
 		  goToSiteExplorer();
 		  click(ELEMENT_SHOW_DRIVES);
 		  waitForElementPresent(ELEMENT_DRIVER);
@@ -126,7 +126,7 @@ public class ECMS_Admin_ContentPresentation_ManageDriver_Display extends EcmsBas
 		  //delete data
 		  deleteDriver(DATA_DRIVER_NAME);
 		  
-		  //check display of driver in site explorer
+		  //check displaying of drive in site explorer
 		  goToSiteExplorer();
 		  waitForElementNotPresent(ELEMENT_DRIVER);
 		  info("Can not see driver after being deleted");		  

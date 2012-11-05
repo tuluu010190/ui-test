@@ -24,7 +24,6 @@ import org.testng.annotations.AfterMethod;
 public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 	public static String USER = "john";
 	public static String PASS = "gtn";
-	
 
 	//Create new CLV page by selecting directly published contents
 	@Test
@@ -33,7 +32,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		String pathContent = "General Drives/Sites Management/acme/web contents/News";
 		By content2= By.xpath("//img[contains(@alt,'New: Speed')]");
 
-		gotoPageEditor_EmptyLayout(namePage);
+		goToPageEditor_EmptyLayout(namePage);
 		addContentListEmptyLayout();
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 
@@ -66,7 +65,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		info("Create new CLV page by selecting directly draft contents");
 		//go to site explorer, and create a document
 		goToSiteExplorer();
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 		goToNodeByPath(pathNews);
 		goToAddNewContent();
 
@@ -75,7 +74,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		goToOverView();
 
 		// Create CLV page
-		gotoPageEditor_EmptyLayout(namePage);
+		goToPageEditor_EmptyLayout(namePage);
 		addContentListEmptyLayout();
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 
@@ -117,7 +116,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		info("Delete content after choosing directly document or web content to view");
 
 		// Create CLV page
-		gotoPageEditor_EmptyLayout(namePage);
+		goToPageEditor_EmptyLayout(namePage);
 		addContentListEmptyLayout();
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 
@@ -162,7 +161,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		info("Search by name of content when select existing content to create page ");
 
 		// Create CLV page
-		gotoPageEditor_EmptyLayout(namePage);
+		goToPageEditor_EmptyLayout(namePage);
 		addContentListEmptyLayout();
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 
@@ -204,7 +203,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		info("Search by name of content when select existing content to create page ");
 
 		// Create CLV page
-		gotoPageEditor_EmptyLayout(namePage);
+		goToPageEditor_EmptyLayout(namePage);
 		addContentListEmptyLayout();
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 
@@ -245,7 +244,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		info("Search a word or phrase in content");
 		
 		// Create CLV page
-		gotoPageEditor_EmptyLayout(namePage);
+		goToPageEditor_EmptyLayout(namePage);
 		addContentListEmptyLayout();
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 
@@ -290,5 +289,4 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 	public void afterMethod() {
 		driver.quit();
 	}
-
 }

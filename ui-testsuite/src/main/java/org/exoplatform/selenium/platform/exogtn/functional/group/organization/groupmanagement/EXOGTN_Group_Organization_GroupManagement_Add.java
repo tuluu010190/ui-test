@@ -11,7 +11,6 @@ import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 import static org.exoplatform.selenium.platform.UserGroupManagement.*;
 
-
 /**
  *@author HangNTT
  *@date: 19/09/2012
@@ -42,76 +41,76 @@ public class EXOGTN_Group_Organization_GroupManagement_Add extends PlatformBase 
 		driver.get(baseUrl);
 		driver.manage().window().maximize();
 	}
-	
+
 	// Add new group with valid value
 	@Test   
 	public void test01_AddGroup () {
 		info("--login portal--");
 		signIn("john", "gtn");
-		
+
 		//Go to user and group management page
 		info("--Go to User and group--");
 		goToUsersAndGroupsManagement();
-		
+
 		//Select group tab
 		info("--Choose group tab--");
 		chooseGroupTab();
 		info("--Add new group--");
-		
+
 		//Add new group
 		addGroup(GROUP_NAME, GROUP_LABEL, GROUP_DESC, true);
-		
+
 		info("--Select group--");
 		//Select new group
 		selectGroup(GROUP_NAME);
-		
+
 		//Delete new group
 		info("Delete group");
 		deleteGroup(GROUP_NAME, true);
 	}
-	
+
 	// Add new group with upper and lower case
 	@Test 
 	public void test05_AddGroupWithUpperAndLowerCase () {
 		By elementUsername = By.xpath("//input[@id='username']");
-		
+
 		info("--login portal--");
 		signIn("john", "gtn");
-		
+
 		//Go to user and group management page
 		info("--Go to User and group--");
 		goToUsersAndGroupsManagement();
-		
+
 		// Choose group tab
 		info("--Choose group tab--");
 		chooseGroupTab();
-		
+
 		//Add new group with lower case
 		info("--Add new group with lower case--");
 		addGroup(GROUP_NAME1, GROUP_LABEL1, GROUP_DESC1, verify);
 		click(UP_LEVEL);
-		
+
 		//Add new group with upper case
 		info("--Add new group with upper case--");
 		addGroup(GROUP_NAME2, GROUP_LABEL2, GROUP_DESC2, verify);
 		click(UP_LEVEL);
-		
+
 		//Delete group is lower case
 		info("--Delete group with lower case--");
 		selectGroup(GROUP_NAME1);
 		waitForElementPresent(elementUsername);
-		
+
 		//Delete group is upper case
 		info("Delete group");
 		deleteGroup(GROUP_NAME1, true);
 		waitForTextNotPresent(GROUP_NAME1);
-		
+
 		info("--Delete group with upper case--");
 		selectGroup(GROUP_NAME2);
 		deleteGroup(GROUP_NAME2, true);
 		waitForTextNotPresent(GROUP_NAME2);
 	}
-	
+
 	@AfterMethod()
 	public void afterTest() throws Exception
 	{

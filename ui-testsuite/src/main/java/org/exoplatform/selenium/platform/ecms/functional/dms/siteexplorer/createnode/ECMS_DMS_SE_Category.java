@@ -27,8 +27,8 @@ public class ECMS_DMS_SE_Category extends EcmsBase{
 	public static final String DATA_CATE_NAME_08="FNC_ECMS_FEX_CREATE_13_04";
 	public static final String DATA_CATE_NAME_08_TITLE="fncecmsfexcreate1304";
 
-	
-	// Add category that the name contains special characters
+
+	// Add category that name contains special characters
 	@Test
 	public void test04_AddCategoryWithSpecialCharacter() {
 		By bCate = By.xpath("//a[@title='"+ DATA_CATE_NAME_04+ " ']");
@@ -39,7 +39,7 @@ public class ECMS_DMS_SE_Category extends EcmsBase{
 		pause(200);
 		click(ELEMENT_VIEW_SIMPLE);
 		pause(500);
-		
+
 		//add category
 		addCategory(DATA_CATE_NAME_04);
 		assert isElementPresent(bCate):"Fail to create a category!";
@@ -47,11 +47,11 @@ public class ECMS_DMS_SE_Category extends EcmsBase{
 		//delete data
 		deleteDocument(bCate);
 		waitForElementNotPresent(bCate);
-		
+
 	}
-	//Add category, then check if to display in ECM administration
+	//Add category, then check if it displays in ECM administration
 	@Test
-	public void test08_AddCategoryWithCheckDisplay() {
+	public void test08_AddCategoryThenCheckDisplay() {
 		By bCate=By.xpath("//a[@title='"+ DATA_CATE_NAME_08+ " ']");
 		info("Add category, then check if to display in ECM administration!");
 		//choose drive and go to exo:ecm/exo:taxonomyTrees/storage/System
@@ -60,12 +60,12 @@ public class ECMS_DMS_SE_Category extends EcmsBase{
 		pause(200);
 		click(ELEMENT_VIEW_SIMPLE);
 		pause(500);
-		
+
 		//add category
 		addCategory(DATA_CATE_NAME_08);
 		assert isElementPresent(bCate):"Fail to create a category!";
 		pause(500);
-		
+
 		//check display 
 		goToContentAdministration();
 		click(ELEMENT_LINK_CATE_TAG);
@@ -77,7 +77,7 @@ public class ECMS_DMS_SE_Category extends EcmsBase{
 		click(ELEMENT_LINK_SYSTEM);
 		waitForElementPresent(By.linkText(DATA_CATE_NAME_08_TITLE));
 		click(ELEMENT_BUTTON_CLOSE);
-			
+
 		//go to Site explorer and delete data
 		goToSiteExplorer();
 		deleteDocument(bCate);
@@ -98,5 +98,4 @@ public class ECMS_DMS_SE_Category extends EcmsBase{
 		logoutEcms();
 		driver.quit();
 	}
-
 }

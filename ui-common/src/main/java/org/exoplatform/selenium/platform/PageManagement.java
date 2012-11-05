@@ -8,7 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class PageManagement extends PlatformBase {
-	//Add a new page at manage pages
+	//Add a new page in manage pages
 	public static void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
 			Map<String, String> permissions, String groupId, String membership ){
 
@@ -27,6 +27,7 @@ public class PageManagement extends PlatformBase {
 		}		
 		type(ELEMENT_INPUT_NAME, pageName, true);
 		type(ELEMENT_INPUT_TITLE, pageTitle, true);		
+		
 		//showMaxWindow
 		check(ELEMENT_CHECKBOX_MAX_WINDOWS);
 		click(ELEMENT_PERMISSION_SETTING_TAB);	

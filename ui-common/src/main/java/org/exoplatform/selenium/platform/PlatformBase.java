@@ -20,7 +20,7 @@ public class PlatformBase extends TestBase {
 	 * Default Page - http://localhost:8080/portal/default/
 	 * */
 	public static final String ELEMENT_GO_TO_PORTAL = "//a[text()='Login to the ACME social intranet']";
-	public static final By ELEMENT_GOTO_ACME = By.linkText("Login to the ACME website");
+	public static final By ELEMENT_GO_TO_ACME = By.linkText("Login to the ACME website");
 	/*
 	 * Intranet
 	 * */
@@ -28,14 +28,14 @@ public class PlatformBase extends TestBase {
 	
 	
 	/*
-	 * Log in Form - Signout 
-	 * */
+	 * Log in Form - Sign-out 
+	 */
 	public static final String ELEMENT_INPUT_USERNAME = "//input[@name='username']";
 	public static final String ELEMENT_INPUT_PASSWORD = "//input[@name='password']";
 	
 	/*
 	 * Navigation Bar /Administration Bar
-	 * */
+	 */
 	//My site
 	public static final By ELEMENT_MY_SITE = By.linkText("My Sites");
 	public static final By ELEMENT_ACME = By.linkText("acme");
@@ -51,7 +51,7 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
 	public static final By ELEMENT_MENU_SEO_LINK = By.xpath("//a[@title='SEO Management']");
 	
-	//setting Icon
+	//Setting Icon
 	public static final String ELEMENT_LINK_SETUP ="//img[@alt='Setup']";
 	public static final String ELEMENT_LINK_USERS ="//a[text()='Users']";
 	public static final String ELEMENT_LINK_ADD_USERS="//a[text()='Add Users']";
@@ -70,7 +70,7 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_ACCOUNT_PROFILE_TAB = "//a[text()='Account Profiles' and @class='Icon AccountProfiles']";
 	//Account Profile Tab
 	
-	//change PasswordTab
+	//Change PasswordTab
 	public static final String ELEMENT_INPUT_CURRENTPASSWORD = "//input[@name='currentpass']";
 	public static final String ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT = "//input[@id='newpass']";
 	public static final String ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT = "//input[@id='confirmnewpass']";
@@ -89,12 +89,12 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_USER_PROFILE_TAB = "//div[text()='User Profile' and @class='MiddleTab']";	
 	public static final String ELEMENT_INPUT_USER_NAME_GIVEN = "//input[@id='user.name.given']";
 	public static final String ELEMENT_SELECT_USER_LANGUAGE = "//select[@name='user.language']";
-	//end User Profile
+	//End User Profile
 	//End - Add User Form
 	//Setting -> user -> Groups and roles
 	public static final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles')]";
-	//	
-	//signout
+		
+	//Sign-out
 	public static final String ELEMENT_ACCOUNT_NAME_LINK = "//a[@class='TBIcon']";
 	public static final String ELEMENT_SIGN_OUT_LINK = "//a[@class='LogoutIcon']";
 	/* Username link - END*/
@@ -159,9 +159,11 @@ public class PlatformBase extends TestBase {
 	//Portal Setting TAB
 	public static final String ELEMENT_SELECT_LOCALE = "//select[@name='locale']";
 	public static final String ELEMENT_SELECT_SKIN 	 = "//select[@name='skin']";
-	//Propertiest TAB
+	
+	//Property TAB
 	public static final String ELEMENT_SELECT_SESSION_ALIVE= "//select[@name='sessionAlive']"; 
 	public static final String ELEMENT_PROPERTIES_TAB = "//div[text()='Properties' and @class='MiddleTab']";
+	
 	//Permission Setting TAB
 	public static final String ELEMENT_PERMISSION_SETTING_TAB= "//div[text()='Permission Settings' and @class='MiddleTab']";
 	public static final String ELEMENT_CHECKBOX_PUBLIC_MODE = "//input[@name='publicMode']";
@@ -211,7 +213,7 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_PAGE_EDITOR_NEXT_STEP = "//div[@class='ActionBar']//a[text()='Next']";
 	public static final String ELEMENT_EDIT_PAGE_CATEGORY_MENU = "//a[@class='TabLabel' and @title='${categoryLabel}']";
 	public static final String ELEMENT_EDIT_PAGE_PAGE = "//div[@id='UIPage']";
-	public static final String PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
+	public static final String ELEMENT_PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
 	public static final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//a[@title='Finish']";
 	public static final By ELEMENT_PAGE_EDIT_FINISH = By.xpath("//a[@title='Finish']");
 	public static final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
@@ -269,7 +271,7 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_MANAGE_LOCK_TAB = By.xpath("//div[@class = 'MiddleTab' and text() = 'Manage Lock']");
 	public static final By ELEMENT_MANAGE_LOCKS = By.linkText("Manage Locks");
 	
-	//Edit Inline a SCV
+	//Edit In-line a SCV
 	public static final By ELEMENT_PREFERENCE_TITLE=By.xpath("//span[contains(text(),'Content Detail Preferences')]");
 	public static final By ELEMENT_CONTAINER_CONTENT = By.xpath("//div[@class='NavigationContainer']");
 	public static final By ELEMENT_BUTTON_BACK = By.xpath("//a[@class='URLBackToButton']");

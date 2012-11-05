@@ -42,7 +42,7 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		actions = new Actions(driver);
 	}
 	
-	//Check if a query and a workspace condition works
+	//Check if a query and a workspace condition work
 	@Test()
 	public void test01_CheckQueryAndWorkspaceWithFolder()
 	{
@@ -72,7 +72,7 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		click(ELEMENT_PAGE_EDIT_FINISH);
 		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH, 50000);
 		
-		//Verify documents have node type nt:file in collaboration are displayed
+		//Verify documents having node type nt:file in collaboration are displayed
 		captureScreen("ECMS_WCM_Viewer_ContentsQuery_test01_check_query_ntfile.jpg");
 			
 		//Delete data
@@ -96,7 +96,7 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		
-		//Input nothing data for Query By and select Folder Path
+		//Input no data for Query By and select Folder Path
 		selectContentPathInEditMode(FOLDER_PATH, true);
 		click(ELEMENT_ACME_CATEGORY);
 		
@@ -107,7 +107,7 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		click(ELEMENT_PAGE_EDIT_FINISH);
 		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH, 50000);
 		
-		//Verify documents in the folder you selected are displayed
+		//Verify documents in selected folder are displayed
 		waitForTextPresent("Flight");
 		captureScreen("ECMS_WCM_Viewer_ContentsQuery_test02.jpg");
 		
@@ -264,7 +264,7 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		click(ELEMENT_PAGE_EDIT_FINISH);
 		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH, 50000);
 		
-		//Verify documents have node type nt:file in collaboration are displayed
+		//Verify documents having node type nt:file in collaboration are displayed
 		//waitForTextPresent("illustration");
 		captureScreen("ECMS_WCM_Viewer_ContentsQuery_test06.jpg");
 		

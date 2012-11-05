@@ -23,8 +23,6 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 	public static String SHOW_DMS_STRUCTURE="enableStructure";
 
-	public static By SITES_MANAGEMENT_PATH=By.xpath("//div[@title='Sites Management']");
-
 	public static String UPLOADED_FILE_PATH ="TestData/Winter.jpg";
 
 	public static String WARNING_MESSAGE_CANNOT_PASTE="Cannot paste the copied node type on the current node.";
@@ -77,7 +75,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(VERIFY_AT_ROOT_PATH1);
 
 		info("Copy content folder & paste at root path");
-		copyPasteNode(CONTENT_FOLDER_PATH, SITES_MANAGEMENT_PATH);
+		copyPasteNode(CONTENT_FOLDER_PATH, ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Verify copied folder is at root path");
 		waitForElementPresent(VERIFY_AT_ROOT_PATH2);
@@ -492,7 +490,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Copy & paste at root path");
 		pause(1000);
-		copyPasteNode(DOCUMENT_FOLDER_PATH, SITES_MANAGEMENT_PATH);
+		copyPasteNode(DOCUMENT_FOLDER_PATH, ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Verify copied folder is at root path");
 		waitForElementPresent(VERIFY_AT_ROOT_PATH2);
@@ -666,7 +664,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		pause(1000);
 
 		info("Choose Site Management");
-		click(SITES_MANAGEMENT_PATH);
+		click(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create File");
 		goToAddNewContent();
@@ -805,7 +803,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		click(SITES_MANAGEMENT_PATH);
+		click(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create Podcast & copy paste");
 		goToAddNewContent();
@@ -854,7 +852,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Create Content Folder & lock");
 		pause(1000);
-		click(SITES_MANAGEMENT_PATH);
+		click(ELEMENT_SITES_MANAGEMENT_DRIVE);
 		createNewContentFolder(CONTENT_FOLDER_NAME, CONTENT_FOLDER_NAME);
 		pause(2000);
 		lockNode(CONTENT_FOLDER_PATH);
@@ -984,7 +982,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		click(SITES_MANAGEMENT_PATH);
+		click(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create sample node & copy paste");
 		goToAddNewContent();
@@ -1028,7 +1026,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create sample node & copy paste");
 		goToAddNewContent();
@@ -1072,7 +1070,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create sample node");
 		goToAddNewContent();
@@ -1121,7 +1119,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create File & copy paste");
 		goToAddNewContent();
@@ -1169,7 +1167,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create Podcast & copy paste");
 		goToAddNewContent();
@@ -1215,7 +1213,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create Kofax & copy paste");
 		goToAddNewContent();
@@ -1392,7 +1390,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		click(SITES_MANAGEMENT_PATH);
+		click(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create File Plan");
 		goToAddNewContent();
@@ -1438,7 +1436,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create FIle Plan & copy paste");
 		goToAddNewContent();
@@ -1482,7 +1480,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create File & copy paste");
 		goToAddNewContent();
@@ -1529,7 +1527,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create File plan 2 & copy paste");
 		goToAddNewContent();
@@ -1579,7 +1577,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create Podcast & copy paste");
 		goToAddNewContent();
@@ -1627,7 +1625,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		pause(1000);
 
 		info("Choose Site Management");
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create Kofax & copy paste");
 		goToAddNewContent();
@@ -1804,7 +1802,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		
 		info("Choose Site Management");
 		pause(1000);
-		goToNode(SITES_MANAGEMENT_PATH);
+		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		info("Create File & copy paste");
 		goToAddNewContent();

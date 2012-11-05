@@ -15,9 +15,9 @@ import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 /*
  * @author: Marine
- * @edit: Lientm
+ * @editor: Lientm
  * @date: 9/2012
- * @date: 5/11/2012: Lientm update case multi-users - case 07
+ * @date: 5/11/2012: Lientm update case multiple users - case 07
  */
 
 public class ECMS_DMS_SE_CreateNodeFolder extends EcmsBase {
@@ -82,7 +82,7 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 	 * check message
 	 */
 	@Test
-	public void test02_AddFolderNoDataName() {
+	public void test02_AddFolderWithBlankName() {
 		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_CreateNodeFolder_contentfolder_02";
 		
 		//create new content folder with name blank
@@ -98,7 +98,7 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 	 * delete content folder
 	 */
 	@Test
-	public void test03_AddFolderSpecialCharsName() {
+	public void test03_AddFolderWithSpecialCharsName() {
 		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_CreateNodeFolder_contentfolder_03";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER_TITLE);
 		
@@ -120,7 +120,7 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 	 * checkout node - delete node
 	 */
 	@Test
-	public void test04_AddFolderInCheckinNode(){
+	public void test04_AddFolderInACheckinNode(){
 		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_CreateNodeFolder_article_04";
 		By ELEMENT_ARTICLE  = By.linkText(DATA_ARTICLE_TITLE);
 		
@@ -156,7 +156,7 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 	 */
 	 
 	@Test
-	public void test05_AddFolderInChildHasParentNodeCheckInStatus() {
+	public void test05_AddFolderInChildHavingParentInCheckInStatus() {
 		String DATA_ARTICLE_TITLE = "ECMS_DMS_SE_CreateNodeFolder_article_05";
 		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE_TITLE);
 		String DATA_KOFAX_NAME = "Testkofax_05";
@@ -210,7 +210,7 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 	 * delete data
 	 */
 	@Test
-	public void test06_AddFolderNoPermission() {
+	public void test06_AddFolderWhenUserNotHavingAddNodePermission() {
 		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_CreateNodeFolder_contentfolder_06";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER_TITLE);
 		
@@ -254,7 +254,7 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 	 * 	- Select above locked node -> check can not see "Add Folder" on action bar
 	 */
 	@Test
-	public void test07_AddFolderLockedNode() {		
+	public void test07_AddFolderInLockedNodeByNotLocker() {		
 		String DATA_CONTENT_FOLDER_TITLE = "ECMS_DMS_SE_CreateNodeFolder_contentfolder_07";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER_TITLE);
 		
@@ -269,8 +269,8 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 		lockNode(ELEMENT_CONTENT_FOLDER);
 		
 		//check lock node
-		assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Lock node is not successful";
-		info("Lock node is successful");
+		assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Locking node is not successful";
+		info("Locking node is successful");
 		driver.close();
 		
 		//login with user mary
@@ -286,7 +286,7 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
 		click(ELEMENT_CONTENT_FOLDER);
 		waitForElementNotPresent(ELEMENT_NEW_FOLDER);
-		info("Can not see New Folder link");
+		info("Cannot see New Folder link");
 
 		//delete data with user John
 		logoutEcms();
@@ -303,7 +303,7 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 	 * case 8:Add folder when do not input data in 'Title' field
 	 */
 	@Test
-	public void test08_AddFolderNoDataTitle() {
+	public void test08_AddFolderWithBlankTitle() {
 		String DATA_CONTENT_FOLDER_NAME = "ECMS_DMS_SE_CreateNodeFolder_contentfolder_08";
 
 		debug("Create content folder with the title: "+DATA_CONTENT_FOLDER_NAME);
@@ -315,7 +315,7 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 	 * case 9:Add folder with special characters in 'Title' field like !,@,#
 	 */
 	@Test
-	public void test09_AddFolderSpecialCharsTitle() {
+	public void test09_AddFolderWithSpecialCharsTitle() {
 		String DATA_CONTENT_FOLDER_NAME = "ECMS_DMS_SE_CreateNodeFolder_contentfolder_09";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_SPECIAL_CHARACTER_STRING);
 		
@@ -329,5 +329,4 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
  		goToNode(ELEMENT_CONTENT_FOLDER);
 	 	deleteDocument(ELEMENT_CONTENT_FOLDER);
 	 	}
-	
 }

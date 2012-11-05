@@ -29,17 +29,13 @@ public class ECMS_DMS_SE_Collaboration_TagPrivate  extends EcmsBase {
 	}
 
 	@Test
-	public void test12_AddOnePrivateTagForDocument (){
+	public void test12_AddPrivateTagForDocument (){
 
 		String ARTICLE_NAME_TITLE="Article_Document";
-
 		String ARTICLE_SUM="Summary of article";
-
 		String ARTICLE_CONTENT="Content of article";
-
 		By ARTICLE_PATH = By.xpath("//a[@title='"+ARTICLE_NAME_TITLE+" "+"']");
 
-		
 		info("Go to CE");
 		goToSiteExplorer();
 
@@ -59,7 +55,6 @@ public class ECMS_DMS_SE_Collaboration_TagPrivate  extends EcmsBase {
 		info("Add tags for private");
 		addTagForNode("collaboration_02_012", false);	
 
-
 		info("Delete data");
 		deleteTag("collaboration_02_012", false);
 		
@@ -68,16 +63,14 @@ public class ECMS_DMS_SE_Collaboration_TagPrivate  extends EcmsBase {
 		waitForElementPresent(ARTICLE_PATH);
 		goToNode(ARTICLE_PATH);
 		deleteDocument(ARTICLE_PATH);
-
 	}
 
 	@Test
-	public void test13_AddOnePrivateTagForUPLoadFile (){
+	public void test13_AddPrivateTagForUploadedFile (){
 
 		String DATA_UPLOAD_FILE_NAME = "AddOnePrivateTagForUPLoadFile";
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".doc "+"']");
 		String DATA_UPLOAD_FILE_LINK = "TestData/ECMS_DMS_SE_Upload_docfile.doc";
-
 
 		info("Go to CE");
 		goToSiteExplorer();

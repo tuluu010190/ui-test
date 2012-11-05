@@ -52,7 +52,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 	}
 
 	/*-- Case ID 001
-	 *-- Unlock node when admin has permission to view node
+	 *-- Unlock node when administrator has permission to view node
 	 * --*/
 	@Test
 	public void test01_UnlockNodeWhenAdminHasPermissionToViewNode(){
@@ -70,7 +70,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 
 		goToAdminManageLockAndVerify(titleArticle);
 
-		info("-- Step 3: Unlock node by administration --");
+		info("-- Step 3: Unlock node by administrator --");
 		//Select “Locked Node” tab
 
 		click(ELEMENT_UNLOCK_ARTICLE);
@@ -89,7 +89,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 	}
 
 	/*-- Case ID 002
-	 *-- Unlock node when admin does not have permission to view node
+	 *-- Unlock node when administrator does not have permission to view node
 	 *--*/
 	@Test
 	public void test02_UnlockNodeWhenAdminDoesNotHavePermissionToViewNode(){
@@ -513,13 +513,13 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 
 		actions = new Actions(driverTest);
 
-		info("-- Login with user in the selected group and un lock that node --");
+		info("-- Login with user in the selected group and un-lock that node --");
 
 		loginEcms("mary", "gtn");
 		
 		goToSiteExplorer();
 
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		goToNodeByPath("acme/documents");
 		
@@ -554,9 +554,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 		signOut();
 	}
 
-
 	/*----- Auxiliary function -----*/
-	//////////
 	public static WebDriver initNewDriverSeleniumTest(){
 		driver = new FirefoxDriver();
 		driver.get(baseUrl);
@@ -570,7 +568,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 
 		goToSiteExplorer();
 
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		goToNodeByPath("acme/documents");
 
@@ -588,7 +586,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 		waitForElementPresent(elementLockedArticleIcon);	
 	}
 
-	//Verify locked node at Admin/Manage Lock
+	//Verify locked node at Administration/Manage Lock
 	public void goToAdminManageLockAndVerify(String titleOfArticle){
 		goToContentAdministration();
 		click(ELEMENT_ADVANCED_CONFIGURATION_TAB);

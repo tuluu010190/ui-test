@@ -153,7 +153,7 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 		deleteDocument(bJs2);
 		deleteDocument(bJs3);
 	}	
-	//Check the affection of JS file in Share site
+	//Check the affection of JS file in Shared site
 	@Test
 	public void test04_CreateJSFileInSharedSite() {
 		By bJs= By.xpath("//a[@title='"+ DATA_JS_NAME_04 + " ']");

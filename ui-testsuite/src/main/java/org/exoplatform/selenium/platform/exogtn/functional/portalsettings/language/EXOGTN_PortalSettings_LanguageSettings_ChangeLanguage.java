@@ -125,7 +125,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		signOut();
 		deleteCookieTest(driver);
 		driver.close();
-		
+
 		info("-- Step 2: Check displaying language when language of browser don't support by portal with user account demo --");
 		// choose a browser's language that portal doesn't support this language: e.g, Vietnamese
 		WebDriver driverTest = initNewDriverSeleniumTest(Language.vi);
@@ -144,7 +144,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		waitForTextPresent("Mes Sites");
 		signOutInFrench(); 
 		driverTest.close();
-		
+
 		info("-- Restore Original data values after testing --");
 		//set a browser's language to default: English
 		WebDriver driverOriginal = initNewDriverSeleniumTest(Language.en);
@@ -171,19 +171,19 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		String password = "exoplatform"; 
 		String confirmPassword = "exoplatform"; 
 		String firstName = "first"; 
-	    String lastName = "last name"; 
-	    String email = "testaccount@platform.com"; 
-	    String userNameGiven = ""; 
-	    String language = "English"; 
-	    boolean verify = true;
-	    
+		String lastName = "last name"; 
+		String email = "testaccount@platform.com"; 
+		String userNameGiven = ""; 
+		String language = "English"; 
+		boolean verify = true;
+
 		info("-- Step 1: Register new account --");
 		signIn("root", "gtn");
 		goToNewStaff();
 		addNewUserAccount(username,password,confirmPassword,firstName,
-		          lastName,email,userNameGiven,language,verify);
+				lastName,email,userNameGiven,language,verify);
 		signOut();
-		
+
 		info("-- Step 2: Check display after login to portal --");
 		driver.get(baseUrl);
 		signIn(username, password);
@@ -191,14 +191,14 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		signOut();
 		deleteCookieTest(driver);
 		driver.close();
-		
+
 		info("-- Step 3: Check displaying language when language of browser don't support by portal with new account --");
 		WebDriver driverTest = initNewDriverSeleniumTest(Language.vi);
 		actions = new Actions(driverTest);
 		driverTest.get(baseUrl);
 		signIn(username, password);
 		captureScreen("portalSettings_languageSettings_checkDisplayLanguage_caseID05_step3");
-		
+
 		info("-- Step 4: Check when change language --");
 		goToChangeLanguageForUserInterface();
 		waitForTextPresent("Interface Language Settings");
@@ -213,7 +213,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		waitForTextPresent("My Sites");
 		signOut(); 
 		driverTest.close();
-		
+
 		info("-- Restore Original data values after testing --");
 		//set a browser's language to default: English
 		WebDriver driverOriginal = initNewDriverSeleniumTest(Language.en);
@@ -223,7 +223,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		//delete user demo
 		goToUsersAndGroupsManagement();
 		deleteUser(username);
-		
+
 		info("-- Sign Out --");	
 		waitForTextPresent("Root Root");
 		signOut();	
@@ -293,7 +293,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		String email = "exosea@platform.com";
 
 		signIn("root", "gtn");
-		
+
 		goToRegisterPageInPublicMode(driver);
 		goToEditPageEditor();
 		setUseCaptcha(false, false);
@@ -370,7 +370,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 		mouseOverAndClick(ELEMENT_LINK_EDITOR_EDIT_LAYOUT_INFRENCH);
 		pause(500);
 	}*/
-	
+
 	public void applyInFrench(){
 		waitForAndGetElement(ELEMENT_APPLY_BUTTON_INFRENCH);
 		click(ELEMENT_APPLY_BUTTON_INFRENCH);

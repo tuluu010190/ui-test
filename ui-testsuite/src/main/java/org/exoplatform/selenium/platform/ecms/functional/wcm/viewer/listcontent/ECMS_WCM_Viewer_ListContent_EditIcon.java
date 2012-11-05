@@ -38,13 +38,11 @@ import org.testng.annotations.Test;
  */
 public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 	String DATA_USER = "john";
-
 	String DATA_PASS = "gtn";
 	public static By ELEMENT_PUBLICATION = By.linkText("Publications");
 	public static By ELEMENT_PUBLIC_STATUS = By.xpath("//a[contains(text(), 'Published')]");
 	public static By EMENET_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
 	public static By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
-
 
 	@BeforeMethod
 	public void beforeMethods() throws Exception {
@@ -63,6 +61,7 @@ public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 		driver.quit();
 		actions = null;
 	}
+	
 	/*
 	 * Change to View mode
 	 */
@@ -74,6 +73,7 @@ public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 		changeEditMode();
 		waitForElementPresent("//div[contains(@class,'InlineEditing')]");
 	}
+	
 	/*
 	 * Verify data not change after back from edit content screen
 	 */
@@ -114,8 +114,8 @@ public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 
 		info("Go to manage page and delete page");
 		deletePageAtManagePageAndPortalNavigation(DATA_PAGE_NAME, true, "acme", false, "");
-
 	}
+	
 	/*
 	 * Quick edit content
 	 */
@@ -132,7 +132,7 @@ public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 		WcmAdmin.editTitleInline("Power Pack 2", "Power Pack 1");
 	}
 
-	//function public a document
+	//function to public a document
 	public void publishDocument(){
 		info("Publish this document");
 		waitForElementPresent(ELEMENT_PUBLICATION);
@@ -170,5 +170,4 @@ public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 		waitForElementPresent(EDIT_CONTENT_ICON);
 		click(EDIT_CONTENT_ICON);
 	}
-
 }

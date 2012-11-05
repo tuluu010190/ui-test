@@ -49,7 +49,7 @@ public class NavigationToolbar extends PlatformBase {
 		driver.findElement(By.linkText("Dashboard")).click();	
 	}
 
-	//Go to Users and management page
+	//Go to User management page
 	public static void goToNewStaff() {
 		//info("Go to New Staff");
 		goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADD_USERS);
@@ -87,7 +87,6 @@ public class NavigationToolbar extends PlatformBase {
 		WebElement element = waitForAndGetElement(ELEMENT_LINK_EDITOR_ADD_PAGE);
 		actions.moveToElement(element).click(element).build().perform();
 		pause(500);
-
 	}
 
 	public static void goToUsersAndGroupsManagement() {
@@ -95,9 +94,8 @@ public class NavigationToolbar extends PlatformBase {
 		goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_GROUP_AND_ROLE_LINK);
 	}
 	
-	//Define common function
+	//Go to Portal Application Registry
 	public static void goToApplicationRegistry() {
-
 		info("--Go to Portal Application Registry--");
 		mouseOver(ELEMENT_LINK_SETUP, false);
 		pause(500);

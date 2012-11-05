@@ -43,7 +43,7 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		actions = null;
 	}
 	
-	//function go to SEO of acme page
+	//function to go to SEO of acme page
 	public static void goToAcmeSEO(){
 		info("Go to SEO of acme home page");
 		goToSiteExplorer();
@@ -68,8 +68,8 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		
 		//check file sitemap.xml
 		goToNode(ELEMENT_SITEMAP_FILE);
-		if (waitForAndGetElement(ELEMENT_LINK_EDIT) != null) {
-			click(ELEMENT_LINK_EDIT);
+		if (waitForAndGetElement(ELEMENT_EDIT_LINK) != null) {
+			click(ELEMENT_EDIT_LINK);
 		}
 		waitForElementPresent(ELEMENT_CONTENT_SITEMAP);
 		assert isTextNotPresent("<loc>"):"sitemap file is wrong";
@@ -97,8 +97,8 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		
 		//check file sitemap.xml
 		goToNode(ELEMENT_SITEMAP_FILE);
-		if (waitForAndGetElement(ELEMENT_LINK_EDIT) != null) {
-			click(ELEMENT_LINK_EDIT);
+		if (waitForAndGetElement(ELEMENT_EDIT_LINK) != null) {
+			click(ELEMENT_EDIT_LINK);
 		}
 		waitForElementPresent(ELEMENT_CONTENT_SITEMAP);
 		assert getText(ELEMENT_CONTENT_SITEMAP).contains(DATA_CONTENT_ACME.replace("${frequency}", "Always")):"Content of sitemap file is wrong";
@@ -124,8 +124,8 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		
 		//check file sitemap.xml
 		goToNode(ELEMENT_SITEMAP_FILE);
-		if (waitForAndGetElement(ELEMENT_LINK_EDIT) != null) {
-			click(ELEMENT_LINK_EDIT);
+		if (waitForAndGetElement(ELEMENT_EDIT_LINK) != null) {
+			click(ELEMENT_EDIT_LINK);
 		}
 		waitForElementPresent(ELEMENT_CONTENT_SITEMAP);
 		assert getText(ELEMENT_CONTENT_SITEMAP).contains(DATA_CONTENT_ACME.replace("${frequency}", "Hourly")):"Content of sitemap file is wrong";
@@ -151,8 +151,8 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		
 		//check file sitemap.xml
 		goToNode(ELEMENT_SITEMAP_FILE);
-		if (waitForAndGetElement(ELEMENT_LINK_EDIT) != null) {
-			click(ELEMENT_LINK_EDIT);
+		if (waitForAndGetElement(ELEMENT_EDIT_LINK) != null) {
+			click(ELEMENT_EDIT_LINK);
 		}
 		waitForElementPresent(ELEMENT_CONTENT_SITEMAP);
 		assert getText(ELEMENT_CONTENT_SITEMAP).contains(DATA_CONTENT_ACME.replace("${frequency}", "Daily")):"Content of sitemap file is wrong";
@@ -178,8 +178,8 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		
 		//check file sitemap.xml
 		goToNode(ELEMENT_SITEMAP_FILE);
-		if (waitForAndGetElement(ELEMENT_LINK_EDIT) != null) {
-			click(ELEMENT_LINK_EDIT);
+		if (waitForAndGetElement(ELEMENT_EDIT_LINK) != null) {
+			click(ELEMENT_EDIT_LINK);
 		}
 		waitForElementPresent(ELEMENT_CONTENT_SITEMAP);
 		assert getText(ELEMENT_CONTENT_SITEMAP).contains(DATA_CONTENT_ACME.replace("${frequency}", "Weekly")):"Content of sitemap file is wrong";
@@ -205,8 +205,8 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		
 		//check file sitemap.xml
 		goToNode(ELEMENT_SITEMAP_FILE);
-		if (waitForAndGetElement(ELEMENT_LINK_EDIT) != null) {
-			click(ELEMENT_LINK_EDIT);
+		if (waitForAndGetElement(ELEMENT_EDIT_LINK) != null) {
+			click(ELEMENT_EDIT_LINK);
 		}
 		waitForElementPresent(ELEMENT_CONTENT_SITEMAP);
 		assert getText(ELEMENT_CONTENT_SITEMAP).contains(DATA_CONTENT_ACME.replace("${frequency}", "Monthly")):"Content of sitemap file is wrong";
@@ -232,8 +232,8 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		
 		//check file sitemap.xml
 		goToNode(ELEMENT_SITEMAP_FILE);
-		if (waitForAndGetElement(ELEMENT_LINK_EDIT) != null) {
-			click(ELEMENT_LINK_EDIT);
+		if (waitForAndGetElement(ELEMENT_EDIT_LINK) != null) {
+			click(ELEMENT_EDIT_LINK);
 		}
 		waitForElementPresent(ELEMENT_CONTENT_SITEMAP);
 		assert getText(ELEMENT_CONTENT_SITEMAP).contains(DATA_CONTENT_ACME.replace("${frequency}", "Yearly")):"Content of sitemap file is wrong";
@@ -259,8 +259,8 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		
 		//check file sitemap.xml
 		goToNode(ELEMENT_SITEMAP_FILE);
-		if (waitForAndGetElement(ELEMENT_LINK_EDIT) != null) {
-			click(ELEMENT_LINK_EDIT);
+		if (waitForAndGetElement(ELEMENT_EDIT_LINK) != null) {
+			click(ELEMENT_EDIT_LINK);
 		}
 		waitForElementPresent(ELEMENT_CONTENT_SITEMAP);
 		assert getText(ELEMENT_CONTENT_SITEMAP).contains(DATA_CONTENT_ACME.replace("${frequency}", "Never")):"Content of sitemap file is wrong";
@@ -286,5 +286,4 @@ public class ECMS_WCM_SEO_SiteMap extends EcmsBase {
 		checkAlertInfo("The field Priority is invalid float number. Valid values range from 0.0 to 1.0.");
 		
 	}
-	
 }

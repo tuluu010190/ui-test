@@ -148,7 +148,7 @@ public class ECMS_WCM_Viewer_SingleContent_EditIcon extends ContentTemplate{
 		
 		goToSiteExplorer();
 
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		goToNodeByPath("acme/documents");
 

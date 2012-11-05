@@ -123,7 +123,7 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		
 		//create a document folder
 		createNewDocumentFolder(DOC_TITLE,DOC_NAME);
-		//check whether document folder can be created
+		//check whether document folder is created
 		waitForElementPresent(By.linkText(DOC_TITLE));
 
 		//create a new podcast
@@ -131,7 +131,7 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		goToAddNewContent();
 		createNewPodcast(POD_NAME_66, POD_TITLE_66, POD_LINK);
 		
-		//check whether podcast document can be created
+		//check whether podcast document is created
 		waitForElementPresent(By.xpath("//a[@title='" + POD_TITLE_66 + " ']"));
 	
 		//delete podcast
@@ -202,7 +202,6 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		
 		//delete file document	
 		deleteDocument(By.xpath("//a[@title='"+FILE_TITLE + " ']"));
-		
 	}
 
 	/** add a podcast in a podcast
@@ -233,7 +232,6 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		//assert isElementPresent(By.linkText(POD_TITLE_69)): "Fail to create a podcast!";
 		deleteDocument(By.xpath("//a[@title='"+ POD_TITLE_69 + " ']"));
-
 	}
 
 	/**add a podcast document in a sample node document
@@ -357,7 +355,6 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		deleteDocument(By.xpath("//a[@title='" + KOX_NAME + " ']"));
 	}
 
-	
 	/** create a podcast in an uploaded file
 	 * choose a drive
 	 * create a uploaded file

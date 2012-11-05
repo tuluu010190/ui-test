@@ -123,7 +123,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Cut extends PlatformBas
 		save();
 		
 		//Delete new node
-		info("delete node");
+		info("Delete node");
 		editNavigation("intranet");
 		deleteNode("intranet","Welcome","PORNAV_14_04_002",false);
 		

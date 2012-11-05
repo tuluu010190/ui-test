@@ -20,7 +20,6 @@ import static org.exoplatform.selenium.platform.NavigationManagement.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
 
-
 /**
  *@author HangNTT
  * @date: 26/09/2012
@@ -100,7 +99,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 		click(ELEMENT_EDIT_NAV_GROUP);
 		info("Right click on new node");
 		rightClickOnElement(By.linkText("GROUPNAV_26_03_004"));
-		info("edit node's page");
+		info("Edit node's page");
 		waitForElementPresent(By.linkText(EDIT_NODE_PAGE_LINK));
 		click(By.linkText(EDIT_NODE_PAGE_LINK));
 		//Choose Container tab
@@ -121,7 +120,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 		type(ELEMENT_INPUT_HEIGHT, "600px", true);
 		save();
 		waitForTextNotPresent("Container Settings");
-		info("--Verify that the changes on container was saved--");
+		info("--Verify that the changes on container is saved--");
 		captureScreen("container");
 		click(ELEMENT_FINISH_BUTTON);
 		// close navigation form
@@ -130,6 +129,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 		click(ELEMENT_EDIT_NAV_GROUP);
 		deleteNode("Administration","GROUPNAV_26_03_004","GROUPNAV_26_03_004",true);
 	}
+	
 	//Add New Page By Wizard
 	@Test
 	public void test09_CheckFinishFunctionAfterChangeNodePageContainerLayout () {
@@ -175,7 +175,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 		type(ELEMENT_INPUT_HEIGHT, "600px", true);
 		save();
 		waitForTextNotPresent("Container Settings");
-		info("--Verify that the changes on container was saved--");
+		info("--Verify that the changes on container is saved--");
 		captureScreen("GROUPNAV_TITLE");
 		click(ELEMENT_FINISH_BUTTON);
 		// close navigation form

@@ -27,10 +27,10 @@ public class EXOGTN_Dashboard_EditGadget extends PlatformBase
 	public By CLOSE_WINDOW_BUTTON = By.xpath("//a[@title='Close Window']");
 	//public By EDIT_ICON = By.xpath("//div[text()='"+GADGET_NAME+"']/preceding::div/img[@id='customize']");
 	public By EDIT_ICON = By.xpath("//span[text()='"+GADGET_TITLE_DISPLAY+"']/preceding::span[@title='Edit Gadget']");
-//	public By MAXIMIZE_TO_DISPLAY_LIST = By.xpath("//select[@id='m_0_0' and @name='m_0_up_maxcount']");
+	//	public By MAXIMIZE_TO_DISPLAY_LIST = By.xpath("//select[@id='m_0_0' and @name='m_0_up_maxcount']");
 	public By MAXIMIZE_TO_DISPLAY_LIST = By.xpath("//select[contains(@id,m) and contains(@name, up_maxcount)]");
 	public By OPTION_5 = By.xpath("//option[@value='5' and @selected='selected']");
-//	public By OPTION_10 = By.xpath("//select[@name='m_0_up_maxcount']/option[@value='10' and @selected='selected']");
+	//	public By OPTION_10 = By.xpath("//select[@name='m_0_up_maxcount']/option[@value='10' and @selected='selected']");
 	public By OPTION_10 = By.xpath("//option[@value='5' and @selected='selected']");
 	public By SAVE_BUTTON = By.xpath("//input[@type='button' and @value='Save']");
 
@@ -65,7 +65,7 @@ public class EXOGTN_Dashboard_EditGadget extends PlatformBase
 		waitForTextPresent(GADGET_NAME);
 		waitForElementPresent(CLOSE_WINDOW_BUTTON);
 		click(CLOSE_WINDOW_BUTTON);
-		
+
 		//Edit Bookmarks Gadget content
 		waitForElementPresent(EDIT_ICON);
 		click(EDIT_ICON);
@@ -80,11 +80,11 @@ public class EXOGTN_Dashboard_EditGadget extends PlatformBase
 		waitForElementPresent(OPTION_10);
 		select(MAXIMIZE_TO_DISPLAY_LIST, "5");
 		click(SAVE_BUTTON);
-		
+
 		//Delete data
 		deleteGadgetOnDashboard("Top voted rating topic");
 	}
-	
+
 	@AfterMethod()
 	public void afterTest() throws Exception
 	{

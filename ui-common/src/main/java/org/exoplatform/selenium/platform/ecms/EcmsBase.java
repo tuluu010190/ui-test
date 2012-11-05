@@ -20,7 +20,7 @@ public class EcmsBase extends PlatformBase {
 	 * */
 	public static final By ELEMENT_LOGIN_LINK = By.xpath("//*[@id='AcmeWebSiteLogInLogOut']");
 
-	//SignIn form
+	//Sign-in form
 	public static final By ELEMENT_LOGIN_BUTTON = By.xpath("//*[@id='UIPortalLoginFormAction']");
 
 	//New Folder
@@ -115,22 +115,21 @@ public class EcmsBase extends PlatformBase {
 	public static By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
 	public static final By ELEMENT_INFO = By.xpath("//span[@class='PopupIcon InfoMessageIcon']");
 
-	//Rename Form in Sites Explorer (Righ-click -> Rename
+	//Rename Form in Sites Explorer (Right-click -> Rename)
 	public static final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");
 	public static final By ELEMENT_INPUT_NAME_NODE = By.xpath("//input[@id = 'nameField']");
-	
-	
-	//login ECMS
+
+	//Log-in ECMS
 	public static void loginEcms(String username, String password) {
 		driver.manage().window().maximize();
-		click(ELEMENT_GOTO_ACME);
+		click(ELEMENT_GO_TO_ACME);
 		click(ELEMENT_LOGIN_LINK);
 		type(By.name("username"),username, false);
 		type(By.name("password"),password, false);
 		click(ELEMENT_LOGIN_BUTTON);	
 	}
 
-	//logout ECMS
+	//Log-out ECMS
 	public static void logoutEcms (){
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		mouseOver(ELEMENT_SIGN_OUT_LINK, true);
@@ -139,7 +138,7 @@ public class EcmsBase extends PlatformBase {
 		driver.get(baseUrl);
 	}
 
-	// go to content administration
+	// Go to content administration
 	public static void goToContentAdministration()
 	{
 		mouseOver(ELEMENT_LINK_SETUP, true);
@@ -147,21 +146,21 @@ public class EcmsBase extends PlatformBase {
 		mouseOverAndClick(ELEMENT_LINK_CONTENT_ADMIN);
 	}
 
-	//Enter sites MANAGEDement Form 
+	//Enter Sites Management Form 
 	public static void goToSiteExplorer(){
 		mouseOver(ELEMENT_LINK_SETUP,true);
 		mouseOver(ELEMENT_MENU_CONTENT_LINK,true);
 		click(ELEMENT_MENU_SITE_EXPLORER);
 	}
 
-	//Enter create new page form
+	//Go to Page Creation Wizard
 	public static void goToPageCreationWinzard(){
 		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
 		mouseOver(ELEMENT_MENU_PAGE_LINK,true);
 		click(ELEMENT_MENU_ADD_PAGE_LINK);	
 	}
 
-	//Select option from combobox
+	//Select option from combo-box
 	public static void selectOption(By locator,String value){
 		Select typeFolder = null;
 		pause(100);
@@ -172,9 +171,8 @@ public class EcmsBase extends PlatformBase {
 		typeFolder.selectByValue(value);
 	}
 
-
 	//go to a node
-	//input: path: path of a node, splitted by  "/" character 
+	//input: path: path of a node, split by  "/" character 
 	public static void goToNodeByPath(String path)
 	{
 		String[] nodes = path.split("/");
@@ -216,7 +214,7 @@ public class EcmsBase extends PlatformBase {
 			}	
 		}
 	}
-  
+
 	//function add data to frame
 	//	public static void inputDataToFrame (By framelocator, String data){
 	//		try {
@@ -244,7 +242,8 @@ public class EcmsBase extends PlatformBase {
 	//			loopCount = 0;
 	//		}
 	//	}
-	//function add data to frame
+
+	//Function to add data to frame
 	public static void inputDataToFrame (By framelocator, String data, boolean...validate){
 		try {
 			WebElement inputsummary = null;
@@ -296,7 +295,7 @@ public class EcmsBase extends PlatformBase {
 
 	///////for Symlink
 
-	//go to target node in root when add symlink
+	//Go to target node in root when add symlink
 	public void goToTargetNodeInRoot(){
 		waitForElementPresent(ELEMENT_ADD_SYMLINK);
 		click(ELEMENT_ADD_SYMLINK);
@@ -307,7 +306,7 @@ public class EcmsBase extends PlatformBase {
 		//click(ELEMENT_ACME_DIV);  
 	}
 
-	//delete data
+	//Delete data
 	public void deleteData(By data){
 		goToNode(data);
 		deleteDocument(data);
@@ -315,7 +314,7 @@ public class EcmsBase extends PlatformBase {
 		waitForElementNotPresent(data);
 	}
 
-	//check alert
+	//Check alert
 	public void checkAlertWarning(String message){
 		//waitForElementPresent(ELEMENT_ALERT);
 		assert isElementPresent(ELEMENT_ALERT):"Not found alert";
@@ -330,7 +329,7 @@ public class EcmsBase extends PlatformBase {
 		click(By.linkText("OK"));
 	}
 
-	//rename node
+	//Rename a node
 	public void renameNode(By nodePath, String newName, By nodePathNew){
 		rightClickOnElement(nodePath);
 		click(By.xpath("//a[contains(text(),'Rename')]"));
@@ -339,20 +338,20 @@ public class EcmsBase extends PlatformBase {
 		click(ELEMENT_SAVE_BUTTON);
 		//check rename successfully
 		waitForElementPresent(nodePathNew);
-		assert isElementPresent(nodePathNew):"Rename node is not successful";
-		info("Rename node is successful");
+		assert isElementPresent(nodePathNew):"Rename node unsuccessfully";
+		info("Rename node successfully");
 	}
 
-	//create content folder and check
+	//Create content folder and check
 	public void createAndCheckContentFolder(String name, By path){
 		info("Create new content folder with name: "+name);
 		createNewContentFolder(name, name);
 		waitForElementPresent(path);
-		assert isElementPresent(path):"Create new content folder is not successful";
-		info("Create new content folder is successful"); 
+		assert isElementPresent(path):"Create new content folder unsuccessfully";
+		info("Create new content folder successfully"); 
 	}	  
 
-	//copy and paste node
+	//Copy and paste node
 	public void copyAndPasteNode(By source, By target){
 		goToNode(source);
 		rightClickOnElement(source);
@@ -365,7 +364,7 @@ public class EcmsBase extends PlatformBase {
 		pause(1000);
 	}
 
-	//cut node
+	//Cut node
 	public void cutAndPasteNode(By source, By target){
 		cutNode(source);
 		ContextMenu.pasteNode(target);
@@ -386,36 +385,34 @@ public class EcmsBase extends PlatformBase {
 		finally{
 			loopCount=0;
 		}
-
 		return bool;
 	}
 
-	//function go to SEO management
+	//Function to go to SEO management
 	public static void goToSeoManagement(){
 		info("Go to SEO management form");
 		mouseOver(ELEMENT_MENU_EDIT_LINK, true);
 		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
 		mouseOverAndClick(ELEMENT_MENU_SEO_LINK);		
 	}
-	
-	//function go to acme/overview page
+
+	//Function to go to acme/overview page
 	public static void goToOverView(){
 		info("Go to OverView form");
 		mouseOver(ELEMENT_MY_SITE, true);
 		mouseOver(ELEMENT_ACME, true);
 		mouseOverAndClick(ELEMENT_OVERVIEW);
 	}
-	
-	//function go to acme/new
+
+	//Function to go to acme/new
 	public static void goToNews(){
 		info("Go to News form");
 		mouseOver(ELEMENT_MY_SITE, true);
 		mouseOver(ELEMENT_ACME, true);
 		mouseOverAndClick(ELEMENT_NEWS);
 	}
-	
+
 	/**
-	 * 
 	 * @param anchor: Button's label to open form
 	 * @param formTitle: Form's title
 	 */

@@ -26,7 +26,7 @@ public class EXOGTN_GroupNavigation_Navigation_EditProperties extends PlatformBa
 	public By PRIORITY_OPTION_2 = By.xpath("//option[@value='2' and @selected='selected']");
 	public By ADMINISTRATION_OLD_POSTION = By.xpath("//div[@id='UIGroupNavigationGrid']//table[3]//div[@title='/platform/administrators']");
 	public By ADMINISTRATION_NEW_POSTION = By.xpath("//div[@id='UIGroupNavigationGrid']//table[1]//div[@title='/platform/administrators']");
-	
+
 	@BeforeMethod()
 	public void beforeTest() throws Exception
 	{
@@ -37,65 +37,65 @@ public class EXOGTN_GroupNavigation_Navigation_EditProperties extends PlatformBa
 		driver.manage().window().maximize();
 		signIn("john", "gtn");
 	}
-	
+
 	//Edit properties of group navigation
 	@Test()
 	public void test01_EditPropertiesOfGroupnavigation()
 	{
 		//Goto Group Sites
 		goToGroupSites();
-		
+
 		//Verify position of Administration before change order
 		waitForElementPresent(ADMINISTRATION_OLD_POSTION);
 		captureScreen("POR_GRNAVIGATION_24_03_GroupSites_BeforeChangeOrder");
-		
+
 		//Select Edit Properties of Administration
 		waitForElementPresent(ADMIN_EDIT_PROPERTIES_LINK);
 		click(ADMIN_EDIT_PROPERTIES_LINK);
-		
+
 		//Verify OwnerType & OwnerId can not be changed
 		waitForElementPresent(OWNER_TYPE_INPUT);
 		waitForElementPresent(OWNER_ID_INPUT);
 		waitForElementPresent(PRIORITY_OPTION_2);
-		
+
 		//Change number of priority
 		select(PRIORITY_SELECT, "1");
 		save();
-		
-		//Verify position of Administration after change order
+
+		//Verify position of Administration after changing order
 		waitForElementNotPresent(ADMINISTRATION_OLD_POSTION);
 		waitForElementPresent(ADMINISTRATION_NEW_POSTION);
 		captureScreen("POR_GRNAVIGATION_24_03_GroupSites_AfterChangeOrder");
-		
+
 		//Verify priority is changed
 		waitForElementPresent(ADMIN_EDIT_PROPERTIES_LINK);
 		click(ADMIN_EDIT_PROPERTIES_LINK);
 		waitForElementPresent(PRIORITY_OPTION_1);
-		
+
 		//Sign out and Sign in again
 		signOut();
 		driver.get(baseUrl);
 		signIn("john", "gtn");
-		
+
 		//Goto Group Sites
 		goToGroupSites();
-		
-		//Verify position of Administration after Sign out and Sign in again  
+
+		//Verify position of Administration after Sigingn out and Signing in again  
 		waitForElementNotPresent(ADMINISTRATION_OLD_POSTION);
 		waitForElementPresent(ADMINISTRATION_NEW_POSTION);
-		
+
 		//Reset order of navigation list
 		waitForElementPresent(ADMIN_EDIT_PROPERTIES_LINK);
 		click(ADMIN_EDIT_PROPERTIES_LINK);
 		waitForElementPresent(PRIORITY_OPTION_1);
 		select(PRIORITY_SELECT, "2");
 		save();
-		
-		//Verify reset data
+
+		//Verify data is reset
 		waitForElementPresent(ADMINISTRATION_OLD_POSTION);
 		waitForElementNotPresent(ADMINISTRATION_NEW_POSTION);
 	}
-	
+
 	@AfterMethod()
 	public void afterTest() throws Exception
 	{

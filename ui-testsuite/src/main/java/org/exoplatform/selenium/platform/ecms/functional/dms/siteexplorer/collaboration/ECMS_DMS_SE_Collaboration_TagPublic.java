@@ -30,14 +30,11 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 	}
 
 	@Test
-	public void test14_AddOnePublicTagForDocument (){
+	public void test14_AddPublicTagForDocument (){
 
 		String ARTICLE_NAME_TITLE="Article_Document";
-
 		String ARTICLE_SUM="Summary of article";
-
 		String ARTICLE_CONTENT="Content of article";
-
 		By ARTICLE_PATH = By.xpath("//a[@title='"+ARTICLE_NAME_TITLE+" "+"']");
 
 		info("Go to CE");
@@ -55,11 +52,10 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 		info("Verify Add Content form is closed");
 		waitForElementNotPresent(ELEMENT_ARTICLE_SUMMARY_FRAME);
 		waitForElementNotPresent(ELEMENT_ARTICLE_CONTENT_FRAME);
-		
+
 		pause(1000);
 		info("Add tags for private");
 		addTagForNode("collaboration_02_014", true);	
-
 
 		info("Delete data");
 		deleteTag("collaboration_02_014", true);
@@ -68,11 +64,10 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 		waitForElementPresent(ARTICLE_PATH);
 		goToNode(ARTICLE_PATH);
 		deleteDocument(ARTICLE_PATH);
-
 	}
 
 	@Test
-	public void test15_AddOnePulicTagForUPLoadFile (){
+	public void test15_AddPulicTagForUploadedFile (){
 
 		String DATA_UPLOAD_FILE_NAME = "AddOnePublicTagForUPLoadFile";
 		By ELEMENT_UPLOAD_FILE = By.xpath("//a[@title='"+DATA_UPLOAD_FILE_NAME+".doc "+"']");
@@ -94,7 +89,7 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 
 		info("Delete tag");
 		deleteTag("collaboration_02_015", true);
-		
+
 		info("delete node");
 		waitForElementPresent(ELEMENT_FILE_EXPLORER);
 		click(ELEMENT_FILE_EXPLORER);

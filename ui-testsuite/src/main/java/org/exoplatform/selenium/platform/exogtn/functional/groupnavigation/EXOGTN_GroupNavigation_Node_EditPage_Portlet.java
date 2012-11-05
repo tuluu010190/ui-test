@@ -66,7 +66,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Portlet extends PlatformBase {
 		PORTLET_IDS.put("Content/ContentListViewerPortlet","");
 		String CATEGORY_TITLE = "Content";
 
-		info("main program");	  
+		info("Main program");	  
 		signIn("john", "gtn");
 		//Add new page by wizard
 		goToGroupSites();
@@ -99,6 +99,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Portlet extends PlatformBase {
 		// Delete node
 		deleteNode("Administration","GROUPNAV_26_02_018","GROUPNAV_26_02_018",true);
 	}
+	
 	//Add New Page By Wizard
 	@Test
 	public void test23_CheckFinishFunctionOnEditingPageAfterEditedPagePortletLayout () {
@@ -111,8 +112,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Portlet extends PlatformBase {
 		String ELEMENT_COLLABORATION_CATEGORY = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", "Collaboration");
 		By ELEMENT_APPLICATION_COLLABORATION_ANSWERS = By.id("Collaboration/AnswersPortlet");
 
-
-		info("main program");	  
+		info("Main program");	  
 		signIn("john", "gtn");
 		//Add new page by wizard
 		goToGroupSites();

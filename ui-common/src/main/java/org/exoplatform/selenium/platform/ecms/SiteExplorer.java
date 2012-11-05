@@ -11,9 +11,9 @@ public class SiteExplorer extends EcmsBase {
 	public static final By ELEMENT_SHOW_DRIVES = By.xpath("//a[@title='Show Drives']");
 
 	//Driver Sites Management in Sites Explorer
-	public static final By ELEMENT_DRIVER_SITES_MANAGEMENT = By.xpath("//a[@class='DriveLabel' and @title = 'Sites Management']");
-	public static final By ELEMENT_DMS_ADMIN_DRIVER = By.linkText("DMS Administration");
 	public static final By ELEMENT_ACME_DRIVER = By.linkText("acme-category");
+	public static final By ELEMENT_SITES_MANAGEMENT_DRIVE = By.xpath("//a[@class='DriveLabel' and @title = 'Sites Management']");
+	public static final By ELEMENT_DMS_ADMIN_DRIVE = By.linkText("DMS Administration");
 
 	// Preference
 	public static final By ELEMENT_PREFERENCE_LINK =By.xpath("//a[@class='SetupPreferencesButton']");
@@ -55,14 +55,14 @@ public class SiteExplorer extends EcmsBase {
 	public static By EMENET_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
 	public static By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
 	
-	//choose a drive
+	//Choose a drive
 	public static void chooseDrive(By locator)
 	{
 		waitForAndGetElement(ELEMENT_SHOW_DRIVES).click();
 		waitForAndGetElement(locator).click();	
 	}
 
-	//Enable preferenes option
+	//Enable preferences option
 	public static void checkPreferenceOption(String optionId){
 		goToNode(ELEMENT_PREFERENCE_LINK);
 		click(By.linkText("Advanced"));
@@ -74,7 +74,7 @@ public class SiteExplorer extends EcmsBase {
 		click(By.linkText("Save"));
 	}
 
-	//simple search
+	//Simple search
 	public static boolean simpleSearch(String keyword){
 		boolean delete = true;
 		//		waitForAndGetElement(ELEMENT_SIMPLESEARCH_TEXTBOX).clear();
@@ -88,13 +88,13 @@ public class SiteExplorer extends EcmsBase {
 			return delete;}
 	}
 
-	//simple search not return result
+	//Simple search not return result
 	public static boolean notSimpleSearch(String keyword) {
 		return !simpleSearch(keyword);
 	}
 
 	public static void addTagForNode(String name, boolean isPublic) {
-		// go to collaboration tab
+		// Go to collaboration tab
 		info("Go to Collaboration tab");
 		goToCollaboration();
 
@@ -105,20 +105,20 @@ public class SiteExplorer extends EcmsBase {
 		// Input information
 		type(ELEMENT_TAG_NAME, name, true);
 
-		//save
+		// Save
 		if (isPublic){
 			selectOption(ELEMENT_TAG_SCOPE, "Public");
 		} else 
 			selectOption(ELEMENT_TAG_SCOPE, "Private");
 		click(ELEMENT_ADD_TAGS_BUTTON);
 
-		//verify new tag
+		//Verify new tag
 		waitForElementPresent(By.linkText(name));
 
-		//close tag form
+		//Close tag form
 		click(ELEMENT_CLOSE_TAG_FORM);
 
-		//verify add new tag
+		//Verify add new tag
 		click(ELEMENT_TAG_CLOUD);
 
 		//			waitForTextPresent("Private Tags");
@@ -145,8 +145,8 @@ public class SiteExplorer extends EcmsBase {
 	
 	/**
 	 * Remove permission 
-	 * @param groupPath Group string separate by slash
-	 * @param membership Memembership 
+	 * @param groupPath Group string separated by slash
+	 * @param membership Membership 
 	 */
 	public static void removeTagPermission(String groupPath,String membership) {
 		String str = membership + ":/" + groupPath;
@@ -166,7 +166,7 @@ public class SiteExplorer extends EcmsBase {
 		waitForElementPresent(ELEMENT_EDIT_TAGS_FORM);
 	}
 
-	//go to advanced search in content explorer
+	//Go to advanced search in content explorer
 	public static void goToAdvancedSearch(){
 		click(ELEMENT_SAVED_SEARCH_ICON);
 		click(ELEMENT_ADVANCED_SEARCH_ICON);

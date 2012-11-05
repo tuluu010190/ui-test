@@ -22,7 +22,7 @@ public class ManageApplications extends PlatformBase {
 	public static By SHOW_IMPORT_CHECKED = By.xpath("//input[@id='showImport' and @value='true']");
 	public static By FINISH_ICON = By.xpath("//a[@title='Finish']");
 
-	//category
+	//Category
 	public static final By ELEMENT_ADD_NEW_CATEGORY = By.xpath("//div[@id = 'UIApplicationOrganizer']//div//div[@class = 'IconControl AddCategoryIcon']");
 	public static final By ELEMENT_FIELD_CATEGORY_NAME = By.id("name");
 	public static final By ELEMENT_FIELD_DISPLAY_NAME = By.id("displayName");
@@ -58,12 +58,11 @@ public class ManageApplications extends PlatformBase {
 		waitForConfirmation("Are you sure to delete this gadget?");
 		pause(1000);
 		waitForElementNotPresent(By.xpath("//a[@title='"+gadgetName+"']"));
-		info("'"+gadgetName+"' was deleted successfully");
-
+		info("'"+gadgetName+"' is deleted successfully");
 	}
 
 	//Category
-	//Add a new category at Manage Applications
+	//Add a new category in Manage Applications
 	public static void addNewCategoryAtManageApplications(String categoryName, String displayName, String categoryDescription,
 			boolean publicMode, Map<String, String> permissions, boolean verify){
 
@@ -118,7 +117,7 @@ public class ManageApplications extends PlatformBase {
 		}
 	}
 
-	//Delete a category at ManageApplications
+	//Delete a category at Manage Applications
 	public static void deleteCategoryAtManageApplications(String categoryName, boolean verify){
 		info("--Delete category (" + categoryName + ")--");
 //		String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
@@ -166,7 +165,7 @@ public class ManageApplications extends PlatformBase {
 		click(ELEMENT_ADD_APPS_BUTTON);
 		waitForElementPresent(ELEMNET_ADD_BUTTON);
 
-		//add new app
+		//Add new application
 		if (addNewApps) {
 			waitForElementPresent(ELEMENT_DISPLAY_NAME_TEXTBOX);
 			type(ELEMENT_DISPLAY_NAME_TEXTBOX, newDisplayName, true);
@@ -180,7 +179,7 @@ public class ManageApplications extends PlatformBase {
 		}
 		click(ELEMNET_ADD_BUTTON);
 
-		//set permission
+		//Set permission
 		if (publicMode) makeItPublic(true);
 		else {
 			makeItPublic(false);
@@ -189,17 +188,17 @@ public class ManageApplications extends PlatformBase {
 	}
 
 	public void deleteApplication(String categoryTitle, String applicationName) {
-		By CAT_XPATH = By.xpath("//a[@title='"+categoryTitle+"']");
+		By CATEGORY_XPATH = By.xpath("//a[@title='"+categoryTitle+"']");
 		By DELETE_APP_ICON = By.xpath("//a[@title='"+applicationName+"']/following::a[@title='Delete Application']");
 		//By DELETE_APP_ICON= By.xpath("//span[@class='label' and text()='"+applicationName+"']/../..//input[@name='application']");
-		waitForElementPresent(CAT_XPATH);
-		click(CAT_XPATH);
+		waitForElementPresent(CATEGORY_XPATH);
+		click(CATEGORY_XPATH);
 		waitForElementPresent(DELETE_APP_ICON);
 		click(DELETE_APP_ICON);
 		waitForConfirmation("Are you sure to delete this application?");
 		pause(1000);
 		waitForTextNotPresent(applicationName);
-		info("'"+applicationName+"' was deleted successfully");
+		info("'"+applicationName+"' is deleted successfully");
 	}
 
 
@@ -211,6 +210,7 @@ public class ManageApplications extends PlatformBase {
 
 		//Verify Categories display as default
 		waitForElementPresent(CATEGORIES_FORM);
+	
 		//goto Edit Page
 		goToEditPageEditor();
 
@@ -232,7 +232,8 @@ public class ManageApplications extends PlatformBase {
 		close();
 		click(FINISH_ICON);
 		pause(1000);
-		//Verify after change show import
+		
+		//Verify after changing show import
 		if (checkShowImport)
 		{
 			waitForElementPresent(IMPORT_APPLICATION);

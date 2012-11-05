@@ -400,7 +400,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 
 		click(ELEMENT_CUT_CATEGORY_ICON.replace("${categoryName}", categoryName));
 
-		info("-- Step 3: Paste cut  Category into itself --");
+		info("-- Step 3: Paste cut Category into itself --");
 
 		click(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", categoryName));
 

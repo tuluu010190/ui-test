@@ -57,7 +57,6 @@ public class ECMS_Admin_ManageTags_Management extends EcmsBase {
   }
   /**
    * Test Edit Tags Function when input valid data
-   * 
    */
   @Test
   public void test06_CheckRightGroupContentExplorer() throws Exception{

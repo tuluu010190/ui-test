@@ -88,7 +88,6 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 		signOut();		
 	}
 	
-	
 	/*--Case 006 Portal\Portal Navigation\Add
 	 * Create new portal with name starts with number
 	 * --*/
@@ -115,7 +114,6 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 		cancel() ;
 		signOut();			
 	}
-	
 	
 	/*--Case 010 Portal\Portal Navigation\Add
 	 * Create new portal with name is the same with existing one
@@ -149,7 +147,6 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 		
 		signOut();	
 	}
-	
 	
 	/*--Case 011 Portal\Portal Navigation\Add
 	 * Create new portal with portal name the same with 
@@ -188,5 +185,4 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 		
 		signOut();	
 	}
-
 }

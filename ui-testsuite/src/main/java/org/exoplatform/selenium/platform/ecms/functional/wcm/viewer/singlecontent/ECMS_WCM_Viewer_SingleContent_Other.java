@@ -21,7 +21,6 @@ public class ECMS_WCM_Viewer_SingleContent_Other extends EcmsBase {
 	public static String USER = "john";
 	public static String PASS = "gtn";
 	
-	
   @Test
   public void test01_EditContentOfSCVPage() {
 	  String namePage="ECMS_WCM_Viewer_Other3";
@@ -34,7 +33,7 @@ public class ECMS_WCM_Viewer_SingleContent_Other extends EcmsBase {
 	  
 	  info("Edit content of SCV page");
 	  //create a page with empty layout
-	  gotoPageEditor_EmptyLayout(namePage);
+	  goToPageEditor_EmptyLayout(namePage);
 	  addContentDetailEmptyLayout();
 	  click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 	  
@@ -70,7 +69,7 @@ public class ECMS_WCM_Viewer_SingleContent_Other extends EcmsBase {
 	  
 	  info("Open the form of setting page");
 	  //create a page
-	  gotoPageEditor_EmptyLayout(namePage);
+	  goToPageEditor_EmptyLayout(namePage);
 	  addContentDetailEmptyLayout();
 	  click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 	  
@@ -97,12 +96,10 @@ public class ECMS_WCM_Viewer_SingleContent_Other extends EcmsBase {
 	  driver.get(baseUrl);
 	  actions = new Actions(driver);
 	  loginEcms(USER, PASS);
-
   }
 
   @AfterMethod
   public void afterMethod() {
 	  driver.quit();
   }
-
 }

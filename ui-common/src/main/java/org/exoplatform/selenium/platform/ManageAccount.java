@@ -18,7 +18,7 @@ public class ManageAccount extends PlatformBase {
 	public static final String MESSAGE_ALERT_PASSWORD = "Password and Confirm Password must be the same.";
 	public static final String MESSAGE_INVALID_EMAIL_ADDRESS = "Your email address is invalid. Please enter another one.";
 
-	//Sign in function for eXoGTN
+	//Sign-in function for eXoGTN
 	public static void signIn(String username, String password) {
 		info("--Sign in as " + username + "--");
 		click(ELEMENT_GO_TO_PORTAL);
@@ -29,11 +29,11 @@ public class ManageAccount extends PlatformBase {
 		waitForElementNotPresent(ELEMENT_SIGN_IN_CONFIRM_BUTTON);
 	}
 
-	//Sign out for eXoGTN
+	//Sign-out for eXoGTN
 	public static void signOut(){
 		Actions action_logout = new Actions(driver);
 		WebElement UI = waitForAndGetElement(By.id("UserNavigationTabsContainer"));
-//		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
+		//		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
 		action_logout.moveToElement(UI).build().perform();
 		driver.findElement(By.linkText("Logout")).click();	
 		pause(500);
@@ -62,12 +62,12 @@ public class ManageAccount extends PlatformBase {
 		close();
 	}
 
-	// Add new user account
+	// Add a new user account
 	// setting -> user -> add users
 	public static void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
 			String lastName, String email, String userNameGiven, String language, boolean verify) {
 
-		info("--Create new user using \"New Staff\" portlet--");
+		info("--Create a new user using \"New Staff\" portlet--");
 		type(ELEMENT_INPUT_USERNAME, username, true);
 		type(ELEMENT_INPUT_PASSWORD, password, true);
 		type(ELEMENT_INPUT_CONFIRM_PASSWORD, confirmPassword, true);
@@ -87,7 +87,7 @@ public class ManageAccount extends PlatformBase {
 		}
 	}
 
-	//Add new user account in public mode
+	//Add a new user account in public mode
 	public static void addNewUserAccountInPublicMode(String username, String password, String confirmPassword, String firstName,
 			String lastName, String email, boolean verify){
 

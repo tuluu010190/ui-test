@@ -52,9 +52,9 @@ public class ECMS_Admin_ContentPresentation_ManageTemplate_Add extends EcmsBase 
     driver.quit();
     actions = null;
   }
+  
   /**
    * Add new template when input valid data into all required fields
-   * 
    */
   @Test 
   public void test01_AddNewTempate(){

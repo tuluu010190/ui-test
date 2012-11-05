@@ -79,7 +79,7 @@ public class TestBase {
 	/*
 	 * @opPram[0]: timeout
 	 * @opPram[1]: 0,1
-	 * 				0: No Asert
+	 * 				0: No Assert
 	 * 				1: Assert
 	 */
 	public static WebElement waitForElementPresent(Object locator, int... opParams) {
@@ -101,7 +101,7 @@ public class TestBase {
 	/*
 	 * @opPram[0]: timeout
 	 * @opPram[1]: 0,1
-	 * 				0: No Asert
+	 * 				0: No Assert
 	 * 				1: Assert
 	 */
 	public static WebElement waitForElementNotPresent(Object locator, int... opParams) {
@@ -137,7 +137,7 @@ public class TestBase {
 	/*
 	 * @opPram[0]: timeout
 	 * @opPram[1]: 0,1
-	 * 				0: No Asert
+	 * 				0: No Assert
 	 * 				1: Assert
 	 */
 	public static WebElement waitForAndGetElement(Object locator, int... opParams) {
@@ -280,7 +280,7 @@ public class TestBase {
 		}
 	}
 
-	//Use this function to verify if a checkbox is checked (using when creating a portal/publicMode)
+	//Use this function to verify if a check-box is checked (using when creating a portal/publicMode)
 	public static void check(Object locator) {
 		try {
 			WebElement element = waitForAndGetElement(locator);
@@ -429,7 +429,7 @@ public class TestBase {
 		}
 	}
 
-	//uncheck a checked-box
+	//un-check a checked-box
 	public static void uncheck(Object locator) {
 		try {
 			WebElement element = waitForAndGetElement(locator);
@@ -508,7 +508,7 @@ public class TestBase {
 		pause(500);
 	}
 
-	//This function return absolute path from relative path
+	//This function returns a absolute path from a relative path
 	public static String getAbsoluteFilePath(String relativeFilePath){
 		String curDir = System.getProperty("user.dir");
 		String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
@@ -539,7 +539,7 @@ public class TestBase {
 		}
 	}
 
-	//function switch to parent windows
+	//function to switch to parent windows
 	public static void switchToParentWindow (){
 		try
 		{

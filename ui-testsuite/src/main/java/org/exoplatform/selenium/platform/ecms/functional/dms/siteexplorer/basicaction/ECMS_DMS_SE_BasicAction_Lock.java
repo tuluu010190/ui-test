@@ -17,8 +17,6 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 	String DATA_USER = "john";
 	String DATA_PASS = "gtn";
 	By ELEMENT_ACME_NODE = By.xpath("//a[@title='acme ']");
-	
-	
 
 	@BeforeMethod
 	public void beforeMethods() throws Exception {
@@ -141,12 +139,12 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 		loginEcms("mary", "gtn");
 		goToSiteExplorer();
 		
-		//check mary can not unlock this node
+		//check mary cannot unlock this node
 		goToNode(ARTICLE_PATH);
 		rightClickOnElement(ARTICLE_PATH);
 		waitForElementNotPresent(ELEMENT_MENU_UNLOCK);
 		waitForElementNotPresent(ELEMENT_MENU_LOCK);
-		info("User can not lock or unlock node");
+		info("User cannot lock or unlock node");
 		logoutEcms();
 		
 		//delete data with user John
@@ -162,7 +160,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 	 * Lock child node
 	 */
 	@Test
-	public void test04_LockANodeWhileParentNodeIsBeingInLockedStatus () {
+	public void test04_LockANodeWhileParentNodeIsBeingLocked() {
 		String DATA_ARTICLE_TITLE = "EMCS_SE_BasicAction_Lock_Case04";
 		By ARTICLE_PATH = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
 		By ARTICLE_PATH_LOCKED = By.xpath("//a[contains(text(), '"+DATA_ARTICLE_TITLE+"')]");
@@ -224,7 +222,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 	 * Unlock child node
 	 */
 	@Test
-	public void test05_UnLockANodeWhileParentNodeIsBeingInLockStatus () {
+	public void test05_UnLockANodeWhileParentNodeIsBeingLocked() {
 
 		String DATA_ARTICLE_TITLE = "EMCS_SE_BasicAction_Lock_Case05";
 		By ARTICLE_PATH = By.xpath("//a[@title='"+DATA_ARTICLE_TITLE+" "+"']");
@@ -285,13 +283,13 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 		deleteDocument(ARTICLE_PATH_LOCKED);
 	}
 	
-	/*Case 06: Lock node while it is being checking status
+	/*Case 06: Lock node while it is being checked-in
 	 * Create node
 	 * Check in this node
 	 * Verify cannot lock check in node
 	 */
 	@Test
-	public void test06_LockNodeWhileItIsBeingCheckInStatus () {
+	public void test06_LockNodeWhileItIsBeingCheckedIn() {
 		String DATA_FILE_NAME = "EMCS_DMS_SE_Lock_Case06";
 		By FILE_PATH = By.xpath("//a[@title='"+DATA_FILE_NAME+" "+"']");
 
@@ -312,7 +310,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 		info("Check in file document");
 		checkInNode(FILE_PATH);
 		
-		info("Verify cannot lock not in checkin status");
+		info("Verify cannot lock checked-in node");
 		rightClickOnElement(FILE_PATH);
 		pause(500);
 		waitForElementNotPresent(By.linkText("Lock"));
@@ -328,7 +326,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 	 * Lock child node
 	 */
 	@Test
-	public void test07_LockChildNodeWhileItsParentIsBeingCheckinStatus () {
+	public void test07_LockChildNodeWhileItsParentIsInCheckinStatus () {
 		String DATA_ARTICLE_NAME = "EMCS_DMS_SE_Lock_Case07";
 		By ARTICLE_PATH = By.xpath("//a[@title='"+DATA_ARTICLE_NAME+" "+"']");
 		String DATA_KOFAX_NAME = "kofaxtest";
@@ -373,6 +371,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 		checkOutNode(ARTICLE_PATH);
 		deleteDocument(ARTICLE_PATH);
 	}
+	
 	/*Case 08: Lock a node when user has not set property right
 	 * Login John
 	 * Create document
@@ -381,7 +380,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 	 * James cannot lock this documents
 	 */
 	@Test
-	public void test08_LockNodeWhenUserHasNoSetProperty () {
+	public void test08_LockNodeWhenUserHasNotSetPropertyRight () {
 		By ELEMENT_SYSTEM_TAB = By.linkText("System");
 
 		By ELEMENT_PERMISSION_LINK = By.linkText("Permissions");
@@ -470,6 +469,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 		
 		deleteDocument(ARTICLE_PATH);
 	}
+	
 	/*Case 09: Automatically unlock a node when user logout
 	 * Login
 	 * Create node

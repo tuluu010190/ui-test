@@ -185,5 +185,4 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 		waitForTextPresent("Root Root");
 		signOut();
 	}
-
 }

@@ -61,7 +61,6 @@ public class UserGroupManagement extends PlatformBase {
 			type(ELEMENT_INPUT_SEARCH_USER_NAME, user, true);
 			select(ELEMENT_SELECT_SEARCH_OPTION, searchOption);
 		}	
-
 		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
 		waitForTextPresent(user);
 	}
@@ -73,7 +72,6 @@ public class UserGroupManagement extends PlatformBase {
 		click(userEditIcon);
 		pause(1000);
 	}
-
 
 	/*
 	 *  Group Management 
@@ -121,9 +119,9 @@ public class UserGroupManagement extends PlatformBase {
 		}
 	}
 
-	//Add a duplicate user into group with the same role
-	public static void addDuplicateUserToGroup(String groupName, String userName, String memberShip){
-		info("-- Add a duplicate user into group with the same role --");
+	//Add a duplicated user into group
+	public static void addDuplicatedUserToGroup(String groupName, String userName, String memberShip){
+		info("-- Add a duplicated user into group --");
 		String MESSAGE_DUPLICATE_USER = MESSAGE_DUPLICATE_USERS.replace("${username}", userName);
 		String MESSAGE_DUPLICATE_USER_WITH_SAME_ROLE = MESSAGE_DUPLICATE_USER + MESSAGE_DUPLICATE_GROUPS.replace("${groupName}", groupName);
 		selectGroup(groupName);
@@ -156,14 +154,14 @@ public class UserGroupManagement extends PlatformBase {
 		waitForTextNotPresent(username);	
 	}
 
-	//function select group
+	//Function to select group
 	public static void selectGroup(String groupPath){
 		String[] temp;			 
-		/* delimiter */
+		/* Delimiter */
 		String delimiter = "/";
 
 		temp = groupPath.split(delimiter);
-		/* go to group */
+		/* Go to group */
 		for(int i =0; i < temp.length ; i++){
 			info("Go to " + temp[i]);
 			click(By.linkText(temp[i]));
@@ -263,8 +261,8 @@ public class UserGroupManagement extends PlatformBase {
 		}
 	}
 
-	//function select a group and membership on permission management popup
-	//Go to siteExplorer - System - Permission - Select Membership
+	//Function to select a group and membership on permission management popup
+	//Go to siteExplorer - System tab - Permission - Select Membership
 	public static void selectGroupAndMembership(String groupPath, String membership){
 		click(By.xpath("//img[@title='Select Membership']"));
 		selectGroup(groupPath);	

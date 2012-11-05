@@ -88,7 +88,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		goToSiteExplorer();
 
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		addNewElementTest(true, false, false, titleArticle, nameArticle, summaryArticle, contentArticle);
 
@@ -126,7 +126,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		goToSiteExplorer();
 
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		addNewElementTest(true, false, false, titleArticle, nameArticle, summaryArticle, contentArticle);
 
@@ -183,7 +183,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 		
 		goToSiteExplorer();
 
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		//create a new document
 		addNewElementTest(true, false, false, titleArticle, nameArticle, summaryArticle, contentArticle);
@@ -196,7 +196,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		info("-- Step 2: Create new SCV page --");
 
-		gotoPageEditor_EmptyLayout(pageName);
+		goToPageEditor_EmptyLayout(pageName);
 
 		//Drag and drop Content Detail portlet into this page
 		addContentDetailEmptyLayout();
@@ -277,7 +277,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 		
 		goToSiteExplorer();
 
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		//create a new document
 		addNewElementTest(true, false, false, titleArticle, nameArticle, summaryArticle, contentArticle);
@@ -336,7 +336,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		goToSiteExplorer();
 
-		chooseDrive(ELEMENT_DRIVER_SITES_MANAGEMENT);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		//create a new document
 		addNewElementTest(true, false, false, titleArticle, nameArticle, summaryArticle, contentArticle);
@@ -414,7 +414,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 	}
 
 	public void addSCVPageAndOpenSelectContentFormTest(String pageName){
-		gotoPageEditor_EmptyLayout(pageName);
+		goToPageEditor_EmptyLayout(pageName);
 		//Drag and drop Content Detail portlet into this page
 		addContentDetailEmptyLayout();
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);

@@ -141,6 +141,4 @@ public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
 		logoutEcms();
 		driver.quit();
 	}
-
-	
 }

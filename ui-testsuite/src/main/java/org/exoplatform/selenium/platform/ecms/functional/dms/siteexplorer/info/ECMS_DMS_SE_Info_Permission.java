@@ -32,7 +32,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
-		info("Login ECMS with "+DATA_USER);
+		info("Login ECMS as "+DATA_USER);
 		loginEcms(DATA_USER, DATA_PASS);
 	}
 
@@ -45,17 +45,17 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		actions = null;
 	}
 
-	//function view permission management pop up of node
-	public static void viewPermissionOfNode(By locator){
+	//Function to view permission management pop-up of node
+	public static void viewNodePermission(By locator){
 		goToNode(locator);
 		info("go to Permission Management popup");
 		goToPermissionManagement();
 
-		waitForElementPresent(ELEMENT_PER_MANA_POPUP);
-		assert isElementPresent(ELEMENT_PER_MANA_POPUP):"Not found permission management";
-		assert isTextPresent(ELEMENT_PER_MANA_TEXT):"Permission management popup is wrong";
-		assert isElementPresent(ELEMENT_PER_MANA_GRID):"Permission management popup is wrong";
-		info("View permission of node is successful");
+		waitForElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP);
+		assert isElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP):"Not found permission management";
+		assert isTextPresent(ELEMENT_PERMISSION_MANAGEMENT_TEXT):"Permission management popup is wrong";
+		assert isElementPresent(ELEMENT_PERMISSION_MANAGEMENT_GRID):"Permission management popup is wrong";
+		info("View permission of node successfully");
 		click(ELEMENT_CLOSE_BUTTON);
 	}
 
@@ -73,7 +73,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		createAndCheckContentFolder(DATA_CONTENT_FOLDER,ELEMENT_CONTENT_FOLDER);
 
 		//view permission
-		viewPermissionOfNode(ELEMENT_CONTENT_FOLDER);
+		viewNodePermission(ELEMENT_CONTENT_FOLDER);
 
 		//delete data
 		deleteData(ELEMENT_CONTENT_FOLDER);
@@ -84,7 +84,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	 * view permission of document
 	 */
 	@Test
-	public void test02_ViewPermissionOfDocument(){
+	public void test02_ViewDocumentPermission(){
 		String DATA_ARTICLE = "ECMS_DMS_SE_Info_Permission_article_01";
 		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE);
 
@@ -94,10 +94,10 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		info("Create new article with name: "+DATA_ARTICLE);
 		createNewArticle(DATA_ARTICLE, DATA_ARTICLE, "", "");
 		waitForElementPresent(ELEMENT_ARTICLE);
-		info("Create new article document is successful");
+		info("Create new article document succesfully");
 
 		//view permission of document
-		viewPermissionOfNode(ELEMENT_ARTICLE);
+		viewNodePermission(ELEMENT_ARTICLE);
 
 		//delete data
 		deleteData(ELEMENT_ARTICLE);
@@ -118,10 +118,10 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		info("Upload new file with name: "+DATA_UPLOAD);
 		uploadFile(DATA_UPLOAD, DATA_UPLOAD_FILE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
-		info("Upload new file is successful");
+		info("Upload new file succesfully");
 
 		//view permission of uploaded file
-		viewPermissionOfNode(ELEMENT_UPLOAD_FILE);
+		viewNodePermission(ELEMENT_UPLOAD_FILE);
 
 		//delete data
 		deleteData(ELEMENT_UPLOAD_FILE);
@@ -133,7 +133,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	 * login with mary of that group to check not have add node permission
 	 */
 	@Test
-	public void test04_EditPermissionOfNode(){
+	public void test04_EditNodePermission(){
 		String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_Info_Permission_contentfolder_04";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
 		By ELEMENT_EDIT_WEB_CONTRIBUTOR = By.xpath("//div[@title='*:/platform/web-contributors']/../../td/div/img[@class='EditIcon']");
@@ -147,20 +147,20 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToPermissionManagement();
 		info("Edit permission of group *:/platform/web-contributors");
 		click(ELEMENT_EDIT_WEB_CONTRIBUTOR);
-		setPermissionOfNode(true, false, true, true);
+		setNodePermission(true, false, true, true);
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 		logoutEcms();
 
-		//login with mary
+		//login as mary
 		driver.get(baseUrl);
-		info("Login with user mary belong to *:/platform/web-contributors group");
+		info("Login as user mary in *:/platform/web-contributors group");
 		loginEcms("mary", "gtn");
 		goToSiteExplorer();
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		click(By.linkText("New Folder"));
 		checkAlertWarning("You do not have permission to add a new node.");
-		info("Check can not add node for this node is successful");
+		info("Check cannot add node for this node");
 		logoutEcms();
 
 		//delete data
@@ -172,7 +172,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 
 	/*case05: Edit permission of owner
 	 * create new node: content folder by user John
-	 * check can not edit permission of user John on this node
+	 * check cannot edit permission of user John on this node
 	 */
 	@Test
 	public void test05_EditPermissionOfOwner(){
@@ -184,10 +184,10 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToSiteExplorer();
 		createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
-		//check can not edit permission of user John on this node
+		//check cannot edit permission of user John on this node
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToPermissionManagement();
-		info("Check can not edit permission of user John on this node");
+		info("Check cannot edit permission of user John on this node");
 		click(ELEMENT_EDIT_JOHN);
 		assert waitForAndGetElement(READ_CHECKBOX).getAttribute("disabled").contentEquals("true"):"permission is wrong";
 		assert waitForAndGetElement(ADDNODE_CHECKBOX).getAttribute("disabled").contentEquals("true"):"permission is wrong";
@@ -214,15 +214,15 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToSiteExplorer();
 		createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
-		//remove permission default of content folder
+		//remove default permission of content folder
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToPermissionManagement();
-		info("Remove user and group default permission of node");
-		removePermissionDefaultOfNode();
+		info("Remove default permission of user and group");
+		removeDefaultPermissionOfNode();
 
-		//add permission for user James have add node permission
+		//add permission for user James having add node permission
 		selectUser("james");
-		setPermissionOfNode(true, false, false, false);
+		setNodePermission(true, false, false, false);
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 		logoutEcms();
@@ -233,7 +233,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		loginEcms("james", "gtn");
 		goToSiteExplorer();
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"User can not read node";
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"User cannot read node";
 		info("User can read node");
 		logoutEcms();
 
@@ -252,7 +252,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	 * remove permission default of content folder
 	 * add permission for group to content folder: Organization/Management/Executive Board with membership = member, permission = read
 	 * check user mary can see content folder
-	 * check user james can not see content folder 
+	 * check user james cannot see content folder 
 	 */
 	@Test
 	public void test16_AddPermissionForGroupToNodeWithMemberShip(){
@@ -281,13 +281,13 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToPermissionManagement();
 		info("Remove user and group default permission of node");
-		removePermissionDefaultOfNode();
+		removeDefaultPermissionOfNode();
 
 		//add permission for group to content folder: Organization/Management/Executive Board with membership = member, permission = read
 		info("Set permission for group executive board to node");
 		selectGroupAndMembership("organization/management/executive-board", "member");
 		pause(1000);
-		setPermissionOfNode(true, false, false, false);
+		setNodePermission(true, false, false, false);
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 		logoutEcms();
@@ -297,16 +297,16 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		loginEcms("mary", "gtn");
 		goToSiteExplorer();
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary can not see node";
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary cannot see node";
 		info("User mary can read node");
 		logoutEcms();
 
-		//check user james can not see content folder
+		//check user james cannot see content folder
 		driver.get(baseUrl);
 		loginEcms("james", "gtn");
 		goToSiteExplorer();
 		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);
-		info("User james can not read node");
+		info("User james cannot read node");
 		logoutEcms();
 
 		//delete data
@@ -315,7 +315,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToSiteExplorer();
 		deleteData(ELEMENT_CONTENT_FOLDER);
 
-		//remove user out of group
+		//remove user from group
 		goToUsersAndGroupsManagement();
 		click(ELEMENT_GROUP_MANAGEMENT_TAB);
 		clickUpLevel();
@@ -361,13 +361,13 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToPermissionManagement();
 		info("Remove user and group default permission of node");
-		removePermissionDefaultOfNode();
+		removeDefaultPermissionOfNode();
 
 		//add permission for group to content folder: Organization/Management/Executive Board with membership = *, permission = read
 		info("Set permission for group executive board to node");
 		selectGroupAndMembership("organization/management/executive-board", "*");
 		pause(1000);
-		setPermissionOfNode(true, false, false, false);
+		setNodePermission(true, false, false, false);
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 		logoutEcms();
@@ -377,7 +377,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		loginEcms("mary", "gtn");
 		goToSiteExplorer();
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary can not see node";
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary cannot see node";
 		info("User mary can read node");
 		logoutEcms();
 
@@ -386,7 +386,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		loginEcms("james", "gtn");
 		goToSiteExplorer();
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary can not see node";
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary cannot see node";
 		info("User james can read node");
 		logoutEcms();
 
@@ -424,7 +424,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToPermissionManagement();
 		info("Remove user and group default permission of node");
-		removePermissionDefaultOfNode();
+		removeDefaultPermissionOfNode();
 
 		//set permission to node for everyone
 		click(By.xpath("//img[@title='Select Everyone']"));
@@ -438,7 +438,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		loginEcms("mary", "gtn");
 		goToSiteExplorer();
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary can not see node";
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary cannot see node";
 		info("User mary can read node");
 		logoutEcms();
 
@@ -447,7 +447,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		loginEcms("james", "gtn");
 		goToSiteExplorer();
 		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary can not see node";
+		assert isElementPresent(ELEMENT_CONTENT_FOLDER):"Mary cannot see node";
 		info("User james can read node");
 		logoutEcms();
 
@@ -461,7 +461,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	/*case19: Delete permission of node
 	 * create new node: content folder
 	 * delete permission of user any
-	 * check james can not see content folder
+	 * check james cannot see content folder
 	 */
 	@Test
 	public void test19_DeletePermissionOfNode(){
@@ -480,12 +480,12 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		deletePermission("any",true);
 		logoutEcms();
 
-		//check user james can not see content folder
+		//check user james cannot see content folder
 		driver.get(baseUrl);
 		loginEcms("james", "gtn");
 		goToSiteExplorer();
 		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER);
-		info("User james can not read node");
+		info("User james cannot read node");
 		logoutEcms();
 
 		//delete data
@@ -517,7 +517,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 
 		//check can node delete
 		checkAlertWarning("You cannot remove the owner.");
-		info("Can not remove permission of user is node owner");
+		info("Cannot remove permission of user is node owner");
 		click(ELEMENT_CLOSE_BUTTON);
 
 		//delete data
@@ -527,7 +527,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	/*case21: Add/Edit/Delete permission of node when user does not have 'set property' right
 	 * create new node: content folder with user John
 	 * set permission for user mary does not have set properties permission for node
-	 * check user mary can not add/delete or edit permission of this node
+	 * check user mary cannot add/delete or edit permission of this node
 	 */
 	@Test
 	public void test21_CheckWhenUserNotHaveSetPropertiesForNode(){
@@ -542,16 +542,16 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToPermissionManagement();
 		info("Remove user and group default permission of node");
-		removePermissionDefaultOfNode();
+		removeDefaultPermissionOfNode();
 
 		//set permission for user mary does not have set properties permission for node
 		selectUser("mary");
-		setPermissionOfNode(true, true, false, true);
+		setNodePermission(true, true, false, true);
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 		logoutEcms();
 
-		//check user mary can not add/delete or edit permission of this node
+		//check user mary cannot add/delete or edit permission of this node
 		driver.get(baseUrl);
 		loginEcms("mary", "gtn");
 		goToSiteExplorer();
@@ -592,7 +592,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		checkLockNode(ELEMENT_CONTENT_FOLDER);
 
 		//view permission of node
-		viewPermissionOfNode(ELEMENT_CONTENT_FOLDER);
+		viewNodePermission(ELEMENT_CONTENT_FOLDER);
 
 		//delete data
 		deleteData(ELEMENT_CONTENT_FOLDER);
@@ -631,7 +631,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		//view permission of node
 		click(ELEMENT_CONTENT_FOLDER);
 		click(ELEMENT_PERMISSION_LINK);
-		waitForElementPresent(ELEMENT_PER_MANA_POPUP);
+		waitForElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		logoutEcms();
 	  
 		//delete data
@@ -678,7 +678,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	/*case25:   Add/Edit/Delete Permission of locked node by user is not locker
 	 * create new node (content folder)
 	 * lock node by user John
-	 * Login with mary, check user Mary can not add, edit, delete on permission management of node
+	 * Login with mary, check user Mary cannot add, edit, delete on permission management of node
 	 */
 	@Test
 	public void test25_CheckPermissionOfLockedNodeByNotLocker(){
@@ -708,7 +708,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		//check permission of user
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		click(ELEMENT_PERMISSION_LINK);
-		waitForElementPresent(ELEMENT_PER_MANA_POPUP);
+		waitForElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		
 		//check user does not have add/edit/delete permission
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
@@ -740,28 +740,28 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		info("Create new article with name: "+DATA_ARTICLE);
 		createNewArticle(DATA_ARTICLE, DATA_ARTICLE, "", "");
 		waitForElementPresent(ELEMENT_ARTICLE);
-		info("Create new article document is successful");
+		info("Create new article document succesfully");
 
 		//check in node
 		goToNode(ELEMENT_ARTICLE);
 		checkInNode(ELEMENT_ARTICLE);
 
-		//check can not add permission of node if node being check in status
+		//check cannot add permission of node if node being check in status
 		goToPermissionManagement();
 		selectUser("mary");
 		pause(500);
-		setPermissionOfNode(true, false, false, false);
+		setNodePermission(true, false, false, false);
 		click(ELEMENT_SAVE_BUTTON);
 		checkAlertWarning(MESSAGE);
 		info("Can not add permission for node when node being check in");
 
-		//check can not edit permission of node if node being check in status
+		//check cannot edit permission of node if node being check in status
 		click(ELEMENT_EDIT);
 		click(ELEMENT_SAVE_BUTTON);
 		checkAlertWarning(MESSAGE);
 		info("Can not edit permission for node when node being check in");
 
-		//check can not delete permission of node if node being check in status
+		//check cannot delete permission of node if node being check in status
 		click(ELEMENT_DELETE);
 		acceptAlert();
 		checkAlertWarning(MESSAGE);
@@ -780,7 +780,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	 * check can node add/edit/delete permission of node if node being check in status
 	 */
 	@Test
-	public void test27_CheckPermissionOfNodeHasParentNodeIsCheckIn(){
+	public void test27_CheckPermissionOfNodeWhoseParentNodeInCheckInStatus(){
 		String DATA_ARTICLE = "ECMS_DMS_SE_Info_Permission_article_27";
 		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE);
 		String DATA_KOFAX = "ECMS_DMS_SE_Info_Permission_kofax_27";
@@ -792,7 +792,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		info("Create new article with name: "+DATA_ARTICLE);
 		createNewArticle(DATA_ARTICLE, DATA_ARTICLE, "", "");
 		waitForElementPresent(ELEMENT_ARTICLE);
-		info("Create new article document is successful");
+		info("Create new article document succesfully");
 
 		//create new child node: kofax
 		goToNode(ELEMENT_ARTICLE);
@@ -802,7 +802,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		pause(100);
 		checkPreferenceOption("enableStructure");
 		waitForElementPresent(ELEMENT_KOFAX);
-		info("Create new kofax is successful");
+		info("Create new kofax succesfully");
 
 		//check in parent node
 		goToNode(ELEMENT_ARTICLE);
@@ -812,23 +812,23 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToNode(ELEMENT_KOFAX);
 		goToPermissionManagement();
 		selectUser("mary");
-		setPermissionOfNode(true, false, false, false);
+		setNodePermission(true, false, false, false);
 		click(ELEMENT_SAVE_BUTTON);
 		waitForElementPresent(By.xpath("//div[@title='mary']"));
-		info("Add permission for node has parent node being check in status is successful");
+		info("Add permission for node has parent node being check in status succesfully");
 
 		//check can edit permission for child node
 		click(ELEMENT_EDIT);
-		setPermissionOfNode(true, false, true, true);
+		setNodePermission(true, false, true, true);
 		click(ELEMENT_SAVE_BUTTON);
 		waitForElementPresent(By.xpath("//div[@title='*:/platform/administrators']/../../td[3]/div[@title='false']"));
-		info("Edit permission for node has parent node being check in status is successful");
+		info("Edit permission for node has parent node being check in status succesfully");
 
 		//check can delete permission for child node
 		click(ELEMENT_DELETE);
 		acceptAlert();
 		waitForElementNotPresent(ELEMENT_DELETE);
-		info("Delete permission for node has parent node being check in status is successful");
+		info("Delete permission for node has parent node being check in status succesfully");
 
 		//delete data
 		goToNode(ELEMENT_ARTICLE);

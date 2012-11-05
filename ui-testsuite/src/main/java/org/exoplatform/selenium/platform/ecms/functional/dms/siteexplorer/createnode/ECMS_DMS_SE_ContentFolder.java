@@ -50,7 +50,7 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 		//create a sub-node
 		goToNode(By.xpath("//a[@title='"+ DATA_CONT_TITLE_01 + " ']"));
 		createNewContentFolder(DATA_SUB_TITLE_01, DATA_SUB_NAME_01);
-		// check for creating document folder successfully
+		// check creating document folder successfully
 		waitForElementPresent(By.linkText(DATA_SUB_TITLE_01));
 
 		//pause(1000);
@@ -88,7 +88,7 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 
 	//create a content folder inside Locked Document Folder, File Plan
 	@Test
-	public void test11_CreateContentFolderinsideLockedDocument()
+	public void test11_CreateContentFolderInsideLockedDocument()
 	{
 
 		info("Create a node at root path");
@@ -166,7 +166,4 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 		logoutEcms();
 		driver.close();
 	}
-
-
-
 }

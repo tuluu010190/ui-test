@@ -16,7 +16,7 @@ public class NavigationManagement extends PlatformBase {
 		String currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel);
 		editNavigation(currentNavigation);
 
-		info("--Adding new node at navigation--");	
+		info("--Add new node at navigation--");	
 		if (useAddNodeLink){
 			click(currentNode);
 			click(ELEMENT_ADD_NODE_LINK);
@@ -47,7 +47,7 @@ public class NavigationManagement extends PlatformBase {
 		click(ELEMENT_PAGE_SELECTOR_TAB);
 
 		if (pageName != null) {
-			info("--Create new page");
+			info("-- Create new page --");
 			type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
 			type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
 			click(ELEMENT_CREATE_PAGE_LINK);
@@ -120,7 +120,7 @@ public class NavigationManagement extends PlatformBase {
 
 	//Delete a node from Portal navigation
 	public static void deleteNode(String currentNavigation, String nodeNameHome, String nodeName, boolean firstLevel){
-		info("--Deleting node from navigation--");
+		info("--Delete a node from navigation--");
 		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);	
 		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
 		editNavigation(currentNavigation);
