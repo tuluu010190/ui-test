@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.ecms.functional.wcm.viewer.contentbyqu
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.interactions.Actions;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -20,13 +21,13 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 	public String DATA_USER_JOHN = "john";
 	public String DATA_USER_MARY = "mary";
 	public String DATA_PASS = "gtn";
-	public String DATA_PAGE_NAME_01 = "ECMS_WCM_Viewer_ContentsQuery_001";
-	public String DATA_PAGE_NAME_02 = "ECMS_WCM_Viewer_ContentsQuery_002";
-	public String DATA_PAGE_NAME_03 = "ECMS_WCM_Viewer_ContentsQuery_003";
-	public String DATA_PAGE_NAME_04 = "ECMS_WCM_Viewer_ContentsQuery_004";
-	public String DATA_PAGE_NAME_05 = "ECMS_WCM_Viewer_ContentsQuery_005";
-	public String DATA_PAGE_NAME_06 = "ECMS_WCM_Viewer_ContentsQuery_006";
-	public String DATA_PAGE_NAME_07 = "ECMS_WCM_Viewer_ContentsQuery_007";
+	public String DATA_PAGE_NAME_01 = "ContentsQuery_001";
+	public String DATA_PAGE_NAME_02 = "ContentsQuery_002";
+	public String DATA_PAGE_NAME_03 = "ContentsQuery_003";
+	public String DATA_PAGE_NAME_04 = "ContentsQuery_004";
+	public String DATA_PAGE_NAME_05 = "ContentsQuery_005";
+	public String DATA_PAGE_NAME_06 = "ContentsQuery_006";
+	public String DATA_PAGE_NAME_07 = "ContentsQuery_007";
 	public String DATA_BY_QUERY = "Select * from nt:file";
 	public String DATA_BY_QUERY_INVALID = "Test";
 	public String CONTENT_PATH = "General Drives/acme-category";
@@ -282,9 +283,14 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		waitForElementPresent(ELEMENT_PAGE_EDIT_FINISH);
 		click(ELEMENT_PAGE_EDIT_FINISH);
 		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH, 50000);
-		
+		for(int i=0;;i++)
+		{    if (i>5)
+			Assert.fail("Fail! There are still contents");
+			if (waitForAndGetElement("//span[contains(text(),'"+NO_ARTICLE_MESSAGE+"')]",20000,0) !=null) break;
+			clearCache();
+		}
 		//Verify message 'Sorry, no articles are available' displays. 
-		waitForTextPresent(NO_ARTICLE_MESSAGE);
+		
 		
 		//Delete data
 		deletePageAtManagePageAndPortalNavigation(DATA_PAGE_NAME_06, true, "acme", false, null);

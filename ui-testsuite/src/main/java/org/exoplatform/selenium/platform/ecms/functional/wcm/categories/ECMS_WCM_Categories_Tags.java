@@ -142,7 +142,7 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		click(ELEMENT_FILE_EXPLORER);
 		goToNode(ELEMENT_ARTICLE);
 		click(ELEMENT_PUBLICATION_TAB_LINK);
-		publicDocument();
+		publishDocument();
 
 		//go to News page check private tags is not displayed
 		goToNews();
@@ -185,7 +185,7 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		click(ELEMENT_FILE_EXPLORER);
 		goToNode(ELEMENT_ARTICLE);
 		click(ELEMENT_PUBLICATION_TAB_LINK);
-		publicDocument();
+		publishDocument();
 
 		//go to News page check public tags is displayed
 		goToNews();
@@ -233,7 +233,7 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		click(ELEMENT_FILE_EXPLORER);
 		goToNode(ELEMENT_ARTICLE);
 		click(ELEMENT_PUBLICATION_TAB_LINK);
-		publicDocument();
+		publishDocument();
 
 		//set permission for document
 		goToNode(ELEMENT_ARTICLE);

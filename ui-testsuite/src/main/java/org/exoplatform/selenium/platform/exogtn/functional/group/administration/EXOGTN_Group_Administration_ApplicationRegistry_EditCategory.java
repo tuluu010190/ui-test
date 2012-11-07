@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 import static org.exoplatform.selenium.platform.ManageApplications.*;
 import static org.exoplatform.selenium.platform.UserGroupManagement.*;
+import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 import java.util.HashMap;
 import java.util.Map;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -24,10 +25,10 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 	public String APP_ANSWER = "Answers Portlet";
 
 	public String DATA_USER_NAME_01 = "user10";
-	public String DATA_USER_NAME_02 = "sun21";
+	public String DATA_USER_NAME_02 = "user03";
 	public String DATA_PASSWORD = "123456";
-	public String DATA_FIRST_NAME = "FirstMoon";
-	public String DATA_LAST_NAME = "LastMoon";
+	public String DATA_FIRST_NAME = "FirstName";
+	public String DATA_LAST_NAME = "LastName";
 	public String DATA_EMAIL03 = DATA_USER_NAME_01+"@exoplatform.com";
 	public String DATA_EMAIL04 = DATA_USER_NAME_02+"@exoplatform.com";
 	public String DATA_LANGUAGE = "English";
@@ -206,6 +207,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 	@Test()
 	public void test04_ChangeAccessRightFromLimitedToPublic()
 	{
+		By bName02= By.xpath("//a[contains(@title,'"+CATE_NAME_02+"')]");
 		//Add new user belongs to group Plaform/Administrator with membership is member 
 		goToNewStaff();
 		addNewUserAccount(DATA_USER_NAME_02, DATA_PASSWORD, DATA_PASSWORD, DATA_FIRST_NAME, DATA_LAST_NAME, DATA_EMAIL04, DATA_FIRST_NAME, DATA_LANGUAGE, true);
@@ -252,7 +254,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 		goToApplicationRegistry();
 		waitForElementPresent(CATEGORIES_AREA);
 		goToEditPageEditor();
-		waitForElementNotPresent(CATE_NAME_02);
+		waitForElementNotPresent(bName02);
 		click(FINISH_ICON);
 		pause(500);
 		//Sign out and Sign in as root user
@@ -271,7 +273,8 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 		goToApplicationRegistry();
 		waitForElementPresent(CATEGORIES_AREA);
 		goToEditPageEditor();
-		waitForElementPresent(CATE_NAME_02);
+		waitForElementPresent(bName02);
+		click(ELEMENT_CLOSE_WINDOWS_BUTTON);
 
 		//Log in as root to edit category
 		//Sign out and Sign in as root
@@ -283,7 +286,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 		goToApplicationRegistry();
 
 		//Verify root can see above edited Category 
-		waitForElementPresent(CATE_NAME_02);
+		waitForElementPresent(bName02);
 
 		//Delete data
 		deleteCategoryAtManageApplications(CATE_NAME_02, true);

@@ -278,7 +278,12 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 
 		//set permission for user Mary: has not add node permission
 		goToNode(ELEMENT_CONTENT_FOLDER);
-		setPermissionAddNodeForUser("mary",1,1);
+		click(ELEMENT_SYSTEM_TAB);
+		click(ELEMENT_PERMISSION_LINK);
+		removeDefaultPermissionOfNode();
+		selectUser("mary");
+		setNodePermission(true, false, false, false);
+		save();
 		logoutEcms();
 		
 		//login with user Mary
@@ -567,7 +572,9 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
 		type(ELEMENT_UPLOAD_IMG_ID,getAbsoluteFilePath(DATA_UPLOAD_FILE_LINK),false);
 		switchToParentWindow();
-		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+		String links[] = DATA_UPLOAD_FILE_LINK.split("/");
+		int length = links.length;
+		waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		
 		//choose 1 file .doc
 		click(ELEMENT_UPLOAD_ADD_FILE);

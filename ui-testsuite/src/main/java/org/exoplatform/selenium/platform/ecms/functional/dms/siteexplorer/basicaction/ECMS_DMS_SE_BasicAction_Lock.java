@@ -129,7 +129,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 		lockNode(ARTICLE_PATH);
 		
 		//check log node
-		checkLockNode(ARTICLE_PATH);
+		assert checkLockNode(ARTICLE_PATH):"Lock node is not successful";
 		driver.close();
 		
 		//login with mary

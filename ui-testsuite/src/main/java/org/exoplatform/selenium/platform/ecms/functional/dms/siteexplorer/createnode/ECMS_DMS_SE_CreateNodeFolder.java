@@ -222,7 +222,13 @@ public static final String ELEMENT_SELECT_WEBCONTRIBUTOR = "//div[@id='Permissio
 		//set permission for user mary
 		info("Set permission for user Mary does not has add node permission");
 		goToNode(ELEMENT_CONTENT_FOLDER);
-		setPermissionAddNodeForUser("mary",1,1);
+		click(ELEMENT_SYSTEM_TAB);
+		click(ELEMENT_PERMISSION_LINK);
+		removeDefaultPermissionOfNode();
+		selectUser("mary");
+		setNodePermission(true, false, false, false);
+		save();
+		//setPermissionAddNodeForUser("mary",1,1);
 		logoutEcms();
 		
 		//login with mary

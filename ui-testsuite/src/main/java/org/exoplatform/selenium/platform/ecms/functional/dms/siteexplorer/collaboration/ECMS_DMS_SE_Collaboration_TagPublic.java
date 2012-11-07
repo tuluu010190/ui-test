@@ -32,7 +32,7 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 	@Test
 	public void test14_AddPublicTagForDocument (){
 
-		String ARTICLE_NAME_TITLE="Article_Document";
+		String ARTICLE_NAME_TITLE="Article_Document_Tag";
 		String ARTICLE_SUM="Summary of article";
 		String ARTICLE_CONTENT="Content of article";
 		By ARTICLE_PATH = By.xpath("//a[@title='"+ARTICLE_NAME_TITLE+" "+"']");

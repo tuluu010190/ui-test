@@ -15,6 +15,11 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+
+/*
+ * @author: VuNA
+ * @date: 02/10/2012
+ */
 public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 	public String DATA_USER = "john";
 	public String DATA_PASS = "gtn";
@@ -85,7 +90,8 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 
 		info("-- SignOut--");
 
-		signOut();
+//		signOut();
+		logoutEcms();
 	}
 
 	/*-- Case ID 002
@@ -142,7 +148,8 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 
 		info("-- SignOut --");
 
-		signOut();
+//		signOut();
+		logoutEcms();
 	}
 
 	/*-- Case ID 003 
@@ -418,7 +425,8 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 
 		info("-- Sign Out--");
 
-		signOut();
+//		signOut();
+		logoutEcms();
 	}
 
 	/*-- Case ID 008

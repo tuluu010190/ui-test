@@ -209,7 +209,9 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 		type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(DATA_UPLOAD_FILE_LINK), false);
 		info("Upload file "+getAbsoluteFilePath(DATA_UPLOAD_FILE_LINK));
 		switchToParentWindow();
-		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+		String links[] = DATA_UPLOAD_FILE_LINK.split("/");
+		int length = links.length;
+		waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		click(ELEMENT_ADD_ITEM);
 
 		//check can see new category in add category

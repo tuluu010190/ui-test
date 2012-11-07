@@ -21,12 +21,12 @@ import static org.exoplatform.selenium.platform.PageManagement.deletePageAtManag
 import static org.exoplatform.selenium.platform.ecms.ActionBar.goToAddNewContent;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.PageEditor;
 import org.exoplatform.selenium.platform.ecms.WcmAdmin;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -100,20 +100,20 @@ public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 
 		waitForElementPresent(DATA_CONTENT_TITLE);
 
+		info("Go to manage page and delete page");
+		deletePageAtManagePageAndPortalNavigation(DATA_PAGE_NAME, true, "acme", false, "");
+		
 		//Reset data
 		goToSiteExplorer();
 		goToNode(ELEMENT_ACME_SITE_LINK);
 		waitForElementPresent(DATA_FOLDER_PATH);
 
-		//deleteDocument(DATA_FOLDER_PATH);
-		rightClickOnElement(DATA_FOLDER_PATH);
+		deleteDocument(DATA_FOLDER_PATH);
+		/*rightClickOnElement(DATA_FOLDER_PATH);
 		click(ELEMENT_MENU_DELETE);
 		waitForTextPresent("Confirm Deletion");
 		click(ELEMENT_OK_BUTTON);
-		waitForElementNotPresent(ELEMENT_OK_BUTTON);
-
-		info("Go to manage page and delete page");
-		deletePageAtManagePageAndPortalNavigation(DATA_PAGE_NAME, true, "acme", false, "");
+		waitForElementNotPresent(ELEMENT_OK_BUTTON);*/
 	}
 	
 	/*
@@ -131,20 +131,6 @@ public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 		// Restore previous state of title
 		WcmAdmin.editTitleInline("Power Pack 2", "Power Pack 1");
 	}
-
-	//function to public a document
-	public void publishDocument(){
-		info("Publish this document");
-		waitForElementPresent(ELEMENT_PUBLICATION);
-		click(ELEMENT_PUBLICATION);
-		WebElement current = waitForAndGetElement(EMENET_CURRENT_STATUS);
-		if (current.getText().contains("Published") == false){
-			click(ELEMENT_PUBLIC_STATUS);
-		}
-		waitForElementPresent(ELEMENT_CURRENT_PUBLIC_STATUS);
-		save();
-		info("Publish document is successful");
-	}  
 
 	public void addNewContentTest(String DATA_FOLDER_NAME,
 			By DATA_FOLDER_PATH,

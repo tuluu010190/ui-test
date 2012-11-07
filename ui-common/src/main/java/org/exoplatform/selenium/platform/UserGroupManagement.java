@@ -175,13 +175,14 @@ public class UserGroupManagement extends PlatformBase {
 		pause(1000);
 	}
 
-	public static void deleteGroup(String groupName, boolean verify) {
+	public static void deleteGroup(String groupName, boolean verify, int...wait) {
 		info("-- Delete group: " + groupName + "--");
+		int waitTime= wait.length > 0 ? wait[0]: DEFAULT_TIMEOUT;
 		click(ELEMENT_GROUP_REMOVE_ICON);
-
+		
 		waitForConfirmation("Are you sure to delete this group?");
 		if (verify) {
-			waitForElementNotPresent("//a[@title='"+ groupName +"']");
+			waitForElementNotPresent("//a[@title='"+ groupName +"']",waitTime);
 		}
 		pause(1000);
 	}

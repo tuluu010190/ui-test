@@ -96,7 +96,7 @@ public class ECMS_WCM_Viewer_ListContent_Other extends EcmsBase {
 		ContextMenu.lockNode(doc);
 		ContextMenu.checkLockNode(doc);
 		ContextMenu.unLockNode(doc);
-
+		waitForElementNotPresent(ContextMenu.ELEMENT_MENU_DELETE);
 		// Delete Document
 		ContextMenu.deleteDocument(doc);
 	}

@@ -143,7 +143,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 		//---public this document---
 		click(ELEMENT_ARTICLE);
 		click(ELEMENT_PUBLICATION_TAB_LINK);
-		publicDocument();
+		publishDocument();
 
 		//---Go to Edit News page--- 
 		goToNews();
@@ -206,7 +206,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 		removeDefaultPermissionOfNode();
 		close();
 		click(ELEMENT_PUBLICATION_TAB_LINK);
-		publicDocument();
+		publishDocument();
 
 		//---Configure News page--- 
 		goToNews();
@@ -219,6 +219,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 		configureContentByURLPortletShowInPage();
 
 		//---Check the displaying of document/web content with user John---
+		changeEditMode();
 		waitForElementPresent(ELEMENT_DEFENCE);
 		click(ELEMENT_DEFENCE);
 		info("check user John can see document");

@@ -10,7 +10,7 @@ import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 import static org.exoplatform.selenium.platform.NavigationManagement.*;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
@@ -32,20 +32,6 @@ public class WCM_Viewers_ListContent_PublishIcon extends EcmsBase {
 	public By ELEMENT_BACK_BUTTON = By.className("URLBackToButton");
 	public By ELEMENT_PUBLISH_ICON = By.xpath("//div[@class='UICLVPortlet']//*[@title='Publish']");
 
-
-	//function public a document
-	public static void publicDocument(){
-		info("Public this document");
-		waitForElementPresent(ELEMENT_PUBLICATION);
-		click(ELEMENT_PUBLICATION);
-		WebElement current = waitForAndGetElement(EMENET_CURRENT_STATUS);
-		if (current.getText().contains("Published") == false){
-			click(ELEMENT_PUBLIC_STATUS);
-		}
-		waitForElementPresent(ELEMENT_CURRENT_PUBLIC_STATUS);
-		save();
-		info("Public document is successful");
-	}
 
 	//Data test
 	public String DATA_USER = "john";
@@ -341,7 +327,7 @@ public class WCM_Viewers_ListContent_PublishIcon extends EcmsBase {
 		goToAddNewContent();
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE);
 		info("Publish document");
-		publicDocument();
+		publishDocument();
 	}
 
 

@@ -88,7 +88,7 @@ public class EXOGTN_Group_Organization_GroupManagement_Delete extends PlatformBa
 		//Delete group
 		info("--Delete group--");
 		selectGroup(GROUP_NAME);
-		deleteGroup(GROUP_NAME, true);
+		deleteGroup(GROUP_NAME, true, 120000);
 		
 		//Back to User management tab
 		info("--back to User management--");
@@ -106,7 +106,7 @@ public class EXOGTN_Group_Organization_GroupManagement_Delete extends PlatformBa
 	}
 	
 	@Test
-	public void test10_deleteGroupIsMandatory () {
+	public void test10_deleteMandatoryGroup () {
 		info("--login portal--");
 		signIn("john", "gtn");
 		
@@ -119,7 +119,7 @@ public class EXOGTN_Group_Organization_GroupManagement_Delete extends PlatformBa
 		selectGroup(GROUP_NAME1);
 		
 		//Delete group is mandatory
-		deleteGroup(GROUP_NAME1, true);
+		deleteGroup(GROUP_NAME1, false);
 		waitForTextPresent(CAN_NOT_DELETE_GROUP_MANDATORY);
 		closeMessageDialog();
 	}
@@ -213,7 +213,7 @@ public class EXOGTN_Group_Organization_GroupManagement_Delete extends PlatformBa
 	}
 	
 	@Test
-	public void test07_detelteMembershipWhichIsMandatory(){
+	public void test07_deleteMandatoryMembership(){
 		info("--login portal--");
 		signIn("john", "gtn");
 		
@@ -285,7 +285,7 @@ public class EXOGTN_Group_Organization_GroupManagement_Delete extends PlatformBa
 		//Delete new user
 		info("Delete user");
 		deleteUser(USER_NAME);
-		closeMessageDialog();
+		//closeMessageDialog();
 		
 		info("Check group after delete user");
 		info("Choose Group Management");

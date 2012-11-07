@@ -30,7 +30,7 @@ public class ECMS_WCM_Viewer_SingleContent_EditIcon extends ContentTemplate{
 	public By ELEMENT_ACCEPT_FAST_EDIT_BUTTON = By.xpath("//*[contains(@id, 'Editexo_titleForm')]/a[2]");
 	public String ELEMENT_TEST_SCV = "//div[@class='TopTitle' and @title='${nameOfSCV}']";
 	public String ELEMENT_TITLE_OF_SCV = "//div[contains(@id,'Currentexo_title')]";
-	public String ELEMENT_ID_OF_SCV_TEST = "//*[@id='UIPage']/div/div/div/div/div[@id='${idSCV}']/div[1]/div/div/div/div/div[2]/a[@class='EditContentIcon']"; 
+	public String ELEMENT_ID_OF_SCV_TEST = "//*[@id='UIPage']/div/div/div/div/div[contains(@id,'${idSCV}')]/div[1]/div/div/div/div/div[2]/a[@class='EditContentIcon']"; 
 
 	String contentPath = "General Drives/Sites Management/acme/documents/offices.jpg";
 
@@ -110,9 +110,7 @@ public class ECMS_WCM_Viewer_SingleContent_EditIcon extends ContentTemplate{
 
 		mouseOver(ELEMENT_TEST_SCV.replace("${nameOfSCV}", "offices.jpg"), true);
 
-		WebElement elementIDSCV = waitForAndGetElement(ELEMENT_ID_OF_SCV);
-
-		String idSCV = elementIDSCV.getAttribute("id");
+		String idSCV = "UIPresentationContainer";
 
 		mouseOverAndClick(ELEMENT_ID_OF_SCV_TEST.replace("${idSCV}", idSCV));
 

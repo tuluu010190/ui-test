@@ -3,6 +3,8 @@ package org.exoplatform.selenium.platform.ecms;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
+
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import static org.exoplatform.selenium.TestLogger.*;
 
@@ -55,7 +57,9 @@ public class SiteExplorer extends EcmsBase {
 	public static By EMENET_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
 	public static By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
 	
-	//Choose a drive
+	public static By ELEMENT_MORE_LINK = By.xpath("//div[@class='MoreLabel' and contains(text(),'More')]");
+	
+	//choose a drive
 	public static void chooseDrive(By locator)
 	{
 		waitForAndGetElement(ELEMENT_SHOW_DRIVES).click();
@@ -64,23 +68,33 @@ public class SiteExplorer extends EcmsBase {
 
 	//Enable preferences option
 	public static void checkPreferenceOption(String optionId){
-		goToNode(ELEMENT_PREFERENCE_LINK);
-		click(By.linkText("Advanced"));
-		pause(500);
-		WebElement check = waitForAndGetElement(By.id(optionId));
-		if (check.isSelected()!= true){
-			check.click();
+		for (int repeat = 0;; repeat ++){
+			if (repeat >= ACTION_REPEAT) {
+				Assert.fail("Cannot enable reference option after " + ACTION_REPEAT + " tries");
+			}
+			waitForElementPresent(ELEMENT_PREFERENCE_LINK);
+			click(ELEMENT_PREFERENCE_LINK);
+			if (waitForAndGetElement(By.linkText("Advanced"), 5000, 0) != null){
+				click(By.linkText("Advanced"));
+				WebElement check = waitForAndGetElement(By.id(optionId));
+				if (check.isSelected()!= true){
+					check.click();
+				}
+				click(By.linkText("Save"));
+				break;
+			}
+			info("Retry...[" + repeat + "]");
 		}
-		click(By.linkText("Save"));
 	}
 
 	//Simple search
 	public static boolean simpleSearch(String keyword){
 		boolean delete = true;
 		//		waitForAndGetElement(ELEMENT_SIMPLESEARCH_TEXTBOX).clear();
+		waitForElementPresent(ELEMENT_SIMPLESEARCH_TEXTBOX);
 		type(ELEMENT_SIMPLESEARCH_TEXTBOX, keyword, true);
 		click(ELEMENT_SIMPLESEARCH_SUBMIT);
-		if (isElementPresent(By.xpath("//div[contains(text(),'"+keyword+"')]")))
+		if (waitForAndGetElement(By.xpath("//div[contains(text(),'"+keyword+"')]"),30000,0) != null)
 		{
 			return delete;}
 		else {
@@ -181,9 +195,10 @@ public class SiteExplorer extends EcmsBase {
 	}
 	
 	//function public a document
-	public static void publicDocument(){
+	public static void publishDocument(){
 		info("Public this document");
-		waitForElementPresent(ELEMENT_PUBLICATION);
+		if ((waitForAndGetElement(ELEMENT_PUBLICATION,30000,0) == null ))
+			click(ELEMENT_MORE_LINK);
 		click(ELEMENT_PUBLICATION);
 		WebElement current = waitForAndGetElement(EMENET_CURRENT_STATUS);
 		if (current.getText().contains("Published") == false){

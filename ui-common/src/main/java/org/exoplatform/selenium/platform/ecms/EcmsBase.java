@@ -1,6 +1,5 @@
 package org.exoplatform.selenium.platform.ecms;
 
-import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.ELEMENT_ADD_ITEM;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.createNewContentFolder;
@@ -34,7 +33,7 @@ public class EcmsBase extends PlatformBase {
 	//Add new Page
 	public static final By ELEMENT_NEWPAGE_NAME_TEXTBOX = By.id("pageName");	
 	public static final By ELEMENT_NEWPAGE_NEXT_BUTTON = By.linkText("Next");	
-	public static final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//a[@class='EdittedSaveButton']");
+	public static final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//a[@title='Finish']");
 	public static final By ELEMENT_NEWPAGE_LAYOUT_OPTION = By.xpath("//div[@class='DropDownSelectLabel']") ;
 	
 	//Page Creation Wizard -> Page Configs
@@ -110,6 +109,9 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
 	public static final By ELEMENT_MESSAGE = By.xpath("//span[@class='PopupIcon WarningMessageIcon']");
 	public static final By ELEMENT_ADD_SYMLINK_POPUP = By.id("UIPopupWindow");
+	public static final By ELEMENT_PATH_NODE = By.id("pathNode0");
+	public static final By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
+	public static final By ELEMENT_SYMLINK_WORKSPACE = By.id("workspaceName");
 	public static final By ELEMENT_SITE_CONTENT = By.xpath("//div[@title='sites content']");
 	public static final By ELEMENT_LIVE_DIV = By.xpath("//div[@title='live']");
 	public static By ELEMENT_ADD_SYMLINK = By.linkText("Add Symlink");
@@ -131,11 +133,10 @@ public class EcmsBase extends PlatformBase {
 
 	//Log-out ECMS
 	public static void logoutEcms (){
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-		mouseOver(ELEMENT_SIGN_OUT_LINK, true);
-		//		actions.moveToElement(waitForAndGetElement(ELEMENT_SIGN_OUT_LINK)).build().perform();
-		click(ELEMENT_SIGN_OUT_LINK);
-		driver.get(baseUrl);
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			mouseOver(ELEMENT_SIGN_OUT_LINK, true);
+			//click(ELEMENT_SIGN_OUT_LINK);
+			driver.get(baseUrl);
 	}
 
 	// Go to content administration
@@ -250,7 +251,9 @@ public class EcmsBase extends PlatformBase {
 
 			for (int repeat = 0;; repeat++) {
 				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
-					Assert.fail("Fail to input data to frame " + framelocator);
+					//Assert.fail("Fail to input data to frame " + framelocator);//Lientm comment
+					info("Fail to input data to frame " + framelocator);
+					break;
 				}
 				driver.switchTo().frame(waitForAndGetElement(framelocator));
 				inputsummary = driver.switchTo().activeElement();
@@ -328,7 +331,7 @@ public class EcmsBase extends PlatformBase {
 		assert getText(ELEMENT_INFO).contains(message):"Message is wrong";
 		click(By.linkText("OK"));
 	}
-
+	
 	//Rename a node
 	public void renameNode(By nodePath, String newName, By nodePathNew){
 		rightClickOnElement(nodePath);
@@ -371,7 +374,7 @@ public class EcmsBase extends PlatformBase {
 	}
 
 
-	public static boolean isDisplay(WebElement e){ 
+	/*public static boolean isDisplay(WebElement e){ 
 		boolean bool = false;
 		try{
 			if(e != null)
@@ -386,7 +389,7 @@ public class EcmsBase extends PlatformBase {
 			loopCount=0;
 		}
 		return bool;
-	}
+	}*/
 
 	//Function to go to SEO management
 	public static void goToSeoManagement(){

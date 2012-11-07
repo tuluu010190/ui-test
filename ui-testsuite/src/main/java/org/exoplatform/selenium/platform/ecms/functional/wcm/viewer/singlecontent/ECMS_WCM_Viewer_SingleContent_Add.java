@@ -132,7 +132,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		info("-- Step 2: Publish document/web content --");
 
-		click(ELEMENT_LINK_PUBLICATION);
+		/*click(ELEMENT_LINK_PUBLICATION);
 
 		waitForTextPresent("Draft[current revision]");
 
@@ -140,9 +140,10 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		waitForElementPresent(ELEMENT_PUBLISHED_STATUS);
 
-		save();
+		save();*/
+		publishDocument();
 
-		waitForElementNotPresent(ELEMENT_PUBLISHED_STATUS);
+		//waitForElementNotPresent(ELEMENT_PUBLISHED_STATUS);
 
 		//Go to ACME site to verify that document is published
 		mouseOver(By.linkText("My Sites"), true);
@@ -233,17 +234,17 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 		selectContentPathInEditMode(mediasPath, true);
 		waitForTextPresent("testMedia");
 
-		click(ELEMENT_CLOSE_WINDOWS_BUTTON);
+		click(ELEMENT_CLOSE_POPUP_BUTTON);
 
 		close();
 
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 
-		click(ELEMENT_CONFIRM_YES_BUTTON);
+		/*click(ELEMENT_CONFIRM_YES_BUTTON);
 
 		waitForElementNotPresent(ELEMENT_NEWPAGE_SAVE_BUTTON); 
 
-		click(ELEMENT_CLOSE_WINDOWS_BUTTON);
+		click(ELEMENT_CLOSE_WINDOWS_BUTTON);*/
 
 		waitForElementNotPresent(ELEMENT_CLOSE_WINDOWS_BUTTON);
 
@@ -296,17 +297,11 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		waitForTextPresent(titleArticle);
 
-		click(ELEMENT_CLOSE_WINDOWS_BUTTON);
+		click(ELEMENT_CLOSE_POPUP_BUTTON);
 
 		close();
 
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
-
-		click(ELEMENT_CONFIRM_YES_BUTTON);
-
-		waitForElementNotPresent(ELEMENT_NEWPAGE_SAVE_BUTTON); 
-
-		click(ELEMENT_CLOSE_WINDOWS_BUTTON);
 
 		waitForElementNotPresent(ELEMENT_CLOSE_WINDOWS_BUTTON);
 
@@ -359,17 +354,11 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		waitForTextPresent(titleArticle);
 
-		click(ELEMENT_CLOSE_WINDOWS_BUTTON);
+		click(ELEMENT_CLOSE_POPUP_BUTTON);
 
 		close();
 
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
-
-		click(ELEMENT_CONFIRM_YES_BUTTON);
-
-		waitForElementNotPresent(ELEMENT_NEWPAGE_SAVE_BUTTON); 
-
-		click(ELEMENT_CLOSE_WINDOWS_BUTTON);
 
 		waitForElementNotPresent(ELEMENT_CLOSE_WINDOWS_BUTTON);
 

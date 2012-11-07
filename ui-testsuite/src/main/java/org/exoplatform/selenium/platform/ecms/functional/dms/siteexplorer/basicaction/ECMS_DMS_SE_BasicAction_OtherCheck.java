@@ -77,17 +77,20 @@ public class ECMS_DMS_SE_BasicAction_OtherCheck  extends EcmsBase {
 		goToNode(ELEMENT_UPLOAD_FILE);
 
 		info("Verify after add thumbnail");
+		waitForElementPresent(ELEMENT_OVERLOAD_THUMBNAIL);
 		assert isElementPresent(ELEMENT_OVERLOAD_THUMBNAIL):"Cannot see";
 		click(ELEMENT_OVERLOAD_THUMBNAIL);
 
 		info("-------------");
+		waitForElementPresent(By.id("UIPopupWindow"));
 		assert isElementPresent(By.id("UIPopupWindow")):"Cannot see popup";
 		captureScreen(DATA_UPLOAD_FILE);
 
 		info("Delete thumbnail");
+		waitForElementPresent(REMOVE_THUMBNAIL);
 		click(REMOVE_THUMBNAIL);
 		pause(1000);
-		waitForElementNotPresent(DATA_UPLOAD_FILE_NAME);
+		waitForElementNotPresent(REMOVE_THUMBNAIL);
 		cancel();
 
 		info("Delete document");
@@ -98,7 +101,7 @@ public class ECMS_DMS_SE_BasicAction_OtherCheck  extends EcmsBase {
 
 	@AfterMethod
 	public void afterTest() throws Exception {
-		logoutEcms ();
+		logoutEcms();
 		driver.quit();
 	}
 }

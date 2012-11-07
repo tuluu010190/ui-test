@@ -28,7 +28,7 @@ public class ManageApplications extends PlatformBase {
 	public static final By ELEMENT_FIELD_DISPLAY_NAME = By.id("displayName");
 	public static final By ELEMENT_FIELD_DESCRIPTION = By.id("description");
 	public static final By ELEMENT_CATEGORY_REMOVE_ICON = By.xpath("//div[@id='UIApplicationOrganizer']//div[@class='TabRepeat ClearFix']/a[@class='ControlIcon DeleteIcon']");
-	public static final By ELEMENT_CATEGORY_EDIT_ICON = By.xpath("//div[@id='UIApplicationOrganizer']//div[@class='TabRepeat ClearFix']/a[@class='ControlIcon EditIcon']");
+	public static final String ELEMENT_CATEGORY_EDIT_ICON = "//div[@id='UIApplicationOrganizer']//div[@class='TabRepeat ClearFix']/a[contains(@title,'${categoryName}')]/../a[@class='ControlIcon EditIcon']";
 	public static final String MESSAGE_EMPTY_CATEGORY = "This category is empty. Click the (+) button to add an application.";
 	public static final String MESSAGE_CONFIRM_DELETE_CATEGORY = "Are you sure to delete this category and all its applications?";
 	public static final String ELEMENT_CATEGORY_NAME = "//a[@title='${categoryName}']";
@@ -96,7 +96,9 @@ public class ManageApplications extends PlatformBase {
 
 		info("--Edit category (" + categoryName + ")--");
 		String ELEMENT_EDIT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", newDisplayName);
-		click(ELEMENT_CATEGORY_EDIT_ICON);
+		String editIcon = ELEMENT_CATEGORY_EDIT_ICON.replace("${categoryName}",categoryName);
+		click(ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName));
+		click(editIcon);
 		type(ELEMENT_FIELD_DISPLAY_NAME, newDisplayName, true);
 		type(ELEMENT_TEXTAREA_DESCRIPTION, newCategoryDescription, true);
 		click(ELEMENT_PERMISSION_SETTING_TAB);
@@ -121,7 +123,7 @@ public class ManageApplications extends PlatformBase {
 	public static void deleteCategoryAtManageApplications(String categoryName, boolean verify){
 		info("--Delete category (" + categoryName + ")--");
 //		String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
-		By ELEMENT_CURRENT_CATEGORY_NAME = By.linkText(categoryName) ;
+		By ELEMENT_CURRENT_CATEGORY_NAME = By.xpath("//a[contains(text(),'"+categoryName+"')]") ;
 		click(ELEMENT_CURRENT_CATEGORY_NAME);
 		pause(500);
 		click(ELEMENT_CATEGORY_REMOVE_ICON);

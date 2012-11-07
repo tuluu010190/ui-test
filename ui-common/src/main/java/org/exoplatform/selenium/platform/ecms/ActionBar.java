@@ -75,37 +75,38 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//System tab
-	public static void setPermissionAddNodeForUser(String user,int permission,int delete){
-		click(ELEMENT_SYSTEM_TAB);
-		click(ELEMENT_PERMISSION_LINK);
-		click(ELEMENT_SELECT_USER);
-		if (delete ==1){
-			click(ELEMENT_DELETE_PERMISSION);
-			acceptAlert();
-		}
-		type(ELEMENT_SEARCH_TEXTBOX,user, false);
-		click(ELEMENT_SEARCH_LINK);
-		pause(500);
-		click(ELEMENT_SEARCH_CHOOSE);
-		pause(500);
-		if (waitForAndGetElement(ELEMENT_READ_CHECKBOX).isSelected()==false){
-			click(ELEMENT_READ_CHECKBOX);
-		}
-		if (permission==1){
-			if (waitForAndGetElement(ELEMENT_ADD_NODE_CHECKBOX).isSelected()==true){
-				click(ELEMENT_ADD_NODE_CHECKBOX);
-			}
-		}else{
-			if (waitForAndGetElement(ELEMENT_ADD_NODE_CHECKBOX).isSelected()==false){
-				click(ELEMENT_ADD_NODE_CHECKBOX);
-			}
-		}
-		click(ELEMENT_SAVE_BUTTON);
-		click(ELEMENT_CLOSE_BUTTON);
-	}
+//	public static void setPermissionAddNodeForUser(String user,int permission,int delete){
+//		click(ELEMENT_SYSTEM_TAB);
+//		click(ELEMENT_PERMISSION_LINK);
+//		click(ELEMENT_SELECT_USER);
+//		if (delete ==1){
+//			click(ELEMENT_DELETE_PERMISSION);
+//			acceptAlert();
+//		}
+//		type(ELEMENT_SEARCH_TEXTBOX,user, false);
+//		click(ELEMENT_SEARCH_LINK);
+//		pause(500);
+//		click(ELEMENT_SEARCH_CHOOSE);
+//		pause(500);
+//		if (waitForAndGetElement(ELEMENT_READ_CHECKBOX).isSelected()==false){
+//			click(ELEMENT_READ_CHECKBOX);
+//		}
+//		if (permission==1){
+//			if (waitForAndGetElement(ELEMENT_ADD_NODE_CHECKBOX).isSelected()==true){
+//				click(ELEMENT_ADD_NODE_CHECKBOX);
+//			}
+//		}else{
+//			if (waitForAndGetElement(ELEMENT_ADD_NODE_CHECKBOX).isSelected()==false){
+//				click(ELEMENT_ADD_NODE_CHECKBOX);
+//			}
+//		}
+//		click(ELEMENT_SAVE_BUTTON);
+//		click(ELEMENT_CLOSE_BUTTON);
+//	}
 
 	//Go to new content
 	public static void goToAddNewContent(){
+		waitForElementPresent(ELEMENT_MENU_NEW_CONTENT_LINK);
 		for (int repeat = 0;; repeat++)	{	
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
@@ -152,6 +153,7 @@ public class ActionBar extends EcmsBase {
 		click(ELEMENT_ADD_SYMLINK);
 		waitForElementPresent(ELEMENT_ADD_SYMLINK_POPUP);
 		click(ELEMENT_ADD_ITEM);
+		usePaginator(path,"Can not choose target node");
 		if (path!=null){
 			click(path);
 		}
@@ -425,7 +427,10 @@ public class ActionBar extends EcmsBase {
 		type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(link), false);
 		info("Upload file "+getAbsoluteFilePath(link));
 		switchToParentWindow();
-		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+		String links[] = link.split("/");
+		int length = links.length;
+		waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		click(ELEMENT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
 	}
 }

@@ -40,10 +40,10 @@ public class ECMS_DMS_SE_ADMIN_Import extends EcmsBase {
 	public void test01_ImportANodeInToContentFolder () {
 		By ELEMENT_ACME_NODE = By.xpath("//a[@title='acme ']");
 		String DATA_CONTENT_FOLDER_NAME = "Import01";
-		By DATA_CONTENT_FOLDER_PATH = By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_NAME+" "+"']");
-		String DATA_FILE_LINK = "TestOutput/sysview.xml";
-		String DATA_FILE_VERSION = "TestOutput/sysview_versionHistory.zip";
-
+		By DATA_COTENT_FOLDER_PATH = By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_NAME+" "+"']");
+		String DATA_FILE_LINK = "TestData/sysview.xml";
+		String DATA_FILE_VERSION = "TestData/sysview_versionHistory.zip";
+		
 		goToSiteExplorer();
 		goToNode(ELEMENT_ACME_NODE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_NAME, DATA_CONTENT_FOLDER_NAME);
@@ -53,10 +53,10 @@ public class ECMS_DMS_SE_ADMIN_Import extends EcmsBase {
 		pause(500);
 
 		debug("Import node into content folder");
-		importNode(DATA_FILE_LINK,DATA_FILE_VERSION , "Remove Existing", true);
-
+		importNode(DATA_FILE_LINK, DATA_FILE_VERSION, "Remove Existing", true);
+		
 		//Delete data
-		goToNode(DATA_CONTENT_FOLDER_PATH);
-		deleteDocument(DATA_CONTENT_FOLDER_PATH);
+		goToNode(DATA_COTENT_FOLDER_PATH);
+		deleteDocument(DATA_COTENT_FOLDER_PATH);	
 	}
 }

@@ -262,8 +262,8 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_PAGE_FINISH_BUTTON_INFRENCH = By.xpath("//div[@id='UIPageEditor']//a[@title='Terminer']");
 	public static final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH = By.xpath("//a[@title='Editer la Portlet']");
 	public static final By ELEMENT_ERROR_ICON=By.xpath("//span[@class='PopupIcon ErrorMessageIcon']");
-	public static final int ACTION_REPEAT = 5;
-    /* End General
+
+	/* End General
      * */
 	
 	//Content Administration / Advanced Configuration 
@@ -431,20 +431,24 @@ public class PlatformBase extends TestBase {
 		seconds = 0;
 	}
 
-	public static void usePaginator(String locator, String exceptionMessage) {
+	public static void usePaginator(Object locator, String exceptionMessage) {
 		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
-
-		click(page1);
-		pause(500);
-		int totalPages = isElementPresent(ELEMENT_PAGINATOR_TOTAL_NUMBER) ? Integer.valueOf(getText(ELEMENT_PAGINATOR_TOTAL_NUMBER)) : 1;
-		int i = 1;
-		while (isElementNotPresent(locator)) {
-			if (i == totalPages) {
-				Assert.fail(exceptionMessage);
-			}
-			click(ELEMENT_PAGINATOR_NEXT_ICON);
-			waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
+		
+		if (waitForAndGetElement(page1, 5000, 0) != null){
+			click(page1);
 			pause(500);
+			int totalPages = isElementPresent(ELEMENT_PAGINATOR_TOTAL_NUMBER) ? Integer.valueOf(getText(ELEMENT_PAGINATOR_TOTAL_NUMBER)) : 1;
+			int i = 1;
+			while (isElementNotPresent(locator)) {
+				if (i == totalPages) {
+					//Assert.fail(exceptionMessage);
+					info(exceptionMessage);
+					break;
+				}
+				click(ELEMENT_PAGINATOR_NEXT_ICON);
+				waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
+				pause(500);
+			}
 		}
 	}
 

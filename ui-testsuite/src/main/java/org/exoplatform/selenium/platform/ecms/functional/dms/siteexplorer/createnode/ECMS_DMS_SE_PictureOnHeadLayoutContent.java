@@ -34,7 +34,9 @@ public class ECMS_DMS_SE_PictureOnHeadLayoutContent extends EcmsBase {
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_HEAD_LAYOUT_UPLOAD_FRAME));
 		type(ELEMENT_HEAD_LAYOUT_UPLOAD_FILE, getAbsoluteFilePath(file), false);
 		switchToParentWindow();
-		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+		String links[] = file.split("/");
+		int length = links.length;
+		waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		selectOption(ELEMENT_PIC_LANGUGE_ID, lang);
 		}
 		click(ELEMENT_SAVE_CLOSE_BUTTON);

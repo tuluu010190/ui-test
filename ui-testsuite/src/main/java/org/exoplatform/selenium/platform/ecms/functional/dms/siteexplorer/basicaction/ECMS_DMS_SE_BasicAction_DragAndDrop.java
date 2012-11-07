@@ -106,9 +106,9 @@ public class ECMS_DMS_SE_BasicAction_DragAndDrop extends EcmsBase
 
 		deleteDocument(CONTENT_FOLDER_1_LEFT);
 	}
-
-	//Drag and drop on the right  pane
-	@Test()
+	
+	//Drag and drop in the right  pane
+	@Test(groups={"pending"})
 	public void test03_DragAndDropInRight()
 	{
 		String DATA_CONTENT_FOLDER_1 = "FEX_ACTION_03_CONTENT_03_1";
@@ -133,8 +133,8 @@ public class ECMS_DMS_SE_BasicAction_DragAndDrop extends EcmsBase
 		//Create Content Folder 2
 		createNewContentFolder(DATA_CONTENT_FOLDER_2, DATA_CONTENT_FOLDER_2);
 		waitForElementPresent(CONTENT_FOLDER_2_RIGHT);
-
-		//Drag Folder 2 and Drop into Folder 1
+		
+		//Drag Folder 2 and Drop into Folder 1	
 		dragAndDropToObject(CONTENT_FOLDER_2_RIGHT, CONTENT_FOLDER_1_RIGHT);
 		acceptAlert();
 
@@ -147,8 +147,8 @@ public class ECMS_DMS_SE_BasicAction_DragAndDrop extends EcmsBase
 	}
 
 	//Drag and drop from left to right pane
-	@Test()
-	public void test04_DragAndDropRightToLeftPane()
+	@Test(groups={"pending"})
+	public void test04_DragAndDropRightToLeft()
 	{
 		String DATA_CONTENT_FOLDER_1 = "FEX_ACTION_03_CONTENT_04_1";
 		String DATA_CONTENT_FOLDER_2 = "FEX_ACTION_03_CONTENT_04_2";

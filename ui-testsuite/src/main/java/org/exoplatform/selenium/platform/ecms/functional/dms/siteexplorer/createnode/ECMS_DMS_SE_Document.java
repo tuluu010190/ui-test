@@ -653,7 +653,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		lockNode(ELEMENT_ARTICLE);
 		
 		//check lock node
-		checkLockNode(ELEMENT_ARTICLE);
+		assert checkLockNode(ELEMENT_ARTICLE):"Lock node is not successful";
 		driver.close();
 		
 		//login with user mary

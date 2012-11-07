@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.ecms;
 import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
@@ -26,7 +27,7 @@ public class ContextMenu extends EcmsBase {
 				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
-			if (isDisplay(waitForAndGetElement(ELEMENT_MENU_LOCK))) break;
+			if (waitForAndGetElement(ELEMENT_MENU_LOCK,5000,0) !=null) break;
 			pause(WAIT_INTERVAL);
 			info("Retry...[" + repeat + "]");
 		}
@@ -36,9 +37,11 @@ public class ContextMenu extends EcmsBase {
 
 	//Check node is being locked
 	public static boolean checkLockNode(Object locator){
-		boolean locked;
+		
+		boolean locked=false;
 		By by = locator instanceof By ? (By)locator : By.xpath((String)locator);
 		//		actions.contextClick(unlock).build().perform();
+		try{
 		rightClickOnElement(by);
 		pause(500);
 		if (isElementPresent(ELEMENT_MENU_UNLOCK)) {
@@ -47,6 +50,16 @@ public class ContextMenu extends EcmsBase {
 			locked =false;
 		WebElement unlock = waitForAndGetElement(by);
 		unlock.sendKeys(Keys.RETURN);
+		
+		}
+		catch(StaleElementReferenceException e){
+			info("Retry...");
+			checkCycling(e, 10);
+			checkLockNode(locator);
+		}
+		finally{			
+			loopCount=0;			
+		}
 		return locked;
 	}
 
@@ -58,7 +71,7 @@ public class ContextMenu extends EcmsBase {
 				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
-			if (isDisplay(waitForAndGetElement(ELEMENT_MENU_CHECKIN, 30000, 0))) break;
+			if (waitForAndGetElement(ELEMENT_MENU_CHECKIN, 5000, 0) != null) break;
 			info("Retry...[" + repeat + "]");
 		}
 		click(ELEMENT_MENU_CHECKIN);
@@ -69,7 +82,7 @@ public class ContextMenu extends EcmsBase {
 	public static void checkOutNode(By locator){
 		rightClickOnElement(locator);
 		WebElement out = waitForAndGetElement(ELEMENT_MENU_CHECKOUT);                
-		if (isDisplay(out)){
+		if (out != null){
 			click(ELEMENT_MENU_CHECKOUT);
 			info("Node is checked out successfully");
 		}else{
@@ -94,7 +107,7 @@ public class ContextMenu extends EcmsBase {
 			}
 			rightClickOnElement(locator);
 			info("Before displaying " + repeat);
-			if (isDisplay(waitForAndGetElement(ELEMENT_MENU_DELETE, DEFAULT_TIMEOUT, 0))) 
+			if (waitForAndGetElement(ELEMENT_MENU_DELETE, 10000, 0)!=null) 
 			{	
 				info("Element is displayed ");
 				click(ELEMENT_MENU_DELETE);
@@ -106,7 +119,9 @@ public class ContextMenu extends EcmsBase {
 
 		}
 		waitForElementNotPresent(By.linkText("OK"));
+		//actions.sendKeys(Keys.CONTROL,"r");
 		click(ELEMENT_MENU_REFRESH);
+//		click(ActionBar.ELEMENT_LINK_TAB_PUBLICATION);
 		waitForElementNotPresent(locator, iTimeout);
 		info(locator.toString() + "is deleted successfully");		
 	}
@@ -124,8 +139,8 @@ public class ContextMenu extends EcmsBase {
 				Assert.fail("Timeout");
 			}
 			rightClickOnElement(locator);
-			if (isElementPresent(ELEMENT_PASTE_NODE)){
-				click(ELEMENT_PASTE_NODE);
+			if (waitForAndGetElement(ELEMENT_MENU_PASTE, 5000, 0) != null){
+				click(ELEMENT_MENU_PASTE);
 				return;
 			}
 			pause(WAIT_INTERVAL);

@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
-
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -34,11 +33,12 @@ public class TestBase {
 	protected static WebDriver driver;
 	protected static Actions actions ;
 	protected static String baseUrl;
-	protected static int DEFAULT_TIMEOUT = 60000; //milliseconds = 30 seconds
+	protected static int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
 	protected static int WAIT_INTERVAL = 1000; //milliseconds  
 	public static int loopCount = 0;	
 	protected static boolean ieFlag;	 
 	protected static boolean chromeFlag;
+	public static final int ACTION_REPEAT = 5;
 
 	//  public static final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public static final String DEFAULT_BASEURL="http://localhost:8080";
@@ -58,17 +58,41 @@ public class TestBase {
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 
 	}
-
+	
+	// return element in both cases displayed and hidden
 	public static WebElement getElement(Object locator) {
 		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
 		WebElement elem = null;
 		try {
 			elem = driver.findElement(by);
 		} catch (NoSuchElementException e) {
+			
 		}
 		return elem;
 	}
 
+	//return element only in case the element is displayed.
+	public static WebElement getDisplayedElement(Object locator) {
+		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
+		WebElement e = null;
+		try {
+			e = driver.findElement(by);
+			if (e != null)
+				if (e.isDisplayed()) return e;
+		} catch (NoSuchElementException ex) {
+			
+		}catch(StaleElementReferenceException ex) 
+		{
+			checkCycling(ex, 10);
+			pause(WAIT_INTERVAL);
+			getDisplayedElement(locator);
+		}
+		finally{
+			loopCount=0;
+		}
+		return null;
+	}
+	
 	public static boolean isElementPresent(Object locator) {
 		return getElement(locator) != null;
 	}
@@ -88,8 +112,9 @@ public class TestBase {
 		int isAssert = opParams.length > 1 ? opParams[1]: 1;
 
 		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
-			elem = getElement(locator);
-			if (null != elem) if (isDisplay(locator)) return elem;
+//			elem = getElement(locator);
+			elem = getDisplayedElement(locator);
+			if (null != elem) return elem;
 			pause(WAIT_INTERVAL);
 		}
 		if (isAssert == 1)
@@ -110,10 +135,9 @@ public class TestBase {
 		int isAssert = opParams.length > 1 ? opParams[1]: 1;
 
 		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
-			elem = getElement(locator);
-
+//			elem = getElement(locator);
+			elem = getDisplayedElement(locator);
 			if (null == elem) return null;
-			else if (!isDisplay(locator))  return null;
 			pause(WAIT_INTERVAL);
 		} 
 
@@ -146,11 +170,10 @@ public class TestBase {
 		int isAssert = opParams.length > 1 ? opParams[1]: 1;
 
 		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
-			elem = getElement(locator);
-
-			if (null != elem) if (isDisplay(locator)) {
-				debug("wait for and get element " + elem + " display " + isDisplay(locator));
-				return elem;}
+//			elem = getElement(locator);
+			elem = getDisplayedElement(locator);
+			if (null != elem) 
+				return elem;
 			pause(WAIT_INTERVAL);
 		}
 		if (isAssert == 1)		
@@ -304,7 +327,6 @@ public class TestBase {
 		try {
 			return waitForAndGetElement(locator).getAttribute("value");
 		} catch (StaleElementReferenceException e) {
-			debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			pause(WAIT_INTERVAL);
 			return getValue(locator);
@@ -314,28 +336,37 @@ public class TestBase {
 	}
 
 	public static void mouseOver(Object locator, boolean safeToSERE) {
-		if (safeToSERE) {
-			try {
-				WebElement element = waitForAndGetElement(locator);
+		WebElement element;
+		try {
+			if (safeToSERE) {
+				for (int i = 1; i < ACTION_REPEAT; i++){
+					element = waitForAndGetElement(locator, 5000, 0);
+					if (element == null){
+						pause(WAIT_INTERVAL);
+						mouseOver(locator, safeToSERE);
+					} else {
+						actions.moveToElement(element).perform();
+						break;
+					}
+				}
+			} else {
+				element = waitForAndGetElement(locator);
 				actions.moveToElement(element).perform();
-			} catch (StaleElementReferenceException e) {
-				debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
-				checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-				pause(WAIT_INTERVAL);
-				mouseOver(locator, safeToSERE);
-			} finally {
-				loopCount = 0;
 			}
-		} else {
-			WebElement element = waitForAndGetElement(locator);
-			actions.moveToElement(element).perform();
+		} catch (StaleElementReferenceException e) {
+			debug("StaleElementReferenceException, Retrying... :" + loopCount + "time(s)");
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			pause(WAIT_INTERVAL);
+			mouseOver(locator, safeToSERE);
+		} finally {
+			loopCount = 0;
 		}
 	}
 
 	public static void mouseOverAndClick(Object locator) {
 		WebElement element;
 		if (ieFlag) {
-			element = getElement(locator);
+			element = getDisplayedElement(locator);
 		} else {
 			element = waitForAndGetElement(locator);
 		}
@@ -466,7 +497,7 @@ public class TestBase {
 	}
 
 	//doubleClickOnElement
-	public static void doubleClickOnElement(String locator) {
+	public static void doubleClickOnElement(Object locator) {
 		try {
 			WebElement element = waitForAndGetElement(locator);
 			actions.doubleClick(element).perform();

@@ -1,10 +1,10 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.basicaction;
 
-import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
+import static org.exoplatform.selenium.TestLogger.*;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
@@ -21,26 +21,18 @@ import org.testng.annotations.Test;
 public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase 
 {
 	//Define data
-	public String DATA_CONTENT_FOLDER = "FEX_ACTION_05_CONTENT";
-	public String DATA_KOFAX_NAME = "FEX_ACTION_05_KOFAX";
-	public String DATA_UPLOAD_FILE_NAME = "FEX_ACTION_05_UPLOAD";
-	public String DATA_UPLOAD_FILE_PATH ="TestData/Winter.jpg";
 	public String COLLABORATION_ICON_XPATH =  "//a[@title='collaboration']";
-	public String CONTENT_FOLDER_XPATH = "//div[@title='"+DATA_CONTENT_FOLDER+"']";
 	public String USERS_FOLDER_XPATH = "//div[@title='Users']";
-
-	public By CONTENT_FOLDER = By.xpath(CONTENT_FOLDER_XPATH);
-	public By KOFAX_DISPLAY = By.xpath("//td[text()='"+DATA_KOFAX_NAME+"']");
-	public By KOFAX_DOCUMENT = By.xpath("//div[@title='"+DATA_KOFAX_NAME+"']");
-	public By UPLOAD_FILE_NAME = By.xpath("//div[@title='"+DATA_UPLOAD_FILE_NAME+".jpg']");
-	public By SHOW_DRIVES_ICON = By.xpath("//a[@title='Show Drives']");
+	
+	public By SITES_MANAGEMENT_LINK = By.xpath("//div[@title='Sites Management']");
+	//public By SHOW_DRIVES_ICON = By.xpath("//a[@title='Show Drives']");
 	public By TRASH_DRIVER_ICON = By.xpath("//a[@title='Trash']");
 	public By COLLABORATION_ICON =  By.xpath(COLLABORATION_ICON_XPATH);
 	public By USERS_FOLDER = By.xpath(USERS_FOLDER_XPATH);
 	public By ADDRESS_INPUT = By.xpath("//input[@id='address']");
 	public By PUBLIC_FOLDER = By.xpath("//div[text()='Public']");
 	public By PRIVATE_FOLDER = By.xpath("//div[text()='Private']");
-	public By DELETE_LINK = By.xpath("//a[@style ='display: block;' and contains(text(),'Delete')]");
+	//public By DELETE_LINK = By.xpath("//a[@style ='display: block;' and contains(text(),'Delete')]");
 	public By SYSTEM_TAB_LINK = By.xpath("//a[@title='System']");
 	public By PERMISSIONS_LINK = By.xpath("//a[@title='Permissions']");
 	public By WEBCONTRIBUTOR_EDIT_PERMISSIONS = By.xpath("//td/div[@title='*:/platform/web-contributors']/following::td//img[@title='Edit']");
@@ -54,13 +46,22 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 		driver.get(baseUrl);
 		actions = new Actions(driver);
 		driver.manage().window().maximize();
-		signIn("john", "gtn");
+		loginEcms("john", "gtn");
 	}
 
 	//Delete node when user has right to remove node
 	@Test()
 	public void test01_DeleteNodeWhenUserHasRightToRemove()
-	{
+	{	String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_BasicAction_Delete_content_01";
+	 	String DATA_KOFAX_NAME = "ECMS_DMS_SE_BasicAction_Delete_kofax_01";
+	 	String DATA_UPLOAD_FILE_NAME = "ECMS_DMS_SE_BasicAction_Delete_uploadfile_01";
+	 	String DATA_UPLOAD_FILE_PATH ="TestData/Winter.jpg";
+		String CONTENT_FOLDER_XPATH = "//div[@title='"+DATA_CONTENT_FOLDER+"']";
+		By CONTENT_FOLDER = By.xpath(CONTENT_FOLDER_XPATH);
+		By KOFAX_DISPLAY = By.xpath("//td[text()='"+DATA_KOFAX_NAME+"']");
+		By KOFAX_DOCUMENT = By.xpath("//div[@title='"+DATA_KOFAX_NAME+"']");
+		By UPLOAD_FILE_NAME = By.xpath("//div[@title='"+DATA_UPLOAD_FILE_NAME+".jpg']");
+		
 		//goto Site Explorer
 		goToSiteExplorer();
 
@@ -80,32 +81,26 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 		waitForElementPresent(UPLOAD_FILE_NAME);
 
 		//Delete Nodes
-		waitForElementPresent(CONTENT_FOLDER);
 		deleteDocument(CONTENT_FOLDER);
-		waitForElementPresent(KOFAX_DOCUMENT);
 		deleteDocument(KOFAX_DOCUMENT);
-		waitForElementPresent(UPLOAD_FILE_NAME);
 		deleteDocument(UPLOAD_FILE_NAME);
 
 		//Goto Trash driver
-		waitForElementPresent(SHOW_DRIVES_ICON);
-		click(SHOW_DRIVES_ICON);
-		waitForElementPresent(TRASH_DRIVER_ICON);
-		click(TRASH_DRIVER_ICON);
-
+		chooseDrive(TRASH_DRIVER_ICON);
+		
 		//Verify Delete Nodes: Search by Name
-		simpleSearch(DATA_CONTENT_FOLDER);
-		waitForTextPresent(DATA_CONTENT_FOLDER);
-		simpleSearch(DATA_KOFAX_NAME);
-		waitForTextPresent(DATA_KOFAX_NAME);
-		simpleSearch(DATA_UPLOAD_FILE_NAME);
-		waitForTextPresent(DATA_UPLOAD_FILE_NAME+".jpg");
+		assert simpleSearch(DATA_CONTENT_FOLDER):"Can not found deleted content folder in Trash";
+		assert simpleSearch(DATA_KOFAX_NAME):"Can not found deleted content folder in Trash";
+		assert simpleSearch(DATA_UPLOAD_FILE_NAME):"Can not found deleted content folder in Trash";
 	}
 
 	//Delete node in 'check in' status
 	@Test()
 	public void test02_DeleteCheckInNode()
-	{
+	{	String DATA_UPLOAD_FILE_NAME = "ECMS_DMS_SE_BasicAction_Delete_uploadfile_02";
+ 		String DATA_UPLOAD_FILE_PATH ="TestData/Winter.jpg";
+		By UPLOAD_FILE_NAME = By.xpath("//div[@title='"+DATA_UPLOAD_FILE_NAME+".jpg']");
+ 		
 		//goto Site Explorer
 		goToSiteExplorer();
 
@@ -114,26 +109,123 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 		waitForElementPresent(UPLOAD_FILE_NAME);
 
 		//Right click and check-in node
+		checkInNode(UPLOAD_FILE_NAME);
+		pause(1000);
+		
+		//Verify item Delete item not exist
 		rightClickOnElement(UPLOAD_FILE_NAME);
-		waitForElementPresent(ELEMENT_MENU_CHECKIN);
-		click(ELEMENT_MENU_CHECKIN);
-
-		//Verify deleted item not exist
-		waitForElementPresent(UPLOAD_FILE_NAME);
-		rightClickOnElement(UPLOAD_FILE_NAME);
-		waitForElementPresent(ELEMENT_MENU_CHECKOUT);
-		waitForElementNotPresent(DELETE_LINK);
-
+		waitForElementNotPresent(ELEMENT_MENU_DELETE);
+		info("Cannot delete node being in check in status");
+		
 		//Delete data
-		click(ELEMENT_MENU_CHECKOUT);
-		waitForElementPresent(UPLOAD_FILE_NAME);
+		goToNode(UPLOAD_FILE_NAME);
+		checkOutNode(UPLOAD_FILE_NAME);
 		deleteDocument(UPLOAD_FILE_NAME);
 	}
-
-	//Delete node while user does not have remove right
+	
+	/*case07: Delete locked node by user is not locker
+	 * create node by user John: content folder
+	 * lock node by user John
+	 * check user mary cannot delete this node
+	 */
+	@Test
+	public void test07_DeleteLockedNodeByUserIsNotLocker(){
+		String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_BasicAction_Delete_07";
+		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
+		
+		//create new content folder by John
+		goToSiteExplorer();
+		info("Create new content folder by user John");
+		createNewContentFolder(DATA_CONTENT_FOLDER, DATA_CONTENT_FOLDER);
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
+		info("Create new content folder successfully");
+		
+		//lock node
+		lockNode(ELEMENT_CONTENT_FOLDER);
+		pause(500);
+		info("Lock node successfully");
+		assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Lock node unsuccessfully";
+		driver.close();
+		
+		//login with user mary
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		loginEcms("mary", "gtn");
+		goToSiteExplorer();
+		
+		//check user mary can not delete node
+		rightClickOnElement(ELEMENT_CONTENT_FOLDER);
+		waitForElementNotPresent(ELEMENT_MENU_DELETE);
+		info("User mary cannot delete this locker node");
+		logoutEcms();
+		
+		//delete data
+		loginEcms("john", "gtn");
+		goToSiteExplorer();
+		deleteDocument(ELEMENT_CONTENT_FOLDER);
+	}
+	
+	/*case09: Delete child node while parent node is being locked by user is not locker
+	 * create parent node: content folder by user John
+	 * create child node: article document by user John
+	 * lock parent node
+	 * check user Mary can delete child node
+	 */
+	@Test
+	public void test09_DeleteChildNodeWhileParentNodeIsBeingLockedByUserIsNotLocker(){
+		String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_BasicAction_Delete_content_folder_09";
+		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
+		String DATA_ARTICLE = "ECMS_DMS_SE_BasicAction_Delete_article_09";
+		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE);
+		
+		//create new content folder by John
+		goToSiteExplorer();
+		info("Create new content folder by user John");
+		createNewContentFolder(DATA_CONTENT_FOLDER, DATA_CONTENT_FOLDER);
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER);
+		info("Create new content folder successfully");
+		
+		//create new child node in content folder: article document
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		goToAddNewContent();
+		info("Create new article document");
+		createNewArticle(DATA_ARTICLE, DATA_ARTICLE, "", "");
+		waitForElementPresent(ELEMENT_ARTICLE);
+		
+		//lock node
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		lockNode(ELEMENT_CONTENT_FOLDER);
+		info("Lock parent node");
+		pause(500);
+		assert checkLockNode(ELEMENT_CONTENT_FOLDER);
+		driver.close();
+		
+		//login with mary
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		loginEcms("mary", "gtn");
+		goToSiteExplorer();
+		
+		//check user mary can delete child node
+		goToNode(ELEMENT_CONTENT_FOLDER);
+		deleteDocument(ELEMENT_ARTICLE);
+		info("Delete child node successfully");
+		logoutEcms();
+		
+		//delete data
+		loginEcms("john", "gtn");
+		goToSiteExplorer();
+		deleteDocument(ELEMENT_CONTENT_FOLDER);		
+	}
+	
+	//case10: Delete node while user does not have remove right
 	@Test()
-	public void test10_DeleteNodeByUserNotHaveRemoveRight()
-	{
+	public void test10_DeleteNodeByUserHaveRemoveRight(){
+		String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_BasicAction_Delete_content_10";
+		By CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
+		
 		//goto Site Explorer
 		goToSiteExplorer();
 
@@ -142,7 +234,7 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 		waitForElementPresent(CONTENT_FOLDER);
 
 		//Goto System > Permissions > Uncheck Remove Right for Group *:/platform/web-contributor
-		doubleClickOnElement(CONTENT_FOLDER_XPATH);
+		doubleClickOnElement(CONTENT_FOLDER);
 		waitForElementPresent(SYSTEM_TAB_LINK);
 		click(SYSTEM_TAB_LINK);
 		waitForElementPresent(PERMISSIONS_LINK);
@@ -157,24 +249,24 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 		click(CLOSE_WINDOW_ICON);
 
 		//Sign out and Sign in as mary
-		signOut();
+		logoutEcms();
 		driver.get(baseUrl);
-		signIn("mary", "gtn");
-
+		loginEcms("mary", "gtn");
+		
 		//goto Site Explorer
 		goToSiteExplorer();
 
 		//Verify Deleted item not existed
 		waitForElementPresent(CONTENT_FOLDER);
 		rightClickOnElement(CONTENT_FOLDER);
-		waitForElementNotPresent(DELETE_LINK);
-
+		waitForElementNotPresent(ELEMENT_MENU_DELETE);
+		
 		//Delete data
-		signOut();
+		logoutEcms();
 		driver.get(baseUrl);
-		signIn("john", "gtn");
-
-		//go to Site Explorer
+		loginEcms("john", "gtn");
+		
+		//goto Site Explorer
 		goToSiteExplorer();
 
 		//Verify Deleted item not existed
@@ -215,7 +307,7 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 	@AfterMethod()
 	public void afterTest() throws Exception
 	{
-		signOut();
+		logoutEcms();
 		driver.quit();
 	}
 }

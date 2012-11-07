@@ -31,14 +31,17 @@ public class NavigationToolbar extends PlatformBase {
 	public static void goToManagePages() {
 		info("--Go to Portal Site Management--");
 		waitForAndGetElement(By.xpath(ELEMENT_LINK_SETUP));
+		for(;;){
 		mouseOver(ELEMENT_LINK_SETUP, false);
 		pause(500);
-		mouseOver(ELEMENT_LINK_PORTAL, false);
-		pause(500);
-		WebElement element;
-		element = waitForAndGetElement(ELEMENT_LINK_PAGES);
-		actions.moveToElement(element).click(element).build().perform();
-		pause(500);
+		if (waitForAndGetElement(ELEMENT_LINK_PORTAL,15000,0)!=null) {	
+			mouseOver(ELEMENT_LINK_PORTAL, false);
+			if (waitForAndGetElement(ELEMENT_LINK_PAGES,15000,0)!=null){
+				click(ELEMENT_LINK_PAGES);
+				break;
+			}
+		}
+		}
 	}
 
 	//Go to Dashboard

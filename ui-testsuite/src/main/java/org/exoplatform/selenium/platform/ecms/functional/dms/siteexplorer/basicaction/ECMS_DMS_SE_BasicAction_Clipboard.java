@@ -52,11 +52,10 @@ public class ECMS_DMS_SE_BasicAction_Clipboard extends EcmsBase
 	public void beforeTest() throws Exception
 	{
 		initSeleniumTest();
-		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get(baseUrl);
 		actions = new Actions(driver);
 		driver.manage().window().maximize();
-		signIn("john", "gtn");
+		loginEcms("john", "gtn");
 	}
 	
 	//Delete  all action in clipboard

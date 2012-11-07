@@ -263,13 +263,14 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToUsersAndGroupsManagement();
 		click(ELEMENT_GROUP_MANAGEMENT_TAB);
 		info("Add user mary is member to group");
-		clickUpLevel();
+		//clickUpLevel();
 		selectGroup("Organization/Management/Executive Board");
 		addUsersToGroup("mary", "member", false, true);
 
 		//add user mary is member to group Organization/Management/Executive Board
 		info("Add user james is editor to group");
-		clickUpLevel();
+		//clickUpLevel();
+		click(By.xpath("//div[@class='BreadcumbsInfoBar ClearFix']/a[1]"));
 		selectGroup("Organization/Management/Executive Board");
 		addUsersToGroup("james", "editor", false, true);
 
@@ -318,9 +319,10 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		//remove user from group
 		goToUsersAndGroupsManagement();
 		click(ELEMENT_GROUP_MANAGEMENT_TAB);
-		clickUpLevel();
+		//clickUpLevel();
 		deleteUserInGroup("organization/management/executive-board", "Organization/Management/Executive Board", "mary");
-		clickUpLevel();
+		//clickUpLevel();
+		click(By.xpath("//div[@class='BreadcumbsInfoBar ClearFix']/a[1]"));
 		deleteUserInGroup("organization/management/executive-board", "Organization/Management/Executive Board", "james");
 	}
 
@@ -343,13 +345,14 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToUsersAndGroupsManagement();
 		click(ELEMENT_GROUP_MANAGEMENT_TAB);
 		info("Add user mary is member to group");
-		clickUpLevel();
+		//clickUpLevel();
 		selectGroup("Organization/Management/Executive Board");
 		addUsersToGroup("mary", "member", false, true);
 
 		//add user mary is member to group Organization/Management/Executive Board
 		info("Add user james is editor to group");
-		clickUpLevel();
+		//clickUpLevel();
+		click(By.xpath("//div[@class='BreadcumbsInfoBar ClearFix']/a[1]"));
 		selectGroup("Organization/Management/Executive Board");
 		addUsersToGroup("james", "editor", false, true);
 
@@ -399,9 +402,10 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		//remove user out of group
 		goToUsersAndGroupsManagement();
 		click(ELEMENT_GROUP_MANAGEMENT_TAB);
-		clickUpLevel();
+		//clickUpLevel();
 		deleteUserInGroup("organization/management/executive-board", "Organization/Management/Executive Board", "mary");
-		clickUpLevel();
+		//clickUpLevel();
+		click(By.xpath("//div[@class='BreadcumbsInfoBar ClearFix']/a[1]"));
 		deleteUserInGroup("organization/management/executive-board", "Organization/Management/Executive Board", "james");
 	}
 
@@ -513,7 +517,8 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		goToNode(ELEMENT_CONTENT_FOLDER);
 		goToPermissionManagement();
 		info("Remove permission of user John  of node");
-		deletePermission("john",true);
+		//deletePermission("john",true);
+		deletePermission("john",false);
 
 		//check can node delete
 		checkAlertWarning("You cannot remove the owner.");
@@ -618,7 +623,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		info("Lock node by user John");
 		lockNode(ELEMENT_CONTENT_FOLDER);
 		pause(500);
-		checkLockNode(ELEMENT_CONTENT_FOLDER);
+		assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Lock node is not successful";
 		driver.close();
 	  
 		//login with user mary in other browser
@@ -694,7 +699,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 		info("Lock node by user John");
 		lockNode(ELEMENT_CONTENT_FOLDER);
 		pause(500);
-		checkLockNode(ELEMENT_CONTENT_FOLDER);
+		assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Lock node is not successful";
 		driver.close();
 		
 		//login with mary

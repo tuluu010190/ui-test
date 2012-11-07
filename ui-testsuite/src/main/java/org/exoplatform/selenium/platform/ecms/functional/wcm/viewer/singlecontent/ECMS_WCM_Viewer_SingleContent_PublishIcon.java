@@ -277,10 +277,11 @@ public class ECMS_WCM_Viewer_SingleContent_PublishIcon extends ActionBar{
 		createNewArticle(titleArticle, nameArticle, summaryArticle, contentArticle);
 		waitForTextPresent(titleArticle);
 		if (publish){
-			click(By.linkText("Publications"));
+			/*click(By.linkText("Publications"));
 			waitForTextPresent("Manage Publication");
 			click(By.linkText("Published"));
-			save();
+			save();*/
+			publishDocument();
 		}
 		info("-- Create a new SCV --");	
 		mouseOver(By.linkText("My Sites"), true);

@@ -28,7 +28,7 @@ public class ECMS_WCM_Viewer_SingleContent_Other extends EcmsBase {
 	  String newName="new ECMS_WCM_Other";
 	  String content="conditions.doc";
 	  String ELEMENT_EDIT_INCONTEXT="//div[contains(text(),'"+content+"')]/../../div/div/div/div/div/div[2]/a";
-	  
+	  By titleSCV= By.xpath("//div[contains(@id,'Currentexo_title')]");
 	  String pathContent = "General Drives/Sites Management/acme/documents/conditions.doc";
 	  
 	  info("Edit content of SCV page");
@@ -41,10 +41,10 @@ public class ECMS_WCM_Viewer_SingleContent_Other extends EcmsBase {
 	  goToEditPageEditor();
 	  selectContentPath(pathContent);
 	  click(ELEMENT_PAGE_EDIT_FINISH);
-	 
+	  //driver.get("http://localhost:8080/portal/acme/overview/ECMS_WCM_Viewer_Other3");
 	  //edit content of SCV inline
 	  changeEditMode();
-	  mouseOver(ELEMENT_CONTAINER_CONTENT,true);
+	  mouseOver(titleSCV,true);
 	  click(ELEMENT_EDIT_INCONTEXT);
 	  editUploadedFile(namePage, file, newName,newName,newName,newName);
 	  click(ELEMENT_BUTTON_BACK);
@@ -66,7 +66,7 @@ public class ECMS_WCM_Viewer_SingleContent_Other extends EcmsBase {
 	  String pathContent="General Drives/Sites Management/acme/documents/conditions.doc";	  
 	  String content="conditions.doc";
 	  String ELEMENT_PREFERENCE_INCONTEXT="//div[contains(text(),'"+content+"')]/../../div/div/div/div/div/div[1]/a";
-	  
+	  By titleSCV= By.xpath("//div[contains(@id,'Currentexo_title')]");
 	  info("Open the form of setting page");
 	  //create a page
 	  goToPageEditor_EmptyLayout(namePage);
@@ -80,7 +80,7 @@ public class ECMS_WCM_Viewer_SingleContent_Other extends EcmsBase {
 	  
 	  //open form of setting page
 	  changeEditMode();
-	  mouseOver(ELEMENT_CONTAINER_CONTENT,true);
+	  mouseOver(titleSCV,true);
 	  click(ELEMENT_PREFERENCE_INCONTEXT);
 	  waitForElementPresent(ELEMENT_PREFERENCE_TITLE);
 	 

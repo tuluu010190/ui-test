@@ -91,7 +91,7 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_MENU_EDIT=By.xpath("//a[@class='EditorIcon TBIcon' and text()='Edit']");
 	public static final By ELEMENT_UPLOAD_ID = By.id("file");
 	public static final By ELEMENT_UPLOAD_FRAME_EDIT=By.xpath("//iframe[contains(@id,'uploadFrame')]");
-	public static final By ELEMENT_UPLOAD_REMOVE=By.xpath("//img[@alt='Remove Item']");
+	public static final By ELEMENT_UPLOAD_REMOVE=By.xpath("//img[@alt='Remove Item' and @class='ActionIcon Remove16x16Icon']");
 	public static final By ELEMENT_PIC_FILE_REMOVE=By.xpath("//img[@class='ActionIcon Remove16x16Icon']");
 
 	public static final By ELEMENT_UPLOAD_TITLE=By.id("title0");
@@ -150,7 +150,6 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_UPLOAD_FILE_NAME_ID = By.id("name");
 	public static final By ELEMENT_UPLOAD_IMG_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public static final By ELEMENT_UPLOAD_IMG_ID = By.id("file");
-	public static final By ELEMENT_UPLOAD_FINISH_XPATH = By.xpath("//div[@class='FileNameLabel']");
 	
 	//data test
 	public static final String[] DATA_SPECIAL_CHARACTER = {"`","~","!","@","#","$","%","^","&","*","(",")","-","_","+","=","{","}","[","]","|","\\",";",":","'","\"","<",",",".","/","?"};
@@ -220,6 +219,7 @@ public class ContentTemplate extends EcmsBase {
 
 	//add new Sample Node
 	public static void createNewSampleNode(String title, String name, String img){
+		waitForElementPresent(ELEMENT_SAMPLENODE_LINK);
 		click(ELEMENT_SAMPLENODE_LINK);
 		type(ELEMENT_SAMPLENODE_TITLE_TEXTBOX, title, false);
 		//			waitForAndGetElement(ELEMENT_SAMPLENODE_NAME_TEXTBOX).clear();
@@ -232,7 +232,9 @@ public class ContentTemplate extends EcmsBase {
 			driver.switchTo().frame(waitForAndGetElement(ELEMENT_SAMPLENODE_UPLOAD_IMG_FRAME));
 			type(ELEMENT_SAMPLENODE_FILE_IMG, getAbsoluteFilePath(img), false);
 			switchToParentWindow();
-			waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+			String links[] = img.split("/");
+			int length = links.length;
+			waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		}
 		type(ELEMENT_SAMPLENODE_CONTENT_TEXTAREA, title, false);
 		type(ELEMENT_SAMPLENODE_SUMMARY_TEXTAREA, title, false);
@@ -282,7 +284,9 @@ public class ContentTemplate extends EcmsBase {
 			driver.switchTo().frame(waitForAndGetElement(ELEMENT_HEAD_LAYOUT_UPLOAD_FRAME));
 			type(ELEMENT_HEAD_LAYOUT_UPLOAD_FILE, getAbsoluteFilePath(file), false);
 			switchToParentWindow();
-			waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+			String links[] = file.split("/");
+			int length = links.length;
+			waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		}
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
@@ -327,14 +331,20 @@ public class ContentTemplate extends EcmsBase {
 
 	//upload file
 	public static void uploadFile(String fileName, String link){
-		goToNode(ELEMENT_UPLOAD_LINK_XPATH);
+		waitForElementPresent(ELEMENT_UPLOAD_LINK_XPATH);
+		click(ELEMENT_UPLOAD_LINK_XPATH);
+		waitForElementPresent(By.id("UIPopupWindow"));
+		waitForElementPresent(ELEMENT_UPLOAD_FILE_NAME_ID);
 		type(ELEMENT_UPLOAD_FILE_NAME_ID, fileName, false);
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
 		type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(link), false);
 		info("Upload file "+getAbsoluteFilePath(link));
 		switchToParentWindow();
-		waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+		String links[] = link.split("/");
+		int length = links.length;
+		waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		click(ELEMENT_SAVE_BUTTON);
+		info("Upload file successfully");
 		click(ELEMENT_CLOSE_BUTTON);
 	}
 
@@ -355,6 +365,7 @@ public class ContentTemplate extends EcmsBase {
 		if (data.length > 3)
 			selectOption(ELEMENT_JS_LANGUAGE, data[3]);
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 	
 	public static void createNewCssFile(String name, String prior, String data){
@@ -475,7 +486,9 @@ public class ContentTemplate extends EcmsBase {
 			driver.switchTo().frame(waitForAndGetElement(ELEMENT_HEAD_LAYOUT_UPLOAD_FRAME));
 			type(ELEMENT_HEAD_LAYOUT_UPLOAD_FILE, getAbsoluteFilePath(file), false);
 			switchToParentWindow();
-			waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+			String links[] = file.split("/");
+			int length = links.length;
+			waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		}
 		if (data.length >0)
 			type(ELEMENT_PIC_IMGWIDTH, data[0],true);
@@ -523,7 +536,9 @@ public class ContentTemplate extends EcmsBase {
 			driver.switchTo().frame(waitForAndGetElement(ELEMENT_HEAD_LAYOUT_UPLOAD_FRAME));
 			type(ELEMENT_HEAD_LAYOUT_UPLOAD_FILE, getAbsoluteFilePath(file), false);
 			switchToParentWindow();
-			waitForElementPresent(ELEMENT_UPLOAD_FINISH_XPATH);
+			String links[] = file.split("/");
+			int length = links.length;
+			waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		}
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
@@ -566,7 +581,7 @@ public class ContentTemplate extends EcmsBase {
 			waitForElementPresent(By.xpath("//div[@class='SelectedTab']/div/div/div[contains(text(),'Illustration')]"));
 			if (img!=""){
 				WebElement removeIcon = waitForAndGetElement(ELEMENT_UPLOAD_REMOVE);
-				if (isDisplay(removeIcon))
+				if (removeIcon != null)
 				{
 					click(ELEMENT_UPLOAD_REMOVE); }
 				pause(1000);

@@ -405,7 +405,7 @@ public class ECMS_DMS_SE_BasicAction_Edit extends EcmsBase {
 		//choose  site management drive, and create a sample node
 		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 		goToAddNewContent();
-		createNewSampleNode(DATA_SAMPLE_TITLE_20, DATA_SAMPLE_TITLE_20, DATA_SAMPLE_TITLE_20);
+		createNewSampleNode(DATA_SAMPLE_TITLE_20, DATA_SAMPLE_TITLE_20, "");
 		waitForElementPresent(bDocument);
 
 		// edit a sample node document
@@ -653,7 +653,7 @@ public class ECMS_DMS_SE_BasicAction_Edit extends EcmsBase {
 		lockNode(ELEMENT_ARTICLE);
 
 		//check lock node
-		checkLockNode(ELEMENT_ARTICLE);
+		assert checkLockNode(ELEMENT_ARTICLE):"Lock node is not successful";
 		driver.close();
 
 		//login with mary
@@ -728,6 +728,8 @@ public class ECMS_DMS_SE_BasicAction_Edit extends EcmsBase {
 
 		// edit if to edit
 		waitForElementNotPresent(ELEMENT_EDIT_LINK);
+		rightClickOnElement(bDocument);
+		waitForElementNotPresent(ELEMENT_MENU_EDIT_ITEM);
 		checkOutNode(bDocument);
 		//delete
 		deleteDocument(bDocument);
@@ -879,7 +881,7 @@ public class ECMS_DMS_SE_BasicAction_Edit extends EcmsBase {
 		deleteDocument(bDocument,50000);
 	}
 	//Edit a js file 
-	@Test
+	@Test(groups={"pending"})
 	public void test40_EditJsFile(){	
 		String DATA_JS_TITLE_40="FNC_ECMS_FEX_ACTION_09_40";
 		String DATA_JS_DATA="alert (\"Hello!\");";
@@ -915,7 +917,7 @@ public class ECMS_DMS_SE_BasicAction_Edit extends EcmsBase {
 	}
 	@AfterMethod
 	public void afterMethod() {
-		//		logoutEcms();
+		//logoutEcms();
 		driver.quit();
 	}
 }

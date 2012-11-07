@@ -100,7 +100,7 @@ public class ECMS_WCM_SEO_Metadata extends EcmsBase{
 	@Test
 	public void test01_CheckDefaultMetadataWhenNotAddSEOData(){
 		goToNews();
-		waitForElementNotPresentNotDisplay(ELEMENT_HEADER);
+		//waitForElementNotPresentNotDisplay(ELEMENT_HEADER);
 		waitForElementNotPresentNotDisplay(ELEMENT_DESCRIPTION);
 		waitForElementNotPresentNotDisplay(ELEMENT_KEYWORD);
 		waitForElementNotPresentNotDisplay(ELEMENT_ROBOT);

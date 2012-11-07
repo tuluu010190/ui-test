@@ -16,6 +16,7 @@ public class PageEditor extends EcmsBase {
 	public static final By ELEMENT_CONFIRM_YES_BUTTON = By.xpath("//a[contains(text(), 'Yes')]");
 	public static final By ELEMENT_RADIO_MODE_CONTENT = By.id("UICLVConfigDisplayModeFormRadioBoxInput_ManualViewerMode"); 
 	public static final By ELEMENT_RADIO_MODE_FOLDER = By.id("UICLVConfigDisplayModeFormRadioBoxInput_AutoViewerMode");
+	public static final By ELEMENT_ADDWIZARD_TEXT2 = By.xpath("//div[@class='StepTitle' and contains(text(),'Select a Page Layout Template.')]");
 
 	//Edit "content list" portlet 
 	public static By ELEMENT_EDITPAGE_CONTENT_DELETE = By.xpath("//div[@class='DeleteIcon']");
@@ -32,7 +33,7 @@ public class PageEditor extends EcmsBase {
 		goToPageCreationWinzard();
 		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, pageName, false);
 		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
-		pause(500);
+		waitForElementPresent(ELEMENT_ADDWIZARD_TEXT2);
 		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
 	}
 

@@ -397,14 +397,15 @@ public class ECMS_DMS_SE_PublicationStatus extends ActionBar{
 		goToNodeByPath("News");
 		
 		//waiting system to go into effect
-		pause(30000);
+		pause(60000);
 		
 		verifyFileIsDisplayed(titleOfFile, fileNameFromTime);
 
-		info("-- Verify that Content is unpublished after 1 minute --");
-		pause(80000);
+		info("-- Verify that Content is unpublished after 3 minute --");
+		pause(160000);
 
 		driver.get(ELEMENT_ACME_SITES_LINK);
+		//actions.sendKeys(Keys.CONTROL, "r");
 		waitForTextNotPresent(titleOfFile);
 		captureScreen(fileNameEndTime);
 
@@ -471,9 +472,9 @@ public class ECMS_DMS_SE_PublicationStatus extends ActionBar{
 
 		goToNodeByPath("News");
 
-		info("-- Verify that Content is published after 1 minute --");
+		info("-- Verify that Content is published after 3 minute --");
 		//waiting system to go into effect
-		pause(120000);
+		pause(210000);
 		
 		verifyFileIsDisplayed(titleOfFile, fileNameFromTime);
 
