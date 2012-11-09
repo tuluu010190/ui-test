@@ -23,9 +23,7 @@ import static org.exoplatform.selenium.platform.social.PeopleConnection.*;
 import java.util.Set;
 
 import org.exoplatform.selenium.platform.social.SocialBase;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

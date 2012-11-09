@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 //import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import static org.exoplatform.selenium.TestLogger.*;
-import static org.exoplatform.selenium.platform.ecms.ActionBar.ELEMENT_EXPORT;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 
 public class ActionBar extends EcmsBase {

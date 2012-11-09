@@ -3,19 +3,23 @@ package org.exoplatform.selenium.platform;
 import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 import org.exoplatform.selenium.TestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 
@@ -39,14 +43,14 @@ public class PlatformBase extends TestBase {
 	/*
 	 * Navigation Bar /Administration Bar
 	 */
-	
+
 	//My site
 	public static final By ELEMENT_MYSITE = By.linkText("My Sites");
 	public static final By ELEMENT_MYSITE_ACME = By.linkText("acme");
 	public static final By ELEMENT_OVERVIEW = By.linkText("Overview");
 	public static final By ELEMENT_NEWS = By.linkText("News");
 	public static final By ELEMENT_INTRANET_SITE_LINK = By.linkText("intranet");
-	
+
 	// My spaces
 	// Dashboard
 
@@ -208,7 +212,7 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON_IE = ELEMENT_MESSAGE_TEXT + "/../../../../../..//a";
 	public static final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON = "//div[contains(@class, 'UIPopupWindow') and contains(@style, 'visibility: visible')]//span[text()='Messages']/..//a[@class='CloseButton']";
 
-		/* Add New Page Form */
+	/* Add New Page Form */
 	public static final String ELEMENT_CHECKBOX_MAX_WINDOWS = "//input[@id='showMaxWindow']";
 	public static final String ELEMENT_LINK_EDITOR = "//a[@class='EditorIcon TBIcon' and text() = 'Edit']";
 	public static final String ELEMENT_LINK_EDITOR_PAGE = "//a[text()='Page']";
@@ -261,8 +265,8 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_CLOSE_WINDOW = By.xpath("//a[@title='Close Window']");
 	public static final By ELEMENT_FINISH_ICON = By.xpath("//a[@title='Finish']"); //Finish editing portlet icon
 	public static final By ELEMENT_NEXT_BUTTON = By.linkText("Next");	
-	public static final By ELEMENT_ABORT_BUTTON = By.linkText("Abort");
-	
+	public static final By ELEMENT_ABORT_BUTTON = By.linkText("//a[text()='Abort']");
+
 	/*Portlet in general*/
 	public static final By ELEMENT_EDIT_PORTLET_ICON = By.xpath("//a[@title='Edit Portlet']");
 	public static final By ELEMENT_DELETE_PORTLET_ICON = By.xpath("//a[@title='Delete Portlet']");
@@ -272,7 +276,7 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_WINDOW_SETTINGS_TAB = By.xpath("//div[@id='UIMaskWorkspace']//div[text()='Window Settings']");
 	public static final By ELEMENT_WINDOWS_TITLE = By.xpath("//*[@id='title']");
 	/*Portlet in general*/
-	
+
 	/* End General
 	 * */
 
@@ -283,6 +287,8 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_PAGE_FINISH_BUTTON_INFRENCH = By.xpath("//div[@id='UIPageEditor']//a[@title='Terminer']");
 	public static final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH = By.xpath("//a[@title='Editer la Portlet']");
 	public static final By ELEMENT_ERROR_ICON=By.xpath("//span[@class='PopupIcon ErrorMessageIcon']");
+	/* End General
+	 * */
 
 	//Content Administration / Advanced Configuration 
 	public static final By ELEMENT_ADVANCED_CONFIGURATION_TAB = By.xpath("//div[@class = 'TabLabel' and @title = 'Advanced Configuration']");
@@ -295,8 +301,8 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_BUTTON_BACK = By.xpath("//a[@class='URLBackToButton']");
 
 	//Others
-	
-	
+
+
 	//Set view permissions for portal
 	public static void setViewPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM.replace("${membership}", membership);
@@ -470,6 +476,23 @@ public class PlatformBase extends TestBase {
 				waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
 				pause(500);
 			}
+		}
+	}
+
+	public static void usePaginator(By locator, String exceptionMessage) {
+		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
+
+		click(page1);
+		pause(500);
+		int totalPages = isElementPresent(ELEMENT_PAGINATOR_TOTAL_NUMBER) ? Integer.valueOf(getText(ELEMENT_PAGINATOR_TOTAL_NUMBER)) : 1;
+		int i = 1;
+		while (isElementNotPresent(locator)) {
+			if (i == totalPages) {
+				Assert.fail(exceptionMessage);
+			}
+			click(ELEMENT_PAGINATOR_NEXT_ICON);
+			waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
+			pause(500);
 		}
 	}
 
@@ -665,4 +688,105 @@ public class PlatformBase extends TestBase {
 	//Switch back to previous browser    
 	driver.switchTo().window(handlesBefore); 
   }
+
+	//Function to add data to frame
+	public static void inputDataToFrame (By framelocator, String data, boolean...validate){
+		try {
+			WebElement inputsummary = null;
+
+			for (int repeat = 0;; repeat++) {
+				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+					Assert.fail("Fail to input data to frame " + framelocator);
+				}
+				driver.switchTo().frame(waitForAndGetElement(framelocator));
+				inputsummary = driver.switchTo().activeElement();
+
+				inputsummary.click();
+
+				if (validate.length >0)
+					if (validate[0]){
+						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
+						if (data.equals(inputsummary.getText())) break;
+					}
+					else{
+						inputsummary.sendKeys(data);
+						break;
+					}
+				else {
+					inputsummary.sendKeys(data);
+					if (data.equals(inputsummary.getText())) break;
+				}
+
+				switchToParentWindow();
+			}
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			pause(WAIT_INTERVAL);
+			driver.switchTo().defaultContent();
+			inputDataToFrame (framelocator, data);
+		} catch (ElementNotVisibleException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			pause(WAIT_INTERVAL);
+			driver.switchTo().defaultContent();
+			inputDataToFrame (framelocator,data);
+		}catch (WebDriverException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			pause(WAIT_INTERVAL);
+			driver.switchTo().defaultContent();
+			inputDataToFrame (framelocator,data);
+		}
+		finally {
+			loopCount = 0;
+		}
+	}
+
+	// Select option from combo box
+	public static void selectOption(Object locator, String option) {
+		try {
+			for (int second = 0;; second++) {
+				if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+					Assert.fail("Timeout at select: " + option + " into " + locator);
+				}
+				Select select = new Select(waitForAndGetElement(locator));
+				select.selectByValue(option);
+				if (option.equals(select.getFirstSelectedOption().getAttribute("value"))) {
+					break;
+				}
+				pause(WAIT_INTERVAL);
+			}
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			pause(WAIT_INTERVAL);
+			select(locator, option);
+		} finally {
+			loopCount = 0;
+		}
+	}
+
+	////////
+	//Common code for test cases using 2 popup windows / browsers
+	////////
+	/**
+	 * Add by @author vuna2
+	 * <li> Switch to a new browser/ Popup window</li> 
+	 */
+	public static void switchToNewWindow(){
+		Set<String> windowids = driver.getWindowHandles(); 
+		Iterator<String> iter= windowids.iterator();
+		while(iter.hasNext()) {
+			String windowHandle = iter.next(); 
+			driver.switchTo().window(windowHandle);
+		} 
+	}
+
+	/**
+	 * Add by @author vuna2
+	 * @param previousWindowHandle: handle the previous (current) browser (String)
+	 */
+	public static void backToPreviousBrowser(String previousWindowHandle){
+		// Close the popup window
+		driver.close(); 
+		// Switch back to previous window.
+		driver.switchTo().window(previousWindowHandle);
+	}	  
 }

@@ -133,6 +133,10 @@ public class PageManagement extends PlatformBase {
 			String elementEditPagePage = ELEMENT_EDIT_PAGE_PAGE;
 			//String verification = PORTLET_LABEL.replace("${portletName}", portletIdsAndVerifications.get(portletId));
 			dragAndDropToObject("//div[@id='" + portletId + "']//img", elementEditPagePage);
+
+			if(portletIds.get(portletId) != ""){
+				dragAndDropToObject("//div[@id='" + portletIds.get(portletId) + "']//img", elementEditPagePage);
+			}
 		}
 		pause(500);
 		click(ELEMENT_PAGE_FINISH_BUTTON);

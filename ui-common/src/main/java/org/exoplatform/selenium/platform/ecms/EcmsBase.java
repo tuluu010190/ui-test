@@ -11,7 +11,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 public class EcmsBase extends PlatformBase {
@@ -182,17 +181,6 @@ public class EcmsBase extends PlatformBase {
 		click(ELEMENT_MENU_ADD_PAGE_LINK);	
 	}
 
-	//Select option from combo-box
-	public static void selectOption(By locator,String value){
-		Select typeFolder = null;
-		pause(100);
-		while (typeFolder ==null){
-			pause(100);
-			typeFolder = new Select(waitForAndGetElement(locator));
-		}
-		typeFolder.selectByValue(value);
-	}
-
 	//go to a node
 	//input: path: path of a node, split by  "/" character 
 	public static void goToNodeByPath(String path)
@@ -305,14 +293,14 @@ public class EcmsBase extends PlatformBase {
 	}
 
 	//Check alert
-	public void checkAlertWarning(String message){
+	public static void checkAlertWarning(String message){
 		waitForElementPresent(ELEMENT_ALERT);
 		assert isElementPresent(ELEMENT_ALERT):"Not found alert";
 		assert getText(ELEMENT_MESSAGE).contains(message):"Message is wrong";
 		click(By.linkText("OK"));
 	}
 
-	public void checkAlertInfo(String message){
+	public static void checkAlertInfo(String message){
 		waitForElementPresent(ELEMENT_ALERT);
 		assert isElementPresent(ELEMENT_ALERT):"Not found alert";
 		assert getText(ELEMENT_INFO).contains(message):"Message is wrong";

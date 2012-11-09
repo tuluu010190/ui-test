@@ -46,6 +46,13 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>ks</id>
+			<properties>
+				<testSuite>ks.xml</testSuite>
+			</properties>
+		</profile>
+
+		<profile>
 			<id>regression</id>
 			<properties>
 				<testSuite>regression.xml</testSuite>

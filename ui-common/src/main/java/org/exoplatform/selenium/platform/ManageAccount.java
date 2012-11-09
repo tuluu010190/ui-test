@@ -33,8 +33,8 @@ public class ManageAccount extends PlatformBase {
 	public static void signOut(){
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		click(ELEMENT_SIGN_OUT_LINK);
-		driver.get(baseUrl);
 		pause(500);
+		driver.get(baseUrl);
 	}
 
 	// Edit user in My Account

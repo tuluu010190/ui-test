@@ -3,10 +3,20 @@ package org.exoplatform.selenium;
 import static org.exoplatform.selenium.TestLogger.*;
 
 
+import java.awt.AWTException;
+import java.awt.DisplayMode;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -182,9 +192,9 @@ public class TestBase {
 		int isAssert = opParams.length > 1 ? opParams[1]: 1;
 
 		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
-			//			elem = getElement(locator);
+			//elem = getElement(locator);
 			elem = getDisplayedElement(locator);
-			if (null != elem) 
+			if (null != elem)
 				return elem;
 			pause(WAIT_INTERVAL);
 		}
@@ -618,4 +628,69 @@ public class TestBase {
 		}
 		return bool;
 	}
+	
+
+	///////
+	//
+	/**
+	 * Capture the screen of the current graphics device 
+	 * @author vuna2
+	 * @param fileName: input an image name (String) 
+	 */
+	public static void javaCaptureScreen(String fileName){
+		String path;
+		BufferedImage screenCapture;
+		pause(2000);
+		try {
+			Robot robot = new Robot();
+			Rectangle screenSize = getScreenSize();
+			screenCapture = robot.createScreenCapture(screenSize);
+			// Save as PNG
+			String curDir = System.getProperty("user.dir");
+			path = curDir + "/target/screenshoot/" + fileName;
+			ImageIO.write(screenCapture, "png", new File(path));
+
+		}catch (AWTException e) {
+			error("Failed to capture screenshot");
+		}catch(IOException e)
+		{
+			path = "Failed to capture screenshot: " + e.getMessage();
+		}
+	}
+	
+	/**
+	 * 
+	 * @return the size of the default screen
+	 */
+	public static Rectangle getScreenSize() {
+		GraphicsEnvironment graphE = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		GraphicsDevice graphD = graphE.getDefaultScreenDevice();
+		DisplayMode displayM = graphD.getDisplayMode();
+		return new Rectangle(displayM.getWidth(), displayM.getHeight());
+	}
+
+	///////
+	//
+	/**
+	 * Simulating keyboard presses 
+	 * @author vuna2
+	 * @param firstKey: send the first key (type: KeyEvent)
+	 * @param secondKey: send the second key (type: KeyEvent) 
+	 */
+	public static void javaSimulateKeyPress(int firstKey, int secondKey){
+		try {
+			Robot robot = new Robot();
+			// Simulate a key press
+			robot.keyPress(firstKey);
+			robot.keyPress(secondKey);
+			pause(500);
+			robot.keyRelease(secondKey);
+			robot.keyRelease(firstKey);
+
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
+	}
+	//////
+
 }
