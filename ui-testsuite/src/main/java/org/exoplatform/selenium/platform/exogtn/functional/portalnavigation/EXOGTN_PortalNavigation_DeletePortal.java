@@ -20,12 +20,11 @@ import static org.exoplatform.selenium.platform.PortalManagement.*;
 public class EXOGTN_PortalNavigation_DeletePortal extends PlatformBase{
 
 	public static final By ELEMENT_PORTAL_TOP_CONTAINER = By.id("PortalNavigationTopContainer");
-	public static final By ELEMENT_MY_SITES = By.linkText("My Sites");
 	public static final By ELEMENT_HOME_LINK = By.xpath("//img[@alt='Home']");
 	String portalName = "demoPortal"; 
 	
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -33,7 +32,7 @@ public class EXOGTN_PortalNavigation_DeletePortal extends PlatformBase{
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.quit();
 	}
 	
@@ -84,7 +83,7 @@ public class EXOGTN_PortalNavigation_DeletePortal extends PlatformBase{
 		mouseOver(ELEMENT_HOME_LINK, true);
 		click(ELEMENT_HOME_LINK);
 		waitForTextPresent("John Smith");
-		mouseOver(ELEMENT_MY_SITES, true);
+		mouseOver(ELEMENT_MYSITE, true);
 	    waitForTextPresent(portalName);
 	}
 }

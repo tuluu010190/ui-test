@@ -30,7 +30,6 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 	 */
 	By ELEMENT_EDIT_NAV_GROUP = By.xpath("//td/div[text()='Administration']/ancestor::tr/td/a[text()='Edit Navigation']");
 	By UP_LEVEL = By.xpath("//a[@title='Up Level']");
-	By ELEMENT_FINISH_BUTTON = By.xpath("//a[@title='Finish']");
 	By ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT = By.id("UIPage");
 	By ELEMENT_ROW_PAGE_CONFIGS = By.xpath("//a[contains(text(),'Row Page Configs')]");
 	By ELEMENT_PAGE_CONFIGS = By.xpath("//div[@id='UIDropDownPageTemp']/div/div/div/div/div/div/div");
@@ -42,7 +41,6 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 	String ELEMENT_EDIT_CONTAINER = ELEMENT_EDIT_PAGE_COMPONENT.replace("${portletNumber}", "1");
 	By ELEMENT_INPUT_WIDTH = By.id("width");
 	By ELEMENT_INPUT_HEIGHT = By.id("height");
-
 	public String EDIT_NODE_PAGE_LINK = "Edit Node's Page";
 	
 	
@@ -70,7 +68,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 	}
 
 	@BeforeMethod()
-	public void beforeTest() throws Exception {
+	public void beforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -122,7 +120,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 		waitForTextNotPresent("Container Settings");
 		info("--Verify that the changes on container is saved--");
 		captureScreen("container");
-		click(ELEMENT_FINISH_BUTTON);
+		click(ELEMENT_FINISH_ICON);
 		// close navigation form
 		save();
 		//Delete node
@@ -177,7 +175,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 		waitForTextNotPresent("Container Settings");
 		info("--Verify that the changes on container is saved--");
 		captureScreen("GROUPNAV_TITLE");
-		click(ELEMENT_FINISH_BUTTON);
+		click(ELEMENT_FINISH_ICON);
 		// close navigation form
 		save();
 		//Delete node
@@ -186,7 +184,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Container extends PlatformBase
 	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		signOut();
 		driver.quit();
 	}

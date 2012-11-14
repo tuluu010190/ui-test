@@ -2,10 +2,10 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 public class ManageAccount extends PlatformBase {
+
+	//[Create a New Account] Screen (Public Mode)
 	public static final By ELEMENT_SUBSCRIBE_BUTTON = By.xpath(".//*[@id='UIRegisterForm']/div[2]/div/div/a[1]");
 	public static final By ELEMENT_RESET_BUTTON = By.xpath(".//*[@id='UIRegisterForm']/div[2]/div/div/a[2]");
 	public static final By ELEMENT_REGISTER_LINK = By.xpath("//b[contains(text(),'Register')]");
@@ -31,11 +31,8 @@ public class ManageAccount extends PlatformBase {
 
 	//Sign-out for eXoGTN
 	public static void signOut(){
-		Actions action_logout = new Actions(driver);
-		WebElement UI = waitForAndGetElement(By.id("UserNavigationTabsContainer"));
-		//		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
-		action_logout.moveToElement(UI).build().perform();
-		driver.findElement(By.linkText("Logout")).click();	
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		click(ELEMENT_SIGN_OUT_LINK);
 		pause(500);
 	}
 

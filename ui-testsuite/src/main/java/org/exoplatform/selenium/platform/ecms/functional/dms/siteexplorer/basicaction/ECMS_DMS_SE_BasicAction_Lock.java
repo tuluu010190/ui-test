@@ -19,7 +19,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 	By ELEMENT_ACME_NODE = By.xpath("//a[@title='acme ']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -28,7 +28,7 @@ public class ECMS_DMS_SE_BasicAction_Lock extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();

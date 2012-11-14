@@ -30,26 +30,12 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Portlet extends PlatformBase {
 	 */
 	By ELEMENT_EDIT_NAV_GROUP = By.xpath("//td/div[text()='Administration']/ancestor::tr/td/a[text()='Edit Navigation']");
 	By UP_LEVEL = By.xpath("//a[@title='Up Level']");
-	By ELEMENT_CONTENT_LIST_PORTLET = By.className("PortletLayoutDecorator");
-	By ELEMENT_EDIT_ICON = By.xpath("//a[@title='Edit Portlet']");
-	By ELEMENT_WINDOW_SETTINGS_TAB = By.xpath("//div[@id='UIMaskWorkspace']//div[text()='Window Settings']");
-	By ELEMENT_FINISH_BUTTON = By.xpath("//a[@title='Finish']");
 	By ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT = By.id("UIPage");
-	By ELEMENT_ROW_PAGE_CONFIGS = By.xpath("//a[contains(text(),'Row Page Configs')]");
-	By ELEMENT_PAGE_CONFIGS = By.xpath("//div[@id='UIDropDownPageTemp']/div/div/div/div/div/div/div");
-	By ELEMENT_TAB_CONTAINERS = By.xpath("//div[contains(text(),'Containers') and @class='MiddleTab']");
-	By ELEMENT_ROWS_LAYOUT = By.linkText("Rows Layout");
-	By ELEMENT_ONE_ROW_LAYOUT = By.id("oneRow");
-	By ELEMENT_EDIT_CONTAINER_ICON = By.xpath("//div[@class='UIRowContainer']/div/div/div[2]/div/div[2]/div/a[1]");
-	String ELEMENT_EDIT_PAGE_COMPONENT = "//div[@class='UIRowContainer']/div[${portletNumber}]/div";
-	String ELEMENT_EDIT_CONTAINER = ELEMENT_EDIT_PAGE_COMPONENT.replace("${portletNumber}", "1");
-	By ELEMENT_INPUT_WIDTH = By.id("width");
-	By ELEMENT_INPUT_HEIGHT = By.id("height");
 
 	public String EDIT_NODE_PAGE_LINK = "Edit Node's Page";
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception {
+	public void beforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -82,17 +68,17 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Portlet extends PlatformBase {
 		waitForElementPresent(By.linkText(EDIT_NODE_PAGE_LINK));
 		click(By.linkText(EDIT_NODE_PAGE_LINK));
 		// Edit portlet
-		mouseOver(ELEMENT_CONTENT_LIST_PORTLET, true);
-		click(ELEMENT_EDIT_ICON);
+		mouseOver(ELEMENT_PORTLET_CONTAINER, true);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		// Choose Window Settings tab
 		click(ELEMENT_WINDOW_SETTINGS_TAB);
 		info("--Edit current title with valid value--");
-		type(ELEMENT_INPUT_TITLE, "test18_ChangePortlet", true);
+		type(ELEMENT_WINDOWS_TITLE, "test18_ChangePortlet", true);
 		saveAndClose();
-		mouseOver(ELEMENT_CONTENT_LIST_PORTLET, true);
+		mouseOver(ELEMENT_PORTLET_CONTAINER, true);
 		waitForTextPresent("test18_ChangePortlet");
 		//Check Finish
-		click(ELEMENT_FINISH_BUTTON);
+		click(ELEMENT_FINISH_ICON);
 		save();
 		//Go to Group Navigation
 		click(ELEMENT_EDIT_NAV_GROUP);
@@ -136,7 +122,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Portlet extends PlatformBase {
 		waitForTextPresent("Administration") ;
 		click(ELEMENT_COLLABORATION_CATEGORY);
 		dragAndDropToObject(ELEMENT_APPLICATION_COLLABORATION_ANSWERS, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
-		click(ELEMENT_FINISH_BUTTON);
+		click(ELEMENT_FINISH_ICON);
 		save();
 		mouseOver(By.linkText("My Groups"),true);
 		click(By.linkText("GROUPNAV_26_02_023"));
@@ -148,7 +134,7 @@ public class EXOGTN_GroupNavigation_Node_EditPage_Portlet extends PlatformBase {
 	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		signOut();
 		driver.quit();
 	}

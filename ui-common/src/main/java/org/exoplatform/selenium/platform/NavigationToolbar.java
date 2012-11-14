@@ -7,11 +7,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class NavigationToolbar extends PlatformBase {
-	
-	public static By ELEMENT_APPLICATIONS_LINK = By.linkText("Applications");
-	public static By ELEMENT_EDIT_LINK = By.linkText("Edit");
-	public static By ELEMENT_PAGE_LINK = By.linkText("Page");
-	public static By ELEMENT_EDIT_LAYOUT = By.linkText("Layout");
 
 	//Go to portal sites
 	public static void goToPortalSites() {
@@ -21,26 +16,25 @@ public class NavigationToolbar extends PlatformBase {
 		pause(500);
 		mouseOver(ELEMENT_LINK_PORTAL, false);
 		pause(500);
-		WebElement element;
-		element = waitForAndGetElement(ELEMENT_LINK_SITE);
-		actions.moveToElement(element).click(element).build().perform();
+		mouseOver(ELEMENT_LINK_SITES, false);
+		click(ELEMENT_LINK_SITES);
 		pause(500);
 	}
 
 	//Go to Portal Manage Pages	
 	public static void goToManagePages() {
 		info("--Go to Portal Site Management--");
-		waitForAndGetElement(By.xpath(ELEMENT_LINK_SETUP));
+		//		waitForAndGetElement(By.xpath(ELEMENT_LINK_SETUP));
 		for(;;){
-		mouseOver(ELEMENT_LINK_SETUP, false);
-		pause(500);
-		if (waitForAndGetElement(ELEMENT_LINK_PORTAL,15000,0)!=null) {	
-			mouseOver(ELEMENT_LINK_PORTAL, false);
-			if (waitForAndGetElement(ELEMENT_LINK_PAGES,15000,0)!=null){
-				click(ELEMENT_LINK_PAGES);
-				break;
+			mouseOver(ELEMENT_LINK_SETUP, false);
+			pause(500);
+			if (waitForAndGetElement(ELEMENT_LINK_PORTAL,15000,0)!=null) {	
+				mouseOver(ELEMENT_LINK_PORTAL, false);
+				if (waitForAndGetElement(ELEMENT_LINK_PAGES,15000,0)!=null){
+					click(ELEMENT_LINK_PAGES);
+					break;
+				}
 			}
-		}
 		}
 	}
 
@@ -96,7 +90,7 @@ public class NavigationToolbar extends PlatformBase {
 		info("--Go to Users and groups management--");
 		goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_GROUP_AND_ROLE_LINK);
 	}
-	
+
 	//Go to Portal Application Registry
 	public static void goToApplicationRegistry() {
 		info("--Go to Portal Application Registry--");
@@ -106,17 +100,17 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_APPLICATIONS_LINK);
 		pause(500);
 	}
-	
+
 	public static void goToEditPageEditor () {
 		info("----Go to Edit page editor----");
-		mouseOver(ELEMENT_EDIT_LINK,false);
+		mouseOver(ELEMENT_MENU_EDIT_LINK,false);
 		pause(500);
-		mouseOver(ELEMENT_PAGE_LINK,false);
+		mouseOver(ELEMENT_MENU_PAGE_LINK,false);
 		pause(500);
-		click(ELEMENT_EDIT_LAYOUT);
+		click(ELEMENT_MENU_EDIT_LAYOUT);
 		pause(500);
 	}
-	
+
 	//Go to change language for user interface
 	public static void goToChangeLanguageForUserInterface(){
 		info("--Go to change language for user interface--");

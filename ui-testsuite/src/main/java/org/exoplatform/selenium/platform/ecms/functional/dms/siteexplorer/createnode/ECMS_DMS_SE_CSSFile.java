@@ -1,7 +1,5 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.createnode;
 
-//import java.util.concurrent.TimeUnit;
-
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -23,19 +21,15 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 	public static final String DATA_USER = "john";
 	public static final String DATA_PASS = "gtn";
 
-	public static final By ELEMENT_ACME_LINK = By.xpath("//a[@title='acme ']");
 	public static final By ELEMENT_CSS_LINK = By.xpath("//a[@title='css ']");
 	public static final By ELEMENT_CSS_NAME = By.id("name");
 	public static final By ELEMENT_CSS_PRIOR = By.id("CSSpriority");
 	public static final By ELEMENT_CSS_DATA	= By.id("contentHtml");
 	public static final By ELEMENT_BODY = By.xpath("//body");
-	public static final By ELEMENT_MYSITE_LINK = By.xpath("//a[contains(text(),'My Sites')]");
-	public static final By ELEMENT_ACME_SITE_LINK = By.linkText("acme");
 	public static final By ELEMENT_SHARED_LINK = By.xpath("//a[@title='shared ']");
-	public static final By ELEMENT_INTRANET_SITE_LINK = By.linkText("intranet");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		//driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get(baseUrl);
@@ -45,7 +39,7 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout to ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();
@@ -66,7 +60,7 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		//go to acme/css
 		goToSiteExplorer();
 		info("Go to acme/css");
-		goToNode(ELEMENT_ACME_LINK);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 		goToNode(ELEMENT_CSS_LINK);
 		//create new css file
 		goToAddNewContent();
@@ -77,14 +71,14 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 
 		info("Create new css file successfully");
 		//check CSS file must be affected to interface
-		mouseOver((ELEMENT_MYSITE_LINK), true);
-		click(ELEMENT_ACME_SITE_LINK);
+		mouseOver((ELEMENT_MYSITE), true);
+		click(ELEMENT_MYSITE_ACME);
 		clearCache();
 		WebElement body = waitForAndGetElement(ELEMENT_BODY);
 		assert body.getCssValue("color").contains("rgba(255,0,0,1)"):"Setting up for page is not right";	  
 		//delete css file
 		goToSiteExplorer();
-		goToNode(ELEMENT_ACME_LINK);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 		goToNode(ELEMENT_CSS_LINK);
 		goToNode(ELEMENT_CSS);
 		deleteDocument(ELEMENT_CSS);
@@ -106,7 +100,7 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		//go to acme/css
 		goToSiteExplorer();
 		info("Go to acme/css");
-		goToNode(ELEMENT_ACME_LINK);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 		goToNode(ELEMENT_CSS_LINK);
 		//create new css file with name = CssFiletest_02, priority = 20
 		goToAddNewContent();
@@ -123,8 +117,8 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 
 		info("Create new css file 2 successfully");
 		//check the interface of acme site will be displayed following css file with the highest Priority
-		mouseOver((ELEMENT_MYSITE_LINK), true);
-		click(ELEMENT_ACME_SITE_LINK);
+		mouseOver((ELEMENT_MYSITE), true);
+		click(ELEMENT_MYSITE_ACME);
 		clearCache();
 		WebElement body = waitForAndGetElement(ELEMENT_BODY);
 		assert body.getCssValue("color").contains("rgba(0,0,255,1)"):"Setting up for page is not right";
@@ -154,7 +148,7 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		//go to acme/css
 		goToSiteExplorer();
 		info("Go to acme/css");
-		goToNode(ELEMENT_ACME_LINK);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 		goToNode(ELEMENT_CSS_LINK);
 		//create new css file with name = CssFiletest_03, content = body {color:blue;}
 		goToAddNewContent();
@@ -170,8 +164,8 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		waitForElementPresent(ELEMENT_CSS_2);
 		info("Create new css file 2 successfully");
 		//check the interface of acme site will be defined follow the file which has the highest value in Priority
-		mouseOver((ELEMENT_MYSITE_LINK), true);
-		click(ELEMENT_ACME_SITE_LINK);
+		mouseOver((ELEMENT_MYSITE), true);
+		click(ELEMENT_MYSITE_ACME);
 		clearCache();
 		WebElement body = waitForAndGetElement(ELEMENT_BODY);
 		assert body.getCssValue("color").contains("rgba(0,0,255,1)"):"Set up for page is not right";
@@ -207,14 +201,14 @@ public class ECMS_DMS_SE_CSSFile extends EcmsBase{
 		waitForElementPresent(ELEMENT_CSS);
 		info("Create new css file successfully");
 		//check CSS file must be affected to interface of intranet
-		mouseOver((ELEMENT_MYSITE_LINK), true);
+		mouseOver((ELEMENT_MYSITE), true);
 		click(ELEMENT_INTRANET_SITE_LINK);
 		clearCache();
 		WebElement body_intranet = waitForAndGetElement(ELEMENT_BODY);
 		assert body_intranet.getCssValue("color").contains("rgba(0,0,255,1)"):"Set up for page intranet is not right";
 		//check CSS file must be affected to interface of acme
-		mouseOver((ELEMENT_MYSITE_LINK), true);
-		click(ELEMENT_ACME_SITE_LINK);
+		mouseOver((ELEMENT_MYSITE), true);
+		click(ELEMENT_MYSITE_ACME);
 		clearCache();
 		WebElement body_acme = waitForAndGetElement(ELEMENT_BODY);
 		assert body_acme.getCssValue("color").contains("rgba(0,0,255,1)"):"Set up for page acme is not right";

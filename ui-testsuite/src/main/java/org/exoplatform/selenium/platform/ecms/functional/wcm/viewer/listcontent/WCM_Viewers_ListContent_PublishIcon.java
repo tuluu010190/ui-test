@@ -2,11 +2,11 @@ package org.exoplatform.selenium.platform.ecms.functional.wcm.viewer.listcontent
 
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 import static org.exoplatform.selenium.platform.NavigationManagement.*;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
@@ -25,21 +25,15 @@ import org.testng.annotations.Test;
 
 public class WCM_Viewers_ListContent_PublishIcon extends EcmsBase {
 
-	public static By ELEMENT_PUBLICATION = By.linkText("Publications");
-	public static By ELEMENT_PUBLIC_STATUS = By.xpath("//a[contains(text(), 'Published')]");
-	public static By EMENET_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
-	public static By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
-	public By ELEMENT_BACK_BUTTON = By.className("URLBackToButton");
-	public By ELEMENT_PUBLISH_ICON = By.xpath("//div[@class='UICLVPortlet']//*[@title='Publish']");
-
+	public static By ELEMENT_BACK_BUTTON = By.className("URLBackToButton");
+	public static By ELEMENT_PUBLISH_ICON = By.xpath("//div[@class='UICLVPortlet']//*[@title='Publish']");
 
 	//Data test
 	public String DATA_USER = "john";
 	public String DATA_PASS = "gtn";
-	public By ELEMENT_ACME_NODE = By.xpath("//a[@title='acme ']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -48,7 +42,7 @@ public class WCM_Viewers_ListContent_PublishIcon extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		driver.quit();
 		actions = null;
@@ -171,9 +165,9 @@ public class WCM_Viewers_ListContent_PublishIcon extends EcmsBase {
 		//Case 02: Login as Mary and check not publish content is not shown
 		loginEcms("mary", "gtn");
 
-		mouseOver(ELEMENT_MY_SITE,true);
+		mouseOver(ELEMENT_MYSITE,true);
 
-		mouseOver(ELEMENT_ACME, true);
+		mouseOver(ELEMENT_MYSITE_ACME, true);
 
 		mouseOver(ELEMENT_OVERVIEW, true);
 
@@ -192,9 +186,9 @@ public class WCM_Viewers_ListContent_PublishIcon extends EcmsBase {
 
 		loginEcms(DATA_USER, DATA_PASS);
 
-		mouseOver(ELEMENT_MY_SITE,true);
+		mouseOver(ELEMENT_MYSITE,true);
 
-		mouseOver(ELEMENT_ACME, true);
+		mouseOver(ELEMENT_MYSITE_ACME, true);
 
 		mouseOver(ELEMENT_OVERVIEW, true);
 
@@ -220,9 +214,9 @@ public class WCM_Viewers_ListContent_PublishIcon extends EcmsBase {
 
 		loginEcms("mary", "gtn");
 
-		mouseOver(ELEMENT_MY_SITE,true);
+		mouseOver(ELEMENT_MYSITE,true);
 
-		mouseOver(ELEMENT_ACME, true);
+		mouseOver(ELEMENT_MYSITE_ACME, true);
 
 		mouseOver(ELEMENT_OVERVIEW, true);
 
@@ -244,7 +238,7 @@ public class WCM_Viewers_ListContent_PublishIcon extends EcmsBase {
 
 		goToSiteExplorer();
 
-		goToNode(ELEMENT_ACME_NODE);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		waitForElementPresent(DATA_FOLDER_PATH);
 
@@ -321,7 +315,7 @@ public class WCM_Viewers_ListContent_PublishIcon extends EcmsBase {
 	public void addNewContentTest(String DATA_FOLDER_NAME, By DATA_FOLDER_PATH, String DATA_ARTICLE_TITLE){
 		info("-- Add/Publish a new content --");
 		goToSiteExplorer();
-		goToNode(ELEMENT_ACME_NODE);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 		createNewContentFolder(DATA_FOLDER_NAME, DATA_FOLDER_NAME);
 		goToNode(DATA_FOLDER_PATH);
 		goToAddNewContent();

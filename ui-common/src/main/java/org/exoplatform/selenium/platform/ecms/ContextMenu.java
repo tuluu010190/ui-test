@@ -27,7 +27,7 @@ public class ContextMenu extends EcmsBase {
 				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
-			if (waitForAndGetElement(ELEMENT_MENU_LOCK,5000,0) !=null) break;
+			if (waitForAndGetElement(ELEMENT_MENU_LOCK, 5000, 0) !=null) break;
 			pause(WAIT_INTERVAL);
 			info("Retry...[" + repeat + "]");
 		}
@@ -37,27 +37,23 @@ public class ContextMenu extends EcmsBase {
 
 	//Check node is being locked
 	public static boolean checkLockNode(Object locator){
-		
 		boolean locked=false;
 		By by = locator instanceof By ? (By)locator : By.xpath((String)locator);
 		//		actions.contextClick(unlock).build().perform();
 		try{
-		rightClickOnElement(by);
-		pause(500);
-		if (isElementPresent(ELEMENT_MENU_UNLOCK)) {
-			locked = true;
-		} else 
-			locked =false;
-		WebElement unlock = waitForAndGetElement(by);
-		unlock.sendKeys(Keys.RETURN);
-		
-		}
-		catch(StaleElementReferenceException e){
-			info("Retry...");
+			rightClickOnElement(by);
+			pause(500);
+			if (isElementPresent(ELEMENT_MENU_UNLOCK)) {
+				locked = true;
+			} else 
+				locked =false;
+
+			WebElement unlock = waitForAndGetElement(by);
+			unlock.sendKeys(Keys.RETURN);
+		} catch(StaleElementReferenceException e){
 			checkCycling(e, 10);
 			checkLockNode(locator);
-		}
-		finally{			
+		} finally{			
 			loopCount=0;			
 		}
 		return locked;
@@ -86,23 +82,22 @@ public class ContextMenu extends EcmsBase {
 			click(ELEMENT_MENU_CHECKOUT);
 			info("Node is checked out successfully");
 		}else{
-			if (loopCount > 10)
-			{
+			if (loopCount > 10){
 				loopCount=0;
 				return;
 			}
+			info("Cannot checkout this node!");
 			loopCount++;
 			checkOutNode(locator);    
-			info("Cannot checkout this node!");
 		}
 	}  
 
 	//Delete a node at level 1
 	public static void deleteDocument(By locator, int...timeout){
 		int iTimeout = timeout.length > 0 ? timeout[0] : DEFAULT_TIMEOUT;
-		for(int repeat=0;; repeat ++)
+		for(int repeat=1;; repeat ++)
 		{
-			if (repeat >= ACTION_REPEAT) {
+			if (repeat > ACTION_REPEAT) {
 				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
@@ -121,7 +116,7 @@ public class ContextMenu extends EcmsBase {
 		waitForElementNotPresent(By.linkText("OK"));
 		//actions.sendKeys(Keys.CONTROL,"r");
 		click(ELEMENT_MENU_REFRESH);
-//		click(ActionBar.ELEMENT_LINK_TAB_PUBLICATION);
+		//		click(ActionBar.ELEMENT_LINK_TAB_PUBLICATION);
 		waitForElementNotPresent(locator, iTimeout);
 		info(locator.toString() + "is deleted successfully");		
 	}
@@ -135,7 +130,7 @@ public class ContextMenu extends EcmsBase {
 	//	Paste a node
 	public static void pasteNode(By locator) {
 		for (int i =0;; i++){
-			if (i>DEFAULT_TIMEOUT/WAIT_INTERVAL){
+			if (i > ACTION_REPEAT){
 				Assert.fail("Timeout");
 			}
 			rightClickOnElement(locator);

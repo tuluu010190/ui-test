@@ -11,6 +11,7 @@ public class WcmAdmin extends EcmsBase {
 
 	/* Manage ECM Main Functions */ 
 	// Categories and Tags
+	public static final By ELEMENT_WCM_CATEGORY_TAG = By.xpath("//div[contains(text(),'Categories & Tags')]");
 	public static final By ELEMENT_MANAGE_CATEGORIES_LINK = By.linkText("Manage Categories");
 
 	// Content Presentation
@@ -134,7 +135,7 @@ public class WcmAdmin extends EcmsBase {
 
 	//Setup to show [Add symlink] on action bar
 	//Set Add symlink view on action bar
-	public static void setViewSymlink(){
+	public static void setup2ShowViewSymlink(){
 		mouseOver(ELEMENT_LINK_SETUP, false);
 		mouseOver(ELEMENT_MENU_CONTENT_LINK, false);
 		click(ELEMENT_LINK_CONTENT_ADMIN);
@@ -143,7 +144,7 @@ public class WcmAdmin extends EcmsBase {
 		click(ELEMENT_EDIT_VIEW);
 		click(ELEMENT_COLLABORATION);
 		WebElement check = waitForAndGetElement(ELEMENT_SYMLINK_CHECKBOX);
-		if (check.isSelected()==false){
+		if (!check.isSelected()){
 			click(ELEMENT_SYMLINK_CHECKBOX);
 			click(ELEMENT_SAVE_BUTTON);
 		}else{
@@ -173,20 +174,23 @@ public class WcmAdmin extends EcmsBase {
 	// Function to expand node on category tree
 	public static void expandNode(String node, boolean ex){
 		By ELEMENT_EXPAND = By.xpath("//div[@title='" + node + "']/../../a[@class='ExpandIcon exo_taxonomy16x16Icon default16x16Icon']");
-		By ELEMENT_DISEXPAND = By.xpath("//div[@title='" + node + "']/../../a[@class='CollapseIcon exo_taxonomy16x16Icon default16x16Icon']");		  
+		By ELEMENT_COLLAPSE = By.xpath("//div[@title='" + node + "']/../../a[@class='CollapseIcon exo_taxonomy16x16Icon default16x16Icon']");		  
 		//goToNode(By.linkText(node));
 		if (ex && (getElement(ELEMENT_EXPAND) != null)){
 			click(ELEMENT_EXPAND);
 		}
-		if (!ex && (getElement(ELEMENT_DISEXPAND) != null)){
-			click(ELEMENT_DISEXPAND);
+		if (!ex && (getElement(ELEMENT_COLLAPSE) != null)){
+			click(ELEMENT_COLLAPSE);
 		}
 	}
 
 	//Function to add child category for a category
-	public static void addChildCategory(String cat_name, String child_name){
-		info("Add child category " + child_name + "for category " + cat_name);
-		click(By.xpath("//div[@title='"+cat_name+"']/../../td/div/img[@title='Add']"));
+	public static void addChildCategory(String cat_name, String child_name, boolean...grandChild){
+		//Click edit category
+		boolean isGrandChild = grandChild.length>0 ? grandChild[0] : false;
+		if (!isGrandChild) click(By.xpath("//div[@title='" + cat_name + "']/../..//*[@alt='Edit Category Tree']"));
+		info("Add child category " + child_name + " for category " + cat_name);
+		click(By.xpath("//div[@title='" + cat_name + "']/../../td/div/img[@title='Add']"));
 		type(By.id("taxonomyName"),child_name,false);
 		click(ELEMENT_SAVE_BUTTON);
 		expandNode(cat_name,true);
@@ -266,6 +270,18 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Add new category tree: step 2 - Set permission for the category tree.
+	/**
+	 * 
+	 * @param selectUserOrGroup
+	 * @param selectMembership
+	 * @param groupID
+	 * @param membership
+	 * @param user_Per
+	 * @param read
+	 * @param add
+	 * @param set
+	 * @param remove
+	 */
 	public static void addNewCategoryTree_Step2(boolean selectUserOrGroup, boolean selectMembership, String groupID, String membership, 
 			String user_Per, boolean read, boolean add, boolean set, boolean remove){
 		info("-- Add permissions to the category tree --");
@@ -470,7 +486,7 @@ public class WcmAdmin extends EcmsBase {
 		click(ELEMENT_CONTENT_PRESENT);
 		click(ELEMENT_MANAGEMENT_VIEW);
 		click(ELEMENT_ICON_VIEW_WCM_EDIT);
-		click(ELEMENT_PUBLICATION_TAB_LINK);
+		click(ELEMENT_PUBLICATION_TAB);
 		if (!waitForAndGetElement(locator).isSelected())
 			click(locator);
 		click(ELEMENT_SAVE_BUTTON);
@@ -630,7 +646,6 @@ public class WcmAdmin extends EcmsBase {
 	 * @param label: Template's label
 	 * @param groupId: Group string is separate by slash, for example platform/web-contributors
 	 * @param membership: Membership
-	 * @throws Exception
 	 */
 
 	public static void fillAddNewTemplateForm(String templateLabel, String templateName, String groupPath, String membership) {   
@@ -671,7 +686,6 @@ public class WcmAdmin extends EcmsBase {
 	 * 
 	 * @param name : Template name
 	 * @param template : Template view
-	 * @throws Exception
 	 */
 	public static void fillAddNewViewForm(String name, String template) {
 		type(ELEMENT_TEMPLATE_VIEW_NAME, name, true);
@@ -686,7 +700,6 @@ public class WcmAdmin extends EcmsBase {
 	 * Add tab to view
 	 * @param tabname : Tab name
 	 * @param property : Tab Property
-	 * @throws Exception
 	 */
 	public static void addTab(String tabname, String property){
 		click(By.linkText("Add Tab"));
@@ -700,7 +713,6 @@ public class WcmAdmin extends EcmsBase {
 	 * Delete a view
 	 * @param viewName : View Name
 	 * @param confirmMessage : Confirm Message
-	 * @throws Exception
 	 */
 	public static void deleteView(String viewName, String confirmMessage, boolean verify){
 		By locator = By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//img[@class='DeleteIcon']");
@@ -711,7 +723,6 @@ public class WcmAdmin extends EcmsBase {
 	/**
 	 * Edit View 
 	 * @param viewName : View Name
-	 * @throws Exception
 	 */
 	public static void editView(String viewName){
 		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]"));
@@ -723,7 +734,6 @@ public class WcmAdmin extends EcmsBase {
 	 * Create version for a view
 	 * @param viewName : View Name
 	 * @param versionNumber : Number of version that you want to create. It require 2 version at least
-	 * @throws Exception
 	 */
 	public static void createVersion(String viewName, int versionNumber){
 		if(versionNumber < 2){
@@ -740,7 +750,6 @@ public class WcmAdmin extends EcmsBase {
 	 * Restore a view to a certain version
 	 * @param viewName : View Name
 	 * @param orderVersion : Version that want to restore
-	 * @throws Exception
 	 */
 	public static void restoreVersion(String viewName, int orderVersion){
 		editView(viewName);
@@ -755,7 +764,6 @@ public class WcmAdmin extends EcmsBase {
 	 * @param templateContent : Template Content
 	 * @param templateName : Template Name
 	 * @param templateType : Template Type
-	 * @throws Exception
 	 */
 	public static void fillEcmTemplateForm(String templateContent, String templateName, String templateType){
 		type(ELEMENT_ECM_TEMPLATE_CONTENT, templateContent, true);
@@ -768,29 +776,27 @@ public class WcmAdmin extends EcmsBase {
 	/**
 	 * Change mode
 	 * @param mode : 1 for edit mode, 0 for published mode
-	 * @throws Exception
 	 */
-	public static void changeMode(int mode) throws Exception{
-		WebElement content = null;
-		mouseOver(ELEMENT_MENU_EDIT_LINK, false);
-		if(mode == 1) { //Edit mode
-			content = waitForAndGetElement(By.cssSelector("a.ItemIcon.QuickEditUnchecked"));	      
-		}else{ //Public mode
-			content = waitForAndGetElement(By.cssSelector("a.ItemIcon.QuickEditChecked"));
-		}
-		if(content != null) {
-			mouseOverAndClick(ELEMENT_MENU_CONTENT_LINK);         
-			mouseOver(By.xpath("//div[@class='InlineEditing']"), false);	      
-		}
-	}
+//	public static void changeMode(int mode) {
+//		WebElement content = null;
+//		mouseOver(ELEMENT_MENU_EDIT_LINK, false);
+//		if(mode == 1) { //Edit mode
+//			content = waitForAndGetElement(By.cssSelector("a.ItemIcon.QuickEditUnchecked"));	      
+//		}else{ //Public mode
+//			content = waitForAndGetElement(By.cssSelector("a.ItemIcon.QuickEditChecked"));
+//		}
+//		if(content != null) {
+//			mouseOverAndClick(ELEMENT_MENU_CONTENT_LINK);         
+//			mouseOver(By.xpath("//div[@class='InlineEditing']"), false);	      
+//		}
+//	}
 
 	/**
 	 * 
 	 * @param anchor: class of element inside a CLV
 	 * @param icon : Action icon of CLV, for example 
-	 * @throws Exception
 	 */
-	public static void doCLVEditingToolAction(String anchor, String icon) throws Exception {
+	public static void doCLVEditingToolAction(String anchor, String icon) {
 
 		mouseOver(By.xpath("//a[@class='" + anchor + "']"), true);
 		By ELEMENT_ID_OF_SCV =

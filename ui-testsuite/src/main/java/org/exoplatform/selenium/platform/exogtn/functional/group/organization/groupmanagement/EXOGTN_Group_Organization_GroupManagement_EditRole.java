@@ -27,7 +27,7 @@ public class EXOGTN_Group_Organization_GroupManagement_EditRole extends Platform
 	By VERIFY_AFTER_EDIT_ROLE = By.xpath("//td/div[@title='mary']/following::td/div[@title='member']");
 
 	@BeforeMethod()
-	public void beforeTest() throws Exception {
+	public void beforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -66,7 +66,7 @@ public class EXOGTN_Group_Organization_GroupManagement_EditRole extends Platform
 	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

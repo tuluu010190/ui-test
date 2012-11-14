@@ -1,7 +1,7 @@
 package org.exoplatform.selenium.platform.ecms.functional.wcm.categories;
 
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.interactions.Actions;
@@ -19,7 +19,7 @@ public class ECMS_WCM_Categories_CategoryNavigation extends EcmsBase {
 	public static final String DATA_PASS = "gtn";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -28,7 +28,7 @@ public class ECMS_WCM_Categories_CategoryNavigation extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();

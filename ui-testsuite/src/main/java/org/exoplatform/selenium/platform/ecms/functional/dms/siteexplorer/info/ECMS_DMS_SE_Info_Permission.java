@@ -28,7 +28,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	public static final By ELEMENT_DELETE = By.xpath("//div[@title='*:/platform/administrators']/../../td/div/img[@class='DeleteIcon']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -37,7 +37,7 @@ public class ECMS_DMS_SE_Info_Permission extends EcmsBase{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();

@@ -22,7 +22,7 @@ public class ECMS_Admin_ContentType_ManageNodeType extends EcmsBase {
 	String DATA_USER = "john";
 	String DATA_PASS = "gtn";
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -32,7 +32,7 @@ public class ECMS_Admin_ContentType_ManageNodeType extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();
@@ -75,7 +75,7 @@ public class ECMS_Admin_ContentType_ManageNodeType extends EcmsBase {
 			}
 		}
 	}
-	
+
 	@Test
 	public void test05_SearchNodeTypeAll(){
 		String keyword = "*";

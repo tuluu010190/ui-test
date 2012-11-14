@@ -62,22 +62,15 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 	public String UPLOAD_NAME= "FNC_ECMS_FEX_CREATE_06_007_up";
 	public int PAUSE1 = 8000;
 	public int PAUSE2 = 2000;
-	
-	public static final String ELEMENT_DMS_STRUCT_ADVANCE="Advanced";
-	
-	public static final String ELEMENT_DRIVE_SITE_MANAGE= "//a[@title='Sites Management']";
-	public static final String ELEMENT_DRIVE= "//a[@title='Show Drives']";
-	public static final String ELEMENT_PREFERENCE= "//a[@title='Set up your browsing preferences']";
-	public static final String ELEMENT_FRAME_UPLOAD="//iframe[contains(@id,'uploadFrame')]";
+
 	public static final String ELEMENT_PODCAST_LINK_BLANK="//span[contains(text(),'The field \"Link\" is required')]";
 	public static final String ELEMENT_ERROR_ICON="//span[@class='PopupIcon ErrorMessageIcon']";
-	public static final String ELEMENT_NEW_CONTENT_LINK= "//a[@title='New Content']";
-	
+//	public static final String ELEMENT_NEW_CONTENT_LINK= "//a[@title='New Content']";
+
 	public static final String DATA_UPLOAD_FILE= "TestData/FNC_ECMS_FEX_CREATE_06_007.png";
 	public static final String ELEMENT_PODCAST_VALIDATE_OK= "OK";
-	public static final String ELEMENT_PREFER_SAVE= "Save";
 	public static final String ELEMENT_PREFER_DMS_STRUCTURE= "enableStructure";
-	
+
 
 	/** add a podcast document in a content folder
 	 * create a content folder
@@ -96,7 +89,7 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		goToNode(By.xpath("//a[@title='"+ CONT_TITLE + " ']"));
 		pause(2000);
 		goToAddNewContent();
-		
+
 		createNewPodcast(POD_NAME_65, POD_TITLE_65, POD_LINK);
 		//check expected result 
 		waitForElementPresent(By.xpath("//a[@title='"+ POD_TITLE_65 + " ']"));		
@@ -105,10 +98,10 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='"+ POD_TITLE_65 + " ']"));
-		
+
 		//delete content folder
 		deleteDocument(By.xpath("//a[@title='"+ CONT_TITLE + " ']"));
-		
+
 	}
 	/**add a podcast document in a document folder
 	 * create a document folder
@@ -120,7 +113,7 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 	public void test02_AddPodcastDocumentinDocumentFolder() {
 
 		info("Add a podcast document in a document folder");
-		
+
 		//create a document folder
 		createNewDocumentFolder(DOC_TITLE,DOC_NAME);
 		//check whether document folder is created
@@ -130,13 +123,13 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		goToNode(By.xpath("//a[@title='" + DOC_TITLE + " ']"));
 		goToAddNewContent();
 		createNewPodcast(POD_NAME_66, POD_TITLE_66, POD_LINK);
-		
+
 		//check whether podcast document is created
 		waitForElementPresent(By.xpath("//a[@title='" + POD_TITLE_66 + " ']"));
-	
+
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='" + POD_TITLE_66 + " ']"));
-		
+
 		//delete document folder
 		deleteDocument(By.xpath("//a[@title='"+ DOC_TITLE + " ']"));
 	} 
@@ -153,27 +146,27 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		info("Add a podcast document in an article document");
 		//choose a drive
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE_SITE_MANAGE)).click();
-
+		//		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
+		//		waitForAndGetElement(ELEMENT_DRIVE_MANAGE_SITE).click();
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		//create an article
 		goToAddNewContent();
 		createNewArticle(ART_TITLE, ART_NAME, ART_SUM, ART_CONT);
 		waitForElementPresent(By.xpath("//a[@title='" + ART_TITLE + " ']"));
-		
+
 		//create a new podcast
 		goToAddNewContent();
 		createNewPodcast(POD_NAME_67, POD_TITLE_67, POD_LINK);
-	
+
 		//enable DMS structure
 		checkPreferenceOption(ELEMENT_PREFER_DMS_STRUCTURE);
 		//check if to add a podcast
 		waitForElementPresent(By.xpath("//a[@title='"+POD_TITLE_67 + " ']"));
-		
-			
+
+
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='"+POD_TITLE_67 + " ']"));
-		
+
 		//delete article document
 		deleteDocument(By.xpath("//a[@title='" + ART_TITLE + " ']"));
 	}
@@ -189,17 +182,16 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		info("Add a podcast document in a file document");
 		//choose a drive
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE_SITE_MANAGE)).click();
-		
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
+
 		//create a File document 
 		goToAddNewContent();
 		createNewFile(FILE_NAME,FILE_CONT, FILE_TITLE);
 		waitForElementPresent(By.xpath("//a[@title='"+FILE_TITLE + " ']"));
-		
+
 		//check whether New content can be added
-		waitForElementNotPresent(By.xpath(ELEMENT_NEW_CONTENT_LINK));
-		
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
+
 		//delete file document	
 		deleteDocument(By.xpath("//a[@title='"+FILE_TITLE + " ']"));
 	}
@@ -216,18 +208,17 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		info("Add a podcast in a podcast");
 		//choose a drive
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE_SITE_MANAGE)).click();
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 
 		//create a podcast 
 		goToAddNewContent();
 		pause(500);
 		createNewPodcast(POD_NAME_69, POD_TITLE_69, POD_LINK);
 		waitForElementPresent(By.xpath("//a[@title='"+ POD_TITLE_69 + " ']"));
-		
+
 		//check whether to add a new content in a File document
-		waitForElementNotPresent(By.xpath(ELEMENT_NEW_CONTENT_LINK));
-		
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
+
 		//delete podcast document
 
 		//assert isElementPresent(By.linkText(POD_TITLE_69)): "Fail to create a podcast!";
@@ -246,24 +237,23 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		info("Add a podcast document in a sample node document.");
 		//choose a drive
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE_SITE_MANAGE)).click();
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 
 		//create a sample node
 		goToAddNewContent();
 		createNewSampleNode(SAM_TITLE, SAM_NAME, DATA_UPLOAD_FILE);
 		waitForElementPresent(By.xpath("//a[@title='" + SAM_TITLE+ " ']"));
-		
+
 		//create a new podcast
 		goToAddNewContent();
 		pause(500);
 		createNewPodcast(POD_NAME_70, POD_TITLE_70, POD_LINK);
-		
+
 		//Enable DMS structure
 		checkPreferenceOption(ELEMENT_PREFER_DMS_STRUCTURE);
 		//check whether to add a podcast
 		waitForElementPresent(By.xpath("//a[@title='" + POD_TITLE_70 + " ']"));
-	
+
 		goToNode(By.xpath("//a[@title='" + SAM_TITLE+ " ']"));
 
 		//delete podcast
@@ -286,32 +276,31 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		info("Add a podcast document in a file plan!");
 		//choose a drive
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE_SITE_MANAGE)).click();
-		
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
+
 		//create a file plan
 		goToAddNewContent();
 		createNewFilePlan(FPLAN_NAME, FPLAN_cat, FPLAN_DIS, FPLAN_ORI, FPLAN_EVENT);
 		waitForElementPresent(By.xpath("//a[@title='"+ FPLAN_NAME+ " ']"));
-		
+
 		//create a new podcast
 		goToAddNewContent();
 		createNewPodcast(POD_NAME_71, POD_TITLE_71, POD_LINK);
-		
+
 		//Enable DMS structure
 		checkPreferenceOption(ELEMENT_PREFER_DMS_STRUCTURE);
 		//check whether to add a podcast
 		waitForElementPresent(By.xpath("//a[@title='" + POD_TITLE_71 + " ']"));		
-		
+
 		goToNode(By.xpath("//a[@title='"+ FPLAN_NAME+ " ']"));
-		
+
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='" + POD_TITLE_71 + " ']"));
 		assert checkError(): "Error";
 
 		//delete file plan document
 		deleteDocument(By.xpath("//a[@title='"+ FPLAN_NAME + " ']"));
-		
+
 	}
 
 	/** create a podcast in a KoFax document
@@ -326,32 +315,31 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		info("Create a podcast in a KoFax document");
 		//choose a drive
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE_SITE_MANAGE)).click();
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 
 		//create a file plan
 		goToAddNewContent();
 		createNewKofax(KOX_NAME);
 		waitForElementPresent(By.xpath("//a[@title='"+ KOX_NAME + " ']"));
-				
+
 		//create a new podcast
 		goToAddNewContent();
 		createNewPodcast(POD_NAME_72, POD_TITLE_72, POD_LINK);
-	
+
 		//Enable DMS structure
 		checkPreferenceOption(ELEMENT_PREFER_DMS_STRUCTURE);
 		//check whether to create a podcast
 		waitForElementPresent(By.xpath("//a[@title='" + POD_TITLE_72 + " ']"));
 
-	
+
 		goToNode(By.xpath("//a[@title='" + KOX_NAME+ " ']"));
-		
+
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='" + POD_TITLE_72 + " ']"));
 		assert checkError(): "Error";
 
 		//delete file plan document
-		
+
 		deleteDocument(By.xpath("//a[@title='" + KOX_NAME + " ']"));
 	}
 
@@ -366,19 +354,18 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		info("Create a podcast in an uploaded file");
 		//choose a drive
-		
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE_SITE_MANAGE)).click();
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		pause(500);
+
 		uploadFile(UPLOAD_NAME, DATA_UPLOAD_FILE);
 		pause(500);
-		
+
 		// check whether the uploaded file can be created
 		waitForElementPresent(By.linkText(UPLOAD_NAME + ".png"));
 		//check whether to show New content link
 		goToNode(By.xpath("//a[@title='"+UPLOAD_NAME + ".png ']"));
-		waitForElementNotPresent(By.xpath(ELEMENT_NEW_CONTENT_LINK));
-				
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
+
 		//delete document
 		pause(1000);
 		deleteDocument(By.xpath("//a[@title='"+UPLOAD_NAME + ".png ']"));
@@ -405,13 +392,12 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 
 		info("Create a podcast with blank link");
 		//choose a drive
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE_SITE_MANAGE)).click();
-		
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
+
 		//create a podcast
 		goToAddNewContent();
 		createNewPodcast(POD_NAME_74, POD_TITLE_74, "");
-		
+
 		//check message popup
 		waitForElementPresent(By.xpath(ELEMENT_PODCAST_LINK_BLANK));
 		waitForAndGetElement(By.linkText(ELEMENT_PODCAST_VALIDATE_OK)).click();
@@ -425,16 +411,17 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 	 * check expected result
 	 * delete data
 	 */
+	
 	@Test
 	public void test11_AddPodcastInLockedContentFolder() {
-
 		info("Create a podcast in a locked node");
+
 		//choose a drive
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE)).click();
-		waitForAndGetElement(By.xpath(ELEMENT_DRIVE_SITE_MANAGE)).click();
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
+
 		//create a content folder
 		createNewContentFolder(CONT_TIT_LOCK, CONT_NAME_lock);
-		
+
 		//check if to add a content folder
 		waitForElementPresent(By.xpath("//a[@title='" + CONT_TIT_LOCK + " ']"));
 		// lock the content folder
@@ -442,14 +429,14 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		//open the content folder
 		goToNode(By.xpath("//a[@title='" + CONT_TIT_LOCK + " (Locked by john)']"));
 		goToAddNewContent();
-		
+
 		// create new podcast
 		createNewPodcast(POD_NAME_75, POD_TITLE_75, POD_LINK);
 		goToNode(By.xpath("//a[@title='" + CONT_TIT_LOCK + " (Locked by john)']"));
 
 		//check if to add a podcast in a content folder
 		waitForElementPresent(By.xpath("//a[@title='" + POD_TITLE_75 +" ']"));
-		
+
 		//delete podcast
 		deleteDocument(By.xpath("//a[@title='" + POD_TITLE_75 +" ']"));
 
@@ -458,10 +445,8 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		//delete content folder
 		deleteDocument(By.xpath("//a[@title='" + CONT_TIT_LOCK + " (Locked by john)']"));
 		waitForElementNotPresent("//a[@title='" + CONT_TIT_LOCK + " (Locked by john)']");
-		//assert isElementNotPresent("//a[@title='" + CONT_TIT_LOCK + " (Locked by john)']"): "Fail to remove a content folder!";
-		
 	}
-	
+
 	@BeforeMethod(groups={"file"})
 	public void beforeMethod() {
 		initSeleniumTest();
@@ -477,5 +462,5 @@ public class ECMS_DMS_SE_Podcast extends EcmsBase {
 		logoutEcms();
 		driver.close();
 	}
-	
+
 }

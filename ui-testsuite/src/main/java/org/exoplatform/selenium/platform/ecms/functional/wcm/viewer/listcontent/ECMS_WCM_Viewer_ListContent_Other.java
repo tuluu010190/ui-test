@@ -38,7 +38,7 @@ public class ECMS_WCM_Viewer_ListContent_Other extends EcmsBase {
 	String DATA_PASS = "gtn";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();    
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -47,7 +47,7 @@ public class ECMS_WCM_Viewer_ListContent_Other extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		//logoutEcms();
 		driver.manage().deleteAllCookies();
@@ -59,7 +59,7 @@ public class ECMS_WCM_Viewer_ListContent_Other extends EcmsBase {
 	 * 
 	 */
 	@Test
-	public static void test12_AddNewContentForCLVPage() throws Exception {
+	public static void test12_AddNewContentForCLVPage(){
 		//Change to Edit Mode
 		ContentTemplate.changeEditMode();    
 		waitForElementPresent("//div[contains(@class,'InlineEditing')]");
@@ -80,7 +80,7 @@ public class ECMS_WCM_Viewer_ListContent_Other extends EcmsBase {
 	 * Manage content of a CLV
 	 */
 	@Test
-	public static void test13_ManageContentForCLVPage() throws Exception {
+	public static void test13_ManageContentForCLVPage(){
 		ContentTemplate.changeEditMode();
 		waitForElementPresent("//div[contains(@class,'InlineEditing')]");
 
@@ -88,7 +88,7 @@ public class ECMS_WCM_Viewer_ListContent_Other extends EcmsBase {
 		WcmAdmin.doCLVEditingToolAction("RssIcon","ManageContentIcon");
 
 		// Create Document
-		click(ActionBar.ELEMENT_MENU_NEW_CONTENT_LINK);
+		click(ActionBar.ELEMENT_NEW_CONTENT_LINK);
 		ContentTemplate.createNewArticle("Test Document","test-document", "Test Summary", "Test Content");
 		waitForElementPresent(By.xpath("//div[@class='GtmplTitle' and contains(text(),'Test Document')]"));  
 

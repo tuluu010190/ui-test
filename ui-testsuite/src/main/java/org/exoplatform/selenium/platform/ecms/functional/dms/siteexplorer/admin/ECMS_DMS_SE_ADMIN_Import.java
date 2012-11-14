@@ -19,7 +19,7 @@ public class ECMS_DMS_SE_ADMIN_Import extends EcmsBase {
 	String DATA_USER = "john";
 	String DATA_PASS = "gtn";
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -28,7 +28,7 @@ public class ECMS_DMS_SE_ADMIN_Import extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();
@@ -43,7 +43,7 @@ public class ECMS_DMS_SE_ADMIN_Import extends EcmsBase {
 		By DATA_COTENT_FOLDER_PATH = By.xpath("//a[@title='"+DATA_CONTENT_FOLDER_NAME+" "+"']");
 		String DATA_FILE_LINK = "TestData/sysview.xml";
 		String DATA_FILE_VERSION = "TestData/sysview_versionHistory.zip";
-		
+
 		goToSiteExplorer();
 		goToNode(ELEMENT_ACME_NODE);
 		createNewContentFolder(DATA_CONTENT_FOLDER_NAME, DATA_CONTENT_FOLDER_NAME);
@@ -54,7 +54,7 @@ public class ECMS_DMS_SE_ADMIN_Import extends EcmsBase {
 
 		debug("Import node into content folder");
 		importNode(DATA_FILE_LINK, DATA_FILE_VERSION, "Remove Existing", true);
-		
+
 		//Delete data
 		goToNode(DATA_COTENT_FOLDER_PATH);
 		deleteDocument(DATA_COTENT_FOLDER_PATH);	

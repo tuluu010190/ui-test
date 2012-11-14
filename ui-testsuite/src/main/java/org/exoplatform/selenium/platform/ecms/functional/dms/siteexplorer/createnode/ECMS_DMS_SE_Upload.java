@@ -32,7 +32,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	
 	
 	@BeforeMethod
-	  public void beforeMethods() throws Exception {
+	  public void beforeMethods(){
 		initSeleniumTest();
 	    //driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	    driver.get(baseUrl);
@@ -42,7 +42,7 @@ public class ECMS_DMS_SE_Upload extends EcmsBase {
 	  }
 
 	  @AfterMethod
-	  public void afterMethods() throws Exception {
+	  public void afterMethods(){
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();

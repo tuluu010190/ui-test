@@ -16,7 +16,6 @@ import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 public class ECMS_DMS_SE_PictureOnHeadLayoutContent extends EcmsBase {
 	public static String USER = "john";
 	public static String PASS = "gtn";
-	public static final By ELEMENT_DRIVE_SITE_MANAGE= By.xpath("//a[@title='Sites Management']");
 	public static final String DATA_ACME_WEB_CONTENT="acme/web contents";
 	public static final String DATA_PIC_NAME_01="FNC_ECMS_FEX_CREATE_15_01";
 	public static final String DATA_PIC_TITLE_01="FNC_ECMS_FEX_CREATE_15_01";
@@ -48,7 +47,7 @@ public class ECMS_DMS_SE_PictureOnHeadLayoutContent extends EcmsBase {
 		By bPic= By.xpath("//a[@title='"+ DATA_PIC_TITLE_01+ " ']");
 
 		info("Add picture on head layout content");
-		chooseDrive(ELEMENT_DRIVE_SITE_MANAGE);
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		//go to acme/web contents
 		goToNodeByPath(DATA_ACME_WEB_CONTENT);
 		goToAddNewContent();
@@ -65,7 +64,7 @@ public class ECMS_DMS_SE_PictureOnHeadLayoutContent extends EcmsBase {
 	public void test02_AddPictureOnHeadLayoutContentWithBlankField() {
 		
 		info("Add picture on head layout content with blank required fields");
-		chooseDrive(ELEMENT_DRIVE_SITE_MANAGE);
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		//go to acme/web contents
 		goToNodeByPath(DATA_ACME_WEB_CONTENT);
 		goToAddNewContent();
@@ -82,7 +81,7 @@ public class ECMS_DMS_SE_PictureOnHeadLayoutContent extends EcmsBase {
 		By bPic= By.xpath("//a[@title='"+ DATA_PIC_TITLE_01+ " ']");
 
 		info("Add picture on head layout content");
-		chooseDrive(ELEMENT_DRIVE_SITE_MANAGE);
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		//go to acme/web contents
 		goToNodeByPath(DATA_ACME_WEB_CONTENT);
 		goToAddNewContent();

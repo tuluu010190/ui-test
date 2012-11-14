@@ -24,7 +24,7 @@ import static org.exoplatform.selenium.platform.ManageApplications.*;
 public class EXOGTN_Others_Sitemap extends ManageAccount {
 	
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -32,7 +32,7 @@ public class EXOGTN_Others_Sitemap extends ManageAccount {
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		//signOut();
 		driver.quit();
 	}
@@ -44,7 +44,6 @@ public class EXOGTN_Others_Sitemap extends ManageAccount {
 	 */
 	@Test
 	public void test01_CheckSiteMapPortlet () {
-		By ELEMENT_IMPORT_ALL_BUTTON = By.xpath("//div[text()='Import Applications']");
 		String DATA_NODE_NAME = "Sitemap1";
 		String DATA_LANGUAGE = "English";
 		String DATA_CATEGORY_TITLE = "Navigation";
@@ -58,7 +57,7 @@ public class EXOGTN_Others_Sitemap extends ManageAccount {
 		showImportApplication(true);
 			
 		info("Import all apps");
-		click(ELEMENT_IMPORT_ALL_BUTTON);
+		click(ELEMENT_IMPORT_APPLICATION);
 		waitForConfirmation("This will automatically import all gadgets and portlets into new categories.");
 		pause(2000);
 		

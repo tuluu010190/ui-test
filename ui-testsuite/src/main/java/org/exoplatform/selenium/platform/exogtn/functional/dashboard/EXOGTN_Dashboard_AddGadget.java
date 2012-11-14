@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 
 import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.DashBoard.*;
 
 /**
  *@author NhungVT
@@ -19,17 +20,11 @@ public class EXOGTN_Dashboard_AddGadget extends PlatformBase
 {
 	//Define data
 	public String GADGET_NAME = "Hangman";
-	public By ADD_GADGETS_LINK = By.xpath("//a[text()='Add Gadgets']");
-	public By GADGET_URI_INPUT = By.xpath("//input[@id='url']");
-	public By ADD_GADGET_BUTTON = By.xpath("//img[@title='Add Gadget']");
-	public By CLOSE_WINDOW_BUTTON = By.xpath("//a[@title='Close Window']");
-	public By MAXIMIZE_ICON = By.xpath("//span[text()='"+GADGET_NAME+"']/preceding::span[@title='Maximize']");
-	
+	public By MAXIMIZE_ICON = By.xpath("//span[text()='"+ GADGET_NAME+"']/preceding::span[@title='Maximize']");
 	public String GADGET_URI = "http://www.labpixies.com/campaigns/hangman/hangman.xml";
-	public String DRAG_GADGETS_HERE_MESSAGE = "Drag your gadgets here.";
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception 
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		actions = new Actions(driver);
@@ -54,18 +49,18 @@ public class EXOGTN_Dashboard_AddGadget extends PlatformBase
 	{
 		//Goto DashBoard
 		goToDashboard();
-		waitForTextPresent(DRAG_GADGETS_HERE_MESSAGE);
+		waitForTextPresent(MESSAGE_DRAG_GADGETS_HERE);
 		
 		//Click on Add Gadgets link
-		waitForElementPresent(ADD_GADGETS_LINK);
-		click(ADD_GADGETS_LINK);
+		waitForElementPresent(ELEMENT_ADD_GADGETS_LINK);
+		click(ELEMENT_ADD_GADGETS_LINK);
 		
 		//Add "http://www.labpixies.com/campaigns/hangman/hangman.xml" into Gadget list
-		type(GADGET_URI_INPUT, GADGET_URI, true);
-		click(ADD_GADGET_BUTTON);
+		type(ELEMENT_GADGET_URI_INPUT, GADGET_URI, true);
+		click(ELEMENT_ADD_GADGET_BUTTON);
 		
-		waitForElementPresent(CLOSE_WINDOW_BUTTON);
-		click(CLOSE_WINDOW_BUTTON);
+		waitForElementPresent(ELEMENT_CLOSE_WINDOW);
+		click(ELEMENT_CLOSE_WINDOW);
 		
 		//Verify Gadget is added into Dashboard
 		waitForTextPresent(GADGET_NAME);
@@ -82,7 +77,7 @@ public class EXOGTN_Dashboard_AddGadget extends PlatformBase
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		driver.quit();
 	}

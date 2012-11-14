@@ -40,7 +40,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_CopyPaste extends Platf
 	public String SAME_PLACE_MESSAGE = "This node name already exists.";
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -415,7 +415,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_CopyPaste extends Platf
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception 
+	public void afterTest() 
 	{
 		signOut();
 		driver.quit();

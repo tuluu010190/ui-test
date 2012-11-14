@@ -30,7 +30,7 @@ public class ECMS_WCM_SEO_Appearance extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();

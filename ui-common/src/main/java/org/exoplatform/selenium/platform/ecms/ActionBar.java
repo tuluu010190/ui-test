@@ -9,20 +9,18 @@ import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 public class ActionBar extends EcmsBase {
 
 	//publication TAB
+	public static By ELEMENT_PUBLICATION_TAB= By.xpath("//a[contains(text(),'Publication')]");
 	public static By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");
 	public static By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
 	public static By ELEMENT_ADD_ITEM	 = By.xpath("//img[@title='Add Item']");
 	public static By ELEMENT_EDIT_LINK= By.xpath("//a[@title='Edit']");
-	public static By ELEMENT_MENU_NEW_CONTENT_LINK = By.linkText("New Content");
+	public static By ELEMENT_NEW_CONTENT_LINK = By.linkText("New Content");
 	public static By ELEMENT_CATEGORIES_LINK = By.xpath("//a[text()='Categories']");
-
 	public static By ELEMENT_PUBLICATION = By.linkText("Publications");
 	public static By ELEMENT_VERSIONS_LINK=By.linkText("Versions");
-	public static By ELEMENT_PUBLICATION_TAB_LINK= By.xpath("//a[contains(text(),'Publication')]");
 	public static By ELEMENT_OVERLOAD_THUMBNAIL = By.linkText("Overload Thumbnail");
 
 	//System TAB
-	//	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[@class='TabLabel' and @title='System']");
 	public static By ELEMENT_SYSTEM_TAB = By.linkText("System");
 	public static By ELEMENT_PERMISSION_LINK = By.linkText("Permissions");
 	public static By ELEMENT_EXPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ExportNodeIcon' and @title='Export']");
@@ -64,57 +62,27 @@ public class ActionBar extends EcmsBase {
 	public static By ELEMENT_TEXTBOX_VERSION=By.id("label");
 
 
-	// Add a category
-	public static void addCategory(String name)
+	// Add a category in DMS Administration - Simple View
+	public static void addCategoryInSimpleView(String name)
 	{
-		click(ELEMENT_BUTTON_ADD_CATE);
-		waitForElementPresent(ELEMENT_ADD_CATE_POP);
-		type(ELEMENT_INPUT_CATE_NAME, name, false);
+		click(ELEMENT_BUTTON_ADD_CATEGORY);
+		waitForElementPresent(ELEMENT_ADD_CATEGORY_FORM);
+		type(ELEMENT_INPUT_CATEGORY_NAME, name, false);
 		click(ELEMENT_SAVE_BUTTON);
 		waitForElementPresent(By.xpath("//a[@title='"+ name + " ']"));
 	}
 
-	//System tab
-//	public static void setPermissionAddNodeForUser(String user,int permission,int delete){
-//		click(ELEMENT_SYSTEM_TAB);
-//		click(ELEMENT_PERMISSION_LINK);
-//		click(ELEMENT_SELECT_USER);
-//		if (delete ==1){
-//			click(ELEMENT_DELETE_PERMISSION);
-//			acceptAlert();
-//		}
-//		type(ELEMENT_SEARCH_TEXTBOX,user, false);
-//		click(ELEMENT_SEARCH_LINK);
-//		pause(500);
-//		click(ELEMENT_SEARCH_CHOOSE);
-//		pause(500);
-//		if (waitForAndGetElement(ELEMENT_READ_CHECKBOX).isSelected()==false){
-//			click(ELEMENT_READ_CHECKBOX);
-//		}
-//		if (permission==1){
-//			if (waitForAndGetElement(ELEMENT_ADD_NODE_CHECKBOX).isSelected()==true){
-//				click(ELEMENT_ADD_NODE_CHECKBOX);
-//			}
-//		}else{
-//			if (waitForAndGetElement(ELEMENT_ADD_NODE_CHECKBOX).isSelected()==false){
-//				click(ELEMENT_ADD_NODE_CHECKBOX);
-//			}
-//		}
-//		click(ELEMENT_SAVE_BUTTON);
-//		click(ELEMENT_CLOSE_BUTTON);
-//	}
-
 	//Go to new content
 	public static void goToAddNewContent(){
-		waitForElementPresent(ELEMENT_MENU_NEW_CONTENT_LINK);
-		for (int repeat = 0;; repeat++)	{	
+		waitForElementPresent(ELEMENT_NEW_CONTENT_LINK);
+		for (int repeat = 1;; repeat++)	{	
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
 			}
-			mouseOver(ELEMENT_MENU_NEW_CONTENT_LINK, true);
-			click(ELEMENT_MENU_NEW_CONTENT_LINK);
+			mouseOver(ELEMENT_NEW_CONTENT_LINK, true);
+			click(ELEMENT_NEW_CONTENT_LINK);
 
-			if (waitForElementNotPresent(ELEMENT_MENU_NEW_CONTENT_LINK,30000,0) == null) return;
+			if (waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK, 30000,0) == null) return;
 			pause(WAIT_INTERVAL);
 			info("retry...[" + repeat + "]");
 		}
@@ -129,7 +97,7 @@ public class ActionBar extends EcmsBase {
 			mouseOver(ELEMENT_COLLABORATION_TAB, true);
 			click(ELEMENT_COLLABORATION_TAB);
 
-			if (waitForElementPresent(ELEMENT_TAG,30000,0) != null) return;
+			if (waitForElementPresent(ELEMENT_TAG, 30000, 0) != null) return;
 			pause(WAIT_INTERVAL);
 			info("retry...[" + repeat + "]");
 		}
@@ -137,14 +105,14 @@ public class ActionBar extends EcmsBase {
 
 	public static void goToEditDocument(String title)
 	{	
-		for(int second=0;;second++)
+		for(int loop = 1;;loop ++)
 		{
-			if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
-				Assert.fail("Timeout to go to the edit page: " + title );
+			if (loop >= ACTION_REPEAT) {
+				Assert.fail("Cannot go to the edit page: " + title );
 			}
 			click(ELEMENT_EDIT_LINK);
-			waitForElementPresent(ELEMENT_SAVE_CLOSE_BUTTON,50000);
-			if (waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON,50000).isDisplayed()) break;
+			if (waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON, 50000).isDisplayed()) 
+				break;
 		}
 	}
 
@@ -157,10 +125,10 @@ public class ActionBar extends EcmsBase {
 		if (path!=null){
 			click(path);
 		}
-		if (name!="Documents.lnk" ){
+		if (name != "Documents.lnk" ){
 			type(ELEMENT_SYMLINK_NAME,name,true);
 		}
-		assert getValue(ELEMENT_SYMLINK_NAME).contentEquals(name):"Symlink name is not true";
+		assert getValue(ELEMENT_SYMLINK_NAME).equalsIgnoreCase(name);
 		click(ELEMENT_SAVE_BUTTON); 
 	}
 
@@ -380,13 +348,7 @@ public class ActionBar extends EcmsBase {
 
 	//Function to add a user to group and choose membership type
 	public static void clickUpLevel(){
-		//By ELEMENT_ROOT = By.xpath("//div[@class='BreadcumbsInfoBar ClearFix']/a[1]");
-
-		//WebElement root = getElement(ELEMENT_ROOT);
-		//if (root != null){
-		//	click(ELEMENT_ROOT);
 		click(By.xpath("//*[@id='UITaxonomyTreeCreateChild']//a[@class='LevelUpArrowIcon']"));
-		//}
 		pause(500);
 	}
 
@@ -402,7 +364,7 @@ public class ActionBar extends EcmsBase {
 			info("User is not found");
 		}
 	}
-	
+
 	/*
 	 * Add version for a node
 	 * + locator: locator of node
@@ -410,7 +372,7 @@ public class ActionBar extends EcmsBase {
 	 */
 	public static void addVersionForNode(By locator, String vesion){
 		goToNode(locator);
-		click(ELEMENT_PUBLICATION_TAB_LINK);
+		click(ELEMENT_PUBLICATION_TAB);
 		clearCache();
 		click(ELEMENT_VERSIONS_LINK);
 		click(ELEMENT_ICON_VERSION_ADD);

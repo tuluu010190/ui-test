@@ -41,7 +41,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 	public String MESSAGE_CANNOT_DELETE_GROUP = "Cannot delete the group *:/platform/administrators.";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -50,8 +50,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
-		info("Logout ECMS");
+	public void afterMethods() {
 		driver.quit();
 		actions = null;
 	}
@@ -90,7 +89,6 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 
 		info("-- SignOut--");
 
-//		signOut();
 		logoutEcms();
 	}
 
@@ -134,10 +132,8 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 
 		info("-- Restore original data --");
 
-		signOut();
-
-		driverTest.get(baseUrl);
-
+		logoutEcms();
+		
 		signIn(DATA_USER, DATA_PASS);
 
 		goToSiteExplorer();
@@ -573,15 +569,10 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 	public void lockNodeInSE(String titleArticle, String nameArticle, String summaryArticle, String contentArticle){
 		By elementCopiedArticleUnLock = By.xpath("//a[@title='" + titleArticle +" " + "']");
 		String elementLockedArticleIcon = ELEMENT_ARTICLE_LOCKED_BY_ADMIN.replace("${titleOfFile}", titleArticle); 
-
 		goToSiteExplorer();
-
 		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
-
 		goToNodeByPath("acme/documents");
-
 		goToAddNewContent();
-
 		createNewArticle(titleArticle, nameArticle, summaryArticle, contentArticle);
 
 		waitForTextPresent(titleArticle);

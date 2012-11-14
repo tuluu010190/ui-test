@@ -13,7 +13,7 @@ public class EXOGTN_LogInOut extends PlatformBase{
 	public String MESSAGE_FAILED = "Sign in failed. Wrong username or password.";
 	
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -21,7 +21,7 @@ public class EXOGTN_LogInOut extends PlatformBase{
 	}
 	
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.quit();		
 	}
 	

@@ -20,7 +20,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_AddCategory extends
 	boolean verify = true;
 
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -28,7 +28,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_AddCategory extends
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}

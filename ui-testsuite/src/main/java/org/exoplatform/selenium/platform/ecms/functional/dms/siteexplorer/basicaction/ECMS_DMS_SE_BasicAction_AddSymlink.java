@@ -1,9 +1,7 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.basicaction;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
 import java.util.List;
-
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -26,15 +24,10 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	public static final String DATA_USER = "john";
 	public static final String DATA_PASS = "gtn";
 	public static final By ELEMENT_SELECT_PATH_DOCUMENTS = By.xpath("//div[contains(text(),'Documents')]/../../td/a/div[@class='Select16x16Icon']");
-	public static final By ELEMENT_DOCUMENT_SYMLINK = By.xpath("//a[@title='Documents.lnk ']");
 	public static final By ELEMENT_LIVE = By.xpath("//a[@title='Live ']");
-	public static final By ELEMENT_ACME_DIV = By.xpath("//div[@title='acme']");
-	public static final By ELEMENT_ACME = By.xpath("//a[@title='acme ']");
-	public static final By ELEMENT_DOCUMENT = By.xpath("//a[@title='documents ']");
-	public static final By ELEMENT_CLOSE = By.xpath("//a[@title='Close Window']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -43,7 +36,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();
@@ -59,12 +52,12 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	  @Test
 	  public void test01_CheckFormAddSymlinkForNode(){		  
 		  //set view add symlink
-		  setViewSymlink();	
+		  setup2ShowViewSymlink();	
 		  
 		  //go to add symlink
 		  info("Add symlink for acme node");
 		  goToSiteExplorer();
-		  goToNode(ELEMENT_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
 		  click(ELEMENT_COLLABORATION);
 		  click(ELEMENT_ADD_SYMLINK);
 		  
@@ -166,7 +159,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  
 		  //add symlink for root
 		  info("Add symlink for root");
-		  addSymlink(ELEMENT_SELECT_PATH_DOCUMENTS,DATA_SYMLINK);
+		  addSymlink(ELEMENT_SELECT_PATH_DOCUMENTS, DATA_SYMLINK);
 		  
 		  //check symlink
 		  waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
@@ -539,12 +532,12 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 		  
 		  //create symlink for acme/document
-		  goToNode(ELEMENT_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
 		  info("Add symlink for documents");
-		  rightClickOnElement(ELEMENT_DOCUMENT);
+		  rightClickOnElement(ELEMENT_SIDEBAR_ACME_DOCUMENTS);
 		  waitForElementPresent(ELEMENT_ADD_SYMLINK);
 		  click(ELEMENT_ADD_SYMLINK);
-		  goToNode(ELEMENT_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
 		  waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
 		  assert isElementPresent(ELEMENT_DOCUMENT_SYMLINK):"Add new symlink unsuccessfully";
 		  info("Add symlink for documents successfully");
@@ -553,16 +546,16 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  goToNode(ELEMENT_CONTENT_FOLDER);
 		  goToNode(ELEMENT_COLLABORATION);
 		  goToTargetNodeInRoot();
-		  usePaginator(ELEMENT_ACME_DIV,"cannot found acme node");
-		  click(ELEMENT_ACME_DIV); 
+		  usePaginator(ELEMENT_VIEWAREA_ACME,"cannot found acme node");
+		  click(ELEMENT_VIEWAREA_ACME); 
 		  
 		  waitForElementNotPresent(ELEMENT_SYMLINK);
 		  info("cannot select target node is a symlink node");
-		  click(ELEMENT_CLOSE);
+		  click(ELEMENT_CLOSE_WINDOW);
 		  		  
 		  //delete data
 		  deleteData(ELEMENT_CONTENT_FOLDER);
-		  goToNode(ELEMENT_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
 		  deleteData(ELEMENT_DOCUMENT_SYMLINK);
 
 	  }
@@ -574,7 +567,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	  public void test16_AddSymlinkWithBlankName(){
 		  //go to acme
 		  goToSiteExplorer();
-		  goToNode(ELEMENT_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
 		  
 		  //add symlink with blank name
 		  info("Add symlink with blank name");
@@ -593,7 +586,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	  public void test17_AddSymlinkWithBlankPathNode(){		  
 		  //go to acme
 		  goToSiteExplorer();
-		  goToNode(ELEMENT_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
 		  
 		  //add symlink with path node blank
 		  info("Add symlink with blank path node");
@@ -615,7 +608,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	  public void test18_AddSymlinkWithNameContainsSpecialCharacter(){
 		  //go to acme
 		  goToSiteExplorer();
-		  goToNode(ELEMENT_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
 		  
 		  //add symlink with blank name
 		  info("Add symlink with name contains special characters");
@@ -650,8 +643,8 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  
 		  //create new node - content folder
 		  info("create new content folder");
-		  goToNode(ELEMENT_ACME);
-		  goToNode(ELEMENT_DOCUMENT);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME_DOCUMENTS);
 		  createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 		  
 		  //check cannot add symlink for this node with system workspace
@@ -707,8 +700,8 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  goToSiteExplorer();
 		  
 		  //add symlink and choose target node
-		  goToNode(ELEMENT_ACME);
-		  goToNode(ELEMENT_DOCUMENT);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME_DOCUMENTS);
 		  info("Add symlink for document");
 		  waitForElementPresent(ELEMENT_COLLABORATION, 10000, 1);
 		  goToNode(ELEMENT_COLLABORATION);
@@ -718,7 +711,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  usePaginator(ELEMENT_CONTENT_DIV,"cannot found content folder node");
 		  waitForElementNotPresent(ELEMENT_CONTENT_DIV);
 		  info("cannot see node when user does not have view permission");
-		  click(ELEMENT_CLOSE);
+		  click(ELEMENT_CLOSE_WINDOW);
 		  
 		  //delete data
 		  info("Delete content folder");
@@ -1035,8 +1028,8 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  assert checkLockNode(ELEMENT_CONTENT_FOLDER):"Lock node unsuccessfully";
 		  
 		  //go to acme/documents
-		  goToNode(ELEMENT_ACME);
-		  goToNode(ELEMENT_DOCUMENT);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME_DOCUMENTS);
 		  
 		  //add symlink for node to locked content node
 		  info("Add symlink for documents to locked node");
@@ -1530,8 +1523,8 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  
 		  //add content folder for symlink
 		  goToNode(ELEMENT_CONTENT_FOLDER_2_SYMLINK);
-		  waitForElementPresent(ELEMENT_PUBLICATION_TAB_LINK);
-		  goToNode(ELEMENT_PUBLICATION_TAB_LINK);
+		  waitForElementPresent(ELEMENT_PUBLICATION_TAB);
+		  goToNode(ELEMENT_PUBLICATION_TAB);
 		  createAndCheckContentFolder(DATA_CONTENT_FOLDER_3, ELEMENT_CONTENT_FOLDER_3);
 		  
 		  //delete data

@@ -29,7 +29,7 @@ public class PortalManagement extends PlatformBase {
 				setViewPermissions(key, permissions.get(key));
 			}
 		}
-		click(ELEMENT_LINK_EDIT_PERMISSION);
+		click(ELEMENT_EDIT_PERMISSION_SETTING);
 		setEditPermissions(editGroupId, editMembership);
 		save();
 	}
@@ -61,7 +61,7 @@ public class PortalManagement extends PlatformBase {
 				setViewPermissions(key, permissions.get(key));
 			}
 		}
-		click(ELEMENT_LINK_EDIT_PERMISSION);
+		click(ELEMENT_EDIT_PERMISSION_SETTING);
 		setEditPermissions(editGroupId, editMembership);
 		save();
 	}
@@ -73,8 +73,8 @@ public class PortalManagement extends PlatformBase {
 		click(portalDeleteIcon);
 		waitForConfirmation("Are you sure to delete this portal?");
 		//info("--Verify portal is deleted--");
-		pause(30000);
-		waitForTextNotPresent(portalName);
+		//		pause(30000);
+		waitForTextNotPresent(portalName, 180000);
 	}
 
 	//Verify the existence of portal

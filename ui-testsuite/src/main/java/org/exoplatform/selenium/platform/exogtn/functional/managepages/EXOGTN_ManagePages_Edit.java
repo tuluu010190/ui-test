@@ -17,35 +17,12 @@ import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 import static org.exoplatform.selenium.platform.UserGroupManagement.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 
 public class EXOGTN_ManagePages_Edit extends PlatformBase {
-	//Define data
-	By ELEMENT_VIEWPAGEPRO_BUTTON = By.linkText("View Page properties");
-	By ELEMENT_PERMISSION_SET_TAB = By.xpath("//div[text()='Permission Settings']");
-	By ELEMENT_EDIT_PERMISSION_SET = By.xpath("//a[text()='Edit Permission Settings']");
-	By ELEMENT_SELECT_PERMISSION = By.linkText("Select Permission");
-	By GROUP_PLATFORM = By.linkText("Platform");
-	By GROUP_ADMIN = By.linkText("Administration");
-	By ELEMENT_MEMBERSHIP_MEMBER = By.linkText("member");
-	By ELEMENT_FINISH_BUTTON = By.xpath("//a[@title='Finish']");
-	By ELEMENT_EDIT_PAGE_LINK = By.linkText("Edit");
-	By ELEMEMT_PAGE_MENU = By.linkText("Page");
-	By ELEMENT_PAGE_LAYOUT = By.linkText("Layout");
-	By ELEMENT_PUBLIC_CHECKBOX = By.xpath("//input[@name='publicMode']");
-	By ELEMENT_ABORT_BUTTON = By.xpath("//a[@title='Abort']");
-	By ELEMENT_CANCEL_BUTTON = By.linkText("Cancel");
-
-	//Edit a page at Manage Pages
-	public void editPageAtManagePages(PageType type, String pageTitle){
-		String pageEditIcon = ELEMENT_PAGE_EDIT_ICON.replace("${page}", pageTitle);
-		searchPageByTitle(type, pageTitle);
-		click(pageEditIcon);
-		pause(1000);
-
-	}
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -53,7 +30,7 @@ public class EXOGTN_ManagePages_Edit extends PlatformBase {
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		signOut();
 		driver.quit();
 	}
@@ -105,11 +82,11 @@ public class EXOGTN_ManagePages_Edit extends PlatformBase {
 		editPageAtManagePages(PageType.GROUP, "Page Management");
 
 		//edit access right for page management
-		waitForElementPresent(ELEMENT_VIEWPAGEPRO_BUTTON);
-		click(ELEMENT_VIEWPAGEPRO_BUTTON);
+		waitForElementPresent(ELEMENT_VIEW_PAGE_PROPERTIES);
+		click(ELEMENT_VIEW_PAGE_PROPERTIES);
 
-		waitForElementPresent(ELEMENT_PERMISSION_SET_TAB);
-		click(ELEMENT_PERMISSION_SET_TAB);
+		waitForElementPresent(ELEMENT_PERMISSION_SETTING_TAB);
+		click(ELEMENT_PERMISSION_SETTING_TAB);
 
 		debug("Set view permission for page management");
 		setViewPermissions("Platform/Administration", "*");
@@ -117,8 +94,8 @@ public class EXOGTN_ManagePages_Edit extends PlatformBase {
 
 		//Change edit permission of page
 
-		waitForElementPresent(ELEMENT_EDIT_PERMISSION_SET);
-		click(ELEMENT_EDIT_PERMISSION_SET);
+		waitForElementPresent(ELEMENT_EDIT_PERMISSION_SETTING);
+		click(ELEMENT_EDIT_PERMISSION_SETTING);
 
 		debug("Set edit permission for page management");
 		setEditPermissions("Platform/Administration", "member");
@@ -127,8 +104,8 @@ public class EXOGTN_ManagePages_Edit extends PlatformBase {
 		save();
 
 		debug("click finish button");
-		waitForElementPresent(ELEMENT_FINISH_BUTTON);
-		click(ELEMENT_FINISH_BUTTON);
+		waitForElementPresent(ELEMENT_FINISH_ICON);
+		click(ELEMENT_FINISH_ICON);
 
 		//Add new page for portal
 		debug("Add new page for portal");
@@ -139,22 +116,22 @@ public class EXOGTN_ManagePages_Edit extends PlatformBase {
 		editPageAtManagePages(PageType.PORTAL, PAGE_TITLE);
 
 		debug("Change edit permission of new page");
-		waitForElementPresent(ELEMENT_VIEWPAGEPRO_BUTTON);
-		click(ELEMENT_VIEWPAGEPRO_BUTTON);
+		waitForElementPresent(ELEMENT_VIEW_PAGE_PROPERTIES);
+		click(ELEMENT_VIEW_PAGE_PROPERTIES);
 
-		waitForElementPresent(ELEMENT_PERMISSION_SET_TAB);
-		click(ELEMENT_PERMISSION_SET_TAB);
+		waitForElementPresent(ELEMENT_PERMISSION_SETTING_TAB);
+		click(ELEMENT_PERMISSION_SETTING_TAB);
 
-		waitForElementPresent(ELEMENT_EDIT_PERMISSION_SET);
-		click(ELEMENT_EDIT_PERMISSION_SET);
+		waitForElementPresent(ELEMENT_EDIT_PERMISSION_SETTING);
+		click(ELEMENT_EDIT_PERMISSION_SETTING);
 
 		debug("Set edit permission for new page");
 		setEditPermissions("Platform/Administration", "member");
 
 		save();
-		waitForElementPresent(ELEMENT_FINISH_BUTTON);
-		click(ELEMENT_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_FINISH_BUTTON);
+		waitForElementPresent(ELEMENT_FINISH_ICON);
+		click(ELEMENT_FINISH_ICON);
+		waitForElementNotPresent(ELEMENT_FINISH_ICON);
 	
 
 		signOut();
@@ -163,14 +140,15 @@ public class EXOGTN_ManagePages_Edit extends PlatformBase {
 		//Login new user and view edit page form
 		signIn(USER_NAME, "123456");
 		goToManagePages();
-		mouseOver(ELEMENT_EDIT_PAGE_LINK, true);
-		mouseOver(ELEMEMT_PAGE_MENU, true);
-		mouseOverAndClick(ELEMENT_PAGE_LAYOUT);
+//		mouseOver(ELEMENT_EDIT_PAGE_LINK, true);
+//		mouseOver(ELEMEMT_PAGE_MENU, true);
+//		mouseOverAndClick(ELEMENT_PAGE_LAYOUT);
+		goToEditPageEditor();
 		waitForTextPresent("View Page properties");
 
 		//Abort edit page form
-		click(ELEMENT_ABORT_BUTTON);
-		waitForElementNotPresent(ELEMENT_ABORT_BUTTON);
+		click(ELEMENT_ABORTEDIT_BUTTON);
+		waitForElementNotPresent(ELEMENT_ABORTEDIT_BUTTON);
 		signOut();
 		driver.get(baseUrl);
 
@@ -212,31 +190,31 @@ public class EXOGTN_ManagePages_Edit extends PlatformBase {
 
 		//Go to view page properties
 		debug("Click view page properties");
-		waitForElementPresent(ELEMENT_VIEWPAGEPRO_BUTTON);
-		click(ELEMENT_VIEWPAGEPRO_BUTTON);
+		waitForElementPresent(ELEMENT_VIEW_PAGE_PROPERTIES);
+		click(ELEMENT_VIEW_PAGE_PROPERTIES);
 
 		//Change page title
 		debug("Change page title");
-		type(ELEMENT_INPUT_TITLE, "FNC_GTN_POR_MNP_22_021_test", true);
+		type(ELEMENT_VIEWPAGE_PAGETITLE, "FNC_GTN_POR_MNP_22_021_test", true);
 
 		debug("Save edit properties form");
 		save();
 
 		debug("click finish button");
-		waitForElementPresent(ELEMENT_FINISH_BUTTON);
-		click(ELEMENT_FINISH_BUTTON);
+		waitForElementPresent(ELEMENT_FINISH_ICON);
+		click(ELEMENT_FINISH_ICON);
 
 		//Open edit page form again and verify new page title
 		editPageAtManagePages(PageType.PORTAL, "FNC_GTN_POR_MNP_22_021_test");
 
 		debug("Click view page properties");
-		waitForElementPresent(ELEMENT_VIEWPAGEPRO_BUTTON);
-		click(ELEMENT_VIEWPAGEPRO_BUTTON);
+		waitForElementPresent(ELEMENT_VIEW_PAGE_PROPERTIES);
+		click(ELEMENT_VIEW_PAGE_PROPERTIES);
 		waitForElementPresent(By.xpath("//input[@id='title' and @value='FNC_GTN_POR_MNP_22_021_test']"));
 
 		debug("Cancel and abort edit page form");
 		click(ELEMENT_CANCEL_BUTTON);
-		click(ELEMENT_ABORT_BUTTON);
+		click(ELEMENT_ABORTEDIT_BUTTON);
 
 		//Delete data
 		deletePage(PageType.PORTAL, "FNC_GTN_POR_MNP_22_021_test");

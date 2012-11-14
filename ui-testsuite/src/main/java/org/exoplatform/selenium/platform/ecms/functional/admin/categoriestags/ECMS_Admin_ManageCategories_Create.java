@@ -20,7 +20,7 @@ public class ECMS_Admin_ManageCategories_Create extends EcmsBase {
 	public static final String DATA_PASS = "gtn";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -29,7 +29,7 @@ public class ECMS_Admin_ManageCategories_Create extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();
@@ -52,13 +52,13 @@ public class ECMS_Admin_ManageCategories_Create extends EcmsBase {
 		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites content/live/acme"};
 		String[] DATA2 = {"",""};
 		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:ecm"};
-		
+
 		//go to add new category tree
 		goToContentAdministration();
 
 		//add new category tree
 		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
-		
+
 		//edit category tree at step 4
 		info("Edit category tree");
 		click(By.xpath("//div[@title='" + DATA_CATEGORY_TREE_NAME + "']/../../td/div/img[@class='Edit16x16Icon']"));

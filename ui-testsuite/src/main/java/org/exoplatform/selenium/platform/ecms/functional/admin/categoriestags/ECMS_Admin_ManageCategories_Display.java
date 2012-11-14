@@ -19,11 +19,10 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 	public static final String DATA_PASS = "gtn";
 	public static final By ELEMENT_ADD_CATEGORY_IMG = By.xpath("//img[@title='Add category']");
 	public static final By ELEMENT_ADD_CATEGORY_CHECKBOX = By.id("categoryPro");
-	public static final By ELEMENT_CLOSE_WINDOW = By.xpath("//a[@title='Close Window']");
 	public static final By ELEMENT_ALERT_VISIBLE = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator' and contains(@style,'visible')]");	
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -32,7 +31,7 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();

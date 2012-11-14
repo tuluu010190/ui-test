@@ -35,7 +35,7 @@ public class EXOGTN_GroupNavigation_Node_Move extends PlatformBase
 	By GROUP_NAVIGATION_NEW_POSITION = By.xpath("//div[6]/div/a");
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		driver.get(baseUrl);
@@ -130,7 +130,7 @@ public class EXOGTN_GroupNavigation_Node_Move extends PlatformBase
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

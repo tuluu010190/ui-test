@@ -23,7 +23,6 @@ public class EXOGTN_GroupNavigation_Node_Create extends PlatformBase{
 
 	By ELEMENT_EDIT_NAV_GROUP = By.xpath("//td/div[text()='Administration']/ancestor::tr/td/a[text()='Edit Navigation']");
 	By UP_LEVEL = By.xpath("//a[@title='Up Level']");
-
 	By ADD_NODE_BUTTON = By.xpath("//a[text()='Add Node']");
 	By NODE_NAME = By.xpath("//input[@id='name']");
 	By NODE_LABEL = By.xpath("//input[@id='i18nizedLabel']");
@@ -116,7 +115,7 @@ public class EXOGTN_GroupNavigation_Node_Create extends PlatformBase{
 	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

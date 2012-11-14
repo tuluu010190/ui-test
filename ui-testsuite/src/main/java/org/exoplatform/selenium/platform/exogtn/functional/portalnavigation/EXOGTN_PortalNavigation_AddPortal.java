@@ -14,13 +14,12 @@ import static org.exoplatform.selenium.platform.PortalManagement.*;
 
 public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 	
-	String ELEMENT_CANCEL_BUTTON = "//a[text()='Cancel']";
 	String MESSAGE_PORTAL_NAME_REQUIRED = "The field \"Portal Name:\" is required." ;
 	String MESSAGE_PORTAL_NAME_SPECIAL_CHARACTERS = "The field \"Portal Name:\" must start with a character and must not contain special characters.";
 	String MESSAGE_PORTAL_NAME_EXISTS = "This portal name already exists.";
 	
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -28,7 +27,7 @@ public class EXOGTN_PortalNavigation_AddPortal extends PlatformBase{
 	}
 	
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.quit();
 		
 	}

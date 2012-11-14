@@ -35,7 +35,7 @@ public class EXOGTN_Group_Organization_GroupManagement_Add extends PlatformBase 
 	By UP_LEVEL = By.xpath("//a[@title='Up Level']");
 
 	@BeforeMethod()
-	public void beforeTest() throws Exception {
+	public void beforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -112,7 +112,7 @@ public class EXOGTN_Group_Organization_GroupManagement_Add extends PlatformBase 
 	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

@@ -2,11 +2,11 @@ package org.exoplatform.selenium.platform.ecms.functional.wcm.viewer.listcontent
 
 import static org.exoplatform.selenium.platform.NavigationManagement.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
 import static org.exoplatform.selenium.platform.UserGroupManagement.selectGroup;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 import static org.exoplatform.selenium.TestLogger.*;
@@ -124,7 +124,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		goToEditPageEditor();
 
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 
 		click(ELEMENT_RADIO_MODE_CONTENT);
 
@@ -169,7 +169,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		goToEditPageEditor();
 
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 
 		click(ELEMENT_RADIO_MODE_CONTENT);
 
@@ -211,7 +211,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		goToEditPageEditor();
 
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 
 		click(ELEMENT_RADIO_MODE_CONTENT);
 
@@ -252,7 +252,7 @@ public class ECMS_WCM_Viewer_ListContent_AddNew_SelectContent extends EcmsBase {
 		goToEditPageEditor();
 
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 
 		click(ELEMENT_RADIO_MODE_CONTENT);
 

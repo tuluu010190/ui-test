@@ -23,7 +23,6 @@ public class EXOGTN_Group_Organization_GroupManagement_AddUser extends PlatformB
 	//Define data
 	public String GROUP_MANAGEMENT = "//div[text()='Group Management']";
 	public String DEVELOPMENT_LINK = "//a[@title='Development']";
-	public String OK_BUTTON = "//a[text()='OK']";
 	public String USERNAME_INPUT = "//input[@id='username']";
 	public String USERNAME_DATA = "Barbie";
 	public String SELECT_USER_ICON = "//a[@title='Select User']";
@@ -33,8 +32,7 @@ public class EXOGTN_Group_Organization_GroupManagement_AddUser extends PlatformB
 	public String JOHN_SEARCH_RESULT = "//div[@title='john']";
 	public String JAMES_SEARCH_RESULT = "//div[@title='james']";
 	public String EMPTY_DATA_RESULTS = "Empty Data";
-	public String ADD_BUTTON = "//a[text()='Add']";
-	public String CLOSE_BUTTON = "//a[text()='Close']";
+	public String ELEMENT_ADD_BUTTON = "//a[text()='Add']";
 	
 	//Product message
 	public String USER_WITHOUT_SPECIFY_MESSAGE = "The field \"Username\" is required.";
@@ -44,7 +42,7 @@ public class EXOGTN_Group_Organization_GroupManagement_AddUser extends PlatformB
 	public WebElement ELEMENT = null;
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -73,7 +71,7 @@ public class EXOGTN_Group_Organization_GroupManagement_AddUser extends PlatformB
 		
 		//Confirm alert message
 		waitForTextPresent(USER_WITHOUT_SPECIFY_MESSAGE);
-		click(OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
 		
 		info("-END test01_AddUserIntoGroupWithoutSpecify");
 	}
@@ -99,7 +97,7 @@ public class EXOGTN_Group_Organization_GroupManagement_AddUser extends PlatformB
 		
 		//Confirm alert message
 		waitForTextPresent(UNAVAILABLE_USER_MESSAGE);
-		click(OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
 		
 		info("-END test02_AddUnavailableUserIntogroup");
 	}
@@ -125,7 +123,7 @@ public class EXOGTN_Group_Organization_GroupManagement_AddUser extends PlatformB
 		
 		//Verify Add button & Search input
 		waitForElementPresent(SEARCH_INPUT);
-		waitForElementPresent(ADD_BUTTON);
+		waitForElementPresent(ELEMENT_ADD_BUTTON);
 		
 		//Search available user with completed user name
 		type(SEARCH_INPUT, "demo", true);
@@ -187,7 +185,7 @@ public class EXOGTN_Group_Organization_GroupManagement_AddUser extends PlatformB
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

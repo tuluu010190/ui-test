@@ -9,14 +9,13 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class ContentTemplate extends EcmsBase {
-	
+
 	//Article
 	public static final By ELEMENT_ARTICLE_LINK = By.xpath("//div[@title='Article']");
 	public static final By ELEMENT_ARTICLE_TITLE_TEXTBOX = By.id("title");	
 	public static final By ELEMENT_ARTICLE_NAME_TEXTBOX = By.id("name");
 	public static final By ELEMENT_ARTICLE_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_summary']/iframe");
 	public static final By ELEMENT_ARTICLE_CONTENT_FRAME = By.xpath("//td[@id='cke_contents_content']/iframe");
-	//public static final By ELEMENT_SAVE_CLOSE_BUTTON = By.linkText("Save & Close");
 
 	// Announcement
 	public static final By ELEMENT_ANNOUNCEMENT_LINK = By.linkText("Announcement");
@@ -35,12 +34,13 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.xpath("//div[contains(text(),'Advanced')]");
 	public static final By ELEMENT_WEBCONTENT_CSS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentCSS')]");
 	public static final By ELEMENT_WEBCONTENT_JS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentJS')]");
-	
+
 	//File
 	public static final By ELEMENT_NEWFILE_LINK =By.linkText("File");
 	public static final By ELEMENT_NEWFILE_NAME_TEXTBOX =By.id("name");
 	public static final By ELEMENT_NEWFILE_CONTENT_FRAME = By.xpath("//td[@id='cke_contents_contentHtml']/iframe");
 	public static final By ELEMENT_NEWFILE_TITLE_TEXTBOX =By.id("title0");
+
 	//SampleNode
 	public static final By ELEMENT_SAMPLENODE_LINK =By.linkText("Sample node");
 	public static final By ELEMENT_SAMPLENODE_TITLE_TEXTBOX = By.id("title");
@@ -62,7 +62,7 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_KOFAX_ADDNODE_SELECT = By.id("taxonomyTree");
 	public static final String ELEMENT_KOFAX_ADDNODE_OPTION = "acme";
 	public static final By ELEMENT_KOFAX_ADDNODE_OPTION_LINK = By.xpath("//div[@class='Select16x16Icon']");
-	
+
 	//FilePlan
 	public static final By ELEMENT_FILEPLAN_LINK = By.linkText("File Plan");
 	public static final By ELEMENT_FILEPLAN_NAME = By.id("name");
@@ -79,7 +79,7 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_HEAD_LAYOUT_TITLE_TEXTBOX = By.id("title");	
 	public static final By ELEMENT_HEAD_LAYOUT_UPLOAD_FRAME = By.xpath("//iframe[contains(@id,'uploadFrame')]")	;
 	public static final By ELEMENT_HEAD_LAYOUT_UPLOAD_FILE = By.id("file") ;
-	
+
 	//Product
 	public static final By ELEMENT_PRODUCT_LINK = By.linkText("Product");
 	public static final By ELEMENT_PRODUCT_NAME_TEXTBOX = By.id("name") ;
@@ -87,32 +87,30 @@ public class ContentTemplate extends EcmsBase {
 
 	public static final By ELEMENT_EDIT_NODE_CHECKBOX = By.id("set_property");
 	public static final By ELEMENT_REMOVE_NODE_CHECKBOX = By.id("remove");
-	public static final By ELEMENT_MENU_CONTENT=By.linkText("Content");
-	public static final By ELEMENT_MENU_EDIT=By.xpath("//a[@class='EditorIcon TBIcon' and text()='Edit']");
 	public static final By ELEMENT_UPLOAD_ID = By.id("file");
-	public static final By ELEMENT_UPLOAD_FRAME_EDIT=By.xpath("//iframe[contains(@id,'uploadFrame')]");
-	public static final By ELEMENT_UPLOAD_REMOVE=By.xpath("//img[@alt='Remove Item' and @class='ActionIcon Remove16x16Icon']");
-	public static final By ELEMENT_PIC_FILE_REMOVE=By.xpath("//img[@class='ActionIcon Remove16x16Icon']");
+	public static final By ELEMENT_UPLOAD_FRAME_EDIT = By.xpath("//iframe[contains(@id,'uploadFrame')]");
+	public static final By ELEMENT_UPLOAD_REMOVE = By.xpath("//img[@alt='Remove Item' and @class='ActionIcon Remove16x16Icon']");
+	public static final By ELEMENT_PIC_FILE_REMOVE = By.xpath("//img[@class='ActionIcon Remove16x16Icon']");
 
-	public static final By ELEMENT_UPLOAD_TITLE=By.id("title0");
-	public static final By ELEMENT_UPLOAD_DESC=By.id("description0");
-	public static final By ELEMENT_UPLOAD_CREATOR=By.id("creator0");
-	public static final By ELEMENT_UPLOAD_SOURCE=By.id("source0");
+	public static final By ELEMENT_UPLOAD_TITLE = By.id("title0");
+	public static final By ELEMENT_UPLOAD_DESC = By.id("description0");
+	public static final By ELEMENT_UPLOAD_CREATOR = By.id("creator0");
+	public static final By ELEMENT_UPLOAD_SOURCE = By.id("source0");
 
-	public static final By ELEMENT_FREE_CONT_ACCEPT=By.xpath("//form[contains(@id,'EditTextForm')]/a[2]");
-	public static final By ELEMENT_FREE_CONT_INPUT=By.xpath("//iframe[contains(@title,'Rich text editor, newText')]");
-	public static final String ELEMENT_FREE_CONT_INLINE="//div[contains(@id,'CurrentText') and @title='Double-click to edit']";
-	
-	public static final By ELEMENT_SAMPLE_CONT_ACCEPT=By.xpath("//form[contains(@id,'EditContentForm')]/a[2]");
-	public static final By ELEMENT_SAMPLE_CONT_INPUT=By.xpath("//textarea[contains(@id,'newContent')]");
-	public static final String ELEMENT_SAMPLE_CONT_INLINE="//div[contains(@id,'CurrentContent') and @title='Double-click to edit']";
-	public static final By ELEMENT_SAMPLE_SUM_ACCEPT=By.xpath("//form[contains(@id,'EditSummaryForm')]/a[2]");
-	public static final By ELEMENT_SAMPLE_SUM_INPUT=By.xpath("//textarea[contains(@id,'newSummary')]");
-	public static final String ELEMENT_SAMPLE_SUM_INLINE="//div[contains(@id,'CurrentSummary') and @title='Double-click to edit']";
-	public static final By ELEMENT_SAMPLE_TITLE_ACCEPT=By.xpath("//form[contains(@id,'EditTdGtmplTitleForm')]/a[2]");
-	public static final By ELEMENT_SAMPLE_TITLE_INPUT=By.xpath("//input[contains(@id,'newTdGtmplTitle')]");
-	public static final String ELEMENT_SAMPLE_TITLE_INLINE="//div[contains(@id,'CurrentTdGtmplTitle') and @title='Double-click to edit']";
-	
+	public static final By ELEMENT_FREE_CONT_ACCEPT = By.xpath("//form[contains(@id,'EditTextForm')]/a[2]");
+	public static final By ELEMENT_FREE_CONT_INPUT = By.xpath("//iframe[contains(@title,'Rich text editor, newText')]");
+	public static final String ELEMENT_FREE_CONT_INLINE = "//div[contains(@id,'CurrentText') and @title='Double-click to edit']";
+
+	public static final By ELEMENT_SAMPLE_CONT_ACCEPT = By.xpath("//form[contains(@id,'EditContentForm')]/a[2]");
+	public static final By ELEMENT_SAMPLE_CONT_INPUT = By.xpath("//textarea[contains(@id,'newContent')]");
+	public static final String ELEMENT_SAMPLE_CONT_INLINE = "//div[contains(@id,'CurrentContent') and @title='Double-click to edit']";
+	public static final By ELEMENT_SAMPLE_SUM_ACCEPT = By.xpath("//form[contains(@id,'EditSummaryForm')]/a[2]");
+	public static final By ELEMENT_SAMPLE_SUM_INPUT = By.xpath("//textarea[contains(@id,'newSummary')]");
+	public static final String ELEMENT_SAMPLE_SUM_INLINE = "//div[contains(@id,'CurrentSummary') and @title='Double-click to edit']";
+	public static final By ELEMENT_SAMPLE_TITLE_ACCEPT = By.xpath("//form[contains(@id,'EditTdGtmplTitleForm')]/a[2]");
+	public static final By ELEMENT_SAMPLE_TITLE_INPUT = By.xpath("//input[contains(@id,'newTdGtmplTitle')]");
+	public static final String ELEMENT_SAMPLE_TITLE_INLINE = "//div[contains(@id,'CurrentTdGtmplTitle') and @title='Double-click to edit']";
+
 	//Podcast
 	public static final By ELEMENT_PODCAST_LINK = By.linkText("Podcast");
 	public static final By ELEMENT_PODCAST_NAME_TEXTBOX = By.id("name");
@@ -138,23 +136,24 @@ public class ContentTemplate extends EcmsBase {
 	public static final By ELEMENT_MYSITE_LINK = By.xpath("//a[contains(text(),'My Sites')]");
 	public static final By ELEMENT_ACME_SITE_LINK = By.linkText("acme");
 	public static final By ELEMENT_BODY = By.xpath("//p");
-	
+
+	//JS
 	public static final By ELEMENT_JS_NAME= By.id("name");
 	public static final By ELEMENT_JS_ACTIVE= By.id("activeJS");
 	public static final By ELEMENT_JS_PRIORITY= By.id("JSpriority");
 	public static final By ELEMENT_JS_LANGUAGE= By.id("content-lang");
 	public static final By ELEMENT_JS_DATA= By.id("contentHtml");
-	
+
 	//upload
 	public static final By ELEMENT_UPLOAD_LINK_XPATH = By.xpath("//a[@title='Upload']");
 	public static final By ELEMENT_UPLOAD_FILE_NAME_ID = By.id("name");
 	public static final By ELEMENT_UPLOAD_IMG_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public static final By ELEMENT_UPLOAD_IMG_ID = By.id("file");
-	
+
 	//data test
 	public static final String[] DATA_SPECIAL_CHARACTER = {"`","~","!","@","#","$","%","^","&","*","(",")","-","_","+","=","{","}","[","]","|","\\",";",":","'","\"","<",",",".","/","?"};
 	public static final String DATA_SPECIAL_CHARACTER_STRING = "~`!@#$%^&*()-_=+[]{}\\|;:'\",<.>?/";
-	
+
 	// add new article
 	public static void createNewArticle(String title, String name, String sum, String cont) {
 		click(ELEMENT_ARTICLE_LINK);
@@ -305,7 +304,7 @@ public class ContentTemplate extends EcmsBase {
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
 			}
-			mouseOver(ELEMENT_MENU_NEW_CONTENT_LINK, true);
+			mouseOver(ELEMENT_NEW_CONTENT_LINK, true);
 			click(ELEMENT_NEW_FOLDER_LINK);
 
 			if (waitForElementPresent(ELEMENT_FOLDER_TITLE_TEXTBOX,30000,0) != null) break;
@@ -367,14 +366,14 @@ public class ContentTemplate extends EcmsBase {
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
-	
+
 	public static void createNewCssFile(String name, String prior, String data){
 		type(ELEMENT_CSS_NAME, name, false);
 		type(ELEMENT_CSS_PRIORITY, prior, false);
 		type(ELEMENT_CSS_DATA, data, true);
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
-	
+
 	// Edit content template
 	public static void editArticle(String title, String title_edit, String sum, String cont, By save)
 	{
@@ -398,7 +397,7 @@ public class ContentTemplate extends EcmsBase {
 		if (save != ELEMENT_CLOSE_BUTTON)
 			waitForElementPresent(By.xpath("//a[contains(@title,'"+title_edit+" ')]"),50000);
 	}
-	
+
 	public static void editCssFile(String name, String prior, String data){
 		goToEditDocument(name); 
 		type(ELEMENT_CSS_PRIORITY, prior, true);
@@ -408,8 +407,8 @@ public class ContentTemplate extends EcmsBase {
 	}
 	public static void changeEditMode()
 	{
-		mouseOver(ELEMENT_MENU_EDIT,true);
-		mouseOverAndClick(ELEMENT_MENU_CONTENT);
+		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
+		mouseOverAndClick(ELEMENT_MENU_EDIT_CONTENT);
 	}
 	//edit an article inline
 	public static void editArticleInline(String openField, By frame, By accept, String value)
@@ -525,7 +524,7 @@ public class ContentTemplate extends EcmsBase {
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
-	
+
 
 	public static void editPictureOnHeadLayout (String title, String title_edit, String file){
 		goToEditDocument(title);

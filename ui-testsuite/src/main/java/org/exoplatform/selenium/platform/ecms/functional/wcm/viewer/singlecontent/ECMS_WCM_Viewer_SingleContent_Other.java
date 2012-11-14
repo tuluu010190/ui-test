@@ -7,10 +7,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*; 
 import static org.exoplatform.selenium.platform.NavigationManagement.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
 
 /*
@@ -20,86 +20,86 @@ import static org.exoplatform.selenium.platform.PageManagement.*;
 public class ECMS_WCM_Viewer_SingleContent_Other extends EcmsBase {
 	public static String USER = "john";
 	public static String PASS = "gtn";
-	
-  @Test
-  public void test01_EditContentOfSCVPage() {
-	  String namePage="ECMS_WCM_Viewer_Other3";
-	  String file="TestData/ECMS_WCM_Viewer_SingleContent_Other.png";
-	  String newName="new ECMS_WCM_Other";
-	  String content="conditions.doc";
-	  String ELEMENT_EDIT_INCONTEXT="//div[contains(text(),'"+content+"')]/../../div/div/div/div/div/div[2]/a";
-	  By titleSCV= By.xpath("//div[contains(@id,'Currentexo_title')]");
-	  String pathContent = "General Drives/Sites Management/acme/documents/conditions.doc";
-	  
-	  info("Edit content of SCV page");
-	  //create a page with empty layout
-	  goToPageEditor_EmptyLayout(namePage);
-	  addContentDetailEmptyLayout();
-	  click(ELEMENT_NEWPAGE_SAVE_BUTTON);
-	  
-	  //edit a page
-	  goToEditPageEditor();
-	  selectContentPath(pathContent);
-	  click(ELEMENT_PAGE_EDIT_FINISH);
-	  //driver.get("http://localhost:8080/portal/acme/overview/ECMS_WCM_Viewer_Other3");
-	  //edit content of SCV inline
-	  changeEditMode();
-	  mouseOver(titleSCV,true);
-	  click(ELEMENT_EDIT_INCONTEXT);
-	  editUploadedFile(namePage, file, newName,newName,newName,newName);
-	  click(ELEMENT_BUTTON_BACK);
-	 
-	  //verify result
-	  waitForElementPresent(By.xpath("//div[text()='"+content+"']"));
-	  captureScreen("result.png");
-	  
-	  //delete node, page
-	  goToPortalSites();
-	  deleteNode("acme", "Overview", namePage, true);
-	  goToManagePages();
-	  deletePage(PageType.PORTAL, namePage);
-  }
-  
-  @Test
-  public void test02_OpenFormOfSettingPage() {
-	  String namePage="ECMS_WCM_Viewer_Other2";
-	  String pathContent="General Drives/Sites Management/acme/documents/conditions.doc";	  
-	  String content="conditions.doc";
-	  String ELEMENT_PREFERENCE_INCONTEXT="//div[contains(text(),'"+content+"')]/../../div/div/div/div/div/div[1]/a";
-	  By titleSCV= By.xpath("//div[contains(@id,'Currentexo_title')]");
-	  info("Open the form of setting page");
-	  //create a page
-	  goToPageEditor_EmptyLayout(namePage);
-	  addContentDetailEmptyLayout();
-	  click(ELEMENT_NEWPAGE_SAVE_BUTTON);
-	  
-	  //edit a page
-	  goToEditPageEditor();
-	  selectContentPath(pathContent);
-	  click(ELEMENT_PAGE_EDIT_FINISH);
-	  
-	  //open form of setting page
-	  changeEditMode();
-	  mouseOver(titleSCV,true);
-	  click(ELEMENT_PREFERENCE_INCONTEXT);
-	  waitForElementPresent(ELEMENT_PREFERENCE_TITLE);
-	 
-	  //delete node, page
-	  goToPortalSites();
-	  deleteNode("acme", "Overview", namePage, true);
-	  goToManagePages();
-	  deletePage(PageType.PORTAL, namePage);
-  }
-  @BeforeMethod
-  public void beforeMethod() {
-	  initSeleniumTest();
-	  driver.get(baseUrl);
-	  actions = new Actions(driver);
-	  loginEcms(USER, PASS);
-  }
 
-  @AfterMethod
-  public void afterMethod() {
-	  driver.quit();
-  }
+	@Test
+	public void test01_EditContentOfSCVPage() {
+		String namePage="ECMS_WCM_Viewer_Other3";
+		String file="TestData/ECMS_WCM_Viewer_SingleContent_Other.png";
+		String newName="new ECMS_WCM_Other";
+		String content="conditions.doc";
+		String ELEMENT_EDIT_INCONTEXT="//div[contains(text(),'"+content+"')]/../../div/div/div/div/div/div[2]/a";
+		By titleSCV= By.xpath("//div[contains(@id,'Currentexo_title')]");
+		String pathContent = "General Drives/Sites Management/acme/documents/conditions.doc";
+
+		info("Edit content of SCV page");
+		//create a page with empty layout
+		goToPageEditor_EmptyLayout(namePage);
+		addContentDetailEmptyLayout();
+		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
+
+		//edit a page
+		goToEditPageEditor();
+		selectContentPath(pathContent);
+		click(ELEMENT_PAGE_EDIT_FINISH);
+		//driver.get("http://localhost:8080/portal/acme/overview/ECMS_WCM_Viewer_Other3");
+		//edit content of SCV inline
+		changeEditMode();
+		mouseOver(titleSCV,true);
+		click(ELEMENT_EDIT_INCONTEXT);
+		editUploadedFile(namePage, file, newName,newName,newName,newName);
+		click(ELEMENT_BUTTON_BACK);
+
+		//verify result
+		waitForElementPresent(By.xpath("//div[text()='"+content+"']"));
+		captureScreen("result.png");
+
+		//delete node, page
+		goToPortalSites();
+		deleteNode("acme", "Overview", namePage, true);
+		goToManagePages();
+		deletePage(PageType.PORTAL, namePage);
+	}
+
+	@Test
+	public void test02_OpenFormOfSettingPage() {
+		String namePage="ECMS_WCM_Viewer_Other2";
+		String pathContent="General Drives/Sites Management/acme/documents/conditions.doc";	  
+		String content="conditions.doc";
+		String ELEMENT_PREFERENCE_INCONTEXT="//div[contains(text(),'"+content+"')]/../../div/div/div/div/div/div[1]/a";
+		By titleSCV= By.xpath("//div[contains(@id,'Currentexo_title')]");
+		info("Open the form of setting page");
+		//create a page
+		goToPageEditor_EmptyLayout(namePage);
+		addContentDetailEmptyLayout();
+		click(ELEMENT_NEWPAGE_SAVE_BUTTON);
+
+		//edit a page
+		goToEditPageEditor();
+		selectContentPath(pathContent);
+		click(ELEMENT_PAGE_EDIT_FINISH);
+
+		//open form of setting page
+		changeEditMode();
+		mouseOver(titleSCV,true);
+		click(ELEMENT_PREFERENCE_INCONTEXT);
+		waitForElementPresent(ELEMENT_PREFERENCE_TITLE);
+
+		//delete node, page
+		goToPortalSites();
+		deleteNode("acme", "Overview", namePage, true);
+		goToManagePages();
+		deletePage(PageType.PORTAL, namePage);
+	}
+	@BeforeMethod
+	public void beforeMethod() {
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		loginEcms(USER, PASS);
+	}
+
+	@AfterMethod
+	public void afterMethod() {
+		driver.quit();
+	}
 }

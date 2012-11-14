@@ -30,7 +30,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Move extends PlatformBa
 	public String QUESTIONS_NEW_POSITION = "//div[6]/div/a";
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
@@ -133,7 +133,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Move extends PlatformBa
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

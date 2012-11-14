@@ -26,7 +26,7 @@ public class ECMS_DMS_SE_ADMIN_Export extends EcmsBase {
 	String DATA_USER = "john";
 	String DATA_PASS = "gtn";
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		init();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -35,7 +35,7 @@ public class ECMS_DMS_SE_ADMIN_Export extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();

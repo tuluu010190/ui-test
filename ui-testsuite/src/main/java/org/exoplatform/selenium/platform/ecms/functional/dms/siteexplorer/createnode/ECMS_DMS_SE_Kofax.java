@@ -13,8 +13,6 @@ import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 
 public class ECMS_DMS_SE_Kofax extends EcmsBase {
 
-	public static By SITE_MANAGEMENT_ACME = By.xpath("//a[@title='acme ']");
-
 	public static By KOFAX_LINHTEXT = By.xpath("//a[@title='Kofax document']");
 
 	public static String KOFAX_NAME = "Kofax_Document_Name";
@@ -26,7 +24,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 	public static final String UPLOADED_FILE_PATH ="TestData/Winter.jpg";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 //		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.get(baseUrl);
@@ -35,7 +33,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		info("Log out");
 		logoutEcms ();
 
@@ -57,7 +55,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Create Content Folder");
 		createNewContentFolder(CONTENT_FOLDER_NAME, CONTENT_FOLDER_NAME);
@@ -97,7 +95,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Create Document Folder");
 		createNewDocumentFolder(DOCUMENT_FOLDER_NAME, DOCUMENT_FOLDER_NAME);
@@ -135,7 +133,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -175,7 +173,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -206,7 +204,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -237,7 +235,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -274,7 +272,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -309,7 +307,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -344,7 +342,7 @@ public class ECMS_DMS_SE_Kofax extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click Upload");
 		uploadFile(UPLOADED_FILE_NAME, UPLOADED_FILE_PATH);

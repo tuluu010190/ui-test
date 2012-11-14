@@ -9,7 +9,7 @@ import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 //import static org.exoplatform.selenium.platform.NavigationManagement.*;
-import org.exoplatform.selenium.platform.ecms.PageEditor;
+import org.exoplatform.selenium.platform.PageEditor;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
@@ -27,15 +27,11 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 	public String DATA_PASS = "gtn";
 
 	public String ELEMENT_ARTICLE_TO_DELETE = "//a[@title='${titleOfFile} " + "']";
-	public By ELEMENT_PUBLISHED_STATUS = By.xpath("//td/div[text()='Revision:1']/following::td[contains(text(),'Published')]");
-	public By ELEMENT_LINK_PUBLICATION = By.xpath("//div[@id='DMSMenuItemContainer']//a[@title='Publications']");
-	public By ELEMENT_PUBLISHED_ARTICLE = By.xpath(".//*[@id='UIPublicationPanel']/fieldset[1]/div/div[2]/a[5]");
-
 	public String summaryArticle = "summary of article";
 	public String contentArticle = "content of article";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -44,7 +40,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		driver.quit();
 		actions = null;
@@ -132,18 +128,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		info("-- Step 2: Publish document/web content --");
 
-		/*click(ELEMENT_LINK_PUBLICATION);
-
-		waitForTextPresent("Draft[current revision]");
-
-		click(ELEMENT_PUBLISHED_ARTICLE);
-
-		waitForElementPresent(ELEMENT_PUBLISHED_STATUS);
-
-		save();*/
 		publishDocument();
-
-		//waitForElementNotPresent(ELEMENT_PUBLISHED_STATUS);
 
 		//Go to ACME site to verify that document is published
 		mouseOver(By.linkText("My Sites"), true);
@@ -212,7 +197,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 
 		actions.moveToElement(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
 
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 
@@ -410,7 +395,7 @@ public class ECMS_WCM_Viewer_SingleContent_Add extends PageEditor{
 		waitForElementNotPresent(ELEMENT_NEWPAGE_SAVE_BUTTON);
 		goToEditPageEditor();
 		actions.moveToElement(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 	}
 

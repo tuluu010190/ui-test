@@ -20,17 +20,15 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 	public static final String DATA_USER = "john";
 	public static final String DATA_PASS = "gtn";
 
-	public static final By ELEMENT_NEW_CONTENT_LINK_XPATH =By.xpath("//a[@title = 'New Content']") ; 
-
 	public static final By ELEMENT_NEW_ARTICLE_POPUP_XPATH = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
 	public static final By ELEMENT_NEW_ARTICLE_MESSAGE_XPATH = By.xpath("//span[@class='PopupIcon WarningMessageIcon']");
 	public static final String ELEMENT_NEW_ARTICLE_MESSAGE_TITLE_BLANK = "The field \"Title\" is required.";
 	public static final String ELEMENT_NEW_ARTICLE_MESSAGE_NAME_BLANK = "The field \"Name\" is required.";
-	public static final String ELEMENT_NEW_ARTICLE_MESSAGE_SUMMARY_BLANK = "Summary is empty";
-	public static final String ELEMENT_NEW_ARTICLE_MESSAGE_CONTENT_BLANK = "Content is empty";
+	public static final String MESSAGE_NEW_ARTICLE_SUMMARY_BLANK = "Summary is empty";
+	public static final String MESSAGE_NEW_ARTICLE_CONTENT_BLANK = "Content is empty";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		//driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		driver.get(baseUrl);
@@ -40,7 +38,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();
@@ -155,7 +153,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		info("Create new file document successfully");
 		//check cannot add article to file document
 		goToNode(ELEMENT_FILE_DOCUMENT);
-		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 		//delete file document
 		deleteDocument(ELEMENT_FILE_DOCUMENT);
 	}
@@ -181,7 +179,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		info("Create new podcast document successfully");
 		//check cannot add article to podcast document -> has not new content link
 		goToNode(ELEMENT_PODCAST);
-		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 		//delete podcast
 		deleteDocument(ELEMENT_PODCAST);
 	}
@@ -291,7 +289,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 		info("Upload file successfully");
 		//check cannot add article document to uploaded file: has not new content link
 		goToNode(ELEMENT_UPLOAD);
-		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK_XPATH);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 		//delete uploaded file
 		deleteDocument(ELEMENT_UPLOAD);
 	}
@@ -305,7 +303,7 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 
 		//add article with title blank
 		goToSiteExplorer();
-		goToNode(ELEMENT_NEW_CONTENT_LINK_XPATH);
+		goToNode(ELEMENT_NEW_CONTENT_LINK);
 		createNewArticle("", DATA_ARTICLE_TITLE, "", "");
 		assert isElementPresent(ELEMENT_NEW_ARTICLE_POPUP_XPATH):"No title blank alert";
 		//check message when save
@@ -333,14 +331,14 @@ public class ECMS_DMS_SE_Article extends EcmsBase{
 
 		//create new article with summary blank
 		goToSiteExplorer();
-		goToNode(ELEMENT_NEW_CONTENT_LINK_XPATH);
+		goToNode(ELEMENT_NEW_CONTENT_LINK);
 		debug("Create new article with title:"+DATA_ARTICLE_TITLE+" and summary, content blank");
 		createNewArticle(DATA_ARTICLE_TITLE, DATA_ARTICLE_TITLE, "", "");
 		waitForElementPresent(ELEMENT_ARTICLE);
 
 		//view summary & content
-		assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_SUMMARY_BLANK):"Wrong message";
-		assert isTextPresent(ELEMENT_NEW_ARTICLE_MESSAGE_CONTENT_BLANK):"Wrong message";
+		assert isTextPresent(MESSAGE_NEW_ARTICLE_SUMMARY_BLANK):"Wrong message";
+		assert isTextPresent(MESSAGE_NEW_ARTICLE_CONTENT_BLANK):"Wrong message";
 		//delete data
 		deleteDocument(ELEMENT_ARTICLE);
 	}

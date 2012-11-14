@@ -32,39 +32,39 @@ import org.testng.annotations.Test;
  * Oct 9, 2012  
  */
 public class ECMS_Admin_ContentPresentation_ManageTemplate_Add extends EcmsBase {
-  public static final String DATA_USER_ADMIN = "john";
-  public static final String DATA_PASS = "gtn";
-    
-  @BeforeMethod
-  public void beforeMethod(){
-    initSeleniumTest();
-    driver.get(baseUrl);
-    actions = new Actions(driver);
-    info("Login ECMS with "+ DATA_USER_ADMIN);
-    loginEcms(DATA_USER_ADMIN, DATA_PASS);
-  }
-  
-  @AfterMethod
-  public void afterMethod(){
-    info("Logout ECMS");
-    logoutEcms();
-    driver.manage().deleteAllCookies();
-    driver.quit();
-    actions = null;
-  }
-  
-  /**
-   * Add new template when input valid data into all required fields
-   */
-  @Test 
-  public void test01_AddNewTempate(){
-    //Open Manage Template screen
-    WcmAdmin.openManageTemplateForm();
-    //Open Add New Template Form
-    WcmAdmin.openAddNewTemplateForm();
-    //Fill All form data
-    WcmAdmin.fillAddNewTemplateForm("Test Template","app:application","Platform/Administration/Content Management","*");
-    info("Reset Data");
-    WcmAdmin.deleleTemplate("app:application","Do you really want to delete?");
-  }  
+	public static final String DATA_USER_ADMIN = "john";
+	public static final String DATA_PASS = "gtn";
+
+	@BeforeMethod
+	public void beforeMethod(){
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		info("Login ECMS with "+ DATA_USER_ADMIN);
+		loginEcms(DATA_USER_ADMIN, DATA_PASS);
+	}
+
+	@AfterMethod
+	public void afterMethod(){
+		info("Logout ECMS");
+		logoutEcms();
+		driver.manage().deleteAllCookies();
+		driver.quit();
+		actions = null;
+	}
+
+	/**
+	 * Add new template when input valid data into all required fields
+	 */
+	@Test 
+	public void test01_AddNewTempate(){
+		//Open Manage Template screen
+		WcmAdmin.openManageTemplateForm();
+		//Open Add New Template Form
+		WcmAdmin.openAddNewTemplateForm();
+		//Fill All form data
+		WcmAdmin.fillAddNewTemplateForm("Test Template","app:application","Platform/Administration/Content Management","*");
+		info("Reset Data");
+		WcmAdmin.deleleTemplate("app:application","Do you really want to delete?");
+	}  
 }

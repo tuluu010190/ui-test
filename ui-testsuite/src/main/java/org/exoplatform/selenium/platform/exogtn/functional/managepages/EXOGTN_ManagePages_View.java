@@ -20,11 +20,10 @@ import static org.exoplatform.selenium.platform.PageManagement.*;
 public class EXOGTN_ManagePages_View extends PlatformBase{
 	/*-- Data for test case --*/
     By ELEMENT_PORTAL_TOP_CONTAINER = By.id("PortalNavigationTopContainer");
-	By ELEMENT_MY_SITES = By.linkText("My Sites");
 	String ELEMENT_CURRENT_NAVIGATION = "intranet";
 	
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -32,7 +31,7 @@ public class EXOGTN_ManagePages_View extends PlatformBase{
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.quit();
 	}
 	
@@ -86,7 +85,7 @@ public class EXOGTN_ManagePages_View extends PlatformBase{
 	public boolean goToMySitesAndVerifyPage(String pageName){
 		WebElement element = driver.findElement(ELEMENT_PORTAL_TOP_CONTAINER);
 		actions.moveToElement(element).build().perform();
-		mouseOver(ELEMENT_MY_SITES, true);
+		mouseOver(ELEMENT_MYSITE, true);
 	    	waitForTextPresent(ELEMENT_CURRENT_NAVIGATION);
 	    	mouseOver(By.linkText(ELEMENT_CURRENT_NAVIGATION), true);
 	    	mouseOver(By.linkText("Home"), true);

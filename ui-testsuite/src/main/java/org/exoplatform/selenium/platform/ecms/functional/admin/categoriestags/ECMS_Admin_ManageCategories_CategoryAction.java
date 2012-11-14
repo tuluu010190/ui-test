@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.ecms.functional.admin.categoriestags;
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.ManageAccount.signOut;
 import static org.exoplatform.selenium.platform.ecms.WcmAdmin.*;
+
 import org.exoplatform.selenium.platform.ecms.ActionBar;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
@@ -19,18 +20,12 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	public String DATA_PASS = "gtn";
 
 	//Data for these test cases
-	//String categoryTreeName = "testCase";
 	String categoryName = "category1";
 	String newCategoryName = "category2";
 	String categoryWorkspace = "collaboration";
 	String nodeHomePath = "sites content/live/acme";
-	boolean selectUserOrGroup = true; 
-	boolean selectMembership = false; 
 	String username = "john";
-	String searchOption = "User Name"; 
 	String groupID = "platform/administrators"; 
-	String membership = "*"; 
-	String rightOptions = "Read Right/Add Node Right/Set Property Right/Remove Right";
 	String actionName = "test";
 	String optionLifeCycle = "User Action/Content Addition"; 
 	String nodeTargetPath = "jcr:system/exo:ecm";	
@@ -38,7 +33,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	By ELEMENT_SELECTED_CATEGORY_CHILD_NAME = By.xpath("//div[@title='"+ newCategoryName +"']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -47,7 +42,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		driver.quit();
 		actions = null;
@@ -60,44 +55,29 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	public void test01_CopyPasteACategoryToACategory(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase01";
+		String categoryTreeName = "CategoryAction01";
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, true, groupID, "*", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, true, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		clickUpLevel();
-
 		addChildCategory(categoryTreeName, newCategoryName);
 
 		info("-- Step 3: Paste a copied Category --");
-
 		copyAndPasteCategory(categoryName, newCategoryName);
-
 		info("-- Restore original data --");
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
@@ -108,52 +88,33 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	public void test02_CopyACategoryAndPasteIntoItsChildNode(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase02";
+		String categoryTreeName = "categoryAction02";
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, true, groupID, "*", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, true, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
-		addChildCategory(categoryName, newCategoryName);
-
+		addChildCategory(categoryName, newCategoryName, true);
 		clickUpLevel();
 
 		info("-- Step 3: Paste copied Category into its child node --");
-
 		click(ELEMENT_COPY_CATEGORY_ICON.replace("${categoryName}", categoryName));
-
 		click(ELEMENT_SELECTED_CATEGORY_NAME);
-
 		click(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", newCategoryName));
-
 		click(ELEMENT_SELECTED_CATEGORY_CHILD_NAME);
-
 		waitForTextPresent(categoryName);
 
 		info("-- Restore original data --");
-
 		close();
-
 		deleteCategory(categoryTreeName);
-
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
@@ -164,46 +125,31 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	public void test03_CopyACategoryAndPasteIntoItself(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase03";
+		String categoryTreeName = "categoryAction03";
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(true, false, "", "", username, true, false, true, true);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {"", ""};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, true, false, form2, username, true, false, true, true, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		click(ELEMENT_COPY_CATEGORY_ICON.replace("${categoryName}", categoryName));
 
 		info("-- Step 3: Paste copied Category into itself --");
-
 		click(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", categoryName));
-
 		click(ELEMENT_SELECTED_CATEGORY_NAME);
-
 		waitForTextPresent(categoryName);
 
 		info("-- Restore original data --");
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
@@ -213,55 +159,38 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	@Test
 	public void test04_CopyPasteADeletedCategory(){
 		info("-- Step 1: Create a Category --");
-
-		String categoryTreeName = "testCase04";
+		String categoryTreeName = "categoryAction04";
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, true, groupID, "*", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, true, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		clickUpLevel();
-
 		addChildCategory(categoryTreeName, newCategoryName);
 
 		click(ELEMENT_COPY_CATEGORY_ICON.replace("${categoryName}", newCategoryName));
 
 		info("-- Step 3: Delete Category --");
-
 		deleteCategory(newCategoryName);
 
 		info("-- Step 4: Paste deleted Category --"); 
-
 		click(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", categoryName));
-
 		waitForMessage(MESSAGE_INFO_PASTE_TO_CATEGORY);
-
 		closeMessageDialog();
 
 		info("-- Restore original data --");
-
 		close();
 
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
@@ -272,44 +201,30 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	public void test05_CutACategoryAndPasteIntoOtherCategory(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase05";
+		String categoryTreeName = "categoryAction05";
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, true, groupID, "*", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, true, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		clickUpLevel();
-
 		addChildCategory(categoryTreeName, newCategoryName);
 
 		info("-- Step 3: Paste a cut Category --");
-
 		cutAndPasteCategory(categoryName, newCategoryName);
 
 		info("-- Restore original data --");
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();
 	}
 
@@ -320,52 +235,34 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	public void test06_CutACategoryAndPasteIntoItsChildNode(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase06";
+		String categoryTreeName = "categoryAction06";
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, true, groupID, "*", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, true, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Cut a Category --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
-		addChildCategory(categoryName, newCategoryName);
-
+		addChildCategory(categoryName, newCategoryName, true);
 		clickUpLevel();
-
 		click(ELEMENT_CUT_CATEGORY_ICON.replace("${categoryName}", categoryName));
 
 		info("-- Step 3: Paste a cut Category into its child node --");
-
 		click(ELEMENT_SELECTED_CATEGORY_NAME);
-
 		click(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", newCategoryName));
-
 		waitForMessage(MESSAGE_INFO_PASTE_TO_CATEGORY);
-
 		closeMessageDialog();
 
 		info("-- Restore original data --");
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
@@ -376,46 +273,31 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	public void test07_CutACategoryAndPasteIntoItself(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase07";
+		String categoryTreeName = "categoryAction07";
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, true, groupID, "*", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, true, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Cut a Category --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		click(ELEMENT_CUT_CATEGORY_ICON.replace("${categoryName}", categoryName));
 
 		info("-- Step 3: Paste cut Category into itself --");
-
 		click(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", categoryName));
-
 		waitForMessage(MESSAGE_INFO_CUT_TO_CATEGORY.replace("${pathCategory}", "/sites content/live/acme/"+ categoryTreeName +"/"+ categoryName +""));
-
 		closeMessageDialog();
 
 		info("-- Restore original data --");
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
@@ -425,55 +307,36 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	@Test
 	public void test08_CutPasteADeletedCategory(){
 		info("-- Step 1: Create a Category --");
-
-		String categoryTreeName = "testCase08";
+		String categoryTreeName = "categoryAction08";
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, true, groupID, "*", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, true, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Cut a Category --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		clickUpLevel();
-
 		addChildCategory(categoryTreeName, newCategoryName);
-
 		click(ELEMENT_CUT_CATEGORY_ICON.replace("${categoryName}", newCategoryName));
 
 		info("-- Step 3: Delete Category --");
-
 		deleteCategory(newCategoryName);
 
 		info("-- Step 4: Paste deleted Category --");
-
 		click(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", categoryName));
-
 		waitForMessage(MESSAGE_INFO_PASTE_TO_CATEGORY);
-
 		closeMessageDialog();
 
 		info("-- Restore original data --");
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
@@ -484,38 +347,26 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends ActionBar{
 	public void test09_DeleteCategory(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase09";
+		String categoryTreeName = "categoryAction09";
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, true, groupID, "*", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, true, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
-
 		addChildCategory(categoryTreeName, categoryName);
 
 		info("-- Step 2: Delete a Category --");
-
 		deleteCategory(categoryName);
 
 		info("-- Restore original data --");
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 

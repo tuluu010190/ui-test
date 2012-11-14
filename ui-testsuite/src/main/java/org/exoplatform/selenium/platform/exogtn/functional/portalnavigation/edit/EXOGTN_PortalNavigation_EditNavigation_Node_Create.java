@@ -28,8 +28,6 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 	public static By PAGE_SELECTOR = By.xpath("//div[text()='Page Selector']");
 	public static By PAGE_NAME = By.id("pageName");
 	public static By CREATE_PAGE_BUTTON = By.linkText("Create Page");
-	public static By OK_BUTTON = By.linkText("OK") ;
-	public static By CLOSE_BUTTON = By.xpath("//a[@title='Close Window']");
 	public static By PAGE_LINK = By.linkText("PORNAV_14_01_043");
 	public static By ELEMENT_EDIT_CONTENT_LINK = By.linkText("Content");
 	public static By ELEMENT_EDIT_SITE_LAYOUT = By.linkText("Layout");
@@ -42,7 +40,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 	public final static String ELEMENT_GROUP_DEVELOPMENT="Development";
 	public final static String ELEMENT_GROUP_PLATFORM="Platform";
 	public final static String ELEMENT_GROUP_ADMIN="Administration";
-	public final static By ELEMENT_MY_SITE_MENU = By.linkText("My Sites");
+	
 	public final static By ELEMENT_INTRANET_MENU = By.linkText("intranet");
 	public final static By ELEMENT_HOME_MENU = By.linkText("Home");
 	public final static By ELEMENT_EDIT_MENU = By.linkText("Edit");
@@ -168,7 +166,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 	}
 	
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.get(baseUrl);
@@ -177,7 +175,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		signOut();
 		driver.quit();
 	}
@@ -368,13 +366,13 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 
 		//Confirm warning message
 		info("Confirm warning message");
-		element = waitForAndGetElement(OK_BUTTON);
+		element = waitForAndGetElement(ELEMENT_OK_BUTTON);
 		element.click();
 		pause(1000);
 
 		//Close add node form
 		info("Close add node form");
-		element = waitForAndGetElement(CLOSE_BUTTON);
+		element = waitForAndGetElement(ELEMENT_CLOSE_WINDOW);
 		element.click();
 
 		/*-----------------------Delete data--------------------*/
@@ -473,9 +471,9 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 		waitForMessage("This page name already exists.");
 		//Confirm warning message
 		debug("Confirm warning message");
-		click(OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
 		//Close add node form				
-		click(CLOSE_BUTTON);
+		click(ELEMENT_CLOSE_WINDOW);
 
 		/*-----------------------------Delete data----------------------------*/
 		//Delete node
@@ -560,8 +558,8 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 		debug("Login new user");
 		signIn("thaopth", "123456");
 		//Mouse over My sites link	
-		waitForElementPresent(ELEMENT_MY_SITE_MENU, 500);
-		mouseOver(ELEMENT_MY_SITE_MENU, true);
+		waitForElementPresent(ELEMENT_MYSITE, 500);
+		mouseOver(ELEMENT_MYSITE, true);
 		//Mouse over intranet link
 		waitForElementPresent(ELEMENT_INTRANET_MENU, 500);
 		mouseOver(ELEMENT_INTRANET_MENU, true);
@@ -662,8 +660,8 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 			signIn(username, pass);
 			
 			//go to the new page
-			mouseOver(ELEMENT_MY_SITE_MENU, true);
-			actions.moveToElement(waitForAndGetElement(ELEMENT_MY_SITE_MENU)).build().perform();
+			mouseOver(ELEMENT_MYSITE, true);
+			actions.moveToElement(waitForAndGetElement(ELEMENT_MYSITE)).build().perform();
 			pause(500);
 			mouseOver(ELEMENT_INTRANET_MENU, true);
 			actions.moveToElement(waitForAndGetElement(ELEMENT_INTRANET_MENU)).build().perform();
@@ -761,7 +759,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 			
 			//go to the new page
 
-			actions.moveToElement(waitForAndGetElement(ELEMENT_MY_SITE_MENU)).build().perform();
+			actions.moveToElement(waitForAndGetElement(ELEMENT_MYSITE)).build().perform();
 			pause(500);
 
 			actions.moveToElement(waitForAndGetElement(ELEMENT_INTRANET_MENU)).build().perform();

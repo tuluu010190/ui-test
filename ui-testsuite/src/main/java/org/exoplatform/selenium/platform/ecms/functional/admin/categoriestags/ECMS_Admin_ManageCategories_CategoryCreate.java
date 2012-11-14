@@ -20,23 +20,17 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 	public String DATA_PASS = "gtn";
 
 	//Data for these test cases
-	//String categoryTreeName = "testCase";
 	String categoryName = "category1";
 	String categoryWorkspace = "collaboration";
 	String nodeHomePath = "sites content/live/acme";
-	boolean selectUserOrGroup = true; 
-	boolean selectMembership = false; 
 	String username = "john";
-	String searchOption = "User Name"; 
 	String groupID = "platform/administrators"; 
-	String membership = "*"; 
-	String rightOptions = "Set Property Right/Remove Right";
 	String actionName = "test";
 	String optionLifeCycle = "User Action/Content Addition"; 
 	String nodeTargetPath = "jcr:system/exo:ecm";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -45,7 +39,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods() {
 		info("Logout ECMS");
 		driver.quit();
 		actions = null;
@@ -61,33 +55,21 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 		String categoryTreeName = "testCase01";
 
 		goToContentAdministration();
-
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, true, groupID, "*", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {"testCase01", categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, true, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2 & 3: Open form to add category and Add Category--");
-
 		addChildCategory(categoryTreeName, categoryName);
 
 		info("-- Restore original data --");
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();
 	}
 
@@ -101,42 +83,30 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 		String categoryTreeName = "testCase06";
 
 		goToContentAdministration();
-
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(false, false, groupID, "manager", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		
+		//Add category tree
+		String[] form1 = {"testCase06", categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "manager"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, false, false, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Open form to add permission --");
-
 		addChildCategory(categoryTreeName, categoryName);
 
 		info("-- Step 3: Add permission for user --");
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
 
 		info("-- Step 4 & 5: Select user to add permission and Select permission for user --");	
-
 		setPermissionForUserOnManageCategory(true, "mary", false, groupID, "member", true, true, false, false);
 
 		info("-- Restore original data --");
-
 		close();
-
 		close();
 
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();		
 	}
 
@@ -151,31 +121,21 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(true, false, groupID, "manager", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {"testCase07", categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "manager"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, true, false, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Open form to add permission --");
-
 		addChildCategory(categoryTreeName, categoryName);
 
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
 		info("-- Step 3 & 4 & 5: Add permission for group / Select group in form to add permission / Select permission for group --");
 
 		setPermissionForUserOnManageCategory(false, "mary", true, "platform/web-contributors", "manager", true, false, false, true);
-
 		close();
-
 		close();
 
 		info("-- Verify that all the users with added membership can do these actions--");
@@ -220,21 +180,14 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(true, false, groupID, "manager", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {"testCase08", categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "manager"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, true, false, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Open form to add permission --");
-
 		addChildCategory(categoryTreeName, categoryName);
 
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
@@ -291,59 +244,36 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(true, false, groupID, "manager", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {"testCase09", categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "manager"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, true, false, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Open form to add permission --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
 
 		info("-- Step 3 & 4 & 5: Add permission for group / Select group in form to add permission / Select permission for group --");
-
 		setPermissionForUserOnManageCategory(false, "", false, "", "", true, true, true, true);
-
 		close();
-
 		close();
 
 		info("-- Verify that all the users with added membership can do these actions--");
-
 		signOut();
-
 		driver.get(baseUrl);
-
 		loginEcms("james", "gtn");
-
 		goToSiteExplorer();
-
 		goToNodeByPath("acme/"+ categoryTreeName +"");
-
 		waitForTextPresent(categoryName);
-
 		signOut();
 
 		driver.get(baseUrl);
-
 		loginEcms(DATA_USER, DATA_PASS);
-
 		goToContentAdministration();
-
 		deleteCategory(categoryTreeName);
-
 		info("-- Sign Out --");
-
 		signOut();
 	}
 
@@ -357,52 +287,33 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 		String categoryTreeName = "testCase10";
 
 		goToContentAdministration();
-
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(true, false, groupID, "manager", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		
+		//Add category tree
+		String[] form1 = {"testCase10", categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "manager"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, true, false, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Open form to add permission --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
 		setPermissionForUserOnManageCategory(true, "mary", false, "", "", true, false, false, false);
 
 		info("-- Step 3: Edit permission of Category --");
-
 		close();
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
 		editPermissionUserOrGroup("mary", true, false, true, true);
 
 		//Verify that Permission of Category to user/group is edited
-
 		By verifyEditUser = By.xpath(".//*[@id='PermissionInfo']/table/tbody/tr[8]/td[4]/div[@title='true']");
-
 		waitForElementPresent(verifyEditUser);
-
 		info("-- Restore original data --");
-
 		close();
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
@@ -417,49 +328,30 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(true, false, groupID, "manager", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {"testCase11", categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "manager"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, true, false, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Open form to add permission --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
 		setPermissionForUserOnManageCategory(true, "mary", false, "", "", true, false, false, true);
 
 		info("-- Step 3: Edit permission of Category --");
-
 		close();
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
 		waitForTextPresent("Permission Management");
-
 		editPermissionUserOrGroup("__system", false, false, false, false);
-
 		waitForElementNotPresent(ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT);
-
 		info("-- Restore original data --");
-
 		close();
-
 		close();
-
 		deleteCategory(categoryTreeName);
-
+		
 		info("-- Sign Out --");
-
 		signOut();
 	}
 
@@ -474,45 +366,28 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(true, false, groupID, "manager", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {"testCase12", categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "manager"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, true, false, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Open form to add permission --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
 		setPermissionForUserOnManageCategory(true, "demo", false, "", "", true, true, false, false);
 
 		info("-- Step 3: Delete permission of Category --");
-
 		close();
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
 		deletePermission("demo", true);
-
 		info("-- Restore original data --");
-
 		close();
-
 		close();
-
 		deleteCategory(categoryTreeName);
 
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
@@ -527,55 +402,37 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends ActionBar{
 
 		goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-		addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		addNewCategoryTree_Step2(true, false, groupID, "manager", username, true, false, true, false);
-
-		next();
-
-		addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {"testCase13", categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "manager"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		addNewCategoryTree(form1, true, false, form2, username, true, false, true, false, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Open form to add permission --");
-
 		addChildCategory(categoryTreeName, categoryName);
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
 		setPermissionForUserOnManageCategory(false, "", true, "developers", "*", true, true, false, false);
 
 		info("-- Step 3: Delete permission of system --");
-
 		close();
-
 		click(ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
 		deletePermission("__system", false);
-
 		waitForMessage(MEESAGE_INFO_DELETE_PERMISSION_SYSTEM);
-
 		closeMessageDialog();
 
 		info("-- Restore original data --");
-
 		close();
-
 		close();
-
 		deleteCategory(categoryTreeName);
-
+		
 		info("-- Sign Out --");
-
 		signOut();	
 	}
 
 	/*-- Case No 033 / ID 014
 	 *-- Delete permission of Category in case there is only one permission of this Category (except system)
-	 *-- Status: Pending (test case does not correspond to PLF 3.5.x)
+	 *-- Status: N/A (test case does not correspond to PLF 3.5.x)
 	 *--*/
 	/*@Test
 	public void test14_DeletePermissionOfCategory(){

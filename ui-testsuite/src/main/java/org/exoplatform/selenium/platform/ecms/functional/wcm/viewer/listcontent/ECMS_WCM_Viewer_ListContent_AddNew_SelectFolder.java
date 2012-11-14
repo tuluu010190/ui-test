@@ -2,8 +2,8 @@ package org.exoplatform.selenium.platform.ecms.functional.wcm.viewer.listcontent
 
 import static org.exoplatform.selenium.platform.NavigationManagement.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 import static org.exoplatform.selenium.TestLogger.*;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;

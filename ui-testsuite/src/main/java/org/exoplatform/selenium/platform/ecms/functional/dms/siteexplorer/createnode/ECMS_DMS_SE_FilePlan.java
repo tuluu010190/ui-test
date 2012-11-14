@@ -15,8 +15,7 @@ import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 	public static final String USER = "john";
 	public static final String PASS= "gtn";
-	public static final By ELEMENT_DRIVE_COLLABORATION= By.xpath("//a[@title='collaboration']");
-	public static final By ELEMENT_DRIVE= By.xpath("//a[@title='Show Drives']");
+	
 	public static final String ELEMENT_PREFER_DMS_STRUCTURE= "enableStructure";
 	public static final String DATA_CON_NAME_01= "FNC_ECMS_FEX_CREATE_08_01_CON";
 	public static final String DATA_CON_TITLE_01= "FNC_ECMS_FEX_CREATE_08_01_CON";
@@ -57,7 +56,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a content folder");
 
 		// choose Collaboration drive and create a content folder
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		createNewContentFolder(DATA_CON_TITLE_01, DATA_CON_NAME_01);
 		waitForElementPresent(bContentFolder);
 
@@ -83,7 +82,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a document folder");
 
 		// choose Collaboration drive and create a document folder
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		createNewDocumentFolder(DATA_DOC_TITLE_02, DATA_DOC_NAME_02);
 		waitForElementPresent(bDocFolder);
 
@@ -107,7 +106,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in an article document");
 
 		// choose Collaboration drive and create an article
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		goToAddNewContent();
 		createNewArticle(DATA_ART_TITLE_03,DATA_ART_NAME_03, "summary article", "content of article");
 		waitForElementPresent(bArticle);
@@ -129,13 +128,13 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a file document");
 
 		// choose Collaboration drive and create a file
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		goToAddNewContent();
 		createNewFile(DATA_FILE_NAME_04, "content of file", DATA_FILE_TITLE_04);
 		waitForElementPresent(bFile);
 
 		//check whether to create a new content
-		assert isElementNotPresent(ELEMENT_MENU_NEW_CONTENT_LINK): "Fail! Still add new content";
+		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK): "Fail! Still add new content";
 
 		//delete content folder
 		deleteDocument(bFile);
@@ -148,13 +147,13 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a podcast document");
 
 		// choose Collaboration drive and create a file
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		goToAddNewContent();
 		createNewPodcast(DATA_PODCAST_NAME_05, DATA_PODCAST_TITLE_05, "link of podcast");
 		waitForElementPresent(bPodcast);
 
 		//check whether to create a new content
-		assert isElementNotPresent(ELEMENT_MENU_NEW_CONTENT_LINK): "Fail! Still add new content";
+		assert isElementNotPresent(ELEMENT_NEW_CONTENT_LINK): "Fail! Still add new content";
 
 		//delete content folder
 		deleteDocument(bPodcast);
@@ -167,7 +166,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a sample node document");
 
 		// choose Collaboration drive and create a sample node
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		goToAddNewContent();
 		createNewSampleNode( DATA_SAM_TITLE_06, DATA_SAM_NAME_06, DATA_SAM_FILE_06);
 		waitForElementPresent(bSam);
@@ -188,7 +187,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a file plan");
 
 		// choose Collaboration drive and create a file plan
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		goToAddNewContent();
 		createNewFilePlan(DATA_FPLAN_NAME_07,"file plan", "file plan", "file plan", "file plan");
 		waitForElementPresent(bFPlan);
@@ -212,7 +211,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a kofax document");
 
 		// choose Collaboration drive and create a kofax document
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		goToAddNewContent();
 		createNewKofax(DATA_KOFAX_NAME_08);
 		waitForElementPresent(bKox);
@@ -238,13 +237,13 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a uploaded file");
 
 		// choose Collaboration drive and create an uploaded file
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		uploadFile(DATA_FILE_NAME_09, DATA_FILE_LINK_09) ;
 		waitForElementPresent(bUpload);
 		goToNode(bUpload);
 
 		//check whether to create a new content
-		waitForElementNotPresent(ELEMENT_MENU_NEW_CONTENT_LINK);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 
 		//delete content folder
 		deleteDocument(bUpload);
@@ -258,7 +257,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a locked content folder");
 
 		// choose Collaboration drive and create a locked content folder
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		createNewContentFolder(DATA_CON_TITLE_10, DATA_CON_NAME_10);
 		waitForElementPresent(bContentFolder);
 		lockNode(bContentFolder);
@@ -285,7 +284,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a locked kofax document");
 
 		// choose Collaboration drive and create a locked kofax document
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		goToAddNewContent();
 		createNewKofax(DATA_KOFAX_NAME_11);
 		waitForElementPresent(bKox);
@@ -312,7 +311,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a locked article document");
 
 		// choose Collaboration drive and create a locked article
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		goToAddNewContent();
 		createNewArticle(DATA_ART_TITLE_12,DATA_ART_NAME_12, "summary article", "content of article");
 		waitForElementPresent(bArticle);
@@ -336,7 +335,7 @@ public class ECMS_DMS_SE_FilePlan extends EcmsBase {
 		info("Add a file plan in a sample node document");
 
 		// choose Collaboration drive and create a sample node
-		chooseDrive(ELEMENT_DRIVE_COLLABORATION);
+		chooseDrive(ELEMENT_COLLABORATION_DRIVE);
 		goToAddNewContent();
 		createNewSampleNode( DATA_SAM_TITLE_12, DATA_SAM_NAME_12, DATA_SAM_FILE_12);
 		waitForElementPresent(bSam);

@@ -7,7 +7,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 
@@ -36,7 +36,7 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 
 	
 	@BeforeMethod
-	public void beforeMethods() throws Exception 
+	public void beforeMethods()
 	{
 		initSeleniumTest();
 		driver.get(baseUrl);
@@ -55,8 +55,8 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		
 		//Open Portlet Setting
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		waitForElementPresent(ELEMENT_EDIT_PORTLET_LINK);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		waitForElementPresent(ELEMENT_EDIT_PORTLET_ICON);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		
@@ -92,8 +92,8 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		
 		//Open Portlet Setting
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET,true);
-		waitForElementPresent(ELEMENT_EDIT_PORTLET_LINK);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		waitForElementPresent(ELEMENT_EDIT_PORTLET_ICON);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		
@@ -128,8 +128,8 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		
 		//Open Portlet Setting
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET,true);
-		waitForElementPresent(ELEMENT_EDIT_PORTLET_LINK);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		waitForElementPresent(ELEMENT_EDIT_PORTLET_ICON);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		
 		click(ELEMENT_SELECT_BY_CONTENT_PATH);
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
@@ -170,8 +170,8 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		
 		//Open Portlet Setting
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET,true);
-		waitForElementPresent(ELEMENT_EDIT_PORTLET_LINK);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		waitForElementPresent(ELEMENT_EDIT_PORTLET_ICON);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		
@@ -208,8 +208,8 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		
 		//Open Portlet Setting
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		waitForElementPresent(ELEMENT_EDIT_PORTLET_LINK);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		waitForElementPresent(ELEMENT_EDIT_PORTLET_ICON);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		
@@ -247,8 +247,8 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		
 		//Open Portlet Setting
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		waitForElementPresent(ELEMENT_EDIT_PORTLET_LINK);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		waitForElementPresent(ELEMENT_EDIT_PORTLET_ICON);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		
@@ -272,8 +272,8 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		//Change workspace
 		goToEditPageEditor();
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		waitForElementPresent(ELEMENT_EDIT_PORTLET_LINK);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		waitForElementPresent(ELEMENT_EDIT_PORTLET_ICON);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		waitForElementPresent(ELEMENT_WORKSPACE_SELECT);
 		select(ELEMENT_WORKSPACE_SELECT, "dev-monit");
 		
@@ -307,15 +307,15 @@ public class ECMS_WCM_Viewer_ContentsQuery extends EcmsBase
 		createPage_ContentByQuery_EmptyLayout(DATA_PAGE_NAME_07);
 		
 		//Verify mary can't edit portlet
-		waitForElementPresent(BLOCK_LAYOUT);
-		waitForElementNotPresent(ELEMENT_EDIT_PORTLET_LINK);
+		waitForElementPresent(ELEMENT_BLOCK_LAYOUT);
+		waitForElementNotPresent(ELEMENT_EDIT_PORTLET_ICON);
 		
 		//Click Abort button
 		click(ELEMENT_PAGE_EDIT_ABORT);
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception 
+	public void afterMethods()
 	{
 		driver.quit();
 		actions = null;

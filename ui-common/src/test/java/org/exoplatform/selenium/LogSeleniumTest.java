@@ -1,14 +1,6 @@
 package org.exoplatform.selenium;
 
-import java.util.concurrent.TimeUnit;
-
-import junit.framework.Assert;
-
-import org.apache.log4j.BasicConfigurator;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
-import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

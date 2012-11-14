@@ -2,9 +2,9 @@ package org.exoplatform.selenium.platform.ecms.functional.wcm.viewer.singleconte
 
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.ManageAccount.signOut;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.deleteDocument;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import org.exoplatform.selenium.platform.ecms.ContentTemplate;
@@ -35,7 +35,7 @@ public class ECMS_WCM_Viewer_SingleContent_EditIcon extends ContentTemplate{
 	String contentPath = "General Drives/Sites Management/acme/documents/offices.jpg";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -44,7 +44,7 @@ public class ECMS_WCM_Viewer_SingleContent_EditIcon extends ContentTemplate{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		driver.quit();
 		actions = null;

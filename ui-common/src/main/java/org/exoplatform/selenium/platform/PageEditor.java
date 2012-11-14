@@ -1,16 +1,37 @@
-package org.exoplatform.selenium.platform.ecms;
+package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.UserGroupManagement.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+
+import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 
 public class PageEditor extends EcmsBase {
-
+	/** 
+		Page Creation Wizard: Select a Navigation Node and create the Page 
+	**/
+	public static String PORTAL_MANAGEMENT_LINK = "//a[@title='Portal Administration']";
+	public static String APPLICATION_MANAGER_LINK = "//a[@title='Application Manager']";
+	public static String PAGE_MANAGER_LINK = "//a[@title='Page Manager']";
+	public static String ADD_USERS_LINK = "//a[@title='Add Users']";
+	public static String USERS_GROUP_MANAGER_LINK = "//a[@title='User and Group Manager']";
+	public static String UP_LEVEL_ICON = "//a[@title='Up Level']";
+	public static String DEFAULT_NODE = "//div[contains(text(),'/default')]";
+	public static String NODE_NAME_INPUT = "//input[@id='pageName']";
+	
+	/* Page Editor - View Page Properties*/
+	//View Page Properties form -> PlatformBase/Permission setting tab
+	public static By ELEMENT_VIEW_PAGE_PROPERTIES = By.xpath("//a[text()='View Page properties']");
+	//View Page Properties form (there are 2 tabs in this form)
+	//Page Setting Tab
+	public static By ELEMENT_VIEWPAGE_PAGETITLE = By.xpath("//input[@id='title']");
+	//Permisstion setting tab
+	//View Page Properties form End
+	
 	/*-- Site Editor/Edit Page/Edit Mode 
 	 *-- Select Content Path/Content Search Form Tab  
 	 * --*/
-
 	public static final By ELEMENT_SEARCH_BUTTON = By.xpath("//a[text()='Search']");
 	public static final By ELEMENT_CLOSE_WINDOWS_BUTTON = By.xpath("//a[@class='CloseButton']"); 
 	public static final By ELEMENT_CONFIRM_YES_BUTTON = By.xpath("//a[contains(text(), 'Yes')]");
@@ -19,22 +40,23 @@ public class PageEditor extends EcmsBase {
 	public static final By ELEMENT_ADDWIZARD_TEXT2 = By.xpath("//div[@class='StepTitle' and contains(text(),'Select a Page Layout Template.')]");
 
 	//Edit "content list" portlet 
-	public static By ELEMENT_EDITPAGE_CONTENT_DELETE = By.xpath("//div[@class='DeleteIcon']");
-	public static By ELEMENT_TAB_SEARCH_RESULT=By.xpath("//div[@class='SelectedTab']/div/div/div[contains(text(),'Search Result')]");
-	public static By ELEMENT_CLOSE_POPUP_BUTTON=By.xpath("//a[@title='Close Window']");
-	public static By ELEMENT_SEARCH_FORM_CONTENT = By.xpath("//input[@name='WcmRadio' and @id='content']");
+	public static final By ELEMENT_EDITPAGE_CONTENT_DELETE = By.xpath("//div[@class='DeleteIcon']");
+	public static final By ELEMENT_TAB_SEARCH_RESULT=By.xpath("//div[@class='SelectedTab']/div/div/div[contains(text(),'Search Result')]");
+	public static final By ELEMENT_CLOSE_POPUP_BUTTON=By.xpath("//a[@title='Close Window']");
+	public static final By ELEMENT_SEARCH_FORM_CONTENT = By.xpath("//input[@name='WcmRadio' and @id='content']");
 	public static final By ELEMENT_INPUT_NAME_SEARCH_FORM_EDIT_MODE = By.xpath("//input[@id='name' and @type='text']");
 	public static final By ELEMENT_CHECK_BOX_WORD_PHRASE_EDIT_MODE = By.xpath("//input[@id='content' and @type='radio']");
 	public static final By ELEMENT_INPUT_NAME_SEARCH_WORD_PHRASE_EDIT_MODE = By.xpath("//input[@id='content' and @type='text']");
 	public static final By ELEMENT_CONTENT_SEARCH_FORM_TAB = By.xpath("//div[@class='MiddleTab' and text() = 'Content Search Form']");
 
+	
 	//Create page wizard without layout
 	public static void goToPageEditor_EmptyLayout(String pageName){
 		goToPageCreationWinzard();
 		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, pageName, false);
-		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
+		click(ELEMENT_NEXT_BUTTON);
 		waitForElementPresent(ELEMENT_ADDWIZARD_TEXT2);
-		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
+		click(ELEMENT_NEXT_BUTTON);
 	}
 
 	//Create new page without content 
@@ -44,10 +66,10 @@ public class PageEditor extends EcmsBase {
 	}
 
 	//create new page having layout - step 1,2
-	public static void gotoPageEditor_Layout(String pageName, int numberLayout){
+	public static void gotoPageEditorAndSelectLayout(String pageName, int numberLayout){
 		goToPageCreationWinzard();
 		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, pageName, false);
-		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
+		click(ELEMENT_NEXT_BUTTON);
 		click(ELEMENT_NEWPAGE_LAYOUT_OPTION);
 		switch (numberLayout){
 		case 1: click(ELEMENT_NEWPAGE_LAYOUT_COLUMN_PAGE_OPTION);
@@ -61,30 +83,30 @@ public class PageEditor extends EcmsBase {
 		default: click(ELEMENT_NEWPAGE_LAYOUT_DEFAULT_OPTION);
 		break;
 		}
-		click(ELEMENT_NEWPAGE_NEXT_BUTTON);
+		click(ELEMENT_NEXT_BUTTON);
 	}
 
 	//Create new page having layout 
 	public static void createNewPageWithLayout(String pageName, int numberLayout){
-		gotoPageEditor_Layout(pageName, numberLayout);
+		gotoPageEditorAndSelectLayout(pageName, numberLayout);
 		click(ELEMENT_NEWPAGE_SAVE_BUTTON);		
 	}
 
 
 	//Create empty layout SCV (Single Content Viewer) with content
-	public static void createPage_EmptyLayout_ContentDetail_ContentPath(String pageName, String contentPath){
-		goToPageEditor_EmptyLayout(pageName);
-		pause(500);
-		addContentDetailEmptyLayout();
-		pause(500);
-		selectContentPath(contentPath);
-		pause(500);
-		click(ELEMENT_NEWPAGE_SAVE_BUTTON);			
-	}
+	//	public static void createPage_EmptyLayout_ContentDetail_ContentPath(String pageName, String contentPath){
+	//		goToPageEditor_EmptyLayout(pageName);
+	//		pause(500);
+	//		addContentDetailEmptyLayout();
+	//		pause(500);
+	//		selectContentPath(contentPath);
+	//		pause(500);
+	//		click(ELEMENT_NEWPAGE_SAVE_BUTTON);			
+	//	}
 
 	//Create new CLV with layout and content
 	public static void createPage_ContentList_CLVpath(String pageName, String path, String clv){
-		gotoPageEditor_Layout(pageName, 1);
+		gotoPageEditorAndSelectLayout(pageName, 1);
 		pause(500);
 		addContentList();
 		pause(500);
@@ -117,30 +139,16 @@ public class PageEditor extends EcmsBase {
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_LIST_PORTLET,ELEMENT_DROP_TARGET_HAS_LAYOUT);		
 	}
 
-	//	//Select "ContentPath" in Edit Mode
-	//	public static void selectContentPath(){
-	//		actions.moveToElement(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET)).build().perform();
-	//		click(ELEMENT_EDIT_PORTLET_LINK);
-	//		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
-	//		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_LINK);
-	//		click(ELEMENT_SELECT_CONTENT_PATH_GENERAL_MANAGED_LINK);
-	//		click(ELEMENT_SELECT_CONTENT_PATH_ACME_LINK);
-	//		click(ELEMENT_SELECT_CONTENT_PATH_ACME_DOC_LINK);
-	//		click(ELEMENT_SELECT_CONTENT_PATH);
-	//		click(ELEMENT_SAVE_BUTTON);
-	//		click(ELEMENT_CLOSE_BUTTON);
-	//	}
-	
 	//Select "ContentPath" in edit portlet
 	public static void selectContentPath(String pathContent){
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET,true);	
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		selectGroup(pathContent);
 		click(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 	}
-	
+
 	/*Select "CLVPath" in Edit Mode
 	 * @mode:  content: if select mode "By content"
 	 * 		   other value: if select mode "By folder"	
@@ -149,7 +157,7 @@ public class PageEditor extends EcmsBase {
 		By ELEMENT_SELECT_CLV_PATH = By.xpath("//td/a[text()='" + clv + "']");
 
 		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		click(ELEMENT_EDIT_PORTLET_LINK);
+		click(ELEMENT_EDIT_PORTLET_ICON);
 		if (mode.length >0){ 
 			if (mode[0] == "content")
 				click(ELEMENT_RADIO_MODE_CONTENT);
@@ -209,7 +217,8 @@ public class PageEditor extends EcmsBase {
 		}	
 	}
 
-	//---Function to create new page with content by query portlet, @author: Nhungvt
+	//---Function to create new page with content by query portlet, 
+	//---@author: Nhungvt
 	public static void createPage_ContentByQuery_EmptyLayout(String pageName)
 	{
 		goToPageEditor_EmptyLayout(pageName);
@@ -218,15 +227,6 @@ public class PageEditor extends EcmsBase {
 		pause(500);
 	}
 
-	//function enable edit mode
-	public static void enableEditMode(boolean enable){
-		mouseOver(ELEMENT_MENU_EDIT_LINK, true);
-		waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK);
-		if ((enable == true && isElementPresent(ELEMENT_EDIT_MODE) == true) || (enable == false && isElementPresent(ELEMENT_EDIT_MODE) == false)){
-			click(ELEMENT_MENU_CONTENT_LINK); 
-		}
-
-	}
 
 	//function select home path on content list reference form
 	public static void selectHomePathOnContentList(String groupPath, String node){

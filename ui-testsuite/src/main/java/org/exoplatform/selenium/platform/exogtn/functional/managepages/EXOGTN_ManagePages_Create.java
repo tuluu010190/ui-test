@@ -15,6 +15,7 @@ import org.testng.annotations.Test;
 import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 
 /**
  * @author NhungVT, ThaoPTH
@@ -23,38 +24,16 @@ import static org.exoplatform.selenium.platform.PageManagement.*;
 
 public class EXOGTN_ManagePages_Create extends PlatformBase 
 {
+	WebElement ELEMENT = null;
 	//Define data
 	public String INTRANET_LINK = "";
-	public String ACME_LINK = "";
 	public String PAGE_NAME = "";
 	public String PAGE_TITLE = "";
-	
-	public final static By ELEMENT_ADD_PAGE_BUTTON = By.linkText("Add New Page");
-	public final static By ELEMENT_PAGE_NAME_INPUT = By.xpath("//input[@id='name']");
-	public final static By ELEMENT_PAGE_TITLE_INPUT = By.xpath("//input[@id='title']");
-	public final static By ELEMENT_OWNER_TYPE = By.xpath("//select[@name='ownerType']");
-	public final static By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
-	public final static By CANCEL_BUTTON = By.linkText("Cancel");
 	
 	public String ADMINISTRATION_LINK = "//a[text()='Administration']";
 	public String MANAGEMENT_LINK = "//a[text()='Management']";
 	public String HOME_LINK = "//a[@title='Home']";
-	public String ABORT_BUTTON = "//a[text()='Abort']";
-	public String PORTAL_MANAGEMENT_LINK = "//a[@title='Portal Administration']";
-	public String APPLICATION_MANAGER_LINK = "//a[@title='Application Manager']";
-	public String PAGE_MANAGER_LINK = "//a[@title='Page Manager']";
-	public String ADD_USERS_LINK = "//a[@title='Add Users']";
-	public String USERS_GROUP_MANAGER_LINK = "//a[@title='User and Group Manager']";
-	public String UP_LEVEL_ICON = "//a[@title='Up Level']";
-	public String DEFAULT_NODE = "//div[contains(text(),'/default')]";
-	public String MY_SITES_LINK = "//a[contains(text(),'My Sites')]";
-	public String INTRANET_LINK_TEXT = "//a[text()='intranet']";
-	public String NODE_NAME_INPUT = "//input[@id='pageName']";
-	public String NEXT_BUTTON = "//a[text()='Next']";
 	public String EMPTY_LAYOUT = "//div[text()='Empty Layout']";
-	public String OK_BUTTON = "//a[text()='OK']";
-	
-	WebElement ELEMENT = null;
 	
 	//Messages
 	public String BLANK_NODE_NAME_MESSAGE = "The field \"Node Name\" is required.";
@@ -63,10 +42,9 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 	public String PAGE_NAME_EXIST_MESSAGE = "This page name already exists.";
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
-		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get(baseUrl);
 		actions = new Actions(driver);
 		signIn("john", "gtn");
@@ -92,7 +70,7 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		waitForElementPresent(NODE_NAME_INPUT);
 		
 		//Click Abort button
-		click(ABORT_BUTTON);
+		click(ELEMENT_ABORT_BUTTON);
 		
 		//Check Showing on Group's page
 		
@@ -114,7 +92,7 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		waitForElementPresent(NODE_NAME_INPUT);
 		
 		//Click Abort button
-		click(ABORT_BUTTON);
+		click(ELEMENT_ABORT_BUTTON);
 		
 		info("-END test01_CheckShowNewPageForm");
 	}
@@ -155,14 +133,14 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		waitForElementPresent(DEFAULT_NODE);
 		
 		//Click Abort button
-		click(ABORT_BUTTON);
+		click(ELEMENT_ABORT_BUTTON);
 		
 		//Check Showing on Portal's page
 		
 		//Goto My Sites > intranet > Home
-		mouseOver(MY_SITES_LINK, true);
+		mouseOver(ELEMENT_MYSITE, true);
 		pause(500);
-		mouseOverAndClick(INTRANET_LINK_TEXT);
+		mouseOverAndClick(ELEMENT_INTRANET_SITE_LINK);
 		pause(500);
 		
 		//Goto Edit >  Page > Add Page of Portal
@@ -180,7 +158,7 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		waitForElementPresent(DEFAULT_NODE);
 		
 		//Click Abort button
-		click(ABORT_BUTTON);
+		click(ELEMENT_ABORT_BUTTON);
 		
 		info("-END test06_CheckShowPageListOfSelectedNavigation");
 	}
@@ -204,14 +182,14 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		type(NODE_NAME_INPUT, "Page1", true);
 		
 		//Click Next button
-		click(NEXT_BUTTON);
+		next();
 		
 		//Verify Step 2
 		waitForTextPresent("Select a Page Layout Template.");
 		waitForElementPresent(EMPTY_LAYOUT);
 		
 		//Click Abort button
-		click(ABORT_BUTTON);
+		click(ELEMENT_ABORT_BUTTON);
 		
 		info("-END test07_CompleteStep1WithValidValue");
 	}
@@ -232,14 +210,14 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		waitForElementPresent(NODE_NAME_INPUT);
 		
 		//Click Next button with Blank Node Name
-		click(NEXT_BUTTON);
+		next();
 		
 		//Verify alert message
 		waitForTextPresent(BLANK_NODE_NAME_MESSAGE);
-		click(OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
 		
 		//Click Abort button
-		click(ABORT_BUTTON);
+		click(ELEMENT_ABORT_BUTTON);
 		
 		info("-END test08_CompleteStep1WithBlankNodeName");
 	}
@@ -263,14 +241,14 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		type(NODE_NAME_INPUT, "1Page", true);
 		
 		//Click Next button
-		click(NEXT_BUTTON);
+		next();
 		
 		//Verify Step 2
 		waitForTextPresent(NODE_NAME_START_NUMBER_MESSAGE);
-		click(OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
 		
 		//Click Abort button
-		click(ABORT_BUTTON);
+		click(ELEMENT_ABORT_BUTTON);
 		
 		info("-END test09_CompleteStep1WithNodeNameStartNumber");
 	}
@@ -294,11 +272,11 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		type(NODE_NAME_INPUT, "-Page", true);
 		
 		//Click Next button
-		click(NEXT_BUTTON);
+		next();
 		
 		//Verify Step 2
 		waitForTextPresent(NODE_NAME_START_NUMBER_MESSAGE);
-		click(OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
 		
 		//Reset Node Name value
 		ELEMENT = waitForAndGetElement(By.xpath(NODE_NAME_INPUT));
@@ -308,14 +286,14 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		type(NODE_NAME_INPUT, ".Page", true);
 		
 		//Click Next button
-		click(NEXT_BUTTON);
+		next();
 		
 		//Verify Step 2
 		waitForTextPresent(NODE_NAME_START_SPECIAL_MESSAGE);
-		click(OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
 		
 		//Click Abort button
-		click(ABORT_BUTTON);
+		click(ELEMENT_ABORT_BUTTON);
 		
 		info("-END test10_CompleteStep1WithNodeNameStartSpeacialChars");
 	}
@@ -452,8 +430,8 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 		save();
 
 		waitForMessage(PAGE_NAME_EXIST_MESSAGE);
-		click(OK_BUTTON);
-		click(CANCEL_BUTTON);
+		click(ELEMENT_OK_BUTTON);
+		click(ELEMENT_CANCEL_BUTTON);
 
 		//Delete data
 		goToManagePages();
@@ -501,7 +479,7 @@ public class EXOGTN_ManagePages_Create extends PlatformBase
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		driver.quit();
 	}

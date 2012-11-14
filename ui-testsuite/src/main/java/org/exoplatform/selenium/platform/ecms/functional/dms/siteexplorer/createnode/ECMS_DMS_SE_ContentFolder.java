@@ -29,15 +29,12 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 	public String DATA_FPLAN_ORI_11 = "file plan";
 	public String DATA_FPLAN_DIS_11 = "file plan";
 	public String DATA_FPLAN_EVENT_11 = "file plan";
+
 	public static final String USER= "john";
 	public static final String PASSWORD= "gtn";
-	public static final By ELEMENT_NEW_FOLDER_LINK = By.linkText("New Folder");
 	public static final By ELEMENT_NEW_CONTENT_TYPE = By.name("type");
-	public static final int PAUSE_1= 6000;
-	public static final int PAUSE_2= 4000;
 
 	//create a content folder inside another content folder
-
 	@Test
 	public void test01_CreateContentFolderInsideContentFolder() {
 
@@ -65,12 +62,12 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 	public void test02_CreateContentFolderInsideDocumentFolder()
 	{
 		info("Create a node at root path");
-		
+
 		//create a node at root path
 		createNewDocumentFolder(DATA_DOC_TITLE_02, DATA_DOC_NAME_02);
 		// check for creating document folder successfully
 		waitForElementPresent(By.linkText(DATA_DOC_TITLE_02));
-		
+
 		//create a sub-node
 		goToNode(By.xpath("//a[@title='" + DATA_DOC_TITLE_02+ " ']"));
 		waitForAndGetElement(ELEMENT_NEW_FOLDER_LINK).click();
@@ -80,7 +77,7 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 		{
 			assert !(option.getText().equals("Content Folder")): "Fail! Still can add a content folder in a document folder!";
 		}
-		
+
 		//delete parent node
 		deleteDocument(By.xpath("//a[@title='" + DATA_DOC_TITLE_02 + " ']"));
 		//pause(4000);
@@ -97,7 +94,7 @@ public class ECMS_DMS_SE_ContentFolder extends EcmsBase{
 		createNewDocumentFolder(DATA_DOC_TITLE_11, DATA_DOC_NAME_11);
 		// check for creating document folder successfully
 		waitForElementPresent(By.linkText(DATA_DOC_TITLE_11));
-		
+
 		lockNode(By.xpath("//a[@title='" + DATA_DOC_TITLE_11 + " ']"));
 		//check if the document is locked 
 		assert checkLockNode("//a[@title='" + DATA_DOC_TITLE_11 + " (Locked by "+ USER +")']"): "Fail to lock the document";

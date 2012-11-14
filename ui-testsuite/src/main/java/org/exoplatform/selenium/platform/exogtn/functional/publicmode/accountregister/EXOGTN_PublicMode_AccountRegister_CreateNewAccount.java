@@ -23,7 +23,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 	String searchOption = "User Name";
 
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -31,7 +31,7 @@ public class EXOGTN_PublicMode_AccountRegister_CreateNewAccount extends ManageAc
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}

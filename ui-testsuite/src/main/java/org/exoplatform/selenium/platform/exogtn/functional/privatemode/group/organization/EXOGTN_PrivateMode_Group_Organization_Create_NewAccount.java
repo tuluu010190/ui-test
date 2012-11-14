@@ -26,7 +26,7 @@ public class EXOGTN_PrivateMode_Group_Organization_Create_NewAccount extends Man
 	String searchOption = "User Name";
 
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -34,7 +34,7 @@ public class EXOGTN_PrivateMode_Group_Organization_Create_NewAccount extends Man
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}

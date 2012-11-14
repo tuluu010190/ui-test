@@ -76,7 +76,7 @@ public class EXOGTN_GroupNavigation_Node_Delete extends PlatformBase
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

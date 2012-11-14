@@ -49,7 +49,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Cut extends PlatformBas
 	}
 
 	@BeforeMethod()
-	public void beforeTest() throws Exception {
+	public void beforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -230,7 +230,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Cut extends PlatformBas
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		signOut();
 		driver.quit();
 	}

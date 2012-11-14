@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.exogtn.functional.dashboard;
 
 import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.goToDashboard;
+import static org.exoplatform.selenium.platform.DashBoard.*;
 
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
@@ -20,12 +21,8 @@ public class EXOGTN_Dashboard_DeleteGadget extends PlatformBase
 	//Define data
 	public String GADGET_NAME = "Agenda Gadget";
 	public String GADGET_TITLE_DISPLAY = "My Agenda";
-	public By ADD_GADGETS_LINK = By.xpath("//a[text()='Add Gadgets']");
 	public By GADGET_DIRECTORY_LIST = By.xpath("//div[@class='UIPopupWindow UIDragObject NormalStyle']");
 	public By AGENDA_GADGET_ON_LIST = By.xpath("//div[@class='GadgetTitle' and @title='"+GADGET_NAME+"']");
-	public By CLOSE_WINDOW_BUTTON = By.xpath("//a[@title='Close Window']");
-
-	public String DRAG_GADGETS_HERE_MESSAGE = "Drag your gadgets here.";
 
 	public void deleteGadgetOnDashboard(String gadgetTitleDisplay)
 	{
@@ -38,7 +35,7 @@ public class EXOGTN_Dashboard_DeleteGadget extends PlatformBase
 	}
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception 
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		actions = new Actions(driver);
@@ -53,26 +50,26 @@ public class EXOGTN_Dashboard_DeleteGadget extends PlatformBase
 	{		
 		//Goto DashBoard
 		goToDashboard();
-		waitForTextPresent(DRAG_GADGETS_HERE_MESSAGE);
+		waitForTextPresent(MESSAGE_DRAG_GADGETS_HERE);
 
 		//Click on Add Gadgets link
-		waitForElementPresent(ADD_GADGETS_LINK);
-		click(ADD_GADGETS_LINK);
+		waitForElementPresent(ELEMENT_ADD_GADGETS_LINK);
+		click(ELEMENT_ADD_GADGETS_LINK);
 		waitForElementPresent(GADGET_DIRECTORY_LIST);
 
 		//Drag My Agenda Gadget on list and Drop into Container
 		waitForTextPresent("Collaboration");
 		actions.dragAndDropBy(waitForAndGetElement(AGENDA_GADGET_ON_LIST), 2, 2).build().perform();
 		waitForTextPresent(GADGET_TITLE_DISPLAY);
-		waitForElementPresent(CLOSE_WINDOW_BUTTON);
-		click(CLOSE_WINDOW_BUTTON);
+		waitForElementPresent(ELEMENT_CLOSE_WINDOW);
+		click(ELEMENT_CLOSE_WINDOW);
 		
 		//Delete data
 		deleteGadgetOnDashboard(GADGET_TITLE_DISPLAY);
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

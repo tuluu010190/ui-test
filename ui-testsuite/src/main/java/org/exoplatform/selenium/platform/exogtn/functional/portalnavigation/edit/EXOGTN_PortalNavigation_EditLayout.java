@@ -35,8 +35,6 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	public static final By ELEMENT_CONFIRMATION_YES_OPTION = By.xpath("//div[@id='UIConfirmation']//div[contains(@class, 'UIAction')]//a[contains(text(), 'Yes')]");
 	public static final By ELEMENT_ONE_ROW_LAYOUT = By.id("oneRow");		
 	public static final By ELEMENT_PAGE_BODY = By.xpath(".//*[@id='UIPageBody']/div/div[1]/div");
-	public static final By ELEMENT_CANCEL_BUTTON = By.xpath("//a[text()='Cancel']");
-	 
 	public static final By ELEMENT_ROWS_LAYOUT = By.linkText("Rows Layout")             ;
 	public static final By ELEMENT_EMPTY_CONTAINER = By.cssSelector("div.UIRowContainer.EmptyContainer");
 
@@ -48,6 +46,8 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	public static final String ELEMENT_EMPTY_CONTAINER_2 = EMPTY_CONTAINER.replace("${portletNumber}", "2");
 	public static final String APPLICATION_DRAG_ICON = ELEMENT_EDIT_PAGE_COMPONENT_DRAG_ICON.replace("${number}", "1");
 	public static final String ELEMENT_EDIT_CONTAINER = ELEMENT_EDIT_PAGE_COMPONENT.replace("${portletNumber}", "1");
+	public static final By ELEMENT_CONTAINER_TITLE = By.xpath("//input[@id='title']");
+	
 	public static final String ELEMENT_COLLABORATION_CATEGORY = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", "Collaboration");
 	public static final String ELEMENT_CONTENT_CATEGORY = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", "Content");
 	public static final String ELEMENT_ADMIN_CATEGORY = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", "Administration");
@@ -60,14 +60,14 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	public static final String MESSAGE_QUIT_EDIT_LAYOUT = "Modifications have been made. Are you sure to close without saving?";
 
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);		
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.quit();
 	}
 
@@ -90,7 +90,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		click(ELEMENT_PERMISSION_SETTING_TAB);
 
 		info("-- Delete Permission --");
-		click(ELEMENT_LINK_EDIT_PERMISSION);
+		click(ELEMENT_EDIT_PERMISSION_SETTING);
 		click(ELELENT_LINK_DELETE_PERMISSION);
 
 		save();
@@ -247,7 +247,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 
 		info("--Edit current title with valid value--");
 		waitForTextPresent("Container Settings");
-		type(ELEMENT_INPUT_TITLE, "test64_CheckEditingContainer", true);
+		type(ELEMENT_CONTAINER_TITLE, "test64_CheckEditingContainer", true); //ELEMENT_INPUT_TITLE
 		save();
 		mouseOver(ELEMENT_EDIT_CONTAINER, true);
 		waitForTextPresent("test64_CheckEditingContainer");

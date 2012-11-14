@@ -19,7 +19,7 @@ import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 public class ECMS_DMS_SE_Link extends EcmsBase {
 	public static String USER = "john";
 	public static String PASS = "gtn";
-	public static final By ELEMENT_DRIVE_SITE_MANAGE= By.xpath("//a[@title='Sites Management']");
+	
 	public static final String ELEMENT_PATH_ACME="acme/links";
 	public static final By ELEMENT_LINK_NAME= By.id("name");
 	public static final By ELEMENT_LINK_URL= By.id("LinkURL");
@@ -59,7 +59,7 @@ public class ECMS_DMS_SE_Link extends EcmsBase {
 		info("Create a link in site explorer");
 
 		//choose Sites management drive, and go to acme/links
-		chooseDrive(ELEMENT_DRIVE_SITE_MANAGE);
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		goToNodeByPath(ELEMENT_PATH_ACME);
 		addLink(DATA_LINK_NAME_01, DATA_LINK_URL_01, DATA_LINK_LANG_01, DATA_LINK_DESC_01);
 		waitForElementPresent(bLink);
@@ -77,7 +77,7 @@ public class ECMS_DMS_SE_Link extends EcmsBase {
 			info("Create a link in site explorer with invalid url");
 
 			//choose Sites management drive, and go to acme/links
-			chooseDrive(ELEMENT_DRIVE_SITE_MANAGE);
+			chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 			goToNodeByPath(ELEMENT_PATH_ACME);
 			addLink(DATA_LINK_NAME_02, DATA_LINK_URL_02, DATA_LINK_LANG_02, DATA_LINK_DESC_02);
 			waitForElementPresent(bLink);

@@ -20,12 +20,8 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 	public static final String DATA_USER = "john";
 	public static final String DATA_PASS = "gtn";
 	
-	public static final By ELEMENT_ACME_LINK = By.xpath("//a[@title='acme ']");
-	public static final By ELEMENT_WEB_CONTENT_LINK = By.xpath("//a[@title='web contents ']");
-	
-	
 	 @BeforeMethod
-	  public void beforeMethods() throws Exception {
+	  public void beforeMethods() {
 		initSeleniumTest();
 	    driver.get(baseUrl);
 	    actions = new Actions(driver);
@@ -34,7 +30,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 	  }
 
 	  @AfterMethod
-	  public void afterMethods() throws Exception {
+	  public void afterMethods() {
 		info("Logout to ECMS");
 		logoutEcms();
 	    driver.manage().deleteAllCookies();
@@ -58,8 +54,8 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  //go to web content folder
 		  info("Go to web content folder");
 		  goToSiteExplorer();
-		  goToNode(ELEMENT_ACME_LINK);
-		  goToNode(ELEMENT_WEB_CONTENT_LINK);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME_WEB_CONTENT);
 		  goToAddNewContent();
 		  //add new free layout web content
 		  debug("Add new free layout webcontent with title: "+DATA_FREE_LAYOUT_TITLE );
@@ -67,7 +63,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  waitForElementPresent(ELEMENT_FREE_LAYOUT);
 		  info("Add new free layout webcontent successfully");
 		  //check status of free layout is draft
-		  goToNode(ELEMENT_WEB_CONTENT_LINK);
+		  goToNode(ELEMENT_SIDEBAR_ACME_WEB_CONTENT);
 		  assert getText(ELEMENT_STATUS).contains("Draft"):"Status of file is not true";
 		  //delete data
 		  goToNode(ELEMENT_FREE_LAYOUT);
@@ -88,8 +84,8 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  //go to web content
 		  info("Go to web content folder");
 		  goToSiteExplorer();
-		  goToNode(ELEMENT_ACME_LINK);
-		  goToNode(ELEMENT_WEB_CONTENT_LINK);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME_WEB_CONTENT);
 		  goToAddNewContent();
 		  //add new free layout webcontent with name blank
 		  debug("Add new free layout webcontent with blank name");
@@ -114,8 +110,8 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  //go to web content
 		  info("Go to web content folder");
 		  goToSiteExplorer();
-		  goToNode(ELEMENT_ACME_LINK);
-		  goToNode(ELEMENT_WEB_CONTENT_LINK);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME_WEB_CONTENT);
 		  goToAddNewContent();
 		  //add new free layout webcontent with name blank
 		  debug("Add new free layout webcontent with name blank");
@@ -143,8 +139,8 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  //go to web content
 		  info("Go to web content folder");
 		  goToSiteExplorer();
-		  goToNode(ELEMENT_ACME_LINK);
-		  goToNode(ELEMENT_WEB_CONTENT_LINK);
+		  goToNode(ELEMENT_SIDEBAR_ACME);
+		  goToNode(ELEMENT_SIDEBAR_ACME_WEB_CONTENT);
 		  goToAddNewContent();
 		  //add new free layout webcontent with name in Vietnamese
 		  debug("Create new free layout webcontent with name in vietnamese: "+DATA_FREE_LAYOUT_NAME_VIETNAMESE);
@@ -155,7 +151,7 @@ public class ECMS_DMS_SE_ContentFreeLayout extends EcmsBase{
 		  deleteDocument(ELEMENT_FREE_LAYOUT);
 
 		  //add new free layout webcontent with name in France
-		  goToNode(ELEMENT_WEB_CONTENT_LINK);
+		  goToNode(ELEMENT_SIDEBAR_ACME_WEB_CONTENT);
 		  goToAddNewContent();
 		  debug("Create new free layout webcontent with name in france: "+DATA_FREE_LAYOUT_NAME_FRANCE);
 		  createNewFreeLayoutWebContent(DATA_FREE_LAYOUT_TITLE, DATA_FREE_LAYOUT_NAME_FRANCE, "", "", "", "", "");

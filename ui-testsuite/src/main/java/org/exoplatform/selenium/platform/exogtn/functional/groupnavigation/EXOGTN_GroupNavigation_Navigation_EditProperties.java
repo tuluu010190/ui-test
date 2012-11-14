@@ -28,7 +28,7 @@ public class EXOGTN_GroupNavigation_Navigation_EditProperties extends PlatformBa
 	public By ADMINISTRATION_NEW_POSTION = By.xpath("//div[@id='UIGroupNavigationGrid']//table[1]//div[@title='/platform/administrators']");
 
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -97,7 +97,7 @@ public class EXOGTN_GroupNavigation_Navigation_EditProperties extends PlatformBa
 	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

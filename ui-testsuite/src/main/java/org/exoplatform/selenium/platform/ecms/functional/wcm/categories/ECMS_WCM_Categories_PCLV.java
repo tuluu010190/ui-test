@@ -2,11 +2,11 @@ package org.exoplatform.selenium.platform.ecms.functional.wcm.categories;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.WcmAdmin.*;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
@@ -31,7 +31,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 	public static final By ELEMENT_DELETE_URL_PORTLET = By.xpath("//div[text()='Content by URL']/../a[@class='DeleteIcon']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -40,7 +40,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		//delete Content By URL if it is not deleted
 		goToNews();
 		goToEditPageEditor();
@@ -58,7 +58,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 		By ELEMENT_ARTICLE = By.linkText(title);
 		By ELEMENT_DEFENCE = By.linkText("Defense");
 
-		chooseDrive(ELEMENT_ACME_DRIVER);
+		chooseDrive(ELEMENT_ACME_DRIVE);
 		click(ELEMENT_DEFENCE);
 		pause(1000);
 		if (waitForAndGetElement(ELEMENT_ARTICLE,5000,0) != null){
@@ -142,7 +142,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 
 		//---public this document---
 		click(ELEMENT_ARTICLE);
-		click(ELEMENT_PUBLICATION_TAB_LINK);
+		click(ELEMENT_PUBLICATION_TAB);
 		publishDocument();
 
 		//---Go to Edit News page--- 
@@ -195,7 +195,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 		if (waitForAndGetElement(ELEMENT_PERMISSION_LINK,5000,0) == null){
 			addView("WCM Category View","Collaboration","viewPermissions");
 			goToSiteExplorer();
-			chooseDrive(ELEMENT_ACME_DRIVER);
+			chooseDrive(ELEMENT_ACME_DRIVE);
 			while (getElement(ELEMENT_ARTICLE_DEFENSE) == null){
 				click(ELEMENT_DEFENCE);
 			}
@@ -205,7 +205,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 		click(ELEMENT_PERMISSION_LINK);
 		removeDefaultPermissionOfNode();
 		close();
-		click(ELEMENT_PUBLICATION_TAB_LINK);
+		click(ELEMENT_PUBLICATION_TAB);
 		publishDocument();
 
 		//---Configure News page--- 
@@ -239,7 +239,7 @@ public class ECMS_WCM_Categories_PCLV extends EcmsBase {
 		//---delete data---
 		loginEcms(DATA_USER, DATA_PASS);		
 		goToSiteExplorer();
-		chooseDrive(ELEMENT_ACME_DRIVER);
+		chooseDrive(ELEMENT_ACME_DRIVE);
 		while (getElement(ELEMENT_ARTICLE_DEFENSE) == null){
 			click(ELEMENT_DEFENCE);
 		}

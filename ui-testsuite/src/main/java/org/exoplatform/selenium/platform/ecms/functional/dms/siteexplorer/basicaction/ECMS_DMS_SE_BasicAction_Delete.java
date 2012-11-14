@@ -20,27 +20,11 @@ import org.testng.annotations.Test;
 
 public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase 
 {
-	//Define data
-	public String COLLABORATION_ICON_XPATH =  "//a[@title='collaboration']";
-	public String USERS_FOLDER_XPATH = "//div[@title='Users']";
-	
-	public By SITES_MANAGEMENT_LINK = By.xpath("//div[@title='Sites Management']");
-	//public By SHOW_DRIVES_ICON = By.xpath("//a[@title='Show Drives']");
-	public By TRASH_DRIVER_ICON = By.xpath("//a[@title='Trash']");
-	public By COLLABORATION_ICON =  By.xpath(COLLABORATION_ICON_XPATH);
-	public By USERS_FOLDER = By.xpath(USERS_FOLDER_XPATH);
-	public By ADDRESS_INPUT = By.xpath("//input[@id='address']");
-	public By PUBLIC_FOLDER = By.xpath("//div[text()='Public']");
-	public By PRIVATE_FOLDER = By.xpath("//div[text()='Private']");
-	//public By DELETE_LINK = By.xpath("//a[@style ='display: block;' and contains(text(),'Delete')]");
-	public By SYSTEM_TAB_LINK = By.xpath("//a[@title='System']");
-	public By PERMISSIONS_LINK = By.xpath("//a[@title='Permissions']");
 	public By WEBCONTRIBUTOR_EDIT_PERMISSIONS = By.xpath("//td/div[@title='*:/platform/web-contributors']/following::td//img[@title='Edit']");
 	public By REMOVE_RIGHT_CHECKBOX = By.xpath("//input[@id='remove']");
-	public By CLOSE_WINDOW_ICON = By.xpath("//a[@title='Close Window']");
 
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		driver.get(baseUrl);
@@ -86,7 +70,7 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 		deleteDocument(UPLOAD_FILE_NAME);
 
 		//Goto Trash driver
-		chooseDrive(TRASH_DRIVER_ICON);
+		chooseDrive(ELEMENT_TRASH_DRIVE);
 		
 		//Verify Delete Nodes: Search by Name
 		assert simpleSearch(DATA_CONTENT_FOLDER):"Can not found deleted content folder in Trash";
@@ -235,18 +219,18 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 
 		//Goto System > Permissions > Uncheck Remove Right for Group *:/platform/web-contributor
 		doubleClickOnElement(CONTENT_FOLDER);
-		waitForElementPresent(SYSTEM_TAB_LINK);
-		click(SYSTEM_TAB_LINK);
-		waitForElementPresent(PERMISSIONS_LINK);
-		click(PERMISSIONS_LINK);
+		waitForElementPresent(ELEMENT_SYSTEM_TAB);
+		click(ELEMENT_SYSTEM_TAB);
+		waitForElementPresent(ELEMENT_PERMISSION_LINK);
+		click(ELEMENT_PERMISSION_LINK);
 		waitForElementPresent(WEBCONTRIBUTOR_EDIT_PERMISSIONS);
 		click(WEBCONTRIBUTOR_EDIT_PERMISSIONS);
 		waitForElementPresent(REMOVE_RIGHT_CHECKBOX);
 		uncheck(REMOVE_RIGHT_CHECKBOX);
 		save();
 
-		waitForElementPresent(CLOSE_WINDOW_ICON);
-		click(CLOSE_WINDOW_ICON);
+		waitForElementPresent(ELEMENT_CLOSE_WINDOW);
+		click(ELEMENT_CLOSE_WINDOW);
 
 		//Sign out and Sign in as mary
 		logoutEcms();
@@ -305,7 +289,7 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 	//	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		logoutEcms();
 		driver.quit();

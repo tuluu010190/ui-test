@@ -15,7 +15,7 @@ public class TestLogger {
 		String Filename = elements[2].getFileName();
 		String sClassName = Filename.substring(0, Filename.length() - 5);//remove .java
 		String sMethodName = elements[2].getMethodName();
-		logMessage = String.format("[%-20s][%s] %s", sClassName, sMethodName, message);
+		logMessage = String.format("[%-10s][%s] %s", sClassName, sMethodName, message);
 		logger.log(level, logMessage);
 	}
 

@@ -25,7 +25,7 @@ public class EXOGTN_Group_Organization_GroupManagement_RemoveUser extends Platfo
 	By VERIFY_USER = By.xpath("//td/div[@title='/platform']/following::td/div[@title='manager']");
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception {
+	public void beforeTest() {
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -58,8 +58,6 @@ public class EXOGTN_Group_Organization_GroupManagement_RemoveUser extends Platfo
 	@Test
 	public void test03_CheckMembershipOfUserInUserProfileAfterRemovedFromSpecificGroup() {
 
-		By ELEMENT_USER_MEMBERSHIP_TAB = By.xpath("//div[text()='User Membership' and @class='MiddleTab']");
-		
 		info("--login portal--");
 		signIn("john", "gtn");
 
@@ -113,7 +111,7 @@ public class EXOGTN_Group_Organization_GroupManagement_RemoveUser extends Platfo
 	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

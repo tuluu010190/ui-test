@@ -10,6 +10,9 @@ public class UserGroupManagement extends PlatformBase {
 	public static final String MESSAGE_DUPLICATE_GROUPS = "in the group \"${groupName}\", please select another one.";
 	public static final String ELEMENT_USER_INGROUP_DELETE_ICON = "//div[@id='UIGridUser']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
 
+	//User Management -> Edit User form
+	public static final String ELEMENT_USER_MEMBERSHIP_TAB = "//div[text()='User Membership' and @class='MiddleTab']";
+	
 	/*
 	 *  Choose TAB actions
 	 * */
@@ -179,7 +182,7 @@ public class UserGroupManagement extends PlatformBase {
 		info("-- Delete group: " + groupName + "--");
 		int waitTime= wait.length > 0 ? wait[0]: DEFAULT_TIMEOUT;
 		click(ELEMENT_GROUP_REMOVE_ICON);
-		
+
 		waitForConfirmation("Are you sure to delete this group?");
 		if (verify) {
 			waitForElementNotPresent("//a[@title='"+ groupName +"']",waitTime);

@@ -19,9 +19,6 @@ import static org.exoplatform.selenium.platform.ecms.WcmAdmin.*;
 public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 	public static String USER = "john";
 	public static String PASS = "gtn";
-	By ELEMENT_ACME_FOLDER= By.xpath("//a[@title='acme ']");
-	By ELEMENT_ROOT=By.xpath("//div[@class='Title' and contains(text(),'Sites Management')]");
-	By ELEMENT_DRIVE_MANAGE_SITE=By.xpath("//a[contains(text(),'Sites Management')]");
 
 	//cut a content folder and paste it to another node
 	@Test(groups={"ecms"})
@@ -35,7 +32,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewContentFolder(title, title);
 		waitForElementPresent(bCont);
 		//cut and paste content folder to acme folder
-		cutAndPasteNode(bCont,ELEMENT_ACME_FOLDER);
+		cutAndPasteNode(bCont,ELEMENT_SIDEBAR_ACME);
 
 		//verify if paste the content folder successfully in acme folder 
 		waitForElementNotPresent(bCont);
@@ -391,7 +388,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewArticle(titleDes, titleDes, titleDes, titleDes);
 		waitForElementPresent(bDocDes);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
 		//create an article - source
@@ -426,7 +423,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewSampleNode(titleDes, titleDes, img);
 		waitForElementPresent(bDocDes);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
 		//create an article - source
@@ -459,7 +456,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewFilePlan(titleDes, titleDes, titleDes, titleDes, titleDes);
 		waitForElementPresent(bDocDes);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
 		//create an article - source
@@ -494,7 +491,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewFile(titleDes, titleDes, titleDes);
 		waitForElementPresent(bDocDes);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -531,7 +528,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewPodcast(titleDes, titleDes, titleDes);
 		waitForElementPresent(bDocDes);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -568,7 +565,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewKofax(titleDes);
 		waitForElementPresent(bDocDes);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -605,7 +602,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		uploadFile(titleDes, img);
 		waitForElementPresent(bDocDes);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -676,7 +673,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		waitForElementPresent(bDocDes);
 
 		//pause(500);
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -777,7 +774,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewFilePlan(titleDes, titleDes, titleDes, titleDes, titleDes);
 		waitForElementPresent(bDocDes);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -815,7 +812,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewSampleNode(title, title, img);
 		waitForElementPresent(bDoc);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -852,7 +849,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewFilePlan(title, title, title,title,title);
 		waitForElementPresent(bDoc);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -887,7 +884,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewFilePlan(title, title, title,title,title);
 		waitForElementPresent(bDoc);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -924,7 +921,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewFilePlan(title, title, title,title,title);
 		waitForElementPresent(bDoc);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -961,7 +958,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewKofax(title);
 		waitForElementPresent(bDoc);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -997,7 +994,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		createNewKofax(title);
 		waitForElementPresent(bDoc);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -1034,7 +1031,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		uploadFile(title,img);
 		waitForElementPresent(bDoc);
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 
@@ -1079,7 +1076,7 @@ public class ECMS_DMS_SE_BasicAction_CutPaste extends EcmsBase {
 		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		addVersionForNode(bDoc,"version file");
 
-		click(ELEMENT_ROOT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(500);
 		waitForElementPresent(By.xpath("//input[@value='/']"));
 

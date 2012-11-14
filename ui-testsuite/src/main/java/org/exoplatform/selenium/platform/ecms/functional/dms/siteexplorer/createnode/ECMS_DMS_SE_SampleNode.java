@@ -23,7 +23,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 	public static By SAMPLE_NODE_LINHTEXT = By.xpath("//a[@title='Sample node']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.get(baseUrl);
@@ -32,7 +32,7 @@ public class ECMS_DMS_SE_SampleNode extends EcmsBase{
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		info("Log out");
 		logoutEcms ();
 

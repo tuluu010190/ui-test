@@ -22,7 +22,7 @@ import static org.exoplatform.selenium.TestLogger.*;
 public class EXOGTN_Group_Administration_ApplicationRegistry_SetRightApplication extends ManageAccount {
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		driver.get(baseUrl);
@@ -31,15 +31,11 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_SetRightApplication
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		driver.quit();
 	}
 	
-	//Define data
-	public static By ELEMENT_APPLICATIONS_LINK = By.linkText("Applications");
-	public static By ELEMENT_EDIT_LINK = By.linkText("Edit");
-
 	/*
 	 * case No 39: Limit access right for application
 	 * Create new user, add user into platform/administration group with membership is "member"
@@ -199,7 +195,6 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_SetRightApplication
 		String DATA_MEMBER_SHIP = "manager";
 		String DATA_NODENAME = "Case04";
 		By ELEMENT_PAGE_DISPLAY_NAME = By.id("i18nizedLabel");
-		By ELEMENT_ABORT_BUTTON = By.xpath("//a[@title='Abort']");
 		By ELEMENT_YES_BUTTON = By.linkText("Yes");
 
 

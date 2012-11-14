@@ -4,18 +4,35 @@ import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
 import static org.exoplatform.selenium.platform.NavigationManagement.deleteNode;
 import java.util.Map;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class PageManagement extends PlatformBase {
-	//Add a new page in manage pages
+	/*
+	 * Page Management
+	 * */
+	public static String ELEMENT_ADD_PAGE_BUTTON = "//a[text()='Add New Page']";
+	public static String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
+	public static String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//form[@id='UIPageSearchForm']/div[2]/a[@class='SearchIcon']";
+	public static String ELEMENT_PAGE_EDIT_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='EditInfoIcon']";
+	public static String ELEMENT_PAGE_DELETE_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='DeleteIcon']";
+
+	//Add New Page Form (shown after click [Add New Page] button in Page Management)
+	public static By ELEMENT_PAGE_NAME_INPUT = By.xpath("//input[@id='name']");
+	public static By ELEMENT_PAGE_TITLE_INPUT = By.xpath("//input[@id='title']");
+	public static String ELEMENT_SELECT_OWNER_TYPE = "//select[@name='ownerType']";
+	public static By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
+		
+	
+	//Add a new page in PageManagement
 	public static void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
 			Map<String, String> permissions, String groupId, String membership ){
 
-		click(ELEMENT_ADD_NEW_PAGE_LINK);
+		click(ELEMENT_ADD_PAGE_BUTTON);
 		waitForTextPresent("Page Settings");	
 		switch (type){
-
 		case PORTAL:
 			select(ELEMENT_SELECT_OWNER_TYPE, "portal");
 			break;
@@ -24,10 +41,10 @@ public class PageManagement extends PlatformBase {
 			break;
 		default:
 			break;
-		}		
-		type(ELEMENT_INPUT_NAME, pageName, true);
-		type(ELEMENT_INPUT_TITLE, pageTitle, true);		
-		
+		}
+		type(ELEMENT_PAGE_NAME_INPUT, pageName, true);
+		type(ELEMENT_PAGE_TITLE_INPUT, pageTitle, true);		
+
 		//showMaxWindow
 		check(ELEMENT_CHECKBOX_MAX_WINDOWS);
 		click(ELEMENT_PERMISSION_SETTING_TAB);	
@@ -43,7 +60,7 @@ public class PageManagement extends PlatformBase {
 				setViewPermissions(key, permissions.get(key));
 			}
 		}		
-		click(ELEMENT_LINK_EDIT_PERMISSION);
+		click(ELEMENT_EDIT_PERMISSION_SETTING);
 		setEditPermissions(groupId, membership);
 		save();
 		pause(1000);
@@ -68,8 +85,6 @@ public class PageManagement extends PlatformBase {
 		waitForMessage("No result found.",waitTime);
 		closeMessageDialog();
 		waitForTextNotPresent(pageTitle);
-		
-		//		pause(1000);
 	}
 
 	// Search a page in Manage Pages
@@ -122,30 +137,8 @@ public class PageManagement extends PlatformBase {
 		waitForTextNotPresent("Page Editor");
 	}
 
-	//	//search Page
-	//		public boolean searchPage(String pageTitle){	
-	//			actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_SETUP_IMG)).build().perform();
-	//			actions.moveToElement(waitForAndGetElement(ELEMENT_MENU_PORTAL_LINK_LINKTEXT)).build().perform();
-	//			pause(100);
-	//			click(ELEMENT_MENU_PAGE_LINK_LINKTEXT);
-	//			
-	////			waitForAndGetElement(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX).clear();
-	//			type(ELEMENT_SEARCH_TITLEPAGE_TEXTBOX, pageTitle, true);
-	//			click(ELEMENT_SEARCH_PAGE_ICON);
-	//			if (isElementNotPresent(ELEMENT_SEARCH_PAGE_ALERT))
-	//			return true;	
-	//			else return false;
-	//		}
-	//		
-	//		//delete page
-	//		public static void deletePage(){
-	//			click(ELEMENT_DELETE_PAGE_ICON);
-	//			acceptAlert();
-	//			click(By.linkText("OK"));
-	//			info("Delete page successfully");
-	//		}
-	//		
-	public static void deletePageAtManagePageAndPortalNavigation(String pageName, boolean PageTypePortal, String portalName, boolean PageTypeGroup, String groupName){
+	public static void deletePageAtManagePageAndPortalNavigation(String pageName, boolean PageTypePortal, String portalName, 
+			boolean PageTypeGroup, String groupName){
 		info("-- Deleting "+ pageName +" at Manage page and Portal Navigation--");
 		goToManagePages();
 		if (PageTypePortal){

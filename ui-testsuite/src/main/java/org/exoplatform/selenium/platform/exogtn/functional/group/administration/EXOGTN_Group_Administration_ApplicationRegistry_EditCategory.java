@@ -2,9 +2,9 @@ package org.exoplatform.selenium.platform.exogtn.functional.group.administration
 
 import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 import static org.exoplatform.selenium.platform.ManageApplications.*;
 import static org.exoplatform.selenium.platform.UserGroupManagement.*;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 import java.util.HashMap;
 import java.util.Map;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -35,61 +35,8 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 	public String PLATFORM_ADMIN_DATA_GROUP = "Platform/Administration";
 	public String MANAGER_DATA_MEMBER_SHIP = "manager";
 
-	public By CATEGORIES_AREA = By.xpath("//div[text()='Categories']"); 
-	public By VIEW_PAGE_PROPERTIES = By.xpath("//a[text()='View Page properties']");
-	public By PERMISSION_SETTINGS = By.xpath("//div[text()='Permission Settings']");
-	public By PORTLET_CONTAINER = By.className("PortletLayoutDecorator");
-	public By EDIT_PORTLET = By.xpath("//a[@title='Edit Portlet']");
-	public By SAVE_AND_CLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
-	public By FINISH_ICON = By.xpath("//a[@title='Finish']");
-	public By ACCESS_PERMISSION = By.xpath("//div[text()='Access Permission']");
-
-	//	public static void addApplicationToCategory (String categoryTitle, boolean addNewApps, String newDisplayName, String applicationType, String displayName, boolean publicMode, String groupId, String membership ) {
-	//		By ELEMENT_ADD_APPS_BUTTON = By.xpath("//a[@title='"+categoryTitle+"']/following::a[@title='Add an Application to this Category']");
-	//		By ELEMENT_DISPLAY_NAME_TEXTBOX = By.id("displayName");
-	//		By ELEMNET_ADD_BUTTON = By.linkText("Add");
-	//		By ELEMENT_APPS_TYPE = By.id("type");
-	//		By ELEMENT_APPS_EXISTING = By.xpath("//span[@id='label' and text()='"+displayName+"']/../..//input[@name='application']");
-	//		waitForElementPresent(ELEMENT_ADD_APPS_BUTTON);
-	//		click(ELEMENT_ADD_APPS_BUTTON);
-	//		waitForElementPresent(ELEMNET_ADD_BUTTON);
-	//
-	//		//add new app
-	//		if (addNewApps) {
-	//			waitForElementPresent(ELEMENT_DISPLAY_NAME_TEXTBOX);
-	//			type(ELEMENT_DISPLAY_NAME_TEXTBOX, newDisplayName, true);
-	//			select(ELEMENT_APPS_TYPE, applicationType);
-	//		}
-	//		else
-	//		{
-	//			select(ELEMENT_APPS_TYPE, applicationType);
-	//			click(ELEMENT_APPS_EXISTING);
-	//		}
-	//		click(ELEMNET_ADD_BUTTON);
-	//
-	//		//set permission
-	//		if (publicMode) makeItPublic(true);
-	//		else {
-	//			makeItPublic(false);
-	//			setViewPermissions(groupId, membership);
-	//		}
-	//	}
-
-	//	public void deleteApplication(String categoryTitle, String applicationName) {
-	//		By CAT_XPATH = By.xpath("//a[@title='"+categoryTitle+"']");
-	//		By DELETE_APP_ICON = By.xpath("//a[@title='"+applicationName+"']/following::a[@title='Delete Application']");
-	//		waitForElementPresent(CAT_XPATH);
-	//		click(CAT_XPATH);
-	//		waitForElementPresent(DELETE_APP_ICON);
-	//		click(DELETE_APP_ICON);
-	//		waitForConfirmation("Are you sure to delete this application?");
-	//		pause(1000);
-	//		waitForTextNotPresent(applicationName);
-	//		info("'"+applicationName+"' was deleted successfully");
-	//	}
-
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		driver.get(baseUrl);
@@ -121,31 +68,30 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 
 		//Go to Application Registry page > setting access right for page is public
 		goToApplicationRegistry();
-		waitForElementPresent(CATEGORIES_AREA);
+		waitForElementPresent(ELEMENT_CATEGORIES_AREA_TITLE);
 		goToEditPageEditor();
-		waitForElementPresent(VIEW_PAGE_PROPERTIES);
-		click(VIEW_PAGE_PROPERTIES);
-		waitForElementPresent(PERMISSION_SETTINGS);
-		click(PERMISSION_SETTINGS);
+		waitForElementPresent(ELEMENT_VIEW_PAGE_PROPERTIES);
+		click(ELEMENT_VIEW_PAGE_PROPERTIES);
+		waitForElementPresent(ELEMENT_PERMISSION_SETTING_TAB);
+		click(ELEMENT_PERMISSION_SETTING_TAB);
 		waitForElementPresent(ELEMENT_CHECKBOX_PUBLIC_MODE);
 		//		check(ELEMENT_CHECKBOX_PUBLIC_MODE);
 		makeItPublic(true);
 		save();
 
 		//Setting access right for portlet is public
-		mouseOver(PORTLET_CONTAINER, false);
-		click(EDIT_PORTLET);
-		waitForElementPresent(ACCESS_PERMISSION);
-		click(ACCESS_PERMISSION);
+		mouseOver(ELEMENT_PORTLET_CONTAINER, false);
+		click(ELEMENT_EDIT_PORTLET_ICON);
+		waitForElementPresent(ELEMENT_ACCESS_PERMISSION_TAB);
+		click(ELEMENT_ACCESS_PERMISSION_TAB);
 		waitForElementPresent(ELEMENT_CHECKBOX_PUBLIC_MODE);
 		makeItPublic(true);
-		//		check(ELEMENT_CHECKBOX_PUBLIC_MODE);
-		waitForElementPresent(SAVE_AND_CLOSE_BUTTON);
-		click(SAVE_AND_CLOSE_BUTTON);
-		click(FINISH_ICON);
+		waitForElementPresent(ELEMENT_SAVE_CLOSE_BUTTON);
+		click(ELEMENT_SAVE_CLOSE_BUTTON);
+		click(ELEMENT_FINISH_ICON);
 
 		//Add new category
-		waitForElementPresent(CATEGORIES_AREA);
+		waitForElementPresent(ELEMENT_CATEGORIES_AREA_TITLE);
 		addNewCategoryAtManageApplications(CATE_NAME_01, CATE_DISP_NAME_01, "", true, null, true);
 
 		//Add Apps into added Category
@@ -179,12 +125,12 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 
 		//Reset default data
 
-		waitForElementPresent(CATEGORIES_AREA);
+		waitForElementPresent(ELEMENT_CATEGORIES_AREA_TITLE);
 		goToEditPageEditor();
-		waitForElementPresent(VIEW_PAGE_PROPERTIES);
-		click(VIEW_PAGE_PROPERTIES);
-		waitForElementPresent(PERMISSION_SETTINGS);
-		click(PERMISSION_SETTINGS);
+		waitForElementPresent(ELEMENT_VIEW_PAGE_PROPERTIES);
+		click(ELEMENT_VIEW_PAGE_PROPERTIES);
+		waitForElementPresent(ELEMENT_PERMISSION_SETTING_TAB);
+		click(ELEMENT_PERMISSION_SETTING_TAB);
 		waitForElementPresent(ELEMENT_CHECKBOX_PUBLIC_MODE);
 		uncheck(ELEMENT_CHECKBOX_PUBLIC_MODE);
 		waitForElementPresent(ELEMENT_ADD_PERMISSION_BUTTON);
@@ -192,7 +138,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 		setViewPermissions(PLATFORM_ADMIN_DATA_GROUP, "*");
 		save();
 		pause(500);
-		click(FINISH_ICON);
+		click(ELEMENT_FINISH_ICON);
 
 		//Delete data
 		goToApplicationRegistry();
@@ -226,17 +172,17 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 
 		//Go to Application Registry page > setting access right user
 		goToApplicationRegistry();
-		waitForElementPresent(CATEGORIES_AREA);
+		waitForElementPresent(ELEMENT_CATEGORIES_AREA_TITLE);
 		goToEditPageEditor();
-		waitForElementPresent(VIEW_PAGE_PROPERTIES);
-		click(VIEW_PAGE_PROPERTIES);
-		waitForElementPresent(PERMISSION_SETTINGS);
-		click(PERMISSION_SETTINGS);
+		waitForElementPresent(ELEMENT_VIEW_PAGE_PROPERTIES);
+		click(ELEMENT_VIEW_PAGE_PROPERTIES);
+		waitForElementPresent(ELEMENT_PERMISSION_SETTING_TAB);
+		click(ELEMENT_PERMISSION_SETTING_TAB);
 		waitForElementPresent(ELEMENT_CHECKBOX_PUBLIC_MODE);
 		makeItPublic(false);
 		setViewPermissions(PLATFORM_ADMIN_DATA_GROUP, MANAGER_DATA_MEMBER_SHIP);
 		save();
-		click(FINISH_ICON);
+		click(ELEMENT_FINISH_ICON);
 		pause(500);
 		//Go to Application Registry page 
 		//		goToApplicationRegistry();
@@ -252,10 +198,10 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 		signIn(DATA_USER_NAME_02, DATA_PASSWORD);
 		//Go to Application Registry page check no Catetory CATE_NAME_02
 		goToApplicationRegistry();
-		waitForElementPresent(CATEGORIES_AREA);
+		waitForElementPresent(ELEMENT_CATEGORIES_AREA_TITLE);
 		goToEditPageEditor();
 		waitForElementNotPresent(bName02);
-		click(FINISH_ICON);
+		click(ELEMENT_FINISH_ICON);
 		pause(500);
 		//Sign out and Sign in as root user
 		signOut();
@@ -271,7 +217,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 		signIn(DATA_USER_NAME_02, DATA_PASSWORD);
 		//Verify added user can see above edited Category 
 		goToApplicationRegistry();
-		waitForElementPresent(CATEGORIES_AREA);
+		waitForElementPresent(ELEMENT_CATEGORIES_AREA_TITLE);
 		goToEditPageEditor();
 		waitForElementPresent(bName02);
 		click(ELEMENT_CLOSE_WINDOWS_BUTTON);
@@ -297,7 +243,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_EditCategory extend
 	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		driver.quit();
 	}

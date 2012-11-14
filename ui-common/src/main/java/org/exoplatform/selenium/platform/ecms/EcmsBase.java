@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.platform.ecms.ActionBar.ELEMENT_ADD_ITEM;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.createNewContentFolder;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 
+import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -32,10 +33,9 @@ public class EcmsBase extends PlatformBase {
 
 	//Add new Page
 	public static final By ELEMENT_NEWPAGE_NAME_TEXTBOX = By.id("pageName");	
-	public static final By ELEMENT_NEWPAGE_NEXT_BUTTON = By.linkText("Next");	
 	public static final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//a[@title='Finish']");
 	public static final By ELEMENT_NEWPAGE_LAYOUT_OPTION = By.xpath("//div[@class='DropDownSelectLabel']") ;
-	
+
 	//Page Creation Wizard -> Page Configs
 	public static final By ELEMENT_NEWPAGE_LAYOUT_COLUMN_PAGE_OPTION = By.linkText("Column Page Configs") ;
 	public static final By ELEMENT_NEWPAGE_LAYOUT_ROW_PAGE_OPTION = By.linkText("Row Page Configs");
@@ -48,16 +48,15 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
 	public static final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[text()='Content List']");
 	public static final By ELEMENT_FRAME_CONTAIN_PORTLET = By.xpath("//div[contains(@id,'UIPortlet')]");
-	public static final By ELEMENT_EDIT_PORTLET_LINK = By.xpath("//a[@title='Edit Portlet']");
 	public static final By ELEMENT_SELECT_CONTENT_PATH_LINK = By.xpath("//img[@class='AddIcon16x16 SelectFolderPathIcon']");
-	
+
 	public static final By ELEMENT_CONTENTS_BY_QUERY_PORTLET = By.xpath("//div[contains(text(),'Content By Query')]");
 	public static final By ELEMENT_BY_QUERY_TEXTAREA = By.xpath("//textarea[@id='UICLVConfigContentByQueryTextArea']");
 	public static final By ELEMENT_WORKSPACE_SELECT = By.xpath("//select[@id='UICLVConfigWorkspaceFormSelectBox']");
 	public static final By ELEMENT_ACME_CATEGORY = By.xpath("//*[@id='ListRecords']/thead/tr[2]/td/a");
 	public static final By ELEMENT_FLIGHT = By.xpath("//a[@title='Flight']");
 	public static final By ELEMENT_SELECT_BY_CONTENT_PATH = By.xpath("//input[@id='UICLVConfigDisplayModeFormRadioBoxInput_ManualViewerMode']");
-	public static final By BLOCK_LAYOUT = By.xpath("//div[@class='LAYOUT-BLOCK LAYOUT-PORTLET']");
+	public static final By ELEMENT_BLOCK_LAYOUT = By.xpath("//div[@class='LAYOUT-BLOCK LAYOUT-PORTLET']");
 	public static final By ELEMENT_PAGE_EDIT_ABORT = By.xpath("//a[@title='Abort']");
 
 	public static final By ELEMENT_SELECT_CONTENT_PATH = By.xpath("//a[@title='offices.jpg']");
@@ -71,7 +70,7 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_NEW_EDIT_PORTLET = By.xpath("//div[text()='News']/../a[@class='EditIcon']");
 	public static final By ELEMENT_HOMEPATH_ROOT = By.xpath("//div[@class='BreadcumbsPortlet']/div[2]/div[1]/a");
 	public static final By ELEMENT_FOLDER_BROWSER = By.xpath("//div[contains(text(),'Folder Browser')]");
-	
+
 	//-------------News page form---------------------------------------
 	public static final By ELEMENT_CATEGORY_CONTAINER = By.xpath("//div[text()='Browse by']");
 	public static final By ELEMENT_CATEGORY_PREFER = By.xpath("//div[text()='Browse by']/../../../*//a[@title='Preferences']");
@@ -100,10 +99,10 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_ADD_NODE_CHECKBOX = By.id("add_node");
 	public static final By ELEMENT_DELETE_PERMISSION = By.xpath("//*[@id='PermissionInfo']/table/tbody/tr[4]/td[6]/div/img[2]");
 
-	public static final By ELEMENT_BUTTON_ADD_CATE = By.linkText("Add Category");
-	public static final By ELEMENT_ADD_CATE_POP = By.xpath("//span[text()='Add Category']");
-	public static final By ELEMENT_INPUT_CATE_NAME = By.id("name");
-	//	public static final By ELEMENT_BUTTON_SAVE=By.linkText("Save");
+	//DMS Administration - Simple View - Add Category Form
+	public static final By ELEMENT_BUTTON_ADD_CATEGORY = By.linkText("Add Category");
+	public static final By ELEMENT_ADD_CATEGORY_FORM = By.xpath("//span[text()='Add Category']");
+	public static final By ELEMENT_INPUT_CATEGORY_NAME = By.id("name");
 
 	//For symlink
 	public static final By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
@@ -121,22 +120,36 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");
 	public static final By ELEMENT_INPUT_NAME_NODE = By.xpath("//input[@id = 'nameField']");
 
+	/* Default Data (Document and folder like: acme, Document,....) */
+	//Sidebar - Tree node
+	public static final By ELEMENT_SIDEBAR_ACME = By.xpath("//div[text()='acme']");
+	public static final By ELEMENT_SIDEBAR_ACME_WEB_CONTENT = By.xpath("//a[@title='web contents ']");
+	public static final String ELEMENT_SIDEBAR_ACME_DOCUMENTS = "//a[text()='documents']";
+	public static final By ELEMENT_COLLABORATION_DRIVE_LIVE = By.xpath("//a[@title='Live ']");
+
+	//View Area
+	public static final By ELEMENT_VIEWAREA_ACME = By.xpath("//div[@title='acme']");
+
+
 	//Log-in ECMS
 	public static void loginEcms(String username, String password) {
 		driver.manage().window().maximize();
 		click(ELEMENT_GO_TO_ACME);
 		click(ELEMENT_LOGIN_LINK);
+		pause(500);
 		type(By.name("username"),username, false);
+		pause(500);
 		type(By.name("password"),password, false);
 		click(ELEMENT_LOGIN_BUTTON);	
 	}
 
 	//Log-out ECMS
 	public static void logoutEcms (){
-			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-			mouseOver(ELEMENT_SIGN_OUT_LINK, true);
-			//click(ELEMENT_SIGN_OUT_LINK);
-			driver.get(baseUrl);
+		//	mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		//	mouseOver(ELEMENT_SIGN_OUT_LINK, true);
+		//click(ELEMENT_SIGN_OUT_LINK);
+		ManageAccount.signOut();
+		driver.get(baseUrl);
 	}
 
 	// Go to content administration
@@ -180,7 +193,7 @@ public class EcmsBase extends PlatformBase {
 		for (String node: nodes)
 		{
 			goToNode(By.xpath("//a[@title='" + node + " ']"));
-			pause(100);
+			pause(500);
 		}
 
 	}
@@ -193,12 +206,6 @@ public class EcmsBase extends PlatformBase {
 		click(ELEMENT_MANAGE_LOCK_TAB);
 	}
 
-	//	public static void inputDataToFrame (By framelocator, String data){
-	//		driver.switchTo().frame(waitForAndGetElement(framelocator));
-	//		WebElement inputsummary = driver.switchTo().activeElement();
-	//		inputsummary.sendKeys(data);
-	//	}
-
 	public static void goToNode(Object locator){	
 		if (locator instanceof By) 
 			click(locator);
@@ -206,43 +213,15 @@ public class EcmsBase extends PlatformBase {
 		{
 			By by = By.xpath("//a[@title='"+ locator +" ']");
 			for (int i =0;; i++){
-				if (i>DEFAULT_TIMEOUT/WAIT_INTERVAL){
+				if (i > ACTION_REPEAT){
 					Assert.fail("Timeout");
 				}
 				click(by);
-				if (waitForAndGetElement(By.xpath("//input[contains(@value,'/"+locator+"')]"),40000,0) !=null) return;
-				//if (waitForAndGetElement(By.xpath("//div[contains(@class,'SelectedNode SelectedNode')]/div/div/a[@title='"+title+" ']"),40000,0) !=null) return;
+				if (waitForAndGetElement(By.xpath("//input[contains(@value,'/"+locator+"')]"),5000,0) !=null) return;
+				info("Action repeated: goToNode");
 			}	
 		}
 	}
-
-	//function add data to frame
-	//	public static void inputDataToFrame (By framelocator, String data){
-	//		try {
-	//			WebElement inputsummary = null;
-	// 
-	//			for (int repeat = 0;; repeat++) {
-	//				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
-	//					Assert.fail("Fail to input data to frame " + framelocator);
-	//				}
-	//				driver.switchTo().frame(waitForAndGetElement(framelocator));
-	//				inputsummary = driver.switchTo().activeElement();
-	//				inputsummary.sendKeys(data);
-	//				if (data.equals(inputsummary.getText())) break;
-	//				switchToParentWindow();
-	//			}
-	//		} catch (StaleElementReferenceException e) {
-	//			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-	//			pause(WAIT_INTERVAL);
-	//			inputDataToFrame (framelocator, data);
-	//		} catch (ElementNotVisibleException e) {
-	//			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-	//			pause(WAIT_INTERVAL);
-	//			inputDataToFrame (framelocator,data);
-	//		} finally {
-	//			loopCount = 0;
-	//		}
-	//	}
 
 	//Function to add data to frame
 	public static void inputDataToFrame (By framelocator, String data, boolean...validate){
@@ -331,7 +310,7 @@ public class EcmsBase extends PlatformBase {
 		assert getText(ELEMENT_INFO).contains(message):"Message is wrong";
 		click(By.linkText("OK"));
 	}
-	
+
 	//Rename a node
 	public void renameNode(By nodePath, String newName, By nodePathNew){
 		rightClickOnElement(nodePath);
@@ -373,23 +352,15 @@ public class EcmsBase extends PlatformBase {
 		ContextMenu.pasteNode(target);
 	}
 
-
-	/*public static boolean isDisplay(WebElement e){ 
-		boolean bool = false;
-		try{
-			if(e != null)
-			{bool= e.isDisplayed();
-			debug("check to display: " + bool);}
-			else 
-				debug("element is null " + bool);
-		}catch(StaleElementReferenceException ex){
-			debug("Retry display...");
+	//function enable edit mode
+	public static void enableEditMode(boolean enable){
+		mouseOver(ELEMENT_MENU_EDIT_LINK, true);
+		waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK);
+		if ((enable == true && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == true) || 
+				(enable == false && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == false)){
+			click(ELEMENT_MENU_EDIT_CONTENT); 
 		}
-		finally{
-			loopCount=0;
-		}
-		return bool;
-	}*/
+	}
 
 	//Function to go to SEO management
 	public static void goToSeoManagement(){
@@ -402,16 +373,16 @@ public class EcmsBase extends PlatformBase {
 	//Function to go to acme/overview page
 	public static void goToOverView(){
 		info("Go to OverView form");
-		mouseOver(ELEMENT_MY_SITE, true);
-		mouseOver(ELEMENT_ACME, true);
+		mouseOver(ELEMENT_MYSITE, true);
+		mouseOver(ELEMENT_MYSITE_ACME, true);
 		mouseOverAndClick(ELEMENT_OVERVIEW);
 	}
 
 	//Function to go to acme/new
 	public static void goToNews(){
 		info("Go to News form");
-		mouseOver(ELEMENT_MY_SITE, true);
-		mouseOver(ELEMENT_ACME, true);
+		mouseOver(ELEMENT_MYSITE, true);
+		mouseOver(ELEMENT_MYSITE_ACME, true);
 		mouseOverAndClick(ELEMENT_NEWS);
 	}
 

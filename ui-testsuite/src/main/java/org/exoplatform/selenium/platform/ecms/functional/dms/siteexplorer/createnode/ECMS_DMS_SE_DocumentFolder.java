@@ -11,6 +11,7 @@ import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 
 public class ECMS_DMS_SE_DocumentFolder extends EcmsBase {
+	
 	public static String DATA_CONTENT_FOLDER_NAME_01 = "FNC_ECMS_FEX_CREATE_02_01_con";
 	public static String DATA_CONTENT_FOLDER_TITLE_01 = "FNC_ECMS_FEX_CREATE_02_01_con";
 	public static String DATA_DOC_FOLDER_TITLE_01 = "FNC_ECMS_FEX_CREATE_02_01_doc";

@@ -21,7 +21,7 @@ import org.testng.annotations.Test;
 public class ECMS_DMS_SE_BasicAction_DragAndDrop extends EcmsBase 
 {
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		driver.get(baseUrl);
@@ -186,7 +186,7 @@ public class ECMS_DMS_SE_BasicAction_DragAndDrop extends EcmsBase
 	}
 
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		driver.quit();
 	}

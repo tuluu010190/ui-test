@@ -25,12 +25,10 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 	public static String UPLOADED_FILE_PATH ="TestData/Winter.jpg";
 
-	public static By ELEMENT_BAR_CONTENT_SITES_MANAGEMENT = By.xpath("//div[@title='Sites Management']");
-	
 	public static String WARNING_MESSAGE_CANNOT_PASTE="Cannot paste the copied node type on the current node.";
-	
+
 	public static String ELEMENT_VERIFY = "//a[text()='${destination}']/../../../../*//a[text()='${source}']";
-	
+
 	//Copy-Paste a Node
 	public void copyPasteNode(By source, By destination){
 		copyNode(source);
@@ -39,7 +37,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 	}
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -47,8 +45,8 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
-//		logoutEcms ();
+	public void afterTest() {
+		//		logoutEcms ();
 		driver.quit();
 	}
 
@@ -78,7 +76,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(VERIFY_AT_ROOT_PATH1);
 
 		info("Copy content folder & paste at root path");
-		copyPasteNode(CONTENT_FOLDER_PATH, ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		copyPasteNode(CONTENT_FOLDER_PATH, ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Verify copied folder is at root path");
 		waitForElementPresent(VERIFY_AT_ROOT_PATH2);
@@ -149,7 +147,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		String DOCUMENT_FOLDER_NAME="ECMS_DMS_SE_BasicAction_CopyPaste_Document_Folder_03";
 		By DOCUMENT_FOLDER_PATH=By.xpath("//a[@title='"+DOCUMENT_FOLDER_NAME+" "+"']");
-				
+
 		info("Go to CE");
 		goToSiteExplorer();
 
@@ -204,12 +202,12 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		info("Create Content Folder");
 		createNewContentFolder(CONTENT_FOLDER_NAME, CONTENT_FOLDER_NAME);
 		waitForElementPresent(CONTENT_FOLDER_PATH);
-		
+
 		info("Create 1 article");
 		goToAddNewContent();
 		createNewArticle(ARTICLE_NAME_TITLE, ARTICLE_NAME_TITLE, ARTICLE_SUM, ARTICLE_CONTENT);
 		waitForElementPresent(ARTICLE_PATH);
-		
+
 		info("Copy folder to article");
 		//pause(1000);
 		copyPasteNode(CONTENT_FOLDER_PATH, ARTICLE_PATH);
@@ -239,11 +237,11 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 	{
 		String CONTENT_FOLDER_NAME="ECMS_DMS_SE_BasicAction_CopyPaste_Content_Folder_08";
 		By CONTENT_FOLDER_PATH=By.xpath("//a[@title='"+CONTENT_FOLDER_NAME+" "+"']");
-		
+
 		String DOCUMENT_FOLDER_NAME ="ECMS_DMS_SE_BasicAction_CopyPaste_Document_Folder_08";
 		By DOCUMENT_FOLDER_PATH=By.xpath("//a[@title='"+DOCUMENT_FOLDER_NAME+" "+"']");
 		By CONTENT_FOLDER_PATH_NEW = By.xpath(ELEMENT_VERIFY.replace("${destination}", CONTENT_FOLDER_NAME).replace("${source}", DOCUMENT_FOLDER_NAME));
-		
+
 		info("Go to CE");
 		goToSiteExplorer();
 
@@ -285,7 +283,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		String DOCUMENT_FOLDER_NAME_01="ECMS_DMS_SE_BasicAction_CopyPaste_Document_Folder_091";
 		By DOCUMENT_FOLDER_PATH_01=By.xpath("//a[@title='"+DOCUMENT_FOLDER_NAME_01+" "+"']");
 		By DOCUMENT_FOLDER_PATH_NEW = By.xpath(ELEMENT_VERIFY.replace("${destination}", DOCUMENT_FOLDER_NAME_01).replace("${source}", DOCUMENT_FOLDER_NAME));
-		
+
 		info("Go to CE");
 		goToSiteExplorer();
 
@@ -312,7 +310,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToNode(DOCUMENT_FOLDER_PATH);
 		deleteDocument(DOCUMENT_FOLDER_PATH);
 	}
-	
+
 	/*case17: Copy folder and paste into locked node by user is not locker
 	 * login with John: create new node (folder/document/upload file). Lock node
 	 * login with mary: create new node. Check can not copy this node to locked node
@@ -321,24 +319,24 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 	public void test17_CopyFolderAndPasteIntoLockedNodeByUserIsNotLock(){		
 		String DOCUMENT_FOLDER_NAME_1 = "ECMS_DMS_SE_BasicAction_CopyPaste_folder_17_1";
 		By DOCUMENT_FOLDER_PATH_1 = By.linkText(DOCUMENT_FOLDER_NAME_1);
-		
+
 		String DOCUMENT_FOLDER_NAME_2 = "ECMS_DMS_SE_BasicAction_CopyPaste_folder_17_2";
 		By DOCUMENT_FOLDER_PATH_2 = By.linkText(DOCUMENT_FOLDER_NAME_2);
-		
+
 		//create new document folder
 		goToSiteExplorer();
 		info("Create Document folder");
 		createNewDocumentFolder(DOCUMENT_FOLDER_NAME_1, DOCUMENT_FOLDER_NAME_1);
 		waitForElementPresent(DOCUMENT_FOLDER_PATH_1);
-		
+
 		//lock node
 		goToNode(DOCUMENT_FOLDER_PATH_1);
 		lockNode(DOCUMENT_FOLDER_PATH_1);
-		
+
 		//check lock node
 		assert checkLockNode(DOCUMENT_FOLDER_PATH_1):"Lock node unsuccessfully";
 		driver.close();
-		
+
 		//login with mary
 		info("login with mary");
 		initSeleniumTest();
@@ -346,19 +344,19 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		actions = new Actions(driver);
 		loginEcms("mary", "gtn");
 		goToSiteExplorer();
-		
+
 		//create new document folder
 		info("Create Document folder");
 		createNewDocumentFolder(DOCUMENT_FOLDER_NAME_2, DOCUMENT_FOLDER_NAME_2);
 		waitForElementPresent(DOCUMENT_FOLDER_PATH_2);
-		
+
 		//Check can not copy this node to locked node
 		copyPasteNode(DOCUMENT_FOLDER_PATH_2, DOCUMENT_FOLDER_PATH_1);
 		checkAlertWarning("The item with the path collaboration:/sites content/live/"+ DOCUMENT_FOLDER_NAME_1 + " or upper level is locked.");
 		info("Can not copy a node to locked node by user is not locker");
 		deleteData(DOCUMENT_FOLDER_PATH_2);
 		logoutEcms();
-		
+
 		//delete data with john
 		loginEcms("john", "gtn");
 		goToSiteExplorer();
@@ -503,7 +501,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 
 		info("Copy & paste at root path");
 		pause(1000);
-		copyPasteNode(DOCUMENT_FOLDER_PATH, ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		copyPasteNode(DOCUMENT_FOLDER_PATH, ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Verify copied folder is at root path");
 		waitForElementPresent(VERIFY_AT_ROOT_PATH2);
@@ -551,12 +549,12 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		createNewArticle(ARTICLE_NAME_TITLE,  ARTICLE_NAME_TITLE, ARTICLE_SUM, ARTICLE_CONTENT);
 		waitForElementPresent(ARTICLE_PATH);
 		copyPasteNode(ARTICLE_PATH, CONTENT_FOLDER_PATH);
-		
+
 		info("verify paste");
 		goToNode(CONTENT_FOLDER_PATH);
 		waitForElementPresent(ARTICLE_PATH_NEW);
 		info("paste article to content folder successfully");
-		
+
 		info("Delete data");
 		goToNode(CONTENT_FOLDER_PATH);
 		deleteDocument(CONTENT_FOLDER_PATH);
@@ -679,8 +677,8 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(ARTICLE_PATH);
 
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		click(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create File");
 		goToAddNewContent();
@@ -690,7 +688,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		info("Copy-paste");
 		pause(1000);
 		copyPasteNode(FILE_PATH, ARTICLE_PATH);
-		
+
 		info("Verify");
 		waitForElementPresent(ARTICLE_PATH);
 		goToNode(ARTICLE_PATH);		
@@ -822,8 +820,8 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(ARTICLE_PATH);
 
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		click(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create Podcast & copy paste");
 		goToAddNewContent();
@@ -871,8 +869,8 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(PODCAST_PATH);
 
 		info("Create Content Folder & lock");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		click(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		createNewContentFolder(CONTENT_FOLDER_NAME, CONTENT_FOLDER_NAME);
 		waitForElementPresent(CONTENT_FOLDER_PATH);
@@ -1006,8 +1004,8 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(ARTICLE_PATH);
 
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		click(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create sample node & copy paste");
 		goToAddNewContent();
@@ -1049,10 +1047,10 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToAddNewContent();
 		createNewFilePlan(FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO);
 		waitForElementPresent(FILE_PLAN_PATH);
-		
+
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create sample node & copy paste");
 		goToAddNewContent();
@@ -1094,21 +1092,21 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToAddNewContent();
 		createNewSampleNode(SAMPLE_NODE_NAME_TITLE_01, SAMPLE_NODE_NAME_TITLE_01, UPLOADED_FILE_PATH);
 		waitForElementPresent(SAMPLE_NODE_PATH_01);
-		
+
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		pause(1000);
 
 		info("Create sample node");
 		goToAddNewContent();
 		createNewSampleNode(SAMPLE_NODE_NAME_TITLE, SAMPLE_NODE_NAME_TITLE, UPLOADED_FILE_PATH);
 		pause(1000);
-		
+
 		info("Copy paste");
 		copyPasteNode(SAMPLE_NODE_PATH,SAMPLE_NODE_PATH_01);
 		pause(1000);
-		
+
 		info("Verify");
 		waitForTextPresent(WARNING_MESSAGE_CANNOT_PASTE);
 		click(By.linkText("OK"));
@@ -1148,8 +1146,8 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(SAMPLE_NODE_PATH);
 
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create File & copy paste");
 		goToAddNewContent();
@@ -1196,8 +1194,8 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(SAMPLE_NODE_PATH);
 
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create Podcast & copy paste");
 		goToAddNewContent();
@@ -1242,10 +1240,10 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToAddNewContent();
 		createNewSampleNode(SAMPLE_NODE_NAME_TITLE, SAMPLE_NODE_NAME_TITLE, UPLOADED_FILE_PATH);
 		waitForElementPresent(SAMPLE_NODE_PATH);
-		
+
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create Kofax & copy paste");
 		goToAddNewContent();
@@ -1297,7 +1295,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToAddNewContent();
 		createNewSampleNode(SAMPLE_NODE_NAME_TITLE, SAMPLE_NODE_NAME_TITLE, UPLOADED_FILE_PATH);
 		waitForElementPresent(SAMPLE_NODE_PATH);
-		
+
 		info("Copy Sample Node to uploaded file");		
 		pause(1000);
 		copyPasteNode(SAMPLE_NODE_PATH,UPLOADED_FILE_XPATH);
@@ -1338,7 +1336,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		info("Upload a file & Lock");
 		uploadFile(UPLOADED_FILE_NAME, UPLOADED_FILE_PATH );
 		waitForElementPresent(UPLOADED_FILE_XPATH);
-		
+
 		info("Lock node");
 		lockNode(UPLOADED_FILE_XPATH);
 		pause(500);
@@ -1435,14 +1433,14 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(ARTICLE_PATH);
 
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		click(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create File Plan");
 		goToAddNewContent();
 		createNewFilePlan(FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO);
 		waitForElementPresent(FILE_PLAN_PATH);
-		
+
 		info("Copy paste");
 		copyPasteNode(FILE_PLAN_PATH,ARTICLE_PATH);
 		pause(1000);
@@ -1456,7 +1454,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToNode(FILE_PLAN_PATH);
 		deleteDocument(FILE_PLAN_PATH);
 	}
-	
+
 	/* Go to Sites Management
 	 * Create sample node
 	 * Create Fileplan, Copy it
@@ -1482,8 +1480,8 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(SAMPLE_NODE_PATH);
 
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create FIle Plan & copy paste");
 		goToAddNewContent();
@@ -1501,7 +1499,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToNode(SAMPLE_NODE_PATH);
 		deleteDocument(SAMPLE_NODE_PATH);
 	}
-	
+
 	/* Go to Sites Management
 	 * Create 1 File Plan, copy it
 	 * Create 1 file
@@ -1526,11 +1524,11 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToAddNewContent();
 		createNewFilePlan(FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO);
 		waitForElementPresent(FILE_PLAN_PATH);
-		
+
 		info("Choose Site Management");
 		pause(1000);
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create File & copy paste");
 		goToAddNewContent();
@@ -1576,10 +1574,10 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToAddNewContent();
 		createNewFilePlan(FILE_PLAN_INFO1, FILE_PLAN_INFO1, FILE_PLAN_INFO1, FILE_PLAN_INFO1, FILE_PLAN_INFO1);
 		waitForElementPresent(FILE_PLAN_PATH1);
-		
+
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create File plan 2 & copy paste");
 		goToAddNewContent();
@@ -1587,7 +1585,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(FILE_PLAN_PATH2);
 		copyPasteNode(FILE_PLAN_PATH1,FILE_PLAN_PATH2);
 		pause(1000);
-		
+
 		info("Verify");
 		goToNode(FILE_PLAN_PATH2);
 		pause(1000);
@@ -1616,7 +1614,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		String PODCAST_TITLE_NAME="ECMS_DMS_SE_BasicAction_CopyPaste_PODCAST_Document_51_03";
 		String PODCAST_LINK="www.google.com";
 		By PODCAST_PATH = By.xpath("//a[@title='"+PODCAST_TITLE_NAME+" "+"']");
-		
+
 		String FILE_PLAN_INFO="ECMS_DMS_SE_BasicAction_CopyPaste_File_Plan_Info_51_03";
 		By FILE_PLAN_PATH=By.xpath("//a[@title='"+FILE_PLAN_INFO+" "+"']");	
 		By FILE_PLAN_PATH_NEW = By.xpath(ELEMENT_VERIFY.replace("${destination}", PODCAST_TITLE_NAME).replace("${source}", FILE_PLAN_INFO));
@@ -1628,10 +1626,10 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToAddNewContent();
 		createNewFilePlan(FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO);
 		waitForElementPresent(FILE_PLAN_PATH);
-		
+
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create Podcast & copy paste");
 		goToAddNewContent();
@@ -1679,8 +1677,8 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		waitForElementPresent(FILE_PLAN_PATH);
 
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create Kofax & copy paste");
 		goToAddNewContent();
@@ -1702,7 +1700,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToNode(FILE_PLAN_PATH);
 		deleteDocument(FILE_PLAN_PATH);
 	}
-	
+
 	/* Go to Sites Management
 	 * Create 1 File Plan, copy it
 	 * Upload a file
@@ -1715,7 +1713,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 	{ 
 		String FILE_PLAN_INFO="ECMS_DMS_SE_BasicAction_CopyPaste_File_Plan_Info_52";
 		By FILE_PLAN_PATH=By.xpath("//a[@title='"+FILE_PLAN_INFO+" "+"']");	
-	
+
 		String UPLOADED_FILE_NAME="ECMS_DMS_SE_BasicAction_CopyPaste_Uploaded_Image_52";
 		By UPLOADED_FILE_XPATH = By.xpath("//a[@title='"+UPLOADED_FILE_NAME+".jpg "+"']");
 		By FILE_PLAN_PATH_NEW = By.xpath(ELEMENT_VERIFY.replace("${destination}", UPLOADED_FILE_NAME + ".jpg").replace("${source}", FILE_PLAN_INFO));
@@ -1726,7 +1724,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		info("Upload a file");
 		uploadFile(UPLOADED_FILE_NAME, UPLOADED_FILE_PATH );
 		waitForElementPresent(UPLOADED_FILE_XPATH);
-		
+
 		info("Create File plan ");
 		goToAddNewContent();
 		createNewFilePlan(FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO, FILE_PLAN_INFO);
@@ -1749,7 +1747,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToNode(UPLOADED_FILE_XPATH);
 		deleteDocument(UPLOADED_FILE_XPATH);
 	}
-	
+
 	/* Go to Sites Management
 	 * Create 1 content folder
 	 * Create 1 Kofax, Copy it
@@ -1762,7 +1760,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 	{ 
 		String CONTENT_FOLDER_NAME="ECMS_DMS_SE_BasicAction_CopyPaste_Content_Folder_57";
 		By CONTENT_FOLDER_PATH=By.xpath("//a[@title='"+CONTENT_FOLDER_NAME+" "+"']");
-		
+
 		String KOFAX_NAME = "ECMS_DMS_SE_BasicAction_CopyPaste_Kofax_Document_Name_57";
 		By KOFAX_PATH = By.xpath("//a[@title='"+ KOFAX_NAME +" "+"']");	
 		By KOFAX_PATH_NEW = By.xpath(ELEMENT_VERIFY.replace("${destination}", CONTENT_FOLDER_NAME).replace("${source}", KOFAX_NAME));
@@ -1806,7 +1804,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		By DOCUMENT_FOLDER_PATH=By.xpath("//a[@title='"+DOCUMENT_FOLDER_NAME+" "+"']");
 		String KOFAX_NAME = "ECMS_DMS_SE_BasicAction_CopyPaste_Kofax_Document_Name_58";
 		By KOFAX_PATH = By.xpath("//a[@title='"+ KOFAX_NAME +" "+"']");	
-		
+
 		info("Go to CE");
 		goToSiteExplorer();
 
@@ -1830,7 +1828,7 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToNode(KOFAX_PATH);
 		deleteDocument(KOFAX_PATH);
 	}
-	
+
 	/* Go to Sites Management
 	 * Create 1 Kofax, copy it
 	 * Create 1 file
@@ -1856,10 +1854,10 @@ public class ECMS_DMS_SE_BasicAction_CopyPaste extends EcmsBase {
 		goToAddNewContent();
 		createNewKofax(KOFAX_NAME);
 		waitForElementPresent(KOFAX_PATH);
-		
+
 		info("Choose Site Management");
-		waitForElementPresent(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
-		goToNode(ELEMENT_BAR_CONTENT_SITES_MANAGEMENT);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		goToNode(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Create File & copy paste");
 		goToAddNewContent();

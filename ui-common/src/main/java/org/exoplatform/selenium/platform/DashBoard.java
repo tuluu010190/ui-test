@@ -10,6 +10,14 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class DashBoard extends PlatformBase {
+	/* Dashboard Page*/
+	public static String MESSAGE_DRAG_GADGETS_HERE = "Drag your gadgets here.";
+	public static By ELEMENT_ADD_GADGETS_LINK = By.xpath("//a[text()='Add Gadgets']");
+	
+	// Getget Directory form
+	public static By ELEMENT_GADGET_URI_INPUT = By.xpath("//input[@id='url']");
+	public static By ELEMENT_ADD_GADGET_BUTTON = By.xpath("//img[@title='Add Gadget']");
+
 	/*------------- Data for Dashboard tab --------------------------------*/
 	public static final String ELEMENT_DASHBOARD_NEW_ICON = "//div[@id='UITabPaneDashboard']/a[@class='AddDashboard']";
 	public static final String ELEMENT_DASHBOARD_NEW_INPUT = "//div[@id='UITabPaneDashboard']//div[contains(@class, 'UITab SelectedTab')]/input";

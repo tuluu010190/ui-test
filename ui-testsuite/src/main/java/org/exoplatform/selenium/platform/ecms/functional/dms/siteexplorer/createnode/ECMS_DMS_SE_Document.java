@@ -20,26 +20,16 @@ import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 
 public class ECMS_DMS_SE_Document extends EcmsBase {
 
-	public static By SITE_MANAGEMENT_ACME = By.xpath("//a[@title='acme ']");
 
 	public static String ARTICLE_NAME_TITLE="Article_Document";
-
 	public static String ARTICLE_SUM="Summary of article";
-
 	public static String ARTICLE_CONTENT="Content of article";
-
 	public static By ARTICLE_PATH = By.xpath("//a[@title='"+ARTICLE_NAME_TITLE+" "+"']");
-
-	public static final By ELEMENT_SAVE_BUTTON = By.linkText("Save");
-
-	public static final By ELEMENT_CLOSE_BUTTON = By.linkText("Close");
-
 	public static final By ELEMENT_CHANGE_CONTENT_TYPE = By.linkText("(Change Content Type)");
-
 	public static final String MESSAGE_CLOSE_ARTICLE="The changes you made will be lost if you close this form.";
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -47,7 +37,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 //		logoutEcms ();
 		driver.quit();
 	}
@@ -66,7 +56,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -97,7 +87,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -143,7 +133,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -184,7 +174,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -231,7 +221,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -273,7 +263,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -331,7 +321,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -392,7 +382,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 		
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Create article and fill special character in name");
 		for (int i =0 ; i < SPECIAL_CHAR_NAME.length; i++){
@@ -430,7 +420,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -439,13 +429,13 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		createNewArticle(ARTICLE_NAME_TITLE,  ARTICLE_NAME_TITLE, ARTICLE_SUM, ARTICLE_CONTENT);
 
 		info("Verify New Content is present");
-		waitForElementPresent(ELEMENT_MENU_NEW_CONTENT_LINK);
+		waitForElementPresent(ELEMENT_NEW_CONTENT_LINK);
 
 		info("Check-in article");
 		checkInNode(ARTICLE_PATH);
 
 		info("Verify no New Content on action bar");
-		waitForElementNotPresent(ELEMENT_MENU_NEW_CONTENT_LINK);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 
 		info("Checkout article");
 		checkOutNode(ARTICLE_PATH);
@@ -478,7 +468,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -502,13 +492,13 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		checkInNode(ARTICLE_PATH);
 
 		info("Verify article is in check-in status which means No content on action bar");
-		waitForElementNotPresent(ELEMENT_MENU_NEW_CONTENT_LINK);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 
 		info("Click Kofax");
 		goToNode(KOFAX_PATH);
 
 		info("Verify New Content is on action bar");
-		waitForElementNotPresent(ELEMENT_MENU_NEW_CONTENT_LINK);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 
 		info("Click Article");
 		goToNode(ARTICLE_PATH);
@@ -665,7 +655,7 @@ public class ECMS_DMS_SE_Document extends EcmsBase {
 		
 		//check user mary can not add content for this node
 		goToNode(ELEMENT_ARTICLE);
-		waitForElementNotPresent(ELEMENT_MENU_NEW_CONTENT_LINK);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK);
 		info("User can not add content for this node");
 		logoutEcms();
 		

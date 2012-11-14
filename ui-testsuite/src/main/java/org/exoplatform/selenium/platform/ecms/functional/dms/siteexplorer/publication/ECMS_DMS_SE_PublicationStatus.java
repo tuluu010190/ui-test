@@ -41,7 +41,7 @@ public class ECMS_DMS_SE_PublicationStatus extends ActionBar{
 	public String ELEMENT_ACME_SITES_LINK = DEFAULT_BASEURL.concat("/portal/acme");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -50,7 +50,7 @@ public class ECMS_DMS_SE_PublicationStatus extends ActionBar{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		logoutEcms();
 		driver.manage().deleteAllCookies();

@@ -34,45 +34,45 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class ECMS_Admin_ManageTags_Management extends EcmsBase {
-  public static final String DATA_USER_ADMIN = "john";
-  public static final String DATA_USER_NORMAL = "mary";
-  public static final String DATA_PASS = "gtn";
-  
-  @BeforeMethod
-  public void beforeMethod(){
-    initSeleniumTest();
-    driver.get(baseUrl);
-    actions = new Actions(driver);
-    info("Login ECMS with "+ DATA_USER_ADMIN);
-    loginEcms(DATA_USER_ADMIN, DATA_PASS);
-  }
-  
-  @AfterMethod
-  public void afterMethod(){
-    info("Logout ECMS");
-    //logoutEcms();
-    driver.manage().deleteAllCookies();
-    driver.quit();
-    actions = null;
-  }
-  /**
-   * Test Edit Tags Function when input valid data
-   */
-  @Test
-  public void test06_CheckRightGroupContentExplorer() throws Exception{
-    //Go to tag permission    
-    gotoTagPermission();
-    //Add tag permission
-    UserGroupManagement.selectGroupAndMembership("platform/web-contributors", "*"); 
-    save();
-    //Open Edit Tag form
-    logoutEcms();
-    loginEcms(DATA_USER_NORMAL, DATA_PASS);  
-    editPublicTag();
-    info("Reset data");
-    logoutEcms();
-    loginEcms(DATA_USER_ADMIN, DATA_PASS);
-    gotoTagPermission();
-    removeTagPermission("platform/web-contributors", "*");
-  }
+	public static final String DATA_USER_ADMIN = "john";
+	public static final String DATA_USER_NORMAL = "mary";
+	public static final String DATA_PASS = "gtn";
+
+	@BeforeMethod
+	public void beforeMethod(){
+		initSeleniumTest();
+		driver.get(baseUrl);
+		actions = new Actions(driver);
+		info("Login ECMS with "+ DATA_USER_ADMIN);
+		loginEcms(DATA_USER_ADMIN, DATA_PASS);
+	}
+
+	@AfterMethod
+	public void afterMethod(){
+		info("Logout ECMS");
+		//logoutEcms();
+		driver.manage().deleteAllCookies();
+		driver.quit();
+		actions = null;
+	}
+	/**
+	 * Test Edit Tags Function when input valid data
+	 */
+	@Test
+	public void test06_CheckRightGroupContentExplorer() {
+		//Go to tag permission    
+		gotoTagPermission();
+		//Add tag permission
+		UserGroupManagement.selectGroupAndMembership("platform/web-contributors", "*"); 
+		save();
+		//Open Edit Tag form
+		logoutEcms();
+		loginEcms(DATA_USER_NORMAL, DATA_PASS);  
+		editPublicTag();
+		info("Reset data");
+		logoutEcms();
+		loginEcms(DATA_USER_ADMIN, DATA_PASS);
+		gotoTagPermission();
+		removeTagPermission("platform/web-contributors", "*");
+	}
 }

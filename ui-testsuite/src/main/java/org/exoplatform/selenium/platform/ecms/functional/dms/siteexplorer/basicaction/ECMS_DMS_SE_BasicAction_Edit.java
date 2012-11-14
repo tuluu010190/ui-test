@@ -20,13 +20,13 @@ import org.testng.annotations.Test;
  */
 
 public class ECMS_DMS_SE_BasicAction_Edit extends EcmsBase {
-	public static final String ELEMENT_ARTICLE_SUM="//div[contains(@id,'CurrentSummary') and @title='Double-click to edit']";
-	public static final By ELEMENT_ARTICLE_SUM_FRAME=By.xpath("//table[@class='cke_editor']/tbody/tr[2]/td/iframe");
-	public static final By ELEMENT_ACCEPT_ARTICLE_SUM=By.xpath("//form[contains(@id,'EditSummaryForm')]/a[2]");
-	public static final By ELEMENT_ARTICLE_CONT_FRAME=By.xpath("//td[contains(@id,'cke_contents_newText')]/iframe");
+	public static final String ELEMENT_ARTICLE_SUM = "//div[contains(@id,'CurrentSummary') and @title='Double-click to edit']";
+	public static final By ELEMENT_ARTICLE_SUM_FRAME = By.xpath("//table[@class='cke_editor']/tbody/tr[2]/td/iframe");
+	public static final By ELEMENT_ACCEPT_ARTICLE_SUM = By.xpath("//form[contains(@id,'EditSummaryForm')]/a[2]");
+	public static final By ELEMENT_ARTICLE_CONT_FRAME = By.xpath("//td[contains(@id,'cke_contents_newText')]/iframe");
 	public static final By ELEMENT_ACCEPT_ARTICLE_CONT=By.xpath("//form[contains(@id,'EditTextForm')]/a[2]");
-	public static final String ELEMENT_ARTICLE_CONT="//div[contains(@id,'CurrentText') and @title='Double-click to edit']";
-	public static final By ELEMENT_UPLOAD_REMOVE=By.xpath("//img[@class='ActionIcon Remove16x16Icon']");
+	public static final String ELEMENT_ARTICLE_CONT = "//div[contains(@id,'CurrentText') and @title='Double-click to edit']";
+	public static final By ELEMENT_UPLOAD_REMOVE = By.xpath("//img[@class='ActionIcon Remove16x16Icon']");
 	public static String USER = "john";
 	public static String PASS = "gtn";
 

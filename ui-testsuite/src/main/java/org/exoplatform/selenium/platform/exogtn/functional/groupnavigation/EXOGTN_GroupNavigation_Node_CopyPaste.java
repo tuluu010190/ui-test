@@ -23,14 +23,12 @@ public class EXOGTN_GroupNavigation_Node_CopyPaste extends PlatformBase
 	public By CONTENT_ADMINISTRATION = By.xpath("//a[@title='Content Administration']");
 	public By PORTAL_ADMINISTRATION = By.xpath("//a[@title='Portal Administration']");
 	public String CHILD_NODE = "//div[@class='ChildrenContainer']//a[@class = 'NodeIcon DefaultPageIcon' and @title='Content Explorer']";
-	public By SAVE_BUTTON = By.xpath("//a[text()='Save']");
-	public By OK_BUTTON = By.xpath("//a[contains(text(),'OK')]");
 	public By CLOSE_NAVIGATION = By.xpath("//a[contains(@title,'Close Window')]");
 	public String SAME_PLACE_MESSAGE = "This node name already exists.";
 	public String DELETE_CONFIRMATION_MESSAGE = "Are you sure to delete this node?";
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		driver.get(baseUrl);
@@ -143,7 +141,7 @@ public class EXOGTN_GroupNavigation_Node_CopyPaste extends PlatformBase
 		
 		//Verify display message to notice that Node already existed
 		waitForTextPresent(SAME_PLACE_MESSAGE);
-		click(OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
 		
 		rightClickOnElement(CHILD_NODE);
 		click(ELEMENT_NODE_DELETE);
@@ -154,7 +152,7 @@ public class EXOGTN_GroupNavigation_Node_CopyPaste extends PlatformBase
 	}
 	
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		signOut();
 		driver.quit();
 	}

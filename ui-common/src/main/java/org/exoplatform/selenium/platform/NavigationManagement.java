@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.platform.PageManagement.*;
 import java.util.Map;
 import org.openqa.selenium.By;
 

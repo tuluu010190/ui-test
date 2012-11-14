@@ -23,8 +23,8 @@ import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
 import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 
+import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
-import org.exoplatform.selenium.platform.ecms.PageEditor;
 import org.exoplatform.selenium.platform.ecms.WcmAdmin;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
@@ -39,13 +39,9 @@ import org.testng.annotations.Test;
 public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 	String DATA_USER = "john";
 	String DATA_PASS = "gtn";
-	public static By ELEMENT_PUBLICATION = By.linkText("Publications");
-	public static By ELEMENT_PUBLIC_STATUS = By.xpath("//a[contains(text(), 'Published')]");
-	public static By EMENET_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
-	public static By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -54,7 +50,7 @@ public class ECMS_WCM_Viewer_ListContent_EditIcon extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		//logoutEcms();
 		driver.manage().deleteAllCookies();

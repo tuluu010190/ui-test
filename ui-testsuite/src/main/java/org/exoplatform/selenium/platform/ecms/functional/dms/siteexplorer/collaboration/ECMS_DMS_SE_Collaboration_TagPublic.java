@@ -19,10 +19,10 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 	 * @author: HangNTT
 	 * @date: 01/10/2012
 	 */
-	By SITE_MANAGEMENT_ACME = By.xpath("//a[@title='acme ']");
+//	By SITE_MANAGEMENT_ACME = By.xpath("//a[@title='acme ']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -41,7 +41,7 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 
 		info("Click New Content");
 		goToAddNewContent();
@@ -59,8 +59,8 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 
 		info("Delete data");
 		deleteTag("collaboration_02_014", true);
-		waitForElementPresent(ELEMENT_FILE_EXPLORER);
-		click(ELEMENT_FILE_EXPLORER);
+		waitForElementPresent(ELEMENT_SIDEBAR_FILE_EXPLORER);
+		click(ELEMENT_SIDEBAR_FILE_EXPLORER);
 		waitForElementPresent(ARTICLE_PATH);
 		goToNode(ARTICLE_PATH);
 		deleteDocument(ARTICLE_PATH);
@@ -78,7 +78,7 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 		goToSiteExplorer();
 
 		info("Go to Site management/ acme");
-		goToNode(SITE_MANAGEMENT_ACME);
+		goToNode(ELEMENT_SIDEBAR_ACME);
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_LINK);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
 		goToNode(ELEMENT_UPLOAD_FILE);
@@ -91,15 +91,15 @@ public class ECMS_DMS_SE_Collaboration_TagPublic  extends EcmsBase {
 		deleteTag("collaboration_02_015", true);
 
 		info("delete node");
-		waitForElementPresent(ELEMENT_FILE_EXPLORER);
-		click(ELEMENT_FILE_EXPLORER);
+		waitForElementPresent(ELEMENT_SIDEBAR_FILE_EXPLORER);
+		click(ELEMENT_SIDEBAR_FILE_EXPLORER);
 		goToNode(ELEMENT_UPLOAD_FILE);
 		waitForElementPresent(ELEMENT_UPLOAD_FILE);
 		deleteDocument(ELEMENT_UPLOAD_FILE);
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest() {
 		logoutEcms ();
 		driver.quit();
 	}

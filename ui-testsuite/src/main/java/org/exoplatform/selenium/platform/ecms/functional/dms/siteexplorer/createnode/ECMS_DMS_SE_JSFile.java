@@ -15,7 +15,6 @@ import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 public class ECMS_DMS_SE_JSFile extends EcmsBase {
 	public static String USER = "john";
 	public static String PASS = "gtn";
-	public static final By ELEMENT_DRIVE_SITE_MANAGE= By.xpath("//a[@title='Sites Management']");
 	public static final String ELEMENT_PATH_ACME="acme/js";
 	public static final String ELEMENT_PATH_SHARED="shared/js";
 	public static final By ELEMENT_JS_NAME= By.id("name");
@@ -83,7 +82,7 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 
 
 		info("Create JS file with active");
-		chooseDrive(ELEMENT_DRIVE_SITE_MANAGE);
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		goToNodeByPath(ELEMENT_PATH_ACME);
 		addJSFile(DATA_JS_NAME_01, DATA_JS_DATA_01, DATA_JS_ACTIVE_01, DATA_JS_PRIORITY_01, DATA_JS_LANG_01);
 		waitForElementPresent(bJs);
@@ -104,7 +103,7 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 		By bJs2= By.xpath("//a[@title='"+ DATA_JS_NAME_02_2 + " ']");
 
 		info("Check JS priority on Sites Explorer when there are two JS files which have been defined by calling function");
-		chooseDrive(ELEMENT_DRIVE_SITE_MANAGE);
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		goToNodeByPath(ELEMENT_PATH_ACME);
 		addJSFile(DATA_JS_NAME_02, DATA_JS_DATA_02, DATA_JS_ACTIVE_02, DATA_JS_PRIORITY_02, DATA_JS_LANG_02);
 		waitForElementPresent(bJs);
@@ -132,7 +131,7 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 		By bJs3= By.xpath("//a[@title='"+ DATA_JS_NAME_03_3 + " ']");
 
 		info("Check JS priority on Sites Explorer when there are two JS files which have been defined by calling function");
-		chooseDrive(ELEMENT_DRIVE_SITE_MANAGE);
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		goToNodeByPath(ELEMENT_PATH_ACME);
 		addJSFile(DATA_JS_NAME_03, DATA_JS_DATA_03, DATA_JS_ACTIVE_03, DATA_JS_PRIORITY_03, DATA_JS_LANG_03);
 		waitForElementPresent(bJs);
@@ -159,7 +158,7 @@ public class ECMS_DMS_SE_JSFile extends EcmsBase {
 		By bJs= By.xpath("//a[@title='"+ DATA_JS_NAME_04 + " ']");
 
 		info("Check the affection of JS file in Share site");
-		chooseDrive(ELEMENT_DRIVE_SITE_MANAGE);
+		chooseDrive(ELEMENT_DRIVE_MANAGE_SITE);
 		goToNodeByPath(ELEMENT_PATH_SHARED);
 		addJSFile(DATA_JS_NAME_04, DATA_JS_DATA_04, DATA_JS_ACTIVE_04, DATA_JS_PRIORITY_04, DATA_JS_LANG_04);
 		waitForElementPresent(bJs);

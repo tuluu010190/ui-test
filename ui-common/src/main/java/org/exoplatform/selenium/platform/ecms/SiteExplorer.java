@@ -11,12 +11,14 @@ import static org.exoplatform.selenium.TestLogger.*;
 public class SiteExplorer extends EcmsBase {
 	//Show Drives link
 	public static final By ELEMENT_SHOW_DRIVES = By.xpath("//a[@title='Show Drives']");
-
-	//Driver Sites Management in Sites Explorer
-	public static final By ELEMENT_ACME_DRIVER = By.linkText("acme-category");
+	public static final By ELEMENT_DRIVE_MANAGE_SITE = By.xpath("//a[contains(text(),'Sites Management')]");
+	public static final By ELEMENT_ACME_DRIVE = By.linkText("acme-category");
 	public static final By ELEMENT_SITES_MANAGEMENT_DRIVE = By.xpath("//a[@class='DriveLabel' and @title = 'Sites Management']");
 	public static final By ELEMENT_DMS_ADMIN_DRIVE = By.linkText("DMS Administration");
-
+	public static final By ELEMENT_TRASH_DRIVE = By.xpath("//a[@title='Trash']");
+	public static final By ELEMENT_PRIVATE_DRIVER = By.linkText("Private");
+	public static final By ELEMENT_COLLABORATION_DRIVE= By.xpath("//a[@title='collaboration']");
+	
 	// Preference
 	public static final By ELEMENT_PREFERENCE_LINK =By.xpath("//a[@class='SetupPreferencesButton']");
 
@@ -25,10 +27,8 @@ public class SiteExplorer extends EcmsBase {
 	public static By ELEMENT_EDIT_PUBLIC_TAG = By.xpath("//div[@title='Edit Public Tags']");
 	public static By ELEMENT_EDIT_PRIVATE_TAG = By.xpath("//div[@title='Edit Private Tags']");
 	public static String REMOVE_TAG = "//div[text()='${TagsName}']/../../td/div/img[@title='Remove Tag']";
-	public static By ELEMENT_CLOSE_EDIT_PUBLIC_TAG_FORM = By.xpath("//a[@title='Close Window']");
+//	public static By ELEMENT_CLOSE_WINDOW = By.xpath("//a[@title='Close Window']");
 	public static String MESSAGE_WARNING_AFTER_DELETE_TAG = "Are you sure to delete this tag?";
-	//public static By ELEMENT_TAG_CLOUD = By.xpath("//div[@title='Tag Cloud']");
-	//public static By ELEMENT_EDIT_PUBLIC_TAGS = By.xpath("//div[@title='Edit Public Tags']");
 	public static By ELEMENT_EDIT_TAGS_FORM = By.xpath("//span[contains(text(),'Edit Tag')]");
 	public static final By ELEMENT_MANAGE_TAGS = By.linkText("Manage Tags");
 	public static final By ELEMENT_TAG_PERMISSION = By.xpath("//div[contains(text(),'Tag Permission Manager')]");
@@ -38,11 +38,6 @@ public class SiteExplorer extends EcmsBase {
 	public static By ELEMENT_CLOSE_TAG_FORM = By.xpath("//a[contains(text(),'Close')]");
 	public static By ELEMENT_TAG_NAME = By.id("names");
 	public static By ELEMENT_TAG_SCOPE = By.id("tagScopes");
-
-	//SideBar
-	public static By ELEMENT_TAG_CLOUD = By.xpath("//div[3]/div[4]/div");
-	public static By ELEMENT_FILE_EXPLORER = By.xpath("//div[@id='UISideBar']/div/div/div[3]/div/div");
-	public static By ELEMENT_SAVED_SEARCH_ICON = By.xpath("//div[@title='Saved Searches']");
 
 	//Advanced search form
 	public static By ELEMENT_ADVANCED_SEARCH_ICON = By.xpath("//div[@title='Advanced Search']");
@@ -56,14 +51,23 @@ public class SiteExplorer extends EcmsBase {
 	public static By ELEMENT_PUBLIC_STATUS = By.xpath("//a[contains(text(), 'Published')]");
 	public static By EMENET_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
 	public static By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
-	
+
 	public static By ELEMENT_MORE_LINK = By.xpath("//div[@class='MoreLabel' and contains(text(),'More')]");
+
+	/* sidebar */
+	public static By ELEMENT_SIDEBAR_SITES_MANAGEMENT = By.xpath("//div[@title='Sites Management']");
+	//File Explorer - relation -clipboard - tag clould - saved search
+	public static By ELEMENT_TAG_CLOUD = By.xpath("//div[3]/div[4]/div");
+	public static By ELEMENT_SIDEBAR_FILE_EXPLORER = By.xpath("//div[@title='File Explorer']");
+	public static By ELEMENT_SAVED_SEARCH_ICON = By.xpath("//div[@title='Saved Searches']");
+	public static By ELEMENT_CLIPBOARD_ICON = By.xpath("//div[@title='Clipboard']");
 	
 	//choose a drive
 	public static void chooseDrive(By locator)
 	{
-		waitForAndGetElement(ELEMENT_SHOW_DRIVES).click();
-		waitForAndGetElement(locator).click();	
+		click(ELEMENT_SHOW_DRIVES);
+		pause(1000);
+		click(locator);
 	}
 
 	//Enable preferences option
@@ -89,17 +93,13 @@ public class SiteExplorer extends EcmsBase {
 
 	//Simple search
 	public static boolean simpleSearch(String keyword){
-		boolean delete = true;
-		//		waitForAndGetElement(ELEMENT_SIMPLESEARCH_TEXTBOX).clear();
 		waitForElementPresent(ELEMENT_SIMPLESEARCH_TEXTBOX);
 		type(ELEMENT_SIMPLESEARCH_TEXTBOX, keyword, true);
 		click(ELEMENT_SIMPLESEARCH_SUBMIT);
-		if (waitForAndGetElement(By.xpath("//div[contains(text(),'"+keyword+"')]"),30000,0) != null)
-		{
-			return delete;}
-		else {
-			delete = false;
-			return delete;}
+		if (waitForAndGetElement(By.xpath("//div[contains(text(),'"+keyword+"')]"),30000,0) != null){
+			return true;
+		}
+		return false;
 	}
 
 	//Simple search not return result
@@ -124,6 +124,7 @@ public class SiteExplorer extends EcmsBase {
 			selectOption(ELEMENT_TAG_SCOPE, "Public");
 		} else 
 			selectOption(ELEMENT_TAG_SCOPE, "Private");
+
 		click(ELEMENT_ADD_TAGS_BUTTON);
 
 		//Verify new tag
@@ -135,7 +136,7 @@ public class SiteExplorer extends EcmsBase {
 		//Verify add new tag
 		click(ELEMENT_TAG_CLOUD);
 
-		//			waitForTextPresent("Private Tags");
+		// waitForTextPresent("Private Tags");
 		waitForTextPresent(name);
 	}
 
@@ -153,10 +154,10 @@ public class SiteExplorer extends EcmsBase {
 		waitForElementPresent(ELEMENT_REMOVE_TAG);
 		click(ELEMENT_REMOVE_TAG);
 		waitForConfirmation(MESSAGE_WARNING_AFTER_DELETE_TAG);
-		click(ELEMENT_CLOSE_EDIT_PUBLIC_TAG_FORM);
+		click(ELEMENT_CLOSE_WINDOW);
 		waitForTextNotPresent(name);
 	}
-	
+
 	/**
 	 * Remove permission 
 	 * @param groupPath Group string separated by slash
@@ -186,14 +187,14 @@ public class SiteExplorer extends EcmsBase {
 		click(ELEMENT_ADVANCED_SEARCH_ICON);
 		click(ELEMENT_ADVANCED_SEARCH_TAB);
 	}
-	
+
 	//Go to Tag Permission Screen
 	public static void gotoTagPermission(){
 		goToContentAdministration();
 		click(ELEMENT_MANAGE_TAGS);
 		click(ELEMENT_TAG_PERMISSION);
 	}
-	
+
 	//function public a document
 	public static void publishDocument(){
 		info("Public this document");

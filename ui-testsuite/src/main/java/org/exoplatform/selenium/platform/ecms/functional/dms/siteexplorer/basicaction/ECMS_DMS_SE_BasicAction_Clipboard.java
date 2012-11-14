@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
+import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
@@ -20,22 +21,18 @@ import org.testng.annotations.Test;
 public class ECMS_DMS_SE_BasicAction_Clipboard extends EcmsBase 
 {
 	//Define data
-	public String DATA_CONTENT_FOLDER = "Content Folder Test";
-	public String DATA_DOCUMENT_FOLDER = "Document Folder Test";
+	public String DATA_CONTENT_FOLDER = "ContentFolder_Clipboard";
+	public String DATA_DOCUMENT_FOLDER = "DocumentFolder_Clipboard";
 	public String DATA_KOFAX_NAME = "Kofax Name";
 	public String DATA_UPLOAD_FILE_NAME = "Uploaded_Image";
 	public String DATA_UPLOAD_FILE_PATH ="TestData/Winter.jpg";
-	public String ACME_NODE_LINK = "//div[text()='acme']";
-	public String DOCUMENTS_NODE_LINK = "//a[text()='documents']";
-	
+
 	public By CONTENT_FOLDER = By.xpath("//div[@title='"+DATA_CONTENT_FOLDER+"']");
 	public By DOCUMENT_FOLDER = By.xpath("//div[@title='"+DATA_DOCUMENT_FOLDER+"']");
 	public By KOFAX_DISPLAY = By.xpath("//td[text()='"+DATA_KOFAX_NAME+"']");
 	public By KOFAX_DOCUMENT = By.xpath("//div[@title='"+DATA_KOFAX_NAME+"']");
 	public By UPLOAD_FILE_NAME = By.xpath("//div[@title='"+DATA_UPLOAD_FILE_NAME+".jpg']");
-	
-	public By SITES_MANAGEMENT_LINK = By.xpath("//div[@title='Sites Management']");
-	public By CLIPBOARD_ICON = By.xpath("//div[@title='Clipboard']");
+
 	public By CLIPBOARD_CONTENT_FOLDER_PATH = By.xpath("//td[text()='.../"+DATA_CONTENT_FOLDER+"']");
 	public By CLIPBOARD_CONTENT_FOLDER_CM = By.xpath("//td[text()='.../"+DATA_CONTENT_FOLDER+"']/following::td[text()='copy']");
 	public By CLIPBOARD_DOCUMENT_FOLDER_PATH = By.xpath("//td[text()='..."+DATA_DOCUMENT_FOLDER+"']");
@@ -46,10 +43,9 @@ public class ECMS_DMS_SE_BasicAction_Clipboard extends EcmsBase
 	public By CLIPBOARD_UPLOAD_FILE_CM = By.xpath("//td[text()='...e/"+DATA_UPLOAD_FILE_NAME+".jpg']/following::td[text()='cut']");
 	public By CLEAR_ALL_ICON = By.xpath("//a[contains(text(),'Clear All')]");
 	public By CLEAR_ALL_MESSAGE = By.xpath("//div[contains(text(),'There are no items in the clipboard.')]");
-	public By FILE_EXPLORER_ICON = By.xpath("//div[@title='File Explorer']");
-	
+
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		driver.get(baseUrl);
@@ -57,46 +53,46 @@ public class ECMS_DMS_SE_BasicAction_Clipboard extends EcmsBase
 		driver.manage().window().maximize();
 		loginEcms("john", "gtn");
 	}
-	
+
 	//Delete  all action in clipboard
 	@Test()
 	public void test020_DeleteActionInClipboard()
 	{
 		//goto Site Explorer
 		goToSiteExplorer();
-		
+
 		//Create & Copy a Content Folder
 		createNewContentFolder(DATA_CONTENT_FOLDER, DATA_CONTENT_FOLDER);
 		waitForElementPresent(CONTENT_FOLDER);
 		copyNode(CONTENT_FOLDER);
-		
+
 		//Create & Cut a Document Folder
 		createNewDocumentFolder(DATA_DOCUMENT_FOLDER, DATA_DOCUMENT_FOLDER);
 		waitForElementPresent(DOCUMENT_FOLDER);
 		cutNode(DOCUMENT_FOLDER);
-		
+
 		//Create & Copy a File Document
 		goToAddNewContent();
 		createNewKofax(DATA_KOFAX_NAME);
 		waitForAndGetElement(KOFAX_DISPLAY);
-		click(SITES_MANAGEMENT_LINK);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForElementPresent(KOFAX_DOCUMENT);
 		copyNode(KOFAX_DOCUMENT);
-		
+
 		//Upload & Cut a File
 		uploadFile(DATA_UPLOAD_FILE_NAME, DATA_UPLOAD_FILE_PATH);
 		waitForElementPresent(UPLOAD_FILE_NAME);
 		cutNode(UPLOAD_FILE_NAME);
-		
+
 		//Select acme > documents node
-		doubleClickOnElement(ACME_NODE_LINK);
-		waitForElementPresent(DOCUMENTS_NODE_LINK);
-		doubleClickOnElement(DOCUMENTS_NODE_LINK);
-		
+		doubleClickOnElement(ELEMENT_SIDEBAR_ACME);
+		waitForElementPresent(ELEMENT_SIDEBAR_ACME_DOCUMENTS);
+		doubleClickOnElement(ELEMENT_SIDEBAR_ACME_DOCUMENTS);
+
 		//Click on Clipboard
-		waitForElementPresent(CLIPBOARD_ICON);
-		click(CLIPBOARD_ICON);
-		
+		waitForElementPresent(ELEMENT_CLIPBOARD_ICON);
+		click(ELEMENT_CLIPBOARD_ICON);
+
 		//Verify Path & Cm of Nodes
 		waitForElementPresent(CLIPBOARD_CONTENT_FOLDER_PATH);
 		waitForElementPresent(CLIPBOARD_CONTENT_FOLDER_CM);
@@ -106,15 +102,15 @@ public class ECMS_DMS_SE_BasicAction_Clipboard extends EcmsBase
 		waitForElementPresent(CLIPBOARD_KOFAX_CM);
 		waitForElementPresent(CLIPBOARD_UPLOAD_FILE_PATH);
 		waitForElementPresent(CLIPBOARD_UPLOAD_FILE_CM);
-		
+
 		//Clear all action in list
 		click(CLEAR_ALL_ICON);
 		waitForElementPresent(CLEAR_ALL_MESSAGE);
-		
+
 		//Delete data
-		click(FILE_EXPLORER_ICON);
-		waitForElementPresent(SITES_MANAGEMENT_LINK);
-		click(SITES_MANAGEMENT_LINK);
+		click(ELEMENT_SIDEBAR_FILE_EXPLORER);
+		waitForElementPresent(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForElementPresent(CONTENT_FOLDER);
 		deleteDocument(CONTENT_FOLDER);
 		waitForElementPresent(DOCUMENT_FOLDER);
@@ -124,9 +120,9 @@ public class ECMS_DMS_SE_BasicAction_Clipboard extends EcmsBase
 		waitForElementPresent(UPLOAD_FILE_NAME);
 		deleteDocument(UPLOAD_FILE_NAME);
 	}
-	
+
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

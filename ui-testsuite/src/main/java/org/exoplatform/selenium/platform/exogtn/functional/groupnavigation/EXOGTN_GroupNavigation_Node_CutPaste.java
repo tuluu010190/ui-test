@@ -29,7 +29,6 @@ public class EXOGTN_GroupNavigation_Node_CutPaste extends PlatformBase
 	public By MANAGEMENT_LINK = By.xpath("//a[@title='Management']");
 	public By IDE_LINK = By.xpath("//a[@title='IDE']");
 	public By CHILD_NODE = By.xpath("(//a[contains(text(),'POR_GRNAVIGATION_25_05_002')])[2]");
-	public By OK_BUTTON = By.xpath("//a[text()='OK']");
 	public By CLOSE_NAVIGATION_ICON = By.xpath("//a[contains(@title,'Close Window')]");
 	public String NODE_NAME = "POR_GRNAVIGATION_25_05_002";
 
@@ -37,7 +36,7 @@ public class EXOGTN_GroupNavigation_Node_CutPaste extends PlatformBase
 	public String SAME_PLACE_MESSAGE = "The source and the destination must be different.";
 
 	@BeforeMethod()
-	public void beforeTest() throws Exception
+	public void beforeTest()
 	{
 		initSeleniumTest();
 		//driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -66,7 +65,7 @@ public class EXOGTN_GroupNavigation_Node_CutPaste extends PlatformBase
 		
 		//Verify message confirmation
 		waitForMessage(SAME_PLACE_MESSAGE);
-		click(OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
 	}
 	
 	//Cut/Paste a node to new place in the same navigation
@@ -139,7 +138,7 @@ public class EXOGTN_GroupNavigation_Node_CutPaste extends PlatformBase
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

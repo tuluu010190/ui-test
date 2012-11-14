@@ -16,7 +16,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_Gadget extends Plat
 	public static By OK_BUTTON = By.linkText("OK");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -24,7 +24,7 @@ public class EXOGTN_Group_Administration_ApplicationRegistry_Gadget extends Plat
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		signOut();
 		driver.quit();
 	}

@@ -47,7 +47,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
 	By ELEMENT_INPUT_SEARCH_NAME = By.id("siteName");
 	
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -55,7 +55,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}

@@ -3,9 +3,9 @@ package org.exoplatform.selenium.platform.ecms.functional.wcm.viewer.singleconte
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.deleteDocument;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 import static org.exoplatform.selenium.platform.ManageAccount.signOut;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 import static org.exoplatform.selenium.platform.PageManagement.*;
 import org.exoplatform.selenium.platform.ecms.ActionBar;
 import org.openqa.selenium.By;
@@ -33,7 +33,7 @@ public class ECMS_WCM_Viewer_SingleContent_PublishIcon extends ActionBar{
 	public By ELEMENT_BACK_TO_SCV_PAGE_ICON = By.xpath("//*[@id='UIViewBarContainer']/a[@class='URLBackToButton']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -42,7 +42,7 @@ public class ECMS_WCM_Viewer_SingleContent_PublishIcon extends ActionBar{
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		info("Logout ECMS");
 		driver.quit();
 		actions = null;

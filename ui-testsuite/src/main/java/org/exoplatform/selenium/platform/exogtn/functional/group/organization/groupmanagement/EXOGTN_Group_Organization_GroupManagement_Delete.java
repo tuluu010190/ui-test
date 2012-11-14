@@ -27,16 +27,13 @@ public class EXOGTN_Group_Organization_GroupManagement_Delete extends PlatformBa
 	String MEMBERSHIP = "member"; 
 	boolean SELECT = true; 
 	By upLevel = By.xpath("//a[@title='Up Level']");
-	
-	public static final String ELEMENT_USER_MEMBERSHIP_TAB = "//div[text()='User Membership' and @class='MiddleTab']";
-	public static final String ELEMENT_CANCEL_BUTTON = "//a[text()='Cancel']";
 
 	public String CAN_NOT_DELETE_GROUP_MANDATORY = "You cannot delete this group because it (or its child) is mandatory";
 	public String CAN_NOT_DELETE_MEMBERSHIP_MANDATORY ="You cannot delete this membership because it is mandatory.";
 	public String SIGN_IN_FAILED ="Sign in failed. Wrong username or password.";
 	
 	@BeforeMethod()
-	public void beforeTest() throws Exception {
+	public void beforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -307,7 +304,7 @@ public class EXOGTN_Group_Organization_GroupManagement_Delete extends PlatformBa
 	}
 	
 	@AfterMethod()
-	public void afterTest() throws Exception
+	public void afterTest()
 	{
 		signOut();
 		driver.quit();

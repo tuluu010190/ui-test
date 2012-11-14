@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.ecms.EcmsBase.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,51 +24,66 @@ public class PlatformBase extends TestBase {
 	 * Intranet
 	 * */
 	public static final String ELEMENT_SIGN_IN_LINK = "//b[contains(text(),'Sign in')]";
-	
-	
+
 	/*
 	 * Log in Form - Sign-out 
 	 */
 	public static final String ELEMENT_INPUT_USERNAME = "//input[@name='username']";
 	public static final String ELEMENT_INPUT_PASSWORD = "//input[@name='password']";
-	
+
 	/*
 	 * Navigation Bar /Administration Bar
 	 */
+	
 	//My site
-	public static final By ELEMENT_MY_SITE = By.linkText("My Sites");
-	public static final By ELEMENT_ACME = By.linkText("acme");
+	public static final By ELEMENT_MYSITE = By.linkText("My Sites");
+	public static final By ELEMENT_MYSITE_ACME = By.linkText("acme");
 	public static final By ELEMENT_OVERVIEW = By.linkText("Overview");
 	public static final By ELEMENT_NEWS = By.linkText("News");
+	public static final By ELEMENT_INTRANET_SITE_LINK = By.linkText("intranet");
 	
 	// My spaces
 	// Dashboard
-	// Edit
+
+	/* Edit */
 	public static final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
+	//Content
+	public static final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
+	//Page
 	public static final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
-	public static final By ELEMENT_EDIT_MODE = By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
-	public static final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
+	public static final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Layout");
 	public static final By ELEMENT_MENU_SEO_LINK = By.xpath("//a[@title='SEO Management']");
-	
-	//Setting Icon
+	public static final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
+	//site
+
+	/* End Edit*/
+
+	/* Setting Icon */
 	public static final String ELEMENT_LINK_SETUP ="//img[@alt='Setup']";
+	//Users
 	public static final String ELEMENT_LINK_USERS ="//a[text()='Users']";
 	public static final String ELEMENT_LINK_ADD_USERS="//a[text()='Add Users']";
-	public static final String ELEMENT_LINK_PORTAL = "//a[text()='Portal']";
-	public static final String ELEMENT_LINK_SITE   = "//a[text()='Sites']";
-	public static final String ELEMENT_LINK_GROUP = "//a[text()='Group Sites']";
-	public static final String ELEMENT_LINK_PAGES   = "//a[text()='Pages']";
+	//Application
+	public static By ELEMENT_APPLICATIONS_LINK = By.linkText("Applications");
+	//Content
 	public static final By ELEMENT_MENU_CONTENT_LINK = By.linkText("Content");
 	public static final By ELEMENT_MENU_SITE_EXPLORER = By.linkText("Sites Explorer");
 	public static final By ELEMENT_LINK_CONTENT_ADMIN = By.linkText("Content administration");
-//	public static final By ELEMENT_LINK_CONTENT=By.linkText("Content");
-	
+	//Portal
+	public static final String ELEMENT_LINK_PORTAL = "//a[text()='Portal']";
+	public static final String ELEMENT_LINK_PAGES   = "//a[text()='Pages']";
+	public static final String ELEMENT_LINK_SITES   = "//a[text()='Sites']";
+	public static final String ELEMENT_LINK_GROUP = "//a[text()='Group Sites']";
+	//Administration
+	//IDE
+	/* End Setting Icon*/
+
 	/* Username link -BEGIN */
 	//My Account form [Username] -> My Account
 	public static final String ELEMENT_CHANGE_PASSWORD_TAB = "//a[text()='Change Password' and @class='Icon ChangePass']";
 	public static final String ELEMENT_ACCOUNT_PROFILE_TAB = "//a[text()='Account Profiles' and @class='Icon AccountProfiles']";
 	//Account Profile Tab
-	
+
 	//Change PasswordTab
 	public static final String ELEMENT_INPUT_CURRENTPASSWORD = "//input[@name='currentpass']";
 	public static final String ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT = "//input[@id='newpass']";
@@ -93,53 +107,51 @@ public class PlatformBase extends TestBase {
 	//End - Add User Form
 	//Setting -> user -> Groups and roles
 	public static final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles')]";
-		
+
 	//Sign-out
 	public static final String ELEMENT_ACCOUNT_NAME_LINK = "//a[@class='TBIcon']";
 	public static final String ELEMENT_SIGN_OUT_LINK = "//a[@class='LogoutIcon']";
 	/* Username link - END*/
-	
+
 	/*
 	 * Context menu
 	 * */
 	public static final By ELEMENT_CUT_NODE = By.xpath("//a[contains(text(),'Cut')]"); 
 	public static final By ELEMENT_PASTE_NODE = By.xpath(".//*[@id='NavigationNodePopupMenu']//a[@class='ItemIcon PasteNode16x16Icon']");
-    public static final By ELEMENT_COPY_NODE = By.xpath("//a[contains(text(),'Copy')]");
-	
+	public static final By ELEMENT_COPY_NODE = By.xpath("//a[contains(text(),'Copy')]");
+
 	/*
 	 * User and Group Management
 	 * */
-    //User Management TAB
-    public static final String ELEMENT_USER_MANAGEMENT = "//div[@class='UserManagementIcon']/..";
-    public static final String ELEMENT_USER_DELETE_ICON ="//div[@id='UIListUsersGird']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
+	//User Management TAB
+	public static final String ELEMENT_USER_MANAGEMENT = "//div[@class='UserManagementIcon']/..";
+	public static final String ELEMENT_USER_DELETE_ICON ="//div[@id='UIListUsersGird']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
 	public static final String ELEMENT_INPUT_SEARCH_USER_NAME = "//input[@name='searchTerm']";
 	public static final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
-	
+
 	//Group Management TAB
 	public static final String ELEMENT_GROUP_MANAGEMENT_TAB = "//div[@class='GroupManagementIcon']/..";
 	public static final String ELEMENT_GROUP_ADD_NEW_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon AddGroupIcon']";
 	public static final String ELEMENT_GROUP_REMOVE_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon RemoveGroupIcon']";
 	public static final String ELEMENT_GROUP_EDIT_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon EditGroupIcon']";
-	
+
 	//Add Group Form
 	public static final String ELEMENT_INPUT_GROUP_NAME = "//input[@name='groupName']";
 	public static final String ELEMENT_INPUT_LABEL = "//input[@id='label']";
 	public static final String ELEMENT_TEXTAREA_DESCRIPTION = "//textarea[@id='description']";
-	
-//	public static final String ELEMENT_GROUP_TO_SELECT_LINK = "//a[contains(@class, 'NodeIcon') and @title='${group}']";
-//	public static final String ELEMENT_GROUP_SELECTED = "//a[@class='NodeIcon PortalIcon NodeSelected' and @title='${group}']";
+
 	public static final String ELEMENT_GROUP_SEARCH_USER_ICON = "//form[@id='UIGroupMembershipForm']/div[2]/div/table/tbody/tr[1]/td[2]/a";
 	public static final String ELEMENT_GROUP_SEARCH_POPUP_ADD_ICON = "//form[@id='UIUserSelector']//div[@class='UIAction']//a[@class='ActionButton LightBlueStyle']";
 	public static final String ELEMENT_SELECT_MEMBERSHIP = "//select[@name='membership']";
 	public static final String ELEMENT_GROUP_USER_IN_TABLE = "//div[@class='UIUserInGroup']//div[@title='${username}']";
-	
+
 	//Membership Management
 	public static final String ELEMENT_TAB_MEMBERSHIP_MANAGEMENT = "//div[@class='MembershipManagementIcon']/..";
 	public static final String ELEMENT_MEMBERSHIP_EDIT_ICON = "//div[@class='UIListMembershipType']//table//tr/td/div[text()='${membership}']/../../td[5]//img[@class='EditMembershipIcon']";
 	public static final String ELEMENT_MEMBERSHIP_DELETE_ICON = "//div[@class='UIListMembershipType']//table//tr/td/div[text()='${membership}']/../../td[5]//img[@class='DeleteMembershipIcon']";
 	public static final String ELEMENT_NEXT_PAGE_ICON = "//a[@title='Next Page']";
 	public static final String ELEMENT_INPUT_NAME = "//input[@id='name']";
-	
+
 	/*
 	 * Manage Account
 	 * */
@@ -154,20 +166,20 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_PORTAL_EDIT_ICON = "//td[@class='Content']/div[@class='Label' and text()='${portalName}']/../../td[3]/a[@class='EditNavIcon'][2]";
 	public static final String ELEMENT_EDIT_FIRST_PORTAL_CONFIG = "//div[@id='UISiteManagement']//a[@class='EditNavIcon'][2]";
 	public static final String ELEMENT_SWITCH_VIEW_MODE_PORTAL = "//a[text()='Switch View Mode']";
-	
+
 	/* Add New Portal Form */
 	//Portal Setting TAB
 	public static final String ELEMENT_SELECT_LOCALE = "//select[@name='locale']";
 	public static final String ELEMENT_SELECT_SKIN 	 = "//select[@name='skin']";
-	
+
 	//Property TAB
 	public static final String ELEMENT_SELECT_SESSION_ALIVE= "//select[@name='sessionAlive']"; 
 	public static final String ELEMENT_PROPERTIES_TAB = "//div[text()='Properties' and @class='MiddleTab']";
-	
+
 	//Permission Setting TAB
 	public static final String ELEMENT_PERMISSION_SETTING_TAB= "//div[text()='Permission Settings' and @class='MiddleTab']";
 	public static final String ELEMENT_CHECKBOX_PUBLIC_MODE = "//input[@name='publicMode']";
-	public static final String ELEMENT_LINK_EDIT_PERMISSION = "//a[text()='Edit Permission Settings']";
+	public static final String ELEMENT_EDIT_PERMISSION_SETTING = "//a[text()='Edit Permission Settings']";
 	public static final String ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM = "//a[text()='${membership}']";
 	public static final String ELEMENT_SELECTED_ACCESS_PERMISSION_GROUP = "//div[@id='PermissionGrid']/table/tbody//div[text()='/${groupId}']";
 	public static final String ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP = "//div[@id='PermissionGrid']/table/tbody//div[text()='${membership}']";
@@ -179,7 +191,7 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = ".//*[@id='ListPermissionSelector']//a[@title='${group}']";
 	public static final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${group}']";
 	public static final String ELEMENT_SELECT_EDIT_PORTAL_CONFIG = "//div[@id='UISiteManagement']//table//tr/td/div[text()='${portalName}']/../../td[2]//a[@class='EditPortIcon']";
-	
+
 	////
 	public static final String ELEMENT_PAGINATOR_PAGE_LINK = "//a[contains(@class, 'Number') and text()='${number}']";
 	public static final String ELEMENT_PAGINATOR_TOTAL_NUMBER = "//a[@class='PagesTotalNumber']";
@@ -189,17 +201,7 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON_IE = ELEMENT_MESSAGE_TEXT + "/../../../../../..//a";
 	public static final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON = "//div[contains(@class, 'UIPopupWindow') and contains(@style, 'visibility: visible')]//span[text()='Messages']/..//a[@class='CloseButton']";
 
-	/*
-	 * Page Management
-	 * */
-	public static final String ELEMENT_ADD_NEW_PAGE_LINK = "//a[text()='Add New Page']";
-	public static final String ELEMENT_INPUT_TITLE = "//input[@id='title']";
-	public static final String ELEMENT_SELECT_OWNER_TYPE = "//select[@name='ownerType']";
-	public static final String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
-	public static final String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//form[@id='UIPageSearchForm']/div[2]/a[@class='SearchIcon']";
-	public static final String ELEMENT_PAGE_EDIT_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='EditInfoIcon']";
-	public static final String ELEMENT_PAGE_DELETE_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='DeleteIcon']";
-	/* Add New Page Form */
+		/* Add New Page Form */
 	public static final String ELEMENT_CHECKBOX_MAX_WINDOWS = "//input[@id='showMaxWindow']";
 	public static final String ELEMENT_LINK_EDITOR = "//a[@class='EditorIcon TBIcon' and text() = 'Edit']";
 	public static final String ELEMENT_LINK_EDITOR_PAGE = "//a[text()='Page']";
@@ -223,7 +225,6 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_EDIT_NAVIGATION = "//div[@class='Label' and text()='${navigation}']/../../td[2]//a[@class='EditNavIcon']";
 	public static final String ELEMENT_ADD_NODE_LINK = "//a[text()='Add Node']";
 	public static final String ELEMENT_PAGE_SELECTOR_TAB = "//div[text()='Page Selector' and @class='MiddleTab']";
-//	public static final String ELEMENT_INPUT_LOCALIZED_LABEL = "//input[@id='i18nizedLabel']";
 	public static final String ELEMENT_INPUT_PAGE_NAME = "//input[@id='pageName']";
 	public static final String ELEMENT_INPUT_PAGE_TITLE = "//input[@id='pageTitle']";
 	public static final String ELEMENT_CREATE_PAGE_LINK = "//a[text()='Create Page']";
@@ -236,46 +237,58 @@ public class PlatformBase extends TestBase {
 	public static final String ELEMENT_NODE_ADD_NEW = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
 	public static final String ELEMENT_NODE_DELETE = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon DeleteNode16x16Icon']";
 	public static final String ELEMENT_NODE_EDIT = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
-//	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
+	//	public static final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 	/*
 	 * END Page Management
 	 * */
-	
+
 	/*
 	 * General
 	 * */
 	public static final By ELEMENT_SAVE_CLOSE_BUTTON = By.linkText("Save & Close");
-//	public static final By ELEMENT_SAVE_CLOSE_BUTTON = By.xpath("//a[text()='Save And Close']");
 	public static final By ELEMENT_OK_BUTTON = By.xpath("//a[text()='OK']");
 	public static final By ELEMENT_APPLY_BUTTON = By.linkText("Apply");
-//	public static final String ELEMENT_SAVE_BUTTON 	 = "//a[text()='Save']";
 	public static final By ELEMENT_SAVE_BUTTON = By.linkText("Save");
-//	public static final String ELEMENT_CLOSE_BUTTON  = "//a[text()='Close']";
-	public static final String ELEMENT_CANCEL_BUTTON = "//a[text()='Cancel']";
+	public static final By ELEMENT_CANCEL_BUTTON = By.linkText("//a[text()='Cancel']");
 	public static final By ELEMENT_CLOSE_BUTTON = By.linkText("Close");
+	public static final By ELEMENT_CLOSE_WINDOW = By.xpath("//a[@title='Close Window']");
+	public static final By ELEMENT_FINISH_ICON = By.xpath("//a[@title='Finish']"); //Finish editing portlet icon
+	public static final By ELEMENT_NEXT_BUTTON = By.linkText("Next");	
+	public static final By ELEMENT_ABORT_BUTTON = By.linkText("//a[text()='Abort']");
 	
+	/*Portlet in general*/
+	public static final By ELEMENT_EDIT_PORTLET_ICON = By.xpath("//a[@title='Edit Portlet']");
+	public static final By ELEMENT_PORTLET_CONTAINER = By.className("PortletLayoutDecorator");
+	public static final By ELEMENT_ABORTEDIT_BUTTON = By.xpath("//a[@title='Abort']");
+	//Edit portlet Form
+	public static final By ELEMENT_WINDOW_SETTINGS_TAB = By.xpath("//div[@id='UIMaskWorkspace']//div[text()='Window Settings']");
+	public static final By ELEMENT_WINDOWS_TITLE = By.xpath("//*[@id='title']");
+	/*Portlet in general*/
+	
+	/* End General
+	 * */
+
 	//Account Portlet
 	public static final By ELEMENT_REGISTER_ACCOUNT_PORTLET = By.className("PortletLayoutDecorator");
-	public static final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON = By.xpath("//a[@title='Edit Portlet']");
 	public static final By ELEMENT_CHECK_BOX_USE_CAPTCHA = By.id("useCaptcha");
 	public static final By ELEMENT_EDIT_LAYOUT_FINISH_BUTTON = By.xpath("//div[@id='UIPortalComposer']//a[@class='EdittedSaveButton']");
 	public static final By ELEMENT_PAGE_FINISH_BUTTON_INFRENCH = By.xpath("//div[@id='UIPageEditor']//a[@title='Terminer']");
 	public static final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH = By.xpath("//a[@title='Editer la Portlet']");
 	public static final By ELEMENT_ERROR_ICON=By.xpath("//span[@class='PopupIcon ErrorMessageIcon']");
 
-	/* End General
-     * */
-	
 	//Content Administration / Advanced Configuration 
 	public static final By ELEMENT_ADVANCED_CONFIGURATION_TAB = By.xpath("//div[@class = 'TabLabel' and @title = 'Advanced Configuration']");
 	public static final By ELEMENT_MANAGE_LOCK_TAB = By.xpath("//div[@class = 'MiddleTab' and text() = 'Manage Lock']");
 	public static final By ELEMENT_MANAGE_LOCKS = By.linkText("Manage Locks");
-	
+
 	//Edit In-line a SCV
 	public static final By ELEMENT_PREFERENCE_TITLE=By.xpath("//span[contains(text(),'Content Detail Preferences')]");
 	public static final By ELEMENT_CONTAINER_CONTENT = By.xpath("//div[@class='NavigationContainer']");
 	public static final By ELEMENT_BUTTON_BACK = By.xpath("//a[@class='URLBackToButton']");
 
+	//Others
+	
+	
 	//Set view permissions for portal
 	public static void setViewPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM.replace("${membership}", membership);
@@ -433,7 +446,7 @@ public class PlatformBase extends TestBase {
 
 	public static void usePaginator(Object locator, String exceptionMessage) {
 		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
-		
+
 		if (waitForAndGetElement(page1, 5000, 0) != null){
 			click(page1);
 			pause(500);
@@ -461,7 +474,7 @@ public class PlatformBase extends TestBase {
 		waitForAndGetElement(ELEMENT_CLOSE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
 	}
-	
+
 	public static void cancel(){
 		waitForAndGetElement(ELEMENT_CANCEL_BUTTON);
 		click(ELEMENT_CANCEL_BUTTON);
@@ -471,7 +484,7 @@ public class PlatformBase extends TestBase {
 		waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON);
 		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
-	
+
 	public static void apply(){
 		waitForAndGetElement(ELEMENT_APPLY_BUTTON);
 		click(ELEMENT_APPLY_BUTTON);
@@ -487,7 +500,7 @@ public class PlatformBase extends TestBase {
 			return true;
 		}
 	}
-	
+
 	public void cutNode(By locator)	{
 		for (int i =0;; i++){
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
@@ -539,7 +552,7 @@ public class PlatformBase extends TestBase {
 			mouseOverAndClick(ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH);
 			waitForTextPresent("Mode d'édition");
 		}else{
-			mouseOverAndClick(ELEMENT_EDIT_ACCOUNT_PORTLET_ICON);
+			mouseOverAndClick(ELEMENT_EDIT_PORTLET_ICON);
 			waitForTextPresent("Edit Mode");
 		}
 
@@ -564,9 +577,9 @@ public class PlatformBase extends TestBase {
 			waitForTextNotPresent("Page Editor");
 		}
 	}
-	
+
 	public static void next(){
-		waitForAndGetElement(ELEMENT_NEWPAGE_NEXT_BUTTON);
-		click(ELEMENT_NEWPAGE_NEXT_BUTTON);	
+		waitForAndGetElement(ELEMENT_NEXT_BUTTON);
+		click(ELEMENT_NEXT_BUTTON);	
 	}
 }

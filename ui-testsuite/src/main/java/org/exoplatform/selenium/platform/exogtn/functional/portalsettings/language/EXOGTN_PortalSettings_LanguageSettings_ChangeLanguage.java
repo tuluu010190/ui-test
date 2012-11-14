@@ -33,7 +33,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 	String MESSAGE_SUCCESSFULLY_REGISTERED_ACCOUNT_INFRENCH = "Votre compte a été créé";
 
 	@BeforeMethod
-	public void setUpBeforeTest() throws Exception {
+	public void setUpBeforeTest(){
 		initSeleniumTest();
 		actions = new Actions(driver);
 		driver.get(baseUrl);
@@ -41,7 +41,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 	}
 
 	@AfterMethod
-	public void afterTest() throws Exception {
+	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}

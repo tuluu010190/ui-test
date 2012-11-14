@@ -2,11 +2,11 @@ package org.exoplatform.selenium.platform.ecms.functional.wcm.categories;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
-import static org.exoplatform.selenium.platform.ecms.PageEditor.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.UserGroupManagement.*;
 import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import static org.exoplatform.selenium.platform.PageEditor.*;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
@@ -32,7 +32,7 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 	public static final By ELEMENT_DELETE_PORTLET_TAG = By.xpath("//*[contains(@id,'UIPortlet')][1]/div/div[2]/div/div[2]/*//a[@class='DeleteIcon']");
 
 	@BeforeMethod
-	public void beforeMethods() throws Exception {
+	public void beforeMethods(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		actions = new Actions(driver);
@@ -41,7 +41,7 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 	}
 
 	@AfterMethod
-	public void afterMethods() throws Exception {
+	public void afterMethods(){
 		//delete tag view portlet
 		goToNews();
 		goToEditPageEditor();
@@ -139,9 +139,9 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		createNewArticleAndTags(DATA_ARTICLE, DATA_TAG, false);
 
 		//public this document
-		click(ELEMENT_FILE_EXPLORER);
+		click(ELEMENT_SIDEBAR_FILE_EXPLORER);
 		goToNode(ELEMENT_ARTICLE);
-		click(ELEMENT_PUBLICATION_TAB_LINK);
+		click(ELEMENT_PUBLICATION_TAB);
 		publishDocument();
 
 		//go to News page check private tags is not displayed
@@ -182,9 +182,9 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		createNewArticleAndTags(DATA_ARTICLE, DATA_TAG, true);
 
 		//public this document
-		click(ELEMENT_FILE_EXPLORER);
+		click(ELEMENT_SIDEBAR_FILE_EXPLORER);
 		goToNode(ELEMENT_ARTICLE);
-		click(ELEMENT_PUBLICATION_TAB_LINK);
+		click(ELEMENT_PUBLICATION_TAB);
 		publishDocument();
 
 		//go to News page check public tags is displayed
@@ -230,9 +230,9 @@ public class ECMS_WCM_Categories_Tags extends EcmsBase {
 		createNewArticleAndTags(DATA_ARTICLE, DATA_TAG, true);
 
 		//public this document
-		click(ELEMENT_FILE_EXPLORER);
+		click(ELEMENT_SIDEBAR_FILE_EXPLORER);
 		goToNode(ELEMENT_ARTICLE);
-		click(ELEMENT_PUBLICATION_TAB_LINK);
+		click(ELEMENT_PUBLICATION_TAB);
 		publishDocument();
 
 		//set permission for document
