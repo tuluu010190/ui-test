@@ -31,14 +31,10 @@ public class ManageAccount extends PlatformBase {
 
 	//Sign-out for eXoGTN
 	public static void signOut(){
-		for(;;){
-			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-			pause(500);			
-				if (waitForAndGetElement(ELEMENT_SIGN_OUT_LINK,5000,0)!=null){
-					click(ELEMENT_SIGN_OUT_LINK);
-					break;
-				}			
-		}
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		click(ELEMENT_SIGN_OUT_LINK);
+		driver.get(baseUrl);
+		pause(500);
 	}
 
 	// Edit user in My Account

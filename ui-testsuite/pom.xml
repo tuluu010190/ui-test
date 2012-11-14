@@ -33,11 +33,22 @@
 				<testSuite>ecms.xml</testSuite>
 			</properties>
 		</profile>
-
 		<profile>
 			<id>exogtn</id>
 			<properties>
 				<testSuite>exogtn.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>social</id>
+			<properties>
+				<testSuite>social.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>regression</id>
+			<properties>
+				<testSuite>regression.xml</testSuite>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>

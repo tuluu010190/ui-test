@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -50,6 +51,7 @@ public class UserGroupManagement extends PlatformBase {
 		pause(500);
 		click(userDeleteIcon);
 		waitForConfirmation("Are you sure to delete user " + username + "?");
+		pause(1000);
 		type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
 		select(ELEMENT_SELECT_SEARCH_OPTION, "User Name");
 		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
@@ -138,7 +140,7 @@ public class UserGroupManagement extends PlatformBase {
 	//Delete a user in current group
 	public static void deleteUserInGroup(String groupName, String groupLabel, String username){
 		String userDeleteIcon = ELEMENT_USER_INGROUP_DELETE_ICON.replace("${username}", username);
-		String MESSAGE_DELETE_CONFIRMATION = "Are you sure to delete user " + username + " from group " + groupName + "?";
+		//String MESSAGE_DELETE_CONFIRMATION = "Are you sure to delete user " + username + " from group " + groupName + "?";
 
 		if (groupLabel != ""){
 			selectGroup(groupLabel);
@@ -153,7 +155,10 @@ public class UserGroupManagement extends PlatformBase {
 		}
 		pause(500);
 		click(userDeleteIcon);
-		waitForConfirmation(MESSAGE_DELETE_CONFIRMATION);
+		//waitForConfirmation(MESSAGE_DELETE_CONFIRMATION);
+		Alert alert = driver.switchTo().alert();
+		alert.accept();
+		pause(500);
 		waitForTextNotPresent(username);	
 	}
 

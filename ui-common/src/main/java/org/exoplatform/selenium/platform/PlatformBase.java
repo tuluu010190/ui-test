@@ -4,9 +4,12 @@ import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import org.exoplatform.selenium.TestBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
@@ -612,4 +615,54 @@ public class PlatformBase extends TestBase {
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 	}
+	/**
+	 * 
+	 * Get cookies of current browser then delete all cookies
+	 * @return set of cookies of browser
+	 */
+  public static Set<Cookie> getBrowserCookies(){
+    Set<Cookie> cookies = driver.manage().getCookies();
+    driver.manage().deleteAllCookies();
+    return cookies;   
+  }
+  
+  /**
+   * Set cookies for current browser
+   * @param cookies : Set of cookies
+   */
+  public static void setBrowserCookies(Set<Cookie> cookies){
+    for(Cookie cookie : cookies){
+      driver.manage().addCookie(cookie);
+    }
+  }
+  
+  /**
+   * Add by @author vuna2
+   * Open a new browser by Javascript
+   */
+  public static void openNewBrowser(){
+	//Open new browser by Javascript
+	//String handlesBefore = driver.getWindowHandle();
+	((JavascriptExecutor) driver).executeScript("window.open()");  
+	//driver.manage().deleteAllCookies();
+	for(String winHandle : driver.getWindowHandles()){
+	        driver.switchTo().window(winHandle);
+	}
+	 driver.navigate().to(baseUrl);
+  }
+  
+  /**
+   * Add by @author vuna2
+   * @param cookies: Set of cookies (browsers)
+   * @param handlesBefore: handle the current browser
+   */
+  public static void backToPreviousBrowser(Set<Cookie> cookies, String handlesBefore){
+	driver.manage().deleteAllCookies();
+	  
+	//Add cookies back to previous browser 
+	setBrowserCookies(cookies);
+	
+	//Switch back to previous browser    
+	driver.switchTo().window(handlesBefore); 
+  }
 }
