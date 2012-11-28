@@ -57,7 +57,7 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 		goToAddNewContent();
 		createNewKofax(DATA_KOFAX_NAME);
 		waitForAndGetElement(KOFAX_DISPLAY);
-		click(ELEMENT_SITES_MANAGEMENT_DRIVE);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForElementPresent(KOFAX_DOCUMENT);
 
 		//Upload a File
@@ -291,7 +291,7 @@ public class ECMS_DMS_SE_BasicAction_Delete extends EcmsBase
 	@AfterMethod()
 	public void afterTest()
 	{
-		logoutEcms();
+		//logoutEcms();
 		driver.quit();
 	}
 }

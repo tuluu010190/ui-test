@@ -25,6 +25,8 @@ public class PageManagement extends PlatformBase {
 	public static String ELEMENT_SELECT_OWNER_TYPE = "//select[@name='ownerType']";
 	public static By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
 		
+	//Message
+	public static String MESSAGE_DELETE_PAGE = "Are you sure to delete this page?";
 	
 	//Add a new page in PageManagement
 	public static void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
@@ -81,7 +83,7 @@ public class PageManagement extends PlatformBase {
 		String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle);
 		searchPageByTitle(type, pageTitle);
 		click(pageDeleteIcon);
-		waitForConfirmation("Are you sure to delete this page?");
+		waitForConfirmation(MESSAGE_DELETE_PAGE);
 		waitForMessage("No result found.",waitTime);
 		closeMessageDialog();
 		waitForTextNotPresent(pageTitle);

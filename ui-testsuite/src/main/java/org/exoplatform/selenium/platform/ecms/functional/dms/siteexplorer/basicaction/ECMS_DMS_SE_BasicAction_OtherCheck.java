@@ -33,6 +33,13 @@ public class ECMS_DMS_SE_BasicAction_OtherCheck  extends EcmsBase {
 		actions = new Actions(driver);
 		loginEcms("john","gtn");
 	}
+	
+	public void waitAddThumbnailPresent(){
+		if (waitForAndGetElement(ELEMENT_OVERLOAD_THUMBNAIL, 10000, 0) == null){
+			click(By.xpath("//div[text()='More']"));
+			waitForElementPresent(ELEMENT_OVERLOAD_THUMBNAIL);
+		}
+	}
 
 	//Add and remove thumbnail image
 	@Test
@@ -61,7 +68,8 @@ public class ECMS_DMS_SE_BasicAction_OtherCheck  extends EcmsBase {
 
 		info("Change to Thumbnail view");
 		click(ICON_VIEW);
-		waitForElementPresent(ELEMENT_OVERLOAD_THUMBNAIL);
+		click(ELEMENT_UPLOAD_FILE);
+		waitAddThumbnailPresent();
 
 		info("Upload thumbnail");
 		uploadThumbnail(DATA_UPLOAD_FILE);
@@ -73,11 +81,10 @@ public class ECMS_DMS_SE_BasicAction_OtherCheck  extends EcmsBase {
 		goToNode(ELEMENT_UPLOAD_FILE);
 
 		info("Verify after add thumbnail");
-		waitForElementPresent(ELEMENT_OVERLOAD_THUMBNAIL);
+		waitAddThumbnailPresent();
 		assert isElementPresent(ELEMENT_OVERLOAD_THUMBNAIL):"Cannot see";
 		click(ELEMENT_OVERLOAD_THUMBNAIL);
 
-		info("-------------");
 		waitForElementPresent(By.id("UIPopupWindow"));
 		assert isElementPresent(By.id("UIPopupWindow")):"Cannot see popup";
 		captureScreen(DATA_UPLOAD_FILE);
@@ -97,7 +104,7 @@ public class ECMS_DMS_SE_BasicAction_OtherCheck  extends EcmsBase {
 
 	@AfterMethod
 	public void afterTest(){
-		logoutEcms();
+		//logoutEcms();
 		driver.quit();
 	}
 }

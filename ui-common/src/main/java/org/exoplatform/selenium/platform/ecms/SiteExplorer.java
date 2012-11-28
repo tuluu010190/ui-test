@@ -72,19 +72,24 @@ public class SiteExplorer extends EcmsBase {
 
 	//Enable preferences option
 	public static void checkPreferenceOption(String optionId){
+		By option = By.id(optionId);
+		By advanced = By.linkText("Advanced");
+		
 		for (int repeat = 0;; repeat ++){
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot enable reference option after " + ACTION_REPEAT + " tries");
 			}
-			waitForElementPresent(ELEMENT_PREFERENCE_LINK);
+			waitForElementPresent(ELEMENT_PREFERENCE_LINK, 10000, 0);
 			click(ELEMENT_PREFERENCE_LINK);
-			if (waitForAndGetElement(By.linkText("Advanced"), 5000, 0) != null){
-				click(By.linkText("Advanced"));
-				WebElement check = waitForAndGetElement(By.id(optionId));
+			waitForElementPresent(advanced, 5000, 0);
+			if (getElement(advanced) != null){
+				click(advanced);
+				WebElement check = waitForAndGetElement(option);
 				if (check.isSelected()!= true){
-					check.click();
+					click(option);
 				}
-				click(By.linkText("Save"));
+				save();
+				waitForElementNotPresent(advanced);
 				break;
 			}
 			info("Retry...[" + repeat + "]");

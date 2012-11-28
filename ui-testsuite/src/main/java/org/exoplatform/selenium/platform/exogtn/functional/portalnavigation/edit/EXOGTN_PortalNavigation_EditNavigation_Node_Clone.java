@@ -26,24 +26,16 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
 	String ELEMENT_LANGUAGE = "English";
 	boolean EXTENDED_LABEL_MODE = true;
 	PageType ELEMENT_PAGE_TYPE = PageType.PORTAL;
-	
 	String ELEMENT_CATEGORY_TITLE = "Content";
 	String ELEMENT_CURRENT_NAVIGATION = "intranet";
-	String ELEMENT_PASTE_TO_NEW_PLACE = "Forums";
-	String ELEMENT_CURRENT_NODE = ELEMENT_NODE_LINK.replace("${nodeLabel}", ELEMENT_NODE_NAME);
-	String ELEMENT_NODE_PASTE_TO_NEW_PLACE = ELEMENT_NODE_LINK.replace("${nodeLabel}", ELEMENT_PASTE_TO_NEW_PLACE);
+	
+	By ELEMENT_NODE_PASTE_TO_NEW_PLACE = By.xpath(ELEMENT_NODE_LINK.replace("${nodeLabel}", "Forums"));
 	String ELEMENT_COLLABORATION_CATEGORY = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", "Collaboration");
-	String MESSAGE_DELETE_PAGE = "Are you sure to delete this page?";
 	String ELEMENT_DELETE_PAGE = ELEMENT_PAGE_DELETE_ICON.replace("${page}", ELEMENT_NODE_NAME);
 	
-	By ELEMENT_NODE_CLONE = By.xpath("//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon CloneNode16x16Icon']");		
-	By ELEMENT_NODE_PASTE_HOME = By.xpath("//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon PasteNode16x16Icon']");
-	By ELEMENT_NODE_EDIT_PAGE = By.xpath("//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditPageNode16x16Icon']"); 
 	By ELEMENT_APPLICATION_CALENDAR = By.id("Collaboration/Calendar");
 	By ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT = By.id("UIPage");
-	By ELEMENT_PAGE_FINISH_BUTTON = By.xpath("//div[@id='UIPageEditor']//a[@title='Finish']");
 	By ELEMENT_PORTAL_TOP_CONTAINER = By.id("PortalNavigationTopContainer");
-	By ELEMENT_MY_SITES = By.linkText("My Sites");
 	By ELEMENT_INPUT_SEARCH_NAME = By.id("siteName");
 	
 	@BeforeMethod
@@ -65,40 +57,31 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
 	 * --*/
 	@Test
 	public void test01_CheckCloneNodeDoesNotContainSubNode(){
-		
+		By ELEMENT_CURRENT_NODE = By.xpath(ELEMENT_NODE_LINK.replace("${nodeLabel}", ELEMENT_NODE_NAME));
 		Map<String, String> ELEMENT_PORTLET_ID = new HashMap<String, String>();
 		ELEMENT_PORTLET_ID.put("Content/ContentListViewerPortlet","");
 		 
 		info("-- Start Case 01: Check Clone node does not contain sub node --");
-		
 		signIn("root", "gtn");
 		
 		info("-- Create new page by wizard for Portal --");
-		
 		goToAddPageEditor();
-		
 		addNewPageEditor(ELEMENT_NODE_NAME, ELEMENT_DISPLAY_NAME, ELEMENT_LANGUAGE, 
 				         ELEMENT_CATEGORY_TITLE, ELEMENT_PORTLET_ID, EXTENDED_LABEL_MODE);
 		
 		goToPortalSites();
-		
 		editNavigation(ELEMENT_CURRENT_NAVIGATION);
 		
-		info("-- Right click on one node and select Clone Node --");
-		rightClickOnElement(ELEMENT_CURRENT_NODE);
-		
-		click(ELEMENT_NODE_CLONE);
-		
-		info("-- Paste a node --");
-		rightClickOnElement(ELEMENT_NODE_PASTE_TO_NEW_PLACE);
-		click(ELEMENT_NODE_PASTE_HOME);
-		waitForTextPresent(ELEMENT_NODE_NAME);
-		
+		info("-- Clone Node --");
+		cloneNode(ELEMENT_CURRENT_NODE);
+		pasteNode(ELEMENT_NODE_PASTE_TO_NEW_PLACE);
+
 		info("-- Edit page of clone node --");
 		rightClickOnElement(ELEMENT_CURRENT_NODE);
 		//Edit Node's Page
-		click(ELEMENT_NODE_EDIT_PAGE);
+		click(ELEMENT_EDIT_NODE_PAGE);
 		waitForTextPresent("Applications");
+		
 		//Change a page's content
 		click(ELEMENT_COLLABORATION_CATEGORY);
 		dragAndDropToObject(ELEMENT_APPLICATION_CALENDAR, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
@@ -161,15 +144,10 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
         
 		editNavigation(ELEMENT_CURRENT_NAVIGATION);
 		
-		info("-- Right click on one node and select Clone Node --");
-		String ELEMENT_CURRENT_NODE_CASE196 = ELEMENT_NODE_LINK.replace("${nodeLabel}", "nodeNameTest196");
-		rightClickOnElement(ELEMENT_CURRENT_NODE_CASE196);
-		click(ELEMENT_NODE_CLONE);
-		
-		info("-- Paste a node --");
-		rightClickOnElement(ELEMENT_NODE_PASTE_TO_NEW_PLACE);
-		click(ELEMENT_NODE_PASTE_HOME);
-		waitForTextPresent("nodeNameTest196");
+		info("-- Clone Node --");
+		By ELEMENT_CURRENT_NODE_CASE196 = By.xpath(ELEMENT_NODE_LINK.replace("${nodeLabel}", "nodeNameTest196"));
+		cloneNode(ELEMENT_CURRENT_NODE_CASE196);
+		pasteNode(ELEMENT_NODE_PASTE_TO_NEW_PLACE);
 		save();
 		waitForTextPresent(ELEMENT_CURRENT_NAVIGATION);
 		
@@ -214,30 +192,21 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
 		
 		info("-- Create new node does not link to any page --");
 		editNavigation(ELEMENT_CURRENT_NAVIGATION);
-		
 		click(ELEMENT_ADD_NODE_LINK);
 		
 		waitForTextPresent("Page Node Settings");
-		
 		type(ELEMENT_INPUT_NAME, "nodeNameTest197", true);
-		
 		save();
 		
 		waitForTextPresent("nodeNameTest197");
-		
 		save();
 		waitForTextPresent(ELEMENT_CURRENT_NAVIGATION);
 		
 		editNavigation(ELEMENT_CURRENT_NAVIGATION);
 		info("-- Right click on this node and select Clone Node --");
-		String ELEMENT_CURRENT_NODE_CASE197 = ELEMENT_NODE_LINK.replace("${nodeLabel}", "nodeNameTest197");
-		rightClickOnElement(ELEMENT_CURRENT_NODE_CASE197);
-		click(ELEMENT_NODE_CLONE);
-		
-		info("-- Paste a node --");
-		rightClickOnElement(ELEMENT_NODE_PASTE_TO_NEW_PLACE);
-		click(ELEMENT_NODE_PASTE_HOME);
-		waitForTextPresent("nodeNameTest197");
+		By ELEMENT_CURRENT_NODE_CASE197 = By.xpath(ELEMENT_NODE_LINK.replace("${nodeLabel}", "nodeNameTest197"));
+		cloneNode(ELEMENT_CURRENT_NODE_CASE197);
+		pasteNode(ELEMENT_NODE_PASTE_TO_NEW_PLACE);
 		save();
 		waitForTextPresent(ELEMENT_CURRENT_NAVIGATION);
 		
@@ -268,7 +237,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Clone extends PlatformB
 
 	public void goToNodesPage(String parentNode, String nodePageName){
 		mouseOver(ELEMENT_PORTAL_TOP_CONTAINER, true);
-	    mouseOver(ELEMENT_MY_SITES, true);
+	    mouseOver(ELEMENT_MYSITE, true);
 	    mouseOver(By.xpath("//a[text()='" + ELEMENT_CURRENT_NAVIGATION + "']"),true);
 	    mouseOver(By.xpath("//a[text()= '" + parentNode + "']"),true);
 	    mouseOver(By.xpath("//a[text()= '" + nodePageName + "']"), true);

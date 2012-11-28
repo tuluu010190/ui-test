@@ -3,11 +3,6 @@ package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.admin
 import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.firefox.internal.ProfilesIni;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,7 +22,7 @@ public class ECMS_DMS_SE_ADMIN_Export extends EcmsBase {
 	String DATA_PASS = "gtn";
 	@BeforeMethod
 	public void beforeMethods() {
-		init();
+		getDriverAutoSave(); 
 		driver.get(baseUrl);
 		actions = new Actions(driver);
 		info("Login ECMS with "+DATA_USER);
@@ -43,23 +38,6 @@ public class ECMS_DMS_SE_ADMIN_Export extends EcmsBase {
 		actions = null;
 	}
 
-	public static void init(){
-		String browser = System.getProperty("browser");
-		if("chrome".equals(browser)){
-			driver = new ChromeDriver();
-			chromeFlag = true;
-		} else if ("iexplorer".equals(browser)){
-			driver = new InternetExplorerDriver();
-			ieFlag = true;
-		} else {
-			ProfilesIni allProfiles = new ProfilesIni();
-			FirefoxProfile profile = allProfiles.getProfile("Export");
-			driver = new FirefoxDriver(profile);
-		}
-		baseUrl = System.getProperty("baseUrl");
-		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
-	}
-
 	/* Case No 144: Export root path
 	 * Go to Site management
 	 * Export root path
@@ -70,7 +48,7 @@ public class ECMS_DMS_SE_ADMIN_Export extends EcmsBase {
 		goToSiteExplorer();
 
 		debug("Select root path");
-		goToNode(ELEMENT_SITES_MANAGEMENT_DRIVE);
+		chooseDrive(ELEMENT_SITES_MANAGEMENT_DRIVE);
 
 		exportNode(true,true, false);
 	}
@@ -164,6 +142,7 @@ public class ECMS_DMS_SE_ADMIN_Export extends EcmsBase {
 		exportNode(false, false, false);
 
 		debug("Delete data");
-		deleteDocument(DATA_DOCUMENT_PATH);
+		
+		deleteDocument(DATA_DOCUMENT_PATH,60000);
 	}
 }

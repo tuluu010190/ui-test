@@ -34,9 +34,9 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 	public static By ELEMENT_ADD_SITE_LINK = By.linkText("Add Site");
 	public final static String ELEMENT_VIEW_PROPERTY="//a[@class='PageProfileIcon']";
 	public final static String ELEMENT_PERMISSION_SETTING_TAB= "//div[contains(text(),'Permission Settings')]";
-	public final static String ELEMENT_EDIT_PERMISSION_LINK="//a[text()='Edit Permission Settings']";
-	public final static String ELEMENT_EDIT_PAGE_SAVE="//a[text()='Save']";
-	public final static String ELEMENT_EDIT_PAGE_FINISH="//a[@title='Finish']";
+//	public final static String ELEMENT_EDIT_PERMISSION_LINK="//a[text()='Edit Permission Settings']";
+//	public final static String ELEMENT_EDIT_PAGE_SAVE="//a[text()='Save']";
+//	public final static String ELEMENT_EDIT_PAGE_FINISH="//a[@title='Finish']";
 	public final static String ELEMENT_GROUP_DEVELOPMENT="Development";
 	public final static String ELEMENT_GROUP_PLATFORM="Platform";
 	public final static String ELEMENT_GROUP_ADMIN="Administration";
@@ -49,7 +49,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 	public final static By ELEMENT_ADD_PAGE_MENU = By.linkText("Add Page");
 	public final static By ELEMENT_SITE_MENU = By.linkText("Site");
 	
-	public static WebElement element = null;
+//	public static WebElement element = null;
 
 	/*------------------Common function---------------------*/
 
@@ -79,12 +79,13 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 		pause(1000);
 	}
 	//Up level
-	public void upLevel ()
-	{
-		element = waitForAndGetElement(UP_LEVEL);
-		element.click();
-		pause(1000);
-	}
+//	public void upLevel ()
+//	{
+//		element = waitForAndGetElement(UP_LEVEL);
+//		element.click();
+//		pause(1000);
+//		click(UP_LEVEL);
+//	}
 	//Add node by searching page
 	public void addNodeForPortal(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode, 
 			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode, boolean select){
@@ -198,7 +199,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 
 		//Up Level
 		info("Click up level");
-		upLevel();
+		click(UP_LEVEL);
 
 		//Add node
 		info("Add node at the first level");
@@ -256,7 +257,7 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 
 		//Up Level
 		info("Click up level");
-		upLevel();
+		click(UP_LEVEL);
 
 		//Right click
 		info("Right click on blank area");
@@ -366,17 +367,14 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 
 		//Confirm warning message
 		info("Confirm warning message");
-		element = waitForAndGetElement(ELEMENT_OK_BUTTON);
-		element.click();
+		click(ELEMENT_OK_BUTTON);
 		pause(1000);
 
 		//Close add node form
 		info("Close add node form");
-		element = waitForAndGetElement(ELEMENT_CLOSE_WINDOW);
-		element.click();
-
+		click(ELEMENT_CLOSE_WINDOW);
+		
 		/*-----------------------Delete data--------------------*/
-
 		deleteNode("acme", "Overview", "PORNAV_14_01_016", true);		
 		goToManagePages();
 		deletePage(PageType.PORTAL, "page_PORNAV_14_01_016");
@@ -648,10 +646,10 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 			editPageAtManagePages(PageType.PORTAL, pageName);
 			click(ELEMENT_VIEW_PROPERTY);
 			click(ELEMENT_PERMISSION_SETTING_TAB);
-			click(ELEMENT_EDIT_PERMISSION_LINK);
+			click(ELEMENT_EDIT_PERMISSION_SETTING);
 			setEditPermissions("Platform/Administration", "*");
-			click(ELEMENT_EDIT_PAGE_SAVE);
-			click(ELEMENT_EDIT_PAGE_FINISH);
+			click(ELEMENT_SAVE_BUTTON);
+			click(ELEMENT_FINISH_ICON);
 			pause(1000);
 			driver.get(baseUrl);
 			signOut();
@@ -746,10 +744,10 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Create extends Platform
 			editPageAtManagePages(PageType.PORTAL, pageName);
 			click(ELEMENT_VIEW_PROPERTY);
 			click(ELEMENT_PERMISSION_SETTING_TAB);
-			click(ELEMENT_EDIT_PERMISSION_LINK);
+			click(ELEMENT_EDIT_PERMISSION_SETTING);
 			setEditPermissions("Platform/Administration", "manager");
-			click(ELEMENT_EDIT_PAGE_SAVE);
-			click(ELEMENT_EDIT_PAGE_FINISH);
+			click(ELEMENT_SAVE_BUTTON);
+			click(ELEMENT_FINISH_ICON);
 			pause(1000);
 			driver.get(baseUrl);
 			signOut();

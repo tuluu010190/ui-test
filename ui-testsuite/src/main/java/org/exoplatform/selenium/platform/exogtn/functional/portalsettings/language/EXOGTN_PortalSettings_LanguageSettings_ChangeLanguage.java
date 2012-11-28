@@ -24,7 +24,6 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 	String MESSAGE_UPDATE_INFO = "The user profile has been updated.";
 	By ELEMENT_USER_SETTING_LANGUAGE = By.xpath(".//*[@id='UITabContent']/div/div/div/div/div/div[2]/a");
 	By ELEMENT_USER_SETTING_LANGUAGE_ORIGINAL = By.xpath(".//*[@id='UITabContent']/div/div/div/div/div/div[1]/a");
-	By ELEMENT_ACME_SITE = By.linkText("Login to the ACME website");
 	By ELEMENT_PORTAL_CHANGE_LANGUAGE = By.xpath(".//*[@id='UIWCMLoginPortlet']/a[2]");
 	By ELEMENT_USER_PROFILE_SETTING_LANGUAGE = By.id("user.language");
 	By ELEMENT_LINK_EDITOR_INFRENCH = By.linkText("Editer");
@@ -94,7 +93,7 @@ public class EXOGTN_PortalSettings_LanguageSettings_ChangeLanguage extends Manag
 	public void test03_CheckDisplayLanguageOfPortalInPublicMode(){
 
 		info("-- Step 1: Show portal in public mode --");
-		click(ELEMENT_ACME_SITE);
+		click(ELEMENT_GO_TO_ACME);
 
 		info("-- Step 2: Show form to change language --");
 		click(ELEMENT_PORTAL_CHANGE_LANGUAGE);

@@ -16,28 +16,29 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	/*---- Data for test case ----*/
 	public static final By ELEMENT_SITE_CONFIG_LINK = By.className("PageProfileIcon") ;
 	public static final By ELELENT_LINK_DELETE_PERMISSION = By.xpath("//a[text() = 'Delete Permission']");
-	public static final By ELEMENT_EDIT_LAYOUT_ABORT_BUTTON = By.xpath("//div[@id='UIPortalComposer']//a[@class='CloseButton']");
-	public static final By ELEMENT_EDIT_LAYOUT_FINISH_BUTTON = By.xpath("//div[@id='UIPortalComposer']//a[@class='EdittedSaveButton']");
+	
+	//Container tab in Edit layout
 	public static final By ELEMENT_TAB_CONTAINERS = By.xpath("//div[contains(text(),'Containers') and @class='MiddleTab']");
-	public static final By ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT = By.id("UIPageBody");
+	public static final By ELEMENT_ROWS_LAYOUT = By.linkText("Rows Layout");
+	public static final By ELEMENT_ONE_ROW_LAYOUT = By.id("oneRow");
+	
+	//Application Tab in Edit Layout
 	public static final By ELEMENT_TAB_APPLICATIONS = By.xpath("//div[contains(text(),'Applications') and @class='MiddleTab']");
-	public static final By ELEMENT_EDIT_PAGE_DELETE_ICON = By.xpath("//div[@class='UIRowContainer']/div/div/div[2]/div/div[2]/div/a[2]");
-	public static final By ELEMENT_EDIT_CONTAINER_ICON = By.xpath("//div[@class='UIRowContainer']/div/div/div[2]/div/div[2]/div/a[1]");
-	public static final By ELEMENT_EDIT_PORTLET = By.xpath("//div[@class='UIRowContainer']/div/div/div[2]/div/div[2]/div/div[2]");
-	public static final By ELEMENT_EDIT_PORTLET_ICON = By.xpath("//div[@class='UIRowContainer']/div/div/div[2]/div/div[2]/div/a[1]");
-
-	public static final By ELEMENT_INPUT_WIDTH = By.id("width");
-	public static final By ELEMENT_INPUT_HEIGHT = By.id("height");
-	public static final By ELEMENT_APPLICATION_REGISTRY_PORLET = By.id("Administration/ApplicationRegistryPortlet");
 	public static final By ELEMENT_APPLICATION_CONTENT_LIST = By.id("Content/ContentListViewerPortlet");
 	public static final By ELEMENT_APPLICATION_COLLABORATION_CALENDAR = By.id("Collaboration/Calendar");
+	
+	public static final By ELEMENT_PORTAL_PAGE_COMPONENT = By.id("UIPageBody");
+	
+	public static final By ELEMENT_DELETE_CONTAINER_ICON = By.xpath("//a[@title='Delete Container']");
+	public static final By ELEMENT_EDIT_CONTAINER_ICON = By.xpath("//a[@title='Edit Container']");
+	
+	public static final By ELEMENT_INPUT_WIDTH = By.id("width");
+	public static final By ELEMENT_INPUT_HEIGHT = By.id("height");
 	public static final By ELEMENT_CONFIRMATION = By.id("UIConfirmation");
 	public static final By ELEMENT_CONFIRMATION_YES_OPTION = By.xpath("//div[@id='UIConfirmation']//div[contains(@class, 'UIAction')]//a[contains(text(), 'Yes')]");
-	public static final By ELEMENT_ONE_ROW_LAYOUT = By.id("oneRow");		
+			
 	public static final By ELEMENT_PAGE_BODY = By.xpath(".//*[@id='UIPageBody']/div/div[1]/div");
-	public static final By ELEMENT_ROWS_LAYOUT = By.linkText("Rows Layout")             ;
 	public static final By ELEMENT_EMPTY_CONTAINER = By.cssSelector("div.UIRowContainer.EmptyContainer");
-
 	public static final String ELEMENT_EDIT_LAYOUT = "//div[@class='Label' and text()='${navigation}']/../../td[2]//a[@class='EditLayoutIcon']";
 	public static final String ELEMENT_EDIT_PAGE_COMPONENT_DRAG_ICON = "//div[@class='UIRowContainer']/div[${number}]//div[@class='DragControlArea']";
 	public static final String ELEMENT_EDIT_PAGE_COMPONENT = "//div[@class='UIRowContainer']/div[${portletNumber}]/div";
@@ -47,7 +48,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	public static final String APPLICATION_DRAG_ICON = ELEMENT_EDIT_PAGE_COMPONENT_DRAG_ICON.replace("${number}", "1");
 	public static final String ELEMENT_EDIT_CONTAINER = ELEMENT_EDIT_PAGE_COMPONENT.replace("${portletNumber}", "1");
 	public static final By ELEMENT_CONTAINER_TITLE = By.xpath("//input[@id='title']");
-	
+
 	public static final String ELEMENT_COLLABORATION_CATEGORY = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", "Collaboration");
 	public static final String ELEMENT_CONTENT_CATEGORY = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", "Content");
 	public static final String ELEMENT_ADMIN_CATEGORY = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", "Administration");
@@ -58,7 +59,8 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 	public static final String MESSAGE_DELETE_CONTAINER = "Are you sure to delete this Container?";
 	public static final String MESSAGE_WARNING_CONTAINER = "This component contains PageBody which cannot be deleted.";
 	public static final String MESSAGE_QUIT_EDIT_LAYOUT = "Modifications have been made. Are you sure to close without saving?";
-
+	// This locator is different from Platform Base Save & Close
+	public static final By ELEMENT_SAVE_CLOSE_BUTTON = By.linkText("Save And Close");
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
@@ -99,7 +101,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		closeMessageDialog();
 		cancel();
 
-		click(ELEMENT_EDIT_LAYOUT_ABORT_BUTTON);
+		click(ELEMENT_ABORTEDIT_BUTTON);
 		waitForTextPresent(ELEMENT_CURRENT_NAVIGATION);
 		signOut();				
 	}
@@ -125,7 +127,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		click(ELEMENT_ROWS_LAYOUT);
 
 		info("--Move PageBody to the new palce--");
-		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
+		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_PORTAL_PAGE_COMPONENT);
 		click(ELEMENT_TAB_APPLICATIONS); 
 		waitForTextPresent("Administration");
 		mouseOver(ELEMENT_PAGE_BODY, true);
@@ -139,15 +141,15 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		info("--Check when delete component contains Page Body--");
 		click(ELEMENT_TAB_CONTAINERS);
 		mouseOver(ELEMENT_EDIT_CONTAINER, true);
-		mouseOver(ELEMENT_EDIT_PAGE_DELETE_ICON, true);
-		click(ELEMENT_EDIT_PAGE_DELETE_ICON);
+		mouseOver(ELEMENT_DELETE_CONTAINER_ICON, true);
+		click(ELEMENT_DELETE_CONTAINER_ICON);
 
 		waitForConfirmation(MESSAGE_DELETE_CONTAINER);
 		waitForTextPresent(MESSAGE_WARNING_CONTAINER);
 		closeMessageDialog();
-		
+
 		info("--SignOut--");
-		click(ELEMENT_EDIT_LAYOUT_ABORT_BUTTON);
+		click(ELEMENT_ABORTEDIT_BUTTON);
 		waitForAndGetElement(ELEMENT_CONFIRMATION);
 		waitForTextPresent(MESSAGE_QUIT_EDIT_LAYOUT);
 		waitForAndGetElement(ELEMENT_CONFIRMATION_YES_OPTION);
@@ -180,7 +182,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		click(ELEMENT_TAB_CONTAINERS);
 		waitForAndGetElement(ELEMENT_ROWS_LAYOUT);
 		click(ELEMENT_ROWS_LAYOUT);	
-		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
+		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_PORTAL_PAGE_COMPONENT);
 
 		info("--Edit container layout of current portal--");
 		click(ELEMENT_TAB_CONTAINERS);
@@ -208,8 +210,8 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		click(editLayout);
 		click(ELEMENT_TAB_CONTAINERS) ;
 		mouseOver(ELEMENT_EDIT_CONTAINER, true);
-		mouseOver(ELEMENT_EDIT_PAGE_DELETE_ICON, true);
-		click(ELEMENT_EDIT_PAGE_DELETE_ICON);
+		mouseOver(ELEMENT_DELETE_CONTAINER_ICON, true);
+		click(ELEMENT_DELETE_CONTAINER_ICON);
 		waitForConfirmation(MESSAGE_DELETE_CONTAINER);
 
 		info("--SignOut--");
@@ -237,7 +239,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		click(ELEMENT_TAB_CONTAINERS);
 		waitForAndGetElement(ELEMENT_ROWS_LAYOUT);
 		click(ELEMENT_ROWS_LAYOUT);	
-		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
+		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_PORTAL_PAGE_COMPONENT);
 
 		info("--Edit container layout of current portal--");
 		click(ELEMENT_TAB_CONTAINERS);
@@ -247,13 +249,13 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 
 		info("--Edit current title with valid value--");
 		waitForTextPresent("Container Settings");
-		type(ELEMENT_CONTAINER_TITLE, "test64_CheckEditingContainer", true); //ELEMENT_INPUT_TITLE
+		type(ELEMENT_CONTAINER_TITLE, "test21_CheckEditingContainer", true); //ELEMENT_INPUT_TITLE
 		save();
 		mouseOver(ELEMENT_EDIT_CONTAINER, true);
-		waitForTextPresent("test64_CheckEditingContainer");
+		waitForTextPresent("test21_CheckEditingContainer");
 
 		info("--SignOut--");
-		click(ELEMENT_EDIT_LAYOUT_ABORT_BUTTON);
+		click(ELEMENT_ABORTEDIT_BUTTON);
 		waitForAndGetElement(ELEMENT_CONFIRMATION);
 		waitForTextPresent(MESSAGE_QUIT_EDIT_LAYOUT);
 		waitForAndGetElement(ELEMENT_CONFIRMATION_YES_OPTION);
@@ -285,7 +287,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		click(ELEMENT_TAB_CONTAINERS);
 		waitForAndGetElement(ELEMENT_ROWS_LAYOUT);
 		click(ELEMENT_ROWS_LAYOUT);	
-		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
+		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_PORTAL_PAGE_COMPONENT);
 		click(ELEMENT_TAB_APPLICATIONS); 
 		waitForTextPresent("Administration");
 		click(ELEMENT_CONTENT_CATEGORY);
@@ -307,15 +309,15 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		driver.get(baseUrl)  ;
 		signIn("root", "gtn");
 		waitForTextPresent(username);
-		captureScreen("case069_AfterChange");
+		captureScreen("case026_AfterChange");
 
 		info("--Delete data--");
 		goToPortalSites();
 		click(editLayout);
 		click(ELEMENT_TAB_CONTAINERS) ;
 		mouseOver(ELEMENT_EDIT_CONTAINER, true);
-		mouseOver(ELEMENT_EDIT_PAGE_DELETE_ICON, true);
-		click(ELEMENT_EDIT_PAGE_DELETE_ICON);
+		mouseOver(ELEMENT_DELETE_CONTAINER_ICON, true);
+		click(ELEMENT_DELETE_CONTAINER_ICON);
 		waitForConfirmation(MESSAGE_DELETE_CONTAINER);
 
 		info("--Sign out--");
@@ -334,7 +336,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		waitForTextPresent(username);
 
 		info("--View layout of portal before changing portlet layout--");
-		captureScreen("case075_BeforeChange");
+		captureScreen("case32_BeforeChange");
 
 		info("--Edit layout of current Portal--");
 		goToPortalSites();
@@ -344,12 +346,12 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		info("--Select application tab on edit inline composer --");
 		waitForTextPresent("Administration") ;
 		click(ELEMENT_COLLABORATION_CATEGORY);
-		dragAndDropToObject(ELEMENT_APPLICATION_COLLABORATION_CALENDAR, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
+		dragAndDropToObject(ELEMENT_APPLICATION_COLLABORATION_CALENDAR, ELEMENT_PORTAL_PAGE_COMPONENT);
 
 		click(ELEMENT_TAB_CONTAINERS);
 		waitForAndGetElement(ELEMENT_ROWS_LAYOUT);
 		click(ELEMENT_ROWS_LAYOUT);	
-		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
+		dragAndDropToObject(ELEMENT_ONE_ROW_LAYOUT, ELEMENT_PORTAL_PAGE_COMPONENT);
 
 		click(ELEMENT_TAB_APPLICATIONS); 	
 		mouseOver(ELEMENT_EDIT_PAGE_COMPONENT_FIRST, true);
@@ -363,14 +365,14 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		driver.get(baseUrl);
 		signIn("root", "gtn");
 		waitForTextPresent(username);
-		captureScreen("case075_AfterChange");
+		captureScreen("case32_AfterChange");
 
 		info("--Delete data--");	
 		goToPortalSites();
 		click(editLayout);
 		click(ELEMENT_TAB_CONTAINERS) ;
 		mouseOver(ELEMENT_EDIT_CONTAINER, true);
-		click(ELEMENT_EDIT_PAGE_DELETE_ICON);
+		click(ELEMENT_DELETE_CONTAINER_ICON);
 		waitForConfirmation(MESSAGE_DELETE_CONTAINER);
 
 		info("--Sign out--");
@@ -398,7 +400,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 
 		waitForTextPresent("Administration") ;
 		click(ELEMENT_COLLABORATION_CATEGORY);
-		dragAndDropToObject(ELEMENT_APPLICATION_COLLABORATION_CALENDAR, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
+		dragAndDropToObject(ELEMENT_APPLICATION_COLLABORATION_CALENDAR, ELEMENT_PORTAL_PAGE_COMPONENT);
 		mouseOver(ELEMENT_EDIT_PAGE_COMPONENT_FIRST, true);
 		mouseOver(ELEMENT_EDIT_PORTLET_ICON, true);
 		click(ELEMENT_EDIT_PORTLET_ICON);
@@ -413,7 +415,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		info("--Switch view mode portal--");
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 		waitForTextPresent("Applications");
-		captureScreen("case080_EditWidthHeightOfPortlet");
+		captureScreen("case37_EditWidthHeightOfPortlet");
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 
 		info("--Change width/height of portlet with blank while editing portal--");
@@ -428,11 +430,11 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		info("--Switch to view mode portal--");
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 		waitForTextPresent("Applications");
-		captureScreen("case080_DefaultWidthHeight");	
+		captureScreen("case37_DefaultWidthHeight");	
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 
 		info("--SignOut--");
-		click(ELEMENT_EDIT_LAYOUT_ABORT_BUTTON);
+		click(ELEMENT_ABORTEDIT_BUTTON);
 		waitForAndGetElement(ELEMENT_CONFIRMATION);
 		waitForTextPresent(MESSAGE_QUIT_EDIT_LAYOUT);
 		waitForAndGetElement(ELEMENT_CONFIRMATION_YES_OPTION);
@@ -452,7 +454,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		waitForTextPresent(username);
 
 		info("--View layout of portal before changing portlet layout--");
-		captureScreen("case092_BeforeChange");
+		captureScreen("case49_BeforeChange");
 
 		info("--Edit width/height of portlet of current Portal--");
 		goToPortalSites();
@@ -461,7 +463,7 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 
 		waitForTextPresent("Administration") ;
 		click(ELEMENT_COLLABORATION_CATEGORY);
-		dragAndDropToObject(ELEMENT_APPLICATION_COLLABORATION_CALENDAR, ELEMENT_EDIT_PAGE_PAGE_BODY_COMPONENT);
+		dragAndDropToObject(ELEMENT_APPLICATION_COLLABORATION_CALENDAR, ELEMENT_PORTAL_PAGE_COMPONENT);
 		mouseOver(ELEMENT_EDIT_PAGE_COMPONENT_FIRST, true);
 		mouseOver(ELEMENT_EDIT_PORTLET_ICON, true);
 		click(ELEMENT_EDIT_PORTLET_ICON);
@@ -480,19 +482,24 @@ public class EXOGTN_PortalNavigation_EditLayout extends PlatformBase{
 		driver.get(baseUrl);
 		signIn("root", "gtn");
 		waitForTextPresent(username);
-		captureScreen("case092_AfterChange");
+		captureScreen("case49_AfterChange");
 
-		info("--Delete data--");	
+		info("--Delete portlet--");	
 		goToPortalSites();
 		click(editLayout);
 		waitForTextPresent("Applications") ;
 		mouseOver(ELEMENT_EDIT_PAGE_COMPONENT_FIRST, true);
-		click(ELEMENT_EDIT_PAGE_DELETE_ICON);
+		click(ELEMENT_DELETE_PORTLET_ICON);
 		waitForConfirmation(MESSAGE_DELETE_PORTLET);
 
 		info("--Sign out--");
 		click(ELEMENT_EDIT_LAYOUT_FINISH_BUTTON);
 		waitForTextPresent(username);
 		signOut();			
+	}
+
+	public static void saveAndClose(){
+		waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON);
+		click(ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 }

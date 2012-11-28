@@ -18,7 +18,8 @@ public class ContextMenu extends EcmsBase {
 	public static final By ELEMENT_MENU_REFRESH=By.xpath("//a[@title='refresh']");
 	public static final By ELEMENT_MENU_DELETE = By.xpath("//a[contains(text(),'Delete')]");
 	public static final By ELEMENT_MENU_EDIT_ITEM = By.xpath("//a[@class='ItemIcon DefaultAction16x16Icon EditDocument16x16Icon']");
-
+	public static final By ELEMENT_MENU_ADD_SYMLINK = By.xpath("//div[@class='MenuItem']/a[contains(text(),'Add Symlink')]");
+	
 	//Lock node
 	public static void lockNode(By locator){
 		for(int repeat=0;; repeat ++)
@@ -27,12 +28,13 @@ public class ContextMenu extends EcmsBase {
 				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
-			if (waitForAndGetElement(ELEMENT_MENU_LOCK, 5000, 0) !=null) break;
+			if (waitForAndGetElement(ELEMENT_MENU_LOCK, 5000, 0) != null) {
+				click(ELEMENT_MENU_LOCK);
+				break;
+			}
 			pause(WAIT_INTERVAL);
 			info("Retry...[" + repeat + "]");
 		}
-
-		click(ELEMENT_MENU_LOCK);
 	}
 
 	//Check node is being locked
@@ -67,28 +69,29 @@ public class ContextMenu extends EcmsBase {
 				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
-			if (waitForAndGetElement(ELEMENT_MENU_CHECKIN, 5000, 0) != null) break;
+			if (waitForAndGetElement(ELEMENT_MENU_CHECKIN, 5000, 0) != null){
+				click(ELEMENT_MENU_CHECKIN);
+				info("Node is checked in successfully");
+				break;
+			}
 			info("Retry...[" + repeat + "]");
 		}
-		click(ELEMENT_MENU_CHECKIN);
-		info("Node is checked in successfully");
 	}
 
 	//Check out a node
 	public static void checkOutNode(By locator){
-		rightClickOnElement(locator);
-		WebElement out = waitForAndGetElement(ELEMENT_MENU_CHECKOUT);                
-		if (out != null){
-			click(ELEMENT_MENU_CHECKOUT);
-			info("Node is checked out successfully");
-		}else{
-			if (loopCount > 10){
-				loopCount=0;
-				return;
+		for(int repeat=0;; repeat ++)
+		{
+			if (repeat >= ACTION_REPEAT) {
+				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
 			}
-			info("Cannot checkout this node!");
-			loopCount++;
-			checkOutNode(locator);    
+			rightClickOnElement(locator);
+			if (waitForAndGetElement(ELEMENT_MENU_CHECKOUT, 5000, 0) != null){
+				click(ELEMENT_MENU_CHECKOUT);
+				info("Node is checked out successfully");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
 		}
 	}  
 
@@ -114,17 +117,26 @@ public class ContextMenu extends EcmsBase {
 
 		}
 		waitForElementNotPresent(By.linkText("OK"));
-		//actions.sendKeys(Keys.CONTROL,"r");
-		click(ELEMENT_MENU_REFRESH);
-		//		click(ActionBar.ELEMENT_LINK_TAB_PUBLICATION);
+		//click(ELEMENT_MENU_REFRESH);
 		waitForElementNotPresent(locator, iTimeout);
 		info(locator.toString() + "is deleted successfully");		
 	}
 
 	//Unlock a node
 	public static void unLockNode(By locator){
-		rightClickOnElement(locator);
-		click(ELEMENT_MENU_UNLOCK);
+		for(int repeat=0;; repeat ++)
+		{
+			if (repeat >= ACTION_REPEAT) {
+				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
+			}
+			rightClickOnElement(locator);
+			if (waitForAndGetElement(ELEMENT_MENU_UNLOCK, 5000, 0) != null) {
+				click(ELEMENT_MENU_UNLOCK);
+				break;
+			}
+			pause(WAIT_INTERVAL);
+			info("Retry...[" + repeat + "]");
+		}
 	}
 
 	//	Paste a node

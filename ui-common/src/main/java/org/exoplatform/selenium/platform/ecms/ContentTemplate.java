@@ -332,7 +332,6 @@ public class ContentTemplate extends EcmsBase {
 	public static void uploadFile(String fileName, String link){
 		waitForElementPresent(ELEMENT_UPLOAD_LINK_XPATH);
 		click(ELEMENT_UPLOAD_LINK_XPATH);
-		waitForElementPresent(By.id("UIPopupWindow"));
 		waitForElementPresent(ELEMENT_UPLOAD_FILE_NAME_ID);
 		type(ELEMENT_UPLOAD_FILE_NAME_ID, fileName, false);
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));

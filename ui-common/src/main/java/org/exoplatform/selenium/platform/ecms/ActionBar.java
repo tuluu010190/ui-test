@@ -4,6 +4,7 @@ import org.openqa.selenium.By;
 //import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.platform.ecms.ActionBar.ELEMENT_EXPORT;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 
 public class ActionBar extends EcmsBase {
@@ -16,12 +17,13 @@ public class ActionBar extends EcmsBase {
 	public static By ELEMENT_EDIT_LINK= By.xpath("//a[@title='Edit']");
 	public static By ELEMENT_NEW_CONTENT_LINK = By.linkText("New Content");
 	public static By ELEMENT_CATEGORIES_LINK = By.xpath("//a[text()='Categories']");
+	public static By ELEMENT_CATEGORIES_MORE_LINK = By.xpath("//div[text()='More']/..//a[text()='Categories']");
 	public static By ELEMENT_PUBLICATION = By.linkText("Publications");
 	public static By ELEMENT_VERSIONS_LINK=By.linkText("Versions");
 	public static By ELEMENT_OVERLOAD_THUMBNAIL = By.linkText("Overload Thumbnail");
 
 	//System TAB
-	public static By ELEMENT_SYSTEM_TAB = By.linkText("System");
+	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[contains(@title,'System')]");
 	public static By ELEMENT_PERMISSION_LINK = By.linkText("Permissions");
 	public static By ELEMENT_EXPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ExportNodeIcon' and @title='Export']");
 	public static By ELEMENT_IMPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ImportNodeIcon' and @title='Import']");
@@ -118,6 +120,7 @@ public class ActionBar extends EcmsBase {
 
 	//Add symlink for node with target node is documents
 	public static void addSymlink(By path, String name){
+		waitForElementPresent(ELEMENT_ADD_SYMLINK);
 		click(ELEMENT_ADD_SYMLINK);
 		waitForElementPresent(ELEMENT_ADD_SYMLINK_POPUP);
 		click(ELEMENT_ADD_ITEM);
@@ -216,6 +219,7 @@ public class ActionBar extends EcmsBase {
 			click(ELEMENT_EXPORT);
 		}
 		pause(10000);
+		waitForElementNotPresent(ELEMENT_EXPORT);
 	}
 
 	//Import node

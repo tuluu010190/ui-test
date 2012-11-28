@@ -1,7 +1,5 @@
 package org.exoplatform.selenium.platform.exogtn.functional.portalnavigation.edit;
 
-import java.util.concurrent.TimeUnit;
-
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
@@ -33,7 +31,6 @@ public class EXOGTN_PortalNavigation_EditNavigation_Node_Move extends PlatformBa
 	public void beforeTest()
 	{
 		initSeleniumTest();
-		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		driver.get(baseUrl);
 		actions = new Actions(driver);
 		signIn("john", "gtn");

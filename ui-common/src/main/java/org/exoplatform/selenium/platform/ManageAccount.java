@@ -31,9 +31,14 @@ public class ManageAccount extends PlatformBase {
 
 	//Sign-out for eXoGTN
 	public static void signOut(){
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-		click(ELEMENT_SIGN_OUT_LINK);
-		pause(500);
+		for(;;){
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			pause(500);			
+				if (waitForAndGetElement(ELEMENT_SIGN_OUT_LINK,5000,0)!=null){
+					click(ELEMENT_SIGN_OUT_LINK);
+					break;
+				}			
+		}
 	}
 
 	// Edit user in My Account

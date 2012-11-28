@@ -39,6 +39,7 @@ public class WcmAdmin extends EcmsBase {
 	// Add Category tree form -screen2
 	public static final By ELEMENT_PREVIOUS_BUTTON = By.linkText("Previous");
 	// Add Category tree form -screen3
+	public static final String MSG_ADD_CATEGORY_STEP3="Edit the taxonomy tree by adding, copying, cutting and selecting permissions.";
 	public static final By ELEMENT_ACTION_TYPE = By.id("actionType");
 	public static final By ELEMENT_ACTION_NAME = By.id("actionName");
 	public static final By ELEMENT_LIFE_CYCLE = By.id("lifecycle");
@@ -342,7 +343,9 @@ public class WcmAdmin extends EcmsBase {
 		}
 		pause(500);	
 		click(ELEMENT_SELECT_PATH_ICON);
+		
 		selectHomePath(nodeTargetPath);
+		
 		click(ELEMENT_SAVE_BUTTON);
 		pause(500);
 	}
@@ -382,21 +385,23 @@ public class WcmAdmin extends EcmsBase {
 		info("Add new category tree - step 1: Specify the category name, workspace and home path.");
 		addNewCategoryTree_Step1(nameWorkspaceHomePath[0], nameWorkspaceHomePath[1], nameWorkspaceHomePath[2]);
 		click(ELEMENT_NEXT_BUTTON);
+		
 
 		//Step 2: Set permission for the category tree.
 		info("Add new category tree - step 2: Set permission for the category tree.");
 		addNewCategoryTree_Step2(selectUserOrGroup, selectMembership, groupIDAndMembership[0], groupIDAndMembership[1], 
 				user_Per, read, add, set, remove);
 		click(ELEMENT_NEXT_BUTTON);
-
+		
 		//step 3: Add an action to the category tree to complete the creation or update
 		info("Add new category tree - step 3: Add an action to the category tree to complete the creation or update");
 		//actions[0]: actionName, actions[1]: optionsLifeCycle, actions[2]: nodeTargetPath
 		addNewCategoryTree_Step3(actions[0], actions[1], actions[2]);
-
+		
 		//step 4: Edit the taxonomy tree by adding, copying, cutting and selecting permissions.
 		//info("Add new category tree - step 4: Edit the taxonomy tree by adding, copying, cutting and selecting permissions");
 		//addNewCategoryTree_Step4(name, childname1, childname2);
+		waitForTextPresent(MSG_ADD_CATEGORY_STEP3);
 		click(ELEMENT_CLOSE_BUTTON);
 
 		//check add new category tree successfully
@@ -639,7 +644,7 @@ public class WcmAdmin extends EcmsBase {
 	 * Open Add New Template Form
 	 */
 	public static void openAddNewTemplateForm() {
-		openForm("Add","Template Form");	    
+		openForm("AddNew","Template Form");	    
 	}
 	/**
 	 * Fill data to Add New Template Form

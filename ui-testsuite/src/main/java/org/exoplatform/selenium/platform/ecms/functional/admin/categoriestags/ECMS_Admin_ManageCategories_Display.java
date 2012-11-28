@@ -93,7 +93,8 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 		//add new category tree
 		goToContentAdministration();
 		addNewCategoryTree(DATA1, true, false, DATA2,"mary", true, false, false, false, DATA3);
-
+		
+		info("--complete--");
 		//create new document: article document
 		goToSiteExplorer();
 		goToAddNewContent();
@@ -104,7 +105,12 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 
 		//go to add category/action bar
 		goToNode(ELEMENT_ARTICLE);
-		goToNode(ELEMENT_CATEGORIES_LINK);
+		if(waitForAndGetElement(ELEMENT_CATEGORIES_LINK,15000,0) == null){
+			click(ELEMENT_MORE_LINK);
+			click(ELEMENT_CATEGORIES_MORE_LINK);
+		}
+		else
+			goToNode(ELEMENT_CATEGORIES_LINK);
 		waitForElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		click(ELEMENT_SELECT_CATEGORY_TAB);
 		click(ELEMENT_CATEGORY_TREE_BOX);
@@ -164,7 +170,12 @@ public class ECMS_Admin_ManageCategories_Display extends EcmsBase {
 
 		//check can not read node by user not having read permission
 		goToNode(ELEMENT_ARTICLE);
-		goToNode(ELEMENT_CATEGORIES_LINK);
+		if(waitForAndGetElement(ELEMENT_CATEGORIES_LINK,15000,0) == null){
+			click(ELEMENT_MORE_LINK);
+			click(ELEMENT_CATEGORIES_MORE_LINK);
+		}
+		else
+			goToNode(ELEMENT_CATEGORIES_LINK);
 		waitForElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		click(ELEMENT_SELECT_CATEGORY_TAB);
 		click(ELEMENT_CATEGORY_TREE_BOX);

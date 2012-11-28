@@ -11,6 +11,8 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.Assert;
 
 
@@ -119,7 +121,9 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_CUT_NODE = By.xpath("//a[contains(text(),'Cut')]"); 
 	public static final By ELEMENT_PASTE_NODE = By.xpath(".//*[@id='NavigationNodePopupMenu']//a[@class='ItemIcon PasteNode16x16Icon']");
 	public static final By ELEMENT_COPY_NODE = By.xpath("//a[contains(text(),'Copy')]");
-
+	public static final By ELEMENT_CLONE_NODE = By.xpath("//a[contains(text(),'Clone')]");
+	public static final By ELEMENT_EDIT_NODE_PAGE = By.xpath("//a[contains(text(),'Edit Node')]");
+	public static final By ELEMENT_NODE_EDIT_PAGE = By.xpath("//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditPageNode16x16Icon']");
 	/*
 	 * User and Group Management
 	 * */
@@ -249,15 +253,16 @@ public class PlatformBase extends TestBase {
 	public static final By ELEMENT_OK_BUTTON = By.xpath("//a[text()='OK']");
 	public static final By ELEMENT_APPLY_BUTTON = By.linkText("Apply");
 	public static final By ELEMENT_SAVE_BUTTON = By.linkText("Save");
-	public static final By ELEMENT_CANCEL_BUTTON = By.linkText("//a[text()='Cancel']");
+	public static final By ELEMENT_CANCEL_BUTTON = By.linkText("Cancel");
 	public static final By ELEMENT_CLOSE_BUTTON = By.linkText("Close");
 	public static final By ELEMENT_CLOSE_WINDOW = By.xpath("//a[@title='Close Window']");
 	public static final By ELEMENT_FINISH_ICON = By.xpath("//a[@title='Finish']"); //Finish editing portlet icon
 	public static final By ELEMENT_NEXT_BUTTON = By.linkText("Next");	
-	public static final By ELEMENT_ABORT_BUTTON = By.linkText("//a[text()='Abort']");
+	public static final By ELEMENT_ABORT_BUTTON = By.linkText("Abort");
 	
 	/*Portlet in general*/
 	public static final By ELEMENT_EDIT_PORTLET_ICON = By.xpath("//a[@title='Edit Portlet']");
+	public static final By ELEMENT_DELETE_PORTLET_ICON = By.xpath("//a[@title='Delete Portlet']");
 	public static final By ELEMENT_PORTLET_CONTAINER = By.className("PortletLayoutDecorator");
 	public static final By ELEMENT_ABORTEDIT_BUTTON = By.xpath("//a[@title='Abort']");
 	//Edit portlet Form
@@ -500,6 +505,20 @@ public class PlatformBase extends TestBase {
 			return true;
 		}
 	}
+	
+	public void cloneNode(By locator)	{
+		for (int i =0;; i++){
+			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+				Assert.fail("Timeout");
+			}
+			rightClickOnElement(locator);
+			if (waitForAndGetElement(ELEMENT_CLONE_NODE,30000,0)!=null){
+				click((ELEMENT_CLONE_NODE));
+				return;
+			}
+			pause(WAIT_INTERVAL);
+		}
+	}
 
 	public void cutNode(By locator)	{
 		for (int i =0;; i++){
@@ -507,7 +526,7 @@ public class PlatformBase extends TestBase {
 				Assert.fail("Timeout");
 			}
 			rightClickOnElement(locator);
-			if (waitForAndGetElement(ELEMENT_CUT_NODE,30000,0)!=null){
+			if (waitForAndGetElement(ELEMENT_CUT_NODE, 5000, 0)!=null){
 				debug("==Cut node " + locator + "==");
 				click((ELEMENT_CUT_NODE));
 				return;
@@ -522,7 +541,7 @@ public class PlatformBase extends TestBase {
 				Assert.fail("Timeout");
 			}
 			rightClickOnElement(locator);
-			if (isElementPresent(ELEMENT_COPY_NODE)){
+			if (waitForAndGetElement(ELEMENT_COPY_NODE, 5000, 0) != null){
 				click((ELEMENT_COPY_NODE));
 				return;
 			}
@@ -536,7 +555,7 @@ public class PlatformBase extends TestBase {
 				Assert.fail("Timeout");
 			}
 			rightClickOnElement(locator);
-			if (isElementPresent(ELEMENT_PASTE_NODE)){
+			if (waitForAndGetElement(ELEMENT_PASTE_NODE, 5000, 0) != null){
 				click(ELEMENT_PASTE_NODE);
 				return;
 			}
@@ -581,5 +600,16 @@ public class PlatformBase extends TestBase {
 	public static void next(){
 		waitForAndGetElement(ELEMENT_NEXT_BUTTON);
 		click(ELEMENT_NEXT_BUTTON);	
+	}
+	
+	public static void getDriverAutoSave(){
+		FirefoxProfile fp = new FirefoxProfile();	
+		fp.setPreference("browser.download.folderList", 2);
+		info("-------"+System.getProperty("user.dir"));
+		fp.setPreference("browser.download.dir", System.getProperty("user.dir"));
+		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;application/x-zip;application/x-zip-compressed;application/octet-stream;application/zip;application/pdf;application/msword;text/plain;application/octet;application/xml;text/xml;application/x-xml");
+		driver = new FirefoxDriver(fp);
+		baseUrl = System.getProperty("baseUrl");
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 	}
 }

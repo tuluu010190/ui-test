@@ -1,6 +1,5 @@
 package org.exoplatform.selenium.platform.ecms.functional.dms.siteexplorer.basicaction;
 
-import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
 import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 import static org.exoplatform.selenium.platform.ecms.ContextMenu.*;
@@ -33,14 +32,14 @@ public class ECMS_DMS_SE_BasicAction_Clipboard extends EcmsBase
 	public By KOFAX_DOCUMENT = By.xpath("//div[@title='"+DATA_KOFAX_NAME+"']");
 	public By UPLOAD_FILE_NAME = By.xpath("//div[@title='"+DATA_UPLOAD_FILE_NAME+".jpg']");
 
-	public By CLIPBOARD_CONTENT_FOLDER_PATH = By.xpath("//td[text()='.../"+DATA_CONTENT_FOLDER+"']");
-	public By CLIPBOARD_CONTENT_FOLDER_CM = By.xpath("//td[text()='.../"+DATA_CONTENT_FOLDER+"']/following::td[text()='copy']");
-	public By CLIPBOARD_DOCUMENT_FOLDER_PATH = By.xpath("//td[text()='..."+DATA_DOCUMENT_FOLDER+"']");
-	public By CLIPBOARD_DOCUMENT_FOLDER_CM = By.xpath("//td[text()='..."+DATA_DOCUMENT_FOLDER+"']/following::td[text()='cut']");
-	public By CLIPBOARD_KOFAX_PATH = By.xpath("//td[text()='...tent/live/"+DATA_KOFAX_NAME+"']");
-	public By CLIPBOARD_KOFAX_CM = By.xpath("//td[text()='...tent/live/"+DATA_KOFAX_NAME+"']/following::td[text()='copy']");
-	public By CLIPBOARD_UPLOAD_FILE_PATH = By.xpath("//td[text()='...e/"+DATA_UPLOAD_FILE_NAME+".jpg']");
-	public By CLIPBOARD_UPLOAD_FILE_CM = By.xpath("//td[text()='...e/"+DATA_UPLOAD_FILE_NAME+".jpg']/following::td[text()='cut']");
+	public By CLIPBOARD_CONTENT_FOLDER_PATH = By.xpath("//td[contains(@title, '" + DATA_CONTENT_FOLDER + "')]");
+	public By CLIPBOARD_CONTENT_FOLDER_CM = By.xpath("//td[contains(@title, '" + DATA_CONTENT_FOLDER +"')]/../td[text()='copy']");
+	public By CLIPBOARD_DOCUMENT_FOLDER_PATH = By.xpath("//td[contains(@title, '" + DATA_DOCUMENT_FOLDER +"')]");
+	public By CLIPBOARD_DOCUMENT_FOLDER_CM = By.xpath("//td[contains(@title, '" + DATA_DOCUMENT_FOLDER +"')]/../td[text()='cut']");
+	public By CLIPBOARD_KOFAX_PATH = By.xpath("//td[contains(@title, '" + DATA_KOFAX_NAME +"')]");
+	public By CLIPBOARD_KOFAX_CM = By.xpath("//td[contains(@title, '" + DATA_KOFAX_NAME +"')]/../td[text()='copy']");
+	public By CLIPBOARD_UPLOAD_FILE_PATH = By.xpath("//td[contains(@title, '" + DATA_UPLOAD_FILE_NAME +".jpg')]");
+	public By CLIPBOARD_UPLOAD_FILE_CM = By.xpath("//td[contains(@title, '" + DATA_UPLOAD_FILE_NAME +".jpg')]/../td[text()='cut']");
 	public By CLEAR_ALL_ICON = By.xpath("//a[contains(text(),'Clear All')]");
 	public By CLEAR_ALL_MESSAGE = By.xpath("//div[contains(text(),'There are no items in the clipboard.')]");
 
@@ -124,7 +123,7 @@ public class ECMS_DMS_SE_BasicAction_Clipboard extends EcmsBase
 	@AfterMethod()
 	public void afterTest()
 	{
-		signOut();
+		//logoutEcms();
 		driver.quit();
 	}
 }

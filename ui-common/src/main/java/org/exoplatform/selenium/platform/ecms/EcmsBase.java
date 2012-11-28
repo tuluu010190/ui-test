@@ -122,9 +122,9 @@ public class EcmsBase extends PlatformBase {
 
 	/* Default Data (Document and folder like: acme, Document,....) */
 	//Sidebar - Tree node
-	public static final By ELEMENT_SIDEBAR_ACME = By.xpath("//div[text()='acme']");
+	public static final By ELEMENT_SIDEBAR_ACME = By.xpath("//a[@title='acme ']");
 	public static final By ELEMENT_SIDEBAR_ACME_WEB_CONTENT = By.xpath("//a[@title='web contents ']");
-	public static final String ELEMENT_SIDEBAR_ACME_DOCUMENTS = "//a[text()='documents']";
+	public static final By ELEMENT_SIDEBAR_ACME_DOCUMENTS = By.linkText("documents");
 	public static final By ELEMENT_COLLABORATION_DRIVE_LIVE = By.xpath("//a[@title='Live ']");
 
 	//View Area
@@ -155,9 +155,17 @@ public class EcmsBase extends PlatformBase {
 	// Go to content administration
 	public static void goToContentAdministration()
 	{
-		mouseOver(ELEMENT_LINK_SETUP, true);
-		mouseOver(ELEMENT_MENU_CONTENT_LINK, true);
-		mouseOverAndClick(ELEMENT_LINK_CONTENT_ADMIN);
+		for(;;){
+			mouseOver(ELEMENT_LINK_SETUP, true);
+			pause(500);
+			if (waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK,5000,0)!=null) {	
+				mouseOver(ELEMENT_MENU_CONTENT_LINK, true);
+				if (waitForAndGetElement(ELEMENT_LINK_CONTENT_ADMIN,5000,0)!=null){
+					click(ELEMENT_LINK_CONTENT_ADMIN);
+					break;
+				}
+			}
+		}
 	}
 
 	//Enter Sites Management Form 
@@ -298,7 +306,7 @@ public class EcmsBase extends PlatformBase {
 
 	//Check alert
 	public void checkAlertWarning(String message){
-		//waitForElementPresent(ELEMENT_ALERT);
+		waitForElementPresent(ELEMENT_ALERT);
 		assert isElementPresent(ELEMENT_ALERT):"Not found alert";
 		assert getText(ELEMENT_MESSAGE).contains(message):"Message is wrong";
 		click(By.linkText("OK"));

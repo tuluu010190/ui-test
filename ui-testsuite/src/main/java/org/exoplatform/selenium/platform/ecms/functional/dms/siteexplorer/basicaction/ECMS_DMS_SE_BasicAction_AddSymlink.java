@@ -37,8 +37,8 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 
 	@AfterMethod
 	public void afterMethods() {
-		info("Logout ECMS");
-		logoutEcms();
+//		info("Logout ECMS");
+//		logoutEcms();
 		driver.manage().deleteAllCookies();
 		driver.quit();
 		actions = null;
@@ -90,7 +90,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  // add symlink
 		  info("Add symlink for node");
 		  rightClickOnElement(ELEMENT_FOLDER);
-		  click(ELEMENT_ADD_SYMLINK);
+		  click(ELEMENT_MENU_ADD_SYMLINK);
 		  
 		  // check symlink
 		  waitForElementPresent(ELEMENT_SYMLINK);
@@ -259,7 +259,8 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  info("Check cannot add symlink for article document");
 		  addSymlink(ELEMENT_SELECT_PATH_DOCUMENTS,"Documents.lnk");
 		  checkAlertWarning("An error occurred while creating the symlink.");
-		  click(ELEMENT_CANCEL_BUTTON);
+		  cancel();
+//		  click(ELEMENT_CANCEL_BUTTON);
 		  
 		  //delete data
 		  deleteData(ELEMENT_ARTICLE);
@@ -482,7 +483,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_Addsymlink_contentfolder_14";
 		  By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
 		  By ELEMENT_SELECT_PATH_USER = By.xpath("//div[contains(text(),'Users')]/../../td/a/div[@class='Select16x16Icon']");
-		  By ELEMENT_USER_SYMLINK = By.xpath("//a[@title='Users.lnk ']");
+		  By ELEMENT_USER_SYMLINK = By.linkText("Users.lnk");
 		  String DATA_SYMLINK = "ECMS_DMS_SE_Addsymlink_symlink_14";
 		  By ELEMENT_DOCUMENT_SYMLINK = By.linkText(DATA_SYMLINK);
 		  
@@ -524,7 +525,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	  public void test15_AddSymlinkForNodeToSymlinkNode(){
 		  String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_Addsymlink_contentfolder_15";
 		  By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		  By ELEMENT_DOCUMENT_SYMLINK = By.xpath("//a[@title='documents.lnk ']");
+		  By ELEMENT_DOCUMENT_SYMLINK = By.linkText("documents.lnk");
 		  By ELEMENT_SYMLINK = By.xpath("//div[@title='documents.lnk' and @class='NodeIcon  exo_documentFolder16x16Icon default16x16Icon']");
 		  
 		  //create new node - content folder
@@ -532,12 +533,11 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 		  
 		  //create symlink for acme/document
-		  goToNode(ELEMENT_SIDEBAR_ACME);
+		  click(ELEMENT_SIDEBAR_ACME);
 		  info("Add symlink for documents");
 		  rightClickOnElement(ELEMENT_SIDEBAR_ACME_DOCUMENTS);
-		  waitForElementPresent(ELEMENT_ADD_SYMLINK);
-		  click(ELEMENT_ADD_SYMLINK);
-		  goToNode(ELEMENT_SIDEBAR_ACME);
+		  waitForElementPresent(ELEMENT_MENU_ADD_SYMLINK);
+		  click(ELEMENT_MENU_ADD_SYMLINK);
 		  waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
 		  assert isElementPresent(ELEMENT_DOCUMENT_SYMLINK):"Add new symlink unsuccessfully";
 		  info("Add symlink for documents successfully");
@@ -591,6 +591,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  //add symlink with path node blank
 		  info("Add symlink with blank path node");
 		  goToNode(ELEMENT_COLLABORATION);
+		  waitForElementPresent(ELEMENT_ADD_SYMLINK);
 		  click(ELEMENT_ADD_SYMLINK);
 		  waitForElementPresent(ELEMENT_ADD_SYMLINK_POPUP);
 		  type(ELEMENT_SYMLINK_NAME,"Test",true);
@@ -631,7 +632,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	  @Test
 	  public void test19_CheckDisplayWorkspaceWhenUserHasNotPermission(){
 		  String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_Addsymlink_contentfolder_19";
-		  By ELEMENT_CONTENT_FOLDER = By.xpath("//a[@title='"+DATA_CONTENT_FOLDER+" "+"']");
+		  By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
 		  By ELEMENT_DMS_SYSTEM = By.xpath("//div[contains(text(),'exo:ecm')]/../../td/a/div[@class='Select16x16Icon']");
 		  
 		  
@@ -643,13 +644,13 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  
 		  //create new node - content folder
 		  info("create new content folder");
-		  goToNode(ELEMENT_SIDEBAR_ACME);
-		  goToNode(ELEMENT_SIDEBAR_ACME_DOCUMENTS);
+		  click(ELEMENT_SIDEBAR_ACME);
+		  click(ELEMENT_SIDEBAR_ACME_DOCUMENTS);
 		  createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 		  
 		  //check cannot add symlink for this node with system workspace
-		  goToNode(ELEMENT_CONTENT_FOLDER);
-		  goToNode(ELEMENT_COLLABORATION);
+		  click(ELEMENT_CONTENT_FOLDER);
+		  click(ELEMENT_COLLABORATION);
 		  click(ELEMENT_ADD_SYMLINK);
 		  waitForElementPresent(ELEMENT_ADD_SYMLINK_POPUP);
 		  click(ELEMENT_ADD_ITEM);
@@ -957,11 +958,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 	   * create new node with user John
 	   * lock node by John
 	   * login with mary
-<<<<<<< HEAD
 	   * check user mary can not add symlink for node
-=======
-	   * check user mary cannot add symlink for node
->>>>>>> FQA-403: update ECMS/DMS/SE/Basic Action/Clipbroad and AddSymlink
 	   */
 	  @Test
 	  public void test27_AddSymlinkForNodeIsLockedByUserIsNotLocker(){
@@ -993,7 +990,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  waitForElementNotPresent(ELEMENT_ADD_SYMLINK);
 		  
 		  rightClickOnElement(ELEMENT_CONTENT_FOLDER);
-		  waitForElementNotPresent(ELEMENT_ADD_SYMLINK);
+		  waitForElementNotPresent(ELEMENT_MENU_ADD_SYMLINK);
 		  info("cannot add symlink for node by user is not locker");
 		  logoutEcms();
 		  
@@ -1075,7 +1072,7 @@ public class ECMS_DMS_SE_BasicAction_AddSymlink extends EcmsBase{
 		  //check cannot add symlink
 		  rightClickOnElement(ELEMENT_FILE);
 		  pause(500);
-		  waitForElementNotPresent(ELEMENT_ADD_SYMLINK);
+		  waitForElementNotPresent(ELEMENT_MENU_ADD_SYMLINK);
 		  goToNode(ELEMENT_FILE);
 		  goToNode(ELEMENT_COLLABORATION);
 		  waitForElementNotPresent(ELEMENT_ADD_SYMLINK);

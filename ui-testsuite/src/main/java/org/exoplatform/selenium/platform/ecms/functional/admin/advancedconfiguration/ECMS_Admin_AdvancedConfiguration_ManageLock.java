@@ -7,6 +7,7 @@ import static org.exoplatform.selenium.platform.ecms.SiteExplorer.*;
 import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.UserGroupManagement.*;
 import org.exoplatform.selenium.platform.ecms.ActionBar;
+import org.exoplatform.selenium.platform.ecms.ContextMenu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -25,8 +26,8 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 	public String DATA_PASS = "gtn";
 	
 	//Data for these test cases 
-	public String ELEMENT_ARTICLE_LOCKED_BY_ADMIN = "//a[@title = '${titleOfFile} (Locked by john)']";
-	public String ELEMENT_ARTICLE_UNLOCK = "//a[@title='${titleOfFile} " + "']";
+	public String ELEMENT_ARTICLE_LOCKED_BY_ADMIN = "//div[@class='NodeLabel']/a[@title = '${titleOfFile} (Locked by john)']";
+	public String ELEMENT_ARTICLE_UNLOCK = "//div[@class='NodeLabel']/a[@title='${titleOfFile} " + "']";
 	public By ELEMENT_DOCUMENT = By.linkText("documents");
 	public By ELEMENT_ACME_FOLDER = By.linkText("acme");
 	public By ELEMENT_UNLOCK_ARTICLE = By.className("Unlock16x16Icon");
@@ -235,9 +236,7 @@ public class ECMS_Admin_AdvancedConfiguration_ManageLock extends ActionBar{
 
 		goToNodeByPath("acme");
 
-		rightClickOnElement(ELEMENT_ACME_FOLDER);
-
-		click(By.linkText("Paste"));
+		ContextMenu.pasteNode(ELEMENT_ACME_FOLDER);
 
 		waitForTextPresent(titleArticle);
 

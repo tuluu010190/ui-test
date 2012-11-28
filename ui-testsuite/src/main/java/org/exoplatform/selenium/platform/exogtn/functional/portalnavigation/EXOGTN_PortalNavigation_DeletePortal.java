@@ -71,7 +71,7 @@ public class EXOGTN_PortalNavigation_DeletePortal extends PlatformBase{
 		signIn("root", "gtn");
 		goToPortalSites();
 		deletePortal(portalName);
-		waitForTextNotPresent(portalName);
+//		waitForTextNotPresent(portalName);
 		
 		info("-- End of test case 02: SignOut --");
 		signOut();
