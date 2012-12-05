@@ -23,7 +23,7 @@
 	</repositories>
 
 	<properties>
-		<maven.test.skip>true</maven.test.skip>
+		<maven.test.skip>false</maven.test.skip>
 		<maven-surefire-plugin.version>2.12.1</maven-surefire-plugin.version>
 		<selenium-java.version>2.25.0</selenium-java.version>
 		<testng.version>6.3.1</testng.version>

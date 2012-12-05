@@ -12,15 +12,10 @@
 	<packaging>jar</packaging>
 
 	<properties>
-		<maven.test.skip>false</maven.test.skip>
-
+		<cargo.skip>false</cargo.skip>
 		<!-- <selenium.port>4444</selenium.port> -->
 		<!-- <servlet.port>18880</servlet.port> -->
 		<!-- <selenium.background>true</selenium.background> -->
-
-		<!-- skip cargo execution to use your own server -->
-		<cargo.skip>false</cargo.skip>
-
 	</properties>
 
 	<dependencies>
@@ -36,7 +31,6 @@
 			<id>ecms</id>
 			<properties>
 				<testSuite>ecms.xml</testSuite>
-				<maven.test.skip>false</maven.test.skip>
 			</properties>
 		</profile>
 
@@ -45,18 +39,10 @@
 			<properties>
 				<testSuite>exogtn.xml</testSuite>
 			</properties>
-		</profile>
-
-		<profile>
-			<id>regression</id>
-			<properties>
-				<testSuite>regression.xml</testSuite>
-			</properties>
 			<activation>
-				<!--activeByDefault>true</activeByDefault -->
+				<activeByDefault>true</activeByDefault>
 			</activation>
 		</profile>
-
 	</profiles>
 
 	<build>
@@ -211,7 +197,7 @@
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
 				<configuration>
-					<skip>${it.cargo.skip}</skip>
+					<skip>${cargo.skip}</skip>
 					<!-- Container configuration -->
 					<container>
 						<containerId>tomcat6x</containerId>
@@ -279,7 +265,7 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
-							<skip>false</skip>
+							<skip>${maven.test.skip}</skip>
 							<!--<systemPropertyVariables> <webdriver.chrome.driver>chromedriver</webdriver.chrome.driver> 
 								</systemPropertyVariables> -->
 							<suiteXmlFiles>
