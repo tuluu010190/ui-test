@@ -257,6 +257,15 @@ public class TestBase {
 		} catch (NoAlertPresentException e) {
 		}
 	}
+	
+	public static void cancelAlert() {
+		try {
+			Alert alert = driver.switchTo().alert();
+			alert.dismiss();
+			switchToParentWindow();
+		} catch (NoAlertPresentException e) {
+		}
+	}
 
 	public static void pause(long timeInMillis) {
 		try {

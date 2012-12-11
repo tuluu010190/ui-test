@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.social;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.social.SpaceManagement.doAction;
-
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 
@@ -33,7 +32,6 @@ public class SocialBase extends PlatformBase {
 		
 	// Go to My Space > Requests Pending Tab
 	public static final String ELEMENT_CANCEL_LINK = "//*[@id='UIManagePendingSpaces']//*[text()='${spaceName}']/../../ul//*[text()='Cancel']";
-	
 	
 	// Go to My Space -> Search Button
 	public static final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
@@ -178,7 +176,6 @@ public class SocialBase extends PlatformBase {
 		doAction("Edit", spaceName);
 		goToApplications();
 	}
-	
 	
 	// Go to Navigation tab
 	public static void goToNavigation(){

@@ -1,6 +1,9 @@
 package org.exoplatform.selenium.platform.ks;
 
 import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.platform.ManageAccount.signOut;
+import static org.exoplatform.selenium.platform.social.ManageMember.userSignIn;
+import org.exoplatform.selenium.platform.social.ManageMember.userType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,9 +20,11 @@ public class Wiki extends KsBase {
 	public static final By ELEMENT_ADD_PAGE_LINK = By.xpath("//div[@id='UIWikiPageControlArea_PageToolBar_Add_' and contains(text(),'Add Page')]");
 	public static final By ELEMENT_BLANK_PAGE_LINK=By.linkText("Blank Page");
 	public static final By ELEMENT_FROM_TEMPLATE_LINK=By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar_Add_']/div/ul/li[2]/a");
+	
 	//Edit menu
 	public static final By ELEMENT_EDIT_PAGE_LINK= By.xpath("//a[@class='EditPage Icon' and @title='Edit']");
 	public static final By ELEMENT_MINOR_EDIT_BUTTON = By.xpath(".//*[@id='UISubmitToolBarUpper']/a[2]");
+	
 	//More menu
 	public static final By ELEMENT_MORE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar_More_']");
 	public static final By ELEMENT_DELETE_LINK = By.linkText("Delete Page");
@@ -31,7 +36,6 @@ public class Wiki extends KsBase {
 
 	//BreadCrumb
 	public static final By ELEMENT_WIKI_HOME = By.linkText("Wiki Home");
-
 
 	//Browse menu
 	public static final By ELEMENT_BROWSE_LINK = By.xpath("//div[contains(text(),'Browse')]");
@@ -50,10 +54,12 @@ public class Wiki extends KsBase {
 	//Richtext mode
 	public static final By ELEMENT_SOURCE_EDITOR_BUTTON= By.xpath("//a[contains(text(),'Source Editor')]");
 	public static final By ELEMENT_CONTENT_WIKI_FRAME = By.xpath("//div[@class='xRichTextEditor']/iframe");
+	
 	//Upload file area
 	public static By ELEMENT_UPLOAD_FILE = By.id("WikiUploadFile");
 	public static final By ELEMENT_FRAME_UPLOAD=By.xpath("//div[@title='Upload New File']/iframe");
 	public static final String ELEMENT_REMOVE_ATTACHMENT = "//a[contains(text(),'{$file}')]/../../td/img[@title='Remove Attachment']";
+	
 	//Add page from template
 	public static final String ELEMENT_SELECT_TEMPLATE_LINK="//tbody/tr/td/div[contains(@title,'{$template}')]/../../td[3]/div/a[1]";
 
@@ -64,6 +70,7 @@ public class Wiki extends KsBase {
 	public static final By ELEMENT_SEARCH_ADVANCE=By.id("text");
 	public static final By ELEMENT_RESULT_SEARCH = By.xpath("//*[@id='UIWikiAdvanceSearchResult']");
 	public static final String ELEMENT_VERIFY_MESSAGE = "No matching search result.";
+	
 	/*-------------------------Move page--------------------*/
 	public static final By CLICK_MOVE_ACTION = By.xpath("//*[@id='UIWikiMovePageForm']//*[text()='Move']");
 
@@ -74,7 +81,11 @@ public class Wiki extends KsBase {
 	public static final By ELEMENT_SELECT_INPUT = By.id("PermissionOwner");
 	public static final By ELEMENT_SELECT_GROUP = By.xpath("//img[@title='Select Group']");
 	public static final By ELEMENT_SELECT_MEMBERSHIP = By.xpath("//img[@title='Select Membership']");
-
+	// Go to Wiki page > More > Page Permissions
+	public static final String ELEMENT_EDIT_PAGE_PERMISSIONS = "//*[contains(@title, '${user}')]/../..//*[@title='Edit Pages']";
+	public static final String ELEMENT_VIEW_PAGE_PERMISSIONS = "//*[contains(@title, '${user}')]/../..//*[@title='View Pages']";
+	public static final String ELEMENT_DELETE_PERMISSIONS = "//*[contains(@title, '${user}')]/../..//*[@class='DeleteUserIcon']";
+	
 	/*----------------------Browse/Space setting/ add, edit, delete template-----------------*/
 	public static final By ELEMENT_TEMPLATE_LINK = By.linkText("Template");
 	public static final By ELEMENT_ADD_TEMPLATE_LINK = By.linkText("Add More Templates");
@@ -108,7 +119,16 @@ public class Wiki extends KsBase {
 	public static final String ELEMENT_VERSION_CHECKBOX="//input[@id='version_{$version}']";
 	public static final By ELEMENT_COMPARE_BUTTON = By.linkText("Compare Selected");	
 	public static final By ELEMENT_VIEW_CHANGE=By.linkText("(View Change)");
+	public static final By ELEMENT_ADD_MORE_RELATION_BUTTON = By.linkText("Add More Relations");
+//	public static final By ELEMENT_SELECT_BUTTON = By.linkText("Select");
+	public static final By ELEMENT_SELECT_BUTTON = By.xpath(".//*[@id='UIWikiSelectPageForm']/div[3]/a[text()='Select']");
+	//public static final By ELEMENT_REMOVE_RELATION_BUTTON = 
 
+	// Go to Wiki page > More > Page info > Add more relations
+	public static final String ELEMENT_SELECTED_PAGE = "//*[@id='iconTreeExplorer' and contains(@onclick, 'event')]//a[@title='${relatedPage}']";
+	public static final String ELEMENT_RELATED_PAGE = "//p[text()='Related Pages']/../..//a[@title='${relatedPage}']";
+	public static final String ELEMENT_REMOVE_RELATED_PAGE_LINK = "//*[@id='UIWikiPageInfo']//*[text()='${relatedPage}']/../../../..//*[text()='Remove']";
+	
 	/**
 	 * Go to add blank wiki page
 	 * @author hakt
@@ -126,6 +146,7 @@ public class Wiki extends KsBase {
 	{
 		boolean isVerify = (verify.length > 0)?verify[0]: true;
 		type(ELEMENT_CONTENT_WIKI_INPUT,content,true);
+		pause(1000);
 		click(ELEMENT_SAVE_BUTTON);
 		if(isVerify == true) waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
 	}
@@ -140,11 +161,11 @@ public class Wiki extends KsBase {
 		click(ELEMENT_RICHTEXT_BUTTON);
 		waitForElementPresent(ELEMENT_SOURCE_EDITOR_BUTTON);
 		inputDataToFrame(ELEMENT_CONTENT_WIKI_FRAME, content,true);
-		driver.switchTo().defaultContent(); 
+		pause(1000);
+		driver.switchTo().defaultContent();
 		click(ELEMENT_SAVE_BUTTON);
 		if(isVerify == true) waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
 	}
-
 
 	/**
 	 * Modify data with source editor
@@ -159,6 +180,7 @@ public class Wiki extends KsBase {
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		if(content != null)
 			type(ELEMENT_CONTENT_WIKI_INPUT,content,true);
+		pause(1000);
 	}
 
 	/**
@@ -175,8 +197,10 @@ public class Wiki extends KsBase {
 		waitForElementPresent(ELEMENT_SOURCE_EDITOR_BUTTON);
 		if (content != null){
 			inputDataToFrame(ELEMENT_CONTENT_WIKI_FRAME, content,true);
+			pause(1000);
 			driver.switchTo().defaultContent();
 		}
+		pause(1000);
 	}
 	/** Add a wiki page from blank
 	 * @author thuntn
@@ -199,6 +223,25 @@ public class Wiki extends KsBase {
 
 		save();
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
+		waitForTextPresent(content);
+	}
+	
+	/**
+	 * @author vuna2
+	 * @param totalPages: number of created page (int)
+	 * @param wikiParentPath: parent (path) of created page 
+	 * @param titlePage: page name (String)
+	 * @param contentPage: page content (String)  
+	 * @param mode = 1 : edit a wiki page in richtext
+	 *        mode = 0 : edit a wiki page in source editor
+	 */
+	public static void addBlankWikiPage(int totalPages, String[] wikiParentPath, String[] titlePage, String[] contentPage, int mode){
+		goToWiki();	
+		for (int i = 0; i < totalPages; i++){
+			goToWikiPage(wikiParentPath[i]);
+			addBlankWikiPage(titlePage[i], contentPage[i], mode);
+		}
+		pause(1000);
 	}
 
 	/**
@@ -418,6 +461,39 @@ public class Wiki extends KsBase {
 		click(By.linkText(nodeLast));
 
 	}
+	
+	/**
+	 * @author vuna2
+	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
+	 */
+	public static void goToWiki(userType user){
+		pause(1000);
+		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
+			signOut();
+		}else{
+			info("-- User.logIn: " + user);
+		}
+		userSignIn(user);
+		goToWiki();
+	}
+
+	/**
+	 * @author vuna2
+	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
+	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 */
+	public static void goToWikiPage(userType user, String wikiPath){
+		pause(1000);
+		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
+			signOut();
+		}else{
+			info("-- User.logIn: " + user);
+		}
+		userSignIn(user);
+		goToWiki();
+		goToWikiPage(wikiPath);
+	}
+	
 	/** Search quick
 	 * @author thuntn
 	 * @param keyword
@@ -581,6 +657,51 @@ public class Wiki extends KsBase {
 		}
 		save();
 	}
+	
+	/**
+	 * @author vuna2
+	 * @param viewPage: boolean
+	 * @param editPage: boolean
+	 * @param deletePermission: boolean
+	 * @param user: users or groups that we want to change their permissions
+	 */
+	public static void editPagePermissions(boolean viewPage, boolean editPage, boolean deletePermission, String user){
+		By EDIT_PAGE_LOCATOR = By.xpath(ELEMENT_EDIT_PAGE_PERMISSIONS.replace("${user}", user));
+		By VIEW_PAGE_LOCATOR = By.xpath(ELEMENT_VIEW_PAGE_PERMISSIONS.replace("${user}", user));
+		By DELETE_PERMISSION = By.xpath(ELEMENT_DELETE_PERMISSIONS.replace("${user}", user));
+		//goToWikiPage(wikiPath);
+		mouseOver(ELEMENT_MORE_LINK,true);
+		mouseOverAndClick(ELEMENT_PAGE_PERMISSION_LINK);
+		waitForTextPresent("Page Permissions");
+		if (viewPage){
+			if (waitForAndGetElement(VIEW_PAGE_LOCATOR, 5000, 0).isSelected() == false){
+				click(VIEW_PAGE_LOCATOR);
+			}else{
+				info("Element " + VIEW_PAGE_LOCATOR + " is already checked.");
+			}		
+		}else{
+			if (waitForAndGetElement(VIEW_PAGE_LOCATOR, 5000, 0).isSelected() == true){
+				click(VIEW_PAGE_LOCATOR);
+			}
+		}		
+		if (editPage){
+			if (waitForAndGetElement(EDIT_PAGE_LOCATOR, 5000, 0).isSelected() == false){
+				click(EDIT_PAGE_LOCATOR);
+			}else{
+				info("Element " + EDIT_PAGE_LOCATOR + " is already checked.");
+			}
+		}else{
+			if (waitForAndGetElement(EDIT_PAGE_LOCATOR, 5000, 0).isSelected() == true){
+				click(EDIT_PAGE_LOCATOR);
+			}
+		} 	
+		if (deletePermission){
+			click(DELETE_PERMISSION);
+			waitForElementNotPresent(DELETE_PERMISSION);
+		}
+		save();
+		pause(1000);
+	}
 
 	/** Go to page info
 	 * @author thuntn
@@ -589,7 +710,27 @@ public class Wiki extends KsBase {
 		info("--Go to page info--");
 		mouseOver(ELEMENT_MORE_LINK,true);
 		mouseOverAndClick(ELEMENT_PAGE_INFO_LINK);
+		waitForTextPresent("Summary");
 	}
+	
+	/**
+	 * @author vuna2
+	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
+	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 */
+	public static void goToPageInfo(userType user, String wikiPath){
+		pause(1000);
+		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
+			signOut();
+		}else{
+			info("-- User.logIn: " + user);
+		}
+		userSignIn(user);
+		goToWiki();
+		goToWikiPage(wikiPath);
+		goToPageInfo();
+	}
+
 	/** Add page permission for an user
 	 * @author: Thuntn
 	 * 
@@ -937,9 +1078,6 @@ public class Wiki extends KsBase {
 
 	}
 
-
-
-
 	/** Delete permission for an user
 	 * @author: HangNTT
 	 * @param user: username or group, or membership. eg: "*:/platform/users"
@@ -1028,5 +1166,144 @@ public class Wiki extends KsBase {
 			}
 		save();
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
+	}
+	/**
+	 * @author thaopth
+	 * @param wikiPath
+	 */
+	public static void selectPage (String wikiPath) {
+		String bExpandIcon = "//*[@id='UIWikiSelectPageForm']//*[@title='{$node}']";
+		String[] nodes = wikiPath.split("/");
+		int length = nodes.length -1;
+		
+		info("--Goto a wiki page--");
+		
+		for (int index = 0;index < length;index++)
+		{ 	
+			String node = nodes[index];
+			String nodeNext = nodes[index+1];
+			
+			if(waitForAndGetElement(bExpandIcon.replace("{$node}",nodeNext),5000,0) == null)
+				click(bExpandIcon.replace("{$node}",node));
+			pause(100);
+		}
+		String nodeLast = nodes[length];
+		click(By.linkText(nodeLast));
+	}
+	/**
+	 * @author thaopth
+	 * @param wikiPath
+	 */
+	public static void addRelatedPage (String wikiPath) {
+		goToPageInfo();
+		
+		waitForElementPresent(ELEMENT_ADD_MORE_RELATION_BUTTON);
+		
+		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
+		
+		selectPage(wikiPath);
+		
+		click(ELEMENT_SELECT_BUTTON);
+		
+		waitForElementPresent(By.xpath("//a[text()='Remove']"));
+			
+	}
+	
+	/**
+	 * @author vuna2
+	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 * @param pageName: name of related page (String)
+	 */
+	public static void addRelatedPage(String wikiPath, String pageName){
+		goToWikiPage(wikiPath);
+		goToPageInfo();
+		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
+		click(By.xpath(ELEMENT_SELECTED_PAGE.replace("${relatedPage}", pageName)));
+		pause(500);
+		click(ELEMENT_SELECT_BUTTON);
+		waitForElementPresent(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageName));
+	}
+	
+	/**
+	 * @author vuna2
+	 * @param delete: boolean (true = delete a page / false = just click on Remove link)
+	 * @param direct: boolean (user is currently stay in page info window)
+	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 * @param pageName: name of related page (String)
+	 */
+	public static void removeRelatedPage(boolean delete, boolean direct, String wikiPath, String pageName){
+		if (direct){
+			click(By.xpath(ELEMENT_REMOVE_RELATED_PAGE_LINK.replace("${relatedPage}", pageName)));
+		}else{
+			goToWikiPage(wikiPath);
+			goToPageInfo();
+			click(By.xpath(ELEMENT_REMOVE_RELATED_PAGE_LINK.replace("${relatedPage}", pageName)));
+		}
+		if (delete){
+			acceptAlert();
+			waitForElementNotPresent(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageName));
+		}else{
+			cancelAlert();
+			waitForElementPresent(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageName));
+		}
+		pause(500);
+	}
+	
+	//////////
+	/**
+	 * @author vuna2
+	 * @param totalPages: number of created page (int)
+	 * @param wikiParentPath: parent (path) of created page 
+	 * @param pageInfo: (pageInfo[0] = page name / pageInfo[1] =  page content)
+	 * @param mode = 1 : edit a wiki page in richtext
+	 *        mode = 0 : edit a wiki page in source editor
+	 * @param wikiPath : an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 * @param pageName : name of related page (String
+	 */
+	public static void addBlankWikiPageAndRelatePage(int totalPages, String[] wikiParentPath, String[][] pageInfo, int mode, String wikiPath, String pageName){
+		addBlankWikiPage(totalPages, wikiParentPath, pageInfo[0], pageInfo[1], mode);
+		addRelatedPage(wikiPath, pageName);		
+	}
+
+	/**
+	 * @author vuna2
+	 * @param totalPages: number of created page (int)
+	 * @param wikiParentPath: parent (path) of created page 
+	 * @param pageInfo: (pageInfo[0] = page name / pageInfo[1] =  page content)
+	 * @param mode = 1 : edit a wiki page in richtext
+	 *        mode = 0 : edit a wiki page in source editor	 * @param editInfo
+	 * @param editInfo : an Array Of Booleans (viewPage/editPage/deletePermission)       
+	 * @param user: users or groups that we want to change their permissions
+	 */
+	public static void addBlankWikiPageAndEditPagePermissions(int totalPages, String[] wikiParentPath, String[][] pageInfo, int mode, boolean[] editInfo, String user){
+		addBlankWikiPage(totalPages, wikiParentPath, pageInfo[0], pageInfo[1], mode);
+		editPagePermissions(editInfo[0], editInfo[1], editInfo[2], user);
+	}
+
+	/**
+	 * @author vuna2
+	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 */
+	public static void deleteWikiPage(String[] wikiPath){
+		String[] nodes = null;
+		String pageName = "";
+		pause(500);
+		for(int i = 0; i < wikiPath.length; i++){
+			nodes = wikiPath[i].split("/");
+			pageName = nodes[nodes.length-1];
+			goToWikiPage(wikiPath[i]);
+			deleteWikiPage();
+			waitForTextNotPresent(pageName);
+		}
+	}
+
+	/**
+	 * @author vuna2
+	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
+	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 */
+	public static void resetDataByDeleteWikiPage(userType user, String[] wikiPath){
+		goToWiki(user);
+		deleteWikiPage(wikiPath);
 	}
 }

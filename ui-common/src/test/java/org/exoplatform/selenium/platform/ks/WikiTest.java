@@ -101,9 +101,9 @@ public class WikiTest extends KsBase {
   public void test_AddPagePermission() {
 	  signIn("root", "gtn");
 	  goToWiki();
-	  String[] user0= {"james"};
+	  /*String[] user0= {"james"};
 	  String[] user1= {"mary"};
-	  String[] user2= {"Platform/Users"};
+	  String[] user2= {"Platform/Users"};*/
 	  String[] user3={};
 	  
 	  //addPagePermission(0,user0);
@@ -212,8 +212,8 @@ public class WikiTest extends KsBase {
   public void test_addSpacePermission() {
 	  signIn("root", "gtn");
 	  
-	  String[] user1= {"mary"};
-	  String[] user2= {"james"};
+	  /*String[] user1= {"mary"};
+	  String[] user2= {"james"};*/
 	  String[] user3={"Platform/Users"};
 	  String[] user4={"Platform/Users","member"};
 	  goToWiki();
@@ -229,10 +229,10 @@ public class WikiTest extends KsBase {
   public void test_editSpacePermission() {
 	  signIn("root", "gtn");
 	  
-	  String[] user1= {"mary"};
+	  /*String[] user1= {"mary"};
 	  String[] user2= {"james"};
 	  String[] user3={"Platform/Users"};
-	  String[] user4={"Platform/Users","member"};
+	  String[] user4={"Platform/Users","member"};*/
 	  goToWiki();
 	  //addSpacePermission(0,user1);
 	 // addSpacePermission(1,user2);
@@ -245,10 +245,10 @@ public class WikiTest extends KsBase {
   public void test_deleteSpacePermission() {
 	  signIn("root", "gtn");
 	  
-	  String[] user1= {"mary"};
+	  /*String[] user1= {"mary"};
 	  String[] user2= {"james"};
 	  String[] user3={"Platform/Users"};
-	  String[] user4={"Platform/Users","member"};
+	  String[] user4={"Platform/Users","member"};*/
 	  goToWiki();
 	  //addSpacePermission(0,user1);
 	 // addSpacePermission(1,user2);
