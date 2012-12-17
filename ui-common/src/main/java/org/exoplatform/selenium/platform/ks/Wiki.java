@@ -129,6 +129,11 @@ public class Wiki extends KsBase {
 	public static final String ELEMENT_RELATED_PAGE = "//p[text()='Related Pages']/../..//a[@title='${relatedPage}']";
 	public static final String ELEMENT_REMOVE_RELATED_PAGE_LINK = "//*[@id='UIWikiPageInfo']//*[text()='${relatedPage}']/../../../..//*[text()='Remove']";
 	
+
+	//Wiki page > Revisions page
+	public static final String ELEMENT_CURRENT_VERSION = "//a[@title='View Revision' and text()='CURRENT (v. ${version})']";
+	public static final By ELEMENT_DISABLE_COMPARE_BUTTON = By.xpath("//a[contains(@class, 'DisableButton') and text()='Compare Selected']");
+
 	/**
 	 * Go to add blank wiki page
 	 * @author hakt
@@ -950,7 +955,11 @@ public class Wiki extends KsBase {
 		info("--Restore a version of a page--");
 
 		String versionLink = ELEMENT_RESTORE_LINK.replace("{$version}",version);
-		click(ELEMENT_REVISION_LINK);
+		if (isTextPresent("Page History")){
+			info("-- You are currently in the revision page --");		
+		}else{
+			click(ELEMENT_REVISION_LINK);
+		}
 		click(versionLink);
 	}
 	/** Compare 2 versions of a page
@@ -963,8 +972,11 @@ public class Wiki extends KsBase {
 
 		String versionCheckbox1 = ELEMENT_VERSION_CHECKBOX.replace("{$version}", first);
 		String versionCheckbox2= ELEMENT_VERSION_CHECKBOX.replace("{$version}", second);
-
-		click(ELEMENT_REVISION_LINK);
+		if (isTextPresent("Page History")){
+			info("-- You are currently in the revision page --");		
+		}else{
+			click(ELEMENT_REVISION_LINK);
+		}
 		click(versionCheckbox1);
 		click(versionCheckbox2);
 		click(ELEMENT_COMPARE_BUTTON);
@@ -1305,5 +1317,17 @@ public class Wiki extends KsBase {
 	public static void resetDataByDeleteWikiPage(userType user, String[] wikiPath){
 		goToWiki(user);
 		deleteWikiPage(wikiPath);
+	}
+	/**
+	 * @author vuna2
+	 * <li>Go to the revisions page (of selected wiki page)</li>
+	 */
+	public static void goToRevisionsPage(){
+		if (isTextPresent("Page History")){
+			info("-- You are currently in the revision page --");		
+		}else{
+			click(ELEMENT_REVISION_LINK);
+			waitForTextPresent("Page History", 1000);
+		}
 	}
 }

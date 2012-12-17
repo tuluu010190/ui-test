@@ -24,16 +24,6 @@ public class EXOGTN_Dashboard_DeleteGadget extends PlatformBase
 	public By GADGET_DIRECTORY_LIST = By.xpath("//div[@class='UIPopupWindow UIDragObject NormalStyle']");
 	public By AGENDA_GADGET_ON_LIST = By.xpath("//div[@class='GadgetTitle' and @title='"+GADGET_NAME+"']");
 
-	public void deleteGadgetOnDashboard(String gadgetTitleDisplay)
-	{
-		String action = "Delete Gadget";
-		By deleteGadgetIcon = By.xpath("//span[text()='"+gadgetTitleDisplay+"']/preceding::span[@title='"+action+"']");
-		waitForAndGetElement(deleteGadgetIcon);
-		click(deleteGadgetIcon);
-		waitForConfirmation("Are you sure to delete this gadget?");
-		waitForTextNotPresent(gadgetTitleDisplay);
-	}
-	
 	@BeforeMethod()
 	public void beforeTest()
 	{

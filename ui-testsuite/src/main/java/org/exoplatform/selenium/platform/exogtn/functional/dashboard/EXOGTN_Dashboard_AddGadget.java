@@ -33,15 +33,6 @@ public class EXOGTN_Dashboard_AddGadget extends PlatformBase
 		signIn("john", "gtn");
 	}
 	
-	public void deleteGadgetOnDashboard(String gadgetTitleDisplay)
-	{
-		String action = "Delete Gadget";
-		By deleteGadgetIcon = By.xpath("//span[text()='"+gadgetTitleDisplay+"']/preceding::span[@title='"+action+"']");
-		waitForAndGetElement(deleteGadgetIcon);
-		click(deleteGadgetIcon);
-		waitForConfirmation("Are you sure to delete this gadget?");
-		waitForTextNotPresent(gadgetTitleDisplay);
-	}
 	
 	//Add new gadget into dashboard with valid value
 	@Test()
