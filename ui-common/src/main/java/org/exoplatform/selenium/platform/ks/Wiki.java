@@ -102,6 +102,26 @@ public class Wiki extends KsBase {
 	//Message
 	public static final String MSG_CREATE_TEMPLATE="is created successfully.";
 	public static final String MSG_DELETE_TEMPLATE="Are you sure to delete this template?";
+	//Close template list	
+	public static By ELEMENT_CLOSE_TEMPLATE_LIST=By.xpath("//span[text()='Select Template']/../a[@class='CloseButton']");
+	//Close preview window
+	public static By ELEMENT_CLOSE_PREVIEW_WINDOW=By.xpath("//div[text()='Preview']/..//a[@class='CloseButton']");
+	//	Preview template
+	public static final String ELEMENT_PREVIEW_NEW_TEMPLATE="//div[text()='${TEMPLATE_TITLE}']/../../*//a[@class='PreviewTemplateIcon']";
+	// Verify effect
+	public static final String VERIFY_BOLD_EFFECT="//strong[text()='${TEMPLATE_CONTENT}']";	
+	public static final String VERIFY_ITALIC_EFFECT="//em[text()='${TEMPLATE_CONTENT}']";
+	public static final String VERIFY_STRIKE_EFFECT="//del[text()='${TEMPLATE_CONTENT}']";
+	public static final String VERIFY_UNDERLINE_EFFECT="//ins[text()='${TEMPLATE_CONTENT}']";
+	public static final String VERIFY_HEADING_EFFECT="//h1//span[text()='${TEMPLATE_CONTENT}']";
+	public static final String ELEMENT_VERIFY_BULLET_EFFECT = "//ul//li[text()='${temp0}']/..//li[text()='${temp1}']";
+	public static final String ELEMENT_VERIFY_NUMBER_EFFECT ="//ol//li//ol//li[text()='${temp1}']";
+	public static final String ELEMENT_VERIFY_TABLE_EFFECT = "//table//*//th[text()='${temp0}']/../..//*//td[text()='${temp3}']";
+	public static final String ELEMENT_VERIFY_LINK_EFFECT = "//a[@href='${TEMPLATE_CONTENT}']//span[text()='${TEMPLATE_CONTENT}']";
+	//	Template link
+	public static final String ELEMENT_NEW_TEMPLATE_LINK="//div[@class='Text' and text()='${TEMPLATE_TITLE}']";
+//	 Verify Search with no result
+	public static final String ELEMENT_EMPTY_DATA="//td[contains(text(),'Empty Data')]";
 
 	/*------------------------Browser/Space setting/ Permission space------------------------*/
 	public static final By ELEMENT_PERMISSION_LINK=By.linkText("Permission");
@@ -121,6 +141,7 @@ public class Wiki extends KsBase {
 	public static final String ELEMENT_VERSION_CHECKBOX="//input[@id='version_{$version}']";
 	public static final By ELEMENT_COMPARE_BUTTON = By.linkText("Compare Selected");	
 	public static final By ELEMENT_VIEW_CHANGE=By.linkText("(View Change)");
+
 	// Wiki page > View Change
 	public static final String ELEMENT_CHANGES_COMPARE_VERSION = "//div[@class='Changes' and contains(text(), '<< Changes from')]/span[text()='${1stNumber}']/../span[text()='${2ndNumber}']";
 
@@ -144,6 +165,10 @@ public class Wiki extends KsBase {
 	public static final By ELEMENT_TITLE_WIKI_HOME = By.xpath("//span[@id='TitleInfo' and text()='Wiki Home']");
 	public static final By ELEMENT_WIKI_TAB = By.xpath("//a[@class='ApplicationAdd' and text()='Wiki']");
 	
+	/*-------------------------Go to wiki home---------------------------*/
+	public static By ELEMENT_WIKI_HOME_LINK=By.xpath("//a[text()='Wiki Home']");
+	public static By ELEMENT_WIKI_HOME_PAGE=By.xpath("//span[@class='TitleInfo' and text()='Wiki Home']");
+
 	/**
 	 * Go to add blank wiki page
 	 * @author hakt
@@ -509,7 +534,16 @@ public class Wiki extends KsBase {
 		goToWikiPage(wikiPath);
 	}
 	
-	/** Search quick
+	/**
+	 * Go to wiki home
+	 * @author hakt
+	 */
+	public static void goToWikiHome(){
+		click(ELEMENT_WIKI_HOME_LINK);
+		waitForElementPresent(ELEMENT_WIKI_HOME_PAGE);
+	}
+
+	/** Quick search
 	 * @author thuntn
 	 * @param keyword
 	 */
@@ -788,11 +822,13 @@ public class Wiki extends KsBase {
 	public static void goToTemplateManagement(){
 		info("--Go to the template management page--");
 
-		mouseOver(ELEMENT_BROWSE_LINK,true);
+		mouseOverAndClick(ELEMENT_BROWSE_LINK);
 
 		mouseOverAndClick(ELEMENT_SPACE_SETTING_LINK);
 
-		click(ELEMENT_TEMPLATE_LINK);			
+		click(ELEMENT_TEMPLATE_LINK);
+
+		waitForElementPresent(ELEMENT_ADD_TEMPLATE_LINK);
 	}
 
 	/**Add a wiki page template
