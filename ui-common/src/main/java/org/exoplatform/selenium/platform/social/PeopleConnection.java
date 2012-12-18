@@ -1,11 +1,7 @@
 package org.exoplatform.selenium.platform.social;
 
 import static org.exoplatform.selenium.TestLogger.*;
-
-import java.util.Set;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
 
 /**
  * 

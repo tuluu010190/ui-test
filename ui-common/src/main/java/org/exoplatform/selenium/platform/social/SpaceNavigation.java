@@ -1,6 +1,5 @@
 package org.exoplatform.selenium.platform.social;
 
-import static org.exoplatform.selenium.platform.PageManagement.*;
 import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.Map;

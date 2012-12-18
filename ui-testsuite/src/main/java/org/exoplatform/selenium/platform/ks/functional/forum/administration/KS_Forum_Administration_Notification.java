@@ -6,8 +6,11 @@ import static org.exoplatform.selenium.TestLogger.*;
 import static org.exoplatform.selenium.platform.ks.ForumManagement.*;
 import static org.exoplatform.selenium.platform.ks.TopicManagement.startTopic;
 
+import java.util.Set;
+
 import org.exoplatform.selenium.platform.ks.ForumBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -40,6 +43,7 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 		String[] user_topic = {};
 		String notification = "Changed by John";
 
+		Set<Cookie> cookies = getBrowserCookies();
 		String handle1 = driver.getWindowHandle();
 		String titleMail = "["+category+ "][" + forum + "] " + topic;
 
@@ -55,7 +59,7 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 
 		click(ELEMENT_GMAIL_DELETE);
 
-		backToPreviousBrowser(handle1);
+		backToPreviousBrowser(cookies, handle1);
 		restoreData(category);
 	}
 
@@ -71,6 +75,7 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 		String[] user_topic = {};
 
 		String prefix = "test02";
+		Set<Cookie> cookies = getBrowserCookies();
 		String handle1 = driver.getWindowHandle();
 		String titleMail = prefix + "["+category+ "][" + forum + "] " + topic;
 
@@ -85,7 +90,7 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 
 		click(ELEMENT_GMAIL_DELETE);
 
-		backToPreviousBrowser(handle1);
+		backToPreviousBrowser(cookies, handle1);
 		restoreData(category);
 
 	}
@@ -101,6 +106,7 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 		String[] user_topic = {};
 
 		String prefix = "test03";
+		Set<Cookie> cookies = getBrowserCookies();
 		String handle1 = driver.getWindowHandle();
 		String titleMail = "["+category+ "][" + forum + "] " + topic;
 
@@ -116,7 +122,7 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 
 		click(ELEMENT_GMAIL_DELETE);
 
-		backToPreviousBrowser(handle1);
+		backToPreviousBrowser(cookies, handle1);
 		restoreData(category);
 	}
 	//Set notification when new post notification field is blank

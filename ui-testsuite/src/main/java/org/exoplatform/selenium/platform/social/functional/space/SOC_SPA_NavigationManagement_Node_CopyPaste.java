@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
  * @author thaopth
  * Date: 05/12/2012
  */
-public class SOC_SPA_NavigationManagement_Node_Copy_Paste extends SocialBase {
+public class SOC_SPA_NavigationManagement_Node_CopyPaste extends SocialBase {
 	public String DATA_USER = "john";
 	public String DATA_PASS = "gtn";
 	public int timeToDeleteSpace = 120000;

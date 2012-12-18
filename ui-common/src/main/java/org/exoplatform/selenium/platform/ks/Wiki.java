@@ -121,8 +121,11 @@ public class Wiki extends KsBase {
 	public static final String ELEMENT_VERSION_CHECKBOX="//input[@id='version_{$version}']";
 	public static final By ELEMENT_COMPARE_BUTTON = By.linkText("Compare Selected");	
 	public static final By ELEMENT_VIEW_CHANGE=By.linkText("(View Change)");
+	// Wiki page > View Change
+	public static final String ELEMENT_CHANGES_COMPARE_VERSION = "//div[@class='Changes' and contains(text(), '<< Changes from')]/span[text()='${1stNumber}']/../span[text()='${2ndNumber}']";
+
 	public static final By ELEMENT_ADD_MORE_RELATION_BUTTON = By.linkText("Add More Relations");
-//	public static final By ELEMENT_SELECT_BUTTON = By.linkText("Select");
+	//	public static final By ELEMENT_SELECT_BUTTON = By.linkText("Select");
 	public static final By ELEMENT_SELECT_BUTTON = By.xpath(".//*[@id='UIWikiSelectPageForm']/div[3]/a[text()='Select']");
 	//public static final By ELEMENT_REMOVE_RELATION_BUTTON = 
 
@@ -131,7 +134,6 @@ public class Wiki extends KsBase {
 	public static final String ELEMENT_RELATED_PAGE = "//p[text()='Related Pages']/../..//a[@title='${relatedPage}']";
 	public static final String ELEMENT_REMOVE_RELATED_PAGE_LINK = "//*[@id='UIWikiPageInfo']//*[text()='${relatedPage}']/../../../..//*[text()='Remove']";
 	
-
 	//Wiki page > Revisions page
 	public static final String ELEMENT_CURRENT_VERSION = "//a[@title='View Revision' and text()='CURRENT (v. ${version})']";
 	public static final By ELEMENT_DISABLE_COMPARE_BUTTON = By.xpath("//a[contains(@class, 'DisableButton') and text()='Compare Selected']");
@@ -726,7 +728,7 @@ public class Wiki extends KsBase {
 		mouseOverAndClick(ELEMENT_PAGE_INFO_LINK);
 		waitForTextPresent("Summary");
 	}
-	
+		
 	/**
 	 * @author vuna2
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
@@ -1153,6 +1155,42 @@ public class Wiki extends KsBase {
 		mouseOverAndClick(element_wiki);
 		waitForElementPresent(ELEMENT_TITLE_WIKI_HOME);
 	}
+
+	/**
+	* @author vuna2
+	* <li>Go to the revisions page (of selected wiki page)</li>
+	*/
+	public static void goToRevisionsPage(){
+		if (isTextPresent("Page History")){
+			info("-- You are currently in the revision page --");	
+		}else{
+			click(ELEMENT_REVISION_LINK);
+			pause(1000);
+			waitForTextPresent("Page History");
+		}
+	}
+	
+	/**
+	 * @author vuna2
+	 * @param firstNumberVersion: first version to compare (String)
+	 * @param secondNumberVersion: second version to compare (String)
+	 */
+	public static void changeCompareVersions(String firstNumberVersion, String secondNumberVersion){
+	    pause(1000);
+		click(By.xpath(ELEMENT_CHANGES_COMPARE_VERSION.replace("${1stNumber}", firstNumberVersion).replace("${2ndNumber}", secondNumberVersion)));
+		waitForElementNotPresent(ELEMENT_CHANGES_COMPARE_VERSION.replace("${1stNumber}", firstNumberVersion).replace("${2ndNumber}", secondNumberVersion));
+	}
+	
+	/**
+	 * @author vuna2
+	 * <li>Go to the View Page History (selected wiki page)</li>
+	 */
+	public static void viewPageHistory(){
+		pause(1000);
+		click(By.linkText("View Page History"));
+		waitForTextPresent("Revision");
+	}
+
 	/**
 	 * @author thaopth
 	 * @param wikiPath
@@ -1175,24 +1213,6 @@ public class Wiki extends KsBase {
 		}
 		String nodeLast = nodes[length];
 		click(By.linkText(nodeLast));
-	}
-	/**
-	 * @author thaopth
-	 * @param wikiPath
-	 */
-	public static void addRelatedPage (String wikiPath) {
-		goToPageInfo();
-		
-		waitForElementPresent(ELEMENT_ADD_MORE_RELATION_BUTTON);
-		
-		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
-		
-		selectPage(wikiPath);
-		
-		click(ELEMENT_SELECT_BUTTON);
-		
-		waitForElementPresent(By.xpath("//a[text()='Remove']"));
-			
 	}
 	
 	/**
@@ -1292,16 +1312,5 @@ public class Wiki extends KsBase {
 		goToWiki(user);
 		deleteWikiPage(wikiPath);
 	}
-	/**
-	 * @author vuna2
-	 * <li>Go to the revisions page (of selected wiki page)</li>
-	 */
-	public static void goToRevisionsPage(){
-		if (isTextPresent("Page History")){
-			info("-- You are currently in the revision page --");		
-		}else{
-			click(ELEMENT_REVISION_LINK);
-			waitForTextPresent("Page History", 1000);
-		}
-	}
+	/////////	
 }

@@ -638,59 +638,60 @@ public class PlatformBase extends TestBase {
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 	}
+	
 	/**
-	 * 
+	 *
 	 * Get cookies of current browser then delete all cookies
 	 * @return set of cookies of browser
 	 */
-  public static Set<Cookie> getBrowserCookies(){
-    Set<Cookie> cookies = driver.manage().getCookies();
-    driver.manage().deleteAllCookies();
-    return cookies;   
-  }
-  
-  /**
-   * Set cookies for current browser
-   * @param cookies : Set of cookies
-   */
-  public static void setBrowserCookies(Set<Cookie> cookies){
-    for(Cookie cookie : cookies){
-      driver.manage().addCookie(cookie);
-    }
-  }
-  
-  /**
-   * Add by @author vuna2
-   * Open a new browser by Javascript
-   */
-  public static void openNewBrowser(){
-	//Open new browser by Javascript
-	//String handlesBefore = driver.getWindowHandle();
-	((JavascriptExecutor) driver).executeScript("window.open()");  
-	//driver.manage().deleteAllCookies();
-	for(String winHandle : driver.getWindowHandles()){
-	        driver.switchTo().window(winHandle);
-	}
-	 driver.navigate().to(baseUrl);
-  }
-  
-  /**
-   * Add by @author vuna2
-   * @param cookies: Set of cookies (browsers)
-   * @param handlesBefore: handle the current browser
-   */
-  public static void backToPreviousBrowser(Set<Cookie> cookies, String handlesBefore){
-	driver.manage().deleteAllCookies();
+	 public static Set<Cookie> getBrowserCookies(){
+	    Set<Cookie> cookies = driver.manage().getCookies();
+	    driver.manage().deleteAllCookies();
+	    return cookies;
+	 }
 	  
-	//Add cookies back to previous browser 
-	setBrowserCookies(cookies);
+	 /**
+	  * Set cookies for current browser
+	  * @param cookies : Set of cookies
+	  */
+	 public static void setBrowserCookies(Set<Cookie> cookies){
+	    for(Cookie cookie : cookies){
+	      driver.manage().addCookie(cookie);
+	    }
+	 }
+	  
+	 /**
+	  * Add by @author vuna2
+	  * Open a new browser by Javascript
+	  */
+	 public static void openNewBrowser(){
+		//Open new browser by Javascript
+		//String handlesBefore = driver.getWindowHandle();
+		((JavascriptExecutor) driver).executeScript("window.open()");
+		//driver.manage().deleteAllCookies();
+		for(String winHandle : driver.getWindowHandles()){
+			driver.switchTo().window(winHandle);
+		}
+			driver.navigate().to(baseUrl);
+	 }
+	  
+	  /**
+	   * Add by @author vuna2
+	   * @param cookies: Set of cookies (browsers)
+	   * @param handlesBefore: handle the current browser
+	   */
+	  public static void backToPreviousBrowser(Set<Cookie> cookies, String handlesBefore){
+		  driver.manage().deleteAllCookies();
 	
-	//Switch back to previous browser    
-	driver.switchTo().window(handlesBefore); 
-  }
-
-	//Function to add data to frame
-	public static void inputDataToFrame (By framelocator, String data, boolean...validate){
+		//Add cookies back to previous browser
+		setBrowserCookies(cookies);
+		
+		//Switch back to previous browser
+		driver.switchTo().window(handlesBefore);
+	  }
+	
+	  //Function to add data to frame
+	  public static void inputDataToFrame (By framelocator, String data, boolean...validate){
 		try {
 			WebElement inputsummary = null;
 
@@ -783,10 +784,13 @@ public class PlatformBase extends TestBase {
 	 * Add by @author vuna2
 	 * @param previousWindowHandle: handle the previous (current) browser (String)
 	 */
-	public static void backToPreviousBrowser(String previousWindowHandle){
+	/*public static void backToPreviousBrowser(String previousWindowHandle){
 		// Close the popup window
 		driver.close(); 
 		// Switch back to previous window.
 		driver.switchTo().window(previousWindowHandle);
-	}	  
+	}*/	  
+	
+	/////////
+	//
 }

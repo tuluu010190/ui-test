@@ -20,7 +20,7 @@ import org.testng.annotations.Test;
  * Date: 15/11/2012
  */
 
-public class SOC_PEO_View_Profile extends SocialBase {
+public class SOC_PEO_ViewProfile extends SocialBase {
 
 	public static String userInfo = "//td/label[@for='${nameField}']/following::td[@class='FieldComponent' and contains(text(),'${userData}')]";
 

@@ -5,9 +5,11 @@ import static org.exoplatform.selenium.platform.ManageAccount.*;
 import static org.exoplatform.selenium.platform.ManageApplications.showImportApplication;
 import static org.exoplatform.selenium.platform.PageManagement.*;
 import java.awt.event.KeyEvent;
+import java.util.Set;
 
 import org.exoplatform.selenium.platform.ks.Answer;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -337,13 +339,14 @@ public class KS_Answers_BBC extends Answer{
 		click(By.linkText("Link effect"));
 
 		// Save the current window handle
+		Set<Cookie> cookies = getBrowserCookies();
 		String previousWindowHandle = driver.getWindowHandle(); 
 
 		switchToNewWindow();
 
 		captureScreen("FNC_KS_ANS_BBC_Case11_02");
 
-		backToPreviousBrowser(previousWindowHandle); 
+		backToPreviousBrowser(cookies, previousWindowHandle); 
 		//switchToParentWindow();
 
 		info("-- Reset a data --");
