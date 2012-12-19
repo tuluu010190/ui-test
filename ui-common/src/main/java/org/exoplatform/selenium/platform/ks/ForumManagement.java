@@ -90,15 +90,15 @@ public class ForumManagement extends ForumManageCategory {
 	public static void inputDataInModerOptionTab_addForum(int chooseUser, String[] userGroup, boolean autofill, String post, String topic, boolean thread){
 		info("Input data in Moderations Option tab");
 		click(ELEMENT_MODERATOR_TAB);
-		ForumBase.setPermissionWithOption("Moderator", chooseUser, userGroup);
 		WebElement checkauto = waitForAndGetElement(ELEMENT_FORUM_AUTO_FILL);
-		if ((autofill == true) && (checkauto.isSelected() == false)){
+		if ((autofill&& !checkauto.isSelected()) || (!autofill&& checkauto.isSelected())){
 			click(ELEMENT_FORUM_AUTO_FILL);
 		}
-		if (post != "" && post != null){
+		ForumBase.setPermissionWithOption("Moderator", chooseUser, userGroup);
+		if (post != null && post != ""){
 			type(ELEMENT_NOTIFY_ADD_POST, post, true);
 		}
-		if (topic != "" && topic != null){
+		if (topic != null && topic != ""){
 			type(ELEMENT_NOTIFY_ADD_TOPIC, topic, true);
 		}
 		if ((thread ==  true) && (waitForAndGetElement(ELEMENT_MODERATE_THREAD).isSelected() == false)){
@@ -138,9 +138,11 @@ public class ForumManagement extends ForumManageCategory {
 			ForumBase.setPermissionWithOption("Postable", setPermission, userstring);
 			ForumBase.setPermissionWithOption("Viewer", setPermission, userstring);
 		}
-		save();	
-		waitForElementPresent(FORUM);
-		info("Create forum successfully");
+		save();
+		if (user.length < 3 ){
+			waitForElementPresent(FORUM);
+			info("Create forum successfully");
+		}
 	}
 	
 	/**

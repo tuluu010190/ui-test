@@ -422,6 +422,7 @@ public class TopicManagement extends ForumManagement {
 
 		//add new topic
 		String[] user_topic = {};
+		goToStartTopic();
 		startTopic(topic, topic, "", "", "", "", "", "", 0, user_topic);
 		click(By.linkText(topic));
 	}

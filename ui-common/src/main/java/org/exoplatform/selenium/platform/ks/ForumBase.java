@@ -169,6 +169,7 @@ public class ForumBase extends KsBase {
 	public static By password = By.id("Passwd");
 	public static By signIn = By.id("signIn");
 	public static By inbox = By.xpath("//a[contains(@title, 'Inbox')]");
+	public static By ELEMENT_MAIL_CONTENT = By.xpath(".//*[@class='ii gt adP adO']/div");
 
 	/**function: select a user when set permission for a element
 	 * @author lientm
@@ -928,4 +929,27 @@ public class ForumBase extends KsBase {
 		save();
 	}
 
+	/** Function compare 2 paragraphs (compare in specific line)
+	 * @author lientm
+	 * @param temp: paragraphs 1
+	 * @param content: paragraphs 2
+	 */
+	public static void compareString(String[] temp, String[] content){
+		for (int i = 0; i < content.length; i ++){
+			info("String1: " + temp[i] + "--- String2: " + content[i]);
+			assert temp[i].contains(content[i]): "Fail! 2 Strings are different from each other"; 
+		}
+	}
+	
+	/**function check fomat of content mail
+	 * @author lientm
+	 * @param contentMail: content of mail (has '/' to separate paragraphs into lines)
+	 */
+	public static void checkContentMail(String contentMail){
+		String[] content = contentMail.split("/");
+		String[] temp = getText(ELEMENT_MAIL_CONTENT).split(System.getProperty("line.separator"));
+		
+		compareString(temp, content);
+		info("Email content is true");
+	}
 }
