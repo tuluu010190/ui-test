@@ -13,6 +13,7 @@
 
 	<properties>
 		<cargo.skip>false</cargo.skip>
+		<maven.test.skip>false</maven.test.skip>
 		<!-- <selenium.port>4444</selenium.port> -->
 		<!-- <servlet.port>18880</servlet.port> -->
 		<!-- <selenium.background>true</selenium.background> -->
@@ -77,9 +78,8 @@
 						<goals>
 							<goal>unpack</goal>
 						</goals>
-
 						<configuration>
-							<skip>${cargo.skip}</skip>
+							<skip>${cargo.skip}</skip> 
 							<artifactItems>
 								<artifactItem>
 									<groupId>org.exoplatform.platform</groupId>
@@ -91,7 +91,6 @@
 									<excludes>tomcat-bundle/bin/setenv.sh,tomcat-bundle/conf/server.xml</excludes>
 								</artifactItem>
 							</artifactItems>
-
 						</configuration>
 					</execution>
 				</executions>
@@ -176,7 +175,6 @@
 						to look them up in your settings.xml using ${settingsKey} -->
 					<settingsKey>sensibleKey</settingsKey>
 					<!-- all executions are ignored if -Dmaven.test.skip=true -->
-					<skip>${maven.test.skip}</skip>
 				</configuration>
 
 				<executions>
@@ -187,6 +185,7 @@
 							<goal>execute</goal>
 						</goals>
 						<configuration>
+							<skip>${cargo.skip}</skip>
 							<!-- need another database to drop the targeted one -->
 							<url>jdbc:mysql://localhost:3306/</url>
 							<autocommit>true</autocommit>
@@ -201,6 +200,7 @@
 							<goal>execute</goal>
 						</goals>
 						<configuration>
+							<skip>${cargo.skip}</skip>
 							<url>jdbc:mysql://localhost:3306/</url>
 							<autocommit>true</autocommit>
 							<sqlCommand>create database if not exists plf_data</sqlCommand>
