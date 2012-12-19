@@ -52,7 +52,7 @@ public class KS_Wiki_BasicAction_Move extends KsBase {
 
 		addPagePermission(0,user1);
 
-		editPagePermission("james", true);
+		editPagePermission("james", true, true);
 
 		movePage(PAGE_NAME1,PAGE_NAME2);
 

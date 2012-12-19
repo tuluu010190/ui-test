@@ -55,7 +55,7 @@ public class KS_Wiki_BasicAction_Intergration extends KsBase {
 
 		addBlankWikiPage(PAGE_NAME2, PAGE_NAME2, 0);
 
-		editWikiPage(PAGE_NAME2, "[[wiki1>>/spaces/space1.wiki1]]", 0);
+		editWikiPage(PAGE_NAME2, "[[wiki1>>/spaces/space1.wiki1]]", 0, false);
 
 		click(ELEMENT_PAGE1_LINK);
 

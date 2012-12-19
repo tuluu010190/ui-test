@@ -30,26 +30,32 @@ public class KsBase extends PlatformBase {
 	public static String CATEGORY_TITLE="faq";
 	public static By ELEMENT_UP_LEVEL=By.xpath("//a[@title='Up Level']");
 	public static By ELEMENT_FORUM_LINK = By.linkText("Forums");
-	public static By ELEMENT_WIKI_LINK=By.xpath("//a[text()='Wiki']");
+	public static By ELEMENT_WIKI_LINK=By.xpath("//a[text()='intranet']/..//a[text()='Wiki']");
 	public static By ELEMENT_ANSWER_LINK=By.linkText("Answer");
 	public static By ELEMENT_ANSWER_LINK_XPATH = By.xpath("//a[text()='Answer']");
 	public static String DATA_ANSWER_FAQ_PAGE_NAME="AnswerFAQ";
 
 	//set permission screen
-	public static String ELEMENT_USER_CHECKBOX = "//input[@id='${user}' and @type='checkbox']"; 
+	public static String ELEMENT_USER_CHECKBOX = "//*[text()='${user}']/../..//*[@type='checkbox']"; 
 	public static By ELEMENT_ADD_BUTTON = By.linkText("Add");
 	public static By ELEMENT_SELECT_THIS_GROUP = By.linkText("Select this Group");
 	public static By ELEMENT_SEARCH_ICON=By.xpath("//a[@title='Quick Search']");
 	public static By ELEMENT_SELECT_ROLE_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Select a role']");
 	public static By ELEMENT_SELECT_GROUP_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Select a group']");
-
+	public static By ELEMENT_SEARCH_USER_INPUT = By.id("QuickSearch");
+	public static By ELEMENT_QUICK_SEARCH_BUTTON = By.xpath("//a[@title='Quick Search']");
+	public static By ELEMENT_SELECT_SEARCH = By.id("filter");
+	
 	//attach file popup
 	public static By ELEMENT_POPUP_UPLOAD_FILE = By.xpath("//span[@class='PopupTitle' and text()='Attach File']");
 	public static By ELEMENT_ATTACH_FILE = By.linkText("Attach files");
 	public static String ELEMENT_UPLOAD_FILE = "//*[contains(@id, 'UploadInputContainer')][${No}]/div/input[@name='file']";
 
 	public static final String MSG_SAVE_ANSWER_PORTLET_SETTING="The settings have been saved.";
-
+	
+	//user admin
+	public static String DATA_USER_ADMIN = "john";
+	public static String DATA_PASS_ADMIN = "gtn";
 
 	/**
 	 * Create answer page at root path
@@ -222,19 +228,43 @@ public class KsBase extends PlatformBase {
 	 * @param element: id of element need set permission
 	 * @param user: user that needs to set permission
 	 */
-	public static void selectUserPermission(String user){
-		//By ELEMENT_SELECT_USER = By.xpath(ELEMENT_SELECT_USER_ICON.replace("${element}", element));
-		By ELEMENT_USER = By.xpath(ELEMENT_USER_CHECKBOX.replace("${user}", user));
-
-		//waitForElementPresent(ELEMENT_SELECT_USER);
-		//click(ELEMENT_SELECT_USER);
-		waitForElementPresent(ELEMENT_USER);
-		if (waitForAndGetElement(ELEMENT_USER, 10000, 0).isSelected() == false){
-			click(ELEMENT_USER);
+	public static void selectUserPermission(String user, int...type){
+		String[] temp = user.split("/");
+		if (temp.length > 0){
+			for (int i = 0; i < temp.length; i ++){
+				By ELEMENT_USER = By.xpath(ELEMENT_USER_CHECKBOX.replace("${user}", temp[i]));
+				By ELEMENT_FIRST = By.xpath("//*[@id='UIListUsers']/tbody/tr[2]/td/*[text()='" + temp[i] + "']");
+				By ELEMENT_SECOND = By.xpath("//*[@id='UIListUsers']/tbody/tr[3]");
+				if (type.length > i){
+					type(ELEMENT_SEARCH_USER_INPUT, user, true);
+					switch (type[i]){
+					case 1:
+						select(ELEMENT_SELECT_SEARCH, "Username");
+						break;
+					case 2:	
+						select(ELEMENT_SELECT_SEARCH, "First Name");
+						break;
+					case 3:	
+						select(ELEMENT_SELECT_SEARCH, "Last Name");
+						break;
+					case 4:	
+						select(ELEMENT_SELECT_SEARCH, "Email Name");
+						break;
+					default:
+						break;
+					}
+					click(ELEMENT_QUICK_SEARCH_BUTTON);
+					waitForElementPresent(ELEMENT_FIRST);
+					waitForElementNotPresent(ELEMENT_SECOND);
+				}
+				waitForElementPresent(ELEMENT_USER);
+				if (waitForAndGetElement(ELEMENT_USER, 10000, 0).isSelected() == false){
+					click(ELEMENT_USER);
+				}
+			}
 		}
 		click(ELEMENT_ADD_BUTTON);
 		waitForElementNotPresent(ELEMENT_SEARCH_ICON);
-		//waitForTextPresent(user);
 	}
 
 	/**function: select a group when set permission

@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.ManageAccount.signOut;
 import static org.exoplatform.selenium.platform.social.ManageMember.userSignIn;
 import org.exoplatform.selenium.platform.social.ManageMember.userType;
+import static org.exoplatform.selenium.platform.social.SocialBase.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -85,6 +86,7 @@ public class Wiki extends KsBase {
 	public static final String ELEMENT_EDIT_PAGE_PERMISSIONS = "//*[contains(@title, '${user}')]/../..//*[@title='Edit Pages']";
 	public static final String ELEMENT_VIEW_PAGE_PERMISSIONS = "//*[contains(@title, '${user}')]/../..//*[@title='View Pages']";
 	public static final String ELEMENT_DELETE_PERMISSIONS = "//*[contains(@title, '${user}')]/../..//*[@class='DeleteUserIcon']";
+	public static final By ELEMENT_PAGE_PERMISSION_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Page Permissions']");
 	
 	/*----------------------Browse/Space setting/ add, edit, delete template-----------------*/
 	public static final By ELEMENT_TEMPLATE_LINK = By.linkText("Template");
@@ -104,12 +106,12 @@ public class Wiki extends KsBase {
 	/*------------------------Browser/Space setting/ Permission space------------------------*/
 	public static final By ELEMENT_PERMISSION_LINK=By.linkText("Permission");
 	public static final String MSG_PERMISSION_SAVE = "The permission setting has been saved successfully.";
-	public static final String ELEMENT_EDIT_PAGE_CHECK = "//tr/td/div[@title='{$user}']/../../td/input[@title='Edit Pages']";
-	public static final String ELEMENT_VIEW_PAGE_CHECK = "//tr/td/div[@title='{$user}']/../../td/input[@title='View Pages']";
+	public static final String ELEMENT_EDIT_PAGE_CHECK = "//tr/td/div[contains(@title,'{$user}')]/../../td/input[@title='Edit Pages']";
+	public static final String ELEMENT_VIEW_PAGE_CHECK = "//tr/td/div[contains(@title,'{$user}')]/../../td/input[@title='View Pages']";
 	public static final String ELEMENT_ADMIN_PAGE_CHECK = "//tr/td/div[@title='{$user}']/../../td/input[@title='Admin Pages']";
 	public static final String ELEMENT_ADMIN_SPACE_CHECK = "//tr/td/div[@title='{$user}']/../../td/input[@title='Admin Space']";
 	public static final String ELEMENT_VIEW_SPACE_CHECK = "//tr/td/div[@title='{$user}']/../../td/input[@title='View Pages']";
-	public static final String ELEMENT_DELETE_PERMISSION = "//tr/td/div[@title='{$user}']/../../td/div/img[@alt='Delete permission']";
+	public static final String ELEMENT_DELETE_PERMISSION = "//tr/td/div[contains(@title,'{$user}')]/../../td/div/img[@alt='Delete permission']";
 
 	/*-------------------------Page information area---------------------------*/
 	public static final By ELEMENT_COMPARE_TEXT = By.xpath("//div[contains(text(),'Compared With')]");
@@ -134,6 +136,12 @@ public class Wiki extends KsBase {
 	public static final String ELEMENT_CURRENT_VERSION = "//a[@title='View Revision' and text()='CURRENT (v. ${version})']";
 	public static final By ELEMENT_DISABLE_COMPARE_BUTTON = By.xpath("//a[contains(@class, 'DisableButton') and text()='Compare Selected']");
 
+	
+	/*------------------------My spaces/space----------------------------------*/
+	public static final String ELEMENT_SPACE_WIKI = "//a[text()='${spaceName}']/..//a[text()='Wiki']";
+	public static final By ELEMENT_TITLE_WIKI_HOME = By.xpath("//span[@id='TitleInfo' and text()='Wiki Home']");
+	public static final By ELEMENT_WIKI_TAB = By.xpath("//a[@class='ApplicationAdd' and text()='Wiki']");
+	
 	/**
 	 * Go to add blank wiki page
 	 * @author hakt
@@ -626,6 +634,7 @@ public class Wiki extends KsBase {
 		mouseOver(ELEMENT_MORE_LINK, true);
 
 		mouseOverAndClick(ELEMENT_PAGE_PERMISSION_LINK);
+		waitForElementPresent(ELEMENT_PAGE_PERMISSION_POPUP);
 	}
 
 	/** Edit permission for wiki's page
@@ -1129,55 +1138,20 @@ public class Wiki extends KsBase {
 
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
 	}
-
-	/** Edit permission for wiki's page
-	 * @author HangNTT
-	 * @param user: username
-	 * @param edit: true , then this user/group have edit permission and vice versa
+	
+	/** function go to Wiki page of a Space
+	 * @author lientm
+	 * @param spaceName
 	 */
-	public static void editPagePermission(String user,boolean edit){
-		By EditPage = By.xpath(ELEMENT_EDIT_PAGE_CHECK.replace("{$user}", user));
-
-		mouseOver(ELEMENT_MORE_LINK, true);
-		mouseOverAndClick(ELEMENT_PAGE_PERMISSION_LINK);
-		info("--Add space permission--");
-
-		if (edit){
-			if(!waitForAndGetElement(EditPage).isSelected()){
-				click(EditPage);
-			}
-		}
-		save();
-	}
-
-	/** Edit a wiki page
-	 * @author thuntn
-	 * @param title
-	 * @param content
-	 * @param mode =0 : edit a wiki page in source editor
-	 * mode =1: edit a wiki page in richtext
-	 * If you don't want to edit any field, you can pass null value to the respective parameter
-	 */
-	public static void editWikiPage(String title, String content, int mode)
-	{
-		info("--Edit a wiki page--");
-
-		click(ELEMENT_EDIT_PAGE_LINK);
-		if (title != null)
-			type(ELEMENT_TITLE_WIKI_INPUT,title,true);
-		if (content != null)
-			if(mode == 0){
-				type(ELEMENT_CONTENT_WIKI_INPUT,content,true);
-
-			}
-			else{
-				click(ELEMENT_RICHTEXT_BUTTON);
-				inputDataToFrame(ELEMENT_CONTENT_WIKI_FRAME, content, true);
-				driver.switchTo().defaultContent();
-
-			}
-		save();
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
+	public static void goToWikiFromSpace(String spaceName){
+		By element_space = By.linkText(spaceName);
+		By element_wiki = By.xpath(ELEMENT_SPACE_WIKI.replace("${spaceName}", spaceName));
+		
+		info("Go to wiki page of space " + spaceName);
+		mouseOver(ELEMENT_MY_SPACES_LINK, true);
+		mouseOver(element_space, true);
+		mouseOverAndClick(element_wiki);
+		waitForElementPresent(ELEMENT_TITLE_WIKI_HOME);
 	}
 	/**
 	 * @author thaopth
