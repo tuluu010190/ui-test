@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ManageAccount extends PlatformBase {
 
@@ -21,7 +22,9 @@ public class ManageAccount extends PlatformBase {
 	//Sign-in function for eXoGTN
 	public static void signIn(String username, String password) {
 		info("--Sign in as " + username + "--");
-		click(ELEMENT_GO_TO_PORTAL);
+		if (isElementPresent(ELEMENT_GO_TO_PORTAL) ){
+			click(ELEMENT_GO_TO_PORTAL);		
+		}
 		click(ELEMENT_SIGN_IN_LINK);
 		type(ELEMENT_INPUT_USERNAME, username, true);
 		type(ELEMENT_INPUT_PASSWORD, password, true);
@@ -34,6 +37,9 @@ public class ManageAccount extends PlatformBase {
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		click(ELEMENT_SIGN_OUT_LINK);
 		pause(500);
+		if ( ExpectedConditions.alertIsPresent() != null ){
+			acceptAlert();
+		}
 		driver.get(baseUrl);
 	}
 

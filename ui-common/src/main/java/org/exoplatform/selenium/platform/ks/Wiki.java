@@ -132,8 +132,8 @@ public class Wiki extends KsBase {
 	public static final String MSG_PERMISSION_SAVE = "The permission setting has been saved successfully.";
 	public static final String ELEMENT_EDIT_PAGE_CHECK = "//tr/td/div[contains(@title,'{$user}')]/../../td/input[@title='Edit Pages']";
 	public static final String ELEMENT_VIEW_PAGE_CHECK = "//tr/td/div[contains(@title,'{$user}')]/../../td/input[@title='View Pages']";
-	public static final String ELEMENT_ADMIN_PAGE_CHECK = "//tr/td/div[@title='{$user}']/../../td/input[@title='Admin Pages']";
-	public static final String ELEMENT_ADMIN_SPACE_CHECK = "//tr/td/div[@title='{$user}']/../../td/input[@title='Admin Space']";
+	public static final String ELEMENT_ADMIN_PAGE_CHECK = "//tr/td/div[contains(@title,'{$user}')]/../../td/input[@title='Admin Pages']";
+	public static final String ELEMENT_ADMIN_SPACE_CHECK = "//tr/td/div[contains(@title,'{$user}')]/../../td/input[@title='Admin Space']";
 	public static final String ELEMENT_VIEW_SPACE_CHECK = "//tr/td/div[@title='{$user}']/../../td/input[@title='View Pages']";
 	public static final String ELEMENT_DELETE_PERMISSION = "//tr/td/div[contains(@title,'{$user}')]/../../td/div/img[@alt='Delete permission']";
 
@@ -684,9 +684,9 @@ public class Wiki extends KsBase {
 	 */
 	public static void editPagePermission(String user,boolean edit,boolean viewPage){
 
-		By EditPage = By.xpath(ELEMENT_EDIT_PAGE_CHECK.replace("{$user}", user));
+		By EditPage = By.xpath(ELEMENT_EDIT_PAGE_PERMISSIONS.replace("{$user}", user));
 
-		By ViewPage = By.xpath(ELEMENT_VIEW_PAGE_CHECK.replace("{$user}", user));
+		By ViewPage = By.xpath(ELEMENT_VIEW_PAGE_PERMISSIONS.replace("{$user}", user));
 
 		goToPagePermission();
 
@@ -914,6 +914,8 @@ public class Wiki extends KsBase {
 		mouseOver(ELEMENT_BROWSE_LINK,true);
 		mouseOverAndClick(ELEMENT_SPACE_SETTING_LINK);
 		click(ELEMENT_PERMISSION_LINK);
+		pause(1000);
+		waitForElementPresent(ELEMENT_SELECT_USER);
 	}
 
 	/** Attach a file
@@ -1066,6 +1068,7 @@ public class Wiki extends KsBase {
 		save();
 		waitForMessage(MSG_PERMISSION_SAVE);
 		closeMessageDialog();
+		pause(1000);
 	}
 	/** Edit a space permission for an user, or a group
 	 * @author thuntn
@@ -1076,11 +1079,15 @@ public class Wiki extends KsBase {
 	 * @param adminSpace: true , then this user/group have admin space permission and vice versa
 	 */
 	public static void editSpacePermission(String userGroup,boolean view,boolean edit, boolean adminPage, boolean adminSpace){
-		By bEditPage = By.xpath(ELEMENT_EDIT_PAGE_CHECK.replace("{$user}", userGroup));
-		By bAdminPage = By.xpath(ELEMENT_ADMIN_PAGE_CHECK.replace("{$user}", userGroup));
+		//By bEditPage = By.xpath(ELEMENT_EDIT_PAGE_CHECK.replace("{$user}", userGroup));
+		By bEditPage = By.xpath(ELEMENT_EDIT_PAGE_PERMISSIONS.replace("${user}", userGroup));
+		By bAdminPage = By.xpath(ELEMENT_ADMIN_PAGE_CHECK.replace("{$user}", userGroup));		
 		By bAdminSpace = By.xpath(ELEMENT_ADMIN_SPACE_CHECK.replace("{$user}", userGroup));
-		By bViewSpace = By.xpath(ELEMENT_VIEW_SPACE_CHECK.replace("{$user}", userGroup));
-
+		//By bViewSpace = By.xpath(ELEMENT_VIEW_SPACE_CHECK.replace("{$user}", userGroup));
+		By bViewSpace = By.xpath(ELEMENT_VIEW_PAGE_PERMISSIONS.replace("${user}", userGroup));
+		
+		goToSpacePermission();
+		
 		info("--Add space permission--");
 
 		if (view){
@@ -1120,7 +1127,9 @@ public class Wiki extends KsBase {
 		save();
 		waitForMessage(MSG_PERMISSION_SAVE);
 		closeMessageDialog();
+		waitForTextNotPresent(MSG_PERMISSION_SAVE);
 	}
+	
 	/** Delete a space permission for an user, or a group
 	 * @author thuntn
 	 * @param userGroup: username or group, or membership. eg: "*:/platform/users"
@@ -1138,7 +1147,8 @@ public class Wiki extends KsBase {
 		save();
 		waitForMessage(MSG_PERMISSION_SAVE);
 		closeMessageDialog();
-
+		waitForElementNotPresent(bDelete);
+		pause(1000);
 	}
 
 	/** Delete permission for an user
@@ -1160,6 +1170,55 @@ public class Wiki extends KsBase {
 
 		save();
 
+		pause(1000);
+	}
+
+	/**
+	* @author HangNTT
+	* @param pageOrSpace: boolean type[0]: gotoPage, type[1]: gotoSpace
+	* @param type: boolean type[0]: viewPage, type[1]: editPage, type[2]: adminPage, type[3]: adminSpace
+	* @param username
+	*/
+	public static void verifyPermissions(boolean[] pageOrSpace, boolean[] type, String username){	
+		if (pageOrSpace[0]){
+			goToPagePermission();
+		}else if (pageOrSpace[1]){
+			goToSpacePermission();
+		}
+		
+		if ( type[0]) {
+			info("Message: check view page permission is checked");
+			waitForAndGetElement(ELEMENT_VIEW_PAGE_PERMISSIONS.replace("${user}", username)).isSelected();
+		}else if (!type[0]){
+			info("Message: check view page permission is un-checked");
+			waitForAndGetElementNotDisplay(ELEMENT_VIEW_PAGE_PERMISSIONS.replace("${user}", username)).isSelected();	
+		}
+	
+		if ( type[1]) {
+			info("Message: Check edit permission is checked");
+			waitForAndGetElement(ELEMENT_EDIT_PAGE_PERMISSIONS.replace("${user}", username)).isSelected();
+		}else if (!type[1]){
+			info("Message: Check edit permission is un-checked");
+			waitForAndGetElementNotDisplay(ELEMENT_EDIT_PAGE_PERMISSIONS.replace("${user}", username)).isSelected();	
+		}
+	
+		if ( type.length > 2 && type[2]){
+			info("Messgage: Check admin page is checked");
+			waitForAndGetElement(ELEMENT_ADMIN_PAGE_CHECK.replace("${user}", username)).isSelected();
+		}else if (type.length > 2 && !type[2]){
+			info("Message: Check admin page is un-checked");
+			waitForAndGetElementNotDisplay(ELEMENT_ADMIN_PAGE_CHECK.replace("${user}", username)).isSelected();
+		}
+	
+		if ( type.length > 2 && type[3]){
+			info("Messgage: Check admin space is checked");
+			waitForAndGetElement(ELEMENT_ADMIN_SPACE_CHECK.replace("${user}", username)).isSelected();
+		}else if (type.length > 2 && !type[3]){
+			info("Message: Check admin space is un-checked");
+			waitForAndGetElementNotDisplay(ELEMENT_ADMIN_SPACE_CHECK.replace("${user}", username)).isSelected();
+		}
+		close();
+		pause(1000);
 	}
 
 	/**
