@@ -120,9 +120,13 @@ public class Wiki extends KsBase {
 	public static final String ELEMENT_VERIFY_LINK_EFFECT = "//a[@href='${TEMPLATE_CONTENT}']//span[text()='${TEMPLATE_CONTENT}']";
 	//	Template link
 	public static final String ELEMENT_NEW_TEMPLATE_LINK="//div[@class='Text' and text()='${TEMPLATE_TITLE}']";
+	public static final String ELEMENT_OLD_TEMPLATE_LINK="//div[@class='Text' and text()='${OLD_TEMPLATE_TITLE}']";
+	
 //	 Verify Search with no result
 	public static final String ELEMENT_EMPTY_DATA="//td[contains(text(),'Empty Data')]";
 
+	// Verify Page content
+	public static final String ELEMENT_VERIFY_PAGE_CONTENT="//div[@class='WikiContent']//p[text()='${TEMPLATE_CONTENT}']";
 	/*------------------------Browser/Space setting/ Permission space------------------------*/
 	public static final By ELEMENT_PERMISSION_LINK=By.linkText("Permission");
 	public static final String MSG_PERMISSION_SAVE = "The permission setting has been saved successfully.";
@@ -871,9 +875,9 @@ public class Wiki extends KsBase {
 		if (title != null)
 			type(ELEMENT_TITLE_TEMPLATE_INPUT,title,true);
 		if (description != null)
-			type(ELEMENT_DESC_TEMPLATE_INPUT,null,true);
+			type(ELEMENT_DESC_TEMPLATE_INPUT,description,true);
 		if (content != null)
-			type(ELEMENT_CONTENT_TEMPLATE_INPUT,null,true);
+			type(ELEMENT_CONTENT_TEMPLATE_INPUT,content,true);
 		click(ELEMENT_SAVE_TEMPLATE_INPUT);
 
 		waitForElementNotPresent(ELEMENT_SAVE_TEMPLATE_INPUT);
