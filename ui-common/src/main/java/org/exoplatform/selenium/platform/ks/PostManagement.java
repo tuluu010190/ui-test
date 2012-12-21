@@ -25,7 +25,9 @@ public class PostManagement extends TopicManagement{
 	
 	//--------------quick reply form-----------------------------------------------------------
 	public static By ELEMENT_POST_QUICK_MESSAGE = By.id("Message");
+	public static By ELEMENT_PREVIEW_BUTTON = By.linkText("Preview");
 	public static By ELEMENT_POST_QUICK_BUTTON = By.linkText("Quick Reply");
+	public static By ELEMENT_POST_PREVIEW_POPUP = By.xpath("//span[@class='PopupTitle' and text()='ViewPost']");
 	
 	//--------------edit post screen-----------------------------------------------------------
 	public static By ELEMENT_POST_POPUP_EDIT = By.xpath("//span[@class='PopupTitle' and text()='Edit Post']");
@@ -68,15 +70,42 @@ public class PostManagement extends TopicManagement{
 		waitForElementNotPresent(ELEMENT_POST_POPUP_NEW);
 		info("Post reply successfully");
 	}
-	
-	/** function: quick add new Reply
+	/** function: quick and review add new Reply
 	 * @author lientm
 	 * @param message: content of reply
 	 */
 	public static void quickReply(String message){
 		type(ELEMENT_POST_QUICK_MESSAGE, message, true);
+		click(ELEMENT_PREVIEW_BUTTON);
+		captureScreen(message);
+		click(ELEMENT_CLOSE_BUTTON);
 		click(ELEMENT_POST_QUICK_BUTTON);
 		info("Quick reply successfully");
+	}
+	
+	/** function:  Review add new Reply
+	 * @author lientm
+	 * @param message: review content of reply
+	 */
+	
+	public static void quickReplyAndPreview(String message, By...view){
+		type(ELEMENT_POST_QUICK_MESSAGE, message, true);
+		click(ELEMENT_PREVIEW_BUTTON);
+		if (view.length > 0){
+			waitForElementPresent(ELEMENT_POST_PREVIEW_POPUP); 
+			for (int i = 0; i < view.length; i ++){
+				waitForElementPresent(view[i]); 
+			}
+			click(ELEMENT_CLOSE_BUTTON); 
+			waitForElementNotPresent(ELEMENT_POST_PREVIEW_POPUP);
+		}
+		click(ELEMENT_POST_QUICK_BUTTON);
+		if (view.length > 0){
+			for (int j = 0; j < view.length; j ++){
+				waitForElementPresent(view[j]); 
+			}
+			info("Quick reply successfully");
+		}
 	}
 	
 	/** function: Edit a Post
