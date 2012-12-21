@@ -104,7 +104,7 @@ public class EcmsBase extends PlatformBase {
 	public static final By ELEMENT_INPUT_CATEGORY_NAME = By.id("name");
 
 	//For symlink
-	public static final By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
+	public static final By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator' and contains(@style, 'visible')]");
 	public static final By ELEMENT_MESSAGE = By.xpath("//span[@class='PopupIcon WarningMessageIcon']");
 	public static final By ELEMENT_ADD_SYMLINK_POPUP = By.id("UIPopupWindow");
 	public static final By ELEMENT_PATH_NODE = By.id("pathNode0");

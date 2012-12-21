@@ -33,6 +33,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.ErrorHandler.UnknownServerException;
@@ -701,5 +702,19 @@ public class TestBase {
 		}
 	}
 	//////
+	/** function: set driver to auto save file to TestData/TestOutput
+	 * @author lientm
+	 */
+	public static void getDriverAutoSave(){
+		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
 
+		FirefoxProfile fp = new FirefoxProfile();		
+		fp.setPreference("browser.download.folderList", 2);
+		info("Save file to " + pathFile);
+		fp.setPreference("browser.download.dir", pathFile);
+		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;application/x-zip;application/x-zip-compressed;application/octet-stream;application/zip;application/pdf;application/msword;text/plain;application/octet");
+		driver = new FirefoxDriver(fp);
+		baseUrl = System.getProperty("baseUrl");
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+	}
 }

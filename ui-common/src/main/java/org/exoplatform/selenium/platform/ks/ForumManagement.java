@@ -14,6 +14,8 @@ public class ForumManagement extends ForumManageCategory {
 	public static By ELEMENT_MOVE_FORUM = By.xpath("//a[@class='ItemIcon MoveForumIcon' and text()='Move']");
 	public static By ELEMENT_START_TOPIC = By.xpath("//a[@class='ItemIcon PostnewThreadIcon' and contains(text(),'Start Topic')]");
 	public static By ELEMENT_CENSOR_TOPIC = By.xpath("//a[@class='ItemIcon SetUnWaiting' and text()='Censor ']");
+	public static By ELEMENT_MODERATOR_PANEL = By.xpath("//*[@id='uicomponent.id' and @class='UIForumModerator']");
+	public static By ELEMENT_RULE_PANEL = By.id("UIPostRules");
 	
 	//-------------------add forum form---------------------------------------------------
 	public static By ELEMENT_POPUP_ADD_FORUM = By.xpath("//span[@class='PopupTitle' and text()='Forum']");

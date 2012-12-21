@@ -4,12 +4,12 @@ import java.io.File;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.testng.Assert;
 
 import static org.exoplatform.selenium.TestLogger.info;
+import static org.exoplatform.selenium.platform.NavigationToolbar.goToEditPageEditor;
 import static org.exoplatform.selenium.platform.UserGroupManagement.selectGroup;
+import static org.exoplatform.selenium.platform.ecms.EcmsBase.checkAlertInfo;
 
 public class ForumBase extends KsBase {	
 	//-----------------Forum Home screen--------------------------------------------
@@ -33,7 +33,8 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_IMPORT = By.xpath("//span[text()='Import']");
 	public static By ELEMENT_EXPORT_CATEGORY = By.xpath("//span[text()='Export']");
 	public static By ELEMENT_EXPORT_FORUM = By.linkText("Export Forum");
-	//	public static By ELEMENT_SETTING = By.linkText("Settings");
+	public static By ELEMENT_LEGEN_PANEL = By.id("UIForumIconState");
+	public static By ELEMENT_STATISTIC_PANEL = By.xpath("//*[text()='Forums Statistics']");
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public static By ELEMENT_WATCH_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Messages']");
@@ -132,7 +133,7 @@ public class ForumBase extends KsBase {
 
 	//--------------------Profile setting form------------------------------------
 	public static By ELEMENT_SETTING = By.linkText("Settings");
-	//	public static By ELEMENT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Settings']");
+	
 	//-----------------Setting form---------------------------------------------------
 	public static By ELEMENT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Settings']");
 	public static String ELEMENT_SETTING_EMAIL_CHECKBOX = "//a[contains(text(), '${forum}')]/../../../*//input[contains(@id, 'EMAILforum')]"; 
@@ -160,6 +161,19 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_NOTIFY_MOVE_TAB = By.xpath("//a[contains(text(),'Moved Notification')]");
 	public static By ELEMENT_NOTIFY_MOVE_RESET = By.xpath("//div[@id='notifyEmailMoveTab']//img[@title='Reset']");
 
+	//--------------------------Forum portlet setting form------------------------------------
+	public static By ELEMENT_FORUM_PORTLET = By.xpath("//*[@class='CPortletLayoutDecorator' and contains(text(), 'Forum Portlet')]");
+	public static By ELEMENT_FORUM_PORTLET_EDIT_ICON = By.xpath("//div[text()='Forum Portlet']/../a[@class='EditIcon']");
+	public static By ELEMENT_FORUM_PORTLET_EDITMODE_TAB = By.xpath("//div[@class='MiddleTab' and text()='Edit Mode']");
+	public static By ELEMENT_FORUM_PORTLET_PANEL_TAB = By.linkText("Panels");
+	public static By ELEMENT_SHOW_FORUM_JUMP_CHECKBOX = By.id("isShowForumJump");
+	public static By ELEMENT_SHOW_MODERATOR_CHECKBOX = By.id("isShowModerator");
+	public static By ELEMENT_SHOW_POLL_CHECKBOX = By.id("IsShowPoll");
+	public static By ELEMENT_SHOW_QUICK_REPLY_CHECKBOX = By.id("isShowQuickReply");
+	public static By ELEMENT_SHOW_ICON_LEGEND_CHECKBOX = By.id("isShowIconsLegend");
+	public static By ELEMENT_SHOW_RULE_CHECKBOX = By.id("isShowRules");
+	public static By ELEMENT_SHOW_STATISTIC_CHECKBOX = By.id("isShowStatistic");
+	
 	//----------------------Gmail form ---------------------------------------------------
 	public static String WEB_MAIL = "https://mail.google.com";
 	public static String MAIL_ADDRESS = "exomailtest01@gmail.com";
@@ -727,22 +741,6 @@ public class ForumBase extends KsBase {
 		}	
 	}
 
-	/** function: set driver to auto save file to TestData/TestOutput
-	 * @author lientm
-	 */
-	public static void getDriverAutoSave(){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
-
-		FirefoxProfile fp = new FirefoxProfile();		
-		fp.setPreference("browser.download.folderList", 2);
-		info("Save file to " + pathFile);
-		fp.setPreference("browser.download.dir", pathFile);
-		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;application/x-zip;application/x-zip-compressed;application/octet-stream;application/zip;application/pdf;application/msword;text/plain;application/octet");
-		driver = new FirefoxDriver(fp);
-		baseUrl = System.getProperty("baseUrl");
-		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
-	}
-
 	/**
 	 * function: check a file existed in folder
 	 * @author lientm
@@ -951,5 +949,138 @@ public class ForumBase extends KsBase {
 		
 		compareString(temp, content);
 		info("Email content is true");
+	}
+	
+	/**Function go to Edit Forum portlet. Click edit forum portlet
+	 * @author lientm
+	 */
+	public static void goToEditForumPortlet(){
+		info("Go to edit forum portlet");
+		mouseOver(ELEMENT_FORUM_PORTLET, true);
+		click(ELEMENT_FORUM_PORTLET_EDIT_ICON);
+		waitForElementPresent(ELEMENT_FORUM_PORTLET_EDITMODE_TAB);
+	}
+	
+	/**function save setting for Forum portlet
+	 * @author lientm
+	 */
+	public static void saveForumPortletSetting(){
+		String MESSAGE_SAVE_SETTING_PORTLET = "Your portlet settings have been saved.";
+		
+		save();
+		checkAlertInfo(MESSAGE_SAVE_SETTING_PORTLET);
+		close();
+		waitForElementNotPresent(ELEMENT_FORUM_PORTLET_EDITMODE_TAB);
+		click(ELEMENT_PAGE_EDIT_FINISH);
+		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH);
+	}
+	
+	/**function: setting dispaly panel in Forum portlet setting (go to edit page -> edit forum portlet -> select panel -> save)
+	 * @author lientm
+	 * @param show: refer function selectPanel()
+	 */
+	public static void settingForumPortletPanel(boolean... show){
+		goToEditPageEditor();
+		goToEditForumPortlet();
+		selectPanel(show);
+		saveForumPortletSetting();
+	}
+	
+	/**function: select show/hire category/forum (go to edit page -> edit forum portlet setting -> setting -> save
+	 * @author lientm
+	 * @param itemName: refer selectDisplayCategoryAndForum()
+	 * @param isCategory: refer selectDisplayCategoryAndForum()
+	 * @param display: refer selectDisplayCategoryAndForum()
+	 */
+	public static void settingForumPortletSelectDisplay(String itemName, boolean isCategory, boolean display){
+		goToEditPageEditor();
+		goToEditForumPortlet();
+		selectDisplayCategoryAndForum(itemName, isCategory, display);
+		saveForumPortletSetting();
+	}
+	
+	/**Function select option show panels in forum portlet setting
+	 * @author lientm
+	 * @param show: array option to show panels
+	 *        show[0]: show Jump to
+	 *        show[1]: show moderator
+	 *        show[2]: show poll
+	 *        show[3]: show quick reply
+	 *        show[4]: show legend icon reply
+	 *        show[5]: show rule panel
+	 *        show[6]: show statistic panel
+	 */
+	public static void selectPanel(boolean... show){
+		if (show.length > 0){
+			click(ELEMENT_FORUM_PORTLET_PANEL_TAB);
+			WebElement jump = waitForAndGetElement(ELEMENT_SHOW_FORUM_JUMP_CHECKBOX);
+			if ((show[0] && !jump.isSelected()) || (!show[0] && jump.isSelected())){
+				click(ELEMENT_SHOW_FORUM_JUMP_CHECKBOX);
+			}
+		}
+		if (show.length > 1){
+			WebElement moderator = waitForAndGetElement(ELEMENT_SHOW_MODERATOR_CHECKBOX);
+			if ((show[1] && !moderator.isSelected()) || (!show[1] && moderator.isSelected())){
+				click(ELEMENT_SHOW_MODERATOR_CHECKBOX);
+			}
+		}
+		if (show.length > 2){
+			WebElement poll = waitForAndGetElement(ELEMENT_SHOW_POLL_CHECKBOX);
+			if ((show[2] && !poll.isSelected()) || (!show[2] && poll.isSelected())){
+				click(ELEMENT_SHOW_POLL_CHECKBOX);
+			}
+		}
+		if (show.length > 3){
+			WebElement reply = waitForAndGetElement(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX);
+			if ((show[3] && !reply.isSelected()) || (!show[3] && reply.isSelected())){
+				click(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX);
+			}
+		}
+		if (show.length > 4){
+			WebElement legend = waitForAndGetElement(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX);
+			if ((show[4] && !legend.isSelected()) || (!show[4] && legend.isSelected())){
+				click(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX);
+			}
+		}
+		if (show.length > 5){
+			WebElement rule = waitForAndGetElement(ELEMENT_SHOW_RULE_CHECKBOX);
+			if ((show[5] && !rule.isSelected()) || (!show[5] && rule.isSelected())){
+				click(ELEMENT_SHOW_RULE_CHECKBOX);
+			}
+		}
+		if (show.length > 6){
+			WebElement statistic = waitForAndGetElement(ELEMENT_SHOW_STATISTIC_CHECKBOX);
+			if ((show[6] && !statistic.isSelected()) || (!show[6] && statistic.isSelected())){
+				click(ELEMENT_SHOW_STATISTIC_CHECKBOX);
+			}
+		}
+	}
+	/**Function check or uncheck Category or forum in Forum portlet setting
+	 * @author lientm
+	 * @param itemName: name of category/forum
+	 * @param isCategory: = true: category
+	 * 					  = false: forum
+	 * @param display: = true: check to display
+	 * 				   = false: uncheck
+	 */
+	public static void selectDisplayCategoryAndForum(String itemName, boolean isCategory, boolean display){
+		By category_checkbox = By.xpath("//*[text()='" + itemName + "']/../../../*[@class='ParentCheckBox']/input");
+		By forum_checkbox = By.xpath("//*[text()='" + itemName + "']/../..//input[@type='checkbox']");
+		By element_category = By.xpath("//*[text()='" + itemName + "']/../../../../div[@class='NodeLabel']//a");
+		
+		if (isCategory){
+			WebElement category = waitForAndGetElement(category_checkbox);
+			if ((display && !category.isSelected()) || (!display && category.isSelected())){
+				click(category_checkbox);
+			}
+		}else {
+			if (waitForAndGetElement(forum_checkbox, 3000, 0) == null){
+				click(element_category);
+			}
+			WebElement forum = waitForAndGetElement(forum_checkbox);
+			if ((display && !forum.isSelected()) || (!display && forum.isSelected())){
+				click(forum_checkbox);
+			}
+		}		
 	}
 }

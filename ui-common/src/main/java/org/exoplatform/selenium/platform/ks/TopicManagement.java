@@ -70,6 +70,17 @@ public class TopicManagement extends ForumManagement {
 	public static By ELEMENT_TOPIC_MANAGER_POPUP=By.xpath("//span[text()='Topic Type Manager']");
 	public static By ELEMENT_ADD_TOPIC_TYPE_BUTTON=By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Add Topic Type']");
 
+	//-------------------Poll management screen-----------------------------------------------------------------
+	public static By ELEMENT_POLL = By.xpath("//div[@class='UITopicPoll']");
+	public static By ELEMENT_ADD_POLL = By.linkText("Add Poll");
+	public static By ELEMENT_POLL_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Poll']");
+	public static By ELEMENT_POLL_QUESTION = By.id("Question");
+	public static By ELEMENT_POLL_OPTION0 = By.id("Option0");
+	public static By ELEMENT_POLL_OPTION1 = By.id("Option1");
+	public static By ELEMENT_POLL_CLOSE = By.id("TimeOut");
+	public static By ELEMENT_POLL_VOTE_AGAIN = By.id("VoteAgain");
+	public static By ELEMENT_POLL_SUBMIT_BUTTON = By.linkText("Submit Poll");
+	
 	/** function: go to start topic from action bar
 	 * @author lientm
 	 */
@@ -421,8 +432,8 @@ public class TopicManagement extends ForumManagement {
 		addForum(category, add, 0, userGroup, true, "", "", false, 0);
 
 		//add new topic
-		String[] user_topic = {};
 		goToStartTopic();
+		String[] user_topic = {};
 		startTopic(topic, topic, "", "", "", "", "", "", 0, user_topic);
 		click(By.linkText(topic));
 	}
@@ -524,5 +535,46 @@ public class TopicManagement extends ForumManagement {
 		info("Delete topic type");
 		click(TOPIC_TYPE_TO_DELETE);
 		waitForElementNotPresent(ELEMENT_TOPIC_TYPE);
+	}
+	
+	/** function: go to add poll for topic from More action/Add poll
+	 * @author lientm
+	 */
+	public static void goToAddPoll(){
+		info("Go to add poll for topic");
+		waitForElementPresent(ELEMENT_MORE_ACTION);
+		click(ELEMENT_MORE_ACTION);
+		waitForElementPresent(ELEMENT_ADD_POLL);
+		click(ELEMENT_ADD_POLL);
+		waitForElementPresent(ELEMENT_POLL_POPUP);
+	}
+	
+	/**Function add a poll for topic
+	 * @author lientm
+	 * @param pollQuestion: question of poll
+	 * @param poll0: name of option1
+	 * @param poll1: name of option2
+	 * @param timeout
+	 * @param changeVote
+	 * @param verify
+	 */
+	public static void addPoll(String pollQuestion, String poll0, String poll1, String timeout, boolean changeVote, boolean... verify){
+		boolean check = verify.length > 0 ? verify[0]: true;
+		
+		type(ELEMENT_POLL_QUESTION, pollQuestion, true);
+		type(ELEMENT_POLL_OPTION0, poll0, true);
+		type(ELEMENT_POLL_OPTION1, poll1, true);
+		if (timeout != null){
+			type(ELEMENT_POLL_CLOSE, timeout, true);
+		}
+		WebElement vote = waitForAndGetElement(ELEMENT_POLL_VOTE_AGAIN);
+		if ((changeVote && !vote.isDisplayed()) || (changeVote && vote.isDisplayed())){
+			click(ELEMENT_POLL_VOTE_AGAIN);
+		}
+		click(ELEMENT_POLL_SUBMIT_BUTTON);
+		if (check){
+			waitForElementNotPresent(ELEMENT_POLL_POPUP);
+			info("Add poll successfully");
+		}
 	}
 }
