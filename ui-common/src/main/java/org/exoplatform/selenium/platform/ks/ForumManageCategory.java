@@ -189,6 +189,20 @@ public class ForumManageCategory extends ForumBase {
 		}
 		info("Delete category successfully");
 	}
+	
+	/**function delete many category
+	 * @author lientm
+	 * @param category
+	 */
+	public static void deleteSomeCategory(String...category){
+		if (category.length > 0){
+			for (int i = 0; i < category.length; i++){
+				By element_category = By.linkText(category[i]);
+				click(element_category);
+				deleteCategory(category[i], true);
+			}
+		}
+	}
 
 	/**function: edit a category
 	 * @author lientm

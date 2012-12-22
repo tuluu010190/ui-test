@@ -36,6 +36,8 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_EXPORT_FORUM = By.linkText("Export Forum");
 	public static By ELEMENT_LEGEN_PANEL = By.id("UIForumIconState");
 	public static By ELEMENT_STATISTIC_PANEL = By.xpath("//*[text()='Forums Statistics']");
+	public static By ELEMENT_HOME_BUTTON = By.linkText("Home");
+	public static By ELEMENT_HOME_CURRENT = By.xpath("//div[text()='Home']");
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public static By ELEMENT_WATCH_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Messages']");
@@ -65,7 +67,8 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_SIMPLE_SEARCH_BUTTON = By.xpath("//a[@class='SearchLink SearchForumIcon']");
 	public static By ELEMENT_SIMPLE_SEARCH_LIST = By.id("UIForumListSearch");
 	public static By ELEMENT_SIMPLE_SEARCH_TITLE_FORM = By.xpath("//div[@class='TitleBar' and text()='Search Result']");
-
+	public static String VERIFY_MESSAGE_SEARCH = "No matches.";
+	
 	//-----------------Advanced Search form--------------------------------
 	public static By ELEMENT_ADVANCED_SEARCH_ICON = By.xpath("//a[@class='AdvancedSearch']");
 	public static By ELEMENT_ADVANCED_SEARCH_FORM = By.id("UISearchForm");
@@ -78,6 +81,7 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_ADVANCED_SEARCH_CREATED_TO = By.id("ToDateCreated");
 	public static By ELEMENT_ADVANCED_SEARCH_MODERATOR = By.id("Moderator");
 	public static By ELEMENT_ADVANCED_SEARCH_BUTTON = By.linkText("Search");
+	public static By ELEMENT_ADVANCED_SEARCH_SELECT_USER = By.xpath("//*[@id='Moderator']/../..//img[@class='SelectUserIcon']");
 
 	//-----------------Sort setting form-----------------------------------
 	public static By ELEMENT_SORT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Sort Settings']");
@@ -275,8 +279,14 @@ public class ForumBase extends KsBase {
 		}
 		click(ELEMENT_GO_BUTTON);
 		pause(1000);
+		waitForTextPresent(destination);
 	}
-
+	
+	public static void goToForumHome(){
+		click(ELEMENT_HOME_BUTTON);
+		waitForElementPresent(ELEMENT_HOME_CURRENT);
+	}
+	
 	/** function: watch an item
 	 * @author lientm
 	 * @param watchClass: class of watch/unwatch icon to determine watch/unwatch xpath
@@ -379,7 +389,7 @@ public class ForumBase extends KsBase {
 		click(ELEMENT_SIMPLE_SEARCH_BUTTON);
 		waitForElementPresent(ELEMENT_SIMPLE_SEARCH_LIST);
 		waitForElementPresent(ELEMENT_SIMPLE_SEARCH_TITLE_FORM);
-		if (isTextPresent("No matches.") == true){
+		if (isTextPresent(VERIFY_MESSAGE_SEARCH) == true){
 			result = false;
 			info("There are not any Items that matchs key " + key);
 		}
@@ -397,8 +407,12 @@ public class ForumBase extends KsBase {
 		boolean result = true;
 
 		info("Do advance search");
-		click(ELEMENT_ADVANCED_SEARCH_ICON);
-		waitForElementPresent(ELEMENT_ADVANCED_SEARCH_FORM);
+		waitForElementPresent(ELEMENT_ADVANCED_SEARCH_ICON);
+		for (int i = 0; i < 5; i ++){
+			click(ELEMENT_ADVANCED_SEARCH_ICON);
+			WebElement search_form = waitForAndGetElement(ELEMENT_ADVANCED_SEARCH_FORM, 5000, 0);
+			if (search_form != null) break;
+		}
 		if (key.length == 0){
 			Assert.fail("There are not any key to search");
 		}
@@ -425,16 +439,19 @@ public class ForumBase extends KsBase {
 		if (key.length > 5 && key[5] != "" && key[5] != null){
 			type(ELEMENT_ADVANCED_SEARCH_MODERATOR, key[5], true);
 		}
+		if (key.length > 6 && key[6] != "" && key[6] != null){
+			click(ELEMENT_ADVANCED_SEARCH_SELECT_USER);
+			KsBase.selectUserPermission(key[6]);
+		}
 		click(ELEMENT_ADVANCED_SEARCH_BUTTON);
 		waitForElementPresent(ELEMENT_SIMPLE_SEARCH_LIST);
 		waitForElementPresent(ELEMENT_SIMPLE_SEARCH_TITLE_FORM);
-		if (isTextPresent("No matches.") == true){
+		if (isTextPresent(VERIFY_MESSAGE_SEARCH) == true){
 			result = false;
 			info("There are not any Items that matchs key " + key);
 		}
 		return result;
 	}
-
 	/** function: setup a sort
 	 * @author lientm
 	 * @param forumBy: the way sort forum
@@ -965,6 +982,7 @@ public class ForumBase extends KsBase {
 	 */
 	public static void saveForumPortletSetting(){
 		String MESSAGE_SAVE_SETTING_PORTLET = "Your portlet settings have been saved.";
+
 		save();
 		checkAlertInfo(MESSAGE_SAVE_SETTING_PORTLET);
 		close();

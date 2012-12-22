@@ -38,7 +38,6 @@ public class PostManagement extends TopicManagement{
 	//--------------move post screen-----------------------------------------------------------
 	public static By ELEMENT_POPUP_MOVE_POST = By.xpath("//span[@class='PopupTitle' and text()='Move Posts']");
 	
-	
 	/** function: post new reply
 	 * @author lientm
 	 * @param title: title of reply

@@ -422,13 +422,13 @@ public class TopicManagement extends ForumManagement {
 	public static void makeTopicFromCategory(String category, String forum, String topic, String...topic_content){
 		String content = topic_content.length > 0 ? topic_content[0]: topic;
 		//add new category
-		goToAddCategory();
+		//goToAddCategory();
 		String[] audience = {};
 		String[] user_cat = {};
 		addCategoryInForum(category, "1", 0, audience, category, 0, user_cat);
 
 		//add new forum
-		goToAddForum();
+		//goToAddForum();
 		String[] add = {forum, "1", "", "", forum};
 		String[] userGroup = {};
 		addForum(category, add, 0, userGroup, true, "", "", false, 0);
@@ -438,6 +438,7 @@ public class TopicManagement extends ForumManagement {
 		String[] user_topic = {};
 		startTopic(topic, content, "", "", "", "", "", "", 0, user_topic);
 		click(By.linkText(topic));
+		waitForTextPresent(topic);
 	}
 
 	/** function approve a topic
@@ -579,11 +580,13 @@ public class TopicManagement extends ForumManagement {
 			info("Add poll successfully");
 		}
 	}
+	
 	/** function: delete all topic
 	 * @author HangNTT
+	 * @param title: All topic that needs to delete
 	 */
 
-	public static void deleteAllTopic(){	
+	public static void deleteAllTopic(){
 		waitForElementPresent(ELEMENT_CHECK_ALL);
 		click(ELEMENT_CHECK_ALL);
 		info("Delete topic");
