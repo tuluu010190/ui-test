@@ -146,31 +146,66 @@ public class ForumManagement extends ForumManageCategory {
 			info("Create forum successfully");
 		}
 	}
+	/**Function add forum with title and setting permission
+	 * @author thaopth
+	 * @param title
+	 * @param userGroup
+	 */
+	public static void addForumWithSettingPermission(String title, String...userGroup ){
+		 By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", title));    
+		info("Create new forum");
+		type(ELEMENT_FORUM_TITLE, title, true);
+		click(ELEMENT_PERMISSION_TAB);
+		info("Set moderator");
+		info("Set who can start topic");
+		if (userGroup.length > 0){
+			if (userGroup[0] != "" && userGroup[0] != null){
+				String[] user = {userGroup[0]};
+				ForumBase.setPermissionWithOption(SET_PERMISSION[1], 1, user );
+			}
+		}
+		info("Set who can post");
+		if (userGroup.length > 1){
+			if (userGroup[1] != "" && userGroup[1] != null){
+				String[] user = {userGroup[1]};
+				ForumBase.setPermissionWithOption(SET_PERMISSION[2], 1, user );
+			}
+		}	
+		info("Set who can view");
+		if (userGroup.length > 2){
+			if (userGroup[2] != "" && userGroup[2] != null){
+				String[] user = {userGroup[2]};
+				ForumBase.setPermissionWithOption(SET_PERMISSION[3], 1, user );
+			}
+		}	
+		save();
+		waitForElementPresent(FORUM);
+	}
 	
-	/**
-   * Go to a forum
-   * @param title : Forum title
-   * @author dunghm
-   */
-  public static void gotoForumView(String title){
-    By forumLink = By.xpath("//a[contains(@class,'ForumTitle') and text()='" + title + "']");
-    By forum = By.xpath("//span[@class='NameForum' and text()='" + title + "']");
-    click(forumLink);
-    waitForElementPresent(forum);
-  }
-  /**
-   * Add new forum with a short set of parameters
-   * @param title : Forum title
-   * @author dunghm
-   */
-  public static void quickAddForum(String title){
-    By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", title));
-    goToAddForum();
-    type(ELEMENT_FORUM_TITLE, title, true);
-    save(); 
-    waitForElementPresent(FORUM);
-    waitForElementNotPresent(ELEMENT_ALERT);
-  }
+	 /**
+	  * Go to a forum
+	  * @param title : Forum title
+	  * @author dunghm
+	  */
+	 public static void gotoForumView(String title){
+	    By forumLink = By.xpath("//a[contains(@class,'ForumTitle') and text()='" + title + "']");
+	    By forum = By.xpath("//span[@class='NameForum' and text()='" + title + "']");
+	    click(forumLink);
+	    waitForElementPresent(forum);
+	 }
+	 /**
+	  * Add new forum with a short set of parameters
+	  * @param title : Forum title
+	  * @author dunghm
+	  */
+  	public static void quickAddForum(String title){
+	    By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", title));
+	    goToAddForum();
+	    type(ELEMENT_FORUM_TITLE, title, true);
+	    save(); 
+	    waitForElementPresent(FORUM);
+	    waitForElementNotPresent(ELEMENT_ALERT);
+  	}
   	
 	/** function: delete a forum
 	 * @author lientm

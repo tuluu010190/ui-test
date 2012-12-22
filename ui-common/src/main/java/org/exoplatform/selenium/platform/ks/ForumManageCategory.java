@@ -315,4 +315,48 @@ public class ForumManageCategory extends ForumBase {
 		save();
 		waitForElementNotPresent(ELEMENT_EXPORT_CATEGORY_POPUP, 50000);
 	}
+	
+	/**function add new category with title and setting permission
+	 * @author thaopth
+	 * @param title
+	 * @param userGroup
+	 */
+	public static void addCategoryWithSettingPermission(String title, String...userGroup ){
+		By CATEGORY = By.xpath(ELEMENT_CATEGORY.replace("${categoryName}", title));    
+		info("Create new category");
+		type(ELEMENT_CATEGORY_TITLE, title, true);
+		click(ELEMENT_PERMISSION_TAB);
+		info("Set moderator");
+		if (userGroup.length > 0){
+			if (userGroup[0] != "" && userGroup[0] != null){
+				String[] user = {userGroup[0]};
+				ForumBase.setPermissionWithOption(SET_PERMISSION[0], 1, user );
+			}
+		}
+		info("Set who can start topic");
+		if (userGroup.length > 1){
+			if (userGroup[1] != "" && userGroup[1] != null){
+				String[] user = {userGroup[1]};
+				ForumBase.setPermissionWithOption(SET_PERMISSION[1], 1, user );
+			}
+		}
+		info("Set who can post");
+		if (userGroup.length > 2){
+			if (userGroup[2] != "" && userGroup[2] != null){
+				String[] user = {userGroup[2]};
+				ForumBase.setPermissionWithOption(SET_PERMISSION[2], 1, user );
+			}
+		}	
+		info("Set who can view");
+		if (userGroup.length > 3){
+			if (userGroup[3] != "" && userGroup[3] != null){
+				String[] user = {userGroup[3]};
+				ForumBase.setPermissionWithOption(SET_PERMISSION[3], 1, user );
+			}
+		}	
+		save();
+		waitForElementPresent(CATEGORY);
+		info("Create new category successfully");
+		
+	}
 }

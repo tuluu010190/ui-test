@@ -18,6 +18,7 @@ public class TopicManagement extends ForumManagement {
 	public static By ELEMENT_START_TOPIC_BUTTON = By.xpath("//form[@id='UITopicContainer']/div[2]/*//a[contains(text(),'Start Topic')]");
 	public static By ELEMENT_POPUP_START_TOPIC = By.xpath("//span[@class='PopupTitle' and text()='New Topic']");
 	public static By ELEMENT_SUBMIT_BUTTON = By.linkText("Submit");
+	public static By ElEMENT_CANCEL_ADD_TOPIC = By.xpath(".//*[@id='UITopicForm']/div[3]/a[text()='Cancel']");
 
 	public static By ELEMENT_TOPIC_CONTENT_TAB = By.linkText("Content");
 	public static By ELEMENT_TOPIC_TITLE = By.id("ThreadTitle");
@@ -48,6 +49,7 @@ public class TopicManagement extends ForumManagement {
 	//------------------add topic type screen--------------------------------------------------
 	public static By ELEMENT_TOPIC_ADD_TYPE_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Topic Type']");
 	public static By ELEMENT_TOPIC_TYPE_NAME = By.id("topicTypeName");
+	public static By ELEMENT_CANCEL_ADD_TYPE = By.xpath(".//*[@id='UIAddTopicTypeForm']/div[3]/a[text()='Cancel']");
 
 	//------------------edit topic screen------------------------------------------------------
 	public static By ELEMENT_TOPIC_EDIT_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Edit Topic']");
@@ -598,4 +600,43 @@ public class TopicManagement extends ForumManagement {
 		waitForTextPresent("This forum is empty.");
 		info("Delete topic successfully");
 	}
+
+	/**Function start a topic that add new topic type
+	 * @author thaopth
+	 * @param title
+	 * @param message
+	 * @param typeName
+	 * @param groupName
+	 * @param classIcon
+	 * @param type
+	 */
+	public static void startTopicWithType (String title, String message,String typeName, String groupName, String classIcon, String type) {
+		info("Start a topic");
+		inputDataInContentTab_StartTopic(title, message);
+		click(ELEMENT_TOPIC_OPTIONS_TAB);
+		inputDataInOptionsTab_StartTopic(typeName, groupName, classIcon,type,"","",false);
+		click(ELEMENT_SUBMIT_BUTTON);
+		waitForElementNotPresent(ELEMENT_POPUP_START_TOPIC);
+		info("Start topic successfully");
+	}
+	
+	public static void startTopicWithInvalidType (String title, String message, String typeName, String warningMessage) {
+		info("Start a topic");
+		inputDataInContentTab_StartTopic(title, message);
+		click(ELEMENT_TOPIC_OPTIONS_TAB);
+		info("Add new topic type");
+		waitForElementPresent(ELEMENT_TOPIC_ADD_TYPE);
+		click(ELEMENT_TOPIC_ADD_TYPE);
+		info("Modify topic type");
+		waitForElementPresent(ELEMENT_TOPIC_ADD_TYPE_POPUP);
+		type(ELEMENT_TOPIC_TYPE_NAME, typeName, true);
+		save();		
+		waitForTextPresent(warningMessage);
+		click(ELEMENT_OK_BUTTON);
+		click(ELEMENT_CANCEL_ADD_TYPE);
+		waitForElementNotPresent(ELEMENT_CANCEL_ADD_TYPE);
+		click(ElEMENT_CANCEL_ADD_TOPIC);
+		waitForElementNotPresent(ElEMENT_CANCEL_ADD_TOPIC);
+	}
+
 }

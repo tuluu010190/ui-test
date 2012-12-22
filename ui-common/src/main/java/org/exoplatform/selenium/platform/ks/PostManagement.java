@@ -30,6 +30,8 @@ public class PostManagement extends TopicManagement{
 	public static By ELEMENT_PREVIEW_BUTTON = By.linkText("Preview");
 	public static By ELEMENT_POST_QUICK_BUTTON = By.linkText("Quick Reply");
 	public static By ELEMENT_POST_PREVIEW_POPUP = By.xpath("//span[@class='PopupTitle' and text()='ViewPost']");
+	public static By ELEEMENT_QUICK_REPLY_FORM = By.id("QuickReply");
+
 	
 	//--------------edit post screen-----------------------------------------------------------
 	public static By ELEMENT_POST_POPUP_EDIT = By.xpath("//span[@class='PopupTitle' and text()='Edit Post']");
