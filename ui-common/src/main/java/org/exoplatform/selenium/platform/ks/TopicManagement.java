@@ -12,7 +12,8 @@ public class TopicManagement extends ForumManagement {
 	public static By ELEMENT_EDIT_TOPIC = By.xpath("//a[@class='ItemIcon EditTopicIcon' and text()='Edit']");
 	public static By ELEMENT_MOVE_TOPIC = By.xpath("//a[@class='ItemIcon SetMoveIcon' and text()='Move']");
 	public static By ELEMENT_APPROVE_TOPIC = By.xpath("//a[@class='ItemIcon SetApproveIcon' and text()='Approve']");
-
+	public static By ELEMENT_CHECK_ALL = By.xpath("//*[@id='UITopicContent']//input[@title='Check All']");
+	
 	//----------------start topic screen--------------------------------------------------
 	public static By ELEMENT_START_TOPIC_BUTTON = By.xpath("//form[@id='UITopicContainer']/div[2]/*//a[contains(text(),'Start Topic')]");
 	public static By ELEMENT_POPUP_START_TOPIC = By.xpath("//span[@class='PopupTitle' and text()='New Topic']");
@@ -576,5 +577,21 @@ public class TopicManagement extends ForumManagement {
 			waitForElementNotPresent(ELEMENT_POLL_POPUP);
 			info("Add poll successfully");
 		}
+	}
+	/** function: delete all topic
+	 * @author HangNTT
+	 */
+
+	public static void deleteAllTopic(){	
+		waitForElementPresent(ELEMENT_CHECK_ALL);
+		click(ELEMENT_CHECK_ALL);
+		info("Delete topic");
+		waitForElementPresent(ELEMENT_MODERATION);
+		click(ELEMENT_MODERATION);
+		waitForElementPresent(ELEMENT_MODERTATION_DELETE_BUTTON);
+		click(ELEMENT_MODERTATION_DELETE_BUTTON);
+		acceptAlert();
+		waitForTextPresent("This forum is empty.");
+		info("Delete topic successfully");
 	}
 }

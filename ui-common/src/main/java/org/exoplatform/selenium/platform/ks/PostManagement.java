@@ -14,6 +14,7 @@ public class PostManagement extends TopicManagement{
 	public static String ELEMENT_POST_DELETE_BUTTON = "//*[text()='${postContent}']/../../../../*//a[text()='Delete' and @class='IconButton DeletePostIcon']";
 	public static String ELEMENT_POST_CHECKBOX = "//*[text()='${postContent}']/../../../../*//input[@type='checkbox']";
 	public static By ELEMENT_MOVE_POST = By.xpath("//a[@class='ItemIcon MovePostIcon' and text()='Move']");
+	public static String ELEMENT_GO_TO_THE_LASTS_READ_POST_FORUM = "//a[text()='${forum}']/../..//a[@title='Go to the last read post']";
 	
 	//--------------post reply screen-----------------------------------------------------------
 	public static By ELEMENT_POST_TITLE = By.id("PostTitle");
@@ -32,6 +33,7 @@ public class PostManagement extends TopicManagement{
 	
 	//--------------move post screen-----------------------------------------------------------
 	public static By ELEMENT_POPUP_MOVE_POST = By.xpath("//span[@class='PopupTitle' and text()='Move Posts']");
+	
 	
 	/** function: post new reply
 	 * @author lientm

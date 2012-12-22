@@ -21,6 +21,7 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_GO_BUTTON = By.linkText("Go");
 	public static By ELEMENT_MORE_ACTION = By.linkText("More Actions");
 	public static By ELEMENT_MODERATION = By.linkText("Moderation");
+	public static By ELEMENT_MODERTATION_DELETE_BUTTON = By.xpath("//*[@id='ModerationMenu']//a[contains(text(),'Delete')]");
 	public static String ELEMENT_WATCH = "//a[@class='${watchIcon}' and contains(text(), 'Watch')]";
 	public static String ELEMENT_UNWATCH = "//a[@class='${watchIcon}' and contains(text(), 'Unwatch')]";
 	public static By ELEMENT_BOOKMARKS = By.linkText("Bookmarks");
@@ -173,7 +174,7 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_SHOW_ICON_LEGEND_CHECKBOX = By.id("isShowIconsLegend");
 	public static By ELEMENT_SHOW_RULE_CHECKBOX = By.id("isShowRules");
 	public static By ELEMENT_SHOW_STATISTIC_CHECKBOX = By.id("isShowStatistic");
-	
+
 	//----------------------Gmail form ---------------------------------------------------
 	public static String WEB_MAIL = "https://mail.google.com";
 	public static String MAIL_ADDRESS = "exomailtest01@gmail.com";
@@ -966,7 +967,6 @@ public class ForumBase extends KsBase {
 	 */
 	public static void saveForumPortletSetting(){
 		String MESSAGE_SAVE_SETTING_PORTLET = "Your portlet settings have been saved.";
-		
 		save();
 		checkAlertInfo(MESSAGE_SAVE_SETTING_PORTLET);
 		close();
@@ -1055,6 +1055,7 @@ public class ForumBase extends KsBase {
 			}
 		}
 	}
+
 	/**Function check or uncheck Category or forum in Forum portlet setting
 	 * @author lientm
 	 * @param itemName: name of category/forum
@@ -1067,7 +1068,7 @@ public class ForumBase extends KsBase {
 		By category_checkbox = By.xpath("//*[text()='" + itemName + "']/../../../*[@class='ParentCheckBox']/input");
 		By forum_checkbox = By.xpath("//*[text()='" + itemName + "']/../..//input[@type='checkbox']");
 		By element_category = By.xpath("//*[text()='" + itemName + "']/../../../../div[@class='NodeLabel']//a");
-		
+
 		if (isCategory){
 			WebElement category = waitForAndGetElement(category_checkbox);
 			if ((display && !category.isSelected()) || (!display && category.isSelected())){
