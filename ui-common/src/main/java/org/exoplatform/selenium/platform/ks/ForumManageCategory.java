@@ -185,7 +185,7 @@ public class ForumManageCategory extends ForumBase {
 		acceptAlert();
 		waitForElementPresent(ELEMENT_HOME_CATEGORY);
 		if(isVerify == true){
-		  waitForTextNotPresent(title);
+		  waitForElementNotPresent(By.linkText(title));
 		}
 		info("Delete category successfully");
 	}

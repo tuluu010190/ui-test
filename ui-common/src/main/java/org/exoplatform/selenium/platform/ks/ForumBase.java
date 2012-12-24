@@ -132,10 +132,8 @@ public class ForumBase extends KsBase {
 	public static String MSG_PRUNE_NOT_CONFIG = "Please configure the prune settings for this item.";
 	public static By ELEMENT_PRUNE_DRY_RUN = By.linkText("Dry Run");
 
-	//--------------------Profile setting form------------------------------------
-	public static By ELEMENT_SETTING = By.linkText("Settings");
-	
 	//-----------------Setting form---------------------------------------------------
+	public static By ELEMENT_SETTING = By.linkText("Settings");
 	public static By ELEMENT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Settings']");
 	public static String ELEMENT_SETTING_EMAIL_CHECKBOX = "//a[contains(text(), '${forum}')]/../../../*//input[contains(@id, 'EMAILforum')]"; 
 	public static String ELEMENT_SETTING_MAIL_DELETE = "//a[contains(text(), '${forum}')]/../../../*//div[@class='DeleteIcon']";
@@ -477,7 +475,7 @@ public class ForumBase extends KsBase {
 	 * @param key: key to setup
 	 */
 	public static void setCensorKeywords(String key){
-		info("Set censor keywords");
+		info("Set censor keywords " + key);
 		waitForAndGetElement(ELEMENT_ADMINISTRATION);
 		click(ELEMENT_ADMINISTRATION);
 		waitForElementPresent(ELEMENT_CENSOR_KEYWORDS);
@@ -1083,5 +1081,17 @@ public class ForumBase extends KsBase {
 				click(forum_checkbox);
 			}
 		}		
+	}	
+	
+	/**function go to RSS for any item (by rightclick on item -> choose RSS)
+	 * @author lientm
+	 * @param itemName: text of item that need view RSS
+	 */
+	public static void goToRSS(String itemName){
+		By rss = By.xpath("//a[text()='" + itemName + "']/..//a[text()='RSS']");
+		
+		rightClickOnElement(By.linkText(itemName));
+		click(rss);
+		pause(2000);
 	}
 }

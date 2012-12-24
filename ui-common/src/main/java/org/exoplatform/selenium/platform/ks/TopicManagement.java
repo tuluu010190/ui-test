@@ -419,23 +419,24 @@ public class TopicManagement extends ForumManagement {
 	 * @param forum: title of forum
 	 * @param topic: title of topic
 	 */
-	public static void makeTopicFromCategory(String category, String forum, String topic){
+	public static void makeTopicFromCategory(String category, String forum, String topic, String...topic_content){
+		String content = topic_content.length > 0 ? topic_content[0]: topic;
 		//add new category
 		goToAddCategory();
 		String[] audience = {};
 		String[] user_cat = {};
-		addCategoryInForum(category, "1", 0, audience, "", 0, user_cat);
+		addCategoryInForum(category, "1", 0, audience, category, 0, user_cat);
 
 		//add new forum
 		goToAddForum();
-		String[] add = {forum, "1", "", "", ""};
+		String[] add = {forum, "1", "", "", forum};
 		String[] userGroup = {};
 		addForum(category, add, 0, userGroup, true, "", "", false, 0);
 
 		//add new topic
 		goToStartTopic();
 		String[] user_topic = {};
-		startTopic(topic, topic, "", "", "", "", "", "", 0, user_topic);
+		startTopic(topic, content, "", "", "", "", "", "", 0, user_topic);
 		click(By.linkText(topic));
 	}
 

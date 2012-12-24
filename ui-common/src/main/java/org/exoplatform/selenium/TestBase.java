@@ -717,4 +717,15 @@ public class TestBase {
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 	}
+	
+	/**function set driver to auto open new window when click link
+	 * @author lientm
+	 */
+	public static void getDriverAutoOpenWindow(){
+		FirefoxProfile fp = new FirefoxProfile();		
+		fp.setPreference("browser.link.open_newwindow.restriction", 2);
+		driver = new FirefoxDriver(fp);
+		baseUrl = System.getProperty("baseUrl");
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+	}
 }

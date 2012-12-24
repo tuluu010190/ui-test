@@ -17,8 +17,6 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
@@ -626,17 +624,6 @@ public class PlatformBase extends TestBase {
 	public static void next(){
 		waitForAndGetElement(ELEMENT_NEXT_BUTTON);
 		click(ELEMENT_NEXT_BUTTON);	
-	}
-	
-	public static void getDriverAutoSave(){
-		FirefoxProfile fp = new FirefoxProfile();	
-		fp.setPreference("browser.download.folderList", 2);
-		info("-------"+System.getProperty("user.dir"));
-		fp.setPreference("browser.download.dir", System.getProperty("user.dir"));
-		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;application/x-zip;application/x-zip-compressed;application/octet-stream;application/zip;application/pdf;application/msword;text/plain;application/octet;application/xml;text/xml;application/x-xml");
-		driver = new FirefoxDriver(fp);
-		baseUrl = System.getProperty("baseUrl");
-		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 	}
 	
 	/**

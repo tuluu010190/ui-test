@@ -15,13 +15,15 @@ public class PostManagement extends TopicManagement{
 	public static String ELEMENT_POST_CHECKBOX = "//*[text()='${postContent}']/../../../../*//input[@type='checkbox']";
 	public static By ELEMENT_MOVE_POST = By.xpath("//a[@class='ItemIcon MovePostIcon' and text()='Move']");
 	public static String ELEMENT_GO_TO_THE_LASTS_READ_POST_FORUM = "//a[text()='${forum}']/../..//a[@title='Go to the last read post']";
-	
+	public static String ELEMENT_PRIVATE_POST_BUTTON = "//*[text()='${topic}  ']/../../..//a[text()='Private']";
+
 	//--------------post reply screen-----------------------------------------------------------
 	public static By ELEMENT_POST_TITLE = By.id("PostTitle");
 	public static By ELEMENT_POST_MESSAGE_FRAME_1 = By.xpath("//iframe[@id='MessageContent___Frame']");
 	public static By ELEMENT_POST_MESSAGE_FRAME_2 = By.xpath("//td[@id='xEditingArea']/iframe");
 	public static By ELEMENT_POST_POPUP_NEW = By.xpath("//span[@class='PopupTitle' and text()='New Post']");
 	public static By ELEMENT_POST_ICONS_TAB = By.xpath("//a[contains(text(), 'Icons and Smileys')]");
+	public static By ELEMENT_POST_PRIVATE_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Private Post']");
 	
 	//--------------quick reply form-----------------------------------------------------------
 	public static By ELEMENT_POST_QUICK_MESSAGE = By.id("Message");
@@ -46,9 +48,39 @@ public class PostManagement extends TopicManagement{
 	 * @param file: file attach
 	 */
 	public static void postReply(String title, String message, String groupName, String iconClass, String... file){
-		info("Post a reply");
+		info("Make a post");
 		click(ELEMENT_POST_REPLY_BUTTON);
 		waitForElementPresent(ELEMENT_POST_POPUP_NEW);
+		putDataPost(title, message, groupName, iconClass, file);
+	}
+	
+	/** Function make a private post
+	 * @author lientm
+	 * @param topic: topic that need add post
+	 * @param title: title of reply
+	 * @param message: content of reply
+	 * @param groupName: group of icon
+	 * @param iconClass: icon
+	 * @param file: file attach
+	 */
+	public static void privatePost(String topic, String title, String message, String groupName, String iconClass, String... file){
+		By private_button = By.xpath(ELEMENT_PRIVATE_POST_BUTTON.replace("${topic}", topic));
+		
+		info("Make a private post");
+		click(private_button);
+		waitForElementPresent(ELEMENT_POST_PRIVATE_POPUP);
+		putDataPost(title, message, groupName, iconClass, file);
+	}
+	
+	/**function put data into add Post
+	 * @author lientm
+	 * @param title: title of reply
+	 * @param message: content of reply
+	 * @param groupName: group of icon
+	 * @param iconClass: icon
+	 * @param file: file attach
+	 */
+	public static void putDataPost(String title, String message, String groupName, String iconClass, String... file){
 		if (title != "" && title != null) {
 			type(ELEMENT_POST_TITLE, title, true);
 		}
@@ -70,17 +102,19 @@ public class PostManagement extends TopicManagement{
 		waitForElementNotPresent(ELEMENT_POST_POPUP_NEW);
 		info("Post reply successfully");
 	}
-	/** function: quick and review add new Reply
+
+	/** function: quick add new Reply
 	 * @author lientm
 	 * @param message: content of reply
 	 */
-	public static void quickReply(String message){
+	public static void quickReply(String message, boolean... verify){
+		boolean check = verify.length > 0 ? verify[0] : false;
 		type(ELEMENT_POST_QUICK_MESSAGE, message, true);
-		click(ELEMENT_PREVIEW_BUTTON);
-		captureScreen(message);
-		click(ELEMENT_CLOSE_BUTTON);
 		click(ELEMENT_POST_QUICK_BUTTON);
 		info("Quick reply successfully");
+		if (check){
+			waitForTextPresent(message);
+		}
 	}
 	
 	/** function:  Review add new Reply
