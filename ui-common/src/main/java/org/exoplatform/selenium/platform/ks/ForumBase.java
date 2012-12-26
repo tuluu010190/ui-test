@@ -38,11 +38,15 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_STATISTIC_PANEL = By.xpath("//*[text()='Forums Statistics']");
 	public static By ELEMENT_HOME_BUTTON = By.linkText("Home");
 	public static By ELEMENT_HOME_CURRENT = By.xpath("//div[text()='Home']");
+	public static String ELEMENT_HOME_FORUM = "Forum Home";
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public static By ELEMENT_WATCH_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Messages']");
 	public static String MESSAGE_WATCH = "You are now watching this item.";
 	public static String MESSAGE_UNWATCH = "You are no longer watching this item.";	
+	public static String ELEMENT_CLASS_NAME_WATCH_TOPIC = "AddWatchingIcon StatusIcon";
+	public static String ELEMENT_CLASS_NAME_WATCH_CATEGORY = "AddWatchingIcon";
+	public static String ELEMENT_CLASS_NAME_WATCH_FORUM = "StatusIcon AddWatchingIcon";
 
 	//----------------Book Marks form------------------------------------------
 	public static By ELEMENT_BOOKMARKS_POPUP = By.xpath("//span[@class='PopupTitle' and text()='My Bookmarks']");
@@ -150,6 +154,8 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_IS_DISPLAY_AVATAR = By.id("IsDisplayAvatar");
 	public static By ELEMENT_WATCH_TOPIC_START = By.id("AutoWatchMyTopics");
 	public static By ELEMENT_WATCH_TOPIC_POST =  By.id("AutoWatchTopicIPost");
+	public static String ELEMENT_DELETE_WATCH = "//label/a[contains(text(),'${item}')]/following::div[@class='DeleteIcon']";
+	public static String ELEMENT_FEED_URL = "//a[@title='{$item}']/ancestor::tr/following::input[contains(@id,'RSS')]";
 
 	//---------------------Notifications------------------
 	public static By ELEMENT_NOTIFICATION_LINK = By.xpath("//span[text()='Notifications']");
@@ -284,7 +290,9 @@ public class ForumBase extends KsBase {
 		}
 		click(ELEMENT_GO_BUTTON);
 		pause(1000);
-		waitForTextPresent(destination);
+		if (destination != ELEMENT_HOME_FORUM){
+			waitForTextPresent(destination);
+		} 
 	}
 	
 	public static void goToForumHome(){
@@ -1145,4 +1153,21 @@ public class ForumBase extends KsBase {
 		waitForElementPresent(ELEMENT_GMAIL_COMPOSE);
 	}
 	
+	
+	/**
+	 * @author thaopth
+	 * Date: 26 Dec 2012
+	 */
+	public static void goToMySubscriptions() {
+		goToSetting();
+		click(ELEMENT_SETTING_MYSCRIPTIONS_TAB);
+		waitForElementPresent(ELEMENT_SETTING_EMAIL_ADDRESS);
+	}
+	
+	public static void deleteWatches (String item) {
+		click(ELEMENT_DELETE_WATCH.replace("${item}", item));
+		waitForConfirmation("Are you sure to delete this subscription?");
+		waitForElementNotPresent(ELEMENT_DELETE_WATCH.replace("${item}", item));
+		
+	}
 }
