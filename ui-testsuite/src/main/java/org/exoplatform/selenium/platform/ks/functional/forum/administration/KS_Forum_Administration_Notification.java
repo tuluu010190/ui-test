@@ -11,7 +11,6 @@ import java.util.Set;
 import org.exoplatform.selenium.platform.ks.ForumBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
@@ -54,10 +53,8 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 		addCategoryInForum(category, "1", 0, audience, "", 0);
 		addForum(category, add, 0, userGroup, true, "exoservice@gmail.com", "exoservice@gmail.com", false, 0);
 		startTopic(topic, topic, "", "", "", "", "", "", 0, user_topic);
-		checkGmail("exoservice", "exoadmin", titleMail);
-		waitForTextPresent(notification);
-
-		click(ELEMENT_GMAIL_DELETE);
+		checkGmail("exoservice", "exoadmin");
+		checkAndDeleteMail(By.xpath(mailItem.replace("{$title}", titleMail)),notification);
 
 		backToPreviousBrowser(cookies, handle1);
 		restoreData(category);
@@ -75,7 +72,6 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 		String[] user_topic = {};
 
 		String prefix = "test02";
-		Set<Cookie> cookies = getBrowserCookies();
 		String handle1 = driver.getWindowHandle();
 		String titleMail = prefix + "["+category+ "][" + forum + "] " + topic;
 
@@ -86,11 +82,10 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 		addCategoryInForum(category, "1", 0, audience, "", 0);
 		addForum(category, add, 0, userGroup, true, "exoservice@gmail.com", "exoservice@gmail.com", false, 0);
 		startTopic(topic, topic, "", "", "", "", "", "", 0, user_topic);
-		checkGmail("exoservice", "exoadmin", titleMail);
+		checkGmail("exoservice", "exoadmin");
+		checkAndDeleteMail(By.xpath(mailItem.replace("{$title}", titleMail)),"");
 
-		click(ELEMENT_GMAIL_DELETE);
-
-		backToPreviousBrowser(cookies, handle1);
+		driver.switchTo().window(handle1);
 		restoreData(category);
 
 	}
@@ -117,10 +112,9 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 		addCategoryInForum(category, "1", 0, audience, "", 0);
 		addForum(category, add, 0, userGroup, true, "exoservice@gmail.com", "exoservice@gmail.com", false, 0);
 		startTopic(topic, topic, "", "", "", "", "", "", 0, user_topic);
-		checkGmail("exoservice", "exoadmin", titleMail);
+		checkGmail("exoservice", "exoadmin");
 		waitForTextNotPresent(prefix + titleMail);
-
-		click(ELEMENT_GMAIL_DELETE);
+		checkAndDeleteMail(By.xpath(mailItem.replace("{$title}", titleMail)),"");
 
 		backToPreviousBrowser(cookies, handle1);
 		restoreData(category);
@@ -206,7 +200,11 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 		close();	
 
 	}
-	//use for this class
+	/** Verify content of notification
+	 * @author thuntn
+	 * @param frame
+	 * @param content
+	 */
 	public void verifyDefaultContent(By frame, String content){
 		String[] contents= content.split("\n");
 		
@@ -229,25 +227,8 @@ public class KS_Forum_Administration_Notification extends ForumBase {
 
 		resetNotification();
 	}
-	/** Check mail in gmail
-	 * @author thuntn
-	 * @param user
-	 * @param pass
-	 * @param titleMail: title of mail that need to be checked
-	 */
-	public void  checkGmail(String user, String pass, String titleMail){
-		((JavascriptExecutor) driver).executeScript("window.open()");
-		switchToNewWindow();
-		driver.get("http://gmail.com");
-		driver.manage().window().maximize();
-		type(GMAIL_USERNAME,user,true);
-		type(GMAIL_PASS,pass,true);
-
-		click(GMAIL_SIGN_IN);
-		waitForTextPresent(titleMail,120000);
-		click(mailItem.replace("{$title}",titleMail));
-
-	}
+	
+	
 	@BeforeMethod
 	public void beforeTest(){
 		initSeleniumTest();

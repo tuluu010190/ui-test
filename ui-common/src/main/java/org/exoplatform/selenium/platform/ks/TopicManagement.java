@@ -46,6 +46,7 @@ public class TopicManagement extends ForumManagement {
 	public static String ELEMENT_TOPIC_SELECT_USER = "//*[@id='${element}']/../a/img[@class='SelectUserIcon']";
 	public static String ELEMENT_TOPIC_SELECT_GROUP = "//*[@id='${element}']/../a/img[@class='SelectGroupIcon']";
 	public static String ELEMENT_TOPIC_SELECT_ROLE = "//*[@id='${element}']/../a/img[@class='SelectMemberShipIcon']";
+	public static By ELEMENT_RATING_TOPIC = By.xpath("//div[contains(text(),'Rating')]");
 
 	//------------------add topic type screen--------------------------------------------------
 	public static By ELEMENT_TOPIC_ADD_TYPE_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Topic Type']");
@@ -92,6 +93,18 @@ public class TopicManagement extends ForumManagement {
 	public static By ELEMENT_POLL_CLOSE = By.id("TimeOut");
 	public static By ELEMENT_POLL_VOTE_AGAIN = By.id("VoteAgain");
 	public static By ELEMENT_POLL_SUBMIT_BUTTON = By.linkText("Submit Poll");
+	
+	//---------------------------------Vote topic--------------------------------
+	public static By ELEMENT_RATE_TOPIC = By.linkText("Rate");
+	public static By ELEMENT_RATE_TOPIC_TERRIBLE = By.xpath("//div[@class='RatedVote' and @title='Terrible']");
+	public static By ELEMENT_RATE_TOPIC_BAD = By.xpath("//div[@class='RatedVote' and @title='Bad']");
+	public static By ELEMENT_RATE_TOPIC_AVERAGE = By.xpath("//div[@class='RatedVote' and @title='Average']");
+	public static By ELEMENT_RATE_TOPIC_GOOD = By.xpath("//div[@class='RatedVote' and @title='Good']");
+	public static By ELEMENT_RATE_TOPIC_EXCELLENT = By.xpath("//div[@class='RatedVote' and @title='Excellent']");
+	
+	//------------Watch/Unwatch Topic---------------
+	public static By ELEMENT_WATCH_TOPIC = By.linkText(" Watch");
+	public static String ELEMENT_CLASS_WATCH_TOPIC = "AddWatchingIcon StatusIcon";
 	
 	/** function: go to start topic from action bar
 	 * @author lientm
@@ -534,14 +547,14 @@ public class TopicManagement extends ForumManagement {
 	public static void makeTopicFromCategory(String category, String forum, String topic, String...topic_content){
 		String content = topic_content.length > 0 ? topic_content[0]: topic;
 		//add new category
-		//goToAddCategory();
+
 		String[] audience = {};
 		String[] user_cat = {};
 		addCategoryInForum(category, "1", 0, audience, category, 0, user_cat);
 
 		//add new forum
-		//goToAddForum();
-		String[] add = {forum, "1", "", "", forum};
+
+		String[] add = {forum, "1", "", "", ""};
 		String[] userGroup = {};
 		addForum(category, add, 0, userGroup, true, "", "", false, 0);
 
@@ -749,4 +762,27 @@ public class TopicManagement extends ForumManagement {
 		waitForElementNotPresent(ElEMENT_CANCEL_ADD_TOPIC);
 	}
 
+	/**
+	 * @author thuntn
+	 * @param rate: 1: terrible
+	 * 				2: bad
+	 * 				3: average
+	 * 				4: good
+	 * 				5: excellent
+	 * 				default: average
+	 */
+	public static void voteTopic(int rate){
+		info("--Vote a topic--");
+		click(ELEMENT_RATE_TOPIC);
+		switch (rate){
+		case 1: click(ELEMENT_RATE_TOPIC_TERRIBLE); break;
+		case 2: click(ELEMENT_RATE_TOPIC_BAD); break;
+		case 3: click(ELEMENT_RATE_TOPIC_AVERAGE); break;
+		case 4: click(ELEMENT_RATE_TOPIC_GOOD); break;
+		case 5: click(ELEMENT_RATE_TOPIC_EXCELLENT); break;
+		default: click(ELEMENT_RATE_TOPIC_AVERAGE); break;
+		}
+		waitForElementNotPresent(ELEMENT_CANCEL_BUTTON);
+	}
+	
 }

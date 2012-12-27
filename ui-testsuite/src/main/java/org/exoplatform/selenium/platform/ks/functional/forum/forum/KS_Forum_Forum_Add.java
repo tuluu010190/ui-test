@@ -213,7 +213,7 @@ public class KS_Forum_Forum_Add extends ForumManagement {
 		goToAddForum();
 		String[] add = {forum, "1", "", "", ""};
 		String[] userGroup = {"mary"};
-		addForum(category, add, 2, userGroup, false, MAIL_ADDRESS, null, false, 0);
+		addForum(category, add, 2, userGroup, false, EMAIL_ADDRESS1, null, false, 0);
 		
 		//add new topic and make a new post
 		goToStartTopic();
@@ -266,7 +266,7 @@ public class KS_Forum_Forum_Add extends ForumManagement {
 		goToAddForum();
 		String[] add = {forum, "1", "", "", ""};
 		String[] userGroup = {"mary"};
-		addForum(category, add, 2, userGroup, false, null, MAIL_ADDRESS, false, 0);
+		addForum(category, add, 2, userGroup, false, null, EMAIL_ADDRESS1, false, 0);
 		
 		//add new topic
 		goToStartTopic();

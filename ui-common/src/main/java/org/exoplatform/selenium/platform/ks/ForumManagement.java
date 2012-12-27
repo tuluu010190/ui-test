@@ -9,6 +9,7 @@ public class ForumManagement extends ForumManageCategory {
 
 	//--------------------forum home screen-------------------------------------------------
 	public static String ELEMENT_FORUM = "//span[@class='NameForum' and text()='${forumName}']";
+	public static String ELEMENT_FORUM_LINK = "//span[@class='NameForum' and text()='${forumName}']";
 	public static By ELEMENT_DELETE_FORUM = By.xpath("//a[@class='ItemIcon RemoveForumIcon' and text()='Delete']");
 	public static By ELEMENT_EDIT_FORUM = By.xpath("//a[@class='ItemIcon EditForumIcon' and text()='Edit']");
 	public static By ELEMENT_MOVE_FORUM = By.xpath("//a[@class='ItemIcon MoveForumIcon' and text()='Move']");

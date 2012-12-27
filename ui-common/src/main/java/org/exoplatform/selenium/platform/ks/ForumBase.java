@@ -136,7 +136,7 @@ public class ForumBase extends KsBase {
 	public static String MSG_PRUNE_NOT_CONFIG = "Please configure the prune settings for this item.";
 	public static By ELEMENT_PRUNE_DRY_RUN = By.linkText("Dry Run");
 
-	//-----------------Setting form---------------------------------------------------
+	//--------------------Profile setting form------------------------------------
 	public static By ELEMENT_SETTING = By.linkText("Settings");
 	public static By ELEMENT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Settings']");
 	public static String ELEMENT_SETTING_EMAIL_CHECKBOX = "//a[contains(text(), '${forum}')]/../../../*//input[contains(@id, 'EMAILforum')]"; 
@@ -178,15 +178,20 @@ public class ForumBase extends KsBase {
 	public static By ELEMENT_SHOW_STATISTIC_CHECKBOX = By.id("isShowStatistic");
 
 	//----------------------Gmail form ---------------------------------------------------
-	public static String WEB_MAIL = "https://mail.google.com";
-	public static String MAIL_ADDRESS = "exomailtest01@gmail.com";
-	public static String PASS = "exoadmin";
+	public static String GMAIL_URL = "https://mail.google.com";
+	public static String EMAIL_ADDRESS1 = "exomailtest01@gmail.com";
+	public static String EMAIL_ADDRESS2 = "exoservice@gmail.com";
+	public static String EMAIL_PASS = "exoadmin";
 	public static By ELEMENT_DELETE = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
-	public static By user_name = By.id("Email");
-	public static By password = By.id("Passwd");
-	public static By signIn = By.id("signIn");
-	public static By inbox = By.xpath("//a[contains(@title, 'Inbox')]");
+	public static By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
 	public static By ELEMENT_MAIL_CONTENT = By.xpath(".//*[@class='ii gt adP adO']/div");
+	public String ELEMENT_GMAIL_CHECKBOX = "//td/div/div/div/span/b[contains(text(),'{$title}')]/ancestor::tr//td[@id=':oy']/div/div";
+	public String ELEMENT_GMAIL_DELETE= "//div[@class='iH']/div/div[2]/div[3]/div[1]/div";
+	public static By ELEMENT_GMAIL_USERNAME = By.id("Email");
+	public static By ELEMENT_GMAIL_PASS = By.id("Passwd");
+	public static By ELEMENT_GMAIL_SIGN_IN = By.id("signIn");
+	public static String ELEMENT_GMAIL_TITLE = "//span/b[contains(text(),'{$title}')]";
+	public static By ELEMENT_GMAIL_COMPOSE = By.xpath("//div[contains(text(),'COMPOSE')]");
 
 	/**function: select a user when set permission for a element
 	 * @author lientm
@@ -856,16 +861,16 @@ public class ForumBase extends KsBase {
 		waitForTextPresent(ELEMENT_NOTIFY_TEXT);
 	}
 
-
 	//function setting mail address for user watch items
-	public static void settingMailForUser(){
+	public static void settingMailForUser(String...email){
+		String user = email.length > 0 ? email[0] : EMAIL_ADDRESS1;
 		waitForElementPresent(ELEMENT_SETTING);
 		click(ELEMENT_SETTING);
 		waitForElementPresent(ELEMENT_SETTING_POPUP);
 		click(ELEMENT_SETTING_MYSCRIPTIONS_TAB);
 		waitForElementPresent(ELEMENT_SETTING_EMAIL_ADDRESS);
 		info("Set mail address for forum");
-		type(ELEMENT_SETTING_EMAIL_ADDRESS, MAIL_ADDRESS, true);
+		type(ELEMENT_SETTING_EMAIL_ADDRESS, user, true);
 		click(ELEMENT_SETTING_EMAIL_UPDATE);
 		pause(1000);
 		save();
@@ -879,15 +884,15 @@ public class ForumBase extends KsBase {
 			driver.switchTo().window(winHandle);
 		}
 		info("Go to gmail");
-		driver.navigate().to(WEB_MAIL);
-		waitForElementPresent(user_name);
+		driver.navigate().to(GMAIL_URL);
+		driver.manage().window().maximize();
+		waitForElementPresent(ELEMENT_GMAIL_USERNAME);
 
 		//login to mail
-		type(user_name, MAIL_ADDRESS, true);
-		type(password, PASS, true);
-		click(signIn);
-		waitForElementPresent(inbox);
-		click(inbox);
+		type(ELEMENT_GMAIL_USERNAME, EMAIL_ADDRESS1, true);
+		type(ELEMENT_GMAIL_PASS, EMAIL_PASS, true);
+		click(ELEMENT_GMAIL_SIGN_IN);
+		click(ELEMENT_GMAIL_INBOX);
 	}
 
 	/**
@@ -896,7 +901,7 @@ public class ForumBase extends KsBase {
 	 * @param content: mail content
 	 */
 	public static void checkAndDeleteMail(By mail, String content){
-		waitForElementPresent(mail);
+		waitForElementPresent(mail,150000);
 		click(mail);	    
 		waitForTextPresent(content);
 		info("Found notify mail");
@@ -954,7 +959,7 @@ public class ForumBase extends KsBase {
 			assert temp[i].contains(content[i]): "Fail! 2 Strings are different from each other"; 
 		}
 	}
-	
+
 	/**function check fomat of content mail
 	 * @author lientm
 	 * @param contentMail: content of mail (has '/' to separate paragraphs into lines)
@@ -962,11 +967,11 @@ public class ForumBase extends KsBase {
 	public static void checkContentMail(String contentMail){
 		String[] content = contentMail.split("/");
 		String[] temp = getText(ELEMENT_MAIL_CONTENT).split(System.getProperty("line.separator"));
-		
+
 		compareString(temp, content);
 		info("Email content is true");
 	}
-	
+
 	/**Function go to Edit Forum portlet. Click edit forum portlet
 	 * @author lientm
 	 */
@@ -976,7 +981,7 @@ public class ForumBase extends KsBase {
 		click(ELEMENT_FORUM_PORTLET_EDIT_ICON);
 		waitForElementPresent(ELEMENT_FORUM_PORTLET_EDITMODE_TAB);
 	}
-	
+
 	/**function save setting for Forum portlet
 	 * @author lientm
 	 */
@@ -990,7 +995,7 @@ public class ForumBase extends KsBase {
 		click(ELEMENT_PAGE_EDIT_FINISH);
 		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH);
 	}
-	
+
 	/**function: setting dispaly panel in Forum portlet setting (go to edit page -> edit forum portlet -> select panel -> save)
 	 * @author lientm
 	 * @param show: refer function selectPanel()
@@ -1001,7 +1006,7 @@ public class ForumBase extends KsBase {
 		selectPanel(show);
 		saveForumPortletSetting();
 	}
-	
+
 	/**function: select show/hire category/forum (go to edit page -> edit forum portlet setting -> setting -> save
 	 * @author lientm
 	 * @param itemName: refer selectDisplayCategoryAndForum()
@@ -1014,7 +1019,7 @@ public class ForumBase extends KsBase {
 		selectDisplayCategoryAndForum(itemName, isCategory, display);
 		saveForumPortletSetting();
 	}
-	
+
 	/**Function select option show panels in forum portlet setting
 	 * @author lientm
 	 * @param show: array option to show panels
@@ -1112,4 +1117,32 @@ public class ForumBase extends KsBase {
 		click(rss);
 		pause(2000);
 	}
+	/** Check mail in gmail
+	 * @author thuntn
+	 * @param user
+	 * @param pass
+	 * @param titleMail: title of mail that need to be checked
+	 */
+	public void  checkGmail(String user, String pass){
+		info("--Go to Gmail--");
+		((JavascriptExecutor) driver).executeScript("window.open()");
+
+		switchToNewWindow();
+		driver.navigate().to(GMAIL_URL);
+		driver.manage().window().maximize();
+		signInGmail(user, pass);
+	}
+	/**
+	 * 
+	 */
+	public void signInGmail(String user, String pass){
+		info("--Sign in gmail--");
+		
+		type(ELEMENT_GMAIL_USERNAME,user,true);
+		type(ELEMENT_GMAIL_PASS,pass,true);
+		click(ELEMENT_GMAIL_SIGN_IN);
+		waitForElementNotPresent(ELEMENT_GMAIL_SIGN_IN);
+		waitForElementPresent(ELEMENT_GMAIL_COMPOSE);
+	}
+	
 }

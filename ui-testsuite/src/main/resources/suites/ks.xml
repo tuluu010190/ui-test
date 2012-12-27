@@ -2,6 +2,11 @@
 
 <suite name="KS Functional Test" verbose="1">
 		<test name="ks-func" enabled="true">
+		<groups>
+		  <run>
+		    <exclude name="pending"/>
+		  </run>
+		</groups>
 		<packages>
 			<package name="org.exoplatform.selenium.platform.ks.*" />
 		</packages>

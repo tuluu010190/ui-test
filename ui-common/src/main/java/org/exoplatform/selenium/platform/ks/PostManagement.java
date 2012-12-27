@@ -1,8 +1,6 @@
 package org.exoplatform.selenium.platform.ks;
 
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.UserGroupManagement.selectGroup;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -17,6 +15,15 @@ public class PostManagement extends TopicManagement{
 	public static String ELEMENT_GO_TO_THE_LASTS_READ_POST_FORUM = "//a[text()='${forum}']/../..//a[@title='Go to the last read post']";
 	public static String ELEMENT_PRIVATE_POST_BUTTON = "//*[text()='${topic}  ']/../../..//a[text()='Private']";
 
+	public static By ELEMENT_APPROVE_POST = By.xpath("//a[text()='Approve']");
+	public static String ELEMENT_APPROVE_POST_CHECK = "//a[@title='{$topic}']/ancestor::tr//input";
+	
+	public static By ELEMENT_APPROVE_POST_BUTTON = By.linkText("Approve");
+	public static By ELEMENT_CENSOR_POST = By.linkText("Censor");
+	public static String ELEMENT_CENSOR_POST_CHECK = "//a[@title='{$post}']/ancestor::tr//input";
+	public static String MSG_POST_CENSOR = "This post may contain offensive content. It will be displayed after moderation.";
+	public static String MSG_POST_APPROVE = "Your post is pending for moderation. It will be displayed after approval.";
+	
 	//--------------post reply screen-----------------------------------------------------------
 	public static By ELEMENT_POST_TITLE = By.id("PostTitle");
 	public static By ELEMENT_POST_MESSAGE_FRAME_1 = By.xpath("//iframe[@id='MessageContent___Frame']");
@@ -219,11 +226,55 @@ public class PostManagement extends TopicManagement{
 		waitForElementPresent(ELEMENT_MOVE_POST);
 		click(ELEMENT_MOVE_POST);
 		waitForElementPresent(ELEMENT_POPUP_MOVE_POST);
-		selectGroup(destination);
+		String[] temp;			 
+		/* Delimiter */
+		String delimiter = "/";
+
+		temp = destination.split(delimiter);
+		/* Go to group */
+		for(int i =0; i < temp.length ; i++){
+			info("Go to " + temp[i]);
+			click(By.xpath("//div[@class='NodeLabel']//a[text()='"+temp[i]+"']"));
+			pause(500);
+		}
+		
 		waitForElementNotPresent(ELEMENT_POPUP_MOVE_POST);
 		String links[] = destination.split("/");
 		int length = links.length;
 		waitForElementPresent(By.xpath("//a[@title='" + links[length - 2] + "']/../div[@title='" + links[length - 1] + "']"));
 		info("Move post successfully");
 	}
+	
+	
+	/** function approve a post
+	 * @author thuntn
+	 */
+	public static void approvePost(String post){
+		click(ELEMENT_MODERATION);
+		info("--Approve post--");
+		waitForElementPresent(ELEMENT_APPROVE_POST);
+		click(ELEMENT_APPROVE_POST);
+		waitForElementPresent(ELEMENT_APPROVE_POST_BUTTON);
+		click(ELEMENT_APPROVE_POST_CHECK.replace("{$topic}", post));
+		click(ELEMENT_APPROVE_POST_BUTTON);
+		waitForElementNotPresent(ELEMENT_APPROVE_POST_BUTTON);
+	}
+	/** Censor a post
+	 * @author thuntn
+	 * @param post
+	 */
+	public static void censorPost(String post){
+		By postCheck = By.xpath(ELEMENT_CENSOR_POST_CHECK.replace("{$post}", post));
+
+		info("--Approve a post that is pending by censor--");
+		waitForElementPresent(ELEMENT_MODERATION);
+		click(ELEMENT_MODERATION);
+		click(ELEMENT_CENSOR_POST);
+		waitForElementPresent(ELEMENT_APPROVE_POST_BUTTON);
+		check(postCheck);
+		click(ELEMENT_APPROVE_POST_BUTTON);
+		waitForElementNotPresent(ELEMENT_APPROVE_POST_BUTTON);
+		info("--Approve a topic successfully--");
+	}
+	
 }
