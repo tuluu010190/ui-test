@@ -38,7 +38,8 @@ public class ManageApplications extends PlatformBase {
 	public static final String MESSAGE_CONFIRM_DELETE_CATEGORY = "Are you sure to delete this category and all its applications?";
 	public static final String ELEMENT_CATEGORY_NAME = "//a[@title='${categoryName}']";
 	public static final By ELEMENT_CATEGORIES_FORM = By.xpath("//div[text()='Categories']"); 
-
+	public static final String IMPORT_APPLICATION_CONFIRMATION="This will automatically import all gadgets and portlets into new categories.";
+	
 	// Gadget functions
 	public static void addRemoteGadget (String Url) {
 		for (int i =0;; i++)
@@ -249,5 +250,11 @@ public class ManageApplications extends PlatformBase {
 		{
 			waitForElementNotPresent(ELEMENT_IMPORT_APPLICATION);
 		}
+	}
+	
+	public static void importApplication () {
+		click(ELEMENT_IMPORT_APPLICATION);
+		waitForConfirmation(IMPORT_APPLICATION_CONFIRMATION);
+		pause(1000);
 	}
 }
