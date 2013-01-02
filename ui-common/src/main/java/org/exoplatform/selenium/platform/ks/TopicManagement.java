@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.ks;
 import static org.exoplatform.selenium.TestLogger.info;
 import static org.exoplatform.selenium.platform.UserGroupManagement.selectGroup;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 public class TopicManagement extends ForumManagement {
@@ -62,7 +63,15 @@ public class TopicManagement extends ForumManagement {
 	public static By ELEMENT_TAG = By.id("ButtonSearch");
 	public static By ELEMENT_ADD_TAG = By.id("AddTag");
 	public static By ELEMENT_ADD_TAG_BUTTON = By.xpath("//label[text()='Add Tag']");
-
+	public static String ELEMENT_TAG_NUMBER = "//*[@id='searchTagName']/div/font[text()='(${No})']";
+	public static By ELEMENT_MANAGE_TAG = By.linkText("Manage Tag");
+	public static By ELEMENT_UNTAG = By.xpath("//a[contains(text(), 'Untag')]");
+	public static String ELEMENT_CHECKBOX_UNTAG = "//input[@type='checkbox' and @title='${topic}']";
+	public static String MESSAGE_UNTAG = "Are you sure to remove this tag from the topic?";
+	public static String MESSAGE_ADD_TAG_BLANK_NAME = "The field must not be blank.";
+	public static String ELEMENT_UNTAG_ICON = "//a[text()='${tag}']/../span[@title='Untag this topic.']";
+	public static String ELEMENT_suggestion = "#searchTagName div:contains('${tag}') font:contains('(${No})')";
+	
 	//-------------------censor topic list form-----------------------------------------------
 	public static By ELEMENT_POPUP_CENSOR_TOPIC = By.xpath("//span[@class='PopupTitle' and text()='Censor Topics List']");
 	public static String ELEMENT_CENSOR_TOPIC_CHECKBOX = "//*[text()='${topic}']/../../../../td/input[@type='checkbox']";
@@ -308,6 +317,16 @@ public class TopicManagement extends ForumManagement {
 		waitForTextPresent(title);
 		info("Start topic successfully");
 	} 
+	
+	public static void quickStartTopicByClickStartButton(String title, String message){
+		info("Start a topic by click start topic button");
+		click(ELEMENT_START_TOPIC_BUTTON);
+		inputDataInContentTab_StartTopic(title, message);    
+		click(ELEMENT_SUBMIT_BUTTON);
+		waitForElementNotPresent(ELEMENT_POPUP_START_TOPIC);
+		waitForTextPresent(title);
+		info("Start topic successfully");
+	}
 
 	/** function: delete a topic
 	 * @author lientm
@@ -400,21 +419,112 @@ public class TopicManagement extends ForumManagement {
 		info("Move topic successfully");
 	}	
 
+	/**function go to Add tag for topic
+	 * @author lientm
+	 */
+	public static void goToAddTagForTopic(){
+		waitForElementPresent(ELEMENT_TAG);
+		click(ELEMENT_TAG);
+		waitForElementPresent(ELEMENT_ADD_TAG);
+	}
+	
 	/**
 	 * function add tag for topic
 	 * @param tagName: name of tag
 	 */
 	public static void addTagForTopic(String tagName){
-		waitForElementPresent(ELEMENT_TAG);
-		click(ELEMENT_TAG);
-		waitForElementPresent(ELEMENT_ADD_TAG);
+		String[] tag = tagName.split(" ");
+		
+		goToAddTagForTopic();
 		type(ELEMENT_ADD_TAG, tagName, true);
 		click(ELEMENT_ADD_TAG_BUTTON);
-		waitForElementPresent(By.linkText(tagName));
+		for(int i = 0; i < tag.length; i ++){
+			waitForElementPresent(By.linkText(tag[i]));
+		}
 		info("Add tag for topic successfully");
 	}
 
-
+	/**function untag for many topics
+	 * @author lientm
+	 * @param tagName: Name of tag
+	 * @param topic: topics that need untag
+	 */
+	public static void unTagForTopics(String tagName, String...topic){
+		info("Go to manage tag");
+		click(By.linkText(tagName));
+		waitForElementPresent(ELEMENT_MANAGE_TAG);		
+		info("choose topic to untag");
+		for (int i = 0; i < topic.length; i ++){
+			By element_topic = By.xpath(ELEMENT_CHECKBOX_UNTAG.replace("${topic}", topic[i]));
+			check(element_topic);
+		}
+		click(ELEMENT_MANAGE_TAG);
+		for(int i = 0; i < 5; i ++){
+			if (waitForAndGetElement(ELEMENT_UNTAG, 5000, 0) == null){
+				click(ELEMENT_MANAGE_TAG);
+				info("retry click manage tag" + i);
+			}
+			else break;
+		}
+		click(ELEMENT_UNTAG);
+		waitForConfirmation(MESSAGE_UNTAG);
+		info("Untag for topics successfully");
+	}
+	
+	/**function untag directly for topic
+	 * @author lientm
+	 * @param tagName
+	 */
+	public static void unTagDirectly(String tagName){
+		String[] tag = tagName.split(" ");
+		
+		for(int i = 0; i < tag.length; i ++){
+			By element_untag = By.xpath(ELEMENT_UNTAG_ICON.replace("${tag}", tag[i]));	
+			info("untag directly");
+			click(element_untag);
+			waitForTextNotPresent(tag[i]);
+		}
+		info("untag successfully");
+	}
+	
+	/**function get element that is suggestion tag element when type into tag name
+	 * @author lientm
+	 * @param tag: name of suggestion tag
+	 * @param number
+	 * @return WebElement
+	 */
+	public static WebElement getSuggestionElement(String tag, String number){	
+		String jQuerySelector = ELEMENT_suggestion.replace("${tag}", tag).replace("${No}", number);
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		String script = "return $(\"" + jQuerySelector + "\").get(0);";
+		WebElement exampleDiv = (WebElement) js.executeScript(script);
+		return exampleDiv;
+	}
+	
+	/**function check Occurence number when add tag
+	 * @author lientm
+	 * @param number
+	 * @param tagName
+	 */
+	public static void checkOccurenceOfTag(String number, String tagName, String... prefix){
+		String valid = prefix.length > 0 ? prefix[0]: tagName;
+		String[] tag = tagName.split(" ");
+		String[] pre = valid.split(" ");
+		By element_tag_no = By.xpath(ELEMENT_TAG_NUMBER.replace("${No}", number));
+		
+		if (pre.length == tag.length){
+			goToAddTagForTopic();
+			for (int i = 0; i < pre.length; i ++){
+				type(ELEMENT_ADD_TAG, pre[i], true);
+				info("Check suggesstion and occurence when add tag that is already exited");
+				waitForElementPresent(element_tag_no);				
+				WebElement exampleDiv = getSuggestionElement(tag[i], number);				
+				if (exampleDiv == null) assert false;
+				info("Suggesstion and Occurence of tag is true");
+			}
+		}
+	}
+	
 	/**
 	 * function create category -> forum -> topic
 	 * @param category: title of category

@@ -274,7 +274,7 @@ public class ForumBase extends KsBase {
 	public static void jumpTo(String destination){
 		WebElement element = waitForAndGetElement(ELEMENT_JUMP_TO);
 		if (element != null){
-			info("Jump to category " + destination);
+			info("Jump to " + destination);
 			select(ELEMENT_JUMP_TO, destination);
 		}
 		click(ELEMENT_GO_BUTTON);
