@@ -27,7 +27,7 @@ public class KsBase extends PlatformBase {
 	public static String ELEMENT_MYSITE_LINK = "//a[@class='ArrowIcon TBIcon' and contains(text(),'My Sites')]";
 	public static By ELEMENT_INTRANET_LINK = By.linkText("intranet");
 	public static String DATA_ANSWER_PAGE_NAME="Answer";
-	public static String CATEGORY_TITLE="faq";
+	public static String CATEGORY_TITLE="Faq";
 	public static By ELEMENT_UP_LEVEL=By.xpath("//a[@title='Up Level']");
 	public static By ELEMENT_FORUM_LINK = By.linkText("Forums");
 	public static By ELEMENT_WIKI_LINK=By.xpath("//a[text()='intranet']/..//a[text()='Wiki']");
@@ -64,7 +64,6 @@ public class KsBase extends PlatformBase {
 	public static void createAnswerPageAtRootPath() {
 		Map<String, String> ANSWER_PORTLET_ID = new HashMap<String, String>();
 		ANSWER_PORTLET_ID.put("faq/local._faq.AnswersPortlet", "");
-
 		info("Go to Application");
 		goToApplicationRegistry();
 
@@ -97,8 +96,7 @@ public class KsBase extends PlatformBase {
 	public static void createAnswerAndFAQPage()	{
 		Map<String, String> ANSWER_FQA_PORTLET_ID = new HashMap<String, String>();
 		ANSWER_FQA_PORTLET_ID.put("faq/local._faq.AnswersPortlet", "faq/local._faq.FAQPortlet");
-
-
+		
 		info("Configure to show import applications");
 		showImportApplication(true);
 
@@ -179,6 +177,7 @@ public class KsBase extends PlatformBase {
 	            click(ELEMENT_ANSWER_LINK);
 	    } 
 	}
+	
 
 	/** 
 	 * Edit Answer at Page management, end at clicking edit answer portlet

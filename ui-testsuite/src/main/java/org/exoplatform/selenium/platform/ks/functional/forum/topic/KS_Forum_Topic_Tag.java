@@ -20,6 +20,7 @@ import org.testng.annotations.Test;
  *
  */
 public class KS_Forum_Topic_Tag extends TopicManagement {
+	By ELEMENT_GET_ID_PAGE = By.xpath("//*[@id='UIPage']/div[@class='UIRowContainer']/div");
 	
 	@BeforeMethod
 	public void beforeTest(){
@@ -74,7 +75,8 @@ public class KS_Forum_Topic_Tag extends TopicManagement {
 		info("Add tag for topic by press enter key");
 		goToAddTagForTopic();
 		type(ELEMENT_ADD_TAG, tagName, true);
-		((JavascriptExecutor) driver).executeScript("javascript:eXo.webui.UIForm.submitForm('p_3218bf63-9f4e-4842-a4e6-a72f04a3a771#UITopicDetail','AddTagTopic',true)");
+		String id = waitForAndGetElement(ELEMENT_GET_ID_PAGE).getAttribute("id");
+		((JavascriptExecutor) driver).executeScript("javascript:eXo.webui.UIForm.submitForm('" + id + "#UITopicDetail','AddTagTopic',true)");
 		waitForElementPresent(element_tag);
 		info("Add tag by press Enter key for topic successfully");
 		

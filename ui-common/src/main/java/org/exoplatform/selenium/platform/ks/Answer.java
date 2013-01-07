@@ -582,7 +582,7 @@ public class Answer extends KsBase{
 	 * @param categoryName
 	 */
 	public static void deleteOpeningCategoryInAnswer(String categoryName){
-
+		
 		info("Delete a category by clicking Category then click Delete");
 
 		waitForElementPresent(ELEMENT_CATEGORY_BUTTON);
@@ -599,8 +599,8 @@ public class Answer extends KsBase{
 	 * @param categoryName
 	 */
 
-	public static void deleteNotOpeningCategoryInAnswer(String categoryName){
-
+	public static void deleteNotOpeningCategoryInAnswer(String categoryName, boolean...verify){
+		boolean valid = verify.length > 0 ? verify[0]: true;
 		info("Delete a category by right-click Category then click Delete");
 		By categoryLink=By.xpath("//span[text()='"+categoryName+"']");
 
@@ -610,8 +610,9 @@ public class Answer extends KsBase{
 		click(ELEMENT_DELETE_CATEGORY_RIGHTCLICK);
 
 		waitForConfirmation(MSG_DELETE_CATEGORY);
-		waitForElementNotPresent(By.xpath("//span[text()='"+categoryName+"']"));
-		
+		if (valid){
+			waitForElementNotPresent(By.xpath("//span[text()='"+categoryName+"']"));
+		}		
 	}
 	/*	---------------------------End of common functions for Category-----------------------------------*/
 
