@@ -13,20 +13,20 @@ public class PeopleSearch extends SocialBase{
 	//Go to username link -> Find Connections
 
 	//Search people by name
-	public static final By ELEMENT_NAME_OF_PEOPLE = By.id("Search");
+	public final By ELEMENT_NAME_OF_PEOPLE = By.id("Search");
 
 	//Search people by position
-	public static final By ELEMENT_ROLE_OF_PEOPLE = By.id("position");
+	public final By ELEMENT_ROLE_OF_PEOPLE = By.id("position");
 	//By ELEMENT_ROLE_OF_PEOPLE = By.xpath("//*[@id='position']");
 
 	//Search people by skill
-	public static final By ELEMENT_SKILL_OF_PEOPLE = By.id("skills");
+	public final By ELEMENT_SKILL_OF_PEOPLE = By.id("skills");
 	//By ELEMENT_SKILL_OF_PEOPLE = By.xpath("//*[@id='skills']");   
 
 	//Search people by directory
-	public static final String ELEMENT_DIRECTORY_OF_PEOPLE = "//*[@id='DirectorySpaces']/li/a[text()='${directoryPeople}']";
+	public final String ELEMENT_DIRECTORY_OF_PEOPLE = "//*[@id='DirectorySpaces']/li/a[text()='${directoryPeople}']";
 
-	//public static final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
+	//public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
 	
 	/**
 	 * 
@@ -38,7 +38,7 @@ public class PeopleSearch extends SocialBase{
 	 * by directory: inputSearch -> input an alphabet: A,B,C ...
 	 * 
 	 */
-	public static void searchPeople(searchType type, String inputSearch){
+	public void searchPeople(searchType type, String inputSearch){
 		info("-- Searching people ... --");
 		switch (type) {
 		case NAME:
@@ -61,7 +61,7 @@ public class PeopleSearch extends SocialBase{
 		}
 	}
 
-	public static void searchPeopleAdvance(boolean searchName, String inputName,
+	public void searchPeopleAdvance(boolean searchName, String inputName,
 			                               boolean searchRole, String inputRole,
 			                               boolean searchSkill,String inputSkill){
 		info("-- Searching people ... --");
@@ -84,7 +84,7 @@ public class PeopleSearch extends SocialBase{
 	}
 	
 	//Define a type of search 
-	public static enum searchType {
+	public enum searchType {
 		NAME, ROLE, SKILL, DIRECTORY;
 	}
 

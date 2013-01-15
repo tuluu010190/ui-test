@@ -5,11 +5,12 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class NavigationToolbar extends PlatformBase {
 
 	//Go to portal sites
-	public static void goToPortalSites() {
+	public void goToPortalSites() {
 		info("--Go to Portal Site Management--");
 		waitForAndGetElement(By.xpath(ELEMENT_LINK_SETUP));
 		mouseOver(ELEMENT_LINK_SETUP, false);
@@ -22,7 +23,7 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	//Go to Portal Manage Pages	
-	public static void goToManagePages() {
+	public void goToManagePages() {
 		info("--Go to Portal Site Management--");
 		//		waitForAndGetElement(By.xpath(ELEMENT_LINK_SETUP));
 		for(;;){
@@ -39,7 +40,8 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	//Go to Dashboard
-	public static void goToDashboard(){
+	public void goToDashboard(){
+		Actions actions = new Actions(driver);
 		info("--Go to Dashboard page--");
 		WebElement element = driver.findElement(By.id("UserNavigationTabsContainer"));
 		actions.moveToElement(element).build().perform();
@@ -47,13 +49,14 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	//Go to User management page
-	public static void goToNewStaff() {
+	public void goToNewStaff() {
 		//info("Go to New Staff");
 		goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADD_USERS);
 	}
 
 	//Go to My Account
-	public static void goToMyAccount(){
+	public void goToMyAccount(){
+		Actions actions = new Actions(driver);
 		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
 		actions.moveToElement(UI).build().perform();
 		driver.findElement(By.linkText("My Account")).click();	
@@ -61,7 +64,8 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	//Go to Portal/Group Sites
-	public static void goToGroupSites(){
+	public void goToGroupSites(){
+		Actions actions = new Actions(driver);
 		info("--Go to Portal Site Management--");
 		waitForAndGetElement(By.xpath(ELEMENT_LINK_SETUP));
 		mouseOver(ELEMENT_LINK_SETUP, false);
@@ -75,7 +79,8 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	//Go to add page locator with Editor
-	public static void goToAddPageEditor(){
+	public void goToAddPageEditor(){
+		Actions actions = new Actions(driver);
 		waitForAndGetElement(By.xpath(ELEMENT_LINK_EDITOR));
 		mouseOver(ELEMENT_LINK_EDITOR, true);
 		pause(500);
@@ -86,13 +91,13 @@ public class NavigationToolbar extends PlatformBase {
 		pause(500);
 	}
 
-	public static void goToUsersAndGroupsManagement() {
+	public void goToUsersAndGroupsManagement() {
 		info("--Go to Users and groups management--");
 		goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_GROUP_AND_ROLE_LINK);
 	}
 
 	//Go to Portal Application Registry
-	public static void goToApplicationRegistry() {
+	public void goToApplicationRegistry() {
 		info("--Go to Portal Application Registry--");
 		mouseOver(ELEMENT_LINK_SETUP, false);
 		pause(500);
@@ -101,7 +106,7 @@ public class NavigationToolbar extends PlatformBase {
 		pause(500);
 	}
 
-	public static void goToEditPageEditor () {
+	public void goToEditPageEditor () {
 		info("----Go to Edit page editor----");
 		mouseOver(ELEMENT_MENU_EDIT_LINK,false);
 		pause(500);
@@ -112,7 +117,8 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	//Go to change language for user interface
-	public static void goToChangeLanguageForUserInterface(){
+	public void goToChangeLanguageForUserInterface(){
+		Actions actions = new Actions(driver);
 		info("--Go to change language for user interface--");
 		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
 		actions.moveToElement(UI).build().perform();
@@ -121,7 +127,7 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	//Go to register page in public mode
-	public static void goToRegisterPageInPublicMode(WebDriver driverTest){
+	public void goToRegisterPageInPublicMode(WebDriver driverTest){
 		String registerPageLink = baseUrl.concat("/portal/intranet/Register");
 		driverTest.get(registerPageLink);
 		waitForTextPresent("Create a New Account");

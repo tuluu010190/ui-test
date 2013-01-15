@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class GroupNavigation extends PlatformBase {
 	//Add a node for group at group navigation
-	public static void addNodeForGroup(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode, 
+	public void addNodeForGroup(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode, 
 			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode){
 
 		//String node = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeLabel);

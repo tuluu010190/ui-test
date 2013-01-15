@@ -1,16 +1,16 @@
 package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.PageManagement.*;
+import org.exoplatform.selenium.platform.PageManagement;
 import java.util.Map;
 import org.openqa.selenium.By;
 
-public class NavigationManagement extends PlatformBase {
-	public static final By ELEMENT_INPUT_POPUP_SEARCH_TITLE = By.xpath("//div[@class='QuickSet']/input[@id='pageTitle']"); 
-	public static final By ELEMENT_SELECT_PAGE = By.xpath("//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img");
+public class NavigationManagement extends  PageManagement{
+	public  final By ELEMENT_INPUT_POPUP_SEARCH_TITLE = By.xpath("//div[@class='QuickSet']/input[@id='pageTitle']"); 
+	public  final By ELEMENT_SELECT_PAGE = By.xpath("//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img");
 
 	// Add a node for portal at portal navigation
-	public static void addNodeForPortal(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode,
+	public void addNodeForPortal(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode,
 			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode){
 
 		//String node = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeLabel);
@@ -78,7 +78,7 @@ public class NavigationManagement extends PlatformBase {
 	}
 
 	// Edit a node 
-	public static void editNode(String currentNavigation, String nodeNameHome, String nodeName, boolean extendedLabelMode, Map<String, String> languages, 
+	public void editNode(String currentNavigation, String nodeNameHome, String nodeName, boolean extendedLabelMode, Map<String, String> languages, 
 			String nodeLabel, String pageName, String pageTitle, boolean firstLevel){
 
 		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);
@@ -120,7 +120,7 @@ public class NavigationManagement extends PlatformBase {
 	}
 
 	//Delete a node from Portal navigation
-	public static void deleteNode(String currentNavigation, String nodeNameHome, String nodeName, boolean firstLevel){
+	public void deleteNode(String currentNavigation, String nodeNameHome, String nodeName, boolean firstLevel){
 		info("--Delete a node from navigation--");
 		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);	
 		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);

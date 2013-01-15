@@ -1,70 +1,78 @@
 package org.exoplatform.selenium.platform.ecms;
 
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
-//import org.openqa.selenium.WebElement;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
-import static org.exoplatform.selenium.TestLogger.*;
-import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 
 public class ActionBar extends EcmsBase {
+	
+	public ActionBar(WebDriver dr) {
+		super(dr);
+		// TODO Auto-generated constructor stub
+	}
+
+	ContentTemplate contentTemp = new ContentTemplate(driver);
 
 	//publication TAB
-	public static By ELEMENT_PUBLICATION_TAB= By.xpath("//a[contains(text(),'Publication')]");
-	public static By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");
-	public static By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
-	public static By ELEMENT_ADD_ITEM	 = By.xpath("//img[@title='Add Item']");
-	public static By ELEMENT_EDIT_LINK= By.xpath("//a[@title='Edit']");
-	public static By ELEMENT_NEW_CONTENT_LINK = By.linkText("New Content");
-	public static By ELEMENT_CATEGORIES_LINK = By.xpath("//a[text()='Categories']");
-	public static By ELEMENT_CATEGORIES_MORE_LINK = By.xpath("//div[text()='More']/..//a[text()='Categories']");
-	public static By ELEMENT_PUBLICATION = By.linkText("Publications");
-	public static By ELEMENT_VERSIONS_LINK=By.linkText("Versions");
-	public static By ELEMENT_OVERLOAD_THUMBNAIL = By.linkText("Overload Thumbnail");
+	public By ELEMENT_PUBLICATION_TAB= By.xpath("//a[contains(text(),'Publication')]");
+	public By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");
+	public By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
+	//public By ELEMENT_ADD_ITEM	 = By.xpath("//img[@title='Add Item']");
+	public By ELEMENT_EDIT_LINK= By.xpath("//a[@title='Edit']");
+	public By ELEMENT_NEW_CONTENT_LINK = By.linkText("New Content");
+	public By ELEMENT_CATEGORIES_LINK = By.xpath("//a[text()='Categories']");
+	public By ELEMENT_CATEGORIES_MORE_LINK = By.xpath("//div[text()='More']/..//a[text()='Categories']");
+	public By ELEMENT_PUBLICATION = By.linkText("Publications");
+	public By ELEMENT_VERSIONS_LINK=By.linkText("Versions");
+	public By ELEMENT_OVERLOAD_THUMBNAIL = By.linkText("Overload Thumbnail");
 
 	//System TAB
-	public static By ELEMENT_SYSTEM_TAB = By.xpath("//a[contains(@title,'System')]");
-	public static By ELEMENT_PERMISSION_LINK = By.linkText("Permissions");
-	public static By ELEMENT_EXPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ExportNodeIcon' and @title='Export']");
-	public static By ELEMENT_IMPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ImportNodeIcon' and @title='Import']");
+	public By ELEMENT_SYSTEM_TAB = By.xpath("//a[contains(@title,'System')]");
+	public By ELEMENT_PERMISSION_LINK = By.linkText("Permissions");
+	public By ELEMENT_EXPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ExportNodeIcon' and @title='Export']");
+	public By ELEMENT_IMPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ImportNodeIcon' and @title='Import']");
 
 	//Export Form
-	public static By ELEMENT_DOC_VIEW = By.id("format_docview");
-	public static By ELEMENT_ZIP = By.id("zip");
-	public static By ELEMENT_EXPORT_VERSION = By.linkText("Export Version History");
-	public static By ELEMENT_EXPORT = By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Export']");
+	public By ELEMENT_DOC_VIEW = By.id("format_docview");
+	public By ELEMENT_ZIP = By.id("zip");
+	public By ELEMENT_EXPORT_VERSION = By.linkText("Export Version History");
+	public By ELEMENT_EXPORT = By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Export']");
 
 	//Import Form
-	public static By ELEMENT_UPLOAD_FILE_FRAME = By.xpath("//label[contains(text(),'Upload File:')]/following::div/iframe[contains(@id,'uploadFrame')]");
-	public static By ELEMENT_UPLOAD_VERSION_FRAME = By.xpath("//label[contains(text(),'Version History:')]/following::div/iframe[contains(@id,'uploadFrame')]");
-	public static By ELEMENT_BEHAVIOR = By.name("behavior");
-	public static By ELEMENT_IMPORT = By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Import']");
+	public By ELEMENT_UPLOAD_FILE_FRAME = By.xpath("//label[contains(text(),'Upload File:')]/following::div/iframe[contains(@id,'uploadFrame')]");
+	public By ELEMENT_UPLOAD_VERSION_FRAME = By.xpath("//label[contains(text(),'Version History:')]/following::div/iframe[contains(@id,'uploadFrame')]");
+	public By ELEMENT_BEHAVIOR = By.name("behavior");
+	public By ELEMENT_IMPORT = By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Import']");
 
 	//Add Category Form
-	public static By ELEMENT_SELECT_CATEGORY_TAB = By.xpath("//div[text()='Select Category']");
-	public static By ELEMENT_CATEGORY_TREE_BOX = By.id("taxonomyTree");
-	public static By ELEMENT_ADD_ROOT_BUTTON = By.xpath("//label[text()='Root Tree']/following::img[@title='Add Root Node']");
+	public By ELEMENT_SELECT_CATEGORY_TAB = By.xpath("//div[text()='Select Category']");
+	public By ELEMENT_CATEGORY_TREE_BOX = By.id("taxonomyTree");
+	public By ELEMENT_ADD_ROOT_BUTTON = By.xpath("//label[text()='Root Tree']/following::img[@title='Add Root Node']");
 
 	//Permission Management Form
-	public static By ELEMENT_PERMISSION_MANAGEMENT_POPUP = By.id("UIPopupWindow");
-	public static String ELEMENT_PERMISSION_MANAGEMENT_TEXT = "Permission Management";
-	public static By ELEMENT_PERMISSION_MANAGEMENT_GRID = By.xpath("//table[@class='UIGrid']");
-	public static By READ_CHECKBOX = By.id("read");
-	public static By ADDNODE_CHECKBOX = By.id("add_node");
-	public static By SETPRO_CHECKBOX = By.id("set_property");
-	public static By REMOVE_CHECKBOX = By.id("remove");
+	public By ELEMENT_PERMISSION_MANAGEMENT_POPUP = By.id("UIPopupWindow");
+	public String ELEMENT_PERMISSION_MANAGEMENT_TEXT = "Permission Management";
+	public By ELEMENT_PERMISSION_MANAGEMENT_GRID = By.xpath("//table[@class='UIGrid']");
+	public By READ_CHECKBOX = By.id("read");
+	public By ADDNODE_CHECKBOX = By.id("add_node");
+	public By SETPRO_CHECKBOX = By.id("set_property");
+	public By REMOVE_CHECKBOX = By.id("remove");
 
 	//Collaboration TAB
-	public static By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
-	public static By ELEMENT_TAG = By.linkText("Tag");
+	public By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
+	public By ELEMENT_TAG = By.linkText("Tag");
 
 
 	//Version Info form
-	public static By ELEMENT_ICON_VERSION_ADD=By.xpath("//div[@title='Add Label']");
-	public static By ELEMENT_TEXTBOX_VERSION=By.id("label");
+	public By ELEMENT_ICON_VERSION_ADD=By.xpath("//div[@title='Add Label']");
+	public By ELEMENT_TEXTBOX_VERSION=By.id("label");
 
 
 	// Add a category in DMS Administration - Simple View
-	public static void addCategoryInSimpleView(String name)
+	public void addCategoryInSimpleView(String name)
 	{
 		click(ELEMENT_BUTTON_ADD_CATEGORY);
 		waitForElementPresent(ELEMENT_ADD_CATEGORY_FORM);
@@ -74,7 +82,7 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//Go to new content
-	public static void goToAddNewContent(){
+	public void goToAddNewContent(){
 		waitForElementPresent(ELEMENT_NEW_CONTENT_LINK);
 		for (int repeat = 1;; repeat++)	{	
 			if (repeat >= ACTION_REPEAT) {
@@ -90,7 +98,7 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//Collaboration Tab
-	public static void goToCollaboration(){
+	public void goToCollaboration(){
 		for (int repeat = 0;; repeat++)	{	
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
@@ -104,7 +112,7 @@ public class ActionBar extends EcmsBase {
 		}
 	}
 
-	public static void goToEditDocument(String title)
+	public void goToEditDocument(String title)
 	{	
 		for(int loop = 1;;loop ++)
 		{
@@ -118,7 +126,7 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//Add symlink for node with target node is documents
-	public static void addSymlink(By path, String name){
+	public void addSymlink(By path, String name){
 		waitForElementPresent(ELEMENT_ADD_SYMLINK);
 		click(ELEMENT_ADD_SYMLINK);
 		waitForElementPresent(ELEMENT_ADD_SYMLINK_POPUP);
@@ -134,7 +142,7 @@ public class ActionBar extends EcmsBase {
 		click(ELEMENT_SAVE_BUTTON); 
 	}
 
-	public static void setPermissionForDocument(String user, boolean add, boolean edit, boolean remove, boolean reset)
+	public void setPermissionForDocument(String user, boolean add, boolean edit, boolean remove, boolean reset)
 	{
 		click(ELEMENT_SYSTEM_TAB);
 		click(ELEMENT_PERMISSION_LINK);
@@ -193,7 +201,7 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//Export node
-	public static void exportNode (boolean systemView, boolean zip, boolean exportVersionHistory) {
+	public void exportNode (boolean systemView, boolean zip, boolean exportVersionHistory) {
 		waitForElementPresent(ELEMENT_SYSTEM_TAB);
 		click(ELEMENT_SYSTEM_TAB);
 		pause(500);
@@ -222,7 +230,7 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//Import node
-	public static void importNode (String linkFile, String linkVersion, String behavior, boolean version) {
+	public void importNode (String linkFile, String linkVersion, String behavior, boolean version) {
 		//Click system tab
 		waitForElementPresent(ELEMENT_SYSTEM_TAB);
 		click(ELEMENT_SYSTEM_TAB);
@@ -232,7 +240,7 @@ public class ActionBar extends EcmsBase {
 		//Switch to frame upload file
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME));
 		waitForElementPresent(ELEMENT_UPLOAD_IMG_ID);
-		type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(linkFile), false);
+		type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(linkFile), false);
 		pause(500);
 		switchToParentWindow();
 
@@ -241,7 +249,7 @@ public class ActionBar extends EcmsBase {
 		{		
 			driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_VERSION_FRAME));
 			waitForElementPresent(ELEMENT_UPLOAD_IMG_ID);
-			type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(linkVersion), false);
+			type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(linkVersion), false);
 			pause(500);
 			switchToParentWindow();
 			click(ELEMENT_IMPORT);
@@ -259,7 +267,7 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//Add category for node
-	public static void addCategoryForNode (String categoryTree, boolean rootTree, String categoryPath, String categoryName) {
+	public void addCategoryForNode (String categoryTree, boolean rootTree, String categoryPath, String categoryName) {
 		By ELEMENT_ADD_CATEGORY_SPECIFIC = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@title='select']");
 		//			By ELEMENT_CATEGORY_LIST = By.xpath("//th[text()='Category']");
 
@@ -292,13 +300,13 @@ public class ActionBar extends EcmsBase {
 	}
 
 	// Node Permission
-	public static void goToPermissionManagement(){
+	public void goToPermissionManagement(){
 		goToNode(ELEMENT_SYSTEM_TAB);
 		goToNode(ELEMENT_PERMISSION_LINK);
 	}
 
 	//Function to set permission for node
-	public static void setNodePermission(boolean read, boolean add, boolean pro, boolean remove){
+	public void setNodePermission(boolean read, boolean add, boolean pro, boolean remove){
 		info("Set read permission for user: "+read);
 		waitForElementPresent(READ_CHECKBOX);
 		if ((read && !waitForAndGetElement(READ_CHECKBOX).isSelected()) || (!read && waitForAndGetElement(READ_CHECKBOX).isSelected())){
@@ -319,7 +327,7 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//Function to delete permission
-	public static void deletePermission(String user, boolean verify){
+	public void deletePermission(String user, boolean verify){
 		By ELEMENT_DELETE_USER_PERMISSION = By.xpath("//div[@title='"+ user +"']/../../td/div/img[@class='DeleteIcon']");
 		By ELEMENT_DELETE_USER_PERMISSION_AUX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//div[@title='"+ user +"']/../../td/div/img[@class='DeleteIcon']");
 		if (waitForAndGetElement(ELEMENT_DELETE_USER_PERMISSION_AUX,5000,0) != null){
@@ -343,20 +351,20 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//Function to remove default user and group permission of node except for owner
-	public static void removeDefaultPermissionOfNode(){ 
+	public void removeDefaultPermissionOfNode(){ 
 		deletePermission("*:/platform/web-contributors", true);
 		deletePermission("*:/platform/administrators", true);
 		deletePermission("any", true);
 	}
 
 	//Function to add a user to group and choose membership type
-	public static void clickUpLevel(){
+	public void clickUpLevel(){
 		click(By.xpath("//*[@id='UITaxonomyTreeCreateChild']//a[@class='LevelUpArrowIcon']"));
 		pause(500);
 	}
 
 	//Function to select user to set permission on permission management popup
-	public static void selectUser(String user){
+	public void selectUser(String user){
 		By ELEMENT_USER = By.xpath("//div[@title='"+user+"']/../../td/div/img[@class='SelectPageIcon']"); 
 
 		info("Set permission for user "+user);
@@ -373,7 +381,7 @@ public class ActionBar extends EcmsBase {
 	 * + locator: locator of node
 		   + version: version name
 	 */
-	public static void addVersionForNode(By locator, String vesion){
+	public void addVersionForNode(By locator, String vesion){
 		goToNode(locator);
 		click(ELEMENT_PUBLICATION_TAB);
 		clearCache();
@@ -386,11 +394,11 @@ public class ActionBar extends EcmsBase {
 	}
 
 	//Upload file Thumbnail
-	public static void uploadThumbnail(String link){
+	public void uploadThumbnail(String link){
 		click(ELEMENT_OVERLOAD_THUMBNAIL);
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
-		type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(link), false);
-		info("Upload file "+getAbsoluteFilePath(link));
+		type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(link), false);
+		info("Upload file "+ Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
 		String links[] = link.split("/");
 		int length = links.length;

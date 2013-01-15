@@ -14,48 +14,48 @@ public class SpaceNavigation extends SocialBase{
 
 	// Go to My Spaces > Select a space > Settings
 	// Navigations Tab
-	public static final By UP_LEVEL = By.xpath("//a[@title='Up Level']");
+	public final By UP_LEVEL = By.xpath("//a[@title='Up Level']");
 
-	public static final By ADD_NODE_BUTTON = By.xpath("//a[text()='Add Node']");
-	public static final By NODE_NAME = By.xpath("//input[@id='name']");
-	public static final By NODE_LABEL = By.xpath("//input[@id='label']");
-	public static final By PAGE_SELECTOR = By.xpath("//div[text()='Page Selector']");
-	public static final By PAGE_NAME = By.id("pageName");
-	public static final By CREATE_PAGE_BUTTON = By.linkText("Create Page");
-	public static final String NODE_PATH = "//a[@class='NodeIcon DefaultPageIcon' and @title='${nodeLabel}']";
-	public static final By ELEMENT_INPUT_POPUP_SEARCH_TITLE = By.xpath("//div[@class='QuickSet']/input[@id='pageTitle']"); 
-	public static final By ELEMENT_SELECT_PAGE = By.xpath("//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img");
-	public static final String WARNING_EXISTING_NODE = "This node name already exists.";
+	public final By ADD_NODE_BUTTON = By.xpath("//a[text()='Add Node']");
+	public final By NODE_NAME = By.xpath("//input[@id='name']");
+	public final By NODE_LABEL = By.xpath("//input[@id='label']");
+	public final By PAGE_SELECTOR = By.xpath("//div[text()='Page Selector']");
+	public final By PAGE_NAME = By.id("pageName");
+	public final By CREATE_PAGE_BUTTON = By.linkText("Create Page");
+	public final String NODE_PATH = "//a[@class='NodeIcon DefaultPageIcon' and @title='${nodeLabel}']";
+	public final By ELEMENT_INPUT_POPUP_SEARCH_TITLE = By.xpath("//div[@class='QuickSet']/input[@id='pageTitle']"); 
+	public final By ELEMENT_SELECT_PAGE = By.xpath("//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img");
+	public final String WARNING_EXISTING_NODE = "This node name already exists.";
 
-	public static final String ELEMENT_NODE_LINK_FORM = "//div[@class='UITrees ScrollArea']//a[@title='${nodeLabel}']";
-	public static final String ELEMENT_RIGHT_CLICK_ADD_NODE_FORM_ = "//div[@class='TopLeftRightClickPopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
-	public static final String ELEMENT_ADD_NEW_NODE_RIGHT_CLICK = "//div[@id='SpaceNavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
-	public static final String ELEMENT_DELETE_NODE = "//div[@id='SpaceNavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon DeleteNode16x16Icon']";
-	public static final String ELEMENT_EDIT_NODE = "//div[@id='SpaceNavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
-	public static final By ELEMENT_CUT_NODE_LINK = By.linkText("Cut Node");
-//	public static final By ELEMENT_PASTE_NODE_LINK = By.linkText("Paste Node");
-	public static final By ELEMENT_PASTE_NODE_LINK = By.xpath("//*[@id='SpaceNavigationNodePopupMenu']//a[@class='ItemIcon PasteNode16x16Icon']");
-	public static final By ELEMENT_COPY_NODE_LINK = By.linkText("Copy Node");
-	public static final By ELEMENT_MOVE_UP_LINK = By.linkText("Move Up");
-	public static final By ELEMENT_MOVE_DOWN_LINK = By.linkText("Move Down");
-	public static final By ELEMENT_EDIT_NODE_PAGE = By.linkText("Edit Node's Page");
+	public final String ELEMENT_NODE_LINK_FORM = "//div[@class='UITrees ScrollArea']//a[@title='${nodeLabel}']";
+	public final String ELEMENT_RIGHT_CLICK_ADD_NODE_FORM_ = "//div[@class='TopLeftRightClickPopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
+	public final String ELEMENT_ADD_NEW_NODE_RIGHT_CLICK = "//div[@id='SpaceNavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
+	public final String ELEMENT_DELETE_NODE = "//div[@id='SpaceNavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon DeleteNode16x16Icon']";
+	public final String ELEMENT_EDIT_NODE = "//div[@id='SpaceNavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
+	public final By ELEMENT_CUT_NODE_LINK = By.linkText("Cut Node");
+//	public final By ELEMENT_PASTE_NODE_LINK = By.linkText("Paste Node");
+	public final By ELEMENT_PASTE_NODE_LINK = By.xpath("//*[@id='SpaceNavigationNodePopupMenu']//a[@class='ItemIcon PasteNode16x16Icon']");
+	public final By ELEMENT_COPY_NODE_LINK = By.linkText("Copy Node");
+	public final By ELEMENT_MOVE_UP_LINK = By.linkText("Move Up");
+	public final By ELEMENT_MOVE_DOWN_LINK = By.linkText("Move Down");
+	public final By ELEMENT_EDIT_NODE_PAGE = By.linkText("Edit Node's Page");
 
 	// Spacesetting -> Navigation -> Edit Page
-	public static By ELEMENT_PORTLET_LAYOUT = By.className("PortletLayoutDecorator");
-	public static By ELEMENT_SAVECLOSE_LINK = By.linkText("Save And Close");
-	public static By ELEMENT_WINDOWN_SETTINGS_TAB = By.xpath("//div[text()='Window Settings']");
-	public static By ELEMENT_DESCRIPTION_AREA = By.id("description");
-	public static By ELEMENT_TAB_CONTAINERS = By.xpath("//div[contains(text(),'Containers') and @class='MiddleTab']");
-	public static By ELEMENT_ROWS_LAYOUT = By.xpath("//a[@class='TabLabel and @title='row']");
-	public static String ELEMENT_EDIT_PAGE_COMPONENT = "//div[@class='UIRowContainer']/div[${portletNumber}]/div";
-	public static By ELEMENT_EDIT_ICON = By.xpath("//a[@class = 'EditIcon' and @title='Edit Container']");
-	public static By ELEMENT_PERMISSION_TAB = By.xpath("//div[text()='Access Permission']");
-	public static By ELEMENT_WIDTH_TEXTBOX = By.id("width");
-	public static By ELEMENT_HEIGHT_TEXTBOX = By.id("height");
+	public By ELEMENT_PORTLET_LAYOUT = By.className("PortletLayoutDecorator");
+	public By ELEMENT_SAVECLOSE_LINK = By.linkText("Save And Close");
+	public By ELEMENT_WINDOWN_SETTINGS_TAB = By.xpath("//div[text()='Window Settings']");
+	public By ELEMENT_DESCRIPTION_AREA = By.id("description");
+	public By ELEMENT_TAB_CONTAINERS = By.xpath("//div[contains(text(),'Containers') and @class='MiddleTab']");
+	public By ELEMENT_ROWS_LAYOUT = By.xpath("//a[@class='TabLabel and @title='row']");
+	public String ELEMENT_EDIT_PAGE_COMPONENT = "//div[@class='UIRowContainer']/div[${portletNumber}]/div";
+	public By ELEMENT_EDIT_ICON = By.xpath("//a[@class = 'EditIcon' and @title='Edit Container']");
+	public By ELEMENT_PERMISSION_TAB = By.xpath("//div[text()='Access Permission']");
+	public By ELEMENT_WIDTH_TEXTBOX = By.id("width");
+	public By ELEMENT_HEIGHT_TEXTBOX = By.id("height");
 	
 	
 	// Add node don't select page in Manage page
-	public static void addNodeDoNotSelectPage(String nodeNameInput, String nodeLabelInput, String pageNameInput)
+	public void addNodeDoNotSelectPage(String nodeNameInput, String nodeLabelInput, String pageNameInput)
 	{
 		//Click add node button
 		click(ADD_NODE_BUTTON);
@@ -97,7 +97,7 @@ public class SpaceNavigation extends SocialBase{
 	 * @param select
 	 */
 	// Add node when select a page in Manage page
-	public static void addNodeWhenSelectpage(String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode,
+	public void addNodeWhenSelectpage(String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode,
 			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode, boolean select){
 		String ELEMENT_SELECT_PAGE_SEARCH="//a[@title='Quick Search']";
 		String ELEMENT_SELECT_PAGE_BUTTON= "//img[@title='Select Page']";
@@ -170,7 +170,7 @@ public class SpaceNavigation extends SocialBase{
 	}
 
 	// Edit a node 
-	public static void editNode(String currentSpace, String nodeNameHome, String nodeName, boolean extendedLabelMode, Map<String, String> languages, 
+	public void editNode(String currentSpace, String nodeNameHome, String nodeName, boolean extendedLabelMode, Map<String, String> languages, 
 			String nodeLabel, String pageName, String pageTitle, boolean firstLevel){
 
 		String currentNodeHome = ELEMENT_NODE_LINK_FORM.replace("${nodeLabel}", nodeNameHome);
@@ -212,7 +212,7 @@ public class SpaceNavigation extends SocialBase{
 	}
 
 	//Delete a node from Social navigation
-	public static void deleteNode(String nodeNameHome, String nodeName, boolean firstLevel){
+	public void deleteNode(String nodeNameHome, String nodeName, boolean firstLevel){
 		info("--Deleting node from navigation--");
 		String currentNodeHome = ELEMENT_NODE_LINK_FORM.replace("${nodeLabel}", nodeNameHome);	
 		String currentNodeName = ELEMENT_NODE_LINK_FORM.replace("${nodeLabel}", nodeName);
@@ -241,7 +241,7 @@ public class SpaceNavigation extends SocialBase{
 	 * Add function cutSpaceNode(), copySpaceNode(), pasteSpaceNode()
 	 * Date: 06/12/2012
 	 */
-	public static void cutSpaceNode(By locator)	{
+	public void cutSpaceNode(By locator)	{
 		for (int i =0;; i++){
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 				Assert.fail("Timeout");
@@ -256,7 +256,7 @@ public class SpaceNavigation extends SocialBase{
 		}
 	}
 
-	public static void copySpaceNode(By locator)	{
+	public void copySpaceNode(By locator)	{
 		for (int i =0;; i++){
 			if (i > ACTION_REPEAT) {
 				Assert.fail("Timeout");
@@ -271,7 +271,7 @@ public class SpaceNavigation extends SocialBase{
 	}
 	}
 	
-	public static void pasteSpaceNode(By locator)	{
+	public void pasteSpaceNode(By locator)	{
 		for (int i =0;; i++){
 			if (i > ACTION_REPEAT) {
 				Assert.fail("Timeout");
@@ -291,7 +291,7 @@ public class SpaceNavigation extends SocialBase{
 	 * @author: ThaoPTH
 	 * Date: 03/12/2012
 	 */
-	public static void moveUpNode(String nodeName) {
+	public void moveUpNode(String nodeName) {
 		
 		waitForElementPresent(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
 				
@@ -303,7 +303,7 @@ public class SpaceNavigation extends SocialBase{
 				
 	}
 	
-	public static void moveDownNode(String nodeName) {
+	public void moveDownNode(String nodeName) {
 		
 		waitForElementPresent(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
 		
@@ -314,7 +314,7 @@ public class SpaceNavigation extends SocialBase{
 		click(ELEMENT_MOVE_DOWN_LINK);
 	}
 	
-	public static void editNodePage(String nodeName) {;
+	public void editNodePage(String nodeName) {;
 	waitForElementPresent(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
 	
 	rightClickOnElement(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));

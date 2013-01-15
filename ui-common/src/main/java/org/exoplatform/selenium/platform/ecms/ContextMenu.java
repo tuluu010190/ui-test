@@ -4,24 +4,30 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class ContextMenu extends EcmsBase {
 
-	public static final By ELEMENT_MENU_LOCK = By.xpath("//a[contains(text(),'Lock')]");
-	public static final By ELEMENT_MENU_UNLOCK = By.xpath("//a[contains(text(),'UnLock')]");
-	public static final By ELEMENT_MENU_CHECKIN = By.xpath("//a[contains(text(),'CheckIn')]");
-	public static final By ELEMENT_MENU_CHECKOUT = By.xpath("//a[contains(text(),'CheckOut')]");
-	public static final By ELEMENT_MENU_RENAME_NODE = By.linkText("Rename");
-	public static final By ELEMENT_MENU_PASTE = By.xpath("//a[contains(text(),'Paste')]");
-	public static final By ELEMENT_MENU_REFRESH=By.xpath("//a[@title='refresh']");
-	public static final By ELEMENT_MENU_DELETE = By.xpath("//a[contains(text(),'Delete')]");
-	public static final By ELEMENT_MENU_EDIT_ITEM = By.xpath("//a[@class='ItemIcon DefaultAction16x16Icon EditDocument16x16Icon']");
-	public static final By ELEMENT_MENU_ADD_SYMLINK = By.xpath("//div[@class='MenuItem']/a[contains(text(),'Add Symlink')]");
+	public ContextMenu(WebDriver dr) {
+		super(dr);
+		// TODO Auto-generated constructor stub
+	}
+
+	public final By ELEMENT_MENU_LOCK = By.xpath("//a[contains(text(),'Lock')]");
+	public final By ELEMENT_MENU_UNLOCK = By.xpath("//a[contains(text(),'UnLock')]");
+	public final By ELEMENT_MENU_CHECKIN = By.xpath("//a[contains(text(),'CheckIn')]");
+	public final By ELEMENT_MENU_CHECKOUT = By.xpath("//a[contains(text(),'CheckOut')]");
+	public final By ELEMENT_MENU_RENAME_NODE = By.linkText("Rename");
+	public final By ELEMENT_MENU_PASTE = By.xpath("//a[contains(text(),'Paste')]");
+	public final By ELEMENT_MENU_REFRESH=By.xpath("//a[@title='refresh']");
+	public final By ELEMENT_MENU_DELETE = By.xpath("//a[contains(text(),'Delete')]");
+	public final By ELEMENT_MENU_EDIT_ITEM = By.xpath("//a[@class='ItemIcon DefaultAction16x16Icon EditDocument16x16Icon']");
+	public final By ELEMENT_MENU_ADD_SYMLINK = By.xpath("//div[@class='MenuItem']/a[contains(text(),'Add Symlink')]");
 	
 	//Lock node
-	public static void lockNode(By locator){
+	public void lockNode(By locator){
 		for(int repeat=0;; repeat ++)
 		{
 			if (repeat >= ACTION_REPEAT) {
@@ -38,7 +44,7 @@ public class ContextMenu extends EcmsBase {
 	}
 
 	//Check node is being locked
-	public static boolean checkLockNode(Object locator){
+	public boolean checkLockNode(Object locator){
 		boolean locked=false;
 		By by = locator instanceof By ? (By)locator : By.xpath((String)locator);
 		//		actions.contextClick(unlock).build().perform();
@@ -62,7 +68,7 @@ public class ContextMenu extends EcmsBase {
 	}
 
 	//	Check-in a node
-	public static void checkInNode(By locator){
+	public void checkInNode(By locator){
 		for(int repeat=0;; repeat ++)
 		{
 			if (repeat >= ACTION_REPEAT) {
@@ -79,7 +85,7 @@ public class ContextMenu extends EcmsBase {
 	}
 
 	//Check out a node
-	public static void checkOutNode(By locator){
+	public void checkOutNode(By locator){
 		for(int repeat=0;; repeat ++)
 		{
 			if (repeat >= ACTION_REPEAT) {
@@ -96,7 +102,7 @@ public class ContextMenu extends EcmsBase {
 	}  
 
 	//Delete a node at level 1
-	public static void deleteDocument(By locator, int...timeout){
+	public void deleteDocument(By locator, int...timeout){
 		int iTimeout = timeout.length > 0 ? timeout[0] : DEFAULT_TIMEOUT;
 		for(int repeat=1;; repeat ++)
 		{
@@ -123,7 +129,7 @@ public class ContextMenu extends EcmsBase {
 	}
 
 	//Unlock a node
-	public static void unLockNode(By locator){
+	public void unLockNode(By locator){
 		for(int repeat=0;; repeat ++)
 		{
 			if (repeat >= ACTION_REPEAT) {
@@ -140,7 +146,7 @@ public class ContextMenu extends EcmsBase {
 	}
 
 	//	Paste a node
-	public static void pasteNode(By locator) {
+	public void pasteNode(By locator) {
 		for (int i =0;; i++){
 			if (i > ACTION_REPEAT){
 				Assert.fail("Timeout");

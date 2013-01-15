@@ -16,53 +16,55 @@
  */
 package org.exoplatform.selenium.platform.social;
 
-import static org.exoplatform.selenium.platform.ManageAccount.signIn;
-import static org.exoplatform.selenium.platform.ManageAccount.signOut;
-import static org.exoplatform.selenium.platform.NavigationToolbar.goToUsersAndGroupsManagement;
-import static org.exoplatform.selenium.platform.UserGroupManagement.addUsersToGroup;
-import static org.exoplatform.selenium.platform.UserGroupManagement.chooseGroupTab;
-import static org.exoplatform.selenium.platform.UserGroupManagement.selectGroup;
-import static org.exoplatform.selenium.platform.social.SpaceManagement.*;
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 
 /**
  * Created by The eXo Platform SAS Author : Hoang Manh Dung
  * dunghm@exoplatform.com Nov 9, 2012
  */
-public class ManageMember extends SocialBase {
+public class ManageMember extends SpaceManagement {
+	
+	//ManageAccount magAcc = new ManageAccount(driver, actions);
+	ManageAccount magAcc;
+	NavigationToolbar nav = new NavigationToolbar();
+	UserGroupManagement userGroup = new UserGroupManagement(driver);
 
   //Go to My Spaces > Select a space > Settings
   //Member Tab 
-  public static final By ELEMENT_SELECT_MEMBER_BUTTON = By.xpath("//a[contains(@title,'Select Users')]");
+  public final By ELEMENT_SELECT_MEMBER_BUTTON = By.xpath("//a[contains(@title,'Select Users')]");
 
-  public static final By ELEMENT_INVITE_MEMBER_BUTTON = By.xpath("//a[contains(@title,'Invite')]");
+  public final By ELEMENT_INVITE_MEMBER_BUTTON = By.xpath("//a[contains(@title,'Invite')]");
   
-  public static final By ELEMENT_INVITE_MEMBER_BUTTON_AUX = By.xpath("//*[@id='UISpaceMember']/*[@title='Invite']");
+  public final By ELEMENT_INVITE_MEMBER_BUTTON_AUX = By.xpath("//*[@id='UISpaceMember']/*[@title='Invite']");
 
-  public static final By ELEMENT_SELECT_MEMBER_FORM   = By.xpath("//span[@class='PopupTitle' and contains(text(),'Select Users')]");
+  public final By ELEMENT_SELECT_MEMBER_FORM   = By.xpath("//span[@class='PopupTitle' and contains(text(),'Select Users')]");
   
-  public static final String ELEMENT_MEMBERS_TABLE = "//th[contains(text(),'Members')]/ancestor::table";
+  public final String ELEMENT_MEMBERS_TABLE = "//th[contains(text(),'Members')]/ancestor::table";
   
-  public static final String ELEMENT_PENDING_TABLE = "//th[contains(text(),'Pending')]/ancestor::table";
+  public final String ELEMENT_PENDING_TABLE = "//th[contains(text(),'Pending')]/ancestor::table";
   
-  public static final String ELEMENT_INVITED_TABLE = "//th[contains(text(),'Invited')]/ancestor::table";
+  public final String ELEMENT_INVITED_TABLE = "//th[contains(text(),'Invited')]/ancestor::table";
 
-  public static final String ELEMENT_SELECTED_USER_BOX = "//*[@title='${userName}']/../../td/div/input[@class='checkbox']";
+  public final String ELEMENT_SELECTED_USER_BOX = "//*[@title='${userName}']/../../td/div/input[@class='checkbox']";
   
   //Verify message for user is manager of space  
-  public static final String VERIFY_MESSAGE = "You are the last manager of this space. You need to promote another member as manager of the space before you can leave it.";
+  public final String VERIFY_MESSAGE = "You are the last manager of this space. You need to promote another member as manager of the space before you can leave it.";
   
   //Warning message: users have already existed in the space
-  public static final String MESSAGE_USER_EXISTED_IN_SPACE = "Some users have already existed in the space, including:" + " ${username}";
+  public final String MESSAGE_USER_EXISTED_IN_SPACE = "Some users have already existed in the space, including:" + " ${username}";
   
-  public static final String MESSAGE_USER_EXISTED_IN_INVITING_LIST = "Some users have already existed in the inviting list, including:" + " ${username}";
+  public final String MESSAGE_USER_EXISTED_IN_INVITING_LIST = "Some users have already existed in the inviting list, including:" + " ${username}";
   
   
   /*-------------------------------- Common functions for SOCIAL -----------------------------------*/
   
-  public static By getCheckBox(String text) {
+  public By getCheckBox(String text) {
     By checkbox = By.xpath("//div[@class='Text' and contains(text(),'" + text
         + "')]/ancestor::tr//input[@type='checkbox']");
     return checkbox;
@@ -74,7 +76,7 @@ public class ManageMember extends SocialBase {
    * @param name : username or name of a member
    */
 
-  public static void inviteSingleUser(String name, String...params ) {
+  public void inviteSingleUser(String name, String...params ) {
     String member = "//th[text()='Members']/ancestor::table//td[text()='Root Root']";  
     
     selectUser(name);
@@ -95,7 +97,7 @@ public class ManageMember extends SocialBase {
    * 
    * @param name : user's name
    */
-  public static void selectUser(String name){    
+  public void selectUser(String name){    
     String user1 = "//input[@id='user' and contains(@value,'${user}')]";
     String user2 = user1.replace("${user}", name.toLowerCase());
     click(ELEMENT_SELECT_MEMBER_BUTTON);
@@ -124,7 +126,7 @@ public class ManageMember extends SocialBase {
    * 
    * @param userlist : list user separate by a comma
    */
-  public static void inviteMultiUser(String userlist) {
+  public void inviteMultiUser(String userlist) {
     String[] userArr = userlist.split(",");
     int len = userArr.length;
 
@@ -146,7 +148,7 @@ public class ManageMember extends SocialBase {
    * 
    * @param spaceName : space name
    */
-  public static void acceptInvitation(String spaceName, int... params) {
+  public void acceptInvitation(String spaceName, int... params) {
     int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
     goToInvitationReceives();
     doAction("Accept", spaceName);
@@ -160,7 +162,7 @@ public class ManageMember extends SocialBase {
    * 
    * @param spaceName : space name
    */
-  public static void ignoreInvitation(String spaceName, int... params) {
+  public void ignoreInvitation(String spaceName, int... params) {
     goToInvitationReceives();
     int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
     doAction("Ignore", spaceName);
@@ -173,7 +175,7 @@ public class ManageMember extends SocialBase {
    * Request to join a space
    * @param spaceName
    */
-  public static void requestToJoin(String spaceName){
+  public void requestToJoin(String spaceName){
     String actionName = "Request to Join";
     doAction(actionName, spaceName);
     By actionLink = By.xpath("//a[text()='" + spaceName + "']/ancestor::div[contains(@class,'ContentBox')]//a[text()='" + actionName + "']");
@@ -185,7 +187,7 @@ public class ManageMember extends SocialBase {
    * 
    * @param name : user's name
    */
-  public static void validateInvitation(String name) {    
+  public void validateInvitation(String name) {    
     String validateButton = ELEMENT_PENDING_TABLE + "//td[contains(text(),'" + name
         + "')]/ancestor::tr//a[contains(@title,'Validate Invitation')]";
     click(validateButton);
@@ -197,7 +199,7 @@ public class ManageMember extends SocialBase {
    * 
    * @param name : user's name
    */
-  public static void declineInvitation(String name) {
+  public void declineInvitation(String name) {
     String declineButton = ELEMENT_PENDING_TABLE + "//td[contains(text(),'" + name
         + "')]/ancestor::tr//a[contains(@title,'Decline Invitation')]";
     click(declineButton);
@@ -208,7 +210,7 @@ public class ManageMember extends SocialBase {
    * Grant Manger Permission for a space member
    * @param name : User's name
    */
-  public static void grantManager(String name) {
+  public void grantManager(String name) {
     String grantButtonLabel = "Grant Manager";
     String revokeButtonLabel = "Revoke Manager";
     String grantManagerButton = ELEMENT_MEMBERS_TABLE + "//td[contains(text(),'" + name
@@ -223,7 +225,7 @@ public class ManageMember extends SocialBase {
    * Revoke manager permission of a space member
    * @param name : User's name
    */
-  public static void revokeManager(String name) {
+  public void revokeManager(String name) {
     String grantButtonLabel = "Grant Manager";
     String revokeButtonLabel = "Revoke Manager";
     String grantManagerButton = ELEMENT_MEMBERS_TABLE + "//td[contains(text(),'" + name
@@ -239,7 +241,7 @@ public class ManageMember extends SocialBase {
    * 
    * @param name : User's name
    */
-  public static void removeMember(String name) {
+  public void removeMember(String name) {
     String removeButton = ELEMENT_MEMBERS_TABLE + "//td[contains(text(),'" + name
         + "')]/ancestor::tr//a[contains(@title,'Remove Member')]";
     click(removeButton);
@@ -251,12 +253,12 @@ public class ManageMember extends SocialBase {
    * @param spaceName: name of Space (String)
    * @param params
    */
-  public static void joinOpenSpace(String spaceName, int...params){
+  public void joinOpenSpace(String spaceName, int...params){
 	  info("-- Joining the open space: " + spaceName);
 	  int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
 	  goToAllSpaces();
 	  doAction("Join", spaceName);
-	  waitForElementPresent(By.xpath("//*[@class='TitleContent']/text()['(Member)']/../a[text()='"+ spaceName +"']"), iTimeout);
+	  waitForElementPresent(By.xpath("//*[@class='spaceTitle']/text()['(Member)']/../a[text()='"+ spaceName +"']"), iTimeout);
 	  pause(1000);
   }
   
@@ -266,11 +268,12 @@ public class ManageMember extends SocialBase {
    * @param spaceName: name of Space (String)
    * @param params
    */
-  public static void joinOpenSpace(userType user, String spaceName, int...params){
+  public void joinOpenSpace(userType user, String spaceName, int...params){
+	  magAcc = new ManageAccount(driver);
 	  info("-- Joining the open space: " + spaceName);
 	  int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
 	  if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
-		  signOut();
+		  magAcc.signOut();
 	  }else{
 		  info("-- User.logIn: " + user);
 	  }	  
@@ -293,7 +296,7 @@ public class ManageMember extends SocialBase {
 	 * Invite an user to join a space
 	 * @param userName: type: Root, Admin, Author, Developer or Publisher 
 	 */
-	public static void inviteSingleUser(userType userName){
+	public void inviteSingleUser(userType userName){
 		info("-- Invite the user: " + userName + " to join our space");
 		click(ELEMENT_SELECT_MEMBER_BUTTON);
 		waitForElementPresent(ELEMENT_SELECT_MEMBER_FORM);
@@ -325,7 +328,7 @@ public class ManageMember extends SocialBase {
 	 * @param userRoot: boolean
 	 * @param userName: example: John or Mary, etc...
 	 */
-	public static void addUserToSpace(boolean userRoot, String userName){
+	public void addUserToSpace(boolean userRoot, String userName){
 		info("-- Action: adding the user: " + userName);
 		if (userRoot){
 			check(By.xpath(ELEMENT_SELECTED_USER_BOX.replace("${userName}", userName)));
@@ -347,7 +350,7 @@ public class ManageMember extends SocialBase {
 	 * @param userRoot: boolean
 	 * @param userName: name of user (Jack, James, Mary, etc...)
 	 */
-	public static void addUserToSpace(String spaceName, boolean userRoot, String userName){
+	public void addUserToSpace(String spaceName, boolean userRoot, String userName){
 		info("-- Action: adding the user: " + userName);
 		goToMembers(spaceName);
 		click(ELEMENT_SELECT_MEMBER_BUTTON);
@@ -370,10 +373,11 @@ public class ManageMember extends SocialBase {
 	 * @param spaceName: name of space (String)
 	 * @param user: name of the invited (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public static void managerInviteUserToJoinSpace(userType manager, String spaceName, userType user){
+	public void managerInviteUserToJoinSpace(userType manager, String spaceName, userType user){
+		magAcc = new ManageAccount(driver);
 		info("-- Invite an user to join: " + spaceName);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
-			signOut();
+			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + manager);
 		}
@@ -390,7 +394,7 @@ public class ManageMember extends SocialBase {
 	 * @param spaceName
 	 * @param user: name of user who granted (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public static void grantManagerForUser (String spaceName, String name){
+	public void grantManagerForUser (String spaceName, String name){
 		info("Grant manager for user : "+ spaceName);
 		goToMySpacePage();
 		gotoEditSpace(spaceName);
@@ -404,7 +408,7 @@ public class ManageMember extends SocialBase {
 	 * @param spaceName
 	 * @param user: name of user who granted (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public static void revokeManagerForUser (String spaceName, String name){
+	public void revokeManagerForUser (String spaceName, String name){
 		info("Grant manager for user : "+ spaceName);
 		goToMySpacePage();
 		gotoEditSpace(spaceName);
@@ -420,9 +424,10 @@ public class ManageMember extends SocialBase {
 	 * @param user: type: Root, Admin, Author, Developer or Publisher
 	 * @param spaceName: name of space (String)
 	 */
-	public static void managerAcceptRequestFromUser(boolean accept, userType manager, userType user, String spaceName){
+	public void managerAcceptRequestFromUser(boolean accept, userType manager, userType user, String spaceName){
+		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
-			signOut();
+			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + manager);
 		}
@@ -442,7 +447,7 @@ public class ManageMember extends SocialBase {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName
 	 */
-	/*public static void managerDeclineRequestFromUser(userType manager, userType user, String spaceName){
+	/*public void managerDeclineRequestFromUser(userType manager, userType user, String spaceName){
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
 			signOut();
 		}else{
@@ -460,9 +465,10 @@ public class ManageMember extends SocialBase {
 	 * @param spaceName
 	 * @param memberName
 	 */
-	public static void managerRemoveMemberFromSpace(userType userTypeManager, String spaceName, String memberName){
+	public void managerRemoveMemberFromSpace(userType userTypeManager, String spaceName, String memberName){
+		magAcc = new ManageAccount(driver);
 		info("-- Removing the member: " + memberName + " from the space: " + spaceName);
-		signOut();
+		magAcc.signOut();
 		userSignIn(userTypeManager);
 		goToMySpacePage();
 		gotoEditSpace(spaceName);
@@ -482,7 +488,7 @@ public class ManageMember extends SocialBase {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * 
 	 */
-	public static void managerAddNewSpaceAndInviteUser(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
+	public void managerAddNewSpaceAndInviteUser(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
 		goToMySpacePage();
 		if (basicSpace){
 			addNewSpace(spaceName, spaceDescription);
@@ -501,9 +507,10 @@ public class ManageMember extends SocialBase {
 	 * @param userRoot: boolean
 	 * @param userName: String (eg, Mary, Jack, James, etc...)
 	 */
-	public static void managerReInviteUser(userType manager, String spaceName, boolean userRoot, String userName){
+	public void managerReInviteUser(userType manager, String spaceName, boolean userRoot, String userName){
+		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
-			signOut();
+			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + manager);
 		}
@@ -522,7 +529,7 @@ public class ManageMember extends SocialBase {
 	 * @param username: (type: mary, john, james, demo, etc...)
 	 * @param membership: admin select a membership for user (String) 
 	 */
-	public static void managerAddNewSpaceAndAddUserInToSpace(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, String username, String membership){
+	public void managerAddNewSpaceAndAddUserInToSpace(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, String username, String membership){
 		goToMySpacePage();
 		if (basicSpace){
 			addNewSpace(spaceName, spaceDescription);
@@ -530,10 +537,10 @@ public class ManageMember extends SocialBase {
 			addNewSpace(spaceName, spaceDescription, advanceParam[0], advanceParam[1], advanceParam[2], advanceParam[3]);
 		}
 		pause(1000);
-		goToUsersAndGroupsManagement();
-		chooseGroupTab();
-		selectGroup("Spaces/"+spaceName);
-		addUsersToGroup(username, membership, false, true);
+		nav.goToUsersAndGroupsManagement();
+		userGroup.chooseGroupTab();
+		userGroup.selectGroup("Spaces/"+spaceName);
+		userGroup.addUsersToGroup(username, membership, false, true);
 		pause(1000);
 	}
 	
@@ -547,7 +554,7 @@ public class ManageMember extends SocialBase {
 	 * @param advanceParam: [0]->visibility, [1]->registration, [2]->groupPath, [3]->childGroupName
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public static void managerAddNewSpaceAndUserSendRequest(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
+	public void managerAddNewSpaceAndUserSendRequest(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
 		goToMySpacePage();
 		if (basicSpace){
 			addNewSpace(spaceName, spaceDescription);
@@ -568,7 +575,7 @@ public class ManageMember extends SocialBase {
 	 * @param advanceParam: [0]->visibility, [1]->registration, [2]->groupPath, [3]->childGroupName
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public static void managerAddNewOpenSpaceAndUserJoinSpace(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
+	public void managerAddNewOpenSpaceAndUserJoinSpace(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
 		goToMySpacePage();
 		if (basicSpace){
 			addNewSpace(spaceName, spaceDescription);
@@ -590,7 +597,7 @@ public class ManageMember extends SocialBase {
 	 * @param capture: boolean
 	 * @param imageFileName: input a name of captured image (String)
 	 */
-	public static void adminInviteUserAndCheckInvitation(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user, boolean capture, String imageFileName){
+	public void adminInviteUserAndCheckInvitation(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user, boolean capture, String imageFileName){
 		managerAddNewSpaceAndInviteUser(basicSpace, advanceSpace, spaceName, spaceDescription, advanceParam, user);
 		checkInvitation(user, spaceName, capture, imageFileName);
 	}
@@ -606,7 +613,7 @@ public class ManageMember extends SocialBase {
 	 * @param advanceParam: [0]->visibility, [1]->registration, [2]->groupPath, [3]->childGroupName
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public static void adminInviteUserAndUserAcceptInvitation(boolean accept, boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
+	public void adminInviteUserAndUserAcceptInvitation(boolean accept, boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
 		managerAddNewSpaceAndInviteUser(basicSpace, advanceSpace, spaceName, spaceDescription, advanceParam, user);
 		if (accept){
 			userAcceptInvitationToJoinSpace(true, user, spaceName);
@@ -625,7 +632,7 @@ public class ManageMember extends SocialBase {
 	 * @param advanceParam: [0]->visibility, [1]->registration, [2]->groupPath, [3]->childGroupName
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	/*public static void adminInviteUserAndUserIgnoreInvitation(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
+	/*public void adminInviteUserAndUserIgnoreInvitation(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
 		managerAddNewSpaceAndInviteUser(basicSpace, advanceSpace, spaceName, spaceDescription, advanceParam, user);
 		//userIgnoreInvitationToJoinSpace(user, spaceName);
 		userAcceptInvitationToJoinSpace(false, user, spaceName);
@@ -637,9 +644,10 @@ public class ManageMember extends SocialBase {
 	 * @param user: user of space (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName: name of space (String)
 	 */
-	public static void managerGoToMemberListTab(userType manager, userType user, String spaceName){
+	public void managerGoToMemberListTab(userType manager, userType user, String spaceName){
+		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
-			signOut();
+			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + user);
 		}
@@ -673,9 +681,10 @@ public class ManageMember extends SocialBase {
 	 * @param manager: manager of space (type: Root, Admin, etc...)
 	 * @param spaceName: name of space (String)
 	 */
-	public static void managerGoToMembersTab(userType manager, String spaceName){
+	public void managerGoToMembersTab(userType manager, String spaceName){
+		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
-			signOut();
+			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + manager);
 		}
@@ -687,7 +696,7 @@ public class ManageMember extends SocialBase {
 	 * @author vuna2
 	 * @param user: type: Root, Admin, Author, Developer or Publisher
 	 */
-	public static void managerValidateInvitation(userType user){
+	public void managerValidateInvitation(userType user){
 		switch (user) {
 		case ROOT:
 			validateInvitation("Root");
@@ -713,7 +722,7 @@ public class ManageMember extends SocialBase {
 	 * @author vuna2
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public static void managerDeclineInvitation(userType user){
+	public void managerDeclineInvitation(userType user){
 		switch (user) {
 		case ROOT:
 			declineInvitation("Root");
@@ -744,8 +753,9 @@ public class ManageMember extends SocialBase {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName: name of space (String)
 	 */
-	public static void userAcceptInvitationToJoinSpace(boolean accept, userType user, String spaceName){
-		signOut();
+	public void userAcceptInvitationToJoinSpace(boolean accept, userType user, String spaceName){
+		magAcc = new ManageAccount(driver);
+		magAcc.signOut();
 		userSignIn(user);
 		if (accept){
 			acceptInvitation(spaceName);
@@ -764,7 +774,7 @@ public class ManageMember extends SocialBase {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName: name of space (String)
 	 */
-	/*public static void userIgnoreInvitationToJoinSpace(userType user, String spaceName){
+	/*public void userIgnoreInvitationToJoinSpace(userType user, String spaceName){
 		signOut();
 		userSignIn(user);
 		ignoreInvitation(spaceName);
@@ -777,8 +787,9 @@ public class ManageMember extends SocialBase {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName: name of space (String)
 	 */
-	public static void userRequestToJoinSpace(userType user, String spaceName){
-		signOut();
+	public void userRequestToJoinSpace(userType user, String spaceName){
+		magAcc = new ManageAccount(driver);
+		magAcc.signOut();
 		userSignIn(user);
 		goToAllSpaces();
 		requestToJoin(spaceName);
@@ -789,9 +800,10 @@ public class ManageMember extends SocialBase {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName: name of space (String)
 	 */
-	public static void userCancelRequest(userType user, String spaceName){
+	public void userCancelRequest(userType user, String spaceName){
+		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
-			signOut();
+			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + user);
 		}
@@ -812,9 +824,10 @@ public class ManageMember extends SocialBase {
 	 * @param capture: boolean
 	 * @param imageFileName: input a name of captured image (String)
 	 */
-	public static void checkInvitation(userType user, String spaceName, boolean capture, String imageFileName){
+	public void checkInvitation(userType user, String spaceName, boolean capture, String imageFileName){
+		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
-			signOut();
+			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + user);
 		}
@@ -824,7 +837,7 @@ public class ManageMember extends SocialBase {
 		waitForElementPresent(ELEMENT_INVITATION_ACCEPT_LINK.replace("${spaceName}", spaceName));
 		waitForElementPresent(ELEMENT_INVITATION_IGNORE_LINK.replace("${spaceName}", spaceName));
 		if (capture){
-			captureScreen(imageFileName);
+			Utils.captureScreen(imageFileName);
 		}else{
 			info("---- The invitation is sent successfully ----");
 		}
@@ -834,9 +847,10 @@ public class ManageMember extends SocialBase {
 	 * @author vuna2
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public static void userGoToAllSpacesPage(userType user){
+	public void userGoToAllSpacesPage(userType user){
+		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
-			signOut();
+			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + user);
 		}
@@ -849,7 +863,7 @@ public class ManageMember extends SocialBase {
 	 * @author vuna2
 	 * @param user: type: Root, Admin, Author, Developer or Publisher
 	 */
-	public static void verifyUserJoinedSpace(userType user){
+	public void verifyUserJoinedSpace(userType user){
 		String verifyUser = "${user} " + "joined the space.";
 		switch (user) {
 		case ROOT:
@@ -876,22 +890,28 @@ public class ManageMember extends SocialBase {
 	 * @author vuna2
 	 * @param user: type: Root, Admin, Author, Developer or Publisher
 	 */
-	public static void userSignIn(userType user){
+	public void userSignIn(userType user){
+		magAcc = new ManageAccount(driver);
+		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
+			magAcc.signOut();
+		}else{
+			info("-- User.logIn: " + user);
+		}
 		switch (user) {
 		case ROOT:
-			signIn("root", "gtn");
+			magAcc.signIn("root", "gtn");
 			break;
 		case ADMIN:
-			signIn("john", "gtn");
+			magAcc.signIn("john", "gtn");
 			break;	
 		case AUTHOR:
-			signIn("james", "gtn");
+			magAcc.signIn("james", "gtn");
 			break;
 		case DEVELOPER:
-			signIn("demo", "gtn");
+			magAcc.signIn("demo", "gtn");
 			break;
 		case PUBLISHER:
-			signIn("mary", "gtn");
+			magAcc.signIn("mary", "gtn");
 			break;
 		default:
 			break;
@@ -906,7 +926,7 @@ public class ManageMember extends SocialBase {
 	 * Jack Miller: developer
 	 * Mary Williams: publisher 
 	 */
-	public static enum userType {
+	public enum userType {
 		ROOT, ADMIN, AUTHOR, DEVELOPER, PUBLISHER;
 	}
 	

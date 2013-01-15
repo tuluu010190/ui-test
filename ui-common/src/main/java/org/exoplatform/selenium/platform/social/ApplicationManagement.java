@@ -12,13 +12,13 @@ public class ApplicationManagement extends SocialBase {
 	
 	//Go to My Spaces > Select a space > Settings
 	//Applications Tab 
-	public static final By ELEMENT_SPACE_NAVIGATION = By.xpath("//div[text()='Applications']");
-	public static final By ELEMENT_ADD_APPLICATION_LINK = By.linkText("Add Application");
-	public static final By ELEMENT_ADD_APP_POPUP = By.xpath("//span[text()='Space Application Installer']");
-	public static final By ELEMENT_CLOSE_BUTTON = By.xpath("//div[@id='UIAddApplication']/div/a[@title='Close Window']");
+	public final By ELEMENT_SPACE_NAVIGATION = By.xpath("//div[text()='Applications']");
+	public final By ELEMENT_ADD_APPLICATION_LINK = By.linkText("Add Application");
+	public final By ELEMENT_ADD_APP_POPUP = By.xpath("//span[text()='Space Application Installer']");
+	public final By ELEMENT_CLOSE_BUTTON = By.xpath("//div[@id='UIAddApplication']/div/a[@title='Close Window']");
 	
 	//Go to space application
-	/*public static void goToSpaceApplication () {
+	/*public void goToSpaceApplication () {
 		
 		waitForElementPresent(ELEMENT_SPACE_NAVIGATION);
 		
@@ -26,7 +26,7 @@ public class ApplicationManagement extends SocialBase {
 	}*/
 
 	//Add application for space
-	public static void addApplication(String categoryName, String applicationTitle) {
+	public void addApplication(String categoryName, String applicationTitle) {
 
 		By ELEMENT_CATEGORY = By.xpath("//div[contains(text(),'"+categoryName+"')]");
 		By ELEMENT_ADD_APP_BUTTON = By.xpath("//div[text()='"+applicationTitle+"']/following::div[@title='Install this application to the space']");
@@ -75,7 +75,7 @@ public class ApplicationManagement extends SocialBase {
 	}
 	
 	//Delete application
-	public static void removeApplication(String applicationTitle){
+	public void removeApplication(String applicationTitle){
 		
 		By ELEMENT_DELETE_APP_BUTTON = By.xpath("//div[text()='"+applicationTitle+"']/following::div/a[@title='Remove']");
 		

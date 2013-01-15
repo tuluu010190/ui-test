@@ -17,48 +17,60 @@
 package org.exoplatform.selenium.platform.social;
 
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.UserGroupManagement.selectGroup;
-import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
 
+import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 /**
  * Created by The eXo Platform SAS Author : Hoang Manh Dung
  * dunghm@exoplatform.com Nov 7, 2012
  */
 public class SpaceManagement extends SocialBase {
+	
+	UserGroupManagement userGroup = new UserGroupManagement(driver);
+	
 	//Go to My Spaces	> 
 	//Add space Form
-	protected static int DEFAULT_TIMEOUT = 60000;
-	public static final By     ELEMENT_ADDNEWSPACE_BUTTON      = By.xpath("//a[@class='AddSpaceIcon']");
+	protected  int DEFAULT_TIMEOUT = 60000;
+	public final By     ELEMENT_ADDNEWSPACE_BUTTON      = By.xpath("//button[@data-original-title='Add New Space']");
+			//("//a[@class='AddSpaceIcon']");
 
-	public static final By     ELEMENT_ADDNEWSPACE_FORM        = By.xpath("//span[@class='PopupTitle' and text()='Add New Space']");
+	public final By     ELEMENT_ADDNEWSPACE_FORM        = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add New Space']");
+			//("//span[@class='PopupTitle' and text()='Add New Space']");
 
-	public static final By     ELEMENT_SPACE_NAME_INPUT        = By.xpath("//input[contains(@name,'displayName')]");
+	public final By     ELEMENT_SPACE_NAME_INPUT        = By.xpath("//input[contains(@name,'displayName')]");
 
-	public static final By     ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
+	public final By     ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
 
-	public static final By     ELEMENT_ACCESS_TAB              = By.xpath("//div[contains(@class,'MiddleTab') and text()='Access & Edit']");
+	public final By     ELEMENT_ACCESS_TAB              = By.xpath("//*[text()='Access & Edit']");
+			//("//div[contains(@class,'MiddleTab') and text()='Access & Edit']");
 
-	public static final By     ELEMENT_USER_GROUP_TAB          = By.xpath("//div[contains(@class,'MiddleTab') and text()='Invite users from group']");
+	public final By     ELEMENT_USER_GROUP_TAB          = By.xpath("//*[text()='Invite users from group']");
+			//("//div[contains(@class,'MiddleTab') and text()='Invite users from group']");
 
-	public static final By     ELEMENT_USER_GROUP_CHECKBOX     = By.xpath("//*[@id='useExistingGroup']");
+	public final By     ELEMENT_USER_GROUP_CHECKBOX     = By.xpath("//*[@id='useExistingGroup']");
 
 	//Edit space
-	public static final By     ELEMENT_SPACE_SETTING_TAB       = By.xpath("//div[contains(@class,'MiddleTab') and text()='Settings']");
+	public final By     ELEMENT_SPACE_SETTING_TAB       = By.xpath("//div[contains(@class,'MiddleTab') and text()='Settings']");
 
-	public static final By     ELEMENT_CHANGE_AVATAR_ICON      = By.xpath("//a[contains(@class,'ChangeAva')]");  
+	public final By     ELEMENT_CHANGE_AVATAR_ICON      = By.xpath("//a[contains(@class,'ChangeAva')]");  
 
-	public static final String MESSAGE_DELETE_SPACE            = "Are you sure to delete this space? This can not be undone. All page navigations and this group will be deleted, too.";
+	public final String MESSAGE_DELETE_SPACE            = "Cannot undo one deleted space with all its page navigations and group. Are you sure to delete this space?";
+			//"Are you sure to delete this space? This can not be undone. All page navigations and this group will be deleted, too.";
 
 	/**
+	 * Migrate to PLF 4
+	 * <li>Update by @author vuna2</li>
 	 * Click on a button with a specific label
 	 * 
 	 * @param label : Button label
 	 */
-	public static void clickButton(String label) {
-		By button = By.xpath("//*[contains(@class,'ActionButton') and text()='" + label + "']");
+	public void clickButton(String label) {
+		By button = By.xpath("//div[@class='uiAction']/a[text()='" + label + "']");
+				//("//*[contains(@class,'ActionButton') and text()='" + label + "']");
 		waitForElementPresent(button);
 		click(button);
 	}
@@ -68,29 +80,34 @@ public class SpaceManagement extends SocialBase {
 	 * 
 	 * @param label : Tab label
 	 */
-	public static void switchTabs(By tab) {
+	public void switchTabs(By tab) {
 		waitForElementPresent(tab);
 		click(tab);
 	}
 	/**
+	 * Migrate to PLF 4
+	 * <li>Update by @author vuna2</li>
 	 * Do a action on space such as Edit, delete, ...
 	 * 
 	 * @param action : Action name 
 	 * @param spaceName : Space name
 	 */
-	public static void doAction(String action, String spaceName){
-		By actionLink = By.xpath("//a[text()='" + spaceName + "']/ancestor::div[contains(@class,'ContentBox')]//a[text()='" + action + "']");
+	/*public void doAction(String action, String spaceName){
+		By actionLink = By.xpath("//a[text()='" + spaceName + "']/../../../div/button[text()='" + action + "']");
+				//("//a[text()='" + spaceName + "']/ancestor::div[contains(@class,'ContentBox')]//a[text()='" + action + "']");
 		click(actionLink);
-	}
+	}*/
 
 	/**
+	 * Migrate to PLF 4
+	 * <li>Update by @author vuna2</li>
 	 * Create quickly a new space
 	 * 
 	 * @param name : Space name
 	 * @param desc : Space description
 	 * 
 	 */
-	public static void addNewSpace(String name, String desc, int... params) {
+	public void addNewSpace(String name, String desc, int... params) {
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT; 
 
 		click(ELEMENT_ADDNEWSPACE_BUTTON);
@@ -98,8 +115,9 @@ public class SpaceManagement extends SocialBase {
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
 		clickButton("Create");
-
-		waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + name + "']"),iTimeout);
+		waitForTextPresent(name, iTimeout);
+		//waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + name + "']"),iTimeout);
+		pause(1000);
 	}
 
 	/**
@@ -117,7 +135,8 @@ public class SpaceManagement extends SocialBase {
 	 * @param groupPath : User Group
 	 * @param childGroupName : The child group to invite users
 	 */
-	public static void addNewSpace(String name, String desc, String visibility, String registration, String groupPath, String childGroupName, int... params){
+	public void addNewSpace(String name, String desc, String visibility, String registration, String groupPath, String childGroupName, int... params){
+		Actions actions = new Actions(driver);
 		info("-- Adding a new space --");
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
 		//String v = visibility.isEmpty() ? "private" : visibility;
@@ -134,11 +153,13 @@ public class SpaceManagement extends SocialBase {
 		
 		if (visibility != "") {
 			if (visibility.equals("Visible")){
-				WebElement rdoVisibility = waitForAndGetElement(By.id("UIVisibility_" + value1));
+				WebElement rdoVisibility = waitForAndGetElement(By.xpath("//*[@name='UIVisibility' and @value='"+ value1 +"']"), 3000, 0, 2);
+						//(By.id("UIVisibility_" + value1));
 				if (!rdoVisibility.isSelected())
 					actions.click(rdoVisibility).perform();
 			}else if (visibility.equals("Hidden")){
-				WebElement rdoVisibility = waitForAndGetElement(By.id("UIVisibility_" + value2));
+				WebElement rdoVisibility = waitForAndGetElement(By.xpath("//*[@name='UIVisibility' and @value='"+ value2 +"']"), 3000, 0, 2);
+						//(By.id("UIVisibility_" + value2));
 				if (!rdoVisibility.isSelected())
 					actions.click(rdoVisibility).perform();
 			}	
@@ -146,15 +167,18 @@ public class SpaceManagement extends SocialBase {
 		
 		if (registration != "") {
 			if (registration.equals("Open")){
-				WebElement rdoRegistration = waitForAndGetElement(By.id("UIRegistration_" + regis[0]));
+				WebElement rdoRegistration = waitForAndGetElement(By.xpath("//*[@name='UIRegistration' and @value='"+ regis[0] +"']"), 3000, 0, 2);
+						//(By.id("UIRegistration_" + regis[0]));
 				if (!rdoRegistration.isSelected())
 					actions.click(rdoRegistration).perform();
 			}else if (registration.equals("Validation")){
-				WebElement rdoRegistration = waitForAndGetElement(By.id("UIRegistration_" + regis[1]));
+				WebElement rdoRegistration = waitForAndGetElement(By.xpath("//*[@name='UIRegistration' and @value='"+ regis[1] +"']"), 3000, 0, 2);
+						//(By.id("UIRegistration_" + regis[1]));
 				if (!rdoRegistration.isSelected())
 					actions.click(rdoRegistration).perform();		
 			}else if (registration.equals("Close")){
-				WebElement rdoRegistration = waitForAndGetElement(By.id("UIRegistration_" + regis[2]));
+				WebElement rdoRegistration = waitForAndGetElement(By.xpath("//*[@name='UIRegistration' and @value='"+ regis[2] +"']"), 3000, 0, 2);
+						//(By.id("UIRegistration_" + regis[2]));
 				if (!rdoRegistration.isSelected())
 					actions.click(rdoRegistration).perform();		
 			}
@@ -167,8 +191,9 @@ public class SpaceManagement extends SocialBase {
 		}
 
 		clickButton("Create");
-
-		waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + name + "']"), iTimeout);
+		waitForTextPresent(name, iTimeout);
+		pause(1000);
+		//waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + name + "']"), iTimeout);
 	}
 
 	/**
@@ -177,9 +202,9 @@ public class SpaceManagement extends SocialBase {
 	 * @param groupPath : Group path separate by a slash
 	 * @param childGroupName : The child group to invite users
 	 */
-	public static void addUserGroupToInvite(String groupPath, String childGroupName) {
+	public void addUserGroupToInvite(String groupPath, String childGroupName) {
 		click(ELEMENT_USER_GROUP_CHECKBOX);
-		selectGroup(groupPath);
+		userGroup.selectGroup(groupPath);
 		click(By.linkText(childGroupName));
 	}
 
@@ -188,13 +213,12 @@ public class SpaceManagement extends SocialBase {
 	 * 
 	 * @param name : Space name
 	 */
-	public static void deleteSpace(String name, int... params){
+	public void deleteSpace(String name, int... params){
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;    
 		doAction("Delete", name);    
 		waitForConfirmation(MESSAGE_DELETE_SPACE);
-		waitForElementNotPresent(By.xpath("//a[text()='" + name
-				+ "']/ancestor::div[contains(@class,'ContentBox')]"),
-				iTimeout);
+		waitForElementNotPresent(By.xpath("//div[@class='contentBox']/h4[@class='spaceTitle']//a[text()='" + name + "']"), iTimeout);
+		//(By.xpath("//a[text()='" + name + "']/ancestor::div[contains(@class,'ContentBox')]"),iTimeout);
 		info(name + " was deleted successfully");
 	}
 
@@ -209,7 +233,7 @@ public class SpaceManagement extends SocialBase {
 	 * @param newDescription : New space description
 	 * @param avatar : avatar file path
 	 */
-	public static void editSpace(String name,String newName, String newDescription, boolean uploadAvatar, String avatar){
+	public void editSpace(String name,String newName, String newDescription, boolean uploadAvatar, String avatar){
 		gotoEditSpace(name);
 		type(ELEMENT_SPACE_NAME_INPUT, newName, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, newDescription, true);
@@ -230,7 +254,7 @@ public class SpaceManagement extends SocialBase {
 	 * Go to edit form of a space
 	 * @param name : Space name
 	 */
-	public static void gotoEditSpace(String name){    
+	public void gotoEditSpace(String name){    
 		doAction("Edit", name);
 		waitForElementPresent(ELEMENT_SPACE_SETTING_TAB);    
 	}
@@ -238,8 +262,8 @@ public class SpaceManagement extends SocialBase {
 	 * Change avatar of a space
 	 * @param file : File path of new avatar
 	 */
-	public static void changeAvatar(String file){
-		if(!file.contains("ui-testsuite")) file = getAbsoluteFilePath(file); 
+	public void changeAvatar(String file){
+		if(!file.contains("ui-testsuite")) file = Utils.getAbsoluteFilePath(file); 
 		click(ELEMENT_CHANGE_AVATAR_ICON);
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
 		waitForElementPresent(ELEMENT_UPLOAD_IMG_ID);
@@ -257,7 +281,7 @@ public class SpaceManagement extends SocialBase {
 	 * @param spaceName
 	 * @param params: time for deleting a space (int)
 	 */
-	public static void restoreData(String spaceName, int... params){
+	public void restoreData(String spaceName, int... params){
 		info("-- Restore Original Data --");
 		int timeToDeleteSpace = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;;
 		goToMySpacePage();

@@ -16,18 +16,18 @@ public class PeopleConnection extends SocialBase {
 
 	// Go to Account Name link	
 	// My Connections
-	public static final By ELEMENT_REQUESTS_RECEIVED_TAB = By.linkText("Requests Received");
-	public static final By ELEMENT_MY_CONNECTIONS_TAB = By.linkText("My Connections");
-	public static final By ELEMENT_EVERYONE_TAB = By.linkText("Everyone");
-	public static final By ELEMENT_REQUEST_SENT_TAB = By.linkText("Requests Sent");
-	public static final String ELEMENT_CONNECTION = "//*[@id='UIDisplayProfileList']/div[2]/div/a/img[@title='${peopleName}']";
-	public static final String ELEMENT_CANCEL_REQUEST_BUTTON = "//div/a[text()='${peopleName}']/following::ul/li/a[@title='Cancel Request']";
+	public final By ELEMENT_REQUESTS_RECEIVED_TAB = By.linkText("Requests Received");
+	public final By ELEMENT_MY_CONNECTIONS_TAB = By.linkText("My Connections");
+	public final By ELEMENT_EVERYONE_TAB = By.linkText("Everyone");
+	public final By ELEMENT_REQUEST_SENT_TAB = By.linkText("Requests Sent");
+	public final String ELEMENT_CONNECTION = "//*[@id='UIDisplayProfileList']/div[2]/div/a/img[@title='${peopleName}']";
+	public final String ELEMENT_CANCEL_REQUEST_BUTTON = "//div/a[text()='${peopleName}']/following::ul/li/a[@title='Cancel Request']";
 	
 	/**
 	 * Connect to people
 	 * @param peopleName: name of selected people (String)
 	 */
-	public static void connectPeople (String peopleName) {
+	public void connectPeople (String peopleName) {
 		info("-- Connect to: " + peopleName);
 		
 		//By ELEMENT_CONNECT_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Connect']");
@@ -58,7 +58,7 @@ public class PeopleConnection extends SocialBase {
 	 * Accept the invitation
 	 * @param peopleName: name of selected people (String)
 	 */
-	public static void acceptInvitation (String peopleName) {
+	public void acceptInvitation (String peopleName) {
 		info("-- Accept the invitation: " + peopleName);
 		
 		By ELEMENT_CONFIRM_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Confirm']");	 
@@ -96,7 +96,7 @@ public class PeopleConnection extends SocialBase {
 	 * Ignore the invitation
 	 * @param peopleName: name of selected people (String)
 	 */
-	public static void ignoreInvitation (String peopleName) {
+	public void ignoreInvitation (String peopleName) {
 		info("-- Ignore the invitation from: " + peopleName);
 		
 		By ELEMENT_IGNORE_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Ignore']");
@@ -131,7 +131,7 @@ public class PeopleConnection extends SocialBase {
 	 * Remove connection 
 	 * @param peopleName: name of selected people (String)
 	 */
-	public static void removeConnection(String peopleName){
+	public void removeConnection(String peopleName){
 		info("-- Remove connection with: " + peopleName);
 		
 		By ELEMENT_REMOVE_CONNECTION_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li[2]/a[@title='Remove Connection']");
@@ -154,7 +154,7 @@ public class PeopleConnection extends SocialBase {
 	 * Update by vuna2
 	 * @param name : User's name that sent connection request 
 	 */
-  public static void cancelRequest(String name){
+  public void cancelRequest(String name){
     String userContainer = "//a[contains(@class,'CommunityName') and text()='" + name + "']/ancestor::div[contains(@class,'ContentSpace')]";
     By cancelRequest = By.xpath(userContainer + "//a[@title='Cancel Request']");
     By cancelRequest_Aux = By.xpath("//*[@id='UISpaceMember']//td[contains(text(), '" + name + "')]/following::span[text()='Cancel Request']");
@@ -167,7 +167,7 @@ public class PeopleConnection extends SocialBase {
     } 
   }
   
-  public static void quickRemoveConnection(String peopleName){    
+  public void quickRemoveConnection(String peopleName){    
     
     By ELEMENT_REMOVE_CONNECTION_BTN = By.xpath("//a[contains(@class,'InviteTitle') and text()='" + peopleName + "']/ancestor::div[contains(@class,'ContentSpace')]//a[text()='Remove Connection']");    
     

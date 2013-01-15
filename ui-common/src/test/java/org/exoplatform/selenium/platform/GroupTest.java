@@ -1,15 +1,22 @@
 package org.exoplatform.selenium.platform;
 
-import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
-import static org.exoplatform.selenium.platform.ManageAccount.*;
-import static org.exoplatform.selenium.platform.NavigationToolbar.*;
-import static org.exoplatform.selenium.platform.UserGroupManagement.*;
-public class GroupTest extends PlatformBase{
+import  org.exoplatform.selenium.platform.ManageAccount;
+import  org.exoplatform.selenium.platform.NavigationToolbar;
+import  org.exoplatform.selenium.platform.UserGroupManagement;
+
+/**
+ * 
+ * @author vuna2
+ *
+ */
+public class GroupTest extends NavigationToolbar{
+	
+	ManageAccount magAcc = new ManageAccount(driver);
+	UserGroupManagement userGroup = new UserGroupManagement(driver);
 	
 	String groupName = "testgroup"	  ; 
 	String groupLabel= ""			  ; 
@@ -21,9 +28,8 @@ public class GroupTest extends PlatformBase{
 	boolean select   =  true; 
 	
 	@BeforeTest(groups = {"platform"})
-	public void beforeTest() throws Exception {
+	public void beforeTest()  {
 		driver = new FirefoxDriver();
-    	actions = new Actions(driver);
     	baseUrl = "http://localhost:8080";
     	driver.get(baseUrl + "/portal/intranet/");
     	pause(3000);
@@ -31,21 +37,21 @@ public class GroupTest extends PlatformBase{
 	}
 
 	@AfterTest(groups = {"platform"})
-	public void afterTest() throws Exception {
+	public void afterTest()  {
 		driver.quit();
 	}
 	
 	@Test(groups={"platform", "add new group"})
 	public void testAddNewGroup(){
 		System.out.println("--Create a new group--");
-		signIn("root", "gtn");
+		magAcc.signIn("root", "gtn");
 		pause(1000);
 		goToUsersAndGroupsManagement();
 		pause(1000);
-		chooseGroupTab();
+		userGroup.chooseGroupTab();
 		pause(1000);
-		addGroup(groupName, groupLabel, groupDesc,verify);
-		signOut();
+		userGroup.addGroup(groupName, groupLabel, groupDesc,verify);
+		magAcc.signOut();
 		pause(1000);
 		
 	}
@@ -53,35 +59,35 @@ public class GroupTest extends PlatformBase{
 	@Test(groups={"platform", "add new group"})
 	public void testSelectAndEditGroup(){
 		System.out.println("--Edit a new group--");
-		signIn("root", "gtn");
+		magAcc.signIn("root", "gtn");
 		pause(1000);
 		goToUsersAndGroupsManagement();
 		pause(1000);
-		chooseGroupTab();
+		userGroup.chooseGroupTab();
 		pause(1000);
-		selectGroup(groupName);
-		editGroup(groupName, true);
+		userGroup.selectGroup(groupName);
+		userGroup.editGroup(groupName, true);
 		type(ELEMENT_INPUT_LABEL, "", true);
 		type(ELEMENT_TEXTAREA_DESCRIPTION, "edit a group description", true);
 		save();
 		pause(1000);
-		signOut();
+		magAcc.signOut();
 		pause(1000);
 	}
 	
 	@Test(groups={"platform", "add new group"})
 	public void testAddUserIntoGroup(){
 		System.out.println("--Add user to a group--");
-		signIn("root", "gtn");
+		magAcc.signIn("root", "gtn");
 		pause(1000);
 		goToUsersAndGroupsManagement();
 		pause(1000);
-		chooseGroupTab();
+		userGroup.chooseGroupTab();
 		pause(1000);
-		selectGroup(groupName);
-		addUsersToGroup(userName, memberShip, select, verify);
+		userGroup.selectGroup(groupName);
+		userGroup.addUsersToGroup(userName, memberShip, select, verify);
 		pause(1000);
-		signOut();
+		magAcc.signOut();
 		pause(1000);
 		
 	}
@@ -90,20 +96,16 @@ public class GroupTest extends PlatformBase{
 	@Test(groups={"platform", "add new group"})
 	public void testDeleteGroup(){
 		System.out.println("--Delete a new group--");
-		signIn("root", "gtn");
+		magAcc.signIn("root", "gtn");
 		pause(1000);
 		goToUsersAndGroupsManagement();
 		pause(1000);
-		chooseGroupTab();
+		userGroup.chooseGroupTab();
 		pause(1000);
-		selectGroup(groupName);
-		deleteGroup(groupName, true);
+		userGroup.selectGroup(groupName);
+		userGroup.deleteGroup(groupName, true);
 		pause(3000);
-		signOut();
-		pause(1000);
-		
-		
-	} 
-	
-
+		magAcc.signOut();
+		pause(1000);		
+	}
 }

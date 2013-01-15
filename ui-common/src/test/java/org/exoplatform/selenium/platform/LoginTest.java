@@ -1,72 +1,62 @@
 package org.exoplatform.selenium.platform;
 
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterGroups;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
-import static org.exoplatform.selenium.platform.ManageAccount.*;
+import org.exoplatform.selenium.TestBase;
+import org.exoplatform.selenium.platform.ManageAccount;
 
-
-public class LoginTest extends PlatformBase{
+/**
+ * 
+ * @author vuna2
+ *
+ */
+public class LoginTest extends TestBase{
+	
+	//ManageAccount magAcc = new ManageAccount(driver);
+	ManageAccount magAcc;
 	
 	@BeforeGroups(groups = {"platform"})
-	public void beforeTest() throws Exception {
-		driver = new FirefoxDriver();
-    	actions = new Actions(driver);
-    	baseUrl = "http://localhost:8080";
-    	driver.get(baseUrl + "/portal/intranet/");
-    	pause(3000);
-		
+	public void beforeTest()  {
+		initSeleniumTest();
+		driver.get(baseUrl);
+		driver.manage().window().maximize();	
+		magAcc = new ManageAccount(driver);
 	}
 
 	@AfterGroups(groups = {"platform"})
-	public void afterTest() throws Exception {
+	public void afterTest() {
 		driver.quit();
 	}
 	
 	@Test(groups = {"platform", "LoginTest"})
 	public void testLoginasRoot(){
-		signIn("root", "gtn");
-		pause(2000);
+		magAcc.signIn("root", "gtn");
 		waitForTextPresent("Root");
-		pause(2000);
-		signOut();
+		magAcc.signOut();
 	}
 	@Test(groups = {"platform", "LoginTest"})
 	public void testLoginasJack(){
-		signIn("demo", "gtn");
-		pause(2000);
+		magAcc.signIn("demo", "gtn");
 		waitForTextPresent("Jack Miller");
-		pause(2000);
-		signOut();
+		magAcc.signOut();
 	}
 	@Test(groups = {"platform", "LoginTest"})
 	public void testLoginasMary(){
-		signIn("mary", "gtn");
-		pause(2000);
+		magAcc.signIn("mary", "gtn");
 		waitForTextPresent("Mary Williams");
-		pause(2000);
-		signOut();
+		magAcc.signOut();
 	}
 	@Test(groups = {"platform", "LoginTest"})
 	public void testLoginasJames(){
-		signIn("james", "gtn");
-		pause(2000);
+		magAcc.signIn("james", "gtn");
 		waitForTextPresent("James Davis");
-		pause(2000);
-		signOut();
+		magAcc.signOut();
 	}	
 	@Test(groups = {"platform", "LoginTest"})
 	public void testLoginasJohn(){	
-		signIn("john", "gtn");
-		pause(2000);
+		magAcc.signIn("john", "gtn");
 		waitForTextPresent("John Smith");
-		pause(2000);
-		signOut();
-		
-	}
-	
-	
+		magAcc.signOut();		
+	}	
 }

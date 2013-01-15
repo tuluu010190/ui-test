@@ -1,35 +1,39 @@
 package org.exoplatform.selenium.platform;
 
-import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.Map;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
 public class DashBoard extends PlatformBase {
+	
+	NavigationToolbar nav = new NavigationToolbar();
+	
 	/* Dashboard Page*/
-	public static String MESSAGE_DRAG_GADGETS_HERE = "Drag your gadgets here.";
-	public static By ELEMENT_ADD_GADGETS_LINK = By.xpath("//a[text()='Add Gadgets']");
+	public  String MESSAGE_DRAG_GADGETS_HERE = "Drag your gadgets here.";
+	public  By ELEMENT_ADD_GADGETS_LINK = By.xpath("//a[text()='Add Gadgets']");
 	
 	// Getget Directory form
-	public static By ELEMENT_GADGET_URI_INPUT = By.xpath("//input[@id='url']");
-	public static By ELEMENT_ADD_GADGET_BUTTON = By.xpath("//img[@title='Add Gadget']");
+	public  By ELEMENT_GADGET_URI_INPUT = By.xpath("//input[@id='url']");
+	public  By ELEMENT_ADD_GADGET_BUTTON = By.xpath("//img[@title='Add Gadget']");
 
 	/*------------- Data for Dashboard tab --------------------------------*/
-	public static final String ELEMENT_DASHBOARD_NEW_ICON = "//div[@id='UITabPaneDashboard']/a[@class='AddDashboard']";
-	public static final String ELEMENT_DASHBOARD_NEW_INPUT = "//div[@id='UITabPaneDashboard']//div[contains(@class, 'UITab SelectedTab')]/input";
-	public static final String ELEMENT_DASHBOARD_SELECTED_PAGE_WITH_SPECIFIED_NAME = "//div[@id='UITabPaneDashboard']//span[text()='${dashboardName}']";
-	public static final String ELEMENT_DASHBOARD_SELECTED = "//div[contains(@class, 'SelectedTab')]//span";
-	public static final String ELEMENT_DASHBOARD_SELECTED_DELETE = "//div[contains(@class, 'SelectedTab')]//a[@class='CloseIcon']";
-	public static final String ELEMENT_DASHBOARD_HOME_TAB = "div[@class='UITab SelectedTab']";
-	public static final String ELEMENT_TAB_LINK = "//div[@id='UITabPaneDashboard']//span[text()='${tabName}']";
+	public final String ELEMENT_DASHBOARD_NEW_ICON = "//div[@id='UITabPaneDashboard']/a[@class='AddDashboard']";
+	public final String ELEMENT_DASHBOARD_NEW_INPUT = "//div[@id='UITabPaneDashboard']//div[contains(@class, 'UITab SelectedTab')]/input";
+	public final String ELEMENT_DASHBOARD_SELECTED_PAGE_WITH_SPECIFIED_NAME = "//div[@id='UITabPaneDashboard']//span[text()='${dashboardName}']";
+	public final String ELEMENT_DASHBOARD_SELECTED = "//div[contains(@class, 'SelectedTab')]//span";
+	public final String ELEMENT_DASHBOARD_SELECTED_DELETE = "//div[contains(@class, 'SelectedTab')]//a[@class='CloseIcon']";
+	public final String ELEMENT_DASHBOARD_HOME_TAB = "div[@class='UITab SelectedTab']";
+	public final String ELEMENT_TAB_LINK = "//div[@id='UITabPaneDashboard']//span[text()='${tabName}']";
 	/*------------ End of data for Dashboard tab --------------------------*/
 
 	//Add new page on Dashboard
-	public static void addNewTabOnDashboard(String displayName, boolean verify) {
+	public void addNewTabOnDashboard(String displayName, boolean verify) {
 		info("--Add new page on Dashboard--");
 		click(ELEMENT_DASHBOARD_NEW_ICON);
 		type(ELEMENT_DASHBOARD_NEW_INPUT, displayName, true);
@@ -41,10 +45,10 @@ public class DashBoard extends PlatformBase {
 	}
 
 	//Add new page in Dashboard with Editor
-	public static void addNewTabOnDashboardWithEditor(String nodeName, boolean extendedLabelMode, String displayName, 
+	public void addNewTabOnDashboardWithEditor(String nodeName, boolean extendedLabelMode, String displayName, 
 			String language, String categoryTitle, Map<String, String> portletIds, boolean verify){
 
-		goToAddPageEditor();
+		nav.goToAddPageEditor();
 		type(ELEMENT_INPUT_NODE_NAME, nodeName, true);
 		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
 		if (extendedLabelMode){
@@ -75,8 +79,8 @@ public class DashBoard extends PlatformBase {
 	}
 
 	//Edit a tab name
-	public static void editTabNameOnDashboard(String currentName, String newName) {
-
+	public void editTabNameOnDashboard(String currentName, String newName) {
+		Actions actions = new Actions(driver);
 		info("--Edit page name on dashboard--");
 		WebElement element;
 		element = waitForAndGetElement("//a[@class='Tablabel' and text()='" + currentName + "']");
@@ -93,7 +97,8 @@ public class DashBoard extends PlatformBase {
 	}
 
 	//Delete a tab
-	public static void deleteTabOnDashboard(String currentName, boolean confirm){
+	public void deleteTabOnDashboard(String currentName, boolean confirm){
+		Actions actions = new Actions(driver);
 		info("--Delete selected page on dashboard--");
 
 		if(confirm){ 
@@ -108,7 +113,7 @@ public class DashBoard extends PlatformBase {
 		waitForElementNotPresent("//span[text()='" + currentName + "']");
 	}
 
-	public static void deleteGadgetOnDashboard(String gadgetTitleDisplay)
+	public void deleteGadgetOnDashboard(String gadgetTitleDisplay)
 	{
 		String action = "Delete Gadget";
 		By deleteGadgetIcon = By.xpath("//span[text()='"+gadgetTitleDisplay+"']/preceding::span[@title='"+action+"']");

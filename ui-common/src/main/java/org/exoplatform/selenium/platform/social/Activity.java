@@ -1,10 +1,12 @@
 package org.exoplatform.selenium.platform.social;
 
-import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import static org.exoplatform.selenium.platform.ecms.ContentTemplate.*;
+import org.openqa.selenium.interactions.Actions;
 
 /**
  * 
@@ -27,19 +29,19 @@ public class Activity extends SocialBase {
 	//=====Element on space home page=======stash@{1}
 	// Go to My Spaces > Select a space
 	//Or Go to My Activity Stream
-	public static final By ELEMENT_ATIVITY_TEXTBOX = By.id("composerInput");
-	public static final By ELEMENT_LINK = By.linkText("Link");
-	public static final By ELEMENT_FILE_LINK = By.linkText("File");
-	public static final By ELEMENT_INPUT_LINK_BOX = By.id("InputLink");
-	public static final By ELEMENT_SELECT_FILE_BUTTON = By.linkText("Select File"); 
-	public static final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
-	public static final By ELEMENT_SELECT_BUTTON = By.xpath("input[@value='Select']");
-	public static final By ELEMENT_UPLOAD_BUTTON = By.id("file");
-	public static final By ELEMENT_ATTACH_BUTTON = By.id("AttachButton");
-	public static final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
+	public final By ELEMENT_ATIVITY_TEXTBOX = By.id("composerInput");
+	public final By ELEMENT_LINK = By.linkText("Link");
+	public final By ELEMENT_FILE_LINK = By.linkText("File");
+	public final By ELEMENT_INPUT_LINK_BOX = By.id("InputLink");
+	public final By ELEMENT_SELECT_FILE_BUTTON = By.linkText("Select File"); 
+	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
+	public final By ELEMENT_SELECT_BUTTON = By.xpath("input[@value='Select']");
+	public final By ELEMENT_UPLOAD_BUTTON = By.id("file");
+	public final By ELEMENT_ATTACH_BUTTON = By.id("AttachButton");
+	public final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
 
-	public static final String ELEMENT_COMMENT = "//div[@class='ContentBox']//*[contains(text(), '${activityText}')]";
-	public static final String ELEMENT_SHOW_HIDE_COMMENTS = "/following::*[@class='CommentListInfo']/a[contains(text(), '${inforComment}')]";
+	public final String ELEMENT_COMMENT = "//div[@class='ContentBox']//*[contains(text(), '${activityText}')]";
+	public final String ELEMENT_SHOW_HIDE_COMMENTS = "/following::*[@class='CommentListInfo']/a[contains(text(), '${inforComment}')]";
 
 
 	/**
@@ -51,7 +53,7 @@ public class Activity extends SocialBase {
 	 * @param uploadFileLink
 	 * @param uploadFileName
 	 */
-	public static void selectFile(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileLink, String uploadFileName) {
+	public void selectFile(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileLink, String uploadFileName) {
 		info("-- Selecting a file to post on activity --");
 
 		By ELEMENT_DRIVE_BOX = By.xpath("//select[@onchange='eXo.commons.DocumentSelector.changeDrive(this);']");
@@ -88,7 +90,7 @@ public class Activity extends SocialBase {
 
 			//System.out.println("DEBUG:" + getAbsoluteFilePath(uploadFileLink));
 
-			type(ELEMENT_UPLOAD_IMG_ID, getAbsoluteFilePath(uploadFileLink), false);
+			type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(uploadFileLink), false);
 
 			pause(500);
 
@@ -123,7 +125,7 @@ public class Activity extends SocialBase {
 	 * @param addLink: boolean
 	 * @param link: input a link (String)
 	 */
-	public static void addActivity (boolean addText, String text, boolean addLink, String link) {
+	public void addActivity (boolean addText, String text, boolean addLink, String link) {
 		info("-- Adding an activity to space --");
 
 		waitForElementPresent(ELEMENT_ATIVITY_TEXTBOX);
@@ -175,7 +177,7 @@ public class Activity extends SocialBase {
 	 * Delete activity 
 	 * @param activityText: input a String 
 	 */
-	public static void deleteActivity (String activityText) {
+	public void deleteActivity (String activityText) {
 		info("-- Deleting an activity --");
 
 		By ELEMENT_DELETE_ACTIVITY = By.xpath("//div[@class='ContentBox']/div/h5/span/../../div[contains(text(), '"+activityText+"')]/../h5/span[contains(@id, 'DeleteActivityButton')]");
@@ -201,7 +203,7 @@ public class Activity extends SocialBase {
 	 * @param activityText: input a text (String) 
 	 * @param contentOfComment: input a comment (String)
 	 */
-	public static void addComment(String activityText, String contentOfComment){
+	public void addComment(String activityText, String contentOfComment){
 		info("-- Adding a new comment --");
 
 		By ELEMENT_COMMENT_OF_ACTIVITY = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + "/../div[@class='LinkShareActivityIcon']/a[1]");
@@ -242,7 +244,7 @@ public class Activity extends SocialBase {
 	 * Delete a comment
 	 * @param contentOfComment: input a comment (String)
 	 */
-	public static void deleteComment(String contentOfComment){
+	public void deleteComment(String contentOfComment){
 		info("-- Deleting a comment --");
 
 		String ELEMENT_COMMENT_TEXT = "//div[@class='ContentBox']/div[2]/div/div/p[contains(text(), '"+ contentOfComment +"')]";
@@ -262,7 +264,7 @@ public class Activity extends SocialBase {
 	 * Like/Unlike an activity
 	 * @param activityText: input a text (String) 
 	 */
-	public static void likeOrUnlikeActivity(String activityText){
+	public void likeOrUnlikeActivity(String activityText){
 
 		By ELEMENT_LIKE_ACTIVITY = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + "/../div[@class='LinkShareActivityIcon']/a[2]");
 
@@ -290,7 +292,8 @@ public class Activity extends SocialBase {
 	 * @param editDescription: boolean
 	 * @param descriptionOfSharedLink: String
 	 */
-	public static void editSharedLink(String inputText, String inputLink, boolean editTitle, String titleOfSharedLink, boolean editDescription, String descriptionOfSharedLink){
+	public void editSharedLink(String inputText, String inputLink, boolean editTitle, String titleOfSharedLink, boolean editDescription, String descriptionOfSharedLink){
+		Actions actions = new Actions(driver);
 		info("-- Editing a shared link --");
 
 		By ELEMENT_INPUT_EDIT_TITLE_LINK = By.xpath("//*[@id='UIActivityComposerContainer_LINK_ACTIVITY_']/div/div/input[@class='InputTitle']");
@@ -350,7 +353,7 @@ public class Activity extends SocialBase {
 	 * @param activityText
 	 * @param contentOfCommentList
 	 */
-	public static void addSomeComments(String activityText, String[] contentOfCommentList){
+	public void addSomeComments(String activityText, String[] contentOfCommentList){
 		for(String content : contentOfCommentList){
 			addComment(activityText, content);
 			click(ELEMENT_COMMENT.replace("${activityText}", activityText) + "/../div[@class='DefaultActivityIcon']/a[1]");
@@ -365,7 +368,7 @@ public class Activity extends SocialBase {
 	 * @param hideComment: boolean
 	 * @param inforComment: String
 	 */
-	public static void showHideComments(String activityText, boolean showComment, boolean hideComment, String inforComment){
+	public void showHideComments(String activityText, boolean showComment, boolean hideComment, String inforComment){
 		info("-- Show/Hide a comment --");
 
 		By ELEMENT_SHOW_HIDE_ALL_COMMENTS = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + ELEMENT_SHOW_HIDE_COMMENTS.replace("${inforComment}", inforComment));

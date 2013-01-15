@@ -1,142 +1,151 @@
 package org.exoplatform.selenium.platform.ecms;
 
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.UserGroupManagement.*;
-import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+import org.exoplatform.selenium.platform.UserGroupManagement;
+import org.exoplatform.selenium.platform.ecms.ActionBar;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
-public class WcmAdmin extends EcmsBase {
+public class WcmAdmin extends ActionBar {
+	
+	public WcmAdmin(WebDriver dr) {
+		super(dr);
+		// TODO Auto-generated constructor stub
+	}
+
+	UserGroupManagement userGroup = new UserGroupManagement(driver);
 
 	/* Manage ECM Main Functions */ 
 	// Categories and Tags
-	public static final By ELEMENT_WCM_CATEGORY_TAG = By.xpath("//div[contains(text(),'Categories & Tags')]");
-	public static final By ELEMENT_MANAGE_CATEGORIES_LINK = By.linkText("Manage Categories");
+	public final By ELEMENT_WCM_CATEGORY_TAG = By.xpath("//div[contains(text(),'Categories & Tags')]");
+	public final By ELEMENT_MANAGE_CATEGORIES_LINK = By.linkText("Manage Categories");
 
 	// Content Presentation
-	public static final By ELEMENT_CONTENT_PRESENT = By.xpath("//div[contains(text(),'Content Presentation')]");
-	public static final By ELEMENT_MANAGEMENT_VIEW = By.xpath("//a[contains(text(),'Manage View')]");
-	public static final By ELEMENT_EDIT_VIEW = By.xpath("//*[@id='UIViewList']/table/tbody/tr[9]/td[5]/div/img[2]");
-	public static final By ELEMENT_COLLABORATION = By.linkText("Collaboration");
-	public static final By ELEMENT_SYMLINK_CHECKBOX = By.id("addSymLink");
-	public static final By ELEMENT_BACK_BUTTON = By.linkText("Back");
-	public static final By ELEMENT_MANAGE_DRIVE_LINK = By.linkText("Manage Drives");
+	public final By ELEMENT_CONTENT_PRESENT = By.xpath("//div[contains(text(),'Content Presentation')]");
+	public final By ELEMENT_MANAGEMENT_VIEW = By.xpath("//a[contains(text(),'Manage View')]");
+	public final By ELEMENT_EDIT_VIEW = By.xpath("//*[@id='UIViewList']/table/tbody/tr[9]/td[5]/div/img[2]");
+	public final By ELEMENT_COLLABORATION = By.linkText("Collaboration");
+	public final By ELEMENT_SYMLINK_CHECKBOX = By.id("addSymLink");
+	public final By ELEMENT_BACK_BUTTON = By.linkText("Back");
+	public final By ELEMENT_MANAGE_DRIVE_LINK = By.linkText("Manage Drives");
 
 	//Content type
-	public static final By ELEMENT_CONTENT_TYPES = By.xpath("//div[contains(text(),'Content Types')]");
-	public static final By ELEMENT_MANAGE_NODETYPE = By.linkText("Manage Node Type");
-	public static final By ELEMENT_NODETYPE_TEXT = By.id("NodeTypeText");
-	public static final By ELEMENT_NODETYPE_SEARCH = By.xpath("//a[@title = 'Search']");
+	public final By ELEMENT_CONTENT_TYPES = By.xpath("//div[contains(text(),'Content Types')]");
+	public final By ELEMENT_MANAGE_NODETYPE = By.linkText("Manage Node Type");
+	public final By ELEMENT_NODETYPE_TEXT = By.id("NodeTypeText");
+	public final By ELEMENT_NODETYPE_SEARCH = By.xpath("//a[@title = 'Search']");
 
 	//Add Category tree Form - Screen1
-	public static final By ELEMENT_ADD_CATEGORY_TREE_BUTTON = By.linkText("Add Category Tree");
-	public static final By ELEMENT_CATEGORIES_TREE_NAME = By.id("TaxoTreeName");
-	public static final By ELEMENT_CATEGORIES_WORKSPACE = By.id("TaxoTreeWorkspace");
-	public static final By ELEMENT_ADD_PATH_LINK = By.xpath("//img[@title='Add Path']");
-	public static final By ELEMENT_POPUP_HOME_PATH = By.id("PopupTaxonomyJCRBrowser");
-	public static final By ELEMENT_NEXT_BUTTON = By.linkText("Next");
+	public final By ELEMENT_ADD_CATEGORY_TREE_BUTTON = By.linkText("Add Category Tree");
+	public final By ELEMENT_CATEGORIES_TREE_NAME = By.id("TaxoTreeName");
+	public final By ELEMENT_CATEGORIES_WORKSPACE = By.id("TaxoTreeWorkspace");
+	public final By ELEMENT_ADD_PATH_LINK = By.xpath("//img[@title='Add Path']");
+	public final By ELEMENT_POPUP_HOME_PATH = By.id("PopupTaxonomyJCRBrowser");
+	public final By ELEMENT_NEXT_BUTTON = By.linkText("Next");
 	// Add Category tree form -screen2
-	public static final By ELEMENT_PREVIOUS_BUTTON = By.linkText("Previous");
+	public final By ELEMENT_PREVIOUS_BUTTON = By.linkText("Previous");
 	// Add Category tree form -screen3
-	public static final String MSG_ADD_CATEGORY_STEP3="Edit the taxonomy tree by adding, copying, cutting and selecting permissions.";
-	public static final By ELEMENT_ACTION_TYPE = By.id("actionType");
-	public static final By ELEMENT_ACTION_NAME = By.id("actionName");
-	public static final By ELEMENT_LIFE_CYCLE = By.id("lifecycle");
-	public static final By ELEMENT_SELECT_PATH_ICON = By.xpath("//input[@id='targetPath']/../../td/a/img[@class='ActionIcon SelectPath24x24Icon']");
-	public static final By ELEMENT_UP_LEVEL = By.xpath("//*[@id='UITaxonomyTreeCreateChild']//..//a[@title='Up Level']");
-	public static final By ELEMENT_ALERT_VISIBLE = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator' and contains(@style,'visible')]");	
+	public final String MSG_ADD_CATEGORY_STEP3="Edit the taxonomy tree by adding, copying, cutting and selecting permissions.";
+	public final By ELEMENT_ACTION_TYPE = By.id("actionType");
+	public final By ELEMENT_ACTION_NAME = By.id("actionName");
+	public final By ELEMENT_LIFE_CYCLE = By.id("lifecycle");
+	public final By ELEMENT_SELECT_PATH_ICON = By.xpath("//input[@id='targetPath']/../../td/a/img[@class='ActionIcon SelectPath24x24Icon']");
+	public final By ELEMENT_UP_LEVEL = By.xpath("//*[@id='UITaxonomyTreeCreateChild']//..//a[@title='Up Level']");
+	public final By ELEMENT_ALERT_VISIBLE = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator' and contains(@style,'visible')]");	
 
-	public static final String ELEMENT_COPY_CATEGORY_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Copy']";
-	public static final String ELEMENT_PASTE_TO_CATEGORY_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Paste']";
-	public static final String ELEMENT_CUT_CATEGORY_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Cut']";
-	public static final String MESSAGE_INFO_CUT_TO_CATEGORY =  "You cannot paste here. The category node '${pathCategory}' might be being cut.";
-	public static final String MESSAGE_INFO_PASTE_TO_CATEGORY = "Cannot read from the source file, or the destination category is a sub-category.";
+	public final String ELEMENT_COPY_CATEGORY_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Copy']";
+	public final String ELEMENT_PASTE_TO_CATEGORY_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Paste']";
+	public final String ELEMENT_CUT_CATEGORY_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Cut']";
+	public final String MESSAGE_INFO_CUT_TO_CATEGORY =  "You cannot paste here. The category node '${pathCategory}' might be being cut.";
+	public final String MESSAGE_INFO_PASTE_TO_CATEGORY = "Cannot read from the source file, or the destination category is a sub-category.";
 
 	//Permission management screen
-	public static final String MEESAGE_INFO_DELETE_PERMISSION_SYSTEM = "You cannot remove the owner or the system user.";
-	public static final String ELEMENT_PERMISSION_MANAGEMENT_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Permission Management']";
-	public static final By ELEMENT_READ_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='read']");
-	public static final By ELEMENT_ADDNODE_CHECKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='add_node']");
-	public static final By ELEMENT_SET_PRO_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='set_property']");
-	public static final By ELEMENT_REMOVE_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='remove']");
-	public static final By ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select User']");
-	public static final By ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Membership']");
-	public static final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Everyone']");
-	public static final By ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[contains(text(),'Save')]");
+	public final String MEESAGE_INFO_DELETE_PERMISSION_SYSTEM = "You cannot remove the owner or the system user.";
+	public final String ELEMENT_PERMISSION_MANAGEMENT_ICON = ".//*[@id='UITaxonomyTreeWorkingArea']/table/tbody/tr/td/div[@title ='${categoryName}']/following::td/div/img[@title='Permission Management']";
+	public final By ELEMENT_READ_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='read']");
+	public final By ELEMENT_ADDNODE_CHECKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='add_node']");
+	public final By ELEMENT_SET_PRO_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='set_property']");
+	public final By ELEMENT_REMOVE_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='remove']");
+	public final By ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select User']");
+	public final By ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Membership']");
+	public final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Everyone']");
+	public final By ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[contains(text(),'Save')]");
 
 	/*Manage Drive Page */
 	//Add drive
-	public static final By ELEMENT_ADD_DRIVER_BUTTON = By.linkText("Add Drive"); 
+	public final By ELEMENT_ADD_DRIVER_BUTTON = By.linkText("Add Drive"); 
 	//Edit drive
-	public static final By ELEMENT_DRIVE_EDIT_POPUP = By.id("EditDriveManagerPopup");
+	public final By ELEMENT_DRIVE_EDIT_POPUP = By.id("EditDriveManagerPopup");
 
 	//Add Driver form 
-	public static final By ELEMENT_ADD_DRIVE_POPUP = By.id("AddDriveManagerPopup");
-	public static final By ELEMENT_APPLY_VIEW_TAB = By.xpath("//div[contains(text(),'Apply Views')]");
-	public static final By ELEMENT_DRIVE_TAB = By.xpath("//div[contains(text(),'Drive')]");
-	public static final By ELEMENT_WORKSPACE = By.id("workspace");
-	public static final By ELEMENT_ADD_PATH = By.xpath("//img[@title='Add Path']");
-	public static final By ELEMENT_ADD_PATH_POPUP = By.id("JCRBrowser");
-	public static final By ELEMENT_JCR_SYSTEM = By.xpath("//div[contains(text(),'jcr:system')]/../../td/a[@title='select']/div");
-	public static final By ELEMENT_HOME_PATH = By.id("homePath");
-	public static final By ELEMENT_ADD_PERMISSION = By.xpath("//img[@title='Add Permission']");
-	public static final By ELEMENT_PERMISSION_TEXTBOX = By.id("permissions");
-	public static final By ELEMENT_ALLOW_CREATE_FOLDER = By.id("allowCreateFolders");
-	public static final By ELEMENT_DRIVE_NAME = By.id("name");
+	public final By ELEMENT_ADD_DRIVE_POPUP = By.id("AddDriveManagerPopup");
+	public final By ELEMENT_APPLY_VIEW_TAB = By.xpath("//div[contains(text(),'Apply Views')]");
+	public final By ELEMENT_DRIVE_TAB = By.xpath("//div[contains(text(),'Drive')]");
+	public final By ELEMENT_WORKSPACE = By.id("workspace");
+	public final By ELEMENT_ADD_PATH = By.xpath("//img[@title='Add Path']");
+	public final By ELEMENT_ADD_PATH_POPUP = By.id("JCRBrowser");
+	public final By ELEMENT_JCR_SYSTEM = By.xpath("//div[contains(text(),'jcr:system')]/../../td/a[@title='select']/div");
+	public final By ELEMENT_HOME_PATH = By.id("homePath");
+	public final By ELEMENT_ADD_PERMISSION = By.xpath("//img[@title='Add Permission']");
+	public final By ELEMENT_PERMISSION_TEXTBOX = By.id("permissions");
+	public final By ELEMENT_ALLOW_CREATE_FOLDER = By.id("allowCreateFolders");
+	public final By ELEMENT_DRIVE_NAME = By.id("name");
 
 	/* Manage View Page */
-	public static By ELEMENT_ICON_VIEW_WCM_EDIT= By.xpath("//div[@title='WCM View']/../..//*[@class='EditInfoIcon']");
-	//public static By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
-	public static By ELEMENT_MANAGE_VIEW = By.xpath("//a[contains(text(),'Manage View')]");
+	public By ELEMENT_ICON_VIEW_WCM_EDIT= By.xpath("//div[@title='WCM View']/../..//*[@class='EditInfoIcon']");
+	//public By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
+	public By ELEMENT_MANAGE_VIEW = By.xpath("//a[contains(text(),'Manage View')]");
 
 	//Edit View Form 
-	public static By ELEMENT_CHECKBOX_VERSION=By.id("manageVersions");
-	public static By ELEMENT_BUTTON_BACK=By.linkText("Back");
-	public static By ELEMENT_ADDNEW_BUTTON = By.linkText("Add View");
-	public static By ELEMENT_TEMPLATE_VIEW_NAME = By.id("viewName");
-	public static By ELEMENT_TEMPLATE_VIEW = By.id("template");
-	public static By ELEMENT_TAB_NAME = By.id("tabName");
-	public static By ELEMENT_TAB_ECM_TEMPLATE = By.xpath("//div[@class='MiddleTab' and text()='ECM Templates']");
-	public static By ELEMENT_ECM_TEMPLATE_CONTENT = By.id("content");
-	public static By ELEMENT_ECM_TEMPLATE_NAME = By.id("name");
-	public static By ELEMENT_ECM_TEMPLATE_TYPE = By.id("homeTemplate");
-	public static By ELEMENT_ENABLE_VERSION = By.id("enableVersion");
-	public static By ELEMENT_EDIT_VIEW_FORM = By.xpath("//span[@class='PopupTitle' and text()='Edit View']");
-	public static By ELEMENT_VERSION_OPTION = By.id("version"); 
-	public static By ELEMENT_ECM_TEMPLATE_FORM = By.xpath("span[@class='PopupTitle' and text()='Add ECM Template']");
-	public static By ELEMENT_ADDVIEW_FORM = By.xpath("span[@class='PopupTitle' and text()='Add New']");
+	public By ELEMENT_CHECKBOX_VERSION=By.id("manageVersions");
+	public By ELEMENT_BUTTON_BACK=By.linkText("Back");
+	public By ELEMENT_ADDNEW_BUTTON = By.linkText("Add View");
+	public By ELEMENT_TEMPLATE_VIEW_NAME = By.id("viewName");
+	public By ELEMENT_TEMPLATE_VIEW = By.id("template");
+	public By ELEMENT_TAB_NAME = By.id("tabName");
+	public By ELEMENT_TAB_ECM_TEMPLATE = By.xpath("//div[@class='MiddleTab' and text()='ECM Templates']");
+	public By ELEMENT_ECM_TEMPLATE_CONTENT = By.id("content");
+	public By ELEMENT_ECM_TEMPLATE_NAME = By.id("name");
+	public By ELEMENT_ECM_TEMPLATE_TYPE = By.id("homeTemplate");
+	public By ELEMENT_ENABLE_VERSION = By.id("enableVersion");
+	public By ELEMENT_EDIT_VIEW_FORM = By.xpath("//span[@class='PopupTitle' and text()='Edit View']");
+	public By ELEMENT_VERSION_OPTION = By.id("version"); 
+	public By ELEMENT_ECM_TEMPLATE_FORM = By.xpath("span[@class='PopupTitle' and text()='Add ECM Template']");
+	public By ELEMENT_ADDVIEW_FORM = By.xpath("span[@class='PopupTitle' and text()='Add New']");
 
 	//-------SEO Management Form--------------------
-	public static By ELEMENT_SEO_FORM = By.id("UISEOPopupWindow");
-	public static By ELEMENT_DESCRIPTION_TEXTAREA = By.id("description");
-	public static By ELEMENT_KEYWORD_TEXTAREA = By.id("keywords");
-	public static By ELEMENT_ROBOT_INDEX_COMBOX = By.id("index");
-	public static By ELEMENT_ROBOT_FOLLOW_COMBOX = By.id("follow");
-	public static By ELEMENT_SITE_MAP_CHECKBOX = By.id("sitemap");
-	public static By ELEMENT_FREQUENCY_COMBOX = By.id("frequency");
-	public static By ELEMENT_PRIORITY = By.id("priority");
+	public By ELEMENT_SEO_FORM = By.id("UISEOPopupWindow");
+	public By ELEMENT_DESCRIPTION_TEXTAREA = By.id("description");
+	public By ELEMENT_KEYWORD_TEXTAREA = By.id("keywords");
+	public By ELEMENT_ROBOT_INDEX_COMBOX = By.id("index");
+	public By ELEMENT_ROBOT_FOLLOW_COMBOX = By.id("follow");
+	public By ELEMENT_SITE_MAP_CHECKBOX = By.id("sitemap");
+	public By ELEMENT_FREQUENCY_COMBOX = By.id("frequency");
+	public By ELEMENT_PRIORITY = By.id("priority");
 
 	//Manage Template    
-	public static By ELEMENT_MANAGE_TEMPLATE = By.linkText("Manage Templates");
-	public static By ELEMENT_TEMPLATE_LABEL = By.id("label");
-	public static By ELEMENT_TEMPLATE_NAME = By.id("name");
-	public static By ELEMENT_MANAGE_TEMPLATE_SCREEN = By.xpath("//div[contains(text(),'Manage Templates')]");
-	public static By ELEMENT_IS_DOCUMENT_TEMPLATE = By.id("isDocumentTemplate");  
-	public static By ELEMENT_DIALOG_TAB = By.xpath("//div[@class='MiddleTab' and text()='Dialog']");
-	public static By ELEMENT_VIEW_TAB = By.xpath("//div[@class='MiddleTab' and text()='View']");
-	public static By ELEMENT_CSS_TAB = By.xpath("//div[@class='MiddleTab' and text()='CSS']");
-	public static By ELEMENT_TEMPLATE_FORM = By.xpath("//span[contains(text(),'Template Form')]");
+	public By ELEMENT_MANAGE_TEMPLATE = By.linkText("Manage Templates");
+	public By ELEMENT_TEMPLATE_LABEL = By.id("label");
+	public By ELEMENT_TEMPLATE_NAME = By.id("name");
+	public By ELEMENT_MANAGE_TEMPLATE_SCREEN = By.xpath("//div[contains(text(),'Manage Templates')]");
+	public By ELEMENT_IS_DOCUMENT_TEMPLATE = By.id("isDocumentTemplate");  
+	public By ELEMENT_DIALOG_TAB = By.xpath("//div[@class='MiddleTab' and text()='Dialog']");
+	public By ELEMENT_VIEW_TAB = By.xpath("//div[@class='MiddleTab' and text()='View']");
+	public By ELEMENT_CSS_TAB = By.xpath("//div[@class='MiddleTab' and text()='CSS']");
+	public By ELEMENT_TEMPLATE_FORM = By.xpath("//span[contains(text(),'Template Form')]");
 
-	public static By ELEMENT_SELECT_MEMBERSHIP = By.xpath("//img[@alt='Select Membership']");
-	public static By ELEMENT_SELECT_USERGROUP = By.id("SelectUserOrGroup");
-	public static By ELEMENT_SELECT_MEMBERSHIP_TYPE = By.linkText("platform");
-	//public static final By ELEMENT_SELECT_MEMBERSHIP_WEB_CONTRIBUTORS = By.linkText("web-contributors");
+	public By ELEMENT_SELECT_MEMBERSHIP = By.xpath("//img[@alt='Select Membership']");
+	public By ELEMENT_SELECT_USERGROUP = By.id("SelectUserOrGroup");
+	public By ELEMENT_SELECT_MEMBERSHIP_TYPE = By.linkText("platform");
+	//public final By ELEMENT_SELECT_MEMBERSHIP_WEB_CONTRIBUTORS = By.linkText("web-contributors");
 
 
 	//Setup to show [Add symlink] on action bar
 	//Set Add symlink view on action bar
-	public static void setup2ShowViewSymlink(){
+	public void setup2ShowViewSymlink(){
 		mouseOver(ELEMENT_LINK_SETUP, false);
 		mouseOver(ELEMENT_MENU_CONTENT_LINK, false);
 		click(ELEMENT_LINK_CONTENT_ADMIN);
@@ -154,26 +163,26 @@ public class WcmAdmin extends EcmsBase {
 		click(ELEMENT_SAVE_BUTTON);		  
 	}
 
-	public static void gotoManageNoteType(){
+	public void gotoManageNoteType(){
 		goToContentAdministration();
 		click(ELEMENT_CONTENT_TYPES);
 		click(ELEMENT_MANAGE_NODETYPE);
 		waitForElementPresent(By.xpath("//div[@class='FunctionTitle' and text() = 'Manage Node Type']"));
 	}
 
-	public static void doNodeTypeSearch(String keyword){
+	public void doNodeTypeSearch(String keyword){
 		type(ELEMENT_NODETYPE_TEXT, keyword, true);
 		click(ELEMENT_NODETYPE_SEARCH);
 	}
 	// Manage category	  
 	//Function to go to content administration
-	public static void goToContentAdministration(){
+	public void goToContentAdministration(){
 		mouseOver(ELEMENT_LINK_SETUP, true);
 		mouseOver(ELEMENT_MENU_CONTENT_LINK, true);
 		click(ELEMENT_LINK_CONTENT_ADMIN);		  
 	}
 	// Function to expand node on category tree
-	public static void expandNode(String node, boolean ex){
+	public void expandNode(String node, boolean ex){
 		By ELEMENT_EXPAND = By.xpath("//div[@title='" + node + "']/../../a[@class='ExpandIcon exo_taxonomy16x16Icon default16x16Icon']");
 		By ELEMENT_COLLAPSE = By.xpath("//div[@title='" + node + "']/../../a[@class='CollapseIcon exo_taxonomy16x16Icon default16x16Icon']");		  
 		//goToNode(By.linkText(node));
@@ -186,7 +195,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Function to add child category for a category
-	public static void addChildCategory(String cat_name, String child_name, boolean...grandChild){
+	public void addChildCategory(String cat_name, String child_name, boolean...grandChild){
 		//Click edit category
 		boolean isGrandChild = grandChild.length>0 ? grandChild[0] : false;
 		if (!isGrandChild) click(By.xpath("//div[@title='" + cat_name + "']/../..//*[@alt='Edit Category Tree']"));
@@ -200,7 +209,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Function to copy and paste a category
-	public static void copyAndPasteCategory(String child1, String child2){
+	public void copyAndPasteCategory(String child1, String child2){
 		By ELEMENT_CHILD_NEW = By.xpath("//div[@title='"+child2+"']/../../div/div/a/div[@title='"+child1+"']");
 
 		click(By.xpath("//div[@title='"+child1+"']/../../td/div/img[@title='Copy']"));
@@ -211,7 +220,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Function to cut and paste a category
-	public static void cutAndPasteCategory(String child1, String child2){
+	public void cutAndPasteCategory(String child1, String child2){
 		By ELEMENT_CHILD_NEW = By.xpath("//div[@title='" + child2 + "']/../../div/div/a/div[@title='"+child1+"']");
 
 		click(By.xpath("//div[@title='" + child1 + "']/../../td/div/img[@title='Cut']"));
@@ -224,7 +233,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Delete a category
-	public static void deleteCategory(String categoryName){
+	public void deleteCategory(String categoryName){
 		By ELEMENT_DELETE = By.xpath("//div[@title='" + categoryName + "']/../../td/div/img[contains(@title,'Delete')]");
 
 		if (getElement(ELEMENT_DELETE) != null){
@@ -238,7 +247,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Function to select home path
-	public static void selectHomePath(String homePath){
+	public void selectHomePath(String homePath){
 		String[] temp;
 		/* delimiter */
 		String delimiter = "/";
@@ -260,7 +269,7 @@ public class WcmAdmin extends EcmsBase {
 	 *--*/	
 
 	//Add new category tree: step 1 - Specify the category name, workspace and home path.
-	public static void addNewCategoryTree_Step1(String categoryTreeName, String workspace, String homePath){
+	public void addNewCategoryTree_Step1(String categoryTreeName, String workspace, String homePath){
 		info("-- Adding a workspace/homepath to: " + categoryTreeName + " --");
 		type(ELEMENT_CATEGORIES_TREE_NAME, categoryTreeName, false);
 		select(ELEMENT_CATEGORIES_WORKSPACE, workspace);
@@ -283,7 +292,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @param set
 	 * @param remove
 	 */
-	public static void addNewCategoryTree_Step2(boolean selectUserOrGroup, boolean selectMembership, String groupID, String membership, 
+	public void addNewCategoryTree_Step2(boolean selectUserOrGroup, boolean selectMembership, String groupID, String membership, 
 			String user_Per, boolean read, boolean add, boolean set, boolean remove){
 		info("-- Add permissions to the category tree --");
 		if (!selectUserOrGroup && !selectMembership){
@@ -295,7 +304,7 @@ public class WcmAdmin extends EcmsBase {
 			}
 			if(selectMembership){
 				click(By.xpath("//img[@title='Select Membership']"));
-				selectGroup(groupID);
+				userGroup.selectGroup(groupID);
 				click(By.linkText(membership));
 			}
 		}
@@ -319,7 +328,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @tab: name of tab on action bar that need add view
 	 * @viewadd: list of sub view need add
 	 */
-	public static void addView(String view, String tab, String viewadd ){
+	public void addView(String view, String tab, String viewadd ){
 		goToContentAdministration();
 		click(ELEMENT_CONTENT_PRESENT);
 		click(ELEMENT_MANAGE_VIEW);
@@ -331,7 +340,8 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Add new category tree: step 3 - Add an action to the category tree to complete the creation or update
-	public static void addNewCategoryTree_Step3(String actionName, String optionsLifeCycle, String nodeTargetPath){
+	public void addNewCategoryTree_Step3(String actionName, String optionsLifeCycle, String nodeTargetPath){
+		Actions actions = new Actions(driver);
 		info("-- Add an action to the category tree --");
 		String ELEMENT_LIFE_CYCLE_LIST_OPTIONS = ".//*[@id='lifecycle']/option[contains(text(), '${option}')]";  
 		type(ELEMENT_ACTION_NAME,actionName,false);		
@@ -351,7 +361,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Add new category tree: step 4 - Edit the taxonomy tree by adding, copying, cutting and selecting permissions.
-	public static void addNewCategoryTree_Step4(String name, String childname1, String childname2, String user_Per, boolean read, boolean add, boolean set, boolean remove ){
+	public void addNewCategoryTree_Step4(String name, String childname1, String childname2, String user_Per, boolean read, boolean add, boolean set, boolean remove ){
 		//--Add child category
 		addChildCategory(name, childname1);
 		click(ELEMENT_UP_LEVEL);
@@ -373,7 +383,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Function to add new category tree
-	public static void addNewCategoryTree(String[] nameWorkspaceHomePath, boolean selectUserOrGroup, boolean selectMembership, String[] groupIDAndMembership, 
+	public void addNewCategoryTree(String[] nameWorkspaceHomePath, boolean selectUserOrGroup, boolean selectMembership, String[] groupIDAndMembership, 
 			String user_Per, boolean read, boolean add, boolean set, boolean remove, String[] actions){
 		By ELEMENT_CATEGORY_TREE = By.xpath("//div[@title='" + nameWorkspaceHomePath[0] + "']");
 
@@ -411,7 +421,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Function to set permission for user on manage category screen
-	public static void setPermissionForUserOnManageCategory(boolean selectUser, String user, boolean selectMembership, String groupID, String membership,
+	public void setPermissionForUserOnManageCategory(boolean selectUser, String user, boolean selectMembership, String groupID, String membership,
 			boolean read, boolean add, boolean set, boolean remove){
 		info("Set permission for category with user " + user);
 		if (!selectUser && !selectMembership){
@@ -428,7 +438,7 @@ public class WcmAdmin extends EcmsBase {
 		}
 		else if (selectMembership){
 			click(ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT);
-			selectGroup(groupID);
+			userGroup.selectGroup(groupID);
 			click(By.linkText(membership));
 		}
 		pause(500);
@@ -453,7 +463,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Edit a permission for user or group
-	public static void editPermissionUserOrGroup(String userOrGroupName, boolean read, boolean add, boolean set, boolean remove){
+	public void editPermissionUserOrGroup(String userOrGroupName, boolean read, boolean add, boolean set, boolean remove){
 		info("-- Edit a permission for user/group: "+ userOrGroupName +" --");
 		By ELEMENT_EDIT_USER_PERMISSION = By.xpath("//div[@title='"+ userOrGroupName +"']/../../td/div/img[@class='EditIcon']");
 		By ELEMENT_EDIT_USER_PERMISSION_AUX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//div[@title='"+ userOrGroupName +"']/../../td/div/img[@class='EditIcon']");		
@@ -486,7 +496,7 @@ public class WcmAdmin extends EcmsBase {
 	 * Add function icon to the Publication tab on action bar
 	 * locator: locator of check-box icon of function on the edit View form
 	 */
-	public static void addFunctionToActionBar(By locator){
+	public void addFunctionToActionBar(By locator){
 		goToContentAdministration();
 		click(ELEMENT_CONTENT_PRESENT);
 		click(ELEMENT_MANAGEMENT_VIEW);
@@ -502,7 +512,7 @@ public class WcmAdmin extends EcmsBase {
 
 	//------------Manage driver------------------
 	//Function to go to Manage Driver from main screen
-	public static void goToManageDriver(){
+	public void goToManageDriver(){
 		info("Go to manage driver form");
 		goToContentAdministration();
 		click(ELEMENT_CONTENT_PRESENT);
@@ -510,7 +520,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Function to add new driver in manage driver form
-	public static void addNewDriver(String driverName, String workspace, String path, String group, String member, String permission, String view ){
+	public void addNewDriver(String driverName, String workspace, String path, String group, String member, String permission, String view ){
 		By ELEMENT_EXO_ECM = By.xpath("//div[contains(text(),'" + path + "')]/../../td/a[@title='select']/div");
 		By ELEMENT_DRIVER = By.xpath("//div[@title='" + driverName + "']");
 
@@ -543,7 +553,7 @@ public class WcmAdmin extends EcmsBase {
 		//Set permission on new drive
 		info("Set Permission for driver");
 		click(ELEMENT_ADD_PERMISSION);
-		selectGroup(group);	
+		userGroup.selectGroup(group);	
 		click(By.linkText(member));
 		assert getValue(ELEMENT_PERMISSION_TEXTBOX).contains(permission):"Set permission is not true";
 
@@ -563,7 +573,7 @@ public class WcmAdmin extends EcmsBase {
 	}
 
 	//Function to select check-box list using id of check-box
-	public static void selectCheckboxList(String viewList){
+	public void selectCheckboxList(String viewList){
 		String[] temp = viewList.split("/");
 		if (temp.length != 0){
 			for (int i=0; i < temp.length ; i++ ){
@@ -591,7 +601,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @fre: option of checkbox frequency
 	 * @pri: data input to priority
 	 */
-	public static void inputDataSeo(String des, String key, String index, String follow, boolean sitemap, String fre, String pri){
+	public void inputDataSeo(String des, String key, String index, String follow, boolean sitemap, String fre, String pri){
 
 		waitForElementPresent(ELEMENT_SEO_FORM);
 		waitForAndGetElement(ELEMENT_DESCRIPTION_TEXTAREA).clear();
@@ -624,16 +634,16 @@ public class WcmAdmin extends EcmsBase {
 	 * @param membership: Membership 
 	 * @param anchor: link icon to open select memebership form
 	 */
-	public static void selectMembership(String groupPath, String membership, String anchor){
+	public void selectMembership(String groupPath, String membership, String anchor){
 		click(By.xpath("//img[@title='" + anchor + "']"));
-		selectGroup(groupPath);
+		userGroup.selectGroup(groupPath);
 		click(By.linkText(membership));
 	}
 
 	/**
 	 * Open Manage Template Screen
 	 */
-	public static void openManageTemplateForm(){	    
+	public void openManageTemplateForm(){	    
 		goToContentAdministration();
 		click(ELEMENT_CONTENT_PRESENT);
 		click(ELEMENT_MANAGE_TEMPLATE);
@@ -643,7 +653,7 @@ public class WcmAdmin extends EcmsBase {
 	/**
 	 * Open Add New Template Form
 	 */
-	public static void openAddNewTemplateForm() {
+	public void openAddNewTemplateForm() {
 		openForm("AddNew","Template Form");	    
 	}
 	/**
@@ -653,7 +663,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @param membership: Membership
 	 */
 
-	public static void fillAddNewTemplateForm(String templateLabel, String templateName, String groupPath, String membership) {   
+	public void fillAddNewTemplateForm(String templateLabel, String templateName, String groupPath, String membership) {   
 		type(ELEMENT_TEMPLATE_LABEL,templateLabel, false);
 		select(ELEMENT_TEMPLATE_NAME, templateName);
 		click(ELEMENT_IS_DOCUMENT_TEMPLATE);
@@ -666,7 +676,7 @@ public class WcmAdmin extends EcmsBase {
 		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));      
 	}
 
-	public static void deleleTemplate(String templateName, String confirmMessage){
+	public void deleleTemplate(String templateName, String confirmMessage){
 		By locator = By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]/ancestor::tr//img[@class='DeleteIcon']");
 		click(locator);     
 		waitForConfirmation(confirmMessage);
@@ -676,14 +686,14 @@ public class WcmAdmin extends EcmsBase {
 	/**
 	 * Go to Manage View Screen
 	 */
-	public static void gotoManageViews(){
+	public void gotoManageViews(){
 		goToContentAdministration();
 		click(ELEMENT_CONTENT_PRESENT);
 		click(ELEMENT_MANAGEMENT_VIEW);
 		waitForElementPresent(By.xpath("//div[contains(text(),'Manage View')]"));
 	}
 
-	public static void gotoEcmTemplates(){
+	public void gotoEcmTemplates(){
 		//gotoManageViews();
 		click(ELEMENT_TAB_ECM_TEMPLATE);
 	}
@@ -692,7 +702,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @param name : Template name
 	 * @param template : Template view
 	 */
-	public static void fillAddNewViewForm(String name, String template) {
+	public void fillAddNewViewForm(String name, String template) {
 		type(ELEMENT_TEMPLATE_VIEW_NAME, name, true);
 		selectMembership("Organization/Management/Human Resources", "*","Add Permission");
 		select(ELEMENT_TEMPLATE_VIEW, template);
@@ -706,7 +716,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @param tabname : Tab name
 	 * @param property : Tab Property
 	 */
-	public static void addTab(String tabname, String property){
+	public void addTab(String tabname, String property){
 		click(By.linkText("Add Tab"));
 		waitForTextPresent("Tab Form");
 		type(ELEMENT_TAB_NAME, tabname, true);
@@ -719,7 +729,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @param viewName : View Name
 	 * @param confirmMessage : Confirm Message
 	 */
-	public static void deleteView(String viewName, String confirmMessage, boolean verify){
+	public void deleteView(String viewName, String confirmMessage, boolean verify){
 		By locator = By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//img[@class='DeleteIcon']");
 		click(locator);     
 		waitForConfirmation(confirmMessage);
@@ -729,7 +739,7 @@ public class WcmAdmin extends EcmsBase {
 	 * Edit View 
 	 * @param viewName : View Name
 	 */
-	public static void editView(String viewName){
+	public void editView(String viewName){
 		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]"));
 		By locator = By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]/ancestor::tr//img[@class='EditInfoIcon']");
 		click(locator);
@@ -740,7 +750,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @param viewName : View Name
 	 * @param versionNumber : Number of version that you want to create. It require 2 version at least
 	 */
-	public static void createVersion(String viewName, int versionNumber){
+	public void createVersion(String viewName, int versionNumber){
 		if(versionNumber < 2){
 			assert false : ("Number of versions is required 2 at least");
 		}
@@ -756,7 +766,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @param viewName : View Name
 	 * @param orderVersion : Version that want to restore
 	 */
-	public static void restoreVersion(String viewName, int orderVersion){
+	public void restoreVersion(String viewName, int orderVersion){
 		editView(viewName);
 		String order = "" + orderVersion;
 		select(ELEMENT_VERSION_OPTION, order);
@@ -770,7 +780,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @param templateName : Template Name
 	 * @param templateType : Template Type
 	 */
-	public static void fillEcmTemplateForm(String templateContent, String templateName, String templateType){
+	public void fillEcmTemplateForm(String templateContent, String templateName, String templateType){
 		type(ELEMENT_ECM_TEMPLATE_CONTENT, templateContent, true);
 		type(ELEMENT_ECM_TEMPLATE_NAME, templateName, true);
 		select(ELEMENT_ECM_TEMPLATE_TYPE, templateType);
@@ -782,7 +792,7 @@ public class WcmAdmin extends EcmsBase {
 	 * Change mode
 	 * @param mode : 1 for edit mode, 0 for published mode
 	 */
-//	public static void changeMode(int mode) {
+//	public void changeMode(int mode) {
 //		WebElement content = null;
 //		mouseOver(ELEMENT_MENU_EDIT_LINK, false);
 //		if(mode == 1) { //Edit mode
@@ -801,7 +811,7 @@ public class WcmAdmin extends EcmsBase {
 	 * @param anchor: class of element inside a CLV
 	 * @param icon : Action icon of CLV, for example 
 	 */
-	public static void doCLVEditingToolAction(String anchor, String icon) {
+	public void doCLVEditingToolAction(String anchor, String icon) {
 
 		mouseOver(By.xpath("//a[@class='" + anchor + "']"), true);
 		By ELEMENT_ID_OF_SCV =
@@ -815,7 +825,7 @@ public class WcmAdmin extends EcmsBase {
 		mouseOverAndClick(ELEMENT_ID_OF_SCV_TEST.replace("${idSCV}", idSCV));
 	}
 
-	public static void editTitleInline(String title, String newTitle){
+	public void editTitleInline(String title, String newTitle){
 		String currentTitle = "//div[contains(text(),'" + title + "') and @title='Double-click to edit']";
 		By inputTitle = By.xpath(currentTitle + "/following::div[@class='EditGroovyCLVTitleInput']/input[contains(@id,'newCLVTitle')]");
 		By acceptButton = By.xpath(currentTitle + "/following::a[@class='AcceptButton']");

@@ -1,8 +1,8 @@
 package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.NavigationToolbar.*;
-import static org.exoplatform.selenium.platform.NavigationManagement.deleteNode;
+import  org.exoplatform.selenium.platform.NavigationToolbar;
+import  org.exoplatform.selenium.platform.NavigationManagement;
 import java.util.Map;
 
 import org.openqa.selenium.By;
@@ -10,26 +10,30 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class PageManagement extends PlatformBase {
+	
+	NavigationToolbar nav = new NavigationToolbar();
+	NavigationManagement navMag = new NavigationManagement();
+	
 	/*
 	 * Page Management
 	 * */
-	public static String ELEMENT_ADD_PAGE_BUTTON = "//a[text()='Add New Page']";
-	public static String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
-	public static String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//form[@id='UIPageSearchForm']/div[2]/a[@class='SearchIcon']";
-	public static String ELEMENT_PAGE_EDIT_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='EditInfoIcon']";
-	public static String ELEMENT_PAGE_DELETE_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='DeleteIcon']";
+	public String ELEMENT_ADD_PAGE_BUTTON = "//a[text()='Add New Page']";
+	public String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
+	public String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//form[@id='UIPageSearchForm']/div[2]/a[@class='SearchIcon']";
+	public String ELEMENT_PAGE_EDIT_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='EditInfoIcon']";
+	public String ELEMENT_PAGE_DELETE_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='DeleteIcon']";
 
 	//Add New Page Form (shown after click [Add New Page] button in Page Management)
-	public static By ELEMENT_PAGE_NAME_INPUT = By.xpath("//input[@id='name']");
-	public static By ELEMENT_PAGE_TITLE_INPUT = By.xpath("//input[@id='title']");
-	public static String ELEMENT_SELECT_OWNER_TYPE = "//select[@name='ownerType']";
-	public static By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
+	public By ELEMENT_PAGE_NAME_INPUT = By.xpath("//input[@id='name']");
+	public By ELEMENT_PAGE_TITLE_INPUT = By.xpath("//input[@id='title']");
+	public String ELEMENT_SELECT_OWNER_TYPE = "//select[@name='ownerType']";
+	public By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
 		
 	//Message
-	public static String MESSAGE_DELETE_PAGE = "Are you sure to delete this page?";
+	public String MESSAGE_DELETE_PAGE = "Are you sure to delete this page?";
 	
 	//Add a new page in PageManagement
-	public static void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
+	public void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
 			Map<String, String> permissions, String groupId, String membership ){
 
 		click(ELEMENT_ADD_PAGE_BUTTON);
@@ -70,7 +74,7 @@ public class PageManagement extends PlatformBase {
 	}
 
 	//Edit a page at Manage Pages
-	public static void editPageAtManagePages(PageType type, String pageTitle){
+	public void editPageAtManagePages(PageType type, String pageTitle){
 		String pageEditIcon = ELEMENT_PAGE_EDIT_ICON.replace("${page}", pageTitle);
 		searchPageByTitle(type, pageTitle);
 		click(pageEditIcon);
@@ -78,7 +82,7 @@ public class PageManagement extends PlatformBase {
 	}
 
 	//Delete a page
-	public static void deletePage(PageType type, String pageTitle, int...wait){
+	public void deletePage(PageType type, String pageTitle, int...wait){
 		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle);
 		searchPageByTitle(type, pageTitle);
@@ -90,7 +94,7 @@ public class PageManagement extends PlatformBase {
 	}
 
 	// Search a page in Manage Pages
-	public static void searchPageByTitle(PageType type, String pageTitle){
+	public void searchPageByTitle(PageType type, String pageTitle){
 		type(ELEMENT_INPUT_SEARCH_TITLE, pageTitle, true);
 		switch (type){
 		case PORTAL:
@@ -108,7 +112,7 @@ public class PageManagement extends PlatformBase {
 	}
 
 	// Input data for page
-	public static void addNewPageEditor(String nodeName, String displayName, String language, String categoryTitle, 
+	public void addNewPageEditor(String nodeName, String displayName, String language, String categoryTitle, 
 			Map<String, String> portletIds, boolean extendedLabelMode){
 
 		type(ELEMENT_INPUT_NODE_NAME, nodeName, true);
@@ -143,21 +147,21 @@ public class PageManagement extends PlatformBase {
 		waitForTextNotPresent("Page Editor");
 	}
 
-	public static void deletePageAtManagePageAndPortalNavigation(String pageName, boolean PageTypePortal, String portalName, 
+	public void deletePageAtManagePageAndPortalNavigation(String pageName, boolean PageTypePortal, String portalName, 
 			boolean PageTypeGroup, String groupName){
 		info("-- Deleting "+ pageName +" at Manage page and Portal Navigation--");
-		goToManagePages();
+		nav.goToManagePages();
 		if (PageTypePortal){
 			deletePage(PageType.PORTAL, pageName);
 			//delete page at Portal navigation
-			goToPortalSites();
-			deleteNode(portalName, "", pageName, true);
+			nav.goToPortalSites();
+			navMag.deleteNode(portalName, "", pageName, true);
 		}
 		if (PageTypeGroup){
 			deletePage(PageType.GROUP, pageName);
 			//delete page at Portal/Group navigation
-			goToGroupSites();
-			deleteNode(groupName, "", pageName, true);
+			nav.goToGroupSites();
+			navMag.deleteNode(groupName, "", pageName, true);
 		}
 	}
 }

@@ -4,33 +4,39 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class UserGroupManagement extends PlatformBase {
-	public static final String MESSAGE_DUPLICATE_USERS = "User \"${username}\" has already the same membership ";
-	public static final String MESSAGE_DUPLICATE_GROUPS = "in the group \"${groupName}\", please select another one.";
-	public static final String ELEMENT_USER_INGROUP_DELETE_ICON = "//div[@id='UIGridUser']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
+	
+	public UserGroupManagement(WebDriver dr){
+		driver = dr;
+	}
+	
+	public  final String MESSAGE_DUPLICATE_USERS = "User \"${username}\" has already the same membership ";
+	public  final String MESSAGE_DUPLICATE_GROUPS = "in the group \"${groupName}\", please select another one.";
+	public  final String ELEMENT_USER_INGROUP_DELETE_ICON = "//div[@id='UIGridUser']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
 
 	//User Management -> Edit User form
-	public static final String ELEMENT_USER_MEMBERSHIP_TAB = "//div[text()='User Membership' and @class='MiddleTab']";
+	public  final String ELEMENT_USER_MEMBERSHIP_TAB = "//div[text()='User Membership' and @class='MiddleTab']";
 	
 	/*
 	 *  Choose TAB actions
 	 * */
 
-	public static void chooseUserTab(){
+	public void chooseUserTab(){
 		info("-- Choose User tab--");
 		click(ELEMENT_USER_MANAGEMENT);
 		waitForTextPresent("User Name");
 	}
 
-	public static void chooseGroupTab() {
+	public void chooseGroupTab() {
 		info("-- Choose Group Management tab--");
 		click(ELEMENT_GROUP_MANAGEMENT_TAB);
 		waitForTextPresent("Group Info");
 	}
 
-	public static void chooseMembershipTab() {
+	public void chooseMembershipTab() {
 		info("-- Choose Membership Management tab--");
 		pause(500);
 		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
@@ -41,7 +47,7 @@ public class UserGroupManagement extends PlatformBase {
 	 * User Management
 	 * */
 
-	public static void deleteUser(String username) {
+	public void deleteUser(String username) {
 		String userDeleteIcon = ELEMENT_USER_DELETE_ICON.replace("${username}", username);
 
 		info("--Deleting user " + username + "--");
@@ -60,7 +66,7 @@ public class UserGroupManagement extends PlatformBase {
 		waitForTextNotPresent(username);
 	}
 
-	public static void searchUser(String user, String searchOption){
+	public void searchUser(String user, String searchOption){
 		info("--Search user " + user + "--");
 		if (isTextPresent("Search")){
 			type(ELEMENT_INPUT_SEARCH_USER_NAME, user, true);
@@ -70,7 +76,7 @@ public class UserGroupManagement extends PlatformBase {
 		waitForTextPresent(user);
 	}
 
-	public static void editUser(String username) {
+	public void editUser(String username) {
 		String userEditIcon = ELEMENT_USER_EDIT_ICON.replace("${username}", username);
 
 		info("--Editing user " + username + "--");
@@ -82,7 +88,7 @@ public class UserGroupManagement extends PlatformBase {
 	 *  Group Management 
 	 * */
 
-	public static void addGroup(String groupName, String groupLabel, String groupDesc, boolean verify){
+	public void addGroup(String groupName, String groupLabel, String groupDesc, boolean verify){
 		info("--Add a new group--");
 		pause(500);
 		click(ELEMENT_GROUP_ADD_NEW_ICON);
@@ -95,7 +101,7 @@ public class UserGroupManagement extends PlatformBase {
 		}
 	}
 
-	public static void addUsersToGroup(String userNames, String memberShip, boolean select, boolean verify) {
+	public void addUsersToGroup(String userNames, String memberShip, boolean select, boolean verify) {
 		info("--Adding users to group--");
 		String[] users = userNames.split(",");
 		if (select) {
@@ -125,7 +131,7 @@ public class UserGroupManagement extends PlatformBase {
 	}
 
 	//Add a duplicated user into group
-	public static void addDuplicatedUserToGroup(String groupName, String userName, String memberShip){
+	public void addDuplicatedUserToGroup(String groupName, String userName, String memberShip){
 		info("-- Add a duplicated user into group --");
 		String MESSAGE_DUPLICATE_USER = MESSAGE_DUPLICATE_USERS.replace("${username}", userName);
 		String MESSAGE_DUPLICATE_USER_WITH_SAME_ROLE = MESSAGE_DUPLICATE_USER + MESSAGE_DUPLICATE_GROUPS.replace("${groupName}", groupName);
@@ -138,7 +144,7 @@ public class UserGroupManagement extends PlatformBase {
 	}	
 
 	//Delete a user in current group
-	public static void deleteUserInGroup(String groupName, String groupLabel, String username){
+	public void deleteUserInGroup(String groupName, String groupLabel, String username){
 		String userDeleteIcon = ELEMENT_USER_INGROUP_DELETE_ICON.replace("${username}", username);
 		//String MESSAGE_DELETE_CONFIRMATION = "Are you sure to delete user " + username + " from group " + groupName + "?";
 
@@ -163,7 +169,7 @@ public class UserGroupManagement extends PlatformBase {
 	}
 
 	//Function to select group
-	public static void selectGroup(String groupPath){
+	public void selectGroup(String groupPath){
 		String[] temp;			 
 		/* Delimiter */
 		String delimiter = "/";
@@ -177,13 +183,13 @@ public class UserGroupManagement extends PlatformBase {
 		}
 	}
 
-	public static void editGroup(String groupName, boolean verify){
+	public void editGroup(String groupName, boolean verify){
 		info("-- Edit group: " + groupName + "--");
 		click(ELEMENT_GROUP_EDIT_ICON);
 		pause(1000);
 	}
 
-	public static void deleteGroup(String groupName, boolean verify, int...wait) {
+	public void deleteGroup(String groupName, boolean verify, int...wait) {
 		info("-- Delete group: " + groupName + "--");
 		int waitTime= wait.length > 0 ? wait[0]: DEFAULT_TIMEOUT;
 		click(ELEMENT_GROUP_REMOVE_ICON);
@@ -200,7 +206,7 @@ public class UserGroupManagement extends PlatformBase {
 	 * 
 	 * */
 
-	public static void addMembership(String membershipName, String membershipDesc, boolean verify){
+	public void addMembership(String membershipName, String membershipDesc, boolean verify){
 		boolean verifyMembership;
 		info("--Creating new membership--");
 		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
@@ -219,7 +225,7 @@ public class UserGroupManagement extends PlatformBase {
 
 	}
 
-	public static void editMembership(String membershipName, String newDesc){
+	public void editMembership(String membershipName, String newDesc){
 		info("-- Edit membership: " + membershipName + "--");
 
 		boolean verifyMembership;
@@ -247,7 +253,7 @@ public class UserGroupManagement extends PlatformBase {
 		waitForTextPresent(newDesc);
 	}
 
-	public static void deleteMembership(String membershipName, boolean verify){
+	public void deleteMembership(String membershipName, boolean verify){
 
 		boolean verifyMembership;
 		verifyMembership = isTextPresent(membershipName);
@@ -272,7 +278,7 @@ public class UserGroupManagement extends PlatformBase {
 
 	//Function to select a group and membership on permission management popup
 	//Go to siteExplorer - System tab - Permission - Select Membership
-	public static void selectGroupAndMembership(String groupPath, String membership){
+	public void selectGroupAndMembership(String groupPath, String membership){
 		click(By.xpath("//img[@title='Select Membership']"));
 		selectGroup(groupPath);	
 		click(By.linkText(membership));

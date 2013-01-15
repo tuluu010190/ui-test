@@ -1,5 +1,7 @@
 package org.exoplatform.selenium.platform.social;
-import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 
 /**
@@ -9,11 +11,11 @@ import org.openqa.selenium.By;
  */
 
 public class SpaceSearch extends SocialBase {
-	public static final By ELEMENT_SEARCH_TEXTBOX = By.id("SpaceSearch");
-	//public static final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
+	public final By ELEMENT_SEARCH_TEXTBOX = By.id("SpaceSearch");
+	//public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
 
 	//Search space by name
-	public static void searchSpaceByName (String spaceName, boolean verify) {
+	public void searchSpaceByName (String spaceName, boolean verify) {
 		
 		By DATA_SPACE_LINK = By.linkText(spaceName);
 		
@@ -32,12 +34,12 @@ public class SpaceSearch extends SocialBase {
 			waitForElementPresent(DATA_SPACE_LINK);		
 		}
 		else {
-			captureScreen("SearchResultByName");
+			Utils.captureScreen("SearchResultByName");
 		}
 	}
 
 	//Search space by directory
-	public static void searchSpaceByDirectory (String charcter) {
+	public void searchSpaceByDirectory (String charcter) {
 		By ELEMENT_DIRECTORY_LINK = By.linkText(charcter);
 		
 		waitForElementPresent(ELEMENT_DIRECTORY_LINK);
@@ -48,6 +50,6 @@ public class SpaceSearch extends SocialBase {
 		
 		info("Capture search result");
 		
-		captureScreen("SearchResultByDirectory");	
+		Utils.captureScreen("SearchResultByDirectory");	
 	}
 }

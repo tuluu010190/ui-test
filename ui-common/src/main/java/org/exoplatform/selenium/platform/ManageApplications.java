@@ -1,47 +1,50 @@
 package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
-import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class ManageApplications extends PlatformBase {
+	
+	NavigationToolbar nav = new NavigationToolbar();
+	
 	/* Manage Application Page */
-	public static By ELEMENT_IMPORT_APPLICATION = By.xpath("//div[text()='Import Applications']");
-	public static By ELEMENT_CATEGORIES_AREA_TITLE = By.xpath("//div[text()='Categories']");
+	public By ELEMENT_IMPORT_APPLICATION = By.xpath("//div[text()='Import Applications']");
+	public By ELEMENT_CATEGORIES_AREA_TITLE = By.xpath("//div[text()='Categories']");
 
 	//Gadget
-	public static By ELEMENT_GADGET_LINK = By.xpath("//a[contains(text(),'Gadgets')]");
-	public static By ELEMENT_ADD_REMOTE_GADGET_LINK = By.xpath("//div[text()='Add a Remote Gadget']");
-	public static By ELEMENT_URL_TEXBOX = By.id("url");
-	public static By ELEMENT_ADD_BUTTON = By.linkText("Add");
+	public By ELEMENT_GADGET_LINK = By.xpath("//a[contains(text(),'Gadgets')]");
+	public By ELEMENT_ADD_REMOTE_GADGET_LINK = By.xpath("//div[text()='Add a Remote Gadget']");
+	public By ELEMENT_URL_TEXBOX = By.id("url");
+	public By ELEMENT_ADD_BUTTON = By.linkText("Add");
 	
 	
 	//Application Registry portlet -> Edit Portlet
-	public static By ELEMENT_APPS_REG_PORTLET = By.className("PortletLayoutDecorator");
-	public static By ELEMENT_SHOW_IMPORT_CHECKBOX = By.xpath("//input[@id='showImport']");
-	public static By SHOW_IMPORT_CHECKED = By.xpath("//input[@id='showImport' and @value='true']");
-	public static By SHOW_IMPORT_UNCHECK = By.xpath("//input[@id='showImport' and @value='false']");
-	public static By ELEMENT_ACCESS_PERMISSION_TAB = By.xpath("//div[text()='Access Permission']");
+	public By ELEMENT_APPS_REG_PORTLET = By.className("PortletLayoutDecorator");
+	public By ELEMENT_SHOW_IMPORT_CHECKBOX = By.xpath("//input[@id='showImport']");
+	public By SHOW_IMPORT_CHECKED = By.xpath("//input[@id='showImport' and @value='true']");
+	public By SHOW_IMPORT_UNCHECK = By.xpath("//input[@id='showImport' and @value='false']");
+	public By ELEMENT_ACCESS_PERMISSION_TAB = By.xpath("//div[text()='Access Permission']");
 	
 	
 	//Category
-	public static final By ELEMENT_ADD_NEW_CATEGORY = By.xpath("//div[@id = 'UIApplicationOrganizer']//div//div[@class = 'IconControl AddCategoryIcon']");
-	public static final By ELEMENT_FIELD_CATEGORY_NAME = By.id("name");
-	public static final By ELEMENT_FIELD_DISPLAY_NAME = By.id("displayName");
-	public static final By ELEMENT_FIELD_DESCRIPTION = By.id("description");
-	public static final By ELEMENT_CATEGORY_REMOVE_ICON = By.xpath("//div[@id='UIApplicationOrganizer']//div[@class='TabRepeat ClearFix']/a[@class='ControlIcon DeleteIcon']");
-	public static final String ELEMENT_CATEGORY_EDIT_ICON = "//div[@id='UIApplicationOrganizer']//div[@class='TabRepeat ClearFix']/a[contains(@title,'${categoryName}')]/../a[@class='ControlIcon EditIcon']";
-	public static final String MESSAGE_EMPTY_CATEGORY = "This category is empty. Click the (+) button to add an application.";
-	public static final String MESSAGE_CONFIRM_DELETE_CATEGORY = "Are you sure to delete this category and all its applications?";
-	public static final String ELEMENT_CATEGORY_NAME = "//a[@title='${categoryName}']";
-	public static final By ELEMENT_CATEGORIES_FORM = By.xpath("//div[text()='Categories']"); 
-	public static final String IMPORT_APPLICATION_CONFIRMATION="This will automatically import all gadgets and portlets into new categories.";
+	public final By ELEMENT_ADD_NEW_CATEGORY = By.xpath("//div[@id = 'UIApplicationOrganizer']//div//div[@class = 'IconControl AddCategoryIcon']");
+	public final By ELEMENT_FIELD_CATEGORY_NAME = By.id("name");
+	public final By ELEMENT_FIELD_DISPLAY_NAME = By.id("displayName");
+	public final By ELEMENT_FIELD_DESCRIPTION = By.id("description");
+	public final By ELEMENT_CATEGORY_REMOVE_ICON = By.xpath("//div[@id='UIApplicationOrganizer']//div[@class='TabRepeat ClearFix']/a[@class='ControlIcon DeleteIcon']");
+	public final String ELEMENT_CATEGORY_EDIT_ICON = "//div[@id='UIApplicationOrganizer']//div[@class='TabRepeat ClearFix']/a[contains(@title,'${categoryName}')]/../a[@class='ControlIcon EditIcon']";
+	public final String MESSAGE_EMPTY_CATEGORY = "This category is empty. Click the (+) button to add an application.";
+	public final String MESSAGE_CONFIRM_DELETE_CATEGORY = "Are you sure to delete this category and all its applications?";
+	public final String ELEMENT_CATEGORY_NAME = "//a[@title='${categoryName}']";
+	public final By ELEMENT_CATEGORIES_FORM = By.xpath("//div[text()='Categories']"); 
+	public final String IMPORT_APPLICATION_CONFIRMATION="This will automatically import all gadgets and portlets into new categories.";
 	
 	// Gadget functions
-	public static void addRemoteGadget (String Url) {
+	public void addRemoteGadget (String Url) {
 		for (int i =0;; i++)
 		{
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) 
@@ -58,7 +61,7 @@ public class ManageApplications extends PlatformBase {
 		}
 	}
 
-	public static void deleteGadget (String gadgetName) {
+	public void deleteGadget (String gadgetName) {
 		waitForElementPresent(By.xpath("//a[@title='"+gadgetName+"']"));
 		click(By.xpath("//a[@title='"+gadgetName+"']/following::a[@title='Delete Gadget']"));
 		waitForConfirmation("Are you sure to delete this gadget?");
@@ -69,7 +72,7 @@ public class ManageApplications extends PlatformBase {
 
 	//Category
 	//Add a new category in Manage Applications
-	public static void addNewCategoryAtManageApplications(String categoryName, String displayName, String categoryDescription,
+	public void addNewCategoryAtManageApplications(String categoryName, String displayName, String categoryDescription,
 			boolean publicMode, Map<String, String> permissions, boolean verify){
 
 		info("-- Add a new category --");
@@ -97,7 +100,7 @@ public class ManageApplications extends PlatformBase {
 	}
 
 	//Edit a category at Manage Applications
-	public static void editCategoryAtManageApplications(String categoryName, String newDisplayName, String newCategoryDescription,
+	public void editCategoryAtManageApplications(String categoryName, String newDisplayName, String newCategoryDescription,
 			boolean publicMode, Map<String, String> permissions, boolean verify){
 
 		info("--Edit category (" + categoryName + ")--");
@@ -126,7 +129,7 @@ public class ManageApplications extends PlatformBase {
 	}
 
 	//Delete a category at Manage Applications
-	public static void deleteCategoryAtManageApplications(String categoryName, boolean verify){
+	public void deleteCategoryAtManageApplications(String categoryName, boolean verify){
 		info("--Delete category (" + categoryName + ")--");
 		//		String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
 		By ELEMENT_CURRENT_CATEGORY_NAME = By.xpath("//a[contains(text(),'"+categoryName+"')]") ;
@@ -141,7 +144,7 @@ public class ManageApplications extends PlatformBase {
 	}
 
 	//Select a category
-	public static void selectCategoryAtManageApplications(String categoryName) {
+	public void selectCategoryAtManageApplications(String categoryName) {
 		info("--Select category (" + categoryName + ")--");
 		String ELEMENT_CURRENT_CATEGORY_NAME = ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName);
 		waitForAndGetElement(ELEMENT_CURRENT_CATEGORY_NAME);
@@ -149,7 +152,7 @@ public class ManageApplications extends PlatformBase {
 		pause(500);
 	}
 
-	public static void makeItPublic(boolean checked){
+	public void makeItPublic(boolean checked){
 		By ELEMNT_PUBLIC_OPTION = By.xpath("//input[@id='publicMode']");
 		WebElement element = waitForAndGetElement(ELEMNT_PUBLIC_OPTION);
 		String status = element.getAttribute("checked"); // checked if check otherwise blank
@@ -161,7 +164,7 @@ public class ManageApplications extends PlatformBase {
 		}
 	}
 
-	public static void addApplicationToCategory (String categoryTitle, boolean addNewApps, String newDisplayName, String applicationType, String displayName, boolean publicMode, String groupId, String membership ) {
+	public void addApplicationToCategory (String categoryTitle, boolean addNewApps, String newDisplayName, String applicationType, String displayName, boolean publicMode, String groupId, String membership ) {
 		By ELEMENT_ADD_APPS_BUTTON = By.xpath("//a[@title='"+categoryTitle+"']/following::a[@title='Add an Application to this Category']");
 		By ELEMENT_DISPLAY_NAME_TEXTBOX = By.id("displayName");
 		By ELEMNET_ADD_BUTTON = By.linkText("Add");
@@ -211,16 +214,16 @@ public class ManageApplications extends PlatformBase {
 
 
 	//Check show import
-	public static void showImportApplication (boolean checkShowImport) {
+	public void showImportApplication (boolean checkShowImport) {
 
 		//goto Application
-		goToApplicationRegistry();
+		nav.goToApplicationRegistry();
 
 		//Verify Categories display as default
 		waitForElementPresent(ELEMENT_CATEGORIES_FORM);
 
 		//goto Edit Page
-		goToEditPageEditor();
+		nav.goToEditPageEditor();
 
 		//Click on Edit Portlet icon
 		mouseOver(ELEMENT_APPS_REG_PORTLET, false);
@@ -252,7 +255,7 @@ public class ManageApplications extends PlatformBase {
 		}
 	}
 	
-	public static void importApplication () {
+	public void importApplication () {
 		click(ELEMENT_IMPORT_APPLICATION);
 		waitForConfirmation(IMPORT_APPLICATION_CONFIRMATION);
 		pause(1000);

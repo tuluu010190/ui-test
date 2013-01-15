@@ -1,7 +1,7 @@
 package org.exoplatform.selenium;
 
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
-import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -10,6 +10,11 @@ import static org.exoplatform.selenium.TestLogger.*;
 
 
 public class LogSeleniumTest extends EcmsBase{
+	
+	public LogSeleniumTest(WebDriver dr) {
+		super(dr);
+		// TODO Auto-generated constructor stub
+	}
 	
 	public static final String ELEMENT_USER = "root";
 	public static final String ELEMENT_PASS = "gtn";
@@ -44,7 +49,6 @@ public class LogSeleniumTest extends EcmsBase{
 	 @BeforeMethod
 	  public void beforeMethods() throws Exception {
 	   initSeleniumTest();
-	    actions = new Actions(driver);
 	    driver.get(baseUrl);
 	  }
 
@@ -52,7 +56,6 @@ public class LogSeleniumTest extends EcmsBase{
 	  public void afterMethods() throws Exception {
 	    driver.manage().deleteAllCookies();
 		driver.quit();
-	    actions = null;
 //	    String verificationErrorString = verificationErrors.toString();
 //	    if (!"".equals(verificationErrorString)) {
 //	      Assert.fail(verificationErrorString);

@@ -6,7 +6,7 @@ import org.testng.TestListenerAdapter;
 
 public class TestReportListener extends TestListenerAdapter {
 
-    private static void logResult(ITestResult result) {
+	private void logResult(ITestResult result) {
         Level level = Level.INFO;
         String message = "";
         switch (result.getStatus()) {
@@ -37,8 +37,8 @@ public class TestReportListener extends TestListenerAdapter {
 
     @Override
     public void onTestFailure(ITestResult result) {
-		String sMethodName = result.getMethod().getMethodName();
-    	TestBase.captureScreen(sMethodName + ".PNG");
+		String sMethodName = result.getMethod().getMethodName();	
+    	Utils.captureScreen(sMethodName + ".PNG");
     	logResult(result);
     }
 

@@ -2,25 +2,30 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class ManageAccount extends PlatformBase {
 
 	//[Create a New Account] Screen (Public Mode)
-	public static final By ELEMENT_SUBSCRIBE_BUTTON = By.xpath(".//*[@id='UIRegisterForm']/div[2]/div/div/a[1]");
-	public static final By ELEMENT_RESET_BUTTON = By.xpath(".//*[@id='UIRegisterForm']/div[2]/div/div/a[2]");
-	public static final By ELEMENT_REGISTER_LINK = By.xpath("//b[contains(text(),'Register')]");
-	public static final By ELEMENT_INPUT_CONFIRM_PASSWORD_PUBLIC_MODE = By.id("confirmPassword");
-	public static final By ELEMENT_INPUT_EMAIL_PUBLIC_MODE = By.id("emailAddress");
-	public static final By ELEMENT_REGISTER_ACCOUNT_LINK = By.xpath("//b[contains(text(),'Register')]");
+	public final By ELEMENT_SUBSCRIBE_BUTTON = By.xpath(".//*[@id='UIRegisterForm']/div[2]/div/div/a[1]");
+	public final By ELEMENT_RESET_BUTTON = By.xpath(".//*[@id='UIRegisterForm']/div[2]/div/div/a[2]");
+	public final By ELEMENT_REGISTER_LINK = By.xpath("//b[contains(text(),'Register')]");
+	public final By ELEMENT_INPUT_CONFIRM_PASSWORD_PUBLIC_MODE = By.id("confirmPassword");
+	public final By ELEMENT_INPUT_EMAIL_PUBLIC_MODE = By.id("emailAddress");
+	public final By ELEMENT_REGISTER_ACCOUNT_LINK = By.xpath("//b[contains(text(),'Register')]");
 
-	public static final String MESSAGE_SUCCESSFULLY_REGISTERED_ACCOUNT = "You have successfully registered a new account!";
-	public static final String MESSAGE_DUPLICATE_ACCOUNT = "This username already exists, please enter another one.";
-	public static final String MESSAGE_ALERT_PASSWORD = "Password and Confirm Password must be the same.";
-	public static final String MESSAGE_INVALID_EMAIL_ADDRESS = "Your email address is invalid. Please enter another one.";
-
+	public final String MESSAGE_SUCCESSFULLY_REGISTERED_ACCOUNT = "You have successfully registered a new account!";
+	public final String MESSAGE_DUPLICATE_ACCOUNT = "This username already exists, please enter another one.";
+	public final String MESSAGE_ALERT_PASSWORD = "Password and Confirm Password must be the same.";
+	public final String MESSAGE_INVALID_EMAIL_ADDRESS = "Your email address is invalid. Please enter another one.";
+	
+	public ManageAccount(WebDriver dr){
+		driver = dr;
+	}
+	
 	//Sign-in function for eXoGTN
-	public static void signIn(String username, String password) {
+	public void signIn(String username, String password) {
 		info("--Sign in as " + username + "--");
 		if (isElementPresent(ELEMENT_GO_TO_PORTAL) ){
 			click(ELEMENT_GO_TO_PORTAL);		
@@ -33,19 +38,19 @@ public class ManageAccount extends PlatformBase {
 	}
 
 	//Sign-out for eXoGTN
-	public static void signOut(){
+	public void signOut(){
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		click(ELEMENT_SIGN_OUT_LINK);
-		pause(500);
+		pause(1000);
 		if ( ExpectedConditions.alertIsPresent() != null ){
 			acceptAlert();
 		}
-		driver.get(baseUrl);
+		//driver.get(baseUrl);
 	}
 
 	// Edit user in My Account
 	// Hover [user name] -> My Account
-	public static void editUserInMyAccount(String firstName, String lastName, String email, String currentPassword, String newPassword,
+	public void editUserInMyAccount(String firstName, String lastName, String email, String currentPassword, String newPassword,
 			String confirmNewPassword){
 		info("-- Edit user in My Account --");
 
@@ -68,7 +73,7 @@ public class ManageAccount extends PlatformBase {
 
 	// Add a new user account
 	// setting -> user -> add users
-	public static void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
+	public void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
 			String lastName, String email, String userNameGiven, String language, boolean verify) {
 
 		info("--Create a new user using \"New Staff\" portlet--");
@@ -92,7 +97,7 @@ public class ManageAccount extends PlatformBase {
 	}
 
 	//Add a new user account in public mode
-	public static void addNewUserAccountInPublicMode(String username, String password, String confirmPassword, String firstName,
+	public void addNewUserAccountInPublicMode(String username, String password, String confirmPassword, String firstName,
 			String lastName, String email, boolean verify){
 
 		info("-- Add new user account in public mode --");

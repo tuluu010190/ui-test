@@ -2,68 +2,75 @@ package org.exoplatform.selenium.platform.ecms;
 
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
-import static org.exoplatform.selenium.platform.ecms.ActionBar.*;
+import org.exoplatform.selenium.platform.ecms.ActionBar;
 import static org.exoplatform.selenium.TestLogger.*;
 
-public class SiteExplorer extends EcmsBase {
+public class SiteExplorer extends ActionBar {
+	
+	public SiteExplorer(WebDriver dr) {
+		super(dr);
+		// TODO Auto-generated constructor stub
+	}
+
 	//Show Drives link
-	public static final By ELEMENT_SHOW_DRIVES = By.xpath("//a[@title='Show Drives']");
-	public static final By ELEMENT_DRIVE_MANAGE_SITE = By.xpath("//a[contains(text(),'Sites Management')]");
-	public static final By ELEMENT_ACME_DRIVE = By.linkText("acme-category");
-	public static final By ELEMENT_SITES_MANAGEMENT_DRIVE = By.xpath("//a[@class='DriveLabel' and @title = 'Sites Management']");
-	public static final By ELEMENT_DMS_ADMIN_DRIVE = By.linkText("DMS Administration");
-	public static final By ELEMENT_TRASH_DRIVE = By.xpath("//a[@title='Trash']");
-	public static final By ELEMENT_PRIVATE_DRIVER = By.linkText("Private");
-	public static final By ELEMENT_COLLABORATION_DRIVE= By.xpath("//a[@title='collaboration']");
+	public final By ELEMENT_SHOW_DRIVES = By.xpath("//a[@title='Show Drives']");
+	public final By ELEMENT_DRIVE_MANAGE_SITE = By.xpath("//a[contains(text(),'Sites Management')]");
+	public final By ELEMENT_ACME_DRIVE = By.linkText("acme-category");
+	public final By ELEMENT_SITES_MANAGEMENT_DRIVE = By.xpath("//a[@class='DriveLabel' and @title = 'Sites Management']");
+	public final By ELEMENT_DMS_ADMIN_DRIVE = By.linkText("DMS Administration");
+	public final By ELEMENT_TRASH_DRIVE = By.xpath("//a[@title='Trash']");
+	public final By ELEMENT_PRIVATE_DRIVER = By.linkText("Private");
+	public final By ELEMENT_COLLABORATION_DRIVE= By.xpath("//a[@title='collaboration']");
 	
 	// Preference
-	public static final By ELEMENT_PREFERENCE_LINK =By.xpath("//a[@class='SetupPreferencesButton']");
+	public final By ELEMENT_PREFERENCE_LINK =By.xpath("//a[@class='SetupPreferencesButton']");
 
 	// Edit Tag Form
-	public static By ELEMENT_TAG_COULD = By.xpath("//div[@class='ItemIcon DefaultIcon TagExplorerIcon']");
-	public static By ELEMENT_EDIT_PUBLIC_TAG = By.xpath("//div[@title='Edit Public Tags']");
-	public static By ELEMENT_EDIT_PRIVATE_TAG = By.xpath("//div[@title='Edit Private Tags']");
-	public static String REMOVE_TAG = "//div[text()='${TagsName}']/../../td/div/img[@title='Remove Tag']";
-//	public static By ELEMENT_CLOSE_WINDOW = By.xpath("//a[@title='Close Window']");
-	public static String MESSAGE_WARNING_AFTER_DELETE_TAG = "Are you sure to delete this tag?";
-	public static By ELEMENT_EDIT_TAGS_FORM = By.xpath("//span[contains(text(),'Edit Tag')]");
-	public static final By ELEMENT_MANAGE_TAGS = By.linkText("Manage Tags");
-	public static final By ELEMENT_TAG_PERMISSION = By.xpath("//div[contains(text(),'Tag Permission Manager')]");
+	public By ELEMENT_TAG_COULD = By.xpath("//div[@class='ItemIcon DefaultIcon TagExplorerIcon']");
+	public By ELEMENT_EDIT_PUBLIC_TAG = By.xpath("//div[@title='Edit Public Tags']");
+	public By ELEMENT_EDIT_PRIVATE_TAG = By.xpath("//div[@title='Edit Private Tags']");
+	public String REMOVE_TAG = "//div[text()='${TagsName}']/../../td/div/img[@title='Remove Tag']";
+//	public By ELEMENT_CLOSE_WINDOW = By.xpath("//a[@title='Close Window']");
+	public String MESSAGE_WARNING_AFTER_DELETE_TAG = "Are you sure to delete this tag?";
+	public By ELEMENT_EDIT_TAGS_FORM = By.xpath("//span[contains(text(),'Edit Tag')]");
+	public final By ELEMENT_MANAGE_TAGS = By.linkText("Manage Tags");
+	public final By ELEMENT_TAG_PERMISSION = By.xpath("//div[contains(text(),'Tag Permission Manager')]");
 
 	//Tag Manager Form
-	public static By ELEMENT_ADD_TAGS_BUTTON = By.xpath("//a[contains(text(),'Add Tags')]");
-	public static By ELEMENT_CLOSE_TAG_FORM = By.xpath("//a[contains(text(),'Close')]");
-	public static By ELEMENT_TAG_NAME = By.id("names");
-	public static By ELEMENT_TAG_SCOPE = By.id("tagScopes");
+	public By ELEMENT_ADD_TAGS_BUTTON = By.xpath("//a[contains(text(),'Add Tags')]");
+	public By ELEMENT_CLOSE_TAG_FORM = By.xpath("//a[contains(text(),'Close')]");
+	public By ELEMENT_TAG_NAME = By.id("names");
+	public By ELEMENT_TAG_SCOPE = By.id("tagScopes");
 
 	//Advanced search form
-	public static By ELEMENT_ADVANCED_SEARCH_ICON = By.xpath("//div[@title='Advanced Search']");
-	public static By ELEMENT_ADVANCED_SEARCH_TAB = By.xpath("//div[contains(text(),'Advanced Search')]");
+	public By ELEMENT_ADVANCED_SEARCH_ICON = By.xpath("//div[@title='Advanced Search']");
+	public By ELEMENT_ADVANCED_SEARCH_TAB = By.xpath("//div[contains(text(),'Advanced Search')]");
 
 	//Simple Search
-	public static final By ELEMENT_SIMPLESEARCH_TEXTBOX = By.id("simpleSearch");
-	public static final By ELEMENT_SIMPLESEARCH_SUBMIT = By.id("SimpleSearch");
+	public final By ELEMENT_SIMPLESEARCH_TEXTBOX = By.id("simpleSearch");
+	public final By ELEMENT_SIMPLESEARCH_SUBMIT = By.id("SimpleSearch");
 
 	//publication form
-	public static By ELEMENT_PUBLIC_STATUS = By.xpath("//a[contains(text(), 'Published')]");
-	public static By EMENET_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
-	public static By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
+	public By ELEMENT_PUBLIC_STATUS = By.xpath("//a[contains(text(), 'Published')]");
+	public By EMENET_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
+	public By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
 
-	public static By ELEMENT_MORE_LINK = By.xpath("//div[@class='MoreLabel' and contains(text(),'More')]");
+	public By ELEMENT_MORE_LINK = By.xpath("//div[@class='MoreLabel' and contains(text(),'More')]");
 
 	/* sidebar */
-	public static By ELEMENT_SIDEBAR_SITES_MANAGEMENT = By.xpath("//div[@title='Sites Management']");
+	public By ELEMENT_SIDEBAR_SITES_MANAGEMENT = By.xpath("//div[@title='Sites Management']");
 	//File Explorer - relation -clipboard - tag clould - saved search
-	public static By ELEMENT_TAG_CLOUD = By.xpath("//div[3]/div[4]/div");
-	public static By ELEMENT_SIDEBAR_FILE_EXPLORER = By.xpath("//div[@title='File Explorer']");
-	public static By ELEMENT_SAVED_SEARCH_ICON = By.xpath("//div[@title='Saved Searches']");
-	public static By ELEMENT_CLIPBOARD_ICON = By.xpath("//div[@title='Clipboard']");
+	public By ELEMENT_TAG_CLOUD = By.xpath("//div[3]/div[4]/div");
+	public By ELEMENT_SIDEBAR_FILE_EXPLORER = By.xpath("//div[@title='File Explorer']");
+	public By ELEMENT_SAVED_SEARCH_ICON = By.xpath("//div[@title='Saved Searches']");
+	public By ELEMENT_CLIPBOARD_ICON = By.xpath("//div[@title='Clipboard']");
 	
 	//choose a drive
-	public static void chooseDrive(By locator)
+	public void chooseDrive(By locator)
 	{
 		click(ELEMENT_SHOW_DRIVES);
 		pause(1000);
@@ -71,7 +78,7 @@ public class SiteExplorer extends EcmsBase {
 	}
 
 	//Enable preferences option
-	public static void checkPreferenceOption(String optionId){
+	public void checkPreferenceOption(String optionId){
 		By option = By.id(optionId);
 		By advanced = By.linkText("Advanced");
 		
@@ -97,7 +104,7 @@ public class SiteExplorer extends EcmsBase {
 	}
 
 	//Simple search
-	public static boolean simpleSearch(String keyword){
+	public boolean simpleSearch(String keyword){
 		waitForElementPresent(ELEMENT_SIMPLESEARCH_TEXTBOX);
 		type(ELEMENT_SIMPLESEARCH_TEXTBOX, keyword, true);
 		click(ELEMENT_SIMPLESEARCH_SUBMIT);
@@ -108,11 +115,11 @@ public class SiteExplorer extends EcmsBase {
 	}
 
 	//Simple search not return result
-	public static boolean notSimpleSearch(String keyword) {
+	public boolean notSimpleSearch(String keyword) {
 		return !simpleSearch(keyword);
 	}
 
-	public static void addTagForNode(String name, boolean isPublic) {
+	public void addTagForNode(String name, boolean isPublic) {
 		// Go to collaboration tab
 		info("Go to Collaboration tab");
 		goToCollaboration();
@@ -145,7 +152,7 @@ public class SiteExplorer extends EcmsBase {
 		waitForTextPresent(name);
 	}
 
-	public static void deleteTag(String name, boolean isPublic){
+	public void deleteTag(String name, boolean isPublic){
 		// Delete tags
 		By ELEMENT_REMOVE_TAG = By.xpath(REMOVE_TAG.replace("${TagsName}", name));
 		if (isPublic){
@@ -168,7 +175,7 @@ public class SiteExplorer extends EcmsBase {
 	 * @param groupPath Group string separated by slash
 	 * @param membership Membership 
 	 */
-	public static void removeTagPermission(String groupPath,String membership) {
+	public void removeTagPermission(String groupPath,String membership) {
 		String str = membership + ":/" + groupPath;
 		By locator = By.xpath("//div[@class='Text' and contains(text(),'" + str + "')]/ancestor::tr//img[@class='DeleteIcon']");
 		By permission = By.xpath("//div[@class='Text' and contains(text(),'" + str + "')]");
@@ -177,7 +184,7 @@ public class SiteExplorer extends EcmsBase {
 		waitForElementNotPresent(permission);
 	}
 
-	public static void editPublicTag(){
+	public void editPublicTag(){
 		goToSiteExplorer();     
 		waitForElementPresent(ELEMENT_TAG_CLOUD);
 		click(ELEMENT_TAG_CLOUD);
@@ -187,21 +194,21 @@ public class SiteExplorer extends EcmsBase {
 	}
 
 	//Go to advanced search in content explorer
-	public static void goToAdvancedSearch(){
+	public void goToAdvancedSearch(){
 		click(ELEMENT_SAVED_SEARCH_ICON);
 		click(ELEMENT_ADVANCED_SEARCH_ICON);
 		click(ELEMENT_ADVANCED_SEARCH_TAB);
 	}
 
 	//Go to Tag Permission Screen
-	public static void gotoTagPermission(){
+	public void gotoTagPermission(){
 		goToContentAdministration();
 		click(ELEMENT_MANAGE_TAGS);
 		click(ELEMENT_TAG_PERMISSION);
 	}
 
 	//function public a document
-	public static void publishDocument(){
+	public void publishDocument(){
 		info("Public this document");
 		if ((waitForAndGetElement(ELEMENT_PUBLICATION,30000,0) == null ))
 			click(ELEMENT_MORE_LINK);

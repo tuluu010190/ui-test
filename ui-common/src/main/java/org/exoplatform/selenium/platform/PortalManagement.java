@@ -2,12 +2,14 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.Map;
-import static org.exoplatform.selenium.platform.NavigationToolbar.*;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 
 public class PortalManagement extends PlatformBase {
 
+	NavigationToolbar nav = new NavigationToolbar();
+	
 	//Add new portal
-	public static void addNewPortal(String portalName, String portalLocale, String portalSkin, String portalSession, 
+	public void addNewPortal(String portalName, String portalLocale, String portalSkin, String portalSession, 
 			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership){
 		info("--Create new portal--");
 
@@ -35,7 +37,7 @@ public class PortalManagement extends PlatformBase {
 	}
 
 	//Edit a portal
-	public static void editPortal(String portalName, String portalLocale, String portalSkin, String portalSession, 
+	public void editPortal(String portalName, String portalLocale, String portalSkin, String portalSession, 
 			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership){
 		info("--Create new portal--");
 
@@ -67,7 +69,7 @@ public class PortalManagement extends PlatformBase {
 	}
 
 	//Delete a portal	
-	public static void deletePortal(String portalName){
+	public void deletePortal(String portalName){
 		String portalDeleteIcon = ELEMENT_PORTAL_DELETE_ICON.replace("${portalName}", portalName);
 		info("--Delete portal (" + portalName + ")--");		
 		click(portalDeleteIcon);
@@ -78,11 +80,11 @@ public class PortalManagement extends PlatformBase {
 	}
 
 	//Verify the existence of portal
-	public static void verifyPortalExists(String portalName) {
+	public void verifyPortalExists(String portalName) {
 		String portal = ELEMENT_PORTAL_IN_LIST.replace("${portalName}", portalName);
 
 		info("--Verify portal (" + portalName + ") exists--");
-		goToPortalSites();
+		nav.goToPortalSites();
 		waitForAndGetElement(portal);
 	}
 
