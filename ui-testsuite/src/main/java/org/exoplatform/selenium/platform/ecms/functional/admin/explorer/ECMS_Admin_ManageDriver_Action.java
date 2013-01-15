@@ -19,7 +19,11 @@ import org.testng.annotations.Test;
 
 /**
  * PLF4: Add a new test case
+<<<<<<< HEAD
+ * <li>Add a Drive with no applied view</li>
+=======
  * <li>Add a Drive with no applied view</li> 
+>>>>>>> ECMS/Admin/Explorer
  * @author vuna2
  * @date April, 15th, 2013
  */
@@ -45,7 +49,7 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 	ManageDriver magDrv;
 
 	public final String DATA_USER = "john";
-	public final String DATA_PASS = "gtngtn";
+	public final String DATA_PASS = "gtn";
 
 	@BeforeMethod
 	public void beforeMethods() {
@@ -57,8 +61,8 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 		userGrp = new UserGroupManagement(driver);
 		button = new Button(driver);
 		alt = new ManageAlert(driver);
-		ecms = new EcmsBase(driver); 
-		ecMain = new ECMainFunction(driver); 
+		ecms = new EcmsBase(driver);
+		ecMain = new ECMainFunction(driver);
 		sitesExp = new SitesExplorer(driver);
 		adminPer = new Permission(driver);
 		magDrv = new ManageDriver(driver);
@@ -88,14 +92,14 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 		//go to add drive
 		info("Go to add new drive");
 		ecMain.goToManageDriver();
-		magDrv.addNewDrive(DATA_DRIVE_NAME,"dms-system","exo:ecm", "Organization/Management/Executive Board","member", 
+		magDrv.addNewDrive(DATA_DRIVE_NAME,"dms-system","exo:ecm", "Organization/Management/Executive Board","member",
 				"Non-document Nodes/Sidebar", "Admin/Icons/List");
 
 		//edit drive
 		info("Edit drive");
-		magDrv.addNewDrive(DATA_DRIVE_NAME,"system","jcr:system", "Organization/Management/Executive Board","manager", 
+		magDrv.addNewDrive(DATA_DRIVE_NAME,"system","jcr:system", "Organization/Management/Executive Board","manager",
 				"Non-document Nodes/Sidebar/Hidden Nodes", "Admin/List", true, true);
-				
+
 		//delete drive
 		info("Delete drive");
 		magDrv.deleteDrive(DATA_DRIVE_NAME);
@@ -110,11 +114,11 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 	@Test
 	public void test04_AddDriveWithNoAppliedView(){
 		String DATA_DRIVE_NAME = "Add_Drive_Without_View";
-		
+
 		info("-- Open Manage Drive Form --");
 		ecMain.goToManageDriver();
-		
-		magDrv.addNewDrive(DATA_DRIVE_NAME, "dms-system", "exo:ecm", "Organization/Management/Executive Board","member", 
-				"Non-document Nodes/Sidebar", "", false, false);		
+
+		magDrv.addNewDrive(DATA_DRIVE_NAME, "dms-system", "exo:ecm", "Organization/Management/Executive Board","member",
+				"Non-document Nodes/Sidebar", "", false, false);	
 	}
 }

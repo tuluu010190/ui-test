@@ -40,7 +40,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 	ActionBar actBar;
 
 	public final String DATA_USER = "john";
-	public final String DATA_PASS = "gtngtn";
+	public final String DATA_PASS = "gtn";
 
 	@BeforeMethod
 	public void beforeMethods(){
@@ -52,8 +52,8 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		userGrp = new UserGroupManagement(driver);
 		button = new Button(driver);
 		alt = new ManageAlert(driver);
-		ecms = new EcmsBase(driver); 
-		ecMain = new ECMainFunction(driver); 
+		ecms = new EcmsBase(driver);
+		ecMain = new ECMainFunction(driver);
 		sitesExp = new SitesExplorer(driver);
 		adminPer = new Permission(driver);
 		magDrv = new ManageDriver(driver);
@@ -80,7 +80,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 
 		//add drive
 		ecMain.goToManageDriver();
-		magDrv.addNewDrive(DATA_DRIVE_NAME, "collaboration","sites", "Platform/Administration","*", 
+		magDrv.addNewDrive(DATA_DRIVE_NAME, "collaboration","sites", "Platform/Administration","*",
 				"Non-document Nodes/Sidebar", "Admin/Icons/List");
 
 		//check displaying of drive in site explorer when user has access permission
@@ -111,7 +111,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 
 		//login with user mary
 		info("Login as mary who does not have access permission on drive");
-		magAcc.signIn("mary", "gtngtn");
+		magAcc.signIn("mary", "gtn");
 		nav.goToSiteExplorer();
 		//click(ecms.ELEMENT_SHOW_DRIVES);
 		actBar.goToSitesManagement();
@@ -124,7 +124,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		magDrv.deleteDrive(DATA_DRIVER_NAME);
 	}
 
-	/*case03: Check the displaying of drive after deleting it 
+	/*case03: Check the displaying of drive after deleting it
 	 * add new drive
 	 * delete drive
 	 * check displaying of drive in site explorer
@@ -152,6 +152,6 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		//check displaying of drive in site explorer
 		nav.goToSiteExplorer();
 		waitForElementNotPresent(ELEMENT_DRIVER);
-		info("Can not see driver after being deleted");		  
+		info("Can not see driver after being deleted");	
 	}
 }

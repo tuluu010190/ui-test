@@ -37,7 +37,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 
 	//Data for these test cases
 	public String DATA_USER = "john";
-	public String DATA_PASS = "gtngtn";
+	public String DATA_PASS = "gtn";
 
 	String categoryName = "category1";
 	String newCategoryName = "category2";

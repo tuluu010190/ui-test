@@ -44,7 +44,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 
 	//Data for these test cases
 	public String DATA_USER = "john";
-	public String DATA_PASS = "gtngtn";
+	public String DATA_PASS = "gtn";
 
 	String categoryName = "category1";
 	String categoryWorkspace = "collaboration";
@@ -183,7 +183,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 
 		magAcc.signOut();
 
-		magAcc.signIn("mary", "gtngtn");
+		magAcc.signIn("mary", "gtn");
 
 		nav.goToSiteExplorer();
 
@@ -245,7 +245,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 
 		magAcc.signOut();
 
-		magAcc.signIn("james", "gtngtn");
+		magAcc.signIn("james", "gtn");
 
 		nav.goToSiteExplorer();
 
@@ -298,7 +298,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 
 		info("-- Verify that all the users with added membership can do these actions--");
 		magAcc.signOut();
-		magAcc.signIn("james", "gtngtn");
+		magAcc.signIn("james", "gtn");
 		nav.goToSiteExplorer();
 		ecms.goToNode("intranet/"+ categoryTreeName +"");
 		waitForTextPresent(categoryName);

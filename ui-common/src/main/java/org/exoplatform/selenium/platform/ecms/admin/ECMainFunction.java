@@ -27,6 +27,7 @@ public class ECMainFunction extends EcmsBase{
 	public final By ELEMENT_TEMPLATE_TAB = By.xpath("//*[text()='Templates']");
 	public final By ELEMENT_DOCUMENT_LINK = By.className("uiIconEcmsTemplatesManager");
 	public final By ELEMENT_MANAGE_TEMPLATE_SCREEN = By.xpath("//*[@class='title' and contains(text(),'Documents')]");
+	public final By ELEMENT_LIST_LINK = By.className("uiIconEcmsCLVTemplatesManager");
 
 	//Explorer Tab
 	public final By ELEMENT_EXPLORER_TAB = By.xpath("//*[text()='Explorer']");
@@ -57,6 +58,18 @@ public class ECMainFunction extends EcmsBase{
 			click(ELEMENT_DOCUMENT_LINK);
 		}
 		waitForElementPresent(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
+	}
+	
+	//Open [List Template] Screen
+	public void goToListTemplateTab(){
+		navToolbar.goToContentAdministration();
+		if (isTextNotPresent("Navigation")){
+			if (isTextNotPresent("List")){
+				click(ELEMENT_TEMPLATE_TAB);
+			}
+			click(ELEMENT_LIST_LINK);
+		}
+		waitForElementPresent(By.xpath("//*[text()='Add Template']"));
 	}
 
 	/////////////////

@@ -8,7 +8,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -30,21 +30,21 @@ import org.testng.annotations.Test;
 /**
  * Created by The eXo Platform SAS
  * Author : Hoang Manh Dung
- *          dunghm@exoplatform.com
- * Oct 15, 2012  
+ * dunghm@exoplatform.com
+ * Oct 15, 2012
  */
 public class ECMS_Admin_ManageView extends PlatformBase{
 	//Platform
 	Dialog dialog;
 	ManageAccount magAcc;
-	
+
 	//Ecms
 	EcmsBase ecms;
 	ECMainFunction ecMain;
 	ManageView magView;
-	
+
 	String DATA_USER = "john";
-	String DATA_PASS = "gtngtn";
+	String DATA_PASS = "gtn";
 	
 	@BeforeMethod
 	public void beforeMethods(){
@@ -53,9 +53,9 @@ public class ECMS_Admin_ManageView extends PlatformBase{
 		info("Login ECMS with "+ DATA_USER);
 		dialog = new Dialog(driver);
 		magAcc = new ManageAccount(driver);
-		ecms = new EcmsBase(driver); 
-		ecMain = new ECMainFunction(driver); 
-		magView = new ManageView(driver); 
+		ecms = new EcmsBase(driver);
+		ecMain = new ECMainFunction(driver);
+		magView = new ManageView(driver);
 		magAcc.signIn(DATA_USER, DATA_PASS);
 		ecMain.goToManageViews();
 	}
@@ -85,7 +85,7 @@ public class ECMS_Admin_ManageView extends PlatformBase{
 	}
 
 	/*
-	 * Delete in-use view  
+	 * Delete in-use view
 	 */
 	@Test
 	public void test16_DeleteUsedView(){

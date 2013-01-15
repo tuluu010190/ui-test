@@ -52,7 +52,7 @@ public class ECMS_SE_BasicAction_Clipboard extends PlatformBase {
 		cTemplate = new ContentTemplate(driver);
 		cMenu = new ContextMenu(driver);
 		siteExp = new SitesExplorer(driver);
-		magAcc.signIn("john", "gtngtn");
+		magAcc.signIn("john", "gtn");
 	}
 
 	//Delete  all action in clipboard

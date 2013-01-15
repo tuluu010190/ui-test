@@ -2,7 +2,7 @@ package org.exoplatform.selenium.platform.ecms.functional.admin.repository;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.List;
-import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang.RandomStringUtils;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
@@ -19,23 +19,23 @@ import org.testng.annotations.Test;
 /**
  * Created by The eXo Platform SAS
  * Author : Hoang Manh Dung
- *          dunghm@exoplatform.com
- * Oct 11, 2012  
+ * dunghm@exoplatform.com
+ * Oct 11, 2012
  */
 public class ECMS_Admin_ManageNodeType_Search extends PlatformBase {
-	
+
 	//General
 	Button button;
 	ManageAccount magAcc;
-	
+
 	//Ecms
-	EcmsBase ecms; 
+	EcmsBase ecms;
 	ECMainFunction ecMain;
 	ManageNodeType magNode;
 
 	String DATA_USER = "john";
 	String DATA_PASS = "gtn";
-	
+
 	@BeforeMethod
 	public void beforeMethods() {
 		initSeleniumTest();
@@ -61,7 +61,7 @@ public class ECMS_Admin_ManageNodeType_Search extends PlatformBase {
 	@Test
 	public void test01_SearchNodeTypeNotInputKeyword(){
 		info("Search Node Type when don't input keyword");
-		magNode.doNodeTypeSearch("");		
+		magNode.doNodeTypeSearch("");	
 		waitForTextPresent(magNode.MESSAGE_FOR_NO_INPUT_KEYWORD);
 		click(button.ELEMENT_OK_BUTTON);
 	}
@@ -90,7 +90,7 @@ public class ECMS_Admin_ManageNodeType_Search extends PlatformBase {
 		List<WebElement> result = driver.findElements(By.xpath("//table[contains(@class, 'uiGrid')]/tbody//tr"));
 		for(WebElement tr : result) {
 			if(tr.findElement(By.xpath("//div[@class='text' and contains(text(),'" + keyword + "')]")) == null) {
-				assert false: ("This row don't contain keyword");      
+				assert false: ("This row don't contain keyword");
 			}
 		}
 	}
@@ -99,7 +99,7 @@ public class ECMS_Admin_ManageNodeType_Search extends PlatformBase {
 	public void test05_SearchNodeTypeAll(){
 		String keyword = "*";
 		info("Search all node types");
-		magNode.doNodeTypeSearch(keyword);     
+		magNode.doNodeTypeSearch(keyword);
 		Utils.captureScreen("test05_SearchNodeTypeAll");
 	}
 }

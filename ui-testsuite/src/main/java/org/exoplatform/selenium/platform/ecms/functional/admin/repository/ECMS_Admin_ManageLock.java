@@ -35,7 +35,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 	Dialog dialog;
 	Button button;
 	//Ecms
-	EcmsBase ecms; 
+	EcmsBase ecms;
 	ActionBar actBar;
 	ContextMenu cMenu;
 	ManageCategory magCa;
@@ -46,7 +46,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 	public String DATA_USER = "john";
 	public String DATA_PASS = "gtn";
 
-	//Data for these test cases 
+	//Data for these test cases
 	public By ELEMENT_GROUP_MEMBERSHIP = By.linkText("manager");
 	public String ELEMENT_GROUP_MEMBERSHIP_DISPLAY = "manager";
 	public String ELEMENT_GROUP_TO_SELECT = "Platform/Content Management";
@@ -169,8 +169,8 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		info("-- SignOut --");
 	}
 
-	/*-- Case ID 003 
-	 *-- Show list locked node when node is renamed 
+	/*-- Case ID 003
+	 *-- Show list locked node when node is renamed
 	 * --*/
 	@Test
 	public void test03_ShowListLockedNodeWhenNodeIsRenamed(){
@@ -184,11 +184,11 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 
 		lockNodeInSE(titleArticle, nameArticle, summaryArticle, contentArticle);
 
-		info("--  Step 2: Open form to unlock node --");
+		info("-- Step 2: Open form to unlock node --");
 
 		goToAdminManageLockAndVerify(titleArticle);
 
-		info("--  Step 3: Rename node --");
+		info("-- Step 3: Rename node --");
 
 		nav.goToSiteExplorer();
 
@@ -208,7 +208,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 
 		waitForTextPresent("newstest03");
 
-		info("--  Step 4: Check list locked node after renaming --");
+		info("-- Step 4: Check list locked node after renaming --");
 
 		//goToAdminManageLockAndVerify("newsTest03");
 		nav.goToContentAdministration();
@@ -269,7 +269,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		//waitForTextNotPresent("/sites/intranet/test04");
 		waitForTextPresent("test04");
 		Utils.captureScreen("Check_List_Locked_Node_After_Coyping");
-		
+
 		info("-- Restore original data --");
 
 		nav.goToSiteExplorer();
@@ -285,7 +285,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		//magAcc.signOut();
 	}
 
-	/*-- Case ID 005 
+	/*-- Case ID 005
 	 *-- Show list locked node when node is deleted
 	 * --*/
 	@Test
@@ -326,7 +326,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		//magAcc.signOut();
 	}
 
-	/*-- Case ID 006 
+	/*-- Case ID 006
 	 *-- Add permission for user to unlock node
 	 *--*/
 	@Test
@@ -412,7 +412,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		nav = new NavigationToolbar(driver);
 		cMenu = new ContextMenu(driver);
 		adminPer = new Permission(driver);
-		
+
 		info("-- Login with user in the selected group and un lock that node --");
 
 		ecms = new EcmsBase(driver);
@@ -505,7 +505,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		//magAcc.signOut();
 	}
 
-	/*-- Case ID 009 
+	/*-- Case ID 009
 	 *-- Check unlock permission
 	 *--*/
 	@Test
@@ -548,17 +548,17 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		cMenu = new ContextMenu(driver);
 		adminPer = new Permission(driver);
 		actBar = new ActionBar(driver);
-		
+
 		info("-- Login with user in the selected group and un-lock that node --");
 
 		ecms = new EcmsBase(driver);
 		magAcc.signIn("mary", "gtn");
 
 		nav.goToSiteExplorer();
-		
+
 		//actBar.chooseDrive(actBar.ELEMENT_SITES_MANAGEMENT_DRIVE);
 		actBar.goToSitesManagement();
-		
+
 		ecms.goToNode("intranet/documents");
 
 		rightClickOnElement(elementArticleToLock);
@@ -602,7 +602,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 	//Create a node and lock it in Sites Explorer
 	public void lockNodeInSE(String titleArticle, String nameArticle, String summaryArticle, String contentArticle){
 		By elementCopiedArticleUnLock = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", titleArticle));
-		String elementLockedArticleIcon = cMenu.ELEMENT_FILE_LOCKED_BY_ADMIN.replace("${titleOfFile}", titleArticle); 
+		String elementLockedArticleIcon = cMenu.ELEMENT_FILE_LOCKED_BY_ADMIN.replace("${titleOfFile}", titleArticle);
 
 		nav = new NavigationToolbar(driver);
 		nav.goToSiteExplorer();
@@ -639,5 +639,4 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		//waitForTextPresent(titleOfArticle);
 		waitForElementPresent("//*[contains(text(), '"+ titleOfArticle +"')]");
 	}
-
 }

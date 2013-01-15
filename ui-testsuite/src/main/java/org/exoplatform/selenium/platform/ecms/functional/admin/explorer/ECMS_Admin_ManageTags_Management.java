@@ -8,7 +8,7 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
@@ -18,8 +18,8 @@
 /**
  * Created by The eXo Platform SAS
  * Author : Hoang Manh Dung
- *          dunghm@exoplatform.com
- * Oct 8, 2012  
+ * dunghm@exoplatform.com
+ * Oct 8, 2012
  */
 package org.exoplatform.selenium.platform.ecms.functional.admin.explorer;
 
@@ -68,7 +68,7 @@ public class ECMS_Admin_ManageTags_Management extends PlatformBase {
 
 	public final String DATA_USER_ADMIN = "john";
 	public final String DATA_USER_NORMAL = "mary";
-	public final String DATA_PASS = "gtngtn";
+	public final String DATA_PASS = "gtn";
 
 	@BeforeMethod
 	public void beforeMethod(){
@@ -79,8 +79,8 @@ public class ECMS_Admin_ManageTags_Management extends PlatformBase {
 		magAcc = new ManageAccount(driver);
 		userGrp = new UserGroupManagement(driver);
 		button = new Button(driver);
-		ecms = new EcmsBase(driver); 
-		ecMain = new ECMainFunction(driver); 
+		ecms = new EcmsBase(driver);
+		ecMain = new ECMainFunction(driver);
 		sitesExp = new SitesExplorer(driver);
 		adminPer = new Permission(driver);
 		actBar = new ActionBar(driver);
@@ -96,23 +96,23 @@ public class ECMS_Admin_ManageTags_Management extends PlatformBase {
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
-	
+
 	/**
 	 * Test Edit Tags Function when input valid data
 	 * Check Tag Permission in the Content Explorer
 	 */
 	@Test
 	public void test06_CheckRightGroupContentExplorer() {
-		//Go to tag permission    
+		//Go to tag permission
 		ecMain.goToTagPermissionManager();
 
 		//Add tag permission
-		userGrp.selectGroupAndMembership("Platform/Content Management", "*"); 
+		userGrp.selectGroupAndMembership("Platform/Content Management", "*");
 		click(button.ELEMENT_ADD_BUTTON);
 
 		//Open Edit Tag form
 		magAcc.signOut();
-		magAcc.signIn(DATA_USER_NORMAL, DATA_PASS);  
+		magAcc.signIn(DATA_USER_NORMAL, DATA_PASS);
 		sitesExp.goToEditTag();
 		info("Reset data");
 		magAcc.signOut();
@@ -120,7 +120,7 @@ public class ECMS_Admin_ManageTags_Management extends PlatformBase {
 		ecMain.goToTagPermissionManager();
 		adminPer.removeTagPermission("platform/web-contributors", "*");
 	}
-	
+
 	/**
 	 * Step 1: Create node in CE
 	 * Step 2: Add tag for document
@@ -132,19 +132,19 @@ public class ECMS_Admin_ManageTags_Management extends PlatformBase {
 		nav.goToSiteExplorer();
 		actBar.goToAddNewContent();
 		contentTemp.createNewFile("Add tag for document", "Add tag for document", "Add tag for document");
-		
+
 		info("-- Adding a tag for File.. --");
 		String[] tagName = {"TagName07_1", "TagName07_2", "TagName07_3"};
 		sitesExp.addTagForNode(tagName);
-		
+
 		Utils.captureScreen("Add_Tag_For_Document_ContentExplorer");
-		
+
 		info("-- Reset data... --");
 		click(sitesExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
 		contextMenu.deleteDocument(By.linkText("Add tag for document"));
-		
+
 		sitesExp.goToEditTag();
-		
+
 		sitesExp.deleteTag(tagName);
 	}
 }

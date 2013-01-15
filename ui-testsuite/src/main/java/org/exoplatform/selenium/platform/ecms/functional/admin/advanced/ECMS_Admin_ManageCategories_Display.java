@@ -47,7 +47,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 	AdvancedSearch advSrc;
 
 	public final String DATA_USER = "john";
-	public final String DATA_PASS = "gtngtn";
+	public final String DATA_PASS = "gtn";
 	
 	@BeforeMethod
 	public void beforeMethods() {
@@ -201,7 +201,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		magAcc.signOut();
 
 		//create node by user does not have read node permission
-		magAcc.signIn("mary", "gtngtn");
+		magAcc.signIn("mary", "gtn");
 		nav.goToSiteExplorer();
 		ecms.goToNode("intranet/documents");
 		actBar.goToAddNewContent();
@@ -383,7 +383,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		magAcc.signOut();
 
 		//check can not see category when do advanced search using category
-		magAcc.signIn("mary", "gtngtn");
+		magAcc.signIn("mary", "gtn");
 		nav.goToSiteExplorer();
 		info("Go to Saved Search/Advanced Search/Constraint Form");
 		advSrc.goToAdvancedSearch();
@@ -449,7 +449,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		magAcc.signOut();
 
 		//check can not see category when do advanced search using category
-		magAcc.signIn("mary", "gtngtn");
+		magAcc.signIn("mary", "gtn");
 		nav.goToSiteExplorer();
 		info("Go to Saved Search/Advanced Search/Constraint Form");
 		advSrc.goToAdvancedSearch();

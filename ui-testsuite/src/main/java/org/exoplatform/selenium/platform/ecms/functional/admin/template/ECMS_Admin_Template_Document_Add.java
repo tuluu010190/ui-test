@@ -18,6 +18,7 @@ package org.exoplatform.selenium.platform.ecms.functional.admin.template;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
@@ -33,9 +34,10 @@ import org.testng.annotations.Test;
  *          dunghm@exoplatform.com
  * Oct 9, 2012  
  */
-public class ECMS_Admin_Document_Add extends PlatformBase {
+public class ECMS_Admin_Template_Document_Add extends PlatformBase {
 
 	//General
+	ManageAlert alt;
 	ManageAccount magAcc;
 	
 	//Ecms
@@ -51,6 +53,7 @@ public class ECMS_Admin_Document_Add extends PlatformBase {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		info("Login ECMS with " + DATA_USER_ADMIN);
+		alt = new ManageAlert(driver);
 		magAcc = new ManageAccount(driver);
 		ecms = new EcmsBase(driver);
 		ecMain = new ECMainFunction(driver);
@@ -73,11 +76,15 @@ public class ECMS_Admin_Document_Add extends PlatformBase {
 	public void test01_AddNewTempate(){
 		//Open Manage Template screen
 		ecMain.goToTemplateTab();
+	
 		//Open Add New Template Form
 		magTem.openAddNewTemplateForm();
+
 		//Fill All form data
-		magTem.fillAddNewTemplateForm("app:category", "Test Template", "Platform/Administration/Content Management", "*");
+		magTem.fillAddNewTemplateForm("app:category", "Test Template", "Platform/Administration", "*");
+		
 		info("Reset Data");
-		magTem.deleleTemplate("Test Template", "Do you really want to delete?");		
+		//magTem.deleleTemplate("Test Template", "Do you really want to delete?");
+		magTem.deleleTemplate("Test Template");
 	}  
 }

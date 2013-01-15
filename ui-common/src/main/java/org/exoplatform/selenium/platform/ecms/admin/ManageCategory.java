@@ -55,7 +55,7 @@ public class ManageCategory extends EcmsPermission{
 	public final String ELEMENT_COPY_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsCopy']";
 	public final String ELEMENT_PASTE_TO_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsPatse']";
 	public final String ELEMENT_CUT_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsCut']";
-	public final String MESSAGE_INFO_CUT_TO_CATEGORY =  "You cannot paste here. The category node '${pathCategory}' might be being cut.";
+	public final String MESSAGE_INFO_CUT_TO_CATEGORY =  "You cannot paste here. The category node '${pathCategory}' might be cut.";
 	public final String MESSAGE_INFO_PASTE_TO_CATEGORY = "Cannot read from the source file, or the destination category is a sub-category.";
 
 	/*==========================================================*/
@@ -103,7 +103,7 @@ public class ManageCategory extends EcmsPermission{
 			}
 			if(selectMembership){
 				click(By.xpath("//*[@title='Select Membership']"));
-				userGroup.selectGroup(groupID, true);
+				userGroup.selectGroup(groupID);
 				if (isElementPresent(By.linkText(membership))){
 					click(By.linkText(membership));
 				}else if (isElementPresent(By.linkText("Select this Group"))){
@@ -115,20 +115,26 @@ public class ManageCategory extends EcmsPermission{
 		setPermissionForNode(read,add,remove);
 		click(button.ELEMENT_SAVE_BUTTON);
 		if (!selectUserOrGroup && !selectMembership){
-			waitForElementPresent(By.xpath("//*[@data-original-title = 'any']"));
+			//waitForElementPresent(By.xpath("//*[@data-original-title = 'any']"));
+			waitForElementPresent("//*[text()='User or Group']/../../..//*[contains(text(), 'any')]");
 		}
 		else if (selectUserOrGroup){
-			waitForElementPresent(By.xpath("//*[@data-original-title = '"+ user_Per +"']"));
+			//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ user_Per +"']"));
+			waitForElementPresent("//*[text()='User or Group']/../../..//*[contains(text(), '"+ user_Per +"')]");
 		}
 		else if (selectMembership){
 		    if (groupID.contains("Administration")){
-		    	waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/administrators']"));
+		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/administrators']"));
+		    	waitForElementPresent("//*[contains(text(), '"+ membership +":/platform/administrators')]");
 		    }else if (groupID.contains("Guests")){
-		    	waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/guests']"));
+		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/guests']"));
+		    	waitForElementPresent("//*[contains(text(), '"+ membership +":/platform/guests')]");
 		    }else if (groupID.contains("Users")){
-		    	waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/users']"));
+		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/users']"));
+		    	waitForElementPresent("//*[contains(text(), '"+ membership +":/platform/users')]");
 		    }else if (groupID.contains("Content Management")){
-		    	waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/web-contributors']"));
+		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/web-contributors']"));
+		    	waitForElementPresent("//*[contains(text(), '"+ membership +":/platform/web-contributors')]");
 		    }
 		    /*else{	
 		    	waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/"+ groupID +"']"));
@@ -150,8 +156,12 @@ public class ManageCategory extends EcmsPermission{
 			click(ELEMENT_LIFE_CYCLE_LIST_OPTIONS.replace("${option}", optionsLC[i]));
 		}
 		Utils.pause(500);	
-		click(ELEMENT_SELECT_PATH_ICON);
-
+		if (isElementPresent(ELEMENT_SELECT_PATH_ICON)){
+			click(ELEMENT_SELECT_PATH_ICON);
+		}else if (isElementPresent(By.xpath("//input[@id='targetPath']/..//*[contains(@class, 'uiIconSearch')]"))){
+			click(By.xpath("//input[@id='targetPath']/..//*[contains(@class, 'uiIconSearch')]"));
+		}
+		
 		selectHomePathForCategoryTree(nodeTargetPath);
 
 		//click(button.ELEMENT_SAVE_BUTTON);
@@ -200,10 +210,14 @@ public class ManageCategory extends EcmsPermission{
 		//Step 2: Set permission for the category tree.
 		info("Add new category tree - step 2: Set permission for the category tree.");
 		addNewCategoryTree_Step2(selectUserOrGroup, selectMembership, groupIDAndMembership[0], groupIDAndMembership[1], 
-				user_Per, optionPermission[0], optionPermission[1], optionPermission[2], optionPermission[3]);
+				user_Per, optionPermission[0], optionPermission[1], optionPermission[2], optionPermission[3]);	
 		//click(button.ELEMENT_NEXT_BUTTON);
-		click("//*[text()='Add permissions to this node']/..//*[text()='Next']");
-
+		if (isElementPresent(By.xpath("//*[text()='Add a permission to that node']/../..//*[text()='Next']"))){
+			click(By.xpath("//*[text()='Add a permission to that node']/../..//*[text()='Next']"));
+		}else if (isElementPresent(By.xpath("//*[text()='Add permissions to this node']/..//*[text()='Next']"))){
+			click("//*[text()='Add permissions to this node']/..//*[text()='Next']");
+		}
+		
 		//step 3: Add an action to the category tree to complete the creation or update
 		info("Add new category tree - step 3: Add an action to the category tree to complete the creation or update");
 		//actions[0]: actionName, actions[1]: optionsLifeCycle, actions[2]: nodeTargetPath
