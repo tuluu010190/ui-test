@@ -2,7 +2,7 @@ package org.exoplatform.selenium.platform.ecms.functional.admin.repository;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import java.util.List;
-import org.apache.commons.lang.RandomStringUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
@@ -34,7 +34,7 @@ public class ECMS_Admin_ManageNodeType_Search extends PlatformBase {
 	ManageNodeType magNode;
 
 	String DATA_USER = "john";
-	String DATA_PASS = "gtngtn";
+	String DATA_PASS = "gtn";
 	
 	@BeforeMethod
 	public void beforeMethods() {
