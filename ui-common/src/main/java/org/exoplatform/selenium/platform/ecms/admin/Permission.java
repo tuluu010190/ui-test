@@ -1,6 +1,8 @@
 package org.exoplatform.selenium.platform.ecms.admin;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ecms.EcmsPermission;
@@ -20,6 +22,7 @@ public class Permission extends EcmsPermission{
 	}
 	
 	ManageAlert magAlert = new ManageAlert(driver);
+	Button button = new Button(driver);
 
 	//Permission management screen
 	public final String MESSAGE_INFO_DELETE_PERMISSION_SYSTEM = "You cannot remove the owner or the system user.";
@@ -32,7 +35,12 @@ public class Permission extends EcmsPermission{
 	public final By ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Membership']");
 	public final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Everyone']");
 	public final By ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[contains(text(),'Save')]");
-
+                                                              
+	public final String ELEMENT_PERMISSION_MANAGEMENT_READ = "//div[@id='UITabContent' and @style='display: block;;']//*[@title='${userOrGroupName}']/../..//input[contains(@id, 'read')]";
+	public final String ELEMENT_PERMISSION_MANAGEMENT_MODIFY = "//div[@id='UITabContent' and @style='display: block;;']//*[@title='${userOrGroupName}']/../..//input[contains(@id, 'add')]";
+	public final String ELEMENT_PERMISSION_MANAGEMENT_REMOVE = "//div[@id='UITabContent' and @style='display: block;;']//*[@title='${userOrGroupName}']/../..//input[contains(@id, 'remove')]"; 
+	
+	//"//*[text()='Add permission to that node']/ancestor::div[contains(@id, 'Permission')]//*[@title='*:/platform/users']/../..//input[contains(@id, 'read')]";
 	//public final String ELEMENT_EDIT_USER_PERMISSION = "//*[@title='${userOrGroupName}']/../..//*[@class='uiIconEdit']";
 	//public final String ELEMENT_EDIT_USER_PERMISSION_AUX = "//div[@id='UITabContent' and @style='display: block;;']//*[@title='${userOrGroupName}']/../..//*[@class='uiIconEdit']";
 	public String ELEMENT_DELETE_SELECTED_GROUP = "//*[contains(text(), '${selectedGroup}')]/../..//*[contains(@class, 'uiIconDelete')]";
@@ -57,30 +65,43 @@ public class Permission extends EcmsPermission{
 	/*============== Advanced/Categories ============*/
 	//Function to set permission for user on manage category screen
 	public void setPermissionForUserOnManageCategory(boolean selectUser, String user, boolean selectMembership, String groupID, String membership,
-			boolean read, boolean add, boolean set, boolean remove){
+			boolean read, boolean add, boolean remove){
 		info("Set permission for category with user " + user);
 		if (!selectUser && !selectMembership){
-			click(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT);
+			if (isElementPresent(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT)){
+				click(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT);
+			}else {
+				click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='Select Everyone']"));
+			}
 		}
 		else if (selectUser){
-			click(ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT);
+			if (isElementPresent(ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT)){
+				click(ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT);
+			}else {
+				click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='Select User']"));
+			}
+			
 			if (isTextPresent("Add permissions to this node")){
 				if (isElementPresent(By.xpath("//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"))){
 					click(By.xpath("//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"));
-				}else if (isElementPresent(By.xpath("//*[@data-original-title='" + user + "']/../..//*[contains(@class, 'uiIconPlus')]"))){
+				}else {
 					click(By.xpath("//*[@data-original-title='" + user + "']/../..//*[contains(@class, 'uiIconPlus')]"));
 				} 
 			}
 			else if (isTextPresent("Add permission to that node")){
 				if (isElementPresent(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"))){
 					click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"));
-				}else if (isElementPresent(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='" + user + "']/../..//*[contains(@class, 'uiIconPlus')]"))){
+				}else {
 					click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='" + user + "']/../..//*[contains(@class, 'uiIconPlus')]"));
 				}
 			}	
 		}
 		else if (selectMembership){
-			click(ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT);
+			if (isElementPresent(ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT)){
+				click(ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT);
+			}else {
+				click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title = 'Select Membership']"));
+			}
 			userGroup.selectGroup(groupID);
 			click(By.linkText(membership));
 		}
@@ -100,7 +121,7 @@ public class Permission extends EcmsPermission{
 		if (remove){
 			click(ELEMENT_REMOVE_CHEKBOX, 2);
 		}
-		if (read || add || set || remove){
+		if (read || add || remove){
 			click(ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT);
 			//((JavascriptExecutor) driver).executeScript("document.getElementById('remove').click();");
 		}else{
@@ -110,30 +131,43 @@ public class Permission extends EcmsPermission{
 	}
 
 	//Edit a permission for user or group
-	public void editPermissionUserOrGroup(String userOrGroupName, boolean read, boolean add, boolean set, boolean remove){
+	public void editPermissionUserOrGroup(String userOrGroupName, boolean read, boolean add, boolean remove, Object...params){
+		Boolean closeWindow = (Boolean) (params.length > 0 ? params[0]: false);
+		
 		info("-- Edit a permission for user/group: "+ userOrGroupName +" --");
-
 		waitForTextPresent("Permission Management");
-		if (isTextPresent("Add permissions to this node")){
+		/*if (isTextPresent("Add permissions to this node")){
 			click(ELEMENT_EDIT_USER_PERMISSION.replace("${userOrGroupName}", userOrGroupName));
 		}else if (isTextPresent("Add permission to that node")){
 			click(ELEMENT_EDIT_USER_PERMISSION_AUX.replace("${userOrGroupName}", userOrGroupName));
-		}
-		Utils.pause(500);
+		}*/
 		if (read){
-			click(ELEMENT_READ_CHEKBOX, 2);
+			//click(ELEMENT_READ_CHEKBOX, 2);
+			if (isElementPresent(ELEMENT_PERMISSION_MANAGEMENT_READ.replace("${userOrGroupName}", userOrGroupName) + "/../../../div[@title='true']")){
+				info("-- Permission has already been selected... --");
+			}else{
+				click(ELEMENT_PERMISSION_MANAGEMENT_READ.replace("${userOrGroupName}", userOrGroupName), 2);
+			}
 		}
 		if (add){
-			click(ELEMENT_ADDNODE_CHECKBOX, 2);
+			//click(ELEMENT_ADDNODE_CHECKBOX, 2);
+			if (isElementPresent(ELEMENT_PERMISSION_MANAGEMENT_MODIFY.replace("${userOrGroupName}", userOrGroupName) + "/../../../div[@title='true']")){
+				info("-- Permission has already been selected... --");
+			}else{
+				click(ELEMENT_PERMISSION_MANAGEMENT_MODIFY.replace("${userOrGroupName}", userOrGroupName), 2);
+			}
 		}
-		/*if (set){
-			click(ELEMENT_SET_PRO_CHEKBOX);
-		}*/
 		if (remove){
-			click(ELEMENT_REMOVE_CHEKBOX, 2);
+			//click(ELEMENT_REMOVE_CHEKBOX, 2);
+			if (isElementPresent(ELEMENT_PERMISSION_MANAGEMENT_REMOVE.replace("${userOrGroupName}", userOrGroupName) + "/../../../div[@title='true']")){
+				info("-- Permission has already been selected... --");
+			}else{
+				click(ELEMENT_PERMISSION_MANAGEMENT_REMOVE.replace("${userOrGroupName}", userOrGroupName), 2);
+			}
 		}
-		if (read || add || set || remove){
-			click(ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT);
+		if (closeWindow){
+			//click(ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT);
+			button.close();
 		}
 		Utils.pause(1000);
 	}

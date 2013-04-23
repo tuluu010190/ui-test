@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 
@@ -33,6 +34,8 @@ public class EcmsPermission extends EcmsBase{
 	
 	public final String ELEMENT_DELETE_USER_PERMISSION_1 = "//*[@data-original-title='${userOrGroupName}']/../..//*[contains(@class, 'uiIconDelete')]";
 	public final String ELEMENT_DELETE_USER_PERMISSION_AUX_1 = "//*[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='${userOrGroupName}']/../..//*[contains(@class, 'uiIconDelete')]";
+	
+	public final By ELEMENT_SYSTEM_PERMISSION_READ_DISABLED = By.xpath("//*[@id='UITabContent' and @style='display: block;;']//input[@id = '__systemread' and @disabled]");
 	
 	public final String MESSAGE_NO_RIGHT_TO_PASTE_NODE = "You do not have permission to paste to this node. Please contact the administrator to get the correct right.";
 	

@@ -11,6 +11,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * 
@@ -114,6 +115,9 @@ public class ManageTemplate extends EcmsBase{
 		type(ELEMENT_LIST_TEMPLATE_NAME, templateName, false);
 		select(ELEMENT_LIST_TEMPLATE_TYPE, templateType);
 		button.save();
+		if ( ExpectedConditions.alertIsPresent() != null ){
+			alt.acceptAlert();
+		}
         if (verify){		
 			if (templateType.equals("Content")){
 				waitForTextPresent(templateTitle);

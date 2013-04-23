@@ -10,7 +10,11 @@ import java.awt.Rectangle;
 import java.awt.Robot;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Scanner;
+
 import javax.imageio.ImageIO;
 
 
@@ -127,5 +131,19 @@ public class Utils {
 		String curDir = System.getProperty("user.dir");
 		String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
 		return absolutePath;
+	}
+	
+	//InputStream to String
+	//Get a File Content
+	public static String getFileContent(String filePath){
+		String path = getAbsoluteFilePath(filePath);
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(path);
+		} catch (FileNotFoundException e) {
+			error("Failed to find location of... " + filePath);
+		}
+		String inputStreamString = new Scanner(fis,"UTF-8").useDelimiter("\\A").next();		
+		return inputStreamString;	
 	}
 }

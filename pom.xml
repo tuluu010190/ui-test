@@ -50,12 +50,7 @@
 		</dependency>
 		<!-- <dependency> <groupId>org.exoplatform.platform</groupId> <artifactId>exo.platform.packaging.tomcat</artifactId> 
 			<version>${org.exoplatform.platform.version}</version> <type>zip</type> </dependency> -->
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>2.4</version>
-		</dependency>
-
+		
 	</dependencies>
 	<modules>
 		<module>ui-common</module>

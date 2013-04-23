@@ -25,7 +25,7 @@ public class ContentTemplate extends EcmsBase{
 	Button button = new Button(driver);
 
 	//Button: Categories > Add Item 
-	public final By ELEMENT_CATEGORIES_ADD_ITEM = By.xpath("//*[text()='Categories']/..//*[@title='Add Item']");
+	public final By ELEMENT_CATEGORIES_ADD_ITEM = By.xpath("//*[contains(text(), 'Categories')]/..//*[@title='Add Item']");
 
 	//Announcement
 	public final By ELEMENT_ANNOUNCEMENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Announcement']");
@@ -156,6 +156,17 @@ public class ContentTemplate extends EcmsBase{
 	 * Add new article / Kofax / File Plan
 	 * == REMOVED IN PLF 4 ==
 	 */
+	
+	//Template: File > Open [Add Category] Form 
+	public void openAddCategoryInFileTemplate(){
+		info("-- Opening [Add Category] Form... --");
+		if (isElementPresent(ELEMENT_CATEGORIES_ADD_ITEM)){
+			click(ELEMENT_CATEGORIES_ADD_ITEM);
+		}else{
+			click("//*[contains(text(), 'Categories')]/..//*[@data-original-title='Add Item']");
+		}
+		Utils.pause(500);
+	}
 
 	//add new announcement
 	public void createNewAnnouncement (String name, String sum){

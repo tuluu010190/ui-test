@@ -81,7 +81,8 @@ public class SitesExplorer extends EcmsBase{
 			navToolBar.goToSiteExplorer();
 			Utils.pause(1000);
 			if (isTextNotPresent(driverName)){
-				click(ecms.ELEMENT_SHOW_DRIVES);
+				//click(ecms.ELEMENT_SHOW_DRIVES);
+				actBar.goToSitesManagement();
 			}
 		}else{
 			info("Driver " + driverName + " already exists");

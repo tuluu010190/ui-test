@@ -1,0 +1,69 @@
+package org.exoplatform.selenium.platform.ecms.admin;
+
+import static org.exoplatform.selenium.TestLogger.info;
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ecms.EcmsBase;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
+/**
+ * 
+ * @author vuna2
+ *
+ */
+public class ManageScript extends EcmsBase{
+
+	public ManageScript(WebDriver dr) {
+		super(dr);
+		// TODO Auto-generated constructor stub
+	}
+
+	Button button = new Button(driver);
+	ManageAlert magAlert = new ManageAlert(driver);
+	ECMainFunction ecMain = new ECMainFunction(driver);
+	ManageDriver magDrv = new ManageDriver(driver);
+
+	//Elements
+	public final By ELEMENT_SCRIPT_CONTENT = By.name("scriptContent");
+	public final By ELEMENT_SCRIPT_LABEL = By.name("scriptLabel");
+	public final By ELEMENT_SCRIPT_NAME = By.name("scriptName");
+	public final String ELEMENT_EDIT_SCRIPT_ICON = "//*[contains(text(), '${scriptLabel}')]/../..//*[@class = 'uiIconEditInfo']";
+	public final String ELEMENT_DELETE_SCRIPT_ICON = "//*[contains(text(), '${scriptLabel}')]/../..//*[@class = 'uiIconDelete']";
+
+
+	//Open form [Add Script]
+	public void openAddScriptForm(){
+		info("-- Opening [Add Script] Form --");
+		click(ecMain.ELEMENT_ADD_SCRIPT_BUTTON);
+		waitForElementPresent(ELEMENT_SCRIPT_CONTENT);
+	}
+
+	//Add a script
+	public void addScript(String scriptFileContent, String scriptLabel, String scriptName){
+		if (isElementPresent(ELEMENT_SCRIPT_CONTENT)){
+			info("-- Add Script Form has already opened --");
+		}else {
+			openAddScriptForm();
+		}
+		info("-- Adding a new Script --");
+		String content = Utils.getFileContent(scriptFileContent);
+		Utils.pause(500);
+		type(ELEMENT_SCRIPT_CONTENT, content, true);		
+		type(ELEMENT_SCRIPT_LABEL, scriptLabel, true);
+		type(ELEMENT_SCRIPT_NAME, scriptName, true);
+
+		button.save();
+		waitForTextPresent(scriptName + ".groovy");
+	}
+
+	//Delete a script
+	public void deleteScript(String scriptLabel){
+		info("-- Deleting Script...-- " + scriptLabel);
+		Utils.pause(500);
+		click(ELEMENT_DELETE_SCRIPT_ICON.replace("${scriptLabel}", scriptLabel));
+		magAlert.acceptAlert();
+		waitForTextNotPresent(scriptLabel);
+	}
+}

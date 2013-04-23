@@ -39,7 +39,8 @@ public class ManageCategory extends EcmsPermission{
 	public final By ELEMENT_ADD_PATH_LINK = By.xpath("//*[@title='Add Path']");
 	public final By ELEMENT_POPUP_HOME_PATH = By.id("PopupTaxonomyJCRBrowser");
 	public final String ELEMENT_EDIT_CATEGORY_TREE = "//*[text()='${categoryTreeName}']/../..//*[@class='uiIconEditInfo']";
-
+	public final By ELEMENT_ADD_PATH_LINK_ICON = By.xpath("//*[@data-original-title='Add Path']");
+	
 	// Add Category tree form -screen2
 	//public final By ELEMENT_PREVIOUS_BUTTON = By.linkText("Previous");
 
@@ -57,7 +58,8 @@ public class ManageCategory extends EcmsPermission{
 	public final String ELEMENT_CUT_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsCut']";
 	public final String MESSAGE_INFO_CUT_TO_CATEGORY =  "You cannot paste here. The category node '${pathCategory}' might be cut.";
 	public final String MESSAGE_INFO_PASTE_TO_CATEGORY = "Cannot read from the source file, or the destination category is a sub-category.";
-
+	public final String ELEMENT_LIFE_CYCLE_LIST_OPTIONS = ".//*[@name='lifecycle']/option[contains(text(), '${option}')]";
+	
 	/*==========================================================*/
 
 	/*-- Update common functions for Manage ECM Main Functions
@@ -72,7 +74,11 @@ public class ManageCategory extends EcmsPermission{
 		info("-- Adding a workspace/homepath to: " + categoryTreeName + " --");
 		type(ELEMENT_CATEGORIES_TREE_NAME, categoryTreeName, false);
 		select(ELEMENT_CATEGORIES_WORKSPACE, workspace);
-		click(ELEMENT_ADD_PATH_LINK);
+		if (isElementPresent(ELEMENT_ADD_PATH_LINK_ICON)){
+			click(ELEMENT_ADD_PATH_LINK_ICON);
+		}else {
+			click(ELEMENT_ADD_PATH_LINK);
+		}
 		waitForElementPresent(ELEMENT_POPUP_HOME_PATH);
 		selectHomePathForCategoryTree(homePath);
 		waitForTextNotPresent("Select Home Path");
@@ -95,14 +101,22 @@ public class ManageCategory extends EcmsPermission{
 			String user_Per, boolean read, boolean add, boolean set, boolean remove){
 		info("-- Add permissions to the category tree --");
 		if (!selectUserOrGroup && !selectMembership){
-			click(By.xpath("//*[@title='Select Everyone']"));
+			if (waitForAndGetElement("//*[@data-original-title='Select Everyone']", 3000, 0) != null){
+				click("//*[@data-original-title='Select Everyone']");
+			}else{
+				click(By.xpath("//*[@title='Select Everyone']"));
+			}
 		}
 		else{
 			if(selectUserOrGroup){
 				selectUser(user_Per);
 			}
 			if(selectMembership){
-				click(By.xpath("//*[@title='Select Membership']"));
+				if (waitForAndGetElement("//*[@data-original-title='Select Membership']", 3000, 0) != null){
+					click("//*[@data-original-title='Select Membership']");
+				}else{
+					click(By.xpath("//*[@title='Select Membership']"));
+				}
 				userGroup.selectGroup(groupID);
 				if (isElementPresent(By.linkText(membership))){
 					click(By.linkText(membership));
@@ -147,7 +161,7 @@ public class ManageCategory extends EcmsPermission{
 	public void addNewCategoryTree_Step3(String actionName, String optionsLifeCycle, String nodeTargetPath){
 		Actions actions = new Actions(driver);
 		info("-- Add an action to the category tree --");
-		String ELEMENT_LIFE_CYCLE_LIST_OPTIONS = ".//*[@name='lifecycle']/option[contains(text(), '${option}')]";  
+		  
 		type(ELEMENT_ACTION_NAME,actionName,false);		
 		String[] optionsLC = optionsLifeCycle.split("/");
 		select(ELEMENT_LIFE_CYCLE, optionsLC[0]);
@@ -165,12 +179,17 @@ public class ManageCategory extends EcmsPermission{
 		selectHomePathForCategoryTree(nodeTargetPath);
 
 		//click(button.ELEMENT_SAVE_BUTTON);
-		click("//*[text()='Add an action to the category tree']/..//*[text()='Save']");
+		if (isElementPresent("//*[text()='Add an action to the category tree']/..//*[text()='Save']")){
+			click("//*[text()='Add an action to the category tree']/..//*[text()='Save']");
+		}else {
+			click("//*[text()='Add an action to the category tree']/../..//*[text()='Save']");
+		}
+		
 		Utils.pause(500);
 	}
 
 	//Add new category tree: step 4 - Edit the taxonomy tree by adding, copying, cutting and selecting permissions.
-	public void addNewCategoryTree_Step4(String name, String childname1, String childname2, String user_Per, boolean read, boolean add, boolean set, boolean remove ){
+	public void addNewCategoryTree_Step4(String name, String childname1, String childname2, String user_Per, boolean read, boolean modify, boolean remove ){
 		//--Add child category
 		addChildCategory(name, childname1);
 		click(ELEMENT_UP_LEVEL);
@@ -186,9 +205,12 @@ public class ManageCategory extends EcmsPermission{
 
 		//--Set permission
 		click(By.xpath("//*[@title='" + childname2 + "']/../..//*[@title='Permission Management']"));
-		permission.setPermissionForUserOnManageCategory(true, user_Per, false, "", "", read,add,set,remove);
+		permission.setPermissionForUserOnManageCategory(true, user_Per, false, "", "", read, modify, remove);
 		click(button.ELEMENT_CLOSE_BUTTON);
-		deleteCategory(childname2);
+		//deleteCategory(childname2);
+		
+		click(button.ELEMENT_CLOSE_WINDOW);
+		Utils.pause(500);
 	}
 
 	//Function to add new category tree
@@ -258,7 +280,13 @@ public class ManageCategory extends EcmsPermission{
 		if (!isGrandChild) click(ELEMENT_EDIT_CATEGORY_TREE.replace("${categoryTreeName}", cat_name));
 		//click(By.xpath("//*[text() = '" + cat_name + "']/../..//*[@class='uiIconEditInfo']"));
 		info("Add child category " + child_name + " for category " + cat_name);
-		click(By.xpath("//div[@title='" + cat_name + "']/../..//*[@title='Add']"));
+		
+		if (waitForAndGetElement("//*[@title='" + cat_name + "']/../..//*[@title='Add']", 3000, 0) != null){
+			click(By.xpath("//*[@title='" + cat_name + "']/../..//*[@title='Add']"));
+		}else{
+			click(By.xpath("//*[@data-original-title='" + cat_name + "']/../..//*[@data-original-title='Add']"));
+		}
+		
 		type(By.id("taxonomyName"), child_name, false);
 		//click(button.ELEMENT_SAVE_BUTTON);
 		click("//*[@id='taxonomyName']/../../../..//*[text()='Save']");
@@ -270,9 +298,8 @@ public class ManageCategory extends EcmsPermission{
 	//Function to copy and paste a category
 	public void copyAndPasteCategory(String child1, String child2){
 		By ELEMENT_CHILD_NEW = By.xpath("//*[@title='"+child2+"']/../..//*[@title='"+child1+"']");
-
-		click(By.xpath("//div[@title='"+child1+"']/../..//*[@class='uiIconEcmsCopy']"));
-		click(By.xpath("//div[@title='"+child2+"']/../..//*[@class='uiIconEcmsPatse']"));
+		click(By.xpath(ELEMENT_COPY_CATEGORY_ICON.replace("${categoryName}", child1)));
+		click(By.xpath(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", child2)));
 		expandNode(child2,true);
 		waitForElementPresent(ELEMENT_CHILD_NEW);
 		info("Copy category " + child1 + "to category " + child2 + "is successful");
@@ -282,8 +309,8 @@ public class ManageCategory extends EcmsPermission{
 	public void cutAndPasteCategory(String child1, String child2){
 		By ELEMENT_CHILD_NEW = By.xpath("//*[@title='" + child2 + "']/../..//*[@title='"+child1+"']");
 
-		click(By.xpath("//div[@title='" + child1 + "']/../..//*[@class='uiIconEcmsCut']"));
-		click(By.xpath("//div[@title='" + child2 + "']/../..//*[@class='uiIconEcmsPatse']"));
+		click(By.xpath(ELEMENT_CUT_CATEGORY_ICON.replace("${categoryName}", child1)));
+		click(By.xpath(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", child2)));
 		expandNode(child2,true);
 		waitForElementPresent(ELEMENT_CHILD_NEW);
 		click(ELEMENT_UP_LEVEL);
@@ -293,12 +320,18 @@ public class ManageCategory extends EcmsPermission{
 
 	//Delete a category
 	public void deleteCategory(String categoryName){
-		By ELEMENT_DELETE = By.xpath("//div[@title='" + categoryName + "']/../..//*[@class='uiIconDelete']");
-
-		if (getElement(ELEMENT_DELETE) != null){
+		By ELEMENT_DELETE = By.xpath("//div[@title = '" + categoryName + "']/../..//*[@class = 'uiIconDelete']");
+		By ELEMENT_DELETE_1 = By.xpath("//div[@data-original-title = '" + categoryName + "']/../..//*[@class='uiIconDelete']");
+		
+		if (isElementPresent(ELEMENT_DELETE)){
 			click(ELEMENT_DELETE); 
 			magAlert.acceptAlert();
 			waitForElementNotPresent(ELEMENT_DELETE);
+			info("Delete category " + categoryName + " is successful");
+		}else if (isElementPresent(ELEMENT_DELETE_1)){
+			click(ELEMENT_DELETE_1); 
+			magAlert.acceptAlert();
+			waitForElementNotPresent(ELEMENT_DELETE_1);
 			info("Delete category " + categoryName + " is successful");
 		}else{
 			info("Do not find element to delete");

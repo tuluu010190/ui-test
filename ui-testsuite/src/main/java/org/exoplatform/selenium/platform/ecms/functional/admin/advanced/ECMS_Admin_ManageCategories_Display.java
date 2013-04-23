@@ -96,13 +96,15 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 
 		//go to DMS Administration Drive
 		nav.goToSiteExplorer();
-		click(ecms.ELEMENT_SHOW_DRIVES);
+		actBar.goToSitesManagement();
 		
 		sitesExp.createDriverInSitesExplorer("DMS Administration", "dms-system", "/", "Platform/Administration", 
 				"*", "Non-document Nodes/Sidebar", "Admin/Icons");
 		
 		click(ecms.ELEMENT_DMS_ADMIN_DRIVE);
-		userGrp.selectGroup("exo:ecm/exo:taxonomyTrees/definition");
+		//userGrp.selectGroup("exo:ecm/exo:taxonomyTrees/definition");
+		ecms.goToNode("exo:ecm/exo:taxonomyTrees/definition", true);
+		
 		waitForElementPresent(ELEMENT_CATEGORY_TREE);
 		assert isElementPresent(ELEMENT_CATEGORY_TREE):"display category tree is false";
 		info("Category tree is displayed...");
@@ -298,9 +300,8 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		//create a new document
 		nav.goToSiteExplorer();
 		actBar.goToAddNewContent();
-		//click(cTemplate.ELEMENT_KOFAX_LINK);
 		click(cTemplate.ELEMENT_NEWFILE_LINK);
-		click(cTemplate.ELEMENT_CATEGORIES_ADD_ITEM);
+		cTemplate.openAddCategoryInFileTemplate();
 
 		//check user can see new category while adding category
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
@@ -335,13 +336,8 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		info("Go to Saved Search/Advanced Search/Constraint Form");
 		nav.goToSiteExplorer();
 		advSrc.goToAdvancedSearch();
-		if (getElement(advSrc.ELEMENT_ADD_CATEGORY_IMG) == null){
-			click(advSrc.ELEMENT_CONSTRAINT_FORM);
-		}
-		if (waitForAndGetElement(advSrc.ELEMENT_ADD_CATEGORY_CHECKBOX, DEFAULT_TIMEOUT, 0, 2).isSelected() == false){
-			click(advSrc.ELEMENT_ADD_CATEGORY_CHECKBOX, 2);
-		}	
-		click(advSrc.ELEMENT_ADD_CATEGORY_IMG);
+		advSrc.openAddCategoryInAdvancedSearch();
+		
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
 		waitForElementPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is diplaying");
@@ -387,13 +383,8 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		nav.goToSiteExplorer();
 		info("Go to Saved Search/Advanced Search/Constraint Form");
 		advSrc.goToAdvancedSearch();
-		if (getElement(advSrc.ELEMENT_ADD_CATEGORY_IMG) == null){
-			click(advSrc.ELEMENT_CONSTRAINT_FORM);
-		}
-		if (waitForAndGetElement(advSrc.ELEMENT_ADD_CATEGORY_CHECKBOX, DEFAULT_TIMEOUT, 0, 2).isSelected() == false){
-			click(advSrc.ELEMENT_ADD_CATEGORY_CHECKBOX, 2);
-		}		  
-		click(advSrc.ELEMENT_ADD_CATEGORY_IMG);
+		advSrc.openAddCategoryInAdvancedSearch();
+		
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
 		waitForElementNotPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is not diplaying");
@@ -453,13 +444,8 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		nav.goToSiteExplorer();
 		info("Go to Saved Search/Advanced Search/Constraint Form");
 		advSrc.goToAdvancedSearch();
-		if (getElement(advSrc.ELEMENT_ADD_CATEGORY_IMG) == null){
-			click(advSrc.ELEMENT_CONSTRAINT_FORM);
-		}
-		if (waitForAndGetElement(advSrc.ELEMENT_ADD_CATEGORY_CHECKBOX, DEFAULT_TIMEOUT, 0, 2).isSelected() == false){
-			click(advSrc.ELEMENT_ADD_CATEGORY_CHECKBOX, 2);
-		}		  
-		click(advSrc.ELEMENT_ADD_CATEGORY_IMG);
+		advSrc.openAddCategoryInAdvancedSearch();
+		
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
 		waitForElementPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is displaying");

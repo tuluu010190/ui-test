@@ -67,7 +67,7 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(500);
 		if (isElementPresent(ELEMENT_SHOW_DRIVES)){
 			click(ELEMENT_SHOW_DRIVES);
-		}else if (isElementPresent(By.xpath("//*[@data-original-title = 'Show Drives']"))){
+		}else {
 			click(By.xpath("//*[@data-original-title = 'Show Drives']"));
 		}
 		Utils.pause(500);
@@ -273,9 +273,10 @@ public class ActionBar extends EcmsBase{
 	}
 
 	//Choose a drive
-	public void chooseDrive(By locator)
-	{
-		click(ELEMENT_SHOW_DRIVES);
+	public void chooseDrive(By locator){
+		info("-- Select a drive --");
+		//click(ELEMENT_SHOW_DRIVES);
+		goToSitesManagement();
 		Utils.pause(1000);
 		//button = new Button(driver);
 		//button.refresh();

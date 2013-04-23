@@ -73,9 +73,10 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//actions = null;
 	}
 
-	/*-- Case No 034 / ID 001
+	/** Qmetry: ID 67006
+	 *-- Case No 034 / ID 001
 	 *-- Copy/Paste a Category to a Category
-	 * --*/
+	 *--*/
 	@Test
 	public void test01_CopyPasteACategoryToACategory(){
 		info("-- Step 1: Create a Category --");
@@ -107,14 +108,15 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//magAcc.signOut();	
 	}
 
-	/*-- Case No 035 / ID 002
+	/** Qmetry: ID 66908
+	 *-- Case No 035 / ID 002
 	 *-- Copy a Category and paste into its child node
 	 * --*/
 	@Test
 	public void test02_CopyACategoryAndPasteIntoItsChildNode(){
 		By ELEMENT_SELECTED_CATEGORY_NAME = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", categoryName));
 		By ELEMENT_SELECTED_CATEGORY_CHILD_NAME = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", newCategoryName));
-		
+
 		info("-- Step 1: Create a Category --");
 
 		String categoryTreeName = "categoryAction02";
@@ -148,13 +150,14 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//magAcc.signOut();	
 	}
 
-	/*-- Case No 036 / ID 003
+	/** Qmetry: ID 66909
+	 *-- Case No 036 / ID 003
 	 *-- Copy a Category and paste into itself
 	 * --*/
 	@Test
 	public void test03_CopyACategoryAndPasteIntoItself(){
 		By ELEMENT_SELECTED_CATEGORY_NAME = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", categoryName));
-		
+
 		info("-- Step 1: Create a Category --");
 
 		String categoryTreeName = "categoryAction03";
@@ -186,7 +189,8 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//signOut();	
 	}
 
-	/*-- Case No 037 / ID 004
+	/** Qmetry: ID 67007
+	 *-- Case No 037 / ID 004
 	 *-- Copy/Paste a deleted Category
 	 * --*/
 	@Test
@@ -229,7 +233,8 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//signOut();	
 	}
 
-	/*-- Case No 038 / ID 005
+	/** Qmetry: ID 66794
+	 *-- Case No 038 / ID 005
 	 *-- Cut a Category and paste into other Category
 	 * --*/
 	@Test
@@ -264,13 +269,14 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//signOut();
 	}
 
-	/*-- Case No 039 / ID 006
+	/** Qmetry: ID 66792
+	 *-- Case No 039 / ID 006
 	 *-- Cut a Category and paste into its child node
 	 * --*/
 	@Test
 	public void test06_CutACategoryAndPasteIntoItsChildNode(){
 		By ELEMENT_SELECTED_CATEGORY_NAME = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", categoryName));
-		
+
 		info("-- Step 1: Create a Category --");
 
 		String categoryTreeName = "categoryAction06";
@@ -306,7 +312,8 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//signOut();	
 	}
 
-	/*-- Case No 040 / ID 007
+	/** Qmetry: ID 66793
+	 *-- Case No 040 / ID 007
 	 *-- Cut a Category and paste into itself
 	 * --*/
 	@Test
@@ -343,7 +350,8 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//signOut();	
 	}
 
-	/*-- Case No 041 / ID 008
+	/** Qmetry: ID 66827
+	 *-- Case No 041 / ID 008
 	 *-- Cut/Paste a deleted Category
 	 * --*/
 	@Test
@@ -384,7 +392,8 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//signOut();	
 	}
 
-	/*-- Case No 042 / ID 009
+	/** Qmetry: ID 66854
+	 *-- Case No 042 / ID 009
 	 *-- Delete Category
 	 * --*/
 	@Test
@@ -415,7 +424,8 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		//signOut();	
 	}
 
-	/*-- Case No 043 / ID 010
+	/** Qmetry: ID 66841
+	 *-- Case No 043 / ID 010
 	 *-- Delete a Category when it is added for a document
 	 *-- Status: pending*/
 	/*@Test
@@ -424,4 +434,53 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		info("-- Step 2: Add category for document --");
 		info("-- Step 3: Delete Category --");
 	}*/
+
+	/**
+	 * Qmetry: ID 66856
+	 * Delete Category Tree
+	 */
+	@Test
+	public void test11_DeleteCategoryTree(){
+		info("-- Step 1: Create a Category --");
+
+		String categoryTreeName = "categoryAction11";
+
+		nav.goToContentAdministration();
+
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		boolean[] setPermission = {true, false, false, false};
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER, setPermission, form3);
+
+		info("-- Step 2: Delete a Category --");
+		magCa.deleteCategory(categoryTreeName);
+	}
+
+	/**
+	 * Qmetry: ID 66701
+	 * Edit Category Tree
+	 */
+	@Test
+	public void test12_EditCategoryTree(){
+		info("-- Step 1: Create a Category --");
+
+		String categoryTreeName = "categoryAction12";
+
+		nav.goToContentAdministration();
+
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "*"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		boolean[] setPermission = {true, true, false, false};
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER, setPermission, form3);
+
+		info("-- Step 2: Edit a Category --");
+		magCa.addNewCategoryTree_Step4(categoryTreeName, categoryName, newCategoryName, "mary", true, true, true);
+
+		info("-- Reset Data --");
+		magCa.deleteCategory(categoryTreeName);
+	}
 }

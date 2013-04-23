@@ -276,6 +276,10 @@ public class EcmsBase extends ManageAccount {
 
 	//Site Explorer
     public final String ELEMENT_UI_CHECKBOX = "//*[@data-original-title = '${element}']/../..//*[@name = 'checkbox']";	
+    
+    //Intranet > Documents
+    public final String ELEMENT_NODE_ADMIN_VIEW = "//*[contains(@class, 'columnText')]//*[contains(text(), '${nodeName}')]";
+    public final String ELEMENT_NODE_ICON_ARROW_RIGHT = "//*[contains(text(), '${nodeName}')]/../..//*[contains(@class, 'columnArrow')]";
 	
 	////////////////////////////////
 	//Log-in ECMS
@@ -306,22 +310,45 @@ public class EcmsBase extends ManageAccount {
 		signOut();
 		driver.get(baseUrl);
 	}*/
+    
+    //Open a Node
+    //Intranet > Documents
+    /*public void openNode(String nodeName){
+    	String[] nodes = ((String) nodeName).split("/");
+		for (String node: nodes)
+		{
+			info("-- Opening the node... --" + node);
+			rightClickOnElement(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node));
+			//(By.xpath(ELEMENT_NODE_ICON_ARROW_RIGHT.replace("${nodeName}", node)));
+		}
+		Utils.pause(500);
+    }*/
 
 	//go to a node
 	//input: path: path of a node, split by  "/" character 
-	public void goToNode(Object locator)
+	public void goToNode(Object locator, Object...params)
 	{
-		if (locator instanceof By){
-			click(locator);
-		}else if (locator instanceof String){
+		Boolean nodeAdminView = (Boolean) (params.length > 0 ? params[0]: false);
+		if (nodeAdminView && (locator instanceof String)){
 			String[] nodes = ((String) locator).split("/");
 			for (String node: nodes)
 			{
-				//goToNode(By.xpath("//a[@title='" + node + " ']"));
-				click(By.xpath("//*[@title='" + node + "']"));
-				Utils.pause(500);
+				//click(By.xpath(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node)));
+				rightClickOnElement(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node));
 			}
-		}
+		}else{
+			if (locator instanceof By){
+				click(locator);
+			}else if (locator instanceof String){
+				String[] nodes = ((String) locator).split("/");
+				for (String node: nodes)
+				{
+					//goToNode(By.xpath("//a[@title='" + node + " ']"));
+					click(By.xpath("//*[@title='" + node + "']"));
+					Utils.pause(500);
+				}
+			}
+		}	
 		Utils.pause(1000);
 	}
 
@@ -398,7 +425,7 @@ public class EcmsBase extends ManageAccount {
 		switchToParentWindow();
 		String links[] = link.split("/");
 		int length = links.length;
-		//waitForElementPresent(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
+		waitForElementPresent(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
 		click(button.ELEMENT_SAVE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		Utils.pause(1000);

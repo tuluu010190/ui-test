@@ -22,7 +22,7 @@ public class ECMainFunction extends EcmsBase{
 	}
 
 	NavigationToolbar navToolbar = new NavigationToolbar(driver);
-	
+
 	//Template tab
 	public final By ELEMENT_TEMPLATE_TAB = By.xpath("//*[text()='Templates']");
 	public final By ELEMENT_DOCUMENT_LINK = By.className("uiIconEcmsTemplatesManager");
@@ -44,8 +44,14 @@ public class ECMainFunction extends EcmsBase{
 
 	//Repository > Locks
 	public final String ELEMENT_UNLOCK_NODE = "//*[text()='${lockedNode}']/../..//*[@class='uiIconUnlockMini']";
-	
+
+	//Advanced
 	public final By ELEMENT_MANAGE_CATEGORIES_LINK = By.className("uiIconEcmsTaxonomyManagerTrees");
+	public final By ELEMENT_ADD_QUERY_BUTTON = By.xpath("//*[text()='Add Query']");
+	public final By ELEMENT_MANAGE_QUERIES_LINK = By.className("uiIconEcmsQueriesManager");
+
+	public final By ELEMENT_MANAGE_SCRIPTS_LINK = By.className("uiIconEcmsScriptManager");
+    public final By ELEMENT_ADD_SCRIPT_BUTTON = By.xpath("//*[text()='Add Script']");
 
 	/*=============================================================*/
 
@@ -59,7 +65,7 @@ public class ECMainFunction extends EcmsBase{
 		}
 		waitForElementPresent(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
 	}
-	
+
 	//Open [List Template] Screen
 	public void goToListTemplateTab(){
 		navToolbar.goToContentAdministration();
@@ -142,13 +148,32 @@ public class ECMainFunction extends EcmsBase{
 	/////////////
 
 	//Advanced: Categories/Queries/Scripts/Actions
-	/////
 	//Go to Category Tab in Content Admin
 	public void goToCategoriesTabInContentAdmin(){
 		navToolbar.goToContentAdministration();
 		if (isTextNotPresent("Category Tree")){
 			click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
 			click(ELEMENT_MANAGE_CATEGORIES_LINK);
+		}
+		Utils.pause(500);
+	}
+
+	//Go to Queries Tab
+	public void goToQueriesTabInContentAdmin(){
+		navToolbar.goToContentAdministration();
+		if (isElementNotPresent(ELEMENT_ADD_QUERY_BUTTON)){
+			click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+			click(ELEMENT_MANAGE_QUERIES_LINK);
+		}
+		Utils.pause(500);
+	}
+
+	//Go to Scripts Tab
+	public void goToScriptsTabInContentAdmin(){
+		navToolbar.goToContentAdministration();
+		if (isElementNotPresent(ELEMENT_ADD_SCRIPT_BUTTON)){
+			click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+			click(ELEMENT_MANAGE_SCRIPTS_LINK);
 		}
 		Utils.pause(500);
 	}
