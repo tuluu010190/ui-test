@@ -268,11 +268,13 @@ public class ContentTemplate extends EcmsBase{
 
 	//Folder type 
 	public enum folderType{
-		Content, Document;
+		None, Content, Document;
 	}
 
 	//add new Content Folder
-	public void createNewFolder(String title, folderType type) {
+	public void createNewFolder(String title, folderType type, boolean...verify) {
+		
+		
 		for (int repeat = 0;; repeat++)	{	
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
@@ -284,7 +286,8 @@ public class ContentTemplate extends EcmsBase{
 			Utils.pause(WAIT_INTERVAL);
 			info("retry...[" + repeat + "]");
 		}
-		if (!waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, DEFAULT_TIMEOUT, 0, 2).isSelected()){
+		WebElement folderType = waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0, 2);
+		if (folderType != null && !folderType.isSelected()){
 			click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
 		}
 		switch (type) {
@@ -296,11 +299,14 @@ public class ContentTemplate extends EcmsBase{
 			selectOption(ELEMENT_FOLDER_TYPE_OPTION, ELEMENT_DOCUMENT_FOLDER_TYPE);
 			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, false);
 			break;
+		case None:
+			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, false);
+			break;
 		default:
 			break;
 		}
 		click(ELEMENT_CREATE_FOLDER_BUTTON);
-		waitForElementPresent(By.xpath("//*[@title='"+ title +"']"));
+		waitForElementPresent(By.xpath("//*[contains(text(),'"+ title +"')]"));
 		Utils.pause(1000);
 	}
 
@@ -338,7 +344,6 @@ public class ContentTemplate extends EcmsBase{
 		info("Create new content folder with name: "+name);
 		createNewFolder(name, folderType.Content);
 		waitForElementPresent(path);
-		assert isElementPresent(path):"Create new content folder unsuccessfully";
 		info("Create new content folder successfully"); 
 	}
 

@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.admin.ManageView;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
@@ -116,6 +117,24 @@ public class ActionBar extends EcmsBase{
 			if (waitForAndGetElement(button.ELEMENT_SAVE_CLOSE_BUTTON, 50000).isDisplayed()) 
 				break;
 		}
+	}
+	
+	// switch to view mode (eg: Web view, List view ...)
+	public void goToViewMode(String viewType){
+		click(By.xpath(ELEMENT_VIEW_MODE_LINK.replace("${viewName}", viewType)));
+		Utils.pause(2000);
+	}
+	
+	//Go to 1 node by path in Intranet/document
+	public void goToNodeByAddressPath(String path){
+		WebElement address = waitForAndGetElement(ELEMENT_ADDRESS_BAR);
+		address.clear();
+		address.sendKeys(path);
+		//address.sendKeys(Keys.ENTER);
+		String pageId = waitForAndGetElement(By.xpath("//*[@id='UIPage']/div/div")).getAttribute("id");
+		((JavascriptExecutor) driver).executeScript("javascript:eXo.webui.UIForm.submitForm('" + pageId + "#UIAddressBar','ChangeNode',true)");
+		String[] temp = path.split("/");
+		waitForElementPresent(By.xpath("//*[@id='FileViewBreadcrumb']//a[@data-original-title='" + temp[temp.length - 1] + "']"));
 	}
 
 	// Add a category in DMS Administration - Simple View
@@ -333,14 +352,19 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(1000);
 	}
 
-	//Go to the target node: ACME / when add symlink
-	public void goToAcmeNodeInAddSymlink(){
+	//Go to the target node
+	public void goToTargetNodeWhenAddSymlink(String path){
 		goToAddSymlinkTab();
 		waitForElementPresent(ELEMENT_ADD_SYMLINK_POPUP);
 		click(ELEMENT_ADD_ITEM);	
-		//Go to sites > acme
-		click(By.linkText("sites"));
-		click(By.xpath("//*[@id='UIPopupSymLink']//*[@title='acme']"));
+		String[] temp;
+		String delimiter = "/";
+		temp = path.split(delimiter);
+		for(int i =0; i < temp.length; i++){
+			info("Go to "+temp[i]);
+			click(By.xpath(ELEMENT_SYMLINK_PATH_NODE_TITLE.replace("${node}", temp[i])));
+			Utils.pause(100);
+		}
 		Utils.pause(1000);
 	}
 
@@ -348,49 +372,43 @@ public class ActionBar extends EcmsBase{
 	public void addSymlink(String workspace, String path, String name){
 		goToAddSymlinkTab();
 		waitForElementPresent(ELEMENT_ADD_SYMLINK_POPUP);
-		click(ELEMENT_ADD_ITEM);
-		//usePaginator(path, "Can not choose target node");
-		select(ELEMENT_SYMLINK_WORKSPACE, workspace);
-		selectHomePathForCategoryTree(path);
-		/*if (path!=null){
-			click(path);
-		}*/
+		if (path != null && path != ""){
+			click(ELEMENT_ADD_ITEM);
+			select(ELEMENT_SYMLINK_WORKSPACE, workspace);
+			selectHomePathForCategoryTree(path);
+		}
 		String[] temp;
 		String delimiter = "/";
-		temp = name.split(delimiter);
-		if (name != temp[temp.length - 1]+".lnk" ){
+		temp = path.split(delimiter);
+		if (name.equalsIgnoreCase(temp[temp.length - 1] + ".lnk") == false){
 			type(ELEMENT_SYMLINK_NAME, name, true);
 		}
 		assert getValue(ELEMENT_SYMLINK_NAME).equalsIgnoreCase(name);
 		click(button.ELEMENT_SAVE_BUTTON); 
 	}
-
-	//Add an action to Action Bar: View Symlink
-	public void addViewSymlinkToActionBar(){
-		if (isElementPresent(ELEMENT_ADD_SYMLINK)){
+	
+	//Add symlink to action bar in site explorer if it does not exited
+	public void addSymlinkToActionBar(){	
+		WebElement syml = waitForAndGetElement(ELEMENT_ADD_SYMLINK, 5000, 0);
+		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+		if (syml != null){
 			info("-- Add Symlink tab is already displayed --");
-		}else if (isElementPresent(ELEMENT_MORE_LINK)){
+		} else if (more != null){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			if (isElementPresent(ELEMENT_ADD_SYMLINK)){
+			if (waitForAndGetElement(ELEMENT_ADD_SYMLINK, 5000, 0, 2) != null){
 				info("-- Add Symlink tab is already displayed --");
+			}else{
+				magView.setup2ShowViewAction("addSymLink", "Web");
+				magAcc.signOut();
+				magAcc.signIn("john", "gtn");
+				navToolBar.goToSiteExplorer();
 			}
-		}else{
-			magView.setup2ShowViewAction("addSymLink");
+		}else {
+			magView.setup2ShowViewAction("addSymLink", "Web");
 			magAcc.signOut();
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToSiteExplorer();
-			if (isElementPresent(ELEMENT_ADD_SYMLINK)){
-				info("-- Add Symlink tab is already displayed --");
-			}else if (isElementPresent(ELEMENT_MORE_LINK)){
-				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-				if (isElementPresent(ELEMENT_ADD_SYMLINK)){
-					info("-- Add Symlink tab is already displayed --");
-				}
-			}else{
-				info("-- Add Symlink tab is not displayed... --");
-			}
 		}
-		Utils.pause(1000);
 	}
 
 	//A Function to copy/cut/paste/delete an Element (Document/Folder) in Sites Explorer
@@ -426,5 +444,61 @@ public class ActionBar extends EcmsBase{
 			break;
 		}
 		Utils.pause(1000);
-	}	
+	}
+	
+	/** function add "New Content" to File Management view if it is not existed
+	 * @author lientm
+	 */
+	public void addNewContentToFileManagementView(){
+		WebElement syml = waitForAndGetElement(ELEMENT_NEW_CONTENT_LINK, 5000, 0);
+		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+		if (syml != null){
+			info("-- New content is already displayed --");
+		} else if (more != null){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			if (waitForAndGetElement(ELEMENT_NEW_CONTENT_LINK, 5000, 0) != null){
+				info("-- New content is already displayed --");
+			}else{
+				magView.setup2ShowViewAction("addDocument", "List", "List");
+				magAcc.signOut();
+				magAcc.signIn("john", "gtn");
+				navToolBar.goToPersonalDocuments();
+				goToViewMode("List");
+			}
+		}else {
+			magView.setup2ShowViewAction("addDocument", "List", "List");
+			magAcc.signOut();
+			magAcc.signIn("john", "gtn");
+			navToolBar.goToPersonalDocuments();
+			goToViewMode("List");
+		}
+	}
+	
+	/** function add "Add Symlink" to File Management view if it is not existed
+	 * @author lientm
+	 */
+	public void addSymlinkToFileManagementView(){
+		WebElement syml = waitForAndGetElement(ELEMENT_ADD_SYMLINK, 5000, 0);
+		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+		if (syml != null){
+			info("-- Add Symlink tab is already displayed --");
+		} else if (more != null){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			if (waitForAndGetElement(ELEMENT_ADD_SYMLINK, 5000, 0) != null){
+				info("-- Add Symlink tab is already displayed --");
+			}else{
+				magView.setup2ShowViewAction("addSymLink", "List", "List");
+				magAcc.signOut();
+				magAcc.signIn("john", "gtn");
+				navToolBar.goToPersonalDocuments();
+				goToViewMode("List");
+			}
+		}else {
+			magView.setup2ShowViewAction("addSymLink", "List", "List");
+			magAcc.signOut();
+			magAcc.signIn("john", "gtn");
+			navToolBar.goToPersonalDocuments();
+			goToViewMode("List");
+		}
+	}
 }

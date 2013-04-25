@@ -16,9 +16,18 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.action
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+/**
+ * @date: 17/04/2013
+ * @author lientm
+ * Update follow new test cases for plf4
+ */
 
 /**
  * <li>PLF4: Update by
@@ -46,8 +55,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	ContextMenu cMenu;
 	SitesExplorer siteExp;
 
-	public final String DATA_USER = "john";
-	public final String DATA_PASS = "gtn";
+	public final String DATA_USER = "fqa";
+	public final String DATA_PASS = "123456789";
 
 	@BeforeMethod
 	public void beforeMethods() {
@@ -65,6 +74,10 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu = new ContextMenu(driver);
 		siteExp = new SitesExplorer(driver);
 		magAcc.signIn(DATA_USER, DATA_PASS);
+		
+		info("Add symlink for action bar if it does not existed");
+		navToolBar.goToSiteExplorer();
+		actBar.addSymlinkToActionBar();
 	}
 
 	@AfterMethod
@@ -75,199 +88,166 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		driver.quit();
 	}
 
-	/**
+	/**CaseID: 66548
 	 * case01: Open form to add Symlink for node using icon in action bar
-	 * set view add symlink
 	 * go to add symlink
 	 * check form
 	 */
 	@Test
 	public void test01_CheckFormAddSymlinkForNode(){		  
-		//go to add symlink
-		info("Add symlink for acme node");
-		navToolBar.goToSiteExplorer();
-
-		//set view add symlink
-		actBar.addViewSymlinkToActionBar();
-
-		ecms.goToNode(ecms.ELEMENT_SIDEBAR_ACME);
+		info("Check Add Symlink Form");
 		actBar.goToAddSymlinkTab();
 
 		//check Add symlink form
 		waitForElementPresent(ecms.ELEMENT_ADD_SYMLINK_POPUP);
-		assert isElementPresent(ecms.ELEMENT_ADD_SYMLINK_POPUP):"Not found Add symlink form";
-		assert isTextPresent("Symlink Manager"):"Add symlink form is not true";
-		assert isElementPresent(ecms.ELEMENT_SYMLINK_PATH_NODE):"Add symlink form is not true";
-		assert isElementPresent(ecms.ELEMENT_SYMLINK_NAME):"Add symlink form is not true";	  
+		waitForTextPresent("Symlink Manager");
+		waitForElementPresent(ecms.ELEMENT_SYMLINK_PATH_NODE);
+		waitForElementPresent(ecms.ELEMENT_SYMLINK_NAME);  
 		info("Check add symlink popup successfully");
 		dialog.closeMessageDialog();
 	}
 
-	/**
+	/**CaseID: 67256
 	 * case02: Add Symlink when right click on node but do not select this node
-	 * go to acme
-	 * right click on document -> add symlink
+	 * create new node (folder, file document)
+	 * right click on node -> add symlink
 	 * check symlink
 	 */
 	@Test
 	public void test02_AddSymlinkWhenRightClick(){
-		String DATA_FOLDER = "ecmsaddsymlinkfolder02";
+		String DATA_FOLDER = "ECMS_AddSymlink_Content_folder_02";
 		By ELEMENT_FOLDER = By.linkText(DATA_FOLDER);
+		String FILE_NAME = "ECMS_AddSymlink_file_02";
+		By ELEMENT_FILE = By.linkText(FILE_NAME);
 
 		//create node: content folder
-		navToolBar.goToSiteExplorer();
 		cTemplate.createNewFolder(DATA_FOLDER, folderType.Content);
 		info("Create new content folder successfully");
+		actBar.goToAddNewContent();
+		cTemplate.createNewFile(FILE_NAME, FILE_NAME, FILE_NAME);
+		ecms.goToNode(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		// add symlink
-		info("Add symlink for node");
+		info("Add symlink for node by right click");
 		cMenu.contextMenuAction(ELEMENT_FOLDER, actionType.SYMLINK);
+		cMenu.contextMenuAction(ELEMENT_FILE, actionType.SYMLINK);
 
 		// check symlink
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_FOLDER));
-		assert isElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_FOLDER)): "Add new symlink unsuccessfully";
-		info("Add symlink for documents successful");
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_FOLDER.replaceAll("_", "").toLowerCase() + ".lnk"));
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", FILE_NAME + ".lnk"));
+		info("Add symlink for nodes successful");	
 
 		//delete symlink
 		cMenu.deleteData(ELEMENT_FOLDER);
+		cMenu.deleteData(ELEMENT_FILE);
 	}
 
-	/*case03: Add Symlink for some nodes at the same time
-	 * go to acme
-	 * choose 2 node
-	 * add symlink
-	 * check symlink
+	/**CaseId: 67252
+	 * case03: Add Symlink for some nodes at the same time
+	 * select some nodes
+	 * add symlink for some node
 	 */
-	//	  @Test(groups={"pending"})
-	//	  public void test03_AddSymlinkForSomenode(){
-	//		  By CATEGORIES = By.xpath("//div[@title='categories ']");
-	//		  By CATEGORIES_SYMLINK = By.xpath("//div[@title='categories.lnk ']");
-	//		  By CSS = By.xpath("//div[@title='css ']");
-	//		  By CSS_SYMLINK = By.xpath("//div[@title='css.lnk ']");
-	//
-	//		  //go to acme
-	//		  navToolBar.goToSiteExplorer();
-	//		  goToNode(ELEMENT_ACME);
-	//
-	//		  //choose 2 node
-	//		  WebElement ELEMENT_CATEGORIES = waitForAndGetElement(CATEGORIES);
-	//		  WebElement ELEMENT_CSS = waitForAndGetElement(CSS);
-	//		  //actions.keyDown(Keys.CONTROL).click(ELEMENT_CATEGORIES).keyDown(Keys.SHIFT).click(ELEMENT_CSS).keyUp(Keys.CONTROL).build().perform();
-	//		  //click(CATEGORIES);
-	//		  actions.keyDown(Keys.CONTROL).click(ELEMENT_CSS).release().perform();
-	//		  //actions.keyDown(Keys.CONTROL).moveToElement(ELEMENT_CATEGORIES).click().moveToElement(ELEMENT_CSS).click().keyUp(Keys.CONTROL).build().perform();
-	//
-	//		  // add symlink
-	//		  rightClickOnElement(CATEGORIES);
-	//		  click(ELEMENT_ADD_SYMLINK);
-	//		  //check symlink
-	//		  waitForElementPresent(CATEGORIES_SYMLINK);
-	//		  assert isElementPresent(CATEGORIES_SYMLINK):"Add symlink for categories unsuccessfully";
-	//		  waitForElementPresent(CSS_SYMLINK);
-	//		  assert isElementPresent(CSS_SYMLINK):"Add symlink for css unsuccessfully";
-	//		  info("Add symlink for categories and symlink successfully");
-	//		  //delete symlink
-	//		  goToNode(CATEGORIES_SYMLINK);
-	//		  deleteDocument(CATEGORIES_SYMLINK);
-	//		  waitForElementNotPresent(CATEGORIES_SYMLINK);
-	//		  goToNode(CSS_SYMLINK);
-	//		  deleteDocument(CSS_SYMLINK);
-	//		  waitForElementNotPresent(CSS_SYMLINK);
-	//	  }
+	@Test(groups = {"pending"})
+	public void test03_AddSymlinkForSomenode(){
+		String folderName = "ECMS_AddSymlink_Content_folder_03";
+		String fileName = "ECMS_AddSymlink_file_03";
+		By elementFolder = By.xpath("//div/span[text()='" + folderName + "']");
+		By elementFile = By.xpath("//div/span[text()='" + fileName + "']");
+		
+		cTemplate.createNewFolder(folderName, folderType.Content);
+		actBar.goToAddNewContent();
+		cTemplate.createNewFile(fileName, fileName, fileName);
+		ecms.goToNode(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		
+		WebElement folder = waitForAndGetElement(elementFolder);
+		WebElement file = waitForAndGetElement(elementFile);
 
-	/**
+		Actions actions = new Actions(driver);
+		actions.keyDown(folder, Keys.CONTROL).moveToElement(file).click().contextClick(file).
+		moveToElement(waitForAndGetElement(cMenu.ELEMENT_MENU_ADD_SYMLINK)).click().build().perform();
+
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", folderName + ".lnk"));
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", fileName + ".lnk"));
+
+		//delete data
+		cMenu.deleteData(elementFolder);
+		cMenu.deleteData(elementFile);
+	}
+
+	/** CaseId: 67251
 	 * case04: Add Symlink for root
 	 * go to site explorer
-	 * add symlink
+	 * add symlink at root
 	 */
 	@Test
 	public void test04_AddSymlinkForRoot(){	
-		String DATA_SYMLINK = "acme.lnk"; //"ECMS_DMS_SE_Addsymlink_symlink_04";
-		By ELEMENT_DOCUMENT_SYMLINK = By.linkText(DATA_SYMLINK);
+		String DATA_SYMLINK = "documents.lnk";
+		By ELEMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 
-		//go to add symlink
-		navToolBar.goToSiteExplorer();
-
-		//add symlink for root
 		info("Add symlink for root");
-		actBar.addSymlink("collaboration", "sites/acme", DATA_SYMLINK);
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
 
-		//check symlink
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
-		click(ELEMENT_DOCUMENT_SYMLINK);
-		waitForElementPresent(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", "documents"));
-		assert isElementPresent(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", "documents")):"Add symlink for documents node unsuccessfully";
-		info("Add symlink for document node successfully");
+		waitForElementPresent(ELEMENT_SYMLINK);
+		info("Add symlink successfully");
 
 		//delete symlink
-		cMenu.deleteData(ELEMENT_DOCUMENT_SYMLINK);
+		cMenu.deleteData(ELEMENT_SYMLINK);
 	}
 
-	/**
+	/** CaseId: 67235
 	 * case05: Add Symlink for node is Content Folder
 	 * create new content folder
-	 * add symlink for node with target node = documents
+	 * add symlink for node with target node = intranet/documents
 	 * check symlink
 	 */
 	@Test
 	public void test05_AddSymlinkForContentFolder(){
-		String DATA_CONTENT_FOLDER = "contentfolder05";
+		String DATA_CONTENT_FOLDER = "ECMS_AddSymlink_Content_folder_05";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		String DATA_SYMLINK = "contentfolder05.lnk";
+		String DATA_SYMLINK = "documents.lnk";
 
 		//create new content folder
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
 		//add symlink
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 		info("Add symlink for content folder");
-		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER , DATA_SYMLINK);
-
-		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_CONTENT_FOLDER));
-		assert isElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_CONTENT_FOLDER)):"Add symlink for content folder unsuccessfully";
+		actBar.addSymlink("collaboration", "sites/intranet/documents" , DATA_SYMLINK);
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 
 		//delete data
 		cMenu.deleteData(ELEMENT_CONTENT_FOLDER);
 	}
 
-	/**
+	/** CaseId: 67236
 	 * case06: Add Symlink for node is Document Folder
 	 * create new document folder
-	 * add symlink for node with target node = documents
+	 * add symlink for node with target node = Intranet/documents
 	 * check symlink
 	 */
 	@Test
 	public void test06_AddSymlinkForDocumentFolder(){
-		String DATA_DOCUMENT_FOLDER = "documentfolder06";
+		String DATA_DOCUMENT_FOLDER = "ECMS_AddSymlink_Document_folder_06";
 		By ELEMENT_DOCUMENT_FOLDER = By.linkText(DATA_DOCUMENT_FOLDER);
-		String DATA_SYMLINK = "documentfolder06.lnk";
-
-		//create new document folder
-		navToolBar.goToSiteExplorer();
+		String DATA_SYMLINK = "documents.lnk";
 
 		info("Create new document folder");
 		cTemplate.createNewFolder(DATA_DOCUMENT_FOLDER, folderType.Document);
 		waitForElementPresent(ELEMENT_DOCUMENT_FOLDER);
-		assert isElementPresent(ELEMENT_DOCUMENT_FOLDER):"Create new document folder unsuccessfully";
 		info("Create new document folder successfully");
 
 		//add symlink
 		ecms.goToNode(ELEMENT_DOCUMENT_FOLDER);
-
 		info("Add symlink for document folder");
-		actBar.addSymlink("collaboration", "sites/" + DATA_DOCUMENT_FOLDER , DATA_SYMLINK);
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
 
-		ecms.goToNode(ELEMENT_DOCUMENT_FOLDER);
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_DOCUMENT_FOLDER));
-		assert isElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_DOCUMENT_FOLDER)): "Add symlink for document folder unsuccessfully";
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 
 		//delete data
 		cMenu.deleteData(ELEMENT_DOCUMENT_FOLDER);
 	}
 
-	/**
+	/** --> remove this testcase in plf4 (Can not add a subnode for nt:file)
 	 * case08: Add Symlink for node is File document
 	 * create new file document
 	 * add symlink to file document
@@ -302,7 +282,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteData(ELEMENT_FILE_DOCUMENT);
 	}*/
 
-	/**
+	/** --> --> remove this testcase in plf4 (Can not add a subnode for uploaded file)
 	 * case13: Add Symlink for node is uploaded file
 	 * upload file
 	 * add symlink
@@ -337,98 +317,76 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteData(ELEMENT_DOCUMENT_SYMLINK);
 	}*/
 
-	/**
+	/** CaseId: 67242
 	 * case14: Add Symlink for node is Symlink
-	 * create new node - content folder
+	 * create new node (content folder)
 	 * add symlink for this node
 	 * add symlink for symlink node
 	 * check add successfully
 	 */
 	@Test
 	public void test14_AddSymlinkForSymlinkNode(){
-		String DATA_CONTENT_FOLDER = "contentfolder14";
+		String DATA_CONTENT_FOLDER = "ECMS_AddSymlink_Content_folder_14";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		String DATA_SYMLINK = "contentfolder14.lnk";
+		String ELEMENT_SYMLINK = ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_CONTENT_FOLDER.replaceAll("_", "").toLowerCase() + ".lnk");
+		String DATA_SYMLINK = "documents.lnk";
 
-		//create new content folder
-		navToolBar.goToSiteExplorer();
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
 
-		//add symlink for content folder
-		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		info("Add symlink for content folder");
-		actBar.addSymlink("collaboration", "sites/contentfolder14", DATA_SYMLINK);
-
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_CONTENT_FOLDER));
-		assert isElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_CONTENT_FOLDER)): "Add symlink for content folder unsuccessfully";
-		info("Add symlink for content folder successfully");
+		info("Add symlink for node by right click");
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actionType.SYMLINK);
+		waitForElementPresent(ELEMENT_SYMLINK);
 
 		//add symlink for symlink node
-		doubleClickOnElement(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_CONTENT_FOLDER));
 		info("Add symlink for exiting symlink");
-		actBar.addSymlink("collaboration", "Users", "Users.lnk");
-
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "Users"));
-		assert isElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "Users")): "Add symlink for symlink unsuccessfully";
+		ecms.goToNode(By.xpath(ELEMENT_SYMLINK));
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 		info("Add symlink for symlink node successfully");
 
 		//delete data
 		cMenu.deleteData(ELEMENT_CONTENT_FOLDER);
 	}
 
-	/**
+	/** CaseId: 67245
 	 * case15: Add Symlink for node to the node is Symlink
-	 * add symlink for acme/documents -> documents.lnk
-	 * add symlink for acme  
-	 * check cannot found target node is symlink documents.lnk
+	 * create 1 symlink at root
+	 * create new node
+	 * Check can not add symlink for this node with target is a symlink
 	 */
 	@Test
 	public void test15_AddSymlinkForNodeToSymlinkNode(){
-		String DATA_CONTENT_FOLDER = "contentfolder15";
+		String DATA_CONTENT_FOLDER = "ECMS_AddSymlink_Content_folder_15";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		By ELEMENT_DOCUMENT_SYMLINK = By.linkText("documents.lnk");
+		String DATA_SYMLINK = "documents.lnk";
+		By ELEMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 
-		//create new node - content folder
-		navToolBar.goToSiteExplorer();
+		info("Add symlink for root");
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
+		waitForElementPresent(ELEMENT_SYMLINK);
+		
+		info("Add new content folder");
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
-
-		//create symlink for acme/document
-		click(ecms.ELEMENT_SIDEBAR_ACME);
-		info("Add symlink for documents");
-		cMenu.contextMenuAction(ecms.ELEMENT_SIDEBAR_ACME_DOCUMENTS, actionType.SYMLINK);	
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "documents"));
-		assert isElementPresent(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "documents")): "Add new symlink unsuccessfully";
-		info("Add symlink for documents successfully");
 
 		//check cannot add symlink for node with target node is symlink documents.lnk
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		actBar.goToAcmeNodeInAddSymlink();
-		waitForElementNotPresent(ELEMENT_DOCUMENT_SYMLINK);
+		actBar.goToTargetNodeWhenAddSymlink("sites");
+		waitForElementNotPresent(By.xpath(ecms.ELEMENT_SYMLINK_PATH_NODE_TITLE.replace("${node}", DATA_SYMLINK)));
 		info("cannot select target node is a symlink node");
 		click(ecms.ELEMENT_ADD_SYMLINK_CLOSE_WINDOWS);
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
-		ecms.goToNode(ecms.ELEMENT_SIDEBAR_ACME);
-		cMenu.deleteDocument(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "documents"));
+		cMenu.deleteDocument(ELEMENT_SYMLINK);
 	}
 
-	/**
+	/** CaseId: 67253
 	 * case16: Add Symlink when 'Symlink Name' field is blank
-	 * create symlink for acme with name symlink blank
 	 */
 	@Test
 	public void test16_AddSymlinkWithBlankName(){
-		//go to acme
-		navToolBar.goToSiteExplorer();
-		ecms.goToNode(ecms.ELEMENT_SIDEBAR_ACME);
-
-		//add symlink with blank name
 		info("Add symlink with blank name");
-		actBar.goToAcmeNodeInAddSymlink();
-		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
-		type(ecms.ELEMENT_SYMLINK_NAME, "", true);
-		button.save();
+		actBar.addSymlink("collaboration", "sites/intranet/documents", "");
 
 		//check alert
 		magAlert.verifyAlertMessage("The field \"Symlink Name\" is required.");
@@ -436,22 +394,13 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("cannot add symlink with blank name");
 	}
 
-	/**
+	/** CaseId: 67253
 	 * case17: Add Symlink when “Path Node” field is blank
-	 * create symlink for acme with path node blank
 	 */
 	@Test
-	public void test17_AddSymlinkWithBlankPathNode(){		  
-		//go to acme
-		navToolBar.goToSiteExplorer();
-		ecms.goToNode(ecms.ELEMENT_SIDEBAR_ACME);
-
-		//add symlink with path node blank
-		info("Add symlink with blank path node");
-		actBar.goToAddSymlinkTab();
-		waitForElementPresent(ecms.ELEMENT_ADD_SYMLINK_POPUP);
-		type(ecms.ELEMENT_SYMLINK_NAME, "Test", true);
-		button.save();
+	public void test17_AddSymlinkWithBlankPathNode(){
+		info("Add symlink with blank name");
+		actBar.addSymlink("collaboration", "", "symlink.lnk");
 
 		//check alert
 		magAlert.verifyAlertMessage("Please enter the path node.");
@@ -463,38 +412,43 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 * case18: Add Symlink when 'Symlink Name' field contains special characters like @, #,$..
 	 * 
 	 */
-	/*@Test(groups={"pending"})
+	@Test
 	public void test18_AddSymlinkWithNameContainsSpecialCharacter(){
-		//go to acme
-		navToolBar.goToSiteExplorer();
-		ecms.goToNode(ecms.ELEMENT_SIDEBAR_ACME);
-
-		//add symlink with blank name
+		String DATA_CONTENT_FOLDER = "ECMS_AddSymlink_Content_folder_18";
+		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
+		
+		info("create new content folder");
+		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
+		
 		info("Add symlink with name contains special characters");
-		actBar.goToAcmeNodeInAddSymlink();
-		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
+		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
+		actBar.goToAddSymlinkTab();
+		click(ecms.ELEMENT_ADD_ITEM);
+		actBar.selectHomePathForCategoryTree("sites/intranet/documents");
 		for(int i = 0; i < cTemplate.DATA_SPECIAL_CHARACTER.length; i++){
 			info("Input symlink name contains character: " + cTemplate.DATA_SPECIAL_CHARACTER[i]);
-			//addSymlink(ELEMENT_SELECT_PATH_DOCUMENTS, DATA_SPECIAL_CHARACTER[i]);
 			type(ecms.ELEMENT_SYMLINK_NAME, cTemplate.DATA_SPECIAL_CHARACTER[i], true);
 			button.save();
-
+			
 			//check alert
-			magAlert.verifyAlertMessage("An error occurred while creating the symlink.");
+			magAlert.verifyAlertMessage("Please enter the symlink name.");
 			info("cannot add symlink with name contains qspecial characters");
 		}
 		button.cancel();
-	}*/
+		
+		//delete data
+		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
+	}
 
-	/**
+	/** CaseId: 67146
 	 * case19: Check the displaying of workspace when user dose not permission to view it when add Symlink 
 	 * login with mary
-	 * create new node - content folder in acme/document
+	 * create new node - content folder
 	 * check cannot add symlink for this node with system workspace
 	 */
 	@Test
 	public void test19_CheckDisplayWorkspaceWhenUserHasNotPermission(){
-		String DATA_CONTENT_FOLDER = "contentfolder19";
+		String DATA_CONTENT_FOLDER = "ECMS_AddSymlink_Content_folder_19";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
 
 		//login with mary
@@ -503,18 +457,12 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		magAcc.signIn("mary", "gtn");
 		navToolBar.goToSiteExplorer();
 
-		//create new node - content folder
 		info("create new content folder");
-		click(ecms.ELEMENT_SIDEBAR_ACME);
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
 
 		//check cannot add symlink for this node with system workspace
-		click(ELEMENT_CONTENT_FOLDER);
-		actBar.goToAddSymlinkTab();
-		click(ecms.ELEMENT_ADD_ITEM);
-		selectOption(ecms.ELEMENT_SYMLINK_WORKSPACE, "dms-system");
-		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "exo:ecm"));
-		button.save();
+		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
+		actBar.addSymlink("dms-system", "exo:ecm", "exo:ecm.lnk");
 
 		//check alert
 		magAlert.verifyAlertMessage("Access denied! You do not have the permission to add symlink to this node.");
@@ -525,7 +473,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
 	}
 
-	/**
+	/** CaseId: 67138
 	 * case20: Check the displaying of node when user dose not permission to view it when add Symlink 
 	 * login with john
 	 * create new node - content folder
@@ -536,12 +484,10 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 */
 	@Test
 	public void test20_CheckDisplayNodeWhenUserNotHaveViewPermission(){	  
-		String DATA_CONTENT_FOLDER = "contentfolder20";
+		String DATA_CONTENT_FOLDER = "ECMS_AddSymlink_Content_folder_20";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
 
 		//create new content folder
-		navToolBar.goToSiteExplorer();
-		ecms.goToNode(ecms.ELEMENT_SIDEBAR_ACME);
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
 		//set permission for this node: user mary does not have permission view node 
@@ -552,32 +498,24 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		button.close();
 		magAcc.signOut();
 
-		//login with mary
 		info("Login with mary");
 		magAcc.signIn("mary", "gtn");
 		navToolBar.goToSiteExplorer();
 
-		//add symlink and choose target node
-		ecms.goToNode(ecms.ELEMENT_SIDEBAR_ACME);
-		info("Add symlink for document");
-		actBar.goToAcmeNodeInAddSymlink();
-
 		//check user does not see that content node
-		//usePaginator(ELEMENT_CONTENT_DIV, "cannot found content folder node");
-		waitForElementNotPresent(ecms.ELEMENT_TARGET_NODE.replace("${node}", DATA_CONTENT_FOLDER));
+		actBar.goToTargetNodeWhenAddSymlink("sites");
+		waitForElementNotPresent(By.xpath(ecms.ELEMENT_SYMLINK_PATH_NODE_TITLE.replace("${node}", DATA_CONTENT_FOLDER)));
 		info("cannot see node when user does not have view permission");
 		click(ecms.ELEMENT_ADD_SYMLINK_CLOSE_WINDOWS);
 
 		//delete data
-		info("Delete content folder");
 		magAcc.signOut();
 		magAcc.signIn(DATA_USER, DATA_PASS);
 		navToolBar.goToSiteExplorer();
-		ecms.goToNode(ecms.ELEMENT_SIDEBAR_ACME);
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
 	}
 
-	/**
+	/** CaseId: 67407
 	 * case21: Add new Symlink has the same name with existing Symlink in Content Folder
 	 * create new content folder
 	 * add 2 symlink have same name for content folder
@@ -587,28 +525,28 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	public void test21_Add2SymlinksHaveSameNameInContentFolder(){
 		String DATA_CONTENT_FOLDER = "contentfolder21";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		By ELEMENT_DOCUMENT_SYMLINK = By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "addsymlink21[2]"));
-
+		String DATA_SYMLINK = "documents.lnk";
+		By ELEMENT_SYMLINK2 = By.xpath("//*[contains(@mousedown,'collaboration:/sites/"
+		+ DATA_CONTENT_FOLDER + "/" + DATA_SYMLINK + "[2]')]");
+		
 		//create new content folder
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
-		//add 2 symlink have same name for content folder
 		info("Add 2 symlinks have same name in content folder");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 
-		actBar.addSymlink("collaboration", "sites/contentfolder21", "addsymlink21");
-		waitForElementPresent(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "addsymlink21"));
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 
-		actBar.addSymlink("collaboration", "sites/contentfolder21", "addsymlink21");
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
+		waitForElementPresent(ELEMENT_SYMLINK2);
 		info("Add 2 symlink same name in content folder successfully");
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);		  
 	}
 
-	/**
+	/** CaseId: 67409
 	 * case22: Add new Symlink has the same name with existing Symlink in Document Folder
 	 * create new document folder
 	 * add 2 symlink have same name for document folder
@@ -618,20 +556,16 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	public void test22_Add2SymlinksHaveSameNameInDocumentFolder(){
 		String DATA_DOCUMENT_FOLDER = "documentfolder22";
 		By ELEMENT_DOCUMENT_FOLDER = By.linkText(DATA_DOCUMENT_FOLDER);
+		String DATA_SYMLINK = "documents.lnk";
 
-		//create new document folder
-		navToolBar.goToSiteExplorer();
-		info("Create new document folder with user john");
+		info("Create new document folder");
 		cTemplate.createNewFolder(DATA_DOCUMENT_FOLDER, folderType.Document);
-		assert isElementPresent(ELEMENT_DOCUMENT_FOLDER):"Create new document folder unsuccessfully";
-		info("Create new document folder successfully");
 
-		//add 2 symlink have same name for document folder
 		info("Add 2 symlinks have same name in document folder");
 		ecms.goToNode(ELEMENT_DOCUMENT_FOLDER);
-		actBar.addSymlink("collaboration", "sites/documentfolder22", "addsymlink22");
-		waitForElementPresent(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "addsymlink22"));	
-		actBar.addSymlink("collaboration", "sites/documentfolder22", "addsymlink22");
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));	
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
 
 		//check alert
 		magAlert.verifyAlertMessage("The node name already exists.");
@@ -642,7 +576,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_DOCUMENT_FOLDER);		  
 	}
 
-	/**
+	/** --> remove this testcase in plf4 (Can not add a subnode for nt:file)
 	 * case23: Add new Symlink has the same name with existing Symlink in document  
 	 * create new document - file document
 	 * check cannot add 2 symlinks have samve name in document
@@ -680,7 +614,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_FILE);
 	}*/
 
-	/**
+	/** --> remove this testcase in plf4 (Can not add a subnode for uploaded file)
 	 * case24: Add new Symlink has the same name with existing Symlink in uploaded file
 	 * upload new file
 	 * check cannot add 2 symlinks have same name in uploaded file
@@ -721,7 +655,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteData(ELEMENT_UPLOAD_FILE);
 	}*/
 
-	/**
+	/** CaseId: 67250
 	 * case25: Add Symlink for node when user does not have permission to add in this node
 	 * create new node - content folder
 	 * set for user mary does not have add node permission
@@ -734,10 +668,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER); 
 
 		//create new content folder
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
-		//set for user mary does not have add node permission 
 		info("Set for user mary does not have add node permission");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 		actBar.goToNodePermissionManagement();
@@ -748,17 +680,19 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		button.save();
 		magAcc.signOut();
 
-		//login with mary
 		info("Login with mary");
 		magAcc.signIn("mary", "gtn");
 		navToolBar.goToSiteExplorer();
+		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 
 		//check cannot add symlink for node
-		info("Check cannot add symlink for node");		
-		actBar.addSymlink("collaboration", "sites/contentfolder25", "contentfolder25.lnk");	
-		magAlert.verifyAlertMessage("Access denied! You do not have the permission to add symlink to this node.");
-		button.cancel();
-
+		waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+		if (waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0) != null){
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+		}
+		rightClickOnElement(ELEMENT_CONTENT_FOLDER);
+		waitForElementNotPresent(cMenu.ELEMENT_MENU_ADD_SYMLINK);
 		info("Cannot add symlink for node because user does not have add node permission");
 		magAcc.signOut();
 
@@ -768,7 +702,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteData(ELEMENT_CONTENT_FOLDER);
 	}
 
-	/*Case26: Add Symlink for node when node is locked by locker
+	/** CaseId: 67248
+	 * Case26: Add Symlink for node when node is locked by locker
 	 * create new node - content folder
 	 * lock node
 	 * add symlink for node
@@ -804,7 +739,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
 	}*/
 
-	/**
+	/** CaseId: 67249
 	 * case27: Add Symlink for node when node is locked by user is not locker
 	 * create new node with user John
 	 * lock node by John
@@ -816,11 +751,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		String DATA_CONTENT_FOLDER = "contentfolder27";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER); 
 
-		//create new content folder
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
-		//lock node
 		info("Lock node");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actionType.LOCK);
@@ -843,7 +775,10 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		navToolBar.goToSiteExplorer();
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 		waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
-
+		if (waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0) != null){
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+		}
 		rightClickOnElement(ELEMENT_CONTENT_FOLDER);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_ADD_SYMLINK);
 		info("cannot add symlink for node by user is not locker");
@@ -911,13 +846,12 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		String DATA_FILE = "ECMS_DMS_SE_Addsymlink_FILE_29";
 		By ELEMENT_FILE = By.linkText(DATA_FILE);
 
-		//create new article
-		navToolBar.goToSiteExplorer();
+		//create new file
 		actBar.goToAddNewContent();
 
 		info("Create new file document with user john");
 		cTemplate.createNewFile(DATA_FILE, DATA_FILE, DATA_FILE);
-		assert isElementPresent(ELEMENT_FILE):"Create new file document unsuccessfully";
+		waitForElementPresent(ELEMENT_FILE);
 		info("Create new file document successfully");
 
 		//check in node
@@ -925,10 +859,14 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.contextMenuAction(ELEMENT_FILE, actionType.CHECKIN);
 
 		//check cannot add symlink
-		rightClickOnElement(ELEMENT_FILE);
-		waitForElementNotPresent(cMenu.ELEMENT_MENU_ADD_SYMLINK);
 		ecms.goToNode(ELEMENT_FILE);
 		waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+		if (waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0) != null){
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+		}
+		rightClickOnElement(ELEMENT_FILE);
+		waitForElementNotPresent(cMenu.ELEMENT_MENU_ADD_SYMLINK);
 		info("Cannot add symlink for checked in node");
 
 		//delete data
@@ -936,51 +874,39 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_FILE);
 	}
 
-	/*Case30: Add Symlink for node using drag and drop
+	/** Case30: Add Symlink for node using drag and drop
 	 * create new node - content folder
-	 * create new document - article
-	 * drag drop article to content folder
+	 * create new document - file
+	 * drag drop file to content folder
 	 * check symlink of article in content folder
 	 */
-	//	  @Test
-	//	  public void test30_AddSymlinkForNodeUsingDragDrop(){
-	//		  String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_Addsymlink_contentfolder_30";
-	//		  By ELEMENT_CONTENT_FOLDER = By.xpath("//a[contains(@title,'"+DATA_CONTENT_FOLDER+"')]"); 
-	//		  String DATA_ARTICLE = "ECMS_DMS_SE_Addsymlink_article_30";
-	//		  By ELEMENT_ARTICLE = By.xpath("//a[@title='"+DATA_ARTICLE+" "+"']");
-	//		  By ELEMENT_ARTICLE_DIV = By.xpath("//a[@title='"+DATA_ARTICLE+" "+"']");
-	//		  
-	//		  //create new content folder
-	//		  navToolBar.goToSiteExplorer();
-	//		  createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
-	//		  
-	//		  //create new article document
-	//		  goToAddNewContent();
-	//		  createNewArticle(DATA_ARTICLE, DATA_ARTICLE, "", "");
-	//		  waitForElementPresent(ELEMENT_ARTICLE);
-	//		  assert isElementPresent(ELEMENT_ARTICLE):"Create new article unsuccessfully";
-	//		  info("Create new article successfully");
-	//		  
-	//		  //drag and drop article to content folder
-	//		  WebElement ELEMENT_ARTICLE_DOCUMENT = waitForAndGetElement(ELEMENT_ARTICLE);
-	//		  WebElement ELEMENT_CONTENT = waitForAndGetElement(ELEMENT_CONTENT_FOLDER);
-	//		  pause(1000);
-	//		  actions.keyDown(Keys.CONTROL).keyDown(Keys.SHIFT).moveToElement(ELEMENT_ARTICLE_DOCUMENT).clickAndHold().moveToElement(ELEMENT_CONTENT).release().keyUp(Keys.SHIFT).keyUp(Keys.CONTROL).build().perform();
-	//		  pause(1000);
-	//		  
-	//		  //check add symlink
-	//		  goToNode(ELEMENT_CONTENT_FOLDER);
-	//		  pause(5000);
-	//		  waitForElementPresent(ELEMENT_ARTICLE_DIV);
-	//		  assert isElementPresent(ELEMENT_ARTICLE_DIV):"Add symlink unsuccessfully";
-	//		  info("Add symlink for node successfully");
-	//		  
-	//		  //delete data
-	//		  deleteData(ELEMENT_CONTENT_FOLDER);
-	//		  deleteData(ELEMENT_ARTICLE);
-	//	  }
+	@Test(groups = {"pending"})
+	public void test30_AddSymlinkForNodeUsingDragDrop(){
+		String folderName = "ECMS_AddSymlink_Content_folder_30";
+		String fileName = "ECMS_AddSymlink_file_30";
+		By elementFolder = By.xpath("//div/span[text()='" + folderName + "']");
+		By elementFile = By.xpath("//div/span[text()='" + fileName + "']");
+		
+		cTemplate.createNewFolder(folderName, folderType.Content);
+		actBar.goToAddNewContent();
+		cTemplate.createNewFile(fileName, fileName, fileName);
+		ecms.goToNode(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+//		dragAndDropToObject(elementFile, elementFolder);
+		
+		WebElement folder = waitForAndGetElement(elementFolder);
+		WebElement file = waitForAndGetElement(elementFile);
 
-	/**
+		Actions actions = new Actions(driver);
+		actions.keyDown(file, Keys.CONTROL).keyDown(Keys.SHIFT).moveToElement(folder).release().build().perform();
+		
+		ecms.goToNode(elementFolder);
+		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", fileName + ".lnk"));
+
+		//delete data
+		cMenu.deleteData(elementFolder);
+	}
+
+	/** CaseId: 66457
 	 * Case31: Edit the name of added link node in “Symlink Name”
 	 * create node - content folder
 	 * add symlink with input name
@@ -989,66 +915,58 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	public void test31_AddSymlinkWithInputName(){
 		String DATA_CONTENT_FOLDER = "contentfolder31";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		String DATA_SYMLINK_NAME = "addsymlink31";
-		By ELEMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_SYMLINK_NAME));
+		String DATA_SYMLINK = "symlink31.lnk";
+		By ELEMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 
 		//create new content folder
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
 		//add symlink
 		info("Add symlink for content folder with name is node default name");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		actBar.goToAcmeNodeInAddSymlink();
-		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
-		type(ecms.ELEMENT_SYMLINK_NAME, "addsymlink31.lnk", true);
-		button.save();
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
 
 		//check add successfully
 		waitForElementPresent(ELEMENT_SYMLINK);
-		assert isElementPresent(ELEMENT_SYMLINK): "cannot add symlink";
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
 	}
 
-	/**
+	/** CaseId: 66252
 	 * case32: View content of Symlink
 	 * create new node - content folder
-	 * add symlink for node with target node is folder: documents
+	 * add symlink for node with target node is folder: acme/documents
 	 * check can view all subnode of documents in document.lnk
 	 */
 	@Test
 	public void test32_ViewContentOfSymlink(){
 		String DATA_CONTENT_FOLDER = "contentfolder32";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		By ELEMENT_DOCUMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "documents"));
+		String DATA_SYMLINK = "documents.lnk";
+		By ELEMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", "documents.lnk"));
 
 		//create new content folder
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
-		//add symlink with target node - documents for this content folder
+		//add symlink with target node - acme/documents for this content folder
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 		info("Add symlink for node with target node is documents");
-		actBar.goToAcmeNodeInAddSymlink();
-		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
-		button.save();
+		actBar.addSymlink("collaboration", "sites/acme/documents", DATA_SYMLINK);
 
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
-		doubleClickOnElement(ELEMENT_DOCUMENT_SYMLINK);
+		waitForElementPresent(ELEMENT_SYMLINK);
+		click(ELEMENT_SYMLINK);
 
 		//check subnode of symlink
 		waitForElementPresent(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "conditions.doc")));
-		assert isElementPresent(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "conditions.doc"))): "check subnode of element is not true";
-		assert isElementPresent(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "metro.pdf"))): "check subnode of element is not true";
-		assert isElementPresent(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "offices.jpg"))): "check subnode of element is not true";
+		waitForElementPresent(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "metro.pdf")));
+		waitForElementPresent(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "offices.jpg")));
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
 	}
 
-	/**
+	/** CaseId: 66279
 	 * case33: Remove Symlink of node
 	 * create new node - content folder
 	 * add symlink for node
@@ -1060,12 +978,11 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
 
 		//create new content folder
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
 		//add symlink for node
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		actBar.goToAcmeNodeInAddSymlink();
+		actBar.goToTargetNodeWhenAddSymlink("sites/intranet");
 		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
 		waitForElementPresent(ecms.ELEMENT_REMOVE_PATH_NODE);
 		click(ecms.ELEMENT_REMOVE_PATH_NODE);
@@ -1079,7 +996,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
 	}
 
-	/**
+	/** CaseId: 66301
 	 * case34: Rename the node which is the target node
 	 * create 2 new node - content folder 1, content folder 2
 	 * add symlink for content folder 1 with target node is content folder 2
@@ -1088,30 +1005,28 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 */
 	@Test
 	public void test34_RenameNodeIsTargetNodeOfSymlink(){
-		String DATA_CONTENT_FOLDER_1 = "contentfolder341";
+		String DATA_CONTENT_FOLDER_1 = "contentfolder34_1";
 		By ELEMENT_CONTENT_FOLDER_1 = By.linkText(DATA_CONTENT_FOLDER_1);
-		String DATA_CONTENT_FOLDER_2 = "contentfolder342";
+		String DATA_CONTENT_FOLDER_2 = "contentfolder34_2";
+		String SYMLINK_NAME = "symlink34.lnk";
 		By ELEMENT_CONTENT_FOLDER_2 = By.xpath(ecms.ELEMENT_SIDEBAR_NODE_TITLE.replace("${nodeName}", DATA_CONTENT_FOLDER_2));
 
-		By ELEMENT_CONTENT_FOLDER_2_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_CONTENT_FOLDER_2));
-		String DATA_CONTENT_FOLDER_2_NEW = "contentfolder342edited";
+		By ELEMENT_CONTENT_FOLDER_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME));
+		String DATA_CONTENT_FOLDER_2_NEW = "contentfolder34_2_edited";
 		By ELEMENT_CONTENT_FOLDER_2_NEW = By.linkText(DATA_CONTENT_FOLDER_2_NEW);
 
 		//create new content folder 1
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_1, ELEMENT_CONTENT_FOLDER_1);
 
 		//create new content folder 2
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_2, ELEMENT_CONTENT_FOLDER_2);
 
-		//add symlink for content folder 1 with target node = content folder 2
 		info("Add symlink for content folder 1 with target node is content folder 2");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
-		actBar.addSymlink("collaboration", "sites/contentfolder342", "contentfolder342.lnk");
+		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
 
 		//check add successfully
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_2_SYMLINK);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER_2_SYMLINK): "Add symlink for content folder 1 unsuccessfully";
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Add symlink for content folder 1 successfully");
 
 		//rename content folder 2
@@ -1120,8 +1035,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//check name of symlink is not change
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_2_SYMLINK);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER_2_SYMLINK): "Symlink's name is changed";
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Symlink is kept old name");
 
 		//delete data
@@ -1129,7 +1043,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2_NEW);		  
 	}
 
-	/**
+	/** CaseId: 66621
 	 * case35: Delete the node which is the target node
 	 * create 2 content folder: 1 and 2
 	 * add symlink for content folder 1 with target node = content folder 2
@@ -1138,27 +1052,26 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 */
 	@Test
 	public void test35_DeleteNodeWithIsTargetNodeOfSymlink(){
-		String DATA_CONTENT_FOLDER_1 = "contentfolder351";
+		String DATA_CONTENT_FOLDER_1 = "contentfolder35_1";
 		By ELEMENT_CONTENT_FOLDER_1 = By.linkText(DATA_CONTENT_FOLDER_1);
-		String DATA_CONTENT_FOLDER_2 = "contentfolder352";
+		String DATA_CONTENT_FOLDER_2 = "contentfolder35_2";
+		String SYMLINK_NAME = "symlink35.lnk";
 		By ELEMENT_CONTENT_FOLDER_2 = By.xpath(ecms.ELEMENT_SIDEBAR_NODE_TITLE.replace("${nodeName}", DATA_CONTENT_FOLDER_2));
-		By ELEMENT_CONTENT_FOLDER_2_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_CONTENT_FOLDER_2));
+
+		By ELEMENT_CONTENT_FOLDER_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME));
 
 		//create new content folder 1
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_1, ELEMENT_CONTENT_FOLDER_1);
 
 		//create new content folder 2
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_2, ELEMENT_CONTENT_FOLDER_2);
 
-		//add symlink for content folder 1 with target node = content folder 2
 		info("Add symlink for content folder 1 with target node is content folder 2");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
-		actBar.addSymlink("collaboration", "sites/contentfolder352", "contentfolder352.lnk");
+		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
 
 		//check add successfully
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_2_SYMLINK);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER_2_SYMLINK):"Add symlink for content folder 1 unsuccessfully";
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Add symlink for content folder 1 successfully");
 
 		//delete content folder 2
@@ -1166,47 +1079,58 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//check symlink is deleted 
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
-		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER_2_SYMLINK);
+		waitForElementNotPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Symlink is deleted too");
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);
 	}
 
-	/**
+	/** CaseId: 66300
 	 * case36: Rename Symlink node
 	 * create new node - content folder
 	 * add symlink for node
-	 * rename symlink
+	 * rename symlink, check name of target node is not changed
 	 */
 	@Test
 	public void test36_RenameSymlink(){
-		String DATA_CONTENT_FOLDER = "contentfolder36";
-		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		By ELEMENT_DOCUMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "documents"));
+		String DATA_CONTENT_FOLDER_1 = "contentfolder36_1";
+		By ELEMENT_CONTENT_FOLDER_1 = By.linkText(DATA_CONTENT_FOLDER_1);
+		String DATA_CONTENT_FOLDER_2 = "contentfolder36_2";
+		String SYMLINK_NAME = "symlink36.lnk";
+		By ELEMENT_CONTENT_FOLDER_2 = By.xpath(ecms.ELEMENT_SIDEBAR_NODE_TITLE.replace("${nodeName}", DATA_CONTENT_FOLDER_2));
 
-		//create new content folder
-		navToolBar.goToSiteExplorer();
-		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
+		By ELEMENT_CONTENT_FOLDER_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME));
+		String SYMLINK_NAME_NEW = "symlink36_edited.lnk";
+		By ELEMENT_CONTENT_FOLDER_SYMLINK_NAME = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME_NEW));
 
-		//add symlink for node
-		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		info("Add symlink for node");
-		actBar.goToAcmeNodeInAddSymlink();
-		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
-		button.save();
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
+		//create new content folder 1
+		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_1, ELEMENT_CONTENT_FOLDER_1);
+
+		//create new content folder 2
+		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_2, ELEMENT_CONTENT_FOLDER_2);
+
+		info("Add symlink for content folder 1 with target node is content folder 2");
+		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
+		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
+
+		//check add successfully
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
+		info("Add symlink for content folder 1 successfully");
 
 		//rename symlink
-		cMenu.contextMenuAction(ELEMENT_DOCUMENT_SYMLINK, actionType.RENAME, "editname");
-		waitForTextPresent("editname");
-		waitForElementPresent(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "editname")); 
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_SYMLINK, actionType.RENAME, SYMLINK_NAME_NEW);
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK_NAME); 
 
+		//folder 2 is not renamed
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER_2);
+		
 		//delete data
-		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);	  
+		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);	  
+		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);	 
 	}
 
-	/**
+	/** CaseId: 66618
 	 * case37: Delete Symlink node
 	 * create new node - content folder
 	 * add symlink for node
@@ -1214,30 +1138,37 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 */
 	@Test
 	public void test37_DeleteSymlinkOfNode(){
-		String DATA_CONTENT_FOLDER = "contentfolder37";
-		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		By ELEMENT_DOCUMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "documents"));
+		String DATA_CONTENT_FOLDER_1 = "contentfolder37_1";
+		By ELEMENT_CONTENT_FOLDER_1 = By.linkText(DATA_CONTENT_FOLDER_1);
+		String DATA_CONTENT_FOLDER_2 = "contentfolder37_2";
+		String SYMLINK_NAME = "symlink37.lnk";
+		By ELEMENT_CONTENT_FOLDER_2 = By.xpath(ecms.ELEMENT_SIDEBAR_NODE_TITLE.replace("${nodeName}", DATA_CONTENT_FOLDER_2));
 
-		//create new content folder
-		navToolBar.goToSiteExplorer();
-		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
+		By ELEMENT_CONTENT_FOLDER_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME));
 
-		//add symlink for node
-		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		info("Add symlink for node");
-		actBar.goToAcmeNodeInAddSymlink();
-		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
-		button.save();
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
+		//create new content folder 1
+		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_1, ELEMENT_CONTENT_FOLDER_1);
+
+		//create new content folder 2
+		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_2, ELEMENT_CONTENT_FOLDER_2);
+
+		info("Add symlink for content folder 1 with target node is content folder 2");
+		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
+		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
+
+		//check add successfully
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
+		info("Add symlink for content folder 1 successfully");
 
 		//delete symlink
-		cMenu.deleteData(ELEMENT_DOCUMENT_SYMLINK);
-
+		cMenu.deleteData(ELEMENT_CONTENT_FOLDER_SYMLINK);
+		
 		//delete data
-		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
+		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);
+		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);
 	}
 
-	/**
+	/** CaseId: 66988
 	 * case38: Copy Symlink node to other node
 	 * create 2 node: content folder 1 and 2
 	 * create symlink for content folder 1
@@ -1245,26 +1176,22 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 */
 	@Test
 	public void test38_CopySymlinkNodeToOtherNode(){
-		String DATA_CONTENT_FOLDER_1 = "contentfolder381";
+		String DATA_CONTENT_FOLDER_1 = "contentfolder38_1";
 		By ELEMENT_CONTENT_FOLDER_1 = By.linkText(DATA_CONTENT_FOLDER_1);
-		String DATA_CONTENT_FOLDER_2 = "contentfolder382";
-		By ELEMENT_CONTENT_FOLDER_2 = By.linkText(DATA_CONTENT_FOLDER_2);		
-		By ELEMENT_DOCUMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "documents"));
+		String DATA_CONTENT_FOLDER_2 = "contentfolder38_2";
+		By ELEMENT_CONTENT_FOLDER_2 = By.linkText(DATA_CONTENT_FOLDER_2);
+		String SYMLINK_NAME = "symlink38.lnk";
+		By ELEMENT_DOCUMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME));
 
 		//create new content folder 1
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_1, ELEMENT_CONTENT_FOLDER_1);
 
 		//create new content folder 2
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_2,ELEMENT_CONTENT_FOLDER_2);
 
-		//create symlink for content folder 1
 		info("Add symlink for content folder 1");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
-		actBar.goToAcmeNodeInAddSymlink();
-		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
-		button.save();
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
+		actBar.addSymlink("collaboration", "sites/intranet/documents", SYMLINK_NAME);
 		info("Add symlink successfully");
 
 		//copy symlink from content folder 1 to content folder 2
@@ -1273,7 +1200,6 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		//check copy successfully
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_2);
 		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
-		assert isElementPresent(ELEMENT_DOCUMENT_SYMLINK): "Copy symlink unsuccessfully";
 		info("Copy symlink successfully");
 
 		//delete data
@@ -1281,7 +1207,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);		  
 	}
 
-	/**
+	/** CaseId: 66826
 	 * case39: Cut Symlink node to other node
 	 * create 2 node: content folder 1 and 2
 	 * create symlink for content folder 1
@@ -1289,26 +1215,22 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 */
 	@Test
 	public void test39_CutSymlinkNodeToOtherNode(){
-		String DATA_CONTENT_FOLDER_1 = "contentfolder391";
+		String DATA_CONTENT_FOLDER_1 = "contentfolder39_1";
 		By ELEMENT_CONTENT_FOLDER_1 = By.linkText(DATA_CONTENT_FOLDER_1);
-		String DATA_CONTENT_FOLDER_2 = "contentfolder392";
-		By ELEMENT_CONTENT_FOLDER_2 = By.linkText(DATA_CONTENT_FOLDER_2);		
-		By ELEMENT_DOCUMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", "documents"));
+		String DATA_CONTENT_FOLDER_2 = "contentfolder39_2";
+		By ELEMENT_CONTENT_FOLDER_2 = By.linkText(DATA_CONTENT_FOLDER_2);
+		String SYMLINK_NAME = "symlink39.lnk";
+		By ELEMENT_DOCUMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME));
 
 		//create new content folder 1
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_1, ELEMENT_CONTENT_FOLDER_1);
 
 		//create new content folder 2
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_2,ELEMENT_CONTENT_FOLDER_2);
 
-		//create symlink for content folder 1
 		info("Add symlink for content folder 1");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
-		actBar.goToAcmeNodeInAddSymlink();
-		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
-		button.save();
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
+		actBar.addSymlink("collaboration", "sites/intranet/documents", SYMLINK_NAME);
 		info("Add symlink successfully");
 
 		//cut symlink from content folder 1 to content folder 2
@@ -1317,7 +1239,6 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		//check cut successfully
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_2);
 		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
-		assert isElementPresent(ELEMENT_DOCUMENT_SYMLINK): "Copy symlink unsuccessfully";
 		info("Copy symlink successfully");
 
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
@@ -1328,7 +1249,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);
 	}
 
-	/**
+	/** CaseId: 66722
 	 * case40: Create child nodes in Symlink node
 	 * create new node: content folder
 	 * add symlink for node
@@ -1337,38 +1258,78 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 */
 	@Test
 	public void test40_CreateChildNodeInSymlinkNode(){
-		String DATA_CONTENT_FOLDER_1 = "contentfolder401";
+		String DATA_CONTENT_FOLDER_1 = "contentfolder40_1";
 		By ELEMENT_CONTENT_FOLDER_1 = By.linkText(DATA_CONTENT_FOLDER_1);
-		String DATA_CONTENT_FOLDER_2 = "contentfolder402";
+		String DATA_CONTENT_FOLDER_2 = "contentfolder40_2";
 		By ELEMENT_CONTENT_FOLDER_2 =  By.linkText(DATA_CONTENT_FOLDER_2);
-
-		By ELEMENT_CONTENT_FOLDER_2_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK_TITLE.replace("${symlinkTitle}", DATA_CONTENT_FOLDER_2));
-		String DATA_CONTENT_FOLDER_3 = "contentfolder403";
+		String SYMLINK_NAME = "symlink40.lnk";
+		By ELEMENT_CONTENT_FOLDER_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME));
+		String DATA_CONTENT_FOLDER_3 = "contentfolder40_3";
 		By ELEMENT_CONTENT_FOLDER_3 = By.linkText(DATA_CONTENT_FOLDER_3);
 
 		//create new content folder 1
-		navToolBar.goToSiteExplorer();
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_1, ELEMENT_CONTENT_FOLDER_1);
 
 		//create new content folder 2
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_2,ELEMENT_CONTENT_FOLDER_2);
 
-		//add symlink for content folder 1 with target node = content folder 2
 		info("Add symlink for content folder 1 with target node is content folder 2");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
-		actBar.addSymlink("collaboration", "sites/contentfolder402", "contentfolder402.lnk");
+		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
 
 		//check add successfully
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_2_SYMLINK);
-		assert isElementPresent(ELEMENT_CONTENT_FOLDER_2_SYMLINK): "Add symlink for content folder 1 unsuccessfully";
+		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Add symlink for content folder 1 successfully");
 
 		//add content folder for symlink
-		doubleClickOnElement(ELEMENT_CONTENT_FOLDER_2_SYMLINK);
+		click(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_3, ELEMENT_CONTENT_FOLDER_3);
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);
 	}
+	
+	/** CaseId: 69349
+	 * Add Symlink to a Parent & Child selection
+	 * setup "Add new content" and "Add symlink" for File management view
+	 * create new parent node and child node
+	 * add symlink for parent and child node simultaneously
+	 */
+	@Test
+	public void test41_AddSymlinkToParentAndChild(){
+		String DATA_FOLDER = "contentfolder41";
+		String FILE_NAME = "ECMS_AddSymlink_file_41";
+		By ELEMENT_FILE = By.linkText(FILE_NAME);
+		
+		navToolBar.goToPersonalDocuments();
+		actBar.goToViewMode("List");
+		actBar.addNewContentToFileManagementView();
+		actBar.addSymlinkToFileManagementView();
+
+		//create parent and child node
+		cTemplate.createNewFolder(DATA_FOLDER, folderType.None);
+		info("Add folder successfully");
+		actBar.goToNodeByAddressPath("/" + DATA_FOLDER);
+		
+		actBar.goToAddNewContent();
+		cTemplate.createNewFile(FILE_NAME, FILE_NAME, FILE_NAME);
+		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
+		click(By.xpath(siteExp.ELEMENT_ARROW_RIGHT.replace("${nodeName}", DATA_FOLDER)));
+		waitForElementPresent(ELEMENT_FILE);
+		
+		//select parent and child node
+		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", DATA_FOLDER)), 2);
+		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", FILE_NAME)), 2);
+		click(ecms.ELEMENT_ADD_SYMLINK_LIST_VIEW);
+		waitForElementPresent(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", DATA_FOLDER));
+		waitForElementPresent(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", FILE_NAME));
+		info("Add symlink successfully");
+
+		//delete data
+		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", DATA_FOLDER)), 2);
+		click(ecms.ELEMENT_DELETE_NODE_ICON);
+		dialog.deleteInDialog();
+		waitForElementNotPresent(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", DATA_FOLDER));
+	}		
 }

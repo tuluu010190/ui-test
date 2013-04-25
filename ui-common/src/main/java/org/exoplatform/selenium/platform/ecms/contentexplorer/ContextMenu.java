@@ -37,7 +37,7 @@ public class ContextMenu extends EcmsBase{
 	public final By ELEMENT_MENU_DELETE = By.className("uiIconEcmsDelete");
 	public final By ELEMENT_MENU_EDIT_ITEM = By.xpath("//a[@class='ItemIcon DefaultAction16x16Icon EditDocument16x16Icon']");
 	public final By ELEMENT_MENU_ADD_SYMLINK = By.className("uiIconEcmsAddSymLink");
-
+	
 	public final String ELEMENT_FILE_LOCKED_BY_ADMIN = "//*[@data-original-title = '${titleOfFile} (Locked by john)']";
 	public final String ELEMENT_FILE_TITLE = "//*[@title = '${titleOfFile}']";
 	public final String ELEMENT_FILE_TITLE_AUX = "//a[@title='${title1}']/following::a[@title='${title2} "+"']";

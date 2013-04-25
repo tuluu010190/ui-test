@@ -178,6 +178,14 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(1000);
 	}
 
+	/**
+	 * @author lientm
+	 */
+	public void goToPersonalDocuments(){
+		click(ELEMENT_PERSONAL_DOCUMENTS);
+		waitForTextPresent("Personal Documents");
+	}
+	
 	//Go to Page Creation Wizard
 	public void goToPageCreationWinzard(){
 		mouseOver(ELEMENT_MENU_EDIT_LINK,true);

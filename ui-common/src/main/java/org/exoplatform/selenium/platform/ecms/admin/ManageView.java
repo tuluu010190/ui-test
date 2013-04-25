@@ -32,7 +32,7 @@ public class ManageView extends EcmsBase{
 	
 	//Action tab
 	public final By ELEMENT_ACTION_TAB = By.xpath("//*[contains(@class, 'popup')]//*[text()='Action']");
-	public final String ELEMENT_EDIT_ACTION_ICON = "//*[contains(@class, 'popup')]//*[text()='${tabName}']/../..//*[@title='Edit']";
+	public final String ELEMENT_EDIT_ACTION_ICON = "//*[@id='UITabList']//*[text()='${tabName}']/../..//*[@class='uiIconEdit']";
 	public final By ELEMENT_SAVE_BUTTON_EDIT_VIEW_TAB = By.xpath("//*[text()='Add/Edit Tab']/.. /..//*[text()='Save']");
 	
 	//Permission tab
@@ -164,14 +164,17 @@ public class ManageView extends EcmsBase{
 	}
 
 	/**
-	 * Add an action to WCM View in Sites Explorer/Action Bar 
+	 * Add an action to a view
 	 * @param viewAction
 	 */
-	public void setup2ShowViewAction(String viewAction){
+	public void setup2ShowViewAction(String viewAction, String...viewType){
+		String view = viewType.length > 0 ? viewType[0] : "Web";
+		String tab = viewType.length > 1 ? viewType[1] : "Authoring";
+		
 		ecMain.goToManageViews();
-		click(ELEMENT_EDIT_VIEW.replace("${viewName}", "Web"));
+		click(ELEMENT_EDIT_VIEW.replace("${viewName}", view));
 		click(ELEMENT_ACTION_TAB);
-		click(ELEMENT_EDIT_ACTION_ICON.replace("${tabName}", "Authoring"));
+		click(ELEMENT_EDIT_ACTION_ICON.replace("${tabName}", tab));
 		selectCheckBoxList(viewAction);
 		click(ELEMENT_SAVE_BUTTON_EDIT_VIEW_TAB);
 		button.save();

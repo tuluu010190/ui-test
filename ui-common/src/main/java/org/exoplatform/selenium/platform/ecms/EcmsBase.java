@@ -9,7 +9,6 @@ import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 /**
  * 
@@ -34,7 +33,12 @@ public class EcmsBase extends ManageAccount {
 	//Sign-in form
 	public final By ELEMENT_LOGIN_BUTTON = By.name("signIn");
 	//By.xpath("//*[@id='UIPortalLoginFormAction']");
-
+	
+	//UI address bar
+	public final String ELEMENT_VIEW_MODE_LINK = "//i[contains(@class,'uiIconEcmsViewDefault') and @data-original-title='${viewName}']";
+	public final By ELEMENT_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack");
+	public final By ELEMENT_ADDRESS_BAR = By.id("address");
+	
 	//New Folder
 	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder']");
 	public final By ELEMENT_FOLDER_TITLE_TEXTBOX = By.id("titleTextBox");
@@ -128,18 +132,21 @@ public class EcmsBase extends ManageAccount {
 	//For symlink
 	public final By ELEMENT_ADD_SYMLINK_POPUP = By.xpath("//*[contains(@class, 'popupTitle') and text()='Symlink Manager']");
 	public final By ELEMENT_ADD_SYMLINK_CLOSE_WINDOWS = By.xpath("//*[text()='Symlink Manager']/..//*[contains(@class, 'uiIconClose')]");
-	public final By ELEMENT_REMOVE_PATH_NODE = By.xpath("//*[@title='Remove Item']");
+	public final By ELEMENT_REMOVE_PATH_NODE = By.xpath("//*[@data-original-title='Remove Item']");
 	public final By ELEMENT_SYMLINK_PATH_NODE = By.id("pathNode0");
 	public final By ELEMENT_SYMLINK_NAME = By.id("symLinkName");
 	public final By ELEMENT_SYMLINK_WORKSPACE = By.name("workspaceName");
-			//By.id("workspaceName");
 	public final By ELEMENT_SITE_CONTENT = By.xpath("//div[@title='sites content']");
 	public final By ELEMENT_LIVE_DIV = By.xpath("//div[@title='live']");
 	public final By ELEMENT_ADD_SYMLINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddSymLink']");
+	public final By ELEMENT_ADD_SYMLINK_LIST_VIEW = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsAddSymLink']");
 	public final String ELEMENT_DATA_TITLE = "//*[@data-original-title = '${dataTitle}']";
-	public final String ELEMENT_SYMLINK_TITLE = "//*[@data-original-title = '${symlinkTitle}.lnk']";
+	public final String ELEMENT_SYMLINK_TITLE = "//*[@data-original-title = '${symlinkTitle}']";
 	public final String ELEMENT_TARGET_NODE = "//*[contains(text(),'${node}')]/../../td/a[@data-original-title='select']";
-
+	public final String ELEMENT_SYMLINK = "//*[@title='${symlinkTitle}']/i[@class='iconLinkSmall']/../..";
+	public final String ELEMENT_SYMLINK_OTHER = "//*[@data-original-title='${name}']/*[@class='LinkSmall']";
+	public final String ELEMENT_SYMLINK_PATH_NODE_TITLE = "//*[@id='UIOneNodePathSelector']//a/i[@title='${node}']";
+	
 	//Rename Form in Sites Explorer (Right-click -> Rename)
 	public final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");
 	public final By ELEMENT_INPUT_NAME_NODE = By.xpath("//input[@id = 'nameField']");
@@ -152,11 +159,15 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SIDEBAR_ACME_DOCUMENTS = By.linkText("documents");
 	public final By ELEMENT_COLLABORATION_DRIVE_LIVE = By.xpath("//a[@title='Live']");
 	public final String ELEMENT_SIDEBAR_NODE_TITLE = "//*[@class='node']/div/div/a/i[@title='${nodeName}']";
+	public final By ELEMENT_SITEBAR_INTRANET = By.xpath("//a/span[@class='nodeName' and text()='intranet']");
+	public final By ELEMENT_SITEBAR_INTRANET_DOCUMENT = By.xpath("//a/span[@class='nodeName' and text()='documents']");
+	
 	//View Area
 	//public final By ELEMENT_VIEWAREA_ACME = By.xpath("//*[@title='acme']");
 
 	//Action bar 
-	public final By ELEMENT_ADD_ITEM = By.xpath("//*[@title='Add Item']");
+	public final By ELEMENT_ADD_ITEM = By.xpath("//*[@data-original-title='Add Item']");
+	public final By ELEMENT_DELETE_NODE_ICON = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsDelete']");
 	
 	//publication TAB
 	public final By ELEMENT_PUBLICATION_TAB = By.xpath("//a[contains(text(),'Publication')]");
@@ -444,13 +455,15 @@ public class EcmsBase extends ManageAccount {
 		temp = homePath.split(delimiter);
 		for(int i =0; i < temp.length - 1 ; i++){
 			info("Go to "+temp[i]);
-			click(By.linkText(temp[i]));
+			click(By.xpath("//*[@id='UIOneNodePathSelector']//a/i[@title='" + temp[i] + "']"));
 			Utils.pause(100);
 		}
-		if (isElementPresent(By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']"))){
-			click(By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']"));
-		}else if (isElementPresent(By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1])))){
-			click(By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1])));
+		By element_select1 = By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']");
+		By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
+		if (waitForAndGetElement(element_select1, 5000, 0) != null){
+			click(element_select1);
+		}else if (waitForAndGetElement(element_select2, 5000, 0) != null){
+			click(element_select2);
 		}
 		Utils.pause(500);
 	}

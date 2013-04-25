@@ -45,6 +45,10 @@ public class PlatformBase extends TestBase {
 			//"//input[@name='username']";
 	public final By ELEMENT_INPUT_PASSWORD = By.name("password");
 			//"//input[@name='password']";
+	/*
+	 * Company Navigation
+	 */
+	public final By ELEMENT_PERSONAL_DOCUMENTS = By.className("uiIconPLFDocuments");
 
 	/*
 	 * Navigation Bar /Administration Bar
