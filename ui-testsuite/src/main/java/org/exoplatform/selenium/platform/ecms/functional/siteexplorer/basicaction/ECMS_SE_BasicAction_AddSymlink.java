@@ -527,7 +527,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
 		String DATA_SYMLINK = "documents.lnk";
 		By ELEMENT_SYMLINK2 = By.xpath("//*[contains(@mousedown,'collaboration:/sites/"
-		+ DATA_CONTENT_FOLDER + "/" + DATA_SYMLINK + "[2]')]");
+		+ DATA_CONTENT_FOLDER + "/" + DATA_SYMLINK.replace(".", "") + "[2]')]");
 		
 		//create new content folder
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
@@ -576,43 +576,36 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_DOCUMENT_FOLDER);		  
 	}
 
-	/** --> remove this testcase in plf4 (Can not add a subnode for nt:file)
+	/** CaseId: 67408
 	 * case23: Add new Symlink has the same name with existing Symlink in document  
-	 * create new document - file document
+	 * create new document - document has parent type is nt:nt:unstructured: web content
 	 * check cannot add 2 symlinks have samve name in document
 	 */
-	/*@Test
+	@Test
 	public void test23_Add2SymlinksHaveSameNameInDocument(){
-		String DATA_FILE = "filedocument23";
-		By ELEMENT_FILE = By.linkText(DATA_FILE);
-		By ELEMENT_DOCUMENT_SYMLINK = By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", DATA_FILE));
-
+		String WEB_CONTENT_NAME = "Webcontentname_23";
+		By ELEMENT_WEB_CONTENT = By.linkText(WEB_CONTENT_NAME);
+		String DATA_SYMLINK = "symlink23.lnk";
+		By ELEMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
+		By ELEMENT_SYMLINK2 = By.xpath("//*[contains(@mousedown,'collaboration:/sites/"
+		+ WEB_CONTENT_NAME + "/" + DATA_SYMLINK.replace(".", "") + "[2]')]");
+		
 		//create new file document
-		navToolBar.goToSiteExplorer();
 		actBar.goToAddNewContent();
 
 		info("Create new file document with user john");
-		cTemplate.createNewFile(DATA_FILE, DATA_FILE, DATA_FILE);
-		assert isElementPresent(ELEMENT_FILE):"Create new file document unsuccessfully";
-		info("Create new file document successfully");
+		cTemplate.createNewFreeLayoutWebContent(WEB_CONTENT_NAME, WEB_CONTENT_NAME, "", "", "", "");
 
 		//add 2 symlink have same name for file document
 		info("Add 2 symlinks have same name in file document");
-		actBar.addSymlink("collaboration", "sites/filedocument23", DATA_FILE);
-
-		//info("enable DMS");
-		//checkPreferenceOption("enableStructure");
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
-
-		actBar.addSymlink("collaboration", "sites/filedocument23", DATA_FILE);
-
-		//check alert
-		magAlert.verifyAlertMessage("The node name already exists.");
-		button.cancel();
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
+		waitForElementPresent(ELEMENT_SYMLINK);
+		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
+		waitForElementPresent(ELEMENT_SYMLINK2);
 
 		//delete data
-		cMenu.deleteDocument(ELEMENT_FILE);
-	}*/
+		cMenu.deleteDocument(ELEMENT_WEB_CONTENT);
+	}
 
 	/** --> remove this testcase in plf4 (Can not add a subnode for uploaded file)
 	 * case24: Add new Symlink has the same name with existing Symlink in uploaded file

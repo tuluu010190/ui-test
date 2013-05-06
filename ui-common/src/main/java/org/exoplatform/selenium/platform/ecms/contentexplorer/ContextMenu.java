@@ -40,11 +40,11 @@ public class ContextMenu extends EcmsBase{
 	
 	public final String ELEMENT_FILE_LOCKED_BY_ADMIN = "//*[@data-original-title = '${titleOfFile} (Locked by john)']";
 	public final String ELEMENT_FILE_TITLE = "//*[@title = '${titleOfFile}']";
-	public final String ELEMENT_FILE_TITLE_AUX = "//a[@title='${title1}']/following::a[@title='${title2} "+"']";
+	public final String ELEMENT_FILE_TITLE_AUX = "//*[@title='${title1}']/following::*[@title='${title2}']";
 	public final By ELEMENT_DOCUMENT = By.linkText("documents");
 	public final By ELEMENT_UNLOCK_ARTICLE = By.className("uiIconUnLockMini");
 	
-	public final String WARNING_MESSAGE_CANNOT_PASTE = "Cannot paste the copied node type on the current node.";
+	public final String WARNING_MESSAGE_CANNOT_PASTE = "You cannot paste the copied node type on the current node.";
 	public final String ELEMENT_VERIFY = "//*[text()='${destination}']/../../../../*//*[text()='${source}']";
 
 	/*=========================================================*/
@@ -209,11 +209,12 @@ public class ContextMenu extends EcmsBase{
 			info("Retry...[" + repeat + "]");
 
 		}
+		Utils.pause(1000);
 		//waitForElementNotPresent(By.linkText("OK"));
 		//waitForTextNotPresent("Delete");
 		if (isElementPresent(locator)){
 			click(button.ELEMENT_REFRESH_BUTTON);
-			Utils.pause(1000);
+			Utils.pause(2000);
 		}
 		waitForElementNotPresent(locator, iTimeout);
 		info(locator.toString() + " is deleted successfully");		

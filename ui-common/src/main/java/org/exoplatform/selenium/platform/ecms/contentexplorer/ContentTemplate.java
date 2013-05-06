@@ -8,7 +8,6 @@ import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 /**
  * 
@@ -33,15 +32,15 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_ANNOUNCEMENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
 
 	//WebContent
-	public final By ELEMENT_WEBCONTENT_LINK =By.linkText("Free layout webcontent");
+	public final By ELEMENT_WEBCONTENT_LINK =By.linkText("Web Content");
 	public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX =By.id("title");	
 	public final By ELEMENT_WEBCONTENT_NAME_TEXTBOX =By.id("name");	
 	public final By ELEMENT_WEBCONTENT_CONTENT_FRAME = By.xpath("//td[contains(@id,'cke_contents_htmlData')]/iframe");
-	public final By ELEMENT_WEBCONTENT_ILLUSTRATION_TAB = By.xpath("//div[contains(text(),'Illustration')]");
+	public final By ELEMENT_WEBCONTENT_ILLUSTRATION_TAB = By.linkText("Illustration");
 	public final By ELEMENT_WEBCONTENT_UPLOAD_FRAME =By.xpath("//*[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_WEBCONTENT_FILE_IMAGE = By.id("file");
 	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
-	public final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.xpath("//div[contains(text(),'Advanced')]");
+	public final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.linkText("Advanced");
 	public final By ELEMENT_WEBCONTENT_CSS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentCSS')]");
 	public final By ELEMENT_WEBCONTENT_JS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentJS')]");
 
@@ -178,14 +177,14 @@ public class ContentTemplate extends EcmsBase{
 	}
 
 	//add new Free layout webcontent
-	public void createNewFreeLayoutWebContent(String title, String name, String cont, String img, String sum, String css, String js) {
+	public void createNewFreeLayoutWebContent(String name, String cont, String img, String sum, String css, String js) {
 		click(ELEMENT_WEBCONTENT_LINK);
-		type(ELEMENT_WEBCONTENT_TITLE_TEXTBOX, title, false);
-		//			waitForAndGetElement(ELEMENT_WEBCONTENT_NAME_TEXTBOX).clear();
 		type(ELEMENT_WEBCONTENT_NAME_TEXTBOX, name, true);
-		inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME,cont);
-		switchToParentWindow();
-		if (cont!="" || img !=""){
+		if (cont != ""){
+			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME,cont);
+			switchToParentWindow();
+		}
+		if (sum!="" || img !=""){
 			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
 			if (img!=""){
 				driver.switchTo().frame(waitForAndGetElement(ELEMENT_WEBCONTENT_UPLOAD_FRAME));
@@ -284,19 +283,7 @@ public class ContentTemplate extends EcmsBase{
 
 	//add new Content Folder
 	public void createNewFolder(String title, folderType type, boolean...verify) {
-		
-		
-		for (int repeat = 0;; repeat++)	{	
-			if (repeat >= ACTION_REPEAT) {
-				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
-			}
-			mouseOver(ELEMENT_NEW_FOLDER_LINK, true);
-			click(ELEMENT_NEW_FOLDER_LINK);
-
-			if (waitForElementPresent(ELEMENT_FOLDER_TITLE_TEXTBOX,30000,0) != null) break;
-			Utils.pause(WAIT_INTERVAL);
-			info("retry...[" + repeat + "]");
-		}
+		actBar.goToAddNewFolder();
 		WebElement folderType = waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0, 2);
 		if (folderType != null && !folderType.isSelected()){
 			click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);

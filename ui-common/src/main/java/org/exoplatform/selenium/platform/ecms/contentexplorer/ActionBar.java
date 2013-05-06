@@ -73,22 +73,55 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(500);
 	}
 	
-	//Go to new content
+	//Go to add new content
 	public void goToAddNewContent(){
 		waitForElementPresent(ELEMENT_NEW_CONTENT_LINK, DEFAULT_TIMEOUT, 0, 2);
 		for (int repeat = 1;; repeat++)	{	
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
 			}
+			WebElement newContent = waitForAndGetElement(ELEMENT_NEW_CONTENT_LINK, 5000, 0);
+			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+			if (newContent == null){
+				if (more != null){
+					mouseOverAndClick(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+					Utils.pause(1000);
+				}else {
+					info("There is not Add New content icon in action bar");
+					break;
+				}
+			} 
 			mouseOverAndClick(ELEMENT_NEW_CONTENT_LINK);
-			//click(ELEMENT_NEW_CONTENT_LINK, 2);
-
-			if (waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK, 30000,0, 2) == null) return;
+			if (waitForElementPresent(ELEMENT_NEW_CONTENT_LINK, 30000,0, 2) == null) break;
 			Utils.pause(WAIT_INTERVAL);
 			info("retry...[" + repeat + "]");
 		}
 	}
 
+	//Go to add new folder
+	public void goToAddNewFolder(){	
+		for (int repeat = 0;; repeat++)	{	
+			if (repeat >= ACTION_REPEAT) {
+				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
+			}
+			WebElement newFolder = waitForAndGetElement(ELEMENT_NEW_FOLDER_LINK, 5000, 0);
+			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+			if (newFolder == null){
+				if (more != null){
+					mouseOverAndClick(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+					Utils.pause(1000);
+				}else {
+					info("There is not Add New Folder icon in action bar");
+					break;
+				}
+			} 
+			mouseOverAndClick(ELEMENT_NEW_FOLDER_LINK);
+			if (waitForElementPresent(ELEMENT_FOLDER_TITLE_TEXTBOX,30000,0) != null) break;
+			Utils.pause(WAIT_INTERVAL);
+			info("retry...[" + repeat + "]");
+		}
+	}
+	
 	//Collaboration Tab
 	public void goToCollaboration(){
 		for (int repeat = 0;; repeat++)	{	
@@ -314,28 +347,25 @@ public class ActionBar extends EcmsBase{
 
 	//Add an action to Action Bar: View Permissions
 	public void addViewPermissionToActionBar(){
-		if (isElementPresent(ELEMENT_PERMISSION_LINK)){
+		WebElement per = waitForAndGetElement(ELEMENT_PERMISSION_LINK, 5000, 0);
+		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+		if (per != null){
 			info("-- Permission tab is already displayed --");
-		}else if (isElementPresent(ELEMENT_MORE_LINK)){
+		} else if (more != null){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			if (isElementPresent(ELEMENT_PERMISSION_LINK)){
+			if (waitForAndGetElement(ELEMENT_PERMISSION_LINK, 5000, 0, 2) != null){
 				info("-- Permission tab is already displayed --");
+			}else{
+				magView.setup2ShowViewAction("viewPermissions", "Web");
+				magAcc.signOut();
+				magAcc.signIn("john", "gtn");
+				navToolBar.goToSiteExplorer();
 			}
-		}else{
-			magView.setup2ShowViewAction("viewPermissions");
+		}else {
+			magView.setup2ShowViewAction("viewPermissions", "Web");
 			magAcc.signOut();
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToSiteExplorer();
-			if (isElementPresent(ELEMENT_PERMISSION_LINK)){
-				info("-- Permission tab is already displayed --");
-			}else if (isElementPresent(ELEMENT_MORE_LINK)){
-				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-				if (isElementPresent(ELEMENT_PERMISSION_LINK)){
-					info("-- Permission tab is already displayed --");
-				}
-			}else{
-				info("-- Permission tab is not displayed... --");
-			}
 		}
 		Utils.pause(1000);
 	}
@@ -410,6 +440,7 @@ public class ActionBar extends EcmsBase{
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToSiteExplorer();
 		}
+		Utils.pause(1000);
 	}
 
 	//A Function to copy/cut/paste/delete an Element (Document/Folder) in Sites Explorer
@@ -473,6 +504,7 @@ public class ActionBar extends EcmsBase{
 			navToolBar.goToPersonalDocuments();
 			goToViewMode("List");
 		}
+		Utils.pause(1000);
 	}
 	
 	/** function add "Add Symlink" to File Management view if it is not existed
@@ -501,6 +533,7 @@ public class ActionBar extends EcmsBase{
 			navToolBar.goToPersonalDocuments();
 			goToViewMode("List");
 		}
+		Utils.pause(1000);
 	}
 	
 	/** function add version management to web Management view if it is not existed
