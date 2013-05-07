@@ -32,15 +32,15 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_ANNOUNCEMENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
 
 	//WebContent
-	public final By ELEMENT_WEBCONTENT_LINK =By.linkText("Web Content");
-	public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX =By.id("title");	
-	public final By ELEMENT_WEBCONTENT_NAME_TEXTBOX =By.id("name");	
+	public final By ELEMENT_WEBCONTENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Web Content']");
+	public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX = By.id("title");	
+	public final By ELEMENT_WEBCONTENT_NAME_TEXTBOX = By.id("name");	
 	public final By ELEMENT_WEBCONTENT_CONTENT_FRAME = By.xpath("//td[contains(@id,'cke_contents_htmlData')]/iframe");
-	public final By ELEMENT_WEBCONTENT_ILLUSTRATION_TAB = By.linkText("Illustration");
-	public final By ELEMENT_WEBCONTENT_UPLOAD_FRAME =By.xpath("//*[contains(@id,'uploadFrame')]");
+	public final By ELEMENT_WEBCONTENT_ILLUSTRATION_TAB = By.xpath("//*[contains(text(),'Illustration')]");
+	public final By ELEMENT_WEBCONTENT_UPLOAD_FRAME = By.xpath("//*[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_WEBCONTENT_FILE_IMAGE = By.id("file");
 	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
-	public final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.linkText("Advanced");
+	public final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.xpath("//*[contains(text(),'Advanced')]");
 	public final By ELEMENT_WEBCONTENT_CSS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentCSS')]");
 	public final By ELEMENT_WEBCONTENT_JS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentJS')]");
 
@@ -178,6 +178,7 @@ public class ContentTemplate extends EcmsBase{
 
 	//add new Free layout webcontent
 	public void createNewFreeLayoutWebContent(String name, String cont, String img, String sum, String css, String js) {
+		info("-- Creating a new Web Content --");
 		click(ELEMENT_WEBCONTENT_LINK);
 		type(ELEMENT_WEBCONTENT_NAME_TEXTBOX, name, true);
 		if (cont != ""){
@@ -202,7 +203,8 @@ public class ContentTemplate extends EcmsBase{
 			type(ELEMENT_WEBCONTENT_CSS_TEXTAREA, css, false);
 			type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, false);
 		}
-		click(button.ELEMENT_SAVE_CLOSE_BUTTON);			
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(3000);
 	}
 
 	//add new file

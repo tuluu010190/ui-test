@@ -179,6 +179,9 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
 	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
 	
+	public final By ELEMENT_ADD_RELATION_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageRelations']");
+	public final By ELEMENT_SELECT_RELATION_TAB = By.xpath("//*[contains(text(), 'Select Relation')]");
+	
 	//Collaboration TAB
 	public final By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
 	public final By ELEMENT_TAG = By.linkText("Tag");
@@ -245,7 +248,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_DMS_ADMIN_DRIVE = By.linkText("DMS Administration");
 	public final By ELEMENT_TRASH_DRIVE = By.xpath("//*[@data-original-title = 'Trash']");
 	public final By ELEMENT_PERSONAL_DRIVE = By.xpath("//*[@data-original-title = 'Personal Documents']");
-	public final By ELEMENT_COLLABORATION_DRIVE= By.xpath("//*[@data-original-title = 'Collaboration']");
+	public final By ELEMENT_COLLABORATION_DRIVE= By.xpath("//*[@class = 'driveLabel' and @data-original-title = 'Collaboration']");
 
 	//Preference
 	public final By ELEMENT_PREFERENCE_LINK = By.xpath("//*[contains(@class, 'setupPreferencesButton')]");
@@ -281,6 +284,13 @@ public class EcmsBase extends ManageAccount {
     public final String ELEMENT_NODE_ADMIN_VIEW = "//*[contains(@class, 'columnText')]//*[contains(text(), '${nodeName}')]";
     public final String ELEMENT_NODE_ICON_ARROW_RIGHT = "//*[contains(text(), '${nodeName}')]/../..//*[contains(@class, 'columnArrow')]";
 	
+    //Undo Deleted items
+    public final By ELEMENT_UNDO_DELETED_ITEM = By.xpath("//*[@class='uiIconSuccess']/../*[contains(text(), 'Undo')]");
+    public final String MESSAGE_ITEM_DELETED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was deleted succesfully.\")]";
+    public final String MESSAGE_MULTI_ITEMS_DELETED_SUCCESSFULLY = "//*[contains(text(), '${title} were deleted succesfully.')]";
+    public final String MESSAGE_ITEM_RESTORED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was successfully restored.\")]";
+    public final String MESSAGE_MULTI_ITEMS_RESTORED_SUCCESSFULLY = "//*[contains(text(), '${title} were succesfully restored.')]";
+    
 	////////////////////////////////
 	//Log-in ECMS
 	/*public void loginEcms(String username, String password) {

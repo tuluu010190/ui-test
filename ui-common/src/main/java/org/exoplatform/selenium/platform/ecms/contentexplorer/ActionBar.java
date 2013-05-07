@@ -72,7 +72,7 @@ public class ActionBar extends EcmsBase{
 		}
 		Utils.pause(500);
 	}
-	
+
 	//Go to add new content
 	public void goToAddNewContent(){
 		waitForElementPresent(ELEMENT_NEW_CONTENT_LINK, DEFAULT_TIMEOUT, 0, 2);
@@ -151,13 +151,15 @@ public class ActionBar extends EcmsBase{
 				break;
 		}
 	}
-	
+
 	// switch to view mode (eg: Web view, List view ...)
 	public void goToViewMode(String viewType){
+		info("-- Change to view mode... --" + viewType);
+		Utils.pause(1000);
 		click(By.xpath(ELEMENT_VIEW_MODE_LINK.replace("${viewName}", viewType)));
-		Utils.pause(2000);
+		Utils.pause(1000);
 	}
-	
+
 	//Go to 1 node by path in Intranet/document
 	public void goToNodeByAddressPath(String path){
 		WebElement address = waitForAndGetElement(ELEMENT_ADDRESS_BAR);
@@ -417,7 +419,7 @@ public class ActionBar extends EcmsBase{
 		assert getValue(ELEMENT_SYMLINK_NAME).equalsIgnoreCase(name);
 		click(button.ELEMENT_SAVE_BUTTON); 
 	}
-	
+
 	//Add symlink to action bar in site explorer if it does not exited
 	public void addSymlinkToActionBar(){	
 		WebElement syml = waitForAndGetElement(ELEMENT_ADD_SYMLINK, 5000, 0);
@@ -448,10 +450,12 @@ public class ActionBar extends EcmsBase{
 	//Select Action "Delete" on Action Bar
 	public void actionsOnElement(String elementName, ContextMenu.actionType action){
 		info("-- Action: "+ action + " on the element: " + elementName);
-		waitForTextPresent(elementName);
-		if (isElementPresent(ELEMENT_UI_CHECKBOX.replace("${element}", elementName))){
+		//waitForTextPresent(elementName);
+		if (waitForAndGetElement(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 3000, 0, 2) != null){
+			click(ELEMENT_PERSONAL_DOCUMENTS);
 			click(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 2);
-		}else if (isElementPresent(By.xpath("//*[contains(text(), '"+ elementName +"')]/../..//*[@name = 'checkbox']"))){
+		}else if (waitForAndGetElement(By.xpath("//*[contains(text(), '"+ elementName +"')]/../..//*[@name = 'checkbox']"), 3000, 0, 2) != null){
+			click(ELEMENT_PERSONAL_DOCUMENTS);
 			click(By.xpath("//*[contains(text(), '"+ elementName +"')]/../..//*[@name = 'checkbox']"), 2);
 		}
 		//click(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 2);
@@ -477,7 +481,7 @@ public class ActionBar extends EcmsBase{
 		}
 		Utils.pause(1000);
 	}
-	
+
 	/** function add "New Content" to File Management view if it is not existed
 	 * @author lientm
 	 */
@@ -506,7 +510,7 @@ public class ActionBar extends EcmsBase{
 		}
 		Utils.pause(1000);
 	}
-	
+
 	/** function add "Add Symlink" to File Management view if it is not existed
 	 * @author lientm
 	 */
@@ -535,7 +539,7 @@ public class ActionBar extends EcmsBase{
 		}
 		Utils.pause(1000);
 	}
-	
+
 	/** function add version management to web Management view if it is not existed
 	 * @author lientm
 	 */
@@ -560,5 +564,68 @@ public class ActionBar extends EcmsBase{
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToSiteExplorer();
 		}
+	}
+
+	//Add [Manage Relation] tab to Sites Explorer > Action Bar
+	public void addRelationToActionBar(){	
+		WebElement addRelation = waitForAndGetElement(ELEMENT_ADD_RELATION_LINK, 5000, 0);
+		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+		if (addRelation != null){
+			info("-- Add Relation tab is already displayed --");
+		} else if (more != null){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			if (waitForAndGetElement(ELEMENT_ADD_RELATION_LINK, 5000, 0, 2) != null){
+				info("-- Add Relation tab is already displayed --");
+			}else{
+				magView.setup2ShowViewAction("manageRelations", "Web");
+				magAcc.signOut();
+				magAcc.signIn("john", "gtn");
+				navToolBar.goToSiteExplorer();
+			}
+		}else {
+			magView.setup2ShowViewAction("manageRelations", "Web");
+			magAcc.signOut();
+			magAcc.signIn("john", "gtn");
+			navToolBar.goToSiteExplorer();
+		}
+		Utils.pause(1000);
+	}
+
+	//Create a relation between 2 nodes
+	public void createRelation(String nodeName1, String pathToNodeName2, Object...params){
+		//WebElement addRelation = waitForAndGetElement(ELEMENT_ADD_RELATION_LINK, 5000, 0);
+		String[] temp;
+		String delimiter = "/";
+		temp = pathToNodeName2.split(delimiter);
+		Boolean nodeAdminView = (Boolean) (params.length > 0 ? params[0]: false);
+
+		info("-- Create a relation:--" + nodeName1 + " and " + temp[temp.length - 1]);
+		if (nodeAdminView){
+			goToNode(nodeName1, true);
+		}else {
+			goToNode(nodeName1);
+		}
+		if (isTextPresent("Relations")){
+			info("-- Add Relation tab is already displayed --");
+			click(ELEMENT_ADD_RELATION_LINK);
+		}else {
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			click(ELEMENT_ADD_RELATION_LINK);
+		}
+		click(ELEMENT_SELECT_RELATION_TAB);
+		selectHomePathForCategoryTree(pathToNodeName2);
+		waitForTextPresent(temp[temp.length - 1]);
+		button.close();	
+		Utils.pause(500);
+	}
+
+	//Undo deleted Items
+	public void undoDeletion(){
+		info("-- Undo deletion --");
+		click(ELEMENT_UNDO_DELETED_ITEM);
+		if (waitForAndGetElement(button.ELEMENT_OK_BUTTON, 3000, 0) != null){
+			click(button.ELEMENT_OK_BUTTON);
+		}
+		Utils.pause(1000);
 	}
 }

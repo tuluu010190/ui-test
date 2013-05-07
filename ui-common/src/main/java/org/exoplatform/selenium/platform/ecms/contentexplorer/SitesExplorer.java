@@ -36,7 +36,7 @@ public class SitesExplorer extends EcmsBase{
 	EcmsBase ecms = new EcmsBase(driver);
 
 	//Button on the top-bar menu
-	public final By ELEMENT_BUTTON_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack");
+	//public final By ELEMENT_BUTTON_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack");
 	public final By ELEMENT_BUTTON_REFRESH_TOPBAR_MENU = By.className("uiIconRefresh");
 
 	//Simple Search
@@ -45,6 +45,7 @@ public class SitesExplorer extends EcmsBase{
 
 	/* sidebar */
 	public final By ELEMENT_SIDEBAR_SITES_MANAGEMENT = By.xpath("//*[@data-original-title = 'Sites Management']");
+	public final By ELEMENT_SIDEBAR_COLLABORATION = By.xpath("//*[@data-original-title = 'Collaboration']");
 	//File Explorer - relation -clipboard - tag clould - saved search
 	public final By ELEMENT_TAG_CLOUD = By.xpath("//*[@data-original-title = 'Tag Cloud']");
 	public final By ELEMENT_SIDEBAR_FILE_EXPLORER = By.xpath("//*[@data-original-title = 'File Explorer']");
@@ -59,6 +60,9 @@ public class SitesExplorer extends EcmsBase{
 	/* File management view - Personal document	 */
 	public final String ELEMENT_SELECT_CHECKBOX = "//*[@data-original-title='${name}']/../..//input[@type='checkbox']";
 	public final String ELEMENT_ARROW_RIGHT = "//*[@data-original-title='${nodeName}']/../..//i[@class='uiIconArrowRight']";
+	
+	
+	public final String ELEMENT_DOCUMENT_TITLE = "//*[@class='nodeLabel']/*[text()='${title}']";
 	
 	/*================***==================*/
 
