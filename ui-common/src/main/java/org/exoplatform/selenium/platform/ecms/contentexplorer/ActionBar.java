@@ -54,7 +54,7 @@ public class ActionBar extends EcmsBase{
 	public By ELEMENT_ADD_ROOT_BUTTON = By.xpath("//label[text()='Root Tree']/following::img[@title='Add Root Node']");
 
 	//Version Info form
-	public By ELEMENT_ICON_VERSION_ADD=By.xpath("//*[@title='Add Label']");
+	public By ELEMENT_ICON_VERSION_ADD=By.xpath("//*[@data-original-title='Add Label']");
 	public By ELEMENT_TEXTBOX_VERSION=By.id("label");
 
 	//publication form
@@ -256,7 +256,7 @@ public class ActionBar extends EcmsBase{
 		goToNode(locator);
 		//click(ELEMENT_PUBLICATION_TAB);
 		clearCache();
-		if (isElementPresent(ELEMENT_VERSIONS_LINK)){
+		if (waitForAndGetElement(ELEMENT_VERSIONS_LINK,10000,0)!=null){
 			info("-- Versions tab is already displayed --");
 		}else if (isElementPresent(ELEMENT_MORE_LINK_WITHOUT_BLOCK)){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
@@ -500,6 +500,32 @@ public class ActionBar extends EcmsBase{
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToPersonalDocuments();
 			goToViewMode("List");
+		}
+	}
+	
+	/** function add version management to web Management view if it is not existed
+	 * @author lientm
+	 */
+	public void addVersionMangementForActionBar(){
+		WebElement ver = waitForAndGetElement(ELEMENT_VERSIONS_LINK, 5000, 0);
+		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+		if (ver != null){
+			info("-- Version mangement is already displayed --");
+		} else if (more != null){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			if (waitForAndGetElement(ELEMENT_VERSIONS_LINK, 5000, 0) != null){
+				info("-- Version mangement is already displayed --");
+			}else{
+				magView.setup2ShowViewAction("manageVersions");
+				magAcc.signOut();
+				magAcc.signIn("john", "gtn");
+				navToolBar.goToSiteExplorer();
+			}
+		}else {
+			magView.setup2ShowViewAction("manageVersions");
+			magAcc.signOut();
+			magAcc.signIn("john", "gtn");
+			navToolBar.goToSiteExplorer();
 		}
 	}
 }

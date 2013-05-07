@@ -55,8 +55,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	ContextMenu cMenu;
 	SitesExplorer siteExp;
 
-	public final String DATA_USER = "fqa";
-	public final String DATA_PASS = "123456789";
+	public final String DATA_USER = "john";
+	public final String DATA_PASS = "gtn";
 
 	@BeforeMethod
 	public void beforeMethods() {

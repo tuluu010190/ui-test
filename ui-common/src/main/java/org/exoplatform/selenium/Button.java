@@ -32,9 +32,6 @@ public class Button extends TestBase{
 	public final By ELEMENT_FINISH_ICON = By.xpath("//a[@title='Finish']"); //Finish editing portlet icon
 	public final By ELEMENT_NEXT_BUTTON = By.xpath("//*[text()='Next']");	
 	public final By ELEMENT_ABORT_BUTTON = By.xpath("//*[text()='Abort']");
-	public final By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue']");
-	public final By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
-	public final By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
 	public final By ELEMENT_RESET_BUTTON = By.xpath("//*[text()='Reset']");
 	
 	public final By ELEMENT_PREVIOUS_BUTTON = By.xpath("//*[text()='Previous']");

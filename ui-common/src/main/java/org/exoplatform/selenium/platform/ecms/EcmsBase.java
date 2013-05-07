@@ -239,7 +239,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_REMOVE_THUMBNAIL = By.xpath("//*[text() = 'Remove Thumbnail']");
 
 	//Show Drives link
-	public final By ELEMENT_SHOW_DRIVES = By.xpath("//*[@data-original-title = 'ShowDrives']");
+	public final By ELEMENT_SHOW_DRIVES = By.xpath("//*[@data-original-title = 'Show Drives']");
 	public final By ELEMENT_ACME_DRIVE = By.linkText("acme-category");
 	public final By ELEMENT_SITES_MANAGEMENT_DRIVE = By.xpath("//*[@class = 'driveLabel' and @data-original-title = 'Sites Management']");
 	public final By ELEMENT_DMS_ADMIN_DRIVE = By.linkText("DMS Administration");
