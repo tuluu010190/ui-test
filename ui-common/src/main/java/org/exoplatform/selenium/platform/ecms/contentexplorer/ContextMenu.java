@@ -28,15 +28,15 @@ public class ContextMenu extends EcmsBase{
 	Dialog dialog = new Dialog(driver);
 	Button button = new Button(driver);
 
-	public final By ELEMENT_MENU_LOCK = By.xpath("//*[@class='uiIconEcmsLock']");
-	public final By ELEMENT_MENU_UNLOCK = By.xpath("//*[@class='uiIconEcmsUnlock']");
-	public final By ELEMENT_MENU_CHECKIN = By.xpath("//*[@class='uiIconEcmsCheckIn']");
-	public final By ELEMENT_MENU_CHECKOUT = By.xpath("//*[@class='uiIconEcmsCheckOut']");
+	public final By ELEMENT_MENU_LOCK = By.className("uiIconEcmsLock");
+	public final By ELEMENT_MENU_UNLOCK = By.className("uiIconEcmsUnlock");
+	public final By ELEMENT_MENU_CHECKIN = By.className("uiIconEcmsCheckIn");
+	public final By ELEMENT_MENU_CHECKOUT = By.className("uiIconEcmsCheckOut");
 	public final By ELEMENT_MENU_RENAME_NODE = By.linkText("Rename");
 	public final By ELEMENT_MENU_PASTE = By.xpath("//a[contains(text(),'Paste')]");
 	public final By ELEMENT_MENU_DELETE = By.className("uiIconEcmsDelete");
 	public final By ELEMENT_MENU_DELETE_RIGHT_CLICK_POPUP = By.xpath("//*[@id='JCRContextMenu']/div/ul/li[7]/a");
-	public final By ELEMENT_MENU_EDIT_ITEM = By.xpath("//a[@class='ItemIcon DefaultAction16x16Icon EditDocument16x16Icon']");
+	public final By ELEMENT_MENU_EDIT = By.className("uiIconEcmsEditDocument");
 	public final By ELEMENT_MENU_ADD_SYMLINK = By.className("uiIconEcmsAddSymLink");
 	
 	public final String ELEMENT_FILE_LOCKED_BY_ADMIN = "//*[@data-original-title = '${titleOfFile} (Locked by john)']";

@@ -594,7 +594,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.goToAddNewContent();
 
 		info("Create new file document with user john");
-		cTemplate.createNewFreeLayoutWebContent(WEB_CONTENT_NAME, WEB_CONTENT_NAME, "", "", "", "");
+		cTemplate.createNewWebContent(WEB_CONTENT_NAME, WEB_CONTENT_NAME, "", "", "", "");
 
 		//add 2 symlink have same name for file document
 		info("Add 2 symlinks have same name in file document");

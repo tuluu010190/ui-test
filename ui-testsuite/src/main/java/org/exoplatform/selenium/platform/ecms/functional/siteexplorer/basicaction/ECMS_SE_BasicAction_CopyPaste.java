@@ -218,7 +218,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		info("Create 1 file document");
 		actBar.goToAddNewContent();
-		cTemplate.createNewFreeLayoutWebContent(WEB_CONTENT_NAME, WEB_CONTENT_NAME, "", "", "", "");
+		cTemplate.createNewWebContent(WEB_CONTENT_NAME, WEB_CONTENT_NAME, "", "", "", "");
 
 		info("Copy folder to file document");
 		cMenu.copyAndPasteNode(CONTENT_FOLDER_PATH, WEB_PATH);

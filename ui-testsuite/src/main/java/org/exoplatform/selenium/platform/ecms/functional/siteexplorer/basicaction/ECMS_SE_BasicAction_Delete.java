@@ -394,11 +394,11 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Create 2 nodes --");
 		actBar.goToAddNewContent();
-		cTemplate.createNewFreeLayoutWebContent(webContentName_0, content_0, "", "", "", "");
+		cTemplate.createNewWebContent(webContentName_0, content_0, "", "", "", "");
 		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForTextNotPresent(content_0);
 		actBar.goToAddNewContent();
-		cTemplate.createNewFreeLayoutWebContent(webContentName_1, content_1, "", "", "", "");
+		cTemplate.createNewWebContent(webContentName_1, content_1, "", "", "", "");
 
 		info("-- Create a relation between 2 nodes --");
 		actBar.addRelationToActionBar();
@@ -437,11 +437,11 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Create 2 nodes --");
 		actBar.goToAddNewContent();
-		cTemplate.createNewFreeLayoutWebContent(webContentName_0, content_0, "", "", "", "");
+		cTemplate.createNewWebContent(webContentName_0, content_0, "", "", "", "");
 		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 		waitForTextNotPresent(content_0);
 		actBar.goToAddNewContent();
-		cTemplate.createNewFreeLayoutWebContent(webContentName_1, content_1, "", "", "", "");
+		cTemplate.createNewWebContent(webContentName_1, content_1, "", "", "", "");
 
 		info("-- Create a relation between 2 nodes --");
 		//actBar.addRelationToActionBar();
@@ -582,7 +582,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		cTemplate.createNewFolder(folderName, folderType.None);
 
 		actBar.goToAddNewContent();
-		cTemplate.createNewFreeLayoutWebContent(webContentName, content, "", "", "", "");
+		cTemplate.createNewWebContent(webContentName, content, "", "", "", "");
 		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 		waitForTextNotPresent(content);
 
@@ -659,7 +659,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		ecms.uploadFile(DATA_UPLOAD_FILE_PATH_1);
 		actBar.goToAddNewContent();
-		cTemplate.createNewFreeLayoutWebContent(webContentName, content, "", "", "", "");
+		cTemplate.createNewWebContent(webContentName, content, "", "", "", "");
 
 		info("-- Add a relation --");
 		//actBar.addRelationToActionBar();

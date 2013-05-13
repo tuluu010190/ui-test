@@ -57,7 +57,8 @@ public class PlatformBase extends TestBase {
 	//My site
 	public final By ELEMENT_MYSITE = By.linkText("My Sites");
 	public final By ELEMENT_MYSITE_ACME = By.linkText("acme");
-	public final By ELEMENT_OVERVIEW = By.linkText("Overview");
+	public final By ELEMENT_OVERVIEW = By.xpath("//*[@class='uiCompanyNavigations']//*[contains(text(), 'Overview')]");
+	//By.linkText("Overview");
 	public final By ELEMENT_NEWS = By.linkText("News");
 	public final By ELEMENT_INTRANET_SITE_LINK = By.linkText("intranet");
 
@@ -718,6 +719,8 @@ public class PlatformBase extends TestBase {
 				inputsummary = driver.switchTo().activeElement();
 
 				inputsummary.click();
+				
+				inputsummary.clear();
 
 				if (validate.length >0)
 					if (validate[0]){

@@ -146,7 +146,12 @@ public class ActionBar extends EcmsBase{
 			if (loop >= ACTION_REPEAT) {
 				Assert.fail("Cannot go to the edit page: " + title );
 			}
-			click(ELEMENT_EDIT_LINK);
+			if (waitForAndGetElement(ELEMENT_EDIT_LINK, 3000, 0) != null){
+				click(ELEMENT_EDIT_LINK);
+			}else{
+				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+				click(ELEMENT_EDIT_LINK);
+			}
 			if (waitForAndGetElement(button.ELEMENT_SAVE_CLOSE_BUTTON, 50000).isDisplayed()) 
 				break;
 		}

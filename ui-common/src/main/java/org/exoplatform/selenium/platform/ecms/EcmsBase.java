@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 /**
  * 
@@ -197,7 +198,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_REMOVE_NODE_CHECKBOX = By.id("remove");
 	public final By ELEMENT_UPLOAD_NAME = By.name("file");
 	public final By ELEMENT_UPLOAD_FRAME_EDIT = By.xpath("//iframe[contains(@id,'uploadFrame')]");
-	public final By ELEMENT_UPLOAD_REMOVE = By.xpath("//img[@alt='Remove Item' and @class='ActionIcon Remove16x16Icon']");
+	public final By ELEMENT_UPLOAD_REMOVE = By.xpath("//i[@class='uiIconDelete uiIconLightGray']");
 	public final By ELEMENT_PIC_FILE_REMOVE = By.xpath("//img[@class='ActionIcon Remove16x16Icon']");
 
 	//Explorer
@@ -425,17 +426,18 @@ public class EcmsBase extends ManageAccount {
 		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
 		/*WebElement element = waitForAndGetElement(By.xpath("//*[@name='file']"), DEFAULT_TIMEOUT, 1, 2);		
 		((JavascriptExecutor)driver).executeScript("arguments[0].setAttribute('id', 'MultiUploadInputFiles');", element);
-		*/
+		*/	
+		//((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible';", waitForAndGetElement(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), DEFAULT_TIMEOUT, 1, 2));
+		//type(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), Utils.getAbsoluteFilePath(link), false);
+		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 0, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload);
+		upload.sendKeys(Utils.getAbsoluteFilePath(link));	
 		
-		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible';", waitForAndGetElement(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), DEFAULT_TIMEOUT, 1, 2));
-		
-		type(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), Utils.getAbsoluteFilePath(link), false);
-				
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
-		String links[] = link.split("/");
-		int length = links.length;
-		waitForElementPresent(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
+		//String links[] = link.split("/");
+		//int length = links.length;
+		//waitForElementPresent(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
 		click(button.ELEMENT_SAVE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		Utils.pause(1000);
