@@ -373,10 +373,17 @@ public class EcmsBase extends ManageAccount {
 		}
 	}
 
-	//Function to add a user to group and choose membership type
+	//Up one level
 	public void clickUpLevel(){
-		//click(By.xpath("//*[@id='UITaxonomyTreeCreateChild']//a[@class='LevelUpArrowIcon']"));
-		click(By.className("uiIconUpLevel"));
+		By ELEMENT_UP_LEVEL_ICON = By.className("uiIconUpLevel");
+		By ELEMENT_UP_LEVEL_ICON_0 = By.xpath("//*[contains(@class, 'uiIconUpLevel')]");
+		if (waitForAndGetElement(ELEMENT_UP_LEVEL_ICON, 3000, 0) != null){
+			click(ELEMENT_UP_LEVEL_ICON);
+		}else {
+			click(ELEMENT_UP_LEVEL_ICON_0);
+			//WebElement upLevel = waitForAndGetElement(ELEMENT_UP_LEVEL_ICON_0, DEFAULT_TIMEOUT, 0);
+			//((JavascriptExecutor)driver).executeScript("arguments[0].click();", upLevel);
+		}
 		Utils.pause(500);
 	}
 

@@ -53,6 +53,9 @@ public class ECMainFunction extends EcmsBase{
 	public final By ELEMENT_MANAGE_SCRIPTS_LINK = By.className("uiIconEcmsScriptManager");
     public final By ELEMENT_ADD_SCRIPT_BUTTON = By.xpath("//*[text()='Add Script']");
 
+    public final By ELEMENT_MANAGE_ACTIONS_LINK = By.className("uiIconEcmsActionManager");
+    public final By ELEMENT_ADD_ACTION_TYPE_BUTTON = By.xpath("//*[text()='Add Action Type']");
+    
 	/*=============================================================*/
 
 	//Template
@@ -152,7 +155,9 @@ public class ECMainFunction extends EcmsBase{
 	public void goToCategoriesTabInContentAdmin(){
 		navToolbar.goToContentAdministration();
 		if (isTextNotPresent("Category Tree")){
-			click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+			if (isTextNotPresent("Categories")){
+				click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+			}
 			click(ELEMENT_MANAGE_CATEGORIES_LINK);
 		}
 		Utils.pause(500);
@@ -162,7 +167,9 @@ public class ECMainFunction extends EcmsBase{
 	public void goToQueriesTabInContentAdmin(){
 		navToolbar.goToContentAdministration();
 		if (isElementNotPresent(ELEMENT_ADD_QUERY_BUTTON)){
-			click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+			if (isTextNotPresent("Categories")){
+				click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+			}
 			click(ELEMENT_MANAGE_QUERIES_LINK);
 		}
 		Utils.pause(500);
@@ -172,8 +179,22 @@ public class ECMainFunction extends EcmsBase{
 	public void goToScriptsTabInContentAdmin(){
 		navToolbar.goToContentAdministration();
 		if (isElementNotPresent(ELEMENT_ADD_SCRIPT_BUTTON)){
-			click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+			if (isTextNotPresent("Categories")){
+				click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+			}
 			click(ELEMENT_MANAGE_SCRIPTS_LINK);
+		}
+		Utils.pause(500);
+	}
+	
+	//Go to Actions Tab
+	public void goToActionsTabInContentAdmin(){
+		navToolbar.goToContentAdministration();
+		if (isElementNotPresent(ELEMENT_ADD_ACTION_TYPE_BUTTON)){
+			if (isTextNotPresent("Categories")){
+				click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
+			}
+			click(ELEMENT_MANAGE_ACTIONS_LINK);
 		}
 		Utils.pause(500);
 	}

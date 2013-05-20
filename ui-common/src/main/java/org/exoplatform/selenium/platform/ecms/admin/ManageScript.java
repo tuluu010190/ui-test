@@ -29,7 +29,7 @@ public class ManageScript extends EcmsBase{
 	public final By ELEMENT_SCRIPT_CONTENT = By.name("scriptContent");
 	public final By ELEMENT_SCRIPT_LABEL = By.name("scriptLabel");
 	public final By ELEMENT_SCRIPT_NAME = By.name("scriptName");
-	public final String ELEMENT_EDIT_SCRIPT_ICON = "//*[contains(text(), '${scriptLabel}')]/../..//*[@class = 'uiIconEditInfo']";
+	public final String ELEMENT_EDIT_SCRIPT_ICON = "//*[contains(text(), '${scriptLabel}')]/../..//*[contains(@class, 'uiIconEdit')]";
 	public final String ELEMENT_DELETE_SCRIPT_ICON = "//*[contains(text(), '${scriptLabel}')]/../..//*[@class = 'uiIconDelete']";
 
 
@@ -56,6 +56,31 @@ public class ManageScript extends EcmsBase{
 
 		button.save();
 		waitForTextPresent(scriptName + ".groovy");
+	}
+	
+	//Edit a Script
+	public void editScript(String scriptName, String newScriptFileContent, String newScriptName, Object...params){
+		Boolean enableVersion = (Boolean) (params.length > 0 ? params[0]: false);
+		
+		info("-- Editing Script --");
+		click(ELEMENT_EDIT_SCRIPT_ICON.replace("${scriptLabel}", scriptName));
+		if (!newScriptFileContent.isEmpty()){
+			String content = Utils.getFileContent(newScriptFileContent);
+			type(ELEMENT_SCRIPT_CONTENT, content, true);
+		}
+		if (enableVersion){
+				click(ELEMENT_ENABLE_VERSION, 2);
+		}
+		if (!newScriptName.isEmpty()){
+			type(ELEMENT_SCRIPT_LABEL, newScriptName, true);
+		}
+		button.save();
+		if (!newScriptName.isEmpty()){
+			waitForTextPresent(newScriptName);
+		}else {
+			waitForTextPresent(scriptName);
+		}
+		Utils.pause(500);
 	}
 
 	//Delete a script

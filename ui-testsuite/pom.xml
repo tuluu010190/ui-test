@@ -29,9 +29,15 @@
 
 	<profiles>
 		<profile>
-			<id>ecms</id>
+			<id>ecms-admin</id>
 			<properties>
 				<testSuite>ecms-admin.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>ecms-sniff</id>
+			<properties>
+				<testSuite>ecms-sniff.xml</testSuite>
 			</properties>
 		</profile>
 		<profile>

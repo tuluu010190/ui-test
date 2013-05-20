@@ -94,7 +94,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] form1 = {"testCase01", categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
@@ -124,7 +124,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] form1 = {"testCase06", categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		magCa.addNewCategoryTree(form1, false, false, form2, DATA_USER, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
@@ -163,7 +163,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] form1 = {"testCase07", categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
@@ -221,7 +221,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] form1 = {"testCase08", categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
@@ -282,7 +282,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] form1 = {"testCase09", categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
@@ -325,7 +325,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] form1 = {"testCase10", categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
@@ -368,7 +368,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] form1 = {"testCase11", categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
@@ -411,7 +411,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] form1 = {"testCase12", categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
@@ -451,7 +451,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] form1 = {"testCase13", categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
@@ -496,7 +496,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites/intranet"};
 		String[] DATA2 = {"",""};
 		String[] DATA3 = {DATA_ACTION_NAME,"User Action/Content Addition","jcr:system/exo:namespaces"};
-		boolean[] setPermission = {true, false, false, false};
+		boolean[] setPermission = {true, false, false};
 		
 		//go to add new category tree
 		nav.goToContentAdministration();

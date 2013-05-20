@@ -633,4 +633,17 @@ public class ActionBar extends EcmsBase{
 		}
 		Utils.pause(1000);
 	}
+	
+	//Go to Manage Categories
+	public void goToManageCategories(){
+		info("-- Go to Action Bar/Categories Tab --");
+		if(waitForAndGetElement(ELEMENT_CATEGORIES_LINK, 5000, 0) == null){
+			click(ELEMENT_MORE_LINK);
+			click(ELEMENT_CATEGORIES_MORE_LINK);
+		}
+		else{
+			goToNode(ELEMENT_CATEGORIES_LINK);
+	 	    waitForElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP);
+		} 
+	}
 }
