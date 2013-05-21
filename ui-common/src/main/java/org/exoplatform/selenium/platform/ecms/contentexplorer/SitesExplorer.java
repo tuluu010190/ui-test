@@ -49,6 +49,10 @@ public class SitesExplorer extends EcmsBase{
 	//File Explorer - relation -clipboard - tag clould - saved search
 	public final By ELEMENT_TAG_CLOUD = By.xpath("//*[@data-original-title = 'Tag Cloud']");
 	public final By ELEMENT_SIDEBAR_FILE_EXPLORER = By.xpath("//*[@data-original-title = 'File Explorer']");
+	public final String ELEMENT_CLIPBOARD_NODE= "//div[@data-original-title='collaboration:/sites/{$node}']";
+	public final String ELEMENT_CLIPBOARD_PASTE_ICON= "//div[@data-original-title='collaboration:/sites/{$node}']/../..//a[@data-original-title='Paste']";
+	public final String ELEMENT_CLIPBOARD_DELETE_ICON = "//div[@data-original-title='collaboration:/sites/{$node}']/../..//a[@data-original-title='Delete']";
+	
 	//public final By ELEMENT_FILE_EXPLORER_MINI_ICON = By.className("uiIconEcmsExplorerMini");
 
 	public final By ELEMENT_CLIPBOARD_ICON = By.xpath("//*[@data-original-title = 'Clipboard']");

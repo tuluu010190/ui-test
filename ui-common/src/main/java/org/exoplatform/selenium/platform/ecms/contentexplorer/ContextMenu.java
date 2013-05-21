@@ -128,6 +128,12 @@ public class ContextMenu extends EcmsBase{
 				info("Add Symlink is checked successfully");
 				break;
 			}
+		case DELETE:
+			if (waitForAndGetElement(ELEMENT_MENU_DELETE, 5000, 1) != null){
+				click(ELEMENT_MENU_DELETE);
+				info("Delete is clicked successfully");
+				break;
+			}
 		default:
 			break;
 		}
