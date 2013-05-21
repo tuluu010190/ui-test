@@ -31,7 +31,7 @@
 		<profile>
 			<id>ecms</id>
 			<properties>
-				<testSuite>ecms.xml</testSuite>
+				<testSuite>ecms-admin.xml</testSuite>
 			</properties>
 		</profile>
 		<profile>
