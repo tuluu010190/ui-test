@@ -75,14 +75,13 @@ public class ActionBar extends EcmsBase{
 
 	//Go to add new content
 	public void goToAddNewContent(){
-		waitForElementPresent(ELEMENT_NEW_CONTENT_LINK, DEFAULT_TIMEOUT, 0, 2);
 		for (int repeat = 1;; repeat++)	{	
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
 			}
-			WebElement newContent = waitForAndGetElement(ELEMENT_NEW_CONTENT_LINK, 5000, 0);
-			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+			WebElement newContent = waitForAndGetElement(ELEMENT_NEW_CONTENT_LINK, 10000, 0);
 			if (newContent == null){
+				WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 10000, 0);
 				if (more != null){
 					mouseOverAndClick(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 					Utils.pause(1000);
@@ -90,12 +89,12 @@ public class ActionBar extends EcmsBase{
 					info("There is not Add New content icon in action bar");
 					break;
 				}
-			} 
-			mouseOverAndClick(ELEMENT_NEW_CONTENT_LINK);
-			if (waitForElementPresent(ELEMENT_NEW_CONTENT_LINK, 30000,0, 2) == null) break;
+			}else break;
 			Utils.pause(WAIT_INTERVAL);
 			info("retry...[" + repeat + "]");
 		}
+		mouseOverAndClick(ELEMENT_NEW_CONTENT_LINK);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK, DEFAULT_TIMEOUT, 1, 2);
 	}
 
 	//Go to add new folder
@@ -105,8 +104,8 @@ public class ActionBar extends EcmsBase{
 				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
 			}
 			WebElement newFolder = waitForAndGetElement(ELEMENT_NEW_FOLDER_LINK, 5000, 0);
-			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
 			if (newFolder == null){
+				WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
 				if (more != null){
 					mouseOverAndClick(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 					Utils.pause(1000);
@@ -625,12 +624,30 @@ public class ActionBar extends EcmsBase{
 	}
 
 	//Undo deleted Items
-	public void undoDeletion(){
+	public void undoDeletion(String...nodeName){
+		String node = nodeName.length > 0 ? nodeName[0]: "";
+		
 		info("-- Undo deletion --");
+		if (node != ""){
+			waitForTextPresent("\'" + node + "' was deleted succesfully.");
+		}
 		click(ELEMENT_UNDO_DELETED_ITEM);
 		if (waitForAndGetElement(button.ELEMENT_OK_BUTTON, 3000, 0) != null){
 			click(button.ELEMENT_OK_BUTTON);
 		}
+		if (node != ""){
+			waitForTextPresent("\'" + node + "' was successfully restored.");
+		}
+		Utils.pause(1000);		
+	}
+	
+	
+	//Delete data in Admin view, List view
+	public void deleteDataInAdminView(String name){
+		click(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", name)), 2);
+		click(ELEMENT_DELETE_NODE_ICON);
+		dialog.deleteInDialog();
+		waitForElementNotPresent(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", name)), DEFAULT_TIMEOUT, 1, 2);
 		Utils.pause(1000);
 	}
 	

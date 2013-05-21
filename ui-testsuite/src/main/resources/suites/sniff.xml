@@ -3,7 +3,7 @@
 <suite name="Platform Sniff Test" verbose="1">
 	<test name="ecms-sniff" enabled="true">
 		<packages>
-			<package name="org.exoplatform.selenium.platform.ecms.sniff" />
+			<package name="org.exoplatform.selenium.platform.ecms.sniff.*" />
 		</packages>
 	</test>
 

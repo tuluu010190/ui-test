@@ -60,11 +60,6 @@ public class SitesExplorer extends EcmsBase{
 	public final By MESSAGE_CLEAR_ALL = By.xpath("//*[contains(text(),'There are no items in the clipboard.')]");
 	public final String ELEMENT_VERIFY_ACTION = "//*[contains(@data-original-title, '${titleOfFile}')]/../..//*[contains(@class, 'uiIconEcmsPaste')]";
 	public final String ELEMENT_TITLE_LEFT_PANEL = "//div[@id='UITreeExplorer']//div[contains(@onmousedown,'collaboration:/sites/${title}')]";
-
-	/* File management view - Personal document	 */
-	public final String ELEMENT_SELECT_CHECKBOX = "//*[@data-original-title='${name}']/../..//input[@type='checkbox']";
-	public final String ELEMENT_ARROW_RIGHT = "//*[@data-original-title='${nodeName}']/../..//i[@class='uiIconArrowRight']";
-	
 	
 	public final String ELEMENT_DOCUMENT_TITLE = "//*[@class='nodeLabel']/*[text()='${title}']";
 	

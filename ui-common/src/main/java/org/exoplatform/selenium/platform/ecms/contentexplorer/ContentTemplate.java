@@ -10,7 +10,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 /**
  * 
@@ -37,9 +36,10 @@ public class ContentTemplate extends EcmsBase{
 
 	//WebContent
 	public final By ELEMENT_WEBCONTENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Web Content']");
-	public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX = By.id("title");	
+	//public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX = By.id("title");	
 	public final By ELEMENT_WEBCONTENT_NAME_TEXTBOX = By.id("name");	
 	public final By ELEMENT_WEBCONTENT_CONTENT_FRAME = By.xpath("//td[contains(@id,'cke_contents_htmlData')]/iframe");
+	public final By ELEMENT_WEBCONTENT_ADD_CONTENT_LINK = By.xpath("//*[@title='Insert Content Link']");
 	public final By ELEMENT_WEBCONTENT_ILLUSTRATION_TAB = By.xpath("//*[contains(text(),'Illustration')]");
 	public final By ELEMENT_WEBCONTENT_UPLOAD_FRAME = By.xpath("//*[contains(@name,'uploadIFrame')]");
 	//public final By ELEMENT_WEBCONTENT_FILE_IMAGE = By.name("file");
@@ -157,7 +157,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//*[text()='Create Folder']");
 	public final By ELEMENT_USE_CUSTOM_TYPE_FOLDER = By.id("customTypeCheckBox");
 
-	public final String ELEMENT_VERIFY_FILE_CONTENT = "//*[contains(text(), '${content}')]";
+	public final String ELEMENT_VERIFY_FILE_CONTENT = "//*[contains(text(),'${content}')]";
 
 	/*=================== Create a new document/article/file ===================*/
 	/* 
@@ -219,6 +219,21 @@ public class ContentTemplate extends EcmsBase{
 		Utils.pause(3000);
 	}
 
+	//Web Content > [Insert content link] 
+	public void addContentLinkInFCKEditor(String path, String file){
+		String previousWindowHandle = driver.getWindowHandle();
+		click(ELEMENT_WEBCONTENT_ADD_CONTENT_LINK);
+		switchToNewWindow();
+		
+		String[] link = path.split("/");
+		for (int i = 0; i < link.length; i ++){
+			click(By.id(link[i]));
+		}
+		click(By.linkText(file));
+		driver.switchTo().window(previousWindowHandle);
+		Utils.pause(1000);
+	}
+	
 	//add new file
 	public void createNewFile(String name, String cont, String title){
 		click(ELEMENT_NEWFILE_LINK);	
@@ -229,7 +244,7 @@ public class ContentTemplate extends EcmsBase{
 		//click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		button.saveAndClose();
 		//waitForAndGetElement(By.xpath("//*[contains(text(), '" + title +"')]"));
-		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", title)));
+		waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", cont)), DEFAULT_TIMEOUT, 1, 2);
 		Utils.pause(1000);
 	}
 
@@ -332,17 +347,6 @@ public class ContentTemplate extends EcmsBase{
 	public void createNewFolder(String title, folderType type, boolean...verify) {
 		info("-- Creating a new folder --");
 		actBar.goToAddNewFolder();
-		for (int repeat = 0;; repeat++)	{	
-			if (repeat >= ACTION_REPEAT) {
-				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
-			}
-			mouseOver(ELEMENT_NEW_FOLDER_LINK, true);
-			click(ELEMENT_NEW_FOLDER_LINK);
-
-			if (waitForElementPresent(ELEMENT_FOLDER_TITLE_TEXTBOX,30000,0) != null) break;
-			Utils.pause(WAIT_INTERVAL);
-			info("retry...[" + repeat + "]");
-		}
 		WebElement folderType = waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0, 2);
 		if (folderType != null && !folderType.isSelected()){
 			click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
@@ -489,7 +493,7 @@ public class ContentTemplate extends EcmsBase{
 		} else{
 			button.saveAndClose();
 			waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
-			waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentEdit)), DEFAULT_TIMEOUT, 0);
+			waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentEdit)), DEFAULT_TIMEOUT, 1, 2);
 		}
 		//waitForAndGetElement(By.xpath("//body/p[contains(text(), '" + contentEdit +"')]"));
 	}

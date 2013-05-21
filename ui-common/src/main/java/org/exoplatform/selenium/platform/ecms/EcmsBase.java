@@ -295,6 +295,10 @@ public class EcmsBase extends ManageAccount {
     public final String MESSAGE_ITEM_RESTORED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was successfully restored.\")]";
     public final String MESSAGE_MULTI_ITEMS_RESTORED_SUCCESSFULLY = "//*[contains(text(), '${title} were succesfully restored.')]";
     
+	/* File management view - Personal document	 */
+	public final String ELEMENT_SELECT_CHECKBOX = "//*[@data-original-title='${name}']/../..//input[@type='checkbox']";
+	public final String ELEMENT_ARROW_RIGHT = "//*[@data-original-title='${nodeName}']/../..//i[@class='uiIconArrowRight']";
+	    
 	////////////////////////////////
 	//Log-in ECMS
 	/*public void loginEcms(String username, String password) {

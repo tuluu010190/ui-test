@@ -43,6 +43,10 @@ public class Button extends TestBase{
 	//Content explorer 
 	public final By ELEMENT_REFRESH_BUTTON = By.xpath("//*[text()='refresh']");
 	public final By ELEMENT_RENAME_BUTTON = By.xpath("//*[text()='Rename']");
+	//Term And Condition Agreement
+	public final By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue']");
+	public final By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
+	public final By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
 
 	/*
 	 * General
