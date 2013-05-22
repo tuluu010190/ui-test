@@ -52,7 +52,7 @@ public class SitesExplorer extends EcmsBase{
 	public final String ELEMENT_CLIPBOARD_NODE= "//div[@data-original-title='collaboration:/sites/{$node}']";
 	public final String ELEMENT_CLIPBOARD_PASTE_ICON= "//div[@data-original-title='collaboration:/sites/{$node}']/../..//a[@data-original-title='Paste']";
 	public final String ELEMENT_CLIPBOARD_DELETE_ICON = "//div[@data-original-title='collaboration:/sites/{$node}']/../..//a[@data-original-title='Delete']";
-	
+	public final By ELEMENT_SITEBAR_RELATION = By.xpath("//*[@id='UISideBar']//*[@data-original-title='Relation']");
 	//public final By ELEMENT_FILE_EXPLORER_MINI_ICON = By.className("uiIconEcmsExplorerMini");
 
 	public final By ELEMENT_CLIPBOARD_ICON = By.xpath("//*[@data-original-title = 'Clipboard']");
@@ -121,9 +121,9 @@ public class SitesExplorer extends EcmsBase{
 		if (isElementPresent(ELEMENT_EDIT_TAGS)){
 			//click(ELEMENT_EDIT_TAGS);
 			((JavascriptExecutor)driver).executeScript("arguments[0].click();", ELEMENT_EDIT_TAGS);
-		}else if (isElementPresent(By.xpath("//*[@data-original-title = 'Edit Tags']"))){
-			//click(By.xpath("//*[@data-original-title = 'Edit Tags']"));
-			((JavascriptExecutor)driver).executeScript("arguments[0].click();", By.xpath("//*[@data-original-title = 'Edit Tags']"));
+		}else if (isElementPresent(ELEMENT_EDIT_TAGS_OTHER)){
+			click(ELEMENT_EDIT_TAGS_OTHER);
+			//((JavascriptExecutor)driver).executeScript("arguments[0].click();", By.xpath("//*[@data-original-title = 'Edit Tags']"));
 		}
 		click(By.xpath("//*[@id='UITagExplorer']//*[contains(@class, 'uiIconEdit')]"));
 		waitForElementPresent(ELEMENT_EDIT_TAGS_FORM);
@@ -155,6 +155,19 @@ public class SitesExplorer extends EcmsBase{
 		waitForTextPresent(tagName[0]);
 	}
 
+	/** function edit a tag
+	 * @author lientm
+	 * @param oldTag
+	 * @param newTag
+	 */
+	public void editTag(String oldTag, String newTag){
+		click(By.xpath(ELEMENT_EDIT_A_TAG_ICON.replace("${tagName}", oldTag)));
+		waitForElementPresent(ELEMENT_EDIT_A_TAG_FORM);
+		type(ELEMENT_EDIT_TAG_NAME, newTag, true);
+		button.save();
+		waitForElementPresent(By.xpath(ELEMENT_EDIT_A_TAG_ICON.replace("${tagName}", newTag)));
+	}
+	
 	//Simple search
 	public boolean simpleSearch(String keyword){
 		waitForElementPresent(ELEMENT_SIMPLESEARCH_TEXTBOX);

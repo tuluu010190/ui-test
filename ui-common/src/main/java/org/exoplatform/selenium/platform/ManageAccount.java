@@ -32,6 +32,7 @@ public class ManageAccount extends PlatformBase {
 	Dialog dialog;
 	Button button;
 	ManageAlert magAlert;
+	NavigationToolbar navTool;
 	
 	//Sign-in function for eXoGTN
 	public void signIn(String username, String password) {
@@ -130,5 +131,25 @@ public class ManageAccount extends PlatformBase {
 			waitForMessage(MESSAGE_SUCCESSFULLY_REGISTERED_ACCOUNT);
 			dialog.closeMessageDialog();
 		}
+	}
+	
+	public void changeLanguageForUser(String language){
+		button = new Button(driver);
+		info("Change language for user");
+		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		if (language == "French"){
+			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK);
+			waitForElementPresent(ELEMENT_CHANGE_LANGUAGE_POPUP);
+			click(By.linkText(language));
+			button.apply();
+			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP);
+		}else {
+			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK_OTHER);
+			waitForElementPresent(ELEMENT_CHANGE_LANGUAGE_POPUP_OTHER);
+			click(By.linkText(language));
+			click(button.ELEMENT_APPLY_FRENCH_BUTTON);
+			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP_OTHER);
+		}
+
 	}
 }

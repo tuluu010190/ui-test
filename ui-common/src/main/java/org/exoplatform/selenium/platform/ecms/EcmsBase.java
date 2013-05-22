@@ -267,11 +267,15 @@ public class EcmsBase extends ManageAccount {
 	//Edit Tag Form
 	public final By ELEMENT_TAG_CLOUD = By.className("uiIconEcmsTagExplorerMini");
 	public final By ELEMENT_EDIT_TAGS = By.xpath("//*[@title='Edit Tags']");
+	public final By ELEMENT_EDIT_TAGS_OTHER = By.xpath("//*[@data-original-title = 'Edit Tags']");
 	public final By ELEMENT_EDIT_PRIVATE_TAG = By.xpath("//*[@title='Edit Private Tags']");
 	public final String REMOVE_TAG = "//div[text()='${TagsName}']/../../td/div/img[@title='Remove Tag']";
 	public final String MESSAGE_WARNING_AFTER_DELETE_TAG = "Are you sure to delete this tag?";
 	public final By ELEMENT_EDIT_TAGS_FORM = By.xpath("//*[contains(@class, 'PopupTitle') and text()='Edit Tag']");
-
+	public final String ELEMENT_EDIT_A_TAG_ICON = "//*[text()='${tagName}']/../..//a[@data-original-title='Edit Tag']";
+	public final By ELEMENT_EDIT_A_TAG_FORM = By.id("TagPopup");
+	public final By ELEMENT_EDIT_TAG_NAME = By.id("tagName");
+	
 	//Tag Manager Form
 	public By ELEMENT_ADD_TAGS_BUTTON = By.xpath("//a[contains(text(),'Add Tags')]");
 	public By ELEMENT_CLOSE_TAG_FORM = By.xpath("//a[contains(text(),'Close')]");
@@ -294,11 +298,35 @@ public class EcmsBase extends ManageAccount {
     public final String MESSAGE_MULTI_ITEMS_DELETED_SUCCESSFULLY = "//*[contains(text(), '${title} were deleted succesfully.')]";
     public final String MESSAGE_ITEM_RESTORED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was successfully restored.\")]";
     public final String MESSAGE_MULTI_ITEMS_RESTORED_SUCCESSFULLY = "//*[contains(text(), '${title} were succesfully restored.')]";
-    
+
 	/* File management view - Personal document	 */
 	public final String ELEMENT_SELECT_CHECKBOX = "//*[@data-original-title='${name}']/../..//input[@type='checkbox']";
 	public final String ELEMENT_ARROW_RIGHT = "//*[@data-original-title='${nodeName}']/../..//i[@class='uiIconArrowRight']";
 	    
+    //Add comment form
+    public final By ELEMENT_ADD_COMMENT_LINK = By.xpath("//a[contains(text(), 'Comment')]");
+    public final By ELEMENT_ADD_COMMENT_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Comment']");
+    public final By ELEMENT_ADD_COMMENT_FRAME = By.xpath("//*[@id='cke_contents_comment']/iframe");
+    public final By ELEMENT_SHOW_COMMENT_LINK = By.linkText("Show comments");
+    public final String ELEMENT_SHOW_COMMENT_CONTENT = "//*[@class='commentBox uiBox']//p[contains(text(), '${comment}')]";
+    public final String ELEMENT_EDIT_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Edit this comment']";
+    public final String ELEMENT_DELETE_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Remove this comment']";
+    
+    //Vote form
+    public final By ELEMENT_VOTE_LINK = By.xpath("//a[contains(text(), 'Vote')]");
+    public final By ELEMENT_VOTE_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Vote Document']");
+    public final String ELEMENT_VOTE_RATE = "//*[@id='UIVoteForm']//*[@data-original-title='${rate}']";
+    public final By ELEMENT_VOTE_COMPONENT = By.xpath("//*[@class='uiVote clearfix']");
+    public final String ELEMENT_VOTE_RATING_INFOR = "//*[@class='voteRatingInfo']//span[text()='${rate}']";
+    
+    //Add translation form
+    public final By ELEMENT_ADD_TRANSLATION_LINK = By.xpath("//a[contains(text(), 'Add Translation')]");
+    public final By ELEMENT_ADD_TRANSLATION_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Add Translation']");
+    public final By ELEMENT_SELECT_DOCUMENT_BUTTON = By.xpath("//*[text()='Select Document']");
+    public final By ELEMENT_PARENT_DRIVER = By.xpath("//*[@id='BreadcumbsContainer']/li[2]/a");
+    public final By ELEMENT_SELECT_DOCUMENT_POPUP = By.xpath("//*[@id='UIPopupSymLink']//span[text()='Select Document']");
+    public final String ELEMENT_TRANSLATION_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='fr (${fileName})']";
+
 	////////////////////////////////
 	//Log-in ECMS
 	/*public void loginEcms(String username, String password) {
@@ -458,7 +486,7 @@ public class EcmsBase extends ManageAccount {
 	}
 
 	//upload file
-	public void uploadFile(String link, String... fileName){
+	public void uploadFile(String link){
 		//waitForElementPresent(ELEMENT_UPLOAD_LINK_XPATH);
 		//click(ELEMENT_UPLOAD_LINK_XPATH);
 		//waitForElementPresent(ELEMENT_UPLOAD_FILE_NAME_ID);

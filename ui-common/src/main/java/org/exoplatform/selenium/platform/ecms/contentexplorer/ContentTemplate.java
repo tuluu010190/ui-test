@@ -29,6 +29,9 @@ public class ContentTemplate extends EcmsBase{
 	//Button: Categories > Add Item 
 	public final By ELEMENT_CATEGORIES_ADD_ITEM = By.xpath("//*[contains(text(), 'Categories')]/..//*[@title='Add Item']");
 
+	//Select language
+	public final By ELEMENT_SELECT_LANGUAGE = By.xpath("//*[@id='UIDocumentForm']//select[@name='content-lang']");
+	
 	//Announcement
 	public final By ELEMENT_ANNOUNCEMENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Announcement']");
 	public final By ELEMENT_ANNOUNCEMENT_NAME_TEXTBOX = By.id("name");
@@ -670,4 +673,12 @@ public class ContentTemplate extends EcmsBase{
 			click(accept);
 			waitForElementPresent(By.xpath("//div[contains(text(),'"+value+"')]"));
 		}*/
+	
+	public void editLanguageForDocument(String name, String language){
+		actBar.goToEditDocument(name);
+		
+		select(ELEMENT_SELECT_LANGUAGE, language);
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(ELEMENT_SELECT_LANGUAGE);
+	}
 }

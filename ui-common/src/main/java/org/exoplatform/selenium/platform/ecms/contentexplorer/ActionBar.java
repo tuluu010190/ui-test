@@ -1,8 +1,11 @@
 package org.exoplatform.selenium.platform.ecms.contentexplorer;
 
 import static org.exoplatform.selenium.TestLogger.info;
+import java.util.HashMap;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -32,6 +35,7 @@ public class ActionBar extends EcmsBase{
 	ManageAccount magAcc = new ManageAccount(driver);
 	ManageView magView = new ManageView(driver);
 	ContextMenu cMenu = new ContextMenu(driver);
+	ManageAlert alert = new ManageAlert(driver);
 
 	//System TAB
 	//Export Form
@@ -58,10 +62,10 @@ public class ActionBar extends EcmsBase{
 	public By ELEMENT_TEXTBOX_VERSION=By.id("label");
 
 	//publication form
-	public final By ELEMENT_PUBLIC_STATUS = By.xpath("//a[contains(text(), 'Published')]");
-	public final By ELEMENT_CURRENT_STATUS = By.xpath("//a[@class='CurrentStatus']");
-	public final By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//a[@class='CurrentStatus' and contains(text(), 'Published')]");
-
+	public final By ELEMENT_PUBLIC_STATUS = By.xpath("//*[contains(text(),'Published')]/..//a");
+	public final By ELEMENT_CURRENT_STATUS = By.xpath("//*[@class='currentStatus']");
+	public final By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Published']");
+	
 	//Go to Sites Management
 	public void goToSitesManagement(){
 		Utils.pause(500);
@@ -331,11 +335,12 @@ public class ActionBar extends EcmsBase{
 			click(ELEMENT_MORE_LINK);
 		click(ELEMENT_PUBLICATION);
 		WebElement current = waitForAndGetElement(ELEMENT_CURRENT_STATUS);
+		info(current.getText());
 		if (current.getText().contains("Published") == false){
 			click(ELEMENT_PUBLIC_STATUS);
 		}
 		waitForElementPresent(ELEMENT_CURRENT_PUBLIC_STATUS);
-		button.save();
+		button.close();
 		info("Public document is successful");
 	}
 
@@ -662,5 +667,156 @@ public class ActionBar extends EcmsBase{
 			goToNode(ELEMENT_CATEGORIES_LINK);
 	 	    waitForElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		} 
+	}
+	/**function add Comment icon for action with web view
+	 * @author lientm
+	 */
+	public void addCommentIconInActionBar(){
+		navToolBar.goToSiteExplorer();
+		click(By.linkText("acme"));
+		click(By.linkText("documents"));
+		click(By.linkText("metro.pdf"));
+		WebElement comment = waitForAndGetElement(ELEMENT_ADD_COMMENT_LINK, 5000, 0);
+		
+		if (comment != null){
+			info("-- Add comment icon is already displayed --");
+		} else if (waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0) != null){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			if (waitForAndGetElement(ELEMENT_ADD_COMMENT_LINK, 5000, 0) != null){
+				info("-- Add comment icon is already displayed --");
+			}else{
+				magView.setup2ShowViewAction("comment");
+				magAcc.signOut();
+				magAcc.signIn("john", "gtn");
+			}
+		}else {
+			magView.setup2ShowViewAction("comment");
+			magAcc.signOut();
+			magAcc.signIn("john", "gtn");
+		}
+	}
+	
+	/** function go to add comment in action bar
+	 * @author lientm
+	 */
+	public void goToAddComment(){
+		WebElement comment = waitForAndGetElement(ELEMENT_ADD_COMMENT_LINK, 5000, 0);
+		if (comment == null){
+			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+			if (more != null){
+				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			} else {
+				info("Do not have add comment icon in action bar");
+				return;
+			}
+		}
+		click(ELEMENT_ADD_COMMENT_LINK);
+		waitForElementPresent(ELEMENT_ADD_COMMENT_POPUP);
+		Utils.pause(1000);
+	}
+	
+	/**function add comment for node
+	 * @author lientm
+	 * @param comment: comment need to add
+	 */
+	public void addComment(String comment){
+		goToAddComment();
+		inputDataToFrame(ELEMENT_ADD_COMMENT_FRAME, comment, false);
+		switchToParentWindow();
+		button.save();
+		waitForElementNotPresent(ELEMENT_ADD_COMMENT_POPUP);
+		click(ELEMENT_SHOW_COMMENT_LINK);
+		waitForElementPresent(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", comment)));
+	}
+	
+	/**function edit a comment
+	 * @author lientm
+	 * @param oldComment
+	 * @param newComment
+	 */
+	public void editComment(String oldComment, String newComment){
+		click(ELEMENT_SHOW_COMMENT_LINK);
+		click(By.xpath(ELEMENT_EDIT_COMMENT_ICON.replace("${comment}", oldComment)));
+		waitForElementPresent(ELEMENT_ADD_COMMENT_POPUP);
+		inputDataToFrame(ELEMENT_ADD_COMMENT_FRAME, newComment, false);
+		switchToParentWindow();
+		button.save();
+		waitForElementNotPresent(ELEMENT_ADD_COMMENT_POPUP);
+		click(ELEMENT_SHOW_COMMENT_LINK);
+		waitForElementPresent(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", newComment)));
+	}
+	
+	/**function delete a comment
+	 * @author lientm
+	 * @param comment
+	 */
+	public void deleteComment(String comment){
+		click(ELEMENT_SHOW_COMMENT_LINK);
+		click(By.xpath(ELEMENT_DELETE_COMMENT_ICON.replace("${comment}", comment)));
+		alert.acceptAlert();
+		if (waitForElementPresent(ELEMENT_SHOW_COMMENT_LINK, 5000, 0) != null){
+			click(ELEMENT_SHOW_COMMENT_LINK);
+		}
+		waitForElementNotPresent(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", comment)));
+	}
+	
+	/** function vote for a document/uploaded file
+	 * @author lientm
+	 * @param rate
+	 */
+	public void voteDocument(int rate){
+		WebElement comment = waitForAndGetElement(ELEMENT_VOTE_LINK, 5000, 0);
+		if (comment == null){
+			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+			if (more != null){
+				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			} else {
+				info("Do not have add comment icon in action bar");
+				return;
+			}
+		}
+		click(ELEMENT_VOTE_LINK);
+		waitForElementPresent(ELEMENT_VOTE_POPUP);
+		Utils.pause(1000);
+		
+		HashMap<Integer, String> rateVote = new HashMap<Integer, String>();
+		rateVote.put(1, "Poor");
+		rateVote.put(2, "Below average");
+		rateVote.put(3, "Average");
+		rateVote.put(4, "Above average");
+		rateVote.put(5, "Good");
+		
+		click(By.xpath(ELEMENT_VOTE_RATE.replace("${rate}", rateVote.get(rate))));
+		waitForElementPresent(ELEMENT_VOTE_COMPONENT);
+	}
+	
+	/** function and translation for document
+	 * @author lientm
+	 * @param paths: path to folder contains destination file
+	 * @param fileName: name of destination file
+	 */
+	public void addTranslationForDocument(String paths, String fileName){
+		WebElement comment = waitForAndGetElement(ELEMENT_ADD_TRANSLATION_LINK, 5000, 0);
+		if (comment == null){
+			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+			if (more != null){
+				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			} else {
+				info("Do not have add comment icon in action bar");
+				return;
+			}
+		}
+		click(ELEMENT_ADD_TRANSLATION_LINK);
+		Utils.pause(1000);
+		
+		click(ELEMENT_SELECT_DOCUMENT_BUTTON);
+		
+		if (paths != ""){
+			goToNode(paths);
+		}
+		click(By.xpath("//*[@id='ListRecords']//a[text()='" + fileName + "']"));
+		waitForElementNotPresent(ELEMENT_SELECT_DOCUMENT_POPUP);
+		button.save();
+		waitForElementNotPresent(ELEMENT_ADD_TRANSLATION_POPUP);
 	}
 }

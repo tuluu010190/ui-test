@@ -122,12 +122,14 @@ public class NavigationToolbar extends PlatformBase {
 
 	public void goToEditPageEditor () {
 		info("----Go to Edit page editor----");
-		mouseOver(ELEMENT_MENU_EDIT_LINK,false);
-		Utils.pause(500);
-		mouseOver(ELEMENT_MENU_PAGE_LINK,false);
-		Utils.pause(500);
-		click(ELEMENT_MENU_EDIT_LAYOUT);
-		Utils.pause(500);
+//		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+//		Utils.pause(500);
+//		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
+//		Utils.pause(500);
+//		click(ELEMENT_MENU_EDIT_LAYOUT);
+//		Utils.pause(500);	
+		String id = waitForAndGetElement(By.xpath("//*[@class='UIPage']")).getAttribute("id").replace("UIPage-", "");
+		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('" + id + "', 'EditCurrentPage', true));");
 	}
 
 	//Go to change language for user interface

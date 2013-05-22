@@ -71,7 +71,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
 	//Page
 	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
-	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Layout");
+	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
 	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//a[@title='SEO Management']");
 	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
 	//site
@@ -102,6 +102,15 @@ public class PlatformBase extends TestBase {
 	//Administration
 	//IDE
 	/* End Setting Icon*/
+	/*--------------- User account Management---------------------*/
+	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
+	public final By ELEMENT_CHANGE_LANGUAGE_LINK = By.xpath("//a[text()='Change Language']");
+	public final By ELEMENT_CHANGE_LANGUAGE_LINK_OTHER = By.xpath("//a[text()='Changer de Langue']");
+	//Change language form
+	public final By ELEMENT_CHANGE_LANGUAGE_POPUP = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Interface Language Setting']");
+	public final By ELEMENT_CHANGE_LANGUAGE_POPUP_OTHER = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Langues Disponibles']");
+
 
 	/* Username link -BEGIN */
 	//My Account form [Username] -> My Account
@@ -136,11 +145,6 @@ public class PlatformBase extends TestBase {
 	//Setting -> user -> Groups and roles
 	public final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles')]";
 
-	//Sign-out
-	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
-	//"//a[@class='TBIcon']";
-	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
-	//"//a[@class='LogoutIcon']";
 	/* Username link - END*/
 
 	/*
@@ -259,6 +263,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
 	public final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//a[@title='Finish']";
 	public final By ELEMENT_PAGE_EDIT_FINISH = By.xpath("//a[@title='Finish']");
+	public final By ELEMENT_PAGE_EDIT_FINISH_OTHER = By.xpath("//a[@data-original-title='Finish']");
 	public final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
 
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
@@ -291,14 +296,19 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_NEWPAGE_LAYOUT_TAB_PAGE_OPTION = By.linkText("Tabs Page Config");
 	public final By ELEMENT_NEWPAGE_LAYOUT_MIX_PAGE_OPTION = By.linkText("Mix Page Configs");
 	public final By ELEMENT_NEWPAGE_LAYOUT_DEFAULT_OPTION = By.linkText("Page Configs");
-
+	public final By ELEMENT_CONTENT_GROUP_PORTLET = By.xpath("//*[@title='Content']");
+	
 	public final By ELEMENT_ADD_CONTENT_DETAIL_PORTLET = By.xpath("//div[contains(text(),'Content Detail')]");
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.xpath("//div[@id='UIPage']");
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
 	public final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[text()='Content List']");
 	public final By ELEMENT_FRAME_CONTAIN_PORTLET = By.xpath("//div[contains(@id,'UIPortlet')]");
-	public final By ELEMENT_SELECT_CONTENT_PATH_LINK = By.xpath("//img[@class='AddIcon16x16 SelectFolderPathIcon']");
-
+	public final By ELEMENT_CONTENT_DETAIL_IN_LAYOUT = By.xpath("//*[contains(@id, 'UIPortlet')]//div[contains(text(),'Content Detail')]");
+	public final By ELEMENT_CONTENT_DETAIL_EDIT_ICON =  By.xpath("//*[text()='Content Detail']/..//a[@data-original-title='Edit Portlet']");
+	public final By ELEMENT_CONTENT_DETAIL_DELETE_ICON =  By.xpath("//*[text()='Content Detail']/..//a[@data-original-title='Delete Portlet']");
+	public final By ELEMENT_SELECT_CONTENT_PATH_LINK = By.xpath("//a[@data-original-title='AddPath']");
+	public final String ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET = "//*[contains(@id, 'UISingleContentViewerPortlet')]//*[@class='Title' and text()='${contentName}']";
+	
 	public final By ELEMENT_CONTENTS_BY_QUERY_PORTLET = By.xpath("//div[contains(text(),'Content By Query')]");
 	public final By ELEMENT_BY_QUERY_TEXTAREA = By.xpath("//textarea[@id='UICLVConfigContentByQueryTextArea']");
 	public final By ELEMENT_WORKSPACE_SELECT = By.xpath("//select[@id='UICLVConfigWorkspaceFormSelectBox']");

@@ -9,14 +9,18 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class PageEditor extends PlatformBase {
-
+	
+	public PageEditor (WebDriver dr){
+		driver = dr;
+	}
 	NavigationToolbar nav = new NavigationToolbar(driver);
 	UserGroupManagement userGroup = new UserGroupManagement(driver);
 	Dialog dialog = new Dialog(driver);
 	Button button = new Button(driver);
-	ManageAlert magAlert = new ManageAlert(driver);
+	ManageAlert magAlert;
 	
 	/** 
 		Page Creation Wizard: Select a Navigation Node and create the Page 
@@ -127,25 +131,44 @@ public class PageEditor extends PlatformBase {
 
 	//Add content detail to an empty layout page
 	public void addContentDetailEmptyLayout(){
-		click(ELEMENT_MENU_CONTENT_LINK);
+		click(ELEMENT_CONTENT_GROUP_PORTLET);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_DETAIL_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);	
 	}
 
 	//Add "ContentDetail" to page with selected layout
 	public void addContentDetail(){
-		click(ELEMENT_MENU_CONTENT_LINK);
+		click(ELEMENT_CONTENT_GROUP_PORTLET);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_DETAIL_PORTLET,ELEMENT_DROP_TARGET_HAS_LAYOUT);		
 	}
-
+	/** function to add content path for content detail portlet
+	 * @author lientm
+	 * @param path
+	 */
+	public void addContentPathForContentDetailPortlet(String path){
+		mouseOver(ELEMENT_CONTENT_DETAIL_IN_LAYOUT, true);
+		click(ELEMENT_CONTENT_DETAIL_EDIT_ICON);
+		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
+		if (path != ""){
+			String[] paths = path.split("/");
+			for (int i = 0; i < paths.length; i ++){
+				click("//a[@data-original-title='" + paths[i] + "']");
+				Utils.pause(1000);
+			}
+		}
+		click(button.ELEMENT_SAVE_BUTTON);
+		click(button.ELEMENT_CLOSE_BUTTON);
+		Utils.pause(1000);
+	}
+	
 	//Add "ContentList" to EmptyLayout page
 	public void addContentListEmptyLayout(){
-		click(ELEMENT_MENU_CONTENT_LINK);
+		click(ELEMENT_CONTENT_GROUP_PORTLET);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_LIST_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
 	}
 
 	//Add "ContentList" to page with selected layout
 	public void addContentList(){
-		click(ELEMENT_MENU_CONTENT_LINK);
+		click(ELEMENT_CONTENT_GROUP_PORTLET);
 		dragAndDropToObject(ELEMENT_ADD_CONTENT_LIST_PORTLET,ELEMENT_DROP_TARGET_HAS_LAYOUT);		
 	}
 
@@ -232,7 +255,7 @@ public class PageEditor extends PlatformBase {
 	public void createPage_ContentByQuery_EmptyLayout(String pageName)
 	{
 		goToPageEditor_EmptyLayout(pageName);
-		click(ELEMENT_MENU_CONTENT_LINK);
+		click(ELEMENT_CONTENT_GROUP_PORTLET);
 		dragAndDropToObject(ELEMENT_CONTENTS_BY_QUERY_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
 		Utils.pause(500);
 	}
@@ -258,16 +281,17 @@ public class PageEditor extends PlatformBase {
 
 	//function remove a portlet
 	public void removePortlet(By sign, By elementPortlet, By iconDelete){
+		magAlert = new ManageAlert(driver);
 		if (waitForAndGetElement(sign) != null){
 			mouseOver(elementPortlet, true);
 			click(iconDelete);
 			magAlert.acceptAlert();
-			click(ELEMENT_PAGE_EDIT_FINISH);
+			click(ELEMENT_PAGE_EDIT_FINISH_OTHER);
 			info("remove portlet is successful");
 		}else{
 			info("portlet has already deleted");
 			click(ELEMENT_PAGE_CLOSE);
 		}
-		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH,50000);
+		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH_OTHER,50000);
 	}
 }
