@@ -17,9 +17,9 @@ import org.openqa.selenium.WebDriver;
  * @author vuna2
  *
  */
-public class ManageDriver extends EcmsBase{
+public class ManageDrive extends EcmsBase{
 
-	public ManageDriver(WebDriver dr) {
+	public ManageDrive(WebDriver dr) {
 		super(dr);
 		// TODO Auto-generated constructor stub
 	}
@@ -38,9 +38,11 @@ public class ManageDriver extends EcmsBase{
 	//Edit a drive
 	public final By ELEMENT_DRIVE_EDIT_POPUP = By.id("EditDriveManagerPopup");
 	public final String ELEMENT_DRIVE_EDIT = "//*[@title='${DATA_DRIVE_NAME}']/../..//*[@title='Edit']";
+	public final String ELEMENT_DRIVE_EDIT_AUX = "//*[@data-original-title='${driveName}']/../..//*[@data-original-title='Edit']";
 
 	//Delete a drive
 	public final String ELEMENT_DRIVE_DELETE = "//*[@title='${DATA_DRIVE_NAME}']/../..//*[@title='Delete']";
+	public final String ELEMENT_DRIVE_DELETE_AUX = "//*[@data-original-title='${DATA_DRIVE_NAME}']/../..//*[@data-original-title='Delete']";
 
 	//Add a Driver form 
 	public final By ELEMENT_ADD_DRIVE_POPUP = By.id("AddDriveManagerPopup");
@@ -48,26 +50,33 @@ public class ManageDriver extends EcmsBase{
 	public final By ELEMENT_DRIVE_TAB = By.xpath("//*[contains(text(),'Drive')]");
 	public final By ELEMENT_WORKSPACE = By.name("workspace");
 	public final By ELEMENT_ADD_PATH = By.xpath("//*[@title='Add Path']");
+	public final By ELEMENT_ADD_PATH_AUX = By.xpath("//*[@data-original-title='Add Path']");
+	public final By ELEMENT_ADD_ROOT_NODE = By.xpath("//*[@title='AddRootNode']");
+	public final By ELEMENT_ADD_ROOT_NODE_AUX = By.xpath("//*[@data-original-title='AddRootNode']");
 	public final By ELEMENT_ADD_PATH_POPUP = By.id("JCRBrowser");
 	public final By ELEMENT_JCR_SYSTEM = By.xpath("//*[contains(text(),'jcr:system')]/../..//*[@title='select']");
+	public final String ELEMENT_SELECT_PATH_ITEM = "//*[contains(text(),'${node}')]/../..//*[@title='select']";
+	public final String ELEMENT_SELECT_PATH_IEM_AUX = "//*[contains(text(),'${node}')]/../..//*[@data-original-title='select']";
 	public final By ELEMENT_HOME_PATH = By.id("homePath");
 	public final By ELEMENT_ADD_PERMISSION = By.xpath("//*[@title='Add Permission']");
+	public final By ELEMENT_ADD_PERMISSION_AUX = By.xpath("//*[@data-original-title='Add Permission']");
 	public final By ELEMENT_PERMISSION_TEXTBOX = By.id("permissions");
 	public final By ELEMENT_ALLOW_CREATE_FOLDER = By.name("allowCreateFolders");
 	public final By ELEMENT_DRIVE_NAME = By.id("name");
-
 	public final By ELEMENT_MANAGE_DRIVE_LINK = By.linkText("Manage Drives");
-
+    public final String ELEMENT_VERIFY_DRIVE = "//div[@data-original-title='${driveName}']";
+    public final String ELEMENT_VERIFY_WORKSPACE_NAME = ELEMENT_VERIFY_DRIVE + "/../../td[2]/div"; 
+	
 	//------------Manage driver------------------//
 
-	//Function to add new driver in manage driver form
+	//Function to add new drive in [Manage drive] form
 	public void addNewDrive(String driverName, String workspace, String path, String group, 
-			String member, String viewOption, String view, Boolean... params){
-		By ELEMENT_EXO_ECM = By.xpath("//*[contains(text(),'" + path + "')]/../..//*[@title='select']");
-		By ELEMENT_DRIVER = By.xpath("//*[@title='" + driverName + "']");
+			String member, String viewOption, String view, Object...params){
+		By ELEMENT_EXO_ECM = By.xpath(ELEMENT_SELECT_PATH_ITEM.replace("${node}", path));
+		//By ELEMENT_DRIVER = By.xpath(ELEMENT_VERIFY_DRIVE.replace("${driveName}", driverName));
 
-		Boolean editDrv = params.length > 0 ? params[0]:false;
-		Boolean selectView = params.length > 0 ? params[1]:true;
+		Boolean editDrv = (Boolean) (params.length > 0 ? params[0]: false);
+		Boolean selectView = (Boolean) (params.length > 1 ? params[1]: false);
 		
 		if (!editDrv){
 			click(ELEMENT_ADD_DRIVER_BUTTON);
@@ -83,8 +92,8 @@ public class ManageDriver extends EcmsBase{
 		}else if (editDrv){
 			if (isElementPresent(ELEMENT_DRIVE_EDIT.replace("${DATA_DRIVE_NAME}", driverName))){
 				click(ELEMENT_DRIVE_EDIT.replace("${DATA_DRIVE_NAME}", driverName));
-			}else if (isElementPresent(By.xpath("//*[@data-original-title='"+ driverName +"']/../..//*[@data-original-title='Edit']"))){
-				click(By.xpath("//*[@data-original-title='"+ driverName +"']/../..//*[@data-original-title='Edit']"));
+			}else {
+				click(By.xpath(ELEMENT_DRIVE_EDIT_AUX.replace("${driveName}", driverName)));
 			}
 			waitForElementPresent(ELEMENT_DRIVE_EDIT_POPUP);
 		}
@@ -96,29 +105,29 @@ public class ManageDriver extends EcmsBase{
 		if (path.equals("/") || path.equals("Root")){
 			if (isElementPresent(ELEMENT_ADD_PATH)){
 				click(ELEMENT_ADD_PATH);
-			}else if (isElementPresent(By.xpath("//*[@data-original-title='Add Path']"))){
-				click(By.xpath("//*[@data-original-title='Add Path']"));
+			}else {
+				click(ELEMENT_ADD_PATH_AUX);
 			}
 			waitForElementPresent(ELEMENT_ADD_PATH_POPUP);
 			
-			if (isElementPresent(By.xpath("//*[@title='AddRootNode']"))){
-				click(By.xpath("//*[@title='AddRootNode']"));
-			}else if (isElementPresent(By.xpath("//*[@data-original-title='AddRootNode']"))){
-				click(By.xpath("//*[@data-original-title='AddRootNode']"));
+			if (isElementPresent(ELEMENT_ADD_ROOT_NODE)){
+				click(ELEMENT_ADD_ROOT_NODE);
+			}else {
+				click(ELEMENT_ADD_ROOT_NODE_AUX);
 			}
 			Utils.pause(1000);
 		}else{
 			if (isElementPresent(ELEMENT_ADD_PATH)){
 				click(ELEMENT_ADD_PATH);
-			}else if (isElementPresent(By.xpath("//*[@data-original-title='Add Path']"))){
-				click(By.xpath("//*[@data-original-title='Add Path']"));
+			}else {
+				click(ELEMENT_ADD_PATH_AUX);
 			}
 			waitForElementPresent(ELEMENT_ADD_PATH_POPUP);
 			assert waitForAndGetElement(By.xpath("//*[@name='workspaceName']/option[@value='" + workspace + "']")).isSelected():"Homepath display wrong";
 			if (isElementPresent(ELEMENT_EXO_ECM)){
 				click(ELEMENT_EXO_ECM);
-			}else if (isElementPresent(By.xpath("//*[contains(text(),'"+ path +"')]/../..//*[@data-original-title='select']"))){
-				click(By.xpath("//*[contains(text(),'"+ path +"')]/../..//*[@data-original-title='select']"));
+			}else if (isElementPresent(By.xpath(ELEMENT_SELECT_PATH_IEM_AUX.replace("${node}", path)))){
+				click(By.xpath(ELEMENT_SELECT_PATH_IEM_AUX.replace("${node}", path)));
 			}
 			else{
 				info("list node of homepath display false");
@@ -131,8 +140,8 @@ public class ManageDriver extends EcmsBase{
 		type(By.xpath("//input[@name='permissions']"), "", true);
 		if (isElementPresent(ELEMENT_ADD_PERMISSION)){
 			click(ELEMENT_ADD_PERMISSION);
-		}else if (isElementPresent(By.xpath("//*[@data-original-title='Add Permission']"))){
-			click(By.xpath("//*[@data-original-title='Add Permission']"));
+		}else {
+			click(ELEMENT_ADD_PERMISSION_AUX);
 		}
 		userGroup.selectGroup(group, false);
 		Utils.pause(1000);
@@ -154,12 +163,14 @@ public class ManageDriver extends EcmsBase{
 			selectCheckBoxList(view);
 			//Complete add new drive
 			click(button.ELEMENT_SAVE_BUTTON);
-			
 			select(By.xpath("//select[contains(@id,'maxPageSize')]"),"20");
-			waitForElementPresent(ELEMENT_DRIVER);
-			assert isElementPresent(ELEMENT_DRIVER):"Add new driver is unsuccessful";
+			driver.navigate().refresh();
+			Utils.pause(500);
+			//waitForElementPresent(ELEMENT_DRIVER);
+			//assert isElementPresent(ELEMENT_DRIVER):"Add new driver is unsuccessful";
+			waitForElementPresent(ELEMENT_DRIVE_EDIT_AUX.replace("${driveName}", driverName));
 			info("Create new driver is successful");
-		}else {
+		}else{
 			//Complete add new drive
 			click(button.ELEMENT_SAVE_BUTTON);
 			alt.waitForMessage("Please select a view.");
@@ -193,15 +204,15 @@ public class ManageDriver extends EcmsBase{
 
 	//function to delete drive on manage drive
 	public void deleteDrive(String driver){
-		By ELEMENT_DRIVER = By.xpath("//*[@title='" + driver + "']");
+		By ELEMENT_DRIVER = By.xpath(ELEMENT_VERIFY_DRIVE.replace("${driveName}", driver));
 		if (isElementNotPresent(ELEMENT_ADD_DRIVER_BUTTON)){
-			ecMain.goToManageDriver();
+			ecMain.goToManageDrive();
 		}
 		info("Delete driver");
 		if (isElementPresent(ELEMENT_DRIVE_DELETE.replace("${DATA_DRIVE_NAME}", driver))){
 			click(ELEMENT_DRIVE_DELETE.replace("${DATA_DRIVE_NAME}", driver));
-		}else if (isElementPresent(By.xpath("//*[@data-original-title='"+ driver +"']/../..//*[@data-original-title='Delete']"))){
-			click(By.xpath("//*[@data-original-title='"+ driver +"']/../..//*[@data-original-title='Delete']"));
+		}else {
+			click(By.xpath(ELEMENT_DRIVE_DELETE_AUX.replace("${DATA_DRIVE_NAME}", driver)));
 		}
 		alt.acceptAlert();
 		waitForElementNotPresent(ELEMENT_DRIVER);

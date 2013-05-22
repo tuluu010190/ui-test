@@ -47,7 +47,7 @@ public class ECMS_Admin_ManageNodeType_Search extends PlatformBase {
 		ecMain = new ECMainFunction(driver);
 		magNode = new ManageNodeType(driver);
 		magAcc.signIn(DATA_USER, DATA_PASS);
-		ecMain.goToNodeTypeTabInContentAdmin();
+		ecMain.goToNodeTypeTab();
 	}
 
 	@AfterMethod

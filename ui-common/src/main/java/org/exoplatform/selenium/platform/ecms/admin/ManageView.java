@@ -1,13 +1,13 @@
 package org.exoplatform.selenium.platform.ecms.admin;
 
+import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 /**
  * 
@@ -21,60 +21,181 @@ public class ManageView extends EcmsBase{
 		// TODO Auto-generated constructor stub
 	}
 
-	NavigationToolbar navToolbar = new NavigationToolbar(driver);
 	Button button = new Button(driver);
-	Dialog dialog = new Dialog(driver);
 	ManageAlert alt = new ManageAlert(driver);
 	ECMainFunction ecMain = new ECMainFunction(driver);
-
+    
+	//Views
 	//Settings tab
 	public final By ELEMENT_SETTING_TAB = By.xpath("//*[contains(@class, 'popup')]//*[text()='Setting']");
+	public final By ELEMENT_HIDE_EXPLORER_PANEL = By.name("hideExplorerPanel");
+	public final By ELEMENT_SELECTED_TEMPLATE = By.xpath("//*[@name='template']/option[@selected='selected']");
 	
 	//Action tab
 	public final By ELEMENT_ACTION_TAB = By.xpath("//*[contains(@class, 'popup')]//*[text()='Action']");
+	public final String ELEMENT_ACTION_TAB_NAME = "//*[contains(@class, 'popup')]//*[text()='${tabName}']";
 	public final String ELEMENT_EDIT_ACTION_ICON = "//*[contains(@class, 'popup')]//*[text()='${tabName}']/../..//i[@class='uiIconEdit']";
 	public final By ELEMENT_SAVE_BUTTON_EDIT_VIEW_TAB = By.xpath("//*[text()='Add/Edit Tab']/.. /..//*[text()='Save']");
-	
+	//*[contains(@class, 'popupTitle')]/../..//*[text()='Admin']/../..//*[@class='uiIconEdit']
+
 	//Permission tab
 	public final By ELEMENT_ADDVIEW_PERMISSION_TAB = By.xpath("//*[text()='Permission']");
 	public final By ELEMENT_ADDVIEW_PERMISSION_BUTTON = By.xpath("//*[@id='UIViewPermissionForm']//*[text()='Add']");
+	public final String ELEMENT_VERIFY_PERMISSION = "//*[contains(@class, 'popup')]//*[@id='UIViewPermissionList']//*[text()='${permission}']";
+	
+	public final String ELEMENT_VIEW_ICON = "//*[text() = '${viewName}']/../..//*[contains(@class, 'uiIconView')]";
+	public final String ELEMENT_DISPLAY_VIEW_ITEM = "//*[@class='Text' and contains(text(),'${viewName}')]"; 
+	
+	//Views > Explorer Template
+	public final By ELEMENT_EDIT_EXPLORER_TEMPLATE_TAB = By.xpath("//*[contains(@class, 'popupTitle') and text()='Edit Explorer Template']");
+	
+	/*================================================================================*/
 
-	/*function add a view 
+	/**
+	 * Action: View, Edit, Delete
+	 * 
+	 */
+	public void actionOnSelectedView(String viewName, String option, Object...params){
+		Boolean verify = (Boolean) (params.length > 0 ? params[0]: false);
+		waitForTextPresent(viewName);
+		//View
+		if (option.equals("View")){
+			click(ELEMENT_VIEW_ICON.replace("${viewName}", viewName));
+		}else if (option.equals("Edit")){
+			//Edit
+			click(ELEMENT_EDIT_VIEW.replace("${viewName}", viewName));
+			waitForElementPresent(ELEMENT_EDIT_VIEW_FORM);	
+		}else if (option.equals("Delete")){
+			//Delete
+			click(By.xpath(ELEMENT_DELETE_VIEW.replace("${viewName}", viewName)));     
+			alt.acceptAlert();
+			if(verify == true) waitForElementNotPresent(By.xpath(ELEMENT_EDIT_VIEW.replace("${viewName}", viewName)));
+		}
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * View a selected view
+	 * 
+	 */
+	public void viewSelectedView(String viewName, Object...params){
+		Boolean verifyTemplate = (Boolean) (params.length > 0 ? params[0]: false);
+		String template = (String) (params.length > 1 ? params[1]: "");
+		
+		Boolean verifyAction = (Boolean) (params.length > 2 ? params[2]: false);
+		String tab = (String) (params.length > 3 ? params[3]: "");
+		String property = (String) (params.length > 4 ? params[4]: "");
+		
+		Boolean verifyPermission = (Boolean) (params.length > 5 ? params[5]: false);
+		String permission = (String) (params.length > 6 ? params[6]: "");
+		
+		info("-- The current view... " + viewName);
+		actionOnSelectedView(viewName, "View");
+		waitForElementPresent(ELEMENT_TEMPLATE_VIEW);
+		
+		//View Settings tab
+		if (verifyTemplate){
+			WebElement element = waitForAndGetElement(ELEMENT_SELECTED_TEMPLATE, 3000, 1, 2);
+			String temp = element.getAttribute("value");
+			info("-----");
+			assert temp.equals(template): "Template is not defined";
+		}
+		//Action tab
+		click(ELEMENT_ACTION_TAB);
+		if (verifyAction){
+			waitForElementPresent(ELEMENT_ACTION_TAB_NAME.replace("${tabName}", tab));
+			waitForTextPresent(property);
+		}
+		//Permission tab
+		click(ELEMENT_ADDVIEW_PERMISSION_TAB);
+		if (verifyPermission){
+			waitForElementPresent(ELEMENT_VERIFY_PERMISSION.replace("${permission}", permission));
+		}
+		button.close();
+		Utils.pause(1000);
+	}
+
+	/**
+	 * function add a view 
 	 * @view: name of view need add sub view
 	 * @tab: name of tab on action bar that need add view
 	 * @viewadd: list of sub view need add
 	 */
-	public void addView(String view, String tab, String viewadd ){
+	/*public void addView(String view, String tab, String viewadd ){
 		ecMain.goToManageViews();
-		click(By.xpath("//div[@title='" + view + "']/../..//*[@class='EditInfoIcon']"));
+		//click(By.xpath("//div[@title='" + view + "']/../..//*[@class='EditInfoIcon']"));
+		actionOnSelectedView(view, "Edit");
 		click(By.xpath("//a[contains(text(),'" + tab + "')]"));
 		selectCheckBoxList(viewadd);
 		button.save();
 		button.save();
-	}
+	}*/
 
 	/**
 	 * Delete a view
 	 * @param viewName : View Name
 	 * @param confirmMessage : Confirm Message
 	 */
-	public void deleteView(String viewName, String confirmMessage, boolean verify){
+	/*public void deleteView(String viewName, String confirmMessage, boolean verify){
 		waitForTextPresent(viewName);
 		click(By.xpath(ELEMENT_DELETE_VIEW.replace("${viewName}", viewName)));     
 		alt.waitForConfirmation(confirmMessage);
 		if(verify == true) waitForElementNotPresent(By.xpath(ELEMENT_EDIT_VIEW.replace("${viewName}", viewName)));
 		Utils.pause(1000);
-	}
-	
+	}*/
+
 	/**
 	 * Edit View 
 	 * @param viewName : View Name
 	 */
-	public void editView(String viewName){
-		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + viewName + "')]"));
-		By locator = By.xpath(ELEMENT_EDIT_VIEW.replace("${viewName}", viewName));
-		click(locator);
-		waitForElementPresent(ELEMENT_EDIT_VIEW_FORM);
+	public void editView(String viewName, String template, boolean enableVersion, boolean hideExplorerPanel, Object...params){
+		boolean editAction = (Boolean) (params.length > 0 ? params[0] : false);
+		String tab =  (String) (params.length > 1 ? params[1] : "");
+		String property =  (String) (params.length > 2 ? params[2] : "");
+		
+		boolean editPermission = (Boolean) (params.length > 3 ? params[3] : false); 
+		boolean selectGroup = (Boolean) (params.length > 4 ? params[4] : false);
+		String group =  (String) (params.length > 5 ? params[5] : "");
+		String membership =  (String) (params.length > 6 ? params[6] : "");
+		boolean selectUser = (Boolean) (params.length > 7 ? params[7] : false);
+		String user =  (String) (params.length > 8 ? params[8] : "");
+		
+		waitForElementPresent(By.xpath(ELEMENT_DISPLAY_VIEW_ITEM.replace("${viewName}", viewName)));
+		
+		info("-- Editing a view -- " + viewName);
+		actionOnSelectedView(viewName, "Edit");
+		//Settings tab
+		if (!template.isEmpty()){
+			select(ELEMENT_TEMPLATE_VIEW, template);
+		}
+		if (enableVersion){
+			click(ELEMENT_ENABLE_VERSION, 2);
+		}
+		WebElement element = waitForAndGetElement(ELEMENT_HIDE_EXPLORER_PANEL, 3000, 1, 2);
+		if (hideExplorerPanel && !element.isSelected()){
+			click(ELEMENT_HIDE_EXPLORER_PANEL, 2);
+		}
+		//Edit Action
+		if (editAction){
+			click(ELEMENT_ACTION_TAB);
+			click(ELEMENT_EDIT_ACTION_ICON.replace("${tabName}", tab));
+			selectCheckBoxList(property);
+			click(ELEMENT_SAVE_BUTTON_EDIT_VIEW_TAB);
+			waitForTextNotPresent("Tab Name");
+		}
+		//Set permission
+		if (editPermission){
+			click(ELEMENT_ADDVIEW_PERMISSION_TAB);
+			if (selectGroup){
+				selectMembership(group, membership, "Select Member");
+			}
+			if(selectUser){
+				selectUser(user);
+			}
+			click(ELEMENT_ADDVIEW_PERMISSION_BUTTON);
+			}
+		button.save();
+		Utils.pause(1000);
 	}
 
 	/**
@@ -99,7 +220,7 @@ public class ManageView extends EcmsBase{
 		String membership =  (String) (params.length > 3 ? params[3] : "");
 		boolean selectUser = (Boolean) (params.length > 4 ? params[4] : false);
 		String user =  (String) (params.length > 5 ? params[5] : "");
-		
+
 		//addTab
 		click(ELEMENT_ACTION_TAB);
 		click(button.ELEMENT_ADD_BUTTON);
@@ -107,7 +228,7 @@ public class ManageView extends EcmsBase{
 		selectCheckBoxList(property);
 		click(ELEMENT_SAVE_BUTTON_EDIT_VIEW_TAB);
 		waitForTextNotPresent("Tab Name");
-		
+
 		//Set permission
 		click(ELEMENT_ADDVIEW_PERMISSION_TAB);
 		if (selectGroup){
@@ -117,7 +238,7 @@ public class ManageView extends EcmsBase{
 			selectUser(user);
 		}
 		click(ELEMENT_ADDVIEW_PERMISSION_BUTTON);
-		
+
 		//Settings
 		click(ELEMENT_SETTING_TAB);
 		type(ELEMENT_TEMPLATE_VIEW_NAME, name, true);
@@ -142,9 +263,9 @@ public class ManageView extends EcmsBase{
 		type(ELEMENT_EXPLORER_TEMPLATE_NAME, templateName, true);
 		select(ELEMENT_EXPLORER_TEMPLATE_TYPE, templateType);
 		button.save();      
-		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));
+		waitForElementPresent(By.xpath(ELEMENT_DISPLAY_VIEW_ITEM.replace("${viewName}", templateName)));
 	}
-	
+
 	/**
 	 * Add tab to view
 	 * @param tabname : Tab name
@@ -170,7 +291,7 @@ public class ManageView extends EcmsBase{
 	public void setup2ShowViewAction(String viewAction, String...viewType){
 		String view = viewType.length > 0 ? viewType[0] : "Web";
 		String tab = viewType.length > 1 ? viewType[1] : "Authoring";
-		
+
 		ecMain.goToManageViews();
 		click(ELEMENT_EDIT_VIEW.replace("${viewName}", view));
 		click(ELEMENT_ACTION_TAB);
@@ -180,7 +301,7 @@ public class ManageView extends EcmsBase{
 		button.save();
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Create version for a view
 	 * @param viewName : View Name
@@ -193,7 +314,7 @@ public class ManageView extends EcmsBase{
 		for(int i = 0; i < versionNumber ; i++) {
 			//editView(viewName);
 			click(ELEMENT_EDIT_VIEW.replace("${viewName}", viewName));
-			waitForElementPresent("//*[contains(@class, 'popupTitle') and text()='Edit Explorer Template']");
+			waitForElementPresent(ELEMENT_EDIT_EXPLORER_TEMPLATE_TAB);
 			if(getElement(ELEMENT_ENABLE_VERSION).isEnabled()){ 
 				click(ELEMENT_ENABLE_VERSION, 2);          
 			}
@@ -201,7 +322,7 @@ public class ManageView extends EcmsBase{
 			Utils.pause(500);
 		}
 	}
-	
+
 	/**
 	 * Restore a view to a certain version
 	 * @param viewName : View Name
@@ -210,7 +331,7 @@ public class ManageView extends EcmsBase{
 	public void restoreVersion(String viewName, int orderVersion){
 		//editView(viewName);
 		click(ELEMENT_EDIT_VIEW.replace("${viewName}", viewName));
-		waitForElementPresent("//*[contains(@class, 'popupTitle') and text()='Edit Explorer Template']");
+		waitForElementPresent(ELEMENT_EDIT_EXPLORER_TEMPLATE_TAB);
 		String order = "" + orderVersion;
 		if (isElementPresent(ELEMENT_VERSION_OPTION)){
 			select(ELEMENT_VERSION_OPTION, order);

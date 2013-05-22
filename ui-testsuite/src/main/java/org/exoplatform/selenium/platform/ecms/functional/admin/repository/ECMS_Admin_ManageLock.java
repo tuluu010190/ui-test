@@ -433,7 +433,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 
 		magAcc.signIn(DATA_USER, DATA_PASS);
 
-		ecMain.goToLockTabInContentAdmin();
+		ecMain.goToManageLockTab();
 
 		click(adminPer.ELEMENT_DELETE_SELECTED_GROUP.replace("${selectedGroup}", ELEMENT_GROUP_DISPLAY));
 
@@ -581,7 +581,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 
 		cMenu.deleteDocument(elementArticleUnLock);
 
-		ecMain.goToLockTabInContentAdmin();
+		ecMain.goToManageLockTab();
 
 		click(adminPer.ELEMENT_DELETE_SELECTED_GROUP.replace("${selectedGroup}", ELEMENT_GROUP_DISPLAY));
 

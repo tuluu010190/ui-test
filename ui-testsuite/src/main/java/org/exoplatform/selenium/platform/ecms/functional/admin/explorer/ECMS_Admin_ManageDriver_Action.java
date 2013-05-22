@@ -10,7 +10,7 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.admin.ECMainFunction;
-import org.exoplatform.selenium.platform.ecms.admin.ManageDriver;
+import org.exoplatform.selenium.platform.ecms.admin.ManageDrive;
 import org.exoplatform.selenium.platform.ecms.admin.Permission;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.testng.annotations.AfterMethod;
@@ -46,7 +46,7 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 	ECMainFunction ecMain;
 	SitesExplorer sitesExp;
 	Permission adminPer;
-	ManageDriver magDrv;
+	ManageDrive magDrv;
 
 	public final String DATA_USER = "john";
 	public final String DATA_PASS = "gtn";
@@ -65,7 +65,7 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 		ecMain = new ECMainFunction(driver);
 		sitesExp = new SitesExplorer(driver);
 		adminPer = new Permission(driver);
-		magDrv = new ManageDriver(driver);
+		magDrv = new ManageDrive(driver);
 		magAcc.signIn(DATA_USER, DATA_PASS);
 	}
 
@@ -91,9 +91,9 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 
 		//go to add drive
 		info("Go to add new drive");
-		ecMain.goToManageDriver();
+		ecMain.goToManageDrive();
 		magDrv.addNewDrive(DATA_DRIVE_NAME,"dms-system","exo:ecm", "Organization/Management/Executive Board","member",
-				"Non-document Nodes/Sidebar", "Admin/Icons/List");
+				"Non-document Nodes/Sidebar", "Admin/Icons/List", false, true);
 
 		//edit drive
 		info("Edit drive");
@@ -116,7 +116,7 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 		String DATA_DRIVE_NAME = "Add_Drive_Without_View";
 
 		info("-- Open Manage Drive Form --");
-		ecMain.goToManageDriver();
+		ecMain.goToManageDrive();
 
 		magDrv.addNewDrive(DATA_DRIVE_NAME, "dms-system", "exo:ecm", "Organization/Management/Executive Board","member",
 				"Non-document Nodes/Sidebar", "", false, false);	

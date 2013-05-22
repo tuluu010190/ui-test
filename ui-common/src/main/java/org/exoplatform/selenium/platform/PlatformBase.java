@@ -27,7 +27,7 @@ import org.testng.Assert;
 public class PlatformBase extends TestBase {
 
 	Button button = new Button(driver);
-	
+
 	/*
 	 * Default Page - http://localhost:8080/portal/default/
 	 * */
@@ -42,9 +42,9 @@ public class PlatformBase extends TestBase {
 	 * Log in Form - Sign-out 
 	 */
 	public final By ELEMENT_INPUT_USERNAME = By.name("username"); 
-			//"//input[@name='username']";
+	//"//input[@name='username']";
 	public final By ELEMENT_INPUT_PASSWORD = By.name("password");
-			//"//input[@name='password']";
+	//"//input[@name='password']";
 	/*
 	 * Company Navigation
 	 */
@@ -80,7 +80,7 @@ public class PlatformBase extends TestBase {
 
 	/* Setting Icon */
 	public final String ELEMENT_LINK_SETUP = "//*[@id='UISetupPlatformToolBarPortlet']/a"; 
-			//"//img[@alt='Setup']";
+	//"//img[@alt='Setup']";
 	//Users
 	public final String ELEMENT_LINK_USERS ="//a[text()='Users']";
 	public final String ELEMENT_LINK_ADD_USERS="//a[text()='Add Users']";
@@ -88,12 +88,12 @@ public class PlatformBase extends TestBase {
 	public By ELEMENT_APPLICATIONS_LINK = By.linkText("Applications");
 	//Content
 	public final By ELEMENT_MENU_CONTENT_LINK = By.xpath("//*[text()='Content']");
-			//By.linkText("Content");
+	//By.linkText("Content");
 	public final By ELEMENT_MENU_SITE_EXPLORER = By.xpath("//*[text()='Sites Explorer']");
-			//By.linkText("Sites Explorer");
+	//By.linkText("Sites Explorer");
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
-			//By.linkText("Content administration");
-	
+	//By.linkText("Content administration");
+
 	//Portal
 	public final String ELEMENT_LINK_PORTAL = "//a[text()='Portal']";
 	public final String ELEMENT_LINK_PAGES   = "//a[text()='Pages']";
@@ -126,11 +126,11 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_INPUT_EMAIL = "//input[@id='email']";
 	//User Profile
 	public final By ELEMENT_USER_PROFILE_TAB = By.xpath("//*[text()='User Profile' and @data-toggle='tab']");
-			//"//div[text()='User Profile' and @class='MiddleTab']";	
+	//"//div[text()='User Profile' and @class='MiddleTab']";	
 	public final By ELEMENT_INPUT_USER_NAME_GIVEN = By.name("user.name.given");
-		//"//input[@id='user.name.given']";
+	//"//input[@id='user.name.given']";
 	public final By ELEMENT_SELECT_USER_LANGUAGE = By.name("user.language");
-		//"//select[@name='user.language']";
+	//"//select[@name='user.language']";
 	//End User Profile
 	//End - Add User Form
 	//Setting -> user -> Groups and roles
@@ -138,9 +138,9 @@ public class PlatformBase extends TestBase {
 
 	//Sign-out
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
-			//"//a[@class='TBIcon']";
+	//"//a[@class='TBIcon']";
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
-			//"//a[@class='LogoutIcon']";
+	//"//a[@class='LogoutIcon']";
 	/* Username link - END*/
 
 	/*
@@ -164,7 +164,7 @@ public class PlatformBase extends TestBase {
 
 	//Group Management TAB
 	public final By ELEMENT_GROUP_MANAGEMENT_TAB = By.xpath("//*[contains(@class, 'uiIconGroup')]");
-			//"//div[@class='GroupManagementIcon']/..";
+	//"//div[@class='GroupManagementIcon']/..";
 	public final String ELEMENT_GROUP_ADD_NEW_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon AddGroupIcon']";
 	public final String ELEMENT_GROUP_REMOVE_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon RemoveGroupIcon']";
 	public final String ELEMENT_GROUP_EDIT_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon EditGroupIcon']";
@@ -175,7 +175,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_TEXTAREA_DESCRIPTION = "//textarea[@id='description']";
 
 	public final By ELEMENT_GROUP_SEARCH_USER_ICON = By.xpath("//form[@id='UIGroupMembershipForm']//*[contains(@class, 'uiIconSearch')]");
-			//"//form[@id='UIGroupMembershipForm']/div[2]/div/table/tbody/tr[1]/td[2]/a";
+	//"//form[@id='UIGroupMembershipForm']/div[2]/div/table/tbody/tr[1]/td[2]/a";
 	public final String ELEMENT_GROUP_SEARCH_POPUP_ADD_ICON = "//form[@id='UIUserSelector']//div[@class='UIAction']//a[@class='ActionButton LightBlueStyle']";
 	public final String ELEMENT_SELECT_MEMBERSHIP = "//select[@name='membership']";
 	public final String ELEMENT_GROUP_USER_IN_TABLE = "//div[@class='UIUserInGroup']//*[@data-original-title = '${username}']";
@@ -191,7 +191,7 @@ public class PlatformBase extends TestBase {
 	 * Manage Account
 	 * */
 	public final By ELEMENT_SIGN_IN_BUTTON = By.xpath("//*[@class='loginButton']/*");
-			//"//form[@id='UIPortalComponentLogin']//div[@class='UIAction']/*";
+	//"//form[@id='UIPortalComponentLogin']//div[@class='UIAction']/*";
 	public final String ELEMENT_SELECT_SEARCH_OPTION = "//select[@name='searchOption']";
 	public final String ELEMENT_USER_EDIT_ICON = "//div[@id='UIListUsersGird']/table//tr/td/div[text()='${username}']/../../td[5]//img[@class='ViewUserInfoIcon']";
 	public final String ELEMENT_SEARCH_ICON_REGISTER = "//img[@class='SearchIcon']";
@@ -230,9 +230,13 @@ public class PlatformBase extends TestBase {
 
 	////
 	public final String ELEMENT_PAGINATOR_PAGE_LINK = "//a[contains(@class, 'Number') and text()='${number}']";
-	public final String ELEMENT_PAGINATOR_TOTAL_NUMBER = "//a[@class='PagesTotalNumber']";
+	public final String ELEMENT_PAGINATOR_PAGE_NAMESPACE_LINK = "//*[@id='UINamespaceList']/div[1]//a[text()='${number}']";
+	public final String ELEMENT_PAGINATOR_TOTAL_NUMBER = "//*[@class='pagesTotalNumber']";
+	public final By ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER = By.xpath("//*[@id='UINamespaceList']/div[1]//*[@class='pagesTotalNumber']");
 	public final String ELEMENT_PAGINATOR_NEXT_ICON = "//a[@class='Icon NextPageIcon']";
+	public final By ELEMENT_PAGINATOR_NEXT_ICON_NAMESPACE = By.xpath("//*[@id='UINamespaceList']/div[1]//i[@class='uiIconNextArrow']");
 	public final String ELEMENT_PAGINATOR_SELECTED_PAGE = "//a[@class='Number PageSelected' and text()='${number}']";
+	public final String ELEMENT_PAGINATOR_NAMESPACE_SELECTED_PAGE = "//*[@id='UINamespaceList']/div[1]//li[@class='active']/*[text()='${number}']";
 	//public final String ELEMENT_MESSAGE_TEXT = "//li[@class='MessageContainer']/span[contains(@class, 'PopupIcon')]";
 	//public final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON_IE = ELEMENT_MESSAGE_TEXT + "/../../../../../..//a";
 	//public final String ELEMENT_MESSAGE_DIALOG_CLOSE_ICON = " //div[contains(@class, 'UIPopupWindow') and contains(@style, 'visibility: visible')]//a[contains(@class, 'uiIconClose')]";
@@ -344,12 +348,12 @@ public class PlatformBase extends TestBase {
 
 	//Content Administration / Advanced Configuration 
 	public final By ELEMENT_ADVANCED_CONFIGURATION_TAB = By.xpath("//*[text()='Advanced']");
-			//("//div[@class = 'TabLabel' and @title = 'Advanced Configuration']");
+	//("//div[@class = 'TabLabel' and @title = 'Advanced Configuration']");
 	public final By ELEMENT_MANAGE_LOCK_TAB = By.xpath("//*[text() = 'Manage Lock']");
-			//("//div[@class = 'MiddleTab' and text() = 'Manage Lock']");
+	//("//div[@class = 'MiddleTab' and text() = 'Manage Lock']");
 	public final By ELEMENT_MANAGE_LOCKS = By.className("uiIconEcmsUnLockManager");
 	public final By ELEMENT_REPOSITORY_TAB = By.xpath("//*[text()='Repository']");
-	
+
 	//Edit In-line a SCV
 	public final By ELEMENT_PREFERENCE_TITLE=By.xpath("//span[contains(text(),'Content Detail Preferences')]");
 	public final By ELEMENT_CONTAINER_CONTENT = By.xpath("//*[@class='NavigationContainer']");
@@ -514,28 +518,43 @@ public class PlatformBase extends TestBase {
 		seconds = 0;
 	}
 
+	//Verify that element [locator] is displayed...
 	public void usePaginator(Object locator, String exceptionMessage) {
 		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
-
+        String page1Namespace = ELEMENT_PAGINATOR_PAGE_NAMESPACE_LINK.replace("${number}", "1"); 
+		
 		if (waitForAndGetElement(page1, 5000, 0) != null){
 			click(page1);
-			Utils.pause(500);
-			int totalPages = isElementPresent(ELEMENT_PAGINATOR_TOTAL_NUMBER) ? Integer.valueOf(getText(ELEMENT_PAGINATOR_TOTAL_NUMBER)) : 1;
-			int i = 1;
-			while (isElementNotPresent(locator)) {
-				if (i == totalPages) {
-					//Assert.fail(exceptionMessage);
-					info(exceptionMessage);
-					break;
-				}
+		}else if (waitForAndGetElement(page1Namespace, 3000, 0) != null){
+			click(page1Namespace);
+		}
+		Utils.pause(500);
+		int totalPages = 0;
+		if (waitForAndGetElement(ELEMENT_PAGINATOR_TOTAL_NUMBER, 3000, 0) != null){
+			totalPages = isElementPresent(ELEMENT_PAGINATOR_TOTAL_NUMBER) ? Integer.valueOf(getText(ELEMENT_PAGINATOR_TOTAL_NUMBER)) : 1;
+		}else if (waitForAndGetElement(ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER, 3000, 0) != null){
+			totalPages = isElementPresent(ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER) ? Integer.valueOf(getText(ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER)) : 1;
+		}
+		info("-- The total pages is: " + totalPages);
+		int i = 1;
+		while (isElementNotPresent(locator)) {
+			if (i == totalPages) {
+				//Assert.fail(exceptionMessage);
+				info(exceptionMessage);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_PAGINATOR_NEXT_ICON_NAMESPACE, 3000, 0) != null){
+				click(ELEMENT_PAGINATOR_NEXT_ICON_NAMESPACE);
+				waitForAndGetElement(ELEMENT_PAGINATOR_NAMESPACE_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
+			}else{
 				click(ELEMENT_PAGINATOR_NEXT_ICON);
 				waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
-				Utils.pause(500);
 			}
+			Utils.pause(500);
 		}
 	}
 
-	public void usePaginator(By locator, String exceptionMessage) {
+	/*public void usePaginator(By locator, String exceptionMessage) {
 		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
 
 		click(page1);
@@ -550,7 +569,7 @@ public class PlatformBase extends TestBase {
 			waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
 			Utils.pause(500);
 		}
-	}
+	}*/
 
 	// Check UnexpectedError
 	public boolean checkUnexpectedError() {
@@ -719,7 +738,7 @@ public class PlatformBase extends TestBase {
 				inputsummary = driver.switchTo().activeElement();
 
 				inputsummary.click();
-				
+
 				inputsummary.clear();
 
 				if (validate.length >0)

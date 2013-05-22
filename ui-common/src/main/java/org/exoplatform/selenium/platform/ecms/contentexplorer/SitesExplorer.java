@@ -9,7 +9,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.admin.ECMainFunction;
-import org.exoplatform.selenium.platform.ecms.admin.ManageDriver;
+import org.exoplatform.selenium.platform.ecms.admin.ManageDrive;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +32,7 @@ public class SitesExplorer extends EcmsBase{
 	ActionBar actBar = new ActionBar(driver);
 	ManageAlert magAlert = new ManageAlert(driver);
 	ECMainFunction ecMain = new ECMainFunction(driver);
-	ManageDriver magDrv = new ManageDriver(driver);
+	ManageDrive magDrv = new ManageDrive(driver);
 	EcmsBase ecms = new EcmsBase(driver);
 
 	//Button on the top-bar menu
@@ -84,7 +84,7 @@ public class SitesExplorer extends EcmsBase{
 			String member, String viewOption, String view){
 		if (isTextNotPresent(driverName)){
 			Utils.pause(1000);
-			ecMain.goToManageDriver();
+			ecMain.goToManageDrive();
 			magDrv.addNewDrive(driverName, driverWorkspace, driverHomePath, groupPermission, member, viewOption, view);	
 			navToolBar.goToSiteExplorer();
 			Utils.pause(1000);

@@ -203,13 +203,15 @@ public class ManageCategory extends EcmsPermission{
 	public void addNewCategoryTree_Step4(String name, String childname1, String childname2, String user_Per, boolean read, boolean modify, boolean remove ){
 		//--Add child category
 		addChildCategory(name, childname1);
-		click(ELEMENT_UP_LEVEL);
+		//click(ELEMENT_UP_LEVEL);
+		clickUpLevel();
 		addChildCategory(name, childname2);
 
 		//--Copy and paste
 		copyAndPasteCategory(childname1, childname2);
 		deleteCategory(childname1);
-		click(ELEMENT_UP_LEVEL);
+		//click(ELEMENT_UP_LEVEL);
+		clickUpLevel();
 
 		//--Cut and paste
 		cutAndPasteCategory(childname1, childname2);
@@ -330,7 +332,8 @@ public class ManageCategory extends EcmsPermission{
 		click(By.xpath(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", child2)));
 		expandNode(child2,true);
 		waitForElementPresent(ELEMENT_CHILD_NEW);
-		click(ELEMENT_UP_LEVEL);
+		//click(ELEMENT_UP_LEVEL);
+		clickUpLevel();
 		waitForElementNotPresent(By.linkText("//*[@id='UITaxonomyTreeCreateChild']//..//*[@title='" + child1 + "']"));
 		info("Cut category " + child1 + "to category " + child2 + "is successful");
 	}

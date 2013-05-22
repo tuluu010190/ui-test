@@ -41,7 +41,8 @@ public class ECMainFunction extends EcmsBase{
 	public final By ELEMENT_MANAGE_NODETYPE = By.className("uiIconEcmsNodeTypeManager");
 	//		public final By ELEMENT_NODETYPE_TEXT = By.id("NodeTypeText");
 	//		public final By ELEMENT_NODETYPE_SEARCH = By.xpath("//a[@title = 'Search']");
-
+    public final By ELEMENT_MANAGE_NAME_SPACE_LINK = By.className("uiIconEcmsNamespaceManager");
+	
 	//Repository > Locks
 	public final String ELEMENT_UNLOCK_NODE = "//*[text()='${lockedNode}']/../..//*[@class='uiIconUnlockMini']";
 
@@ -51,11 +52,11 @@ public class ECMainFunction extends EcmsBase{
 	public final By ELEMENT_MANAGE_QUERIES_LINK = By.className("uiIconEcmsQueriesManager");
 
 	public final By ELEMENT_MANAGE_SCRIPTS_LINK = By.className("uiIconEcmsScriptManager");
-    public final By ELEMENT_ADD_SCRIPT_BUTTON = By.xpath("//*[text()='Add Script']");
+	public final By ELEMENT_ADD_SCRIPT_BUTTON = By.xpath("//*[text()='Add Script']");
 
-    public final By ELEMENT_MANAGE_ACTIONS_LINK = By.className("uiIconEcmsActionManager");
-    public final By ELEMENT_ADD_ACTION_TYPE_BUTTON = By.xpath("//*[text()='Add Action Type']");
-    
+	public final By ELEMENT_MANAGE_ACTIONS_LINK = By.className("uiIconEcmsActionManager");
+	public final By ELEMENT_ADD_ACTION_TYPE_BUTTON = By.xpath("//*[text()='Add Action Type']");
+
 	/*=============================================================*/
 
 	//Template
@@ -83,15 +84,21 @@ public class ECMainFunction extends EcmsBase{
 
 	/////////////////
 	//Go To Content Administration / Repository / Manage Lock Tab
-	public void goToLockTabInContentAdmin(){
+	public void goToLockedTab(){
 		navToolbar.goToContentAdministration();
-		click(ELEMENT_REPOSITORY_TAB);
+		if (isTextNotPresent("Namespaces")){
+			click(ELEMENT_REPOSITORY_TAB);
+		}
 		click(ELEMENT_MANAGE_LOCKS);
+	}
+	
+	public void goToManageLockTab(){
+		goToLockedTab();
 		click(ELEMENT_MANAGE_LOCK_TAB);
 	}
 
 	//Go To Content Administration / Repository / Node Types Tab
-	public void goToNodeTypeTabInContentAdmin(){
+	public void goToNodeTypeTab(){
 		navToolbar.goToContentAdministration();
 		if (isTextNotPresent("Node Types")){
 			click(ELEMENT_REPOSITORY_TAB);
@@ -100,17 +107,27 @@ public class ECMainFunction extends EcmsBase{
 		waitForElementPresent(By.xpath("//*[@class='title' and contains(text(), 'Node Types')]"));
 	}
 
+	//Go To Content Administration / Repository / Namespaces
+	public void goToNamespacesTab(){
+		navToolbar.goToContentAdministration();
+		if (isTextNotPresent("Namespaces")){
+			click(ELEMENT_REPOSITORY_TAB);
+		}
+		click(ELEMENT_MANAGE_NAME_SPACE_LINK);
+	}
+	
 	//Explorer: Driver/Views/Tags
 	/////////
 
 	//Function to go to Manage Driver from main screen
-	public void goToManageDriver(){
+	public void goToManageDrive(){
 		info("Go to manage driver form");
 		navToolbar.goToContentAdministration();
-		if (isElementNotPresent(By.xpath("//*[text()='Add Drive']"))){
+
+		if (isTextNotPresent("Drives")){
 			click(ELEMENT_EXPLORER_TAB);
-			click(ELEMENT_DRIVES_TAB);
 		}
+		click(ELEMENT_DRIVES_TAB);
 		Utils.pause(500);
 	}
 
@@ -118,7 +135,9 @@ public class ECMainFunction extends EcmsBase{
 	public void goToManageViews(){
 		navToolbar.goToContentAdministration();
 		if (isTextNotPresent("Explorer Templates")){
-			click(ELEMENT_EXPLORER_TAB);
+			if (isTextNotPresent("Drives")){
+				click(ELEMENT_EXPLORER_TAB);
+			}
 			click(ELEMENT_MANAGEMENT_VIEW);
 		}
 		Utils.pause(500);
@@ -137,7 +156,9 @@ public class ECMainFunction extends EcmsBase{
 	public void goToTagsTab(){
 		info("Go to Tags tab");
 		navToolbar.goToContentAdministration();
-		click(ELEMENT_EXPLORER_TAB);
+		if (isTextNotPresent("Drives")){
+			click(ELEMENT_EXPLORER_TAB);
+		}
 		click(ELEMENT_MANAGE_TAGS);
 		waitForTextPresent("Tag Manager");
 	}
@@ -186,7 +207,7 @@ public class ECMainFunction extends EcmsBase{
 		}
 		Utils.pause(500);
 	}
-	
+
 	//Go to Actions Tab
 	public void goToActionsTabInContentAdmin(){
 		navToolbar.goToContentAdministration();
@@ -200,5 +221,4 @@ public class ECMainFunction extends EcmsBase{
 	}
 
 	////////
-
 }

@@ -23,7 +23,7 @@ public class ManageScript extends EcmsBase{
 	Button button = new Button(driver);
 	ManageAlert magAlert = new ManageAlert(driver);
 	ECMainFunction ecMain = new ECMainFunction(driver);
-	ManageDriver magDrv = new ManageDriver(driver);
+	ManageDrive magDrv = new ManageDrive(driver);
 
 	//Elements
 	public final By ELEMENT_SCRIPT_CONTENT = By.name("scriptContent");

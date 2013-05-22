@@ -81,7 +81,8 @@ public class ECMS_Admin_ManageView extends PlatformBase{
 		//Fill data for Add New View Form
 		magView.fillAddNewViewForm("Test Template", "List", "Test", "addCategory", true, true, "Organization/Management", "*");
 		info("Delete a view that isn't used"); //Test case 15
-		magView.deleteView("Test Template", "Are you sure you want to delete this view?", true);
+		//magView.deleteView("Test Template", "Are you sure you want to delete this view?", true);
+		magView.actionOnSelectedView("Test Template", "Delete", true);
 	}
 
 	/*
@@ -90,7 +91,8 @@ public class ECMS_Admin_ManageView extends PlatformBase{
 	@Test
 	public void test16_DeleteUsedView(){
 		info("Delete a view that is in-use");
-		magView.deleteView("Web", "Are you sure you want to delete this view?", false);
+		//magView.deleteView("Web", "Are you sure you want to delete this view?", false);
+		magView.actionOnSelectedView("Web", "Delete", false);
 		waitForMessage("Cannot delete Web. It is currently in use.");
 		dialog.closeMessageDialog();
 	}
@@ -107,7 +109,8 @@ public class ECMS_Admin_ManageView extends PlatformBase{
 		magView.openAddViewForm("Add", "Add Explorer Template");
 		magView.fillExplorerTemplateForm("Test Content", "Test Name", "ecm-explorer");
 		info("Delete an ECM template"); //Test case 09
-		magView.deleteView("Test Name", "Are you sure you want to delete this template?", true);
+		//magView.deleteView("Test Name", "Are you sure you want to delete this template?", true);
+		magView.actionOnSelectedView("Test Name", "Delete", true);
 	}
 
 	/*

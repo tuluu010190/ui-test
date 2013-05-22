@@ -10,7 +10,7 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.admin.ECMainFunction;
-import org.exoplatform.selenium.platform.ecms.admin.ManageDriver;
+import org.exoplatform.selenium.platform.ecms.admin.ManageDrive;
 import org.exoplatform.selenium.platform.ecms.admin.Permission;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
@@ -36,7 +36,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 	ECMainFunction ecMain;
 	SitesExplorer sitesExp;
 	Permission adminPer;
-	ManageDriver magDrv;
+	ManageDrive magDrv;
 	ActionBar actBar;
 
 	public final String DATA_USER = "john";
@@ -56,7 +56,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		ecMain = new ECMainFunction(driver);
 		sitesExp = new SitesExplorer(driver);
 		adminPer = new Permission(driver);
-		magDrv = new ManageDriver(driver);
+		magDrv = new ManageDrive(driver);
 		actBar = new ActionBar(driver);
 		magAcc.signIn(DATA_USER, DATA_PASS);
 	}
@@ -79,9 +79,9 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		By ELEMENT_DRIVE = By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", DATA_DRIVE_NAME));
 
 		//add drive
-		ecMain.goToManageDriver();
+		ecMain.goToManageDrive();
 		magDrv.addNewDrive(DATA_DRIVE_NAME, "collaboration","sites", "Platform/Administration","*",
-				"Non-document Nodes/Sidebar", "Admin/Icons/List");
+				"Non-document Nodes/Sidebar", "Admin/Icons/List", false, true);
 
 		//check displaying of drive in site explorer when user has access permission
 		nav.goToSiteExplorer();
@@ -104,9 +104,9 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		By ELEMENT_DRIVER = By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", DATA_DRIVER_NAME));
 
 		//add drive
-		ecMain.goToManageDriver();
+		ecMain.goToManageDrive();
 		magDrv.addNewDrive(DATA_DRIVER_NAME,"collaboration","sites", "Platform/Administration","*",
-				"Non-document Nodes/Sidebar", "Admin/Icons/List");
+				"Non-document Nodes/Sidebar", "Admin/Icons/List", false, true);
 		magAcc.signOut();
 
 		//login with user mary
@@ -135,9 +135,9 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		By ELEMENT_DRIVER = By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", DATA_DRIVER_NAME));
 
 		//add driver
-		ecMain.goToManageDriver();
+		ecMain.goToManageDrive();
 		magDrv.addNewDrive(DATA_DRIVER_NAME,"collaboration","sites", "Platform/Administration","*",
-				"Non-document Nodes/Sidebar", "Admin/Icons/List");
+				"Non-document Nodes/Sidebar", "Admin/Icons/List", false, true);
 
 		//check displaying of driver in site explorer when user has access permission
 		nav.goToSiteExplorer();
