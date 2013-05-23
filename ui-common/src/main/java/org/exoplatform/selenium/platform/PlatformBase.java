@@ -374,7 +374,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_UPLOAD_LINK_XPATH = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsUpload']");
 	public final By ELEMENT_UPLOAD_FILE_NAME_ID = By.id("name");
 	public final By ELEMENT_UPLOAD_IMG_FRAME_XPATH = By.xpath("//iframe[contains(@id,'iFrameUpload')]");
-	public final By ELEMENT_UPLOAD_IMG_ID = By.id("file");
+	public final By ELEMENT_UPLOAD_IMG_ID = By.name("file");
+	public final By ELEMENT_UPLOAD_VERSION_ID = By.xpath("//div[@id='versionHistory']//input[@name='file']");
 
 	//Space > Wiki link
 	public final By ELEMENT_WIKI_LINK_IN_SPACE = By.xpath("//*[@id='spaceMenuTab']/li[3]/a/span[text()='Wiki']");

@@ -69,11 +69,11 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		//Check if a symlink is added into symlink of node2
 		ecms.goToNode(node1);
 		ecms.goToNode(symlink);
-		waitForElementPresent(ecms.ELEMENT_SE_NODE.replace("{$node}", webContent));
+		waitForElementPresent(siteExp.ELEMENT_SE_NODE.replace("{$node}", webContent));
 
 		//Delete data
-		cMenu.deleteDocument(ecms.ELEMENT_SE_NODE.replace("{$node}", node1));
-		cMenu.deleteDocument(ecms.ELEMENT_SE_NODE.replace("{$node}", node2));
+		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
+		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
 	}
 
 	/**caseID: 65828 - Copy/paste a node
@@ -94,14 +94,14 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cTemplate.createNewFolder(node2, folderType.Content);
 
 		//Copy node1 to node2
-		cMenu.copyAndPasteNode(ecms.ELEMENT_SE_NODE.replace("{$node}", node1), ecms.ELEMENT_SE_NODE.replace("{$node}", node2));
+		cMenu.copyAndPasteNode(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1), siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
 
 		ecms.goToNode(node2);
 		waitForElementPresent(node1New);
 
 		//Delete data
-		cMenu.deleteDocument(ecms.ELEMENT_SE_NODE.replace("{$node}", node2));
-		cMenu.deleteDocument(ecms.ELEMENT_SE_NODE.replace("{$node}", node1));
+		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
+		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 	}
 
 
@@ -122,15 +122,15 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cTemplate.createNewFolder(node2, folderType.Content);
 
 		//Cut node1 into node2
-		cMenu.cutAndPasteNode(ecms.ELEMENT_SE_NODE.replace("{$node}", node1), ecms.ELEMENT_SE_NODE.replace("{$node}", node2));
-		waitForElementNotPresent(ecms.ELEMENT_SE_NODE.replace("{$node}", node1));
+		cMenu.cutAndPasteNode(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1), siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
+		waitForElementNotPresent(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 
 		//Check if node1 is in node2 
 		ecms.goToNode(node2);
 		waitForElementPresent(node1New);
 
 		//Delete data
-		cMenu.deleteDocument(ecms.ELEMENT_SE_NODE.replace("{$node}", node2));
+		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
 
 	}
 
@@ -152,7 +152,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cTemplate.createNewFolder(node2, folderType.Content);
 
 		//Click on "Download and allow edition" of node1 in a new window
-		rightClickOnElement(ecms.ELEMENT_SE_NODE.replace("{$node}", node1));
+		rightClickOnElement(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 		click("//a[@class='itemDownload']");
 
 		//Swith to new window containing Webdav of node1
@@ -164,7 +164,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 		switchToParentWindow();
 		//Delete data
-		cMenu.deleteDocument(ecms.ELEMENT_SE_NODE.replace("{$node}", node1));
+		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 
 	}
 
@@ -177,7 +177,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		String node1= "test05DragAndDropNode1";
 		String node2= "test05DragAndDropNode2";
 		String node2New = cMenu.ELEMENT_FILE_TITLE_AUX.replace("${title1}", node1).replace("${title2}", node2) ;
-		By bNode1= By.xpath(ecms.ELEMENT_SE_NODE.replace("{$node}",node1));
+		By bNode1= By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}",node1));
 		info("Drag and drop a node");
 
 		//Create node1, node2
@@ -185,7 +185,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cTemplate.createNewFolder(node2, folderType.Content);
 
 		//Drag and drop node2 into node1
-		dragAndDropToObject(ecms.ELEMENT_SE_NODE.replace("{$node}",node2), ecms.ELEMENT_SE_NODE.replace("{$node}",node1));
+		dragAndDropToObject(siteExp.ELEMENT_SE_NODE.replace("{$node}",node2), siteExp.ELEMENT_SE_NODE.replace("{$node}",node1));
 		alt.waitForConfirmation("Are you sure you want to move?");
 
 		//Check if node2 is in node1
@@ -203,7 +203,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	@Test
 	public void test06_LockNode() {
 		String node1= "test06LockNode1";
-		By bNode1= By.xpath(ecms.ELEMENT_SE_NODE.replace("{$node}",node1));
+		By bNode1= By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}",node1));
 		info("Lock a node");
 		//Create file document
 		actBar.goToAddNewContent();
@@ -263,8 +263,8 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	public void test08_DeleteClipboard() {
 		String node1= "test08DeleteClipboard1";
 		String node2= "test08DeleteClipboard2";
-		By bNode1= By.xpath(ecms.ELEMENT_SE_NODE.replace("{$node}", node1));
-		By bNode2= By.xpath(ecms.ELEMENT_SE_NODE.replace("{$node}", node2));
+		By bNode1= By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
+		By bNode2= By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
 		info("Delete Clipboard");
 
 		//Create node1, node2
@@ -301,8 +301,8 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	public void test09_PasteClipboard() {
 		String node1= "test09PasteClipboard1";
 		String node2= "test09PasteClipboard2";
-		By bNode1= By.xpath(ecms.ELEMENT_SE_NODE.replace("{$node}", node1));
-		By bNode2= By.xpath(ecms.ELEMENT_SE_NODE.replace("{$node}", node2));
+		By bNode1= By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
+		By bNode2= By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
 		info("Paste Clipboard");
 
 		//Create node1, node2
@@ -341,7 +341,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	@Test
 	public void test10_RenameNode() {
 		String node1= "test10RenameNode1";
-		By bNode1= By.xpath(ecms.ELEMENT_SE_NODE.replace("{$node}", node1));
+		By bNode1= By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 		String newNode="New test10RenameNode1";
 		info("Rename node");
 
@@ -352,7 +352,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cMenu.contextMenuAction(bNode1,actionType.RENAME,newNode);
 
 		//Delete data
-		cMenu.deleteDocument(ecms.ELEMENT_SE_NODE.replace("{$node}", newNode));
+		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", newNode));
 
 	}
 	@BeforeMethod

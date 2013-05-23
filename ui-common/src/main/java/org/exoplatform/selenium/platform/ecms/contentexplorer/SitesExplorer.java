@@ -44,6 +44,7 @@ public class SitesExplorer extends EcmsBase{
 	public final By ELEMENT_SIMPLESEARCH_SUBMIT = By.id("SimpleSearch");
 
 	/* sidebar */
+	public final String ELEMENT_SE_NODE = "//*[@title='{$node}']"; 
 	public final By ELEMENT_SIDEBAR_SITES_MANAGEMENT = By.xpath("//*[@data-original-title = 'Sites Management']");
 	public final By ELEMENT_SIDEBAR_COLLABORATION = By.xpath("//*[@data-original-title = 'Collaboration']");
 	//File Explorer - relation -clipboard - tag clould - saved search

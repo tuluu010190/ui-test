@@ -58,6 +58,11 @@ public class Button extends TestBase{
 		click(ELEMENT_SAVE_BUTTON);
 		Utils.pause(500);
 	}
+	public void ok() {
+		waitForAndGetElement(ELEMENT_OK_BUTTON);
+		click(ELEMENT_OK_BUTTON);
+		Utils.pause(500);
+	}
 
 	public void close(){
 		waitForAndGetElement(ELEMENT_CLOSE_BUTTON);

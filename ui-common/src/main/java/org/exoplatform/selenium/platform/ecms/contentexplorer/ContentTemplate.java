@@ -101,7 +101,6 @@ public class ContentTemplate extends EcmsBase{
 	//Product
 	public final By ELEMENT_PRODUCT_LINK = By.linkText("Product");
 	public final By ELEMENT_PRODUCT_NAME_TEXTBOX = By.id("name") ;
-	public final By ELEMENT_PRODUCT_TITLE_TEXTBOX = By.id("title");
 
 	public final By ELEMENT_FREE_CONT_ACCEPT = By.xpath("//form[contains(@id,'EditTextForm')]/a[2]");
 	public final By ELEMENT_FREE_CONT_INPUT = By.xpath("//iframe[contains(@title,'Rich text editor, newText')]");
@@ -337,7 +336,6 @@ public class ContentTemplate extends EcmsBase{
 	public void createNewProduct (String name, String title){
 		click(ELEMENT_PRODUCT_LINK);
 		type(ELEMENT_PRODUCT_NAME_TEXTBOX, name, false);
-		type(ELEMENT_PRODUCT_TITLE_TEXTBOX, title, false);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 

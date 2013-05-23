@@ -25,7 +25,7 @@ public class EcmsBase extends ManageAccount {
 	protected UserGroupManagement userGroup = new UserGroupManagement(driver);
 	Button button;
 	//Dialog dialog = new Dialog(driver);
-	
+
 	/*
 	 * Portal Acme - http://localhost:8080/portal/acme
 	 * */
@@ -34,15 +34,16 @@ public class EcmsBase extends ManageAccount {
 	//Sign-in form
 	public final By ELEMENT_LOGIN_BUTTON = By.name("signIn");
 	//By.xpath("//*[@id='UIPortalLoginFormAction']");
+	//Side bar
+
 	
 	//Side bar
-	
-	 public final String ELEMENT_SE_NODE = "//*[@title='{$node}']";
+
 	//UI address bar
 	public final String ELEMENT_VIEW_MODE_LINK = "//i[contains(@class,'uiIconEcmsViewDefault') and @data-original-title='${viewName}']";
 	public final By ELEMENT_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack");
 	public final By ELEMENT_ADDRESS_BAR = By.id("address");
-	
+
 	//New Folder
 	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder']");
 	public final By ELEMENT_FOLDER_TITLE_TEXTBOX = By.id("titleTextBox");
@@ -119,7 +120,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SET_PROPERTY_CHECKBOX = By.id("set_property");
 	public final By ELEMENT_REMOVE_CHECKBOX = By.id("remove");
 	public final By ELEMENT_DELETE_PERMISSION = By.xpath("//*[@id='PermissionInfo']/table/tbody/tr[4]/td[6]/div/img[2]");
-	
+
 	//Permission Management Form
 	public final By ELEMENT_PERMISSION_MANAGEMENT_POPUP = By.id("UIPopupWindow");
 	public final String ELEMENT_PERMISSION_MANAGEMENT_TEXT = "Permission Management";
@@ -150,7 +151,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_SYMLINK = "//*[@title='${symlinkTitle}']/i[@class='iconLinkSmall']/../..";
 	public final String ELEMENT_SYMLINK_OTHER = "//*[@data-original-title='${name}']/*[@class='LinkSmall']";
 	public final String ELEMENT_SYMLINK_PATH_NODE_TITLE = "//*[@id='UIOneNodePathSelector']//a/i[@title='${node}']";
-	
+
 	//Rename Form in Sites Explorer (Right-click -> Rename)
 	public final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");
 	public final By ELEMENT_INPUT_NAME_NODE = By.xpath("//input[@id = 'nameField']");
@@ -165,27 +166,34 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_SIDEBAR_NODE_TITLE = "//*[@class='node']/div/div/a/i[@title='${nodeName}']";
 	public final By ELEMENT_SITEBAR_INTRANET = By.xpath("//a/span[@class='nodeName' and text()='intranet']");
 	public final By ELEMENT_SITEBAR_INTRANET_DOCUMENT = By.xpath("//a/span[@class='nodeName' and text()='documents']");
-	
+
 	//View Area
 	//public final By ELEMENT_VIEWAREA_ACME = By.xpath("//*[@title='acme']");
 
 	//Action bar 
 	public final By ELEMENT_ADD_ITEM = By.xpath("//*[@data-original-title='Add Item']");
 	public final By ELEMENT_DELETE_NODE_ICON = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsDelete']");
-	
+
 	//publication TAB
 	public final By ELEMENT_PUBLICATION_TAB = By.xpath("//a[contains(text(),'Publication')]");
 	public final By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");
 	public final By ELEMENT_EDIT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsEditDocument']");
 	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument']");
-	public final By ELEMENT_PUBLICATION = By.linkText("Publications");
+	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
 	public final By ELEMENT_VERSIONS_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageVersions']");
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
 	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
+	public final String ELEMENT_PUBLICATION_STATE = "//p[contains(text(),'{$state}')]/../a[@class='node']";
+	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");
+	public final By ELEMENT_PUB_FROM_INPUT = By.name("UIPublicationPanelStartDateInput");
+	public final By ELEMENT_PUB_TO_INPUT = By.name("UIPublicationPanelEndDateInput");
 	
 	public final By ELEMENT_ADD_RELATION_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageRelations']");
 	public final By ELEMENT_SELECT_RELATION_TAB = By.xpath("//*[contains(text(), 'Select Relation')]");
-	
+	public final By ELEMENT_SHOW_RELATION_ICON = By.xpath("//i[@class='uiIconEcmsRelationMini']");
+	public final String ELEMENT_RELATION_LINK = "//a[text()='{$relation}']";
+	public final String ELEMENT_DELETE_RELATION_ICON = "//span[contains(text(),'{$relation}')]/../..//i[@class='uiIconDelete uiIconLightGray']";
+	public final String MSG_DELETE_RELATION = "Are you sure you want to delete this relation?";
 	//Collaboration TAB
 	public final By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
 	public final By ELEMENT_TAG = By.linkText("Tag");
@@ -193,8 +201,8 @@ public class EcmsBase extends ManageAccount {
 	//System TAB  
 	public final By ELEMENT_SYSTEM_TAB = By.xpath("//a[contains(@title,'System')]");
 	public final By ELEMENT_PERMISSION_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsViewPermissions']");
-	public final By ELEMENT_EXPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ExportNodeIcon' and @title='Export']");
-	public final By ELEMENT_IMPORT_LINK = By.xpath("//a[@class='SubTabIcon DefaultActionIcon ImportNodeIcon' and @title='Import']");
+	public final By ELEMENT_EXPORT_LINK = By.xpath("//i[@class='uiIconEcmsExportNode']");
+	public final By ELEMENT_IMPORT_LINK = By.xpath("//i[@class='uiIconEcmsImportNode']");
 
 	//Content template
 	public final By ELEMENT_EDIT_NODE_CHECKBOX = By.id("set_property");
@@ -212,7 +220,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_MANAGEMENT_VIEW = By.className("uiIconEcmsViewManager");
 	public final String ELEMENT_EDIT_VIEW = "//*[@data-original-title='${viewName}']/../..//*[@class='uiIconEditInfo']"; //*[@id='UIViewList']
 	public final String ELEMENT_DELETE_VIEW = "//*[@data-original-title='${viewName}']/../..//*[@class='uiIconDelete']";
-	
+
 	//Edit View Form 
 	public final By ELEMENT_CHECKBOX_VERSION=By.id("manageVersions");
 	public final By ELEMENT_BUTTON_BACK=By.linkText("Back");
@@ -239,7 +247,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_LIST_VIEW_ICON = By.xpath("//*[@data-original-title = 'List']");
 	public final By ELEMENT_ADMIN_VIEW_ICON = By.xpath("//*[@data-original-title = 'Admin']");
 	public final By ELEMENT_ICONS_VIEW = By.xpath("//*[@data-original-title = 'Icons']");
-	
+
 	//Overload thumbnail
 	public final By ELEMENT_OVERLOAD_THUMBNAIL = By.xpath("//*[@class = 'actionIcon']//*[@class = 'uiIconEcmsOverloadThumbnail']");
 	public final By ELEMENT_CHOOSE_THUMBNAIL_IMAGE = By.xpath("//*[text() = 'Choose Thumbnail Image']");
@@ -327,6 +335,7 @@ public class EcmsBase extends ManageAccount {
     public final By ELEMENT_SELECT_DOCUMENT_POPUP = By.xpath("//*[@id='UIPopupSymLink']//span[text()='Select Document']");
     public final String ELEMENT_TRANSLATION_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='fr (${fileName})']";
 
+
 	////////////////////////////////
 	//Log-in ECMS
 	/*public void loginEcms(String username, String password) {
@@ -356,10 +365,10 @@ public class EcmsBase extends ManageAccount {
 		signOut();
 		driver.get(baseUrl);
 	}*/
-    
-    //Open a Node
-    //Intranet > Documents
-    /*public void openNode(String nodeName){
+
+	//Open a Node
+	//Intranet > Documents
+	/*public void openNode(String nodeName){
     	String[] nodes = ((String) nodeName).split("/");
 		for (String node: nodes)
 		{
@@ -468,13 +477,14 @@ public class EcmsBase extends ManageAccount {
 		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
 		/*WebElement element = waitForAndGetElement(By.xpath("//*[@name='file']"), DEFAULT_TIMEOUT, 1, 2);		
 		((JavascriptExecutor)driver).executeScript("arguments[0].setAttribute('id', 'MultiUploadInputFiles');", element);
-		*/	
+		 */	
 		//((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible';", waitForAndGetElement(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), DEFAULT_TIMEOUT, 1, 2));
 		//type(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), Utils.getAbsoluteFilePath(link), false);
 		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 0, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload);
 		upload.sendKeys(Utils.getAbsoluteFilePath(link));	
-		
+
+		Utils.pause(10000);
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
 		//String links[] = link.split("/");
