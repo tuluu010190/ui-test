@@ -81,7 +81,7 @@ public class ECMS_Admin_Template_Document_Add extends PlatformBase {
 		magTem.openAddNewTemplateForm();
 
 		//Fill All form data
-		magTem.fillAddNewTemplateForm("app:category", "Test Template", "Platform/Administration", "*");
+		magTem.fillInTemplateForm("app:category", "Test Template", "Platform/Administration", "*");
 		
 		info("Reset Data");
 		//magTem.deleleTemplate("Test Template", "Do you really want to delete?");

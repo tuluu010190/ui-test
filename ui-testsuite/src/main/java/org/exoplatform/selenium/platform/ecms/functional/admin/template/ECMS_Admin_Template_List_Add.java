@@ -127,7 +127,7 @@ public class ECMS_Admin_Template_List_Add extends PlatformBase{
 
 		click(magTem.ELEMENT_ADD_TEMPLATE_BUTTON);
 
-		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", false);
+		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", false, false);
 
 		//alt.waitForMessage("");
 
@@ -150,7 +150,7 @@ public class ECMS_Admin_Template_List_Add extends PlatformBase{
 
 		click(magTem.ELEMENT_ADD_TEMPLATE_BUTTON);
 
-		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", true);
+		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", false, true);
 
 		magTem.deleleTemplate(templateName);
 	}
@@ -227,7 +227,7 @@ public class ECMS_Admin_Template_List_Add extends PlatformBase{
 
 		click(magTem.ELEMENT_ADD_TEMPLATE_BUTTON);
 
-		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", true);
+		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", false, true);
 
 		magTem.deleleTemplate(templateTitle);
 	}
@@ -246,7 +246,7 @@ public class ECMS_Admin_Template_List_Add extends PlatformBase{
 
 		click(magTem.ELEMENT_ADD_TEMPLATE_BUTTON);
 
-		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", true);
+		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", false, true);
 
 		magTem.deleleTemplate(templateTitle);
 	}
@@ -267,7 +267,7 @@ public class ECMS_Admin_Template_List_Add extends PlatformBase{
 
 		click(magTem.ELEMENT_ADD_TEMPLATE_BUTTON);
 
-		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", true);
+		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", false, true);
 
 		magTem.deleleTemplate("List_Template_06.gtmpl");
 	}
@@ -286,7 +286,7 @@ public class ECMS_Admin_Template_List_Add extends PlatformBase{
 
 		click(magTem.ELEMENT_ADD_TEMPLATE_BUTTON);
 
-		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", true);
+		magTem.addNewListTemplate(templateTitle, templateName, templateType, true, "List_Template_Content", false, false);
 
 		//alt.waitForMessage("");
 

@@ -32,7 +32,10 @@ public class ManageQuery extends EcmsBase{
 	public final By ELEMENT_INPUT_STATEMENT = By.name("statement");
 	public final String ELEMENT_EDIT_QUERY_ICON = "//*[contains(text(), '${queryName}')]/../..//*[@class = 'uiIconEditInfo']";
  	public final String ELEMENT_DELETE_QUERY_ICON = "//*[contains(text(), '${queryName}')]/../..//*[@class = 'uiIconDelete']";
-	
+	public final By ELEMENT_QUERY_ADD_PERMISSION_ICON = By.xpath("//*[@data-original-title='Add Permission']");
+ 	
+ 	/*=======================================================================*/
+ 	
 	//Open form [Add Query]
 	public void openAddQueryForm(){
 		info("-- Opening [Add Query] Form --");
@@ -60,7 +63,7 @@ public class ManageQuery extends EcmsBase{
 		if (isElementPresent(magDrv.ELEMENT_ADD_PERMISSION)){
 			click(magDrv.ELEMENT_ADD_PERMISSION);
 		}else {
-			click(By.xpath("//*[@data-original-title='Add Permission']"));
+			click(ELEMENT_QUERY_ADD_PERMISSION_ICON);
 		}
 		userGroup.selectGroup(group, false);
 		click(By.linkText(membership));
@@ -109,7 +112,7 @@ public class ManageQuery extends EcmsBase{
 			if (isElementPresent(magDrv.ELEMENT_ADD_PERMISSION)){
 				click(magDrv.ELEMENT_ADD_PERMISSION);
 			}else {
-				click(By.xpath("//*[@data-original-title='Add Permission']"));
+				click(ELEMENT_QUERY_ADD_PERMISSION_ICON);
 			}
 			userGroup.selectGroup(group, false);
 			click(By.linkText(membership));

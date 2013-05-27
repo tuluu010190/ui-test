@@ -28,6 +28,7 @@ public class ECMainFunction extends EcmsBase{
 	public final By ELEMENT_DOCUMENT_LINK = By.className("uiIconEcmsTemplatesManager");
 	public final By ELEMENT_MANAGE_TEMPLATE_SCREEN = By.xpath("//*[@class='title' and contains(text(),'Documents')]");
 	public final By ELEMENT_LIST_LINK = By.className("uiIconEcmsCLVTemplatesManager");
+	public final By ELEMENT_METADATA_LINK = By.className("uiIconEcmsMetadataManager");
 
 	//Explorer Tab
 	public final By ELEMENT_EXPLORER_TAB = By.xpath("//*[text()='Explorer']");
@@ -41,8 +42,8 @@ public class ECMainFunction extends EcmsBase{
 	public final By ELEMENT_MANAGE_NODETYPE = By.className("uiIconEcmsNodeTypeManager");
 	//		public final By ELEMENT_NODETYPE_TEXT = By.id("NodeTypeText");
 	//		public final By ELEMENT_NODETYPE_SEARCH = By.xpath("//a[@title = 'Search']");
-    public final By ELEMENT_MANAGE_NAME_SPACE_LINK = By.className("uiIconEcmsNamespaceManager");
-	
+	public final By ELEMENT_MANAGE_NAME_SPACE_LINK = By.className("uiIconEcmsNamespaceManager");
+
 	//Repository > Locks
 	public final String ELEMENT_UNLOCK_NODE = "//*[text()='${lockedNode}']/../..//*[@class='uiIconUnlockMini']";
 
@@ -65,21 +66,28 @@ public class ECMainFunction extends EcmsBase{
 		navToolbar.goToContentAdministration();
 		if (isTextNotPresent("Documents")){
 			click(ELEMENT_TEMPLATE_TAB);
-			click(ELEMENT_DOCUMENT_LINK);
 		}
+		click(ELEMENT_DOCUMENT_LINK);
 		waitForElementPresent(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
 	}
 
 	//Open [List Template] Screen
 	public void goToListTemplateTab(){
 		navToolbar.goToContentAdministration();
-		if (isTextNotPresent("Navigation")){
-			if (isTextNotPresent("List")){
-				click(ELEMENT_TEMPLATE_TAB);
-			}
-			click(ELEMENT_LIST_LINK);
+		if (isTextNotPresent("Documents")){
+			click(ELEMENT_TEMPLATE_TAB);
 		}
+		click(ELEMENT_LIST_LINK);
 		waitForElementPresent(By.xpath("//*[text()='Add Template']"));
+	}
+	
+	//Go to [Metadata] tab
+	public void goToMetadataTab(){
+		navToolbar.goToContentAdministration();
+		if (isTextNotPresent("Metadata")){
+			click(ELEMENT_TEMPLATE_TAB);
+		}
+		click(ELEMENT_METADATA_LINK);
 	}
 
 	/////////////////
@@ -91,7 +99,7 @@ public class ECMainFunction extends EcmsBase{
 		}
 		click(ELEMENT_MANAGE_LOCKS);
 	}
-	
+
 	public void goToManageLockTab(){
 		goToLockedTab();
 		click(ELEMENT_MANAGE_LOCK_TAB);
@@ -115,7 +123,7 @@ public class ECMainFunction extends EcmsBase{
 		}
 		click(ELEMENT_MANAGE_NAME_SPACE_LINK);
 	}
-	
+
 	//Explorer: Driver/Views/Tags
 	/////////
 
