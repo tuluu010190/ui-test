@@ -135,11 +135,11 @@ public class SitesExplorer extends EcmsBase{
 	//Add tag for a node
 	public void addTagForNode(String[] tagName) {
 		info("-- Open a Tag Form --");
-		if (isElementPresent(By.className("uiIconEcmsTaggingDocument"))){
-			click(By.className("uiIconEcmsTaggingDocument"));
+		if (waitForElementPresent(ELEMENT_TAG_LINK, 5000, 0) != null){
+			click(ELEMENT_TAG_LINK);
 		}else {
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			click(By.className("uiIconEcmsTaggingDocument"));
+			click(ELEMENT_TAG_LINK);
 		}
 
 		for(int i = 0; i < tagName.length ; i++){

@@ -213,4 +213,10 @@ public class NavigationToolbar extends PlatformBase {
 		mouseOverAndClick(ELEMENT_MENU_SEO_LINK);	
 		Utils.pause(1000);
 	}
+	
+	//Function go to Home Page
+	public void goToHomePage(){
+		click(ELEMENT_HOME_PAGE);
+		Utils.pause(1000);
+	}
 }

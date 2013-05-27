@@ -71,8 +71,9 @@ public class ECMS_SE_Admin extends PlatformBase {
 	public void test02_AddCategory() {
 		String node1 = "test02_AddCategory";
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
-		String catePath="powers/Defense/Healing";
-
+		String categoryPath = "Defense";
+		String categoryTree = "powers";
+		
 		info("Add Category");
 		//Create node
 		actBar.goToAddNewContent();
@@ -83,7 +84,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		actBar.checkCategoryButton();
 		
 		//Add category for node
-		actBar.addCategoryForNode(catePath,false);
+		actBar.addCategoryForNode(categoryTree, false, categoryPath, "Healing");
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -179,7 +180,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 	public void test06_DeleteCategory() {
 		String node1 = "test06_DeleteCategory1";
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
-		String catePath="powers/Defense/Healing";
+		String catePath="powers";
 
 		info("Add Category");
 		//Create node
@@ -191,10 +192,10 @@ public class ECMS_SE_Admin extends PlatformBase {
 		actBar.checkCategoryButton();
 		
 		//Add category for node
-		actBar.addCategoryForNode(catePath,false);
+		actBar.addCategoryForNode(catePath, false, "Defense", "Healing");
 		
 		//Delete category
-		actBar.deleteCategory(catePath);
+		actBar.deleteCategory(catePath + "/Defense/Healing");
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);

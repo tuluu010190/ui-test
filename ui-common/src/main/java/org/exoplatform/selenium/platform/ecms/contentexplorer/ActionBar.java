@@ -80,7 +80,7 @@ public class ActionBar extends EcmsBase{
 	//Metadata form
 	public final By ELEMENT_VIEW_METADATA_ICON = By.xpath("//i[@class='uiIconEcmsViewMetadatas']");
 	public final By ELEMENT_METADATA_POPUP_TEXT = By.xpath("//span[@class='PopupTitle popupTitle' and text()='View Metadata']");
-	
+
 	//Go to Sites Management
 	public void goToSitesManagement(){
 		Utils.pause(500);
@@ -139,7 +139,7 @@ public class ActionBar extends EcmsBase{
 			info("retry...[" + repeat + "]");
 		}
 	}
-	
+
 	//Collaboration Tab
 	public void goToCollaboration(){
 		for (int repeat = 0;; repeat++)	{	
@@ -215,7 +215,7 @@ public class ActionBar extends EcmsBase{
 		if(eProperties == null)
 			if (more !=null )
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-		
+
 		waitForElementPresent(ELEMENT_EXPORT_LINK);
 		click(ELEMENT_EXPORT_LINK);
 		if (!systemView)
@@ -257,23 +257,23 @@ public class ActionBar extends EcmsBase{
 		waitForElementPresent(ELEMENT_IMPORT_LINK);
 		click(ELEMENT_IMPORT_LINK);
 		//Switch to frame upload file
-//		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME));
+		//		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME));
 		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload);
 		upload.sendKeys(Utils.getAbsoluteFilePath(linkFile));	
-//		type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(linkFile), false);
+		//		type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(linkFile), false);
 		Utils.pause(500);
-//		switchToParentWindow();
+		//		switchToParentWindow();
 
 		select(ELEMENT_BEHAVIOR, behavior);
 		if (version)
 		{		
-//			driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_VERSION_FRAME));
+			//			driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_VERSION_FRAME));
 			WebElement uploadVersion = waitForAndGetElement(ELEMENT_UPLOAD_VERSION_ID, DEFAULT_TIMEOUT,1,2);
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", uploadVersion);
 			uploadVersion.sendKeys(Utils.getAbsoluteFilePath(linkVersion));
 			Utils.pause(500);
-//			switchToParentWindow();
+			//			switchToParentWindow();
 			click(ELEMENT_IMPORT);
 			Utils.pause(500);
 			waitForMessage("Imported successfully.");
@@ -289,14 +289,20 @@ public class ActionBar extends EcmsBase{
 	}
 
 	//Add category for node
-	public void addCategoryForNode( String categoryPath, boolean rootTree) {
-		String paths [] = categoryPath.split("/");
-		String categoryTree = paths[0];
-		By ELEMENT_ADD_CATEGORY_SPECIFIC = By.xpath("//div[contains(text(),'"+paths[paths.length-1]+"')]/following::a[@data-original-title='select']");
-		//			By ELEMENT_CATEGORY_LIST = By.xpath("//th[text()='Category']");
+	public void addCategoryForNode(String categoryTree, boolean rootTree, Object...params) {
+		String categoryPath = (String) (params.length > 0 ? params[0]:"");
+		String categoryName = (String) (params.length > 1 ? params[1]:"");
+		
+		By ELEMENT_ADD_CATEGORY_SPECIFIC = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@title='select']");
+		// By ELEMENT_CATEGORY_LIST = By.xpath("//th[text()='Category']")
+		By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@data-original-title='select']");
 
-		waitForElementPresent(ELEMENT_CATEGORIES_LINK);
+		if (waitForElementPresent(ELEMENT_CATEGORIES_LINK, 5000, 0) == null){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			waitForElementPresent(ELEMENT_CATEGORIES_LINK);
+		}
 		click(ELEMENT_CATEGORIES_LINK);
+
 		waitForElementPresent(ELEMENT_SELECT_CATEGORY_TAB);
 		click(ELEMENT_SELECT_CATEGORY_TAB);
 		Utils.pause(500);
@@ -304,26 +310,28 @@ public class ActionBar extends EcmsBase{
 		if (rootTree) {
 			click(ELEMENT_ADD_ROOT_BUTTON);
 			waitForTextPresent(categoryTree);
-			checkUnexpectedError();			
+			checkUnexpectedError();	
 		}
 		else {
-			
-			for (int i=1; i<paths.length-1 ; i++)
-				click(By.xpath("//i[@title='"+paths[i]+"']"));
-			waitForElementPresent(ELEMENT_ADD_CATEGORY_SPECIFIC);
-			click(ELEMENT_ADD_CATEGORY_SPECIFIC);
+			if (categoryPath != ""){
+				String paths [] = categoryPath.split("/");
+				for (String path : paths)
+					click(By.xpath("//*[@title='"+path+"']"));
+			}
+			if (waitForElementPresent(ELEMENT_ADD_CATEGORY_SPECIFIC, 5000, 0) != null){
+				click(ELEMENT_ADD_CATEGORY_SPECIFIC);	
+			}else {
+				click(ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER);
+			}
 			Utils.pause(500);
 			checkUnexpectedError();
-
+			//waitForTextPresent(categoryPath);
 		}
-		
-		//Check if category is added for node.
-		click(ELEMENT_CATEGORIES_LINK);
-		waitForTextPresent(categoryPath);
-		
-		waitForElementPresent(button.ELEMENT_CLOSE_BUTTON);
-		click(button.ELEMENT_CLOSE_BUTTON);
-		info ("------Category "+paths[paths.length-1]+" is added succesfully");
+		/*if (waitForAndGetElement(button.ELEMENT_CLOSE_BUTTON, 3000, 0) != null ){
+			click(button.ELEMENT_CLOSE_BUTTON);
+		}*/
+		waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_TAB);
+		info ("------Category " + categoryName + " is added succesfully");
 	}
 
 	/*
@@ -368,8 +376,8 @@ public class ActionBar extends EcmsBase{
 	public void publishDocument(){
 		button = new Button(driver);
 		info("Public this document");
-		if ((waitForAndGetElement(ELEMENT_PUBLICATION,30000,0) == null ))
-			click(ELEMENT_MORE_LINK);
+		if ((waitForAndGetElement(ELEMENT_PUBLICATION,5000,0) == null ))
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		click(ELEMENT_PUBLICATION);
 		WebElement current = waitForAndGetElement(ELEMENT_CURRENT_STATUS);
 		info(current.getText());
@@ -668,7 +676,7 @@ public class ActionBar extends EcmsBase{
 	//Undo deleted Items
 	public void undoDeletion(String...nodeName){
 		String node = nodeName.length > 0 ? nodeName[0]: "";
-		
+
 		info("-- Undo deletion --");
 		if (node != ""){
 			waitForTextPresent("\'" + node + "' was deleted succesfully.");
@@ -682,8 +690,8 @@ public class ActionBar extends EcmsBase{
 		}
 		Utils.pause(1000);		
 	}
-	
-	
+
+
 	//Delete data in Admin view, List view
 	public void deleteDataInAdminView(String name){
 		click(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", name)), 2);
@@ -692,17 +700,18 @@ public class ActionBar extends EcmsBase{
 		waitForElementNotPresent(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", name)), DEFAULT_TIMEOUT, 1, 2);
 		Utils.pause(1000);
 	}
-	
+
 	//Go to Manage Categories
 	public void goToManageCategories(){
 		info("-- Go to Action Bar/Categories Tab --");
 		if(waitForAndGetElement(ELEMENT_CATEGORIES_LINK, 5000, 0) == null){
-			click(ELEMENT_MORE_LINK);
-			click(ELEMENT_CATEGORIES_MORE_LINK);
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			//click(ELEMENT_CATEGORIES_MORE_LINK);
+			click(ELEMENT_CATEGORIES_LINK);
 		}
 		else{
 			goToNode(ELEMENT_CATEGORIES_LINK);
-	 	    waitForElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP);
+			waitForElementPresent(ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		} 
 	}
 	/**function add Comment icon for action with web view
@@ -714,7 +723,7 @@ public class ActionBar extends EcmsBase{
 		click(By.linkText("documents"));
 		click(By.linkText("metro.pdf"));
 		WebElement comment = waitForAndGetElement(ELEMENT_ADD_COMMENT_LINK, 5000, 0);
-		
+
 		if (comment != null){
 			info("-- Add comment icon is already displayed --");
 		} else if (waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0) != null){
@@ -732,7 +741,7 @@ public class ActionBar extends EcmsBase{
 			magAcc.signIn("john", "gtn");
 		}
 	}
-	
+
 	/** function go to add comment in action bar
 	 * @author lientm
 	 */
@@ -751,7 +760,7 @@ public class ActionBar extends EcmsBase{
 		waitForElementPresent(ELEMENT_ADD_COMMENT_POPUP);
 		Utils.pause(1000);
 	}
-	
+
 	/**function add comment for node
 	 * @author lientm
 	 * @param comment: comment need to add
@@ -765,7 +774,7 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_SHOW_COMMENT_LINK);
 		waitForElementPresent(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", comment)));
 	}
-	
+
 	/**function edit a comment
 	 * @author lientm
 	 * @param oldComment
@@ -782,7 +791,7 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_SHOW_COMMENT_LINK);
 		waitForElementPresent(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", newComment)));
 	}
-	
+
 	/**function delete a comment
 	 * @author lientm
 	 * @param comment
@@ -796,7 +805,7 @@ public class ActionBar extends EcmsBase{
 		}
 		waitForElementNotPresent(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", comment)));
 	}
-	
+
 	/** function vote for a document/uploaded file
 	 * @author lientm
 	 * @param rate
@@ -815,18 +824,18 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_VOTE_LINK);
 		waitForElementPresent(ELEMENT_VOTE_POPUP);
 		Utils.pause(1000);
-		
+
 		HashMap<Integer, String> rateVote = new HashMap<Integer, String>();
 		rateVote.put(1, "Poor");
 		rateVote.put(2, "Below average");
 		rateVote.put(3, "Average");
 		rateVote.put(4, "Above average");
 		rateVote.put(5, "Good");
-		
+
 		click(By.xpath(ELEMENT_VOTE_RATE.replace("${rate}", rateVote.get(rate))));
 		waitForElementPresent(ELEMENT_VOTE_COMPONENT);
 	}
-	
+
 	/** function and translation for document
 	 * @author lientm
 	 * @param paths: path to folder contains destination file
@@ -845,9 +854,9 @@ public class ActionBar extends EcmsBase{
 		}
 		click(ELEMENT_ADD_TRANSLATION_LINK);
 		Utils.pause(1000);
-		
+
 		click(ELEMENT_SELECT_DOCUMENT_BUTTON);
-		
+
 		if (paths != ""){
 			goToNode(paths);
 		}
@@ -856,19 +865,20 @@ public class ActionBar extends EcmsBase{
 		button.save();
 		waitForElementNotPresent(ELEMENT_ADD_TRANSLATION_POPUP);
 	}
+	
 	/** Check if Export button is available in action bar
 	 * @author thuntn
 	 */
 	public void addExportButton(){
 		WebElement eExport = waitForAndGetElement(ELEMENT_EXPORT_LINK,10000,0);
-		
+
 		info("Check if Export button is available in action bar");
 		if(eExport == null){
 			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK,5000,0);
 			if (more !=null ){
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 				eExport = waitForAndGetElement(ELEMENT_EXPORT_LINK,30000,0);
-			
+
 				if (eExport == null){
 					navToolBar.goToContentAdministration();
 					magView.setup2ShowViewAction("exportNode");
@@ -884,22 +894,22 @@ public class ActionBar extends EcmsBase{
 				navToolBar.goToSiteExplorer();
 			}
 		}
-		
+
 	}
-	
+
 	/** Check if Category button is available in action bar
 	 * @author thuntn
 	 */
 	public void checkCategoryButton(){
 		WebElement eCategory = waitForAndGetElement(ELEMENT_CATEGORIES_LINK,10000,0);
-		
+
 		info("Check if Category button is available in action bar");
 		if(eCategory == null){
 			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK,5000,0);
 			if (more !=null ){
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 				eCategory = waitForAndGetElement(ELEMENT_CATEGORIES_LINK,30000,0);
-			
+
 				if (eCategory == null){
 					navToolBar.goToContentAdministration();
 					magView.setup2ShowViewAction("addCategory");
@@ -915,19 +925,20 @@ public class ActionBar extends EcmsBase{
 				navToolBar.goToSiteExplorer();
 			}
 		}
-		
+
 	}
+	
 	/**Manage publication state
 	 * @author thuntn
 	 */
 	public void managePublication(String state, String...date){
 		By bState = By.xpath(ELEMENT_PUBLICATION_STATE.replace("{$state}", state));
-		
+
 		info("Manage publication state");
 		if (waitForAndGetElement(ELEMENT_PUBLICATION, 20000,0) == null){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
-			
+
 		click(ELEMENT_PUBLICATION);
 		click(bState);
 		if (state.equals("Staged")){
@@ -940,19 +951,20 @@ public class ActionBar extends EcmsBase{
 		}
 		button.close();
 	}
+	
 	/**Add View properties to action bar if it is not shown on action bar
 	 * @author thuntn
 	 */
 	public void addViewPropertiesButton(){
 		WebElement eProperties = waitForAndGetElement(ELEMENT_VIEW_PROPERTIES_ICON,10000,0);
-		
+
 		info("Add View properties to action bar if it is not shown on action bar");
 		if(eProperties == null){
 			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK,5000,0);
 			if (more !=null ){
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 				eProperties = waitForAndGetElement(ELEMENT_VIEW_PROPERTIES_ICON,20000,0);
-			
+
 				if (eProperties == null){
 					navToolBar.goToContentAdministration();
 					magView.setup2ShowViewAction("viewProperties");
@@ -969,14 +981,15 @@ public class ActionBar extends EcmsBase{
 			}
 		}
 	}
+	
 	/**Add property for a node
 	 * @author thuntn
 	 */
 	public void addProperty(String property, String value){
-		
+
 		info("Add property for a node");
 		WebElement eProperties = waitForAndGetElement(ELEMENT_VIEW_PROPERTIES_ICON,10000,0);
-		
+
 		if(eProperties == null){
 			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK,5000,0);
 			if (more !=null )
@@ -984,43 +997,47 @@ public class ActionBar extends EcmsBase{
 		}
 		click(ELEMENT_VIEW_PROPERTIES_ICON);
 		waitForElementPresent(ELEMENT_PROPERTIES_TAB);
-		
+
 		click(ELEMENT_ADD_PROPERTY_TAB);
 		select(ELEMENT_ADD_PROPERTY_INPUT,property);
 		type(ELEMENT_VALUE_INPUT,value,true);
 		button.save();
-		
+
 		//Check if a property is added successfully.
 		waitForElementPresent(ELEMENT_PROPERTY.replace("{$property}", property).replace("{$value}", value));
 		button.close();
 	}
+	
 	/**Delete category for a node
 	 * @author thuntn
 	 * @param categoryPath
 	 */
 	public void deleteCategory(String categoryPath){
-		click(ELEMENT_CATEGORIES_LINK);
-		
+		//checkCategoryButton();
+		//click(ELEMENT_CATEGORIES_LINK);
+		goToManageCategories();
+
 		click(ELEMENT_DELETE_CATEGORY_ICON.replace("{$categoryPath}", categoryPath));
 		alert.waitForConfirmation(MSG_DELETE_CATEGORY);
-		
+
 		waitForTextNotPresent(categoryPath);
-		
+
 		button.close();
 	}
+	
 	/** Add Import button to action bar if it is not available on action bar
 	 * @author thuntn
 	 */
 	public void addImportButton(){
 		WebElement eExport = waitForAndGetElement(ELEMENT_IMPORT_LINK,10000,0);
-		
+
 		info("Add Import button to action bar if it is not available on action bar");
 		if(eExport == null){
 			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK,5000,0);
 			if (more !=null ){
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 				eExport = waitForAndGetElement(ELEMENT_IMPORT_LINK,30000,0);
-			
+
 				if (eExport == null){
 					navToolBar.goToContentAdministration();
 					magView.setup2ShowViewAction("importNode");
@@ -1037,6 +1054,7 @@ public class ActionBar extends EcmsBase{
 			}
 		}
 	}
+	
 	/**Add View metadata icon to action bar if it is not shown on action bar
 	 * @author thuntn
 	 */
@@ -1061,8 +1079,9 @@ public class ActionBar extends EcmsBase{
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToSiteExplorer();
 		}
-		
+
 	}
+	
 	/**Delete relation for a node
 	 * @author thuntn
 	 */
@@ -1071,16 +1090,17 @@ public class ActionBar extends EcmsBase{
 		if(addRelation == null)
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		click(ELEMENT_ADD_RELATION_LINK);
-		
+
 		click(ELEMENT_DELETE_RELATION_ICON.replace("{$relation}", relation));
 		alert.waitForConfirmation(MSG_DELETE_RELATION);
-		
+
 		waitForTextNotPresent(relation);
-		
+
 		button.close();
-		
+
 		Utils.pause(1000);
 	}
+	
 	/**View metadata
 	 * @author thuntn
 	 */
@@ -1092,16 +1112,16 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_VIEW_METADATA_ICON);
 		waitForElementPresent(ELEMENT_METADATA_POPUP_TEXT);
 		button.cancel();
-		
+
 	}
-	
+
 	/** function lock nodes from clicking Lock icon in action bar
 	 * @author lientm
 	 * @param nodes
 	 */
 	public void lockNodeFromActionBar(String nodes){
 		String ELEMENT_LOCKED_NODE_LIST_VIEW = "//*[contains(@data-original-title, 'Locked by')]//*[contains(text(),'${name}')]";
-		
+
 		String[] node = nodes.split("/");
 		for (int i = 0; i < node.length; i ++){
 			click(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", node[i])), 2);
@@ -1111,14 +1131,14 @@ public class ActionBar extends EcmsBase{
 			waitForElementPresent(ELEMENT_LOCKED_NODE_LIST_VIEW.replace("${name}", node[j]));
 		}
 	}
-	
+
 	/**function unlock nodes from clicking Unlock icon in action bar
 	 * @author lientm
 	 * @param nodes
 	 */
 	public void unLockNodeFromActionBar(String nodes){
 		String ELEMENT_LOCKED_NODE_LIST_VIEW = "//*[contains(@data-original-title, 'Locked by')]//*[contains(text(),'${name}')]";
-		
+
 		String[] node = nodes.split("/");
 		for (int i = 0; i < node.length; i ++){
 			click(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", node[i])), 2);

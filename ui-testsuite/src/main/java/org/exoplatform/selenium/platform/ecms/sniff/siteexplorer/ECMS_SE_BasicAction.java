@@ -226,9 +226,10 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 	@Test
 	public void test07_UnlockNode() {
-		String node1= "test07UnlockNode1";
-		String bNode1= ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", node1);
-		String bNodeLock=cMenu.ELEMENT_FILE_LOCKED_BY_ADMIN.replace("${titleOfFile}", node1);
+		String node1 = "test07UnlockNode1";
+		String bNode1 = siteExp.ELEMENT_SE_NODE.replace("{$node}",node1); 
+				//ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", node1);
+		String bNodeLock = cMenu.ELEMENT_FILE_LOCKED_BY_ADMIN.replace("${titleOfFile}", node1);
 		info("Unlock a node");
 
 		//Create file document

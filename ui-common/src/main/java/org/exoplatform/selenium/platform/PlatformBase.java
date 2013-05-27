@@ -53,6 +53,7 @@ public class PlatformBase extends TestBase {
 	 * Company Navigation
 	 */
 	public final By ELEMENT_PERSONAL_DOCUMENTS = By.className("uiIconPLFDocuments");
+	public final By ELEMENT_HOME_PAGE = By.className("uiIconHome");
 
 	/*
 	 * Navigation Bar /Administration Bar
@@ -843,6 +844,26 @@ public class PlatformBase extends TestBase {
 		driver.switchTo().window(previousWindowHandle);
 	}*/	  
 
-	/////////
-	//
+	/**
+	 * @author lientm
+	 * @param cke_frame
+	 * @param content
+	 */
+	public void typeMultiLineInCkeContent(By cke_frame, String content){
+		WebElement inputsummary = null;
+		String[] lines = content.split("/");
+		
+		if (lines.length > 0){
+			driver.switchTo().frame(waitForAndGetElement(cke_frame));
+			inputsummary = driver.switchTo().activeElement();
+			inputsummary.click();
+			for (int i = 0; i < lines.length; i++){
+				inputsummary.sendKeys(lines[i]);
+				inputsummary.sendKeys(Keys.ENTER);
+				Utils.pause(500);
+			}
+		}
+		switchToParentWindow();
+		Utils.pause(1000);
+	}
 }

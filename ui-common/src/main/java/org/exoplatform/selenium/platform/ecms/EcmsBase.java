@@ -191,7 +191,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");
 	public final By ELEMENT_PUB_FROM_INPUT = By.name("UIPublicationPanelStartDateInput");
 	public final By ELEMENT_PUB_TO_INPUT = By.name("UIPublicationPanelEndDateInput");
-	
+
 	public final By ELEMENT_ADD_RELATION_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageRelations']");
 	public final By ELEMENT_SELECT_RELATION_TAB = By.xpath("//*[contains(text(), 'Select Relation')]");
 	public final By ELEMENT_SHOW_RELATION_ICON = By.xpath("//i[@class='uiIconEcmsRelationMini']");
@@ -201,6 +201,7 @@ public class EcmsBase extends ManageAccount {
 	//Collaboration TAB
 	public final By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
 	public final By ELEMENT_TAG = By.linkText("Tag");
+	public final By ELEMENT_TAG_LINK = By.className("uiIconEcmsTaggingDocument");
 
 	//System TAB  
 	public final By ELEMENT_SYSTEM_TAB = By.xpath("//a[contains(@title,'System')]");
@@ -293,6 +294,7 @@ public class EcmsBase extends ManageAccount {
 	public By ELEMENT_CLOSE_TAG_FORM = By.xpath("//a[contains(text(),'Close')]");
 	public By ELEMENT_TAG_NAME = By.id("names");
 	public By ELEMENT_TAG_SCOPE = By.id("tagScopes");
+	
 
 	//Sites Explorer > Action Bar > Categories
 	public final String ELEMENT_CATEGORY_OPTION = "//*[@name='taxonomyTree']/option[@value='${CATEGORY_TREE_NAME}']";
@@ -529,14 +531,24 @@ public class EcmsBase extends ManageAccount {
 	{
 		button = new Button(driver);
 		//goToEditDocument(name);
-		click(ELEMENT_UPLOAD_REMOVE);
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FRAME_EDIT));
-		type(ELEMENT_UPLOAD_NAME, Utils.getAbsoluteFilePath(uploadFile), false);
-		switchToParentWindow();
-		type(ELEMENT_UPLOAD_TITLE,title, true);
-		type(ELEMENT_UPLOAD_DESC, desc, true);
-		type(ELEMENT_UPLOAD_CREATOR, creator, true);
-		type(ELEMENT_UPLOAD_SOURCE, source, true);
+		if (uploadFile != ""){
+			click(ELEMENT_UPLOAD_REMOVE);
+			driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FRAME_EDIT));
+			type(ELEMENT_UPLOAD_NAME, Utils.getAbsoluteFilePath(uploadFile), false);
+			switchToParentWindow();
+		}
+		if (title != ""){
+			type(ELEMENT_UPLOAD_TITLE,title, true);
+		}
+		if (desc != ""){
+			type(ELEMENT_UPLOAD_DESC, desc, true);
+		}
+		if (creator != ""){
+			type(ELEMENT_UPLOAD_CREATOR, creator, true);	
+		}
+		if (source != ""){
+			type(ELEMENT_UPLOAD_SOURCE, source, true);
+		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 	}

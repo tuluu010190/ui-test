@@ -57,7 +57,12 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_NEWFILE_NAME_TEXTBOX = By.id("name");
 	public final By ELEMENT_NEWFILE_CONTENT_FRAME = By.xpath("//*[@id='cke_contents_contentHtml']/iframe");
 	public final By ELEMENT_NEWFILE_TITLE_TEXTBOX = By.id("title0");
-	public final By ELEMENT_NEWFILE_DESC_TEXTBOX = By.id("description0");
+
+	//public final By ELEMENT_NEWFILE_DESC_TEXTBOX = By.id("description0");
+	public final By ELEMENT_NEWFILE_DESCRIPTION_TEXTBOX = By.id("description0");
+	public final By ELEMENT_NEWFILE_CREATOR_TEXTBOX = By.id("creator0");
+	public final By ELEMENT_NEWFILE_SOURCE_TEXTBOX = By.id("source0");
+
 
 	//SampleNode
 	//	public final By ELEMENT_SAMPLENODE_LINK = By.linkText("Sample node");
@@ -103,6 +108,12 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_PRODUCT_LINK = By.linkText("Product");
 	public final By ELEMENT_PRODUCT_NAME_TEXTBOX = By.id("name") ;
 
+	//public final By ELEMENT_PRODUCT_TITLE_TEXTBOX = By.id("title");
+	public final By ELEMENT_PRODUCT_ILLUSTRATION = By.xpath("//input[@name='illustration']");
+	public final By ELEMENT_PRODUCT_SUMMARY_FRAME = By.xpath("//*[@id='cke_contents_summary']/iframe");
+	public final By ELEMENT_PRODUCT_BENEFIT_FRAME = By.xpath("//*[@id='cke_contents_productBenefits']/iframe");
+	public final By ELEMENT_PRODUCT_FEATURE_FRAME = By.xpath("//*[@id='cke_contents_productFeatures']/iframe");
+			
 	public final By ELEMENT_FREE_CONT_ACCEPT = By.xpath("//form[contains(@id,'EditTextForm')]/a[2]");
 	public final By ELEMENT_FREE_CONT_INPUT = By.xpath("//iframe[contains(@title,'Rich text editor, newText')]");
 	public final String ELEMENT_FREE_CONT_INLINE = "//div[contains(@id,'CurrentText') and @title='Double-click to edit']";
@@ -189,13 +200,17 @@ public class ContentTemplate extends EcmsBase{
 	}
 
 	//add new Free layout webcontent
-	public void createNewWebContent(String name, String cont, String img, String sum, String css, String js){
+	public void createNewWebContent(String name, String cont, String img, String sum, String css, String js, boolean...multiLine){
+		boolean lines = multiLine.length > 0 ? multiLine[0]: false;
+		
 		info("-- Creating a new Web Content --");
 		Utils.pause(500);
 		click(ELEMENT_WEBCONTENT_LINK);
 		type(ELEMENT_WEBCONTENT_NAME_TEXTBOX, name, true);
-		inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME,cont);
-		switchToParentWindow();
+		if (cont != ""){
+			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME,cont);
+			switchToParentWindow();
+		}
 		if (sum!="" || img !=""){
 			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
 			if (img!=""){
@@ -210,8 +225,12 @@ public class ContentTemplate extends EcmsBase{
 				int length = links.length;
 				waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 			}
-			inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME, sum);
-			switchToParentWindow();
+			if (!lines){
+				inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME, sum);
+				switchToParentWindow();
+			}else {
+				typeMultiLineInCkeContent(ELEMENT_WEBCONTENT_SUMMARY_FRAME, sum);
+			}
 		}
 		if(css!="" || js !=""){
 			click(ELEMENT_WEBCONTENT_ADVANCE_TAB);
@@ -238,19 +257,58 @@ public class ContentTemplate extends EcmsBase{
 	}
 	
 	//add new file
-	public void createNewFile(String name, String cont, String title, String...params){
+	public void createNewFile(String name, String cont, String title, Object...params){
+		String description = (String) (params.length > 0 ? params[0]: "");
+		boolean lines = (Boolean) (params.length > 1 ? params[1]: false);
+		
 		click(ELEMENT_NEWFILE_LINK);	
 		type(ELEMENT_NEWFILE_NAME_TEXTBOX, name, false);
-		inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, cont);
-		switchToParentWindow();
+		
+		if (!lines){
+			inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, cont, true);
+			switchToParentWindow();
+		} else {
+			typeMultiLineInCkeContent(ELEMENT_NEWFILE_CONTENT_FRAME, cont);
+		}
 		type(ELEMENT_NEWFILE_TITLE_TEXTBOX, title, false);
-		if (params.length >0)
-		type(ELEMENT_NEWFILE_DESC_TEXTBOX, params[0],false);
-		//click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		if (!description.isEmpty()){
+			type(ELEMENT_NEWFILE_DESCRIPTION_TEXTBOX, description, false);
+		}
 		button.saveAndClose();
-		//waitForAndGetElement(By.xpath("//*[contains(text(), '" + title +"')]"));
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", cont)), DEFAULT_TIMEOUT, 1, 2);
-
+		Utils.pause(1000);
+	}
+	
+	/** function create new file with full input
+	 * @author lientm
+	 * @param name
+	 * @param cont
+	 * @param title
+	 * @param desc
+	 * @param creator
+	 * @param source
+	 */
+	public void createNewFullFile(String name, String cont, String title, String desc, String creator, String source){
+		
+		click(ELEMENT_NEWFILE_LINK);	
+		type(ELEMENT_NEWFILE_NAME_TEXTBOX, name, true);
+		inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, cont, true);
+		switchToParentWindow();
+		if (title != ""){
+			type(ELEMENT_NEWFILE_TITLE_TEXTBOX, title, true);
+		}
+		if (desc != ""){
+			type(ELEMENT_NEWFILE_DESCRIPTION_TEXTBOX, desc, true);
+		}
+		if (creator != ""){
+			type(ELEMENT_NEWFILE_CREATOR_TEXTBOX, creator, true);
+		}
+		if (source != ""){
+			type(ELEMENT_NEWFILE_SOURCE_TEXTBOX, source, true);
+		}
+		button.saveAndClose();
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);
 	}
 
@@ -340,7 +398,50 @@ public class ContentTemplate extends EcmsBase{
 	public void createNewProduct (String name, String title){
 		click(ELEMENT_PRODUCT_LINK);
 		type(ELEMENT_PRODUCT_NAME_TEXTBOX, name, false);
+		//type(ELEMENT_PRODUCT_TITLE_TEXTBOX, title, false);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+	}
+	
+	/** function add new Product content with full inputs
+	 * @author lientm
+	 * @param name
+	 * @param illus
+	 * @param sum
+	 * @param benefit
+	 * @param feature
+	 * @param multiLine
+	 */
+	public void createFullNewProduct(String name, String illus, String sum, String benefit, String feature, boolean...multiLine){		
+		boolean lines = multiLine.length > 0 ? multiLine[0]: false;
+		click(ELEMENT_PRODUCT_LINK);
+		type(ELEMENT_PRODUCT_NAME_TEXTBOX, name, false);
+		if (illus != ""){
+			WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 0, 2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload);
+			upload.sendKeys(Utils.getAbsoluteFilePath(illus));
+			switchToParentWindow();
+			String links[] = illus.split("/");
+			int length = links.length;
+			waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
+		}
+		if (sum != ""){
+			if (! lines){
+				inputDataToFrame(ELEMENT_PRODUCT_SUMMARY_FRAME, sum, true);
+				switchToParentWindow();
+			}else {
+				typeMultiLineInCkeContent(ELEMENT_PRODUCT_SUMMARY_FRAME, sum);
+			}
+		}
+		if (benefit != ""){
+			inputDataToFrame(ELEMENT_PRODUCT_BENEFIT_FRAME, sum, true);
+			switchToParentWindow();
+		}
+		if (feature != ""){
+			inputDataToFrame(ELEMENT_PRODUCT_FEATURE_FRAME, sum, true);
+			switchToParentWindow();
+		}
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 
 	//Folder type 
@@ -484,9 +585,14 @@ public class ContentTemplate extends EcmsBase{
 		actBar.goToEditDocument(titleFile);
 		Utils.pause(500);
 		//type(ELEMENT_NEWFILE_NAME_TEXTBOX, nameEdit, true);
-		inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, contentEdit, true);
-		switchToParentWindow();
-		type(ELEMENT_NEWFILE_TITLE_TEXTBOX, titleEdit, true);
+		if (contentEdit != ""){
+			inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, contentEdit, true);
+			switchToParentWindow();
+		}
+		if (titleEdit != ""){
+			type(ELEMENT_NEWFILE_TITLE_TEXTBOX, titleEdit, true);
+		}
+
 		if (option == 0){
 			button.save();
 			//waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
@@ -498,7 +604,6 @@ public class ContentTemplate extends EcmsBase{
 		} else{
 			button.saveAndClose();
 			waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
-			waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentEdit)), DEFAULT_TIMEOUT, 1, 2);
 		}
 		//waitForAndGetElement(By.xpath("//body/p[contains(text(), '" + contentEdit +"')]"));
 	}
@@ -590,8 +695,11 @@ public class ContentTemplate extends EcmsBase{
 		actBar.goToEditDocument(title);
 		//type(ELEMENT_WEBCONTENT_TITLE_TEXTBOX, title_edit, true);
 		//		waitForAndGetElement(ELEMENT_WEBCONTENT_NAME_TEXTBOX).clear();
-		inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, contentToEdit, true);
-		switchToParentWindow();
+		if (contentToEdit != ""){
+			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, contentToEdit, true);
+			switchToParentWindow();
+		}
+
 		if (sum != "" || img != ""){
 			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
 			waitForElementPresent(By.xpath("//*[@class='active']//*[contains(text(), 'Illustration')]"));
@@ -625,7 +733,7 @@ public class ContentTemplate extends EcmsBase{
 		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);	
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON, 3000);
-		waitForElementPresent(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentToEdit));
+		//waitForElementPresent(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentToEdit));
 	}
 
 	//edit a podcast
@@ -676,6 +784,11 @@ public class ContentTemplate extends EcmsBase{
 			waitForElementPresent(By.xpath("//div[contains(text(),'"+value+"')]"));
 		}*/
 	
+	/**
+	 * @author lientm
+	 * @param name
+	 * @param language
+	 */
 	public void editLanguageForDocument(String name, String language){
 		actBar.goToEditDocument(name);
 		
