@@ -26,8 +26,12 @@ import org.testng.Assert;
 
 public class PlatformBase extends TestBase {
 
+	public final String DATA_USER1 = "john";
+	public final String DATA_PASS = "gtn";
+	public final String DATA_USER2 = "mary";
+	
 	Button button = new Button(driver);
-
+	
 	/*
 	 * Default Page - http://localhost:8080/portal/default/
 	 * */

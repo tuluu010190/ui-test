@@ -32,9 +32,9 @@ public class BrowserPreferences extends EcmsBase{
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot enable reference option after " + ACTION_REPEAT + " tries");
 			}
-			waitForElementPresent(ELEMENT_PREFERENCE_LINK, 5000, 1);
+//			waitForElementPresent(ELEMENT_PREFERENCE_LINK, 5000, 1);
 			click(ELEMENT_PREFERENCE_LINK);
-			waitForElementPresent(advanced, 5000, 1);
+//			waitForElementPresent(advanced, 10000, 1);
 			if (getElement(advanced) != null){
 				click(advanced);
 				WebElement check = waitForAndGetElement(option, DEFAULT_TIMEOUT, 1, 2);
@@ -42,9 +42,10 @@ public class BrowserPreferences extends EcmsBase{
 					click(option, 2);
 				}
 				button.save();
-				if (isTextPresent("Advanced")){
+				waitForTextNotPresent("Preferences");
+				/*if (isTextPresent("Advanced")){
 					button.save();
-				} 
+				} */
 				//waitForElementNotPresent(advanced);
 				break;
 			}

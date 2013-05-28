@@ -42,6 +42,8 @@ public class SitesExplorer extends EcmsBase{
 	//Simple Search
 	public final By ELEMENT_SIMPLESEARCH_TEXTBOX = By.id("simpleSearch");
 	public final By ELEMENT_SIMPLESEARCH_SUBMIT = By.id("SimpleSearch");
+	public final By ELEMENT_QUICKSEARCH_ICON = By.xpath("//a[@data-original-title='Quick Search']");
+
 
 	/* sidebar */
 	public final String ELEMENT_SE_NODE = "//*[@title='{$node}']"; 
@@ -61,9 +63,9 @@ public class SitesExplorer extends EcmsBase{
 	public final By MESSAGE_CLEAR_ALL = By.xpath("//*[contains(text(),'There are no items in the clipboard.')]");
 	public final String ELEMENT_VERIFY_ACTION = "//*[contains(@data-original-title, '${titleOfFile}')]/../..//*[contains(@class, 'uiIconEcmsPaste')]";
 	public final String ELEMENT_TITLE_LEFT_PANEL = "//div[@id='UITreeExplorer']//div[contains(@onmousedown,'collaboration:/sites/${title}')]";
-	
+
 	public final String ELEMENT_DOCUMENT_TITLE = "//*[@class='nodeLabel']/*[text()='${title}']";
-	
+
 	/*================***==================*/
 
 	//Verify if Driver is present
@@ -147,7 +149,7 @@ public class SitesExplorer extends EcmsBase{
 			//Verify new tag
 			waitForElementPresent(By.xpath("//*[text()='Linked Tags:']/..//*[contains(text(), '"+ tagName[i] +"')]"));
 		}
-		
+
 		//Close
 		click(button.ELEMENT_CLOSE_BUTTON);
 
@@ -168,7 +170,7 @@ public class SitesExplorer extends EcmsBase{
 		button.save();
 		waitForElementPresent(By.xpath(ELEMENT_EDIT_A_TAG_ICON.replace("${tagName}", newTag)));
 	}
-	
+
 	//Simple search
 	public boolean simpleSearch(String keyword){
 		waitForElementPresent(ELEMENT_SIMPLESEARCH_TEXTBOX);

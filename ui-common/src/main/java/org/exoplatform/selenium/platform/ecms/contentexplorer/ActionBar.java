@@ -77,6 +77,9 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_VALUE_INPUT = By.xpath("//input[contains(@id,'value')]");
 	public final By ELEMENT_ADD_PROPERTY_INPUT = By.name("property_select");
 	public final String ELEMENT_PROPERTY = "//td[text()='{$property}']/..//div[contains(text(),'{$value}')]"; 
+	//Metadata form
+	public final By ELEMENT_VIEW_METADATA_ICON = By.xpath("//i[@class='uiIconEcmsViewMetadatas']");
+	public final By ELEMENT_METADATA_POPUP_TEXT = By.xpath("//span[@class='PopupTitle popupTitle' and text()='View Metadata']");
 	
 	//Go to Sites Management
 	public void goToSitesManagement(){
@@ -1024,7 +1027,7 @@ public class ActionBar extends EcmsBase{
 					magAcc.signOut();
 					magAcc.signIn("john", "gtn");
 					navToolBar.goToSiteExplorer();
-				}
+				}	
 			}else{
 				navToolBar.goToContentAdministration();
 				magView.setup2ShowViewAction("importNode");
@@ -1032,6 +1035,31 @@ public class ActionBar extends EcmsBase{
 				magAcc.signIn("john", "gtn");
 				navToolBar.goToSiteExplorer();
 			}
+		}
+	}
+	/**Add View metadata icon to action bar if it is not shown on action bar
+	 * @author thuntn
+	 */
+	public void addViewMetadataToActionBar(){
+		WebElement addMetadata = waitForAndGetElement(ELEMENT_VIEW_METADATA_ICON, 10000, 0);
+		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+		if (addMetadata != null){
+			info("-- View metadata is already displayed --");
+		} else if (more != null){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			if (waitForAndGetElement(ELEMENT_VIEW_METADATA_ICON, 5000, 0, 2) != null){
+				info("-- View metadata is already displayed --");
+			}else{
+				magView.setup2ShowViewAction("viewMetadatas", "Web");
+				magAcc.signOut();
+				magAcc.signIn("john", "gtn");
+				navToolBar.goToSiteExplorer();
+			}
+		}else {
+			magView.setup2ShowViewAction("viewMetadatas", "Web");
+			magAcc.signOut();
+			magAcc.signIn("john", "gtn");
+			navToolBar.goToSiteExplorer();
 		}
 		
 	}
@@ -1050,5 +1078,20 @@ public class ActionBar extends EcmsBase{
 		waitForTextNotPresent(relation);
 		
 		button.close();
+		
+		Utils.pause(1000);
+	}
+	/**View metadata
+	 * @author thuntn
+	 */
+	public void viewMetadata(){
+		info("View metadata of a node");
+		WebElement viewMetadata = waitForAndGetElement(ELEMENT_VIEW_METADATA_ICON,5000,0);
+		if (viewMetadata == null)
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+		click(ELEMENT_VIEW_METADATA_ICON);
+		waitForElementPresent(ELEMENT_METADATA_POPUP_TEXT);
+		button.cancel();
+		
 	}
 }

@@ -35,10 +35,12 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_LOGIN_BUTTON = By.name("signIn");
 	//By.xpath("//*[@id='UIPortalLoginFormAction']");
 	//Side bar
-
 	
 	//Side bar
 
+	public final By ELEMENT_THUMBNAIL_HIDDEN_NODE = By.xpath("//span[text()='exo:thumbnails']");
+	public final By ELEMENT_DMS_STRUCTURE = By.xpath("//span[text()='jcr:content']");
+	
 	//UI address bar
 	public final String ELEMENT_VIEW_MODE_LINK = "//i[contains(@class,'uiIconEcmsViewDefault') and @data-original-title='${viewName}']";
 	public final By ELEMENT_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack");

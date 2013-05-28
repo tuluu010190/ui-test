@@ -99,7 +99,8 @@ public class TestBase {
 		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
 		WebElement e = null;
 		try {
-			e = driver.findElement(by);
+			if(by != null)
+				e = driver.findElement(by);
 			if (e != null){
 				if (isDisplay(by)) return e;
 			}

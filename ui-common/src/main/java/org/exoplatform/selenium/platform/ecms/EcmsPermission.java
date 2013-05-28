@@ -39,6 +39,9 @@ public class EcmsPermission extends EcmsBase{
 	
 	public final String MESSAGE_NO_RIGHT_TO_PASTE_NODE = "You do not have permission to move to this node. Please contact the administrator.";
 	
+	public final String ELEMENT_READ_CHECK = "//input[@name='{$user}read']";
+	public final String ELEMENT_MODIFY_CHECK = "//input[@name='{$user}addNode']";
+	public final String ELEMENT_REMOVE_CHECK = "//input[@name='{$user}remove']";
 	//Function to set permission for node
 	public void setPermissionForNode(boolean read, boolean add, boolean remove){
 		boolean isCheckedRead = driver.findElement(ELEMENT_READ_CHECKBOX).isSelected();

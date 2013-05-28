@@ -57,6 +57,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_NEWFILE_NAME_TEXTBOX = By.id("name");
 	public final By ELEMENT_NEWFILE_CONTENT_FRAME = By.xpath("//*[@id='cke_contents_contentHtml']/iframe");
 	public final By ELEMENT_NEWFILE_TITLE_TEXTBOX = By.id("title0");
+	public final By ELEMENT_NEWFILE_DESC_TEXTBOX = By.id("description0");
 
 	//SampleNode
 	//	public final By ELEMENT_SAMPLENODE_LINK = By.linkText("Sample node");
@@ -237,16 +238,19 @@ public class ContentTemplate extends EcmsBase{
 	}
 	
 	//add new file
-	public void createNewFile(String name, String cont, String title){
+	public void createNewFile(String name, String cont, String title, String...params){
 		click(ELEMENT_NEWFILE_LINK);	
 		type(ELEMENT_NEWFILE_NAME_TEXTBOX, name, false);
 		inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, cont);
 		switchToParentWindow();
 		type(ELEMENT_NEWFILE_TITLE_TEXTBOX, title, false);
+		if (params.length >0)
+		type(ELEMENT_NEWFILE_DESC_TEXTBOX, params[0],false);
 		//click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		button.saveAndClose();
 		//waitForAndGetElement(By.xpath("//*[contains(text(), '" + title +"')]"));
 		waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", cont)), DEFAULT_TIMEOUT, 1, 2);
+
 		Utils.pause(1000);
 	}
 
