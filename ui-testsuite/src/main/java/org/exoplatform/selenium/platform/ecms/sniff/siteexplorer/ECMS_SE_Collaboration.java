@@ -69,7 +69,11 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		String newComment = "New comment to file document";
 		By elementFile = By.linkText(file);
 		
-		actBar.addCommentIconInActionBar();
+		navToolBar.goToSiteExplorer();
+		click(By.linkText("acme"));
+		click(By.linkText("documents"));
+		click(By.linkText("metro.pdf"));
+		actBar.addItem2ActionBar("comment", actBar.ELEMENT_ADD_COMMENT_LINK);
 		navToolBar.goToSiteExplorer();
 		ecms.goToNode(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		actBar.goToAddNewContent();
@@ -96,7 +100,11 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		String newComment = "New comment to upload file";
 		By elementUploadFile = By.linkText(fileUpload);
 		
-		actBar.addCommentIconInActionBar();
+		navToolBar.goToSiteExplorer();
+		click(By.linkText("acme"));
+		click(By.linkText("documents"));
+		click(By.linkText("metro.pdf"));
+		actBar.addItem2ActionBar("comment", actBar.ELEMENT_ADD_COMMENT_LINK);
 		navToolBar.goToSiteExplorer();
 		ecms.goToNode(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		

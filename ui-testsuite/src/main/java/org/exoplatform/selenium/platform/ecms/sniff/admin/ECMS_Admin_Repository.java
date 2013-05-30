@@ -103,7 +103,7 @@ public class ECMS_Admin_Repository extends PlatformBase{
 		cTemplate.createNewFile(fileTitle, content, fileTitle);
 
 		//Lock this File
-		cMenu.contextMenuAction(eLockedFile, ContextMenu.actionType.LOCK);
+		cMenu.contextMenuAction(eLockedFile, cMenu.ELEMENT_MENU_LOCK);
 		click(cMenu.ELEMENT_DOCUMENT);
 		waitForAndGetElement(elementLockedArticleIcon);
 
@@ -126,7 +126,7 @@ public class ECMS_Admin_Repository extends PlatformBase{
 	@Test
 	public void test02_ManageLock(){
 		String fileTitle = "Ecms_Admin_Manage_Lock";
-		String content = "All users in the selected group, would be able to unlock a locked node";
+		String content = "All users in the selected group, would be able to unlock";
 		By eLockedFile = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", fileTitle));
 		String elementLockedArticleIcon = cMenu.ELEMENT_FILE_LOCKED_BY_ADMIN.replace("${titleOfFile}", fileTitle);
 		
@@ -147,7 +147,7 @@ public class ECMS_Admin_Repository extends PlatformBase{
 		cTemplate.createNewFile(fileTitle, content, fileTitle);
 
 		//Lock this File
-		cMenu.contextMenuAction(eLockedFile, ContextMenu.actionType.LOCK);
+		cMenu.contextMenuAction(eLockedFile, cMenu.ELEMENT_MENU_LOCK);
 		click(cMenu.ELEMENT_DOCUMENT);
 		waitForAndGetElement(elementLockedArticleIcon);
 		

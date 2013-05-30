@@ -17,6 +17,8 @@ import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
+import org.openqa.selenium.WebDriver;
+
 
 /**
  * Utils.java
@@ -43,7 +45,7 @@ public class Utils {
 			actionObject.sendKeys(Keys.CONTROL).sendKeys(Keys.F5).build().perform();
 		}
 	}*/
-	
+
 	/**
 	 * Capture the screen of the current graphics device
 	 * @author vuna2
@@ -132,7 +134,7 @@ public class Utils {
 		String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
 		return absolutePath;
 	}
-	
+
 	//InputStream to String
 	//Get a File Content
 	public static String getFileContent(String filePath){
@@ -145,5 +147,27 @@ public class Utils {
 		}
 		String inputStreamString = new Scanner(fis,"UTF-8").useDelimiter("\\A").next();		
 		return inputStreamString;	
+	}
+
+	//Get a file name from current Url
+	public static String getFileNameFromCurrentUrl(WebDriver driver, Object...params){
+		Boolean extension = (Boolean) (params.length > 0 ? params[0] : false);
+
+		String currentUrl = driver.getCurrentUrl();
+		File file = new File(currentUrl);
+		String fileNameWithExt = file.getName();
+		
+		if (extension){
+			int position = fileNameWithExt.lastIndexOf(".");
+			String fileNameWithOutExt = null;
+			if (position >= 0) {
+				fileNameWithOutExt = fileNameWithExt.substring(0, position);
+			}else{
+				fileNameWithOutExt = fileNameWithExt;
+			}
+			return fileNameWithOutExt;
+		}else {
+			return fileNameWithExt;
+		}
 	}
 }

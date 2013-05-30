@@ -13,7 +13,6 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
@@ -51,7 +50,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 		info("Add symlink for a node");
 		//Add "Add symlink" into action bar if there is not available yet.
-		actBar.addSymlinkToActionBar();
+		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ADD_SYMLINK);
 
 		//Create node1, node2
 		cTemplate.createNewFolder(node1, folderType.Content);
@@ -210,7 +209,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cTemplate.createNewFile(node1, node1, node1);
 
 		//Lock node
-		cMenu.contextMenuAction(bNode1, actionType.LOCK);
+		cMenu.contextMenuAction(bNode1, cMenu.ELEMENT_MENU_LOCK);
 
 		//Check locked node
 		cMenu.isLockedNode(bNode1);
@@ -237,14 +236,14 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cTemplate.createNewFile(node1, node1, node1);
 
 		//Lock node
-		cMenu.contextMenuAction(bNode1, actionType.LOCK);
+		cMenu.contextMenuAction(bNode1, cMenu.ELEMENT_MENU_LOCK);
 
 		//Check locked node
 		waitForAndGetElement(bNodeLock);
 		cMenu.isLockedNode(bNodeLock);
 
 		//Unlock node
-		cMenu.contextMenuAction(bNodeLock, actionType.UNLOCK);
+		cMenu.contextMenuAction(bNodeLock, cMenu.ELEMENT_MENU_UNLOCK);
 		waitForAndGetElement(bNode1);
 
 		//Delete data
@@ -327,7 +326,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
 
 		//Delete data
-		cMenu.contextMenuAction(bNode1, actionType.DELETE);
+		cMenu.contextMenuAction(bNode1, cMenu.ELEMENT_MENU_DELETE);
 		alt.waitForMessage("Are you sure you want to delete the folder '"+node1+"' and all subfolders?");
 		dialog.deleteInDialog();
 		cMenu.deleteDocument(bNode1);
@@ -350,7 +349,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cTemplate.createNewFolder(node1, folderType.Content);
 
 		//Rename node1 with new name as newnode
-		cMenu.contextMenuAction(bNode1,actionType.RENAME,newNode);
+		cMenu.contextMenuAction(bNode1, cMenu.ELEMENT_MENU_RENAME_NODE, newNode);
 
 		//Delete data
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", newNode));

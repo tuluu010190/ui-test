@@ -557,7 +557,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		nav.goToSiteExplorer();
 
 		//actBar.chooseDrive(actBar.ELEMENT_SITES_MANAGEMENT_DRIVE);
-		actBar.goToSitesManagement();
+		actBar.showDrives();
 
 		ecms.goToNode("intranet/documents");
 
@@ -609,7 +609,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 
 		actBar = new ActionBar(driver);
 		//actBar.chooseDrive(actBar.ELEMENT_SITES_MANAGEMENT_DRIVE);
-		actBar.goToSitesManagement();
+		actBar.showDrives();
 
 		ecms.goToNode("intranet/documents");
 
@@ -623,7 +623,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		//Lock node
 		//lockNode(elementCopiedArticleUnLock);
 		cMenu = new ContextMenu(driver);
-		cMenu.contextMenuAction(elementCopiedArticleUnLock, ContextMenu.actionType.LOCK);
+		cMenu.contextMenuAction(elementCopiedArticleUnLock, actBar.ELEMENT_LOCK_ICON);
 
 		click(cMenu.ELEMENT_DOCUMENT);
 

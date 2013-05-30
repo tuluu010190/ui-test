@@ -137,7 +137,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		waitForAndGetElement(UPLOAD_FILE_NAME);
 
 		//Right click and check-in node
-		cMenu.contextMenuAction(UPLOAD_FILE_NAME, actionType.CHECKIN);
+		cMenu.contextMenuAction(UPLOAD_FILE_NAME, cMenu.ELEMENT_MENU_CHECKIN);
 
 		//Verify item Delete item not exist
 		rightClickOnElement(UPLOAD_FILE_NAME);
@@ -146,7 +146,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		//Delete data
 		ecms.goToNode(UPLOAD_FILE_NAME);
-		cMenu.contextMenuAction(UPLOAD_FILE_NAME, actionType.CHECKOUT);
+		cMenu.contextMenuAction(UPLOAD_FILE_NAME, cMenu.ELEMENT_MENU_CHECKOUT);
 		cMenu.deleteDocument(UPLOAD_FILE_NAME);
 	}
 
@@ -171,7 +171,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		info("Create new content folder successfully");
 
 		//lock node
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actionType.LOCK);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_MENU_LOCK);
 
 		info("Lock node successfully");
 		assert cMenu.isLockedNode(ELEMENT_CONTENT_FOLDER):"Lock node unsuccessfully";
@@ -228,7 +228,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		//lock node
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actionType.LOCK);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_MENU_LOCK);
 		info("Lock parent node");
 		assert cMenu.isLockedNode(ELEMENT_CONTENT_FOLDER);
 		driver.close();
@@ -272,7 +272,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
 
 		//Add a view permission to Action Bar 
-		actBar.addViewPermissionToActionBar();
+		actBar.addItem2ActionBar("viewPermissions", actBar.ELEMENT_PERMISSION_LINK);
 
 		//Goto System > Permissions > Uncheck Remove Right for Group *:/platform/web-contributor
 		doubleClickOnElement(CONTENT_FOLDER);
@@ -401,7 +401,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		cTemplate.createNewWebContent(webContentName_1, content_1, "", "", "", "");
 
 		info("-- Create a relation between 2 nodes --");
-		actBar.addRelationToActionBar();
+		actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation(webContentName_0, pathTowebContentName_1);
 
 		info("-- Delete a document --");
@@ -765,7 +765,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		
 		info("-- Review a relation --");
 		ecms.goToNode("ECMS_Undo_Delete_4", true);
-		click(ecms.ELEMENT_ADD_RELATION_LINK);
+		click(actBar.ELEMENT_ADD_RELATION_LINK);
 		waitForTextPresent(data2);
 		button.close();
 		

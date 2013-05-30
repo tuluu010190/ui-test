@@ -204,7 +204,7 @@ public class ECMS_Admin_Advanced extends PlatformBase{
 		actBar.goToManageCategories();
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForElementNotPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", categoryTreeName));	
+		waitForElementNotPresent(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", categoryTreeName));	
 		button.close();
 		//delete data
 		cMenu.deleteData(ELEMENT_FILE);

@@ -51,7 +51,7 @@ public class ECMS_SE_Info extends PlatformBase {
 		actBar.goToNode(bNode1);
 
 		//Add permission button to action bar if it is not on action bar
-		actBar.addViewPermissionToActionBar();
+		actBar.addItem2ActionBar("viewPermissions", actBar.ELEMENT_PERMISSION_LINK);
 
 		//Add permission "read", "write" for mary
 		actBar.goToNodePermissionManagement();
@@ -94,7 +94,7 @@ public class ECMS_SE_Info extends PlatformBase {
 		actBar.goToNode(bNode1);
 
 		//Add permission button to action bar if it is not on action bar
-		actBar.addViewPermissionToActionBar();
+		actBar.addItem2ActionBar("viewPermissions", actBar.ELEMENT_PERMISSION_LINK);
 
 		//Add permission "remove", "write" for *:/platform/web-contributors
 		actBar.goToNodePermissionManagement();
@@ -139,7 +139,7 @@ public class ECMS_SE_Info extends PlatformBase {
 		actBar.goToNode(bNode1);
 
 		//Add permission button to action bar if it is not on action bar
-		actBar.addViewPermissionToActionBar();
+		actBar.addItem2ActionBar("viewPermissions", actBar.ELEMENT_PERMISSION_LINK);
 
 		//Add permission "read", "write" for mary
 		actBar.goToNodePermissionManagement();
@@ -194,7 +194,7 @@ public class ECMS_SE_Info extends PlatformBase {
 		ecms.uploadFile(link);
 		cMenu.goToNode(bNode1);
 		//Add View metadata icon to action bar if it is not on action bar
-		actBar.addViewMetadataToActionBar();
+		actBar.addItem2ActionBar("viewMetadatas", actBar.ELEMENT_VIEW_METADATA_ICON);
 
 		//View metadata of node1
 		cMenu.goToNode(bNode1);

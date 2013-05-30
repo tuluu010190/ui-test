@@ -13,7 +13,6 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -85,7 +84,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE, DATA_FILE_TITLE, DATA_FILE_TITLE);
 
 		info("Lock node");
-		cMenu.contextMenuAction(FILE_PATH, actionType.LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
 
 		info("Check locked node");
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
@@ -119,13 +118,13 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE, DATA_FILE_TITLE, DATA_FILE_TITLE);
 
 		info("Lock node");
-		cMenu.contextMenuAction(FILE_PATH, actionType.LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
 
 		info("Check locked node");
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
 
 		info("Unlock node by locker");
-		cMenu.contextMenuAction(FILE_PATH_LOCKED, actionType.UNLOCK);
+		cMenu.contextMenuAction(FILE_PATH_LOCKED, cMenu.ELEMENT_MENU_UNLOCK);
 		waitForAndGetElement(FILE_PATH);
 
 		//Delete data
@@ -152,7 +151,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 
 		//lock node
 		ecms.goToNode(FILE_PATH);
-		cMenu.contextMenuAction(FILE_PATH, actionType.LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
 
 		//check lock node
 		assert cMenu.isLockedNode(FILE_PATH):"Lock node is not successful";
@@ -212,11 +211,11 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 
 		info("Lock parent node");
-		cMenu.contextMenuAction(ANNOUN_PATH, actionType.LOCK);
+		cMenu.contextMenuAction(ANNOUN_PATH, cMenu.ELEMENT_MENU_LOCK);
 		assert cMenu.isLockedNode(ANNOUN_PATH_LOCKED);
 
 		info("Lock child node");
-		cMenu.contextMenuAction(FILE_PATH, actionType.LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
 		
 		//Delete data
@@ -254,15 +253,15 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 
 		info("Lock parent node");
-		cMenu.contextMenuAction(ANNOUN_PATH, actionType.LOCK);
+		cMenu.contextMenuAction(ANNOUN_PATH, cMenu.ELEMENT_MENU_LOCK);
 		assert cMenu.isLockedNode(ANNOUN_PATH_LOCKED);
 		
 		info("Lock child node");
-		cMenu.contextMenuAction(FILE_PATH, actionType.LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
 
 		info("Unlock child node");
-		cMenu.contextMenuAction(FILE_PATH_LOCKED, actionType.UNLOCK);
+		cMenu.contextMenuAction(FILE_PATH_LOCKED, cMenu.ELEMENT_MENU_UNLOCK);
 		waitForAndGetElement(FILE_PATH);
 
 		//Delete data
@@ -288,14 +287,14 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 
 		info("Check in file document");
-		cMenu.contextMenuAction(FILE_PATH, actionType.CHECKIN);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_CHECKIN);
 
 		info("Verify cannot lock checked-in node");
 		rightClickOnElement(FILE_PATH);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_LOCK);
 
 		//Delete data
-		cMenu.contextMenuAction(FILE_PATH, actionType.CHECKOUT);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_CHECKOUT);
 		cMenu.deleteDocument(FILE_PATH);
 	}
 
@@ -327,7 +326,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 
 		info("Check in parent node");
-		cMenu.contextMenuAction(WEB_CONTENT_PATH, actionType.CHECKIN);
+		cMenu.contextMenuAction(WEB_CONTENT_PATH, cMenu.ELEMENT_MENU_CHECKIN);
 		
 		info("Check can not lock child node");
 		rightClickOnElement(FILE_PATH);
@@ -335,7 +334,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 
 		//Delete data
 		ecms.goToNode(WEB_CONTENT_PATH);
-		cMenu.contextMenuAction(WEB_CONTENT_PATH, actionType.CHECKOUT);
+		cMenu.contextMenuAction(WEB_CONTENT_PATH, cMenu.ELEMENT_MENU_CHECKOUT);
 		cMenu.deleteDocument(WEB_CONTENT_PATH);
 	}
 
@@ -360,7 +359,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME); 
 
 		//Add a view permission to Action Bar 
-		actBar.addViewPermissionToActionBar();
+		actBar.addItem2ActionBar("viewPermissions", actBar.ELEMENT_PERMISSION_LINK);
 		
 		ecms.goToNode(FILE_PATH);
 		actBar.goToNodePermissionManagement();
@@ -411,7 +410,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE, DATA_FILE_TITLE, DATA_FILE_TITLE);
 
 		info("Lock node");
-		cMenu.contextMenuAction(FILE_PATH, actionType.LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
 		magAcc.signOut();
 
@@ -445,7 +444,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE, DATA_FILE_TITLE, DATA_FILE_TITLE);
 		
 		info("Lock node");
-		cMenu.contextMenuAction(FILE_PATH, actionType.LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
 		
 		info("Wait 30 minutes");
@@ -471,7 +470,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		info("Add New Content icon in action bar of File management view");
 		navToolBar.goToPersonalDocuments();
 		actBar.goToViewMode("List");
-		actBar.addNewContentToFileManagementView();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "List", "List");
 		
 		info("Create parent node");
 		cTemplate.createNewFolder(DATA_FOLDER, folderType.None);
@@ -502,7 +501,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		info("Add New Content icon in action bar of File management view");
 		navToolBar.goToPersonalDocuments();
 		actBar.goToViewMode("List");
-		actBar.addNewContentToFileManagementView();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "List", "List");
 		
 		info("Create parent node");
 		cTemplate.createNewFolder(DATA_FOLDER, folderType.None);

@@ -14,7 +14,6 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import org.testng.annotations.BeforeMethod;
@@ -276,10 +275,10 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		//create a file document
 		actBar.goToAddNewContent();
 		cTemplate.createNewAnnouncement(title, title);
-		cMenu.contextMenuAction(bDoc, actionType.CHECKIN);
+		cMenu.contextMenuAction(bDoc, cMenu.ELEMENT_MENU_CHECKIN);
 
 		//add icon Version to action bar
-		actBar.addVersionMangementForActionBar();
+		actBar.addItem2ActionBar("manageVersions", actBar.ELEMENT_VERSIONS_LINK);
 		actBar.chooseDrive(ecms.ELEMENT_SITES_MANAGEMENT_DRIVE);
 		actBar.addVersionForNode(bDoc, "version file");
 

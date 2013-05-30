@@ -10,6 +10,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
+import org.exoplatform.selenium.platform.ecms.admin.ECMainFunction;
 import org.exoplatform.selenium.platform.ecms.admin.ManageView;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -32,13 +33,14 @@ public class ActionBar extends EcmsBase{
 
 	Button button = new Button(driver);
 	Dialog dialog = new Dialog(driver);
+	ManageAlert alt = new ManageAlert(driver);
 	NavigationToolbar navToolBar = new NavigationToolbar(driver);
 	ManageAccount magAcc = new ManageAccount(driver);
 	ManageView magView = new ManageView(driver);
 	ContextMenu cMenu = new ContextMenu(driver);
 	ManageAlert alert = new ManageAlert(driver);
+	ECMainFunction ecMain = new ECMainFunction(driver);
 
-	//System TAB
 	//Export Form
 	public By ELEMENT_DOC_VIEW = By.id("format_docview");
 	public By ELEMENT_ZIP = By.name("zip");
@@ -80,14 +82,49 @@ public class ActionBar extends EcmsBase{
 	//Metadata form
 	public final By ELEMENT_VIEW_METADATA_ICON = By.xpath("//i[@class='uiIconEcmsViewMetadatas']");
 	public final By ELEMENT_METADATA_POPUP_TEXT = By.xpath("//span[@class='PopupTitle popupTitle' and text()='View Metadata']");
+	public final String ELEMENT_EDIT_PROPERTY_ICON = "//*[@class='uiPropertyTab']//*[text()='${property}']/..//*[contains(@class, 'uiIconEdit')]";
+	public final String ELEMENT_DELETE_PROPERTY_ICON = "//*[@class='uiPropertyTab']//*[text()='${property}']/..//*[contains(@class, 'uiIconDelete')]";
+	public final String ELEMENT_VALUE_PROPERTY = "//*[@class='uiPropertyTab']//*[text()='${property}']/..//*[@class='text']";
+	
+	//Show Drives link
+	public final By ELEMENT_SHOW_DRIVES = By.xpath("//*[@data-original-title = 'Show Drives']");
+	
+	//Action bar 
+	public final By ELEMENT_ADD_ITEM = By.xpath("//*[@data-original-title='Add Item']");	
+	public final By ELEMENT_DELETE_NODE_ICON = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsDelete']");
+	public final By ELEMENT_ADD_SYMLINK_LIST_VIEW = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsAddSymLink']");
+	public final By ELEMENT_LOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsLock']");
+	public final By ELEMENT_UNLOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsUnlock']");
+	
+	//publication TAB
+	public final By ELEMENT_PUBLICATION_TAB = By.xpath("//a[contains(text(),'Publication')]");
+	public final By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");
+	public final By ELEMENT_EDIT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsEditDocument']");
+	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument']");
+	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
+	public final By ELEMENT_VERSIONS_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageVersions']");
+	public final String ELEMENT_PUBLICATION_STATE = "//p[contains(text(),'{$state}')]/../a[@class='node']";	
+	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");	
+	public final By ELEMENT_PUB_FROM_INPUT = By.name("UIPublicationPanelStartDateInput");	
+	public final By ELEMENT_PUB_TO_INPUT = By.name("UIPublicationPanelEndDateInput");
+	public final By ELEMENT_ADD_RELATION_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageRelations']");
+	public final By ELEMENT_SELECT_RELATION_TAB = By.xpath("//*[contains(text(), 'Select Relation')]");
+	public final By ELEMENT_SHOW_RELATION_ICON = By.xpath("//i[@class='uiIconEcmsRelationMini']");
+	public final String ELEMENT_RELATION_LINK = "//a[text()='{$relation}']";
+	public final String ELEMENT_DELETE_RELATION_ICON = "//span[contains(text(),'{$relation}')]/../..//i[@class='uiIconDelete uiIconLightGray']";
+	public final String MESSAGE_DELETE_RELATION = "Are you sure you want to delete this relation?";
+	
+	//Action Bar > Categories
+	public final String ELEMENT_CATEGORY_OPTION = "//*[@name='taxonomyTree']/option[@value='${CATEGORY_TREE_NAME}']";
 
+	/*==================================================================================*/
 	//Go to Sites Management
-	public void goToSitesManagement(){
+	public void showDrives(){
 		Utils.pause(500);
-		if (isElementPresent(ELEMENT_SHOW_DRIVES)){
+		if (waitForAndGetElement(ELEMENT_SHOW_DRIVES, 3000, 0) != null){
 			click(ELEMENT_SHOW_DRIVES);
 		}else {
-			click(By.xpath("//*[@data-original-title = 'Show Drives']"));
+			click(By.xpath("//*[@title = 'Show Drives']"));
 		}
 		Utils.pause(500);
 	}
@@ -292,7 +329,7 @@ public class ActionBar extends EcmsBase{
 	public void addCategoryForNode(String categoryTree, boolean rootTree, Object...params) {
 		String categoryPath = (String) (params.length > 0 ? params[0]:"");
 		String categoryName = (String) (params.length > 1 ? params[1]:"");
-		
+
 		By ELEMENT_ADD_CATEGORY_SPECIFIC = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@title='select']");
 		// By ELEMENT_CATEGORY_LIST = By.xpath("//th[text()='Category']")
 		By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@data-original-title='select']");
@@ -364,7 +401,7 @@ public class ActionBar extends EcmsBase{
 	public void chooseDrive(By locator){
 		info("-- Select a drive --");
 		//click(ELEMENT_SHOW_DRIVES);
-		goToSitesManagement();
+		showDrives();
 		Utils.pause(1000);
 		//button = new Button(driver);
 		//button.refresh();
@@ -401,31 +438,35 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(1000);
 	}
 
-	//Add an action to Action Bar: View Permissions
-	public void addViewPermissionToActionBar(){
-		WebElement per = waitForAndGetElement(ELEMENT_PERMISSION_LINK, 5000, 0);
+	//Add an action to Action Bar
+	//Item: viewPermissions, addSymLink, addDocument
+	//      manageVersions, manageRelations, comment
+	//      exportNode, viewProperties, importNode, viewMetadatas
+	public void addItem2ActionBar(String item, By eItem, Object...params){
+		String view = (String) (params.length > 0 ? params[0] : "Web");
+		String tab = (String) (params.length > 1 ? params[1] : "Authoring");
+		WebElement element = waitForAndGetElement(eItem, 5000, 0);
 		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
-		if (per != null){
-			info("-- Permission tab is already displayed --");
-		} else if (more != null){
+		if (element != null){
+			info(item + " tab is already displayed --");
+		}else if (more != null){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			if (waitForAndGetElement(ELEMENT_PERMISSION_LINK, 5000, 0, 2) != null){
-				info("-- Permission tab is already displayed --");
+			if (waitForAndGetElement(eItem, 5000, 0) != null){
+				info(item + " tab is already displayed --");
 			}else{
-				magView.setup2ShowViewAction("viewPermissions", "Web");
+				magView.setup2ShowViewAction(item, view, tab);
 				magAcc.signOut();
 				magAcc.signIn("john", "gtn");
 				navToolBar.goToSiteExplorer();
 			}
 		}else {
-			magView.setup2ShowViewAction("viewPermissions", "Web");
+			magView.setup2ShowViewAction(item, view, tab);
 			magAcc.signOut();
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToSiteExplorer();
 		}
 		Utils.pause(1000);
 	}
-
 
 	//Go To Add Symlink 
 	public void goToAddSymlinkTab(){
@@ -475,7 +516,7 @@ public class ActionBar extends EcmsBase{
 	}
 
 	//Add symlink to action bar in site explorer if it does not exited
-	public void addSymlinkToActionBar(){	
+	/*public void addSymlinkToActionBar(){	
 		WebElement syml = waitForAndGetElement(ELEMENT_ADD_SYMLINK, 5000, 0);
 		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
 		if (syml != null){
@@ -497,7 +538,7 @@ public class ActionBar extends EcmsBase{
 			navToolBar.goToSiteExplorer();
 		}
 		Utils.pause(1000);
-	}
+	}*/
 
 	//A Function to copy/cut/paste/delete an Element (Document/Folder) in Sites Explorer
 	//Check the box on the right side of Element
@@ -539,7 +580,7 @@ public class ActionBar extends EcmsBase{
 	/** function add "New Content" to File Management view if it is not existed
 	 * @author lientm
 	 */
-	public void addNewContentToFileManagementView(){
+	/*public void addNewContentToFileManagementView(){
 		WebElement syml = waitForAndGetElement(ELEMENT_NEW_CONTENT_LINK, 5000, 0);
 		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
 		if (syml != null){
@@ -563,12 +604,12 @@ public class ActionBar extends EcmsBase{
 			goToViewMode("List");
 		}
 		Utils.pause(1000);
-	}
+	}*/
 
 	/** function add "Add Symlink" to File Management view if it is not existed
 	 * @author lientm
 	 */
-	public void addSymlinkToFileManagementView(){
+	/*public void addSymlinkToFileManagementView(){
 		WebElement syml = waitForAndGetElement(ELEMENT_ADD_SYMLINK, 5000, 0);
 		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
 		if (syml != null){
@@ -592,12 +633,12 @@ public class ActionBar extends EcmsBase{
 			goToViewMode("List");
 		}
 		Utils.pause(1000);
-	}
+	}*/
 
 	/** function add version management to web Management view if it is not existed
 	 * @author lientm
 	 */
-	public void addVersionMangementForActionBar(){
+	/*public void addVersionMangementForActionBar(){
 		WebElement ver = waitForAndGetElement(ELEMENT_VERSIONS_LINK, 5000, 0);
 		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
 		if (ver != null){
@@ -618,10 +659,10 @@ public class ActionBar extends EcmsBase{
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToSiteExplorer();
 		}
-	}
+	}*/
 
 	//Add [Manage Relation] tab to Sites Explorer > Action Bar
-	public void addRelationToActionBar(){	
+	/*public void addRelationToActionBar(){	
 		WebElement addRelation = waitForAndGetElement(ELEMENT_ADD_RELATION_LINK, 5000, 0);
 		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
 		if (addRelation != null){
@@ -643,7 +684,7 @@ public class ActionBar extends EcmsBase{
 			navToolBar.goToSiteExplorer();
 		}
 		Utils.pause(1000);
-	}
+	}*/
 
 	//Create a relation between 2 nodes
 	public void createRelation(String nodeName1, String pathToNodeName2, Object...params){
@@ -691,6 +732,22 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(1000);		
 	}
 
+	/**Delete relation for a node
+	 * @author thuntn
+	 */
+	public void deleteRelation(String relation){
+		WebElement addRelation = waitForAndGetElement(ELEMENT_ADD_RELATION_LINK, 5000, 0);
+		if(addRelation == null)
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+		click(ELEMENT_ADD_RELATION_LINK);
+
+		click(ELEMENT_DELETE_RELATION_ICON.replace("{$relation}", relation));
+		alert.waitForConfirmation(MESSAGE_DELETE_RELATION);
+
+		waitForTextNotPresent(relation);
+
+		button.close();
+	}
 
 	//Delete data in Admin view, List view
 	public void deleteDataInAdminView(String name){
@@ -717,7 +774,7 @@ public class ActionBar extends EcmsBase{
 	/**function add Comment icon for action with web view
 	 * @author lientm
 	 */
-	public void addCommentIconInActionBar(){
+	/*public void addCommentIconInActionBar(){
 		navToolBar.goToSiteExplorer();
 		click(By.linkText("acme"));
 		click(By.linkText("documents"));
@@ -740,7 +797,7 @@ public class ActionBar extends EcmsBase{
 			magAcc.signOut();
 			magAcc.signIn("john", "gtn");
 		}
-	}
+	}*/
 
 	/** function go to add comment in action bar
 	 * @author lientm
@@ -865,11 +922,11 @@ public class ActionBar extends EcmsBase{
 		button.save();
 		waitForElementNotPresent(ELEMENT_ADD_TRANSLATION_POPUP);
 	}
-	
+
 	/** Check if Export button is available in action bar
 	 * @author thuntn
 	 */
-	public void addExportButton(){
+	/*public void addExportButton(){
 		WebElement eExport = waitForAndGetElement(ELEMENT_EXPORT_LINK,10000,0);
 
 		info("Check if Export button is available in action bar");
@@ -894,13 +951,12 @@ public class ActionBar extends EcmsBase{
 				navToolBar.goToSiteExplorer();
 			}
 		}
-
-	}
+	}*/
 
 	/** Check if Category button is available in action bar
 	 * @author thuntn
 	 */
-	public void checkCategoryButton(){
+	/*public void checkCategoryButton(){
 		WebElement eCategory = waitForAndGetElement(ELEMENT_CATEGORIES_LINK,10000,0);
 
 		info("Check if Category button is available in action bar");
@@ -925,9 +981,23 @@ public class ActionBar extends EcmsBase{
 				navToolBar.goToSiteExplorer();
 			}
 		}
+	}*/
 
+	/**Delete category for a node
+	 * @author thuntn
+	 * @param categoryPath
+	 */
+	public void deleteCategory(String categoryPath){
+		click(ELEMENT_CATEGORIES_LINK);
+
+		click(ELEMENT_DELETE_CATEGORY_ICON.replace("{$categoryPath}", categoryPath));
+		alert.waitForConfirmation(MSG_DELETE_CATEGORY);
+
+		waitForTextNotPresent(categoryPath);
+
+		button.close();
 	}
-	
+
 	/**Manage publication state
 	 * @author thuntn
 	 */
@@ -951,11 +1021,11 @@ public class ActionBar extends EcmsBase{
 		}
 		button.close();
 	}
-	
+
 	/**Add View properties to action bar if it is not shown on action bar
 	 * @author thuntn
 	 */
-	public void addViewPropertiesButton(){
+	/*public void addViewPropertiesButton(){
 		WebElement eProperties = waitForAndGetElement(ELEMENT_VIEW_PROPERTIES_ICON,10000,0);
 
 		info("Add View properties to action bar if it is not shown on action bar");
@@ -980,8 +1050,8 @@ public class ActionBar extends EcmsBase{
 				navToolBar.goToSiteExplorer();
 			}
 		}
-	}
-	
+	}*/
+
 	/**Add property for a node
 	 * @author thuntn
 	 */
@@ -1007,28 +1077,48 @@ public class ActionBar extends EcmsBase{
 		waitForAndGetElement(ELEMENT_PROPERTY.replace("{$property}", property).replace("{$value}", value));
 		button.close();
 	}
-	
-	/**Delete category for a node
-	 * @author thuntn
-	 * @param categoryPath
-	 */
-	public void deleteCategory(String categoryPath){
-		//checkCategoryButton();
-		//click(ELEMENT_CATEGORIES_LINK);
-		goToManageCategories();
 
-		click(ELEMENT_DELETE_CATEGORY_ICON.replace("{$categoryPath}", categoryPath));
-		alert.waitForConfirmation(MSG_DELETE_CATEGORY);
-
-		waitForTextNotPresent(categoryPath);
-
-		button.close();
+	//Go to View properties tab
+	public void goToPropertiesTab(){
+		info("-- Go to Properties Tab --");
+		WebElement eProperties = waitForAndGetElement(ELEMENT_VIEW_PROPERTIES_ICON,10000,0);
+		if(eProperties == null){
+			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK,5000,0);
+			if (more !=null )
+				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+		}
+		click(ELEMENT_VIEW_PROPERTIES_ICON);
+		waitForAndGetElement(ELEMENT_PROPERTIES_TAB);
 	}
-	
+
+	//Actions on selected property: Edit/Delete
+	public void actionsOnSelectedProperty(String property, String option, Object...params){
+		String editProperty = (String) (params.length > 0 ? params[0]: "");
+		String value = (String) (params.length > 1 ? params[1]: "");
+
+		info(option + "-- property --" + property);
+		if (option.equals("Edit")){
+			click(ELEMENT_EDIT_PROPERTY_ICON.replace("${property}", property));
+			select(ELEMENT_ADD_PROPERTY_INPUT, editProperty);
+			type(ELEMENT_VALUE_INPUT, value, true);
+			button.save();
+			//Check if a property is added successfully.
+			waitForAndGetElement(ELEMENT_PROPERTY.replace("{$property}", property).replace("{$value}", value));
+			button.close();
+
+		}else if (option.equals("Delete")){
+			click(ELEMENT_DELETE_PROPERTY_ICON.replace("${property}", property));
+			alt.acceptAlert();
+			waitForElementNotPresent(ELEMENT_DELETE_PROPERTY_ICON.replace("${property}", property));
+			button.close();
+		}
+		Utils.pause(500);
+	}
+
 	/** Add Import button to action bar if it is not available on action bar
 	 * @author thuntn
 	 */
-	public void addImportButton(){
+	/*public void addImportButton(){
 		WebElement eExport = waitForAndGetElement(ELEMENT_IMPORT_LINK,10000,0);
 
 		info("Add Import button to action bar if it is not available on action bar");
@@ -1053,12 +1143,12 @@ public class ActionBar extends EcmsBase{
 				navToolBar.goToSiteExplorer();
 			}
 		}
-	}
-	
+	}*/
+
 	/**Add View metadata icon to action bar if it is not shown on action bar
 	 * @author thuntn
 	 */
-	public void addViewMetadataToActionBar(){
+	/*public void addViewMetadataToActionBar(){
 		WebElement addMetadata = waitForAndGetElement(ELEMENT_VIEW_METADATA_ICON, 10000, 0);
 		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
 		if (addMetadata != null){
@@ -1079,28 +1169,8 @@ public class ActionBar extends EcmsBase{
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToSiteExplorer();
 		}
+	}*/
 
-	}
-	
-	/**Delete relation for a node
-	 * @author thuntn
-	 */
-	public void deleteRelation(String relation){
-		WebElement addRelation = waitForAndGetElement(ELEMENT_ADD_RELATION_LINK, 5000, 0);
-		if(addRelation == null)
-			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-		click(ELEMENT_ADD_RELATION_LINK);
-
-		click(ELEMENT_DELETE_RELATION_ICON.replace("{$relation}", relation));
-		alert.waitForConfirmation(MSG_DELETE_RELATION);
-
-		waitForTextNotPresent(relation);
-
-		button.close();
-
-		Utils.pause(1000);
-	}
-	
 	/**View metadata
 	 * @author thuntn
 	 */
@@ -1112,7 +1182,6 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_VIEW_METADATA_ICON);
 		waitForAndGetElement(ELEMENT_METADATA_POPUP_TEXT);
 		button.cancel();
-
 	}
 
 	/** function lock nodes from clicking Lock icon in action bar

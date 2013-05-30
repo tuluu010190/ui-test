@@ -12,7 +12,6 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -100,8 +99,8 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 		temp.createNewFullFile(fileName, fileContent, fileName, desc, "", "");
 		
 		info("Make version for this file document");
-		cMenu.contextMenuAction(elementFile, actionType.CHECKIN);
-		cMenu.contextMenuAction(elementFile, actionType.CHECKOUT);
+		cMenu.contextMenuAction(elementFile, cMenu.ELEMENT_MENU_CHECKIN);
+		cMenu.contextMenuAction(elementFile, cMenu.ELEMENT_MENU_CHECKOUT);
 		
 		info("Check activity info is displayed in home page");
 		navTool.goToHomePage();
@@ -128,8 +127,8 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 		temp.createNewWebContent(name, "", "", sum, "", "", true);
 		
 		info("Make version for this file document");
-		cMenu.contextMenuAction(elementWeb, actionType.CHECKIN);
-		cMenu.contextMenuAction(elementWeb, actionType.CHECKOUT);
+		cMenu.contextMenuAction(elementWeb, cMenu.ELEMENT_MENU_CHECKIN);
+		cMenu.contextMenuAction(elementWeb, cMenu.ELEMENT_MENU_CHECKOUT);
 		
 		info("Check activity in Home page");
 		navTool.goToHomePage();
@@ -157,8 +156,8 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 		click(By.linkText("acme"));
 		
 		info("Make version for this file document");
-		cMenu.contextMenuAction(elementProduct, actionType.CHECKIN);
-		cMenu.contextMenuAction(elementProduct, actionType.CHECKOUT);
+		cMenu.contextMenuAction(elementProduct, cMenu.ELEMENT_MENU_CHECKIN);
+		cMenu.contextMenuAction(elementProduct, cMenu.ELEMENT_MENU_CHECKOUT);
 		
 		info("Check activity in Home page");
 		navTool.goToHomePage();

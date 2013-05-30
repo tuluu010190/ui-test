@@ -12,7 +12,6 @@ import org.exoplatform.selenium.platform.ecms.EcmsPermission;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.openqa.selenium.By;
@@ -77,7 +76,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		
 		info("Add symlink for action bar if it does not existed");
 		navToolBar.goToSiteExplorer();
-		actBar.addSymlinkToActionBar();
+		//actBar.addSymlinkToActionBar();
+		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ADD_SYMLINK);
 	}
 
 	@AfterMethod
@@ -129,8 +129,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		// add symlink
 		info("Add symlink for node by right click");
-		cMenu.contextMenuAction(ELEMENT_FOLDER, actionType.SYMLINK);
-		cMenu.contextMenuAction(ELEMENT_FILE, actionType.SYMLINK);
+		cMenu.contextMenuAction(ELEMENT_FOLDER, cMenu.ELEMENT_ADD_SYMLINK);
+		cMenu.contextMenuAction(ELEMENT_FILE, cMenu.ELEMENT_ADD_SYMLINK);
 
 		// check symlink
 		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_FOLDER.replaceAll("_", "").toLowerCase() + ".lnk"));
@@ -334,7 +334,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
 
 		info("Add symlink for node by right click");
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actionType.SYMLINK);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_ADD_SYMLINK);
 		waitForAndGetElement(ELEMENT_SYMLINK);
 
 		//add symlink for symlink node
@@ -423,7 +423,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add symlink with name contains special characters");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 		actBar.goToAddSymlinkTab();
-		click(ecms.ELEMENT_ADD_ITEM);
+		click(actBar.ELEMENT_ADD_ITEM);
 		actBar.selectHomePathForCategoryTree("sites/intranet/documents");
 		for(int i = 0; i < cTemplate.DATA_SPECIAL_CHARACTER.length; i++){
 			info("Input symlink name contains character: " + cTemplate.DATA_SPECIAL_CHARACTER[i]);
@@ -715,7 +715,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		//lock node
 		info("Lock node");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actionType.LOCK);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_MENU_LOCK);
 		assert cMenu.isLockedNode(ELEMENT_CONTENT_FOLDER): "Lock node unsuccessfully";
 
 		//add symlink for node
@@ -748,7 +748,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		info("Lock node");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actionType.LOCK);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actBar.ELEMENT_LOCK_ICON);
 		assert cMenu.isLockedNode(ELEMENT_CONTENT_FOLDER): "Lock node unsuccessfully";
 		driver.close();
 
@@ -804,7 +804,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		//lock node
 		info("Lock node");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actionType.LOCK);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_MENU_LOCK);
 		assert cMenu.isLockedNode(ELEMENT_CONTENT_FOLDER): "Lock node unsuccessfully";
 
 		//go to acme/documents
@@ -849,7 +849,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//check in node
 		info("Check in node");
-		cMenu.contextMenuAction(ELEMENT_FILE, actionType.CHECKIN);
+		cMenu.contextMenuAction(ELEMENT_FILE, cMenu.ELEMENT_MENU_CHECKIN);
 
 		//check cannot add symlink
 		ecms.goToNode(ELEMENT_FILE);
@@ -863,7 +863,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Cannot add symlink for checked in node");
 
 		//delete data
-		cMenu.contextMenuAction(ELEMENT_FILE, actionType.CHECKOUT);
+		cMenu.contextMenuAction(ELEMENT_FILE, cMenu.ELEMENT_MENU_CHECKOUT);
 		cMenu.deleteDocument(ELEMENT_FILE);
 	}
 
@@ -1024,7 +1024,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//rename content folder 2
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_2);
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_2, actionType.RENAME, DATA_CONTENT_FOLDER_2_NEW);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_2, cMenu.ELEMENT_MENU_RENAME_NODE, DATA_CONTENT_FOLDER_2_NEW);
 
 		//check name of symlink is not change
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
@@ -1112,7 +1112,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add symlink for content folder 1 successfully");
 
 		//rename symlink
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_SYMLINK, actionType.RENAME, SYMLINK_NAME_NEW);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_SYMLINK, cMenu.ELEMENT_MENU_RENAME_NODE, SYMLINK_NAME_NEW);
 		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK_NAME); 
 
 		//folder 2 is not renamed
@@ -1297,9 +1297,15 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		
 		navToolBar.goToPersonalDocuments();
 		actBar.goToViewMode("List");
-		actBar.addNewContentToFileManagementView();
-		actBar.addSymlinkToFileManagementView();
-
+		//actBar.addNewContentToFileManagementView();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "List", "List");
+		navToolBar.goToPersonalDocuments();
+		actBar.goToViewMode("List");
+		//actBar.addSymlinkToFileManagementView();
+		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ADD_SYMLINK, "List", "List");
+		navToolBar.goToPersonalDocuments();
+		actBar.goToViewMode("List");
+		
 		//create parent and child node
 		cTemplate.createNewFolder(DATA_FOLDER, folderType.None);
 		info("Add folder successfully");
@@ -1314,7 +1320,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		//select parent and child node
 		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", DATA_FOLDER)), 2);
 		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", FILE_NAME)), 2);
-		click(ecms.ELEMENT_ADD_SYMLINK_LIST_VIEW);
+		click(actBar.ELEMENT_ADD_SYMLINK_LIST_VIEW);
 		waitForAndGetElement(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", DATA_FOLDER));
 		waitForAndGetElement(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", FILE_NAME));
 		info("Add symlink successfully");

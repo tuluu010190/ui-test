@@ -14,7 +14,6 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -265,7 +264,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		//choose  site management drive, and create a locked document
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(DATA_FILE_TITLE_30, DATA_FILE_TITLE_30, DATA_FILE_TITLE_30);
-		cMenu.contextMenuAction(bDocument, actionType.LOCK);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_LOCK);
 
 		//edit File
 		actBar.goToEditDocument(DATA_FILE_TITLE_30);
@@ -296,7 +295,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		info("Create new File document is successful");
 
 		//lock node with John
-		cMenu.contextMenuAction(bDocument, actionType.LOCK);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_LOCK);
 
 		//check lock node
 		assert cMenu.isLockedNode(bDocument): "Lock node unsuccessfully";
@@ -317,7 +316,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		//check can not edit this document with user Mary
 		navToolBar.goToSiteExplorer();
 		ecms.goToNode(DATA_FILE_TITLE);
-		waitForElementNotPresent(ecms.ELEMENT_EDIT_LINK);
+		waitForElementNotPresent(actBar.ELEMENT_EDIT_LINK);
 		info("Cannot edit a locked document with user is not locker");
 
 		magAcc.signOut();
@@ -345,7 +344,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 
 		//add a child node / upload a file
 		ecms.uploadFile(DATA_UPLOAD_FILE_32);
-		cMenu.contextMenuAction(bDocument, actionType.LOCK);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_LOCK);
 
 		//check lock node
 		assert cMenu.isLockedNode(bDocument): "Lock node unsuccessfully";
@@ -376,17 +375,17 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		//choose  site management drive, and create an article document
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(DATA_FILE_TITLE_33, DATA_FILE_TITLE_33, DATA_FILE_TITLE_33);
-		cMenu.contextMenuAction(bDocument, actionType.CHECKIN);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_CHECKIN);
 
 		//user cannot see the [Edit] icon in ActionBar or in [Right Click Menu]
 		ecms.goToNode(DATA_FILE_TITLE_33);
-		waitForElementNotPresent(ecms.ELEMENT_EDIT_LINK);
+		waitForElementNotPresent(actBar.ELEMENT_EDIT_LINK);
 
 		rightClickOnElement(bDocument);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_EDIT);
 
 		//checkOutNode
-		cMenu.contextMenuAction(bDocument, actionType.CHECKOUT);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_CHECKOUT);
 
 		//resetData
 		cMenu.deleteDocument(bDocument);
@@ -415,17 +414,17 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE_34, DATA_FILE_TITLE_34, DATA_FILE_TITLE_34);
 
 		//check in  parent document
-		cMenu.contextMenuAction(bDocument, actionType.CHECKIN);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_CHECKIN);
 
 		//user cannot see the [Edit] icon in ActionBar or in [Right Click Menu]
 		ecms.goToNode(DATA_FILE_TITLE_34);
-		waitForElementNotPresent(ecms.ELEMENT_EDIT_LINK);
+		waitForElementNotPresent(actBar.ELEMENT_EDIT_LINK);
 
 		rightClickOnElement(bFile);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_EDIT);
 
 		//checkOutNode
-		cMenu.contextMenuAction(bDocument, actionType.CHECKOUT);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_CHECKOUT);
 
 		//reset data
 		cMenu.deleteDocument(bDocument);
@@ -462,7 +461,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 
 		navToolBar.goToSiteExplorer();
 		ecms.goToNode(bDocument);
-		waitForElementNotPresent(ecms.ELEMENT_EDIT_LINK);
+		waitForElementNotPresent(actBar.ELEMENT_EDIT_LINK);
 
 		magAcc.signOut();
 		magAcc.signIn(DATA_USER, DATA_PASS);

@@ -88,7 +88,7 @@ public class SitesExplorer extends EcmsBase{
 			Utils.pause(1000);
 			if (isTextNotPresent(driverName)){
 				//click(ecms.ELEMENT_SHOW_DRIVES);
-				actBar.goToSitesManagement();
+				actBar.showDrives();
 			}
 		}else{
 			info("Driver " + driverName + " already exists");

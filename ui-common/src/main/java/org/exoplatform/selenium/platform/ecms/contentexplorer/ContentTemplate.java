@@ -309,6 +309,8 @@ public class ContentTemplate extends EcmsBase{
 		}
 		button.saveAndClose();
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		//waitForAndGetElement(By.xpath("//*[contains(text(), '" + title +"')]"));
+		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", cont)), DEFAULT_TIMEOUT, 1, 2);
 		Utils.pause(1000);
 	}
 

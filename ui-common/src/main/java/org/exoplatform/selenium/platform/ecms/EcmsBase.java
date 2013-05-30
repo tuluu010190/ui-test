@@ -43,6 +43,7 @@ public class EcmsBase extends ManageAccount {
 	
 	//UI address bar
 	public final String ELEMENT_VIEW_MODE_LINK = "//*[@class='uiIconEcmsViewDefault uiIconEcmsView${viewName}']";
+	//public final String ELEMENT_VIEW_MODE_LINK = "//i[contains(@class,'uiIconEcmsViewDefault')]/../..//*[@data-original-title='${viewName}']";
 	public final By ELEMENT_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack");
 	public final By ELEMENT_ADDRESS_BAR = By.id("address");
 
@@ -150,7 +151,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_SYMLINK_TITLE = "//*[@data-original-title = '${symlinkTitle}']";
 	public final String ELEMENT_TARGET_NODE = "//*[contains(text(),'${node}')]/../../td/a[@data-original-title='select']";
 	public final String ELEMENT_SYMLINK = "//*[@title='${symlinkTitle}']/i[@class='iconLinkSmall']/../..";
-	public final String ELEMENT_SYMLINK_OTHER = "//*[@data-original-title='${name}']/*[@class='LinkSmall']";
+	public final String ELEMENT_SYMLINK_OTHER = "//*[@data-original-title='${name}.lnk']/*[@class='LinkSmall']";
 	public final String ELEMENT_SYMLINK_PATH_NODE_TITLE = "//*[@id='UIOneNodePathSelector']//a/i[@title='${node}']";
 
 	//Rename Form in Sites Explorer (Right-click -> Rename)
@@ -171,33 +172,6 @@ public class EcmsBase extends ManageAccount {
 	//View Area
 	//public final By ELEMENT_VIEWAREA_ACME = By.xpath("//*[@title='acme']");
 
-	//Action bar 
-	public final By ELEMENT_ADD_ITEM = By.xpath("//*[@data-original-title='Add Item']");
-	public final By ELEMENT_DELETE_NODE_ICON = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsDelete']");
-	public final By ELEMENT_ADD_SYMLINK_LIST_VIEW = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsAddSymLink']");
-	public final By ELEMENT_LOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsLock']");
-	public final By ELEMENT_UNLOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsUnlock']");
-	
-	//publication TAB
-	public final By ELEMENT_PUBLICATION_TAB = By.xpath("//a[contains(text(),'Publication')]");
-	public final By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");
-	public final By ELEMENT_EDIT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsEditDocument']");
-	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument']");
-	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
-	public final By ELEMENT_VERSIONS_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageVersions']");
-	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
-	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
-	public final String ELEMENT_PUBLICATION_STATE = "//p[contains(text(),'{$state}')]/../a[@class='node']";
-	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");
-	public final By ELEMENT_PUB_FROM_INPUT = By.name("UIPublicationPanelStartDateInput");
-	public final By ELEMENT_PUB_TO_INPUT = By.name("UIPublicationPanelEndDateInput");
-
-	public final By ELEMENT_ADD_RELATION_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageRelations']");
-	public final By ELEMENT_SELECT_RELATION_TAB = By.xpath("//*[contains(text(), 'Select Relation')]");
-	public final By ELEMENT_SHOW_RELATION_ICON = By.xpath("//i[@class='uiIconEcmsRelationMini']");
-	public final String ELEMENT_RELATION_LINK = "//a[text()='{$relation}']";
-	public final String ELEMENT_DELETE_RELATION_ICON = "//span[contains(text(),'{$relation}')]/../..//i[@class='uiIconDelete uiIconLightGray']";
-	public final String MSG_DELETE_RELATION = "Are you sure you want to delete this relation?";
 	//Collaboration TAB
 	public final By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
 	public final By ELEMENT_TAG = By.linkText("Tag");
@@ -258,17 +232,12 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_CHOOSE_THUMBNAIL_IMAGE = By.xpath("//*[text() = 'Choose Thumbnail Image']");
 	public final By ELEMENT_REMOVE_THUMBNAIL = By.xpath("//*[text() = 'Remove Thumbnail']");
 
-	//Show Drives link
-	public final By ELEMENT_SHOW_DRIVES = By.xpath("//*[@data-original-title = 'Show Drives']");
 	public final By ELEMENT_ACME_DRIVE = By.linkText("acme-category");
 	public final By ELEMENT_SITES_MANAGEMENT_DRIVE = By.xpath("//*[@class = 'driveLabel' and @data-original-title = 'Sites Management']");
 	public final By ELEMENT_DMS_ADMIN_DRIVE = By.linkText("DMS Administration");
 	public final By ELEMENT_TRASH_DRIVE = By.xpath("//*[@data-original-title = 'Trash']");
 	public final By ELEMENT_PERSONAL_DRIVE = By.xpath("//*[@data-original-title = 'Personal Documents']");
 	public final By ELEMENT_COLLABORATION_DRIVE= By.xpath("//*[@class = 'driveLabel' and @data-original-title = 'Collaboration']");
-
-	//Preference
-	public final By ELEMENT_PREFERENCE_LINK = By.xpath("//*[contains(@class, 'setupPreferencesButton')]");
 
 	//Site explorer > Upload 
 	public final By ELEMENT_UPLOAD_TITLE = By.id("title0");
@@ -295,10 +264,6 @@ public class EcmsBase extends ManageAccount {
 	public By ELEMENT_TAG_NAME = By.id("names");
 	public By ELEMENT_TAG_SCOPE = By.id("tagScopes");
 	
-
-	//Sites Explorer > Action Bar > Categories
-	public final String ELEMENT_CATEGORY_OPTION = "//*[@name='taxonomyTree']/option[@value='${CATEGORY_TREE_NAME}']";
-
 	//Site Explorer
     public final String ELEMENT_UI_CHECKBOX = "//*[@data-original-title = '${element}']/../..//*[@name = 'checkbox']";	
     
@@ -340,6 +305,8 @@ public class EcmsBase extends ManageAccount {
     public final By ELEMENT_PARENT_DRIVER = By.xpath("//*[@id='BreadcumbsContainer']/li[2]/a");
     public final By ELEMENT_SELECT_DOCUMENT_POPUP = By.xpath("//*[@id='UIPopupSymLink']//span[text()='Select Document']");
     public final String ELEMENT_TRANSLATION_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='fr (${fileName})']";
+	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
+	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
 
 
 	////////////////////////////////

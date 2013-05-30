@@ -96,7 +96,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 
 		//go to DMS Administration Drive
 		nav.goToSiteExplorer();
-		actBar.goToSitesManagement();
+		actBar.showDrives();
 		
 		sitesExp.createDriverInSitesExplorer("DMS Administration", "dms-system", "/", "Platform/Administration", 
 				"*", "Non-document Nodes/Sidebar", "Admin/Icons");
@@ -157,7 +157,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		waitForAndGetElement(actBar.ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is diplaying");
 		button.close();
 
@@ -223,7 +223,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		waitForAndGetElement(ecms.ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForElementNotPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForElementNotPresent(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("category tree is not diplaying");
 		button.close();
 
@@ -269,7 +269,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//check can see new category in add category
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("category tree is diplaying");
 		click(button.ELEMENT_CLOSE_WINDOW);
 
@@ -305,7 +305,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 
 		//check user can see new category while adding category
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is diplaying");
 		click(button.ELEMENT_CLOSE_WINDOW);
 
@@ -339,7 +339,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		advSrc.openAddCategoryInAdvancedSearch();
 		
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is diplaying");
 
 		//delete data
@@ -386,7 +386,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		advSrc.openAddCategoryInAdvancedSearch();
 		
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForElementNotPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForElementNotPresent(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is not diplaying");
 		magAcc.signOut();
 
@@ -447,7 +447,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		advSrc.openAddCategoryInAdvancedSearch();
 		
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is displaying");
 		select(actBar.ELEMENT_CATEGORY_TREE_BOX, DATA_CATEGORY_TREE_NAME);
 		waitForElementNotPresent(By.linkText(DATA_CATEGORY_TREE_CHILD_01));

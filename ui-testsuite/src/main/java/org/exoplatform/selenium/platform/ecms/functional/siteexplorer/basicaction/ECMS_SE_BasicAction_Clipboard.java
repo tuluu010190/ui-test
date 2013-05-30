@@ -8,7 +8,6 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -64,22 +63,22 @@ public class ECMS_SE_BasicAction_Clipboard extends PlatformBase {
 
 		//Create & Copy a Content Folder
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
-		cMenu.contextMenuAction(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_CONTENT_FOLDER), actionType.COPY);
+		cMenu.contextMenuAction(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_CONTENT_FOLDER), cMenu.ELEMENT_COPY_NODE);
 
 		//Create & Cut a Document Folder
 		cTemplate.createNewFolder(DATA_DOCUMENT_FOLDER, folderType.Document);
-		cMenu.contextMenuAction(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_DOCUMENT_FOLDER), actionType.CUT);
+		cMenu.contextMenuAction(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_DOCUMENT_FOLDER), cMenu.ELEMENT_CUT_NODE);
 		
 		//Create & Copy a File Document
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-		cMenu.contextMenuAction(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_FILE_NAME), actionType.COPY);
+		cMenu.contextMenuAction(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_FILE_NAME), cMenu.ELEMENT_COPY_NODE);
 
 		//Upload & Cut a File
 		ecms.uploadFile(DATA_UPLOAD_FILE_PATH);
 		waitForTextPresent("Winter.jpg");
-		cMenu.contextMenuAction(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", "Winter.jpg"), actionType.CUT);
+		cMenu.contextMenuAction(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", "Winter.jpg"), cMenu.ELEMENT_CUT_NODE);
 
 		//Select acme > documents node
 		doubleClickOnElement(actBar.ELEMENT_SIDEBAR_ACME);

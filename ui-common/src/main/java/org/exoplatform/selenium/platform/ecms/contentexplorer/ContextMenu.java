@@ -24,7 +24,7 @@ public class ContextMenu extends EcmsBase{
 		super(dr);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	Dialog dialog = new Dialog(driver);
 	Button button = new Button(driver);
 
@@ -38,13 +38,16 @@ public class ContextMenu extends EcmsBase{
 	public final By ELEMENT_MENU_DELETE_RIGHT_CLICK_POPUP = By.xpath("//*[@id='JCRContextMenu']/div/ul/li[7]/a");
 	public final By ELEMENT_MENU_EDIT = By.className("uiIconEcmsEditDocument");
 	public final By ELEMENT_MENU_ADD_SYMLINK = By.className("uiIconEcmsAddSymLink");
-	
+	public final By ELEMENT_VIEW_INFORMATION = By.className("uiIconEcmsViewInfo");
+	public final String ELEMENT_POPUP_VIEW_INFORMATION_NAME = "//*[@class='UIViewInfoManager']//td[text()='Name']/../td[text()='${fileName}']";
+	public final By ELEMENT_MENU_DOWNLOAD = By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconDownload uiIconLightGray']");
+
 	public final String ELEMENT_FILE_LOCKED_BY_ADMIN = "//*[@data-original-title = '${titleOfFile} (Locked by john)']";
 	public final String ELEMENT_FILE_TITLE = "//*[@title = '${titleOfFile}']";
 	public final String ELEMENT_FILE_TITLE_AUX = "//*[@title='${title1}']/following::*[@title='${title2}']";
 	public final By ELEMENT_DOCUMENT = By.linkText("documents");
 	public final By ELEMENT_UNLOCK_ARTICLE = By.className("uiIconUnLockMini");
-	
+
 	public final String WARNING_MESSAGE_CANNOT_PASTE = "You cannot paste the copied node type on the current node.";
 	public final String ELEMENT_VERIFY = "//*[text()='${destination}']/../../../../*//*[text()='${source}']";
 
@@ -56,7 +59,8 @@ public class ContextMenu extends EcmsBase{
 	 *
 	 */
 	public enum actionType{
-		COPY, CUT, DELETE, PASTE, LOCK, UNLOCK, CHECKIN, CHECKOUT, RENAME, SYMLINK;
+		COPY, CUT, DELETE, PASTE, LOCK, UNLOCK, CHECKIN, CHECKOUT, 
+		RENAME, SYMLINK, VIEW_INFORMATION, DOWNLOAD;
 	}
 
 	/**
@@ -65,7 +69,7 @@ public class ContextMenu extends EcmsBase{
 	 * @param action: COPY, CUT, PASTE, LOCK, UNLOCK, CHECK IN, CHECK OUT, RENAME NODE
 	 * @author vuna2
 	 */
-	public void contextMenuAction(Object locator, actionType action, Object... params){
+	public void contextMenuAction(Object locator, By actionItem, Object... params){
 		By loc = locator instanceof By ? (By)locator : By.xpath((String)locator);
 		String nodeName = (String) (params.length > 0 ? params[0] : "");
 		Utils.pause(1000);
@@ -75,71 +79,22 @@ public class ContextMenu extends EcmsBase{
 		//		Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
 		//	}
 		rightClickOnElement(loc);
-		switch (action) {
-		case COPY:
-			if (waitForAndGetElement(ELEMENT_COPY_NODE, 5000, 1) != null) {
-				click(ELEMENT_COPY_NODE);
-				break;
-			}
-		case CUT:
-			if (waitForAndGetElement(ELEMENT_CUT_NODE, 5000, 1) != null) {
-				click(ELEMENT_CUT_NODE);
-				break;
-			}
-		case PASTE:
-			if (waitForAndGetElement(ELEMENT_PASTE_NODE, 5000, 1) != null) {
-				click(ELEMENT_PASTE_NODE);
-				break;
-			}	
-		case LOCK:
-			if (waitForAndGetElement(ELEMENT_MENU_LOCK, 5000, 1) != null) {
-				click(ELEMENT_MENU_LOCK);
-				break;
-			}
-		case UNLOCK:
-			if (waitForAndGetElement(ELEMENT_MENU_UNLOCK, 5000, 1) != null) {
-				click(ELEMENT_MENU_UNLOCK);
-				break;
-			}
-		case CHECKIN:
-			if (waitForAndGetElement(ELEMENT_MENU_CHECKIN, 5000, 1) != null){
-				click(ELEMENT_MENU_CHECKIN);
-				info("Node is checked in successfully");
-				break;
-			}
-		case CHECKOUT:
-			if (waitForAndGetElement(ELEMENT_MENU_CHECKOUT, 5000, 1) != null){
-				click(ELEMENT_MENU_CHECKOUT);
-				info("Node is checked out successfully");
-				break;
-			}
-		case RENAME:
-			if (waitForAndGetElement(ELEMENT_MENU_RENAME_NODE, 5000, 1) != null){
-				click(ELEMENT_MENU_RENAME_NODE);
+		if (waitForAndGetElement(actionItem, 5000, 1) != null) {
+			click(actionItem);
+		}
+		if (!nodeName.isEmpty()){
+			//if (waitForAndGetElement(ELEMENT_MENU_RENAME_NODE, 5000, 1) != null){
+			//	click(ELEMENT_MENU_RENAME_NODE);
 				type(ELEMENT_INPUT_RENAME_NODE, nodeName, true);
 				button.rename();
 				waitForTextPresent(nodeName);
 				info("Node is renamed successfully");
-				break;
-			}
-		case SYMLINK:
-			if (waitForAndGetElement(ELEMENT_MENU_ADD_SYMLINK, 5000, 1) != null){
-				click(ELEMENT_MENU_ADD_SYMLINK);
-				info("Add Symlink is checked successfully");
-				break;
-			}
-		case DELETE:
-			if (waitForAndGetElement(ELEMENT_MENU_DELETE, 5000, 1) != null){
-				click(ELEMENT_MENU_DELETE);
-				info("Delete is clicked successfully");
-				break;
-			}
-		default:
-			break;
+			//}
 		}
-		Utils.pause(WAIT_INTERVAL);
+		//Utils.pause(WAIT_INTERVAL);
 		//	info("Retry...[" + repeat + "]");
 		//}
+		Utils.pause(1000);
 	}
 
 	//Check node is being locked

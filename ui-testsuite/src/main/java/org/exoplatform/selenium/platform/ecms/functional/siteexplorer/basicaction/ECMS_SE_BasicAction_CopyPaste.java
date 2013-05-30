@@ -15,7 +15,6 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -332,7 +331,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		//lock node
 		ecms.goToNode(DOCUMENT_FOLDER_PATH_1);
-		cMenu.contextMenuAction(DOCUMENT_FOLDER_PATH_1, actionType.LOCK);
+		cMenu.contextMenuAction(DOCUMENT_FOLDER_PATH_1, cMenu.ELEMENT_MENU_LOCK);
 
 		//check lock node
 		assert cMenu.isLockedNode(DOCUMENT_FOLDER_PATH_1):"Lock node unsuccessfully";
@@ -389,7 +388,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 		info("Go to CE");
 		navToolBar.goToSiteExplorer();
 		
-		actBar.addViewPermissionToActionBar();
+		actBar.addItem2ActionBar("viewPermissions", actBar.ELEMENT_PERMISSION_LINK);
 
 		info("Create Document folder");
 		cTemplate.createNewFolder(CONTENT_FOLDER_NAME_1, folderType.Content);

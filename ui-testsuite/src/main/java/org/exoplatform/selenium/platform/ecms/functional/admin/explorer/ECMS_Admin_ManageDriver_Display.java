@@ -86,7 +86,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		//check displaying of drive in site explorer when user has access permission
 		nav.goToSiteExplorer();
 		//click(ecms.ELEMENT_SHOW_DRIVES);
-		actBar.goToSitesManagement();
+		actBar.showDrives();
 		waitForAndGetElement(ELEMENT_DRIVE);
 		info("Drive display true");
 
@@ -114,7 +114,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		magAcc.signIn("mary", "gtn");
 		nav.goToSiteExplorer();
 		//click(ecms.ELEMENT_SHOW_DRIVES);
-		actBar.goToSitesManagement();
+		actBar.showDrives();
 		waitForElementNotPresent(ELEMENT_DRIVER);
 		info("User does not see driver");
 		magAcc.signOut();
@@ -142,7 +142,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		//check displaying of driver in site explorer when user has access permission
 		nav.goToSiteExplorer();
 		//click(ecms.ELEMENT_SHOW_DRIVES);
-		actBar.goToSitesManagement();
+		actBar.showDrives();
 		waitForAndGetElement(ELEMENT_DRIVER);
 		info("Drive display true");
 

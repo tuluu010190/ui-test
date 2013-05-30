@@ -55,7 +55,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		cTemplate.goToNode(bNode);
 			
 		//Check if Export button is shown on action bar
-		actBar.addExportButton();
+		actBar.addItem2ActionBar("exportNode", actBar.ELEMENT_EXPORT_LINK);
 		
 		//Export node in zip file
 		actBar.exportNode(true, true, false);
@@ -81,7 +81,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		cTemplate.goToNode(bNode);
 			
 		//Check if Category button is shown on action bar
-		actBar.checkCategoryButton();
+		actBar.addItem2ActionBar("addCategory", actBar.ELEMENT_CATEGORIES_LINK);
 		
 		//Add category for node
 		actBar.addCategoryForNode(categoryTree, false, categoryPath, "Healing");
@@ -133,12 +133,12 @@ public class ECMS_SE_Admin extends PlatformBase {
 		
 		//Add Relation button to action bar if it is not shown on action bar yet
 		cTemplate.goToNode(bNode1);
-		actBar.addRelationToActionBar();
+		actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation(node1, "sites/"+node2);
 		
 		//Show relation
-		click(ecms.ELEMENT_SHOW_RELATION_ICON);
-		waitForAndGetElement(ecms.ELEMENT_RELATION_LINK.replace("{$relation}", node2));
+		click(actBar.ELEMENT_SHOW_RELATION_ICON);
+		waitForAndGetElement(actBar.ELEMENT_RELATION_LINK.replace("{$relation}", node2));
 		
 		//Hide relation
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
@@ -164,7 +164,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		cTemplate.createNewFile(node1,node1,node1);
 		
 		//Add View properties button to action bar if it is not shown on action bar yet
-		actBar.addViewPropertiesButton();
+		actBar.addItem2ActionBar("viewProperties", actBar.ELEMENT_VIEW_PROPERTIES_ICON);
 		
 		//Add a property
 		actBar.addProperty(property, property);
@@ -189,7 +189,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		cTemplate.goToNode(bNode);
 			
 		//Check if Category button is shown on action bar
-		actBar.checkCategoryButton();
+		actBar.addItem2ActionBar("addCategory", actBar.ELEMENT_CATEGORIES_LINK);
 		
 		//Add category for node
 		actBar.addCategoryForNode(catePath, false, "Defense", "Healing");
@@ -218,7 +218,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		cTemplate.goToNode(bNode);
 			
 		//Check if Import button is shown on action bar
-		actBar.addImportButton();
+		actBar.addItem2ActionBar("importNode",actBar.ELEMENT_IMPORT_LINK);
 		
 		//Import node 
 		actBar.importNode(filePath,fileVersion,"Create New",true);
@@ -246,7 +246,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		
 		//Add Relation button to action bar if it is not shown on action bar yet
 		cTemplate.goToNode(bNode1);
-		actBar.addRelationToActionBar();
+		actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation(node1, "sites/"+node2);
 		
 		//Delete data
@@ -274,7 +274,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		
 		//Add Relation button to action bar if it is not shown on action bar yet
 		cTemplate.goToNode(bNode1);
-		actBar.addRelationToActionBar();
+		actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation(node1, "sites/"+node2);
 		
 		//Delete relation

@@ -22,6 +22,8 @@ public class BrowserPreferences extends EcmsBase{
 	}
 	
 	Button button = new Button(driver);
+	//Preference
+	public final By ELEMENT_PREFERENCE_LINK = By.xpath("//*[contains(@class, 'setupPreferencesButton')]");
 	
 	//Enable preferences option
 	public void setUpPreferenceOption(String optionId){

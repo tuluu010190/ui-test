@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
@@ -30,6 +31,7 @@ public class ManageDrive extends EcmsBase{
 	NavigationToolbar navToolbar = new NavigationToolbar(driver);
 	ECMainFunction ecMain = new ECMainFunction(driver);
 	ManageAlert alt = new ManageAlert(driver);
+	ManageAccount magAcc = new ManageAccount(driver);
 
 	/*Manage Drive Page */
 	//Add a drive
@@ -64,9 +66,9 @@ public class ManageDrive extends EcmsBase{
 	public final By ELEMENT_ALLOW_CREATE_FOLDER = By.name("allowCreateFolders");
 	public final By ELEMENT_DRIVE_NAME = By.id("name");
 	public final By ELEMENT_MANAGE_DRIVE_LINK = By.linkText("Manage Drives");
-    public final String ELEMENT_VERIFY_DRIVE = "//div[@data-original-title='${driveName}']";
-    public final String ELEMENT_VERIFY_WORKSPACE_NAME = ELEMENT_VERIFY_DRIVE + "/../../td[2]/div"; 
-	
+	public final String ELEMENT_VERIFY_DRIVE = "//div[@data-original-title='${driveName}']";
+	public final String ELEMENT_VERIFY_WORKSPACE_NAME = ELEMENT_VERIFY_DRIVE + "/../../td[2]/div"; 
+
 	//------------Manage driver------------------//
 
 	//Function to add new drive in [Manage drive] form
@@ -77,7 +79,7 @@ public class ManageDrive extends EcmsBase{
 
 		Boolean editDrv = (Boolean) (params.length > 0 ? params[0]: false);
 		Boolean selectView = (Boolean) (params.length > 1 ? params[1]: false);
-		
+
 		if (!editDrv){
 			click(ELEMENT_ADD_DRIVER_BUTTON);
 
@@ -97,7 +99,7 @@ public class ManageDrive extends EcmsBase{
 			}
 			waitForAndGetElement(ELEMENT_DRIVE_EDIT_POPUP);
 		}
-		
+
 		// Select workspace for new drive
 		select(ELEMENT_WORKSPACE, workspace);
 
@@ -109,7 +111,6 @@ public class ManageDrive extends EcmsBase{
 				click(ELEMENT_ADD_PATH_AUX);
 			}
 			waitForAndGetElement(ELEMENT_ADD_PATH_POPUP);
-			
 			if (isElementPresent(ELEMENT_ADD_ROOT_NODE)){
 				click(ELEMENT_ADD_ROOT_NODE);
 			}else {
@@ -217,5 +218,27 @@ public class ManageDrive extends EcmsBase{
 		alt.acceptAlert();
 		waitForElementNotPresent(ELEMENT_DRIVER);
 		info("Delete driver successfully");
+	}
+
+	//Add [Web View] to Action Bar in Personal Documents
+	public void addView2Drive(String view, String drive){
+		info("-- Add [Web View] to Action Bar --");
+		if (waitForAndGetElement(ELEMENT_VIEW_MODE_LINK.replace("${viewName}", view), 3000, 0) == null){
+			ecMain.goToManageDrive();
+			click(By.xpath(ELEMENT_DRIVE_EDIT_AUX.replace("${driveName}", drive)));
+			waitForAndGetElement(ELEMENT_DRIVE_EDIT_POPUP);
+			click(ELEMENT_APPLY_VIEW_TAB);
+			selectCheckBoxList(view);
+			button.save();
+			magAcc.signOut();
+			magAcc.signIn("john", "gtn");
+			if (drive.equals("Personal Documents")){
+				nav.goToPersonalDocuments();
+			}
+		}else {
+			info("-- Web View is already displayed --");
+		}
+		click(ELEMENT_VIEW_MODE_LINK.replace("${viewName}", view));
+		Utils.pause(500);
 	}
 }
