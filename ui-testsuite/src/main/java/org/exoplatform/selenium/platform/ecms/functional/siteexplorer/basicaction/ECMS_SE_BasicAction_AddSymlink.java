@@ -1320,9 +1320,6 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add symlink successfully");
 
 		//delete data
-		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", DATA_FOLDER)), 2);
-		click(ecms.ELEMENT_DELETE_NODE_ICON);
-		dialog.deleteInDialog();
-		waitForElementNotPresent(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", DATA_FOLDER));
+		actBar.deleteDataInAdminView(DATA_FOLDER);
 	}		
 }

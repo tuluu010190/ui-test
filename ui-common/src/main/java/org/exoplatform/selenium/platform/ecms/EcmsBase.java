@@ -42,7 +42,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_DMS_STRUCTURE = By.xpath("//span[text()='jcr:content']");
 	
 	//UI address bar
-	public final String ELEMENT_VIEW_MODE_LINK = "//i[contains(@class,'uiIconEcmsViewDefault') and @data-original-title='${viewName}']";
+	public final String ELEMENT_VIEW_MODE_LINK = "//*[@class='uiIconEcmsViewDefault uiIconEcmsView${viewName}']";
 	public final By ELEMENT_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack");
 	public final By ELEMENT_ADDRESS_BAR = By.id("address");
 
@@ -146,7 +146,6 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SITE_CONTENT = By.xpath("//div[@title='sites content']");
 	public final By ELEMENT_LIVE_DIV = By.xpath("//div[@title='live']");
 	public final By ELEMENT_ADD_SYMLINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddSymLink']");
-	public final By ELEMENT_ADD_SYMLINK_LIST_VIEW = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsAddSymLink']");
 	public final String ELEMENT_DATA_TITLE = "//*[@data-original-title = '${dataTitle}']";
 	public final String ELEMENT_SYMLINK_TITLE = "//*[@data-original-title = '${symlinkTitle}']";
 	public final String ELEMENT_TARGET_NODE = "//*[contains(text(),'${node}')]/../../td/a[@data-original-title='select']";
@@ -175,7 +174,10 @@ public class EcmsBase extends ManageAccount {
 	//Action bar 
 	public final By ELEMENT_ADD_ITEM = By.xpath("//*[@data-original-title='Add Item']");
 	public final By ELEMENT_DELETE_NODE_ICON = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsDelete']");
-
+	public final By ELEMENT_ADD_SYMLINK_LIST_VIEW = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsAddSymLink']");
+	public final By ELEMENT_LOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsLock']");
+	public final By ELEMENT_UNLOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsUnlock']");
+	
 	//publication TAB
 	public final By ELEMENT_PUBLICATION_TAB = By.xpath("//a[contains(text(),'Publication')]");
 	public final By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");

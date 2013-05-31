@@ -1094,4 +1094,38 @@ public class ActionBar extends EcmsBase{
 		button.cancel();
 		
 	}
+	
+	/** function lock nodes from clicking Lock icon in action bar
+	 * @author lientm
+	 * @param nodes
+	 */
+	public void lockNodeFromActionBar(String nodes){
+		String ELEMENT_LOCKED_NODE_LIST_VIEW = "//*[contains(@data-original-title, 'Locked by')]//*[contains(text(),'${name}')]";
+		
+		String[] node = nodes.split("/");
+		for (int i = 0; i < node.length; i ++){
+			click(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", node[i])), 2);
+		}
+		click(ELEMENT_LOCK_ICON);
+		for (int j = 0; j < node.length; j ++){
+			waitForElementPresent(ELEMENT_LOCKED_NODE_LIST_VIEW.replace("${name}", node[j]));
+		}
+	}
+	
+	/**function unlock nodes from clicking Unlock icon in action bar
+	 * @author lientm
+	 * @param nodes
+	 */
+	public void unLockNodeFromActionBar(String nodes){
+		String ELEMENT_LOCKED_NODE_LIST_VIEW = "//*[contains(@data-original-title, 'Locked by')]//*[contains(text(),'${name}')]";
+		
+		String[] node = nodes.split("/");
+		for (int i = 0; i < node.length; i ++){
+			click(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", node[i])), 2);
+		}
+		click(ELEMENT_UNLOCK_ICON);
+		for (int j = 0; j < node.length; j ++){
+			waitForElementNotPresent(ELEMENT_LOCKED_NODE_LIST_VIEW.replace("${name}", node[j]));
+		}
+	}
 }
