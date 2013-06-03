@@ -76,9 +76,8 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	}
 
 	/**caseID: 65828 - Copy/paste a node
-   Step 1: Copy/paste a node
+	 * Step 1: Copy/paste a node
 	 */
-
 	@Test
 	public void test02_CopyPasteNode() {
 		String node1= "test02_CopyPasteNode1";
@@ -105,7 +104,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 
 	/**caseID: 65840 - Cut/paste a node
-    Step 1: Cut/paste a node
+	 * Step 1: Cut/paste a node
 	 */
 
 	@Test
@@ -113,7 +112,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		String node1= "test03_CutPasteNode1";
 		String node2= "test03_CutPasteNode2";
 		String node1New = cMenu.ELEMENT_FILE_TITLE_AUX.replace("${title1}", node2).replace("${title2}", node1) ;
-		
+
 		info("Cut/paste a node");
 
 		//Create node1, node2
@@ -134,9 +133,8 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	}
 
 	/**caseID: 65841 - Download and allow edition
-    Step 1: Download and Allow Edition
+	 * Step 1: Download and Allow Edition
 	 */
-
 	@Test
 	public void test04_DownloadAllowEdition() {
 		String node1= "test04DownloadAllowEdition1";
@@ -168,9 +166,8 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	}
 
 	/**caseID: 65842 - Drag and drop a node
-    Step 1: Drag and drop a node
+	 *   Step 1: Drag and drop a node
 	 */
-
 	@Test
 	public void test05_DragAndDropNode() {
 		String node1= "test05DragAndDropNode1";
@@ -195,10 +192,10 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cMenu.deleteDocument(bNode1);
 
 	}
+	
 	/**caseID: 65847 - Lock a node
-    Step 1: Lock a node
+	 * Step 1: Lock a node
 	 */
-
 	@Test
 	public void test06_LockNode() {
 		String node1= "test06LockNode1";
@@ -220,14 +217,13 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	}
 
 	/**caseID: 67874 - Unlock a node
-    Step 1: Unlock a node
+	 *   Step 1: Unlock a node
 	 */
-
 	@Test
 	public void test07_UnlockNode() {
 		String node1 = "test07UnlockNode1";
 		String bNode1 = siteExp.ELEMENT_SE_NODE.replace("{$node}",node1); 
-				//ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", node1);
+		//ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", node1);
 		String bNodeLock = cMenu.ELEMENT_FILE_LOCKED_BY_ADMIN.replace("${titleOfFile}", node1);
 		info("Unlock a node");
 
@@ -258,7 +254,6 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	/**caseID: 65852: - Delete Clipboard
 	 * Step 1: Delete Clipboard
 	 */
-
 	@Test
 	public void test08_DeleteClipboard() {
 		String node1= "test08DeleteClipboard1";
@@ -292,11 +287,10 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cMenu.deleteDocument(bNode2);
 
 	}
-	
+
 	/**caseID: 65852: - Paste Clipboard
 	 * Step 1: Paste Clipboard
 	 */
-
 	@Test
 	public void test09_PasteClipboard() {
 		String node1= "test09PasteClipboard1";
@@ -337,7 +331,6 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 	/**caseID: 65870: - Rename a node
 	 * Step 1: Rename a node
 	 */
-
 	@Test
 	public void test10_RenameNode() {
 		String node1= "test10RenameNode1";
@@ -355,8 +348,11 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", newNode));
 
 	}
+
 	@BeforeMethod
 	public void beforeMethod() {
+		initSeleniumTest();
+		driver.close();
 		getDriverAutoOpenWindow();
 		driver.get(baseUrl);
 		dialog = new Dialog(driver);
@@ -370,13 +366,11 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cMenu = new ContextMenu(driver);
 		alt = new ManageAlert(driver);
 		siteExp = new SitesExplorer(driver);
-
 	}
+
 	@AfterMethod
 	public void afterMethods() {
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
-
-
 }

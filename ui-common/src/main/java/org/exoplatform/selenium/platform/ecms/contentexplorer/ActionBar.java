@@ -88,20 +88,21 @@ public class ActionBar extends EcmsBase{
 	
 	//Show Drives link
 	public final By ELEMENT_SHOW_DRIVES = By.xpath("//*[@data-original-title = 'Show Drives']");
-	
+
 	//Action bar 
 	public final By ELEMENT_ADD_ITEM = By.xpath("//*[@data-original-title='Add Item']");	
 	public final By ELEMENT_DELETE_NODE_ICON = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsDelete']");
 	public final By ELEMENT_ADD_SYMLINK_LIST_VIEW = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsAddSymLink']");
 	public final By ELEMENT_LOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsLock']");
 	public final By ELEMENT_UNLOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsUnlock']");
-	
+
 	//publication TAB
 	public final By ELEMENT_PUBLICATION_TAB = By.xpath("//a[contains(text(),'Publication')]");
 	public final By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");
 	public final By ELEMENT_EDIT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsEditDocument']");
 	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument']");
 	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
+	public final By ELEMENT_PUBLICATION_ICON = By.className("uiIconEcmsManagePublications");
 	public final By ELEMENT_VERSIONS_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageVersions']");
 	public final String ELEMENT_PUBLICATION_STATE = "//p[contains(text(),'{$state}')]/../a[@class='node']";	
 	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");	
@@ -115,9 +116,13 @@ public class ActionBar extends EcmsBase{
 	public final String ELEMENT_RELATION_LINK = "//a[text()='{$relation}']";
 	public final String ELEMENT_DELETE_RELATION_ICON = "//span[contains(text(),'{$relation}')]/../..//i[@class='uiIconDelete uiIconLightGray']";
 	public final String MESSAGE_DELETE_RELATION = "Are you sure you want to delete this relation?";
-	
+
 	//Action Bar > Categories
 	public final String ELEMENT_CATEGORY_OPTION = "//*[@name='taxonomyTree']/option[@value='${CATEGORY_TREE_NAME}']";
+
+	//Personal Documents > Action Bar > Sort By 
+	public final By ELEMENT_SORT_BY_BUTTON = By.xpath("//*[@id='FileViewBreadcrumb']//*[@class='btn dropdown-toggle']");
+	public final String ELEMENT_SORT_BY_TYPE = "//*[@class='dropdown-menu']//*[contains(text(), '${type}')]";
 
 	/*==================================================================================*/
 	//Go to Sites Management
@@ -543,23 +548,44 @@ public class ActionBar extends EcmsBase{
 	//A Function to copy/cut/paste/delete an Element (Document/Folder) in Sites Explorer
 	//Check the box on the right side of Element
 	//Select Action "Delete" on Action Bar
-	public void actionsOnElement(String elementName, ContextMenu.actionType action){
-		info("-- Action: "+ action + " on the element: " + elementName);
-		//waitForTextPresent(elementName);
-		if (waitForAndGetElement(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 3000, 0, 2) != null){
-			click(ELEMENT_PERSONAL_DOCUMENTS);
-			click(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 2);
-		}else if (waitForAndGetElement(By.xpath("//*[contains(text(), '"+ elementName +"')]/../..//*[@name = 'checkbox']"), 3000, 0, 2) != null){
-			click(ELEMENT_PERSONAL_DOCUMENTS);
-			click(By.xpath("//*[contains(text(), '"+ elementName +"')]/../..//*[@name = 'checkbox']"), 2);
+	public void actionsOnElement(String elementName, ContextMenu.actionType action, Object...params){
+		Boolean mDelete = (Boolean) (params.length > 0 ? params[0]: false);
+		info("-- Action: "+ action + " the element: " + elementName);
+		click(ELEMENT_PERSONAL_DOCUMENTS);
+		if (mDelete){
+			String[] nodes = elementName.split("/");
+			for (String node : nodes){
+				info("-- Delete node: " + node); 
+				if (waitForAndGetElement(ELEMENT_UI_CHECKBOX.replace("${element}", node), 3000, 0, 2) != null){
+					click(ELEMENT_UI_CHECKBOX.replace("${element}", node), 2);
+				}else{
+					click(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node) + "/../../../div[@class='columnCheckbox']", 2);
+				}
+			}
+		}else{
+			if (waitForAndGetElement(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 3000, 0, 2) != null){
+				click(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 2);
+			}else{
+				click(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", elementName) + "/../../../div[@class='columnCheckbox']", 2);
+			}
 		}
-		//click(ELEMENT_UI_CHECKBOX.replace("${element}", elementName), 2);
-		switch (action) {
+		/*else {
+			click(ELEMENT_PERSONAL_DOCUMENTS);
+			if (mDelete){
+				String[] nodes = elementName.split("/");
+				for (String node : nodes){
+					click(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node) + "/../../../div[@class='columnCheckbox']", 2);
+				}
+			}else{
+				click(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", elementName) + "/../../../div[@class='columnCheckbox']", 2);
+			}
+		}*/
+		switch (action){
 		case COPY:
-
+			click(cMenu.ELEMENT_COPY_NODE);
 			break;
 		case CUT:
-
+			click(cMenu.ELEMENT_CUT_NODE);
 			break;
 		case DELETE:
 			click(cMenu.ELEMENT_MENU_DELETE);
@@ -568,9 +594,8 @@ public class ActionBar extends EcmsBase{
 			waitForElementNotPresent(ELEMENT_UI_CHECKBOX.replace("${element}", elementName));
 			break;
 		case PASTE:
-
+			click(cMenu.ELEMENT_PASTE_NODE);
 			break;
-
 		default:
 			break;
 		}
@@ -750,13 +775,13 @@ public class ActionBar extends EcmsBase{
 	}
 
 	//Delete data in Admin view, List view
-	public void deleteDataInAdminView(String name){
+	/*public void deleteDataInAdminView(String name){
 		click(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", name)), 2);
 		click(ELEMENT_DELETE_NODE_ICON);
 		dialog.deleteInDialog();
 		waitForElementNotPresent(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", name)), DEFAULT_TIMEOUT, 1, 2);
 		Utils.pause(1000);
-	}
+	}*/
 
 	//Go to Manage Categories
 	public void goToManageCategories(){
@@ -988,8 +1013,15 @@ public class ActionBar extends EcmsBase{
 	 * @param categoryPath
 	 */
 	public void deleteCategory(String categoryPath){
-		click(ELEMENT_CATEGORIES_LINK);
-
+		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK,5000,0);
+		if (more !=null ){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+		}
+		if (waitForAndGetElement(ELEMENT_CATEGORIES_LINK, 3000, 0) != null){
+			click(ELEMENT_CATEGORIES_LINK);
+		}else {
+			click(By.className("uiIconEcmsManageCategories"));
+		}
 		click(ELEMENT_DELETE_CATEGORY_ICON.replace("{$categoryPath}", categoryPath));
 		alert.waitForConfirmation(MSG_DELETE_CATEGORY);
 
@@ -1065,7 +1097,8 @@ public class ActionBar extends EcmsBase{
 		waitForAndGetElement(ELEMENT_PROPERTIES_TAB);
 
 		click(ELEMENT_ADD_PROPERTY_TAB);
-		select(ELEMENT_ADD_PROPERTY_INPUT,property);
+		Utils.pause(2000);
+		select(ELEMENT_ADD_PROPERTY_INPUT, property);
 		type(ELEMENT_VALUE_INPUT,value,true);
 		button.save();
 
@@ -1213,7 +1246,7 @@ public class ActionBar extends EcmsBase{
 			waitForElementNotPresent(ELEMENT_LOCKED_NODE_LIST_VIEW.replace("${name}", node[j]));
 		}
 	}
-	
+
 	/**
 	 * Open [Manage Publication] form
 	 */
@@ -1221,11 +1254,15 @@ public class ActionBar extends EcmsBase{
 		info("-- Open Manage Publication Form --");
 		if ((waitForAndGetElement(ELEMENT_PUBLICATION, 5000, 0) == null )){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-		}	
-		click(ELEMENT_PUBLICATION);
+		}
+		if (waitForAndGetElement(ELEMENT_PUBLICATION, 3000, 0) != null){
+			click(ELEMENT_PUBLICATION);
+		}else {
+			click(ELEMENT_PUBLICATION_ICON);
+		}
 		Utils.pause(500);
 	}
-	
+
 	/**
 	 * Manage Publication > get a publish date
 	 * @param revision: locator of revision date
@@ -1236,5 +1273,16 @@ public class ActionBar extends EcmsBase{
 		date = element.getText();
 		info("-- Publish date is " + date);
 		return date;	
+	}
+
+	/**
+	 * Personal Documents > Action Bar > Sort By
+	 * @param type: NAME, SIZE, DATE
+	 */
+	public void sortBy(String type){
+		info("-- Choose a field type to sort: " + type);
+		click(ELEMENT_SORT_BY_BUTTON);
+		click(ELEMENT_SORT_BY_TYPE.replace("${type}", type));
+		Utils.pause(1000);	
 	}
 }

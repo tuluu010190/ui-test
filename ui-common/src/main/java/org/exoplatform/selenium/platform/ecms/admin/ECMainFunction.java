@@ -184,7 +184,7 @@ public class ECMainFunction extends EcmsBase{
 	public void goToCategoriesTabInContentAdmin(){
 		navToolbar.goToContentAdministration();
 		if (isTextNotPresent("Category Tree")){
-			if (isTextNotPresent("Categories")){
+			if (isTextNotPresent("Queries")){
 				click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
 			}
 			click(ELEMENT_MANAGE_CATEGORIES_LINK);

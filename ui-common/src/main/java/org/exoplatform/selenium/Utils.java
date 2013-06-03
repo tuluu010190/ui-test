@@ -8,6 +8,7 @@ import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -95,7 +96,8 @@ public class Utils {
 	 * @param secondKey: send the second key (type: KeyEvent) 
 	 * @throws InterruptedException 
 	 */
-	public static void javaSimulateKeyPress(int firstKey, int secondKey) throws InterruptedException{
+	public static void javaSimulateKeyPress(int firstKey, Object... params) throws InterruptedException{
+		int secondKey = (Integer) (params.length > 0 ? params[0]: KeyEvent.VK_ENTER); 
 		try {
 			Robot robot = new Robot();
 			// Simulate a key press

@@ -49,18 +49,21 @@ public class ECMS_SE_Setting extends PlatformBase {
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(node1, node1, node1, des);
 		
+		
 		//Set up preferences
 		preferences.setUpPreferenceOption("enableStructure");
 		preferences.setUpPreferenceOption("showHiddenNode");
-		waitForAndGetElement(siteExp.ELEMENT_THUMBNAIL_HIDDEN_NODE);
+		//waitForAndGetElement(siteExp.ELEMENT_THUMBNAIL_HIDDEN_NODE);
 		waitForAndGetElement(siteExp.ELEMENT_DMS_STRUCTURE);
 		
 		//Delete data
 		cMenu.deleteDocument(bNode1);
-		
 	}
+	
 	@BeforeMethod
-	public void beforeMethod() {
+	public void beforeMethod(){
+		initSeleniumTest();
+		driver.close();
 		getDriverAutoOpenWindow();
 		driver.get(baseUrl);
 		navToolBar = new NavigationToolbar(driver);
@@ -75,6 +78,7 @@ public class ECMS_SE_Setting extends PlatformBase {
 		preferences = new BrowserPreferences(driver);
 
 	}
+	
 	@AfterMethod
 	public void afterMethods() {
 		driver.manage().deleteAllCookies();

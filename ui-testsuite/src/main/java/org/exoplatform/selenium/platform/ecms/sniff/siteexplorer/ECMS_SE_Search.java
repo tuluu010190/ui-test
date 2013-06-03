@@ -128,6 +128,8 @@ public class ECMS_SE_Search extends PlatformBase {
 	
 	@BeforeMethod
 	public void beforeMethod() {
+		initSeleniumTest();
+		driver.close();
 		getDriverAutoOpenWindow();
 		driver.get(baseUrl);
 		navToolBar = new NavigationToolbar(driver);

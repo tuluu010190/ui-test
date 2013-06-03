@@ -265,13 +265,12 @@ public class EcmsBase extends ManageAccount {
 	public By ELEMENT_TAG_NAME = By.id("names");
 	public By ELEMENT_TAG_SCOPE = By.id("tagScopes");
 
-	//Site Explorer
-	public final String ELEMENT_UI_CHECKBOX = "//*[@data-original-title = '${element}']/../..//*[@name = 'checkbox']";	
-
 	//Intranet > Documents
+	public final String ELEMENT_UI_CHECKBOX = "//*[@data-original-title = '${element}']/../..//*[@name = 'checkbox']";
 	public final String ELEMENT_NODE_ADMIN_VIEW = "//*[contains(@class, 'columnText')]//*[contains(text(), '${nodeName}')]";
 	public final String ELEMENT_NODE_ICON_ARROW_RIGHT = "//*[contains(text(), '${nodeName}')]/../..//*[contains(@class, 'columnArrow')]";
-
+    public final String ELEMENT_NODE_NAME_CONSECUTIVE = "//*[@class='uiListGrid']/div[contains(@mousedown, '${node1}')]/..//*[@class='nodeName' and contains(text(), '${node2}')]";
+	
 	//Undo Deleted items
 	public final By ELEMENT_UNDO_DELETED_ITEM = By.xpath("//*[@class='uiIconSuccess']/../*[contains(text(), 'Undo')]");
 	public final String MESSAGE_ITEM_DELETED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was deleted succesfully.\")]";

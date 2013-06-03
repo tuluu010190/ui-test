@@ -14,6 +14,7 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
+import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -1326,6 +1327,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add symlink successfully");
 
 		//delete data
-		actBar.deleteDataInAdminView(DATA_FOLDER);
+		//actBar.deleteDataInAdminView(DATA_FOLDER);
+		actBar.actionsOnElement(DATA_FOLDER, actionType.DELETE);
 	}		
 }

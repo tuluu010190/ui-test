@@ -226,8 +226,6 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 	 * make translation between them
 	 * check translation is applied in a content detail portlet
 	 */
-	
-	
 	@Test
 	public void test41_AddTranslation_Document(){
 		String fileEnglish = "File_document_English";

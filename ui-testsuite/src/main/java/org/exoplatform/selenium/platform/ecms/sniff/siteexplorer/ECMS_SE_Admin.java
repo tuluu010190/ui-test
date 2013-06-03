@@ -9,11 +9,9 @@ import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
@@ -27,13 +25,11 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
  */
 public class ECMS_SE_Admin extends PlatformBase {
 	//Platform
-	Button button;
 	ManageAccount magAcc;
 	NavigationToolbar navToolBar;
 	ActionBar actBar;
 
 	//Ecms
-	EcmsBase ecms;
 	ContentTemplate cTemplate;
 	ContextMenu cMenu;
 	SitesExplorer siteExp;
@@ -284,16 +280,17 @@ public class ECMS_SE_Admin extends PlatformBase {
 		cMenu.deleteDocument(bNode1);
 		cMenu.deleteDocument(bNode2);
 	}
+	
 	@BeforeMethod
 	public void beforeMethods() {
+		initSeleniumTest();
+		driver.close();
 		getDriverAutoSave();
 		driver.get(baseUrl);
 		driver.manage().window().maximize();
-		button = new Button(driver);
 		magAcc = new ManageAccount(driver);
 		navToolBar = new NavigationToolbar(driver);
 		actBar = new ActionBar(driver);
-		ecms = new EcmsBase(driver);
 		cTemplate = new ContentTemplate(driver);
 		cMenu = new ContextMenu(driver);
 		siteExp = new SitesExplorer(driver);

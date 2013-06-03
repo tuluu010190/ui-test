@@ -13,6 +13,7 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
+import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -486,7 +487,8 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		info("Lock parent and child node");
 		actBar.lockNodeFromActionBar(DATA_FOLDER + "/" + FILE_NAME);
 		
-		actBar.deleteDataInAdminView(DATA_FOLDER);
+		//actBar.deleteDataInAdminView(DATA_FOLDER);
+		actBar.actionsOnElement(DATA_FOLDER, actionType.DELETE);
 	}
 	
 	/**CaseId: 74536 -> Unlock a Parent & Child selection
@@ -520,6 +522,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		info("Unlock parent and child node");
 		actBar.unLockNodeFromActionBar(DATA_FOLDER + "/" + FILE_NAME);
 		
-		actBar.deleteDataInAdminView(DATA_FOLDER);
+		//actBar.deleteDataInAdminView(DATA_FOLDER);
+		actBar.actionsOnElement(DATA_FOLDER, actionType.DELETE);
 	}
 }

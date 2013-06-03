@@ -228,6 +228,12 @@ public class ManageTemplate extends EcmsBase{
 	//Open Add New List Template Form
 	public void openAddListTemplateForm(String templateType){
 		info("-- Open [Add Template] Form --");
+		Utils.pause(500);
+		if ( ExpectedConditions.alertIsPresent() != null ){
+			alt = new ManageAlert(driver);
+			alt.acceptAlert();
+			info("-- An alert is present --");
+		}
 		if (waitForAndGetElement(ELEMENT_LIST_TEMPLATE_CONTENT, 3000, 0) == null){
 			if (templateType.equals("Content")){
 				click(ELEMENT_ADD_TEMPLATE_BUTTON);

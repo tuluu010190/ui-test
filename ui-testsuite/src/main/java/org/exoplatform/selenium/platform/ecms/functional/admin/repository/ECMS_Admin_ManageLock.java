@@ -623,7 +623,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		//Lock node
 		//lockNode(elementCopiedArticleUnLock);
 		cMenu = new ContextMenu(driver);
-		cMenu.contextMenuAction(elementCopiedArticleUnLock, actBar.ELEMENT_LOCK_ICON);
+		cMenu.contextMenuAction(elementCopiedArticleUnLock, cMenu.ELEMENT_MENU_LOCK);
 
 		click(cMenu.ELEMENT_DOCUMENT);
 

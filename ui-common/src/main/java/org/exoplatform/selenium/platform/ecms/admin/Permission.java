@@ -36,9 +36,9 @@ public class Permission extends EcmsPermission{
 	public final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Everyone']");
 	public final By ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[contains(text(),'Save')]");
                                                               
-	public final String ELEMENT_PERMISSION_MANAGEMENT_READ = "//div[@id='UITabContent' and @style='display: block;;']//*[@title='${userOrGroupName}']/../..//input[contains(@id, 'read')]";
-	public final String ELEMENT_PERMISSION_MANAGEMENT_MODIFY = "//div[@id='UITabContent' and @style='display: block;;']//*[@title='${userOrGroupName}']/../..//input[contains(@id, 'add')]";
-	public final String ELEMENT_PERMISSION_MANAGEMENT_REMOVE = "//div[@id='UITabContent' and @style='display: block;;']//*[@title='${userOrGroupName}']/../..//input[contains(@id, 'remove')]"; 
+	public final String ELEMENT_PERMISSION_MANAGEMENT_READ = "//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='${userOrGroupName}']/../..//input[contains(@id, 'read')]";
+	public final String ELEMENT_PERMISSION_MANAGEMENT_MODIFY = "//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='${userOrGroupName}']/../..//input[contains(@id, 'add')]";
+	public final String ELEMENT_PERMISSION_MANAGEMENT_REMOVE = "//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='${userOrGroupName}']/../..//input[contains(@id, 'remove')]"; 
 	
 	//"//*[text()='Add permission to that node']/ancestor::div[contains(@id, 'Permission')]//*[@title='*:/platform/users']/../..//input[contains(@id, 'read')]";
 	//public final String ELEMENT_EDIT_USER_PERMISSION = "//*[@title='${userOrGroupName}']/../..//*[@class='uiIconEdit']";

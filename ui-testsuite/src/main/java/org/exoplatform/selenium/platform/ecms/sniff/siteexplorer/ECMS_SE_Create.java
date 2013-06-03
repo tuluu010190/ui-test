@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
+import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.AfterMethod;
@@ -167,8 +168,10 @@ public class ECMS_SE_Create extends PlatformBase {
 		uploadMultiFileSerial(file1, file2);
 		
 		info("Delete Uploaded files");
-		actBar.deleteDataInAdminView(file1);
-		actBar.deleteDataInAdminView(file2);
+		//actBar.deleteDataInAdminView(file1);
+		//actBar.deleteDataInAdminView(file2);
+		actBar.actionsOnElement(file1, actionType.DELETE);
+		actBar.actionsOnElement(file2, actionType.DELETE);
 	}
 	
 	/**CaseId: 75242 + 75243: Upload then delete uploaded files in space document

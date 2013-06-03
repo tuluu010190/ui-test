@@ -262,7 +262,8 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		type(ecms.ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(DATA_UPLOAD_FILE_LINK), false);
 		
 		info("Upload file "+ Utils.getAbsoluteFilePath(DATA_UPLOAD_FILE_LINK));
-		waitForTextPresent("ECMS_Admin_ManageCategories_Display.jpg");
+		//waitForTextPresent("ECMS_Admin_ManageCategories_Display.jpg");
+		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", "ECMS_Admin_ManageCategories_Display.jpg"));
 		ecms.goToNode("ECMS_Admin_ManageCategories_Display.jpg");
 		click(actBar.ELEMENT_CATEGORIES_LINK);
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
@@ -424,16 +425,20 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		//set permission for mary not having read permission in these two categories
 		info("Set permission for category");
 		click(adminPer.ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", DATA_CATEGORY_TREE_CHILD_01));
-		waitForAndGetElement(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='*:/platform/administrators']/../..//*[contains(@class, 'uiIconDelete')]"));
-		click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='*:/platform/administrators']/../..//*[contains(@class, 'uiIconDelete')]"));
+		waitForAndGetElement(ecmsPer.ELEMENT_DELETE_USER_PERMISSION_AUX_1.replace("${userOrGroupName}", "*:/platform/administrators"));
+		click(ecmsPer.ELEMENT_DELETE_USER_PERMISSION_AUX_1.replace("${userOrGroupName}", "*:/platform/administrators"));
 		alt.acceptAlert();
-		click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='*:/platform/users']/../..//*[contains(@class, 'uiIconDelete')]"));
+		driver.navigate().refresh();
+		click(ecmsPer.ELEMENT_DELETE_USER_PERMISSION_AUX_1.replace("${userOrGroupName}", "*:/platform/users"));
 		alt.acceptAlert();
-		click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='mary']/../..//*[contains(@class, 'uiIconDelete')]"));
+		driver.navigate().refresh();
+		click(ecmsPer.ELEMENT_DELETE_USER_PERMISSION_AUX_1.replace("${userOrGroupName}", "mary"));
 		alt.acceptAlert();
-		click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='any']/../..//*[contains(@class, 'uiIconDelete')]"));
+		driver.navigate().refresh();
+		click(ecmsPer.ELEMENT_DELETE_USER_PERMISSION_AUX_1.replace("${userOrGroupName}", "any"));
 		alt.acceptAlert();
-		click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='*:/platform/web-contributors']/../..//*[contains(@class, 'uiIconDelete')]"));
+		driver.navigate().refresh();
+		click(ecmsPer.ELEMENT_DELETE_USER_PERMISSION_AUX_1.replace("${userOrGroupName}", "*:/platform/web-contributors"));
 		alt.acceptAlert();
 
 		click(button.ELEMENT_CLOSE_WINDOW);

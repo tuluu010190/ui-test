@@ -83,7 +83,7 @@ public class SitesExplorer extends EcmsBase{
 		if (isTextNotPresent(driverName)){
 			Utils.pause(1000);
 			ecMain.goToManageDrive();
-			magDrv.addNewDrive(driverName, driverWorkspace, driverHomePath, groupPermission, member, viewOption, view);	
+			magDrv.addNewDrive(driverName, driverWorkspace, driverHomePath, groupPermission, member, viewOption, view, false, true);	
 			navToolBar.goToSiteExplorer();
 			Utils.pause(1000);
 			if (isTextNotPresent(driverName)){

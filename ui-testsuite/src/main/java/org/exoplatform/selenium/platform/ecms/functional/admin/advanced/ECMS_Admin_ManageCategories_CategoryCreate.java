@@ -342,6 +342,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		adminPer.editPermissionUserOrGroup("mary", true, false, true);
 
 		//Verify that Permission of Category to user/group is edited
+		driver.navigate().refresh();
 		waitForAndGetElement(adminPer.ELEMENT_PERMISSION_MANAGEMENT_REMOVE.replace("${userOrGroupName}", "mary")+ "/../../../div[@title='true']");
 		
 		info("-- Restore original data --");
