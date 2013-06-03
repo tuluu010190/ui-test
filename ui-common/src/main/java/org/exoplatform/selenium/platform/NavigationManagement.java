@@ -2,13 +2,20 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PageManagement;
 import java.util.Map;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 public class NavigationManagement extends  PageManagement{
+
+	public NavigationManagement(WebDriver dr) {
+		super(dr);
+		// TODO Auto-generated constructor stub
+	}
 
 	ManageAlert alt = new ManageAlert(driver);
 	
@@ -127,6 +134,7 @@ public class NavigationManagement extends  PageManagement{
 
 	//Delete a node from Portal navigation
 	public void deleteNode(String currentNavigation, String nodeNameHome, String nodeName, boolean firstLevel){
+		button = new Button(driver);
 		info("--Delete a node from navigation--");
 		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);	
 		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
@@ -136,7 +144,7 @@ public class NavigationManagement extends  PageManagement{
 			click(currentNodeName);
 			rightClickOnElement(currentNodeName);
 			click(ELEMENT_NODE_DELETE);
-			alt.waitForConfirmation("Are you sure to delete this node?");
+			alt.waitForConfirmation("Are you sure you want to delete this node?");
 			waitForTextNotPresent(nodeName);
 			button.save();		
 		}else {
@@ -144,7 +152,7 @@ public class NavigationManagement extends  PageManagement{
 			click(currentNodeName);
 			rightClickOnElement(currentNodeName);
 			click(ELEMENT_NODE_DELETE);
-			alt.waitForConfirmation("Are you sure to delete this node?");
+			alt.waitForConfirmation("Are you sure you want to delete this node?");
 			waitForTextNotPresent(nodeName);
 			button.save();		
 		}

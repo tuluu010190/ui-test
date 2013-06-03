@@ -10,13 +10,18 @@ import  org.exoplatform.selenium.platform.NavigationManagement;
 import java.util.Map;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class PageManagement extends PlatformBase {
+	
+	public PageManagement(WebDriver dr){
+		driver = dr;
+	}
 
 	NavigationToolbar nav = new NavigationToolbar(driver);
-	NavigationManagement navMag = new NavigationManagement();
+	NavigationManagement navMag;
 	Dialog dialog = new Dialog(driver);
 	ManageAlert alt = new ManageAlert(driver);
 	
@@ -25,9 +30,9 @@ public class PageManagement extends PlatformBase {
 	 * */
 	public String ELEMENT_ADD_PAGE_BUTTON = "//a[text()='Add New Page']";
 	public String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
-	public String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//form[@id='UIPageSearchForm']/div[2]/a[@class='SearchIcon']";
-	public String ELEMENT_PAGE_EDIT_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='EditInfoIcon']";
-	public String ELEMENT_PAGE_DELETE_ICON = "//div[@id='UIVirtualList']//table//tr/td/div[contains(@title, '${page}')]/../../td[5]//img[@class='DeleteIcon']";
+	public String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//*[contains(@class, 'uiIconSearch')]";
+	public String ELEMENT_PAGE_EDIT_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconEditInfo uiIconLightGray']";
+	public String ELEMENT_PAGE_DELETE_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
 
 	//Add New Page Form (shown after click [Add New Page] button in Page Management)
 	public By ELEMENT_PAGE_NAME_INPUT = By.xpath("//input[@id='name']");
@@ -36,7 +41,7 @@ public class PageManagement extends PlatformBase {
 	public By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
 		
 	//Message
-	public String MESSAGE_DELETE_PAGE = "Are you sure to delete this page?";
+	public String MESSAGE_DELETE_PAGE = "Do you want to delete this page?";
 	
 	//Add a new page in PageManagement
 	public void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
@@ -89,6 +94,8 @@ public class PageManagement extends PlatformBase {
 
 	//Delete a page
 	public void deletePage(PageType type, String pageTitle, int...wait){
+		alt = new ManageAlert(driver);
+		dialog = new Dialog(driver);
 		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle);
 		searchPageByTitle(type, pageTitle);
@@ -156,6 +163,8 @@ public class PageManagement extends PlatformBase {
 	public void deletePageAtManagePageAndPortalNavigation(String pageName, boolean PageTypePortal, String portalName, 
 			boolean PageTypeGroup, String groupName){
 		info("-- Deleting "+ pageName +" at Manage page and Portal Navigation--");
+		nav = new NavigationToolbar(driver);
+		navMag = new NavigationManagement(driver);
 		nav.goToManagePages();
 		if (PageTypePortal){
 			deletePage(PageType.PORTAL, pageName);

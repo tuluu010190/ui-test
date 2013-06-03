@@ -262,8 +262,10 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		navToolBar.goToEditPageEditor();
 		pageE.addContentDetailEmptyLayout();
 		pageE.addContentPathForContentDetailPortlet("General Drives/Sites Management/" + fileEnglish);
-		click(ELEMENT_PAGE_EDIT_FINISH_OTHER);
-		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH_OTHER, 60000);
+		//click(ELEMENT_PAGE_EDIT_FINISH_OTHER);
+		//waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH_OTHER, 60000);
+		click(ELEMENT_PAGE_FINISH_BUTTON);
+		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 		waitForAndGetElement(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileEnglish)));
 		
 		info("Change view language to French");
@@ -314,8 +316,10 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		navToolBar.goToEditPageEditor();
 		pageE.addContentDetailEmptyLayout();
 		pageE.addContentPathForContentDetailPortlet("General Drives/Sites Management/" + fileEnglish);
-		click(ELEMENT_PAGE_EDIT_FINISH_OTHER);
-		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH_OTHER, 60000);
+		//click(ELEMENT_PAGE_EDIT_FINISH_OTHER);
+		//waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH_OTHER, 60000);
+		click(ELEMENT_PAGE_FINISH_BUTTON);
+		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 		waitForAndGetElement(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileEnglish)));
 		
 		info("Change view language to French");

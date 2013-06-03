@@ -107,6 +107,8 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");	
 	public final By ELEMENT_PUB_FROM_INPUT = By.name("UIPublicationPanelStartDateInput");	
 	public final By ELEMENT_PUB_TO_INPUT = By.name("UIPublicationPanelEndDateInput");
+	public final String ELEMENT_REVISION_DATE = "//*[contains(text(), '${status}')]/../td[2]";
+	public final By ELEMENT_FIRST_REVISION_DATE = By.xpath(ELEMENT_REVISION_DATE.replace("${status}", "Draft[Current Revision]"));
 	public final By ELEMENT_ADD_RELATION_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageRelations']");
 	public final By ELEMENT_SELECT_RELATION_TAB = By.xpath("//*[contains(text(), 'Select Relation')]");
 	public final By ELEMENT_SHOW_RELATION_ICON = By.xpath("//i[@class='uiIconEcmsRelationMini']");
@@ -412,10 +414,8 @@ public class ActionBar extends EcmsBase{
 	//function public a document
 	public void publishDocument(){
 		button = new Button(driver);
-		info("Public this document");
-		if ((waitForAndGetElement(ELEMENT_PUBLICATION,5000,0) == null ))
-			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-		click(ELEMENT_PUBLICATION);
+		info("Publish a document");
+		openManagePublicationForm();
 		WebElement current = waitForAndGetElement(ELEMENT_CURRENT_STATUS);
 		info(current.getText());
 		if (current.getText().contains("Published") == false){
@@ -423,7 +423,7 @@ public class ActionBar extends EcmsBase{
 		}
 		waitForAndGetElement(ELEMENT_CURRENT_PUBLIC_STATUS);
 		button.close();
-		info("Public document is successful");
+		info("Publish a document is successful");
 	}
 
 	// Node Permission
@@ -1005,11 +1005,7 @@ public class ActionBar extends EcmsBase{
 		By bState = By.xpath(ELEMENT_PUBLICATION_STATE.replace("{$state}", state));
 
 		info("Manage publication state");
-		if (waitForAndGetElement(ELEMENT_PUBLICATION, 20000,0) == null){
-			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-		}
-
-		click(ELEMENT_PUBLICATION);
+		openManagePublicationForm();
 		click(bState);
 		if (state.equals("Staged")){
 			click(ELEMENT_SCHEDULE_TAB);
@@ -1216,5 +1212,29 @@ public class ActionBar extends EcmsBase{
 		for (int j = 0; j < node.length; j ++){
 			waitForElementNotPresent(ELEMENT_LOCKED_NODE_LIST_VIEW.replace("${name}", node[j]));
 		}
+	}
+	
+	/**
+	 * Open [Manage Publication] form
+	 */
+	public void openManagePublicationForm(){
+		info("-- Open Manage Publication Form --");
+		if ((waitForAndGetElement(ELEMENT_PUBLICATION, 5000, 0) == null )){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+		}	
+		click(ELEMENT_PUBLICATION);
+		Utils.pause(500);
+	}
+	
+	/**
+	 * Manage Publication > get a publish date
+	 * @param revision: locator of revision date
+	 */
+	public String getPublishDate(By revision){
+		String date = "";
+		WebElement element = waitForAndGetElement(revision);
+		date = element.getText();
+		info("-- Publish date is " + date);
+		return date;	
 	}
 }

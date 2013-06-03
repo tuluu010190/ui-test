@@ -163,7 +163,7 @@ public class ContextMenu extends EcmsBase{
 			{	
 				info("Element is displayed ");
 				click(ELEMENT_MENU_DELETE);
-				waitForTextPresent("Delete");
+				//waitForTextPresent("Delete");
 				//click(By.linkText("OK"));
 				dialog.deleteInDialog();
 				break;

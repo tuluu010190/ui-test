@@ -34,13 +34,11 @@ public class EcmsBase extends ManageAccount {
 	//Sign-in form
 	public final By ELEMENT_LOGIN_BUTTON = By.name("signIn");
 	//By.xpath("//*[@id='UIPortalLoginFormAction']");
-	//Side bar
-	
-	//Side bar
 
+	//Side bar
 	public final By ELEMENT_THUMBNAIL_HIDDEN_NODE = By.xpath("//span[text()='exo:thumbnails']");
 	public final By ELEMENT_DMS_STRUCTURE = By.xpath("//span[text()='jcr:content']");
-	
+
 	//UI address bar
 	public final String ELEMENT_VIEW_MODE_LINK = "//*[@class='uiIconEcmsViewDefault uiIconEcmsView${viewName}']";
 	//public final String ELEMENT_VIEW_MODE_LINK = "//i[contains(@class,'uiIconEcmsViewDefault')]/../..//*[@data-original-title='${viewName}']";
@@ -171,6 +169,8 @@ public class EcmsBase extends ManageAccount {
 
 	//View Area
 	//public final By ELEMENT_VIEWAREA_ACME = By.xpath("//*[@title='acme']");
+	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
+	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
 
 	//Collaboration TAB
 	public final By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
@@ -257,58 +257,61 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_EDIT_A_TAG_ICON = "//*[text()='${tagName}']/../..//a[@data-original-title='Edit Tag']";
 	public final By ELEMENT_EDIT_A_TAG_FORM = By.id("TagPopup");
 	public final By ELEMENT_EDIT_TAG_NAME = By.id("tagName");
-	
+
 	//Tag Manager Form
 	public By ELEMENT_ADD_TAGS_BUTTON = By.xpath("//a[contains(text(),'Add Tags')]");
 	public By ELEMENT_CLOSE_TAG_FORM = By.xpath("//a[contains(text(),'Close')]");
 	public By ELEMENT_TAG_NAME = By.id("names");
 	public By ELEMENT_TAG_SCOPE = By.id("tagScopes");
-	
+
 	//Site Explorer
-    public final String ELEMENT_UI_CHECKBOX = "//*[@data-original-title = '${element}']/../..//*[@name = 'checkbox']";	
-    
-    //Intranet > Documents
-    public final String ELEMENT_NODE_ADMIN_VIEW = "//*[contains(@class, 'columnText')]//*[contains(text(), '${nodeName}')]";
-    public final String ELEMENT_NODE_ICON_ARROW_RIGHT = "//*[contains(text(), '${nodeName}')]/../..//*[contains(@class, 'columnArrow')]";
-	
-    //Undo Deleted items
-    public final By ELEMENT_UNDO_DELETED_ITEM = By.xpath("//*[@class='uiIconSuccess']/../*[contains(text(), 'Undo')]");
-    public final String MESSAGE_ITEM_DELETED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was deleted succesfully.\")]";
-    public final String MESSAGE_MULTI_ITEMS_DELETED_SUCCESSFULLY = "//*[contains(text(), '${title} were deleted succesfully.')]";
-    public final String MESSAGE_ITEM_RESTORED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was successfully restored.\")]";
-    public final String MESSAGE_MULTI_ITEMS_RESTORED_SUCCESSFULLY = "//*[contains(text(), '${title} were succesfully restored.')]";
+	public final String ELEMENT_UI_CHECKBOX = "//*[@data-original-title = '${element}']/../..//*[@name = 'checkbox']";	
+
+	//Intranet > Documents
+	public final String ELEMENT_NODE_ADMIN_VIEW = "//*[contains(@class, 'columnText')]//*[contains(text(), '${nodeName}')]";
+	public final String ELEMENT_NODE_ICON_ARROW_RIGHT = "//*[contains(text(), '${nodeName}')]/../..//*[contains(@class, 'columnArrow')]";
+
+	//Undo Deleted items
+	public final By ELEMENT_UNDO_DELETED_ITEM = By.xpath("//*[@class='uiIconSuccess']/../*[contains(text(), 'Undo')]");
+	public final String MESSAGE_ITEM_DELETED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was deleted succesfully.\")]";
+	public final String MESSAGE_MULTI_ITEMS_DELETED_SUCCESSFULLY = "//*[contains(text(), '${title} were deleted succesfully.')]";
+	public final String MESSAGE_ITEM_RESTORED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was successfully restored.\")]";
+	public final String MESSAGE_MULTI_ITEMS_RESTORED_SUCCESSFULLY = "//*[contains(text(), '${title} were succesfully restored.')]";
 
 	/* File management view - Personal document	 */
 	public final String ELEMENT_SELECT_CHECKBOX = "//*[@data-original-title='${name}']/../..//input[@type='checkbox']";
 	public final String ELEMENT_ARROW_RIGHT = "//*[@data-original-title='${nodeName}']/../..//i[@class='uiIconArrowRight']";
-	    
-    //Add comment form
-    public final By ELEMENT_ADD_COMMENT_LINK = By.xpath("//a[contains(text(), 'Comment')]");
-    public final By ELEMENT_ADD_COMMENT_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Comment']");
-    public final By ELEMENT_ADD_COMMENT_FRAME = By.xpath("//*[@id='cke_contents_comment']/iframe");
-    public final By ELEMENT_SHOW_COMMENT_LINK = By.linkText("Show comments");
-    public final String ELEMENT_SHOW_COMMENT_CONTENT = "//*[@class='commentBox uiBox']//p[contains(text(), '${comment}')]";
-    public final String ELEMENT_EDIT_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Edit this comment']";
-    public final String ELEMENT_DELETE_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Remove this comment']";
-    
-    //Vote form
-    public final By ELEMENT_VOTE_LINK = By.xpath("//a[contains(text(), 'Vote')]");
-    public final By ELEMENT_VOTE_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Vote Document']");
-    public final String ELEMENT_VOTE_RATE = "//*[@id='UIVoteForm']//*[@data-original-title='${rate}']";
-    public final By ELEMENT_VOTE_COMPONENT = By.xpath("//*[@class='uiVote clearfix']");
-    public final String ELEMENT_VOTE_RATING_INFOR = "//*[@class='voteRatingInfo']//span[text()='${rate}']";
-    
-    //Add translation form
-    public final By ELEMENT_ADD_TRANSLATION_LINK = By.xpath("//a[contains(text(), 'Add Translation')]");
-    public final By ELEMENT_ADD_TRANSLATION_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Add Translation']");
-    public final By ELEMENT_SELECT_DOCUMENT_BUTTON = By.xpath("//*[text()='Select Document']");
-    public final By ELEMENT_PARENT_DRIVER = By.xpath("//*[@id='BreadcumbsContainer']/li[2]/a");
-    public final By ELEMENT_SELECT_DOCUMENT_POPUP = By.xpath("//*[@id='UIPopupSymLink']//span[text()='Select Document']");
-    public final String ELEMENT_TRANSLATION_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='fr (${fileName})']";
-	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
-	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
 
+	//Add comment form
+	public final By ELEMENT_ADD_COMMENT_LINK = By.xpath("//a[contains(text(), 'Comment')]");
+	public final By ELEMENT_ADD_COMMENT_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Comment']");
+	public final By ELEMENT_ADD_COMMENT_FRAME = By.xpath("//*[@id='cke_contents_comment']/iframe");
+	public final By ELEMENT_SHOW_COMMENT_LINK = By.linkText("Show comments");
+	public final String ELEMENT_SHOW_COMMENT_CONTENT = "//*[@class='commentBox uiBox']//p[contains(text(), '${comment}')]";
+	public final String ELEMENT_EDIT_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Edit this comment']";
+	public final String ELEMENT_DELETE_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Remove this comment']";
 
+	//Vote form
+	public final By ELEMENT_VOTE_LINK = By.xpath("//a[contains(text(), 'Vote')]");
+	public final By ELEMENT_VOTE_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Vote Document']");
+	public final String ELEMENT_VOTE_RATE = "//*[@id='UIVoteForm']//*[@data-original-title='${rate}']";
+	public final By ELEMENT_VOTE_COMPONENT = By.xpath("//*[@class='uiVote clearfix']");
+	public final String ELEMENT_VOTE_RATING_INFOR = "//*[@class='voteRatingInfo']//span[text()='${rate}']";
+
+	//Add translation form
+	public final By ELEMENT_ADD_TRANSLATION_LINK = By.xpath("//a[contains(text(), 'Add Translation')]");
+	public final By ELEMENT_ADD_TRANSLATION_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Add Translation']");
+	public final By ELEMENT_SELECT_DOCUMENT_BUTTON = By.xpath("//*[text()='Select Document']");
+	public final By ELEMENT_PARENT_DRIVER = By.xpath("//*[@id='BreadcumbsContainer']/li[2]/a");
+	public final By ELEMENT_SELECT_DOCUMENT_POPUP = By.xpath("//*[@id='UIPopupSymLink']//span[text()='Select Document']");
+	public final String ELEMENT_TRANSLATION_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='fr (${fileName})']";
+
+	//Acme site > Overview page
+	public final By ELEMENT_OVERVIEW_PAGE = By.xpath("//*[@class = 'uiIconFile uiIconExt-overview']");
+    public final By ELEMENT_RSS_ICON = By.className("RssIcon");
+	public final String ELEMENT_CLV_TITLE = "//*[@class='Title' and contains(text(), '${title}')]";
+    public final String ELEMENT_CLV_PUBLISH_DATE = ELEMENT_CLV_TITLE + "/../div[contains(text(), '${date}')]";
+    
 	////////////////////////////////
 	//Log-in ECMS
 	/*public void loginEcms(String username, String password) {
@@ -352,6 +355,18 @@ public class EcmsBase extends ManageAccount {
 		Utils.pause(500);
     }*/
 
+	//Acme sites > Go to Overview page
+	public void goToOverviewPage(){
+		info("-- Go to Overview page--");
+		Utils.pause(500);
+		if (waitForAndGetElement(ELEMENT_OVERVIEW_PAGE, 3000, 0) != null){
+			click(ELEMENT_OVERVIEW_PAGE);
+		}else {
+			driver.get(DEFAULT_BASEURL + "/acme/overview");
+		}
+		Utils.pause(500);
+	}
+
 	//go to a node
 	//input: path: path of a node, split by  "/" character 
 	public void goToNode(Object locator, Object...params)
@@ -382,12 +397,13 @@ public class EcmsBase extends ManageAccount {
 
 	//function enable edit mode
 	public void enableEditMode(boolean enable){
-		mouseOver(ELEMENT_MENU_EDIT_LINK, true);
-		waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK);
+		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+		//waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK);
 		if ((enable == true && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == true) || 
 				(enable == false && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == false)){
-			click(ELEMENT_MENU_EDIT_CONTENT); 
+			click(ELEMENT_MENU_EDIT_CONTENT, 2); 
 		}
+		Utils.pause(1000);
 	}
 
 	//Up one level

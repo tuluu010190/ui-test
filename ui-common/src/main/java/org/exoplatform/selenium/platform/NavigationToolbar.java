@@ -19,31 +19,50 @@ public class NavigationToolbar extends PlatformBase {
 	//Go to portal sites
 	public void goToPortalSites() {
 		info("--Go to Portal Site Management--");
-		waitForAndGetElement(By.xpath(ELEMENT_LINK_SETUP));
-		mouseOver(ELEMENT_LINK_SETUP, false);
-		Utils.pause(500);
-		mouseOver(ELEMENT_LINK_PORTAL, false);
+		String url = DEFAULT_BASEURL + "/g/:platform:administrators/portalnavigation";
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				driver.get(url);
+				break;
+			}
+			mouseOverAndClick(ELEMENT_LINK_SETUP);
+			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, 5000, 0)!= null) {	
+				mouseOver(ELEMENT_LINK_PORTAL, false);
+				if (waitForAndGetElement(ELEMENT_LINK_SITES, 5000, 0)!= null){
+					click(ELEMENT_LINK_SITES);
+					break;
+				}
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		waitForTextPresent("Manage Sites");
+		/*mouseOver(ELEMENT_LINK_PORTAL, false);
 		Utils.pause(500);
 		mouseOver(ELEMENT_LINK_SITES, false);
 		click(ELEMENT_LINK_SITES);
-		Utils.pause(500);
+		Utils.pause(500);*/
 	}
 
 	//Go to Portal Manage Pages	
 	public void goToManagePages() {
 		info("--Go to Portal Site Management--");
-		//		waitForAndGetElement(By.xpath(ELEMENT_LINK_SETUP));
-		for(;;){
-			mouseOver(ELEMENT_LINK_SETUP, false);
-			Utils.pause(500);
-			if (waitForAndGetElement(ELEMENT_LINK_PORTAL,15000,0)!=null) {	
+		String url = DEFAULT_BASEURL + "/g/:platform:administrators/administration/pageManagement";
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				driver.get(url);
+				break;
+			}
+			mouseOverAndClick(ELEMENT_LINK_SETUP);
+			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, 5000, 0)!= null) {	
 				mouseOver(ELEMENT_LINK_PORTAL, false);
-				if (waitForAndGetElement(ELEMENT_LINK_PAGES,15000,0)!=null){
+				if (waitForAndGetElement(ELEMENT_LINK_PAGES, 5000, 0)!= null){
 					click(ELEMENT_LINK_PAGES);
 					break;
 				}
 			}
+			info("Retry...[" + repeat + "]");
 		}
+		waitForTextPresent("Page Id");
 	}
 
 	//Go to Dashboard
@@ -190,9 +209,11 @@ public class NavigationToolbar extends PlatformBase {
 	
 	//Go to Page Creation Wizard
 	public void goToPageCreationWinzard(){
-		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
-		mouseOver(ELEMENT_MENU_PAGE_LINK,true);
-		click(ELEMENT_MENU_ADD_PAGE_LINK);	
+		Utils.pause(1000);
+		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+		//mouseOverAndClick(ELEMENT_MENU_PAGE_LINK);
+		//click(ELEMENT_MENU_ADD_PAGE_LINK);
+		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'PageCreationWizard', true));");
 		Utils.pause(1000);
 	}
 
@@ -208,6 +229,7 @@ public class NavigationToolbar extends PlatformBase {
 	//Function to go to SEO management
 	public void goToSeoManagement(){
 		info("Go to SEO management form");
+		Utils.pause(1000);
 		mouseOver(ELEMENT_MENU_EDIT_LINK, true);
 		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
 		mouseOverAndClick(ELEMENT_MENU_SEO_LINK);	

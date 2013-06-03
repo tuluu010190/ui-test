@@ -73,7 +73,8 @@ public class PlatformBase extends TestBase {
 	/* Edit */
 	public final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
 	//Content
-	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
+	public final By ELEMENT_MENU_EDIT_CONTENT = By.className("quickEditUnchecked");
+			//By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
 	//Page
 	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
@@ -92,8 +93,7 @@ public class PlatformBase extends TestBase {
 	//Application
 	public By ELEMENT_APPLICATIONS_LINK = By.linkText("Applications");
 	//Content
-	public final By ELEMENT_MENU_CONTENT_LINK = By.xpath("//*[text()='Content']");
-	//By.linkText("Content");
+	public final By ELEMENT_MENU_CONTENT_LINK = By.xpath("//*[text()= 'Content']");
 	public final By ELEMENT_MENU_SITE_EXPLORER = By.xpath("//*[text()='Sites Explorer']");
 	//By.linkText("Sites Explorer");
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
@@ -266,14 +266,14 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_EDIT_PAGE_CATEGORY_MENU = "//a[@class='TabLabel' and @title='${categoryLabel}']";
 	public final String ELEMENT_EDIT_PAGE_PAGE = "//div[@id='UIPage']";
 	public final String ELEMENT_PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
-	public final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//a[@title='Finish']";
-	public final By ELEMENT_PAGE_EDIT_FINISH = By.xpath("//a[@title='Finish']");
-	public final By ELEMENT_PAGE_EDIT_FINISH_OTHER = By.xpath("//a[@data-original-title='Finish']");
+	public final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//*[@data-original-title='Finish']";
+	//public final By ELEMENT_PAGE_EDIT_FINISH = By.xpath("//*[@data-original-title='Finish']");
+	//public final By ELEMENT_PAGE_EDIT_FINISH_OTHER = By.xpath("//a[@data-original-title='Finish']");
 	public final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
 
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
-	public final String ELEMENT_NODE_LINK = "//div[@id='UINavigationNodeSelector']//a[@title='${nodeLabel}']";
-	public final String ELEMENT_EDIT_NAVIGATION = "//div[@class='Label' and text()='${navigation}']/../../td[2]//a[@class='EditNavIcon']";
+	public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
+	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
 	public final String ELEMENT_ADD_NODE_LINK = "//a[text()='Add Node']";
 	public final String ELEMENT_PAGE_SELECTOR_TAB = "//div[text()='Page Selector' and @class='MiddleTab']";
 	public final String ELEMENT_INPUT_PAGE_NAME = "//input[@id='pageName']";
@@ -286,14 +286,15 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_NAVIGATION_HOME_NODE = "//div[@class='HomeNode']";				 
 	public final String ELEMENT_NODE_ADD_NEW_TOP_NODE = "//div[@id='UINavigationNodeSelectorPopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
 	public final String ELEMENT_NODE_ADD_NEW = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
-	public final String ELEMENT_NODE_DELETE = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon DeleteNode16x16Icon']";
+	public final By ELEMENT_NODE_DELETE = By.className("uiIconDeleteNode");
 	public final String ELEMENT_NODE_EDIT = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
 	//	public final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 
 	//Add new Page
 	public final By ELEMENT_NEWPAGE_NAME_TEXTBOX = By.id("pageName");	
-	public final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//a[@title='Finish']");
-	public final By ELEMENT_NEWPAGE_LAYOUT_OPTION = By.xpath("//div[@class='DropDownSelectLabel']") ;
+	//public final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//*[@data-original-title='Finish']");
+	public final By ELEMENT_NEWPAGE_LAYOUT_OPTION = By.className("caret");
+	//By.xpath("//div[@class='DropDownSelectLabel']") ;
 
 	//Page Creation Wizard -> Page Configs
 	public final By ELEMENT_NEWPAGE_LAYOUT_COLUMN_PAGE_OPTION = By.linkText("Column Page Configs") ;
@@ -306,7 +307,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_ADD_CONTENT_DETAIL_PORTLET = By.xpath("//div[contains(text(),'Content Detail')]");
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.xpath("//div[@id='UIPage']");
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
-	public final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[text()='Content List']");
+	public final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[contains(text(),'Content List')]");
 	public final By ELEMENT_FRAME_CONTAIN_PORTLET = By.xpath("//div[contains(@id,'UIPortlet')]");
 	public final By ELEMENT_CONTENT_DETAIL_IN_LAYOUT = By.xpath("//*[contains(@id, 'UIPortlet')]//div[contains(text(),'Content Detail')]");
 	public final By ELEMENT_CONTENT_DETAIL_EDIT_ICON =  By.xpath("//*[text()='Content Detail']/..//a[@data-original-title='Edit Portlet']");
@@ -339,10 +340,10 @@ public class PlatformBase extends TestBase {
 	 * */
 
 	/*Portlet in general*/
-	public final By ELEMENT_EDIT_PORTLET_ICON = By.xpath("//a[@title='Edit Portlet']");
-	public final By ELEMENT_DELETE_PORTLET_ICON = By.xpath("//a[@title='Delete Portlet']");
+	public final By ELEMENT_EDIT_PORTLET_ICON = By.xpath("//*[@data-original-title='Edit Portlet']");
+	public final By ELEMENT_DELETE_PORTLET_ICON = By.xpath("//*[@data-original-title='Delete Portlet']");
 	public final By ELEMENT_PORTLET_CONTAINER = By.className("PortletLayoutDecorator");
-	public final By ELEMENT_ABORTEDIT_BUTTON = By.xpath("//a[@title='Abort']");
+	public final By ELEMENT_ABORTEDIT_BUTTON = By.xpath("//*[@data-original-title='Abort']");
 	//Edit portlet Form
 	public final By ELEMENT_WINDOW_SETTINGS_TAB = By.xpath("//div[@id='UIMaskWorkspace']//div[text()='Window Settings']");
 	public final By ELEMENT_WINDOWS_TITLE = By.xpath("//*[@id='title']");

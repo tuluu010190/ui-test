@@ -140,6 +140,7 @@ public class TestBase {
 	public boolean isElementNotPresent(Object locator) {
 		return !isElementPresent(locator);
 	}
+	
 	/*
 	 * @opPram[0]: timeout
 	 * @opPram[1]: 0,1
