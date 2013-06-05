@@ -1,9 +1,11 @@
 package org.exoplatform.selenium;
 
-import static org.exoplatform.selenium.TestLogger.*;
+import static org.exoplatform.selenium.TestLogger.debug;
+import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.List;
 import java.util.Set;
+
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -32,7 +34,7 @@ public class TestBase {
 	protected boolean ieFlag;	 
 	protected boolean chromeFlag;
 	public final int ACTION_REPEAT = 5;
-	//public static boolean agreementCheck = false;
+	public static boolean firstTimeLogin = false;
 
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
@@ -50,38 +52,51 @@ public class TestBase {
 		}
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
-		//termsAndConditions();
+		termsAndConditions();
 	}
 
-//		public void termsAndConditions(){
-//			info("-- Checking the terms and conditions agreement... --");
-//			if (isElementPresent(ELEMENT_AGREEMENT_CHECKBOX)) {
-//				click(ELEMENT_AGREEMENT_CHECKBOX, 2);
-//				click(ELEMENT_CONTINUE_BUTTON);
-//			}else{
-//				info("-- Terms and conditions agreement have been accepted... --");
-//			}
-//			waitForTextNotPresent("terms and conditions agreement");
-//
-//			if (isElementPresent(ELEMENT_ROOT_PASS_ACCOUNT)){
-//				info("-- Creating an Admin account: FQA... --");
-//				type(ELEMENT_INPUT_USERNAME, "fqa", true);
-//				type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
-//				type(ELEMENT_LASTNAME_ACCOUNT, "VN", true);
-//				type(ELEMENT_EMAIL_ACCOUNT, "fqa@exoplatform.com", true);	
-//				type(ELEMENT_INPUT_PASSWORD, "gtngtn", true);
-//				type(ELEMENT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);	
-//				type(ELEMENT_ROOT_PASS_ACCOUNT, "gtngtn", true);
-//				type(ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);
-//				click(ELEMENT_SUBMIT_BUTTON);
-//				waitForTextNotPresent("Create your account");
-//				click(ELEMENT_START_BUTTON);
-//				info("-- Administrator account (FQA) has been created successfully... --"); 
-//				waitForElementNotPresent(ELEMENT_START_BUTTON);
-//			}
-//			Utils.pause(1000);
-//			//waitForElementPresent(ELEMENT_ACCOUNT_NAME_LINK);      
-//		}
+		public void termsAndConditions(){
+			
+			By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
+			By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
+			By ELEMENT_EMAIL_ACCOUNT = By.name("emailAccount");
+			By ELEMENT_CONFIRM_PASS_ACCOUNT = By.name("confirmUserPasswordAccount");
+			By ELEMENT_ROOT_PASS_ACCOUNT = By.name("adminPassword");
+			By ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT = By.name("confirmAdminPassword");
+			By ELEMENT_AGREEMENT_CHECKBOX = By.xpath("//*[@id = 'agreement']");
+			By ELEMENT_INPUT_USERNAME = By.name("username"); 
+			By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue']");
+			By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
+			By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
+			By ELEMENT_INPUT_PASSWORD = By.name("password");
+			By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+			
+			driver.get(baseUrl);
+			if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 10000, 0, 2) != null) {
+				info("-- Checking the terms and conditions agreement... --");
+				click(ELEMENT_AGREEMENT_CHECKBOX, 2);
+				click(ELEMENT_CONTINUE_BUTTON);
+				waitForTextNotPresent("terms and conditions agreement");
+
+				info("-- Creating an Admin account: FQA... --");
+				type(ELEMENT_INPUT_USERNAME, "fqa", true);
+				type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
+				type(ELEMENT_LASTNAME_ACCOUNT, "VN", true);
+				type(ELEMENT_EMAIL_ACCOUNT, "fqa@exoplatform.com", true);	
+				type(ELEMENT_INPUT_PASSWORD, "gtngtn", true);
+				type(ELEMENT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);	
+				type(ELEMENT_ROOT_PASS_ACCOUNT, "gtngtn", true);
+				type(ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);
+				click(ELEMENT_SUBMIT_BUTTON);
+				waitForTextNotPresent("Create your account");
+				click(ELEMENT_START_BUTTON);
+				waitForElementPresent(ELEMENT_ACCOUNT_NAME_LINK);
+				
+				firstTimeLogin = true;
+				info("-- Administrator account (FQA) has been created successfully... --");
+			} 
+			Utils.pause(1000);     
+		}
 
 	public WebElement getElement(Object locator) {
 		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
