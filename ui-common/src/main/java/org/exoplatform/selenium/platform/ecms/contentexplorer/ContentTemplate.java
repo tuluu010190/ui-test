@@ -223,7 +223,7 @@ public class ContentTemplate extends EcmsBase{
 				switchToParentWindow();
 				String links[] = img.split("/");
 				int length = links.length;
-				waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
+				waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 			}
 			if (!lines){
 				inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME, sum);
@@ -276,7 +276,7 @@ public class ContentTemplate extends EcmsBase{
 		}
 		button.saveAndClose();
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", cont)), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", cont)), DEFAULT_TIMEOUT, 1, 2);
 		Utils.pause(1000);
 	}
 	
@@ -366,7 +366,7 @@ public class ContentTemplate extends EcmsBase{
 			switchToParentWindow();
 			String links[] = file.split("/");
 			int length = links.length;
-			waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
+			waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		}
 		//Illustration tab
 		if (illustrationSummary!="" || illustrationImage !=""){
@@ -379,7 +379,7 @@ public class ContentTemplate extends EcmsBase{
 				switchToParentWindow();
 				String links[] = illustrationImage.split("/");
 				int length = links.length;
-				waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
+				waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 			}
 			inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME, illustrationSummary);
 			switchToParentWindow();
@@ -391,7 +391,7 @@ public class ContentTemplate extends EcmsBase{
 			type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, false);
 		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", content)));
+		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", content)));
 	}
 
 	//add new product
@@ -422,7 +422,7 @@ public class ContentTemplate extends EcmsBase{
 			switchToParentWindow();
 			String links[] = illus.split("/");
 			int length = links.length;
-			waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
+			waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		}
 		if (sum != ""){
 			if (! lines){
@@ -474,7 +474,7 @@ public class ContentTemplate extends EcmsBase{
 		}
 		click(ELEMENT_CREATE_FOLDER_BUTTON);
 		//waitForElementPresent(By.xpath("//*[contains(text(),'"+ title +"')]"));
-		waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", title)));
+		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", title)));
 		Utils.pause(1000);
 	}
 
@@ -526,7 +526,7 @@ public class ContentTemplate extends EcmsBase{
 	public void createAndCheckContentFolder(String name, By path){
 		info("Create new content folder with name: "+name);
 		createNewFolder(name, folderType.Content);
-		waitForElementPresent(path);
+		waitForAndGetElement(path);
 		info("Create new content folder successfully"); 
 	}
 
@@ -596,7 +596,7 @@ public class ContentTemplate extends EcmsBase{
 		if (option == 0){
 			button.save();
 			//waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
-			waitForElementPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+			waitForAndGetElement(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		} else if (option == 1){
 			button.close();
 			magAlert.acceptAlert();
@@ -631,7 +631,7 @@ public class ContentTemplate extends EcmsBase{
 			switchToParentWindow();
 			String links[] = file.split("/");
 			int length = links.length;
-			waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
+			waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 		}
 		if (!imageWidth.isEmpty())
 			type(ELEMENT_PIC_IMGWIDTH, imageWidth,true);
@@ -643,7 +643,7 @@ public class ContentTemplate extends EcmsBase{
 		//Illustration tab
 		if (illustrationSummary != "" || illustrationImage != ""){
 			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
-			waitForElementPresent(By.xpath("//*[@class='active']//*[contains(text(), 'Illustration')]"));
+			waitForAndGetElement(By.xpath("//*[@class='active']//*[contains(text(), 'Illustration')]"));
 			if (illustrationImage != ""){
 				//WebElement removeIcon = waitForAndGetElement(ELEMENT_UPLOAD_REMOVE);
 				if (waitForAndGetElement(ELEMENT_UPLOAD_REMOVE, 3000, 0) != null)
@@ -659,7 +659,7 @@ public class ContentTemplate extends EcmsBase{
 				switchToParentWindow();
 				String links[] = illustrationImage.split("/");
 				int length = links.length;
-				waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "..." +"')]"));
+				waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "..." +"')]"));
 			}
 			inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME, illustrationSummary, true);
 			switchToParentWindow();
@@ -674,7 +674,7 @@ public class ContentTemplate extends EcmsBase{
 
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		waitForElementPresent(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentToEdit)));
+		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentToEdit)));
 	}
 
 	//Edit WebContent Inline
@@ -685,7 +685,7 @@ public class ContentTemplate extends EcmsBase{
 		inputDataToFrame(inputField, value, true);
 		switchToParentWindow();
 		click(accept);
-		waitForElementPresent(By.xpath("//p[contains(text(),'"+value+"')]"));
+		waitForAndGetElement(By.xpath("//p[contains(text(),'"+value+"')]"));
 	}
 
 	//Edit a WebContent
@@ -702,7 +702,7 @@ public class ContentTemplate extends EcmsBase{
 
 		if (sum != "" || img != ""){
 			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
-			waitForElementPresent(By.xpath("//*[@class='active']//*[contains(text(), 'Illustration')]"));
+			waitForAndGetElement(By.xpath("//*[@class='active']//*[contains(text(), 'Illustration')]"));
 			if (img != ""){
 				WebElement removeIcon = waitForAndGetElement(ELEMENT_UPLOAD_REMOVE);
 				if (removeIcon != null)
@@ -720,7 +720,7 @@ public class ContentTemplate extends EcmsBase{
 				switchToParentWindow();
 				String links[] = img.split("/");
 				int length = links.length;
-				waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "..." +"')]"));
+				waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "..." +"')]"));
 			}
 			inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME,sum,true);
 			switchToParentWindow();

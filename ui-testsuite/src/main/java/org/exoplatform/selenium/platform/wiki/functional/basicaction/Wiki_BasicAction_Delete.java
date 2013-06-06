@@ -44,7 +44,7 @@ public class Wiki_BasicAction_Delete extends BasicAction {
 		
 		deleteCurrentWikiPage(true);
 		
-		waitForElementPresent(ELEMENT_PAGE1);
+		waitForAndGetElement(ELEMENT_PAGE1);
 		
 		deleteCurrentWikiPage();
 		

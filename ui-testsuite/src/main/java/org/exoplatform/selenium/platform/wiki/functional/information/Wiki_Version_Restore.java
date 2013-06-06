@@ -60,7 +60,7 @@ public class Wiki_Version_Restore extends Version{
 
 		goToRevisionsPage();
 
-		waitForElementPresent(ELEMENT_CURRENT_VERSION.replace("${version}", "4"));
+		waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "4"));
 
 		deleteCurrentWikiPage();
 	}

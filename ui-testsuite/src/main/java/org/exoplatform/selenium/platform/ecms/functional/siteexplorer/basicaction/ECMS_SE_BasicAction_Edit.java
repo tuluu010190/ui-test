@@ -162,7 +162,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		button.close();
 
 		//check after editing
-		waitForElementPresent(cTemplate.ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", DATA_FILE_TITLE_05_EDIT), 3000, 0);
+		waitForAndGetElement(cTemplate.ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", DATA_FILE_TITLE_05_EDIT), 3000, 0);
 
 		//delete document
 		cMenu.deleteDocument(bDocument);
@@ -238,12 +238,12 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		//edit an uploaded file
 		//Show the form displaying information of file
 		actBar.goToEditDocument(DATA_UPLOAD_TITLE_29 + ".png");
-		waitForElementPresent(cTemplate.ELEMENT_NEWFILE_NAME_TEXTBOX);
+		waitForAndGetElement(cTemplate.ELEMENT_NEWFILE_NAME_TEXTBOX);
 		Utils.captureScreen("ECMS_Edit_Uploaded_File_Image");
 		button.close();
 
 		actBar.goToEditDocument("test.txt");
-		waitForElementPresent(cTemplate.ELEMENT_NEWFILE_NAME_TEXTBOX);
+		waitForAndGetElement(cTemplate.ELEMENT_NEWFILE_NAME_TEXTBOX);
 		Utils.captureScreen("ECMS_Edit_Uploaded_File_Txt"); 
 		button.close();
 

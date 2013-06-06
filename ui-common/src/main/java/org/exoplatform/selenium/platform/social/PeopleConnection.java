@@ -43,7 +43,7 @@ public class PeopleConnection extends SocialBase {
 
 		info("-----Click connect to people-----");
 
-		waitForElementPresent(ELEMENT_CONNECT_BUTTON);
+		waitForAndGetElement(ELEMENT_CONNECT_BUTTON);
 
 		click(ELEMENT_CONNECT_BUTTON);
 
@@ -53,7 +53,7 @@ public class PeopleConnection extends SocialBase {
 
 		info("-----Verify Cancel request button is displayed-----");
 
-		waitForElementPresent(ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", peopleName));
+		waitForAndGetElement(ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", peopleName));
 	}
 
 	/**
@@ -70,13 +70,13 @@ public class PeopleConnection extends SocialBase {
 
 		goToMyConnections();
 
-		waitForElementPresent(ELEMENT_REQUESTS_RECEIVED_TAB);
+		waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB);
 
 		info("---Click Requests Received tab-----");
 
 		click(ELEMENT_REQUESTS_RECEIVED_TAB);
 
-		waitForElementPresent(ELEMENT_CONFIRM_BUTTON);
+		waitForAndGetElement(ELEMENT_CONFIRM_BUTTON);
 
 		info("----Confirm the invitation from user '"+peopleName+"' ");
 
@@ -90,7 +90,7 @@ public class PeopleConnection extends SocialBase {
 
 		info("---Verify remove connection button----");
 
-		waitForElementPresent(ELEMENT_REMOVE_CONNECTION_BUTTON);	
+		waitForAndGetElement(ELEMENT_REMOVE_CONNECTION_BUTTON);	
 
 	}
 
@@ -108,13 +108,13 @@ public class PeopleConnection extends SocialBase {
 
 		goToMyConnections();
 
-		waitForElementPresent(ELEMENT_REQUESTS_RECEIVED_TAB);
+		waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB);
 
 		info("---Click Requests Received tab-----");
 
 		click(ELEMENT_REQUESTS_RECEIVED_TAB);
 
-		waitForElementPresent(ELEMENT_IGNORE_BUTTON);
+		waitForAndGetElement(ELEMENT_IGNORE_BUTTON);
 		
 		info("---Ignore the invitation from user '"+peopleName+"'-----");
 		
@@ -126,7 +126,7 @@ public class PeopleConnection extends SocialBase {
 		
 		click(ELEMENT_EVERYONE_TAB);
 		
-		waitForElementPresent(ELEMENT_CONNECT_BUTTON);			
+		waitForAndGetElement(ELEMENT_CONNECT_BUTTON);			
 	}
 	
 	/**

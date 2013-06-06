@@ -99,10 +99,10 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.goToAddSymlinkTab();
 
 		//check Add symlink form
-		waitForElementPresent(ecms.ELEMENT_ADD_SYMLINK_POPUP);
+		waitForAndGetElement(ecms.ELEMENT_ADD_SYMLINK_POPUP);
 		waitForTextPresent("Symlink Manager");
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_PATH_NODE);
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_NAME);  
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK_PATH_NODE);
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK_NAME);  
 		info("Check add symlink popup successfully");
 		dialog.closeMessageDialog();
 	}
@@ -133,8 +133,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.contextMenuAction(ELEMENT_FILE, actionType.SYMLINK);
 
 		// check symlink
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_FOLDER.replaceAll("_", "").toLowerCase() + ".lnk"));
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", FILE_NAME + ".lnk"));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_FOLDER.replaceAll("_", "").toLowerCase() + ".lnk"));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", FILE_NAME + ".lnk"));
 		info("Add symlink for nodes successful");	
 
 		//delete symlink
@@ -166,8 +166,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actions.keyDown(folder, Keys.CONTROL).moveToElement(file).click().contextClick(file).
 		moveToElement(waitForAndGetElement(cMenu.ELEMENT_MENU_ADD_SYMLINK)).click().build().perform();
 
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", folderName + ".lnk"));
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", fileName + ".lnk"));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", folderName + ".lnk"));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", fileName + ".lnk"));
 
 		//delete data
 		cMenu.deleteData(elementFolder);
@@ -187,7 +187,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add symlink for root");
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
 
-		waitForElementPresent(ELEMENT_SYMLINK);
+		waitForAndGetElement(ELEMENT_SYMLINK);
 		info("Add symlink successfully");
 
 		//delete symlink
@@ -213,7 +213,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 		info("Add symlink for content folder");
 		actBar.addSymlink("collaboration", "sites/intranet/documents" , DATA_SYMLINK);
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 
 		//delete data
 		cMenu.deleteData(ELEMENT_CONTENT_FOLDER);
@@ -233,7 +233,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		info("Create new document folder");
 		cTemplate.createNewFolder(DATA_DOCUMENT_FOLDER, folderType.Document);
-		waitForElementPresent(ELEMENT_DOCUMENT_FOLDER);
+		waitForAndGetElement(ELEMENT_DOCUMENT_FOLDER);
 		info("Create new document folder successfully");
 
 		//add symlink
@@ -241,7 +241,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add symlink for document folder");
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
 
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 
 		//delete data
 		cMenu.deleteData(ELEMENT_DOCUMENT_FOLDER);
@@ -335,13 +335,13 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		info("Add symlink for node by right click");
 		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actionType.SYMLINK);
-		waitForElementPresent(ELEMENT_SYMLINK);
+		waitForAndGetElement(ELEMENT_SYMLINK);
 
 		//add symlink for symlink node
 		info("Add symlink for exiting symlink");
 		ecms.goToNode(By.xpath(ELEMENT_SYMLINK));
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 		info("Add symlink for symlink node successfully");
 
 		//delete data
@@ -363,7 +363,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		info("Add symlink for root");
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
-		waitForElementPresent(ELEMENT_SYMLINK);
+		waitForAndGetElement(ELEMENT_SYMLINK);
 		
 		info("Add new content folder");
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
@@ -536,10 +536,10 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
-		waitForElementPresent(ELEMENT_SYMLINK2);
+		waitForAndGetElement(ELEMENT_SYMLINK2);
 		info("Add 2 symlink same name in content folder successfully");
 
 		//delete data
@@ -564,7 +564,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add 2 symlinks have same name in document folder");
 		ecms.goToNode(ELEMENT_DOCUMENT_FOLDER);
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));	
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));	
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
 
 		//check alert
@@ -599,9 +599,9 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		//add 2 symlink have same name for file document
 		info("Add 2 symlinks have same name in file document");
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
-		waitForElementPresent(ELEMENT_SYMLINK);
+		waitForAndGetElement(ELEMENT_SYMLINK);
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
-		waitForElementPresent(ELEMENT_SYMLINK2);
+		waitForAndGetElement(ELEMENT_SYMLINK2);
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_WEB_CONTENT);
@@ -844,7 +844,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		info("Create new file document with user john");
 		cTemplate.createNewFile(DATA_FILE, DATA_FILE, DATA_FILE);
-		waitForElementPresent(ELEMENT_FILE);
+		waitForAndGetElement(ELEMENT_FILE);
 		info("Create new file document successfully");
 
 		//check in node
@@ -893,7 +893,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actions.keyDown(file, Keys.CONTROL).keyDown(Keys.SHIFT).moveToElement(folder).release().build().perform();
 		
 		ecms.goToNode(elementFolder);
-		waitForElementPresent(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", fileName + ".lnk"));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", fileName + ".lnk"));
 
 		//delete data
 		cMenu.deleteData(elementFolder);
@@ -920,7 +920,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
 
 		//check add successfully
-		waitForElementPresent(ELEMENT_SYMLINK);
+		waitForAndGetElement(ELEMENT_SYMLINK);
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
@@ -947,13 +947,13 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add symlink for node with target node is documents");
 		actBar.addSymlink("collaboration", "sites/acme/documents", DATA_SYMLINK);
 
-		waitForElementPresent(ELEMENT_SYMLINK);
+		waitForAndGetElement(ELEMENT_SYMLINK);
 		click(ELEMENT_SYMLINK);
 
 		//check subnode of symlink
-		waitForElementPresent(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "conditions.doc")));
-		waitForElementPresent(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "metro.pdf")));
-		waitForElementPresent(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "offices.jpg")));
+		waitForAndGetElement(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "conditions.doc")));
+		waitForAndGetElement(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "metro.pdf")));
+		waitForAndGetElement(By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", "offices.jpg")));
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
@@ -977,7 +977,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 		actBar.goToTargetNodeWhenAddSymlink("sites/intranet");
 		click(ecms.ELEMENT_TARGET_NODE.replace("${node}", "documents"));
-		waitForElementPresent(ecms.ELEMENT_REMOVE_PATH_NODE);
+		waitForAndGetElement(ecms.ELEMENT_REMOVE_PATH_NODE);
 		click(ecms.ELEMENT_REMOVE_PATH_NODE);
 
 		//check after remove
@@ -1019,7 +1019,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
 
 		//check add successfully
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Add symlink for content folder 1 successfully");
 
 		//rename content folder 2
@@ -1028,7 +1028,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//check name of symlink is not change
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Symlink is kept old name");
 
 		//delete data
@@ -1064,7 +1064,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
 
 		//check add successfully
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Add symlink for content folder 1 successfully");
 
 		//delete content folder 2
@@ -1108,15 +1108,15 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
 
 		//check add successfully
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Add symlink for content folder 1 successfully");
 
 		//rename symlink
 		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_SYMLINK, actionType.RENAME, SYMLINK_NAME_NEW);
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK_NAME); 
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK_NAME); 
 
 		//folder 2 is not renamed
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_2);
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_2);
 		
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);	  
@@ -1150,7 +1150,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
 
 		//check add successfully
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Add symlink for content folder 1 successfully");
 
 		//delete symlink
@@ -1192,7 +1192,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//check copy successfully
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_2);
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
+		waitForAndGetElement(ELEMENT_DOCUMENT_SYMLINK);
 		info("Copy symlink successfully");
 
 		//delete data
@@ -1231,7 +1231,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//check cut successfully
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_2);
-		waitForElementPresent(ELEMENT_DOCUMENT_SYMLINK);
+		waitForAndGetElement(ELEMENT_DOCUMENT_SYMLINK);
 		info("Copy symlink successfully");
 
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
@@ -1271,7 +1271,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.addSymlink("collaboration", "sites/" + DATA_CONTENT_FOLDER_2, SYMLINK_NAME);
 
 		//check add successfully
-		waitForElementPresent(ELEMENT_CONTENT_FOLDER_SYMLINK);
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Add symlink for content folder 1 successfully");
 
 		//add content folder for symlink
@@ -1309,14 +1309,14 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cTemplate.createNewFile(FILE_NAME, FILE_NAME, FILE_NAME);
 		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
 		click(By.xpath(siteExp.ELEMENT_ARROW_RIGHT.replace("${nodeName}", DATA_FOLDER)));
-		waitForElementPresent(ELEMENT_FILE);
+		waitForAndGetElement(ELEMENT_FILE);
 		
 		//select parent and child node
 		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", DATA_FOLDER)), 2);
 		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", FILE_NAME)), 2);
 		click(ecms.ELEMENT_ADD_SYMLINK_LIST_VIEW);
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", DATA_FOLDER));
-		waitForElementPresent(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", FILE_NAME));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", DATA_FOLDER));
+		waitForAndGetElement(ecms.ELEMENT_SYMLINK_OTHER.replace("${name}", FILE_NAME));
 		info("Add symlink successfully");
 
 		//delete data

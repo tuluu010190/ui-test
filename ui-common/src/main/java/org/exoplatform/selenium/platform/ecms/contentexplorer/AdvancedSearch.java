@@ -77,7 +77,7 @@ public class AdvancedSearch extends EcmsBase{
 			click(ELEMENT_ADVANCED_SEARCH_ICON);
 		}
 		click(ELEMENT_ADVANCED_SEARCH_TAB);
-		waitForElementPresent(ELEMENT_CONSTRAINT_FORM);
+		waitForAndGetElement(ELEMENT_CONSTRAINT_FORM);
 		//Utils.pause(500);
 	}
 
@@ -187,7 +187,7 @@ public class AdvancedSearch extends EcmsBase{
 		if(query != "")
 			type(ELEMENT_QUERY_INPUT,query,true);
 		click(ELEMENT_SAVE_QUERY_BUTTON);
-		waitForElementPresent(ELEMENT_SAVED_QUERY_TEXT.replace("${query}", name).replace("${type}", style.toLowerCase()));
+		waitForAndGetElement(ELEMENT_SAVED_QUERY_TEXT.replace("${query}", name).replace("${type}", style.toLowerCase()));
 		button.closeWindow();
 	}
 	/** Open 'Edit query' form in advanced search

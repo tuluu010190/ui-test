@@ -64,7 +64,7 @@ public class ManageView extends EcmsBase{
 		}else if (option.equals("Edit")){
 			//Edit
 			click(ELEMENT_EDIT_VIEW.replace("${viewName}", viewName));
-			waitForElementPresent(ELEMENT_EDIT_VIEW_FORM);	
+			waitForAndGetElement(ELEMENT_EDIT_VIEW_FORM);	
 		}else if (option.equals("Delete")){
 			//Delete
 			click(By.xpath(ELEMENT_DELETE_VIEW.replace("${viewName}", viewName)));     
@@ -91,7 +91,7 @@ public class ManageView extends EcmsBase{
 		
 		info("-- The current view... " + viewName);
 		actionOnSelectedView(viewName, "View");
-		waitForElementPresent(ELEMENT_TEMPLATE_VIEW);
+		waitForAndGetElement(ELEMENT_TEMPLATE_VIEW);
 		
 		//View Settings tab
 		if (verifyTemplate){
@@ -103,13 +103,13 @@ public class ManageView extends EcmsBase{
 		//Action tab
 		click(ELEMENT_ACTION_TAB);
 		if (verifyAction){
-			waitForElementPresent(ELEMENT_ACTION_TAB_NAME.replace("${tabName}", tab));
+			waitForAndGetElement(ELEMENT_ACTION_TAB_NAME.replace("${tabName}", tab));
 			waitForTextPresent(property);
 		}
 		//Permission tab
 		click(ELEMENT_ADDVIEW_PERMISSION_TAB);
 		if (verifyPermission){
-			waitForElementPresent(ELEMENT_VERIFY_PERMISSION.replace("${permission}", permission));
+			waitForAndGetElement(ELEMENT_VERIFY_PERMISSION.replace("${permission}", permission));
 		}
 		button.close();
 		Utils.pause(1000);
@@ -160,7 +160,7 @@ public class ManageView extends EcmsBase{
 		boolean selectUser = (Boolean) (params.length > 7 ? params[7] : false);
 		String user =  (String) (params.length > 8 ? params[8] : "");
 		
-		waitForElementPresent(By.xpath(ELEMENT_DISPLAY_VIEW_ITEM.replace("${viewName}", viewName)));
+		waitForAndGetElement(By.xpath(ELEMENT_DISPLAY_VIEW_ITEM.replace("${viewName}", viewName)));
 		
 		info("-- Editing a view -- " + viewName);
 		actionOnSelectedView(viewName, "Edit");
@@ -205,7 +205,7 @@ public class ManageView extends EcmsBase{
 	public void openAddViewForm(String anchor, String formTitle){
 		//click(By.linkText(anchor));     
 		click(By.xpath("//*[text()='" + anchor + "']"));
-		waitForElementPresent(By.xpath("//*[contains(@class, 'popupTitle') and text()='" + formTitle + "']"));
+		waitForAndGetElement(By.xpath("//*[contains(@class, 'popupTitle') and text()='" + formTitle + "']"));
 	}
 
 	/**
@@ -248,7 +248,7 @@ public class ManageView extends EcmsBase{
 		}
 		button.save();
 		select(By.xpath("//select[contains(@id,'maxPageSize')]"),"20");
-		waitForElementPresent(ELEMENT_EDIT_VIEW.replace("${viewName}", name));
+		waitForAndGetElement(ELEMENT_EDIT_VIEW.replace("${viewName}", name));
 		Utils.pause(1000);
 	}
 
@@ -263,7 +263,7 @@ public class ManageView extends EcmsBase{
 		type(ELEMENT_EXPLORER_TEMPLATE_NAME, templateName, true);
 		select(ELEMENT_EXPLORER_TEMPLATE_TYPE, templateType);
 		button.save();      
-		waitForElementPresent(By.xpath(ELEMENT_DISPLAY_VIEW_ITEM.replace("${viewName}", templateName)));
+		waitForAndGetElement(By.xpath(ELEMENT_DISPLAY_VIEW_ITEM.replace("${viewName}", templateName)));
 	}
 
 	/**
@@ -314,7 +314,7 @@ public class ManageView extends EcmsBase{
 		for(int i = 0; i < versionNumber ; i++) {
 			//editView(viewName);
 			click(ELEMENT_EDIT_VIEW.replace("${viewName}", viewName));
-			waitForElementPresent(ELEMENT_EDIT_EXPLORER_TEMPLATE_TAB);
+			waitForAndGetElement(ELEMENT_EDIT_EXPLORER_TEMPLATE_TAB);
 			if(getElement(ELEMENT_ENABLE_VERSION).isEnabled()){ 
 				click(ELEMENT_ENABLE_VERSION, 2);          
 			}
@@ -331,7 +331,7 @@ public class ManageView extends EcmsBase{
 	public void restoreVersion(String viewName, int orderVersion){
 		//editView(viewName);
 		click(ELEMENT_EDIT_VIEW.replace("${viewName}", viewName));
-		waitForElementPresent(ELEMENT_EDIT_EXPLORER_TEMPLATE_TAB);
+		waitForAndGetElement(ELEMENT_EDIT_EXPLORER_TEMPLATE_TAB);
 		String order = "" + orderVersion;
 		if (isElementPresent(ELEMENT_VERSION_OPTION)){
 			select(ELEMENT_VERSION_OPTION, order);

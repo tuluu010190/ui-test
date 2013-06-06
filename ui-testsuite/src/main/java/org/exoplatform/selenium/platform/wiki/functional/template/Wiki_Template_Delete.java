@@ -82,7 +82,7 @@ public class Wiki_Template_Delete extends Template{
 
 		magAlert.cancelAlert();
 
-		waitForElementPresent(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
+		waitForAndGetElement(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
 		goToWikiHome();
 

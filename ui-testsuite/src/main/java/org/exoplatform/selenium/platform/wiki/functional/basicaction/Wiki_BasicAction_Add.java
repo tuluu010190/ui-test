@@ -169,7 +169,7 @@ public class Wiki_BasicAction_Add extends Template{
 		goToWiki();
 		deleteSpacePermission(userGroupR[0]);
 		addSpacePermission(mode, userGroup);
-		waitForElementPresent(ELEMEN_USER);
+		waitForAndGetElement(ELEMEN_USER);
 
 		//Verify that James can't add new page
 		magAcc.signOut();
@@ -205,8 +205,8 @@ public class Wiki_BasicAction_Add extends Template{
 
 		goToWiki();
 		previewWikiPage(title, content, mode);
-		waitForElementPresent(uiWikiPageTitlePreview);
-		waitForElementPresent(wikiContent);
+		waitForAndGetElement(uiWikiPageTitlePreview);
+		waitForAndGetElement(wikiContent);
 
 		//click(button.ELEMENT_CLOSE_WINDOW);
 		button.closeWindow();
@@ -249,7 +249,7 @@ public class Wiki_BasicAction_Add extends Template{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
-		waitForElementPresent(ELEMENT_CONTENT);
+		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
@@ -268,7 +268,7 @@ public class Wiki_BasicAction_Add extends Template{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
-		waitForElementPresent(By.xpath("//em[text()='" + content.replace("//", "") + "']"));
+		waitForAndGetElement(By.xpath("//em[text()='" + content.replace("//", "") + "']"));
 		info("Create new page successfully");
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
@@ -288,7 +288,7 @@ public class Wiki_BasicAction_Add extends Template{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
-		waitForElementPresent(ELEMENT_CONTENT);
+		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
@@ -308,7 +308,7 @@ public class Wiki_BasicAction_Add extends Template{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
-		waitForElementPresent(ELEMENT_CONTENT);
+		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
@@ -328,7 +328,7 @@ public class Wiki_BasicAction_Add extends Template{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
-		waitForElementPresent(ELEMENT_CONTENT);
+		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
@@ -351,7 +351,7 @@ public class Wiki_BasicAction_Add extends Template{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
-		waitForElementPresent(ELEMENT_CONTENT);
+		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
@@ -374,7 +374,7 @@ public class Wiki_BasicAction_Add extends Template{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
-		waitForElementPresent(ELEMENT_CONTENT);
+		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
@@ -395,7 +395,7 @@ public class Wiki_BasicAction_Add extends Template{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
-		waitForElementPresent(ELEMENT_CONTENT);
+		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
@@ -415,7 +415,7 @@ public class Wiki_BasicAction_Add extends Template{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
-		waitForElementPresent(ELEMENT_CONTENT);
+		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);

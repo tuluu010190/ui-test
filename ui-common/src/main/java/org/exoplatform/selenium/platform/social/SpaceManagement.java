@@ -77,7 +77,7 @@ public class SpaceManagement extends SocialBase {
 	public void clickButton(String label) {
 		By button = By.xpath("//div[@class='uiAction']/a[text()='" + label + "']");
 				//("//*[contains(@class,'ActionButton') and text()='" + label + "']");
-		waitForElementPresent(button);
+		waitForAndGetElement(button);
 		click(button);
 	}
 
@@ -87,7 +87,7 @@ public class SpaceManagement extends SocialBase {
 	 * @param label : Tab label
 	 */
 	public void switchTabs(By tab) {
-		waitForElementPresent(tab);
+		waitForAndGetElement(tab);
 		click(tab);
 	}
 	/**
@@ -117,7 +117,7 @@ public class SpaceManagement extends SocialBase {
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT; 
 
 		click(ELEMENT_ADDNEWSPACE_BUTTON);
-		waitForElementPresent(ELEMENT_ADDNEWSPACE_FORM);
+		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM);
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
 		clickButton("Create");
@@ -152,7 +152,7 @@ public class SpaceManagement extends SocialBase {
 		String[] regis = {"open", "validation", "close"};
 
 		click(ELEMENT_ADDNEWSPACE_BUTTON);
-		waitForElementPresent(ELEMENT_ADDNEWSPACE_FORM);
+		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM);
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
 		switchTabs(ELEMENT_ACCESS_TAB);
@@ -256,7 +256,7 @@ public class SpaceManagement extends SocialBase {
 			waitForTextPresent("Update info of space successful.");
 			dialog.closeMessageDialog();
 		}else{
-			waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + newName + "']"));
+			waitForAndGetElement(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + newName + "']"));
 		}
 	}
 	/**
@@ -265,7 +265,7 @@ public class SpaceManagement extends SocialBase {
 	 */
 	public void gotoEditSpace(String name){    
 		doAction("Edit", name);
-		waitForElementPresent(ELEMENT_SPACE_SETTING_TAB);    
+		waitForAndGetElement(ELEMENT_SPACE_SETTING_TAB);    
 	}
 	/**
 	 * Change avatar of a space
@@ -275,7 +275,7 @@ public class SpaceManagement extends SocialBase {
 		if(!file.contains("ui-testsuite")) file = Utils.getAbsoluteFilePath(file); 
 		click(ELEMENT_CHANGE_AVATAR_ICON);
 		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
-		waitForElementPresent(ELEMENT_UPLOAD_IMG_ID);
+		waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID);
 		type(ELEMENT_UPLOAD_IMG_ID, file, false);
 		Utils.pause(500);
 		switchToParentWindow();

@@ -86,7 +86,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		//verify if paste the content folder successfully in acme folder 
 		waitForElementNotPresent(bCont);
 		ecms.goToNode(targetNode);
-		waitForElementPresent(bCont);
+		waitForAndGetElement(bCont);
 
 		//delete data
 		cMenu.deleteDocument(bTarget);
@@ -113,7 +113,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 
 		//verify if paste document folder successfully in destination folder 
 		ecms.goToNode(bDocDes);
-		waitForElementPresent(bDocDes);
+		waitForAndGetElement(bDocDes);
 
 		//delete data
 		cMenu.deleteDocument(bDocDes);
@@ -140,7 +140,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 
 		//verify if paste document folder successfully in destination folder 
 		ecms.goToNode(bDocDes);
-		waitForElementPresent(bDocDes);
+		waitForAndGetElement(bDocDes);
 
 		//delete data
 		cMenu.deleteDocument(bDocDes);
@@ -188,7 +188,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 
 		//create an uploaded file -destination
 		ecms.uploadFile(img);
-		waitForElementPresent(bDocDes);
+		waitForAndGetElement(bDocDes);
 
 		//cut and paste the document folder to uploaded file
 		cMenu.cutNode(bDoc);
@@ -224,7 +224,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		waitForElementNotPresent(bDoc);
 		ecms.goToNode(bDocDes);
 		ecms.goToNode(bDoc);
-		waitForElementPresent(By.xpath("//*[contains(@value,'"+ titleDes + "/" + title + "')]"));
+		waitForAndGetElement(By.xpath("//*[contains(@value,'"+ titleDes + "/" + title + "')]"));
 
 		//delete data
 		cMenu.deleteDocument(bDocDes);
@@ -243,7 +243,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 
 		//upload an uploaded file - source
 		ecms.uploadFile(img);
-		waitForElementPresent(bDoc);
+		waitForAndGetElement(bDoc);
 
 		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
@@ -257,7 +257,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		waitForElementNotPresent(bDoc);
 		
 		ecms.goToNode(titleDes);
-		waitForElementPresent(bDoc);
+		waitForAndGetElement(bDoc);
 
 		//delete data
 		cMenu.deleteDocument(bDocDes);
@@ -294,7 +294,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		//verify if paste the uploaded file in an article
 		waitForElementNotPresent(bDoc);
 		ecms.goToNode(titleDes);
-		waitForElementPresent(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", title));
+		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", title));
 
 		//delete data
 		cMenu.deleteDocument(bDocDes);

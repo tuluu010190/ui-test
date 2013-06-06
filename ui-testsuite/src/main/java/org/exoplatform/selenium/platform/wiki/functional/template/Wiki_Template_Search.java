@@ -54,7 +54,7 @@ public class Wiki_Template_Search extends Template{
 
 		searchTemplate(DATA_TEMPLATE_TITLE);
 
-		waitForElementPresent(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
+		waitForAndGetElement(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
 		deleteTemplate(DATA_TEMPLATE_TITLE);
 	}
@@ -80,11 +80,11 @@ public class Wiki_Template_Search extends Template{
 
 		addTemplate(DATA_TEMPLATE_TITLE, DATA_TEMPLATE_DESC, DATA_TEMPLATE_CONTENT);
 
-		waitForElementPresent(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
+		waitForAndGetElement(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
 		searchTemplate(DATA_SEARCH_KEY_WORD);
 
-		waitForElementPresent(By.xpath(ELEMENT_EMPTY_DATA));
+		waitForAndGetElement(By.xpath(ELEMENT_EMPTY_DATA));
 
 		magAc.signOut();
 
@@ -120,7 +120,7 @@ public class Wiki_Template_Search extends Template{
 
 		addTemplate(DATA_TEMPLATE_TITLE, DATA_TEMPLATE_DESC, DATA_TEMPLATE_CONTENT);
 
-		waitForElementPresent(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
+		waitForAndGetElement(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
 		searchTemplate(DATA_SEARCH_KEY_WORD);
 

@@ -62,14 +62,14 @@ public class HomePageActivity extends PlatformBase{
 	public void checkInforAfterAddingDocument(String name, String iconType, String contentType, String size, String content, 
 			String version, String des, String status){
 		info("Check name of content");
-		waitForElementPresent(ELEMENT_CONTENT_NAME.replace("@{fileName}", name));
+		waitForAndGetElement(ELEMENT_CONTENT_NAME.replace("@{fileName}", name));
 		if (iconType != ""){
 			info("Check icon content type");
-			waitForElementPresent(ELEMENT_CONTENT_TYPE_ICON.replace("@{fileName}", name).replace("${icon}", iconType));	
+			waitForAndGetElement(ELEMENT_CONTENT_TYPE_ICON.replace("@{fileName}", name).replace("${icon}", iconType));	
 		}
 		if (contentType != ""){
 			info("Check content type");
-			waitForElementPresent(ELEMENT_CONTENT_TYPE.replace("@{fileName}", name).replace("${type}", contentType));
+			waitForAndGetElement(ELEMENT_CONTENT_TYPE.replace("@{fileName}", name).replace("${type}", contentType));
 		}
 		if (content != ""){
 			info("Check content summary");
@@ -88,19 +88,19 @@ public class HomePageActivity extends PlatformBase{
 		}
 		if (size != ""){
 			info("Check content size");
-			waitForElementPresent(ELEMENT_FILE_SIZE.replace("@{fileName}", name).replace("${size}", size));
+			waitForAndGetElement(ELEMENT_FILE_SIZE.replace("@{fileName}", name).replace("${size}", size));
 		}
 		if (version != ""){
 			info("Check content version");
-			waitForElementPresent(ELEMENT_CONTENT_VERSION.replace("@{fileName}", name).replace("${version}", version));
+			waitForAndGetElement(ELEMENT_CONTENT_VERSION.replace("@{fileName}", name).replace("${version}", version));
 		}
 		if (des != ""){
 			info("Check content description");
-			waitForElementPresent(ELEMENT_CONTENT_DESCRIPTION.replace("@{fileName}", name).replace("${des}", des));
+			waitForAndGetElement(ELEMENT_CONTENT_DESCRIPTION.replace("@{fileName}", name).replace("${des}", des));
 		}
 		if (status != ""){
 			info("Check content status");
-			waitForElementPresent(ELEMENT_CONTENT_STATUS.replace("@{fileName}", name).replace("${status}", status));
+			waitForAndGetElement(ELEMENT_CONTENT_STATUS.replace("@{fileName}", name).replace("${status}", status));
 		}
 	}
 
@@ -110,7 +110,7 @@ public class HomePageActivity extends PlatformBase{
 	 * @param titleEdit
 	 */
 	public void checkTitleAfterEditing(String name, String titleEdit){
-		waitForElementPresent(ELEMENT_CONTENT_COMMENT_EDIT_TITLE.replace("@{fileName}", name).replace("${title}", titleEdit));
+		waitForAndGetElement(ELEMENT_CONTENT_COMMENT_EDIT_TITLE.replace("@{fileName}", name).replace("${title}", titleEdit));
 	}
 	
 	/** function check add comment in activity after adding tags for a content/file
@@ -121,9 +121,9 @@ public class HomePageActivity extends PlatformBase{
 	 */
 	public void checkTagAfterAddingToContent(String name, String tags, int number){
 		if (number == 1){
-			waitForElementPresent(ELEMENT_CONTENT_COMMENT_ADD_A_TAG.replace("@{fileName}", name).replace("${tags}", tags));
+			waitForAndGetElement(ELEMENT_CONTENT_COMMENT_ADD_A_TAG.replace("@{fileName}", name).replace("${tags}", tags));
 		}else {
-			waitForElementPresent(ELEMENT_CONTENT_COMMENT_ADD_TAGS.replace("@{fileName}", name).replace("${tags}", tags));
+			waitForAndGetElement(ELEMENT_CONTENT_COMMENT_ADD_TAGS.replace("@{fileName}", name).replace("${tags}", tags));
 		}
 	}
 	
@@ -132,7 +132,7 @@ public class HomePageActivity extends PlatformBase{
 	 * @param name
 	 */
 	public void checkStatusAfterPublishAContent(String name){
-		waitForElementPresent(ELEMENT_CONTENT_COMMENT_PUBLISH.replace("@{fileName}", name));
+		waitForAndGetElement(ELEMENT_CONTENT_COMMENT_PUBLISH.replace("@{fileName}", name));
 	}
 	
 	/** function check add comment in activity after adding new category for a content/file
@@ -141,7 +141,7 @@ public class HomePageActivity extends PlatformBase{
 	 * @param category
 	 */
 	public void checkCategoryAfterAddingToContent(String name, String category){
-		waitForElementPresent(ELEMENT_FILE_COMMENT_ADD_CATEGORY.replace("@{fileName}", name).replace("${category}", category));
+		waitForAndGetElement(ELEMENT_FILE_COMMENT_ADD_CATEGORY.replace("@{fileName}", name).replace("${category}", category));
 	}
 	
 	/**function check go to edit screen after clicking Edit icon in activity
@@ -150,8 +150,8 @@ public class HomePageActivity extends PlatformBase{
 	 */
 	public void goToEditFromContentActivity(String name){
 		click(ELEMENT_CONTENT_EDIT_LINK.replace("@{fileName}", name));
-		waitForElementPresent(ELEMENT_CONTENT_EDIT_SCREEN_FROM_ACTIVITY);
-		waitForElementPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForAndGetElement(ELEMENT_CONTENT_EDIT_SCREEN_FROM_ACTIVITY);
+		waitForAndGetElement(button.ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 	
 	/** function back homepage from edit screen
@@ -168,7 +168,7 @@ public class HomePageActivity extends PlatformBase{
 	 */
 	public void goToViewFromContentActivity(String name){
 		click(ELEMENT_CONTENT_VIEW_LINK.replace("@{fileName}", name));
-		waitForElementPresent(ELEMENT_CONTENT_EDIT_SCREEN_FROM_ACTIVITY);
+		waitForAndGetElement(ELEMENT_CONTENT_EDIT_SCREEN_FROM_ACTIVITY);
 		assert getValue(By.id("address")).contains(name);
 	}
 	
@@ -179,8 +179,8 @@ public class HomePageActivity extends PlatformBase{
 	public void goToViewFromFileActivity(String name){
 		dialog = new Dialog(driver);
 		click(ELEMENT_CONTENT_VIEW_LINK.replace("@{fileName}", name));
-		waitForElementPresent(ELEMENT_FILE_VIEW_POPUP);
-		waitForElementPresent(ELEMENT_FILE_VIEW_NAME.replace("${fileName}", name));
+		waitForAndGetElement(ELEMENT_FILE_VIEW_POPUP);
+		waitForAndGetElement(ELEMENT_FILE_VIEW_NAME.replace("${fileName}", name));
 		dialog.closeMessageDialog();
 	}
 	
@@ -192,9 +192,9 @@ public class HomePageActivity extends PlatformBase{
 	 */
 	public void checkContentAfterMovingANode(String name, String path, boolean content){
 		if (content){
-			waitForElementPresent(ELEMENT_CONTENT_COMMENT_MOVING.replace("@{fileName}", name).replace("${path}", path + name));
+			waitForAndGetElement(ELEMENT_CONTENT_COMMENT_MOVING.replace("@{fileName}", name).replace("${path}", path + name));
 		}else {
-			waitForElementPresent(ELEMENT_FILE_COMMENT_MOVING.replace("@{fileName}", name).replace("${path}", path + name));
+			waitForAndGetElement(ELEMENT_FILE_COMMENT_MOVING.replace("@{fileName}", name).replace("${path}", path + name));
 		}
 	}
 }

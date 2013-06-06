@@ -190,7 +190,7 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		info("Create new file document and add comment");
 		cTemplate.createNewFile(file, fileContent, file);
 		actBar.voteDocument(3);
-		waitForElementPresent(By.xpath(ecms.ELEMENT_VOTE_RATING_INFOR.replace("${rate}", "3.0")));
+		waitForAndGetElement(By.xpath(ecms.ELEMENT_VOTE_RATING_INFOR.replace("${rate}", "3.0")));
 		
 		cMenu.deleteData(elementFile);
 	}
@@ -206,7 +206,7 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		actBar.uploadFile("TestData/" + fileUpload);
 		ecms.goToNode(elementUploadFile);
 		actBar.voteDocument(2);
-		waitForElementPresent(By.xpath(ecms.ELEMENT_VOTE_RATING_INFOR.replace("${rate}", "2.0")));
+		waitForAndGetElement(By.xpath(ecms.ELEMENT_VOTE_RATING_INFOR.replace("${rate}", "2.0")));
 		
 		cMenu.deleteData(elementUploadFile);
 	}
@@ -248,7 +248,7 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		ecms.goToNode(elementFileEnglish);
 		actBar.addTranslationForDocument("", fileFrench);
 		click(siteExp.ELEMENT_SITEBAR_RELATION);
-		waitForElementPresent(By.xpath(ecms.ELEMENT_TRANSLATION_IN_RELATION_TAB.replace("${fileName}", fileFrench)));
+		waitForAndGetElement(By.xpath(ecms.ELEMENT_TRANSLATION_IN_RELATION_TAB.replace("${fileName}", fileFrench)));
 		
 		info("Add a Content Detail portlet to file English");
 		navToolBar.goToEditPageEditor();
@@ -256,13 +256,13 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		pageE.addContentPathForContentDetailPortlet("General Drives/Sites Management/" + fileEnglish);
 		click(ELEMENT_PAGE_EDIT_FINISH_OTHER);
 		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH_OTHER, 60000);
-		waitForElementPresent(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileEnglish)));
+		waitForAndGetElement(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileEnglish)));
 		
 		info("Change view language to French");
 		magAcc.changeLanguageForUser("French");
 		
 		info("When change language, the French file will display replace English file");
-		waitForElementPresent(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileFrench)));
+		waitForAndGetElement(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileFrench)));
 		
 		info("Delete data");
 		magAcc.changeLanguageForUser("Anglais");
@@ -300,7 +300,7 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		ecms.goToNode(elementFileEnglish);
 		actBar.addTranslationForDocument("", fileFrench);
 		click(siteExp.ELEMENT_SITEBAR_RELATION);
-		waitForElementPresent(By.xpath(ecms.ELEMENT_TRANSLATION_IN_RELATION_TAB.replace("${fileName}", fileFrench)));
+		waitForAndGetElement(By.xpath(ecms.ELEMENT_TRANSLATION_IN_RELATION_TAB.replace("${fileName}", fileFrench)));
 		
 		info("Add a Content Detail portlet to file English");
 		navToolBar.goToEditPageEditor();
@@ -308,13 +308,13 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		pageE.addContentPathForContentDetailPortlet("General Drives/Sites Management/" + fileEnglish);
 		click(ELEMENT_PAGE_EDIT_FINISH_OTHER);
 		waitForElementNotPresent(ELEMENT_PAGE_EDIT_FINISH_OTHER, 60000);
-		waitForElementPresent(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileEnglish)));
+		waitForAndGetElement(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileEnglish)));
 		
 		info("Change view language to French");
 		magAcc.changeLanguageForUser("French");
 		
 		info("When change language, the French file will display replace English file");
-		waitForElementPresent(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileFrench)));
+		waitForAndGetElement(By.xpath(ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET.replace("${contentName}", fileFrench)));
 		
 		info("Delete data");
 		magAcc.changeLanguageForUser("Anglais");

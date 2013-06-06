@@ -40,7 +40,7 @@ public class ManageQuery extends EcmsBase{
 	public void openAddQueryForm(){
 		info("-- Opening [Add Query] Form --");
 		click(ecMain.ELEMENT_ADD_QUERY_BUTTON);
-		waitForElementPresent(ELEMENT_INPUT_CATEGORY_NAME);
+		waitForAndGetElement(ELEMENT_INPUT_CATEGORY_NAME);
 	}
 	
 	//Add a new Query

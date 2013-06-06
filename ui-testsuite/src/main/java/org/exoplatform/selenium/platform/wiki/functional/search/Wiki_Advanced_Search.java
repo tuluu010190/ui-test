@@ -58,7 +58,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 		advancedSearch("bbb", "intranet");
 
 		//waitForTextPresent(ELEMENT_VERIFY_MESSAGE);
-		waitForElementPresent(ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", "bbb"), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", "bbb"), DEFAULT_TIMEOUT, 1, 2);
 			
 		click(ELEMENT_PAGE1);
 
@@ -94,7 +94,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 		advancedSearch(PAGE_NAME1, "intranet");
 
 		//waitForTextPresent(ELEMENT_VERIFY_MESSAGE);
-		waitForElementPresent(ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", PAGE_NAME1), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", PAGE_NAME1), DEFAULT_TIMEOUT, 1, 2);
 
 		magAc.signOut();
 

@@ -342,7 +342,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		adminPer.editPermissionUserOrGroup("mary", true, false, true);
 
 		//Verify that Permission of Category to user/group is edited
-		waitForElementPresent(adminPer.ELEMENT_PERMISSION_MANAGEMENT_REMOVE.replace("${userOrGroupName}", "mary")+ "/../../../div[@title='true']");
+		waitForAndGetElement(adminPer.ELEMENT_PERMISSION_MANAGEMENT_REMOVE.replace("${userOrGroupName}", "mary")+ "/../../../div[@title='true']");
 		
 		info("-- Restore original data --");
 		button.close();
@@ -385,7 +385,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		waitForTextPresent("Permission Management");
 		//adminPer.editPermissionUserOrGroup("__system", false, false, false);
 		//waitForElementNotPresent(adminPer.ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT);
-		waitForElementPresent(ecmsPer.ELEMENT_SYSTEM_PERMISSION_READ_DISABLED, 3000, 1, 2);
+		waitForAndGetElement(ecmsPer.ELEMENT_SYSTEM_PERMISSION_READ_DISABLED, 3000, 1, 2);
 	
 		info("-- Restore original data --");
 		button.close();

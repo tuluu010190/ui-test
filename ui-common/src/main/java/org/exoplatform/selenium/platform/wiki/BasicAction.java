@@ -102,7 +102,7 @@ public class BasicAction extends Permission{
 		if(title != null)
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		click(ELEMENT_RICHTEXT_BUTTON);
-		waitForElementPresent(ELEMENT_SOURCE_EDITOR_BUTTON);
+		waitForAndGetElement(ELEMENT_SOURCE_EDITOR_BUTTON);
 		if (content != null){
 			inputDataToFrame(ELEMENT_CONTENT_WIKI_FRAME, content,true);
 			Utils.pause(1000);
@@ -211,7 +211,7 @@ public class BasicAction extends Permission{
 		type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		if ( mode == 1 ){
 			click(ELEMENT_RICHTEXT_BUTTON);
-			waitForElementPresent(ELEMENT_SOURCE_EDITOR_BUTTON);
+			waitForAndGetElement(ELEMENT_SOURCE_EDITOR_BUTTON);
 			inputDataToFrame(ELEMENT_CONTENT_WIKI_FRAME, content,true);
 			driver.switchTo().defaultContent();
 		}
@@ -219,7 +219,7 @@ public class BasicAction extends Permission{
 			type(ELEMENT_CONTENT_WIKI_INPUT,content,true);
 		}
 		click(ELEMENT_PREVIEW_BUTTON);
-		waitForElementPresent(ELEMENT_PREVIEW_SCREEN);
+		waitForAndGetElement(ELEMENT_PREVIEW_SCREEN);
 	}
 
 	/**
@@ -232,7 +232,7 @@ public class BasicAction extends Permission{
 		//By btnCancel = By.xpath("//input[@type='button' and @value='Cancel']");
 		button = new Button(driver);
 		By messageLocator = By.xpath("//div[@class='confirmMessage' and text()='" + message + "']");
-		waitForElementPresent(messageLocator);
+		waitForAndGetElement(messageLocator);
 		if(isCancel.length > 0 && (isCancel[0] == true)) 
 			//click(btnCancel);
 			button.cancel();
@@ -256,7 +256,7 @@ public class BasicAction extends Permission{
 		click(By.xpath(ELEMENT_SELECTED_PAGE.replace("${relatedPage}", pageName)));
 		Utils.pause(500);
 		click(button.ELEMENT_SELECT_BUTTON);
-		waitForElementPresent(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageName));
+		waitForAndGetElement(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageName));
 		Utils.pause(500);
 	}
 
@@ -281,7 +281,7 @@ public class BasicAction extends Permission{
 			waitForElementNotPresent(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageName));
 		}else{
 			magAlert.cancelAlert();
-			waitForElementPresent(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageName));
+			waitForAndGetElement(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageName));
 		}
 		Utils.pause(1000);
 	}

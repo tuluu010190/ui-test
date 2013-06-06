@@ -109,7 +109,7 @@ public class ManageTemplate extends EcmsBase{
 			info("-- Add a new template for documents--");
 		}
 		click(ELEMENT_ADD_TEMPLATE_BUTTON);	
-		waitForElementPresent(By.xpath("//*[contains(@class, 'popupTitle') and text()='Template Form']"));	    
+		waitForAndGetElement(By.xpath("//*[contains(@class, 'popupTitle') and text()='Template Form']"));	    
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class ManageTemplate extends EcmsBase{
 		click(ELEMENT_VIEW_TAB);
 		click(ELEMENT_CSS_TAB);
 		button.save();
-		waitForElementPresent(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));    
+		waitForAndGetElement(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));    
 		Utils.pause(1000);
 	}
 
@@ -204,7 +204,7 @@ public class ManageTemplate extends EcmsBase{
 		}
 		click(ELEMENT_TEMPLATE_TAB_SAVE_BUTTON);
 		if (!templateLabel.isEmpty()){
-			waitForElementPresent(ELEMENT_EDIT_TEMPLATE_ICON.replace("${templateName}", templateLabel));
+			waitForAndGetElement(ELEMENT_EDIT_TEMPLATE_ICON.replace("${templateName}", templateLabel));
 		}
 	}
 
@@ -340,12 +340,12 @@ public class ManageTemplate extends EcmsBase{
 		info(option + " Metadata " + metadata);
 		if (option.equals("View")){
 			click(ELEMENT_VIEW_TEMPLATE_ICON.replace("${templateName}", metadata));
-			waitForElementPresent(ELEMENT_METADATA_INFORMATION_POPUP);
-			waitForElementPresent(ELEMENT_METADATA_ELEMENTS);
+			waitForAndGetElement(ELEMENT_METADATA_INFORMATION_POPUP);
+			waitForAndGetElement(ELEMENT_METADATA_ELEMENTS);
 			button.close();
 		}else if (option.equals("Edit")){
 			click(ELEMENT_EDIT_METADATA_TEMPLATE_ICON.replace("${templateName}", metadata));
-			waitForElementPresent(ELEMENT_METADATA_TAB.replace("${tab}", "Metadata Type"));
+			waitForAndGetElement(ELEMENT_METADATA_TAB.replace("${tab}", "Metadata Type"));
 		}else if (option.equals("Delete")){
 			click(ELEMENT_DELETE_METADATA_TEMPLATE_ICON.replace("${templateName}", metadata));
 			alt.acceptAlert();

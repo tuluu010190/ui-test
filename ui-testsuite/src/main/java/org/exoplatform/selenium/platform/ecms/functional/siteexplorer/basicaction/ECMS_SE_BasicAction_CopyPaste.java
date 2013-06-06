@@ -103,13 +103,13 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 		cTemplate.createNewFolder(CONTENT_FOLDER_NAME, folderType.Content);
 
 		info("Verify folder is created at root path");
-		waitForElementPresent(VERIFY_AT_ROOT_PATH1);
+		waitForAndGetElement(VERIFY_AT_ROOT_PATH1);
 
 		info("Copy content folder & paste at root path");
 		cMenu.copyAndPasteNode(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", CONTENT_FOLDER_NAME), siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Verify copied folder is at root path");
-		waitForElementPresent(VERIFY_AT_ROOT_PATH2);
+		waitForAndGetElement(VERIFY_AT_ROOT_PATH2);
 		
 		info("Delete data");
 		cMenu.deleteData(VERIFY_AT_ROOT_PATH2);
@@ -148,7 +148,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		info("Verify Content folder 01 is in content folder");
 		ecms.goToNode(CONTENT_FOLDER_PATH);
-		waitForElementPresent(CONTENT_FOLDER_PATH_01_NEW);
+		waitForAndGetElement(CONTENT_FOLDER_PATH_01_NEW);
 
 		info("Delete data");
 		cMenu.deleteDocument(CONTENT_FOLDER_PATH);
@@ -225,7 +225,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		info("Check content folder in file");
 		ecms.goToNode(WEB_PATH);
-		waitForElementPresent(CONTENT_FOLDER_PATH_NEW);
+		waitForAndGetElement(CONTENT_FOLDER_PATH_NEW);
 
 		info("Delete data");
 		cMenu.deleteDocument(WEB_PATH);
@@ -265,7 +265,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		info("Verify document folder is in content folder");
 		ecms.goToNode(CONTENT_FOLDER_PATH);
-		waitForElementPresent(DOCUMENT_FOLDER_PATH_NEW);
+		waitForAndGetElement(DOCUMENT_FOLDER_PATH_NEW);
 
 		info("Delete data");
 		cMenu.deleteDocument(CONTENT_FOLDER_PATH);
@@ -303,7 +303,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		info("Verify document folder is pasted");
 		ecms.goToNode(DOCUMENT_FOLDER_PATH_01);
-		waitForElementPresent(DOCUMENT_FOLDER_PATH_NEW);
+		waitForAndGetElement(DOCUMENT_FOLDER_PATH_NEW);
 
 		info("Delete data");
 		cMenu.deleteDocument(DOCUMENT_FOLDER_PATH_01);
@@ -328,7 +328,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 		navToolBar.goToSiteExplorer();
 		info("Create Document folder");
 		cTemplate.createNewFolder(DOCUMENT_FOLDER_NAME_1, folderType.Document);
-		waitForElementPresent(DOCUMENT_FOLDER_PATH_1);
+		waitForAndGetElement(DOCUMENT_FOLDER_PATH_1);
 
 		//lock node
 		ecms.goToNode(DOCUMENT_FOLDER_PATH_1);
@@ -354,7 +354,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 		//create new document folder
 		info("Create Document folder");
 		cTemplate.createNewFolder(DOCUMENT_FOLDER_NAME_2, folderType.Document);
-		waitForElementPresent(DOCUMENT_FOLDER_PATH_2);
+		waitForAndGetElement(DOCUMENT_FOLDER_PATH_2);
 
 		//Check can not copy this node to locked node
 		cMenu.copyAndPasteNode(DOCUMENT_FOLDER_PATH_2, DOCUMENT_FOLDER_PATH_1);
@@ -448,13 +448,13 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 		cTemplate.createNewFolder(DOCUMENT_FOLDER_NAME, folderType.Document);
 
 		info("Verify folder is created at root path");
-		waitForElementPresent(VERIFY_AT_ROOT_PATH1);
+		waitForAndGetElement(VERIFY_AT_ROOT_PATH1);
 
 		info("Copy & paste at root path");
 		cMenu.copyAndPasteNode(DOCUMENT_FOLDER_PATH, siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 		info("Verify copied folder is at root path");
-		waitForElementPresent(VERIFY_AT_ROOT_PATH2);
+		waitForAndGetElement(VERIFY_AT_ROOT_PATH2);
 
 		info("Delete data");
 		cMenu.deleteDocument(VERIFY_AT_ROOT_PATH2);
@@ -492,7 +492,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		info("Verify result");
 		ecms.goToNode(CONTENT_FOLDER_PATH);
-		waitForElementPresent(FILE_PATH_NEW);
+		waitForAndGetElement(FILE_PATH_NEW);
 
 		info("Delete data");
 		cMenu.deleteDocument(CONTENT_FOLDER_PATH);
@@ -539,7 +539,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		info("Verify");
 		ecms.goToNode(ANNOUN_PATH);		
-		waitForElementPresent(FILE_PATH_NEW);
+		waitForAndGetElement(FILE_PATH_NEW);
 
 		info("Delete data");
 		cMenu.deleteDocument(ANNOUN_PATH);

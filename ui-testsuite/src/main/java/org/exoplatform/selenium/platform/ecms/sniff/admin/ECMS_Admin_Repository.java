@@ -105,7 +105,7 @@ public class ECMS_Admin_Repository extends PlatformBase{
 		//Lock this File
 		cMenu.contextMenuAction(eLockedFile, ContextMenu.actionType.LOCK);
 		click(cMenu.ELEMENT_DOCUMENT);
-		waitForElementPresent(elementLockedArticleIcon);
+		waitForAndGetElement(elementLockedArticleIcon);
 
 		//Unlock Node in Admin
 		ecMain.goToLockedTab();
@@ -149,7 +149,7 @@ public class ECMS_Admin_Repository extends PlatformBase{
 		//Lock this File
 		cMenu.contextMenuAction(eLockedFile, ContextMenu.actionType.LOCK);
 		click(cMenu.ELEMENT_DOCUMENT);
-		waitForElementPresent(elementLockedArticleIcon);
+		waitForAndGetElement(elementLockedArticleIcon);
 		
 		//Open form to add permission for Users/Group (unlock node)
 		//Add permission for group to unlock node

@@ -53,13 +53,13 @@ public class Wiki_Template_Other extends Template{
 		
 		addTemplate(DATA_TEMPLATE_TITLE, DATA_TEMPLATE_DESC, DATA_TEMPLATE_CONTENT);
 		
-		waitForElementPresent(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
+		waitForAndGetElement(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
 		goToWikiHome();
 		
 		addWikiPageFromTemplate(DATA_PAGE_TITLE, 0, DATA_TEMPLATE_TITLE);
 	
-		waitForElementPresent(ELEMENT_VERIFY_PAGE_CONTENT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
+		waitForAndGetElement(ELEMENT_VERIFY_PAGE_CONTENT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
 	
 		//Delete data
 		deleteCurrentWikiPage();

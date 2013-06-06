@@ -69,7 +69,7 @@ public class PageEditor extends PlatformBase {
 		nav.goToPageCreationWinzard();
 		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, pageName, false);
 		click(button.ELEMENT_NEXT_BUTTON);
-		waitForElementPresent(ELEMENT_ADDWIZARD_TEXT2);
+		waitForAndGetElement(ELEMENT_ADDWIZARD_TEXT2);
 		click(button.ELEMENT_NEXT_BUTTON);
 	}
 
@@ -266,7 +266,7 @@ public class PageEditor extends PlatformBase {
 		By ELEMENT_NODE = By.xpath("//td/a[contains(text(),'" + node + "')]");
 
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
-		waitForElementPresent(ELEMENT_FOLDER_BROWSER);
+		waitForAndGetElement(ELEMENT_FOLDER_BROWSER);
 		if (getElement(ELEMENT_HOMEPATH_ROOT) != null){
 			click(ELEMENT_HOMEPATH_ROOT);
 		}

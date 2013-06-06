@@ -126,7 +126,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 
 		info("Unlock node by locker");
 		cMenu.contextMenuAction(FILE_PATH_LOCKED, actionType.UNLOCK);
-		waitForElementPresent(FILE_PATH);
+		waitForAndGetElement(FILE_PATH);
 
 		//Delete data
 		cMenu.deleteDocument(FILE_PATH);
@@ -263,7 +263,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 
 		info("Unlock child node");
 		cMenu.contextMenuAction(FILE_PATH_LOCKED, actionType.UNLOCK);
-		waitForElementPresent(FILE_PATH);
+		waitForAndGetElement(FILE_PATH);
 
 		//Delete data
 		cMenu.deleteDocument(ANNOUN_PATH_LOCKED);
@@ -419,7 +419,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		magAcc.signIn(DATA_USER, DATA_PASS);
 		navToolBar.goToSiteExplorer();
 		rightClickOnElement(FILE_PATH_LOCKED);
-		waitForElementPresent(cMenu.ELEMENT_MENU_LOCK);
+		waitForAndGetElement(cMenu.ELEMENT_MENU_LOCK);
 
 		//Delete data
 		cMenu.deleteDocument(FILE_PATH);
@@ -454,7 +454,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		info("Check automatically unlock node");
 		click(button.ELEMENT_REFRESH_BUTTON);	
 		rightClickOnElement(FILE_PATH_LOCKED);
-		waitForElementPresent(cMenu.ELEMENT_MENU_LOCK);
+		waitForAndGetElement(cMenu.ELEMENT_MENU_LOCK);
 		
 		cMenu.deleteDocument(FILE_PATH);
 	}
@@ -482,7 +482,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(FILE_NAME, FILE_NAME, FILE_NAME);		
 		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
 		click(By.xpath(siteExp.ELEMENT_ARROW_RIGHT.replace("${nodeName}", DATA_FOLDER)));
-		waitForElementPresent(ELEMENT_FILE);
+		waitForAndGetElement(ELEMENT_FILE);
 		
 		info("Lock parent and child node");
 		actBar.lockNodeFromActionBar(DATA_FOLDER + "/" + FILE_NAME);
@@ -513,7 +513,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(FILE_NAME, FILE_NAME, FILE_NAME);		
 		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
 		click(By.xpath(siteExp.ELEMENT_ARROW_RIGHT.replace("${nodeName}", DATA_FOLDER)));
-		waitForElementPresent(ELEMENT_FILE);
+		waitForAndGetElement(ELEMENT_FILE);
 		
 		info("Lock parent and child node");
 		actBar.lockNodeFromActionBar(DATA_FOLDER + "/" + FILE_NAME);

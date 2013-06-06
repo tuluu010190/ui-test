@@ -38,7 +38,7 @@ public class Viewer extends EcmsBase{
 		doubleClickOnElement(currentTitle);
 		type(inputTitle,newTitle, true);
 		click(acceptButton);
-		waitForElementPresent(By.xpath("//div[contains(text(),'" + newTitle + "') and @title='Double-click to edit']"));
+		waitForAndGetElement(By.xpath("//div[contains(text(),'" + newTitle + "') and @title='Double-click to edit']"));
 	}
 
 }

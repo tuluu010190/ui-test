@@ -70,20 +70,20 @@ public class SpaceNavigation extends SocialBase{
 		click(ADD_NODE_BUTTON);
 		Utils.pause(1000);
 		//Input node name
-		waitForElementPresent(NODE_NAME);
+		waitForAndGetElement(NODE_NAME);
 		type(NODE_NAME, nodeNameInput, true);
 		Utils.pause(500);
 		//Input node label
-		waitForElementPresent(NODE_LABEL);
+		waitForAndGetElement(NODE_LABEL);
 		type(NODE_LABEL, nodeLabelInput, true);
 		//Click Page selector tab
-		waitForElementPresent(PAGE_SELECTOR);
+		waitForAndGetElement(PAGE_SELECTOR);
 		click(PAGE_SELECTOR);
 		//Input page name
-		waitForElementPresent(PAGE_NAME);
+		waitForAndGetElement(PAGE_NAME);
 		type(PAGE_NAME,pageNameInput,true);
 		//Click create page
-		waitForElementPresent(CREATE_PAGE_BUTTON);
+		waitForAndGetElement(CREATE_PAGE_BUTTON);
 		click(CREATE_PAGE_BUTTON);
 		button.save();
 		Utils.pause(1000);
@@ -302,11 +302,11 @@ public class SpaceNavigation extends SocialBase{
 	 */
 	public void moveUpNode(String nodeName) {
 		
-		waitForElementPresent(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
+		waitForAndGetElement(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
 				
 		rightClickOnElement(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
 				
-		waitForElementPresent(ELEMENT_MOVE_UP_LINK);
+		waitForAndGetElement(ELEMENT_MOVE_UP_LINK);
 		
 		click(ELEMENT_MOVE_UP_LINK);
 				
@@ -314,21 +314,21 @@ public class SpaceNavigation extends SocialBase{
 	
 	public void moveDownNode(String nodeName) {
 		
-		waitForElementPresent(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
+		waitForAndGetElement(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
 		
 		rightClickOnElement(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
 		
-		waitForElementPresent(ELEMENT_MOVE_DOWN_LINK);
+		waitForAndGetElement(ELEMENT_MOVE_DOWN_LINK);
 		
 		click(ELEMENT_MOVE_DOWN_LINK);
 	}
 	
 	public void editNodePage(String nodeName) {;
-	waitForElementPresent(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
+	waitForAndGetElement(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
 	
 	rightClickOnElement(By.xpath("//a[@class='NodeIcon DefaultPageIcon' and text()='"+nodeName+"']"));
 	
-	waitForElementPresent(ELEMENT_EDIT_NODE_PAGE);
+	waitForAndGetElement(ELEMENT_EDIT_NODE_PAGE);
 	
 	click(ELEMENT_EDIT_NODE_PAGE);
 	}

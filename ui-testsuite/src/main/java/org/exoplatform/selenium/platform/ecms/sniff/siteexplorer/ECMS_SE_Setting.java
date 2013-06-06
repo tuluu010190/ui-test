@@ -52,8 +52,8 @@ public class ECMS_SE_Setting extends PlatformBase {
 		//Set up preferences
 		preferences.setUpPreferenceOption("enableStructure");
 		preferences.setUpPreferenceOption("showHiddenNode");
-		waitForElementPresent(siteExp.ELEMENT_THUMBNAIL_HIDDEN_NODE);
-		waitForElementPresent(siteExp.ELEMENT_DMS_STRUCTURE);
+		waitForAndGetElement(siteExp.ELEMENT_THUMBNAIL_HIDDEN_NODE);
+		waitForAndGetElement(siteExp.ELEMENT_DMS_STRUCTURE);
 		
 		//Delete data
 		cMenu.deleteDocument(bNode1);

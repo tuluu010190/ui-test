@@ -70,7 +70,7 @@ public class ManageApplications extends PlatformBase {
 	}
 
 	public void deleteGadget (String gadgetName) {
-		waitForElementPresent(By.xpath("//a[@title='"+gadgetName+"']"));
+		waitForAndGetElement(By.xpath("//a[@title='"+gadgetName+"']"));
 		click(By.xpath("//a[@title='"+gadgetName+"']/following::a[@title='Delete Gadget']"));
 		alt.waitForConfirmation("Are you sure to delete this gadget?");
 		Utils.pause(1000);
@@ -180,13 +180,13 @@ public class ManageApplications extends PlatformBase {
 		By ELEMENT_APPS_EXISTING = By.xpath("//span[@class='label' and text()='"+displayName+"']/../..//input[@name='application']");
 		String ELEMENT_APP_LOCATOR = "//span[@id='label' and text()='"+displayName+"']";
 
-		waitForElementPresent(ELEMENT_ADD_APPS_BUTTON);
+		waitForAndGetElement(ELEMENT_ADD_APPS_BUTTON);
 		click(ELEMENT_ADD_APPS_BUTTON);
-		waitForElementPresent(ELEMNET_ADD_BUTTON);
+		waitForAndGetElement(ELEMNET_ADD_BUTTON);
 
 		//Add new application
 		if (addNewApps) {
-			waitForElementPresent(ELEMENT_DISPLAY_NAME_TEXTBOX);
+			waitForAndGetElement(ELEMENT_DISPLAY_NAME_TEXTBOX);
 			type(ELEMENT_DISPLAY_NAME_TEXTBOX, newDisplayName, true);
 			select(ELEMENT_APPS_TYPE, applicationType);
 		}
@@ -210,9 +210,9 @@ public class ManageApplications extends PlatformBase {
 		By CATEGORY_XPATH = By.xpath("//a[@title='"+categoryTitle+"']");
 		By DELETE_APP_ICON = By.xpath("//a[@title='"+applicationName+"']/following::a[@title='Delete Application']");
 		//By DELETE_APP_ICON= By.xpath("//span[@class='label' and text()='"+applicationName+"']/../..//input[@name='application']");
-		waitForElementPresent(CATEGORY_XPATH);
+		waitForAndGetElement(CATEGORY_XPATH);
 		click(CATEGORY_XPATH);
-		waitForElementPresent(DELETE_APP_ICON);
+		waitForAndGetElement(DELETE_APP_ICON);
 		click(DELETE_APP_ICON);
 		alt.waitForConfirmation("Are you sure to delete this application?");
 		Utils.pause(1000);
@@ -228,7 +228,7 @@ public class ManageApplications extends PlatformBase {
 		nav.goToApplicationRegistry();
 
 		//Verify Categories display as default
-		waitForElementPresent(ELEMENT_CATEGORIES_FORM);
+		waitForAndGetElement(ELEMENT_CATEGORIES_FORM);
 
 		//goto Edit Page
 		nav.goToEditPageEditor();
@@ -255,7 +255,7 @@ public class ManageApplications extends PlatformBase {
 		//Verify after changing show import
 		if (checkShowImport)
 		{
-			waitForElementPresent(ELEMENT_IMPORT_APPLICATION);
+			waitForAndGetElement(ELEMENT_IMPORT_APPLICATION);
 		} 
 		else 
 		{

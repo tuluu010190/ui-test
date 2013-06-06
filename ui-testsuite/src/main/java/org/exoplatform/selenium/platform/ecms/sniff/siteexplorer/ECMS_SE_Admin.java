@@ -138,7 +138,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		
 		//Show relation
 		click(ecms.ELEMENT_SHOW_RELATION_ICON);
-		waitForElementPresent(ecms.ELEMENT_RELATION_LINK.replace("{$relation}", node2));
+		waitForAndGetElement(ecms.ELEMENT_RELATION_LINK.replace("{$relation}", node2));
 		
 		//Hide relation
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);

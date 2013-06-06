@@ -90,7 +90,7 @@ public class ManageCategory extends EcmsPermission{
 		}else {
 			click(ELEMENT_ADD_PATH_LINK);
 		}
-		waitForElementPresent(ELEMENT_POPUP_HOME_PATH);
+		waitForAndGetElement(ELEMENT_POPUP_HOME_PATH);
 		selectHomePathForCategoryTree(homePath);
 		waitForTextNotPresent("Select Home Path");
 	}
@@ -141,25 +141,25 @@ public class ManageCategory extends EcmsPermission{
 		click(button.ELEMENT_SAVE_BUTTON);
 		if (!selectUserOrGroup && !selectMembership){
 			//waitForElementPresent(By.xpath("//*[@data-original-title = 'any']"));
-			waitForElementPresent("//*[text()='User or Group']/../../..//*[contains(text(), 'any')]");
+			waitForAndGetElement("//*[text()='User or Group']/../../..//*[contains(text(), 'any')]");
 		}
 		else if (selectUserOrGroup){
 			//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ user_Per +"']"));
-			waitForElementPresent("//*[text()='User or Group']/../../..//*[contains(text(), '"+ user_Per +"')]");
+			waitForAndGetElement("//*[text()='User or Group']/../../..//*[contains(text(), '"+ user_Per +"')]");
 		}
 		else if (selectMembership){
 		    if (groupID.contains("Administration")){
 		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/administrators']"));
-		    	waitForElementPresent("//*[contains(text(), '"+ membership +":/platform/administrators')]");
+		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/administrators')]");
 		    }else if (groupID.contains("Guests")){
 		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/guests']"));
-		    	waitForElementPresent("//*[contains(text(), '"+ membership +":/platform/guests')]");
+		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/guests')]");
 		    }else if (groupID.contains("Users")){
 		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/users']"));
-		    	waitForElementPresent("//*[contains(text(), '"+ membership +":/platform/users')]");
+		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/users')]");
 		    }else if (groupID.contains("Content Management")){
 		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/web-contributors']"));
-		    	waitForElementPresent("//*[contains(text(), '"+ membership +":/platform/web-contributors')]");
+		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/web-contributors')]");
 		    }
 		    /*else{	
 		    	waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/"+ groupID +"']"));
@@ -269,7 +269,7 @@ public class ManageCategory extends EcmsPermission{
 			waitForTextPresent(MSG_ADD_CATEGORY_STEP3);
 			click(button.ELEMENT_CLOSE_BUTTON);
 			//check add new category tree successfully
-			waitForElementPresent(ELEMENT_CATEGORY_TREE);
+			waitForAndGetElement(ELEMENT_CATEGORY_TREE);
 			assert isElementPresent(ELEMENT_CATEGORY_TREE):"Add new category tree is not successful";
 			info("Add new category is successful");
 		}
@@ -310,7 +310,7 @@ public class ManageCategory extends EcmsPermission{
 		//click(button.ELEMENT_SAVE_BUTTON);
 		click("//*[@id='taxonomyName']/../../../..//*[text()='Save']");
 		expandNode(cat_name, true);
-		waitForElementPresent(By.linkText(child_name));
+		waitForAndGetElement(By.linkText(child_name));
 		info("Add child category successfully");
 	}
 
@@ -320,7 +320,7 @@ public class ManageCategory extends EcmsPermission{
 		click(By.xpath(ELEMENT_COPY_CATEGORY_ICON.replace("${categoryName}", child1)));
 		click(By.xpath(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", child2)));
 		expandNode(child2,true);
-		waitForElementPresent(ELEMENT_CHILD_NEW);
+		waitForAndGetElement(ELEMENT_CHILD_NEW);
 		info("Copy category " + child1 + "to category " + child2 + "is successful");
 	}
 
@@ -331,7 +331,7 @@ public class ManageCategory extends EcmsPermission{
 		click(By.xpath(ELEMENT_CUT_CATEGORY_ICON.replace("${categoryName}", child1)));
 		click(By.xpath(ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", child2)));
 		expandNode(child2,true);
-		waitForElementPresent(ELEMENT_CHILD_NEW);
+		waitForAndGetElement(ELEMENT_CHILD_NEW);
 		//click(ELEMENT_UP_LEVEL);
 		clickUpLevel();
 		waitForElementNotPresent(By.linkText("//*[@id='UITaxonomyTreeCreateChild']//..//*[@title='" + child1 + "']"));

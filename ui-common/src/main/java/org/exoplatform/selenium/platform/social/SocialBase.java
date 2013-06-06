@@ -113,7 +113,7 @@ public class SocialBase extends PlatformBase {
 	public void goToAllSpaces(){
 		info("Go to All Spaces");
 		goToMySpacePage();
-		waitForElementPresent(ELEMENT_ALL_SPACE_LINK);
+		waitForAndGetElement(ELEMENT_ALL_SPACE_LINK);
 		click(ELEMENT_ALL_SPACE_LINK);
 	}
 
@@ -121,14 +121,14 @@ public class SocialBase extends PlatformBase {
 	public void goToInvitationReceives(){
 		info("Go to Invitation Receives");
 		goToMySpacePage();
-		waitForElementPresent(ELEMENT_INVATATION_RECEIVES_LINK);
+		waitForAndGetElement(ELEMENT_INVATATION_RECEIVES_LINK);
 		click(ELEMENT_INVATATION_RECEIVES_LINK);	
 	}
 	// Go to Request Pending
 	public void goToRequestsPeding(){
 		info("Go to Requests Pending");
 		goToMySpacePage();
-		waitForElementPresent(ELEMENT_REQUESTS_PENDING_LINK);
+		waitForAndGetElement(ELEMENT_REQUESTS_PENDING_LINK);
 		click(ELEMENT_REQUESTS_PENDING_LINK);	
 	}
 
@@ -238,7 +238,7 @@ public class SocialBase extends PlatformBase {
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		mouseOver(ELEMENT_TOOLBAR_NETWORKS_ICON, true);
 		click(ELEMENT_TOOLBAR_NETWORKS_ICON);
-		waitForElementPresent(ELEMENT_TITLEBAR_BOLD);
+		waitForAndGetElement(ELEMENT_TITLEBAR_BOLD);
 	}	
 	
 	// Go to Activity stream

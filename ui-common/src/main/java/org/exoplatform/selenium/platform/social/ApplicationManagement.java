@@ -33,19 +33,19 @@ public class ApplicationManagement extends SocialBase {
 		
 		info("----Click add application link----");
 		
-		waitForElementPresent(ELEMENT_ADD_APPLICATION_LINK);
+		waitForAndGetElement(ELEMENT_ADD_APPLICATION_LINK);
 		
 		click(ELEMENT_ADD_APPLICATION_LINK);
 
 		info("---Select category----");
 		
-		waitForElementPresent(ELEMENT_ADD_APP_POPUP);
+		waitForAndGetElement(ELEMENT_ADD_APP_POPUP);
 		
 		click(ELEMENT_CATEGORY);
 
 		info("-------Add application-------");
 		
-		waitForElementPresent(ELEMENT_ADD_APP_BUTTON);
+		waitForAndGetElement(ELEMENT_ADD_APP_BUTTON);
 		
 		click(ELEMENT_ADD_APP_BUTTON);
 
@@ -57,7 +57,7 @@ public class ApplicationManagement extends SocialBase {
 		
 		waitForElementNotPresent(ELEMENT_CLOSE_BUTTON);
 		
-		waitForElementPresent(By.xpath("//div[@class='CommunityName FL' and text()='"+applicationTitle+"']"));
+		waitForAndGetElement(By.xpath("//div[@class='CommunityName FL' and text()='"+applicationTitle+"']"));
 		
 		//info("Close window");
 		/*

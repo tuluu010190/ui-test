@@ -264,7 +264,7 @@ public class WikiBase extends ManageMember {
 	 */
 	public void goToWikiHome(){
 		click(ELEMENT_WIKI_HOME_LINK);
-		waitForElementPresent(ELEMENT_WIKI_HOME_PAGE);
+		waitForAndGetElement(ELEMENT_WIKI_HOME_PAGE);
 	}
 
 	/**
@@ -375,16 +375,16 @@ public class WikiBase extends ManageMember {
 
 		info("Move a page");
 		goToMovePage();
-		waitForElementPresent(ELEMENT_MOVE_PAGE_POPUP);
+		waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP);
 
 		info("CURRENT_LOCATION");
-		waitForElementPresent(ELEMENT_VERIFY_CURRENT_LOCATION);
+		waitForAndGetElement(ELEMENT_VERIFY_CURRENT_LOCATION);
 		click(ELEMENT_NEW_LOCATION);
-		waitForElementPresent(ELEMENT_VERIFY_NEW_LOCATION);
+		waitForAndGetElement(ELEMENT_VERIFY_NEW_LOCATION);
 		
 		//click(CLICK_MOVE_ACTION);
 		click(button.ELEMENT_MOVE_BUTTON);
-		waitForElementPresent(ELEMENT_VERIFY_AFTER_MOVE_PAGE);
+		waitForAndGetElement(ELEMENT_VERIFY_AFTER_MOVE_PAGE);
 		Utils.pause(1000);
 	}
 
@@ -418,7 +418,7 @@ public class WikiBase extends ManageMember {
 			click(ELEMENT_PERMISSION_LINK);
 		}
 		Utils.pause(1000);
-		waitForElementPresent(ELEMENT_SELECT_USER);
+		waitForAndGetElement(ELEMENT_SELECT_USER);
 	}
 
 	/**
@@ -474,7 +474,7 @@ public class WikiBase extends ManageMember {
 			Utils.pause(2000);
 		}
 		click(ELEMENT_WIKI_LINK_IN_SPACE);
-		waitForElementPresent(ELEMENT_TITLE_WIKI_HOME);
+		waitForAndGetElement(ELEMENT_TITLE_WIKI_HOME);
 	}
 
 	/** Go to the template management page
@@ -487,7 +487,7 @@ public class WikiBase extends ManageMember {
 			mouseOverAndClick(ELEMENT_WIKI_SETTING_LINK);
 			click(ELEMENT_TEMPLATE_LINK);
 		}
-		waitForElementPresent(ELEMENT_ADD_TEMPLATE_LINK);
+		waitForAndGetElement(ELEMENT_ADD_TEMPLATE_LINK);
 	}
 	
 	/** Attach a file
@@ -554,7 +554,7 @@ public class WikiBase extends ManageMember {
 		info("--Search quick--");
 		type(ELEMENT_QUICK_SEARCH, keyword, true);
 		((JavascriptExecutor) driver).executeScript("javascript:eXo.wiki.UIWikiSearchBox.doAdvanceSearch();");
-		waitForElementPresent(ELEMENT_SEARCH_BUTTON);
+		waitForAndGetElement(ELEMENT_SEARCH_BUTTON);
 		Utils.pause(1000);
 	}
 
@@ -666,7 +666,7 @@ public class WikiBase extends ManageMember {
 						break;
 					}
 					click(ELEMENT_QUICK_SEARCH_BUTTON);
-					waitForElementPresent(ELEMENT_FIRST);
+					waitForAndGetElement(ELEMENT_FIRST);
 					waitForElementNotPresent(ELEMENT_SECOND);
 				}
 				WebElement checkbox = waitForAndGetElement(ELEMENT_USER, DEFAULT_TIMEOUT, 1, 2);
@@ -690,7 +690,7 @@ public class WikiBase extends ManageMember {
 		/*//By ELEMENT_SELECT_GROUP = By.xpath(ELEMENT_SELECT_GROUP_ICON.replace("${element}", element));
 		waitForElementPresent(ELEMENT_SELECT_GROUP);
 		click(ELEMENT_SELECT_GROUP);*/
-		waitForElementPresent(ELEMENT_SELECT_GROUP_POPUP);
+		waitForAndGetElement(ELEMENT_SELECT_GROUP_POPUP);
 		userGroup.selectGroup(grouppath, true);
 		click(ELEMENT_SELECT_THIS_GROUP);
 	}
@@ -706,7 +706,7 @@ public class WikiBase extends ManageMember {
 		/*By ELEMENT_SELECT_ROLE = By.xpath(ELEMENT_SELECT_ROLE_ICON.replace("${element}", element));
 		waitForElementPresent(ELEMENT_SELECT_ROLE);
 		click(ELEMENT_SELECT_ROLE);*/
-		waitForElementPresent(ELEMENT_SELECT_ROLE_POPUP);
+		waitForAndGetElement(ELEMENT_SELECT_ROLE_POPUP);
 		userGroup.selectGroup(groupPath, true);	
 		click(By.linkText(membership));
 		//waitForTextPresent(membership);

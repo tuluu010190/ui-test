@@ -19,7 +19,7 @@ public class Version extends BasicAction{
 	{
 		info("--View change of a page--");
 		click(ELEMENT_VIEW_CHANGE);
-		waitForElementPresent(ELEMENT_COMPARE_TEXT);
+		waitForAndGetElement(ELEMENT_COMPARE_TEXT);
 	}
 
 	/**View a version of a page
@@ -68,7 +68,7 @@ public class Version extends BasicAction{
 		click(versionCheckbox1, 2);
 		click(versionCheckbox2, 2);
 		click(ELEMENT_COMPARE_BUTTON);
-		waitForElementPresent(ELEMENT_COMPARE_TEXT);
+		waitForAndGetElement(ELEMENT_COMPARE_TEXT);
 	}
 
 	/**

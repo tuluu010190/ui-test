@@ -36,7 +36,7 @@ public class ManageAction extends EcmsBase{
 	public void openActionTypeForm(){
 		info("-- Opening [Add Action Type] Form --");
 		click(ecMain.ELEMENT_ADD_ACTION_TYPE_BUTTON);
-		waitForElementPresent(ELEMENT_INPUT_CATEGORY_NAME);
+		waitForAndGetElement(ELEMENT_INPUT_CATEGORY_NAME);
 	}
 	
 	//Add an Action Type

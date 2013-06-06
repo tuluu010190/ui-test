@@ -84,7 +84,7 @@ public class ECMS_Admin_Explorer extends PlatformBase{
 		magDrv.addNewDrive(drive, "collaboration","sites", "Platform/Administration", "*", "Non-document Nodes/Sidebar", "Admin", false, true);
 		nav.goToSiteExplorer();
 		actBar.goToSitesManagement();
-		waitForElementPresent(eDrive);
+		waitForAndGetElement(eDrive);
 
 		//Edit a drive
 		ecMain.goToManageDrive();

@@ -105,7 +105,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		//userGrp.selectGroup("exo:ecm/exo:taxonomyTrees/definition");
 		ecms.goToNode("exo:ecm/exo:taxonomyTrees/definition", true);
 		
-		waitForElementPresent(ELEMENT_CATEGORY_TREE);
+		waitForAndGetElement(ELEMENT_CATEGORY_TREE);
 		assert isElementPresent(ELEMENT_CATEGORY_TREE):"display category tree is false";
 		info("Category tree is displayed...");
 
@@ -143,7 +143,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		actBar.goToAddNewContent();
 		info("Create new article title: " + DATA_ARTICLE);
 		cTemplate.createNewFile(DATA_ARTICLE, DATA_ARTICLE, DATA_ARTICLE);
-		waitForElementPresent(ELEMENT_ARTICLE);
+		waitForAndGetElement(ELEMENT_ARTICLE);
 		info("Creating new article document is successful");
 
 		//go to add category/action bar
@@ -154,10 +154,10 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		}
 		else
 			ecms.goToNode(actBar.ELEMENT_CATEGORIES_LINK);
-		waitForElementPresent(actBar.ELEMENT_PERMISSION_MANAGEMENT_POPUP);
+		waitForAndGetElement(actBar.ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForElementPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is diplaying");
 		button.close();
 
@@ -209,7 +209,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		actBar.goToAddNewContent();
 		info("Create new article title: " + DATA_ARTICLE);
 		cTemplate.createNewFile(DATA_ARTICLE, DATA_ARTICLE, DATA_ARTICLE);
-		waitForElementPresent(ELEMENT_ARTICLE);
+		waitForAndGetElement(ELEMENT_ARTICLE);
 		info("Creating new article document is successfully");
 
 		//check can not read node by user not having read permission
@@ -220,7 +220,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		}
 		else
 			ecms.goToNode(actBar.ELEMENT_CATEGORIES_LINK);
-		waitForElementPresent(ecms.ELEMENT_PERMISSION_MANAGEMENT_POPUP);
+		waitForAndGetElement(ecms.ELEMENT_PERMISSION_MANAGEMENT_POPUP);
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
 		waitForElementNotPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
@@ -269,7 +269,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//check can see new category in add category
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForElementPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("category tree is diplaying");
 		click(button.ELEMENT_CLOSE_WINDOW);
 
@@ -305,7 +305,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 
 		//check user can see new category while adding category
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForElementPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is diplaying");
 		click(button.ELEMENT_CLOSE_WINDOW);
 
@@ -339,7 +339,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		advSrc.openAddCategoryInAdvancedSearch();
 		
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForElementPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is diplaying");
 
 		//delete data
@@ -424,7 +424,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		//set permission for mary not having read permission in these two categories
 		info("Set permission for category");
 		click(adminPer.ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", DATA_CATEGORY_TREE_CHILD_01));
-		waitForElementPresent(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='*:/platform/administrators']/../..//*[contains(@class, 'uiIconDelete')]"));
+		waitForAndGetElement(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='*:/platform/administrators']/../..//*[contains(@class, 'uiIconDelete')]"));
 		click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='*:/platform/administrators']/../..//*[contains(@class, 'uiIconDelete')]"));
 		alt.acceptAlert();
 		click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='*:/platform/users']/../..//*[contains(@class, 'uiIconDelete')]"));
@@ -447,7 +447,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		advSrc.openAddCategoryInAdvancedSearch();
 		
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForElementPresent(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
+		waitForAndGetElement(ecms.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
 		info("Category tree is displaying");
 		select(actBar.ELEMENT_CATEGORY_TREE_BOX, DATA_CATEGORY_TREE_NAME);
 		waitForElementNotPresent(By.linkText(DATA_CATEGORY_TREE_CHILD_01));

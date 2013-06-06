@@ -56,7 +56,7 @@ public class ECMS_SE_Search extends PlatformBase {
 		click(aSearch.ELEMENT_CONSTRAINT_FORM);
 		aSearch.selectDocumentType("nt:file");
 		aSearch.searchContent(node1);
-		waitForElementPresent(aSearch.ELEMENT_SEARCH_RESULT_TEXT.replace("${result}", node1));
+		waitForAndGetElement(aSearch.ELEMENT_SEARCH_RESULT_TEXT.replace("${result}", node1));
 		btn.closeWindow();
 		
 		//Delete data
@@ -82,7 +82,7 @@ public class ECMS_SE_Search extends PlatformBase {
 		//Simple search
 		type(siteExp.ELEMENT_SIMPLESEARCH_TEXTBOX,node1,true);
 		click(siteExp.ELEMENT_QUICKSEARCH_ICON);
-		waitForElementPresent(aSearch.ELEMENT_SEARCH_RESULT_TEXT.replace("${result}", node1));
+		waitForAndGetElement(aSearch.ELEMENT_SEARCH_RESULT_TEXT.replace("${result}", node1));
 		
 		//Delete data
 		cMenu.deleteDocument(bNode1);
@@ -114,7 +114,7 @@ public class ECMS_SE_Search extends PlatformBase {
 		
 		//CaseID 67862 execute query
 		aSearch.executeQuery(nameQuery);
-		waitForElementPresent(aSearch.ELEMENT_SEARCH_RESULT_TEXT.replace("${result}", node1));
+		waitForAndGetElement(aSearch.ELEMENT_SEARCH_RESULT_TEXT.replace("${result}", node1));
 		btn.closeWindow();
 		
 		//CaseID 67861 - Delete query

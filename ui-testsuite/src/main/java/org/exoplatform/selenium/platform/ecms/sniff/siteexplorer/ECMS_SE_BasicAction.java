@@ -69,7 +69,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		//Check if a symlink is added into symlink of node2
 		ecms.goToNode(node1);
 		ecms.goToNode(symlink);
-		waitForElementPresent(siteExp.ELEMENT_SE_NODE.replace("{$node}", webContent));
+		waitForAndGetElement(siteExp.ELEMENT_SE_NODE.replace("{$node}", webContent));
 
 		//Delete data
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
@@ -97,7 +97,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cMenu.copyAndPasteNode(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1), siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
 
 		ecms.goToNode(node2);
-		waitForElementPresent(node1New);
+		waitForAndGetElement(node1New);
 
 		//Delete data
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
@@ -127,7 +127,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 		//Check if node1 is in node2 
 		ecms.goToNode(node2);
-		waitForElementPresent(node1New);
+		waitForAndGetElement(node1New);
 
 		//Delete data
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
@@ -190,7 +190,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 		//Check if node2 is in node1
 		ecms.goToNode(bNode1);
-		waitForElementPresent(node2New);
+		waitForAndGetElement(node2New);
 
 		//Delete data
 		cMenu.deleteDocument(bNode1);
@@ -240,12 +240,12 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cMenu.contextMenuAction(bNode1, actionType.LOCK);
 
 		//Check locked node
-		waitForElementPresent(bNodeLock);
+		waitForAndGetElement(bNodeLock);
 		cMenu.isLockedNode(bNodeLock);
 
 		//Unlock node
 		cMenu.contextMenuAction(bNodeLock, actionType.UNLOCK);
-		waitForElementPresent(bNode1);
+		waitForAndGetElement(bNode1);
 
 		//Delete data
 		cMenu.deleteDocument(bNode1);
@@ -278,8 +278,8 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 		//Open clipboard
 		click(siteExp.ELEMENT_CLIPBOARD_ICON);
-		waitForElementPresent(siteExp.ELEMENT_CLIPBOARD_NODE.replace("{$node}", node1.toLowerCase()));
-		waitForElementPresent(siteExp.ELEMENT_CLIPBOARD_NODE.replace("{$node}", node2.toLowerCase()));
+		waitForAndGetElement(siteExp.ELEMENT_CLIPBOARD_NODE.replace("{$node}", node1.toLowerCase()));
+		waitForAndGetElement(siteExp.ELEMENT_CLIPBOARD_NODE.replace("{$node}", node2.toLowerCase()));
 
 		//Delete action copy, cut
 		click(siteExp.ELEMENT_CLIPBOARD_DELETE_ICON.replace("{$node}", node1.toLowerCase()));
@@ -316,8 +316,8 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 		//Open clipboard
 		click(siteExp.ELEMENT_CLIPBOARD_ICON);
-		waitForElementPresent(siteExp.ELEMENT_CLIPBOARD_NODE.replace("{$node}", node1.toLowerCase()));
-		waitForElementPresent(siteExp.ELEMENT_CLIPBOARD_NODE.replace("{$node}", node2.toLowerCase()));
+		waitForAndGetElement(siteExp.ELEMENT_CLIPBOARD_NODE.replace("{$node}", node1.toLowerCase()));
+		waitForAndGetElement(siteExp.ELEMENT_CLIPBOARD_NODE.replace("{$node}", node2.toLowerCase()));
 
 		//Paste action copy, cut
 		click(siteExp.ELEMENT_CLIPBOARD_PASTE_ICON.replace("{$node}", node1.toLowerCase()));

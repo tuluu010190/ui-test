@@ -60,7 +60,7 @@ public class Wiki_Attachment_Delete extends BasicAction{
 		addWikiPageSourceEditor(DATA_WIKI_PAGE_NAME, DATA_WIKI_PAGE_CONTENT);
 		
 		attachFileInWiki(ATTACHMENT_PATH, 2);
-		waitForElementPresent(ATTACHMENT_FILE_LINK);
+		waitForAndGetElement(ATTACHMENT_FILE_LINK);
 		
 		deleteFile(ATTACHMENT_NAME);
 		waitForElementNotPresent(ATTACHMENT_FILE_LINK);

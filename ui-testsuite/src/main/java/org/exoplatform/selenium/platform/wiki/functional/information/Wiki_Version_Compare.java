@@ -58,7 +58,7 @@ public class Wiki_Version_Compare extends Version{
 
 		goToRevisionsPage();
 
-		waitForElementPresent(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
+		waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
 
 		compareVersion("1", "3");
 
@@ -92,11 +92,11 @@ public class Wiki_Version_Compare extends Version{
 
 		goToRevisionsPage();
 
-		waitForElementPresent(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
+		waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
 
 		click(ELEMENT_VERSION_CHECKBOX.replace("{$version}", "2"), 2);
 
-		waitForElementPresent(ELEMENT_DISABLE_COMPARE_BUTTON);
+		waitForAndGetElement(ELEMENT_DISABLE_COMPARE_BUTTON);
 
 		deleteCurrentWikiPage();
 	}
@@ -124,9 +124,9 @@ public class Wiki_Version_Compare extends Version{
 
 		goToRevisionsPage();
 
-		waitForElementPresent(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
+		waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
 
-		waitForElementPresent(ELEMENT_DISABLE_COMPARE_BUTTON);
+		waitForAndGetElement(ELEMENT_DISABLE_COMPARE_BUTTON);
 
 		deleteCurrentWikiPage();
 	}	

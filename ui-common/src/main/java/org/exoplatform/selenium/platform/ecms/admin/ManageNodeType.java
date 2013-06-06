@@ -78,7 +78,7 @@ public class ManageNodeType extends EcmsBase{
 		
 		info("-- Creating a new node type --");
 		click(button.ELEMENT_ADD_BUTTON);
-		waitForElementPresent(ELEMENT_POPUP_TAB.replace("${tab}", "Node Type"));
+		waitForAndGetElement(ELEMENT_POPUP_TAB.replace("${tab}", "Node Type"));
 		
 		//Select a namespace
 		if (!namespace.isEmpty()){

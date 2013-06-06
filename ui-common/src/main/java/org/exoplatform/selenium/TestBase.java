@@ -90,7 +90,7 @@ public class TestBase {
 				click(ELEMENT_SUBMIT_BUTTON);
 				waitForTextNotPresent("Create your account");
 				click(ELEMENT_START_BUTTON);
-				waitForElementPresent(ELEMENT_ACCOUNT_NAME_LINK);
+				waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
 				
 				firstTimeLogin = true;
 				info("-- Administrator account (FQA) has been created successfully... --");
@@ -120,7 +120,7 @@ public class TestBase {
 				if (isDisplay(by)) return e;
 			}
 		} catch (NoSuchElementException ex) {
-			info("NoSuchElementException");
+//			info("NoSuchElementException");
 		}catch(StaleElementReferenceException ex)
 		{
 			checkCycling(ex, 10);
@@ -146,7 +146,7 @@ public class TestBase {
 	 * 0: No Assert
 	 * 1: Assert
 	 */
-	public WebElement waitForElementPresent(Object locator, int... opParams) {
+	public WebElement waitForAndGetElement(Object locator, int... opParams) {
 		WebElement elem = null;
 		int timeout = opParams.length>0 ? opParams[0] : DEFAULT_TIMEOUT;
 		int isAssert = opParams.length > 1 ? opParams[1]: 1;
@@ -164,6 +164,7 @@ public class TestBase {
 		}
 		if (isAssert == 1)
 			assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
+		info("cannot find element after " + timeout/1000 + "s.");
 		return null;
 	}
 
@@ -193,46 +194,8 @@ public class TestBase {
 
 		if (isAssert == 1)
 			assert false: ("Timeout after " + timeout + "ms waiting for element not present: " + locator);
+		info("Element doesn't disappear after " + timeout/1000 + "s.");
 		return elem;
-	}
-	//
-	// public WebElement waitForAndGetElement(Object locator, int... timeInMillis) {
-	// WebElement elem = null;
-	// int timeout = timeInMillis.length>0 ? timeInMillis[0] : DEFAULT_TIMEOUT;
-	// for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
-	// elem = getElement(locator);
-	// if (null != elem) return elem;
-	// Utils.pause(WAIT_INTERVAL);
-	// }
-	// debug("Timeout after " + timeout + "ms waiting for element " + locator);
-	// return elem;
-	// }
-
-	/*
-	 * @opPram[0]: timeout
-	 * @opPram[1]: 0,1
-	 * 0: No Assert
-	 * 1: Assert
-	 */
-	public WebElement waitForAndGetElement(Object locator, Object... opParams) {
-		WebElement elem = null;
-		int timeout = (Integer) (opParams.length > 0 ? opParams[0] : DEFAULT_TIMEOUT);
-		int isAssert = (Integer) (opParams.length > 1 ? opParams[1]: 1);
-		int notDisplayE = (Integer) (opParams.length > 2 ? opParams[2]: 0);
-
-		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
-			if (notDisplayE == 2){
-				elem = getElement(locator);
-			}else{
-				elem = getDisplayedElement(locator);
-			}
-			if (null != elem)
-				return elem;
-			Utils.pause(WAIT_INTERVAL);
-		}
-		if (isAssert == 1)	
-			assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
-		return null;
 	}
 
 	public boolean isTextPresent(String text) {

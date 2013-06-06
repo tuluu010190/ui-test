@@ -87,7 +87,7 @@ public class ECMS_SE_Create extends PlatformBase {
 		
 		info("Restore data");
 		actBar.undoDeletion(file);
-		waitForElementPresent(elementFile);
+		waitForAndGetElement(elementFile);
 		
 		info("Delete file after restore");
 		cMenu.deleteData(elementFile);
@@ -117,7 +117,7 @@ public class ECMS_SE_Create extends PlatformBase {
 		
 		info("Restore data");
 		actBar.undoDeletion(name);
-		waitForElementPresent(elementWeb);
+		waitForAndGetElement(elementWeb);
 		
 		info("Delete web content after restore");
 		cMenu.deleteData(elementWeb);
@@ -138,7 +138,7 @@ public class ECMS_SE_Create extends PlatformBase {
 			switchToParentWindow();
 			String links[] = file[0].split("/");
 			int length = links.length;
-			waitForElementPresent(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
+			waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
 			waitForElementNotPresent(By.xpath("//*[@class='loaddingPercent pull-right']"));
 		}
 	}
@@ -192,7 +192,7 @@ public class ECMS_SE_Create extends PlatformBase {
 		
 		info("Restore content folder");
 		actBar.undoDeletion(folder);
-		waitForElementPresent(elementFolder);
+		waitForAndGetElement(elementFolder);
 		
 		info("Delete content folder after restored");
 		cMenu.deleteData(elementFolder);
@@ -224,7 +224,7 @@ public class ECMS_SE_Create extends PlatformBase {
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForTextPresent(webContent);
 		ecms.goToNode(elementWeb);
-		waitForElementPresent(By.xpath(ELEMENT_LINK_IN_CE.replace("${file}", file2)));
+		waitForAndGetElement(By.xpath(ELEMENT_LINK_IN_CE.replace("${file}", file2)));
 		//waitForElementPresent(By.xpath(ELEMENT_LINK_IN_CE.replace("${file}", file1)));
 		
 		info("Delete uploaded files");

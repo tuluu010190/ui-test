@@ -83,7 +83,7 @@ public class ManageDrive extends EcmsBase{
 
 			//check add driver form
 			info("Add new driver with name " + driverName);
-			waitForElementPresent(ELEMENT_ADD_DRIVE_POPUP);
+			waitForAndGetElement(ELEMENT_ADD_DRIVE_POPUP);
 			assert isElementPresent(ELEMENT_DRIVE_TAB):"Add driver form is wrong";
 			assert isElementPresent(ELEMENT_APPLY_VIEW_TAB):"Add driver form is wrong";
 
@@ -95,7 +95,7 @@ public class ManageDrive extends EcmsBase{
 			}else {
 				click(By.xpath(ELEMENT_DRIVE_EDIT_AUX.replace("${driveName}", driverName)));
 			}
-			waitForElementPresent(ELEMENT_DRIVE_EDIT_POPUP);
+			waitForAndGetElement(ELEMENT_DRIVE_EDIT_POPUP);
 		}
 		
 		// Select workspace for new drive
@@ -108,7 +108,7 @@ public class ManageDrive extends EcmsBase{
 			}else {
 				click(ELEMENT_ADD_PATH_AUX);
 			}
-			waitForElementPresent(ELEMENT_ADD_PATH_POPUP);
+			waitForAndGetElement(ELEMENT_ADD_PATH_POPUP);
 			
 			if (isElementPresent(ELEMENT_ADD_ROOT_NODE)){
 				click(ELEMENT_ADD_ROOT_NODE);
@@ -122,7 +122,7 @@ public class ManageDrive extends EcmsBase{
 			}else {
 				click(ELEMENT_ADD_PATH_AUX);
 			}
-			waitForElementPresent(ELEMENT_ADD_PATH_POPUP);
+			waitForAndGetElement(ELEMENT_ADD_PATH_POPUP);
 			assert waitForAndGetElement(By.xpath("//*[@name='workspaceName']/option[@value='" + workspace + "']")).isSelected():"Homepath display wrong";
 			if (isElementPresent(ELEMENT_EXO_ECM)){
 				click(ELEMENT_EXO_ECM);
@@ -168,7 +168,7 @@ public class ManageDrive extends EcmsBase{
 			Utils.pause(500);
 			//waitForElementPresent(ELEMENT_DRIVER);
 			//assert isElementPresent(ELEMENT_DRIVER):"Add new driver is unsuccessful";
-			waitForElementPresent(ELEMENT_DRIVE_EDIT_AUX.replace("${driveName}", driverName));
+			waitForAndGetElement(ELEMENT_DRIVE_EDIT_AUX.replace("${driveName}", driverName));
 			info("Create new driver is successful");
 		}else{
 			//Complete add new drive

@@ -80,13 +80,13 @@ public class ManageMember extends SpaceManagement {
     selectUser(name);
     if (name.equals("root")){
     	 info("--------------------------------");
-    	 waitForElementPresent(By.xpath(member));
+    	 waitForAndGetElement(By.xpath(member));
     }else{
     	if(params.length > 0){    	
         	name = params[0];
         }
 	    click(ELEMENT_INVITE_MEMBER_BUTTON);
-	    waitForElementPresent(By.xpath(ELEMENT_INVITED_TABLE + "//td[contains(text(),'" + name + "')]"));
+	    waitForAndGetElement(By.xpath(ELEMENT_INVITED_TABLE + "//td[contains(text(),'" + name + "')]"));
     }
   }
   
@@ -99,22 +99,22 @@ public class ManageMember extends SpaceManagement {
     String user1 = "//input[@id='user' and contains(@value,'${user}')]";
     String user2 = user1.replace("${user}", name.toLowerCase());
     click(ELEMENT_SELECT_MEMBER_BUTTON);
-    waitForElementPresent(ELEMENT_SELECT_MEMBER_FORM);
+    waitForAndGetElement(ELEMENT_SELECT_MEMBER_FORM);
     By checkbox = getCheckBox(name);
     check(checkbox);
     clickButton("Add");
 
     if (name.equals("Jack")){
-    	waitForElementPresent(By.xpath(user1.replace("${user}", "demo")));
+    	waitForAndGetElement(By.xpath(user1.replace("${user}", "demo")));
     }else{
-    	waitForElementPresent(By.xpath(user2));
+    	waitForAndGetElement(By.xpath(user2));
     }
 
     if (name.equals("root")){
         //waitForElementPresent(By.xpath(user1.replace("${user}", "demo")));
     	info("-- Root is a super user so we don't need to add him as a member --");
     }else{
-        waitForElementPresent(By.xpath(user2));
+        waitForAndGetElement(By.xpath(user2));
     }
     	//waitForElementPresent(By.xpath(user)); 
   }
@@ -135,7 +135,7 @@ public class ManageMember extends SpaceManagement {
     click(ELEMENT_INVITE_MEMBER_BUTTON);
     
     for (int i = 0; i < len; i++) {
-      waitForElementPresent(By.xpath(ELEMENT_INVITED_TABLE + "//td[contains(text(),'" + userArr[i].trim() + "')]"));
+      waitForAndGetElement(By.xpath(ELEMENT_INVITED_TABLE + "//td[contains(text(),'" + userArr[i].trim() + "')]"));
       Utils.pause(500);
     }
     
@@ -150,7 +150,7 @@ public class ManageMember extends SpaceManagement {
     int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
     goToInvitationReceives();
     doAction("Accept", spaceName);
-    waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + spaceName
+    waitForAndGetElement(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + spaceName
                               + "']"),
                           iTimeout);
   }
@@ -189,7 +189,7 @@ public class ManageMember extends SpaceManagement {
     String validateButton = ELEMENT_PENDING_TABLE + "//td[contains(text(),'" + name
         + "')]/ancestor::tr//a[contains(@title,'Validate Invitation')]";
     click(validateButton);
-    waitForElementPresent(By.xpath(ELEMENT_MEMBERS_TABLE + "//td[contains(text(),'" + name + "')]"));
+    waitForAndGetElement(By.xpath(ELEMENT_MEMBERS_TABLE + "//td[contains(text(),'" + name + "')]"));
   }
 
   /**
@@ -216,7 +216,7 @@ public class ManageMember extends SpaceManagement {
     String revokeManagerButton = ELEMENT_MEMBERS_TABLE + "//td[contains(text(),'" + name
         + "')]/ancestor::tr//a[contains(@title,'" + revokeButtonLabel + "')]";
     click(grantManagerButton);
-    waitForElementPresent(By.xpath(revokeManagerButton));
+    waitForAndGetElement(By.xpath(revokeManagerButton));
   }
   
   /**
@@ -231,7 +231,7 @@ public class ManageMember extends SpaceManagement {
     String revokeManagerButton = ELEMENT_MEMBERS_TABLE + "//td[contains(text(),'" + name
         + "')]/ancestor::tr//a[contains(@title,'" + revokeButtonLabel + "')]";
     click(revokeManagerButton);
-    waitForElementPresent(By.xpath(grantManagerButton));
+    waitForAndGetElement(By.xpath(grantManagerButton));
   }
 
   /**
@@ -256,7 +256,7 @@ public class ManageMember extends SpaceManagement {
 	  int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
 	  goToAllSpaces();
 	  doAction("Join", spaceName);
-	  waitForElementPresent(By.xpath("//*[@class='spaceTitle']/text()['(Member)']/../a[text()='"+ spaceName +"']"), iTimeout);
+	  waitForAndGetElement(By.xpath("//*[@class='spaceTitle']/text()['(Member)']/../a[text()='"+ spaceName +"']"), iTimeout);
 	  Utils.pause(1000);
   }
   
@@ -278,7 +278,7 @@ public class ManageMember extends SpaceManagement {
 	  userSignIn(user);
 	  goToAllSpaces();
 	  doAction("Join", spaceName);
-	  waitForElementPresent(By.xpath("//*[@class='TitleContent']/text()['(Member)']/../a[text()='"+ spaceName +"']"), iTimeout);
+	  waitForAndGetElement(By.xpath("//*[@class='TitleContent']/text()['(Member)']/../a[text()='"+ spaceName +"']"), iTimeout);
 	  Utils.pause(1000);
 	  click(By.xpath("//*[@id='UIManageAllSpaces']//*[text()= '"+ spaceName +"']"));
 	  verifyUserJoinedSpace(user);
@@ -297,7 +297,7 @@ public class ManageMember extends SpaceManagement {
 	public void inviteSingleUser(userType userName){
 		info("-- Invite the user: " + userName + " to join our space");
 		click(ELEMENT_SELECT_MEMBER_BUTTON);
-		waitForElementPresent(ELEMENT_SELECT_MEMBER_FORM);
+		waitForAndGetElement(ELEMENT_SELECT_MEMBER_FORM);
 		switch (userName) {
 		case ROOT:
 			addUserToSpace(true, "Root");
@@ -331,13 +331,13 @@ public class ManageMember extends SpaceManagement {
 		if (userRoot){
 			check(By.xpath(ELEMENT_SELECTED_USER_BOX.replace("${userName}", userName)));
 			clickButton("Add");
-			waitForElementPresent(By.xpath(ELEMENT_MEMBERS_TABLE + "//td[contains(text(),'"+ userName +"')]"));
+			waitForAndGetElement(By.xpath(ELEMENT_MEMBERS_TABLE + "//td[contains(text(),'"+ userName +"')]"));
 		}else{
 			check(By.xpath(ELEMENT_SELECTED_USER_BOX.replace("${userName}", userName)));
 			clickButton("Add");
 			//click(ELEMENT_INVITE_MEMBER_BUTTON);
 			click(ELEMENT_INVITE_MEMBER_BUTTON_AUX);
-			waitForElementPresent(By.xpath(ELEMENT_INVITED_TABLE + "//td[contains(text(),'"+ userName +"')]"));
+			waitForAndGetElement(By.xpath(ELEMENT_INVITED_TABLE + "//td[contains(text(),'"+ userName +"')]"));
 		}
 	}
 	
@@ -352,7 +352,7 @@ public class ManageMember extends SpaceManagement {
 		info("-- Action: adding the user: " + userName);
 		goToMembers(spaceName);
 		click(ELEMENT_SELECT_MEMBER_BUTTON);
-		waitForElementPresent(ELEMENT_SELECT_MEMBER_FORM);
+		waitForAndGetElement(ELEMENT_SELECT_MEMBER_FORM);
 		if (userRoot){
 			check(By.xpath(ELEMENT_SELECTED_USER_BOX.replace("${userName}", userName)));
 			clickButton("Add");
@@ -561,7 +561,7 @@ public class ManageMember extends SpaceManagement {
 		}	
 		userRequestToJoinSpace(user, spaceName);
 		goToRequestsPeding();
-		waitForElementPresent(ELEMENT_CANCEL_LINK.replace("${spaceName}", spaceName));
+		waitForAndGetElement(ELEMENT_CANCEL_LINK.replace("${spaceName}", spaceName));
 	}
 	
 	/**
@@ -811,7 +811,7 @@ public class ManageMember extends SpaceManagement {
 		Utils.pause(500);
 		//goToAllSpaces();
 		click(ELEMENT_ALL_SPACE_LINK);
-		waitForElementPresent(ELEMENT_SEND_REQUEST_LINK.replace("${spaceName}", spaceName));
+		waitForAndGetElement(ELEMENT_SEND_REQUEST_LINK.replace("${spaceName}", spaceName));
 	}
 
 	/**
@@ -832,8 +832,8 @@ public class ManageMember extends SpaceManagement {
 		userSignIn(user);
 		goToInvitationReceives();
 		// Display the space name: spaceName with Accept | Ignore button
-		waitForElementPresent(ELEMENT_INVITATION_ACCEPT_LINK.replace("${spaceName}", spaceName));
-		waitForElementPresent(ELEMENT_INVITATION_IGNORE_LINK.replace("${spaceName}", spaceName));
+		waitForAndGetElement(ELEMENT_INVITATION_ACCEPT_LINK.replace("${spaceName}", spaceName));
+		waitForAndGetElement(ELEMENT_INVITATION_IGNORE_LINK.replace("${spaceName}", spaceName));
 		if (capture){
 			Utils.captureScreen(imageFileName);
 		}else{

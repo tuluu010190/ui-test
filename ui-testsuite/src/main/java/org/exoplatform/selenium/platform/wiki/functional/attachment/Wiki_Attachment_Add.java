@@ -62,7 +62,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 
 		attachFileInWiki(ATTACHMENT_PATH, 2);
 		
-		waitForElementPresent(ATTACHMENT_FILE_LINK);
+		waitForAndGetElement(ATTACHMENT_FILE_LINK);
 
 		//click(ELEMENT_CANCEL_BUTTON);
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
@@ -92,7 +92,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 		addWikiPageSourceEditor(DATA_WIKI_PAGE_NAME, DATA_WIKI_PAGE_CONTENT);
 
 		attachFileInWiki(ATTACHMENT_PATH, 2);
-		waitForElementPresent(ATTACHMENT_FILE_LINK);
+		waitForAndGetElement(ATTACHMENT_FILE_LINK);
 
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
 		//click(ELEMENT_CANCEL_BUTTON);
@@ -123,7 +123,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 		addWikiPageSourceEditor(DATA_WIKI_PAGE_NAME, DATA_WIKI_PAGE_CONTENT);
 
 		attachFileInWiki(ATTACHMENT_PATH, 2);
-		waitForElementPresent(ATTACHMENT_FILE_LINK);
+		waitForAndGetElement(ATTACHMENT_FILE_LINK);
 
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
 		//click(ELEMENT_CANCEL_BUTTON);
@@ -153,7 +153,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 		addWikiPageSourceEditor(DATA_WIKI_PAGE_NAME, DATA_WIKI_PAGE_CONTENT);
 
 		attachFileInWiki(ATTACHMENT_PATH, 2);
-		waitForElementPresent(ATTACHMENT_FILE_LINK);
+		waitForAndGetElement(ATTACHMENT_FILE_LINK);
 
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
 		//click(ELEMENT_CANCEL_BUTTON);
@@ -183,7 +183,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 		addWikiPageSourceEditor(DATA_WIKI_PAGE_NAME, DATA_WIKI_PAGE_CONTENT);
 
 		attachFileInWiki(ATTACHMENT_PATH, 2);
-		waitForElementPresent(ATTACHMENT_FILE_LINK);
+		waitForAndGetElement(ATTACHMENT_FILE_LINK);
 
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
 		//click(ELEMENT_CANCEL_BUTTON);

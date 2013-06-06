@@ -119,7 +119,7 @@ public class SitesExplorer extends EcmsBase{
 		if (isElementNotPresent(ELEMENT_SIDEBAR_FILE_EXPLORER)){
 			navToolBar.goToSiteExplorer();     
 		}
-		waitForElementPresent(ELEMENT_TAG_CLOUD);
+		waitForAndGetElement(ELEMENT_TAG_CLOUD);
 		click(ELEMENT_TAG_CLOUD);
 		if (isElementPresent(ELEMENT_EDIT_TAGS)){
 			//click(ELEMENT_EDIT_TAGS);
@@ -129,13 +129,13 @@ public class SitesExplorer extends EcmsBase{
 			//((JavascriptExecutor)driver).executeScript("arguments[0].click();", By.xpath("//*[@data-original-title = 'Edit Tags']"));
 		}
 		click(By.xpath("//*[@id='UITagExplorer']//*[contains(@class, 'uiIconEdit')]"));
-		waitForElementPresent(ELEMENT_EDIT_TAGS_FORM);
+		waitForAndGetElement(ELEMENT_EDIT_TAGS_FORM);
 	}
 
 	//Add tag for a node
 	public void addTagForNode(String[] tagName) {
 		info("-- Open a Tag Form --");
-		if (waitForElementPresent(ELEMENT_TAG_LINK, 5000, 0) != null){
+		if (waitForAndGetElement(ELEMENT_TAG_LINK, 5000, 0) != null){
 			click(ELEMENT_TAG_LINK);
 		}else {
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
@@ -147,7 +147,7 @@ public class SitesExplorer extends EcmsBase{
 			type(ELEMENT_TAG_NAME, tagName[i], true);
 			click(button.ELEMENT_ADD_BUTTON);
 			//Verify new tag
-			waitForElementPresent(By.xpath("//*[text()='Linked Tags:']/..//*[contains(text(), '"+ tagName[i] +"')]"));
+			waitForAndGetElement(By.xpath("//*[text()='Linked Tags:']/..//*[contains(text(), '"+ tagName[i] +"')]"));
 		}
 
 		//Close
@@ -165,15 +165,15 @@ public class SitesExplorer extends EcmsBase{
 	 */
 	public void editTag(String oldTag, String newTag){
 		click(By.xpath(ELEMENT_EDIT_A_TAG_ICON.replace("${tagName}", oldTag)));
-		waitForElementPresent(ELEMENT_EDIT_A_TAG_FORM);
+		waitForAndGetElement(ELEMENT_EDIT_A_TAG_FORM);
 		type(ELEMENT_EDIT_TAG_NAME, newTag, true);
 		button.save();
-		waitForElementPresent(By.xpath(ELEMENT_EDIT_A_TAG_ICON.replace("${tagName}", newTag)));
+		waitForAndGetElement(By.xpath(ELEMENT_EDIT_A_TAG_ICON.replace("${tagName}", newTag)));
 	}
 
 	//Simple search
 	public boolean simpleSearch(String keyword){
-		waitForElementPresent(ELEMENT_SIMPLESEARCH_TEXTBOX);
+		waitForAndGetElement(ELEMENT_SIMPLESEARCH_TEXTBOX);
 		type(ELEMENT_SIMPLESEARCH_TEXTBOX, keyword, true);
 		Utils.pause(1000);
 		click(ELEMENT_SIMPLESEARCH_SUBMIT);

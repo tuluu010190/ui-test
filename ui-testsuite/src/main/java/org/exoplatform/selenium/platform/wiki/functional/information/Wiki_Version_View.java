@@ -216,7 +216,7 @@ public class Wiki_Version_View extends Version{
 
 		viewPageHistory();
 
-		waitForElementPresent(ELEMENT_RESTORE_LINK.replace("{$version}","2"));
+		waitForAndGetElement(ELEMENT_RESTORE_LINK.replace("{$version}","2"));
 
 		goToWikiPage(dataInfo[4]);
 
@@ -299,7 +299,7 @@ public class Wiki_Version_View extends Version{
 
 		goToRevisionsPage();
 
-		waitForElementPresent(ELEMENT_VERSION_LINK.replace("{$version}","3"));
+		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}","3"));
 
 		backToPreviousBrowser(cookies1, handlesBefore);
 

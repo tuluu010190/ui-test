@@ -37,7 +37,7 @@ public class ManageScript extends EcmsBase{
 	public void openAddScriptForm(){
 		info("-- Opening [Add Script] Form --");
 		click(ecMain.ELEMENT_ADD_SCRIPT_BUTTON);
-		waitForElementPresent(ELEMENT_SCRIPT_CONTENT);
+		waitForAndGetElement(ELEMENT_SCRIPT_CONTENT);
 	}
 
 	//Add a script

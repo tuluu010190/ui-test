@@ -69,7 +69,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 
@@ -102,7 +102,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 		
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 
@@ -135,7 +135,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 
@@ -168,7 +168,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 
@@ -199,7 +199,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 
@@ -230,7 +230,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 
@@ -263,7 +263,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 
@@ -300,7 +300,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		userSignIn(ManageMember.userType.ADMIN);
 		
@@ -333,7 +333,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 
@@ -366,7 +366,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 
@@ -399,7 +399,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		click(ELEMENT_PAGE1);
 
-		waitForElementPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
 		info("reset data");
 

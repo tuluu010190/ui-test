@@ -519,7 +519,7 @@ public class EcmsBase extends ManageAccount {
 		switchToParentWindow();
 		String links[] = link.split("/");
 		int length = links.length;
-		waitForElementPresent(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
+		waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
 		//click(button.ELEMENT_SAVE_BUTTON);
 		info("Upload file successfully");
 		//click(button.ELEMENT_CLOSE_BUTTON);

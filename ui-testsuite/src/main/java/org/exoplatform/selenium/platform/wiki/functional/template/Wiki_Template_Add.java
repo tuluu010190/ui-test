@@ -60,7 +60,7 @@ public class Wiki_Template_Add extends Template{
 
 		goToAddTemplateWikiPage();
 
-		waitForElementPresent(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
+		waitForAndGetElement(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
 		click(ELEMENT_CLOSE_TEMPLATE_LIST);
 
@@ -94,7 +94,7 @@ public class Wiki_Template_Add extends Template{
 
 		click(By.xpath(ELEMENT_PREVIEW_NEW_TEMPLATE.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE)));
 
-		waitForElementPresent(VERIFY_BOLD_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
+		waitForAndGetElement(VERIFY_BOLD_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
 
 		//click(ELEMENT_CLOSE_TEMPLATE_LIST);
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
@@ -134,7 +134,7 @@ public class Wiki_Template_Add extends Template{
 
 		click(ELEMENT_PREVIEW_NEW_TEMPLATE.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
-		waitForElementPresent(VERIFY_ITALIC_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
+		waitForAndGetElement(VERIFY_ITALIC_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
 
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 
@@ -173,7 +173,7 @@ public class Wiki_Template_Add extends Template{
 
 		click(ELEMENT_PREVIEW_NEW_TEMPLATE.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
-		waitForElementPresent(VERIFY_STRIKE_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
+		waitForAndGetElement(VERIFY_STRIKE_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
 
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 
@@ -212,7 +212,7 @@ public class Wiki_Template_Add extends Template{
 
 		click(ELEMENT_PREVIEW_NEW_TEMPLATE.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
-		waitForElementPresent(VERIFY_UNDERLINE_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
+		waitForAndGetElement(VERIFY_UNDERLINE_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
 
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 
@@ -251,7 +251,7 @@ public class Wiki_Template_Add extends Template{
 
 		click(ELEMENT_PREVIEW_NEW_TEMPLATE.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
-		waitForElementPresent(VERIFY_HEADING_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
+		waitForAndGetElement(VERIFY_HEADING_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
 
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 
@@ -291,7 +291,7 @@ public class Wiki_Template_Add extends Template{
 
 		click(ELEMENT_PREVIEW_NEW_TEMPLATE.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
-		waitForElementPresent(ELEMENT_VERIFY_BULLET_EFFECT.replace("${temp0}", temp[0]).replace("${temp1}", temp[1]));
+		waitForAndGetElement(ELEMENT_VERIFY_BULLET_EFFECT.replace("${temp0}", temp[0]).replace("${temp1}", temp[1]));
 
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 
@@ -331,7 +331,7 @@ public class Wiki_Template_Add extends Template{
 
 		click(ELEMENT_PREVIEW_NEW_TEMPLATE.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
-		waitForElementPresent(ELEMENT_VERIFY_NUMBER_EFFECT.replace("${temp1}", temp[1]));
+		waitForAndGetElement(ELEMENT_VERIFY_NUMBER_EFFECT.replace("${temp1}", temp[1]));
 
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 
@@ -371,7 +371,7 @@ public class Wiki_Template_Add extends Template{
 
 		click(ELEMENT_PREVIEW_NEW_TEMPLATE.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
-		waitForElementPresent(ELEMENT_VERIFY_TABLE_EFFECT.replace("${temp0}", temp[0]).replace("${temp3}", temp[3]));
+		waitForAndGetElement(ELEMENT_VERIFY_TABLE_EFFECT.replace("${temp0}", temp[0]).replace("${temp3}", temp[3]));
 
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 
@@ -410,7 +410,7 @@ public class Wiki_Template_Add extends Template{
 
 		click(ELEMENT_PREVIEW_NEW_TEMPLATE.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 
-		waitForElementPresent(ELEMENT_VERIFY_LINK_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT).replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
+		waitForAndGetElement(ELEMENT_VERIFY_LINK_EFFECT.replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT).replace("${TEMPLATE_CONTENT}", DATA_TEMPLATE_CONTENT));
 
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 

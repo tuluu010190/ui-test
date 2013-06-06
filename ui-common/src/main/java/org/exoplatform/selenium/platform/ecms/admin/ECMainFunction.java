@@ -68,7 +68,7 @@ public class ECMainFunction extends EcmsBase{
 			click(ELEMENT_TEMPLATE_TAB);
 		}
 		click(ELEMENT_DOCUMENT_LINK);
-		waitForElementPresent(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
+		waitForAndGetElement(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
 	}
 
 	//Open [List Template] Screen
@@ -78,7 +78,7 @@ public class ECMainFunction extends EcmsBase{
 			click(ELEMENT_TEMPLATE_TAB);
 		}
 		click(ELEMENT_LIST_LINK);
-		waitForElementPresent(By.xpath("//*[text()='Add Template']"));
+		waitForAndGetElement(By.xpath("//*[text()='Add Template']"));
 	}
 	
 	//Go to [Metadata] tab
@@ -112,7 +112,7 @@ public class ECMainFunction extends EcmsBase{
 			click(ELEMENT_REPOSITORY_TAB);
 			click(ELEMENT_MANAGE_NODETYPE);
 		}
-		waitForElementPresent(By.xpath("//*[@class='title' and contains(text(), 'Node Types')]"));
+		waitForAndGetElement(By.xpath("//*[@class='title' and contains(text(), 'Node Types')]"));
 	}
 
 	//Go To Content Administration / Repository / Namespaces

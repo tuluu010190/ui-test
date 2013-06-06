@@ -64,17 +64,17 @@ public class Activity extends SocialBase {
 		By ELEMENT_DRIVE_BOX = By.xpath("//select[@onchange='eXo.commons.DocumentSelector.changeDrive(this);']");
 		String [] paths = folderPath.split("/");
 
-		waitForElementPresent(ELEMENT_FILE_LINK);
+		waitForAndGetElement(ELEMENT_FILE_LINK);
 
 		click(ELEMENT_FILE_LINK);
 
-		waitForElementPresent(ELEMENT_SELECT_FILE_BUTTON);
+		waitForAndGetElement(ELEMENT_SELECT_FILE_BUTTON);
 
 		info("----Click Select file button----");
 
 		click(ELEMENT_SELECT_FILE_BUTTON);
 
-		waitForElementPresent(ELEMENT_SELECT_FILE_POPUP);	
+		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);	
 
 		info("----Select drive----");
 
@@ -101,7 +101,7 @@ public class Activity extends SocialBase {
 
 			switchToParentWindow();	
 
-			waitForElementPresent(By.xpath("//a[text()='"+uploadFileName+"']"));
+			waitForAndGetElement(By.xpath("//a[text()='"+uploadFileName+"']"));
 
 			click(By.xpath("//a[text()='"+uploadFileName+"']"));
 
@@ -109,7 +109,7 @@ public class Activity extends SocialBase {
 
 			click(ELEMENT_SELECT_BUTTON);
 
-			waitForElementPresent(By.xpath("//span[@class='BrowsedDocument' and text()='"+uploadFileName+"']"));
+			waitForAndGetElement(By.xpath("//span[@class='BrowsedDocument' and text()='"+uploadFileName+"']"));
 		}
 		else 
 		{
@@ -119,7 +119,7 @@ public class Activity extends SocialBase {
 
 			click(ELEMENT_SELECT_BUTTON);
 
-			waitForElementPresent(By.xpath("//span[@class='BrowsedDocument' and text()='"+selectFileName+"']"));
+			waitForAndGetElement(By.xpath("//span[@class='BrowsedDocument' and text()='"+selectFileName+"']"));
 		}
 	}
 
@@ -133,7 +133,7 @@ public class Activity extends SocialBase {
 	public void addActivity (boolean addText, String text, boolean addLink, String link) {
 		info("-- Adding an activity to space --");
 
-		waitForElementPresent(ELEMENT_ATIVITY_TEXTBOX);
+		waitForAndGetElement(ELEMENT_ATIVITY_TEXTBOX);
 
 		if (addText) 
 		{
@@ -143,7 +143,7 @@ public class Activity extends SocialBase {
 		}
 		if (addLink)
 		{
-			waitForElementPresent(ELEMENT_LINK);
+			waitForAndGetElement(ELEMENT_LINK);
 
 			info("----Click on Link----");
 
@@ -153,16 +153,16 @@ public class Activity extends SocialBase {
 
 			type(ELEMENT_INPUT_LINK_BOX, link, true);
 
-			waitForElementPresent(ELEMENT_ATTACH_BUTTON);
+			waitForAndGetElement(ELEMENT_ATTACH_BUTTON);
 
 			info("----Click attach button-----");
 
 			click(ELEMENT_ATTACH_BUTTON);
 
-			waitForElementPresent(By.id("LinkTitle"));
+			waitForAndGetElement(By.id("LinkTitle"));
 		}
 
-		waitForElementPresent(ELEMENT_SHARE_BUTTON);
+		waitForAndGetElement(ELEMENT_SHARE_BUTTON);
 
 		info("----Click share button----");
 

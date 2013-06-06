@@ -59,14 +59,14 @@ public class Wiki_Template_Edit extends Template{
 	
 		goToAddTemplateWikiPage();
 	
-		waitForElementPresent(ELEMENT_OLD_TEMPLATE_LINK.replace("${OLD_TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
+		waitForAndGetElement(ELEMENT_OLD_TEMPLATE_LINK.replace("${OLD_TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
 	
 		//click(ELEMENT_CLOSE_TEMPLATE_LIST);
 		button.cancel();
 
 		editTemplate(DATA_TEMPLATE_TITLE, DATA_NEW_TEMPLATE_TITLE, DATA_TEMPLATE_DESC, DATA_TEMPLATE_CONTENT);
 	
-		waitForElementPresent(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_NEW_TEMPLATE_TITLE));
+		waitForAndGetElement(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_NEW_TEMPLATE_TITLE));
 		
 		goToWikiHome();
 		

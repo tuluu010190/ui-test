@@ -83,22 +83,22 @@ public class ECMS_SE_BasicAction_Clipboard extends PlatformBase {
 
 		//Select acme > documents node
 		doubleClickOnElement(actBar.ELEMENT_SIDEBAR_ACME);
-		waitForElementPresent(actBar.ELEMENT_SIDEBAR_ACME_DOCUMENTS);
+		waitForAndGetElement(actBar.ELEMENT_SIDEBAR_ACME_DOCUMENTS);
 		doubleClickOnElement(actBar.ELEMENT_SIDEBAR_ACME_DOCUMENTS);
 
 		//Click on Clipboard
-		waitForElementPresent(siteExp.ELEMENT_CLIPBOARD_ICON);
+		waitForAndGetElement(siteExp.ELEMENT_CLIPBOARD_ICON);
 		click(siteExp.ELEMENT_CLIPBOARD_ICON);
 
 		//Verify Path & Cm of Nodes
-		waitForElementPresent(siteExp.ELEMENT_VERIFY_ACTION.replace("${titleOfFile}", DATA_CONTENT_FOLDER));
-		waitForElementPresent(siteExp.ELEMENT_VERIFY_ACTION.replace("${titleOfFile}", DATA_DOCUMENT_FOLDER));
-		waitForElementPresent(siteExp.ELEMENT_VERIFY_ACTION.replace("${titleOfFile}", DATA_FILE_NAME));
-		waitForElementPresent(siteExp.ELEMENT_VERIFY_ACTION.replace("${titleOfFile}", "Winter.jpg"));
+		waitForAndGetElement(siteExp.ELEMENT_VERIFY_ACTION.replace("${titleOfFile}", DATA_CONTENT_FOLDER));
+		waitForAndGetElement(siteExp.ELEMENT_VERIFY_ACTION.replace("${titleOfFile}", DATA_DOCUMENT_FOLDER));
+		waitForAndGetElement(siteExp.ELEMENT_VERIFY_ACTION.replace("${titleOfFile}", DATA_FILE_NAME));
+		waitForAndGetElement(siteExp.ELEMENT_VERIFY_ACTION.replace("${titleOfFile}", "Winter.jpg"));
 		
 		//Clear all action in list
 		click(siteExp.ELEMENT_CLEAR_ALL_ICON);
-		waitForElementPresent(siteExp.MESSAGE_CLEAR_ALL);
+		waitForAndGetElement(siteExp.MESSAGE_CLEAR_ALL);
 
 		//Delete data
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);

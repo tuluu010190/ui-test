@@ -121,7 +121,7 @@ public class Wiki_BasicAction_Edit extends BasicAction {
 
 		editParagraph("paragraph1", DATA_PARAGRAPH1_NEW);
 	
-		waitForElementPresent(By.xpath("//span[text()='test edit paragraph']"));
+		waitForAndGetElement(By.xpath("//span[text()='test edit paragraph']"));
 		
 		//Clear data	
 		deleteCurrentWikiPage();	
@@ -147,7 +147,7 @@ public class Wiki_BasicAction_Edit extends BasicAction {
 
 		editParagraph("level2", DATA_PARAGRAPH2_NEW);
 	
-		waitForElementPresent(By.xpath("//span[text()='test edit paragraph level2']"));
+		waitForAndGetElement(By.xpath("//span[text()='test edit paragraph level2']"));
 		
 		//Clear data	
 		deleteCurrentWikiPage();	

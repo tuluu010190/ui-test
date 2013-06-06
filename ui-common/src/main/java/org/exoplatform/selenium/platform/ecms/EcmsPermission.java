@@ -50,7 +50,7 @@ public class EcmsPermission extends EcmsBase{
 		boolean isCheckedRemove = driver.findElement(ELEMENT_REMOVE_CHECKBOX).isSelected();
 		
 		info("Set read permission for user: " + read);
-		waitForElementPresent(ELEMENT_READ_CHECKBOX, DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ELEMENT_READ_CHECKBOX, DEFAULT_TIMEOUT, 1, 2);
 		if ((read && !isCheckedRead) || (!read && isCheckedRead)){
 			//click(ELEMENT_READ_CHECKBOX, 2);
 			((JavascriptExecutor) driver).executeScript("document.getElementById('read').click();");

@@ -87,7 +87,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		nav.goToSiteExplorer();
 		//click(ecms.ELEMENT_SHOW_DRIVES);
 		actBar.goToSitesManagement();
-		waitForElementPresent(ELEMENT_DRIVE);
+		waitForAndGetElement(ELEMENT_DRIVE);
 		info("Drive display true");
 
 		//delete data
@@ -143,7 +143,7 @@ public class ECMS_Admin_ManageDriver_Display extends PlatformBase{
 		nav.goToSiteExplorer();
 		//click(ecms.ELEMENT_SHOW_DRIVES);
 		actBar.goToSitesManagement();
-		waitForElementPresent(ELEMENT_DRIVER);
+		waitForAndGetElement(ELEMENT_DRIVER);
 		info("Drive display true");
 
 		//delete data

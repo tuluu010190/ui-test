@@ -115,7 +115,7 @@ public class NavigationToolbar extends PlatformBase {
 		info("--Go to Portal Application Registry--");
 		mouseOver(ELEMENT_LINK_SETUP, false);
 		Utils.pause(500);
-		waitForElementPresent(ELEMENT_APPLICATIONS_LINK);
+		waitForAndGetElement(ELEMENT_APPLICATIONS_LINK);
 		click(ELEMENT_APPLICATIONS_LINK);
 		Utils.pause(500);
 	}

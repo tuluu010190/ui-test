@@ -21,7 +21,7 @@ public class SpaceSearch extends SocialBase {
 		
 		info("Input data into search textbox");
 		
-		waitForElementPresent(ELEMENT_SEARCH_TEXTBOX);
+		waitForAndGetElement(ELEMENT_SEARCH_TEXTBOX);
 		
 		type(ELEMENT_SEARCH_TEXTBOX, spaceName, true);
 		
@@ -31,7 +31,7 @@ public class SpaceSearch extends SocialBase {
 		
 		if (verify) {
 			
-			waitForElementPresent(DATA_SPACE_LINK);		
+			waitForAndGetElement(DATA_SPACE_LINK);		
 		}
 		else {
 			Utils.captureScreen("SearchResultByName");
@@ -42,7 +42,7 @@ public class SpaceSearch extends SocialBase {
 	public void searchSpaceByDirectory (String charcter) {
 		By ELEMENT_DIRECTORY_LINK = By.linkText(charcter);
 		
-		waitForElementPresent(ELEMENT_DIRECTORY_LINK);
+		waitForAndGetElement(ELEMENT_DIRECTORY_LINK);
 		
 		info("Click on specific character");
 		

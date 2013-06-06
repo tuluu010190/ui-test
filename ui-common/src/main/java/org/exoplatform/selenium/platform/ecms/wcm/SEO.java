@@ -43,7 +43,7 @@ public class SEO extends EcmsBase{
 	 */
 	public void inputDataSeo(String des, String key, String index, String follow, boolean sitemap, String fre, String pri){
 
-		waitForElementPresent(ELEMENT_SEO_FORM);
+		waitForAndGetElement(ELEMENT_SEO_FORM);
 		waitForAndGetElement(ELEMENT_DESCRIPTION_TEXTAREA).clear();
 		waitForAndGetElement(ELEMENT_KEYWORD_TEXTAREA).clear();
 		waitForAndGetElement(ELEMENT_PRIORITY).clear();

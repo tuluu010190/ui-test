@@ -228,7 +228,7 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 		info("Add 2 tags for content");
 		navTool.goToSiteExplorer();
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
-		waitForElementPresent(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		waitForAndGetElement(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		ecms.goToNode(elementWeb);
 		siteExp.addTagForNode(tag2);
 		
@@ -242,7 +242,7 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 		siteExp.goToEditTag();
 		siteExp.deleteTag(tag);
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
-		waitForElementPresent(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		waitForAndGetElement(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		cMenu.deleteData(elementWeb);		
 	}
 	
@@ -431,7 +431,7 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 		navTool.goToSiteExplorer();
 		actBar.chooseDrive(By.xpath("//*[@data-original-title='Sites Management']"));
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
-		waitForElementPresent(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		waitForAndGetElement(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		cMenu.deleteData(elementWeb);		
 	}
 	
@@ -490,7 +490,7 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 		cMenu.cutAndPasteNode(elementUploadFile, elementFolder);
 		waitForElementNotPresent(elementUploadFile);
 		ecms.goToNode(elementFolder);
-		waitForElementPresent(elementUploadFile);
+		waitForAndGetElement(elementUploadFile);
 		
 		info("Check activity after moving a file");
 		navTool.goToHomePage();
@@ -521,7 +521,7 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 		cMenu.cutAndPasteNode(elementWeb, elementFolder);
 		waitForElementNotPresent(cMenu.ELEMENT_FILE_TITLE.replace("${${titleOfFile}}", name));
 		ecms.goToNode(elementFolder);
-		waitForElementPresent(elementWeb);
+		waitForAndGetElement(elementWeb);
 		
 		info("Check activity after moving a file");
 		navTool.goToHomePage();

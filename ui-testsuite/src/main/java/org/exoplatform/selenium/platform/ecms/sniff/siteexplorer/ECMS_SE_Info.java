@@ -67,7 +67,7 @@ public class ECMS_SE_Info extends PlatformBase {
 
 		//Check if mary has edit, read on node1
 		actBar.goToNode(bNode1);
-		waitForElementPresent(actBar.ELEMENT_NEW_CONTENT_LINK);
+		waitForAndGetElement(actBar.ELEMENT_NEW_CONTENT_LINK);
 
 		//Delete data
 		magAcc.signOut();
@@ -112,9 +112,9 @@ public class ECMS_SE_Info extends PlatformBase {
 
 		//Check if mary has edit, read on node1
 		actBar.goToNode(bNode1);
-		waitForElementPresent(actBar.ELEMENT_NEW_CONTENT_LINK);
+		waitForAndGetElement(actBar.ELEMENT_NEW_CONTENT_LINK);
 		rightClickOnElement(bNode1);
-		waitForElementPresent(cMenu.ELEMENT_MENU_DELETE);
+		waitForAndGetElement(cMenu.ELEMENT_MENU_DELETE);
 
 		//Delete data
 		magAcc.signOut();
@@ -155,7 +155,7 @@ public class ECMS_SE_Info extends PlatformBase {
 
 		//Check if mary has edit, read on node1
 		actBar.goToNode(bNode1);
-		waitForElementPresent(actBar.ELEMENT_NEW_CONTENT_LINK);
+		waitForAndGetElement(actBar.ELEMENT_NEW_CONTENT_LINK);
 
 		//Delete permission
 		magAcc.signOut();

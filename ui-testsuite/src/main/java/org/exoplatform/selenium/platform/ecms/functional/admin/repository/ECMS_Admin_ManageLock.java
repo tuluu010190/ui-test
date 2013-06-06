@@ -212,7 +212,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 
 		//goToAdminManageLockAndVerify("newsTest03");
 		nav.goToContentAdministration();
-		waitForElementPresent("//*[contains(text(), 'newstest03')]");
+		waitForAndGetElement("//*[contains(text(), 'newstest03')]");
 
 		info("-- Restore original data --");
 
@@ -627,7 +627,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 
 		click(cMenu.ELEMENT_DOCUMENT);
 
-		waitForElementPresent(elementLockedArticleIcon);	
+		waitForAndGetElement(elementLockedArticleIcon);	
 	}
 
 	//Verify locked node at Administration/Manage Lock
@@ -637,6 +637,6 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 		click(ELEMENT_REPOSITORY_TAB);
 		click(ELEMENT_MANAGE_LOCKS);
 		//waitForTextPresent(titleOfArticle);
-		waitForElementPresent("//*[contains(text(), '"+ titleOfArticle +"')]");
+		waitForAndGetElement("//*[contains(text(), '"+ titleOfArticle +"')]");
 	}
 }

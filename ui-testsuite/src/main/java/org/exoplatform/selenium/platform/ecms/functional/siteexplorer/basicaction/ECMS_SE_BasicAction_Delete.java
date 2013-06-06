@@ -98,11 +98,11 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 
 		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-		waitForElementPresent(FILE_DOCUMENT);
+		waitForAndGetElement(FILE_DOCUMENT);
 
 		//Upload a File
 		ecms.uploadFile(DATA_UPLOAD_FILE_PATH);
-		waitForElementPresent(UPLOAD_FILE_NAME);
+		waitForAndGetElement(UPLOAD_FILE_NAME);
 
 		//Delete Nodes
 		cMenu.deleteDocument(CONTENT_FOLDER);
@@ -134,7 +134,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		//Upload a File
 		ecms.uploadFile(DATA_UPLOAD_FILE_PATH);
-		waitForElementPresent(UPLOAD_FILE_NAME);
+		waitForAndGetElement(UPLOAD_FILE_NAME);
 
 		//Right click and check-in node
 		cMenu.contextMenuAction(UPLOAD_FILE_NAME, actionType.CHECKIN);
@@ -293,7 +293,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		navToolBar.goToSiteExplorer();
 
 		//Verify Deleted item not existed
-		waitForElementPresent(CONTENT_FOLDER);
+		waitForAndGetElement(CONTENT_FOLDER);
 		rightClickOnElement(CONTENT_FOLDER);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_DELETE);
 
@@ -305,7 +305,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		navToolBar.goToSiteExplorer();
 
 		//Verify Deleted item not existed
-		waitForElementPresent(CONTENT_FOLDER);
+		waitForAndGetElement(CONTENT_FOLDER);
 		cMenu.deleteDocument(CONTENT_FOLDER);
 	}
 
@@ -691,11 +691,11 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Delete a file --");
 		actBar.actionsOnElement(data1, actionType.DELETE);		
-		waitForElementPresent(ecms.MESSAGE_ITEM_DELETED_SUCCESSFULLY.replace("${title}", data1));
+		waitForAndGetElement(ecms.MESSAGE_ITEM_DELETED_SUCCESSFULLY.replace("${title}", data1));
 		
 		info("-- Undo Deletion --");
 		actBar.undoDeletion();
-		waitForElementPresent(ecms.MESSAGE_ITEM_RESTORED_SUCCESSFULLY.replace("${title}", data1));
+		waitForAndGetElement(ecms.MESSAGE_ITEM_RESTORED_SUCCESSFULLY.replace("${title}", data1));
 		
 		actBar.actionsOnElement(data1, actionType.DELETE);
 	}
@@ -723,11 +723,11 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		click(ecms.ELEMENT_UI_CHECKBOX.replace("${element}", data2), 2);
 		click(cMenu.ELEMENT_MENU_DELETE);
 		dialog.deleteInDialog();
-		waitForElementPresent(ecms.MESSAGE_MULTI_ITEMS_DELETED_SUCCESSFULLY.replace("${title}", "2 items"));
+		waitForAndGetElement(ecms.MESSAGE_MULTI_ITEMS_DELETED_SUCCESSFULLY.replace("${title}", "2 items"));
 		
 		info("-- Undo Deletion --");
 		actBar.undoDeletion();
-		waitForElementPresent(ecms.MESSAGE_MULTI_ITEMS_RESTORED_SUCCESSFULLY.replace("${title}", "2 items"));
+		waitForAndGetElement(ecms.MESSAGE_MULTI_ITEMS_RESTORED_SUCCESSFULLY.replace("${title}", "2 items"));
 		
 		actBar.actionsOnElement(data1, actionType.DELETE);
 		actBar.actionsOnElement(data2, actionType.DELETE);
@@ -761,7 +761,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		
 		info("-- Undo deletion --");
 		actBar.undoDeletion();
-		waitForElementPresent(ecms.MESSAGE_ITEM_RESTORED_SUCCESSFULLY.replace("${title}", data1));
+		waitForAndGetElement(ecms.MESSAGE_ITEM_RESTORED_SUCCESSFULLY.replace("${title}", data1));
 		
 		info("-- Review a relation --");
 		ecms.goToNode("ECMS_Undo_Delete_4", true);
