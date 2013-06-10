@@ -245,6 +245,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_UPLOAD_CREATOR = By.id("creator0");
 	public final By ELEMENT_UPLOAD_SOURCE = By.id("source0");
 	public final By ELEMENT_UPLOAD_LINK = By.id("MultiUploadInputFiles");
+	public final By ELEMENT_UPLOAD_FILE_LINK = By.className("uiIconEcmsUpload");
 
 	//Edit Tag Form
 	public final By ELEMENT_TAG_CLOUD = By.className("uiIconEcmsTagExplorerMini");

@@ -1,13 +1,10 @@
 package org.exoplatform.selenium.platform.ecms.contentexplorer;
 
-import static org.exoplatform.selenium.TestLogger.info;
-
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 /**
  * 
@@ -29,29 +26,16 @@ public class BrowserPreferences extends EcmsBase{
 	public void setUpPreferenceOption(String optionId){
 		By option = By.id(optionId);
 		By advanced = By.className("advancePreferences");
-
-		for (int repeat = 0;; repeat ++){
-			if (repeat >= ACTION_REPEAT) {
-				Assert.fail("Cannot enable reference option after " + ACTION_REPEAT + " tries");
-			}
-//			waitForElementPresent(ELEMENT_PREFERENCE_LINK, 5000, 1);
-			click(ELEMENT_PREFERENCE_LINK);
-//			waitForElementPresent(advanced, 10000, 1);
-			if (getElement(advanced) != null){
-				click(advanced);
-				WebElement check = waitForAndGetElement(option, DEFAULT_TIMEOUT, 1, 2);
-				if (check.isSelected()!= true){
-					click(option, 2);
-				}
-				button.save();
-				waitForTextNotPresent("Preferences");
-				/*if (isTextPresent("Advanced")){
-					button.save();
-				} */
-				//waitForElementNotPresent(advanced);
-				break;
-			}
-			info("Retry...[" + repeat + "]");
+		
+		click(ELEMENT_PREFERENCE_LINK);
+		WebElement opt = waitForAndGetElement(option, 5000, 0, 2);
+		if (opt == null){
+			click(advanced);
 		}
+		if (opt.isSelected()!= true){
+			click(option, 2);
+		}
+		button.save();
+		waitForTextNotPresent("Preferences");
 	}
 }
