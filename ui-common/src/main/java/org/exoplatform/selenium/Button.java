@@ -113,6 +113,6 @@ public class Button extends TestBase{
 		}else if (isElementPresent(By.xpath("//*[contains(@class, 'wikiPreviewHeader')]//*[contains(@class, 'uiIconClose')]"))){
 			click(By.xpath("//*[contains(@class, 'wikiPreviewHeader')]//*[contains(@class, 'uiIconClose')]"));
 		}
-		Utils.pause(500);
+		Utils.pause(1000);
 	}
 }

@@ -26,7 +26,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 public class TestBase {
-	protected WebDriver driver;
+	public WebDriver driver;
 	protected String baseUrl;
 	protected int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
 	protected int WAIT_INTERVAL = 1000; //milliseconds  
@@ -35,7 +35,11 @@ public class TestBase {
 	protected boolean chromeFlag;
 	public final int ACTION_REPEAT = 5;
 	public static boolean firstTimeLogin = false;
+	public Actions action;
 
+	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
+	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
+	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
 
@@ -52,6 +56,7 @@ public class TestBase {
 		}
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		action = new Actions(driver);
 		termsAndConditions();
 	}
 
@@ -152,7 +157,6 @@ public class TestBase {
 		int timeout = opParams.length>0 ? opParams[0] : DEFAULT_TIMEOUT;
 		int isAssert = opParams.length > 1 ? opParams[1]: 1;
 		int notDisplayE = opParams.length > 2 ? opParams[2]: 0;
-
 		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
 			if (notDisplayE == 2){
 				elem = getElement(locator);
@@ -586,5 +590,23 @@ public class TestBase {
 		driver = new FirefoxDriver(fp);
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+	}
+	
+	public void goToPageCreationWinzard(){
+//		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
+		WebElement element;
+//		Actions actions = new Actions(driver);
+		if (driver==null) info("driver is null" + driver);
+		else
+			info("driver is not null" + driver);
+		element = waitForAndGetElement(ELEMENT_MENU_EDIT_LINK, 5000, 0);
+		if (action != null)
+			info(action.toString());
+		else
+			info("action is null");
+		action.moveToElement(element).perform();
+		mouseOver(ELEMENT_MENU_PAGE_LINK,true);
+		click(ELEMENT_MENU_ADD_PAGE_LINK);	
+		Utils.pause(1000);
 	}
 }

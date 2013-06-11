@@ -64,6 +64,7 @@ public class PageEditor extends PlatformBase {
 	public final By ELEMENT_CHECK_BOX_WORD_PHRASE_EDIT_MODE = By.xpath("//input[@id='content' and @type='radio']");
 	public final By ELEMENT_INPUT_NAME_SEARCH_WORD_PHRASE_EDIT_MODE = By.xpath("//input[@id='content' and @type='text']");
 	public final By ELEMENT_CONTENT_SEARCH_FORM_TAB = By.xpath("//div[@class='MiddleTab' and text() = 'Content Search Form']");
+
 	//Add Path > Right Workspace 
 	public final String ELEMENT_RIGHT_WORKSPACE_NODE = "//*[@class='rightWorkspace']//*[text()='${node}']";
 
@@ -239,7 +240,8 @@ public class PageEditor extends PlatformBase {
 
 	//Add a new SCV page and add a selected content path to this page
 	//Use a default page with Empty layout 
-	public void addSCVPageAndContentFolderPaths(String pageName, String contentPath){
+	public void addSCVPageAndContentFolderPaths(String pageName, String contentPath, Object...params){
+		boolean rightClickNode = (Boolean) (params.length > 0 ? params[0] : false);
 		info("-- Add a content path to SCV page: "+ pageName +" --");
 		goToPageEditor_EmptyLayout(pageName);
 		//Drag and drop Content Detail portlet into this page
@@ -249,7 +251,8 @@ public class PageEditor extends PlatformBase {
 		//nav.goToEditPageEditor();
 
 		info("-- Select Content Path --");
-		selectContentPathInEditMode(contentPath, false);
+		selectContentPathInEditMode(contentPath, rightClickNode);
+		//click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 		click(ELEMENT_PAGE_FINISH_BUTTON);
 		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
 	}
@@ -268,12 +271,18 @@ public class PageEditor extends PlatformBase {
 		//click(ELEMENT_SELECT_CONTENT_PATH_LINK);
 		//}
 		if(inEditModeWindows){
+
+			if(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET,10000,0) != null){
+				mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET,true);	
+				click(ELEMENT_EDIT_PORTLET_ICON);
+				click(ELEMENT_SELECT_CONTENT_PATH_LINK);
+			}
 			for(int i = 0; i < pathNames.length - 1; i ++ ){
 				String pathToSelect = ELEMENT_SELECT_CONTENT_FOLDER_PATHS.replace("${pathName}", pathNames[i]);
 				click(pathToSelect);
 			}
 			click(ELEMENT_RIGHT_WORKSPACE_NODE.replace("${node}", pathNames[pathNames.length - 1]));
-			//wait 1s 
+			//wait 1s
 			Utils.pause(1000);
 			button.save();
 			if (contentMode){

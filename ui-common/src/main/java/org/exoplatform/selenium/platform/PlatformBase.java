@@ -73,12 +73,14 @@ public class PlatformBase extends TestBase {
 	/* Edit */
 	public final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
 	//Content
-	public final By ELEMENT_MENU_EDIT_CONTENT = By.className("quickEditUnchecked");
+	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[contains(@class,'quickEdit')]"); 
+			 //By.className("quickEditUnchecked");
 			//By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
+
 	//Page
 	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
-	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//a[@title='SEO Management']");
+	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[text()='SEO']");
 	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
 	//site
 

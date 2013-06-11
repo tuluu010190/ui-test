@@ -10,7 +10,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class NavigationToolbar extends PlatformBase {
-
+	
+	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
+	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[@class='quickEditChecked']");
+	public final By ELEMENT_EDIT_MENU_ID = By.xpath("//*[@id='UIAdminToolbarPortlet']/../..");
+	public final By ELEMENT_SEO_MENU = By.xpath("//span[text()='SEO']");
+	
 	public NavigationToolbar(WebDriver dr){
 		driver = dr;
 	} 
@@ -196,7 +201,7 @@ public class NavigationToolbar extends PlatformBase {
 		mouseOverAndClick(ELEMENT_LINK_SETUP);
 		mouseOverAndClick(ELEMENT_MENU_CONTENT_LINK);
 		//click(ELEMENT_MENU_SITE_EXPLORER);
-		Utils.pause(1000);
+		Utils.pause(2000);
 	}
 
 	/**
@@ -230,9 +235,10 @@ public class NavigationToolbar extends PlatformBase {
 	public void goToSeoManagement(){
 		info("Go to SEO management form");
 		Utils.pause(1000);
-		mouseOver(ELEMENT_MENU_EDIT_LINK, true);
+		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
 		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
-		mouseOverAndClick(ELEMENT_MENU_SEO_LINK);	
+		WebElement seo = waitForAndGetElement(ELEMENT_SEO_MENU,10000,0,2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click()",seo);		
 		Utils.pause(1000);
 	}
 	
@@ -240,5 +246,11 @@ public class NavigationToolbar extends PlatformBase {
 	public void goToHomePage(){
 		click(ELEMENT_HOME_PAGE);
 		Utils.pause(1000);
+	}
+	
+	public void changeEditMode()
+	{
+		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
+		mouseOverAndClick(ELEMENT_MENU_EDIT_CONTENT);
 	}
 }

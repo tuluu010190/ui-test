@@ -21,7 +21,7 @@ public class PageManagement extends PlatformBase {
 	}
 
 	NavigationToolbar nav = new NavigationToolbar(driver);
-	NavigationManagement navMag;
+	NavigationManagement navMag = new NavigationManagement(driver);
 	Dialog dialog = new Dialog(driver);
 	ManageAlert alt = new ManageAlert(driver);
 	
@@ -100,6 +100,7 @@ public class PageManagement extends PlatformBase {
 		String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle);
 		searchPageByTitle(type, pageTitle);
 		click(pageDeleteIcon);
+		Utils.pause(1000);
 		alt.waitForConfirmation(MESSAGE_DELETE_PAGE);
 		waitForMessage("No result found.",waitTime);
 		dialog.closeMessageDialog();

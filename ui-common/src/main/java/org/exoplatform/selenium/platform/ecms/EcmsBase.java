@@ -30,6 +30,14 @@ public class EcmsBase extends ManageAccount {
 	 * Portal Acme - http://localhost:8080/portal/acme
 	 * */
 	public final By ELEMENT_LOGIN_LINK = By.xpath("//*[@id='AcmeWebSiteLogInLogOut']");
+	public final String ELEMENT_OVERVIEW_LINK = "//i[@class='uiIconFile uiIconExt-overview']";
+	public final String ELEMENT_DRAFT_ACME= "//div[text()='${content}']/../..//span[text()='Draft']";
+	public final String ELEMENT_ACME_TITLE= "//*[text()='${content}']";
+	public final String ELEMENT_PUBLISH_ACME = "//div[text()='${content}']/../..//span[@class='publishText']";
+	public final By ELEMENT_ACME_WELCOME_TEXT = By.xpath("//div[contains(text(),'Welcome to Acme')]");
+	public final By ELEMENT_ACME_SEARCH_INPUT = By.name("keyword");
+	public final String ELEMENT_ACME_SEARCH_RESULT = "//a[text()='${result}']";
+	public final By ELEMENT_ACME_SEARCH_BUTTON = By.linkText("Search");  
 
 	//Sign-in form
 	public final By ELEMENT_LOGIN_BUTTON = By.name("signIn");
@@ -269,8 +277,8 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_UI_CHECKBOX = "//*[@data-original-title = '${element}']/../..//*[@name = 'checkbox']";
 	public final String ELEMENT_NODE_ADMIN_VIEW = "//*[contains(@class, 'columnText')]//*[contains(text(), '${nodeName}')]";
 	public final String ELEMENT_NODE_ICON_ARROW_RIGHT = "//*[contains(text(), '${nodeName}')]/../..//*[contains(@class, 'columnArrow')]";
-    public final String ELEMENT_NODE_NAME_CONSECUTIVE = "//*[@class='uiListGrid']/div[contains(@mousedown, '${node1}')]/..//*[@class='nodeName' and contains(text(), '${node2}')]";
-	
+	public final String ELEMENT_NODE_NAME_CONSECUTIVE = "//*[@class='uiListGrid']/div[contains(@mousedown, '${node1}')]/..//*[@class='nodeName' and contains(text(), '${node2}')]";
+
 	//Undo Deleted items
 	public final By ELEMENT_UNDO_DELETED_ITEM = By.xpath("//*[@class='uiIconSuccess']/../*[contains(text(), 'Undo')]");
 	public final String MESSAGE_ITEM_DELETED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was deleted succesfully.\")]";
@@ -308,10 +316,10 @@ public class EcmsBase extends ManageAccount {
 
 	//Acme site > Overview page
 	public final By ELEMENT_OVERVIEW_PAGE = By.xpath("//*[@class = 'uiIconFile uiIconExt-overview']");
-    public final By ELEMENT_RSS_ICON = By.className("RssIcon");
+	public final By ELEMENT_RSS_ICON = By.className("RssIcon");
 	public final String ELEMENT_CLV_TITLE = "//*[@class='Title' and contains(text(), '${title}')]";
-    public final String ELEMENT_CLV_PUBLISH_DATE = ELEMENT_CLV_TITLE + "/../div[contains(text(), '${date}')]";
-    
+	public final String ELEMENT_CLV_PUBLISH_DATE = ELEMENT_CLV_TITLE + "/../div[contains(text(), '${date}')]";
+
 	////////////////////////////////
 	//Log-in ECMS
 	/*public void loginEcms(String username, String password) {
@@ -400,7 +408,7 @@ public class EcmsBase extends ManageAccount {
 		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
 		//waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK);
 		if ((enable == true && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == true) || 
-				(enable == false && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == false)){
+				(enable == false && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == true)){
 			click(ELEMENT_MENU_EDIT_CONTENT, 2); 
 		}
 		Utils.pause(1000);

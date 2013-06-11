@@ -5,20 +5,25 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.PageManagement;
 import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class NavigationManagement extends  PageManagement{
+public class NavigationManagement extends  PlatformBase{
 
 	public NavigationManagement(WebDriver dr) {
-		super(dr);
+		driver = dr;
 		// TODO Auto-generated constructor stub
 	}
 
+	/*public NavigationManagement(WebDriver dr) {
+		super(dr);
+		// TODO Auto-generated constructor stub
+	}*/
+
 	ManageAlert alt = new ManageAlert(driver);
 	
+	public String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//form[@id='UIPageSearchForm']/div[2]/a[@class='SearchIcon']";
 	public  final By ELEMENT_INPUT_POPUP_SEARCH_TITLE = By.xpath("//div[@class='QuickSet']/input[@id='pageTitle']"); 
 	public  final By ELEMENT_SELECT_PAGE = By.xpath("//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img");
 
@@ -136,6 +141,8 @@ public class NavigationManagement extends  PageManagement{
 	public void deleteNode(String currentNavigation, String nodeNameHome, String nodeName, boolean firstLevel){
 		button = new Button(driver);
 		info("--Delete a node from navigation--");
+		alt = new ManageAlert(driver);
+		button = new Button(driver);
 		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);	
 		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
 		editNavigation(currentNavigation);
