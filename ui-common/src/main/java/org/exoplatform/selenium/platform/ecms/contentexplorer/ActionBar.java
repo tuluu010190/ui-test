@@ -1097,7 +1097,7 @@ public class ActionBar extends EcmsBase{
 		waitForAndGetElement(ELEMENT_PROPERTIES_TAB);
 
 		click(ELEMENT_ADD_PROPERTY_TAB);
-		Utils.pause(2000);
+		Utils.pause(1000);
 		select(ELEMENT_ADD_PROPERTY_INPUT, property);
 		type(ELEMENT_VALUE_INPUT,value,true);
 		button.save();

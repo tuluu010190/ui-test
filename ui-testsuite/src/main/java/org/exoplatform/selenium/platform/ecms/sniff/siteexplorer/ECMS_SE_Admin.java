@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
@@ -30,6 +31,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 	ActionBar actBar;
 
 	//Ecms
+	EcmsBase ecms;
 	ContentTemplate cTemplate;
 	ContextMenu cMenu;
 	SitesExplorer siteExp;
@@ -163,6 +165,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		actBar.addItem2ActionBar("viewProperties", actBar.ELEMENT_VIEW_PROPERTIES_ICON);
 		
 		//Add a property
+		ecms.goToNode(bNode1);
 		actBar.addProperty(property, property);
 		
 		//Delete data
@@ -290,6 +293,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 		driver.manage().window().maximize();
 		magAcc = new ManageAccount(driver);
 		navToolBar = new NavigationToolbar(driver);
+		ecms = new EcmsBase(driver);
 		actBar = new ActionBar(driver);
 		cTemplate = new ContentTemplate(driver);
 		cMenu = new ContextMenu(driver);
