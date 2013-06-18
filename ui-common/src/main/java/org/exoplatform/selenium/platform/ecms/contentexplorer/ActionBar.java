@@ -91,7 +91,7 @@ public class ActionBar extends EcmsBase{
 
 	//Action bar 
 	public final By ELEMENT_ADD_ITEM = By.xpath("//*[@data-original-title='Add Item']");	
-	public final By ELEMENT_DELETE_NODE_ICON = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsDelete']");
+	public final By ELEMENT_DELETE_NODE_ICON = By.xpath("//*[@id='JCRContextMenu']//*[@class='uiIconEcmsDelete']");
 	public final By ELEMENT_ADD_SYMLINK_LIST_VIEW = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsAddSymLink']");
 	public final By ELEMENT_LOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsLock']");
 	public final By ELEMENT_UNLOCK_ICON = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsUnlock']");
@@ -589,7 +589,11 @@ public class ActionBar extends EcmsBase{
 			click(cMenu.ELEMENT_CUT_NODE);
 			break;
 		case DELETE:
-			click(cMenu.ELEMENT_MENU_DELETE);
+			if (waitForAndGetElement(cMenu.ELEMENT_MENU_DELETE, 3000, 0) != null){
+				click(cMenu.ELEMENT_MENU_DELETE);
+			}else {
+				click(By.className("uiIconEcmsDelete"));
+			}
 			waitForTextPresent("Delete");
 			dialog.deleteInDialog();
 			waitForElementNotPresent(ELEMENT_UI_CHECKBOX.replace("${element}", elementName));
@@ -1111,11 +1115,15 @@ public class ActionBar extends EcmsBase{
 	//Go to View properties tab
 	public void goToPropertiesTab(){
 		info("-- Go to Properties Tab --");
-		WebElement eProperties = waitForAndGetElement(ELEMENT_VIEW_PROPERTIES_ICON,10000,0);
+		/*WebElement eProperties = waitForAndGetElement(ELEMENT_VIEW_PROPERTIES_ICON,10000,0);
 		if(eProperties == null){
 			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK,5000,0);
 			if (more !=null )
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+		}*/
+		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+		if (more !=null ){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
 		click(ELEMENT_VIEW_PROPERTIES_ICON);
 		waitForAndGetElement(ELEMENT_PROPERTIES_TAB);

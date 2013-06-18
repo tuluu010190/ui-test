@@ -565,9 +565,11 @@ public class PlatformBase extends TestBase {
 			if (waitForAndGetElement(ELEMENT_PAGINATOR_NEXT_ICON_NAMESPACE, 3000, 0) != null){
 				click(ELEMENT_PAGINATOR_NEXT_ICON_NAMESPACE);
 				waitForAndGetElement(ELEMENT_PAGINATOR_NAMESPACE_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
-			}else{
+			}else if (waitForAndGetElement(ELEMENT_PAGINATOR_NEXT_ICON, 3000, 0) != null){
 				click(ELEMENT_PAGINATOR_NEXT_ICON);
 				waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
+			}else {
+				click(button.ELEMENT_NEXT_PAGE_BUTTON);
 			}
 			Utils.pause(500);
 		}

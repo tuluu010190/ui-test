@@ -172,7 +172,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		ecms.goToNode(FILE_PATH);
 		rightClickOnElement(FILE_PATH);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_UNLOCK);
-		waitForElementNotPresent(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
+		//waitForElementNotPresent(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		info("User cannot lock or unlock node");
 		magAcc.signOut();
 
@@ -452,7 +452,9 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		Utils.pause(1800000);
 		
 		info("Check automatically unlock node");
-		click(button.ELEMENT_REFRESH_BUTTON);	
+		click(button.ELEMENT_REFRESH_BUTTON);
+		driver.navigate().refresh();
+		Utils.pause(3000);
 		rightClickOnElement(FILE_PATH_LOCKED);
 		waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		

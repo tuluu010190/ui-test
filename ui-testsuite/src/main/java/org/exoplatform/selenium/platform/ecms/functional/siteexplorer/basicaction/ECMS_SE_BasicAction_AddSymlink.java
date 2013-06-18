@@ -74,7 +74,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu = new ContextMenu(driver);
 		siteExp = new SitesExplorer(driver);
 		magAcc.signIn(DATA_USER, DATA_PASS);
-		
+
 		info("Add symlink for action bar if it does not existed");
 		navToolBar.goToSiteExplorer();
 		//actBar.addSymlinkToActionBar();
@@ -154,12 +154,12 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		String fileName = "ECMS_AddSymlink_file_03";
 		By elementFolder = By.xpath("//div/span[text()='" + folderName + "']");
 		By elementFile = By.xpath("//div/span[text()='" + fileName + "']");
-		
+
 		cTemplate.createNewFolder(folderName, folderType.Content);
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(fileName, fileName, fileName);
 		ecms.goToNode(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-		
+
 		WebElement folder = waitForAndGetElement(elementFolder);
 		WebElement file = waitForAndGetElement(elementFile);
 
@@ -365,7 +365,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add symlink for root");
 		actBar.addSymlink("collaboration", "sites/intranet/documents", DATA_SYMLINK);
 		waitForAndGetElement(ELEMENT_SYMLINK);
-		
+
 		info("Add new content folder");
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
 
@@ -417,10 +417,10 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	public void test18_AddSymlinkWithNameContainsSpecialCharacter(){
 		String DATA_CONTENT_FOLDER = "ECMS_AddSymlink_Content_folder_18";
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
-		
+
 		info("create new content folder");
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
-		
+
 		info("Add symlink with name contains special characters");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 		actBar.goToAddSymlinkTab();
@@ -430,13 +430,13 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 			info("Input symlink name contains character: " + cTemplate.DATA_SPECIAL_CHARACTER[i]);
 			type(ecms.ELEMENT_SYMLINK_NAME, cTemplate.DATA_SPECIAL_CHARACTER[i], true);
 			button.save();
-			
+
 			//check alert
 			magAlert.verifyAlertMessage("Please enter the symlink name.");
 			info("cannot add symlink with name contains qspecial characters");
 		}
 		button.cancel();
-		
+
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
 	}
@@ -466,7 +466,12 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.addSymlink("dms-system", "exo:ecm", "exo:ecm.lnk");
 
 		//check alert
-		magAlert.verifyAlertMessage("Access denied! You do not have the permission to add symlink to this node.");
+		boolean checkMessage = isTextPresent("Access denied! You do not have the permission to add symlink to this node.");
+		if (checkMessage){
+			magAlert.verifyAlertMessage("Access denied! You do not have the permission to add symlink to this node.");
+		}else{
+			magAlert.verifyAlertMessage("Access denied. You do not have permission to add symlink to this node.");
+		}
 		info("cannot add symlink with user has not permission to view it");
 		button.cancel();
 
@@ -528,8 +533,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		By ELEMENT_CONTENT_FOLDER = By.linkText(DATA_CONTENT_FOLDER);
 		String DATA_SYMLINK = "documents.lnk";
 		By ELEMENT_SYMLINK2 = By.xpath("//*[contains(@mousedown,'collaboration:/sites/"
-		+ DATA_CONTENT_FOLDER + "/" + DATA_SYMLINK.replace(".", "") + "[2]')]");
-		
+				+ DATA_CONTENT_FOLDER + "/" + DATA_SYMLINK.replace(".", "") + "[2]')]");
+
 		//create new content folder
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER, ELEMENT_CONTENT_FOLDER);
 
@@ -589,8 +594,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		String DATA_SYMLINK = "symlink23.lnk";
 		By ELEMENT_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_SYMLINK));
 		By ELEMENT_SYMLINK2 = By.xpath("//*[contains(@mousedown,'collaboration:/sites/"
-		+ WEB_CONTENT_NAME + "/" + DATA_SYMLINK.replace(".", "") + "[2]')]");
-		
+				+ WEB_CONTENT_NAME + "/" + DATA_SYMLINK.replace(".", "") + "[2]')]");
+
 		//create new file document
 		actBar.goToAddNewContent();
 
@@ -880,19 +885,19 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		String fileName = "ECMS_AddSymlink_file_30";
 		By elementFolder = By.xpath("//div/span[text()='" + folderName + "']");
 		By elementFile = By.xpath("//div/span[text()='" + fileName + "']");
-		
+
 		cTemplate.createNewFolder(folderName, folderType.Content);
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(fileName, fileName, fileName);
 		ecms.goToNode(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-//		dragAndDropToObject(elementFile, elementFolder);
-		
+		//		dragAndDropToObject(elementFile, elementFolder);
+
 		WebElement folder = waitForAndGetElement(elementFolder);
 		WebElement file = waitForAndGetElement(elementFile);
 
 		Actions actions = new Actions(driver);
 		actions.keyDown(file, Keys.CONTROL).keyDown(Keys.SHIFT).moveToElement(folder).release().build().perform();
-		
+
 		ecms.goToNode(elementFolder);
 		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", fileName + ".lnk"));
 
@@ -1118,7 +1123,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//folder 2 is not renamed
 		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_2);
-		
+
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);	  
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);	 
@@ -1156,7 +1161,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//delete symlink
 		cMenu.deleteData(ELEMENT_CONTENT_FOLDER_SYMLINK);
-		
+
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);
@@ -1283,7 +1288,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);
 	}
-	
+
 	/** CaseId: 69349
 	 * Add Symlink to a Parent & Child selection
 	 * setup "Add new content" and "Add symlink" for File management view
@@ -1295,7 +1300,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		String DATA_FOLDER = "contentfolder41";
 		String FILE_NAME = "ECMS_AddSymlink_file_41";
 		By ELEMENT_FILE = By.linkText(FILE_NAME);
-		
+
 		navToolBar.goToPersonalDocuments();
 		actBar.goToViewMode("List");
 		//actBar.addNewContentToFileManagementView();
@@ -1306,18 +1311,18 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ACTION_BAR_ADD_SYMLINK, "List", "List");
 		navToolBar.goToPersonalDocuments();
 		actBar.goToViewMode("List");
-		
+
 		//create parent and child node
 		cTemplate.createNewFolder(DATA_FOLDER, folderType.None);
 		info("Add folder successfully");
 		actBar.goToNodeByAddressPath("/" + DATA_FOLDER);
-		
+
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(FILE_NAME, FILE_NAME, FILE_NAME);
 		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
 		click(By.xpath(siteExp.ELEMENT_ARROW_RIGHT.replace("${nodeName}", DATA_FOLDER)));
 		waitForAndGetElement(ELEMENT_FILE);
-		
+
 		//select parent and child node
 		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", DATA_FOLDER)), 2);
 		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", FILE_NAME)), 2);

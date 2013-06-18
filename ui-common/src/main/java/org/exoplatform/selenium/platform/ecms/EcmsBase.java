@@ -478,11 +478,14 @@ public class EcmsBase extends ManageAccount {
 		 */	
 		//((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible';", waitForAndGetElement(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), DEFAULT_TIMEOUT, 1, 2));
 		//type(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), Utils.getAbsoluteFilePath(link), false);
-		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 0, 2);
-		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload);
+		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
+				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
+		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", upload);
 		upload.sendKeys(Utils.getAbsoluteFilePath(link));	
-
-		Utils.pause(10000);
+		
+		Utils.pause(3000);
+		
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
 		//String links[] = link.split("/");

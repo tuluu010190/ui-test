@@ -453,6 +453,7 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
 
+		actBar.goToViewMode("Web");
 		actBar.addItem2ActionBar("viewProperties", actBar.ELEMENT_VIEW_PROPERTIES_ICON);
 		navToolBar.goToPersonalDocuments();
 		actBar.goToViewMode("Web");

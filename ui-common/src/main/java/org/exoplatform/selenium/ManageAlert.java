@@ -33,6 +33,7 @@ public class ManageAlert extends TestBase{
 			switchToParentWindow();
 		} catch (NoAlertPresentException e) {
 		}
+		Utils.pause(1000);
 	}
 
 	//Cancel an Alert
@@ -43,6 +44,7 @@ public class ManageAlert extends TestBase{
 			switchToParentWindow();
 		} catch (NoAlertPresentException e) {
 		}
+		Utils.pause(1000);
 	}
 
 	//Get Text
@@ -88,6 +90,7 @@ public class ManageAlert extends TestBase{
 
 	//Verify a message
 	public void verifyAlertMessage(String message){
+		Utils.pause(1000);
 		//waitForElementPresent(ELEMENT_ALERT);
 		//assert isElementPresent(ELEMENT_ALERT):"Not found alert";
 		if (isElementPresent(ELEMENT_MESSAGE)){

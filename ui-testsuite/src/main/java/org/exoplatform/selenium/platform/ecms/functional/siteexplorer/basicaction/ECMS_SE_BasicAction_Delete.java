@@ -446,6 +446,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Create a relation between 2 nodes --");
 		//actBar.addRelationToActionBar();
+		//actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation(webContentName_0, webContentName_1);
 
 		info("-- Delete a document --");
@@ -493,6 +494,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Add a relation for File --");
 		//actBar.addRelationToActionBar();
+		//actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation(data1, data2);
 		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 
@@ -538,6 +540,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Add a relation --");
 		//actBar.addRelationToActionBar();
+		//actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation(data1, data2);
 		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 
@@ -589,6 +592,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Add a relation --");
 		//actBar.addRelationToActionBar();
+		//actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation(data1, data2);
 		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 
@@ -635,7 +639,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		info("-- Delete in trash --");
 		actBar.chooseDrive(ecms.ELEMENT_TRASH_DRIVE);
 		click(ELEMENT_PERSONAL_DOCUMENTS);
-		
+		usePaginator(ecms.ELEMENT_UI_CHECKBOX.replace("${element}", data1), "Cannot find element...");
 		click(ecms.ELEMENT_UI_CHECKBOX.replace("${element}", data1), 2);
 		click(cMenu.ELEMENT_MENU_DELETE);
 		magAlert.verifyAlertMessage("Are you sure you want to permanently remove the file 'ECMS_Admin_SendMailScript_Template.txt'?");
@@ -664,6 +668,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Add a relation --");
 		//actBar.addRelationToActionBar();
+		//actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation(webContentName, "sites/" + data1);
 		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
@@ -722,7 +727,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		click(ELEMENT_PERSONAL_DOCUMENTS);
 		click(ecms.ELEMENT_UI_CHECKBOX.replace("${element}", data1), 2);
 		click(ecms.ELEMENT_UI_CHECKBOX.replace("${element}", data2), 2);
-		click(cMenu.ELEMENT_MENU_DELETE);
+		click(actBar.ELEMENT_DELETE_NODE_ICON);
 		dialog.deleteInDialog();
 		waitForAndGetElement(ecms.MESSAGE_MULTI_ITEMS_DELETED_SUCCESSFULLY.replace("${title}", "2 items"));
 		
@@ -753,6 +758,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		
 		info("-- Add a relation --");
 		//actBar.addRelationToActionBar();
+		//actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.createRelation("ECMS_Undo_Delete_4", "Users/j___/jo___/joh___/john/Private/"+ data2, true);
 		
 		info("-- Delete file with relation --");

@@ -35,7 +35,8 @@ public class ContextMenu extends EcmsBase{
 	public final By ELEMENT_MENU_CHECKOUT = By.className("uiIconEcmsCheckOut");
 	public final By ELEMENT_MENU_RENAME_NODE = By.linkText("Rename");
 	public final By ELEMENT_MENU_PASTE = By.xpath("//a[contains(text(),'Paste')]");
-	public final By ELEMENT_MENU_DELETE = By.className("uiIconEcmsDelete");
+	public final By ELEMENT_MENU_DELETE = By.xpath("//*[@class='uiContextMenuContainer']//i[@class='uiIconEcmsDelete']");
+			//By.className("uiIconEcmsDelete");
 	public final By ELEMENT_MENU_DELETE_RIGHT_CLICK_POPUP = By.xpath("//*[@id='JCRContextMenu']/div/ul/li[7]/a");
 	public final By ELEMENT_MENU_EDIT = By.className("uiIconEcmsEditDocument");
 	public final By ELEMENT_MENU_ADD_SYMLINK = By.className("uiIconEcmsAddSymLink");

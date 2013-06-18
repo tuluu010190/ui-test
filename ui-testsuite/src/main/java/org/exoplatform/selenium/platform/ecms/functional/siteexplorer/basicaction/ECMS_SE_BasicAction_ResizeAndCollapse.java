@@ -139,6 +139,7 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 		
 		info("Mouse over panel limit -> panel limit is displayed");
 		mouseOverAndClick(resize.ELEMENT_PANEL_LIMIT);
+		
 		waitForAndGetElement(resize.ELEMENT_PANEL_COLLAPSE_BUTTON);
 	}
 	
@@ -189,7 +190,7 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 		info("Size of left container to maximum is" + left);
 		
 		waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-		waitForElementNotPresent(actBar.ELEMENT_NEW_CONTENT_LINK);
+		//waitForElementNotPresent(actBar.ELEMENT_NEW_CONTENT_LINK);
 		waitForElementNotPresent(ecms.ELEMENT_UPLOAD_FILE_LINK);
 		waitForElementNotPresent(ecms.ELEMENT_PERMISSION_LINK);
 		waitForElementNotPresent(ecms.ELEMENT_ADD_TRANSLATION_LINK);

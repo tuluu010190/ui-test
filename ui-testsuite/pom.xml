@@ -29,6 +29,12 @@
 
 	<profiles>
 		<profile>
+			<id>ecms-se-basicaction</id>
+			<properties>
+				<testSuite>ecms-se-basicaction.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>ecms-admin</id>
 			<properties>
 				<testSuite>ecms-admin.xml</testSuite>

@@ -342,7 +342,7 @@ public class ManageCategory extends EcmsPermission{
 	public void deleteCategory(String categoryName){
 		By ELEMENT_DELETE = By.xpath("//div[@title = '" + categoryName + "']/../..//*[@class = 'uiIconDelete']");
 		By ELEMENT_DELETE_1 = By.xpath("//div[@data-original-title = '" + categoryName + "']/../..//*[@class='uiIconDelete']");
-		
+		Utils.pause(500);
 		if (isElementPresent(ELEMENT_DELETE)){
 			click(ELEMENT_DELETE); 
 			magAlert.acceptAlert();
