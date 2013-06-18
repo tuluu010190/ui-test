@@ -103,7 +103,7 @@ public class ECMS_Admin_Repository extends PlatformBase{
 		cTemplate.createNewFile(fileTitle, content, fileTitle);
 
 		//Lock this File
-		cMenu.contextMenuAction(eLockedFile, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(eLockedFile, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		click(cMenu.ELEMENT_DOCUMENT);
 		waitForAndGetElement(elementLockedArticleIcon);
 
@@ -147,7 +147,7 @@ public class ECMS_Admin_Repository extends PlatformBase{
 		cTemplate.createNewFile(fileTitle, content, fileTitle);
 
 		//Lock this File
-		cMenu.contextMenuAction(eLockedFile, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(eLockedFile, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		click(cMenu.ELEMENT_DOCUMENT);
 		waitForAndGetElement(elementLockedArticleIcon);
 		

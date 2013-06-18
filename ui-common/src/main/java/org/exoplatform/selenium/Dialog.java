@@ -48,5 +48,6 @@ public class Dialog extends TestBase{
 	public void deleteInDialog(){
 		waitForAndGetElement(ELEMENT_DELETE_IN_DIALOG);
 		click(ELEMENT_DELETE_IN_DIALOG);
+		Utils.pause(3000);
 	}
 }

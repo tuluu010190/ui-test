@@ -78,7 +78,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		info("Add symlink for action bar if it does not existed");
 		navToolBar.goToSiteExplorer();
 		//actBar.addSymlinkToActionBar();
-		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ADD_SYMLINK);
+		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 	}
 
 	@AfterMethod
@@ -130,8 +130,8 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		// add symlink
 		info("Add symlink for node by right click");
-		cMenu.contextMenuAction(ELEMENT_FOLDER, cMenu.ELEMENT_ADD_SYMLINK);
-		cMenu.contextMenuAction(ELEMENT_FILE, cMenu.ELEMENT_ADD_SYMLINK);
+		cMenu.contextMenuAction(ELEMENT_FOLDER, ecms.ELEMENT_CONTEXT_MENU_ADD_SYMLINK);
+		cMenu.contextMenuAction(ELEMENT_FILE, ecms.ELEMENT_CONTEXT_MENU_ADD_SYMLINK);
 
 		// check symlink
 		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", DATA_FOLDER.replaceAll("_", "").toLowerCase() + ".lnk"));
@@ -148,7 +148,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 * select some nodes
 	 * add symlink for some node
 	 */
-	@Test(groups = {"pending"})
+	//@Test(groups = {"pending"})
 	public void test03_AddSymlinkForSomenode(){
 		String folderName = "ECMS_AddSymlink_Content_folder_03";
 		String fileName = "ECMS_AddSymlink_file_03";
@@ -165,7 +165,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		Actions actions = new Actions(driver);
 		actions.keyDown(folder, Keys.CONTROL).moveToElement(file).click().contextClick(file).
-		moveToElement(waitForAndGetElement(cMenu.ELEMENT_MENU_ADD_SYMLINK)).click().build().perform();
+		moveToElement(waitForAndGetElement(ecms.ELEMENT_CONTEXT_MENU_ADD_SYMLINK)).click().build().perform();
 
 		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", folderName + ".lnk"));
 		waitForAndGetElement(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", fileName + ".lnk"));
@@ -335,7 +335,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
 
 		info("Add symlink for node by right click");
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_ADD_SYMLINK);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, ecms.ELEMENT_CONTEXT_MENU_ADD_SYMLINK);
 		waitForAndGetElement(ELEMENT_SYMLINK);
 
 		//add symlink for symlink node
@@ -680,10 +680,10 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
 
 		//check cannot add symlink for node
-		waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+		waitForElementNotPresent(ecms.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		if (waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0) != null){
 			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+			waitForElementNotPresent(ecms.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		}
 		rightClickOnElement(ELEMENT_CONTENT_FOLDER);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_ADD_SYMLINK);
@@ -749,7 +749,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		info("Lock node");
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, actBar.ELEMENT_LOCK_ICON);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		assert cMenu.isLockedNode(ELEMENT_CONTENT_FOLDER): "Lock node unsuccessfully";
 		driver.close();
 
@@ -768,10 +768,10 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		//check cannot add symlink for node by user mary
 		navToolBar.goToSiteExplorer();
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+		waitForElementNotPresent(ecms.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		if (waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0) != null){
 			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+			waitForElementNotPresent(ecms.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		}
 		rightClickOnElement(ELEMENT_CONTENT_FOLDER);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_ADD_SYMLINK);
@@ -854,10 +854,10 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 		//check cannot add symlink
 		ecms.goToNode(ELEMENT_FILE);
-		waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+		waitForElementNotPresent(ecms.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		if (waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0) != null){
 			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			waitForElementNotPresent(ecms.ELEMENT_ADD_SYMLINK);
+			waitForElementNotPresent(ecms.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		}
 		rightClickOnElement(ELEMENT_FILE);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_ADD_SYMLINK);
@@ -874,7 +874,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 * drag drop file to content folder
 	 * check symlink of article in content folder
 	 */
-	@Test(groups = {"pending"})
+	//@Test(groups = {"pending"})
 	public void test30_AddSymlinkForNodeUsingDragDrop(){
 		String folderName = "ECMS_AddSymlink_Content_folder_30";
 		String fileName = "ECMS_AddSymlink_file_30";
@@ -1303,7 +1303,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		navToolBar.goToPersonalDocuments();
 		actBar.goToViewMode("List");
 		//actBar.addSymlinkToFileManagementView();
-		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ADD_SYMLINK, "List", "List");
+		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ACTION_BAR_ADD_SYMLINK, "List", "List");
 		navToolBar.goToPersonalDocuments();
 		actBar.goToViewMode("List");
 		

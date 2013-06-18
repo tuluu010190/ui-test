@@ -103,10 +103,11 @@ public class ECMS_SE_BasicAction_SortAndRevert extends PlatformBase{
 		waitForAndGetElement(ecms.ELEMENT_NODE_NAME_CONSECUTIVE.replace("${node1}", aFolder).replace("${node2}", image));
 		
 		info("-- Restore data --");
-		actBar.actionsOnElement(document + ".doc", actionType.DELETE);
-		actBar.actionsOnElement(image + ".jpg", actionType.DELETE);
-		actBar.actionsOnElement(aFolder, actionType.DELETE);
-		actBar.actionsOnElement(bFolder, actionType.DELETE);
+//		actBar.actionsOnElement(document + ".doc", actionType.DELETE);
+//		actBar.actionsOnElement(image + ".jpg", actionType.DELETE);
+//		actBar.actionsOnElement(aFolder, actionType.DELETE);
+//		actBar.actionsOnElement(bFolder, actionType.DELETE);
+		actBar.actionsOnElement(document + ".doc" + "/" + image + ".jpg" + "/" + aFolder + "/" + bFolder, actionType.DELETE, true);
 	}
 	
 }

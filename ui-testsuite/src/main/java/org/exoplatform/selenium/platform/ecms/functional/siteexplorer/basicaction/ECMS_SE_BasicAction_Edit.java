@@ -264,7 +264,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		//choose  site management drive, and create a locked document
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(DATA_FILE_TITLE_30, DATA_FILE_TITLE_30, DATA_FILE_TITLE_30);
-		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//edit File
 		actBar.goToEditDocument(DATA_FILE_TITLE_30);
@@ -295,7 +295,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		info("Create new File document is successful");
 
 		//lock node with John
-		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//check lock node
 		assert cMenu.isLockedNode(bDocument): "Lock node unsuccessfully";
@@ -344,7 +344,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 
 		//add a child node / upload a file
 		ecms.uploadFile(DATA_UPLOAD_FILE_32);
-		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//check lock node
 		assert cMenu.isLockedNode(bDocument): "Lock node unsuccessfully";

@@ -133,7 +133,7 @@ public class ActionBar extends EcmsBase{
 		}else {
 			click(By.xpath("//*[@title = 'Show Drives']"));
 		}
-		Utils.pause(500);
+		Utils.pause(1000);
 	}
 
 	//Go to add new content
@@ -162,6 +162,7 @@ public class ActionBar extends EcmsBase{
 
 	//Go to add new folder
 	public void goToAddNewFolder(){	
+		Utils.pause(1000);
 		for (int repeat = 0;; repeat++)	{	
 			if (repeat >= ACTION_REPEAT) {
 				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
@@ -477,10 +478,10 @@ public class ActionBar extends EcmsBase{
 	public void goToAddSymlinkTab(){
 		if (isTextPresent("Add Symlink")){
 			info("-- Add Symlink tab is already displayed --");
-			click(ELEMENT_ADD_SYMLINK);
+			click(ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		}else{
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			click(ELEMENT_ADD_SYMLINK);
+			click(ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		}
 		Utils.pause(1000);
 	}
@@ -556,8 +557,8 @@ public class ActionBar extends EcmsBase{
 			String[] nodes = elementName.split("/");
 			for (String node : nodes){
 				info("-- Delete node: " + node); 
-				if (waitForAndGetElement(ELEMENT_UI_CHECKBOX.replace("${element}", node), 3000, 0, 2) != null){
-					click(ELEMENT_UI_CHECKBOX.replace("${element}", node), 2);
+				if (waitForAndGetElement(ELEMENT_SELECT_CHECKBOX.replace("${name}", node), 3000, 0, 2) != null){
+					click(ELEMENT_SELECT_CHECKBOX.replace("${name}", node), 2);
 				}else{
 					click(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node) + "/../../../div[@class='columnCheckbox']", 2);
 				}

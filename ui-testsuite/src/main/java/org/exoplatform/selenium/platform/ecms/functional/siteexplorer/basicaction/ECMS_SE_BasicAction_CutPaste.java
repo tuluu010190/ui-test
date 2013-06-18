@@ -67,8 +67,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 
 	//CaseID: 66802
 	//cut a content folder and paste it to another node
-	
-	@Test()
+	@Test
 	public void test01_CutContentFolderPasteInOtherNode() {
 		String title = "ECMS_DMS_SE_BasicAction_CutPaste_01";
 		String targetNode = "target_CutPaste_01";
@@ -144,6 +143,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		//delete data
 		cMenu.deleteDocument(bDocDes);
 	}
+	
 	//CaseID: 66804
 	//Cut a document folder and paste it to file document!
 	@Test
@@ -171,6 +171,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		cMenu.deleteDocument(bDocDes);
 		cMenu.deleteDocument(bDoc);
 	}
+	
 	//CaseID: 66804
 	//Cut a document folder and paste it to uploaded file!
 	@Test
@@ -261,6 +262,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		//delete data
 		cMenu.deleteDocument(bDocDes);
 	}
+	
 	// CaseID 66816
 	//Cut a checked in node and paste it to a content folder!
 	@Test

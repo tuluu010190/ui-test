@@ -331,7 +331,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		//lock node
 		ecms.goToNode(DOCUMENT_FOLDER_PATH_1);
-		cMenu.contextMenuAction(DOCUMENT_FOLDER_PATH_1, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(DOCUMENT_FOLDER_PATH_1, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//check lock node
 		assert cMenu.isLockedNode(DOCUMENT_FOLDER_PATH_1):"Lock node unsuccessfully";

@@ -107,7 +107,7 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 	/**CaseId: 74881 -> Actions in the right panel after resize of left panel from Intranet Documents
 	 * -> this case is having issue ECMS-5368
 	 */
-	@Test
+	//@Test
 	public void test04_ActionInRightPanelAfterResizeLeftPanel_IntranetDocument(){
 		nav.goToPersonalDocuments();
 		resize.showSideBar();

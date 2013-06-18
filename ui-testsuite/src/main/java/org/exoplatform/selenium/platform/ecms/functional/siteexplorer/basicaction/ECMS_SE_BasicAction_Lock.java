@@ -85,7 +85,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE, DATA_FILE_TITLE, DATA_FILE_TITLE);
 
 		info("Lock node");
-		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		info("Check locked node");
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
@@ -119,7 +119,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE, DATA_FILE_TITLE, DATA_FILE_TITLE);
 
 		info("Lock node");
-		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		info("Check locked node");
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
@@ -152,7 +152,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 
 		//lock node
 		ecms.goToNode(FILE_PATH);
-		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//check lock node
 		assert cMenu.isLockedNode(FILE_PATH):"Lock node is not successful";
@@ -172,7 +172,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		ecms.goToNode(FILE_PATH);
 		rightClickOnElement(FILE_PATH);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_UNLOCK);
-		waitForElementNotPresent(cMenu.ELEMENT_MENU_LOCK);
+		waitForElementNotPresent(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		info("User cannot lock or unlock node");
 		magAcc.signOut();
 
@@ -212,11 +212,11 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 
 		info("Lock parent node");
-		cMenu.contextMenuAction(ANNOUN_PATH, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(ANNOUN_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		assert cMenu.isLockedNode(ANNOUN_PATH_LOCKED);
 
 		info("Lock child node");
-		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
 		
 		//Delete data
@@ -254,11 +254,11 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 
 		info("Lock parent node");
-		cMenu.contextMenuAction(ANNOUN_PATH, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(ANNOUN_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		assert cMenu.isLockedNode(ANNOUN_PATH_LOCKED);
 		
 		info("Lock child node");
-		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
 
 		info("Unlock child node");
@@ -292,7 +292,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 
 		info("Verify cannot lock checked-in node");
 		rightClickOnElement(FILE_PATH);
-		waitForElementNotPresent(cMenu.ELEMENT_MENU_LOCK);
+		waitForElementNotPresent(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//Delete data
 		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_CHECKOUT);
@@ -331,7 +331,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		
 		info("Check can not lock child node");
 		rightClickOnElement(FILE_PATH);
-		waitForElementNotPresent(cMenu.ELEMENT_MENU_LOCK);
+		waitForElementNotPresent(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//Delete data
 		ecms.goToNode(WEB_CONTENT_PATH);
@@ -379,7 +379,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		magAcc.signIn("james", "gtn");
 		navToolBar.goToSiteExplorer();
 		rightClickOnElement(FILE_PATH);
-		waitForElementNotPresent(cMenu.ELEMENT_MENU_LOCK);
+		waitForElementNotPresent(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		info("Logout");
 		magAcc.signOut();
 
@@ -411,7 +411,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE, DATA_FILE_TITLE, DATA_FILE_TITLE);
 
 		info("Lock node");
-		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
 		magAcc.signOut();
 
@@ -419,7 +419,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		magAcc.signIn(DATA_USER, DATA_PASS);
 		navToolBar.goToSiteExplorer();
 		rightClickOnElement(FILE_PATH_LOCKED);
-		waitForAndGetElement(cMenu.ELEMENT_MENU_LOCK);
+		waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//Delete data
 		cMenu.deleteDocument(FILE_PATH);
@@ -445,7 +445,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE, DATA_FILE_TITLE, DATA_FILE_TITLE);
 		
 		info("Lock node");
-		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
 		
 		info("Wait 30 minutes");
@@ -454,7 +454,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		info("Check automatically unlock node");
 		click(button.ELEMENT_REFRESH_BUTTON);	
 		rightClickOnElement(FILE_PATH_LOCKED);
-		waitForAndGetElement(cMenu.ELEMENT_MENU_LOCK);
+		waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		
 		cMenu.deleteDocument(FILE_PATH);
 	}

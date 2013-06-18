@@ -50,7 +50,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 
 		info("Add symlink for a node");
 		//Add "Add symlink" into action bar if there is not available yet.
-		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ADD_SYMLINK);
+		actBar.addItem2ActionBar("addSymLink", actBar.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 
 		//Create node1, node2
 		cTemplate.createNewFolder(node1, folderType.Content);
@@ -206,7 +206,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cTemplate.createNewFile(node1, node1, node1);
 
 		//Lock node
-		cMenu.contextMenuAction(bNode1, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(bNode1, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//Check locked node
 		cMenu.isLockedNode(bNode1);
@@ -232,7 +232,7 @@ public class ECMS_SE_BasicAction extends PlatformBase {
 		cTemplate.createNewFile(node1, node1, node1);
 
 		//Lock node
-		cMenu.contextMenuAction(bNode1, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(bNode1, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//Check locked node
 		waitForAndGetElement(bNodeLock);

@@ -28,7 +28,8 @@ public class ContextMenu extends EcmsBase{
 	Dialog dialog = new Dialog(driver);
 	Button button = new Button(driver);
 
-	public final By ELEMENT_MENU_LOCK = By.className("uiIconEcmsLock");
+	public final By ELEMENT_CONTEXT_MENU_LOCK = By.xpath("//*[@class='uiContextMenuContainer']//i[@class='uiIconEcmsLock']"); 
+			//By.className("uiIconEcmsLock");
 	public final By ELEMENT_MENU_UNLOCK = By.className("uiIconEcmsUnlock");
 	public final By ELEMENT_MENU_CHECKIN = By.className("uiIconEcmsCheckIn");
 	public final By ELEMENT_MENU_CHECKOUT = By.className("uiIconEcmsCheckOut");

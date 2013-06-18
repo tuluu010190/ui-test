@@ -152,7 +152,8 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SYMLINK_WORKSPACE = By.name("workspaceName");
 	public final By ELEMENT_SITE_CONTENT = By.xpath("//div[@title='sites content']");
 	public final By ELEMENT_LIVE_DIV = By.xpath("//div[@title='live']");
-	public final By ELEMENT_ADD_SYMLINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddSymLink']");
+	public final By ELEMENT_ACTION_BAR_ADD_SYMLINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddSymLink']");
+	public final By ELEMENT_CONTEXT_MENU_ADD_SYMLINK = By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsAddSymLink']");
 	public final String ELEMENT_DATA_TITLE = "//*[@data-original-title = '${dataTitle}']";
 	public final String ELEMENT_SYMLINK_TITLE = "//*[@data-original-title = '${symlinkTitle}']";
 	public final String ELEMENT_TARGET_NODE = "//*[contains(text(),'${node}')]/../../td/a[@data-original-title='select']";

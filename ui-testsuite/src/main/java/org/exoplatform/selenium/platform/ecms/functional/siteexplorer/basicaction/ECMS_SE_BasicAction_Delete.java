@@ -171,7 +171,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		info("Create new content folder successfully");
 
 		//lock node
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		info("Lock node successfully");
 		assert cMenu.isLockedNode(ELEMENT_CONTENT_FOLDER):"Lock node unsuccessfully";
@@ -228,7 +228,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		//lock node
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER);
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_MENU_LOCK);
+		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		info("Lock parent node");
 		assert cMenu.isLockedNode(ELEMENT_CONTENT_FOLDER);
 		driver.close();
@@ -410,6 +410,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		magAlert.verifyAlertMessage("Are you sure you want to delete the item "+ "'" + webContentName_0 + "'" + " and its references?");
 		Utils.captureScreen("Delete_document_with_references");
 		dialog.deleteInDialog();
+		driver.navigate().refresh();
 		waitForElementNotPresent(By.linkText(webContentName_0));
 
 		cMenu.deleteDocument(By.linkText(webContentName_1));
