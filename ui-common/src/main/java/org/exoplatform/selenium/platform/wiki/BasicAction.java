@@ -415,4 +415,23 @@ public class BasicAction extends Permission{
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 	}
+	
+	/**
+	 * 
+	 * @param title
+	 * @param content
+	 * @param link
+	 */
+	public void addBlankWikiPageHasAttachment(String title, String content, String link){
+		goToAddBlankPage();
+		info("Add new wiki page having attachment");
+		addWikiPageSourceEditor(title, content);
+		String[] upload = link.split(";");
+		for (int i = 0; i < upload.length; i++){
+			attachFileInWiki("TestData/" + upload[i], 2);
+		}
+		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		waitForAndGetElement(By.xpath(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "" + upload.length)));
+	}
 }

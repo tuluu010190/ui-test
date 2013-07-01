@@ -64,6 +64,13 @@
 				<testSuite>wiki.xml</testSuite>
 			</properties>
 		</profile>
+		
+		<profile>
+			<id>wiki-sniff</id>
+			<properties>
+				<testSuite>wiki-sniff.xml</testSuite>
+			</properties>
+		</profile>
 
 		<profile>
 			<id>regression</id>

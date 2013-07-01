@@ -76,7 +76,7 @@ public class WikiBase extends ManageMember {
 	public final By ELEMENT_CONTENT_WIKI_FRAME = By.xpath("//div[@class='xRichTextEditor']/iframe");
 
 	//Upload file area
-	public By ELEMENT_UPLOAD_FILE = By.xpath("//div[@class='uiUploadInput']/input"); 
+	public By ELEMENT_UPLOAD_FILE = By.xpath("//div[@class='uploadInput']/input"); 
 	//By.id("WikiUploadFile");
 	public final By ELEMENT_FRAME_UPLOAD=By.xpath("//div[@class='uiUploadInput']/iframe");
 	//("//div[@title='Upload New File']/iframe");
@@ -177,16 +177,22 @@ public class WikiBase extends ManageMember {
 	/*-------------------------Page information area---------------------------*/
 	public final By ELEMENT_COMPARE_TEXT = By.xpath("//div[contains(text(),'Compared With')]");
 	public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfoArea']//a[contains(text(), 'V')]");
-	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'v. {$version}')]";
+	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'V{$version}')]";
 	public final String ELEMENT_RESTORE_LINK = "//td/label/a[contains(text(), 'v. {$version}')]/../../..//*[@class='uiIconRestore']";
-	public final String ELEMENT_VERSION_CHECKBOX="//input[@id='version_{$version}']";
-	public final By ELEMENT_COMPARE_BUTTON = By.xpath("//*[text()='Compare Selected']");	
+	public final By ELEMENT_COMPARE_BUTTON = By.xpath("//*[text()='Compare the selected versions']");	
 	public final By ELEMENT_VIEW_CHANGE=By.linkText("(View Change)");
-
+	public String ELEMENT_ATTACHMENT_NUMBER = "//*[@id='UIWikiPageInfoArea']//a[contains(text(),'${No}')]/*[@class='uiIconAttach']";
+	public By ELEMENT_ATTACHMENT_ICON = By.xpath("//*[@id='UIWikiPageInfoArea']//*[@class='uiIconAttach']");
+	public String ELEMENT_CREATOR_PAGE_INFO = "//*[@id='UIWikiPageInfoArea']//a[1][text()='${fullName}']";
+	public String ELEMENT_UPDATER_PAGE_INFO = "//*[@id='UIWikiPageInfoArea']//a[2][text()='${fullName}']";
+	public final By ELEMENT_ADD_MORE_RELATION_BUTTON = By.xpath("//button[text()='Add More Relations']");
+	
 	// Wiki page > View Change
 	public final String ELEMENT_CHANGES_COMPARE_VERSION = "//*[text()='${1stNumber}']/../b[text()='${2ndNumber}']/../..//a[@class='changes']";
-
-	public final By ELEMENT_ADD_MORE_RELATION_BUTTON = By.xpath("//button[text()='Add More Relations']");
+	public final String ELEMENT_VERSION_CHECKBOX="//input[@id='version_{$version}']";
+	public String ELEMENT_LINE_REMOVE = "//*[@class='diffremoveword' and text()='${lineRemove}']";
+	public String ELEMENT_LINE_ADD = "//*[@class='diffaddword' and text()='${lineAdd}']";
+	
 	//By.linkText("Add More Relations");
 	//public final By ELEMENT_SELECT_BUTTON = By.linkText("Select");
 	//public final By ELEMENT_SELECT_BUTTON = By.xpath(".//*[@id='UIWikiSelectPageForm']/div[3]/a[text()='Select']");
@@ -195,8 +201,10 @@ public class WikiBase extends ManageMember {
 	// Go to Wiki page > More > Page info > Add more relations
 	public final String ELEMENT_SELECTED_PAGE = "//div[contains(@class,'popupContent')]//*[@id='iconTreeExplorer' and contains(@onclick, 'event')]//a[contains(text(), '${relatedPage}')]"; 
 	public final String ELEMENT_RELATED_PAGE = "//*[text()='Related Pages']/..//a[contains(text(),'${relatedPage}')]";
-	public final String ELEMENT_REMOVE_RELATED_PAGE_LINK = "//li[contains(text(),'${relatedPage}')]/../../../../td/a/i[@class='uiIconDelete']";
-
+	public final String ELEMENT_REMOVE_RELATED_PAGE_LINK = "//*[contains(text(),'${relatedPage}')]/../../../../..//*[@class='uiIconDelete']";
+	public By ELEMENT_SELECT_SPACE = By.xpath("//*[contains(text(), 'Select the Wiki:')]/..//*[@class='btn dropdown-toggle']");
+	public By ELEMENT_NO_SPACE_OPTION = By.xpath("//*[contains(text(), 'Select the Space:')]/..//*[@id='UISpaceSwitcher_nospace']");
+	
 	//Wiki page > Revisions page
 	public final String ELEMENT_CURRENT_VERSION = "//a[@title='View Revision' and text()='CURRENT (v. ${version})']";
 	public final By ELEMENT_DISABLE_COMPARE_BUTTON = By.xpath("//*[contains(@class, 'disableButton') and text()='Compare Selected']");
@@ -454,6 +462,15 @@ public class WikiBase extends ManageMember {
 		mouseOverAndClick(ELEMENT_PAGE_INFO_LINK);
 		waitForTextPresent("Summary");		
 	}
+	
+	/**
+	 * @author lientm
+	 */
+	public void goToPageInfoFromCurrentPage(){
+		mouseOverAndClick(ELEMENT_MORE_LINK);
+		mouseOverAndClick(ELEMENT_PAGE_INFO_LINK);
+		waitForTextPresent("Summary");
+	}
 
 	/** function go to Wiki page of a Space
 	 * @author lientm
@@ -511,7 +528,7 @@ public class WikiBase extends ManageMember {
 
 		try{
 			//WebElement element = waitForAndGetElementNotDisplay(ELEMENT_UPLOAD_FILE);
-			WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_FILE, 5000, 0, notDisplay);
+			WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_FILE, 10000, 1, notDisplay);
 			element.sendKeys(path);
 
 		} catch (StaleElementReferenceException e) {
@@ -530,6 +547,7 @@ public class WikiBase extends ManageMember {
 		}
 
 		switchToParentWindow();
+		waitForAndGetElement(By.linkText(link.replace("TestData/", "")));
 	}
 
 	/** Delete an attachment
@@ -710,5 +728,11 @@ public class WikiBase extends ManageMember {
 		userGroup.selectGroup(groupPath, true);	
 		click(By.linkText(membership));
 		//waitForTextPresent(membership);
+	}
+	
+	public void goToAddRelation(){
+		goToPageInfoFromCurrentPage();
+		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
+		waitForAndGetElement(ELEMENT_SELECT_SPACE);
 	}
 }

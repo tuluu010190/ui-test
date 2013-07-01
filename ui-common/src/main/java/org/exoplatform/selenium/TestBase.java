@@ -3,6 +3,7 @@ package org.exoplatform.selenium;
 import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.io.File;
 import java.util.List;
 import java.util.Set;
 
@@ -579,6 +580,8 @@ public class TestBase {
 		driver = new FirefoxDriver(fp);
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		action = new Actions(driver);
+		termsAndConditions();
 	}
 
 	/**function set driver to auto open new window when click link
@@ -608,5 +611,23 @@ public class TestBase {
 		mouseOver(ELEMENT_MENU_PAGE_LINK,true);
 		click(ELEMENT_MENU_ADD_PAGE_LINK);	
 		Utils.pause(1000);
+	}
+	
+	/**
+	* function: check a file existed in folder
+	* @author lientm
+	* @param file: file name (eg: export.zip)
+	* @return: true -> file exist
+	* false-> file is not exist
+	*/
+	public static boolean checkFileExisted(String file){
+		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + file;
+		boolean found = false;
+		
+		if (new File(pathFile).isFile()){
+			found = true;
+		}
+		info("File exists: " + found);
+		return found;
 	}
 }
