@@ -75,7 +75,7 @@ public class SpaceManagement extends SocialBase {
 	 * @param label : Button label
 	 */
 	public void clickButton(String label) {
-		By button = By.xpath("//div[@class='uiAction']/a[text()='" + label + "']");
+		By button = By.xpath("//div[@class='uiAction']/*[text()='" + label + "']");
 				//("//*[contains(@class,'ActionButton') and text()='" + label + "']");
 		waitForAndGetElement(button);
 		click(button);
@@ -115,8 +115,11 @@ public class SpaceManagement extends SocialBase {
 	 */
 	public void addNewSpace(String name, String desc, int... params) {
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT; 
-
-		click(ELEMENT_ADDNEWSPACE_BUTTON);
+		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
+			click(ELEMENT_ADDNEWSPACE_BUTTON);
+		}else {
+			click(By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]"));
+		}
 		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM);
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
@@ -151,7 +154,12 @@ public class SpaceManagement extends SocialBase {
 		//String r = registration.isEmpty() ? "validation" : registration;
 		String[] regis = {"open", "validation", "close"};
 
-		click(ELEMENT_ADDNEWSPACE_BUTTON);
+		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
+			click(ELEMENT_ADDNEWSPACE_BUTTON);
+		}else {
+			click(By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]"));
+		}
+		
 		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM);
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
@@ -220,11 +228,15 @@ public class SpaceManagement extends SocialBase {
 	 * @param name : Space name
 	 */
 	public void deleteSpace(String name, int... params){
+		info("-- Deleting Space..." + name);
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;    
 		doAction("Delete", name);    
 		//magAlert.waitForConfirmation(MESSAGE_DELETE_SPACE);
 		magAlert = new ManageAlert(driver);
 		magAlert.acceptAlert();
+		if (waitForAndGetElement(button.ELEMENT_OK_BUTTON, 3000, 0, 2) != null){
+			click(button.ELEMENT_OK_BUTTON);
+		}
 		Utils.pause(1000);
 		waitForElementNotPresent(By.xpath("//div[@class='contentBox']/h4[@class='spaceTitle']//a[text()='" + name + "']"), iTimeout);
 		//(By.xpath("//a[text()='" + name + "']/ancestor::div[contains(@class,'ContentBox')]"),iTimeout);

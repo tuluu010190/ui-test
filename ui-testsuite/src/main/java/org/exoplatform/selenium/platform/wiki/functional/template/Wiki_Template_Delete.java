@@ -36,6 +36,7 @@ public class Wiki_Template_Delete extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69750
 	 * Delete template when OK with confirmation
 	 * Create a new template
 	 * Delete template, click OK with confirmation message
@@ -60,6 +61,7 @@ public class Wiki_Template_Delete extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69749
 	 * Delete template when Cancel with confirmation
 	 * Create a new template
 	 * Delete template, click Cancel with confirmation message

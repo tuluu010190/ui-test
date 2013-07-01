@@ -7,7 +7,6 @@ import java.util.Set;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.Version;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
@@ -24,7 +23,7 @@ import org.testng.annotations.Test;
 public class Wiki_Version_View extends Version{
 	ManageAccount magAcc;
 	Button button;
-	
+
 	public String admin = "john";
 	public String pass = "gtn";
 
@@ -45,6 +44,7 @@ public class Wiki_Version_View extends Version{
 	}
 
 	/**
+	 * Qmetry ID: 69803 
 	 * <li>Version/View</li>
 	 * Case ID 01
 	 * <li>View content of current version</li>
@@ -57,8 +57,8 @@ public class Wiki_Version_View extends Version{
 	@Test
 	public void test01_ViewContentOfCurrentVersion(){
 		String[] dataInfo = {"view content 01", "page content 01",
-							 "1st edit view content 01", "1st edit page content", 
-							 "2nd edit view content 01", "2nd edit page content"};
+				"1st edit view content 01", "1st edit page content", 
+				"2nd edit view content 01", "2nd edit page content"};
 
 		goToWiki();
 
@@ -72,10 +72,15 @@ public class Wiki_Version_View extends Version{
 
 		waitForTextPresent(dataInfo[5]);
 
+		goToWikiHome();
+
+		goToWikiPage(dataInfo[4]);
+
 		deleteCurrentWikiPage();
 	}
 
 	/**
+	 * Qmetry ID: 69804
 	 * <li>Version/View</li>
 	 * Case ID 02
 	 * <li>View content of other version</li>
@@ -88,8 +93,8 @@ public class Wiki_Version_View extends Version{
 	@Test
 	public void test02_ViewContentOfOtherVersion(){
 		String[] dataInfo = {"view content 02", "page content 02",
-							 "1st edit view content 02", "1st edit page content", 
-							 "2nd edit view content 02", "2nd edit page content"};
+				"1st edit view content 02", "1st edit page content", 
+				"2nd edit view content 02", "2nd edit page content"};
 
 		goToWiki();
 
@@ -103,10 +108,15 @@ public class Wiki_Version_View extends Version{
 
 		waitForTextPresent(dataInfo[1]);
 
+		goToWikiHome();
+
+		goToWikiPage(dataInfo[4]);
+
 		deleteCurrentWikiPage();		
 	}
 
 	/**
+	 * Qmetry ID: 69699
 	 * <li>Version/View</li>
 	 * Case ID 03
 	 * <li>View content of other version while viewing 1 version</li>
@@ -120,8 +130,8 @@ public class Wiki_Version_View extends Version{
 	@Test
 	public void test03_ViewContentOfOtherVersionWhileViewing1Version(){
 		String[] dataInfo = {"view content 03", "page content 03",
-							 "1st edit view content 03", "1st edit page content", 
-							 "2nd edit view content 03", "2nd edit page content"};
+				"1st edit view content 03", "1st edit page content", 
+				"2nd edit view content 03", "2nd edit page content"};
 
 		goToWiki();
 
@@ -139,10 +149,15 @@ public class Wiki_Version_View extends Version{
 
 		waitForTextPresent(dataInfo[3]);
 
+		goToWikiHome();
+
+		goToWikiPage(dataInfo[4]);
+
 		deleteCurrentWikiPage();
 	} 
 
 	/**
+	 * Qmetry ID: 
 	 * <li>Version/View</li>
 	 * Case ID 04
 	 * <li>Back to current version while view content of other version</li>
@@ -156,8 +171,8 @@ public class Wiki_Version_View extends Version{
 	@Test
 	public void test04_BackToCurrentVersionWhileViewContentOfOtherVersion(){
 		String[] dataInfo = {"view content 04", "page content 04",
-							 "1st edit view content 04", "1st edit page content", 
-							 "2nd edit view content 04", "2nd edit page content"};
+				"1st edit view content 04", "1st edit page content", 
+				"2nd edit view content 04", "2nd edit page content"};
 
 		goToWiki();
 
@@ -179,6 +194,7 @@ public class Wiki_Version_View extends Version{
 	}
 
 	/**
+	 * Qmetry ID: 69802
 	 * <li>Version/View Change</li>
 	 * Case ID 01
 	 * <li>View Change of page</li>
@@ -193,8 +209,8 @@ public class Wiki_Version_View extends Version{
 	@Test
 	public void test01_ViewChangeOfPage(){
 		String[] dataInfo = {"view change 01", "page content 01",
-							 "1st edit view change 01", "1st edit page content", 
-							 "2nd edit view change 01", "2nd edit page content"};
+				"1st edit view change 01", "1st edit page content", 
+				"2nd edit view change 01", "2nd edit page content"};
 
 		goToWiki();
 
@@ -224,6 +240,7 @@ public class Wiki_Version_View extends Version{
 	}
 
 	/**
+	 * Qmetry ID: 69808
 	 * <li>Version/View Link</li>
 	 * Case ID 01
 	 * <li>View Link of Revisions</li>
@@ -234,7 +251,7 @@ public class Wiki_Version_View extends Version{
 	@Test
 	public void test01_ViewLinkOfRevisions(){
 		String[] dataInfo = {"view link 01", "page content 01",
-							 "1st edit view link 01", "1st edit page content"};
+				"1st edit view link 01", "1st edit page content"};
 
 		goToWiki();
 
@@ -250,6 +267,7 @@ public class Wiki_Version_View extends Version{
 	}
 
 	/**
+	 * Qmetry ID: 69809
 	 * <li>Version/View Link</li>
 	 * Case ID 02
 	 * <li>View Link of Revisions when edit page content by another user</li>
@@ -262,22 +280,22 @@ public class Wiki_Version_View extends Version{
 	@Test
 	public void test02_ViewLinkOfRevisionsWhenEditPageContentByAnotherUser(){
 		String[] dataInfo = {"view link 02", "page content 02",
-							 "1st edit view link 02", "1st edit page content", 
-							 "2nd edit view link 02", "2nd edit page content"};
+				"1st edit view link 02", "1st edit page content", 
+				"2nd edit view link 02", "2nd edit page content"};
 
 		goToWiki();
 
 		addBlankWikiPage(dataInfo[0], dataInfo[1], 0);
 
 		editWikiPage(dataInfo[2], dataInfo[3], 0);
-		
+
 		Set<Cookie> cookies1 = getBrowserCookies();
 
 		String handlesBefore = driver.getWindowHandle();
 
 		openNewBrowser();
 
-		goToWikiPage(dataInfo[2], ManageMember.userType.PUBLISHER);
+		goToWikiPage(dataInfo[2], ManageAccount.userType.PUBLISHER);
 
 		goToRevisionsPage();
 

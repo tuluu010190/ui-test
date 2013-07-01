@@ -39,6 +39,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 	}
 
 	/**
+	 * Qmetry ID: 69696
 	 * Case 01: Add image file for page
 	 * Create a wiki page
 	 * Scroll down, click Upload, choose an image
@@ -54,7 +55,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 		String ATTACHMENT_PATH="TestData/"+ATTACHMENT_NAME;
 		By ATTACHMENT_FILE_LINK=By.xpath("//*[text()='"+ATTACHMENT_NAME+"']");
 
-		info("Attach 1 image for wiki page");
+		info("Attach one image for wiki page");
 
 		goToAddBlankPage();
 
@@ -71,6 +72,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 	}
 
 	/**
+	 * Qmetry Id: 69694
 	 * Case 02: Add pdf file for page
 	 * Create a wiki page
 	 * Scroll down, click Upload, choose a pdf file
@@ -102,6 +104,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 
 
 	/**
+	 * Qmetry ID: 69695
 	 * Case 03: Add txt file for page
 	 * Create a wiki page
 	 * Scroll down, click Upload, choose a txt file
@@ -132,6 +135,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 	}
 
 	/**
+	 * Qmetry ID: 69698
 	 * Case 04: Add office file for page
 	 * Create a wiki page
 	 * Scroll down, click Upload, choose an office file
@@ -162,6 +166,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 	}
 
 	/**
+	 * Qmetry ID: 69697
 	 * Case 05: Add music file for page
 	 * Create a wiki page
 	 * Scroll down, click Upload, choose a music file

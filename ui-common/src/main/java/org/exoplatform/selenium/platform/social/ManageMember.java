@@ -22,12 +22,17 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 /**
  * Created by The eXo Platform SAS Author : Hoang Manh Dung
  * dunghm@exoplatform.com Nov 9, 2012
  */
 public class ManageMember extends SpaceManagement {
+	
+	public ManageMember(WebDriver dr){
+		driver = dr;
+	}
 	
 	ManageAccount magAcc;
 	NavigationToolbar nav = new NavigationToolbar(driver);
@@ -266,7 +271,7 @@ public class ManageMember extends SpaceManagement {
    * @param spaceName: name of Space (String)
    * @param params
    */
-  public void joinOpenSpace(userType user, String spaceName, int...params){
+  public void joinOpenSpace(ManageAccount.userType user, String spaceName, int...params){
 	  magAcc = new ManageAccount(driver);
 	  info("-- Joining the open space: " + spaceName);
 	  int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
@@ -275,7 +280,7 @@ public class ManageMember extends SpaceManagement {
 	  }else{
 		  info("-- User.logIn: " + user);
 	  }	  
-	  userSignIn(user);
+	  magAcc.userSignIn(user);
 	  goToAllSpaces();
 	  doAction("Join", spaceName);
 	  waitForAndGetElement(By.xpath("//*[@class='TitleContent']/text()['(Member)']/../a[text()='"+ spaceName +"']"), iTimeout);
@@ -294,7 +299,7 @@ public class ManageMember extends SpaceManagement {
 	 * Invite an user to join a space
 	 * @param userName: type: Root, Admin, Author, Developer or Publisher 
 	 */
-	public void inviteSingleUser(userType userName){
+	public void inviteSingleUser(ManageAccount.userType userName){
 		info("-- Invite the user: " + userName + " to join our space");
 		click(ELEMENT_SELECT_MEMBER_BUTTON);
 		waitForAndGetElement(ELEMENT_SELECT_MEMBER_FORM);
@@ -371,7 +376,7 @@ public class ManageMember extends SpaceManagement {
 	 * @param spaceName: name of space (String)
 	 * @param user: name of the invited (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public void managerInviteUserToJoinSpace(userType manager, String spaceName, userType user){
+	public void managerInviteUserToJoinSpace(ManageAccount.userType manager, String spaceName, ManageAccount.userType user){
 		magAcc = new ManageAccount(driver);
 		info("-- Invite an user to join: " + spaceName);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
@@ -379,7 +384,7 @@ public class ManageMember extends SpaceManagement {
 		}else{
 			info("-- User.logIn: " + manager);
 		}
-		userSignIn(manager);
+		magAcc.userSignIn(manager);
 		goToMySpacePage();
 		gotoEditSpace(spaceName);
 		goToMembers();
@@ -422,14 +427,14 @@ public class ManageMember extends SpaceManagement {
 	 * @param user: type: Root, Admin, Author, Developer or Publisher
 	 * @param spaceName: name of space (String)
 	 */
-	public void managerAcceptRequestFromUser(boolean accept, userType manager, userType user, String spaceName){
+	public void managerAcceptRequestFromUser(boolean accept, ManageAccount.userType manager, ManageAccount.userType user, String spaceName){
 		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
 			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + manager);
 		}
-		userSignIn(manager);
+		magAcc.userSignIn(manager);
 		goToMembers(spaceName);
 		if (accept){
 			managerValidateInvitation(user);
@@ -451,7 +456,7 @@ public class ManageMember extends SpaceManagement {
 		}else{
 			info("-- User.logIn: " + manager);
 		}
-		userSignIn(manager);
+		magAcc.userSignIn(manager);
 		goToMembers(spaceName);
 		managerDeclineInvitation(user);
 	}*/
@@ -463,11 +468,11 @@ public class ManageMember extends SpaceManagement {
 	 * @param spaceName
 	 * @param memberName
 	 */
-	public void managerRemoveMemberFromSpace(userType userTypeManager, String spaceName, String memberName){
+	public void managerRemoveMemberFromSpace(ManageAccount.userType userTypeManager, String spaceName, String memberName){
 		magAcc = new ManageAccount(driver);
 		info("-- Removing the member: " + memberName + " from the space: " + spaceName);
 		magAcc.signOut();
-		userSignIn(userTypeManager);
+		magAcc.userSignIn(userTypeManager);
 		goToMySpacePage();
 		gotoEditSpace(spaceName);
 		goToMembers();
@@ -486,7 +491,7 @@ public class ManageMember extends SpaceManagement {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * 
 	 */
-	public void managerAddNewSpaceAndInviteUser(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
+	public void managerAddNewSpaceAndInviteUser(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, ManageAccount.userType user){
 		goToMySpacePage();
 		if (basicSpace){
 			addNewSpace(spaceName, spaceDescription);
@@ -505,14 +510,14 @@ public class ManageMember extends SpaceManagement {
 	 * @param userRoot: boolean
 	 * @param userName: String (eg, Mary, Jack, James, etc...)
 	 */
-	public void managerReInviteUser(userType manager, String spaceName, boolean userRoot, String userName){
+	public void managerReInviteUser(ManageAccount.userType manager, String spaceName, boolean userRoot, String userName){
 		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
 			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + manager);
 		}
-		userSignIn(manager);
+		magAcc.userSignIn(manager);
 		addUserToSpace(spaceName, userRoot, userName);
 		Utils.pause(500);
 	}
@@ -552,7 +557,7 @@ public class ManageMember extends SpaceManagement {
 	 * @param advanceParam: [0]->visibility, [1]->registration, [2]->groupPath, [3]->childGroupName
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public void managerAddNewSpaceAndUserSendRequest(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
+	public void managerAddNewSpaceAndUserSendRequest(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, ManageAccount.userType user){
 		goToMySpacePage();
 		if (basicSpace){
 			addNewSpace(spaceName, spaceDescription);
@@ -573,7 +578,7 @@ public class ManageMember extends SpaceManagement {
 	 * @param advanceParam: [0]->visibility, [1]->registration, [2]->groupPath, [3]->childGroupName
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public void managerAddNewOpenSpaceAndUserJoinSpace(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
+	public void managerAddNewOpenSpaceAndUserJoinSpace(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, ManageAccount.userType user){
 		goToMySpacePage();
 		if (basicSpace){
 			addNewSpace(spaceName, spaceDescription);
@@ -595,7 +600,7 @@ public class ManageMember extends SpaceManagement {
 	 * @param capture: boolean
 	 * @param imageFileName: input a name of captured image (String)
 	 */
-	public void adminInviteUserAndCheckInvitation(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user, boolean capture, String imageFileName){
+	public void adminInviteUserAndCheckInvitation(boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, ManageAccount.userType user, boolean capture, String imageFileName){
 		managerAddNewSpaceAndInviteUser(basicSpace, advanceSpace, spaceName, spaceDescription, advanceParam, user);
 		checkInvitation(user, spaceName, capture, imageFileName);
 	}
@@ -611,7 +616,7 @@ public class ManageMember extends SpaceManagement {
 	 * @param advanceParam: [0]->visibility, [1]->registration, [2]->groupPath, [3]->childGroupName
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public void adminInviteUserAndUserAcceptInvitation(boolean accept, boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, userType user){
+	public void adminInviteUserAndUserAcceptInvitation(boolean accept, boolean basicSpace, boolean advanceSpace, String spaceName, String spaceDescription, String[] advanceParam, ManageAccount.userType user){
 		managerAddNewSpaceAndInviteUser(basicSpace, advanceSpace, spaceName, spaceDescription, advanceParam, user);
 		if (accept){
 			userAcceptInvitationToJoinSpace(true, user, spaceName);
@@ -642,14 +647,14 @@ public class ManageMember extends SpaceManagement {
 	 * @param user: user of space (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName: name of space (String)
 	 */
-	public void managerGoToMemberListTab(userType manager, userType user, String spaceName){
+	public void managerGoToMemberListTab(ManageAccount.userType manager, ManageAccount.userType user, String spaceName){
 		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
 			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + user);
 		}
-		userSignIn(manager);
+		magAcc.userSignIn(manager);
 		accessSpace(spaceName);
 		click(ELEMENT_MEMBERS_TAB_IN_SPACE_MENU);
 		switch (user) {
@@ -679,14 +684,14 @@ public class ManageMember extends SpaceManagement {
 	 * @param manager: manager of space (type: Root, Admin, etc...)
 	 * @param spaceName: name of space (String)
 	 */
-	public void managerGoToMembersTab(userType manager, String spaceName){
+	public void managerGoToMembersTab(ManageAccount.userType manager, String spaceName){
 		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
 			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + manager);
 		}
-		userSignIn(manager);
+		magAcc.userSignIn(manager);
 		goToMembers(spaceName);
 	}
 
@@ -694,7 +699,7 @@ public class ManageMember extends SpaceManagement {
 	 * @author vuna2
 	 * @param user: type: Root, Admin, Author, Developer or Publisher
 	 */
-	public void managerValidateInvitation(userType user){
+	public void managerValidateInvitation(ManageAccount.userType user){
 		switch (user) {
 		case ROOT:
 			validateInvitation("Root");
@@ -720,7 +725,7 @@ public class ManageMember extends SpaceManagement {
 	 * @author vuna2
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public void managerDeclineInvitation(userType user){
+	public void managerDeclineInvitation(ManageAccount.userType user){
 		switch (user) {
 		case ROOT:
 			declineInvitation("Root");
@@ -751,10 +756,10 @@ public class ManageMember extends SpaceManagement {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName: name of space (String)
 	 */
-	public void userAcceptInvitationToJoinSpace(boolean accept, userType user, String spaceName){
+	public void userAcceptInvitationToJoinSpace(boolean accept, ManageAccount.userType user, String spaceName){
 		magAcc = new ManageAccount(driver);
 		magAcc.signOut();
-		userSignIn(user);
+		magAcc.userSignIn(user);
 		if (accept){
 			acceptInvitation(spaceName);
 			verifyUserJoinedSpace(user);
@@ -774,7 +779,7 @@ public class ManageMember extends SpaceManagement {
 	 */
 	/*public void userIgnoreInvitationToJoinSpace(userType user, String spaceName){
 		signOut();
-		userSignIn(user);
+		magAcc.userSignIn(user);
 		ignoreInvitation(spaceName);
 		goToMySpacePage();
 		waitForTextNotPresent(spaceName);
@@ -785,10 +790,10 @@ public class ManageMember extends SpaceManagement {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName: name of space (String)
 	 */
-	public void userRequestToJoinSpace(userType user, String spaceName){
+	public void userRequestToJoinSpace(ManageAccount.userType user, String spaceName){
 		magAcc = new ManageAccount(driver);
 		magAcc.signOut();
-		userSignIn(user);
+		magAcc.userSignIn(user);
 		goToAllSpaces();
 		requestToJoin(spaceName);
 	}
@@ -798,14 +803,14 @@ public class ManageMember extends SpaceManagement {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param spaceName: name of space (String)
 	 */
-	public void userCancelRequest(userType user, String spaceName){
+	public void userCancelRequest(ManageAccount.userType user, String spaceName){
 		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
 			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + user);
 		}
-		userSignIn(user);
+		magAcc.userSignIn(user);
 		goToRequestsPeding();
 		click(ELEMENT_CANCEL_LINK.replace("${spaceName}", spaceName));
 		Utils.pause(500);
@@ -822,14 +827,14 @@ public class ManageMember extends SpaceManagement {
 	 * @param capture: boolean
 	 * @param imageFileName: input a name of captured image (String)
 	 */
-	public void checkInvitation(userType user, String spaceName, boolean capture, String imageFileName){
+	public void checkInvitation(ManageAccount.userType user, String spaceName, boolean capture, String imageFileName){
 		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
 			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + user);
 		}
-		userSignIn(user);
+		magAcc.userSignIn(user);
 		goToInvitationReceives();
 		// Display the space name: spaceName with Accept | Ignore button
 		waitForAndGetElement(ELEMENT_INVITATION_ACCEPT_LINK.replace("${spaceName}", spaceName));
@@ -845,14 +850,14 @@ public class ManageMember extends SpaceManagement {
 	 * @author vuna2
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 */
-	public void userGoToAllSpacesPage(userType user){
+	public void userGoToAllSpacesPage(ManageAccount.userType user){
 		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
 			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + user);
 		}
-		userSignIn(user);
+		magAcc.userSignIn(user);
 		goToAllSpaces();
 		Utils.pause(500);
 	}
@@ -861,7 +866,7 @@ public class ManageMember extends SpaceManagement {
 	 * @author vuna2
 	 * @param user: type: Root, Admin, Author, Developer or Publisher
 	 */
-	public void verifyUserJoinedSpace(userType user){
+	public void verifyUserJoinedSpace(ManageAccount.userType user){
 		String verifyUser = "${user} " + "joined the space.";
 		switch (user) {
 		case ROOT:
@@ -882,52 +887,6 @@ public class ManageMember extends SpaceManagement {
 		default:
 			break;
 		}
-	}
-
-	/**
-	 * @author vuna2
-	 * @param user: type: Root, Admin, Author, Developer or Publisher
-	 */
-	public void userSignIn(userType user){
-		magAcc = new ManageAccount(driver);
-		if (isElementNotPresent(ELEMENT_INPUT_USERNAME)){
-			magAcc.signOut();
-		}else{
-			info("-- User.logIn: " + user);
-		}
-		switch (user) {
-		case ROOT:
-			magAcc.signIn("root", "gtngtn");
-			break;
-		case ADMIN:
-			magAcc.signIn("john", "gtn");
-			break;	
-		case AUTHOR:
-			magAcc.signIn("james", "gtn");
-			break;
-		case DEVELOPER:
-			magAcc.signIn("demo", "gtn");
-			break;
-		case PUBLISHER:
-			magAcc.signIn("mary", "gtn");
-			break;
-		default:
-			break;
-		}	
-	} 
-
-	/**
-	 * Define a type of user 
-	 * Root
-	 * John Smith: administrator
-	 * James Davis: author
-	 * Jack Miller: developer
-	 * Mary Williams: publisher 
-	 */
-	public enum userType {
-		ROOT, ADMIN, AUTHOR, DEVELOPER, PUBLISHER;
-	}
-	
+	}	
 	/*------------------------ End of common code for User -----------------------------*/
 }
-

@@ -73,7 +73,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/*case02: Add permission for user by selecting directly
@@ -110,7 +110,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/*case03: Add permission for user by searching user by user name
@@ -152,7 +152,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/* case04: Add permission for user by searching user by first name
@@ -194,7 +194,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/* case05: Add permission for user by searching user by last name
@@ -218,7 +218,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		waitForElementNotPresent(ELEMENT_PAGE_PERMISSION_POPUP);
 		goToPagePermission();
 		click(ELEMENT_SELECT_USER);
-		selectUserPermission("David", 3);
+		selectUserPermission("Davis", 3);
 
 		click(button.ELEMENT_ADD_BUTTON);
 		button.save();
@@ -236,7 +236,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/* case06: Add permission for user by searching user by email
@@ -260,7 +260,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		waitForElementNotPresent(ELEMENT_PAGE_PERMISSION_POPUP);
 		goToPagePermission();
 		click(ELEMENT_SELECT_USER);
-		selectUserPermission("james@exoplatform.com", 4);
+		selectUserPermission("james.davis@acme.exoplatform.com", 4);
 
 		click(button.ELEMENT_ADD_BUTTON);
 		button.save();
@@ -278,7 +278,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/* case07: Add permission for multi-user at the same time
@@ -327,7 +327,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);	
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);	
 	}
 
 	/* case08: Add permission for group by putting group's name
@@ -364,7 +364,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/* case09: Add permission for group by selecting directly
@@ -401,7 +401,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/*case10: Add permission for user by putting group's membership
@@ -444,7 +444,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/* case11: Add permission for group's membership  by selecting directly
@@ -487,6 +487,6 @@ public class Wiki_PagePermission_Add extends BasicAction {
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 }

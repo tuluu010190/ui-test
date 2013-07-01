@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ManageAccount;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -39,34 +40,43 @@ public class BasicAction extends Permission{
 	public void addBlankWikiPage(String title, String content, int mode, Object... option){
 		info("-- Adding a new wiki page... --");
 		//boolean  verify = option.length > 0 ? option[0] : false;
-		boolean ca = (Boolean) (option.length > 0 ? option[0] : false);
+		//boolean ca = (Boolean) (option.length > 0 ? option[0] : false);
 		String message = (String) (option.length > 1 ? option[1] : "");	
-		Utils.pause(2000);
 		goToAddBlankPage();
-		info("--Add a wiki page from blank--");
-
+		driver.navigate().refresh();
+		Utils.pause(2000);
+		
+		info("-- Add a wiki page from blank page --");
 		if (mode == 1){ 
 			addWikiPageRichText(title, content);
 		}
 		else{
 			addWikiPageSourceEditor(title, content);
 		}
-
+		switchToParentWindow();
+		Utils.pause(500);
+		boolean ca = (Boolean) (option.length > 0 ? option[0] : false);
 		if (ca){
-			//cancel();
+			info("-- Cancel Wiki Page --");
 			click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
-			waitForWikiConfirmation("Are you sure to leave this page?");
+			waitForWikiConfirmation(MESSAGE_CANCEL_CREATE_PAGE);
+			//waitForWikiConfirmation("Are you sure to leave this page?");
 			waitForElementNotPresent(ELEMENT_TITLE_WIKI_INPUT);
 		}else{
-			//save();
+			info("-- Saving Wiki Page... --");
 			click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 			//waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		}
 
 		if (!message.isEmpty()){ 
-			waitForMessage(message);
-			click(button.ELEMENT_OK_BUTTON);
-			click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
+			info(message);
+			//waitForMessage(message);
+			if (waitForAndGetElement(button.ELEMENT_OK_BUTTON, 3000, 0, 2) != null){
+				click(button.ELEMENT_OK_BUTTON);
+				click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
+			}else {
+				click(ELEMENT_CONFIRM_BUTTON_ADD_PAGE);
+			}
 		}
 
 		/*if (verify){
@@ -85,10 +95,13 @@ public class BasicAction extends Permission{
 	 */
 	public void addWikiPageSourceEditor(String title, String content){
 		info("Modify data with source editor");
-		if(title != null)
+		if(title != null){
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
-		if(content != null)
+		}	
+		if(content != null){
 			type(ELEMENT_CONTENT_WIKI_INPUT,content,true);
+		}	
+		//waitForAndGetElement(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		Utils.pause(1000);
 	}
 
@@ -109,6 +122,7 @@ public class BasicAction extends Permission{
 			Utils.pause(1000);
 			driver.switchTo().defaultContent();
 		}
+		//waitForAndGetElement(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		Utils.pause(1000);
 	}
 
@@ -141,9 +155,11 @@ public class BasicAction extends Permission{
 	public void editWikiPage(String title, String content, int mode)
 	{
 		info("--Edit a wiki page--");
-		Utils.pause(3000);
+		Utils.pause(1000);
 		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
 		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
+		driver.navigate().refresh();
+		Utils.pause(2000);
 		if(mode == 0){
 			addWikiPageSourceEditor(title, content);
 		}else{
@@ -155,9 +171,12 @@ public class BasicAction extends Permission{
 			waitForElementNotPresent(ELEMENT_MINOR_EDIT_BUTTON);
 		}*/		
 		//save();
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		switchToParentWindow();
+		Utils.pause(500);
+		//click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		mouseOverAndClick(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		Utils.pause(5000);
+		Utils.pause(2000);
 	}
 
 	//===========Delete wiki page ===========//
@@ -332,13 +351,14 @@ public class BasicAction extends Permission{
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
 	 */
-	public void resetDataByDeleteWikiPage(userType user, String[] wikiPath){
+	public void resetDataByDeleteWikiPage(ManageAccount.userType user, String[] wikiPath){
+		magAcc = new ManageAccount(driver);
 		if (isElementNotPresent(ELEMENT_INPUT_USERNAME)){
 			magAcc.signOut();
 		}else{
 			info("-- User.logIn: " + user);
 		}
-		userSignIn(user);
+		magAcc.userSignIn(user);
 		goToWiki();
 		deleteWikiPage(wikiPath);
 	}
@@ -405,14 +425,20 @@ public class BasicAction extends Permission{
 	 * @param paragraphContent: input paragraph content with heading followed help tips
 	 */
 	public void editParagraph (String paragraphTitle, String paragraphContent) {
+		info("-- Editing a paragraph... " + paragraphTitle);
 		String ELEMENT_PARAGRAPH_ID = "H"+paragraphTitle;
 
 		mouseOver(By.id(ELEMENT_PARAGRAPH_ID), true);
 		//click(By.xpath("//*[@title='Edit section: " + paragraphTitle + "']"), 2);
+
 		WebElement element = waitForAndGetElement(By.xpath("//*[@data-original-title='Edit Section: " + paragraphTitle + "']"));
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		Utils.pause(500);
+		driver.navigate().refresh();
+		Utils.pause(2000);
 		type(ELEMENT_CONTENT_WIKI_INPUT, paragraphContent, true);
-
+		switchToParentWindow();
+		Utils.pause(500);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 	}

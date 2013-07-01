@@ -24,16 +24,16 @@ public class ManageAccount extends PlatformBase {
 	public final String MESSAGE_DUPLICATE_ACCOUNT = "This username already exists, please enter another one.";
 	public final String MESSAGE_ALERT_PASSWORD = "Password and Confirm Password must be the same.";
 	public final String MESSAGE_INVALID_EMAIL_ADDRESS = "Your email address is invalid. Please enter another one.";
-	
+
 	public ManageAccount(WebDriver dr){
 		driver = dr;
 	}
-	
+
 	Dialog dialog;
 	Button button;
 	ManageAlert magAlert;
 	NavigationToolbar navTool;
-	
+
 	//Sign-in function for eXoGTN
 	public void signIn(String username, String password) {
 		driver.manage().window().maximize();
@@ -94,10 +94,10 @@ public class ManageAccount extends PlatformBase {
 	// setting -> user -> add users
 	public void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
 			String lastName, String email, String userNameGiven, String language, boolean verify) {
-		
+
 		button = new Button(driver);
 		dialog = new Dialog(driver);
-		
+
 		info("--Create a new user using \"New Staff\" portlet--");
 		type(ELEMENT_INPUT_USERNAME, username, true);
 		type(ELEMENT_INPUT_PASSWORD, password, true);
@@ -136,7 +136,7 @@ public class ManageAccount extends PlatformBase {
 			dialog.closeMessageDialog();
 		}
 	}
-	
+
 	public void changeLanguageForUser(String language){
 		button = new Button(driver);
 		info("Change language for user");
@@ -155,5 +155,48 @@ public class ManageAccount extends PlatformBase {
 			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP_OTHER);
 		}
 
+	}
+	
+	/**
+	 * Define a type of user 
+	 * Root
+	 * John Smith: administrator
+	 * James Davis: author
+	 * Jack Miller: developer
+	 * Mary Williams: publisher 
+	 */
+	public enum userType {
+		ROOT, ADMIN, AUTHOR, DEVELOPER, PUBLISHER;
+	}
+	
+	/**
+	 * @author vuna2
+	 * @param user: type: Root, Admin, Author, Developer or Publisher
+	 */
+	public void userSignIn(userType user){
+		if (isElementNotPresent(ELEMENT_INPUT_USERNAME)){
+			signOut();
+		}else{
+			info("-- User.logIn: " + user);
+		}
+		switch (user) {
+		case ROOT:
+			signIn("root", "gtngtn");
+			break;
+		case ADMIN:
+			signIn("john", "gtn");
+			break;	
+		case AUTHOR:
+			signIn("james", "gtn");
+			break;
+		case DEVELOPER:
+			signIn("jack", "gtn");
+			break;
+		case PUBLISHER:
+			signIn("mary", "gtn");
+			break;
+		default:
+			break;
+		}	
 	}
 }

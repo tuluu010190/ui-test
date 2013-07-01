@@ -34,6 +34,7 @@ public class Wiki_Version_Restore extends Version{
 	}
 
 	/**
+	 * Qmetry ID: 69792
 	 * Case ID 01
 	 * <li>Restore version to current version</li>
 	 * <li> Step 1: Create new page </li>
@@ -60,7 +61,7 @@ public class Wiki_Version_Restore extends Version{
 
 		goToRevisionsPage();
 
-		waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "4"));
+		//waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "4"));
 
 		deleteCurrentWikiPage();
 	}

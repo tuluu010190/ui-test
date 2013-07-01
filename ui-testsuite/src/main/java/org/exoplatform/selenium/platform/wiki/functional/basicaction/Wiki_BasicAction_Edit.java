@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform.wiki.functional.basicaction;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -33,7 +34,9 @@ public class Wiki_BasicAction_Edit extends BasicAction {
 		driver.quit();
 	}
 	
-	/* KS/Wiki/Basic Action/Edit
+	/**
+	 * Qmetry ID: 69752
+	 * Wiki/Basic Action/Edit
 	 * Case 01: Edit wiki page
 	 */
 	@Test
@@ -53,8 +56,9 @@ public class Wiki_BasicAction_Edit extends BasicAction {
 		waitForTextNotPresent(DATA_WIKI_TITLE);
 	}
 	
-	/*
-	 * KS/Wiki/Basic Action/Edit
+	/**
+	 * Qmetry ID: 69753
+	 * Wiki/Basic Action/Edit
 	 * Case 02: Edit page when the title is the same with existing page
 	 */
 	@Test
@@ -73,22 +77,26 @@ public class Wiki_BasicAction_Edit extends BasicAction {
 
 		addBlankWikiPage(DATA_WIKI_TITLE2, DATA_WIKI_CONTENT2, 0);
 		click(By.linkText(DATA_WIKI_TITLE2));
+		
 		info("--Edit a wiki page 2--");
-
 		click(ELEMENT_EDIT_PAGE_LINK);
 
+		Utils.pause(500);
+		driver.navigate().refresh();
+		Utils.pause(2000);
+		
 		type(ELEMENT_TITLE_WIKI_INPUT,DATA_WIKI_TITLE1,true);
-
 		//save();
+		switchToParentWindow();
+		Utils.pause(500);
+		
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-
 		waitForTextPresent(MESSAGE_PAGE_ALREADY_EXISTS);
 
 		//click(ELEMENT_OK_BUTTON);
 		click(ELEMENT_OK_BUTTON_WIKI_PAGE);
 
 		//Clear data
-
 		goToWiki();
 
 		goToWikiPage(DATA_WIKI_TITLE1);
@@ -100,7 +108,8 @@ public class Wiki_BasicAction_Edit extends BasicAction {
 		waitForTextNotPresent(DATA_WIKI_TITLE1);
 	}
 	
-	/* 
+	/**
+	 * Qmetry ID:  
 	 * == Pending: refer to issue UI-2507 ==
 	 * == ==
 	 * KS/wiki/basic action/edit
@@ -108,9 +117,8 @@ public class Wiki_BasicAction_Edit extends BasicAction {
 	 * Date: 25/02/2013: Lientm: Edit icon paragraph does not work fine, it is difficult to click its
 	 * => FIXED (@vuna)
 	 */
-	//@Test(groups={"pending"})
 	@Test
-	public void test03_EditParagraphWhenTheLevelOfHearIsEqualToParagraphBelow () {
+	public void test03_EditParagraphWhenTheLevelOfHeaderIsEqualToParagraphBelow () {
 		
 		String DATA_WIKI_TITLE = "Test edit wiki with paragraph1";
 		String DATA_WIKI_CONTENT = "= paragraph1 = \n = paragraph2 =";
@@ -127,14 +135,14 @@ public class Wiki_BasicAction_Edit extends BasicAction {
 		deleteCurrentWikiPage();	
 	}
 	
-	/*
+	/**
+	 * Qmetry ID:
 	 * == Pending: refer to issue UI-2507 ==
 	 * == ==
 	 * KS/wiki/basic action/edit
 	 * Case 04: Edit paragraph when the level of header is greater than paragraph below
 	 * Date: 25/02/2013: Lientm: Edit icon paragraph does not work fine, it is difficult to click its
 	 */
-	//@Test(groups={"pending"})
 	@Test
 	public void test04_EditParagraphWhenTheLevelOfHeaderGreaterThanParagraphBelow () {
 		String DATA_WIKI_TITLE = "Test edit wiki with paragraph1";

@@ -35,6 +35,7 @@ public class Wiki_Template_Edit extends Template{
 	}
 	
 	/**
+	 * Qmetry ID: 69751
 	 * Case 01: Edit created template
 	 * - Create new Template
 	 * - Edit template

@@ -35,6 +35,7 @@ public class Wiki_Attachment_Delete extends BasicAction{
 	}
 	
 	/**
+	 * Qmetry ID: 69741
 	 * Case 01: Delete attach file for page
 	 * Create a wiki page
 	 * Scroll down, click Upload, choose an image
@@ -52,11 +53,9 @@ public class Wiki_Attachment_Delete extends BasicAction{
 		By ATTACHMENT_FILE_LINK=By.xpath("//*[text()='"+ATTACHMENT_NAME+"']");
 
 		info("Delete attachment at wiki page");
-		
-		info("--Add a wiki page from blank--");
-		
 		goToAddBlankPage();
 
+		info("--Add a wiki page from blank--");
 		addWikiPageSourceEditor(DATA_WIKI_PAGE_NAME, DATA_WIKI_PAGE_CONTENT);
 		
 		attachFileInWiki(ATTACHMENT_PATH, 2);

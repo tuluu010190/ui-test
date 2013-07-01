@@ -33,6 +33,7 @@ public class Wiki_Template_Search extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69794
 	 * Case 01: Search template when the key is matched
 	 * - Create new Template
 	 * - Fill in search form new template title, press Enter
@@ -60,6 +61,7 @@ public class Wiki_Template_Search extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69795
 	 * Case 02: Search template when the key is not matched
 	 * - Create new Template
 	 * - Fill in search form with a word not match with any template title, press Enter
@@ -96,6 +98,7 @@ public class Wiki_Template_Search extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69793
 	 * Case 03: Search template when Search field is blank
 	 * - Create new Template
 	 * - Leave search field blank, press Enter
@@ -128,5 +131,4 @@ public class Wiki_Template_Search extends Template{
 
 		deleteTemplate(DATA_TEMPLATE_TITLE);
 	}
-
 }

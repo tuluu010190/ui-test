@@ -23,6 +23,7 @@ public class Wiki_SpacePermission_Delete extends Permission {
 		magAc.signIn("john", "gtn");
 	}
 
+	//Qmetry ID: 69746
 	//Delete permission for space
 	@Test
 	public void test01_DeletePermissionForSpace() {

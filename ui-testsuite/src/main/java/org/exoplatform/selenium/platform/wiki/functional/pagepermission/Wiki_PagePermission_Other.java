@@ -19,6 +19,7 @@ import org.testng.annotations.Test;
 public class Wiki_PagePermission_Other extends BasicAction{
 
 	ManageAccount magAc;
+	ManageMember magMember;
 
 	public String DATA_USER_ADMIN = "john";
 	public String DATA_PASS_ADMIN = "gtn";
@@ -28,6 +29,7 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		initSeleniumTest();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
+		magMember = new ManageMember(driver);
 		magAc.signIn(DATA_USER_ADMIN, DATA_PASS_ADMIN);	
 		goToWiki();
 	}
@@ -51,7 +53,7 @@ public class Wiki_PagePermission_Other extends BasicAction{
 
 	public void userJoinSpaceAndCheckPagePermission(String user, String spaceName, By element_space, By element_page, String content){
 		magAc.signIn(user, DATA_PASS_ADMIN);
-		joinOpenSpace(spaceName);
+		magMember.joinOpenSpace(spaceName);
 		click(element_space);
 		click(ELEMENT_WIKI_LINK_IN_SPACE);
 
@@ -99,12 +101,12 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		magAc.signOut();
 
 		//check user james does not have view permission
-		checkViewPage(ManageMember.userType.AUTHOR, element_page);
+		checkViewPage(ManageAccount.userType.AUTHOR, element_page);
 
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	@Test
@@ -125,12 +127,12 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		magAc.signOut();
 
 		//check user demo does not have view permission because it does not belong to group
-		checkViewPage(ManageMember.userType.AUTHOR, element_page);
+		checkViewPage(ManageAccount.userType.AUTHOR, element_page);
 
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	@Test
@@ -151,12 +153,12 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		magAc.signOut();
 
 		//check user mary does not have view permission because it has membership =  publisher/editor
-		checkViewPage(ManageMember.userType.PUBLISHER, element_page);
+		checkViewPage(ManageAccount.userType.PUBLISHER, element_page);
 
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/*case02: Check when user/group does not permission to edit page
@@ -180,12 +182,12 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		magAc.signOut();
 
 		//check user demo have view page but does not have edit page
-		checkEditPage(ManageMember.userType.AUTHOR, element_page, content);
+		checkEditPage(ManageAccount.userType.AUTHOR, element_page, content);
 
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	@Test
@@ -206,12 +208,12 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		magAc.signOut();
 
 		//check user james belong to group which have view page but does not have edit page
-		checkEditPage(ManageMember.userType.AUTHOR, element_page, content);
+		checkEditPage(ManageAccount.userType.AUTHOR, element_page, content);
 
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	@Test
@@ -232,12 +234,12 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		magAc.signOut();
 
 		//check user james (belong to membership) which have view page but does not have edit page
-		checkEditPage(ManageMember.userType.AUTHOR, element_page, content);
+		checkEditPage(ManageAccount.userType.AUTHOR, element_page, content);
 
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 
 	/*case03: Check when user/group does not permission to edit page (add space)
@@ -257,8 +259,8 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		String[] userGroup = {user};
 
 		//add new space visible and open
-		goToMySpacePage();
-		addNewSpace(spaceName, spaceDescription, "Visible", "Open", "", "");
+		magMember.goToMySpacePage();
+		magMember.addNewSpace(spaceName, spaceDescription, "Visible", "Open", "", "");
 
 		info("Add a wiki page");
 		goToWikiFromSpace(spaceName);
@@ -272,7 +274,7 @@ public class Wiki_PagePermission_Other extends BasicAction{
 
 		//delete space
 		magAc.signIn(DATA_USER_ADMIN, DATA_PASS_ADMIN);
-		restoreData(spaceName, 100000);
+		magMember.restoreData(spaceName, 100000);
 	}
 
 	@Test
@@ -286,8 +288,8 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		String[] userGroup = {"Platform/Content Management"};
 
 		//add new space visible and open
-		goToMySpacePage();
-		addNewSpace(spaceName, spaceDescription, "Visible", "Open", "", "");
+		magMember.goToMySpacePage();
+		magMember.addNewSpace(spaceName, spaceDescription, "Visible", "Open", "", "");
 
 		info("Add a wiki page");
 		goToWikiFromSpace(spaceName);
@@ -301,7 +303,7 @@ public class Wiki_PagePermission_Other extends BasicAction{
 
 		//delete space
 		magAc.signIn(DATA_USER_ADMIN, DATA_PASS_ADMIN);
-		restoreData(spaceName, 100000);
+		magMember.restoreData(spaceName, 100000);
 	}
 
 	@Test
@@ -315,8 +317,8 @@ public class Wiki_PagePermission_Other extends BasicAction{
 		String[] userGroup = {"Platform/Content Management", "redactor"};
 
 		//add new space visible and open
-		goToMySpacePage();
-		addNewSpace(spaceName, spaceDescription, "Visible", "Open", "", "");
+		magMember.goToMySpacePage();
+		magMember.addNewSpace(spaceName, spaceDescription, "Visible", "Open", "", "");
 
 		info("Add a wiki page");
 		goToWikiFromSpace(spaceName);
@@ -330,6 +332,6 @@ public class Wiki_PagePermission_Other extends BasicAction{
 
 		//delete space
 		magAc.signIn(DATA_USER_ADMIN, DATA_PASS_ADMIN);
-		restoreData(spaceName, 100000);
+		magMember.restoreData(spaceName, 100000);
 	}
 }

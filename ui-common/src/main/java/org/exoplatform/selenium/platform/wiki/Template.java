@@ -2,12 +2,12 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import java.awt.event.KeyEvent;
-
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
 /**
  * Migrate to PLF 4
@@ -34,13 +34,17 @@ public class Template extends BasicAction{
 		info("--Add a wiki page from template--");
 		click(eTemplate, 2);
 		click(button.ELEMENT_SELECT_BUTTON);
+		Utils.pause(500);
+		driver.navigate().refresh();
+		Utils.pause(2000);
 		if (mode == 1){ 
-
 			addWikiPageRichText(title, null);
 		}
-		else
+		else{
 			addWikiPageSourceEditor(title, null);
-
+		}	
+		switchToParentWindow();
+		Utils.pause(1000);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		//save();
@@ -60,13 +64,16 @@ public class Template extends BasicAction{
 		}
 		info("--Add a wiki page template--");
 		click(ELEMENT_ADD_TEMPLATE_LINK);
+		Utils.pause(500);
+		driver.navigate().refresh();
+		Utils.pause(3000);
 		type(ELEMENT_TITLE_TEMPLATE_INPUT,title,true);
-		Utils.pause(1000);
 		type(ELEMENT_DESC_TEMPLATE_INPUT,description,true);
-		Utils.pause(1000);
 		type(ELEMENT_CONTENT_TEMPLATE_INPUT,content,true);
+		switchToParentWindow();
+		Utils.pause(1000);
 		click(ELEMENT_SAVE_TEMPLATE_INPUT);
-		waitForMessage(MSG_CREATE_TEMPLATE);
+		waitForMessage(MSG_CREATE_TEMPLATE.replace("${title}", title));
 		dialog.closeMessageDialog();
 		waitForElementNotPresent(ELEMENT_SAVE_TEMPLATE_INPUT);
 	}
@@ -86,14 +93,21 @@ public class Template extends BasicAction{
 
 		info("--Edit a wiki page template--");
 		click(ELEMENT_EDIT_TEMPLATE_ICON.replace("{$template}", oldTitle));
-		if (title != null)
+		Utils.pause(500);
+		driver.navigate().refresh();
+		Utils.pause(2000);
+		if (title != null){
 			type(ELEMENT_TITLE_TEMPLATE_INPUT,title,true);
-		if (description != null)
+		}	
+		if (description != null){
 			type(ELEMENT_DESC_TEMPLATE_INPUT,description,true);
-		if (content != null)
+		}	
+		if (content != null){
 			type(ELEMENT_CONTENT_TEMPLATE_INPUT,content,true);
+		}
+		switchToParentWindow();
+		Utils.pause(1000);
 		click(ELEMENT_SAVE_TEMPLATE_INPUT);
-
 		waitForElementNotPresent(ELEMENT_SAVE_TEMPLATE_INPUT);
 	}
 	
@@ -118,7 +132,12 @@ public class Template extends BasicAction{
 	public void searchTemplate(String keyword){
 		type(ELEMENT_SEARCH_TEMPLATE_INPUT, keyword, true);
 //		click(ELEMENT_SEARCH_BUTTON);
-		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
+//		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
+		
+		WebElement searchButton = waitForAndGetElement(ELEMENT_SEARCH_BUTTON, DEFAULT_TIMEOUT, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", searchButton);
+		//click(ELEMENT_SEARCH_BUTTON);
+		
 		Utils.pause(1000);
 	}
 }

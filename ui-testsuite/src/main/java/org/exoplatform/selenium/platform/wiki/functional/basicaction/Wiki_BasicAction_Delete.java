@@ -30,9 +30,13 @@ public class Wiki_BasicAction_Delete extends BasicAction {
 		driver.quit();
 	}
 
-	//Delete a wiki page with without confirm and confirm message
+	/**
+	 * Qmetry ID: 69743 + 69744
+	 * Delete a wiki page with without confirm and confirm message
+	 * 
+	 */
 	@Test
-	public void test01_02_deletePageWithoutConfirmAndConfirmMessage() {
+	public void test01_02_deletePageWithoutConfirmAndConfirmMessage(){
 		
 		By ELEMENT_PAGE1 = By.linkText("wiki1");
 		

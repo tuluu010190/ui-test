@@ -4,6 +4,8 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
 /**
  * 
@@ -31,7 +33,13 @@ public class Version extends BasicAction{
 
 		String versionLink = ELEMENT_VERSION_LINK.replace("{$version}",version);
 		click(ELEMENT_REVISION_LINK);
-		click(versionLink);
+		Utils.pause(500);
+		driver.navigate().refresh();
+		Utils.pause(2000);
+		//click(versionLink);
+		WebElement vLink = waitForAndGetElement(versionLink, DEFAULT_TIMEOUT, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vLink);
+		Utils.pause(1000);
 	}
 
 	/** Restore a version of a page
@@ -47,7 +55,13 @@ public class Version extends BasicAction{
 		}else{
 			click(ELEMENT_REVISION_LINK);
 		}
-		click(versionLink);
+		Utils.pause(500);
+		driver.navigate().refresh();
+		Utils.pause(2000);
+		//click(versionLink);
+		WebElement vLink = waitForAndGetElement(versionLink, DEFAULT_TIMEOUT, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vLink);
+		Utils.pause(1000);
 	}
 
 	/** Compare 2 versions of a page
@@ -65,9 +79,23 @@ public class Version extends BasicAction{
 		}else{
 			click(ELEMENT_REVISION_LINK);
 		}
-		click(versionCheckbox1, 2);
-		click(versionCheckbox2, 2);
-		click(ELEMENT_COMPARE_BUTTON);
+		Utils.pause(500);
+		driver.navigate().refresh();
+		Utils.pause(2000);
+		//click(versionCheckbox1, 2);
+		WebElement vCheckbox1 = waitForAndGetElement(versionCheckbox1, DEFAULT_TIMEOUT, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vCheckbox1);
+		//click(versionCheckbox2, 2);
+		WebElement vCheckbox2 = waitForAndGetElement(versionCheckbox2, DEFAULT_TIMEOUT, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vCheckbox2);
+		
+		WebElement cButton = waitForAndGetElement(ELEMENT_COMPARE_BUTTON, 3000, 0, 2);
+		if (cButton != null){
+			//click(ELEMENT_COMPARE_BUTTON);
+			((JavascriptExecutor)driver).executeScript("arguments[0].click();", cButton);
+		}else {
+			click(By.xpath("//*[text()='Compare selected']"));
+		}
 		waitForAndGetElement(ELEMENT_COMPARE_TEXT);
 	}
 

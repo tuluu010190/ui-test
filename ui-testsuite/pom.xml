@@ -64,14 +64,30 @@
 				<testSuite>wiki.xml</testSuite>
 			</properties>
 		</profile>
-		
 		<profile>
 			<id>wiki-sniff</id>
 			<properties>
 				<testSuite>wiki-sniff.xml</testSuite>
 			</properties>
 		</profile>
-
+		<profile>
+			<id>wiki-part1</id>
+			<properties>
+				<testSuite>wiki-part1.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>wiki-part2</id>
+			<properties>
+				<testSuite>wiki-part2.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>wiki-part3</id>
+			<properties>
+				<testSuite>wiki-part3.xml</testSuite>
+			</properties>
+		</profile>
 		<profile>
 			<id>regression</id>
 			<properties>

@@ -178,14 +178,14 @@ public class Wiki_WikiSetting_ManagePermission extends BasicAction {
 		checkUserHaveOnlyViewPagePermission(user, title);
 		
 		info("Edit permission");
-		goToWikiPage("Wiki Home/" + title, userType.ADMIN);
+		goToWikiPage("Wiki Home/" + title, ManageAccount.userType.ADMIN);
 		editPagePermission(user, true, true, false, 2);
 		magAc.signOut();
 		
 		checkUserHaveEditPagePermission(user, title);
 		
 		info("Delete permission");
-		goToWikiPage("Wiki Home/" + title, userType.ADMIN);
+		goToWikiPage("Wiki Home/" + title, ManageAccount.userType.ADMIN);
 		deletePagePermission(user);
 		deleteCurrentWikiPage();
 	}
@@ -207,14 +207,14 @@ public class Wiki_WikiSetting_ManagePermission extends BasicAction {
 		checkUserHaveOnlyViewPagePermission(user, title);
 		
 		info("Edit permission");
-		goToWikiPage("Wiki Home/" + title, userType.ADMIN);
+		goToWikiPage("Wiki Home/" + title, ManageAccount.userType.ADMIN);
 		editPagePermission("developers", true, true, false, 2);
 		magAc.signOut();
 		
 		checkUserHaveEditPagePermission(user, title);
 		
 		info("Delete permission");
-		goToWikiPage("Wiki Home/" + title, userType.ADMIN);
+		goToWikiPage("Wiki Home/" + title, ManageAccount.userType.ADMIN);
 		deletePagePermission("developers");
 		deleteCurrentWikiPage();
 	}
@@ -237,14 +237,14 @@ public class Wiki_WikiSetting_ManagePermission extends BasicAction {
 		checkUserHaveOnlyViewPagePermission(user, title);
 		
 		info("Edit permission");
-		goToWikiPage("Wiki Home/" + title, userType.ADMIN);
+		goToWikiPage("Wiki Home/" + title, ManageAccount.userType.ADMIN);
 		editPagePermission(path, true, true, false, 2);
 		magAc.signOut();
 		
 		checkUserHaveEditPagePermission(user, title);
 		
 		info("Delete permission");
-		goToWikiPage("Wiki Home/" + title, userType.ADMIN);
+		goToWikiPage("Wiki Home/" + title, ManageAccount.userType.ADMIN);
 		deletePagePermission(path);
 		deleteCurrentWikiPage();
 	}

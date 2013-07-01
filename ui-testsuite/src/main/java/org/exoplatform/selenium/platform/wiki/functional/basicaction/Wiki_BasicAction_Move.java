@@ -30,13 +30,13 @@ public class Wiki_BasicAction_Move extends BasicAction {
 	String[] user1= {"james"};
 
 	/**
+	 * Qmetry ID: 69787
 	 * Migrate to PLF 4
 	 * == Pending: Selenium issue ==
 	 * == when editPagePermission (select "Edit Page" in Permissions Tab) ==
 	 * --> FIXED this issue <--
 	 */
 	//Move a page when user have edit permission on page 
-	//@Test(groups={"pending"})
 	@Test
 	public void test01_MoveAPageWhenUserHavePermisionOnPage(){
 
@@ -85,6 +85,7 @@ public class Wiki_BasicAction_Move extends BasicAction {
 		deleteCurrentWikiPage();
 	}
 	
+	//Qmetry ID: 
 	//Move a page when any user have edit permission on page 
 	@Test
 	public void test02_MoveAPageWhenAnyUserHavePermisionOnPage() {
@@ -122,6 +123,7 @@ public class Wiki_BasicAction_Move extends BasicAction {
 		deleteCurrentWikiPage();
 	}
 	
+	//Qmetry ID: 69786
 	//Move a page when user doesn't have edit permission on page 
 	@Test
 	public void test03_MoveAPageWhenUserDoesNotHavePermisionOnPage() {
@@ -162,6 +164,7 @@ public class Wiki_BasicAction_Move extends BasicAction {
 		deleteCurrentWikiPage();
 	}
 	
+	//Qmetry ID: 69785
 	//Move A Page When User don't have Permission On Destination Page
 	@Test
 	public void test04_MoveAPageWhenUserDoNotHavePermisionOnDestinationPage() {
@@ -172,7 +175,7 @@ public class Wiki_BasicAction_Move extends BasicAction {
 		By ELEMENT_PAGE1 = By.linkText(PAGE_NAME1);
 		By ELEMENT_PAGE2 = By.linkText(PAGE_NAME2);
 
-		String ELEMENT_VERIRY_MESSAGE = "You have no edit permission at destination page";
+		String ELEMENT_VERIRY_MESSAGE = "You have no edit permission at the destination page";
 
 		goToWiki();
 

@@ -70,12 +70,12 @@ public class Wiki_PagePermission_Delete extends BasicAction{
 		magAc.signOut();
 		
 		deletePermissionWithUserAdmin(user, element_page);
-		checkViewPage(userType.AUTHOR, element_page);
+		checkViewPage(ManageAccount.userType.AUTHOR, element_page);
 		
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 	
 	@Test
@@ -106,12 +106,12 @@ public class Wiki_PagePermission_Delete extends BasicAction{
 		magAc.signOut();
 		
 		deletePermissionWithUserAdmin(group, element_page);
-		checkViewPage(userType.AUTHOR, element_page);
+		checkViewPage(ManageAccount.userType.AUTHOR, element_page);
 		
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 	
 	@Test
@@ -142,11 +142,11 @@ public class Wiki_PagePermission_Delete extends BasicAction{
 		magAc.signOut();
 				
 		deletePermissionWithUserAdmin(group, element_page);
-		checkViewPage(userType.AUTHOR, element_page);
+		checkViewPage(ManageAccount.userType.AUTHOR, element_page);
 		
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 }

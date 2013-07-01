@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.openqa.selenium.By;
@@ -20,11 +21,12 @@ import org.openqa.selenium.WebElement;
 /* @author: Thuntn
  * @date: 14/11/2012
  */
-public class WikiBase extends ManageMember {
+public class WikiBase extends PlatformBase{
 
 	ManageAccount magAcc = new ManageAccount(driver);
 	UserGroupManagement userGroup = new UserGroupManagement(driver);
 	Button button = new Button(driver);
+	ManageMember magMember = new ManageMember(driver);
 
 	/*-----------------Page control area-------------------*/
 
@@ -84,7 +86,7 @@ public class WikiBase extends ManageMember {
 	public final By ELEMENT_CONTENT_WIKI_FRAME = By.xpath("//div[@class='xRichTextEditor']/iframe");
 
 	//Upload file area
-	public By ELEMENT_UPLOAD_FILE = By.xpath("//div[@class='uploadInput']/input"); 
+	public By ELEMENT_UPLOAD_FILE = By.xpath("//div[@class='uiUploadInput']//*[@type='file']"); 
 	//By.id("WikiUploadFile");
 	public final By ELEMENT_FRAME_UPLOAD=By.xpath("//div[@class='uiUploadInput']/iframe");
 	//("//div[@title='Upload New File']/iframe");
@@ -139,8 +141,8 @@ public class WikiBase extends ManageMember {
 	public final By ELEMENT_CANCEL_ADD_TEMPLATE = By.id("UISubmitToolBarUpper_Cancel_");
 	
 	//Message
-	public final String MSG_CREATE_TEMPLATE= "has been created successfully";
-	public final String MSG_DELETE_TEMPLATE="Are you sure you want to delete this template?";
+	public final String MSG_CREATE_TEMPLATE = "Template \"${title}\" has been created successfully.";
+	public final String MSG_DELETE_TEMPLATE = "Are you sure you want to delete this template?";
 	//Close template list	
 	public By ELEMENT_CLOSE_TEMPLATE_LIST=By.xpath("//*[text()='Select Template']/../a[@class='uiIconClose pull-right']");
 	//Close preview window
@@ -162,7 +164,8 @@ public class WikiBase extends ManageMember {
 	public final String ELEMENT_OLD_TEMPLATE_LINK="//div[@class='Text' and text()='${OLD_TEMPLATE_TITLE}']";
 
 	// Verify Search with no result
-	public final String ELEMENT_EMPTY_DATA="//*[@class='noticeEmpty' and text()='Empty data']";
+	public final String ELEMENT_EMPTY_DATA = "//*[@class='center empty' and contains(text(), 'Empty data')]"; 
+			//"//*[@class='noticeEmpty' and text()='Empty data']";
 
 	// Verify Page content
 	public final String ELEMENT_VERIFY_PAGE_CONTENT="//*[@class='uiWikiContentDisplay']//p[text()='${TEMPLATE_CONTENT}']";
@@ -188,10 +191,10 @@ public class WikiBase extends ManageMember {
 	/*-------------------------Page information area---------------------------*/
 	public final By ELEMENT_COMPARE_TEXT = By.xpath("//div[contains(text(),'Compared With')]");
 	public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfoArea']//a[contains(text(), 'V')]");
-	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'V{$version}')]";
+	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'v. {$version}')]";
 	public final String ELEMENT_RESTORE_LINK = "//td/label/a[contains(text(), 'v. {$version}')]/../../..//*[@class='uiIconRestore']";
 	public final By ELEMENT_COMPARE_BUTTON = By.xpath("//*[text()='Compare the selected versions']");	
-	public final By ELEMENT_VIEW_CHANGE=By.linkText("(View Change)");
+	public final By ELEMENT_VIEW_CHANGE = By.linkText("(View Change)");
 	public String ELEMENT_ATTACHMENT_NUMBER = "//*[@id='UIWikiPageInfoArea']//a[contains(text(),'${No}')]/*[@class='uiIconAttach']";
 	public By ELEMENT_ATTACHMENT_ICON = By.xpath("//*[@id='UIWikiPageInfoArea']//*[@class='uiIconAttach']");
 	public String ELEMENT_CREATOR_PAGE_INFO = "//*[@id='UIWikiPageInfoArea']//a[1][text()='${fullName}']";
@@ -212,23 +215,25 @@ public class WikiBase extends ManageMember {
 	// Go to Wiki page > More > Page info > Add more relations
 	public final String ELEMENT_SELECTED_PAGE = "//div[contains(@class,'popupContent')]//*[@id='iconTreeExplorer' and contains(@onclick, 'event')]//a[contains(text(), '${relatedPage}')]"; 
 	public final String ELEMENT_RELATED_PAGE = "//*[text()='Related Pages']/..//a[contains(text(),'${relatedPage}')]";
-	public final String ELEMENT_REMOVE_RELATED_PAGE_LINK = "//*[contains(text(),'${relatedPage}')]/../../../../..//*[@class='uiIconDelete']";
 	public By ELEMENT_SELECT_SPACE = By.xpath("//*[contains(text(), 'Select the Wiki:')]/..//*[@class='btn dropdown-toggle']");
 	public By ELEMENT_NO_SPACE_OPTION = By.xpath("//*[contains(text(), 'Select the Space:')]/..//*[@id='UISpaceSwitcher_nospace']");
-	
-	//Wiki page > Revisions page
-	public final String ELEMENT_CURRENT_VERSION = "//a[@title='View Revision' and text()='CURRENT (v. ${version})']";
-	public final By ELEMENT_DISABLE_COMPARE_BUTTON = By.xpath("//*[contains(@class, 'disableButton') and text()='Compare Selected']");
+	public final String ELEMENT_REMOVE_RELATED_PAGE_LINK = "//*[contains(text(),'${relatedPage}')]/ancestor::table//*[@class='uiIconDelete']";
 
+	//Wiki page > Revisions page
+	public final String ELEMENT_CURRENT_VERSION = "//a[@title='View Revision' and text()='Current (v. ${version})']";
+	public final By ELEMENT_DISABLE_COMPARE_BUTTON = By.xpath("//*[contains(@class, 'disableButton') and text()='Compare Selected']");
+	public final By ELEMENT_DISABLE_COMPARE_BUTTON_AUX = By.xpath("//*[contains(@class, 'disableButton') and text()='Compare the selected versions']");
+	
 	/*------------------------My spaces/space----------------------------------*/
 	public final String ELEMENT_SPACE_WIKI = "//a[text()='${spaceName}']/..//a[text()='Wiki']";
 	public final By ELEMENT_TITLE_WIKI_HOME = By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
 	public final By ELEMENT_WIKI_TAB = By.xpath("//a[@class='ApplicationAdd' and text()='Wiki']");
 
 	/*-------------------------Go to wiki home---------------------------*/
-	public final By ELEMENT_WIKI_HOME_LINK=By.xpath("//a[text()='Wiki Home']");
-	public final By ELEMENT_WIKI_HOME_PAGE=By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
-
+	public final By ELEMENT_WIKI_HOME_LINK = By.xpath("//a[text()='Wiki Home']");
+	public final By ELEMENT_WIKI_HOME_PAGE = By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
+	public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/a[contains(text(), 'Wiki Home')]");
+	
 	public final By ELEMENT_SELECT_THIS_GROUP = By.linkText("Select this Group");
 	public final By ELEMENT_SELECT_ROLE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Select a role']");
 	public final By ELEMENT_SELECT_GROUP_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Select a group']");
@@ -246,7 +251,8 @@ public class WikiBase extends ManageMember {
 	public final By ELEMENT_MOVE_PAGE_POPUP = By.xpath("//*[contains(@class, 'popupTitle') and text()='Move Page']");
 	
 	//Create page 
-	public final String MESSAGE_CANCEL_CREATE_PAGE = "Are you sure to leave this page?";
+	public final String MESSAGE_CANCEL_CREATE_PAGE = "Are you sure you want to leave this page?"; 
+			//"Are you sure to leave this page?";
 
 	//Edit page
 	public final By ELEMENT_OK_BUTTON_WIKI_PAGE = By.xpath("//div[contains(@class, 'uiAction')]/a[text()='OK']");
@@ -282,8 +288,14 @@ public class WikiBase extends ManageMember {
 	 * @author hakt
 	 */
 	public void goToWikiHome(){
-		click(ELEMENT_WIKI_HOME_LINK);
-		waitForAndGetElement(ELEMENT_WIKI_HOME_PAGE);
+		info("-- Go to Wiki Home page --");
+		if (waitForAndGetElement(ELEMENT_WIKI_HOME_LINK, 3000, 0, 2) != null){
+			click(ELEMENT_WIKI_HOME_LINK);
+			waitForAndGetElement(ELEMENT_WIKI_HOME_PAGE);
+		}else{
+			click(ELEMENT_TITLE_WIKI_HOME_LINK);
+		}
+		Utils.pause(200);
 	}
 
 	/**
@@ -298,6 +310,7 @@ public class WikiBase extends ManageMember {
 		//mouseOver(ELEMENT_ADD_PAGE_LINK, true);
 		mouseOverAndClick(ELEMENT_ADD_PAGE_LINK);
 		mouseOverAndClick(ELEMENT_BLANK_PAGE_LINK);
+		Utils.pause(500);
 	}
 
 	/** Go to Delete Page
@@ -315,9 +328,9 @@ public class WikiBase extends ManageMember {
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
 	 */
-	public void goToWikiPage(String wikiPath, userType... user){
+	public void goToWikiPage(String wikiPath, ManageAccount.userType... user){
 		magAcc = new ManageAccount(driver);		
-		userType usr = (userType) (user.length > 0 ? user[0] : null);
+		ManageAccount.userType usr = (ManageAccount.userType) (user.length > 0 ? user[0] : null);
 	
 		if (usr != null){
 			if (isElementNotPresent(ELEMENT_INPUT_USERNAME)){
@@ -325,7 +338,7 @@ public class WikiBase extends ManageMember {
 			}else{
 				info("-- User.logIn: " + user);
 			}
-			userSignIn(usr);
+			magAcc.userSignIn(usr);
 			Utils.pause(1000);
 		}
 		if (isTextNotPresent("Wiki Home")){
@@ -385,8 +398,10 @@ public class WikiBase extends ManageMember {
 	 */
 	public void movePage(String pageName1, String pageName2){
 		button = new Button(driver);
-		By ELEMENT_VERIFY_CURRENT_LOCATION = By.xpath("//label[text()='Current Location :']/../..//*[contains(text(), '"+ pageName1 +"')]");
-		By ELEMENT_VERIFY_NEW_LOCATION = By.xpath("//label[text()='New Location :']/../..//*[contains(text(), '"+ pageName2 +"')]");
+		//By ELEMENT_VERIFY_CURRENT_LOCATION = By.xpath("//label[text()='Current Location :']/../..//*[contains(text(), '"+ pageName1 +"')]");
+		//By ELEMENT_VERIFY_NEW_LOCATION = By.xpath("//label[text()='New Location :']/../..//*[contains(text(), '"+ pageName2 +"')]");
+		By ELEMENT_VERIFY_CURRENT_LOCATION = By.xpath("//label[contains(text(), 'Current Location')]/../..//*[contains(text(), '"+ pageName1 +"')]");
+		By ELEMENT_VERIFY_NEW_LOCATION = By.xpath("//label[contains(text(), 'New Location')]/../..//*[contains(text(), '"+ pageName2 +"')]");
 		By ELEMENT_VERIFY_AFTER_MOVE_PAGE = By.xpath("//*[contains(text(), '"+pageName2+"')]/ancestor::li[@class='node']//ul//*[contains(text(), '"+pageName1+"')]");
 				//("//a[@data-original-title='"+ pageName2 +"']/ancestor::div[@id = 'UITreeExplorer']//*[@data-original-title = '"+pageName1+"']");
 		By ELEMENT_NEW_LOCATION = By.xpath("//*[contains(@class, 'popupContent')]//*[contains(@onclick, 'event')]//a[contains(text(), '"+ pageName2 +"')]");
@@ -415,13 +430,12 @@ public class WikiBase extends ManageMember {
 	 */
 	public void goToPagePermission(){
 		//Utils.pause(2000);
-		if(isElementNotPresent(ELEMENT_PAGE_PERMISSION_POPUP)) {
-			Utils.pause(500);
+		if(waitForAndGetElement(ELEMENT_PAGE_PERMISSION_POPUP, 5000, 0) == null) {
 			mouseOverAndClick(ELEMENT_MORE_LINK);
-			Utils.pause(500);
 			mouseOverAndClick(ELEMENT_PAGE_PERMISSION_LINK);	
 		}
 		Utils.pause(1000);
+		info("-- Go to Page Permissions...successful");
 		/*mouseOverAndClick(ELEMENT_MORE_LINK);
 		mouseOverAndClick(ELEMENT_PAGE_PERMISSION_LINK);
 		waitForElementPresent(ELEMENT_PAGE_PERMISSION_POPUP);*/
@@ -450,7 +464,7 @@ public class WikiBase extends ManageMember {
 	 */
 	public void goToPageInfo(Object... optional){
 		magAcc = new ManageAccount(driver);
-		userType usr = (userType) (optional.length > 0 ? optional[0] : null);
+		ManageAccount.userType usr = (ManageAccount.userType) (optional.length > 0 ? optional[0] : null);
 		String path = (String) (optional.length > 1 ? optional[1] : "");
 		if (usr != null){
 			if (isElementNotPresent(ELEMENT_SIGN_IN_LINK) && isElementNotPresent(ELEMENT_GO_TO_PORTAL) ){
@@ -458,7 +472,7 @@ public class WikiBase extends ManageMember {
 			}else{
 				info("-- User.logIn: " + usr);
 			}
-			userSignIn(usr);
+			magAcc.userSignIn(usr);
 		}	
 		
 		if (isTextNotPresent("Wiki Home")){
@@ -497,7 +511,7 @@ public class WikiBase extends ManageMember {
 		//mouseOverAndClick(element_wiki);
 		Utils.pause(1000);
 		if (isElementNotPresent(ELEMENT_WIKI_LINK_IN_SPACE)){
-			goToMySpacePage();
+			magMember.goToMySpacePage();
 			click(element_space);
 			Utils.pause(2000);
 		}
@@ -733,13 +747,10 @@ public class WikiBase extends ManageMember {
 	 */
 	public void selectGroupMembership(String groupPath, String membership){
 		userGroup = new UserGroupManagement(driver);
-		/*By ELEMENT_SELECT_ROLE = By.xpath(ELEMENT_SELECT_ROLE_ICON.replace("${element}", element));
-		waitForElementPresent(ELEMENT_SELECT_ROLE);
-		click(ELEMENT_SELECT_ROLE);*/
 		waitForAndGetElement(ELEMENT_SELECT_ROLE_POPUP);
 		userGroup.selectGroup(groupPath, true);	
 		click(By.linkText(membership));
-		//waitForTextPresent(membership);
+		Utils.pause(1000);
 	}
 	
 	public void goToAddRelation(){

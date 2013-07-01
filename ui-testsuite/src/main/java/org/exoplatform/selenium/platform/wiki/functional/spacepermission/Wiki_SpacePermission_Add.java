@@ -6,7 +6,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 
 import static org.exoplatform.selenium.TestLogger.info;
@@ -25,7 +24,7 @@ import static org.exoplatform.selenium.TestLogger.info;
  */
 public class Wiki_SpacePermission_Add extends BasicAction {
 
-	ManageAccount magAc;
+	ManageAccount magAcc;
 	Button button;
 	
 	String DATA_USER_ADMIN = "john";
@@ -35,9 +34,9 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 	public void setUpBeforeTest(){
 		initSeleniumTest();
 		driver.get(baseUrl);
-		magAc = new ManageAccount(driver);
+		magAcc = new ManageAccount(driver);
 		button = new Button(driver);
-		magAc.signIn(DATA_USER_ADMIN, DATA_PASS);
+		magAcc.signIn(DATA_USER_ADMIN, DATA_PASS);
 	}
 
 	@AfterMethod
@@ -47,7 +46,9 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 		driver.quit();
 	}
 
-	/* case01: Add permission for user by putting user's name
+	/**
+	 * Qmetry ID: 69679 
+	 * case01: Add permission for user by putting user's name
 	 * add page
 	 * Check permission for user have add/edit page by putting user's name
 	 * check user can view/edit page
@@ -63,7 +64,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		prepareDataWikiSpacePermissionV1(PAGE_NAME1, 0, user2, "james");
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -73,14 +74,16 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
 		resetDataWikiSpacePermission(ELEMENT_PAGE1, "james");
 	}
 
-	/* case02: Add permission for user by selecting user's name
+	/**
+	 * Qmetry ID: 69689
+	 *  case02: Add permission for user by selecting user's name
 	 * add page
 	 * Check permission for user have add/edit page by selecting directly
 	 * check user can view/edit page
@@ -96,7 +99,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		prepareDataWikiSpacePermissionV1(PAGE_NAME1, 1, user2, "james");
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 
 		goToWiki();
 		
@@ -106,14 +109,16 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
 		resetDataWikiSpacePermission(ELEMENT_PAGE1, "james");
 	}
 
-	/* case03: Add permission for user by Searching UserName
+	/**
+	 * Qmetry ID: 69687 
+	 * case03: Add permission for user by Searching UserName
 	 * add page
 	 * Check permission for user have add/edit page by searching user name
 	 * check user can view/edit page
@@ -129,7 +134,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("Check user after set permisison");
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -139,14 +144,16 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
 		resetDataWikiSpacePermission(ELEMENT_PAGE1, "james");
 	}
 
-	/* case04: Add permission for user by Searching First Name
+	/**
+	 * Qmetry ID: 69683
+	 *  case04: Add permission for user by Searching First Name
 	 * add page
 	 * Check permission for user have add/edit page by searching first name
 	 * check user can view/edit page
@@ -162,7 +169,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("Check after edit user");
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -172,14 +179,16 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
 		resetDataWikiSpacePermission(ELEMENT_PAGE1, "james");
 	}
 
-	/* case05: Add permission for user by Searching Last Name
+	/**
+	 * Qmetry ID: 69685
+	 *  case05: Add permission for user by Searching Last Name
 	 * add page
 	 * Check permission for user have add/edit page by searching last name
 	 * check user can view/edit page
@@ -191,9 +200,9 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		By ELEMENT_PAGE1 = By.linkText(PAGE_NAME1);
 
-		prepareDataWikiSpacePermissionV2(PAGE_NAME1, "David", "james", 3);
+		prepareDataWikiSpacePermissionV2(PAGE_NAME1, "Davis", "james", 3);
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -203,14 +212,16 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
 		resetDataWikiSpacePermission(ELEMENT_PAGE1, "james");
 	}
 
-	/* case06: Add permission for user by Searching Email Name
+	/**
+	 * Qmetry ID: 69681
+	 *  case06: Add permission for user by Searching Email Name
 	 * add page
 	 * Check permission for user have add/edit page by searching email name
 	 * check user can view/edit page
@@ -222,9 +233,9 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		By ELEMENT_PAGE1 = By.linkText(PAGE_NAME1);
 
-		prepareDataWikiSpacePermissionV2(PAGE_NAME1, "james@exoplatform.com", "james", 4);
+		prepareDataWikiSpacePermissionV2(PAGE_NAME1, "james.davis@acme.exoplatform.com", "james", 4);
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -234,14 +245,16 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
 		resetDataWikiSpacePermission(ELEMENT_PAGE1, "james");
 	}
 
-	/* case07: Add permission for muilti user at the same time
+	/**
+	 * Qmetry ID: 69677
+	 *  case07: Add permission for muilti user at the same time
 	 * add page
 	 * Check permission for multi-user have add/edit page 
 	 * check user can view/edit page
@@ -257,7 +270,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		editSpacePermission("mary", true, true, true, true, 2);
 
-		userSignIn(ManageMember.userType.PUBLISHER);
+		magAcc.userSignIn(ManageAccount.userType.PUBLISHER);
 		
 		goToWiki();
 
@@ -267,7 +280,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
@@ -294,7 +307,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		prepareDataWikiSpacePermissionV1(PAGE_NAME1, 0, user3, "*:/platform/users");
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -302,7 +315,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
@@ -327,7 +340,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		prepareDataWikiSpacePermissionV1(PAGE_NAME1, 2, user3, "*:/platform/users");
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -337,7 +350,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
@@ -360,7 +373,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		prepareDataWikiSpacePermissionV1(PAGE_NAME1, 0, user4, "*:/platform/web-contributors");
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -370,7 +383,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
@@ -393,7 +406,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		prepareDataWikiSpacePermissionV1(PAGE_NAME1, 3, user4, "member:/platform/users");
 
-		userSignIn(ManageMember.userType.AUTHOR);
+		magAcc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -403,7 +416,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 		info("reset data");
 
-		userSignIn(ManageMember.userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 

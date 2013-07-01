@@ -22,7 +22,8 @@ public class Wiki_SpacePermission_Edit extends Permission {
 		magAc = new ManageAccount(driver);
 		magAc.signIn("john", "gtn");
 	}
-
+	
+	//Qmetry ID: 69759
 	//Edit permission for space
 	@Test
 	public void test01_EditPermissionForSpace() {
@@ -38,6 +39,7 @@ public class Wiki_SpacePermission_Edit extends Permission {
 		deleteSpacePermission("james");
 	}
 	
+	//Qmetry ID: 69757
 	//Edit permission for space is blank
 	@Test
 	public void test02_EditPermissionForSpaceIsBlank() {

@@ -7,6 +7,8 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -15,7 +17,7 @@ import org.testng.annotations.Test;
  * 
  * @author vuna2
  * <li>Date: Dec 11, 2012</li>
- * <li>Test cases: KS\Wiki\Info\Related_Page</li>
+ * <li>Test cases: Wiki\Info\Related_Page</li>
  */
 public class Wiki_RelatedPage extends BasicAction{
 	
@@ -41,6 +43,7 @@ public class Wiki_RelatedPage extends BasicAction{
 	}
 
 	/**
+	 * Qmetry ID: 69691
 	 * Case ID 01
 	 * <li> Add related page </li>
 	 * <li> Step 1: Create new pages </li>
@@ -61,6 +64,7 @@ public class Wiki_RelatedPage extends BasicAction{
 	}
 	
 	/**
+	 * Qmetry ID: 69692
 	 * Case ID 02
 	 * <li>Add related page when user does not have permission to edit this page</li>
 	 * <li>Step 1: Create new pages</li>
@@ -78,16 +82,17 @@ public class Wiki_RelatedPage extends BasicAction{
 
 		addBlankWikiPageAndEditPagePermissions(1, wikiPath[0], pageInfo, 0, editInfo, "any", 2);
 
-		goToPageInfo(userType.PUBLISHER, "Wiki Home/relatedPage02");
+		goToPageInfo(ManageAccount.userType.PUBLISHER, "Wiki Home/relatedPage02");
 
 		Utils.captureScreen("FNC_KS_WIKI_INFO_CASE_02");
 
 		waitForElementNotPresent(ELEMENT_ADD_MORE_RELATION_BUTTON);
 
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath[1]);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath[1]);
 	}
 	
 	/**
+	 * Qmetry ID: 69693
 	 * Case ID 03
 	 * <li>Add related page when user does not have permission to view selected page</li>
 	 * <li>Step 1: Create new pages</li>
@@ -109,7 +114,7 @@ public class Wiki_RelatedPage extends BasicAction{
 		
 		editPagePermission("any", true, true, false, 2);
 		
-		goToPageInfo(userType.AUTHOR, wikiPath[1][0]);
+		goToPageInfo(ManageAccount.userType.AUTHOR, wikiPath[1][0]);
 
 		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
 
@@ -117,10 +122,11 @@ public class Wiki_RelatedPage extends BasicAction{
 
 		button.cancel();
 
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath[1]);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath[1]);
 	}
 
 	/**
+	 * Qmetry ID: 69810
 	 * Case ID 04
 	 * <li>View related page</li>
 	 * <li>Step 1: Create new pages</li>
@@ -135,8 +141,13 @@ public class Wiki_RelatedPage extends BasicAction{
 
 		addBlankWikiPageAndRelatePage(2, wikiPath[0], pageInfo, 0, wikiPath[1][0], pageInfo[0][1]);
 
-		click(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageInfo[0][1]));
-
+		Utils.pause(500);
+		driver.navigate().refresh();
+		Utils.pause(2000);
+		//click(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageInfo[0][1]));
+		WebElement eRel = waitForAndGetElement(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageInfo[0][1]), DEFAULT_TIMEOUT, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", eRel);
+		
 		waitForTextPresent(pageInfo[1][1]);
 
 		Utils.captureScreen("FNC_KS_WIKI_INFO_CASE_04");
@@ -145,6 +156,7 @@ public class Wiki_RelatedPage extends BasicAction{
 	}
 
 	/**
+	 * Qmetry ID: 69811
 	 * Case ID 05
 	 * <li>View related page when user does not have permission to view</li>
 	 * <li>Step 1: Create new pages</li>
@@ -163,16 +175,17 @@ public class Wiki_RelatedPage extends BasicAction{
 
 		addRelatedPage(wikiPath[1][0], pageInfo[0][1]);
 
-		goToWikiPage(wikiPath[1][0], userType.AUTHOR);
+		goToWikiPage(wikiPath[1][0], ManageAccount.userType.AUTHOR);
 
 		waitForElementNotPresent(ELEMENT_RELATED_PAGE.replace("${relatedPage}", pageInfo[0][1]));
 
 		Utils.captureScreen("FNC_KS_WIKI_INFO_CASE_05");
 
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath[1]);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath[1]);
 	}
 
 	/**
+	 * Qmetry ID: 69742
 	 * Case ID 06
 	 * <li><Delete page/li>
 	 * <li>Step 1: Create new pages</li>
@@ -193,6 +206,7 @@ public class Wiki_RelatedPage extends BasicAction{
 	}
 
 	/**
+	 * Qmetry ID: 69747
 	 * Case ID 07
 	 * <li>Delete related page when cancel confirm message</li>
 	 * <li>Step 1: Create new pages</li>
@@ -213,6 +227,7 @@ public class Wiki_RelatedPage extends BasicAction{
 	}
 
 	/**
+	 * Qmetry ID: 69748
 	 * Case ID 08
 	 * <li>Delete related page when user does not have permission to edit page</li>
 	 * <li>Step 1: Create new pages</li>
@@ -231,11 +246,11 @@ public class Wiki_RelatedPage extends BasicAction{
 
 		addRelatedPage(wikiPath[1][1], pageInfo[0][0]);
 
-		goToPageInfo(userType.AUTHOR, wikiPath[1][1]);
+		goToPageInfo(ManageAccount.userType.AUTHOR, wikiPath[1][1]);
 
 		waitForElementNotPresent(ELEMENT_REMOVE_RELATED_PAGE_LINK.replace("${relatedPage}", pageInfo[0][0]));
 
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath[1]);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath[1]);
 	}
 	
 }

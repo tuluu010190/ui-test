@@ -1,0 +1,42 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Wiki Functional Test" verbose="1" preserve-order="true">
+	<test name="wiki-func-search" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<packages>
+			<package name="org.exoplatform.selenium.platform.wiki.functional.search.*" />
+		</packages>
+	</test>
+
+	<test name="wiki-func-spacepermission" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<packages>
+			<package
+				name="org.exoplatform.selenium.platform.wiki.functional.spacepermission.*" />
+		</packages>
+	</test>
+
+	<test name="wiki-func-template" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<packages>
+			<package
+				name="org.exoplatform.selenium.platform.wiki.functional.template.*" />
+		</packages>
+	</test>
+
+	<listeners>
+		<listener class-name="org.exoplatform.selenium.TestReportListener" />
+	</listeners>
+</suite>

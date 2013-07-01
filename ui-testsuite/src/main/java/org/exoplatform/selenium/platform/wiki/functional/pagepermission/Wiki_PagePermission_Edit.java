@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.wiki.functional.pagepermission;
 
 import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -64,23 +63,23 @@ public class Wiki_PagePermission_Edit extends BasicAction {
 		waitForElementNotPresent(ELEMENT_PAGE_PERMISSION_POPUP);
 		magAc.signOut();
 		
-		checkEditPage(ManageMember.userType.AUTHOR, element_page, content);
+		checkEditPage(ManageAccount.userType.AUTHOR, element_page, content);
 		
-		addEditPagePermission(ManageMember.userType.ADMIN, user, element_page);
+		addEditPagePermission(ManageAccount.userType.ADMIN, user, element_page);
 		
 		info("Check user can view/edit wiki page");
 		magAc.signIn(user, DATA_PASS_ADMIN);
 		checkViewEditPage(element_page, content, new_content);
 		magAc.signOut(); 
 		
-		removePagePermission(ManageMember.userType.ADMIN, element_page, user);
+		removePagePermission(ManageAccount.userType.ADMIN, element_page, user);
 		
-		checkViewPage(userType.AUTHOR, element_page);
+		checkViewPage(ManageAccount.userType.AUTHOR, element_page);
 		
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 	
 	@Test
@@ -103,23 +102,23 @@ public class Wiki_PagePermission_Edit extends BasicAction {
 		magAc.signOut();
 		
 		info("Check user James belong to group can view wiki page");
-		checkEditPage(ManageMember.userType.AUTHOR, element_page, content);
+		checkEditPage(ManageAccount.userType.AUTHOR, element_page, content);
 		
-		addEditPagePermission(ManageMember.userType.ADMIN, group, element_page);
+		addEditPagePermission(ManageAccount.userType.ADMIN, group, element_page);
 		
 		info("Check user can view/edit wiki page");
 		magAc.signIn("james", DATA_PASS_ADMIN);
 		checkViewEditPage(element_page, content, new_content);
 		magAc.signOut(); 
 		
-		removePagePermission(ManageMember.userType.ADMIN, element_page, group);
+		removePagePermission(ManageAccount.userType.ADMIN, element_page, group);
 		
-		checkViewPage(userType.AUTHOR, element_page);
+		checkViewPage(ManageAccount.userType.AUTHOR, element_page);
 		
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 	
 	@Test
@@ -142,23 +141,23 @@ public class Wiki_PagePermission_Edit extends BasicAction {
 		magAc.signOut();
 		
 		info("Check user James belong to group and has membership can view wiki page");
-		checkEditPage(ManageMember.userType.AUTHOR, element_page, content);
+		checkEditPage(ManageAccount.userType.AUTHOR, element_page, content);
 		
-		addEditPagePermission(ManageMember.userType.ADMIN, group, element_page);
+		addEditPagePermission(ManageAccount.userType.ADMIN, group, element_page);
 		
 		info("Check user can view/edit wiki page");
 		magAc.signIn("james", DATA_PASS_ADMIN);
 		checkViewEditPage(element_page, content, new_content);
 		magAc.signOut(); 
 		
-		removePagePermission(ManageMember.userType.ADMIN, element_page, group);
+		removePagePermission(ManageAccount.userType.ADMIN, element_page, group);
 		
-		checkViewPage(userType.AUTHOR, element_page);
+		checkViewPage(ManageAccount.userType.AUTHOR, element_page);
 		
 		//delete page
 		//deleteWikiPageWithUserAdmin(element_page);
 		String[] wikiPath = {"Wiki Home/" + title};
-		resetDataByDeleteWikiPage(userType.ADMIN, wikiPath);
+		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath);
 	}
 	
 	/* case02: Edit permission when values are blank

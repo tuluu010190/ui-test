@@ -25,7 +25,9 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 		magAc.signIn("john", "gtn");
 	}
 	
-	/* case01: Check when user/group does not admin page permission
+	/**
+	 * Qmetry ID: 69708
+	 * case01: Check when user/group does not admin page permission
 	 * add page
 	 * add permission for space
 	 * Check permission for user/group does not admin page 
@@ -49,7 +51,7 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 
 		addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
 
-		userSignIn(userType.AUTHOR);
+		magAc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -59,7 +61,7 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 
 		waitForElementNotPresent(ELEMENT_PAGE_PERMISSION_LINK);
 
-		userSignIn(userType.ADMIN);
+		magAc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
@@ -70,7 +72,9 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 		deleteSpacePermission("james");
 	}
 	
-	/* case02: Check when user/group does not admin space permission
+	/**
+	 * Qmetry ID: 69708
+	 * case02: Check when user/group does not admin space permission
 	 * add page
 	 * add permission for space without admin space permission 
 	 * Check permission for user/group does not admin space page 
@@ -94,14 +98,14 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 
 		addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
 		
-		//goToWikiWithUser(userType.AUTHOR);
-		goToWikiPage("Wiki Home/" + PAGE_NAME1, userType.AUTHOR);
+		//goToWikiWithUser(ManageAccount.userType.AUTHOR);
+		goToWikiPage("Wiki Home/" + PAGE_NAME1, ManageAccount.userType.AUTHOR);
 		 
 		//waitForElementNotPresent(ELEMENT_BROWSE_LINK);
 		mouseOverAndClick(ELEMENT_BROWSE_LINK);
 		waitForElementNotPresent(ELEMENT_WIKI_SETTING_LINK);
 
-		userSignIn(userType.ADMIN);
+		magAc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
@@ -112,7 +116,9 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 		deleteSpacePermission("james");
 	}
 
-	/* case03: Check when user/group does not permission to edit page
+	/**
+	 * Qmetry ID: 69710
+	 * case03: Check when user/group does not permission to edit page
 	 * add page
 	 * add permission for space
 	 * Check permission for user/group does not permission to edit page
@@ -147,7 +153,7 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 		click(ELEMENT_PAGE1);
 		verifyPermissions(pageOrSpace1, type, "james", 2);
 
-		userSignIn(userType.AUTHOR);
+		magAc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		goToWiki();
 
@@ -158,7 +164,7 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 
 		info("Reset data");
 
-		userSignIn(userType.ADMIN);
+		magAc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 
@@ -171,14 +177,13 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 		deleteSpacePermission("james");
 	}
 	
-	/* Pending: Page permissions are not affected by Space permissions
-	 * ==
+	/** 
+	 * Qmetry ID: 69713
 	 * case04: Check when user/group does not permission to view page
 	 * add page
 	 * add permission for space
 	 * Check permission for user/group does not permission to view page
 	 */
-	//@Test(groups={"pending"})
 	@Test
 	public void test04_CheckWhenUserOrGroupDoesNotPermissionToViewPage() {
 
@@ -190,7 +195,7 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 
 		editSpacePermission("any", false, false, false, false, 2);
 
-		userSignIn(userType.AUTHOR);
+		magAc.userSignIn(ManageAccount.userType.AUTHOR);
 		
 		//goToWiki();
 		click(ELEMENT_WIKI_LINK);
@@ -199,7 +204,7 @@ public class Wiki_SpacePermission_Others extends BasicAction {
 
 		info("Reset data");
 
-		userSignIn(userType.ADMIN);
+		magAc.userSignIn(ManageAccount.userType.ADMIN);
 		
 		goToWiki();
 

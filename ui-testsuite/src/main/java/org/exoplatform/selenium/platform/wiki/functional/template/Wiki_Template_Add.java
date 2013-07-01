@@ -36,6 +36,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69730
 	 * Case 01: Create new template
 	 * - Create new Template
 	 * - Go to Wiki home
@@ -68,6 +69,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69722 (Wiki > Basic Action > Add)
 	 * Case 08: Create new template with bold effect
 	 * - Create new Template
 	 * - Go to Wiki home
@@ -107,6 +109,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69725 (Wiki > Basic Action > Add)
 	 * Case 09: Create new template with italic effect
 	 * - Create new Template
 	 * - Go to Wiki home
@@ -146,6 +149,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69728 (Wiki > Basic Action > Add)
 	 * Case 010: Create new template with strike effect
 	 * - Create new Template
 	 * - Go to Wiki home
@@ -185,6 +189,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69729 (Wiki > Basic Action > Add)
 	 * Case 011: Create new template with underline effect
 	 * - Create new Template
 	 * - Go to Wiki home
@@ -224,6 +229,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69724 (Wiki > Basic Action > Add)
 	 * Case 012: Create new template with heading effect
 	 * - Create new Template
 	 * - Go to Wiki home
@@ -263,6 +269,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69723 (Wiki > Basic Action > Add)
 	 * Case 015: Create new template with bullet list effect
 	 * - Create new Template
 	 * - Go to Wiki home
@@ -303,6 +310,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69727 (Wiki > Basic Action > Add)
 	 * Case 016: Create new template with number list effect
 	 * - Create new Template
 	 * - Go to Wiki home
@@ -343,6 +351,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69721 (Wiki > Basic Action > Add)
 	 * Case 017: Create new template with table effect
 	 * - Create new Template
 	 * - Go to Wiki home
@@ -383,6 +392,7 @@ public class Wiki_Template_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69726 (Wiki > Basic Action > Add)
 	 * Case 018: Create new template with link effect
 	 * - Create new Template
 	 * - Go to Wiki home

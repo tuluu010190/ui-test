@@ -24,6 +24,7 @@ public class Wiki_Quick_Search extends BasicAction {
 		magAc.signIn("john", "gtn");
 	}
 	
+	//Qmetry ID: 79796
 	//Search when the keyword is matched
 	@Test
 	public void test01_SearchWhenKeyWordIsMatched() {
@@ -43,6 +44,7 @@ public class Wiki_Quick_Search extends BasicAction {
 		deleteCurrentWikiPage();
 	}
 	
+	//Qmetry ID: 69798
 	//Search when the keyword is not matched
 	@Test
 	public void test02_SearchWhenKeyWordIsNotMatched() {
@@ -64,6 +66,8 @@ public class Wiki_Quick_Search extends BasicAction {
 
 		deleteCurrentWikiPage();
 	}
+	
+	//Qmetry ID: 69806
 	//View content of search result when user does not have permission to view page
 	@Test
 	public void test03_ViewContentOfSearchResultWhenUserDoesNotHavePermissionToViewPage() {

@@ -16,6 +16,7 @@ public class Button extends TestBase{
 		driver = dr;
 	}
 
+	//public final By ELEMENT_CONFIRM_BUTTON = By.xpath("//*[text()='Confirm']");
 	public final By ELEMENT_SAVE_CLOSE_BUTTON = By.xpath("//*[text()='Save & Close']");
 	//By.linkText("Save & Close");
 	public final By ELEMENT_OK_BUTTON = By.xpath("//*[text()='OK']");

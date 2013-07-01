@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform.wiki.functional.basicaction;
 
+import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -15,12 +16,14 @@ import org.exoplatform.selenium.platform.ManageAccount;
  */
 public class Wiki_BasicAction_Intergration extends BasicAction {
 	ManageAccount magAcc;
+	ManageMember magMember;
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		magAcc = new ManageAccount(driver);
+		magMember = new ManageMember(driver);
 		magAcc.signIn("john", "gtn");
 	}
 
@@ -30,27 +33,26 @@ public class Wiki_BasicAction_Intergration extends BasicAction {
 	 * ==> FIXED (@vuna)
 	 * */
 	//Check links between page from different spaces
-	//@Test(groups={"pending"})
 	@Test
-	public void test01_CheckLinksBetweenPageFormDifferentSpaces() {
+	public void test01_CheckLinksBetweenPageFromDifferentSpaces() {
 
 		String PAGE_NAME1 = "wiki1";
 		String PAGE_NAME2 = "wiki2";
 
 		By ELEMENT_PAGE1_LINK = By.linkText(PAGE_NAME1);
 		
-		goToMySpacePage();
+		magMember.goToMySpacePage();
 
-		addNewSpace("Space1", "Description Of Space1");
+		magMember.addNewSpace("Space1", "Description Of Space1");
 
 		//goToWiki();
 		click(ELEMENT_WIKI_LINK_IN_SPACE);
 		
 		addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
 
-		goToMySpacePage();
+		magMember.goToMySpacePage();
 
-		addNewSpace("Space2", "Description Of Space2");
+		magMember.addNewSpace("Space2", "Description Of Space2");
 
 		//goToWiki();
 		click(ELEMENT_WIKI_LINK_IN_SPACE);
@@ -63,11 +65,11 @@ public class Wiki_BasicAction_Intergration extends BasicAction {
 
 		waitForTextNotPresent(PAGE_NAME2);
 		
-		goToMySpacePage();
+		magMember.goToMySpacePage();
 
-		deleteSpace("Space1", 120000);
+		magMember.deleteSpace("Space1", 120000);
 
-		deleteSpace("Space2", 120000);
+		magMember.deleteSpace("Space2", 120000);
 	}
 	
 	@AfterMethod

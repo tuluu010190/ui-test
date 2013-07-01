@@ -6,7 +6,6 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.social.ManageMember;
 import org.openqa.selenium.By;
 
 /**
@@ -69,18 +68,18 @@ public class Permission extends WikiBase{
 	 */
 	public void editPagePermission(String user, boolean viewPage, boolean edit, Object... option){
 		button = new Button(driver);
-		
+		By EDIT_PAGE = By.xpath(ELEMENT_EDIT_PAGE_PERMISSIONS.replace("${user}", user));
+		By VIEW_PAGE = By.xpath(ELEMENT_VIEW_PAGE_PERMISSIONS.replace("${user}", user));
+		By DELETE_PERMISSION = By.xpath(ELEMENT_DELETE_PERMISSIONS.replace("${user}", user));
 		boolean deletePermission = (Boolean) (option.length > 0 ? option[0] : false);
 		int notDisplay = (Integer) (option.length > 1 ? option[1] : 0);
 		
-		By EDIT_PAGE = By.xpath(ELEMENT_EDIT_PAGE_PERMISSIONS.replace("${user}", user));
-
-		By VIEW_PAGE = By.xpath(ELEMENT_VIEW_PAGE_PERMISSIONS.replace("${user}", user));
+		if (waitForAndGetElement(EDIT_PAGE, 5000, 0) == null){
+			driver.navigate().refresh();
+			Utils.pause(200);
+			goToPagePermission();
+		}
 		
-		By DELETE_PERMISSION = By.xpath(ELEMENT_DELETE_PERMISSIONS.replace("${user}", user));
-
-		goToPagePermission();
-
 		info("--Add page permissions--");
 		if (edit){
 			if(!waitForAndGetElement(EDIT_PAGE, 5000, 1, notDisplay).isSelected()){
@@ -136,11 +135,11 @@ public class Permission extends WikiBase{
 	 * @param user: user that we want to set a permission
 	 * @param elementPage: Link to a Wiki page
 	 */
-	public void addEditPagePermission(ManageMember.userType userType, String user, By elementPage){
+	public void addEditPagePermission(ManageAccount.userType userType, String user, By elementPage){
 		magAcc = new ManageAccount(driver);
 		info("Add edit page permission for " + user);
 		//magAc.signIn(DATA_USER_ADMIN, DATA_PASS_ADMIN);
-		userSignIn(userType);
+		magAcc.userSignIn(userType);
 		goToWiki();
 		click(elementPage);
 		editPagePermission(user, true, true, false, 2);
@@ -154,11 +153,11 @@ public class Permission extends WikiBase{
 	 * @param elementPage: Link to a Wiki page
 	 * @param user: user that we want to set a permission
 	 */
-	public void removePagePermission(ManageMember.userType userType, By elementPage, String user){
+	public void removePagePermission(ManageAccount.userType userType, By elementPage, String user){
 		magAcc = new ManageAccount(driver);
 		info("remove view/edit page permission");
 		//magAc.signIn(DATA_USER_ADMIN, DATA_PASS_ADMIN);
-		userSignIn(userType);
+		magAcc.userSignIn(userType);
 		goToWiki();
 		click(elementPage);
 		editPagePermission(user, false, false, false, 2);
@@ -381,7 +380,7 @@ public class Permission extends WikiBase{
 		magAcc = new ManageAccount(driver);
 		info("Delete page permission of user/group " + user);
 		//magAcc.signIn(DATA_USER_ADMIN, DATA_PASS_ADMIN);
-		userSignIn(userType.ADMIN);
+		magAcc.userSignIn(ManageAccount.userType.ADMIN);
 		goToWiki();
 		click(element_page);
 		deletePagePermission(user);
@@ -393,11 +392,11 @@ public class Permission extends WikiBase{
 	 * @param user
 	 * @param element_page
 	 */
-	public void checkViewPage(userType user, By element_page){
+	public void checkViewPage(ManageAccount.userType user, By element_page){
 		magAcc = new ManageAccount(driver);
 		info("Check user/group " + user + " does not have view/edit page permission");
 		//magAcc.signIn(user, DATA_PASS_ADMIN);
-		userSignIn(user);
+		magAcc.userSignIn(user);
 		goToWiki();
 		waitForElementNotPresent(element_page);
 		info("User/group can not view page");
@@ -410,11 +409,11 @@ public class Permission extends WikiBase{
 	 * @param elementPage: Link to a Wiki page
 	 * @param content
 	 */
-	public void checkEditPage(userType user, By elementPage, String content){
+	public void checkEditPage(ManageAccount.userType user, By elementPage, String content){
 		magAcc = new ManageAccount(driver);
 		info("Check user can view page but does not have edit page");
 		//magAc.signIn(user, DATA_PASS_ADMIN);
-		userSignIn(user);
+		magAcc.userSignIn(user);
 		goToWiki();
 		click(elementPage);
 		waitForTextPresent(content);

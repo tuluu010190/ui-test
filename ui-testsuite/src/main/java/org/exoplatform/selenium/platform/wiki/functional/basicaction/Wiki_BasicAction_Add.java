@@ -20,6 +20,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.wiki.Template;
 import org.openqa.selenium.By;
@@ -58,6 +59,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69719
 	 * Test Case ID 001
 	 * Create new page using Blank Template
 	 */
@@ -66,6 +68,7 @@ public class Wiki_BasicAction_Add extends Template{
 		String title = "TestCase 001";
 		String content = title + " Content";
 		int mode = 0;
+		
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
@@ -76,6 +79,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69720
 	 * Test Case ID 002
 	 * Create new page using existing template 
 	 */
@@ -95,24 +99,46 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
-	 * Migrate to PLF 4
-	 * == Pending : change specs (we can now save a page without Title) ==
+	 * Qmetry ID: 69667
 	 * Test Case ID 003
 	 * Add new page when title is blank
 	 */
-	//@Test(groups={"later"})
+	@Test
 	public void test03_AddNewPageWithBlankTitle(){
 		//String title = "";
 		String content = "TestCase 003 Content";
 		int mode = 0;
-		String errorMessage = "You are about to save an Untitled page.";
-		//"The page title is required.";
+		String infoMessage = "You are about to save an Untitled page.";
+
+		info("-- Add a new page when Title is blank --");
 		//Create new page with a blank template
 		goToWiki();
-		addBlankWikiPage(null, content, mode, false, errorMessage); //need modify follow plf4
+		
+		info("-- Create new page when click [Confirm] button --");
+		addBlankWikiPage("", content, mode, false, infoMessage); 
+		//waitForTextPresent("Untitled");
+		
+		info("-- Create new page when click [Cancel] button --");
+		goToWikiHome();
+		goToAddBlankPage();
+		driver.navigate().refresh();
+		Utils.pause(3000);
+		addWikiPageSourceEditor("", content);
+		switchToParentWindow();
+		Utils.pause(500);
+		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		waitForMessage(infoMessage);
+		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE_NULL_TITLE);
+		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
+		click(button.ELEMENT_OK_BUTTON);
+		
+		//Restore data
+		goToWikiPage("Untitled");
+		deleteCurrentWikiPage();
 	}
 
 	/**
+	 * Qmetry ID: 69666
 	 * Test Case ID 004
 	 * Add new page when content is blank
 	 */
@@ -130,6 +156,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69665
 	 * Test Case ID 005
 	 * Add new page has the same title with existing page
 	 */
@@ -155,6 +182,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69668
 	 * Test Case ID 006
 	 * Add new page when user does not have add page permission on space
 	 */
@@ -192,6 +220,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69790
 	 * Test Case ID 007
 	 * Preview a page
 	 */ 
@@ -216,12 +245,12 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69700
 	 * Test Case ID 008
 	 * Cancel creating new wiki page
 	 * --Update PLF4: button OK on confirm message is not working
 	 * ==> FIXED (@vuna)
 	 */ 
-	//@Test(groups={"later"})
 	@Test
 	public void test08_CancelAddNewPage(){
 		String title = "TestCase 008";
@@ -237,6 +266,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69722
 	 * Test Case ID 012
 	 * Create new page with Bold effect
 	 */  
@@ -257,6 +287,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69725
 	 * Test Case ID 013
 	 * Create new page with Italic effect
 	 */  
@@ -276,6 +307,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69728
 	 * Test Case ID 014
 	 * Create new page with Strike effect
 	 */  
@@ -296,6 +328,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69729
 	 * Test Case ID 015
 	 * Create new page with Underline effect
 	 */  
@@ -316,6 +349,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69724
 	 * Test Case ID 016
 	 * Create new page with Heading effect
 	 */  
@@ -336,6 +370,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69723
 	 * Test Case ID 019
 	 * Create new page with Bulleted list effect
 	 */  
@@ -359,6 +394,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69727
 	 * Test Case ID 020
 	 * Create new page with Numbered list effect
 	 */  
@@ -382,8 +418,9 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69721
 	 * Test Case ID 021
-	 * Create new page with  Table effect
+	 * Create new page with Table effect
 	 */  
 	@Test
 	public void test21_addNewPageWithTable(){
@@ -403,6 +440,7 @@ public class Wiki_BasicAction_Add extends Template{
 	}
 
 	/**
+	 * Qmetry ID: 69726
 	 * Test Case ID 022
 	 * Create new page with Link effect
 	 */
