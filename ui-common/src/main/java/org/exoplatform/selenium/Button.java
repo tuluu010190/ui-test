@@ -35,8 +35,11 @@ public class Button extends TestBase{
 	public final By ELEMENT_NEXT_BUTTON = By.xpath("//*[text()='Next']");	
 	public final By ELEMENT_ABORT_BUTTON = By.xpath("//*[text()='Abort']");
 	public final By ELEMENT_RESET_BUTTON = By.xpath("//*[text()='Reset']");
-	
 	public final By ELEMENT_PREVIOUS_BUTTON = By.xpath("//*[text()='Previous']");
+	public final By ELEMENT_CREATE_LINK_BUTTON = By.xpath("//*[text()='Create Link']");
+	public final By ELEMENT_CREATE_MACRO_BUTTON = By.xpath("//button[text()='Insert Macro']");
+	public final By ELEMENT_INSERT_TABLE = By.xpath("//button[text()='Insert Table']");
+	
 	//ECMS Admin > Category > Add Category
 	public final By ELEMENT_PREVIOUS_BUTTON_ADMIN_4 = By.xpath("//*[@class='UITaxonomyTreeCreateChild']//*[text()='Previous']");
 	public final By ELEMENT_PREVIOUS_BUTTON_ADMIN_3 = By.xpath("//*[@class='UIActionTaxonomyManager']//*[text()='Previous']");

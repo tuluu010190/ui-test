@@ -408,7 +408,7 @@ public class BasicAction extends Permission{
 
 		mouseOver(By.id(ELEMENT_PARAGRAPH_ID), true);
 		//click(By.xpath("//*[@title='Edit section: " + paragraphTitle + "']"), 2);
-		WebElement element = driver.findElement(By.xpath("//*[@title='Edit section: " + paragraphTitle + "']"));
+		WebElement element = waitForAndGetElement(By.xpath("//*[@data-original-title='Edit Section: " + paragraphTitle + "']"));
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		type(ELEMENT_CONTENT_WIKI_INPUT, paragraphContent, true);
 
@@ -417,7 +417,7 @@ public class BasicAction extends Permission{
 	}
 	
 	/**
-	 * 
+	 * function add blank wiki page has attachment
 	 * @param title
 	 * @param content
 	 * @param link
@@ -433,5 +433,18 @@ public class BasicAction extends Permission{
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForAndGetElement(By.xpath(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "" + upload.length)));
+	}
+	
+	/** function edit wiki page that check public activity
+	 * @author lientm
+	 * @param title
+	 * @param content
+	 */
+	public void editPageWithCheckPublicActivity(String title, String content){
+		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
+		addWikiPageSourceEditor(title, content);
+		click(ELEMENT_PUBLIC_ACTIVITY_CHECKBOX, 2);
+		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 	}
 }

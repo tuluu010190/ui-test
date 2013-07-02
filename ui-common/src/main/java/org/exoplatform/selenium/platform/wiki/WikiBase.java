@@ -30,6 +30,8 @@ public class WikiBase extends ManageMember {
 
 	//Intranet home page
 	public final By ELEMENT_INTRANET_HOME_PAGE = By.xpath("//ul[@class='uiCompanyNavigations']//li/a[text()='Home']");
+	public final By ELEMENT_PAGE_TITLE_INFO = By.id("titleInfo");
+	public final By ELEMENT_PAGE_TITLE_EDIT_TEXTBOX = By.id("EdiableInput");
 	
 	//Company/Left panel > Wiki Link
 	public final By ELEMENT_WIKI_LINK=By.xpath("//ul[@class='uiCompanyNavigations']//li/a[text()='Wiki']");
@@ -58,6 +60,8 @@ public class WikiBase extends ManageMember {
 	//Browse menu
 	public final By ELEMENT_BROWSE_LINK = By.xpath("//div[contains(text(),'Browse')]");
 	public final By ELEMENT_WIKI_SETTING_LINK= By.linkText("Wiki Settings");
+	public final By ELEMENT_MY_DRAFT = By.linkText("My Drafts");
+	
 	//Search area
 	public final By ELEMENT_QUICK_SEARCH = By.id("wikiSearchValue");
 
@@ -70,9 +74,10 @@ public class WikiBase extends ManageMember {
 	public final By ELEMENT_PREVIEW_BUTTON = By.xpath("//*[@id='UIEditorTabs']/button[2]");
 	//("//a[@title='Preview']");
 	public final By ELEMENT_PREVIEW_SCREEN = By.xpath("//div[@class='popupTitle' and text()='Preview']");
-
+	public final By ELEMENT_PUBLIC_ACTIVITY_CHECKBOX = By.id("PublishActivityUpper");
+	
 	//Richtext mode
-	public final By ELEMENT_SOURCE_EDITOR_BUTTON= By.xpath("//a[contains(text(),'Source Editor')]");
+	public final By ELEMENT_SOURCE_EDITOR_BUTTON= By.xpath("//*[contains(text(),'Source Editor')]");
 	public final By ELEMENT_CONTENT_WIKI_FRAME = By.xpath("//div[@class='xRichTextEditor']/iframe");
 
 	//Upload file area
