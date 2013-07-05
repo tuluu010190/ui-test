@@ -64,8 +64,10 @@ public class WikiBase extends ManageMember {
 	
 	//Search area
 	public final By ELEMENT_QUICK_SEARCH = By.id("wikiSearchValue");
+	public final By ELEMENT_SEARCH_RESULT = By.className("resultNumber");
+	public final String ELEMENT_PAGE_RESULT = "//*[@id='UIWikiAdvanceSearchResult']//*[contains(text(), '${title}')]";
 
-	/*------------------add wiki page---------------------*/
+	/*------------------add/edit wiki page---------------------*/
 	//Source Editor mode
 	public final By ELEMENT_TITLE_WIKI_INPUT = By.id("titleInput");
 	public final By ELEMENT_CONTENT_WIKI_INPUT = By.id("Markup");
@@ -75,6 +77,7 @@ public class WikiBase extends ManageMember {
 	//("//a[@title='Preview']");
 	public final By ELEMENT_PREVIEW_SCREEN = By.xpath("//div[@class='popupTitle' and text()='Preview']");
 	public final By ELEMENT_PUBLIC_ACTIVITY_CHECKBOX = By.id("PublishActivityUpper");
+	public final By ELEMENT_COMMENT_TEXTBOX = By.id("Comment");
 	
 	//Richtext mode
 	public final By ELEMENT_SOURCE_EDITOR_BUTTON= By.xpath("//*[contains(text(),'Source Editor')]");
@@ -133,8 +136,8 @@ public class WikiBase extends ManageMember {
 	public final By ELEMENT_CONTENT_TEMPLATE_INPUT= By.id("Markup");
 	public final By ELEMENT_SAVE_TEMPLATE_INPUT= By.id("UISubmitToolBarBottom_SaveTemplate_"); 
 	//Message
-	public final String MSG_CREATE_TEMPLATE="is created successfully.";
-	public final String MSG_DELETE_TEMPLATE="Are you sure to delete this template?";
+	public final String MSG_CREATE_TEMPLATE= "has been created successfully";
+	public final String MSG_DELETE_TEMPLATE="Are you sure you want to delete this template?";
 	//Close template list	
 	public By ELEMENT_CLOSE_TEMPLATE_LIST=By.xpath("//*[text()='Select Template']/../a[@class='uiIconClose pull-right']");
 	//Close preview window
@@ -379,8 +382,8 @@ public class WikiBase extends ManageMember {
 	 */
 	public void movePage(String pageName1, String pageName2){
 		button = new Button(driver);
-		By ELEMENT_VERIFY_CURRENT_LOCATION = By.xpath("//label[text()='Current Location']/../..//*[contains(text(), '"+ pageName1 +"')]");
-		By ELEMENT_VERIFY_NEW_LOCATION = By.xpath("//label[text()='New Location']/../..//*[contains(text(), '"+ pageName2 +"')]");
+		By ELEMENT_VERIFY_CURRENT_LOCATION = By.xpath("//label[text()='Current Location :']/../..//*[contains(text(), '"+ pageName1 +"')]");
+		By ELEMENT_VERIFY_NEW_LOCATION = By.xpath("//label[text()='New Location :']/../..//*[contains(text(), '"+ pageName2 +"')]");
 		By ELEMENT_VERIFY_AFTER_MOVE_PAGE = By.xpath("//*[contains(text(), '"+pageName2+"')]/ancestor::li[@class='node']//ul//*[contains(text(), '"+pageName1+"')]");
 				//("//a[@data-original-title='"+ pageName2 +"']/ancestor::div[@id = 'UITreeExplorer']//*[@data-original-title = '"+pageName1+"']");
 		By ELEMENT_NEW_LOCATION = By.xpath("//*[contains(@class, 'popupContent')]//*[contains(@onclick, 'event')]//a[contains(text(), '"+ pageName2 +"')]");
@@ -577,7 +580,8 @@ public class WikiBase extends ManageMember {
 		info("--Search quick--");
 		type(ELEMENT_QUICK_SEARCH, keyword, true);
 		((JavascriptExecutor) driver).executeScript("javascript:eXo.wiki.UIWikiSearchBox.doAdvanceSearch();");
-		waitForAndGetElement(ELEMENT_SEARCH_BUTTON);
+		waitForTextPresent("Search Results");
+		info("Return " + getText(ELEMENT_SEARCH_RESULT) + " results");
 		Utils.pause(1000);
 	}
 

@@ -8,6 +8,7 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -440,10 +441,35 @@ public class BasicAction extends Permission{
 	 * @param title
 	 * @param content
 	 */
-	public void editPageWithCheckPublicActivity(String title, String content){
+	public void editPageWithCheckPublicActivity(String title, String content, String...comment){
 		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
 		addWikiPageSourceEditor(title, content);
+		if (comment.length > 0){
+			type(ELEMENT_COMMENT_TEXTBOX, comment[0], true);
+		}
 		click(ELEMENT_PUBLIC_ACTIVITY_CHECKBOX, 2);
+		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+	}
+	
+	/**
+	 * function add new blank wiki page at source editor mode with content including many line
+	 * @param title
+	 * @param content
+	 */
+	public void addWikiPageWithContentMultiLine(String title, String content){
+		goToAddBlankPage();
+		info("Modify data with source editor");
+		if(title != null)
+			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
+		if(content != null){
+			String[] line = content.split("/");
+			for (int i = 0; i < line.length; i ++){
+				type(ELEMENT_CONTENT_WIKI_INPUT, line[i] , false);
+				type(ELEMENT_CONTENT_WIKI_INPUT, Keys.ENTER.toString(), false);
+			}
+		}
+		Utils.pause(1000);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 	}

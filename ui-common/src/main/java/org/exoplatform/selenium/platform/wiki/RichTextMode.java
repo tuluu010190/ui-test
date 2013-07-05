@@ -57,7 +57,7 @@ public class RichTextMode extends Template {
 	 * @param label
 	 * @param tooltip
 	 */
-	public void addWikiPageLink(boolean search, String page, String label, String tooltip){
+	public void insertPageLink2WikiPage(boolean search, String page, String label, String tooltip){
 		mouseOverAndClick(ELEMENT_LINK);
 		mouseOverAndClick(ELEMENT_WIKI_PAGE_LINK);
 		info("Create link to the page " + page);
@@ -115,7 +115,7 @@ public class RichTextMode extends Template {
 	 * @param rows
 	 * @param columns
 	 */
-	public void addTable(String rows, String columns){
+	public void insertTable2WikiPage(String rows, String columns){
 		mouseOverAndClick(ELEMENT_TABLE_LINK);
 		mouseOverAndClick(ELEMENT_INSERT_TABLE_LINK);
 		type(ELEMENT_ROW_TEXTBOX, rows, true);

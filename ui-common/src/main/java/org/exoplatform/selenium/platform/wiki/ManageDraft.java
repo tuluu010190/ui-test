@@ -4,6 +4,11 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 
+/**
+ * @date: July 2013
+ * @author lientm
+ *
+ */
 public class ManageDraft extends RichTextMode {
 	ManageAlert magAl;
 	

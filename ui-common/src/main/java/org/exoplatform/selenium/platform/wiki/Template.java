@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.event.KeyEvent;
+
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
@@ -115,7 +117,8 @@ public class Template extends BasicAction{
 	 */
 	public void searchTemplate(String keyword){
 		type(ELEMENT_SEARCH_TEMPLATE_INPUT, keyword, true);
-		click(ELEMENT_SEARCH_BUTTON);
+//		click(ELEMENT_SEARCH_BUTTON);
+		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
 		Utils.pause(1000);
 	}
 }
