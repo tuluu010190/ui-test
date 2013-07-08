@@ -127,7 +127,7 @@ public class WikiBase extends ManageMember {
 	/*----------------------Browse/Space setting/ add, edit, delete template-----------------*/
 	public final By ELEMENT_TEMPLATE_LINK = By.linkText("Template");
 	public final By ELEMENT_ADD_TEMPLATE_LINK = By.xpath("//*[text()='Add More Templates']");
-	public final String ELEMENT_EDIT_TEMPLATE_ICON = "//*[@title='{$template}']/../..//*[@class='uiIconEdit']";
+	public final String ELEMENT_EDIT_TEMPLATE_ICON = "//*[text()='{$template}']/../..//*[@class='uiIconEdit']";
 	public final String ELEMENT_DELETE_TEMPLATE_ICON = "//*[text()='{$template}']/../..//*[@class='uiIconDelete']";
 	public final By ELEMENT_SEARCH_TEMPLATE_INPUT=By.id("TemplateSeachBox");
 	//Add template page
@@ -135,6 +135,9 @@ public class WikiBase extends ManageMember {
 	public final By ELEMENT_DESC_TEMPLATE_INPUT= By.id("Description");
 	public final By ELEMENT_CONTENT_TEMPLATE_INPUT= By.id("Markup");
 	public final By ELEMENT_SAVE_TEMPLATE_INPUT= By.id("UISubmitToolBarBottom_SaveTemplate_"); 
+	public final By ELEMENT_PREVIEW_TEMPLATE = By.xpath("//*[@id='UIEditorTabs']//*[text()='Preview']");
+	public final By ELEMENT_CANCEL_ADD_TEMPLATE = By.id("UISubmitToolBarUpper_Cancel_");
+	
 	//Message
 	public final String MSG_CREATE_TEMPLATE= "has been created successfully";
 	public final String MSG_DELETE_TEMPLATE="Are you sure you want to delete this template?";

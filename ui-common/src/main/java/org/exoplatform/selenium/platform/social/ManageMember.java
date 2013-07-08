@@ -906,7 +906,7 @@ public class ManageMember extends SpaceManagement {
 			magAcc.signIn("james", "gtn");
 			break;
 		case DEVELOPER:
-			magAcc.signIn("jack", "gtn");
+			magAcc.signIn("demo", "gtn");
 			break;
 		case PUBLISHER:
 			magAcc.signIn("mary", "gtn");

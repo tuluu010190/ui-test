@@ -83,21 +83,21 @@ public class Permission extends WikiBase{
 
 		info("--Add page permissions--");
 		if (edit){
-			if(!waitForAndGetElement(EDIT_PAGE, 5000, 0, notDisplay).isSelected()){
+			if(!waitForAndGetElement(EDIT_PAGE, 5000, 1, notDisplay).isSelected()){
 				click(EDIT_PAGE, notDisplay);
 			}
 		}
 		else{
-			if(waitForAndGetElement(EDIT_PAGE, 5000, 0, notDisplay).isSelected())
+			if(waitForAndGetElement(EDIT_PAGE, 5000, 1, notDisplay).isSelected())
 				click(EDIT_PAGE, notDisplay);
 		}
 		if (viewPage){
-			if(!waitForAndGetElement(VIEW_PAGE, 5000, 0, notDisplay).isSelected()){
+			if(!waitForAndGetElement(VIEW_PAGE, 5000, 1, notDisplay).isSelected()){
 				click(VIEW_PAGE, notDisplay);
 			}
 		}
 		else{
-			if(waitForAndGetElement(VIEW_PAGE, 5000, 0, notDisplay).isSelected())
+			if(waitForAndGetElement(VIEW_PAGE, 5000, 1, notDisplay).isSelected())
 				click(VIEW_PAGE, notDisplay);
 		}
 		
@@ -297,7 +297,7 @@ public class Permission extends WikiBase{
 
 		goToSpacePermission();
 		if (waitForAndGetElement(bDelete, 10000, 0) != null){
-			info("--Add space permission--");
+			info("--Delete space permission--");
 			click(bDelete);
 			button.save();
 			waitForMessage(MSG_PERMISSION_SAVE);
