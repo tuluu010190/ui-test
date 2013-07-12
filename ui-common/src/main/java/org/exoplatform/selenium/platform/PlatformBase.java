@@ -774,7 +774,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	//Function to add data to frame
-	public void inputDataToFrame (By framelocator, String data, boolean...validate){
+	public void inputDataToFrame(By framelocator, String data, boolean...validate){
 		try {
 			WebElement inputsummary = null;
 

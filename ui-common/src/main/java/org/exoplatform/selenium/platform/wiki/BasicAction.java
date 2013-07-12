@@ -251,7 +251,7 @@ public class BasicAction extends Permission{
 		//By btnOK = By.xpath("//input[@type='button' and @value='OK']");
 		//By btnCancel = By.xpath("//input[@type='button' and @value='Cancel']");
 		button = new Button(driver);
-		By messageLocator = By.xpath("//div[@class='confirmMessage' and text()='" + message + "']");
+		By messageLocator = By.xpath("//div[@class='confirmMessage' and contains(text(), '" + message + "')]");
 		waitForAndGetElement(messageLocator);
 		if(isCancel.length > 0 && (isCancel[0] == true)) 
 			//click(btnCancel);

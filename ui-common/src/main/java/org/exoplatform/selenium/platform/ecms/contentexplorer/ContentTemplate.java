@@ -57,44 +57,19 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_NEWFILE_NAME_TEXTBOX = By.id("name");
 	public final By ELEMENT_NEWFILE_CONTENT_FRAME = By.xpath("//*[@id='cke_contents_contentHtml']/iframe");
 	public final By ELEMENT_NEWFILE_TITLE_TEXTBOX = By.id("title0");
-
 	//public final By ELEMENT_NEWFILE_DESC_TEXTBOX = By.id("description0");
 	public final By ELEMENT_NEWFILE_DESCRIPTION_TEXTBOX = By.id("description0");
 	public final By ELEMENT_NEWFILE_CREATOR_TEXTBOX = By.id("creator0");
 	public final By ELEMENT_NEWFILE_SOURCE_TEXTBOX = By.id("source0");
-
-
-	//SampleNode
-	//	public final By ELEMENT_SAMPLENODE_LINK = By.linkText("Sample node");
-	//	public final By ELEMENT_SAMPLENODE_TITLE_TEXTBOX = By.id("title");
-	//	public final By ELEMENT_SAMPLENODE_NAME_TEXTBOX = By.id("name");
-	//	public final By ELEMENT_SAMPLENODE_ADD_ITEM_LINK = By.xpath("//img[@title = 'Add Item']");	
-	//	public final By ELEMENT_SAMPLENODE_SELECTITEM = By.id("taxonomyTree");
-	//	public final String ELEMENT_SAMPLENODE_SELECTITEM_OPTION = "acme";
-	//	public final By ELEMENT_SAMPLENODE_SELECTITEM_OPTION_LINK = By.xpath("//div[@class='Select16x16Icon']");
-	//	public final By ELEMENT_SAMPLENODE_DESCRIPTION_TEXTBOX = By.id("description");
-	//	public final By ELEMENT_SAMPLENODE_UPLOAD_IMG_FRAME = By.xpath("//iframe[contains(@id,'uploadFrame')]");
-	//	public final By ELEMENT_SAMPLENODE_FILE_IMG = By.id("file") ;
-	//	public final By ELEMENT_SAMPLENODE_CONTENT_TEXTAREA = By.id("summary");
-	//	public final By ELEMENT_SAMPLENODE_SUMMARY_TEXTAREA = By.id("content");
-
-	//Kofax
-	//	public final By ELEMENT_KOFAX_LINK = By.linkText("Kofax document");
-	//	public final By ELEMENT_KOFAX_NAME_TEXTBOX = By.id("name");
-	//	public final By ELEMENT_KOFAX_ADDNODE_LINK = By.xpath("//img[@class='MultiFieldAction AddNewNodeIcon']") ;
-	//	public final By ELEMENT_KOFAX_ADDNODE_SELECT = By.id("taxonomyTree");
-	//	public final String ELEMENT_KOFAX_ADDNODE_OPTION = "acme";
-	//	public final By ELEMENT_KOFAX_ADDNODE_OPTION_LINK = By.xpath("//div[@class='Select16x16Icon']");
-
-	//FilePlan
-	//	public final By ELEMENT_FILEPLAN_LINK = By.linkText("File Plan");
-	//	public final By ELEMENT_FILEPLAN_NAME = By.id("name");
-	//	public final By ELEMENT_FILEPLAN_RECORD_TAB = By.xpath("//div[contains(text(),'Record Properties')]");
-	//	public final By ELEMENT_FILEPLAN_RECORD_TEXTBOX = By.id("recordCategoryIdentifier");
-	//	public final By ELEMENT_FILEPLAN_DISPOS_TEXTBOX = By.id("dispositionAuthority");
-	//	public final By ELEMENT_FILEPLAN_DEFAULT_TEXTBOX  = By.id("defaultOriginatingOrganization");
-	//	public final By ELEMENT_FILEPLAN_RPROCESS_TAB = By.xpath("//div[contains(text(),'Process Properties')]");
-	//	public final By ELEMENT_FILEPLAN_RPROCESS_TRIGER = By.id("eventTrigger");	
+	public final By ELEMENT_NEWFILE_SOURCE_LINK_XPATH = By.xpath("//*[@title='Source']");
+	public final By ELEMENT_NEWFILE_SOURCE_TEXTAREA_XPATH = By.xpath("//textarea[@class='cke_source cke_enable_context_menu']");   
+	public final By ELEMENT_NEWFILE_FRAME_HTML_TAB_XPATH = By.xpath("//iframe[@class='ECMIframe']");
+	public final By ELEMENT_NEWFILE_HTML_TAB_P_XPATH =By.xpath("//html/body/p") ;
+	public final By ELEMENT_NEWFILE_TEXT_TAB_XPATH = By.xpath("//*[contains(text(),'View as Plain text')]");
+	public final String ELEMENT_NEWFILE_TEXT_TAB_P_CSS = ".textContent>pre";
+	public final By ELEMENT_NEWFILE_MIME_COMBOX_ID = By.name("mimetype") ;
+	public final By ELEMENT_NEWFILE_TEXTAREA_ID = By.id("contentPlain") ;
+	public final String ELEMENT_NEWFILE_PRE_CSS = ".content>pre";	
 
 	//Picture on Head Layout
 	//exo:pictureOnHeadWebContent is changed to Illustrated Web Content
@@ -128,19 +103,6 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_SAMPLE_TITLE_INPUT = By.xpath("//input[contains(@id,'newTdGtmplTitle')]");
 	public final String ELEMENT_SAMPLE_TITLE_INLINE = "//div[contains(@id,'CurrentTdGtmplTitle') and @title='Double-click to edit']";
 
-	//Podcast
-	//	public final By ELEMENT_PODCAST_LINK = By.linkText("Podcast");
-	//	public final By ELEMENT_PODCAST_NAME_TEXTBOX = By.id("name");
-	//	public final By ELEMENT_PODCAST_TITLE_TEXTBOX = By.id("title");
-	//	public final By ELEMENT_PODCAST_LINK_TEXTBOX = By.id("link");
-	//	public final String ELEMENT_PODCAST_TITLE_INLINE="//div[contains(@id,'CurrentTdGtmplTitle') and @title='Double-click to edit']";
-	//	public final By ELEMENT_PODCAST_TITLE_INPUT=By.xpath("//input[contains(@id,'newTdGtmplTitle')]");
-	//	public final By ELEMENT_PODCAST_TITLE_ACCEPT=By.xpath("//a[@title='Accept'][1]");
-	//	public final String ELEMENT_PODCAST_DESC_INLINE="//div[contains(@id,'CurrentDescription') and @title='Double-click to edit']";
-	//	public final By ELEMENT_PODCAST_DESC_INPUT=By.xpath("//textarea[contains(@id,'newDescription')]");
-	//	public final By ELEMENT_PODCAST_DESCRIPTION=By.id("description");
-	//	public final By ELEMENT_PODCAST_DESC_ACCEPT=By.xpath("//form[contains(@id,'EditDescriptionForm')]/a[2]");
-
 	public final String ELEMENT_MESSAGE_EDIT_INLINE = "An error occurred while modifying the required property.";
 	public final String ELEMENT_MESSAGE_EDIT_CLOSE = "The changes you made will be lost if you close this form.";
 	public final String ELEMENT_ENABLE_DMS_STRUCTURE = "enableStructure";
@@ -170,9 +132,12 @@ public class ContentTemplate extends EcmsBase{
 	//Add New Folder
 	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//*[text()='Create Folder']");
 	public final By ELEMENT_USE_CUSTOM_TYPE_FOLDER = By.id("customTypeCheckBox");
-
 	public final String ELEMENT_VERIFY_FILE_CONTENT = "//*[contains(text(),'${content}')]";
 
+	//Message
+	public final String MESSAGE_NAME_REQUIRED_FIELD = "The field \"Name\" is required.";
+	public final String MESSAGE_CONTENT_REQUIRED_FIELD = "The field \"Content\" is required.";
+			
 	/*=================== Create a new document/article/file ===================*/
 	/* 
 	 * Add new article / Kofax / File Plan
@@ -260,14 +225,23 @@ public class ContentTemplate extends EcmsBase{
 	public void createNewFile(String name, String cont, String title, Object...params){
 		String description = (String) (params.length > 0 ? params[0]: "");
 		boolean lines = (Boolean) (params.length > 1 ? params[1]: false);
-		
+		boolean isMimeType = (Boolean) (params.length > 2 ? params[2]: false);
+		String mimeType = (String) (params.length > 3 ? params[3]: "text/html");
+				
 		click(ELEMENT_NEWFILE_LINK);	
 		type(ELEMENT_NEWFILE_NAME_TEXTBOX, name, false);
-		
+		if (isMimeType){
+			selectOption(ELEMENT_NEWFILE_MIME_COMBOX_ID, mimeType);
+		}
+		Utils.pause(300);
 		if (!lines){
-			inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, cont, true);
+			if (waitForAndGetElement(ELEMENT_NEWFILE_CONTENT_FRAME, 3000, 0) != null){
+				inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, cont, true);
+			}else if (waitForAndGetElement(ELEMENT_NEWFILE_TEXTAREA_ID, 3000, 0) != null){
+				type(ELEMENT_NEWFILE_TEXTAREA_ID, cont, true);
+			}
 			switchToParentWindow();
-		} else {
+		}else {
 			typeMultiLineInCkeContent(ELEMENT_NEWFILE_CONTENT_FRAME, cont);
 		}
 		type(ELEMENT_NEWFILE_TITLE_TEXTBOX, title, false);
@@ -313,40 +287,6 @@ public class ContentTemplate extends EcmsBase{
 		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", cont)), DEFAULT_TIMEOUT, 1, 2);
 		Utils.pause(1000);
 	}
-
-	//add new Sample Node
-	/*public void createNewSampleNode(String title, String name, String img){
-		waitForElementPresent(ELEMENT_SAMPLENODE_LINK);
-		click(ELEMENT_SAMPLENODE_LINK);
-		type(ELEMENT_SAMPLENODE_TITLE_TEXTBOX, title, false);
-		//			waitForAndGetElement(ELEMENT_SAMPLENODE_NAME_TEXTBOX).clear();
-		type(ELEMENT_SAMPLENODE_NAME_TEXTBOX, name, true);
-		click(ELEMENT_SAMPLENODE_ADD_ITEM_LINK);
-		selectOption(ELEMENT_SAMPLENODE_SELECTITEM,ELEMENT_SAMPLENODE_SELECTITEM_OPTION);
-		click(ELEMENT_SAMPLENODE_SELECTITEM_OPTION_LINK);
-		type(ELEMENT_SAMPLENODE_DESCRIPTION_TEXTBOX, title, false);
-		if (img !=""){
-			driver.switchTo().frame(waitForAndGetElement(ELEMENT_SAMPLENODE_UPLOAD_IMG_FRAME));
-			type(ELEMENT_SAMPLENODE_FILE_IMG, Utils.getAbsoluteFilePath(img), false);
-			switchToParentWindow();
-			String links[] = img.split("/");
-			int length = links.length;
-			waitForElementPresent(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
-		}
-		type(ELEMENT_SAMPLENODE_CONTENT_TEXTAREA, title, false);
-		type(ELEMENT_SAMPLENODE_SUMMARY_TEXTAREA, title, false);
-		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-	}*/
-
-	// add new podcast
-	/*public void createNewPodcast(String name, String title, String link){
-		click(ELEMENT_PODCAST_LINK);
-		type(ELEMENT_PODCAST_NAME_TEXTBOX, name, false);
-		type(ELEMENT_PODCAST_TITLE_TEXTBOX, title, false);
-		type(ELEMENT_PODCAST_LINK_TEXTBOX, link, false);
-		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
-	}*/
 
 	//add new Picture on head layout webcontent
 	//exo:pictureOnHeadWebContent is changed to Illustrated Web Content
@@ -737,54 +677,6 @@ public class ContentTemplate extends EcmsBase{
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON, 3000);
 		//waitForElementPresent(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentToEdit));
 	}
-
-	//edit a podcast
-	/*public void editPodcast(String title, String title_edit, String...link_edit){
-			actBar.goToEditDocument(title);
-			type(ELEMENT_PODCAST_TITLE_TEXTBOX, title_edit, true);
-			if (link_edit.length > 0)
-				type(ELEMENT_PODCAST_LINK_TEXTBOX, link_edit[0], true);
-			if (link_edit.length > 1)
-				type(ELEMENT_PODCAST_DESCRIPTION, link_edit[1], true);
-			click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-			waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
-			waitForElementPresent(By.xpath("//a[@title='"+ title_edit+" ']"));
-		}*/
-
-	/*public void editPodcastInline(String openField, By inputField, By accept, String value)
-		{
-			enableEditMode(true);
-			doubleClickOnElement(openField);
-			try{
-				type(inputField, value, true);
-				click(accept);
-
-			}catch(UnhandledAlertException e)
-			{	
-				assert false: "Fail to edit inline!";
-			}
-			//verify to edit successfully
-			waitForElementPresent(By.xpath("//div[contains(text(),'"+value+"')]"));		
-		}*/
-
-	/*public void editSampleNode(String title, String title_edit, String sum_edit, String cont_edit){
-			actBar.goToEditDocument(title);
-			type(ELEMENT_SAMPLENODE_TITLE_TEXTBOX, title_edit, true);
-			type(ELEMENT_SAMPLENODE_CONTENT_TEXTAREA, cont_edit, true);
-			type(ELEMENT_SAMPLENODE_SUMMARY_TEXTAREA, sum_edit, true);
-			click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-			waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
-			waitForElementPresent(By.xpath("//a[@title='"+ title_edit+" ']"));
-		}
-
-		public void editSampleNodeInline(String openField, By inputField, String value, By accept)
-		{
-			enableEditMode(true);
-			doubleClickOnElement(openField);
-			type(inputField,value,true);
-			click(accept);
-			waitForElementPresent(By.xpath("//div[contains(text(),'"+value+"')]"));
-		}*/
 	
 	/**
 	 * @author lientm

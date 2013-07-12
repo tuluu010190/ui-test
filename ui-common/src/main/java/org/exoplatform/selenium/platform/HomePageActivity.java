@@ -164,6 +164,7 @@ public class HomePageActivity extends PlatformBase{
 	 * @param name
 	 */
 	public void goToEditFromContentActivity(String name){
+		button = new Button(driver);
 		click(ELEMENT_CONTENT_EDIT_LINK.replace("@{fileName}", name));
 		waitForAndGetElement(ELEMENT_CONTENT_EDIT_SCREEN_FROM_ACTIVITY);
 		waitForAndGetElement(button.ELEMENT_SAVE_CLOSE_BUTTON);

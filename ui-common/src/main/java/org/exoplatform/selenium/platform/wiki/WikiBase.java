@@ -90,7 +90,8 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_CONFIRM_BUTTON_ADD_PAGE = By.xpath("//button[text()='Confirm']");
 	public final By ELEMENT_CANCEL_BUTTON_ADD_PAGE_NULL_TITLE = By.xpath("//button[text()='Cancel']");
 	public final String MESSAGE_PAGE_ALREADY_EXISTS = "The page title already exists. Please select another one.";
-	public final String MESSAGE_CANCEL_CREATE_PAGE = "Are you sure to leave this page?";
+	public final String MESSAGE_CANCEL_CREATE_PAGE = "to leave this page?";
+			//"Are you sure to leave this page?";
 	public final By ELEMENT_OK_BUTTON_WIKI_PAGE = By.xpath("//div[contains(@class, 'uiAction')]/a[text()='OK']");
 	
 	//Richtext mode

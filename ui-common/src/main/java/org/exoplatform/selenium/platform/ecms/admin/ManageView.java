@@ -26,8 +26,9 @@ public class ManageView extends EcmsBase{
 	ECMainFunction ecMain = new ECMainFunction(driver);
     
 	//Views
-	//Settings tab
+	//Settings tab / View Tab
 	public final By ELEMENT_SETTING_TAB = By.xpath("//*[contains(@class, 'popup')]//*[text()='Setting']");
+	public final By ELEMENT_VIEW_TAB = By.xpath("//*[contains(@class, 'popup')]//*[text()='View']");
 	public final By ELEMENT_HIDE_EXPLORER_PANEL = By.name("hideExplorerPanel");
 	public final By ELEMENT_SELECTED_TEMPLATE = By.xpath("//*[@name='template']/option[@selected='selected']");
 	
@@ -239,8 +240,13 @@ public class ManageView extends EcmsBase{
 		}
 		click(ELEMENT_ADDVIEW_PERMISSION_BUTTON);
 
-		//Settings
-		click(ELEMENT_SETTING_TAB);
+		//Settings/View Tab
+		if (waitForAndGetElement(ELEMENT_SETTING_TAB, 3000, 0, 2) != null){
+			click(ELEMENT_SETTING_TAB);
+		}else {
+			click(ELEMENT_VIEW_TAB);
+		}
+		Utils.pause(500);
 		type(ELEMENT_TEMPLATE_VIEW_NAME, name, true);
 		select(ELEMENT_TEMPLATE_VIEW, template);
 		if (enableVersion){
