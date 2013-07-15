@@ -58,6 +58,7 @@ public class UserGroupManagement extends PlatformBase {
 	public void deleteUser(String username) {
 		dialog = new Dialog(driver);
 		alt = new ManageAlert(driver);
+		button = new Button(driver);
 		String userDeleteIcon = ELEMENT_USER_DELETE_ICON.replace("${username}", username);
 
 		info("--Deleting user " + username + "--");
@@ -66,7 +67,8 @@ public class UserGroupManagement extends PlatformBase {
 		}
 		Utils.pause(500);
 		click(userDeleteIcon);
-		alt.waitForConfirmation("Are you sure to delete user " + username + "?");
+		//waitForTextPresent("Are Are you sure you want to delete " + username + "user?");
+		alt.acceptAlert();
 		Utils.pause(1000);
 		type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
 		select(ELEMENT_SELECT_SEARCH_OPTION, "User Name");

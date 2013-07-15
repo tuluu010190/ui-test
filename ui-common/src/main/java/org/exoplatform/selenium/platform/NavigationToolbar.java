@@ -72,11 +72,10 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Go to Dashboard
 	public void goToDashboard(){
-		Actions actions = new Actions(driver);
-		info("--Go to Dashboard page--");
-		WebElement element = driver.findElement(By.id("UserNavigationTabsContainer"));
-		actions.moveToElement(element).build().perform();
-		driver.findElement(By.linkText("Dashboard")).click();	
+		info("--Go to Dashboard page--");	
+		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		click(ELEMENT_DASHBROARD_LINK);
+		waitForTextPresent("My Dashboard");
 	}
 
 	//Go to User management page
@@ -113,17 +112,11 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	//Go to add page locator with Editor
-	public void goToAddPageEditor(){
-		Actions actions = new Actions(driver);
-		waitForAndGetElement(By.xpath(ELEMENT_LINK_EDITOR));
-		mouseOver(ELEMENT_LINK_EDITOR, true);
-		Utils.pause(500);
-		mouseOver(ELEMENT_LINK_EDITOR_PAGE, true);
-		Utils.pause(500);
-		WebElement element = waitForAndGetElement(ELEMENT_LINK_EDITOR_ADD_PAGE);
-		actions.moveToElement(element).click(element).build().perform();
-		Utils.pause(500);
-	}
+//	public void goToAddPageEditor(){
+//		info("Go to add page editor");
+//		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'PageCreationWizard', true));");
+//		waitForTextPresent("Page Creation Wizard");
+//	}
 
 	public void goToUsersAndGroupsManagement() {
 		info("--Go to Users and groups management--");
@@ -146,12 +139,6 @@ public class NavigationToolbar extends PlatformBase {
 
 	public void goToEditPageEditor () {
 		info("----Go to Edit page editor----");
-//		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
-//		Utils.pause(500);
-//		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
-//		Utils.pause(500);
-//		click(ELEMENT_MENU_EDIT_LAYOUT);
-//		Utils.pause(500);	
 		String id = waitForAndGetElement(By.xpath("//*[@class='UIPage']")).getAttribute("id").replace("UIPage-", "");
 		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('" + id + "', 'EditCurrentPage', true));");
 	}
@@ -213,13 +200,10 @@ public class NavigationToolbar extends PlatformBase {
 	}
 	
 	//Go to Page Creation Wizard
-	public void goToPageCreationWinzard(){
-		Utils.pause(1000);
-		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
-		//mouseOverAndClick(ELEMENT_MENU_PAGE_LINK);
-		//click(ELEMENT_MENU_ADD_PAGE_LINK);
+	public void goToPageCreationWizard(){
+		info("Go to add page wizard");
 		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'PageCreationWizard', true));");
-		Utils.pause(1000);
+		waitForTextPresent("Page Creation Wizard");
 	}
 
 	//Go To Content Administration / Advanced Configuration / Manage Lock Tab

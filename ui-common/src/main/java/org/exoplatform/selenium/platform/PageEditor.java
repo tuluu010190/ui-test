@@ -71,7 +71,7 @@ public class PageEditor extends PlatformBase {
 	//Create page wizard without layout
 	public void goToPageEditor_EmptyLayout(String pageName){
 		nav = new NavigationToolbar(driver);
-		nav.goToPageCreationWinzard();
+		nav.goToPageCreationWizard();
 		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, pageName, false);
 		click(button.ELEMENT_NEXT_BUTTON);
 		waitForAndGetElement(ELEMENT_ADDWIZARD_TEXT2);
@@ -80,15 +80,16 @@ public class PageEditor extends PlatformBase {
 
 	//Create new page without content 
 	public void createNewPageEmptyLayout(String pageName){	
+		info("Create new page winzard empty layout");
 		goToPageEditor_EmptyLayout(pageName);
-		//click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 		click(ELEMENT_PAGE_FINISH_BUTTON);
+		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 	}
 
 	//create new page having layout - step 1,2
 	public void gotoPageEditorAndSelectLayout(String pageName, int numberLayout){
 		nav = new NavigationToolbar(driver);
-		nav.goToPageCreationWinzard();
+		nav.goToPageCreationWizard();		
 		type(ELEMENT_NEWPAGE_NAME_TEXTBOX, pageName, false);
 		click(button.ELEMENT_NEXT_BUTTON);
 		click(ELEMENT_NEWPAGE_LAYOUT_OPTION);
@@ -110,9 +111,10 @@ public class PageEditor extends PlatformBase {
 
 	//Create new page having layout 
 	public void createNewPageWithLayout(String pageName, int numberLayout){
+		info("Create new page winzard having layout");
 		gotoPageEditorAndSelectLayout(pageName, numberLayout);
-		//click(ELEMENT_NEWPAGE_SAVE_BUTTON);
 		click(ELEMENT_PAGE_FINISH_BUTTON);
+		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 	}
 
 
@@ -209,8 +211,7 @@ public class PageEditor extends PlatformBase {
 	public void selectCLVPath(String path, String clv, String...mode){
 		userGroup = new UserGroupManagement(driver);
 		By ELEMENT_SELECT_CLV_PATH = By.xpath("//td/a[text()='" + clv + "']");
-		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET, true);
-		click(ELEMENT_EDIT_PORTLET_ICON);
+		goToEditPortlet(ELEMENT_FRAME_CONTAIN_PORTLET);
 		if (mode.length >0){ 
 			if (mode[0] == "content")
 				click(ELEMENT_RADIO_MODE_CONTENT);
@@ -219,7 +220,10 @@ public class PageEditor extends PlatformBase {
 		}
 
 		click(ELEMENT_SELECT_CONTENT_PATH_LINK);
-		userGroup.selectGroup(path);
+		String[] node = path.split("/");
+		for (int i = 0; i < node.length; i ++){
+			click(By.xpath("//*[@data-original-title='" + node [i] + "']"));
+		}
 		click(ELEMENT_SELECT_CLV_PATH);
 		if (mode.length >0){ 
 			if (mode[0] == "content"){
@@ -342,5 +346,54 @@ public class PageEditor extends PlatformBase {
 			click(ELEMENT_PAGE_CLOSE);
 		}
 		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 5000);
+	}
+	
+	/**function go to edit a portlet
+	 * @author lientm
+	 * @param elementPortlet
+	 */
+	public void goToEditPortlet(By elementPortlet){	
+		info("Go to edit portlet " + elementPortlet);
+		mouseOver(elementPortlet, true);
+		click(ELEMENT_EDIT_PORTLET_ICON);
+		waitForAndGetElement(By.id("tab-UIPortletForm"));
+	}
+	
+	/**function move a portlet to a new container
+	 * @author lientm
+	 * @param elementPortlet
+	 * @param iconMove
+	 * @param newContainer
+	 */
+	public void movePortletOnContainer(By elementPortlet, By iconMove, By newContainer){
+		info("Move portlet");
+		mouseOver(elementPortlet, true);
+		dragAndDropToObject(iconMove, newContainer);
+		Utils.pause(2000);
+	}
+	
+	/**function select and drag drop new container when edit layout of page
+	 * @author lientm
+	 * @param group
+	 * @param container
+	 */
+	public void addNewContainer(String group, String container){
+		click(ELEMENT_CONTAINER_TAB);
+		click(By.linkText(group));
+		dragAndDropToObject(By.id(container), By.xpath("//*[@class='UIRowContainer']"));
+		Utils.pause(2000);
+	}
+	
+	/**function remove a container in page layout
+	 * @author lientm
+	 * @param container
+	 * @param iconDelete
+	 */
+	public void removeContainer(By container, By iconDelete){
+		magAlert = new ManageAlert(driver);
+		
+		mouseOver(container, true);
+		click(iconDelete);
+		magAlert.acceptAlert();
 	}
 }

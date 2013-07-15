@@ -105,11 +105,13 @@ public class ManageAccount extends PlatformBase {
 		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
 		type(ELEMENT_INPUT_LASTNAME, lastName, true);
 		type(ELEMENT_INPUT_EMAIL, email, true);
-		click(ELEMENT_USER_PROFILE_TAB);
-		waitForTextPresent("Given Name:");
-		type(ELEMENT_INPUT_USER_NAME_GIVEN, userNameGiven, true);
-		select(ELEMENT_SELECT_USER_LANGUAGE, language);
-		click(ELEMENT_ACCOUNT_SETTING_TAB);
+		if (userNameGiven != null || language != null){
+			click(ELEMENT_USER_PROFILE_TAB);
+			waitForTextPresent("Given Name:");
+			type(ELEMENT_INPUT_USER_NAME_GIVEN, userNameGiven, true);
+			select(ELEMENT_SELECT_USER_LANGUAGE, language);
+			click(ELEMENT_ACCOUNT_SETTING_TAB);
+		}
 		button.save();
 
 		if (verify) {

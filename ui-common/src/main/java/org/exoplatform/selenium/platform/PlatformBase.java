@@ -115,6 +115,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK = By.xpath("//a[text()='Change Language']");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK_OTHER = By.xpath("//a[text()='Changer de Langue']");
 	public final By ELEMENT_MY_PROFILE_LINK = By.className("uiIconPLFProfile");
+	public final By ELEMENT_DASHBROARD_LINK = By.className("uiIconPLFDashboard");
 	
 	//Change language form
 	public final By ELEMENT_CHANGE_LANGUAGE_POPUP = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Interface Language Setting']");
@@ -180,7 +181,7 @@ public class PlatformBase extends TestBase {
 	 * */
 	//User Management TAB
 	public final String ELEMENT_USER_MANAGEMENT = "//div[@class='UserManagementIcon']/..";
-	public final String ELEMENT_USER_DELETE_ICON ="//div[@id='UIListUsersGird']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
+	public final String ELEMENT_USER_DELETE_ICON ="//*[@id='UIListUsersGird']//*[text()='${username}']/../..//*[@class='uiIconDeleteUser uiIconLightGray']";
 	public final String ELEMENT_INPUT_SEARCH_USER_NAME = "//input[@name='searchTerm']";
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
 
@@ -273,6 +274,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE = "//input[@name='switchmode']";
 	public final String ELEMENT_LINK_EDITOR_PAGE_LAYOUT="//a[@class='ItemIcon EditPageIcon' and text()='Layout']";
 
+	public final By ELEMENT_UP_LEVEL=By.xpath("//a[@title='Up Level']");
 	public final String ELEMENT_SELECT_LANGUAGE = "//select[@name='languages']";
 	public final String ELEMENT_INPUT_PAGE_DISPLAY_NAME = "//input[@id='pageDisplayName']";
 	public final String ELEMENT_PAGE_EDITOR_NEXT_STEP = "//div[@class='ActionBar']//a[text()='Next']";
@@ -280,9 +282,8 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_EDIT_PAGE_PAGE = "//div[@id='UIPage']";
 	public final String ELEMENT_PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
 	public final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//*[@data-original-title='Finish']";
-	//public final By ELEMENT_PAGE_EDIT_FINISH = By.xpath("//*[@data-original-title='Finish']");
-	//public final By ELEMENT_PAGE_EDIT_FINISH_OTHER = By.xpath("//a[@data-original-title='Finish']");
 	public final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
+	public final By ELEMENT_SWITCH_VIEW_MODE = By.linkText("Switch View mode");
 
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
@@ -348,6 +349,13 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_NEW_EDIT_PORTLET = By.xpath("//div[text()='News']/../a[@class='EditIcon']");
 	public final By ELEMENT_HOMEPATH_ROOT = By.xpath("//div[@class='BreadcumbsPortlet']/div[2]/div[1]/a");
 	public final By ELEMENT_FOLDER_BROWSER = By.xpath("//div[contains(text(),'Folder Browser')]");
+	
+	//Container setting
+	public final By ELEMENT_CONTAINER_TAB = By.linkText("Containers");
+	public final By ELEMENT_EDIT_CONTAINER_ICON = By.xpath("//*[@data-original-title='Edit Container']");
+	public final By ELEMENT_DELETE_CONTAINER_ICON = By.xpath("//*[@data-original-title='Delete Container']");
+	public final By ELEMENT_CONTAINER_TITLE = By.id("title");
+	
 	/*
 	 * END Page Management
 	 * */

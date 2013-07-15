@@ -598,23 +598,23 @@ public class TestBase {
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 	}
 	
-	public void goToPageCreationWinzard(){
-//		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
-		WebElement element;
-//		Actions actions = new Actions(driver);
-		if (driver==null) info("driver is null" + driver);
-		else
-			info("driver is not null" + driver);
-		element = waitForAndGetElement(ELEMENT_MENU_EDIT_LINK, 5000, 0);
-		if (action != null)
-			info(action.toString());
-		else
-			info("action is null");
-		action.moveToElement(element).perform();
-		mouseOver(ELEMENT_MENU_PAGE_LINK,true);
-		click(ELEMENT_MENU_ADD_PAGE_LINK);	
-		Utils.pause(1000);
-	}
+//	public void goToPageCreationWinzard(){
+////		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
+//		WebElement element;
+////		Actions actions = new Actions(driver);
+//		if (driver==null) info("driver is null" + driver);
+//		else
+//			info("driver is not null" + driver);
+//		element = waitForAndGetElement(ELEMENT_MENU_EDIT_LINK, 5000, 0);
+//		if (action != null)
+//			info(action.toString());
+//		else
+//			info("action is null");
+//		action.moveToElement(element).perform();
+//		mouseOver(ELEMENT_MENU_PAGE_LINK,true);
+//		click(ELEMENT_MENU_ADD_PAGE_LINK);	
+//		Utils.pause(1000);
+//	}
 	
 	/**
 	* function: check a file existed in folder
