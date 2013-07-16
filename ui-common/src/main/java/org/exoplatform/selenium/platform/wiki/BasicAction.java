@@ -43,6 +43,7 @@ public class BasicAction extends Permission{
 		//boolean ca = (Boolean) (option.length > 0 ? option[0] : false);
 		String message = (String) (option.length > 1 ? option[1] : "");	
 		goToAddBlankPage();
+		Utils.pause(500);
 		driver.navigate().refresh();
 		Utils.pause(2000);
 		

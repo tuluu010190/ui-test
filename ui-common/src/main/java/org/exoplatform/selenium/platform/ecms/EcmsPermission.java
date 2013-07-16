@@ -38,10 +38,12 @@ public class EcmsPermission extends EcmsBase{
 	public final By ELEMENT_SYSTEM_PERMISSION_READ_DISABLED = By.xpath("//*[@id='UITabContent' and @style='display: block;;']//input[@id = '__systemread' and @disabled]");
 	
 	public final String MESSAGE_NO_RIGHT_TO_PASTE_NODE = "You do not have permission to move to this node. Please contact the administrator.";
+	public final String MESSAGE_NO_RIGHT_TO_ADD_NODE = "You do not have permission to add a new";
 	
 	public final String ELEMENT_READ_CHECK = "//input[@name='{$user}read']";
 	public final String ELEMENT_MODIFY_CHECK = "//input[@name='{$user}addNode']";
 	public final String ELEMENT_REMOVE_CHECK = "//input[@name='{$user}remove']";
+
 	//Function to set permission for node
 	public void setPermissionForNode(boolean read, boolean add, boolean remove){
 		boolean isCheckedRead = driver.findElement(ELEMENT_READ_CHECKBOX).isSelected();

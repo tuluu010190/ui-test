@@ -338,13 +338,14 @@ public class TestBase {
 		}
 	}
 
-	public void mouseOver(Object locator, boolean safeToSERE) {
+	public void mouseOver(Object locator, boolean safeToSERE, Object...opParams) {
 		WebElement element;
 		Actions actions = new Actions(driver);
+		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);
 		try {
 			if (safeToSERE) {
 				for (int i = 1; i < ACTION_REPEAT; i++){
-					element = waitForAndGetElement(locator, 5000, 0);
+					element = waitForAndGetElement(locator, 5000, 0, notDisplay);
 					if (element == null){
 						Utils.pause(WAIT_INTERVAL);
 					} else {

@@ -32,13 +32,19 @@ public class Version extends BasicAction{
 		info("--View a version of a page--");
 
 		String versionLink = ELEMENT_VERSION_LINK.replace("{$version}",version);
+		String versionLinkBis = ELEMENT_VERSION_LINK_AUX.replace("{$version}",version);
 		click(ELEMENT_REVISION_LINK);
 		Utils.pause(500);
 		driver.navigate().refresh();
-		Utils.pause(2000);
+		Utils.pause(1000);
 		//click(versionLink);
-		WebElement vLink = waitForAndGetElement(versionLink, DEFAULT_TIMEOUT, 1, 2);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vLink);
+		if (waitForAndGetElement(versionLink, DEFAULT_TIMEOUT, 0, 2) != null){
+			WebElement vLink = waitForAndGetElement(versionLink, DEFAULT_TIMEOUT, 0, 2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].click();", vLink);
+		}else if (waitForAndGetElement(versionLinkBis, DEFAULT_TIMEOUT, 0, 2) != null){
+			WebElement vLink = waitForAndGetElement(versionLinkBis, DEFAULT_TIMEOUT, 0, 2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].click();", vLink);
+		}	
 		Utils.pause(1000);
 	}
 

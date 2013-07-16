@@ -225,8 +225,8 @@ public class ECMS_SE_CreateNode_File extends PlatformBase{
 	 */
 	@Test
 	public void test07_AddNewTextHtmlFileDocument_2(){
-		String CONTENT_FOLDER_TITLE = "ECMS_SE_File_ContentFolder_07";
-		String FILE_TITLE = "ECMS_SE_File_Document_07";
+		String CONTENT_FOLDER_TITLE = "ECMS_SE_File_ContentFolder_07_2";
+		String FILE_TITLE = "ECMS_SE_File_Document_07_2";
 
 		info("Create a node that allow to add a File document");
 		navToolBar.goToSiteExplorer();
@@ -285,8 +285,8 @@ public class ECMS_SE_CreateNode_File extends PlatformBase{
 	 */
 	@Test
 	public void test07_AddNewTextHtmlFileDocument_1(){
-		String CONTENT_FOLDER_TITLE = "ECMS_SE_File_ContentFolder_07";
-		String FILE_TITLE = "ECMS_SE_File_Document_07";
+		String CONTENT_FOLDER_TITLE = "ECMS_SE_File_ContentFolder_07_1";
+		String FILE_TITLE = "ECMS_SE_File_Document_07_1";
 
 		info("Create a node that allow to add a File document");
 		navToolBar.goToSiteExplorer();

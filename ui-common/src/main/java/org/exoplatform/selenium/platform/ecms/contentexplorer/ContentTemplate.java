@@ -388,15 +388,17 @@ public class ContentTemplate extends EcmsBase{
 
 	//Folder type 
 	public enum folderType{
-		None, Content, Document;
+		None, Content, Document, Css;
 	}
 
 	//add new Content Folder
-	public void createNewFolder(String title, folderType type, boolean...verify) {
+	public void createNewFolder(String title, folderType type, Object...params) {
+		Boolean checkFolder = (Boolean) (params.length > 0 ? params[0]:true); 
+		
 		info("-- Creating a new folder --");
 		actBar.goToAddNewFolder();
-		WebElement folderType = waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0, 2);
-		if (folderType != null && !folderType.isSelected()){
+		WebElement fType = waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0, 2);
+		if (fType != null && !fType.isSelected()){
 			click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
 		}
 		switch (type) {
@@ -408,15 +410,26 @@ public class ContentTemplate extends EcmsBase{
 			selectOption(ELEMENT_FOLDER_TYPE_OPTION, ELEMENT_DOCUMENT_FOLDER_TYPE);
 			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, false);
 			break;
+		case Css:
+			selectOption(ELEMENT_FOLDER_TYPE_OPTION, ELEMENT_CSS_FOLDER_TYPE);
+			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, false);
+			break;	
 		case None:
 			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, false);
+			if (fType == null){
+				info("-- Add a new folder without selecting folder's type --");
+			}else if (fType != null && fType.isSelected()){
+				click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
+			}
 			break;
 		default:
 			break;
 		}
 		click(ELEMENT_CREATE_FOLDER_BUTTON);
 		//waitForElementPresent(By.xpath("//*[contains(text(),'"+ title +"')]"));
-		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", title)));
+		if (checkFolder){
+			waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", title)));
+		}
 		Utils.pause(1000);
 	}
 

@@ -42,6 +42,7 @@ public class ContextMenu extends EcmsBase{
 	public final By ELEMENT_MENU_ADD_SYMLINK = By.className("uiIconEcmsAddSymLink");
 	public final By ELEMENT_VIEW_INFORMATION = By.className("uiIconEcmsViewInfo");
 	public final String ELEMENT_POPUP_VIEW_INFORMATION_NAME = "//*[@class='UIViewInfoManager']//td[text()='Name']/../td[text()='${fileName}']";
+	public final String ELEMENT_POPUP_VIEW_INFORMATION_TYPE = "//*[@class='UIViewInfoManager']//td[text()='Type']/../td[text()='${folderName}']";
 	public final By ELEMENT_MENU_DOWNLOAD = By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconDownload uiIconLightGray']");
 
 	public final String ELEMENT_FILE_LOCKED_BY_ADMIN = "//*[@data-original-title = '${titleOfFile} (Locked by john)']";

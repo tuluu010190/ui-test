@@ -11,7 +11,10 @@ import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 /**
  * 
@@ -64,6 +67,7 @@ public class ManageDrive extends EcmsBase{
 	public final By ELEMENT_ADD_PERMISSION_AUX = By.xpath("//*[@data-original-title='Add Permission']");
 	public final By ELEMENT_PERMISSION_TEXTBOX = By.id("permissions");
 	public final By ELEMENT_ALLOW_CREATE_FOLDER = By.name("allowCreateFolders");
+	public final String ELEMENT_ALLOW_CREATE_FOLDER_OPTIONS = "//*[@name='allowCreateFolders']/option[text()='${option}']";
 	public final By ELEMENT_DRIVE_NAME = By.id("name");
 	public final By ELEMENT_MANAGE_DRIVE_LINK = By.linkText("Manage Drives");
 	public final String ELEMENT_VERIFY_DRIVE = "//div[@data-original-title='${driveName}']";
@@ -239,6 +243,39 @@ public class ManageDrive extends EcmsBase{
 			info("-- Web View is already displayed --");
 		}
 		click(ELEMENT_VIEW_MODE_LINK.replace("${viewName}", view));
+		Utils.pause(500);
+	}
+
+	//Option to select [Folder Creation] 
+	public void selectTypeOfFolderCreation(String folderType, Object...params){
+		Actions actions = new Actions(driver);
+		String[] options = folderType.split("/");
+		Boolean isOneValue = (Boolean) (params.length > 0 ? params[0]: false); 
+		if (isOneValue){
+			String fType = "Content Folder/CSS Folder/Document Folder/Javascript Folder/Link Folder/Web Content Folder";
+			String[] opt = fType.split("/");
+			for (int i = 0; i < opt.length; i++){
+				WebElement element = waitForAndGetElement(ELEMENT_ALLOW_CREATE_FOLDER_OPTIONS.replace("${option}", opt[i]));
+				boolean isSeclectedValue = element.isSelected(); 
+				if(isSeclectedValue){
+					click(ELEMENT_ALLOW_CREATE_FOLDER_OPTIONS.replace("${option}", opt[i]));
+				}
+			}
+			Utils.pause(500);
+			info("Select only one type..." + folderType);
+			click(ELEMENT_ALLOW_CREATE_FOLDER_OPTIONS.replace("${option}", folderType));
+		}else{
+			select(ELEMENT_ALLOW_CREATE_FOLDER, options[0]);
+			actions.keyDown(Keys.CONTROL);
+			for (int i = 1; i < options.length; i++) {
+				info("Select a type of folder..." + options[i]);	
+				WebElement element = waitForAndGetElement(ELEMENT_ALLOW_CREATE_FOLDER_OPTIONS.replace("${option}", options[i]));
+				boolean isSeclectedValue = element.isSelected(); 
+				if(!isSeclectedValue){
+					click(ELEMENT_ALLOW_CREATE_FOLDER_OPTIONS.replace("${option}", options[i]));
+				}
+			}
+		}
 		Utils.pause(500);
 	}
 }

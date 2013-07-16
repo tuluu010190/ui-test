@@ -55,11 +55,24 @@ public class EcmsBase extends ManageAccount {
 
 	//New Folder
 	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder']");
+	public final By ELEMENT_FOLDER_POPUP_TITLE = By.xpath("//*[contains(@class, 'popupTitle') and text()='New Folder']");
 	public final By ELEMENT_FOLDER_TITLE_TEXTBOX = By.id("titleTextBox");
 	public final By ELEMENT_FOLDER_TYPE_OPTION = By.name("customTypeSelectBox");
 	public final String ELEMENT_CONTENT_FOLDER_TYPE = "nt:unstructured";
+	public final By ELEMENT_CONTENT_FOLDER_TYPE_XPATH = By.xpath("//option[text()='Content Folder']");
 	public final String ELEMENT_DOCUMENT_FOLDER_TYPE = "nt:folder";
-
+	public final By ELEMENT_DOCUMENT_FOLDER_TYPE_XPATH = By.xpath("//option[text()='Document Folder']");
+	public final String ELEMENT_CSS_FOLDER_TYPE = "exo:cssFolder";
+	public final By ELEMENT_CSS_FOLDER_TYPE_XPATH =  By.xpath("//option[text()='CSS Folder']"); 
+	public final String ELEMENT_LINK_FOLDER_TYPE = "exo:linkFolder";
+	public final By ELEMENT_LINK_FOLDER_TYPE_XPATH = By.xpath("//option[text()='Link Folder']");
+	public final String ELEMENT_WEB_CONTENT_FOLDER_TYPE = "exo:webFolder";
+	public final By ELEMENT_WEB_CONTENT_FOLDER_TYPE_XPATH = By.xpath("//option[text()='Web Content Folder']");
+	public final String ELEMENT_JS_FOLDER_TYPE = "exo:jsFolder";
+	public final By ELEMENT_JS_FOLDER_TYPE_XPATH = By.xpath("//option[text()='Javascript Folder']");
+	public final String ELEMENT_FOLDER_ICON = "//*[@title='${folderTitle}' and contains(@class, '${folderType}')]";	
+	public final String MESSAGE_FOLDER_HINT_CHECKBOX = "Check if you intend to store web contents or custom document types in this folder";
+	
 	//Add new Page
 	public final By ELEMENT_NEWPAGE_NAME_TEXTBOX = By.id("pageName");	
 	public final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//a[@title='Finish']");

@@ -145,8 +145,8 @@ public class WikiBase extends PlatformBase{
 	/*----------------------Manage Template----------------------*/
 	public final By ELEMENT_TEMPLATE_LINK = By.linkText("Template");
 	public final By ELEMENT_ADD_TEMPLATE_LINK = By.xpath("//*[text()='Add More Templates']");
-	public final String ELEMENT_EDIT_TEMPLATE_ICON = "//*[text()='{$template}']/../..//*[@class='uiIconEdit']";
-	public final String ELEMENT_DELETE_TEMPLATE_ICON = "//*[text()='{$template}']/../..//*[@class='uiIconDelete']";
+	public final String ELEMENT_EDIT_TEMPLATE_ICON = "//*[text()='{$template}']/../..//*[contains(@class, 'uiIconEdit')]";
+	public final String ELEMENT_DELETE_TEMPLATE_ICON = "//*[text()='{$template}']/../..//*[contains(@class, 'uiIconDelete')]";
 	public final By ELEMENT_SEARCH_TEMPLATE_INPUT=By.id("TemplateSeachBox");
 	//Add template page
 	public final By ELEMENT_TITLE_TEMPLATE_INPUT= By.id("titleInput");
@@ -164,7 +164,7 @@ public class WikiBase extends PlatformBase{
 	//Close preview window
 	public By ELEMENT_CLOSE_PREVIEW_WINDOW=By.xpath("//div[text()='Preview']/..//*[@class='uiIconClose']");
 	//	Preview template
-	public final String ELEMENT_PREVIEW_NEW_TEMPLATE="//div[text()='${TEMPLATE_TITLE}']/../..//*[@class='uiIconPreview']";
+	public final String ELEMENT_PREVIEW_NEW_TEMPLATE="//div[text()='${TEMPLATE_TITLE}']/../..//*[contains(@class, 'uiIconPreview')]";
 	// Verify effect
 	public final String VERIFY_BOLD_EFFECT="//strong[text()='${TEMPLATE_CONTENT}']";	
 	public final String VERIFY_ITALIC_EFFECT="//em[text()='${TEMPLATE_CONTENT}']";
@@ -205,6 +205,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_COMPARE_TEXT = By.xpath("//div[contains(text(),'Compared With')]");
 	public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfoArea']//a[contains(text(), 'V')]");
 	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'V{$version}')]";
+	public final String ELEMENT_VERSION_LINK_AUX= "//a[contains(text(),'v. {$version}')]";
 	public final String ELEMENT_RESTORE_LINK = "//td/label/a[contains(text(), 'v. {$version}')]/../../..//*[@class='uiIconRestore']";
 	public final By ELEMENT_COMPARE_BUTTON = By.xpath("//*[text()='Compare the selected versions']");	
 	public final By ELEMENT_VIEW_CHANGE = By.linkText("(View Change)");
@@ -295,7 +296,7 @@ public class WikiBase extends PlatformBase{
 		//mouseOver(ELEMENT_ADD_PAGE_LINK, true);
 		mouseOverAndClick(ELEMENT_ADD_PAGE_LINK);
 		mouseOverAndClick(ELEMENT_BLANK_PAGE_LINK);
-		Utils.pause(500);
+		Utils.pause(1000);
 	}
 
 	/** Go to Delete Page
