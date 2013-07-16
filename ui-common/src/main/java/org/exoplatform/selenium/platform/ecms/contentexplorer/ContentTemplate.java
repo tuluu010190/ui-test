@@ -50,7 +50,10 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.xpath("//*[contains(text(),'Advanced')]");
 	public final By ELEMENT_WEBCONTENT_CSS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentCSS')]");
 	public final By ELEMENT_WEBCONTENT_JS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentJS')]");
-
+	public final By ELEMENT_MAXIMIZE_ICON = By.xpath("//*[contains(@class, 'uiIconEcmsExpand')]");
+	public final By ELEMENT_MINIMIZE_ICON = By.xpath("//*[contains(@class, 'uiIconEcmsCollapse')]");
+	public final By ELEMENT_CHANGE_CONTENT_TYPE = By.xpath("//*[contains(@class, 'ChangeTypeLink')]");
+	
 	//File
 	public final By ELEMENT_NEWFILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='File']");
 	//By.linkText("File");
@@ -126,7 +129,8 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_JS_DATA = By.id("contentHtml");
 
 	//Data test
-	public final String[] DATA_SPECIAL_CHARACTER = {"`","~","!","@","#","$","%","^","&","*","(",")","-","_","+","=","{","}","[","]","|","\\",";",":","'","\"","<",",",".","/","?"};
+	public final String[] DATA_SPECIAL_CHARACTER = {"@","`","~","!","#","$","%","^","&","*","(",")","-","_","+","=","{","}","[","]","|","\\",";",":","'","\"","<",",",".","/","?"};
+	public final String[] DATA_SPECIAL_CHARACTER_2 = {"`", "~", "!", "#", "$", "&", "*", "(", ")", "=", "{", "}", "+", ";", "<", ">", "/", "?","\"","\\"};
 	public final String DATA_SPECIAL_CHARACTER_STRING = "~`!@#$%^&*()-_=+[]{}\\|;:'\",<.>?/";
 
 	//Add New Folder

@@ -55,7 +55,8 @@ public class ManageAccount extends PlatformBase {
 
 	//Sign-out for eXoGTN
 	public void signOut(){
-		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		click(ELEMENT_SIGN_OUT_LINK);
 		Utils.pause(1000);
 		if ( ExpectedConditions.alertIsPresent() != null ){
@@ -142,7 +143,8 @@ public class ManageAccount extends PlatformBase {
 	public void changeLanguageForUser(String language){
 		button = new Button(driver);
 		info("Change language for user");
-		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		if (language == "French"){
 			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK);
 			waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP);
@@ -166,7 +168,8 @@ public class ManageAccount extends PlatformBase {
 	 * @param email
 	 */
 	public void updateUserProfile(String pos, String first, String last, String email){
-		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		mouseOverAndClick(ELEMENT_MY_PROFILE_LINK);
 		if (pos != null){
 			mouseOverAndClick(ELEMENT_EDIT_POSITION);

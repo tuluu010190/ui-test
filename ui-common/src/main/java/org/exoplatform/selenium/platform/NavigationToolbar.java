@@ -30,7 +30,8 @@ public class NavigationToolbar extends PlatformBase {
 				driver.get(url);
 				break;
 			}
-			mouseOverAndClick(ELEMENT_LINK_SETUP);
+			//mouseOverAndClick(ELEMENT_LINK_SETUP);
+			mouseOver(ELEMENT_LINK_SETUP, true);
 			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, 5000, 0)!= null) {	
 				mouseOver(ELEMENT_LINK_PORTAL, false);
 				if (waitForAndGetElement(ELEMENT_LINK_SITES, 5000, 0)!= null){
@@ -57,7 +58,8 @@ public class NavigationToolbar extends PlatformBase {
 				driver.get(url);
 				break;
 			}
-			mouseOverAndClick(ELEMENT_LINK_SETUP);
+			//mouseOverAndClick(ELEMENT_LINK_SETUP);
+			mouseOver(ELEMENT_LINK_SETUP, true);
 			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, 5000, 0)!= null) {	
 				mouseOver(ELEMENT_LINK_PORTAL, false);
 				if (waitForAndGetElement(ELEMENT_LINK_PAGES, 5000, 0)!= null){
@@ -82,7 +84,8 @@ public class NavigationToolbar extends PlatformBase {
 	public void goToNewStaff() {
 		info("Go to New Staff");
 		//goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADD_USERS);
-		mouseOverAndClick(ELEMENT_LINK_SETUP);
+		//mouseOverAndClick(ELEMENT_LINK_SETUP);
+		mouseOver(ELEMENT_LINK_SETUP, true);
 		click(ELEMENT_LINK_USERS);
 		Utils.pause(1000);
 	}
@@ -121,7 +124,8 @@ public class NavigationToolbar extends PlatformBase {
 	public void goToUsersAndGroupsManagement() {
 		info("--Go to Users and groups management--");
 		//goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_GROUP_AND_ROLE_LINK);
-		mouseOverAndClick(ELEMENT_LINK_SETUP);
+		//mouseOverAndClick(ELEMENT_LINK_SETUP);
+		mouseOver(ELEMENT_LINK_SETUP, true);
 		WebElement element = waitForAndGetElement(By.xpath(ELEMENT_GROUP_AND_ROLE_LINK), DEFAULT_TIMEOUT, 1, 2);		
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		Utils.pause(500);
@@ -169,7 +173,8 @@ public class NavigationToolbar extends PlatformBase {
 				driver.get(url);
 				break;
 			}
-			mouseOverAndClick(ELEMENT_LINK_SETUP);
+			//mouseOverAndClick(ELEMENT_LINK_SETUP);
+			mouseOver(ELEMENT_LINK_SETUP, true);
 			if (waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK, 5000, 0)!= null) {	
 				mouseOver(ELEMENT_MENU_CONTENT_LINK, true);
 				if (waitForAndGetElement(ELEMENT_LINK_CONTENT_ADMIN, 5000, 0)!= null){
@@ -185,7 +190,8 @@ public class NavigationToolbar extends PlatformBase {
 	//Enter Sites Management Form 
 	public void goToSiteExplorer(){
 		Utils.pause(1000);
-		mouseOverAndClick(ELEMENT_LINK_SETUP);
+		//mouseOverAndClick(ELEMENT_LINK_SETUP);
+		mouseOver(ELEMENT_LINK_SETUP, true);
 		mouseOverAndClick(ELEMENT_MENU_CONTENT_LINK);
 		//click(ELEMENT_MENU_SITE_EXPLORER);
 		Utils.pause(2000);

@@ -25,7 +25,8 @@ public class Button extends TestBase{
 			//By.linkText("Apply");
 	public final By ELEMENT_SAVE_BUTTON = By.xpath("//*[text()='Save']"); 
 	public final By ELEMENT_SAVE_BUTTON_POPUP_WINDOWS = By.xpath("//*[contains(@class, 'popup')]//*[text()='Save']");
-	public final By ELEMENT_CANCEL_BUTTON = By.xpath("//*[text()='Cancel']"); 
+	public final By ELEMENT_CANCEL_BUTTON = By.xpath("//*[text()='Cancel']");
+	public final By ELEMENT_CANCEL_BUTTON_AUX = By.xpath("//*[@data-original-title='Cancel']");
 	public final By ELEMENT_CLOSE_BUTTON = By.xpath("//*[text()='Close']");
 	public final By ELEMENT_ADD_BUTTON = By.xpath("//*[text()='Add']");
 	public final By ELEMENT_SELECT_BUTTON = By.xpath("//*[text()='Select']");
@@ -73,8 +74,11 @@ public class Button extends TestBase{
 	}
 
 	public void cancel(){
-		waitForAndGetElement(ELEMENT_CANCEL_BUTTON);
-		click(ELEMENT_CANCEL_BUTTON);
+		if (waitForAndGetElement(ELEMENT_CANCEL_BUTTON, 3000, 0) != null){
+			click(ELEMENT_CANCEL_BUTTON);
+		}else {
+			click(ELEMENT_CANCEL_BUTTON_AUX);
+		}
 	}
 
 	public void saveAndClose(){
