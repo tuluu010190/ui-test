@@ -66,35 +66,48 @@ public class ManageAccount extends PlatformBase {
 		//driver.get(baseUrl);
 	}
 
-	// Edit user in My Account
-	// Hover [user name] -> My Account
-	public void editUserInMyAccount(String firstName, String lastName, String email, String currentPassword, String newPassword,
+	// Edit account info in Setting
+	// Hover [user name] -> Setting
+	public void editUserSetting(String firstName, String lastName, String email, String displayName, String currentPassword, String newPassword,
 			String confirmNewPassword){
 		button = new Button(driver);
 		dialog = new Dialog(driver);
 		info("-- Edit user in My Account --");
+		
+		if (firstName != null || lastName != null || email != null || displayName != null){
+			if (firstName != null){
+				type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
+			}
+			if (lastName != null){
+				type(ELEMENT_INPUT_LASTNAME, lastName, true);
+			}
+			if (email != null){
+				type(ELEMENT_INPUT_EMAIL, email, true);
+			}
+			if (displayName != null){
+				type(ELEMENT_INPUT_DISPLAY_NAME, displayName, true);
+			}
+			button.save();	
+			waitForMessage(MESSAGE_UPDATE_ACCOUNT);
+			dialog.closeMessageDialog();
+		}
 
-		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
-		type(ELEMENT_INPUT_LASTNAME, lastName, true);
-		type(ELEMENT_INPUT_EMAIL, email, true);
-		click(ELEMENT_CHANGE_PASSWORD_TAB);
-		waitForTextPresent("Current Password:");
-
-		type(ELEMENT_INPUT_CURRENTPASSWORD, currentPassword, true);
-		type(ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT, newPassword, true);
-		type(ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT, confirmNewPassword, true);
-		click(ELEMENT_ACCOUNT_PROFILE_TAB);
-
-		button.save();	
-		waitForMessage("The account information has been updated.");
-		dialog.closeMessageDialog();
+		if (currentPassword != null || newPassword != null || confirmNewPassword != null){
+			click(ELEMENT_CHANGE_PASSWORD_TAB);
+			type(ELEMENT_INPUT_CURRENTPASSWORD, currentPassword, true);
+			type(ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT, newPassword, true);
+			type(ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT, confirmNewPassword, true);
+			click(ELEMENT_SAVE_CHANGE_PASS_BUTTON);
+			waitForMessage(MESSAGE_UPDATE_PASSWORD);
+			dialog.closeMessageDialog();
+		}
 		button.close();
 	}
 
 	// Add a new user account
 	// setting -> user -> add users
 	public void addNewUserAccount(String username, String password, String confirmPassword, String firstName, 
-			String lastName, String email, String userNameGiven, String language, boolean verify) {
+			String lastName, String displayName, String email, String userNameGiven, String language, boolean verify) {
 
 		button = new Button(driver);
 		dialog = new Dialog(driver);
@@ -105,12 +118,21 @@ public class ManageAccount extends PlatformBase {
 		type(ELEMENT_INPUT_CONFIRM_PASSWORD, confirmPassword, true);
 		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
 		type(ELEMENT_INPUT_LASTNAME, lastName, true);
+		
+		if (displayName != null){
+			type(ELEMENT_INPUT_DISPLAY_NAME, displayName, true);
+		}
+		
 		type(ELEMENT_INPUT_EMAIL, email, true);
 		if (userNameGiven != null || language != null){
 			click(ELEMENT_USER_PROFILE_TAB);
 			waitForTextPresent("Given Name:");
-			type(ELEMENT_INPUT_USER_NAME_GIVEN, userNameGiven, true);
-			select(ELEMENT_SELECT_USER_LANGUAGE, language);
+			if (userNameGiven != null){
+				type(ELEMENT_INPUT_USER_NAME_GIVEN, userNameGiven, true);	
+			}
+			if (language != null){
+				select(ELEMENT_SELECT_USER_LANGUAGE, language);
+			}
 			click(ELEMENT_ACCOUNT_SETTING_TAB);
 		}
 		button.save();
@@ -152,11 +174,11 @@ public class ManageAccount extends PlatformBase {
 			button.apply();
 			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP);
 		}else {
-			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK_OTHER);
-			waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP_OTHER);
+			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK_FRENCH);
+			waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH);
 			click(By.linkText(language));
 			click(button.ELEMENT_APPLY_FRENCH_BUTTON);
-			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP_OTHER);
+			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH);
 		}
 	}
 	
@@ -168,9 +190,9 @@ public class ManageAccount extends PlatformBase {
 	 * @param email
 	 */
 	public void updateUserProfile(String pos, String first, String last, String email){
-		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-		mouseOverAndClick(ELEMENT_MY_PROFILE_LINK);
+		navTool = new NavigationToolbar(driver);
+		
+		navTool.goToMyProfile();
 		if (pos != null){
 			mouseOverAndClick(ELEMENT_EDIT_POSITION);
 			type(ELEMENT_POSITION_TEXTBOX_EDIT, pos, true);

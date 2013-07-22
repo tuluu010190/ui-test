@@ -599,24 +599,6 @@ public class TestBase {
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 	}
 	
-//	public void goToPageCreationWinzard(){
-////		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
-//		WebElement element;
-////		Actions actions = new Actions(driver);
-//		if (driver==null) info("driver is null" + driver);
-//		else
-//			info("driver is not null" + driver);
-//		element = waitForAndGetElement(ELEMENT_MENU_EDIT_LINK, 5000, 0);
-//		if (action != null)
-//			info(action.toString());
-//		else
-//			info("action is null");
-//		action.moveToElement(element).perform();
-//		mouseOver(ELEMENT_MENU_PAGE_LINK,true);
-//		click(ELEMENT_MENU_ADD_PAGE_LINK);	
-//		Utils.pause(1000);
-//	}
-	
 	/**
 	* function: check a file existed in folder
 	* @author lientm
@@ -624,7 +606,7 @@ public class TestBase {
 	* @return: true -> file exist
 	* false-> file is not exist
 	*/
-	public static boolean checkFileExisted(String file){
+	public boolean checkFileExisted(String file){
 		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + file;
 		boolean found = false;
 		
@@ -633,5 +615,21 @@ public class TestBase {
 		}
 		info("File exists: " + found);
 		return found;
+	}
+	
+
+	public enum Language{
+		en, fr, vi, lo;
+	}
+	
+	public void getDriverSetLanguage(Language language){
+		String locale = language.toString();
+		FirefoxProfile profile = new FirefoxProfile();
+		profile.setPreference("intl.accept_languages", locale);
+		driver = new FirefoxDriver(profile);
+		baseUrl = System.getProperty("baseUrl");
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		action = new Actions(driver);
+		termsAndConditions();
 	}
 }

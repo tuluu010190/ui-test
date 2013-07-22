@@ -67,8 +67,7 @@ public class UserGroupManagement extends PlatformBase {
 		}
 		Utils.pause(500);
 		click(userDeleteIcon);
-		//waitForTextPresent("Are Are you sure you want to delete " + username + "user?");
-		alt.acceptAlert();
+		alt.waitForConfirmation("Are you sure you want to delete " + username + " user?");
 		Utils.pause(1000);
 		type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
 		select(ELEMENT_SELECT_SEARCH_OPTION, "User Name");
@@ -88,7 +87,7 @@ public class UserGroupManagement extends PlatformBase {
 		waitForTextPresent(user);
 	}
 
-	public void editUser(String username) {
+	public void goToEditUserInfo(String username) {
 		String userEditIcon = ELEMENT_USER_EDIT_ICON.replace("${username}", username);
 
 		info("--Editing user " + username + "--");

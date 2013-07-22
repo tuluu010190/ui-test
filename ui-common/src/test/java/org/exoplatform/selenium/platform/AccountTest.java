@@ -58,8 +58,8 @@ public class AccountTest extends NavigationToolbar{
 		Utils.pause(2000);
 		goToNewStaff();
 		Utils.pause(2000);
-		magAcc.addNewUserAccount(username,password,confirmPassword,firstName,
-				lastName,email,userNameGiven,language,verify);
+//		magAcc.addNewUserAccount(username,password,confirmPassword,firstName,
+//				lastName,email,userNameGiven,language,verify);
 		Utils.pause(3000);
 		magAcc.signOut()  ;
 		Utils.pause(1000);
@@ -85,7 +85,7 @@ public class AccountTest extends NavigationToolbar{
 		magAcc.signIn("root", "gtn");
 		Utils.pause(1000);
 		goToUsersAndGroupsManagement();
-		userGroup.editUser(username);
+		userGroup.goToEditUserInfo(username);
 		type(ELEMENT_INPUT_EMAIL, "exotestaccountedit@localhost.com", true);
 	    button.save();
 	    waitForMessage("The user profile has been updated.");

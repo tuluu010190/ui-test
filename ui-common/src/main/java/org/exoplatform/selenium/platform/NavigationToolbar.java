@@ -90,13 +90,13 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(1000);
 	}
 
-	//Go to My Account
-	public void goToMyAccount(){
-		Actions actions = new Actions(driver);
-		WebElement UI = driver.findElement(By.id("UserNavigationTabsContainer"));
-		actions.moveToElement(UI).build().perform();
-		driver.findElement(By.linkText("My Account")).click();	
-		Utils.pause(500);
+	
+	//Function go to My Setting
+	public void goToMySetting(){
+		info("---Go to My Setting ---");
+		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		mouseOverAndClick(ELEMENT_MY_SETTING);
+		Utils.pause(1000);
 	}
 
 	//Go to Portal/Group Sites
@@ -242,5 +242,12 @@ public class NavigationToolbar extends PlatformBase {
 	{
 		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
 		mouseOverAndClick(ELEMENT_MENU_EDIT_CONTENT);
+	}
+	
+	//Function go to My Profile
+	public void goToMyProfile(){
+		info("---Go to My Profile ---");
+		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		mouseOverAndClick(ELEMENT_MY_PROFILE_LINK);
 	}
 }

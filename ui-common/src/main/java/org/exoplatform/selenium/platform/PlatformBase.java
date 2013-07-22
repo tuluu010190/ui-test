@@ -109,19 +109,20 @@ public class PlatformBase extends TestBase {
 	//Administration
 	//IDE
 	/* End Setting Icon*/
-	/*--------------- User account Management---------------------*/
+	/*--------------- User account Management (Click from user name) ---------------------*/
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK = By.xpath("//a[text()='Change Language']");
-	public final By ELEMENT_CHANGE_LANGUAGE_LINK_OTHER = By.xpath("//a[text()='Changer de Langue']");
+	public final By ELEMENT_CHANGE_LANGUAGE_LINK_FRENCH = By.xpath("//a[text()='Changer de Langue']");
 	public final By ELEMENT_MY_PROFILE_LINK = By.className("uiIconPLFProfile");
 	public final By ELEMENT_DASHBROARD_LINK = By.className("uiIconPLFDashboard");
+	public final By ELEMENT_MY_SETTING = By.linkText("Settings");
 	
-	//Change language form
+	//User -> Change Language
 	public final By ELEMENT_CHANGE_LANGUAGE_POPUP = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Interface Language Setting']");
-	public final By ELEMENT_CHANGE_LANGUAGE_POPUP_OTHER = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Langues Disponibles']");
+	public final By ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Langues Disponibles']");
 
-	//Change user info
+	//User -> My profile
 	public final By ELEMENT_EDIT_POSITION = By.xpath("//*[@id='UIHeaderSection']//*[@class='uiIconEdit']");
 	public final By ELEMENT_POSITION_TEXTBOX_EDIT = By.id("position");
 	public final By ELEMENT_EDIT_POSITION_SAVE_BUTTON = By.id("savePosition");
@@ -131,34 +132,32 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_EMAIL_TEXTBOX_EDIT = By.id("email");
 	public final By ELEMENT_EDIT_BASIC_INFO_SAVE_BUTTON = By.xpath("//*[@id='UIBasicInfoSection']//button[contains(text(), 'Save')]");
 	
-	/* Username link -BEGIN */
-	//My Account form [Username] -> My Account
-	public final String ELEMENT_CHANGE_PASSWORD_TAB = "//a[text()='Change Password' and @class='Icon ChangePass']";
-	public final String ELEMENT_ACCOUNT_PROFILE_TAB = "//a[text()='Account Profiles' and @class='Icon AccountProfiles']";
-	//Account Profile Tab
-
-	//Change PasswordTab
-	public final String ELEMENT_INPUT_CURRENTPASSWORD = "//input[@name='currentpass']";
-	public final String ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT = "//input[@id='newpass']";
-	public final String ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT = "//input[@id='confirmnewpass']";
-	//End My Account Form
+	//User-> Setting
+	public final By ELEMENT_CHANGE_PASSWORD_TAB = By.linkText("Change Password");
+	public final By ELEMENT_ACCOUNT_PROFILE_TAB = By.linkText("Account Profiles");
+	public final By ELEMENT_INPUT_CURRENTPASSWORD = By.id("currentpass");
+	public final By ELEMENT_INPUT_NEW_PASSWORD_MYACCOUNT = By.id("newpass");
+	public final By ELEMENT_INPUT_NEW_CONFIRM_PASSWORD_MYACCOUNT = By.id("confirmnewpass");
+	public final By ELEMENT_SAVE_CHANGE_PASS_BUTTON = By.xpath("//*[@id='UIAccountChangePass']//button[text()='Save']");
+	public final String MESSAGE_UPDATE_ACCOUNT = "The account information has been updated.";
+	public final String MESSAGE_UPDATE_PASSWORD = "The password has been changed.";
 
 	//Add user Form - (Setting -> User -> add User)
 	//Account setting
 	public final By ELEMENT_ACCOUNT_SETTING_TAB = By.xpath("//*[text()='Account Setting' and @data-toggle='tab']");
-	public final String ELEMENT_INPUT_CONFIRM_PASSWORD = "//input[@id='Confirmpassword']";
-	public final String ELEMENT_INPUT_NEW_PASSWORD = "//input[@id='newPassword']";
-	public final String ELEMENT_INPUT_NEW_CONFIRM_PASSWORD = "//input[@id='confirmPassword']";
-	public final String ELEMENT_INPUT_FIRSTNAME = "//input[@id='firstName']";
-	public final String ELEMENT_INPUT_LASTNAME = "//input[@id='lastName']";
-	public final String ELEMENT_INPUT_EMAIL = "//input[@id='email']";
+	public final By ELEMENT_INPUT_CONFIRM_PASSWORD = By.id("Confirmpassword");
+	public final By ELEMENT_INPUT_NEW_PASSWORD = By.id("newPassword");
+	public final By ELEMENT_INPUT_NEW_CONFIRM_PASSWORD = By.id("confirmPassword");
+	public final By ELEMENT_INPUT_FIRSTNAME = By.id("firstName");
+	public final By ELEMENT_INPUT_LASTNAME = By.id("lastName");
+	public final By ELEMENT_INPUT_DISPLAY_NAME = By.id("displayName");
+	public final By ELEMENT_INPUT_EMAIL = By.id("email");
+	
 	//User Profile
 	public final By ELEMENT_USER_PROFILE_TAB = By.xpath("//*[text()='User Profile' and @data-toggle='tab']");
-	//"//div[text()='User Profile' and @class='MiddleTab']";	
 	public final By ELEMENT_INPUT_USER_NAME_GIVEN = By.name("user.name.given");
-	//"//input[@id='user.name.given']";
 	public final By ELEMENT_SELECT_USER_LANGUAGE = By.name("user.language");
-	//"//select[@name='user.language']";
+
 	//End User Profile
 	//End - Add User Form
 	//Setting -> user -> Groups and roles
@@ -181,9 +180,10 @@ public class PlatformBase extends TestBase {
 	 * */
 	//User Management TAB
 	public final String ELEMENT_USER_MANAGEMENT = "//div[@class='UserManagementIcon']/..";
-	public final String ELEMENT_USER_DELETE_ICON ="//*[@id='UIListUsersGird']//*[text()='${username}']/../..//*[@class='uiIconDeleteUser uiIconLightGray']";
+	public final String ELEMENT_USER_DELETE_ICON ="//*[@id='UIListUsersGird']//*[text()='${username}']/../..//*[@data-original-title='Delete User']";
 	public final String ELEMENT_INPUT_SEARCH_USER_NAME = "//input[@name='searchTerm']";
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
+	public final String ELEMENT_USER_EDIT_ICON = "//*[@id='UIListUsersGird']//*[text()='${username}']/../..//*[@data-original-title='Edit User Info']";
 
 	//Group Management TAB
 	public final By ELEMENT_GROUP_MANAGEMENT_TAB = By.xpath("//*[contains(@class, 'uiIconGroup')]");
@@ -214,9 +214,7 @@ public class PlatformBase extends TestBase {
 	 * Manage Account
 	 * */
 	public final By ELEMENT_SIGN_IN_BUTTON = By.xpath("//*[@class='loginButton']/*");
-	//"//form[@id='UIPortalComponentLogin']//div[@class='UIAction']/*";
 	public final String ELEMENT_SELECT_SEARCH_OPTION = "//select[@name='searchOption']";
-	public final String ELEMENT_USER_EDIT_ICON = "//div[@id='UIListUsersGird']/table//tr/td/div[text()='${username}']/../../td[5]//img[@class='ViewUserInfoIcon']";
 	public final String ELEMENT_SEARCH_ICON_REGISTER = "//img[@class='SearchIcon']";
 	public final String ELEMENT_ADD_NEW_PORTAL_LINK = "//a[text()='Add New Portal']";	
 	public final String ELEMENT_CHECKBOX_SHOW_INFO_BAR_BY_DEFAULT = "//input[@name='showInfobar']";
