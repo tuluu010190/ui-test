@@ -141,7 +141,8 @@ public class ContentTemplate extends EcmsBase{
 	//Message
 	public final String MESSAGE_NAME_REQUIRED_FIELD = "The field \"Name\" is required.";
 	public final String MESSAGE_CONTENT_REQUIRED_FIELD = "The field \"Content\" is required.";
-			
+	public final String MESSAGE_FIELD_NAME_INVALID_CHARS = "The field 'Name' contains some invalid characters. Please enter another value.";		
+
 	/*=================== Create a new document/article/file ===================*/
 	/* 
 	 * Add new article / Kofax / File Plan
@@ -169,13 +170,17 @@ public class ContentTemplate extends EcmsBase{
 	}
 
 	//add new Free layout webcontent
-	public void createNewWebContent(String name, String cont, String img, String sum, String css, String js, boolean...multiLine){
-		boolean lines = multiLine.length > 0 ? multiLine[0]: false;
+	public void createNewWebContent(String name, String cont, String img, String sum, String css, String js, Object...params){
+		boolean lines = (Boolean) (params.length > 0 ? params[0]: false);
+		String optionLang = (String) (params.length > 1 ? params[1]:"");
 		
 		info("-- Creating a new Web Content --");
 		Utils.pause(500);
 		click(ELEMENT_WEBCONTENT_LINK);
 		type(ELEMENT_WEBCONTENT_NAME_TEXTBOX, name, true);
+		if (!optionLang.isEmpty()){
+			selectOption(ELEMENT_PIC_LANG, optionLang);
+		}
 		if (cont != ""){
 			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME,cont);
 			switchToParentWindow();
@@ -299,7 +304,9 @@ public class ContentTemplate extends EcmsBase{
 		info("-- Creating a new Illustrated Web Content --");
 		//String imageWidth = (String) (params.length > 0 ? params[0]: "");
 		//String imageHeight = (String) (params.length > 1 ? params[1]: "");
-
+		String optionLang = (String) (params.length > 0 ? params[0] : "");
+		Boolean verify = (Boolean) (params.length > 1 ? params[1] : true);
+		
 		click(ELEMENT_HEAD_LAYOUT_LINK);
 		type(ELEMENT_HEAD_LAYOUT_NAME_TEXTBOX, name, false);
 		inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, content);
@@ -312,8 +319,12 @@ public class ContentTemplate extends EcmsBase{
 			switchToParentWindow();
 			String links[] = file.split("/");
 			int length = links.length;
-			waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
+			waitForAndGetElement(By.xpath("//*[contains(@class, 'select')]//*[contains(text(),'" + links[length-1]+ "')]"));
 		}
+		if (!optionLang.isEmpty()){
+			selectOption(ELEMENT_PIC_LANG, optionLang);
+		}
+		
 		//Illustration tab
 		if (illustrationSummary!="" || illustrationImage !=""){
 			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
@@ -337,7 +348,9 @@ public class ContentTemplate extends EcmsBase{
 			type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, false);
 		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", content)));
+		if (verify){
+			waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", content)));
+		}
 	}
 
 	//add new product

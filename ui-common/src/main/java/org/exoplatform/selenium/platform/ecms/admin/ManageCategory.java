@@ -283,10 +283,11 @@ public class ManageCategory extends EcmsPermission{
 		/*if (ex && (getElement(ELEMENT_EXPAND) != null)){
 				click(ELEMENT_EXPAND);
 			}*/
-		if (ex && (getElement(ELEMENT_COLLAPSE) != null)){
+		if (ex && (waitForAndGetElement(ELEMENT_COLLAPSE, 3000, 0) != null)){
 			click(ELEMENT_COLLAPSE);
+			info("Expand node " + node + "...successful");
 		}
-		if (!ex && (getElement(ELEMENT_COLLAPSE) != null)){
+		if (!ex && (waitForAndGetElement(ELEMENT_COLLAPSE, 3000, 0) != null)){
 			click(ELEMENT_COLLAPSE);
 		}
 	}
@@ -340,8 +341,8 @@ public class ManageCategory extends EcmsPermission{
 
 	//Delete a category
 	public void deleteCategory(String categoryName){
-		By ELEMENT_DELETE = By.xpath("//div[@title = '" + categoryName + "']/../..//*[@class = 'uiIconDelete']");
-		By ELEMENT_DELETE_1 = By.xpath("//div[@data-original-title = '" + categoryName + "']/../..//*[@class='uiIconDelete']");
+		By ELEMENT_DELETE = By.xpath("//*[@title = '" + categoryName + "']/../..//*[@class = 'uiIconDelete']");
+		By ELEMENT_DELETE_1 = By.xpath("//*[@data-original-title = '" + categoryName + "']/../..//*[@class='uiIconDelete']");
 		Utils.pause(500);
 		if (isElementPresent(ELEMENT_DELETE)){
 			click(ELEMENT_DELETE); 

@@ -20,7 +20,6 @@ public class NavigationToolbar extends PlatformBase {
 		driver = dr;
 	} 
 
-
 	//Go to portal sites
 	public void goToPortalSites() {
 		info("--Go to Portal Site Management--");
@@ -42,11 +41,6 @@ public class NavigationToolbar extends PlatformBase {
 			info("Retry...[" + repeat + "]");
 		}
 		waitForTextPresent("Manage Sites");
-		/*mouseOver(ELEMENT_LINK_PORTAL, false);
-		Utils.pause(500);
-		mouseOver(ELEMENT_LINK_SITES, false);
-		click(ELEMENT_LINK_SITES);
-		Utils.pause(500);*/
 	}
 
 	//Go to Portal Manage Pages	
@@ -74,8 +68,20 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Go to Dashboard
 	public void goToDashboard(){
-		info("--Go to Dashboard page--");	
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		info("--Go to Dashboard page--");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				break;
+			}
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			if (waitForAndGetElement(ELEMENT_DASHBROARD_LINK, 5000, 0) != null){
+				info("Element " + ELEMENT_DASHBROARD_LINK + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
 		click(ELEMENT_DASHBROARD_LINK);
 		waitForTextPresent("My Dashboard");
 	}
@@ -83,7 +89,21 @@ public class NavigationToolbar extends PlatformBase {
 	//Go to User management page
 	public void goToNewStaff() {
 		info("Go to New Staff");
-		mouseOver(ELEMENT_LINK_SETUP, true);
+		//goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADD_USERS);
+		//mouseOverAndClick(ELEMENT_LINK_SETUP);
+		//mouseOver(ELEMENT_LINK_SETUP, true);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LINK_SETUP);
+				break;
+			}
+			mouseOver(ELEMENT_LINK_SETUP, true);
+			if (waitForAndGetElement(ELEMENT_LINK_USERS, 5000, 0) != null){
+				info("Element " + ELEMENT_LINK_USERS + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
 		click(ELEMENT_LINK_USERS);
 		Utils.pause(1000);
 	}
@@ -185,8 +205,21 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Enter Sites Management Form 
 	public void goToSiteExplorer(){
-		Utils.pause(1000);
-		mouseOver(ELEMENT_LINK_SETUP, true);
+		Utils.pause(500);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LINK_SETUP);
+				break;
+			}
+			mouseOver(ELEMENT_LINK_SETUP, true);
+			if (waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK, 5000, 0) != null){
+				info("Element " + ELEMENT_MENU_CONTENT_LINK + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		//mouseOverAndClick(ELEMENT_LINK_SETUP);
+		//mouseOver(ELEMENT_LINK_SETUP, true);
 		mouseOverAndClick(ELEMENT_MENU_CONTENT_LINK);
 		//click(ELEMENT_MENU_SITE_EXPLORER);
 		Utils.pause(2000);

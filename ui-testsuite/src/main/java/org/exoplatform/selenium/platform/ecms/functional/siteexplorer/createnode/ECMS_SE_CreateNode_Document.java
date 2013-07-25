@@ -155,9 +155,9 @@ public class ECMS_SE_CreateNode_Document extends PlatformBase{
 		cMenu.contextMenuAction(By.linkText(FILE_TITLE), cMenu.ELEMENT_MENU_CHECKIN);
 
 		info("Go to the child node " + SUB_FILE_TITLE);
-		info("Verify [Add New Content] is not displayed on Action Bar");
+		info("Verify [Add New Content] is displayed on Action Bar");
 		ecms.goToNode(By.linkText(SUB_FILE_TITLE));
-		waitForElementNotPresent(actBar.ELEMENT_NEW_CONTENT_LINK);
+		waitForAndGetElement(actBar.ELEMENT_NEW_CONTENT_LINK);
 
 		info("Restore data");
 		cMenu.contextMenuAction(By.linkText(FILE_TITLE), cMenu.ELEMENT_MENU_CHECKOUT);
@@ -435,8 +435,7 @@ public class ECMS_SE_CreateNode_Document extends PlatformBase{
 	@Test
 	public void test13_AddContentWithSpecialCharactersInName(){
 		String WEB_CONTENT = "ECMS_SE_Document_13";
-		String message = "The field 'Name' contains some invalid characters. Please enter another value.";
-
+		
 		info("Go to Content Explorer");
 		navToolBar.goToSiteExplorer();
 
@@ -445,7 +444,7 @@ public class ECMS_SE_CreateNode_Document extends PlatformBase{
 			actBar.goToAddNewContent();
 			info("Add content with character..." + cTemplate.DATA_SPECIAL_CHARACTER_2[i]);
 			cTemplate.createNewWebContent(cTemplate.DATA_SPECIAL_CHARACTER_2[i] + WEB_CONTENT, WEB_CONTENT, "", "", "", "");
-			magAlt.verifyAlertMessage(message);
+			magAlt.verifyAlertMessage(cTemplate.MESSAGE_FIELD_NAME_INVALID_CHARS);
 			button.close();
 		}
 	}

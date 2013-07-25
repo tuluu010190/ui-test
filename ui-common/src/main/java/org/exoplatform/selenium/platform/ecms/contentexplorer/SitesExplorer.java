@@ -44,7 +44,6 @@ public class SitesExplorer extends EcmsBase{
 	public final By ELEMENT_SIMPLESEARCH_SUBMIT = By.id("SimpleSearch");
 	public final By ELEMENT_QUICKSEARCH_ICON = By.xpath("//a[@data-original-title='Quick Search']");
 
-
 	/* sidebar */
 	public final String ELEMENT_SE_NODE = "//*[@title='{$node}']"; 
 	public final By ELEMENT_SIDEBAR_SITES_MANAGEMENT = By.xpath("//*[@data-original-title = 'Sites Management']");
@@ -65,7 +64,10 @@ public class SitesExplorer extends EcmsBase{
 	public final String ELEMENT_TITLE_LEFT_PANEL = "//div[@id='UITreeExplorer']//div[contains(@onmousedown,'collaboration:/sites/${title}')]";
 
 	public final String ELEMENT_DOCUMENT_TITLE = "//*[@class='nodeLabel']/*[text()='${title}']";
-
+	
+	//Check status of documents
+	public final String ELEMENT_STATUS_DOCUMENT = "//*[@data-original-title='${title}']/../..//*[@data-original-title='status']";
+	
 	/*================***==================*/
 
 	//Verify if Driver is present

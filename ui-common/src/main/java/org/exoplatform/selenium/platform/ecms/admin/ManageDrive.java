@@ -61,7 +61,7 @@ public class ManageDrive extends EcmsBase{
 	public final By ELEMENT_ADD_PATH_POPUP = By.id("JCRBrowser");
 	public final By ELEMENT_JCR_SYSTEM = By.xpath("//*[contains(text(),'jcr:system')]/../..//*[@title='select']");
 	public final String ELEMENT_SELECT_PATH_ITEM = "//*[contains(text(),'${node}')]/../..//*[@title='select']";
-	public final String ELEMENT_SELECT_PATH_IEM_AUX = "//*[contains(text(),'${node}')]/../..//*[@data-original-title='select']";
+	public final String ELEMENT_SELECT_PATH_ITEM_AUX = "//*[contains(text(),'${node}')]/../..//*[@data-original-title='select']";
 	public final By ELEMENT_HOME_PATH = By.id("homePath");
 	public final By ELEMENT_ADD_PERMISSION = By.xpath("//*[@title='Add Permission']");
 	public final By ELEMENT_ADD_PERMISSION_AUX = By.xpath("//*[@data-original-title='Add Permission']");
@@ -131,8 +131,10 @@ public class ManageDrive extends EcmsBase{
 			assert waitForAndGetElement(By.xpath("//*[@name='workspaceName']/option[@value='" + workspace + "']")).isSelected():"Homepath display wrong";
 			if (isElementPresent(ELEMENT_EXO_ECM)){
 				click(ELEMENT_EXO_ECM);
-			}else if (isElementPresent(By.xpath(ELEMENT_SELECT_PATH_IEM_AUX.replace("${node}", path)))){
-				click(By.xpath(ELEMENT_SELECT_PATH_IEM_AUX.replace("${node}", path)));
+			}else if (isElementPresent(By.xpath(ELEMENT_SELECT_PATH_ITEM_AUX.replace("${node}", path)))){
+				click(By.xpath(ELEMENT_SELECT_PATH_ITEM_AUX.replace("${node}", path)));
+			}else if (isElementNotPresent(By.xpath(ELEMENT_SELECT_PATH_ITEM_AUX.replace("${node}", path)))){
+				selectHomePathForCategoryTree(path);
 			}
 			else{
 				info("list node of homepath display false");

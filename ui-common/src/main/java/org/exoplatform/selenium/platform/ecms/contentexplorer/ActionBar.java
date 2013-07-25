@@ -241,13 +241,19 @@ public class ActionBar extends EcmsBase{
 	}
 
 	// Add a category in DMS Administration - Simple View
-	public void addCategoryInSimpleView(String name)
-	{
+	public void addCategoryInSimpleView(String categoryName, Object...params){
+		Boolean checkCategory = (Boolean) (params.length > 0 ? params[0]:true);
+		
+		info("Add a simple category");
 		click(ELEMENT_BUTTON_ADD_CATEGORY);
 		waitForAndGetElement(ELEMENT_ADD_CATEGORY_FORM);
-		type(ELEMENT_INPUT_CATEGORY_NAME, name, false);
+		type(ELEMENT_INPUT_CATEGORY_NAME, categoryName, false);
 		click(button.ELEMENT_SAVE_BUTTON);
-		waitForAndGetElement(By.xpath("//a[@title='"+ name + " ']"));
+		if (checkCategory){
+			waitForAndGetElement(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", categoryName));
+			//(By.xpath("//a[@title='"+ name + " ']"));
+		}
+		Utils.pause(500);
 	}
 
 	//Export node
