@@ -31,7 +31,7 @@ public class ContentTemplate extends EcmsBase{
 
 	//Select language
 	public final By ELEMENT_SELECT_LANGUAGE = By.xpath("//*[@id='UIDocumentForm']//select[@name='content-lang']");
-	
+
 	//Announcement
 	public final By ELEMENT_ANNOUNCEMENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Announcement']");
 	public final By ELEMENT_ANNOUNCEMENT_NAME_TEXTBOX = By.id("name");
@@ -53,7 +53,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_MAXIMIZE_ICON = By.xpath("//*[contains(@class, 'uiIconEcmsExpand')]");
 	public final By ELEMENT_MINIMIZE_ICON = By.xpath("//*[contains(@class, 'uiIconEcmsCollapse')]");
 	public final By ELEMENT_CHANGE_CONTENT_TYPE = By.xpath("//*[contains(@class, 'ChangeTypeLink')]");
-	
+
 	//File
 	public final By ELEMENT_NEWFILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='File']");
 	//By.linkText("File");
@@ -91,7 +91,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_PRODUCT_SUMMARY_FRAME = By.xpath("//*[@id='cke_contents_summary']/iframe");
 	public final By ELEMENT_PRODUCT_BENEFIT_FRAME = By.xpath("//*[@id='cke_contents_productBenefits']/iframe");
 	public final By ELEMENT_PRODUCT_FEATURE_FRAME = By.xpath("//*[@id='cke_contents_productFeatures']/iframe");
-			
+
 	public final By ELEMENT_FREE_CONT_ACCEPT = By.xpath("//form[contains(@id,'EditTextForm')]/a[2]");
 	public final By ELEMENT_FREE_CONT_INPUT = By.xpath("//iframe[contains(@title,'Rich text editor, newText')]");
 	public final String ELEMENT_FREE_CONT_INLINE = "//div[contains(@id,'CurrentText') and @title='Double-click to edit']";
@@ -143,6 +143,11 @@ public class ContentTemplate extends EcmsBase{
 	public final String MESSAGE_CONTENT_REQUIRED_FIELD = "The field \"Content\" is required.";
 	public final String MESSAGE_FIELD_NAME_INVALID_CHARS = "The field 'Name' contains some invalid characters. Please enter another value.";		
 
+	//Web Links
+	public final By ELEMENT_LINK_NAME= By.id("name");
+	public final By ELEMENT_LINK_URL= By.id("LinkURL");
+	public final By ELEMENT_LINK_DESC= By.id("LinkDescription");
+	
 	/*=================== Create a new document/article/file ===================*/
 	/* 
 	 * Add new article / Kofax / File Plan
@@ -173,7 +178,7 @@ public class ContentTemplate extends EcmsBase{
 	public void createNewWebContent(String name, String cont, String img, String sum, String css, String js, Object...params){
 		boolean lines = (Boolean) (params.length > 0 ? params[0]: false);
 		String optionLang = (String) (params.length > 1 ? params[1]:"");
-		
+
 		info("-- Creating a new Web Content --");
 		Utils.pause(500);
 		click(ELEMENT_WEBCONTENT_LINK);
@@ -220,7 +225,7 @@ public class ContentTemplate extends EcmsBase{
 		String previousWindowHandle = driver.getWindowHandle();
 		click(ELEMENT_WEBCONTENT_ADD_CONTENT_LINK);
 		switchToNewWindow();
-		
+
 		String[] link = path.split("/");
 		for (int i = 0; i < link.length; i ++){
 			click(By.id(link[i]));
@@ -229,14 +234,14 @@ public class ContentTemplate extends EcmsBase{
 		driver.switchTo().window(previousWindowHandle);
 		Utils.pause(1000);
 	}
-	
+
 	//add new file
 	public void createNewFile(String name, String cont, String title, Object...params){
 		String description = (String) (params.length > 0 ? params[0]: "");
 		boolean lines = (Boolean) (params.length > 1 ? params[1]: false);
 		boolean isMimeType = (Boolean) (params.length > 2 ? params[2]: false);
 		String mimeType = (String) (params.length > 3 ? params[3]: "text/html");
-				
+
 		click(ELEMENT_NEWFILE_LINK);	
 		type(ELEMENT_NEWFILE_NAME_TEXTBOX, name, false);
 		if (isMimeType){
@@ -262,7 +267,7 @@ public class ContentTemplate extends EcmsBase{
 		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", cont)), DEFAULT_TIMEOUT, 1, 2);
 		Utils.pause(1000);
 	}
-	
+
 	/** function create new file with full input
 	 * @author lientm
 	 * @param name
@@ -273,7 +278,7 @@ public class ContentTemplate extends EcmsBase{
 	 * @param source
 	 */
 	public void createNewFullFile(String name, String cont, String title, String desc, String creator, String source){
-		
+
 		click(ELEMENT_NEWFILE_LINK);	
 		type(ELEMENT_NEWFILE_NAME_TEXTBOX, name, true);
 		inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, cont, true);
@@ -306,7 +311,7 @@ public class ContentTemplate extends EcmsBase{
 		//String imageHeight = (String) (params.length > 1 ? params[1]: "");
 		String optionLang = (String) (params.length > 0 ? params[0] : "");
 		Boolean verify = (Boolean) (params.length > 1 ? params[1] : true);
-		
+
 		click(ELEMENT_HEAD_LAYOUT_LINK);
 		type(ELEMENT_HEAD_LAYOUT_NAME_TEXTBOX, name, false);
 		inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, content);
@@ -321,10 +326,11 @@ public class ContentTemplate extends EcmsBase{
 			int length = links.length;
 			waitForAndGetElement(By.xpath("//*[contains(@class, 'select')]//*[contains(text(),'" + links[length-1]+ "')]"));
 		}
+		
 		if (!optionLang.isEmpty()){
 			selectOption(ELEMENT_PIC_LANG, optionLang);
 		}
-		
+
 		//Illustration tab
 		if (illustrationSummary!="" || illustrationImage !=""){
 			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
@@ -360,7 +366,7 @@ public class ContentTemplate extends EcmsBase{
 		//type(ELEMENT_PRODUCT_TITLE_TEXTBOX, title, false);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 	}
-	
+
 	/** function add new Product content with full inputs
 	 * @author lientm
 	 * @param name
@@ -411,7 +417,7 @@ public class ContentTemplate extends EcmsBase{
 	//add new Content Folder
 	public void createNewFolder(String title, folderType type, Object...params) {
 		Boolean checkFolder = (Boolean) (params.length > 0 ? params[0]:true); 
-		
+
 		info("-- Creating a new folder --");
 		actBar.goToAddNewFolder();
 		WebElement fType = waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0, 2);
@@ -500,6 +506,29 @@ public class ContentTemplate extends EcmsBase{
 		createNewFolder(name, folderType.Content);
 		waitForAndGetElement(path);
 		info("Create new content folder successfully"); 
+	}
+
+
+	//Create a new link 
+	public void createNewLink(String linkName, String url, Object...params){
+		String lang = (String) (params.length > 0 ? params[0]: "");
+		String description = (String) (params.length > 1 ? params[1]: "");
+		
+		info("Create a new link" + linkName);
+		type(ELEMENT_LINK_NAME, linkName, false);
+		type(ELEMENT_LINK_URL, url, false);
+		
+		if (!lang.isEmpty()){
+			selectOption(ELEMENT_PIC_LANG, lang);
+		}
+		
+		if (!description.isEmpty()){
+			type(ELEMENT_LINK_DESC, description, false);
+		}
+		
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(1000);
 	}
 
 	/*=================== Edit a new document/article/file ===================*/
@@ -707,7 +736,7 @@ public class ContentTemplate extends EcmsBase{
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON, 3000);
 		//waitForElementPresent(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentToEdit));
 	}
-	
+
 	/**
 	 * @author lientm
 	 * @param name
@@ -715,7 +744,7 @@ public class ContentTemplate extends EcmsBase{
 	 */
 	public void editLanguageForDocument(String name, String language){
 		actBar.goToEditDocument(name);
-		
+
 		select(ELEMENT_SELECT_LANGUAGE, language);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(ELEMENT_SELECT_LANGUAGE);

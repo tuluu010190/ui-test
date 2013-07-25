@@ -49,6 +49,7 @@ public class ManageAlert extends TestBase{
 
 	//Get Text
 	public String getTextFromAlert() {
+		Utils.pause(1000);
 		try {
 			Alert alert = driver.switchTo().alert();
 			return alert.getText();
