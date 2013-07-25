@@ -75,7 +75,7 @@ public class NavigationToolbar extends PlatformBase {
 	//Go to Dashboard
 	public void goToDashboard(){
 		info("--Go to Dashboard page--");	
-		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		click(ELEMENT_DASHBROARD_LINK);
 		waitForTextPresent("My Dashboard");
 	}
@@ -83,8 +83,6 @@ public class NavigationToolbar extends PlatformBase {
 	//Go to User management page
 	public void goToNewStaff() {
 		info("Go to New Staff");
-		//goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADD_USERS);
-		//mouseOverAndClick(ELEMENT_LINK_SETUP);
 		mouseOver(ELEMENT_LINK_SETUP, true);
 		click(ELEMENT_LINK_USERS);
 		Utils.pause(1000);
@@ -94,7 +92,7 @@ public class NavigationToolbar extends PlatformBase {
 	//Function go to My Setting
 	public void goToMySetting(){
 		info("---Go to My Setting ---");
-		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		mouseOverAndClick(ELEMENT_MY_SETTING);
 		Utils.pause(1000);
 	}
@@ -123,8 +121,6 @@ public class NavigationToolbar extends PlatformBase {
 
 	public void goToUsersAndGroupsManagement() {
 		info("--Go to Users and groups management--");
-		//goToPage(ELEMENT_LINK_SETUP, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_GROUP_AND_ROLE_LINK);
-		//mouseOverAndClick(ELEMENT_LINK_SETUP);
 		mouseOver(ELEMENT_LINK_SETUP, true);
 		WebElement element = waitForAndGetElement(By.xpath(ELEMENT_GROUP_AND_ROLE_LINK), DEFAULT_TIMEOUT, 1, 2);		
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
@@ -190,7 +186,6 @@ public class NavigationToolbar extends PlatformBase {
 	//Enter Sites Management Form 
 	public void goToSiteExplorer(){
 		Utils.pause(1000);
-		//mouseOverAndClick(ELEMENT_LINK_SETUP);
 		mouseOver(ELEMENT_LINK_SETUP, true);
 		mouseOverAndClick(ELEMENT_MENU_CONTENT_LINK);
 		//click(ELEMENT_MENU_SITE_EXPLORER);

@@ -234,16 +234,16 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_PROPERTIES_TAB = "//div[text()='Properties' and @class='MiddleTab']";
 
 	//Permission Setting TAB
-	public final String ELEMENT_PERMISSION_SETTING_TAB= "//div[text()='Permission Settings' and @class='MiddleTab']";
-	public final String ELEMENT_CHECKBOX_PUBLIC_MODE = "//input[@name='publicMode']";
-	public final String ELEMENT_EDIT_PERMISSION_SETTING = "//a[text()='Edit Permission Settings']";
+	public final By ELEMENT_PERMISSION_SETTING_TAB= By.linkText("Permission Settings");
+	public final By ELEMENT_CHECKBOX_PUBLIC_MODE = By.id("publicMode");
+	public final By ELEMENT_EDIT_PERMISSION_SETTING = By.linkText("Edit Permission Settings");
 	public final String ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM = "//a[text()='${membership}']";
 	public final String ELEMENT_SELECTED_ACCESS_PERMISSION_GROUP = "//div[@id='PermissionGrid']/table/tbody//div[text()='/${groupId}']";
 	public final String ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP = "//div[@id='PermissionGrid']/table/tbody//div[text()='${membership}']";
-	public final String ELEMENT_ADD_PERMISSION_BUTTON = "//*[text()='Add Permission']";
+	public final By ELEMENT_ADD_PERMISSION_BUTTON = By.linkText("Add Permission");
 	public final String ELEMENT_SELECT_EDIT_MEMBERSHIP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${membership}']";
 	public final String ELEMENT_SELECTED_EDIT_PERMISSION_GROUP = "// div[@class='SelectedPermissionInfo']/div[2]/div[.='/${groupId}']";
-	public final String ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP = "//div[@class='SelectedPermissionInfo']/div[3]/div[.='${membership}']";
+	public final String ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP = "//*[@id='UIPermissionSelector']//*[text()='${membership}']";
 	public final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
 	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = ".//*[@id='ListPermissionSelector']//a[@title='${group}']";
 	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${group}']";
@@ -269,20 +269,20 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_LINK_EDITOR_PAGE = "//a[text()='Page']";
 	public final String ELEMENT_LINK_EDITOR_ADD_PAGE = "//a[text()='Add Page']";	
 	public final String ELEMENT_INPUT_NODE_NAME = "//input[@id='pageName']";
-	public final String ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE = "//input[@name='switchmode']";
+	public final By ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE = By.id("switchmode");
 	public final String ELEMENT_LINK_EDITOR_PAGE_LAYOUT="//a[@class='ItemIcon EditPageIcon' and text()='Layout']";
 
 	public final By ELEMENT_UP_LEVEL=By.xpath("//a[@title='Up Level']");
 	public final String ELEMENT_SELECT_LANGUAGE = "//select[@name='languages']";
 	public final String ELEMENT_INPUT_PAGE_DISPLAY_NAME = "//input[@id='pageDisplayName']";
-	public final String ELEMENT_PAGE_EDITOR_NEXT_STEP = "//div[@class='ActionBar']//a[text()='Next']";
-	public final String ELEMENT_EDIT_PAGE_CATEGORY_MENU = "//a[@class='TabLabel' and @title='${categoryLabel}']";
+	public final String ELEMENT_PAGE_EDITOR_NEXT_STEP = "//button[text()='Next']";
+	public final String ELEMENT_EDIT_PAGE_CATEGORY_MENU = "//a[@title='${categoryLabel}']";
 	public final String ELEMENT_EDIT_PAGE_PAGE = "//div[@id='UIPage']";
 	public final String ELEMENT_PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
 	public final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//*[@data-original-title='Finish']";
 	public final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
 	public final By ELEMENT_SWITCH_VIEW_MODE = By.linkText("Switch View mode");
-
+	
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
@@ -316,6 +316,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_NEWPAGE_LAYOUT_DEFAULT_OPTION = By.linkText("Page Configs");
 	public final By ELEMENT_CONTENT_GROUP_PORTLET = By.xpath("//*[@title='Content']");
 	
+	public final By ELEMENT_APPLICATION_TAB = By.linkText("Applications");
 	public final By ELEMENT_ADD_CONTENT_DETAIL_PORTLET = By.xpath("//div[contains(text(),'Content Detail')]");
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.xpath("//div[@id='UIPage']");
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
@@ -463,7 +464,7 @@ public class PlatformBase extends TestBase {
 		click(membershipToSelect);
 		waitForTextNotPresent("Permission Selector");
 		//waitForAndGetElement(selectedGroup);
-		waitForAndGetElement(selectedMembership);
+		waitForAndGetElement(selectedMembership, DEFAULT_TIMEOUT, 1, 2);
 	}
 
 	//Define a type of page

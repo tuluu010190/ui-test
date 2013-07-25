@@ -465,10 +465,11 @@ public class TestBase {
 	}
 
 	//un-check a checked-box
-	public void uncheck(Object locator) {
+	public void uncheck(Object locator, int... opParams) {
+		int notDisplayE = opParams.length > 0 ? opParams[0]: 0;
 		Actions actions = new Actions(driver);
 		try {
-			WebElement element = waitForAndGetElement(locator);
+			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
 
 			if (element.isSelected()) {
 				actions.click(element).perform();

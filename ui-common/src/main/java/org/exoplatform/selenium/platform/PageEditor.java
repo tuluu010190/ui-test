@@ -35,8 +35,10 @@ public class PageEditor extends PlatformBase {
 	public String NODE_NAME_INPUT = "//input[@id='pageName']";
 
 	/* Page Editor - View Page Properties*/
-	//View Page Properties form -> PlatformBase/Permission setting tab
-	public By ELEMENT_VIEW_PAGE_PROPERTIES = By.xpath("//a[text()='View Page properties']");
+	//View Page Properties form -> Page Setting tab
+	public By ELEMENT_VIEW_PAGE_PROPERTIES = By.linkText("View Page properties");
+	public String ELEMENT_OWNERTYPE_SELECTED = "//*[@id='PageSetting-tab']//select[@name='ownerType']/option[@selected = 'selected' and text()='${ownerType}']";
+	
 	//View Page Properties form (there are 2 tabs in this form)
 	//Page Setting Tab
 	public By ELEMENT_VIEWPAGE_PAGETITLE = By.xpath("//input[@id='title']");

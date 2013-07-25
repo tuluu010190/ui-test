@@ -55,9 +55,8 @@ public class ManageAccount extends PlatformBase {
 
 	//Sign-out for eXoGTN
 	public void signOut(){
-		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-		click(ELEMENT_SIGN_OUT_LINK);
+		mouseOverAndClick(ELEMENT_SIGN_OUT_LINK);
 		Utils.pause(1000);
 		if ( ExpectedConditions.alertIsPresent() != null ){
 			magAlert = new ManageAlert(driver);

@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
@@ -24,12 +25,14 @@ public class PageManagement extends PlatformBase {
 	NavigationManagement navMag = new NavigationManagement(driver);
 	Dialog dialog = new Dialog(driver);
 	ManageAlert alt = new ManageAlert(driver);
+	Button button ;
 	
 	/*
 	 * Page Management
 	 * */
 	public String ELEMENT_ADD_PAGE_BUTTON = "//a[text()='Add New Page']";
 	public String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
+	public By ELEMENT_INPUT_SITE_NAME = By.id("siteName");
 	public String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//*[contains(@class, 'uiIconSearch')]";
 	public String ELEMENT_PAGE_EDIT_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconEditInfo uiIconLightGray']";
 	public String ELEMENT_PAGE_DELETE_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
@@ -37,7 +40,8 @@ public class PageManagement extends PlatformBase {
 	//Add New Page Form (shown after click [Add New Page] button in Page Management)
 	public By ELEMENT_PAGE_NAME_INPUT = By.xpath("//input[@id='name']");
 	public By ELEMENT_PAGE_TITLE_INPUT = By.xpath("//input[@id='title']");
-	public String ELEMENT_SELECT_OWNER_TYPE = "//select[@name='ownerType']";
+	public By ELEMENT_SELECT_OWNER_TYPE = By.xpath("//select[@name='ownerType']");
+	public By ELEMENT_SELECT_OWNER_ID = By.name("ownerId");
 	public By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
 		
 	//Message
@@ -45,8 +49,10 @@ public class PageManagement extends PlatformBase {
 	
 	//Add a new page in PageManagement
 	public void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
-			Map<String, String> permissions, String groupId, String membership ){
+			Map<String, String> permissions, String groupId, String membership, String...ownerId ){
 
+		button = new Button(driver);
+		
 		click(ELEMENT_ADD_PAGE_BUTTON);
 		waitForTextPresent("Page Settings");	
 		switch (type){
@@ -59,16 +65,21 @@ public class PageManagement extends PlatformBase {
 		default:
 			break;
 		}
+		if (ownerId.length > 0){
+			if (ownerId[0] != null){
+				select(ELEMENT_SELECT_OWNER_ID, ownerId[0]);
+			}
+		}
 		type(ELEMENT_PAGE_NAME_INPUT, pageName, true);
 		type(ELEMENT_PAGE_TITLE_INPUT, pageTitle, true);		
 
 		//showMaxWindow
-		check(ELEMENT_CHECKBOX_MAX_WINDOWS);
+		click(ELEMENT_CHECKBOX_MAX_WINDOWS, 2);
 		click(ELEMENT_PERMISSION_SETTING_TAB);	
-		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_PUBLIC_MODE);		
+		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_PUBLIC_MODE, DEFAULT_TIMEOUT, 1, 2);		
 		if (publicMode & !element.isSelected()) {
 			waitForAndGetElement(ELEMENT_ADD_PERMISSION_BUTTON);
-			check(ELEMENT_CHECKBOX_PUBLIC_MODE);
+			click(ELEMENT_CHECKBOX_PUBLIC_MODE, 2);
 			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
 		} else if (publicMode & element.isSelected()){
 			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
@@ -81,13 +92,13 @@ public class PageManagement extends PlatformBase {
 		setEditPermissions(groupId, membership);
 		button.save();
 		Utils.pause(1000);
-		searchPageByTitle(type, pageTitle);
+		searchPageInManagementPage(type, pageTitle);
 	}
 
 	//Edit a page at Manage Pages
 	public void editPageAtManagePages(PageType type, String pageTitle){
 		String pageEditIcon = ELEMENT_PAGE_EDIT_ICON.replace("${page}", pageTitle);
-		searchPageByTitle(type, pageTitle);
+		searchPageInManagementPage(type, pageTitle);
 		click(pageEditIcon);
 		Utils.pause(1000);
 	}
@@ -98,7 +109,7 @@ public class PageManagement extends PlatformBase {
 		dialog = new Dialog(driver);
 		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle);
-		searchPageByTitle(type, pageTitle);
+		searchPageInManagementPage(type, pageTitle);
 		click(pageDeleteIcon);
 		Utils.pause(1000);
 		alt.waitForConfirmation(MESSAGE_DELETE_PAGE);
@@ -108,8 +119,10 @@ public class PageManagement extends PlatformBase {
 	}
 
 	// Search a page in Manage Pages
-	public void searchPageByTitle(PageType type, String pageTitle){
-		type(ELEMENT_INPUT_SEARCH_TITLE, pageTitle, true);
+	public void searchPageInManagementPage(PageType type, String pageTitle, String...siteName){
+		if (pageTitle != null){
+			type(ELEMENT_INPUT_SEARCH_TITLE, pageTitle, true);
+		}
 		switch (type){
 		case PORTAL:
 			select(ELEMENT_SELECT_SEARCH_OPTION, "portal");
@@ -120,9 +133,14 @@ public class PageManagement extends PlatformBase {
 		default:
 			break;
 		}
+		if (siteName.length > 0){
+			type(ELEMENT_INPUT_SITE_NAME, siteName[0], true);
+		}
 		click(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
 		Utils.pause(1000);
-		waitForTextPresent(pageTitle);
+		if (pageTitle != null){
+			waitForTextPresent(pageTitle);
+		}
 	}
 
 	// Input data for page
@@ -130,13 +148,13 @@ public class PageManagement extends PlatformBase {
 			Map<String, String> portletIds, boolean extendedLabelMode){
 
 		type(ELEMENT_INPUT_NODE_NAME, nodeName, true);
-		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
+		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE, DEFAULT_TIMEOUT, 1, 2);
 		if (extendedLabelMode){
 			Assert.assertTrue(element.isSelected());
 			select(ELEMENT_SELECT_LANGUAGE, language);
 
 		}else {
-			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
+			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE, 2);
 			type(ELEMENT_INPUT_PAGE_DISPLAY_NAME, displayName, true);
 		}
 
