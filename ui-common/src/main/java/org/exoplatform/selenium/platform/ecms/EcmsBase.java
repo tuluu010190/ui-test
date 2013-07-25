@@ -268,7 +268,16 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_UPLOAD_SOURCE = By.id("source0");
 	public final By ELEMENT_UPLOAD_LINK = By.id("MultiUploadInputFiles");
 	public final By ELEMENT_UPLOAD_FILE_LINK = By.className("uiIconEcmsUpload");
-
+	public final String ELEMENT_CANCEL_UPLOAD_FILE = "//*[text()='${title}']/ancestor::div[contains(@class, 'loadContent')]//*[contains(@id, 'cancel')]";
+	public final By ELEMENT_UPLOAD_CLOSE_TAB = By.id("MultiUploadClose");
+	public final By ELEMENT_UPLOAD_INFORMATION_ICON = By.id("MultiUploadHelp");
+	public final By ELEMENT_MESSAGE_FILE_UPLOADED = By.id("MultiUploadFilesUploaded-text");
+	public final By ELEMENT_WARNING_UPLOAD_FILE_ICON = By.xpath("//*[contains(@class, 'uiIconWarning')]");
+	public final String ELEMENT_UPLOAD_FILE_ACTION = "//*[contains(@class, 'uiIconWarning')]/../..//*[text()='${action}']";
+	public final String ELEMENT_HREF_NODE_LINK = "//*[contains(@href, '${nodeName}')]"; 
+	public final String ELEMENT_FILE_CLONE = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]";
+	public final String ELEMENT_FILE_CREATED_DATE = ELEMENT_DATA_TITLE.replace("${dataTitle}", "${nodeTitle}") + "/../../*[contains(@class, 'columnDatetime')]";
+	
 	//Edit Tag Form
 	public final By ELEMENT_TAG_CLOUD = By.className("uiIconEcmsTagExplorerMini");
 	public final By ELEMENT_EDIT_TAGS = By.xpath("//*[@title='Edit Tags']");
@@ -292,7 +301,9 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_NODE_ADMIN_VIEW = "//*[contains(@class, 'columnText')]//*[contains(text(), '${nodeName}')]";
 	public final String ELEMENT_NODE_ICON_ARROW_RIGHT = "//*[contains(text(), '${nodeName}')]/../..//*[contains(@class, 'columnArrow')]";
 	public final String ELEMENT_NODE_NAME_CONSECUTIVE = "//*[@class='uiListGrid']/div[contains(@mousedown, '${node1}')]/..//*[@class='nodeName' and contains(text(), '${node2}')]";
-
+	public final String ELEMENT_FILE_INFORMATION = ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", "${node}") + "/../*[contains(@class, 'fileInfoBottom')]";
+	public final String ELEMENT_FILE_CLONE_CHECKBOX = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]//*[@name='checkbox']";	
+	
 	//Undo Deleted items
 	public final By ELEMENT_UNDO_DELETED_ITEM = By.xpath("//*[@class='uiIconSuccess']/../*[contains(text(), 'Undo')]");
 	public final String MESSAGE_ITEM_DELETED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was deleted succesfully.\")]";
@@ -510,13 +521,14 @@ public class EcmsBase extends ManageAccount {
 	}
 
 	//upload file
-	public void uploadFile(String link){
+	public void uploadFile(String link, Object...params){
 		//waitForElementPresent(ELEMENT_UPLOAD_LINK_XPATH);
 		//click(ELEMENT_UPLOAD_LINK_XPATH);
 		//waitForElementPresent(ELEMENT_UPLOAD_FILE_NAME_ID);
 		//type(ELEMENT_UPLOAD_FILE_NAME_ID, fileName, false);
 		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
 		//type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(link), false);
+		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
 		if (isTextNotPresent("Upload")){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
@@ -525,13 +537,13 @@ public class EcmsBase extends ManageAccount {
 		type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false);
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
-		String links[] = link.split("/");
-		int length = links.length;
-		waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
-		//click(button.ELEMENT_SAVE_BUTTON);
+		if (verify){
+			String links[] = link.split("/");
+			int length = links.length;
+			waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
+		}
 		info("Upload file successfully");
-		//click(button.ELEMENT_CLOSE_BUTTON);
-		Utils.pause(1000);
+		Utils.pause(2000);
 	}
 
 	//Edit an uploaded file

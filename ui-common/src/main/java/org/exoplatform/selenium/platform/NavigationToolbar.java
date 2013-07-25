@@ -231,6 +231,8 @@ public class NavigationToolbar extends PlatformBase {
 	 * @author lientm
 	 */
 	public void goToPersonalDocuments(){
+		info("Go to Intranet/Documents");
+		Utils.pause(500);
 		click(ELEMENT_PERSONAL_DOCUMENTS);
 		waitForTextPresent("Personal Documents");
 	}
