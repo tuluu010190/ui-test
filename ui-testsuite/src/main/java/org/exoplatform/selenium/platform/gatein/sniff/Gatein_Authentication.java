@@ -88,7 +88,7 @@ public class Gatein_Authentication extends PlatformBase {
 		String email = "gatein@gmail.com";
 		
 		navTool.goToNewStaff();
-		magAc.addNewUserAccount(username, password, password, firstName, lastName, email, null, null, true);
+		magAc.addNewUserAccount(username, password, password, firstName, lastName, null, email, null, null, true);
 		magAc.signOut();
 		
 		magAc.signIn(username, password);
