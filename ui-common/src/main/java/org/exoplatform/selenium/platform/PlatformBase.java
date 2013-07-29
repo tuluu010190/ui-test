@@ -239,7 +239,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_EDIT_PERMISSION_SETTING = By.linkText("Edit Permission Settings");
 	public final String ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM = "//a[text()='${membership}']";
 	public final String ELEMENT_SELECTED_ACCESS_PERMISSION_GROUP = "//div[@id='PermissionGrid']/table/tbody//div[text()='/${groupId}']";
-	public final String ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP = "//div[@id='PermissionGrid']/table/tbody//div[text()='${membership}']";
+	public final String ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP = "//*[@id='PermissionGrid']//*[text()='${membership}']";
 	public final By ELEMENT_ADD_PERMISSION_BUTTON = By.linkText("Add Permission");
 	public final String ELEMENT_SELECT_EDIT_MEMBERSHIP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${membership}']";
 	public final String ELEMENT_SELECTED_EDIT_PERMISSION_GROUP = "// div[@class='SelectedPermissionInfo']/div[2]/div[.='/${groupId}']";

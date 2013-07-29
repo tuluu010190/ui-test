@@ -321,7 +321,7 @@ public class TestBase {
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			check(locator);
+			check(locator, opParams);
 		} finally {
 			loopCount = 0;
 		}
@@ -480,7 +480,7 @@ public class TestBase {
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, 5);
 			Utils.pause(1000);
-			uncheck(locator);
+			uncheck(locator, opParams);
 		} finally {
 			loopCount = 0;
 		}

@@ -150,9 +150,18 @@ public class NavigationToolbar extends PlatformBase {
 	//Go to Portal Application Registry
 	public void goToApplicationRegistry() {
 		info("--Go to Portal Application Registry--");
-		mouseOver(ELEMENT_LINK_SETUP, false);
-		Utils.pause(500);
-		waitForAndGetElement(ELEMENT_APPLICATIONS_LINK);
+		for (int repeat = 0;; repeat ++){
+			if (repeat > 4){
+				mouseOverAndClick(ELEMENT_LINK_SETUP);
+				break;
+			}
+			mouseOver(ELEMENT_LINK_SETUP, false);
+			if (waitForAndGetElement(ELEMENT_APPLICATIONS_LINK, 3000, 0) != null){
+				info("Link application is displayed");
+				break;
+			}
+			info("Retry..." + repeat + "...");
+		}
 		click(ELEMENT_APPLICATIONS_LINK);
 		Utils.pause(500);
 	}

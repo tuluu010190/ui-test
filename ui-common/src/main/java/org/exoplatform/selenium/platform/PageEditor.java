@@ -347,7 +347,7 @@ public class PageEditor extends PlatformBase {
 			info("portlet has already deleted");
 			click(ELEMENT_PAGE_CLOSE);
 		}
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 5000);
+		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 50000);
 	}
 	
 	/**function go to edit a portlet
