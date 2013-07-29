@@ -94,6 +94,21 @@ public class UserGroupManagement extends PlatformBase {
 		click(userEditIcon);
 		Utils.pause(1000);
 	}
+	
+	public void editUserInfo_AccountTab(String first, String last, String displayName, String email){
+		if (first != null){
+			type(ELEMENT_INPUT_FIRSTNAME, first, true);
+		}
+		if (last != null){
+			type(ELEMENT_INPUT_LASTNAME, last, true);
+		}
+		if (displayName != null){
+			type(ELEMENT_INPUT_DISPLAY_NAME, displayName, true);
+		}
+		if (email != null){
+			type(ELEMENT_INPUT_EMAIL, email, true);
+		}
+	}
 
 	/*
 	 *  Group Management 
@@ -103,12 +118,22 @@ public class UserGroupManagement extends PlatformBase {
 		info("--Add a new group--");
 		Utils.pause(500);
 		click(ELEMENT_GROUP_ADD_NEW_ICON);
-		type(ELEMENT_INPUT_GROUP_NAME, groupName, true);
-		type(ELEMENT_INPUT_LABEL, groupLabel, true);
-		type(ELEMENT_TEXTAREA_DESCRIPTION, groupDesc, true);
+		inputDataGroup(groupName, groupLabel, groupDesc);
 		button.save();
 		if (verify) {
 			waitForAndGetElement("//a[@title='" + (groupLabel.length() > 0 ? groupLabel : groupName) + "']");
+		}
+	}
+	
+	public void inputDataGroup(String groupName, String groupLabel, String groupDesc){
+		if (groupName != null){
+			type(ELEMENT_INPUT_GROUP_NAME, groupName, true);
+		}
+		if (groupLabel != null){
+			type(ELEMENT_INPUT_LABEL, groupLabel, true);
+		}
+		if (groupDesc != null){
+			type(ELEMENT_TEXTAREA_DESCRIPTION, groupDesc, true);
 		}
 	}
 
@@ -222,18 +247,24 @@ public class UserGroupManagement extends PlatformBase {
 		}
 	}
 
-	public void editGroup(String groupName, boolean verify){
+	public void editGroup(String oldName, String groupName, String groupLabel, String groupDesc, boolean verify){
 		info("-- Edit group: " + groupName + "--");
 		click(ELEMENT_GROUP_EDIT_ICON);
 		Utils.pause(1000);
+		inputDataGroup(groupName, groupLabel, groupDesc);
+		button.save();
+		if (verify) {
+			waitForAndGetElement("//a[@title='" + (groupLabel.length() > 0 ? groupLabel : groupName) + "']");
+		}
 	}
 
 	public void deleteGroup(String groupName, boolean verify, int...wait) {
+		alt = new ManageAlert(driver);
 		info("-- Delete group: " + groupName + "--");
 		int waitTime= wait.length > 0 ? wait[0]: DEFAULT_TIMEOUT;
 		click(ELEMENT_GROUP_REMOVE_ICON);
 
-		alt.waitForConfirmation("Are you sure to delete this group?");
+		alt.waitForConfirmation("Are you sure you want to delete this group?");
 		if (verify) {
 			waitForElementNotPresent("//a[@title='"+ groupName +"']",waitTime);
 		}
@@ -295,7 +326,7 @@ public class UserGroupManagement extends PlatformBase {
 	}
 
 	public void deleteMembership(String membershipName, boolean verify){
-
+		alt = new ManageAlert(driver);
 		boolean verifyMembership;
 		verifyMembership = isTextPresent(membershipName);
 		if (verifyMembership){
@@ -307,7 +338,7 @@ public class UserGroupManagement extends PlatformBase {
 		String deleteIcon = ELEMENT_MEMBERSHIP_DELETE_ICON.replace("${membership}", membershipName);
 		info("--Deleting membership--");
 		click(deleteIcon);
-		alt.waitForConfirmation("Are you sure to delete this membership?");
+		alt.waitForConfirmation("Are you sure you want to delete this membership?");
 		if (!verifyMembership){
 			waitForTextNotPresent(membershipName);
 		}

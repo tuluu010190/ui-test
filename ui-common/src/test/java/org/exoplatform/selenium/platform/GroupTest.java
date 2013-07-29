@@ -73,7 +73,7 @@ public class GroupTest extends NavigationToolbar{
 		userGroup.chooseGroupTab();
 		Utils.pause(1000);
 		userGroup.selectGroup(groupName);
-		userGroup.editGroup(groupName, true);
+		//userGroup.editGroup(groupName, true);
 		type(ELEMENT_INPUT_LABEL, "", true);
 		type(ELEMENT_TEXTAREA_DESCRIPTION, "edit a group description", true);
 		button.save();

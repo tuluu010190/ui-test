@@ -188,9 +188,9 @@ public class PlatformBase extends TestBase {
 	//Group Management TAB
 	public final By ELEMENT_GROUP_MANAGEMENT_TAB = By.xpath("//*[contains(@class, 'uiIconGroup')]");
 	//"//div[@class='GroupManagementIcon']/..";
-	public final String ELEMENT_GROUP_ADD_NEW_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon AddGroupIcon']";
-	public final String ELEMENT_GROUP_REMOVE_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon RemoveGroupIcon']";
-	public final String ELEMENT_GROUP_EDIT_ICON = "//div[@id='UIOrganizationPortlet']//div[@class='TitleBar']/a[@class='TreeActionIcon EditGroupIcon']";
+	public final By ELEMENT_GROUP_ADD_NEW_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Add New Group']");
+	public final By ELEMENT_GROUP_REMOVE_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Delete Selected Group']");
+	public final By ELEMENT_GROUP_EDIT_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Edit Selected Group']");
 
 	//Add Group Form
 	public final String ELEMENT_INPUT_GROUP_NAME = "//input[@name='groupName']";
@@ -201,12 +201,12 @@ public class PlatformBase extends TestBase {
 	//"//form[@id='UIGroupMembershipForm']/div[2]/div/table/tbody/tr[1]/td[2]/a";
 	public final String ELEMENT_GROUP_SEARCH_POPUP_ADD_ICON = "//form[@id='UIUserSelector']//div[@class='UIAction']//a[@class='ActionButton LightBlueStyle']";
 	public final String ELEMENT_SELECT_MEMBERSHIP = "//select[@name='membership']";
-	public final String ELEMENT_GROUP_USER_IN_TABLE = "//div[@class='UIUserInGroup']//*[@data-original-title = '${username}']";
+	public final String ELEMENT_GROUP_USER_IN_TABLE = "//*[@class='UIUserInGroup']//*[text()='${username}']";
 
 	//Membership Management
-	public final String ELEMENT_TAB_MEMBERSHIP_MANAGEMENT = "//div[@class='MembershipManagementIcon']/..";
-	public final String ELEMENT_MEMBERSHIP_EDIT_ICON = "//div[@class='UIListMembershipType']//table//tr/td/div[text()='${membership}']/../../td[5]//img[@class='EditMembershipIcon']";
-	public final String ELEMENT_MEMBERSHIP_DELETE_ICON = "//div[@class='UIListMembershipType']//table//tr/td/div[text()='${membership}']/../../td[5]//img[@class='DeleteMembershipIcon']";
+	public final By ELEMENT_TAB_MEMBERSHIP_MANAGEMENT = By.xpath("//*[contains(@class, 'uiIconMembership')]");
+	public final String ELEMENT_MEMBERSHIP_EDIT_ICON = "//*[text()='${membership}']/../..//*[@data-original-title='Edit Membership']";
+	public final String ELEMENT_MEMBERSHIP_DELETE_ICON = "//*[text()='${membership}']/../..//*[@data-original-title='Delete Membership']";
 	public final String ELEMENT_NEXT_PAGE_ICON = "//a[@title='Next Page']";
 	public final String ELEMENT_INPUT_NAME = "//input[@id='name']";
 
@@ -216,10 +216,10 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SIGN_IN_BUTTON = By.xpath("//*[@class='loginButton']/*");
 	public final String ELEMENT_SELECT_SEARCH_OPTION = "//select[@name='searchOption']";
 	public final String ELEMENT_SEARCH_ICON_REGISTER = "//img[@class='SearchIcon']";
-	public final String ELEMENT_ADD_NEW_PORTAL_LINK = "//a[text()='Add New Portal']";	
+	public final String ELEMENT_ADD_NEW_PORTAL_LINK = "//a[text()='Add New Site']";	
 	public final String ELEMENT_CHECKBOX_SHOW_INFO_BAR_BY_DEFAULT = "//input[@name='showInfobar']";
 	public final String ELEMENT_PORTAL_IN_LIST = "//td[@class='Content']/div[@class='Label' and text()='${portalName}']";
-	public final String ELEMENT_PORTAL_DELETE_ICON = "//div[@id='UISiteManagement']//table//tr/td/div[text()='${portalName}']/../../td[2]//a[@class='DeleteIcon']";
+	public final String ELEMENT_PORTAL_DELETE_ICON = "//*[text()='${portalName}']/../..//*[text()='Delete']";
 	public final String ELEMENT_PORTAL_EDIT_ICON = "//td[@class='Content']/div[@class='Label' and text()='${portalName}']/../../td[3]/a[@class='EditNavIcon'][2]";
 	public final String ELEMENT_EDIT_FIRST_PORTAL_CONFIG = "//div[@id='UISiteManagement']//a[@class='EditNavIcon'][2]";
 	public final String ELEMENT_SWITCH_VIEW_MODE_PORTAL = "//a[text()='Switch View Mode']";
@@ -231,7 +231,7 @@ public class PlatformBase extends TestBase {
 
 	//Property TAB
 	public final String ELEMENT_SELECT_SESSION_ALIVE= "//select[@name='sessionAlive']"; 
-	public final String ELEMENT_PROPERTIES_TAB = "//div[text()='Properties' and @class='MiddleTab']";
+	public final By ELEMENT_PROPERTIES_TAB = By.linkText("Properties");
 
 	//Permission Setting TAB
 	public final By ELEMENT_PERMISSION_SETTING_TAB= By.linkText("Permission Settings");
@@ -245,8 +245,8 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECTED_EDIT_PERMISSION_GROUP = "// div[@class='SelectedPermissionInfo']/div[2]/div[.='/${groupId}']";
 	public final String ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP = "//*[@id='UIPermissionSelector']//*[text()='${membership}']";
 	public final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
-	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = ".//*[@id='ListPermissionSelector']//a[@title='${group}']";
-	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//div[@id='UIPermissionSelector']//a[text()='${group}']";
+	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//*[@id='ListPermissionSelector']//a[@title='${group}']";
+	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//*[@id='UIPermissionSelector']//*[text()='${group}']";
 	public final String ELEMENT_SELECT_EDIT_PORTAL_CONFIG = "//div[@id='UISiteManagement']//table//tr/td/div[text()='${portalName}']/../../td[2]//a[@class='EditPortIcon']";
 
 	////

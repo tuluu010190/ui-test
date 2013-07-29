@@ -307,10 +307,11 @@ public class TestBase {
 	}
 
 	//Use this function to verify if a check-box is checked (using when creating a portal/publicMode)
-	public void check(Object locator) {
+	public void check(Object locator, int... opParams) {
+		int notDisplayE = opParams.length > 0 ? opParams[0]: 0;
 		Actions actions = new Actions(driver);
 		try {
-			WebElement element = waitForAndGetElement(locator);
+			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
 
 			if (!element.isSelected()) {
 				actions.click(element).perform();
