@@ -316,7 +316,7 @@ public class TestBase {
 			if (!element.isSelected()) {
 				actions.click(element).perform();
 			} else {
-				Assert.fail("Element " + locator + " is already checked.");
+				info("Element " + locator + " is already checked.");
 			}
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);

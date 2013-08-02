@@ -162,9 +162,11 @@ public class PageManagement extends PlatformBase {
 		waitForTextPresent("Empty Layout");
 		click(ELEMENT_PAGE_EDITOR_NEXT_STEP);
 
-		String category = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", categoryTitle);
-		click(category);
-
+		if (categoryTitle != null){
+			String category = ELEMENT_EDIT_PAGE_CATEGORY_MENU.replace("${categoryLabel}", categoryTitle);
+			click(category);
+		}
+		
 		for (String portletId : portletIds.keySet()) {
 			String elementEditPagePage = ELEMENT_EDIT_PAGE_PAGE;
 			//String verification = PORTLET_LABEL.replace("${portletName}", portletIdsAndVerifications.get(portletId));

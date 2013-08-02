@@ -7,6 +7,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.openqa.selenium.By;
 
 public class PortalManagement extends PlatformBase {
 
@@ -16,15 +17,18 @@ public class PortalManagement extends PlatformBase {
 	ManageAlert alt = new ManageAlert(driver);
 	Button button;
 	
-	//Add new portal
-	public void addNewPortal(String portalName, String portalLocale, String portalSkin, String portalSession, 
-			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership){
-		button = new Button(driver);
+	public void configPortal(String portalName, String label, String description, String portalLocale, String portalSkin, String portalSession, 
+			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership, String...template){
 		
-		info("--Create new portal--");
-		click(ELEMENT_ADD_NEW_PORTAL_LINK);
-		waitForTextPresent("Portal Setting");
-		type(ELEMENT_INPUT_NAME, portalName, true);
+		if (portalName != null){
+			type(ELEMENT_INPUT_NAME, portalName, true);
+		}
+		if (label != null){
+			type(ELEMENT_PORTAL_LABEL, label, true);
+		}
+		if (description != null){
+			type(ELEMENT_PORTAL_DESCRIPTION, description, true);
+		}
 		if (portalLocale != null){
 			select(ELEMENT_SELECT_LOCALE, portalLocale);
 		}
@@ -37,7 +41,6 @@ public class PortalManagement extends PlatformBase {
 		}
 		click(ELEMENT_PERMISSION_SETTING_TAB);
 		if (publicMode) {
-			waitForAndGetElement(ELEMENT_ADD_PERMISSION_BUTTON);
 			check(ELEMENT_CHECKBOX_PUBLIC_MODE, 2);
 			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
 		} else {
@@ -47,39 +50,30 @@ public class PortalManagement extends PlatformBase {
 		}
 		click(ELEMENT_EDIT_PERMISSION_SETTING);
 		setEditPermissions(editGroupId, editMembership);
+		if (template.length > 0){
+			click(By.linkText(template[0]));
+		}
 		button.save();
+		waitForElementNotPresent(ELEMENT_EDIT_PERMISSION_SETTING);
+	}
+	
+	//Add new portal
+	public void addNewPortal(String portalName, String label, String description, String portalLocale, String portalSkin, String portalSession, 
+			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership, String...template){
+		button = new Button(driver);
+		
+		info("--Create new portal--");
+		click(ELEMENT_ADD_NEW_PORTAL_LINK);
+		configPortal(portalName, label, description, portalLocale, portalSkin, portalSession, publicMode, permissions, editGroupId, editMembership, template);
 	}
 
 	//Edit a portal
-	public void editPortal(String portalName, String portalLocale, String portalSkin, String portalSession, 
+	public void editPortal(String portalName, String label, String description, String portalLocale, String portalSkin, String portalSession, 
 			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership){
 		info("--Create new portal--");
 
-		String editIcon = ELEMENT_SELECT_EDIT_PORTAL_CONFIG.replace("${portalName}", portalName);		
-		click(editIcon);
-
-		waitForTextPresent("Portal Setting");
-
-		select(ELEMENT_SELECT_LOCALE, portalLocale);
-		select(ELEMENT_SELECT_SKIN, portalSkin);
-		click(ELEMENT_PROPERTIES_TAB);
-		select(ELEMENT_SELECT_SESSION_ALIVE, portalSession);
-		click(ELEMENT_PERMISSION_SETTING_TAB);
-
-		click (ELEMENT_CHECKBOX_PUBLIC_MODE);
-
-		if (publicMode) {
-			waitForAndGetElement(ELEMENT_ADD_PERMISSION_BUTTON);
-			check(ELEMENT_CHECKBOX_PUBLIC_MODE);
-			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
-		} else {
-			for (String key : permissions.keySet()) {
-				setViewPermissions(key, permissions.get(key));
-			}
-		}
-		click(ELEMENT_EDIT_PERMISSION_SETTING);
-		setEditPermissions(editGroupId, editMembership);
-		button.save();
+		goToEditSiteConfiguration(portalName);
+		configPortal(null, label, description, portalLocale, portalSkin, portalSession, publicMode, permissions, editGroupId, editMembership);
 	}
 
 	//Delete a portal	
@@ -104,4 +98,17 @@ public class PortalManagement extends PlatformBase {
 		waitForAndGetElement(portal);
 	}
 
+	//Go to edit layout of a portal
+	public void goToPortalEditLayout(String portalName){
+		info("Go to edit layout of portal" + portalName);
+		click(ELEMENT_PORTAL_EDIT_LAYOUT.replace("${siteName}", portalName));
+		waitForAndGetElement(ELEMENT_EDIT_INLINE_COMPOSER);
+	}
+	
+	//Go to edit configuration of portal
+	public void goToEditSiteConfiguration(String portalName){
+		info("Go to edit configuration of portal" + portalName);
+		String editIcon = ELEMENT_PORTAL_EDIT_CONFIGURATION.replace("${siteName}", portalName);		
+		click(editIcon);
+	}
 }

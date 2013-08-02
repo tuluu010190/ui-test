@@ -222,12 +222,23 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_PORTAL_DELETE_ICON = "//*[text()='${portalName}']/../..//*[text()='Delete']";
 	public final String ELEMENT_PORTAL_EDIT_ICON = "//td[@class='Content']/div[@class='Label' and text()='${portalName}']/../../td[3]/a[@class='EditNavIcon'][2]";
 	public final String ELEMENT_EDIT_FIRST_PORTAL_CONFIG = "//div[@id='UISiteManagement']//a[@class='EditNavIcon'][2]";
-	public final String ELEMENT_SWITCH_VIEW_MODE_PORTAL = "//a[text()='Switch View Mode']";
+	public final By ELEMENT_SWITCH_VIEW_MODE_PORTAL = By.linkText("Switch View Mode");
 
-	/* Add New Portal Form */
+	/* Portal management */
+	public final String ELEMENT_PORTAL = "//*[@class='siteName' and text()='${siteName}']";
+	public final String ELEMENT_PORTAL_EDIT_LAYOUT = "//*[@class='siteName' and text()='${siteName}']/../..//*[text()='Edit Layout']";
+	public final String ELEMENT_PORTAL_EDIT_CONFIGURATION = "//*[text()='${siteName}']/../..//*[text()='Edit Site Configuration']";
+	
+	//Portal Edit Layout screen
+	public final By ELEMENT_EDIT_INLINE_COMPOSER = By.xpath("//*[@class='PopupTitle popupTitle' and text()='Edit Inline Composer']");
+	public final By ELEMENT_SWITCH_PORTAL_CONFIG = By.linkText("Site's Config");
+	
 	//Portal Setting TAB
-	public final String ELEMENT_SELECT_LOCALE = "//select[@name='locale']";
-	public final String ELEMENT_SELECT_SKIN 	 = "//select[@name='skin']";
+	public final By ELEMENT_PORTAL_NAME = By.id("name");
+	public final By ELEMENT_PORTAL_LABEL = By.id("label");
+	public final By ELEMENT_PORTAL_DESCRIPTION = By.id("description");
+	public final By ELEMENT_SELECT_LOCALE = By.name("locale");
+	public final By ELEMENT_SELECT_SKIN = By.name("skin");
 
 	//Property TAB
 	public final String ELEMENT_SELECT_SESSION_ALIVE= "//select[@name='sessionAlive']"; 
@@ -247,7 +258,6 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
 	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//*[@id='ListPermissionSelector']//a[@title='${group}']";
 	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//*[@id='UIPermissionSelector']//*[text()='${group}']";
-	public final String ELEMENT_SELECT_EDIT_PORTAL_CONFIG = "//div[@id='UISiteManagement']//table//tr/td/div[text()='${portalName}']/../../td[2]//a[@class='EditPortIcon']";
 
 	////
 	public final String ELEMENT_PAGINATOR_PAGE_LINK = "//a[contains(@class, 'Number') and text()='${number}']";
@@ -279,7 +289,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_EDIT_PAGE_CATEGORY_MENU = "//a[@title='${categoryLabel}']";
 	public final String ELEMENT_EDIT_PAGE_PAGE = "//div[@id='UIPage']";
 	public final String ELEMENT_PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
-	public final String ELEMENT_PAGE_FINISH_BUTTON = "//div[@id='UIPageEditor']//*[@data-original-title='Finish']";
+	public final String ELEMENT_PAGE_FINISH_BUTTON = "//*[@data-original-title='Finish']";
 	public final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
 	public final By ELEMENT_SWITCH_VIEW_MODE = By.linkText("Switch View mode");
 	
@@ -321,6 +331,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.xpath("//div[@id='UIPage']");
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
 	public final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[contains(text(),'Content List')]");
+	public final By ELEMENT_CLV_PORTLET = By.className("UICLVPortlet");
 	public final By ELEMENT_FRAME_CONTAIN_PORTLET = By.xpath("//div[contains(@id,'UIPortlet')]");
 	public final By ELEMENT_CONTENT_DETAIL_IN_LAYOUT = By.xpath("//*[contains(@id, 'UIPortlet')]//div[contains(text(),'Content Detail')]");
 	public final By ELEMENT_CONTENT_DETAIL_EDIT_ICON =  By.xpath("//*[text()='Content Detail']/..//a[@data-original-title='Edit Portlet']");
@@ -351,9 +362,12 @@ public class PlatformBase extends TestBase {
 	
 	//Container setting
 	public final By ELEMENT_CONTAINER_TAB = By.linkText("Containers");
+	public final String ELEMENT_CONTAINER_ROW = "//*[@class='UIRowContainer ']/div[${No}]//*[@class='UIRowContainer EmptyContainer']";
 	public final By ELEMENT_EDIT_CONTAINER_ICON = By.xpath("//*[@data-original-title='Edit Container']");
 	public final By ELEMENT_DELETE_CONTAINER_ICON = By.xpath("//*[@data-original-title='Delete Container']");
 	public final By ELEMENT_CONTAINER_TITLE = By.id("title");
+	public final By ELEMENT_CONTAINER_DRAG_DROP_ICON = By.xpath("//*[@title='Hold this area to drag this container']");
+	public final By ELEMENT_CONTAINER_COLUMN_EDIT_ICON = By.xpath("//*[@data-original-title='Edit Table']");
 	
 	/*
 	 * END Page Management
@@ -364,6 +378,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_DELETE_PORTLET_ICON = By.xpath("//*[@data-original-title='Delete Portlet']");
 	public final By ELEMENT_PORTLET_CONTAINER = By.className("PortletLayoutDecorator");
 	public final By ELEMENT_ABORTEDIT_BUTTON = By.xpath("//*[@data-original-title='Abort']");
+	public final String ELEMENT_PORTLET_DRAG_DROP_ICON = "//*[@title='Hold this area to drag this portlet']";
+	
 	//Edit portlet Form
 	public final By ELEMENT_WINDOW_SETTINGS_TAB = By.xpath("//div[@id='UIMaskWorkspace']//div[text()='Window Settings']");
 	public final By ELEMENT_WINDOWS_TITLE = By.xpath("//*[@id='title']");

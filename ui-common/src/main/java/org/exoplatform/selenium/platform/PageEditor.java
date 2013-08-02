@@ -84,8 +84,7 @@ public class PageEditor extends PlatformBase {
 	public void createNewPageEmptyLayout(String pageName){	
 		info("Create new page winzard empty layout");
 		goToPageEditor_EmptyLayout(pageName);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
+		finishEditLayout();
 	}
 
 	//create new page having layout - step 1,2
@@ -115,8 +114,7 @@ public class PageEditor extends PlatformBase {
 	public void createNewPageWithLayout(String pageName, int numberLayout){
 		info("Create new page winzard having layout");
 		gotoPageEditorAndSelectLayout(pageName, numberLayout);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
+		finishEditLayout();
 	}
 
 
@@ -142,7 +140,7 @@ public class PageEditor extends PlatformBase {
 		selectCLVPath(path, clv, modeContent);
 		Utils.pause(500);
 		//click(ELEMENT_NEWPAGE_SAVE_BUTTON);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
+		finishEditLayout();
 	}
 
 	//Add content detail to an empty layout page
@@ -259,8 +257,7 @@ public class PageEditor extends PlatformBase {
 		info("-- Select Content Path --");
 		selectContentPathInEditMode(contentPath, rightClickNode);
 		//click(ELEMENT_NEWPAGE_SAVE_BUTTON);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
+		finishEditLayout();
 	}
 
 	//Select a content path to add to SCV page
@@ -340,14 +337,13 @@ public class PageEditor extends PlatformBase {
 			mouseOver(elementPortlet, true);
 			click(iconDelete);
 			magAlert.acceptAlert();
-			//click(ELEMENT_PAGE_EDIT_FINISH_OTHER);
 			click(ELEMENT_PAGE_FINISH_BUTTON);
 			info("remove portlet is successful");
 		}else{
 			info("portlet has already deleted");
 			click(ELEMENT_PAGE_CLOSE);
 		}
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 50000);
+		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 	}
 	
 	/**function go to edit a portlet
@@ -397,5 +393,29 @@ public class PageEditor extends PlatformBase {
 		mouseOver(container, true);
 		click(iconDelete);
 		magAlert.acceptAlert();
+	}
+	
+	/**function add new container and app to layout of page
+	 * @author lientm
+	 * @param containerType
+	 * @param container
+	 * @param category
+	 * @param portletId
+	 */
+	public void addNewContainerAndPortlet(String containerType, String container, String category, String portletId, boolean...finish){		
+		boolean end = finish.length > 0 ? finish[0] : true;
+		addNewContainer(containerType, container);
+		click(ELEMENT_APPLICATION_TAB);
+		click(By.linkText(category));
+		dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_HAS_LAYOUT);
+		if (end){
+			finishEditLayout();
+		}
+		Utils.pause(1000);
+	}
+	
+	public void finishEditLayout(){
+		click(ELEMENT_PAGE_FINISH_BUTTON);
+		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 	}
 }

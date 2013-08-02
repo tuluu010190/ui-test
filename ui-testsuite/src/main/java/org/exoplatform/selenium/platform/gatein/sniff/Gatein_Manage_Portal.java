@@ -54,7 +54,7 @@ public class Gatein_Manage_Portal extends PortalManagement{
 		String editGroupId = "Platform /Content Management ";
 		String editMembership = "*" ;
 		navTool.goToPortalSites();
-		addNewPortal(portalName, "French", null, "Always", true, permissions, editGroupId, editMembership);
+		addNewPortal(portalName, null, null, "French", null, "Always", true, permissions, editGroupId, editMembership);
 		waitForAndGetElement("//*[@class='siteName' and text()='" + portalName + "']");
 		
 		info("Switch to new portal");

@@ -92,7 +92,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		info("Edit page");
 		pageMag.editPageAtManagePages(PageType.PORTAL, pageTitle);
 		info("Add container and portlet");
-		addNewContainerAndPortlet("Content", "Content/ContentListViewerPortlet");
+		pageE.addNewContainerAndPortlet("Rows Layout", "oneRow", "Content", "Content/ContentListViewerPortlet");
 		
 		info("Edit portlet of page");
 		pageMag.editPageAtManagePages(PageType.PORTAL, pageTitle);
@@ -100,8 +100,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("View properties of page");
 		viewPropertiesPage("portal", pageTitle);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
+		pageE.finishEditLayout();
 		
 		info("Delete page");
 		pageMag.deletePage(PageType.PORTAL, pageTitle);
@@ -127,8 +126,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("View page properties");
 		viewPropertiesPage("portal", nodeName);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
+		pageE.finishEditLayout();
 		
 		info("Delete portlet");
 		navTool.goToEditPageEditor();
@@ -137,7 +135,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("Add new container and portlet");
 		navTool.goToEditPageEditor();
-		addNewContainerAndPortlet("Collaboration", "Collaboration/AnswersPortlet");
+		pageE.addNewContainerAndPortlet("Rows Layout", "oneRow", "Collaboration", "Collaboration/AnswersPortlet");
 		waitForAndGetElement(By.id("UIAnswersPortlet"));
 		
 		info("Delete page");
@@ -163,7 +161,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		info("Edit page");
 		pageMag.editPageAtManagePages(PageType.GROUP, pageTitle);
 		info("Add container and portlet");
-		addNewContainerAndPortlet("Content", "Content/ContentListViewerPortlet");
+		pageE.addNewContainerAndPortlet("Rows Layout", "oneRow", "Content", "Content/ContentListViewerPortlet");
 		
 		info("Edit portlet of page");
 		pageMag.editPageAtManagePages(PageType.GROUP, pageTitle);
@@ -171,8 +169,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("View properties of page");
 		viewPropertiesPage("group", pageTitle);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
+		pageE.finishEditLayout();
 		
 		pageMag.deletePage(PageType.GROUP, pageTitle);
 	}
@@ -198,8 +195,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("View page properties");
 		viewPropertiesPage("group", nodeName);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
+		pageE.finishEditLayout();
 		
 		info("Delete portlet");
 		navTool.goToEditPageEditor();
@@ -208,7 +204,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("Add new container and portlet");
 		navTool.goToEditPageEditor();
-		addNewContainerAndPortlet("Collaboration", "Collaboration/AnswersPortlet");
+		pageE.addNewContainerAndPortlet("Rows Layout", "oneRow", "Collaboration", "Collaboration/AnswersPortlet");
 		waitForAndGetElement(By.id("UIAnswersPortlet"));
 		
 		info("Delete page");
@@ -239,8 +235,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("View page properties");
 		viewPropertiesPage("user", nodeName);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
+		pageE.finishEditLayout();
 		
 		info("Delete portlet");
 		navTool.goToEditPageEditor();
@@ -249,7 +244,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("Add new container and portlet");
 		navTool.goToEditPageEditor();
-		addNewContainerAndPortlet("Collaboration", "Collaboration/AnswersPortlet");
+		pageE.addNewContainerAndPortlet("Rows Layout", "oneRow", "Collaboration", "Collaboration/AnswersPortlet");
 		waitForAndGetElement(By.id("UIAnswersPortlet"));
 		
 		info("Delete Page");
@@ -270,14 +265,5 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		waitForAndGetElement(pageE.ELEMENT_OWNERTYPE_SELECTED.replace("${ownerType}", ownerType));
 		waitForAndGetElement("//*[@id='title' and @value = '" + nodeName + "']");
 		but.cancel();
-	}
-	
-	public void addNewContainerAndPortlet(String category, String portletId){
-		pageE.addNewContainer("Rows Layout", "oneRow");
-		click(ELEMENT_APPLICATION_TAB);
-		click(By.linkText(category));
-		dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_HAS_LAYOUT);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
 	}
 }
