@@ -4,14 +4,27 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.Map;
 
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.openqa.selenium.By;
 
 public class GroupNavigation extends PlatformBase {
+	Button button;
+	ManageAlert alert;
+	
+	//Manage Group Navigation screen
+	public final String ELEMENT_GROUP_NAME = "//*[@class='siteName' and text()='${groupName}']";
+	public final By ELEMENT_GROUP_ADD_NAVIGATION_BUTTON = By.linkText("Add Navigation");
+	public final String ELEMENT_DELETE_NAVIGATION_ICON = "//*[text()='${groupName}']/../..//*[text()='Delete Navigation']";
+	
+	//Add Navigation for group screen
+	public final String ELEMENT_GROUP_SELECT_ADD_NAVIGATION = "//*[contains(text(), '${groupName}')]/..//*[text()='Add Navigation']";
 
 	//Add a node for group at group navigation
 	public void addNodeForGroup(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode, 
 			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode){
-
+		button = new Button(driver);
 		//String node = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeLabel);
 		String currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel);
 		editNavigation(currentNavigation);
@@ -72,5 +85,30 @@ public class GroupNavigation extends PlatformBase {
 			button.save();
 			waitForTextNotPresent("Navigation Management");
 		}
+	}
+	/**function add new navigation for group
+	 * @author lientm
+	 * @param groupName
+	 */
+	public void addNewNavigationForGroup(String groupName){
+		button = new Button(driver);
+		info("Add navigation for group " + groupName);
+		click(ELEMENT_GROUP_ADD_NAVIGATION_BUTTON);
+		click(ELEMENT_GROUP_SELECT_ADD_NAVIGATION.replace("${groupName}", groupName));
+		waitForElementNotPresent(ELEMENT_GROUP_SELECT_ADD_NAVIGATION.replace("${groupName}", groupName));
+		button.cancel();
+		waitForAndGetElement(ELEMENT_GROUP_NAME.replace("${groupName}", groupName));
+	}
+	
+	/**function delete navigation for group
+	 * @author lientm
+	 * @param groupName
+	 */
+	public void deleteNavigationForGroup(String groupName){
+		alert = new ManageAlert(driver);
+		info("Delete navigation of group " + groupName);
+		click(ELEMENT_DELETE_NAVIGATION_ICON.replace("${groupName}", groupName));
+		alert.acceptAlert();
+		waitForElementNotPresent(ELEMENT_DELETE_NAVIGATION_ICON.replace("${groupName}", groupName));
 	}
 }

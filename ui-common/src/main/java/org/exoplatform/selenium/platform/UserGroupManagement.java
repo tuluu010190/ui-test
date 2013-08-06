@@ -120,7 +120,7 @@ public class UserGroupManagement extends PlatformBase {
 		click(ELEMENT_GROUP_ADD_NEW_ICON);
 		inputDataGroup(groupName, groupLabel, groupDesc);
 		button.save();
-		if (verify) {
+		if (verify && groupLabel != null && groupLabel != "") {
 			waitForAndGetElement("//a[@title='" + (groupLabel.length() > 0 ? groupLabel : groupName) + "']");
 		}
 	}

@@ -13,13 +13,7 @@ public class NavigationManagement extends  PlatformBase{
 
 	public NavigationManagement(WebDriver dr) {
 		driver = dr;
-		// TODO Auto-generated constructor stub
 	}
-
-	/*public NavigationManagement(WebDriver dr) {
-		super(dr);
-		// TODO Auto-generated constructor stub
-	}*/
 
 	ManageAlert alt = new ManageAlert(driver);
 	

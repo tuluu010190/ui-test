@@ -41,7 +41,7 @@ public class PageManagement extends PlatformBase {
 	public By ELEMENT_PAGE_NAME_INPUT = By.xpath("//input[@id='name']");
 	public By ELEMENT_PAGE_TITLE_INPUT = By.xpath("//input[@id='title']");
 	public By ELEMENT_SELECT_OWNER_TYPE = By.xpath("//select[@name='ownerType']");
-	public By ELEMENT_SELECT_OWNER_ID = By.name("ownerId");
+	public By ELEMENT_SELECT_OWNER_ID = By.xpath("//select[@name='ownerId']");
 	public By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
 		
 	//Message
@@ -182,7 +182,7 @@ public class PageManagement extends PlatformBase {
 	}
 
 	public void deletePageAtManagePageAndPortalNavigation(String pageName, boolean PageTypePortal, String portalName, 
-			boolean PageTypeGroup, String groupName){
+			boolean PageTypeGroup, String groupName, String... nodeName){
 		info("-- Deleting "+ pageName +" at Manage page and Portal Navigation--");
 		nav = new NavigationToolbar(driver);
 		navMag = new NavigationManagement(driver);
@@ -191,13 +191,21 @@ public class PageManagement extends PlatformBase {
 			deletePage(PageType.PORTAL, pageName);
 			//delete page at Portal navigation
 			nav.goToPortalSites();
-			navMag.deleteNode(portalName, "", pageName, true);
+			if (nodeName.length > 0){
+				navMag.deleteNode(portalName, "", nodeName[0], true);
+			}else {
+				navMag.deleteNode(portalName, "", pageName, true);
+			}
 		}
 		if (PageTypeGroup){
 			deletePage(PageType.GROUP, pageName);
 			//delete page at Portal/Group navigation
 			nav.goToGroupSites();
-			navMag.deleteNode(groupName, "", pageName, true);
+			if (nodeName.length > 0){
+				navMag.deleteNode(groupName, "", nodeName[0], true);
+			}else {
+				navMag.deleteNode(groupName, "", pageName, true);
+			}
 		}
 	}
 }

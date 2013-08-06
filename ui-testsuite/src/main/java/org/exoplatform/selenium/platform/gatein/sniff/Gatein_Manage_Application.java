@@ -88,7 +88,7 @@ public class Gatein_Manage_Application extends ManageApplications {
 		
 		info("Edit category");
 		Map<String, String> permissions = new HashMap<String, String>();
-		permissions.put("Platform/Content Management", "member");
+		permissions.put("Platform/Content Management", "*");
 		editCategoryAtManageApplications(categoryName, newDisplayName, newCategoryDescription, false, permissions, true);
 		
 		info("Add Applications into category");
@@ -164,7 +164,7 @@ public class Gatein_Manage_Application extends ManageApplications {
 		waitForAndGetElement(ELEMENT_GADGET_DELETE_ICON.replace("${title}", title));
 		
 		info("Add gadget to category");
-		addGadgetToCategory("Collaboration");
+		addGadgetToCategory("Administration");
 		
 		info("Delete gadget");
 		deleteGadget(title);

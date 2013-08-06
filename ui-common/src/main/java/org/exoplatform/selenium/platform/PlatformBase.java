@@ -340,6 +340,11 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET = "//*[contains(@id, 'UISingleContentViewerPortlet')]//*[@class='Title' and text()='${contentName}']";
 	
 	public final By ELEMENT_CONTENTS_BY_QUERY_PORTLET = By.xpath("//div[contains(text(),'Content By Query')]");
+	public final By ELEMENT_CATEGORY_CONTENT = By.linkText("Content");
+	public final By ELEMENT_CATEGORY_COLLABORATION = By.linkText("Collaboration");
+	public final By ELEMENT_CONTENTS_LIST_VIEWER_PORTLET = By.id("Content/ContentListViewerPortlet");
+	public final By ELEMENT_ANWSER_PORTLET = By.id("Collaboration/AnswersPortlet");
+	public final By ELEMENT_ANWSER_PORTLET_IN_PAGE = By.id("UIAnswersPortlet");
 	public final By ELEMENT_BY_QUERY_TEXTAREA = By.xpath("//textarea[@id='UICLVConfigContentByQueryTextArea']");
 	public final By ELEMENT_WORKSPACE_SELECT = By.xpath("//select[@id='UICLVConfigWorkspaceFormSelectBox']");
 	public final By ELEMENT_ACME_CATEGORY = By.xpath("//*[@id='ListRecords']/thead/tr[2]/td/a");
@@ -368,6 +373,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CONTAINER_TITLE = By.id("title");
 	public final By ELEMENT_CONTAINER_DRAG_DROP_ICON = By.xpath("//*[@title='Hold this area to drag this container']");
 	public final By ELEMENT_CONTAINER_COLUMN_EDIT_ICON = By.xpath("//*[@data-original-title='Edit Table']");
+	public final String ELEMENT_COLUMN_CONTAINER = "//*[@class='UITableColumn']";
 	
 	/*
 	 * END Page Management

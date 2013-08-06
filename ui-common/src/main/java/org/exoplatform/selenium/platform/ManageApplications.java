@@ -47,7 +47,7 @@ public class ManageApplications extends PlatformBase {
 	public String ELEMENT_GADGET_CONFIRM_DELETE = "Are you sure to delete this gadget?";
 	
 	//Application Registry portlet -> Edit Portlet
-	public By ELEMENT_APPS_REG_PORTLET = By.xpath("//*[text()='Application Registry']/../../../..");
+	public By ELEMENT_APPS_REG_PORTLET = By.xpath("//*[text()='Application Registry']/../../../../..");
 	public By ELEMENT_SHOW_IMPORT_CHECKBOX = By.id("showImport");
 	public By SHOW_IMPORT_CHECKED = By.xpath("//*[@id='showImport' and @checked='']");
 	public By SHOW_IMPORT_UNCHECK = By.xpath("//input[@id='showImport' and @value='false']");
@@ -285,7 +285,13 @@ public class ManageApplications extends PlatformBase {
 		nav.goToEditPageEditor();
 
 		//Click on Edit Portlet icon
-		mouseOver(ELEMENT_APPS_REG_PORTLET, true);
+		for (int i = 0; i < 3; i ++){
+			mouseOver(ELEMENT_APPS_REG_PORTLET, true);
+			Utils.pause(500);
+			if (waitForAndGetElement(ELEMENT_EDIT_PORTLET_ICON, 5000, 0) != null){
+				break;
+			}
+		}
 		click(ELEMENT_EDIT_PORTLET_ICON);
 		if (checkShowImport){
 			if (waitForAndGetElement(SHOW_IMPORT_CHECKED, 7000, 0, 2) == null) check(ELEMENT_SHOW_IMPORT_CHECKBOX, 2);    				
@@ -294,8 +300,7 @@ public class ManageApplications extends PlatformBase {
 		}
 		button.save();
 		button.close();
-		click(pageE.ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(pageE.ELEMENT_PAGE_FINISH_BUTTON, 60000);
+		pageE.finishEditLayout();
 
 		//Verify after changing show import
 		if (checkShowImport){

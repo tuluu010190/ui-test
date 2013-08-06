@@ -57,21 +57,21 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("Search page with Type");
 		pageMag.searchPageInManagementPage(PageType.PORTAL, null);
-		waitForTextPresent("portal::intranet::homepage");
+		waitForAndGetElement("//*[contains(text(), 'portal::intranet::Register')]");
 		waitForElementNotPresent("//*[contains(text(), 'group::/')]");
 		
 		info("Search page with Type and Title");
 		pageMag.searchPageInManagementPage(PageType.GROUP, "Site Map");
-		waitForTextPresent("group::/platform/guests::sitemap");
+		waitForAndGetElement("//*[contains(text(), 'group::/platform/guests::sitemap')]");
 		
 		info("Search page with Type and Site");
 		pageMag.searchPageInManagementPage(PageType.PORTAL, "", "acme");
-		waitForTextPresent("portal::acme::overview");
+		waitForAndGetElement("//*[contains(text(), 'portal::acme::overview')]");
 		waitForElementNotPresent("//*[contains(text(), 'portal::intranet::')]");
 		
 		info("Search page with Title, Site name, Type");
 		pageMag.searchPageInManagementPage(PageType.PORTAL, "Register", "intranet");
-		waitForTextPresent("portal::intranet::Register");
+		waitForAndGetElement("//*[contains(text(), 'portal::intranet::Register')]");
 	}
 	
 	/**CaseId: 68852 + 68862 + 70422 -> Add + edit + delete page of portal using Page Management

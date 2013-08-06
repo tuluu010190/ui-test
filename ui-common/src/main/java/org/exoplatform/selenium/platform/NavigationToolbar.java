@@ -119,17 +119,10 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Go to Portal/Group Sites
 	public void goToGroupSites(){
-		Actions actions = new Actions(driver);
-		info("--Go to Portal Site Management--");
-		waitForAndGetElement(By.xpath(ELEMENT_LINK_SETUP));
-		mouseOver(ELEMENT_LINK_SETUP, false);
-		Utils.pause(500);
-		mouseOver(ELEMENT_LINK_PORTAL, false);
-		Utils.pause(500);
-		WebElement element;
-		element = waitForAndGetElement(ELEMENT_LINK_GROUP);
-		actions.moveToElement(element).click(element).build().perform();
-		Utils.pause(500);
+		info("--Go to Group Site Management--");
+		String url = DEFAULT_BASEURL + "/g/:platform:administrators/groupnavigation";
+		driver.get(url);
+		Utils.pause(1000);
 	}
 
 	//Go to add page locator with Editor

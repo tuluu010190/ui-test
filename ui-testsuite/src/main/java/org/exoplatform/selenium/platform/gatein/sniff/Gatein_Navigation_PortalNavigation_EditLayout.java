@@ -68,7 +68,7 @@ public class Gatein_Navigation_PortalNavigation_EditLayout extends PortalManagem
 		info("Add new container and application to page layout");
 		pageE.addNewContainerAndPortlet("Rows Layout", "oneRow", category, portletId, false);
 		click(ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(By.id("UIAnswersPortlet"));
+		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_PAGE);
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		pageE.finishEditLayout();
 		
@@ -124,10 +124,10 @@ public class Gatein_Navigation_PortalNavigation_EditLayout extends PortalManagem
 		waitForAndGetElement(ELEMENT_PORTAL.replace("${siteName}", portalName));
 		
 		goToPortalEditLayout(portalName);
-		click(By.linkText("Collaboration"));
-		dragAndDropToObject(By.id("Collaboration/AnswersPortlet"), By.xpath("//*[text() = 'Portal Page']/.."));
+		click(ELEMENT_CATEGORY_COLLABORATION);
+		dragAndDropToObject(ELEMENT_ANWSER_PORTLET, By.xpath("//*[text() = 'Portal Page']/.."));
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
-		waitForAndGetElement(By.id("UIAnswersPortlet"));
+		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_PAGE);
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 		pageE.finishEditLayout();
 		
@@ -207,7 +207,7 @@ public class Gatein_Navigation_PortalNavigation_EditLayout extends PortalManagem
 		info("Add application when edit layout of page");
 		navTool.goToEditPageEditor();
 		click(By.linkText("Content"));
-		dragAndDropToObject(By.id("Content/ContentListViewerPortlet"), ELEMENT_DROP_TARGET_NO_LAYOUT);
+		dragAndDropToObject(ELEMENT_CONTENTS_LIST_VIEWER_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		waitForAndGetElement(ELEMENT_CLV_PORTLET);
 		click(ELEMENT_SWITCH_VIEW_MODE);
@@ -241,7 +241,7 @@ public class Gatein_Navigation_PortalNavigation_EditLayout extends PortalManagem
 	@Test
 	public void test07_MoveContainerWhenEditLayout_PortalPage(){
 		String pageName = "Sniffportalnavigation07";
-		String columnContainer = "//*[@class='UITableColumn']";
+		String columnContainer = ELEMENT_COLUMN_CONTAINER;
 		By rowContainer = By.xpath("//*[text()='Container']/../../../..");
 		String title = "Container1";
 		

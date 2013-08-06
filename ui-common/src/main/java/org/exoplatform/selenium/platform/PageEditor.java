@@ -41,7 +41,7 @@ public class PageEditor extends PlatformBase {
 	
 	//View Page Properties form (there are 2 tabs in this form)
 	//Page Setting Tab
-	public By ELEMENT_VIEWPAGE_PAGETITLE = By.xpath("//input[@id='title']");
+	public By ELEMENT_VIEWPAGE_PAGETITLE = By.id("title");
 	//Permisstion setting tab
 	//View Page Properties form End
 
