@@ -269,6 +269,7 @@ public class TestBase {
 		finally {
 			loopCount = 0;
 		}
+		Utils.pause(1000);
 	}
 
 	public void click(Object locator, Object... opParams) {

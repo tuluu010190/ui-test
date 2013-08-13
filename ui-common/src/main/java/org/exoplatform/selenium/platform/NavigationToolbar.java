@@ -121,8 +121,24 @@ public class NavigationToolbar extends PlatformBase {
 	public void goToGroupSites(){
 		info("--Go to Group Site Management--");
 		String url = DEFAULT_BASEURL + "/g/:platform:administrators/groupnavigation";
-		driver.get(url);
+		//driver.get(url);
 		Utils.pause(1000);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				driver.get(url);
+				break;
+			}
+			//mouseOverAndClick(ELEMENT_LINK_SETUP);
+			mouseOver(ELEMENT_LINK_SETUP, true);
+			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, 5000, 0)!= null) {	
+				mouseOver(ELEMENT_LINK_PORTAL, false);
+				if (waitForAndGetElement(ELEMENT_LINK_GROUP, 5000, 0)!= null){
+					click(ELEMENT_LINK_GROUP);
+					break;
+				}
+			}
+			info("Retry...[" + repeat + "]");
+		}
 	}
 
 	//Go to add page locator with Editor

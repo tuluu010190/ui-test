@@ -30,23 +30,28 @@ public class PageManagement extends PlatformBase {
 	/*
 	 * Page Management
 	 * */
-	public String ELEMENT_ADD_PAGE_BUTTON = "//a[text()='Add New Page']";
-	public String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
-	public By ELEMENT_INPUT_SITE_NAME = By.id("siteName");
-	public String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//*[contains(@class, 'uiIconSearch')]";
-	public String ELEMENT_PAGE_EDIT_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconEditInfo uiIconLightGray']";
-	public String ELEMENT_PAGE_DELETE_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
+	public final String ELEMENT_ADD_PAGE_BUTTON = "//a[text()='Add New Page']";
+	public final String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
+	public final By ELEMENT_INPUT_SITE_NAME = By.id("siteName");
+	public final String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//*[contains(@class, 'uiIconSearch')]";
+	public final String ELEMENT_PAGE_EDIT_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconEditInfo uiIconLightGray']";
+	public final String ELEMENT_PAGE_DELETE_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
 
 	//Add New Page Form (shown after click [Add New Page] button in Page Management)
-	public By ELEMENT_PAGE_NAME_INPUT = By.xpath("//input[@id='name']");
-	public By ELEMENT_PAGE_TITLE_INPUT = By.xpath("//input[@id='title']");
-	public By ELEMENT_SELECT_OWNER_TYPE = By.xpath("//select[@name='ownerType']");
-	public By ELEMENT_SELECT_OWNER_ID = By.xpath("//select[@name='ownerId']");
-	public By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
+	public final By ELEMENT_PAGE_NAME_INPUT = By.xpath("//input[@id='name']");
+	public final By ELEMENT_PAGE_TITLE_INPUT = By.xpath("//input[@id='title']");
+	public final By ELEMENT_SELECT_OWNER_TYPE = By.xpath("//select[@name='ownerType']");
+	public final By ELEMENT_SELECT_OWNER_ID = By.xpath("//select[@name='ownerId']");
+	public final By ELEMENT_OWNER_ID_INTRANET = By.xpath("//input[@id='ownerId' and @value='intranet']");
 		
 	//Message
-	public String MESSAGE_DELETE_PAGE = "Do you want to delete this page?";
+	public final String MESSAGE_DELETE_PAGE = "Do you want to delete this page?";
 	
+	//Page's list 
+	public final String ELEMENT_LIST_PAGE = "//*[@id='UIRepeater']//tbody/tr[${number}]//*[@title='${titlePage}']"; 
+	public final String ELEMENT_PAGE_DELETE_ICON_AUX = ELEMENT_LIST_PAGE.replace("${number}", "${number}").replace("${titlePage}", "${titlePage}") + "/../..//*[@class='uiIconDelete uiIconLightGray']";
+	
+	/*================== Common Function ===================*/
 	//Add a new page in PageManagement
 	public void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
 			Map<String, String> permissions, String groupId, String membership, String...ownerId ){
@@ -107,15 +112,16 @@ public class PageManagement extends PlatformBase {
 	public void deletePage(PageType type, String pageTitle, int...wait){
 		alt = new ManageAlert(driver);
 		dialog = new Dialog(driver);
-		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
+		//int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		String pageDeleteIcon = ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle);
 		searchPageInManagementPage(type, pageTitle);
 		click(pageDeleteIcon);
 		Utils.pause(1000);
 		alt.waitForConfirmation(MESSAGE_DELETE_PAGE);
-		waitForMessage("No result found.",waitTime);
+		//waitForMessage("No result found.",waitTime);
 		dialog.closeMessageDialog();
-		waitForTextNotPresent(pageTitle);
+		//waitForTextNotPresent(pageTitle);
+		waitForElementNotPresent(pageDeleteIcon);
 	}
 
 	// Search a page in Manage Pages

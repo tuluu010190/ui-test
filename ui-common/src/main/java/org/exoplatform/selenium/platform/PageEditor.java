@@ -16,6 +16,7 @@ public class PageEditor extends PlatformBase {
 	public PageEditor (WebDriver dr){
 		driver = dr;
 	}
+	
 	NavigationToolbar nav = new NavigationToolbar(driver);
 	UserGroupManagement userGroup = new UserGroupManagement(driver);
 	Dialog dialog = new Dialog(driver);
@@ -25,23 +26,23 @@ public class PageEditor extends PlatformBase {
 	/** 
 		Page Creation Wizard: Select a Navigation Node and create the Page 
 	 **/
-	public String PORTAL_MANAGEMENT_LINK = "//a[@title='Portal Administration']";
-	public String APPLICATION_MANAGER_LINK = "//a[@title='Application Manager']";
-	public String PAGE_MANAGER_LINK = "//a[@title='Page Manager']";
-	public String ADD_USERS_LINK = "//a[@title='Add Users']";
-	public String USERS_GROUP_MANAGER_LINK = "//a[@title='User and Group Manager']";
-	public String UP_LEVEL_ICON = "//a[@title='Up Level']";
-	public String DEFAULT_NODE = "//div[contains(text(),'/default')]";
-	public String NODE_NAME_INPUT = "//input[@id='pageName']";
+	public final String PORTAL_MANAGEMENT_LINK = "//a[@title='Portal Administration']";
+	public final String APPLICATION_MANAGER_LINK = "//a[@title='Application Manager']";
+	public final String PAGE_MANAGER_LINK = "//a[@title='Page Manager']";
+	public final String ADD_USERS_LINK = "//a[@title='Add Users']";
+	public final String USERS_GROUP_MANAGER_LINK = "//a[@title='User and Group Manager']";
+	public final String UP_LEVEL_ICON = "//a[@title='Up Level']";
+	public final String DEFAULT_NODE = "//div[contains(text(),'/default')]";
+	public final String NODE_NAME_INPUT = "//input[@id='pageName']";
 
 	/* Page Editor - View Page Properties*/
 	//View Page Properties form -> Page Setting tab
-	public By ELEMENT_VIEW_PAGE_PROPERTIES = By.linkText("View Page properties");
-	public String ELEMENT_OWNERTYPE_SELECTED = "//*[@id='PageSetting-tab']//select[@name='ownerType']/option[@selected = 'selected' and text()='${ownerType}']";
+	public final By ELEMENT_VIEW_PAGE_PROPERTIES = By.linkText("View Page properties");
+	public final String ELEMENT_OWNERTYPE_SELECTED = "//*[@id='PageSetting-tab']//select[@name='ownerType']/option[@selected = 'selected' and text()='${ownerType}']";
 	
 	//View Page Properties form (there are 2 tabs in this form)
 	//Page Setting Tab
-	public By ELEMENT_VIEWPAGE_PAGETITLE = By.id("title");
+	public final By ELEMENT_VIEWPAGE_PAGETITLE = By.id("title");
 	//Permisstion setting tab
 	//View Page Properties form End
 
@@ -70,6 +71,10 @@ public class PageEditor extends PlatformBase {
 	//Add Path > Right Workspace 
 	public final String ELEMENT_RIGHT_WORKSPACE_NODE = "//*[@class='rightWorkspace']//*[text()='${node}']";
 
+	//public final By ELEMENT_ROW_EMPTY_CONTAINER = By.xpath("//*[contains(@class, 'UIRowContainer EmptyContainer')]");
+	
+	/*===================== Common Function =======================*/
+	
 	//Create page wizard without layout
 	public void goToPageEditor_EmptyLayout(String pageName){
 		nav = new NavigationToolbar(driver);
@@ -331,26 +336,36 @@ public class PageEditor extends PlatformBase {
 	}
 
 	//function remove a portlet
-	public void removePortlet(By sign, By elementPortlet, By iconDelete){
+	public void removePortlet(Object elementPortlet, Object iconDelete, Object...params){
+		info("Delete a portlet..." + elementPortlet);
 		magAlert = new ManageAlert(driver);
-		if (waitForAndGetElement(sign) != null){
+		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true) ;
+		
+		if (waitForAndGetElement(elementPortlet) != null){
 			mouseOver(elementPortlet, true);
 			click(iconDelete);
 			magAlert.acceptAlert();
-			click(ELEMENT_PAGE_FINISH_BUTTON);
-			info("remove portlet is successful");
+			if (verify){
+				click(ELEMENT_PAGE_FINISH_BUTTON);
+				waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
+			}
+			info("portlet is removed... successful");
 		}else{
-			info("portlet has already deleted");
-			click(ELEMENT_PAGE_CLOSE);
+			info("portlet has already been deleted");
+			if (verify){
+				click(ELEMENT_PAGE_CLOSE);
+				waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
+			}
 		}
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
+		//waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
+		waitForElementNotPresent(elementPortlet);
 	}
 	
 	/**function go to edit a portlet
 	 * @author lientm
 	 * @param elementPortlet
 	 */
-	public void goToEditPortlet(By elementPortlet){	
+	public void goToEditPortlet(Object elementPortlet){	
 		info("Go to edit portlet " + elementPortlet);
 		mouseOver(elementPortlet, true);
 		click(ELEMENT_EDIT_PORTLET_ICON);
@@ -376,9 +391,10 @@ public class PageEditor extends PlatformBase {
 	 * @param container
 	 */
 	public void addNewContainer(String group, String container){
+		info("Add new container: " + container);
 		click(ELEMENT_CONTAINER_TAB);
 		click(By.linkText(group));
-		dragAndDropToObject(By.id(container), By.xpath("//*[@class='UIRowContainer']"));
+		dragAndDropToObject(By.id(container), By.className("UIRowContainer"));
 		Utils.pause(2000);
 	}
 	
@@ -387,12 +403,13 @@ public class PageEditor extends PlatformBase {
 	 * @param container
 	 * @param iconDelete
 	 */
-	public void removeContainer(By container, By iconDelete){
+	public void removeContainer(Object container, Object iconDelete){
+		info("Delete a container..." + container);
 		magAlert = new ManageAlert(driver);
-		
 		mouseOver(container, true);
 		click(iconDelete);
 		magAlert.acceptAlert();
+		waitForElementNotPresent(iconDelete);
 	}
 	
 	/**function add new container and app to layout of page
@@ -402,19 +419,23 @@ public class PageEditor extends PlatformBase {
 	 * @param category
 	 * @param portletId
 	 */
-	public void addNewContainerAndPortlet(String containerType, String container, String category, String portletId, boolean...finish){		
-		boolean end = finish.length > 0 ? finish[0] : true;
+	public void addNewContainerAndPortlet(String containerType, String container, String category, String portletId, Object...params){		
+		boolean finishEdit = (Boolean) (params.length > 0 ? params[0] : true);
+		
 		addNewContainer(containerType, container);
 		click(ELEMENT_APPLICATION_TAB);
 		click(By.linkText(category));
 		dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_HAS_LAYOUT);
-		if (end){
+		if (finishEdit){
 			finishEditLayout();
 		}
 		Utils.pause(1000);
 	}
 	
+	//Finish Editing
 	public void finishEditLayout(){
+		info("Finish Editing PageLayout");
+		Utils.pause(1000);
 		click(ELEMENT_PAGE_FINISH_BUTTON);
 		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 	}

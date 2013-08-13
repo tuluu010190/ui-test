@@ -68,7 +68,7 @@ public class Gatein_Navigation_PortalNavigation_EditLayout extends PortalManagem
 		info("Add new container and application to page layout");
 		pageE.addNewContainerAndPortlet("Rows Layout", "oneRow", category, portletId, false);
 		click(ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_PAGE);
+		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE);
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		pageE.finishEditLayout();
 		
@@ -127,7 +127,7 @@ public class Gatein_Navigation_PortalNavigation_EditLayout extends PortalManagem
 		click(ELEMENT_CATEGORY_COLLABORATION);
 		dragAndDropToObject(ELEMENT_ANWSER_PORTLET, By.xpath("//*[text() = 'Portal Page']/.."));
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
-		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_PAGE);
+		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE);
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 		pageE.finishEditLayout();
 		
@@ -225,7 +225,7 @@ public class Gatein_Navigation_PortalNavigation_EditLayout extends PortalManagem
 		
 		info("Remove application when edit layout of page");
 		navTool.goToEditPageEditor();
-		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
+		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
 		waitForElementNotPresent(ELEMENT_CLV_PORTLET);
 		
 		info("Delete page");

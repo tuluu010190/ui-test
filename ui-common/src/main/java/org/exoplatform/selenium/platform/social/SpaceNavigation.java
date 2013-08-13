@@ -59,9 +59,6 @@ public class SpaceNavigation extends SocialBase{
 	public String ELEMENT_EDIT_PAGE_COMPONENT = "//div[@class='UIRowContainer']/div[${portletNumber}]/div";
 	public By ELEMENT_EDIT_ICON = By.xpath("//a[@class = 'EditIcon' and @title='Edit Container']");
 	public By ELEMENT_PERMISSION_TAB = By.xpath("//div[text()='Access Permission']");
-	public By ELEMENT_WIDTH_TEXTBOX = By.id("width");
-	public By ELEMENT_HEIGHT_TEXTBOX = By.id("height");
-	
 	
 	// Add node don't select page in Manage page
 	public void addNodeDoNotSelectPage(String nodeNameInput, String nodeLabelInput, String pageNameInput)
@@ -209,7 +206,7 @@ public class SpaceNavigation extends SocialBase{
 		}
 
 		click(ELEMENT_PAGE_SELECTOR_TAB);
-		click(ELEMENT_CLEAR_PAGE_LINK);
+		click(ELEMENT_CLEAR_SELECTOR_PAGE);
 		type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
 		type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
 		click(ELEMENT_CREATE_PAGE_LINK);

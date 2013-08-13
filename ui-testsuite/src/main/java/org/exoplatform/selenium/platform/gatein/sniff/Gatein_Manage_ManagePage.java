@@ -130,7 +130,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("Delete portlet");
 		navTool.goToEditPageEditor();
-		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
+		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
 		waitForTextNotPresent("offices.jpg");
 		
 		info("Add new container and portlet");
@@ -199,7 +199,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("Delete portlet");
 		navTool.goToEditPageEditor();
-		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
+		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
 		waitForTextNotPresent("offices.jpg");
 		
 		info("Add new container and portlet");
@@ -239,7 +239,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("Delete portlet");
 		navTool.goToEditPageEditor();
-		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
+		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
 		waitForTextNotPresent("offices.jpg");
 		
 		info("Add new container and portlet");

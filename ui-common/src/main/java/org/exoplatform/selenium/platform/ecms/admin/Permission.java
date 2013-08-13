@@ -32,8 +32,11 @@ public class Permission extends EcmsPermission{
 	public final By ELEMENT_SET_PRO_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='set_property']");
 	public final By ELEMENT_REMOVE_CHEKBOX = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@id='remove']");
 	public final By ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select User']");
+	public final By ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT_2 = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='Select User']");
+	
 	public final By ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Membership']");
 	public final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Everyone']");
+	public final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT_2 = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='Select Everyone']");
 	public final By ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[contains(text(),'Save')]");
                                                               
 	public final String ELEMENT_PERMISSION_MANAGEMENT_READ = "//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='${userOrGroupName}']/../..//input[contains(@id, 'read')]";
@@ -43,7 +46,8 @@ public class Permission extends EcmsPermission{
 	//"//*[text()='Add permission to that node']/ancestor::div[contains(@id, 'Permission')]//*[@title='*:/platform/users']/../..//input[contains(@id, 'read')]";
 	//public final String ELEMENT_EDIT_USER_PERMISSION = "//*[@title='${userOrGroupName}']/../..//*[@class='uiIconEdit']";
 	//public final String ELEMENT_EDIT_USER_PERMISSION_AUX = "//div[@id='UITabContent' and @style='display: block;;']//*[@title='${userOrGroupName}']/../..//*[@class='uiIconEdit']";
-	public String ELEMENT_DELETE_SELECTED_GROUP = "//*[contains(text(), '${selectedGroup}')]/../..//*[contains(@class, 'uiIconDelete')]";
+	public final String ELEMENT_DELETE_SELECTED_GROUP = "//*[contains(text(), '${selectedGroup}')]/../..//*[contains(@class, 'uiIconDelete')]";
+	public final String ELEMENT_TEXT_ADD_PERMISSION = "//*[@class='UIPermissionManager']//*[contains(text(), '${text}')]";
 	
 	/*============== Explorer/Tags Permission Manager ================*/
 	/**
@@ -67,29 +71,30 @@ public class Permission extends EcmsPermission{
 	public void setPermissionForUserOnManageCategory(boolean selectUser, String user, boolean selectMembership, String groupID, String membership,
 			boolean read, boolean add, boolean remove){
 		info("Set permission for category with user " + user);
+		Utils.pause(1000);
 		if (!selectUser && !selectMembership){
 			if (isElementPresent(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT)){
 				click(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT);
 			}else {
-				click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='Select Everyone']"));
+				click(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT_2);
 			}
 		}
 		else if (selectUser){
 			if (isElementPresent(ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT)){
 				click(ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT);
 			}else {
-				click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='Select User']"));
+				click(ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT_2);
 			}
 			
-			if (isTextPresent("Add permissions to this node")){
-				if (isElementPresent(By.xpath("//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"))){
+			if (waitForAndGetElement(ELEMENT_TEXT_ADD_PERMISSION.replace("${text}", "Add permissions to this node"), 5000, 0) != null){
+				if (waitForAndGetElement(By.xpath("//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"), 5000, 0) !=null ){
 					click(By.xpath("//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"));
 				}else {
 					click(By.xpath("//*[@data-original-title='" + user + "']/../..//*[contains(@class, 'uiIconPlus')]"));
 				} 
 			}
-			else if (isTextPresent("Add permission to that node")){
-				if (isElementPresent(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"))){
+			else if (waitForAndGetElement(ELEMENT_TEXT_ADD_PERMISSION.replace("${text}", "Add permission to that node"), 5000, 0) != null){
+				if (waitForAndGetElement(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"), 5000, 0) != null){
 					click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='" + user + "']/../..//*[@class='SelectPageIcon']"));
 				}else {
 					click(By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='" + user + "']/../..//*[contains(@class, 'uiIconPlus')]"));

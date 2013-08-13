@@ -589,10 +589,10 @@ public class ActionBar extends EcmsBase{
 		}*/
 		switch (action){
 		case COPY:
-			click(cMenu.ELEMENT_COPY_NODE);
+			click(ELEMENT_COPY_NODE);
 			break;
 		case CUT:
-			click(cMenu.ELEMENT_CUT_NODE);
+			click(ELEMENT_CUT_NODE);
 			break;
 		case DELETE:
 			if (waitForAndGetElement(cMenu.ELEMENT_MENU_DELETE, 3000, 0) != null){
@@ -605,7 +605,7 @@ public class ActionBar extends EcmsBase{
 			waitForElementNotPresent(ELEMENT_UI_CHECKBOX.replace("${element}", elementName));
 			break;
 		case PASTE:
-			click(cMenu.ELEMENT_PASTE_NODE);
+			click(ELEMENT_PASTE_NODE);
 			break;
 		default:
 			break;

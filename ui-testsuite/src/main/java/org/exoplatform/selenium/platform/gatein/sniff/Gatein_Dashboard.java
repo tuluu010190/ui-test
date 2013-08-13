@@ -149,7 +149,7 @@ public class Gatein_Dashboard extends DashBoard {
 		pageE.movePortletOnContainer(ELEMENT_FRAME_CONTAIN_PORTLET, By.xpath("//*[text()='Content List']/..//*[@class='uiIconDragDrop uiIconWhite']"), ELEMENT_DROP_TARGET_HAS_LAYOUT);
 		
 		info("Delete portlet");
-		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
+		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
 		waitForTextNotPresent("Sorry, no articles are available.");
 		waitForTextNotPresent("offices.jpg");
 		

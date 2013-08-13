@@ -80,7 +80,7 @@ public class Gatein_Navigation_GroupNavigation_EditLayout extends GroupNavigatio
 		
 		info("Remove application when edit layout of page");
 		navTool.goToEditPageEditor();
-		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
+		pageE.removePortlet(ELEMENT_FRAME_CONTAIN_PORTLET, ELEMENT_DELETE_PORTLET_ICON);
 		waitForElementNotPresent(ELEMENT_CLV_PORTLET);
 		
 		info("Delete page");

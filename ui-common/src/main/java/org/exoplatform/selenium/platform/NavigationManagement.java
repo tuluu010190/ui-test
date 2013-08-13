@@ -72,7 +72,7 @@ public class NavigationManagement extends  PlatformBase{
 		} else {
 			info("-- Select Page --");
 			Utils.pause(500);
-			click(ELEMENT_SEARCH_SELECT_PAGE_LINK);
+			click(ELEMENT_SEARCH_SELECTOR_PAGE_LINK);
 			type(ELEMENT_INPUT_POPUP_SEARCH_TITLE, pageTitle, true);
 			click(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
 			click(ELEMENT_SELECT_PAGE);
@@ -120,7 +120,7 @@ public class NavigationManagement extends  PlatformBase{
 		}
 
 		click(ELEMENT_PAGE_SELECTOR_TAB);
-		click(ELEMENT_CLEAR_PAGE_LINK);
+		click(ELEMENT_CLEAR_SELECTOR_PAGE);
 		type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
 		type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
 		click(ELEMENT_CREATE_PAGE_LINK);
@@ -144,20 +144,21 @@ public class NavigationManagement extends  PlatformBase{
 		if (firstLevel){
 			click(currentNodeName);
 			rightClickOnElement(currentNodeName);
-			click(ELEMENT_NODE_DELETE);
+			click(ELEMENT_NAVIGATION_DELETE_NODE);
 			alt.waitForConfirmation("Are you sure you want to delete this node?");
-			waitForTextNotPresent(nodeName);
+			waitForElementNotPresent(currentNodeName);
 			button.save();		
 		}else {
 			click(currentNodeHome);
 			click(currentNodeName);
 			rightClickOnElement(currentNodeName);
-			click(ELEMENT_NODE_DELETE);
+			click(ELEMENT_NAVIGATION_DELETE_NODE);
 			alt.waitForConfirmation("Are you sure you want to delete this node?");
-			waitForTextNotPresent(nodeName);
+			waitForElementNotPresent(currentNodeName);
 			button.save();		
 		}
-		waitForTextNotPresent("Navigation Management");
+		//waitForTextNotPresent("Navigation Management");
+		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 	}
 
 }
