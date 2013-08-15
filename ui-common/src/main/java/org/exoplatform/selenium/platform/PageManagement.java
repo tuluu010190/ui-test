@@ -33,7 +33,7 @@ public class PageManagement extends PlatformBase {
 	public final String ELEMENT_ADD_PAGE_BUTTON = "//a[text()='Add New Page']";
 	public final String ELEMENT_INPUT_SEARCH_TITLE = "//input[@id='pageTitle']";
 	public final By ELEMENT_INPUT_SITE_NAME = By.id("siteName");
-	public final String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//*[contains(@class, 'uiIconSearch')]";
+	//public final String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//*[contains(@class, 'uiIconSearch')]";
 	public final String ELEMENT_PAGE_EDIT_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconEditInfo uiIconLightGray']";
 	public final String ELEMENT_PAGE_DELETE_ICON = "//*[contains(@title, '${page}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
 

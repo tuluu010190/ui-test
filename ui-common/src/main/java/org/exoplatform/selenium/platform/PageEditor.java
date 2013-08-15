@@ -341,7 +341,7 @@ public class PageEditor extends PlatformBase {
 		magAlert = new ManageAlert(driver);
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true) ;
 		
-		if (waitForAndGetElement(elementPortlet) != null){
+		if (waitForAndGetElement(elementPortlet, 5000, 0) != null){
 			mouseOver(elementPortlet, true);
 			click(iconDelete);
 			magAlert.acceptAlert();

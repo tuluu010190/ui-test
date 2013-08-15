@@ -8,6 +8,7 @@ import org.exoplatform.selenium.Utils;
 import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class NavigationManagement extends  PlatformBase{
 
@@ -16,19 +17,21 @@ public class NavigationManagement extends  PlatformBase{
 	}
 
 	ManageAlert alt = new ManageAlert(driver);
-	
-	public String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//form[@id='UIPageSearchForm']/div[2]/a[@class='SearchIcon']";
-	public  final By ELEMENT_INPUT_POPUP_SEARCH_TITLE = By.xpath("//div[@class='QuickSet']/input[@id='pageTitle']"); 
-	public  final By ELEMENT_SELECT_PAGE = By.xpath("//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img");
+
+	//public String ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = "//form[@id='UIPageSearchForm']/div[2]/a[@class='SearchIcon']";
+	public  final By ELEMENT_INPUT_POPUP_SEARCH_TITLE = By.xpath("//div[contains(@class, 'uiPageSearch')]//input[@id='pageTitle']"); 
+	//public  final By ELEMENT_SELECT_PAGE = By.xpath("//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img");
 
 	// Add a node for portal at portal navigation
 	public void addNodeForPortal(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode,
 			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode){
+		button = new Button(driver);
 
 		//String node = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeLabel);
 		String currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel);
-		editNavigation(currentNavigation);
-
+		if (waitForAndGetElement(ELEMENT_TITLE_NAVIGATION_MANAGEMENT, 5000, 0) == null){
+			editNavigation(currentNavigation);
+		}
 		info("--Add new node at navigation--");	
 		if (useAddNodeLink){
 			click(currentNode);
@@ -44,7 +47,8 @@ public class NavigationManagement extends  PlatformBase{
 				click(ELEMENT_NODE_ADD_NEW);
 			}	
 		}
-		waitForTextPresent("Page Node Settings");
+		//waitForTextPresent("Page Node Settings");
+		waitForAndGetElement(ELEMENT_INPUT_NAME);
 		type(ELEMENT_INPUT_NAME, nodeName, true);
 
 		if (extendedLabelMode) {
@@ -59,7 +63,7 @@ public class NavigationManagement extends  PlatformBase{
 
 		click(ELEMENT_PAGE_SELECTOR_TAB);
 
-		if (pageName != null) {
+		if (pageName != "") {
 			info("-- Create new page --");
 			type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
 			type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
@@ -75,41 +79,48 @@ public class NavigationManagement extends  PlatformBase{
 			click(ELEMENT_SEARCH_SELECTOR_PAGE_LINK);
 			type(ELEMENT_INPUT_POPUP_SEARCH_TITLE, pageTitle, true);
 			click(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
-			click(ELEMENT_SELECT_PAGE);
+			click(ELEMENT_SELECT_SEARCHED_PAGE);
 		}
 
 		info("-- Save add node for portal --");
-		Utils.pause(1000);
+		Utils.pause(500);
 		button.save();
 		if (verifyNode) {
 			waitForTextNotPresent("Page Node Settings");
-			waitForTextPresent(nodeName);
-			button.save();
-			waitForTextNotPresent("Navigation Management");
+			//waitForTextPresent(nodeName);
+			waitForAndGetElement( ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName));
+			//button.save();
+			//waitForTextNotPresent("Navigation Management");
 		}
 	}
 
 	// Edit a node 
-	public void editNode(String currentNavigation, String nodeNameHome, String nodeName, boolean extendedLabelMode, Map<String, String> languages, 
+	public void editNodeInPortalNavigation(String currentNavigation, String nodeNameHome, String nodeName, boolean extendedLabelMode, Map<String, String> languages, 
 			String nodeLabel, String pageName, String pageTitle, boolean firstLevel){
-
+		button = new Button(driver);
 		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);
 		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
-		editNavigation(currentNavigation);
-		//currentNodeHome.equals(ELEMENT_NAVIGATION_NODE_AREA)
+		
+		//Go to [Edit Navigation]
+		if (waitForAndGetElement(ELEMENT_TITLE_NAVIGATION_MANAGEMENT, 5000, 0) == null){
+			editNavigation(currentNavigation);
+		}	
 		if (firstLevel){
 			click(currentNodeName);
 			rightClickOnElement(currentNodeName);
-			click(ELEMENT_NODE_EDIT);	
+			click(ELEMENT_EDIT_SELECTED_NODE);
 		}else {
 			click(currentNodeHome);
 			click(currentNodeName);
 			rightClickOnElement(currentNodeName);
-			click(ELEMENT_NODE_EDIT);	
-
+			click(ELEMENT_EDIT_SELECTED_NODE);
 		}
-		waitForTextPresent("Page Node Settings");
+		//waitForTextPresent("Page Node Settings");
 		if (extendedLabelMode) {
+			WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE, DEFAULT_TIMEOUT, 1, 2);
+			if(!element.isSelected()){
+				click(element, 2);
+			}
 			for (String language : languages.keySet()) {
 				select(ELEMENT_SELECT_LANGUAGE, language);
 				Utils.pause(500);
@@ -118,17 +129,24 @@ public class NavigationManagement extends  PlatformBase{
 			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
 			type(ELEMENT_INPUT_LABEL, nodeLabel, true);
 		}
-
+		//Page Selector
 		click(ELEMENT_PAGE_SELECTOR_TAB);
 		click(ELEMENT_CLEAR_SELECTOR_PAGE);
-		type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
-		type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
-		click(ELEMENT_CREATE_PAGE_LINK);
-		Utils.pause(1000);
-		button.save();
-		Utils.pause(1000);
-		button.save();
-		waitForTextNotPresent("Navigation Management");
+		if (!pageName.isEmpty()){
+			type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
+			type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
+			click(ELEMENT_CREATE_PAGE_LINK);
+			button.save();
+		}else {
+			click(ELEMENT_SEARCH_SELECTOR_PAGE_LINK);
+			type(ELEMENT_INPUT_POPUP_SEARCH_TITLE, pageTitle, true);
+			click(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
+			click(ELEMENT_SELECT_SEARCHED_PAGE);	
+			button.save();
+		}
+		Utils.pause(500);
+		//button.save();
+		//waitForTextNotPresent("Navigation Management");
 	}
 
 	//Delete a node from Portal navigation
@@ -149,7 +167,9 @@ public class NavigationManagement extends  PlatformBase{
 			waitForElementNotPresent(currentNodeName);
 			button.save();		
 		}else {
-			click(currentNodeHome);
+			if (waitForAndGetElement(currentNodeName, 5000, 0) == null){
+				click(currentNodeHome);
+			}
 			click(currentNodeName);
 			rightClickOnElement(currentNodeName);
 			click(ELEMENT_NAVIGATION_DELETE_NODE);
@@ -160,5 +180,4 @@ public class NavigationManagement extends  PlatformBase{
 		//waitForTextNotPresent("Navigation Management");
 		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 	}
-
 }

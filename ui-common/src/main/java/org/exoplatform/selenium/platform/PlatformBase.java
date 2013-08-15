@@ -296,6 +296,7 @@ public class PlatformBase extends TestBase {
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
+	public final By ELEMENT_TITLE_NAVIGATION_MANAGEMENT = By.xpath("//*[contains(@class, 'popupTitle') and text() = 'Navigation Management']");
 	public final By ELEMENT_ADD_NODE_LINK = By.linkText("Add Node");
 	public final By ELEMENT_PAGE_SELECTOR_TAB = By.linkText("Page Selector");
 	public final By ELEMENT_INPUT_PAGE_NAME = By.name("pageName");
@@ -304,6 +305,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SEARCH_SELECTOR_PAGE_LINK = By.className("uiIconSelectPage");
 	public final By ELEMENT_CLEAR_SELECTOR_PAGE = By.className("uiIconDelete");
 	public final By ELEMENT_SELECT_SEARCHED_PAGE = By.xpath("//*[@data-original-title='Select Page']");
+	public final By ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = By.xpath("//*[contains(@class, 'uiIconSearch')]");
 	
 	public final String ELEMENT_LIST_NODE_LINK = ELEMENT_NODE_LINK.replace("${nodeLabel}", "${nodeLabel}") + "/..//li[${number}]//*[@title='${childNode}']";
 	public final String ELEMENT_CHILD_NODE_LINK = ELEMENT_NODE_LINK.replace("${nodeLabel}", "${nodeLabel}") + "/../*[contains(@class, 'childrenContainer')]//*[@title='${childNode}']";
@@ -311,8 +313,9 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_NAVIGATION_HOME_NODE = "//div[@class='HomeNode']";				 
 	public final String ELEMENT_NODE_ADD_NEW_TOP_NODE = "//div[@id='UINavigationNodeSelectorPopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
 	public final By ELEMENT_NODE_ADD_NEW = By.xpath("//*[@id='NavigationNodePopupMenu']/*[@class='uiContextMenuContainer']//*[@class='uiIconAddNode']");
-	public final String ELEMENT_NODE_EDIT = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
+	//public final String ELEMENT_NODE_EDIT = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
 	//	public final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
+	
 	//Navigation management > Context menu
 	public final By ELEMENT_NAVIGATION_DELETE_NODE = By.className("uiIconDeleteNode");
 	public final By ELEMENT_EDIT_SELECTED_NODE = By.className("uiIconEditSelectedNode");
@@ -323,7 +326,6 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_NAVIGATION_MOVE_UP_NODE = By.className("uiIconMoveUp");
 	public final By ELEMENT_NAVIGATION_MOVE_DOWN_NODE = By.className("uiIconMoveDown");
 	public final By ELEMENT_NAVIGATION_EDIT_PAGE_NODE = By.className("uiIconEditPageNode");
-	
 	
 	//Add new Page
 	public final By ELEMENT_NEWPAGE_NAME_TEXTBOX = By.id("pageName");	
@@ -528,7 +530,8 @@ public class PlatformBase extends TestBase {
 	public void editNavigation(String currentNavigation) {
 		String navigation = ELEMENT_EDIT_NAVIGATION.replace("${navigation}", currentNavigation);
 		click(navigation);
-		waitForTextPresent("Navigation Management");
+		//waitForTextPresent("Navigation Management");
+		waitForAndGetElement(ELEMENT_TITLE_NAVIGATION_MANAGEMENT);
 	}
 
 	//Copy value from Source and paste to Target
