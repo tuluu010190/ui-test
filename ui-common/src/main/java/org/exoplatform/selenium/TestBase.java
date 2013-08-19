@@ -4,9 +4,11 @@ import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -580,10 +582,22 @@ public class TestBase {
 		fp.setPreference("browser.download.folderList", 2);
 		info("Save file to " + pathFile);
 		fp.setPreference("browser.download.dir", pathFile);
-		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", 
-				"application/x-xpinstall;application/x-zip;application/x-zip-compressed;" +
-				"application/octet-stream;application/zip;application/pdf;application/msword;" +
-				"text/plain;application/octet;application/xml");
+//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", 
+//				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;application/bzip2;" +
+//				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+//				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip;application/octet-stream");
+
+		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
+						"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
+						"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+						"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
+						"application/octet-stream" +
+						";application/pdf;application/msword;text/plain;" +
+						"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
+						"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
+						"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml");
+		
+		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 		driver = new FirefoxDriver(fp);
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -600,6 +614,8 @@ public class TestBase {
 		driver = new FirefoxDriver(fp);
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		action = new Actions(driver);
+		termsAndConditions();
 	}
 	
 	/**
@@ -620,6 +636,47 @@ public class TestBase {
 		return found;
 	}
 	
+
+	/**
+	 * function delete file in folder test output
+	 * @author lientm
+	 * @param file: file name
+	 */
+	public void deleteFile(String file){
+		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/" + file;
+		File Files = new File(pathFile);
+
+		Files.setWritable(true);
+		Files.delete();
+		if (checkFileExisted(file) == false){
+			info("Delete file successfully");
+		}else info("Have error when delete file");
+	}
+
+	/**
+	 * @author lientm
+	 * @param fileName
+	 */
+	public void cutPasteFileFromOutputToTestData(String fileName){
+        String source = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + fileName;
+        //directory where file will be copied
+        String target = System.getProperty("user.dir") + "/src/main/resources/TestData/";
+     
+        //name of source file
+        File sourceFile = new File(source);
+        String name = sourceFile.getName();
+     
+        File targetFile = new File(target+name);
+     
+        //copy file from one location to other
+        try {
+			FileUtils.copyFile(sourceFile, targetFile);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        //delete file in TestOutput
+        deleteFile("TestOutput/" + fileName);
+	}
 
 	public enum Language{
 		en, fr, vi, lo;

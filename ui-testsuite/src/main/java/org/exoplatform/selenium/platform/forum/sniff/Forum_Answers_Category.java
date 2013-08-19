@@ -1,0 +1,182 @@
+package org.exoplatform.selenium.platform.forum.sniff;
+
+import  static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.platform.forum.AnswerBase;
+import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
+import org.exoplatform.selenium.platform.forum.AnswerManageQuestion;
+import org.openqa.selenium.By;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+
+/**
+ * @author lientm
+ * @date 19 Aug 2013
+ */
+
+public class Forum_Answers_Category extends AnswerBase {
+	
+	ManageAccount magAc;
+	NavigationToolbar navTool;
+	AnswerManageCategory magCat;
+	AnswerManageQuestion magQuest;
+	
+	@BeforeMethod
+	public void setUpBeforeTest(){
+		getDriverAutoSave();
+		driver.get(baseUrl);
+		magAc = new ManageAccount(driver);
+		navTool = new NavigationToolbar(driver);
+		magCat = new AnswerManageCategory(driver);
+		magQuest = new AnswerManageQuestion(driver);
+		
+		magAc.signIn("john", "gtn");
+		goToAnswer();
+	}
+
+	@AfterMethod
+	public void afterTest(){
+		driver.manage().deleteAllCookies();
+		driver.quit();
+	}
+	
+	/**CaseId: 70972 + 70973 + 70978: Add, edit, delete category
+	 * 
+	 */
+	@Test
+	public void test01_AddEditDeleteCategory(){
+		String categoryName = "Answercategory1";
+		String description = "Add new category for answer";
+		String[] userGroup = {"demo"};
+		
+		String name_edit = "Category1_Edit";
+		String des_edit = "Edit category 1";
+		String[] userGroupEdit = {"Platform/Content Management", "", "/platform/web-contributors"};
+		
+		magCat.addNewCategoryInAnswer(categoryName, null, description, 2, userGroup, true, false);
+		
+		magCat.openCategoryInAnswer(categoryName);
+		magCat.editOpeningCategoryInAnswer(name_edit, "2", des_edit, 3, userGroupEdit, true, true, true, true, true);
+		waitForAndGetElement(ELEMENT_ANSWER_BREADCUMB.replace("${category}", name_edit));
+		
+		magCat.deleteOpeningCategoryInAnswer(name_edit);
+	}
+	
+	/**CaseId: 70979 -> Move category
+	 * 
+	 */
+	@Test
+	public void test02_MoveCategory(){
+		String categoryName1 = "Answercategory2_1";
+		String description1 = "Add new category1 for answer";
+		String[] userGroup1 = {"demo"};
+		
+		String categoryName2 = "Answercategory2_2";
+		String description2 = "Add new category2 for answer";
+		String[] userGroup2 = {"Platform/Content Management", "", "/platform/web-contributors"};
+		
+		info("Add 2 category at root");
+		magCat.addNewCategoryInAnswer(categoryName1, null, description1, 2, userGroup1, true, false);
+		magCat.addNewCategoryInAnswer(categoryName2, null, description2, 3, userGroup2, true, true, true, true, true);
+
+		magCat.moveCategory(categoryName1, categoryName2);
+		magCat.openCategoryInAnswer(categoryName2);
+		waitForTextPresent(categoryName1);
+		
+		magCat.openCategoryInAnswer(categoryName1);
+		magCat.deleteOpeningCategoryInAnswer(categoryName1);
+		magCat.deleteOpeningCategoryInAnswer(categoryName2);
+	}
+	
+	/**CaseId: 68955 -> Export/Import category
+	 * 
+	 */
+	@Test (groups = "pending")
+	public void test03_ExportImportCategory(){
+		String categoryName = "Answercategory3";
+		String description = "Add new category for answer";
+		String[] userGroup = {"demo"};		
+		String questionName = "QuestionCategory3";
+		String questionContent = "Question of Answercategory3";
+		String fileName = "Answercategory3";
+		String fileFull = "fileName" + ".zip";
+		
+		info("Add new category and new question");
+		magCat.addNewCategoryInAnswer(categoryName, null, description, 2, userGroup, true, false);
+		magCat.openCategoryInAnswer(categoryName);
+		magQuest.submitQuestion(null, questionName, questionContent, false);
+		
+		info("Export category and new question");
+		magCat.exportAnswerCategory(fileName);
+		Utils.pause(3000);
+		assert checkFileExisted(fileFull);
+		
+		info("Deletet category and question");
+		magCat.deleteOpeningCategoryInAnswer(categoryName);
+		
+		info("Cut/paste file from TestOutput folder to TestData folder");
+		cutPasteFileFromOutputToTestData(fileFull);
+		
+		magCat.importAnswerCategory(fileFull);
+		deleteFile(fileFull);
+		magCat.openCategoryInAnswer(categoryName);
+		waitForAndGetElement(By.linkText(questionName));
+		
+		magCat.deleteOpeningCategoryInAnswer(categoryName);
+	}
+	
+	/**CaseId: 68956 -> Watch/Unwatch category
+	 * 
+	 */
+	@Test
+	public void test04_WatchUnwatchCategory(){
+		String categoryName = "Answercategory4";
+		String description = "Add new category for answer";
+		String[] userGroup = {"demo"};		
+		String questionName = "QuestionCategory4";
+		String questionContent = "Question of Answercategory4";
+		
+		info("Add new category and new question");
+		magCat.addNewCategoryInAnswer(categoryName, null, description, 2, userGroup, true, false);
+		magCat.openCategoryInAnswer(categoryName);
+		magQuest.submitQuestion(null, questionName, questionContent, false);
+		
+		goToAnwserHome();
+		magCat.watchAnswerCategory(categoryName);
+		magCat.unwatchAnswerCategory(categoryName);
+		
+		magCat.openCategoryInAnswer(categoryName);
+		magCat.deleteOpeningCategoryInAnswer(categoryName);
+	}
+	
+	/**CaseId: 68954 -> Drag drop category
+	 * 
+	 */
+	@Test
+	public void test05_DragDropCategory(){
+		String categoryName1 = "Answercategory5_1";
+		String description1 = "Add new category1 for answer";
+		String[] userGroup1 = {"demo"};
+		
+		String categoryName2 = "Answercategory5_2";
+		String description2 = "Add new category2 for answer";
+		String[] userGroup2 = {"Platform/Content Management", "", "/platform/web-contributors"};
+		
+		info("Add 2 category at root");
+		magCat.addNewCategoryInAnswer(categoryName1, null, description1, 2, userGroup1, true, false);
+		magCat.addNewCategoryInAnswer(categoryName2, null, description2, 3, userGroup2, true, true, true, true, true);
+
+		magCat.dragDropAnswerCategory(categoryName1, categoryName2);
+		assert magCat.getCategoryLinkFromTree(categoryName1) == null;
+		
+		magCat.openCategoryInAnswer(categoryName2);
+		assert magCat.getCategoryLinkFromTree(categoryName1) != null;
+		
+		magCat.goToAnwserHome();
+		magCat.deleteNotOpeningCategoryInAnswer(categoryName2);
+	}
+}

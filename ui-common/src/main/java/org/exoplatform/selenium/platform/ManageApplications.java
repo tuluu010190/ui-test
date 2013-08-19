@@ -9,6 +9,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import java.util.Map;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 public class ManageApplications extends PlatformBase {
@@ -18,6 +19,10 @@ public class ManageApplications extends PlatformBase {
 	Button button = new Button(driver);
 	ManageAlert alt = new ManageAlert(driver);
 	PageEditor pageE = new PageEditor(driver);
+	
+	public ManageApplications(WebDriver dr){
+		driver = dr;
+	}
 	
 	/* Manage Application Page */
 	public By ELEMENT_IMPORT_APPLICATION = By.linkText("Import Applications");

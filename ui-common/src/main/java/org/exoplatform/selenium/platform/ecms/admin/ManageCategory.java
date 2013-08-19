@@ -140,29 +140,29 @@ public class ManageCategory extends EcmsPermission{
 		setPermissionForNode(read,add,remove);
 		click(button.ELEMENT_SAVE_BUTTON);
 		if (!selectUserOrGroup && !selectMembership){
-			//waitForElementPresent(By.xpath("//*[@data-original-title = 'any']"));
+			//waitForAndGetElement(By.xpath("//*[@data-original-title = 'any']"));
 			waitForAndGetElement("//*[text()='User or Group']/../../..//*[contains(text(), 'any')]");
 		}
 		else if (selectUserOrGroup){
-			//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ user_Per +"']"));
+			//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ user_Per +"']"));
 			waitForAndGetElement("//*[text()='User or Group']/../../..//*[contains(text(), '"+ user_Per +"')]");
 		}
 		else if (selectMembership){
 		    if (groupID.contains("Administration")){
-		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/administrators']"));
+		    	//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/administrators']"));
 		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/administrators')]");
 		    }else if (groupID.contains("Guests")){
-		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/guests']"));
+		    	//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/guests']"));
 		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/guests')]");
 		    }else if (groupID.contains("Users")){
-		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/users']"));
+		    	//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/users']"));
 		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/users')]");
 		    }else if (groupID.contains("Content Management")){
-		    	//waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/platform/web-contributors']"));
+		    	//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/web-contributors']"));
 		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/web-contributors')]");
 		    }
 		    /*else{	
-		    	waitForElementPresent(By.xpath("//*[@data-original-title = '"+ membership +":/"+ groupID +"']"));
+		    	waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/"+ groupID +"']"));
 		    }*/
 		}
 		info("Add user permission for category is successfull");

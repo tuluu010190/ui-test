@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.ManageApplications;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PageEditor;
+import org.exoplatform.selenium.platform.PlatformBase;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,10 +19,11 @@ import org.testng.annotations.Test;
  * @author lientm
  *
  */
-public class Gatein_Manage_Application extends ManageApplications {
+public class Gatein_Manage_Application extends PlatformBase {
 	ManageAccount magAc;
 	NavigationToolbar navTool;
 	PageEditor pageE;
+	ManageApplications app;
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -30,6 +32,7 @@ public class Gatein_Manage_Application extends ManageApplications {
 		magAc = new ManageAccount(driver);
 		navTool = new NavigationToolbar(driver);
 		pageE = new PageEditor(driver);
+		app = new ManageApplications(driver);
 		
 		magAc.signIn("john", "gtn");
 	}
@@ -47,10 +50,10 @@ public class Gatein_Manage_Application extends ManageApplications {
 	public void test01_HireShowImportApplicationIcon(){
 	
 		info("Hire Import Application icon");
-		showImportApplication(false);
+		app.showImportApplication(false);
 		
 		info("Show Import Application icon");
-		showImportApplication(true);
+		app.showImportApplication(true);
 	}
 	
 	/**CaseId: 68905 -> Import Application
@@ -59,10 +62,10 @@ public class Gatein_Manage_Application extends ManageApplications {
 	@Test
 	public void test02_ImportApplication(){
 		navTool.goToApplicationRegistry();
-		importApplication();
-		waitForAndGetElement(ELEMENT_CATEGORY_NAME.replace("${categoryName}", "Integration"), 60000);
-		waitForAndGetElement(ELEMENT_CATEGORY_NAME.replace("${categoryName}", "Navigation"));
-		waitForAndGetElement(ELEMENT_CATEGORY_NAME.replace("${categoryName}", "System"));
+		app.importApplication();
+		waitForAndGetElement(app.ELEMENT_CATEGORY_NAME.replace("${categoryName}", "Integration"), 60000);
+		waitForAndGetElement(app.ELEMENT_CATEGORY_NAME.replace("${categoryName}", "Navigation"));
+		waitForAndGetElement(app.ELEMENT_CATEGORY_NAME.replace("${categoryName}", "System"));
 	}
 	
 	/**CaseId: 70406 + 70407 + 68908 + 68907 
@@ -84,19 +87,19 @@ public class Gatein_Manage_Application extends ManageApplications {
 		
 		info("Add new category");
 		navTool.goToApplicationRegistry();
-		addNewCategoryAtManageApplications(categoryName, displayName, categoryDescription, true, null, true);
+		app.addNewCategoryAtManageApplications(categoryName, displayName, categoryDescription, true, null, true);
 		
 		info("Edit category");
 		Map<String, String> permissions = new HashMap<String, String>();
 		permissions.put("Platform/Content Management", "*");
-		editCategoryAtManageApplications(categoryName, newDisplayName, newCategoryDescription, false, permissions, true);
+		app.editCategoryAtManageApplications(categoryName, newDisplayName, newCategoryDescription, false, permissions, true);
 		
 		info("Add Applications into category");
-		addApplicationToCategory(categoryName, true, appName1, "Portlet", null, true, null, null);
-		addApplicationToCategory(categoryName, false, null, "Portlet", appName2, false, "Development", "manager");
+		app.addApplicationToCategory(categoryName, true, appName1, "Portlet", null, true, null, null);
+		app.addApplicationToCategory(categoryName, false, null, "Portlet", appName2, false, "Development", "manager");
 		
 		info("Delete category");
-		deleteCategoryAtManageApplications(categoryName, true);
+		app.deleteCategoryAtManageApplications(categoryName, true);
 	}
 	
 	/**CaseId: 68909
@@ -105,13 +108,13 @@ public class Gatein_Manage_Application extends ManageApplications {
 	@Test
 	public void test04_ViewPortlet(){
 		navTool.goToApplicationRegistry();
-		click(ELEMENT_SHOW_PORTLET_ICON);
+		click(app.ELEMENT_SHOW_PORTLET_ICON);
 		
 		info("View calendar portlet");
-		click(ELEMENT_PORTLET_IN_CATEGORY.replace("${group}", "calendar").replace("${portletName}", "Calendar Portlet"));
-		waitForAndGetElement(ELEMENT_PORTLET_INFO_NAME.replace("${portletName}", "Calendar Portlet"));
-		waitForAndGetElement(ELEMENT_PORTLET_INFO_DESCRIPTION.replace("${description}", "Calendar Portlet"));
-		waitForAndGetElement(ELEMENT_PORTLET_INFO_CATEGORY.replace("${category}", "Collaboration"));
+		click(app.ELEMENT_PORTLET_IN_CATEGORY.replace("${group}", "calendar").replace("${portletName}", "Calendar Portlet"));
+		waitForAndGetElement(app.ELEMENT_PORTLET_INFO_NAME.replace("${portletName}", "Calendar Portlet"));
+		waitForAndGetElement(app.ELEMENT_PORTLET_INFO_DESCRIPTION.replace("${description}", "Calendar Portlet"));
+		waitForAndGetElement(app.ELEMENT_PORTLET_INFO_CATEGORY.replace("${category}", "Collaboration"));
 	}
 	
 	/**CaseId: 68911 + 70397 + 70402 + 70401 + 70400
@@ -129,21 +132,21 @@ public class Gatein_Manage_Application extends ManageApplications {
 		String newTitle = "gadget title 05 update";		
 		
 		navTool.goToApplicationRegistry();
-		click(ELEMENT_SHOW_GADGET_ICON);
+		click(app.ELEMENT_SHOW_GADGET_ICON);
 		info("Create new manual gadget");
-		addManualGadget(name, source.replace("${title}", title));
+		app.addManualGadget(name, source.replace("${title}", title));
 		
 		info("Edit gadget");
-		editManualGadget(title, source.replace("${title}", newTitle));
+		app.editManualGadget(title, source.replace("${title}", newTitle));
 		
 		info("Refresh gadget");
-		click(ELEMENT_GADGET_REFRESH_ICON);
+		click(app.ELEMENT_GADGET_REFRESH_ICON);
 		
 		info("Add gadget to category");
-		addGadgetToCategory("Administration/answer");
+		app.addGadgetToCategory("Administration/answer");
 		
 		info("Delete gadget");
-		deleteGadget(newTitle);
+		app.deleteGadget(newTitle);
 	}
 	
 	/**CaseId: 70403 + 70405 + 70404
@@ -157,16 +160,16 @@ public class Gatein_Manage_Application extends ManageApplications {
 		String title = "Memory Game";
 		
 		navTool.goToApplicationRegistry();
-		click(ELEMENT_SHOW_GADGET_ICON);
+		click(app.ELEMENT_SHOW_GADGET_ICON);
 		
 		info("Create new remote gadget");
-		addRemoteGadget(url);
-		waitForAndGetElement(ELEMENT_GADGET_DELETE_ICON.replace("${title}", title));
+		app.addRemoteGadget(url);
+		waitForAndGetElement(app.ELEMENT_GADGET_DELETE_ICON.replace("${title}", title));
 		
 		info("Add gadget to category");
-		addGadgetToCategory("Administration");
+		app.addGadgetToCategory("Administration");
 		
 		info("Delete gadget");
-		deleteGadget(title);
+		app.deleteGadget(title);
 	}
 }
