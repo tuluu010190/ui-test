@@ -399,7 +399,7 @@ public class EcmsBase extends ManageAccount {
 		}else {
 			driver.get(DEFAULT_BASEURL + "/acme/overview");
 		}
-		Utils.pause(500);
+		Utils.pause(1000);
 	}
 
 	//go to a node
@@ -432,7 +432,12 @@ public class EcmsBase extends ManageAccount {
 
 	//function enable edit mode
 	public void enableEditMode(boolean enable){
+		Utils.pause(1000);
 		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+		if (waitForAndGetElement(ELEMENT_MENU_EDIT_CONTENT, 5000, 0) == null){
+			mouseOver(ELEMENT_MENU_EDIT_LINK, true);
+			Utils.pause(1000);
+		}
 		//waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK);
 		if ((enable == true && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == true) || 
 				(enable == false && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == true)){
@@ -537,6 +542,7 @@ public class EcmsBase extends ManageAccount {
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", waitForAndGetElement(ELEMENT_UPLOAD_LINK, DEFAULT_TIMEOUT, 1, 2));
 		type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false);
+		//Utils.pause(2000);
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
 		if (verify){
@@ -546,6 +552,8 @@ public class EcmsBase extends ManageAccount {
 		}
 		info("Upload file successfully");
 		Utils.pause(2000);
+//		driver.navigate().refresh();
+//		Utils.pause(2000);
 	}
 
 	//Edit an uploaded file

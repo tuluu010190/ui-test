@@ -21,7 +21,6 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
  * @author: HangNTT
  * @date: 29/08/2013
  */
-
 public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 	
 	ManageAccount magAc;
@@ -50,9 +49,9 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		button = new Button(driver);
 	
 	}
+	
 	/**CaseId: 74505 -> Hide the explorer tree panel in side bar
 	 */
-	
 	@Test
 	public void test01_HideTheExplorerTreePanelInSideBar(){
 		navToolBar.goToSiteExplorer();
@@ -71,9 +70,9 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		waitForElementNotPresent(ecms.ELEMENT_SITEBAR_SHARED);
 
 	}
+	
 	/**CaseId: 74582 -> Show the explorer tree panel in side bar
 	 */
-	
 	@Test
 	public void test02_ShowTheExplorerTreePanelInSideBar(){
 		
@@ -109,6 +108,7 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		info("Checkbox show sidebar is not checked");
 		
 	}
+	
 	/**CaseId: 74591 -> Verify "Hide explorer panel in side bar" box for File Management View
 	 */
 	@Test
@@ -127,13 +127,11 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		button.save();
 
 	}
+
 	@AfterMethod
 	public void afterTest(){
 		magAc.signOut();
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
-	
-	}
-
-
+}

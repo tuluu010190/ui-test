@@ -74,8 +74,7 @@ public class ECMainFunction extends EcmsBase{
 	 */
 	public void goToTemplateTab(){	    
 		navToolbar.goToContentAdministration();
-	//	if (isTextNotPresent("Documents")){
-		if(isElementNotPresent(ELEMENT_DOCUMENT_LINK_XPATH)){
+		if (waitForAndGetElement(ELEMENT_DOCUMENT_LINK, 5000, 0) == null){
 			click(ELEMENT_TEMPLATE_TAB);
 		}
 		click(ELEMENT_DOCUMENT_LINK);
@@ -85,7 +84,7 @@ public class ECMainFunction extends EcmsBase{
 	//Open [List Template] Screen
 	public void goToListTemplateTab(){
 		navToolbar.goToContentAdministration();
-		if (isTextNotPresent("Documents")){
+		if (waitForAndGetElement(ELEMENT_DOCUMENT_LINK, 5000, 0) == null){
 			click(ELEMENT_TEMPLATE_TAB);
 		}
 		click(ELEMENT_LIST_LINK);
@@ -95,7 +94,7 @@ public class ECMainFunction extends EcmsBase{
 	//Go to [Metadata] tab
 	public void goToMetadataTab(){
 		navToolbar.goToContentAdministration();
-		if (isTextNotPresent("Metadata")){
+		if (waitForAndGetElement(ELEMENT_METADATA_LINK, 5000, 0) == null){
 			click(ELEMENT_TEMPLATE_TAB);
 		}
 		click(ELEMENT_METADATA_LINK);
@@ -105,7 +104,7 @@ public class ECMainFunction extends EcmsBase{
 	//Go To Content Administration / Repository / Manage Lock Tab
 	public void goToLockedTab(){
 		navToolbar.goToContentAdministration();
-		if (isTextNotPresent("Namespaces")){
+		if (waitForAndGetElement(ELEMENT_MANAGE_LOCKS, 5000, 0) == null){
 			click(ELEMENT_REPOSITORY_TAB);
 		}
 		click(ELEMENT_MANAGE_LOCKS);
@@ -129,7 +128,7 @@ public class ECMainFunction extends EcmsBase{
 	//Go To Content Administration / Repository / Namespaces
 	public void goToNamespacesTab(){
 		navToolbar.goToContentAdministration();
-		if (isTextNotPresent("Namespaces")){
+		if (waitForAndGetElement(ELEMENT_MANAGE_NAME_SPACE_LINK, 5000, 0) == null){
 			click(ELEMENT_REPOSITORY_TAB);
 		}
 		click(ELEMENT_MANAGE_NAME_SPACE_LINK);
@@ -153,10 +152,16 @@ public class ECMainFunction extends EcmsBase{
 	//Go to Manage View Screen
 	public void goToManageViews(){
 		navToolbar.goToContentAdministration();
-		if (isTextNotPresent("Explorer Templates")){
+		/*if (isTextNotPresent("Explorer Templates")){
 			if (isTextNotPresent("Drives")){
 				click(ELEMENT_EXPLORER_TAB);
 			}
+			click(ELEMENT_MANAGEMENT_VIEW);
+		}*/
+		if (waitForAndGetElement(ELEMENT_MANAGEMENT_VIEW, 5000, 0) != null){
+			click(ELEMENT_MANAGEMENT_VIEW);
+		}else {
+			click(ELEMENT_EXPLORER_TAB);
 			click(ELEMENT_MANAGEMENT_VIEW);
 		}
 		Utils.pause(500);
@@ -175,18 +180,20 @@ public class ECMainFunction extends EcmsBase{
 	public void goToTagsTab(){
 		info("Go to Tags tab");
 		navToolbar.goToContentAdministration();
-		if (isTextNotPresent("Drives")){
+		if (waitForAndGetElement(ELEMENT_MANAGE_TAGS, 5000, 0) == null){
 			click(ELEMENT_EXPLORER_TAB);
 		}
 		click(ELEMENT_MANAGE_TAGS);
-		waitForTextPresent("Tag Manager");
+		//waitForTextPresent("Tag Manager");
+		Utils.pause(1000);
 	}
 
 	//Go to Tag Permission Screen
 	public void goToTagPermissionManager(){
 		goToTagsTab();
 		click(ELEMENT_TAG_PERMISSION);
-		waitForTextPresent("Memberships");
+		//waitForTextPresent("Memberships");
+		Utils.pause(1000);
 	}
 	/////////////
 
@@ -194,10 +201,16 @@ public class ECMainFunction extends EcmsBase{
 	//Go to Category Tab in Content Admin
 	public void goToCategoriesTabInContentAdmin(){
 		navToolbar.goToContentAdministration();
-		if (isTextNotPresent("Category Tree")){
+		/*if (isTextNotPresent("Category Tree")){
 			if (isTextNotPresent("Queries")){
 				click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
 			}
+			click(ELEMENT_MANAGE_CATEGORIES_LINK);
+		}*/
+		if (waitForAndGetElement(ELEMENT_MANAGE_CATEGORIES_LINK, 5000, 0) != null){
+			click(ELEMENT_MANAGE_CATEGORIES_LINK);
+		}else {
+			click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
 			click(ELEMENT_MANAGE_CATEGORIES_LINK);
 		}
 		Utils.pause(500);

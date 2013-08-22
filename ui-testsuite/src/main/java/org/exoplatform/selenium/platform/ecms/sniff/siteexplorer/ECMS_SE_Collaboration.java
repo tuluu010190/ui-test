@@ -275,7 +275,7 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		info("Delete data");
 		magAcc.changeLanguageForUser("Anglais");
 		navToolBar.goToEditPageEditor();
-		pageE.removePortlet(ELEMENT_CONTENT_DETAIL_IN_LAYOUT, ELEMENT_CONTENT_DETAIL_IN_LAYOUT, ELEMENT_CONTENT_DETAIL_DELETE_ICON);
+		pageE.removePortlet(ELEMENT_CONTENT_DETAIL_IN_LAYOUT, ELEMENT_CONTENT_DETAIL_DELETE_ICON);
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
 		cMenu.deleteData(elementFileFrench);
 		cMenu.deleteData(elementFileEnglish);
@@ -329,7 +329,7 @@ public class ECMS_SE_Collaboration extends PlatformBase {
 		info("Delete data");
 		magAcc.changeLanguageForUser("Anglais");
 		navToolBar.goToEditPageEditor();
-		pageE.removePortlet(ELEMENT_CONTENT_DETAIL_IN_LAYOUT, ELEMENT_CONTENT_DETAIL_IN_LAYOUT, ELEMENT_CONTENT_DETAIL_DELETE_ICON);
+		pageE.removePortlet(ELEMENT_CONTENT_DETAIL_IN_LAYOUT, ELEMENT_CONTENT_DETAIL_DELETE_ICON);
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
 		cMenu.deleteData(elementFileFrench);
 		cMenu.deleteData(elementFileEnglish);

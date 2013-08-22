@@ -194,6 +194,7 @@ public class PlatformBase extends TestBase {
 
 	//Add Group Form
 	public final By ELEMENT_INPUT_GROUP_NAME = By.name("name");
+	public final By ELEMENT_INPUT_GROUP_NAME_2 = By.name("groupName");
 	public final By ELEMENT_INPUT_LABEL = By.xpath("//*[contains(@name, 'Label') or contains(@name, 'label')]");
 	public final String ELEMENT_TEXTAREA_DESCRIPTION = "//textarea[@id='description']";
 
@@ -465,7 +466,8 @@ public class PlatformBase extends TestBase {
 	public final String EMAIL_ADDRESS1 = "exomailtest01@gmail.com";
 	public final String EMAIL_ADDRESS2 = "exoservice@gmail.com";
 	public final String EMAIL_PASS = "exoadmin";
-	public final By ELEMENT_DELETE = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
+	public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
+    public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@class='iH']//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
 	public final By ELEMENT_MAIL_CONTENT = By.xpath(".//*[@class='ii gt adP adO']/div");
 	public final String ELEMENT_GMAIL_CHECKBOX = "//td/div/div/div/span/b[contains(text(),'{$title}')]/ancestor::tr//td[@id=':oy']/div/div";
@@ -495,7 +497,7 @@ public class PlatformBase extends TestBase {
 		Utils.pause(500);
 		click(membershipToSelect);
 		Utils.pause(500);
-		waitForTextNotPresent("Permission Selector");
+		//waitForTextNotPresent("Permission Selector");
 		//waitForAndGetElement(selectedGroup);
 		waitForAndGetElement(selectedMembership);
 	}
@@ -990,6 +992,7 @@ public class PlatformBase extends TestBase {
 		type(ELEMENT_GMAIL_PASS, EMAIL_PASS, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
 		click(ELEMENT_GMAIL_INBOX);
+		Utils.pause(1000);
 	}
 
 	/**
@@ -1004,6 +1007,11 @@ public class PlatformBase extends TestBase {
 		info("Found notify mail");
 
 		info("delete mail");
-		click(ELEMENT_DELETE);
+		if (waitForAndGetElement(ELEMENT_DELETE_MAIL_2, 5000, 0) == null){
+			click(ELEMENT_DELETE_MAIL);
+		}else {
+			click(ELEMENT_DELETE_MAIL_2);
+		}
+		Utils.pause(1000);
 	}
 }

@@ -320,7 +320,7 @@ public class ActionBar extends EcmsBase{
 		{
 			click(ELEMENT_EXPORT);
 		}
-		Utils.pause(10000);
+		Utils.pause(20000);
 		waitForElementNotPresent(ELEMENT_EXPORT);
 	}
 
@@ -510,7 +510,8 @@ public class ActionBar extends EcmsBase{
 			magAcc.signIn("john", "gtn");
 			navToolBar.goToSiteExplorer();
 		}
-		Utils.pause(1000);
+		driver.navigate().refresh();
+		Utils.pause(2000);
 	}
 
 	//Go To Add Symlink 

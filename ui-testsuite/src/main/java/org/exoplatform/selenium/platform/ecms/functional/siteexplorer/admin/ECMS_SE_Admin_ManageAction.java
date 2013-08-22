@@ -102,8 +102,7 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			String actionName = "actionName";
 			String lifeCycle = "User Action";
 			String actionType = "exo:"+scriptName;
-			
-			
+					
 			/*Step 1: Go to Content Administration*/
 			/*Step 2: Create script*/
 			info("Create script");
@@ -121,8 +120,7 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			ecMain.goToTemplateTab();
 			magTemplate.openAddNewTemplateForm("Actions");
 			magTemplate.fillInTemplateForm(templateName, label, group, membership,false,fileDialogContent);
-			
-			
+				
 			/*Step 6: Create node*/
 			info("Create node");
 			navToolBar.goToSiteExplorer();
@@ -167,7 +165,6 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			/*Delete script*/
 			info("Delete script");
 			ecMain.goToScriptsTabInContentAdmin();
-			magScript.deleteScript(scriptLabel);
-			
+			magScript.deleteScript(scriptLabel);	
 		}
 }

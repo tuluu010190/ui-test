@@ -178,6 +178,8 @@ public class ManageAccount extends PlatformBase {
 		button = new Button(driver);
 		info("Change language for user");
 		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		driver.navigate().refresh();
+		Utils.pause(2000);
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		if (language == "French"){
 			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK);
@@ -258,7 +260,7 @@ public class ManageAccount extends PlatformBase {
 			signIn("james", "gtn");
 			break;
 		case DEVELOPER:
-			signIn("jack", "gtn");
+			signIn("demo", "gtn");
 			break;
 		case PUBLISHER:
 			signIn("mary", "gtn");

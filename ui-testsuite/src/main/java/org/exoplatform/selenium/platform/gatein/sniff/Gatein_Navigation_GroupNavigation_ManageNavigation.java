@@ -55,7 +55,7 @@ public class Gatein_Navigation_GroupNavigation_ManageNavigation extends GroupNav
 		info("Show navigation list default of user John");
 		navTool.goToGroupSites();
 		waitForAndGetElement(ELEMENT_GROUP_NAME.replace("${groupName}", "Content Management"));
-		waitForAndGetElement(ELEMENT_GROUP_NAME.replace("${groupName}", "Development"));
+		//waitForAndGetElement(ELEMENT_GROUP_NAME.replace("${groupName}", "Development"));
 		waitForAndGetElement(ELEMENT_GROUP_NAME.replace("${groupName}", "Administration"));
 		waitForAndGetElement(ELEMENT_GROUP_NAME.replace("${groupName}", "Executive Board"));
 		waitForAndGetElement(ELEMENT_GROUP_NAME.replace("${groupName}", "Employees"));

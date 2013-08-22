@@ -74,8 +74,7 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		String content = "Wiki_manage_page_content_02";
 		String message = "Color macro";
 		String newTitle = "Wiki_manage_page_title_02_update";
-		
-		
+				
 		addBlankWikiPage(pageLink, "", 0);
 		goToWikiHome();
 		
@@ -89,11 +88,11 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		typeEnterInRichText();
 		insertTable2WikiPage("2", "2");
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		Utils.pause(3000);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForAndGetElement(By.xpath("//a[@title='Go to pageLink' and contains(text(), 'Link to pageLink')]"));
 		waitForAndGetElement(By.xpath("//*[@style='color:red;' and contains(text(),'" + message + "')]"));
-
-		
+	
 		info("Edit page");
 		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
 		addWikiPageRichText(newTitle, null);

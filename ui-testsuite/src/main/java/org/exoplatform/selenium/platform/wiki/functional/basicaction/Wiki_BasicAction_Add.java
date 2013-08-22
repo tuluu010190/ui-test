@@ -104,7 +104,7 @@ public class Wiki_BasicAction_Add extends Template{
 	 * Add new page when title is blank
 	 */
 	@Test
-	public void test03_AddNewPageWithBlankTitle(){
+	public void test00_AddNewPageWithBlankTitle(){
 		//String title = "";
 		String content = "TestCase 003 Content";
 		int mode = 0;
@@ -115,15 +115,15 @@ public class Wiki_BasicAction_Add extends Template{
 		goToWiki();
 		
 		info("-- Create new page when click [Confirm] button --");
-		addBlankWikiPage("", content, mode, false, infoMessage); 
-		//waitForTextPresent("Untitled");
+		addBlankWikiPage(null, content, mode, false, infoMessage); 
+		waitForTextPresent("Untitled");
 		
 		info("-- Create new page when click [Cancel] button --");
 		goToWikiHome();
 		goToAddBlankPage();
-		driver.navigate().refresh();
-		Utils.pause(3000);
-		addWikiPageSourceEditor("", content);
+//		driver.navigate().refresh();
+//		Utils.pause(3000);
+		addWikiPageSourceEditor(null, content);
 		switchToParentWindow();
 		Utils.pause(500);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
@@ -131,6 +131,7 @@ public class Wiki_BasicAction_Add extends Template{
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE_NULL_TITLE);
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
 		click(button.ELEMENT_OK_BUTTON);
+		Utils.pause(3000);
 		
 		//Restore data
 		goToWikiPage("Untitled");

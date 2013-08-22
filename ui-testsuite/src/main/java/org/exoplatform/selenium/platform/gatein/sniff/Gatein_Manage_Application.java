@@ -75,7 +75,7 @@ public class Gatein_Manage_Application extends PlatformBase {
 	 * Delete category
 	 */
 	@Test
-	public void test03_ManageCategory(){
+	public void test00_ManageCategory(){
 		String categoryName = "Gateinsniff_Category03";
 		String displayName = "Category 03";
 		String categoryDescription = "Add new category";

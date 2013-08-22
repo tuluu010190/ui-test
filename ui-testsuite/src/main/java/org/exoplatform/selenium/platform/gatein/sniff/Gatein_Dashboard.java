@@ -126,7 +126,7 @@ public class Gatein_Dashboard extends DashBoard {
 	 * Change application when edit layout for user's page
 	 */
 	@Test
-	public void test05_ChangeAppWhenEditingPageLayout(){
+	public void test00_ChangeAppWhenEditingPageLayout(){
 		String pageName = "gateinsniff05";
 		
 		navTool.goToDashboard();

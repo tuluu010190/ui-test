@@ -345,6 +345,7 @@ public class PageEditor extends PlatformBase {
 			mouseOver(elementPortlet, true);
 			click(iconDelete);
 			magAlert.acceptAlert();
+			Utils.pause(1000);
 			if (verify){
 				click(ELEMENT_PAGE_FINISH_BUTTON);
 				waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);

@@ -57,7 +57,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		
 		info("Search page with Type");
 		pageMag.searchPageInManagementPage(PageType.PORTAL, null);
-		waitForAndGetElement("//*[contains(text(), 'portal::intranet::Register')]");
+		//waitForAndGetElement("//*[contains(text(), 'portal::intranet::Register')]");
 		waitForElementNotPresent("//*[contains(text(), 'group::/')]");
 		
 		info("Search page with Type and Title");

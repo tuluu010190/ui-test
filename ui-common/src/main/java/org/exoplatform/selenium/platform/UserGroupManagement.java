@@ -127,7 +127,11 @@ public class UserGroupManagement extends PlatformBase {
 	
 	public void inputDataGroup(String groupName, String groupLabel, String groupDesc){
 		if (groupName != null){
-			type(ELEMENT_INPUT_GROUP_NAME, groupName, true);
+			if (waitForAndGetElement(ELEMENT_INPUT_GROUP_NAME_2, 5000, 0) != null){
+				type(ELEMENT_INPUT_GROUP_NAME_2, groupName, true);
+			}else if (waitForAndGetElement(ELEMENT_INPUT_GROUP_NAME, 5000, 0) != null){
+				type(ELEMENT_INPUT_GROUP_NAME, groupName, true);
+			}
 		}
 		if (groupLabel != null){
 			type(ELEMENT_INPUT_LABEL, groupLabel, true);
@@ -217,7 +221,7 @@ public class UserGroupManagement extends PlatformBase {
 		String groupName =  "//*[text()='Select Group']/..//*[contains(text(), '${groupName}')]";
 		String groupName_2 =  "//*[text()='selectGroup']/..//*[contains(text(), '${groupName}')]";
 		String groupName_3 = "//*[contains(text(), 'select a group')]/..//*[contains(text(), '${groupName}')]";
-		//String groupNameBis =  "//*[text()='selectGroup']/..//*[contains(text(), '${groupName}')]";
+		String groupName_4 =  "//*[text()='Browse and select a group']/..//*[contains(text(), '${groupName}')]";
 		String[] temp;			 
 
 		/* Delimiter */
@@ -240,7 +244,11 @@ public class UserGroupManagement extends PlatformBase {
 				if (!temp[i].matches("Administration")){
 					click(By.linkText(temp[i]));
 				}else{
-					click(By.xpath(groupName.replace("${groupName}", temp[i])));
+					if (waitForAndGetElement(groupName_4.replace("${groupName}", temp[i]), 5000, 0) != null){
+						click(groupName_4.replace("${groupName}", temp[i]));
+					}else{
+						click(By.xpath(groupName.replace("${groupName}", temp[i])));
+					}		
 				}
 			}
 			Utils.pause(500);

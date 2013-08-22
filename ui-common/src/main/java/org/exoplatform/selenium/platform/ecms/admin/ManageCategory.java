@@ -44,10 +44,11 @@ public class ManageCategory extends EcmsPermission{
 	// Add Category tree form -screen2
 	//public final By ELEMENT_PREVIOUS_BUTTON = By.linkText("Previous");
 	public final By ELEMENT_SELECT_EVERYONE_ICON = By.xpath("//*[@data-original-title='Select Everyone']");
-    public final By ELEMENT_SELECT_MEMBERSHIP_ICON = By.xpath("//*[@data-original-title='Select Membership']");
+	public final By ELEMENT_SELECT_EVERYONE_ICON_1 = By.xpath("//*[@title='Select Everyone']");
+	public final By ELEMENT_SELECT_EVERYONE_ICON_2 = By.xpath("//*[@data-original-title='Everyone']");
+	public final By ELEMENT_SELECT_MEMBERSHIP_ICON = By.xpath("//*[@data-original-title='Select Membership']");
     public final By ELEMENT_NEXT_BUTTON_STEP_2 = By.xpath("//*[text()='Add a permission to that node']/../..//*[text()='Next']");
     
-	
 	// Add Category tree form -screen3
 	public final String MSG_ADD_CATEGORY_STEP3="Edit the taxonomy tree by adding, copying, cutting and selecting permissions.";
 	public final By ELEMENT_ACTION_TYPE = By.id("actionType");
@@ -114,8 +115,10 @@ public class ManageCategory extends EcmsPermission{
 		if (!selectUserOrGroup && !selectMembership){
 			if (waitForAndGetElement(ELEMENT_SELECT_EVERYONE_ICON, 3000, 0) != null){
 				click(ELEMENT_SELECT_EVERYONE_ICON);
-			}else{
-				click(By.xpath("//*[@title='Select Everyone']"));
+			}else if (waitForAndGetElement(ELEMENT_SELECT_EVERYONE_ICON_1, 3000, 0) != null){
+				click(ELEMENT_SELECT_EVERYONE_ICON_1);
+			}else {
+				click(ELEMENT_SELECT_EVERYONE_ICON_2);
 			}
 		}
 		else{

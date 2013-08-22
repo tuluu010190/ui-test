@@ -776,7 +776,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		waitForElementNotPresent(ecms.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		if (waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0) != null){
 			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			waitForElementNotPresent(ecms.ELEMENT_ACTION_BAR_ADD_SYMLINK);
+			//waitForElementNotPresent(ecms.ELEMENT_ACTION_BAR_ADD_SYMLINK);
 		}
 		rightClickOnElement(ELEMENT_CONTENT_FOLDER);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_ADD_SYMLINK);

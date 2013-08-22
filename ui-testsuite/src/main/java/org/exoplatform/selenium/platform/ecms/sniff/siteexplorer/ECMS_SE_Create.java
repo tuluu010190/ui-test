@@ -225,8 +225,9 @@ public class ECMS_SE_Create extends PlatformBase {
 		//cTemp.addContentLinkInFCKEditor("GeneralDrives_/GeneralDrives_ManagedSites_", file1);
 		cTemp.addContentLinkInFCKEditor("GeneralDrives_/GeneralDrives_ManagedSites_", file2);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		waitForTextPresent(webContent);
-		ecms.goToNode(elementWeb);
+		//waitForTextPresent(webContent);
+		waitForAndGetElement(elementWeb);
+		//ecms.goToNode(elementWeb);
 		waitForAndGetElement(By.xpath(ELEMENT_LINK_IN_CE.replace("${file}", file2)));
 		//waitForElementPresent(By.xpath(ELEMENT_LINK_IN_CE.replace("${file}", file1)));
 		

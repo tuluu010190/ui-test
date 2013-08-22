@@ -43,12 +43,14 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 		cMenu = new ContextMenu(driver);
 		
 		magAcc.signIn(DATA_USER1, DATA_PASS);
-		driver.get(baseUrl + "/acme");
+		//driver.get(baseUrl + "/acme");
 
 		navToolBar.goToSiteExplorer();
 
 		info("Add Export button for action bar if it does not existed");
 		actBar.addItem2ActionBar("exportNode", actBar.ELEMENT_EXPORT_LINK);
+		siteExp.goToOverviewPage();
+		navToolBar.goToSiteExplorer();
 	}
 
 	@AfterMethod

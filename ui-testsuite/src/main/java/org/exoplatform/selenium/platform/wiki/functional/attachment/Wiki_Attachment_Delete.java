@@ -61,7 +61,7 @@ public class Wiki_Attachment_Delete extends BasicAction{
 		attachFileInWiki(ATTACHMENT_PATH, 2);
 		waitForAndGetElement(ATTACHMENT_FILE_LINK);
 		
-		deleteFile(ATTACHMENT_NAME);
+		deleteAnAttachment(ATTACHMENT_NAME);
 		waitForElementNotPresent(ATTACHMENT_FILE_LINK);
 		
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);

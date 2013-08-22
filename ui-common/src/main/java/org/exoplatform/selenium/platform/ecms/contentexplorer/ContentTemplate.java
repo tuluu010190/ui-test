@@ -435,7 +435,7 @@ public class ContentTemplate extends EcmsBase{
 
 		info("-- Creating a new folder --");
 		actBar.goToAddNewFolder();
-		WebElement fType = waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0, 2);
+		WebElement fType = waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0);
 		if (fType != null && !fType.isSelected()){
 			click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
 		}

@@ -65,7 +65,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 		addBlankWikiPage(title, content, 0);
 		click(By.linkText(title));
 		goToExportPageAsPDF();
-		Utils.pause(2000);
+		Utils.pause(3000);
 		//assert checkFileExisted(title + ".pdf");
 		
 		deleteCurrentWikiPage();
@@ -204,7 +204,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 * Move page has the same name with page in target space
 	 */
 	@Test
-	public void test07_MovePageDuplicateName(){
+	public void test00_MovePageDuplicateName(){
 		String spaceName1 = "Space071";
 		String title1 = "Wiki_move_title_07_1";
 		String content1 = "Wiki_move_content_07_1";
@@ -478,6 +478,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 	
 	/**CaseId: 68841
 	 * Watch Page
+	 * NB: For this test case, we have to configure Email in File
+	 * == gatein/config/configuration.properties == 
 	 */
 	@Test
 	public void test15_WatchUnwatchPage(){

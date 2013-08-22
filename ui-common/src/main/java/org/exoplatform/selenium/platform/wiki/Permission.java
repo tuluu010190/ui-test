@@ -181,7 +181,6 @@ public class Permission extends WikiBase{
 		button = new Button(driver);
 		dialog = new Dialog(driver);
 		per = new PlatformPermission(driver);
-
 //		if (type.length > 0){
 //			if (!(type[0] instanceof Integer)) {
 //				throw new IllegalArgumentException("-- Argument should be an Integer --");

@@ -111,6 +111,7 @@ public class SocialBase extends PlatformBase {
 		goToAllSpaces();
 		waitForAndGetElement(ELEMENT_MY_SPACES_LINK);
 		click(ELEMENT_MY_SPACES_LINK);
+		Utils.pause(500);
 	}
 
 	// Go to All Spaces
@@ -118,6 +119,7 @@ public class SocialBase extends PlatformBase {
 		info("Go to All Spaces");
 		click(ELEMENT_JOIN_SPACE_LINK);
 		waitForTextPresent("Add New Space");
+		//waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON);
 	}
 
 	// Go to Invitation Receives

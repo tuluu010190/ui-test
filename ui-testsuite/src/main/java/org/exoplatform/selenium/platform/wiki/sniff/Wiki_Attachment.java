@@ -65,7 +65,7 @@ public class Wiki_Attachment extends BasicAction {
 		assert checkFileExisted(link);
 		
 		info("Delete attachment");
-		deleteFile(link);
+		deleteAnAttachment(link);
 		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "1"));
 		
 		deleteCurrentWikiPage();		

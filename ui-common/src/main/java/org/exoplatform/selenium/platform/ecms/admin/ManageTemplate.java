@@ -218,7 +218,8 @@ public class ManageTemplate extends EcmsBase{
 			userGroup.selectGroup(dialogGroupPer, false);
 			click(By.linkText(dialogMembershipPer));
 			click(ELEMENT_DIALOG_SAVE_BUTTON);
-			waitForTextPresent(dialogName);
+			//waitForTextPresent(dialogName);
+			Utils.pause(1000);
 		}
 		//View tab
 		if (view){
@@ -231,7 +232,8 @@ public class ManageTemplate extends EcmsBase{
 			userGroup.selectGroup(viewGroupPer, false);
 			click(By.linkText(viewMembershipPer));
 			click(ELEMENT_VIEW_SAVE_BUTTON);
-			waitForTextPresent(viewName);
+			//waitForTextPresent(viewName);
+			Utils.pause(1000);
 		}
 		//Css tab
 		if (css){
@@ -244,7 +246,8 @@ public class ManageTemplate extends EcmsBase{
 			userGroup.selectGroup(cssGroupPer, false);
 			click(By.linkText(cssMembershipPer));
 			click(ELEMENT_CSS_SAVE_BUTTON);
-			waitForTextPresent(cssName);
+			//waitForTextPresent(cssName);
+			Utils.pause(1000);
 		}
 		click(ELEMENT_TEMPLATE_TAB.replace("${popupTitle}", "View & Edit Template"));
 		if (!templateLabel.isEmpty()){

@@ -148,13 +148,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 
 		//go to add category/action bar
 		ecms.goToNode(ELEMENT_ARTICLE);
-		if(waitForAndGetElement(actBar.ELEMENT_CATEGORIES_LINK,15000,0) == null){
-			click(actBar.ELEMENT_MORE_LINK);
-			click(actBar.ELEMENT_CATEGORIES_MORE_LINK);
-		}
-		else
-			ecms.goToNode(actBar.ELEMENT_CATEGORIES_LINK);
-		waitForAndGetElement(actBar.ELEMENT_PERMISSION_MANAGEMENT_POPUP);
+		actBar.goToManageCategories();
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
 		waitForAndGetElement(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
@@ -214,13 +208,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 
 		//check can not read node by user not having read permission
 		ecms.goToNode(ELEMENT_ARTICLE);
-		if(waitForAndGetElement(actBar.ELEMENT_CATEGORIES_LINK,15000,0) == null){
-			click(actBar.ELEMENT_MORE_LINK);
-			click(actBar.ELEMENT_CATEGORIES_MORE_LINK);
-		}
-		else
-			ecms.goToNode(actBar.ELEMENT_CATEGORIES_LINK);
-		waitForAndGetElement(ecms.ELEMENT_PERMISSION_MANAGEMENT_POPUP);
+		actBar.goToManageCategories();
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
 		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
 		waitForElementNotPresent(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
@@ -265,7 +253,8 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		//waitForTextPresent("ECMS_Admin_ManageCategories_Display.jpg");
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", "ECMS_Admin_ManageCategories_Display.jpg"));
 		ecms.goToNode("ECMS_Admin_ManageCategories_Display.jpg");
-		click(actBar.ELEMENT_CATEGORIES_LINK);
+		//click(actBar.ELEMENT_CATEGORIES_LINK);
+		actBar.goToManageCategories();
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
 		
 		//check can see new category in add category

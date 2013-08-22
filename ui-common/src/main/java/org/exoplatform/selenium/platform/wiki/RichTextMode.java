@@ -80,11 +80,14 @@ public class RichTextMode extends Template {
 	 * @param macro
 	 */
 	public void goToSelectAMacro(String cat, String macro){
+		info("Go to a macro: " + macro);
 		mouseOverAndClick(ELEMENT_MACRO_LINK);
 		mouseOverAndClick(ELEMENT_INSERT_MACRO_LINK);
 		select(ELEMENT_MACRO_CATEGORY_SELECT, cat);
+		Utils.pause(1000);
 		click(ELEMENT_MACRO_LABEL.replace("${macro}", macro));
 		click(but.ELEMENT_SELECT_BUTTON);
+		Utils.pause(3000);
 	}
 	
 	/**

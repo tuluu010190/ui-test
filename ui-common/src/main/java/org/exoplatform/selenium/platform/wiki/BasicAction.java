@@ -96,6 +96,7 @@ public class BasicAction extends Permission{
 	 */
 	public void addWikiPageSourceEditor(String title, String content){
 		info("Modify data with source editor");
+		Utils.pause(1000);
 		if(title != null){
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		}	
@@ -276,7 +277,12 @@ public class BasicAction extends Permission{
 		button = new Button(driver);
 		//goToWikiPage(wikiPath);
 		goToPageInfo(null, wikiPath);
-		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
+		driver.navigate().refresh();
+		Utils.pause(3000);
+		//click(ELEMENT_ADD_MORE_RELATION_BUTTON);
+		WebElement element = waitForAndGetElement(ELEMENT_ADD_MORE_RELATION_BUTTON);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		Utils.pause(1000);
 		if (space != ""){
 			click(ELEMENT_SELECT_SPACE);
 			if (space == "Intranet"){

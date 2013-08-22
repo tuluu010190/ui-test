@@ -49,6 +49,7 @@ public class SitesExplorer extends EcmsBase{
 	public final By ELEMENT_SIDEBAR_SITES_MANAGEMENT = By.xpath("//*[@data-original-title = 'Sites Management']");
 	public final By ELEMENT_SIDEBAR_COLLABORATION = By.xpath("//*[@data-original-title = 'Collaboration']");
 	//File Explorer - relation -clipboard - tag clould - saved search
+	public final String ELEMENT_TAG_IN_CONTAINER_LIST = "//*[@class='tagContainer']/*[text()='${tagName}']"; 
 	public final By ELEMENT_TAG_CLOUD = By.xpath("//*[@data-original-title = 'Tag Cloud']");
 	public final By ELEMENT_SIDEBAR_FILE_EXPLORER = By.xpath("//*[@data-original-title = 'File Explorer']");
 	public final String ELEMENT_CLIPBOARD_NODE= "//div[@data-original-title='collaboration:/sites/{$node}']";
@@ -157,7 +158,8 @@ public class SitesExplorer extends EcmsBase{
 
 		//Verify added new tag
 		click(ELEMENT_TAG_CLOUD);
-		waitForTextPresent(tagName[0]);
+		//waitForTextPresent(tagName[0]);
+		waitForAndGetElement(ELEMENT_TAG_IN_CONTAINER_LIST.replace("${tagName}", tagName[0]));
 	}
 
 	/** function edit a tag

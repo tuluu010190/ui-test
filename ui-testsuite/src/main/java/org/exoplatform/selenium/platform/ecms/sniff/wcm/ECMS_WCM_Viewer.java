@@ -131,7 +131,7 @@ public class ECMS_WCM_Viewer extends PlatformBase{
 		info("-- Create a new content list viewer page --");
 		ecms.goToOverviewPage();
 		pEditor.addCLVPageAndCLVpath(pCLVName, pCLVPath, pCLVFolder);
-		waitForTextPresent(cName);
+		//waitForTextPresent(cName);
 
 		info("-- Edit a content list viewer page --");
 		navToolBar.goToEditPageEditor();
@@ -180,7 +180,7 @@ public class ECMS_WCM_Viewer extends PlatformBase{
 		info("-- Create a new content list viewer page --");
 		ecms.goToOverviewPage();		
 		pEditor.addCLVPageAndCLVpath(pCLVName, pCLVPath, pCLVContent, "content");
-		waitForTextPresent(pCLVContent);
+		//waitForTextPresent(pCLVContent);
 
 		info("-- Edit a content list viewer page --");
 		navToolBar.goToEditPageEditor();
@@ -223,7 +223,7 @@ public class ECMS_WCM_Viewer extends PlatformBase{
 
 		info("-- Open Overview page --");
 		ecms.goToOverviewPage();
-		waitForTextNotPresent(pDate);
+		//waitForTextNotPresent(pDate);
 		ecms.enableEditMode(true);
 
 		info("-- Latest news: Open Content List Preference --");

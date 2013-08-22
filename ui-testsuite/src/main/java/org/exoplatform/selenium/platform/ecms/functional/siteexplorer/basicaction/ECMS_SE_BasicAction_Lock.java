@@ -476,6 +476,8 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "List", "List");
 		
 		info("Create parent node");
+		navToolBar.goToPersonalDocuments();
+		actBar.goToViewMode("List");
 		cTemplate.createNewFolder(DATA_FOLDER, folderType.None);
 		ecms.goToNode(DATA_FOLDER, true);
 		
@@ -508,6 +510,8 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "List", "List");
 		
 		info("Create parent node");
+		navToolBar.goToPersonalDocuments();
+		actBar.goToViewMode("List");
 		cTemplate.createNewFolder(DATA_FOLDER, folderType.None);
 		ecms.goToNode(DATA_FOLDER, true);
 		

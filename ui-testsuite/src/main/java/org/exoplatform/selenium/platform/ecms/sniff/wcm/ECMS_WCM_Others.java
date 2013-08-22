@@ -151,6 +151,7 @@ public class ECMS_WCM_Others extends PlatformBase{
 		
 		Utils.pause(1000);
 		driver.navigate().refresh();
+		Utils.pause(1000);
 		waitForAndGetElement(ecms.ELEMENT_ACME_SEARCH_RESULT.replace("${result}", node3));
 		waitForAndGetElement(ecms.ELEMENT_ACME_SEARCH_RESULT.replace("${result}", node2));
 		waitForElementNotPresent(ecms.ELEMENT_ACME_SEARCH_RESULT.replace("${result}", node1));

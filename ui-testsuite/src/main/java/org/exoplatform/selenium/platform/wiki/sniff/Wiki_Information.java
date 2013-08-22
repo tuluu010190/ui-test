@@ -95,11 +95,11 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test03_AddRelationDifferentSpace(){
-		String spaceName1 = "RelationSpace031";
+		String spaceName1 = "relationspace031";
 		String title1 = "Wiki_sniff_relation_title_03_1";
 		String content1 = "Wiki_sniff_relation_content_03_1";
 		
-		String spaceName2 = "RelationSpace032";
+		String spaceName2 = "relationspace032";
 		String title2 = "Wiki_sniff_relation_title_03_2";
 		String content2 = "Wiki_sniff_relation_content_03_2";
 		
@@ -129,7 +129,7 @@ public class Wiki_Information extends Version {
 		String title1 = "Wiki_relation_title_04_1";
 		String content1 = "Wiki_relation_content_04_1";
 		
-		String spaceName = "relationSpace04";
+		String spaceName = "relationspace04";
 		String title2 = "Wiki_relation_title_04_2";
 		String content2 = "Wiki_relation_content_04_2";
 		
@@ -154,7 +154,7 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test05_AddRelationSameSpace(){
-		String spaceName = "RelationSpace05";
+		String spaceName = "relationspace05";
 		String title1 = "Wiki_relation_title_05_1";
 		String content1 = "Wiki_relation_content_05_1";		
 		String title2 = "Wiki_relation_title_05_2";

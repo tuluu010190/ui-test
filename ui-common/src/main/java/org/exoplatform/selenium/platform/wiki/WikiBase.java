@@ -50,6 +50,7 @@ public class WikiBase extends PlatformBase{
 	//More menu
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(), 'More')]");
 	public final By ELEMENT_DELETE_LINK = By.linkText("Delete Page");
+	public final By ELEMENT_DELETE_LINK_2 = By.className("uiIconDeletePage");
 	public final By ELEMENT_WATCH_LINK = By.linkText("Watch");
 	public final By ELEMENT_UNWATCH_LINK = By.linkText("Stop Watching");
 	public final By ELEMENT_PAGE_INFO_LINK = By.linkText("Page Info");
@@ -304,9 +305,14 @@ public class WikiBase extends PlatformBase{
 	 */
 	public void goToDeletePage()
 	{
+		info("Deleting a wiki page...");
 		//mouseOver(ELEMENT_MORE_LINK,true);
-		click(ELEMENT_MORE_LINK);
-		mouseOverAndClick(ELEMENT_DELETE_LINK);
+		mouseOverAndClick(ELEMENT_MORE_LINK);
+		if (waitForAndGetElement(ELEMENT_DELETE_LINK_2, 5000, 0) == null){
+			mouseOverAndClick(ELEMENT_DELETE_LINK);
+		}else {
+			click(ELEMENT_DELETE_LINK_2);
+		}
 	}
 
 	/**
@@ -327,10 +333,12 @@ public class WikiBase extends PlatformBase{
 			magAcc.userSignIn(usr);
 			Utils.pause(1000);
 		}
-		if (isTextNotPresent("Wiki Home")){
+		if (waitForAndGetElement(ELEMENT_ADD_PAGE_LINK, 5000, 0) == null){
 			goToWiki();
 		}		
 		//goToWikiPage(wikiPath);
+		driver.navigate().refresh();
+		Utils.pause(2000);
 		String bExpandIcon = "//*[@class='node']//*[contains(text(), '{$node}')]"; 
 		String[] nodes = wikiPath.split("/");
 		int length = nodes.length -1;
@@ -339,8 +347,9 @@ public class WikiBase extends PlatformBase{
 			String node = nodes[index];
 			String nodeNext = nodes[index+1];
 
-			if(waitForAndGetElement(bExpandIcon.replace("{$node}",nodeNext),5000,0) == null)
+			if(waitForAndGetElement(bExpandIcon.replace("{$node}",nodeNext),5000,0) == null){
 				click(bExpandIcon.replace("{$node}",node));
+			}	
 			Utils.pause(100);
 		}
 		String nodeLast = nodes[length];
@@ -484,7 +493,8 @@ public class WikiBase extends PlatformBase{
 		//mouseOver(ELEMENT_MORE_LINK,true);
 		mouseOverAndClick(ELEMENT_MORE_LINK);
 		mouseOverAndClick(ELEMENT_PAGE_INFO_LINK);
-		waitForTextPresent("Summary");		
+		//waitForTextPresent("Summary");
+		Utils.pause(2000);
 	}
 	
 	/**
@@ -501,6 +511,7 @@ public class WikiBase extends PlatformBase{
 	 * @param spaceName
 	 */
 	public void goToWikiFromSpace(String spaceName){
+		magMember = new ManageMember(driver);
 		By element_space = By.linkText(spaceName);
 		//By element_wiki = By.xpath(ELEMENT_SPACE_WIKI.replace("${spaceName}", spaceName));
 
@@ -578,7 +589,7 @@ public class WikiBase extends PlatformBase{
 	 * @author thuntn
 	 * @param fName: name of a file which will be deleted
 	 */
-	public void deleteFile(String fName){
+	public void deleteAnAttachment(String fName){
 		info("--Delete an attachment--");
 		String removeIcon= ELEMENT_REMOVE_ATTACHMENT.replace("{$file}", fName);
 
@@ -593,12 +604,12 @@ public class WikiBase extends PlatformBase{
 	 * @param keyword
 	 */
 	public void quickSearch(String keyword){
-		info("--Search quick--");
+		info("--Using quick search option ...--");
 		type(ELEMENT_QUICK_SEARCH, keyword, true);
 		((JavascriptExecutor) driver).executeScript("javascript:eXo.wiki.UIWikiSearchBox.doAdvanceSearch();");
-		waitForTextPresent("Search Results");
+		//waitForTextPresent("Search Results");
 		info("Return " + getText(ELEMENT_SEARCH_RESULT) + " results");
-		Utils.pause(1000);
+		Utils.pause(2000);
 	}
 
 	/**Advance search

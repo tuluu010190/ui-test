@@ -635,7 +635,6 @@ public class TestBase {
 		info("File exists: " + found);
 		return found;
 	}
-	
 
 	/**
 	 * function delete file in folder test output

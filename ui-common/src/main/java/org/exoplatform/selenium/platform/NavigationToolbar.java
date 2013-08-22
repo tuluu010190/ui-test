@@ -63,7 +63,8 @@ public class NavigationToolbar extends PlatformBase {
 			}
 			info("Retry...[" + repeat + "]");
 		}
-		waitForTextPresent("Page Id");
+		//waitForTextPresent("Page Id");
+		waitForAndGetElement(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
 	}
 
 	//Go to Dashboard
@@ -83,7 +84,8 @@ public class NavigationToolbar extends PlatformBase {
 		}
 		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
 		click(ELEMENT_DASHBROARD_LINK);
-		waitForTextPresent("My Dashboard");
+		//waitForTextPresent("My Dashboard");
+		Utils.pause(1000);
 	}
 
 	//Go to User management page
@@ -218,7 +220,8 @@ public class NavigationToolbar extends PlatformBase {
 			}
 			info("Retry...[" + repeat + "]");
 		}
-		waitForTextPresent("Manage ECM Main Functions");
+		//waitForTextPresent("Manage ECM Main Functions");
+		Utils.pause(1000);
 	}
 
 	//Enter Sites Management Form 
@@ -296,6 +299,11 @@ public class NavigationToolbar extends PlatformBase {
 	public void goToMyProfile(){
 		info("---Go to My Profile ---");
 		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
-		mouseOverAndClick(ELEMENT_MY_PROFILE_LINK);
+		if (waitForAndGetElement(ELEMENT_MY_PROFILE_LINK, 5000, 0) != null){
+			mouseOverAndClick(ELEMENT_MY_PROFILE_LINK);
+		}else {
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			mouseOverAndClick(ELEMENT_MY_PROFILE_LINK);
+		}
 	}
 }

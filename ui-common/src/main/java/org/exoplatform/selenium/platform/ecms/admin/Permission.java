@@ -37,6 +37,7 @@ public class Permission extends EcmsPermission{
 	public final By ELEMENT_SELECT_MEMBERSHIP_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Membership']");
 	public final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@title='Select Everyone']");
 	public final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT_2 = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='Select Everyone']");
+	public final By ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT_3 = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='Everyone']");
 	public final By ELEMENT_SAVE_BUTTON_IN_PERMISSION_MANAGEMENT = By.xpath("//div[@id='UITabContent' and @style='display: block;;']//*[contains(text(),'Save')]");
                                                               
 	public final String ELEMENT_PERMISSION_MANAGEMENT_READ = "//div[@id='UITabContent' and @style='display: block;;']//*[@data-original-title='${userOrGroupName}']/../..//input[contains(@id, 'read')]";
@@ -75,8 +76,10 @@ public class Permission extends EcmsPermission{
 		if (!selectUser && !selectMembership){
 			if (isElementPresent(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT)){
 				click(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT);
-			}else {
+			}else if (waitForAndGetElement(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT_2, 5000, 0) != null){
 				click(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT_2);
+			}else {
+				click(ELEMENT_SELECT_EVERYONE_IN_PERMISSION_MANAGEMENT_3);
 			}
 		}
 		else if (selectUser){
@@ -114,15 +117,10 @@ public class Permission extends EcmsPermission{
 		info("Set read permission for user");
 		if (read){
 			click(ELEMENT_READ_CHEKBOX, 2);
-			//((JavascriptExecutor) driver).executeScript("document.getElementById('read').click();");
 		}
 		if (add){
 			click(ELEMENT_ADDNODE_CHECKBOX, 2);
-			//((JavascriptExecutor) driver).executeScript("document.getElementById('add_node').click();");
 		}
-		/*if (set){
-			click(ELEMENT_SET_PRO_CHEKBOX, 2);
-		}*/
 		if (remove){
 			click(ELEMENT_REMOVE_CHEKBOX, 2);
 		}
