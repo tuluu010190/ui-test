@@ -42,9 +42,9 @@ public class ActionBar extends EcmsBase{
 	ECMainFunction ecMain = new ECMainFunction(driver);
 
 	//Export Form
-	public By ELEMENT_DOC_VIEW = By.id("format_docview");
+	public By ELEMENT_DOC_VIEW = By.xpath("//form[@id='UIExportNode']//input[@name='format' and @value='docview']");
 	public By ELEMENT_ZIP = By.name("zip");
-	public By ELEMENT_EXPORT_VERSION = By.linkText("Export Version History");
+	public By ELEMENT_EXPORT_VERSION = By.xpath("//button[text()='Export Version History']");
 	public By ELEMENT_EXPORT = By.xpath("//button[text()='Export']");
 
 	//Import Form
@@ -271,7 +271,7 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_EXPORT_LINK);
 		if (!systemView)
 		{
-			click(ELEMENT_DOC_VIEW);
+			click(ELEMENT_DOC_VIEW,2);
 		}
 
 		if (zip)
@@ -282,6 +282,9 @@ public class ActionBar extends EcmsBase{
 		if (exportVersionHistory)
 		{
 			click(ELEMENT_EXPORT_VERSION);
+			Utils.pause(5000);
+			waitForAndGetElement(ELEMENT_EXPORT_VERSION);
+			button.cancel();
 		}
 		else
 		{
