@@ -5,6 +5,7 @@
 		<groups>
 			<run>
 				<exclude name="pending" />
+				<exclude name="error" />
 			</run>
 		</groups>
 		<packages>

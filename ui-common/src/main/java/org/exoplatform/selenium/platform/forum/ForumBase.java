@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
@@ -23,10 +24,10 @@ import static org.exoplatform.selenium.TestLogger.info;
 public class ForumBase extends PlatformBase {
 	
 	Button but;
-	ForumPermission per;
 	ManageAlert alert;
 	PageEditor pageE;
 	NavigationToolbar navTool;
+	PlatformPermission per;
 	
 	public final By ELEMENT_FORUM_LINK = By.linkText("Forums");
 	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//*[@class='UIPopupWindow UIDragObject uiPopup']//*[text()='OK']");
@@ -193,8 +194,8 @@ public class ForumBase extends PlatformBase {
 	//attach file popup
 	public final By ELEMENT_POPUP_UPLOAD_FILE = By.xpath("//span[@class='PopupTitle' and text()='Attach File']");
 	public final By ELEMENT_ATTACH_FILE = By.linkText("Attach files");
-	public final String ELEMENT_UPLOAD_FILE = "//*[contains(@id, 'UploadInputContainer')][${No}]/div/input[@name='file']";
-
+	public final By ELEMENT_ATTACHMENT_FILE_INPUT = By.name("file");
+	public final By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachmentForm']//*[text()='Save']");
 	
 	/*-----------------------------common function-------------------------------------*/
 	
@@ -350,7 +351,7 @@ public class ForumBase extends PlatformBase {
 	public boolean advancedSearch(boolean scope, String... key){
 		boolean result = true;
 		
-		per = new ForumPermission(driver);
+		per = new PlatformPermission(driver);
 		info("Do advance search");
 		waitForAndGetElement(ELEMENT_ADVANCED_SEARCH_ICON);
 		for (int i = 0; i < 5; i ++){
@@ -1056,31 +1057,15 @@ public class ForumBase extends PlatformBase {
 	 * @param number: number of upload container that need upload file
 	 * @param filePath: path to file upload
 	 */
-	public void attachFile(String number, String filePath){
-		By ELEMENT_UPLOAD = By.xpath(ELEMENT_UPLOAD_FILE.replace("${No}", number));
-
-		if (filePath != ""){
-			if (waitForAndGetElement(ELEMENT_UPLOAD) != null) {
-				info("Upload file " + Utils.getAbsoluteFilePath(filePath));
-				type(ELEMENT_UPLOAD, Utils.getAbsoluteFilePath(filePath), false);
-				String links[] = filePath.split("/");
-				int length = links.length;
-				waitForAndGetElement(By.xpath("//*[contains(@id, 'UploadInputContainer' )][" + number + "]/*//div[contains(text(),'" + links[length-1] + "')]"));
-				info("Upload file " + filePath + "successfully");
-			} else {
-				info("Can not found upload locator");
-			}
+	public void attachFile(String filePath){
+		String[] file = filePath.split("/");
+		for (int i = 0; i < file.length; i ++){
+			WebElement element = waitForAndGetElement(ELEMENT_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1, 2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", element);
+			element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + file[i]));
+			waitForAndGetElement("//*[@class='fileNameLabel' and text()='" + file[i] + "']");
 		}
-	}
-
-	/** function: attach some file in attach popup
-	 * @author lientm
-	 * @param file: file path
-	 */
-	public void attachSomeFile(String...file){
-		for (int i = 0; i < file.length; i ++ ){				
-			attachFile(Integer.toString(i + 1), file[i]);
-		}
-		but.save();
+		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_ATTACHMENT_SAVE_BUTTON);
 	}
 }

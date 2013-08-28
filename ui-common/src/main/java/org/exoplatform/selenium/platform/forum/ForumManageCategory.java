@@ -7,6 +7,7 @@ import java.util.List;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -18,7 +19,7 @@ import org.openqa.selenium.WebElement;
  */
 public class ForumManageCategory extends ForumBase {
 	
-	ForumPermission per;
+	PlatformPermission per;
 	Button but;
 	ManageAlert alert;
 	

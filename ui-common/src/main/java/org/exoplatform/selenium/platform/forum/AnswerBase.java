@@ -33,6 +33,7 @@ public class AnswerBase extends ForumBase {
 	public final By ELEMENT_ANSWER_LINK = By.linkText("Answer");
 	public final String ELEMENT_ANSWER_BREADCUMB = "//*[@id='UIBreadcumbs']//*[text()='${category}']";
 	public final By ELEMENT_ANSWER_HOME_LINK = By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
+	public final By ELEMENT_CONFIMATION_OK_POPUP = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='OK']");
 	
 	//Add answer page
 	public final String DATA_ANSWER_PAGE_NAME = "Answer";
@@ -62,12 +63,6 @@ public class AnswerBase extends ForumBase {
 	public final By ELEMENT_SEARCH_QUESTION_TEXTBOX = By.id("Question");
 	public final By ELEMENT_SEARCH_ANSWER_TEXTBOX = By.id("Response");
 	public final By ELEMENT_SEARCH_COMMENT_TEXTBOX = By.id("Comment");
-	
-	//	Add/ remove relation
-	public final By ELEMENT_ADD_RELATION = By.xpath("//div[@title='Link to another entry']");
-	public final By ELEMENT_CATEGORY_TREE = By.xpath("//div[@class='FAQCategoryTreeView']//a[contains(text(),'categories')]");
-	public final By ELEMENT_QUESTION_LINK = By.xpath("//div[@class='FAQCategoryTreeView']//a[contains(text(),'categories')]/../../../*//div[@id='FAQCate0']/input");
-	public final String ELEMENT_REMOVE_RELATION = "//tr/td/div/div[${No}]/div[@title='Remove']";
 	
 	//Setting answer portlet
 	public final By ELEMENT_CATEGORY_SCOPING_TAB = By.xpath("//button[text()='Category Scoping']");
@@ -286,40 +281,8 @@ public class AnswerBase extends ForumBase {
 		inputDataToFrameInFrame(ELEMENT_MAIL_CONTENT_FRAME1, ELEMENT_MAIL_CONTENT_FRAME2, content, true);
 		switchToParentWindow();
 		button.save();
-		//click(By.xpath("//*[@id='FAQPortletSetting']//button[text()='Save']"), 2);
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
-	}
-	
-	/** 
-	 * Edit Answer at Page management, end at clicking edit answer portlet
-	 * @author hakt
-	 */
-	public void editAnswerAtPageManagement(){
-		navTool = new NavigationToolbar(driver);
-		page = new PageManagement(driver);
-		
-		navTool.goToManagePages();
-		page.editPageAtManagePages(PageType.PORTAL, "Answer");
-		mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET,true);	
-		click(ELEMENT_EDIT_PORTLET_ICON);
-		Utils.pause(1000);
-	}
-
-	/** 
-	 * Save Answer at Page management, After configuring answer portlet
-	 * @author hakt
-	 */
-	public void saveAnswerPageAfterEditing(){
-		button = new Button(driver);
-		Utils.pause(1000);
-		button.save();
-		waitForTextPresent(MSG_SAVE_ANSWER_PORTLET_SETTING);
-		click(By.linkText("OK"));
-		button.close();
-		Utils.pause(500);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForTextNotPresent("Page Editor");
 	}
 
 	/**
@@ -409,35 +372,14 @@ public class AnswerBase extends ForumBase {
 	}
 	
 	/**
-	 * Add Relation
-	 * @author hakt
-	 * @param questionlink: list of question objects user want to add relation, eg. //*[@id='FAQCate0'][2]/input
+	 * function get an element from link text when cannot get by text in xpath
+	 * @param text
+	 * @return
 	 */
-	public void addRelationForAnswer(By[] questionlink){
-		button = new Button(driver);
-		if (questionlink.length > 0){
-			click(ELEMENT_ADD_RELATION);
-			click(ELEMENT_CATEGORY_TREE);
-			for(int i = 0; i < questionlink.length; i ++){
-				WebElement quest = waitForAndGetElement(questionlink[i], 10000, 0);
-				if ( quest != null && quest.isSelected() == false)
-					check(questionlink[i]);
-			}
-			button.save();
-		}
+	public WebElement getElementFromTextByJquery(String text){
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		Utils.pause(2000);
+		WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
+		return web;
 	}
-
-	/**
-	 * Remove Relation
-	 * @author hakt
-	 * @param index: integer as index of question to remove  
-	 */
-	public  void removeRelationForAnswer(int... index){
-		if (index.length > 0){
-			for (int i = 0; i < index.length; i ++) {
-				By remove = By.xpath(ELEMENT_REMOVE_RELATION.replace("${No}", Integer.toString(i + 1)));
-				click(remove);
-			}
-		}
-	}	
 }

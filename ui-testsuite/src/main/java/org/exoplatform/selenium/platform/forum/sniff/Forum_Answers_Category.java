@@ -60,10 +60,10 @@ public class Forum_Answers_Category extends AnswerBase {
 		magCat.addNewCategoryInAnswer(categoryName, null, description, 2, userGroup, true, false);
 		
 		magCat.openCategoryInAnswer(categoryName);
-		magCat.editOpeningCategoryInAnswer(name_edit, "2", des_edit, 3, userGroupEdit, true, true, true, true, true);
+		magCat.editCategoryInAnswer(null, name_edit, "2", des_edit, 3, userGroupEdit, true, true, true, true, true);
 		waitForAndGetElement(ELEMENT_ANSWER_BREADCUMB.replace("${category}", name_edit));
 		
-		magCat.deleteOpeningCategoryInAnswer(name_edit);
+		magCat.deleteCategoryInAnswer(name_edit);
 	}
 	
 	/**CaseId: 70979 -> Move category
@@ -88,8 +88,8 @@ public class Forum_Answers_Category extends AnswerBase {
 		waitForTextPresent(categoryName1);
 		
 		magCat.openCategoryInAnswer(categoryName1);
-		magCat.deleteOpeningCategoryInAnswer(categoryName1);
-		magCat.deleteOpeningCategoryInAnswer(categoryName2);
+		magCat.deleteCategoryInAnswer(categoryName1);
+		magCat.deleteCategoryInAnswer(categoryName2);
 	}
 	
 	/**CaseId: 68955 -> Export/Import category
@@ -108,7 +108,7 @@ public class Forum_Answers_Category extends AnswerBase {
 		info("Add new category and new question");
 		magCat.addNewCategoryInAnswer(categoryName, null, description, 2, userGroup, true, false);
 		magCat.openCategoryInAnswer(categoryName);
-		magQuest.submitQuestion(null, questionName, questionContent, false);
+		magQuest.submitQuestion(null, questionName, questionContent, null, false, null);
 		
 		info("Export category and new question");
 		magCat.exportAnswerCategory(fileName);
@@ -116,7 +116,7 @@ public class Forum_Answers_Category extends AnswerBase {
 		assert checkFileExisted(fileFull);
 		
 		info("Deletet category and question");
-		magCat.deleteOpeningCategoryInAnswer(categoryName);
+		magCat.deleteCategoryInAnswer(categoryName);
 		
 		info("Cut/paste file from TestOutput folder to TestData folder");
 		cutPasteFileFromOutputToTestData(fileFull);
@@ -126,7 +126,7 @@ public class Forum_Answers_Category extends AnswerBase {
 		magCat.openCategoryInAnswer(categoryName);
 		waitForAndGetElement(By.linkText(questionName));
 		
-		magCat.deleteOpeningCategoryInAnswer(categoryName);
+		magCat.deleteCategoryInAnswer(categoryName);
 	}
 	
 	/**CaseId: 68956 -> Watch/Unwatch category
@@ -143,14 +143,14 @@ public class Forum_Answers_Category extends AnswerBase {
 		info("Add new category and new question");
 		magCat.addNewCategoryInAnswer(categoryName, null, description, 2, userGroup, true, false);
 		magCat.openCategoryInAnswer(categoryName);
-		magQuest.submitQuestion(null, questionName, questionContent, false);
+		magQuest.submitQuestion(null, questionName, questionContent, null, false, null);
 		
 		goToAnwserHome();
-		magCat.watchAnswerCategory(categoryName);
-		magCat.unwatchAnswerCategory(categoryName);
+		magCat.watchAnswerCategory(categoryName, true);
+		magCat.watchAnswerCategory(categoryName, false);
 		
 		magCat.openCategoryInAnswer(categoryName);
-		magCat.deleteOpeningCategoryInAnswer(categoryName);
+		magCat.deleteCategoryInAnswer(categoryName);
 	}
 	
 	/**CaseId: 68954 -> Drag drop category
@@ -171,12 +171,12 @@ public class Forum_Answers_Category extends AnswerBase {
 		magCat.addNewCategoryInAnswer(categoryName2, null, description2, 3, userGroup2, true, true, true, true, true);
 
 		magCat.dragDropAnswerCategory(categoryName1, categoryName2);
-		assert magCat.getCategoryLinkFromTree(categoryName1) == null;
+		assert magCat.getElementFromTextByJquery(categoryName1) == null;
 		
 		magCat.openCategoryInAnswer(categoryName2);
-		assert magCat.getCategoryLinkFromTree(categoryName1) != null;
+		assert magCat.getElementFromTextByJquery(categoryName1) != null;
 		
 		magCat.goToAnwserHome();
-		magCat.deleteNotOpeningCategoryInAnswer(categoryName2);
+		magCat.deleteCategoryInAnswer(categoryName2);
 	}
 }

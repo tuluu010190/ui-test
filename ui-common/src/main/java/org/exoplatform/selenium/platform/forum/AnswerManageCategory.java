@@ -38,7 +38,7 @@ public class AnswerManageCategory extends AnswerBase {
 	public final By ELEMENT_MODERATE_ANSWER = By.id("moderateAnswers");
 	public final By ELEMENT_MODERATOR = By.id("moderator");
 	public final By ELEMENT_EDIT_CATEGORY_MENU = By.xpath("//*[@class='uiIconEditCategory']");
-	public final By ELEMENT_EDIT_CATEGORY_RIGHT_CLICK = By.xpath("//div[@class='MiddleLeftRightClickPopupMenu']/*//a[text()='Edit']");
+	public final By ELEMENT_EDIT_CATEGORY_RIGHT_CLICK = By.linkText(" Edit");
 	
 	//Delete category
 	public final By ELEMENT_DELETE_CATEGORY_ON_MENU = By.linkText("Delete");
@@ -68,26 +68,6 @@ public class AnswerManageCategory extends AnswerBase {
 	public final String ELEMENT_CATEGORY_IN_MOVE_FORM = "//*[@id='UIMoveCategoryForm']//*[text()='${category}']";
 	
 	/*----------------------------------common function----------------------------------*/
-	
-	//	Go to home Category 
-	public void goToHomeCategoryInAnswer(){
-		By ELEMENT_HOME_CATEGORY=By.xpath("//img[@alt='categories']");
-
-		waitForAndGetElement(ELEMENT_HOME_CATEGORY);
-		click(ELEMENT_HOME_CATEGORY);
-	}
-	
-	/**
-	 * function get category from left tree
-	 * @param categoryName
-	 * @return
-	 */
-	public WebElement getCategoryLinkFromTree(String categoryName){
-		JavascriptExecutor js = (JavascriptExecutor) driver;
-		Utils.pause(2000);
-		WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + categoryName + "')\").get(0);");
-		return web;
-	}
 
 	/**
 	 * Open a category using jquery
@@ -95,8 +75,12 @@ public class AnswerManageCategory extends AnswerBase {
 	 */
 	public void openCategoryInAnswer(String categoryName){
 		info("Open category " + categoryName);
-		getCategoryLinkFromTree(categoryName).click();
-		Utils.pause(2000);
+		for (int i = 0; i < ACTION_REPEAT; i ++){
+			if (getElementFromTextByJquery(categoryName) != null) break;
+			else Utils.pause(1000);
+		}
+		getElementFromTextByJquery(categoryName).click();
+		Utils.pause(1000);
 	}
 
 	/**
@@ -171,80 +155,56 @@ public class AnswerManageCategory extends AnswerBase {
 		modifyDataInCategory(categoryName, order, description, permission, userGroup, restricted, moderator, opt);
 		Utils.pause(2000);
 	}
-
-	/**
-	 * @author hakt
-	 * @param name_edit
-	 * @param order
-	 * @param setAudience
-	 * @param audience
-	 * @param description
-	 * @param setModerator
-	 * @param moderator
-	 * @param opt
-	 */
-	public void editOpeningCategoryInAnswer(String name_edit, String order, String description, int permission, String[] userGroup,
-			boolean restricted, boolean moderator, boolean... opt){
-		info("Edit an opening category");
-		click(ELEMENT_CATEGORY_BUTTON);
-		click(ELEMENT_EDIT_CATEGORY_MENU);
-		modifyDataInCategory(name_edit, order, description, permission, userGroup, restricted, moderator, opt);
-		Utils.pause(2000);
-	}	
 	
-	/** Edit an category by right-click
-	 * @author hakt
-	 * @param categoryLink
+	/**
+	 * function edit category in answer
+	 * @param wayEdit
+	 * @param categoryName
 	 * @param name_edit
 	 * @param order
-	 * @param setAudience
-	 * @param audience
 	 * @param description
-	 * @param setModerator
+	 * @param permission
+	 * @param userGroup
+	 * @param restricted
 	 * @param moderator
 	 * @param opt
 	 */
-	public void editNotOpeningCategoryInAnswer(String categoryLink, String name_edit, String order, String description, int permission, String[] userGroup,
+	public void editCategoryInAnswer(String categoryName, String name_edit, String order, String description, int permission, String[] userGroup,
 			boolean restricted, boolean moderator, boolean... opt){
-		info("Edit a category by right-click");
-		rightClickOnElement(By.linkText(categoryLink));
-		click(ELEMENT_EDIT_CATEGORY_RIGHT_CLICK);
-
+		action = new Actions(driver);
+		
+		if (getElementFromTextByJquery(categoryName) != null){
+			info("Edit category by right click");
+			action.contextClick(getElementFromTextByJquery(categoryName)).perform();
+			click(ELEMENT_EDIT_CATEGORY_RIGHT_CLICK);
+		} else {
+			info("Edit category while opening category");
+			click(ELEMENT_CATEGORY_BUTTON);
+			click(ELEMENT_EDIT_CATEGORY_MENU);
+		}
 		modifyDataInCategory(name_edit, order, description, permission, userGroup, restricted, moderator, opt);
 		Utils.pause(2000);
 	}
 
-
 	/**
-	 * Delete Opening Category by clicking Category then click Delete
+	 * Function delete category in answer
+	 * @param wayDelete
 	 * @param categoryName
 	 */
-	public void deleteOpeningCategoryInAnswer(String categoryName){
-		info("Delete a category by clicking Category then click Delete");
-		click(ELEMENT_CATEGORY_BUTTON);
-		click(ELEMENT_DELETE_CATEGORY_ON_MENU);
+	public void deleteCategoryInAnswer(String categoryName){
+		action = new Actions(driver);
+		if (getElementFromTextByJquery(categoryName) != null){
+			info("Delete category by right click");
+			action.contextClick(getElementFromTextByJquery(categoryName)).perform();
+			click(ELEMENT_DELETE_CATEGORY_LINK);
+		}else {
+			info("Edit category while opening category");
+			click(ELEMENT_CATEGORY_BUTTON);
+			click(ELEMENT_DELETE_CATEGORY_ON_MENU);
+		}
 		waitForMessage(MSG_DELETE_CATEGORY);
 		click(ELEMENT_OK_DELETE_BUTTON);
 		waitForTextNotPresent(categoryName);
-	}
-
-	/**
-	 * Delete Category by right click Category then click Delete
-	 * @param categoryName
-	 */
-
-	public void deleteNotOpeningCategoryInAnswer(String categoryName, boolean...verify){
-		boolean valid = verify.length > 0 ? verify[0]: true;
-		action = new Actions(driver);
-		
-		info("Delete a category by right-click Category then click Delete");
-		action.contextClick(getCategoryLinkFromTree(categoryName)).perform();
-		click(ELEMENT_DELETE_CATEGORY_LINK);
-		waitForMessage(MSG_DELETE_CATEGORY);
-		click(ELEMENT_OK_DELETE_BUTTON);
-		if (valid){
-			waitForTextNotPresent(categoryName);
-		}		
 	}
 	
 	/**
@@ -255,14 +215,14 @@ public class AnswerManageCategory extends AnswerBase {
 	public void moveCategory(String source, String destination){
 		action = new Actions(driver);
 		info("Move category " + source + "to category " + destination);
-		action.contextClick(getCategoryLinkFromTree(source)).perform();
+		action.contextClick(getElementFromTextByJquery(source)).perform();
 		click(ELEMENT_MOVE_CATEGORY_LINK);
 		doubleClickOnElement(ELEMENT_CATEGORY_IN_MOVE_FORM.replace("${category}", destination));
 		waitForElementNotPresent(ELEMENT_CATEGORY_IN_MOVE_FORM.replace("${category}", destination));
 	}
 	
 	/**
-	 * @author lientm
+	 * function export category in answer
 	 * @param fileName
 	 */
 	public void exportAnswerCategory(String fileName){
@@ -276,7 +236,7 @@ public class AnswerManageCategory extends AnswerBase {
 	}
 	
 	/**
-	 * @author lientm
+	 * function import category in answer
 	 * @param fileName
 	 */
 	public void importAnswerCategory(String fileName){
@@ -296,26 +256,42 @@ public class AnswerManageCategory extends AnswerBase {
 		Utils.pause(2000);
 	}
 	
-	public void watchAnswerCategory(String categoryName){
+	/**
+	 * function watch/unwatch a category in answer
+	 * @param  watch
+	 * @param categoryName
+	 */
+	public void watchAnswerCategory(String categoryName, boolean watch){
 		action = new Actions(driver);
-		action.contextClick(getCategoryLinkFromTree(categoryName)).perform();
-		click(ELEMENT_WATCH_CATEGORY_LINK);
-		waitForMessage(MESSAGE_WATCH_CATEGORY);
-		click(ELEMENT_OK_INFOR_POPUP);	
-		waitForAndGetElement(WATCH_CATEGORY_ICON);
+		action.contextClick(getElementFromTextByJquery(categoryName)).perform();
+		if (watch){
+			if (waitForAndGetElement(ELEMENT_WATCH_CATEGORY_LINK, 5000, 0) != null){
+				click(ELEMENT_WATCH_CATEGORY_LINK);
+				waitForMessage(MESSAGE_WATCH_CATEGORY);
+				click(ELEMENT_OK_INFOR_POPUP);	
+				waitForAndGetElement(WATCH_CATEGORY_ICON);
+			}else {
+				info("Category has already watched");
+			}
+		}else {
+			if (waitForAndGetElement(ELEMENT_UNWATCH_CATEGORY_LINK, 5000, 0) != null) {
+				click(ELEMENT_UNWATCH_CATEGORY_LINK);
+				waitForElementNotPresent(WATCH_CATEGORY_ICON);
+			}else {
+				info("Category has not watched to unwatch");
+			}
+		}
 	}
 	
-	public void unwatchAnswerCategory(String categoryName){
-		action = new Actions(driver);
-		action.contextClick(getCategoryLinkFromTree(categoryName)).perform();
-		click(ELEMENT_UNWATCH_CATEGORY_LINK);
-		waitForElementNotPresent(WATCH_CATEGORY_ICON);
-	}
-	
+	/**
+	 * function drag drop category in answer
+	 * @param source
+	 * @param target
+	 */
 	public void dragDropAnswerCategory(String source, String target){
 		action = new Actions(driver);
 		info("Drag category " + source + " to category " + target);
-		action.dragAndDrop(getCategoryLinkFromTree(source), getCategoryLinkFromTree(target)).build().perform();
+		action.dragAndDrop(getElementFromTextByJquery(source), getElementFromTextByJquery(target)).build().perform();
 		Utils.pause(2000);
 	}
 }

@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 
 /**
@@ -17,6 +18,7 @@ public class Permission extends WikiBase{
 	
 	//ManageAccount magAc = new ManageAccount(driver);
 	Dialog dialog;
+	PlatformPermission per;
 	//Button button = new Button(driver);
 	
 	public final String ELEMENT_PERMISSION = "//*[@id='UIPermissionGrid']//*[contains(text(),'${user}')]";
@@ -33,9 +35,9 @@ public class Permission extends WikiBase{
 	 * option !=0,1,2: userGroup[0] = path of a group, userGroup[1] = membership
 	 * @param userGroup: array of string
 	 */
-	public void addPagePermission(int option, String[] userGroup, Integer... type){
+	public void addPagePermission(int option, String[] userGroup, int... type){
 		button = new Button(driver);
-		
+		per = new PlatformPermission(driver);
 		info("--Add page permission for an user--");
 
 		goToPagePermission();
@@ -46,12 +48,12 @@ public class Permission extends WikiBase{
 
 			case 0: type(ELEMENT_SELECT_INPUT,userGroup[0],true); break;
 			case 1: click(ELEMENT_SELECT_USER);
-			selectUserPermission(userGroup[0], type); break;
+			per.selectUserPermission(userGroup[0], type); break;
 			case 2: click(ELEMENT_SELECT_GROUP);
-			selectGroupPermission(userGroup[0]); break;
+			per.selectGroupPermission(userGroup[0]); break;
 			default: if (userGroup[1] !=null) {
 				click(ELEMENT_SELECT_MEMBERSHIP);
-				selectGroupMembership(userGroup[0], userGroup[1]);
+				per.selectGroupMembership(userGroup[0], userGroup[1]);
 			}
 			break;
 			}		
@@ -178,14 +180,14 @@ public class Permission extends WikiBase{
 	public void addSpacePermission(int option, String[] groupUser, Integer...type){
 		button = new Button(driver);
 		dialog = new Dialog(driver);
-		
-		int notDisplay = 0;
-		if (type.length > 0){
-			if (!(type[0] instanceof Integer)) {
-				throw new IllegalArgumentException("-- Argument should be an Integer --");
-			}
-			notDisplay = (Integer)type[0];
-		}
+		per = new PlatformPermission(driver);
+
+//		if (type.length > 0){
+//			if (!(type[0] instanceof Integer)) {
+//				throw new IllegalArgumentException("-- Argument should be an Integer --");
+//			}
+//			notDisplay = (Integer)type[0];
+//		}
 		
 		goToSpacePermission();
 
@@ -194,15 +196,15 @@ public class Permission extends WikiBase{
 		case 0: type(ELEMENT_SELECT_INPUT,groupUser[0],true);
 		break;
 		case 1:	click(ELEMENT_SELECT_USER);
-		selectUserPermission(groupUser[0], 0, notDisplay);
+		per.selectUserPermission(groupUser[0], 0);
 		break;
 
 		case 2: click(ELEMENT_SELECT_GROUP);
-		selectGroupPermission(groupUser[0]);
+		per.selectGroupPermission(groupUser[0]);
 		break;
 
 		default: click(ELEMENT_SELECT_MEMBERSHIP);
-		selectGroupMembership(groupUser[0], groupUser[1]);
+		per.selectGroupMembership(groupUser[0], groupUser[1]);
 		break;
 		}
 		click(button.ELEMENT_ADD_BUTTON);

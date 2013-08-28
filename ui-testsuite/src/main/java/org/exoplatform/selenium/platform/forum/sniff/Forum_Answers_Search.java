@@ -54,7 +54,7 @@ public class Forum_Answers_Search extends AnswerBase {
 		waitForAndGetElement(By.linkText(categoryName));
 		click(ELEMENT_CLOSE_QUICK_SEARCH);
 		
-		magCat.deleteNotOpeningCategoryInAnswer(categoryName);
+		magCat.deleteCategoryInAnswer(categoryName);
 	}
 	
 	/**CaseId: 68944 -> Advanced search
@@ -71,12 +71,12 @@ public class Forum_Answers_Search extends AnswerBase {
 		info("Add new category and new question");
 		magCat.addNewCategoryInAnswer(categoryName, null, description, 2, userGroup, true, false);
 		magCat.openCategoryInAnswer(categoryName);
-		magQuest.submitQuestion(null, questionName, questionContent, false);
+		magQuest.submitQuestion(null, questionName, questionContent, null, false, null);
 		
 		advancedSearchInAnswer(null, 3, null, null, null, true, null, "john", null, null, "question2", null, null);
 		waitForAndGetElement(By.xpath("//*[@id='ResultQuickSearch']//a[text()='" + questionName + "']"));
 		click(ELEMENT_CLOSE_ADVANCE_SEARCH);
 		
-		magCat.deleteOpeningCategoryInAnswer(categoryName);
+		magCat.deleteCategoryInAnswer(categoryName);
 	}
 }

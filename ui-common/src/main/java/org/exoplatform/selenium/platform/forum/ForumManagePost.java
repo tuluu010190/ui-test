@@ -122,7 +122,7 @@ public class ForumManagePost extends ForumBase {
 		if(file.length > 0 && file[0] != "" && file[0] != null){
 			click(ELEMENT_ATTACH_FILE);
 			waitForAndGetElement(ELEMENT_POPUP_UPLOAD_FILE);
-			attachSomeFile(file);
+			attachFile(file[0]);
 			waitForElementNotPresent(ELEMENT_POPUP_UPLOAD_FILE);
 		}	
 		if (groupName != "" && groupName != null && iconClass != "" && iconClass != null){
@@ -202,7 +202,7 @@ public class ForumManagePost extends ForumBase {
 		if(file.length > 0 && file[0] != "" && file[0] != null){
 			click(ELEMENT_ATTACH_FILE);
 			waitForAndGetElement(ELEMENT_POPUP_UPLOAD_FILE);
-			attachSomeFile(file);
+			attachFile(file[0]);
 			waitForElementNotPresent(ELEMENT_POPUP_UPLOAD_FILE);
 		}	
 		if (groupName != "" && groupName != null && iconClass != "" && iconClass != null){

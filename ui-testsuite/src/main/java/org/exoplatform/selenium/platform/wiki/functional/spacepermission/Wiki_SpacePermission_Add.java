@@ -6,6 +6,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 
 import static org.exoplatform.selenium.TestLogger.info;
@@ -26,6 +27,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 
 	ManageAccount magAcc;
 	Button button;
+	PlatformPermission per;
 	
 	String DATA_USER_ADMIN = "john";
 	String DATA_PASS = "gtn";
@@ -36,6 +38,7 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 		driver.get(baseUrl);
 		magAcc = new ManageAccount(driver);
 		button = new Button(driver);
+		per = new PlatformPermission(driver);
 		magAcc.signIn(DATA_USER_ADMIN, DATA_PASS);
 	}
 
@@ -447,13 +450,13 @@ public class Wiki_SpacePermission_Add extends BasicAction {
 	 *<li>Select an User Permission</li> 
 	 *<li>Edit Space Permission </li>
 	 */
-	public void prepareDataWikiSpacePermissionV2(String pageName, String selectUserPermission, String username, Integer...type){
+	public void prepareDataWikiSpacePermissionV2(String pageName, String selectUserPermission, String username, int...type){
 		goToWiki();
 		addBlankWikiPage(pageName, pageName, 0);
 		goToSpacePermission();
 		deleteSpacePermission("any");
 		click(ELEMENT_SELECT_USER);
-		selectUserPermission(selectUserPermission, type);
+		per.selectUserPermission(selectUserPermission, type);
 		click(button.ELEMENT_ADD_BUTTON);
 		button.save();
 		waitForMessage(MSG_PERMISSION_SAVE);

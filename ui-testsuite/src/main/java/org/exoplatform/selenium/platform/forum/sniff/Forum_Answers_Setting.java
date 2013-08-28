@@ -78,7 +78,7 @@ public class Forum_Answers_Setting extends AnswerBase {
 		magCat.addNewCategoryInAnswer(categoryName1, null, description1, 2, userGroup1, true, false);
 		magCat.addNewCategoryInAnswer(categoryName2, null, description2, 3, userGroup2, true, true, true, true, true);
 		magCat.openCategoryInAnswer(categoryName1);
-		question.submitQuestion(null, questionName, questionContent, false);
+		question.submitQuestion(null, questionName, questionContent, null, false, null);
 		
 		goToForums();
 		forumCat.quickAddCategory(title, descriptionForum);	
@@ -100,7 +100,7 @@ public class Forum_Answers_Setting extends AnswerBase {
 		pageE.finishEditLayout();
 		
 		info("Category of answer is not displayed");
-		assert magCat.getCategoryLinkFromTree(categoryName2) == null;
+		assert magCat.getElementFromTextByJquery(categoryName2) == null;
 		
 		info("Check question of answer app is discussed in forum");
 		magCat.openCategoryInAnswer(categoryName1);
@@ -121,7 +121,7 @@ public class Forum_Answers_Setting extends AnswerBase {
 		click(ELEMENT_CLOSE_SETTING_BUTTON);
 		pageE.finishEditLayout();
 		
-		magCat.deleteNotOpeningCategoryInAnswer(categoryName1);
-		magCat.deleteNotOpeningCategoryInAnswer(categoryName2);
+		magCat.deleteCategoryInAnswer(categoryName1);
+		magCat.deleteCategoryInAnswer(categoryName2);
 	}
 }

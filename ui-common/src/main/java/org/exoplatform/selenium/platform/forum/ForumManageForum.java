@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,7 +17,7 @@ import org.openqa.selenium.WebElement;
 public class ForumManageForum extends ForumBase {
 	
 	Button but;
-	ForumPermission per;
+	PlatformPermission per;
 	ManageAlert alert;
 	ForumManageCategory cat;
 	

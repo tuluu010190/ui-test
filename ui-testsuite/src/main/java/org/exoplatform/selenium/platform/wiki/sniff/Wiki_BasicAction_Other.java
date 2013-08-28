@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.Permalink;
 import org.openqa.selenium.By;
@@ -24,6 +25,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 	Dialog dialog;
 	Button button;
 	ManageMember magMem;
+	PlatformPermission per;
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -33,6 +35,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 		dialog = new Dialog(driver);
 		button = new Button(driver);
 		magMem = new ManageMember(driver);
+		per = new PlatformPermission(driver);
 		
 		magAc.signIn("john", "gtn"); 
 		goToWiki();
@@ -410,7 +413,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 		goToPermissionFromPermalink();
 		info("Select user");
 		click(ELEMENT_SELECT_USER);
-		selectUserPermission(userGroup1[0], 1);
+		per.selectUserPermission(userGroup1[0], 1);
 		click(button.ELEMENT_ADD_BUTTON);
 		button.save();
 		magAc.signOut();
@@ -435,7 +438,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 		goToPermissionFromPermalink();
 		info("Select group");
 		click(ELEMENT_SELECT_GROUP);
-		selectGroupPermission(userGroup2[0]);
+		per.selectGroupPermission(userGroup2[0]);
 		click(button.ELEMENT_ADD_BUTTON);
 		button.save();
 		magAc.signOut();
@@ -460,7 +463,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 		goToPermissionFromPermalink();
 		info("Select membership");
 		click(ELEMENT_SELECT_MEMBERSHIP);
-		selectGroupMembership(userGroup3[0], userGroup3[1]);
+		per.selectGroupMembership(userGroup3[0], userGroup3[1]);
 		click(button.ELEMENT_ADD_BUTTON);
 		button.save();
 		magAc.signOut();

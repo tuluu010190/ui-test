@@ -258,7 +258,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
 	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//*[@id='ListPermissionSelector']//a[@title='${group}']";
 	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//*[@id='UIPermissionSelector']//*[contains(text(), '${group}')]";
-
+	
 	////
 	public final String ELEMENT_PAGINATOR_PAGE_LINK = "//a[contains(@class, 'Number') and text()='${number}']";
 	public final String ELEMENT_PAGINATOR_PAGE_NAMESPACE_LINK = "//*[@id='UINamespaceList']/div[1]//a[text()='${number}']";
@@ -936,6 +936,7 @@ public class PlatformBase extends TestBase {
 		while(iter.hasNext()) {
 			String windowHandle = iter.next(); 
 			driver.switchTo().window(windowHandle);
+			info("Switch to new windown successfully");
 		} 
 	}
 
