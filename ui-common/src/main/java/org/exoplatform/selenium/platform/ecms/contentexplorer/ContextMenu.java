@@ -161,10 +161,8 @@ public class ContextMenu extends EcmsBase{
 				Assert.fail("Cannot perform this action after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(locator);
-			info("Before displaying " + repeat);
 			if (waitForAndGetElement(ELEMENT_MENU_DELETE, 10000, 0)!=null) 
 			{	
-				info("Element is displayed ");
 				click(ELEMENT_MENU_DELETE);
 				//waitForTextPresent("Delete");
 				//click(By.linkText("OK"));

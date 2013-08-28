@@ -29,6 +29,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 public class TestBase {
+	
 	public WebDriver driver;
 	protected String baseUrl;
 	protected int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds

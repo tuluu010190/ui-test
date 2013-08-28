@@ -23,7 +23,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-
 public class PlatformBase extends TestBase {
 
 	public final String DATA_USER1 = "john";

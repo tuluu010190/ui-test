@@ -328,7 +328,6 @@ public class ActionBar extends EcmsBase{
 	}
 
 	/**Import node
-	 * Update: Thuntn
 	 * @param linkFile
 	 * @param linkVersion
 	 * @param behavior
