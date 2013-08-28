@@ -38,7 +38,6 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 		ContentTemplate cTemplate;
 		ActionBar actBar;
 		SitesExplorer siteExp;
-
 		public final String DATA_USER = "john";
 		public final String DATA_PASS = "gtn";
 
@@ -59,7 +58,6 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			ecms = new EcmsBase(driver);
 			siteExp = new SitesExplorer(driver);
 			magAcc.signIn(DATA_USER, DATA_PASS);
-			
 		}
 
 		@AfterMethod
@@ -86,7 +84,6 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			String scriptFileContent = "TestData/test01_CreateActionForNewTypeActionAddedManually_Script.txt"; 
 			String scriptLabel = "sendtomail"; 
 			String scriptName = "sendtomail";
-			
 			String actionTypeName = "sendtomail";
 			String variable = "exo:description";
 			
@@ -102,7 +99,7 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			String actionName = "actionName";
 			String lifeCycle = "User Action";
 			String actionType = "exo:"+scriptName;
-					
+			
 			/*Step 1: Go to Content Administration*/
 			/*Step 2: Create script*/
 			info("Create script");
@@ -120,7 +117,7 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			ecMain.goToTemplateTab();
 			magTemplate.openAddNewTemplateForm("Actions");
 			magTemplate.fillInTemplateForm(templateName, label, group, membership,false,fileDialogContent);
-				
+
 			/*Step 6: Create node*/
 			info("Create node");
 			navToolBar.goToSiteExplorer();

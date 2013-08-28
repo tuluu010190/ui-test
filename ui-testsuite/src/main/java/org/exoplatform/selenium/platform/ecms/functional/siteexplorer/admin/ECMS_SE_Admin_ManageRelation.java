@@ -1,7 +1,6 @@
 package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.admin;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -34,6 +33,7 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 
 		public final String DATA_USER = "john";
 		public final String DATA_PASS = "gtn";
+		public final String file = "phuong_filecontent.txt";
 
 		@BeforeMethod
 		public void beforeMethods() {

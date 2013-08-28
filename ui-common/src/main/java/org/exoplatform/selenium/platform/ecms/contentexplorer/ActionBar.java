@@ -62,9 +62,6 @@ public class ActionBar extends EcmsBase{
 	public final String ELEMENT_ACTION_AVAILABLE_ACTION = "//*[@id='UIActionList']//*[@class='text' and contains(text(), '${actionname}')]";
 	public final String ELEMENT_EDIT_ACTION_ICON = "//*[@id='UIActionList']//*[@class='text' and contains(text(), '${actionname}')]/../..//*[contains(@class, 'uiIconEdit')]";
 	public final String ELEMENT_DELETE_ACTION_ICON = "//*[@id='UIActionList']//*[@class='text' and contains(text(), '${actionname}')]/../..//*[contains(@class, 'uiIconDelete')]";
-
-	
-	
 	/*End Add*/
 
 	//Export Form
@@ -1419,7 +1416,7 @@ public class ActionBar extends EcmsBase{
 		}
 		Utils.pause(500);
 	}
-	
+
 	public void goToRelation(String nodeName1, Object...params){
 		//WebElement addRelation = waitForAndGetElement(ELEMENT_ADD_RELATION_LINK, 5000, 0);
 		Boolean nodeAdminView = (Boolean) (params.length > 0 ? params[0]: false);
@@ -1438,7 +1435,6 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_RELATION_LIST_TAB);
 	}
 	/*End Add*/
-	
 	/**
 	 * @author phuongdt
 	 * @date	30/08/2013
@@ -1471,15 +1467,4 @@ public class ActionBar extends EcmsBase{
 			click(ELEMENT_VERSIONS_LINK);
 		}
 	}
-	
-	/**
-	 * @author phuongdt
-	 * @date	30/08/2013
-	 * @function	Close dialog form
-	 * @param	null
-	 */
-	public void closeDialogForm(){
-		button.close();
-	}
 }
-	

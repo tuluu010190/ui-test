@@ -36,7 +36,10 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_ANNOUNCEMENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Announcement']");
 	public final By ELEMENT_ANNOUNCEMENT_NAME_TEXTBOX = By.id("name");
 	public final By ELEMENT_ANNOUNCEMENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
-
+	
+	//WebLink
+	public final By ELEMENT_WEBLINK_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Web Link']");
+	
 	//WebContent
 	public final By ELEMENT_WEBCONTENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Web Content']");
 	//public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX = By.id("title");	
@@ -66,7 +69,29 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_HTML_FILE_CKEDITOR_FRAME = By.xpath("//*[@class='cke_contents']/iframe");
 	public final By ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY = By.tagName("body");
 	/*End Added*/
+	//Contact us document
+	public final By ELEMENT_CONTACTUS_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Contact Us']");
+	public final By ELEMENT_CONTACTUS_RECIPIENT = By.xpath("//*[@name = 'select_a_recipientFieldName']");
+	public final By ELEMENT_CONTACTUS_LANGUAGE = By.xpath("//*[@name = 'content-lang']");
+	public final By ELEMENT_CONTACTUS_YOURNAME = By.id("your_nameFieldName");
+	public final By ELEMENT_CONTACTUS_YOURADDRESS = By.id("your_addressFieldName");
+	public final By ELEMENT_CONTACTUS_EMAIL = By.id("your_email_addressFieldName");
+	public final By ELEMENT_CONTACTUS_PHONE = By.id("your_phone_numberFieldName");
+	public final By ELEMENT_CONTACTUS_MSG = By.id("your_messageFieldName");
 	
+	//Accessible Breadcrumb
+	public final By ELEMENT_ACCESSIBLE_BREADCRUMB_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Accessible Breadcrumb']");
+	public final By ELEMENT_ACCESSIBLE_NAVIGATION_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Accessible Breadcrumb']");
+	public final By ELEMENT_ACCESSIBLE_SEARCH_BOX_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Accessible Site Search Box']");
+	public final By ELEMENT_ACCESSIBLE_MAIN_TAB = By.xpath("//*[text()='Main Content']");
+	public final By ELEMENT_ACCESSIBLE_MAIN_TAB_NAME = By.id("name");
+	public final By ELEMENT_ACCESSIBLE_MAIN_TAB_TITLE = By.id("title");
+	public final By ELEMENT_ACCESSIBLE_MAIN_TAB_LANGUAGE = By.className("selectbox");
+	
+	//CSS File
+	public final By ELEMENT_CSS_FILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='CSS File']");
+	
+	/*End Added*/
 	
 	//File
 	public final By ELEMENT_NEWFILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='File']");
@@ -162,6 +187,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_LINK_NAME= By.id("name");
 	public final By ELEMENT_LINK_URL= By.id("LinkURL");
 	public final By ELEMENT_LINK_DESC= By.id("LinkDescription");
+	public final By ELEMENT_LINK_LANGUAGE=By.name("content-lang");
 	
 	/*=================== Create a new document/article/file ===================*/
 	/* 
@@ -472,7 +498,7 @@ public class ContentTemplate extends EcmsBase{
 	}
 
 	//Create a new Css file
-	public void createNewCssFile(String name, String priority, String data, Object...params){
+	public void createNewCssFile(String name, String priority, String data, Object...params){		
 		Boolean active = (Boolean) (params.length > 0 ? params[0]: false);
 		String lang = (String) (params.length > 1 ? params[1]: "");
 
@@ -539,12 +565,123 @@ public class ContentTemplate extends EcmsBase{
 			type(ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY, content, false);
 			/*return main frame*/
 			driver.switchTo().defaultContent();
+			
+			inputDataToFrame(ELEMENT_HTML_FILE_CKEDITOR_FRAME, content, true);
+			switchToParentWindow();
+//			
+//			/*switch to ckeditor frame*/
+//			driver.switchTo().frame(driver.findElement(ELEMENT_HTML_FILE_CKEDITOR_FRAME));
+//			/*locator body of ckeditor*/
+//			type(ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY, content, false);
+//			/*return main frame*/
+//			driver.switchTo().defaultContent();
 		}		
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);
 	}
+	
+	/**
+	 * @author phuongdt
+	 * @date 30/08/2013
+	 * @function create new Web Link File	
+	 * @param name
+	 * @param language
+	 * @param content
+	 */
+	public void createNewWebLink(String name, String url, Object... params){
+		click(ELEMENT_WEBLINK_LINK);
+		String lang = (String) (params.length > 0 ? params[0]: "");
+		String description = (String) (params.length > 1 ? params[1]: "");
+		info("-- create new Web Link File --");
+		type(ELEMENT_LINK_NAME, name, true);
+		type(ELEMENT_LINK_URL, url, true);
+		if (!lang.isEmpty()){
+			selectOption(ELEMENT_LINK_LANGUAGE, lang);
+		}
+		if (!description.isEmpty()){
+			type(ELEMENT_LINK_DESC, description, true);
+		}		
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * @author phuongdt
+	 * @date 03/09/2013
+	 * @function create new Contact Us document
+	 */
+	public void createNewContactUs(Object... params){
+		click(ELEMENT_CONTACTUS_LINK);
+		String recipient = (String) (params.length > 0 ? params[0]: "");
+		String name = (String) (params.length > 1 ? params[1]: "");
+		String address = (String) (params.length > 2 ? params[2]: "");
+		String email = (String) (params.length > 3 ? params[3]: "");
+		String phone = (String) (params.length > 4 ? params[4]: "");
+		String lang = (String) (params.length > 5 ? params[5]: "");
+		String msg = (String) (params.length > 6 ? params[6]: "");
+		info("-- Creating a Contact Us document --");
+		if (!recipient.isEmpty()){
+			selectOption(ELEMENT_CONTACTUS_RECIPIENT, recipient);
+		}
+		if (!name.isEmpty()){
+			type(ELEMENT_CONTACTUS_YOURNAME, name, true);
+		}	
+		if (!address.isEmpty()){
+			type(ELEMENT_CONTACTUS_YOURADDRESS, address, true);
+		}
+		if (!email.isEmpty()){
+			type(ELEMENT_CONTACTUS_EMAIL, email, true);
+		}
+		if (!phone.isEmpty()){
+			type(ELEMENT_CONTACTUS_PHONE, phone, true);
+		}
+		if (!lang.isEmpty()){
+			selectOption(ELEMENT_CONTACTUS_LANGUAGE, lang);
+		}
+		if (!msg.isEmpty()){
+			type(ELEMENT_CONTACTUS_MSG, msg, true);
+		}
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(1000);
+	}
 
+	/**
+	 * @author phuongdt
+	 * @date 03/09/2013
+	 * @function create new Accessible Breadcrumb document, Accessible Navigator, Accessible Search box
+	 * @param name
+	 */
+	public void createNewAccessibleDocument(String name,Object... params){
+		click(ELEMENT_ACCESSIBLE_MAIN_TAB);
+		String title = (String) (params.length > 0 ? params[0]: "");
+		String lang = (String) (params.length > 1 ? params[1]: "");
+		String content = (String) (params.length > 2 ? params[2]: "");
+		
+		info("-- new Accessible Breadcrumb document	 --");
+		type(ELEMENT_ACCESSIBLE_MAIN_TAB_NAME, name, true);
+		
+		if (!title.isEmpty()){
+			type(ELEMENT_ACCESSIBLE_MAIN_TAB_TITLE, title, true);
+		}
+		
+		if (!lang.isEmpty()){
+			selectOption(ELEMENT_ACCESSIBLE_MAIN_TAB_LANGUAGE, lang);
+		}
+		
+		if (!content.isEmpty()){
+			inputDataToFrame(ELEMENT_HTML_FILE_CKEDITOR_FRAME, content, true);
+			switchToParentWindow();
+		}
+		
+		
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(1000);
+	}
+	
 	//Create content folder and check
 	public void createAndCheckContentFolder(String name, By path){
 		info("Create new content folder with name: "+name);
