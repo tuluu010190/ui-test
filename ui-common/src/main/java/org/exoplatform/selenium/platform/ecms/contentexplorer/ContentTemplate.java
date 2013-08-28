@@ -54,6 +54,20 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_MINIMIZE_ICON = By.xpath("//*[contains(@class, 'uiIconEcmsCollapse')]");
 	public final By ELEMENT_CHANGE_CONTENT_TYPE = By.xpath("//*[contains(@class, 'ChangeTypeLink')]");
 
+	/*
+	 * Added by PhuongDT
+	 * Date 30/08/2013
+	 */
+	//HTML File
+	public final By ELEMENT_NEW_HTML_FILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='HTML File']");
+	public final By ELEMENT_HTML_FILE_NAME = By.id("name");
+	public final By ELEMENT_HTML_FILE_CONTENT = By.id("contentHtml");
+	public final By ELEMENT_HTML_FILE_LANGUAGE = By.className("selectbox");
+	public final By ELEMENT_HTML_FILE_CKEDITOR_FRAME = By.xpath("//*[@class='cke_contents']/iframe");
+	public final By ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY = By.tagName("body");
+	/*End Added*/
+	
+	
 	//File
 	public final By ELEMENT_NEWFILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='File']");
 	//By.linkText("File");
@@ -122,6 +136,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_PAGE_TAG_P = By.xpath("//p");
 
 	//JS
+	public final By ELEMENT_NEW_JS_FILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Javascript File']");
 	public final By ELEMENT_JS_NAME = By.id("name");
 	public final By ELEMENT_JS_ACTIVE = By.name("activeJS");
 	public final By ELEMENT_JS_PRIORITY = By.id("JSpriority");
@@ -495,6 +510,36 @@ public class ContentTemplate extends EcmsBase{
 			selectOption(ELEMENT_JS_LANGUAGE, lang);
 		}
 		type(ELEMENT_JS_DATA, data, true);
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * @author phuongdt
+	 * @date 30/08/2013
+	 * @function create new HTML File	
+	 * @param name
+	 * @param language
+	 * @param content
+	 */
+	public void createNewHtmlFile(String name, Object... params){
+		click(ELEMENT_NEW_HTML_FILE_LINK);
+		String lang = (String) (params.length > 0 ? params[0]: "");
+		String content = (String) (params.length > 1 ? params[1]: "");
+		info("-- Creating a new HTML File --");
+		type(ELEMENT_HTML_FILE_NAME, name, true);
+		if (!lang.isEmpty()){
+			selectOption(ELEMENT_HTML_FILE_LANGUAGE, lang);
+		}
+		if (!content.isEmpty()){
+			/*switch to ckeditor frame*/
+			driver.switchTo().frame(driver.findElement(ELEMENT_HTML_FILE_CKEDITOR_FRAME));
+			/*locator body of ckeditor*/
+			type(ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY, content, false);
+			/*return main frame*/
+			driver.switchTo().defaultContent();
+		}		
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);

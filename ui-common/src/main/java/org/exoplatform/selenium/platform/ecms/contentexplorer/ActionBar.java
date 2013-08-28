@@ -40,6 +40,32 @@ public class ActionBar extends EcmsBase{
 	ContextMenu cMenu = new ContextMenu(driver);
 	ManageAlert alert = new ManageAlert(driver);
 	ECMainFunction ecMain = new ECMainFunction(driver);
+	
+	/*
+	 * @Added by: PhuongDT
+	 * @date: 27/08/2013
+	 * @Function: Manage Action Bar
+	 */
+	public final By ELEMENT_ACTION_ICON = By.className("uiIconEcmsManageActions");
+	public final By ELEMENT_ADD_ACTION_TAB = By.xpath("//*[text()='Add Action']");
+	public final By ELEMENT_AVAILABLE_ACTIONS = By.xpath("//*[text()='Available Actions']");
+	public final By ELEMENT_ACTION_NAME = By.id("actionName");
+	public final By ELEMENT_ACTION_LIFE_CYCLE = By.name("lifecycle");
+	public final By ELEMENT_ACTION_TYPE = By.name("actionType");
+	public final By ELEMENT_ACTION_METADATA = By.name("metadata");
+	public final By ELEMENT_ACTION_NODE_TYPE = By.name("nodetypes0");
+	public final By ELEMENT_ACTION_DESCRIPTION = By.name("description");
+	public final By ELEMENT_ACTION_AFFECTED_NODE_TYPE = By.name("affectedNodetypes0");
+	public final By ELEMENT_ACTION_NODE_TYPE_SEARCH = By.xpath("//*[@class='uiIconSearch']");
+	public final By ELEMENT_ACTION_AFFECTED_NODE_TYPE_SEARCH = By.xpath("//*[@text()='Affected Node Types:']//*[@class='uiIconSearch']");
+	public final By ELEMENT_ACTION_SELECT_ALL_DOC = By.xpath(".//*[@id='ALL_DOCUMENT_TYPES']");
+	public final String ELEMENT_ACTION_AVAILABLE_ACTION = "//*[@id='UIActionList']//*[@class='text' and contains(text(), '${actionname}')]";
+	public final String ELEMENT_EDIT_ACTION_ICON = "//*[@id='UIActionList']//*[@class='text' and contains(text(), '${actionname}')]/../..//*[contains(@class, 'uiIconEdit')]";
+	public final String ELEMENT_DELETE_ACTION_ICON = "//*[@id='UIActionList']//*[@class='text' and contains(text(), '${actionname}')]/../..//*[contains(@class, 'uiIconDelete')]";
+
+	
+	
+	/*End Add*/
 
 	//Export Form
 	public By ELEMENT_DOC_VIEW = By.xpath("//form[@id='UIExportNode']//input[@name='format' and @value='docview']");
@@ -66,6 +92,9 @@ public class ActionBar extends EcmsBase{
 	//Version Info form
 	public By ELEMENT_ICON_VERSION_ADD=By.xpath("//*[@data-original-title='Add Label']");
 	public By ELEMENT_TEXTBOX_VERSION=By.id("label");
+	public By ELEMENT_ACTIVATE_VERSION_BUTTON = By.xpath("//*[text()='Activate']");
+	public By ELEMENT_CANCEL_ACTIVATE_VERSION_BUTTON = By.xpath("//*[text()='Cancel']");
+	public By ELEMENT_VERSION_INFO_FORM = By.xpath("//*[text()='Close']");
 
 	//publication form
 	public final By ELEMENT_PUBLIC_STATUS = By.xpath("//*[contains(text(),'Published')]/..//a");
@@ -112,6 +141,7 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_FIRST_REVISION_DATE = By.xpath(ELEMENT_REVISION_DATE.replace("${status}", "Draft[Current Revision]"));
 	public final By ELEMENT_ADD_RELATION_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageRelations']");
 	public final By ELEMENT_SELECT_RELATION_TAB = By.xpath("//*[contains(text(), 'Select Relation')]");
+	public final By ELEMENT_RELATION_LIST_TAB = By.xpath("//*[contains(text(), 'Relation List')]");
 	public final By ELEMENT_SHOW_RELATION_ICON = By.xpath("//i[@class='uiIconEcmsRelationMini']");
 	public final String ELEMENT_RELATION_LINK = "//a[text()='{$relation}']";
 	public final String ELEMENT_DELETE_RELATION_ICON = "//span[contains(text(),'{$relation}')]/../..//i[@class='uiIconDelete uiIconLightGray']";
@@ -387,7 +417,7 @@ public class ActionBar extends EcmsBase{
 		waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_TAB);
 		info ("------Category " + categoryName + " is added succesfully");
 	}
-
+	
 	/*
 	 * Add version for a node
 	 * + locator: locator of node
@@ -1303,4 +1333,147 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_SORT_BY_TYPE.replace("${type}", type));
 		Utils.pause(1000);	
 	}
+	
+	/*
+	 * @Added by: PhuongDT
+	 * @date: 27/08/2013
+	 */
+	public void goToAction(){
+		WebElement actionicon = waitForAndGetElement(ELEMENT_ACTION_ICON, 5000, 0);
+		if (actionicon == null){
+			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, 5000, 0);
+			if (more != null){
+				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			} else {
+				info("Do not have action icon in action bar");
+				return;
+			}
+		}
+		click(ELEMENT_ACTION_ICON);
+		Utils.pause(1000);
+	}
+	
+	public void addNewAction(String actionName, String lifeCycle, String actionType, Object... params){
+		goToAction();
+		click(ELEMENT_ADD_ACTION_TAB); 
+		Utils.pause(1000);
+		select (ELEMENT_ACTION_TYPE, actionType);
+		type(ELEMENT_ACTION_NAME, actionName, true);
+		select(ELEMENT_ACTION_LIFE_CYCLE, lifeCycle);
+		if (isElementPresent(ELEMENT_ACTION_NODE_TYPE_SEARCH)){
+			click(ELEMENT_ACTION_NODE_TYPE_SEARCH);
+			check(ELEMENT_ACTION_SELECT_ALL_DOC,2);
+			button.save();
+		}
+		Utils.pause(1000);
+		button.close();
+	}
+	
+	public Boolean isActionPresent(String actionName){
+		goToAction();
+		click(ELEMENT_AVAILABLE_ACTIONS);
+		String verifyXPath = ELEMENT_ACTION_AVAILABLE_ACTION.replace("${actionname}", actionName);
+		Boolean isElement = isElementPresent(By.xpath(verifyXPath));
+		Utils.pause(1000);
+		button.close();
+		return isElement;
+	}
+	
+	public void deleteAction(String actionName){
+		goToAction();
+		click(ELEMENT_AVAILABLE_ACTIONS);
+	}
+	
+	public void actionsOnActionsOfNode(String actionName, String option, Object...params){
+		String newactionname = (String) (params.length > 0 ? params[0]: "");
+		String newactiontype = (String) (params.length > 1 ? params[1]: "");
+		String newlifecycle = (String) (params.length > 1 ? params[1]: "");
+		
+		goToAction();
+		click(ELEMENT_AVAILABLE_ACTIONS);
+		
+		info(option + "-- actionName --" + actionName);
+		if (option.equals("Edit")){
+			if(!newactionname.isEmpty())
+				select (ELEMENT_ACTION_TYPE, newactiontype);
+			if (!newactionname.isEmpty())
+				type(ELEMENT_ACTION_NAME, newactionname, true);
+			if (newlifecycle.isEmpty())
+				select(ELEMENT_ACTION_LIFE_CYCLE, newlifecycle);
+			button.save();
+			//Check if a property is added successfully.
+			waitForElementNotPresent(ELEMENT_ACTION_AVAILABLE_ACTION.replace("${actionname}", newactionname));
+			button.close();
+
+		}else if (option.equals("Delete")){
+			click(ELEMENT_DELETE_ACTION_ICON.replace("${actionname}", actionName));
+			alt.acceptAlert();
+			waitForElementNotPresent(ELEMENT_ACTION_AVAILABLE_ACTION.replace("${actionname}", actionName));
+			button.close();
+		}
+		Utils.pause(500);
+	}
+	
+	public void goToRelation(String nodeName1, Object...params){
+		//WebElement addRelation = waitForAndGetElement(ELEMENT_ADD_RELATION_LINK, 5000, 0);
+		Boolean nodeAdminView = (Boolean) (params.length > 0 ? params[0]: false);
+		if (nodeAdminView){
+			goToNode(nodeName1, true);
+		}else {
+			goToNode(nodeName1);
+		}
+		if (isTextPresent("Relations")){
+			info("-- Add Relation tab is already displayed --");
+			click(ELEMENT_ADD_RELATION_LINK);
+		}else {
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			click(ELEMENT_ADD_RELATION_LINK);
+		}
+		click(ELEMENT_RELATION_LIST_TAB);
+	}
+	/*End Add*/
+	
+	/**
+	 * @author phuongdt
+	 * @date	30/08/2013
+	 * @function	Open version info form
+	 * @param	locator
+	 */
+	public void openVersionInfoForm(By locator){
+		info("-- Open version Info form of a document... --");
+		goToNode(locator);
+		clearCache();
+		if (waitForAndGetElement(ELEMENT_VERSIONS_LINK,10000,0)!=null){
+			info("-- Versions tab is already displayed --");
+		}else if (isElementPresent(ELEMENT_MORE_LINK_WITHOUT_BLOCK)){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			if (isElementPresent(ELEMENT_VERSIONS_LINK)){
+				info("-- Versions tab is already displayed --");
+			}
+		}
+		click(ELEMENT_VERSIONS_LINK);
+		if (waitForAndGetElement(ELEMENT_ACTIVATE_VERSION_BUTTON, DEFAULT_TIMEOUT, 0, 2) != null){
+			click(ELEMENT_ACTIVATE_VERSION_BUTTON);
+			if (waitForAndGetElement(ELEMENT_VERSIONS_LINK,10000,0)!=null){
+				info("-- Versions tab is already displayed --");
+			}else if (isElementPresent(ELEMENT_MORE_LINK_WITHOUT_BLOCK)){
+				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+				if (isElementPresent(ELEMENT_VERSIONS_LINK)){
+					info("-- Versions tab is already displayed --");
+				}
+			}
+			click(ELEMENT_VERSIONS_LINK);
+		}
+	}
+	
+	/**
+	 * @author phuongdt
+	 * @date	30/08/2013
+	 * @function	Close dialog form
+	 * @param	null
+	 */
+	public void closeDialogForm(){
+		button.close();
+	}
 }
+	

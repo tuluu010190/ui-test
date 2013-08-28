@@ -1,6 +1,11 @@
 package org.exoplatform.selenium.platform.ecms.admin;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.StringSelection;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
@@ -9,6 +14,7 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -51,6 +57,17 @@ public class ManageTemplate extends EcmsBase{
 	public final String ELEMENT_EDIT_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/../..//*[@class='uiIconEdit']";
 	public final String ELEMENT_DELETE_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/../..//*[@class='uiIconDelete']";
 	public final String ELEMENT_DELETE_METADATA_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/..//*[@class='uiIconDelete']";
+	
+	/*Added by PhuongDT
+	 *Date: 28/08/2013 
+	*/
+	public final By ELEMENT_ADD_TEMPLATE_DOCUMENT_BUTTON = By.xpath("//*[@id = 'tab-UITemplateContainer']//*[text()='Add Template']");
+	public final By ELEMENT_ADD_TEMPLATE_ACTION_BUTTON = By.xpath("//*[@id = 'tab-UIActionsTemplateContainer']//*[text()='Add Template']");
+	public final By ELEMENT_ADD_TEMPLATE_OTHER_BUTTON = By.xpath("//*[@id = 'tab-UIOthersTemplateContainer']//*[text()='Add Template']");
+	public final By ELEMENT_TEMPLATE_ACTION_DIALOG_CONTENT = By.id("dialog");
+	
+	
+	/*End Add*/
 	//Edit template
 	public final String ELEMENT_CONTENT = "//*[@id='${tab}']//*[@name='content']";
 	public final String ELEMENT_INPUT_NAME = "//*[@id='${tab}']//*[@name='name']";
@@ -97,18 +114,26 @@ public class ManageTemplate extends EcmsBase{
 	
 	/*==================================================================*/
 
+	/* 
+	 * Modified by: PhuongDT 
+	 * Date: 28/08/2013
+	 * Content: Change ELEMENT_ADD_TEMPLATE_BUTTON
+	*/
 	//Open Add New Template Form
 	public void openAddNewTemplateForm(Object...params) {
 		String temp = (String) (params.length > 0 ? params[0] : "");
 		info("-- Open [Add Template] form --");
 		if (temp.equals("Actions")){
 			click(ELEMENT_ACTION_TAB);
+			click(ELEMENT_ADD_TEMPLATE_ACTION_BUTTON);
 		}else if (temp.equals("Others")){
 			click(ELEMENT_OTHER_TAB);
+			click(ELEMENT_ADD_TEMPLATE_OTHER_BUTTON);
 		}else {
 			info("-- Add a new template for documents--");
+			click(ELEMENT_ADD_TEMPLATE_DOCUMENT_BUTTON);
 		}
-		click(ELEMENT_ADD_TEMPLATE_BUTTON);	
+		//click(ELEMENT_ADD_TEMPLATE_BUTTON);	
 		waitForAndGetElement(By.xpath("//*[contains(@class, 'popupTitle') and text()='Template Form']"));	    
 	}
 
@@ -128,13 +153,37 @@ public class ManageTemplate extends EcmsBase{
 		}
 		selectMembership(groupPath, membership, "AddPermission");      
 		//Switch between tabs
-		click(ELEMENT_DIALOG_TAB);      
+		//click(ELEMENT_DIALOG_TAB);   
+		String dialogContent =  (String) (params.length > 1 ? params[1]: "");
+		if(!dialogContent.isEmpty())
+			fillInTemplateDialogTab(dialogContent);
 		click(ELEMENT_VIEW_TAB);
 		click(ELEMENT_CSS_TAB);
 		button.save();
 		waitForAndGetElement(By.xpath("//div[@class='Text' and contains(text(),'" + templateName + "')]"));    
 		Utils.pause(1000);
 	}
+	/*End Modified*/
+	/**
+	 * @Added by: PhuongDT
+	 * @date: 26/08/2013
+	 * Content: Add content to dialog tab
+	 */
+	public void fillInTemplateDialogTab(String dialogContent){
+		click(ELEMENT_DIALOG_TAB); 
+		String content = Utils.getFileContent(dialogContent);
+		Utils.pause(500);
+		/*send key to dialog: use copy to clipboard*/
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Clipboard clipboard = toolkit.getSystemClipboard();
+		StringSelection strSel = new StringSelection(content);
+		clipboard.setContents(strSel, null);
+		
+		WebElement element = driver.findElement(ELEMENT_TEMPLATE_ACTION_DIALOG_CONTENT);
+		element.clear();
+		element.sendKeys(Keys.CONTROL+"v");
+	}
+	/*End Added*/
 
 	//Edit Template form
 	public void editTemplate(String templateName, String templateLabel, Object... params){

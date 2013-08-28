@@ -25,6 +25,12 @@ public class ECMainFunction extends EcmsBase{
 
 	//Template tab
 	public final By ELEMENT_TEMPLATE_TAB = By.xpath("//*[text()='Templates']");
+	/*
+	 * @Added by: PhuongDT
+	 * @date: 27/08/2013
+	 */
+	public final By ELEMENT_DOCUMENT_LINK_XPATH = By.xpath("//*[@class='title' and contains(text(), 'Documents')]");
+	/*End Add*/
 	public final By ELEMENT_DOCUMENT_LINK = By.className("uiIconEcmsTemplatesManager");
 	public final By ELEMENT_MANAGE_TEMPLATE_SCREEN = By.xpath("//*[@class='title' and contains(text(),'Documents')]");
 	public final By ELEMENT_LIST_LINK = By.className("uiIconEcmsCLVTemplatesManager");
@@ -59,18 +65,23 @@ public class ECMainFunction extends EcmsBase{
 	public final By ELEMENT_ADD_ACTION_TYPE_BUTTON = By.xpath("//*[text()='Add Action Type']");
 
 	/*=============================================================*/
-
 	//Template
 	//Open Manage Template Screen
+	/*
+	 * @Modify by: PhuongDT
+	 * @date: 27/08/2013
+	 * @Content: Change condition to verify element Document
+	 */
 	public void goToTemplateTab(){	    
 		navToolbar.goToContentAdministration();
-		if (isTextNotPresent("Documents")){
+	//	if (isTextNotPresent("Documents")){
+		if(isElementNotPresent(ELEMENT_DOCUMENT_LINK_XPATH)){
 			click(ELEMENT_TEMPLATE_TAB);
 		}
 		click(ELEMENT_DOCUMENT_LINK);
 		waitForAndGetElement(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
 	}
-
+	/*End Modify*/
 	//Open [List Template] Screen
 	public void goToListTemplateTab(){
 		navToolbar.goToContentAdministration();

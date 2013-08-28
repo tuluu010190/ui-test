@@ -338,6 +338,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_PARENT_DRIVER = By.xpath("//*[@id='BreadcumbsContainer']/li[2]/a");
 	public final By ELEMENT_SELECT_DOCUMENT_POPUP = By.xpath("//*[@id='UIPopupSymLink']//span[text()='Select Document']");
 	public final String ELEMENT_TRANSLATION_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='fr (${fileName})']";
+	public final String ELEMENT_REF_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='${fileName}']";
 
 	//Acme site > Overview page
 	public final By ELEMENT_OVERVIEW_PAGE = By.xpath("//*[@class = 'uiIconFile uiIconExt-overview']");
@@ -573,6 +574,31 @@ public class EcmsBase extends ManageAccount {
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 
+	/**
+	 * @author phuongdt
+	 * @param file
+	 * upload many file
+	 */
+	//upload many file
+	public void uploadMultiFileSerial(String...file){
+		
+		if (file.length > 0){
+			if (isTextNotPresent("Upload")){
+				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			}
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
+					"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", waitForAndGetElement(ELEMENT_UPLOAD_LINK, DEFAULT_TIMEOUT, 1, 2));
+			for (int i = 0; i < file.length; i ++){
+				type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath("TestData/" + file[i]), false);
+			}
+			switchToParentWindow();
+			String links[] = file[0].split("/");
+			int length = links.length;
+			waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
+			waitForElementNotPresent(By.xpath("//*[@class='loaddingPercent pull-right']"));
+		}
+	}
+	
 	//Function to select home path
 	public void selectHomePathForCategoryTree(String homePath){
 		String[] temp;
@@ -612,5 +638,5 @@ public class EcmsBase extends ManageAccount {
 		}else{
 			info("Input checkbox list wrong");
 		}
-	}	
+	}
 }
