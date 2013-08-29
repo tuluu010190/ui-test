@@ -217,7 +217,7 @@ public class ContentTemplate extends EcmsBase{
 				switchToParentWindow();
 				String links[] = img.split("/");
 				int length = links.length;
-				waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "..." +"')]"));
+				waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+"')]"),DEFAULT_TIMEOUT,1,2);
 			}
 			if (!lines){
 				inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME, sum);

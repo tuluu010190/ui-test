@@ -439,7 +439,6 @@ public class PlatformBase extends TestBase {
 
 	//Content Administration / Advanced Configuration 
 	public final By ELEMENT_ADVANCED_CONFIGURATION_TAB = By.xpath("//*[text()='Advanced']");
-	//("//div[@class = 'TabLabel' and @title = 'Advanced Configuration']");
 	public final By ELEMENT_MANAGE_LOCK_TAB = By.xpath("//*[text() = 'Manage Lock']");
 	//("//div[@class = 'MiddleTab' and text() = 'Manage Lock']");
 	public final By ELEMENT_MANAGE_LOCKS = By.className("uiIconEcmsUnLockManager");

@@ -72,6 +72,7 @@ public class ActionBar extends EcmsBase{
 	public By ELEMENT_ZIP = By.name("zip");
 	public By ELEMENT_EXPORT_VERSION = By.xpath("//button[text()='Export Version History']");
 	public By ELEMENT_EXPORT = By.xpath("//button[text()='Export']");
+	public String ELEMENT_IMPORT_FILE_LABEL = "//div[@class='fileNameLabel' and contains(text(),'${fileName}')]";
 
 	//Import Form
 	public By ELEMENT_UPLOAD_FILE_FRAME = By.xpath("//label[contains(text(),'Upload File:')]/following::div/iframe[contains(@id,'uploadFrame')]");
@@ -114,7 +115,7 @@ public class ActionBar extends EcmsBase{
 	public final String ELEMENT_EDIT_PROPERTY_ICON = "//*[@class='uiPropertyTab']//*[text()='${property}']/..//*[contains(@class, 'uiIconEdit')]";
 	public final String ELEMENT_DELETE_PROPERTY_ICON = "//*[@class='uiPropertyTab']//*[text()='${property}']/..//*[contains(@class, 'uiIconDelete')]";
 	public final String ELEMENT_VALUE_PROPERTY = "//*[@class='uiPropertyTab']//*[text()='${property}']/..//*[@class='text']";
-	
+
 	//Show Drives link
 	public final By ELEMENT_SHOW_DRIVES = By.xpath("//*[@data-original-title = 'Show Drives']");
 
@@ -275,7 +276,7 @@ public class ActionBar extends EcmsBase{
 	// Add a category in DMS Administration - Simple View
 	public void addCategoryInSimpleView(String categoryName, Object...params){
 		Boolean checkCategory = (Boolean) (params.length > 0 ? params[0]:true);
-		
+
 		info("Add a simple category");
 		click(ELEMENT_BUTTON_ADD_CATEGORY);
 		waitForAndGetElement(ELEMENT_ADD_CATEGORY_FORM);
@@ -336,6 +337,8 @@ public class ActionBar extends EcmsBase{
 	public void importNode(String linkFile, String linkVersion, String behavior, boolean version) {
 		WebElement eProperties = waitForAndGetElement(ELEMENT_VIEW_PROPERTIES_ICON,10000,0);
 		WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK,5000,0);
+		String[] files = linkFile.split("/");
+		int length = files.length;
 		if(eProperties == null)
 			if (more !=null )
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
@@ -367,6 +370,7 @@ public class ActionBar extends EcmsBase{
 		}
 		else 
 		{
+			waitForAndGetElement(ELEMENT_IMPORT_FILE_LABEL.replace("${fileName}", files[length-1]));
 			click(ELEMENT_IMPORT);
 			Utils.pause(500);
 			waitForMessage("Imported successfully.");

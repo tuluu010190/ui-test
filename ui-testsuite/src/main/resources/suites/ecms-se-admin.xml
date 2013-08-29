@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="ECMS Functional Test" verbose="1" preserve-order="true">
-	<test name="ecms-func-se-basicaction" enabled="true">
+	<test name="ecms-func-se-admin" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
@@ -10,6 +10,7 @@
 		<packages>
 			<package name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.admin.*" />
 		</packages>
+		
 	</test>
 	<listeners>
 		<listener class-name="org.exoplatform.selenium.TestReportListener" />
