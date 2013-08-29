@@ -187,6 +187,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_COLLABORATION_DRIVE_LIVE = By.xpath("//a[@title='Live']");
 	public final String ELEMENT_SIDEBAR_NODE_TITLE = "//*[@class='node']/div/div/a/i[@title='${nodeName}']";
 	public final By ELEMENT_SITEBAR_INTRANET = By.xpath("//a/span[@class='nodeName' and text()='intranet']");
+	public final By ELEMENT_SITEBAR_SHARED = By.xpath("//a/span[@class='nodeName' and text()='shared']");
 	public final By ELEMENT_SITEBAR_INTRANET_DOCUMENT = By.xpath("//a/span[@class='nodeName' and text()='documents']");
 
 	//View Area

@@ -172,9 +172,12 @@ public class ManageView extends EcmsBase{
 		if (enableVersion){
 			click(ELEMENT_ENABLE_VERSION, 2);
 		}
-		WebElement element = waitForAndGetElement(ELEMENT_HIDE_EXPLORER_PANEL, 3000, 1, 2);
-		if (hideExplorerPanel && !element.isSelected()){
-			click(ELEMENT_HIDE_EXPLORER_PANEL, 2);
+		if (waitForAndGetElement(ELEMENT_HIDE_EXPLORER_PANEL, 3000, 1, 2)!= null){
+			if (hideExplorerPanel){
+				check(ELEMENT_HIDE_EXPLORER_PANEL, 2);
+			}else {
+				uncheck(ELEMENT_HIDE_EXPLORER_PANEL, 2);
+			}
 		}
 		//Edit Action
 		if (editAction){

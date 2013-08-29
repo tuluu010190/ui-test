@@ -26,7 +26,7 @@ public class BrowserPreferences extends EcmsBase{
 	public final By ELEMENT_ADVANCED_OPTION = By.className("advancePreferences");
 	public final By ELEMENT_ADVANCED_ICON_ARROW_DOWN = By.xpath("//*[@class='advancePreferences']//*[@class='uiIconArrowDown']");
 	public final By ELEMENT_ADVANCED_ICON_ARROW_UP = By.xpath("//*[@class='advancePreferences']//*[@class='uiIconArrowUp']");
-	
+	public final By ELEMENT_SHOW_SIDEBAR = By.id("showSideBar");
 	//Enable preferences option
 	public void setUpPreferenceOption(String optionId){
 		info("-- Settings for preferences --");
