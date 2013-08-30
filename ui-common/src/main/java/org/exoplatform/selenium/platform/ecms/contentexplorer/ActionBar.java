@@ -153,7 +153,9 @@ public class ActionBar extends EcmsBase{
 	//Personal Documents > Action Bar > Sort By 
 	public final By ELEMENT_SORT_BY_BUTTON = By.xpath("//*[@id='FileViewBreadcrumb']//*[@class='btn dropdown-toggle']");
 	public final String ELEMENT_SORT_BY_TYPE = "//*[@class='dropdown-menu']//*[contains(text(), '${type}')]";
-
+	public final By ELEMENT_SORT_DOWN_ARROW = By.className("uiIconSortDown");
+	public final By ELEMENT_SORT_UP_ARROW = By.className("uiIconSortUp");
+	
 	/*==================================================================================*/
 	//Go to Sites Management
 	public void showDrives(){

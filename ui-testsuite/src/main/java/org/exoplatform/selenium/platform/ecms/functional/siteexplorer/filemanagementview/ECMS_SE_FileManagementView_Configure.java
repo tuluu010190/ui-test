@@ -36,8 +36,8 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
-		navToolBar = new NavigationToolbar(driver);
 		driver.get(baseUrl);
+		navToolBar = new NavigationToolbar(driver);
 		magAc = new ManageAccount(driver);
 		magAc.signIn("john", "gtn"); 
 		ecMain = new ECMainFunction(driver);
@@ -47,7 +47,6 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		actBar = new ActionBar(driver);
 		BroPres = new BrowserPreferences(driver);
 		button = new Button(driver);
-	
 	}
 	
 	/**CaseId: 74505 -> Hide the explorer tree panel in side bar
@@ -68,14 +67,12 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		waitForElementNotPresent(ecms.ELEMENT_SIDEBAR_ACME);
 		waitForElementNotPresent(ecms.ELEMENT_SITEBAR_INTRANET);
 		waitForElementNotPresent(ecms.ELEMENT_SITEBAR_SHARED);
-
 	}
 	
 	/**CaseId: 74582 -> Show the explorer tree panel in side bar
 	 */
 	@Test
-	public void test02_ShowTheExplorerTreePanelInSideBar(){
-		
+	public void test02_ShowTheExplorerTreePanelInSideBar(){	
 		navToolBar.goToSiteExplorer();
 		waitForElementNotPresent(ecms.ELEMENT_SIDEBAR_ACME);
 		waitForElementNotPresent(ecms.ELEMENT_SITEBAR_INTRANET);
@@ -99,21 +96,18 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 	/**CaseId: 74592 -> Verify the box "Show Side bar" in preference
 	 */
 	@Test
-	public void test03_VerifyHideExplorerPanelInSideBarBox(){
-		
+	public void test03_VerifyHideExplorerPanelInSideBarBox(){	
 		navToolBar.goToPersonalDocuments();
 		click(BroPres.ELEMENT_PREFERENCE_LINK);
 		WebElement checkbox = waitForAndGetElement(BroPres.ELEMENT_SHOW_SIDEBAR, DEFAULT_TIMEOUT, 1, 2);
 		assert !checkbox.isSelected();
-		info("Checkbox show sidebar is not checked");
-		
+		info("Checkbox show sidebar is not checked");		
 	}
 	
 	/**CaseId: 74591 -> Verify "Hide explorer panel in side bar" box for File Management View
 	 */
 	@Test
-	public void test04_VerifyTheBoxShowSidebarInPreference(){
-			
+	public void test04_VerifyTheBoxShowSidebarInPreference(){		
 		navToolBar.goToPersonalDocuments();
 		waitForElementNotPresent(ecms.ELEMENT_SIDEBAR_ACME);
 		waitForElementNotPresent(ecms.ELEMENT_SITEBAR_INTRANET);
@@ -125,7 +119,6 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		assert checkbox.isSelected();
 		info("Checkbox Hide explorer panel in side bar is checked");
 		button.save();
-
 	}
 
 	@AfterMethod
