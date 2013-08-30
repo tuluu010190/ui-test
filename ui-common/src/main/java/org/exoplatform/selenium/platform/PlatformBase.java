@@ -470,8 +470,6 @@ public class PlatformBase extends TestBase {
     public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']//*[@class='iH']//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
 	public final By ELEMENT_MAIL_CONTENT = By.xpath("//*[contains(@class, 'adP adO')]/div");
-	public final String ELEMENT_GMAIL_CHECKBOX = "//td/div/div/div/span/b[contains(text(),'{$title}')]/ancestor::tr//td[@id=':oy']/div/div";
-	public final String ELEMENT_GMAIL_DELETE= "//div[@class='iH']/div/div[2]/div[3]/div[1]/div";
 	public final By ELEMENT_GMAIL_USERNAME = By.id("Email");
 	public final By ELEMENT_GMAIL_PASS = By.id("Passwd");
 	public final By ELEMENT_GMAIL_SIGN_IN = By.id("signIn");

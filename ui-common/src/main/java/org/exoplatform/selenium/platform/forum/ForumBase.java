@@ -784,7 +784,6 @@ public class ForumBase extends PlatformBase {
 	public void checkContentMail(String contentMail){
 		String[] content = contentMail.split("/");
 		String[] temp = getText(ELEMENT_MAIL_CONTENT).split(System.getProperty("line.separator"));
-
 		compareString(temp, content);
 		info("Email content is true");
 	}
