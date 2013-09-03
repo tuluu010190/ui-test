@@ -20,6 +20,7 @@ public class Button extends TestBase{
 	public final By ELEMENT_SAVE_CLOSE_BUTTON = By.xpath("//*[text()='Save & Close']");
 	public final By ELEMENT_SAVE_CLOSE_BUTTON_2 = By.xpath("//*[text()='Save And Close']");
 	//By.linkText("Save & Close");
+	
 	public final By ELEMENT_OK_BUTTON = By.xpath("//*[text()='OK']");
 	public final By ELEMENT_APPLY_FRENCH_BUTTON = By.linkText("Appliquer");
 	public final By ELEMENT_APPLY_BUTTON = By.xpath("//*[text()='Apply']");
@@ -71,6 +72,7 @@ public class Button extends TestBase{
 	public void close(){
 		waitForAndGetElement(ELEMENT_CLOSE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
+		waitForElementNotPresent(ELEMENT_CLOSE_BUTTON);
 		Utils.pause(500);
 	}
 

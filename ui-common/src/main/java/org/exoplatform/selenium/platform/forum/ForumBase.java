@@ -22,16 +22,16 @@ import static org.exoplatform.selenium.TestLogger.info;
  * @date 19 Aug 2013
  */
 public class ForumBase extends PlatformBase {
-	
+
 	Button but;
 	ManageAlert alert;
 	PageEditor pageE;
 	NavigationToolbar navTool;
 	PlatformPermission per;
-	
+
 	public final By ELEMENT_FORUM_LINK = By.linkText("Forums");
 	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//*[@class='UIPopupWindow UIDragObject uiPopup']//*[text()='OK']");
-	
+
 	//-----------------Forum Home screen--------------------------------------------
 	public final By ELEMENT_ADD_CATEGORY = By.linkText("Add Category");
 	public final By ELEMENT_ADD_FORUM = By.linkText("Add Forum");
@@ -80,7 +80,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_SIMPLE_SEARCH_LIST = By.id("UIForumListSearch");
 	public final By ELEMENT_SIMPLE_SEARCH_TITLE_FORM = By.xpath("//div[@class='TitleBar' and text()='Search Result']");
 	public final String VERIFY_MESSAGE_SEARCH = "No matches.";
-	
+
 	//-----------------Advanced Search form--------------------------------
 	public final By ELEMENT_ADVANCED_SEARCH_ICON = By.xpath("//a[@class='AdvancedSearch']");
 	public final By ELEMENT_ADVANCED_SEARCH_FORM = By.id("UISearchForm");
@@ -196,9 +196,9 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_ATTACH_FILE = By.linkText("Attach files");
 	public final By ELEMENT_ATTACHMENT_FILE_INPUT = By.name("file");
 	public final By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachmentForm']//*[text()='Save']");
-	
+
 	/*-----------------------------common function-------------------------------------*/
-	
+
 	/**
 	 * Go to Forum
 	 * @author hakt
@@ -207,7 +207,7 @@ public class ForumBase extends PlatformBase {
 		info("--Go to Forums--");
 		click(ELEMENT_FORUM_LINK);
 	}
-	
+
 	/** function Jump to a category
 	 * @author lientm
 	 * @param destination: title of a category or a forum that needs to come
@@ -224,12 +224,12 @@ public class ForumBase extends PlatformBase {
 			waitForTextPresent(destination);
 		} 
 	}
-	
+
 	public void goToForumHome(){
 		click(ELEMENT_HOME_BUTTON);
 		waitForAndGetElement(ELEMENT_HOME_CURRENT);
 	}
-	
+
 	/** function: watch an item
 	 * @author lientm
 	 * @param watchClass: class of watch/unwatch icon to determine watch/unwatch xpath
@@ -261,7 +261,7 @@ public class ForumBase extends PlatformBase {
 	public void unwatchItem(String watchClass){
 		By WATCH = By.xpath(ELEMENT_WATCH.replace("${watchIcon}", watchClass));
 		By UNWATCH = By.xpath(ELEMENT_UNWATCH.replace("${watchIcon}", watchClass));
-		
+
 		but = new Button(driver);
 		WebElement unwatch = waitForAndGetElement(UNWATCH);
 		if ( unwatch != null) {
@@ -350,7 +350,7 @@ public class ForumBase extends PlatformBase {
 	 */
 	public boolean advancedSearch(boolean scope, String... key){
 		boolean result = true;
-		
+
 		per = new PlatformPermission(driver);
 		info("Do advance search");
 		waitForAndGetElement(ELEMENT_ADVANCED_SEARCH_ICON);
@@ -494,7 +494,7 @@ public class ForumBase extends PlatformBase {
 	public void deleteBanIp(String ip){
 		but = new Button(driver);
 		alert = new ManageAlert(driver);
-		
+
 		By element_delete = By.xpath(ELEMENT_BAN_IP_DELETE.replace("${ip}", ip));
 
 		goToBanIp();
@@ -857,7 +857,7 @@ public class ForumBase extends PlatformBase {
 		String MESSAGE_SAVE_SETTING_PORTLET = "Your portlet settings have been saved.";
 		but = new Button(driver);
 		pageE = new PageEditor(driver);
-		
+
 		but.save();
 		alert.waitForConfirmation(MESSAGE_SAVE_SETTING_PORTLET);
 		but.close();
@@ -976,19 +976,19 @@ public class ForumBase extends PlatformBase {
 			}
 		}		
 	}	
-	
+
 	/**function go to RSS for any item (by rightclick on item -> choose RSS)
 	 * @author lientm
 	 * @param itemName: text of item that need view RSS
 	 */
 	public void goToRSS(String itemName){
 		By rss = By.xpath("//a[text()='" + itemName + "']/..//a[text()='RSS']");
-		
+
 		rightClickOnElement(By.linkText(itemName));
 		click(rss);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * @author thaopth
 	 * Date: 26 Dec 2012
@@ -998,14 +998,14 @@ public class ForumBase extends PlatformBase {
 		click(ELEMENT_SETTING_MYSCRIPTIONS_TAB);
 		waitForAndGetElement(ELEMENT_SETTING_EMAIL_ADDRESS);
 	}
-	
+
 	public void deleteWatches (String item) {
 		click(ELEMENT_DELETE_WATCH.replace("${item}", item));
 		alert.waitForConfirmation("Are you sure to delete this subscription?");
 		waitForElementNotPresent(ELEMENT_DELETE_WATCH.replace("${item}", item));
-		
+
 	}
-	
+
 
 	/** function: input data to a frame in other frame
 	 * @author lientm
@@ -1019,6 +1019,7 @@ public class ForumBase extends PlatformBase {
 
 	public void inputDataToFrameInFrame(By frame1, By frame2, String data, boolean...validate){
 		boolean valid = validate.length > 0 ? validate[0]: true;
+		boolean verify = validate.length > 1 ? validate[1]: true;
 		try {
 			WebElement inputsummary = null;
 
@@ -1034,9 +1035,10 @@ public class ForumBase extends PlatformBase {
 				}else {
 					inputsummary.sendKeys(data); break;
 				}
-				info(inputsummary.getText());
-				if (data.equals(inputsummary.getText())) 
-					break;
+				if(verify){
+					if (data.equals(inputsummary.getText())) 
+						break;
+				}else break;
 				switchToParentWindow();
 			}
 		} catch (StaleElementReferenceException e) {
@@ -1051,7 +1053,7 @@ public class ForumBase extends PlatformBase {
 			loopCount = 0;
 		}
 	}
-	
+
 	/** function: Attach file in attach popup
 	 * @author lientm
 	 * @param number: number of upload container that need upload file

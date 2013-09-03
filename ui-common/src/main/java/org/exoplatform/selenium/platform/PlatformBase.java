@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.TestBase;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
@@ -28,6 +29,7 @@ public class PlatformBase extends TestBase {
 	public final String DATA_USER1 = "john";
 	public final String DATA_PASS = "gtn";
 	public final String DATA_USER2 = "mary";
+	ManageAlert alt = new ManageAlert(driver);
 
 	Button button = new Button(driver);
 
@@ -258,7 +260,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
 	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//*[@id='ListPermissionSelector']//a[@title='${group}']";
 	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//*[@id='UIPermissionSelector']//*[contains(text(), '${group}')]";
-	
+
 	////
 	public final String ELEMENT_PAGINATOR_PAGE_LINK = "//a[contains(@class, 'Number') and text()='${number}']";
 	public final String ELEMENT_PAGINATOR_PAGE_NAMESPACE_LINK = "//*[@id='UINamespaceList']/div[1]//a[text()='${number}']";
@@ -306,7 +308,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CLEAR_SELECTOR_PAGE = By.className("uiIconDelete");
 	public final By ELEMENT_SELECT_SEARCHED_PAGE = By.xpath("//*[@data-original-title='Select Page']");
 	public final By ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = By.xpath("//*[contains(@class, 'uiIconSearch')]");
-	
+
 	public final String ELEMENT_LIST_NODE_LINK = ELEMENT_NODE_LINK.replace("${nodeLabel}", "${nodeLabel}") + "/..//li[${number}]//*[@title='${childNode}']";
 	public final String ELEMENT_CHILD_NODE_LINK = ELEMENT_NODE_LINK.replace("${nodeLabel}", "${nodeLabel}") + "/../*[contains(@class, 'childrenContainer')]//*[@title='${childNode}']";
 	public final String ELEMENT_SELECT_HOME_PAGE = "//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img";
@@ -315,7 +317,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_NODE_ADD_NEW = By.xpath("//*[@id='NavigationNodePopupMenu']/*[@class='uiContextMenuContainer']//*[@class='uiIconAddNode']");
 	//public final String ELEMENT_NODE_EDIT = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
 	//	public final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
-	
+
 	//Navigation management > Context menu
 	public final By ELEMENT_NAVIGATION_DELETE_NODE = By.className("uiIconDeleteNode");
 	public final By ELEMENT_EDIT_SELECTED_NODE = By.className("uiIconEditSelectedNode");
@@ -326,7 +328,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_NAVIGATION_MOVE_UP_NODE = By.className("uiIconMoveUp");
 	public final By ELEMENT_NAVIGATION_MOVE_DOWN_NODE = By.className("uiIconMoveDown");
 	public final By ELEMENT_NAVIGATION_EDIT_PAGE_NODE = By.className("uiIconEditPageNode");
-	
+
 	//Add new Page
 	public final By ELEMENT_NEWPAGE_NAME_TEXTBOX = By.id("pageName");	
 	//public final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//*[@data-original-title='Finish']");
@@ -417,7 +419,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_PORTLET_FRAGMENT = "//*[@id='${portletName}']/ancestor::div[contains(@class, 'UIApplication')]";
 	public final String ELEMENT_LIST_PORTLET_LAYOUT_DECORATOR = "//*[@class='portletLayoutDecorator' and contains(text(), '${portletName}')]";
 	public final String ELEMENT_DRAG_CURRENT_PORTLET = "//*[text()='${portletName}']/../*[@title='Hold this area to drag this portlet']";
-	
+
 	//Edit portlet Form
 	public final By ELEMENT_WINDOW_SETTINGS_TAB = By.xpath("//div[@id='UIMaskWorkspace']//div[text()='Window Settings']");
 	public final By ELEMENT_WINDOWS_TITLE = By.xpath("//*[@id='title']");
@@ -688,6 +690,20 @@ public class PlatformBase extends TestBase {
 			return false;
 
 		} catch (NoSuchElementException e) {
+			return true;
+		}
+	}
+
+	/**
+	 * @author thuntn
+	 * @return 
+	 */
+	public boolean checkUnhandleAlert() {
+		try {
+			alt.acceptAlert();
+			return false;
+
+		} catch (org.openqa.selenium.UnhandledAlertException e) {
 			return true;
 		}
 	}
