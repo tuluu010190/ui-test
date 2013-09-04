@@ -81,7 +81,7 @@ public class TestBase {
 			By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 			
 			driver.get(baseUrl);
-			if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 10000, 0, 2) != null) {
+			if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 5000, 0, 2) != null) {
 				info("-- Checking the terms and conditions agreement... --");
 				click(ELEMENT_AGREEMENT_CHECKBOX, 2);
 				click(ELEMENT_CONTINUE_BUTTON);
@@ -479,7 +479,7 @@ public class TestBase {
 			if (element.isSelected()) {
 				actions.click(element).perform();
 			} else {
-				Assert.fail("Element " + locator + " is already unchecked.");
+				info("Element " + locator + " is already unchecked.");
 			}
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, 5);

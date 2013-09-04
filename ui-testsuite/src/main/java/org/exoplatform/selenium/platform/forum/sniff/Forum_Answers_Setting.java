@@ -81,7 +81,7 @@ public class Forum_Answers_Setting extends AnswerBase {
 		question.submitQuestion(null, questionName, questionContent, null, false, null);
 		
 		goToForums();
-		forumCat.quickAddCategory(title, descriptionForum);	
+		forumCat.addNewCategoryInForum(title, null, 0, null, descriptionForum, 0, null);
 		forum.quickAddForum(forumName);
 		
 		goToEditAnswerPortlet();
@@ -110,7 +110,7 @@ public class Forum_Answers_Setting extends AnswerBase {
 		waitForAndGetElement(forum.ELEMENT_FORUM.replace("${forumName}", forumName));
 		waitForTextPresent(questionName);	
 		click(By.linkText(title));
-		forumCat.deleteCategory(title);
+		forumCat.deleteCategoryInForum(title);
 		
 		//reset data
 		driver.switchTo().window(handlesBefore);

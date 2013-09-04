@@ -4,7 +4,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
-import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -20,7 +19,7 @@ import org.openqa.selenium.WebElement;
 public class ForumManageTopic extends ForumBase {
 	
 	Button but;
-	PlatformPermission per;
+	ForumPermission per;
 	ManageAlert alert;
 	ForumManageForum magFor;
 	ForumManageCategory magCat;
@@ -31,16 +30,16 @@ public class ForumManageTopic extends ForumBase {
 	}
 	
 	//----------------topic home screen---------------------------------------------------
-	public By ELEMENT_DELETE_TOPIC = By.xpath("//a[@class='ItemIcon SetDeleteIcon' and text()='Delete']");
-	public By ELEMENT_EDIT_TOPIC = By.xpath("//a[@class='ItemIcon EditTopicIcon' and text()='Edit']");
-	public By ELEMENT_MOVE_TOPIC = By.xpath("//a[@class='ItemIcon SetMoveIcon' and text()='Move']");
+	public By ELEMENT_DELETE_TOPIC = By.id("UITopicDetailConfirm0");
+	public By ELEMENT_EDIT_TOPIC = By.xpath("//*[contains(@href, 'EditTopic')]");
+	public By ELEMENT_MOVE_TOPIC = By.xpath("//*[contains(@href, 'SetMoveTopic')]");
 	public By ELEMENT_APPROVE_TOPIC = By.xpath("//a[@class='ItemIcon SetApproveIcon' and text()='Approve']");
 	public By ELEMENT_CHECK_ALL = By.xpath("//*[@id='UITopicContent']//input[@title='Check All']");
 	
 	//----------------start topic screen--------------------------------------------------
-	public By ELEMENT_START_TOPIC_BUTTON = By.xpath("//form[@id='UITopicContainer']/div[2]/*//a[contains(text(),'Start Topic')]");
-	public By ELEMENT_POPUP_START_TOPIC = By.xpath("//span[@class='PopupTitle' and text()='New Topic']");
-	public By ELEMENT_SUBMIT_BUTTON = By.linkText("Submit");
+	public By ELEMENT_START_TOPIC_BUTTON = By.xpath("//*[@id='UITopicContainer']/div[2]/button");
+	public By ELEMENT_POPUP_START_TOPIC = By.xpath("//span[@class='PopupTitle popupTitle' and text()='New Topic']");
+	public By ELEMENT_SUBMIT_BUTTON = By.xpath("//button[text()='Submit']");
 	public By ElEMENT_CANCEL_ADD_TOPIC = By.xpath(".//*[@id='UITopicForm']/div[3]/a[text()='Cancel']");
 
 	public By ELEMENT_TOPIC_CONTENT_TAB = By.linkText("Content");
@@ -52,7 +51,8 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_TOPIC_ICON_TAB = By.linkText("Icon");
 	public String ELEMENT_GROUP_ICON = "//div[@class='ItemTitle' and text()='${group}']";
 	public String ELEMENT_ICON = "//div[@class='${icon}']";
-
+	
+	//Options tab
 	public By ELEMENT_TOPIC_OPTIONS_TAB = By.linkText("Options");
 	public By ELEMENT_TOPIC_ADD_TYPE = By.xpath("//img[@alt='Add Topic Type']");
 	public By ELEMENT_TOPIC_SELECT_TYPE = By.id("TopicType");
@@ -63,11 +63,6 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_TOPIC_STICKY = By.id("Sticky");
 
 	public By ELEMENT_TOPIC_PERMISSION_TAB = By.linkText("Permissions");
-	public String ELEMENT_TOPIC_CAN_POST = "CanPost";
-	public String ELEMENT_TOPIC_CAN_VIEW = "CanView";
-	public String ELEMENT_TOPIC_SELECT_USER = "//*[@id='${element}']/../a/img[@class='SelectUserIcon']";
-	public String ELEMENT_TOPIC_SELECT_GROUP = "//*[@id='${element}']/../a/img[@class='SelectGroupIcon']";
-	public String ELEMENT_TOPIC_SELECT_ROLE = "//*[@id='${element}']/../a/img[@class='SelectMemberShipIcon']";
 	public By ELEMENT_RATING_TOPIC = By.xpath("//div[contains(text(),'Rating')]");
 
 	//------------------add topic type screen--------------------------------------------------
@@ -76,7 +71,7 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_CANCEL_ADD_TYPE = By.xpath(".//*[@id='UIAddTopicTypeForm']/div[3]/a[text()='Cancel']");
 
 	//------------------edit topic screen------------------------------------------------------
-	public By ELEMENT_TOPIC_EDIT_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Edit Topic']");
+	public By ELEMENT_TOPIC_EDIT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Edit Topic']");
 	public By ELEMENT_TOPIC_EDIT_REASON = By.id("editReason");
 
 	//-------------------move topic screen----------------------------------------------------
@@ -134,12 +129,16 @@ public class ForumManageTopic extends ForumBase {
 	/** function: go to start topic from action bar
 	 * @author lientm
 	 */
-	public void goToStartTopic(){
-		info("Go to start topic");
-		waitForAndGetElement(ELEMENT_MORE_ACTION);
-		click(ELEMENT_MORE_ACTION);
-		waitForAndGetElement(magFor.ELEMENT_START_TOPIC);
-		click(magFor.ELEMENT_START_TOPIC);
+	public void goToStartTopic(int... wayStart){
+		int way = wayStart.length > 0 ? wayStart[0]:2;
+		if (way == 1){
+			info("Go to start topic from more action");
+			click(ELEMENT_MORE_ACTION);
+			click(magFor.ELEMENT_START_TOPIC);
+		}else {
+			info("Go to start topic by click start topic button");
+			click(ELEMENT_START_TOPIC_BUTTON);
+		}
 		waitForAndGetElement(ELEMENT_POPUP_START_TOPIC);
 	}
 
@@ -170,10 +169,10 @@ public class ForumManageTopic extends ForumBase {
 	public void inputDataInContentTab_StartTopic(String title, String message, String... file){
 		info("Input data in content tab");
 		waitForAndGetElement(ELEMENT_TOPIC_TITLE);
-		if (title != null && title != ""){
+		if (title != null){
 			type(ELEMENT_TOPIC_TITLE, title, true);
 		}
-		if (message != "" && message != null){
+		if (message != null){
 			inputDataToFrameInFrame(ELEMENT_TOPIC_MESSAGE_FRAME_1, ELEMENT_TOPIC_MESSAGE_FRAME_2, message, true);
 			switchToParentWindow();	
 		}
@@ -219,152 +218,90 @@ public class ForumManageTopic extends ForumBase {
 		waitForElementNotPresent(ELEMENT_TOPIC_ADD_TYPE_POPUP);	
 	}
 
-	/** function: input data in Options tab in start topic popup
-	 * @author lientm
-	 * @param typeName: type of topic that need add new
-	 * @param groupName: group icon of new topic type
-	 * @param iconClass: icon of new topic type
-	 * @param type: type of topic that is chosen
-	 * @param state: state of topic
-	 * @param status: status of topic
-	 * @param options: group option of: sent mail for moderator, sticky
-	 */
-	public void inputDataInOptionsTab_StartTopic(String typeName, String groupName, String iconClass, String type, 
-			String state, String status, boolean...options){
-		info("Input data in Options tab");
-		if (typeName != "" && typeName != null){
-			addTopicType(typeName, groupName, iconClass);
-		}
-		if (type != "" && type != null){
-			waitForAndGetElement(ELEMENT_TOPIC_SELECT_TYPE);
-			select(ELEMENT_TOPIC_SELECT_TYPE, type);
-		}
-		if (state != "" && state != null){
-			select(ELEMENT_TOPIC_STATE, state);
-		}
-		if (status != "" && status != null){
-			select(ELEMENT_TOPIC_STATUS, status);
+
+	public void inputDataInOptionsTab_StartTopic(boolean...options){
+		if (options.length > 0){
+			info("Input data in Options tab");
+			click(ELEMENT_TOPIC_OPTIONS_TAB);
 		}
 		if (options.length > 0){
-			WebElement moder = waitForAndGetElement(ELEMENT_TOPIC_POSTS_MODER);
-			if ((options[0] && (moder.isSelected() == false)) || (!options[0] && (moder.isSelected() == true))){
-				click(ELEMENT_TOPIC_POSTS_MODER);
+			if (options[0]){
+				check(ELEMENT_TOPIC_STATE, 2);
+			}else {
+				uncheck(ELEMENT_TOPIC_STATE, 2);
 			}
 		}
 		if (options.length > 1){
-			WebElement moder = waitForAndGetElement(ELEMENT_TOPIC_POSTS_NOTIFY);
-			if ((options[1] && (moder.isSelected() == false)) || (!options[1] && (moder.isSelected() == true))){
-				click(ELEMENT_TOPIC_POSTS_NOTIFY);
-			}	
+			if (options[1]){
+				check(ELEMENT_TOPIC_STATUS, 2);
+			}else {
+				uncheck(ELEMENT_TOPIC_STATUS, 2);
+			}
 		}
 		if (options.length > 2){
-			WebElement moder = waitForAndGetElement(ELEMENT_TOPIC_STICKY);
-			if ((options[2] && (moder.isSelected() == false)) || (!options[2] && (moder.isSelected() == true))){
-				click(ELEMENT_TOPIC_STICKY);
-			}	
+			if (options[2]){
+				check(ELEMENT_TOPIC_STICKY, 2);
+			}else {
+				uncheck(ELEMENT_TOPIC_STICKY, 2);
+			}
+		}
+		if (options.length > 3){
+			if (options[3]){
+				check(ELEMENT_TOPIC_POSTS_MODER, 2);
+			}else {
+				uncheck(ELEMENT_TOPIC_POSTS_MODER, 2);
+			}
+		}
+		if (options.length > 4){
+			if (options[4]){
+				check(ELEMENT_TOPIC_POSTS_NOTIFY, 2);
+			}else {
+				uncheck(ELEMENT_TOPIC_POSTS_NOTIFY, 2);
+			}
 		}
 	}
-
-	/** function: set permission when start topic
-	 * @author lientm
-	 * @param locator: locator that needs to set
-	 * @param setPermission: choose a way to set permission
-	 * @param userGroup: user/group/membership
-	 */
-	public void setPermissionTopic(String locator, int setPermission, String[] userGroup){
-		By TOPIC_SELECT_USER = By.xpath(ELEMENT_TOPIC_SELECT_USER.replace("${element}", locator));
-		By TOPIC_SELECT_ROLE = By.xpath(ELEMENT_TOPIC_SELECT_ROLE.replace("${element}", locator));
-		By TOPIC_SELECT_GROUP = By.xpath(ELEMENT_TOPIC_SELECT_GROUP.replace("${element}", locator));
-		By ELEMENT = By.id(locator);
-
-		switch(setPermission){
-		case 0: break;
-		case 1: type(ELEMENT, userGroup[0], true);
-		break;
-		case 2: 
-			waitForAndGetElement(TOPIC_SELECT_USER);
-			click(TOPIC_SELECT_USER);
-			per.selectUserPermission(userGroup[0]);
-			waitForTextPresent(userGroup[0]);
-			break;
-		case 3: 
-			waitForAndGetElement(TOPIC_SELECT_GROUP);
-			click(TOPIC_SELECT_GROUP);
-			//per.selectGroupPermission(userGroup[0]);
-			break;
-		default: 
-			waitForAndGetElement(TOPIC_SELECT_ROLE);
-			click(TOPIC_SELECT_ROLE);
-			//per.selectGroupMembership(userGroup[0], userGroup[1]);
-			waitForTextPresent(userGroup[1]);
-			break;	
+	
+	public void inputDataStartTopic(String title, String message, String file, int type, String[] userGroup, boolean canview, boolean canpost, boolean... options){
+		per = new ForumPermission(driver);
+		inputDataInContentTab_StartTopic(title, message, file);
+		inputDataInOptionsTab_StartTopic(options);
+		if (type != 0){
+			click(ELEMENT_TOPIC_PERMISSION_TAB);
+			per.configPermission4Topic(type, userGroup, canview, canpost);
 		}
 	}
 
 	/**
-	 * function: start a topic
-	 * @author lientm
-	 * @param title: title of Topic
-	 * @param message: message of Topic
-	 * @param file: file attach
-	 * @param groupName: group of Icon
-	 * @param iconClass: icon
-	 * @param type: type of topic
-	 * @param state: state of topic
-	 * @param status: status of topic
-	 * @param setPermission: choose a way to set permission
-	 * @param userGroup: user/group/membership
-	 * @param options: group of option: send mail to moderator, sticky
+	 * 
+	 * @param title
+	 * @param message
+	 * @param file
+	 * @param type
+	 * @param userGroup
+	 * @param canview
+	 * @param canpost
+	 * @param options
 	 */
-
-	public void startTopic(String title, String message, String file, String groupName, String iconClass, String type, 
-			String state, String status, int setPermission, String[] userGroup, boolean... options){
-
+	public void startTopic(String title, String message, String file, int type, String[] userGroup, boolean canview, boolean canpost, boolean... options){
 		info("Start a topic");
-		inputDataInContentTab_StartTopic(title, message, file);
-		if (groupName != "" && iconClass != ""){
-			click(ELEMENT_TOPIC_ICON_TAB);
-			chooseIcon(groupName, iconClass);
-		}
-		if ((type != "" && type != null)|| (state != "" && state != null) || (status != "" && status != null)|| options.length > 0){
-			click(ELEMENT_TOPIC_OPTIONS_TAB);
-			inputDataInOptionsTab_StartTopic("", "", "", type, state, status, options);
-		}
-		if (setPermission != 0){
-			click(ELEMENT_TOPIC_PERMISSION_TAB);
-			setPermissionTopic(ELEMENT_TOPIC_CAN_POST, setPermission, userGroup);
-			setPermissionTopic(ELEMENT_TOPIC_CAN_VIEW, setPermission, userGroup);
-		}
+		goToStartTopic();
+		inputDataStartTopic(title, message, file, type, userGroup, canview, canpost, options);
 		click(ELEMENT_SUBMIT_BUTTON);
-		waitForElementNotPresent(ELEMENT_POPUP_START_TOPIC);
-		info("Start topic successfully");
 	}	
 
 	/**
-	 * start a new topic with short set of parameters
-	 * @param title : Topic title
-	 * @param message : Topic message
-	 * @author dunghm
+	 * 
+	 * @param title
+	 * @param message
 	 */
 	public void quickStartTopic(String title, String message){
 		info("Start a topic");
 		goToStartTopic();
-		inputDataInContentTab_StartTopic(title, message);    
+		inputDataInContentTab_StartTopic(title, message);
 		click(ELEMENT_SUBMIT_BUTTON);
-		waitForElementNotPresent(ELEMENT_POPUP_START_TOPIC);
-		waitForTextPresent(title);
+		waitForAndGetElement(By.linkText(title));
 		info("Start topic successfully");
 	} 
-	
-	public void quickStartTopicByClickStartButton(String title, String message){
-		info("Start a topic by click start topic button");
-		click(ELEMENT_START_TOPIC_BUTTON);
-		inputDataInContentTab_StartTopic(title, message);    
-		click(ELEMENT_SUBMIT_BUTTON);
-		waitForElementNotPresent(ELEMENT_POPUP_START_TOPIC);
-		waitForTextPresent(title);
-		info("Start topic successfully");
-	}
 
 	/** function: delete a topic
 	 * @author lientm
@@ -372,10 +309,9 @@ public class ForumManageTopic extends ForumBase {
 	 */
 
 	public void deleteTopic(String title){
-		waitForAndGetElement(ELEMENT_MORE_ACTION);
+		alert = new ManageAlert(driver);
 		click(ELEMENT_MORE_ACTION);
 		info("Delete topic");
-		waitForAndGetElement(ELEMENT_DELETE_TOPIC);
 		click(ELEMENT_DELETE_TOPIC);
 		alert.acceptAlert();
 		waitForTextNotPresent(title);
@@ -388,49 +324,26 @@ public class ForumManageTopic extends ForumBase {
 	 */
 	public void goToEditTopic(){
 		info("Go to edit topic");
-		waitForAndGetElement(ELEMENT_MORE_ACTION);
 		click(ELEMENT_MORE_ACTION);
-		waitForAndGetElement(ELEMENT_EDIT_TOPIC);
 		click(ELEMENT_EDIT_TOPIC);
 		waitForAndGetElement(ELEMENT_TOPIC_EDIT_POPUP);
 	}
 
-	/** function: edit a topic
-	 * @author lientm
-	 * @param title: title of Topic
-	 * @param message: message of Topic
-	 * @param reason: reason edit
-	 * @param file: file attach
-	 * @param groupName: group of Icon
-	 * @param iconClass: icon
-	 * @param type: type of topic
-	 * @param state: state of topic
-	 * @param status: status of topic
-	 * @param setPermission: choose a way to set permission
-	 * @param userGroup: user/group/membership
-	 * @param options: group of option: send mail to moderator, sticky
+	/**
+	 * 
+	 * @param title
+	 * @param message
+	 * @param file
+	 * @param type
+	 * @param userGroup
+	 * @param canview
+	 * @param canpost
+	 * @param options
 	 */
-	public void editTopic(String title, String message, String file, String reason, String groupName, String iconClass, String type, 
-			String state, String status, int setPermission, String[] userGroup, boolean... options){
+	public void editTopic(String title, String message, String file, int type, String[] userGroup, boolean canview, boolean canpost, boolean... options){
 		goToEditTopic();
 		info("Edit topic");
-		inputDataInContentTab_StartTopic(title, message, file);
-		if (reason != "" && reason != null){
-			type(ELEMENT_TOPIC_EDIT_REASON, reason, true);
-		}
-		if (groupName != "" && iconClass != ""){
-			click(ELEMENT_TOPIC_ICON_TAB);
-			chooseIcon(groupName, iconClass);
-		}
-		if ((type != "" && type != null)|| (state != "" && state != null) || (status != "" && status != null)|| options.length > 0){
-			click(ELEMENT_TOPIC_OPTIONS_TAB);
-			inputDataInOptionsTab_StartTopic("", "", "", type, state, status, options);
-		}
-		if (setPermission != 0){
-			click(ELEMENT_TOPIC_PERMISSION_TAB);
-			setPermissionTopic(ELEMENT_TOPIC_CAN_POST, setPermission, userGroup);
-			setPermissionTopic(ELEMENT_TOPIC_CAN_VIEW, setPermission, userGroup);
-		}
+		inputDataStartTopic(title, message, file, type, userGroup, canview, canpost, options);
 		click(ELEMENT_SUBMIT_BUTTON);
 		waitForElementNotPresent(ELEMENT_TOPIC_EDIT_POPUP);
 		waitForTextPresent(title);
@@ -561,34 +474,6 @@ public class ForumManageTopic extends ForumBase {
 				info("Suggesstion and Occurence of tag is true");
 			}
 		}
-	}
-	
-	/**
-	 * function create category -> forum -> topic
-	 * @param category: title of category
-	 * @param forum: title of forum
-	 * @param topic: title of topic
-	 */
-	public void makeTopicFromCategory(String category, String forum, String topic, String...topic_content){
-		String content = topic_content.length > 0 ? topic_content[0]: topic;
-		//add new category
-		
-		String[] audience = {};
-		String[] user_cat = {};
-		magCat.addCategoryInForum(category, "1", 0, audience, category, 0, user_cat);
-
-		//add new forum
-
-		String[] add = {forum, "1", "", "", ""};
-		String[] userGroup = {};
-		magFor.addForum(category, add, 0, userGroup, true, "", "", false, 0);
-
-		//add new topic
-		goToStartTopic();
-		String[] user_topic = {};
-		startTopic(topic, content, "", "", "", "", "", "", 0, user_topic);
-		click(By.linkText(topic));
-		waitForTextPresent(topic);
 	}
 
 	/** function approve a topic
@@ -748,45 +633,7 @@ public class ForumManageTopic extends ForumBase {
 		waitForTextPresent("This forum is empty.");
 		info("Delete topic successfully");
 	}
-
-	/**Function start a topic that add new topic type
-	 * @author thaopth
-	 * @param title
-	 * @param message
-	 * @param typeName
-	 * @param groupName
-	 * @param classIcon
-	 * @param type
-	 */
-	public void startTopicWithType (String title, String message,String typeName, String groupName, String classIcon, String type) {
-		info("Start a topic");
-		inputDataInContentTab_StartTopic(title, message);
-		click(ELEMENT_TOPIC_OPTIONS_TAB);
-		inputDataInOptionsTab_StartTopic(typeName, groupName, classIcon,type,"","",false);
-		click(ELEMENT_SUBMIT_BUTTON);
-		waitForElementNotPresent(ELEMENT_POPUP_START_TOPIC);
-		info("Start topic successfully");
-	}
 	
-	public void startTopicWithInvalidType (String title, String message, String typeName, String warningMessage) {
-		info("Start a topic");
-		inputDataInContentTab_StartTopic(title, message);
-		click(ELEMENT_TOPIC_OPTIONS_TAB);
-		info("Add new topic type");
-		waitForAndGetElement(ELEMENT_TOPIC_ADD_TYPE);
-		click(ELEMENT_TOPIC_ADD_TYPE);
-		info("Modify topic type");
-		waitForAndGetElement(ELEMENT_TOPIC_ADD_TYPE_POPUP);
-		type(ELEMENT_TOPIC_TYPE_NAME, typeName, true);
-		but.save();		
-		waitForTextPresent(warningMessage);
-		click(but.ELEMENT_OK_BUTTON);
-		click(ELEMENT_CANCEL_ADD_TYPE);
-		waitForElementNotPresent(ELEMENT_CANCEL_ADD_TYPE);
-		click(ElEMENT_CANCEL_ADD_TOPIC);
-		waitForElementNotPresent(ElEMENT_CANCEL_ADD_TOPIC);
-	}
-
 	/**
 	 * @author thuntn
 	 * @param rate: 1: terrible

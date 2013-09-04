@@ -24,6 +24,22 @@ public class ForumPermission extends ForumBase {
 	public final String ELEMENT_RESTRICTED_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[2]//input[@type='checkbox']";
 	public final String ELEMENT_MODERATOR_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[3]//input[@type='checkbox']";
 	
+	//Set permission for category of forum
+	public final String ELEMENT_MODERATOR_FORUM_CATEGORY_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[2]//input[@type='checkbox']";
+	public final String ELEMENT_START_TOPIC_FORUM_CATEGORY_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[3]//input[@type='checkbox']";
+	public final String ELEMENT_POST_FORUM_CATEGORY_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[4]//input[@type='checkbox']";
+	public final String ELEMENT_VIEW_POST_FORUM_CATEGORY_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[5]//input[@type='checkbox']";
+	
+	//Set permission for forum of forum
+	public final String ELEMENT_MODERATOR_FORUM_FORUM_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[2]//input[@type='checkbox']";
+	public final String ELEMENT_VIEW_POST_FORUM_FORUM_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[3]//input[@type='checkbox']";
+	public final String ELEMENT_START_TOPIC_FORUM_FORUM_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[4]//input[@type='checkbox']";
+	public final String ELEMENT_POST_FORUM_FORUM_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[5]//input[@type='checkbox']";
+
+	//Set permission for topic
+	public final String ELEMENT_WHO_CAN_VIEW_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[2]//input[@type='checkbox']";
+	public final String ELEMENT_WHO_CAN_POST_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[3]//input[@type='checkbox']";
+	
 	/*--------------------------common function-----------------------------------*/
 	
 	/**
@@ -86,6 +102,113 @@ public class ForumPermission extends ForumBase {
 			check(ELEMENT_MODERATOR_CHECKBOX.replace("${user}", check), 2);
 		} else {
 			uncheck(ELEMENT_MODERATOR_CHECKBOX.replace("${user}", check), 2);
+		}
+	}
+	
+	/**
+	 * 
+	 * @param type
+	 * @param userGroup
+	 * @param permission
+	 */
+	public void configPermission4ForumCategory(int type, String[] userGroup, boolean...permission){
+		setPermissionWithOption(type, userGroup);
+		click(but.ELEMENT_ADD_BUTTON);
+		String check = userGroup[0];
+		if (userGroup.length > 2){
+			check = userGroup[2];
+		}
+		if (permission.length > 0){
+			if (permission[0]){
+				check(ELEMENT_MODERATOR_FORUM_CATEGORY_CHECKBOX.replace("${user}", check), 2);
+			}else {
+				uncheck(ELEMENT_MODERATOR_FORUM_CATEGORY_CHECKBOX.replace("${user}", check), 2);
+			}
+		}
+		if (permission.length > 1){
+			if (permission[1]){
+				check(ELEMENT_START_TOPIC_FORUM_CATEGORY_CHECKBOX.replace("${user}", check), 2);
+			} else {
+				uncheck(ELEMENT_START_TOPIC_FORUM_CATEGORY_CHECKBOX.replace("${user}", check), 2);
+			}
+		}
+		if (permission.length > 2){
+			if (permission[2]){
+				check(ELEMENT_POST_FORUM_CATEGORY_CHECKBOX.replace("${user}", check), 2);
+			} else {
+				uncheck(ELEMENT_POST_FORUM_CATEGORY_CHECKBOX.replace("${user}", check), 2);
+			}
+		}
+		if (permission.length > 3){
+			if (permission[3]){
+				check(ELEMENT_VIEW_POST_FORUM_CATEGORY_CHECKBOX.replace("${user}", check), 2);
+			} else {
+				uncheck(ELEMENT_VIEW_POST_FORUM_CATEGORY_CHECKBOX.replace("${user}", check), 2);
+			}
+		}
+	}
+	
+	/**
+	 * 
+	 * @param type
+	 * @param userGroup
+	 * @param permission
+	 */
+	public void configPermission4Forum(int type, String[] userGroup, boolean...permission){
+		click(but.ELEMENT_ADD_BUTTON);
+		String check = userGroup[0];
+		if (userGroup.length > 2){
+			check = userGroup[2];
+		}
+		if (permission.length > 0){
+			if (permission[0]){
+				check(ELEMENT_MODERATOR_FORUM_FORUM_CHECKBOX.replace("${user}", check), 2);
+			}else {
+				uncheck(ELEMENT_MODERATOR_FORUM_FORUM_CHECKBOX.replace("${user}", check), 2);
+			}
+		}
+		if (permission.length > 1){
+			if (permission[1]){
+				check(ELEMENT_VIEW_POST_FORUM_FORUM_CHECKBOX.replace("${user}", check), 2);
+			} else {
+				uncheck(ELEMENT_VIEW_POST_FORUM_FORUM_CHECKBOX.replace("${user}", check), 2);
+			}
+		}
+		if (permission.length > 2){
+			if (permission[2]){
+				check(ELEMENT_START_TOPIC_FORUM_FORUM_CHECKBOX.replace("${user}", check), 2);
+			} else {
+				uncheck(ELEMENT_START_TOPIC_FORUM_FORUM_CHECKBOX.replace("${user}", check), 2);
+			}
+		}
+		if (permission.length > 3){
+			if (permission[3]){
+				check(ELEMENT_POST_FORUM_FORUM_CHECKBOX.replace("${user}", check), 2);
+			} else {
+				uncheck(ELEMENT_POST_FORUM_FORUM_CHECKBOX.replace("${user}", check), 2);
+			}
+		}
+	}
+	
+	public void configPermission4Topic(int type, String[] userGroup, boolean...permission){
+		click(but.ELEMENT_ADD_BUTTON);
+		String check = userGroup[0];
+		if (userGroup.length > 2){
+			check = userGroup[2];
+		}
+		if (permission.length > 0){
+			if (permission[0]){
+				check(ELEMENT_WHO_CAN_VIEW_CHECKBOX.replace("${user}", check), 2);
+			}else {
+				uncheck(ELEMENT_WHO_CAN_VIEW_CHECKBOX.replace("${user}", check), 2);
+			}
+		}
+		if (permission.length > 1){
+			if (permission[1]){
+				check(ELEMENT_WHO_CAN_POST_CHECKBOX.replace("${user}", check), 2);
+			} else {
+				uncheck(ELEMENT_WHO_CAN_POST_CHECKBOX.replace("${user}", check), 2);
+			}
 		}
 	}
 }

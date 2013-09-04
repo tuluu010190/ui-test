@@ -293,20 +293,14 @@ public class AnswerManageQuestion extends AnswerBase {
 		By element_deactivate = By.xpath(ELEMENT_MANAGE_QUESTION_DEACTIVATE.replace("${question}", question));
 
 		if (active){
-			//usePaginatorQuestion(element_activate, "Can not found question");
-			WebElement act = waitForAndGetElement(element_activate, 30000, 1,2);
+			WebElement act = waitForAndGetElement(element_activate, DEFAULT_TIMEOUT, 0, 2);
 			if (act != null){				
-				click(element_activate);
-				waitForAndGetElement(element_deactivate);
-				info("active question successfully");
+				check(element_activate, 2);
 			} else info("Question is being activate");
 		} else {
-			//usePaginatorQuestion(element_deactivate, "Can not found question");
-			WebElement de_act = waitForAndGetElement(element_deactivate, 30000, 1,2);
+			WebElement de_act = waitForAndGetElement(element_deactivate, DEFAULT_TIMEOUT, 0, 2);
 			if (de_act != null){
-				click(element_deactivate);
-				waitForAndGetElement(element_activate);
-				info("deactive question successfully");
+				uncheck(element_deactivate, 2);
 			} else info("Question is being deactivate");
 		}
 	}
@@ -322,20 +316,14 @@ public class AnswerManageQuestion extends AnswerBase {
 		By element_disapp = By.xpath(ELEMENT_MANAGE_QUESTION_DISAPPROVE.replace("${question}", question));
 
 		if (approve){
-			//usePaginatorQuestion(element_app, "Can not found question");
-			WebElement act = waitForAndGetElement(element_app, 30000, 0);
+			WebElement act = waitForAndGetElement(element_app, DEFAULT_TIMEOUT, 0, 2);
 			if (act != null){				
-				click(element_app);
-				waitForAndGetElement(element_disapp);
-				info("approve question successfully");
+				check(element_app, 2);
 			} else info("Question is being approve");
 		} else {
-			//usePaginatorQuestion(element_disapp, "Can not found question");
-			WebElement de_act = waitForAndGetElement(element_disapp, 30000, 0);
+			WebElement de_act = waitForAndGetElement(element_disapp, DEFAULT_TIMEOUT, 0, 2);
 			if (de_act != null){
-				click(element_disapp);
-				waitForAndGetElement(element_app);
-				info("disapprove question successfully");
+				uncheck(element_disapp, 2);
 			} else info("Question is being disapprove");
 		}
 	}

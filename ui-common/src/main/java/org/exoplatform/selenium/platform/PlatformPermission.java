@@ -25,9 +25,9 @@ public class PlatformPermission extends PlatformBase {
 	public final By ELEMENT_SELECT_SEARCH = By.name("filter");
 	public final By ELEMENT_PERMISSION_TAB = By.linkText("Permissions");
 	public final By ELEMENT_PERMISSION_INPUT = By.id("UIPermissionInput");
-	public final By ELEMENT_SELECT_USER_ICON = By.xpath("//*[@class='uiIconUser uiIconLightGray']");
-	public final By ELEMENT_SELECT_MEMBERSHIP_ICON = By.xpath("//*[@class='uiIconMembership uiIconLightGray']");
-	public final By ELEMENT_SELECT_GROUP_ICON = By.xpath("//*[@class='uiIconGroup uiIconLightGray']");
+	public final By ELEMENT_SELECT_USER_ICON = By.xpath("//*[@id='PermissionTab']//*[@class='uiIconUser uiIconLightGray']");
+	public final By ELEMENT_SELECT_MEMBERSHIP_ICON = By.xpath("//*[@id='PermissionTab']//*[@class='uiIconMembership uiIconLightGray']");
+	public final By ELEMENT_SELECT_GROUP_ICON = By.xpath("//*[@id='PermissionTab']//*[@class='uiIconGroup uiIconLightGray']");
 	public final By ELEMENT_ADD_USERS_BUTTON = By.xpath("//*[@id='UIUserSelector']//*[text()='Add']");
 		
 	/*-----------------Set permission for wiki, forum...------------------*/
@@ -91,7 +91,7 @@ public class PlatformPermission extends PlatformBase {
 	public void selectGroupMembership(String groupPath, String membership){
 		userGroup = new UserGroupManagement(driver);
 		userGroup.selectGroup(groupPath);	
-		click(By.linkText(membership));
+		click(By.xpath("//*[contains(text(), '" + membership + "')]"));
 		Utils.pause(1000);
 	}
 }

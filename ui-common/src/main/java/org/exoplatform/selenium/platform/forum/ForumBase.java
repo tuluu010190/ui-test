@@ -31,42 +31,37 @@ public class ForumBase extends PlatformBase {
 
 	public final By ELEMENT_FORUM_LINK = By.linkText("Forums");
 	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//*[@class='UIPopupWindow UIDragObject uiPopup']//*[text()='OK']");
+	public final By ELEMENT_OK_DELETE = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='OK']");
 
 	//-----------------Forum Home screen--------------------------------------------
 	public final By ELEMENT_ADD_CATEGORY = By.linkText("Add Category");
 	public final By ELEMENT_ADD_FORUM = By.linkText("Add Forum");
 	public final By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
 	public final By ELEMENT_INFO = By.xpath("//span[@class='PopupIcon InfoMessageIcon']");
-	public final By ELEMENT_JUMP_TO = By.id("forumLink");
-	public final By ELEMENT_GO_BUTTON = By.linkText("Go");
-	public final By ELEMENT_MORE_ACTION = By.linkText("More Actions");
+	public final By ELEMENT_MORE_ACTION = By.xpath("//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");
 	public final By ELEMENT_MODERATION = By.linkText("Moderation");
 	public final By ELEMENT_MODERTATION_DELETE_BUTTON = By.xpath("//*[@id='ModerationMenu']//a[contains(text(),'Delete')]");
-	public final String ELEMENT_WATCH = "//a[@class='${watchIcon}' and contains(text(), 'Watch')]";
-	public final String ELEMENT_UNWATCH = "//a[@class='${watchIcon}' and contains(text(), 'Unwatch')]";
+	public final By ELEMENT_WATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'AddWatching')]");
+	public final By ELEMENT_UNWATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'UnWatch')]");
 	public final By ELEMENT_BOOKMARKS = By.linkText("Bookmarks");
-	public final By ELEMENT_ADMINISTRATION = By.xpath("//a[@class='DownArrow1Icon' and text()='Administration']");
+	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray']");
 	public final By ELEMENT_SORT_SETTING = By.xpath("//span[text()='Sort Settings']");
 	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//span[text()='Censor Keywords']");
 	public final By ELEMENT_BAN_IP = By.xpath("//span[text()='Banned IPs']");
 	public final By ELEMENT_BBCODE = By.xpath("//span[text()='BBCodes']");
-	public final By ELEMENT_PRUNE = By.xpath("//span[text()='Pruning']");
-	public final By ELEMENT_IMPORT = By.xpath("//span[text()='Import']");
-	public final By ELEMENT_EXPORT_CATEGORY = By.xpath("//span[text()='Export']");
+	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[@class='Pruning']");
+	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport']");
+	public final By ELEMENT_EXPORT_CATEGORY = By.xpath("//*[@id='Administrations']//*[@class='uiIconExport']");
 	public final By ELEMENT_EXPORT_FORUM = By.linkText("Export Forum");
 	public final By ELEMENT_LEGEN_PANEL = By.id("UIForumIconState");
 	public final By ELEMENT_STATISTIC_PANEL = By.xpath("//*[text()='Forums Statistics']");
-	public final By ELEMENT_HOME_BUTTON = By.linkText("Home");
-	public final By ELEMENT_HOME_CURRENT = By.xpath("//div[text()='Home']");
+	public final By ELEMENT_HOME_BUTTON = By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
 	public final String ELEMENT_HOME_FORUM = "Forum Home";
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
-	public final By ELEMENT_WATCH_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Messages']");
 	public final String MESSAGE_WATCH = "You are now watching this item.";
 	public final String MESSAGE_UNWATCH = "You are no longer watching this item.";	
-	public final String ELEMENT_CLASS_NAME_WATCH_TOPIC = "AddWatchingIcon StatusIcon";
-	public final String ELEMENT_CLASS_NAME_WATCH_CATEGORY = "AddWatchingIcon";
-	public final String ELEMENT_CLASS_NAME_WATCH_FORUM = "StatusIcon AddWatchingIcon";
+	public static String REGISTER_MAIL_CONTENT = "Hi, you received this email because you registered for the Forum and Topic Watching notification.";
 
 	//----------------Book Marks form------------------------------------------
 	public final By ELEMENT_BOOKMARKS_POPUP = By.xpath("//span[@class='PopupTitle' and text()='My Bookmarks']");
@@ -150,12 +145,12 @@ public class ForumBase extends PlatformBase {
 
 	//--------------------Profile setting form------------------------------------
 	public final By ELEMENT_SETTING = By.linkText("Settings");
-	public final By ELEMENT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Settings']");
+	public final By ELEMENT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Settings']");
 	public final String ELEMENT_SETTING_EMAIL_CHECKBOX = "//a[contains(text(), '${forum}')]/../../../*//input[contains(@id, 'EMAILforum')]"; 
 	public final String ELEMENT_SETTING_MAIL_DELETE = "//a[contains(text(), '${forum}')]/../../../*//div[@class='DeleteIcon']";
 	public final By ELEMENT_SETTING_EMAIL_ADDRESS = By.id("EmailAddress");
-	public final By ELEMENT_SETTING_EMAIL_UPDATE = By.linkText("Update");
-	public final By ELEMENT_SETTING_MYSCRIPTIONS_TAB = By.xpath("//div[@class='MiddleTab' and contains(text(), 'My Subscriptions')]");
+	public final By ELEMENT_SETTING_EMAIL_UPDATE = By.xpath("//button[text()='Update']");
+	public final By ELEMENT_SETTING_MYSCRIPTIONS_TAB = By.linkText("My Subscriptions");
 	public final By ELEMENT_SCREEN_NAME = By.id("ScreenName");
 	public final By ELEMENT_SIGNATURE = By.id("Signature");
 	public final By ELEMENT_IS_DISPLAY_SIGNATURE = By.id("IsDisplaySignature");
@@ -199,89 +194,43 @@ public class ForumBase extends PlatformBase {
 
 	/*-----------------------------common function-------------------------------------*/
 
-	/**
-	 * Go to Forum
-	 * @author hakt
-	 */
 	public void goToForums(){
 		info("--Go to Forums--");
 		click(ELEMENT_FORUM_LINK);
 	}
-
-	/** function Jump to a category
-	 * @author lientm
-	 * @param destination: title of a category or a forum that needs to come
-	 */
-	public void jumpTo(String destination){
-		WebElement element = waitForAndGetElement(ELEMENT_JUMP_TO);
-		if (element != null){
-			info("Jump to " + destination);
-			select(ELEMENT_JUMP_TO, destination);
-		}
-		click(ELEMENT_GO_BUTTON);
-		Utils.pause(1000);
-		if (destination != ELEMENT_HOME_FORUM){
-			waitForTextPresent(destination);
-		} 
-	}
-
+	
 	public void goToForumHome(){
+		info("---Go to Forum home---");
 		click(ELEMENT_HOME_BUTTON);
-		waitForAndGetElement(ELEMENT_HOME_CURRENT);
+		waitForElementNotPresent(ELEMENT_HOME_BUTTON);
 	}
 
-	/** function: watch an item
-	 * @author lientm
-	 * @param watchClass: class of watch/unwatch icon to determine watch/unwatch xpath
-	 */
-	public void watchItem(String watchClass){
-		By WATCH = By.xpath(ELEMENT_WATCH.replace("${watchIcon}", watchClass));
-		By UNWATCH = By.xpath(ELEMENT_UNWATCH.replace("${watchIcon}", watchClass));
-
-		but = new Button(driver);
-		WebElement watch = waitForAndGetElement(WATCH);
-		if ( watch != null) {
-			info("Set watch a item");
-			click(WATCH);
-			waitForAndGetElement(ELEMENT_WATCH_POPUP);
-			waitForMessage(MESSAGE_WATCH);
-			click(but.ELEMENT_OK_BUTTON);
-			waitForElementNotPresent(ELEMENT_WATCH_POPUP);
-			waitForAndGetElement(UNWATCH);
-			info("Watch item successfully");
+	public void watchItem(boolean watch){		
+		if (watch){
+			if (waitForAndGetElement(ELEMENT_WATCH, DEFAULT_TIMEOUT, 0) != null){
+				info("Watch item");
+				click(ELEMENT_WATCH);
+				waitForMessage(MESSAGE_WATCH);
+				click(ELEMENT_OK_INFOR_POPUP);
+				waitForAndGetElement(ELEMENT_UNWATCH);
+				info("Watch item successfully");
+			}else {
+				info("Not found watch link");
+			}			
 		} else {
-			info("Not found watch link");
+			if (waitForAndGetElement(ELEMENT_UNWATCH, DEFAULT_TIMEOUT, 0) != null) {
+				info("Unwatch item");
+				click(ELEMENT_UNWATCH);
+				waitForMessage(MESSAGE_UNWATCH);
+				click(ELEMENT_OK_INFOR_POPUP);
+				waitForAndGetElement(ELEMENT_WATCH);
+				info("Unwatch item successfully");
+			} else {
+				info("Not found unwatch link");
+			}
 		}
 	}
 
-	/** function: unwatch an item
-	 * @author lientm
-	 * @param watchClass: class of watch/unwatch icon to determine watch/unwatch xpath
-	 */
-	public void unwatchItem(String watchClass){
-		By WATCH = By.xpath(ELEMENT_WATCH.replace("${watchIcon}", watchClass));
-		By UNWATCH = By.xpath(ELEMENT_UNWATCH.replace("${watchIcon}", watchClass));
-
-		but = new Button(driver);
-		WebElement unwatch = waitForAndGetElement(UNWATCH);
-		if ( unwatch != null) {
-			info("Set unwatch a item");
-			click(UNWATCH);
-			waitForAndGetElement(ELEMENT_WATCH_POPUP);
-			waitForMessage(MESSAGE_UNWATCH);
-			click(but.ELEMENT_OK_BUTTON);
-			waitForElementNotPresent(ELEMENT_WATCH_POPUP);
-			waitForAndGetElement(WATCH);
-			info("Unwatch item successfully");
-		} else {
-			info("Not found unwatch link");
-		}
-	}
-
-	/** function: add bookmark for an Item (category/forum)
-	 * @author lientm
-	 * @param item: title of a category/ a forum
-	 */
 	public void addBookmarksItem(String item){
 		By element_item = By.xpath(ELEMENT_BOOKMARKS_ITEM.replace("${item}", item));
 
@@ -905,45 +854,52 @@ public class ForumBase extends PlatformBase {
 	public void selectPanel(boolean... show){
 		if (show.length > 0){
 			click(ELEMENT_FORUM_PORTLET_PANEL_TAB);
-			WebElement jump = waitForAndGetElement(ELEMENT_SHOW_FORUM_JUMP_CHECKBOX);
-			if ((show[0] && !jump.isSelected()) || (!show[0] && jump.isSelected())){
-				click(ELEMENT_SHOW_FORUM_JUMP_CHECKBOX);
+			if (show[0]){
+				check(ELEMENT_SHOW_FORUM_JUMP_CHECKBOX, 2);
+			}else {
+				uncheck(ELEMENT_SHOW_FORUM_JUMP_CHECKBOX, 2);
 			}
 		}
 		if (show.length > 1){
-			WebElement moderator = waitForAndGetElement(ELEMENT_SHOW_MODERATOR_CHECKBOX);
-			if ((show[1] && !moderator.isSelected()) || (!show[1] && moderator.isSelected())){
-				click(ELEMENT_SHOW_MODERATOR_CHECKBOX);
+			if (show[1]){
+				check(ELEMENT_SHOW_MODERATOR_CHECKBOX, 2);
+			}else {
+				uncheck(ELEMENT_SHOW_MODERATOR_CHECKBOX, 2);
 			}
 		}
 		if (show.length > 2){
-			WebElement poll = waitForAndGetElement(ELEMENT_SHOW_POLL_CHECKBOX);
-			if ((show[2] && !poll.isSelected()) || (!show[2] && poll.isSelected())){
-				click(ELEMENT_SHOW_POLL_CHECKBOX);
+			if (show[2]){
+				check(ELEMENT_SHOW_POLL_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_POLL_CHECKBOX, 2);
 			}
 		}
 		if (show.length > 3){
-			WebElement reply = waitForAndGetElement(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX);
-			if ((show[3] && !reply.isSelected()) || (!show[3] && reply.isSelected())){
-				click(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX);
+			if (show[3]){
+				check(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX, 2);
 			}
 		}
 		if (show.length > 4){
-			WebElement legend = waitForAndGetElement(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX);
-			if ((show[4] && !legend.isSelected()) || (!show[4] && legend.isSelected())){
-				click(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX);
+			if (show[4]){
+				check(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX, 2);
 			}
 		}
 		if (show.length > 5){
-			WebElement rule = waitForAndGetElement(ELEMENT_SHOW_RULE_CHECKBOX);
-			if ((show[5] && !rule.isSelected()) || (!show[5] && rule.isSelected())){
-				click(ELEMENT_SHOW_RULE_CHECKBOX);
+			if (show[5]){
+				check(ELEMENT_SHOW_RULE_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_RULE_CHECKBOX, 2);
 			}
 		}
 		if (show.length > 6){
-			WebElement statistic = waitForAndGetElement(ELEMENT_SHOW_STATISTIC_CHECKBOX);
-			if ((show[6] && !statistic.isSelected()) || (!show[6] && statistic.isSelected())){
-				click(ELEMENT_SHOW_STATISTIC_CHECKBOX);
+			if (show[6]){
+				check(ELEMENT_SHOW_STATISTIC_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_STATISTIC_CHECKBOX, 2);
 			}
 		}
 	}
@@ -1069,5 +1025,20 @@ public class ForumBase extends PlatformBase {
 		}
 		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_ATTACHMENT_SAVE_BUTTON);
+	}
+	
+	public void settingMailForUser(String...email){
+		but = new Button(driver);
+		String user = email.length > 0 ? email[0] : EMAIL_ADDRESS1;
+		click(ELEMENT_SETTING);
+		waitForAndGetElement(ELEMENT_SETTING_POPUP);
+		click(ELEMENT_SETTING_MYSCRIPTIONS_TAB);
+		waitForAndGetElement(ELEMENT_SETTING_EMAIL_ADDRESS);
+		info("Set mail address for forum");
+		type(ELEMENT_SETTING_EMAIL_ADDRESS, user, true);
+		click(ELEMENT_SETTING_EMAIL_UPDATE);
+		Utils.pause(1000);
+		but.save();
+		waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 	}
 }
