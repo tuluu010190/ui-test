@@ -281,7 +281,6 @@ public class ForumBase extends PlatformBase {
 	 *                 = true: clear data before
 	 *                 = false: not clear data before
 	 */
-
 	public void inputDataToFrameInFrame(By frame1, By frame2, String data, boolean...validate){
 		boolean valid = validate.length > 0 ? validate[0]: true;
 		boolean verify = validate.length > 1 ? validate[1]: true;
@@ -821,6 +820,7 @@ public class ForumBase extends PlatformBase {
 		switchToParentWindow();
 		but.save();
 	}
+	
 	/** Reset Notification as default
 	 * @author thuntn
 	 */
@@ -961,7 +961,6 @@ public class ForumBase extends PlatformBase {
 			waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 		}
 	}
-
 
 	/**function go to RSS for any item (by rightclick on item -> choose RSS)
 	 * @author lientm

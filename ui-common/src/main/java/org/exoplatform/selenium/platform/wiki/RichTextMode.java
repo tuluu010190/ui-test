@@ -60,6 +60,7 @@ public class RichTextMode extends Template {
 	public void insertPageLink2WikiPage(boolean search, String page, String label, String tooltip){
 		mouseOverAndClick(ELEMENT_LINK);
 		mouseOverAndClick(ELEMENT_WIKI_PAGE_LINK);
+		Utils.pause(500);
 		info("Create link to the page " + page);
 		if (search){
 			click(ELEMENT_SEARCH_TAB);
@@ -70,6 +71,7 @@ public class RichTextMode extends Template {
 		click(but.ELEMENT_SELECT_BUTTON);
 		type(ELEMENT_LABEL_LINK_TEXTBOX, label, true);
 		type(ELEMENT_TOOLTIP_LINK_TEXTBOX, tooltip, true);
+		Utils.pause(500);
 		click(but.ELEMENT_CREATE_LINK_BUTTON);
 		waitForElementNotPresent(but.ELEMENT_CREATE_LINK_BUTTON);
 	}

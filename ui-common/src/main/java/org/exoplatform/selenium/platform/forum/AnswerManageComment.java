@@ -14,6 +14,7 @@ public class AnswerManageComment extends AnswerBase {
 	public AnswerManageComment(WebDriver dr){
 		driver = dr;
 	}
+	
 	AnswerManageQuestion magQuest = new AnswerManageQuestion(driver);
 	AnswerManageAnwser magAns = new AnswerManageAnwser(driver);
 	

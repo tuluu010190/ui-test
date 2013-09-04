@@ -74,9 +74,9 @@ public class ECMainFunction extends EcmsBase{
 	 */
 	public void goToTemplateTab(){	    
 		navToolbar.goToContentAdministration();
-	//	if (waitForAndGetElement(ELEMENT_DOCUMENT_LINK, 5000, 0) == null){
+		if (waitForAndGetElement(ELEMENT_DOCUMENT_LINK, 5000, 0) == null){
 	//	if (isTextNotPresent("Documents")){
-		if(isElementNotPresent(ELEMENT_DOCUMENT_LINK_XPATH)){
+    //		if(isElementNotPresent(ELEMENT_DOCUMENT_LINK_XPATH)){
 			click(ELEMENT_TEMPLATE_TAB);
 		}
 		click(ELEMENT_DOCUMENT_LINK);

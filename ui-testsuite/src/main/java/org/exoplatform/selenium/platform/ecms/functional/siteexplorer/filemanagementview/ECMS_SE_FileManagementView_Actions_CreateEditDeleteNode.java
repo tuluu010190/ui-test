@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
  * @author: HaKT
  * @date: 04/09/2013
  */
-public class ECMS_SE_FileManagementView_CreateEditDeleteNode extends PlatformBase {
+public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends PlatformBase {
 	ManageAccount magAcc;
 	NavigationToolbar navToolBar;
 	ActionBar actBar;
@@ -43,6 +43,7 @@ public class ECMS_SE_FileManagementView_CreateEditDeleteNode extends PlatformBas
 
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 	}
+	
 	@AfterMethod
 	public void afterTest(){
 		//		magAcc.signOut();

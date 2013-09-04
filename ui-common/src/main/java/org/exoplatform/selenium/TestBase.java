@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -67,48 +68,48 @@ public class TestBase {
 		termsAndConditions();
 	}
 
-		public void termsAndConditions(){
-			
-			By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
-			By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
-			By ELEMENT_EMAIL_ACCOUNT = By.name("emailAccount");
-			By ELEMENT_CONFIRM_PASS_ACCOUNT = By.name("confirmUserPasswordAccount");
-			By ELEMENT_ROOT_PASS_ACCOUNT = By.name("adminPassword");
-			By ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT = By.name("confirmAdminPassword");
-			By ELEMENT_AGREEMENT_CHECKBOX = By.xpath("//*[@id = 'agreement']");
-			By ELEMENT_INPUT_USERNAME = By.name("username"); 
-			By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue']");
-			By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
-			By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
-			By ELEMENT_INPUT_PASSWORD = By.name("password");
-			By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
-			
-			driver.get(baseUrl);
-			if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 5000, 0, 2) != null) {
-				info("-- Checking the terms and conditions agreement... --");
-				click(ELEMENT_AGREEMENT_CHECKBOX, 2);
-				click(ELEMENT_CONTINUE_BUTTON);
-				waitForTextNotPresent("terms and conditions agreement");
+	public void termsAndConditions(){
 
-				info("-- Creating an Admin account: FQA... --");
-				type(ELEMENT_INPUT_USERNAME, "fqa", true);
-				type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
-				type(ELEMENT_LASTNAME_ACCOUNT, "VN", true);
-				type(ELEMENT_EMAIL_ACCOUNT, "fqa@exoplatform.com", true);	
-				type(ELEMENT_INPUT_PASSWORD, "gtngtn", true);
-				type(ELEMENT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);	
-				type(ELEMENT_ROOT_PASS_ACCOUNT, "gtngtn", true);
-				type(ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);
-				click(ELEMENT_SUBMIT_BUTTON);
-				waitForTextNotPresent("Create your account");
-				click(ELEMENT_START_BUTTON);
-				waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
-				
-				firstTimeLogin = true;
-				info("-- Administrator account (FQA) has been created successfully... --");
-			} 
-			Utils.pause(1000);     
-		}
+		By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
+		By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
+		By ELEMENT_EMAIL_ACCOUNT = By.name("emailAccount");
+		By ELEMENT_CONFIRM_PASS_ACCOUNT = By.name("confirmUserPasswordAccount");
+		By ELEMENT_ROOT_PASS_ACCOUNT = By.name("adminPassword");
+		By ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT = By.name("confirmAdminPassword");
+		By ELEMENT_AGREEMENT_CHECKBOX = By.xpath("//*[@id = 'agreement']");
+		By ELEMENT_INPUT_USERNAME = By.name("username"); 
+		By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue']");
+		By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
+		By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
+		By ELEMENT_INPUT_PASSWORD = By.name("password");
+		By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+
+		driver.get(baseUrl);
+		if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 5000, 0, 2) != null) {
+			info("-- Checking the terms and conditions agreement... --");
+			click(ELEMENT_AGREEMENT_CHECKBOX, 2);
+			click(ELEMENT_CONTINUE_BUTTON);
+			waitForTextNotPresent("terms and conditions agreement");
+
+			info("-- Creating an Admin account: FQA... --");
+			type(ELEMENT_INPUT_USERNAME, "fqa", true);
+			type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
+			type(ELEMENT_LASTNAME_ACCOUNT, "VN", true);
+			type(ELEMENT_EMAIL_ACCOUNT, "fqa@exoplatform.com", true);	
+			type(ELEMENT_INPUT_PASSWORD, "gtngtn", true);
+			type(ELEMENT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);	
+			type(ELEMENT_ROOT_PASS_ACCOUNT, "gtngtn", true);
+			type(ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);
+			click(ELEMENT_SUBMIT_BUTTON);
+			waitForTextNotPresent("Create your account");
+			click(ELEMENT_START_BUTTON);
+			waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
+
+			firstTimeLogin = true;
+			info("-- Administrator account (FQA) has been created successfully... --");
+		} 
+		Utils.pause(1000);     
+	}
 
 	public WebElement getElement(Object locator) {
 		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
@@ -471,7 +472,7 @@ public class TestBase {
 			loopCount = 0;
 		}
 	}
-	
+
 	//un-check a checked-box
 	public void uncheck(Object locator, int... opParams) {
 		int notDisplayE = opParams.length > 0 ? opParams[0]: 0;
@@ -592,15 +593,15 @@ public class TestBase {
 		//				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip;application/octet-stream");
 
 		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
-						"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
-						"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-						"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
-						"application/octet-stream" +
-						";application/pdf;application/msword;text/plain;" +
-						"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
-						"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
-						"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml");
-		
+				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
+				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
+				"application/octet-stream" +
+				";application/pdf;application/msword;text/plain;" +
+				"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
+				"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
+				"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml");
+
 		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 		driver = new FirefoxDriver(fp);
 		baseUrl = System.getProperty("baseUrl");
@@ -706,4 +707,21 @@ public class TestBase {
 		Date date = new Date();
 		return (dateFormat.format(date));
 	}
+	
+    //Get current date time
+//	public String getCurrentDateTime(){
+//		//MM/dd/yyyy HH:mm:ss
+//		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+//		Date date = new Date();
+//		return (dateFormat.format(date));
+//	}
+
+	//Add 1 minute to current date time
+	public String addMinuteToCurrentDateTime(){
+		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.MINUTE, 3);
+		return (dateFormat.format(cal.getTime()));	
+	}
+	
 }

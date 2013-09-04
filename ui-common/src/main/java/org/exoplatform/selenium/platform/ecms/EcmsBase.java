@@ -38,7 +38,8 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_ACME_SEARCH_INPUT = By.name("keyword");
 	public final String ELEMENT_ACME_SEARCH_RESULT = "//a[text()='${result}']";
 	public final By ELEMENT_ACME_SEARCH_BUTTON = By.linkText("Search");  
-
+	public final String ELEMENT_ACME_TAB_CATEGORY = "//*[@class='Tab']//*[text()='${content}']";
+	
 	//Sign-in form
 	public final By ELEMENT_LOGIN_BUTTON = By.name("signIn");
 	//By.xpath("//*[@id='UIPortalLoginFormAction']");

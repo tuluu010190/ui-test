@@ -321,7 +321,8 @@ public class ECMS_WCM_Others extends PlatformBase{
 		info("-- Go to Acme/News/Defense/Invisibility --");
 		ecms.goToOverviewPage();
 		ecms.goToNode("News/Defense");
-		click(ecms.ELEMENT_ACME_TITLE.replace("${content}", "Invisibility"));
+		//click(ecms.ELEMENT_ACME_TITLE.replace("${content}", "Invisibility"));
+		click(ecms.ELEMENT_ACME_TAB_CATEGORY.replace("${content}", "Invisibility"));
 		waitForTextPresent(fileName);
 		waitForTextPresent(webContentName);
 		

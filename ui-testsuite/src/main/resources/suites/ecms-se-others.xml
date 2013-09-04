@@ -1,0 +1,67 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="ECMS Functional Test" verbose="1" preserve-order="true">
+	<test name="ecms-func-se-collaboration" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<packages>
+			<package
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.collaboration.*" />
+		</packages>
+	</test>
+
+	<test name="ecms-func-se-filemanagementview" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<packages>
+			<package
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.filemanagementview.*" />
+		</packages>
+	</test>
+	
+	<test name="ecms-func-se-friendly" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<packages>
+			<package
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.friendly.*" />
+		</packages>
+	</test>
+	
+	<test name="ecms-func-se-info" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<packages>
+			<package
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.info.*" />
+		</packages>
+	</test>
+	
+	<test name="ecms-func-se-otherchecks" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<packages>
+			<package
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.otherchecks.*" />
+		</packages>
+	</test>
+	
+	<listeners>
+		<listener class-name="org.exoplatform.selenium.TestReportListener" />
+	</listeners>
+</suite>

@@ -70,7 +70,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		//create category, forum, topic
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
-		
+
 		//Add a poll
 		mngPoll.addPoll(pollQuestion, pollOptions, "2", true, true);
 		
@@ -85,8 +85,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		//Delete data
 		goToForums();
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);	
 	}
 	
 	/**
@@ -119,8 +118,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		//Delete data
 		goToForums();
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);	
 	}
 	
 	/**
@@ -162,8 +160,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		//Delete data
 		goToForums();
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);		
 	}
 	
 	/**
@@ -197,8 +194,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		
 		//Delete data
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);	
 	}
 	
 }

@@ -20,7 +20,6 @@ public class ForumManagePost extends ForumBase {
 	
 	public ForumManagePost(WebDriver dr){
 		driver = dr;
-		magTopic = new ForumManageTopic(driver);
 		per = new ForumPermission(driver);
 	}
 	
@@ -34,7 +33,8 @@ public class ForumManagePost extends ForumBase {
 	public String ELEMENT_POST_CHECKBOX = "//*[text()='${postContent}']/../../../../*//input[@type='checkbox']";
 	public By ELEMENT_MOVE_POST = By.xpath("//a[@class='ItemIcon MovePostIcon' and text()='Move']");
 	public String ELEMENT_GO_TO_THE_LASTS_READ_POST_FORUM = "//a[text()='${forum}']/../..//a[@title='Go to the last read post']";
-	public String ELEMENT_PRIVATE_POST_BUTTON = "//*[text()='${topic}']/../../../..//a[text()='Private']";
+	public String ELEMENT_PRIVATE_POST_BUTTON = "//*[text()='${topic}  ']/../../..//a[text()='Private']";
+	public final String ELEMENT_POST_CONTENT = "//*[@class='postContent']//*[text()='${postContent}']";
 
 	public By ELEMENT_APPROVE_POST = By.xpath("//a[text()='Approve']");
 	public String ELEMENT_APPROVE_POST_CHECK = "//a[@title='{$topic}']/ancestor::tr//input";
@@ -127,7 +127,7 @@ public class ForumManagePost extends ForumBase {
 	 * @param file: file attach
 	 */
 	public void putDataPost(String title, String message, String groupName, String iconClass, String... file){
-		magTopic = new ForumManageTopic(driver);
+		//magTopic = new ForumManageTopic(driver);
 		
 		if (title != null) {
 			type(ELEMENT_POST_TITLE, title, true);
@@ -146,7 +146,7 @@ public class ForumManagePost extends ForumBase {
 			click(ELEMENT_POST_ICONS_TAB);
 			magTopic.chooseIcon(groupName, iconClass);
 		}
-		magTopic = new ForumManageTopic(driver);
+		//magTopic = new ForumManageTopic(driver);
 		click(magTopic.ELEMENT_SUBMIT_BUTTON);
 		waitForElementNotPresent(ELEMENT_POST_POPUP_NEW);
 		

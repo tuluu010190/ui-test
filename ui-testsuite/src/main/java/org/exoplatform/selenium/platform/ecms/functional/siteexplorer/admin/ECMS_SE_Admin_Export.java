@@ -18,7 +18,6 @@ import org.testng.annotations.Test;
  * @author: Thuntn
  * @date: 26/08/2013
  */
-
 public class ECMS_SE_Admin_Export extends PlatformBase{
 	//Platform
 	ManageAccount magAcc;
@@ -30,7 +29,6 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 	ContextMenu cMenu;
 	SitesExplorer siteExp;
 
-	
 	@BeforeMethod
 	public void beforeMethods() {
 		getDriverAutoSave();
@@ -81,7 +79,6 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 		
 		//Remove data
 		cMenu.deleteDocument(eFolder);
-
 	}
 
 	/**CaseID: 66472
@@ -104,7 +101,6 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 		
 		//Remove data
 		cMenu.deleteDocument(bNode);
-
 	}
 	
 	/**CaseID: 66478
@@ -134,7 +130,6 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 		
 		//Remove data
 		cMenu.deleteDocument(bNode);
-
 	}
 	
 	/**CaseID: 66481
@@ -157,7 +152,6 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 		
 		//Remove data
 		cMenu.deleteDocument(bNode);
-
 	}
 
 	/**CaseID: 66482
@@ -182,7 +176,6 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 		
 		//Remove data
 		cMenu.deleteDocument(bNode);
-
 	}
 	
 	/**CaseID: 66485
@@ -223,6 +216,5 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 		
 		//Remove data
 		cMenu.deleteDocument(bNode);
-
 	}
 }

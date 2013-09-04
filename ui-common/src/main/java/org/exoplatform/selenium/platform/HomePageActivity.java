@@ -36,10 +36,10 @@ public class HomePageActivity extends PlatformBase{
 		post = new ForumManagePost(driver);
 	}
 	//Comment box
-	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='contentComment']/..//*[contains(text(), '${comment}')]";
+	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]";
+	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_1 = "//*[text()='${title}']/ancestor::div[@class='boxContainer']//*[@class='contentComment']";
 	public final String ELEMENT_ACTIVITY_DELETE_COMMENT_ICON = "//*[@class='contentComment' and contains(text(), '${comment}')]/../..//*[contains(@id, 'DeleteCommentButton')]";
 	public final String DATA_MESSAGE_CONFIRM_DELETE_COMMENT = "Are you sure you want to delete this comment?";
-
 	public final String ELEMENT_COMMENTBOX="//*[text()='${title}']/../../../..//div[@class='exo-mentions']/div[contains(@id,'DisplayCommentTextarea')]";
 	public final String ELEMENT_ICON_COMMENT = "//*[text()='${title}']/../../../..//div[@class='actionBar clearfix forumActivityIcon']//i[@class='uiIconComment uiIconLightGray']";
 
@@ -51,13 +51,16 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_CONTENT_VERSION = "//a[@title='@{fileName}']/..//*[contains(text(), '${version} -')]";
 	public final String ELEMENT_CONTENT_STATUS = "//a[@title='@{fileName}']/..//*[contains(text(), '${status}')]";
 	public final String ELEMENT_CONTENT_SUMMARY = "//*[@title='@{fileName}']/..//p[2]";
-	public final String ELEMENT_CONTENT_COMMENT_EDIT_TITLE = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[contains(text(),'Title has been updated to: ${title}')]";
+//	public final String ELEMENT_CONTENT_COMMENT_EDIT_TITLE = "//*[@title='@{fileName}']/../../../..//*[@class='commentRight']//*[contains(text(),'Title has been updated to: ${title}')]";
+	public final String ELEMENT_CONTENT_COMMENT_EDIT_TITLE = "//*[contains(text(), '@{fileName}')]/../../../..//*[@class='commentRight']//*[contains(text(),'Title has been updated to: ${title}')]";
+
 	public final String ELEMENT_CONTENT_COMMENT_ADD_A_TAG = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tag: ${tags} has been added.']";
 	public final String ELEMENT_CONTENT_COMMENT_ADD_TAGS = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tags: ${tags} have been added.']";
 	public final String ELEMENT_CONTENT_COMMENT_REMOVE_A_TAG = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tag: ${tags} has been removed.']";
 	public final String ELEMENT_CONTENT_COMMENT_REMOVE_TAGS = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tags: ${tags} have been removed.']";
 	public final String ELEMENT_CONTENT_COMMENT_PUBLISH = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Publication has been published.']";
 	public final String ELEMENT_CONTENT_COMMENT_RESTORE_VERSION = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Publication has been restored to version: ${version}']";
+	public final String ELEMENT_CONTENT_COMMENT_PUBLISH_1 = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Document has been published.']";
 	public final String ELEMENT_CONTENT_EDIT_LINK = "//a[@title='@{fileName}']/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public final String ELEMENT_CONTENT_VIEW_LINK = "//a[@title='@{fileName}']/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_CONTENT_COMMENT_MOVING = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Publication has been moved to: ${path}']";
@@ -102,7 +105,8 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_TOPIC_HAFT_RATE = "//a[@class='textBold linkTitle' and text()='${title}']/../..//div[@data-original-title='Average']/i[@class='votedHaft']";
 	public final String ELEMENT_TOPIC_REPLY = "//a[contains(text(),'${title}')]/../../../..//i[@class='uiIconReply uiIconLightGray']";
 	public final String ELEMENT_TOPIC_LAST_REPLY = "//a[contains(text(),'${title}')]/../../../..//i[@class='uiIconSocLastestReply uiIconSocLightGray']";
-	public final String ELEMENT_REPLY_VIEW = "//a[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]/../../..//a[@class='viewComment' and contains(text(),'View')]";
+	public final String ELEMENT_REPLY_VIEW = "//*[contains(text(), '${comment}')]/../..//*[@class='viewComment']";
+	//"//a[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]/../../..//a[@class='viewComment' and contains(text(),'View')]";
 
 	//Poll activity
 	public final String ELEMENT_POLL_ACTIVITY = "//div[@class='uiBox roundedBottom introBox pollShare']//a[contains(text(),'${poll}')]";
@@ -224,12 +228,18 @@ public class HomePageActivity extends PlatformBase{
 		waitForElementNotPresent(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", name).replace("${comment}", contenttext));
 	}
 
-	/** function check add comment in activity after publishing a conent/file
+	/** function check add comment in activity after publishing a content/file
 	 * @author lientm
 	 * @param name
 	 */
 	public void checkStatusAfterPublishAContent(String name){
-		waitForAndGetElement(ELEMENT_CONTENT_COMMENT_PUBLISH.replace("@{fileName}", name));
+		
+		if (waitForAndGetElement(ELEMENT_CONTENT_COMMENT_PUBLISH.replace("@{fileName}", name), 5000, 0) != null){
+			info("Element " + ELEMENT_CONTENT_COMMENT_PUBLISH.replace("@{fileName}", name) + " is displayed");
+		}else{
+			waitForAndGetElement(ELEMENT_CONTENT_COMMENT_PUBLISH_1.replace("@{fileName}", name));
+		}
+		info("Check status after publishing a content: Successful");
 	}
 
 	/** function check add comment in activity after adding new category for a content/file
@@ -379,7 +389,14 @@ public class HomePageActivity extends PlatformBase{
 	 * @param path
 	 */
 	public void checkCommentAfterMoveWikiPage(String title, String path){
-		waitForAndGetElement(ELEMENT_ACTIVITY_MOVE_WIKI_PAGE.replace("${title}", title).replace("${path}", path));
+		WebElement contentComment = waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_CONTENT_1.replace("${title}", title), 5000, 0);
+		if (contentComment != null){
+	    	String verifyText = contentComment.getText();
+	    	assert verifyText.equals("Page has been moved to: intranet > " + path): "Failed: moving a wiki page...";
+	    }else{
+	    	waitForAndGetElement(ELEMENT_ACTIVITY_MOVE_WIKI_PAGE.replace("${title}", title).replace("${path}", path));
+	    }
+		info("Move a wiki page: successful...");
 	}
 
 
@@ -673,9 +690,14 @@ public class HomePageActivity extends PlatformBase{
 		int y = hoverItem.getCoordinates().onPage().getY();
 		((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+y+");");
 		actions.moveToElement(element).click().perform();
-		click(ELEMENT_REPLY_VIEW.replace("${title}", topic).replace("${comment}", reply),2);
+		
+		//click(ELEMENT_REPLY_VIEW.replace("${title}", topic).replace("${comment}", reply),2);
+		WebElement elementView = waitForAndGetElement(ELEMENT_REPLY_VIEW.replace("${comment}", reply), 3000, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", elementView);
+		
 		waitForAndGetElement(post.ELEMENT_POST_REPLY_BUTTON);
-		waitForTextPresent(reply);
+		//waitForTextPresent(reply);
+		waitForAndGetElement(post.ELEMENT_POST_CONTENT.replace("${postContent}", reply));
 	}
 	
 	/**

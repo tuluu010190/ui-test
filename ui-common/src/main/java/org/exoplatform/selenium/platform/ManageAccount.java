@@ -37,6 +37,8 @@ public class ManageAccount extends PlatformBase {
 	//Sign-in function for eXoGTN
 	public void signIn(String username, String password) {
 		driver.manage().window().maximize();
+		driver.navigate().refresh();
+		Utils.pause(2000);
 		if (firstTimeLogin){
 			signOut();
 			firstTimeLogin = false;

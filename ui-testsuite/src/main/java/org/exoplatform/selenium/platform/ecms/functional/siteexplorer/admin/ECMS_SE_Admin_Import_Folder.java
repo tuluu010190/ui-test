@@ -29,7 +29,6 @@ public class ECMS_SE_Admin_Import_Folder extends PlatformBase {
 	ContextMenu cMenu;
 	SitesExplorer siteExp;
 
-
 	@BeforeMethod
 	public void beforeMethods() {
 		initSeleniumTest();

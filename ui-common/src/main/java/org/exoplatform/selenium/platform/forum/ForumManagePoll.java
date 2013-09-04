@@ -19,6 +19,7 @@ public class ForumManagePoll extends ForumBase {
 	ForumManageTopic magTopic;
 	ManageApplications app;
 	UserGroupManagement userGroup;
+	
 	public ForumManagePoll(WebDriver dr){
 		driver = dr;
 		magTopic = new ForumManageTopic(driver);
@@ -170,6 +171,7 @@ public class ForumManagePoll extends ForumBase {
 		else waitForElementNotPresent(ELEMENT_VOTE_AGAIN); 
 
 	}
+	
 	/**
 	 * 
 	 * @param pollQuestion
@@ -191,6 +193,7 @@ public class ForumManagePoll extends ForumBase {
 		mouseOver(ELEMENT_HOME_LINK,true);
 		click(By.linkText(pageName));
 	}
+	
 	/**
 	 * 
 	 * @param pollQuestion
@@ -238,8 +241,7 @@ public class ForumManagePoll extends ForumBase {
 		else 
 			uncheck(ELEMENT_POLL_VOTE_AGAIN,2);
 		if (multiChoice)
-			check(ELEMENT_POLL_MULTI_VOTE,2);
-		
+			check(ELEMENT_POLL_MULTI_VOTE,2);	
 	}
 	
 	public void addPoll(String pollQuestion, String[] options, String timeout, boolean changeVote, boolean multi, boolean... verify){
@@ -255,7 +257,8 @@ public class ForumManagePoll extends ForumBase {
 		}
 
 		//Check after add poll
-		waitForTextPresent(pollQuestion);
+		//waitForTextPresent(pollQuestion);
+		Utils.pause(500);
 		for(int i = 0; i < options.length; i ++)
 			waitForAndGetElement(ELEMENT_OPTION.replace("${option}", options[i]));
 	} 
@@ -264,9 +267,10 @@ public class ForumManagePoll extends ForumBase {
 	 */
 	public void goToAddPoll(){
 		info("Go to add poll for topic");
-		waitForAndGetElement(ELEMENT_MORE_ACTION);
-		click(ELEMENT_MORE_ACTION);
-		waitForAndGetElement(ELEMENT_ADD_POLL);
+		Utils.pause(2000);
+		//waitForAndGetElement(ELEMENT_MORE_ACTION);
+		mouseOverAndClick(ELEMENT_MORE_ACTION);
+		//waitForAndGetElement(ELEMENT_ADD_POLL);
 		click(ELEMENT_ADD_POLL);
 		waitForAndGetElement(ELEMENT_POLL_POPUP);
 	}
@@ -293,7 +297,7 @@ public class ForumManagePoll extends ForumBase {
 		}
 
 		//Check after edit
-		waitForTextPresent(pollQuestion);
+		//waitForTextPresent(pollQuestion);
 		for(int i = 0; i < options.length; i ++)
 			waitForAndGetElement(ELEMENT_OPTION.replace("${option}", options[i]));
 	} 
@@ -310,7 +314,8 @@ public class ForumManagePoll extends ForumBase {
 		waitForMessage(MSG_POLL_DELETE);
 		click(ELEMENT_POLL_DELETE_OK);
 
-		waitForTextNotPresent(poll);
+		//waitForTextNotPresent(poll);
+		waitForElementNotPresent(By.linkText(poll));
 	} 
 
 	/**Close or reopen a poll
@@ -342,4 +347,3 @@ public class ForumManagePoll extends ForumBase {
 	}
 
 }
-

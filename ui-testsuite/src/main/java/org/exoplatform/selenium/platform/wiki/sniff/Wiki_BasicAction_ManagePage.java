@@ -37,14 +37,14 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		magAc.signIn("john", "gtn");
 		goToWiki();
 	}
-	
+
 	@AfterMethod
 	public void afterTest(){
 		magAc.signOut();
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
-	
+
 	/**CaseID: 68836 + 70041 + 70042 -> Add, Edit and Delete page at Source Editor mode
 	 * 
 	 */
@@ -54,56 +54,57 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		String content = "Wiki_manage_page_content_01";
 		String newTitle = "Wiki_manage_page_title_01_update";
 		String newContent = "Wiki_manage_page_content_01_update";
-		
+
 		info("Add new wiki page at Source Editor");		
 		addBlankWikiPage(title, content, 0);
-		
+
 		info("Edit wiki page at Source Editor");
 		editWikiPage(newTitle, newContent, 0);
-		
+
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**CaseId: 68837 + 70036 + 70037 -> Add, Edit and Delete page at Rich Text mode
 	 * pending: add image (product has error)
 	 */
 	@Test
-	public void test02_CreatePageRichTextEditor(){
+	public void test00_CreatePageRichTextEditor(){
 		String pageLink = "PageLink";
 		String title = "Wiki_manage_page_title_02";
 		String content = "Wiki_manage_page_content_02";
 		String message = "Color macro";
 		String newTitle = "Wiki_manage_page_title_02_update";
-				
-		addBlankWikiPage(pageLink, "", 0);
+
+		addBlankWikiPage(pageLink, "Create page with RTE", 0);
 		goToWikiHome();
-		
+
 		info("Add new wiki page at Rich Text mode");
 		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
-		insertPageLink2WikiPage(true, pageLink, "Link to pageLink", "Go to pageLink");
-		typeEnterInRichText();
 		createColorMacro("red", message);
+		typeEnterInRichText();
+		insertPageLink2WikiPage(true, pageLink, "Link to pageLink", "Go to pageLink");
 		typeEnterInRichText();
 		insertTable2WikiPage("2", "2");
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		Utils.pause(3000);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForAndGetElement(By.xpath("//a[@title='Go to pageLink' and contains(text(), 'Link to pageLink')]"));
+		//waitForAndGetElement(By.xpath("//a[@title='Go to pageLink' and contains(text(), 'Link to pageLink')]"));
+		//waitForAndGetElement(activity.ELEMENT_CONTENT_NAME.replace("@{fileName}", "Go to pageLink"));
+		waitForAndGetElement(By.linkText("Link to pageLink"));
 		waitForAndGetElement(By.xpath("//*[@style='color:red;' and contains(text(),'" + message + "')]"));
-	
+
 		info("Edit page");
 		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
 		addWikiPageRichText(newTitle, null);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		
+
 		deleteCurrentWikiPage();
 		click(By.linkText(pageLink));
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**CaseId: 70058 + 70060 -> Auto save when adding page and delete draft
 	 * 
 	 */
@@ -111,18 +112,18 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 	public void test03_AutoSaveWhenAddingPage(){
 		String title = "Wiki_manage_page_title_03";
 		String content = "Wiki_manage_page_content_03";
-		
+
 		goToAddBlankPage();
 		addWikiPageSourceEditor(title, content);
 		Utils.pause(30000);
 		assert isElementPresent(ELEMENT_DRAFT_NOTIFY);
-		
+
 		goToManageDraft();
 		waitForAndGetElement(ELEMENT_DRAFT_OF_NEW_PAGE.replace("${title}", title));
-		
+
 		deleteDraft(title);
 	}
-	
+
 	/**CaseId: 70258 + 70260 + 70259 -> Add, Edit and Delete page from template layout
 	 * 
 	 */
@@ -130,19 +131,19 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 	public void test04_AddPageFromTemplate(){
 		String title = "Wiki_manage_page_title_04";
 		String newcontent = "Wiki_manage_page_content_04";
-		
+
 		info("Add page with select a template layout");
 		addWikiPageFromTemplate(title, 0, "Two-Column_Layout");
-		
+
 		info("Edit content of page");
 		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
 		type(ELEMENT_CONTENT_WIKI_INPUT, newcontent, false);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		
+
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**CaseId: 70261 -> Preview template when adding new page from template
 	 * 
 	 */
@@ -156,29 +157,29 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		waitForAndGetElement("//*[@class='uiWikiPageTitlePreview' and contains(text(), 'Two-Column Layout')]");
 		click(ELEMENT_CLOSE_PREVIEW_WINDOW);
 	}
-	
+
 	/**CaseId: 70265 -> Auto Save when adding page from template
 	 * 
 	 */
 	@Test
 	public void test06_AutoSaveWhenAddingPageFormTemplate(){
 		String title = "Wiki_manage_page_title_06";
-		
+
 		By eTemplate = By.xpath(ELEMENT_SELECT_TEMPLATE_LINK.replace("{$template}","Status_Meeting"));
 		goToAddTemplateWikiPage();	
 		click(eTemplate, 2);
 		click(but.ELEMENT_SELECT_BUTTON);
 		addWikiPageSourceEditor(title, null);
-		
+
 		Utils.pause(30000);
 		assert isElementPresent(ELEMENT_DRAFT_NOTIFY);
-		
+
 		goToManageDraft();
 		waitForAndGetElement(ELEMENT_DRAFT_OF_NEW_PAGE.replace("${title}", title));
-		
+
 		deleteDraft(title);
 	}
-	
+
 	/**CaseId: 70336 -> Resume a draft with save as normal
 	 * pending because issue WIKI-493
 	 */
@@ -189,27 +190,27 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		String newTitle = "Wiki_manage_page_title_07_update";
 		String newContent = "Wiki_manage_page_content_07_update";
 		String draftTitle = ELEMENT_DRAFT_OF_NEW_PAGE.replace("${title}", title);
-		
+
 		goToAddBlankPage();
 		addWikiPageSourceEditor(title, content);
 		Utils.pause(30000);
 		assert isElementPresent(ELEMENT_DRAFT_NOTIFY);
-		
+
 		goToManageDraft();
 		waitForAndGetElement(draftTitle);
-		
+
 		click(draftTitle);
 		addWikiPageSourceEditor(newTitle, newContent);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		
+
 		goToManageDraft();
 		waitForElementNotPresent(draftTitle);
-		
+
 		goToWikiHome();
 		click(By.linkText(newTitle));
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**CaseId: 68838 -> Edit paragraph in page
 	 * 
 	 */
@@ -218,18 +219,18 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		String title = "Wiki_manage_page_title_08";
 		String content = "= Heading1 = \n = Heading2 = \n = Heading3 =";
 		String newPara = "== Heading1Update ==";
-		
+
 		info("Add new wiki page");		
 		addBlankWikiPage(title, content, 0);
-		
+
 		editParagraph("Heading1", newPara);
 		waitForAndGetElement("//h2/*[text()='Heading1Update']");
 		waitForAndGetElement("//h1/*[text()='Heading2']");
 		waitForAndGetElement("//h1/*[text()='Heading3']");
-		
+
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**CaseId: 70059 -> Auto save when editing page
 	 * 
 	 */
@@ -243,16 +244,16 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		String newContent2 = "Wiki_manage_page_content_09_update2";
 		String draftTitle1 = ELEMENT_DRAFT_OF_EDIT_PAGE.replace("${title}", newTitle);
 		String draftTitle2 = ELEMENT_DRAFT_OF_EDIT_PAGE.replace("${title}", newTitle2);
-		
+
 		info("Add new wiki page");		
 		addBlankWikiPage(title, content, 0);
-		
+
 		info("Edit page but not save");
 		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
 		addWikiPageSourceEditor(newTitle, newContent);
 		Utils.pause(30000);
 		assert isElementPresent(ELEMENT_DRAFT_NOTIFY);
-		
+
 		info("Edit draft page");
 		goToManageDraft();
 		waitForAndGetElement(draftTitle1);
@@ -262,7 +263,7 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		assert isElementPresent(ELEMENT_DRAFT_NOTIFY);
 		goToManageDraft();
 		waitForAndGetElement(draftTitle2);
-		
+
 		deleteDraft(newTitle2);
 		goToWikiHome();
 		click(By.linkText(title));
@@ -278,25 +279,25 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		String content = "Wiki_manage_page_content_10";
 		String newTitle = "Wiki_manage_page_title_10_update";
 		String newContent = "Wiki_manage_page_content_10_update";
-		
+
 		info("Add new wiki page");		
 		addBlankWikiPage(title, content, 0);
-		
+
 		info("Edit title of page -> check comment in activity");
 		editPageWithCheckPublicActivity(newTitle, null);
 		naTool.goToHomePage();
 		waitForAndGetElement(activity.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
-		
+
 		info("Edit content of page -> check comment in activity");
 		click(By.linkText(newTitle));
 		editPageWithCheckPublicActivity(null, newContent);
 		naTool.goToHomePage();
 		waitForAndGetElement(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
-		
+
 		click(By.linkText(newTitle));
 		deleteCurrentWikiPage();
 	}	
-	
+
 	/**CaseId: 70281 -> Edit page when publish activity is not checked
 	 * 
 	 */
@@ -306,25 +307,25 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		String content = "Wiki_manage_page_content_11";
 		String newTitle = "Wiki_manage_page_title_11_update";
 		String newContent = "Wiki_manage_page_content_11_update";
-		
+
 		info("Add new wiki page");		
 		addBlankWikiPage(title, content, 0);
-		
+
 		info("Edit title of page -> check comment in activity");
 		editWikiPage(newTitle, null, 0);
 		naTool.goToHomePage();
 		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
-		
+
 		info("Edit content of page -> check comment in activity");
 		click(By.linkText(newTitle));
 		editWikiPage(null, newContent, 0);
 		naTool.goToHomePage();
 		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
-		
+
 		click(By.linkText(newTitle));
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**CaseID: 68839 -> Rename Page in line
 	 * 
 	 */
@@ -333,7 +334,7 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		String title = "Wiki_manage_page_title_12";
 		String content = "Wiki_manage_page_content_12";
 		String newTitle = "Wiki_manage_page_title_12_update";
-		
+
 		info("Add new wiki page");		
 		addBlankWikiPage(title, content, 0);
 

@@ -83,8 +83,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		//Delete data
 		goToForums();
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);	
 	}
 	
 	/**
@@ -116,8 +115,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		//Delete data
 		goToForums();
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);		
 	}
 	
 	/**
@@ -146,9 +144,9 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		//Delete data
 		goToForums();
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);		
 	}
+	
 	/**
 	 * CaseID: 75278
 	 * Update topic content
@@ -175,9 +173,9 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		//Delete data
 		goToForums();
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);	
 	}
+	
 	/**
 	 * CaseID: 75279
 	 * Lock/Unlock a topic
@@ -208,8 +206,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		//Delete data
 		goToForums();
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);	
 	}
 	
 	/**
@@ -240,8 +237,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		//Delete data
 		goToForums();
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);	
 	}
 	
 	/**
@@ -259,7 +255,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		//create category, forum, topic
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
-		
+
 		//Check activity
 		navTool.goToHomePage();
 		driver.navigate().refresh();
@@ -269,8 +265,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		//Delete data
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);		
 	}
 	
 	/**
@@ -303,8 +298,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		//Delete data
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);	
 	}
 	
 	/**
@@ -336,7 +330,6 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		//Delete data
 		click(By.linkText(titleCat));
-		mngCat.deleteCategoryInForum(titleCat, true);
-		
+		mngCat.deleteCategoryInForum(titleCat, true);		
 	}
 }

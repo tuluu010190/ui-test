@@ -26,7 +26,6 @@ import org.testng.annotations.Test;
  * @author: PhuongDT
  * @date: 04/09/2013
  */
-
 public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBase {
 	//Platform
 	ManageAccount magAcc;
@@ -1337,4 +1336,3 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		waitForElementNotPresent(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", document));
 	}
 }
-

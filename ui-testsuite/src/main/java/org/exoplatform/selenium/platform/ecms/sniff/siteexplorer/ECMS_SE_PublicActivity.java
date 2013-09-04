@@ -504,7 +504,7 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 	 */
 	@Test
 	public void test17_CheckIntranetHomePage_AfterMovingContent(){
-		String name = "Public_activity_web_content_12";
+		String name = "Public_activity_web_content_17";
 		String sum = "line1/line2/line3/line4/line5";
 		By elementWeb = By.linkText(name);
 		String folder = "contentfolder17";

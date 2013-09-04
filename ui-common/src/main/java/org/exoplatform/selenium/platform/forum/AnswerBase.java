@@ -33,7 +33,7 @@ public class AnswerBase extends ForumBase {
 	//Add answer page
 	public final String DATA_ANSWER_PAGE_NAME = "Answer";
 	public final String CATEGORY_TITLE = "Collaboration";
-	public final String MSG_SAVE_ANSWER_PORTLET_SETTING="The settings have been saved.";
+	public final String MSG_SAVE_ANSWER_PORTLET_SETTING = "The settings have been saved.";
 	
 	//Search in answer
 	public final By ELEMENT_SIMPLESEARCH_TEXTBOX_IN_ANSWER = By.id("inputValue");
@@ -166,6 +166,7 @@ public class AnswerBase extends ForumBase {
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
+	
 	/**function setting display mode in answert portlet
 	 * @author lientm
 	 * @param all

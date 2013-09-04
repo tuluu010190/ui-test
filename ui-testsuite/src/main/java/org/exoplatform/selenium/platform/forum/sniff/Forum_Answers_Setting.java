@@ -69,8 +69,7 @@ public class Forum_Answers_Setting extends AnswerBase {
 		String descriptionForum = "Add new category for forum";
 		String forumName = "Forum1";
 		String content = "Question move";		
-
-		
+	
 		info("Add 2 category at root ans submit a question for category1");
 		magCat.addNewCategoryInAnswer(categoryName1, null, description1, 2, userGroup1, true, false);
 		magCat.addNewCategoryInAnswer(categoryName2, null, description2, 3, userGroup2, true, true, true, true, true);

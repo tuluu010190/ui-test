@@ -12,7 +12,8 @@ import org.openqa.selenium.By;
 public class ManageDraft extends RichTextMode {
 	ManageAlert magAl;
 	
-	public By ELEMENT_DRAFT_NOTIFY = By.xpath("//*[@class='uiWikiPageEditForm_MessageArea pull-left' and contains(text(), 'Draft saved at')]");
+	public By ELEMENT_DRAFT_NOTIFY = By.xpath("//*[contains(@class, 'uiWikiPageEditForm') and contains(text(), 'Draft saved at')]");
+			//By.xpath("//*[@class='uiWikiPageEditForm_MessageArea pull-left' and contains(text(), 'Draft saved at')]");
 	
 	//Manage Draft screen
 	public String ELEMENT_DRAFT_OF_NEW_PAGE = "//*[@id='UIWikiDraftGrid']//*[text()='${title} (New Page)']";

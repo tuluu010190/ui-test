@@ -118,6 +118,7 @@ public class ForumManageCategory extends ForumBase {
 			break;
 		}
 	}
+	
 	/**
 	 * function input data in category form
 	 * @param catName
@@ -150,7 +151,6 @@ public class ForumManageCategory extends ForumBase {
 
 	}
 
-
 	/**
 	 * function add new category in Forum app
 	 * @param catName
@@ -173,7 +173,6 @@ public class ForumManageCategory extends ForumBase {
 			waitForAndGetElement(ELEMENT_CATEGORY.replace("${categoryName}", catName));
 		}
 	}
-
 
 	/**function go to edit category
 	 * @author lientm
@@ -208,7 +207,6 @@ public class ForumManageCategory extends ForumBase {
 		}
 	}
 
-
 	/**function: delete a category
 	 * @author lientm
 	 * @param title: title of category
@@ -221,7 +219,8 @@ public class ForumManageCategory extends ForumBase {
 		click(ELEMENT_DELETE_CATEGORY);
 		click(ELEMENT_OK_DELETE_CATEGORY);
 		if(check == true){
-			waitForTextNotPresent(title);
+			//waitForTextNotPresent(title);
+			waitForElementNotPresent(By.linkText(title));
 		}
 		info("Delete category successfully");
 	}

@@ -2,7 +2,9 @@ package org.exoplatform.selenium.platform;
 
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 /**
  * 
@@ -91,7 +93,15 @@ public class PlatformPermission extends PlatformBase {
 	public void selectGroupMembership(String groupPath, String membership){
 		userGroup = new UserGroupManagement(driver);
 		userGroup.selectGroup(groupPath);	
-		click(By.xpath("//*[contains(text(), '" + membership + "')]"));
+		WebElement elementMembership = waitForAndGetElement("//*[contains(text(), '" + membership + "')]", 5000, 0);
+		WebElement elementMembership_1 = waitForAndGetElement(By.linkText(membership), 5000, 0);
+		//WebElement elementMembership_2 = waitForAndGetElement("//*[@title='" + membership + "']", 5000, 0);
+		if (elementMembership_1 != null){
+			//click(elementMembership_1);
+			((JavascriptExecutor)driver).executeScript("arguments[0].click();", elementMembership_1);
+		}else {
+			click(elementMembership);
+		}
 		Utils.pause(1000);
 	}
 }

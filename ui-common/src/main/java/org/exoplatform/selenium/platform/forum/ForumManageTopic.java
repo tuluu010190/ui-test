@@ -652,14 +652,12 @@ public class ForumManageTopic extends ForumBase {
 	 * 				 = 4: Reopen a topic
 	 */
 	public void actionOnTopic(int action){
-
+		mngPost = new ForumManagePost(driver);
 		click(ELEMENT_MORE_ACTION);
-
 		switch (action) {
 		case 1: 
 			info("Lock a topic");
 			click(ELEMENT_LOCK_TOPIC);
-
 			waitForElementNotPresent(mngPost.ELEMENT_POST_REPLY_BUTTON);
 			waitForAndGetElement(mngPost.ELEMENT_REPLY_LOCK_BUTTON);
 			click(mngPost.ELEMENT_REPLY_LOCK_BUTTON);
@@ -697,10 +695,8 @@ public class ForumManageTopic extends ForumBase {
 			click(mngPost.ELEMENT_POST_CANCEL_BUTTON);
 			break;
 
-
 		default: break;
 		}
-
 	}
 
 	/**

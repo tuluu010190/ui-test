@@ -25,8 +25,7 @@ public class Forum_Search extends ForumBase {
 	ForumManageForum forum;
 	ForumManageTopic magtopic;
 	ForumManagePost post;
-	
-	
+		
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();

@@ -197,10 +197,11 @@ public class AnswerManageCategory extends AnswerBase {
 			click(ELEMENT_CATEGORY_BUTTON);
 			click(ELEMENT_DELETE_CATEGORY_ON_MENU);
 		}
-		waitForMessage(MSG_DELETE_CATEGORY);
+		//waitForMessage(MSG_DELETE_CATEGORY);
 		click(ELEMENT_OK_DELETE_BUTTON);
 		if (check){
-			waitForTextNotPresent(categoryName);
+			//waitForTextNotPresent(categoryName);
+			waitForElementNotPresent(By.linkText(categoryName));
 		}
 		Utils.pause(1000);
 	}

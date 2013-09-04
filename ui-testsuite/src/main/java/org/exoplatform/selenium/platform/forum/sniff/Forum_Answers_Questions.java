@@ -61,8 +61,8 @@ public class Forum_Answers_Questions extends AnswerBase {
 		goToAnwserHome();
 		
 		magCat.deleteCategoryInAnswer(categoryName);
-	
 	}
+	
 	/**CaseId: 70986 + 70988 -> edit question and delete question in manage question form
 	 * 
 	 */
@@ -89,6 +89,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		
 		magCat.deleteCategoryInAnswer(categoryName);
 	}
+	
 	/** CaseId: 71094: Active/Deactive Question
 	 * 
 	 */
@@ -135,9 +136,9 @@ public class Forum_Answers_Questions extends AnswerBase {
 		
 		goToAnswer();
 				
-		magCat.deleteCategoryInAnswer(categoryName);
-		
+		magCat.deleteCategoryInAnswer(categoryName);	
 	}
+	
 	/**
 	 * CaseId: 71095: Approve/Disapprove question
 	 */
@@ -186,6 +187,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 				
 		magCat.deleteCategoryInAnswer(categoryName);
 	}
+	
 	/**
 	 * CaseId: 70983: Move question
 	 */
@@ -221,10 +223,9 @@ public class Forum_Answers_Questions extends AnswerBase {
 		
 		magCat.deleteCategoryInAnswer(categoryName1);
 		
-		magCat.deleteCategoryInAnswer(categoryName2);
-		
-			
+		magCat.deleteCategoryInAnswer(categoryName2);		
 	}
+	
 	/**
 	 * CaseId: 68959: Send question to friend
 	 */
@@ -272,9 +273,9 @@ public class Forum_Answers_Questions extends AnswerBase {
 		
 		info("Clear data");
 		
-		magCat.deleteCategoryInAnswer(categoryName);
-		
+		magCat.deleteCategoryInAnswer(categoryName);	
 	}
+	
 	/**
 	 * CaseId: 68958: Vote question
 	 */
@@ -298,9 +299,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		
 		goToAnwserHome();
 		
-		magCat.deleteCategoryInAnswer(categoryName);
-		
-		
+		magCat.deleteCategoryInAnswer(categoryName);		
 	}
 	
 	public void viewQuestionWithDemoUser(String categoryName, String questionName, boolean view){

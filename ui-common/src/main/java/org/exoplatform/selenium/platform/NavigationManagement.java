@@ -152,6 +152,7 @@ public class NavigationManagement extends  PlatformBase{
 	public void deleteNode(String currentNavigation, String nodeNameHome, String nodeName, boolean firstLevel){
 		info("--Delete a node from navigation--");
 		alt = new ManageAlert(driver);
+		but = new Button(driver);
 		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);	
 		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
 		editNavigation(currentNavigation);

@@ -19,7 +19,6 @@ import org.testng.annotations.Test;
  * @author thuntn
  * @date: 28/08/2013
  */
-
 public class ECMS_SE_Admin_Import_WebContent extends PlatformBase {
 	ManageAccount magAcc;
 	NavigationToolbar navToolBar;
@@ -105,6 +104,7 @@ public class ECMS_SE_Admin_Import_WebContent extends PlatformBase {
 		//Delete data
 		cMenu.deleteDocument(bNode);
 	}
+	
 	/**
 	 * CaseID: 75006
 	 * Import Accessible Media into Web Content

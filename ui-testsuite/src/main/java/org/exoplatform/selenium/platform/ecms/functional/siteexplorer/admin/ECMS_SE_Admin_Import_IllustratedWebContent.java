@@ -18,9 +18,6 @@ import org.testng.annotations.Test;
  * @author Thuntn
  * @date 27/08/2013
  */
-
-
-
 public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 	ManageAccount magAcc;
 	NavigationToolbar navToolBar;
@@ -29,7 +26,6 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 	ContentTemplate cTemplate;
 	ContextMenu cMenu;
 	SitesExplorer siteExp;
-
 
 	@BeforeMethod
 	public void beforeMethods() {
@@ -109,6 +105,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		//Delete data
 		cMenu.deleteDocument(bNode);
 	}
+	
 	/**
 	 * CaseID: 75024
 	 * Import File into Illustrated Web Content
@@ -331,6 +328,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		//Delete data
 		cMenu.deleteDocument(bNode);
 	}
+	
 	/**
 	 * CaseID: 75027
 	 * Import JS File into Illustrated Web Content

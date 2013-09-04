@@ -19,7 +19,7 @@ public class BrowserPreferences extends EcmsBase{
 		super(dr);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	Button button = new Button(driver);
 	//Preference
 	public final By ELEMENT_PREFERENCE_LINK = By.xpath("//*[contains(@class, 'setupPreferencesButton')]");

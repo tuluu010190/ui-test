@@ -26,6 +26,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 	AnswerManageAnwser mAns;
 	AnswerManageComment mCom;
 	HomePageActivity HPAct;
+	
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
@@ -206,8 +207,6 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		click(By.linkText(questionName));
 		mQuest.deleteQuestion(2, questionName);
 	}
-
-
 
 	/**CaseId: 74761
 	 * Edit question title
