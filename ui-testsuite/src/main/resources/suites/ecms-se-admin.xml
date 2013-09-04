@@ -1,11 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="ECMS Functional Test" verbose="1" preserve-order="true">
-<<<<<<< HEAD
 	<test name="ecms-func-se-admin" enabled="true">
-=======
-	<test name="ecms-func-se-createnode" enabled="true">
->>>>>>> FQA-1210: PLF4 - ECMS - SE - Admin - Import - Folder and Illustrated Web Content
 		<groups>
 			<run>
 				<exclude name="pending" />
@@ -13,13 +9,7 @@
 		</groups>
 		<packages>
 			<package name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.admin.*" />
-<<<<<<< HEAD
 		</packages>
-		
-=======
-			
-		</packages>
->>>>>>> FQA-1210: PLF4 - ECMS - SE - Admin - Import - Folder and Illustrated Web Content
 	</test>
 	<listeners>
 		<listener class-name="org.exoplatform.selenium.TestReportListener" />
