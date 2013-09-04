@@ -27,23 +27,29 @@ public class BrowserPreferences extends EcmsBase{
 	public final By ELEMENT_ADVANCED_ICON_ARROW_DOWN = By.xpath("//*[@class='advancePreferences']//*[@class='uiIconArrowDown']");
 	public final By ELEMENT_ADVANCED_ICON_ARROW_UP = By.xpath("//*[@class='advancePreferences']//*[@class='uiIconArrowUp']");
 	public final By ELEMENT_SHOW_SIDEBAR = By.id("showSideBar");
+	public final By ELEMENT_NODE_PER_PAGE = By.xpath("//select[@class='selectbox' and @name='nodesPerPage']");
+
 	//Enable preferences option
-	public void setUpPreferenceOption(String optionId){
+	public void setUpPreferenceOption(String optionId, String...opts){
 		info("-- Settings for preferences --");
-		By option = By.id(optionId);	
 		click(ELEMENT_PREFERENCE_LINK);
-		//WebElement opt = waitForAndGetElement(option, 5000, 0);
-		if (isTextNotPresent("Enable DMS Structure")){
-			if (waitForAndGetElement(ELEMENT_ADVANCED_ICON_ARROW_DOWN, 5000, 0) != null){
-				click(ELEMENT_ADVANCED_ICON_ARROW_DOWN);
-			}else {
-				click(ELEMENT_ADVANCED_OPTION);
+		if (optionId != null){
+			By option = By.id(optionId);	
+			if (isTextNotPresent("Enable DMS Structure")){
+				if (waitForAndGetElement(ELEMENT_ADVANCED_ICON_ARROW_DOWN, 5000, 0) != null){
+					click(ELEMENT_ADVANCED_ICON_ARROW_DOWN);
+				}else {
+					click(ELEMENT_ADVANCED_OPTION);
+				}
+			}
+			WebElement opt = waitForAndGetElement(option, 5000, 0, 2);
+			info(optionId  + " is " + opt.getAttribute("value"));
+			if (!opt.getAttribute("value").equals("checked")){
+				click(option, 2);
 			}
 		}
-		WebElement opt = waitForAndGetElement(option, 5000, 0, 2);
-		info(optionId  + " is " + opt.getAttribute("value"));
-		if (!opt.getAttribute("value").equals("checked")){
-			click(option, 2);
+		if (opts.length > 0){
+			select(ELEMENT_NODE_PER_PAGE, opts[0]);
 		}
 		button.save();
 		waitForTextNotPresent("Preferences");

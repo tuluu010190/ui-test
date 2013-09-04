@@ -68,7 +68,7 @@ public class ContextMenu extends EcmsBase{
 	 *
 	 */
 	public enum actionType{
-		COPY, CUT, DELETE, PASTE, LOCK, UNLOCK, CHECKIN, CHECKOUT, 
+		COPY, CUT, DELETE, EDIT, PASTE, LOCK, UNLOCK, CHECKIN, CHECKOUT, 
 		RENAME, SYMLINK, VIEW_INFORMATION, DOWNLOAD;
 	}
 

@@ -258,7 +258,9 @@ public class ActionBar extends EcmsBase{
 	//Edit a document
 	public void goToEditDocument(String title)
 	{	
-		goToNode(title);
+		if (title != null){
+			goToNode(title);
+		}
 		for(int loop = 1;;loop ++)
 		{
 			if (loop >= ACTION_REPEAT) {
@@ -687,6 +689,9 @@ public class ActionBar extends EcmsBase{
 			break;
 		case CUT:
 			click(ELEMENT_CUT_NODE);
+			break;
+		case EDIT:
+			click(cMenu.ELEMENT_MENU_EDIT);
 			break;
 		case DELETE:
 			if (waitForAndGetElement(cMenu.ELEMENT_MENU_DELETE, 3000, 0) != null){

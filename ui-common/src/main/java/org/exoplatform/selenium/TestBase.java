@@ -46,7 +46,6 @@ public class TestBase {
 	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
-
 	public void initSeleniumTest(){
 		String browser = System.getProperty("browser");
 		if("chrome".equals(browser)){
