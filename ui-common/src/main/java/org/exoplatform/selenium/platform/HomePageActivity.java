@@ -5,9 +5,17 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.internal.Locatable;
+
+
+
 
 /**
  * Update: vuna2
@@ -16,18 +24,22 @@ import org.testng.Assert;
  */
 public class HomePageActivity extends PlatformBase{
 
-	public HomePageActivity(WebDriver dr){
-		driver = dr;
-	}
-
 	Button button;
 	Dialog dialog;
 	ManageAlert alert;
+	ForumManagePost post;
 
+	public HomePageActivity(WebDriver dr){
+		driver = dr;
+		post = new ForumManagePost(driver);
+	}
 	//Comment box
-	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]";
+	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]";
 	public final String ELEMENT_ACTIVITY_DELETE_COMMENT_ICON = "//*[@class='contentComment' and contains(text(), '${comment}')]/../..//*[contains(@id, 'DeleteCommentButton')]";
 	public final String DATA_MESSAGE_CONFIRM_DELETE_COMMENT = "Are you sure you want to delete this comment?";
+
+	public final String ELEMENT_COMMENTBOX="//*[text()='${title}']/../../../..//div[@class='exo-mentions']/div[contains(@id,'DisplayCommentTextarea')]";
+	public final String ELEMENT_ICON_COMMENT = "//*[text()='${title}']/../../../..//div[@class='actionBar clearfix forumActivityIcon']//i[@class='uiIconComment uiIconLightGray']";
 
 	//Content activity
 	public final String ELEMENT_CONTENT_NAME = "//a[@title='@{fileName}']";
@@ -72,6 +84,24 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_QUESTION_RATE = "//a[@class='linkTitle' and text()='${title}']/../..//div[@class='avgRatingImages sumaryRate']/i[@class='voted'][${rate}]";
 	public final String ELEMENT_QUESTION_HAFT_RATE = "//a[@class='linkTitle' and text()='${title}']/../..//div[@data-original-title='Average']/i[@class='votedHaft']";
 	public final String ELEMENT_QUESTION_VIEW_COMMENT = "//a[text()='${title}']/../../../..//div[@class='commentListInfo clearfix']/a";
+	//Forum activity
+	public final String ELEMENT_FORUM_ACT_CONTENT = "//a[text()='${title}']/../../..//div[@class='contentForum theContent']//p";
+	public final String ELEMENT_FORUM_NUMBER_REPLY = "//a[text()='${title}']/../../..//div[@class='contentForum theContent']/span[text()='${number} Replies']";
+	public final String ELEMENT_FORUM_ONE_REPLY = "//a[text()='${title}']/../../..//div[@class='contentForum theContent']/span[text()='${number} Reply']";
+	public final String ELEMENT_TOPIC_RATE = "//a[@class='textBold linkTitle' and text()='${title}']/../..//div[@class='avgRatingImages sumaryRate']/i[@class='voted'][${rate}]";
+	public final String ELEMENT_TOPIC_HAFT_RATE = "//a[@class='textBold linkTitle' and text()='${title}']/../..//div[@data-original-title='Average']/i[@class='votedHaft']";
+	public final String ELEMENT_TOPIC_REPLY = "//a[contains(text(),'${title}')]/../../../..//i[@class='uiIconReply uiIconLightGray']";
+	public final String ELEMENT_TOPIC_LAST_REPLY = "//a[contains(text(),'${title}')]/../../../..//i[@class='uiIconSocLastestReply uiIconSocLightGray']";
+	public final String ELEMENT_REPLY_VIEW = "//a[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]/../../..//a[@class='viewComment' and contains(text(),'View')]";
+
+	//Poll activity
+	public final String ELEMENT_POLL_ACTIVITY = "//div[@class='uiBox roundedBottom introBox pollShare']//a[contains(text(),'${poll}')]";
+	public final String ELEMENT_VOTE = "//div[@class='uiBox roundedBottom introBox pollShare']//a[contains(text(),'${poll}')]/../../..//div[@class='titleVote' and contains(text(),'${vote}')]";
+	public final String ELEMENT_VOTE_PROGRESSBAR = "//div[@class='uiBox roundedBottom introBox pollShare']//a[contains(text(),'${poll}')]/../../..//div[@class='titleVote' and contains(text(),'${vote}')]/..//div[@class='progressBar']";
+	public final String ELEMENT_VOTE_RATE = "//div[@class='uiBox roundedBottom introBox pollShare']//a[contains(text(),'${poll}')]/../../..//div[@class='titleVote' and contains(text(),'${vote}')]/..//div[@class='progressing' and contains(text(),'(${rate} vote)')]";
+	public final String ELEMENT_POLL_VOTE = "//a[contains(text(),'${poll}')]/../../../..//i[@class='uiIconSocVote uiIconSocLightGray']";
+	public final String ELEMENT_TOPIC_COMMENT = "//a[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]/../..";
+
 
 	/** function check info in activity of a content/file
 	 * @author lientm
@@ -277,6 +307,16 @@ public class HomePageActivity extends PlatformBase{
 		waitForAndGetElement(ELEMENT_ACTIVITY_MOVE_WIKI_PAGE.replace("${title}", title).replace("${path}", path));
 	}
 
+
+	/**
+	 * function check comment in activity after moving a topic
+	 * @param title
+	 * @param path
+	 */
+	public void checkCommentAfterMoveTopic(String title, String path){
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", title).replace("${comment}", "Topic have been moved to: " + path));
+	}
+
 	/** Check content and number of lines of content on activity
 	 * @author thuntn
 	 * @param name
@@ -288,6 +328,7 @@ public class HomePageActivity extends PlatformBase{
 		char[] character = activityContent.toCharArray();
 		char[] contChar = content.toCharArray();
 
+		info("Check content and number of lines of content on activity");
 		if (activityContent.contains("...")){
 			String sumary = activityContent.replace("...", "");
 			sum = sumary.split("\n");
@@ -300,7 +341,7 @@ public class HomePageActivity extends PlatformBase{
 		}
 		if (sum.length > 4){
 			Assert.assertFalse(false, "This content has more than 4 lines");
-			
+
 		}else {
 			if (sum.length == 4) 
 				for (int i = 0; i < sum.length; i ++){
@@ -387,7 +428,178 @@ public class HomePageActivity extends PlatformBase{
 	public void checkDeactivateQuestion(String question){
 		info("Check for comment of question after activating a question");
 
-
 		waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", "Question has been unactivated."));
+	}
+
+	/** Check reply of a topic, and number of reply
+	 * @author thuntn
+	 * @param topic
+	 * @param reply
+	 */
+	public void checkReplyForum(String topic, String...reply){
+		int number = reply.length;
+
+		info("Check reply of a topic, and number of reply");
+		//Check number of reply
+		if (number == 1)
+			waitForAndGetElement(ELEMENT_FORUM_ONE_REPLY.replace("${title}", topic).replace("${number}", Integer.toString(number)));
+		else 
+			waitForAndGetElement(ELEMENT_FORUM_NUMBER_REPLY.replace("${title}", topic).replace("${number}", Integer.toString(number)));
+
+		for(int i = 0; i < number; i++){
+			waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", topic).replace("${comment}", reply[i]));
+		}
+
+	}
+
+	/** Check Rate of Topic
+	 * @author thuntn
+	 * @param name: name of topic
+	 * @param rate: rate of topic
+	 */
+	public void checkRateTopic(String topic, Double rate){
+		int round = rate.intValue();
+		Double remaining = rate - round;
+
+		info("Check Rate of Topic");
+		for (int i = 1; i <= rate ; i++){
+			waitForAndGetElement(ELEMENT_TOPIC_RATE.replace("${title}", topic).replace("${rate}", Integer.toString(round)));
+		}
+		if (remaining != 0 ){
+			waitForAndGetElement(ELEMENT_TOPIC_HAFT_RATE.replace("${title}", topic));
+		}
+	} 
+	/** Check activity after updating a topic
+	 * @author thuntn
+	 * @param topicTitle: Title of topic
+	 * @param newContent: new content of topic 
+	 */
+	public void checkUpdateTopic(String topicTitle, String newContent){
+
+		info("Check activity after updating a topic");
+		//Check content
+		checkNumberOfLineOfContent(getText((ELEMENT_FORUM_ACT_CONTENT.replace("${title}", topicTitle))), newContent);
+		//Check comment
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", topicTitle).replace("${comment}", "Content has been edited."));
+
+	}
+
+	/** Check activity after Locking a topic
+	 * @author thuntn
+	 * @param topicTitle: Title of topic
+	 */
+	public void checkLockTopic(String topicTitle){
+
+		info("Check activity after Locking a topic");
+
+		waitForAndGetElement(By.linkText(topicTitle));
+		waitForElementNotPresent(ELEMENT_ICON_COMMENT.replace("${title}", topicTitle));
+		waitForElementNotPresent(ELEMENT_COMMENTBOX.replace("${title}", topicTitle));
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", topicTitle).replace("${comment}", "Topic has been locked."));
+	}
+
+	/** Check activity after Unlocking a topic
+	 * @author thuntn
+	 * @param topicTitle: Title of topic
+	 */
+	public void checkUnlockTopic(String topicTitle){
+
+		info("Check activity after Unlocking a topic");
+
+		waitForAndGetElement(By.linkText(topicTitle));
+		//Check if icon comment, comment box appear
+		waitForAndGetElement(ELEMENT_ICON_COMMENT.replace("${title}", topicTitle));
+		click(ELEMENT_ICON_COMMENT.replace("${title}", topicTitle));
+		waitForAndGetElement(ELEMENT_COMMENTBOX.replace("${title}", topicTitle));
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", topicTitle).replace("${comment}", "Topic has been unlocked."));
+
+	}
+
+	/** Check activity after adding a poll
+	 * @author thuntn
+	 * @param topic: title of topic
+	 * @param poll: title of poll
+	 * @param options: array of options of the poll
+	 * @param rate: array of rate of options, corresponding to options array
+	 */
+	public void checkAddPoll(String topic, String poll,String[] options, String[] rate){
+		int length = options.length;
+
+		info("Check activity after adding a poll");
+		//Check comment of topic activity
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", topic).replace("${comment}", "A poll has been added to the topic."));
+		//Check poll activity
+		waitForAndGetElement(ELEMENT_POLL_ACTIVITY.replace("${poll}", poll));
+
+		//Check vote, rate of each vote
+		for(int i = 0; i < length; i ++){
+			waitForAndGetElement(ELEMENT_VOTE.replace("${poll}", poll).replace("${vote}", options[i]));
+			waitForAndGetElement(ELEMENT_VOTE_PROGRESSBAR.replace("${poll}", poll).replace("${vote}", options[i]));
+			if (i < rate.length)
+				waitForAndGetElement(ELEMENT_VOTE_RATE.replace("${poll}", poll).replace("${vote}", options[i]).replace("${rate}", rate[i]));
+		}
+
+	}
+
+	/** Check activity after editing a poll
+	 * @author thuntn
+	 */
+	public void checkEditPoll(String poll){
+		info("Check activity after editing a poll");
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", poll).replace("${comment}", "Poll has been updated."));
+	}
+
+	/** Open Poll from activity
+	 * @author thuntn
+	 * @param poll
+	 */
+	public void openVoteFromActivity(String poll){
+		info("Open Poll from activity");
+		click(ELEMENT_POLL_VOTE.replace("${poll}", poll));
+
+		waitForAndGetElement(By.linkText("Vote Now"));
+	}
+
+	/** Open Reply form from activity
+	 * @author thuntn
+	 * @param topic
+	 */
+	public void openReplyFormFromActivity(String topic){
+		info("Open Reply form from activity");
+		click(ELEMENT_TOPIC_REPLY.replace("${title}", topic));
+		waitForAndGetElement(post.ELEMENT_POST_POPUP_NEW);
+		assert waitForAndGetElement(post.ELEMENT_POST_TITLE).getAttribute("value").equalsIgnoreCase("Re: " + topic);
+
+		click(post.ELEMENT_POST_CANCEL);
+		waitForElementNotPresent(post.ELEMENT_POST_POPUP_NEW);
+	}
+	/** Open last reply of topic
+	 * @author thuntn
+	 * @param topic
+	 */
+	public void openLastReplyFromActivity(String topic, String lastReply){
+		info("Open last reply of topic");
+		click(ELEMENT_TOPIC_LAST_REPLY.replace("${title}", topic));
+		waitForAndGetElement(post.ELEMENT_POST_REPLY_BUTTON);
+		waitForTextPresent(lastReply);
+
+	}
+	/**View a reply by clicking on View in activity
+	 * @author thuntn
+	 * @param topic
+	 * @param reply
+	 */
+	public void viewReplyFromActivity(String topic, String reply){
+		info("View a reply by clicking on View in activity");
+		Actions actions = new Actions(driver);
+		WebElement element = waitForAndGetElement(ELEMENT_TOPIC_COMMENT.replace("${title}",topic).replace("${comment}", reply));
+
+		Locatable hoverItem = (Locatable) driver.findElement(By.xpath("//div[@class='footerWLC backOutdated']"));
+		int y = hoverItem.getCoordinates().onPage().getY();
+		((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+y+");");
+		actions.moveToElement(element).click().perform();
+		click(ELEMENT_REPLY_VIEW.replace("${title}", topic).replace("${comment}", reply),2);
+		waitForAndGetElement(post.ELEMENT_POST_REPLY_BUTTON);
+		waitForTextPresent(reply);
 	}
 }

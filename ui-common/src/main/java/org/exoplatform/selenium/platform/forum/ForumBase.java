@@ -36,9 +36,12 @@ public class ForumBase extends PlatformBase {
 	//-----------------Forum Home screen--------------------------------------------
 	public final By ELEMENT_ADD_CATEGORY = By.linkText("Add Category");
 	public final By ELEMENT_ADD_FORUM = By.linkText("Add Forum");
+	public final String ELEMENT_BREAD_FORUM = "//li[text()='${forum}']";
 	public final By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
 	public final By ELEMENT_INFO = By.xpath("//span[@class='PopupIcon InfoMessageIcon']");
 	public final By ELEMENT_MORE_ACTION = By.xpath("//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");
+	public final By ELEMENT_JUMP_TO = By.id("forumLink");
+	public final By ELEMENT_GO_BUTTON = By.linkText("Go");
 	public final By ELEMENT_MODERATION = By.linkText("Moderation");
 	public final By ELEMENT_MODERTATION_DELETE_BUTTON = By.xpath("//*[@id='ModerationMenu']//a[contains(text(),'Delete')]");
 	public final By ELEMENT_WATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'AddWatching')]");
@@ -1112,6 +1115,7 @@ public class ForumBase extends PlatformBase {
 				check(ELEMENT_USER_MANAGEMENT_FORUM_ADMIN, 2);			
 			}else {
 				uncheck(ELEMENT_USER_MANAGEMENT_FORUM_ADMIN, 2);
+
 			}
 		}
 		if (opt.length > 1){

@@ -24,10 +24,14 @@ public class ForumManagePost extends ForumBase {
 	
 	public ForumManagePost(WebDriver dr){
 		driver = dr;
+		magTopic = new ForumManageTopic(driver);
+		per = new ForumPermission(driver);
+		magTopic = new ForumManageTopic(driver);
+		but = new Button(driver);
 	}
 	
 	//--------------post home screen--------------------------------------------------------
-	public By ELEMENT_POST_REPLY_BUTTON = By.xpath("//*[@id='UITopicDetail']/div[2]//*[text()='Post Reply']");
+	public By ELEMENT_POST_REPLY_BUTTON = By.linkText("Post Reply");
 	public String ELEMENT_POST_EDIT_BUTTON = "//*[text()='${postContent}']/../../../../*//a[text()='Edit' and @class='IconButton EditPostIcon']";
 	public String ELEMENT_POST_DELETE_BUTTON = "//*[text()='${postContent}']/../../../../*//a[text()='Delete' and @class='IconButton DeletePostIcon']";
 	public String ELEMENT_POST_CHECKBOX = "//*[text()='${postContent}']/../../../../*//input[@type='checkbox']";
@@ -51,6 +55,8 @@ public class ForumManagePost extends ForumBase {
 	public By ELEMENT_POST_POPUP_NEW = By.xpath("//span[@class='PopupTitle popupTitle' and text()='New Post']");
 	public By ELEMENT_POST_ICONS_TAB = By.xpath("//a[contains(text(), 'Icons and Smileys')]");
 	public By ELEMENT_POST_PRIVATE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Private Post']");
+
+	public By ELEMENT_POST_CANCEL = By.xpath("//form[@id='UIPostForm']//button[text()='Cancel']");
 	
 	//--------------quick reply form-----------------------------------------------------------
 	public By ELEMENT_POST_QUICK_MESSAGE = By.id("UITopicDetail.label.Message");

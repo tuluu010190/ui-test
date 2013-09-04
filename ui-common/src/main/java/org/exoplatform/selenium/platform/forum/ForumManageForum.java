@@ -14,7 +14,7 @@ import org.openqa.selenium.WebDriver;
  * @date 19 Aug 2013
  */
 public class ForumManageForum extends ForumBase {
-	
+
 	Button but;
 	ManageAlert alert;
 	ForumManageCategory cat;
@@ -22,6 +22,10 @@ public class ForumManageForum extends ForumBase {
 	
 	public ForumManageForum(WebDriver dr){
 		driver = dr;
+		but = new Button(driver);
+		per = new ForumPermission(driver);
+		alert = new ManageAlert(driver);
+		cat = new ForumManageCategory(driver);
 	}
 
 	//--------------------forum home screen-------------------------------------------------
@@ -34,32 +38,33 @@ public class ForumManageForum extends ForumBase {
 	public By ELEMENT_CENSOR_TOPIC = By.xpath("//a[@class='ItemIcon SetUnWaiting' and text()='Censor ']");
 	public By ELEMENT_MODERATOR_PANEL = By.xpath("//*[@id='uicomponent.id' and @class='UIForumModerator']");
 	public By ELEMENT_RULE_PANEL = By.id("UIPostRules");
-	
+	public String ELEMENT_TOPIC_LINK = "//a[contains(text(),'${topic}')]";
+
 	//-------------------add forum form---------------------------------------------------
 	public By ELEMENT_POPUP_ADD_FORUM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Forum']");
-	public By ELEMENT_SELECT_CATERORY = By.id("Category");
+	public By ELEMENT_SELECT_CATERORY = By.name("Category");
 	public By ELEMENT_ADD_FORUM_TAB = By.xpath("//div[@class='MiddleTab' and text()='Add Forum']");
 	public By ELEMENT_FORUM_TITLE = By.id("ForumTitle");
 	public By ELEMENT_FORUM_ORDER = By.id("ForumOrder");
-	public By ELEMENT_FORUM_STATE = By.id("ForumState");
+	public By ELEMENT_FORUM_STATE = By.name("ForumState");
 	public By ELEMENT_FORUM_STATUS = By.id("ForumStatus");
 	public By ELEMENT_FORUM_DESCRIPTION = By.id("Description");
-	public By ELEMENT_MODERATOR_TAB = By.xpath("//div[@class='MiddleTab' and text()='Moderation Options']");
+	public By ELEMENT_MODERATOR_TAB = By.linkText("Moderation Options");
 	public By ELEMENT_FORUM_MODERATOR = By.id("Moderator");
-	public By ELEMENT_FORUM_AUTO_FILL = By.id("AutoAddEmailNotify");
+	public By ELEMENT_FORUM_AUTO_FILL = By.name("AutoAddEmailNotify");
 	public By ELEMENT_NOTIFY_ADD_POST = By.id("NotifyWhenAddPost");
 	public By ELEMENT_NOTIFY_ADD_TOPIC = By.id("NotifyWhenAddTopic");
 	public By ELEMENT_MODERATE_THREAD = By.id("ModerateThread");
-	
+
 	//------------------move forum form---------------------------------------------------
 	public By ELEMENT_POPUP_MOVE_FORUM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Move Forum']");
 
 	//------------------Export forum form---------------------------------------------------
 	public By ELEMENT_EXPORT_FORUM_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Export Forums']");
 	public By ELEMENT_EXPORT_FORUM_COMPRESS = By.id("createZip");
-	
+
 	/*-------------------------------------Common function--------------------------------*/
-	
+
 	/** function: go to add forum
 	 * @author lientm
 	 */
@@ -128,6 +133,7 @@ public class ForumManageForum extends ForumBase {
 			check(ELEMENT_MODERATE_THREAD, 2);
 		}else {
 			uncheck(ELEMENT_MODERATE_THREAD, 2);
+
 		}
 	}
 
@@ -167,12 +173,13 @@ public class ForumManageForum extends ForumBase {
 	 */
 	public void addForum(String catName, String[] addForum, boolean autofill, String postEmail, String topicEmail, boolean moderateTopic,
 			int type, String[] userGroup, boolean...permission){
-		but = new Button(driver);
-		By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", addForum[0]));
 		
+		By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", addForum[0]));
+
 		goToAddForum();
 		info("Create new forum");
 		inputDataForum(catName, addForum, autofill, postEmail, topicEmail, moderateTopic, type, userGroup, permission);
+
 		but.save();
 		boolean verify = permission.length > 4 ? permission[4]:true;
 		if (verify){
@@ -187,6 +194,7 @@ public class ForumManageForum extends ForumBase {
 		By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", addForum[0]));
 		
 		goToAddForum();
+
 		info("Create new forum");
 		inputDataInAddForumTab_addForum(null, addForum);
 		but.save();
@@ -194,6 +202,7 @@ public class ForumManageForum extends ForumBase {
 		info("Create forum successfully");
 	}
   	
+
 	/** function: delete a forum
 	 * @author lientm
 	 * @param title: title of forum that needs to delete
@@ -206,7 +215,7 @@ public class ForumManageForum extends ForumBase {
 		waitForTextNotPresent(title);
 		info("Delete forum successfully");
 	}
-	
+
 	/** function: go to edit forum
 	 * @author lientm
 	 */
@@ -230,12 +239,13 @@ public class ForumManageForum extends ForumBase {
 	 */
 	public void editForum(String[] addForum, boolean autofill, String postEmail, String topicEmail, boolean moderateTopic,
 			int type, String[] userGroup, boolean...permission){
-		but = new Button(driver);
+
 		By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", addForum[0]));
-		
+
 		goToEditForum();
 		info("Edit forum");
 		inputDataForum(null, addForum, autofill, postEmail, topicEmail, moderateTopic, type, userGroup, permission);
+
 		but.save();	
 		boolean verify = permission.length > 4 ? permission[4]:true;
 		if (verify){
@@ -260,7 +270,7 @@ public class ForumManageForum extends ForumBase {
 		waitForAndGetElement(By.xpath("//*[text()='" + destination + "']/../*[text()='" + forum + "']"));
 		info("Move forum successfully");
 	}
-	
+
 	/** function: export a forum
 	 * @author lientm
 	 * @param fileName: file name export

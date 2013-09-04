@@ -27,17 +27,29 @@ public class ForumManageTopic extends ForumBase {
 	
 	public ForumManageTopic(WebDriver dr){
 		driver = dr;
+		userGroup = new UserGroupManagement(driver);
+		but = new Button(driver);
+		per = new ForumPermission(driver);
+		alert = new ManageAlert(driver);
+		magCat = new ForumManageCategory(driver);
+		magFor = new ForumManageForum(driver);
 	}
 	
 	//----------------topic home screen---------------------------------------------------
-	public By ELEMENT_DELETE_TOPIC = By.id("UITopicDetailConfirm0");
-	public By ELEMENT_EDIT_TOPIC = By.xpath("//*[contains(@href, 'EditTopic')]");
-	public By ELEMENT_MOVE_TOPIC = By.xpath("//*[contains(@href, 'SetMoveTopic')]");
+
+	public By ELEMENT_DELETE_TOPIC = By.xpath("//li[@class='defaultStyle forumSeparatorLine']//a[contains(text(),'Delete')]");
+	public By ELEMENT_EDIT_TOPIC = By.xpath("//li[@class='defaultStyle forumSeparatorLine']//a[contains(text(),'Edit')]");
+	public By ELEMENT_LOCK_TOPIC = By.xpath("//li[@class='defaultStyle forumSeparatorLine']//a[contains(text(),'Lock')]");
+	public By ELEMENT_UNLOCK_TOPIC = By.xpath("//li[@class='defaultStyle forumSeparatorLine']//a[contains(text(),'Unlock')]");
+	public By ELEMENT_MOVE_TOPIC = By.xpath("//div[@class='dropdown uiDropdownWithIcon actionIcon open']//i[@class='uiIconMove']");
 	public By ELEMENT_APPROVE_TOPIC = By.xpath("//a[@class='ItemIcon SetApproveIcon' and text()='Approve']");
 	public By ELEMENT_CHECK_ALL = By.xpath("//*[@id='UITopicContent']//input[@title='Check All']");
+	public String ELEMENT_BREADCRUMB_TOPIC = "//a[@data-original-title='${forum}']/../../li[text()='${topic}']";
+	public By ELEMENT_OK_DELETE_TOPIC = By.xpath("//span[contains(text(),'Are you sure you want to delete this topic ?')]/../../..//button[@class='btn actionOK']");
 	
 	//----------------start topic screen--------------------------------------------------
-	public By ELEMENT_START_TOPIC_BUTTON = By.xpath("//*[@id='UITopicContainer']/div[2]/button");
+
+	public By ELEMENT_START_TOPIC_BUTTON = By.xpath("//*[@class='btn btn-primary pull-left']");
 	public By ELEMENT_POPUP_START_TOPIC = By.xpath("//span[@class='PopupTitle popupTitle' and text()='New Topic']");
 	public By ELEMENT_SUBMIT_BUTTON = By.xpath("//button[text()='Submit']");
 	public By ElEMENT_CANCEL_ADD_TOPIC = By.xpath("//*[@id='UITopicForm']/div[3]/a[text()='Cancel']");
@@ -75,7 +87,8 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_TOPIC_EDIT_REASON = By.id("editReason");
 
 	//-------------------move topic screen----------------------------------------------------
-	public By ELEMENT_POPUP_MOVE_TOPIC = By.xpath("//span[@class='PopupTitle' and text()='Move Topics']");
+	public By ELEMENT_POPUP_MOVE_TOPIC = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Move Topics']");
+	public String ELEMENT_FORUM_SELECT = "//a[contains(text(),'${forum}')]";
 
 	//-------------------Add tag--------------------------------------------------------------
 	public By ELEMENT_TAG = By.id("ButtonSearch");
@@ -101,23 +114,16 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_ADD_TOPIC_TYPE_BUTTON=By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Add Topic Type']");
 
 	//-------------------Poll management screen-----------------------------------------------------------------
-	public By ELEMENT_POLL = By.xpath("//div[@class='UITopicPoll']");
-	public By ELEMENT_ADD_POLL = By.linkText("Add Poll");
+	
 	public By ELEMENT_POLL_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Poll']");
-	public By ELEMENT_POLL_QUESTION = By.id("Question");
-	public By ELEMENT_POLL_OPTION0 = By.id("Option0");
-	public By ELEMENT_POLL_OPTION1 = By.id("Option1");
-	public By ELEMENT_POLL_CLOSE = By.id("TimeOut");
-	public By ELEMENT_POLL_VOTE_AGAIN = By.id("VoteAgain");
-	public By ELEMENT_POLL_SUBMIT_BUTTON = By.linkText("Submit Poll");
 	
 	//---------------------------------Vote topic--------------------------------
-	public By ELEMENT_RATE_TOPIC = By.linkText("Rate");
-	public By ELEMENT_RATE_TOPIC_TERRIBLE = By.xpath("//div[@class='RatedVote' and @title='Terrible']");
-	public By ELEMENT_RATE_TOPIC_BAD = By.xpath("//div[@class='RatedVote' and @title='Bad']");
-	public By ELEMENT_RATE_TOPIC_AVERAGE = By.xpath("//div[@class='RatedVote' and @title='Average']");
-	public By ELEMENT_RATE_TOPIC_GOOD = By.xpath("//div[@class='RatedVote' and @title='Good']");
-	public By ELEMENT_RATE_TOPIC_EXCELLENT = By.xpath("//div[@class='RatedVote' and @title='Excellent']");
+	public By ELEMENT_RATE_TOPIC = By.xpath("//a[@class='actionIcon' and contains(text(),'Rate')]");
+	public By ELEMENT_RATE_TOPIC_TERRIBLE = By.xpath("//i[@class='uiIconNormalVote' and @data-original-title='Poor']");
+	public By ELEMENT_RATE_TOPIC_BAD = By.xpath("//i[@class='uiIconNormalVote' and @data-original-title='Below average']");
+	public By ELEMENT_RATE_TOPIC_AVERAGE = By.xpath("//i[@class='uiIconNormalVote' and @data-original-title='Average']");
+	public By ELEMENT_RATE_TOPIC_GOOD = By.xpath("//i[@class='uiIconRatedVote' and @data-original-title='Above average']");
+	public By ELEMENT_RATE_TOPIC_EXCELLENT = By.xpath("//div[@class='uiIconNormalVote' and @data-original-title='Good']");
 	
 	//------------Watch/Unwatch Topic---------------
 	public By ELEMENT_WATCH_TOPIC = By.linkText(" Watch");
@@ -172,8 +178,9 @@ public class ForumManageTopic extends ForumBase {
 		if (title != null){
 			type(ELEMENT_TOPIC_TITLE, title, true);
 		}
-		if (message != null){
-			inputDataToFrameInFrame(ELEMENT_TOPIC_MESSAGE_FRAME_1, ELEMENT_TOPIC_MESSAGE_FRAME_2, message, true);
+
+		if (message != "" && message != null){
+			inputDataToFrameInFrame(ELEMENT_TOPIC_MESSAGE_FRAME_1, ELEMENT_TOPIC_MESSAGE_FRAME_2, message, true,false);
 			switchToParentWindow();	
 		}
 		if(file.length > 0 && file[0] != "" && file[0] != null){
@@ -313,7 +320,8 @@ public class ForumManageTopic extends ForumBase {
 		click(ELEMENT_MORE_ACTION);
 		info("Delete topic");
 		click(ELEMENT_DELETE_TOPIC);
-		alert.acceptAlert();
+		alert.waitForMessage("Are you sure you want to delete this topic ?");
+		click(ELEMENT_OK_DELETE_TOPIC);
 		waitForTextNotPresent(title);
 		info("Delete topic successfully");
 	}
@@ -326,6 +334,7 @@ public class ForumManageTopic extends ForumBase {
 		info("Go to edit topic");
 		click(ELEMENT_MORE_ACTION);
 		click(ELEMENT_EDIT_TOPIC);
+
 		waitForAndGetElement(ELEMENT_TOPIC_EDIT_POPUP);
 	}
 
@@ -356,17 +365,18 @@ public class ForumManageTopic extends ForumBase {
 	 * @param destination: path go to forum
 	 */
 	public void moveTopic(String topic, String destination){
+		
 		info("Move topic to forum " + destination);
 		waitForAndGetElement(ELEMENT_MORE_ACTION);
 		click(ELEMENT_MORE_ACTION);
 		waitForAndGetElement(ELEMENT_MOVE_TOPIC);
 		click(ELEMENT_MOVE_TOPIC);
 		waitForAndGetElement(ELEMENT_POPUP_MOVE_TOPIC);
-		userGroup.selectGroup(destination);
+		click(ELEMENT_FORUM_SELECT.replace("${forum}", destination));
 		waitForElementNotPresent(ELEMENT_POPUP_MOVE_TOPIC);
 		String links[] = destination.split("/");
 		int length = links.length;
-		waitForAndGetElement(By.xpath("//a[@title='" + links[length - 1] + "']/../div[@title='" + topic + "']"));
+		waitForAndGetElement(ELEMENT_BREADCRUMB_TOPIC.replace("${forum}", links[length-1]).replace("${topic}", topic));
 		info("Move topic successfully");
 	}	
 
@@ -575,46 +585,7 @@ public class ForumManageTopic extends ForumBase {
 		waitForElementNotPresent(ELEMENT_TOPIC_TYPE);
 	}
 	
-	/** function: go to add poll for topic from More action/Add poll
-	 * @author lientm
-	 */
-	public void goToAddPoll(){
-		info("Go to add poll for topic");
-		waitForAndGetElement(ELEMENT_MORE_ACTION);
-		click(ELEMENT_MORE_ACTION);
-		waitForAndGetElement(ELEMENT_ADD_POLL);
-		click(ELEMENT_ADD_POLL);
-		waitForAndGetElement(ELEMENT_POLL_POPUP);
-	}
 	
-	/**Function add a poll for topic
-	 * @author lientm
-	 * @param pollQuestion: question of poll
-	 * @param poll0: name of option1
-	 * @param poll1: name of option2
-	 * @param timeout
-	 * @param changeVote
-	 * @param verify
-	 */
-	public void addPoll(String pollQuestion, String poll0, String poll1, String timeout, boolean changeVote, boolean... verify){
-		boolean check = verify.length > 0 ? verify[0]: true;
-		
-		type(ELEMENT_POLL_QUESTION, pollQuestion, true);
-		type(ELEMENT_POLL_OPTION0, poll0, true);
-		type(ELEMENT_POLL_OPTION1, poll1, true);
-		if (timeout != null){
-			type(ELEMENT_POLL_CLOSE, timeout, true);
-		}
-		WebElement vote = waitForAndGetElement(ELEMENT_POLL_VOTE_AGAIN);
-		if ((changeVote && !vote.isDisplayed()) || (changeVote && vote.isDisplayed())){
-			click(ELEMENT_POLL_VOTE_AGAIN);
-		}
-		click(ELEMENT_POLL_SUBMIT_BUTTON);
-		if (check){
-			waitForElementNotPresent(ELEMENT_POLL_POPUP);
-			info("Add poll successfully");
-		}
-	}
 	
 	/** function: delete all topic
 	 * @author HangNTT
@@ -636,11 +607,11 @@ public class ForumManageTopic extends ForumBase {
 	
 	/**
 	 * @author thuntn
-	 * @param rate: 1: terrible
-	 * 				2: bad
+	 * @param rate: 1: poor
+	 * 				2: Below average
 	 * 				3: average
-	 * 				4: good
-	 * 				5: excellent
+	 * 				4: Above average
+	 * 				5: good
 	 * 				default: average
 	 */
 	public void voteTopic(int rate){
@@ -656,5 +627,24 @@ public class ForumManageTopic extends ForumBase {
 		}
 		waitForElementNotPresent(but.ELEMENT_CANCEL_BUTTON);
 	}
+	/**
+	 * @author thuntn
+	 * 
+	 */
+	public void lockTopic(){
+		
+		click(ELEMENT_MORE_ACTION);
+		waitForAndGetElement(ELEMENT_LOCK_TOPIC);
+		click(ELEMENT_LOCK_TOPIC);
+	}
 	
+	/**
+	 * @author thuntn
+	 * 
+	 */
+	public void unlockTopic(){
+		
+		click(ELEMENT_MORE_ACTION);
+		click(ELEMENT_UNLOCK_TOPIC);
+	}
 }

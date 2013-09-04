@@ -1,5 +1,7 @@
 package org.exoplatform.selenium.platform.forum;
 
+import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
@@ -8,6 +10,7 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -24,8 +27,23 @@ public class ForumManagePoll extends ForumBase {
 	NavigationToolbar navTool;
 	PageEditor pageE;
 	UserGroupManagement userGroup;
+	public ForumManagePoll(WebDriver dr){
+		driver = dr;
+		but = new Button(driver);
+		alert = new ManageAlert(driver);
+		magTopic = new ForumManageTopic(driver);
+		app = new ManageApplications(driver);
+		navTool = new NavigationToolbar(driver);
+		pageE = new PageEditor(driver);
+		userGroup = new UserGroupManagement(driver);
+	}
 	
 	//Poll Manage
+	public By ELEMENT_POLL = By.xpath("//div[@class='UITopicPoll']");
+	public By ELEMENT_ADD_POLL = By.linkText("Add Poll");
+	public final By ELEMENT_POLL_MORE_ACTION = By.xpath("//form[@id='UITopicPoll']//i[@class='uiIconSettings uiIconLightGray']");
+	public final By ELEMENT_POLL_EDIT_LINK = By.xpath("//form[@id='UITopicPoll']//i[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_POLL_DELETE_LINK = By.xpath("//form[@id='UITopicPoll']//i[@class='uiIconDelete uiIconLightGray']");
 	public final By ELEMENT_POLL_CATEGORY = By.xpath("//a[@title='poll']");
 	public final By ELEMENT_POLL_PORTLET = By.id("poll/local._poll.PollPortlet");
 	public final By ELEMENT_ADDMORE_ITEMS = By.xpath("//img[@title='Add Item']");
@@ -46,9 +64,21 @@ public class ForumManagePoll extends ForumBase {
 	public final By ELEMENT_HOME_LINK = By.linkText("Home");
 	public final By ELEMENT_SELECT_THIS_GROUP_LINK = By.linkText("Select this Group");
 	public final By ELEMENT_EDIT_POLL_FORM = By.xpath("//span[text()='Edit Poll']");
+	public final String ELEMENT_POLL_OPTION = "//input[@id='Option${index}']";
+	public By ELEMENT_POLL_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Poll']");
+	
+	public By ELEMENT_POLL_OPTION1 = By.id("Option1");
+	public By ELEMENT_POLL_CLOSE = By.id("TimeOut");
+	public By ELEMENT_POLL_VOTE_AGAIN = By.id("VoteAgain");
+	public By ELEMENT_POLL_MULTI_VOTE = By.id("MultiVote");
+	public By ELEMENT_POLL_SUBMIT_BUTTON = By.xpath("//button[text()='Submit Poll']");
+	public String ELEMENT_POLL_DELETE_OK = "//span[contains(text(),'Are you sure you want to delete this poll ?')]/../../..//button[text()='OK']";
+	
+	
 	public final String ELEMENT_POLL_QUESTION_LINK = "//div[text()='${pollQuestion} ?']";
 	public final String ELEMENT_POLL_TITLE = "//div[@title='${pollQuestion}']";
 	public final String WARNING_MESSAGE_NO_PERMISSION = "You have no permission to view this poll or the poll has been deleted.";
+	public final String MSG_POLL_DELETE = "Are you sure you want to delete this poll ?";
 
 
 	/*------------------------------------Common function------------------------------*/
@@ -192,6 +222,99 @@ public class ForumManagePoll extends ForumBase {
 		but.close();		
 		pageE.finishEditLayout();		
 		waitForAndGetElement(By.xpath(ELEMENT_POLL_QUESTION_LINK.replace("${pollQuestion}", newPollQuestion)));
+	}
+	/**
+	 * @author thuntn
+	 * @param pollQuestion
+	 * @param options
+	 * @param timeout
+	 * @param changeVote
+	 * @param verify
+	 */
+	public void inputFormPoll(String pollQuestion, String[] options, String timeout, boolean changeVote, boolean multiChoice){
+		int numberOfOption = options.length;
+		type(ELEMENT_POLL_QUESTION, pollQuestion, true);
+		for(int i = 0; i < numberOfOption; i ++){
+		type(ELEMENT_POLL_OPTION.replace("${index}", Integer.toString(i)), options[i], true);
+		}
+		if (timeout != null){
+			type(ELEMENT_POLL_CLOSE, timeout, true);
+		}
+		if (changeVote ){
+			check(ELEMENT_POLL_VOTE_AGAIN,2);
+		}
+		else 
+			uncheck(ELEMENT_POLL_VOTE_AGAIN,2);
+		if (multiChoice)
+			check(ELEMENT_POLL_MULTI_VOTE,2);
+		
+	}
+	
+	/** function: go to add poll for topic from More action/Add poll
+	 * @author lientm
+	 */
+	public void goToAddPoll(){
+		info("Go to add poll for topic");
+		waitForAndGetElement(ELEMENT_MORE_ACTION);
+		click(ELEMENT_MORE_ACTION);
+		waitForAndGetElement(ELEMENT_ADD_POLL);
+		click(ELEMENT_ADD_POLL);
+		waitForAndGetElement(ELEMENT_POLL_POPUP);
+	}
+	
+	/**Function add a poll for topic
+	 * @author thuntn
+	 * @param pollQuestion: question of poll
+	 * @param options: array of options of poll
+	 * @param timeout
+	 * @param changeVote
+	 * @param verify
+	 */
+	public void addPoll(String pollQuestion, String[] options, String timeout, boolean changeVote, boolean multi, boolean... verify){
+		boolean check = verify.length > 0 ? verify[0]: true;
+		
+		info("Add a poll in a topic");
+		goToAddPoll();
+		inputFormPoll(pollQuestion, options, timeout, changeVote, multi);
+		click(ELEMENT_POLL_SUBMIT_BUTTON);
+		if (check){
+			waitForElementNotPresent(ELEMENT_POLL_POPUP);
+			info("Add poll successfully");
+		}
+	}
+	
+	/** Edit a poll in topic
+	 * @author thuntn	
+	 * @param pollQuestion
+	 * @param options
+	 * @param timeout
+	 * @param changeVote
+	 * @param verify
+	 */
+	public void editPoll(String pollQuestion, String[] options, String timeout, boolean changeVote, boolean... verify){
+		boolean check = verify.length > 0 ? verify[0]: true;
+		
+		info("Edit a poll in a topic");
+		click(ELEMENT_POLL_MORE_ACTION);
+		click(ELEMENT_POLL_EDIT_LINK);
+		inputFormPoll(pollQuestion, options, timeout, changeVote, false);
+		click(ELEMENT_POLL_SUBMIT_BUTTON);
+		if (check){
+			waitForElementNotPresent(ELEMENT_POLL_POPUP);
+			info("Edit poll successfully");
+		}
+	}
+	/**Delete a poll in a topic
+	 * @author thuntn
+	 * @param poll
+	 */
+	public void deletePollInTopic(String poll){
+		info("Delete a poll in a topic");
+		
+		click(ELEMENT_POLL_MORE_ACTION);
+		click(ELEMENT_POLL_DELETE_LINK);
+		waitForMessage(MSG_POLL_DELETE);
+		click(ELEMENT_POLL_DELETE_OK);
 	}
 }
 
