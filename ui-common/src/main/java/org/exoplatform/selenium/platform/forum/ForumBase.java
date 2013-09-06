@@ -44,20 +44,23 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_WATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'AddWatching')]");
 	public final By ELEMENT_UNWATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'UnWatch')]");
 	public final By ELEMENT_BOOKMARKS = By.linkText("Bookmarks");
-	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray']");
-	public final By ELEMENT_SORT_SETTING = By.xpath("//span[text()='Sort Settings']");
-	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//span[text()='Censor Keywords']");
-	public final By ELEMENT_BAN_IP = By.xpath("//span[text()='Banned IPs']");
-	public final By ELEMENT_BBCODE = By.xpath("//span[text()='BBCodes']");
-	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[@class='Pruning']");
-	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport']");
 	public final By ELEMENT_EXPORT_CATEGORY = By.xpath("//*[@id='Administrations']//*[@class='uiIconExport']");
 	public final By ELEMENT_EXPORT_FORUM = By.linkText("Export Forum");
 	public final By ELEMENT_LEGEN_PANEL = By.id("UIForumIconState");
 	public final By ELEMENT_STATISTIC_PANEL = By.xpath("//*[text()='Forums Statistics']");
 	public final By ELEMENT_HOME_BUTTON = By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
 	public final String ELEMENT_HOME_FORUM = "Forum Home";
-
+	public final By ELEMENT_USER_MANAGEMENT = By.xpath("//*[@id='ManageModerator']//*[@class='uiIconUser uiIconLightGray']");
+	
+	//Administration menu
+	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray']");
+	public final By ELEMENT_SORT_SETTING = By.xpath("//span[text()='Sort Settings']");
+	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//span[text()='Censor Keywords']");
+	public final By ELEMENT_BAN_IP = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBanIp']");
+	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBBCode']");
+	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[@class='Pruning']");
+	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport']");
+	
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public final String MESSAGE_WATCH = "You are now watching this item.";
 	public final String MESSAGE_UNWATCH = "You are no longer watching this item.";	
@@ -72,24 +75,28 @@ public class ForumBase extends PlatformBase {
 	//-----------------simple search screen-----------------------------------
 	public final By ELEMENT_SIMPLE_SEARCH_TEXTBOX = By.id("inputValue");
 	public final By ELEMENT_SIMPLE_SEARCH_BUTTON = By.xpath("//a[@class='SearchLink SearchForumIcon']");
-	public final By ELEMENT_SIMPLE_SEARCH_LIST = By.id("UIForumListSearch");
-	public final By ELEMENT_SIMPLE_SEARCH_TITLE_FORM = By.xpath("//div[@class='TitleBar' and text()='Search Result']");
+	public final By ELEMENT_SIMPLE_SEARCH_FORM = By.id("UIForumListSearch");
 	public final String VERIFY_MESSAGE_SEARCH = "No matches.";
 
 	//-----------------Advanced Search form--------------------------------
-	public final By ELEMENT_ADVANCED_SEARCH_ICON = By.xpath("//a[@class='AdvancedSearch']");
+	public final By ELEMENT_ADVANCED_SEARCH_ICON = By.xpath("//button[text()='Advanced Search']");
 	public final By ELEMENT_ADVANCED_SEARCH_FORM = By.id("UISearchForm");
 	public final By ELEMENT_ADVANCED_SEARCH_TERMS = By.id("SearchValue");
-	public final By ELEMENT_ADVANCED_SEARCH_IN = By.id("SearchType");
-	public final By ELEMENT_ADVANCED_SEARCH_SCOPE_FULL = By.id("Scope_entire");
-	public final By ELEMENT_ADVANCED_SEARCH_SCOPE_TITLES = By.id("Scope_title");
+	public final By ELEMENT_ADVANCED_SEARCH_IN = By.name("SearchType");
+	public final By ELEMENT_ADVANCED_SEARCH_SCOPE_FULL = By.xpath("//input[@value='entire']");
+	public final By ELEMENT_ADVANCED_SEARCH_SCOPE_TITLES = By.xpath("//input[@value='title']");
 	public final By ELEMENT_ADVANCED_SEARCH_USER = By.id("SearchUser");
 	public final By ELEMENT_ADVANCED_SEARCH_CREATED_FROM = By.id("FromDateCreated");
 	public final By ELEMENT_ADVANCED_SEARCH_CREATED_TO = By.id("ToDateCreated");
 	public final By ELEMENT_ADVANCED_SEARCH_MODERATOR = By.id("Moderator");
-	public final By ELEMENT_ADVANCED_SEARCH_BUTTON = By.linkText("Search");
-	public final By ELEMENT_ADVANCED_SEARCH_SELECT_USER = By.xpath("//*[@id='Moderator']/../..//img[@class='SelectUserIcon']");
-
+	public final By ELEMENT_ADVANCED_SEARCH_BUTTON = By.xpath("//*[@id='UISearchForm']//*[text()='Search']");
+	public final By ELEMENT_ADVANCED_SEARCH_STATUS_LOCKED = By.id("IsLock");
+	public final By ELEMENT_ADVANCED_SEARCH_STATUS_UNLOCKED = By.id("IsUnLock");
+	public final By ELEMENT_ADVANCED_SEARCH_STATE_OPEN = By.id("IsOpen");
+	public final By ELEMENT_ADVANCED_SEARCH_STATE_CLOSED = By.id("IsClosed");
+	public final By ELEMENT_ADVANCED_SEARCH_LAST_POST_FROM = By.id("FromDateCreatedLastPost");
+	public final By ELEMENT_ADVANCED_SEARCH_LAST_POST_TO = By.id("ToDateCreatedLastPost");
+	
 	//-----------------Sort setting form-----------------------------------
 	public final By ELEMENT_SORT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Sort Settings']");
 	public final By ELEMENT_SORT_FORUM_BY = By.id("forumSortBy");
@@ -98,28 +105,35 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_SORT_TOPIC_DIRECTION = By.id("topicSortByType");
 
 	//----------------Set Censor keywords form----------------------------------
-	public final By ELEMENT_CENSOR_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Censor Keyword']");
+	public final By ELEMENT_CENSOR_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Censor Keyword']");
 	public final By ELEMENT_CENSORED_KEYWORDS =  By.id("censorKeyword");
 
 	//----------------Set Ban IP form--------------------------------------------
-	public final By ELEMENT_BAN_IP_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Banned IPs']");
+	public final By ELEMENT_BAN_IP_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Banned IPs']");
 	public final By ELEMENT_BAN_IP_FILTER = By.id("searchIpBan");
-	public final By ELEMENT_BAN_IP_ADD = By.linkText("[Add]");
+	public final By ELEMENT_BAN_IP_ADD = By.linkText("Add");
 	public final String ELEMENT_BAN_IP_ADDRESS = "newIpBan${No}";
-	public final String ELEMENT_BAN_IP_DELETE = "//*[text()='${ip}']/../*//a[text()='X']";
-
+	public final String ELEMENT_BAN_IP_DELETE = "//*[contains(@data-action, '${ip}')  and @data-original-title='Delete']";
+	public final String MSG_DELETE_BAN_IP = "This IP will no longer be banned. Do you confirm ?";
+	public final By ELEMENT_START_TOPIC_DISABLE = By.xpath("//*[@id='UITopicContainer']//*[@data-original-title='Forum is closed for posting.']");
+	public final By ELEMENT_POST_DISABLE = By.xpath("//*[@data-original-title='You cannot reply to this topic.' and text()='Post Reply']");
+	public final String MSG_BLOCK_CREATE_TOPIC = "You cannot create topics.";
+	public final String MSG_BLOCK_POST = "You cannot post replies.";
+	public final String MSG_BLOCK_POST_ATTACHMENT = "You cannot post attachments.";
+	public final String MSG_BLOCK_EDIT_YOUR_POST = "You cannot edit your posts.";	
+	
 	//----------------Set BB Code form-------------------------------------
-	public final By ELEMENT_BBCODE_POPUP = By.xpath("//span[@class='PopupTitle' and text()='BBCode Manager']");
+	public final By ELEMENT_BBCODE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='BBCode Manager']");
 	public final String ELEMENT_BBCODE_ACTIVE_NO_OPTION = "//input[@type='checkbox' and @id='${tag}']";
 	public final String ELEMENT_BBCODE_ACTIVE_HAVE_OPTION = "//input[@type='checkbox' and contains(@id,'${tag}" + "opt" + "')]";
-	public final By ELEMENT_BBCODE_ADD_BUTTON = By.linkText("Add BBCode");
-	public final String ELEMENT_BBCODE_EDIT_NO_OPTION = "//input[@type='checkbox' and @id='${tag}']/../../*//div[@title='Edit BBCode']";
-	public final String ELEMENT_BBCODE_EDIT_HAVE_OPTION = "//input[@type='checkbox' and contains(@id,'${tag}" + "opt" + "')]/../../*//div[@title='Edit BBCode']";
-	public final String ELEMENT_BBCODE_DELETE_NO_OPTION = "//input[@type='checkbox' and @id='${tag}']/../../*//div[@title='Delete BBCode']";
-	public final String ELEMENT_BBCODE_DELETE_HAVE_OPTION = "//input[@type='checkbox' and contains(@id,'${tag}" + "opt" + "')]/../../*//div[@title='Delete BBCode']";
-
-	public final By ELEMENT_BBCODE_ADD_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Add BBCode']");
-	public final By ELEMENT_BBCODE_EDIT_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Edit BBCode']");
+	public final By ELEMENT_BBCODE_ADD_BUTTON = By.xpath("//button[text()='Add BBCode']");
+	public final By ELEMENT_BBCODE_CLOSE_BUTTON = By.xpath("//*[@id='BBCodeManagerForm']//button[text()='Close']");
+	public final String ELEMENT_BBCODE_EDIT_ICON = "//*[contains(@href,'${tag}') and @data-original-title='Edit BBCode']";
+	public final String ELEMENT_BBCODE_DELETE_ICON = "//*[contains(@data-action,'TAGMOTUPDATE') and @data-original-title='Delete BBCode']";
+	public final String ELEMENT_BBCODE_DELETE_MESSAGE = "Are you sure you want to delete this BB Code ?";
+	
+	public final By ELEMENT_BBCODE_ADD_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add BBCode']");
+	public final By ELEMENT_BBCODE_EDIT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Edit BBCode']");
 	public final By ELEMENT_BBCODE_TAG	= By.id("TagName");
 	public final By ELEMENT_BBCODE_REPLACEMENT = By.id("Replacement");
 	public final By ELEMENT_BBCODE_DESCRIPTION = By.id("Description");
@@ -144,19 +158,35 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_PRUNE_DRY_RUN = By.linkText("Dry Run");
 
 	//--------------------Profile setting form------------------------------------
-	public final By ELEMENT_SETTING = By.linkText("Settings");
+	public final By ELEMENT_SETTING = By.xpath("//*[@id='EditProfile']//*[@class='uiIconSetting uiIconLightGray']");
 	public final By ELEMENT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Settings']");
-	public final String ELEMENT_SETTING_EMAIL_CHECKBOX = "//a[contains(text(), '${forum}')]/../../../*//input[contains(@id, 'EMAILforum')]"; 
-	public final String ELEMENT_SETTING_MAIL_DELETE = "//a[contains(text(), '${forum}')]/../../../*//div[@class='DeleteIcon']";
-	public final By ELEMENT_SETTING_EMAIL_ADDRESS = By.id("EmailAddress");
-	public final By ELEMENT_SETTING_EMAIL_UPDATE = By.xpath("//button[text()='Update']");
-	public final By ELEMENT_SETTING_MYSCRIPTIONS_TAB = By.linkText("My Subscriptions");
+	
+	//Profile tab
 	public final By ELEMENT_SCREEN_NAME = By.id("ScreenName");
 	public final By ELEMENT_SIGNATURE = By.id("Signature");
 	public final By ELEMENT_IS_DISPLAY_SIGNATURE = By.id("IsDisplaySignature");
 	public final By ELEMENT_IS_DISPLAY_AVATAR = By.id("IsDisplayAvatar");
 	public final By ELEMENT_WATCH_TOPIC_START = By.id("AutoWatchMyTopics");
 	public final By ELEMENT_WATCH_TOPIC_POST =  By.id("AutoWatchTopicIPost");
+	public final By ELEMENT_AVATAR_UPDATE_BUTTON = By.xpath("//*[@id='Avatar']//button");
+	
+	//Forum settings tab
+	public final By ELEMENT_SETTING_FORUM_TAB = By.linkText("Forum Settings");
+	public final By ELEMENT_SETTING_TIMEZONE = By.name("TimeZone");
+	public final By ELEMENT_SETTING_SHORT_DATE_FORMAT = By.name("ShortDateformat");
+	public final By ELEMENT_SETTTING_LONG_DATE_FORMAT = By.name("LongDateformat");
+	public final By ELEMENT_SETTING_TIME_FORMAT = By.name("Timeformat");
+	public final By ELEMENT_SETTTING_TOPIC_PER_PAGE = By.name("MaximumThreads");
+	public final By ELEMENT_SETTING_POST_PER_PAGE = By.name("MaximumPosts");
+	
+	//My subcription tab
+	public final By ELEMENT_SETTING_MYSCRIPTIONS_TAB = By.linkText("My Subscriptions");
+	public final By ELEMENT_FEED_URL_TEXTBOX = By.id("RSSLink");
+	public final String ELEMENT_SETTING_EMAIL_CHECKBOX = "//a[contains(text(), '${forum}')]/../../../*//input[contains(@id, 'EMAILforum')]"; 
+	public final String ELEMENT_SETTING_MAIL_DELETE = "//a[contains(text(), '${forum}')]/../../../*//div[@class='DeleteIcon']";
+	public final By ELEMENT_SETTING_EMAIL_ADDRESS = By.id("EmailAddress");
+	public final String ELEMENT_CHECKBOX_EMAIL = "//*[contains(text(), '${name}')]/../..//input[contains(@id, 'EMAILforumCategory')]";
+	public final By ELEMENT_SETTING_EMAIL_UPDATE = By.xpath("//button[text()='Update']");
 	public final String ELEMENT_DELETE_WATCH = "//label/a[contains(text(),'${item}')]/following::div[@class='DeleteIcon']";
 	public final String ELEMENT_FEED_URL = "//a[@title='{$item}']/ancestor::tr/following::input[contains(@id,'RSS')]";
 
@@ -176,15 +206,18 @@ public class ForumBase extends PlatformBase {
 	//--------------------------Forum portlet setting form------------------------------------
 	public final By ELEMENT_FORUM_PORTLET = By.xpath("//*[@class='CPortletLayoutDecorator' and contains(text(), 'Forum Portlet')]");
 	public final By ELEMENT_FORUM_PORTLET_EDIT_ICON = By.xpath("//div[text()='Forum Portlet']/../a[@class='EditIcon']");
-	public final By ELEMENT_FORUM_PORTLET_EDITMODE_TAB = By.xpath("//div[@class='MiddleTab' and text()='Edit Mode']");
-	public final By ELEMENT_FORUM_PORTLET_PANEL_TAB = By.linkText("Panels");
-	public final By ELEMENT_SHOW_FORUM_JUMP_CHECKBOX = By.id("isShowForumJump");
+	public final By ELEMENT_FORUM_PORTLET_EDITMODE_TAB = By.linkText("Edit Mode");
+	public final By ELEMENT_FORUM_PORTLET_PANEL_TAB = By.xpath("//*[contains(text(), 'Panels')]");
+	public final By ELEMENT_FORUM_PORTLET_OPTIONS_TAB = By.xpath("//*[contains(text(), 'Options')]");
 	public final By ELEMENT_SHOW_MODERATOR_CHECKBOX = By.id("isShowModerator");
 	public final By ELEMENT_SHOW_POLL_CHECKBOX = By.id("IsShowPoll");
 	public final By ELEMENT_SHOW_QUICK_REPLY_CHECKBOX = By.id("isShowQuickReply");
 	public final By ELEMENT_SHOW_ICON_LEGEND_CHECKBOX = By.id("isShowIconsLegend");
 	public final By ELEMENT_SHOW_RULE_CHECKBOX = By.id("isShowRules");
 	public final By ELEMENT_SHOW_STATISTIC_CHECKBOX = By.id("isShowStatistic");
+	public final By ELEMENT_USE_AJAX_CHECKBOX = By.id("isUseAjax");
+	public final String ELEMENT_SELECT_DISPLAY_CHECKBOX = "//*[contains(text(), '${name}')]/..//input";
+	public final By ELEMENT_FORUM_PORTLET_CLOSE_BUTTON = By.id("Close");
 
 	//attach file popup
 	public final By ELEMENT_POPUP_UPLOAD_FILE = By.xpath("//span[@class='PopupTitle' and text()='Attach File']");
@@ -192,8 +225,90 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_ATTACHMENT_FILE_INPUT = By.name("file");
 	public final By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachmentForm']//*[text()='Save']");
 
+	//-----------------------User Management--------------------------------------------//
+	public final By ELEMENT_USER_MANAGEMENT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='User Management']");
+	public final String ELEMENT_USER_EDIT_ICON = "//*[text()='${user}']/..//*[contains(@href, 'EditProfile')]";
+	public final By ELEMENT_SEARCH_USER_INPUT = By.id("SearchUser");
+	public final By ELEMENT_USER_MANAGEMENT_PROFILE_TAB = By.linkText("Profile");
+	public final By ELEMENT_USER_MANAGEMENT_TITLE_USER = By.id("ForumUserTitle");
+	public final By ELEMENT_USER_MANAGEMENT_FORUM_ADMIN = By.id("isAdmin");
+	public final By ELEMENT_ADD_MODERATOR_CATEGORY_ICON = By.xpath("//*[@id='ForumUserProfile']//*[@data-original-title='Select Categories']");
+	public final By ELEMENT_ADD_MODERATOR_FORUM_ICON = By.xpath("//*[@id='ForumUserProfile']//*[@data-original-title='Select Forums']");
+	public final String ELEMENT_CATEGORY_SELECT_CHECKBOX = "//*[contains(text(),'${cat}')]/..//*[@type='checkbox']";
+	public final By ELEMENT_USER_MANAGEMENT_SETTING_TAB = By.xpath("//*[@id='UIModeratorManagementForm']//a[text()='Settings']");
+	public final By ELEMENT_USER_MANAGEMENT_BAN_USER_TAB = By.linkText("Ban User");
+	public final By ELEMENT_BAN_USER_CHECKBOX = By.id("IsBanned");
+	public final By ELEMENT_BAN_USER_TIME = By.name("BanUntil");
+	public final By ELEMENT_BAN_USER_REASON = By.id("BanReason");
+	public final By ELEMENT_USER_MANAGEMENT_TOPIC_TAB = By.linkText("Topics");
+	public final By ELEMENT_USER_MANAGEMENT_POST_TAB = By.linkText("Posts");
+	
 	/*-----------------------------common function-------------------------------------*/
 
+	/** function: input data to a frame in other frame
+	 * @author lientm
+	 * @param frame1
+	 * @param frame2
+	 * @param data
+	 * @param validate = null: clear data before
+	 *                 = true: clear data before
+	 *                 = false: not clear data before
+	 */
+
+	public void inputDataToFrameInFrame(By frame1, By frame2, String data, boolean...validate){
+		boolean valid = validate.length > 0 ? validate[0]: true;
+		boolean verify = validate.length > 1 ? validate[1]: true;
+		try {
+			WebElement inputsummary = null;
+
+			for (int repeat = 0;; repeat++) {
+				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
+					info("Fail to input data to frame");
+				}
+				driver.switchTo().frame(waitForAndGetElement(frame1));
+				driver.switchTo().frame(waitForAndGetElement(frame2));
+				inputsummary = driver.switchTo().activeElement();
+				if (valid){
+					((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
+				}else {
+					inputsummary.sendKeys(data); break;
+				}
+				if(verify){
+					if (data.equals(inputsummary.getText())) 
+						break;
+				}else break;
+				switchToParentWindow();
+			}
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			inputDataToFrameInFrame(frame1, frame2, data, validate);
+		} catch (ElementNotVisibleException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			inputDataToFrameInFrame(frame1, frame2, data, validate);
+		} finally {
+			loopCount = 0;
+		}
+	}
+
+	/** function: Attach file in attach popup
+	 * @author lientm
+	 * @param number: number of upload container that need upload file
+	 * @param filePath: path to file upload
+	 */
+	public void attachFile(String filePath){
+		String[] file = filePath.split("/");
+		for (int i = 0; i < file.length; i ++){
+			WebElement element = waitForAndGetElement(ELEMENT_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1, 2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", element);
+			element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + file[i]));
+			waitForAndGetElement("//*[@class='fileNameLabel' and text()='" + file[i] + "']");
+		}
+		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_ATTACHMENT_SAVE_BUTTON);
+	}
+	
 	public void goToForums(){
 		info("--Go to Forums--");
 		click(ELEMENT_FORUM_LINK);
@@ -270,24 +385,18 @@ public class ForumBase extends PlatformBase {
 		info("Delete bookmark successfully");
 	}
 
+	//-------------------------------Manage Search-----------------------------//
+	
 	/** function: simple search
 	 * @author lientm
 	 * @param key: key to search
-	 * @return = true: have result return
-	 * 		   = false: not have result return
 	 */
-	public boolean simpleSearch(String key){
-		boolean result = true;
-		info("Simple search with key " + key);
+	public void quickSearch(String key){
+		info("Quick search with key " + key);
 		type(ELEMENT_SIMPLE_SEARCH_TEXTBOX, key, true);
-		click(ELEMENT_SIMPLE_SEARCH_BUTTON);
-		waitForAndGetElement(ELEMENT_SIMPLE_SEARCH_LIST);
-		waitForAndGetElement(ELEMENT_SIMPLE_SEARCH_TITLE_FORM);
-		if (isTextPresent(VERIFY_MESSAGE_SEARCH) == true){
-			result = false;
-			info("There are not any Items that matchs key " + key);
-		}
-		return result;
+		String id = waitForAndGetElement(By.xpath("//*[@id='UIPage']/div/div")).getAttribute("id");
+		((JavascriptExecutor)driver).executeScript("javascript:eXo.webui.UIForm.submitForm('" + id + "#QuickSearchForm','Search',true);");	
+		waitForAndGetElement(ELEMENT_SIMPLE_SEARCH_FORM);
 	}
 
 	/** function: execute an advanced search
@@ -297,56 +406,51 @@ public class ForumBase extends PlatformBase {
 	 * @return = true: have result return
 	 * 		   = false: not have result return
 	 */
-	public boolean advancedSearch(boolean scope, String... key){
-		boolean result = true;
-
+	public void advancedSearch(String searchIn, String key, boolean scope, String...opts){
 		per = new PlatformPermission(driver);
+		
 		info("Do advance search");
-		waitForAndGetElement(ELEMENT_ADVANCED_SEARCH_ICON);
-		for (int i = 0; i < 5; i ++){
-			click(ELEMENT_ADVANCED_SEARCH_ICON);
-			WebElement search_form = waitForAndGetElement(ELEMENT_ADVANCED_SEARCH_FORM, 5000, 0);
-			if (search_form != null) break;
+		quickSearch("Advance search");
+		click(ELEMENT_ADVANCED_SEARCH_ICON);
+		waitForAndGetElement(ELEMENT_ADVANCED_SEARCH_FORM);
+		
+		if (searchIn != null){
+			select(ELEMENT_ADVANCED_SEARCH_IN, searchIn);
 		}
-		if (key.length == 0){
-			Assert.fail("There are not any key to search");
-		}
-		if (key.length > 0 && key[0] != "" && key[0] != null){
-			type(ELEMENT_ADVANCED_SEARCH_TERMS, key[0], true);
-		}
-		if (key.length > 1 && key[1] != "" && key[1] != null){
-			select(ELEMENT_ADVANCED_SEARCH_IN, key[1]);
-		}
+		if (key != null){
+			type(ELEMENT_ADVANCED_SEARCH_TERMS, key, true);
+		}	
 		if (scope){
-			click(ELEMENT_ADVANCED_SEARCH_SCOPE_FULL);
+			click(ELEMENT_ADVANCED_SEARCH_SCOPE_FULL, 2);
 		} else {
-			click(ELEMENT_ADVANCED_SEARCH_SCOPE_TITLES);
+			click(ELEMENT_ADVANCED_SEARCH_SCOPE_TITLES, 2);
 		}
-		if (key.length > 2 && key[2] != "" && key[2] != null){
-			type(ELEMENT_ADVANCED_SEARCH_USER, key[2], true);
+		
+		if (opts.length > 0){
+			if (opts[0] != null){
+				type(ELEMENT_ADVANCED_SEARCH_USER, opts[0], true);
+			}
 		}
-		if (key.length > 3 && key[3] != "" && key[3] != null){
-			type(ELEMENT_ADVANCED_SEARCH_CREATED_FROM, key[3], true);
+		if (opts.length > 1){
+			if (opts[1] != null){
+				type(ELEMENT_ADVANCED_SEARCH_CREATED_FROM, opts[1], true);
+			}
 		}
-		if (key.length > 4 && key[4] != "" && key[4] != null){
-			type(ELEMENT_ADVANCED_SEARCH_CREATED_TO, key[4], true);
+		if (opts.length > 2){
+			if (opts[2] != null){
+				type(ELEMENT_ADVANCED_SEARCH_CREATED_TO, opts[2], true);
+			}
 		}
-		if (key.length > 5 && key[5] != "" && key[5] != null){
-			type(ELEMENT_ADVANCED_SEARCH_MODERATOR, key[5], true);
-		}
-		if (key.length > 6 && key[6] != "" && key[6] != null){
-			click(ELEMENT_ADVANCED_SEARCH_SELECT_USER);
-			per.selectUserPermission(key[6]);
+		if (opts.length > 3){
+			if (opts[3] != null){
+				type(ELEMENT_ADVANCED_SEARCH_MODERATOR, opts[3], true);
+			}
 		}
 		click(ELEMENT_ADVANCED_SEARCH_BUTTON);
-		waitForAndGetElement(ELEMENT_SIMPLE_SEARCH_LIST);
-		waitForAndGetElement(ELEMENT_SIMPLE_SEARCH_TITLE_FORM);
-		if (isTextPresent(VERIFY_MESSAGE_SEARCH) == true){
-			result = false;
-			info("There are not any Items that matchs key " + key);
-		}
-		return result;
+		waitForElementNotPresent(ELEMENT_ADVANCED_SEARCH_BUTTON);
 	}
+	
+	//-----------------------------------Administration---------------------------------//
 	/** function: setup a sort
 	 * @author lientm
 	 * @param forumBy: the way sort forum
@@ -408,9 +512,8 @@ public class ForumBase extends PlatformBase {
 	 * @author lientm
 	 */
 	public void goToBanIp(){
-		waitForAndGetElement(ELEMENT_ADMINISTRATION);
+		info("Go to BanIP Management");
 		click(ELEMENT_ADMINISTRATION);
-		waitForAndGetElement(ELEMENT_BAN_IP);
 		click(ELEMENT_BAN_IP);
 		waitForAndGetElement(ELEMENT_BAN_IP_POPUP);
 	}
@@ -430,9 +533,9 @@ public class ForumBase extends PlatformBase {
 					type(By.id(ELEMENT_BAN_IP_ADDRESS.replace("${No}", Integer.toString(j + 1))), temp[j], true);
 				}
 				click(ELEMENT_BAN_IP_ADD);
-				waitForAndGetElement(By.xpath("//td[@class='FieldLabel' and text()='" + ban[i] + "']"));
+				waitForAndGetElement(By.xpath("//*[text()='" + ban[i] + "']"));
 			}
-			but.close();
+			but.cancel();
 		}
 	}
 
@@ -442,16 +545,14 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void deleteBanIp(String ip){
 		but = new Button(driver);
-		alert = new ManageAlert(driver);
-
 		By element_delete = By.xpath(ELEMENT_BAN_IP_DELETE.replace("${ip}", ip));
 
 		goToBanIp();
-		waitForAndGetElement(element_delete);
 		click(element_delete);
-		alert.acceptAlert();
+		waitForMessage(MSG_DELETE_BAN_IP);
+		click(ELEMENT_OK_DELETE);
 		waitForElementNotPresent(element_delete);
-		but.close();
+		but.cancel();
 	}
 
 	/** function: go to BB code management
@@ -459,9 +560,7 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void goToBBCodeManagement(){
 		info("Go to BB code management");
-		waitForAndGetElement(ELEMENT_ADMINISTRATION);
 		click(ELEMENT_ADMINISTRATION);
-		waitForAndGetElement(ELEMENT_BBCODE);
 		click(ELEMENT_BBCODE);
 		waitForAndGetElement(ELEMENT_BBCODE_POPUP);
 	}
@@ -476,21 +575,22 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void modifyBBcodeInfo(String tag, String replace, String description, String example, boolean option){
 		but = new Button(driver);
-		if (tag != "" && tag != null){
+		if (tag != null){
 			type(ELEMENT_BBCODE_TAG, tag, true);
 		}
-		if (replace != "" && replace != null){
+		if (replace != null){
 			type(ELEMENT_BBCODE_REPLACEMENT, replace, true);
 		}
-		if (description != "" && description != null){
+		if (description != null){
 			type(ELEMENT_BBCODE_DESCRIPTION, description, true);
 		}
-		if (example != "" && example != null){
+		if (example != null){
 			type(ELEMENT_BBCODE_EXAMPLE, example, true);
 		}
-		WebElement opt = waitForAndGetElement(ELEMENT_BBCODE_OPTION);
-		if ((option == true && opt.isSelected() == false) || (option == false && opt.isSelected() == true)){
-			click(ELEMENT_BBCODE_OPTION);
+		if (option){
+			check(ELEMENT_BBCODE_OPTION, 2);
+		}else {
+			uncheck(ELEMENT_BBCODE_OPTION, 2);
 		}
 		but.save();
 	}
@@ -546,28 +646,22 @@ public class ForumBase extends PlatformBase {
 	/** function: edit a BBCode
 	 * @author lientm
 	 * @param tagold: old tag of BBCode
-	 * @param haveoption = true: BBCode have option
-	 * 				     = false: BBCode does not have option 
 	 * @param tagnew: new tag of BBCode
 	 * @param replace: htmp code that replaces the user-entered BBCode
 	 * @param description: text to describe the BBCode tag
 	 * @param example: an example for this particular BBCode
 	 * @param option: choose option or not
 	 */
-	public void editBBcode(String tagold, boolean haveoption, String tagnew, String replace, String description, String example, boolean option){
-		By ELEMENT_EDIT_OPTION = By.xpath(ELEMENT_BBCODE_EDIT_HAVE_OPTION.replace("${tag}", tagold));
-		By ELEMENT_EDIT_NOT_OPTION = By.xpath(ELEMENT_BBCODE_EDIT_NO_OPTION.replace("${tag}", tagold));
+	public void editBBcode(String tagold, String tagnew, String replace, String description, String example, boolean option){
+		By ELEMENT_EDIT = By.xpath(ELEMENT_BBCODE_EDIT_ICON.replace("${tag}", tagold));
 
 		info("Edit a BBcode have tag " + tagold);
-		if (haveoption){
-			click(ELEMENT_EDIT_OPTION);
-		} else {
-			click(ELEMENT_EDIT_NOT_OPTION);
-		}
+		click(ELEMENT_EDIT);
 		waitForAndGetElement(ELEMENT_BBCODE_EDIT_POPUP);
 		modifyBBcodeInfo(tagnew, replace, description, example, option);
 		waitForElementNotPresent(ELEMENT_BBCODE_EDIT_POPUP);
 		waitForElementNotPresent(ELEMENT_ALERT);
+		waitForTextPresent(tagnew.toUpperCase());
 		info("Edit BBcode successfully");
 	}
 
@@ -577,20 +671,15 @@ public class ForumBase extends PlatformBase {
 	 * @param option = true: BBCode have option
 	 * 				 = false: BBCode does not have option
 	 */
-	public void deleteBBcode(String tag, boolean option){
-		By ELEMENT_DELETE_OPTION = By.xpath(ELEMENT_BBCODE_DELETE_HAVE_OPTION.replace("${tag}", tag));
-		By ELEMENT_DELETE_NOT_OPTION = By.xpath(ELEMENT_BBCODE_DELETE_NO_OPTION.replace("${tag}", tag));
+	public void deleteBBcode(String tag){
+		By ELEMENT_DELETE = By.xpath(ELEMENT_BBCODE_DELETE_ICON.replace("${tag}", tag));
+		
 		alert = new ManageAlert(driver);
 		info("Delete a BBcode have tag " + tag);
-		if (option){
-			click(ELEMENT_DELETE_OPTION);
-			alert.acceptAlert();
-			waitForElementNotPresent(ELEMENT_DELETE_OPTION);
-		} else {
-			click(ELEMENT_DELETE_NOT_OPTION);
-			alert.acceptAlert();
-			waitForElementNotPresent(ELEMENT_DELETE_NOT_OPTION);
-		}
+		click(ELEMENT_DELETE);
+		waitForMessage(ELEMENT_BBCODE_DELETE_MESSAGE);
+		click(ELEMENT_OK_DELETE);
+		waitForElementNotPresent(ELEMENT_DELETE);
 		info("Delete BBcode successfully");
 	}
 
@@ -658,60 +747,6 @@ public class ForumBase extends PlatformBase {
 			click(ELEMENT_ACTIVE);
 			waitForElementNotPresent(ELEMENT_ACTIVED);
 		}	
-	}
-
-	/**
-	 * function go to setting form
-	 * @author lientm
-	 */
-	public void goToSetting(){
-		waitForAndGetElement(ELEMENT_SETTING);
-		click(ELEMENT_SETTING);
-		waitForAndGetElement(ELEMENT_SETTING_POPUP);
-	}
-
-	/**
-	 * function setting User profile
-	 * @author lientm
-	 * @param screenName: data input to Screen Name
-	 * @param sign: data input to Signature
-	 * @param opt: option check checkbox group: display signature, display avatar, watch to topic start, watch topic post
-	 */
-	public void settingProfileUser(String screenName, String sign, boolean...opt){
-		but = new Button(driver);
-		goToSetting();
-		if (screenName != null){
-			type(ELEMENT_SCREEN_NAME, screenName, true);
-		}
-		if (sign != null){
-			type(ELEMENT_SIGNATURE, sign, true);
-		}
-		if (opt.length > 0){
-			WebElement display_sign = waitForAndGetElement(ELEMENT_IS_DISPLAY_SIGNATURE);
-			if ((opt[0] && !display_sign.isSelected()) || (!opt[0] && display_sign.isSelected())) {
-				click(ELEMENT_IS_DISPLAY_SIGNATURE);
-			}
-		}
-		if (opt.length > 1){
-			WebElement display_avatar = waitForAndGetElement(ELEMENT_IS_DISPLAY_AVATAR);
-			if ((opt[1] && !display_avatar.isSelected()) || (!opt[1] && display_avatar.isSelected())) {
-				click(ELEMENT_IS_DISPLAY_AVATAR);
-			}
-		}
-		if (opt.length > 2){
-			WebElement display_start = waitForAndGetElement(ELEMENT_WATCH_TOPIC_START);
-			if ((opt[2] && !display_start.isSelected()) || (!opt[2] && display_start.isSelected())) {
-				click(ELEMENT_WATCH_TOPIC_START);
-			}
-		}
-		if (opt.length > 3){
-			WebElement display_post = waitForAndGetElement(ELEMENT_WATCH_TOPIC_POST);
-			if ((opt[3] && !display_post.isSelected()) || (!opt[3] && display_post.isSelected())) {
-				click(ELEMENT_WATCH_TOPIC_POST);
-			}
-		}
-		but.save();
-		waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 	}
 
 	/**
@@ -787,150 +822,112 @@ public class ForumBase extends PlatformBase {
 		compareString(temp, content);
 		info("Email content is true");
 	}
-
-	/**Function go to Edit Forum portlet. Click edit forum portlet
+	
+	//------------------------------------------Settings----------------------------------//
+	/**
+	 * function go to setting form
 	 * @author lientm
 	 */
-	public void goToEditForumPortlet(){
-		info("Go to edit forum portlet");
-		mouseOver(ELEMENT_FORUM_PORTLET, true);
-		click(ELEMENT_FORUM_PORTLET_EDIT_ICON);
-		waitForAndGetElement(ELEMENT_FORUM_PORTLET_EDITMODE_TAB);
+	public void goToSetting(){
+		info("---Go to settings---");
+		waitForAndGetElement(ELEMENT_SETTING);
+		click(ELEMENT_SETTING);
+		waitForAndGetElement(ELEMENT_SETTING_POPUP);
 	}
 
-	/**function save setting for Forum portlet
+	/**
+	 * function setting User profile
 	 * @author lientm
+	 * @param screenName: data input to Screen Name
+	 * @param sign: data input to Signature
+	 * @param opt: option check checkbox group: display signature, display avatar, watch to topic start, watch topic post
 	 */
-	public void saveForumPortletSetting(){
-		String MESSAGE_SAVE_SETTING_PORTLET = "Your portlet settings have been saved.";
+	public void settingProfileUser(String screenName, String sign, boolean...opt){
 		but = new Button(driver);
-		pageE = new PageEditor(driver);
-
+		goToSetting();
+		if (screenName != null){
+			type(ELEMENT_SCREEN_NAME, screenName, true);
+		}
+		if (sign != null){
+			type(ELEMENT_SIGNATURE, sign, true);
+		}
+		if (opt.length > 0){
+			if (opt[0]){
+				check(ELEMENT_IS_DISPLAY_SIGNATURE, 2);			
+			}else {
+				uncheck(ELEMENT_IS_DISPLAY_SIGNATURE, 2);
+			}
+		}
+		if (opt.length > 1){
+			if (opt[1]){
+				check(ELEMENT_IS_DISPLAY_AVATAR, 2);
+				
+			} else {
+				uncheck(ELEMENT_IS_DISPLAY_AVATAR, 2);
+			}
+		}
+		if (opt.length > 2){
+			if (opt[2]){
+				check(ELEMENT_WATCH_TOPIC_START, 2);
+			} else {
+				uncheck(ELEMENT_WATCH_TOPIC_START, 2);
+			}
+		}
+		if (opt.length > 3){
+			if (opt[3]){
+				check(ELEMENT_WATCH_TOPIC_POST, 2);
+			}else {
+				uncheck(ELEMENT_WATCH_TOPIC_POST, 2);
+			}
+		}
 		but.save();
-		alert.waitForConfirmation(MESSAGE_SAVE_SETTING_PORTLET);
-		but.close();
-		waitForElementNotPresent(ELEMENT_FORUM_PORTLET_EDITMODE_TAB);
-		pageE.finishEditLayout();
+		waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 	}
-
-	/**function: setting dispaly panel in Forum portlet setting (go to edit page -> edit forum portlet -> select panel -> save)
-	 * @author lientm
-	 * @param show: refer function selectPanel()
-	 */
-	public void settingForumPortletPanel(boolean... show){
-		navTool = new NavigationToolbar(driver);
-		navTool.goToEditPageEditor();
-		goToEditForumPortlet();
-		selectPanel(show);
-		saveForumPortletSetting();
-	}
-
-	/**function: select show/hire category/forum (go to edit page -> edit forum portlet setting -> setting -> save
-	 * @author lientm
-	 * @param itemName: refer selectDisplayCategoryAndForum()
-	 * @param isCategory: refer selectDisplayCategoryAndForum()
-	 * @param display: refer selectDisplayCategoryAndForum()
-	 */
-	public void settingForumPortletSelectDisplay(String itemName, boolean isCategory, boolean display){
-		navTool = new NavigationToolbar(driver);
-		navTool.goToEditPageEditor();
-		goToEditForumPortlet();
-		selectDisplayCategoryAndForum(itemName, isCategory, display);
-		saveForumPortletSetting();
-	}
-
-	/**Function select option show panels in forum portlet setting
-	 * @author lientm
-	 * @param show: array option to show panels
-	 *        show[0]: show Jump to
-	 *        show[1]: show moderator
-	 *        show[2]: show poll
-	 *        show[3]: show quick reply
-	 *        show[4]: show legend icon reply
-	 *        show[5]: show rule panel
-	 *        show[6]: show statistic panel
-	 */
-	public void selectPanel(boolean... show){
-		if (show.length > 0){
-			click(ELEMENT_FORUM_PORTLET_PANEL_TAB);
-			if (show[0]){
-				check(ELEMENT_SHOW_FORUM_JUMP_CHECKBOX, 2);
-			}else {
-				uncheck(ELEMENT_SHOW_FORUM_JUMP_CHECKBOX, 2);
-			}
-		}
-		if (show.length > 1){
-			if (show[1]){
-				check(ELEMENT_SHOW_MODERATOR_CHECKBOX, 2);
-			}else {
-				uncheck(ELEMENT_SHOW_MODERATOR_CHECKBOX, 2);
-			}
-		}
-		if (show.length > 2){
-			if (show[2]){
-				check(ELEMENT_SHOW_POLL_CHECKBOX, 2);
-			} else {
-				uncheck(ELEMENT_SHOW_POLL_CHECKBOX, 2);
-			}
-		}
-		if (show.length > 3){
-			if (show[3]){
-				check(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX, 2);
-			} else {
-				uncheck(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX, 2);
-			}
-		}
-		if (show.length > 4){
-			if (show[4]){
-				check(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX, 2);
-			} else {
-				uncheck(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX, 2);
-			}
-		}
-		if (show.length > 5){
-			if (show[5]){
-				check(ELEMENT_SHOW_RULE_CHECKBOX, 2);
-			} else {
-				uncheck(ELEMENT_SHOW_RULE_CHECKBOX, 2);
-			}
-		}
-		if (show.length > 6){
-			if (show[6]){
-				check(ELEMENT_SHOW_STATISTIC_CHECKBOX, 2);
-			} else {
-				uncheck(ELEMENT_SHOW_STATISTIC_CHECKBOX, 2);
-			}
-		}
-	}
-
-	/**Function check or uncheck Category or forum in Forum portlet setting
-	 * @author lientm
-	 * @param itemName: name of category/forum
-	 * @param isCategory: = true: category
-	 * 					  = false: forum
-	 * @param display: = true: check to display
-	 * 				   = false: uncheck
-	 */
-	public void selectDisplayCategoryAndForum(String itemName, boolean isCategory, boolean display){
-		By category_checkbox = By.xpath("//*[text()='" + itemName + "']/../../../*[@class='ParentCheckBox']/input");
-		By forum_checkbox = By.xpath("//*[text()='" + itemName + "']/../..//input[@type='checkbox']");
-		By element_category = By.xpath("//*[text()='" + itemName + "']/../../../../div[@class='NodeLabel']//a");
-
-		if (isCategory){
-			WebElement category = waitForAndGetElement(category_checkbox);
-			if ((display && !category.isSelected()) || (!display && category.isSelected())){
-				click(category_checkbox);
-			}
+	
+	public void forumsSettings(String...opts){
+		info("Settings for forum");
+		if (waitForAndGetElement(ELEMENT_SETTING_FORUM_TAB, 5000, 0) != null){
+			click(ELEMENT_SETTING_FORUM_TAB);
 		}else {
-			if (waitForAndGetElement(forum_checkbox, 3000, 0) == null){
-				click(element_category);
+			click(ELEMENT_USER_MANAGEMENT_SETTING_TAB);
+		}
+		if (opts.length > 0){
+			if (opts[0] != null){
+				selectOption(ELEMENT_SETTING_TIMEZONE, opts[0]);
 			}
-			WebElement forum = waitForAndGetElement(forum_checkbox);
-			if ((display && !forum.isSelected()) || (!display && forum.isSelected())){
-				click(forum_checkbox);
+		}
+		if (opts.length > 1){
+			if (opts[1] != null){
+				selectOption(ELEMENT_SETTING_SHORT_DATE_FORMAT, opts[1]);
 			}
-		}		
-	}	
+		}
+		if (opts.length > 2){
+			if (opts[2] != null){
+				selectOption(ELEMENT_SETTTING_LONG_DATE_FORMAT, opts[2]);
+			}
+		}
+		if (opts.length > 3){
+			if (opts[3] != null){
+				select(ELEMENT_SETTING_TIME_FORMAT, opts[3]);
+			}
+		}
+		if (opts.length > 4){
+			if (opts[4] != null){
+				select(ELEMENT_SETTTING_TOPIC_PER_PAGE, opts[4]);
+			}
+		}
+		if (opts.length > 5){
+			if (opts[5] != null){
+				select(ELEMENT_SETTING_POST_PER_PAGE, opts[5]);
+			}
+		}
+		String save = opts.length > 6 ? opts[6] : "true";
+		if (Boolean.valueOf(save)){
+			but.save();
+			waitForElementNotPresent(ELEMENT_SETTING_POPUP);
+		}
+	}
+	
 
 	/**function go to RSS for any item (by rightclick on item -> choose RSS)
 	 * @author lientm
@@ -961,71 +958,6 @@ public class ForumBase extends PlatformBase {
 
 	}
 
-
-	/** function: input data to a frame in other frame
-	 * @author lientm
-	 * @param frame1
-	 * @param frame2
-	 * @param data
-	 * @param validate = null: clear data before
-	 *                 = true: clear data before
-	 *                 = false: not clear data before
-	 */
-
-	public void inputDataToFrameInFrame(By frame1, By frame2, String data, boolean...validate){
-		boolean valid = validate.length > 0 ? validate[0]: true;
-		boolean verify = validate.length > 1 ? validate[1]: true;
-		try {
-			WebElement inputsummary = null;
-
-			for (int repeat = 0;; repeat++) {
-				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
-					info("Fail to input data to frame");
-				}
-				driver.switchTo().frame(waitForAndGetElement(frame1));
-				driver.switchTo().frame(waitForAndGetElement(frame2));
-				inputsummary = driver.switchTo().activeElement();
-				if (valid){
-					((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
-				}else {
-					inputsummary.sendKeys(data); break;
-				}
-				if(verify){
-					if (data.equals(inputsummary.getText())) 
-						break;
-				}else break;
-				switchToParentWindow();
-			}
-		} catch (StaleElementReferenceException e) {
-			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			Utils.pause(WAIT_INTERVAL);
-			inputDataToFrameInFrame(frame1, frame2, data, validate);
-		} catch (ElementNotVisibleException e) {
-			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			Utils.pause(WAIT_INTERVAL);
-			inputDataToFrameInFrame(frame1, frame2, data, validate);
-		} finally {
-			loopCount = 0;
-		}
-	}
-
-	/** function: Attach file in attach popup
-	 * @author lientm
-	 * @param number: number of upload container that need upload file
-	 * @param filePath: path to file upload
-	 */
-	public void attachFile(String filePath){
-		String[] file = filePath.split("/");
-		for (int i = 0; i < file.length; i ++){
-			WebElement element = waitForAndGetElement(ELEMENT_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1, 2);
-			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", element);
-			element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + file[i]));
-			waitForAndGetElement("//*[@class='fileNameLabel' and text()='" + file[i] + "']");
-		}
-		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
-		waitForElementNotPresent(ELEMENT_ATTACHMENT_SAVE_BUTTON);
-	}
-	
 	public void settingMailForUser(String...email){
 		but = new Button(driver);
 		String user = email.length > 0 ? email[0] : EMAIL_ADDRESS1;
@@ -1039,5 +971,178 @@ public class ForumBase extends PlatformBase {
 		Utils.pause(1000);
 		but.save();
 		waitForElementNotPresent(ELEMENT_SETTING_POPUP);
+	}
+	
+	//------------------------Forum edit portlet--------------------------------------//
+
+	/**Function select option show panels in forum portlet setting
+	 * @author lientm
+	 * @param show: array option to show panels
+	 *        show[0]: show poll
+	 *        show[1]: show moderator
+	 *        show[2]: show quick reply
+	 *        show[3]: show legend icon reply
+	 *        show[4]: show rule panel
+	 *        show[5]: show statistic panel
+	 */
+	public void selectPanel(boolean... show){
+		but = new Button(driver);
+		click(ELEMENT_FORUM_PORTLET_PANEL_TAB);
+		if (show.length > 0){
+			if (show[0]){
+				check(ELEMENT_SHOW_POLL_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_POLL_CHECKBOX, 2);
+			}
+		}
+		if (show.length > 1){
+			if (show[1]){
+				check(ELEMENT_SHOW_MODERATOR_CHECKBOX, 2);
+			}else {
+				uncheck(ELEMENT_SHOW_MODERATOR_CHECKBOX, 2);
+			}
+		}
+		if (show.length > 2){
+			if (show[2]){
+				check(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_QUICK_REPLY_CHECKBOX, 2);
+			}
+		}
+		if (show.length > 3){
+			if (show[3]){
+				check(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_ICON_LEGEND_CHECKBOX, 2);
+			}
+		}
+		if (show.length > 4){
+			if (show[4]){
+				check(ELEMENT_SHOW_RULE_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_RULE_CHECKBOX, 2);
+			}
+		}
+		if (show.length > 5){
+			if (show[5]){
+				check(ELEMENT_SHOW_STATISTIC_CHECKBOX, 2);
+			} else {
+				uncheck(ELEMENT_SHOW_STATISTIC_CHECKBOX, 2);
+			}
+		}
+		but.save();
+		click(ELEMENT_OK_INFOR_POPUP);
+		Utils.pause(1000);
+	}
+
+	/**Function check or uncheck Category or forum in Forum portlet setting
+	 * @author lientm
+	 * @param itemName: name of category/forum
+	 * @param isCategory: = true: category
+	 * 					  = false: forum
+	 * @param display: = true: check to display
+	 * 				   = false: uncheck
+	 */
+	public void selectDisplayCategoryAndForum(String itemName, boolean isCategory, boolean display){
+		but = new Button(driver);
+		if (!isCategory){
+			click("//*[contains(text(), '" + itemName + "')]/../..");
+		}
+		if (display){
+			check(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
+		}else {
+			uncheck(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
+		}
+		but.save();
+		click(ELEMENT_OK_INFOR_POPUP);
+		Utils.pause(1000);
+	}	
+	
+	public void selectOptions(boolean ajax){
+		but = new Button(driver);
+		click(ELEMENT_FORUM_PORTLET_OPTIONS_TAB);
+		if (ajax){
+			check(ELEMENT_USE_AJAX_CHECKBOX, 2);
+		}else {
+			uncheck(ELEMENT_USE_AJAX_CHECKBOX, 2);
+		}
+		but.save();
+		click(ELEMENT_OK_INFOR_POPUP);
+		Utils.pause(1000);
+	}
+	
+	//--------------------------------User Management-----------------------------------//
+	
+	public void goToUserManagement(String user){
+		info("---Go to User management---");
+		click(ELEMENT_USER_MANAGEMENT);
+		waitForAndGetElement(ELEMENT_USER_MANAGEMENT_POPUP);
+		type(ELEMENT_SEARCH_USER_INPUT, user, true);
+		String id = waitForAndGetElement(By.xpath("//*[@id='UIPage']/div/div")).getAttribute("id");
+		((JavascriptExecutor)driver).executeScript("javascript:eXo.webui.UIForm.submitForm('" + id + "#UIModeratorManagementForm','SearchUser',true);");
+		click(ELEMENT_USER_EDIT_ICON.replace("${user}", user));
+		waitForAndGetElement(ELEMENT_USER_MANAGEMENT_PROFILE_TAB);
+	}
+	
+	public void settingUserManagementProfile(String screenName, String titleUser, String category, String forum, String sign, boolean...opt){
+		but = new Button(driver);
+		if (screenName != null){
+			type(ELEMENT_SCREEN_NAME, screenName, true);
+		}
+		if (titleUser != null){
+			type(ELEMENT_USER_MANAGEMENT_TITLE_USER, titleUser, true);
+		}
+		if (category != null){
+			click(ELEMENT_ADD_MODERATOR_CATEGORY_ICON);
+			check(ELEMENT_CATEGORY_SELECT_CHECKBOX.replace("${cat}", category), 2);
+			click(but.ELEMENT_ADD_BUTTON);
+			Utils.pause(1000);
+		}
+		if (forum != null){
+			click(ELEMENT_ADD_MODERATOR_FORUM_ICON);
+			check(ELEMENT_CATEGORY_SELECT_CHECKBOX.replace("${cat}", forum), 2);
+			click(but.ELEMENT_ADD_BUTTON);
+			Utils.pause(1000);
+		}
+		if (sign != null){
+			type(ELEMENT_SIGNATURE, sign, true);
+		}
+		if (opt.length > 0){
+			if (opt[0]){
+				check(ELEMENT_USER_MANAGEMENT_FORUM_ADMIN, 2);			
+			}else {
+				uncheck(ELEMENT_USER_MANAGEMENT_FORUM_ADMIN, 2);
+			}
+		}
+		if (opt.length > 1){
+			if (opt[1]){
+				check(ELEMENT_IS_DISPLAY_SIGNATURE, 2);			
+			}else {
+				uncheck(ELEMENT_IS_DISPLAY_SIGNATURE, 2);
+			}
+		}
+		if (opt.length > 2){
+			if (opt[2]){
+				check(ELEMENT_IS_DISPLAY_AVATAR, 2);
+				
+			} else {
+				uncheck(ELEMENT_IS_DISPLAY_AVATAR, 2);
+			}
+		}
+	}
+	
+	public void banUser(boolean ban, String time, String reason){
+		click(ELEMENT_USER_MANAGEMENT_BAN_USER_TAB);
+		if (ban){
+			check(ELEMENT_BAN_USER_CHECKBOX, 2);
+			if (time != null){
+				selectOption(ELEMENT_BAN_USER_TIME, time);
+			}
+			if (reason != null){
+				type(ELEMENT_BAN_USER_REASON, reason, true);
+			}
+		}else {
+			uncheck(ELEMENT_BAN_USER_CHECKBOX, 2);
+		}
 	}
 }

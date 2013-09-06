@@ -27,7 +27,7 @@ public class ForumManagePost extends ForumBase {
 	}
 	
 	//--------------post home screen--------------------------------------------------------
-	public By ELEMENT_POST_REPLY_BUTTON = By.xpath("//*[@class='ButtomAndPageListContainer ClearFix']/*//a[text()='Post Reply']");
+	public By ELEMENT_POST_REPLY_BUTTON = By.xpath("//*[@id='UITopicDetail']/div[2]//*[text()='Post Reply']");
 	public String ELEMENT_POST_EDIT_BUTTON = "//*[text()='${postContent}']/../../../../*//a[text()='Edit' and @class='IconButton EditPostIcon']";
 	public String ELEMENT_POST_DELETE_BUTTON = "//*[text()='${postContent}']/../../../../*//a[text()='Delete' and @class='IconButton DeletePostIcon']";
 	public String ELEMENT_POST_CHECKBOX = "//*[text()='${postContent}']/../../../../*//input[@type='checkbox']";
@@ -46,14 +46,14 @@ public class ForumManagePost extends ForumBase {
 	
 	//--------------post reply screen-----------------------------------------------------------
 	public By ELEMENT_POST_TITLE = By.id("PostTitle");
-	public By ELEMENT_POST_MESSAGE_FRAME_1 = By.xpath("//iframe[@id='MessageContent___Frame']");
-	public By ELEMENT_POST_MESSAGE_FRAME_2 = By.xpath("//td[@id='xEditingArea']/iframe");
-	public By ELEMENT_POST_POPUP_NEW = By.xpath("//span[@class='PopupTitle' and text()='New Post']");
+	public By ELEMENT_POST_MESSAGE_FRAME_1 = By.id("MessageContent___Frame");
+	public By ELEMENT_POST_MESSAGE_FRAME_2 = By.xpath("//*[@id='xEditingArea']/iframe");
+	public By ELEMENT_POST_POPUP_NEW = By.xpath("//span[@class='PopupTitle popupTitle' and text()='New Post']");
 	public By ELEMENT_POST_ICONS_TAB = By.xpath("//a[contains(text(), 'Icons and Smileys')]");
-	public By ELEMENT_POST_PRIVATE_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Private Post']");
+	public By ELEMENT_POST_PRIVATE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Private Post']");
 	
 	//--------------quick reply form-----------------------------------------------------------
-	public By ELEMENT_POST_QUICK_MESSAGE = By.id("Message");
+	public By ELEMENT_POST_QUICK_MESSAGE = By.id("UITopicDetail.label.Message");
 	public By ELEMENT_PREVIEW_BUTTON = By.linkText("Preview");
 	public By ELEMENT_POST_QUICK_BUTTON = By.linkText("Quick Reply");
 	public By ELEMENT_POST_PREVIEW_POPUP = By.xpath("//span[@class='PopupTitle' and text()='ViewPost']");
@@ -112,10 +112,12 @@ public class ForumManagePost extends ForumBase {
 	 * @param file: file attach
 	 */
 	public void putDataPost(String title, String message, String groupName, String iconClass, String... file){
-		if (title != "" && title != null) {
+		magTopic = new ForumManageTopic(driver);
+		
+		if (title != null) {
 			type(ELEMENT_POST_TITLE, title, true);
 		}
-		if (message != "" && message != null) {
+		if (message != null) {
 			inputDataToFrameInFrame(ELEMENT_POST_MESSAGE_FRAME_1, ELEMENT_POST_MESSAGE_FRAME_2, message, true);
 			switchToParentWindow();	
 		}
@@ -131,6 +133,7 @@ public class ForumManagePost extends ForumBase {
 		}
 		click(magTopic.ELEMENT_SUBMIT_BUTTON);
 		waitForElementNotPresent(ELEMENT_POST_POPUP_NEW);
+		waitForTextPresent(message);
 		info("Post reply successfully");
 	}
 
@@ -139,7 +142,7 @@ public class ForumManagePost extends ForumBase {
 	 * @param message: content of reply
 	 */
 	public void quickReply(String message, boolean... verify){
-		boolean check = verify.length > 0 ? verify[0] : false;
+		boolean check = verify.length > 0 ? verify[0] : true;
 		type(ELEMENT_POST_QUICK_MESSAGE, message, true);
 		click(ELEMENT_POST_QUICK_BUTTON);
 		info("Quick reply successfully");

@@ -14,6 +14,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 import javax.imageio.ImageIO;
@@ -171,5 +176,54 @@ public class Utils {
 		}else {
 			return fileNameWithExt;
 		}
+	}
+	
+	/**
+	 * @author lientm
+	 * @return ipV4 of local machine
+	 */
+	public static String getIPOfLocal(){
+		info("Get IP of localhost");
+        String interName = "";
+        Map <String, String> inter = getInterfaces();
+        for (String key: inter.keySet()){
+        	if (key.contains("eth")){
+        		interName = inter.get(key);
+        		break;
+        	}
+        }
+        info(interName);
+        return interName;
+	}
+	
+	/**
+	 * @author lientm
+	 * @return map of interface name and Ip of local machine
+	 */
+	public static Map<String, String> getInterfaces(){
+		Map<String,String> inter = new HashMap <String,String>();
+		String IP = "";
+	      try {
+	         Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces();
+	 
+	         while(e.hasMoreElements()) {
+	            NetworkInterface ni = (NetworkInterface) e.nextElement();
+	            info("Net interface: " + ni.getName()); 
+	            
+	            Enumeration<InetAddress> e2 = ni.getInetAddresses(); 
+	            while (e2.hasMoreElements()){
+	               InetAddress ip = (InetAddress) e2.nextElement();
+		            if(!ip.isLinkLocalAddress()) {
+		                IP = ip.getHostAddress();
+		            }
+	            }
+	            info("IP address: "+ IP.toString());
+		        inter.put(ni.getName(), IP.toString());
+	         }
+	      }
+	      catch (Exception e) {
+	         e.printStackTrace();
+	      }
+	   return inter;
 	}
 }

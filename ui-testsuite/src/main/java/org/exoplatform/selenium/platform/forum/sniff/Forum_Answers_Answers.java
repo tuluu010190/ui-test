@@ -227,7 +227,7 @@ public class Forum_Answers_Answers extends AnswerBase {
 		
 		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
-		info("add 2 Answer for this question");
+		info("add 3 Answer for this question");
 		click(By.linkText(questionName));
 		magAns.answerQuestion(2, questionName, null, answerContent1, true, true, false, null, false, null);
 		magAns.answerQuestion(2, questionName, null, answerContent2, true, true, false, null, false, null);

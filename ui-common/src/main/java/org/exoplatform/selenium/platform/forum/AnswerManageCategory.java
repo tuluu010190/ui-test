@@ -191,20 +191,24 @@ public class AnswerManageCategory extends AnswerBase {
 	 * @param wayDelete
 	 * @param categoryName
 	 */
-	public void deleteCategoryInAnswer(String categoryName){
+	public void deleteCategoryInAnswer(String categoryName, boolean...verify){
+		boolean check = verify.length > 0 ? verify[0]:true;
 		action = new Actions(driver);
 		if (getElementFromTextByJquery(categoryName) != null){
 			info("Delete category by right click");
 			action.contextClick(getElementFromTextByJquery(categoryName)).perform();
 			click(ELEMENT_DELETE_CATEGORY_LINK);
 		}else {
-			info("Edit category while opening category");
+			info("Delete category while opening category");
 			click(ELEMENT_CATEGORY_BUTTON);
 			click(ELEMENT_DELETE_CATEGORY_ON_MENU);
 		}
 		waitForMessage(MSG_DELETE_CATEGORY);
 		click(ELEMENT_OK_DELETE_BUTTON);
-		waitForTextNotPresent(categoryName);
+		if (check){
+			waitForTextNotPresent(categoryName);
+		}
+		Utils.pause(1000);
 	}
 	
 	/**

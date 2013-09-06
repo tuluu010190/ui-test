@@ -347,8 +347,7 @@ public class PageEditor extends PlatformBase {
 			magAlert.acceptAlert();
 			Utils.pause(1000);
 			if (verify){
-				click(ELEMENT_PAGE_FINISH_BUTTON);
-				waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
+				finishEditLayout();
 			}
 			info("portlet is removed... successful");
 		}else{
@@ -358,7 +357,6 @@ public class PageEditor extends PlatformBase {
 				waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 			}
 		}
-		//waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 		waitForElementNotPresent(elementPortlet);
 	}
 	
@@ -367,7 +365,7 @@ public class PageEditor extends PlatformBase {
 	 * @param elementPortlet
 	 */
 	public void goToEditPortlet(Object elementPortlet){	
-		info("Go to edit portlet " + elementPortlet);
+		info("Go to edit portlet ");
 		mouseOver(elementPortlet, true);
 		click(ELEMENT_EDIT_PORTLET_ICON);
 		waitForAndGetElement(By.id("tab-UIPortletForm"));

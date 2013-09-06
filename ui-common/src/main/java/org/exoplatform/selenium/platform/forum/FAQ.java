@@ -5,10 +5,12 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageApplications;
 import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.PageManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -27,22 +29,24 @@ public class FAQ extends AnswerBase {
 	AnswerManageAnwser answer;
 	AnswerManageCategory cat;
 	AnswerManageQuestion question;
+	PageEditor pageE;
 	
 	public final String DATA_ANSWER_FAQ_PAGE_NAME="AnswerFAQ";
-	public final By ELEMENT_FAQ_VIEWER = By.xpath("//*[@id='UIViewer' and @class ='FAQViewerContainer']");
+	public final By ELEMENT_FAQ_VIEWER = By.id("UIFAQPortlet");
 	public final By ELEMENT_FQA_CONTAINER = By.xpath("//a[@title='faq']");
-	public final By ELEMENT_FAQ_PORLET = By.xpath("//*[@class='LabelTab' and text()='FAQPortlet']");
+	public final By ELEMENT_FAQ_PORLET = By.id("Collaboration/FAQPortlet");
 	public final By ELEMENT_ANSWER_PAGE = By.id("UIPage");
-	public final String ELEMENT_FAQ_CATEGORY = "//*[@id='UIViewer']//span[@title='${cat}']";
-	public final String ELEMENT_FAQ_QUESTION = "//*[@class='ActionLinkFAQ' and text()='${quest}']";
-	public final String ELEMENT_FAQ_ANSWER = "//*[@class='Answer']//p[text()='${ans}']";
-	public final By ELEMENT_FAQ_HOME = By.xpath("//a[@class='AnswerHomeIcon']");
-	public final By ELEMENT_FAQ_PORTLET_IN_PAGE = By.xpath("//*[@class='CPortletLayoutDecorator' and contains(text(), 'FAQPortlet')]");
-	public final By ELEMENT_FAQ_PORTLET_DELETE = By.xpath("//*[text()='FAQPortlet']/../a[@class='DeleteIcon']");
-	public final By ELEMENT_FAQ_PORTLET_EDIT = By.xpath("//*[text()='FAQPortlet']/../a[@class='EditIcon']");
+	public final String ELEMENT_FAQ_CATEGORY = "//*[@id='UIFAQPortlet']//h5/*[text()='${cat}']";
+	public final String ELEMENT_FAQ_QUESTION = "//*[@id='UIFAQPortlet']//a[text()='${quest}']";
+	public final String ELEMENT_FAQ_ANSWER = "//*[@id='UIFAQPortlet']//*[text()='${ans}']";
+	public final By ELEMENT_FAQ_HOME = By.linkText("FAQ home");
+	public final By ELEMENT_FAQ_PORTLET_IN_PAGE = By.xpath("//*[@class='portletLayoutDecorator' and contains(text(), 'FAQPortlet')]");
+	public final By ELEMENT_FAQ_PORTLET_DELETE = By.xpath("//*[text()='FAQPortlet']/../*[@data-original-title='Delete Portlet']");
+	public final By ELEMENT_FAQ_PORTLET_EDIT = By.xpath("//*[text()='FAQPortlet']/../*[@data-original-title='Edit Portlet']");
 	public final By ELEMENT_FAQ_PORTLET_H2 = By.xpath("//a[@class='TitleActionLink']");
-	public final By ELEMENT_FAQ_EDIT_TEMPLATE_TAB = By.xpath("//*[@class='MiddleTab' and text()='Edit Template']");
+	public final By ELEMENT_FAQ_EDIT_TEMPLATE_TAB = By.xpath("//button[contains(text(), 'Edit Template')]");
 	public final By ELEMENT_FAQ_EDIT_TEMP_INPUT = By.id("ContentTemplate");
+	public final By ELEMENT_FAQ_DISPLAY_CATEGORY_TAB = By.xpath("//button[contains(text(), 'Display Category')]");
 	public final By ELEMENT_FAQ_PORLET_ICON = By.id("faq/local._faq.FAQPortlet");
 	
 	/*-----------------------Common function--------------------------------*/
@@ -53,27 +57,14 @@ public class FAQ extends AnswerBase {
 	 */
 	public void createAnswerAndFAQPage()	{
 		navTool = new NavigationToolbar(driver);
-		alert = new ManageAlert(driver);
 		page = new PageManagement(driver);
 		
 		Map<String, String> ANSWER_FQA_PORTLET_ID = new HashMap<String, String>();
 		ANSWER_FQA_PORTLET_ID.put("faq/local._faq.AnswersPortlet", "faq/local._faq.FAQPortlet");
-		
-		info("Configure to show import applications");
-		app.showImportApplication(true);
-
-		info("Click Import Application");
-		click(app.ELEMENT_IMPORT_APPLICATION);
-		alert.waitForConfirmation(app.IMPORT_APPLICATION_CONFIRMATION);
-		Utils.pause(1000);
 
 		info("--Go to intranet--");
 		navTool.goToHomePage();
-
-		info("Go to Add page editor");
 		navTool.goToPageCreationWizard();
-
-		info("Up level");
 		click(ELEMENT_UP_LEVEL);
 
 		info("Create Answer&FAQ page");
@@ -81,26 +72,24 @@ public class FAQ extends AnswerBase {
 				ANSWER_FQA_PORTLET_ID, false);	
 	}
 
+	public void goToFQAHome(){
+		click(ELEMENT_FAQ_HOME);
+		waitForElementNotPresent(ELEMENT_FAQ_HOME);
+	}
 	
-	/** function add new Faq portlet in page
+	/** function add new Faq portlet in page if it is has not added
 	 * @author lientm
 	 */
 	public void goToFaq(){
 		navTool = new NavigationToolbar(driver);
+		pageE = new PageEditor(driver);
+		
 		WebElement faq = waitForAndGetElement(ELEMENT_FAQ_VIEWER, 5000, 0);
 		if (faq == null){
 			navTool.goToEditPageEditor();
-			for (int i = 0; i < 5; i ++){
-				WebElement faq_container = waitForAndGetElement(ELEMENT_FAQ_PORLET, 10000, 0);
-				if (faq_container == null){
-					click(ELEMENT_FQA_CONTAINER);
-					break;
-				}
-			}
-			
+			click(By.linkText("Collaboration"));
 			dragAndDropToObject(ELEMENT_FAQ_PORLET, ELEMENT_ANSWER_PAGE);
-			click(ELEMENT_PAGE_FINISH_BUTTON);
-			waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 100000);
+			pageE.finishEditLayout();
 		}
 	}
 	
@@ -136,42 +125,15 @@ public class FAQ extends AnswerBase {
 		waitForElementNotPresent(element_answer);
 	}
 	
-//	/**function: add new category -> question -> answer
-//	 * @author lientm
-//	 * @param categoryName
-//	 * @param description
-//	 * @param questionName
-//	 * @param answerContent
-//	 */
-//	public void addNewCategoryQuestionAnswer(String categoryName, String description, String questionName, String answerContent){
-//		String[] audience = {};
-//		String[] moderator = {};
-//		By element_catgory = By.linkText(categoryName);
-//		By element_question = By.linkText(questionName);
-//		
-//		//cat.addNewCategoryInAnswer(categoryName, "1", 0, audience, description, 0, moderator);
-//		click(element_catgory);
-//		
-//		//add new question
-//		question.submitQuestion("", questionName, questionName, false);
-//		
-//		//answer this question
-//		answer.answerOpeningQuestion(element_question, "", answerContent, true, true, false, false, 0);
-//	}
-	
 	/**function delete faq portlet for page
 	 * @author lientm
 	 */
 	public void deleteFaqPortlet(){
+		pageE = new PageEditor(driver);
 		navTool = new NavigationToolbar(driver);
-		alert = new ManageAlert(driver);
 		
 		navTool.goToEditPageEditor();
-		mouseOver(ELEMENT_FAQ_PORTLET_IN_PAGE, true);
-		click(ELEMENT_FAQ_PORTLET_DELETE);
-		alert.acceptAlert();
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 100000);
+		pageE.removePortlet(ELEMENT_FAQ_PORTLET_IN_PAGE, ELEMENT_FAQ_PORTLET_DELETE);
 	}
 	
 	/**function go to edit faq portlet
@@ -179,9 +141,41 @@ public class FAQ extends AnswerBase {
 	 */
 	public void goToEditFaqPortlet(){
 		navTool = new NavigationToolbar(driver);
+		pageE = new PageEditor(driver);
+		
 		navTool.goToEditPageEditor();
-		mouseOver(ELEMENT_FAQ_PORTLET_IN_PAGE, true);
-		click(ELEMENT_FAQ_PORTLET_EDIT);
+		pageE.goToEditPortlet(ELEMENT_FAQ_PORTLET_IN_PAGE);
 		waitForAndGetElement(ELEMENT_FAQ_EDIT_TEMPLATE_TAB);
+	}
+	
+	/**
+	 * @author lientm
+	 * @param category
+	 * @param display
+	 */
+	public void settingDisplayCategoryScope(String category, boolean display){
+		but = new Button(driver);
+		click(ELEMENT_FAQ_DISPLAY_CATEGORY_TAB);
+		if (display){
+			check(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", category), 2);
+		}else {
+			uncheck(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", category), 2);
+		}
+		but.save();
+		click(ELEMENT_OK_INFOR_POPUP);
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * @author lientm
+	 * @param file
+	 */
+	public void settingFAQTemplate(String data){
+		but = new Button(driver);
+		click(ELEMENT_FAQ_EDIT_TEMPLATE_TAB);
+		type(ELEMENT_FAQ_EDIT_TEMP_INPUT, data, false);
+		but.save();
+		click(ELEMENT_OK_INFOR_POPUP);
+		Utils.pause(1000);
 	}
 }

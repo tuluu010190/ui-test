@@ -40,7 +40,7 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_START_TOPIC_BUTTON = By.xpath("//*[@id='UITopicContainer']/div[2]/button");
 	public By ELEMENT_POPUP_START_TOPIC = By.xpath("//span[@class='PopupTitle popupTitle' and text()='New Topic']");
 	public By ELEMENT_SUBMIT_BUTTON = By.xpath("//button[text()='Submit']");
-	public By ElEMENT_CANCEL_ADD_TOPIC = By.xpath(".//*[@id='UITopicForm']/div[3]/a[text()='Cancel']");
+	public By ElEMENT_CANCEL_ADD_TOPIC = By.xpath("//*[@id='UITopicForm']/div[3]/a[text()='Cancel']");
 
 	public By ELEMENT_TOPIC_CONTENT_TAB = By.linkText("Content");
 	public By ELEMENT_TOPIC_TITLE = By.id("ThreadTitle");
