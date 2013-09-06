@@ -5,6 +5,9 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -29,7 +32,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 public class TestBase {
-	
+
 	public WebDriver driver;
 	protected String baseUrl;
 	protected int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
@@ -46,6 +49,7 @@ public class TestBase {
 	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
+
 	public void initSeleniumTest(){
 		String browser = System.getProperty("browser");
 		if("chrome".equals(browser)){
@@ -128,7 +132,7 @@ public class TestBase {
 				if (isDisplay(by)) return e;
 			}
 		} catch (NoSuchElementException ex) {
-//			info("NoSuchElementException");
+			//			info("NoSuchElementException");
 		}catch(StaleElementReferenceException ex)
 		{
 			checkCycling(ex, 10);
@@ -148,7 +152,7 @@ public class TestBase {
 	public boolean isElementNotPresent(Object locator) {
 		return !isElementPresent(locator);
 	}
-	
+
 	/*
 	 * @opPram[0]: timeout
 	 * @opPram[1]: 0,1
@@ -582,10 +586,10 @@ public class TestBase {
 		fp.setPreference("browser.download.folderList", 2);
 		info("Save file to " + pathFile);
 		fp.setPreference("browser.download.dir", pathFile);
-//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", 
-//				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;application/bzip2;" +
-//				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-//				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip;application/octet-stream");
+		//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", 
+		//				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;application/bzip2;" +
+		//				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+		//				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip;application/octet-stream");
 
 		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
 						"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
@@ -617,18 +621,18 @@ public class TestBase {
 		action = new Actions(driver);
 		termsAndConditions();
 	}
-	
+
 	/**
-	* function: check a file existed in folder
-	* @author lientm
-	* @param file: file name (eg: export.zip)
-	* @return: true -> file exist
-	* false-> file is not exist
-	*/
+	 * function: check a file existed in folder
+	 * @author lientm
+	 * @param file: file name (eg: export.zip)
+	 * @return: true -> file exist
+	 * false-> file is not exist
+	 */
 	public boolean checkFileExisted(String file){
 		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + file;
 		boolean found = false;
-		
+
 		if (new File(pathFile).isFile()){
 			found = true;
 		}
@@ -657,30 +661,30 @@ public class TestBase {
 	 * @param fileName
 	 */
 	public void cutPasteFileFromOutputToTestData(String fileName){
-        String source = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + fileName;
-        //directory where file will be copied
-        String target = System.getProperty("user.dir") + "/src/main/resources/TestData/";
-     
-        //name of source file
-        File sourceFile = new File(source);
-        String name = sourceFile.getName();
-     
-        File targetFile = new File(target+name);
-     
-        //copy file from one location to other
-        try {
+		String source = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + fileName;
+		//directory where file will be copied
+		String target = System.getProperty("user.dir") + "/src/main/resources/TestData/";
+
+		//name of source file
+		File sourceFile = new File(source);
+		String name = sourceFile.getName();
+
+		File targetFile = new File(target+name);
+
+		//copy file from one location to other
+		try {
 			FileUtils.copyFile(sourceFile, targetFile);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-        //delete file in TestOutput
-        deleteFile("TestOutput/" + fileName);
+		//delete file in TestOutput
+		deleteFile("TestOutput/" + fileName);
 	}
 
 	public enum Language{
 		en, fr, vi, lo;
 	}
-	
+
 	public void getDriverSetLanguage(Language language){
 		String locale = language.toString();
 		FirefoxProfile profile = new FirefoxProfile();
@@ -690,5 +694,16 @@ public class TestBase {
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		action = new Actions(driver);
 		termsAndConditions();
+	}
+
+	/**function get current Date of system follow a fomat
+	 * @author lientm
+	 * @param fomat
+	 * @return
+	 */
+	public String getCurrentDate(String fomat){
+		DateFormat dateFormat = new SimpleDateFormat(fomat);
+		Date date = new Date();
+		return (dateFormat.format(date));
 	}
 }

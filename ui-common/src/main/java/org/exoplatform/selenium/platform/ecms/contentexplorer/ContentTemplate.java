@@ -36,10 +36,10 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_ANNOUNCEMENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Announcement']");
 	public final By ELEMENT_ANNOUNCEMENT_NAME_TEXTBOX = By.id("name");
 	public final By ELEMENT_ANNOUNCEMENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
-	
+
 	//WebLink
 	public final By ELEMENT_WEBLINK_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Web Link']");
-	
+
 	//WebContent
 	public final By ELEMENT_WEBCONTENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Web Content']");
 	//public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX = By.id("title");	
@@ -78,7 +78,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_CONTACTUS_EMAIL = By.id("your_email_addressFieldName");
 	public final By ELEMENT_CONTACTUS_PHONE = By.id("your_phone_numberFieldName");
 	public final By ELEMENT_CONTACTUS_MSG = By.id("your_messageFieldName");
-	
+
 	//Accessible Breadcrumb
 	public final By ELEMENT_ACCESSIBLE_BREADCRUMB_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Accessible Breadcrumb']");
 	public final By ELEMENT_ACCESSIBLE_NAVIGATION_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Accessible Breadcrumb']");
@@ -87,12 +87,12 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_ACCESSIBLE_MAIN_TAB_NAME = By.id("name");
 	public final By ELEMENT_ACCESSIBLE_MAIN_TAB_TITLE = By.id("title");
 	public final By ELEMENT_ACCESSIBLE_MAIN_TAB_LANGUAGE = By.className("selectbox");
-	
+
 	//CSS File
 	public final By ELEMENT_CSS_FILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='CSS File']");
-	
+
 	/*End Added*/
-	
+
 	//File
 	public final By ELEMENT_NEWFILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='File']");
 	//By.linkText("File");
@@ -165,7 +165,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_JS_NAME = By.id("name");
 	public final By ELEMENT_JS_ACTIVE = By.name("activeJS");
 	public final By ELEMENT_JS_PRIORITY = By.id("JSpriority");
-	public final By ELEMENT_JS_LANGUAGE = By.id("content-lang");
+	public final By ELEMENT_JS_LANGUAGE = By.name("content-lang");
 	public final By ELEMENT_JS_DATA = By.id("contentHtml");
 
 	//Data test
@@ -188,7 +188,22 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_LINK_URL= By.id("LinkURL");
 	public final By ELEMENT_LINK_DESC= By.id("LinkDescription");
 	public final By ELEMENT_LINK_LANGUAGE=By.name("content-lang");
-	
+
+	//	Contact Us
+	public final By ELEMENT_CONTACT_US_LINK= By.xpath("//*[@class='templateLabel']//*[text()='Contact Us']");
+	public final By ELEMENT_YOUR_NAME= By.id("your_nameFieldName");
+	public final By ELEMENT_YOUR_ADDRESS= By.id("your_addressFieldName");
+	public final By ELEMENT_YOUR_EMAIL= By.id("your_email_addressFieldName");
+	public final By ELEMENT_YOUR_PHONE= By.id("your_phone_numberFieldName");
+	public final By ELEMENT_YOUR_MESSAGE= By.id("your_messageFieldName");
+	public final String ELEMENT_VERIFY_MSG_CONTENT = "//*[contains(text(),'${content}')]";
+
+	//Accessible media
+	public final By ELEMENT_ACCESSIBLE_MEDIA_LINK = By.xpath("//i[@data-original-title='Accessible Media']");
+	public final By ELEMENT_ACCESSIBLE_MEDIA_ALTERNATIVE_FRAME = By.xpath("//*[@id='cke_contents_alternativeText']/iframe");
+	public final By ELEMENT_ACCESSIBLE_MEDIA_TITLE = By.id("title0");
+	public final By ELEMENT_ACCESSIBLE_MEDIA_DESC = By.id("description0");
+
 	/*=================== Create a new document/article/file ===================*/
 	/* 
 	 * Add new article / Kofax / File Plan
@@ -367,7 +382,7 @@ public class ContentTemplate extends EcmsBase{
 			int length = links.length;
 			waitForAndGetElement(By.xpath("//*[contains(@class, 'select')]//*[contains(text(),'" + links[length-1]+ "')]"));
 		}
-		
+
 		if (!optionLang.isEmpty()){
 			selectOption(ELEMENT_PIC_LANG, optionLang);
 		}
@@ -540,7 +555,7 @@ public class ContentTemplate extends EcmsBase{
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * @author phuongdt
 	 * @date 30/08/2013
@@ -565,22 +580,22 @@ public class ContentTemplate extends EcmsBase{
 			type(ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY, content, false);
 			/*return main frame*/
 			driver.switchTo().defaultContent();
-			
+
 			inputDataToFrame(ELEMENT_HTML_FILE_CKEDITOR_FRAME, content, true);
 			switchToParentWindow();
-//			
-//			/*switch to ckeditor frame*/
-//			driver.switchTo().frame(driver.findElement(ELEMENT_HTML_FILE_CKEDITOR_FRAME));
-//			/*locator body of ckeditor*/
-//			type(ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY, content, false);
-//			/*return main frame*/
-//			driver.switchTo().defaultContent();
+			//			
+			//			/*switch to ckeditor frame*/
+			//			driver.switchTo().frame(driver.findElement(ELEMENT_HTML_FILE_CKEDITOR_FRAME));
+			//			/*locator body of ckeditor*/
+			//			type(ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY, content, false);
+			//			/*return main frame*/
+			//			driver.switchTo().defaultContent();
 		}		
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * @author phuongdt
 	 * @date 30/08/2013
@@ -606,7 +621,7 @@ public class ContentTemplate extends EcmsBase{
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * @author phuongdt
 	 * @date 03/09/2013
@@ -659,29 +674,29 @@ public class ContentTemplate extends EcmsBase{
 		String title = (String) (params.length > 0 ? params[0]: "");
 		String lang = (String) (params.length > 1 ? params[1]: "");
 		String content = (String) (params.length > 2 ? params[2]: "");
-		
+
 		info("-- new Accessible Breadcrumb document	 --");
 		type(ELEMENT_ACCESSIBLE_MAIN_TAB_NAME, name, true);
-		
+
 		if (!title.isEmpty()){
 			type(ELEMENT_ACCESSIBLE_MAIN_TAB_TITLE, title, true);
 		}
-		
+
 		if (!lang.isEmpty()){
 			selectOption(ELEMENT_ACCESSIBLE_MAIN_TAB_LANGUAGE, lang);
 		}
-		
+
 		if (!content.isEmpty()){
 			inputDataToFrame(ELEMENT_HTML_FILE_CKEDITOR_FRAME, content, true);
 			switchToParentWindow();
 		}
-		
-		
+
+
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);
 	}
-	
+
 	//Create content folder and check
 	public void createAndCheckContentFolder(String name, By path){
 		info("Create new content folder with name: "+name);
@@ -695,21 +710,44 @@ public class ContentTemplate extends EcmsBase{
 	public void createNewLink(String linkName, String url, Object...params){
 		String lang = (String) (params.length > 0 ? params[0]: "");
 		String description = (String) (params.length > 1 ? params[1]: "");
-		
+
 		info("Create a new link" + linkName);
 		type(ELEMENT_LINK_NAME, linkName, false);
 		type(ELEMENT_LINK_URL, url, false);
-		
+
 		if (!lang.isEmpty()){
 			selectOption(ELEMENT_PIC_LANG, lang);
 		}
-		
+
 		if (!description.isEmpty()){
 			type(ELEMENT_LINK_DESC, description, false);
 		}
-		
+
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(1000);
+	}
+
+	//Create a new Contact Us
+	public void createNewContactUs(String name, String address, String email, String phone, String message){
+
+		info("Create a new Contact Us");
+
+		click(ELEMENT_CONTACT_US_LINK);	
+
+		type(ELEMENT_YOUR_NAME, name, true);
+
+		type(ELEMENT_YOUR_ADDRESS, address, true);
+
+		type(ELEMENT_YOUR_EMAIL, email, true);
+
+		type(ELEMENT_YOUR_PHONE, phone, true);
+
+		type(ELEMENT_YOUR_MESSAGE, message, true);
+
+		button.saveAndClose();
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_MSG_CONTENT.replace("${content}", message)), DEFAULT_TIMEOUT, 1, 2);
 		Utils.pause(1000);
 	}
 
@@ -930,5 +968,36 @@ public class ContentTemplate extends EcmsBase{
 		select(ELEMENT_SELECT_LANGUAGE, language);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		waitForElementNotPresent(ELEMENT_SELECT_LANGUAGE);
+	}
+
+	/** Create an accessible media document
+	 * @author thuntn
+	 * @param name
+	 * @param lang
+	 * @param title
+	 * @param desc
+	 * @param alter
+	 */
+	public void createAccessibleMedia(String name, String lang, String title, String desc, String alter){
+
+		info("Create an accessible media" + name);
+		click(ELEMENT_ACCESSIBLE_MEDIA_LINK);
+		
+		if(name != null)
+			type(ELEMENT_LINK_NAME, name, false);
+		if(lang != null)
+			select(ELEMENT_JS_LANGUAGE, lang);
+		if(title != null)
+			type(ELEMENT_ACCESSIBLE_MEDIA_TITLE,title,true);
+		if(desc != null)
+			type(ELEMENT_ACCESSIBLE_MEDIA_DESC,desc,true);
+
+		if(alter != null)
+			inputDataToFrame(ELEMENT_ACCESSIBLE_MEDIA_ALTERNATIVE_FRAME,alter,true);
+
+		switchToParentWindow();
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(1000);
 	}
 }

@@ -259,6 +259,7 @@ public class ActionBar extends EcmsBase{
 	public void goToEditDocument(String title)
 	{	
 		if (title != null){
+
 			goToNode(title);
 		}
 		for(int loop = 1;;loop ++)
