@@ -42,6 +42,22 @@ public class ActionBar extends EcmsBase{
 	ECMainFunction ecMain = new ECMainFunction(driver);
 	
 	/*
+	 * Added by PhuongDT
+	 * Date: 04/09/2013
+	 * */
+	public final By ELEMENT_MORE_LINK_ACTION_BAR = By.xpath("//*[@class='uiContextMenuContainer']//*[@style='display: block;']//*[contains(text(), 'More')]");
+	public final By ELEMENT_RENAME_NODE = By.className("uiIconEcmsRename");
+	public final By ELEMENT_DOWNLOAD_NODE = By.className("uiIconDownload");
+	public final By ELEMENT_COPY_TO_URL_NODE = By.className("uiIconEcmsCopyUrlToClipboard");
+	public final By ELEMENT_ADD_TO_FAVORITE_NODE = By.className("uiIconEcmsAddToFavourite");
+	public final By ELEMENT_VIEW_DOCUMENT_NODE = By.className("uiIconEcmsViewDocument");
+	public final By ELEMENT_DELETE_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsDelete']");
+	public final By ELEMENT_ADD_SYMLINK_NODE = By.className("uiIconEcmsAddSymLink");
+	public final By ELEMENT_LOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsLock']");
+	public final By ELEMENT_UNLOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsUnlock']");
+	/*End added*/
+	
+	/*
 	 * @Added by: PhuongDT
 	 * @date: 27/08/2013
 	 * @Function: Manage Action Bar
@@ -130,6 +146,15 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument']");
 	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
 	public final By ELEMENT_PUBLICATION_ICON = By.className("uiIconEcmsManagePublications");
+	/*
+	 * Added by PhuongDT
+	 * Date 06/09/2013
+	 */
+	public final String ELEMENT_PUBLICATION_STATUS = "//*[@class = 'activeStatus']/*[text()='${status}']/../a[@class='node']";
+	public final String ELEMENT_REVISION_STATUS = "//*[@class = 'currentStatus']/*[text()='${status}']";
+	public final By ELEMENT_CLEAR_SELECTION = By.xpath("//*[@id='FileViewClearSelection' and contains(text(),' Clear selection')]");
+	/*End Added*/
+	
 	public final By ELEMENT_VERSIONS_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageVersions']");
 	public final String ELEMENT_PUBLICATION_STATE = "//p[contains(text(),'{$state}')]/../a[@class='node']";	
 	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");	
@@ -258,6 +283,10 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(1000);
 	}
 
+	/*Modified by PhuongDT
+	 * Date 11/09/2013
+	 * Content: check condition to verify path when go to root node (sendKeys("//"))
+	 * */
 	//Go to 1 node by path in Intranet/document
 	public void goToNodeByAddressPath(String path){
 		WebElement address = waitForAndGetElement(ELEMENT_ADDRESS_BAR);
@@ -267,7 +296,9 @@ public class ActionBar extends EcmsBase{
 		String pageId = waitForAndGetElement(By.xpath("//*[@id='UIPage']/div/div")).getAttribute("id");
 		((JavascriptExecutor) driver).executeScript("javascript:eXo.webui.UIForm.submitForm('" + pageId + "#UIAddressBar','ChangeNode',true)");
 		String[] temp = path.split("/");
-		waitForAndGetElement(By.xpath("//*[@id='FileViewBreadcrumb']//a[@data-original-title='" + temp[temp.length - 1] + "']"));
+		if(temp.length>0)
+			waitForAndGetElement(By.xpath("//*[@id='FileViewBreadcrumb']//a[@data-original-title='" + temp[temp.length - 1] + "']"));
+		
 	}
 
 	// Add a category in DMS Administration - Simple View
@@ -413,10 +444,10 @@ public class ActionBar extends EcmsBase{
 			checkUnexpectedError();
 			//waitForTextPresent(categoryPath);
 		}
-		/*if (waitForAndGetElement(button.ELEMENT_CLOSE_BUTTON, 3000, 0) != null ){
+		if (waitForAndGetElement(button.ELEMENT_CLOSE_BUTTON, 3000, 0) != null ){
 			click(button.ELEMENT_CLOSE_BUTTON);
-		}*/
-		waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_TAB);
+		}
+		/*waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_TAB);*/
 		info ("------Category " + categoryName + " is added succesfully");
 	}
 	
@@ -516,14 +547,41 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(2000);
 	}
 
+	/**
+	 * @author phuongdt
+	 * @date 05/09/2013
+	 * @function Add node to favorite
+	 */
+	//Go To Add Symlink 
+	public void goToAddToFavorite(){
+		if (isTextPresent("Add To Favorite")){
+			info("-- Add To Favorite tab is already displayed --");
+				click(ELEMENT_ADD_TO_FAVORITE_NODE);
+		}else{
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+				click(ELEMENT_ADD_TO_FAVORITE_NODE);
+		}
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * @modified by phuongdt
+	 * @modified date: 05/09/2013
+	 */
 	//Go To Add Symlink 
 	public void goToAddSymlinkTab(){
 		if (isTextPresent("Add Symlink")){
 			info("-- Add Symlink tab is already displayed --");
-			click(ELEMENT_ACTION_BAR_ADD_SYMLINK);
+			if(isElementPresent(ELEMENT_ACTION_BAR_ADD_SYMLINK))
+				click(ELEMENT_ACTION_BAR_ADD_SYMLINK);
+			else
+				click(ELEMENT_ADD_SYMLINK_NODE);
 		}else{
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-			click(ELEMENT_ACTION_BAR_ADD_SYMLINK);
+			if(isElementPresent(ELEMENT_ACTION_BAR_ADD_SYMLINK))
+				click(ELEMENT_ACTION_BAR_ADD_SYMLINK);
+			else
+				click(ELEMENT_ADD_SYMLINK_NODE);
 		}
 		Utils.pause(1000);
 	}
@@ -1267,6 +1325,9 @@ public class ActionBar extends EcmsBase{
 	/** function lock nodes from clicking Lock icon in action bar
 	 * @author lientm
 	 * @param nodes
+	 * @modified phuongdt
+	 * @modified date: 05/09/2013
+	 * @modified content: condition to click lock action
 	 */
 	public void lockNodeFromActionBar(String nodes){
 		String ELEMENT_LOCKED_NODE_LIST_VIEW = "//*[contains(@data-original-title, 'Locked by')]//*[contains(text(),'${name}')]";
@@ -1275,7 +1336,10 @@ public class ActionBar extends EcmsBase{
 		for (int i = 0; i < node.length; i ++){
 			click(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", node[i])), 2);
 		}
-		click(ELEMENT_LOCK_ICON);
+		if(isElementPresent(ELEMENT_LOCK_ICON))
+			click(ELEMENT_LOCK_ICON);
+		else
+			click(ELEMENT_LOCK_NODE);
 		for (int j = 0; j < node.length; j ++){
 			waitForAndGetElement(ELEMENT_LOCKED_NODE_LIST_VIEW.replace("${name}", node[j]));
 		}
@@ -1284,6 +1348,9 @@ public class ActionBar extends EcmsBase{
 	/**function unlock nodes from clicking Unlock icon in action bar
 	 * @author lientm
 	 * @param nodes
+	 * @modified phuongdt
+	 * @modified date: 05/09/2013
+	 * @modified content: condition to click unlock action
 	 */
 	public void unLockNodeFromActionBar(String nodes){
 		String ELEMENT_LOCKED_NODE_LIST_VIEW = "//*[contains(@data-original-title, 'Locked by')]//*[contains(text(),'${name}')]";
@@ -1292,7 +1359,10 @@ public class ActionBar extends EcmsBase{
 		for (int i = 0; i < node.length; i ++){
 			click(By.xpath(ELEMENT_SELECT_CHECKBOX.replace("${name}", node[i])), 2);
 		}
-		click(ELEMENT_UNLOCK_ICON);
+		if(isElementPresent(ELEMENT_UNLOCK_ICON))
+			click(ELEMENT_UNLOCK_ICON);
+		else
+			click(ELEMENT_UNLOCK_NODE);
 		for (int j = 0; j < node.length; j ++){
 			waitForElementNotPresent(ELEMENT_LOCKED_NODE_LIST_VIEW.replace("${name}", node[j]));
 		}
@@ -1324,6 +1394,20 @@ public class ActionBar extends EcmsBase{
 		date = element.getText();
 		info("-- Publish date is " + date);
 		return date;	
+	}
+	
+	/**
+	 * @author phuongdt
+	 * @date 06/09/2013
+	 * @function change status in [Manage Publication] form
+	 * @param: Status: Draft, Pending, Approved, Staged, Published
+	 * [@class = 'activeStatus']/*[text()='Published']/../a[@class='node']
+	 */
+	public void changeStatusPublication(String status){
+		openManagePublicationForm();
+		click(By.xpath(ELEMENT_PUBLICATION_STATUS.replace("${status}", status)));
+		waitForAndGetElement(By.xpath(ELEMENT_REVISION_STATUS.replace("${status}", status)));
+		button.close();
 	}
 
 	/**
@@ -1465,6 +1549,34 @@ public class ActionBar extends EcmsBase{
 				}
 			}
 			click(ELEMENT_VERSIONS_LINK);
+		}
+	}
+	
+	/**
+	 * @author phuongdt
+	 * @date 04/09/2013
+	 * @function: verify action icon is available on action bar
+	 */
+	public Boolean isActionsOnActionBarPresent(Object locator){
+		WebElement actionicon = waitForAndGetElement(locator, 5000, 0);
+		if (actionicon == null){
+			WebElement more = waitForAndGetElement(ELEMENT_MORE_LINK_ACTION_BAR, 5000, 0);
+			if (more != null){
+				info("-- Click more link --");
+				click(ELEMENT_MORE_LINK_ACTION_BAR);
+				actionicon = waitForAndGetElement(locator, 5000, 0);
+				if (actionicon == null)
+					return false;
+				else
+					return true;
+				
+			} else {
+				info("Do not have action icon in action bar");
+				return false;
+			}
+		}
+		else{
+			return true;
 		}
 	}
 }

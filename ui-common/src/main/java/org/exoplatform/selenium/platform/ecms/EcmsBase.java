@@ -146,7 +146,7 @@ public class EcmsBase extends ManageAccount {
 	//Permission Management Form
 	public final By ELEMENT_PERMISSION_MANAGEMENT_POPUP = By.id("UIPopupWindow");
 	public final String ELEMENT_PERMISSION_MANAGEMENT_TEXT = "Permission Management";
-	public final By ELEMENT_PERMISSION_MANAGEMENT_GRID = By.xpath("//table[@class='UIGrid']");
+	public final By ELEMENT_PERMISSION_MANAGEMENT_GRID = By.id("PermissionInfo");
 	public final By ELEMENT_MANAGE_TAGS = By.className("uiIconEcmsFolksonomyManager"); 
 	//By.linkText("Manage Tags");
 	public final By ELEMENT_TAG_PERMISSION = By.xpath("//*[contains(text(),'Tag Permission Manager')]");
@@ -173,6 +173,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_SYMLINK = "//*[@title='${symlinkTitle}']/i[@class='iconLinkSmall']/../..";
 	public final String ELEMENT_SYMLINK_OTHER = "//*[@data-original-title='${name}.lnk']/*[@class='LinkSmall']";
 	public final String ELEMENT_SYMLINK_PATH_NODE_TITLE = "//*[@id='UIOneNodePathSelector']//a/i[@title='${node}']";
+	public final String ELEMENT_DOCUMENT_NODE_LIST = "//*[@id='UIDocumentNodeList']//*[@data-original-title='${node}']";
 
 	//Rename Form in Sites Explorer (Right-click -> Rename)
 	public final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");
@@ -315,6 +316,7 @@ public class EcmsBase extends ManageAccount {
 	/* File management view - Personal document	 */
 	public final String ELEMENT_SELECT_CHECKBOX = "//*[@data-original-title='${name}']/../..//input[@type='checkbox']";
 	public final String ELEMENT_ARROW_RIGHT = "//*[@data-original-title='${nodeName}']/../..//i[@class='uiIconArrowRight']";
+	public final String ELEMENT_ARROW_DOWN = "//*[@data-original-title='${nodeName}']/../..//i[@class='uiIconArrowDown']";
 
 	//Add comment form
 	public final By ELEMENT_ADD_COMMENT_LINK = By.xpath("//a[contains(text(), 'Comment')]");
@@ -494,13 +496,20 @@ public class EcmsBase extends ManageAccount {
 		Utils.pause(1000);
 	}
 
+	/**
+	 * @Modified by PhuongDT
+	 * @Modified Date: 05/09/2013
+	 * @param link
+	 */
 	//Upload file Thumbnail
 	public void uploadThumbnail(String link){
 		button = new Button(driver);
 		info("-- Uploading a thumbnail image --");
-		if (isTextNotPresent("Add Thumbnail Image")){
-			click(ELEMENT_OVERLOAD_THUMBNAIL);
+		if (isTextNotPresent("Overload Thumbnail")){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
+		click(ELEMENT_OVERLOAD_THUMBNAIL);
+		
 		Utils.pause(1000);
 		//click(ELEMENT_CHOOSE_THUMBNAIL_IMAGE);
 		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
@@ -513,15 +522,13 @@ public class EcmsBase extends ManageAccount {
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", upload);
-		upload.sendKeys(Utils.getAbsoluteFilePath(link));	
-		
+		upload.sendKeys(Utils.getAbsoluteFilePath(link));
 		Utils.pause(3000);
-		
+		waitForAndGetElement(ELEMENT_CHOOSE_THUMBNAIL_IMAGE);
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
 		//String links[] = link.split("/");
 		//int length = links.length;
-		//waitForElementPresent(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
 		click(button.ELEMENT_SAVE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		Utils.pause(1000);

@@ -673,5 +673,6 @@ public class WikiBase extends PlatformBase{
 		button.ok();
 		mouseOverAndClick(ELEMENT_MORE_LINK);
 		waitForAndGetElement(ELEMENT_WATCH_LINK);
+		mouseOverAndClick(ELEMENT_MORE_LINK);
 	}
 }

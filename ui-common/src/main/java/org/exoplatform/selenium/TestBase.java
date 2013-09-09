@@ -596,7 +596,7 @@ public class TestBase {
 						";application/pdf;application/msword;text/plain;" +
 						"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
 						"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
-						"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml");
+						"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml");
 		
 		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 		driver = new FirefoxDriver(fp);

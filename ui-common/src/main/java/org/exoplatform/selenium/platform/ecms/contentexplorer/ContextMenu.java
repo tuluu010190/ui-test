@@ -28,6 +28,13 @@ public class ContextMenu extends EcmsBase{
 	Dialog dialog = new Dialog(driver);
 	Button button = new Button(driver);
 
+	/*
+	 * @Added by PhuongDT
+	 * Date 04/09/2013 
+	*/
+	public final By ELEMENT_MENU_ADD_TO_FAVORITE = By.xpath("//*[@id='JCRContextMenu']//i[@class='uiIconEcmsAddToFavourite']");
+	/*End Added*/
+	
 	public final By ELEMENT_CONTEXT_MENU_LOCK = By.xpath("//*[@class='uiContextMenuContainer']//i[@class='uiIconEcmsLock']"); 
 			//By.className("uiIconEcmsLock");
 	public final By ELEMENT_MENU_UNLOCK = By.className("uiIconEcmsUnlock");
@@ -53,7 +60,6 @@ public class ContextMenu extends EcmsBase{
 
 	public final String WARNING_MESSAGE_CANNOT_PASTE = "You cannot paste the copied node type on the current node.";
 	public final String ELEMENT_VERIFY = "//*[text()='${destination}']/../../../../*//*[text()='${source}']";
-
 	/*=========================================================*/
 
 	/**
