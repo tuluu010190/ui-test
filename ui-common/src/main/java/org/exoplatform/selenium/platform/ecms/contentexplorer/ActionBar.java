@@ -651,10 +651,15 @@ public class ActionBar extends EcmsBase{
 	//A Function to copy/cut/paste/delete an Element (Document/Folder) in Sites Explorer
 	//Check the box on the right side of Element
 	//Select Action "Delete" on Action Bar
+	/*Modified by PhuogDT
+	 * Date 10/09/2013
+	 * Content: change condition to click ELEMENT_PERSONAL_DOCUMENTS*/
 	public void actionsOnElement(String elementName, ContextMenu.actionType action, Object...params){
 		Boolean mDelete = (Boolean) (params.length > 0 ? params[0]: false);
+		Boolean notPersonDocument = (Boolean) (params.length > 1 ? params[1]: false);
 		info("-- Action: "+ action + " the element: " + elementName);
-		click(ELEMENT_PERSONAL_DOCUMENTS);
+		if(!notPersonDocument)
+			click(ELEMENT_PERSONAL_DOCUMENTS);
 		if (mDelete){
 			String[] nodes = elementName.split("/");
 			for (String node : nodes){

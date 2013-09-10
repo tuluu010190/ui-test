@@ -353,7 +353,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CONTENT_DETAIL_IN_LAYOUT = By.xpath("//*[contains(@id, 'UIPortlet')]//div[contains(text(),'Content Detail')]");
 	public final By ELEMENT_CONTENT_DETAIL_EDIT_ICON =  By.xpath("//*[text()='Content Detail']/..//a[@data-original-title='Edit Portlet']");
 	public final By ELEMENT_CONTENT_DETAIL_DELETE_ICON =  By.xpath("//*[text()='Content Detail']/..//a[@data-original-title='Delete Portlet']");
-	public final By ELEMENT_SELECT_CONTENT_PATH_LINK = By.xpath("//a[@data-original-title='AddPath']");
+	public final By ELEMENT_SELECT_CONTENT_PATH_LINK = By.xpath("//a[@data-original-title='Add Path']");
 	public final String ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET = "//*[contains(@id, 'UISingleContentViewerPortlet')]//*[@class='Title' and text()='${contentName}']";
 
 	public final By ELEMENT_CONTENTS_BY_QUERY_PORTLET = By.xpath("//div[contains(text(),'Content By Query')]");
