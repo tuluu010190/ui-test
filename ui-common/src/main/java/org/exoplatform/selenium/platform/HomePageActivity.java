@@ -570,7 +570,7 @@ public class HomePageActivity extends PlatformBase{
 		waitForAndGetElement(post.ELEMENT_POST_POPUP_NEW);
 		assert waitForAndGetElement(post.ELEMENT_POST_TITLE).getAttribute("value").equalsIgnoreCase("Re: " + topic);
 
-		click(post.ELEMENT_POST_CANCEL);
+		click(post.ELEMENT_POST_CANCEL_BUTTON);
 		waitForElementNotPresent(post.ELEMENT_POST_POPUP_NEW);
 	}
 	/** Open last reply of topic

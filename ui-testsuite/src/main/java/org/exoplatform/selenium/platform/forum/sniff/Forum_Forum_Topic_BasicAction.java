@@ -139,7 +139,6 @@ public class Forum_Forum_Topic_BasicAction extends ForumBase {
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		mngTopic.moveTopic(titleTop, forum2); 
 
-
 		//Delete data
 		click(By.linkText(titleCat));
 		mngCat.deleteCategoryInForum(titleCat, true);
