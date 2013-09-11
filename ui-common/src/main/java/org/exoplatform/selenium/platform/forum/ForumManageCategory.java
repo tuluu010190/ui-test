@@ -30,6 +30,7 @@ public class ForumManageCategory extends ForumBase {
 		but = new Button(driver);
 		alert = new ManageAlert(driver);
 		per = new ForumPermission(driver);
+
 		platPer = new PlatformPermission(driver);
 	}
 

@@ -10,12 +10,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class NavigationToolbar extends PlatformBase {
-	
+
+	ManageAccount acc;
+
 	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[@class='quickEditChecked']");
 	public final By ELEMENT_EDIT_MENU_ID = By.xpath("//*[@id='UIAdminToolbarPortlet']/../..");
 	public final By ELEMENT_SEO_MENU = By.xpath("//span[text()='SEO']");
-	
+
 	public NavigationToolbar(WebDriver dr){
 		driver = dr;
 	} 
@@ -110,7 +112,7 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(1000);
 	}
 
-	
+
 	//Function go to My Setting
 	public void goToMySetting(){
 		info("---Go to My Setting ---");
@@ -144,11 +146,11 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	//Go to add page locator with Editor
-//	public void goToAddPageEditor(){
-//		info("Go to add page editor");
-//		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'PageCreationWizard', true));");
-//		waitForTextPresent("Page Creation Wizard");
-//	}
+	//	public void goToAddPageEditor(){
+	//		info("Go to add page editor");
+	//		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'PageCreationWizard', true));");
+	//		waitForTextPresent("Page Creation Wizard");
+	//	}
 
 	public void goToUsersAndGroupsManagement() {
 		info("--Go to Users and groups management--");
@@ -255,7 +257,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_PERSONAL_DOCUMENTS);
 		waitForTextPresent("Personal Documents");
 	}
-	
+
 	//Go to Page Creation Wizard
 	public void goToPageCreationWizard(){
 		info("Go to add page wizard");
@@ -282,28 +284,33 @@ public class NavigationToolbar extends PlatformBase {
 		((JavascriptExecutor)driver).executeScript("arguments[0].click()",seo);		
 		Utils.pause(1000);
 	}
-	
+
 	//Function go to Home Page
 	public void goToHomePage(){
 		click(ELEMENT_HOME_PAGE);
 		Utils.pause(1000);
 	}
-	
+
 	public void changeEditMode()
 	{
 		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
 		mouseOverAndClick(ELEMENT_MENU_EDIT_CONTENT);
 	}
-	
+
 	//Function go to My Profile
 	public void goToMyProfile(){
+		acc = new ManageAccount(driver);
 		info("---Go to My Profile ---");
-		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		WebElement e = waitForAndGetElement(ELEMENT_MY_PROFILE_LINK,5000,0,2);
+
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK,true);
+		
 		if (waitForAndGetElement(ELEMENT_MY_PROFILE_LINK, 5000, 0) != null){
 			mouseOverAndClick(ELEMENT_MY_PROFILE_LINK);
-		}else {
-			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-			mouseOverAndClick(ELEMENT_MY_PROFILE_LINK);
-		}
+			if (waitForAndGetElement(acc.ELEMENT_EDIT_BASIC_INFORMATION, 5000,0) == null)
+				driver.get(DEFAULT_BASEURL.replace("/portal", "") + e.getAttribute("href"));
+		}else 
+			driver.get(DEFAULT_BASEURL.replace("/portal", "") + e.getAttribute("href"));
 	}
+
 }

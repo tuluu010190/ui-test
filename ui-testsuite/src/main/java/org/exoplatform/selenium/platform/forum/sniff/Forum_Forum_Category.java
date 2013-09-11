@@ -150,7 +150,7 @@ public class Forum_Forum_Category extends ForumBase {
 		magTopic.quickStartTopic(topic, message);
 		
 		String handlesBefore = driver.getWindowHandle();
-		goToMail();
+		goToMail(EMAIL_ADDRESS1,EMAIL_PASS);
 		checkAndDeleteMail(mail, REGISTER_MAIL_CONTENT);
 		
 		driver.switchTo().window(handlesBefore);

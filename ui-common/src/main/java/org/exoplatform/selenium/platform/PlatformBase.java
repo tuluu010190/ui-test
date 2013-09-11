@@ -115,7 +115,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK = By.xpath("//a[text()='Change Language']");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK_FRENCH = By.xpath("//a[text()='Changer de Langue']");
-	public final By ELEMENT_MY_PROFILE_LINK = By.className("uiIconPLFProfile");
+	public final By ELEMENT_MY_PROFILE_LINK = By.xpath("//i[@class='uiIconPLFProfile']/..");
 	public final By ELEMENT_DASHBROARD_LINK = By.className("uiIconPLFDashboard");
 	public final By ELEMENT_MY_SETTING = By.linkText("Settings");
 
@@ -989,7 +989,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	//function open and go to mail
-	public void goToMail(){	
+	public void goToMail(String email, String pass){	
 		((JavascriptExecutor) driver).executeScript("window.open()");
 		for(String winHandle : driver.getWindowHandles()){
 			driver.switchTo().window(winHandle);
@@ -1000,8 +1000,8 @@ public class PlatformBase extends TestBase {
 		waitForAndGetElement(ELEMENT_GMAIL_USERNAME);
 
 		//login to mail
-		type(ELEMENT_GMAIL_USERNAME, EMAIL_ADDRESS1, true);
-		type(ELEMENT_GMAIL_PASS, EMAIL_PASS, true);
+		type(ELEMENT_GMAIL_USERNAME, email, true);
+		type(ELEMENT_GMAIL_PASS, pass, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
 		click(ELEMENT_GMAIL_INBOX);
 		Utils.pause(1000);

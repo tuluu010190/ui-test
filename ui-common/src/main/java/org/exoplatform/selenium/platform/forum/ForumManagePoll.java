@@ -19,7 +19,7 @@ import org.openqa.selenium.WebElement;
  * @date 19 Aug 2013
  */
 public class ForumManagePoll extends ForumBase {
-	
+
 	Button but;
 	ManageAlert alert;
 	ForumManageTopic magTopic;
@@ -30,6 +30,7 @@ public class ForumManagePoll extends ForumBase {
 	public ForumManagePoll(WebDriver dr){
 		driver = dr;
 		but = new Button(driver);
+
 		alert = new ManageAlert(driver);
 		magTopic = new ForumManageTopic(driver);
 		app = new ManageApplications(driver);
@@ -37,10 +38,10 @@ public class ForumManagePoll extends ForumBase {
 		pageE = new PageEditor(driver);
 		userGroup = new UserGroupManagement(driver);
 	}
-	
+
 	//Poll Manage
 	public By ELEMENT_POLL = By.xpath("//div[@class='UITopicPoll']");
-	public By ELEMENT_ADD_POLL = By.linkText("Add Poll");
+	public By ELEMENT_ADD_POLL = By.linkText("Add Poll"); 
 	public final By ELEMENT_POLL_MORE_ACTION = By.xpath("//form[@id='UITopicPoll']//i[@class='uiIconSettings uiIconLightGray']");
 	public final By ELEMENT_POLL_EDIT_LINK = By.xpath("//form[@id='UITopicPoll']//i[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_POLL_DELETE_LINK = By.xpath("//form[@id='UITopicPoll']//i[@class='uiIconDelete uiIconLightGray']");
@@ -74,12 +75,15 @@ public class ForumManagePoll extends ForumBase {
 	public By ELEMENT_POLL_SUBMIT_BUTTON = By.xpath("//button[text()='Submit Poll']");
 	public String ELEMENT_POLL_DELETE_OK = "//span[contains(text(),'Are you sure you want to delete this poll ?')]/../../..//button[text()='OK']";
 	
-	
 	public final String ELEMENT_POLL_QUESTION_LINK = "//div[text()='${pollQuestion} ?']";
-	public final String ELEMENT_POLL_TITLE = "//div[@title='${pollQuestion}']";
+	public final String ELEMENT_POLL_TITLE = "//div[@class='textTitlePoll pull-left' and contains(text(),'${poll}')]";
+	public final String ELEMENT_OPTION = "//tbody[@class='contentVoting']//span[contains(text(),'${option}')]";
+	public final String ELEMENT_OPTION_CLOSED = "//td[text()='${option}']/../td//div[@class='progress']";
 	public final String WARNING_MESSAGE_NO_PERMISSION = "You have no permission to view this poll or the poll has been deleted.";
 	public final String MSG_POLL_DELETE = "Are you sure you want to delete this poll ?";
 
+	public By ELEMENT_POLL_CLOSE_LINK = By.xpath("//a[contains(@href,'ClosedPoll')]");
+	public By ELEMENT_POLL_REOPEN_LINK = By.xpath("//div[@class='UITopicPoll uiBox uiTopicPoll uiCollapExpand']//i[@class='uiIconOpen']");
 
 	/*------------------------------------Common function------------------------------*/
 	/**
@@ -207,7 +211,7 @@ public class ForumManagePoll extends ForumBase {
 	 */
 	public void editPollQuestion (String pollQuestion, String newPollQuestion) {
 		By ELEMENT_EDIT_POLL_BUTTON = By.xpath("//div[@title='"+pollQuestion+"']/following::div/img[@title='Edit Poll']");		
-		
+
 		navTool.goToEditPageEditor();
 		//mouseOver(ELEMENT_APPS_REG_PORTLET, true);
 		click(ELEMENT_EDIT_PORTLET);
@@ -223,10 +227,11 @@ public class ForumManagePoll extends ForumBase {
 		pageE.finishEditLayout();		
 		waitForAndGetElement(By.xpath(ELEMENT_POLL_QUESTION_LINK.replace("${pollQuestion}", newPollQuestion)));
 	}
-	/**
+
+	/**Function add a poll for topic
 	 * @author thuntn
-	 * @param pollQuestion
-	 * @param options
+	 * @param pollQuestion: question of poll
+	 * @param options: array of options of poll
 	 * @param timeout
 	 * @param changeVote
 	 * @param verify
@@ -250,6 +255,23 @@ public class ForumManagePoll extends ForumBase {
 		
 	}
 	
+	public void addPoll(String pollQuestion, String[] options, String timeout, boolean changeVote, boolean multi, boolean... verify){
+		boolean check = verify.length > 0 ? verify[0]: true;
+
+		info("Add a poll in a topic");
+		goToAddPoll();
+		inputFormPoll(pollQuestion, options, timeout, changeVote, multi);
+		click(ELEMENT_POLL_SUBMIT_BUTTON);
+		if (check){
+			waitForElementNotPresent(ELEMENT_POLL_POPUP);
+			info("Add poll successfully");
+		}
+
+		//Check after add poll
+		waitForTextPresent(pollQuestion);
+		for(int i = 0; i < options.length; i ++)
+			waitForAndGetElement(ELEMENT_OPTION.replace("${option}", options[i]));
+	} 
 	/** function: go to add poll for topic from More action/Add poll
 	 * @author lientm
 	 */
@@ -261,30 +283,9 @@ public class ForumManagePoll extends ForumBase {
 		click(ELEMENT_ADD_POLL);
 		waitForAndGetElement(ELEMENT_POLL_POPUP);
 	}
-	
-	/**Function add a poll for topic
-	 * @author thuntn
-	 * @param pollQuestion: question of poll
-	 * @param options: array of options of poll
-	 * @param timeout
-	 * @param changeVote
-	 * @param verify
-	 */
-	public void addPoll(String pollQuestion, String[] options, String timeout, boolean changeVote, boolean multi, boolean... verify){
-		boolean check = verify.length > 0 ? verify[0]: true;
-		
-		info("Add a poll in a topic");
-		goToAddPoll();
-		inputFormPoll(pollQuestion, options, timeout, changeVote, multi);
-		click(ELEMENT_POLL_SUBMIT_BUTTON);
-		if (check){
-			waitForElementNotPresent(ELEMENT_POLL_POPUP);
-			info("Add poll successfully");
-		}
-	}
-	
+
 	/** Edit a poll in topic
-	 * @author thuntn	
+	 * @author thuntn  
 	 * @param pollQuestion
 	 * @param options
 	 * @param timeout
@@ -293,7 +294,7 @@ public class ForumManagePoll extends ForumBase {
 	 */
 	public void editPoll(String pollQuestion, String[] options, String timeout, boolean changeVote, boolean... verify){
 		boolean check = verify.length > 0 ? verify[0]: true;
-		
+
 		info("Edit a poll in a topic");
 		click(ELEMENT_POLL_MORE_ACTION);
 		click(ELEMENT_POLL_EDIT_LINK);
@@ -303,18 +304,55 @@ public class ForumManagePoll extends ForumBase {
 			waitForElementNotPresent(ELEMENT_POLL_POPUP);
 			info("Edit poll successfully");
 		}
-	}
+
+		//Check after edit
+		waitForTextPresent(pollQuestion);
+		for(int i = 0; i < options.length; i ++)
+			waitForAndGetElement(ELEMENT_OPTION.replace("${option}", options[i]));
+	} 
+
 	/**Delete a poll in a topic
 	 * @author thuntn
 	 * @param poll
 	 */
 	public void deletePollInTopic(String poll){
 		info("Delete a poll in a topic");
-		
+
 		click(ELEMENT_POLL_MORE_ACTION);
 		click(ELEMENT_POLL_DELETE_LINK);
 		waitForMessage(MSG_POLL_DELETE);
 		click(ELEMENT_POLL_DELETE_OK);
+
+		waitForTextNotPresent(poll);
+	} 
+
+	/**Close or reopen a poll
+	 * @author thuntn
+	 * @param options: array of options of poll
+	 * @param close: =true: close poll
+	 * 				 = false: reopen poll
+	 */
+	public void closeReopenPoll(String[] options, boolean close){
+		click(ELEMENT_MORE_ACTION);
+		
+		if (close){
+			info("Close poll");
+			
+			click(ELEMENT_POLL_CLOSE_LINK);
+
+			waitForElementNotPresent(ELEMENT_VOTE_NOW_BUTTON);
+			for(int i = 0; i < options.length; i ++)
+				waitForAndGetElement(ELEMENT_OPTION_CLOSED.replace("${option}", options[i]));
+		}else{
+			info("Reopen poll");
+
+			click(ELEMENT_POLL_REOPEN_LINK);
+
+			waitForAndGetElement(ELEMENT_VOTE_NOW_BUTTON);
+			for(int i = 0; i < options.length; i ++)
+				waitForAndGetElement(ELEMENT_OPTION.replace("${option}", options[i]));
+		}
 	}
+
 }
 

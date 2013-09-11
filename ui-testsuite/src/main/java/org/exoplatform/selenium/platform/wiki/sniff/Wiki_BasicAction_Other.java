@@ -495,7 +495,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 		editPageWithCheckPublicActivity(newTitle, newContent);
 
 		String handlesBefore = driver.getWindowHandle();
-		goToMail();
+		goToMail(EMAIL_ADDRESS1,EMAIL_PASS);
 		checkAndDeleteMail(By.xpath("//b[contains(text(), '" + newTitle + "')]"), newContent);
 		
 		driver.switchTo().window(handlesBefore);

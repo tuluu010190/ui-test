@@ -199,13 +199,15 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		//create category, forum, topic
 		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
-		mngTopic.lockTopic();
+		//Lock a topic
+		mngTopic.actionOnTopic(1);
 		
 		navTool.goToHomePage();
 		hpgAct.checkLockTopic(titleTop);
 		
+		//Unlock a topic
 		goToForums();
-		mngTopic.unlockTopic();
+		mngTopic.actionOnTopic(2);
 		navTool.goToHomePage();
 		hpgAct.checkUnlockTopic(titleTop);
 		

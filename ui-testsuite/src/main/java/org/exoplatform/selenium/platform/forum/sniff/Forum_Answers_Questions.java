@@ -252,7 +252,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 	    
 	  //check mail content
 	    
-	    goToMail();
+	    goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 	    
 	    waitForAndGetElement(mail,150000);
 	    
