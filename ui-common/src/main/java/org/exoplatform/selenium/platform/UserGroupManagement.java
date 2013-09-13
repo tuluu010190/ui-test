@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.util.List;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
@@ -9,6 +11,7 @@ import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 
 public class UserGroupManagement extends PlatformBase {
@@ -16,17 +19,18 @@ public class UserGroupManagement extends PlatformBase {
 	public UserGroupManagement(WebDriver dr){
 		driver = dr;
 	}
-
-	ManageAlert alt;
 	Dialog dialog;
 	Button button;
+	ManageAlert alert;
 
 	public  final String MESSAGE_DUPLICATE_USERS = "User \"${username}\" has already the same membership ";
 	public  final String MESSAGE_DUPLICATE_GROUPS = "in the group \"${groupName}\", please select another one.";
 	public  final String ELEMENT_USER_INGROUP_DELETE_ICON = "//div[@id='UIGridUser']//div[text()='${username}']/../..//img[@class='DeleteUserIcon']";
+	public final String ELEMENT_USER_MEMBERSHIP_TAB_DELETE_ICON = "//*[@class='uiIconDeleteMembership uiIconLightGray']";
+	public final String ELEMENT_USER_MEMBERSHIP_TAB_DELETE_ICON_NO = "//*[@id='MembershipGrid']//tbody/tr[${No}]//*[@class='uiIconDeleteMembership uiIconLightGray']";
 
 	//User Management -> Edit User form
-	public  final String ELEMENT_USER_MEMBERSHIP_TAB = "//div[text()='User Membership' and @class='MiddleTab']";
+	public  final By ELEMENT_USER_MEMBERSHIP_TAB = By.xpath("//*[text()='User Membership']");
 
 	/*
 	 *  Choose TAB actions
@@ -108,6 +112,26 @@ public class UserGroupManagement extends PlatformBase {
 		if (email != null){
 			type(ELEMENT_INPUT_EMAIL, email, true);
 		}
+	}
+	
+	/**
+	 * @author phuongdt
+	 * @param username
+	 */
+	public void deleteAllUserMembership_MembershipTab(String username){
+		button = new Button(driver);
+		alert = new ManageAlert(driver);
+		goToEditUserInfo(username);
+		waitForAndGetElement(ELEMENT_USER_MEMBERSHIP_TAB);
+		click(ELEMENT_USER_MEMBERSHIP_TAB);
+		List<WebElement> elements= getElements(ELEMENT_USER_MEMBERSHIP_TAB_DELETE_ICON);
+		for (int i = 0; i < elements.size(); i ++){
+			click((ELEMENT_USER_MEMBERSHIP_TAB_DELETE_ICON_NO.replace("${No}", Integer.toString(1))));
+			Utils.pause(2000);
+			alert.acceptAlert();
+		}
+		button.save();
+		button.ok();
 	}
 
 	/*

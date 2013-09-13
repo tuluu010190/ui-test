@@ -146,7 +146,7 @@ public class EcmsBase extends ManageAccount {
 	//Permission Management Form
 	public final By ELEMENT_PERMISSION_MANAGEMENT_POPUP = By.id("UIPopupWindow");
 	public final String ELEMENT_PERMISSION_MANAGEMENT_TEXT = "Permission Management";
-	public final By ELEMENT_PERMISSION_MANAGEMENT_GRID = By.id("PermissionInfo");
+	public final By ELEMENT_PERMISSION_MANAGEMENT_GRID = By.className("permissionInfo");
 	public final By ELEMENT_MANAGE_TAGS = By.className("uiIconEcmsFolksonomyManager"); 
 	//By.linkText("Manage Tags");
 	public final By ELEMENT_TAG_PERMISSION = By.xpath("//*[contains(text(),'Tag Permission Manager')]");
@@ -495,6 +495,20 @@ public class EcmsBase extends ManageAccount {
 		}
 		userGroup.selectGroup(groupPath, false);
 		click(By.linkText(membership));
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * Select Everyone
+	 * @author phuongdt
+	 * @date	12/09/2013
+	 */
+	public void selectEveryone(){
+		if (isElementPresent(By.xpath("//*[@data-original-title = 'Select Everyone']"))){
+			click(By.xpath("//*[@data-original-title = 'Select Everyone']"));
+		}else if (isElementPresent(By.xpath("//*[@title = 'Select Everyone']"))){
+			click(By.xpath("//*[@title = 'Select Everyone']"));
+		}
 		Utils.pause(1000);
 	}
 

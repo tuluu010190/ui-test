@@ -238,14 +238,14 @@ public class ManageDrive extends EcmsBase{
 			button.save();
 			magAcc.signOut();
 			magAcc.signIn("john", "gtn");
-			if (drive.equals("Personal Documents")){
-				nav.goToPersonalDocuments();
-			}
 		}else {
 			info("-- Web View is already displayed --");
 		}
-		click(ELEMENT_VIEW_MODE_LINK.replace("${viewName}", view));
-		Utils.pause(500);
+		if (drive.equals("Personal Documents")){
+			nav.goToPersonalDocuments();
+			click(ELEMENT_VIEW_MODE_LINK.replace("${viewName}", view));
+			Utils.pause(500);
+		}
 	}
 
 	//Option to select [Folder Creation] 

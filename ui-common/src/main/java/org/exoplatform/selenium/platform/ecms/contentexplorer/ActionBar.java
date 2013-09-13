@@ -508,7 +508,7 @@ public class ActionBar extends EcmsBase{
 
 	// Node Permission
 	public void goToNodePermissionManagement(){
-		if (isTextPresent("Permissions")){
+		if ( waitForAndGetElement(ELEMENT_PERMISSION_LINK, 5000, 0) !=null){
 			info("-- Permission tab is already displayed --");
 			click(ELEMENT_PERMISSION_LINK);
 		}else{
@@ -656,9 +656,9 @@ public class ActionBar extends EcmsBase{
 	 * Content: change condition to click ELEMENT_PERSONAL_DOCUMENTS*/
 	public void actionsOnElement(String elementName, ContextMenu.actionType action, Object...params){
 		Boolean mDelete = (Boolean) (params.length > 0 ? params[0]: false);
-		Boolean notPersonDocument = (Boolean) (params.length > 1 ? params[1]: false);
+		Boolean notPersonalDoc = (Boolean) (params.length > 1 ? params[1]: false);
 		info("-- Action: "+ action + " the element: " + elementName);
-		if(!notPersonDocument)
+		if(!notPersonalDoc)
 			click(ELEMENT_PERSONAL_DOCUMENTS);
 		if (mDelete){
 			String[] nodes = elementName.split("/");

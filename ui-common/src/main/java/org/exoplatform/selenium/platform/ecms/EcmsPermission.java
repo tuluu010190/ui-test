@@ -43,6 +43,8 @@ public class EcmsPermission extends EcmsBase{
 	public final String ELEMENT_READ_CHECK = "//input[@name='{$user}read']";
 	public final String ELEMENT_MODIFY_CHECK = "//input[@name='{$user}addNode']";
 	public final String ELEMENT_REMOVE_CHECK = "//input[@name='{$user}remove']";
+	
+	public final By ELEMENT_WARNING_DIALOG_PERMISSION = By.xpath("//*[contains(text(),'You must check out first')]");
 
 	//Function to set permission for node
 	public void setPermissionForNode(boolean read, boolean add, boolean remove){
