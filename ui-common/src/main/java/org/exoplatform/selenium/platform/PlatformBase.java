@@ -479,6 +479,9 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_SIGN_IN = By.id("signIn");
 	public final String ELEMENT_GMAIL_TITLE = "//span/b[contains(text(),'{$title}')]";
 	public final By ELEMENT_GMAIL_COMPOSE = By.xpath("//div[contains(text(),'COMPOSE')]");
+	
+	//get url
+	public final String ELEMENT_GET_URL_IMAGE = "//img[@alt='${name}']";
 
 	///////////////////
 	//Set view permissions for portal

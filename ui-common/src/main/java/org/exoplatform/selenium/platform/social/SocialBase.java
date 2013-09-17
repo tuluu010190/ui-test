@@ -88,8 +88,7 @@ public class SocialBase extends PlatformBase {
 	public String ELEMENT_ACTIVITYSTREAM_TITLE = "//div[contains(@id,'ActivityContextBox')]/h5/a[@title='${name}']";
 
 	// Activity Stream tab	
-	public final By ELEMENT_ACTIVITY_STREAM_TAB = By.xpath("//div[@id='UIProfileNavigationPortlet']//a[text()='Activity Stream']");
-	
+	public final By ELEMENT_ACTIVITY_STREAM_TAB = By.xpath("//div[@id='UIProfileNavigationPortlet']//a[text()='Activity Stream']");	
     /*------------------- End of parameters ---------------------*/	
 	
 	/**

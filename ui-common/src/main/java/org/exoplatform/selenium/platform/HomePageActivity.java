@@ -6,16 +6,14 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.forum.ForumManagePost;
+import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.testng.Assert;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.internal.Locatable;
-
-
-
 
 /**
  * Update: vuna2
@@ -28,6 +26,10 @@ public class HomePageActivity extends PlatformBase{
 	Dialog dialog;
 	ManageAlert alert;
 	ForumManagePost post;
+	
+	public final String ELEMENT_ACTIVITY_DELETE = "//*[contains(text(), '${activityText}')]/../../../../../..//*[contains(@id, 'DeleteActivityButton')]";
+	public final By ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY = By.xpath("//*[text()='Are you sure you want to delete this activity?']");
+	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
 
 	public HomePageActivity(WebDriver dr){
 		driver = dr;
@@ -49,7 +51,7 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_CONTENT_VERSION = "//a[@title='@{fileName}']/..//*[contains(text(), '${version} -')]";
 	public final String ELEMENT_CONTENT_STATUS = "//a[@title='@{fileName}']/..//*[contains(text(), '${status}')]";
 	public final String ELEMENT_CONTENT_SUMMARY = "//*[@title='@{fileName}']/..//p";
-	public final String ELEMENT_CONTENT_COMMENT_EDIT_TITLE = "//*[text()='@{fileName}']/../../../..//*[@class='commentRight']//*[contains(text(),'Title has been updated to: ${title}')]";
+	public final String ELEMENT_CONTENT_COMMENT_EDIT_TITLE = "//*[@title='@{fileName}']/../../../..//*[@class='commentRight']//*[contains(text(),'Title has been updated to: ${title}')]";
 	public final String ELEMENT_CONTENT_COMMENT_ADD_A_TAG = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tag: ${tags} has been added.']";
 	public final String ELEMENT_CONTENT_COMMENT_ADD_TAGS = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tags: ${tags} have been added.']";
 	public final String ELEMENT_CONTENT_COMMENT_PUBLISH = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Publication has been published.']";
@@ -165,7 +167,7 @@ public class HomePageActivity extends PlatformBase{
 	 * @param titleEdit
 	 */
 	public void checkTitleAfterEditing(String name, String titleEdit){
-		waitForAndGetElement(ELEMENT_CONTENT_COMMENT_EDIT_TITLE.replace("@{fileName}", titleEdit).replace("${title}", titleEdit));
+		waitForAndGetElement(ELEMENT_CONTENT_COMMENT_EDIT_TITLE.replace("@{fileName}", name).replace("${title}", titleEdit));
 	}
 
 	/** function check add comment in activity after adding tags for a content/file
@@ -601,5 +603,22 @@ public class HomePageActivity extends PlatformBase{
 		click(ELEMENT_REPLY_VIEW.replace("${title}", topic).replace("${comment}", reply),2);
 		waitForAndGetElement(post.ELEMENT_POST_REPLY_BUTTON);
 		waitForTextPresent(reply);
+	}
+	
+	/**
+	 * @author phuongdt
+	 * Delete activity 
+	 * @param activityText: input a String 
+	 */
+	public void deleteActivity (String activityText) {
+		info("-- Deleting an activity --");
+		button = new Button(driver);
+		WebElement elem = waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
+		JavascriptExecutor executor = (JavascriptExecutor)driver;
+		executor.executeScript("arguments[0].click();", elem);
+		waitForAndGetElement(ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY);
+		button.ok();
+		waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", activityText)));
+		Utils.pause(1000);
 	}
 }

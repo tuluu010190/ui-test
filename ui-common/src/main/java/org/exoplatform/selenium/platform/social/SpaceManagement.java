@@ -66,6 +66,10 @@ public class SpaceManagement extends SocialBase {
 
 	public final String MESSAGE_DELETE_SPACE            = "Cannot undo one deleted space with all its page navigations and group. Are you sure to delete this space?";
 			//"Are you sure to delete this space? This can not be undone. All page navigations and this group will be deleted, too.";
+	
+	//Documents
+	public final By ELEMENT_DOCUMENTS_TAB = By.id("documents");
+
 
 	/**
 	 * Migrate to PLF 4
