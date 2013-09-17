@@ -152,7 +152,7 @@ public class ActionBar extends EcmsBase{
 	 */
 	public final String ELEMENT_PUBLICATION_STATUS = "//*[@class = 'activeStatus']/*[text()='${status}']/../a[@class='node']";
 	public final String ELEMENT_REVISION_STATUS = "//*[@class = 'currentStatus']/*[text()='${status}']";
-	public final By ELEMENT_CLEAR_SELECTION = By.xpath("//*[@id='FileViewClearSelection' and contains(text(),' Clear selection')]");
+	public final By ELEMENT_CLEAR_SELECTION = By.xpath("//*[@class='fileViewStatus']//*[@id='FileViewClearSelection']");
 	/*End Added*/
 	
 	public final By ELEMENT_VERSIONS_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageVersions']");
@@ -704,7 +704,7 @@ public class ActionBar extends EcmsBase{
 			}else {
 				click(By.className("uiIconEcmsDelete"));
 			}
-			waitForTextPresent("Delete");
+			//waitForTextPresent("Delete");
 			dialog.deleteInDialog();
 			waitForElementNotPresent(ELEMENT_UI_CHECKBOX.replace("${element}", elementName));
 			break;

@@ -2,8 +2,6 @@ package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.filemanag
 
 
 import static org.exoplatform.selenium.TestLogger.info;
-
-import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -31,7 +29,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 	NavigationToolbar navToolBar;
 	ActionBar action;
 	ContentTemplate contemp;
-	ContextMenu conmenu = new ContextMenu(driver);
+	ContextMenu conmenu;
 	SitesExplorer sExplorer;
 	EcmsBase ecmBase;
 	BrowserPreferences browserPre;
@@ -58,13 +56,6 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		driver.quit();
 	}
 	
-	public static String ELEMENT_VERIFY_CREATEDON_LABEL = "//*[contains(text(),'${content}')]/../..//p[contains(text(), 'Created on')]";
-	public static String ELEMENT_PERSONAL_DOCUMENT_NODE= "//*[@class='nodeName' and contains(text(), '${content}')]";
-	public static String ELEMENT_PERSONAL_DOCUMENT_ARROW_RIGHT = "//*[@class='nodeName' and contains(text(),'${content}')]/../../..//div[@class='columnArrow']//i[@class='uiIconArrowRight']";
-	public static String ELEMENT_PERSONAL_DOCUMENT_ARROW_DOWN = "//*[@class='nodeName' and contains(text(),'${content}')]/../../..//div[@class='columnArrow']//i[@class='uiIconArrowDown']";
-	public static String NODE_ADDRESS = "//input[@id='address' and @value='/${content}']";
-	public static String PERSONAL_DRIVE_BREADCRUMB = "//div[@class='breadcrumbLink']//a[@data-original-title='Personal Documents']";
-	public static By ELEMENT_MORE_LINK = By.xpath("//div[@class='FR MoreButton' and contains(text(),'More')]");
 	
 	/**
 	 * Qmetry ID: 74544
@@ -93,7 +84,8 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		action.chooseDrive(ecmBase.ELEMENT_PERSONAL_DRIVE); 
 
 		info("Verify 'Created on' label");
-		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_CREATEDON_LABEL.replace("${content}",DATA_FILE_NAME)));
+		//waitForAndGetElement(By.xpath(ELEMENT_VERIFY_CREATEDON_LABEL.replace("${content}",DATA_FILE_NAME)));
+		waitForAndGetElement(ecmBase.ELEMENT_VERIFY_DATE_NODE.replace("${namenode}",DATA_FILE_NAME));
 
 		info("Delete file");
 		action.actionsOnElement(DATA_FILE_NAME, actionType.DELETE);
@@ -113,13 +105,12 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		navToolBar.goToPersonalDocuments();	
 
 		info("Create a folder in personal document");
-		action.goToAddNewFolder();
-
 		contemp.createNewFolder(DATA_FOLDER_NAME, folderType.None);
 
 		info("Verify 'Created on' label");
-		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_CREATEDON_LABEL.replace("${content}", DATA_FOLDER_NAME)));
-
+		//waitForAndGetElement(By.xpath(ELEMENT_VERIFY_CREATEDON_LABEL.replace("${content}", DATA_FOLDER_NAME)));
+		waitForAndGetElement(ecmBase.ELEMENT_VERIFY_DATE_NODE.replace("${namenode}", DATA_FOLDER_NAME));
+		
 		info("Delete folder");
 		action.actionsOnElement(DATA_FOLDER_NAME, actionType.DELETE);
 	}
@@ -174,21 +165,22 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		navToolBar.goToPersonalDocuments();	
 
 		info("Verify default folders");
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Documents")));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Favorites")));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Music")));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Pictures")));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Public")));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Videos")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Documents")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Favorites")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Music")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Pictures")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Public")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Videos")));
 
 		info("Check font-weight of Name is bold or 700");
-		WebElement element1 = waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Documents")));
+		WebElement element1 = waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "Documents")));
 		String name = element1.getCssValue("font-weight");
 		info("Font weight of Name:" + name);
 		assert name.equalsIgnoreCase("700");
 
 		info("Check font-weight of remaining part is normal or 400");
-		WebElement element2 = waitForAndGetElement(By.xpath(ELEMENT_VERIFY_CREATEDON_LABEL.replace("${content}","Documents")));
+		WebElement element2 = waitForAndGetElement(By.xpath(ecmBase.ELEMENT_VERIFY_CREATEDON_LABEL.replace("${content}","Documents")));
+		//WebElement element2 = waitForAndGetElement(ecmBase.ELEMENT_VERIFY_DATE_NODE.replace("${namenode}", "Documents"));
 		String label = element2.getCssValue("font-weight");
 		info("Font weight of information under name:" + label);
 		assert label.equalsIgnoreCase("400");
@@ -215,25 +207,26 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		action.chooseDrive(ecmBase.ELEMENT_PERSONAL_DRIVE); 
 
 		info("Check Webcontent is not expanded");
-		waitForElementNotPresent(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "css")));
-		waitForElementNotPresent(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "default")));
-		waitForElementNotPresent(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "documents")));
-		waitForElementNotPresent(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "js")));
-		waitForElementNotPresent(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "medias")));
+		waitForElementNotPresent(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "css")));
+		waitForElementNotPresent(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "default")));
+		waitForElementNotPresent(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "documents")));
+		waitForElementNotPresent(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "js")));
+		waitForElementNotPresent(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "medias")));
 
 		info("Click arrow icon to view child list");
-		rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_RIGHT.replace("${content}",Web_Content_Name)));
-		Utils.pause(3000);
+		//rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_RIGHT.replace("${content}",Web_Content_Name)));
+		rightClickOnElement(ecmBase.ELEMENT_ARROW_RIGHT.replace("${nodeName}", Web_Content_Name));
 
 		info("Verify arrow direction is down");
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_DOWN.replace("${content}",Web_Content_Name)));
-
+		//waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_DOWN.replace("${content}",Web_Content_Name)));
+		waitForAndGetElement(ecmBase.ELEMENT_ARROW_DOWN.replace("${nodeName}", Web_Content_Name));
+		
 		info("Verify children list of web content");
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "css")));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "default")));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "documents")));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "js")));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "medias")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "css")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "default")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "documents")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "js")));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "medias")));
 
 		info("Delete web content");
 		action.actionsOnElement(Web_Content_Name, actionType.DELETE);
@@ -258,8 +251,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		contemp.createNewFile(DATA_FILE_NAME, DATA_FILE_CONTENT, null);
 
 		info("Verify file path in address bar");
-		waitForAndGetElement(By.xpath(NODE_ADDRESS.replace("${content}",DATA_FILE_NAME)));
-		Utils.pause(3000);
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_NODE_ADDRESS.replace("${content}",DATA_FILE_NAME)));
 
 		info("Delete file");
 		action.chooseDrive(ecmBase.ELEMENT_PERSONAL_DRIVE); 
@@ -280,12 +272,10 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		navToolBar.goToPersonalDocuments();	
 
 		info("Create a folder in personal document");
-		action.goToAddNewFolder();
 		contemp.createNewFolder(DATA_FOLDER_NAME, folderType.None);
 
-		rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}",DATA_FOLDER_NAME)));
-		waitForAndGetElement(By.xpath(NODE_ADDRESS.replace("${content}", DATA_FOLDER_NAME)));
-		Utils.pause(3000);
+		rightClickOnElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}",DATA_FOLDER_NAME)));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_NODE_ADDRESS.replace("${content}", DATA_FOLDER_NAME)));
 
 		info("Delete folder");
 		action.chooseDrive(ecmBase.ELEMENT_PERSONAL_DRIVE);
@@ -307,16 +297,14 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 
 		navToolBar.goToPersonalDocuments();	
 		info("Verify breadcrumb of personal document");
-		waitForAndGetElement(By.xpath(PERSONAL_DRIVE_BREADCRUMB));
+		waitForAndGetElement(By.xpath(ecmBase.PERSONAL_DRIVE_BREADCRUMB));
 
 		info("Create a folder in personal document");
-		action.goToAddNewFolder();
 		contemp.createNewFolder(DATA_FOLDER_NAME, folderType.None);
 
 		info("Verify breadcrumb of folder in personal document");
-		rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}",DATA_FOLDER_NAME)));
+		rightClickOnElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}",DATA_FOLDER_NAME)));
 		waitForAndGetElement(Folder_Breadcrumb);
-		Utils.pause(3000);
 
 		info("Delete folder");
 		action.chooseDrive(ecmBase.ELEMENT_PERSONAL_DRIVE);
@@ -348,40 +336,34 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		browserPre.setUpPreferenceOption(null, "5");
 
 		info("Create a parent folder in personal document");
-		action.goToAddNewFolder();
 		contemp.createNewFolder(Parent_Folder_Name, folderType.None);
-		rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Parent_Folder_Name)));
+		rightClickOnElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Parent_Folder_Name)));
 
 		info("Create 6 child folders");
-		action.goToAddNewFolder();
 		contemp.createNewFolder(Child_Folder_1, folderType.None);
 
-		action.goToAddNewFolder();
 		contemp.createNewFolder(Child_Folder_2, folderType.None);
 
-		action.goToAddNewFolder();
 		contemp.createNewFolder(Child_Folder_3, folderType.None);
 
-		action.goToAddNewFolder();
 		contemp.createNewFolder(Child_Folder_4, folderType.None);
 
-		action.goToAddNewFolder();
 		contemp.createNewFolder(Child_Folder_5, folderType.None);
 
-		action.goToAddNewFolder();
 		contemp.createNewFolder(Child_Folder_6, folderType.None, false);
 
 		action.chooseDrive(ecmBase.ELEMENT_PERSONAL_DRIVE);
-		rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_RIGHT.replace("${content}", Parent_Folder_Name)));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_1)));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_2)));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_3)));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_4)));
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_5)));
-		waitForElementNotPresent(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_6)));
+		//rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_RIGHT.replace("${content}", Parent_Folder_Name)));
+		rightClickOnElement(ecmBase.ELEMENT_ARROW_RIGHT.replace("${nodeName}", Parent_Folder_Name));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_1)));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_2)));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_3)));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_4)));
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_5)));
+		waitForElementNotPresent(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_6)));
 
-		click(ELEMENT_MORE_LINK);
-		waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_6)));
+		click(ecmBase.ELEMENT_VIEW_MORE_BUTTON);
+		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_6)));
 
 		info("Delete folder");
 		action.actionsOnElement(Parent_Folder_Name, actionType.DELETE);
@@ -407,10 +389,9 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		navToolBar.goToPersonalDocuments();	
 
 		info("Create a folder in personal document");
-		action.goToAddNewFolder();
 		contemp.createNewFolder(DATA_FOLDER_NAME, folderType.None);
 		info("Open folder");
-		rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", DATA_FOLDER_NAME)));
+		rightClickOnElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", DATA_FOLDER_NAME)));
 
 		info("Create a file");
 		action.goToAddNewContent();
@@ -419,8 +400,8 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		action.chooseDrive(ecmBase.ELEMENT_PERSONAL_DRIVE); 
 
 		info("Click arrow icon to view contentlist");
-		rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_RIGHT.replace("${content}", DATA_FOLDER_NAME)));
-		Utils.pause(3000);
+		//rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_RIGHT.replace("${content}", DATA_FOLDER_NAME)));
+		rightClickOnElement(ecmBase.ELEMENT_ARROW_RIGHT.replace("${nodeName}", DATA_FOLDER_NAME));
 		waitForAndGetElement(Verify_File_Size);
 
 		info("Delete folder");

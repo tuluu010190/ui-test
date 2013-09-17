@@ -257,7 +257,8 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_REMOVE_THUMBNAIL = By.xpath("//*[text() = 'Remove Thumbnail']");
 	public final String ELEMENT_VERIFY_THUMBNAIL = "//*[text()='${name}']//../../../*[@class='nodeLabel']/*[@class='thumbnailImage']";
 	public final String ELEMENT_VERIFY_DATE_NODE = "//*[contains(text(),'Created on') or contains(text(),'by')  ]//../*[contains(text(),'${namenode}')]";
-
+	public final String ELEMENT_VERIFY_CREATEDON_LABEL = "//*[contains(text(),'${content}')]/../..//p[contains(text(), 'Created on')]";
+	
 	public final By ELEMENT_ACME_DRIVE = By.linkText("acme-category");
 	public final By ELEMENT_SITES_MANAGEMENT_DRIVE = By.xpath("//*[@class = 'driveLabel' and @data-original-title = 'Sites Management']");
 	public final By ELEMENT_DMS_ADMIN_DRIVE = By.linkText("DMS Administration");
@@ -307,6 +308,12 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_NODE_NAME_CONSECUTIVE = "//*[@class='uiListGrid']/div[contains(@mousedown, '${node1}')]/..//*[@class='nodeName' and contains(text(), '${node2}')]";
 	public final String ELEMENT_FILE_INFORMATION = ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", "${node}") + "/../*[contains(@class, 'fileInfoBottom')]";
 	public final String ELEMENT_FILE_CLONE_CHECKBOX = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]//*[@name='checkbox']";	
+	public final String ELEMENT_NODE_ROW_VIEW = "//*[@data-original-title='${nodeName}']/ancestor::div[contains(@class, 'rowView')]"; //HaVTT added
+	public final By ELEMENT_VIEW_CHECKBOX_ALL = By.id("UIFileViewCheckBox"); //HaVTT added
+	public final String ELEMENT_PERSONAL_DOCUMENT_NODE= "//*[@class='nodeName' and contains(text(), '${content}')]";
+	public final String ELEMENT_NODE_ADDRESS = "//input[@id='address' and @value='/${content}']";
+	public final String PERSONAL_DRIVE_BREADCRUMB = "//div[@class='breadcrumbLink']//a[@data-original-title='Personal Documents']";
+	public final By ELEMENT_VIEW_MORE_BUTTON = By.xpath("//div[@class='FR MoreButton' and contains(text(),'More')]");
 	
 	//Undo Deleted items
 	public final By ELEMENT_UNDO_DELETED_ITEM = By.xpath("//*[@class='uiIconSuccess']/../*[contains(text(), 'Undo')]");

@@ -170,9 +170,12 @@ public class PlatformBase extends TestBase {
 	/*
 	 * Context menu
 	 * */
-	public final By ELEMENT_CUT_NODE = By.className("uiIconEcmsCut"); 
-	public final By ELEMENT_PASTE_NODE = By.className("uiIconEcmsPaste"); 
-	public final By ELEMENT_COPY_NODE = By.className("uiIconEcmsCopy"); 
+	public final By ELEMENT_CUT_NODE = By.className("uiIconEcmsCut");
+			//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsCut']"); 
+	public final By ELEMENT_PASTE_NODE = By.className("uiIconEcmsPaste");
+			//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsPaste']"); 
+	public final By ELEMENT_COPY_NODE = By.className("uiIconEcmsCopy");
+			//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsCopy']"); 
 	public final By ELEMENT_CLONE_NODE = By.xpath("//a[contains(text(),'Clone')]");
 	public final By ELEMENT_EDIT_NODE_PAGE = By.className("uiIconEcmsEditDocument");
 	public final By ELEMENT_NODE_EDIT_PAGE = By.xpath("//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditPageNode16x16Icon']");

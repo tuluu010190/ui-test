@@ -255,14 +255,16 @@ public class NavigationToolbar extends PlatformBase {
 		info("Go to Intranet/Documents");
 		Utils.pause(500);
 		click(ELEMENT_PERSONAL_DOCUMENTS);
-		waitForTextPresent("Personal Documents");
+		waitForAndGetElement(By.id("UIFileViewCheckBox"), 3000, 1, 2);
+		//waitForTextPresent("Personal Documents");
 	}
 
 	//Go to Page Creation Wizard
 	public void goToPageCreationWizard(){
 		info("Go to add page wizard");
 		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'PageCreationWizard', true));");
-		waitForTextPresent("Page Creation Wizard");
+		//waitForTextPresent("Page Creation Wizard");
+		Utils.pause(500);
 	}
 
 	//Go To Content Administration / Advanced Configuration / Manage Lock Tab
