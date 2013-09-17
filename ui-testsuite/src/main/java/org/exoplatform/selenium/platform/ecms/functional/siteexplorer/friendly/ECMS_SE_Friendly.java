@@ -8,7 +8,6 @@ import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.PageManagement;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
-import org.exoplatform.selenium.platform.ecms.admin.ECMainFunction;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
@@ -28,7 +27,6 @@ public class ECMS_SE_Friendly extends PlatformBase {
 			ManageAccount magAcc;
 
 			//Ecms
-			ECMainFunction ecMain;
 			NavigationToolbar navToolBar;
 			EcmsBase ecms;
 			ContextMenu cMenu;
@@ -47,7 +45,6 @@ public class ECMS_SE_Friendly extends PlatformBase {
 				driver.get(baseUrl);
 				info("Login ECMS with " + DATA_USER);
 				magAcc = new ManageAccount(driver);
-				ecMain = new ECMainFunction(driver); 
 				navToolBar = new NavigationToolbar(driver);
 				cTemplate = new ContentTemplate(driver);
 				cMenu = new ContextMenu(driver);
@@ -80,7 +77,7 @@ public class ECMS_SE_Friendly extends PlatformBase {
 				String folder = "folder01";
 				String node = "webcontent01";
 				By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
-				By bContent = By.xpath("//*[text()='"+node+"']");
+				By bContent = By.xpath(siteExp.ELEMENT_TEXT.replace("{$node}", node));
 				String pCLVName = "CLV_FolderBy_01";
 				String pCLVPath = "General Drives/Sites Management";
 
@@ -141,9 +138,9 @@ public class ECMS_SE_Friendly extends PlatformBase {
 			public void test02_CheckFriendlyURLWhenOpenADocumentOnContentListPorlet(){
 				/*Declare variable*/
 				String folder = "folder02";
-				String node = "test02_uploadfile.doc";
+				String node = "ECMS_DMS_SE_Upload_docfile.doc";
 				By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
-				By bContent = By.xpath("//*[text()='"+node+"']");
+				By bContent = By.xpath(siteExp.ELEMENT_TEXT.replace("{$node}", node));
 				String pCLVName = "CLV_FolderBy_02";
 				String pCLVPath = "General Drives/Sites Management";
 
@@ -203,9 +200,9 @@ public class ECMS_SE_Friendly extends PlatformBase {
 			public void test03_CheckFriendlyURLWhenOpenAImageFileOnContentListPorlet(){
 				/*Declare variable*/
 				String folder = "folder03";
-				String node = "test03_uploadfile.jpg";
+				String node = "ECMS_DMS_SE_Upload_imgfile.jpg";
 				By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
-				By bContent = By.xpath("//*[text()='"+node+"']");
+				By bContent = By.xpath(siteExp.ELEMENT_TEXT.replace("{$node}", node));
 				String pCLVName = "CLV_FolderBy_03";
 				String pCLVPath = "General Drives/Sites Management";
 

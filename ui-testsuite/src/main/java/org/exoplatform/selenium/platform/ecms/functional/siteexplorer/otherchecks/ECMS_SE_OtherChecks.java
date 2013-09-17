@@ -79,7 +79,7 @@ public class ECMS_SE_OtherChecks extends PlatformBase {
 			public void test01_SortNodesInAdminView(){
 				/*Declare variable*/
 				String DATA_DRIVE_NAME = "test01_SortNodesInAdminView";
-				By pdriver = By.xpath("//*[@data-original-title='"+DATA_DRIVE_NAME+"']");
+				By pdriver = By.xpath(magDrv.ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", DATA_DRIVE_NAME));
 				String aFolder = "adocuments";
 				String bFolder = "bdocuments";
 				
@@ -91,7 +91,7 @@ public class ECMS_SE_OtherChecks extends PlatformBase {
 				//and Admin View, icons View, simple view, Timeline View, Cover flow view,Simple view,slide show view
 				//Note: on plf4.0.x, can't create cover flow view, slide show view, timeline view
 				magDrv.addNewDrive(DATA_DRIVE_NAME, "collaboration","sites", "Platform/Administration","*",
-						"Non-document Nodes/Sidebar", "Admin/Icons/List", false, true);
+						"", "Admin/Icons/List", false, true);
 				
 				navToolBar.goToSiteExplorer();
 				actBar.showDrives();
@@ -133,9 +133,9 @@ public class ECMS_SE_OtherChecks extends PlatformBase {
 				/*Declare variable*/
 				String document = "test02_RemoveThumbnailImage";
 				String image = "TestData/test02_RemoveThumbnailImage.jpg";
-				By pdocument = By.xpath("//*[text()='"+ document +"']");
+				By pdocument = By.linkText(document);
 				String DATA_DRIVE_NAME = "test01_SortNodesInAdminView";
-				By pdriver = By.xpath("//*[@data-original-title='"+DATA_DRIVE_NAME+"']");
+				By pdriver = By.xpath(magDrv.ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", DATA_DRIVE_NAME));
 				
 				/* Step 1: Go to Site Explorer*/
 				// Go to Site Administration
@@ -145,7 +145,7 @@ public class ECMS_SE_OtherChecks extends PlatformBase {
 				//and Admin View, icons View, simple view, Timeline View, Cover flow view,Simple view,slide show view
 				//Note: on plf4.0.x, can't create cover flow view, slide show view, timeline view
 				magDrv.addNewDrive(DATA_DRIVE_NAME, "collaboration","sites", "Platform/Administration","*",
-						"Non-document Nodes/Sidebar", "Admin/Icons/List", false, true);
+						"", "Admin/Icons/List", false, true);
 				
 				//Go to Site Explorer
 				navToolBar.goToSiteExplorer();
@@ -196,9 +196,9 @@ public class ECMS_SE_OtherChecks extends PlatformBase {
 			public void test03_IconsView(){
 				/*Declare variable*/
 				String DATA_DRIVE_NAME = "test03_IconsView";
-				By pdriver = By.xpath("//*[@data-original-title='"+DATA_DRIVE_NAME+"']");
+				By pdriver = By.xpath(magDrv.ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", DATA_DRIVE_NAME));
 				String aFolder = "adocuments";
-				By pnode = By.xpath("//*[text()='"+aFolder+"']//../../../*[@class='nodeLabel']/*[@class='thumbnailImage']");
+				By pnode = By.xpath(ecms.ELEMENT_VERIFY_THUMBNAIL.replace("${name}", aFolder));
 				/* Step 1: Go to Site Explorer*/
 				// Go to Site Administration
 				ecMain.goToManageDrive();
@@ -206,7 +206,7 @@ public class ECMS_SE_OtherChecks extends PlatformBase {
 				//Perform to create new driver with Collaboration workspace, 
 				//and Admin View, icons View, simple view, Timeline View, Cover flow view,Simple view,slide show view
 				magDrv.addNewDrive(DATA_DRIVE_NAME, "collaboration","sites", "Platform/Administration","*",
-						"Non-document Nodes/Sidebar", "Admin/Icons/List", false, true);
+						"", "Admin/Icons/List", false, true);
 				
 				//the driver is created
 				navToolBar.goToSiteExplorer();
@@ -256,9 +256,9 @@ public class ECMS_SE_OtherChecks extends PlatformBase {
 				/*Declare variable*/
 				String document = "test05_AddThumbnailTmageForNode";
 				String image = "TestData/test05_AddThumbnailTmageForNode.jpg";
-				By pdocument = By.xpath("//*[text()='"+ document +"']");
+				By pdocument = By.linkText(document);
 				String DATA_DRIVE_NAME = "test01_SortNodesInAdminView";
-				By pdriver = By.xpath("//*[@data-original-title='"+DATA_DRIVE_NAME+"']");
+				By pdriver = By.xpath(magDrv.ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", DATA_DRIVE_NAME));
 				/* Step 1: Go to Site Explorer*/
 				//Go to Site Explorer
 				navToolBar.goToSiteExplorer();
@@ -301,9 +301,10 @@ public class ECMS_SE_OtherChecks extends PlatformBase {
 			public void test06_AdminView(){
 				/*Declare variable*/
 				String DATA_DRIVE_NAME = "test06_AdminView";
-				By pdriver = By.xpath("//*[@data-original-title='"+DATA_DRIVE_NAME+"']");
+				By pdriver = By.xpath(magDrv.ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", DATA_DRIVE_NAME));
 				String aFolder = "adocuments";
-				By pnode = By.xpath("//*[contains(text(),'Created on') or contains(text(),'by')  ]//../*[contains(text(),'"+aFolder+"')]");
+				By pnode = By.xpath(ecms.ELEMENT_VERIFY_DATE_NODE.replace("${namenode}", aFolder));
+				
 				/* Step 1: Go to Site Explorer*/
 				// Go to Site Administration
 				ecMain.goToManageDrive();
@@ -311,7 +312,7 @@ public class ECMS_SE_OtherChecks extends PlatformBase {
 				//Perform to create new driver with Collaboration workspace, 
 				//and Admin View, icons View, simple view, Timeline View, Cover flow view,Simple view,slide show view
 				magDrv.addNewDrive(DATA_DRIVE_NAME, "collaboration","sites", "Platform/Administration","*",
-						"Non-document Nodes/Sidebar", "Admin/Icons/List", false, true);
+						"", "Admin/Icons/List", false, true);
 				
 				//the driver is created
 				navToolBar.goToSiteExplorer();

@@ -35,6 +35,9 @@ public class SitesExplorer extends EcmsBase{
 	ManageDrive magDrv = new ManageDrive(driver);
 	EcmsBase ecms = new EcmsBase(driver);
 
+	/*Text*/
+	public final String ELEMENT_TEXT ="//*[text()='{$node}']";
+	
 	//Button on the top-bar menu
 	//public final By ELEMENT_BUTTON_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack");
 	public final By ELEMENT_BUTTON_REFRESH_TOPBAR_MENU = By.className("uiIconRefresh");

@@ -101,6 +101,7 @@ public class PlatformBase extends TestBase {
 	//By.linkText("Sites Explorer");
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
 	//By.linkText("Content administration");
+	public final String ELEMENT_DATA_ORIGINAL_TITLE ="//*[@data-original-title='${title}']";
 
 	//Portal
 	public final String ELEMENT_LINK_PORTAL = "//a[text()='Portal']";

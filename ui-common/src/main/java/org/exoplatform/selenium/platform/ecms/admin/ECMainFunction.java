@@ -144,7 +144,7 @@ public class ECMainFunction extends EcmsBase{
 		info("Go to manage driver form");
 		navToolbar.goToContentAdministration();
 
-		if (isTextNotPresent("Drives")){
+		if ( waitForAndGetElement(ELEMENT_DRIVES_TAB, 5000, 0) == null){
 			click(ELEMENT_EXPLORER_TAB);
 		}
 		click(ELEMENT_DRIVES_TAB);

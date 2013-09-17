@@ -255,6 +255,8 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_OVERLOAD_THUMBNAIL = By.xpath("//*[@class = 'actionIcon']//*[@class = 'uiIconEcmsOverloadThumbnail']");
 	public final By ELEMENT_CHOOSE_THUMBNAIL_IMAGE = By.xpath("//*[text() = 'Choose Thumbnail Image']");
 	public final By ELEMENT_REMOVE_THUMBNAIL = By.xpath("//*[text() = 'Remove Thumbnail']");
+	public final String ELEMENT_VERIFY_THUMBNAIL = "//*[text()='${name}']//../../../*[@class='nodeLabel']/*[@class='thumbnailImage']";
+	public final String ELEMENT_VERIFY_DATE_NODE = "//*[contains(text(),'Created on') or contains(text(),'by')  ]//../*[contains(text(),'${namenode}')]";
 
 	public final By ELEMENT_ACME_DRIVE = By.linkText("acme-category");
 	public final By ELEMENT_SITES_MANAGEMENT_DRIVE = By.xpath("//*[@class = 'driveLabel' and @data-original-title = 'Sites Management']");
