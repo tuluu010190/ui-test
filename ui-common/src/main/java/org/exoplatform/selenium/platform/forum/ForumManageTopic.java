@@ -35,7 +35,6 @@ public class ForumManageTopic extends ForumBase {
 		userGroup = new UserGroupManagement(driver);
 		but = new Button(driver);
 		per = new ForumPermission(driver);
-		mngPost = new ForumManagePost(driver);
 	}
 
 	//----------------topic home screen---------------------------------------------------
@@ -121,9 +120,9 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_ADD_TOPIC_TYPE_BUTTON=By.xpath("//a[@class='ActionButton LightBlueStyle' and text()='Add Topic Type']");
 
 	//-------------------Poll management screen-----------------------------------------------------------------
-	
+
 	public By ELEMENT_POLL_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Poll']");
-	
+
 	//---------------------------------Vote topic--------------------------------
 	public By ELEMENT_RATE_TOPIC = By.xpath("//a[@class='actionIcon' and contains(text(),'Rate')]");
 	public By ELEMENT_RATE_TOPIC_TERRIBLE = By.xpath("//i[@data-original-title='Poor']");
@@ -283,7 +282,7 @@ public class ForumManageTopic extends ForumBase {
 		inputDataInOptionsTab_StartTopic(options);
 		if (type != 0){
 			click(ELEMENT_TOPIC_PERMISSION_TAB);
-			per.configPermission4Topic(type, userGroup, canview, canpost);
+			per.configPermission4Topic(type,userGroup, canview, canpost);
 		}
 	}
 
@@ -374,7 +373,7 @@ public class ForumManageTopic extends ForumBase {
 	 * @param destination: path go to forum
 	 */
 	public void moveTopic(String topic, String destination){
-		
+
 		info("Move topic to forum " + destination);
 		waitForAndGetElement(ELEMENT_MORE_ACTION);
 		click(ELEMENT_MORE_ACTION);
@@ -679,7 +678,7 @@ public class ForumManageTopic extends ForumBase {
 			waitForAndGetElement(mngPost.ELEMENT_POST_POPUP_NEW);
 			click(mngPost.ELEMENT_POST_CANCEL_BUTTON);
 			break;
-			
+
 		case 3:
 			info("Close a topic");
 			click(ELEMENT_CLOSE_TOPIC);
@@ -700,9 +699,25 @@ public class ForumManageTopic extends ForumBase {
 			click(mngPost.ELEMENT_POST_CANCEL_BUTTON);
 			break;
 
-		
+
 		default: break;
 		}
 
 	}
+
+	/**
+	 * Add category, forum, topic with simple data
+	 * @param cate
+	 * @param forum
+	 * @param topic
+	 * @param descTopic
+	 */
+	public void addCategoryForumTopic(String category, String forum, String topic, String descTopic){
+		String[] permission = {};
+		String[] addForum = {forum, "1",null,null,forum};
+		magCat.addNewCategoryInForum(category, "1", 0,permission, category, 0,permission);
+		magFor.addForum(category, addForum, true, "", "", false,0, permission);
+		click(ELEMENT_START_TOPIC_BUTTON);
+		startTopic(topic, descTopic, "", 0, permission,false, false, false);
+	} 
 }

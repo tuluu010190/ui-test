@@ -26,8 +26,9 @@ public class ForumBase extends PlatformBase {
 	Button but;
 	ManageAlert alert;
 	PageEditor pageE;
-	NavigationToolbar navTool;
+	public NavigationToolbar navTool = new NavigationToolbar(driver);
 	PlatformPermission per;
+
 
 	public final By ELEMENT_FORUM_LINK = By.linkText("Forums");
 	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//*[@class='UIPopupWindow UIDragObject uiPopup']//*[text()='OK']");
@@ -46,7 +47,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_MODERTATION_DELETE_BUTTON = By.xpath("//*[@id='ModerationMenu']//a[contains(text(),'Delete')]");
 	public final By ELEMENT_WATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'AddWatching')]");
 	public final By ELEMENT_UNWATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'UnWatch')]");
-	public final By ELEMENT_BOOKMARKS = By.linkText("Bookmarks");
+	public final By ELEMENT_BOOKMARKS = By.xpath("//a[@class='actionIcon']//i[@class='uiIconBookmark uiIconLightGray']");
 	public final By ELEMENT_EXPORT_CATEGORY = By.xpath("//*[@id='Administrations']//*[@class='uiIconExport']");
 	public final By ELEMENT_EXPORT_FORUM = By.linkText("Export Forum");
 	public final By ELEMENT_LEGEN_PANEL = By.id("UIForumIconState");
@@ -54,7 +55,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_HOME_BUTTON = By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
 	public final String ELEMENT_HOME_FORUM = "Forum Home";
 	public final By ELEMENT_USER_MANAGEMENT = By.xpath("//*[@id='ManageModerator']//*[@class='uiIconUser uiIconLightGray']");
-	
+
 	//Administration menu
 	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray']");
 	public final By ELEMENT_SORT_SETTING = By.xpath("//span[text()='Sort Settings']");
@@ -63,17 +64,18 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBBCode']");
 	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[@class='Pruning']");
 	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport']");
-	
+
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public final String MESSAGE_WATCH = "You are now watching this item.";
 	public final String MESSAGE_UNWATCH = "You are no longer watching this item.";	
 	public static String REGISTER_MAIL_CONTENT = "Hi, you received this email because you registered for the Forum and Topic Watching notification.";
 
 	//----------------Book Marks form------------------------------------------
-	public final By ELEMENT_BOOKMARKS_POPUP = By.xpath("//span[@class='PopupTitle' and text()='My Bookmarks']");
-	public final By ELEMENT_BOOKMARKS_OPTION = By.xpath("//*[@id='UIPopupMenu1']/*//a[text()='Bookmark']");
-	public final String ELEMENT_BOOKMARKS_ITEM = "//a[@class='ActionLink' and text()='${item}']";
+	public final By ELEMENT_BOOKMARKS_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='My Bookmarks']");
+	public final String ELEMENT_BOOKMARKS_OPTION = ".//a[text()='${item}']/..//*[@class='bookmark']";
+	public final String ELEMENT_BOOKMARKS_ITEM = "//form[@id='UIShowBookMarkForm']//a[@class='actionOpenLink' and text()='${item}']";
 	public final String ELEMENT_BOOKMARKS_REMOVE = "//a[@class='ActionLink' and text()='${item}']/../../*//div[@class='DeleteIcon']";
+	public final By ELEMENT_BOOKMARKS_CANCEL_BUTTON = By.xpath("//form[@id='UIShowBookMarkForm']//*[text()='Cancel']");
 
 	//-----------------simple search screen-----------------------------------
 	public final By ELEMENT_SIMPLE_SEARCH_TEXTBOX = By.id("inputValue");
@@ -99,7 +101,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_ADVANCED_SEARCH_STATE_CLOSED = By.id("IsClosed");
 	public final By ELEMENT_ADVANCED_SEARCH_LAST_POST_FROM = By.id("FromDateCreatedLastPost");
 	public final By ELEMENT_ADVANCED_SEARCH_LAST_POST_TO = By.id("ToDateCreatedLastPost");
-	
+
 	//-----------------Sort setting form-----------------------------------
 	public final By ELEMENT_SORT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Sort Settings']");
 	public final By ELEMENT_SORT_FORUM_BY = By.id("forumSortBy");
@@ -124,7 +126,7 @@ public class ForumBase extends PlatformBase {
 	public final String MSG_BLOCK_POST = "You cannot post replies.";
 	public final String MSG_BLOCK_POST_ATTACHMENT = "You cannot post attachments.";
 	public final String MSG_BLOCK_EDIT_YOUR_POST = "You cannot edit your posts.";	
-	
+
 	//----------------Set BB Code form-------------------------------------
 	public final By ELEMENT_BBCODE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='BBCode Manager']");
 	public final String ELEMENT_BBCODE_ACTIVE_NO_OPTION = "//input[@type='checkbox' and @id='${tag}']";
@@ -134,7 +136,7 @@ public class ForumBase extends PlatformBase {
 	public final String ELEMENT_BBCODE_EDIT_ICON = "//*[contains(@href,'${tag}') and @data-original-title='Edit BBCode']";
 	public final String ELEMENT_BBCODE_DELETE_ICON = "//*[contains(@data-action,'TAGMOTUPDATE') and @data-original-title='Delete BBCode']";
 	public final String ELEMENT_BBCODE_DELETE_MESSAGE = "Are you sure you want to delete this BB Code ?";
-	
+
 	public final By ELEMENT_BBCODE_ADD_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add BBCode']");
 	public final By ELEMENT_BBCODE_EDIT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Edit BBCode']");
 	public final By ELEMENT_BBCODE_TAG	= By.id("TagName");
@@ -163,7 +165,7 @@ public class ForumBase extends PlatformBase {
 	//--------------------Profile setting form------------------------------------
 	public final By ELEMENT_SETTING = By.xpath("//*[@id='EditProfile']//*[@class='uiIconSetting uiIconLightGray']");
 	public final By ELEMENT_SETTING_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Settings']");
-	
+
 	//Profile tab
 	public final By ELEMENT_SCREEN_NAME = By.id("ScreenName");
 	public final By ELEMENT_SIGNATURE = By.id("Signature");
@@ -172,7 +174,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_WATCH_TOPIC_START = By.id("AutoWatchMyTopics");
 	public final By ELEMENT_WATCH_TOPIC_POST =  By.id("AutoWatchTopicIPost");
 	public final By ELEMENT_AVATAR_UPDATE_BUTTON = By.xpath("//*[@id='Avatar']//button");
-	
+
 	//Forum settings tab
 	public final By ELEMENT_SETTING_FORUM_TAB = By.linkText("Forum Settings");
 	public final By ELEMENT_SETTING_TIMEZONE = By.name("TimeZone");
@@ -181,7 +183,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_SETTING_TIME_FORMAT = By.name("Timeformat");
 	public final By ELEMENT_SETTTING_TOPIC_PER_PAGE = By.name("MaximumThreads");
 	public final By ELEMENT_SETTING_POST_PER_PAGE = By.name("MaximumPosts");
-	
+
 	//My subcription tab
 	public final By ELEMENT_SETTING_MYSCRIPTIONS_TAB = By.linkText("My Subscriptions");
 	public final By ELEMENT_FEED_URL_TEXTBOX = By.id("RSSLink");
@@ -245,7 +247,32 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_BAN_USER_REASON = By.id("BanReason");
 	public final By ELEMENT_USER_MANAGEMENT_TOPIC_TAB = By.linkText("Topics");
 	public final By ELEMENT_USER_MANAGEMENT_POST_TAB = By.linkText("Posts");
+
+	//Private message
+	public final By ELEMENT_PRIVATE_MESSAGE_ICON = By.xpath("//a[@class='actionIcon']/i[@class='uiIconMail uiIconLightGray']");
+	public final By ELEMENT_COMPOSE_MESSAGE_TAB = By.linkText("Compose New Message");
+	public final By ELEMENT_PRIVATE_MESSAGE_SENDTO_INPUT = By.id("SendTo");
+	public final By ELEMENT_PRIVATE_MESSAGE_TITLE_INPUT = By.id("MailTitle");
+	public final By ELEMENT_PRIVATE_MESSAGE_FRAME1 = By.id("MailMessage___Frame");
+	public final By ELEMENT_POST_MESSAGE_FRAME_2 = By.xpath("//*[@id='xEditingArea']/iframe");
+	public final By ELEMENT_PRIVATE_MESSAGE_SEND_BUTTON = By.xpath("//button[@class='btn' and text()='Send']");
+	public final By ELEMENT_PRIVATE_MESSAGE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Private Messages']");
+	public final By ELEMENT_PRIVATE_MESSAGE_CANCEL_BUTTON = By.xpath("//form[@id='UIPrivateMessageForm']//button[text()='Cancel']");
+	public final By ELEMENT_PRIVATE_MESSAGE_SENT_TAB = By.linkText("Sent Messages");
+	public final By ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK = By.xpath("//span[contains(text(),'Your message was sent successfully.')]/../../..//*[text()='OK']");
+	public final By ELEMENT_PRIVATE_MESSAGE_DELETE_OK = By.xpath("//span[contains(text(),'Are you sure you want to delete this message ?')]/../../..//*[text()='OK']");
 	
+	public final String ELEMENT_PRIVATE_MESSAGE_FORWARD_ICON = "//*[text()='${message}']//ancestor::tr//i[@class='uiIconForumForward uiIconForumLightGray' and @data-original-title='Forward Message']";
+	public final String ELEMENT_PRIVATE_MESSAGE_REPLY_ICON = "//*[text()='${message}']//ancestor::tr//i[@class='uiIconReply uiIconLightGray' and @data-original-title='Reply Message']";
+	public final String ELEMENT_PRIVATE_MESSAGE_DELETE_ICON = "//*[text()='${message}']//ancestor::td/../td/a/i[@class='uiIconDelete uiIconLightGray' and @data-original-title='Delete Message']";
+	public final String ELEMENT_PRIVATE_MESSAGE = "//form[@id='UIPrivateMessageForm']//td//*[text()='${message}']";
+	public final String ELEMENT_PRIVATE_MESSAGE_CONTENT = "//div[@class='uiContentBox']//p[text()='${message}']";
+	
+	public final String MSG_PRIVATE_MESSAGE_COMPOSE = "Your message was sent successfully.";
+	public final String MSG_PRIVATE_MESSAGE_DELETE = "Are you sure you want to delete this message ?";
+
+	//Gmail
+	public String ELEMENT_GMAIL_EMAIL = "//span/b[text()='[${category}][${forum}] ${topic}']";
 	/*-----------------------------common function-------------------------------------*/
 
 	/** function: input data to a frame in other frame
@@ -311,12 +338,12 @@ public class ForumBase extends PlatformBase {
 		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_ATTACHMENT_SAVE_BUTTON);
 	}
-	
+
 	public void goToForums(){
 		info("--Go to Forums--");
 		click(ELEMENT_FORUM_LINK);
 	}
-	
+
 	public void goToForumHome(){
 		info("---Go to Forum home---");
 		click(ELEMENT_HOME_BUTTON);
@@ -361,16 +388,17 @@ public class ForumBase extends PlatformBase {
 				Assert.fail("Cannot bookmark this item after " + ACTION_REPEAT + " tries");
 			}
 			rightClickOnElement(By.linkText(item));
-			if (waitForAndGetElement(ELEMENT_BOOKMARKS_OPTION) != null) break;
+			if (waitForAndGetElement(ELEMENT_BOOKMARKS_OPTION.replace("${item}", item)) != null) break;
 			Utils.pause(WAIT_INTERVAL);
 			info("Retry...[" + repeat + "]");
 		}
-		click(ELEMENT_BOOKMARKS_OPTION);
+		click(ELEMENT_BOOKMARKS_OPTION.replace("${item}", item));
 		//check bookmarks display
-		waitForAndGetElement(ELEMENT_BOOKMARKS);
 		click(ELEMENT_BOOKMARKS);
 		waitForAndGetElement(ELEMENT_BOOKMARKS_POPUP);
 		waitForAndGetElement(element_item);
+
+		click(ELEMENT_BOOKMARKS_CANCEL_BUTTON);
 		info("Add bookmark successfully");
 	}
 
@@ -389,7 +417,7 @@ public class ForumBase extends PlatformBase {
 	}
 
 	//-------------------------------Manage Search-----------------------------//
-	
+
 	/** function: simple search
 	 * @author lientm
 	 * @param key: key to search
@@ -411,12 +439,12 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void advancedSearch(String searchIn, String key, boolean scope, String...opts){
 		per = new PlatformPermission(driver);
-		
+
 		info("Do advance search");
 		quickSearch("Advance search");
 		click(ELEMENT_ADVANCED_SEARCH_ICON);
 		waitForAndGetElement(ELEMENT_ADVANCED_SEARCH_FORM);
-		
+
 		if (searchIn != null){
 			select(ELEMENT_ADVANCED_SEARCH_IN, searchIn);
 		}
@@ -428,7 +456,7 @@ public class ForumBase extends PlatformBase {
 		} else {
 			click(ELEMENT_ADVANCED_SEARCH_SCOPE_TITLES, 2);
 		}
-		
+
 		if (opts.length > 0){
 			if (opts[0] != null){
 				type(ELEMENT_ADVANCED_SEARCH_USER, opts[0], true);
@@ -452,7 +480,7 @@ public class ForumBase extends PlatformBase {
 		click(ELEMENT_ADVANCED_SEARCH_BUTTON);
 		waitForElementNotPresent(ELEMENT_ADVANCED_SEARCH_BUTTON);
 	}
-	
+
 	//-----------------------------------Administration---------------------------------//
 	/** function: setup a sort
 	 * @author lientm
@@ -676,7 +704,7 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void deleteBBcode(String tag){
 		By ELEMENT_DELETE = By.xpath(ELEMENT_BBCODE_DELETE_ICON.replace("${tag}", tag));
-		
+
 		alert = new ManageAlert(driver);
 		info("Delete a BBcode have tag " + tag);
 		click(ELEMENT_DELETE);
@@ -825,7 +853,7 @@ public class ForumBase extends PlatformBase {
 		compareString(temp, content);
 		info("Email content is true");
 	}
-	
+
 	//------------------------------------------Settings----------------------------------//
 	/**
 	 * function go to setting form
@@ -864,7 +892,7 @@ public class ForumBase extends PlatformBase {
 		if (opt.length > 1){
 			if (opt[1]){
 				check(ELEMENT_IS_DISPLAY_AVATAR, 2);
-				
+
 			} else {
 				uncheck(ELEMENT_IS_DISPLAY_AVATAR, 2);
 			}
@@ -886,7 +914,7 @@ public class ForumBase extends PlatformBase {
 		but.save();
 		waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 	}
-	
+
 	public void forumsSettings(String...opts){
 		info("Settings for forum");
 		if (waitForAndGetElement(ELEMENT_SETTING_FORUM_TAB, 5000, 0) != null){
@@ -930,7 +958,7 @@ public class ForumBase extends PlatformBase {
 			waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 		}
 	}
-	
+
 
 	/**function go to RSS for any item (by rightclick on item -> choose RSS)
 	 * @author lientm
@@ -975,7 +1003,7 @@ public class ForumBase extends PlatformBase {
 		but.save();
 		waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 	}
-	
+
 	//------------------------Forum edit portlet--------------------------------------//
 
 	/**Function select option show panels in forum portlet setting
@@ -1060,7 +1088,7 @@ public class ForumBase extends PlatformBase {
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}	
-	
+
 	public void selectOptions(boolean ajax){
 		but = new Button(driver);
 		click(ELEMENT_FORUM_PORTLET_OPTIONS_TAB);
@@ -1073,9 +1101,9 @@ public class ForumBase extends PlatformBase {
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
-	
+
 	//--------------------------------User Management-----------------------------------//
-	
+
 	public void goToUserManagement(String user){
 		info("---Go to User management---");
 		click(ELEMENT_USER_MANAGEMENT);
@@ -1086,7 +1114,7 @@ public class ForumBase extends PlatformBase {
 		click(ELEMENT_USER_EDIT_ICON.replace("${user}", user));
 		waitForAndGetElement(ELEMENT_USER_MANAGEMENT_PROFILE_TAB);
 	}
-	
+
 	public void settingUserManagementProfile(String screenName, String titleUser, String category, String forum, String sign, boolean...opt){
 		but = new Button(driver);
 		if (screenName != null){
@@ -1128,13 +1156,13 @@ public class ForumBase extends PlatformBase {
 		if (opt.length > 2){
 			if (opt[2]){
 				check(ELEMENT_IS_DISPLAY_AVATAR, 2);
-				
+
 			} else {
 				uncheck(ELEMENT_IS_DISPLAY_AVATAR, 2);
 			}
 		}
 	}
-	
+
 	public void banUser(boolean ban, String time, String reason){
 		click(ELEMENT_USER_MANAGEMENT_BAN_USER_TAB);
 		if (ban){
@@ -1148,5 +1176,107 @@ public class ForumBase extends PlatformBase {
 		}else {
 			uncheck(ELEMENT_BAN_USER_CHECKBOX, 2);
 		}
+	}
+	/** Open form "Private message"
+	 * @author thuntn
+	 */
+	public void goToPrivateMessage(){
+		click(ELEMENT_PRIVATE_MESSAGE_ICON);
+		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE_POPUP);
+	}
+	/** Input a private message form
+	 * 
+	 * @param receiver: send message to this receiver
+	 * @param title
+	 * @param message
+	 */
+	public void inputPrivateMessage(String receiver, String title, String message){
+		if(receiver != null)
+			type(ELEMENT_PRIVATE_MESSAGE_SENDTO_INPUT,receiver,true);
+		if(title != null)
+			type(ELEMENT_PRIVATE_MESSAGE_TITLE_INPUT,title,true);
+		if(message != null)
+			inputDataToFrameInFrame(ELEMENT_PRIVATE_MESSAGE_FRAME1,ELEMENT_POST_MESSAGE_FRAME_2 , message, false);
+		switchToParentWindow();
+		click(ELEMENT_PRIVATE_MESSAGE_SEND_BUTTON);
+		
+	}
+
+	/** Compose a private message
+	 * @author thuntn
+	 * @param receiver: send message to this receiver
+	 * @param title
+	 * @param message
+	 */
+	public void composePrivateMessage(String receiver, String title, String message){
+		info("Compose a private message");
+
+		goToPrivateMessage();
+		click(ELEMENT_COMPOSE_MESSAGE_TAB);
+		inputPrivateMessage(receiver, title, message);
+		waitForMessage(MSG_PRIVATE_MESSAGE_COMPOSE);
+		click(ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK);
+		waitForElementNotPresent(ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK);
+		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE.replace("${message}", title));
+	}
+
+	/**Delete message after Private message and tabs are opened
+	 * 
+	 * @author thuntn
+	 * @param titleMessage
+	 */
+	public void deletePrivateMessage(String titleMessage){
+		info("Delete message");
+		click(ELEMENT_PRIVATE_MESSAGE_DELETE_ICON.replace("${message}",titleMessage ));
+		waitForMessage(MSG_PRIVATE_MESSAGE_DELETE);
+		click(ELEMENT_PRIVATE_MESSAGE_DELETE_OK);
+		waitForElementNotPresent(ELEMENT_PRIVATE_MESSAGE_DELETE_OK);
+		waitForElementNotPresent(ELEMENT_PRIVATE_MESSAGE_DELETE_ICON.replace("${message}",titleMessage ));
+	}
+	
+	/** Forward a private message
+	 * @author thuntn
+	 * @param titleMessage
+	 * @param receiver
+	 */
+	public void forwardPrivateMessage(String titleMessage, String receiver,String fwdMessage){
+		info("Forward a private message");
+		
+		click(ELEMENT_PRIVATE_MESSAGE_SENT_TAB);
+		click(ELEMENT_PRIVATE_MESSAGE_FORWARD_ICON.replace("${message}", titleMessage));
+		inputPrivateMessage(receiver, null, fwdMessage);
+		waitForMessage(MSG_PRIVATE_MESSAGE_COMPOSE);
+		click(ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK);
+		waitForElementNotPresent(ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK);
+		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE.replace("${message}", "Forward:" + titleMessage));
+	}
+	
+	/**Reply a private message
+	 * @author thuntn
+	 * @param titleMessage
+	 * @param replyMessage
+	 */
+	public void replyPrivateMessage(String titleMessage, String replyMessage){
+		info("Reply a private message");
+		goToPrivateMessage();
+		click(ELEMENT_PRIVATE_MESSAGE_REPLY_ICON.replace("${message}", titleMessage));
+		inputPrivateMessage(null, null, replyMessage);
+		waitForMessage(MSG_PRIVATE_MESSAGE_COMPOSE);
+		click(ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK);
+		waitForElementNotPresent(ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK);
+		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE.replace("${message}", "Reply:"+titleMessage));
+	}
+	/**Check private message
+	 * @author thuntn
+	 * @param titleMessage
+	 * @param contentMessage
+	 */
+	public void checkPrivateMessage(String titleMessage, String contentMessage){
+		//verify title of message
+		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE.replace("${message}", titleMessage));
+		
+		click(ELEMENT_PRIVATE_MESSAGE.replace("${message}", titleMessage));
+		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE_CONTENT.replace("${message}", contentMessage));
+		
 	}
 }

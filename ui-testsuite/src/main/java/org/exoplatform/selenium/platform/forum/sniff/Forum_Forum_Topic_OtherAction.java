@@ -3,9 +3,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
@@ -29,8 +27,6 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 	ForumManageForum mngFru;
 	ForumManageTopic mngTopic;
 	ForumManagePost mngPost;
-	NavigationToolbar navTool;
-	HomePageActivity hpgAct;
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -66,7 +62,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 
 		info("Lock/Unlock a topic");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		mngTopic.actionOnTopic(3);
 
@@ -88,7 +84,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 
 		info("Rate topic");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		mngTopic.voteTopic(2,true);
 
@@ -110,7 +106,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 
 		info("Tag for topic");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		mngTopic.addTagForTopic(tag);
 
@@ -129,13 +125,12 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 		String titleTop = "Topic 04";
 		String newTopic = "New topic 04";
 		String post2 = "New post 2";
-		String mail = "//span/b[text()='[${category}][${forum}] ${topic}']";
 
 		info("Watch & Unwatch topic");
 		//create category, forum, topic
 		magAc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
 		goToForums();
-		addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		waitForAndGetElement(mngPost.ELEMENT_POST_REPLY_BUTTON);
 
@@ -144,7 +139,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 		mngPost.postReply(newTopic, newTopic, "", "", "");
 
 		goToMail(EMAIL_ADDRESS1,EMAIL_PASS);
-		checkAndDeleteMail(By.xpath(mail.replace("${category}",titleCat).replace("${forum}", titleForum).replace("${topic}", titleTop)), titleTop);
+		checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",titleCat).replace("${forum}", titleForum).replace("${topic}", titleTop)), titleTop);
 		switchToParentWindow();
 
 		mngTopic.watchItem(false);
@@ -152,7 +147,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 
 		switchToNewWindow();
 		Utils.pause(30000);
-		waitForElementNotPresent(mail.replace("${category}",titleCat).replace("${forum}", titleForum).replace("${topic}", titleTop));
+		waitForElementNotPresent(ELEMENT_GMAIL_EMAIL.replace("${category}",titleCat).replace("${forum}", titleForum).replace("${topic}", titleTop));
 		
 		switchToParentWindow();
 		
@@ -160,14 +155,4 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 		click(By.linkText(titleCat));
 		mngCat.deleteCategoryInForum(titleCat, true); 
 	}
-
-
-	public void addCategoryForumTopic(String cate, String forum, String topic, String descTopic){
-		String[] permission = {};
-		String[] addForum = {forum, "1",null,null,forum};
-		mngCat.addNewCategoryInForum(cate, "1", 0,permission, cate, 0,permission);
-		mngFru.addForum(cate, addForum, true, "", "", false,0, permission);
-		click(mngTopic.ELEMENT_START_TOPIC_BUTTON);
-		mngTopic.startTopic(topic, descTopic, "", 0, permission,false, false, false);
-	} 
 }

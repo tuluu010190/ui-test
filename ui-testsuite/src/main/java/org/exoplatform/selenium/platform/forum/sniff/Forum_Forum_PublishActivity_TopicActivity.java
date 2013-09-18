@@ -8,7 +8,6 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
-import org.exoplatform.selenium.platform.forum.ForumManagePoll;
 import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
 import org.openqa.selenium.By;
@@ -30,7 +29,6 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 	ForumManagePost mngPost;
 	NavigationToolbar navTool;
 	HomePageActivity hpgAct;
-	ForumManagePoll mngPoll;
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -43,7 +41,6 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		mngTopic = new ForumManageTopic(driver);
 		navTool = new NavigationToolbar(driver);
 		hpgAct = new HomePageActivity(driver);
-		mngPoll = new ForumManagePoll(driver);
 		
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		goToForums();
@@ -69,7 +66,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		info("Move a topic");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,titleTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,titleTop);
 		click(By.linkText(titleCat));
 		waitForElementNotPresent(ELEMENT_BREAD_FORUM.replace("${forum}", titleForum));
 		
@@ -107,7 +104,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		info("Create new Topic");
 //		create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		mngPost.postReply(reply, reply, "", "", "");
 		
@@ -141,7 +138,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		info("Update topic title");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		mngTopic.editTopic(newTopic, descTop, "",  0, userGroup,false,false,false);
 			
@@ -170,7 +167,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		info("Update topic title");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		mngTopic.editTopic(titleTop, newDesc, "",  0, userGroup,false,false,false);
 			
@@ -197,7 +194,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		info("Lock/Unlock a topic");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		//Lock a topic
 		mngTopic.actionOnTopic(1);
@@ -231,7 +228,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		
 		info("Delete topic");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		
 		navTool.goToHomePage();
@@ -264,8 +261,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		info("Jump into Reply form by clicking on Reply action");
 		
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
-		
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		
 		//Check activity
 		navTool.goToHomePage();
@@ -296,7 +292,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		info("Jump into last Reply of Topic");
 		
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		mngPost.postReply(reply1, reply1, "", "", "");
 		mngPost.postReply(reply2, reply2, "", "", "");
@@ -329,7 +325,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		info("Jump to related reply");
 		
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		mngPost.postReply(reply, reply, "", "", "");
 		
@@ -345,14 +341,5 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		click(By.linkText(titleCat));
 		mngCat.deleteCategoryInForum(titleCat, true);
 		
-	}
-	
-	public void addCategoryForumTopic(String cate, String forum, String topic, String descTopic){
-		String[] permission = {};
-		String[] addForum = {forum, "1",null,null,forum};
-		mngCat.addNewCategoryInForum(cate, "1", 0,permission, cate, 0,permission);
-		mngFru.addForum(cate, addForum, true, "", "", false,0, permission);
-		click(mngTopic.ELEMENT_START_TOPIC_BUTTON);
-		mngTopic.startTopic(topic, descTopic, "", 0, permission,false, false, false);
 	}
 }

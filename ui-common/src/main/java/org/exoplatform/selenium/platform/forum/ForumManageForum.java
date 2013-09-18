@@ -39,6 +39,7 @@ public class ForumManageForum extends ForumBase {
 	public By ELEMENT_MODERATOR_PANEL = By.xpath("//*[@id='uicomponent.id' and @class='UIForumModerator']");
 	public By ELEMENT_RULE_PANEL = By.id("UIPostRules");
 	public String ELEMENT_TOPIC_LINK = "//a[contains(text(),'${topic}')]";
+	public String ELEMENT_CATEGORY_FORUM_BREAD = "//*[text()='${category}']/../../*[text()='${forum}']";
 
 	//-------------------add forum form---------------------------------------------------
 	public By ELEMENT_POPUP_ADD_FORUM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Forum']");
@@ -47,7 +48,7 @@ public class ForumManageForum extends ForumBase {
 	public By ELEMENT_FORUM_TITLE = By.id("ForumTitle");
 	public By ELEMENT_FORUM_ORDER = By.id("ForumOrder");
 	public By ELEMENT_FORUM_STATE = By.name("ForumState");
-	public By ELEMENT_FORUM_STATUS = By.id("ForumStatus");
+	public By ELEMENT_FORUM_STATUS = By.name("ForumStatus");
 	public By ELEMENT_FORUM_DESCRIPTION = By.id("Description");
 	public By ELEMENT_MODERATOR_TAB = By.linkText("Moderation Options");
 	public By ELEMENT_FORUM_MODERATOR = By.id("Moderator");
@@ -267,7 +268,7 @@ public class ForumManageForum extends ForumBase {
 		waitForAndGetElement(ELEMENT_POPUP_MOVE_FORUM);
 		click(By.linkText(destination));
 		waitForElementNotPresent(ELEMENT_POPUP_MOVE_FORUM);
-		waitForAndGetElement(By.xpath("//*[text()='" + destination + "']/../*[text()='" + forum + "']"));
+		waitForAndGetElement(By.xpath(ELEMENT_CATEGORY_FORUM_BREAD.replace("${category}", destination).replace("${forum}", forum)));
 		info("Move forum successfully");
 	}
 
@@ -293,4 +294,16 @@ public class ForumManageForum extends ForumBase {
 		but.save();
 		waitForElementNotPresent(ELEMENT_EXPORT_FORUM_POPUP);
 	}
+	
+	  /**
+	* Add category, forum with simple data
+	  * @param cate
+	  * @param forum
+	  */
+	  public void addCategoryForum(String cate, String forum){
+	    String[] permission = {};
+	    String[] addForum = {forum, "1",null,null,forum};
+	    cat.addNewCategoryInForum(cate, "1", 0,permission, cate, 0,permission);
+	    addForum(cate, addForum, true, "", "", false,0, permission);
+	  }
 }

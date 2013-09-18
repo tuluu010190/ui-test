@@ -53,7 +53,6 @@ public class ForumManagePost extends ForumBase {
 	//--------------post reply screen-----------------------------------------------------------
 	public By ELEMENT_POST_TITLE = By.id("PostTitle");
 	public By ELEMENT_POST_MESSAGE_FRAME_1 = By.id("MessageContent___Frame");
-	public By ELEMENT_POST_MESSAGE_FRAME_2 = By.xpath("//*[@id='xEditingArea']/iframe");
 	public By ELEMENT_POST_POPUP_NEW = By.xpath("//span[@class='PopupTitle popupTitle' and text()='New Post']");
 	public By ELEMENT_POST_ICONS_TAB = By.xpath("//a[contains(text(), 'Icons and Smileys')]");
 	public By ELEMENT_POST_PRIVATE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Private Post']");

@@ -4,7 +4,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
@@ -28,7 +27,6 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 	ForumManageForum mngFru;
 	ForumManageTopic mngTopic;
 	ForumManagePost mngPost;
-	NavigationToolbar navTool;
 	HomePageActivity hpgAct;
 	ForumManagePoll mngPoll;
 	
@@ -41,7 +39,6 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		mngCat = new ForumManageCategory(driver);
 		mngPost = new ForumManagePost(driver);
 		mngTopic = new ForumManageTopic(driver);
-		navTool = new NavigationToolbar(driver);
 		hpgAct = new HomePageActivity(driver);
 		mngPoll = new ForumManagePoll(driver);
 		
@@ -71,7 +68,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		
 		info("Edit a poll");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		
 		//Add a poll
@@ -108,7 +105,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		
 		info("Add a new poll");
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		
 		//Add a poll
@@ -143,7 +140,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		info("Delete a poll");
 		
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		
 		//Add a poll
@@ -185,7 +182,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		info("Redirect to the poll by clicking on Vote");
 		
 		//create category, forum, topic
-		addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
+		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		waitForAndGetElement(mngPost.ELEMENT_POST_REPLY_BUTTON);
 		
@@ -204,12 +201,4 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		
 	}
 	
-	public void addCategoryForumTopic(String cate, String forum, String topic, String descTopic){
-		String[] permission = {};
-		String[] addForum = {forum, "1",null,null,forum};
-		mngCat.addNewCategoryInForum(cate, "1", 0,permission, cate, 0,permission);
-		mngFru.addForum(cate, addForum, true, "", "", false,0, permission);
-		click(mngTopic.ELEMENT_START_TOPIC_BUTTON);
-		mngTopic.startTopic(topic, descTopic, "", 0, permission,false, false, false);
-	}
 }
