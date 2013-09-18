@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.forum;
 
 import  static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.WebDriver;
 
@@ -17,8 +16,6 @@ public class ForumPermission extends ForumBase {
 		driver = dr;
 	}
 	
-	Button but = new Button(driver);
-	PlatformPermission per = new PlatformPermission(driver);
 	
 	//Set permission for category of answer
 	public final String ELEMENT_RESTRICTED_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[2]//input[@type='checkbox']";

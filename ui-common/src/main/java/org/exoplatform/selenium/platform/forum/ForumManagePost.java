@@ -2,8 +2,6 @@ package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,29 +15,26 @@ import org.openqa.selenium.WebElement;
 
 public class ForumManagePost extends ForumBase {
 	
-	Button but;
 	ForumPermission per;
-	ManageAlert alert;
 	ForumManageTopic magTopic;
 	
 	public ForumManagePost(WebDriver dr){
 		driver = dr;
 		magTopic = new ForumManageTopic(driver);
 		per = new ForumPermission(driver);
-		magTopic = new ForumManageTopic(driver);
-		but = new Button(driver);
 	}
 	
 	//--------------post home screen--------------------------------------------------------
 
-	public By ELEMENT_POST_REPLY_BUTTON = By.xpath("//*[@class='clearfix topContainer']/*//a[@class='uiPostReplyIcon btn btn-primary' and text()='Post Reply']");
 	public By ELEMENT_REPLY_LOCK_BUTTON = By.xpath("//*[@class='clearfix topContainer']//div[@class='uiLockIcon btn disabled' and text()='Post Reply']");
-	public String ELEMENT_POST_EDIT_BUTTON = "//*[text()='${postContent}']/../../../../*//a[text()='Edit' and @class='IconButton EditPostIcon']";
-	public String ELEMENT_POST_DELETE_BUTTON = "//*[text()='${postContent}']/../../../../*//a[text()='Delete' and @class='IconButton DeletePostIcon']";
+
+	public By ELEMENT_POST_REPLY_BUTTON = By.linkText("Post Reply");
+	public String ELEMENT_POST_EDIT_BUTTON = "//*[text()='${postContent}']/../../../..//a[text()='Edit' and @class='btn']";
+	
 	public String ELEMENT_POST_CHECKBOX = "//*[text()='${postContent}']/../../../../*//input[@type='checkbox']";
 	public By ELEMENT_MOVE_POST = By.xpath("//a[@class='ItemIcon MovePostIcon' and text()='Move']");
 	public String ELEMENT_GO_TO_THE_LASTS_READ_POST_FORUM = "//a[text()='${forum}']/../..//a[@title='Go to the last read post']";
-	public String ELEMENT_PRIVATE_POST_BUTTON = "//*[text()='${topic}  ']/../../..//a[text()='Private']";
+	public String ELEMENT_PRIVATE_POST_BUTTON = "//*[text()='${topic}']/../../../..//a[text()='Private']";
 
 	public By ELEMENT_APPROVE_POST = By.xpath("//a[text()='Approve']");
 	public String ELEMENT_APPROVE_POST_CHECK = "//a[@title='{$topic}']/ancestor::tr//input";
@@ -49,6 +44,12 @@ public class ForumManagePost extends ForumBase {
 	public String ELEMENT_CENSOR_POST_CHECK = "//a[@title='{$post}']/ancestor::tr//input";
 	public String MSG_POST_CENSOR = "This post may contain offensive content. It will be displayed after moderation.";
 	public String MSG_POST_APPROVE = "Your post is pending for moderation. It will be displayed after approval.";
+	public String ELEMENT_POST_TITLE_TEXT = "//div[@class='postViewTitle pull-left' and contains(text(),'${post}')]";
+	public String ELEMENT_POST_CONTENT_TEXT = "//div[@class='postContent']//p[contains(text(),'${post}')]";
+	public String ELEMENT_PRIVATE_POST_MESSAGE = "//div[@class='uiForumPortlet forumBoxNotification']//div[@class='content' and contains(text(),'${post}')]";
+	public By ELEMENT_PRIVATE_POST_CLOSE_NOTIFICATION = By.xpath("//div[@class='uiForumPortlet forumBoxNotification']//i[@class='uiIconClose']");
+	public String ELEMENT_POST_QUOTE_TEXT = "//div[@class='contentQuote']/div[@class='textContent']/p[contains(text(),'${post}')]";
+	
 	
 	//--------------post reply screen-----------------------------------------------------------
 	public By ELEMENT_POST_TITLE = By.id("PostTitle");
@@ -68,13 +69,20 @@ public class ForumManagePost extends ForumBase {
 
 	
 	//--------------edit post screen-----------------------------------------------------------
-	public By ELEMENT_POST_POPUP_EDIT = By.xpath("//span[@class='PopupTitle' and text()='Edit Post']");
+	public By ELEMENT_POST_POPUP_EDIT = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Edit Post']");
 	public By ELEMENT_POST_REASON = By.id("editReason");
 	
 	//--------------move post screen-----------------------------------------------------------
 	public By ELEMENT_POPUP_MOVE_POST = By.xpath("//span[@class='PopupTitle' and text()='Move Posts']");
 	
+	//Delete post
+	public String MSG_DELETE_POST = "Are you sure you want to delete this post ?";
+	public String ELEMENT_POST_DELETE_BUTTON = "//*[text()='${postContent}']/../../../..//a[text()='Delete' and @class='btn confirm']";
+	public By ELEMENT_POST_OK_DELETE = By.xpath("//span[text()='Are you sure you want to delete this post ?']/../../..//button[@class='btn actionOK' and text()='OK']");
+
+	//Quote post
 	
+	public String ELEMENT_QUOTE_POST = "//*[text()='${post}']/../../../..//a[text()='Quote' and @class='btn']";
 	/*-------------------------------Common function-------------------------------*/
 	
 	/** function: post new reply
@@ -141,7 +149,8 @@ public class ForumManagePost extends ForumBase {
 		magTopic = new ForumManageTopic(driver);
 		click(magTopic.ELEMENT_SUBMIT_BUTTON);
 		waitForElementNotPresent(ELEMENT_POST_POPUP_NEW);
-		waitForTextPresent(message);
+		
+		waitForAndGetElement(ELEMENT_POST_CONTENT_TEXT.replace("${post}", message));
 		info("Post reply successfully");
 	}
 
@@ -225,6 +234,8 @@ public class ForumManagePost extends ForumBase {
 		if (isElementPresent(ELEMENT_ALERT) == true){
 			click(By.linkText("OK"));
 		}
+		waitForAndGetElement(ELEMENT_POST_TITLE_TEXT.replace("${post}", title));
+		waitForAndGetElement(ELEMENT_POST_CONTENT_TEXT.replace("${post}", message));
 		info("Edit post successfully");
 	}
 	
@@ -237,8 +248,11 @@ public class ForumManagePost extends ForumBase {
 		
 		info("Delete a post");
 		click(DELETE_POST);
-		alert.acceptAlert();
+		waitForMessage(MSG_DELETE_POST);
+		click(ELEMENT_POST_OK_DELETE);
+		
 		waitForElementNotPresent(DELETE_POST);
+		waitForElementNotPresent(ELEMENT_POST_CONTENT_TEXT.replace("${post}", content));
 		info("Delete post successfully");
 	}
 	
@@ -311,4 +325,24 @@ public class ForumManagePost extends ForumBase {
 		info("--Approve a topic successfully--");
 	}
 	
+	/**Quote a post
+	 * @author thuntn
+	 * @param title
+	 * @param content
+	 */
+	public void quotePost(String post, String title, String content){
+		info("Quote a post");
+		
+		click(ELEMENT_QUOTE_POST.replace("${post}", post));
+		
+		type(ELEMENT_POST_TITLE, title,true);
+		inputDataToFrameInFrame(ELEMENT_POST_MESSAGE_FRAME_1, ELEMENT_POST_MESSAGE_FRAME_2, content, false);
+		switchToParentWindow();	
+		
+		click(magTopic.ELEMENT_SUBMIT_BUTTON);
+		
+		waitForElementNotPresent(magTopic.ELEMENT_SUBMIT_BUTTON);
+		waitForAndGetElement(ELEMENT_POST_CONTENT_TEXT.replace("${post}", content));
+		waitForAndGetElement(ELEMENT_POST_QUOTE_TEXT.replace("${post}", post));
+	}
 }

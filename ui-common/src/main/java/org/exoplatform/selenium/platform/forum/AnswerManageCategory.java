@@ -2,8 +2,6 @@ package org.exoplatform.selenium.platform.forum;
 
 import  static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -22,9 +20,7 @@ public class AnswerManageCategory extends AnswerBase {
 		driver = dr;
 	}
 	
-	Button button = new Button(driver);
-	ManageAlert alert;
-	ForumPermission per;
+	ForumPermission per = new ForumPermission(driver);
 	
 	//Manage Category
 	public final By ELEMENT_CATEGORY_BUTTON = By.className("uiIconAnsManageCategory");
@@ -96,8 +92,6 @@ public class AnswerManageCategory extends AnswerBase {
 	 */
 	public void modifyDataInCategory(String name_edit, String order, String description, int permission, String[] userGroup,
 			boolean restricted, boolean moderator, boolean... opt){
-		button = new Button(driver);
-		per = new ForumPermission(driver);
 		
 		if (name_edit != null){
 			type(ELEMENT_CATEGORY_NAME, name_edit ,true);
@@ -132,7 +126,7 @@ public class AnswerManageCategory extends AnswerBase {
 		if (permission != 0){
 			per.configPermission4AnswerCategory(permission, userGroup, restricted, moderator);
 		}
-		button.save();
+		but.save();
 	}
 
 	/**
@@ -230,12 +224,11 @@ public class AnswerManageCategory extends AnswerBase {
 	 * @param fileName
 	 */
 	public void exportAnswerCategory(String fileName){
-		button = new Button(driver);
 		info("Export category to file " + fileName);
 		click(ELEMENT_CATEGORY_BUTTON);
 		click(ELEMENT_EXPORT_CATEGORY_LINK);
 		type(ELEMENT_FILE_NAME_EXPORT, fileName, true);
-		button.save();
+		but.save();
 		Utils.pause(1000);		
 	}
 	
@@ -244,7 +237,6 @@ public class AnswerManageCategory extends AnswerBase {
 	 * @param fileName
 	 */
 	public void importAnswerCategory(String fileName){
-		button = new Button(driver);
 		info("Import category from file " + fileName);
 		click(ELEMENT_CATEGORY_BUTTON);
 		click(ELEMENT_IMPORT_CATEGORY_LINK);
@@ -254,7 +246,7 @@ public class AnswerManageCategory extends AnswerBase {
 		element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + fileName));
 		switchToParentWindow();
 		waitForAndGetElement("//*[text()='" + fileName + "']", DEFAULT_TIMEOUT, 1, 2);
-		button.save();
+		but.save();
 		waitForMessage(ELEMENT_IMPORT_SUCCESS_MESSAGE);
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(2000);

@@ -21,7 +21,6 @@ public class UserGroupManagement extends PlatformBase {
 	}
 	Dialog dialog;
 	Button button;
-	ManageAlert alert;
 
 	public  final String MESSAGE_DUPLICATE_USERS = "User \"${username}\" has already the same membership ";
 	public  final String MESSAGE_DUPLICATE_GROUPS = "in the group \"${groupName}\", please select another one.";
@@ -61,7 +60,7 @@ public class UserGroupManagement extends PlatformBase {
 
 	public void deleteUser(String username) {
 		dialog = new Dialog(driver);
-		alt = new ManageAlert(driver);
+		alert = new ManageAlert(driver);
 		button = new Button(driver);
 		String userDeleteIcon = ELEMENT_USER_DELETE_ICON.replace("${username}", username);
 
@@ -71,7 +70,7 @@ public class UserGroupManagement extends PlatformBase {
 		}
 		Utils.pause(500);
 		click(userDeleteIcon);
-		alt.waitForConfirmation("Are you sure you want to delete " + username + " user?");
+		alert.waitForConfirmation("Are you sure you want to delete " + username + " user?");
 		Utils.pause(1000);
 		type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
 		select(ELEMENT_SELECT_SEARCH_OPTION, "User Name");
@@ -291,12 +290,12 @@ public class UserGroupManagement extends PlatformBase {
 	}
 
 	public void deleteGroup(String groupName, boolean verify, int...wait) {
-		alt = new ManageAlert(driver);
+		alert = new ManageAlert(driver);
 		info("-- Delete group: " + groupName + "--");
 		int waitTime= wait.length > 0 ? wait[0]: DEFAULT_TIMEOUT;
 		click(ELEMENT_GROUP_REMOVE_ICON);
 
-		alt.waitForConfirmation("Are you sure you want to delete this group?");
+		alert.waitForConfirmation("Are you sure you want to delete this group?");
 		if (verify) {
 			waitForElementNotPresent("//a[@title='"+ groupName +"']",waitTime);
 		}
@@ -358,7 +357,7 @@ public class UserGroupManagement extends PlatformBase {
 	}
 
 	public void deleteMembership(String membershipName, boolean verify){
-		alt = new ManageAlert(driver);
+		alert = new ManageAlert(driver);
 		boolean verifyMembership;
 		verifyMembership = isTextPresent(membershipName);
 		if (verifyMembership){
@@ -370,7 +369,7 @@ public class UserGroupManagement extends PlatformBase {
 		String deleteIcon = ELEMENT_MEMBERSHIP_DELETE_ICON.replace("${membership}", membershipName);
 		info("--Deleting membership--");
 		click(deleteIcon);
-		alt.waitForConfirmation("Are you sure you want to delete this membership?");
+		alert.waitForConfirmation("Are you sure you want to delete this membership?");
 		if (!verifyMembership){
 			waitForTextNotPresent(membershipName);
 		}

@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageApplications;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -22,14 +21,11 @@ import org.openqa.selenium.WebElement;
  */
 public class FAQ extends AnswerBase {
 	
-	NavigationToolbar navTool;
-	ManageAlert alert;
 	PageManagement page;
 	ManageApplications app;
 	AnswerManageAnwser answer;
 	AnswerManageCategory cat;
 	AnswerManageQuestion question;
-	PageEditor pageE;
 	
 	public final String DATA_ANSWER_FAQ_PAGE_NAME="AnswerFAQ";
 	public final By ELEMENT_FAQ_VIEWER = By.id("UIFAQPortlet");

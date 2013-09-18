@@ -29,9 +29,9 @@ public class PlatformBase extends TestBase {
 	public final String DATA_USER1 = "john";
 	public final String DATA_PASS = "gtn";
 	public final String DATA_USER2 = "mary";
-	ManageAlert alt = new ManageAlert(driver);
-
-	Button button = new Button(driver);
+	
+	public ManageAlert alert = new ManageAlert(driver);
+	public Button but = new Button(driver);
 
 	/*
 	 * Default Page - http://localhost:8080/portal/default/
@@ -662,7 +662,7 @@ public class PlatformBase extends TestBase {
 				click(ELEMENT_PAGINATOR_NEXT_ICON);
 				waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
 			}else {
-				click(button.ELEMENT_NEXT_PAGE_BUTTON);
+				click(but.ELEMENT_NEXT_PAGE_BUTTON);
 			}
 			Utils.pause(500);
 		}
@@ -702,7 +702,7 @@ public class PlatformBase extends TestBase {
 	 */
 	public boolean checkUnhandleAlert() {
 		try {
-			alt.acceptAlert();
+			alert.acceptAlert();
 			return false;
 
 		} catch (org.openqa.selenium.UnhandledAlertException e) {
@@ -781,7 +781,6 @@ public class PlatformBase extends TestBase {
 
 	//Set to use captcha when registry a new account in public mode
 	public void setUseCaptcha(boolean useCaptcha, boolean useFrench){
-		button = new Button(driver);
 		waitForTextPresent("Register Account");
 		mouseOver(ELEMENT_REGISTER_ACCOUNT_PORTLET, true);
 		if (useFrench){
@@ -803,8 +802,8 @@ public class PlatformBase extends TestBase {
 				uncheck(ELEMENT_CHECK_BOX_USE_CAPTCHA);
 			}
 		}
-		button.save();
-		button.close();
+		but.save();
+		but.close();
 		if (useFrench){
 			click(ELEMENT_PAGE_FINISH_BUTTON_INFRENCH);
 			waitForTextNotPresent("Editeur de page");

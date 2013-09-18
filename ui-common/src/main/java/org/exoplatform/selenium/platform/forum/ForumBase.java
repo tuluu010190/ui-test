@@ -23,12 +23,9 @@ import static org.exoplatform.selenium.TestLogger.info;
  */
 public class ForumBase extends PlatformBase {
 
-	Button but;
-	ManageAlert alert;
-	PageEditor pageE;
+	public PageEditor pageE = new PageEditor(driver);
 	public NavigationToolbar navTool = new NavigationToolbar(driver);
-	PlatformPermission per;
-
+	public PlatformPermission per = new PlatformPermission(driver);
 
 	public final By ELEMENT_FORUM_LINK = By.linkText("Forums");
 	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//*[@class='UIPopupWindow UIDragObject uiPopup']//*[text()='OK']");
@@ -558,6 +555,13 @@ public class ForumBase extends PlatformBase {
 		if (ban.length > 0){
 			info("Set Ban Ip");
 			goToBanIp();
+			inputBanIP(ban);
+			but.cancel();
+		}
+	}
+	
+	public void inputBanIP(String...ban){
+		if (ban.length > 0){
 			for (int i = 0; i < ban.length; i ++){ 
 				String temp[] = ban[i].split("\\.");
 				for (int j = 0; j < temp.length; j ++){
@@ -566,7 +570,6 @@ public class ForumBase extends PlatformBase {
 				click(ELEMENT_BAN_IP_ADD);
 				waitForAndGetElement(By.xpath("//*[text()='" + ban[i] + "']"));
 			}
-			but.cancel();
 		}
 	}
 
@@ -1279,4 +1282,5 @@ public class ForumBase extends PlatformBase {
 		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE_CONTENT.replace("${message}", contentMessage));
 		
 	}
+
 }

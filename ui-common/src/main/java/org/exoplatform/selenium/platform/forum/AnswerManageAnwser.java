@@ -2,8 +2,6 @@ package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -20,8 +18,6 @@ public class AnswerManageAnwser extends AnswerBase {
 		driver = dr;
 	}
 	
-	Button button;
-	ManageAlert alert;
 	AnswerManageQuestion magQuest;
 	
 	//Manage answer for question
@@ -61,7 +57,6 @@ public class AnswerManageAnwser extends AnswerBase {
 	 * @param questionlink
 	 */
 	public void addRelationForAnswer(String questionlink){
-		button = new Button(driver);
 		String[] question = questionlink.split("/");
 		if (question.length > 0){
 			click(ELEMENT_ADD_RELATION);
@@ -69,7 +64,7 @@ public class AnswerManageAnwser extends AnswerBase {
 			for(int i = 0; i < question.length; i ++){
 				check(ELEMENT_QUESTION_IN_ADD_RELATION.replace("${question}", question[i]), 2);
 			}
-			button.save();
+			but.save();
 			Utils.pause(1000);
 		}
 	}
@@ -99,7 +94,6 @@ public class AnswerManageAnwser extends AnswerBase {
 	 */
 	public void modifyAnwser(String language, String answerContent, boolean approved, boolean activated, boolean addRelation, 
 			String questionToLink, boolean removeRelation, String questionRemove){
-		button = new Button(driver);
 		if (language != "" && language != null){
 			selectOption(ELEMENT_ANSWER_LANGUAGE, language);
 		}
@@ -127,7 +121,7 @@ public class AnswerManageAnwser extends AnswerBase {
 		if (removeRelation){
 			removeRelationForAnswer(questionRemove);
 		}
-		button.save();
+		but.save();
 	}
 	
 	/**

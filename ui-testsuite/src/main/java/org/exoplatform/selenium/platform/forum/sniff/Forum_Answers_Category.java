@@ -4,7 +4,6 @@ import  static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.AnswerBase;
 import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
 import org.exoplatform.selenium.platform.forum.AnswerManageQuestion;
@@ -21,7 +20,6 @@ import org.testng.annotations.Test;
 public class Forum_Answers_Category extends AnswerBase {
 	
 	ManageAccount magAc;
-	NavigationToolbar navTool;
 	AnswerManageCategory magCat;
 	AnswerManageQuestion magQuest;
 	
@@ -30,7 +28,6 @@ public class Forum_Answers_Category extends AnswerBase {
 		getDriverAutoSave();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
-		navTool = new NavigationToolbar(driver);
 		magCat = new AnswerManageCategory(driver);
 		magQuest = new AnswerManageQuestion(driver);
 		

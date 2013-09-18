@@ -2,12 +2,8 @@ package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageApplications;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,23 +15,14 @@ import org.openqa.selenium.WebElement;
  * @date 19 Aug 2013
  */
 public class ForumManagePoll extends ForumBase {
-
-	Button but;
-	ManageAlert alert;
+	
 	ForumManageTopic magTopic;
 	ManageApplications app;
-	NavigationToolbar navTool;
-	PageEditor pageE;
 	UserGroupManagement userGroup;
 	public ForumManagePoll(WebDriver dr){
 		driver = dr;
-		but = new Button(driver);
-
-		alert = new ManageAlert(driver);
 		magTopic = new ForumManageTopic(driver);
 		app = new ManageApplications(driver);
-		navTool = new NavigationToolbar(driver);
-		pageE = new PageEditor(driver);
 		userGroup = new UserGroupManagement(driver);
 	}
 

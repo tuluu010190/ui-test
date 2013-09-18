@@ -2,10 +2,8 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.AnswerBase;
 import org.exoplatform.selenium.platform.forum.AnswerManageAnwser;
 import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
@@ -22,13 +20,11 @@ import org.testng.annotations.Test;
  * @date 29 August 2013
  */
 public class Forum_Answers_PublishActivity extends AnswerBase{
-	Button btn;
 	ManageAccount Acc;
 	AnswerManageCategory mCat;
 	AnswerManageQuestion mQuest;
 	AnswerManageAnwser mAns;
 	AnswerManageComment mCom;
-	NavigationToolbar navTool;
 	HomePageActivity HPAct;
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -39,15 +35,11 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		mQuest = new AnswerManageQuestion(driver);
 		mAns = new AnswerManageAnwser(driver);
 		mCom = new AnswerManageComment(driver);
-		navTool = new NavigationToolbar(driver);
 		Acc.signIn(DATA_USER1, DATA_PASS);
 		HPAct = new HomePageActivity(driver);
-		btn = new Button(driver);
 
 		goToAnswer();
 	}
-
-
 
 	/**CaseId: 74754, 
 	 * Create a question
@@ -65,7 +57,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		String comment = "Comment for this question: good";
 
 		info("Create a question");
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		mQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		mAns.answerQuestion(1, questionName, null, answerContent, true, true, false, "", false, "");
 		click(By.linkText(questionName));
 		mCom.addComment4Question(questionName, comment);
@@ -97,7 +89,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		String questionContent = "line1<br>line2<br>line3<br>line4<br>line5<br>";
 
 		info("Create a question");
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		mQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		click(By.linkText(questionName));
 
 
@@ -179,7 +171,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		//Activate this question to delete
 		goToAnswer();
 		mQuest.activeQuestion(questionName, true);
-		btn.close();
+		but.close();
 
 		//Delete data
 		click(By.linkText(questionName));
@@ -200,7 +192,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		mQuest.goToManageQuestions();
 		mQuest.activeQuestion(questionName, false);
 		mQuest.activeQuestion(questionName, true);
-		btn.close();
+		but.close();
 
 		info("Check activity on homepage");
 		navTool.goToHomePage();
@@ -267,12 +259,6 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		mQuest.deleteQuestion(2, questionName);
 	}
 
-	public void quickAddCategoryAndQuestion(String categoryName, String description, String questionName, String questionContent){
-		info("Add a category and a question");
-		mCat.addNewCategoryInAnswer(categoryName, "1", description, 0, null, true, false);
-		mCat.openCategoryInAnswer(categoryName);
-		mQuest.submitQuestion(null, questionName, questionContent, null, false, null);
-	}
 	@AfterMethod
 	public void afterTest(){
 		driver.manage().deleteAllCookies();

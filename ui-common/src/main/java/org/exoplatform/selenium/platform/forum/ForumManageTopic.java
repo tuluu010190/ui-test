@@ -2,8 +2,6 @@ package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -17,10 +15,8 @@ import org.openqa.selenium.WebElement;
  */
 
 public class ForumManageTopic extends ForumBase {
-
-	Button but;
+	
 	ForumPermission per;
-	ManageAlert alert;
 	ForumManageForum magFor;
 	ForumManageCategory magCat;
 	UserGroupManagement userGroup;
@@ -29,11 +25,11 @@ public class ForumManageTopic extends ForumBase {
 	public ForumManageTopic(WebDriver dr){
 		driver = dr;
 
-		alert = new ManageAlert(driver);
+		userGroup = new UserGroupManagement(driver);
+		per = new ForumPermission(driver);
 		magCat = new ForumManageCategory(driver);
 		magFor = new ForumManageForum(driver);
 		userGroup = new UserGroupManagement(driver);
-		but = new Button(driver);
 		per = new ForumPermission(driver);
 	}
 
@@ -52,12 +48,14 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_CLOSE_TOPIC = By.xpath("//i[@class='uiIconMinus']");
 	public By ELEMENT_OPEN_TOPIC = By.xpath("//i[@class='uiIconOpen']");
 
+	public String ELEMENT_CATEGORY_BREAD = "//a[@title='${category}']"; 
+	
 	//----------------start topic screen--------------------------------------------------
 
 	public By ELEMENT_START_TOPIC_BUTTON = By.xpath("//*[@class='btn btn-primary pull-left']");
 	public By ELEMENT_POPUP_START_TOPIC = By.xpath("//span[@class='PopupTitle popupTitle' and text()='New Topic']");
 	public By ELEMENT_SUBMIT_BUTTON = By.xpath("//button[text()='Submit']");
-	public By ElEMENT_CANCEL_ADD_TOPIC = By.xpath("//*[@id='UITopicForm']/div[3]/a[text()='Cancel']");
+	public By ElEMENT_CANCEL_ADD_TOPIC = By.xpath("//*[@id='UITopicForm']//button[text()='Cancel']");
 
 	public By ELEMENT_TOPIC_CONTENT_TAB = By.linkText("Content");
 	public By ELEMENT_TOPIC_TITLE = By.id("ThreadTitle");
@@ -148,7 +146,7 @@ public class ForumManageTopic extends ForumBase {
 		if (way == 1){
 			info("Go to start topic from more action");
 			click(ELEMENT_MORE_ACTION);
-			click(magFor.ELEMENT_START_TOPIC);
+			click(ELEMENT_START_TOPIC_BUTTON);
 		}else {
 			info("Go to start topic by click start topic button");
 			click(ELEMENT_START_TOPIC_BUTTON);
@@ -719,5 +717,5 @@ public class ForumManageTopic extends ForumBase {
 		magFor.addForum(category, addForum, true, "", "", false,0, permission);
 		click(ELEMENT_START_TOPIC_BUTTON);
 		startTopic(topic, descTopic, "", 0, permission,false, false, false);
-	} 
+	}
 }

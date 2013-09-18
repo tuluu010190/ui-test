@@ -4,7 +4,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
@@ -27,7 +26,6 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 	ForumManageForum mngFru;
 	ForumManageTopic mngTopic;
 	ForumManagePost mngPost;
-	NavigationToolbar navTool;
 	HomePageActivity hpgAct;
 	
 	@BeforeMethod
@@ -39,7 +37,6 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		mngCat = new ForumManageCategory(driver);
 		mngPost = new ForumManagePost(driver);
 		mngTopic = new ForumManageTopic(driver);
-		navTool = new NavigationToolbar(driver);
 		hpgAct = new HomePageActivity(driver);
 		
 		magAc.signIn(DATA_USER1, DATA_PASS);

@@ -1,6 +1,5 @@
 package org.exoplatform.selenium.platform.forum;
 
-import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +16,6 @@ public class AnswerManageComment extends AnswerBase {
 	}
 	AnswerManageQuestion magQuest = new AnswerManageQuestion(driver);
 	AnswerManageAnwser magAns = new AnswerManageAnwser(driver);
-	Button button;
 	
 	//Add comment
 	public final By ELEMENT_COMMENT_LINK_IN_QUESTION = By.xpath("//*[@class='questionAction']//*[contains(text(),'Comment')]");
@@ -39,7 +37,6 @@ public class AnswerManageComment extends AnswerBase {
 	 * @param comment
 	 */
 	public void addComment4Question(String question, String comment){
-		button = new Button(driver);
 		if (waitForAndGetElement(ELEMENT_COMMENT_LINK_IN_QUESTION, 5000, 0) != null){
 			click(ELEMENT_COMMENT_LINK_IN_QUESTION);
 		}else {
@@ -48,7 +45,7 @@ public class AnswerManageComment extends AnswerBase {
 		}
 		inputDataToFrameInFrame(ELEMENT_COMMENT_CONTENT_FRAME_1, ELEMENT_COMMENT_CONTENT_FRAME_2, comment, true);
 		switchToParentWindow();
-		button.save();
+		but.save();
 		waitForAndGetElement(ELEMENT_COMMENT_IN_QUESTION.replace("${comment}", comment));
 	}
 	
@@ -58,13 +55,12 @@ public class AnswerManageComment extends AnswerBase {
 	 * @param newComment
 	 */
 	public void editComment4Question(String comment, String newComment){
-		button = new Button(driver);
 		click(ELEMENT_COMMENT_MORE_ACTION_LINK.replace("${comment}", comment));
 		Utils.pause(2000);
 		getElementFromTextByJquery("Edit Comment").click();
 		inputDataToFrameInFrame(ELEMENT_COMMENT_CONTENT_FRAME_1, ELEMENT_COMMENT_CONTENT_FRAME_2, newComment, true);
 		switchToParentWindow();
-		button.save();
+		but.save();
 		waitForAndGetElement(ELEMENT_COMMENT_IN_QUESTION.replace("${comment}", newComment));
 	}
 	

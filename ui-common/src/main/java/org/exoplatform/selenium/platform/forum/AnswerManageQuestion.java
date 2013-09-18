@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
@@ -16,13 +15,13 @@ import org.openqa.selenium.WebElement;
  * @date 19 Aug 2013
  */
 public class AnswerManageQuestion extends AnswerBase {
+	Dialog dialog = new Dialog(driver);
+	AnswerManageCategory cat;
 
 	public AnswerManageQuestion(WebDriver dr){
 		driver = dr;
+		cat = new AnswerManageCategory(driver);
 	}
-
-	Button button = new Button(driver);
-	Dialog dialog = new Dialog(driver);
 
 	//Manage Question
 	public final By ELEMENT_SUBMIT_QUESTION_BUTTON = By.xpath("//*[contains(text(),'Submit Question')]");
@@ -87,7 +86,7 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final By ELEMENT_MORE_ACTION_DELETE = By.linkText("Delete");
 	public final By ELEMENT_MORE_ACTION_MOVE_TO = By.xpath("//*[@class='uiIconMove uiIconLightGray']");
 	public final By ELEMENT_MORE_ACTION_SENT = By.xpath("//*[@class='uiIconAnsSentMail uiIconAnsLightGray']");
-	
+
 	//Move question form
 	public final String ELEMENT_CATEGORY_IN_MOVE_QUESTION_FORM = "//*[@id='UIMoveQuestionForm']//*[text()='${category}']";
 
@@ -100,7 +99,7 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final By ELEMENT_MESSAGE_FRAME2 = By.xpath("//*[@id='xEditingArea']/iframe");
 	public final By ELEMENT_SEND_BUTTON = By.xpath("//*[@class='btn' and text()='Send']");
 	public final By ELEMENT_OK_BUTTON = By.xpath("//*[@class='btn' and text()='OK']");
-	
+
 	//Vote question form
 	public final String ELEMENT_VOTE_RATE = "//*[@id='faqVoteSpace']//*[@data-index='${rate}']";
 	public final By ELEMENT_VOTE_COMPONENT = By.xpath("//*[@class='voteResult clearfix']");
@@ -186,7 +185,6 @@ public class AnswerManageQuestion extends AnswerBase {
 	 */
 	public void submitQuestion(String language, String questionName, String content, String email, 
 			boolean upload, String filePaths, boolean...verify){
-		button = new Button(driver);
 		info("Submit a question with name " + questionName);
 		if (waitForAndGetElement(ELEMENT_SUBMIT_QUESTION_BUTTON, 5000, 0) != null ){
 			click(ELEMENT_SUBMIT_QUESTION_BUTTON);
@@ -194,7 +192,7 @@ public class AnswerManageQuestion extends AnswerBase {
 			click(ELEMENT_SUBMIT_QUESTION_BUTTON_AUX);
 		}
 		editDataOfQuestion(language, questionName, content, null, email, true, true, upload, filePaths);
-		button.save();
+		but.save();
 		boolean check = verify.length > 0 ? verify[0]:true;
 		if (check){
 			waitForMessage(MSG_SUBMIT_QUESTION);
@@ -218,7 +216,7 @@ public class AnswerManageQuestion extends AnswerBase {
 		for (int i = 0; i < lang.length; i ++){
 			editDataOfQuestion(lang[i], quest[i], cont[i], null, null, true, true, false, null);
 		}
-		button.save();
+		but.save();
 		waitForMessage(MSG_SUBMIT_QUESTION);
 		click(ELEMENT_OK_INFOR_POPUP);
 		waitForAndGetElement(By.linkText(quest[0]));
@@ -239,7 +237,6 @@ public class AnswerManageQuestion extends AnswerBase {
 	 */
 	public void editQuestion(int wayEdit, String questionName, String language, String newQuestionName, String content, 
 			String author, String email, boolean approved, boolean activated, boolean upload, String filePaths){
-		button = new Button(driver);
 		switch (wayEdit) {
 		case 1:
 			info("Edit question by right click");
@@ -257,7 +254,7 @@ public class AnswerManageQuestion extends AnswerBase {
 			break;
 		}
 		editDataOfQuestion(language, newQuestionName, content, author, email, approved, activated, upload, filePaths);
-		button.save();
+		but.save();
 		Utils.pause(2000);
 	}
 
@@ -307,43 +304,43 @@ public class AnswerManageQuestion extends AnswerBase {
 	/**function: active/deactivate a question
 	 * @author lientm
 	 */
-	 public void activeQuestion(String question, boolean active){
-         By element_activate = By.xpath(ELEMENT_MANAGE_QUESTION_ACTIVATE.replace("${question}", question));
-         By element_deactivate = By.xpath(ELEMENT_MANAGE_QUESTION_DEACTIVATE.replace("${question}", question));
-         
-         if (active){
-                 WebElement act = waitForAndGetElement(element_activate, DEFAULT_TIMEOUT, 0, 2);
-                 if (act != null){                                
-                         click(element_activate, 2);
-                         waitForAndGetElement(element_deactivate, DEFAULT_TIMEOUT, 0, 2);
-                 } else info("Question is being activate");
-         } else {
-        	 WebElement de_act = waitForAndGetElement(element_deactivate, DEFAULT_TIMEOUT, 0, 2);
-                 if (de_act != null){
-                	 click(element_deactivate, 2);
-                	 waitForAndGetElement(element_activate, DEFAULT_TIMEOUT, 0, 2);
-                 } else info("Question is being deactivate");
-         }
-	 }
+	public void activeQuestion(String question, boolean active){
+		By element_activate = By.xpath(ELEMENT_MANAGE_QUESTION_ACTIVATE.replace("${question}", question));
+		By element_deactivate = By.xpath(ELEMENT_MANAGE_QUESTION_DEACTIVATE.replace("${question}", question));
 
-	 public void approveQuestion(String question, boolean approve){
-         By element_app = By.xpath(ELEMENT_MANAGE_QUESTION_APPROVE.replace("${question}", question));
-         By element_disapp = By.xpath(ELEMENT_MANAGE_QUESTION_DISAPPROVE.replace("${question}", question));
-         
-         if (approve){
-                 WebElement act = waitForAndGetElement(element_app, DEFAULT_TIMEOUT, 0, 2);
-                 if (act != null){                                
-                         click(element_app, 2);
-                         waitForAndGetElement(element_disapp, DEFAULT_TIMEOUT, 0, 2);
-                 } else info("Question is being approve");
-         } else {
-                 WebElement de_act = waitForAndGetElement(element_disapp, DEFAULT_TIMEOUT, 0, 2);
-                 if (de_act != null){
-                         click(element_disapp, 2);
-                         waitForAndGetElement(element_app, DEFAULT_TIMEOUT, 0, 2);
-                 } else info("Question is being disapprove");
-         }
-	 }
+		if (active){
+			WebElement act = waitForAndGetElement(element_activate, DEFAULT_TIMEOUT, 0, 2);
+			if (act != null){                                
+				click(element_activate, 2);
+				waitForAndGetElement(element_deactivate, DEFAULT_TIMEOUT, 0, 2);
+			} else info("Question is being activate");
+		} else {
+			WebElement de_act = waitForAndGetElement(element_deactivate, DEFAULT_TIMEOUT, 0, 2);
+			if (de_act != null){
+				click(element_deactivate, 2);
+				waitForAndGetElement(element_activate, DEFAULT_TIMEOUT, 0, 2);
+			} else info("Question is being deactivate");
+		}
+	}
+
+	public void approveQuestion(String question, boolean approve){
+		By element_app = By.xpath(ELEMENT_MANAGE_QUESTION_APPROVE.replace("${question}", question));
+		By element_disapp = By.xpath(ELEMENT_MANAGE_QUESTION_DISAPPROVE.replace("${question}", question));
+
+		if (approve){
+			WebElement act = waitForAndGetElement(element_app, DEFAULT_TIMEOUT, 0, 2);
+			if (act != null){                                
+				click(element_app, 2);
+				waitForAndGetElement(element_disapp, DEFAULT_TIMEOUT, 0, 2);
+			} else info("Question is being approve");
+		} else {
+			WebElement de_act = waitForAndGetElement(element_disapp, DEFAULT_TIMEOUT, 0, 2);
+			if (de_act != null){
+				click(element_disapp, 2);
+				waitForAndGetElement(element_app, DEFAULT_TIMEOUT, 0, 2);
+			} else info("Question is being disapprove");
+		}
+	}
 
 	public void goToDiscussInForum(){
 		click(ELEMENT_MORE_ACTION_QUESTION);
@@ -351,7 +348,7 @@ public class AnswerManageQuestion extends AnswerBase {
 		Utils.pause(2000);
 		switchToNewWindow();
 	}
-	
+
 	/** Move question to another category
 	 */
 	public void moveQuestion (int way, String question, String destination){
@@ -367,7 +364,7 @@ public class AnswerManageQuestion extends AnswerBase {
 		doubleClickOnElement(ELEMENT_CATEGORY_IN_MOVE_QUESTION_FORM.replace("${category}", destination));
 		waitForElementNotPresent(ELEMENT_CATEGORY_IN_MOVE_QUESTION_FORM.replace("${category}", destination));
 	}
-	
+
 	/** Send question to an email
 	 */
 	public void sendQuestion (int way, String question, String from, String emailFrom, 
@@ -396,10 +393,10 @@ public class AnswerManageQuestion extends AnswerBase {
 		if (message != null){
 			inputDataToFrameInFrame(ELEMENT_MESSAGE_FRAME1, ELEMENT_MESSAGE_FRAME2, message, false);
 		}
-        click(ELEMENT_SEND_BUTTON);
-        waitForMessage(MSG_EMAIL_SENT);
-        click(ELEMENT_OK_INFOR_POPUP);
-        waitForElementNotPresent(ELEMENT_OK_INFOR_POPUP);
+		click(ELEMENT_SEND_BUTTON);
+		waitForMessage(MSG_EMAIL_SENT);
+		click(ELEMENT_OK_INFOR_POPUP);
+		waitForElementNotPresent(ELEMENT_OK_INFOR_POPUP);
 	}
 
 	/**
@@ -413,5 +410,18 @@ public class AnswerManageQuestion extends AnswerBase {
 
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", e1);
 		waitForAndGetElement(By.xpath("//i[@class='voted']["+ st +"]"));
+	}
+	/**
+	 * Add Category and Question with simple data
+	 * @param categoryName
+	 * @param description
+	 * @param questionName
+	 * @param questionContent
+	 */
+	public void quickAddCategoryAndQuestion(String categoryName, String description, String questionName, String questionContent){
+		info("Add new category and new question");
+		cat.addNewCategoryInAnswer(categoryName, null, description, 0, null, true, false);
+		cat.openCategoryInAnswer(categoryName);
+		submitQuestion(null, questionName, questionContent, null, false, null);
 	}
 }

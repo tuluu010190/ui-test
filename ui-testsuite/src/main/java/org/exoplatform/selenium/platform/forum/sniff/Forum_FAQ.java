@@ -2,10 +2,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.forum.AnswerManageAnwser;
 import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
 import org.exoplatform.selenium.platform.forum.AnswerManageQuestion;
@@ -22,14 +19,10 @@ import org.testng.annotations.Test;
  */
 public class Forum_FAQ extends FAQ {
 
-
 	ManageAccount magAc;
 	AnswerManageCategory magCat;
 	AnswerManageQuestion magQuest;
 	AnswerManageAnwser magAns;
-	NavigationToolbar navTool;
-	PageEditor pageE;
-	Button but;
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -38,8 +31,6 @@ public class Forum_FAQ extends FAQ {
 		magCat = new AnswerManageCategory(driver);
 		magQuest = new AnswerManageQuestion(driver);
 		magAns = new AnswerManageAnwser(driver);
-		pageE = new PageEditor(driver);
-		but = new Button(driver);
 		
 		magAc.signIn("john", "gtn");
 		goToAnswer();

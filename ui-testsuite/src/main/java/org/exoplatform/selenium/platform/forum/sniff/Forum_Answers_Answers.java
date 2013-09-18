@@ -3,7 +3,6 @@ package org.exoplatform.selenium.platform.forum.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.AnswerBase;
 import org.exoplatform.selenium.platform.forum.AnswerManageAnwser;
 import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
@@ -26,7 +25,6 @@ public class Forum_Answers_Answers extends AnswerBase {
 	AnswerManageQuestion magQuest;
 	AnswerManageAnwser magAns;
 	AnswerManageComment magCom;
-	NavigationToolbar navTool;
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -60,7 +58,7 @@ public class Forum_Answers_Answers extends AnswerBase {
 		String answerContent = "AnswerQuestion1";
 		String answerContentEdit = "Update answer content";
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		info("Answer this question");
 		click(By.linkText(questionName));
@@ -88,7 +86,7 @@ public class Forum_Answers_Answers extends AnswerBase {
 		String questionContent = "Add new question for category";	
 		String answerContent = "AnswerQuestion2";
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		info("Go to manage question -> open question tab");
 		magQuest.goToManageQuestions();
@@ -114,7 +112,7 @@ public class Forum_Answers_Answers extends AnswerBase {
 		String newComment1 = "CommentQuestion3_1 Update";
 		String comment2 = "CommentQuestion3_2";
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		click(By.linkText(questionName));
 		magCom.addComment4Question(questionName, comment1);
@@ -143,7 +141,7 @@ public class Forum_Answers_Answers extends AnswerBase {
 		String questionContent = "Add new question for category";
 		String answerContent = "AnswerQuestion4";
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		info("Answer this question");
 		click(By.linkText(questionName));
@@ -183,7 +181,7 @@ public class Forum_Answers_Answers extends AnswerBase {
 		String questionContent = "Add new question for category";
 		String answerContent = "AnswerQuestion5";
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		info("Answer this question");
 		click(By.linkText(questionName));
@@ -225,7 +223,7 @@ public class Forum_Answers_Answers extends AnswerBase {
 		String answerContent2 = "AnswerQuestion6_2";
 		String answerContent3 = "AnswerQuestion6_3";
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		info("add 3 Answer for this question");
 		click(By.linkText(questionName));
@@ -246,12 +244,7 @@ public class Forum_Answers_Answers extends AnswerBase {
 		magCat.deleteCategoryInAnswer(categoryName);
 	}
 	
-	public void quickAddCategoryAndQuestion(String categoryName, String description, String questionName, String questionContent){
-		info("Add new category and new question");
-		magCat.addNewCategoryInAnswer(categoryName, null, description, 0, null, true, false);
-		magCat.openCategoryInAnswer(categoryName);
-		magQuest.submitQuestion(null, questionName, questionContent, null, false, null);
-	}
+	
 	
 	public void viewAnswerWithDemoUser(String categoryName, String questionName, String answerContent, boolean view){
 		magAc.signIn("demo", "gtn");

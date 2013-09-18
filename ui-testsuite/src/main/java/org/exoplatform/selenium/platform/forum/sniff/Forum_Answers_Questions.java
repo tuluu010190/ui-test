@@ -52,7 +52,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		String questionContent = "Add new question for category";
 		String questionNewContent = "New content for question";
 
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		magQuest.editQuestion(1, questionName, null, newQuestionName, questionNewContent, null, null, true, true, false, null);
 				
@@ -75,7 +75,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		String questionContent = "Content of question 2";
 		String questionNewContent = "New content of question2";
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		magQuest.goToManageQuestions();
 		
@@ -99,7 +99,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		String questionName = "Question3";
 		String questionContent = "Content of question 3";
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		magQuest.goToManageQuestions();
 		
@@ -148,7 +148,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		String questionName = "Question4";
 		String questionContent = "Content of question 4";
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		magQuest.goToManageQuestions();
 		
@@ -203,7 +203,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		
 		magCat.addNewCategoryInAnswer(categoryName1, null, description1, 2, userGroup1, true, false);
 		
-		quickAddCategoryAndQuestion(categoryName2, description2, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName2, description2, questionName, questionContent);
 		
 		info("Move question to another cateogory");
 		
@@ -240,7 +240,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		
 		info("Add category and question");
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		info("Send question");
 		
@@ -288,7 +288,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		
 		info("Add category and question");
 		
-		quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
+		magQuest.quickAddCategoryAndQuestion(categoryName, description, questionName, questionContent);
 		
 		click(questionLink);
 		
@@ -302,12 +302,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		
 		
 	}
-	public void quickAddCategoryAndQuestion(String categoryName, String description, String questionName, String questionContent){
-		info("Add new category and new question");
-		magCat.addNewCategoryInAnswer(categoryName, null, description, 0, null, true, false);
-		magCat.openCategoryInAnswer(categoryName);
-		magQuest.submitQuestion(null, questionName, questionContent, null, false, null);
-	}
+	
 	public void viewQuestionWithDemoUser(String categoryName, String questionName, boolean view){
 		magAc.signIn("demo", "gtn");
 		goToAnswer();

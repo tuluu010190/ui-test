@@ -3,7 +3,6 @@ package org.exoplatform.selenium.platform.forum;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.forum.ForumPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,16 +14,13 @@ import org.openqa.selenium.WebDriver;
  */
 public class ForumManageForum extends ForumBase {
 
-	Button but;
-	ManageAlert alert;
 	ForumManageCategory cat;
 	ForumPermission per;
-	
+	ForumManageTopic topic;
+
 	public ForumManageForum(WebDriver dr){
 		driver = dr;
-		but = new Button(driver);
 		per = new ForumPermission(driver);
-		alert = new ManageAlert(driver);
 		cat = new ForumManageCategory(driver);
 	}
 
@@ -40,6 +36,13 @@ public class ForumManageForum extends ForumBase {
 	public By ELEMENT_RULE_PANEL = By.id("UIPostRules");
 	public String ELEMENT_TOPIC_LINK = "//a[contains(text(),'${topic}')]";
 	public String ELEMENT_CATEGORY_FORUM_BREAD = "//*[text()='${category}']/../../*[text()='${forum}']";
+	public By ELEMENT_LOCK_FORUM = By.className("uiIconLockMedium");
+	public By ELEMENT_UNLOCK_FORUM = By.className("uiIconUnlockMedium");
+	public String ELEMENT_CATEGORY_BREAD = "//a[@data-original-title='${category}']";
+	public By ELEMENT_CLOSE_FORUM = By.xpath("//a[contains(@href,'SetCloseForum')]");
+	public By ELEMENT_OPEN_FORUM = By.xpath("//a[contains(@href,'SetOpenForum')]");
+	public By ELEMENT_NO_FORUM = By.xpath("//td[@class='noticeEmpty' and text()='No Forums']");
+	public By ELEMENT_BAN_IP_FORUM = By.xpath("//a[contains(@href,'BanIpForumTools')]"); 
 
 	//-------------------add forum form---------------------------------------------------
 	public By ELEMENT_POPUP_ADD_FORUM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Forum']");
@@ -159,7 +162,7 @@ public class ForumManageForum extends ForumBase {
 			per.configPermission4Forum(type, userGroup, permission);
 		}
 	}
-	
+
 	/**
 	 * function add new forum
 	 * @param catName
@@ -174,7 +177,7 @@ public class ForumManageForum extends ForumBase {
 	 */
 	public void addForum(String catName, String[] addForum, boolean autofill, String postEmail, String topicEmail, boolean moderateTopic,
 			int type, String[] userGroup, boolean...permission){
-		
+
 		By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", addForum[0]));
 
 		goToAddForum();
@@ -188,12 +191,12 @@ public class ForumManageForum extends ForumBase {
 			info("Create forum successfully");
 		}
 	}
-	
+
 	public void quickAddForum(String forumName){
 		String[] addForum = {forumName, null, null, null, null};
 		but = new Button(driver);
 		By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", addForum[0]));
-		
+
 		goToAddForum();
 
 		info("Create new forum");
@@ -202,7 +205,7 @@ public class ForumManageForum extends ForumBase {
 		waitForAndGetElement(FORUM);
 		info("Create forum successfully");
 	}
-  	
+
 
 	/** function: delete a forum
 	 * @author lientm
@@ -280,7 +283,7 @@ public class ForumManageForum extends ForumBase {
 	public void exportAForum(String fileName, boolean compress){
 		cat = new ForumManageCategory(driver);
 		but = new Button(driver);
-		
+
 		click(ELEMENT_MORE_ACTION);
 		click(ELEMENT_EXPORT_FORUM);
 		waitForAndGetElement(ELEMENT_EXPORT_FORUM_POPUP);
@@ -294,16 +297,77 @@ public class ForumManageForum extends ForumBase {
 		but.save();
 		waitForElementNotPresent(ELEMENT_EXPORT_FORUM_POPUP);
 	}
-	
-	  /**
-	* Add category, forum with simple data
-	  * @param cate
-	  * @param forum
-	  */
-	  public void addCategoryForum(String cate, String forum){
-	    String[] permission = {};
-	    String[] addForum = {forum, "1",null,null,forum};
-	    cat.addNewCategoryInForum(cate, "1", 0,permission, cate, 0,permission);
-	    addForum(cate, addForum, true, "", "", false,0, permission);
-	  }
+
+	/**
+	 * Add category, forum with simple data
+	 * @param cate
+	 * @param forum
+	 */
+	public void addCategoryForum(String cate, String forum){
+		String[] permission = {};
+		String[] addForum = {forum, "1",null,null,forum};
+		cat.addNewCategoryInForum(cate, "1", 0,permission, cate, 0,permission);
+		addForum(cate, addForum, true, "", "", false,0, permission);
+	}
+	/**
+	 * Do actions on forum: lock, unlock, close, open a forum
+	 * @param action = 1: lock
+	 * 				 = 2: unlock
+	 *     			 = 3: close
+	 *     			 = 4: open
+	 */
+	public void actionOnForum(int action){
+		topic = new ForumManageTopic(driver);
+
+		click(ELEMENT_MORE_ACTION);
+		switch (action) {
+		case 1: 
+			info("Lock a forum");
+			click(ELEMENT_LOCK_FORUM);
+			waitForAndGetElement(ELEMENT_START_TOPIC_DISABLE);
+			break;
+		case 2:
+			info("Unlock a forum");
+			click(ELEMENT_UNLOCK_FORUM);
+			//Check after unlock forum
+			waitForAndGetElement(topic.ELEMENT_START_TOPIC_BUTTON);
+			break;
+		case 3:
+			info("Close a forum");
+			click(ELEMENT_CLOSE_FORUM);
+			waitForAndGetElement(ELEMENT_START_TOPIC_DISABLE);
+			break;
+		case 4: 
+			info("Open a forum");
+			click(ELEMENT_OPEN_FORUM);
+			waitForAndGetElement(topic.ELEMENT_START_TOPIC_BUTTON);
+			break;
+		default: break;
+
+		}
+	}
+
+	/**
+	 * @author thuntn
+	 * @param ip
+	 */
+	public void goToBanIPForum(){
+		click(ELEMENT_MORE_ACTION);
+		click(ELEMENT_BAN_IP_FORUM);
+		waitForAndGetElement(ELEMENT_BAN_IP_POPUP);
+
+	}
+	/**Ban IP for a forum
+	 * @author thuntn
+	 * @param ip
+	 */
+	public void banIPForum(String...ip){
+		info("Ban IP for a forum");
+		if (ip.length > 0){
+
+			goToBanIPForum();
+			inputBanIP(ip);
+			but.cancel();
+		}
+	}
 }

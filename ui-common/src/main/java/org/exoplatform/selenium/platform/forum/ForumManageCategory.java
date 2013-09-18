@@ -5,9 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.util.List;
 
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -20,18 +18,11 @@ import org.openqa.selenium.WebElement;
  */
 public class ForumManageCategory extends ForumBase {
 
-	ForumPermission per;
-	Button but;
-	ManageAlert alert;
-	PlatformPermission platPer;
+	ForumPermission frumPer;
 
 	public ForumManageCategory(WebDriver dr){
 		driver = dr;
-		but = new Button(driver);
-		alert = new ManageAlert(driver);
-		per = new ForumPermission(driver);
-
-		platPer = new PlatformPermission(driver);
+		frumPer = new ForumPermission(driver);
 	}
 
 	//------------category home screen----------------------------------------------------------------------
@@ -107,22 +98,21 @@ public class ForumManageCategory extends ForumBase {
 	}
 
 	public void selectRestricted(int chooseRestricted, String[] restricted){
-		platPer = new PlatformPermission(driver);
 		switch (chooseRestricted) {
 		case 1:
 			type(ELEMENT_RESTRICTED_AUDIENCE, restricted[0], false);
 			break;
 		case 2:
 			click(ELEMENT_RESTRICTED_SELECT_USER);
-			platPer.selectUserPermission(restricted[0]);
+			per.selectUserPermission(restricted[0]);
 			break;
 		case 3:
 			click(ELEMENT_RESTRICTED_SELECT_GROUP);
-			platPer.selectGroupPermission(restricted[0]);
+			per.selectGroupPermission(restricted[0]);
 			break;
 		case 4:
 			click(ELEMENT_RESTRICTED_SELECT_ROLE);
-			platPer.selectGroupMembership(restricted[0], restricted[1]);
+			per.selectGroupMembership(restricted[0], restricted[1]);
 			break;
 		default:
 			break;
@@ -141,7 +131,6 @@ public class ForumManageCategory extends ForumBase {
 	 */
 	public void inputDataCategoryInForum(String catName, String order, int chooseRestricted, String[] restricted, 
 			String description, int setPermission, String[] userGroup, boolean... permission){
-		per = new ForumPermission(driver);
 
 		if (catName != null){
 			type(ELEMENT_CATEGORY_TITLE, catName, true);
@@ -156,7 +145,7 @@ public class ForumManageCategory extends ForumBase {
 		//set permission
 		if(setPermission != 0){
 			info("Set permission for category");
-			per.configPermission4ForumCategory(setPermission, userGroup, permission);
+			frumPer.configPermission4ForumCategory(setPermission, userGroup, permission);
 		}
 
 	}

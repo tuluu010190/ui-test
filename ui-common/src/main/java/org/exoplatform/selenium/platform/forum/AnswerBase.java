@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PageEditor;
@@ -23,11 +22,7 @@ import static org.exoplatform.selenium.TestLogger.info;
  */
 public class AnswerBase extends ForumBase {
 
-	Button button;
-	NavigationToolbar navTool;
-	ManageAlert alert;
 	PageManagement page;
-	PageEditor pageE;
 	UserGroupManagement userGroup;
 	
 	public final By ELEMENT_ANSWER_LINK = By.linkText("Answer");
@@ -156,7 +151,7 @@ public class AnswerBase extends ForumBase {
 	 * @param display
 	 */
 	public void setDisplayCategoryScoping(String categoryScope, boolean display){
-		button = new Button(driver);
+		but = new Button(driver);
 		String[] cat = categoryScope.split("/");
 		
 		click(ELEMENT_CATEGORY_SCOPING_TAB);
@@ -167,7 +162,7 @@ public class AnswerBase extends ForumBase {
 				uncheck(ELEMENT_CATEGORY_IN_SCOPE_TAB.replace("${catName}", cat[i]), 2);
 			}
 		}
-		button.save();
+		but.save();
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
@@ -179,7 +174,6 @@ public class AnswerBase extends ForumBase {
 	 * @param opts
 	 */
 	public void settingDisplayMode(boolean all, boolean date, boolean ascending, boolean...opts){
-		button = new Button(driver);
 		click(ELEMENT_DISPLAY_MODE_TAB);
 		if (all){
 			select(ELEMENT_SELECT_DISPLAY_MODE, "All");
@@ -231,7 +225,7 @@ public class AnswerBase extends ForumBase {
 				uncheck(ELEMENT_POST_QUESTION_IN_ROOT, 2);
 			}			
 		}
-		button.save();
+		but.save();
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
@@ -243,7 +237,6 @@ public class AnswerBase extends ForumBase {
 	 */
 	public void settingDiscussion(boolean discuss, String forumPath){
 		userGroup = new UserGroupManagement(driver);
-		button = new Button(driver);
 		
 		click(ELEMENT_DISCUSSION_TAB);
 		if (discuss){
@@ -253,7 +246,7 @@ public class AnswerBase extends ForumBase {
 		}else {
 			uncheck(ELEMENT_ENABLE_DISCUSSION_CHECKBOX, 2);
 		}
-		button.save();
+		but.save();
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
@@ -264,7 +257,6 @@ public class AnswerBase extends ForumBase {
 	 * @param content
 	 */
 	public void settingEmailTemplate(int tab, String content){
-		button = new Button(driver);
 		click(ELEMENT_MAIL_NOTIFICATION_TEMPLATE_TAB);
 		switch (tab) {
 		case 1:
@@ -280,7 +272,7 @@ public class AnswerBase extends ForumBase {
 		
 		inputDataToFrameInFrame(ELEMENT_MAIL_CONTENT_FRAME1, ELEMENT_MAIL_CONTENT_FRAME2, content, true);
 		switchToParentWindow();
-		button.save();
+		but.save();
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
