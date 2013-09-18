@@ -37,6 +37,17 @@
 		</packages>
 	</test>
 	
+	<test name="ecms-func-se-publication" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<packages>
+			<package
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.publication.*" />
+		</packages>
+	</test>
 	<test name="ecms-func-se-info" enabled="true">
 		<groups>
 			<run>
@@ -59,7 +70,7 @@
 			<package
 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.otherchecks.*" />
 		</packages>
-	</test>
+	</test> 
 	
 	<listeners>
 		<listener class-name="org.exoplatform.selenium.TestReportListener" />

@@ -470,7 +470,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SELECT_ICON_TAB = By.xpath("//*[text()='Select Icon']");
 	public final By ELEMENT_DECORATION_THEMES_TAB = By.xpath("//*[text()='Decoration Themes']");
 	public final By ELEMENT_ACCESS_PERMISSION_TAB = By.xpath("//*[text()='Access Permission']");
-	
+
 	/*
 	 * END Page Management
 	 * */
@@ -1097,6 +1097,7 @@ public class PlatformBase extends TestBase {
 		} 
 	}
 
+
 	/**
 	 * Add by @author vuna2
 	 * @param previousWindowHandle: handle the previous (current) browser (String)
@@ -1262,5 +1263,22 @@ public class PlatformBase extends TestBase {
 			WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
 			return web;
 		}
+	}
+
+	/** Restart browser
+	 *  @author thuntn
+	 *  
+	 */
+	public void restartBrowser(){
+
+		String handlesBefore = driver.getWindowHandle();
+		Set<org.openqa.selenium.Cookie> cookieBefore = driver.manage().getCookies();
+		((JavascriptExecutor) driver).executeScript("window.open();");
+		backToPreviousBrowser(cookieBefore, handlesBefore);
+		driver.close();
+		for(String winHandle : driver.getWindowHandles()){
+			driver.switchTo().window(winHandle);
+		}
+		driver.navigate().to(baseUrl);
 	}
 }

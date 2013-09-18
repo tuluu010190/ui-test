@@ -391,6 +391,7 @@ public class PageEditor extends PlatformBase {
 	/**function go to edit a container
 	 * @author phuongdt
 	 * @param elementContainer: ex: ELEMENT_DROP_TARGET_HAS_LAYOUT
+
 	 */
 	public void goToEditContainer(Object elementContainer){	
 		info("Go to edit container ");
@@ -476,6 +477,7 @@ public class PageEditor extends PlatformBase {
 	 * @author phuongdt
 	 * @param category (ex: "Collaboration")
 	 * @param portletId (ex: "Collaboration/AnswersPortlet")
+
 	 */
 	public void addNewPortlet(String category, String portletId){
 		info("Add new application: " + portletId);

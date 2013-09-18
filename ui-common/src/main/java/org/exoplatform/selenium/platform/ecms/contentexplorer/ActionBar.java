@@ -1,8 +1,5 @@
 package org.exoplatform.selenium.platform.ecms.contentexplorer;
 
-import static org.exoplatform.selenium.TestLogger.info;
-import java.util.HashMap;
-
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
@@ -17,6 +14,10 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
+
+import java.util.HashMap;
+
+import static org.exoplatform.selenium.TestLogger.info;
 
 
 /**
@@ -111,9 +112,21 @@ public class ActionBar extends EcmsBase{
 	public By ELEMENT_VERSION_INFO_FORM = By.xpath("//*[text()='Close']");
 
 	//publication form
+
 	public final By ELEMENT_PUBLIC_STATUS = By.xpath("//*[contains(text(),'Published')]/..//a");
+    public final By ELEMENT_STAGED_STATUS = By.xpath("//*[contains(text(),'Staged')]/..//a");
+    public final By ELEMENT_PENDING_STATUS = By.xpath("//*[contains(text(),'Pending')]/..//a");
+    public final By ELEMENT_APPROVED_STATUS = By.xpath("//*[contains(text(),'Approved')]/..//a");
 	public final By ELEMENT_CURRENT_STATUS = By.xpath("//*[@class='currentStatus']");
+	public final String ELEMENT_CURRENT_SPECIFIC_STATUS = "//*[@class='currentStatus']/p[contains(text(),'${status}')]";
 	public final By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Published']");
+    public final By ELEMENT_CURRENT_DRAFT_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Draft']");
+    public final By ELEMENT_CURRENT_PENDING_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Pending']");
+    public final By ELEMENT_CURRENT_APPROVED_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Approved']");
+    public final By ELEMENT_CURRENT_STAGED_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Staged']");
+    public final String MSG_INVALID_DATE_TIME = "The date format is invalid. Please check again.";
+    public final String ELEMENT_REVISION = "//td[contains(text(),'${state}[Current Revision]')]";
+    public final String ELEMENT_HISTORY_ITEM = "//div[text()='${state}']";
 
 	//View Properties form
 	public final By ELEMENT_VIEW_PROPERTIES_ICON = By.xpath("//i[@class='uiIconEcmsViewProperties']");
@@ -145,6 +158,7 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_EDIT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsEditDocument']");
 	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument']");
 	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
+    public final By ELEMENT_PUBLISH_ICON = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsPublicationPublish']");
 	public final By ELEMENT_PUBLICATION_ICON = By.className("uiIconEcmsManagePublications");
 	/*
 	 * Added by PhuongDT
@@ -159,7 +173,10 @@ public class ActionBar extends EcmsBase{
 	public final String ELEMENT_RESTORE_VERSION_ICON = "//*[contains(text(), 'Version: ${version}')]/..//*[@class = 'uiIconRestore uiIconLightGray']";
 	public final String ELEMENT_PUBLICATION_STATE = "//p[contains(text(),'{$state}')]/../a[@class='node']";	
 	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");	
-	public final By ELEMENT_PUB_FROM_INPUT = By.name("UIPublicationPanelStartDateInput");	
+	public final By ELEMENT_PUB_FROM_INPUT = By.name("UIPublicationPanelStartDateInput");
+    public final By ELEMENT_HISTORY_TAB = By.linkText("History");
+    public final By ELEMENT_REVISION_TAB = By.linkText("Revision");
+
 	public final By ELEMENT_PUB_TO_INPUT = By.name("UIPublicationPanelEndDateInput");
 	public final String ELEMENT_REVISION_DATE = "//*[contains(text(), '${status}')]/../td[2]";
 	public final By ELEMENT_FIRST_REVISION_DATE = By.xpath(ELEMENT_REVISION_DATE.replace("${status}", "Draft[Current Revision]"));
@@ -1156,17 +1173,32 @@ public class ActionBar extends EcmsBase{
 		info("Manage publication state");
 		openManagePublicationForm();
 		click(bState);
-		if (state.equals("Staged")){
+		waitForAndGetElement(ELEMENT_CURRENT_SPECIFIC_STATUS.replace("${status}", state));
+		if (state.equals("Staged") & (date.length > 0)){
 			click(ELEMENT_SCHEDULE_TAB);
-			if((date.length > 0) || (date[0] != null))
+			if((date.length > 0) & (date[0] != null))
 				type(ELEMENT_PUB_FROM_INPUT,date[0],true);
-			if(date.length > 1)
+			if((date.length > 1) & (date[1] != null))
 				type(ELEMENT_PUB_TO_INPUT,date[1],true);
 			button.save();
+			if(date.length > 2){
+				waitForMessage(MSG_INVALID_DATE_TIME);
+				button.ok();
+				button.close();
+				return;
+			}
 			waitForMessage("Your new publication schedule was saved successfully.");
 			button.ok();
+			click(ELEMENT_REVISION_TAB);
 		}
+		waitForAndGetElement(ELEMENT_HISTORY_TAB);
+		waitForAndGetElement(ELEMENT_REVISION_TAB);
+		
+		click(ELEMENT_HISTORY_TAB);
+		waitForAndGetElement(ELEMENT_HISTORY_ITEM.replace("${state}", state));
+		
 		button.close();
+		
 	}
 
 	/**Add View properties to action bar if it is not shown on action bar
