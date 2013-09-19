@@ -56,6 +56,10 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_MAXIMIZE_ICON = By.xpath("//*[contains(@class, 'uiIconEcmsExpand')]");
 	public final By ELEMENT_MINIMIZE_ICON = By.xpath("//*[contains(@class, 'uiIconEcmsCollapse')]");
 	public final By ELEMENT_CHANGE_CONTENT_TYPE = By.xpath("//*[contains(@class, 'ChangeTypeLink')]");
+	
+	//Accessible Media
+	public final By ELEMENT_ACCESSIBLEMEDIA_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Accessible Media']");
+	
 
 	/*
 	 * Added by PhuongDT
@@ -413,6 +417,7 @@ public class ContentTemplate extends EcmsBase{
 		if (verify){
 			waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", content)));
 		}
+		Utils.pause(1000);
 	}
 
 	//add new product
@@ -662,6 +667,39 @@ public class ContentTemplate extends EcmsBase{
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);
 	}
+	
+	/**
+	 * @author phuongdt
+	 * @date 17/09/2013
+	 * @functin create new Accessible Media
+	 */
+	public void createNewAccessibleMedia(String name,Object... params){
+		click(ELEMENT_ACCESSIBLEMEDIA_LINK);
+		String title = (String) (params.length > 0 ? params[0]: "");
+		String lang = (String) (params.length > 1 ? params[1]: "");
+		String content = (String) (params.length > 2 ? params[2]: "");
+		
+		info("-- new Accessible Media --");
+		type(ELEMENT_ACCESSIBLE_MAIN_TAB_NAME, name, true);
+		
+		if (!title.isEmpty()){
+			type(ELEMENT_ACCESSIBLE_MAIN_TAB_TITLE, title, true);
+		}
+		
+		if (!lang.isEmpty()){
+			selectOption(ELEMENT_ACCESSIBLE_MAIN_TAB_LANGUAGE, lang);
+		}
+		
+		if (!content.isEmpty()){
+			inputDataToFrame(ELEMENT_HTML_FILE_CKEDITOR_FRAME, content, true);
+			switchToParentWindow();
+		}
+		
+		
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(1000);
+	}
 
 	/**
 	 * @author phuongdt
@@ -670,6 +708,7 @@ public class ContentTemplate extends EcmsBase{
 	 * @param name
 	 */
 	public void createNewAccessibleDocument(String name,Object... params){
+		waitForAndGetElement(ELEMENT_ACCESSIBLE_MAIN_TAB);
 		click(ELEMENT_ACCESSIBLE_MAIN_TAB);
 		String title = (String) (params.length > 0 ? params[0]: "");
 		String lang = (String) (params.length > 1 ? params[1]: "");

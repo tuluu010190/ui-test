@@ -23,6 +23,7 @@ import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.UserGroupManagement;
+import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -37,6 +38,7 @@ public class SpaceManagement extends SocialBase {
 	Dialog dialog = new Dialog(driver);
 	Button button = new Button(driver);
 	ManageAlert magAlert = new ManageAlert(driver);
+	ActionBar actBar;
 	
 	//Go to My Spaces	> 
 	//Add space Form
@@ -69,7 +71,6 @@ public class SpaceManagement extends SocialBase {
 	
 	//Documents
 	public final By ELEMENT_DOCUMENTS_TAB = By.id("documents");
-
 
 	/**
 	 * Migrate to PLF 4
@@ -311,6 +312,29 @@ public class SpaceManagement extends SocialBase {
 		goToMySpacePage();
 		deleteSpace(spaceName, timeToDeleteSpace);
 		Utils.pause(500);
+	}
+	
+	/**
+	 * 
+	 * @author phuongdt
+	 * @param item
+	 * @param eItem
+	 * @param viewType
+	 * @param spacename
+	 */
+	public void addItem2ActionBarOfSpace(String item, By eItem, String spacename,Object...params){
+		ActionBar actBar = new ActionBar(driver);
+		String view = (String) (params.length > 0 ? params[0] : "Web");
+		String tab = (String) (params.length > 1 ? params[1] : "Authoring");
+		actBar.goToViewMode(view);
+		if(!(actBar.isActionsOnActionBarPresent(eItem))){
+			actBar.addItem2ActionBar(item, eItem, view, tab);
+			 goToMySpacePage();
+			 click(By.linkText(spacename));
+			 waitForAndGetElement(ELEMENT_DOCUMENTS_TAB);
+			 click(ELEMENT_DOCUMENTS_TAB);
+			 actBar.goToViewMode(view);
+		 }
 	}
 
 }
