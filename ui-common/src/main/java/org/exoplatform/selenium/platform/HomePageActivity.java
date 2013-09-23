@@ -36,7 +36,7 @@ public class HomePageActivity extends PlatformBase{
 		post = new ForumManagePost(driver);
 	}
 	//Comment box
-	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]";
+	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='contentComment']/..//*[contains(text(), '${comment}')]";
 	public final String ELEMENT_ACTIVITY_DELETE_COMMENT_ICON = "//*[@class='contentComment' and contains(text(), '${comment}')]/../..//*[contains(@id, 'DeleteCommentButton')]";
 	public final String DATA_MESSAGE_CONFIRM_DELETE_COMMENT = "Are you sure you want to delete this comment?";
 
@@ -50,11 +50,14 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_CONTENT_DESCRIPTION = "//a[@title='@{fileName}']/..//*[@class='descriptionText' and text()='${des}']";
 	public final String ELEMENT_CONTENT_VERSION = "//a[@title='@{fileName}']/..//*[contains(text(), '${version} -')]";
 	public final String ELEMENT_CONTENT_STATUS = "//a[@title='@{fileName}']/..//*[contains(text(), '${status}')]";
-	public final String ELEMENT_CONTENT_SUMMARY = "//*[@title='@{fileName}']/..//p";
-	public final String ELEMENT_CONTENT_COMMENT_EDIT_TITLE = "//*[@title='@{fileName}']/../../../..//*[@class='commentRight']//*[contains(text(),'Title has been updated to: ${title}')]";
+	public final String ELEMENT_CONTENT_SUMMARY = "//*[@title='@{fileName}']/..//p[2]";
+	public final String ELEMENT_CONTENT_COMMENT_EDIT_TITLE = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[contains(text(),'Title has been updated to: ${title}')]";
 	public final String ELEMENT_CONTENT_COMMENT_ADD_A_TAG = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tag: ${tags} has been added.']";
 	public final String ELEMENT_CONTENT_COMMENT_ADD_TAGS = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tags: ${tags} have been added.']";
+	public final String ELEMENT_CONTENT_COMMENT_REMOVE_A_TAG = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tag: ${tags} has been removed.']";
+	public final String ELEMENT_CONTENT_COMMENT_REMOVE_TAGS = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Tags: ${tags} have been removed.']";
 	public final String ELEMENT_CONTENT_COMMENT_PUBLISH = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Publication has been published.']";
+	public final String ELEMENT_CONTENT_COMMENT_RESTORE_VERSION = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Publication has been restored to version: ${version}']";
 	public final String ELEMENT_CONTENT_EDIT_LINK = "//a[@title='@{fileName}']/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public final String ELEMENT_CONTENT_VIEW_LINK = "//a[@title='@{fileName}']/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_CONTENT_COMMENT_MOVING = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Publication has been moved to: ${path}']";
@@ -62,10 +65,15 @@ public class HomePageActivity extends PlatformBase{
 	//File activity
 	public final String ELEMENT_FILE_SIZE = "//a[@title='@{fileName}']/..//*[@class='versionFile' and contains(text(), '${size}')]";
 	public final String ELEMENT_FILE_COMMENT_ADD_CATEGORY = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Category: ${category} has been added.']";
+	public final String ELEMENT_FILE_COMMENT_REMOVE_CATEGORY = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Category: ${category} has been removed.']";
 	public final By ELEMENT_FILE_VIEW_POPUP = By.id("UISocialPopupWindow");
 	public final String ELEMENT_FILE_VIEW_NAME = "//*[@id='UISocialPopupWindow']//*[text()='${fileName}']";
 	public final String ELEMENT_FILE_COMMENT_MOVING = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File has been moved to: ${path}']";
 
+	//Attach file
+	public final String ELEMENT_FILE_COMMENT_ADD_ATTACH_FILE = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File(s) has been attached.']";
+	public final String ELEMENT_FILE_COMMENT_REMOVE_ATTACH_FILE = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File(s) has been removed.']";
+	
 	//Edit screen from click Edit in activity
 	public final By ELEMENT_CONTENT_EDIT_SCREEN_FROM_ACTIVITY = By.id("UIJCRExplorerPortlet");
 	public final By ELEMENT_CONTENT_EDIT_SCREEN_BACK = By.xpath("//a[@data-original-title='Back']");
@@ -183,6 +191,38 @@ public class HomePageActivity extends PlatformBase{
 			waitForAndGetElement(ELEMENT_CONTENT_COMMENT_ADD_TAGS.replace("@{fileName}", name).replace("${tags}", tags));
 		}
 	}
+	
+	/** function check add comment in activity after removing tags for a content/file
+	 * @author phuongdt
+	 * @param name
+	 * @param tags
+	 * @param number
+	 */
+	public void checkTagAfterRemovingToContent(String name, String tags, int number){
+		if (number == 1){
+			waitForAndGetElement(ELEMENT_CONTENT_COMMENT_REMOVE_A_TAG.replace("@{fileName}", name).replace("${tags}", tags));
+		}else {
+			waitForAndGetElement(ELEMENT_CONTENT_COMMENT_REMOVE_TAGS.replace("@{fileName}", name).replace("${tags}", tags));
+		}
+	}
+	
+	/** function check comment of content in activity after adding tags for a content/file
+	 * @author phuongdt
+	 * @param commenttext
+	 * @param name
+	 */
+	public void checkCommentOfContentAfterAddingToContent(String name, String contenttext){
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", name).replace("${comment}", contenttext));
+	}
+	
+	/** function check comment of content in activity after removing tags for a content/file
+	 * @author phuongdt
+	 * @param commenttext
+	 * @param name
+	 */
+	public void checkCommentOfContentAfterRemovingToContent(String name, String contenttext){
+		waitForElementNotPresent(ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", name).replace("${comment}", contenttext));
+	}
 
 	/** function check add comment in activity after publishing a conent/file
 	 * @author lientm
@@ -199,6 +239,39 @@ public class HomePageActivity extends PlatformBase{
 	 */
 	public void checkCategoryAfterAddingToContent(String name, String category){
 		waitForAndGetElement(ELEMENT_FILE_COMMENT_ADD_CATEGORY.replace("@{fileName}", name).replace("${category}", category));
+	}
+	
+	/** function check add comment in activity after remove category for a content/file
+	 * @author phuongdt
+	 * @param name
+	 * @param category
+	 */
+	public void checkCategoryAfterRemovingToContent(String name, String category){
+		waitForAndGetElement(ELEMENT_FILE_COMMENT_REMOVE_CATEGORY.replace("@{fileName}", name).replace("${category}", category));
+	}
+	
+	/** function check add comment in activity after attach a new file for a content/file
+	 * @author phuongdt
+	 * @param name
+	 */
+	public void checkAttachFileAfterAddingToContent(String name){
+		waitForAndGetElement(ELEMENT_FILE_COMMENT_ADD_ATTACH_FILE.replace("@{fileName}", name));
+	}
+	
+	/** function check add comment in activity after remove category for a content/file
+	 * @author phuongdt
+	 * @param name
+	 */
+	public void checkAttachFileAfterRemovingToContent(String name){
+		waitForAndGetElement(ELEMENT_FILE_COMMENT_REMOVE_ATTACH_FILE.replace("@{fileName}", name));
+	}
+	
+	/** function check add comment in activity after remove category for a content/file
+	 * @author phuongdt
+	 * @param name
+	 */
+	public void checkRestoreVersionAfterRestoringToContent(String name, String version){
+		waitForAndGetElement(ELEMENT_CONTENT_COMMENT_RESTORE_VERSION.replace("@{fileName}", name).replace("${version}", version));
 	}
 
 	/**function check go to edit screen after clicking Edit icon in activity

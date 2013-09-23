@@ -992,7 +992,7 @@ public class ContentTemplate extends EcmsBase{
 			type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, true);
 		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);	
-		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON, 3000);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		//waitForElementPresent(ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", contentToEdit));
 	}
 

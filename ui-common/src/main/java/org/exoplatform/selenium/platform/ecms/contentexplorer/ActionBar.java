@@ -156,6 +156,7 @@ public class ActionBar extends EcmsBase{
 	/*End Added*/
 	
 	public final By ELEMENT_VERSIONS_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageVersions']");
+	public final String ELEMENT_RESTORE_VERSION_ICON = "//*[contains(text(), 'Version: ${version}')]/..//*[@class = 'uiIconRestore uiIconLightGray']";
 	public final String ELEMENT_PUBLICATION_STATE = "//p[contains(text(),'{$state}')]/../a[@class='node']";	
 	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");	
 	public final By ELEMENT_PUB_FROM_INPUT = By.name("UIPublicationPanelStartDateInput");	
@@ -1539,7 +1540,6 @@ public class ActionBar extends EcmsBase{
 	public void openVersionInfoForm(By locator){
 		info("-- Open version Info form of a document... --");
 		goToNode(locator);
-		clearCache();
 		if (waitForAndGetElement(ELEMENT_VERSIONS_LINK,10000,0)!=null){
 			info("-- Versions tab is already displayed --");
 		}else if (isElementPresent(ELEMENT_MORE_LINK_WITHOUT_BLOCK)){
@@ -1561,6 +1561,22 @@ public class ActionBar extends EcmsBase{
 			}
 			click(ELEMENT_VERSIONS_LINK);
 		}
+	}
+	
+	/**
+	 * @author phuongdt
+	 * @date 19/09/2013
+	 * @function restore version
+	 * @param locator
+	 * @param version
+	 */
+	public void restoreVersion(By locator, String version){
+		openVersionInfoForm(locator);
+		waitForAndGetElement(By.xpath(ELEMENT_RESTORE_VERSION_ICON.replace("${version}", version)));
+		click(By.xpath(ELEMENT_RESTORE_VERSION_ICON.replace("${version}", version)));
+		waitForElementNotPresent(By.xpath(ELEMENT_RESTORE_VERSION_ICON.replace("${version}", version)));
+		button.close();
+		Utils.pause(3000);
 	}
 	
 	/**
