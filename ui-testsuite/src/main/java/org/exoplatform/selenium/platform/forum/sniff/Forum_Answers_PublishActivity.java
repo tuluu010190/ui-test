@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.AnswerBase;
 import org.exoplatform.selenium.platform.forum.AnswerManageAnwser;
 import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
@@ -38,6 +39,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		mCom = new AnswerManageComment(driver);
 		Acc.signIn(DATA_USER1, DATA_PASS);
 		HPAct = new HomePageActivity(driver);
+		navTool = new NavigationToolbar(driver);
 
 		goToAnswer();
 	}

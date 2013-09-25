@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.util.List;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -23,6 +24,8 @@ public class ForumManageCategory extends ForumBase {
 	public ForumManageCategory(WebDriver dr){
 		driver = dr;
 		frumPer = new ForumPermission(driver);
+		but = new Button(driver);
+		alert = new ManageAlert(driver);
 	}
 
 	//------------category home screen----------------------------------------------------------------------

@@ -23,9 +23,9 @@ import static org.exoplatform.selenium.TestLogger.info;
  */
 public class ForumBase extends PlatformBase {
 
-	public PageEditor pageE = new PageEditor(driver);
-	public NavigationToolbar navTool = new NavigationToolbar(driver);
-	public PlatformPermission per = new PlatformPermission(driver);
+	public PageEditor pageE ;
+	public NavigationToolbar navTool ;
+	public PlatformPermission per ;
 
 	public final By ELEMENT_FORUM_LINK = By.linkText("Forums");
 	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//*[@class='UIPopupWindow UIDragObject uiPopup']//*[text()='OK']");

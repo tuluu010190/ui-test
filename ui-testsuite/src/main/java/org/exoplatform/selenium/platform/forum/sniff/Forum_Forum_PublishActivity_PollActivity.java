@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
@@ -41,6 +42,7 @@ public class Forum_Forum_PublishActivity_PollActivity extends ForumBase{
 		mngTopic = new ForumManageTopic(driver);
 		hpgAct = new HomePageActivity(driver);
 		mngPoll = new ForumManagePoll(driver);
+		navTool = new NavigationToolbar(driver);
 		
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		goToForums();

@@ -2,7 +2,10 @@ package org.exoplatform.selenium.platform.forum;
 
 import  static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.PlatformPermission;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
@@ -14,6 +17,9 @@ public class ForumPermission extends ForumBase {
 	
 	public ForumPermission(WebDriver dr){
 		driver = dr;
+		but = new Button(driver);
+		alert = new ManageAlert(driver);
+		per = new PlatformPermission(driver);
 	}
 	
 	
@@ -36,6 +42,7 @@ public class ForumPermission extends ForumBase {
 	//Set permission for topic
 	public final String ELEMENT_WHO_CAN_VIEW_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[2]//input[@type='checkbox']";
 	public final String ELEMENT_WHO_CAN_POST_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[3]//input[@type='checkbox']";
+	public final By ELEMENT_PERMISSION_TAB = By.linkText("Permissions");
 	
 	/*--------------------------common function-----------------------------------*/
 	
@@ -45,8 +52,8 @@ public class ForumPermission extends ForumBase {
 	 * @param userGroup
 	 */
 	public void setPermissionWithOption(int type, String[] userGroup){
-		per = new PlatformPermission(driver);
-		click(per.ELEMENT_PERMISSION_TAB);
+//		per = new PlatformPermission(driver);
+		click(ELEMENT_PERMISSION_TAB);
 		switch (type){
 		case 1:
 			info("Set permission by type directly");

@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +23,9 @@ public class ForumManagePost extends ForumBase {
 	public ForumManagePost(WebDriver dr){
 		driver = dr;
 		per = new ForumPermission(driver);
+		but = new Button(driver);
+		alert = new ManageAlert(driver);
+		magTopic = new ForumManageTopic(driver);
 	}
 	
 	//--------------post home screen--------------------------------------------------------

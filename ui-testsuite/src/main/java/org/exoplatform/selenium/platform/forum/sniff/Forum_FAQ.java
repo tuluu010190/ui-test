@@ -2,7 +2,9 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.forum.AnswerManageAnwser;
 import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
 import org.exoplatform.selenium.platform.forum.AnswerManageQuestion;
@@ -31,7 +33,8 @@ public class Forum_FAQ extends FAQ {
 		magCat = new AnswerManageCategory(driver);
 		magQuest = new AnswerManageQuestion(driver);
 		magAns = new AnswerManageAnwser(driver);
-		
+		but = new Button(driver);
+		pageE = new PageEditor(driver);
 		magAc.signIn("john", "gtn");
 		goToAnswer();
 	}

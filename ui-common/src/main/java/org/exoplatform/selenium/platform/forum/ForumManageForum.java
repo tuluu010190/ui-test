@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.forum;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.forum.ForumPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -22,6 +23,8 @@ public class ForumManageForum extends ForumBase {
 		driver = dr;
 		per = new ForumPermission(driver);
 		cat = new ForumManageCategory(driver);
+		but = new Button(driver);
+		alert = new ManageAlert(driver);
 	}
 
 	//--------------------forum home screen-------------------------------------------------

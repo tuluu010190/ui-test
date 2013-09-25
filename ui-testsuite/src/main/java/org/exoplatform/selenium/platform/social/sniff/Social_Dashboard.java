@@ -122,7 +122,7 @@ public class Social_Dashboard extends DashBoard {
 	 * Pending: Can't open many tab on same browser on selenium webdriver
 	 * Refer: https://jira.exoplatform.org/browse/FQA-1282
 	 */	
-	@Test (groups="{pending}")
+	@Test 
 	public void test03_ViewALinkInRSSFetcher(){
 		//Declare variable
 		String gadgetName = "Social Rss Reader";

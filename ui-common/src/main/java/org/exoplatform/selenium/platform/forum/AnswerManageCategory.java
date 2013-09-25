@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.forum;
 
 import  static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -16,11 +18,13 @@ import org.openqa.selenium.interactions.Actions;
  */
 public class AnswerManageCategory extends AnswerBase {
 
+	ForumPermission per;
 	public AnswerManageCategory(WebDriver dr){
 		driver = dr;
+		per = new ForumPermission(driver);
+		but = new Button(driver);
+		alert = new ManageAlert(driver);
 	}
-	
-	ForumPermission per = new ForumPermission(driver);
 	
 	//Manage Category
 	public final By ELEMENT_CATEGORY_BUTTON = By.className("uiIconAnsManageCategory");

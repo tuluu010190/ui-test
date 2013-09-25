@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageApplications;
 import org.exoplatform.selenium.platform.UserGroupManagement;
@@ -25,6 +27,8 @@ public class ForumManagePoll extends ForumBase {
 		magTopic = new ForumManageTopic(driver);
 		app = new ManageApplications(driver);
 		userGroup = new UserGroupManagement(driver);
+		but = new Button(driver);
+		alert = new ManageAlert(driver);
 	}
 
 	//Poll Manage

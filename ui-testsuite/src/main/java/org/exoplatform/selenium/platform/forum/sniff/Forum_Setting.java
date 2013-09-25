@@ -2,7 +2,10 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
@@ -34,7 +37,9 @@ public class Forum_Setting extends ForumBase {
 		forum = new ForumManageForum(driver);
 		magtopic = new ForumManageTopic(driver);
 		post = new ForumManagePost(driver);
-		
+		but = new Button(driver);
+		navTool = new NavigationToolbar(driver);
+		pageE = new PageEditor(driver);
 		magAc.signIn("john", "gtn");
 		goToForums();
 	}

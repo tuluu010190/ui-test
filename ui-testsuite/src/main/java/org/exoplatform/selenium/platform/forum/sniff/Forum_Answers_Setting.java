@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.forum.AnswerBase;
 import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
 import org.exoplatform.selenium.platform.forum.AnswerManageQuestion;
@@ -34,7 +35,7 @@ public class Forum_Answers_Setting extends AnswerBase {
 		forumCat = new ForumManageCategory(driver);
 		forum = new ForumManageForum(driver);
 		question = new AnswerManageQuestion(driver);
-		
+		pageE = new PageEditor(driver);
 		magAc.signIn("john", "gtn");
 		goToAnswer();
 	}

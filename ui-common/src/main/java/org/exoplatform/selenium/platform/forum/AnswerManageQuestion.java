@@ -2,7 +2,9 @@ package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -21,6 +23,8 @@ public class AnswerManageQuestion extends AnswerBase {
 	public AnswerManageQuestion(WebDriver dr){
 		driver = dr;
 		cat = new AnswerManageCategory(driver);
+		but = new Button(driver);
+		alert = new ManageAlert(driver);
 	}
 
 	//Manage Question
@@ -48,6 +52,18 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final String ELEMENT_RATE_QUESTION = "//*[contains(@class, 'avgRatingImages')]/i[@data-index='${rate}']";
 	public final String ELEMENT_RATE_RESULT = "//div[@id='UIQuestionsConfirm1']/i[${rate}]";
 	public final String ELEMENT_QUESTION_CONTENT = "//div[@class='theContent']/p[text()='${content}']";
+	public final String ELEMENT_QUESTION_CONTENT_BOLD = "//div[@class='theContent']/p/strong[text()='${content}']";
+	public final String ELEMENT_QUESTION_CONTENT_ITALIC = "//div[@class='theContent']/p/i[text()='${content}']";
+	public final String ELEMENT_QUESTION_CONTENT_UNDERLINE = "//div[@class='theContent']/p/u[text()='${content}']";
+	public final String ELEMENT_QUESTION_CONTENT_SIZE = "//div[@class='theContent']/p/font[@size='${size}' and text()='${content}']";
+	public final String ELEMENT_QUESTION_CONTENT_COLOR = "//div[@class='theContent']/p/font[@color='${color}' and text()='${content}']";
+	public final String ELEMENT_QUESTION_CONTENT_QUOTE = "//div[@class='theContent']//div[@class='titleQuote' and text()='${title}']/../div[@class='textContent' and text()='${content}']";
+	public final String ELEMENT_QUESTION_CONTENT_CODE = "//div[@class='theContent']//pre[@dir='ltr']/div[text()='${content}']";
+	public final String ELEMENT_QUESTION_CONTENT_UNORDER = "//div[@class='theContent']/ul/li[contains(text(),'${item}')]";
+	public final String ELEMENT_QUESTION_CONTENT_ORDER_NUM = "//div[@class='theContent']/ol[@type='1']/li[contains(text(),'${item}')]";
+	public final String ELEMENT_QUESTION_CONTENT_ORDER_LETTER = "//div[@class='theContent']/ol[@type='a']/li[contains(text(),'${item}')]";
+	public final String ELEMENT_QUESTION_CONTENT_LINK = "//div[@class='theContent']/p/a[@href='${link}' and text()='${text}']";
+	public final String ELEMENT_QUESTION_CONTENT_IMAGE = "//div[@class='theContent']/p/img[@src='${image}']";
 
 	//message
 	public final String MSG_SUBMIT_QUESTION = "The question has been posted.";

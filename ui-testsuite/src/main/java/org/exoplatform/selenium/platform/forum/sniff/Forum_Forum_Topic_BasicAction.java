@@ -164,7 +164,7 @@ public class Forum_Forum_Topic_BasicAction extends ForumBase {
 	 * caseID: 74751
 	 */
 	@Test
-	public void test06_UpdateTopicTitle() {
+	public void test06_UpdateTopicContent() {
 		String titleCat = "Category 06";
 		String titleForum = "Forum 06";
 		String titleTop = "Topic 06";

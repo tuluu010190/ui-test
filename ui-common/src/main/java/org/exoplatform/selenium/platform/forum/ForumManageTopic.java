@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -29,8 +31,8 @@ public class ForumManageTopic extends ForumBase {
 		per = new ForumPermission(driver);
 		magCat = new ForumManageCategory(driver);
 		magFor = new ForumManageForum(driver);
-		userGroup = new UserGroupManagement(driver);
-		per = new ForumPermission(driver);
+		but = new Button(driver);
+		alert = new ManageAlert(driver);
 	}
 
 	//----------------topic home screen---------------------------------------------------

@@ -175,6 +175,7 @@ public class AnswerBase extends ForumBase {
 	 * @param opts
 	 */
 	public void settingDisplayMode(boolean all, boolean date, boolean ascending, boolean...opts){
+		but = new Button(driver);
 		click(ELEMENT_DISPLAY_MODE_TAB);
 		if (all){
 			select(ELEMENT_SELECT_DISPLAY_MODE, "All");
