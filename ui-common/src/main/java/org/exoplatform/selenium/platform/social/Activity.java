@@ -178,29 +178,29 @@ public class Activity extends SocialBase {
 		}
 	}
 
-	/**
-	 * Delete activity 
-	 * @param activityText: input a String 
-	 */
-	public void deleteActivity (String activityText) {
-		info("-- Deleting an activity --");
-
-		By ELEMENT_DELETE_ACTIVITY = By.xpath("//div[@class='ContentBox']/div/h5/span/../../div[contains(text(), '"+activityText+"')]/../h5/span[contains(@id, 'DeleteActivityButton')]");
-
-		WebElement elementDeleteActivityID = waitForAndGetElement(ELEMENT_DELETE_ACTIVITY);
-
-		String deleteActivityIconID = elementDeleteActivityID.getAttribute("id");		
-
-		info("---Click delete activity icon---");
-
-		click(By.id(deleteActivityIconID));
-
-		magAlert.waitForConfirmation("Are you sure to delete this activity?");
-
-		waitForElementNotPresent(ELEMENT_DELETE_ACTIVITY);
-
-		Utils.pause(1000);
-	}
+//	/**
+//	 * Delete activity 
+//	 * @param activityText: input a String 
+//	 */
+//	public void deleteActivity (String activityText) {
+//		info("-- Deleting an activity --");
+//
+//		By ELEMENT_DELETE_ACTIVITY = By.xpath("//div[@class='ContentBox']/div/h5/span/../../div[contains(text(), '"+activityText+"')]/../h5/span[contains(@id, 'DeleteActivityButton')]");
+//
+//		WebElement elementDeleteActivityID = waitForAndGetElement(ELEMENT_DELETE_ACTIVITY);
+//
+//		String deleteActivityIconID = elementDeleteActivityID.getAttribute("id");		
+//
+//		info("---Click delete activity icon---");
+//
+//		click(By.id(deleteActivityIconID));
+//
+//		magAlert.waitForConfirmation("Are you sure to delete this activity?");
+//
+//		waitForElementNotPresent(ELEMENT_DELETE_ACTIVITY);
+//
+//		Utils.pause(1000);
+//	}
 
 
 	/**

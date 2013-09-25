@@ -97,7 +97,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		activity.checkInforAfterAddingDocument(newnode, "", "Web Content", "", "", "", "", "");
 
 		//A comment is added: Title has been updated to: $value.
-		activity.checkTitleAfterEditing(node,newnode);
+		activity.checkTitleAfterEditing(newnode,newnode);
 		/*Clear data*/
 		info("clear data");
 		info("-- Open Sites Explorer --");
@@ -351,7 +351,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		//The content of the content activity isn't updated in the activity stream 
 		info("-- Check activity after adding a content --");
 		activity.checkInforAfterAddingDocument(node, "", "Web Content", "", "", "", "", "");
-		waitForTextNotPresent(categoryNode);
+		waitForElementNotPresent(activity.ELEMENT_CONTENT.replace("@{fileName}", node).replace("${text}", categoryNode));
 
 		//A comment is added: Category: $value has been added.
 		info("-- Verify comment --");
@@ -369,7 +369,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		//The content of the content activity isn't updated in the activity stream 
 		info("-- Check activity after adding a content --");
 		activity.checkInforAfterAddingDocument(node, "", "Web Content", "", "", "", "", "");
-		waitForTextNotPresent(categoryNode);
+		waitForElementNotPresent(activity.ELEMENT_CONTENT.replace("@{fileName}", node).replace("${text}", categoryNode1));
 
 		//A comment is added: Category: $value has been added.
 		info("-- Verify comment --");
@@ -428,7 +428,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		//The content of the content activity isn't updated in the activity stream 
 		info("-- Check activity after adding a content --");
 		activity.checkInforAfterAddingDocument(node, "", "Web Content", "", "", "", "", "");
-		waitForTextNotPresent(categoryNode);
+		waitForElementNotPresent(activity.ELEMENT_CONTENT.replace("@{fileName}", node).replace("${text}", categoryNode));
 
 		//A comment is added: Category: $value has been removed.
 		info("-- Verify comment --");

@@ -292,6 +292,16 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_HOME_PAGE);
 		Utils.pause(1000);
 	}
+	
+	/**
+	 * Function: Go to connection page
+	 * @author phuongdt
+	 * @date 24/09/2013
+	 */
+	public void goToConnectionPage(){
+		click(ELEMENT_CONNECTION_PAGE);
+		Utils.pause(1000);
+	}
 
 	public void changeEditMode()
 	{

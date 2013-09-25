@@ -257,7 +257,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_CHOOSE_THUMBNAIL_IMAGE = By.xpath("//*[text() = 'Choose Thumbnail Image']");
 	public final By ELEMENT_REMOVE_THUMBNAIL = By.xpath("//*[text() = 'Remove Thumbnail']");
 	public final String ELEMENT_VERIFY_THUMBNAIL = "//*[text()='${name}']//../../../*[@class='nodeLabel']/*[@class='thumbnailImage']";
-	public final String ELEMENT_VERIFY_DATE_NODE = "//*[contains(text(),'Created on') or contains(text(),'by')  ]//../*[contains(text(),'${namenode}')]";
+	public final String ELEMENT_VERIFY_DATE_NODE = "//*[text()='${namenode}']/../../*[contains(text(),'Created on')or contains(text(),'by')]";
 	public final String ELEMENT_VERIFY_CREATEDON_LABEL = "//*[contains(text(),'${content}')]/../..//p[contains(text(), 'Created on')]";
 	
 	public final By ELEMENT_ACME_DRIVE = By.linkText("acme-category");

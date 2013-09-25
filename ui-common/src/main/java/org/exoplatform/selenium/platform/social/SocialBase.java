@@ -242,7 +242,7 @@ public class SocialBase extends PlatformBase {
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		mouseOver(ELEMENT_TOOLBAR_NETWORKS_ICON, true);
 		click(ELEMENT_TOOLBAR_NETWORKS_ICON);
-		waitForAndGetElement(ELEMENT_TITLEBAR_BOLD);
+		waitForAndGetElement(ELEMENT_SEARCH_BUTTON);
 	}	
 	
 	// Go to Activity stream

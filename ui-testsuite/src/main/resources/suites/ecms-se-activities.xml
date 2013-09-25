@@ -1,14 +1,14 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="ECMS Functional Test" verbose="1" preserve-order="true">
-	<test name="ecms-func-se-collaboration" enabled="true">
+	<test name="ecms-func-se-activities" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
 			</run>
 		</groups>
 		<packages>
-			<package name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.collaboration.*" />
+			<package name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.publishactivities.*" />
 		</packages>
 	</test>
 	<listeners>

@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.*;
 
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 
 /**
  * 
@@ -15,45 +16,60 @@ import org.openqa.selenium.By;
  * -- Add removeConnection 
  */
 public class PeopleConnection extends SocialBase {
-
+	PeopleSearch peoSearch;
+	public PeopleConnection(WebDriver dr){
+		driver = dr;
+		peoSearch = new PeopleSearch(driver);
+	}
+	
 	// Go to Account Name link	
 	// My Connections
+	public final By	ELEMENT_CONNECTION_OF_USER = By.xpath("//*[@id='UIUserNavigationPortlet']//../*[contains(text(),'Connections')]");
 	public final By ELEMENT_REQUESTS_RECEIVED_TAB = By.linkText("Requests Received");
+	public final By ELEMENT_REQUEST_PENDING_TAB = By.linkText("Requests Pending");
 	public final By ELEMENT_MY_CONNECTIONS_TAB = By.linkText("My Connections");
 	public final By ELEMENT_EVERYONE_TAB = By.linkText("Everyone");
 	public final By ELEMENT_REQUEST_SENT_TAB = By.linkText("Requests Sent");
-	public final String ELEMENT_CONNECTION = "//*[@id='UIDisplayProfileList']/div[2]/div/a/img[@title='${peopleName}']";
-	public final String ELEMENT_CANCEL_REQUEST_BUTTON = "//div/a[text()='${peopleName}']/following::ul/li/a[@title='Cancel Request']";
-	
+	public final String ELEMENT_CONNECTION_BUTTON = "//*[@data-original-title='${peopleName}']/../..//*[text()='Connect']";
+	public final String ELEMENT_CANCEL_REQUEST_BUTTON = "//*[@data-original-title='${peopleName}']/../..//*[text()='Cancel Request']";
+	public final String ELEMENT_REMOVE_CONNECTION_BUTTON = "//*[@data-original-title='${peopleName}']/../..//*[text()='Remove Connection']";
+	public final String ELEMENT_CONFIRM_BUTTON = "//*[@data-original-title='${peopleName}']/../..//*[text()='Confirm']";
+	public final String ELEMENT_IGNORE_BUTTON = "//*[@data-original-title='${peopleName}']/../..//*[text()='Ignore']";
+	public final String ELEMENT_CONNECT_LIST = "//*[text()='Connect']";
+	public final String ELEMENT_PEOPLE_SEARCH = "//*[@class='uiProfileUserSearch']/..//*[text()='${peopleName}']";
+
 	/**
 	 * Connect to people
 	 * @param peopleName: name of selected people (String)
 	 */
 	public void connectPeople (String peopleName) {
 		info("-- Connect to: " + peopleName);
-		
+
 		//By ELEMENT_CONNECT_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Connect']");
-		By ELEMENT_CONNECT_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li/a[@title='Connect']");
+		//By ELEMENT_CONNECT_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li/a[@title='Connect']");
 		//By ELEMENT_CANCEL_REQUEST_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Cancel Request']");
 		//By ELEMENT_CANCEL_REQUEST_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li[2]/a[@title='Cancel Request']");
-		
+
 		info("-----Go to find connections page-----");
+		peoSearch.searchPeople(true,peopleName);
+		if (waitForAndGetElement(ELEMENT_PEOPLE_SEARCH.replace("${peopleName}", peopleName),DEFAULT_TIMEOUT,0)==null){
+			info("-- Cannot find people: " + peopleName);
+		}else{
 
-		goToFindConnections();
+			info("-----Click connect to people-----");
 
-		info("-----Click connect to people-----");
+			waitForAndGetElement(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 
-		waitForAndGetElement(ELEMENT_CONNECT_BUTTON);
+			click(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 
-		click(ELEMENT_CONNECT_BUTTON);
+			info("---Verify Connect button is disappeared----");
 
-		info("---Verify Connect button is disappeared----");
+			waitForElementNotPresent(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 
-		waitForElementNotPresent(ELEMENT_CONNECT_BUTTON);
+			info("-----Verify Cancel request button is displayed-----");
 
-		info("-----Verify Cancel request button is displayed-----");
-
-		waitForAndGetElement(ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", peopleName));
+			waitForAndGetElement(ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", peopleName));
+		}
 	}
 
 	/**
@@ -62,27 +78,26 @@ public class PeopleConnection extends SocialBase {
 	 */
 	public void acceptInvitation (String peopleName) {
 		info("-- Accept the invitation: " + peopleName);
-		
-		By ELEMENT_CONFIRM_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Confirm']");	 
-		By ELEMENT_REMOVE_CONNECTION_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Remove Connection']");
+		if(waitForAndGetElement(ELEMENT_REQUEST_PENDING_TAB,DEFAULT_TIMEOUT,0)==null){
 
-		info("----Go to My connections----");
+			info("----Go to My connections----");
 
-		goToMyConnections();
+			goToMyConnections();
 
-		waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB);
+			waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB);
 
-		info("---Click Requests Received tab-----");
+			info("---Click Requests Received tab-----");
 
-		click(ELEMENT_REQUESTS_RECEIVED_TAB);
+			click(ELEMENT_REQUESTS_RECEIVED_TAB);
+		}
 
-		waitForAndGetElement(ELEMENT_CONFIRM_BUTTON);
+		waitForAndGetElement(ELEMENT_CONFIRM_BUTTON.replace("${peopleName}", peopleName));
 
 		info("----Confirm the invitation from user '"+peopleName+"' ");
 
-		click(ELEMENT_CONFIRM_BUTTON);
+		click(ELEMENT_CONFIRM_BUTTON.replace("${peopleName}", peopleName));
 
-		waitForElementNotPresent(ELEMENT_CONFIRM_BUTTON);
+		waitForElementNotPresent(ELEMENT_CONFIRM_BUTTON.replace("${peopleName}", peopleName));
 
 		info("----Go to My connections tab----");
 
@@ -90,7 +105,7 @@ public class PeopleConnection extends SocialBase {
 
 		info("---Verify remove connection button----");
 
-		waitForAndGetElement(ELEMENT_REMOVE_CONNECTION_BUTTON);	
+		waitForAndGetElement(ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 
 	}
 
@@ -100,53 +115,58 @@ public class PeopleConnection extends SocialBase {
 	 */
 	public void ignoreInvitation (String peopleName) {
 		info("-- Ignore the invitation from: " + peopleName);
-		
-		By ELEMENT_IGNORE_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Ignore']");
-		By ELEMENT_CONNECT_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Connect']");
+		if(waitForAndGetElement(ELEMENT_REQUEST_PENDING_TAB,DEFAULT_TIMEOUT,0)==null){
+			info("----Go to My connections----");
 
-		info("----Go to My connections----");
+			goToMyConnections();
 
-		goToMyConnections();
+			waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB);
 
-		waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB);
+			info("---Click Requests Received tab-----");
 
-		info("---Click Requests Received tab-----");
+			click(ELEMENT_REQUESTS_RECEIVED_TAB);
+		}
+		waitForAndGetElement(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", peopleName));
 
-		click(ELEMENT_REQUESTS_RECEIVED_TAB);
-
-		waitForAndGetElement(ELEMENT_IGNORE_BUTTON);
-		
 		info("---Ignore the invitation from user '"+peopleName+"'-----");
-		
-		click(ELEMENT_IGNORE_BUTTON);
-		
-		waitForElementNotPresent(ELEMENT_IGNORE_BUTTON);
-		
+
+		click(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", peopleName));
+
+		waitForElementNotPresent(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", peopleName));
+
 		info("---Go to Everyone tab----");
-		
+
 		click(ELEMENT_EVERYONE_TAB);
-		
-		waitForAndGetElement(ELEMENT_CONNECT_BUTTON);			
+
+		waitForAndGetElement(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 	}
-	
+
 	/**
 	 * Remove connection 
 	 * @param peopleName: name of selected people (String)
 	 */
 	public void removeConnection(String peopleName){
 		info("-- Remove connection with: " + peopleName);
-		
-		By ELEMENT_REMOVE_CONNECTION_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li[2]/a[@title='Remove Connection']");
-	
-		goToFindConnections();
-		
-		click(ELEMENT_REMOVE_CONNECTION_BUTTON);
-		
-		waitForElementNotPresent(ELEMENT_REMOVE_CONNECTION_BUTTON);
-		
+
+		if(waitForAndGetElement(ELEMENT_MY_CONNECTIONS_TAB,DEFAULT_TIMEOUT,0)==null){
+			info("----Go to My connections----");
+
+			goToMyConnections();
+
+			waitForAndGetElement(ELEMENT_MY_CONNECTIONS_TAB);
+
+			info("---Click Requests Received tab-----");
+
+			click(ELEMENT_MY_CONNECTIONS_TAB);
+		}
+		waitForAndGetElement(ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
+		click(ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
+
+		waitForElementNotPresent(ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
+
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * @author dunghm
 	 * Cancel a connection request
@@ -156,25 +176,34 @@ public class PeopleConnection extends SocialBase {
 	 * Update by vuna2
 	 * @param name : User's name that sent connection request 
 	 */
-  public void cancelRequest(String name){
-    String userContainer = "//a[contains(@class,'CommunityName') and text()='" + name + "']/ancestor::div[contains(@class,'ContentSpace')]";
-    By cancelRequest = By.xpath(userContainer + "//a[@title='Cancel Request']");
-    By cancelRequest_Aux = By.xpath("//*[@id='UISpaceMember']//td[contains(text(), '" + name + "')]/following::span[text()='Cancel Request']");
-    if (waitForAndGetElement(cancelRequest, 5000, 0) != null){
-    	click(cancelRequest);
-    	waitForElementNotPresent(cancelRequest);
-    }else if (waitForAndGetElement(cancelRequest_Aux, 5000, 0) != null){
-    	click(cancelRequest_Aux);
-    	waitForElementNotPresent(cancelRequest_Aux);
-    } 
-  }
-  
-  public void quickRemoveConnection(String peopleName){    
-    
-    By ELEMENT_REMOVE_CONNECTION_BTN = By.xpath("//a[contains(@class,'InviteTitle') and text()='" + peopleName + "']/ancestor::div[contains(@class,'ContentSpace')]//a[text()='Remove Connection']");    
-    
-    click(ELEMENT_REMOVE_CONNECTION_BTN);
-    waitForElementNotPresent(ELEMENT_REMOVE_CONNECTION_BTN);
-  }
+	/**
+	 * @update by PhuongDT
+	 * @param name: change how to find element CancelRequest
+	 */
+	public void cancelRequest(String peopleName){
+		info("-- Cancel the invitation: " + peopleName);
+		if(waitForAndGetElement(ELEMENT_REQUEST_PENDING_TAB,DEFAULT_TIMEOUT,0)==null){
+			info("----Go to My connections----");
+			goToMyConnections();
+			waitForAndGetElement(ELEMENT_REQUEST_PENDING_TAB);
+			info("---Click Pending Requests tab-----");
+			click(ELEMENT_REQUEST_PENDING_TAB);
+		}
+		waitForAndGetElement(ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", peopleName));
+		info("---Cancel the invitation to user '"+peopleName+"'-----");
+		click(ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", peopleName));
+		waitForElementNotPresent(ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", peopleName));
+		info("---Go to Everyone tab----");
+		click(ELEMENT_EVERYONE_TAB);
+		waitForAndGetElement(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
+	}
+
+	public void quickRemoveConnection(String peopleName){    
+
+		By ELEMENT_REMOVE_CONNECTION_BTN = By.xpath("//a[contains(@class,'InviteTitle') and text()='" + peopleName + "']/ancestor::div[contains(@class,'ContentSpace')]//a[text()='Remove Connection']");    
+
+		click(ELEMENT_REMOVE_CONNECTION_BTN);
+		waitForElementNotPresent(ELEMENT_REMOVE_CONNECTION_BTN);
+	}
 
 }

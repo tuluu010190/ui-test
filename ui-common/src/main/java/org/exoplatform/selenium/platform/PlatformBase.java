@@ -55,6 +55,7 @@ public class PlatformBase extends TestBase {
 	 */
 	public final By ELEMENT_PERSONAL_DOCUMENTS = By.className("uiIconPLFDocuments");
 	public final By ELEMENT_HOME_PAGE = By.className("uiIconHome");
+	public final By ELEMENT_CONNECTION_PAGE = By.className("uiIconUser");
 
 	/*
 	 * Navigation Bar /Administration Bar

@@ -63,11 +63,11 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 
 		info("Add Edit Delete a File document");
 		actBar.goToAddNewContent();
-		conTemp.createNewFile(File_Name, File_Content, null);
+		conTemp.createNewFile(File_Name, File_Content, "");
 
 		info("Edit File & verify edited content");
 		conTemp.editFile(null, "", File_Content_Edit);
-		waitForTextPresent(File_Content_Edit);
+		assert driver.getPageSource().contains(File_Content_Edit);
 		info("Delete Fle document");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.actionsOnElement(File_Name, actionType.DELETE);
