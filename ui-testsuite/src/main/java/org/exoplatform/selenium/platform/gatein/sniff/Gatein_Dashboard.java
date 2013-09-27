@@ -55,7 +55,7 @@ public class Gatein_Dashboard extends DashBoard {
 		navTool.goToDashboard();
 		dragDropGadget("Services Management");
 		click(ELEMENT_CLOSE_ADD_GADGET_WINDOW);
-		deleteGadgetOnDashboard("Services Management");
+		actionOnGadgetOnDashboard("Services Management","Delete Gadget");
 	}
 	
 	/**CaseId: 68883 + 70365
@@ -69,7 +69,7 @@ public class Gatein_Dashboard extends DashBoard {
 		navTool.goToDashboard();
 		addNewGadget(url, name);
 		click(ELEMENT_CLOSE_ADD_GADGET_WINDOW);
-		deleteGadgetOnDashboard(name);
+		actionOnGadgetOnDashboard(name, "Delete Gadget");
 	}
 	
 	/**CaseId: 68884 + 70367 + 70368

@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
@@ -18,17 +19,22 @@ public class DashBoard extends PlatformBase {
 	NavigationToolbar nav = new NavigationToolbar(driver);
 	Dialog dialog = new Dialog(driver);
 	ManageAlert alt = new ManageAlert(driver);
+	Button button = new Button(driver);
 	
 	/* Dashboard Page*/
-	public  String MESSAGE_DRAG_GADGETS_HERE = "Drag your gadgets here.";
-	public  By ELEMENT_ADD_GADGETS_LINK = By.xpath("//a[text()='Add Gadgets']");
+	public  final String MESSAGE_DRAG_GADGETS_HERE = "Drag your gadgets here.";
+	public  final By ELEMENT_ADD_GADGETS_LINK = By.xpath("//a[text()='Add Gadgets']");
+	public 	final By ELEMENT_DASHBOARD_FRAME = By.xpath("//iframe[contains(@id,'remote_iframe_')]");
 	
 	// Getget Directory form
-	public  By ELEMENT_GADGET_URI_INPUT = By.xpath("//input[@id='url']");
-	public  By ELEMENT_ADD_GADGET_BUTTON = By.xpath("//img[@title='Add Gadget']");
-	public By ELEMENT_GADGET_CONTAINER = By.xpath("//*[@id='GadgetContainer']//*[text()='Drag your gadgets here.']");
-	public String ELEMENT_GADGET_ON_CONTAINER = "//*[@id='GadgetContainer']//*[text()='${name}']";
-	public By ELEMENT_CLOSE_ADD_GADGET_WINDOW = By.xpath("//*[@id='UIDashboardPortlet']//*[@title='Close Window']");
+	public  final By ELEMENT_GADGET_URI_INPUT = By.xpath("//input[@id='url']");
+	public  final By ELEMENT_ADD_GADGET_BUTTON = By.xpath("//img[@title='Add Gadget']");
+	public final By ELEMENT_GADGET_CONTAINER = By.xpath("//*[@id='GadgetContainer']//*[text()='Drag your gadgets here.']");
+	public final String ELEMENT_GADGET_ON_CONTAINER = "//*[@id='GadgetContainer']//*[text()='${name}']";
+	public final By ELEMENT_CLOSE_ADD_GADGET_WINDOW = By.xpath("//*[@id='UIDashboardPortlet']//*[@title='Close Window']");
+	public final String ELEMENT_GADGET_NAME = "//*[@title='${name}']";
+	public final String ELEMENT_ACTION_ON_GADGET = "//span[text()='${gadgetTitleDisplay}']/..//*[@data-original-title='${action}']/i";
+	public final By ELEMENT_GADGET_CONTENT_FORM = By.className("UIGadgetContent");
 
 	/*------------- Data for Dashboard tab --------------------------------*/
 	public final String ELEMENT_DASHBOARD_NEW_ICON = "//*[@id='UITabPaneDashboard']//*[@class='uiIconSimplePlusMini uiIconLightGray']";
@@ -116,21 +122,26 @@ public class DashBoard extends PlatformBase {
 		waitForElementNotPresent(ELEMENT_TAB_LINK.replace("${tabName}", currentName));
 	}
 
-	public void deleteGadgetOnDashboard(String gadgetTitleDisplay)
-	{	alt = new ManageAlert(driver);
-		info("Delete gadget");
-		String action = "Delete Gadget";
-		By deleteGadgetIcon = By.xpath("//span[text()='"+gadgetTitleDisplay+"']/..//*[@data-original-title='"+action+"']/i");
-		waitForAndGetElement(deleteGadgetIcon);
-		click(deleteGadgetIcon, 2);
-		alt.waitForConfirmation("Are you sure you want to delete this gadget?");
-		waitForTextNotPresent(gadgetTitleDisplay);
-	}
+	/*
+	 * Comment by PhuongDT
+	 * Date: 30/09/2013
+	 * This function is replaced by function actionOnGadgetOnDashboard
+	 */
+//	public void deleteGadgetOnDashboard(String gadgetTitleDisplay)
+//	{	alt = new ManageAlert(driver);
+//		info("Delete gadget");
+//		String action = "Delete Gadget";
+//		By deleteGadgetIcon = By.xpath(ELEMENT_ACTION_ON_GADGET.replace("${gadgetTitleDisplay}", gadgetTitleDisplay).replace("${action}", action));
+//		waitForAndGetElement(deleteGadgetIcon);
+//		click(deleteGadgetIcon, 2);
+//		alt.waitForConfirmation("Are you sure you want to delete this gadget?");
+//		waitForTextNotPresent(gadgetTitleDisplay);
+//	}
 	
 	public void dragDropGadget(String gadget){
 		info("Drag drop " + gadget + " gadget to dashboard");
 		click(ELEMENT_ADD_GADGETS_LINK);
-		dragAndDropToObject(By.xpath("//*[@title='" + gadget + "']"), ELEMENT_GADGET_CONTAINER);
+		dragAndDropToObject(By.xpath(ELEMENT_GADGET_NAME.replace("${name}", gadget)), ELEMENT_GADGET_CONTAINER);
 		waitForAndGetElement(ELEMENT_GADGET_ON_CONTAINER.replace("${name}", gadget));
 	}
 	
@@ -140,5 +151,42 @@ public class DashBoard extends PlatformBase {
 		type(ELEMENT_GADGET_URI_INPUT, url, true);
 		click(ELEMENT_ADD_GADGET_BUTTON);
 		waitForTextPresent(name);
+	}
+	
+	/**
+	 * do action on gadget: maximize, minimize
+	 * @author phuongdt
+	 * @param: gadgetTitleDisplay
+	 * @param: action (Minimize, Maximize, Delete Gadget, Edit Gadget, Restore Down)
+	 */
+	public void actionOnGadgetOnDashboard(String gadgetTitleDisplay, String action){
+		info(action+" gadget" + gadgetTitleDisplay);
+		Boolean isDisplay = false;
+		if(waitForAndGetElement(ELEMENT_GADGET_CONTENT_FORM, DEFAULT_TIMEOUT,0)!=null){
+			isDisplay = true;
+		}
+		By actionGadgetIcon = By.xpath(ELEMENT_ACTION_ON_GADGET.replace("${gadgetTitleDisplay}", gadgetTitleDisplay).replace("${action}", action));
+		waitForAndGetElement(actionGadgetIcon);
+		click(actionGadgetIcon, 2);
+		if(action.contains("Delete Gadget")){
+			alt = new ManageAlert(driver);
+			alt.waitForConfirmation("Are you sure you want to delete this gadget?");
+			waitForTextNotPresent(gadgetTitleDisplay);
+		}
+		else if (action.contains("Minimize")){
+			if(isDisplay)
+				waitForElementNotPresent(ELEMENT_GADGET_CONTENT_FORM);
+			else
+				waitForAndGetElement(ELEMENT_GADGET_CONTENT_FORM);
+		}
+		else if (action.contains("Maximize")){
+			waitForAndGetElement(By.xpath(ELEMENT_ACTION_ON_GADGET.replace("${gadgetTitleDisplay}", gadgetTitleDisplay).replace("${action}", "Restore Down")));
+		}
+		else if (action.contains("Edit Gadget")){
+			waitForAndGetElement(button.ELEMENT_SAVE_BUTTON);
+		}
+		else{//(action.contains("Restore Down"))
+			waitForAndGetElement(By.xpath(ELEMENT_ACTION_ON_GADGET.replace("${gadgetTitleDisplay}", gadgetTitleDisplay).replace("${action}", "Maximize")));
+		}
 	}
 }
