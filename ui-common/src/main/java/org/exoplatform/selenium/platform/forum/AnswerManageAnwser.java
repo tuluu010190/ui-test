@@ -20,6 +20,7 @@ public class AnswerManageAnwser extends AnswerBase {
 		driver = dr;
 		but = new Button(driver);
 		alert = new ManageAlert(driver);
+
 	}
 	
 	AnswerManageQuestion magQuest;
@@ -38,6 +39,8 @@ public class AnswerManageAnwser extends AnswerBase {
 	public final String MSG_ANSWER_PENDING = "Your answer is pending for moderation. It will be displayed after approval.";
 	public final String MSG_ANSWER_EMPTY = "Please provide an answer to the question.";
 	public final String MSG_DELETE_ANSWER_CONFIRM = "Are you sure you want to delete this answer ?";
+	public final By ELEMENT_ANSWER_PENDING_OK = By.xpath("//span[contains(text(),'Your answer is pending for moderation. It will be displayed after approval.')]/../../..//*[text()='OK']");
+	public final String ELEMENT_ANSWER_CONTENT = "//div[@class='answerContent']//p[text()='${answer}']";
 	
 	//More action menu
 	public final String ELEMENT_MORE_ANSWER_ACTION = "//*[text()='${answer}']/../../../../..//*[contains(text(), 'More Actions')]";

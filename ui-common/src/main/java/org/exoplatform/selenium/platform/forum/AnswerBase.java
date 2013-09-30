@@ -24,17 +24,17 @@ public class AnswerBase extends ForumBase {
 
 	PageManagement page;
 	UserGroupManagement userGroup;
-	
+
 	public final By ELEMENT_ANSWER_LINK = By.linkText("Answer");
 	public final String ELEMENT_ANSWER_BREADCUMB = "//*[@id='UIBreadcumbs']//*[text()='${category}']";
 	public final By ELEMENT_ANSWER_HOME_LINK = By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
 	public final By ELEMENT_CONFIMATION_OK_POPUP = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='OK']");
-	
+
 	//Add answer page
 	public final String DATA_ANSWER_PAGE_NAME = "Answer";
 	public final String CATEGORY_TITLE = "Collaboration";
 	public final String MSG_SAVE_ANSWER_PORTLET_SETTING = "The settings have been saved.";
-	
+
 	//Search in answer
 	public final By ELEMENT_SIMPLESEARCH_TEXTBOX_IN_ANSWER = By.id("inputValue");
 	public final By ELEMENT_SEARCH_RESULT_POPUP = By.xpath("//*[@class='PopupTitle popupTitle' and text()='Search Results']");
@@ -58,7 +58,7 @@ public class AnswerBase extends ForumBase {
 	public final By ELEMENT_SEARCH_QUESTION_TEXTBOX = By.id("Question");
 	public final By ELEMENT_SEARCH_ANSWER_TEXTBOX = By.id("Response");
 	public final By ELEMENT_SEARCH_COMMENT_TEXTBOX = By.id("Comment");
-	
+
 	//Setting answer portlet
 	public final By ELEMENT_CATEGORY_SCOPING_TAB = By.xpath("//button[text()='Category Scoping']");
 	public final String ELEMENT_CATEGORY_IN_SCOPE_TAB = "//*[contains(text(),'${catName}')]/..//input[@type='checkbox']";
@@ -72,11 +72,11 @@ public class AnswerBase extends ForumBase {
 	public final By ELEMENT_ENABLE_RSS = By.id("enableRSS");
 	public final By ELEMENT_VIEW_AVATAR = By.id("enableViewAvatar");
 	public final By ELEMENT_POST_QUESTION_IN_ROOT = By.id("isPostQuestionInRootCategory");
-	
+
 	public final By ELEMENT_DISCUSSION_TAB = By.xpath("//button[text()='Discussion']");
 	public final By ELEMENT_ENABLE_DISCUSSION_CHECKBOX = By.id("EnableDiscuss");
 	public final By ELEMENT_ADD_FORUM = By.xpath("//*[@data-original-title='Select Forum']");
-	
+
 	public final By ELEMENT_MAIL_NOTIFICATION_TEMPLATE_TAB = By.xpath("//button[text()='Email Notifications']");
 	public final By ELEMENT_MAIL_NEW_QUESTION_TAB = By.xpath("//button[text()='New Question']");
 	public final By ELEMENT_MAIL_EDIT_ANSWER_TAB = By.xpath("//button[text()='Edit/Answer']");
@@ -84,29 +84,29 @@ public class AnswerBase extends ForumBase {
 	public final By ELEMENT_MAIL_CONTENT_FRAME1 = By.id("EmailMoveQuestion___Frame");
 	public final By ELEMENT_MAIL_CONTENT_FRAME2 = By.xpath("//*[@id='xEditingArea']/iframe");
 	public final By ELEMENT_CLOSE_SETTING_BUTTON = By.id("Close");
-	
+
 	/*---------------------------------Common functions-----------------------------------*/
-	
+
 	/** 
 	 * Go to Answer
 	 * @author hakt
 	 */
 	public void goToAnswer(){
 		info("--Go to Answer--");
-	    WebElement answer = waitForAndGetElement(ELEMENT_ANSWER_LINK, 10000, 0);
-	    if (answer == null){
-	            createAnswerPageAtRootPath();                        
-	    	} else {
-	            click(ELEMENT_ANSWER_LINK);
-	    } 
+		WebElement answer = waitForAndGetElement(ELEMENT_ANSWER_LINK, 10000, 0);
+		if (answer == null){
+			createAnswerPageAtRootPath();                        
+		} else {
+			click(ELEMENT_ANSWER_LINK);
+		} 
 	}
-	
+
 	public void goToAnwserHome(){
 		info("---Go to answer home---");
 		click(ELEMENT_ANSWER_HOME_LINK);
 		waitForElementNotPresent(ELEMENT_ANSWER_HOME_LINK);
 	}
-	
+
 	/**
 	 * Create answer page at root path
 	 * @author hakt
@@ -114,7 +114,7 @@ public class AnswerBase extends ForumBase {
 	public void createAnswerPageAtRootPath() {
 		navTool = new NavigationToolbar(driver);
 		page = new PageManagement(driver);
-		
+
 		Map<String, String> ANSWER_PORTLET_ID = new HashMap<String, String>();
 		ANSWER_PORTLET_ID.put("Collaboration/AnswersPortlet", "");
 
@@ -131,14 +131,14 @@ public class AnswerBase extends ForumBase {
 		page.addNewPageEditor(DATA_ANSWER_PAGE_NAME, DATA_ANSWER_PAGE_NAME,"",CATEGORY_TITLE, 
 				ANSWER_PORTLET_ID, false);	
 	}
-	
+
 	/**function go to edit answer portlet in answer page
 	 * @author lientm
 	 */
 	public void goToEditAnswerPortlet(){
 		pageE = new PageEditor(driver);
 		navTool = new NavigationToolbar(driver);
-		
+
 		goToAnswer();
 		info("Go to edit answer portlet");
 		navTool.goToEditPageEditor();
@@ -153,7 +153,7 @@ public class AnswerBase extends ForumBase {
 	public void setDisplayCategoryScoping(String categoryScope, boolean display){
 		but = new Button(driver);
 		String[] cat = categoryScope.split("/");
-		
+
 		click(ELEMENT_CATEGORY_SCOPING_TAB);
 		for (int i = 0; i < cat.length; i++){
 			if (display){
@@ -166,7 +166,7 @@ public class AnswerBase extends ForumBase {
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
-	
+
 	/**function setting display mode in answert portlet
 	 * @author lientm
 	 * @param all
@@ -231,7 +231,7 @@ public class AnswerBase extends ForumBase {
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
-	
+
 	/**Function setting discussion in answert portlet
 	 * @author lientm
 	 * @param discuss
@@ -239,7 +239,7 @@ public class AnswerBase extends ForumBase {
 	 */
 	public void settingDiscussion(boolean discuss, String forumPath){
 		userGroup = new UserGroupManagement(driver);
-		
+
 		click(ELEMENT_DISCUSSION_TAB);
 		if (discuss){
 			check(ELEMENT_ENABLE_DISCUSSION_CHECKBOX, 2);
@@ -252,7 +252,7 @@ public class AnswerBase extends ForumBase {
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
-	
+
 	/**function setting email template for answser portlet
 	 * @author lientm
 	 * @param tab
@@ -271,7 +271,7 @@ public class AnswerBase extends ForumBase {
 			click(ELEMENT_MAIL_MOVE_QUESTION_TAB);
 			break;
 		}
-		
+
 		inputDataToFrameInFrame(ELEMENT_MAIL_CONTENT_FRAME1, ELEMENT_MAIL_CONTENT_FRAME2, content, true);
 		switchToParentWindow();
 		but.save();
@@ -290,7 +290,7 @@ public class AnswerBase extends ForumBase {
 		((JavascriptExecutor)driver).executeScript("javascript:eXo.webui.UIForm.submitForm('" + id + "#QuickSearchForm','Search',true);");	
 		waitForAndGetElement(ELEMENT_SEARCH_RESULT_POPUP);
 	}
-	
+
 	/**
 	 * @author lientm
 	 * @param term
@@ -364,16 +364,22 @@ public class AnswerBase extends ForumBase {
 		click(ELEMENT_SEARCH_BUTTON);
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * function get an element from link text when cannot get by text in xpath
 	 * @param text
 	 * @return
 	 */
 	public WebElement getElementFromTextByJquery(String text){
+
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		Utils.pause(2000);
-		WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
-		return web;
+		try{
+			WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
+			return web;
+		}catch(org.openqa.selenium.WebDriverException e){
+			WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
+			return web;
+		}
 	}
 }

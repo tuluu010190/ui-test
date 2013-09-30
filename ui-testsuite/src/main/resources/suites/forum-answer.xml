@@ -1,16 +1,15 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Platform functional Test" verbose="1" preserve-order="true">
+<suite name="Platform Functional Test" verbose="1" preserve-order="true">
 	<test name="forum-answer" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
-				<exclude name="error" />
-				<exclude name="email" />
+				<!-- <exclude name="error" /> -->
 			</run>
 		</groups>
 		<packages>
-			<package name="org.exoplatform.selenium.platform.forum.functional.answers" />
+			<package name="org.exoplatform.selenium.platform.forum.functional.answer.*" />
 		</packages>
 	</test>
 	<listeners>

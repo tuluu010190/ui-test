@@ -18,13 +18,14 @@ import org.openqa.selenium.interactions.Actions;
  */
 public class AnswerManageCategory extends AnswerBase {
 
-	ForumPermission per;
+	ForumPermission forumPer;
 	public AnswerManageCategory(WebDriver dr){
 		driver = dr;
-		per = new ForumPermission(driver);
 		but = new Button(driver);
 		alert = new ManageAlert(driver);
+		forumPer = new ForumPermission(driver);
 	}
+	
 	
 	//Manage Category
 	public final By ELEMENT_CATEGORY_BUTTON = By.className("uiIconAnsManageCategory");
@@ -39,6 +40,7 @@ public class AnswerManageCategory extends AnswerBase {
 	public final By ELEMENT_MODERATOR = By.id("moderator");
 	public final By ELEMENT_EDIT_CATEGORY_MENU = By.xpath("//*[@class='uiIconEditCategory']");
 	public final By ELEMENT_EDIT_CATEGORY_RIGHT_CLICK = By.linkText(" Edit");
+	
 	
 	//Delete category
 	public final By ELEMENT_DELETE_CATEGORY_ON_MENU = By.linkText("Delete");
@@ -94,8 +96,7 @@ public class AnswerManageCategory extends AnswerBase {
 	 * @param moderator
 	 * @param opt: option to check
 	 */
-	public void modifyDataInCategory(String name_edit, String order, String description, int permission, String[] userGroup,
-			boolean restricted, boolean moderator, boolean... opt){
+	public void modifyDataInCategory(String name_edit, String order, String description, boolean... opt){
 		
 		if (name_edit != null){
 			type(ELEMENT_CATEGORY_NAME, name_edit ,true);
@@ -114,23 +115,20 @@ public class AnswerManageCategory extends AnswerBase {
 			}
 		}
 		if (opt.length > 1){
-			if (opt[0]){
+			if (opt[1]){
 				check(ELEMENT_VIEW_QUESTION_AUTHOR, 2);
 			} else {
 				uncheck(ELEMENT_VIEW_QUESTION_AUTHOR, 2);
 			}
 		}
 		if (opt.length > 2){
-			if (opt[0]){
+			if (opt[2]){
 				check(ELEMENT_MODERATE_ANSWER, 2);
 			} else {
 				uncheck(ELEMENT_MODERATE_ANSWER, 2);
 			}
 		}
-		if (permission != 0){
-			per.configPermission4AnswerCategory(permission, userGroup, restricted, moderator);
-		}
-		but.save();
+		
 	}
 
 	/**
@@ -150,7 +148,11 @@ public class AnswerManageCategory extends AnswerBase {
 		info("Create new category " + categoryName);
 		click(ELEMENT_CATEGORY_BUTTON);
 		click(ELEMENT_ADD_CATEGORY_LINK);
-		modifyDataInCategory(categoryName, order, description, permission, userGroup, restricted, moderator, opt);
+		modifyDataInCategory(categoryName, order, description, opt);
+		if (permission != 0){
+			forumPer.configPermission4AnswerCategory(permission, userGroup, restricted, moderator);
+		}
+		but.save();
 		Utils.pause(2000);
 	}
 	
@@ -180,7 +182,12 @@ public class AnswerManageCategory extends AnswerBase {
 			click(ELEMENT_CATEGORY_BUTTON);
 			click(ELEMENT_EDIT_CATEGORY_MENU);
 		}
-		modifyDataInCategory(name_edit, order, description, permission, userGroup, restricted, moderator, opt);
+		modifyDataInCategory(name_edit, order, description, opt);
+		
+		if (permission != 0){
+			forumPer.configPermission4AnswerCategory(permission, userGroup, restricted, moderator);
+		}
+		but.save();
 		Utils.pause(2000);
 	}
 
@@ -295,4 +302,5 @@ public class AnswerManageCategory extends AnswerBase {
 		action.dragAndDrop(getElementFromTextByJquery(source), getElementFromTextByJquery(target)).build().perform();
 		Utils.pause(2000);
 	}
+	
 }

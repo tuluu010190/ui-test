@@ -64,11 +64,18 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final String ELEMENT_QUESTION_CONTENT_ORDER_LETTER = "//div[@class='theContent']/ol[@type='a']/li[contains(text(),'${item}')]";
 	public final String ELEMENT_QUESTION_CONTENT_LINK = "//div[@class='theContent']/p/a[@href='${link}' and text()='${text}']";
 	public final String ELEMENT_QUESTION_CONTENT_IMAGE = "//div[@class='theContent']/p/img[@src='${image}']";
+	public final String ELEMENT_QUESTION_LINK = "//a[text()='${question}']";
+	public final By ELEMENT_QUESTION_SUBMIT_OK = By.xpath("//span[contains(text(),'The question has been submitted to moderators.')]/../../..//a[text()='OK']");
+	public final String ELEMENT_QUESTION_AUTHOR_LABEL = "//div[@class='itemContainerFirst']//div[@class='authorName' and text()='${author}']";
+	public final String ELEMENT_QUESTION_AUTHOR_EMAIL = "//div[@class='itemContainerFirst']//div[@class='authorEmail' and text()='${author}']";
 
 	//message
 	public final String MSG_SUBMIT_QUESTION = "The question has been posted.";
 	public final String MSG_DELETE_QUESTION = "Are you sure you want to delete this question and its answers?";
 	public final String MSG_EMAIL_SENT = "Your message was sent successfully.";
+	public final String MSG_QUESTION_NEED_APPORVE = "This question is pending for approval.";
+	public final String MSG_QUESTION_SUBMIT_MODERATOR = "The question has been submitted to moderators.";
+	
 
 	//Context Menu
 	public final By ELEMENT_CONTEXT_MENU_EDIT_QUESTION = By.xpath("//*[@class='dropdown-menu dropdownArrowTop']//a[text()='Edit']");

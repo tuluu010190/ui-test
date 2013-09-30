@@ -1,10 +1,14 @@
 package org.exoplatform.selenium.platform;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 
 /**
  * 
@@ -13,10 +17,17 @@ import org.openqa.selenium.WebElement;
  */
 public class PlatformPermission extends PlatformBase {
 	
+	public Map<String, String> group ;
+	UserGroupManagement userGroup;
+	
 	public PlatformPermission(WebDriver dr){
 		driver = dr;
+		userGroup = new UserGroupManagement(driver);
+		group = new HashMap<String, String>();
+		group.put("Development", "developers");
+        group.put("Content Management", "web-contributors");
+        group.put("Administration", "administrators");
 	}
-	UserGroupManagement userGroup;
 	
 	//set permission screen
 	public final String ELEMENT_USER_CHECKBOX = "//*[text()='${user}']/../..//*[@type='checkbox']"; 
@@ -31,6 +42,9 @@ public class PlatformPermission extends PlatformBase {
 	public final By ELEMENT_SELECT_MEMBERSHIP_ICON = By.xpath("//*[@id='PermissionTab']//*[@class='uiIconMembership uiIconLightGray']");
 	public final By ELEMENT_SELECT_GROUP_ICON = By.xpath("//*[@id='PermissionTab']//*[@class='uiIconGroup uiIconLightGray']");
 	public final By ELEMENT_ADD_USERS_BUTTON = By.xpath("//*[@id='UIUserSelector']//*[text()='Add']");
+	public final By ELEMENT_SELECT_USER_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Select User']");
+	public final By ELEMENT_SELECT_GROUP_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Select Group']");
+	public final By ELEMENT_SELECT_ROLE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Select Role']");
 		
 	/*-----------------Set permission for wiki, forum...------------------*/
 	/**function: select a user when set permission for a element
@@ -81,7 +95,7 @@ public class PlatformPermission extends PlatformBase {
 	public void selectGroupPermission(String grouppath){
 		userGroup = new UserGroupManagement(driver);
 		userGroup.selectGroup(grouppath);
-		click(ELEMENT_SELECT_THIS_GROUP);
+//		click(ELEMENT_SELECT_THIS_GROUP);
 	}
 
 	/**function: select group and membership when set permission
