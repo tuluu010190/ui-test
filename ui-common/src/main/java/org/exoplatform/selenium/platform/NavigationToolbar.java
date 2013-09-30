@@ -289,6 +289,7 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Function go to Home Page
 	public void goToHomePage(){
+		info("-- Go to home page --");
 		click(ELEMENT_HOME_PAGE);
 		Utils.pause(1000);
 	}

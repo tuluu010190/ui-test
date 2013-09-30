@@ -6,9 +6,11 @@ import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.internal.Locatable;
 
 /**
  * 
@@ -30,11 +32,14 @@ public class Activity extends SocialBase {
 
 	Dialog dialog = new Dialog(driver);
 	ManageAlert magAlert = new ManageAlert(driver);
-	
+
 	//=====Element on space home page=======stash@{1}
 	// Go to My Spaces > Select a space
 	//Or Go to My Activity Stream
-	public final By ELEMENT_ATIVITY_TEXTBOX = By.id("composerInput");
+	public final By ELEMENT_ACTIVITY_DROPDOWN = By.xpath("//div[@class='btn dropdown-toggle']");
+	public final String ELEMENT_ACTIVITY_FILTER_OPTION = "//a[@class='OptionItem' and contains(text(),'${filterOption}')]";
+	public final String ELEMENT_ACTIVITY_FILTER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${filterOption}')]";
+	public final By ELEMENT_ACTIVITY_TEXTBOX = By.id("DisplaycomposerInput");
 	public final By ELEMENT_LINK = By.linkText("Link");
 	public final By ELEMENT_FILE_LINK = By.linkText("File");
 	public final By ELEMENT_INPUT_LINK_BOX = By.id("InputLink");
@@ -47,8 +52,30 @@ public class Activity extends SocialBase {
 
 	public final String ELEMENT_COMMENT = "//div[@class='ContentBox']//*[contains(text(), '${activityText}')]";
 	public final String ELEMENT_SHOW_HIDE_COMMENTS = "/following::*[@class='CommentListInfo']/a[contains(text(), '${inforComment}')]";
+	public final String ELEMENT_INPUT_COMMENT_TEXT_AREA = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]";
+	public final String ELEMENT_COMMENT_ICON = "//*[contains(text(), '${activityText}')]/..//*[@class= 'uiIconComment uiIconLightGray']";
+	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'CommentButton')]";
+	public final String ELEMENT_LIKE_ICON = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'LikeLink')]";
+	public final String ELEMENT_UNLIKE_ICON = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'UnLikeLink')]";
+	public final String ELEMENT_ACTIVITY_NAME_CONSECUTIVE = "//*[contains(@id,'UIActivitiesContainer')]/div[1]//*[@class='description' and text()='${activityText1}']/../../../../../../div[2]//*[@class='description' and text()='${activityText2}']";
+	public final String ELEMENT_COMMENT_LINK_MENTION = "//*[@class='contentComment']/a[contains(text(),'${userName}')]";
 
-
+	/**
+	 * Select filter activity
+	 * @author phuongdt
+	 * @date 03/10/2013
+	 * @param filterOption: All Activities, My Activities, My Spaces, Connections
+	 */
+	public void selectFileter(String filterOption){
+		info("-- Select filter activity --");
+		if(waitForAndGetElement(ELEMENT_ACTIVITY_FILTER_CURRENT.replace("${filterOption}", filterOption), DEFAULT_TIMEOUT, 0)==null){
+			click(ELEMENT_ACTIVITY_DROPDOWN,2);
+			click(ELEMENT_ACTIVITY_FILTER_OPTION.replace("${filterOption}", filterOption));
+			waitForAndGetElement(ELEMENT_ACTIVITY_FILTER_CURRENT.replace("${filterOption}", filterOption));
+			
+		}
+	}
+	 
 	/**
 	 * Select a file to post on activity
 	 * @param driveName
@@ -132,44 +159,28 @@ public class Activity extends SocialBase {
 	 */
 	public void addActivity (boolean addText, String text, boolean addLink, String link) {
 		info("-- Adding an activity to space --");
-
-		waitForAndGetElement(ELEMENT_ATIVITY_TEXTBOX);
-
+		waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT,1, 2);
 		if (addText) 
 		{
 			info("----Add text into activity text box-----");
-
-			type(ELEMENT_ATIVITY_TEXTBOX, text, true);
+			type(ELEMENT_ACTIVITY_TEXTBOX, text, false, 2);
 		}
 		if (addLink)
 		{
 			waitForAndGetElement(ELEMENT_LINK);
-
 			info("----Click on Link----");
-
 			click(ELEMENT_LINK);
-
 			info("----Input link into link box-----");
-
 			type(ELEMENT_INPUT_LINK_BOX, link, true);
-
 			waitForAndGetElement(ELEMENT_ATTACH_BUTTON);
-
 			info("----Click attach button-----");
-
 			click(ELEMENT_ATTACH_BUTTON);
-
 			waitForAndGetElement(By.id("LinkTitle"));
 		}
-
 		waitForAndGetElement(ELEMENT_SHARE_BUTTON);
-
 		info("----Click share button----");
-
 		click(ELEMENT_SHARE_BUTTON);
-
 		info("-- Verify that an activity has been added --");
-
 		if (addText) {
 			waitForTextPresent(text);
 		}
@@ -178,29 +189,29 @@ public class Activity extends SocialBase {
 		}
 	}
 
-//	/**
-//	 * Delete activity 
-//	 * @param activityText: input a String 
-//	 */
-//	public void deleteActivity (String activityText) {
-//		info("-- Deleting an activity --");
-//
-//		By ELEMENT_DELETE_ACTIVITY = By.xpath("//div[@class='ContentBox']/div/h5/span/../../div[contains(text(), '"+activityText+"')]/../h5/span[contains(@id, 'DeleteActivityButton')]");
-//
-//		WebElement elementDeleteActivityID = waitForAndGetElement(ELEMENT_DELETE_ACTIVITY);
-//
-//		String deleteActivityIconID = elementDeleteActivityID.getAttribute("id");		
-//
-//		info("---Click delete activity icon---");
-//
-//		click(By.id(deleteActivityIconID));
-//
-//		magAlert.waitForConfirmation("Are you sure to delete this activity?");
-//
-//		waitForElementNotPresent(ELEMENT_DELETE_ACTIVITY);
-//
-//		Utils.pause(1000);
-//	}
+	//	/**
+	//	 * Delete activity 
+	//	 * @param activityText: input a String 
+	//	 */
+	//	public void deleteActivity (String activityText) {
+	//		info("-- Deleting an activity --");
+	//
+	//		By ELEMENT_DELETE_ACTIVITY = By.xpath("//div[@class='ContentBox']/div/h5/span/../../div[contains(text(), '"+activityText+"')]/../h5/span[contains(@id, 'DeleteActivityButton')]");
+	//
+	//		WebElement elementDeleteActivityID = waitForAndGetElement(ELEMENT_DELETE_ACTIVITY);
+	//
+	//		String deleteActivityIconID = elementDeleteActivityID.getAttribute("id");		
+	//
+	//		info("---Click delete activity icon---");
+	//
+	//		click(By.id(deleteActivityIconID));
+	//
+	//		magAlert.waitForConfirmation("Are you sure to delete this activity?");
+	//
+	//		waitForElementNotPresent(ELEMENT_DELETE_ACTIVITY);
+	//
+	//		Utils.pause(1000);
+	//	}
 
 
 	/**
@@ -210,39 +221,12 @@ public class Activity extends SocialBase {
 	 */
 	public void addComment(String activityText, String contentOfComment){
 		info("-- Adding a new comment --");
-
-		By ELEMENT_COMMENT_OF_ACTIVITY = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + "/../div[@class='LinkShareActivityIcon']/a[1]");
-
-		By ELEMENT_COMMENT_OF_DEFAULT_ACTIVITY = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + "/../div[@class='DefaultActivityIcon']/a[1]");
-
-		By ELEMENT_INPUT_COMMENT_TEXT_AREA = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + "/../../div[2]/div/div/textarea"); 		
-
 		//Add a new comment following an activity 
-		if (waitForAndGetElement(ELEMENT_COMMENT_OF_DEFAULT_ACTIVITY, 3000, 0) != null){
-
-			click(ELEMENT_COMMENT_OF_DEFAULT_ACTIVITY);
-
-		}else if (waitForAndGetElement(ELEMENT_COMMENT_OF_ACTIVITY, 3000, 0) != null){
-
-			click(ELEMENT_COMMENT_OF_ACTIVITY);
-		}
-
-		type(ELEMENT_INPUT_COMMENT_TEXT_AREA, contentOfComment, true);
-
+		click(ELEMENT_COMMENT_ICON.replace("${activityText}", activityText));
+		type(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText), contentOfComment, false);
 		//Click on Comment button
-		By ELEMENT_COMMENT_ID = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + "/../../div[2]/div/div/textarea[contains(@id, 'CommentTextarea')]");
-
-		WebElement elementCommentButtonID = waitForAndGetElement(ELEMENT_COMMENT_ID);
-
-		String elementCommentID = elementCommentButtonID.getAttribute("id");
-
-		String commentButtonID = elementCommentID.replace("CommentTextarea", "CommentButton"); 
-
-		click(By.id(commentButtonID));
-
+		click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
 		waitForTextPresent(contentOfComment);
-
-		Utils.pause(1000);
 	}
 
 	/**
@@ -251,17 +235,11 @@ public class Activity extends SocialBase {
 	 */
 	public void deleteComment(String contentOfComment){
 		info("-- Deleting a comment --");
-
 		String ELEMENT_COMMENT_TEXT = "//div[@class='ContentBox']/div[2]/div/div/p[contains(text(), '"+ contentOfComment +"')]";
-
 		By ELEMENT_DELETE_COMMENT_BUTTON = By.xpath( ELEMENT_COMMENT_TEXT + "/../../span[@class='CloseContentBoxNormal']");
-
 		click(ELEMENT_DELETE_COMMENT_BUTTON);
-
 		magAlert.waitForConfirmation("Are you sure to delete this comment?");
-
 		waitForElementNotPresent(ELEMENT_DELETE_COMMENT_BUTTON);
-
 		Utils.pause(1000);
 	}
 
@@ -270,20 +248,11 @@ public class Activity extends SocialBase {
 	 * @param activityText: input a text (String) 
 	 */
 	public void likeOrUnlikeActivity(String activityText){
-
-		By ELEMENT_LIKE_ACTIVITY = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + "/../div[@class='LinkShareActivityIcon']/a[2]");
-
-		By ELEMENT_LIKE_DEFAULT_ACTIVITY = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + "/../div[@class='DefaultActivityIcon']/a[2]");
-
 		info("-- Action: Like or Unlike an activity --");
-
-		if (waitForAndGetElement(ELEMENT_LIKE_DEFAULT_ACTIVITY, 3000, 0) != null){
-
-			click(ELEMENT_LIKE_DEFAULT_ACTIVITY);
-
-		}else if (waitForAndGetElement(ELEMENT_LIKE_ACTIVITY, 3000, 0) != null){
-
-			click(ELEMENT_LIKE_ACTIVITY);
+		if (waitForAndGetElement(ELEMENT_LIKE_ICON.replace("${activityText}", activityText), DEFAULT_TIMEOUT, 0) != null){
+			click(ELEMENT_LIKE_ICON.replace("${activityText}", activityText));
+		}else{
+			click(ELEMENT_UNLIKE_ICON);
 		}
 	}
 
@@ -305,7 +274,7 @@ public class Activity extends SocialBase {
 
 		By ELEMENT_INPUT_EDIT_DESCRIPTION_LINK = By.xpath("//*[@id='UIActivityComposerContainer_LINK_ACTIVITY_']/div/div/textarea[@class='InputDescription']");
 
-		type(ELEMENT_ATIVITY_TEXTBOX, inputText, true);
+		type(ELEMENT_ACTIVITY_TEXTBOX, inputText, true);
 
 		click(ELEMENT_LINK);
 
@@ -375,9 +344,7 @@ public class Activity extends SocialBase {
 	 */
 	public void showHideComments(String activityText, boolean showComment, boolean hideComment, String inforComment){
 		info("-- Show/Hide a comment --");
-
 		By ELEMENT_SHOW_HIDE_ALL_COMMENTS = By.xpath(ELEMENT_COMMENT.replace("${activityText}", activityText) + ELEMENT_SHOW_HIDE_COMMENTS.replace("${inforComment}", inforComment));
-
 		if (showComment){
 			click(ELEMENT_SHOW_HIDE_ALL_COMMENTS);
 			waitForElementNotPresent(ELEMENT_SHOW_HIDE_ALL_COMMENTS);
@@ -388,4 +355,63 @@ public class Activity extends SocialBase {
 		Utils.pause(1000);
 	}
 
+	/**
+	 * @author phuongdt
+	 * check visibility of activity on page using scroll bar
+	 */
+	public void waitForActivityPresent(String activityText, boolean isCurrentPosition){
+		info("-- Verify Activity "+activityText+"--");
+		if(!isCurrentPosition){
+			Locatable hoverItem = (Locatable) driver.findElement(By.xpath("//div[@class='TRContainer ClearFix']"));
+			int y = hoverItem.getCoordinates().onPage().getY();
+			((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+y+");");
+		}
+		for (int second = 0;; second++) {
+			if(second >=8){
+				break;
+			}
+			JavascriptExecutor executor = (JavascriptExecutor)driver;
+			executor.executeScript("window.scrollBy(0,200)", "");
+			if(waitForAndGetElement(By.xpath("//*[contains(text(),'"+activityText+"')]"), DEFAULT_TIMEOUT,1)!=null)
+				break;
+		}
+	}
+
+	/**
+	 * @author phuongdt
+	 * check invisibility of activity on page using scroll bar
+	 */
+	public void waitForActivityNotPresent(String activityText, boolean isCurrentPosition){
+		info("-- Verify Activity "+activityText+"--");
+		if(!isCurrentPosition){
+			Locatable hoverItem = (Locatable) driver.findElement(By.xpath("//div[@class='TRContainer ClearFix']"));
+			int y = hoverItem.getCoordinates().onPage().getY();
+			((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+y+");");
+		}
+		for (int second = 0;; second++) {
+			if(second >=8){
+				break;
+			}
+			JavascriptExecutor executor = (JavascriptExecutor)driver;
+			executor.executeScript("window.scrollBy(0,200)", "");
+			waitForTextNotPresent(activityText);
+		}
+	}
+	
+	/**
+	 * @author phuongdt
+	 * mention a user in activity
+	 */
+	public void mentionActivity(String activityText, String userName){
+		info("-- Adding a mention comment --");
+		//Add a new comment following an activity 
+		click(ELEMENT_COMMENT_ICON.replace("${activityText}", activityText));
+		type(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText), "@"+userName, false);
+		click(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText));
+		//click("//*[@class='avatarSmall' and text()='"+userName+"']");
+		click("//*[@class='avatarSmall']");
+		//Click on Comment button
+		click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
+		waitForAndGetElement(ELEMENT_COMMENT_LINK_MENTION.replace("${userName}", userName));
+	}
 }

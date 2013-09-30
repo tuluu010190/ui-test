@@ -13,6 +13,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ * 
+ * @author phuongdt
+ * @date 26/09/2013
+ *
+ */
 public class Social_Dashboard extends DashBoard {
 	//Platform
 	ManageAccount magAcc;

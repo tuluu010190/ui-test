@@ -419,13 +419,14 @@ public class TestBase {
 		waitForTextPresent(message, waitTime);
 	}
 
-	public void type(Object locator, String value, boolean validate) {		
+	public void type(Object locator, String value, boolean validate, Object...opParams) {	
+		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);
 		try {
 			for (int loop = 1;; loop++) {
 				if (loop >= ACTION_REPEAT) {
 					Assert.fail("Timeout at type: " + value + " into " + locator);
 				}
-				WebElement element = waitForAndGetElement(locator, 5000, 0);		
+				WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);		
 				if (element != null){
 					if (validate) element.clear();
 					element.click();
@@ -440,11 +441,11 @@ public class TestBase {
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			type(locator, value, validate);
+			type(locator, value, validate, opParams);
 		} catch (ElementNotVisibleException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			type(locator, value, validate);
+			type(locator, value, validate, opParams);
 		} finally {
 			loopCount = 0;
 		}

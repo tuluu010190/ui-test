@@ -239,7 +239,7 @@ public class SocialBase extends PlatformBase {
 	// Go to My Connections
 	public void goToMyConnections(){
 		info("--Go to My Connections--");
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
 		mouseOver(ELEMENT_TOOLBAR_NETWORKS_ICON, true);
 		click(ELEMENT_TOOLBAR_NETWORKS_ICON);
 		waitForAndGetElement(ELEMENT_SEARCH_BUTTON);
