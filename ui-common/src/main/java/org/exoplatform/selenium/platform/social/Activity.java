@@ -31,7 +31,7 @@ import org.openqa.selenium.internal.Locatable;
 public class Activity extends SocialBase {
 
 	Dialog dialog = new Dialog(driver);
-	ManageAlert magAlert = new ManageAlert(driver);
+	ManageAlert magAlert;
 
 	//=====Element on space home page=======stash@{1}
 	// Go to My Spaces > Select a space
@@ -39,26 +39,34 @@ public class Activity extends SocialBase {
 	public final By ELEMENT_ACTIVITY_DROPDOWN = By.xpath("//div[@class='btn dropdown-toggle']");
 	public final String ELEMENT_ACTIVITY_FILTER_OPTION = "//a[@class='OptionItem' and contains(text(),'${filterOption}')]";
 	public final String ELEMENT_ACTIVITY_FILTER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${filterOption}')]";
+	public final By ELEMENT_ACTIVITY_TEXTAREA = By.id("composerInput");
 	public final By ELEMENT_ACTIVITY_TEXTBOX = By.id("DisplaycomposerInput");
-	public final By ELEMENT_LINK = By.linkText("Link");
-	public final By ELEMENT_FILE_LINK = By.linkText("File");
+	public final By ELEMENT_LINK = By.xpath("//i[@class='uiIconSocUILinkActivityComposer uiIconSocLightGray']");
+	public final By ELEMENT_FILE_LINK = By.xpath("//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
 	public final By ELEMENT_INPUT_LINK_BOX = By.id("InputLink");
 	public final By ELEMENT_SELECT_FILE_BUTTON = By.linkText("Select File"); 
 	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
-	public final By ELEMENT_SELECT_BUTTON = By.xpath("input[@value='Select']");
-	public final By ELEMENT_UPLOAD_BUTTON = By.id("file");
+	public final By ELEMENT_SELECT_BUTTON = By.xpath("//button[text()='Select']");
+	public final By ELEMENT_UPLOAD_BUTTON = By.xpath("//*[@data-original-title='Upload file.']");
 	public final By ELEMENT_ATTACH_BUTTON = By.id("AttachButton");
 	public final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
+	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//i[@class='uiIconPlus uiIconLightGray']");
 
 	public final String ELEMENT_COMMENT = "//div[@class='ContentBox']//*[contains(text(), '${activityText}')]";
 	public final String ELEMENT_SHOW_HIDE_COMMENTS = "/following::*[@class='CommentListInfo']/a[contains(text(), '${inforComment}')]";
-	public final String ELEMENT_INPUT_COMMENT_TEXT_AREA = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]";
 	public final String ELEMENT_COMMENT_ICON = "//*[contains(text(), '${activityText}')]/..//*[@class= 'uiIconComment uiIconLightGray']";
 	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'CommentButton')]";
+	public final String ELEMENT_INPUT_COMMENT_TEXT_AREA = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]";
 	public final String ELEMENT_LIKE_ICON = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'LikeLink')]";
 	public final String ELEMENT_UNLIKE_ICON = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'UnLikeLink')]";
 	public final String ELEMENT_ACTIVITY_NAME_CONSECUTIVE = "//*[contains(@id,'UIActivitiesContainer')]/div[1]//*[@class='description' and text()='${activityText1}']/../../../../../../div[2]//*[@class='description' and text()='${activityText2}']";
 	public final String ELEMENT_COMMENT_LINK_MENTION = "//*[@class='contentComment']/a[contains(text(),'${userName}')]";
+	public final String ELEMENT_USER_NAME_LINK_ACTIVITY = "//div[@class='description']/a[contains(text(),'${userName}')]";
+	public final String ELEMENT_USER_NAME_LINK_COMMENT = "//div[@class='description']/*[contains(text(), '${activityText}')]/../../..//p[@class='contentComment']/a[contains(text(),'${userName}')]";
+	public final By ELEMENT_DRIVER_BOX = By.xpath("//div[@class='btn dropdown-toggle']");
+	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
+	public final String ELEMENT_DRIVER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${driveName}')]";
+	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 
 	/**
 	 * Select filter activity
@@ -84,70 +92,50 @@ public class Activity extends SocialBase {
 	 * @param selectFileName
 	 * @param uploadFileLink
 	 * @param uploadFileName
+	 * @param option: newFolder
 	 */
-	public void selectFile(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileLink, String uploadFileName) {
+	public void selectFile(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
+		String newFolder = (String) (params.length > 0 ? params[0] : "");
+		magAlert = new ManageAlert(driver);
 		info("-- Selecting a file to post on activity --");
-
-		By ELEMENT_DRIVE_BOX = By.xpath("//select[@onchange='eXo.commons.DocumentSelector.changeDrive(this);']");
-		String [] paths = folderPath.split("/");
-
 		waitForAndGetElement(ELEMENT_FILE_LINK);
-
 		click(ELEMENT_FILE_LINK);
-
-		waitForAndGetElement(ELEMENT_SELECT_FILE_BUTTON);
-
-		info("----Click Select file button----");
-
-		click(ELEMENT_SELECT_FILE_BUTTON);
-
 		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);	
-
 		info("----Select drive----");
-
-		select(ELEMENT_DRIVE_BOX, driveName);
-
+		if(waitForAndGetElement(ELEMENT_DRIVER_CURRENT.replace("${driveName}", driveName), DEFAULT_TIMEOUT, 0)==null){
+			click(ELEMENT_DRIVER_BOX,2);
+			click(ELEMENT_DRIVER_OPTION.replace("${driveName}", driveName));
+		}
 		info("---Select folder path----");
+		String [] paths = folderPath.split("/");
 		for (String path : paths)
-
-			//info("---Select folder path----");
-
-			click(By.xpath("//a[text()='"+ path +"']"));
-
+			click(By.linkText(path));
+		if(newFolder!=""){
+			click(ELEMENT_CREATE_FOLDER_BUTTON);
+			magAlert.inputAlertText(newFolder);
+			click(By.linkText(newFolder));
+		}
 		if (upload)
 		{
-			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH);
-
+			info("-- Upload file --");
+			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
 			driver.switchTo().frame(frame);
-
-			//System.out.println("DEBUG:" + getAbsoluteFilePath(uploadFileLink));
-
-			type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(uploadFileLink), false);
-
-			Utils.pause(500);
-
-			switchToParentWindow();	
-
-			waitForAndGetElement(By.xpath("//a[text()='"+uploadFileName+"']"));
-
-			click(By.xpath("//a[text()='"+uploadFileName+"']"));
-
-			Utils.pause(500);
-
-			click(ELEMENT_SELECT_BUTTON);
-
-			waitForAndGetElement(By.xpath("//span[@class='BrowsedDocument' and text()='"+uploadFileName+"']"));
+			WebElement upload2 = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);
+			upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
+			info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
+			switchToParentWindow();
+			waitForAndGetElement(By.linkText(uploadFileName));
+			click(By.linkText(uploadFileName));
 		}
 		else 
 		{
-			click(By.xpath("//a[text()='"+selectFileName+"']"));
-
+			click(By.linkText(selectFileName));
 			Utils.pause(500);
-
-			click(ELEMENT_SELECT_BUTTON);
-
-			waitForAndGetElement(By.xpath("//span[@class='BrowsedDocument' and text()='"+selectFileName+"']"));
 		}
+		click(ELEMENT_SELECT_BUTTON);
+		click(ELEMENT_SHARE_BUTTON);
+		waitForTextPresent(uploadFileName);
 	}
 
 	/**
@@ -163,7 +151,9 @@ public class Activity extends SocialBase {
 		if (addText) 
 		{
 			info("----Add text into activity text box-----");
-			type(ELEMENT_ACTIVITY_TEXTBOX, text, false, 2);
+			WebElement inputText = waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT, 1, 2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", inputText);
+			inputText.sendKeys(text);
 		}
 		if (addLink)
 		{
@@ -357,6 +347,7 @@ public class Activity extends SocialBase {
 
 	/**
 	 * @author phuongdt
+<<<<<<< HEAD
 	 * check visibility of activity on page using scroll bar
 	 */
 	public void waitForActivityPresent(String activityText, boolean isCurrentPosition){
@@ -400,18 +391,30 @@ public class Activity extends SocialBase {
 	
 	/**
 	 * @author phuongdt
-	 * mention a user in activity
+	 * mention a user in activity or comment of a activity
 	 */
-	public void mentionActivity(String activityText, String userName){
-		info("-- Adding a mention comment --");
-		//Add a new comment following an activity 
-		click(ELEMENT_COMMENT_ICON.replace("${activityText}", activityText));
-		type(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText), "@"+userName, false);
-		click(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText));
-		//click("//*[@class='avatarSmall' and text()='"+userName+"']");
-		click("//*[@class='avatarSmall']");
-		//Click on Comment button
-		click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
-		waitForAndGetElement(ELEMENT_COMMENT_LINK_MENTION.replace("${userName}", userName));
+	public void mentionActivity(boolean isActivity, String activityText, String userName){
+		if(isActivity){
+			info ("-- Adding a mention activity --");			
+			WebElement inputText = waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT, 1, 2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", inputText);
+			inputText.sendKeys("@"+userName);
+			click(ELEMENT_ACTIVITY_TEXTBOX);
+			click("//*[@class='avatarSmall']");
+			click(ELEMENT_SHARE_BUTTON);
+			waitForAndGetElement(By.xpath(ELEMENT_USER_NAME_LINK_ACTIVITY.replace("${userName}", userName)));
+		}
+		else{
+			info("-- Adding a mention comment --");
+			//Add a new comment following an activity 
+			click(ELEMENT_COMMENT_ICON.replace("${activityText}", activityText));
+			type(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText), "@"+userName, false);
+			click(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText));
+			//click("//*[@class='avatarSmall' and text()='"+userName+"']");
+			click("//*[@class='avatarSmall']");
+			//Click on Comment button
+			click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
+			waitForAndGetElement(ELEMENT_USER_NAME_LINK_COMMENT.replace("${activityText}", activityText).replace("${userName}", userName));
+		}
 	}
 }

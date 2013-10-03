@@ -73,7 +73,7 @@ public class SocialBase extends PlatformBase {
 	public final By ELEMENT_TOOLBAR_PROFILE_ICON = By.linkText("My Profile");
 	public final By ELEMENT_TOOLBAR_NETWORKS_ICON = By.linkText("My Connections");
 	public final By ELEMENT_FIND_PEOPLE_ICON = By.linkText("Find Connections");
-	public final By ELEMENT_TOOLBAR_ACTIVITY_ICON = By.linkText("Activity Stream");
+	public final By ELEMENT_TOOLBAR_ACTIVITY_ICON = By.linkText("My Activity Stream");
 
 	// Go to Account Name link > My Profile 
 	//public final By ELEMENT_ACTIVITY_STREAM_LINK = By.linkText("Activity Stream");
@@ -248,10 +248,10 @@ public class SocialBase extends PlatformBase {
 	// Go to Activity stream
 	public void goToActivityStream(){
 		info("--Go to Activity Stream--");
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
 		mouseOver(ELEMENT_TOOLBAR_ACTIVITY_ICON, true);
 		click(ELEMENT_TOOLBAR_ACTIVITY_ICON);
-		waitForTextPresent("All Updates");
+		waitForTextPresent("What are you working on?");
 	}	
 	
 	////////////

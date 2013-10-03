@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
@@ -445,7 +444,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 		//Add activity of connection user
 		navToolBar.goToHomePage();
 		//Mention user in comment
-		mentionActivity("activity mention of "+user1, user);
+		mentionActivity(false,"activity mention of "+user1, user);
 		
 		//Remove connection
 		navToolBar.goToConnectionPage();

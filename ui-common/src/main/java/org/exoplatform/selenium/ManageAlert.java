@@ -104,4 +104,16 @@ public class ManageAlert extends TestBase{
 		}
 		Utils.pause(1000);
 	}
+	
+	//Input text
+	public void inputAlertText(String text){
+		try {
+			Alert alert = driver.switchTo().alert();
+			alert.sendKeys(text);
+			alert.accept();
+			switchToParentWindow();
+		} catch (NoAlertPresentException e) {
+		}
+		Utils.pause(1000);
+	}
 }
