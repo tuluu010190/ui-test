@@ -29,7 +29,7 @@ public class AnswerManageQuestion extends AnswerBase {
 
 	//Manage Question
 	public final By ELEMENT_SUBMIT_QUESTION_BUTTON = By.xpath("//*[contains(text(),'Submit Question')]");
-	public final By ELEMENT_SUBMIT_QUESTION_BUTTON_AUX = By.xpath("//*[@id='UIQuestions']//*[text()='Submit Question']");
+	public final By ELEMENT_SUBMIT_QUESTION_BUTTON_AUX = By.xpath("//*[@id='UIQuestions']//*[contains(text(),'Submit Question')]");
 	public final String ELEMENT_MANAGE_QUESTION_DEACTIVATE = "//*[text()='${question}']/..//*[@data-original-title='Deactivate']";
 	public final String ELEMENT_MANAGE_QUESTION_ACTIVATE = "//*[text()='${question}']/..//*[@data-original-title='Activate']";
 	public final String ELEMENT_MANAGE_QUESTION_APPROVE = "//*[text()='${question}']/..//*[@data-original-title='Approve']";
@@ -45,6 +45,8 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final By ELEMENT_DISAPPROVED_QUESTION = By.xpath("//div[@data-original-title='Approve']//span");
 	public final By ELEMENT_DISACTIVATED_QUESTION = By.xpath("//div[@data-original-title ='Activate']//span");
 	public final By ELEMENT_ACTIVATED_QUESTION = By.xpath("//div[@data-original-title ='Deactivate']//span");
+	public final By ELEMENT_APPROVE_QUESTION_EDIT = By.id("IsApproved");
+	public final By ELEMENT_ACTIVATE_QUESTION_EDIT = By.id("IsActivated");
 	public final By ELEMENT_QUESTION_CONTENTFRAME_1= By.xpath("//iframe[@id='Question___Frame']");
 	public final By ELEMENT_QUESTION_CONTENTFRAME_2= By.xpath("//td[@id='xEditingArea']/iframe");	
 	public final By ELEMENT_QUESTION_AUTHOR = By.id("Author");
@@ -96,7 +98,7 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final By ELEMENT_OPEN_QUESTION_TAB = By.linkText("Open Questions");
 	public final String ELEMENT_ANSWER_QUESTION_IN_LIST = "//*[text()='${question}']/..//*[@data-original-title='Answer']";
 	public final String ELEMENT_EDIT_QUESTION_IN_LIST = "//*[text()='${question}']/..//*[@data-original-title='Edit']";
-	public final String ELEMENT_DELETE_QUESTION_IN_LIST = "//*[text()='${question}']/..//*[@data-original-title='Delete']";
+	public final String ELEMENT_DELETE_QUESTION_IN_LIST = "//div[@id='QuestionManagerment-tab']//td[text()='${question}']/..//*[@data-original-title='Delete']";
 	public final String ELEMENT_LANGUAGE_LINK_IN_LIST = "//*[text()='${question}']/..//*[contains(text(), '${language}')]";
 	public final By ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON = By.xpath("//*[@id='FAQQuestionManagerment']//*[text()='Close']");
 	public final String ELEMENT_QUESTION_IN_ALL_TAB = "//*[@id='QuestionManagerment-tab']//*[text()='${question}']";
@@ -174,18 +176,18 @@ public class AnswerManageQuestion extends AnswerBase {
 		WebElement app = waitForAndGetElement(ELEMENT_APPROVED_QUESTION, 5000, 0);
 		if (app != null){
 			if (approved){
-				check(ELEMENT_APPROVED_QUESTION, 2);
+				check(ELEMENT_APPROVE_QUESTION_EDIT, 2);
 			}else {
-				uncheck(ELEMENT_APPROVED_QUESTION, 2);
+				uncheck(ELEMENT_APPROVE_QUESTION_EDIT, 2);
 			}
 		}
 
 		WebElement act = waitForAndGetElement(ELEMENT_ACTIVATED_QUESTION, 5000, 0);
 		if (act != null){
 			if (activated){
-				check(ELEMENT_ACTIVATED_QUESTION, 2);
+				check(ELEMENT_ACTIVATE_QUESTION_EDIT, 2);
 			}else {
-				uncheck(ELEMENT_ACTIVATED_QUESTION, 2);
+				uncheck(ELEMENT_ACTIVATE_QUESTION_EDIT, 2);
 			}
 		}
 
@@ -213,7 +215,7 @@ public class AnswerManageQuestion extends AnswerBase {
 		Utils.pause(2000);
 
 		info("Submit a question with name " + questionName);
-		if (waitForAndGetElement(ELEMENT_SUBMIT_QUESTION_BUTTON, 5000, 0) != null ){
+		if (waitForAndGetElement(ELEMENT_SUBMIT_QUESTION_BUTTON, 10000, 0) != null ){
 			click(ELEMENT_SUBMIT_QUESTION_BUTTON);
 		}else {
 			click(ELEMENT_SUBMIT_QUESTION_BUTTON_AUX);
@@ -282,6 +284,7 @@ public class AnswerManageQuestion extends AnswerBase {
 		}
 		editDataOfQuestion(language, newQuestionName, content, author, email, approved, activated, upload, filePaths);
 		button.save();
+		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		Utils.pause(2000);
 	}
 

@@ -76,24 +76,18 @@ public class ForumPermission extends ForumBase {
 				per.selectUserPermission(userGroup[0]);
 			}
 			waitForElementNotPresent(per.ELEMENT_SELECT_USER_POPUP);
-			String text = waitForAndGetElement(per.ELEMENT_PERMISSION_INPUT).getAttribute("value");
-			info("Value of input is " + text);
 			break;
 		case 3:	
 			info("Set permission for group " + userGroup[0]);
 			click(per.ELEMENT_SELECT_GROUP_ICON);
 			per.selectGroupPermission(userGroup[0]);
 			waitForElementNotPresent(per.ELEMENT_SELECT_GROUP_POPUP);
-			String text1 = waitForAndGetElement(per.ELEMENT_PERMISSION_INPUT).getAttribute("value");
-			info("Value of input is " + text1);
 			break;
 		case 4:	
 			info("Set permission with membership " + userGroup[1] + "/" + userGroup[0]);
 			click(per.ELEMENT_SELECT_MEMBERSHIP_ICON);
 			per.selectGroupMembership(userGroup[0], userGroup[1]);
 			waitForElementNotPresent(per.ELEMENT_SELECT_ROLE_POPUP);
-			String text2 = waitForAndGetElement(per.ELEMENT_PERMISSION_INPUT).getAttribute("value");
-			info("Value of input is " + text2);
 			break;
 		default:
 			break;

@@ -40,8 +40,9 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		mCom = new AnswerManageComment(driver);
 		HPAct = new HomePageActivity(driver);
 		navTool = new NavigationToolbar(driver);
+
 		button = new Button(driver);
-		Acc.signIn(DATA_USER1, DATA_PASS);
+
 		goToAnswer();
 	}
 
@@ -50,9 +51,9 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 	 */
 	@Test
 	public void test01_CreateQuestion(){
-		String categoryName = "CategoryAnswer1";
+		String categoryName = "Category74754";
 		String description = "Add new category for answer";	
-		String questionName = "Question 01" ;
+		String questionName = "Question 74754" ;
 		String questionContent = "This is your activity stream. It will help you to keep an eye on important things happening in your social intranet." +
 				"Connect and discuss with others" +
 				"Build your network by connecting with colleagues in Connections. They will be able to follow, comment on or like all the ideas, moods, status updates, links or documents that you share above. Let the discussion begin! Discover the power of social collaboration" +
@@ -229,7 +230,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		info("Check activity on homepage");
 		navTool.goToHomePage();
 		waitForAndGetElement(By.linkText(newName));
-		HPAct.checkTitleAfterEditing(questionName, newName);
+		HPAct.checkTitleAfterEditQuestion(newName);
 
 		goToAnswer();
 

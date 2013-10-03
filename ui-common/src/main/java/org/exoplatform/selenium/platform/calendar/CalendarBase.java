@@ -221,7 +221,10 @@ public class CalendarBase extends PlatformBase {
 	 * @param color
 	 * @param type
 	 */
-	public void executeActionCalendar(String idCal, String action, String color, String type){
+	public void executeActionCalendar(String calendar, String action){
+		String idCal = getPropertyOfCalendar(calendar,1);
+		String color = getPropertyOfCalendar(calendar,3);
+		String type = getPropertyOfCalendar(calendar,2);
 		((JavascriptExecutor)driver).executeScript("javascript:eXo.webui.UIForm.submitEvent('"+ID_CALENDAR_PAGE+"#UICalendars','"+action+"','&objectId="+idCal+"&calType="+type+"&calColor="+color+"')");
 	}
 
@@ -233,11 +236,8 @@ public class CalendarBase extends PlatformBase {
 	 * @param mode
 	 */
 	public void shareCalendar(String calendar, String[] userGroup, boolean[] canEdit, int...mode){
-		String idCal = getPropertyOfCalendar(calendar,1);
-		String oldColor = getPropertyOfCalendar(calendar,3);
-		String type = getPropertyOfCalendar(calendar,2);
 
-		executeActionCalendar(idCal,"ShareCalendar", oldColor, type);
+		executeActionCalendar(calendar,"ShareCalendar");
 
 		for(int i = 0; i < userGroup.length; i++){
 			int modeUser = mode.length > i ? mode[i] : 0;
@@ -561,11 +561,8 @@ public class CalendarBase extends PlatformBase {
 		boolean check = verify.length > 0 ? verify[0] : true;
 
 		info("--Delete a Calendar-");
-		String idCal = getPropertyOfCalendar(name,1);
-		String color = getPropertyOfCalendar(name,3);
-		String type = getPropertyOfCalendar(name,2);
 
-		executeActionCalendar(idCal,"RemoveCalendar", color, type);
+		executeActionCalendar(name,"RemoveCalendar");
 
 		if (check){
 			waitForElementNotPresent(ELEMENT_CALENDAR_GET_BY_TAG_LI.replace("{$calendar}", name));
@@ -582,11 +579,8 @@ public class CalendarBase extends PlatformBase {
 	 * @param groups
 	 */
 	public void editCalendar(String oldName,String name, String desc, String color, String...groups){
-		String idCal = getPropertyOfCalendar(oldName,1);
-		String oldColor = getPropertyOfCalendar(oldName,3);
-		String type = getPropertyOfCalendar(oldName,2);
 
-		executeActionCalendar(idCal,"EditCalendar", oldColor, type);
+		executeActionCalendar(oldName,"EditCalendar");
 		inputAddCalendarForm(name,desc,color,groups);
 		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
 		waitForAndGetElement(By.linkText(name));
@@ -597,10 +591,8 @@ public class CalendarBase extends PlatformBase {
 	 * @param calendar
 	 */
 	public void deleteSharedCalendar(String calendar){
-		String idCal = getPropertyOfCalendar(calendar,1);
-		String oldColor = getPropertyOfCalendar(calendar,3);
-		String type = getPropertyOfCalendar(calendar,2);
-		executeActionCalendar(idCal,"RemoveSharedCalendar", oldColor, type);
+
+		executeActionCalendar(calendar,"RemoveSharedCalendar");
 		waitForElementNotPresent(By.linkText(calendar));
 	}
 

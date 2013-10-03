@@ -219,7 +219,8 @@ public class ForumManageForum extends ForumBase {
 		info("Delete forum");
 		click(ELEMENT_DELETE_FORUM);
 		click(ELEMENT_OK_DELETE);
-		waitForTextNotPresent(title);
+//		waitForTextNotPresent(title);
+		waitForElementNotPresent(By.linkText(title));
 		info("Delete forum successfully");
 	}
 

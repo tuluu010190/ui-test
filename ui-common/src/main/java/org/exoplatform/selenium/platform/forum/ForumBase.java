@@ -1,5 +1,7 @@
 package org.exoplatform.selenium.platform.forum;
 
+import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
@@ -13,8 +15,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
-
-import static org.exoplatform.selenium.TestLogger.info;
 
 /**
  * Migrate from plf3.5
@@ -33,6 +33,7 @@ public class ForumBase extends PlatformBase {
 
 	//-----------------Forum Home screen--------------------------------------------
 	public final By ELEMENT_ADD_CATEGORY = By.linkText("Add Category");
+	public final By ELEMENT_WHAT_GOING_ON = By.xpath("//div[contains(text(),'Going on?')]");
 	public final By ELEMENT_ADD_FORUM = By.linkText("Add Forum");
 	public final String ELEMENT_BREAD_FORUM = "//li[text()='${forum}']";
 	public final By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
@@ -52,6 +53,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_HOME_BUTTON = By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
 	public final String ELEMENT_HOME_FORUM = "Forum Home";
 	public final By ELEMENT_USER_MANAGEMENT = By.xpath("//*[@id='ManageModerator']//*[@class='uiIconUser uiIconLightGray']");
+	public final By ELEMENT_MORE_BUTTON = By.xpath("//div[contains(text(),'More')]");
 
 	//Administration menu
 	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray']");
@@ -132,7 +134,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_BBCODE_CLOSE_BUTTON = By.xpath("//*[@id='BBCodeManagerForm']//button[text()='Close']");
 	public final String ELEMENT_BBCODE_EDIT_ICON = "//*[contains(@href,'${tag}') and @data-original-title='Edit BBCode']";
 	public final String ELEMENT_BBCODE_DELETE_ICON = "//*[contains(@data-action,'TAGMOTUPDATE') and @data-original-title='Delete BBCode']";
-	public final String ELEMENT_BBCODE_DELETE_MESSAGE = "Are you sure you want to delete this BB Code ?";
+	public final By ELEMENT_BBCODE_DELETE_MESSAGE = By.xpath("//span[contains(text(),'Are you sure you want to delete this BB Code ?')]");
 
 	public final By ELEMENT_BBCODE_ADD_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add BBCode']");
 	public final By ELEMENT_BBCODE_EDIT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Edit BBCode']");
@@ -390,6 +392,9 @@ public class ForumBase extends PlatformBase {
 		}
 		click(ELEMENT_BOOKMARKS_OPTION.replace("${item}", item));
 		//check bookmarks display
+		WebElement bookmark = waitForAndGetElement(ELEMENT_BOOKMARKS,DEFAULT_TIMEOUT,0);
+		if (bookmark == null)
+			click(ELEMENT_MORE_BUTTON);
 		click(ELEMENT_BOOKMARKS);
 		waitForAndGetElement(ELEMENT_BOOKMARKS_POPUP);
 		waitForAndGetElement(element_item);
@@ -593,6 +598,8 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void goToBBCodeManagement(){
 		info("Go to BB code management");
+		if(waitForAndGetElement(ELEMENT_ADMINISTRATION,10000,0) == null)
+			click(ELEMENT_MORE_BUTTON);
 		click(ELEMENT_ADMINISTRATION);
 		click(ELEMENT_BBCODE);
 		waitForAndGetElement(ELEMENT_BBCODE_POPUP);
@@ -642,7 +649,8 @@ public class ForumBase extends PlatformBase {
 		waitForAndGetElement(ELEMENT_BBCODE_ADD_POPUP);
 		modifyBBcodeInfo(tag, replace, description, example, option);
 		waitForElementNotPresent(ELEMENT_BBCODE_ADD_POPUP);
-		waitForTextPresent(tag.toUpperCase());
+//		waitForTextPresent(tag.toUpperCase());
+		waitForAndGetElement("//*[contains(text(),'"+tag.toUpperCase()+"')]");
 		waitForElementNotPresent(ELEMENT_ALERT);
 		info("Add BBcode successfully");
 	}
@@ -694,7 +702,8 @@ public class ForumBase extends PlatformBase {
 		modifyBBcodeInfo(tagnew, replace, description, example, option);
 		waitForElementNotPresent(ELEMENT_BBCODE_EDIT_POPUP);
 		waitForElementNotPresent(ELEMENT_ALERT);
-		waitForTextPresent(tagnew.toUpperCase());
+		waitForAndGetElement("//label[contains(text(),'"+tagnew.toUpperCase()+"')]");
+//		waitForTextPresent(tagnew.toUpperCase());
 		info("Edit BBcode successfully");
 	}
 
@@ -710,7 +719,7 @@ public class ForumBase extends PlatformBase {
 		alert = new ManageAlert(driver);
 		info("Delete a BBcode have tag " + tag);
 		click(ELEMENT_DELETE);
-		waitForMessage(ELEMENT_BBCODE_DELETE_MESSAGE);
+		waitForAndGetElement(ELEMENT_BBCODE_DELETE_MESSAGE);
 		click(ELEMENT_OK_DELETE);
 		waitForElementNotPresent(ELEMENT_DELETE);
 		info("Delete BBcode successfully");
@@ -845,6 +854,24 @@ public class ForumBase extends PlatformBase {
 			assert temp[i].contains(content[i]): "Fail! 2 Strings are different from each other"; 
 		}
 	}
+	/**Remove empty element of array 
+	 * @author thuntn
+	 * @param arr
+	 * @return
+	 */
+	public String[] removeEmptyElementOfArray(String[] arr){
+		String[] temp = new String[arr.length];
+		int len = 0;
+		
+		for(int i = 0; i < arr.length; i++){
+			if (arr[i] != ""){
+				temp[len] = arr[i];
+				len ++;
+			}
+		}
+		info("length of ..." + temp.length);
+		return temp;
+	}
 
 	/**function check fomat of content mail
 	 * @author lientm
@@ -852,8 +879,11 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void checkContentMail(String contentMail){
 		String[] content = contentMail.split("/");
+		if(waitForAndGetElement(ELEMENT_MAIL_CONTENT,DEFAULT_TIMEOUT,0) == null)
+			click(ELEMENT_FIRST_MAIL);
 		String[] temp = getText(ELEMENT_MAIL_CONTENT).split(System.getProperty("line.separator"));
-		compareString(temp, content);
+		
+		compareString(removeEmptyElementOfArray(temp), removeEmptyElementOfArray(content));
 		info("Email content is true");
 	}
 
@@ -994,6 +1024,8 @@ public class ForumBase extends PlatformBase {
 	public void settingMailForUser(String...email){
 		button = new Button(driver);
 		String user = email.length > 0 ? email[0] : EMAIL_ADDRESS1;
+		if(waitForAndGetElement(ELEMENT_SETTING,10000,0) == null)
+			click(ELEMENT_MORE_BUTTON);
 		click(ELEMENT_SETTING);
 		waitForAndGetElement(ELEMENT_SETTING_POPUP);
 		click(ELEMENT_SETTING_MYSCRIPTIONS_TAB);

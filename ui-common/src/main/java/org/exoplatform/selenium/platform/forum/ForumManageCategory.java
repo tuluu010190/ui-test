@@ -258,7 +258,10 @@ public class ForumManageCategory extends ForumBase {
 	 * @param mode: full or only category
 	 */
 	public void exportCategoryInForum(String fileName, boolean mode, String...cat){
+
 		button = new Button(driver);
+		if(waitForAndGetElement(ELEMENT_ADMINISTRATION,10000,0) == null)
+			click(ELEMENT_MORE_BUTTON);
 		click(ELEMENT_ADMINISTRATION);
 		click(ELEMENT_EXPORT_CATEGORY);
 		waitForAndGetElement(ELEMENT_EXPORT_CATEGORY_POPUP);

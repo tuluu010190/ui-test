@@ -196,7 +196,7 @@ public class AnswerManageAnwser extends AnswerBase {
 		info("Edit answer");	
 		goToMoreActionsOfAnswer(answerName, "Edit Answer");
 		modifyAnwser(language, answerContent, approved, activated, addRelation, questionToLink, removeRelation, questionRemove);
-		waitForAndGetElement(ELEMENT_ANSWER_IN_QUESTION.replace("${answer}", answerName));
+		waitForAndGetElement(ELEMENT_ANSWER_IN_QUESTION.replace("${answer}", answerContent));
 	}
 
 	/**

@@ -176,10 +176,9 @@ public class PageManagement extends PlatformBase {
 		for (String portletId : portletIds.keySet()) {
 			String elementEditPagePage = ELEMENT_EDIT_PAGE_PAGE;
 			//String verification = PORTLET_LABEL.replace("${portletName}", portletIdsAndVerifications.get(portletId));
-			dragAndDropToObject("//div[@id='" + portletId + "']//img", elementEditPagePage);
-
+			dragAndDropToObject("//div[@id='" + portletId + "']/div", elementEditPagePage);
 			if(portletIds.get(portletId) != ""){
-				dragAndDropToObject("//div[@id='" + portletIds.get(portletId) + "']//img", elementEditPagePage);
+				dragAndDropToObject("//div[@id='" + portletIds.get(portletId) + "']/div", elementEditPagePage);
 			}
 		}
 		Utils.pause(500);

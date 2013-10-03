@@ -138,6 +138,7 @@ public class Forum_Forum_Post extends ForumBase{
 		acc.signOut();
 		acc.signIn(user, DATA_PASS);
 		goToForums();
+		
 		click(By.linkText(category));
 		click(By.linkText(topic));
 		waitForAndGetElement(mngPost.ELEMENT_POST_REPLY_BUTTON);

@@ -30,7 +30,7 @@ public class FAQ extends AnswerBase {
 	public final String DATA_ANSWER_FAQ_PAGE_NAME="AnswerFAQ";
 	public final By ELEMENT_FAQ_VIEWER = By.id("UIFAQPortlet");
 	public final By ELEMENT_FQA_CONTAINER = By.xpath("//a[@title='faq']");
-	public final By ELEMENT_FAQ_PORLET = By.id("Collaboration/FAQPortlet");
+	public final By ELEMENT_FAQ_PORLET = By.xpath("//*[@id='Collaboration/FAQPortlet']//img");
 	public final By ELEMENT_ANSWER_PAGE = By.id("UIPage");
 	public final String ELEMENT_FAQ_CATEGORY = "//*[@id='UIFAQPortlet']//h5/*[text()='${cat}']";
 	public final String ELEMENT_FAQ_QUESTION = "//*[@id='UIFAQPortlet']//a[text()='${quest}']";
@@ -85,6 +85,8 @@ public class FAQ extends AnswerBase {
 			navTool.goToEditPageEditor();
 			click(By.linkText("Collaboration"));
 			dragAndDropToObject(ELEMENT_FAQ_PORLET, ELEMENT_ANSWER_PAGE);
+			waitForAndGetElement("//*[@class='portletLayoutDecorator' and contains(text(), 'FAQPortlet')]");
+			info("drag and drop FAQ");
 			pageE.finishEditLayout();
 		}
 	}
