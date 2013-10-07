@@ -64,6 +64,19 @@ public class Social_People extends SocialBase {
 	}
 
 	/**
+	 * Verify mouse over account name link
+	 * This test case is not included in qmetry
+	 * Purpose of selenium test case: verify bug: https://jira.exoplatform.org/browse/PLF-4862
+	 */
+	@Test
+	public void test00_VerifyMouseOver(){
+		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		mouseOver(ELEMENT_TOOLBAR_NETWORKS_ICON, true);
+		click(ELEMENT_TOOLBAR_NETWORKS_ICON);
+		waitForAndGetElement(ELEMENT_SEARCH_BUTTON);
+	}
+	
+	/**
 	 * == Accept/Deny Invitation ==
 	 * Test case ID: 67657
 	 * Step 1: Send invitation
@@ -226,7 +239,7 @@ public class Social_People extends SocialBase {
 		magAcc.userSignIn(userType.PUBLISHER);
 
 		//Hover the mouse over the name of user, click on My profile
-		goToMyProfile();
+		navToolBar.goToMyProfile();
 
 		//Click on Edit button to change user's information
 		peoPro.editUserExperience(nameOfOrganization, nameOfPosition, nameOfSkill);
@@ -282,7 +295,7 @@ public class Social_People extends SocialBase {
 
 		/*Step 1: View and edit user's profile*/ 
 		//Hover the mouse over the name of user, click on My profile
-		goToMyProfile();
+		navToolBar.goToMyProfile();
 
 		//Click on Edit button to change user's information
 		peoPro.editUserBasicInformation(firstName, lastName, email);
@@ -306,7 +319,7 @@ public class Social_People extends SocialBase {
 		assert (!oldsrc.contentEquals(newsrc));
 
 		//Clear data
-		goToMyProfile();
+		navToolBar.goToMyProfile();
 		peoPro.editUserBasicInformation(oldFirstnName, oldLastName, oldEmail);
 	}
 
@@ -398,7 +411,7 @@ public class Social_People extends SocialBase {
 		magAcc.userSignIn(userType.PUBLISHER);
 
 		//Hover the mouse over the name of user, click on My profile
-		goToMyProfile();
+		navToolBar.goToMyProfile();
 
 		//Click on Edit button to change user's information
 		peoPro.editUserBasicInformation(firstName, lastName, email);
@@ -433,7 +446,7 @@ public class Social_People extends SocialBase {
 		//Login by user1
 		magAcc.userSignIn(userType.PUBLISHER);
 		//magAcc.signIn(user_login1, DATA_PASS);
-		goToMyProfile();
+		navToolBar.goToMyProfile();
 		peoPro.editUserBasicInformation(oldFirstnName, oldLastName);
 		peoPro.removeUserExperience();
 		peoPro.removeUserContact(true, true, true);

@@ -14,6 +14,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+/**
+ * 
+ * @author phuongdt
+ * @date 02/10/2013
+ *
+ */
 public class Social_HomePage_ActivityComposer extends Activity {
 	//Platform
 	ManageAccount magAcc;

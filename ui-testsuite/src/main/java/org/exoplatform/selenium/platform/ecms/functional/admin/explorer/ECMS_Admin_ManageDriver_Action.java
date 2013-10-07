@@ -19,11 +19,7 @@ import org.testng.annotations.Test;
 
 /**
  * PLF4: Add a new test case
-<<<<<<< HEAD
- * <li>Add a Drive with no applied view</li>
-=======
  * <li>Add a Drive with no applied view</li> 
->>>>>>> ECMS/Admin/Explorer
  * @author vuna2
  * @date April, 15th, 2013
  */

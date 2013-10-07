@@ -309,21 +309,25 @@ public class NavigationToolbar extends PlatformBase {
 		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
 		mouseOverAndClick(ELEMENT_MENU_EDIT_CONTENT);
 	}
-
-	//Function go to My Profile
+	
+	// Go to My Profile
 	public void goToMyProfile(){
-		acc = new ManageAccount(driver);
-		info("---Go to My Profile ---");
-		WebElement e = waitForAndGetElement(ELEMENT_MY_PROFILE_LINK,5000,0,2);
-
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK,true);
-		
-		if (waitForAndGetElement(ELEMENT_MY_PROFILE_LINK, 5000, 0) != null){
-			mouseOverAndClick(ELEMENT_MY_PROFILE_LINK);
-			if (waitForAndGetElement(acc.ELEMENT_EDIT_BASIC_INFORMATION, 5000,0) == null)
-				driver.get(DEFAULT_BASEURL.replace("/portal", "") + e.getAttribute("href"));
-		}else 
-			driver.get(DEFAULT_BASEURL.replace("/portal", "") + e.getAttribute("href"));
-	}
+		info("--Go to My Profile--");		
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
+				break;
+			}
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			if (waitForAndGetElement(ELEMENT_MY_PROFILE_LINK, 5000, 0) != null){
+				info("Element " + ELEMENT_MY_PROFILE_LINK + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		click(ELEMENT_MY_PROFILE_LINK);
+		waitForTextPresent("Basic information");
+	}	
 
 }

@@ -53,9 +53,9 @@ public class ManageMember extends SpaceManagement {
 	public final String ELEMENT_GRAND_MANAGER_BUTTON = ELEMENT_MEMBERS_TABLE + "/..//td[contains(text(),'${username}')]/..//*[@class='iPhoneCheckHandle']";
 	public final String ELEMENT_IS_MANAGER_ICON = ELEMENT_MEMBERS_TABLE + "/..//td[contains(text(),'${username}')]/..//*[@class='iPhoneCheckHandle' and @style='left: 41px;']";
 	public final String ELEMENT_IS_NOT_MANAGER_ICON = ELEMENT_MEMBERS_TABLE + "/..//td[contains(text(),'${username}')]/..//*[@class='iPhoneCheckHandle' and @style='left: 1px;']";
-	public final String ELEMEN_MEMBER_USER_ITEM = "//th[contains(text(),'Members')]/ancestor::table//td[contains(text(),'${userName}')]";
-	public final String ELEMEN_INVITED_USER_ITEM = "//th[contains(text(),'Invited')]/ancestor::table//td[contains(text(),'${userName}')]";
-	public final String ELEMEN_PENDING_USER_ITEM = "//th[contains(text(),'Pending')]/ancestor::table//td[contains(text(),'${userName}')]";
+	public final String ELEMENT_MEMBER_USER_ITEM = "//th[contains(text(),'Members')]/ancestor::table//td[contains(text(),'${userName}')]";
+	public final String ELEMENT_INVITED_USER_ITEM = "//th[contains(text(),'Invited')]/ancestor::table//td[contains(text(),'${userName}')]";
+	public final String ELEMENT_PENDING_USER_ITEM = "//th[contains(text(),'Pending')]/ancestor::table//td[contains(text(),'${userName}')]";
 	public final String ELEMENT_REMOVE_USER_BUTTON = ELEMENT_MEMBERS_TABLE + "/..//td[contains(text(),'${userName}')]/..//i[@class='uiIconDelete uiIconLightGray']";
 	public final String ELEMENT_PENDING_VALIDATE_BUTTON = ELEMENT_PENDING_TABLE+ "/..//td[contains(text(),'${userName}')]/..//i[@class='uiIconValidate uiIconLightGray']";
 	public final String ELEMENT_PENDING_DECLINE_BUTTON = ELEMENT_PENDING_TABLE+ "/..//td[contains(text(),'${userName}')]/..//i[@class='uiIconRemove uiIconLightGray']";
@@ -176,7 +176,7 @@ public class ManageMember extends SpaceManagement {
 	 */
 	public void validateInvitation(String name) {    
 		click(ELEMENT_PENDING_VALIDATE_BUTTON.replace("${userName}", name));
-		waitForAndGetElement(By.xpath(ELEMEN_MEMBER_USER_ITEM.replace("${userName}", name)));
+		waitForAndGetElement(By.xpath(ELEMENT_MEMBER_USER_ITEM.replace("${userName}", name)));
 	}
 
 	/**
@@ -186,7 +186,7 @@ public class ManageMember extends SpaceManagement {
 	 */
 	public void declineInvitation(String name) {
 		click(ELEMENT_PENDING_DECLINE_BUTTON.replace("${userName}", name));
-		waitForElementNotPresent(By.xpath(ELEMEN_MEMBER_USER_ITEM.replace("${userName}", name)));
+		waitForElementNotPresent(By.xpath(ELEMENT_MEMBER_USER_ITEM.replace("${userName}", name)));
 	}
 
 	/**
@@ -217,7 +217,7 @@ public class ManageMember extends SpaceManagement {
 	public void removeMember(String name) {
 		waitForAndGetElement(By.xpath(ELEMENT_REMOVE_USER_BUTTON.replace("${userName}", name)));
 		click(By.xpath(ELEMENT_REMOVE_USER_BUTTON.replace("${userName}", name)));
-		waitForElementNotPresent(By.xpath(ELEMEN_MEMBER_USER_ITEM.replace("${userName}", name)));
+		waitForElementNotPresent(By.xpath(ELEMENT_MEMBER_USER_ITEM.replace("${userName}", name)));
 	}
 
 	/**
@@ -332,12 +332,12 @@ public class ManageMember extends SpaceManagement {
 			check(By.xpath(ELEMENT_SELECTED_USER_BOX.replace("${username}", userName)),2);
 			button.add();
 			click(ELEMENT_INVITE_MEMBER_BUTTON);
-			waitForAndGetElement(By.xpath(ELEMEN_MEMBER_USER_ITEM.replace("${userName}", userName)));
+			waitForAndGetElement(By.xpath(ELEMENT_MEMBER_USER_ITEM.replace("${userName}", userName)));
 		}else{
 			check(By.xpath(ELEMENT_SELECTED_USER_BOX.replace("${username}", userName)),2);
 			button.add();
 			click(ELEMENT_INVITE_MEMBER_BUTTON);
-			waitForAndGetElement(By.xpath(ELEMEN_INVITED_USER_ITEM.replace("${userName}", userName)));
+			waitForAndGetElement(By.xpath(ELEMENT_INVITED_USER_ITEM.replace("${userName}", userName)));
 		}
 	}
 

@@ -82,7 +82,7 @@ public class SpaceManagement extends SocialBase {
 		magAlert = new ManageAlert(driver);
 		actBar = new ActionBar(driver);
 	}
-
+	
 	/**
 	 * Migrate to PLF 4
 	 * <li>Update by @author vuna2</li>
@@ -346,3 +346,4 @@ public class SpaceManagement extends SocialBase {
 		 }
 	}
 }
+

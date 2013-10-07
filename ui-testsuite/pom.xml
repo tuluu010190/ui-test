@@ -92,6 +92,13 @@
 		</profile>
 		
 		<profile>
+			<id>social-sniff</id>
+			<properties>
+				<testSuite>social-sniff.xml</testSuite>
+			</properties>
+		</profile>
+		
+		<profile>
 			<id>social</id>
 			<properties>
 				<testSuite>social.xml</testSuite>

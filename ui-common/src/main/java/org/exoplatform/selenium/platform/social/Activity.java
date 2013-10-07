@@ -348,7 +348,6 @@ public class Activity extends SocialBase {
 
 	/**
 	 * @author phuongdt
-<<<<<<< HEAD
 	 * check visibility of activity on page using scroll bar
 	 */
 	public void waitForActivityPresent(String activityText, boolean isCurrentPosition){

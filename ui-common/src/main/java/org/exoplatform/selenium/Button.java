@@ -83,7 +83,7 @@ public class Button extends TestBase{
 			click(ELEMENT_CANCEL_BUTTON_AUX);
 		}
 	}
-
+	
 	public void add(){
 		waitForAndGetElement(ELEMENT_ADD_BUTTON);
 		click(ELEMENT_ADD_BUTTON);
