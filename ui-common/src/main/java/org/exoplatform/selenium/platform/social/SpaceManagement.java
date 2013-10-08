@@ -25,6 +25,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
@@ -33,13 +34,13 @@ import org.openqa.selenium.interactions.Actions;
  * dunghm@exoplatform.com Nov 7, 2012
  */
 public class SpaceManagement extends SocialBase {
-	
+
 	UserGroupManagement userGroup = new UserGroupManagement(driver);
 	Dialog dialog = new Dialog(driver);
 	Button button = new Button(driver);
 	ManageAlert magAlert = new ManageAlert(driver);
 	ActionBar actBar;
-	
+
 	//Go to My Spaces	> 
 	//Add space Form
 	protected  int DEFAULT_TIMEOUT = 60000;
@@ -68,9 +69,19 @@ public class SpaceManagement extends SocialBase {
 
 	public final String MESSAGE_DELETE_SPACE            = "Cannot undo one deleted space with all its page navigations and group. Are you sure to delete this space?";
 			//"Are you sure to delete this space? This can not be undone. All page navigations and this group will be deleted, too.";
-	
+
 	//Documents
 	public final By ELEMENT_DOCUMENTS_TAB = By.id("documents");
+	public final By ELEMENT_SPACE_SETTING_MENU = By.id("settings");
+
+	public SpaceManagement(WebDriver dr){
+		driver = dr;
+		userGroup = new UserGroupManagement(driver);
+		dialog = new Dialog(driver);
+		button = new Button(driver);
+		magAlert = new ManageAlert(driver);
+		actBar = new ActionBar(driver);
+	}
 
 	/**
 	 * Migrate to PLF 4
@@ -164,12 +175,12 @@ public class SpaceManagement extends SocialBase {
 		}else {
 			click(By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]"));
 		}
-		
+
 		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM);
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
 		switchTabs(ELEMENT_ACCESS_TAB);
-		
+
 		if (visibility != "") {
 			if (visibility.equals("Visible")){
 				WebElement rdoVisibility = waitForAndGetElement(By.xpath("//*[@name='UIVisibility' and @value='"+ value1 +"']"), 3000, 0, 2);
@@ -183,7 +194,7 @@ public class SpaceManagement extends SocialBase {
 					actions.click(rdoVisibility).perform();
 			}	
 		}
-		
+
 		if (registration != "") {
 			if (registration.equals("Open")){
 				WebElement rdoRegistration = waitForAndGetElement(By.xpath("//*[@name='UIRegistration' and @value='"+ regis[0] +"']"), 3000, 0, 2);
@@ -235,15 +246,13 @@ public class SpaceManagement extends SocialBase {
 		info("-- Deleting Space..." + name);
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;    
 		doAction("Delete", name);    
-		//magAlert.waitForConfirmation(MESSAGE_DELETE_SPACE);
 		magAlert = new ManageAlert(driver);
 		magAlert.acceptAlert();
 		if (waitForAndGetElement(button.ELEMENT_OK_BUTTON, 3000, 0, 2) != null){
 			click(button.ELEMENT_OK_BUTTON);
 		}
 		Utils.pause(1000);
-		waitForElementNotPresent(By.xpath("//div[@class='contentBox']/h4[@class='spaceTitle']//a[text()='" + name + "']"), iTimeout);
-		//(By.xpath("//a[text()='" + name + "']/ancestor::div[contains(@class,'ContentBox')]"),iTimeout);
+		waitForElementNotPresent(By.xpath(ELEMENT_ACTION_USER_ON_SPACE.replace("${spaceName}", name).replace("${action}", "Delete")), iTimeout);
 		info(name + " was deleted successfully");
 	}
 
@@ -281,7 +290,7 @@ public class SpaceManagement extends SocialBase {
 	 */
 	public void gotoEditSpace(String name){    
 		doAction("Edit", name);
-		waitForAndGetElement(ELEMENT_SPACE_SETTING_TAB);    
+		waitForAndGetElement(ELEMENT_SPACE_SETTING_MENU);    
 	}
 	/**
 	 * Change avatar of a space
@@ -299,7 +308,7 @@ public class SpaceManagement extends SocialBase {
 		click(By.xpath("//*[@id='UIAvatarUploadContent']//a[contains(text(),'Save')]"));
 		waitForTextNotPresent("Upload an Image");
 	}
-	
+
 	/**
 	 * Restore original data by deleting a space
 	 * @author vuna2
@@ -313,7 +322,7 @@ public class SpaceManagement extends SocialBase {
 		deleteSpace(spaceName, timeToDeleteSpace);
 		Utils.pause(500);
 	}
-	
+
 	/**
 	 * 
 	 * @author phuongdt
@@ -336,5 +345,4 @@ public class SpaceManagement extends SocialBase {
 			 actBar.goToViewMode(view);
 		 }
 	}
-
 }

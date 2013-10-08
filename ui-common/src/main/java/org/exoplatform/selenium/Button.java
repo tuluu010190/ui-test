@@ -20,7 +20,7 @@ public class Button extends TestBase{
 	public final By ELEMENT_SAVE_CLOSE_BUTTON = By.xpath("//*[text()='Save & Close']");
 	public final By ELEMENT_SAVE_CLOSE_BUTTON_2 = By.xpath("//*[text()='Save And Close']");
 	//By.linkText("Save & Close");
-	
+
 	public final By ELEMENT_OK_BUTTON = By.xpath("//*[text()='OK']");
 	public final By ELEMENT_APPLY_FRENCH_BUTTON = By.linkText("Appliquer");
 	public final By ELEMENT_APPLY_BUTTON = By.xpath("//*[text()='Apply']");
@@ -43,7 +43,7 @@ public class Button extends TestBase{
 	public final By ELEMENT_CREATE_LINK_BUTTON = By.xpath("//*[text()='Create Link']");
 	public final By ELEMENT_CREATE_MACRO_BUTTON = By.xpath("//button[text()='Insert Macro']");
 	public final By ELEMENT_INSERT_TABLE = By.xpath("//button[text()='Insert Table']");
-	
+
 	//ECMS Admin > Category > Add Category
 	public final By ELEMENT_PREVIOUS_BUTTON_ADMIN_4 = By.xpath("//*[@class='UITaxonomyTreeCreateChild']//*[text()='Previous']");
 	public final By ELEMENT_PREVIOUS_BUTTON_ADMIN_3 = By.xpath("//*[@class='UIActionTaxonomyManager']//*[text()='Previous']");
@@ -53,7 +53,7 @@ public class Button extends TestBase{
 	public final By ELEMENT_REFRESH_BUTTON = By.xpath("//*[text()='refresh']");
 	public final By ELEMENT_RENAME_BUTTON = By.xpath("//*[text()='Rename']");
 	public final By ELEMENT_NEXT_PAGE_BUTTON = By.xpath("//*[@title='Next Page']");
-	
+
 	/*
 	 * General
 	 * 
@@ -82,6 +82,13 @@ public class Button extends TestBase{
 		}else {
 			click(ELEMENT_CANCEL_BUTTON_AUX);
 		}
+	}
+
+	public void add(){
+		waitForAndGetElement(ELEMENT_ADD_BUTTON);
+		click(ELEMENT_ADD_BUTTON);
+		waitForElementNotPresent(ELEMENT_ADD_BUTTON);
+		Utils.pause(500);
 	}
 
 	public void saveAndClose(){
@@ -121,7 +128,7 @@ public class Button extends TestBase{
 		click(ELEMENT_PREVIOUS_BUTTON);	
 		Utils.pause(500);
 	}
-	
+
 	public void closeWindow(){
 		if (isElementPresent(ELEMENT_CLOSE_WINDOW)){
 			click(ELEMENT_CLOSE_WINDOW);

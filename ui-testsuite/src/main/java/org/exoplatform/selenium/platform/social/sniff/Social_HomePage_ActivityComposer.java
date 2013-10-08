@@ -31,7 +31,7 @@ public class Social_HomePage_ActivityComposer extends Activity {
 	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
-		info("Login ECMS with " + DATA_USER1);
+		info("Login with " + DATA_USER1);
 		magAcc = new ManageAccount(driver);
 		activity = new HomePageActivity(driver);
 		navToolBar = new NavigationToolbar(driver);
@@ -43,7 +43,7 @@ public class Social_HomePage_ActivityComposer extends Activity {
 
 	@AfterMethod
 	public void afterMethods() {
-		info("Logout ECMS");
+		info("Logout portal");
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
@@ -87,8 +87,6 @@ public class Social_HomePage_ActivityComposer extends Activity {
 		//- Input into activity input field and click share
 		//- The message will show in Activity Stream
 		addActivity(true, activity1, false, "");
-		addActivity(true, "aaaa", false, "");
-		addActivity(true, "bbb", false, "");
 
 		//Clear data
 		activity.deleteActivity(activity1);

@@ -45,7 +45,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
-		info("Login ECMS with " + DATA_USER1);
+		info("Login with " + DATA_USER1);
 		magAcc = new ManageAccount(driver);
 		activity = new HomePageActivity(driver);
 		navToolBar = new NavigationToolbar(driver);
@@ -58,7 +58,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 
 	@AfterMethod
 	public void afterMethods() {
-		info("Logout ECMS");
+		info("Logout portal");
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
@@ -102,7 +102,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 		//- Go to homepage and create more than 20 activities
 		//- more than 20 activities are created successfully
 		navToolBar.goToHomePage();
-		for(int i = 1; i<=20; i++){
+		for(int i = 1; i<=22; i++){
 			if(i<10)
 				addActivity(true, "activity 0"+String.valueOf(i), false,"");
 			else
@@ -118,7 +118,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 		//-  the first page of last activities is displayeds
 		//- scroll to the bottom of the activity stream
 		//- previous activities' pages are load automatically
-		for(int i=20;i>0;i-- ){
+		for(int i=22;i>0;i-- ){
 			if(i<10)
 				waitForActivityPresent("activity 0"+String.valueOf(i),true);
 			else
@@ -126,10 +126,11 @@ public class Social_HomePage_ActivityStream extends Activity {
 		}
 
 		/*Clear data*/
-		info("clear data");
-		for(int i=20;i>0;i-- ){
-			if(i<10)
+		for(int i=22;i>0;i-- ){
+			if(i<10){
 				activity.deleteActivity("activity 0"+String.valueOf(i));
+				driver.navigate().refresh();
+			}
 			else
 				activity.deleteActivity("activity "+String.valueOf(i));
 		}

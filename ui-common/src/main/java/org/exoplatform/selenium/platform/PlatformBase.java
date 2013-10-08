@@ -202,7 +202,7 @@ public class PlatformBase extends TestBase {
 	//Add Group Form
 	public final By ELEMENT_INPUT_GROUP_NAME = By.name("name");
 	public final By ELEMENT_INPUT_GROUP_NAME_2 = By.name("groupName");
-	public final By ELEMENT_INPUT_LABEL = By.xpath("//*[contains(@name, 'Label') or contains(@name, 'label')]");
+	public final By ELEMENT_INPUT_LABEL = By.id("label");
 	public final String ELEMENT_TEXTAREA_DESCRIPTION = "//textarea[@id='description']";
 
 	public final By ELEMENT_GROUP_SEARCH_USER_ICON = By.xpath("//form[@id='UIGroupMembershipForm']//*[contains(@class, 'uiIconSearch')]");
@@ -216,8 +216,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_MEMBERSHIP_EDIT_ICON = "//*[text()='${membership}']/../..//*[@data-original-title='Edit Membership']";
 	public final String ELEMENT_MEMBERSHIP_DELETE_ICON = "//*[text()='${membership}']/../..//*[@data-original-title='Delete Membership']";
 	public final String ELEMENT_NEXT_PAGE_ICON = "//a[@title='Next Page']";
-	public final String ELEMENT_INPUT_NAME = "//input[@id='name']";
-
+	public final By ELEMENT_INPUT_NAME = By.id("name");
 	/*
 	 * Manage Account
 	 * */
@@ -314,6 +313,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CLEAR_SELECTOR_PAGE = By.className("uiIconDelete");
 	public final By ELEMENT_SELECT_SEARCHED_PAGE = By.xpath("//*[@data-original-title='Select Page']");
 	public final By ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON = By.xpath("//*[contains(@class, 'uiIconSearch')]");
+	public final By ELEMENT_SELECT_PAGE_SEARCH = By.xpath("//a[@data-original-title='Quick Search']");
+	public final By ELEMENT_SELECT_PAGE_BUTTON = By.xpath("//a[@data-original-title='Select Page']");
 
 	public final String ELEMENT_LIST_NODE_LINK = ELEMENT_NODE_LINK.replace("${nodeLabel}", "${nodeLabel}") + "/..//li[${number}]//*[@title='${childNode}']";
 	public final String ELEMENT_CHILD_NODE_LINK = ELEMENT_NODE_LINK.replace("${nodeLabel}", "${nodeLabel}") + "/../*[contains(@class, 'childrenContainer')]//*[@title='${childNode}']";

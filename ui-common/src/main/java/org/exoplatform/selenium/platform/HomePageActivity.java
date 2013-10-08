@@ -707,7 +707,7 @@ public class HomePageActivity extends PlatformBase{
 	 * @param activityText: input a String 
 	 */
 	public void deleteActivity (String activityText) {
-		info("-- Deleting an activity --");
+		info("-- Deleting an activity " +activityText+" --");
 		button = new Button(driver);
 		WebElement elem = waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
 		String deleteActivityIconID = elem.getAttribute("id");

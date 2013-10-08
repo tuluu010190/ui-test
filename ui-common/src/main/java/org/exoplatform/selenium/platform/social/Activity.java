@@ -36,6 +36,7 @@ public class Activity extends SocialBase {
 	//=====Element on space home page=======stash@{1}
 	// Go to My Spaces > Select a space
 	//Or Go to My Activity Stream
+	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
 	public final By ELEMENT_ACTIVITY_DROPDOWN = By.xpath("//div[@class='btn dropdown-toggle']");
 	public final String ELEMENT_ACTIVITY_FILTER_OPTION = "//a[@class='OptionItem' and contains(text(),'${filterOption}')]";
 	public final String ELEMENT_ACTIVITY_FILTER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${filterOption}')]";
@@ -172,7 +173,7 @@ public class Activity extends SocialBase {
 		click(ELEMENT_SHARE_BUTTON);
 		info("-- Verify that an activity has been added --");
 		if (addText) {
-			waitForTextPresent(text);
+			waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", text)));
 		}
 		if (addLink){
 			waitForTextPresent(link);
@@ -358,12 +359,13 @@ public class Activity extends SocialBase {
 			((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+y+");");
 		}
 		for (int second = 0;; second++) {
-			if(second >=8){
+			if(second >8){
+				waitForAndGetElement(By.xpath("//*[contains(text(),'"+activityText+"')]"));
 				break;
 			}
 			JavascriptExecutor executor = (JavascriptExecutor)driver;
-			executor.executeScript("window.scrollBy(0,200)", "");
-			if(waitForAndGetElement(By.xpath("//*[contains(text(),'"+activityText+"')]"), DEFAULT_TIMEOUT,1)!=null)
+			executor.executeScript("window.scrollBy(0,1000)", "");
+			if(waitForAndGetElement(By.xpath("//*[contains(text(),'"+activityText+"')]"), DEFAULT_TIMEOUT,0)!=null)
 				break;
 		}
 	}
@@ -384,8 +386,8 @@ public class Activity extends SocialBase {
 				break;
 			}
 			JavascriptExecutor executor = (JavascriptExecutor)driver;
-			executor.executeScript("window.scrollBy(0,200)", "");
-			waitForTextNotPresent(activityText);
+			executor.executeScript("window.scrollBy(0,1000)", "");
+			waitForElementNotPresent(By.xpath("//*[contains(text(),'"+activityText+"')]"));
 		}
 	}
 	

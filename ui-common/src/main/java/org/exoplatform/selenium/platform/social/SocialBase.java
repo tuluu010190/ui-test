@@ -11,12 +11,12 @@ import org.openqa.selenium.By;
  * @date: 07/11/2012
  */
 public class SocialBase extends PlatformBase {
-	
+
 	//SpaceManagement spaceMag = new SpaceManagement();
 
 	public final By ELEMENT_JOIN_SPACE_LINK = By.xpath("//div[@class='uiSpaceNavigationPortlet']/div/a/i[contains(@class, 'uiIconPLFMan')]");
 	//public final By ELEMENT_JOIN_SPACE_LINK = By.xpath("//div[@class='uiSpaceNavigationPortlet']/..//div/a[contains(text(),'Join a space')]");
-	
+
 	// Go to My space link
 	public final By ELEMENT_MY_SPACES_LINK = By.linkText("My Spaces");
 	public final By ELEMENT_ALL_SPACE_LINK = By.linkText("All Spaces");
@@ -35,29 +35,29 @@ public class SocialBase extends PlatformBase {
     // Go to My Space > Invitation Receives Tab
 	public final String ELEMENT_INVITATION_ACCEPT_LINK = "//*[@id='UIManageInvitationSpaces']//*[text()='${spaceName}']/../../ul//*[text()='Accept']";
 	public final String ELEMENT_INVITATION_IGNORE_LINK = "//*[@id='UIManageInvitationSpaces']//*[text()='${spaceName}']/../../ul//*[text()='Ignore']";
-		
+
 	// Go to My Space > Requests Pending Tab
 	public final String ELEMENT_CANCEL_LINK = "//*[@id='UIManagePendingSpaces']//*[text()='${spaceName}']/../../ul//*[text()='Cancel']";
-	
+
 	// Go to My Space -> Search Button
 	public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
-	
+
 	// Go to My Space -> Select a space > click setting icon
 	public final By ELEMENT_SETTINGS = By.xpath("//a[@title='Settings']");
 
 	// Go to My Space -> Select a space > click Navigation tab
-	public final By ELEMENT_NAVIGATION_TAB = By.xpath("//div[text()='Navigations']");
+	public final By ELEMENT_NAVIGATION_TAB = By.xpath("//a[text()='Navigations']");
 
 	// Go to My Space -> Select a space > click Access & Edit tab
 	public final By  ELEMENT_ACCESS_AND_EDIT_TAB = By.xpath("//div[text()='Access & Edit']");
 
 	// Go to My Space -> Select a space > click Member tab
-	public final By ELEMENT_MEMBERS_TAB = By.xpath("//div[@class='TabsContainer']//div[text()='Members']");
+	public final By ELEMENT_MEMBERS_TAB = By.xpath("//div[@id='UISpaceSetting']//a[text()='Members']");
 	public final By ELEMENT_MEMBERS_TAB_IN_SPACE_MENU = By.xpath("//*[@id='UISpaceMenu']//*[text()='Members']");
-	
+
 	// Go to My Space -> Select a space > click Application tab
 	public final By ELEMENT_APPLICATIONS_TAB = By.xpath("//div[text()='Applications']");
-	
+
 	// Go to Account Name link	
 //	public final By ELEMENT_MY_PROFILE_LINK = By.linkText("My Profile");
 //	public final By ELEMENT_FIND_CONNECTIONS_LINK = By.linkText("Find Connections");
@@ -86,11 +86,12 @@ public class SocialBase extends PlatformBase {
 	public String ELEMENT_PROFILE_NAME_LINK = "//a[contains(@class,'CommunityName') and text()='${name}']";
 	public String ELEMENT_PROFILE_FULLNAME = "//div[@id='UIProfile']//h2[contains(text(),'${name}')]";
 	public String ELEMENT_ACTIVITYSTREAM_TITLE = "//div[contains(@id,'ActivityContextBox')]/h5/a[@title='${name}']";
+	public String ELEMENT_ACTION_USER_ON_SPACE = "//a[text()='${spaceName}']/../../..//button[text()='${action}']";
 
 	// Activity Stream tab	
 	public final By ELEMENT_ACTIVITY_STREAM_TAB = By.xpath("//div[@id='UIProfileNavigationPortlet']//a[text()='Activity Stream']");	
     /*------------------- End of parameters ---------------------*/	
-	
+
 	/**
 	 * Common functions for Social
 	 */
@@ -141,13 +142,13 @@ public class SocialBase extends PlatformBase {
 		click(ELEMENT_SETTINGS);
 		waitForTextPresent("Settings");
 	}
-	
+
 	// Go to Access and Edit tab
 	public void goToAccessAndEdit(){
 		click(ELEMENT_ACCESS_AND_EDIT_TAB);
 		waitForTextPresent("Access & Edit");
 	}
-	
+
 	/**
 	 * Go to Access and Edit tab
 	 * @author vuna2
@@ -158,13 +159,13 @@ public class SocialBase extends PlatformBase {
 		doAction("Edit", spaceName);
 		goToAccessAndEdit();
 	}
-	
+
 	// Go to Member tab
 	public void goToMembers(){
 		click(ELEMENT_MEMBERS_TAB);
 		waitForTextPresent("Members");
 	}
-	
+
 	/**
 	 * Go to Member tab of space
 	 * @author vuna2
@@ -175,13 +176,13 @@ public class SocialBase extends PlatformBase {
 		doAction("Edit", spaceName);
 		goToMembers();
 	}
-	
+
 	// Go to Applications tab
 	public void goToApplications(){
 		click(ELEMENT_APPLICATIONS_TAB);
 		waitForTextPresent("Applications");
 	}
-	
+
 	/**
 	 * Go to Applications tab
 	 * @author vuna2
@@ -192,13 +193,14 @@ public class SocialBase extends PlatformBase {
 		doAction("Edit", spaceName);
 		goToApplications();
 	}
-	
+
 	// Go to Navigation tab
 	public void goToNavigation(){
+		waitForAndGetElement(ELEMENT_NAVIGATION_TAB);
 		click(ELEMENT_NAVIGATION_TAB);
 		waitForTextPresent("Navigations");
 	}
-	
+
 	/**
 	 * Go to Navigation tab
 	 * @author vuna2
@@ -209,51 +211,94 @@ public class SocialBase extends PlatformBase {
 		doAction("Edit", spaceName);
 		goToNavigation();
 	}
-	
+
 	// Access a space
 	public void accessSpace(String spaceName) {
 		goToMySpacePage();
 		click(By.xpath("//*[@id='UIManageMySpaces']//*[text()= '"+ spaceName +"']"));
 		waitForTextNotPresent("Add New Space");
 	}
-	
+
 	// Go to My Profile
 	public void goToMyProfile(){
-		info("--Go to My Profile--");
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-		mouseOver(ELEMENT_TOOLBAR_PROFILE_ICON, true);
+		info("--Go to My Profile--");		
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
+				break;
+			}
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			if (waitForAndGetElement(ELEMENT_TOOLBAR_PROFILE_ICON, 5000, 0) != null){
+				info("Element " + ELEMENT_TOOLBAR_PROFILE_ICON + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
 		click(ELEMENT_TOOLBAR_PROFILE_ICON);
 		waitForTextPresent("Basic information");
 	}	
 
 	// Go to Find Connections
 	public void goToFindConnections(){
-		info("--Go to Find Connections--");
-		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-		//mouseOver(ELEMENT_FIND_PEOPLE_ICON, true);
-		mouseOver(ELEMENT_FIND_PEOPLE_ICON,true);
+		info("--Go to Find Connections--");	
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
+				break;
+			}
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			if (waitForAndGetElement(ELEMENT_FIND_PEOPLE_ICON, 5000, 0) != null){
+				info("Element " + ELEMENT_FIND_PEOPLE_ICON + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
 		click(ELEMENT_FIND_PEOPLE_ICON);
 		waitForTextPresent("Contacts Directory");
 	}	
-	
+
 	// Go to My Connections
 	public void goToMyConnections(){
-		info("--Go to My Connections--");
-		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
-		mouseOver(ELEMENT_TOOLBAR_NETWORKS_ICON, true);
+		info("--Go to My Connections--");		
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
+				break;
+			}
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			if (waitForAndGetElement(ELEMENT_TOOLBAR_NETWORKS_ICON, 5000, 0) != null){
+				info("Element " + ELEMENT_TOOLBAR_NETWORKS_ICON + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
 		click(ELEMENT_TOOLBAR_NETWORKS_ICON);
 		waitForAndGetElement(ELEMENT_SEARCH_BUTTON);
 	}	
-	
+
 	// Go to Activity stream
 	public void goToActivityStream(){
 		info("--Go to Activity Stream--");
-		mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
-		mouseOver(ELEMENT_TOOLBAR_ACTIVITY_ICON, true);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
+				break;
+			}
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			if (waitForAndGetElement(ELEMENT_TOOLBAR_ACTIVITY_ICON, 5000, 0) != null){
+				info("Element " + ELEMENT_TOOLBAR_ACTIVITY_ICON + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
 		click(ELEMENT_TOOLBAR_ACTIVITY_ICON);
 		waitForTextPresent("What are you working on?");
 	}	
-	
+
 	////////////
 	/**
 	 * Migrate to PLF 4
@@ -264,8 +309,8 @@ public class SocialBase extends PlatformBase {
 	 * @param spaceName : Space name
 	 */
 	public void doAction(String action, String spaceName){
-		By actionLink = By.xpath("//a[text()='" + spaceName + "']/../../../div/button[text()='" + action + "']");
-				//("//a[text()='" + spaceName + "']/ancestor::div[contains(@class,'ContentBox')]//a[text()='" + action + "']");
+		By actionLink = By.xpath(ELEMENT_ACTION_USER_ON_SPACE.replace("${spaceName}", spaceName).replace("${action}", action));
+		waitForAndGetElement(actionLink, DEFAULT_TIMEOUT,1);
 		click(actionLink);
 		Utils.pause(1000);
 	}

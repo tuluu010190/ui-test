@@ -32,7 +32,7 @@ public class Social_Dashboard extends DashBoard {
 	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
-		info("Login ECMS with " + DATA_USER1);
+		info("Login with " + DATA_USER1);
 		magAcc = new ManageAccount(driver);
 		navToolBar = new NavigationToolbar(driver);
 		activity = new HomePageActivity(driver);
@@ -42,7 +42,7 @@ public class Social_Dashboard extends DashBoard {
 
 	@AfterMethod
 	public void afterMethods() {
-		info("Logout ECMS");
+		info("Logout portal");
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
