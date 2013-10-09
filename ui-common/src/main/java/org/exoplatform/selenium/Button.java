@@ -137,4 +137,9 @@ public class Button extends TestBase{
 		}
 		Utils.pause(1000);
 	}
+	
+	public void add(){
+		click(ELEMENT_ADD_BUTTON);
+		Utils.pause(500);
+	}
 }

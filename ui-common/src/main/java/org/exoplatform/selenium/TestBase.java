@@ -493,11 +493,11 @@ public class TestBase {
 			loopCount = 0;
 		}
 	}
-	public void rightClickOnElement(Object locator) {
+	public void rightClickOnElement(Object locator, int...display) {
 		Actions actions = new Actions(driver);
 		Utils.pause(500);
 		try {
-			WebElement element = waitForAndGetElement(locator);
+			WebElement element = waitForAndGetElement(locator,DEFAULT_TIMEOUT,1,display[0]);
 			actions.contextClick(element).perform();
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
@@ -600,7 +600,7 @@ public class TestBase {
 				";application/pdf;application/msword;text/plain;" +
 				"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
 				"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
-				"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml");
+				"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
 
 		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 		driver = new FirefoxDriver(fp);
@@ -631,7 +631,7 @@ public class TestBase {
 	 * false-> file is not exist
 	 */
 	public boolean checkFileExisted(String file){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + file;
+		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/" + file;
 		boolean found = false;
 
 		if (new File(pathFile).isFile()){
@@ -649,9 +649,10 @@ public class TestBase {
 	public void deleteFile(String file){
 		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/" + file;
 		File Files = new File(pathFile);
-
-		Files.setWritable(true);
-		Files.delete();
+		if(checkFileExisted(file)){
+			Files.setWritable(true);
+			Files.delete();
+		}
 		if (checkFileExisted(file) == false){
 			info("Delete file successfully");
 		}else info("Have error when delete file");
@@ -697,31 +698,42 @@ public class TestBase {
 		termsAndConditions();
 	}
 
-	/**function get current Date of system follow a fomat
+	/**function get current Date of system follow a format
 	 * @author lientm
 	 * @param fomat
 	 * @return
 	 */
 	public String getCurrentDate(String fomat){
 		DateFormat dateFormat = new SimpleDateFormat(fomat);
-		Date date = new Date();
+		Date date = new Date(); 
 		return (dateFormat.format(date));
 	}
-	
-    //Get current date time
-//	public String getCurrentDateTime(){
-//		//MM/dd/yyyy HH:mm:ss
-//		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-//		Date date = new Date();
-//		return (dateFormat.format(date));
-//	}
+
+	//Get current date time
+	//	public String getCurrentDateTime(){
+	//		//MM/dd/yyyy HH:mm:ss
+	//		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	//		Date date = new Date();
+	//		return (dateFormat.format(date));
+	//	}
 
 	//Add 1 minute to current date time
-	public String addMinuteToCurrentDateTime(){
+	public String addMinuteToCurrentDateTime(int min){
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.MINUTE, 3);
+		cal.add(Calendar.MINUTE, min);
 		return (dateFormat.format(cal.getTime()));	
 	}
-	
+	/** Get date in format "dd"
+	 * @author thuntn
+	 * @param gap: distance from current date
+	 * @return date in format "dd"
+	 */
+	public String getDate(int gap, String format){
+		DateFormat dateFormat = new SimpleDateFormat(format);
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_MONTH, gap);
+		return (dateFormat.format(cal.getTime()));	
+	}
+
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -26,6 +27,7 @@ public class ForumManageCategory extends ForumBase {
 		frumPer = new ForumPermission(driver);
 		but = new Button(driver);
 		alert = new ManageAlert(driver);
+		per = new PlatformPermission(driver);
 	}
 
 	//------------category home screen----------------------------------------------------------------------
