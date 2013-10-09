@@ -47,7 +47,7 @@ public class Social_Space_SpaceList extends SocialBase {
 	@Test
 	public void test01_CheckPendingSpaceList(){
 		//Declare variable
-		String spaceName = "space01";
+		String spaceName = "space67666";
 
 		/*Step 1: Check displaying on  Invitations Received space list*/ 
 		//- Create new space
@@ -78,8 +78,8 @@ public class Social_Space_SpaceList extends SocialBase {
 	@Test
 	public void test02_CheckPendingSpaceList(){
 		//Declare variable
-		String spaceName1 = "space21";
-		String spaceName2 = "space22";
+		String spaceName1 = "space676671";
+		String spaceName2 = "space676672";
 
 		//Create data
 		//Add new space

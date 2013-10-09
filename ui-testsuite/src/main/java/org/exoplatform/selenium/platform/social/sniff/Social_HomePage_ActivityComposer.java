@@ -59,7 +59,7 @@ public class Social_HomePage_ActivityComposer extends Activity {
 	 * Test case ID: 67900
 	 * Step 1: Mentions on User Activity Stream
 	 */
-	@Test
+	@Test()
 	public void test01_MentionAUserInActivityComposer(){
 		/*Step 1: Mentions on User Activity Stream*/ 
 		//Hover the mouse over the name of user and select My Activity streams

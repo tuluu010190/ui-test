@@ -145,7 +145,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 	@Test
 	public void test03_CheckAllActivitiesFilter(){
 		//Declare variable
-		String spacename = "Space03";
+		String spacename = "Space64719";
 		String spacedesc = "Description Of Space03";
 		String activityOfUser = "activity of ";
 		String activityOfSpace = "activity of space ";
@@ -227,7 +227,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 	@Test
 	public void test04_CheckMySpacesFilter(){
 		//Declare variable
-		String spacename = "Space04";
+		String spacename = "Space64720";
 		String spacedesc = "Description Of Space04";
 		String activityOfUser = "activity of ";
 		String activityOfSpace = "activity of space ";
@@ -314,8 +314,8 @@ public class Social_HomePage_ActivityStream extends Activity {
 	@Test
 	public void test05_CheckConnectionsFilter(){
 		//Declare variable
-		String spacename = "Space05";
-		String spacedesc = "Description Of Space05";
+		String spacename = "Space64721";
+		String spacedesc = "Description Of Space64721";
 		String activityOfUser = "activity of ";
 		String activityOfSpace = "activity of space ";
 
@@ -397,8 +397,8 @@ public class Social_HomePage_ActivityStream extends Activity {
 	@Test
 	public void test06_CheckMyActivitiesFilter(){
 		//Declare variable
-		String spacename = "Space06";
-		String spacedesc = "Description Of Space06";
+		String spacename = "Space64722";
+		String spacedesc = "Description Of Space64722";
 		String activityOfUser = "activity of ";
 		String activityOfSpace = "activity of space ";
 		String activityComment = "activity comment of ";

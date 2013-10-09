@@ -55,7 +55,7 @@ public class Social_Space_MemberManagement extends Activity{
 	@Test
 	public void test01_ChangeMemberRoleInSpace(){
 		//Declare variable
-		String spaceName = "space01";
+		String spaceName = "space67664";
 
 		//Create data
 		//Add new space
@@ -99,7 +99,7 @@ public class Social_Space_MemberManagement extends Activity{
 	@Test
 	public void test02_InviteAcceptUserToSpace(){
 		//Declare variable
-		String spaceName = "space02";
+		String spaceName = "space67670";
 
 		//Create data
 		//Add new space
@@ -145,7 +145,7 @@ public class Social_Space_MemberManagement extends Activity{
 	@Test
 	public void test03_LeaveSpace(){
 		//Declare variable
-		String spaceName = "space03";
+		String spaceName = "space67671";
 
 		//Create data
 		//Add new space
@@ -182,7 +182,7 @@ public class Social_Space_MemberManagement extends Activity{
 	@Test
 	public void test04_RemoveUserFromSpace(){
 		//Declare variable
-		String spaceName = "space04";
+		String spaceName = "space67677";
 
 		//Create data
 		//Add new space
@@ -214,8 +214,8 @@ public class Social_Space_MemberManagement extends Activity{
 	@Test
 	public void test05_RequestAcceptUserToSpace(){
 		//Declare variable
-		String spaceName1 = "space51";
-		String spaceName2 = "space52";
+		String spaceName1 = "space676781";
+		String spaceName2 = "space676782";
 
 		//Create data
 		//Add new space

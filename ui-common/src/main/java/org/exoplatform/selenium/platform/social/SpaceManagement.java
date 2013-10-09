@@ -25,20 +25,19 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 
 /**
  * Created by The eXo Platform SAS Author : Hoang Manh Dung
  * dunghm@exoplatform.com Nov 7, 2012
  */
 public class SpaceManagement extends SocialBase {
-
-	UserGroupManagement userGroup = new UserGroupManagement(driver);
-	Dialog dialog = new Dialog(driver);
-	Button button = new Button(driver);
-	ManageAlert magAlert = new ManageAlert(driver);
+	UserGroupManagement userGroup;
+	Dialog dialog;
+	Button button;
+	ManageAlert magAlert;
 	ActionBar actBar;
 
 	//Go to My Spaces	> 
@@ -46,30 +45,37 @@ public class SpaceManagement extends SocialBase {
 	protected  int DEFAULT_TIMEOUT = 60000;
 	public final By     ELEMENT_ADDNEWSPACE_BUTTON      = By.xpath("//button[text()='Add New Space']");
 			//("//a[@class='AddSpaceIcon']");
-
 	public final By     ELEMENT_ADDNEWSPACE_FORM        = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add New Space']");
 			//("//span[@class='PopupTitle' and text()='Add New Space']");
-
 	public final By     ELEMENT_SPACE_NAME_INPUT        = By.xpath("//input[contains(@name,'displayName')]");
-
 	public final By     ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
-
 	public final By     ELEMENT_ACCESS_TAB              = By.xpath("//*[text()='Access & Edit']");
 			//("//div[contains(@class,'MiddleTab') and text()='Access & Edit']");
-
 	public final By     ELEMENT_USER_GROUP_TAB          = By.xpath("//*[text()='Invite users from group']");
 			//("//div[contains(@class,'MiddleTab') and text()='Invite users from group']");
-
 	public final By     ELEMENT_USER_GROUP_CHECKBOX     = By.xpath("//*[@id='useExistingGroup']");
 
 	//Edit space
 	public final By     ELEMENT_SPACE_SETTING_TAB       = By.xpath("//div[contains(@class,'MiddleTab') and text()='Settings']");
-
-	public final By     ELEMENT_CHANGE_AVATAR_ICON      = By.xpath("//a[contains(@class,'ChangeAva')]");  
-
+	public final By     ELEMENT_CHANGE_AVATAR_BUTTON      = By.xpath("//button[text()='Change Picture']");
+	public final By 	ELEMENT_UPLOAD_NAME 			= By.name("file");
+	public final By 	ELEMENT_AVATAR_SAVE_BUTTON		= By.xpath("//div[@id = 'UIAvatarUploadContent']//button[text()='Save']");
 	public final String MESSAGE_DELETE_SPACE            = "Cannot undo one deleted space with all its page navigations and group. Are you sure to delete this space?";
-			//"Are you sure to delete this space? This can not be undone. All page navigations and this group will be deleted, too.";
-
+	public final String ELEMENT_VERIFY_SPACE_NAME_ACTIVITY = "//div[@class='author']/a[contains(text(),'${spaceName}')]";
+	public final String ELEMENT_SPACE_MENU_ITEM = "//span[contains(text(),'${menuItem}')]";
+	public final String ELEMENT_SPACE_CURRENT_MENU_ITEM = "//li[@class='active item']//span[text()='${menuItem}']";
+	
+	//Space access
+	public final By		ELEMENT_ACCESS_EDIT_VISIBLE 	= By.xpath("//span[text()='Visible']/../input[@name='UIVisibility']");
+	public final By		ELEMENT_ACCESS_EDIT_HIDDEN 	= By.xpath("//span[text()='Hidden']/../input[@name='UIVisibility']");
+	public final By		ELEMENT_ACCESS_EDIT_REGISTRATION_OPEN 	= By.xpath("//span[text()='Open']/../input[@name='UIRegistration']");
+	public final By		ELEMENT_ACCESS_EDIT_REGISTRATION_VALIDATION 	= By.xpath("//span[text()='Validation']/../input[@name='UIRegistration']");
+	public final By		ELEMENT_ACCESS_EDIT_REGISTRATION_CLOSE 	= By.xpath("//span[text()='Close']/../input[@name='UIRegistration']");
+	public final By		ELEMENT_SPACE_ACCESS_INFO = By.xpath("//div[@class='spaceAccessInfo']");
+	public final By		ELEMENT_SPACE_ACCESS_ALERT_SUCCESS = By.xpath("//div[@class='alert alert-success']");
+	public final By 	ELEMENT_RESTRICT_SPACE_PAGE = By.xpath("//div[@class='spaceAccessBlock lockIcon']/*[text()='Restricted Area']");
+	public final By 	ELEMENT_ACCESS_DENIED_SPACE_PAGE = By.xpath("//div[@class='spaceAccessBlock denyIcon']/*[text()='Access Denied.']");
+	public final By 	ELEMENT_ACCESS_NOT_FOUND_SPACE_PAGE = By.xpath("//div[@class='spaceAccessBlock warningIcon']/*[text()='Space Not Found']");
 	//Documents
 	public final By ELEMENT_DOCUMENTS_TAB = By.id("documents");
 	public final By ELEMENT_SPACE_SETTING_MENU = By.id("settings");
@@ -82,7 +88,7 @@ public class SpaceManagement extends SocialBase {
 		magAlert = new ManageAlert(driver);
 		actBar = new ActionBar(driver);
 	}
-	
+
 	/**
 	 * Migrate to PLF 4
 	 * <li>Update by @author vuna2</li>
@@ -140,7 +146,7 @@ public class SpaceManagement extends SocialBase {
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
 		clickButton("Create");
-		waitForTextPresent(name, iTimeout);
+		waitForAndGetElement(By.linkText(name), iTimeout);
 		//waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + name + "']"),iTimeout);
 		Utils.pause(1000);
 	}
@@ -161,15 +167,8 @@ public class SpaceManagement extends SocialBase {
 	 * @param childGroupName : The child group to invite users
 	 */
 	public void addNewSpace(String name, String desc, String visibility, String registration, String groupPath, String childGroupName, int... params){
-		Actions actions = new Actions(driver);
 		info("-- Adding a new space --");
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT;
-		//String v = visibility.isEmpty() ? "private" : visibility;
-		String value1 = "private";
-		String value2 = "hidden";
-		//String r = registration.isEmpty() ? "validation" : registration;
-		String[] regis = {"open", "validation", "close"};
-
 		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
 			click(ELEMENT_ADDNEWSPACE_BUTTON);
 		}else {
@@ -182,35 +181,22 @@ public class SpaceManagement extends SocialBase {
 		switchTabs(ELEMENT_ACCESS_TAB);
 
 		if (visibility != "") {
+			info("-- Set visibility --");
 			if (visibility.equals("Visible")){
-				WebElement rdoVisibility = waitForAndGetElement(By.xpath("//*[@name='UIVisibility' and @value='"+ value1 +"']"), 3000, 0, 2);
-						//(By.id("UIVisibility_" + value1));
-				if (!rdoVisibility.isSelected())
-					actions.click(rdoVisibility).perform();
+					check(ELEMENT_ACCESS_EDIT_VISIBLE,2);
 			}else if (visibility.equals("Hidden")){
-				WebElement rdoVisibility = waitForAndGetElement(By.xpath("//*[@name='UIVisibility' and @value='"+ value2 +"']"), 3000, 0, 2);
-						//(By.id("UIVisibility_" + value2));
-				if (!rdoVisibility.isSelected())
-					actions.click(rdoVisibility).perform();
+					check(ELEMENT_ACCESS_EDIT_HIDDEN,2);
 			}	
 		}
 
 		if (registration != "") {
+			info("-- Set Registration --");
 			if (registration.equals("Open")){
-				WebElement rdoRegistration = waitForAndGetElement(By.xpath("//*[@name='UIRegistration' and @value='"+ regis[0] +"']"), 3000, 0, 2);
-						//(By.id("UIRegistration_" + regis[0]));
-				if (!rdoRegistration.isSelected())
-					actions.click(rdoRegistration).perform();
+				check(ELEMENT_ACCESS_EDIT_REGISTRATION_OPEN,2);
 			}else if (registration.equals("Validation")){
-				WebElement rdoRegistration = waitForAndGetElement(By.xpath("//*[@name='UIRegistration' and @value='"+ regis[1] +"']"), 3000, 0, 2);
-						//(By.id("UIRegistration_" + regis[1]));
-				if (!rdoRegistration.isSelected())
-					actions.click(rdoRegistration).perform();		
+				check(ELEMENT_ACCESS_EDIT_REGISTRATION_VALIDATION,2);
 			}else if (registration.equals("Close")){
-				WebElement rdoRegistration = waitForAndGetElement(By.xpath("//*[@name='UIRegistration' and @value='"+ regis[2] +"']"), 3000, 0, 2);
-						//(By.id("UIRegistration_" + regis[2]));
-				if (!rdoRegistration.isSelected())
-					actions.click(rdoRegistration).perform();		
+				check(ELEMENT_ACCESS_EDIT_REGISTRATION_CLOSE,2);
 			}
 		}
 
@@ -218,9 +204,8 @@ public class SpaceManagement extends SocialBase {
 			switchTabs(ELEMENT_USER_GROUP_TAB);
 			addUserGroupToInvite(groupPath, childGroupName);
 		}
-
 		clickButton("Create");
-		waitForTextPresent(name, iTimeout);
+		waitForAndGetElement(By.linkText(name), iTimeout);
 		Utils.pause(1000);
 		//waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + name + "']"), iTimeout);
 	}
@@ -278,17 +263,18 @@ public class SpaceManagement extends SocialBase {
 		}
 		button.save();
 		if(name == newName){
-			waitForTextPresent("Update info of space successful.");
+			waitForTextPresent("Updated space information successfully.");
 			dialog.closeMessageDialog();
 		}else{
-			waitForAndGetElement(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + newName + "']"));
+			waitForAndGetElement(By.xpath(ELEMENT_VERIFY_SPACE_NAME_ACTIVITY.replace("${spaceName}", newName)));
 		}
 	}
 	/**
 	 * Go to edit form of a space
 	 * @param name : Space name
 	 */
-	public void gotoEditSpace(String name){    
+	public void gotoEditSpace(String name){  
+		info("-- Go to Edit space page --");
 		doAction("Edit", name);
 		waitForAndGetElement(ELEMENT_SPACE_SETTING_MENU);    
 	}
@@ -297,16 +283,20 @@ public class SpaceManagement extends SocialBase {
 	 * @param file : File path of new avatar
 	 */
 	public void changeAvatar(String file){
-		if(!file.contains("ui-testsuite")) file = Utils.getAbsoluteFilePath(file); 
-		click(ELEMENT_CHANGE_AVATAR_ICON);
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
-		waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID);
-		type(ELEMENT_UPLOAD_IMG_ID, file, false);
-		Utils.pause(500);
+		info("-- changeAvatar --");
+		click(ELEMENT_CHANGE_AVATAR_BUTTON);
+		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
+				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
+		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", upload);
+		upload.sendKeys(Utils.getAbsoluteFilePath(file));
+		Utils.pause(3000);
+		info("Upload file " + Utils.getAbsoluteFilePath(file));
 		switchToParentWindow();
-		clickButton("Confirm");    
-		click(By.xpath("//*[@id='UIAvatarUploadContent']//a[contains(text(),'Save')]"));
-		waitForTextNotPresent("Upload an Image");
+		button.confirm();
+		waitForAndGetElement(ELEMENT_AVATAR_SAVE_BUTTON);
+		click(ELEMENT_AVATAR_SAVE_BUTTON);
+		Utils.pause(1000);
 	}
 
 	/**
@@ -344,6 +334,45 @@ public class SpaceManagement extends SocialBase {
 			 click(ELEMENT_DOCUMENTS_TAB);
 			 actBar.goToViewMode(view);
 		 }
+	}
+
+	/**
+	 * Go to space menu item
+	 * @author phuongdt
+	 * @param menuItem
+	 */
+	public void goToSpaceMenu(String menuItem){
+		info("-- Go To " + menuItem + " --");
+		if(waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem),DEFAULT_TIMEOUT,0)!=null)
+			click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem)));
+		else{
+			click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", "More")));
+			String []items = menuItem.split(" ");
+			if(items.length>1){
+				click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem.split(" ")[0]+" ...")));
+			}
+			else{
+				click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem)));
+			}
+		}
+	}
+	
+	/**
+	 * Verify space menu item
+	 * @author phuongdt
+	 * @param menuItem
+	 */
+	public void verifySpaceMenu(String menuItem){
+		info("-- Verify " + menuItem + " --");
+		if(waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem),DEFAULT_TIMEOUT,0)==null){
+			info("-- Click More button --");
+			click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", "More")));
+			String []items = menuItem.split(" ");
+			if(items.length>1)
+				waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem.split(" ")[0]+" ..."));
+			else
+				waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem));
+		}
 	}
 }
 

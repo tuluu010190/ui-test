@@ -32,6 +32,7 @@ public class Button extends TestBase{
 	public final By ELEMENT_CLOSE_BUTTON = By.xpath("//*[text()='Close']");
 	public final By ELEMENT_ADD_BUTTON = By.xpath("//*[text()='Add']");
 	public final By ELEMENT_SELECT_BUTTON = By.xpath("//*[text()='Select']");
+	public final By ELEMENT_CONFIRM_BUTTON = By.xpath("//*[text()='Confirm']");
 	public final By ELEMENT_CLOSE_WINDOW = By.xpath("//*[contains(@class, 'uiIconClose') and @title = 'Close Window']");
 			//By.className("uiIconClose"); 
 	public final By ELEMENT_MOVE_BUTTON = By.xpath("//button[contains(text(), 'Move')]");
@@ -58,6 +59,11 @@ public class Button extends TestBase{
 	 * General
 	 * 
 	 */
+	public void confirm() {
+		waitForAndGetElement(ELEMENT_CONFIRM_BUTTON);
+		click(ELEMENT_CONFIRM_BUTTON);
+		Utils.pause(500);
+	}
 	public void save() {
 		waitForAndGetElement(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_SAVE_BUTTON);

@@ -42,6 +42,9 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_ACTIVITY_FILTER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${filterOption}')]";
 	public final By ELEMENT_ACTIVITY_TEXTAREA = By.id("composerInput");
 	public final By ELEMENT_ACTIVITY_TEXTBOX = By.id("DisplaycomposerInput");
+	public final By ELEMENT_ACTIVITY_MENTION_USER_MENU = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='autocomplete-menu']");
+	public final String ELEMENT_ACTIVITY_MENTION_USER = ELEMENT_ACTIVITY_MENTION_USER_MENU+"//*[contains(text(),'${name}')]/../div[@class='avatarSmall']";
+	public final By ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='placeholder']");
 	public final By ELEMENT_LINK = By.xpath("//i[@class='uiIconSocUILinkActivityComposer uiIconSocLightGray']");
 	public final By ELEMENT_FILE_LINK = By.xpath("//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
 	public final By ELEMENT_INPUT_LINK_BOX = By.id("InputLink");
@@ -58,6 +61,7 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_COMMENT_ICON = "//*[contains(text(), '${activityText}')]/..//*[@class= 'uiIconComment uiIconLightGray']";
 	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'CommentButton')]";
 	public final String ELEMENT_INPUT_COMMENT_TEXT_AREA = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]";
+	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
 	public final String ELEMENT_LIKE_ICON = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'LikeLink')]";
 	public final String ELEMENT_UNLIKE_ICON = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'UnLikeLink')]";
 	public final String ELEMENT_ACTIVITY_NAME_CONSECUTIVE = "//*[contains(@id,'UIActivitiesContainer')]/div[1]//*[@class='description' and text()='${activityText1}']/../../../../../../div[2]//*[@class='description' and text()='${activityText2}']";
@@ -68,6 +72,7 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
 	public final String ELEMENT_DRIVER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${driveName}')]";
 	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
+	public final By ELEMENT_MENTION_USER_BUTTON = By.id("mentionButton");
 
 	/**
 	 * Select filter activity
@@ -81,10 +86,10 @@ public class Activity extends SocialBase {
 			click(ELEMENT_ACTIVITY_DROPDOWN,2);
 			click(ELEMENT_ACTIVITY_FILTER_OPTION.replace("${filterOption}", filterOption));
 			waitForAndGetElement(ELEMENT_ACTIVITY_FILTER_CURRENT.replace("${filterOption}", filterOption));
-			
+
 		}
 	}
-	 
+
 	/**
 	 * Select a file to post on activity
 	 * @param driveName
@@ -148,13 +153,18 @@ public class Activity extends SocialBase {
 	 */
 	public void addActivity (boolean addText, String text, boolean addLink, String link) {
 		info("-- Adding an activity to space --");
-		waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT,1, 2);
+		//waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT,1, 2);
+		Utils.pause(3000);
 		if (addText) 
 		{
 			info("----Add text into activity text box-----");
-			WebElement inputText = waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT, 1, 2);
-			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", inputText);
-			inputText.sendKeys(text);
+			WebElement inputText = waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX);
+			WebElement shareButton = waitForAndGetElement(ELEMENT_SHARE_BUTTON);
+			WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL);
+			((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '';", workingLabel);
+			((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '"+text+"';", inputText);
+			((JavascriptExecutor)driver).executeScript("arguments[0].disabled = false;", shareButton);
+			((JavascriptExecutor)driver).executeScript("arguments[0].className = 'pull-right btn btn-primary';", shareButton);
 		}
 		if (addLink)
 		{
@@ -214,8 +224,13 @@ public class Activity extends SocialBase {
 		info("-- Adding a new comment --");
 		//Add a new comment following an activity 
 		click(ELEMENT_COMMENT_ICON.replace("${activityText}", activityText));
-		type(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText), contentOfComment, false);
-		//Click on Comment button
+		WebElement commentText = waitForAndGetElement(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText));
+		WebElement commentButton = waitForAndGetElement(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
+		WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL.replace("${activityText}", activityText));
+		((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '';", workingLabel);
+		((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '"+contentOfComment+"';", commentText);
+		((JavascriptExecutor)driver).executeScript("arguments[0].disabled = false;", commentButton);
+		((JavascriptExecutor)driver).executeScript("arguments[0].className = 'btn pull-right btn-primary';", commentButton);
 		click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
 		waitForTextPresent(contentOfComment);
 	}
@@ -389,7 +404,7 @@ public class Activity extends SocialBase {
 			waitForElementNotPresent(By.xpath("//*[contains(text(),'"+activityText+"')]"));
 		}
 	}
-	
+
 	/**
 	 * @author phuongdt
 	 * mention a user in activity or comment of a activity
@@ -399,7 +414,8 @@ public class Activity extends SocialBase {
 			info ("-- Adding a mention activity --");			
 			WebElement inputText = waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT, 1, 2);
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", inputText);
-			inputText.sendKeys("@"+userName);
+			click(ELEMENT_MENTION_USER_BUTTON);
+			inputText.sendKeys(userName);
 			click(ELEMENT_ACTIVITY_TEXTBOX);
 			click("//*[@class='avatarSmall']");
 			click(ELEMENT_SHARE_BUTTON);

@@ -1,6 +1,8 @@
 package org.exoplatform.selenium.platform.social;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+
 import static org.exoplatform.selenium.TestLogger.*;
 /**
  * 
@@ -13,83 +15,42 @@ public class ApplicationManagement extends SocialBase {
 	//Go to My Spaces > Select a space > Settings
 	//Applications Tab 
 	public final By ELEMENT_SPACE_NAVIGATION = By.xpath("//div[text()='Applications']");
-	public final By ELEMENT_ADD_APPLICATION_LINK = By.linkText("Add Application");
+	public final By ELEMENT_ADD_APPLICATION_BUTTON = By.xpath("//button[text()='Add Application']");
 	public final By ELEMENT_ADD_APP_POPUP = By.xpath("//span[text()='Space Application Installer']");
 	public final By ELEMENT_CLOSE_BUTTON = By.xpath("//div[@id='UIAddApplication']/div/a[@title='Close Window']");
-	
-	//Go to space application
-	/*public void goToSpaceApplication () {
-		
-		waitForElementPresent(ELEMENT_SPACE_NAVIGATION);
-		
-		click(ELEMENT_SPACE_NAVIGATION);
-	}*/
+	public final String ELEMENT_SELECT_APPLICATION = "//strong[text()='${applicationTitle}']/../../a[text()='Add']";
+	public final String ELEMENT_DELETE_APPLICATION = "//div[@class='communityContainer']/span[text()='${applicationTitle}']/../../a[contains(@class,'uiIconClose')]";
+
+	public ApplicationManagement(WebDriver dr) {
+		driver = dr;
+	}
 
 	//Add application for space
 	public void addApplication(String categoryName, String applicationTitle) {
-
-		By ELEMENT_CATEGORY = By.xpath("//div[contains(text(),'"+categoryName+"')]");
-		By ELEMENT_ADD_APP_BUTTON = By.xpath("//div[text()='"+applicationTitle+"']/following::div[@title='Install this application to the space']");
-		
-		info("----Click add application link----");
-		
-		waitForAndGetElement(ELEMENT_ADD_APPLICATION_LINK);
-		
-		click(ELEMENT_ADD_APPLICATION_LINK);
-
+		goToApplications();
+		info("----Click add application button----");
+		waitForAndGetElement(ELEMENT_ADD_APPLICATION_BUTTON);
+		click(ELEMENT_ADD_APPLICATION_BUTTON);
 		info("---Select category----");
-		
 		waitForAndGetElement(ELEMENT_ADD_APP_POPUP);
-		
-		click(ELEMENT_CATEGORY);
-
+		click(By.id(categoryName));
 		info("-------Add application-------");
-		
-		waitForAndGetElement(ELEMENT_ADD_APP_BUTTON);
-		
-		click(ELEMENT_ADD_APP_BUTTON);
-
+		waitForAndGetElement(ELEMENT_SELECT_APPLICATION.replace("${applicationTitle}", applicationTitle));
+		click(By.xpath((ELEMENT_SELECT_APPLICATION.replace("${applicationTitle}", applicationTitle))));
 		info("---Verify new application is added");
-		
 		info("----Close add application pop up-----");
-		
 		click(ELEMENT_CLOSE_BUTTON);
-		
 		waitForElementNotPresent(ELEMENT_CLOSE_BUTTON);
-		
-		waitForAndGetElement(By.xpath("//div[@class='CommunityName FL' and text()='"+applicationTitle+"']"));
-		
-		//info("Close window");
-		/*
-		 * Comment out by Dung.hm
-		 * Reason: duplicated ELEMENT_CLOSE_BUTTON verification
-		 *  
-		 waitForElementPresent(ELEMENT_CLOSE_BUTTON);
-		 */
-		
-		//info("----Close add application pop up-----");
-		
-		//click(ELEMENT_CLOSE_BUTTON);
-		
-		//waitForElementNotPresent(ELEMENT_CLOSE_BUTTON);
+		waitForAndGetElement(ELEMENT_DELETE_APPLICATION.replace("${applicationTitle}", applicationTitle));
 	}
 	
 	//Delete application
 	public void removeApplication(String applicationTitle){
-		
-		By ELEMENT_DELETE_APP_BUTTON = By.xpath("//div[text()='"+applicationTitle+"']/following::div/a[@title='Remove']");
-		
 		info("----Go to Space application ---");
-		
-		//goToSpaceApplication();
 		goToApplications();
-		
 		info("-----Click delete button-----");
-		
-		click(ELEMENT_DELETE_APP_BUTTON);
-		
+		click(By.xpath((ELEMENT_DELETE_APPLICATION.replace("${applicationTitle}", applicationTitle))));
 		info("----Verify application is deleted----");
-		
-		waitForElementNotPresent(By.xpath("//div[@class='CommunityName FL' and text()='"+applicationTitle+"']"));
+		waitForElementNotPresent((ELEMENT_DELETE_APPLICATION.replace("${applicationTitle}", applicationTitle)));
 	}
 }

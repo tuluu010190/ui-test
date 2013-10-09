@@ -56,7 +56,7 @@ public class SocialBase extends PlatformBase {
 	public final By ELEMENT_MEMBERS_TAB_IN_SPACE_MENU = By.xpath("//*[@id='UISpaceMenu']//*[text()='Members']");
 
 	// Go to My Space -> Select a space > click Application tab
-	public final By ELEMENT_APPLICATIONS_TAB = By.xpath("//div[text()='Applications']");
+	public final By ELEMENT_APPLICATIONS_TAB = By.linkText("Applications");
 
 	// Go to Account Name link	
 //	public final By ELEMENT_MY_PROFILE_LINK = By.linkText("My Profile");
@@ -179,6 +179,8 @@ public class SocialBase extends PlatformBase {
 
 	// Go to Applications tab
 	public void goToApplications(){
+		info("-- Go to applications --");
+		waitForAndGetElement(ELEMENT_APPLICATIONS_TAB);
 		click(ELEMENT_APPLICATIONS_TAB);
 		waitForTextPresent("Applications");
 	}
