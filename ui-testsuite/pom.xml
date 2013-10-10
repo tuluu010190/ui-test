@@ -92,13 +92,6 @@
 		</profile>
 		
 		<profile>
-			<id>social-sniff</id>
-			<properties>
-				<testSuite>social-sniff.xml</testSuite>
-			</properties>
-		</profile>
-		
-		<profile>
 			<id>social</id>
 			<properties>
 				<testSuite>social.xml</testSuite>
@@ -116,6 +109,12 @@
 			<id>wiki</id>
 			<properties>
 				<testSuite>wiki.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>wiki-sniff</id>
+			<properties>
+				<testSuite>wiki-sniff.xml</testSuite>
 			</properties>
 		</profile>
 		<profile>
