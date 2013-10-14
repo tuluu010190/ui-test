@@ -27,15 +27,16 @@ public class DashBoard extends PlatformBase {
 	public 	final By ELEMENT_DASHBOARD_FRAME = By.xpath("//iframe[contains(@id,'remote_iframe_')]");
 	
 	// Getget Directory form
-	public  final By ELEMENT_GADGET_URI_INPUT = By.xpath("//input[@id='url']");
-	public  final By ELEMENT_ADD_GADGET_BUTTON = By.xpath("//img[@title='Add Gadget']");
+	public final By ELEMENT_GADGET_URI_INPUT = By.xpath("//input[@id='url']");
+	public final By ELEMENT_ADD_GADGET_BUTTON = By.xpath("//img[@title='Add Gadget']");
 	public final By ELEMENT_GADGET_CONTAINER = By.xpath("//*[@id='GadgetContainer']//*[text()='Drag your gadgets here.']");
 	public final String ELEMENT_GADGET_ON_CONTAINER = "//*[@id='GadgetContainer']//*[text()='${name}']";
 	public final By ELEMENT_CLOSE_ADD_GADGET_WINDOW = By.xpath("//*[@id='UIDashboardPortlet']//*[@title='Close Window']");
 	public final String ELEMENT_GADGET_NAME = "//*[@title='${name}']";
 	public final String ELEMENT_ACTION_ON_GADGET = "//span[text()='${gadgetTitleDisplay}']/..//*[@data-original-title='${action}']/i";
 	public final By ELEMENT_GADGET_CONTENT_FORM = By.className("UIGadgetContent");
-
+	public final String ELEMENT_GADGET_TITLE = "//*[@class='gadgetTitle' and text()='${title}']";
+	
 	/*------------- Data for Dashboard tab --------------------------------*/
 	public final String ELEMENT_DASHBOARD_NEW_ICON = "//*[@id='UITabPaneDashboard']//*[@class='uiIconSimplePlusMini uiIconLightGray']";
 	public final String ELEMENT_DASHBOARD_NEW_INPUT = "//div[@id='UITabPaneDashboard']//input";
@@ -150,7 +151,8 @@ public class DashBoard extends PlatformBase {
 		click(ELEMENT_ADD_GADGETS_LINK);
 		type(ELEMENT_GADGET_URI_INPUT, url, true);
 		click(ELEMENT_ADD_GADGET_BUTTON);
-		waitForTextPresent(name);
+		//waitForTextPresent(name);
+		waitForAndGetElement(ELEMENT_GADGET_TITLE.replace("${title}", name));
 	}
 	
 	/**
@@ -171,7 +173,8 @@ public class DashBoard extends PlatformBase {
 		if(action.contains("Delete Gadget")){
 			alt = new ManageAlert(driver);
 			alt.waitForConfirmation("Are you sure you want to delete this gadget?");
-			waitForTextNotPresent(gadgetTitleDisplay);
+			//waitForTextNotPresent(gadgetTitleDisplay);
+			waitForElementNotPresent(ELEMENT_GADGET_TITLE.replace("${title}", gadgetTitleDisplay));
 		}
 		else if (action.contains("Minimize")){
 			if(isDisplay)

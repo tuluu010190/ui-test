@@ -95,7 +95,7 @@ public class Wiki_PublicActivity extends BasicAction {
 		editPageWithCheckPublicActivity(null, newContent1, comment);		
 		naTool.goToHomePage();
 		activity.checkActivityInfoOfWiki(title, newContent1, "2");
-		waitForAndGetElement(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", title).replace("${comment}", comment));
+		waitForAndGetElement(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT_1.replace("${title}", title).replace("${comment}", comment));
 		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", title));
 		
 		info("Edit wiki page with no comment");

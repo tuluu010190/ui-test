@@ -183,6 +183,10 @@ public class ManageAccount extends PlatformBase {
 		driver.navigate().refresh();
 		Utils.pause(2000);
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		if (waitForAndGetElement(ELEMENT_MY_SETTING, 5000, 0) == null){
+			info("Cannot use [mouseOver] on Navigation Tool Bar");
+			mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		}
 		if (language == "French"){
 			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK);
 			waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP);

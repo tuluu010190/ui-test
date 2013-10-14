@@ -145,7 +145,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 
 		//A comment is added: Summary has been updated to: $value.
 		info("-- Verify comment --");
-		assertEquals(sumcomment,driver.findElement(By.xpath(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", node).replace("${comment}", comment))).getText());
+		assertEquals(sumcomment,driver.findElement(By.xpath(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT_2.replace("${title}", node).replace("${comment}", comment))).getText());
 
 		/*Clear data*/
 		info("clear data");
@@ -194,7 +194,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 
 		//A comment is added: Content has been updated.
 		info("-- Verify comment --");
-		assertEquals(comment,driver.findElement(By.xpath(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}", node).replace("${comment}", comment))).getText());
+		assertEquals(comment,driver.findElement(By.xpath(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT_2.replace("${title}", node).replace("${comment}", comment))).getText());
 
 		/*Clear data*/
 		info("clear data");

@@ -430,7 +430,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 	public void test14_ChangePermissionOfPageInPermalink_SelectGroup(){
 		String title = "Wiki_sniff_permalink_title_14_2";
 		String content = "Wiki_sniff_permalink_content_14_2";
-		String[] userGroup2 = {"Development"};
+		String userGroup2 = "Development/Select this Group";
 		
 		addBlankWikiPage(title, content, 0);
 		deletePagePermission("any");
@@ -438,7 +438,7 @@ public class Wiki_BasicAction_Other extends Permalink {
 		goToPermissionFromPermalink();
 		info("Select group");
 		click(ELEMENT_SELECT_GROUP);
-		per.selectGroupPermission(userGroup2[0]);
+		per.selectGroupPermission(userGroup2);
 		click(button.ELEMENT_ADD_BUTTON);
 		button.save();
 		magAc.signOut();

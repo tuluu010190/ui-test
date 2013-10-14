@@ -183,7 +183,7 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 	/**CaseId: 70336 -> Resume a draft with save as normal
 	 * pending because issue WIKI-493
 	 */
-	@Test (groups = "pending")
+	@Test (groups = {"error"})
 	public void test07_ResumeDraft(){
 		String title = "Wiki_manage_page_title_07";
 		String content = "Wiki_manage_page_content_07";

@@ -50,6 +50,22 @@ public class TestBase {
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
 
+	/*======= Welcome Screen (Term and Conditions) =====*/
+	By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
+	By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
+	By ELEMENT_EMAIL_ACCOUNT = By.name("emailAccount");
+	By ELEMENT_CONFIRM_PASS_ACCOUNT = By.name("confirmUserPasswordAccount");
+	By ELEMENT_ROOT_PASS_ACCOUNT = By.name("adminPassword");
+	By ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT = By.name("confirmAdminPassword");
+	By ELEMENT_AGREEMENT_CHECKBOX = By.xpath("//*[@id = 'agreement']");
+	By ELEMENT_INPUT_USERNAME = By.name("username"); 
+	By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue']");
+	By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
+	By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
+	By ELEMENT_INPUT_PASSWORD = By.name("password");
+	By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+	/*======== End of Term and conditions =====*/
+
 	public void initSeleniumTest(){
 		String browser = System.getProperty("browser");
 		if("chrome".equals(browser)){
@@ -64,26 +80,32 @@ public class TestBase {
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		action = new Actions(driver);
+		info("Term and conditions");
 		termsAndConditions();
+		info("End of term and conditions");
 	}
 
+	/**
+	 * Check term and conditions
+	 * 
+	 */
 	public void termsAndConditions(){
-
-		By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
-		By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
-		By ELEMENT_EMAIL_ACCOUNT = By.name("emailAccount");
-		By ELEMENT_CONFIRM_PASS_ACCOUNT = By.name("confirmUserPasswordAccount");
-		By ELEMENT_ROOT_PASS_ACCOUNT = By.name("adminPassword");
-		By ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT = By.name("confirmAdminPassword");
-		By ELEMENT_AGREEMENT_CHECKBOX = By.xpath("//*[@id = 'agreement']");
-		By ELEMENT_INPUT_USERNAME = By.name("username"); 
-		By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue']");
-		By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
-		By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
-		By ELEMENT_INPUT_PASSWORD = By.name("password");
-		By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+		//By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
+		//By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
+		//By ELEMENT_EMAIL_ACCOUNT = By.name("emailAccount");
+		//By ELEMENT_CONFIRM_PASS_ACCOUNT = By.name("confirmUserPasswordAccount");
+		//By ELEMENT_ROOT_PASS_ACCOUNT = By.name("adminPassword");
+		//By ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT = By.name("confirmAdminPassword");
+		//By ELEMENT_AGREEMENT_CHECKBOX = By.xpath("//*[@id = 'agreement']");
+		//By ELEMENT_INPUT_USERNAME = By.name("username"); 
+		//By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue']");
+		//By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
+		//By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
+		//By ELEMENT_INPUT_PASSWORD = By.name("password");
+		//By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 
 		driver.get(baseUrl);
+		info("Agreement page");
 		if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 5000, 0, 2) != null) {
 			info("-- Checking the terms and conditions agreement... --");
 			click(ELEMENT_AGREEMENT_CHECKBOX, 2);
@@ -91,23 +113,43 @@ public class TestBase {
 			waitForTextNotPresent("terms and conditions agreement");
 
 			info("-- Creating an Admin account: FQA... --");
-			type(ELEMENT_INPUT_USERNAME, "fqa", true);
-			type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
-			type(ELEMENT_LASTNAME_ACCOUNT, "VN", true);
-			type(ELEMENT_EMAIL_ACCOUNT, "fqa@exoplatform.com", true);	
-			type(ELEMENT_INPUT_PASSWORD, "gtngtn", true);
-			type(ELEMENT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);	
-			type(ELEMENT_ROOT_PASS_ACCOUNT, "gtngtn", true);
-			type(ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);
-			click(ELEMENT_SUBMIT_BUTTON);
-			waitForTextNotPresent("Create your account");
-			click(ELEMENT_START_BUTTON);
-			waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
-
+			accountSetup();
+			firstTimeLogin = true;
+			info("-- Administrator account (FQA) has been created successfully... --");
+		}else if (waitForAndGetElement(ELEMENT_ROOT_PASS_ACCOUNT, 5000, 0, 2) != null){
+			info("-- Creating an Admin account: FQA... --");
+			//type(ELEMENT_INPUT_USERNAME, "fqa", true);
+			//type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
+			//type(ELEMENT_LASTNAME_ACCOUNT, "VN", true);
+			//type(ELEMENT_EMAIL_ACCOUNT, "fqa@exoplatform.com", true);	
+			//type(ELEMENT_INPUT_PASSWORD, "gtngtn", true);
+			//type(ELEMENT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);	
+			//type(ELEMENT_ROOT_PASS_ACCOUNT, "gtngtn", true);
+			//type(ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);
+			//click(ELEMENT_SUBMIT_BUTTON);
+			//waitForTextNotPresent("Create your account");
+			//click(ELEMENT_START_BUTTON);
+			//waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
+			accountSetup();
 			firstTimeLogin = true;
 			info("-- Administrator account (FQA) has been created successfully... --");
 		} 
 		Utils.pause(1000);     
+	}
+
+	public void accountSetup(){
+		type(ELEMENT_INPUT_USERNAME, "fqa", true);
+		type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
+		type(ELEMENT_LASTNAME_ACCOUNT, "VN", true);
+		type(ELEMENT_EMAIL_ACCOUNT, "fqa@exoplatform.com", true);	
+		type(ELEMENT_INPUT_PASSWORD, "gtngtn", true);
+		type(ELEMENT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);	
+		type(ELEMENT_ROOT_PASS_ACCOUNT, "gtngtn", true);
+		type(ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);
+		click(ELEMENT_SUBMIT_BUTTON);
+		waitForTextNotPresent("Create your account");
+		click(ELEMENT_START_BUTTON);
+		waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
 	}
 
 	public WebElement getElement(Object locator) {
@@ -493,11 +535,12 @@ public class TestBase {
 			loopCount = 0;
 		}
 	}
-	public void rightClickOnElement(Object locator, int...display) {
+	public void rightClickOnElement(Object locator, int...opParams) {
+		int display = opParams.length > 0 ? opParams[0]: 0;
 		Actions actions = new Actions(driver);
 		Utils.pause(500);
 		try {
-			WebElement element = waitForAndGetElement(locator,DEFAULT_TIMEOUT,1,display[0]);
+			WebElement element = waitForAndGetElement(locator,DEFAULT_TIMEOUT, 1, display);
 			actions.contextClick(element).perform();
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
@@ -724,6 +767,7 @@ public class TestBase {
 		cal.add(Calendar.MINUTE, min);
 		return (dateFormat.format(cal.getTime()));	
 	}
+
 	/** Get date in format "dd"
 	 * @author thuntn
 	 * @param gap: distance from current date

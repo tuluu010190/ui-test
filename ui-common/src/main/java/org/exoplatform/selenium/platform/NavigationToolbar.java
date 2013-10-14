@@ -117,6 +117,10 @@ public class NavigationToolbar extends PlatformBase {
 	public void goToMySetting(){
 		info("---Go to My Setting ---");
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+		if (waitForAndGetElement(ELEMENT_MY_SETTING, 5000, 0) == null){
+			info("Cannot use [mouseOver] on Navigation Tool Bar");
+			mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+		}
 		mouseOverAndClick(ELEMENT_MY_SETTING);
 		Utils.pause(1000);
 	}

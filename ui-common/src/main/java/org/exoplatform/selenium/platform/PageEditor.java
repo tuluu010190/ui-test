@@ -16,7 +16,7 @@ public class PageEditor extends PlatformBase {
 	public PageEditor (WebDriver dr){
 		driver = dr;
 	}
-	
+
 	NavigationToolbar nav = new NavigationToolbar(driver);
 	UserGroupManagement userGroup = new UserGroupManagement(driver);
 	Dialog dialog = new Dialog(driver);
@@ -39,7 +39,7 @@ public class PageEditor extends PlatformBase {
 	//View Page Properties form -> Page Setting tab
 	public final By ELEMENT_VIEW_PAGE_PROPERTIES = By.linkText("View Page properties");
 	public final String ELEMENT_OWNERTYPE_SELECTED = "//*[@id='PageSetting-tab']//select[@name='ownerType']/option[@selected = 'selected' and text()='${ownerType}']";
-	
+
 	//View Page Properties form (there are 2 tabs in this form)
 	//Page Setting Tab
 	public final By ELEMENT_VIEWPAGE_PAGETITLE = By.id("title");
@@ -72,9 +72,9 @@ public class PageEditor extends PlatformBase {
 	public final String ELEMENT_RIGHT_WORKSPACE_NODE = "//*[@class='rightWorkspace']//*[text()='${node}']";
 
 	//public final By ELEMENT_ROW_EMPTY_CONTAINER = By.xpath("//*[contains(@class, 'UIRowContainer EmptyContainer')]");
-	
+
 	/*===================== Common Function =======================*/
-	
+
 	//Create page wizard without layout
 	public void goToPageEditor_EmptyLayout(String pageName){
 		nav = new NavigationToolbar(driver);
@@ -282,8 +282,14 @@ public class PageEditor extends PlatformBase {
 
 			if(waitForAndGetElement(ELEMENT_FRAME_CONTAIN_PORTLET,10000,0) != null){
 				mouseOver(ELEMENT_FRAME_CONTAIN_PORTLET,true);	
-				click(ELEMENT_EDIT_PORTLET_ICON);
-				click(ELEMENT_SELECT_CONTENT_PATH_LINK);
+				//click(ELEMENT_EDIT_PORTLET_ICON);
+				//click(ELEMENT_SELECT_CONTENT_PATH_LINK);
+				click(ELEMENT_EDIT_PORTLET_ICON);  
+				if (waitForAndGetElement(ELEMENT_SELECT_CONTENT_PATH_LINK_AUX, 3000, 0) != null){
+					click(ELEMENT_SELECT_CONTENT_PATH_LINK_AUX);
+				}else{
+					click(ELEMENT_SELECT_CONTENT_PATH_LINK);
+				}
 			}
 			for(int i = 0; i < pathNames.length - 1; i ++ ){
 				String pathToSelect = ELEMENT_SELECT_CONTENT_FOLDER_PATHS.replace("${pathName}", pathNames[i]);
@@ -340,7 +346,7 @@ public class PageEditor extends PlatformBase {
 		info("Delete a portlet..." + elementPortlet);
 		magAlert = new ManageAlert(driver);
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true) ;
-		
+
 		if (waitForAndGetElement(elementPortlet, 5000, 0) != null){
 			mouseOver(elementPortlet, true);
 			click(iconDelete);
@@ -359,7 +365,7 @@ public class PageEditor extends PlatformBase {
 		}
 		waitForElementNotPresent(elementPortlet);
 	}
-	
+
 	/**function go to edit a portlet
 	 * @author lientm
 	 * @param elementPortlet
@@ -370,7 +376,7 @@ public class PageEditor extends PlatformBase {
 		click(ELEMENT_EDIT_PORTLET_ICON);
 		waitForAndGetElement(By.id("tab-UIPortletForm"));
 	}
-	
+
 	/**function move a portlet to a new container
 	 * @author lientm
 	 * @param elementPortlet
@@ -383,7 +389,7 @@ public class PageEditor extends PlatformBase {
 		dragAndDropToObject(iconMove, newContainer);
 		Utils.pause(2000);
 	}
-	
+
 	/**function select and drag drop new container when edit layout of page
 	 * @author lientm
 	 * @param group
@@ -396,7 +402,7 @@ public class PageEditor extends PlatformBase {
 		dragAndDropToObject(By.id(container), By.className("UIRowContainer"));
 		Utils.pause(2000);
 	}
-	
+
 	/**function remove a container in page layout
 	 * @author lientm
 	 * @param container
@@ -410,7 +416,7 @@ public class PageEditor extends PlatformBase {
 		magAlert.acceptAlert();
 		waitForElementNotPresent(iconDelete);
 	}
-	
+
 	/**function add new container and app to layout of page
 	 * @author lientm
 	 * @param containerType
@@ -420,7 +426,7 @@ public class PageEditor extends PlatformBase {
 	 */
 	public void addNewContainerAndPortlet(String containerType, String container, String category, String portletId, Object...params){		
 		boolean finishEdit = (Boolean) (params.length > 0 ? params[0] : true);
-		
+
 		addNewContainer(containerType, container);
 		click(ELEMENT_APPLICATION_TAB);
 		click(By.linkText(category));
@@ -430,7 +436,7 @@ public class PageEditor extends PlatformBase {
 		}
 		Utils.pause(1000);
 	}
-	
+
 	//Finish Editing
 	public void finishEditLayout(){
 		info("Finish Editing PageLayout");

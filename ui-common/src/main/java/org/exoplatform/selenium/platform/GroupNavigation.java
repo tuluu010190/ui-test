@@ -105,6 +105,7 @@ public class GroupNavigation extends PlatformBase {
 	//Edit node in group navigation
 	public void editNodeInGroupNavigation(String groupName, String nodeName, Object...params){
 		pageMag = new PageManagement(driver);
+		button = new Button(driver);
 		String nodeLabel = (String) (params.length > 0 ? params[0]: "");
 		String pageTitle = (String) (params.length > 1 ? params[1]: "");
 		String option = (String) (params.length > 2 ? params[2]: "portal");
@@ -114,7 +115,11 @@ public class GroupNavigation extends PlatformBase {
 		click(ELEMENT_EDIT_SELECTED_NODE);
 		
 		if(!nodeLabel.isEmpty()){
-			type(ELEMENT_INPUT_LABEL, nodeLabel, true);
+			if (waitForAndGetElement(ELEMENT_INPUT_LABEL, 5000, 0) != null){
+				type(ELEMENT_INPUT_LABEL, nodeLabel, true);
+			}else{
+				type(ELEMENT_INPUT_LABEL_1, nodeLabel, true);
+			}
 		}
 		
 		//Selector page
