@@ -91,11 +91,11 @@ public class Social_HomePage_Activity extends Activity {
 		//Create data
 		info("-- Create activity --");
 		addActivity(true, activity1, false,"");
-		
+
 		info("-- Create space --");
 		magMember.goToMySpacePage();
 		magMember.addNewSpace(spaceName, "");
-		
+
 		info("-- Create new Webcontent --");
 		navToolBar.goToSiteExplorer();
 		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
@@ -127,25 +127,25 @@ public class Social_HomePage_Activity extends Activity {
 		//	  7.  the Action bar (Comment and Like links + custom actions)
 		info("-- Verify action bar --");
 		waitForAndGetElement(ELEMENT_COMMENT_ICON.replace("${activityText}", activity1));
-		waitForAndGetElement(ELEMENT_LIKE_ICON.replace("${activityText}", activity1));
+		waitForAndGetElement(activity.ELEMENT_LIKE_ICON.replace("${activityText}", activity1));
 		//	  8.  the like section (optional)
 		info("-- Verify like section --");
 		waitForElementNotPresent(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity1).replace("${index}", "1"));
-		likeOrUnlikeActivity(activity1);
+		activity.likeOrUnlikeActivity(activity1);
 		waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity1).replace("${index}", "1"));
 		//	  9.  the comment section (optional)
 		info("-- Verify comment section --");
 		waitForElementNotPresent(ELEMENT_DELETE_COMMENT_BUTTON.replace("${activityText}", activity1).replace("${commentText}", comment1), DEFAULT_TIMEOUT,1,2);
 		addComment(activity1, comment1);
 		waitForAndGetElement(ELEMENT_DELETE_COMMENT_BUTTON.replace("${activityText}", activity1).replace("${commentText}", comment1), DEFAULT_TIMEOUT,1,2);
-		
+
 		//Clear data
 		info("clear data");
 		activity.deleteActivity(activity1);
-		
+
 		magMember.goToAllSpaces();
 		magMember.deleteSpace(spaceName,300000);
-		
+
 		navToolBar.goToSiteExplorer();
 		actBar.chooseDrive(ecms.ELEMENT_SITES_MANAGEMENT_DRIVE);
 		cMenu.deleteData(bNameWebContent);
@@ -203,7 +203,7 @@ public class Social_HomePage_Activity extends Activity {
 		info("-- 4. Create activity --");
 		navToolBar.goToHomePage();
 		addActivity(true, activity1, false,"");
-		
+
 		info("-- 5. Create space --");
 		magMember.goToMySpacePage();
 		magMember.addNewSpace(spaceName, "");
@@ -444,14 +444,15 @@ public class Social_HomePage_Activity extends Activity {
 		//- Click on Like activity in action bar part of an activity
 		//- Like button is highlighted and the number of likers is updated
 		navToolBar.goToHomePage();
-		likeOrUnlikeActivity(activity1);
+		activity.likeOrUnlikeActivity(activity1);
 
 		/*Step 1: Like/Unlike Activity*/ 
 		//- Go to Intranet home
 		//- Click on Like activity in action bar part of an activity
 		//- Like button is highlighted and the number of likers is updated
 		magAcc.userSignIn(userType.ADMIN);
-		likeOrUnlikeActivity(activity1);
+
+		activity.likeOrUnlikeActivity(activity1);
 
 		/*Step 2: Check Likes part*/
 		//- Check avatar
@@ -505,7 +506,7 @@ public class Social_HomePage_Activity extends Activity {
 
 		//- A Relation activity is displayed to the activity stream
 		navToolBar.goToHomePage();
-		waitForAndGetElement(ELEMENT_LIKE_ICON.replace("${activityText}", activity1));
+		waitForAndGetElement(activity.ELEMENT_LIKE_ICON.replace("${activityText}", activity1));
 
 		//Clear data
 		info("clear data");

@@ -40,7 +40,7 @@ public class ActionBar extends EcmsBase{
 	ContextMenu cMenu = new ContextMenu(driver);
 	ManageAlert alert = new ManageAlert(driver);
 	ECMainFunction ecMain = new ECMainFunction(driver);
-	
+
 	/*
 	 * Added by PhuongDT
 	 * Date: 04/09/2013
@@ -56,7 +56,7 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_LOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsLock']");
 	public final By ELEMENT_UNLOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsUnlock']");
 	/*End added*/
-	
+
 	/*
 	 * @Added by: PhuongDT
 	 * @date: 27/08/2013
@@ -154,7 +154,7 @@ public class ActionBar extends EcmsBase{
 	public final String ELEMENT_REVISION_STATUS = "//*[@class = 'currentStatus']/*[text()='${status}']";
 	public final By ELEMENT_CLEAR_SELECTION = By.xpath("//*[@class='fileViewStatus']//*[@id='FileViewClearSelection']");
 	/*End Added*/
-	
+
 	public final By ELEMENT_VERSIONS_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageVersions']");
 	public final String ELEMENT_RESTORE_VERSION_ICON = "//*[contains(text(), 'Version: ${version}')]/..//*[@class = 'uiIconRestore uiIconLightGray']";
 	public final String ELEMENT_PUBLICATION_STATE = "//p[contains(text(),'{$state}')]/../a[@class='node']";	
@@ -179,7 +179,7 @@ public class ActionBar extends EcmsBase{
 	public final String ELEMENT_SORT_BY_TYPE = "//*[@class='dropdown-menu']//*[contains(text(), '${type}')]";
 	public final By ELEMENT_SORT_DOWN_ARROW = By.className("uiIconSortDown");
 	public final By ELEMENT_SORT_UP_ARROW = By.className("uiIconSortUp");
-	
+
 	/*==================================================================================*/
 	//Go to Sites Management
 	public void showDrives(){
@@ -302,7 +302,7 @@ public class ActionBar extends EcmsBase{
 		String[] temp = path.split("/");
 		if(temp.length>0)
 			waitForAndGetElement(By.xpath("//*[@id='FileViewBreadcrumb']//a[@data-original-title='" + temp[temp.length - 1] + "']"));
-		
+
 	}
 
 	// Add a category in DMS Administration - Simple View
@@ -454,7 +454,7 @@ public class ActionBar extends EcmsBase{
 		/*waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_TAB);*/
 		info ("------Category " + categoryName + " is added succesfully");
 	}
-	
+
 	/*
 	 * Add version for a node
 	 * + locator: locator of node
@@ -560,14 +560,14 @@ public class ActionBar extends EcmsBase{
 	public void goToAddToFavorite(){
 		if (isTextPresent("Add To Favorite")){
 			info("-- Add To Favorite tab is already displayed --");
-				click(ELEMENT_ADD_TO_FAVORITE_NODE);
+			click(ELEMENT_ADD_TO_FAVORITE_NODE);
 		}else{
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-				click(ELEMENT_ADD_TO_FAVORITE_NODE);
+			click(ELEMENT_ADD_TO_FAVORITE_NODE);
 		}
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * @modified by phuongdt
 	 * @modified date: 05/09/2013
@@ -1158,8 +1158,10 @@ public class ActionBar extends EcmsBase{
 		click(bState);
 		if (state.equals("Staged")){
 			click(ELEMENT_SCHEDULE_TAB);
-			type(ELEMENT_PUB_FROM_INPUT,date[0],true);
-			type(ELEMENT_PUB_TO_INPUT,date[1],true);
+			if((date.length > 0) || (date[0] != null))
+				type(ELEMENT_PUB_FROM_INPUT,date[0],true);
+			if(date.length > 1)
+				type(ELEMENT_PUB_TO_INPUT,date[1],true);
 			button.save();
 			waitForMessage("Your new publication schedule was saved successfully.");
 			button.ok();
@@ -1407,7 +1409,7 @@ public class ActionBar extends EcmsBase{
 		info("-- Publish date is " + date);
 		return date;	
 	}
-	
+
 	/**
 	 * @author phuongdt
 	 * @date 06/09/2013
@@ -1432,7 +1434,7 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_SORT_BY_TYPE.replace("${type}", type));
 		Utils.pause(1000);	
 	}
-	
+
 	/*
 	 * @Added by: PhuongDT
 	 * @date: 27/08/2013
@@ -1451,7 +1453,7 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_ACTION_ICON);
 		Utils.pause(1000);
 	}
-	
+
 	public void addNewAction(String actionName, String lifeCycle, String actionType, Object... params){
 		goToAction();
 		click(ELEMENT_ADD_ACTION_TAB); 
@@ -1467,7 +1469,7 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(1000);
 		button.close();
 	}
-	
+
 	public Boolean isActionPresent(String actionName){
 		goToAction();
 		click(ELEMENT_AVAILABLE_ACTIONS);
@@ -1477,20 +1479,20 @@ public class ActionBar extends EcmsBase{
 		button.close();
 		return isElement;
 	}
-	
+
 	public void deleteAction(String actionName){
 		goToAction();
 		click(ELEMENT_AVAILABLE_ACTIONS);
 	}
-	
+
 	public void actionsOnActionsOfNode(String actionName, String option, Object...params){
 		String newactionname = (String) (params.length > 0 ? params[0]: "");
 		String newactiontype = (String) (params.length > 1 ? params[1]: "");
 		String newlifecycle = (String) (params.length > 1 ? params[1]: "");
-		
+
 		goToAction();
 		click(ELEMENT_AVAILABLE_ACTIONS);
-		
+
 		info(option + "-- actionName --" + actionName);
 		if (option.equals("Edit")){
 			if(!newactionname.isEmpty())
@@ -1562,7 +1564,7 @@ public class ActionBar extends EcmsBase{
 			click(ELEMENT_VERSIONS_LINK);
 		}
 	}
-	
+
 	/**
 	 * @author phuongdt
 	 * @date 19/09/2013
@@ -1578,7 +1580,7 @@ public class ActionBar extends EcmsBase{
 		button.close();
 		Utils.pause(3000);
 	}
-	
+
 	/**
 	 * @author phuongdt
 	 * @date 04/09/2013
@@ -1596,7 +1598,7 @@ public class ActionBar extends EcmsBase{
 					return false;
 				else
 					return true;
-				
+
 			} else {
 				info("Do not have action icon in action bar");
 				return false;

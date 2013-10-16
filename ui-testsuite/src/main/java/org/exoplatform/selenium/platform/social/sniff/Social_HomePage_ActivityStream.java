@@ -40,7 +40,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 	//Social
 	PeopleConnection peoConn;
 	PeopleProfile peoPro;
-
+	
 	@BeforeMethod
 	public void beforeMethods() {
 		initSeleniumTest();
@@ -458,7 +458,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 		addComment(activityComment+user1, activityComment+user);
 		
 		//Like activity
-		likeOrUnlikeActivity(activityLike+user1);
+		activity.likeOrUnlikeActivity(activityLike+user1);
 
 		//Remove connection
 		navToolBar.goToConnectionPage();
