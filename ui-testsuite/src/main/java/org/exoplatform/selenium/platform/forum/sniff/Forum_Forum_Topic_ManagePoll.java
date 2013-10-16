@@ -1,11 +1,13 @@
 package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
 import org.exoplatform.selenium.platform.forum.ForumManagePoll;
+import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -23,6 +25,7 @@ public class Forum_Forum_Topic_ManagePoll extends ForumBase{
 	ForumManageForum mngFru;
 	ForumManageTopic mngTopic;
 	ForumManagePoll mngPoll;
+	ForumManagePost mngPost;
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -32,6 +35,7 @@ public class Forum_Forum_Topic_ManagePoll extends ForumBase{
 		mngFru = new ForumManageForum(driver);
 		mngTopic = new ForumManageTopic(driver);
 		mngPoll = new ForumManagePoll(driver);
+		mngPost = new ForumManagePost(driver);
 
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		goToForums();
@@ -55,7 +59,7 @@ public class Forum_Forum_Topic_ManagePoll extends ForumBase{
 		String[] options =  {"Option 01","Option 02"};
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,titleTop); 
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
-
+		
 		info("Add a new poll");
 		mngPoll.addPoll(poll, options, "2", true, true);
 		

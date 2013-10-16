@@ -52,7 +52,7 @@ public class Calendar_Event extends CalendarBase {
 		goToCalendarPage();
 
 		info("Add a new event in Personal calendar");
-		evt.addEvent(EVENT_01, EVENT_01,getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), true);
+		evt.addQuickEvent(EVENT_01, EVENT_01,getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), true);
 
 		info("Confirm added event displays in the calendar");
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", EVENT_01)));
@@ -91,7 +91,7 @@ public class Calendar_Event extends CalendarBase {
 
 		info("==Add event on shared calendar==");
 		goToCalendarPage();
-		evt.addEvent(EVENT_02,EVENT_02,getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), true, EVENT_SHARED_CALENDAR, EVENT_CATEGORY);
+		evt.addQuickEvent(EVENT_02,EVENT_02,getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), true, EVENT_SHARED_CALENDAR, EVENT_CATEGORY);
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", EVENT_02)));
 
 		info("==Restore data==");
@@ -129,7 +129,7 @@ public class Calendar_Event extends CalendarBase {
 
 		info("==Add event on group calendar==");
 		goToCalendarPage();
-		evt.addEvent(EVENT_03,EVENT_03,getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), true, CAL_03, EVENT_CATEGORY);
+		evt.addQuickEvent(EVENT_03,EVENT_03,getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), true, CAL_03, EVENT_CATEGORY);
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", EVENT_03)));
 
 		info("==Restore data==");
@@ -151,10 +151,10 @@ public class Calendar_Event extends CalendarBase {
 		goToCalendarPage();
 
 		info("Add a new task");
-		evt.addEvent(EVENT04,EVENT04,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(EVENT04,EVENT04,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
 
 		info("Edit a task");
-		editTaskEvent(EVENT04,TITLE,DESCRIPTION, true);
+		evt.editEvent(EVENT04,TITLE,DESCRIPTION, null,null,null,false);
 
 		info("Restore data");
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", EVENT04)));
@@ -173,7 +173,7 @@ public class Calendar_Event extends CalendarBase {
 		goToCalendarPage();
 
 		info("Add a new event");
-		evt.addEvent(EVENT05,EVENT05,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
+		evt.addQuickEvent(EVENT05,EVENT05,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
 
 		info("Delete an event");
 		Utils.pause(5000);
@@ -193,7 +193,7 @@ public class Calendar_Event extends CalendarBase {
 		goToCalendarPage();
 
 		info("Add a new task");
-		evt.addEvent(EVENT06,EVENT06,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
+		evt.addQuickEvent(EVENT06,EVENT06,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
 
 		info("Drag & drop a task");
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", EVENT06)));
@@ -236,10 +236,10 @@ public class Calendar_Event extends CalendarBase {
 
 		info("==Add a new event on group calendar==");
 		goToCalendarPage();
-		evt.addEvent(EVENT07,EVENT07,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true, CAL_07, EVENT_CATEGORY);
+		evt.addQuickEvent(EVENT07,EVENT07,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true, CAL_07, EVENT_CATEGORY);
 
 		info("==Edit an event==");
-		editTaskEvent(EVENT07,TITLE,DESCRIPTION, true);
+		evt.editEvent(EVENT07,TITLE,DESCRIPTION, null,null,null,false);
 
 		info("==Restore data==");
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", EVENT07)));
@@ -277,7 +277,7 @@ public class Calendar_Event extends CalendarBase {
 
 		info("==Add a new event on group calendar==");
 		goToCalendarPage();
-		evt.addEvent(EVENT08,EVENT08,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true, CAL_08, EVENT_CATEGORY);
+		evt.addQuickEvent(EVENT08,EVENT08,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true, CAL_08, EVENT_CATEGORY);
 
 		info("==Delete an event on group calendar==");
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", EVENT08)));
@@ -316,11 +316,11 @@ public class Calendar_Event extends CalendarBase {
 
 		info("==Add event on shared calendar==");
 		goToCalendarPage();
-		evt.addEvent(EVENT09,EVENT09,getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), true, CAL_09, EVENT_CATEGORY);
+		evt.addQuickEvent(EVENT09,EVENT09,getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), true, CAL_09, EVENT_CATEGORY);
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", EVENT09)));
 
 		info("==Edit an event==");
-		editTaskEvent(EVENT09,TITLE,DESCRIPTION, true);
+		evt.editEvent(EVENT09,TITLE,DESCRIPTION, null,null,null,false);
 
 		info("==Restore data==");
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", EVENT09)));
@@ -357,7 +357,7 @@ public class Calendar_Event extends CalendarBase {
 
 		info("==Add a new event on shared calendar==");
 		goToCalendarPage();
-		evt.addEvent(EVENT10,EVENT10,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true, CAL_10, EVENT_CATEGORY);
+		evt.addQuickEvent(EVENT10,EVENT10,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true, CAL_10, EVENT_CATEGORY);
 
 		info("==Delete an event on shared calendar==");
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", EVENT10)));

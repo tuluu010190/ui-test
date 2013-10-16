@@ -23,7 +23,6 @@ import org.openqa.selenium.WebElement;
 public class CalendarBase extends PlatformBase {
 
 	PlatformPermission per;
-	//Button btn;
 
 	//Go to the calendar's page
 	public String ID_CALENDAR_PAGE = "";
@@ -73,11 +72,11 @@ public class CalendarBase extends PlatformBase {
 	//------------Add event category------------------
 	public String ELEMENT_ADD_EVENT_CATEGORY_ICON = "//*[@id='tmpMenuElement']//i[@class='uiIconCalCreateEvent uiIconLightGray']";
 	public By ELEMENT_ADD_EVENT_CATEGORY_INPUT = By.id("eventCategoryName");
-	public String ELEMENT_ADD_EVENT_CATEGORY_BUTTON_ADD = "//*[@id='btnEventCategoryFormContainer']";
+	public By ELEMENT_ADD_EVENT_CATEGORY_BUTTON_ADD = By.id("btnEventCategoryFormContainer");
 	public String ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE = "//*[@id='UIEventCategoryForm']//button[contains(text(),'Close')]";
-	public String ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE = "//*[@id='btnEventCategoryFormContainer']";
+	public By ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE = By.id("btnEventCategoryFormContainer");
 	public String ELEMENT_EVENT_CATEGORY_FILTER = "//div[@class='pull-right eventCategory']/span[@class='uiSelectbox']";
-	public String ELEMENT_EVENT_CATEGORY_COMBOBOX = "//*[@name='eventCategories']";
+	public By ELEMENT_EVENT_CATEGORY_COMBOBOX = By.name("eventCategories");
 	public String ELEMENT_EVENT_CATEGORY_COMBOBOX_OPTION = "//*[@name='eventCategories']/option[contains(text(),'${categoryName}')]";
 	public String ELEMENT_LIST_EVENT_CATEGORY = "//*[@id='UIEventCategoryList']//span[contains(text(),'${categoryName}')]";
 	public String ELEMENT_LIST_DELETE_EVENT_BUTTON = "//*[@id='UIEventCategoryList']//span[contains(text(),'${categoryName}')]/parent::td/parent::tr//a[@data-original-title='Delete']/i[@class='uiIconDelete uiIconLightGray']";
@@ -93,7 +92,6 @@ public class CalendarBase extends PlatformBase {
 	public By ELEMENT_CAL_SHARE_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'ShareCalendar')]");
 	public By ELEMENT_CAL_EDIT_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'EditCalendar')]");
 	public By ELEMENT_CAL_SETTING_MENU = By.xpath("//*[@id='UIActionBar']//i[@class='uiIconSetting uiIconLightGray']");
-	public By ELEMENT_CAL_SETTING_TIMEZONE_COMBOBOX = By.name("timeZone");
 	public String ELEMENT_CAL_SETTING_TIMEZONE_VALUE = "//*[@id='setting']//select[@name='timeZone']/option[@value='${timezoneOpt}']";
 
 	//------------Export calendar---------------
@@ -180,6 +178,7 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_BUTTON_MONTH_VIEW = "//*[@id='UIActionBar']//a[text()='Month']";
 	public String ELEMENT_BUTTON_LIST_VIEW = "//*[@id='UIActionBar']//a[text()='List']";
 	public String ELEMENT_BUTTON_WORK_WEEK_VIEW = "//*[@id='UIActionBar']//a[text()='Work Week']";
+	public String ELEMENT_BUTTON_VIEW_ACTIVE = "//li[@class='btn active']/a[text()='${view}']";
 
 	public String EVENT_WEEK_VIEW = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${eventTitle}')]";
 	public String EVENT_DAY_VIEW = "//*[@id='UIDayView']//div[contains(text(),'${eventTitle}')]";
@@ -220,29 +219,31 @@ public class CalendarBase extends PlatformBase {
 	 * @param property = 1: ID
 	 *                 = 2: type
 	 *                 = 3: color
-	 * @return: ID of calendar
+	 * @return: property of calendar
 	 */
 	public String getPropertyOfCalendar(String calendar,int property){
-		WebElement eCalendar = waitForAndGetElement(ELEMENT_CALENDAR_GET_BY_TAG_LI.replace("${calendar}", calendar));
-		switch (property){
-		case 1: 
-			return eCalendar.getAttribute("id");
-		case 2: 
-			return eCalendar.getAttribute("caltype");
-		case 3: 
-			return eCalendar.getAttribute("calcolor");
-		default: 
-			return "";
+		try{
+			WebElement eCalendar = waitForAndGetElement(ELEMENT_CALENDAR_GET_BY_TAG_LI.replace("${calendar}", calendar));
+			switch (property){
+			case 1: 
+				return eCalendar.getAttribute("id");
+			case 2: 
+				return eCalendar.getAttribute("caltype");
+			case 3: 
+				return eCalendar.getAttribute("calcolor");
+			default: 
+				return "";
+			}
+		}catch(org.openqa.selenium.StaleElementReferenceException e){
+			driver.navigate().refresh();
+			return getPropertyOfCalendar(calendar, property);
 		}
 	}
 
-	/**
-	 * Execute action of calendar: Edit, Delete, Share, export....
+	/**Execute action of calendar: Edit, Delete, Share, export....
 	 * @author thuntn
-	 * @param idCal
-	 * @param action
-	 * @param color
-	 * @param type
+	 * @param calendar: name of calendar
+	 * @param action: action need to be done, eg: "ShareCalendar"
 	 */
 	public void executeActionCalendar(String calendar, String action){
 		String idCal = getPropertyOfCalendar(calendar,1);
@@ -253,10 +254,14 @@ public class CalendarBase extends PlatformBase {
 
 	/** Share a calendar
 	 * @author thuntn
-	 * @param calendar
-	 * @param userGroup
-	 * @param canEdit
-	 * @param mode
+	 * @param calendar: name of calendar
+	 * @param userGroup: array of users or groups that are shared with
+	 * @param canEdit: array of canEdit permission of users, groups respectively inputed by userGroup variable 
+	 * @param mode: way to input users, groups
+	 *            =0: type directly
+	 *            =1: select user
+	 *            =2: select group
+	 *            =3: select membership
 	 */
 	public void shareCalendar(String calendar, String[] userGroup, boolean[] canEdit, int...mode){
 
@@ -291,7 +296,7 @@ public class CalendarBase extends PlatformBase {
 
 	/** Open export calendar form
 	 * @author thuntn
-	 * @param calendar
+	 * @param calendar: name of calendar
 	 */
 	public void goToExportCalendar(String calendar){
 
@@ -303,8 +308,8 @@ public class CalendarBase extends PlatformBase {
 	/**
 	 * Export calendar
 	 * @author thuntn
-	 * @param calendar
-	 * @param name
+	 * @param calendar: name of calendar
+	 * @param name: file name of exported file
 	 */
 	public void exportCalendar(String calendar, String name){
 		info("Export calendar");
@@ -334,20 +339,24 @@ public class CalendarBase extends PlatformBase {
 
 	/** Input into Add calendar form
 	 * @author thuntn
-	 * @param name
-	 * @param desc
-	 * @param color
-	 * @param groups
+	 * @param name: name of calendar
+	 * @param description: description of calendar
+	 * @param color: color of calendar
+	 * @param groups: optional. If not pass this parameter, this function will create a personal calendar
+	 * vice versa, the function will create a group calendar, based on:
+	 * 		+ groups[0]: name of group, eg: /platform/administrators,  
+	 * 		+ groups[1]: if not "0", type directly groups into the textbox "Select group"
+	 * 			if not pass group[1], the function will click on "Select group" icon
 	 */
-	public void inputAddCalendarForm(String name, String desc, String color, String...groups){
-		String type = groups.length > 2 ? (String) groups[1]: "0";
+	public void inputAddCalendarForm(String name, String description, String color, String...groups){
+		String type = groups.length > 1 ? (String) groups[1]: "0";
 		per = new PlatformPermission(driver);
 		button = new Button(driver);
 
 		if(name != null)
 			type(ELEMENT_CAL_DISPLAY_NAME_INPUT,name,true);
-		if(desc != null)
-			type(ELEMENT_CAL_DESC_INPUT, desc,true);
+		if(description != null)
+			type(ELEMENT_CAL_DESC_INPUT, description,true);
 		if(color != null){
 			click(ELEMENT_CAL_COLOR);
 			click(ELEMENT_CAL_COLOR_SELECT.replace("${color}", color));
@@ -359,7 +368,6 @@ public class CalendarBase extends PlatformBase {
 				click(ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", groups[0]));
 			}else
 				type(ELEMENT_CAL_GROUP_INPUT,groups[0],true);
-			//button.add();
 			click(button.ELEMENT_ADD_BUTTON);
 		}
 	}
@@ -368,18 +376,22 @@ public class CalendarBase extends PlatformBase {
 	/** 
 	 * Input into feeds form
 	 * @author hangntt
-	 * @param name
-	 * @param groups
+	 * @param name: name of feeds
+	 * @param calendar: array of calendars that you want to add feeds for
+	 * @param url: optional
+	 *           = 1: click Reset url icon
+	 *           = 2: click Generate url icon
+	 *           else: leave the Url field by default
 	 */
-	public void inputFeedsData(String name,String[] userGroup, int...url){
+	public void inputFeedsData(String name,String[] calendar, int...url){
 		per = new PlatformPermission(driver);
 		button = new Button(driver);
 
 		Utils.pause(1000);
 		if(name != null)
 			type(ELEMENT_NAME_FEEDS,name,true);
-		for(int i = 0; i < userGroup.length; i++){
-			select(ELEMENT_ADD_MORE,userGroup[i]);
+		for(int i = 0; i < calendar.length; i++){
+			select(ELEMENT_ADD_MORE,calendar[i]);
 			click(ELEMENT_ADD_CALENDAR_BUTTON);
 		}
 		int urlfeed = url.length > 0 ? url[0] : 0;
@@ -398,9 +410,12 @@ public class CalendarBase extends PlatformBase {
 
 	/** Add feeds
 	 * @author hangntt
-	 * @param name
-	 * @param url
-	 * @param add more: name of group which is the same as data inputed by manual, eg: /platform/users
+	 * @param name: name of feeds
+	 * @param calendar: array of calendars that you want to add feeds for
+	 * @param url: optional
+	 *           = 1: click Reset url icon
+	 *           = 2: click Generate url icon
+	 *           else: leave the Url field by default
 	 */
 	public void addFeeds(String name, String[] userGroup,int...url){
 		goToCalendarSettings();
@@ -414,9 +429,13 @@ public class CalendarBase extends PlatformBase {
 
 	/** Edit feeds
 	 * @author hangntt
-	 * @param name
-	 * @param url
-	 * @param add more: name of group which is the same as data inputed by manual, eg: /platform/users
+	 * @param oldName: old name of feed
+	 * @param name: new name of feeds
+	 * @param calendar: array of new calendars that you want to add feeds for
+	 * @param url: optional
+	 *           = 1: click Reset url icon
+	 *           = 2: click Generate url icon
+	 *           else: leave the Url field by default
 	 */
 	public void editFeeds(String oldName, String name, String[] userGroup, int...url){
 		click(ELEMENT_EDIT_FEEDS.replace("${namefeeds}", oldName));
@@ -440,7 +459,7 @@ public class CalendarBase extends PlatformBase {
 
 	/** Upload calendar
 	 * @author thuntn
-	 * @param path
+	 * @param path: path of a file which is for upload
 	 */
 	public void uploadCalendar(String path){
 		info("--Upload Calendar--");
@@ -467,21 +486,23 @@ public class CalendarBase extends PlatformBase {
 
 	/** Import calendar
 	 * @author thuntn
-	 * @param path
-	 * @param name
-	 * @param desc
-	 * @param color
+	 * @param path: path of a file which is for upload
+	 * @param name: name of calendar
+	 * @param description: description of calendar
+	 * @param color: color of calendar
 	 */
-	public void importCalendar(String path, String name, String desc, String color){
+	public void importCalendar(String path, String name, String description, String color){
 		goToImportCalendar();
 		uploadCalendar(path);
 		if(name != null)
 			type(ELEMENT_CAL_DISPLAY_NAME_INPUT,name,true);
-		if(desc != null)
-			type(ELEMENT_CAL_IMPORT_DESC_INPUT,desc,true);
-		click(ELEMENT_CAL_COLOR);
-		if (color != null)
+		if(description != null)
+			type(ELEMENT_CAL_IMPORT_DESC_INPUT,description,true);
+
+		if (color != null){
+			click(ELEMENT_CAL_COLOR);
 			click(ELEMENT_CAL_COLOR_SELECT.replace("${color}", color));
+		}
 		click(ELEMENT_CAL_IMPORT_SAVE_BUTTON);
 		driver.navigate().refresh();
 		waitForAndGetElement(By.linkText(name));
@@ -524,7 +545,13 @@ public class CalendarBase extends PlatformBase {
 	public enum selectDayOption{
 		ONEDAY, ALLDAY;
 	}
-
+	/**
+	 * Delete an event or task
+	 * @param event: name of event or task
+	 * @param options: optional, if not pass, this function consider the event/task as all day
+	 * 				= selectDayOption.ALLDAY: this function consider the event/task as all day
+	 * 				= selectDayOption.ONEDAY: this function consider the event/task as one day
+	 */
 	public void deleteEventTask(String event, selectDayOption... options){
 		alert = new ManageAlert(driver);
 		selectDayOption optDay = options.length > 0 ? options[0] : selectDayOption.ALLDAY;
@@ -561,23 +588,28 @@ public class CalendarBase extends PlatformBase {
 	/** 
 	 * Add calendar
 	 * @author thuntn
-	 * @param name
-	 * @param desc
+	 * @param name: name of calendar
+	 * @param description: description of calendar
 	 * @param color: name of color which is used in @class of the color element, eg: hot_pink
-	 * @param groups: name of group which is the same as data inputed by manual, eg: /platform/users
-	 */
-	public void addCalendar(String name, String desc, String color, String...groups){
+	 * @param groups: optional. If not pass this parameter, this function will create a personal calendar
+	 * vice versa, the function will create a group calendar, based on:
+	 * 		+ groups[0]: name of group, eg: /platform/administrators,  
+	 * 		+ groups[1]: if not "0", type directly groups into the textbox "Select group"
+	 * 			if not pass group[1], the function will click on "Select group" icon	 */
+	public void addCalendar(String name, String description, String color, String...groups){
 		info("Add calendar");
 		goToAddCalendar();
-		inputAddCalendarForm(name,desc,color,groups);
+		inputAddCalendarForm(name,description,color,groups);
 		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
 		waitForAndGetElement(By.linkText(name));
 	}
 
 	/** Delete calendar
 	 * @author thuntn
-	 * @param name
-	 * @param verify
+	 * @param name: name of calendar
+	 * @param verify: optional, if not pass this parameter, by default, verify that calendar is deleted 
+	 * 				= true: verify that calendar is deleted, 
+	 * 				= false: not verify that calendar is deleted, 
 	 */
 	public void deleteCalendar(String name, boolean...verify){
 		alert = new ManageAlert(driver); 
@@ -595,23 +627,27 @@ public class CalendarBase extends PlatformBase {
 
 	/** Edit a calendar
 	 * @author thuntn
-	 * @param oldName
-	 * @param name
-	 * @param desc
-	 * @param color
-	 * @param groups
+	 * @param oldName: old name of calendar
+	 * @param name: new name of calendar
+	 * @param description: new description of calendar
+	 * @param color: new color of calendar
+	 * @param groups: optional. If not pass this parameter, this function will create a personal calendar
+	 * vice versa, the function will create a group calendar, based on:
+	 * 		+ groups[0]: name of group, eg: /platform/administrators,  
+	 * 		+ groups[1]: if not "0", type directly groups into the textbox "Select group"
+	 * 			if not pass group[1], the function will click on "Select group" icon
 	 */
-	public void editCalendar(String oldName,String name, String desc, String color, String...groups){
+	public void editCalendar(String oldName,String name, String description, String color, String...groups){
 
 		executeActionCalendar(oldName,"EditCalendar");
-		inputAddCalendarForm(name,desc,color,groups);
+		inputAddCalendarForm(name,description,color,groups);
 		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
 		waitForAndGetElement(By.linkText(name));
 	}
 
 	/**Delete shared calendar
 	 * @author thuntn
-	 * @param calendar
+	 * @param calendar: name of shared calendar
 	 */
 	public void deleteSharedCalendar(String calendar){
 
@@ -624,7 +660,7 @@ public class CalendarBase extends PlatformBase {
 
 	/**
 	 * @author thuntn
-	 * @param calendar
+	 * @param calendar: name of calendar
 	 */
 	public void openMenuOfCalendar(String calendar){
 		WebElement element = waitForAndGetElement(ELEMENT_CALENDAR_SETTING_ICON.replace("${calendar}", calendar), DEFAULT_TIMEOUT, 0, 2);
@@ -632,10 +668,10 @@ public class CalendarBase extends PlatformBase {
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 	}
 
-	/**
+	/** Show working time on working pane
 	 * @author vuna2
-	 * @param beginTime
-	 * @param endTime
+	 * @param beginTime: start time, eg: 03:00
+	 * @param endTime: end time, eg: 10:00
 	 */
 	public void showWorkingTimes(String beginTime, String endTime){
 		info("Show Working Times");
@@ -653,13 +689,13 @@ public class CalendarBase extends PlatformBase {
 	/** Setting timezone for Calendar
 	 * @author havtt
 	 * @date 18-Oct-2013
+	 * @param timezoneOpt: time zone of calendar, eg: (GMT -11:00) Pacific/Samoa
 	 */
-	public void setTimezoneCal(String timezoneOpt){
+	public void setTimezoneForCalendar(String timezoneOpt){
 		click(ELEMENT_CAL_SETTING_MENU);
 		Utils.pause(3000);
 		info("-- Select filter option of Timezone --");
-		click(ELEMENT_CAL_SETTING_TIMEZONE_COMBOBOX);
-		click(ELEMENT_CAL_SETTING_TIMEZONE_VALUE.replace("${timezoneOpt}", timezoneOpt));
+		select(ELEMENT_TIME_ZONE,timezoneOpt);
 		waitForAndGetElement(ELEMENT_CAL_SETTING_TIMEZONE_VALUE.replace("${timezoneOpt}", timezoneOpt));		 
 
 	}
@@ -667,6 +703,7 @@ public class CalendarBase extends PlatformBase {
 	/** Quick search in Calendar
 	 * @author havtt
 	 * @date 22-Oct-2013
+	 * @param keyword: keyword which is to input into search box 
 	 */
 	public void quickSearchCalendar(String keyword){
 		info("----Type in quick search box----");
@@ -683,6 +720,7 @@ public class CalendarBase extends PlatformBase {
 	/** Advance search in Calendar
 	 * @author havtt
 	 * @date 22-Oct-2013
+	 * @param keyword: keyword which is to input into search box 
 	 */
 	public void advanceSearchCalendar(String keyword){
 		info("----Open Advance Search window----");
@@ -700,6 +738,7 @@ public class CalendarBase extends PlatformBase {
 	/** Go to Calendar Actions> Add Event Category
 	 * @author havtt
 	 * @date 22-Oct-2013
+	 * @param categoryName: category name
 	 */
 	public void addEventCategory(String categoryName){
 		info("----Add new event category----");
@@ -710,9 +749,10 @@ public class CalendarBase extends PlatformBase {
 		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	 
 	}
 
-	/** Choose event category in Category combo box
+	/** Choose event category in Categories combo box for filter  
 	 * @author havtt
 	 * @date 22-Oct-2013
+	 * @param categoryName: category name
 	 */
 	public void chooseEventCategoryOpt(String categoryName){
 		info("----Verify if new category is displayed in Category option or not----");
@@ -726,12 +766,12 @@ public class CalendarBase extends PlatformBase {
 	/** Delete Event Category
 	 * @author havtt
 	 * @date 23-Oct-2013
+	 * @param categoryName: category name
 	 */
 	public void deleteEventCategory(String categoryName){
 		alert = new ManageAlert(driver);
 		waitForAndGetElement(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
 		click(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
-		Utils.pause(3000);
 		alert.acceptAlert();
 		waitForElementNotPresent(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
 		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	
@@ -740,6 +780,8 @@ public class CalendarBase extends PlatformBase {
 	/** Edit Event Category
 	 * @author havtt
 	 * @date 23-Oct-2013
+	 * @param categoryName: old category name
+	 * @param editedCategoryName: new category name
 	 */
 
 	public void editEventCategory(String categoryName, String editedCategoryName){
@@ -747,7 +789,6 @@ public class CalendarBase extends PlatformBase {
 		click(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",categoryName));
 		type(ELEMENT_ADD_EVENT_CATEGORY_INPUT,editedCategoryName,true);
 		click(ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE);
-		Utils.pause(3000);
 		waitForAndGetElement(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",editedCategoryName));
 		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);
 	}
@@ -757,38 +798,12 @@ public class CalendarBase extends PlatformBase {
 	 * @date 23-Oct-2013
 	 */
 	public void gotoAddEventCategory(){
-		info("----Go to Calendar Action----");
-		waitForAndGetElement(ELEMENT_CALENDAR_ACTIONS_ICON);
 		click(ELEMENT_CALENDAR_ACTIONS_ICON);
 		info("----GO to Add Event Category form----");
-		waitForAndGetElement(ELEMENT_ADD_EVENT_CATEGORY_ICON);
 		click(ELEMENT_ADD_EVENT_CATEGORY_ICON);
 		Utils.pause(3000);
 	}	 
 
-	/**Edit a task/event by right click
-	 * 
-	 * @author havtt
-	 * 
-	 * @param Name    the title of task/event before edit
-	 * @param title       the title of task/event after edit
-	 * @param description the description of task/event after edit
-	 * 
-	 */
-	public void editTaskEvent(String Name, String title, String description, boolean allDay) {
-		if (allDay == true){
-			rightClickOnElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}",Name)), DEFAULT_TIMEOUT, 1);}
-		else {
-			rightClickOnElement(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}",Name)));
-		}
-		Utils.pause(3000);
-		click(ELEMENT_TASK_EVENT_MENU_EDIT);
-		Utils.pause(3000);
-		type(ELEMENT_INPUT_TASK_TITLE_EDIT, title, true);
-		type(ELEMENT_INPUT_TASK_NOTE_EDIT, description, true);
-		Utils.pause(3000);
-		click(ELEMENT_BUTTON_EVENT_SAVE_EDIT);
-	}
 
 	/** Change "Edit Permission" for acc in Add New Calendar>Show In Group
 	 * @author havtt

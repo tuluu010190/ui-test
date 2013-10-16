@@ -30,7 +30,6 @@ public class Calendar_Views extends CalendarBase{
 		acc = new ManageAccount(driver);
 		evt = new Event(driver);
 		tsk = new Task(driver);
-		but = new Button(driver);
 
 		acc.signIn(DATA_USER1, DATA_PASS);
 		goToCalendarPage();
@@ -54,7 +53,7 @@ public class Calendar_Views extends CalendarBase{
 		goToCalendarPage();
 
 		info("Add new event");
-		evt.addEvent(EVENT_NAME_01,EVENT_NAME_01,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(EVENT_NAME_01,EVENT_NAME_01,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
 
 		info("Confirm in Week view");
 		waitForAndGetElement(EVENT_WEEK_VIEW.replace("${eventTitle}",EVENT_NAME_01));
@@ -92,13 +91,12 @@ public class Calendar_Views extends CalendarBase{
 		goToCalendarPage();
 
 		info("Choose Week view of Calendar");
-		click(ELEMENT_BUTTON_WEEK_VIEW);
-
+		if(waitForAndGetElement(ELEMENT_BUTTON_VIEW_ACTIVE.replace("${view}", "Week"),10000,0) == null){
+			click(ELEMENT_BUTTON_WEEK_VIEW);
+			waitForAndGetElement(ELEMENT_BUTTON_VIEW_ACTIVE.replace("${view}", "Week"));
+		}
 		info("Add new event with specific category");
-		evt.goToAddEvent();
-		evt.inputQuickAddEventForm(EVENT_NAME_02,EVENT_NAME_02,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
-		evt.chooseCategorywhenAddEvent(CategoryName);
-		but.save();
+		evt.addQuickEvent(EVENT_NAME_02,EVENT_NAME_02,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true,"John Smith",CategoryName);
 
 		info("Check event displayed in ALL category");
 		waitForAndGetElement(EVENT_WEEK_VIEW.replace("${eventTitle}",EVENT_NAME_02));
@@ -124,13 +122,13 @@ public class Calendar_Views extends CalendarBase{
 		goToCalendarPage();
 
 		info("Choose LIST view of Calendar");
-		click(ELEMENT_BUTTON_LIST_VIEW);
+		if(waitForAndGetElement(ELEMENT_BUTTON_VIEW_ACTIVE.replace("${view}", "List"),10000,0) == null){
+			click(ELEMENT_BUTTON_LIST_VIEW);
+			waitForAndGetElement(ELEMENT_BUTTON_VIEW_ACTIVE.replace("${view}", "List"));
+		}
 
 		info("Add new event with specific category");
-		evt.goToAddEvent();
-		evt.inputQuickAddEventForm(EVENT_NAME_03,EVENT_NAME_03,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
-		evt.chooseCategorywhenAddEvent(CategoryName);
-		but.save();
+		evt.addQuickEvent(EVENT_NAME_03,EVENT_NAME_03,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true,"John Smith",CategoryName);
 
 		info("Check event displayed in ALL category");
 		waitForAndGetElement(EVENT_LIST_VIEW.replace("${eventTitle}",EVENT_NAME_03));

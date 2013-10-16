@@ -50,7 +50,7 @@ public class Calendar_Search extends CalendarBase{
 		goToCalendarPage();
 
 		info("Add new event");
-		evt.addEvent(EVENT_NAME_01,EVENT_NAME_01,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(EVENT_NAME_01,EVENT_NAME_01,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
 
 		info("Search an event");
 		quickSearchCalendar(EVENT_NAME_01);
@@ -72,7 +72,7 @@ public class Calendar_Search extends CalendarBase{
 		goToCalendarPage();
 
 		info("Add new event");
-		evt.addEvent(EVENT_NAME_02,EVENT_NAME_02,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(EVENT_NAME_02,EVENT_NAME_02,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
 
 		info("Quick Search an event");
 		quickSearchCalendar(EVENT_NAME_02);

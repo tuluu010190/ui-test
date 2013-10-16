@@ -25,70 +25,34 @@ public class Event extends CalendarBase{
 	public By ELEMENT_INPUT_EVENT_CALENDAR = By.name("calendar");
 	public By ELEMENT_INPUT_EVENT_CATEGORY = By.name("category");
 	public By ELEMENT_BUTTON_EVENT = By.id("UIActionBarQuickAddEvent");
-	public String ELEMENT_EVENT_CATEGORY_OPT_COMBOBOX = "//*[@id='UIQuickAddEvent']//div[contains(text(),'Event Category:')]/parent::div[@class='control-group']//span[@class='uiSelectbox']/select[@name='category']/option[contains(text(),'${categoryName}')]";
+	public By ELEMENT_MENU_EVENT_EDIT = By.xpath("//*[@id='tmpMenuElement']//i[@class='uiIconEdit uiIconLightGray']");
+	public By ELEMENT_ADD_EVENT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Quick Add Event']");
+
+
+	//Preview form
+	public String ELEMENT_EVENT_PREVIEW_TITLE = "//form[@id='UIPreviewPopup']//div[@class='titleList']/strong[text()='${event}']";
+
+	//Form Add event details
+	public By ELEMENT_ADD_EDIT_EVENT_ALLDAY = By.xpath("//form[@id='UIEventForm']//input[@id='allDay']");
+	public By ELEMENT_ADD_EDIT_EVENT_TITLE = By.xpath("//form[@id='UIEventForm']//*[@id='eventName']");
+	public By ELEMENT_ADD_EDIT_EVENT_DESC = By.xpath("//form[@id='UIEventForm']//*[@id='description']");
+	public By ELEMENT_ADD_EDIT_EVENT_FROM = By.xpath("//form[@id='UIEventForm']//*[@name='from']");
+	public By ELEMENT_ADD_EDIT_EVENT_TO = By.xpath("//form[@id='UIEventForm']//*[@name='to']");
+	public By ELEMENT_ADD_EDIT_EVENT_TO_TIME = By.xpath("//form[@id='UIEventForm']//*[@id='toTime']/../input[@class='UIComboboxInput']");
+	public By ELEMENT_ADD_EDIT_EVENT_FROM_TIME = By.xpath("//form[@id='UIEventForm']//*[@id='fromTime']/../input[@class='UIComboboxInput']");
+	public By ELEMENT_ADD_EDIT_EVENT_CALENDAR = By.xpath("//form[@id='UIEventForm']//*[@name='calendar']");
+	public By ELEMENT_ADD_EVENT_SAVE_BUTTON = By.xpath("//form[@id='UIEventForm']//*[text()='Save']");
+	public By ELEMENT_ADD_EDIT_EVENT_CATEGORY = By.xpath("//form[@id='UIEventForm']//*[@name='category']");
+	public By ELEMENT_ADD_EDIT_EVENT_LOCATION = By.id("place");
+	public By ELEMENT_EDIT_EVENT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add/Edit Event']");
 
 	public Event(WebDriver dr){
 		driver = dr;
 		button = new Button(driver);
 		alert = new ManageAlert(driver);
 	}
-
-	/** Input into Tab detail of Add event form
-	 * @author thuntn
-	 * @param name
-	 * @param desc
-	 * @param from
-	 * @param to
-	 * @param allDay
-	 * @param opt
-	 */
-	public void inputQuickAddEventForm(String name, String desc, String from, String to, boolean allDay, String...opt){
-		if (name != null){
-			type(ELEMENT_INPUT_EVENT_TITLE, name, true);
-		}
-		if (desc != null){
-			type(ELEMENT_INPUT_EVENT_DESCRIPTION, desc, true);
-		}
-		if (allDay){
-			check(ELEMENT_CHECKBOX_EVENT_ALLDAY,2);
-		} else {
-			uncheck(ELEMENT_CHECKBOX_EVENT_ALLDAY,2);
-		}
-		if (from != null){
-			if (from != ""){
-				if (allDay){
-					type(ELEMENT_INPUT_EVENT_FROM, from, true);
-				}else {
-					String[] dateTime = from.split(" ");
-					if(dateTime.length > 0)
-						type(ELEMENT_INPUT_EVENT_FROM, dateTime[0], true);
-					if(dateTime.length > 1)
-						type(ELEMENT_INPUT_EVENT_FROM_TIME, dateTime[1], true);
-				}
-			}
-		}
-		if (to != null){
-			if (to != ""){
-				if (allDay){
-					type(ELEMENT_INPUT_EVENT_TO, to, true);
-				}else{
-					String[] dateTime = to.split(" ");
-					if(dateTime.length > 0)
-						type(ELEMENT_INPUT_EVENT_TO, dateTime[0], true);
-					if(dateTime.length > 1)
-						type(ELEMENT_INPUT_EVENT_TO_TIME, dateTime[1], true);
-
-				}
-			}
-		}
-		if (opt.length > 0 && opt[0] != null){
-			select(ELEMENT_INPUT_EVENT_CALENDAR, opt[0]);
-		}
-		if (opt.length > 1 && opt[1] != null){
-			select(ELEMENT_INPUT_EVENT_CATEGORY, opt[1]);
-		}
-	}
-
+	
+	/******************Go to******************************/
 	/**
 	 * Open form Add event
 	 * @author thuntn
@@ -96,34 +60,205 @@ public class Event extends CalendarBase{
 	public void goToAddEvent(){
 		info("Go to Add Event page");
 		click(ELEMENT_BUTTON_EVENT);
+		waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP);
 	}
-
-	/** Quick add event
-	 * @author thuntn
-	 * @param name
-	 * @param desc
-	 * @param from
-	 * @param to
-	 * @param allDay
-	 * @param opt
+	
+	/**
+	 * Open Edit Event form 
+	 * @param oldEvent: old name of event
 	 */
-	public void addEvent(String name, String desc, String from, String to, boolean allDay, String...opt){
+	public void goToEditEventForm(String oldEvent){
+		if(waitForAndGetElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", oldEvent),15000,0) != null)
+			rightClickOnElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", oldEvent),2);
+		else
+			rightClickOnElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", oldEvent),2);
+		click(ELEMENT_MENU_EVENT_EDIT);
+		waitForAndGetElement(ELEMENT_EDIT_EVENT_POPUP);
+	}
+	/******************End of go to**********************/
+
+	/**************Input data form***************/
+	/**
+	 * Input into basic fields of Add quick event and tab details of Add/Edit event
+	 * @param name: name of event
+	 * @param description: description of event
+	 * @param opt: opt[0]: calendar name of this event (optional)
+	 * opt[1]: category name of this event (optional)
+	 */
+	public void inputBasicQuickEvent(String name, String description, String...opt){
+		boolean quick = (waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP,5000,0) != null) ? true : false; 
+		if(quick){
+			if (name != null){
+				type(ELEMENT_INPUT_EVENT_TITLE, name, true);
+			}
+			if (description != null){
+				type(ELEMENT_INPUT_EVENT_DESCRIPTION, description, true);
+			}
+			if (opt.length > 0 && opt[0] != null){
+				select(ELEMENT_INPUT_EVENT_CALENDAR, opt[0]);
+			}
+			if (opt.length > 1 && opt[1] != null){
+				select(ELEMENT_INPUT_EVENT_CATEGORY, opt[1]);
+			}
+		}else{
+			if (name != null){
+				type(ELEMENT_ADD_EDIT_EVENT_TITLE, name, true);
+			}
+			if (description != null){
+				type(ELEMENT_ADD_EDIT_EVENT_DESC, description, true);
+			}
+			if (opt.length > 0 && opt[0] != null){
+				select(ELEMENT_ADD_EDIT_EVENT_CALENDAR, opt[0]);
+			}
+			if (opt.length > 1 && opt[1] != null){
+				select(ELEMENT_ADD_EDIT_EVENT_CATEGORY, opt[1]);
+			}
+		}
+	}
+	/**
+	 * Input into From, To fields of Add quick event and tab details of Add/Edit event
+	 * @param from: from date, time, eg: 11/06/2013 14:00
+	 * @param to: To date, time fields, eg: 11/06/2013 14:00
+	 * @param allDay: all day
+	 */
+	public void inputFromToEvent(String from, String to, boolean allDay){
+		boolean quick = (waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP,5000,0) != null) ? true : false; 
+		if(quick){
+			if(allDay){
+				check(ELEMENT_CHECKBOX_EVENT_ALLDAY,2);
+				if((from != "") & (from != null))
+					type(ELEMENT_INPUT_EVENT_FROM, from, true);
+				if((to != null) & (to != ""))
+					type(ELEMENT_INPUT_EVENT_TO, to, true);
+			}
+			else{
+				uncheck(ELEMENT_CHECKBOX_EVENT_ALLDAY,2);
+				if((from != "") & (from != null)){
+					String[] dateTime = from.split(" ");
+					if(dateTime.length > 0)
+						type(ELEMENT_INPUT_EVENT_FROM, dateTime[0], true);
+					if(dateTime.length > 1)
+						type(ELEMENT_INPUT_EVENT_FROM_TIME, dateTime[1], true);
+				}
+				if((to != null) & (to != "")){
+					String[] dateTime = to.split(" ");
+					if(dateTime.length > 0)
+						type(ELEMENT_INPUT_EVENT_TO, dateTime[0], true);
+					if(dateTime.length > 1)
+						type(ELEMENT_INPUT_EVENT_TO_TIME, dateTime[1], true);
+				}
+			}
+		}else{
+			if(allDay){
+				check(ELEMENT_ADD_EDIT_EVENT_ALLDAY,2);
+				if((from != "") & (from != null))
+					type(ELEMENT_ADD_EDIT_EVENT_FROM, from, true);
+				if((to != "") & (to != null))
+					type(ELEMENT_ADD_EDIT_EVENT_TO, to, true);
+			}else{
+				uncheck(ELEMENT_ADD_EDIT_EVENT_ALLDAY,2);
+				if((from != "") & (from != null)){
+					String[] dateTime = from.split(" ");
+					if(dateTime.length > 0)
+						type(ELEMENT_ADD_EDIT_EVENT_FROM, dateTime[0], true);
+					if(dateTime.length > 1)
+						type(ELEMENT_ADD_EDIT_EVENT_FROM_TIME, dateTime[1], true);
+				}
+				if((to != null) & (to != "")){
+					String[] dateTime = to.split(" ");
+					if(dateTime.length > 0)
+						type(ELEMENT_ADD_EDIT_EVENT_TO, dateTime[0], true);
+					if(dateTime.length > 1)
+						type(ELEMENT_ADD_EDIT_EVENT_TO_TIME, dateTime[1], true);
+				}
+			}
+
+		}
+	}
+	
+	/**
+	 * Input into other fields of tab Details of Add/Edit event
+	 * @param location: location of event
+	 * 
+	 */
+	public void inputOtherFieldsTabDetailsEvent(String location){
+		if(location != null){
+			type(ELEMENT_ADD_EDIT_EVENT_LOCATION,location,true);
+		}
+	}
+	
+	/**Input into Add/Edit Event form
+	 * @param name: name of event
+	 * @param description: description of event
+	 * @param location: location of event
+	 * @param from: from date, time of event
+	 * @param to: to date, time of event
+	 * @param allDay: allDay of event
+	 * @param opt: opt[0]: calendar name of this event (optional)
+	 * opt[1]: category of this event (optional)
+	 */
+	public void inputAddEventForm(String name, String description, String location, String from, String to, boolean allDay, String...opt){
+		inputBasicQuickEvent(name, description, opt);
+		inputOtherFieldsTabDetailsEvent(location);
+		inputFromToEvent(from, to, allDay);
+	}
+	
+	/************End of input data form***************/
+
+	
+    /******************Add/Edit Event*************************/
+	/** Quick add event
+	 * @param name: name of event
+	 * @param description: description of event
+	 * @param from: from date, time of event
+	 * @param to: to date, time of event
+	 * @param allDay: allDay of event
+	 * @param opt: opt[0]: calendar name of this event (optional)
+	 * opt[1]: category of this event (optional)
+	 */
+	public void addQuickEvent(String name, String description, String from, String to, boolean allDay, String...opt){
 		info("--Add an event--");
 		goToAddEvent();
-		inputQuickAddEventForm(name,desc,from,to,allDay,opt);
+		inputBasicQuickEvent(name, description, opt);
+		inputFromToEvent(from, to, allDay);
 		button.save();
+		waitForElementNotPresent(ELEMENT_ADD_EVENT_POPUP);
 	}
 
 
 	/**Choose category opt for Add event
 	 * @author havtt
 	 * @date 23-Oct-2013
+	 * This method is not necessary. There is a command "select(ELEMENT_INPUT_EVENT_CATEGORY, opt[1]);" in the method inputQuickAddEventForm
 	 */
 
-	public void chooseCategorywhenAddEvent(String categoryName){
+	/*public void chooseCategorywhenAddEvent(String categoryName){
 		info("----Choose category opt----");
 		waitForAndGetElement(ELEMENT_EVENT_CATEGORY_OPT_COMBOBOX.replace("${categoryName}", categoryName));
 		click(ELEMENT_EVENT_CATEGORY_OPT_COMBOBOX.replace("${categoryName}", categoryName));
 	}
+	}*/
+
+	/**Edit an event
+	 * @author thuntn
+	 * @param oldEvent: old name of event
+	 * @param name: new name of event
+	 * @param description: new description of event
+	 * @param location: new location of event
+	 * @param from: new from date, time of event
+	 * @param to: new to date, time of event
+	 * @param allDay: new allDay of event
+	 * @param opt: opt[0]: new calendar name of this event (optional)
+	 * opt[1]: new category of this event (optional)
+	 */
+	public void editEvent(String oldEvent, String name, String description, String location,String from, String to, boolean allDay, String...opt){
+		info("Edit an event");
+		goToEditEventForm(oldEvent);
+		inputAddEventForm(name,description, location,from,to,allDay,opt);
+		click(ELEMENT_ADD_EVENT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_ADD_EVENT_POPUP);
+	}
+	
+	/****************End of Add/Edit Event*******************/
 }
 

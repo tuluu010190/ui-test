@@ -59,7 +59,7 @@ public class Forum_Forum_MoreAction extends ForumBase{
 		
 		//lock the forum
 		mngFru.actionOnForum(1);
-		goToCategory("demo", cate);
+		goToCategory(DATA_USER2, cate);
 		click(By.linkText(forum));
 		waitForAndGetElement(ELEMENT_START_TOPIC_DISABLE);
 		click(ELEMENT_START_TOPIC_DISABLE);
@@ -71,7 +71,7 @@ public class Forum_Forum_MoreAction extends ForumBase{
 		mngFru.actionOnForum(2);
 		
 		//Check if normal user can start topic
-		goToCategory("demo", cate);
+		goToCategory(DATA_USER2, cate);
 		click(By.linkText(forum));
 		click(mngTopic.ELEMENT_START_TOPIC_BUTTON);
 		waitForAndGetElement(mngTopic.ELEMENT_POPUP_START_TOPIC);
@@ -101,7 +101,7 @@ public class Forum_Forum_MoreAction extends ForumBase{
 		mngFru.actionOnForum(3);
 		
 		//Check if normal user cannot see the forum
-		goToCategory("demo", cate);
+		goToCategory(DATA_USER2, cate);
 		waitForElementNotPresent(By.linkText(forum));
 		
 		//Login as admin to open the forum
@@ -110,7 +110,7 @@ public class Forum_Forum_MoreAction extends ForumBase{
 		mngFru.actionOnForum(4);
 		
 		//Check if normal user can see the forum
-		goToCategory("demo", cate);
+		goToCategory(DATA_USER2, cate);
 		waitForAndGetElement(By.linkText(forum));
 		
 		//Login as admin to delete data
@@ -140,7 +140,7 @@ public class Forum_Forum_MoreAction extends ForumBase{
 		//Check if normal user with banned IP cannot access this forum
 		acc.signOut();
 		driver.get("http://" + localIP + ":8080/portal");
-		acc.signIn("demo", DATA_PASS);
+		acc.signIn(DATA_USER2, DATA_PASS);
 		goToForums();
 		click(By.linkText(forum));
 		waitForAndGetElement(ELEMENT_START_TOPIC_DISABLE);

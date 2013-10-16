@@ -97,10 +97,10 @@ public class PLF_HomepageGadget_CalendarGadget extends CalendarBase{
 		addCalendar(Calendar_Information_2, Calendar_Information_2, null);
 
 		info("Add 2 events in each calendar");
-		event.addEvent(Event_11, Event_11, "", "", false, Calendar_Information_1);
-		event.addEvent(Event_12, Event_12, "", "", false, Calendar_Information_1);
-		event.addEvent(Event_21, Event_21, "", "", false, Calendar_Information_2);
-		event.addEvent(Event_22, Event_22, "", "", false, Calendar_Information_2);
+		event.addQuickEvent(Event_11, Event_11, "", "", false, Calendar_Information_1);
+		event.addQuickEvent(Event_12, Event_12, "", "", false, Calendar_Information_1);
+		event.addQuickEvent(Event_21, Event_21, "", "", false, Calendar_Information_2);
+		event.addQuickEvent(Event_22, Event_22, "", "", false, Calendar_Information_2);
 
 		info("Go to calendar gadget");
 		naviToolbar.goToHomePage();
@@ -141,8 +141,8 @@ public class PLF_HomepageGadget_CalendarGadget extends CalendarBase{
 		addCalendar(Calendar_Information_1, Calendar_Information_1, null);
 
 		info("Add 2events in each calendar");
-		event.addEvent(Event_11, Event_11, "", "", false, Calendar_Information_1);
-		event.addEvent(Event_12, Event_12, "", "", false, Calendar_Information_1);
+		event.addQuickEvent(Event_11, Event_11, "", "", false, Calendar_Information_1);
+		event.addQuickEvent(Event_12, Event_12, "", "", false, Calendar_Information_1);
 
 		info("Go to calendar gadget");
 		naviToolbar.goToHomePage();
@@ -194,8 +194,8 @@ public class PLF_HomepageGadget_CalendarGadget extends CalendarBase{
 		addCalendar(Calendar_Information, Calendar_Information, null);
 
 		info("Add 2events in each calendar");
-		event.addEvent(Event_11, Event_11, "", "", false, Calendar_Information);
-		event.addEvent(Event_12, Event_12, "", "", false, Calendar_Information);
+		event.addQuickEvent(Event_11, Event_11, "", "", false, Calendar_Information);
+		event.addQuickEvent(Event_12, Event_12, "", "", false, Calendar_Information);
 
 		info("Go to calendar gadget");
 		naviToolbar.goToHomePage();

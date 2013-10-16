@@ -76,7 +76,7 @@ public class SpaceManagement extends SocialBase {
 	public final By 	ELEMENT_RESTRICT_SPACE_PAGE = By.xpath("//div[@class='spaceAccessBlock lockIcon']/*[text()='Restricted Area']");
 	public final By 	ELEMENT_ACCESS_DENIED_SPACE_PAGE = By.xpath("//div[@class='spaceAccessBlock denyIcon']/*[text()='Access Denied.']");
 	public final By 	ELEMENT_ACCESS_NOT_FOUND_SPACE_PAGE = By.xpath("//div[@class='spaceAccessBlock warningIcon']/*[text()='Space Not Found']");
-
+	public final String ELEMENT_SPACE_BREAD = "//div[@class='name' and text()='${space}']";
 	//Documents
 	public final By ELEMENT_DOCUMENTS_TAB = By.id("documents");
 	public final By ELEMENT_SPACE_SETTING_MENU = By.id("settings");

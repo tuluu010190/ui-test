@@ -30,21 +30,21 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_ACTIVITY_DELETE = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]/ancestor::div[contains(@id,'ActivityContextBox')]//a[contains(@id, 'DeleteActivityButton')]";
 	public final By ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY = By.xpath("//*[text()='Are you sure you want to delete this activity?']");
 	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
-	
+
 	//like and unlike icon
 	public final String ELEMENT_LIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'LikeLink')]";
 	public final String ELEMENT_UNLIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'UnLikeLink')]";
-	
+
 	//activity layout
 	public final String ELEMENT_ACTIVITY_AUTHOR_NAME = "//div[contains(@id,'activityContainer')][${index}]//div[@class='author']//a[text()='${author}']";
 	public final String ELEMENT_ACTIVITY_AUTHOR_AVATAR = "//div[contains(@id,'activityContainer')][${index}]//div[@class='activityAvatar avatarCircle']//img[@alt='${author}']";
 	public final By ELEMENT_ACTIVITY_TEXTBOX = By.id("DisplaycomposerInput");
-	
+
 	//Comment box
 	public final String ELEMENT_COMMENT_LINK = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'CommentLink')]";
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='contentComment']/../*[contains(text(), '${comment}')]";
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_1 = "//*[text()='${title}']/ancestor::div[@class='boxContainer']//*[@class='contentComment']";
-	
+
 	//Comment box for ECMS data type
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_2 = "//*[@title='${title}']/ancestor::div[@class='boxContainer']//*[@class='contentComment']";
 	public final String ELEMENT_ACTIVITY_DELETE_COMMENT_ICON = "//*[@class='contentComment' and contains(text(), '${comment}')]/../..//*[contains(@id, 'DeleteCommentButton')]";
@@ -132,11 +132,22 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_POLL_VOTE = "//a[contains(text(),'${poll}')]/../../../..//i[@class='uiIconSocVote uiIconSocLightGray']";
 	public final String ELEMENT_TOPIC_COMMENT = "//a[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]/../..";
 
+
+	//Calendar activity
+	public final String ELEMENT_EVENT_MONTH_ICON = "//a[text()='${event}']/../..//div[@class='pull-left calendarBox']/div[@class='heading' and contains(text(),'${month}')]";
+	public final String ELEMENT_EVENT_DATE_ICON = "//a[text()='${event}']/../..//div[@class='pull-left calendarBox']/div[@class='content' and contains(text(),'${date}')]";
+	public final String MSG_EVENT_COMMENT_UPDATE_ALL_DAY = "Event is now an all-day event.";
+	public final String MSG_EVENT_COMMENT_UPDATE_SUMMARY = "Summary has been updated to: ${newTitle}.";
+	public final String MSG_EVENT_COMMENT_UPDATE_DESC = "Description has been updated to: ${description}.";
+	public final String MSG_EVENT_COMMENT_UPDATE_LOCATION = "Location has been updated to: ${location}.";
+	public final String MSG_TASK_COMMENT_UPDATE_ATTACHMENT = "Attachment(s) has been added to the task.";
+	public final String MSG_TASK_COMMENT_UPDATE_NOTE = "Note has been updated to: ${note}.";
+	public final String MSG_TASK_COMMENT_UPDATE_STATUS = "Task has been completed.";
+
 	public HomePageActivity(WebDriver dr){
 		driver = dr;
 		post = new ForumManagePost(driver);
 	}
-
 	/** function check info in activity of a content/file
 	 * @author lientm
 	 * @param name
@@ -219,7 +230,7 @@ public class HomePageActivity extends PlatformBase{
 	public void checkTitleAfterEditing(String name, String titleEdit){
 		waitForAndGetElement(ELEMENT_CONTENT_COMMENT_EDIT_TITLE.replace("@{fileName}", name).replace("${title}", titleEdit));
 	}
-	
+
 	/**Function check add comment in activity after editing title of a question
 	 * @author Thuntn
 	 * @param name
@@ -764,7 +775,7 @@ public class HomePageActivity extends PlatformBase{
 		waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", activityText)));
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Like/Unlike an activity
 	 * @param activityText: input a text (String) 
@@ -789,6 +800,47 @@ public class HomePageActivity extends PlatformBase{
 			info("-- Verify number of like is updated --");
 			int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_ICON.replace("${activityText}", activityText)).getText().trim());
 			assert (newNumLike==(numLike-1)):"Number of like is not updated";
+		}
+	}
+
+	/** Check Event activity after adding an event
+	 * @author thuntn
+	 * @param event: name of event
+	 * @param date: date of event which is shown on activity home page, in format "dd", eg:13
+	 * @param month: month of event which is shown on activity home page, in format "MMM", eg:Oct
+	 */
+	public void checkEventActivity(String event,String date, String month,boolean...display){
+		info("Check Event activity after adding an event");
+		boolean show = display.length > 0 ? display[0] : true;
+		driver.navigate().refresh();
+		if(show){
+			waitForAndGetElement(By.linkText(event));
+			waitForAndGetElement(ELEMENT_EVENT_MONTH_ICON.replace("${event}", event).replace("${month}", month));
+			waitForAndGetElement(ELEMENT_EVENT_DATE_ICON.replace("${event}", event).replace("${date}", date));
+		}
+		else{
+			waitForElementNotPresent(By.linkText(event));
+			waitForElementNotPresent(ELEMENT_EVENT_MONTH_ICON.replace("${event}", event).replace("${month}", month));
+			waitForElementNotPresent(ELEMENT_EVENT_DATE_ICON.replace("${event}", event).replace("${date}", date));
+		}
+	}
+
+	/** Check Event activity after adding an event
+	 * @author thuntn
+	 * @param event: name of event
+	 * @param date: date of event which is shown on activity home page, in format "dd", eg:13
+	 * @param month: month of event which is shown on activity home page, in format "MMM", eg:Oct
+	 */
+	public void checkTaskActivity(String task,boolean...display){
+		info("Check Event activity after adding an event");
+		boolean show = display.length > 0 ? display[0] : true;
+
+		driver.navigate().refresh();
+		if(show){
+			waitForAndGetElement(By.linkText(task));
+		}
+		else{
+			waitForElementNotPresent(By.linkText(task));
 		}
 	}
 }

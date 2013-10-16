@@ -52,10 +52,10 @@ public class Calendar_Task extends CalendarBase {
 		goToCalendarPage();
 
 		info("Add a new task");
-		tsk.addTask(CALENDAR01,CALENDAR01,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
+		tsk.addQuickTask(CALENDAR01,CALENDAR01,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
 
 		info("Confirm added task displays in the calendar");
-		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${taskTitle}", CALENDAR01)));
+		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", CALENDAR01)));
 
 		info("restore data");
 		deleteEventTask(CALENDAR01);
@@ -76,8 +76,8 @@ public class Calendar_Task extends CalendarBase {
 
 		info("Add a new task");
 		tsk.goToAddTask();
-		tsk.inputDataQuickTask(CALENDAR02,CALENDAR02,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
-
+		tsk.inputBasicQuickTask(CALENDAR02,CALENDAR02);
+		tsk.inputFromToTask(getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
 		info("Setting reminder for task");
 		tsk.gotoSetPopupReminder();
 		click(tsk.ELEMENT_BUTTON_TASK_SAVE);
@@ -111,8 +111,8 @@ public class Calendar_Task extends CalendarBase {
 
 		info("Add a new task");
 		tsk.goToAddTask();
-		tsk.inputDataQuickTask(CALENDAR03,CALENDAR03,FROM_TIME,TO_TIME,true);
-
+		tsk.inputBasicQuickTask(CALENDAR03,CALENDAR03);
+		tsk.inputFromToTask(FROM_TIME,TO_TIME,true);
 		info("Setting reminder for task");
 		tsk.gotoSetEmailReminder();
 		//TO-DO: update after finishing setting reminder methods
@@ -145,11 +145,12 @@ public class Calendar_Task extends CalendarBase {
 		goToCalendarPage();
 
 		info("Add a new task");
-		tsk.addTask(CALENDAR04,CALENDAR04,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
+		tsk.addQuickTask(CALENDAR04,CALENDAR04,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
 
 		info("Edit a task");
-		editTaskEvent(CALENDAR04,TITLE,DESCRIPTION, true);
 
+		tsk.editTask(CALENDAR04,TITLE,DESCRIPTION,null,null, false,"");
+		
 		info("Restore data");
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", CALENDAR04)));
 		deleteEventTask(CALENDAR04);
@@ -167,7 +168,7 @@ public class Calendar_Task extends CalendarBase {
 		goToCalendarPage();
 
 		info("Add a new task");
-		tsk.addTask(CALENDAR05,CALENDAR05,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
+		tsk.addQuickTask(CALENDAR05,CALENDAR05,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
 
 		info("Delete a task");
 		Utils.pause(5000);
@@ -186,7 +187,7 @@ public class Calendar_Task extends CalendarBase {
 		goToCalendarPage();
 
 		info("Add a new task");
-		tsk.addTask(CALENDAR06,CALENDAR06,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
+		tsk.addQuickTask(CALENDAR06,CALENDAR06,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
 
 		info("Drag & drop a task");
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", CALENDAR06)));
@@ -210,7 +211,8 @@ public class Calendar_Task extends CalendarBase {
 
 		info("Add a new task");
 		tsk.goToAddTask();
-		tsk.inputDataQuickTask(CALENDAR07,CALENDAR07,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
+		tsk.inputBasicQuickTask(CALENDAR07,CALENDAR07);
+		tsk.inputFromToTask(getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),false);
 		waitForAndGetElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${taskTitle}", CALENDAR07)));
 
 		info("Resize a task to change date-time");
