@@ -71,7 +71,7 @@ public class Social_Space_Search extends SocialBase {
 		//- Display all spaces which has last name starts by the selected char
 		spaceSearch.searchSpaceByName("",false);
 		spaceSearch.searchSpaceByDirectory("B");
-		waitForTextPresent(spaceName2);
+		waitForAndGetElement("//*[contains(text(),'"+spaceName2+"')]");
 
 		/*Clear data*/
 		info("clear data");

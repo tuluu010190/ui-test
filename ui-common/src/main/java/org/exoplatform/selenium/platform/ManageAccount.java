@@ -87,7 +87,7 @@ public class ManageAccount extends PlatformBase {
 		button = new Button(driver);
 		dialog = new Dialog(driver);
 		info("-- Edit user in My Account --");
-		
+
 		if (firstName != null || lastName != null || email != null || displayName != null){
 			if (firstName != null){
 				type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
@@ -132,11 +132,11 @@ public class ManageAccount extends PlatformBase {
 		type(ELEMENT_INPUT_CONFIRM_PASSWORD, confirmPassword, true);
 		type(ELEMENT_INPUT_FIRSTNAME, firstName, true);
 		type(ELEMENT_INPUT_LASTNAME, lastName, true);
-		
+
 		if (displayName != null){
 			type(ELEMENT_INPUT_DISPLAY_NAME, displayName, true);
 		}
-		
+
 		type(ELEMENT_INPUT_EMAIL, email, true);
 		if (userNameGiven != null || language != null){
 			click(ELEMENT_USER_PROFILE_TAB);
@@ -184,8 +184,14 @@ public class ManageAccount extends PlatformBase {
 		Utils.pause(2000);
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		if (waitForAndGetElement(ELEMENT_MY_SETTING, 5000, 0) == null){
-			info("Cannot use [mouseOver] on Navigation Tool Bar");
-			mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+			for(int repeat=0;; repeat ++){
+				if (repeat > 1){
+					mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+					info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
+					break;
+				}
+				mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			}
 		}
 		if (language == "French"){
 			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK);
@@ -201,7 +207,7 @@ public class ManageAccount extends PlatformBase {
 			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH);
 		}
 	}
-	
+
 	/** function edit information of user profile
 	 * @author lientm
 	 * @param pos
@@ -211,7 +217,7 @@ public class ManageAccount extends PlatformBase {
 	 */
 	public void updateUserProfile(String pos, String first, String last, String email){
 		navTool = new NavigationToolbar(driver);
-		
+
 		navTool.goToMyProfile();
 		if (pos != null){
 			mouseOverAndClick(ELEMENT_EDIT_POSITION);
@@ -232,7 +238,7 @@ public class ManageAccount extends PlatformBase {
 			click(ELEMENT_EDIT_BASIC_INFO_SAVE_BUTTON);
 		}
 	}
-	
+
 	/**
 	 * Define a type of user 
 	 * Root
@@ -244,7 +250,7 @@ public class ManageAccount extends PlatformBase {
 	public enum userType {
 		ROOT, ADMIN, AUTHOR, DEVELOPER, PUBLISHER;
 	}
-	
+
 	/**
 	 * @author vuna2
 	 * @param user: type: Root, Admin, Author, Developer or Publisher

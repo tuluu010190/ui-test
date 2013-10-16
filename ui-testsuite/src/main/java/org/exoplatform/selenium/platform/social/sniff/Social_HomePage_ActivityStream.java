@@ -504,10 +504,10 @@ public class Social_HomePage_ActivityStream extends Activity {
 	@Test
 	public void test07_CheckActivitiesOrder(){
 		//Declare variable
-		String activity1 = "activity 1";
-		String activity2 = "activity 2";
-		String comment1 = "comment 1";
-		String comment2 = "comment 2";
+		String activity1 = "activity 647231";
+		String activity2 = "activity 647232";
+		String comment1 = "comment 647231";
+		String comment2 = "comment 647232";
 
 		/*Step 1: Check order of activities*/ 
 		//- Log in and go to homepage
@@ -541,33 +541,33 @@ public class Social_HomePage_ActivityStream extends Activity {
 	 * Pending: the status of this test case is N/A
 	 * --> Need to update test case
 	 */
-	@Test (groups="{pending}")
+	@Test (groups="pending")
 	public void test08_CheckActivityUpdateAddNewActivities(){
 		//Declare variable
-		String activitya1 = "activitya1";
-		String activitya2 = "activitya2";
-
-		//Create data
-		//Click on Connections on the left panel
-		navToolBar.goToConnectionPage();
-
-		//Display list of people
-		//Click on Connect button to invite user
-		peoConn.connectPeople(user1);
-
-		//Login by invited users, go to My Connections/Requests Received
-		magAcc.userSignIn(userType.PUBLISHER);
-		//An user click on Confirm button
-		peoConn.acceptInvitation(user);
-		//Add activity of connection user
-		navToolBar.goToHomePage();
-
-		/*Step 1: Check activity update when other user add a new activity*/ 
-		//- Log in as User A and create some activity
-		addActivity(true, activitya1, false, "");
-		addActivity(true, activitya2, false, "");
-		//- Log in as  User B (who is friend of user A) and check Activity stream
-		magAcc.userSignIn(userType.ADMIN);
+//		String activitya1 = "activitya1";
+//		String activitya2 = "activitya2";
+//
+//		//Create data
+//		//Click on Connections on the left panel
+//		navToolBar.goToConnectionPage();
+//
+//		//Display list of people
+//		//Click on Connect button to invite user
+//		peoConn.connectPeople(user1);
+//
+//		//Login by invited users, go to My Connections/Requests Received
+//		magAcc.userSignIn(userType.PUBLISHER);
+//		//An user click on Confirm button
+//		peoConn.acceptInvitation(user);
+//		//Add activity of connection user
+//		navToolBar.goToHomePage();
+//
+//		/*Step 1: Check activity update when other user add a new activity*/ 
+//		//- Log in as User A and create some activity
+//		addActivity(true, activitya1, false, "");
+//		addActivity(true, activitya2, false, "");
+//		//- Log in as  User B (who is friend of user A) and check Activity stream
+//		magAcc.userSignIn(userType.ADMIN);
 
 		//Display made over the timeline with two elements:
 		//1. a small panel at the timeline's top to show the number of updates since last visit
@@ -589,7 +589,7 @@ public class Social_HomePage_ActivityStream extends Activity {
 	 * Pending: the status of this test case is N/A
 	 * --> Need to update test case
 	 */
-	@Test(groups="{pending}")
+	@Test(groups="pending")
 	public void test09_CheckActivityUpdateAddNewComments(){
 		//Declare variable
 

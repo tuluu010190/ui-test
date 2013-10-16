@@ -49,11 +49,11 @@ public class Social_Space_ManageNavigation extends SocialBase {
 	@Test
 	public void test01_AddNewNode(){
 		//Declare variable
-		String spaceName = "space01";
-		String nodeName = "nodeName01";
-		String nodeLabel = "nodeLabel01";
-		String pageName = "pageName01";
-		String pageTitle = "pageTitle01";
+		String spaceName = "space67673";
+		String nodeName = "nodeName67673";
+		String nodeLabel = "nodeLabel67673";
+		String pageName = "pageName67673";
+		String pageTitle = "pageTitle67673";
 
 		//Create data
 		//Add new space
@@ -83,11 +83,11 @@ public class Social_Space_ManageNavigation extends SocialBase {
 	@Test
 	public void test02_EditANode(){
 		//Declare variable
-		String spaceName = "space02";
-		String nodeName = "nodeName02";
-		String nodeLabel = "nodeLabel02";
-		String pageName = "pageName02";
-		String newNodeLabel = "newNodeLabel02";
+		String spaceName = "space67689";
+		String nodeName = "nodeName67689";
+		String nodeLabel = "nodeLabel67689";
+		String pageName = "pageName67689";
+		String newNodeLabel = "newNodeLabel67689";
 		String newPageTitle = "Register";
 
 		/*Step 1: Edit a node*/ 
@@ -119,9 +119,9 @@ public class Social_Space_ManageNavigation extends SocialBase {
 	@Test
 	public void test03_DeleteANode(){
 		//Declare variable
-		String spaceName = "space03";
-		String nodeName = "nodeName03";
-		String nodeLabel = "nodeLabel03";
+		String spaceName = "space67898";
+		String nodeName = "nodeName67898";
+		String nodeLabel = "nodeLabel67898";
 
 		/*Step 1: Delete a node*/ 
 		//- Go to spaces page

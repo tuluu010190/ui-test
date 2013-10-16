@@ -102,9 +102,9 @@ public class SpaceNavigation extends SocialBase{
 		click(SAVE_PAGE_BUTTON);
 		Utils.pause(1000);
 		if(nodeLabel!="")
-			waitForTextPresent(nodeLabel);
+			waitForAndGetElement("//a[contains(text(),'"+nodeLabel+"')]");
 		else
-			waitForTextPresent(nodeName);
+			waitForAndGetElement("//a[contains(text(),'"+nodeName+"')]");
 		waitForAndGetElement(SAVE_NAVITATION_BUTTON);
 		click(SAVE_NAVITATION_BUTTON);
 	}
@@ -145,7 +145,7 @@ public class SpaceNavigation extends SocialBase{
 			rightClickOnElement(ELEMENT_NODE_LINK_FORM.replace("${nodeLabel}",paths[paths.length-1]));
 			click(ELEMENT_ADD_NEW_NODE_RIGHT_CLICK);
 		}
-		waitForTextPresent("Page Node Setting");
+		waitForAndGetElement("//*[contains(text(),'Page Node Setting')]");
 		type(NODE_NAME, nodeName, true);
 		if (extendedLabelMode) {
 				select(ELEMENT_SELECT_LANGUAGE, language);
@@ -177,9 +177,9 @@ public class SpaceNavigation extends SocialBase{
 		click(SAVE_PAGE_BUTTON);
 		Utils.pause(1000);
 		if(nodeLabel!="")
-			waitForTextPresent(nodeLabel);
+			waitForAndGetElement("//a[contains(text(),'"+nodeLabel+"')]");
 		else
-			waitForTextPresent(nodeName);
+			waitForAndGetElement("//a[contains(text(),'"+nodeName+"')]");
 		waitForAndGetElement(SAVE_NAVITATION_BUTTON);
 		click(SAVE_NAVITATION_BUTTON);
 	}
@@ -231,7 +231,7 @@ public class SpaceNavigation extends SocialBase{
 		waitForElementNotPresent(ELEMENT_NODE_LINK_FORM.replace("${nodeLabel}",nodeName));
 		waitForAndGetElement(SAVE_NAVITATION_BUTTON);
 		click(SAVE_NAVITATION_BUTTON);
-		waitForTextNotPresent(nodeName);
+		waitForElementNotPresent("//a[contains(text(),'"+nodeName+"')]");
 	}
 	/**
 	 * Updated by ThaoPTH

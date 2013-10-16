@@ -108,10 +108,11 @@ public class Social_People extends SocialBase {
 		click(peoConn.ELEMENT_MY_CONNECTIONS_TAB);
 		//With user confirmed the invitation, user  becomes friend and user's name is displayed on user's network list
 		peoSearch.searchPeople(true,user1);
-		waitForTextPresent(user1);
+		waitForAndGetElement("//*[contains(text(),'"+user1+"')]");
+		
 		//With user ignored the invitation, User isn't displayed on user's network list
 		peoSearch.searchPeople(true,user2);
-		waitForTextNotPresent(user2);
+		waitForElementNotPresent("//*[contains(text(),'"+user2+"')]");
 
 		/*Clear data*/
 		info("clear data");
@@ -187,7 +188,7 @@ public class Social_People extends SocialBase {
 
 		//Display all user's requests
 		peoSearch.searchPeople(true,user1);
-		waitForTextPresent(user1);
+		waitForAndGetElement("//*[contains(text(),'"+user1+"')]");
 
 		//Click Cancel Request
 		peoConn.cancelRequest(user1);
@@ -213,7 +214,7 @@ public class Social_People extends SocialBase {
 
 		//Display all user's invitations
 		peoSearch.searchPeople(true,user);
-		waitForTextPresent(user);
+		waitForAndGetElement("//*[contains(text(),'"+user+"')]");
 
 		//Invited user can Accept/Ignore the invitation
 		peoConn.acceptInvitation(user);
@@ -254,27 +255,27 @@ public class Social_People extends SocialBase {
 		//Enter name of people into search text box and press Enter
 		peoSearch.searchPeople(true,user1);
 		//Display all results match with keyword 
-		waitForTextPresent(user1);
+		waitForAndGetElement("//*[contains(text(),'"+user1+"')]");
 		peoSearch.searchPeople(true,"", "", "");
 
 		//Search by Role/Skill:
 		//Enter text into field skill and press Enter
 		peoSearch.searchPeople(true,"", "", nameOfSkill);
 		//Display all results match with keyword 
-		waitForTextPresent(user1);
+		waitForAndGetElement("//*[contains(text(),'"+user1+"')]");
 		peoSearch.searchPeople(true,"", "", "");
 
 		//Enter text into Position field and press Enter
 		peoSearch.searchPeople(true,"",nameOfPosition);
 		//Display all results match with keyword 
-		waitForTextPresent(user1);
+		waitForAndGetElement("//*[contains(text(),'"+user1+"')]");
 		peoSearch.searchPeople(true,"", "", "");
 
 		//Click on character from people directory characters list
 		peoSearch.searchPeople(true,"", "", "","W");
 		//Use search by directory, display all user which has name start by selected char
-		waitForTextPresent(user1);
-		waitForTextNotPresent(user2);
+		waitForAndGetElement("//*[contains(text(),'"+user1+"')]");
+		waitForElementNotPresent("//*[contains(text(),'"+user2+"')]");
 	}
 
 	/** 
@@ -309,9 +310,9 @@ public class Social_People extends SocialBase {
 
 		//Show information of user
 		//User's information is changed and saved.
-		waitForTextPresent(firstName);
-		waitForTextPresent(lastName);
-		waitForTextPresent(email);
+		waitForAndGetElement("//*[contains(text(),'"+firstName+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+lastName+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+email+"')]");
 
 		//User has new avatar
 		element = waitForAndGetElement(By.xpath(ELEMENT_GET_URL_IMAGE.replace("${name}", firstName+" "+lastName)));
@@ -399,7 +400,7 @@ public class Social_People extends SocialBase {
 		String numberOfPhone="09880000";
 		String typeOfIMS="Gtalk";
 		String nameOfIMS="marywill";
-		String nameOfURLS="exoplatform.com";
+		String nameOfURLS="exoplatform.com.vn";
 		String nameOfOrganization ="exoplatform company";
 		String nameOfPosition="Tester";
 		String nameOfSkill="Analysis";
@@ -429,18 +430,18 @@ public class Social_People extends SocialBase {
 		peoPro.goToUserProfile(firstName+" "+lastName);
 
 		//Show all information of friend, default tab is My profile
-		waitForTextPresent(firstName);
-		waitForTextPresent(lastName);
-		waitForTextPresent(email);
-		waitForTextPresent(typeOfGender);
-		waitForTextPresent(typeOfAddPhone);
-		waitForTextPresent(numberOfPhone);
-		waitForTextPresent(typeOfIMS);
-		waitForTextPresent(nameOfIMS);
-		waitForTextPresent(nameOfURLS);
-		waitForTextPresent(nameOfOrganization);
-		waitForTextPresent(nameOfPosition);
-		waitForTextPresent(nameOfSkill);
+		waitForAndGetElement("//*[contains(text(),'"+firstName+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+lastName+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+email+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+typeOfGender+"')]");
+		waitForAndGetElement("//div[contains(text(),'"+typeOfAddPhone+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+numberOfPhone+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+typeOfIMS+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+nameOfIMS+"')]");
+		waitForAndGetElement("//a[contains(text(),'"+nameOfURLS+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+nameOfOrganization+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+nameOfPosition+"')]");
+		waitForAndGetElement("//*[contains(text(),'"+nameOfSkill+"')]");
 
 		//Clear data
 		//Login by user1

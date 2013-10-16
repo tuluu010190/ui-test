@@ -34,8 +34,8 @@ public class BrowserPreferences extends EcmsBase{
 		info("-- Settings for preferences --");
 		click(ELEMENT_PREFERENCE_LINK);
 		if (optionId != null){
-			By option = By.id(optionId);	
-			if (isTextNotPresent("Enable DMS Structure")){
+			By option = By.id(optionId);
+			if (waitForAndGetElement(By.xpath("//*[contains(text(),'Enable DMS Structure')]"),DEFAULT_TIMEOUT,0)==null){
 				if (waitForAndGetElement(ELEMENT_ADVANCED_ICON_ARROW_DOWN, 5000, 0) != null){
 					click(ELEMENT_ADVANCED_ICON_ARROW_DOWN);
 				}else {
@@ -52,6 +52,6 @@ public class BrowserPreferences extends EcmsBase{
 			select(ELEMENT_NODE_PER_PAGE, opts[0]);
 		}
 		button.save();
-		waitForTextNotPresent("Preferences");
+		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 	}
 }

@@ -567,7 +567,7 @@ public class EcmsBase extends ManageAccount {
 		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
 		//type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(link), false);
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
-		if (isTextNotPresent("Upload")){
+		if (waitForAndGetElement(By.xpath("//a[@class='actionIcon' and contains(text(),'Upload')]"),DEFAULT_TIMEOUT,0)==null){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
@@ -623,7 +623,7 @@ public class EcmsBase extends ManageAccount {
 	public void uploadMultiFileSerial(String...file){
 		
 		if (file.length > 0){
-			if (isTextNotPresent("Upload")){
+			if (waitForAndGetElement(By.xpath("//a[@class='actionIcon' and contains(text(),'Upload')]"),DEFAULT_TIMEOUT,0)==null){
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 			}
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +

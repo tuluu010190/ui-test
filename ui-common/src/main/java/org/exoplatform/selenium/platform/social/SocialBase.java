@@ -89,7 +89,7 @@ public class SocialBase extends PlatformBase {
 	public String ELEMENT_ACTION_USER_ON_SPACE = "//a[text()='${spaceName}']/../../..//button[text()='${action}']";
 
 	// Activity Stream tab	
-	public final By ELEMENT_ACTIVITY_STREAM_TAB = By.xpath("//div[@id='UIProfileNavigationPortlet']//a[text()='Activity Stream']");	
+	public final By ELEMENT_ACTIVITY_STREAM_TAB = By.xpath("//div[@id='UIProfileNavigationPortlet']//a[text()='Activity Stream']");
     /*------------------- End of parameters ---------------------*/	
 
 	/**
@@ -118,8 +118,7 @@ public class SocialBase extends PlatformBase {
 	public void goToAllSpaces(){
 		info("Go to All Spaces");
 		click(ELEMENT_JOIN_SPACE_LINK);
-		waitForTextPresent("Add New Space");
-		//waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON);
+		waitForAndGetElement("//*[contains(text(),'Add New Space')]");
 	}
 
 	// Go to Invitation Receives
@@ -140,13 +139,13 @@ public class SocialBase extends PlatformBase {
 	// Go to Settings
 	public void goToSettings(){
 		click(ELEMENT_SETTINGS);
-		waitForTextPresent("Settings");
+		waitForAndGetElement("//*[text()='Change Picture']");
 	}
 
 	// Go to Access and Edit tab
 	public void goToAccessAndEdit(){
 		click(ELEMENT_ACCESS_AND_EDIT_TAB);
-		waitForTextPresent("Access & Edit");
+		waitForAndGetElement("//*[text()='Visible']");
 	}
 
 	/**
@@ -163,7 +162,7 @@ public class SocialBase extends PlatformBase {
 	// Go to Member tab
 	public void goToMembers(){
 		click(ELEMENT_MEMBERS_TAB);
-		waitForTextPresent("Members");
+		waitForAndGetElement(By.id("user"));
 	}
 
 	/**
@@ -182,7 +181,7 @@ public class SocialBase extends PlatformBase {
 		info("-- Go to applications --");
 		waitForAndGetElement(ELEMENT_APPLICATIONS_TAB);
 		click(ELEMENT_APPLICATIONS_TAB);
-		waitForTextPresent("Applications");
+		waitForAndGetElement("//*[text()='Add Application']");
 	}
 
 	/**
@@ -200,7 +199,7 @@ public class SocialBase extends PlatformBase {
 	public void goToNavigation(){
 		waitForAndGetElement(ELEMENT_NAVIGATION_TAB);
 		click(ELEMENT_NAVIGATION_TAB);
-		waitForTextPresent("Navigations");
+		waitForAndGetElement("//*[text()='Add Node']");
 	}
 
 	/**
@@ -218,7 +217,7 @@ public class SocialBase extends PlatformBase {
 	public void accessSpace(String spaceName) {
 		goToMySpacePage();
 		click(By.xpath("//*[@id='UIManageMySpaces']//*[text()= '"+ spaceName +"']"));
-		waitForTextNotPresent("Add New Space");
+		waitForElementNotPresent("//*[contains(text(),'Add New Space')]");
 	}
 
 	// Go to Find Connections
@@ -238,7 +237,7 @@ public class SocialBase extends PlatformBase {
 			info("Retry...[" + repeat + "]");
 		}
 		click(ELEMENT_FIND_PEOPLE_ICON);
-		waitForTextPresent("Contacts Directory");
+		waitForAndGetElement("//*[contains(text(),'Contacts Directory')]");
 	}	
 
 	// Go to My Connections
@@ -278,7 +277,7 @@ public class SocialBase extends PlatformBase {
 			info("Retry...[" + repeat + "]");
 		}
 		click(ELEMENT_TOOLBAR_ACTIVITY_ICON);
-		waitForTextPresent("What are you working on?");
+		waitForAndGetElement("//*[contains(text(),'What are you working on?')]");
 	}	
 
 	////////////

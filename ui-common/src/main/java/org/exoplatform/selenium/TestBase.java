@@ -540,7 +540,7 @@ public class TestBase {
 		Actions actions = new Actions(driver);
 		Utils.pause(500);
 		try {
-			WebElement element = waitForAndGetElement(locator,DEFAULT_TIMEOUT, 1, display);
+			WebElement element = waitForAndGetElement(locator,DEFAULT_TIMEOUT,1,display);
 			actions.contextClick(element).perform();
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);

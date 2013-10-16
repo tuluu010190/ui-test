@@ -110,7 +110,7 @@ public class ECMS_Admin_Repository extends PlatformBase{
 		//Unlock Node in Admin
 		ecMain.goToLockedTab();
 		click(ecMain.ELEMENT_UNLOCK_NODE.replace("${lockedNode}", fileTitle));
-		waitForTextNotPresent(fileTitle);
+		waitForElementNotPresent(ecMain.ELEMENT_UNLOCK_NODE.replace("${lockedNode}", fileTitle));
 
 		info("-- Restore data --");
 		nav.goToSiteExplorer();
