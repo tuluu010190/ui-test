@@ -85,8 +85,7 @@ public class ManageAlert extends TestBase{
 		}
 		Alert alert = driver.switchTo().alert();
 		alert.accept();
-		
-		Utils.pause(15000);
+		Utils.pause(3000);
 	}
 
 	//Verify a message

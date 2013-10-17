@@ -63,7 +63,7 @@ public class CalendarBase extends PlatformBase {
 	public By ELEMENT_END_TIME = By.name("endTime");
 	public By ELEMENT_MONTH_TAB_ACTIVE = By.xpath("//*[text()='Month']/ancestor::li[contains(@class, 'active')]");
 	public By ELEMENT_WEEK_TAB = By.xpath("//*[text()='Week']/ancestor::li[contains(@class, 'btn')]");
-	
+
 	//-----------Menu of calendar------------
 	public By ELEMENT_CAL_ADD_EVENT_MENU = By.xpath("//*[@id='AddEvent']");
 	public By ELEMENT_CAL_ADD_TASK_MENU = By.xpath("//*[@id='AddTask']");
@@ -73,6 +73,9 @@ public class CalendarBase extends PlatformBase {
 	public By ELEMENT_CAL_REFRESH_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'RefreshRemoteCalendar')]");
 	public By ELEMENT_CAL_SHARE_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'ShareCalendar')]");
 	public By ELEMENT_CAL_EDIT_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'EditCalendar')]");
+	public By ELEMENT_CAL_SETTING_MENU = By.xpath("//*[@id='UIActionBar']//i[@class='uiIconSetting uiIconLightGray']");
+	public By ELEMENT_CAL_SETTING_TIMEZONE_COMBOBOX = By.name("timeZone");
+	public String ELEMENT_CAL_SETTING_TIMEZONE_VALUE = "//*[@id='setting']//select[@name='timeZone']/option[@value='${timezoneOpt}']";
 
 	//------------Export calendar---------------
 	public By ELEMENT_CALENDAR_EXPORT = By.xpath("//div[@id='CalendarPopupMenu']//*[@class='uiIconCalExportCalendar uiIconLightGray']");
@@ -94,7 +97,7 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_EDIT_FEEDS = "//tr/td/span[text()='${namefeeds}']/../..//a[@class='actionIcon']//i[@class='uiIconEdit uiIconLightGray']";
 	public By ELEMENT_DELETE_FEEDS = By.xpath("//a[@class='actionIcon']//i[@class='uiIconDelete uiIconLightGray']");
 	public String MSG_FEEDS_DELETE = "Are you sure you want to delete this feed from the list?";
-	
+
 	//---------- Add calendar-------------------
 	public By ELEMENT_CAL_DISPLAY_NAME_INPUT = By.id("displayName");
 	public By ELEMENT_CAL_DESC_INPUT = By.xpath("//*[@id='UICalendarForm']//*[@id='description']");
@@ -108,7 +111,8 @@ public class CalendarBase extends PlatformBase {
 
 	//-----------Event/Task -----------
 	public String ELEMENT_EVENT_TASK_ALL_DAY = "//div[@class='eventAlldayContent asparagus' and contains(text(),'${event}')]";
-	public String ELEMENT_EVENT_TASK_WORKING_PANE = "//div[contains(@class,'eventContainer') and contains(text(),'${event}')]"; 
+	public String ELEMENT_EVENT_TASK_ONE_DAY = "//*[@id='UIWeekViewGrid']//div[contains(text(),'${taskName}')]/parent::div[@class='clearfix']/div[@class='eventContainerBar eventTitle pull-left']";
+	public String ELEMENT_EVENT_TASK_WORKING_PANE = "//div[contains(@class,'eventContainer') and contains(text(),'${event}')]";
 	public By ELEMENT_EVENT_TASK_DELETE_MENU = By.xpath("//div[@id='tmpMenuElement']//a[@class='eventAction' and contains(@href,'Delete')]");
 	public String MSG_EVENT_TASK_DELETE = "Are you sure you want to delete this event/task?";
 
@@ -131,6 +135,11 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_CAL_SHARE_EDIT_PERMISSION = "//div[@title='${user}']/../..//input[@class='checkbox']"; 
 	public By ELEMENT_CAL_SHARE_INPUT = By.id("PermissionOwnerInput");
 	public By ELEMENT_CAL_SELECT_MEMBERSHIP_ICON = By.xpath("//i[@class='uiIconMembership uiIconLightGray']");
+
+	//----------------DateTime of Calendar---------------
+	public String ELEMENT_CURRENT_DATE = getCurrentDate("EEE MMM dd yyyy HH"); 
+	public String ELEMENT_TARGET_TIME = ELEMENT_CURRENT_DATE +":00:00";
+	public By ELEMENT_TARGET_DATE = By.xpath("//*[contains(@startfull, '${targetDate}')]".replace("${targetDate}", ELEMENT_TARGET_TIME));
 
 	/*================== Common functions for Calendar =================*/
 
@@ -240,6 +249,9 @@ public class CalendarBase extends PlatformBase {
 		goToExportCalendar(calendar);
 		type(ELEMENT_CAL_EXPORT_FILE_NAME,name,true);
 		click(ELEMENT_CAL_EXPORT_SAVE_BUTTON);
+		Utils.pause(3000);
+		driver.navigate().refresh();
+		Utils.pause(3000);
 	}
 
 	/** Open Add calendar form
@@ -285,7 +297,8 @@ public class CalendarBase extends PlatformBase {
 				click(ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", groups[0]));
 			}else
 				type(ELEMENT_CAL_GROUP_INPUT,groups[0],true);
-			button.add();
+			//button.add();
+			click(button.ELEMENT_ADD_BUTTON);
 		}
 	}
 
@@ -413,23 +426,74 @@ public class CalendarBase extends PlatformBase {
 		waitForAndGetElement(By.linkText(name));
 	}
 
-	/** Delete event/task
-	 * @author thuntn
-	 * @param event
+	/** 
+	 * Delete event/task
+	 * @author thuntn, havtt edited
+	 * @param String event
+	 * @param boolean allDay
 	 */
-	public void deleteEventTask(String event){
+	/*public void deleteEventTask(String event, boolean allDay){
 		alert = new ManageAlert(driver);
-		info("--Delete event--");
-		if(waitForAndGetElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event), 5000, 0) == null){
-			rightClickOnElement(ELEMENT_EVENT_TASK_WORKING_PANE.replace("${event}", event),2);
-		}	
-		else{
+		if (allDay == true)
+		{
+			info("--Delete event--");
 			rightClickOnElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event),2);
+			click(ELEMENT_EVENT_TASK_DELETE_MENU);
+			alert.waitForConfirmation(MSG_EVENT_TASK_DELETE);
+			waitForElementNotPresent(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event));
+			waitForElementNotPresent(ELEMENT_EVENT_TASK_WORKING_PANE.replace("${event}", event));
+		}
+		else
+		{        
+			info("--Delete event--");
+			rightClickOnElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", event),2);
+			click(ELEMENT_EVENT_TASK_DELETE_MENU);
+			info("--Confirm deleted event--");
+			alert.waitForConfirmation(MSG_EVENT_TASK_DELETE);
+			alert.acceptAlert();
+			waitForElementNotPresent(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", event));
+		}
+	}*/
+
+	/**
+	 * Select an option when creating an Event/Task 
+	 * ONE DAY
+	 * ALL DAY  
+	 */
+	public enum selectDayOption{
+		ONEDAY, ALLDAY;
+	}
+
+	public void deleteEventTask(String event, selectDayOption... options){
+		alert = new ManageAlert(driver);
+		selectDayOption optDay = options.length > 0 ? options[0] : selectDayOption.ALLDAY;
+
+		info("--Delete an Event/Task--");
+		switch (optDay) {
+		case ALLDAY:
+			if(waitForAndGetElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event), 5000, 0) == null){
+				rightClickOnElement(ELEMENT_EVENT_TASK_WORKING_PANE.replace("${event}", event),2);
+			}        
+			else{
+				rightClickOnElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event),2);
+			}
+			break;
+		case ONEDAY:
+			rightClickOnElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", event),2);
+			break;			
+		default:
+			break;
 		}
 		click(ELEMENT_EVENT_TASK_DELETE_MENU);
 		alert.waitForConfirmation(MSG_EVENT_TASK_DELETE);
-		waitForElementNotPresent(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event));
-		waitForElementNotPresent(ELEMENT_EVENT_TASK_WORKING_PANE.replace("${event}", event));
+		driver.navigate().refresh();
+		Utils.pause(1000);
+		if (optDay.equals(selectDayOption.ALLDAY)){
+			waitForElementNotPresent(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event));
+			waitForElementNotPresent(ELEMENT_EVENT_TASK_WORKING_PANE.replace("${event}", event));
+		}else if (optDay.equals(selectDayOption.ONEDAY)){
+			waitForElementNotPresent(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", event));
+		}	
 	}
 
 	/*============Add, Edit, Delete a Calendar ===========*/
@@ -530,5 +594,19 @@ public class CalendarBase extends PlatformBase {
 			info("[Show working times is already checked]");
 		}
 		Utils.pause(500);
+	}
+
+	/** 
+	 * Setting timezone for Calendar
+	 * @author havtt
+	 * @date 18-Oct-2013
+	 */
+	public void setTimezoneCal(String timezoneOpt){
+		click(ELEMENT_CAL_SETTING_MENU);
+		Utils.pause(3000);
+		info("-- Select filter option of Timezone --");
+		click(ELEMENT_CAL_SETTING_TIMEZONE_COMBOBOX);
+		click(ELEMENT_CAL_SETTING_TIMEZONE_VALUE.replace("${timezoneOpt}", timezoneOpt));
+		waitForAndGetElement(ELEMENT_CAL_SETTING_TIMEZONE_VALUE.replace("${timezoneOpt}", timezoneOpt));		 
 	}
 }

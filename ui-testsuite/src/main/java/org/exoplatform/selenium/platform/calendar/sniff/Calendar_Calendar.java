@@ -80,8 +80,7 @@ public class Calendar_Calendar extends CalendarBase{
 		
 		//Delete data
 		deleteFile("TestOutput/" + fileName);
-		deleteCalendar(calendar);
-		
+		deleteCalendar(calendar);		
 	}
 	
 	/** Add Personal Calendar, Edit Personal Calendar, Delete Personal Calendar

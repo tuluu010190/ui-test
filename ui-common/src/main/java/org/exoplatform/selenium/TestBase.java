@@ -11,10 +11,12 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.NoSuchElementException;
@@ -44,9 +46,9 @@ public class TestBase {
 	public static boolean firstTimeLogin = false;
 	public Actions action;
 
-	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
-	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
-	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
+	//public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
+	//public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
+	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
 
@@ -742,7 +744,8 @@ public class TestBase {
 		termsAndConditions();
 	}
 
-	/**function get current Date of system follow a format
+	/**
+	 * function get current Date of system follow a format
 	 * @author lientm
 	 * @param fomat
 	 * @return
@@ -779,6 +782,29 @@ public class TestBase {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		return (dateFormat.format(cal.getTime()));	
+	}
+	
+	/**
+	 * Get minute in format "mm" from current date
+	 * @author havtt
+	 * @return minute
+	 * 
+	 */
+	public int getMinute(){
+		Date date = new Date();
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date); 
+		int minute = cal.get(Calendar.MINUTE);
+		return (minute); 
+	}
+	
+	/**
+	 * Change attribute "display" of HTML tag from "none" to "block" 
+	 * @author havtt
+	 */
+	public void changeDisplayAttributeHTML(String locator){
+		WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';",element);	
 	}
 
 }

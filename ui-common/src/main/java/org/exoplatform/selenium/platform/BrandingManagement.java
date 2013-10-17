@@ -32,7 +32,8 @@ public class BrandingManagement extends PlatformBase {
 		button = new Button(driver);
 	}
 	
-	/** Upload new logo
+	/** 
+	 * Upload a new logo
 	 * @author phuongdt
 	 * @param urlFile
 	 */
@@ -58,7 +59,8 @@ public class BrandingManagement extends PlatformBase {
 		assert (!oldsrc1.contentEquals(newsrc1));
 	}
 	
-	/** Select new stype navigation bar
+	/** 
+	 * Select new stype navigation bar
 	 * @author phuongdt
 	 * @param optionStyle
 	 */
