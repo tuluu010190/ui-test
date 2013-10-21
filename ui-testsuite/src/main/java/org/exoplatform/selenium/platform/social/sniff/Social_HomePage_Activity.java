@@ -82,10 +82,10 @@ public class Social_HomePage_Activity extends Activity {
 	@Test
 	public void test01_CheckLayoutOfActivities(){
 		//Declare variable
-		String activity1 = "activity 747251";
-		String comment1 = "comment 747251";
+		String activity1 = "activity747251";
+		String comment1 = "comment747251";
 		String spaceName = "space74725";
-		String nameWebContent="fileName1";
+		String nameWebContent="fileName74725";
 		By bNameWebContent = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", nameWebContent));
 
 		//Create data

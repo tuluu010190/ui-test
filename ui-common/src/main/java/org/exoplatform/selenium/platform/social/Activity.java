@@ -437,7 +437,10 @@ public class Activity extends SocialBase {
 			//click("//*[@class='avatarSmall' and text()='"+userName+"']");
 			click("//*[@class='avatarSmall']");
 			//Click on Comment button
-			click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
+			WebElement commentButton = waitForAndGetElement(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
+			((JavascriptExecutor)driver).executeScript("arguments[0].disabled = false;", commentButton);
+			((JavascriptExecutor)driver).executeScript("arguments[0].className = 'pull-right btn btn-primary';", commentButton);
+			commentButton.click();
 			waitForAndGetElement(ELEMENT_USER_NAME_LINK_COMMENT.replace("${activityText}", activityText).replace("${userName}", userName));
 		}
 	}

@@ -51,7 +51,7 @@ public class PeopleConnection extends SocialBase {
 		//By ELEMENT_CANCEL_REQUEST_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li[2]/a[@title='Cancel Request']");
 
 		info("-----Go to find connections page-----");
-		peoSearch.searchPeople(true,peopleName);
+		peoSearch.searchPeople(false,peopleName);
 		if (waitForAndGetElement(ELEMENT_PEOPLE_SEARCH.replace("${peopleName}", peopleName),DEFAULT_TIMEOUT,0)==null){
 			info("-- Cannot find people: " + peopleName);
 		}else{

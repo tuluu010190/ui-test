@@ -97,8 +97,8 @@ public class PlatformBase extends TestBase {
 	//Application
 	public By ELEMENT_APPLICATIONS_LINK = By.linkText("Applications");
 	//Content
-	public final By ELEMENT_MENU_CONTENT_LINK = By.xpath("//*[text()= 'Content']");
-	public final By ELEMENT_MENU_SITE_EXPLORER = By.xpath("//*[text()='Sites Explorer']");
+	public final By ELEMENT_MENU_CONTENT_LINK = By.xpath("//li[@class='dropdown-submenu']/a[text()='Content']");
+	public final By ELEMENT_MENU_SITE_EXPLORER = By.linkText("Sites Explorer");
 	public final By ELEMENT_SITE_EXPLORER_HOME = By.className("uiIconEcmsHome");
 	//By.linkText("Sites Explorer");
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");

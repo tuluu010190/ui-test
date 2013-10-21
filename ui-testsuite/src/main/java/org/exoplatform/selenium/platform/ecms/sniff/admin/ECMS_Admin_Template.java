@@ -65,7 +65,7 @@ public class ECMS_Admin_Template extends PlatformBase{
 	 * Delete Document Template
 	 * 
 	 */
-	@Test
+	@Test(priority=0)
 	public void test00_AddEditAndDeleteDocumentTemplate(){
 		String templateName = "exo:answer";
 		String label = "answerTest";
@@ -152,7 +152,7 @@ public class ECMS_Admin_Template extends PlatformBase{
 	 * Delete Metadata
 	 * 
 	 */
-	@Test
+	@Test(priority=1)
 	public void test00_ViewEditAndDeleteMetadata(){
 		String metadata = "Ecms_Sniff_Metadata";
 		String[] metadataPer = {"Platform/Administration", "*"};
