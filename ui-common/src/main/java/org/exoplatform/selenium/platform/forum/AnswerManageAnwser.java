@@ -18,7 +18,7 @@ public class AnswerManageAnwser extends AnswerBase {
 
 	public AnswerManageAnwser(WebDriver dr){
 		driver = dr;
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 
 	}
@@ -71,7 +71,7 @@ public class AnswerManageAnwser extends AnswerBase {
 			for(int i = 0; i < question.length; i ++){
 				check(ELEMENT_QUESTION_IN_ADD_RELATION.replace("${question}", question[i]), 2);
 			}
-			but.save();
+			button.save();
 			Utils.pause(1000);
 		}
 	}
@@ -128,7 +128,7 @@ public class AnswerManageAnwser extends AnswerBase {
 		if (removeRelation){
 			removeRelationForAnswer(questionRemove);
 		}
-		but.save();
+		button.save();
 	}
 	
 	/**

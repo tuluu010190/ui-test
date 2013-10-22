@@ -21,7 +21,7 @@ public class AnswerManageCategory extends AnswerBase {
 	ForumPermission forumPer;
 	public AnswerManageCategory(WebDriver dr){
 		driver = dr;
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 		forumPer = new ForumPermission(driver);
 	}
@@ -152,7 +152,7 @@ public class AnswerManageCategory extends AnswerBase {
 		if (permission != 0){
 			forumPer.configPermission4AnswerCategory(permission, userGroup, restricted, moderator);
 		}
-		but.save();
+		button.save();
 		Utils.pause(2000);
 	}
 	
@@ -187,7 +187,7 @@ public class AnswerManageCategory extends AnswerBase {
 		if (permission != 0){
 			forumPer.configPermission4AnswerCategory(permission, userGroup, restricted, moderator);
 		}
-		but.save();
+		button.save();
 		Utils.pause(2000);
 	}
 
@@ -240,7 +240,7 @@ public class AnswerManageCategory extends AnswerBase {
 		click(ELEMENT_CATEGORY_BUTTON);
 		click(ELEMENT_EXPORT_CATEGORY_LINK);
 		type(ELEMENT_FILE_NAME_EXPORT, fileName, true);
-		but.save();
+		button.save();
 		Utils.pause(1000);		
 	}
 	
@@ -258,7 +258,7 @@ public class AnswerManageCategory extends AnswerBase {
 		element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + fileName));
 		switchToParentWindow();
 		waitForAndGetElement("//*[text()='" + fileName + "']", DEFAULT_TIMEOUT, 1, 2);
-		but.save();
+		button.save();
 		waitForMessage(ELEMENT_IMPORT_SUCCESS_MESSAGE);
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(2000);

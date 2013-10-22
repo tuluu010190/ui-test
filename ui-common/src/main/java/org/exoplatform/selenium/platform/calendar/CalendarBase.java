@@ -19,6 +19,8 @@ import org.openqa.selenium.WebElement;
 public class CalendarBase extends PlatformBase {
 
 	PlatformPermission per;
+	//Button btn;
+
 	//Go to the calendar's page
 	public String ID_CALENDAR_PAGE = "";
 	public By ELEMENT_GET_ID_PAGE = By.xpath("//*[@id='CalendarApplicationMinWidth']/../..");
@@ -28,8 +30,39 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_CALENDAR_SETTING_ICON = "//a[text()='${calendar}']/ancestor::li[contains(@class, 'calendarItem')]/div[contains(@id,'UICalendars')]";
 	public By ELEMENT_CALENDAR_ACTIONS_ICON = By.xpath("//*[@class='uiIconCalSimplePlus uiIconLightGray']");
 	public By ELEMENT_CALENDAR_ADD_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'AddCalendar')]");
+	public By ELEMENT_CALENDAR_SETTINGS = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'CalendarSetting')]");
 	public By ELEMENT_CALENDAR_IMPORT_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'ImportCalendar')]");
-	public String ELEMENT_CALENDAR_GET_BY_TAG_LI = "//a[@class='calendarName' and text()='${calendar}']/../..";
+	public String ELEMENT_CALENDAR_GET_BY_TAG_LI = "//a[@class='calendarName' and contains(text(), '${calendar}')]/../..";
+	public By ELEMENT_CALENDAR_POPUP_WINDOW = By.xpath("//*[@id='UICalendarPopupWindow']/div[2]");
+	public String ELEMENT_VERIFY_CALENDAR_FORM = "//*[@id='defaultCalendarTab'] //div[@class='myCalendar']/*[@class='calendarTitle']/..//li[contains(@class,'calendarItem' )]//*[text()='${UserName}']/../a[@class='${CheckboxColor}']";
+
+	//-----------Calendar Settings ----------
+	public By ELEMENT_SETTINGS_TAB = By.xpath("//a[@data-toggle='tab' and text()='Settings']");
+	public By ELEMENT_DISPLAYED_CALENDAR = By.xpath("//a[@data-toggle='tab' and text()='Displayed Calendars']");
+	public By ELEMENT_FEEDS = By.xpath("//a[@data-toggle='tab' and text()='Feeds']");
+	public By ELEMENT_CALENDAR_TAB_DEFAULT = By.xpath("//*[@id='defaultCalendarTab']");
+	public By ELEMENT_PERSONAL_CALENDAR = By.xpath("//*[@id='defaultCalendarTab']//div[@class='myCalendar']/*[@class='calendarTitle' and text()='Personal Calendars']");
+	public By ELEMENT_GROUP_CALENDAR = By.xpath("//*[@id='defaultCalendarTab']//div[@class='myCalendar']/*[@class='calendarTitle' and text()='Group Calendars']");
+	public String ELEMENT_VERIFY_CALENDAR = "//*[@id='defaultCalendarTab'] //div[@class='myCalendar']/*[@class='calendarTitle']/..//li[contains(@class,'calendarItem' )]//*[text()='${UserName}']/../a[@class='${CheckboxColor}']//span[@class='${checkicon}']";
+	public By ELEMENT_UNCHECK_BOX = By.xpath("//span[@class='iconCheckBox checkbox']");
+	public By ELEMENT_SETTINGS_FORM_SAVE_BUTTON = By.xpath("//*[@id='UICalendarSettingForm']//*[text()='Save']");
+
+	public By ELEMENT_VIEW_TYPE = By.name("viewType");
+	public By ELEMENT_SELECTED_VIEW_TYPE = By.xpath("//*[@name='viewType']//*[@selected='selected']");
+	public By ELEMENT_DATE_FORMAT = By.name("dateFormat");
+	public By ELEMENT_SELECTED_DATE_FORMAT = By.xpath("//*[@name='dateFormat']//*[@selected='selected']");
+	public By ELEMENT_TIME_FORMAT = By.name("timeFormat");
+	public By ELEMENT_SELECTED_TIME_FORMAT = By.xpath("//*[@name='timeFormat']//*[@selected='selected']");
+	public By ELEMENT_TIME_ZONE = By.name("timeZone");
+	public By ELEMENT_SELECTED_TIME_ZONE = By.xpath("//*[@name='timeZone']//*[@selected='selected']");
+	public By ELEMENT_WEEK_START_ON = By.name("weekStartOn");
+	public By ELEMENT_SELECTED_WEEK_START_ON = By.xpath("//*[@name='weekStartOn']//*[@selected='selected']");
+	public String ELEMENT_SEND_EVENT_INVITATION = "//*[text()='${option}']/../input[@name='send']";
+	public By ELEMENT_SHOW_WORKING_TIME_CHECKBOX = By.name("showWorkingTime");
+	public By ELEMENT_BEGIN_TIME = By.name("beginTime");
+	public By ELEMENT_END_TIME = By.name("endTime");
+	public By ELEMENT_MONTH_TAB_ACTIVE = By.xpath("//*[text()='Month']/ancestor::li[contains(@class, 'active')]");
+	public By ELEMENT_WEEK_TAB = By.xpath("//*[text()='Week']/ancestor::li[contains(@class, 'btn')]");
 	
 	//-----------Menu of calendar------------
 	public By ELEMENT_CAL_ADD_EVENT_MENU = By.xpath("//*[@id='AddEvent']");
@@ -47,7 +80,21 @@ public class CalendarBase extends PlatformBase {
 	public By ELEMENT_CAL_EXPORT_FILE_NAME = By.id("name");
 	public By ELEMENT_CAL_EXPORT_SAVE_BUTTON = By.xpath("//*[@id='UIExportForm']//*[text()='Save']");
 
-
+	//---------- Feeds -------------------------
+	public By ELEMENT_NAME_FEEDS = By.xpath("//div[@id='UIEditFeed']//input[@id='name']");
+	public By ELEMENT_URL_FEEDS = By.id("url");
+	public By ELEMENT_RESET_URL = By.xpath("//div[@id='UIEditFeed']//div[@class='controls inputLarge']//a[@title='Reset URL']");
+	public By ELEMENT_GENERATE_URL = By.xpath("//div[@id='UIEditFeed']//div[@class='controls inputLarge']//a[@title='Generate URL']");
+	public By ELEMENT_ADD_MORE = By.xpath("//select[@name='addMore']");
+	public By ELEMENT_ADD_FEEDS_BUTTON = By.xpath("//div[@id='feedTab-tab']//*[text()='Add']");
+	public By ELEMENT_ADD_CALENDAR_BUTTON = By.xpath("//i[@class='uiIconPlus uiIconLightGray']");
+	public By ELEMENT_FEEDS_SAVE_BUTTON = By.xpath("//*[@id='UIEditFeed']//*[contains(text(),'Save')]");
+	public By ELEMENT_OK_POPUP_BUTTON = By.xpath("//div[@class='uiAction uiActionBorder']//*[text()='OK']");
+	public String VERIFY_MESSAGE_URL = "The feed ${name} has been generated successfully.";
+	public String ELEMENT_EDIT_FEEDS = "//tr/td/span[text()='${namefeeds}']/../..//a[@class='actionIcon']//i[@class='uiIconEdit uiIconLightGray']";
+	public By ELEMENT_DELETE_FEEDS = By.xpath("//a[@class='actionIcon']//i[@class='uiIconDelete uiIconLightGray']");
+	public String MSG_FEEDS_DELETE = "Are you sure you want to delete this feed from the list?";
+	
 	//---------- Add calendar-------------------
 	public By ELEMENT_CAL_DISPLAY_NAME_INPUT = By.id("displayName");
 	public By ELEMENT_CAL_DESC_INPUT = By.xpath("//*[@id='UICalendarForm']//*[@id='description']");
@@ -108,12 +155,17 @@ public class CalendarBase extends PlatformBase {
 	public String getPropertyOfCalendar(String calendar,int property){
 		WebElement eCalendar = waitForAndGetElement(ELEMENT_CALENDAR_GET_BY_TAG_LI.replace("${calendar}", calendar));
 		switch (property){
-		case 1: return eCalendar.getAttribute("id");
-		case 2: return eCalendar.getAttribute("caltype");
-		case 3: return eCalendar.getAttribute("calcolor");
-		default: return "";
+		case 1: 
+			return eCalendar.getAttribute("id");
+		case 2: 
+			return eCalendar.getAttribute("caltype");
+		case 3: 
+			return eCalendar.getAttribute("calcolor");
+		default: 
+			return "";
 		}
 	}
+
 	/**
 	 * Execute action of calendar: Edit, Delete, Share, export....
 	 * @author thuntn
@@ -159,13 +211,10 @@ public class CalendarBase extends PlatformBase {
 				per.selectGroupMembership(groupMem[0],membership[1]); break;
 			}
 		}
-
 		click(ELEMENT_CAL_SHARE_ADD_BUTTON);
-
 		for(int j=0; j < canEdit.length; j++){
 			check(ELEMENT_CAL_SHARE_EDIT_PERMISSION.replace("${user}", userGroup[j]),2);
 		}
-
 		click(ELEMENT_CAL_SHARE_SAVE_BUTTON);
 	}
 
@@ -175,10 +224,8 @@ public class CalendarBase extends PlatformBase {
 	 * @param calendar
 	 */
 	public void goToExportCalendar(String calendar){
-		
 		openMenuOfCalendar(calendar);
 		click(ELEMENT_CAL_EXPORT_MENU);
-
 		waitForAndGetElement(ELEMENT_CALENDAR_EXPORT_POPUP);
 	}
 
@@ -203,6 +250,14 @@ public class CalendarBase extends PlatformBase {
 		click(ELEMENT_CALENDAR_ADD_MENU);
 	}
 
+	/** Open Calendar Settings form
+	 * @author HangNTT
+	 */
+	public void goToCalendarSettings(){
+		click(ELEMENT_CALENDAR_ACTIONS_ICON);
+		click(ELEMENT_CALENDAR_SETTINGS);
+	}
+
 	/** Input into Add calendar form
 	 * @author thuntn
 	 * @param name
@@ -211,10 +266,9 @@ public class CalendarBase extends PlatformBase {
 	 * @param groups
 	 */
 	public void inputAddCalendarForm(String name, String desc, String color, String...groups){
-
 		String type = groups.length > 2 ? (String) groups[1]: "0";
 		per = new PlatformPermission(driver);
-		but = new Button(driver);
+		button = new Button(driver);
 
 		if(name != null)
 			type(ELEMENT_CAL_DISPLAY_NAME_INPUT,name,true);
@@ -231,24 +285,83 @@ public class CalendarBase extends PlatformBase {
 				click(ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", groups[0]));
 			}else
 				type(ELEMENT_CAL_GROUP_INPUT,groups[0],true);
-			but.add();
+			button.add();
 		}
 	}
 
-	/** Add calendar
-	 * @author thuntn
+	/*================== Calendar Feeds ====================*/
+	/** 
+	 * Input into feeds form
+	 * @author hangntt
 	 * @param name
-	 * @param desc
-	 * @param color: name of color which is used in @class of the color element, eg: hot_pink
-	 * @param groups: name of group which is the same as data inputed by manual, eg: /platform/users
+	 * @param groups
 	 */
-	public void addCalendar(String name, String desc, String color, String...groups){
-		info("Add calendar");
-		goToAddCalendar();
-		inputAddCalendarForm(name,desc,color,groups);
-		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
-		waitForAndGetElement(By.linkText(name));
+	public void inputFeedsData(String name,String[] userGroup, int...url){
+		per = new PlatformPermission(driver);
+		button = new Button(driver);
+
+		Utils.pause(1000);
+		if(name != null)
+			type(ELEMENT_NAME_FEEDS,name,true);
+		for(int i = 0; i < userGroup.length; i++){
+			select(ELEMENT_ADD_MORE,userGroup[i]);
+			click(ELEMENT_ADD_CALENDAR_BUTTON);
+		}
+		int urlfeed = url.length > 0 ? url[0] : 0;
+		switch (urlfeed){
+		case 1:
+			click(ELEMENT_RESET_URL); break;
+		case 2: 
+			click(ELEMENT_GENERATE_URL);break;
+		default: break;
+		}
+		click(ELEMENT_FEEDS_SAVE_BUTTON);
+		waitForAndGetElement("//*[contains(text(),'"+VERIFY_MESSAGE_URL.replace("${name}", name)+"')]");
+		click(ELEMENT_OK_POPUP_BUTTON);
+		waitForAndGetElement("//*[contains(text(),'"+name+"')]");
 	}
+
+	/** Add feeds
+	 * @author hangntt
+	 * @param name
+	 * @param url
+	 * @param add more: name of group which is the same as data inputed by manual, eg: /platform/users
+	 */
+	public void addFeeds(String name, String[] userGroup,int...url){
+		goToCalendarSettings();
+		info("--Verify feeds tab--");
+		click(ELEMENT_FEEDS);
+		waitForAndGetElement(ELEMENT_FEEDS);
+		click(ELEMENT_ADD_FEEDS_BUTTON);
+		inputFeedsData(name, userGroup, url);
+
+	}
+
+	/** Edit feeds
+	 * @author hangntt
+	 * @param name
+	 * @param url
+	 * @param add more: name of group which is the same as data inputed by manual, eg: /platform/users
+	 */
+	public void editFeeds(String oldName, String name, String[] userGroup, int...url){
+		click(ELEMENT_EDIT_FEEDS.replace("${namefeeds}", oldName));
+		waitForAndGetElement(ELEMENT_FEEDS);
+		inputFeedsData(name, userGroup, url);
+	}
+
+	/** delete feeds
+	 * @author hangntt
+	 */
+	public void deleteFeeds(String name){
+		alert = new ManageAlert(driver);
+		info("--Delete event--");
+		click(ELEMENT_DELETE_FEEDS);
+		alert.waitForConfirmation(MSG_FEEDS_DELETE);
+		waitForElementNotPresent(By.linkText(name));
+		click(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
+	}
+
+	/*============== End of Feeds ===============*/
 
 	/** Upload calendar
 	 * @author thuntn
@@ -307,16 +420,33 @@ public class CalendarBase extends PlatformBase {
 	public void deleteEventTask(String event){
 		alert = new ManageAlert(driver);
 		info("--Delete event--");
-
-		if(waitForAndGetElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event),5000,0) == null)
+		if(waitForAndGetElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event), 5000, 0) == null){
 			rightClickOnElement(ELEMENT_EVENT_TASK_WORKING_PANE.replace("${event}", event),2);
-		else
+		}	
+		else{
 			rightClickOnElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event),2);
-
+		}
 		click(ELEMENT_EVENT_TASK_DELETE_MENU);
 		alert.waitForConfirmation(MSG_EVENT_TASK_DELETE);
 		waitForElementNotPresent(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", event));
 		waitForElementNotPresent(ELEMENT_EVENT_TASK_WORKING_PANE.replace("${event}", event));
+	}
+
+	/*============Add, Edit, Delete a Calendar ===========*/
+	/** 
+	 * Add calendar
+	 * @author thuntn
+	 * @param name
+	 * @param desc
+	 * @param color: name of color which is used in @class of the color element, eg: hot_pink
+	 * @param groups: name of group which is the same as data inputed by manual, eg: /platform/users
+	 */
+	public void addCalendar(String name, String desc, String color, String...groups){
+		info("Add calendar");
+		goToAddCalendar();
+		inputAddCalendarForm(name,desc,color,groups);
+		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
+		waitForAndGetElement(By.linkText(name));
 	}
 
 	/** Delete calendar
@@ -360,7 +490,6 @@ public class CalendarBase extends PlatformBase {
 		waitForAndGetElement(By.linkText(name));
 	}
 
-
 	/**Delete shared calendar
 	 * @author thuntn
 	 * @param calendar
@@ -369,18 +498,37 @@ public class CalendarBase extends PlatformBase {
 		String idCal = getPropertyOfCalendar(calendar,1);
 		String oldColor = getPropertyOfCalendar(calendar,3);
 		String type = getPropertyOfCalendar(calendar,2);
-
 		executeActionCalendar(idCal,"RemoveSharedCalendar", oldColor, type);
 		waitForElementNotPresent(By.linkText(calendar));
 	}
-	
+
+	/*========== End of Add a Calendar ==========*/
+
 	/**
 	 * @author thuntn
 	 * @param calendar
 	 */
 	public void openMenuOfCalendar(String calendar){
-		WebElement e = waitForAndGetElement(ELEMENT_CALENDAR_SETTING_ICON.replace("${calendar}", calendar),DEFAULT_TIMEOUT,0,2);
+		WebElement element = waitForAndGetElement(ELEMENT_CALENDAR_SETTING_ICON.replace("${calendar}", calendar), DEFAULT_TIMEOUT, 0, 2);
 		mouseOver(By.linkText(calendar),true);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();",e);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+	}
+
+	/**
+	 * @author vuna2
+	 * @param beginTime
+	 * @param endTime
+	 */
+	public void showWorkingTimes(String beginTime, String endTime){
+		info("Show Working Times");
+		WebElement element = waitForAndGetElement(ELEMENT_SHOW_WORKING_TIME_CHECKBOX, 5000, 1, 2);
+		if (!element.isSelected()){
+			check(ELEMENT_SHOW_WORKING_TIME_CHECKBOX, 2);
+			select(ELEMENT_BEGIN_TIME, beginTime);
+			select(ELEMENT_END_TIME, endTime);	
+		}else{
+			info("[Show working times is already checked]");
+		}
+		Utils.pause(500);
 	}
 }

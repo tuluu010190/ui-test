@@ -23,7 +23,7 @@ public class ForumManagePost extends ForumBase {
 	public ForumManagePost(WebDriver dr){
 		driver = dr;
 		per = new ForumPermission(driver);
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 		magTopic = new ForumManageTopic(driver);
 	}
@@ -186,7 +186,7 @@ public class ForumManagePost extends ForumBase {
 			for (int i = 0; i < view.length; i ++){
 				waitForAndGetElement(view[i]); 
 			}
-			but.close(); 
+			button.close(); 
 			waitForElementNotPresent(ELEMENT_POST_PREVIEW_POPUP);
 		}
 		click(ELEMENT_POST_QUICK_BUTTON);

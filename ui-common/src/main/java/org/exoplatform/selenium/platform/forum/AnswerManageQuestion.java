@@ -23,7 +23,7 @@ public class AnswerManageQuestion extends AnswerBase {
 	public AnswerManageQuestion(WebDriver dr){
 		driver = dr;
 		cat = new AnswerManageCategory(driver);
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 	}
 
@@ -219,7 +219,7 @@ public class AnswerManageQuestion extends AnswerBase {
 			click(ELEMENT_SUBMIT_QUESTION_BUTTON_AUX);
 		}
 		editDataOfQuestion(language, questionName, content, null, email, true, true, upload, filePaths);
-		but.save();
+		button.save();
 		boolean check = verify.length > 0 ? verify[0]:true;
 		if (check){
 			waitForMessage(MSG_SUBMIT_QUESTION);
@@ -243,7 +243,7 @@ public class AnswerManageQuestion extends AnswerBase {
 		for (int i = 0; i < lang.length; i ++){
 			editDataOfQuestion(lang[i], quest[i], cont[i], null, null, true, true, false, null);
 		}
-		but.save();
+		button.save();
 		waitForMessage(MSG_SUBMIT_QUESTION);
 		click(ELEMENT_OK_INFOR_POPUP);
 		waitForAndGetElement(By.linkText(quest[0]));
@@ -281,7 +281,7 @@ public class AnswerManageQuestion extends AnswerBase {
 			break;
 		}
 		editDataOfQuestion(language, newQuestionName, content, author, email, approved, activated, upload, filePaths);
-		but.save();
+		button.save();
 		Utils.pause(2000);
 	}
 

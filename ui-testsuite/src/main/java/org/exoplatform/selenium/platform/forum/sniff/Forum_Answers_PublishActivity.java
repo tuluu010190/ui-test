@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -37,10 +38,10 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		mQuest = new AnswerManageQuestion(driver);
 		mAns = new AnswerManageAnwser(driver);
 		mCom = new AnswerManageComment(driver);
-		Acc.signIn(DATA_USER1, DATA_PASS);
 		HPAct = new HomePageActivity(driver);
 		navTool = new NavigationToolbar(driver);
-
+		button = new Button(driver);
+		Acc.signIn(DATA_USER1, DATA_PASS);
 		goToAnswer();
 	}
 
@@ -174,7 +175,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		//Activate this question to delete
 		goToAnswer();
 		mQuest.activeQuestion(questionName, true);
-		but.close();
+		button.close();
 
 		//Delete data
 		click(By.linkText(questionName));
@@ -195,7 +196,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		mQuest.goToManageQuestions();
 		mQuest.activeQuestion(questionName, false);
 		mQuest.activeQuestion(questionName, true);
-		but.close();
+		button.close();
 
 		info("Check activity on homepage");
 		navTool.goToHomePage();

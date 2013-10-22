@@ -15,7 +15,7 @@ public class AnswerManageComment extends AnswerBase {
 
 	public AnswerManageComment(WebDriver dr){
 		driver = dr;
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 	}
 	
@@ -50,7 +50,7 @@ public class AnswerManageComment extends AnswerBase {
 		}
 		inputDataToFrameInFrame(ELEMENT_COMMENT_CONTENT_FRAME_1, ELEMENT_COMMENT_CONTENT_FRAME_2, comment, true);
 		switchToParentWindow();
-		but.save();
+		button.save();
 		waitForAndGetElement(ELEMENT_COMMENT_IN_QUESTION.replace("${comment}", comment));
 	}
 	
@@ -65,7 +65,7 @@ public class AnswerManageComment extends AnswerBase {
 		getElementFromTextByJquery("Edit Comment").click();
 		inputDataToFrameInFrame(ELEMENT_COMMENT_CONTENT_FRAME_1, ELEMENT_COMMENT_CONTENT_FRAME_2, newComment, true);
 		switchToParentWindow();
-		but.save();
+		button.save();
 		waitForAndGetElement(ELEMENT_COMMENT_IN_QUESTION.replace("${comment}", newComment));
 	}
 	

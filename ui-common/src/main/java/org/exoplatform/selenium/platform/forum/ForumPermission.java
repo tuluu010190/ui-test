@@ -18,12 +18,11 @@ public class ForumPermission extends ForumBase {
 
 	public ForumPermission(WebDriver dr){
 		driver = dr;
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 		per = new PlatformPermission(driver);
 
 	}
-
 
 	//Set permission for category of answer
 	public final String ELEMENT_RESTRICTED_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[2]//input[@type='checkbox']";
@@ -112,7 +111,7 @@ public class ForumPermission extends ForumBase {
 		setPermissionWithOption(type, userGroup);
 		click(ELEMENT_CATEGORY_PERMISSION_BLANK);
 		Utils.pause(1000);
-		click(but.ELEMENT_ADD_BUTTON,2);
+		click(button.ELEMENT_ADD_BUTTON,2);
 		boolean notF = notFound.length > 0 ? notFound[0] : false;
 		if (notF){
 			waitForMessage(userGroup[0]+MSG_PERMISSION_NOT_FOUND);
@@ -156,7 +155,7 @@ public class ForumPermission extends ForumBase {
 	 */
 	public void configPermission4ForumCategory(int type, String[] userGroup, boolean...permission){
 		setPermissionWithOption(type, userGroup);
-		click(but.ELEMENT_ADD_BUTTON);
+		click(button.ELEMENT_ADD_BUTTON);
 		String check = userGroup[0];
 		if (userGroup.length > 2){
 			check = userGroup[2];
@@ -198,7 +197,7 @@ public class ForumPermission extends ForumBase {
 	 * @param permission
 	 */
 	public void configPermission4Forum(int type, String[] userGroup, boolean...permission){
-		click(but.ELEMENT_ADD_BUTTON);
+		click(button.ELEMENT_ADD_BUTTON);
 		String check = userGroup[0];
 		if (userGroup.length > 2){
 			check = userGroup[2];
@@ -234,7 +233,7 @@ public class ForumPermission extends ForumBase {
 	}
 
 	public void configPermission4Topic(int type, String[] userGroup, boolean...permission){
-		click(but.ELEMENT_ADD_BUTTON);
+		click(button.ELEMENT_ADD_BUTTON);
 		String check = userGroup[0];
 		if (userGroup.length > 2){
 			check = userGroup[2];

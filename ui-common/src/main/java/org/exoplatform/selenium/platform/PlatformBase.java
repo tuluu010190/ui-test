@@ -31,7 +31,7 @@ public class PlatformBase extends TestBase {
 	public final String DATA_USER2 = "mary";
 	
 	public ManageAlert alert = new ManageAlert(driver);
-	public Button but = new Button(driver);
+	public Button button = new Button(driver);
 
 	/*
 	 * Default Page - http://localhost:8080/portal/default/
@@ -672,7 +672,7 @@ public class PlatformBase extends TestBase {
 				click(ELEMENT_PAGINATOR_NEXT_ICON);
 				waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
 			}else {
-				click(but.ELEMENT_NEXT_PAGE_BUTTON);
+				click(button.ELEMENT_NEXT_PAGE_BUTTON);
 			}
 			Utils.pause(500);
 		}
@@ -812,8 +812,8 @@ public class PlatformBase extends TestBase {
 				uncheck(ELEMENT_CHECK_BOX_USE_CAPTCHA);
 			}
 		}
-		but.save();
-		but.close();
+		button.save();
+		button.close();
 		if (useFrench){
 			click(ELEMENT_PAGE_FINISH_BUTTON_INFRENCH);
 			waitForTextNotPresent("Editeur de page");

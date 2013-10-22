@@ -27,7 +27,7 @@ public class Event extends CalendarBase{
 
 	public Event(WebDriver dr){
 		driver = dr;
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 	}
 
@@ -41,7 +41,6 @@ public class Event extends CalendarBase{
 	 * @param opt
 	 */
 	public void inputQuickAddEventForm(String name, String desc, String from, String to, boolean allDay, String...opt){
-
 		if (name != null){
 			type(ELEMENT_INPUT_EVENT_TITLE, name, true);
 		}
@@ -82,7 +81,6 @@ public class Event extends CalendarBase{
 		if (opt.length > 1 && opt[1] != null){
 			select(ELEMENT_INPUT_EVENT_CATEGORY, opt[1]);
 		}
-
 	}
 
 	/**
@@ -90,6 +88,7 @@ public class Event extends CalendarBase{
 	 * @author thuntn
 	 */
 	public void goToAddEvent(){
+		info("Go to Add Event page");
 		click(ELEMENT_BUTTON_EVENT);
 	}
 
@@ -104,10 +103,8 @@ public class Event extends CalendarBase{
 	 */
 	public void addEvent(String name, String desc, String from, String to, boolean allDay, String...opt){
 		info("--Add an event--");
-
 		goToAddEvent();
 		inputQuickAddEventForm(name,desc,from,to,allDay,opt);
-		but.save();
+		button.save();
 	}
-
 }

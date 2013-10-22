@@ -25,7 +25,7 @@ public class ForumManageCategory extends ForumBase {
 	public ForumManageCategory(WebDriver dr){
 		driver = dr;
 		frumPer = new ForumPermission(driver);
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 		per = new PlatformPermission(driver);
 	}
@@ -169,10 +169,10 @@ public class ForumManageCategory extends ForumBase {
 	 */
 	public void addNewCategoryInForum(String catName, String order, int chooseRestricted, String[] restricted, 
 			String description, int setPermission, String[] userGroup, boolean... permission){
-		but = new Button(driver);
+		button = new Button(driver);
 		goToAddCategory();
 		inputDataCategoryInForum(catName, order, chooseRestricted, restricted, description, setPermission, userGroup, permission);
-		but.save();
+		button.save();
 		boolean verify = permission.length > 5 ? permission[5]:true;
 		if (verify){
 			waitForAndGetElement(ELEMENT_CATEGORY.replace("${categoryName}", catName));
@@ -202,10 +202,10 @@ public class ForumManageCategory extends ForumBase {
 	 */
 	public void editCategoryInForum(String catName, String order, int chooseRestricted, String[] restricted, 
 			String description, int setPermission, String[] userGroup, boolean... permission){
-		but = new Button(driver);
+		button = new Button(driver);
 		goToEditCategoryInForum();
 		inputDataCategoryInForum(catName, order, chooseRestricted, restricted, description, setPermission, userGroup, permission);
-		but.save();
+		button.save();
 		boolean verify = permission.length > 5 ? permission[5]:true;
 		if (verify){
 			waitForAndGetElement(ELEMENT_CATEGORY.replace("${categoryName}", catName));
@@ -244,7 +244,7 @@ public class ForumManageCategory extends ForumBase {
 		element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + file));
 		switchToParentWindow();
 		waitForAndGetElement("//*[text()='" + file + "']", DEFAULT_TIMEOUT, 1, 2);
-		but.save();
+		button.save();
 		waitForMessage(MSG_IMPORT_CATEGORY);
 		info("Import file " + file + "successfully");
 		click(ELEMENT_OK_INFOR_POPUP);
@@ -258,7 +258,7 @@ public class ForumManageCategory extends ForumBase {
 	 * @param mode: full or only category
 	 */
 	public void exportCategoryInForum(String fileName, boolean mode, String...cat){
-		but = new Button(driver);
+		button = new Button(driver);
 		click(ELEMENT_ADMINISTRATION);
 		click(ELEMENT_EXPORT_CATEGORY);
 		waitForAndGetElement(ELEMENT_EXPORT_CATEGORY_POPUP);
@@ -283,7 +283,7 @@ public class ForumManageCategory extends ForumBase {
 		}else{
 			check(ELEMENT_EXPORT_CATEGORY_ONLY, 2);
 		}
-		but.save();
+		button.save();
 		waitForElementNotPresent(ELEMENT_EXPORT_CATEGORY_POPUP, 50000);
 	}
 
@@ -293,7 +293,7 @@ public class ForumManageCategory extends ForumBase {
 	 * @param forum
 	 */
 	public void exportForumsOfCategory(String fileName, String...forum){
-		but = new Button(driver);
+		button = new Button(driver);
 		click(ELEMENT_MANAGE_CATEGORY);
 		click(ELEMENT_EXPORT_FORUM_IN_CATEGORY);
 		waitForAndGetElement(ELEMENT_EXPORT_FORUMS_POPUP);
@@ -313,7 +313,7 @@ public class ForumManageCategory extends ForumBase {
 			}
 		}		
 		type(ELEMENT_EXPORT_CATEGORY_FILE_NAME, fileName, true);
-		but.save();
+		button.save();
 		waitForElementNotPresent(ELEMENT_EXPORT_FORUMS_POPUP);
 	}
 
@@ -322,7 +322,7 @@ public class ForumManageCategory extends ForumBase {
 	 * @param file
 	 */
 	public void importForums2Category(String file){
-		but = new Button(driver);
+		button = new Button(driver);
 		click(ELEMENT_MANAGE_CATEGORY);
 		click(ELEMENT_IMPORT_FORUM_IN_CATEGORY);
 		info("Import category");
@@ -331,7 +331,7 @@ public class ForumManageCategory extends ForumBase {
 		element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + file));
 		switchToParentWindow();
 		waitForAndGetElement("//*[text()='" + file + "']", DEFAULT_TIMEOUT, 1, 2);
-		but.save();
+		button.save();
 		info("Import file " + file + "successfully");
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);

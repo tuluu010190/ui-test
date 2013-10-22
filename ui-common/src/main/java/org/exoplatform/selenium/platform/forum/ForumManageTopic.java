@@ -31,7 +31,7 @@ public class ForumManageTopic extends ForumBase {
 		per = new ForumPermission(driver);
 		magCat = new ForumManageCategory(driver);
 		magFor = new ForumManageForum(driver);
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 	}
 
@@ -548,7 +548,7 @@ public class ForumManageTopic extends ForumBase {
 		waitForAndGetElement(ELEMENT_TOPIC_ADD_TYPE_POPUP);
 		type(ELEMENT_TOPIC_TYPE_NAME, typeName, true);
 		chooseIcon(groupName, iconClass);
-		but.save();
+		button.save();
 	}
 
 	/** function: create a topic types 

@@ -23,7 +23,7 @@ public class ForumManageForum extends ForumBase {
 		driver = dr;
 		per = new ForumPermission(driver);
 		cat = new ForumManageCategory(driver);
-		but = new Button(driver);
+		button = new Button(driver);
 		alert = new ManageAlert(driver);
 	}
 
@@ -187,7 +187,7 @@ public class ForumManageForum extends ForumBase {
 		info("Create new forum");
 		inputDataForum(catName, addForum, autofill, postEmail, topicEmail, moderateTopic, type, userGroup, permission);
 
-		but.save();
+		button.save();
 		boolean verify = permission.length > 4 ? permission[4]:true;
 		if (verify){
 			waitForAndGetElement(FORUM);
@@ -197,14 +197,14 @@ public class ForumManageForum extends ForumBase {
 
 	public void quickAddForum(String forumName){
 		String[] addForum = {forumName, null, null, null, null};
-		but = new Button(driver);
+		button = new Button(driver);
 		By FORUM = By.xpath(ELEMENT_FORUM.replace("${forumName}", addForum[0]));
 
 		goToAddForum();
 
 		info("Create new forum");
 		inputDataInAddForumTab_addForum(null, addForum);
-		but.save();
+		button.save();
 		waitForAndGetElement(FORUM);
 		info("Create forum successfully");
 	}
@@ -253,7 +253,7 @@ public class ForumManageForum extends ForumBase {
 		info("Edit forum");
 		inputDataForum(null, addForum, autofill, postEmail, topicEmail, moderateTopic, type, userGroup, permission);
 
-		but.save();	
+		button.save();	
 		boolean verify = permission.length > 4 ? permission[4]:true;
 		if (verify){
 			waitForAndGetElement(FORUM);
@@ -285,7 +285,7 @@ public class ForumManageForum extends ForumBase {
 	 */
 	public void exportAForum(String fileName, boolean compress){
 		cat = new ForumManageCategory(driver);
-		but = new Button(driver);
+		button = new Button(driver);
 
 		click(ELEMENT_MORE_ACTION);
 		click(ELEMENT_EXPORT_FORUM);
@@ -297,7 +297,7 @@ public class ForumManageForum extends ForumBase {
 		} else {
 			uncheck(ELEMENT_EXPORT_FORUM_COMPRESS, 2);
 		}
-		but.save();
+		button.save();
 		waitForElementNotPresent(ELEMENT_EXPORT_FORUM_POPUP);
 	}
 
@@ -370,7 +370,7 @@ public class ForumManageForum extends ForumBase {
 
 			goToBanIPForum();
 			inputBanIP(ip);
-			but.cancel();
+			button.cancel();
 		}
 	}
 }

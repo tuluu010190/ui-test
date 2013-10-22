@@ -486,7 +486,7 @@ public class ForumBase extends PlatformBase {
 	 * @param dirTopic: direction of sort for topic
 	 */
 	public void sortSetting(String forumBy, int dirForum, String topicBy, int dirTopic){
-		but = new Button(driver);
+		button = new Button(driver);
 		info("Setting sort");
 		waitForAndGetElement(ELEMENT_ADMINISTRATION);
 		click(ELEMENT_ADMINISTRATION);
@@ -509,7 +509,7 @@ public class ForumBase extends PlatformBase {
 		} else {
 			select(ELEMENT_SORT_FORUM_DIRECTION, "Descending");
 		}
-		but.save();
+		button.save();
 		waitForElementNotPresent(ELEMENT_SORT_SETTING_POPUP);
 		info("setting sort successfully");
 	}
@@ -519,7 +519,7 @@ public class ForumBase extends PlatformBase {
 	 * @param key: key to setup
 	 */
 	public void setCensorKeywords(String key){
-		but = new Button(driver);
+		button = new Button(driver);
 		info("Set censor keywords " + key);
 		waitForAndGetElement(ELEMENT_ADMINISTRATION);
 		click(ELEMENT_ADMINISTRATION);
@@ -529,7 +529,7 @@ public class ForumBase extends PlatformBase {
 		if (key != null){
 			type(ELEMENT_CENSORED_KEYWORDS, key, true);
 		}
-		but.save();
+		button.save();
 		waitForElementNotPresent(ELEMENT_CENSOR_POPUP);
 		info("Set censor keyword successfully");
 	}
@@ -550,12 +550,12 @@ public class ForumBase extends PlatformBase {
 	 * @param ban: group of some IP address
 	 */
 	public void setBanIp(String... ban){
-		but = new Button(driver);
+		button = new Button(driver);
 		if (ban.length > 0){
 			info("Set Ban Ip");
 			goToBanIp();
 			inputBanIP(ban);
-			but.cancel();
+			button.cancel();
 		}
 	}
 	
@@ -577,7 +577,7 @@ public class ForumBase extends PlatformBase {
 	 * @param ip: ip to delete
 	 */
 	public void deleteBanIp(String ip){
-		but = new Button(driver);
+		button = new Button(driver);
 		By element_delete = By.xpath(ELEMENT_BAN_IP_DELETE.replace("${ip}", ip));
 
 		goToBanIp();
@@ -585,7 +585,7 @@ public class ForumBase extends PlatformBase {
 		waitForMessage(MSG_DELETE_BAN_IP);
 		click(ELEMENT_OK_DELETE);
 		waitForElementNotPresent(element_delete);
-		but.cancel();
+		button.cancel();
 	}
 
 	/** function: go to BB code management
@@ -607,7 +607,7 @@ public class ForumBase extends PlatformBase {
 	 * @param option: choose option or not
 	 */
 	public void modifyBBcodeInfo(String tag, String replace, String description, String example, boolean option){
-		but = new Button(driver);
+		button = new Button(driver);
 		if (tag != null){
 			type(ELEMENT_BBCODE_TAG, tag, true);
 		}
@@ -625,7 +625,7 @@ public class ForumBase extends PlatformBase {
 		}else {
 			uncheck(ELEMENT_BBCODE_OPTION, 2);
 		}
-		but.save();
+		button.save();
 	}
 
 	/** function: add a BBCode
@@ -657,7 +657,7 @@ public class ForumBase extends PlatformBase {
 	public void activeBBcode(String tag, boolean active, boolean option){
 		By ELEMENT_ACTIVE_OPTION = By.xpath(ELEMENT_BBCODE_ACTIVE_HAVE_OPTION.replace("${tag}", tag));
 		By ELEMENT_ACTIVE_NOT_OPTION = By.xpath(ELEMENT_BBCODE_ACTIVE_NO_OPTION.replace("${tag}", tag));
-		but = new Button(driver);
+		button = new Button(driver);
 		info("set active/deactive for BBcode");
 		if (tag != null && tag != ""){
 			if (option){
@@ -671,7 +671,7 @@ public class ForumBase extends PlatformBase {
 					click(ELEMENT_ACTIVE_NOT_OPTION);
 				}
 			}
-			but.save();
+			button.save();
 			waitForElementNotPresent(ELEMENT_BBCODE_POPUP);
 		}
 	}
@@ -740,7 +740,7 @@ public class ForumBase extends PlatformBase {
 	public void pruneSetting(String category, String forum, String activeDay, String dayType, String jobDay, String jobDayType){
 		By ELEMENT_SETTING = By.xpath(ELEMENT_PRUNE_SETTING.replace("${category}", category).replace("{$forum}",forum));
 
-		but = new Button(driver);
+		button = new Button(driver);
 		if (category != null && category != ""){
 			info("Setting prune for category " + category);
 			waitForAndGetElement(ELEMENT_SETTING);
@@ -754,7 +754,7 @@ public class ForumBase extends PlatformBase {
 				type(ELEMENT_PRUNE_JOB_DAY, jobDay, true);
 				select(ELEMENT_PRUNE_JOB_DAY_TYPE, jobDayType);
 			}
-			but.save();
+			button.save();
 
 		}
 	}
@@ -805,7 +805,7 @@ public class ForumBase extends PlatformBase {
 	public void changeNotifications(boolean prefix,String subject, String content){
 
 		info("--Change content of notifications--");
-		but = new Button(driver);
+		button = new Button(driver);
 		goToNotifications();
 		WebElement wPrefix = waitForAndGetElement(ELEMENT_NOTIFY_PREFIX);
 		if (wPrefix != null)
@@ -818,7 +818,7 @@ public class ForumBase extends PlatformBase {
 		}
 		inputDataToFrameInFrame( ELEMENT_NOTIFY_FRAME_UP, ELEMENT_NOTIFY_FRAME,content,false);
 		switchToParentWindow();
-		but.save();
+		button.save();
 	}
 	
 	/** Reset Notification as default
@@ -827,11 +827,11 @@ public class ForumBase extends PlatformBase {
 	public void resetNotification(){
 
 		info("--Reset Notification--");
-		but = new Button(driver);
+		button = new Button(driver);
 		goToNotifications();
 		type(ELEMENT_NOTIFY_SUBJECT,"[$CATEGORY][$FORUM] $TOPIC",true);
 		click(ELEMENT_NOTIFY_RESET);
-		but.save();
+		button.save();
 	}
 
 	/** Function compare 2 paragraphs (compare in specific line)
@@ -877,7 +877,7 @@ public class ForumBase extends PlatformBase {
 	 * @param opt: option check checkbox group: display signature, display avatar, watch to topic start, watch topic post
 	 */
 	public void settingProfileUser(String screenName, String sign, boolean...opt){
-		but = new Button(driver);
+		button = new Button(driver);
 		goToSetting();
 		if (screenName != null){
 			type(ELEMENT_SCREEN_NAME, screenName, true);
@@ -914,7 +914,7 @@ public class ForumBase extends PlatformBase {
 				uncheck(ELEMENT_WATCH_TOPIC_POST, 2);
 			}
 		}
-		but.save();
+		button.save();
 		waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 	}
 
@@ -957,7 +957,7 @@ public class ForumBase extends PlatformBase {
 		}
 		String save = opts.length > 6 ? opts[6] : "true";
 		if (Boolean.valueOf(save)){
-			but.save();
+			button.save();
 			waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 		}
 	}
@@ -992,7 +992,7 @@ public class ForumBase extends PlatformBase {
 	}
 
 	public void settingMailForUser(String...email){
-		but = new Button(driver);
+		button = new Button(driver);
 		String user = email.length > 0 ? email[0] : EMAIL_ADDRESS1;
 		click(ELEMENT_SETTING);
 		waitForAndGetElement(ELEMENT_SETTING_POPUP);
@@ -1002,7 +1002,7 @@ public class ForumBase extends PlatformBase {
 		type(ELEMENT_SETTING_EMAIL_ADDRESS, user, true);
 		click(ELEMENT_SETTING_EMAIL_UPDATE);
 		Utils.pause(1000);
-		but.save();
+		button.save();
 		waitForElementNotPresent(ELEMENT_SETTING_POPUP);
 	}
 
@@ -1019,7 +1019,7 @@ public class ForumBase extends PlatformBase {
 	 *        show[5]: show statistic panel
 	 */
 	public void selectPanel(boolean... show){
-		but = new Button(driver);
+		button = new Button(driver);
 		click(ELEMENT_FORUM_PORTLET_PANEL_TAB);
 		if (show.length > 0){
 			if (show[0]){
@@ -1063,7 +1063,7 @@ public class ForumBase extends PlatformBase {
 				uncheck(ELEMENT_SHOW_STATISTIC_CHECKBOX, 2);
 			}
 		}
-		but.save();
+		button.save();
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
@@ -1077,7 +1077,7 @@ public class ForumBase extends PlatformBase {
 	 * 				   = false: uncheck
 	 */
 	public void selectDisplayCategoryAndForum(String itemName, boolean isCategory, boolean display){
-		but = new Button(driver);
+		button = new Button(driver);
 		if (!isCategory){
 			click("//*[contains(text(), '" + itemName + "')]/../..");
 		}
@@ -1086,20 +1086,20 @@ public class ForumBase extends PlatformBase {
 		}else {
 			uncheck(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
 		}
-		but.save();
+		button.save();
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}	
 
 	public void selectOptions(boolean ajax){
-		but = new Button(driver);
+		button = new Button(driver);
 		click(ELEMENT_FORUM_PORTLET_OPTIONS_TAB);
 		if (ajax){
 			check(ELEMENT_USE_AJAX_CHECKBOX, 2);
 		}else {
 			uncheck(ELEMENT_USE_AJAX_CHECKBOX, 2);
 		}
-		but.save();
+		button.save();
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
@@ -1118,7 +1118,7 @@ public class ForumBase extends PlatformBase {
 	}
 
 	public void settingUserManagementProfile(String screenName, String titleUser, String category, String forum, String sign, boolean...opt){
-		but = new Button(driver);
+		button = new Button(driver);
 		if (screenName != null){
 			type(ELEMENT_SCREEN_NAME, screenName, true);
 		}
@@ -1128,13 +1128,13 @@ public class ForumBase extends PlatformBase {
 		if (category != null){
 			click(ELEMENT_ADD_MODERATOR_CATEGORY_ICON);
 			check(ELEMENT_CATEGORY_SELECT_CHECKBOX.replace("${cat}", category), 2);
-			click(but.ELEMENT_ADD_BUTTON);
+			click(button.ELEMENT_ADD_BUTTON);
 			Utils.pause(1000);
 		}
 		if (forum != null){
 			click(ELEMENT_ADD_MODERATOR_FORUM_ICON);
 			check(ELEMENT_CATEGORY_SELECT_CHECKBOX.replace("${cat}", forum), 2);
-			click(but.ELEMENT_ADD_BUTTON);
+			click(button.ELEMENT_ADD_BUTTON);
 			Utils.pause(1000);
 		}
 		if (sign != null){

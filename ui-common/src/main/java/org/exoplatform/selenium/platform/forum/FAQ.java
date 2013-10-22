@@ -150,14 +150,14 @@ public class FAQ extends AnswerBase {
 	 * @param display
 	 */
 	public void settingDisplayCategoryScope(String category, boolean display){
-		but = new Button(driver);
+		button = new Button(driver);
 		click(ELEMENT_FAQ_DISPLAY_CATEGORY_TAB);
 		if (display){
 			check(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", category), 2);
 		}else {
 			uncheck(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", category), 2);
 		}
-		but.save();
+		button.save();
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
@@ -167,10 +167,10 @@ public class FAQ extends AnswerBase {
 	 * @param file
 	 */
 	public void settingFAQTemplate(String data){
-		but = new Button(driver);
+		button = new Button(driver);
 		click(ELEMENT_FAQ_EDIT_TEMPLATE_TAB);
 		type(ELEMENT_FAQ_EDIT_TEMP_INPUT, data, false);
-		but.save();
+		button.save();
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}

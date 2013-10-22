@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform.calendar;
 
+import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -25,7 +26,7 @@ public class Task extends CalendarBase{
 	
 	public Task(WebDriver dr){
 		driver = dr;
-		but = new Button(driver);
+		button = new Button(driver);
 	}
 	
 	/** Input into tab Detail of Add task form
@@ -85,6 +86,7 @@ public class Task extends CalendarBase{
 	 * @author thuntn
 	 */
 	public void goToAddTask(){
+		info("Go to Add Task page"); 
 		click(ELEMENT_BUTTON_TASK);
 	}
 	

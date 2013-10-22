@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.forum.functional.answer.category;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.forum.AnswerBase;
 import org.exoplatform.selenium.platform.forum.AnswerManageAnwser;
@@ -35,16 +34,16 @@ public class Forum_Answer_Category_Add extends AnswerBase{
 		mQuest = new AnswerManageQuestion(driver);
 		mAns = new AnswerManageAnwser(driver);
 		frumPer = new ForumPermission(driver);
-		but = new Button(driver);
 		Acc.signIn(DATA_USER1, DATA_PASS);
-
 		goToAnswer();
 	}
+	
 	@AfterMethod
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
+	
 	/** Add new category in case valid data entry for Moderator field by inputing value into this field
 	 * Check Only user in Restricted Audience has right to view this category
 	 * CaseID 72719, 73162
