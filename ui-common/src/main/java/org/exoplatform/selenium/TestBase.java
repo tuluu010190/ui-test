@@ -66,7 +66,7 @@ public class TestBase {
 	By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	/*======== End of Term and conditions =====*/
 
-	public void initSeleniumTest(){
+	public void initSeleniumTest(Object... opParams){
 		String browser = System.getProperty("browser");
 		if("chrome".equals(browser)){
 			driver = new ChromeDriver();
@@ -81,7 +81,7 @@ public class TestBase {
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		action = new Actions(driver);
 		info("Term and conditions");
-		termsAndConditions();
+		termsAndConditions(opParams);
 		info("End of term and conditions");
 	}
 
@@ -89,7 +89,7 @@ public class TestBase {
 	 * Check term and conditions
 	 * 
 	 */
-	public void termsAndConditions(){
+	public void termsAndConditions(Object... opParams){
 		//By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 		//By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
 		//By ELEMENT_EMAIL_ACCOUNT = By.name("emailAccount");
@@ -103,7 +103,7 @@ public class TestBase {
 		//By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
 		//By ELEMENT_INPUT_PASSWORD = By.name("password");
 		//By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
-
+		Boolean isCreateAccount = (Boolean)(opParams.length>0 ? opParams[0]:true);
 		driver.get(baseUrl);
 		info("Agreement page");
 		if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 5000, 0, 2) != null) {
@@ -113,7 +113,8 @@ public class TestBase {
 			waitForTextNotPresent("terms and conditions agreement");
 
 			info("-- Creating an Admin account: FQA... --");
-			accountSetup();
+			if(isCreateAccount==true)
+				accountSetup();
 			firstTimeLogin = true;
 			info("-- Administrator account (FQA) has been created successfully... --");
 		}else if (waitForAndGetElement(ELEMENT_ROOT_PASS_ACCOUNT, 5000, 0, 2) != null){

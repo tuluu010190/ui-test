@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,6 +13,7 @@ import org.openqa.selenium.interactions.Actions;
 public class NavigationToolbar extends PlatformBase {
 
 	ManageAccount acc;
+	BrandingManagement brandMag;
 
 	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[@class='quickEditChecked']");
@@ -20,8 +22,37 @@ public class NavigationToolbar extends PlatformBase {
 
 	public NavigationToolbar(WebDriver dr){
 		driver = dr;
+		brandMag = new BrandingManagement(driver);
+		but = new Button(driver);
 	} 
 
+	//Go to portal sites
+	public void goToPortalBranding() {
+		info("--Go to Portal Branding Management--");
+		String url = DEFAULT_BASEURL + "/g/:platform:administrators/branding";
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				driver.get(url);
+				break;
+			}
+			mouseOver(ELEMENT_LINK_SETUP, true);
+			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, 5000, 0)!= null) {	
+				mouseOver(ELEMENT_LINK_PORTAL, false);
+				if (waitForAndGetElement(ELEMENT_LINK_BRANDING, 5000, 0)!= null){
+					click(ELEMENT_LINK_BRANDING);
+					break;
+				}
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		waitForAndGetElement(brandMag.ELEMENT_PREVIEW_LOGO_ID);
+		waitForAndGetElement(brandMag.ELEMENT_UPLOAD_BUTTON);
+		waitForAndGetElement(brandMag.ELEMENT_NAVIGATION_STYLE);
+		waitForAndGetElement(brandMag.ELEMENT_TABLE_COLUMN_CONTAINER);
+		waitForAndGetElement(but.ELEMENT_CANCEL_BUTTON);
+		waitForAndGetElement(but.ELEMENT_SAVE_BUTTON);
+	}
+	
 	//Go to portal sites
 	public void goToPortalSites() {
 		info("--Go to Portal Site Management--");
