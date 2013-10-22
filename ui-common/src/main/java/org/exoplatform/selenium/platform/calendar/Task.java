@@ -22,7 +22,7 @@ public class Task extends CalendarBase{
 	public By ELEMENT_INPUT_TASK_TITLE_EDIT = By.xpath("//*[@id='eventDetail']//*[@id='eventName']");
 	public By ELEMENT_INPUT_TASK_NOTE_EDIT = By.xpath("//*[@id='eventDetail']//*[@id='description']");
 	public By ELEMENT_BUTTON_TASK_SAVE_EDIT = By.xpath("//*[@id='UITaskForm']//*[text()='Save']");
-	
+
 	public By ELEMENT_INPUT_TASK_TITLE = By.xpath("//*[@id='UIQuickAddTask']//*[@name='eventName']");
 	public By ELEMENT_INPUT_TASK_NOTE = By.xpath("//*[@id='UIQuickAddTask']//*[@id='description']");
 	public By ELEMENT_CHECKBOX_TASK_ALLDAY = By.xpath("//*[@id='UIQuickAddTask']//*[@name='allDay']");
@@ -35,25 +35,25 @@ public class Task extends CalendarBase{
 	public By ELEMENT_BUTTON_TASK = By.id("UIActionBarQuickAddTask");
 	public By ELEMENT_BUTTON_TASK_SAVE = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='Save']");
 	public By ELEMENT_BUTTON_TASK_MORE_DETAILS = By.xpath("//*[@id='QuickAddEventContainer']//*[text()='More Details']");
-	
+
+
 	//----------------------- Task Reminder ---------------------------------------------
 	public By ELEMENT_TAB_REMINDER = By.xpath("//*[@id='UIPopupAddTaskContainer']//a[text()='Reminders']");
 	public By ELEMENT_CHECKBOX_POPUP_REMINDER = By.id("popupReminder");
 	public By ELEMENT_CHECKBOX_EMAIL_REMINDER = By.id("mailReminder");
-	public By ELEMENT_CHECKBOX_EMAIL_REMINDER_REPEAT = By.xpath("//*[@id='emailIsRepeat']");
-	public By ELEMENT_CHECKBOX_POPUP_REMINDER_REPEAT = By.xpath("//*[@id='popupIsRepeat']");
+	public By ELEMENT_CHECKBOX_EMAIL_REMINDER_REPEAT = By.id("emailIsRepeat");
+	public By ELEMENT_CHECKBOX_POPUP_REMINDER_REPEAT = By.id("popupIsRepeat");
 	public By ELEMENT_BUTTON_REMINDER_ADD_MORE_EMAIL = By.xpath("//*[@id='eventReminder']//i[@class='uiIconPlus uiIconLightGray']");
 
 	//----------------------------------DateTime----------------------------------------
 	public int HAFL_HOUR = 30; //minutes
 	public int FULL_HOUR = 60; //minutes
-	
-	
+
 	public Task(WebDriver dr){
 		driver = dr;
 		button = new Button(driver);
 	}
-	
+
 	/** Input into tab Detail of Add task form
 	 * @author thuntn
 	 * @param name
@@ -82,7 +82,7 @@ public class Task extends CalendarBase{
 				}else {
 					String[] dateTime = from.split(" ");
 					if(dateTime.length > 0)
-					type(ELEMENT_INPUT_TASK_FROM, dateTime[0], true);
+						type(ELEMENT_INPUT_TASK_FROM, dateTime[0], true);
 					if(dateTime.length > 1)
 						type(ELEMENT_INPUT_TASK_FROM_TIME, dateTime[1], false);
 				}
@@ -107,7 +107,7 @@ public class Task extends CalendarBase{
 			select(ELEMENT_INPUT_TASK_CATEGORY, opt[1]);
 		}
 	}
-	
+
 	/** Open form Add a task
 	 * @author thuntn
 	 */
@@ -115,7 +115,7 @@ public class Task extends CalendarBase{
 		info("Go to Add Task page"); 
 		click(ELEMENT_BUTTON_TASK);
 	}
-	
+
 	/** Quick add task
 	 * @author thuntn
 	 * @param name
@@ -130,27 +130,28 @@ public class Task extends CalendarBase{
 		inputDataQuickTask(name,note,from,to,allDay,opt);
 		click(ELEMENT_BUTTON_TASK_SAVE);
 	}
-	
+
 	/**Setting Pop-up reminder for task on Quick Add Task form
 	 * @author havtt
 	 */
 	public void gotoSetPopupReminder() {
-	     click(ELEMENT_BUTTON_TASK_MORE_DETAILS);
-	     Utils.pause(3000);
-	     click(ELEMENT_TAB_REMINDER);
-	     Utils.pause(3000);
-	     click(ELEMENT_CHECKBOX_POPUP_REMINDER);
+
+		click(ELEMENT_BUTTON_TASK_MORE_DETAILS);
+		Utils.pause(3000);
+		click(ELEMENT_TAB_REMINDER);
+		Utils.pause(3000);
+		click(ELEMENT_CHECKBOX_POPUP_REMINDER);
 	}
-	
+
 	/**Setting E-mail reminder for task on Quick Add Task form
 	 * @author havtt
 	 */
 	public void gotoSetEmailReminder() {
-	     click(ELEMENT_BUTTON_TASK_MORE_DETAILS);
-	     Utils.pause(3000);
-	     click(ELEMENT_TAB_REMINDER);
+		click(ELEMENT_BUTTON_TASK_MORE_DETAILS);
+		Utils.pause(5000);
+		click(ELEMENT_TAB_REMINDER);
 	}
-	
+
 	/**Edit a task by right click
 	 * 
 	 * @author havtt
@@ -161,16 +162,16 @@ public class Task extends CalendarBase{
 	 * 
 	 */
 	public void editTask(String taskName, String title, String description) {
-	     rightClickOnElement(By.xpath(ELEMENT_ALL_DAY_TASK.replace("${taskTitle}",taskName)), DEFAULT_TIMEOUT, 1);
-	     Utils.pause(3000);
-	     click(ELEMENT_TASK_MENU_EDIT);
-	     Utils.pause(3000);
-	     type(ELEMENT_INPUT_TASK_TITLE_EDIT, title, true);
-	     type(ELEMENT_INPUT_TASK_NOTE_EDIT, description, true);
-	     click(ELEMENT_BUTTON_TASK_SAVE_EDIT);
-	     waitForAndGetElement(By.xpath(ELEMENT_ALL_DAY_TASK.replace("${taskTitle}",title)));
+		rightClickOnElement(By.xpath(ELEMENT_ALL_DAY_TASK.replace("${taskTitle}",taskName)), DEFAULT_TIMEOUT, 1);
+		Utils.pause(3000);
+		click(ELEMENT_TASK_MENU_EDIT);
+		Utils.pause(3000);
+		type(ELEMENT_INPUT_TASK_TITLE_EDIT, title, true);
+		type(ELEMENT_INPUT_TASK_NOTE_EDIT, description, true);
+		click(ELEMENT_BUTTON_TASK_SAVE_EDIT);
+		waitForAndGetElement(By.xpath(ELEMENT_ALL_DAY_TASK.replace("${taskTitle}",title)));
 	}
-	
+
 	/**Set time for Pop-up reminder on current date
 	 * 
 	 * @author havtt
@@ -179,7 +180,7 @@ public class Task extends CalendarBase{
 	 */
 	public void setTimePopupReminder() {
 		int CURRENT_MIN = getMinute();
-			if (CURRENT_MIN == HAFL_HOUR) {
+		if (CURRENT_MIN == HAFL_HOUR) {
 			System.out.print("Set time for Pop-up reminder");	
 			//TO-DO: need to fix the issue FQA-1352
 		}		

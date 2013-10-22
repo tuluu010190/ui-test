@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.calendar;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.event.KeyEvent;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
@@ -10,6 +12,8 @@ import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.Keys;
+//import org.openqa.selenium.internal.seleniumemulation.KeyEvent;
 
 /**
  * 
@@ -64,9 +68,23 @@ public class CalendarBase extends PlatformBase {
 	public By ELEMENT_MONTH_TAB_ACTIVE = By.xpath("//*[text()='Month']/ancestor::li[contains(@class, 'active')]");
 	public By ELEMENT_WEEK_TAB = By.xpath("//*[text()='Week']/ancestor::li[contains(@class, 'btn')]");
 
+
+	//------------Add event category------------------
+	public String ELEMENT_ADD_EVENT_CATEGORY_ICON = "//*[@id='tmpMenuElement']//i[@class='uiIconCalCreateEvent uiIconLightGray']";
+	public By ELEMENT_ADD_EVENT_CATEGORY_INPUT = By.id("eventCategoryName");
+	public String ELEMENT_ADD_EVENT_CATEGORY_BUTTON_ADD = "//*[@id='btnEventCategoryFormContainer']";
+	public String ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE = "//*[@id='UIEventCategoryForm']//button[contains(text(),'Close')]";
+	public String ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE = "//*[@id='btnEventCategoryFormContainer']";
+	public String ELEMENT_EVENT_CATEGORY_FILTER = "//div[@class='pull-right eventCategory']/span[@class='uiSelectbox']";
+	public String ELEMENT_EVENT_CATEGORY_COMBOBOX = "//*[@name='eventCategories']";
+	public String ELEMENT_EVENT_CATEGORY_COMBOBOX_OPTION = "//*[@name='eventCategories']/option[contains(text(),'${categoryName}')]";
+	public String ELEMENT_LIST_EVENT_CATEGORY = "//*[@id='UIEventCategoryList']//span[contains(text(),'${categoryName}')]";
+	public String ELEMENT_LIST_DELETE_EVENT_BUTTON = "//*[@id='UIEventCategoryList']//span[contains(text(),'${categoryName}')]/parent::td/parent::tr//a[@data-original-title='Delete']/i[@class='uiIconDelete uiIconLightGray']";
+	public String ELEMENT_LIST_EDIT_EVENT_BUTTON = ".//*[@id='UIEventCategoryList']//span[contains(text(),'${categoryName}')]/parent::td/parent::tr//a[@data-original-title='Edit']/i[@class='uiIconEdit uiIconLightGray']";
+
 	//-----------Menu of calendar------------
-	public By ELEMENT_CAL_ADD_EVENT_MENU = By.xpath("//*[@id='AddEvent']");
-	public By ELEMENT_CAL_ADD_TASK_MENU = By.xpath("//*[@id='AddTask']");
+	public By ELEMENT_CAL_ADD_EVENT_MENU = By.id("AddEvent");
+	public By ELEMENT_CAL_ADD_TASK_MENU = By.id("AddTask");
 	public By ELEMENT_CAL_REMOVE_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'RemoveSharedCalendar')]");
 	public By ELEMENT_CAL_IMPORT_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'ImportCalendar')]");
 	public By ELEMENT_CAL_EXPORT_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'ExportCalendar')]");
@@ -140,6 +158,26 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_CURRENT_DATE = getCurrentDate("EEE MMM dd yyyy HH"); 
 	public String ELEMENT_TARGET_TIME = ELEMENT_CURRENT_DATE +":00:00";
 	public By ELEMENT_TARGET_DATE = By.xpath("//*[contains(@startfull, '${targetDate}')]".replace("${targetDate}", ELEMENT_TARGET_TIME));
+	//-----------------Calendar Search-----------------------------
+	public String ELEMENT_INPUT_QUICK_SEARCH = "//div[@class='uiSearchForm uiSearchInput pull-right']//*[@id='value']";
+	public String ELEMENT_QUICK_SEARCH_FORM = "//div[@class='uiSearchForm uiSearchInput pull-right']";
+	public String ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT = "//*[@id='UIListView']//button[contains(text(),'Close Search')]";
+	public String ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM = "//*[@id='UIListView']//button[contains(text(),'Advanced Search')]";
+	public String ELEMENT_INPUT_TEXT_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//*[@id='text']";
+	public String ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//button[contains(text(),'Search')]";
+
+	//----------------------Calendar View------------------------------
+	public String ELEMENT_BUTTON_DAY_VIEW = "//*[@id='UIActionBar']//a[text()='Day']";
+	public String ELEMENT_BUTTON_WEEK_VIEW = "//*[@id='UIActionBar']//a[text()='Week']";
+	public String ELEMENT_BUTTON_MONTH_VIEW = "//*[@id='UIActionBar']//a[text()='Month']";
+	public String ELEMENT_BUTTON_LIST_VIEW = "//*[@id='UIActionBar']//a[text()='List']";
+	public String ELEMENT_BUTTON_WORK_WEEK_VIEW = "//*[@id='UIActionBar']//a[text()='Work Week']";
+
+	public String EVENT_WEEK_VIEW = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${eventTitle}')]";
+	public String EVENT_DAY_VIEW = "//*[@id='UIDayView']//div[contains(text(),'${eventTitle}')]";
+	public String EVENT_MONTH_VIEW = "//*[@id='UIMonthView']//span[contains(text(),'${eventTitle}')]";
+	public String EVENT_LIST_VIEW = "//*[@id='UIListUsers']//span[contains(text(),'${eventTitle}')]";
+	public String EVENT_WORK_WEEK_VIEW = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${eventTitle}')]";
 
 	/*================== Common functions for Calendar =================*/
 
@@ -233,6 +271,7 @@ public class CalendarBase extends PlatformBase {
 	 * @param calendar
 	 */
 	public void goToExportCalendar(String calendar){
+
 		openMenuOfCalendar(calendar);
 		click(ELEMENT_CAL_EXPORT_MENU);
 		waitForAndGetElement(ELEMENT_CALENDAR_EXPORT_POPUP);
@@ -382,7 +421,6 @@ public class CalendarBase extends PlatformBase {
 	 */
 	public void uploadCalendar(String path){
 		info("--Upload Calendar--");
-
 		WebElement element = waitForAndGetElement(ELEMENT_CAL_IMPORT_SELECT_FILE, DEFAULT_TIMEOUT, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", element);
 		element.sendKeys(Utils.getAbsoluteFilePath(path));
@@ -566,6 +604,7 @@ public class CalendarBase extends PlatformBase {
 		waitForElementNotPresent(By.linkText(calendar));
 	}
 
+
 	/*========== End of Add a Calendar ==========*/
 
 	/**
@@ -596,8 +635,7 @@ public class CalendarBase extends PlatformBase {
 		Utils.pause(500);
 	}
 
-	/** 
-	 * Setting timezone for Calendar
+	/** Setting timezone for Calendar
 	 * @author havtt
 	 * @date 18-Oct-2013
 	 */
@@ -608,5 +646,109 @@ public class CalendarBase extends PlatformBase {
 		click(ELEMENT_CAL_SETTING_TIMEZONE_COMBOBOX);
 		click(ELEMENT_CAL_SETTING_TIMEZONE_VALUE.replace("${timezoneOpt}", timezoneOpt));
 		waitForAndGetElement(ELEMENT_CAL_SETTING_TIMEZONE_VALUE.replace("${timezoneOpt}", timezoneOpt));		 
+
 	}
+
+	/** Quick search in Calendar
+	 * @author havtt
+	 * @date 22-Oct-2013
+	 */
+	public void quickSearchCalendar(String keyword){
+		info("----Type in quick search box----");
+		waitForAndGetElement(ELEMENT_INPUT_QUICK_SEARCH);
+		type(By.xpath(ELEMENT_INPUT_QUICK_SEARCH), keyword, true);
+		info("----Send search request----");
+		Utils.pause(3000);
+		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
+		info("----Confirm search result page displayed----");
+		Utils.pause(3000);
+		waitForAndGetElement(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
+	}
+
+	/** Advance search in Calendar
+	 * @author havtt
+	 * @date 22-Oct-2013
+	 */
+	public void advanceSearchCalendar(String keyword){
+		info("----Open Advance Search window----");
+		waitForAndGetElement(ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM);
+		click(ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM);
+		info("----Input keyword----");
+		waitForAndGetElement(ELEMENT_INPUT_TEXT_ADVANCE_SEARCH);
+		type(ELEMENT_INPUT_TEXT_ADVANCE_SEARCH,keyword,true);
+		click(ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH);
+		info("----Confirm search result displayed----");
+		Utils.pause(3000);
+		waitForAndGetElement(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
+	}
+
+	/** Go to Calendar Actions> Add Event Category
+	 * @author havtt
+	 * @date 22-Oct-2013
+	 */
+	public void addEventCategory(String categoryName){
+		info("----Add new event category----");
+		type(ELEMENT_ADD_EVENT_CATEGORY_INPUT,categoryName,true);
+		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_ADD);
+		info("----Verify if event category is added in Category List or not----");
+		waitForAndGetElement(ELEMENT_LIST_EVENT_CATEGORY.replace("${categoryName}", categoryName));
+		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	 
+	}
+
+	/** Choose event category in Category combo box
+	 * @author havtt
+	 * @date 22-Oct-2013
+	 */
+	public void chooseEventCategoryOpt(String categoryName){
+		info("----Verify if new category is displayed in Category option or not----");
+		waitForAndGetElement(ELEMENT_EVENT_CATEGORY_FILTER);
+		click(ELEMENT_EVENT_CATEGORY_COMBOBOX);
+		info("----Choose a category option----");
+		click(ELEMENT_EVENT_CATEGORY_COMBOBOX_OPTION.replace("${categoryName}", categoryName));
+
+	}
+
+	/** Delete Event Category
+	 * @author havtt
+	 * @date 23-Oct-2013
+	 */
+	public void deleteEventCategory(String categoryName){
+		alert = new ManageAlert(driver);
+		waitForAndGetElement(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		click(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		Utils.pause(3000);
+		alert.acceptAlert();
+		waitForElementNotPresent(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	
+	}
+
+	/** Edit Event Category
+	 * @author havtt
+	 * @date 23-Oct-2013
+	 */
+
+	public void editEventCategory(String categoryName, String editedCategoryName){
+		waitForAndGetElement(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		click(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		type(ELEMENT_ADD_EVENT_CATEGORY_INPUT,editedCategoryName,true);
+		click(ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE);
+		Utils.pause(3000);
+		waitForAndGetElement(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",editedCategoryName));
+		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);
+	}
+
+	/** Go to Add Event Category
+	 * @author havtt
+	 * @date 23-Oct-2013
+	 */
+	public void gotoAddEventCategory(){
+		info("----Go to Calendar Action----");
+		waitForAndGetElement(ELEMENT_CALENDAR_ACTIONS_ICON);
+		click(ELEMENT_CALENDAR_ACTIONS_ICON);
+		info("----GO to Add Event Category form----");
+		waitForAndGetElement(ELEMENT_ADD_EVENT_CATEGORY_ICON);
+		click(ELEMENT_ADD_EVENT_CATEGORY_ICON);
+		Utils.pause(3000);
+	}	 
+
 }

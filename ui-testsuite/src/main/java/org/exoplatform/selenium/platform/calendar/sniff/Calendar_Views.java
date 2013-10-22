@@ -1,0 +1,148 @@
+package org.exoplatform.selenium.platform.calendar.sniff;
+
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.platform.ManageAccount;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Test;
+import org.exoplatform.selenium.platform.calendar.CalendarBase;
+import org.exoplatform.selenium.platform.calendar.Event;
+import org.exoplatform.selenium.platform.calendar.Task;
+
+/**
+ * @author havtt
+ * @date 23 Oct 2013
+ */
+
+
+public class Calendar_Views extends CalendarBase{
+
+	ManageAccount acc;
+	Event evt;
+	Task tsk;
+	Button but;
+
+	@BeforeMethod
+	public void setUpBeforeTest(){
+		getDriverAutoSave();
+		acc = new ManageAccount(driver);
+		evt = new Event(driver);
+		tsk = new Task(driver);
+		but = new Button(driver);
+
+		acc.signIn(DATA_USER1, DATA_PASS);
+		goToCalendarPage();
+	}
+
+	@AfterMethod
+	public void afterTest(){
+		driver.manage().deleteAllCookies();
+		driver.quit();
+	}
+
+
+	/** Check displaying added task/event in all views
+	 * CaseID 68658
+	 */
+	@Test
+	public void test01_checkEventAllViews() {
+		String EVENT_NAME_01 = "VIEWS_EVENT_01";
+
+		info("Go to Intranet Calendar");
+		goToCalendarPage();
+
+		info("Add new event");
+		evt.addEvent(EVENT_NAME_01,EVENT_NAME_01,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
+
+		info("Confirm in Week view");
+		waitForAndGetElement(EVENT_WEEK_VIEW.replace("${eventTitle}",EVENT_NAME_01));
+
+		info("Switch to Day view");
+		click(ELEMENT_BUTTON_DAY_VIEW);
+		waitForAndGetElement(EVENT_DAY_VIEW.replace("${eventTitle}",EVENT_NAME_01));
+
+		info("Switch to Month view");
+		click(ELEMENT_BUTTON_MONTH_VIEW);
+		waitForAndGetElement(EVENT_MONTH_VIEW.replace("${eventTitle}",EVENT_NAME_01));
+
+		info("Switch to List view");
+		click(ELEMENT_BUTTON_LIST_VIEW);
+		waitForAndGetElement(EVENT_LIST_VIEW.replace("${eventTitle}",EVENT_NAME_01));
+
+		info("Switch to Work Week view");
+		click(ELEMENT_BUTTON_WORK_WEEK_VIEW);
+		waitForAndGetElement(EVENT_WORK_WEEK_VIEW.replace("${eventTitle}",EVENT_NAME_01));
+
+		info("Restore data");
+		click(ELEMENT_BUTTON_WEEK_VIEW);
+		deleteEventTask(EVENT_NAME_01);
+	}
+
+	/** Check category filter in Week view
+	 * CaseID 75247
+	 */
+	@Test
+	public void test02_checkEventinCategoryinWeekView() {
+		String EVENT_NAME_02 = "VIEWS_EVENT_02";
+		String CategoryName = "Meeting";
+
+		info("Go to Intranet Calendar");
+		goToCalendarPage();
+
+		info("Choose Week view of Calendar");
+		click(ELEMENT_BUTTON_WEEK_VIEW);
+
+		info("Add new event with specific category");
+		evt.goToAddEvent();
+		evt.inputQuickAddEventForm(EVENT_NAME_02,EVENT_NAME_02,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
+		evt.chooseCategorywhenAddEvent(CategoryName);
+		but.save();
+
+		info("Check event displayed in ALL category");
+		waitForAndGetElement(EVENT_WEEK_VIEW.replace("${eventTitle}",EVENT_NAME_02));
+
+		info("Check event displayed in chosen category");
+		chooseEventCategoryOpt(CategoryName);
+		waitForAndGetElement(EVENT_WEEK_VIEW.replace("${eventTitle}",EVENT_NAME_02));
+
+		info("Restore data");
+		deleteEventTask(EVENT_NAME_02);
+
+	}
+
+	/** Check category filter in List view
+	 * CaseID 75248
+	 */
+	@Test
+	public void test03_checkEventinCategoryinListView() {
+		String EVENT_NAME_03 = "VIEWS_EVENT_03";
+		String CategoryName = "Calls";
+
+		info("Go to Intranet Calendar");
+		goToCalendarPage();
+
+		info("Choose LIST view of Calendar");
+		click(ELEMENT_BUTTON_LIST_VIEW);
+
+		info("Add new event with specific category");
+		evt.goToAddEvent();
+		evt.inputQuickAddEventForm(EVENT_NAME_03,EVENT_NAME_03,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"),true);
+		evt.chooseCategorywhenAddEvent(CategoryName);
+		but.save();
+
+		info("Check event displayed in ALL category");
+		waitForAndGetElement(EVENT_LIST_VIEW.replace("${eventTitle}",EVENT_NAME_03));
+
+		info("Check event displayed in chosen category");
+		chooseEventCategoryOpt(CategoryName);
+		waitForAndGetElement(EVENT_LIST_VIEW.replace("${eventTitle}",EVENT_NAME_03));
+
+		info("Restore data");
+		click(ELEMENT_BUTTON_WEEK_VIEW);
+		deleteEventTask(EVENT_NAME_03);
+
+	}
+}
+

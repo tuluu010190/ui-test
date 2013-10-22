@@ -24,6 +24,7 @@ public class Event extends CalendarBase{
 	public By ELEMENT_INPUT_EVENT_CALENDAR = By.name("calendar");
 	public By ELEMENT_INPUT_EVENT_CATEGORY = By.name("category");
 	public By ELEMENT_BUTTON_EVENT = By.id("UIActionBarQuickAddEvent");
+	public String ELEMENT_EVENT_CATEGORY_OPT_COMBOBOX = "//*[@id='UIQuickAddEvent']//div[contains(text(),'Event Category:')]/parent::div[@class='control-group']//span[@class='uiSelectbox']/select[@name='category']/option[contains(text(),'${categoryName}')]";
 
 	public Event(WebDriver dr){
 		driver = dr;
@@ -107,4 +108,18 @@ public class Event extends CalendarBase{
 		inputQuickAddEventForm(name,desc,from,to,allDay,opt);
 		button.save();
 	}
+
+
+	/**Choose category opt for Add event
+	 * @author havtt
+	 * @date 23-Oct-2013
+	 */
+
+	public void chooseCategorywhenAddEvent(String categoryName){
+		info("----Choose category opt----");
+		waitForAndGetElement(ELEMENT_EVENT_CATEGORY_OPT_COMBOBOX.replace("${categoryName}", categoryName));
+		click(ELEMENT_EVENT_CATEGORY_OPT_COMBOBOX.replace("${categoryName}", categoryName));
+	}
+
 }
+

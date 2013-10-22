@@ -64,6 +64,7 @@ public class Calendar_Task extends CalendarBase {
 	/** 
 	 * Check pop-up reminder of a task
 	 * CaseID: 68654
+	 * PENDING: refer https://jira.exoplatform.org/browse/FQA-1352
 	 */
 	@Test(groups={"pending"})
 	public void test02_CheckPopupReminderOfTask() {
@@ -93,6 +94,7 @@ public class Calendar_Task extends CalendarBase {
 	/** 
 	 * Check E-mail reminder of a task
 	 * CaseID: 68655
+	 * PENDING: refer https://jira.exoplatform.org/browse/FQA-1352
 	 */
 	@Test(groups={"pending"})
 	public void test03_CheckEmailReminderOfTask() {
@@ -197,6 +199,7 @@ public class Calendar_Task extends CalendarBase {
 	/** 
 	 * Resize a task
 	 * CaseID: 75250
+	 * PENDING: refer https://jira.exoplatform.org/browse/FQA-1351
 	 */
 	@Test(groups={"pending"})
 	public void test07_ResizeTask(){
