@@ -29,6 +29,7 @@ public class ManageApplications extends PlatformBase {
 	public By ELEMENT_CATEGORIES_AREA_TITLE = By.xpath("//div[text()='Categories']");
 	public By ELEMENT_SHOW_PORTLET_ICON = By.linkText("Portlet");
 	public By ELEMENT_SHOW_GADGET_ICON = By.linkText("Gadget");
+	public By ELEMENT_MANAGE_APPLICATION = By.linkText("Manage Applications");
 	
 	//Manage portlet
 	public String ELEMENT_PORTLET_IN_CATEGORY = "//*[text()='${group}']/../following-sibling::li/a[contains(text(), '${portletName}')]";
@@ -37,7 +38,7 @@ public class ManageApplications extends PlatformBase {
 	public String ELEMENT_PORTLET_INFO_CATEGORY = "//*[@id='UIPortletInfo']//dt[contains(text(),'Categories:')]/following-sibling::dd[1][contains(text(),'${category}')]";
 	
 	//Manage Gadget
-	public By ELEMENT_GADGET_LINK = By.xpath("//a[contains(text(),'Gadgets')]");
+	public By ELEMENT_GADGET_LINK = By.xpath("//div[@id='UIApplicationRegistryPortlet']//*[@class='uiIconGadgets uiIconLightGray']");
 	public By ELEMENT_ADD_REMOTE_GADGET_LINK = By.linkText("Add a remote gadget");
 	public By ELEMENT_ADD_MANUAL_GADGET_LINK = By.linkText("Create a new gadget");
 	public By ELEMENT_GADGET_NAME_TEXTBOX = By.id("name");
@@ -85,6 +86,7 @@ public class ManageApplications extends PlatformBase {
 	// Gadget functions
 	public void addRemoteGadget (String Url) {
 		button = new Button(driver);
+		waitForAndGetElement(ELEMENT_GADGET_LINK).click();
 		for (int i =0;; i++)
 		{
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) 
@@ -127,6 +129,7 @@ public class ManageApplications extends PlatformBase {
 	//Delete gadget
 	public void deleteGadget (String gadgetTitle) {
 		alt = new ManageAlert(driver);
+		waitForAndGetElement(ELEMENT_GADGET_LINK).click();
 		click(ELEMENT_GADGET_DELETE_ICON.replace("${title}", gadgetTitle));
 		alt.waitForConfirmation(ELEMENT_GADGET_CONFIRM_DELETE);
 		Utils.pause(1000);
@@ -142,7 +145,8 @@ public class ManageApplications extends PlatformBase {
 		for (int i = 0; i < cat.length; i ++){
 			By elementCat = By.id("category_" + cat[i]);
 			info("Add gadget to category " + cat[i]);
-			usePaginator(elementCat, "Do not find category " + cat[i]);
+			if(waitForAndGetElement(elementCat, DEFAULT_TIMEOUT,0,2)==null)
+				usePaginator(elementCat, "Do not find category " + cat[i]);
 			check(elementCat, 2);
 		}
 		button.save();
@@ -317,6 +321,8 @@ public class ManageApplications extends PlatformBase {
 	
 	public void importApplication () {
 		alt = new ManageAlert(driver);
+		if(waitForAndGetElement(ELEMENT_IMPORT_APPLICATION,DEFAULT_TIMEOUT,0)==null)
+			click(ELEMENT_MANAGE_APPLICATION);
 		click(ELEMENT_IMPORT_APPLICATION);
 		alt.waitForConfirmation(IMPORT_APPLICATION_CONFIRMATION);
 		Utils.pause(1000);

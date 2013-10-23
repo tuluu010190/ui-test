@@ -29,7 +29,7 @@ public class BrandingManagement extends PlatformBase {
 	
 	public BrandingManagement(WebDriver dr) {
 		driver = dr;
-		but = new Button(driver);
+		button = new Button(driver);
 	}
 	
 	/** Upload new logo
@@ -51,7 +51,7 @@ public class BrandingManagement extends PlatformBase {
 		String newsrc = preElement.getAttribute("src"); 
 		info("-- Verify preview logo --");
 		assert (!oldsrc.contentEquals(newsrc));
-		but.save();
+		button.save();
 		element = waitForAndGetElement(ELEMENT_LOGO_CONTAINER_TOOLBAR);
 		String newsrc1 = element.getAttribute("src"); 
 		info("-- Verify Navigation Bar logo --");
@@ -71,7 +71,7 @@ public class BrandingManagement extends PlatformBase {
 			info("-- Verify Preview Navigation Bar Style --");
 			waitForAndGetElement(ELEMENT_COLOR_CONTAINER_PREVIEW.replace("${color}", optionStyle));
 		}
-		but.save();
+		button.save();
 		info("-- Verify Navigation Bar --");
 		waitForAndGetElement(ELEMENT_COLOR_CONTAINER_TOOLBAR.replace("${color}", optionStyle));
 	}

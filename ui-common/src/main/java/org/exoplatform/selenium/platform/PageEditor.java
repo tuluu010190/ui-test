@@ -84,6 +84,13 @@ public class PageEditor extends PlatformBase {
 		waitForAndGetElement(ELEMENT_ADDWIZARD_TEXT2);
 		click(button.ELEMENT_NEXT_BUTTON);
 	}
+	
+	public void createNewPageEmptyLayoutWithGadget(String pageName, String gadget){
+		info("Create new page winzard empty layout and drags and drop gadget");
+		goToPageEditor_EmptyLayout(pageName);
+		dragAndDropToObject(By.xpath(ELEMENT_GADGET_APPLICATION_PAGE_EDITOR.replace("${gadget}", gadget)), ELEMENT_DROP_TARGET_NO_LAYOUT);
+		finishEditLayout();
+	}
 
 	//Create new page without content 
 	public void createNewPageEmptyLayout(String pageName){	

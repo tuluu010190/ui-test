@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.HomePageActivity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -35,6 +36,7 @@ public class Activity extends SocialBase {
 	Dialog dialog = new Dialog(driver);
 	ManageAlert magAlert;
 	Button button = new Button(driver);
+	HomePageActivity hpActivity = new HomePageActivity(driver);
 
 	//=====Element on space home page=======stash@{1}
 	// Go to My Spaces > Select a space
@@ -49,7 +51,6 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_ACTIVITY_FILTER_OPTION = "//a[@class='OptionItem' and contains(text(),'${filterOption}')]";
 	public final String ELEMENT_ACTIVITY_FILTER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${filterOption}')]";
 	public final By ELEMENT_ACTIVITY_TEXTAREA = By.id("composerInput");
-	public final By ELEMENT_ACTIVITY_TEXTBOX = By.id("DisplaycomposerInput");
 	public final By ELEMENT_ACTIVITY_MENTION_USER_MENU = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='autocomplete-menu']");
 	public final String ELEMENT_ACTIVITY_MENTION_USER = ELEMENT_ACTIVITY_MENTION_USER_MENU+"//*[contains(text(),'${name}')]/../div[@class='avatarSmall']";
 	public final By ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='placeholder']");
@@ -169,13 +170,14 @@ public class Activity extends SocialBase {
 	 * @param link: input a link (String)
 	 */
 	public void addActivity (boolean addText, String text, boolean addLink, String link) {
+		hpActivity = new HomePageActivity(driver);
 		info("-- Adding an activity to space --");
 		//waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT,1, 2);
 		Utils.pause(3000);
 		if (addText) 
 		{
 			info("----Add text into activity text box-----");
-			WebElement inputText = waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX);
+			WebElement inputText = waitForAndGetElement(hpActivity.ELEMENT_ACTIVITY_TEXTBOX);
 			WebElement shareButton = waitForAndGetElement(ELEMENT_SHARE_BUTTON);
 			WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL);
 			((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '';", workingLabel);
@@ -280,13 +282,14 @@ public class Activity extends SocialBase {
 	 */
 	public void editSharedLink(String inputText, String inputLink, boolean editTitle, String titleOfSharedLink, boolean editDescription, String descriptionOfSharedLink){
 		Actions actions = new Actions(driver);
+		hpActivity = new HomePageActivity(driver);
 		info("-- Editing a shared link --");
 
 		By ELEMENT_INPUT_EDIT_TITLE_LINK = By.xpath("//*[@id='UIActivityComposerContainer_LINK_ACTIVITY_']/div/div/input[@class='InputTitle']");
 
 		By ELEMENT_INPUT_EDIT_DESCRIPTION_LINK = By.xpath("//*[@id='UIActivityComposerContainer_LINK_ACTIVITY_']/div/div/textarea[@class='InputDescription']");
 
-		type(ELEMENT_ACTIVITY_TEXTBOX, inputText, true);
+		type(hpActivity.ELEMENT_ACTIVITY_TEXTBOX, inputText, true);
 
 		click(ELEMENT_LINK);
 
@@ -417,13 +420,14 @@ public class Activity extends SocialBase {
 	 * mention a user in activity or comment of a activity
 	 */
 	public void mentionActivity(boolean isActivity, String activityText, String userName){
+		hpActivity = new HomePageActivity(driver);
 		if(isActivity){
 			info ("-- Adding a mention activity --");			
-			WebElement inputText = waitForAndGetElement(ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT, 1, 2);
+			WebElement inputText = waitForAndGetElement(hpActivity.ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT, 1, 2);
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", inputText);
 			click(ELEMENT_MENTION_USER_BUTTON);
 			inputText.sendKeys(userName);
-			click(ELEMENT_ACTIVITY_TEXTBOX);
+			click(hpActivity.ELEMENT_ACTIVITY_TEXTBOX);
 			click("//*[@class='avatarSmall']");
 			click(ELEMENT_SHARE_BUTTON);
 			waitForAndGetElement(By.xpath(ELEMENT_USER_NAME_LINK_ACTIVITY.replace("${userName}", userName)));

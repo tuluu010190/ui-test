@@ -113,6 +113,9 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_LINK_BRANDING = "//a[text()='Branding']";
 	//Administration
 	//IDE
+	public final By ELEMENT_LINK_IDE = By.linkText("IDE");
+	public final By ELEMENT_IDE_WORKSPACE_FRAME = By.id("remote_iframe_0");
+	public final By ELEMENT_IDE_WORKSPACE_DEFAULT = By.xpath("//nobr[text()='dev-monit']");
 	/* End Setting Icon*/
 	/*--------------- User account Management (Click from user name) ---------------------*/
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
@@ -365,6 +368,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SELECT_CONTENT_PATH_LINK = By.xpath("//a[@data-original-title='Add Path']");
 	public final By ELEMENT_SELECT_CONTENT_PATH_LINK_AUX = By.xpath("//*[contains(@class, 'uiIconAddPath')]");
 	public final String ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET = "//*[contains(@id, 'UISingleContentViewerPortlet')]//*[@class='Title' and text()='${contentName}']";
+	public final String ELEMENT_GADGET_APPLICATION_PAGE_EDITOR = "//div[@id='UIApplicationList0']//div[contains(text(),'${gadget}')]";
 
 	public final By ELEMENT_CONTENTS_BY_QUERY_PORTLET = By.xpath("//div[contains(text(),'Content By Query')]");
 	public final By ELEMENT_CATEGORY_CONTENT = By.linkText("Content");
@@ -490,6 +494,11 @@ public class PlatformBase extends TestBase {
 	
 	//get url
 	public final String ELEMENT_GET_URL_IMAGE = "//img[@alt='${name}']";
+	
+	//Default gadget on homepage
+	public final By ELEMENT_CALENDAR_GADGET = By.xpath("//div[@id='OfficeRight']//div[@class='CalendarPortletContainer']");
+	public final By ELEMENT_GETTING_STARTED_GADGET = By.xpath("//div[@id='OfficeRight']//div[@class='GettingStartedContainer']");
+	public final By ELEMENT_GETTING_SUGGESTIONS = By.xpath("//div[@id='OfficeRight']//div[@class='uiBox uiSuggestions']");
 
 	///////////////////
 	//Set view permissions for portal

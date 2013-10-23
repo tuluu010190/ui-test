@@ -23,7 +23,7 @@ public class NavigationToolbar extends PlatformBase {
 	public NavigationToolbar(WebDriver dr){
 		driver = dr;
 		brandMag = new BrandingManagement(driver);
-		but = new Button(driver);
+		button = new Button(driver);
 	} 
 
 	//Go to portal sites
@@ -49,8 +49,8 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(brandMag.ELEMENT_UPLOAD_BUTTON);
 		waitForAndGetElement(brandMag.ELEMENT_NAVIGATION_STYLE);
 		waitForAndGetElement(brandMag.ELEMENT_TABLE_COLUMN_CONTAINER);
-		waitForAndGetElement(but.ELEMENT_CANCEL_BUTTON);
-		waitForAndGetElement(but.ELEMENT_SAVE_BUTTON);
+		waitForAndGetElement(button.ELEMENT_CANCEL_BUTTON);
+		waitForAndGetElement(button.ELEMENT_SAVE_BUTTON);
 	}
 	
 	//Go to portal sites
@@ -321,6 +321,29 @@ public class NavigationToolbar extends PlatformBase {
 		((JavascriptExecutor)driver).executeScript("arguments[0].click()",seo);		
 		Utils.pause(1000);
 	}
+	
+	/** Go to Edit/Page/Add Page
+	 * @author phuongdt
+	 */
+	public void goToAddPageManagement(){
+		info("Go to add page form");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 4){
+				mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+				break;
+			}
+			mouseOver(ELEMENT_MENU_EDIT_LINK, true);
+			if (waitForAndGetElement(ELEMENT_MENU_PAGE_LINK, 5000, 0)!= null) {	
+				mouseOver(ELEMENT_MENU_PAGE_LINK, true);
+				if (waitForAndGetElement(ELEMENT_MENU_ADD_PAGE_LINK, 5000, 0)!= null){
+					click(ELEMENT_MENU_ADD_PAGE_LINK);
+					break;
+				}
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		Utils.pause(1000);
+	}
 
 	//Function go to Home Page
 	public void goToHomePage(){
@@ -364,5 +387,25 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_MY_PROFILE_LINK);
 		waitForTextPresent("Basic information");
 	}	
+	
+	/** Go to IDE Page
+	 * @author phuongdt
+	 */
+	public void goToIDEPage(){
+        info("--Go to IDE Page--");
+        String url = DEFAULT_BASEURL + "/g/:developers/ide";
+        for(int repeat=0;; repeat ++){
+                if (repeat > 1){
+                        driver.get(url);
+                        break;
+                }
+                mouseOver(ELEMENT_LINK_SETUP, true);
+                if (waitForAndGetElement(ELEMENT_LINK_IDE, 5000, 0)!= null) {        
+                        click(ELEMENT_LINK_IDE, false);
+                        break;
+                }
+                info("Retry...[" + repeat + "]");
+        }
+	}
 
 }
