@@ -14,6 +14,7 @@ import org.testng.annotations.Test;
  * @date: 7/12/2012
  */
 public class Wiki_BasicAction_Delete extends BasicAction {
+
 	ManageAccount magAcc;
 	
 	@BeforeMethod

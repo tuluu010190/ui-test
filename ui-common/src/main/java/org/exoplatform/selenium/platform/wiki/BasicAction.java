@@ -17,6 +17,7 @@ import org.openqa.selenium.WebElement;
  * @author vuna2
  *
  */
+
 public class BasicAction extends Permission{
 
 	//Dialog dialog = new Dialog(driver);
@@ -26,7 +27,11 @@ public class BasicAction extends Permission{
 	Dialog dialog = new Dialog(driver);
 	public Button button = new Button(driver);
 	ManageAlert magAlert = new ManageAlert(driver);
-
+	
+	public String ELEMENT_RESTRICTED_WIKI = "//*[@id='UIWikiPageInfoArea']//a[@data-original-title='This page is restricted. Click to share.']";
+	public String ELEMENT_MAKE_PUBLIC_BUTTON = "//*[@id='UIWikiPermalinkForm']//button[contains(text(),'Make Public')]";
+	public String ELEMENT_PERMISSION_WINDOW_CLOSE_BUTTON = "//*[@id='UIWikiPopupWindowL1']//a[@title='Close Window']";
+	
 	// Wiki page
 	/*===================== Add Page ====================*/	
 
@@ -493,7 +498,7 @@ public class BasicAction extends Permission{
 		if (comment.length > 0){
 			type(ELEMENT_COMMENT_TEXTBOX, comment[0], true);
 		}
-		click(ELEMENT_PUBLIC_ACTIVITY_CHECKBOX, 2);
+		click(ELEMENT_PUBLISH_ACTIVITY_CHECKBOX, 2);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 	}
@@ -518,5 +523,20 @@ public class BasicAction extends Permission{
 		Utils.pause(1000);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+	}
+	
+	/**Make Wiki public for any view
+	 * 
+	 * @author havtt
+	 * @date 05-Nov-2013
+	 */
+	
+	public void makeWikiPublic(){
+		waitForAndGetElement(ELEMENT_RESTRICTED_WIKI);
+		click(ELEMENT_RESTRICTED_WIKI);
+		Utils.pause(3000);
+		click(ELEMENT_MAKE_PUBLIC_BUTTON);
+		Utils.pause(2000);
+		click(ELEMENT_PERMISSION_WINDOW_CLOSE_BUTTON);
 	}
 }

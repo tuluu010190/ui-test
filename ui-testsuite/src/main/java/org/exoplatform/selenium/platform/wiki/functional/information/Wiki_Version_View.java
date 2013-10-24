@@ -283,23 +283,26 @@ public class Wiki_Version_View extends Version{
 				"1st edit view link 02", "1st edit page content", 
 				"2nd edit view link 02", "2nd edit page content"};
 
+		info("Step 1: Create new Wiki page");
 		goToWiki();
-
-		addBlankWikiPage(dataInfo[0], dataInfo[1], 0);
-
+		
+		addBlankWikiPage(dataInfo[1], dataInfo[2], 0);
+		
 		editWikiPage(dataInfo[2], dataInfo[3], 0);
+		
+		info("Step 2: Edit revision of Wiki page");
 
 		Set<Cookie> cookies1 = getBrowserCookies();
 
 		String handlesBefore = driver.getWindowHandle();
-
+		
 		openNewBrowser();
 
 		goToWikiPage(dataInfo[2], ManageAccount.userType.PUBLISHER);
-
+		
 		goToRevisionsPage();
-
-		waitForElementNotPresent(ELEMENT_RESTORE_LINK.replace("{$version}","3"));
+		
+		waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "2"));
 
 		Set<Cookie> cookies2 = getBrowserCookies();
 
@@ -308,6 +311,8 @@ public class Wiki_Version_View extends Version{
 		backToPreviousBrowser(cookies1, handlesBefore);
 
 		editWikiPage(dataInfo[4], dataInfo[5], 0);
+		
+		info("Step 3: Open new browser to confirm page revision");
 
 		backToPreviousBrowser(cookies2, handlesAfter);
 
@@ -317,7 +322,9 @@ public class Wiki_Version_View extends Version{
 
 		goToRevisionsPage();
 
-		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}","3"));
+		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}","2"));
+		
+		waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
 
 		backToPreviousBrowser(cookies1, handlesBefore);
 

@@ -110,14 +110,10 @@ public class Version extends BasicAction{
 	 * <li>Go to the revisions page (of selected wiki page)</li>
 	 */
 	public void goToRevisionsPage(){
-		if (isTextPresent("Page History")){
-			info("-- You are currently in the revision page --");	
-		}else{
-			click(ELEMENT_REVISION_LINK);
+			click(ELEMENT_MORE_LINK);
+			click(ELEMENT_PAGE_INFO_LINK);
 			Utils.pause(1000);
-			waitForTextPresent("Page History");
 		}
-	}
 
 	/**
 	 * @author vuna2

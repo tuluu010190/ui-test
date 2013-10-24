@@ -77,6 +77,11 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_WIKI_HOME_PAGE=By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
 	public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/*[contains(text(), 'Wiki Home')]");
 	public final String ELEMENT_NODE_WIKI_PAGE = "//*[@class='node']//*[contains(text(), '{$node}')]";
+	
+	//Space Switcher
+	public final By ELEMENT_SPACE_SWITCHER_BREADCRUMB = By.id("DisplayModesDropDown");
+	public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText lostFocus']") ;
+	public final By ELEMENT_SPACE_SWITCHER_PLACEHOLDER = By.xpath("//*[contains(text(),'Filter Spaces')]");
 
 	/*------------------add/edit wiki page---------------------*/
 	//Source Editor mode
@@ -85,7 +90,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_RICHTEXT_BUTTON = By.xpath("//*[@id='UIEditorTabs']/button[1]");
 	public final By ELEMENT_PREVIEW_BUTTON = By.xpath("//*[@id='UIEditorTabs']/button[2]");
 	public final By ELEMENT_PREVIEW_SCREEN = By.xpath("//div[@class='popupTitle' and text()='Preview']");
-	public final By ELEMENT_PUBLIC_ACTIVITY_CHECKBOX = By.id("PublishActivityUpper");
+	public final By ELEMENT_PUBLISH_ACTIVITY_CHECKBOX = By.id("PublishActivityUpper");
 	public final By ELEMENT_COMMENT_TEXTBOX = By.id("Comment");
 	public final By ELEMENT_SAVE_BUTTON_ADD_PAGE = By.id("UISubmitToolBarUpper_SavePage_");
 	public final By ELEMENT_CANCEL_BUTTON_ADD_PAGE = By.id("UISubmitToolBarBottom_Cancel_");
@@ -207,7 +212,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_WIKI_PAGE_INFO_FEED = By.xpath("//*[@id='UIWikiPageInfoArea']/div[@class='txtFeed']");
 	public final By ELEMENT_COMPARE_TEXT = By.xpath("//div[contains(text(),'Compared With')]");
 	public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfoArea']//a[contains(text(), 'V')]");
-	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'V{$version}')]";
+	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'v.{$version}')]";
 	public final String ELEMENT_VERSION_LINK_AUX= "//a[contains(text(),'v. {$version}')]";
 	public final String ELEMENT_RESTORE_LINK = "//td/label/a[contains(text(), 'v. {$version}')]/../../..//*[@class='uiIconRestore']";
 	public final By ELEMENT_COMPARE_BUTTON = By.xpath("//*[text()='Compare the selected versions']");	
@@ -232,7 +237,7 @@ public class WikiBase extends PlatformBase{
 	public By ELEMENT_NO_SPACE_OPTION = By.id("UISpaceSwitcher_nospace");
 
 	//Wiki page > Revisions page
-	public final String ELEMENT_CURRENT_VERSION = "//a[@title='View Revision' and text()='Current (v. ${version})']";
+	public final String ELEMENT_CURRENT_VERSION = "//*[@id='UIWikiPageInfo']//a[text()='Current Version (v.${version})']";
 	public final By ELEMENT_DISABLE_COMPARE_BUTTON = By.xpath("//*[contains(@class, 'disableButton') and text()='Compare Selected']");
 	public final By ELEMENT_DISABLE_COMPARE_BUTTON_AUX = By.xpath("//*[contains(@class, 'disableButton') and text()='Compare the selected versions']");
 
