@@ -30,6 +30,8 @@ public class PlatformBase extends TestBase {
 	public final String DATA_PASS = "gtn";
 	public final String DATA_USER2 = "mary";
 	
+
+	
 	public ManageAlert alert = new ManageAlert(driver);
 	public Button button = new Button(driver);
 
