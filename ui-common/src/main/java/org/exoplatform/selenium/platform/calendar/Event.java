@@ -14,6 +14,7 @@ import org.exoplatform.selenium.ManageAlert;
  */
 public class Event extends CalendarBase{
 
+	//--------------------Event basic actions------------------------
 	public By ELEMENT_INPUT_EVENT_TITLE = By.id("eventName");
 	public By ELEMENT_INPUT_EVENT_DESCRIPTION = By.id("description");
 	public By ELEMENT_CHECKBOX_EVENT_ALLDAY = By.xpath("//form[@id='UIQuickAddEvent']//input[@id='allDay']");
@@ -59,8 +60,10 @@ public class Event extends CalendarBase{
 					type(ELEMENT_INPUT_EVENT_FROM, from, true);
 				}else {
 					String[] dateTime = from.split(" ");
-					type(ELEMENT_INPUT_EVENT_FROM, dateTime[0], true);
-					type(ELEMENT_INPUT_EVENT_FROM_TIME, dateTime[1], true);
+					if(dateTime.length > 0)
+						type(ELEMENT_INPUT_EVENT_FROM, dateTime[0], true);
+					if(dateTime.length > 1)
+						type(ELEMENT_INPUT_EVENT_FROM_TIME, dateTime[1], true);
 				}
 			}
 		}
@@ -70,8 +73,10 @@ public class Event extends CalendarBase{
 					type(ELEMENT_INPUT_EVENT_TO, to, true);
 				}else{
 					String[] dateTime = to.split(" ");
-					type(ELEMENT_INPUT_EVENT_TO, dateTime[0], true);
-					type(ELEMENT_INPUT_EVENT_TO_TIME, dateTime[1], true);
+					if(dateTime.length > 0)
+						type(ELEMENT_INPUT_EVENT_TO, dateTime[0], true);
+					if(dateTime.length > 1)
+						type(ELEMENT_INPUT_EVENT_TO_TIME, dateTime[1], true);
 
 				}
 			}

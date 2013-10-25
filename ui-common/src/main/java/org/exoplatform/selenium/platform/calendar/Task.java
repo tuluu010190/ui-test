@@ -15,8 +15,6 @@ public class Task extends CalendarBase{
 
 
 	//------------------------Task Menu-------------------------------------------------------
-	public String ELEMENT_CURRENT_TASK = "//*[@id='UIWeekViewGrid']//div[contains(@deschtml, '${taskName}')]";
-	public String ELEMENT_ALL_DAY_TASK = "//*[@id='UIWeekViewGridAllDay']/div[@class='eventAlldayBoard']//div[contains(text(),'${taskTitle}')]";
 	public String ELEMENT_TASK_MENU_DELETE = "//*[@id='tmpMenuElement']//i[@class='uiIconDelete uiIconLightGray']";
 	public String ELEMENT_TASK_MENU_EDIT = "//*[@id='tmpMenuElement']//i[@class='uiIconEdit uiIconLightGray']";
 	public By ELEMENT_INPUT_TASK_TITLE_EDIT = By.xpath("//*[@id='eventDetail']//*[@id='eventName']");
@@ -94,7 +92,8 @@ public class Task extends CalendarBase{
 					type(ELEMENT_INPUT_TASK_TO, to, true);
 				}else{
 					String[] dateTime = to.split(" ");
-					type(ELEMENT_INPUT_TASK_TO, dateTime[0], true);
+					if(dateTime.length > 0)
+						type(ELEMENT_INPUT_TASK_TO, dateTime[0], true);
 					if(dateTime.length > 1)
 						type(ELEMENT_INPUT_TASK_TO_TIME, dateTime[1], false);
 				}
@@ -152,26 +151,6 @@ public class Task extends CalendarBase{
 		click(ELEMENT_TAB_REMINDER);
 	}
 
-	/**Edit a task by right click
-	 * 
-	 * @author havtt
-	 * 
-	 * @param taskName    the title of task before edit
-	 * @param title       the title of task after edit
-	 * @param description the description of task after edit
-	 * 
-	 */
-	public void editTask(String taskName, String title, String description) {
-		rightClickOnElement(By.xpath(ELEMENT_ALL_DAY_TASK.replace("${taskTitle}",taskName)), DEFAULT_TIMEOUT, 1);
-		Utils.pause(3000);
-		click(ELEMENT_TASK_MENU_EDIT);
-		Utils.pause(3000);
-		type(ELEMENT_INPUT_TASK_TITLE_EDIT, title, true);
-		type(ELEMENT_INPUT_TASK_NOTE_EDIT, description, true);
-		click(ELEMENT_BUTTON_TASK_SAVE_EDIT);
-		waitForAndGetElement(By.xpath(ELEMENT_ALL_DAY_TASK.replace("${taskTitle}",title)));
-	}
-
 	/**Set time for Pop-up reminder on current date
 	 * 
 	 * @author havtt
@@ -185,5 +164,4 @@ public class Task extends CalendarBase{
 			//TO-DO: need to fix the issue FQA-1352
 		}		
 	}
-
 }

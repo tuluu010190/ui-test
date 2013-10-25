@@ -31,7 +31,8 @@ public class CalendarBase extends PlatformBase {
 	public By ELEMENT_CALENDAR_LINK = By.className("uiIconPLFCalendar");
 	public By ELEMENT_CALENDAR_PANEL = By.xpath("//div[@class='uiBox uiCalendars']");
 	public String ELEMENT_CALENDAR_MINI_DATE= "//td[@class='highLight' and contains(text(),'${date}')]";
-	public String ELEMENT_CALENDAR_SETTING_ICON = "//a[text()='${calendar}']/ancestor::li[contains(@class, 'calendarItem')]/div[contains(@id,'UICalendars')]";
+	//public String ELEMENT_CALENDAR_SETTING_ICON = "//a[text()='${calendar}']/ancestor::li[contains(@class, 'calendarItem')]/div[contains(@id,'UICalendars')]";
+	public String ELEMENT_CALENDAR_SETTING_ICON = "//a[text()='${calendar}']/ancestor::li[contains(@class, 'calendarItem')]/div[@class='uiIconCalSettingMini uiIconLightGray pull-right']";
 	public By ELEMENT_CALENDAR_ACTIONS_ICON = By.xpath("//*[@class='uiIconCalSimplePlus uiIconLightGray']");
 	public By ELEMENT_CALENDAR_ADD_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'AddCalendar')]");
 	public By ELEMENT_CALENDAR_SETTINGS = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'CalendarSetting')]");
@@ -44,7 +45,7 @@ public class CalendarBase extends PlatformBase {
 	public By ELEMENT_SETTINGS_TAB = By.xpath("//a[@data-toggle='tab' and text()='Settings']");
 	public By ELEMENT_DISPLAYED_CALENDAR = By.xpath("//a[@data-toggle='tab' and text()='Displayed Calendars']");
 	public By ELEMENT_FEEDS = By.xpath("//a[@data-toggle='tab' and text()='Feeds']");
-	public By ELEMENT_CALENDAR_TAB_DEFAULT = By.xpath("//*[@id='defaultCalendarTab']");
+	public By ELEMENT_CALENDAR_TAB_DEFAULT = By.id("defaultCalendarTab");
 	public By ELEMENT_PERSONAL_CALENDAR = By.xpath("//*[@id='defaultCalendarTab']//div[@class='myCalendar']/*[@class='calendarTitle' and text()='Personal Calendars']");
 	public By ELEMENT_GROUP_CALENDAR = By.xpath("//*[@id='defaultCalendarTab']//div[@class='myCalendar']/*[@class='calendarTitle' and text()='Group Calendars']");
 	public String ELEMENT_VERIFY_CALENDAR = "//*[@id='defaultCalendarTab'] //div[@class='myCalendar']/*[@class='calendarTitle']/..//li[contains(@class,'calendarItem' )]//*[text()='${UserName}']/../a[@class='${CheckboxColor}']//span[@class='${checkicon}']";
@@ -126,9 +127,10 @@ public class CalendarBase extends PlatformBase {
 	public By ELEMENT_CAL_GROUP_TAB = By.linkText("Show in Groups");
 	public By ELEMENT_CAL_GROUP_INPUT = By.id("AddGroupInput");
 	public By ELEMENT_CAL_SELECT_GROUP_ICON = By.xpath("//*[@class='uiIconGroup uiIconLightGray']");
+	public String ELEMENT_EDIT_PERMISSION_INPUT = "//*[contains(@id,'${groupName}_permission')]";
 
 	//-----------Event/Task -----------
-	public String ELEMENT_EVENT_TASK_ALL_DAY = "//div[@class='eventAlldayContent asparagus' and contains(text(),'${event}')]";
+	public String ELEMENT_EVENT_TASK_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${event}')]";
 	public String ELEMENT_EVENT_TASK_ONE_DAY = "//*[@id='UIWeekViewGrid']//div[contains(text(),'${taskName}')]/parent::div[@class='clearfix']/div[@class='eventContainerBar eventTitle pull-left']";
 	public String ELEMENT_EVENT_TASK_WORKING_PANE = "//div[contains(@class,'eventContainer') and contains(text(),'${event}')]";
 	public By ELEMENT_EVENT_TASK_DELETE_MENU = By.xpath("//div[@id='tmpMenuElement']//a[@class='eventAction' and contains(@href,'Delete')]");
@@ -136,6 +138,12 @@ public class CalendarBase extends PlatformBase {
 
 	public String MSG_CALENDAR_DELETE = "Are you sure you want to delete this calendar and all its events?";
 
+	public String ELEMENT_TASK_EVENT_MENU_DELETE = "//*[@id='tmpMenuElement']//i[@class='uiIconDelete uiIconLightGray']";
+	public String ELEMENT_TASK_EVENT_MENU_EDIT = "//*[@id='tmpMenuElement']//i[@class='uiIconEdit uiIconLightGray']";
+	public By ELEMENT_INPUT_TASK_TITLE_EDIT = By.xpath("//*[@id='eventDetail']//*[@id='eventName']");
+	public By ELEMENT_INPUT_TASK_NOTE_EDIT = By.xpath("//*[@id='eventDetail']//*[@id='description']");
+	public By ELEMENT_BUTTON_TASK_SAVE_EDIT = By.xpath("//*[@id='UITaskForm']//*[text()='Save']");
+	public By ELEMENT_BUTTON_EVENT_SAVE_EDIT = By.xpath("//*[@id='UIEventForm']//button[text()='Save']");
 	//--------------Import calendar -------------------------
 	public By ELEMENT_CAL_IMPORT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Calendar']");
 	public By ELEMENT_CAL_IMPORT_TYPE = By.name("type");
@@ -178,6 +186,10 @@ public class CalendarBase extends PlatformBase {
 	public String EVENT_MONTH_VIEW = "//*[@id='UIMonthView']//span[contains(text(),'${eventTitle}')]";
 	public String EVENT_LIST_VIEW = "//*[@id='UIListUsers']//span[contains(text(),'${eventTitle}')]";
 	public String EVENT_WORK_WEEK_VIEW = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${eventTitle}')]";
+
+	//----------------Group calendar---------------------------------
+	public String ELEMENT_GROUP_CAL = "//*[@id='UICalendars']//a[contains(text(),'${calName}')]";
+	public String ELEMENT_SHOW_IN_GROUP_TAB = "//*[@id='uiPopupAddCalendarContainer']//a[@data-target='#public-tab' and text()='Show in Groups']";
 
 	/*================== Common functions for Calendar =================*/
 
@@ -743,4 +755,48 @@ public class CalendarBase extends PlatformBase {
 		Utils.pause(3000);
 	}	 
 
+	/**Edit a task/event by right click
+	 * 
+	 * @author havtt
+	 * 
+	 * @param Name    the title of task/event before edit
+	 * @param title       the title of task/event after edit
+	 * @param description the description of task/event after edit
+	 * 
+	 */
+	public void editTaskEvent(String Name, String title, String description, boolean allDay) {
+		if (allDay == true){
+			rightClickOnElement(By.xpath(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}",Name)), DEFAULT_TIMEOUT, 1);}
+		else {
+			rightClickOnElement(By.xpath(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}",Name)));
+		}
+		Utils.pause(3000);
+		click(ELEMENT_TASK_EVENT_MENU_EDIT);
+		Utils.pause(3000);
+		type(ELEMENT_INPUT_TASK_TITLE_EDIT, title, true);
+		type(ELEMENT_INPUT_TASK_NOTE_EDIT, description, true);
+		Utils.pause(3000);
+		click(ELEMENT_BUTTON_EVENT_SAVE_EDIT);
+	}
+
+	/** Change "Edit Permission" for acc in Add New Calendar>Show In Group
+	 * @author havtt
+	 * @date 28-Oct-2013
+	 * 
+	 * @param editAcc	account that will be set Edit permission
+	 * @param Group		group name in Show in Group Calendar
+	 */
+
+	public void changeEditPermissionForCalShowInGroup (String calName, String editAcc, String Group){
+		info("==Open calendar actions menu==");
+		executeActionCalendar(calName, "EditCalendar");
+		Utils.pause(3000);
+		click(ELEMENT_SHOW_IN_GROUP_TAB);
+		info("==Update Edit permission setting of calendar==");
+		//waitForAndGetElement(ELEMENT_EDIT_PERMISSION_INPUT.replace("${groupName}", Group));
+		type(ELEMENT_EDIT_PERMISSION_INPUT.replace("${groupName}", Group),editAcc, true);
+		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
+		Utils.pause(3000);
+
+	}
 }
