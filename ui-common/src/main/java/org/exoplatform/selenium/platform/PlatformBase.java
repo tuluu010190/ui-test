@@ -29,9 +29,6 @@ public class PlatformBase extends TestBase {
 	public final String DATA_USER1 = "john";
 	public final String DATA_PASS = "gtn";
 	public final String DATA_USER2 = "mary";
-	
-
-	
 	public ManageAlert alert = new ManageAlert(driver);
 	public Button button = new Button(driver);
 
@@ -179,15 +176,15 @@ public class PlatformBase extends TestBase {
 	 * Context menu
 	 * */
 	public final By ELEMENT_CUT_NODE = By.className("uiIconEcmsCut");
-			//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsCut']"); 
+	//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsCut']"); 
 	public final By ELEMENT_PASTE_NODE = By.className("uiIconEcmsPaste");
-			//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsPaste']"); 
+	//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsPaste']"); 
 	public final By ELEMENT_COPY_NODE = By.className("uiIconEcmsCopy");
-			//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsCopy']"); 
+	//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsCopy']"); 
 	public final By ELEMENT_CLONE_NODE = By.xpath("//a[contains(text(),'Clone')]");
 	public final By ELEMENT_EDIT_NODE_PAGE = By.className("uiIconEcmsEditDocument");
 	public final By ELEMENT_NODE_EDIT_PAGE = By.xpath("//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditPageNode16x16Icon']");
-	
+
 	/*
 	 * User and Group Management
 	 * */
@@ -484,8 +481,10 @@ public class PlatformBase extends TestBase {
 	public final String EMAIL_ADDRESS1 = "exomailtest01@gmail.com";
 	public final String EMAIL_ADDRESS2 = "exoservice@gmail.com";
 	public final String EMAIL_PASS = "exoadmin";
-	public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@class='ar9 T-I-J3 J-J5-Ji']");
-    public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']/div[@gh='tm']/div/div//div[@class='ar9 T-I-J3 J-J5-Ji']");
+	//public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@class='ar9 T-I-J3 J-J5-Ji']");
+    //public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']/div[@gh='tm']/div/div//div[@class='ar9 T-I-J3 J-J5-Ji']");
+	public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
+	public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']//*[@class='iH']//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
 	public final By ELEMENT_MAIL_CONTENT = By.xpath("//*[contains(@class, 'adP adO')]/div");
 	public final By ELEMENT_GMAIL_USERNAME = By.id("Email");
@@ -493,17 +492,34 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_SIGN_IN = By.id("signIn");
 	public final String ELEMENT_GMAIL_TITLE = "//span/b[contains(text(),'{$title}')]";
 	public final By ELEMENT_GMAIL_COMPOSE = By.xpath("//div[contains(text(),'COMPOSE')]");
+
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//div[@class='iA g6' and contains(text(),'Hi')]/../../../../../table[@class='cf iB']");
 	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']//*[contains(text(),'${content}')]";
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
-	
+
 	//get url
 	public final String ELEMENT_GET_URL_IMAGE = "//img[@alt='${name}']";
-	
+
 	//Default gadget on homepage
 	public final By ELEMENT_CALENDAR_GADGET = By.xpath("//div[@id='OfficeRight']//div[@class='CalendarPortletContainer']");
 	public final By ELEMENT_GETTING_STARTED_GADGET = By.xpath("//div[@id='OfficeRight']//div[@class='GettingStartedContainer']");
 	public final By ELEMENT_GETTING_SUGGESTIONS = By.xpath("//div[@id='OfficeRight']//div[@class='uiBox uiSuggestions']");
+
+	//Calendar gadget
+	public static By ELEMENT_CALENDAR_GADGET_SETTING_ICON = By.xpath("//a[@class='settingsLink actionIcon pull-right ']//i[@class='uiIconSetting uiIconLightGray']");
+	public static By ELEMENT_SEARCH_IN_CALENDAR_GADGET_SETTING = By.xpath("//input[@class='PLFcalendarSearchKey']");
+	public static By ELEMENT_CALENDAR_GADGET_TODAY_LABEL = By.xpath("//div[@class='currentDateContainer']//a[contains(text(), 'Today')]");
+	public static By ELEMENT_CALENDAR_GADGET_NEXTDAY_ARROW = By.xpath("//a[@class='actionIcon nextDate pull-right']//*[@class='uiIconMiniArrowRight uiIconLightGray']");
+	public static By ELEMENT_CALENDAR_GADGET_PREVIOUSDAY_ARROW = By.xpath("//*[@class='actionIcon prevDate pull-left']//*[@class='uiIconMiniArrowLeft uiIconLightGray']");
+	public static By ELEMENT_CALENDAR_GADGET_TOMORROW_LABEL = By.xpath("//*[@class='currentDateContainer']//a[contains(text(),Tomorrow)]");
+	public static By ELEMENT_CALENDAR_GADGET_YESTERDAY_LABEL = By.xpath("//div[@class='currentDateContainer']//a[contains(text(),Yesterday)]");
+	public static String ELEMENT_CALENDAR_GADGET_SETTING_LINK_ITEM = "//span[contains(text(),'${calendar}')]";
+	public static By ELEMENT_CALENDAR_GADGET_VERIFIED_TEXT_LABEL = By.xpath("//*[ text()='Displayed Calendars:']");
+	public static By ELEMENT_ADD_CALENDAR_IN_ADDITION_LIST = By.xpath("//i[contains(@class,'uiIconAdd')]");
+	public static String ELEMENT_CALENDAR_IN_CALENDAR_GADGET = "//span[@class='calendarName asparagus' and@title='${calendar}']";
+	public static String ELEMENT_DELETE_CALENDAR_ICON = "//span[contains(text(),'${calendar}')] /..//*[@class='uiIconDel']";
+	public static String ELEMENT_CALENDAR_IN_ADDITIONAL_LIST = "//a[text()='${calendar}']";
+
 
 	///////////////////
 	//Set view permissions for portal

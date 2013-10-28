@@ -90,7 +90,12 @@
 				<testSuite>exogtn.xml</testSuite>
 			</properties>
 		</profile>
-		
+		<profile>
+			<id>plf-sniff</id>
+			<properties>
+				<testSuite>plf-sniff.xml</testSuite>
+			</properties>
+		</profile>
 		<profile>
 			<id>social</id>
 			<properties>
