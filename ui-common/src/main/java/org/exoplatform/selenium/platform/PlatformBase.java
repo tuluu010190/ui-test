@@ -80,7 +80,7 @@ public class PlatformBase extends TestBase {
 	//By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
 
 	//Page
-	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
+	public final By ELEMENT_MENU_PAGE_LINK = By.xpath("//li[@class='dropdown-submenu']/a[contains(text(),'Page')]");
 	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
 	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[text()='SEO']");
 	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
@@ -104,7 +104,13 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
 	//By.linkText("Content administration");
 	public final String ELEMENT_DATA_ORIGINAL_TITLE ="//*[@data-original-title='${title}']";
-
+	
+	//Search form (Administration > Content > Search menu)
+	public final By ELEMENT_MENU_SEARCH = By.linkText("Search");
+	public final By ELEMENT_SEARCH_FORM_CONTENT_TYPE_COLUMN = By.xpath("//tr/th[text()='Content Type']");
+	public final By ELEMENT_SEARCH_FORM_DESCRIPTION_COLUMN = By.xpath("//tr/th[text()='Description']");
+	public final By ELEMENT_SEARCH_FORM_ACTION_COLUMN = By.xpath("//tr/th[text()='Action']");
+	
 	//Portal
 	public final String ELEMENT_LINK_PORTAL = "//a[text()='Portal']";
 	public final String ELEMENT_LINK_PAGES   = "//a[text()='Pages']";
@@ -556,6 +562,15 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_DRIVER_BOX = By.xpath("//div[@class='btn dropdown-toggle']");
 	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
 	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
+
+	//Search icon
+	public final By ELEMENT_QUICK_SEARCH_ICON = By.xpath("//i[@class='uiIconPLF24x24Search']");
+	public final By ELEMENT_QUICK_SEARCH_TEXTBOX = By.name("adminkeyword");
+	
+	//Search porlet
+	public final By ELEMENT_SEARCH_APPLICATION = By.xpath("//a[@title='Search']");
+	public final String ELEMENT_GADGET_SEARCH_APPLICATION_PAGE_EDITOR = "//div[@id='UIApplicationList17']//div[contains(text(),'${gadget}')]";
+	
 	///////////////////
 	//Set view permissions for portal
 	public void setViewPermissions(String groupId, String membership) {

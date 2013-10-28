@@ -75,7 +75,7 @@ public class WikiBase extends PlatformBase{
 	//Wiki Home
 	public final By ELEMENT_WIKI_HOME_LINK=By.xpath("//a[text()='Wiki Home']");
 	public final By ELEMENT_WIKI_HOME_PAGE=By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
-	public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/a[contains(text(), 'Wiki Home')]");
+	public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/*[contains(text(), 'Wiki Home')]");
 	public final String ELEMENT_NODE_WIKI_PAGE = "//*[@class='node']//*[contains(text(), '{$node}')]";
 
 	/*------------------add/edit wiki page---------------------*/
@@ -204,6 +204,7 @@ public class WikiBase extends PlatformBase{
 	public By ELEMENT_SELECT_SEARCH = By.name("filter");
 
 	/*-------------------------Page information management------------------------------*/
+	public final By ELEMENT_WIKI_PAGE_INFO_FEED = By.xpath("//*[@id='UIWikiPageInfoArea']/div[@class='txtFeed']");
 	public final By ELEMENT_COMPARE_TEXT = By.xpath("//div[contains(text(),'Compared With')]");
 	public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfoArea']//a[contains(text(), 'V')]");
 	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'V{$version}')]";
@@ -268,7 +269,7 @@ public class WikiBase extends PlatformBase{
 		info("--Go to Wiki--");
 		Utils.pause(1000);
 		click(ELEMENT_WIKI_LINK);
-		waitForTextPresent("Wiki Home");	
+		waitForAndGetElement(ELEMENT_TITLE_WIKI_HOME_LINK);	
 	}
 
 	/**

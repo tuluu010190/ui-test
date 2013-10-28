@@ -87,9 +87,9 @@ public class NavigationToolbar extends PlatformBase {
 			}
 			//mouseOverAndClick(ELEMENT_LINK_SETUP);
 			mouseOver(ELEMENT_LINK_SETUP, true);
-			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, 5000, 0)!= null) {	
+			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, DEFAULT_TIMEOUT, 0)!= null) {	
 				mouseOver(ELEMENT_LINK_PORTAL, false);
-				if (waitForAndGetElement(ELEMENT_LINK_PAGES, 5000, 0)!= null){
+				if (waitForAndGetElement(ELEMENT_LINK_PAGES, DEFAULT_TIMEOUT, 0)!= null){
 					click(ELEMENT_LINK_PAGES);
 					break;
 				}
@@ -282,6 +282,30 @@ public class NavigationToolbar extends PlatformBase {
 		//click(ELEMENT_MENU_SITE_EXPLORER);
 		Utils.pause(2000);
 	}
+	
+	//Enter Search Form  (Administration > Content > Search menu)
+	public void goToSearch()
+	{
+		String url = DEFAULT_BASEURL + "/g/:platform:administrators/search";
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				driver.get(url);
+				break;
+			}
+			mouseOver(ELEMENT_LINK_SETUP, true);
+			if (waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK, 5000, 0)!= null) {	
+				mouseOver(ELEMENT_MENU_CONTENT_LINK, true);
+				if (waitForAndGetElement(ELEMENT_MENU_SEARCH, 5000, 0)!= null){
+					click(ELEMENT_MENU_SEARCH);
+					break;
+				}
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		waitForAndGetElement(ELEMENT_SEARCH_FORM_CONTENT_TYPE_COLUMN);
+		waitForAndGetElement(ELEMENT_SEARCH_FORM_DESCRIPTION_COLUMN);
+		waitForAndGetElement(ELEMENT_SEARCH_FORM_ACTION_COLUMN);
+	}
 
 	/**
 	 * @author lientm
@@ -337,6 +361,30 @@ public class NavigationToolbar extends PlatformBase {
 				mouseOver(ELEMENT_MENU_PAGE_LINK, true);
 				if (waitForAndGetElement(ELEMENT_MENU_ADD_PAGE_LINK, 5000, 0)!= null){
 					click(ELEMENT_MENU_ADD_PAGE_LINK);
+					break;
+				}
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		Utils.pause(1000);
+	}
+	
+	/** Go to Edit/Page/Add Page
+	 * @author phuongdt
+	 */
+	public void goToEditLayout(){
+		info("Go to Edit layout form");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 4){
+				mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+				break;
+			}
+			mouseOver(ELEMENT_MENU_EDIT_LINK, true);
+			if (waitForAndGetElement(ELEMENT_MENU_PAGE_LINK, DEFAULT_TIMEOUT, 0)!= null) {
+				info("-- Click Pagemenu --");
+				mouseOver(ELEMENT_MENU_PAGE_LINK,true);
+				if (waitForAndGetElement(ELEMENT_MENU_EDIT_LAYOUT, DEFAULT_TIMEOUT, 0)!= null){
+					click(ELEMENT_MENU_EDIT_LAYOUT);
 					break;
 				}
 			}

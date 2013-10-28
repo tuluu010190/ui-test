@@ -79,9 +79,9 @@ public class NavigationManagement extends  PlatformBase{
 			click(ELEMENT_SEARCH_SELECTOR_PAGE_LINK);
 			type(ELEMENT_INPUT_POPUP_SEARCH_TITLE, pageTitle, true);
 			click(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
+			Utils.pause(1000);
 			click(ELEMENT_SELECT_SEARCHED_PAGE);
 		}
-
 		info("-- Save add node for portal --");
 		Utils.pause(500);
 		button.save();
@@ -92,6 +92,8 @@ public class NavigationManagement extends  PlatformBase{
 			//button.save();
 			//waitForTextNotPresent("Navigation Management");
 		}
+		button.save();
+		waitForElementNotPresent(ELEMENT_TITLE_NAVIGATION_MANAGEMENT);
 	}
 
 	// Edit a node 
