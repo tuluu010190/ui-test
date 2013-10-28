@@ -7,6 +7,7 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.calendar.Event;
 import org.exoplatform.selenium.platform.calendar.Task;
+import org.exoplatform.selenium.platform.social.Activity;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -19,7 +20,7 @@ import org.exoplatform.selenium.platform.social.PeopleConnection;
  * @author hangNTT
  * @date 18 Oct 2013
  */
-public class PLF_HomePageGadget_InvitationGadget extends HomePageGadget{
+public class PLF_HomePageGadget_InvitationGadget extends Activity{
 	ManageAccount acc;
 	Event evt;
 	Task tsk;
@@ -27,7 +28,8 @@ public class PLF_HomePageGadget_InvitationGadget extends HomePageGadget{
 	ManageMember magMember;
 	PeopleConnection peoConn;
 	NavigationToolbar navToolBar;
-	
+	HomePageGadget homeGad;
+
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		getDriverAutoSave();
@@ -35,6 +37,7 @@ public class PLF_HomePageGadget_InvitationGadget extends HomePageGadget{
 		evt = new Event(driver);
 		tsk = new Task(driver);
 		btn = new Button(driver);
+		homeGad = new HomePageGadget(driver);
 		acc.signIn(DATA_USER1, DATA_PASS);
 		magMember = new ManageMember(driver);
 		peoConn = new PeopleConnection(driver);
@@ -46,7 +49,7 @@ public class PLF_HomePageGadget_InvitationGadget extends HomePageGadget{
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
-	
+
 	/**
 	 * Check Invitation Gadget
 	 * CaseID 70579: Check display of Invitation Gadget
@@ -57,7 +60,7 @@ public class PLF_HomePageGadget_InvitationGadget extends HomePageGadget{
 	 */
 	@Test
 	public void test01_InvitationGadget() {
-				
+
 		String spaceName1 = "space1";
 		String spaceName2 = "space2";
 		String user2="Jack Miller";
@@ -70,30 +73,30 @@ public class PLF_HomePageGadget_InvitationGadget extends HomePageGadget{
 		String status = "Private Space";
 
 		// Check not show Invitation gadget
-		waitForElementNotPresent(ELEMENT_INVITATION_GADGET);
+		waitForElementNotPresent(homeGad.ELEMENT_INVITATION_GADGET);
 		acc.signOut();
-		
+
 		//Create new space1 by mary
 		acc.signIn(user_login3, DATA_PASS);
 		magMember.goToMySpacePage();
 		magMember.addNewSpace(spaceName1, "");
 		magMember.managerInviteUserToJoinSpace(userType.PUBLISHER,spaceName1,userType.ADMIN,false);
 		acc.signOut();
-		
+
 		//Create space for demo
 		acc.signIn(user_login2, DATA_PASS);
 		magMember.goToMySpacePage();
 		magMember.addNewSpace(spaceName2, "");
 		magMember.managerInviteUserToJoinSpace(userType.PUBLISHER,spaceName2,userType.ADMIN,false);
 		acc.signOut();
-				
+
 		//Login by demo
 		acc.signIn(user_login2,DATA_PASS);
 		navToolBar.goToConnectionPage();
 		click(peoConn.ELEMENT_EVERYONE_TAB);
 		peoConn.connectPeople(user5);
 		acc.signOut();
-			
+
 		//Login by james
 		acc.signIn(user_login4,DATA_PASS);
 		navToolBar.goToConnectionPage();
@@ -101,22 +104,22 @@ public class PLF_HomePageGadget_InvitationGadget extends HomePageGadget{
 		peoConn.connectPeople(user5);
 		acc.signOut();
 		acc.signIn(DATA_USER1, DATA_PASS);
-		waitForAndGetElement(ELEMENT_INVITATION_GADGET);
-		waitForAndGetElement(By.xpath(ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}",user3)));
-		waitForAndGetElement(By.xpath(ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}",user2)));
-		waitForAndGetElement(By.xpath(ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}",spaceName2)));
-		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_STATUS_SPACE.replace("${namespace}",spaceName2).replace("${statusspace}", status)));
-		waitForAndGetElement(By.xpath(ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}",spaceName1)));
-		waitForAndGetElement(By.xpath(ELEMENT_VERIFY_STATUS_SPACE.replace("${namespace}",spaceName1).replace("${statusspace}", status)));
-		
+		waitForAndGetElement(homeGad.ELEMENT_INVITATION_GADGET);
+		waitForAndGetElement(By.xpath(homeGad.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}",user3)));
+		waitForAndGetElement(By.xpath(homeGad.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}",user2)));
+		waitForAndGetElement(By.xpath(homeGad.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}",spaceName2)));
+		waitForAndGetElement(By.xpath(homeGad.ELEMENT_VERIFY_STATUS_SPACE.replace("${namespace}",spaceName2).replace("${statusspace}", status)));
+		waitForAndGetElement(By.xpath(homeGad.ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE.replace("${namespace}",spaceName1)));
+		waitForAndGetElement(By.xpath(homeGad.ELEMENT_VERIFY_STATUS_SPACE.replace("${namespace}",spaceName1).replace("${statusspace}", status)));
+
 		//Accept invitation
-		waitForAndGetElement(By.xpath(ELEMENT_TITLE_OF_GAGDET.replace("${number}", number_gadget)));
-		acceptInvitationGadget(user2);
-		
+		waitForAndGetElement(By.xpath(homeGad.ELEMENT_TITLE_OF_GAGDET.replace("${number}", number_gadget)));
+		homeGad.acceptInvitationGadget(user2);
+
 		//Remove invitation
-		removeInvitationGadget(user3);
+		homeGad.removeInvitationGadget(user3);
 		acc.signOut();
-		
+
 		//Delete space
 		acc.signIn(user_login3,DATA_PASS);
 		magMember.goToAllSpaces();
