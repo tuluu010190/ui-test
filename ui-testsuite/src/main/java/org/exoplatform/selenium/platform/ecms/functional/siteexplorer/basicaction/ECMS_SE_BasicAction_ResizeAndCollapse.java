@@ -1,7 +1,5 @@
 package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.basicaction;
 
-import static org.exoplatform.selenium.TestLogger.info;
-
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -9,9 +7,12 @@ import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.admin.ManageDrive;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ResizeAndCollapse;
+import org.exoplatform.selenium.platform.social.ManageMember;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import static org.exoplatform.selenium.TestLogger.info;
 
 /**
  * @date 7/6/2013
@@ -25,6 +26,7 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 	ActionBar actBar;
 	EcmsBase ecms;
 	ManageDrive magDri;
+    ManageMember magMember;
 	
 	public final String DATA_USER = "john";
 	public final String DATA_PASS = "gtn";
@@ -41,6 +43,7 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 		magDri = new ManageDrive(driver);
 		
 		magAcc.signIn(DATA_USER, DATA_PASS);
+        magMember = new ManageMember(driver);
 	}
 
 	@AfterMethod
@@ -64,7 +67,7 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 		mouseOverAndClick(resize.ELEMENT_PANEL_LIMIT);
 		waitForAndGetElement(resize.ELEMENT_PANEL_COLLAPSE_BUTTON);
 	}
-	
+
 	/**CaseId: 74871 -> Saved resize of the right panel from Intranet/documents
 	 * Resize column in right panel
 	 * -> Do not saved this resize as test case in Qmetry
@@ -200,5 +203,112 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 		waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_LINK, DEFAULT_TIMEOUT, 1, 2);
 		waitForAndGetElement(ecms.ELEMENT_PERMISSION_LINK);
 		waitForAndGetElement(ecms.ELEMENT_ADD_TRANSLATION_LINK);
-	}	
+	}
+
+    /**CaseId: 74896 -> Show the resize pointer of the left panel from Space/Document
+     * @author hzekri
+     */
+    @Test
+    public void test09_ShowResizePointerOfLeftPanel_SpaceDocuments(){
+
+        //Declare variables
+        String spacename = "SpaceTestResize09";
+        String spacedesc = "Description Of SpaceTestResize09";
+
+        //Add new space
+        magMember.goToMySpacePage();
+        magMember.addNewSpace(spacename, spacedesc);
+
+        //Open Documents in this space
+        waitForAndGetElement(magMember.ELEMENT_DOCUMENTS_TAB);
+        click(magMember.ELEMENT_DOCUMENTS_TAB);
+
+        // Display Left Panel
+        resize.showSideBar();
+
+        info("Panel limit is not displayed");
+        waitForElementNotPresent(resize.ELEMENT_PANEL_COLLAPSE_BUTTON);
+
+        info("Mouse over panel limit -> panel limit is displayed");
+        mouseOverAndClick(resize.ELEMENT_PANEL_LIMIT);
+        waitForAndGetElement(resize.ELEMENT_PANEL_COLLAPSE_BUTTON);
+      
+        // remove space after using it
+        magMember.goToMySpacePage();
+        magMember.deleteSpace(spacename,300000);
+    }
+
+    /**CaseId: 74899 -> Resize the left panel from Space/Documents
+     *  @author hzekri
+     */
+    @Test
+    public void test10_ResizeLeftPanel_SpaceDocuments(){
+        //Declare variables
+        String spacename = "SpaceTestResize10";
+        String spacedesc = "Description Of SpaceTestResize10";
+
+        //Add new space
+        magMember.goToMySpacePage();
+        magMember.addNewSpace(spacename, spacedesc);
+
+        //Open Documents in this space
+        waitForAndGetElement(magMember.ELEMENT_DOCUMENTS_TAB);
+        click(magMember.ELEMENT_DOCUMENTS_TAB);
+
+        resize.showSideBar();
+
+        resize.resizeLimitPanel(200);
+        String left = waitForAndGetElement(resize.ELEMENT_LEFT_CONTAINER).getAttribute("style").replace("width: ", "");
+        info("Size of left container after resize " + left);
+        assert left != "";
+        assert left != "240px;";
+
+        // reset width of left panel  to default
+        resize.resizeLimitPanel(240);
+        
+        // remove space after using it
+        magMember.goToMySpacePage();
+        magMember.deleteSpace(spacename,300000);
+    }
+
+    /**CaseId: 74907 -> Actions in the right panel after resize of left panel from Space Documents
+     * @author hzekri
+     */
+    @Test
+    public void test11_ActionInRightPanelAfterResizeLeftPanel_SpaceDocument(){
+        //Declare variables
+        String spacename = "SpaceTestResize11";
+        String spacedesc = "Description Of SpaceTestResize11";
+
+        //Add new space
+        magMember.goToMySpacePage();
+        magMember.addNewSpace(spacename, spacedesc);
+
+        //Open Documents in this space
+        waitForAndGetElement(magMember.ELEMENT_DOCUMENTS_TAB);
+        click(magMember.ELEMENT_DOCUMENTS_TAB);
+
+        resize.showSideBar();
+
+        resize.resizeLimitPanel(500);
+        String left = waitForAndGetElement(resize.ELEMENT_LEFT_CONTAINER).getAttribute("style").replace("width: ", "").replace(";", "");
+        info("Size of left container to maximum is" + left);
+
+        waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+        waitForElementNotPresent(actBar.ELEMENT_NEW_FOLDER_LINK);
+        waitForElementNotPresent(ecms.ELEMENT_UPLOAD_FILE_LINK);
+        waitForElementNotPresent(ecms.ELEMENT_PERMISSION_LINK);
+
+        click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+        waitForAndGetElement(actBar.ELEMENT_NEW_FOLDER_LINK);
+        waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_LINK, DEFAULT_TIMEOUT, 1, 2);
+        waitForAndGetElement(ecms.ELEMENT_PERMISSION_LINK);
+
+        // reset width of left panel  to default
+        resize.resizeLimitPanel(240);
+        
+        // remove space after using it
+        magMember.goToMySpacePage();
+        magMember.deleteSpace(spacename,300000);
+    }
 }

@@ -6,7 +6,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+//import org.openqa.selenium.WebElement;
 
 /**
  * 
@@ -35,18 +35,19 @@ public class BrowserPreferences extends EcmsBase{
 		click(ELEMENT_PREFERENCE_LINK);
 		if (optionId != null){
 			By option = By.id(optionId);
-			if (waitForAndGetElement(By.xpath("//*[contains(text(),'Enable DMS Structure')]"),DEFAULT_TIMEOUT,0)==null){
+			//if (waitForAndGetElement(By.xpath("//*[contains(text(),'Enable DMS Structure')]"),DEFAULT_TIMEOUT,0)==null){
 				if (waitForAndGetElement(ELEMENT_ADVANCED_ICON_ARROW_DOWN, 5000, 0) != null){
 					click(ELEMENT_ADVANCED_ICON_ARROW_DOWN);
-				}else {
-					click(ELEMENT_ADVANCED_OPTION);
-				}
+			//	}else {
+			//		click(ELEMENT_ADVANCED_OPTION);
+			//	}
 			}
-			WebElement opt = waitForAndGetElement(option, 5000, 0, 2);
-			info(optionId  + " is " + opt.getAttribute("value"));
-			if (!opt.getAttribute("value").equals("checked")){
-				click(option, 2);
-			}
+			//WebElement opt = waitForAndGetElement(option, 5000, 0, 2);
+			//info(optionId  + " is " + opt.getAttribute("value"));
+			//if (!opt.getAttribute("value").equals("checked")){
+			//	click(option, 2);
+			//}
+			check(option, 2);	
 		}
 		if (opts.length > 0){
 			select(ELEMENT_NODE_PER_PAGE, opts[0]);
