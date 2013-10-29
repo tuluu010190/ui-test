@@ -66,18 +66,17 @@ public class Forum_Forum_Category extends ForumBase {
 	 */
 	@Test
 	public void test02_ExportImportCategory(){
-		String catName = "CategoryForum_02";
+		String catName = "Category71120";
 		String[] restricted = {"demo"};
 		String description = "Add new category in forum";
 		String forumName = "Forum02";
-		String fileName = "CategoryForum_02";
+		String fileName = "Category71120";
 		
 		magCat.addNewCategoryInForum(catName, "1", 2, restricted, description, 0, null);
 		magForum.quickAddForum(forumName);
-		
 		magCat.exportCategoryInForum(fileName, false, catName);
 		Utils.pause(3000);
-		assert checkFileExisted(fileName + ".zip");
+		assert checkFileExisted("TestOutput/"+fileName + ".zip");
 		
 		click(By.linkText(catName));
 		magCat.deleteCategoryInForum(catName);
@@ -96,12 +95,12 @@ public class Forum_Forum_Category extends ForumBase {
 	 */
 	@Test
 	public void test03_ExportImportForum(){
-		String catName = "CategoryForum_03";
+		String catName = "Category71121";
 		String[] restricted = {"demo"};
 		String description = "Add new category in forum";
 		String forumName1 = "Forum03_1";
 		String forumName2 = "Forum03_2";
-		String fileName = "CategoryForum_03";
+		String fileName = "Category71121";
 		
 		magCat.addNewCategoryInForum(catName, "1", 2, restricted, description, 0, null);
 		magForum.quickAddForum(forumName1);
@@ -111,7 +110,7 @@ public class Forum_Forum_Category extends ForumBase {
 		
 		magCat.exportForumsOfCategory(fileName);
 		Utils.pause(5000);
-		assert checkFileExisted(fileName + ".zip");
+		assert checkFileExisted("TestOutput/"+ fileName + ".zip");
 		
 		info("Delete forums");
 		click(By.linkText(forumName1));

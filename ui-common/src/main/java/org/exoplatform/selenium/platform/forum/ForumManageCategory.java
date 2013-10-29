@@ -243,7 +243,7 @@ public class ForumManageCategory extends ForumBase {
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", element);
 		element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + file));
 		switchToParentWindow();
-		waitForAndGetElement("//*[text()='" + file + "']", DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement("//*[contains(text(),'" + file + "')]", DEFAULT_TIMEOUT, 1, 2);
 		button.save();
 		waitForMessage(MSG_IMPORT_CATEGORY);
 		info("Import file " + file + "successfully");

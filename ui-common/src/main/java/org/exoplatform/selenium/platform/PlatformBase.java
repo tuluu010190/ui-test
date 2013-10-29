@@ -495,6 +495,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_COMPOSE = By.xpath("//div[contains(text(),'COMPOSE')]");
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//div[@class='iA g6' and contains(text(),'Hi')]/../../../../../table[@class='cf iB']");
 	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']//*[contains(text(),'${content}')]";
+	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 	
 	//get url
 	public final String ELEMENT_GET_URL_IMAGE = "//img[@alt='${name}']";
@@ -1024,9 +1025,12 @@ public class PlatformBase extends TestBase {
 		info("Go to gmail");
 		driver.navigate().to(GMAIL_URL);
 		driver.manage().window().maximize();
-		waitForAndGetElement(ELEMENT_GMAIL_USERNAME);
 
 		//login to mail
+		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, DEFAULT_TIMEOUT,0) == null)
+			click(ELEMENT_GMAIL_SIGN_IN_LINK); 
+		
+		waitForAndGetElement(ELEMENT_GMAIL_USERNAME);
 		type(ELEMENT_GMAIL_USERNAME, email, true);
 		type(ELEMENT_GMAIL_PASS, pass, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
