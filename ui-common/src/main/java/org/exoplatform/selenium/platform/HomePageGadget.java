@@ -1,6 +1,8 @@
 package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -36,9 +38,20 @@ public class HomePageGadget extends PlatformBase{
 	public String ELEMENT_FINISH_JOIN_TO_SPACE = "//ul[@id='gsList']//li[@class='${status}']/a[text()='Join a space']";
 	public By ELEMENT_INPROGRESS_COMPLETE = By.xpath("//div[@id='progress-block']//div[@id='progress-rate']/../../div[@id='progress-label' and contains(text(),'100 %')]");
 	public By ELEMENT_CLOSE_GADGET_GETTING_STARTED = By.xpath("//div[@id='DeleteLink']//button[text()='Close']");
-
+	
+	//-------Suggestions Gadget -------- 
+	public By ELEMENT_SUGGESTION_GADGET_FORM = By.xpath("//div[@class='uiBox uiSuggestions']//h6[@class='title center' and text()='Suggestions']");
+	public String ELEMENT_VERIFY_USER_SUGGESTIONS = "//*[@id='peopleSuggest']//*[@class='peopleName']/a[contains(text(),'${peopleName}')]";
+	public String ELEMENT_VERIFY_SPACE_SUGGESTIONS = "//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and text()='${spaceName}']";
+	public String ELEMENT_CONNECT_USER_SUGGESTIONS = "//*[@id='peopleSuggest']//*[@class='peopleName']/a[contains(text(),'${peopleName}')]/../..//a[text()='Connect']";
+	public String ELEMENT_CONNECT_SPACE_SUGGESTIONS = "//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and contains(text(),'${spaceName}')]/../..//a[text()='Request']";
+	public String ELEMENT_REMOVE_USER_SUGGESTIONS = "//*[@id='peopleSuggest']//*[@class='peopleName']/a[contains(text(),'${peopleName}')]/../..//i[@class='uiIconClose']";
+	public String ELEMENT_REMOVE_SPACE_SUGGESTIONS="//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and contains(text(),'${spaceName}')]/../..//i[@class='uiIconClose']";
+	public String ELEMENT_VERIFY_USER_SUGGESTIONS_INDEX = "//*[@id='peopleSuggest']//li[${index}]//*[@class='peopleName']/a";
+	public String ELEMENT_VERIFY_SPACE_SUGGESTIONS_INDEX = "//*[@id='spaceSuggest']//li[${index}]//*[@class='spaceInfo']/*[@class='spaceName']";
+			
 	public HomePageGadget(WebDriver dr) {
-		driver = dr;
+	driver = dr;
 	}
 
 	/**
@@ -66,5 +79,55 @@ public class HomePageGadget extends PlatformBase{
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		//click(REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName));
 		waitForElementNotPresent(ELEMENT_REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName));
+	}
+	
+	
+	/**
+	 * Connect user Suggestions
+	 * @param peopleName
+	 */
+	public void connectUserSuggestionsGadget(String peopleName) {
+		info("-- Connect Suggestions user --");
+		mouseOver(ELEMENT_CONNECT_USER_SUGGESTIONS.replace("${peopleName}", peopleName),true);
+		WebElement element = waitForAndGetElement(ELEMENT_CONNECT_USER_SUGGESTIONS.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT,1,2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		waitForElementNotPresent(ELEMENT_CONNECT_USER_SUGGESTIONS.replace("${peopleName}", peopleName));
+		
+	}
+	/**
+	 * Remove user suggestions
+	 * @param peopleName
+	 */
+	public void removeUserSuggestionsGadget(String peopleName){
+		info("-- Remove an invitation --");
+		mouseOver(ELEMENT_REMOVE_USER_SUGGESTIONS.replace("${peopleName}", peopleName),true);
+		WebElement element = waitForAndGetElement(ELEMENT_REMOVE_USER_SUGGESTIONS.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT,1,2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		waitForElementNotPresent(ELEMENT_REMOVE_USER_SUGGESTIONS.replace("${peopleName}", peopleName));
+		Utils.pause(5000);
+	}
+
+	/**
+	 * Connect space Suggestions
+	 * @param peopleName
+	 */
+	public void connectSpaceSuggestionsGadget(String spaceName) {
+		info("-- Connect Suggestions user --");
+		mouseOver(ELEMENT_CONNECT_SPACE_SUGGESTIONS.replace("${Name}", spaceName),true);
+		WebElement element = waitForAndGetElement(ELEMENT_CONNECT_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName), DEFAULT_TIMEOUT,1,2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		waitForElementNotPresent(ELEMENT_CONNECT_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName));
+		
+	}
+	/**
+	 * Remove space suggestions
+	 * @param peopleName
+	 */
+	public void removeSpaceSuggestionsGadget(String spaceName){
+		info("-- Remove an invitation --");
+		mouseOver(ELEMENT_REMOVE_SPACE_SUGGESTIONS.replace("${Name}", spaceName),true);
+		WebElement element = waitForAndGetElement(ELEMENT_REMOVE_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName), DEFAULT_TIMEOUT,1,2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		waitForElementNotPresent(ELEMENT_REMOVE_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName));
 	}
 }
