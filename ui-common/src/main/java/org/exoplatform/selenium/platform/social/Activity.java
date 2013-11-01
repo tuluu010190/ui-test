@@ -55,15 +55,12 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_ACTIVITY_MENTION_USER = ELEMENT_ACTIVITY_MENTION_USER_MENU+"//*[contains(text(),'${name}')]/../div[@class='avatarSmall']";
 	public final By ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='placeholder']");
 	public final By ELEMENT_LINK = By.xpath("//i[@class='uiIconSocUILinkActivityComposer uiIconSocLightGray']");
-	public final By ELEMENT_FILE_LINK = By.xpath("//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
 	public final By ELEMENT_INPUT_LINK_BOX = By.id("InputLink");
 	public final By ELEMENT_SELECT_FILE_BUTTON = By.linkText("Select File"); 
-	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
 	public final By ELEMENT_SELECT_BUTTON = By.xpath("//button[text()='Select']");
 	public final By ELEMENT_UPLOAD_BUTTON = By.xpath("//*[@data-original-title='Upload file.']");
 	public final By ELEMENT_ATTACH_BUTTON = By.id("AttachButton");
 	public final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
-	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//i[@class='uiIconPlus uiIconLightGray']");
 
 //	public final String ELEMENT_COMMENT_LINK = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'CommentLink')]";
 	public final String ELEMENT_COMMENT = "//div[@class='ContentBox']//*[contains(text(), '${activityText}')]";
@@ -79,10 +76,6 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_COMMENT_LINK_MENTION = "//*[@class='contentComment']/a[contains(text(),'${userName}')]";
 	public final String ELEMENT_USER_NAME_LINK_ACTIVITY = "//div[@class='description']/a[contains(text(),'${userName}')]";
 	public final String ELEMENT_USER_NAME_LINK_COMMENT = "//div[@class='description']/../*[contains(text(), '${activityText}')]/../../..//p[@class='contentComment']/a[contains(text(),'${userName}')]";
-	public final By ELEMENT_DRIVER_BOX = By.xpath("//div[@class='btn dropdown-toggle']");
-	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
-	public final String ELEMENT_DRIVER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${driveName}')]";
-	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_MENTION_USER_BUTTON = By.id("mentionButton");
 	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
 	public final String ELEMENT_DELETE_COMMENT_BUTTON_INDEX = "//*[contains(text(), '${activityText}')]/..//div[@class='commentList']/div[contains(@id,'commentContainer')][${index}]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";

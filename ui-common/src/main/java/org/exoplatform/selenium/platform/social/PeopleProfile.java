@@ -241,6 +241,6 @@ public class PeopleProfile extends PlatformBase {
 	public void goToUserProfile(String userName){
 		info("--Go to User's Profile--");
 		click(By.linkText(userName));
-		waitForTextPresent("Basic information");
+		waitForAndGetElement(ELEMENT_MY_PROFILE_TAB);
 	}
 }

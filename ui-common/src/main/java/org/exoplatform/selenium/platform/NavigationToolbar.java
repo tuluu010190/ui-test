@@ -385,7 +385,7 @@ public class NavigationToolbar extends PlatformBase {
 			info("Retry...[" + repeat + "]");
 		}
 		click(ELEMENT_MY_PROFILE_LINK);
-		waitForTextPresent("Basic information");
+		waitForAndGetElement(ELEMENT_MY_PROFILE_TAB);
 	}	
 	
 	/** Go to IDE Page
@@ -406,6 +406,88 @@ public class NavigationToolbar extends PlatformBase {
                 }
                 info("Retry...[" + repeat + "]");
         }
+	}
+	
+	/** Go to Event/Task
+	 * Mouse over on the button "Create" (+)
+	 * Select the item "Event/Task"
+	 * @author phuongdt
+	 */
+	public void goToEventTask(){
+		info("--Go to Add Event/Task--");		
+		goToCreateMenu();
+		click(ELEMENT_ADD_EVENT_TASK_ICON);
+		waitForAndGetElement(ELEMENT_ADD_EVENT_TASK_FORM);
+	}
+	
+	/** Go to Poll
+	 * Mouse over on the button "Create" (+)
+	 * Select the item "Poll"
+	 * @author phuongdt
+	 */
+	public void goToPoll(){
+		info("--Go to Add Poll--");		
+		goToCreateMenu();
+		click(ELEMENT_ADD_POLL_ICON);
+		waitForAndGetElement(ELEMENT_ADD_POLL_FORM);
+		button.next();
+	}
+	
+	/** Go to Topic
+	 * Mouse over on the button "Create" (+)
+	 * Select the item "Topic"
+	 * @author phuongdt
+	 */
+	public void goToTopic(){
+		info("--Go to Add Topic--");		
+		goToCreateMenu();
+		click(ELEMENT_ADD_TOPIC_ICON);
+		waitForAndGetElement(ELEMENT_ADD_TOPIC_FORM);
+		button.next();
+	}
+	
+	/** Go to Wiki
+	 * Mouse over on the button "Create" (+)
+	 * Select the item "Wiki"
+	 * @author phuongdt
+	 */
+	public void goToWiki(){
+		info("--Go to Add Wiki Page--");		
+		goToCreateMenu();
+		click(ELEMENT_ADD_WIKI_ICON);
+		waitForAndGetElement(ELEMENT_ADD_WIKI_FORM);
+		button.next();
+	}
+	
+	/** Go to upload file
+	 * Mouse over on the button "Create" (+)
+	 * Select the item "Upload File"
+	 * @author phuongdt
+	 */
+	public void goToUploadFile(){
+		info("--Go to Upload File--");		
+		goToCreateMenu();
+		click(ELEMENT_ADD_UPLOAD_FILE_ICON);
+		waitForAndGetElement(ELEMENT_UPLOAD_FILE_FORM);
+	}
+	
+	/** Go to upload file
+	 * Mouse over on the button "Create" (+)
+	 */
+	public void goToCreateMenu(){
+		info("--Go to Create icon --");		
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ADD_ICON);
+				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
+				break;
+			}
+			mouseOver(ELEMENT_ADD_ICON, true);
+			if (waitForAndGetElement(ELEMENT_ADD_EVENT_TASK_ICON, 5000, 0) != null){
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
 	}
 
 }

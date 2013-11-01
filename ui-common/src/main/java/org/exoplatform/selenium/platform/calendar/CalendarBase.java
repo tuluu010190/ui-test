@@ -191,6 +191,17 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_GROUP_CAL = "//*[@id='UICalendars']//a[contains(text(),'${calName}')]";
 	public String ELEMENT_SHOW_IN_GROUP_TAB = "//*[@id='uiPopupAddCalendarContainer']//a[@data-target='#public-tab' and text()='Show in Groups']";
 
+	//Add event from toolbar navigation
+	public final By ELEMENT_TOOLBAR_INPUT_EVENT_TITLE_TEXTBOX = By.id("Title");
+	public final By ELEMENT_TOOLBAR_EVENT_CHECKBOX = By.xpath("//input[@value='Event']");
+	public final By ELEMENT_TOOLBAR_TASK_CHECKBOX = By.xpath("//input[@value='Task']");
+	public final By ELEMENT_TOOLBAR_START_DATE = By.name("StartEvent");
+	public final By ELEMENT_TOOLBAR_END_DATE = By.name("EndEvent");
+	public final By ELEMENT_TOOLBAR_START_TIME = By.name("start_time");
+	public final By ELEMENT_TOOLBAR_END_TIME = By.name("end_time");
+	public final By ELEMENT_TOOLBAR_SELECT_CALENDAR = By.name("Calendar");
+	public final String ELEMENT_CREATE_EVENT_MESSAGE = "//*[contains(text(),'The Event was added to ${userName}')]";
+	public final String ELEMENT_CREATE_TASK_MESSAGE = "//*[contains(text(),'The Task was added to ${userName}')]";
 	/*================== Common functions for Calendar =================*/
 
 	/** Go to calendar
@@ -797,6 +808,76 @@ public class CalendarBase extends PlatformBase {
 		type(ELEMENT_EDIT_PERMISSION_INPUT.replace("${groupName}", Group),editAcc, true);
 		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
 		Utils.pause(3000);
+	}
+	/**addEventTaskFromToolbarNavigation
+	 * Mouse over on the button "Create" (+) --> Select the item "Event/Task"
+	 * @author phuongdt
+	 * @param title
+	 * @param from
+	 * @param to
+	 * @param opt
+	 * @param isEvent
+	 */
+	public void addEventTaskFromToolbarNavigation(Boolean isEvent, String title, String from, String to, boolean allDay, boolean verify, String...opt){
+		button = new Button(driver);
+		//Add event
+		if(isEvent)
+			check(ELEMENT_TOOLBAR_EVENT_CHECKBOX,2);
+		else //Add task
+			check(ELEMENT_TOOLBAR_TASK_CHECKBOX,2);
+		if(title!="")
+			type(ELEMENT_TOOLBAR_INPUT_EVENT_TITLE_TEXTBOX, title, true);
+		if (from != ""){
+			if (allDay){
+				type(ELEMENT_TOOLBAR_START_DATE, from, true);
+				select(ELEMENT_TOOLBAR_START_TIME, "All Day");
+			}else {
+				type(ELEMENT_TOOLBAR_START_DATE, from.substring(0, from.indexOf(" ")).trim(), true);
+				select(ELEMENT_TOOLBAR_START_TIME, from.substring(from.indexOf(" ")).trim());
+				Utils.pause(5000);
+			}
+		}
+		if (to != ""){
+			if (allDay){
+				type(ELEMENT_TOOLBAR_END_DATE, to, true);
+				select(ELEMENT_TOOLBAR_END_TIME, "All Day");
+			}else{
+				type(ELEMENT_TOOLBAR_END_DATE, to.substring(0, to.indexOf(" ")).trim(), true);
+				select(ELEMENT_TOOLBAR_END_TIME,  to.substring(to.indexOf(" ")).trim());
+			}
 
+		}
+		if (opt.length > 0 && opt[0] != null){
+			select(ELEMENT_TOOLBAR_SELECT_CALENDAR,opt[0]);
+			button.save();
+			if(verify){
+				if(isEvent){
+					waitForAndGetElement(ELEMENT_CREATE_EVENT_MESSAGE.replace("${userName}", opt[0]));
+					Utils.pause(3000);
+					waitForElementNotPresent(ELEMENT_CREATE_EVENT_MESSAGE.replace("${userName}", opt[0]));
+				}
+				else{
+					waitForAndGetElement(ELEMENT_CREATE_TASK_MESSAGE.replace("${userName}", opt[0]));
+					Utils.pause(3000);
+					waitForElementNotPresent(ELEMENT_CREATE_TASK_MESSAGE.replace("${userName}", opt[0]));
+				}
+			}
+		}
+		else{
+			button.save();
+			if(verify){
+				if(isEvent){
+					waitForAndGetElement(ELEMENT_CREATE_EVENT_MESSAGE.replace("${userName}", waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
+					Utils.pause(3000);
+					waitForElementNotPresent(ELEMENT_CREATE_EVENT_MESSAGE.replace("${userName}",  waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
+				}
+				else{
+					waitForAndGetElement(ELEMENT_CREATE_TASK_MESSAGE.replace("${userName}", waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
+					Utils.pause(3000);
+					waitForElementNotPresent(ELEMENT_CREATE_TASK_MESSAGE.replace("${userName}",  waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
+
+				}
+			}
+		}
 	}
 }

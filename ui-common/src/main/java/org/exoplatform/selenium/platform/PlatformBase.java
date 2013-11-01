@@ -57,8 +57,9 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CONNECTION_PAGE = By.className("uiIconUser");
 
 	/*
-	 * Navigation Bar /Administration Bar
+	 * Navigation Bar
 	 */
+	public final By ELEMENT_NAVIGATION_TOOLBAR_HOMEPAGE = By.xpath("//*[@class='VIEW-CONTAINER ToolbarContainer VIEW-BLOCK']");
 
 	//My site
 	public final By ELEMENT_MYSITE = By.linkText("My Sites");
@@ -116,6 +117,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_IDE_WORKSPACE_FRAME = By.id("remote_iframe_0");
 	public final By ELEMENT_IDE_WORKSPACE_DEFAULT = By.xpath("//nobr[text()='dev-monit']");
 	/* End Setting Icon*/
+	
 	/*--------------- User account Management (Click from user name) ---------------------*/
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
@@ -130,6 +132,16 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Langues Disponibles']");
 
 	//User -> My profile
+	public final By ELEMENT_MY_PROFILE_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppprofile uiIconDefaultApp']");
+	public final By ELEMENT_MY_ACTIVITY_STREAM_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppactivities uiIconDefaultApp']");
+	public final By ELEMENT_MY_CONNECTIONS_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppconnections uiIconDefaultApp']");
+	public final By ELEMENT_MY_WIKI_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppwiki uiIconDefaultApp']");
+	public final By ELEMENT_MY_DASHBOARD_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppdashboard uiIconDefaultApp']");
+	public final By ELEMENT_PROFILE_BASIC_INFO_FORM = By.id("UIProfile");
+	public final By ELEMENT_MY_ACTIVITY_STREAM_FORM = By.xpath("//*[@class='uiUserActivitiesContainer']");
+	public final By ELEMENT_MY_CONNECTION_FORM = By.id("UIConnectionsPortlet");
+	public final By ELEMEMT_MY_WIKI_FORM = By.id("UIWikiPortlet");
+	public final By ELEMENT_MY_DASHBOARD_FORM = By.id("GadgetContainer");
 	public final By ELEMENT_EDIT_POSITION = By.xpath("//*[@id='UIHeaderSection']//*[@class='uiIconEdit']");
 	public final By ELEMENT_POSITION_TEXTBOX_EDIT = By.id("position");
 	public final By ELEMENT_EDIT_POSITION_SAVE_BUTTON = By.id("savePosition");
@@ -519,8 +531,31 @@ public class PlatformBase extends TestBase {
 	public static String ELEMENT_CALENDAR_IN_CALENDAR_GADGET = "//span[@class='calendarName asparagus' and@title='${calendar}']";
 	public static String ELEMENT_DELETE_CALENDAR_ICON = "//span[contains(text(),'${calendar}')] /..//*[@class='uiIconDel']";
 	public static String ELEMENT_CALENDAR_IN_ADDITIONAL_LIST = "//a[text()='${calendar}']";
-
-
+	
+	//Create functions
+	public static By ELEMENT_ADD_ICON = By.xpath("//*[@class='uiIconPLF24x24Add']");
+	public static By ELEMENT_ADD_EVENT_TASK_ICON = By.xpath("//*[@class='ToolBarActivityIcon']/*[@class='uiIconPLFEventTask']");
+	public static By ELEMENT_ADD_POLL_ICON = By.xpath("//*[@class='ToolBarActivityIcon']/*[@class='uiIconPoll']");
+	public static By ELEMENT_ADD_TOPIC_ICON = By.xpath("//*[@class='ToolBarActivityIcon']/*[@class='uiIconUIForms']");
+	public static By ELEMENT_ADD_UPLOAD_FILE_ICON = By.xpath("//*[@class='ToolBarActivityIcon']/*[@class='uiIconUpload']");
+	public static By ELEMENT_ADD_WIKI_ICON = By.xpath("//*[@class='ToolBarActivityIcon']/*[@class='uiIconWikiWiki']");
+	public static By ELEMENT_ADD_EVENT_TASK_FORM = By.id("UICreateEvent");
+	public static By ELEMENT_ADD_POLL_FORM = By.id("UICreatePoll");
+	public static By ELEMENT_ADD_TOPIC_FORM = By.id("UICreateTopic");
+	public static By ELEMENT_ADD_WIKI_FORM = By.id("UICreateForm");
+	public static By ELEMENT_UPLOAD_FILE_FORM = By.id("UploadFileSelectorPopUpWindow");
+	
+	//Help functions
+	public static By ELEMENT_HELP_ICON = By.xpath("//*[@class='uiIconPLF24x24Help']");
+	
+	//Upload file
+	public final By ELEMENT_FILE_LINK = By.xpath("//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
+	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
+	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//i[@class='uiIconPlus uiIconLightGray']");
+	public final String ELEMENT_DRIVER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${driveName}')]";
+	public final By ELEMENT_DRIVER_BOX = By.xpath("//div[@class='btn dropdown-toggle']");
+	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
+	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	///////////////////
 	//Set view permissions for portal
 	public void setViewPermissions(String groupId, String membership) {
@@ -1078,5 +1113,40 @@ public class PlatformBase extends TestBase {
 		}
 		waitForElementNotPresent(mail);
 		Utils.pause(1000);
+	}
+	
+	public void uploadFileFromTopNavigation(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
+		String newFolder = (String) (params.length > 0 ? params[0] : "");
+		alert = new ManageAlert(driver);
+		button = new Button(driver);
+		info("----Select drive----");
+		if(waitForAndGetElement(ELEMENT_DRIVER_CURRENT.replace("${driveName}", driveName), DEFAULT_TIMEOUT, 0)==null){
+			click(ELEMENT_DRIVER_BOX,2);
+			click(ELEMENT_DRIVER_OPTION.replace("${driveName}", driveName));
+		}
+		info("---Select folder path----");
+		String [] paths = folderPath.split("/");
+		for (String path : paths)
+			click(By.linkText(path));
+		if(newFolder!=""){
+			click(ELEMENT_CREATE_FOLDER_BUTTON);
+			alert.inputAlertText(newFolder);
+			click(By.linkText(newFolder));
+		}
+		if (upload)
+		{
+			info("-- Upload file --");
+			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
+			driver.switchTo().frame(frame);
+			WebElement upload2 = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);
+			upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
+			info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
+			switchToParentWindow();
+			waitForAndGetElement(By.linkText(uploadFileName));
+		}
+		button.cancel();
+		Utils.pause(1000);
+		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);	
 	}
 }

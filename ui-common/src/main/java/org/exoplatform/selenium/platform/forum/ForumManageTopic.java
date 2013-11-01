@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -33,6 +34,7 @@ public class ForumManageTopic extends ForumBase {
 		magFor = new ForumManageForum(driver);
 		button = new Button(driver);
 		alert = new ManageAlert(driver);
+		navTool = new NavigationToolbar(driver);
 	}
 
 	//----------------topic home screen---------------------------------------------------
@@ -715,5 +717,18 @@ public class ForumManageTopic extends ForumBase {
 		magFor.addForum(category, addForum, true, "", "", false,0, permission);
 		click(ELEMENT_START_TOPIC_BUTTON);
 		startTopic(topic, descTopic, "", 0, permission,false, false, false);
+	}
+	
+	/**
+	 * @author phuongdt
+	 * @param topic
+	 * @param descTopic
+	 */
+	public void addTopicFromTopNavigation(String topic, String descTopic){
+		navTool.goToTopic();
+		String[] permission = {};
+		inputDataStartTopic(topic, descTopic, "", 0, permission,false, false, false);
+		click(ELEMENT_SUBMIT_BUTTON);
+		waitForAndGetElement(By.linkText(topic));
 	}
 }

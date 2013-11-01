@@ -125,6 +125,5 @@ public class Event extends CalendarBase{
 		waitForAndGetElement(ELEMENT_EVENT_CATEGORY_OPT_COMBOBOX.replace("${categoryName}", categoryName));
 		click(ELEMENT_EVENT_CATEGORY_OPT_COMBOBOX.replace("${categoryName}", categoryName));
 	}
-
 }
 

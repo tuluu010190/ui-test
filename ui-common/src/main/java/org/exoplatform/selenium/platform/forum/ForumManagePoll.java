@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageApplications;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -17,17 +18,19 @@ import org.openqa.selenium.WebElement;
  * @date 19 Aug 2013
  */
 public class ForumManagePoll extends ForumBase {
-	
+
 	ForumManageTopic magTopic;
 	ManageApplications app;
 	UserGroupManagement userGroup;
-	
+	NavigationToolbar naviToolbar;
+
 	public ForumManagePoll(WebDriver dr){
 		driver = dr;
 		magTopic = new ForumManageTopic(driver);
 		app = new ManageApplications(driver);
 		userGroup = new UserGroupManagement(driver);
 		button = new Button(driver);
+		naviToolbar = new NavigationToolbar(driver);
 		alert = new ManageAlert(driver);
 	}
 
@@ -59,14 +62,14 @@ public class ForumManagePoll extends ForumBase {
 	public final By ELEMENT_EDIT_POLL_FORM = By.xpath("//span[text()='Edit Poll']");
 	public final String ELEMENT_POLL_OPTION = "//input[@id='Option${index}']";
 	public By ELEMENT_POLL_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Poll']");
-	
+
 	public By ELEMENT_POLL_OPTION1 = By.id("Option1");
 	public By ELEMENT_POLL_CLOSE = By.id("TimeOut");
 	public By ELEMENT_POLL_VOTE_AGAIN = By.id("VoteAgain");
 	public By ELEMENT_POLL_MULTI_VOTE = By.id("MultiVote");
 	public By ELEMENT_POLL_SUBMIT_BUTTON = By.xpath("//button[text()='Submit Poll']");
 	public String ELEMENT_POLL_DELETE_OK = "//span[contains(text(),'Are you sure you want to delete this poll ?')]/../../..//button[text()='OK']";
-	
+
 	public final String ELEMENT_POLL_QUESTION_LINK = "//div[text()='${pollQuestion} ?']";
 	public final String ELEMENT_POLL_TITLE = "//div[@class='textTitlePoll pull-left' and contains(text(),'${poll}')]";
 	public final String ELEMENT_OPTION = "//tbody[@class='contentVoting']//span[contains(text(),'${option}')]";
@@ -175,7 +178,7 @@ public class ForumManagePoll extends ForumBase {
 		else waitForElementNotPresent(ELEMENT_VOTE_AGAIN); 
 
 	}
-	
+
 	/**
 	 * 
 	 * @param pollQuestion
@@ -197,7 +200,7 @@ public class ForumManagePoll extends ForumBase {
 		mouseOver(ELEMENT_HOME_LINK,true);
 		click(By.linkText(pageName));
 	}
-	
+
 	/**
 	 * 
 	 * @param pollQuestion
@@ -234,7 +237,7 @@ public class ForumManagePoll extends ForumBase {
 		int numberOfOption = options.length;
 		type(ELEMENT_POLL_QUESTION, pollQuestion, true);
 		for(int i = 0; i < numberOfOption; i ++){
-		type(ELEMENT_POLL_OPTION.replace("${index}", Integer.toString(i)), options[i], true);
+			type(ELEMENT_POLL_OPTION.replace("${index}", Integer.toString(i)), options[i], true);
 		}
 		if (timeout != null){
 			type(ELEMENT_POLL_CLOSE, timeout, true);
@@ -247,12 +250,19 @@ public class ForumManagePoll extends ForumBase {
 		if (multiChoice)
 			check(ELEMENT_POLL_MULTI_VOTE,2);	
 	}
-	
-	public void addPoll(String pollQuestion, String[] options, String timeout, boolean changeVote, boolean multi, boolean... verify){
-		boolean check = verify.length > 0 ? verify[0]: true;
 
-		info("Add a poll in a topic");
-		goToAddPoll();
+	public void addPoll(String pollQuestion, String[] options, String timeout, boolean changeVote, boolean multi, boolean... option){
+		boolean check = option.length > 0 ? option[0]: true;
+		boolean loginByTopNavigation = option.length > 1 ? option[1]: false;
+
+		if(loginByTopNavigation){
+			info("Add a poll in a topic from top navigation");
+			naviToolbar.goToPoll();
+		}
+		else{
+			info("Add a poll in a topic from calendar form");
+			goToAddPoll();
+		}
 		inputFormPoll(pollQuestion, options, timeout, changeVote, multi);
 		click(ELEMENT_POLL_SUBMIT_BUTTON);
 		if (check){
@@ -330,10 +340,10 @@ public class ForumManagePoll extends ForumBase {
 	 */
 	public void closeReopenPoll(String[] options, boolean close){
 		click(ELEMENT_MORE_ACTION);
-		
+
 		if (close){
 			info("Close poll");
-			
+
 			click(ELEMENT_POLL_CLOSE_LINK);
 
 			waitForElementNotPresent(ELEMENT_VOTE_NOW_BUTTON);
