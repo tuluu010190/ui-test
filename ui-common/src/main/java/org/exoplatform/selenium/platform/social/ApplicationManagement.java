@@ -19,7 +19,7 @@ public class ApplicationManagement extends SocialBase {
 	public final By ELEMENT_ADD_APP_POPUP = By.xpath("//span[text()='Space Application Installer']");
 	public final By ELEMENT_CLOSE_BUTTON = By.xpath("//div[@id='UIAddApplication']/div/a[@title='Close Window']");
 	public final String ELEMENT_SELECT_APPLICATION = "//strong[text()='${applicationTitle}']/../../a[text()='Add']";
-	public final String ELEMENT_DELETE_APPLICATION = "//div[@class='communityContainer']/span[text()='${applicationTitle}']/../../a[contains(@class,'uiIconClose')]";
+	public final String ELEMENT_DELETE_APPLICATION = "//div[@class='communityContainer']/*[text()='${applicationTitle}']/../../a[contains(@class,'uiIconClose')]";
 
 	public ApplicationManagement(WebDriver dr) {
 		driver = dr;

@@ -80,7 +80,25 @@ public class SpaceManagement extends SocialBase {
 	//Documents
 	public final By ELEMENT_DOCUMENTS_TAB = By.id("documents");
 	public final By ELEMENT_SPACE_SETTING_MENU = By.id("settings");
+	
+	//All space form
+	public final String ELEMENT_SPACE_TITLE = "//*[@class='spaceTitle']/a[text()='${spaceName}']";
+	
+	//Space information
+	public final String ELEMENT_SPACE_CURRENT_AVATAR = "//*[@id='UIBreadCrumbsNavigationPortlet']/*[@class='userAvt pull-left']/img[@title='${spaceName}']";
+	public final String ELEMENT_SPACE_CURRENT_NAME = "//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name' and text()='${spaceName}']";
 
+	//porlet list
+	public final By ELEMENT_SPACE_ACTIVITY_STREAM_PORTLET = By.id("UISpaceActivityStreamPortlet");
+	public final By ELEMENT_SPACE_FORUM_PORTLET = By.id("UIForumPortlet");
+	public final By ELEMENT_SPACE_WIKI_PORTLET = By.id("UIWikiPortlet");
+	public final By ELEMENT_SPACE_DOCUMENTS_PORTLET = By.id("UIJCRExplorerPortlet");
+	public final By ELEMENT_SPACE_CALENDAR_PORTLET = By.id("CalendarApplicationMinWidth");
+	public final By ELEMENT_SPACE_SETTING_PORTLET = By.id("UISpaceSettingPortlet");
+	public final By ELEMENT_SPACE_ANSWER_PORTLET = By.id("UIAnswersPortlet");
+	public final By ELEMENT_SPACE_FAQ_PORTLET = By.id("UIFAQPortlet");
+	public final By ELEMENT_SPACE_MEMBER_PORTLET = By.id("UIMembersPortlet");
+	
 	public SpaceManagement(WebDriver dr){
 		driver = dr;
 		userGroup = new UserGroupManagement(driver);
@@ -374,6 +392,16 @@ public class SpaceManagement extends SocialBase {
 			else
 				waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem));
 		}
+	}
+	
+	/** go to a space from my space navigation
+	 * @author phuongdt
+	 * @param spaceName
+	 */
+	public void goToSpaceFromMySpaceNavigation(String spaceName){
+		info("-- Go to space "+spaceName+" --");
+		click(ELEMENT_SPACE_NAVIGATION_SPACE_ITEM.replace("${spaceName}", spaceName));
+		waitForAndGetElement(ELEMENT_SPACE_ACTIVITY_STREAM_PORTLET);
 	}
 }
 

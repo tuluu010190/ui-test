@@ -46,15 +46,22 @@ public class PlatformBase extends TestBase {
 	 * Log in Form - Sign-out 
 	 */
 	public final By ELEMENT_INPUT_USERNAME = By.name("username"); 
-	//"//input[@name='username']";
 	public final By ELEMENT_INPUT_PASSWORD = By.name("password");
-	//"//input[@name='password']";
+
 	/*
 	 * Company Navigation
 	 */
 	public final By ELEMENT_PERSONAL_DOCUMENTS = By.className("uiIconPLFDocuments");
 	public final By ELEMENT_HOME_PAGE = By.className("uiIconHome");
 	public final By ELEMENT_CONNECTION_PAGE = By.className("uiIconUser");
+	public final By ELEMENT_WIKI_PAGE = By.className("uiIconWiki");
+	public final By ELEMENT_FORUM_PAGE = By.className("uiIconUIForms");
+	public final By ELEMENT_CALENDAR_PAGE = By.className("uiIconPLFCalendar");
+	public final String ELEMENT_LEFT_NAVIGATION_ITEM_INDEX="//ul[@class='uiCompanyNavigations']//li[${index}]/a[text()='${menuItem}']";
+	public final By ELEMENT_SPACE_NAVIGATION = By.className("spaceNavigation");
+	public final String ELEMENT_SPACE_NAVIGATION_SPACE_ITEM = "//*[@class='spaceNavigation']//a[contains(text(),'${spaceName}')]";
+	public final String ELEMENT_SPACE_NAVIGATION_SPACE_ITEM_INDEX = "//*[@class='spaceNavigation']/li[${index}]/a[contains(text(),'${spaceName}')]";
+	public final By ELEMENT_LEFT_NAVIGATION_SEARCH_SPACE=By.xpath("//*[@id='UISpaceNavigationPortlet']//*[@value='Search Spaces']");
 
 	/*
 	 * Navigation Bar

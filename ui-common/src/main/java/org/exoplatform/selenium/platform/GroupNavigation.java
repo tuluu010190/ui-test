@@ -10,45 +10,49 @@ import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 
 public class GroupNavigation extends PlatformBase {
-	Button button;
+	public Button button;
 	ManageAlert alert;
 	PageManagement pageMag;
-	
+
 	//Manage Group Navigation screen
+	public final By ELEMENT_MANAGE_NAVIGATION_POPUP = By.xpath("//*[text()='Navigation Management']");
 	public final String ELEMENT_GROUP_NAME = "//*[@class='siteName' and text()='${groupName}']";
 	public final String ELEMENT_DELETE_NAVIGATION_ICON = "//*[text()='${groupName}']/../..//*[text()='Delete Navigation']";
 	public final String ELEMENT_EDIT_PROPERTIES_ICON = "//*[text()='${groupName}']/../..//*[text()='Edit Properties']";
 	//public final String ELEMENT_EDIT_NAVIGATION_ICON = "//*[text()='${groupName}']/../..//*[text()='Edit Navigation']";
+	public final String ELEMENT_NAVIGATION_NODE = "//a[contains(text(),'${nodeName}')]"; 
 	public final String ELEMENT_GROUP_TITLE = "//div[@title='${groupTitle}']"; 
 	public final String ELEMENT_GROUP_NAVIGATION_POSITION = "//*[@id='UIGroupNavigationGrid']/table/tbody/tr[${number}]" + ELEMENT_GROUP_TITLE.replace("${groupTitle}", "${groupTitle}");
 	public final By ELEMENT_GROUP_ADD_NAVIGATION_BUTTON = By.linkText("Add Navigation");
-	
+
 	//Click on [Edit Properties] icon
 	public final By ELEMENT_GROUP_NAVIGATION_PRIORITY = By.name("priority");
-	
+
 	//Add Navigation for group screen
 	public final String ELEMENT_GROUP_SELECT_ADD_NAVIGATION = "//*[contains(text(), '${groupName}')]/..//*[text()='Add Navigation']";
-	
+
 	//Home Page/Left Panel/Group Navigation
 	public final String ELEMENT_NODE_NAVIGATION_LEFT_PANEL = "//*[@class='groupNavigation']//*[contains(text(), '${groupName}')]";
 	public final String ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL = ELEMENT_NODE_NAVIGATION_LEFT_PANEL.replace("${groupName}", "${groupName}") + "/../*[contains(@class, 'arrowIcon')]";
-	
+
 	/*======================== Common Function ===========================*/
-	
+
 	//Add a node for group at group navigation
 	public void addNodeForGroup(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode, 
 			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode){
 		button = new Button(driver);
 		//String node = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeLabel);
-		String currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel);
+		String currentNode="";
+		if(currentNodeLabel!="")
+			currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel);
+		else
+			currentNode = "//*[@class='uiIconUpLevel uiIconLightGray']";
 		editNavigation(currentNavigation);
-
 		info("-- Add a new node for portal/group navigation --");		
 		if (useAddNodeLink){
 			click(currentNode);
 			click(ELEMENT_ADD_NODE_LINK);
 		}else{
-
 			click(currentNode);
 			Utils.pause(500);
 			rightClickOnElement(currentNode);
@@ -95,13 +99,12 @@ public class GroupNavigation extends PlatformBase {
 		Utils.pause(1000);
 		button.save();
 		if (verifyNode) {
-			waitForTextNotPresent("Page Node");
-			waitForTextPresent(nodeName);
+			waitForAndGetElement(ELEMENT_NAVIGATION_NODE.replace("${nodeName}", nodeName));
 			button.save();
-			waitForTextNotPresent("Navigation Management");
+			waitForElementNotPresent(ELEMENT_MANAGE_NAVIGATION_POPUP);
 		}
 	}
-	
+
 	//Edit node in group navigation
 	public void editNodeInGroupNavigation(String groupName, String nodeName, Object...params){
 		pageMag = new PageManagement(driver);
@@ -113,7 +116,7 @@ public class GroupNavigation extends PlatformBase {
 		editNavigation(groupName);
 		rightClickOnElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName));
 		click(ELEMENT_EDIT_SELECTED_NODE);
-		
+
 		if(!nodeLabel.isEmpty()){
 			if (waitForAndGetElement(ELEMENT_INPUT_LABEL, 5000, 0) != null){
 				type(ELEMENT_INPUT_LABEL, nodeLabel, true);
@@ -121,7 +124,7 @@ public class GroupNavigation extends PlatformBase {
 				type(ELEMENT_INPUT_LABEL_1, nodeLabel, true);
 			}
 		}
-		
+
 		//Selector page
 		if (!pageTitle.isEmpty()){
 			click(ELEMENT_PAGE_SELECTOR_TAB);
@@ -137,7 +140,7 @@ public class GroupNavigation extends PlatformBase {
 		}
 		//button.save();
 	}
-	
+
 	/**function add new navigation for group
 	 * @author lientm
 	 * @param groupName
@@ -151,7 +154,7 @@ public class GroupNavigation extends PlatformBase {
 		button.cancel();
 		waitForAndGetElement(ELEMENT_GROUP_NAME.replace("${groupName}", groupName));
 	}
-	
+
 	/**function delete navigation for group
 	 * @author lientm
 	 * @param groupName

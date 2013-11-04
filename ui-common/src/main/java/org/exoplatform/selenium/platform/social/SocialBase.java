@@ -179,7 +179,6 @@ public class SocialBase extends PlatformBase {
 	// Go to Applications tab
 	public void goToApplications(){
 		info("-- Go to applications --");
-		waitForAndGetElement(ELEMENT_APPLICATIONS_TAB);
 		click(ELEMENT_APPLICATIONS_TAB);
 		waitForAndGetElement("//*[text()='Add Application']");
 	}
