@@ -38,7 +38,7 @@ public class HomePageGadget extends PlatformBase{
 	public String ELEMENT_FINISH_JOIN_TO_SPACE = "//ul[@id='gsList']//li[@class='${status}']/a[text()='Join a space']";
 	public By ELEMENT_INPROGRESS_COMPLETE = By.xpath("//div[@id='progress-block']//div[@id='progress-rate']/../../div[@id='progress-label' and contains(text(),'100 %')]");
 	public By ELEMENT_CLOSE_GADGET_GETTING_STARTED = By.xpath("//div[@id='DeleteLink']//button[text()='Close']");
-	
+
 	//-------Suggestions Gadget -------- 
 	public By ELEMENT_SUGGESTION_GADGET_FORM = By.xpath("//div[@class='uiBox uiSuggestions']//h6[@class='title center' and text()='Suggestions']");
 	public String ELEMENT_VERIFY_USER_SUGGESTIONS = "//*[@id='peopleSuggest']//*[@class='peopleName']/a[contains(text(),'${peopleName}')]";
@@ -49,9 +49,22 @@ public class HomePageGadget extends PlatformBase{
 	public String ELEMENT_REMOVE_SPACE_SUGGESTIONS="//*[@id='spaceSuggest']//*[@class='spaceInfo']/div[@class='spaceName' and contains(text(),'${spaceName}')]/../..//i[@class='uiIconClose']";
 	public String ELEMENT_VERIFY_USER_SUGGESTIONS_INDEX = "//*[@id='peopleSuggest']//li[${index}]//*[@class='peopleName']/a";
 	public String ELEMENT_VERIFY_SPACE_SUGGESTIONS_INDEX = "//*[@id='spaceSuggest']//li[${index}]//*[@class='spaceInfo']/*[@class='spaceName']";
-			
+
+	//-------------------Who'sOnline gadget-----------------------------------
+	public By ELEMENT_WHOISONLINE_GADGET = By.id("onlineContent");
+	public String ELEMENT_ONLINE_USER_ACC_IMG = "//*[@id='tipName']//a[@href='/portal/intranet/activities/${acc}']/img";
+	public String ELEMENT_ONLINE_USER_TITLE = "//*[@id='tipName']//td[2]/a[@href='/portal/intranet/activities/${acc}']";
+	public String ELEMENT_ONLINE_USER_AVATAR = "//ul[@id='onlineList']//a[@class='avatarXSmall' and @href='/portal/intranet/profile/${acc}']";
+	public String ELEMENT_WHOISONLINE_CONNECT_BUTTON = "//*[@id='tiptip_content']//div[@class='connect btn btn-primary' and @data-action='Invite:${acc}']";
+	//My Profile tab
+	public String ELEMENT_PROFILE_TAB_USER_INFO = "//*[@id='UIUserNavigationPortlet']/ul[@class='nav nav-tabs userNavigation']//a[@href='/portal/intranet/profile/${acc}']";
+	//My activity stream tab
+	public String ELEMENT_MY_AS_TAB = "//*[@id='UIUserNavigationPortlet']//a[@href='/portal/intranet/activities/${acc}']";
+
+	//-------------------------------------------------------------//
+
 	public HomePageGadget(WebDriver dr) {
-	driver = dr;
+		driver = dr;
 	}
 
 	/**
@@ -80,8 +93,8 @@ public class HomePageGadget extends PlatformBase{
 		//click(REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName));
 		waitForElementNotPresent(ELEMENT_REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName));
 	}
-	
-	
+
+
 	/**
 	 * Connect user Suggestions
 	 * @param peopleName
@@ -92,7 +105,7 @@ public class HomePageGadget extends PlatformBase{
 		WebElement element = waitForAndGetElement(ELEMENT_CONNECT_USER_SUGGESTIONS.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		waitForElementNotPresent(ELEMENT_CONNECT_USER_SUGGESTIONS.replace("${peopleName}", peopleName));
-		
+
 	}
 	/**
 	 * Remove user suggestions
@@ -117,7 +130,7 @@ public class HomePageGadget extends PlatformBase{
 		WebElement element = waitForAndGetElement(ELEMENT_CONNECT_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName), DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		waitForElementNotPresent(ELEMENT_CONNECT_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName));
-		
+
 	}
 	/**
 	 * Remove space suggestions
@@ -129,5 +142,51 @@ public class HomePageGadget extends PlatformBase{
 		WebElement element = waitForAndGetElement(ELEMENT_REMOVE_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName), DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		waitForElementNotPresent(ELEMENT_REMOVE_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName));
+	}
+
+	/**
+	 * Connect to another account from Who's Online gadget
+	 * @author havtt
+	 * @date 06-Nov-2013
+	 * 
+	 * @param username
+	 */
+	public void connectPeoplefromWhoisOnlineGadget(String username){
+		info("--Connecting from Who's Online gadget--");
+		mouseOver(ELEMENT_ONLINE_USER_AVATAR.replace("${acc}",username),true);
+		WebElement element = waitForAndGetElement(ELEMENT_WHOISONLINE_CONNECT_BUTTON.replace("${acc}",username), DEFAULT_TIMEOUT,1,2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		Utils.pause(3000);
+	}
+
+	/**
+	 * Access to another account's activity stream from Who's Online gadget
+	 * @author havtt
+	 * @date 06-Nov-2013
+	 * 
+	 * @param username
+	 */
+	public void accessASfromWhoisOnlineGadget(String username){
+		info("--Accessing AS of others from Who's Online gadget--");
+		//mouseOver(ELEMENT_ONLINE_USER_AVATAR.replace("${acc}",username),true);
+		//click(ELEMENT_ONLINE_USER_AVATAR.replace("${acc}",username));
+		WebElement element = waitForAndGetElement(By.xpath(ELEMENT_ONLINE_USER_AVATAR.replace("${acc}",username)));
+		JavascriptExecutor executor = (JavascriptExecutor)driver;
+		executor.executeScript("arguments[0].click();", element);
+	}
+
+	/**
+	 * Check info of user displayed on Who's online Gadget
+	 * @author havtt
+	 * @date 06-Nov-2013
+	 * @param userName
+	 */
+	public void checkUserInfoOnWhoisOnlineGadget(String userName){
+		waitForAndGetElement(ELEMENT_WHOISONLINE_GADGET);
+		mouseOver(ELEMENT_ONLINE_USER_AVATAR.replace("${acc}",userName),true);
+		info("Confirm user avatar");
+		waitForAndGetElement(ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",userName), DEFAULT_TIMEOUT,1,2);
+		info("Confirm user name");
+		waitForAndGetElement(ELEMENT_ONLINE_USER_TITLE.replace("${acc}",userName), DEFAULT_TIMEOUT,1,2);
 	}
 }

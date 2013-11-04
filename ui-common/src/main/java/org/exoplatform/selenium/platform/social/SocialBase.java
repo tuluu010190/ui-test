@@ -90,7 +90,8 @@ public class SocialBase extends PlatformBase {
 
 	// Activity Stream tab	
 	public final By ELEMENT_ACTIVITY_STREAM_TAB = By.xpath("//div[@id='UIProfileNavigationPortlet']//a[text()='Activity Stream']");
-    /*------------------- End of parameters ---------------------*/	
+	
+	/*------------------- End of parameters ---------------------*/	
 
 	/**
 	 * Common functions for Social

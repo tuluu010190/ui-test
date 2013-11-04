@@ -33,9 +33,10 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+
 public class TestBase {
 
-	public WebDriver driver;
+	public static WebDriver driver;
 	protected String baseUrl;
 	protected int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
 	protected int WAIT_INTERVAL = 1000; //milliseconds  
@@ -51,7 +52,7 @@ public class TestBase {
 	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
-	
+
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -786,7 +787,7 @@ public class TestBase {
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		return (dateFormat.format(cal.getTime()));	
 	}
-	
+
 	/**
 	 * Get minute in format "mm" from current date
 	 * @author havtt
@@ -800,7 +801,7 @@ public class TestBase {
 		int minute = cal.get(Calendar.MINUTE);
 		return (minute); 
 	}
-	
+
 	/**
 	 * Change attribute "display" of HTML tag from "none" to "block" 
 	 * @author havtt
@@ -811,11 +812,26 @@ public class TestBase {
 	}
 
 
-	
+
 	public void setPreferenceRunTime(){
 		FirefoxProfile fp = new FirefoxProfile();
-		
+
 		fp.setPreference("dom.max_script_run_time", 30);
 	}
-	
+
+	/**
+	 * Mouse hover by Javascript
+	 * @author havtt
+	 * @date 06-Nov-2013
+	 * @param 
+	 */
+	public static void mouseHoverByJavaScript(WebElement targetElement)
+	{
+		String argu1 = "var evObj = document.createEvent('MouseEvents');";
+		String argu2 = "evObj.initMouseEvent('mouseover',true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);";
+		String argu3 =  "arguments[0].dispatchEvent(evObj);";
+		String javascript = argu1 + argu2 + argu3;
+		JavascriptExecutor executor = (JavascriptExecutor)driver;
+		executor.executeScript(javascript, targetElement);
+	}
 }

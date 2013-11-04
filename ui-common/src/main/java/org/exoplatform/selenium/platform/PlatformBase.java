@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -111,13 +112,13 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
 	//By.linkText("Content administration");
 	public final String ELEMENT_DATA_ORIGINAL_TITLE ="//*[@data-original-title='${title}']";
-	
+
 	//Search form (Administration > Content > Search menu)
 	public final By ELEMENT_MENU_SEARCH = By.linkText("Search");
 	public final By ELEMENT_SEARCH_FORM_CONTENT_TYPE_COLUMN = By.xpath("//tr/th[text()='Content Type']");
 	public final By ELEMENT_SEARCH_FORM_DESCRIPTION_COLUMN = By.xpath("//tr/th[text()='Description']");
 	public final By ELEMENT_SEARCH_FORM_ACTION_COLUMN = By.xpath("//tr/th[text()='Action']");
-	
+
 	//Portal
 	public final String ELEMENT_LINK_PORTAL = "//a[text()='Portal']";
 	public final String ELEMENT_LINK_PAGES   = "//a[text()='Pages']";
@@ -130,7 +131,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_IDE_WORKSPACE_FRAME = By.id("remote_iframe_0");
 	public final By ELEMENT_IDE_WORKSPACE_DEFAULT = By.xpath("//nobr[text()='dev-monit']");
 	/* End Setting Icon*/
-	
+
 	/*--------------- User account Management (Click from user name) ---------------------*/
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
@@ -507,7 +508,7 @@ public class PlatformBase extends TestBase {
 	public final String EMAIL_ADDRESS2 = "exoservice@gmail.com";
 	public final String EMAIL_PASS = "exoadmin";
 	//public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@class='ar9 T-I-J3 J-J5-Ji']");
-    //public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']/div[@gh='tm']/div/div//div[@class='ar9 T-I-J3 J-J5-Ji']");
+	//public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']/div[@gh='tm']/div/div//div[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']//*[@class='iH']//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
@@ -544,7 +545,7 @@ public class PlatformBase extends TestBase {
 	public static String ELEMENT_CALENDAR_IN_CALENDAR_GADGET = "//span[@class='calendarName asparagus' and@title='${calendar}']";
 	public static String ELEMENT_DELETE_CALENDAR_ICON = "//span[contains(text(),'${calendar}')] /..//*[@class='uiIconDel']";
 	public static String ELEMENT_CALENDAR_IN_ADDITIONAL_LIST = "//a[text()='${calendar}']";
-	
+
 	//Create functions
 	public static By ELEMENT_ADD_ICON = By.xpath("//*[@class='uiIconPLF24x24Add']");
 	public static By ELEMENT_ADD_EVENT_TASK_ICON = By.xpath("//*[@class='ToolBarActivityIcon']/*[@class='uiIconPLFEventTask']");
@@ -557,10 +558,10 @@ public class PlatformBase extends TestBase {
 	public static By ELEMENT_ADD_TOPIC_FORM = By.id("UICreateTopic");
 	public static By ELEMENT_ADD_WIKI_FORM = By.id("UICreateForm");
 	public static By ELEMENT_UPLOAD_FILE_FORM = By.id("UploadFileSelectorPopUpWindow");
-	
+
 	//Help functions
 	public static By ELEMENT_HELP_ICON = By.xpath("//*[@class='uiIconPLF24x24Help']");
-	
+
 	//Upload file
 	public final By ELEMENT_FILE_LINK = By.xpath("//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
 	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
@@ -573,11 +574,11 @@ public class PlatformBase extends TestBase {
 	//Search icon
 	public final By ELEMENT_QUICK_SEARCH_ICON = By.xpath("//i[@class='uiIconPLF24x24Search']");
 	public final By ELEMENT_QUICK_SEARCH_TEXTBOX = By.name("adminkeyword");
-	
+
 	//Search porlet
 	public final By ELEMENT_SEARCH_APPLICATION = By.xpath("//a[@title='Search']");
 	public final String ELEMENT_GADGET_SEARCH_APPLICATION_PAGE_EDITOR = "//div[@id='UIApplicationList17']//div[contains(text(),'${gadget}')]";
-	
+
 	///////////////////
 	//Set view permissions for portal
 	public void setViewPermissions(String groupId, String membership) {
@@ -1102,7 +1103,7 @@ public class PlatformBase extends TestBase {
 		//login to mail
 		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, DEFAULT_TIMEOUT,0) == null)
 			click(ELEMENT_GMAIL_SIGN_IN_LINK); 
-		
+
 		waitForAndGetElement(ELEMENT_GMAIL_USERNAME);
 		type(ELEMENT_GMAIL_USERNAME, email, true);
 		type(ELEMENT_GMAIL_PASS, pass, true);
@@ -1118,7 +1119,7 @@ public class PlatformBase extends TestBase {
 	 */
 	public void checkAndDeleteMail(By mail, String content){
 		waitForAndGetElement(mail,300000);
-		
+
 		click(mail);	
 		if(waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${content}",content),20000,0) == null )
 			click(ELEMENT_FIRST_MAIL);
@@ -1136,7 +1137,7 @@ public class PlatformBase extends TestBase {
 		waitForElementNotPresent(mail);
 		Utils.pause(1000);
 	}
-	
+
 	public void uploadFileFromTopNavigation(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
 		alert = new ManageAlert(driver);
@@ -1170,5 +1171,36 @@ public class PlatformBase extends TestBase {
 		button.cancel();
 		Utils.pause(1000);
 		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);	
+	}
+
+	/** Switch to new browser window
+	 * @author havtt
+	 */
+	public void switchToNewBrowserWindow(String user, String pass){
+		ManageAccount magAcc = new ManageAccount(driver);
+		magAcc = new ManageAccount(driver);
+
+		this.openNewBrowser();
+		if (user != null){
+			if (isElementNotPresent(ELEMENT_INPUT_USERNAME)){
+				magAcc.signOut();
+			}else{
+				info("-- User.logIn: " + user);
+			}
+			magAcc.signIn(user, pass);
+			Utils.pause(1000);
+		}
+	}
+
+	/** Login with different user account on the same browser FF
+	 * 
+	 * @author havtt
+	 * @date 05-Nov-2013
+	 */
+	public void loginWithAnotherAccOnThesameBrowser(String User2, String Pass2){
+		initSeleniumTest();
+		driver.get(baseUrl);
+		ManageAccount  acc = new ManageAccount(driver);
+		acc.signIn(User2, Pass2);
 	}
 }
