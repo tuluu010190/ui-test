@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.PageManagement;
@@ -24,11 +25,15 @@ public class AnswerBase extends ForumBase {
 
 	PageManagement page;
 	UserGroupManagement userGroup;
+	ManageAccount account;
 
 	public final By ELEMENT_ANSWER_LINK = By.linkText("Answer");
 	public final String ELEMENT_ANSWER_BREADCUMB = "//*[@id='UIBreadcumbs']//*[text()='${category}']";
 	public final By ELEMENT_ANSWER_HOME_LINK = By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
 	public final By ELEMENT_CONFIMATION_OK_POPUP = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='OK']");
+	public final By ELEMENT_UP_LEVEL = By.xpath("//i[@class='uiIconUpLevel uiIconLightGray']");
+	public final By ELEMENT_PRINT_ICON = By.xpath("//i[@class='uiIconPrint uiIconLightGray']");
+	public final By ELEMENT_HOME_ICON = By.xpath("//*[@class='uiIconHome uiIconLightGray']");
 
 	//Add answer page
 	public final String DATA_ANSWER_PAGE_NAME = "Answer";
@@ -99,6 +104,7 @@ public class AnswerBase extends ForumBase {
 		} else {
 			click(ELEMENT_ANSWER_LINK);
 		} 
+		waitForAndGetElement(ELEMENT_PRINT_ICON);
 	}
 
 	public void goToAnwserHome(){
@@ -167,7 +173,7 @@ public class AnswerBase extends ForumBase {
 		Utils.pause(1000);
 	}
 
-	/**function setting display mode in answert portlet
+	/**function setting display mode in answer portlet
 	 * @author lientm
 	 * @param all
 	 * @param date
@@ -381,5 +387,24 @@ public class AnswerBase extends ForumBase {
 			WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
 			return web;
 		}
+	}
+	
+	//Set display Category
+	public void setDisplayCategory(String categoryScope, boolean display){
+		pageE = new PageEditor(driver);
+		goToEditAnswerPortlet();
+		setDisplayCategoryScoping(categoryScope, display);
+		click(ELEMENT_CLOSE_SETTING_BUTTON);
+		pageE.finishEditLayout();
+		
+	}
+	
+	//Set Display mode in tab Display mode
+	public void setDisplayMode(boolean all, boolean date, boolean ascending, boolean...opts){
+		pageE = new PageEditor(driver);
+		goToEditAnswerPortlet();
+		settingDisplayMode(all,date,ascending,opts);
+		click(ELEMENT_CLOSE_SETTING_BUTTON);
+		pageE.finishEditLayout();
 	}
 }
