@@ -34,8 +34,6 @@ public class Activity extends SocialBase {
 
 
 	Dialog dialog = new Dialog(driver);
-	ManageAlert magAlert;
-	Button button = new Button(driver);
 	HomePageActivity hpActivity = new HomePageActivity(driver);
 
 	//=====Element on space home page=======stash@{1}
@@ -84,6 +82,9 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_AVATAR_LIST_LIKER_INDEX = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/../*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//div[@class='listPeopleContent']/div[@class='listLiked']/a[@class='avatarXSmall'][${index}]/img";
 	public final String ELEMENT_USER_PROFILE_POPUP = "//table[@id='tipName']//a[contains(text(),'${userName}')]";
 
+	/*public Activity(WebDriver dr){
+		driver = dr;
+	}*/
 	/**
 	 * Select filter activity
 	 * @author phuongdt
@@ -112,7 +113,7 @@ public class Activity extends SocialBase {
 	 */
 	public void selectFile(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
-		magAlert = new ManageAlert(driver);
+		alert = new ManageAlert(driver);
 		info("-- Selecting a file to post on activity --");
 		waitForAndGetElement(ELEMENT_FILE_LINK);
 		click(ELEMENT_FILE_LINK);
@@ -128,7 +129,7 @@ public class Activity extends SocialBase {
 			click(By.linkText(path));
 		if(newFolder!=""){
 			click(ELEMENT_CREATE_FOLDER_BUTTON);
-			magAlert.inputAlertText(newFolder);
+			alert.inputAlertText(newFolder);
 			click(By.linkText(newFolder));
 		}
 		if (upload)
