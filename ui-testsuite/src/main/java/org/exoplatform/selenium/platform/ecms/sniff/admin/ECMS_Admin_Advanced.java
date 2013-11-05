@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
@@ -195,6 +196,12 @@ public class ECMS_Admin_Advanced extends PlatformBase{
 		//create a node by user who hasn't [read] permission
 		magAcc.signIn("mary", "gtn");
 		nav.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
+		magAcc.userSignIn(userType.PUBLISHER);
+		nav.goToSiteExplorer();
+		 if(waitForAndGetElement(actBar.ELEMENT_VIEW_MODE_LINK.replace("${viewName}", "Web"),DEFAULT_TIMEOUT,0)!=null){
+			 click(actBar.ELEMENT_VIEW_MODE_LINK.replace("${viewName}", "Web"));
+		 }
 		ecms.goToNode("intranet/documents");
 		actBar.goToAddNewContent();
 		info("Create new File document: " + DATA_FILE);

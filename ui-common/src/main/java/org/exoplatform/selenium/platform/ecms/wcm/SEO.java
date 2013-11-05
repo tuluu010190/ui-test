@@ -80,9 +80,10 @@ public class SEO extends EcmsBase{
 		if (pri != ""){
 			type(ELEMENT_PRIORITY, pri, true);
 		}
-		click(button.ELEMENT_SAVE_BUTTON);
+		button = new Button(driver);
+		button.save();
 		info("finish input data on SEO management");
-		Utils.pause(1000);
+		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 	}
 	
 	public void deleteSEO(String language){
@@ -90,7 +91,7 @@ public class SEO extends EcmsBase{
 		click(ELEMENT_SEO_DELETE_ICON.replace("${language}", language));
 		alt.waitForConfirmation(MSG_SEO_DELETE);
 		waitForElementNotPresent(ELEMENT_SEO_DELETE_ICON.replace("${language}", language));
-		click(button.ELEMENT_SAVE_BUTTON);
+		//click(button.ELEMENT_SAVE_BUTTON);
 		button.closeWindow();
 		Utils.pause(1000);
 	}
