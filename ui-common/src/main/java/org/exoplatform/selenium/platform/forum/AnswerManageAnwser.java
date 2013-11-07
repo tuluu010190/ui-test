@@ -5,6 +5,8 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -15,11 +17,14 @@ import org.openqa.selenium.WebElement;
  * @date 19 Aug 2013
  */
 public class AnswerManageAnwser extends AnswerBase {
-
+	AnswerManageCategory magCat;
+	ManageAccount magAc;
 	public AnswerManageAnwser(WebDriver dr){
 		driver = dr;
 		button = new Button(driver);
 		alert = new ManageAlert(driver);
+		magCat = new AnswerManageCategory(driver);
+		magAc = new ManageAccount(driver);
 
 	}
 	
@@ -29,7 +34,7 @@ public class AnswerManageAnwser extends AnswerBase {
 	public final By ELEMENT_ANSWER_LINK_IN_QUESTION = By.xpath("//*[@class='questionAction']//*[contains(text(),'Answer')]");
 	public final By ELEMENT_ANSWER_CONTENTFRAME_1 = By.xpath("//iframe[@id='QuestionRespone___Frame']");
 	public final By ELEMENT_ANSWER_CONTENTFRAME_2 = By.xpath("//td[@id='xEditingArea']/iframe");
-	public final By ELEMENT_APPROVED_ANSWER = By.id("IsApproved");
+	public final By ELEMENT_APPROVED_ANSWER = By.id("QuestionApproved");
 	public final By ELEMENT_ACTIVATED_ANSWER = By.id("QuestionShowAnswer");
 	public final String ELEMENT_NUMBER_ANSWER = "//a[text()='${question}']/../../../*//a[2]/p[text()='1']";
 	public final By ELEMENT_LAGUAGE_SELECTED = By.xpath("//*[@id='Language']/option[@selected='selected']");
@@ -37,7 +42,8 @@ public class AnswerManageAnwser extends AnswerBase {
 	public final String ELEMENT_ANSWER_IN_QUESTION = "//*[contains(@id, 'Answer')]//*[text()='${answer}']";
 	public final String ELEMENT_ANSWER_POSITION_IN_LIST = "//*[contains(@id, 'Answer')][${no}]//*[text()='${answer}']";
 	public final String MSG_ANSWER_PENDING = "Your answer is pending for moderation. It will be displayed after approval.";
-	public final String MSG_ANSWER_EMPTY = "Please provide an answer to the question.";
+	public final By ELEMENT_MSG_ANSWER_EMPTY = By.xpath("//*[contains(text(),'Please provide an answer to the question.')]");
+	public final By ELEMENT_MSG_ANSWER_EMPTY_DIALOG_OK_BUTTON = By.xpath("//*[@class='warningIcon']/../../..//*[text()='OK']");
 	public final String MSG_DELETE_ANSWER_CONFIRM = "Are you sure you want to delete this answer ?";
 	public final By ELEMENT_ANSWER_PENDING_OK = By.xpath("//span[contains(text(),'Your answer is pending for moderation. It will be displayed after approval.')]/../../..//*[text()='OK']");
 	public final String ELEMENT_ANSWER_CONTENT = "//div[@class='answerContent']//p[text()='${answer}']";
@@ -102,7 +108,8 @@ public class AnswerManageAnwser extends AnswerBase {
 	public void modifyAnwser(String language, String answerContent, boolean approved, boolean activated, boolean addRelation, 
 			String questionToLink, boolean removeRelation, String questionRemove){
 		if (language != "" && language != null){
-			selectOption(ELEMENT_ANSWER_LANGUAGE, language);
+			if(waitForAndGetElement(ELEMENT_ANSWER_LANGUAGE,DEFAULT_TIMEOUT,0)!=null)
+				selectOption(ELEMENT_ANSWER_LANGUAGE, language);
 		}
 		if (answerContent != null){
 			inputDataToFrameInFrame(ELEMENT_ANSWER_CONTENTFRAME_1, ELEMENT_ANSWER_CONTENTFRAME_2, answerContent, true);
@@ -129,6 +136,10 @@ public class AnswerManageAnwser extends AnswerBase {
 			removeRelationForAnswer(questionRemove);
 		}
 		button.save();
+		if((answerContent == null)||( answerContent == "")){
+			waitForAndGetElement(ELEMENT_MSG_ANSWER_EMPTY);
+			click(ELEMENT_MSG_ANSWER_EMPTY_DIALOG_OK_BUTTON);
+		}
 	}
 	
 	/**
@@ -276,5 +287,26 @@ public class AnswerManageAnwser extends AnswerBase {
 			click(ELEMENT_ANSWER_UNVOTE_ICON.replace("${answer}", answer));
 		}
 		Utils.pause(1000);
+	}
+	
+	/** View answer list with any user
+	 * @author phuongdt
+	 * @param user
+	 * @param categoryName
+	 * @param questionName
+	 * @param answerContent
+	 * @param view
+	 */
+	public void viewAnswerWithOtherUser(userType user, String categoryName, String questionName, String answerContent, boolean view){
+		magAc.userSignIn(user);
+		goToAnswer();
+		magCat.openCategoryInAnswer(categoryName);
+		click(By.linkText(questionName));
+		if (view){
+			waitForAndGetElement(ELEMENT_ANSWER_IN_QUESTION.replace("${answer}", answerContent));
+		}else {
+			waitForElementNotPresent(ELEMENT_ANSWER_IN_QUESTION.replace("${answer}", answerContent));	
+		}
+		magAc.signOut();
 	}
 }

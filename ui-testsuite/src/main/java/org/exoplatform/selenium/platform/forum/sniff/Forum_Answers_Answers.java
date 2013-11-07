@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.forum.AnswerBase;
 import org.exoplatform.selenium.platform.forum.AnswerManageAnwser;
 import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
@@ -149,10 +150,9 @@ public class Forum_Answers_Answers extends AnswerBase {
 		
 		info("Deactive answer");
 		magAns.activeAnswer(answerContent, false);
-		magAc.signOut();
 		
 		info("Normal user cannot view this answer");
-		viewAnswerWithDemoUser(categoryName, questionName, answerContent, false);
+		magAns.viewAnswerWithOtherUser(userType.DEVELOPER,categoryName, questionName, answerContent, false);
 		
 		info("Active answer");
 		magAc.signIn("john", "gtn");
@@ -160,10 +160,9 @@ public class Forum_Answers_Answers extends AnswerBase {
 		magCat.openCategoryInAnswer(categoryName);
 		click(By.linkText(questionName));
 		magAns.activeAnswer(answerContent, true);
-		magAc.signOut();
 		
 		info("Normal user can view active answer");
-		viewAnswerWithDemoUser(categoryName, questionName, answerContent, true);
+		magAns.viewAnswerWithOtherUser(userType.DEVELOPER,categoryName, questionName, answerContent, true);
 		
 		magAc.signIn("john", "gtn");
 		goToAnswer();
@@ -189,10 +188,9 @@ public class Forum_Answers_Answers extends AnswerBase {
 		
 		info("Disappove answer");
 		magAns.approveAnswer(answerContent, false);
-		magAc.signOut();
 		
 		info("Normal user cannot view this answer");
-		viewAnswerWithDemoUser(categoryName, questionName, answerContent, false);
+		magAns.viewAnswerWithOtherUser(userType.DEVELOPER,categoryName, questionName, answerContent, false);
 		
 		info("Approve answer");
 		magAc.signIn("john", "gtn");
@@ -200,10 +198,9 @@ public class Forum_Answers_Answers extends AnswerBase {
 		magCat.openCategoryInAnswer(categoryName);
 		click(By.linkText(questionName));
 		magAns.approveAnswer(answerContent, true);
-		magAc.signOut();
 		
 		info("Normal user can view approved answer");
-		viewAnswerWithDemoUser(categoryName, questionName, answerContent, true);
+		magAns.viewAnswerWithOtherUser(userType.DEVELOPER,categoryName, questionName, answerContent, true);
 		
 		magAc.signIn("john", "gtn");
 		goToAnswer();
@@ -242,20 +239,5 @@ public class Forum_Answers_Answers extends AnswerBase {
 		waitForAndGetElement(magAns.ELEMENT_ANSWER_POSITION_IN_LIST.replace("${answer}", answerContent2).replace("${no}", "3"));
 
 		magCat.deleteCategoryInAnswer(categoryName);
-	}
-	
-	
-	
-	public void viewAnswerWithDemoUser(String categoryName, String questionName, String answerContent, boolean view){
-		magAc.signIn("demo", "gtn");
-		goToAnswer();
-		magCat.openCategoryInAnswer(categoryName);
-		click(By.linkText(questionName));
-		if (view){
-			waitForAndGetElement(magAns.ELEMENT_ANSWER_IN_QUESTION.replace("${answer}", answerContent));
-		}else {
-			waitForElementNotPresent(magAns.ELEMENT_ANSWER_IN_QUESTION.replace("${answer}", answerContent));	
-		}
-		magAc.signOut();
 	}
 }

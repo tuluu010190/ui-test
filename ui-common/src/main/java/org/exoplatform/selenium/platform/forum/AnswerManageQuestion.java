@@ -6,6 +6,8 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -19,12 +21,14 @@ import org.openqa.selenium.WebElement;
 public class AnswerManageQuestion extends AnswerBase {
 	Dialog dialog = new Dialog(driver);
 	AnswerManageCategory cat;
+	ManageAccount magAc;
 
 	public AnswerManageQuestion(WebDriver dr){
 		driver = dr;
 		cat = new AnswerManageCategory(driver);
 		button = new Button(driver);
 		alert = new ManageAlert(driver);
+		magAc = new ManageAccount(driver);
 	}
 
 	//Manage Question
@@ -38,7 +42,10 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final String ELEMENT_MANAGE_QUESTION_EDIT = "//td[text()='${question}']/../*//div[@title='Edit']";
 	public final String ELEMENT_MANAGE_QUESTION_ANSWER_ICON = "//td[text()='${question}']/../*//div/div[@title='Answer']";
 	public final String ELEMENT_MANAGE_QUESTION_ANSWER_LANGUAGE = "//td[text()='${question}']/../td/div[@title='Answer' and contains(@onclick, '${language}')]";
-	public final By ELEMENT_MANAGE_QUESTION_OPEN_QUESTIONS_TAB = By.xpath("//div[@class='MiddleTab' and contains(text(),'Open Questions')]");
+	public final By ELEMENT_MANAGE_QUESTION_OPEN_QUESTIONS_TAB = By.xpath("//div[@class='uiFormTabPane uiTabNormal uiTabPane']//*[contains(text(),'Open Questions')]");
+	public final By ELEMENT_MANAGE_QUESTION_ALL_QUESTIONS_TAB = By.xpath("//div[@class='uiFormTabPane uiTabNormal uiTabPane']//*[contains(text(),'All Questions')]");
+	public final By ELEMENT_MANAGE_QUESTION_CURRENT_OPEN_QUESTIONS_TAB = By.xpath("//div[@class='uiFormTabPane uiTabNormal uiTabPane']//*[contains(@class,'active')]/*[contains(text(),'Open Questions')]");
+	public final By ELEMENT_MANAGE_QUESTION_CURRENT_ALL_QUESTIONS_TAB = By.xpath("//div[@class='uiFormTabPane uiTabNormal uiTabPane']//*[contains(@class,'active')]/*[contains(text(),'All Questions')]");
 	public final By ELEMENT_QUESTION_LANGUAGE = By.name("AllLanguages");
 	public final By ELEMENT_QUESTION_NAME = By.id("QuestionTitle");
 	public final By ELEMENT_APPROVED_QUESTION = By.xpath("//div[@data-original-title='Disapprove']//span");
@@ -77,7 +84,7 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final String MSG_EMAIL_SENT = "Your message was sent successfully.";
 	public final String MSG_QUESTION_NEED_APPORVE = "This question is pending for approval.";
 	public final String MSG_QUESTION_SUBMIT_MODERATOR = "The question has been submitted to moderators.";
-	
+
 
 	//Context Menu
 	public final By ELEMENT_CONTEXT_MENU_EDIT_QUESTION = By.xpath("//*[@class='dropdown-menu dropdownArrowTop']//a[text()='Edit']");
@@ -98,7 +105,8 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final By ELEMENT_OPEN_QUESTION_TAB = By.linkText("Open Questions");
 	public final String ELEMENT_ANSWER_QUESTION_IN_LIST = "//*[text()='${question}']/..//*[@data-original-title='Answer']";
 	public final String ELEMENT_EDIT_QUESTION_IN_LIST = "//*[text()='${question}']/..//*[@data-original-title='Edit']";
-	public final String ELEMENT_DELETE_QUESTION_IN_LIST = "//div[@id='QuestionManagerment-tab']//td[text()='${question}']/..//*[@data-original-title='Delete']";
+	public final String ELEMENT_DELETE_QUESTION_IN_ALL_QUESTION_TAB_LIST = "//div[@id='QuestionManagerment-tab']//td[text()='${question}']/..//*[@data-original-title='Delete']";
+	public final String ELEMENT_DELETE_QUESTION_IN_PENDING_QUESTION_TAB_LIST = "//div[@id='QuestionNotAnswered-tab']//td[text()='${question}']/..//*[@data-original-title='Delete']";
 	public final String ELEMENT_LANGUAGE_LINK_IN_LIST = "//*[text()='${question}']/..//*[contains(text(), '${language}')]";
 	public final By ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON = By.xpath("//*[@id='FAQQuestionManagerment']//*[text()='Close']");
 	public final String ELEMENT_QUESTION_IN_ALL_TAB = "//*[@id='QuestionManagerment-tab']//*[text()='${question}']";
@@ -286,6 +294,10 @@ public class AnswerManageQuestion extends AnswerBase {
 		button.save();
 		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		Utils.pause(2000);
+		if(!questionName.equals(newQuestionName))
+			click(ELEMENT_QUESTION_SUBMIT_OK);
+		if(wayEdit!=1 && wayEdit!=2)
+			click(ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON);
 	}
 
 	/**
@@ -307,7 +319,10 @@ public class AnswerManageQuestion extends AnswerBase {
 			break;
 		default:
 			info("Delete question from manage question");
-			click(ELEMENT_DELETE_QUESTION_IN_LIST.replace("${question}", questionName));
+			if(waitForAndGetElement(ELEMENT_MANAGE_QUESTION_CURRENT_ALL_QUESTIONS_TAB,DEFAULT_TIMEOUT,0)!=null)
+				click(ELEMENT_DELETE_QUESTION_IN_ALL_QUESTION_TAB_LIST.replace("${question}", questionName));
+			else
+				click(ELEMENT_DELETE_QUESTION_IN_PENDING_QUESTION_TAB_LIST.replace("${question}", questionName));
 			break;
 		}
 		waitForMessage(MSG_DELETE_QUESTION);
@@ -351,6 +366,7 @@ public class AnswerManageQuestion extends AnswerBase {
 				waitForAndGetElement(element_activate, DEFAULT_TIMEOUT, 0, 2);
 			} else info("Question is being deactivate");
 		}
+		click(ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON);
 	}
 
 	public void approveQuestion(String question, boolean approve){
@@ -370,6 +386,7 @@ public class AnswerManageQuestion extends AnswerBase {
 				waitForAndGetElement(element_app, DEFAULT_TIMEOUT, 0, 2);
 			} else info("Question is being disapprove");
 		}
+		click(ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON);
 	}
 
 	public void goToDiscussInForum(){
@@ -453,5 +470,24 @@ public class AnswerManageQuestion extends AnswerBase {
 		cat.addNewCategoryInAnswer(categoryName, null, description, 0, null, true, false);
 		cat.openCategoryInAnswer(categoryName);
 		submitQuestion(null, questionName, questionContent, null, false, null);
+	}
+
+	/** view a question with a user
+	 * @author phuongdt
+	 * @param user
+	 * @param categoryName
+	 * @param questionName
+	 * @param view
+	 */
+	public void viewQuestionWithOtherUser(userType user, String categoryName, String questionName, boolean view){
+		magAc.userSignIn(user);
+		goToAnswer();
+		cat.openCategoryInAnswer(categoryName);
+		if (view){
+			waitForAndGetElement(By.linkText(questionName));
+		}else {
+			waitForElementNotPresent(By.linkText(questionName));	
+		}
+		magAc.signOut();
 	}
 }
