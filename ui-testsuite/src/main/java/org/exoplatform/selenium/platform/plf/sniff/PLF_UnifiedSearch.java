@@ -506,11 +506,11 @@ public class PLF_UnifiedSearch extends Template {
 		//Create data
 		//Some events are existed on Calendar.
 		evt.goToCalendarPage();
-		evt.addEvent(eventName1,eventName1,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(eventName1,eventName1,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
 		evt.goToCalendarPage();
-		evt.addEvent(eventName2,eventName2,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(eventName2,eventName2,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
 		evt.goToCalendarPage();
-		evt.addEvent(eventName3,eventName3,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(eventName3,eventName3,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
 		String eventDate=getDate(1,"MMMM d, yyyy ")+"0:00 AM";
 		/*Step 1: Search events*/
 		//- Login and connect to intranet home page
@@ -781,11 +781,11 @@ public class PLF_UnifiedSearch extends Template {
 		//Create data
 		//Tasks are existed on calendar
 		evt.goToCalendarPage();
-		tsk.addTask(taskName1,taskName1,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
+		tsk.addQuickTask(taskName1,taskName1,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
 		evt.goToCalendarPage();
-		tsk.addTask(taskName2,taskName2,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
+		tsk.addQuickTask(taskName2,taskName2,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
 		evt.goToCalendarPage();
-		tsk.addTask(taskName3,taskName3,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
+		tsk.addQuickTask(taskName3,taskName3,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
 		String taskDate=getDate(2,"MMMM d, yyyy ")+"11:59 PM";
 		/*Step 1: Search tasks*/
 		//- Login and connect to intranet home page
@@ -907,11 +907,11 @@ public class PLF_UnifiedSearch extends Template {
 		//Create data
 		//Some contents (such as wiki pages, events, tasks...) are existed.
 		evt.goToCalendarPage();
-		evt.addEvent(eventName1,eventName1,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(eventName1,eventName1,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
 		ansMagAn.goToAnswer();
 		magQuest.submitQuestion(null, questionName, questionName, null, false, null);
 		evt.goToCalendarPage();
-		tsk.addTask(taskName1,taskName1,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
+		tsk.addQuickTask(taskName1,taskName1,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
 
 		/*Step 1: Search tasks*/
 		//- Login and connect to intranet home page
