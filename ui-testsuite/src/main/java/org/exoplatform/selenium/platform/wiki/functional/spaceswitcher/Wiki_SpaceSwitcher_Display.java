@@ -10,14 +10,14 @@ import org.exoplatform.selenium.platform.wiki.WikiBase;
 import static org.exoplatform.selenium.TestLogger.info;
 
 /**
-* @author havtt
-* @date: 04-Nov-2013
-*/
+ * @author havtt
+ * @date: 04-Nov-2013
+ */
 public class Wiki_SpaceSwitcher_Display extends WikiBase {
 
 	ManageAccount magAcc;
 	SpaceManagement magSpace;
-	
+
 	String DATA_USER_ADMIN = "fqa";
 	String DATA_PASS = "gtngtn";
 
@@ -43,14 +43,14 @@ public class Wiki_SpaceSwitcher_Display extends WikiBase {
 	@Test(groups="pending")
 	//Related issue: FQA-1372
 	public void test01_CheckFullDisplayOfSpaceSearch() {
-		
+
 		info("User go to Intranet Wiki");
 		goToWikiHome();
-		
+
 		info("User open Space Switcher breadcrumb");
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		click(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		
+
 		info("Check the full display of Input Text with PlaceHolder");
 		//Check the display of Input text
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT);
@@ -65,25 +65,25 @@ public class Wiki_SpaceSwitcher_Display extends WikiBase {
 	@Test
 	public void test02_CheckDisplayOfInputTextWhenUserJoinASpace() {
 		String SPACE_02 = "SPACE02";
-		
+
 		info("User create a new space");
 		magSpace.goToAllSpaces();
 		magSpace.addNewSpace(SPACE_02, SPACE_02);
-		
+
 		info("User go to Intranet Wiki");
 		magSpace.goToSpaceMenu("Wiki");
-		
+
 		info("User open Space Switcher breadcrumb");
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		click(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		
+
 		info("Check the full display of Input Text with PlaceHolder");
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT);
-		
+
 		info("Restore data");
 		//Delete space
 		magSpace.restoreData(SPACE_02);
-		
+
 	}
 
 }
