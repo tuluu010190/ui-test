@@ -393,7 +393,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 
 	/**
 	 * Qmetry ID: 66702
-	 * Edit child node has parent node is in [Check in] status
+	 * Edit not-nt:file child node which has parent node is in [Check in] status
 	 * 
 	 */
 	//edit a document in a checked in document
@@ -556,7 +556,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		String filePath0 = "TestData/ECMS_CSS_File_Before.txt";
 		String data_1 = Utils.getFileContent(filePath1);
 		String data_0 = Utils.getFileContent(filePath0);
-		
+
 		//Switch to ACME Site
 		driver.get(DEFAULT_BASEURL + "/acme");
 
@@ -613,7 +613,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		click(ELEMENT_PERSONAL_DOCUMENTS);
 		Utils.captureScreen("ECMS_Before_Edit_JS_File");
 		magAlert.acceptAlert();
-		
+
 		//edit js file
 		navToolBar.goToSiteExplorer();
 		magAlert.acceptAlert();
