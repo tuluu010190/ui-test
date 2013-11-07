@@ -27,13 +27,13 @@ public class HomePageActivity extends PlatformBase{
 	ManageAlert alert;
 	ForumManagePost post;
 
-	public final String ELEMENT_ACTIVITY_DELETE = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]/ancestor::div[contains(@id,'ActivityContextBox')]//a[contains(@id, 'DeleteActivityButton')]";
 	public final By ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY = By.xpath("//*[text()='Are you sure you want to delete this activity?']");
 	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
+	public final String ELEMENT_ACTIVITY_DELETE = "//*[contains(text(),'${activityText}')]/../../../..//a[contains(@id, 'DeleteActivityButton')]";
 
 	//like and unlike icon
-	public final String ELEMENT_LIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'LikeLink')]";
-	public final String ELEMENT_UNLIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'UnLikeLink')]";
+	public final String ELEMENT_LIKE_ICON = "//*[contains(text(),'${activityText}')]/../../../..//*[starts-with(@id, 'LikeLink')]";
+	public final String ELEMENT_UNLIKE_ICON = "//*[contains(text(),'${activityText}')]/../../../..//*[starts-with(@id, 'UnLikeLink')]";
 
 	//activity layout
 	public final String ELEMENT_ACTIVITY_AUTHOR_NAME = "//div[contains(@id,'activityContainer')][${index}]//div[@class='author']//a[text()='${author}']";
@@ -44,13 +44,13 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_COMMENT_LINK = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'CommentLink')]";
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='contentComment']/../*[contains(text(), '${comment}')]";
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_1 = "//*[text()='${title}']/ancestor::div[@class='boxContainer']//*[@class='contentComment']";
+	public final String ELEMENT_COMMENTBOX="//*[text()='${title}']/../../../..//div[@class='exo-mentions']/div[contains(@id,'DisplayCommentTextarea')]";
 
 	//Comment box for ECMS data type
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_2 = "//*[@title='${title}']/ancestor::div[@class='boxContainer']//*[@class='contentComment']";
 	public final String ELEMENT_ACTIVITY_DELETE_COMMENT_ICON = "//*[@class='contentComment' and contains(text(), '${comment}')]/../..//*[contains(@id, 'DeleteCommentButton')]";
 	public final String DATA_MESSAGE_CONFIRM_DELETE_COMMENT = "Are you sure you want to delete this comment?";
-	public final String ELEMENT_COMMENTBOX="//*[text()='${title}']/../../../..//div[@class='exo-mentions']/div[contains(@id,'DisplayCommentTextarea')]";
-	public final String ELEMENT_ICON_COMMENT = "//*[text()='${title}']/../../../..//div[@class='actionBar clearfix forumActivityIcon']//i[@class='uiIconComment uiIconLightGray']";
+	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
 
 	//Content activity
 	public final String ELEMENT_CONTENT_NAME = "//a[@title='@{fileName}']";
@@ -113,6 +113,7 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_QUESTION_RATE = "//a[@class='linkTitle' and text()='${title}']/../..//div[@class='avgRatingImages sumaryRate']/i[@class='voted'][${rate}]";
 	public final String ELEMENT_QUESTION_HAFT_RATE = "//a[@class='linkTitle' and text()='${title}']/../..//div[@data-original-title='Average']/i[@class='votedHaft']";
 	public final String ELEMENT_QUESTION_VIEW_COMMENT = "//a[text()='${title}']/../../../..//div[@class='commentListInfo clearfix']/a";
+	public final String MSG_ANSWER_QUESTION = "Answer has been submitted: ${answer}";
 	//Forum activity
 	public final String ELEMENT_FORUM_ACT_CONTENT = "//a[text()='${title}']/../../..//div[@class='contentForum theContent']//p";
 	public final String ELEMENT_FORUM_NUMBER_REPLY = "//a[text()='${title}']/../../..//div[@class='contentForum theContent']/span[text()='${number} Replies']";
@@ -122,7 +123,7 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_TOPIC_REPLY = "//a[contains(text(),'${title}')]/../../../..//i[@class='uiIconReply uiIconLightGray']";
 	public final String ELEMENT_TOPIC_LAST_REPLY = "//a[contains(text(),'${title}')]/../../../..//i[@class='uiIconSocLastestReply uiIconSocLightGray']";
 	public final String ELEMENT_REPLY_VIEW = "//*[contains(text(), '${comment}')]/../..//*[@class='viewComment']";
-	//"//a[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]/../../..//a[@class='viewComment' and contains(text(),'View')]";
+	public final String ELEMENT_TOPIC_COMMENT = "//a[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]/../..";
 
 	//Poll activity
 	public final String ELEMENT_POLL_ACTIVITY = "//div[@class='uiBox roundedBottom introBox pollShare']//a[contains(text(),'${poll}')]";
@@ -130,7 +131,6 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_VOTE_PROGRESSBAR = "//div[@class='uiBox roundedBottom introBox pollShare']//a[contains(text(),'${poll}')]/../../..//div[@class='titleVote' and contains(text(),'${vote}')]/..//div[@class='progressBar']";
 	public final String ELEMENT_VOTE_RATE = "//div[@class='uiBox roundedBottom introBox pollShare']//a[contains(text(),'${poll}')]/../../..//div[@class='titleVote' and contains(text(),'${vote}')]/..//div[@class='progressing' and contains(text(),'(${rate} vote)')]";
 	public final String ELEMENT_POLL_VOTE = "//a[contains(text(),'${poll}')]/../../../..//i[@class='uiIconSocVote uiIconSocLightGray']";
-	public final String ELEMENT_TOPIC_COMMENT = "//a[contains(text(),'${title}')]/../../../..//*[@class='contentComment' and contains(text(), '${comment}')]/../..";
 
 
 	//Calendar activity
@@ -147,6 +147,7 @@ public class HomePageActivity extends PlatformBase{
 	public HomePageActivity(WebDriver dr){
 		driver = dr;
 		post = new ForumManagePost(driver);
+		button = new Button(driver);
 	}
 	/** function check info in activity of a content/file
 	 * @author lientm
@@ -541,7 +542,7 @@ public class HomePageActivity extends PlatformBase{
 		waitForAndGetElement(ELEMENT_QUESTION_NUM_ANSWER.replace("${number}", Integer.toString(number)));
 
 		for (int i = 0; i < number; i ++){
-			waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", "Answer has been submitted: " + answer[i]));
+			waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", MSG_ANSWER_QUESTION.replace("${answer}", answer[i])));
 		}
 	}
 
@@ -734,6 +735,24 @@ public class HomePageActivity extends PlatformBase{
 		waitForTextPresent(lastReply);
 
 	}
+	/** View Answer, comment, reply...from comment of activity
+	 * @author thuntn
+	 * @param activity: title of question, topic...
+	 * @param comment: comment of activity
+	 */
+	public void viewActivity(String activity, String comment){
+		Actions actions = new Actions(driver);
+		WebElement element = waitForAndGetElement(ELEMENT_TOPIC_COMMENT.replace("${title}",activity).replace("${comment}", comment));
+
+		Locatable hoverItem = (Locatable) waitForAndGetElement(By.xpath("//div[@class='activityBottom']"),DEFAULT_TIMEOUT,1,2);
+		int y = hoverItem.getCoordinates().onPage().getY();
+		((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+y+");");
+		actions.moveToElement(element).click().perform();
+
+		WebElement elementView = waitForAndGetElement(ELEMENT_REPLY_VIEW.replace("${comment}", comment), 3000, 1, 2);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", elementView);
+	}
+
 	/**View a reply by clicking on View in activity
 	 * @author thuntn
 	 * @param topic
@@ -741,20 +760,9 @@ public class HomePageActivity extends PlatformBase{
 	 */
 	public void viewReplyFromActivity(String topic, String reply){
 		info("View a reply by clicking on View in activity");
-		Actions actions = new Actions(driver);
-		WebElement element = waitForAndGetElement(ELEMENT_TOPIC_COMMENT.replace("${title}",topic).replace("${comment}", reply));
 
-		Locatable hoverItem = (Locatable) waitForAndGetElement(By.xpath("//div[@class='activityBottom']"));
-		int y = hoverItem.getCoordinates().onPage().getY();
-		((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+y+");");
-		actions.moveToElement(element).click().perform();
-
-		//click(ELEMENT_REPLY_VIEW.replace("${title}", topic).replace("${comment}", reply),2);
-		WebElement elementView = waitForAndGetElement(ELEMENT_REPLY_VIEW.replace("${comment}", reply), 3000, 1, 2);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", elementView);
-
+		viewActivity(topic, reply);
 		waitForAndGetElement(post.ELEMENT_POST_REPLY_BUTTON);
-		//waitForTextPresent(reply);
 		waitForAndGetElement(post.ELEMENT_POST_CONTENT.replace("${postContent}", reply));
 	}
 
@@ -765,14 +773,17 @@ public class HomePageActivity extends PlatformBase{
 	 */
 	public void deleteActivity (String activityText) {
 		info("-- Deleting an activity " +activityText+" --");
-		button = new Button(driver);
-		WebElement elem = waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
-		String deleteActivityIconID = elem.getAttribute("id");
+		WebElement elem = waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,0,2);
+
+		String deleteActivityIconID;
+		deleteActivityIconID = elem.getAttribute("id");
+
 		JavascriptExecutor executor = (JavascriptExecutor)driver;
 		executor.executeScript("document.getElementById('"+deleteActivityIconID+"').click();");
 		waitForAndGetElement(ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY);
 		button.ok();
 		waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", activityText)));
+		waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,0,2);
 		Utils.pause(1000);
 	}
 
@@ -782,25 +793,29 @@ public class HomePageActivity extends PlatformBase{
 	 */
 	public void likeOrUnlikeActivity(String activityText){
 		info("-- Action: Like or Unlike an activity --");
+
 		if (waitForAndGetElement(ELEMENT_LIKE_ICON.replace("${activityText}", activityText), DEFAULT_TIMEOUT, 0) != null){
 			info("-- Like activity --");
 			int numLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_ICON.replace("${activityText}", activityText)).getText().trim());
 			click(ELEMENT_LIKE_ICON.replace("${activityText}", activityText));
 			info("-- Verify Like button is highlighted --");
 			waitForAndGetElement(ELEMENT_UNLIKE_ICON.replace("${activityText}", activityText)+"/i[@class='uiIconThumbUp uiIconBlue']");
-			info("-- Verify number of like is updated --");
+			info("-- Like successfully and Verify number of like is updated --");
 			int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_UNLIKE_ICON.replace("${activityText}", activityText)).getText().trim());
 			assert (newNumLike==(numLike+1)):"Number of like is not updated";
+
 		}else{
 			info("-- Unlike activity --");
+
 			int numLike = Integer.parseInt(waitForAndGetElement(ELEMENT_UNLIKE_ICON.replace("${activityText}", activityText)).getText().trim());
 			click(ELEMENT_UNLIKE_ICON.replace("${activityText}", activityText));
-			info("-- Verify Like button is gray --");
+			info("-- Verify UnLike button is gray --");
 			waitForAndGetElement(ELEMENT_LIKE_ICON.replace("${activityText}", activityText)+"/i[@class='uiIconThumbUp uiIconLightGray']");
-			info("-- Verify number of like is updated --");
+			info("-- Unlike successfully and Verify number of like is updated --");
 			int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_ICON.replace("${activityText}", activityText)).getText().trim());
 			assert (newNumLike==(numLike-1)):"Number of like is not updated";
 		}
+
 	}
 
 	/** Check Event activity after adding an event

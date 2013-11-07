@@ -32,7 +32,7 @@ import org.openqa.selenium.internal.Locatable;
 
 public class Activity extends SocialBase {
 
-    
+
 	Dialog dialog = new Dialog(driver);
 	ManageAlert magAlert;
 	Button button = new Button(driver);
@@ -62,22 +62,21 @@ public class Activity extends SocialBase {
 	public final By ELEMENT_ATTACH_BUTTON = By.id("AttachButton");
 	public final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
 
-//	public final String ELEMENT_COMMENT_LINK = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'CommentLink')]";
+	//	public final String ELEMENT_COMMENT_LINK = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'CommentLink')]";
 	public final String ELEMENT_COMMENT = "//div[@class='ContentBox']//*[contains(text(), '${activityText}')]";
 	public final String ELEMENT_SHOW_HIDE_COMMENTS = "/following::*[@class='CommentListInfo']/a[contains(text(), '${inforComment}')]";
-	public final String ELEMENT_COMMENT_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[@class= 'uiIconComment uiIconLightGray']";
-	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/..//button[contains(@id,'CommentButton')]";
-	public final String ELEMENT_INPUT_COMMENT_TEXT_AREA = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]";
-	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
+//	public final String ELEMENT_COMMENT_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[@class= 'uiIconComment uiIconLightGray']";
+	public final String ELEMENT_COMMENT_BUTTON = "//*[text()='${activityText}']/../../../..//button[contains(@id,'CommentButton')]";
+	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(),'${activityText}')]/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
 
-//	public final String ELEMENT_LIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'LikeLink')]";
-//	public final String ELEMENT_UNLIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'UnLikeLink')]";
+	//	public final String ELEMENT_LIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'LikeLink')]";
+	//	public final String ELEMENT_UNLIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'UnLikeLink')]";
 	public final String ELEMENT_ACTIVITY_NAME_CONSECUTIVE = "//*[contains(@id,'UIActivitiesContainer')]/div[1]//*[@class='description' and text()='${activityText1}']/../../../../../../div[2]//*[@class='description' and text()='${activityText2}']";
 	public final String ELEMENT_COMMENT_LINK_MENTION = "//*[@class='contentComment']/a[contains(text(),'${userName}')]";
 	public final String ELEMENT_USER_NAME_LINK_ACTIVITY = "//div[@class='description']/a[contains(text(),'${userName}')]";
 	public final String ELEMENT_USER_NAME_LINK_COMMENT = "//div[@class='description']/../*[contains(text(), '${activityText}')]/../../..//p[@class='contentComment']/a[contains(text(),'${userName}')]";
 	public final By ELEMENT_MENTION_USER_BUTTON = By.id("mentionButton");
-	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
+	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
 	public final String ELEMENT_DELETE_COMMENT_BUTTON_INDEX = "//*[contains(text(), '${activityText}')]/..//div[@class='commentList']/div[contains(@id,'commentContainer')][${index}]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
 	public final By ELEMENT_MESSAGE_CONFIRM_DELETE_COMMENT = By.xpath("//*[text()='Are you sure you want to delete this comment?']");
 	public final String ELEMENT_SHOW_ALL_COMMENTS = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/../*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]/div[contains(@id,'CommentBlockBound')]//a[contains(text(),'View all "+"${inforComment}"+"')]";
@@ -235,17 +234,23 @@ public class Activity extends SocialBase {
 	 */
 	public void addComment(String activityText, String contentOfComment){
 		//Add a new comment following an activity 
-		click(ELEMENT_COMMENT_ICON.replace("${activityText}", activityText));
-		WebElement commentText = waitForAndGetElement(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText));
+		hpActivity = new HomePageActivity(driver);
+
+		click(hpActivity.ELEMENT_ICON_COMMENT.replace("${title}", activityText));
+
+		WebElement commentText = waitForAndGetElement(hpActivity.ELEMENT_COMMENTBOX.replace("${title}", activityText));
 		WebElement commentButton = waitForAndGetElement(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
 		WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL.replace("${activityText}", activityText));
+
 		((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '';", workingLabel);
 		((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '"+contentOfComment+"';", commentText);
 		((JavascriptExecutor)driver).executeScript("arguments[0].disabled = false;", commentButton);
 		((JavascriptExecutor)driver).executeScript("arguments[0].className = 'btn pull-right btn-primary';", commentButton);
 		click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
 		waitForAndGetElement(ELEMENT_DELETE_COMMENT_BUTTON.replace("${activityText}", activityText).replace("${commentText}", contentOfComment), DEFAULT_TIMEOUT,1,2);
+
 	}
+
 
 	/**
 	 * Delete a comment
@@ -430,10 +435,10 @@ public class Activity extends SocialBase {
 		else{
 			info("-- Adding a mention comment --");
 			//Add a new comment following an activity 
-			click(ELEMENT_COMMENT_ICON.replace("${activityText}", activityText));
-			type(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText), "@"+userName, false);
+			click(hpActivity.ELEMENT_ICON_COMMENT.replace("${title}", activityText));
+			type(hpActivity.ELEMENT_COMMENTBOX.replace("${title}", activityText), "@"+userName, false);
 			Utils.pause(1000);
-			click(ELEMENT_INPUT_COMMENT_TEXT_AREA.replace("${activityText}", activityText));
+			click(hpActivity.ELEMENT_COMMENTBOX.replace("${title}", activityText));
 			Utils.pause(1000);
 			//click("//*[@class='avatarSmall' and text()='"+userName+"']");
 			click("//*[@class='avatarSmall']");

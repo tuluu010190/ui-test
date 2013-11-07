@@ -126,7 +126,7 @@ public class Social_HomePage_Activity extends Activity {
 		waitForAndGetElement(activity.ELEMENT_CONTENT_ACTIVITY_INDEX.replace("${index}", "2").replace("${content}", nameWebContent));
 		//	  7.  the Action bar (Comment and Like links + custom actions)
 		info("-- Verify action bar --");
-		waitForAndGetElement(ELEMENT_COMMENT_ICON.replace("${activityText}", activity1));
+		waitForAndGetElement(activity.ELEMENT_ICON_COMMENT.replace("${title}", activity1));
 		waitForAndGetElement(activity.ELEMENT_LIKE_ICON.replace("${activityText}", activity1));
 		//	  8.  the like section (optional)
 		info("-- Verify like section --");
@@ -135,7 +135,7 @@ public class Social_HomePage_Activity extends Activity {
 		waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity1).replace("${index}", "1"));
 		//	  9.  the comment section (optional)
 		info("-- Verify comment section --");
-		waitForElementNotPresent(ELEMENT_DELETE_COMMENT_BUTTON.replace("${activityText}", activity1).replace("${commentText}", comment1), DEFAULT_TIMEOUT,1,2);
+		waitForElementNotPresent(activity.ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activity1).replace("${commentText}", comment1), DEFAULT_TIMEOUT,1,2);
 		addComment(activity1, comment1);
 		waitForAndGetElement(ELEMENT_DELETE_COMMENT_BUTTON.replace("${activityText}", activity1).replace("${commentText}", comment1), DEFAULT_TIMEOUT,1,2);
 
