@@ -20,13 +20,13 @@ public class DashBoard extends PlatformBase {
 	Dialog dialog = new Dialog(driver);
 	ManageAlert alt = new ManageAlert(driver);
 	Button button = new Button(driver);
-	
+
 	/* Dashboard Page*/
 	public  final String MESSAGE_DRAG_GADGETS_HERE = "Drag your gadgets here.";
 	public  final By ELEMENT_ADD_GADGETS_LINK = By.xpath("//a[text()='Add Gadgets']");
 	public 	final By ELEMENT_DASHBOARD_FRAME = By.xpath("//iframe[contains(@id,'remote_iframe_')]");
-	
-	// Getget Directory form
+
+	// Gadget Directory form
 	public final By ELEMENT_GADGET_URI_INPUT = By.xpath("//input[@id='url']");
 	public final By ELEMENT_ADD_GADGET_BUTTON = By.xpath("//img[@title='Add Gadget']");
 	public final By ELEMENT_GADGET_CONTAINER = By.xpath("//*[@id='GadgetContainer']//*[text()='Drag your gadgets here.']");
@@ -36,7 +36,12 @@ public class DashBoard extends PlatformBase {
 	public final String ELEMENT_ACTION_ON_GADGET = "//span[text()='${gadgetTitleDisplay}']/..//*[@data-original-title='${action}']/i";
 	public final By ELEMENT_GADGET_CONTENT_FORM = By.className("UIGadgetContent");
 	public final String ELEMENT_GADGET_TITLE = "//*[@class='gadgetTitle' and text()='${title}']";
-	
+	public final String ELEMENT_GADGET_LOCATOR = "//span[@class='gadgetTitle' and text()='${gadgetName}']";
+
+	public final By ELEMENT_RSS_READER_EDIT_BUTTON = By.xpath("//span[@class='gadgetTitle' and text()='RSS Reader']/parent::h5[@class='title gadgetControl clearfix']/span[@class='pull-right']//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_RSS_READER_NUM_INPUT = By.id("m_0_0");
+	public final By ELEMENT_RESS_READER_SAVE_BUTTON = By.xpath("//input[@value='Save']");
+
 	/*------------- Data for Dashboard tab --------------------------------*/
 	public final String ELEMENT_DASHBOARD_NEW_ICON = "//*[@id='UITabPaneDashboard']//*[@class='uiIconSimplePlusMini uiIconLightGray']";
 	public final String ELEMENT_DASHBOARD_NEW_INPUT = "//div[@id='UITabPaneDashboard']//input";
@@ -128,24 +133,24 @@ public class DashBoard extends PlatformBase {
 	 * Date: 30/09/2013
 	 * This function is replaced by function actionOnGadgetOnDashboard
 	 */
-//	public void deleteGadgetOnDashboard(String gadgetTitleDisplay)
-//	{	alt = new ManageAlert(driver);
-//		info("Delete gadget");
-//		String action = "Delete Gadget";
-//		By deleteGadgetIcon = By.xpath(ELEMENT_ACTION_ON_GADGET.replace("${gadgetTitleDisplay}", gadgetTitleDisplay).replace("${action}", action));
-//		waitForAndGetElement(deleteGadgetIcon);
-//		click(deleteGadgetIcon, 2);
-//		alt.waitForConfirmation("Are you sure you want to delete this gadget?");
-//		waitForTextNotPresent(gadgetTitleDisplay);
-//	}
-	
+	//	public void deleteGadgetOnDashboard(String gadgetTitleDisplay)
+	//	{	alt = new ManageAlert(driver);
+	//		info("Delete gadget");
+	//		String action = "Delete Gadget";
+	//		By deleteGadgetIcon = By.xpath(ELEMENT_ACTION_ON_GADGET.replace("${gadgetTitleDisplay}", gadgetTitleDisplay).replace("${action}", action));
+	//		waitForAndGetElement(deleteGadgetIcon);
+	//		click(deleteGadgetIcon, 2);
+	//		alt.waitForConfirmation("Are you sure you want to delete this gadget?");
+	//		waitForTextNotPresent(gadgetTitleDisplay);
+	//	}
+
 	public void dragDropGadget(String gadget){
 		info("Drag drop " + gadget + " gadget to dashboard");
 		click(ELEMENT_ADD_GADGETS_LINK);
 		dragAndDropToObject(By.xpath(ELEMENT_GADGET_NAME.replace("${name}", gadget)), ELEMENT_GADGET_CONTAINER);
 		waitForAndGetElement(ELEMENT_GADGET_ON_CONTAINER.replace("${name}", gadget));
 	}
-	
+
 	public void addNewGadget(String url, String name){
 		info("Add new gadget to dashboard");
 		click(ELEMENT_ADD_GADGETS_LINK);
@@ -154,7 +159,7 @@ public class DashBoard extends PlatformBase {
 		//waitForTextPresent(name);
 		waitForAndGetElement(ELEMENT_GADGET_TITLE.replace("${title}", name));
 	}
-	
+
 	/**
 	 * do action on gadget: maximize, minimize
 	 * @author phuongdt
@@ -191,5 +196,23 @@ public class DashBoard extends PlatformBase {
 		else{//(action.contains("Restore Down"))
 			waitForAndGetElement(By.xpath(ELEMENT_ACTION_ON_GADGET.replace("${gadgetTitleDisplay}", gadgetTitleDisplay).replace("${action}", "Maximize")));
 		}
+	}
+
+	/**
+	 * Edit RSS Reader gadget on Dashboard
+	 * @author havtt
+	 * @date 11-Nov-2013
+	 * 
+	 * @param numRSSdisplay
+	 */
+	public void editRSSReaderGadgetonDashboard(String numRSSdisplay){
+		info("----Open edit form of RSS reader gadget----");
+		waitForAndGetElement(ELEMENT_GADGET_LOCATOR.replace("${gadgetName}", "RSS Reader"));
+		click(ELEMENT_RSS_READER_EDIT_BUTTON);
+		Utils.pause(3000);
+		info("----Edit number of RSS displayed----");
+		type(ELEMENT_RSS_READER_NUM_INPUT,numRSSdisplay, true);
+		info("----Save the change----");
+		click(ELEMENT_RESS_READER_SAVE_BUTTON);
 	}
 }

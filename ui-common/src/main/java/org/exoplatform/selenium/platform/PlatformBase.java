@@ -86,6 +86,8 @@ public class PlatformBase extends TestBase {
 
 	/* Edit */
 	public final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
+	public final By ELEMENT_MENU_EDIT_SITES = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Site')]");
+	public final By ELEMENT_MENU_EDIT_SITES_NAV = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Navigation')]");
 	//Content
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[contains(@class,'quickEdit')]"); 
 	//By.className("quickEditUnchecked");
@@ -129,7 +131,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_LINK_SITES   = "//a[text()='Sites']";
 	public final String ELEMENT_LINK_GROUP = "//a[text()='Group Sites']";
 	public final String ELEMENT_LINK_BRANDING = "//a[text()='Branding']";
-	
+
 	//Administration
 	//IDE
 	public final By ELEMENT_LINK_IDE = By.linkText("IDE");
@@ -536,7 +538,7 @@ public class PlatformBase extends TestBase {
 	//Default gadget on homepage
 	public final By ELEMENT_CALENDAR_GADGET = By.xpath("//div[@id='OfficeRight']//div[@class='CalendarPortletContainer']");
 	public final By ELEMENT_GETTING_STARTED_GADGET = By.xpath("//div[@id='OfficeRight']//div[@class='GettingStartedContainer']");
-	public final By ELEMENT_GETTING_SUGGESTIONS = By.xpath("//div[@id='OfficeRight']//div[@class='uiBox uiSuggestions']");
+	public final By ELEMENT_GETTING_SUGGESTIONS = By.xpath("//div[@class='uiBox uiSuggestions']");
 
 	//Calendar gadget
 	public static By ELEMENT_CALENDAR_GADGET_SETTING_ICON = By.xpath("//a[@class='settingsLink actionIcon pull-right ']//i[@class='uiIconSetting uiIconLightGray']");
@@ -585,6 +587,22 @@ public class PlatformBase extends TestBase {
 	//Search porlet
 	public final By ELEMENT_SEARCH_APPLICATION = By.xpath("//a[@title='Search']");
 	public final String ELEMENT_GADGET_SEARCH_APPLICATION_PAGE_EDITOR = "//div[@id='UIApplicationList17']//div[contains(text(),'${gadget}')]";
+
+
+	//Administration Menu for admin acc
+
+	//public final By ELEMENT_MENU_ADMIN_DROPDOWN = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']/a[@class='dropdown-toggle']");
+	//public final By ELEMENT_MENU_USERS = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/newStaff' and text()='Users']");
+	//public final By ELEMENT_MENU_APPLICATONS = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/registry']");
+	//public final By ELEMENT_MENU_CONTENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:web-contributors/siteExplorer' and text()='Content']");
+	//public final By ELEMENT_MENU_PORTAL = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/pageManagement' and text()='Portal']");
+	//public final By ELEMENT_MENU_PORTAL_PAGES_MANAGEMENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/pageManagement' and text()='Pages']");
+	public final By ELEMENT_MENU_ADMININISTRATION = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/servicesManagement' and text()='Administration']");
+
+	public By ELEMENT_MENU_MYMENU = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+
+	//Sign-in & Sign-out msg
+	public By ELEMENT_SIGNIN_FAIL_MSG = By.className("signinFail");
 
 	///////////////////
 	//Set view permissions for portal

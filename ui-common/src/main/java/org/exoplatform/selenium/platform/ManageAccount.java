@@ -35,10 +35,14 @@ public class ManageAccount extends PlatformBase {
 	NavigationToolbar navTool;
 
 	//Sign-in function for eXoGTN
-	public void signIn(String username, String password) {
-		driver.manage().window().maximize();
-		driver.navigate().refresh();
-		Utils.pause(2000);
+	public void signIn(String username, String password,Boolean...opParams) {
+		Boolean verify = (Boolean) (opParams.length > 0 ? opParams[0]: true);
+		Boolean maxWin = (Boolean) (opParams.length > 1 ? opParams[1]: true);
+		if(maxWin){
+			driver.manage().window().maximize();
+			driver.navigate().refresh();
+			Utils.pause(2000);
+		}
 		if (firstTimeLogin){
 			signOut();
 			firstTimeLogin = false;
@@ -52,7 +56,8 @@ public class ManageAccount extends PlatformBase {
 		type(ELEMENT_INPUT_USERNAME, username, true);
 		type(ELEMENT_INPUT_PASSWORD, password, true);
 		click(ELEMENT_SIGN_IN_BUTTON);
-		waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON);
+		if(verify)
+			waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON);
 	}
 
 	//Sign-out for eXoGTN
