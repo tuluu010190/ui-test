@@ -46,6 +46,9 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_1 = "//*[text()='${title}']/ancestor::div[@class='boxContainer']//*[@class='contentComment']";
 	public final String ELEMENT_COMMENTBOX="//*[text()='${title}']/../../../..//div[@class='exo-mentions']/div[contains(@id,'DisplayCommentTextarea')]";
 	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
+	public final String ELEMENT_COMMENT_BLOCK = "//a[contains(text(),'${title}')]/../../../..//div[contains(@class,'commentItem commentItemLast')]";
+	public final String ELEMENT_COMMENT_LAST = "//a[contains(text(),'${title}')]/../../../..//div[contains(@class,'commentItem commentItemLast')]//*[contains(text(), '${comment}')]";
+
 	//Comment box for ECMS data type
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_2 = "//*[@title='${title}']/ancestor::div[@class='boxContainer']//*[@class='contentComment']";
 	public final String ELEMENT_ACTIVITY_DELETE_COMMENT_ICON = "//*[@class='contentComment' and contains(text(), '${comment}')]/../..//*[contains(@id, 'DeleteCommentButton')]";
@@ -106,9 +109,9 @@ public class HomePageActivity extends PlatformBase{
 
 	//Answer activity
 	public final String ELEMENT_QUESTION_CONTENT = "//a[text()='${title}']/../../..//div[@class='contentAnswer theContent']//p";
-	public final String ELEMENT_QUESTION_NUM_ANSWER = "//div[@class='contentAnswer theContent']//span[contains(text(),'${number} Answer')]";
-	public final String ELEMENT_QUESTION_NUM_COMMENT = "//div[@class='contentAnswer theContent']//span[contains(text(),'${number} Comment')]";
-	public final String ELEMENT_QUESTION_COMMENT = "//a[text()='${title}']/../../../..//div[@class='commentList']//p[@class='contentComment' and contains(text(), '${comment}')]";
+	public final String ELEMENT_QUESTION_NUM_ANSWER = "//a[contains(text(),'${title}')]/../../../..//div[@class='contentAnswer theContent']//span[contains(text(),'${number} Answer')]";
+	public final String ELEMENT_QUESTION_NUM_COMMENT = "//a[contains(text(),'${title}')]/../../../..//div[@class='contentAnswer theContent']//span[contains(text(),'${number} Comment')]";
+	public final String ELEMENT_QUESTION_COMMENT = "//a[contains(text(),'${title}')]/../../../..//div[@class='commentList']//p[@class='contentComment' and contains(text(), '${comment}')]";
 	public final String ELEMENT_QUESTION_RATE = "//a[@class='linkTitle' and text()='${title}']/../..//div[@class='avgRatingImages sumaryRate']/i[@class='voted'][${rate}]";
 	public final String ELEMENT_QUESTION_HAFT_RATE = "//a[@class='linkTitle' and text()='${title}']/../..//div[@data-original-title='Average']/i[@class='votedHaft']";
 	public final String ELEMENT_QUESTION_VIEW_COMMENT = "//a[text()='${title}']/../../../..//div[@class='commentListInfo clearfix']/a";
@@ -120,6 +123,7 @@ public class HomePageActivity extends PlatformBase{
 	public final String MSG_ANSWER_DISAPPROVE = "Answer has been unapproved: ${answer}";
 	public final String MSG_QUESTION_ADD_LANGUAGE = "Question has been added in: ${language}";
 	
+
 	//Forum activity
 	public final String ELEMENT_FORUM_ACT_CONTENT = "//a[text()='${title}']/../../..//div[@class='contentForum theContent']//p";
 	public final String ELEMENT_FORUM_NUMBER_REPLY = "//a[text()='${title}']/../../..//div[@class='contentForum theContent']/span[text()='${number} Replies']";
@@ -546,7 +550,7 @@ public class HomePageActivity extends PlatformBase{
 		info("Check for comment for Answer of question on activity");
 		driver.navigate().refresh();
 		//Check number of answer
-		waitForAndGetElement(ELEMENT_QUESTION_NUM_ANSWER.replace("${number}", Integer.toString(number)));
+		waitForAndGetElement(ELEMENT_QUESTION_NUM_ANSWER.replace("${title}",question).replace("${number}", Integer.toString(number)));
 
 		for (int i = 0; i < number; i ++){
 			waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", MSG_ANSWER_QUESTION.replace("${answer}", answer[i])));
@@ -564,7 +568,7 @@ public class HomePageActivity extends PlatformBase{
 		info("Check for comment of question on activity");
 
 		//Check number of comment
-		waitForAndGetElement(ELEMENT_QUESTION_NUM_COMMENT.replace("${number}", Integer.toString(number)));
+		waitForAndGetElement(ELEMENT_QUESTION_NUM_COMMENT.replace("${title}", question).replace("${number}", Integer.toString(number)));
 		for (int i = 0; i < number; i ++){
 			waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", comment[i]));
 		}
@@ -742,7 +746,8 @@ public class HomePageActivity extends PlatformBase{
 		waitForTextPresent(lastReply);
 
 	}
-	/** View Answer, comment, reply...from comment of activity
+
+	/** View Answer, comment, reply of topic...from comment of activity
 	 * @author thuntn
 	 * @param activity: title of question, topic...
 	 * @param comment: comment of activity
@@ -864,5 +869,20 @@ public class HomePageActivity extends PlatformBase{
 		else{
 			waitForElementNotPresent(By.linkText(task));
 		}
+	}
+
+	/**
+	 * Check activity of a question after just creating it
+	 * @param name: name of question
+	 * @param content: content of question
+	 */
+	public void checkActivityAfterCreatingQuestion(String name, String content){
+		info("Check activity of a question after just creating it");
+
+		waitForAndGetElement(By.linkText(name));
+		waitForElementNotPresent(ELEMENT_COMMENT_BLOCK.replace("${title}", name));
+		waitForAndGetElement(ELEMENT_QUESTION_CONTENT.replace("${title}", name));
+		waitForAndGetElement(ELEMENT_QUESTION_NUM_COMMENT.replace("${title}", name).replace("${number}", "No"));
+		checkNumberOfLineOfContent(getText(ELEMENT_QUESTION_CONTENT.replace("${title}", name)), content);
 	}
 }

@@ -33,6 +33,9 @@ public class PlatformBase extends TestBase {
 	public ManageAlert alert = new ManageAlert(driver);
 	public Button button = new Button(driver);
 
+	/****************Common Elements*******************/
+	public final String ELEMENT_CONTAINS_TEXT = "//*[contains(text(),'${text}')]"; 
+
 	/*
 	 * Default Page - http://localhost:8080/portal/default/
 	 * */
@@ -1102,9 +1105,9 @@ public class PlatformBase extends TestBase {
 		driver.manage().window().maximize();
 
 		//login to mail
-		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, DEFAULT_TIMEOUT,0) == null)
+		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 50000,0) == null)
 			click(ELEMENT_GMAIL_SIGN_IN_LINK); 
-		
+
 		waitForAndGetElement(ELEMENT_GMAIL_USERNAME,60000);
 		type(ELEMENT_GMAIL_USERNAME, email, true);
 		type(ELEMENT_GMAIL_PASS, pass, true);
@@ -1203,5 +1206,23 @@ public class PlatformBase extends TestBase {
 		driver.get(baseUrl);
 		ManageAccount  acc = new ManageAccount(driver);
 		acc.signIn(User2, Pass2);
+	}
+
+	/**
+	 * function get an element from link text when cannot get by text in xpath
+	 * @param text
+	 * @return
+	 */
+	public WebElement getElementFromTextByJquery(String text){
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		Utils.pause(2000);
+		try{
+			WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
+			return web;
+		}catch(org.openqa.selenium.WebDriverException e){
+			WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
+			return web;
+		}
 	}
 }
