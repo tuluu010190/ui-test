@@ -38,6 +38,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 /**
  * 
  * @author phuongdt
@@ -45,6 +46,9 @@ import org.testng.annotations.Test;
  *
  */
 public class PLF_UnifiedSearch extends Template {
+	//General
+	Button button;
+	
 	//Platform
 	NavigationToolbar naviToolbar;
 	ManageAccount magAcc;

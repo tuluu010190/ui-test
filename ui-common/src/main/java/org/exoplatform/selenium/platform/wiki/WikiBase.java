@@ -15,11 +15,8 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 /**
- * Migrate to PLF 4
- * <li>Update by @author vuna2</li>
- */
-/* @author: Thuntn
- * @date: 14/11/2012
+ * 
+ * 
  */
 public class WikiBase extends PlatformBase{
 

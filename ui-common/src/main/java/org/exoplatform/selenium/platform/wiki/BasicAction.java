@@ -13,11 +13,10 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 
 /**
- * Migrate to PLF 4
- * @author vuna2
- *
+ * Provides all methods of adding and editing pages. 
+ * 
+ * 
  */
-
 public class BasicAction extends Permission{
 
 	//Dialog dialog = new Dialog(driver);
@@ -25,7 +24,7 @@ public class BasicAction extends Permission{
 	//ManageAlert magAlert;
 
 	Dialog dialog = new Dialog(driver);
-	public Button button = new Button(driver);
+	Button button = new Button(driver);
 	ManageAlert magAlert = new ManageAlert(driver);
 	
 	public String ELEMENT_RESTRICTED_WIKI = "//*[@id='UIWikiPageInfoArea']//a[@data-original-title='This page is restricted. Click to share.']";
@@ -35,12 +34,21 @@ public class BasicAction extends Permission{
 	// Wiki page
 	/*===================== Add Page ====================*/	
 
-	/** Add a wiki page from blank
-	 * @author thuntn
-	 * @param title
+	/** 
+	 * Add a blank wiki page in Intranet Wiki or Space Wiki
+	 * 
+	 * 
+	 * @param title 
+	 * 				title of the wiki page that need creating. Can not be <code>null</code>
 	 * @param content
-	 * @param mode =1: edit a wiki page in richtext
-	 * mode =0 : edit a wiki page in source editor
+	 * 				content of the wiki page that need creating. Can not be <code>null</code>
+	 * @param mode
+	 * 				options to choose whether to create new wiki page with RichText editor or Source editor
+	 * 					mode =1: edit a wiki page in richtext
+	 * 	 	  			mode =0 : edit a wiki page in source editor
+	 * @param option
+	 * 				options to cancel or save wiki page. Can be <code>null</code>
+	 * 
 	 */
 	public void addBlankWikiPage(String title, String content, int mode, Object... option){
 		info("-- Adding a new wiki page... --");
@@ -93,11 +101,14 @@ public class BasicAction extends Permission{
 	}
 
 	/**
-	 * Modify data with source editor
-	 * @author hakt
-	 * updated: thuntn
+	 * Modify Wiki content with Source editor
+	 * 
+	 * 
 	 * @param title
+	 * 			updated title of the wiki page. Can not be <code>null</code>
 	 * @param content
+	 * 			updated content of the wiki page. Can not be <code>null</code>
+	 * 
 	 */
 	public void addWikiPageSourceEditor(String title, String content){
 		info("Modify data with source editor");
@@ -113,11 +124,14 @@ public class BasicAction extends Permission{
 	}
 
 	/**
-	 * Modify data with rich editor
-	 * @author hakt
-	 * updated: thuntn
+	 * Modify Wiki content with RichText editor
+	 * 
+	 * 
 	 * @param title
+	 * 			updated title of the wiki page. Can not be <code>null</code>
 	 * @param content
+	 * 			updated content of the wiki page. Can not be <code>null</code>
+	 * 
 	 */
 	public void addWikiPageRichText(String title, String content){
 		if(title != null)
@@ -134,13 +148,22 @@ public class BasicAction extends Permission{
 	}
 
 	/**
-	 * @author vuna2
-	 * @param totalPages: number of created page (int)
-	 * @param wikiParentPath: parent (path) of created page 
-	 * @param titlePage: page name (String)
-	 * @param contentPage: page content (String)  
-	 * @param mode = 1 : edit a wiki page in richtext
-	 *        mode = 0 : edit a wiki page in source editor
+	 * Add a blank Wiki page with Advance options
+	 * 
+	 * 
+	 * @param totalPages 
+	 * 				number of created Wiki page. Can not be <code>null</code>
+	 * @param wikiParentPath 
+	 * 				parent (path) of created Wiki page. Can not be <code>null</code> 
+	 * @param titlePage
+	 * 				Wiki page name. Can not be <code>null</code>
+	 * @param contentPage 
+	 * 				Wiki page content. Can not be <code>null</code>  
+	 * @param mode
+	 * 				options to choose whether wiki page will be edited in RichText mode or Source mode
+	 * 					mode = 1 : edit a wiki page in richtext
+	 *        			mode = 0 : edit a wiki page in source editor
+	 * 
 	 */
 	public void addBlankWikiPageAdvanceForm(int totalPages, String[] wikiParentPath, String[] titlePage, String[] contentPage, int mode){
 		goToWiki();	
@@ -151,13 +174,19 @@ public class BasicAction extends Permission{
 		Utils.pause(1000);
 	}
 
-	/** Edit a wiki page
-	 * @author thuntn
+	/** 
+	 * Edit a wiki page
+	 * 
+	 * 
 	 * @param title
+	 * 				Wiki page name. Can not be <code>null</code>
 	 * @param content
-	 * @param mode =0 : edit a wiki page in source editor
-	 * mode =1: edit a wiki page in richtext
-	 * If you don't want to edit any field, you can pass null value to the respective parameter
+	 * 				Wiki page content. Can not be <code>null</code>  
+	 * @param mode	
+	 * 				Options to choose whether wiki page will be edited in RichText mode or Source mode. Can be <code>null</code>
+	 * 					mode =0 : edit a wiki page in source editor
+	 * 					mode =1: edit a wiki page in richtext
+	 * 
 	 */
 	public void editWikiPage(String title, String content, int mode)
 	{
@@ -187,8 +216,13 @@ public class BasicAction extends Permission{
 	}
 
 	//===========Delete wiki page ===========//
-	/** Delete a wiki page
-	 * @author thuntn
+	/** 
+	 * Delete a wiki page
+	 * 
+	 * 
+	 * @param cancel
+	 * 			Option to choose if you want to cancel a delete action or not. Can be <code>null</code>
+	 * 
 	 */
 	public void deleteCurrentWikiPage(boolean... cancel)
 	{
@@ -206,8 +240,12 @@ public class BasicAction extends Permission{
 	}
 
 	/**
-	 * @author vuna2
-	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 * Delete a path of Wiki nodes
+	 * 
+	 * 
+	 * @param wikiPath 
+	 * 			an element path indicates how to access wiki page (eg, "Wiki home/WikiTest"). Can not be <code>null</code>
+	 * 
 	 */
 	public void deleteWikiPage(String[] wikiPath){
 		String[] nodes = null;
@@ -225,12 +263,17 @@ public class BasicAction extends Permission{
 	//=========== Preview wiki page  =========//
 	/**
 	 * Preview wiki page before saving
-	 * @param title : Page title
-	 * @param content : Page content
-	 * @param mode : editor mode
+	 * 
+	 * 
+	 * @param title
+	 * 			 Page title. Can not be <code>null</code> 
+	 * @param content
+	 * 			 Page content. Can not be <code>null</code>
+	 * @param mode
+	 * 			 Option to choose the editor mode. Can be <code>null</code>
 	 *             - 1 for RichTextEditor
 	 *             - 0 for textarea element
-	 * @author dunghm
+	 *             
 	 */
 	public void previewWikiPage(String title, String content,int mode){
 		mouseOverAndClick(ELEMENT_ADD_PAGE_LINK);
@@ -250,9 +293,14 @@ public class BasicAction extends Permission{
 	}
 
 	/**
-	 * Verify a specific confirm message in wiki 
-	 * @param message : message for confirmation
-	 * @param isCancel : OK will be click by default, but if isCancel is set true, Cancel button will be click
+	 * Verify a specific confirm message in Wiki 
+	 * 
+	 * 
+	 * @param message
+	 * 				message for confirmation. Can not be <code>null</code>
+	 * @param isCancel 
+	 * 				OK will be click by default, but if isCancel is set true, Cancel button will be click. Can be <code>null</code>
+	 *
 	 */
 	public void waitForWikiConfirmation(String message, boolean...isCancel){
 		//By btnOK = By.xpath("//input[@type='button' and @value='OK']");
@@ -271,9 +319,14 @@ public class BasicAction extends Permission{
 
 	/*================ Related page ============*/
 	/**
-	 * @author vuna2
-	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
-	 * @param pageName: name of related page (String)
+	 * Add related page(s) to a Wiki page
+	 * 
+	 * 
+	 * @param wikiPath 
+	 * 			an element path indicates how to access wiki page (eg, "Wiki home/WikiTest"). Can not be <code>null</code>
+	 * @param pageName 
+	 * 			name of related page. Can not be <code>null</code>
+	 * 
 	 */
 	public void addRelatedPage(String wikiPath, String pageName, Object...opts){
 		String space = (String) (opts.length > 0 ? opts[0] : "");
@@ -306,11 +359,19 @@ public class BasicAction extends Permission{
 	}
 
 	/**
-	 * @author vuna2
-	 * @param delete: boolean (true = delete a page / false = just click on Remove link)
-	 * @param direct: boolean (user is currently stay in page info window)
-	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
-	 * @param pageName: name of related page (String)
+	 * Remove related page(s) of a Wiki page
+	 * 
+	 * 
+	 * @param delete 
+	 * 				true - delete a page
+	 * 				false - just click on Remove link
+	 * @param direct
+	 * 				user is currently stay in page info window or change to other window
+	 * @param wikiPath 
+	 * 				an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 * @param pageName
+	 * 				name of related page. Can not be <code>null</code>.
+	 * 
 	 */
 	public void removeRelatedPage(boolean delete, boolean direct, String wikiPath, String pageName){
 		magAlert = new ManageAlert(driver);
@@ -334,14 +395,29 @@ public class BasicAction extends Permission{
 	//////////
 	//==== Common of common functions ====//
 	/**
-	 * @author vuna2
-	 * @param totalPages: number of created page (int)
-	 * @param wikiParentPath: parent (path) of created page 
-	 * @param pageInfo: (pageInfo[0] = page name / pageInfo[1] =  page content)
-	 * @param mode = 1 : edit a wiki page in richtext
-	 *        mode = 0 : edit a wiki page in source editor
-	 * @param wikiPath : an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
-	 * @param pageName : name of related page (String
+	 * Add blank Wiki page with Related page
+	 * 
+	 * 
+	 * @param totalPages
+	 * 				number of created page. Can not be <code>null</code>.
+	 * @param wikiParentPath
+	 * 				parent (path) of created page. Can not be <code>null</code>. 
+	 * @param pageInfo
+	 * 				pageInfo[0] = page name
+	 * 				pageInfo[1] =  page content
+	 * 				Can not be <code>null</code>.
+	 * @param mode
+	 * 				Option to choose if editor is RichText or Source
+	 * 					mode = 1 : edit a wiki page in richtext
+	 *        			mode = 0 : edit a wiki page in source editor
+	 * @param wikiPath 
+	 * 				an element path indicates how to access wiki page (eg, "Wiki home/WikiTest"). Can not be <code>null</code>.
+	 * @param pageName
+	 * 				name of related page. Can not be <code>null</code>.
+	 * 
+	 * @see #addBlankWikiPageAdvanceForm(int, String[], String[], String[], int)
+	 * @see #addRelatedPage(String, String, Object...)
+	 * 
 	 */
 	public void addBlankWikiPageAndRelatePage(int totalPages, String[] wikiParentPath, String[][] pageInfo, int mode, String wikiPath, String pageName){
 		addBlankWikiPageAdvanceForm(totalPages, wikiParentPath, pageInfo[0], pageInfo[1], mode);
@@ -349,14 +425,28 @@ public class BasicAction extends Permission{
 	}
 
 	/**
-	 * @author vuna2
-	 * @param totalPages: number of created page (int)
-	 * @param wikiParentPath: parent (path) of created page 
-	 * @param pageInfo: (pageInfo[0] = page name / pageInfo[1] =  page content)
-	 * @param mode = 1 : edit a wiki page in richtext
-	 *        mode = 0 : edit a wiki page in source editor	 * @param editInfo
-	 * @param editInfo : an Array Of Booleans (viewPage/editPage/deletePermission)       
-	 * @param user: users or groups that we want to change their permissions
+	 * Add a blank wiki page and then edit page permission
+	 * 
+	 * 
+	 * @param totalPages
+	 * 			number of created page. Can not be <code>null</code>.
+	 * @param wikiParentPath
+	 * 			parent (path) of created page. Can not be <code>null</code>. 
+	 * @param pageInfo
+	 * 				pageInfo[0] = page name
+	 * 				pageInfo[1] =  page content
+	 * 				Can not be <code>null</code>.
+	 * @param mode
+	 * 			Option to choose if editor is RichText or Source
+	 * 					mode = 1 : edit a wiki page in richtext
+	 *        			mode = 0 : edit a wiki page in source editor	 
+	 * @param editInfo 
+	 * 			viewPage/editPage/deletePermission. Can not be <code>null</code>.        
+	 * @param user 
+	 * 			users or groups that we want to change their permissions. Can not be <code>null</code>.
+	 * 
+	 * @see #addBlankWikiPage(String, String, int, Object...)
+	 * 
 	 */
 	public void addBlankWikiPageAndEditPagePermissions(int totalPages, String[] wikiParentPath, String[][] pageInfo, int mode, 
 			boolean[] editInfo, String user, Integer... type){
@@ -372,9 +462,16 @@ public class BasicAction extends Permission{
 	}
 
 	/**
-	 * @author vuna2
-	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
-	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 * Remove test data by deleting wiki page
+	 * 
+	 * 
+	 * @param user
+	 * 			type: Root, Admin, Author, Developer or Publisher. Can not be <code>null</code>.  
+	 * @param wikiPath
+	 * 			an element path indicates how to access wiki page (eg, "Wiki home/WikiTest"). Can not be <code>null</code>.  
+	 * 
+	 * @see #deleteWikiPage(String[])
+	 * 
 	 */
 	public void resetDataByDeleteWikiPage(ManageAccount.userType user, String[] wikiPath){
 		magAcc = new ManageAccount(driver);
@@ -390,11 +487,18 @@ public class BasicAction extends Permission{
 
 	//////////
 	/**
-	 * @lienTM
-	 * function check a user can view and edit wiki page 
+	 * Check if a user can view and edit wiki page 
+	 * 
+	 * 
 	 * @param element_page
-	 * @param content: old content of page
-	 * @param new_content: New content of page
+	 * 			Page that need to be checked.  Can not be <code>null</code>.
+	 * @param content
+	 * 			Old content of page.  Can not be <code>null</code>.
+	 * @param new_content
+	 * 			New content of page.  Can not be <code>null</code>.
+	 * 
+	 * @see #editWikiPage(String, String, int)
+	 * 
 	 */
 	public void checkViewEditPage(By element_page, String content, String new_content){
 		goToWiki();
@@ -406,9 +510,18 @@ public class BasicAction extends Permission{
 	}
 
 	/**
-	 * @lienTM
-	 * function: check permission default when just add user for wiki page then add Edit page permission
-	 * @param user: user/group
+	 * Check permission default when just add user for wiki page then add Edit page permission
+	 * 
+	 * 
+	 * @param user 
+	 * 			User or group to set permission.  Can not be <code>null</code>.
+	 * @param type 
+	 * 
+	 * @throws IllegalArgumentException 
+	 * 				if value of variable "type" is not an integer
+	 * 
+	 * @see #editPagePermission(String, boolean, boolean, Object...)
+	 * 
 	 */
 	public void checkAndEditPagePermission(String user, Integer... type){
 		int notDisplay = 0;
@@ -445,9 +558,14 @@ public class BasicAction extends Permission{
 	//Wiki page
 	/*================= Paragraph =================*/
 	/**
-	 * @author thaopth
-	 * @param paragraphTitle: input paragraph title without space character
-	 * @param paragraphContent: input paragraph content with heading followed help tips
+	 * Edit paragraph in a Wiki page
+	 * 
+	 * 
+	 * @param paragraphTitle
+	 * 				input paragraph title without space character.  Can not be <code>null</code>.
+	 * @param paragraphContent
+	 * 				input paragraph content with heading followed help tips.  Can not be <code>null</code>.
+	 * 
 	 */
 	public void editParagraph (String paragraphTitle, String paragraphContent) {
 		info("-- Editing a paragraph... " + paragraphTitle);
@@ -469,10 +587,18 @@ public class BasicAction extends Permission{
 	}
 	
 	/**
-	 * function add blank wiki page has attachment
+	 * Add blank wiki page with an attachment
+	 * 
+	 * 
 	 * @param title
+	 * 			Title of a wiki page.  Can not be <code>null</code>.
 	 * @param content
+	 * 			Content of a wiki page.  Can not be <code>null</code>.
 	 * @param link
+	 * 			Link of attachment which will be inserted into a Wiki page.  Can not be <code>null</code>.
+	 * 
+	 * @see #addWikiPageSourceEditor(String, String)
+	 * 
 	 */
 	public void addBlankWikiPageHasAttachment(String title, String content, String link){
 		goToAddBlankPage();
@@ -487,10 +613,15 @@ public class BasicAction extends Permission{
 		waitForAndGetElement(By.xpath(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "" + upload.length)));
 	}
 	
-	/** function edit wiki page that check public activity
-	 * @author lientm
+	/** Edit wiki page that check public activity
+	 * 
+	 * 
 	 * @param title
+	 * 			Title of a wiki page.  Can not be <code>null</code>.
 	 * @param content
+	 * 			Content of a wiki page.  Can not be <code>null</code>.
+	 * @see #addWikiPageSourceEditor(String, String)
+	 * 
 	 */
 	public void editPageWithCheckPublicActivity(String title, String content, String...comment){
 		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
@@ -504,9 +635,16 @@ public class BasicAction extends Permission{
 	}
 	
 	/**
-	 * function add new blank wiki page at source editor mode with content including many line
+	 * Add new blank wiki page at source editor mode with content including many line
+	 * 
+	 * 
 	 * @param title
+	 * 			Title of a wiki page.  Can not be <code>null</code>.
 	 * @param content
+	 * 			Content of a wiki page.  Can not be <code>null</code>.
+	 * 
+	 * @see #goToAddBlankPage()
+	 * 
 	 */
 	public void addWikiPageWithContentMultiLine(String title, String content){
 		goToAddBlankPage();

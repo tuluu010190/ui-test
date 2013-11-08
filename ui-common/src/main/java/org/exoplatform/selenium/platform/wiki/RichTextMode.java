@@ -12,8 +12,7 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 /**
- * @date: 2-July-2013
- * @author lientm
+ * 
  */
 public class RichTextMode extends Template {
 	Button but = new Button(driver);

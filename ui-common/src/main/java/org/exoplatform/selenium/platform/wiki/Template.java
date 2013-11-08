@@ -10,9 +10,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 /**
- * Migrate to PLF 4
- * @author vuna2
- *
+ * 
  */
 public class Template extends BasicAction{
 

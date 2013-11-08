@@ -9,7 +9,6 @@ import org.openqa.selenium.WebElement;
 
 /**
  * 
- * @author vuna2
  *
  */
 public class Version extends BasicAction{

@@ -10,8 +10,6 @@ import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 
 /**
- * Migrate to PLF 4
- * @author vuna2
  *
  */
 public class Permission extends WikiBase{

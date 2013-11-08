@@ -7,8 +7,9 @@ import org.exoplatform.selenium.platform.ManageAccount;
 import org.openqa.selenium.By;
 
 /**
- * @date July-2013
- * @author lientm
+ * Provides all methods to share/restrict a page's content with other users. 
+ * 
+ *
  */
 public class Permalink extends BasicAction {
 	ManageAccount magAc;
@@ -22,16 +23,23 @@ public class Permalink extends BasicAction {
 	public final String DATA_NOTIFY_RESTRICT = "This page is restricted. Only authorized users can view and edit it.";
 	public final String DATA_NOTIFY_PUBLIC = "This page is public. Anybody can view and edit it.";
 	
+	/**
+	 * Gets a permanent link by a given value.
+	 * 
+	 * @return The value.
+	 */
 	public String getPermalink(){
 		return getValue(ELEMENT_PERMALINK_TEXT);
 	}
 	
 	/**
-	 * @param user
-	 * @param permalink: URL of permalink
-	 * @param permission = true: user has view permission
-	 *                   = false: user does not have view permission
-	 * @param content: part of content of wiki page
+	 * Goes to a Wiki page by a permanent link.
+	 * 
+	 * 
+	 * @param user The username to log into Platform.
+	 * @param permalink The URL of a permalink.
+	 * @param permission Choose an option for user to view a Wiki page.
+	 * @param content The content of Wiki page.
 	 */
 	public void goToWikiByPermalink(String user, String permalink, boolean permission, String content){
 		magAc = new ManageAccount(driver);
@@ -49,11 +57,16 @@ public class Permalink extends BasicAction {
 		magAc.signOut();
 	}
 	
-	/** Make wiki public by 2 ways: click link "permalink" or click link "Restrict" link at wiki home
-	 * @author update by phuongdt
-	 * @param opParams(useRestrictLink = true: make public by Restrict link)
+	/** 
+	 * Makes public to the page which is needed to change into the public status.
+	 * 
+	 * 
+	 * @param opParams Choose an option to make Wiki page public. 
 	 */
 	public void makePublicPage(Boolean...opParams){
+		//update by phuongdt
+		//(useRestrictLink = true: make public by Restrict link)
+		
 		info("Make public page");
 		Boolean useRestrictLink = (Boolean)(opParams.length>0 ? opParams[0]:false);
 		if(useRestrictLink){
@@ -70,6 +83,10 @@ public class Permalink extends BasicAction {
 		dialog.closeMessageDialog();
 	}
 	
+	/**
+	 * Makes restriction to the page which is needed to change into the restricted status.
+	 * 
+	 */
 	public void makeRestrictedPage(){
 		dialog = new Dialog(driver);
 		info("Make restrict page");
@@ -80,6 +97,10 @@ public class Permalink extends BasicAction {
 		dialog.closeMessageDialog();
 	}
 	
+	/**
+	 * Goes to the permissions of Wiki page.
+	 * 
+	 */
 	public void goToPermissionFromPermalink(){
 		goToPermalink();
 		click(ELEMENT_PERMISSION_MANAGEMENT);	
