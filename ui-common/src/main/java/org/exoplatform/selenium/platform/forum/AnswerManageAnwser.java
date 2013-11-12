@@ -7,6 +7,7 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
+import org.exoplatform.selenium.platform.HomePageActivity;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -19,6 +20,8 @@ import org.openqa.selenium.WebElement;
 public class AnswerManageAnwser extends AnswerBase {
 	AnswerManageCategory magCat;
 	ManageAccount magAc;
+
+	HomePageActivity hpAct;
 	public AnswerManageAnwser(WebDriver dr){
 		driver = dr;
 		button = new Button(driver);
@@ -26,10 +29,11 @@ public class AnswerManageAnwser extends AnswerBase {
 		magCat = new AnswerManageCategory(driver);
 		magAc = new ManageAccount(driver);
 
+		hpAct = new HomePageActivity(driver);
 	}
-	
+
 	AnswerManageQuestion magQuest;
-	
+
 	//Manage answer for question
 	public final By ELEMENT_ANSWER_LINK_IN_QUESTION = By.xpath("//*[@class='questionAction']//*[contains(text(),'Answer')]");
 	public final By ELEMENT_ANSWER_CONTENTFRAME_1 = By.xpath("//iframe[@id='QuestionRespone___Frame']");
@@ -40,6 +44,7 @@ public class AnswerManageAnwser extends AnswerBase {
 	public final By ELEMENT_LAGUAGE_SELECTED = By.xpath("//*[@id='Language']/option[@selected='selected']");
 	public final By ELEMENT_ANSWER_LANGUAGE = By.id("Language");
 	public final String ELEMENT_ANSWER_IN_QUESTION = "//*[contains(@id, 'Answer')]//*[text()='${answer}']";
+	public final String ELEMENT_GET_ANSWER_IN_QUESTION = "//*[contains(@class, 'answerContent')]//p";
 	public final String ELEMENT_ANSWER_POSITION_IN_LIST = "//*[contains(@id, 'Answer')][${no}]//*[text()='${answer}']";
 	public final String MSG_ANSWER_PENDING = "Your answer is pending for moderation. It will be displayed after approval.";
 	public final By ELEMENT_MSG_ANSWER_EMPTY = By.xpath("//*[contains(text(),'Please provide an answer to the question.')]");
@@ -47,22 +52,22 @@ public class AnswerManageAnwser extends AnswerBase {
 	public final String MSG_DELETE_ANSWER_CONFIRM = "Are you sure you want to delete this answer ?";
 	public final By ELEMENT_ANSWER_PENDING_OK = By.xpath("//span[contains(text(),'Your answer is pending for moderation. It will be displayed after approval.')]/../../..//*[text()='OK']");
 	public final String ELEMENT_ANSWER_CONTENT = "//div[@class='answerContent']//p[text()='${answer}']";
-	
+
 	//More action menu
 	public final String ELEMENT_MORE_ANSWER_ACTION = "//*[text()='${answer}']/../../../../..//*[contains(text(), 'More Actions')]";
-	
+
 	//vote answer
 	public final String ELEMENT_ANSWER_VOTE_ICON = "//*[text()='${answer}']/../../..//*[contains(@id, 'FAQVoteAnswerUp')]";
 	public final String ELEMENT_ANSWER_UNVOTE_ICON = "//*[text()='${answer}']/../../..//*[contains(@id, 'FAQVoteAnswerDown')]";
 	public final String ELEMENT_ANSWER_NUMBER_VOTE = "//*[text()='${answer}']/../../..//*[@class='textVoteAnswer']";
 	public final By ELEMENT_SORT_BY_RATE = By.xpath("//a[@data-original-title='Sort Answers by Rate']");
-	
+
 	//	Add, remove relation
 	public final By ELEMENT_ADD_RELATION = By.xpath("//div[@title='Link to another entry']");
 	public final By ELEMENT_CATEGORY_TREE = By.xpath("//div[@class='FAQCategoryTreeView']//a[contains(text(),'categories')]");
 	public final String ELEMENT_QUESTION_IN_ADD_RELATION = "//*[text()='${question}']/..//input";
 	public final String ELEMENT_REMOVE_RELATION = "//*[contains(text(),'${question}')]//*[@data-original-title='Remove']";
-	
+
 	/*	---------------------------Answer a question-----------------------------------*/
 
 	/**function add relation for a answer
@@ -93,7 +98,7 @@ public class AnswerManageAnwser extends AnswerBase {
 			waitForElementNotPresent(ELEMENT_REMOVE_RELATION.replace("${question}", question[i]));
 		}
 	}	
-	
+
 	/**
 	 * function input data in answer form
 	 * @param language
@@ -141,7 +146,7 @@ public class AnswerManageAnwser extends AnswerBase {
 			click(ELEMENT_MSG_ANSWER_EMPTY_DIALOG_OK_BUTTON);
 		}
 	}
-	
+
 	/**
 	 * function answer a question with many way
 	 * @param way
@@ -180,7 +185,7 @@ public class AnswerManageAnwser extends AnswerBase {
 		modifyAnwser(language, answerContent, approved, activated, addRelation, questionToLink, removeRelation, questionRemove);
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * function go to an action in More Actions link of a answer
 	 * @param answer
@@ -207,7 +212,13 @@ public class AnswerManageAnwser extends AnswerBase {
 		info("Edit answer");	
 		goToMoreActionsOfAnswer(answerName, "Edit Answer");
 		modifyAnwser(language, answerContent, approved, activated, addRelation, questionToLink, removeRelation, questionRemove);
-		waitForAndGetElement(ELEMENT_ANSWER_IN_QUESTION.replace("${answer}", answerContent));
+		waitForElementNotPresent(ELEMENT_ANSWER_IN_QUESTION.replace("${answer}", answerName));
+		if(!answerContent.contains("<br/>"))
+			waitForAndGetElement(ELEMENT_ANSWER_IN_QUESTION.replace("${answer}", answerContent));
+		else{
+			info("Answer is "+getText(ELEMENT_GET_ANSWER_IN_QUESTION));
+			hpAct.checkNumberOfLineOfContent(getText(ELEMENT_GET_ANSWER_IN_QUESTION), answerContent,false);
+		}
 	}
 
 	/**
@@ -248,7 +259,7 @@ public class AnswerManageAnwser extends AnswerBase {
 			}
 		}
 	}
-	
+
 	/**
 	 * function activate/deactivate a answer
 	 * @param answer
@@ -274,7 +285,7 @@ public class AnswerManageAnwser extends AnswerBase {
 			}
 		}
 	}
-	
+
 	/**
 	 * function vote/unvote an answer
 	 * @param answer

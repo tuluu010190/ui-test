@@ -332,7 +332,7 @@ public class ForumBase extends PlatformBase {
 			WebElement element = waitForAndGetElement(ELEMENT_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1, 2);
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", element);
 			element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + file[i]));
-			waitForAndGetElement("//*[@class='fileNameLabel' and text()='" + file[i] + "']");
+			waitForAndGetElement("//*[@class='fileNameLabel' and contains(text(),'" + file[i] + "')]");
 		}
 		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_ATTACHMENT_SAVE_BUTTON);

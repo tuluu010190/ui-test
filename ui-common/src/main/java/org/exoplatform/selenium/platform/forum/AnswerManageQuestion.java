@@ -96,8 +96,8 @@ public class AnswerManageQuestion extends AnswerBase {
 	public final By ELEMENT_SEND_LINK_IN_CONTEXT_MENU = By.xpath("//*[@class='dropdown-menu dropdownArrowTop']//a[text()='Send']");
 
 	//Attachment file popup
-	public final By ELEMENT_ATTACH_FILE_LINK = By.xpath("//a[contains(text(),'Attach a file')]");
-	public final By ELEMENT_POPUP_UPLOAD_FILE = By.xpath("//span[@class='PopupTitle' and text()='Upload File']");
+	public final By ELEMENT_ATTACH_FILE_LINK = By.xpath("//a[contains(@href,'Attachment')]");
+	public final By ELEMENT_POPUP_UPLOAD_FILE = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Upload File']");
 
 	//Manage question popup
 	public final By ELEMENT_MANAGE_QUESTIONS = By.xpath("//*[contains(text(), 'Manage Questions')]");
@@ -446,7 +446,7 @@ public class AnswerManageQuestion extends AnswerBase {
 		waitForElementNotPresent(ELEMENT_OK_INFOR_POPUP);
 	}
 
-	/**
+	/** Rate a question
 	 * @author thuntn
 	 * @param rate: rate of question
 	 */

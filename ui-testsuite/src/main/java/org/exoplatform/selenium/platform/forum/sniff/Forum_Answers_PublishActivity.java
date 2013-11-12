@@ -172,7 +172,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		navTool.goToHomePage();
 		waitForAndGetElement(By.linkText(questionName));
 
-		HPAct.checkDeactivateQuestion(questionName);
+		HPAct.checkActivateQuestion(questionName,false);
 		//Activate this question to delete
 		goToAnswer();
 		mQuest.activeQuestion(questionName, true);

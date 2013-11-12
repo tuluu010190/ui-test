@@ -22,9 +22,7 @@ import org.openqa.selenium.internal.Locatable;
  */
 public class HomePageActivity extends PlatformBase{
 
-	Button button;
 	Dialog dialog;
-	ManageAlert alert;
 	ForumManagePost post;
 
 	public final By ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY = By.xpath("//*[text()='Are you sure you want to delete this activity?']");
@@ -43,6 +41,7 @@ public class HomePageActivity extends PlatformBase{
 	//Comment box
 	public final String ELEMENT_COMMENT_LINK = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'CommentLink')]";
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='contentComment']/../*[contains(text(), '${comment}')]";
+	public final String ELEMENT_GET_COMMENT_CONTENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentItem commentItemLast']/..//p";
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_1 = "//*[text()='${title}']/ancestor::div[@class='boxContainer']//*[@class='contentComment']";
 	public final String ELEMENT_COMMENTBOX="//*[text()='${title}']/../../../..//div[@class='exo-mentions']/div[contains(@id,'DisplayCommentTextarea')]";
 	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
@@ -113,16 +112,24 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_QUESTION_NUM_COMMENT = "//a[contains(text(),'${title}')]/../../../..//div[@class='contentAnswer theContent']//span[contains(text(),'${number} Comment')]";
 	public final String ELEMENT_QUESTION_COMMENT = "//a[contains(text(),'${title}')]/../../../..//div[@class='commentList']//p[@class='contentComment' and contains(text(), '${comment}')]";
 	public final String ELEMENT_QUESTION_RATE = "//a[@class='linkTitle' and text()='${title}']/../..//div[@class='avgRatingImages sumaryRate']/i[@class='voted'][${rate}]";
+	public final String ELEMENT_QUESTION_UNRATE = "//a[@class='linkTitle' and text()='${title}']/../..//div[@class='avgRatingImages sumaryRate']/i[@class='unvoted'][${rate}]";
 	public final String ELEMENT_QUESTION_HAFT_RATE = "//a[@class='linkTitle' and text()='${title}']/../..//div[@data-original-title='Average']/i[@class='votedHaft']";
 	public final String ELEMENT_QUESTION_VIEW_COMMENT = "//a[text()='${title}']/../../../..//div[@class='commentListInfo clearfix']/a";
 	public final String MSG_ANSWER_QUESTION = "Answer has been submitted: ${answer}";
+	public final String MSG_ANSWER_EDIT = "Answer has been edited to: ${answer}";
 	public final String ELEMENT_ANSWER_ACTIVITY_LINK = "//a[text()='${title}']/../../../..//a[contains(@id,'AnswerLink')]";
 	public final String ELEMENT_COMMENT_LABEL = "//*[text()='${title}']/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
 	public final String ELEMENT_COMMENT_BUTTON = "//*[text()='${title}']/../../../..//button[contains(@id,'CommentButton')]";
 	public final String MSG_ANSWER_APPROVE = "Answer has been approved: ${answer}"; 
 	public final String MSG_ANSWER_DISAPPROVE = "Answer has been unapproved: ${answer}";
 	public final String MSG_QUESTION_ADD_LANGUAGE = "Question has been added in: ${language}";
-	
+	public final String MSG_QUESTION_ACTIVATE = "Question has been activated.";
+	public final String MSG_QUESTION_UNACTIVATE = "Question has been unactivated.";
+	public final String MSG_ANSWER_UNACTIVATE = "Answer has been unactivated: ${answer}";
+	public final String MSG_ANSWER_ACTIVATE = "Answer has been activated: ${answer}";
+	public final String MSG_QUESTION_ADD_ATTACHMENT = "Attachment(s) has been added.";
+	public final String MSG_QUESTION_UPDATE_DESCRIPTON = "Detail has been updated to: ${description}";
+	public final String MSG_PROMOTE_COMMENT = "Comment ${comment} has been promoted as an answer";
 
 	//Forum activity
 	public final String ELEMENT_FORUM_ACT_CONTENT = "//a[text()='${title}']/../../..//div[@class='contentForum theContent']//p";
@@ -484,13 +491,22 @@ public class HomePageActivity extends PlatformBase{
 	 * @param name
 	 * @param content
 	 */
-	public void checkNumberOfLineOfContent(String activityContent, String content){
+	public void checkNumberOfLineOfContent(String activityContent, String content, boolean...checkActivity){
+		boolean check = checkActivity.length > 0 ? checkActivity[0] : true;
 		String[] sum = activityContent.split("\n");
 		String[] cont = content.split("<br>");
 		char[] character = activityContent.toCharArray();
 		char[] contChar = content.toCharArray();
 
 		info("Check content and number of lines of content on activity");
+		
+		if(content.contains("<br>")){
+			cont = content.split("<br>");
+			contChar= content.toCharArray();
+		}else{
+			cont = content.split("<br/>");
+		}
+		
 		if (activityContent.contains("...")){
 			String sumary = activityContent.replace("...", "");
 			sum = sumary.split("\n");
@@ -498,28 +514,28 @@ public class HomePageActivity extends PlatformBase{
 			if(content.contains("...")){
 				String contentTemp = content.replace("...", "");
 				cont = contentTemp.split("<br>");
-				contChar = contentTemp.toCharArray();
+
 			}
 		}
-		if (sum.length > 4){
+		if ((sum.length > 4) & check){
 			Assert.assertFalse(false, "This content has more than 4 lines");
 
 		}else {
-			if (sum.length == 4) 
+			if(content.contains("<br>") || content.contains("<br/>")){
 				for (int i = 0; i < sum.length; i ++){
 					assert sum[i].equalsIgnoreCase(cont[i]);
-				}
-			else {
-				if (contChar.length >= 430) {
-					assert (character.length == 430);
-					for (int i = 0; i < 430; i ++){
-						assert (character[i]==contChar[i]);
-					}
-				}else{
-					for (int i = 0; i < contChar.length; i ++){
-						assert (character[i]==contChar[i]);
-					}
 				} 
+				return;
+			}
+			if (contChar.length >= 430) {
+				assert (character.length == 430);
+				for (int i = 0; i < 430; i ++){
+					assert (character[i]==contChar[i]);
+				}
+			}else{
+				for (int i = 0; i < contChar.length; i ++){
+					assert (character[i]==contChar[i]):"Character " + i +" ("+contChar[i]+","+character[i]+") is different";
+				}
 			}
 		}
 
@@ -533,11 +549,16 @@ public class HomePageActivity extends PlatformBase{
 		int round = rate.intValue();
 		Double remaining = rate - round;
 		for (int i = 1; i <= rate ; i++){
-			waitForAndGetElement(ELEMENT_QUESTION_RATE.replace("${title}", name).replace("${rate}", Integer.toString(round)));
+			waitForAndGetElement(ELEMENT_QUESTION_RATE.replace("${title}", name).replace("${rate}", Integer.toString(i)));
 		}
 		if (remaining != 0 ){
 			waitForAndGetElement(ELEMENT_QUESTION_HAFT_RATE.replace("${title}", name));
 		}
+		for (int j = 5; j > rate ; j--){
+			waitForAndGetElement(ELEMENT_QUESTION_UNRATE.replace("${title}", name).replace("${rate}", Integer.toString(j-round)));
+			info("i is " + Integer.toString(j));
+		}
+
 	}
 	/** Check number of answer, and comment of Answer
 	 * @author thuntn
@@ -557,11 +578,10 @@ public class HomePageActivity extends PlatformBase{
 		}
 	}
 
-	/** Check number of answer, and comment of Answer
+	/** Check number of comment, and comment of question
 	 * @author thuntn
 	 * @param question
-	 * @param number
-	 * @param comment
+	 * @param comment: optional, comment of question
 	 */
 	public void checkCommentOfQuestion(String question, String...comment){
 		int number = comment.length;
@@ -575,23 +595,42 @@ public class HomePageActivity extends PlatformBase{
 	}
 	/** Check comment on activity after activating a question
 	 * @author thuntn
-	 * @param question
+	 * @param question: name of question
+	 * @param activate: optional
+	 * 					= true: check activity in case activate question
+	 * 					= false: check activity in case unactivate question
+	 * 					if not passed, check activity in case activate question
 	 */
-	public void checkActivateQuestion(String question){
-		info("Check for comment of question after activating a question");
-
-		waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", "Question has been activated."));
+	public void checkActivateQuestion(String question, boolean...activate){
+		boolean act = activate.length > 0 ? activate[0]: true;
+		if(act){
+			info("Check for comment of question after activating a question");
+			waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", MSG_QUESTION_ACTIVATE));
+		}else{
+			info("Check for comment of question after deactivating a question");
+			waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", MSG_QUESTION_UNACTIVATE));
+		}
 	}
 
-	/** Check comment on activity after deactivating a question
+	/** Check comment on activity after activating, deactivating an answer
 	 * @author thuntn
-	 * @param question
+	 * @param question: name of question
+	 * @param activate: optional
+	 * 					= true: check activity in case activate answer
+	 * 					= false: check activity in case unactivate answer
+	 * 					if not passed, check activity in case activate answer
 	 */
-	public void checkDeactivateQuestion(String question){
-		info("Check for comment of question after activating a question");
-
-		waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", "Question has been unactivated."));
+	public void checkActivateAnswer(String question, String answer, boolean...activate){
+		boolean act = activate.length > 0 ? activate[0]: true;
+		if(act){
+			info("Check for comment on activity after activating an answer");
+			waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", MSG_ANSWER_ACTIVATE.replace("${answer}", answer)));
+		}else{
+			info("Check for commenton activity  after deactivating an answer");
+			waitForAndGetElement(ELEMENT_QUESTION_COMMENT.replace("${title}", question).replace("${comment}", MSG_ANSWER_UNACTIVATE.replace("${answer}", answer)));
+		}
 	}
+
 
 	/** Check reply of a topic, and number of reply
 	 * @author thuntn
