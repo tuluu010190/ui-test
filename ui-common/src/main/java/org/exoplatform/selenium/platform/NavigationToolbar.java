@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.social.PeopleConnection;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -14,6 +15,7 @@ public class NavigationToolbar extends PlatformBase {
 
 	ManageAccount acc;
 	BrandingManagement brandMag;
+	PeopleConnection peoCon;
 
 	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[@class='quickEditChecked']");
@@ -25,6 +27,7 @@ public class NavigationToolbar extends PlatformBase {
 		driver = dr;
 		brandMag = new BrandingManagement(driver);
 		button = new Button(driver);
+		peoCon = new PeopleConnection(driver);
 	} 
 
 	//Go to portal sites
@@ -416,7 +419,7 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void goToConnectionPage(){
 		click(ELEMENT_CONNECTION_PAGE);
-		Utils.pause(1000);
+		waitForAndGetElement(peoCon.ELEMENT_EVERYONE_TAB);
 	}
 
 	public void changeEditMode()

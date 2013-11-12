@@ -483,7 +483,10 @@ public class PageEditor extends PlatformBase {
 		info("Add new application: " + portletId);
 		click(ELEMENT_APPLICATION_TAB);
 		click(By.linkText(category));
-		dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_NO_LAYOUT);
+		if(waitForAndGetElement(ELEMENT_DROP_TARGET_NO_LAYOUT,DEFAULT_TIMEOUT,0)!=null)
+			dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_NO_LAYOUT);
+		else
+			dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_NO_LAYOUT_PORTAL);
 		Utils.pause(1000);
 	}
 

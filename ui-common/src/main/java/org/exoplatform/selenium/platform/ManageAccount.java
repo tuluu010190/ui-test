@@ -1,7 +1,5 @@
 package org.exoplatform.selenium.platform;
 
-import static org.exoplatform.selenium.TestLogger.info;
-
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
@@ -10,10 +8,12 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import static org.exoplatform.selenium.TestLogger.info;
+
 public class ManageAccount extends PlatformBase {
 
 	//[Create a New Account] Screen (Public Mode)
-	public final By ELEMENT_SUBSCRIBE_BUTTON = By.xpath(".//*[@id='UIRegisterForm']/div[2]/div/div/a[1]");
+	public final By ELEMENT_SUBSCRIBE_BUTTON = By.xpath("//button[text()='Subscribe']");
 	public final By ELEMENT_RESET_BUTTON = By.xpath(".//*[@id='UIRegisterForm']/div[2]/div/div/a[2]");
 	public final By ELEMENT_REGISTER_LINK = By.xpath("//b[contains(text(),'Register')]");
 	public final By ELEMENT_INPUT_CONFIRM_PASSWORD_PUBLIC_MODE = By.id("confirmPassword");
@@ -21,6 +21,7 @@ public class ManageAccount extends PlatformBase {
 	public final By ELEMENT_REGISTER_ACCOUNT_LINK = By.xpath("//b[contains(text(),'Register')]");
 
 	public final String MESSAGE_SUCCESSFULLY_REGISTERED_ACCOUNT = "You have successfully registered a new account!";
+	public final By MESSAGE_SUCCESSFULLY_REGISTERED_ACCOUNT_FRENCH = By.xpath("//*[contains(text(),'Vous venez de créer un nouveau compte.')]");
 	public final String MESSAGE_DUPLICATE_ACCOUNT = "This username already exists, please enter another one.";
 	public final String MESSAGE_ALERT_PASSWORD = "Password and Confirm Password must be the same.";
 	public final String MESSAGE_INVALID_EMAIL_ADDRESS = "Your email address is invalid. Please enter another one.";
@@ -58,6 +59,21 @@ public class ManageAccount extends PlatformBase {
 		click(ELEMENT_SIGN_IN_BUTTON);
 		if(verify)
 			waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON);
+	}
+
+	/** Login to acme portal
+	 * @author hela
+	 * @param username
+	 * @param password
+	 */
+	public void signInAcme(String username, String password) {
+		info("--Sign in as " + username + "--");
+		click(ELEMENT_LOGIN_ACME_LINK);
+		Utils.pause(1000);
+		type(ELEMENT_INPUT_USERNAME, username, true);
+		type(ELEMENT_INPUT_PASSWORD, password, true);
+		click(ELEMENT_ACME_SIGN_IN_BUTTON);
+		waitForElementNotPresent(ELEMENT_ACME_SIGN_IN_BUTTON);
 	}
 
 	//Sign-out for eXoGTN
@@ -176,7 +192,8 @@ public class ManageAccount extends PlatformBase {
 		type(ELEMENT_INPUT_EMAIL_PUBLIC_MODE, email, true);
 		click(ELEMENT_SUBSCRIBE_BUTTON);
 		if (verify) {
-			waitForMessage(MESSAGE_SUCCESSFULLY_REGISTERED_ACCOUNT);
+			if(waitForAndGetElement(MESSAGE_SUCCESSFULLY_REGISTERED_ACCOUNT_FRENCH,5000,0)==null)
+				waitForMessage(MESSAGE_SUCCESSFULLY_REGISTERED_ACCOUNT);
 			dialog.closeMessageDialog();
 		}
 	}
@@ -210,6 +227,43 @@ public class ManageAccount extends PlatformBase {
 			click(By.linkText(language));
 			click(button.ELEMENT_APPLY_FRENCH_BUTTON);
 			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH);
+		}
+	}
+
+	public void changeLanguageWithoutLogin(String language){
+		button = new Button(driver);
+		info("Change language for user without login");
+		click(ELEMENT_CHANGE_LANGUAGE_LINK_ACME);
+		if (language == "French"){
+			if(waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP,5000,0)!=null){
+				click(ELEMENT_FRENCH_LANGUAGE);
+				button.apply();
+				waitForAndGetElement(PRODUCTS_LABEL_FRENCH);
+			}
+			else{//(waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP_GERMAN,5000,0)!=null){
+				click(ELEMENT_FRENCH_LANGUAGE_GER);
+				click(button.ELEMENT_APPLY_GERMAN_BUTTON);
+			}
+			waitForAndGetElement(PRODUCTS_LABEL_FRENCH);
+		} else if (language == "English"){
+			if(waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH,5000,0)!=null){
+				click(ELEMENT_ENGLISH_LANGUAGE);
+				click(button.ELEMENT_APPLY_FRENCH_BUTTON);
+			}else{//(waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP_GERMAN,5000,0)!=null){
+				click(ELEMENT_ENGLISH_LANGUAGE_GER);
+				click(button.ELEMENT_APPLY_GERMAN_BUTTON);
+			}
+			waitForAndGetElement(PRODUCTS_LABEL_ENGLISH);
+		}
+		else{
+			if(waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH,5000,0)!=null){
+				click(ELEMENT_GERMANY_LANGUAGE_FRENCH);
+				click(button.ELEMENT_APPLY_FRENCH_BUTTON);
+			}else{//(waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP_GERMAN,5000,0)!=null){
+				click(ELEMENT_GERMANY_LANGUAGE_ENG);
+				click(button.ELEMENT_APPLY_BUTTON);
+			}
+			waitForAndGetElement(PRODUCTS_LABEL_GERMAN);
 		}
 	}
 

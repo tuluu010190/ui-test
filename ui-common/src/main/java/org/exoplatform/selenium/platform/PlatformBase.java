@@ -1,30 +1,22 @@
 package org.exoplatform.selenium.platform;
 
-import static org.exoplatform.selenium.TestLogger.debug;
-import static org.exoplatform.selenium.TestLogger.info;
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.TestBase;
+import org.exoplatform.selenium.Utils;
+import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
-import org.exoplatform.selenium.TestBase;
-import org.exoplatform.selenium.Utils;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Cookie;
-import org.openqa.selenium.ElementNotVisibleException;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriverException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
+import static org.exoplatform.selenium.TestLogger.debug;
+import static org.exoplatform.selenium.TestLogger.info;
 
 public class PlatformBase extends TestBase {
 
@@ -53,7 +45,7 @@ public class PlatformBase extends TestBase {
 	 */
 	public final By ELEMENT_INPUT_USERNAME = By.name("username"); 
 	public final By ELEMENT_INPUT_PASSWORD = By.name("password");
-
+	public final By ELEMENT_LOGIN_ACME_LINK = By.xpath("//*[@id='AcmeWebSiteLogInLogOut']");
 	/*
 	 * Company Navigation
 	 */
@@ -143,8 +135,17 @@ public class PlatformBase extends TestBase {
 	/*--------------- User account Management (Click from user name) ---------------------*/
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
+	public final By ELEMENT_CHANGE_LANGUAGE_LINK_ACME = By.className("LanguageIcon");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK = By.xpath("//a[text()='Change Language']");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK_FRENCH = By.xpath("//a[text()='Changer de Langue']");
+
+	public final By ELEMENT_FRENCH_LANGUAGE = By.linkText("French");
+	public final By ELEMENT_ENGLISH_LANGUAGE = By.linkText("Anglais");
+	public final By ELEMENT_ENGLISH_LANGUAGE_GER = By.linkText("Englisch");
+	public final By ELEMENT_FRENCH_LANGUAGE_GER = By.linkText("Französisch");
+	public final By ELEMENT_GERMANY_LANGUAGE_ENG = By.linkText("German");
+	public final By ELEMENT_GERMANY_LANGUAGE_FRENCH = By.linkText("Allemand");
+
 	public final By ELEMENT_MY_PROFILE_LINK = By.xpath("//i[@class='uiIconPLFProfile']/..");
 	public final By ELEMENT_DASHBROARD_LINK = By.className("uiIconPLFDashboard");
 	public final By ELEMENT_MY_SETTING = By.linkText("Settings");
@@ -152,6 +153,7 @@ public class PlatformBase extends TestBase {
 	//User -> Change Language
 	public final By ELEMENT_CHANGE_LANGUAGE_POPUP = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Interface Language Setting']");
 	public final By ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Langues Disponibles']");
+	public final By ELEMENT_CHANGE_LANGUAGE_POPUP_GERMAN = By.xpath("//*[@id='UIMaskWorkspace']//*[text()='Sprachauswahl']");
 
 	//User -> My profile
 	public final By ELEMENT_MY_PROFILE_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppprofile uiIconDefaultApp']");
@@ -186,6 +188,7 @@ public class PlatformBase extends TestBase {
 	//Add user Form - (Setting -> User -> add User)
 	//Account setting
 	public final By ELEMENT_ACCOUNT_SETTING_TAB = By.xpath("//*[text()='Account Setting' and @data-toggle='tab']");
+	public final By ELEMENT_ACCOUNT_INFO_TAB = By.xpath("//*[text()='Account Info' and @data-toggle='tab']");
 	public final By ELEMENT_INPUT_CONFIRM_PASSWORD = By.id("Confirmpassword");
 	public final By ELEMENT_INPUT_NEW_PASSWORD = By.id("newPassword");
 	public final By ELEMENT_INPUT_NEW_CONFIRM_PASSWORD = By.id("confirmPassword");
@@ -193,6 +196,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_INPUT_LASTNAME = By.id("lastName");
 	public final By ELEMENT_INPUT_DISPLAY_NAME = By.id("displayName");
 	public final By ELEMENT_INPUT_EMAIL = By.id("email");
+	public final By ELEMENT_CHANGE_PASSWORD = By.id("changePassword");
 
 	//User Profile
 	public final By ELEMENT_USER_PROFILE_TAB = By.xpath("//*[text()='User Profile' and @data-toggle='tab']");
@@ -202,7 +206,7 @@ public class PlatformBase extends TestBase {
 	//End User Profile
 	//End - Add User Form
 	//Setting -> user -> Groups and roles
-	public final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles')]";
+	public final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles') or contains(text(),'Ajouter un Utilisateur')]";
 
 	/* Username link - END*/
 
@@ -262,6 +266,7 @@ public class PlatformBase extends TestBase {
 	 * Manage Account
 	 * */
 	public final By ELEMENT_SIGN_IN_BUTTON = By.xpath("//*[@class='loginButton']/*");
+	public final By ELEMENT_ACME_SIGN_IN_BUTTON = By.name("signIn");
 	public final String ELEMENT_SELECT_SEARCH_OPTION = "//select[@name='searchOption']";
 	public final String ELEMENT_SEARCH_ICON_REGISTER = "//img[@class='SearchIcon']";
 	public final String ELEMENT_ADD_NEW_PORTAL_LINK = "//a[text()='Add New Site']";	
@@ -395,7 +400,8 @@ public class PlatformBase extends TestBase {
 
 	public final By ELEMENT_APPLICATION_TAB = By.linkText("Applications");
 	public final By ELEMENT_ADD_CONTENT_DETAIL_PORTLET = By.xpath("//div[contains(text(),'Content Detail')]");
-	public final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.xpath("//div[@id='UIPage']");
+	public final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.id("UIPage");
+	public final By ELEMENT_DROP_TARGET_NO_LAYOUT_PORTAL = By.xpath("//*[text() = 'Portal Page']/..");
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
 	public final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[contains(text(),'Content List')]");
 	public final By ELEMENT_CLV_PORTLET = By.className("UICLVPortlet");
@@ -495,11 +501,13 @@ public class PlatformBase extends TestBase {
 	 * */
 
 	//Account Portlet
-	public final By ELEMENT_REGISTER_ACCOUNT_PORTLET = By.className("PortletLayoutDecorator");
+	public final By ELEMENT_REGISTER_ACCOUNT_PORTLET = By.xpath("//div[@class='portletLayoutDecorator' and contains(text(),'Register Account')]");
 	public final By ELEMENT_CHECK_BOX_USE_CAPTCHA = By.id("useCaptcha");
 	public final By ELEMENT_EDIT_LAYOUT_FINISH_BUTTON = By.xpath("//div[@id='UIPortalComposer']//a[@class='EdittedSaveButton']");
-	public final By ELEMENT_PAGE_FINISH_BUTTON_INFRENCH = By.xpath("//div[@id='UIPageEditor']//a[@title='Terminer']");
-	public final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH = By.xpath("//a[@title='Editer la Portlet']");
+	public final By ELEMENT_PAGE_FINISH_BUTTON_INFRENCH = By.xpath("//div[@id='UIPageEditor']//a[@data-original-title='Terminer']");
+	//public final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH = By.xpath("//a[@title='Editer la Portlet']");
+	public final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH = By.xpath("//span[text()='Register Account']/..//a[@data-original-title='Modifier la Portlet']");
+	public final By ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INENGLISH = By.xpath("//span[text()='Register Account']/..//a[@data-original-title='Edit Portlet']");
 	public final By ELEMENT_ERROR_ICON=By.xpath("//span[@class='PopupIcon ErrorMessageIcon']");
 	/* End General
 	 * */
@@ -619,6 +627,15 @@ public class PlatformBase extends TestBase {
 
 	//Sign-in & Sign-out msg
 	public By ELEMENT_SIGNIN_FAIL_MSG = By.className("signinFail");
+
+	//Left menu at homepage
+	public By ELEMENT_HOME_TEXT_ENGLISH = By.xpath("//*[text()='Home']");
+	public By ELEMENT_HOME_TEXT_FRENCH = By.xpath("//*[text()='Accueil']");
+	public By ELEMENT_HOME_TEXT_GERMAN = By.xpath("//*[text()='Startseite']");
+	public By ELEMENT_SIGNIN_TITLE_ENGLISH = By.xpath("//*[text()='Connect to your account']");
+	public By PRODUCTS_LABEL_ENGLISH = By.xpath("//*[text()='Products']");
+	public By PRODUCTS_LABEL_FRENCH = By.xpath("//*[text()='Produits']");
+	public By PRODUCTS_LABEL_GERMAN = By.xpath("//*[text()='Produkte']");
 
 	///////////////////
 	//Set view permissions for portal
@@ -921,35 +938,27 @@ public class PlatformBase extends TestBase {
 
 	//Set to use captcha when registry a new account in public mode
 	public void setUseCaptcha(boolean useCaptcha, boolean useFrench){
-		waitForTextPresent("Register Account");
+		button=new Button(driver);
 		mouseOver(ELEMENT_REGISTER_ACCOUNT_PORTLET, true);
 		if (useFrench){
-			mouseOverAndClick(ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH);
-			waitForTextPresent("Mode d'édition");
+			click(ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INFRENCH);
 		}else{
-			mouseOverAndClick(ELEMENT_EDIT_PORTLET_ICON);
-			waitForTextPresent("Edit Mode");
+			click(ELEMENT_EDIT_ACCOUNT_PORTLET_ICON_INENGLISH);
 		}
-
-		WebElement element = waitForAndGetElement(ELEMENT_CHECK_BOX_USE_CAPTCHA);
 		if (useCaptcha){
-			if(!element.isSelected()){
-				check(ELEMENT_CHECK_BOX_USE_CAPTCHA);
-			}
+			check(ELEMENT_CHECK_BOX_USE_CAPTCHA,2);
 		}
 		else{
-			if(element.isSelected()){
-				uncheck(ELEMENT_CHECK_BOX_USE_CAPTCHA);
-			}
+			uncheck(ELEMENT_CHECK_BOX_USE_CAPTCHA,2);
 		}
 		button.save();
-		button.close();
+		click(By.id("Close"));
 		if (useFrench){
 			click(ELEMENT_PAGE_FINISH_BUTTON_INFRENCH);
-			waitForTextNotPresent("Editeur de page");
+			waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON_INFRENCH);
 		}else{
 			click(ELEMENT_PAGE_FINISH_BUTTON);
-			waitForTextNotPresent("Page Editor");
+			waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
 		}
 	}
 

@@ -16,10 +16,10 @@ public class PortalManagement extends PlatformBase {
 	Dialog dialog = new Dialog(driver);
 	ManageAlert alt = new ManageAlert(driver);
 	Button button;
-	
+
 	public void configPortal(String portalName, String label, String description, String portalLocale, String portalSkin, String portalSession, 
 			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership, String...template){
-		
+		button = new Button(driver);
 		if (portalName != null){
 			type(ELEMENT_INPUT_NAME, portalName, true);
 		}
@@ -48,20 +48,22 @@ public class PortalManagement extends PlatformBase {
 				setViewPermissions(key, permissions.get(key));
 			}
 		}
-		click(ELEMENT_EDIT_PERMISSION_SETTING);
-		setEditPermissions(editGroupId, editMembership);
+		if(editGroupId!=null && editMembership!=null){
+			click(ELEMENT_EDIT_PERMISSION_SETTING);
+			setEditPermissions(editGroupId, editMembership);
+		}
 		if (template.length > 0){
 			click(By.linkText(template[0]));
 		}
 		button.save();
 		waitForElementNotPresent(ELEMENT_EDIT_PERMISSION_SETTING);
 	}
-	
+
 	//Add new portal
 	public void addNewPortal(String portalName, String label, String description, String portalLocale, String portalSkin, String portalSession, 
 			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership, String...template){
 		button = new Button(driver);
-		
+
 		info("--Create new portal--");
 		click(ELEMENT_ADD_NEW_PORTAL_LINK);
 		configPortal(portalName, label, description, portalLocale, portalSkin, portalSession, publicMode, permissions, editGroupId, editMembership, template);
@@ -79,7 +81,7 @@ public class PortalManagement extends PlatformBase {
 	//Delete a portal	
 	public void deletePortal(String portalName){
 		alt = new ManageAlert(driver);
-		
+
 		String portalDeleteIcon = ELEMENT_PORTAL_DELETE_ICON.replace("${portalName}", portalName);
 		info("--Delete portal (" + portalName + ")--");		
 		click(portalDeleteIcon);
@@ -104,7 +106,7 @@ public class PortalManagement extends PlatformBase {
 		click(ELEMENT_PORTAL_EDIT_LAYOUT.replace("${siteName}", portalName));
 		waitForAndGetElement(ELEMENT_EDIT_INLINE_COMPOSER);
 	}
-	
+
 	//Go to edit configuration of portal
 	public void goToEditSiteConfiguration(String portalName){
 		info("Go to edit configuration of portal" + portalName);

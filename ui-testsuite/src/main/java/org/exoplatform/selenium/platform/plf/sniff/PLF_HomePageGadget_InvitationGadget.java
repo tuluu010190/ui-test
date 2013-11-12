@@ -1,5 +1,5 @@
 package org.exoplatform.selenium.platform.plf.sniff;
-
+import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.HomePageGadget;
 import org.exoplatform.selenium.platform.ManageAccount;
@@ -93,14 +93,12 @@ public class PLF_HomePageGadget_InvitationGadget extends Activity{
 		//Login by demo
 		acc.signIn(user_login2,DATA_PASS);
 		navToolBar.goToConnectionPage();
-		click(peoConn.ELEMENT_EVERYONE_TAB);
 		peoConn.connectPeople(user5);
 		acc.signOut();
 
 		//Login by james
 		acc.signIn(user_login4,DATA_PASS);
 		navToolBar.goToConnectionPage();
-		click(peoConn.ELEMENT_EVERYONE_TAB);
 		peoConn.connectPeople(user5);
 		acc.signOut();
 		acc.signIn(DATA_USER1, DATA_PASS);
@@ -118,6 +116,12 @@ public class PLF_HomePageGadget_InvitationGadget extends Activity{
 
 		//Remove invitation
 		homeGad.removeInvitationGadget(user3);
+		
+		/*Clear data*/
+		info("-- clear data --");
+		//remove connection
+		navToolBar.goToConnectionPage();
+		peoConn.removeConnection(user2);
 		acc.signOut();
 
 		//Delete space

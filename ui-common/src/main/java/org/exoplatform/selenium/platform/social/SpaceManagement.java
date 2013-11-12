@@ -296,7 +296,7 @@ public class SpaceManagement extends SocialBase {
 	public void gotoEditSpace(String name){  
 		info("-- Go to Edit space page --");
 		doAction("Edit", name);
-		waitForAndGetElement(ELEMENT_SPACE_SETTING_MENU);    
+		waitForAndGetElement(ELEMENT_SPACE_SETTING_MENU,60000);    
 	}
 	/**
 	 * Change avatar of a space

@@ -1,7 +1,5 @@
 package org.exoplatform.selenium.platform.ecms;
 
-import static org.exoplatform.selenium.TestLogger.info;
-
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
@@ -10,6 +8,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import static org.exoplatform.selenium.TestLogger.info;
 
 /**
  * 
@@ -29,7 +29,7 @@ public class EcmsBase extends ManageAccount {
 	/*
 	 * Portal Acme - http://localhost:8080/portal/acme
 	 * */
-	public final By ELEMENT_LOGIN_LINK = By.xpath("//*[@id='AcmeWebSiteLogInLogOut']");
+
 	public final String ELEMENT_OVERVIEW_LINK = "//i[@class='uiIconFile uiIconExt-overview']";
 	public final String ELEMENT_DRAFT_ACME= "//div[text()='${content}']/../..//span[text()='Draft']";
 	public final String ELEMENT_ACME_TITLE= "//*[text()='${content}']";

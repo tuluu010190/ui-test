@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
@@ -835,5 +836,36 @@ public class TestBase {
 		String argu3 =  "arguments[0].dispatchEvent(evObj);";
 		String javascript = argu1 + argu2 + argu3;
 		((JavascriptExecutor)driver).executeScript(javascript, targetElement);
+	}
+	
+	/** change lanugage of browser
+	 * @author phuongdt
+	 * @param language
+	 * English: "en"
+	 * French: "fr"
+	 */
+	public void initFFBrowserWithSetLanguageBrowser(String language){
+		FirefoxProfile profile = new FirefoxProfile();
+		profile.setPreference("intl.accept_languages",language);   
+		driver = new FirefoxDriver(profile);
+		baseUrl = System.getProperty("baseUrl");
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		action = new Actions(driver);
+	}
+	
+	/**
+	 * get random string
+	 * @author phuongdt
+	 * @return
+	 */
+	public String getRandomString(){
+		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+		StringBuilder sb = new StringBuilder();
+		Random random = new Random();
+		for (int i = 0; i < 6; i++) {
+		    char c = chars[random.nextInt(chars.length)];
+		    sb.append(c);
+		}
+		return sb.toString();
 	}
 }
