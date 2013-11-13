@@ -7,6 +7,8 @@ import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.platform.ManageAccount.userType;
+
 import java.util.Map;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,9 +21,13 @@ public class ManageApplications extends PlatformBase {
 	Button button = new Button(driver);
 	ManageAlert alt = new ManageAlert(driver);
 	PageEditor pageE = new PageEditor(driver);
+	ManageAccount magAc;
+	NavigationToolbar navTool;
 	
 	public ManageApplications(WebDriver dr){
 		driver = dr;
+		magAc = new ManageAccount(driver);
+		navTool = new NavigationToolbar(driver);
 	}
 	
 	/* Manage Application Page */
@@ -51,6 +57,7 @@ public class ManageApplications extends PlatformBase {
 	public String ELEMENT_GADGET_INFO_CATEGORY = "//*[@id='UIGadgetInfo']//dt[contains(text(), 'Categories:')]//following-sibling::dd[1][contains(text(), '${category}')]";
 	public String ELEMENT_GADGET_DELETE_ICON = "//*[text()='${title}']/../../../..//*[@data-original-title='Delete Gadget']";
 	public String ELEMENT_GADGET_CONFIRM_DELETE = "Are you sure to delete this gadget?";
+	public By MESSAGE_GADGET_INFO_EXISTING_GADGET = By.xpath("//*[contains(text(),'This url is existing, please select another one!')]");
 	
 	//Application Registry portlet -> Edit Portlet
 	public By ELEMENT_APPS_REG_PORTLET = By.xpath("//*[text()='Application Registry']/../../../../..");
@@ -73,6 +80,8 @@ public class ManageApplications extends PlatformBase {
 	public final String ELEMENT_CATEGORY_NAME = "//*[@id='ApplicationRegistryCategory']//*[@href='#${categoryName}']";
 	public final By ELEMENT_CATEGORIES_FORM = By.xpath("//*[text()='Categories']"); 
 	public final String IMPORT_APPLICATION_CONFIRMATION= "This action will automatically create categories and import all the gadgets and portlets on it.";
+	public final By MESSAGE_CATEGORY_EXISTING = By.xpath("//*[contains(text(),'This category is existing, please enter another one')]");
+	public final By MESSAGE_CATEGORY_DELETE_UNEXIST_CATEGORY = By.xpath("//*[contains(text(),'It's not possible to save the changes because that category doesn't exist')]");
 	
 	//Add application to category
 	public final By ELEMENT_ADD_APPS_BUTTON = By.xpath("//*[@data-original-title='Add application to category']");
@@ -168,6 +177,7 @@ public class ManageApplications extends PlatformBase {
 		if (publicMode){
 			check(ELEMENT_CHECKBOX_PUBLIC_MODE, 2);
 			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
+			waitForElementNotPresent(ELEMENT_PERMISSION_GRID);
 		} else {
 			for (String key : permissions.keySet()) {
 				setViewPermissions(key, permissions.get(key));
@@ -178,6 +188,16 @@ public class ManageApplications extends PlatformBase {
 			waitForTextPresent(MESSAGE_EMPTY_CATEGORY);
 			waitForAndGetElement(ELEMENT_CURRENT_CATEGORY_NAME);
 		}
+	}
+	
+	public void goToEditCategoryAtManageApplications(String categoryName){
+		info("--Go to edit category (" + categoryName + ")--");
+		click(ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName));
+		click(ELEMENT_CATEGORY_EDIT_ICON);
+		waitForAndGetElement(ELEMENT_FIELD_CATEGORY_NAME);
+		assert waitForAndGetElement(ELEMENT_FIELD_CATEGORY_NAME).getAttribute("readonly")!=null;
+		assert waitForAndGetElement(ELEMENT_FIELD_DISPLAY_NAME).getAttribute("readonly")==null;
+		assert waitForAndGetElement(ELEMENT_FIELD_DESCRIPTION).getAttribute("readonly")==null;
 	}
 
 	//Edit a category at Manage Applications
@@ -201,7 +221,7 @@ public class ManageApplications extends PlatformBase {
 		}
 		button.save();
 		if (verify) {
-			waitForTextPresent(MESSAGE_EMPTY_CATEGORY);
+			//waitForTextPresent(MESSAGE_EMPTY_CATEGORY);
 			waitForAndGetElement(By.linkText(newDisplayName));
 		}
 	}
@@ -326,5 +346,36 @@ public class ManageApplications extends PlatformBase {
 		click(ELEMENT_IMPORT_APPLICATION);
 		alt.waitForConfirmation(IMPORT_APPLICATION_CONFIRMATION);
 		Utils.pause(1000);
+	}
+	
+	/** View category at manage application
+	 * @author phuongdt
+	 * @param user
+	 * @param categoryName
+	 * @param view
+	 */
+	public void viewCategoryAtManageApplicationsWithOtherUser(userType user, String categoryName, boolean view,Object... opParams){
+		String applicationName = (String) (opParams.length > 0 ? opParams[0]: "");		
+		Boolean viewApp = (Boolean) (opParams.length > 1 ? opParams[1]: true);		
+		magAc.userSignIn(user);
+		navTool.goToSiteExplorer();
+		navTool.goToEditPageEditor();
+		if (view){
+			waitForAndGetElement(By.xpath("//a[@title='"+categoryName+"']"));
+		}else {
+			waitForElementNotPresent(By.xpath("//a[@title='"+categoryName+"']"));
+		}
+		if(applicationName!=""){
+			if(waitForAndGetElement("//a[@title='"+categoryName+"']/*[@class='uiIconArrowDown pull-right']", DEFAULT_TIMEOUT,0)==null){
+				click(By.xpath("//a[@title='"+categoryName+"']"));
+			}
+			if(viewApp){
+				waitForAndGetElement(By.xpath("//*[@class='txtLeft' and contains(text(),'"+applicationName+"')]"));
+			}else{
+				waitForElementNotPresent(By.xpath("//*[@class='txtLeft' and contains(text(),'"+applicationName+"')]"));
+			}
+		}
+		pageE.finishEditLayout();
+		magAc.signOut();
 	}
 }

@@ -37,6 +37,7 @@ import org.testng.Assert;
 public class TestBase {
 
 	public static WebDriver driver;
+	public static WebDriver driver1;
 	protected String baseUrl;
 	protected int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
 	protected int WAIT_INTERVAL = 1000; //milliseconds  

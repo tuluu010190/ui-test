@@ -301,6 +301,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[text()='Select Permission']";
 	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//*[@id='ListPermissionSelector']//a[@title='${group}']";
 	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//*[@id='UIPermissionSelector']//*[contains(text(), '${group}')]";
+	public final By ELEMENT_PERMISSION_GRID = By.id("PermissionGrid");
 
 	////
 	public final String ELEMENT_PAGINATOR_PAGE_LINK = "//a[contains(@class, 'Number') and text()='${number}']";

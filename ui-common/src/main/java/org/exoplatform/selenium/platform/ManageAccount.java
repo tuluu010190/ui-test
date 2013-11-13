@@ -263,7 +263,7 @@ public class ManageAccount extends PlatformBase {
 		}
 		switch (user) {
 		case ROOT:
-			signIn("root", "gtngtn");
+			signIn("root", "gtn");
 			break;
 		case ADMIN:
 			signIn("john", "gtn");

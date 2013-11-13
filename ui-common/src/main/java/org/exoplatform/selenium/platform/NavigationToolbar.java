@@ -374,11 +374,22 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void goToEditLayout(){
 		info("Go to Edit layout form");
-		Utils.pause(1000);
-		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
-		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
-		WebElement editLayout = waitForAndGetElement(ELEMENT_MENU_EDIT_LAYOUT,10000,0,2);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click()",editLayout);		
+		for(int repeat=0;; repeat ++){
+			if (repeat > 4){
+				mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+				break;
+			}
+			mouseOver(ELEMENT_MENU_EDIT_LINK, true);
+			if (waitForAndGetElement(ELEMENT_MENU_PAGE_LINK, 5000, 0)!= null) {
+				info("-- Click Pagemenu --");
+				mouseOver(ELEMENT_MENU_PAGE_LINK,true);
+				if (waitForAndGetElement(ELEMENT_MENU_EDIT_LAYOUT, 5000, 0)!= null){
+					click(ELEMENT_MENU_EDIT_LAYOUT);
+					break;
+				}
+			}
+			info("Retry...[" + repeat + "]");
+		}
 		Utils.pause(1000);
 	}
 
