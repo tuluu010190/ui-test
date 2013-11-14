@@ -27,7 +27,7 @@ public class HomePageActivity extends PlatformBase{
 
 	public final By ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY = By.xpath("//*[text()='Are you sure you want to delete this activity?']");
 	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
-	public final String ELEMENT_ACTIVITY_DELETE = "//*[contains(text(),'${activityText}')]/../../../..//a[contains(@id, 'DeleteActivityButton')]";
+	public final String ELEMENT_ACTIVITY_DELETE = "//*[contains(text(),'${activityText}')]/../../../../..//a[contains(@id, 'DeleteActivityButton')]";
 
 	//like and unlike icon
 	public final String ELEMENT_LIKE_ICON = "//*[contains(text(),'${activityText}')]/../../../..//*[starts-with(@id, 'LikeLink')]";
@@ -569,7 +569,6 @@ public class HomePageActivity extends PlatformBase{
 	public void checkAnswerOfQuestion(String question, String...answer){
 		int number = answer.length;
 		info("Check for comment for Answer of question on activity");
-		driver.navigate().refresh();
 		//Check number of answer
 		waitForAndGetElement(ELEMENT_QUESTION_NUM_ANSWER.replace("${title}",question).replace("${number}", Integer.toString(number)));
 
@@ -824,7 +823,7 @@ public class HomePageActivity extends PlatformBase{
 	 */
 	public void deleteActivity (String activityText) {
 		info("-- Deleting an activity " +activityText+" --");
-		WebElement elem = waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,0,2);
+		WebElement elem = waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
 
 		String deleteActivityIconID;
 		deleteActivityIconID = elem.getAttribute("id");
@@ -834,7 +833,7 @@ public class HomePageActivity extends PlatformBase{
 		waitForAndGetElement(ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY);
 		button.ok();
 		waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", activityText)));
-		waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,0,2);
+		waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
 	}
 

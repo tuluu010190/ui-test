@@ -107,6 +107,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		info("Deactive question");
 		
 		magQuest.activeQuestion(questionName, false);
+		button.close();
 		
 		magAc.signOut();
 		
@@ -123,6 +124,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		info("Active question");
 		
 		magQuest.activeQuestion(questionName, true);
+		button.close();
 		
 		magAc.signOut();
 		
@@ -156,7 +158,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		info("Disapprove question");
 		
 		magQuest.approveQuestion(questionName, false);
-		
+		button.close();
 		magAc.signOut();
 		
 		info("Normal user cannot view this question");
@@ -172,6 +174,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		info("Active question");
 		
 		magQuest.approveQuestion(questionName, true);
+		button.close();
 		
 		magAc.signOut();
 		

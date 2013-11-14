@@ -77,6 +77,7 @@ public class Forum_Answers_Question_EditQuestion extends AnswerBase {
 		/*Step 3: Inactivate question*/
 		//- Click on 'Yes' link in Activated column to inactivate question
 		magQuest.activeQuestion(questionName1, false);
+		button.close();
 
 		//- 'Yes' link is changed into 'No'
 		//- The question is inactivated. It is  invisible to normal user.
@@ -90,6 +91,7 @@ public class Forum_Answers_Question_EditQuestion extends AnswerBase {
 		goToAnswer();
 		magQuest.goToManageQuestions();
 		magQuest.activeQuestion(questionName1, true);
+		button.close();
 		
 		//- The question is activated. It is visible to normal user (in case it is not checked for approved or unapproved)
 		info("Normal user can view this question");
@@ -205,7 +207,6 @@ public class Forum_Answers_Question_EditQuestion extends AnswerBase {
 		//- Question is edited successfully with new value.
 		//- Question status is updated if activated and approved check box is ticked or not.
 		magQuest.editQuestion(3, questionName, null, newQuestionName, questionNewContent, null, null, false, false, false, null);
-		magQuest.goToManageQuestions();
 		waitForElementNotPresent(magQuest.ELEMENT_DELETE_QUESTION_IN_ALL_QUESTION_TAB_LIST.replace("${question}", questionName));
 		waitForAndGetElement(magQuest.ELEMENT_DELETE_QUESTION_IN_ALL_QUESTION_TAB_LIST.replace("${question}", newQuestionName));
 		assert !waitForAndGetElement(magQuest.ELEMENT_MANAGE_QUESTION_APPROVE.replace("${question}", newQuestionName)).isSelected();
@@ -261,7 +262,6 @@ public class Forum_Answers_Question_EditQuestion extends AnswerBase {
 		//- Question is edited successfully with new value.
 		//- Question status is updated if activated and approved check box is ticked or not.
 		magQuest.editQuestion(3, questionName, null, newQuestionName, questionNewContent, null, null, false, false, false, null);
-		magQuest.goToManageQuestions();
 		waitForElementNotPresent(magQuest.ELEMENT_DELETE_QUESTION_IN_ALL_QUESTION_TAB_LIST.replace("${question}", questionName));
 		waitForAndGetElement(magQuest.ELEMENT_DELETE_QUESTION_IN_ALL_QUESTION_TAB_LIST.replace("${question}", newQuestionName));
 		assert !waitForAndGetElement(magQuest.ELEMENT_MANAGE_QUESTION_APPROVE.replace("${question}", newQuestionName)).isSelected();

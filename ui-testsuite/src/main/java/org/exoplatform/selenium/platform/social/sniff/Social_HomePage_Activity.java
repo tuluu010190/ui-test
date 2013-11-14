@@ -135,7 +135,7 @@ public class Social_HomePage_Activity extends Activity {
 		waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity1).replace("${index}", "1"));
 		//	  9.  the comment section (optional)
 		info("-- Verify comment section --");
-		waitForElementNotPresent(activity.ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activity1).replace("${commentText}", comment1), DEFAULT_TIMEOUT,1,2);
+		waitForElementNotPresent(ELEMENT_COMMENT_LIST.replace("${activityText}", activity1).replace("${commentText}", comment1), DEFAULT_TIMEOUT,1,2);
 		addComment(activity1, comment1);
 		waitForAndGetElement(ELEMENT_DELETE_COMMENT_BUTTON.replace("${activityText}", activity1).replace("${commentText}", comment1), DEFAULT_TIMEOUT,1,2);
 

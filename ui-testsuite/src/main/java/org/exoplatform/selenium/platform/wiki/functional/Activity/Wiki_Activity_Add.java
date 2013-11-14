@@ -6,7 +6,7 @@ import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
-import org.exoplatform.selenium.platform.wiki.BasicAction;
+import org.exoplatform.selenium.platform.wiki.Permalink;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
  *
  */
 
-public class Wiki_Activity_Add extends BasicAction{
+public class Wiki_Activity_Add extends Permalink{
 	
 	ManageAccount magAcc;
 	HomePageActivity as;
@@ -68,7 +68,7 @@ public class Wiki_Activity_Add extends BasicAction{
 		magSpace.goToSpaceMenu("Wiki");
 		
 		info("Create a wiki page and make Space Wiki public");
-		makeWikiPublic();
+		makePublicPage(true);
 		addBlankWikiPage(WIKI_CONTENT,WIKI_CONTENT,2);
 	
 		info("Go to Homepage Activity Stream to check activity update");

@@ -234,17 +234,10 @@ public class Task extends CalendarBase{
 	/**Input into other fields in tab details of a task
 	 * 
 	 * @param status: Task Status of a task 
-	 * @param opt: opt[0]: delegation
-	 * opt[1]: priority
 	 * 
 	 */
-	public void inputOtherFieldsTabDetailsTask(String status, String...opt){
-		if((opt.length > 0) & (opt[0] != null) & (opt[0] != "")){
-			//input
-		}
-		if((opt.length > 1) & (opt[1] != null) & (opt[1] != "")){
-
-		}
+	public void inputOtherFieldsTabDetailsTask(String status){
+		
 		if ((status != null) & (status != "")){
 			select(ELEMENT_TASK_STATUS, status);
 		}
@@ -269,10 +262,7 @@ public class Task extends CalendarBase{
 		}
 		if((opt.length > 2) & (opt.length <= 3))
 			inputOtherFieldsTabDetailsTask(opt[2]);
-		if((opt.length) > 3 & (opt.length <= 4)) 
-			inputOtherFieldsTabDetailsTask(opt[2],opt[3]);
-		if((opt.length) > 4 & (opt.length <= 5)) 
-			inputOtherFieldsTabDetailsTask(opt[2],opt[3],opt[4]);
+		
 	}
 
 	/**Attach file in Add task form

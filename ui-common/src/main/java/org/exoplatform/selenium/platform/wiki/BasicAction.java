@@ -524,19 +524,4 @@ public class BasicAction extends Permission{
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 	}
-	
-	/**Make Wiki public for any view
-	 * 
-	 * @author havtt
-	 * @date 05-Nov-2013
-	 */
-	
-	public void makeWikiPublic(){
-		waitForAndGetElement(ELEMENT_RESTRICTED_WIKI);
-		click(ELEMENT_RESTRICTED_WIKI);
-		Utils.pause(3000);
-		click(ELEMENT_MAKE_PUBLIC_BUTTON);
-		Utils.pause(2000);
-		click(ELEMENT_PERMISSION_WINDOW_CLOSE_BUTTON);
-	}
 }

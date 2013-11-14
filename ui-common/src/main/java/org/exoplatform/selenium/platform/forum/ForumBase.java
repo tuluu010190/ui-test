@@ -38,7 +38,6 @@ public class ForumBase extends PlatformBase {
 	public final String ELEMENT_BREAD_FORUM = "//li[text()='${forum}']";
 	public final By ELEMENT_ALERT = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator']");
 	public final By ELEMENT_INFO = By.xpath("//span[@class='PopupIcon InfoMessageIcon']");
-	public final By ELEMENT_MORE_ACTION = By.xpath("//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");
 	public final By ELEMENT_JUMP_TO = By.id("forumLink");
 	public final By ELEMENT_GO_BUTTON = By.linkText("Go");
 	public final By ELEMENT_MODERATION = By.linkText("Moderation");

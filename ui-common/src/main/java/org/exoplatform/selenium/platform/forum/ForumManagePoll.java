@@ -82,6 +82,8 @@ public class ForumManagePoll extends ForumBase {
 
 	public By ELEMENT_POLL_CLOSE_LINK = By.xpath("//a[contains(@href,'ClosedPoll')]");
 	public By ELEMENT_POLL_REOPEN_LINK = By.xpath("//div[@class='UITopicPoll uiBox uiTopicPoll uiCollapExpand']//i[@class='uiIconOpen']");
+	public final By ELEMENT_MORE_ACTION_POLL = By.xpath("//form[@id='UITopicPoll']//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");
+	
 
 	/*------------------------------------Common function------------------------------*/
 	/**
@@ -285,8 +287,7 @@ public class ForumManagePoll extends ForumBase {
 	public void goToAddPoll(){
 		info("Go to add poll for topic");
 		Utils.pause(2000);
-		waitForAndGetElement(mngPost.ELEMENT_POST_REPLY_BUTTON);
-		click(ELEMENT_MORE_ACTION);
+		click(magTopic.ELEMENT_MORE_ACTION);
 		//waitForAndGetElement(ELEMENT_ADD_POLL);
 		click(ELEMENT_ADD_POLL);
 		waitForAndGetElement(ELEMENT_POLL_POPUP);
@@ -342,7 +343,7 @@ public class ForumManagePoll extends ForumBase {
 	 * 				 = false: reopen poll
 	 */
 	public void closeReopenPoll(String[] options, boolean close){
-		click(ELEMENT_MORE_ACTION);
+		click(ELEMENT_MORE_ACTION_POLL);
 
 		if (close){
 			info("Close poll");

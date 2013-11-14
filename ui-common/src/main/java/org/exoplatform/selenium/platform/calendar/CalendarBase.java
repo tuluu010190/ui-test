@@ -180,6 +180,7 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_BUTTON_LIST_VIEW = "//*[@id='UIActionBar']//a[text()='List']";
 	public String ELEMENT_BUTTON_WORK_WEEK_VIEW = "//*[@id='UIActionBar']//a[text()='Work Week']";
 	public String ELEMENT_BUTTON_VIEW_ACTIVE = "//li[@class='btn active']/a[text()='${view}']";
+	public String ELEMENT_BUTTON_MORE = "//*[@class='btn-group containerMoreItem']/*[@data-toggle='dropdown']";
 
 	public String EVENT_WEEK_VIEW = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${eventTitle}')]";
 	public String EVENT_DAY_VIEW = "//*[@id='UIDayView']//div[contains(text(),'${eventTitle}')]";
@@ -506,6 +507,7 @@ public class CalendarBase extends PlatformBase {
 			click(ELEMENT_CAL_COLOR_SELECT.replace("${color}", color));
 		}
 		click(ELEMENT_CAL_IMPORT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_CAL_IMPORT_SAVE_BUTTON);
 		driver.navigate().refresh();
 		waitForAndGetElement(By.linkText(name));
 	}
@@ -603,7 +605,7 @@ public class CalendarBase extends PlatformBase {
 		goToAddCalendar();
 		inputAddCalendarForm(name,description,color,groups);
 		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
-		waitForAndGetElement("//*[@data-original-title = '"+name+"' ]");
+		waitForAndGetElement(By.linkText(name));
 	}
 
 	/** Delete calendar

@@ -83,7 +83,6 @@ public class SEO extends EcmsBase{
 		button = new Button(driver);
 		button.save();
 		info("finish input data on SEO management");
-		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 	}
 	
 	public void deleteSEO(String language){

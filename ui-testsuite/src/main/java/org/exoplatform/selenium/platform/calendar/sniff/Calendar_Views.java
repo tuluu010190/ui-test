@@ -24,7 +24,7 @@ public class Calendar_Views extends CalendarBase{
 	Task tsk;
 	Button but;
 
-	@BeforeMethod
+	@BeforeMethod(groups="fail")
 	public void setUpBeforeTest(){
 		getDriverAutoSave();
 		acc = new ManageAccount(driver);
@@ -35,7 +35,7 @@ public class Calendar_Views extends CalendarBase{
 		goToCalendarPage();
 	}
 
-	@AfterMethod
+	@AfterMethod(groups="fail")
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -45,7 +45,7 @@ public class Calendar_Views extends CalendarBase{
 	/** Check displaying added task/event in all views
 	 * CaseID 68658
 	 */
-	@Test
+	@Test(groups="fail")
 	public void test01_checkEventAllViews() {
 		String EVENT_NAME_01 = "VIEWS_EVENT_01";
 
@@ -71,6 +71,9 @@ public class Calendar_Views extends CalendarBase{
 		waitForAndGetElement(EVENT_LIST_VIEW.replace("${eventTitle}",EVENT_NAME_01));
 
 		info("Switch to Work Week view");
+		//*[@class='btn-group containerMoreItem']/*[@data-toggle='dropdown']
+		if(waitForAndGetElement(ELEMENT_BUTTON_WORK_WEEK_VIEW,5000,0) == null)
+			click(ELEMENT_BUTTON_MORE);
 		click(ELEMENT_BUTTON_WORK_WEEK_VIEW);
 		waitForAndGetElement(EVENT_WORK_WEEK_VIEW.replace("${eventTitle}",EVENT_NAME_01));
 

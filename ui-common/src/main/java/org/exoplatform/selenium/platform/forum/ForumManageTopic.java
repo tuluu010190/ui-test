@@ -51,6 +51,7 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_UNLOCK_TOPIC = By.xpath("//li[@class='defaultStyle forumSeparatorLine']//a[contains(text(),'Unlock')]"); 
 	public By ELEMENT_CLOSE_TOPIC = By.xpath("//i[@class='uiIconMinus']");
 	public By ELEMENT_OPEN_TOPIC = By.xpath("//i[@class='uiIconOpen']");
+	public final By ELEMENT_MORE_ACTION = By.xpath("//form[@id='UITopicDetail']//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");
 
 	public String ELEMENT_CATEGORY_BREAD = "//a[@title='${category}']"; 
 	

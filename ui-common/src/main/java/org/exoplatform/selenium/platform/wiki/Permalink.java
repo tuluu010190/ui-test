@@ -49,11 +49,21 @@ public class Permalink extends BasicAction {
 		magAc.signOut();
 	}
 	
-	public void makePublicPage(){
-		dialog = new Dialog(driver);
-		
+	/** Make wiki public by 2 ways: click link "permalink" or click link "Restrict" link at wiki home
+	 * @author update by phuongdt
+	 * @param opParams(useRestrictLink = true: make public by Restrict link)
+	 */
+	public void makePublicPage(Boolean...opParams){
 		info("Make public page");
-		goToPermalink();
+		Boolean useRestrictLink = (Boolean)(opParams.length>0 ? opParams[0]:false);
+		if(useRestrictLink){
+			waitForAndGetElement(ELEMENT_RESTRICTED_WIKI);
+			click(ELEMENT_RESTRICTED_WIKI);
+		}
+		else{
+			goToPermalink();
+		}
+		dialog = new Dialog(driver);
 		click(ELEMENT_MAKE_PUBLIC_BUTTON);
 		waitForAndGetElement(ELEMENT_MAKE_RESTRICT_BUTTON);
 		assert getText(ELEMENT_PERMALINK_NOTIFY).contains(DATA_NOTIFY_PUBLIC);
@@ -62,7 +72,6 @@ public class Permalink extends BasicAction {
 	
 	public void makeRestrictedPage(){
 		dialog = new Dialog(driver);
-		
 		info("Make restrict page");
 		goToPermalink();
 		click(ELEMENT_MAKE_RESTRICT_BUTTON);

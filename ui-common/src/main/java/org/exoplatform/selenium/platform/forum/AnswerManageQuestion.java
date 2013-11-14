@@ -294,10 +294,9 @@ public class AnswerManageQuestion extends AnswerBase {
 		button.save();
 		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		Utils.pause(2000);
-		if(!questionName.equals(newQuestionName))
+		if(waitForAndGetElement(ELEMENT_QUESTION_SUBMIT_OK,5000,0) != null)
 			click(ELEMENT_QUESTION_SUBMIT_OK);
-		if(wayEdit!=1 && wayEdit!=2)
-			click(ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON);
+
 	}
 
 	/**
@@ -366,7 +365,6 @@ public class AnswerManageQuestion extends AnswerBase {
 				waitForAndGetElement(element_activate, DEFAULT_TIMEOUT, 0, 2);
 			} else info("Question is being deactivate");
 		}
-		click(ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON);
 	}
 
 	public void approveQuestion(String question, boolean approve){
@@ -386,7 +384,6 @@ public class AnswerManageQuestion extends AnswerBase {
 				waitForAndGetElement(element_app, DEFAULT_TIMEOUT, 0, 2);
 			} else info("Question is being disapprove");
 		}
-		click(ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON);
 	}
 
 	public void goToDiscussInForum(){

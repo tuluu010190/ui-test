@@ -36,8 +36,7 @@ import org.testng.Assert;
 
 public class TestBase {
 
-	public static WebDriver driver;
-	public static WebDriver driver1;
+	public WebDriver driver;
 	protected String baseUrl;
 	protected int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
 	protected int WAIT_INTERVAL = 1000; //milliseconds  
@@ -826,13 +825,12 @@ public class TestBase {
 	 * @date 06-Nov-2013
 	 * @param 
 	 */
-	public static void mouseHoverByJavaScript(WebElement targetElement)
+	public void mouseHoverByJavaScript(WebElement targetElement)
 	{
 		String argu1 = "var evObj = document.createEvent('MouseEvents');";
 		String argu2 = "evObj.initMouseEvent('mouseover',true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);";
 		String argu3 =  "arguments[0].dispatchEvent(evObj);";
 		String javascript = argu1 + argu2 + argu3;
-		JavascriptExecutor executor = (JavascriptExecutor)driver;
-		executor.executeScript(javascript, targetElement);
+		((JavascriptExecutor)driver).executeScript(javascript, targetElement);
 	}
 }

@@ -81,6 +81,7 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_USER_NAME_LINK_COMMENT = "//div[@class='description']/../*[contains(text(), '${activityText}')]/../../..//p[@class='contentComment']/a[contains(text(),'${userName}')]";
 	public final By ELEMENT_MENTION_USER_BUTTON = By.id("mentionButton");
 	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
+	public final String ELEMENT_COMMENT_LIST = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]";
 	public final String ELEMENT_DELETE_COMMENT_BUTTON_INDEX = "//*[contains(text(), '${activityText}')]/..//div[@class='commentList']/div[contains(@id,'commentContainer')][${index}]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
 	public final By ELEMENT_MESSAGE_CONFIRM_DELETE_COMMENT = By.xpath("//*[text()='Are you sure you want to delete this comment?']");
 	public final String ELEMENT_SHOW_ALL_COMMENTS = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/../*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]/div[contains(@id,'CommentBlockBound')]//a[contains(text(),'View all "+"${inforComment}"+"')]";

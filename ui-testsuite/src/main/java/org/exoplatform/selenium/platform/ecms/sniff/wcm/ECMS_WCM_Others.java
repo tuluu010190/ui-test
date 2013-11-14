@@ -2,9 +2,8 @@ package org.exoplatform.selenium.platform.ecms.sniff.wcm;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import java.awt.event.KeyEvent;
-
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -107,12 +106,13 @@ public class ECMS_WCM_Others extends PlatformBase{
 	 */
 	@Test
 	public void test02_SearchContentDocumentPage(){
-		String node1 = "SearchContent658711";
-		String node2 = "SearchContent658712";
-		String node3 = "SearchContent658713";
-		String node4 = "SearchContent658714";
-		String page1 = "page658713";
-		String page2 = "page658712";
+		String node1 = "test02 SearchContent 1";
+        String node2 = "test02 SearchContent 2";
+        String node3 = "test02 SearchContent 3";
+        String node4 = "test02 SearchContent 4";
+        String page1 = "test02_page3";
+        String page2 = "test02_page2";
+        String searchText = "test02";
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 		String contentPath1 = "General Drives/Sites Management/acme/" + node1;
 		String contentPath2 = "General Drives/Sites Management/acme/" + node3;
@@ -145,8 +145,8 @@ public class ECMS_WCM_Others extends PlatformBase{
 		pEditor.addSCVPageAndContentFolderPaths(page1, contentPath1,true);
 		ecms.goToOverviewPage();
 		pEditor.addSCVPageAndContentFolderPaths(page2, contentPath2,true);
-		type(ecms.ELEMENT_ACME_SEARCH_INPUT,"test02" , true);
-		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
+		type(ecms.ELEMENT_ACME_SEARCH_INPUT,searchText, true);
+		waitForAndGetElement(ecms.ELEMENT_ACME_SEARCH_INPUT).sendKeys(Keys.RETURN);
 		
 		Utils.pause(1000);
 		driver.navigate().refresh();
@@ -158,8 +158,8 @@ public class ECMS_WCM_Others extends PlatformBase{
 		
 		//Switch to Edit mode
 		ecms.enableEditMode(true);
-		type(ecms.ELEMENT_ACME_SEARCH_INPUT,"test02", true);
-		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
+		type(ecms.ELEMENT_ACME_SEARCH_INPUT,searchText, true);
+		waitForAndGetElement(ecms.ELEMENT_ACME_SEARCH_INPUT).sendKeys(Keys.RETURN);
 		
 		waitForAndGetElement(ecms.ELEMENT_ACME_SEARCH_RESULT.replace("${result}", node3));
 		waitForAndGetElement(ecms.ELEMENT_ACME_SEARCH_RESULT.replace("${result}", node2));

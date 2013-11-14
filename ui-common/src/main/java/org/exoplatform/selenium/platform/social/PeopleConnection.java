@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.social;
+	package org.exoplatform.selenium.platform.social;
 
 import static org.exoplatform.selenium.TestLogger.*;
 

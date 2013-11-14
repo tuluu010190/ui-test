@@ -137,7 +137,6 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		navTool.goToHomePage();
 		waitForAndGetElement(By.linkText(questionName));
 
-		waitForAndGetElement(By.linkText("View all 3 comments."));
 		click(By.linkText("View all 3 comments."));
 
 		HPAct.checkAnswerOfQuestion(questionName, answerContent1, answerContent2);
@@ -177,7 +176,7 @@ public class Forum_Answers_PublishActivity extends AnswerBase{
 		goToAnswer();
 		mQuest.activeQuestion(questionName, true);
 		button.close();
-
+		
 		//Delete data
 		click(By.linkText(questionName));
 		mQuest.deleteQuestion(2, questionName);

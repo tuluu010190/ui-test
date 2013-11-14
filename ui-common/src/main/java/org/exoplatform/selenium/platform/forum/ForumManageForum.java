@@ -46,6 +46,7 @@ public class ForumManageForum extends ForumBase {
 	public By ELEMENT_OPEN_FORUM = By.xpath("//a[contains(@href,'SetOpenForum')]");
 	public By ELEMENT_NO_FORUM = By.xpath("//td[@class='noticeEmpty' and text()='No Forums']");
 	public By ELEMENT_BAN_IP_FORUM = By.xpath("//a[contains(@href,'BanIpForumTools')]"); 
+	public final By ELEMENT_MORE_ACTION = By.xpath("//form[@id='UITopicContainer']//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");
 
 	//-------------------add forum form---------------------------------------------------
 	public By ELEMENT_POPUP_ADD_FORUM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Forum']");

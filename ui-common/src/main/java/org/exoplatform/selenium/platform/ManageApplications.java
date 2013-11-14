@@ -190,6 +190,10 @@ public class ManageApplications extends PlatformBase {
 		}
 	}
 	
+	/** Go to Edit category form at manage application
+	 * @author phuongdt
+	 * @param categoryName
+	 */
 	public void goToEditCategoryAtManageApplications(String categoryName){
 		info("--Go to edit category (" + categoryName + ")--");
 		click(ELEMENT_CATEGORY_NAME.replace("${categoryName}", categoryName));
