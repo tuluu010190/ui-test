@@ -2,9 +2,11 @@ package org.exoplatform.selenium.platform.plf.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -54,13 +56,16 @@ public class PLF_HomepageGadget_WhoIsOnlineGadget extends PlatformBase {
 	public void test01_checkDisplayOfWhoisOnlineGadget(){
 		info("Go to Homepage Intranet by user acc 1");
 		navToolBar.goToHomePage();
-		driver.close();
 				
 		info("Switch to other browser to login by user acc 2");
 		loginWithAnotherAccOnThesameBrowser(User2, Pass1);
 	
 		info("Confirm if WhoisOnline gadget dislays or not with user1");
-		waitForAndGetElement(hg.ELEMENT_WHOISONLINE_GADGET);
+		hg=new HomePageGadget(driver1);
+		driver1.findElement(hg.ELEMENT_WHOISONLINE_GADGET);
+		Utils.pause(500);
+		driver1.manage().deleteAllCookies();
+		driver1.quit();
 	}
 	
 	/**
@@ -71,13 +76,15 @@ public class PLF_HomepageGadget_WhoIsOnlineGadget extends PlatformBase {
 	public void test02_showInfoOfOnlineUser(){
 		info("Go to Homepage Intranet by user acc 1");
 		navToolBar.goToHomePage();
-		driver.close();
 		
 		info("Switch to other browser to login by user acc 2");
 		loginWithAnotherAccOnThesameBrowser(User2, Pass1);
 		
 		info("Confirm if WhoisOnline gadget dislays or not with user1");
+		hg=new HomePageGadget(driver1);
 		hg.checkUserInfoOnWhoisOnlineGadget(User1);
+		driver1.manage().deleteAllCookies();
+		driver1.quit();
 	}
 	
 	/**
@@ -88,21 +95,25 @@ public class PLF_HomepageGadget_WhoIsOnlineGadget extends PlatformBase {
 	public void test03_ConnectUserfromWhoisOnlineGadget(){
 		info("Go to Homepage Intranet by user acc 1");
 		navToolBar.goToHomePage();
-		driver.close();
 		
 		info("Switch to other browser to login by user acc 2");
 		loginWithAnotherAccOnThesameBrowser(User2, Pass1);
-		waitForAndGetElement(hg.ELEMENT_WHOISONLINE_GADGET);
+		hg=new HomePageGadget(driver1);
+		hg.checkUserInfoOnWhoisOnlineGadget(User1);
 		
 		info("User 2 connect with user 1 from Who's Online gadget");
 		hg.connectPeoplefromWhoisOnlineGadget(User1);
+		acc = new ManageAccount(driver1);
 		acc.signOut();
 
 		info("Check if user 1 received connect invitation from user 2 or not");
 		acc.signIn(User1, Pass1);
-		waitForAndGetElement(hg.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}","Root Root"));
+		driver1.findElement(By.xpath(hg.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}","Root Root")));
+		Utils.pause(500);
 		
 		info("-- Clear data --");
+		navToolBar = new NavigationToolbar(driver1);
+		peopleC = new PeopleConnection(driver1);
 		navToolBar.goToConnectionPage();
 		peopleC.ignoreInvitation(fullNameUser2);
 	}
@@ -121,10 +132,15 @@ public class PLF_HomepageGadget_WhoIsOnlineGadget extends PlatformBase {
 		loginWithAnotherAccOnThesameBrowser(User2, Pass1);
 		
 		info("User 2 connect with user 1 from Who's Online gadget");
+		hg=new HomePageGadget(driver1);
 		hg.accessASfromWhoisOnlineGadget(User1);
 
 		info("Check if user 1 profile page is displayed or not");
-		waitForAndGetElement(hg.ELEMENT_PROFILE_TAB_USER_INFO.replace("${acc}",User1));
-		waitForAndGetElement(hg.ELEMENT_MY_AS_TAB.replace("${acc}",User1));
+		driver1.findElement(By.xpath(hg.ELEMENT_PROFILE_TAB_USER_INFO.replace("${acc}",User1)));
+		Utils.pause(500);
+		driver1.findElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",User1)));
+		Utils.pause(500);
+		driver1.manage().deleteAllCookies();
+		driver1.quit();
 	}
 }

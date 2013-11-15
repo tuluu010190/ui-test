@@ -636,7 +636,7 @@ public class Social_HomePage_Activity extends Activity {
 	@Test
 	public void test11_RenameASpace(){
 		//Declare variable
-		String spaceName = "space75791";
+		String spaceName = "space74791";
 		String spaceDesc = "spacedes74791";
 		String newSpaceName = "newspace74791";
 

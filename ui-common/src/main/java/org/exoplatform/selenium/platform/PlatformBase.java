@@ -21,6 +21,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -1223,10 +1224,11 @@ public class PlatformBase extends TestBase {
 	 * @date 05-Nov-2013
 	 */
 	public void loginWithAnotherAccOnThesameBrowser(String User2, String Pass2){
-		initSeleniumTest();
-		driver.get(baseUrl);
-		ManageAccount  acc = new ManageAccount(driver);
+		driver1 = new FirefoxDriver();
+		driver1.get(baseUrl);
+		ManageAccount  acc = new ManageAccount(driver1);
 		acc.signIn(User2, Pass2);
+		Utils.pause(2000);
 	}
 
 	/**
