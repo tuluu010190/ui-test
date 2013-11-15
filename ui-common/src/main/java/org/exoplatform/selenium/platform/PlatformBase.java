@@ -223,7 +223,7 @@ public class PlatformBase extends TestBase {
 	 * User and Group Management
 	 * */
 	//User Management TAB
-	public final String ELEMENT_USER_MANAGEMENT = "//div[@class='UserManagementIcon']/..";
+	public final String ELEMENT_USER_MANAGEMENT = "//*[@id='UIOrganizationPortlet']//ul[@class='managementIconContainer clearfix']/li[1]/a";
 	public final String ELEMENT_USER_DELETE_ICON ="//*[@id='UIListUsersGird']//*[text()='${username}']/../..//*[@data-original-title='Delete User']";
 	public final String ELEMENT_INPUT_SEARCH_USER_NAME = "//input[@name='searchTerm']";
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
@@ -231,8 +231,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENET_USER_MANAGEMENT_GRID = By.id("UIListUsersGird");
 
 	//Group Management TAB
-	public final By ELEMENT_GROUP_MANAGEMENT_TAB = By.xpath("//*[contains(@class, 'uiIconGroup')]");
 	public final By ELEMENT_GROUP_MANAGEMENT_INFO = By.xpath("//*[@class='uiGroupInfoContainer UIGroupInfo']");
+	public final By ELEMENT_GROUP_MANAGEMENT_TAB = By.xpath("//*[contains(@class, 'uiIconGroup')]/parent::a");
 	//"//div[@class='GroupManagementIcon']/..";
 	public final By ELEMENT_GROUP_ADD_NEW_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Add New Group']");
 	public final By ELEMENT_GROUP_REMOVE_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Delete Selected Group']");
@@ -252,7 +252,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_GROUP_USER_IN_TABLE = "//*[@class='UIUserInGroup']//*[text()='${username}']";
 
 	//Membership Management
-	public final By ELEMENT_TAB_MEMBERSHIP_MANAGEMENT = By.xpath("//*[contains(@class, 'uiIconMembership')]");
+	public final By ELEMENT_TAB_MEMBERSHIP_MANAGEMENT = By.xpath("//*[contains(@class, 'uiIconMembership')]/parent::a");
 	public final String ELEMENT_MEMBERSHIP_EDIT_ICON = "//*[text()='${membership}']/../..//*[@data-original-title='Edit Membership']";
 	public final String ELEMENT_MEMBERSHIP_DELETE_ICON = "//*[text()='${membership}']/../..//*[@data-original-title='Delete Membership']";
 	public final String ELEMENT_NEXT_PAGE_ICON = "//a[@title='Next Page']";

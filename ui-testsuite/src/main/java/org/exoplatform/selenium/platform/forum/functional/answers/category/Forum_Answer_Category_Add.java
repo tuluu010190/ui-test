@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.forum.functional.answer.category;
+package org.exoplatform.selenium.platform.forum.functional.answers.category;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
