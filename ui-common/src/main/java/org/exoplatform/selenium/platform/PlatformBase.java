@@ -79,19 +79,26 @@ public class PlatformBase extends TestBase {
 
 	/* Edit */
 	public final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
-	public final By ELEMENT_MENU_EDIT_SITES = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Site')]");
-	public final By ELEMENT_MENU_EDIT_SITES_NAV = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Navigation')]");
 	//Content
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[contains(@class,'quickEdit')]"); 
 	//By.className("quickEditUnchecked");
 	//By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
 
 	//Page
-	public final By ELEMENT_MENU_PAGE_LINK = By.xpath("//li[@class='dropdown-submenu']/a[contains(text(),'Page')]");
-	public final By ELEMENT_MENU_EDIT_LAYOUT = By.xpath("//a[contains(text(),'Edit Layout')]");
-	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[text()='SEO']");
-	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.xpath("//a[contains(text(),'Add Page')]");
+//	public final By ELEMENT_MENU_PAGE_LINK = By.xpath("//li[@class='dropdown-submenu']/a[contains(text(),'Page')]");
+//	public final By ELEMENT_MENU_EDIT_LAYOUT = By.xpath("//a[contains(text(),'Edit Layout')]");
+//	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[text()='SEO']");
+//	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.xpath("//a[contains(text(),'Add Page')]");
+//	
+	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
+	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
+	public final By ELEMENT_MENU_SEO_LINK = By.linkText("SEO");
+	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
+	
+	
 	//site
+	public final By ELEMENT_MENU_EDIT_SITES = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Site')]");
+	public final By ELEMENT_MENU_EDIT_SITES_NAV = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Navigation')]");
 
 	/* End Edit*/
 
@@ -223,6 +230,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_EDIT_NODE_PAGE = By.className("uiIconEcmsEditDocument");
 	public final By ELEMENT_NODE_EDIT_PAGE = By.xpath("//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditPageNode16x16Icon']");
 	public final By ELEMENT_WARNING_EXISTING_NODE = By.xpath("//*[contains(text(),'This node name already exists.')]");
+	public final By ELEMENT_WARNING_EXISTING_PAGE = By.xpath("//span[contains(text(),'This page name already exists.')]");
 	/*
 	 * User and Group Management
 	 * */
@@ -237,11 +245,15 @@ public class PlatformBase extends TestBase {
 	//Group Management TAB
 	public final By ELEMENT_GROUP_MANAGEMENT_INFO = By.xpath("//*[@class='uiGroupInfoContainer UIGroupInfo']");
 	public final By ELEMENT_GROUP_MANAGEMENT_TAB = By.xpath("//*[contains(@class, 'uiIconGroup')]/parent::a");
+
 	//"//div[@class='GroupManagementIcon']/..";
 	public final By ELEMENT_GROUP_ADD_NEW_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Add New Group']");
 	public final By ELEMENT_GROUP_REMOVE_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Delete Selected Group']");
 	public final By ELEMENT_GROUP_EDIT_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Edit Selected Group']");
 
+	//Group Management tree
+	public String ELEMENT_GROUP_TREE = "//div[@class='groupNavigationContainer']//a[@title='${groupName}']";
+	
 	//Add Group Form
 	public final By ELEMENT_INPUT_GROUP_NAME = By.name("name");
 	public final By ELEMENT_INPUT_GROUP_NAME_2 = By.name("groupName");
@@ -347,8 +359,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_PAGE_FINISH_BUTTON = "//*[@data-original-title='Finish']";
 	public final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
 	public final By ELEMENT_SWITCH_VIEW_MODE = By.linkText("Switch View mode");
-
-	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
+	
 	public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
 	public final By ELEMENT_TITLE_NAVIGATION_MANAGEMENT = By.xpath("//*[contains(@class, 'popupTitle') and text() = 'Navigation Management']");
@@ -369,7 +380,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECT_HOME_PAGE = "//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img";
 	public final String ELEMENT_NAVIGATION_HOME_NODE = "//div[@class='HomeNode']";				 
 	public final String ELEMENT_NODE_ADD_NEW_TOP_NODE = "//div[@id='UINavigationNodeSelectorPopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
-	public final By ELEMENT_NODE_ADD_NEW = By.xpath("//*[@id='NavigationNodePopupMenu']/*[@class='uiContextMenuContainer']//*[@class='uiIconAddNode']");
+	public final By ELEMENT_NODE_ADD_NEW = By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconAddNode']");
 	//public final String ELEMENT_NODE_EDIT = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
 	//	public final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 

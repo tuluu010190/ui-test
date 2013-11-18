@@ -26,9 +26,19 @@ public class NavigationManagement extends  PlatformBase{
 	public void addNodeForPortal(String currentNavigation, String currentNodeLabel, boolean useAddNodeLink, String nodeName, boolean extendedLabelMode,
 			Map<String, String> languages, String nodeLabel, String pageName, String pageTitle, boolean verifyPage, boolean verifyNode){
 		button = new Button(driver);
-
-		//String node = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeLabel);
-		String currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel);
+		String currentNode="";
+		if(currentNodeLabel!="") {
+			currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel); 
+		}
+		else {
+			currentNode = "//*[@class='uiIconUpLevel uiIconLightGray']"; 
+		}
+		//		if (!verifyFirstLevel) {
+		//		//String node = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeLabel);
+		//		currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel); } else {
+		//			click(ELEMENT_SITE_NAVIGATION_FIRST_LEVEL);
+		//			currentNode = ELEMENT_SITE_NAVIGATION_FIRST_LEVEL_AREA;
+		//		}
 		if (waitForAndGetElement(ELEMENT_TITLE_NAVIGATION_MANAGEMENT, 5000, 0) == null){
 			editNavigation(currentNavigation);
 		}
@@ -101,7 +111,7 @@ public class NavigationManagement extends  PlatformBase{
 			String nodeLabel, String pageName, String pageTitle, boolean firstLevel){
 		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);
 		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
-		
+
 		//Go to [Edit Navigation]
 		if (waitForAndGetElement(ELEMENT_TITLE_NAVIGATION_MANAGEMENT, 5000, 0) == null){
 			editNavigation(currentNavigation);
