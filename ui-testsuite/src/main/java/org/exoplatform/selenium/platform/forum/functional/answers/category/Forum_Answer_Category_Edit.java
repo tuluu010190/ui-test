@@ -1,7 +1,9 @@
 package org.exoplatform.selenium.platform.forum.functional.answers.category;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.forum.AnswerBase;
 import org.exoplatform.selenium.platform.forum.AnswerManageAnwser;
 import org.exoplatform.selenium.platform.forum.AnswerManageCategory;
@@ -60,12 +62,14 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		mCat.openCategoryInAnswer(category);
 
 		//Check if demo can see the category
-		goToAnswerPage("demo");
+		Acc.userSignIn(userType.DEVELOPER);
+		goToAnswer();
 		assert (getElementFromTextByJquery(category) == null) ;
 		Acc.signOut();
 
 		//Check if mary can access
-		goToAnswerPage(DATA_USER2);
+		Acc.userSignIn(userType.PUBLISHER);
+		goToAnswer();
 		assert (getElementFromTextByJquery(category) != null) ;
 		mCat.openCategoryInAnswer(category);
 
@@ -94,18 +98,21 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		mCat.editCategoryInAnswer(category, newCategory, null, null, 2, userGroup, true, false);
 
 		//Check right of demo
-		goToAnswerPage("demo");
+		Acc.userSignIn(userType.DEVELOPER);
+		goToAnswer();
 		assert (getElementFromTextByJquery(newCategory) == null) ;
 
 		//Check right of mary
-		goToAnswerPage(DATA_USER2);
+		Acc.userSignIn(userType.PUBLISHER);
+		goToAnswer();
 		assert (getElementFromTextByJquery(newCategory) != null) ;
 		mCat.openCategoryInAnswer(newCategory);
 		waitForElementNotPresent(mQuest.ELEMENT_MANAGE_QUESTIONS);
 		waitForElementNotPresent(mCat.ELEMENT_CATEGORY_BUTTON);
 
 		//Delete data
-		goToAnswerPage(DATA_USER1);
+		Acc.userSignIn(userType.ADMIN);
+		goToAnswer();
 		mCat.deleteCategoryInAnswer(newCategory);
 
 	}
@@ -126,14 +133,16 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		mCat.editCategoryInAnswer(category, newCategory, null, null, 3, userGroup, false, true);
 
 		//Check right of demo
-		goToAnswerPage("demo");
+		Acc.userSignIn(userType.DEVELOPER);
+		goToAnswer();
 		assert (getElementFromTextByJquery(newCategory) != null) ;
 		mCat.openCategoryInAnswer(newCategory);
 		waitForElementNotPresent(mQuest.ELEMENT_MANAGE_QUESTIONS);
 		waitForElementNotPresent(mCat.ELEMENT_CATEGORY_BUTTON);
 
 		//Check right of mary and delete data
-		goToAnswerPage(DATA_USER2);
+		Acc.userSignIn(userType.PUBLISHER);
+		goToAnswer();
 		assert (getElementFromTextByJquery(newCategory) != null) ;
 		mCat.openCategoryInAnswer(newCategory);
 		waitForAndGetElement(mQuest.ELEMENT_MANAGE_QUESTIONS);
@@ -159,7 +168,8 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		mCat.editCategoryInAnswer(category, newCategory, null, null, 4, userGroup, false, false);
 
 		//Check right of mary
-		goToAnswerPage(DATA_USER2);
+		Acc.userSignIn(userType.PUBLISHER);
+		goToAnswer();
 
 		assert (getElementFromTextByJquery(newCategory) != null) ;
 		mCat.openCategoryInAnswer(newCategory);
@@ -167,7 +177,8 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		waitForElementNotPresent(mCat.ELEMENT_CATEGORY_BUTTON);
 
 		//Check right of John and delete data
-		goToAnswerPage(DATA_USER1);
+		Acc.userSignIn(userType.ADMIN);
+		goToAnswer();
 
 		waitForAndGetElement(mQuest.ELEMENT_MANAGE_QUESTIONS);
 		mCat.editCategoryInAnswer(newCategory, category, null, null, 0, userGroup, true, true);
@@ -209,24 +220,28 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		mCat.addNewCategoryInAnswer(category, "1", category, 0, null, false, false, false);
 		mCat.editCategoryInAnswer(category, null, null, null, 0, null, false, false,true);
 
-		goToAnswerPage(DATA_USER2);
+		Acc.userSignIn(userType.PUBLISHER);
+		goToAnswer();
 		mCat.openCategoryInAnswer(category);
 		mQuest.submitQuestion(null, question, questionContent, null, false, null,false);
 		waitForMessage(mQuest.MSG_QUESTION_SUBMIT_MODERATOR);
 		click(mQuest.ELEMENT_QUESTION_SUBMIT_OK);
 		waitForTextPresent(mQuest.MSG_QUESTION_NEED_APPORVE);
 
-		goToAnswerPage(DATA_USER1);
+		Acc.userSignIn(userType.ADMIN);
+		goToAnswer();
 		mQuest.goToManageQuestions();
 		mQuest.approveQuestion(question, true);
 
-		goToAnswerPage(DATA_USER2);
+		Acc.userSignIn(userType.PUBLISHER);
+		goToAnswer();
 		mCat.openCategoryInAnswer(category);
 		waitForTextNotPresent(mQuest.MSG_QUESTION_NEED_APPORVE);
 		click(mQuest.ELEMENT_QUESTION_LINK.replace("${question}", question));
 		waitForAndGetElement(mQuest.ELEMENT_QUESTION_CONTENT.replace("${content}", questionContent));
 
-		goToAnswerPage(DATA_USER1);
+		Acc.userSignIn(userType.ADMIN);
+		goToAnswer();
 		mCat.deleteCategoryInAnswer(category);
 	}
 
@@ -244,13 +259,15 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		mCat.addNewCategoryInAnswer(category, "1", category, 0, null, false, false,true);
 		mCat.editCategoryInAnswer(category, null, null, null, 0, null, false, false,false);
 
-		goToAnswerPage(DATA_USER2);
+		Acc.userSignIn(userType.PUBLISHER);
+		goToAnswer();
 		mCat.openCategoryInAnswer(category);
 		mQuest.submitQuestion(null, question, questionContent, null, false, null);
 		click(mQuest.ELEMENT_QUESTION_LINK.replace("${question}", question));
 		waitForAndGetElement(mQuest.ELEMENT_QUESTION_CONTENT.replace("${content}", questionContent));
 
-		goToAnswerPage(DATA_USER1);
+		Acc.userSignIn(userType.ADMIN);
+		goToAnswer();
 		mCat.deleteCategoryInAnswer(category);
 	}
 
@@ -273,7 +290,8 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		mQuest.submitQuestion(null, question, questionContent, null, false, null);
 
 		//Check when mary submit question in this category
-		goToAnswerPage(DATA_USER2);
+		Acc.userSignIn(userType.PUBLISHER);
+		goToAnswer();
 		mCat.openCategoryInAnswer(category);
 		click(mQuest.ELEMENT_QUESTION_LINK.replace("${question}", question));
 		mAns.answerQuestion(2, question, null, answer, true, true, false, null, false, null);
@@ -282,7 +300,8 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		waitForElementNotPresent(mAns.ELEMENT_ANSWER_CONTENT.replace("${answer}", answer));
 
 		//Delete data
-		goToAnswerPage(DATA_USER1);
+		Acc.userSignIn(userType.ADMIN);
+		goToAnswer();
 		mCat.deleteCategoryInAnswer(category);
 	}
 	/**Edit category without Require approval on new answer option
@@ -301,7 +320,8 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		mCat.editCategoryInAnswer(category, null, null, null, 0, null, false, false,false, false, false);
 
 		//Check when mary submit question in this category
-		goToAnswerPage(DATA_USER2);
+		Acc.userSignIn(userType.PUBLISHER);
+		goToAnswer();
 		mCat.openCategoryInAnswer(category);
 		mQuest.submitQuestion(null, question, questionContent, null, false, null);
 		click(mQuest.ELEMENT_QUESTION_LINK.replace("${question}", question));
@@ -309,7 +329,8 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		waitForAndGetElement(mAns.ELEMENT_ANSWER_CONTENT.replace("${answer}", answer));
 
 		//Delete data
-		goToAnswerPage(DATA_USER1);
+		Acc.userSignIn(userType.ADMIN);
+		goToAnswer();
 		mCat.deleteCategoryInAnswer(category);
 	}
 
@@ -367,10 +388,5 @@ public class Forum_Answer_Category_Edit extends AnswerBase{
 		mCat.deleteCategoryInAnswer(category);
 	}
 
-	public void goToAnswerPage(String user){
-		Acc.signOut();
-		Acc.signIn(user, DATA_PASS);
 
-		goToAnswer();
-	}
 }

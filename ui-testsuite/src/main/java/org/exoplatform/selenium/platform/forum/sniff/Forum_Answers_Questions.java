@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 
 /**
@@ -31,6 +32,7 @@ public class Forum_Answers_Questions extends AnswerBase {
 		magCat = new AnswerManageCategory(driver);
 		magQuest = new AnswerManageQuestion(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
+		button = new Button(driver);
 		goToAnswer();
 	}
 

@@ -53,7 +53,7 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_OPEN_TOPIC = By.xpath("//i[@class='uiIconOpen']");
 	public final By ELEMENT_MORE_ACTION = By.xpath("//form[@id='UITopicDetail']//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");
 
-	public String ELEMENT_CATEGORY_BREAD = "//a[@title='${category}']"; 
+	public String ELEMENT_CATEGORY_BREAD = "//a[@data-original-title='${category}']"; 
 	
 	//----------------start topic screen--------------------------------------------------
 
@@ -305,6 +305,7 @@ public class ForumManageTopic extends ForumBase {
 		goToStartTopic();
 		inputDataStartTopic(title, message, file, type, userGroup, canview, canpost, options);
 		click(ELEMENT_SUBMIT_BUTTON);
+		waitForElementNotPresent(ELEMENT_SUBMIT_BUTTON);
 	}	
 
 	/**

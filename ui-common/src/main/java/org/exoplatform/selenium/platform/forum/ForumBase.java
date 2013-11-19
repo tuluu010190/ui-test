@@ -60,7 +60,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//span[text()='Censor Keywords']");
 	public final By ELEMENT_BAN_IP = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBanIp']");
 	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBBCode']");
-	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[@class='Pruning']");
+	public final By ELEMENT_PRUNE = By.className("uiIconForumPrune");
 	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport']");
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
@@ -144,21 +144,27 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_BBCODE_OPTION = By.id("UseOption");
 
 	//----------------------Prune management form---------------------------------
-	public final By ELEMENT_PRUNE_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Auto Prune']");
+	public final By ELEMENT_PRUNE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Auto Prune']");
 	public final String ELEMENT_PRUNE_ACTIVE = "//td[text()='${category}']/../*//input[@type='checkbox']";
 	public final String ELEMENT_PRUNE_ACTIVED = "//td[text()='${category}']/../*//input[@type='checkbox' and @checked='checked']";
-	public final String ELEMENT_PRUNE_SETTING = "//td[text()='${category}']/../td[text()='{$forum}']/..//div[@title='Prune Settings']";
-	public final String ELEMENT_PRUNE_RUN = "//td[text()='${category}']/../td[text()='{$forum}']/..//div[@title='Run']";
+	public final String ELEMENT_PRUNE_SETTING = "//td[text()='${category}']/../td[text()='{$forum}']/..//*[@data-original-title='Prune Settings']";
+	public final String ELEMENT_PRUNE_RUN = "//td[text()='${category}']/../td[text()='{$forum}']/..//*[@data-original-title='Run']";
 
-	public final By ELEMENT_PRUNE_SETTING_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Prune Settings']");
+
+	public final By ELEMENT_PRUNE_SETTING_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Prune Settings']");
 	public final By ELEMENT_PRUNE_ACTIVE_DAY = By.id("inActiveDay");
-	public final By ELEMENT_PRUNE_ACTIVE_DAY_TYPE = By.id("inActiveDayType");
+	public final By ELEMENT_PRUNE_ACTIVE_DAY_TYPE = By.name("inActiveDayType");
 	public final By ELEMENT_PRUNE_JOB_DAY = By.id("jobDay");
-	public final By ELEMENT_PRUNE_JOB_DAY_TYPE = By.id("jobDayType");
+	public final By ELEMENT_PRUNE_JOB_DAY_TYPE = By.name("jobDayType");
 	public final String MSG_PRUNE_INVALID_INACTIVE_DAY = "Invalid number format in field \"Clear topics that have been inactive for\".";
 	public final String MSG_PRUNE_INVALID_JOB_DAY = "Invalid number format in field \"Run prune job every\".";
 	public final String MSG_PRUNE_NOT_CONFIG = "Please configure the prune settings for this item.";
 	public final By ELEMENT_PRUNE_DRY_RUN = By.linkText("Dry Run");
+	public final By ELEMENT_PRUNE_CLOSE_BUTTON = By.xpath("//form[@id='UIAutoPruneForm']//*[text()='Close']");
+
+	public final By ELEMENT_PRUNE_INVALID_INACTIVE_DAY_OK = By.xpath("//span[contains(text(),'Clear topics that have been inactive for')]/../../..//*[text()='OK']");
+	public final By ELEMENT_PRUNE_INVALID_RUN_JOB_OK = By.xpath("//span[contains(text(),'Run prune job every')]/../../..//*[text()='OK']");
+	public final By ELEMENT_PRUNE_NOT_CONFIG_OK = By.xpath("//span[contains(text(),'Please configure the prune settings for this item.')]/../../..//*[text()='OK']");
 
 	//--------------------Profile setting form------------------------------------
 	public final By ELEMENT_SETTING = By.xpath("//*[@id='EditProfile']//*[@class='uiIconSetting uiIconLightGray']");

@@ -9,7 +9,7 @@
 			</run>
 		</groups>
 		<packages>
-			<package name="org.exoplatform.selenium.platform.forum.functional.answers.*" />
+			<package name="org.exoplatform.selenium.platform.forum.functional.forum.*" />
 		</packages> 
 	</test>
 	<listeners>
