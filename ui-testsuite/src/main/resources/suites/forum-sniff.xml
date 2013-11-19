@@ -5,7 +5,7 @@
 		<groups>
 			<run>
 				<exclude name="pending" />
-				<!--<include name="error" />-->
+				<include name="fail" />
 			</run>
 		</groups>
 		<packages> <package name="org.exoplatform.selenium.platform.forum.sniff" /> </packages>

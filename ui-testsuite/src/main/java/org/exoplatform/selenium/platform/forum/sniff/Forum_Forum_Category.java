@@ -24,7 +24,7 @@ public class Forum_Forum_Category extends ForumBase {
 	ForumManageForum magForum;
 	ForumManageTopic magTopic;
 	
-	@BeforeMethod
+	@BeforeMethod(groups="fail")
 	public void setUpBeforeTest(){
 		getDriverAutoSave();
 		magAc = new ManageAccount(driver);
@@ -36,7 +36,7 @@ public class Forum_Forum_Category extends ForumBase {
 		goToForums();
 	}
 
-	@AfterMethod
+	@AfterMethod(groups="fail")
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -132,7 +132,7 @@ public class Forum_Forum_Category extends ForumBase {
 	/**CaseId: 68913 -> Watch/Unwatch category
 	 * 
 	 */
-	@Test (groups = {"email"})
+	@Test (groups = {"email","fail"})
 	public void test04_WatchUnwatchCategory(){
 		String catName = "Category 68913";
 		String description = "Add new category in forum";

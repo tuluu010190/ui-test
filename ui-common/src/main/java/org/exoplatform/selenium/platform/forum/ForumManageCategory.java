@@ -339,4 +339,5 @@ public class ForumManageCategory extends ForumBase {
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}
+
 }

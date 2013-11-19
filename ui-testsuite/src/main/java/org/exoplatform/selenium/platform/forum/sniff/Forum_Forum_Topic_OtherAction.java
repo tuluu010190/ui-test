@@ -28,7 +28,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 	ForumManageTopic mngTopic;
 	ForumManagePost mngPost;
 
-	@BeforeMethod
+	@BeforeMethod(groups="fail")
 	public void setUpBeforeTest(){
 		initSeleniumTest();
 		magAc = new ManageAccount(driver);
@@ -41,7 +41,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 		goToForums();
 	}
 
-	@AfterMethod
+	@AfterMethod(groups="fail")
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -98,7 +98,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 	/** Tag for topic
 	 * CaseID: 68933
 	 */
-	@Test
+	@Test(groups="fail")
 	public void test03_TagTopic() {
 		String titleCat = "Category 03";
 		String titleForum = "Forum 03";
@@ -119,7 +119,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 	/** Watch & Unwatch topic
 	 * CaseID: 68915
 	 */
-	@Test
+	@Test(groups="fail")
 	public void test04_WatchUnwatchTopic() {
 		String titleCat = "Category 68915";
 		String titleForum = "Forum 68915";

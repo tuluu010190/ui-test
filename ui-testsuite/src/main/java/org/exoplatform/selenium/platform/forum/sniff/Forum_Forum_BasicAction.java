@@ -24,7 +24,7 @@ public class Forum_Forum_BasicAction extends ForumBase{
 	ForumManageForum mngFru;
 	ForumManageTopic mngTopic;
 
-	@BeforeMethod
+	@BeforeMethod(groups="fail")
 	public void setUpBeforeTest(){
 		initSeleniumTest();
 		magAc = new ManageAccount(driver);
@@ -36,7 +36,7 @@ public class Forum_Forum_BasicAction extends ForumBase{
 		goToForums();
 	}
 
-	@AfterMethod
+	@AfterMethod(groups="fail")
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -102,7 +102,7 @@ public class Forum_Forum_BasicAction extends ForumBase{
 	/** Watch&Unwatch forum
 	 * CaseID 68914
 	 */
-	@Test
+	@Test(groups="fail")
 	public void test03_WatchUnwatchForum() {
 		String category = "Category_68914";
 		String forum = "Forum_68914";

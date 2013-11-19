@@ -30,6 +30,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_FORUM_LINK = By.linkText("Forums");
 	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//*[@class='UIPopupWindow UIDragObject uiPopup']//*[text()='OK']");
 	public final By ELEMENT_OK_DELETE = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='OK']");
+	public final By ELEMENT_CANCEL_DELETE = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='Cancel']");
 
 	//-----------------Forum Home screen--------------------------------------------
 	public final By ELEMENT_ADD_CATEGORY = By.linkText("Add Category");
@@ -55,13 +56,15 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_MORE_BUTTON = By.xpath("//div[contains(text(),'More')]");
 
 	//Administration menu
-	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray']");
-	public final By ELEMENT_SORT_SETTING = By.xpath("//span[text()='Sort Settings']");
-	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//span[text()='Censor Keywords']");
-	public final By ELEMENT_BAN_IP = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBanIp']");
-	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBBCode']");
-	public final By ELEMENT_PRUNE = By.className("uiIconForumPrune");
-	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport']");
+	public final By ELEMENT_ADMINISTRATION = By.className("uiIconForumAdmin");
+	public final By ELEMENT_SORT_SETTING = By.linkText("Sort Settings");
+	public final By ELEMENT_CENSOR_KEYWORDS = By.linkText("Censor Keywords");
+	public final By ELEMENT_NOTIFICATIONS= By.linkText("Notifications");
+	public final By ELEMENT_BAN_IP = By.linkText("Banned IPs");		
+	public final By ELEMENT_BBCODE = By.linkText("BBCodes");
+	public final By ELEMENT_PRUNE = By.linkText("Pruning");
+	public final By ELEMENT_IMPORT = By.linkText("Import");
+	public final By ELEMENT_EXPORT = By.linkText("Export");
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public final String MESSAGE_WATCH = "You are now watching this item.";
@@ -130,19 +133,29 @@ public class ForumBase extends PlatformBase {
 	public final String ELEMENT_BBCODE_ACTIVE_NO_OPTION = "//input[@type='checkbox' and @id='${tag}']";
 	public final String ELEMENT_BBCODE_ACTIVE_HAVE_OPTION = "//input[@type='checkbox' and contains(@id,'${tag}" + "opt" + "')]";
 	public final By ELEMENT_BBCODE_ADD_BUTTON = By.xpath("//button[text()='Add BBCode']");
+	public final By ELEMENT_BBCODE_SAVE_BUTTON = By.xpath("//button[text()='Save']");
+	public final By ELEMENT_BBCODE_RESET_BUTTON = By.xpath("//button[text()='Reset']");
 	public final By ELEMENT_BBCODE_CLOSE_BUTTON = By.xpath("//*[@id='BBCodeManagerForm']//button[text()='Close']");
 	public final String ELEMENT_BBCODE_EDIT_ICON = "//*[contains(@href,'${tag}') and @data-original-title='Edit BBCode']";
-	public final String ELEMENT_BBCODE_DELETE_ICON = "//*[contains(@data-action,'TAGMOTUPDATE') and @data-original-title='Delete BBCode']";
+	public final String ELEMENT_BBCODE_DELETE_ICON = "//*[contains(@data-action,'${tag}') and @data-original-title='Delete BBCode']";
 	public final By ELEMENT_BBCODE_DELETE_MESSAGE = By.xpath("//span[contains(text(),'Are you sure you want to delete this BB Code ?')]");
 
-	public final By ELEMENT_BBCODE_ADD_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add BBCode']");
+	public final By ELEMENT_BBCODE_ADD_POPUP = By.id("UIForumPopupWindow");
 	public final By ELEMENT_BBCODE_EDIT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Edit BBCode']");
 	public final By ELEMENT_BBCODE_TAG	= By.id("TagName");
 	public final By ELEMENT_BBCODE_REPLACEMENT = By.id("Replacement");
 	public final By ELEMENT_BBCODE_DESCRIPTION = By.id("Description");
 	public final By ELEMENT_BBCODE_EXAMPLE = By.id("Example");
 	public final By ELEMENT_BBCODE_OPTION = By.id("UseOption");
+	public final By ELEMENT_BBCODE_ALERT_POPUP = By.className("UIPopupWindow");
+	public final String MSG_BBCODE_BLANK_FIELD = "The field ${field} is required.";
 
+	public enum ADDBBCODE_ACTION{
+		ADDBBCODE,
+		SAVE,
+		RESET,
+		CLOSE
+	}
 	//----------------------Prune management form---------------------------------
 	public final By ELEMENT_PRUNE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Auto Prune']");
 	public final String ELEMENT_PRUNE_ACTIVE = "//td[text()='${category}']/../*//input[@type='checkbox']";
@@ -265,13 +278,13 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_PRIVATE_MESSAGE_SENT_TAB = By.linkText("Sent Messages");
 	public final By ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK = By.xpath("//span[contains(text(),'Your message was sent successfully.')]/../../..//*[text()='OK']");
 	public final By ELEMENT_PRIVATE_MESSAGE_DELETE_OK = By.xpath("//span[contains(text(),'Are you sure you want to delete this message ?')]/../../..//*[text()='OK']");
-	
+
 	public final String ELEMENT_PRIVATE_MESSAGE_FORWARD_ICON = "//*[text()='${message}']//ancestor::tr//i[@class='uiIconForumForward uiIconForumLightGray' and @data-original-title='Forward Message']";
 	public final String ELEMENT_PRIVATE_MESSAGE_REPLY_ICON = "//*[text()='${message}']//ancestor::tr//i[@class='uiIconReply uiIconLightGray' and @data-original-title='Reply Message']";
 	public final String ELEMENT_PRIVATE_MESSAGE_DELETE_ICON = "//*[text()='${message}']//ancestor::td/../td/a/i[@class='uiIconDelete uiIconLightGray' and @data-original-title='Delete Message']";
 	public final String ELEMENT_PRIVATE_MESSAGE = "//form[@id='UIPrivateMessageForm']//td//*[text()='${message}']";
 	public final String ELEMENT_PRIVATE_MESSAGE_CONTENT = "//div[@class='uiContentBox']//p[text()='${message}']";
-	
+
 	public final String MSG_PRIVATE_MESSAGE_COMPOSE = "Your message was sent successfully.";
 	public final String MSG_PRIVATE_MESSAGE_DELETE = "Are you sure you want to delete this message ?";
 
@@ -569,7 +582,7 @@ public class ForumBase extends PlatformBase {
 			button.cancel();
 		}
 	}
-	
+
 	public void inputBanIP(String...ban){
 		if (ban.length > 0){
 			for (int i = 0; i < ban.length; i ++){ 
@@ -611,6 +624,31 @@ public class ForumBase extends PlatformBase {
 		waitForAndGetElement(ELEMENT_BBCODE_POPUP);
 	}
 
+	/**
+	 * Act an action with BBCODE Window, such save, reset, close, add bbcode.
+	 * Created by khanhnt at Nov 19, 2013
+	 * @param action: ADDBBCODE or SAVE or RESET or CLOSE
+	 */
+	public void actionBBCode(ADDBBCODE_ACTION action){
+		switch (action) {
+		case ADDBBCODE:
+			click(ELEMENT_BBCODE_ADD_BUTTON);
+			break;
+		case SAVE:
+			click(ELEMENT_BBCODE_SAVE_BUTTON);
+			break;
+		case RESET :
+			click(ELEMENT_BBCODE_REPLACEMENT);
+			break;
+		case CLOSE:
+			click(ELEMENT_BBCODE_CLOSE_BUTTON);
+			waitForElementNotPresent(ELEMENT_BBCODE_ADD_POPUP);
+			break;
+		default:
+			break;
+		}			
+	}
+
 	/** function: modify a BBCode
 	 * @author lientm
 	 * @param tag: tag of BBCode
@@ -649,16 +687,52 @@ public class ForumBase extends PlatformBase {
 	 * @param example: an example for this particular BBCode
 	 * @param option: choose option or not
 	 */
-	public void addBBCode(String tag, String replace, String description, String example, boolean option){
+	public void addBBCode(String tag, String replace, String description,
+			String example, boolean option, ADDBBCODE_ACTION... action){
 		info("Add new BBcode");
 		click(ELEMENT_BBCODE_ADD_BUTTON);
 		waitForAndGetElement(ELEMENT_BBCODE_ADD_POPUP);
-		modifyBBcodeInfo(tag, replace, description, example, option);
-		waitForElementNotPresent(ELEMENT_BBCODE_ADD_POPUP);
-//		waitForTextPresent(tag.toUpperCase());
-		waitForAndGetElement("//*[contains(text(),'"+tag.toUpperCase()+"')]");
-		waitForElementNotPresent(ELEMENT_ALERT);
-		info("Add BBcode successfully");
+		if(action.length>0){
+			type(ELEMENT_BBCODE_TAG, tag, true);
+			type(ELEMENT_BBCODE_REPLACEMENT, replace, true);
+			type(ELEMENT_BBCODE_DESCRIPTION, description, true);
+			type(ELEMENT_BBCODE_EXAMPLE, example, true);
+			if (option){
+				check(ELEMENT_BBCODE_OPTION, 2);
+			}else {
+				uncheck(ELEMENT_BBCODE_OPTION, 2);
+			}
+			actionBBCode(action[0]);
+			if(replace.equalsIgnoreCase("")){
+				waitForMessage(MSG_BBCODE_BLANK_FIELD.replace("${field}", "\"Replacement\""));
+			}
+
+			if(example.equalsIgnoreCase("")){
+				waitForMessage(MSG_BBCODE_BLANK_FIELD.replace("${field}", "\"Example\""));
+			}
+
+			if(tag.equalsIgnoreCase("")){
+				waitForMessage(MSG_BBCODE_BLANK_FIELD.replace("${field}", "\"Tag\""));
+			}
+
+		}else{
+			modifyBBcodeInfo(tag, replace, description, example, option);
+			waitForElementNotPresent(ELEMENT_BBCODE_ADD_POPUP);
+			//			waitForTextPresent(tag.toUpperCase());
+			waitForAndGetElement("//*[contains(text(),'"+tag.toUpperCase()+"')]");
+			waitForElementNotPresent(ELEMENT_ALERT);
+			info("Add BBcode successfully");
+		}			
+	}
+
+	/**
+	 * Return String of Alert Window.
+	 * Created by khanhnt at Nov 19, 2013
+	 * @return
+	 */
+	public String getBBCodeAlert(){
+		return waitForAndGetElement(By.className("warningIcon")).getText();
+
 	}
 
 	/** function: active/deactive a BBCode
@@ -674,15 +748,23 @@ public class ForumBase extends PlatformBase {
 		button = new Button(driver);
 		info("set active/deactive for BBcode");
 		if (tag != null && tag != ""){
-			if (option){
-				WebElement act = waitForAndGetElement(ELEMENT_ACTIVE_OPTION, 10000, 0);
+			if (option){				
+				WebElement act = waitForAndGetElement(ELEMENT_ACTIVE_OPTION, 10000, 1,2);
 				if ((active && act.isSelected() == false) || (!active && act.isSelected() == true)){
-					click(ELEMENT_ACTIVE_OPTION);
+					if (option) {
+						check(ELEMENT_ACTIVE_OPTION, 2);
+					} else {
+						uncheck(ELEMENT_ACTIVE_OPTION, 2);
+					}	
 				}
 			}else {
-				WebElement act_no = waitForAndGetElement(ELEMENT_ACTIVE_NOT_OPTION, 10000, 0);
+				WebElement act_no = waitForAndGetElement(ELEMENT_ACTIVE_NOT_OPTION, 10000, 1,2);
 				if ((active && act_no.isSelected() == false) || (!active && act_no.isSelected() == true)){
-					click(ELEMENT_ACTIVE_NOT_OPTION);
+					if (option) {
+						check(ELEMENT_ACTIVE_NOT_OPTION, 2);
+					} else {
+						uncheck(ELEMENT_ACTIVE_NOT_OPTION, 2);
+					}	
 				}
 			}
 			button.save();
@@ -709,7 +791,7 @@ public class ForumBase extends PlatformBase {
 		waitForElementNotPresent(ELEMENT_BBCODE_EDIT_POPUP);
 		waitForElementNotPresent(ELEMENT_ALERT);
 		waitForAndGetElement("//label[contains(text(),'"+tagnew.toUpperCase()+"')]");
-//		waitForTextPresent(tagnew.toUpperCase());
+		//		waitForTextPresent(tagnew.toUpperCase());
 		info("Edit BBcode successfully");
 	}
 
@@ -719,16 +801,24 @@ public class ForumBase extends PlatformBase {
 	 * @param option = true: BBCode have option
 	 * 				 = false: BBCode does not have option
 	 */
-	public void deleteBBcode(String tag){
-		By ELEMENT_DELETE = By.xpath(ELEMENT_BBCODE_DELETE_ICON.replace("${tag}", tag));
+	public void deleteBBcode(String tag, boolean...isDelete){
+		By ELEMENT_DELETE = By.xpath(ELEMENT_BBCODE_DELETE_ICON.replace("${tag}", tag.toUpperCase()));
 
 		alert = new ManageAlert(driver);
 		info("Delete a BBcode have tag " + tag);
 		click(ELEMENT_DELETE);
 		waitForAndGetElement(ELEMENT_BBCODE_DELETE_MESSAGE);
-		click(ELEMENT_OK_DELETE);
-		waitForElementNotPresent(ELEMENT_DELETE);
-		info("Delete BBcode successfully");
+
+		boolean tryOthers = isDelete.length>0 ? isDelete[0]:true;
+		if (tryOthers){
+
+			click(ELEMENT_OK_DELETE);
+			waitForElementNotPresent(ELEMENT_DELETE);
+			info("Delete BBcode successfully");
+		}else{
+			click(ELEMENT_CANCEL_DELETE);
+			waitForElementNotPresent(ELEMENT_CANCEL_DELETE);
+		}
 	}
 
 	/** function: go to Prune Management
@@ -835,7 +925,7 @@ public class ForumBase extends PlatformBase {
 		switchToParentWindow();
 		button.save();
 	}
-	
+
 	/** Reset Notification as default
 	 * @author thuntn
 	 */
@@ -868,7 +958,7 @@ public class ForumBase extends PlatformBase {
 	public String[] removeEmptyElementOfArray(String[] arr){
 		String[] temp = new String[arr.length];
 		int len = 0;
-		
+
 		for(int i = 0; i < arr.length; i++){
 			if (arr[i] != ""){
 				temp[len] = arr[i];
@@ -888,7 +978,7 @@ public class ForumBase extends PlatformBase {
 		if(waitForAndGetElement(ELEMENT_MAIL_CONTENT,DEFAULT_TIMEOUT,0) == null)
 			click(ELEMENT_FIRST_MAIL);
 		String[] temp = getText(ELEMENT_MAIL_CONTENT).split(System.getProperty("line.separator"));
-		
+
 		compareString(removeEmptyElementOfArray(temp), removeEmptyElementOfArray(content));
 		info("Email content is true");
 	}
@@ -1239,7 +1329,7 @@ public class ForumBase extends PlatformBase {
 			inputDataToFrameInFrame(ELEMENT_PRIVATE_MESSAGE_FRAME1,ELEMENT_POST_MESSAGE_FRAME_2 , message, false);
 		switchToParentWindow();
 		click(ELEMENT_PRIVATE_MESSAGE_SEND_BUTTON);
-		
+
 	}
 
 	/** Compose a private message
@@ -1273,7 +1363,7 @@ public class ForumBase extends PlatformBase {
 		waitForElementNotPresent(ELEMENT_PRIVATE_MESSAGE_DELETE_OK);
 		waitForElementNotPresent(ELEMENT_PRIVATE_MESSAGE_DELETE_ICON.replace("${message}",titleMessage ));
 	}
-	
+
 	/** Forward a private message
 	 * @author thuntn
 	 * @param titleMessage
@@ -1281,7 +1371,7 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void forwardPrivateMessage(String titleMessage, String receiver,String fwdMessage){
 		info("Forward a private message");
-		
+
 		click(ELEMENT_PRIVATE_MESSAGE_SENT_TAB);
 		click(ELEMENT_PRIVATE_MESSAGE_FORWARD_ICON.replace("${message}", titleMessage));
 		inputPrivateMessage(receiver, null, fwdMessage);
@@ -1290,7 +1380,7 @@ public class ForumBase extends PlatformBase {
 		waitForElementNotPresent(ELEMENT_PRIVATE_MESSAGE_COMPOSE_OK);
 		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE.replace("${message}", "Forward:" + titleMessage));
 	}
-	
+
 	/**Reply a private message
 	 * @author thuntn
 	 * @param titleMessage
@@ -1314,10 +1404,10 @@ public class ForumBase extends PlatformBase {
 	public void checkPrivateMessage(String titleMessage, String contentMessage){
 		//verify title of message
 		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE.replace("${message}", titleMessage));
-		
+
 		click(ELEMENT_PRIVATE_MESSAGE.replace("${message}", titleMessage));
 		waitForAndGetElement(ELEMENT_PRIVATE_MESSAGE_CONTENT.replace("${message}", contentMessage));
-		
+
 	}
 
 }
