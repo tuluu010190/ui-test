@@ -23,6 +23,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 public class ForumManageCategory extends ForumBase {
 
 	ForumPermission frumPer;
+	ManageAccount account;
 
 	public ForumManageCategory(WebDriver dr){
 		driver = dr;
@@ -36,6 +37,10 @@ public class ForumManageCategory extends ForumBase {
 	public final String ELEMENT_CATEGORY = "//*[@class='nameForum']//strong[text()='${categoryName}']";	
 	public final By ELEMENT_HOME_CATEGORY = By.xpath("//div[@class='Selected' and text()='Home']");
 	public final String ELEMENT_CATEGORY_DESCRIPTION_TEXT = ".//*[@id='UICategoryDescription']//span[@class='description' and contains(text(),'${desc}')]";
+
+	public final By ELEMENET_UICATEGORY = By.id("UICategories"); 
+	public final By ELEMENT_UIGRID = By.className("uiGrid");		
+	public final By ELEMENT_TEXT_TITLE_CATEGORY = By.className("actionOpenLink");
 
 	//------------Manage category menu---------------------------------------------------------------------
 	public final By ELEMENT_MANAGE_CATEGORY = By.xpath("//*[@class='uiIconForumManageCategory uiIconForumLightGray']");
@@ -96,7 +101,12 @@ public class ForumManageCategory extends ForumBase {
 	public By ELEMENT_EXPORT_CATEGORY_BODY = By.xpath("//*[@id='UIExportForm']/*//fieldset/*//tbody");
 	public String ELEMENT_EXPORT_CATEGORY_CHOOSE = "//label[text()='${category}']/../../*//input[@type='checkbox']";	
 
+	//-------------------Message-------------------------------------
+	public String MESSAGE_CATEGORY_NOT_EXISTE ="The category isn't existed";
+	public String MESSAGE_RESTRICTED_AUDIENCE_INVALID="The field \"Restricted Audience\" is invalid: ";
+
 	/*------------------------------------common function---------------------------------*/
+
 
 	/** Function go to Add Category Popup
 	 * @author lientm
@@ -192,11 +202,12 @@ public class ForumManageCategory extends ForumBase {
 	/**function go to edit category
 	 * @author lientm
 	 */
-	public void goToEditCategoryInForum(){
+	public void goToEditCategoryInForum(boolean...verify){
 		info("Go to edit category");
 		click(ELEMENT_MANAGE_CATEGORY);
 		click(ELEMENT_EDIT_CATEGORY);
-		waitForAndGetElement(ELEMENT_POPUP_ADD_CATEGORY);
+		if(verify.length>0?verify[0]:true)
+			waitForAndGetElement(ELEMENT_POPUP_ADD_CATEGORY);
 	}
 
 	/**
@@ -351,8 +362,28 @@ public class ForumManageCategory extends ForumBase {
 		Utils.pause(1000);
 	}
 
+
 	/**
-	 * Open new window, login by another account and delete a category based on its name.
+	 * Check if user can delete a category based on category name.
+	 * Created by khanhnt at Nov 21, 2013
+	 * @param catName: Name of category
+	 * @param isCanEditDelete: True if user can edit and delete, vice versa. 
+	 */
+	public void checkUserCanEditDeleteACategory(String catName, boolean isCanEditDelete) {
+		// TODO Auto-generated method stub
+		waitForAndGetElement(By.linkText(catName)).click();
+		if (isCanEditDelete) {
+			waitForAndGetElement(ELEMENT_MANAGE_CATEGORY).click();
+			waitForAndGetElement(ELEMENT_EDIT_CATEGORY);
+			waitForAndGetElement(ELEMENT_DELETE_CATEGORY);
+		} else
+			waitForElementNotPresent(ELEMENT_MANAGE_CATEGORY);	
+
+	}
+
+	/**
+	 * Open new window, login by another acount and delete a category based on its name.
+	 * Created by khanhnt at Nov 22, 2013.
 	 * @param dataUser: User name
 	 * @param dataPass: Pass
 	 * @param catName: Category Name
@@ -367,13 +398,14 @@ public class ForumManageCategory extends ForumBase {
 
 		acc = new ManageAccount(tmpDriver);
 		acc.signIn(dataUser, dataPass);
-		
+
 		tmpDriver.findElement(ELEMENT_FORUM_LINK).click();
-        Utils.pause(WAIT_INTERVAL);
+		Utils.pause(WAIT_INTERVAL);
 		//Open category
 		tmpDriver.findElement(By.linkText(catName)).click();
 		Utils.pause(WAIT_INTERVAL);
 		//Delete category
+		
 		tmpDriver.findElement(ELEMENT_MANAGE_CATEGORY).click();
 		Utils.pause(WAIT_INTERVAL);
 		tmpDriver.findElement(ELEMENT_DELETE_CATEGORY).click();;
@@ -384,4 +416,29 @@ public class ForumManageCategory extends ForumBase {
 		tmpDriver.manage().deleteAllCookies();
 		tmpDriver.quit();
 	}
+
+	/**
+	 * Check right of view category
+	 * @param username: username
+	 * @param password: password
+	 * @param categoryName: name of category
+	 * @param description: description of category
+	 * @param rightOfView: true, if the user has right to view the category, and vice versa
+	 */
+	public void checkRightOfViewCategory(String username, String password, String categoryName, String description, boolean rightOfView){
+		account.signOut();
+		account.signIn(username,password);
+		goToForums();
+
+		if(rightOfView){
+			click(By.linkText(categoryName));
+			waitForAndGetElement(ELEMENT_CATEGORY_DESCRIPTION_TEXT.replace("${desc}", description));
+			info(username + " can see the category");
+		}else{
+			waitForElementNotPresent(By.linkText(categoryName));
+			info(username + " who has not permission cannot see the category");
+
+		}
+	}
+
 }

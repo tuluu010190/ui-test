@@ -43,7 +43,7 @@ public class Forum_Forum_Administration_BBCode extends ForumManageAdministration
 	 * The bb code must be deactived before this test.
 	 * Created by khanhnt at Nov 18, 2013
 	 */
-	//@Test
+	@Test
 	public void test01_ActivateABBCodeInListAvailableName() {
 		info("");
 		String tagName = "CODE";
@@ -111,6 +111,7 @@ public class Forum_Forum_Administration_BBCode extends ForumManageAdministration
 
 		goToForums();
 		goToBBCodeManagement();
+
 		addBBCode(tagName,replacement, des,example,use,ADDBBCODE_ACTION.SAVE);
 	}
 
@@ -163,6 +164,7 @@ public class Forum_Forum_Administration_BBCode extends ForumManageAdministration
 	 */
 	@Test
 	public void test07_CancelDeletingBBCode() {
+
 		String tagName = "CODE";		
 		goToForums();
 		goToBBCodeManagement();	
@@ -177,6 +179,7 @@ public class Forum_Forum_Administration_BBCode extends ForumManageAdministration
 	 */
 	@Test
 	public void test08_DeactivatedABBCodeInListAvailable() {
+
 		String tagName = "CODE";
 
 		goToForums();
@@ -192,6 +195,7 @@ public class Forum_Forum_Administration_BBCode extends ForumManageAdministration
 	 */
 	@Test
 	public void test09_DeleteABBCodeWhichIsDefault() {
+
 		String tagName = "CODE";
 
 		goToForums();

@@ -409,27 +409,4 @@ public class ForumManageForum extends ForumBase {
 
 	}
 
-    /**
-     * Check right of view category
-     * @param username: username
-     * @param password: password
-     * @param categoryName: name of category
-     * @param description: description of category
-     * @param rightOfView: true, if the user has right to view the category, and vice versa
-     */
-	public void checkRightOfViewCategory(String username, String password, String categoryName, String description, boolean rightOfView){
-		account.signOut();
-		account.signIn(username,password);
-		goToForums();
-
-		if(rightOfView){
-			click(By.linkText(categoryName));
-			waitForAndGetElement(cat.ELEMENT_CATEGORY_DESCRIPTION_TEXT.replace("${desc}", description));
-			info(username + " can see the category");
-		}else{
-			waitForElementNotPresent(By.linkText(categoryName));
-			info(username + " who has not permission cannot see the category");
-
-		}
-	}
 }

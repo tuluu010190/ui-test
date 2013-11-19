@@ -157,14 +157,17 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_BBCODE_EXAMPLE = By.id("Example");
 	public final By ELEMENT_BBCODE_OPTION = By.id("UseOption");
 	public final By ELEMENT_BBCODE_ALERT_POPUP = By.className("UIPopupWindow");
+
 	public final String MSG_BBCODE_BLANK_FIELD = "The field ${field} is required.";
 
+	//Action click code for add BBCode. 
 	public enum ADDBBCODE_ACTION{
 		ADDBBCODE,
 		SAVE,
 		RESET,
 		CLOSE
 	}
+
 	//----------------------Prune management form---------------------------------
 	public final By ELEMENT_PRUNE_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Auto Prune']");
 	public final String ELEMENT_PRUNE_ACTIVE = "//td[text()='${category}']/../*//input[@type='checkbox']";
