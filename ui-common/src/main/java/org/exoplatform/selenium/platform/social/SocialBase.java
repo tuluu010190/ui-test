@@ -257,7 +257,7 @@ public class SocialBase extends PlatformBase {
 			info("Retry...[" + repeat + "]");
 		}
 		click(ELEMENT_TOOLBAR_NETWORKS_ICON);
-		waitForAndGetElement(ELEMENT_SEARCH_BUTTON);
+		waitForAndGetElement(ELEMENT_MY_CONNECTIONS_TAB);
 	}	
 
 	// Go to Activity stream

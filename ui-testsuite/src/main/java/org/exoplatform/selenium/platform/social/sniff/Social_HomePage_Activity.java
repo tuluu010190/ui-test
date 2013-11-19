@@ -159,7 +159,7 @@ public class Social_HomePage_Activity extends Activity {
 	@Test(priority = 0)
 	public void test02_CheckOrderOfTheActivities(){
 		//Declare variable
-		String activity1 = "activity 95701";
+		String activity1 = "activity95701";
 		String uploadFileName = "ECMS_DMS_SE_Upload_pdffile.pdf";
 		String uploadFileName1 = "ECMS_DMS_SE_Upload_imgfile.jpg";
 		By elementfile = By.linkText(uploadFileName1);
@@ -266,19 +266,19 @@ public class Social_HomePage_Activity extends Activity {
 		activity.deleteActivity(fileDocument);
 		activity.deleteActivity(uploadFileName);
 		navToolBar.goToSiteExplorer();
-		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-		actBar.actionsOnElement(folder, actionType.DELETE,true,true);
-		actBar.actionsOnElement(fileDocument, actionType.DELETE,true,true);
-		magMember.goToAllSpaces();
-		magMember.deleteSpace(spaceName,300000);
-		navToolBar.goToMyProfile();
-		peoPro.editUserBasicInformation("", "", oldEmail);
-		navToolBar.goToSiteExplorer();
 		actBar.chooseDrive(ecms.ELEMENT_SITES_MANAGEMENT_DRIVE);
 		cMenu.deleteData(bNameWebContent);
 		cMenu.deleteDocument(bNode);
 		cMenu.deleteData(elementfile);	
 		cMenu.deleteDocument(bNode1);
+		magMember.goToAllSpaces();
+		magMember.deleteSpace(spaceName,300000);
+		navToolBar.goToMyProfile();
+		peoPro.editUserBasicInformation("", "", oldEmail);
+		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
+		actBar.actionsOnElement(folder, actionType.DELETE,true,true);
+		actBar.actionsOnElement(fileDocument, actionType.DELETE,true,true);
 	}
 
 	/**

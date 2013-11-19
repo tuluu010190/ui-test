@@ -80,10 +80,10 @@ public class PLF_HomePageGadget_GettingStartedGadget extends Activity{
 	public void test01_GettingStartedGadget() { 
 
 		String uploadFileName = "PLF_Upload_pdffile.pdf";
-		String folder = "folder04";
+		String folder = "folder70413";
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
-		String spaceName = "space1";
+		String spaceName = "space70413";
 		String activity1 = "activity 70413";
 		String user1="Mary Williams";
 		String user_login1 = "mary";

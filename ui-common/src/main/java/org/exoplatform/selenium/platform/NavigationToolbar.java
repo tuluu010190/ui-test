@@ -19,6 +19,7 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[@class='quickEditChecked']");
 	public final By ELEMENT_EDIT_MENU_ID = By.xpath("//*[@id='UIAdminToolbarPortlet']/../..");
 	public final By ELEMENT_SEO_MENU = By.xpath("//span[text()='SEO']");
+	public final By ELEMENT_PAGE_ID = By.xpath("//*[contains(@id, 'UIPage-')]");
 
 	public NavigationToolbar(WebDriver dr){
 		driver = dr;
@@ -78,7 +79,7 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Go to Portal Manage Pages	
 	public void goToManagePages() {
-		info("--Go to Portal Site Management--");
+		info("--Go to Page Management--");
 		String url = DEFAULT_BASEURL + "/g/:platform:administrators/administration/pageManagement";
 		for(int repeat=0;; repeat ++){
 			if (repeat > 1){
@@ -87,9 +88,9 @@ public class NavigationToolbar extends PlatformBase {
 			}
 			//mouseOverAndClick(ELEMENT_LINK_SETUP);
 			mouseOver(ELEMENT_LINK_SETUP, true);
-			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, DEFAULT_TIMEOUT, 0)!= null) {	
+			if (waitForAndGetElement(ELEMENT_LINK_PORTAL, 5000, 0)!= null) {	
 				mouseOver(ELEMENT_LINK_PORTAL, false);
-				if (waitForAndGetElement(ELEMENT_LINK_PAGES, DEFAULT_TIMEOUT, 0)!= null){
+				if (waitForAndGetElement(ELEMENT_LINK_PAGES, 5000, 0)!= null){
 					click(ELEMENT_LINK_PAGES);
 					break;
 				}
@@ -341,7 +342,7 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(1000);
 		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
 		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
-		WebElement seo = waitForAndGetElement(ELEMENT_SEO_MENU,10000,0,2);
+		WebElement seo = waitForAndGetElement(ELEMENT_SEO_MENU,10000,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click()",seo);		
 		Utils.pause(1000);
 	}
@@ -387,6 +388,12 @@ public class NavigationToolbar extends PlatformBase {
 					click(ELEMENT_MENU_EDIT_LAYOUT);
 					break;
 				}
+			}
+			else{
+                String editPageRequest = "ajaxGet(eXo.env.server.createPortalURL('" + getPageId() + "', 'EditCurrentPage', true))";
+                ((JavascriptExecutor)driver).executeScript(editPageRequest);
+				Utils.pause(1000);
+				break;
 			}
 			info("Retry...[" + repeat + "]");
 		}
@@ -540,5 +547,14 @@ public class NavigationToolbar extends PlatformBase {
 			info("Retry...[" + repeat + "]");
 		}
 	}
-
+	
+	/**
+	 * Get pageID to edit layout
+	 * @author phuongdt
+	 */
+	String getPageId(){
+		String pageElement = waitForAndGetElement(ELEMENT_PAGE_ID).getAttribute("id");
+		int beginIndex = pageElement.indexOf("-");
+		return pageElement.substring(beginIndex+1);
+	}
 }

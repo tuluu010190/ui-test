@@ -68,36 +68,21 @@ public class PeopleConnection extends SocialBase {
 	 */
 	public void acceptInvitation (String peopleName) {
 		info("-- Accept the invitation: " + peopleName);
-		if(waitForAndGetElement(ELEMENT_REQUEST_PENDING_TAB,DEFAULT_TIMEOUT,0)==null){
-
+		if(waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB,5000,0)==null){
 			info("----Go to My connections----");
-
 			goToMyConnections();
-
-			waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB);
-
 			info("---Click Requests Received tab-----");
-
 			click(ELEMENT_REQUESTS_RECEIVED_TAB);
 		}
 		else
 			click(ELEMENT_REQUESTS_RECEIVED_TAB);
-		waitForAndGetElement(ELEMENT_CONFIRM_BUTTON.replace("${peopleName}", peopleName));
-
 		info("----Confirm the invitation from user '"+peopleName+"' ");
-
 		click(ELEMENT_CONFIRM_BUTTON.replace("${peopleName}", peopleName));
-
 		waitForElementNotPresent(ELEMENT_CONFIRM_BUTTON.replace("${peopleName}", peopleName));
-
 		info("----Go to My connections tab----");
-
 		click(ELEMENT_MY_CONNECTIONS_TAB);
-
 		info("---Verify remove connection button----");
-
 		waitForAndGetElement(ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
-
 	}
 
 	/**
@@ -106,31 +91,20 @@ public class PeopleConnection extends SocialBase {
 	 */
 	public void ignoreInvitation (String peopleName) {
 		info("-- Ignore the invitation from: " + peopleName);
-		if(waitForAndGetElement(ELEMENT_REQUEST_PENDING_TAB,DEFAULT_TIMEOUT,0)==null){
+		if(waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB,5000,0)==null){
 			info("----Go to My connections----");
-
 			goToMyConnections();
-
-			waitForAndGetElement(ELEMENT_REQUESTS_RECEIVED_TAB);
-
 			info("---Click Requests Received tab-----");
-
 			click(ELEMENT_REQUESTS_RECEIVED_TAB);
 		}
 		else
 			click(ELEMENT_REQUESTS_RECEIVED_TAB);
 		waitForAndGetElement(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", peopleName));
-
 		info("---Ignore the invitation from user '"+peopleName+"'-----");
-
 		click(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", peopleName));
-
 		waitForElementNotPresent(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", peopleName));
-
 		info("---Go to Everyone tab----");
-
 		click(ELEMENT_EVERYONE_TAB);
-
 		waitForAndGetElement(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 	}
 
@@ -141,7 +115,7 @@ public class PeopleConnection extends SocialBase {
 	public void removeConnection(String peopleName){
 		info("-- Remove connection with: " + peopleName);
 
-		if(waitForAndGetElement(ELEMENT_MY_CONNECTIONS_TAB,DEFAULT_TIMEOUT,0)==null){
+		if(waitForAndGetElement(ELEMENT_MY_CONNECTIONS_TAB,5000,0)==null){
 			info("----Go to My connections----");
 
 			goToMyConnections();
@@ -176,7 +150,7 @@ public class PeopleConnection extends SocialBase {
 	 */
 	public void cancelRequest(String peopleName){
 		info("-- Cancel the invitation: " + peopleName);
-		if(waitForAndGetElement(ELEMENT_REQUEST_PENDING_TAB,DEFAULT_TIMEOUT,0)==null){
+		if(waitForAndGetElement(ELEMENT_REQUEST_PENDING_TAB,5000,0)==null){
 			info("----Go to My connections----");
 			goToMyConnections();
 			waitForAndGetElement(ELEMENT_REQUEST_PENDING_TAB);

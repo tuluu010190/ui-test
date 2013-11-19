@@ -388,6 +388,18 @@ public class PageEditor extends PlatformBase {
 		waitForElementNotPresent(elementPortlet);
 	}
 
+	/**function go to edit a container
+	 * @author phuongdt
+	 * @param elementContainer: ex: ELEMENT_DROP_TARGET_HAS_LAYOUT
+	 */
+	public void goToEditContainer(Object elementContainer){	
+		info("Go to edit container ");
+		click(ELEMENT_CONTAINER_TAB);
+		mouseOver(elementContainer, true);
+		click(ELEMENT_EDIT_CONTAINER_ICON);
+		waitForAndGetElement(By.id("UIContainerForm"));
+	}
+	
 	/**function go to edit a portlet
 	 * @author lientm
 	 * @param elementPortlet
@@ -398,6 +410,7 @@ public class PageEditor extends PlatformBase {
 		click(ELEMENT_EDIT_PORTLET_ICON);
 		waitForAndGetElement(By.id("tab-UIPortletForm"));
 	}
+
 
 	/**function move a portlet to a new container
 	 * @author lientm
@@ -456,6 +469,19 @@ public class PageEditor extends PlatformBase {
 		if (finishEdit){
 			finishEditLayout();
 		}
+		Utils.pause(1000);
+	}
+	
+	/** add new porlet to layout of page
+	 * @author phuongdt
+	 * @param category (ex: "Collaboration")
+	 * @param portletId (ex: "Collaboration/AnswersPortlet")
+	 */
+	public void addNewPortlet(String category, String portletId){
+		info("Add new application: " + portletId);
+		click(ELEMENT_APPLICATION_TAB);
+		click(By.linkText(category));
+		dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_NO_LAYOUT);
 		Utils.pause(1000);
 	}
 

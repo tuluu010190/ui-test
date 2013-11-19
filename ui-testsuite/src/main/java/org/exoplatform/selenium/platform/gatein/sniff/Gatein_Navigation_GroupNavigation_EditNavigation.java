@@ -70,8 +70,8 @@ public class Gatein_Navigation_GroupNavigation_EditNavigation extends GroupNavig
 	public void test01_EditPriorityForGroupNavigation(){
 		String groupAdmin = "/platform/administrators";
 		String groupAdminDisplayName = "Administration";
-		String groupAdminOldPosition = ELEMENT_GROUP_NAVIGATION_POSITION.replace("${number}", "2").replace("${groupTitle}", groupAdmin);
-		String groupAdminNewPosition = ELEMENT_GROUP_NAVIGATION_POSITION.replace("${number}", "1").replace("${groupTitle}", groupAdmin);
+		String groupAdminOldPosition = ELEMENT_GROUP_NAVIGATION_POSITION.replace("${index}","1").replace("${number}", "2").replace("${groupTitle}", groupAdmin);
+		String groupAdminNewPosition = ELEMENT_GROUP_NAVIGATION_POSITION.replace("${index}","1").replace("${number}", "1").replace("${groupTitle}", groupAdmin);
 
 		info("Go to Group Sites");
 		navToolbar.goToGroupSites();

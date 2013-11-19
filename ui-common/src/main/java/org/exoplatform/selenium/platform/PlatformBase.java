@@ -218,7 +218,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CLONE_NODE = By.xpath("//a[contains(text(),'Clone')]");
 	public final By ELEMENT_EDIT_NODE_PAGE = By.className("uiIconEcmsEditDocument");
 	public final By ELEMENT_NODE_EDIT_PAGE = By.xpath("//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditPageNode16x16Icon']");
-
+	public final By ELEMENT_WARNING_EXISTING_NODE = By.xpath("//*[contains(text(),'This node name already exists.')]");
 	/*
 	 * User and Group Management
 	 * */
@@ -228,9 +228,11 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_INPUT_SEARCH_USER_NAME = "//input[@name='searchTerm']";
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
 	public final String ELEMENT_USER_EDIT_ICON = "//*[@id='UIListUsersGird']//*[text()='${username}']/../..//*[@data-original-title='Edit User Info']";
+	public final By ELEMENET_USER_MANAGEMENT_GRID = By.id("UIListUsersGird");
 
 	//Group Management TAB
 	public final By ELEMENT_GROUP_MANAGEMENT_TAB = By.xpath("//*[contains(@class, 'uiIconGroup')]");
+	public final By ELEMENT_GROUP_MANAGEMENT_INFO = By.xpath("//*[@class='uiGroupInfoContainer UIGroupInfo']");
 	//"//div[@class='GroupManagementIcon']/..";
 	public final By ELEMENT_GROUP_ADD_NEW_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Add New Group']");
 	public final By ELEMENT_GROUP_REMOVE_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Delete Selected Group']");
@@ -255,6 +257,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_MEMBERSHIP_DELETE_ICON = "//*[text()='${membership}']/../..//*[@data-original-title='Delete Membership']";
 	public final String ELEMENT_NEXT_PAGE_ICON = "//a[@title='Next Page']";
 	public final By ELEMENT_INPUT_NAME = By.id("name");
+	public final By ELEMENT_MEMBERSHIP_MANAGEMENT_GRID = By.xpath("//*[@class='UIListMembershipType']");
 	/*
 	 * Manage Account
 	 * */
@@ -415,6 +418,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CONTENTS_LIST_VIEWER_PORTLET = By.id("Content/ContentListViewerPortlet");
 	public final By ELEMENT_ANWSER_PORTLET = By.id("Collaboration/AnswersPortlet");
 	public final By ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE = By.id("UIAnswersPortlet");
+	public final By ELEMENT_ACCOUNT_PORTLET_IN_VIEW_PAGE = By.id("UIAccountPortlet");
 	public final By ELEMENT_BY_QUERY_TEXTAREA = By.xpath("//textarea[@id='UICLVConfigContentByQueryTextArea']");
 	public final By ELEMENT_WORKSPACE_SELECT = By.xpath("//select[@id='UICLVConfigWorkspaceFormSelectBox']");
 	public final By ELEMENT_ACME_CATEGORY = By.xpath("//*[@id='ListRecords']/thead/tr[2]/td/a");
@@ -449,6 +453,10 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_EDITING_CONTAINER = By.xpath("//div[@class='UIRowContainer EmptyContainer']/ancestor::div[contains(@class, 'EdittingContainer')]");
 	public final By ELEMENT_WIDTH_TEXTBOX = By.id("width");
 	public final By ELEMENT_HEIGHT_TEXTBOX = By.id("height");
+	public final By ELEMENT_TITLE_TEXTBOX = By.id("title");
+	public final By ELEMENT_ID_TEXTBOX = By.id("id");
+	public final By ELEMENT_CONTAINER_SETTING_TAB = By.xpath("//*[text()='Container Setting']");
+	public final By ELEMENT_CONTAINER_PERMISSION_TAB = By.xpath("//*[text()='Access Permissions']");
 	public final By ELEMENT_PORTLET_LAYOUT_DECORATOR = By.className("portletLayoutDecorator");
 	public final String ELEMENT_COLUMN_CONTAINER = "//*[@class='UITableColumn']";
 	public final String ELEMENT_NAME_CONTAINER = ELEMENT_DRAG_CONTAINER + "/../*[text()='${nameContainer}']";
@@ -456,6 +464,13 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_DRAG_CURRENT_CONTAINER = "//*[text()='${nameContainer}']/../*[@title='Hold this area to drag this container']";
 	public final String ELEMENT_LIST_CONTAINER = "//*[@class='UIRowContainer']/div[${number}]//*[contains(text(), '${nameContainer}')]";
 
+	//Porlet setting
+	public final By ELEMENT_PORLET_SETTING_TAB = By.xpath("//*[text()='Portlet Setting']");
+	public final By ELEMENT_EDIT_MODE_TAB = By.xpath("//*[text()='Edit Mode']");
+	public final By ELEMENT_SELECT_ICON_TAB = By.xpath("//*[text()='Select Icon']");
+	public final By ELEMENT_DECORATION_THEMES_TAB = By.xpath("//*[text()='Decoration Themes']");
+	public final By ELEMENT_ACCESS_PERMISSION_TAB = By.xpath("//*[text()='Access Permission']");
+	
 	/*
 	 * END Page Management
 	 * */
@@ -1224,9 +1239,9 @@ public class PlatformBase extends TestBase {
 	 * @date 05-Nov-2013
 	 */
 	public void loginWithAnotherAccOnThesameBrowser(String User2, String Pass2){
-		driver1 = new FirefoxDriver();
-		driver1.get(baseUrl);
-		ManageAccount  acc = new ManageAccount(driver1);
+		newDriver = new FirefoxDriver();
+		newDriver.get(baseUrl);
+		ManageAccount  acc = new ManageAccount(newDriver);
 		acc.signIn(User2, Pass2);
 		Utils.pause(2000);
 	}

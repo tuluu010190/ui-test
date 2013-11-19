@@ -281,7 +281,7 @@ public class SpaceManagement extends SocialBase {
 			info("-- Edit a space without changing the user's avatar --");
 		}
 		button.save();
-		Utils.pause(1000);
+		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		if(name == newName){
 			waitForAndGetElement("//*[contains(text(),'Updated space information successfully.')]");
 			dialog.closeMessageDialog();

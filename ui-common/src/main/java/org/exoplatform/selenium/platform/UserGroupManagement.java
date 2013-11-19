@@ -38,20 +38,20 @@ public class UserGroupManagement extends PlatformBase {
 	public void chooseUserTab(){
 		info("-- Choose User tab--");
 		click(ELEMENT_USER_MANAGEMENT);
-		waitForTextPresent("User Name");
+		waitForAndGetElement(ELEMENET_USER_MANAGEMENT_GRID);
 	}
 
 	public void chooseGroupTab() {
 		info("-- Choose Group Management tab--");
 		click(ELEMENT_GROUP_MANAGEMENT_TAB);
-		waitForTextPresent("Group Info");
+		waitForAndGetElement(ELEMENT_GROUP_MANAGEMENT_INFO);
 	}
 
 	public void chooseMembershipTab() {
 		info("-- Choose Membership Management tab--");
 		Utils.pause(500);
 		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
-		waitForTextPresent("Add/Edit Membership");
+		waitForAndGetElement(ELEMENT_MEMBERSHIP_MANAGEMENT_GRID);
 	}
 
 	/*

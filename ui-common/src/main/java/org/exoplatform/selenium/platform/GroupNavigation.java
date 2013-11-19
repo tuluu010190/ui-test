@@ -22,11 +22,13 @@ public class GroupNavigation extends PlatformBase {
 	//public final String ELEMENT_EDIT_NAVIGATION_ICON = "//*[text()='${groupName}']/../..//*[text()='Edit Navigation']";
 	public final String ELEMENT_NAVIGATION_NODE = "//a[contains(text(),'${nodeName}')]"; 
 	public final String ELEMENT_GROUP_TITLE = "//div[@title='${groupTitle}']"; 
-	public final String ELEMENT_GROUP_NAVIGATION_POSITION = "//*[@id='UIGroupNavigationGrid']/table/tbody/tr[${number}]" + ELEMENT_GROUP_TITLE.replace("${groupTitle}", "${groupTitle}");
+	public final String ELEMENT_GROUP_NAVIGATION_POSITION = "//*[@id='UIGroupNavigationGrid']/table[${index}]/tbody/tr[${number}]" + ELEMENT_GROUP_TITLE;
 	public final By ELEMENT_GROUP_ADD_NAVIGATION_BUTTON = By.linkText("Add Navigation");
 
 	//Click on [Edit Properties] icon
 	public final By ELEMENT_GROUP_NAVIGATION_PRIORITY = By.name("priority");
+	public final By ELEMENT_GROUP_NAVIGATION_OWNER_TYPE = By.id("ownerType");
+	public final By ELEMENT_GROUP_NAVIGATION_OWNER_ID = By.id("ownerId");
 
 	//Add Navigation for group screen
 	public final String ELEMENT_GROUP_SELECT_ADD_NAVIGATION = "//*[contains(text(), '${groupName}')]/..//*[text()='Add Navigation']";
