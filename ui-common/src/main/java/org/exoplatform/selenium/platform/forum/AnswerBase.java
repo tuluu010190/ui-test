@@ -135,7 +135,7 @@ public class AnswerBase extends ForumBase {
 
 		info("Create Answer page");
 		page.addNewPageEditor(DATA_ANSWER_PAGE_NAME, DATA_ANSWER_PAGE_NAME,"",CATEGORY_TITLE, 
-				ANSWER_PORTLET_ID, false);	
+				ANSWER_PORTLET_ID, false, false);	
 	}
 
 	/**function go to edit answer portlet in answer page

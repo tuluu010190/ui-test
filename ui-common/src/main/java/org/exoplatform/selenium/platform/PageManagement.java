@@ -151,7 +151,7 @@ public class PageManagement extends PlatformBase {
 
 	// Input data for page
 	public void addNewPageEditor(String nodeName, String displayName, String language, String categoryTitle, 
-			Map<String, String> portletIds, boolean extendedLabelMode){
+			Map<String, String> portletIds, boolean extendedLabelMode, boolean verify){
 
 		type(ELEMENT_INPUT_NODE_NAME, nodeName, true);
 		WebElement element = waitForAndGetElement(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE, DEFAULT_TIMEOUT, 1, 2);
@@ -181,9 +181,11 @@ public class PageManagement extends PlatformBase {
 				dragAndDropToObject("//div[@id='" + portletIds.get(portletId) + "']/div", elementEditPagePage);
 			}
 		}
-		Utils.pause(500);
-		click(ELEMENT_PAGE_FINISH_BUTTON);
-		waitForTextNotPresent("Page Editor");
+		if (!verify) { 
+			Utils.pause(500);
+			click(ELEMENT_PAGE_FINISH_BUTTON);
+			waitForTextNotPresent("Page Editor");
+		}
 	}
 
 	public void deletePageAtManagePageAndPortalNavigation(String pageName, boolean PageTypePortal, String portalName, 
@@ -212,5 +214,13 @@ public class PageManagement extends PlatformBase {
 				navMag.deleteNode(groupName, "", pageName, true);
 			}
 		}
+	}
+	
+	public void goToPagePermissionOfAddPageInPageManagement() {
+		info("--Go to Add new Page--");
+			click(ELEMENT_ADD_PAGE_BUTTON);
+			waitForTextPresent("Page Settings");	
+		info("--Choose Permission tab--");
+			click(ELEMENT_PERMISSION_SETTING_TAB);
 	}
 }

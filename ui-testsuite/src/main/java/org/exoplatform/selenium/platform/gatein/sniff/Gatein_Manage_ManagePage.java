@@ -116,7 +116,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		navTool.goToPageCreationWizard();
 		Map<String, String> portal = new HashMap<String, String>();
 		portal.put("Content/ContentListViewerPortlet", "");
-		pageMag.addNewPageEditor(nodeName, "", null, "Content", portal, false);
+		pageMag.addNewPageEditor(nodeName, "", null, "Content", portal, false, false);
 		
 		info("Edit page of portal");
 		navTool.goToEditPageEditor();
@@ -185,7 +185,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		navTool.goToPageCreationWizard();
 		Map<String, String> portal = new HashMap<String, String>();
 		portal.put("Content/ContentListViewerPortlet", "");
-		pageMag.addNewPageEditor(nodeName, "", null, "Content", portal, false);
+		pageMag.addNewPageEditor(nodeName, "", null, "Content", portal, false, false);
 		
 		info("Edit page of group");
 		navTool.goToEditPageEditor();
@@ -225,7 +225,7 @@ public class Gatein_Manage_ManagePage extends DashBoard {
 		navTool.goToPageCreationWizard();
 		Map<String, String> portal = new HashMap<String, String>();
 		portal.put("Content/ContentListViewerPortlet", "");
-		pageMag.addNewPageEditor(nodeName, displayName, null, "Content", portal, false);
+		pageMag.addNewPageEditor(nodeName, displayName, null, "Content", portal, false, false);
 		
 		info("Edit page of user");
 		navTool.goToEditPageEditor();

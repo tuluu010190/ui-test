@@ -101,7 +101,7 @@ public class Gatein_Navigation_GroupNavigation_EditLayout extends GroupNavigatio
 		navTool.goToPageCreationWizard();
 		Map<String, String> portal = new HashMap<String, String>();
 		portal.put("Collaboration/AnswersPortlet", "Collaboration/WikiPortlet");
-		pageMag.addNewPageEditor(pageName, "", null, "Collaboration", portal, false);
+		pageMag.addNewPageEditor(pageName, "", null, "Collaboration", portal, false, false);
 
 		navTool.goToEditPageEditor();
 		waitForAndGetElement(ELEMENT_PORTLET_1 + "//div[contains(text(),'Wiki Portlet')]");

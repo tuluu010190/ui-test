@@ -247,6 +247,9 @@ public class PlatformBase extends TestBase {
 	public String USER_REG_COPYPASTE_PASSWORD_FAIL_MSG = "//span[@class='errorIcon' and contains(text(),'Password and Confirm Password must be the same.')]";
 	public String USER_REG_INVALID_EMAIL_FAIL_MSG = "//span[contains(text(),'Your email address is invalid. Please enter a different address.')]";
 
+	public final String ELEMENT_USER_MANAGEMENT_MEMBERSHIP_TAB = "//*[@id='UIUserManagement']//a[@data-target='#UIUserMembershipSelector-tab']";
+	public String ELEMENT_USER_MEMBERSHIP_TAB_GROUPID = "//*[@id='MembershipGrid']//span[contains(text(),'${groupName}')]";
+	public final By ELEMENT_USER_MEMBERSHIP_TAB_CLOSE_BUTTON = By.xpath("//*[@id='UIUserInfo']//button[text()='Cancel']");
 
 	//Group Management TAB
 	public final By ELEMENT_GROUP_MANAGEMENT_INFO = By.xpath("//*[@class='uiGroupInfoContainer UIGroupInfo']");
@@ -256,6 +259,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GROUP_ADD_NEW_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Add New Group']");
 	public final By ELEMENT_GROUP_REMOVE_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Delete Selected Group']");
 	public final By ELEMENT_GROUP_EDIT_ICON = By.xpath("//*[@id='UIOrganizationPortlet']//*[@data-original-title='Edit Selected Group']");
+	public String ELEMENT_GROUP_LIST = "//a[@title='${groupName}']";
 
 	//Group Management tree
 	public String ELEMENT_GROUP_TREE = "//div[@class='groupNavigationContainer']//a[@title='${groupName}']";
@@ -267,11 +271,17 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_INPUT_LABEL_1 = By.xpath("//*[contains(@id, 'Label')]");
 	public final String ELEMENT_TEXTAREA_DESCRIPTION = "//textarea[@id='description']";
 
-	public final By ELEMENT_GROUP_SEARCH_USER_ICON = By.xpath("//form[@id='UIGroupMembershipForm']//*[contains(@class, 'uiIconSearch')]");
+//	public final By ELEMENT_GROUP_SEARCH_USER_ICON = By.xpath("//form[@id='UIGroupMembershipForm']//*[contains(@class, 'uiIconSearch')]");
+	public final By ELEMENT_GROUP_SEARCH_USER_ICON = By.xpath("//*[@id='UIGroupMembershipForm']//a[@data-original-title='Select User']");
+	public final By ELEMENT_GROUP_SEARCH_USER_SEARCH_INPUT = By.xpath("//input[@name='Quick Search']"); //don't change to By.id because there is a space
+	public final By ELEMENT_GROUP_SEARCH_USER_SEARCH_ICON = By.xpath("//*[@id='UIUserSelector']//a[@data-original-title='Quick Search']");
+	public By ELEMENT_GROUP_SEARCH_USER_OPTION = By.xpath("//*[@class='searchByUser']//select[@class='selectbox']");
+	public final By ELEMENT_GROUP_SEARCH_USER_NO_RESULT_MSG = By.xpath("//*[@id='UIListUsers']//td[contains(text(),'Empty data')]");
 	//"//form[@id='UIGroupMembershipForm']/div[2]/div/table/tbody/tr[1]/td[2]/a";
 	public final String ELEMENT_GROUP_SEARCH_POPUP_ADD_ICON = "//form[@id='UIUserSelector']//div[@class='UIAction']//a[@class='ActionButton LightBlueStyle']";
 	public final String ELEMENT_SELECT_MEMBERSHIP = "//select[@name='membership']";
 	public final String ELEMENT_GROUP_USER_IN_TABLE = "//*[@class='UIUserInGroup']//*[text()='${username}']";
+//	public final String ELEMENT_GROUP_USER_IN_TABLE = "//*[@id='UIListUsers']//span[@data-original-title='fqa']";
 
 	//Membership Management
 	public final By ELEMENT_TAB_MEMBERSHIP_MANAGEMENT = By.xpath("//*[contains(@class, 'uiIconMembership')]/parent::a");
@@ -513,6 +523,13 @@ public class PlatformBase extends TestBase {
 	//Edit portlet Form
 	public final By ELEMENT_WINDOW_SETTINGS_TAB = By.xpath("//div[@id='UIMaskWorkspace']//div[text()='Window Settings']");
 	public final By ELEMENT_WINDOWS_TITLE = By.xpath("//*[@id='title']");
+	
+	public final By ELEMENT_PORTLET_ACCESS_PERMISSION_TAB = By.xpath("//*[@id='tab-UIPortletForm']//a[@data-target='#PortletPermission-tab']");
+	public final By ELEMENT_PORTLET_ADD_PERMISSION_BUTTON = By.xpath("//*[@id='PortletPermissionSelector']//a[contains(text(),'Add Permission')]");
+	public final By ELEMENT_PORTLET_LIST_PERMISSION_WINDOW = By.xpath("//*[@id='PortletPermissionSelectorPopup']//span[contains(text(),'ListPermissionSelector')]");
+	public String ELEMENT_PORTLET_PERMISSION_GROUP = "//div[@class='uiGroupMembershipSelector']//a[@title='${groupName}']";
+	public String ELEMENT_PORTLET_PERMISSION_MEMBERSHIP = "//*[@class='uiBox noRounded childGoup']//a[@title='${membership}']";
+	public final By ELEMENT_PORTLET_SAVE_AND_CLOSE_BUTTON = By.id("Save");
 	/*Portlet in general*/
 
 	/* End General
@@ -638,10 +655,10 @@ public class PlatformBase extends TestBase {
 	//public final By ELEMENT_MENU_USERS = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/newStaff' and text()='Users']");
 	//public final By ELEMENT_MENU_APPLICATONS = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/registry']");
 	//public final By ELEMENT_MENU_CONTENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:web-contributors/siteExplorer' and text()='Content']");
-	//public final By ELEMENT_MENU_PORTAL = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/pageManagement' and text()='Portal']");
-	//public final By ELEMENT_MENU_PORTAL_PAGES_MANAGEMENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/pageManagement' and text()='Pages']");
+//	public final By ELEMENT_MENU_PORTAL = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/pageManagement' and text()='Portal']");
+	public final By ELEMENT_MENU_PORTAL = By.linkText("Portal");
+	public final By ELEMENT_MENU_PORTAL_PAGES_MANAGEMENT = By.linkText("Pages");
 	public final By ELEMENT_MENU_ADMININISTRATION = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/servicesManagement' and text()='Administration']");
-
 	public By ELEMENT_MENU_MYMENU = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 
 	//Sign-in & Sign-out msg

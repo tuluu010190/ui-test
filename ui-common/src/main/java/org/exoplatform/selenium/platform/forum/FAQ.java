@@ -65,7 +65,7 @@ public class FAQ extends AnswerBase {
 
 		info("Create Answer&FAQ page");
 		page.addNewPageEditor(DATA_ANSWER_FAQ_PAGE_NAME, DATA_ANSWER_FAQ_PAGE_NAME,"",CATEGORY_TITLE, 
-				ANSWER_FQA_PORTLET_ID, false);	
+				ANSWER_FQA_PORTLET_ID, false, false);	
 	}
 
 	public void goToFQAHome(){

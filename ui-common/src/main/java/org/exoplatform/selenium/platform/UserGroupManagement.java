@@ -23,6 +23,7 @@ public class UserGroupManagement extends PlatformBase {
 	}
 	Dialog dialog;
 	Button button;
+
 	NavigationToolbar naviTool;
 
 	public  final String MESSAGE_DUPLICATE_USERS = "User \"${username}\" has already the same membership ";
@@ -438,6 +439,7 @@ public class UserGroupManagement extends PlatformBase {
 		waitForAndGetElement(ELEMENT_GROUP_MANAGEMENT_TAB_MEMBERSHIP.replace("${membership}", newMembership).replace("${username}", userName));	
 	}
 
+
 	/** Edit user information from Admin/Users/Group and Roles
 	 * @author phuongdt
 	 * @param userName
@@ -487,5 +489,26 @@ public class UserGroupManagement extends PlatformBase {
 		button.save();
 		dialog.closeMessageDialog();
 		Utils.pause(1000);
+	}
+
+	/** Search user in Group Management tab
+	 * 
+	 * @param user
+	 * @param searchOption
+	 * @param verify
+	 */
+	public void searchUserInGroupManagement(String user, String searchOption, boolean verify){
+		info("--Search user " + user + "--");
+		waitForAndGetElement(ELEMENT_GROUP_SEARCH_USER_ICON);
+		click(ELEMENT_GROUP_SEARCH_USER_ICON);
+		click(ELEMENT_GROUP_SEARCH_USER_SEARCH_INPUT);
+		type(ELEMENT_GROUP_SEARCH_USER_SEARCH_INPUT,user,true);
+		select(ELEMENT_GROUP_SEARCH_USER_OPTION, searchOption);	
+		click(ELEMENT_GROUP_SEARCH_USER_SEARCH_ICON);
+		if(verify) {
+			waitForAndGetElement(ELEMENT_GROUP_USER_IN_TABLE.replace("${username}", user)); 
+		} else {
+			waitForAndGetElement(ELEMENT_GROUP_SEARCH_USER_NO_RESULT_MSG);
+		}
 	}
 }
