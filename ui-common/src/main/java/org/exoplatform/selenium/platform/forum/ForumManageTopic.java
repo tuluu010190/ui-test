@@ -18,7 +18,7 @@ import org.openqa.selenium.WebElement;
  */
 
 public class ForumManageTopic extends ForumBase {
-	
+
 	ForumPermission per;
 	ForumManageForum magFor;
 	ForumManageCategory magCat;
@@ -54,7 +54,7 @@ public class ForumManageTopic extends ForumBase {
 	public final By ELEMENT_MORE_ACTION = By.xpath("//form[@id='UITopicDetail']//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");
 
 	public String ELEMENT_CATEGORY_BREAD = "//a[@data-original-title='${category}']"; 
-	
+
 	//----------------start topic screen--------------------------------------------------
 
 	public By ELEMENT_START_TOPIC_BUTTON = By.xpath("//*[@class='btn btn-primary pull-left']");
@@ -720,7 +720,7 @@ public class ForumManageTopic extends ForumBase {
 		click(ELEMENT_START_TOPIC_BUTTON);
 		startTopic(topic, descTopic, "", 0, permission,false, false, false);
 	}
-	
+
 	/**
 	 * @author phuongdt
 	 * @param topic

@@ -34,7 +34,6 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
-
 public class TestBase {
 
 	public WebDriver driver;
@@ -403,7 +402,7 @@ public class TestBase {
 		try {
 			return waitForAndGetElement(locator).getAttribute("value");
 		} catch (StaleElementReferenceException e) {
-			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);			
 			Utils.pause(WAIT_INTERVAL);
 			return getValue(locator);
 		} finally {

@@ -56,15 +56,23 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_MORE_BUTTON = By.xpath("//div[contains(text(),'More')]");
 
 	//Administration menu
-	public final By ELEMENT_ADMINISTRATION = By.className("uiIconForumAdmin");
-	public final By ELEMENT_SORT_SETTING = By.linkText("Sort Settings");
-	public final By ELEMENT_CENSOR_KEYWORDS = By.linkText("Censor Keywords");
-	public final By ELEMENT_NOTIFICATIONS= By.linkText("Notifications");
-	public final By ELEMENT_BAN_IP = By.linkText("Banned IPs");		
-	public final By ELEMENT_BBCODE = By.linkText("BBCodes");
-	public final By ELEMENT_PRUNE = By.linkText("Pruning");
-	public final By ELEMENT_IMPORT = By.linkText("Import");
-	public final By ELEMENT_EXPORT = By.linkText("Export");
+	//	public final By ELEMENT_ADMINISTRATION = By.className("uiIconForumAdmin");
+	//	public final By ELEMENT_SORT_SETTING = By.linkText("Sort Settings");
+	//	public final By ELEMENT_CENSOR_KEYWORDS = By.linkText("Censor Keywords");
+	//	public final By ELEMENT_NOTIFICATIONS= By.linkText("Notifications");
+	//	public final By ELEMENT_BAN_IP = By.linkText("Banned IPs");		
+	//	public final By ELEMENT_BBCODE = By.linkText("BBCodes");
+	//	public final By ELEMENT_PRUNE = By.linkText("Pruning");
+	//	public final By ELEMENT_IMPORT = By.linkText("Import");
+	//	public final By ELEMENT_EXPORT = By.linkText("Export");
+
+	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray']");
+	public final By ELEMENT_SORT_SETTING = By.xpath("//span[text()='Sort Settings']");
+	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumCensor']");
+	public final By ELEMENT_BAN_IP = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBanIp']");
+	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBBCode']");
+	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[@class='Pruning']");
+	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport']");
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public final String MESSAGE_WATCH = "You are now watching this item.";
@@ -213,14 +221,14 @@ public class ForumBase extends PlatformBase {
 	public final String ELEMENT_FEED_URL = "//a[@title='{$item}']/ancestor::tr/following::input[contains(@id,'RSS')]";
 
 	//---------------------Notifications------------------
-	public final By ELEMENT_NOTIFICATION_LINK = By.xpath("//span[text()='Notifications']");
+	public final By ELEMENT_NOTIFICATION_LINK = By.xpath("//*[@id='Administrations']//*[@class='uiIconNotification']"); 
 	public final By ELEMENT_NOTIFY_FRAME=By.xpath("//*[@id='xEditingArea']/iframe");
 	public final String ELEMENT_NOTIFY_TEXT= "New Posts Notification";
 	public final By ELEMENT_NOTIFY_FRAME_UP=By.id("notifyEmail___Frame");
 	public final By ELEMENT_NOTIFY_PREFIX = By.id("enableHeaderSubject");
 	public final By ELEMENT_NOTIFY_SUBJECT = By.id("headerSubject");
 	public final By ELEMENT_NOTIFY_RESET = By.xpath("//img[@title='Reset']");
-	public final String MSG_NOTIFY_BLANK = "The notification email is required.";
+	public final By MSG_NOTIFY_BLANK = By.xpath("//*[contains(text(),'The notification email is required.')]");
 	public final By ELEMENT_NOTIFY_MOVE_FRAME_UP= By.id("notifyEmailMoved___Frame");
 	public final By ELEMENT_NOTIFY_MOVE_TAB = By.xpath("//a[contains(text(),'Moved Notification')]");
 	public final By ELEMENT_NOTIFY_MOVE_RESET = By.xpath("//div[@id='notifyEmailMoveTab']//img[@title='Reset']");
@@ -896,7 +904,6 @@ public class ForumBase extends PlatformBase {
 
 		click(ELEMENT_ADMINISTRATION);
 		click(ELEMENT_NOTIFICATION_LINK);
-
 		waitForTextPresent(ELEMENT_NOTIFY_TEXT);
 	}
 
@@ -912,16 +919,15 @@ public class ForumBase extends PlatformBase {
 		info("--Change content of notifications--");
 		button = new Button(driver);
 		goToNotifications();
-		WebElement wPrefix = waitForAndGetElement(ELEMENT_NOTIFY_PREFIX);
-		if (wPrefix != null)
-			if ((prefix & (!wPrefix.isSelected())) || ((!prefix) & wPrefix.isSelected())){
-				click(ELEMENT_NOTIFY_PREFIX);
-			}
-
+		if(prefix)
+			check(ELEMENT_NOTIFY_PREFIX,2);
+		else
+			uncheck(ELEMENT_NOTIFY_PREFIX,2);
 		if (subject != null){
-			type(ELEMENT_NOTIFY_SUBJECT,subject,false);
+			type(ELEMENT_NOTIFY_SUBJECT,subject,true);
 		}
-		inputDataToFrameInFrame( ELEMENT_NOTIFY_FRAME_UP, ELEMENT_NOTIFY_FRAME,content,false);
+
+		inputDataToFrameInFrame( ELEMENT_NOTIFY_FRAME_UP, ELEMENT_NOTIFY_FRAME,content,true);
 		switchToParentWindow();
 		button.save();
 	}
