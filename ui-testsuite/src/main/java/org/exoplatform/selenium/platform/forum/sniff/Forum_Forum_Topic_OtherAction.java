@@ -28,7 +28,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 	ForumManageTopic mngTopic;
 	ForumManagePost mngPost;
 
-	@BeforeMethod(groups="fail")
+	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
 		magAc = new ManageAccount(driver);
@@ -41,7 +41,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 		goToForums();
 	}
 
-	@AfterMethod(groups="fail")
+	@AfterMethod
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -97,8 +97,10 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 
 	/** Tag for topic
 	 * CaseID: 68933
+	 * This case has an issue: FORUM-695
 	 */
-	@Test(groups="fail")
+
+	@Test(groups="error")
 	public void test03_TagTopic() {
 		String titleCat = "Category 03";
 		String titleForum = "Forum 03";

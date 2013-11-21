@@ -183,6 +183,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>forum-forum</id>
+			<properties>
+				<testSuite>forum-forum.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>regression</id>
 			<properties>
 				<testSuite>regression.xml</testSuite>

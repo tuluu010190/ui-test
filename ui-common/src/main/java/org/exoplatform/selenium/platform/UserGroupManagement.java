@@ -75,7 +75,7 @@ public class UserGroupManagement extends PlatformBase {
 		String userDeleteIcon = ELEMENT_USER_DELETE_ICON.replace("${username}", username);
 
 		info("--Deleting user " + username + "--");
-		if (isTextPresent("Total pages")) {
+		if (waitForAndGetElement("//*[contains(text(),'Total pages')]",DEFAULT_TIMEOUT,0) != null) {
 			usePaginator(userDeleteIcon, "User " + username + "not found in group");
 		}
 		Utils.pause(500);
@@ -255,6 +255,7 @@ public class UserGroupManagement extends PlatformBase {
 		String groupName_2 =  "//*[text()='selectGroup']/..//*[contains(text(), '${groupName}')]";
 		String groupName_3 = "//ul[@class='nodeGroup']//a[contains(text(),'${groupName}')]";
 		String groupName_4 =  "//*[text()='Browse and select a group']/..//*[contains(text(), '${groupName}')]";
+		String groupName_5 = "//a[@title='${groupName}']";
 		String[] temp;			 
 
 		/* Delimiter */
@@ -266,7 +267,9 @@ public class UserGroupManagement extends PlatformBase {
 		for(int i =0; i < temp.length ; i++){
 			info("Go to " + temp[i]);
 			if (isInPermissionTab){
-				if (isElementPresent(By.xpath(groupName.replace("${groupName}", temp[i])))){
+				if (isElementPresent(By.xpath(groupName_5.replace("${groupName}", temp[i])))){
+					click(By.xpath(groupName.replace("${groupName}", temp[i])));
+				}else if (isElementPresent(By.xpath(groupName.replace("${groupName}", temp[i])))){
 					click(By.xpath(groupName.replace("${groupName}", temp[i])));
 				}else if (isElementPresent(By.xpath(groupName_2.replace("${groupName}", temp[i])))){
 					click(By.xpath(groupName_2.replace("${groupName}", temp[i])));

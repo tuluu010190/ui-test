@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.forum.ForumPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,7 @@ public class ForumManageForum extends ForumBase {
 	ForumManageCategory cat;
 	ForumPermission per;
 	ForumManageTopic topic;
+	ManageAccount account;
 
 	public ForumManageForum(WebDriver dr){
 		driver = dr;
@@ -25,6 +27,7 @@ public class ForumManageForum extends ForumBase {
 		cat = new ForumManageCategory(driver);
 		button = new Button(driver);
 		alert = new ManageAlert(driver);
+		account = new ManageAccount(driver);
 	}
 
 	//--------------------forum home screen-------------------------------------------------
@@ -220,7 +223,7 @@ public class ForumManageForum extends ForumBase {
 		info("Delete forum");
 		click(ELEMENT_DELETE_FORUM);
 		click(ELEMENT_OK_DELETE);
-//		waitForTextNotPresent(title);
+		//		waitForTextNotPresent(title);
 		waitForElementNotPresent(By.linkText(title));
 		info("Delete forum successfully");
 	}
@@ -373,6 +376,60 @@ public class ForumManageForum extends ForumBase {
 			goToBanIPForum();
 			inputBanIP(ip);
 			button.cancel();
+		}
+	}
+
+	/**Check rights of moderator of category for all forums or not
+	 * @param user: user name
+	 * @param password: password
+	 * @param category: name of category
+	 * @param forum: name of forum
+	 * @param moderator: true, if the user has right of moderator for the category, and vice versa
+	 * 
+	 */
+	public void checkRightOfCategoryForum(String user, String password, String category, String forum, boolean moderator){
+		topic = new ForumManageTopic(driver);
+		account.signOut();
+		account.signIn(user, password);
+		
+		goToForums();
+		click(By.linkText(category));
+		click(By.linkText(forum));
+		waitForAndGetElement(topic.ELEMENT_START_TOPIC_BUTTON);
+		if(moderator){
+			click(ELEMENT_MORE_ACTION);
+			waitForAndGetElement(ELEMENT_EDIT_FORUM);
+			waitForAndGetElement(ELEMENT_CLOSE_FORUM);
+			waitForAndGetElement(ELEMENT_LOCK_FORUM);
+			info(user + "can edit, close and lock the forum");
+		}else{
+			waitForElementNotPresent(ELEMENT_MORE_ACTION);
+			info(user + "cannot edit, close and lock the forum");
+		}
+
+	}
+
+    /**
+     * Check right of view category
+     * @param username: username
+     * @param password: password
+     * @param categoryName: name of category
+     * @param description: description of category
+     * @param rightOfView: true, if the user has right to view the category, and vice versa
+     */
+	public void checkRightOfViewCategory(String username, String password, String categoryName, String description, boolean rightOfView){
+		account.signOut();
+		account.signIn(username,password);
+		goToForums();
+
+		if(rightOfView){
+			click(By.linkText(categoryName));
+			waitForAndGetElement(cat.ELEMENT_CATEGORY_DESCRIPTION_TEXT.replace("${desc}", description));
+			info(username + " can see the category");
+		}else{
+			waitForElementNotPresent(By.linkText(categoryName));
+			info(username + " who has not permission cannot see the category");
+
 		}
 	}
 }

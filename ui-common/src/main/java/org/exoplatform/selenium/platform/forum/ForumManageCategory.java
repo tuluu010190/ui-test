@@ -7,11 +7,13 @@ import java.util.List;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 
 /**
  * Migrate from plf3.5
@@ -33,6 +35,7 @@ public class ForumManageCategory extends ForumBase {
 	//------------category home screen----------------------------------------------------------------------
 	public final String ELEMENT_CATEGORY = "//*[@class='nameForum']//strong[text()='${categoryName}']";	
 	public final By ELEMENT_HOME_CATEGORY = By.xpath("//div[@class='Selected' and text()='Home']");
+	public final String ELEMENT_CATEGORY_DESCRIPTION_TEXT = ".//*[@id='UICategoryDescription']//span[@class='description' and contains(text(),'${desc}')]";
 
 	//------------Manage category menu---------------------------------------------------------------------
 	public final By ELEMENT_MANAGE_CATEGORY = By.xpath("//*[@class='uiIconForumManageCategory uiIconForumLightGray']");
@@ -40,6 +43,8 @@ public class ForumManageCategory extends ForumBase {
 	public final By ELEMENT_DELETE_CATEGORY = By.xpath("//a[@id='UICategoryConfirm0' and contains(text(),'Delete')]");
 	public final By ELEMENT_EXPORT_FORUM_IN_CATEGORY = By.xpath("//*[contains(@href, 'ExportCategory')]");
 	public final By ELEMENT_IMPORT_FORUM_IN_CATEGORY = By.xpath("//*[contains(@href, 'ImportForum')]");
+	public final String MSG_CATEGORY_NO_EXIST = "This category no longer exists.";
+	public final By ELEMENT_CATEGORY_NO_EXIST_OK_BUTTON = By.xpath("//span[contains(text(),'This category no longer exists.')]/../../..//*[text()='OK']");
 
 	//------------add category form------------------------------------------------------------------------
 	public final By ELEMENT_POPUP_ADD_CATEGORY = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Category']");
@@ -123,7 +128,7 @@ public class ForumManageCategory extends ForumBase {
 			break;
 		}
 	}
-	
+
 	/**
 	 * function input data in category form
 	 * @param catName
@@ -138,22 +143,28 @@ public class ForumManageCategory extends ForumBase {
 	public void inputDataCategoryInForum(String catName, String order, int chooseRestricted, String[] restricted, 
 			String description, int setPermission, String[] userGroup, boolean... permission){
 
-		if (catName != null){
-			type(ELEMENT_CATEGORY_TITLE, catName, true);
-		}
-		if (order != null){
-			type(ELEMENT_CATEGORY_ORDER, order, true);
-		}
+		inputTitleOrderDescriptionCategory(catName, order, description);
+
 		selectRestricted(chooseRestricted, restricted);
-		if (description != null){
-			type(ELEMENT_DESCRIPTION, description, true);
-		}
+
 		//set permission
 		if(setPermission != 0){
 			info("Set permission for category");
 			frumPer.configPermission4ForumCategory(setPermission, userGroup, permission);
 		}
 
+	}
+
+	public void inputTitleOrderDescriptionCategory(String catName, String order,String description){
+		if (catName != null){
+			type(ELEMENT_CATEGORY_TITLE, catName, true);
+		}
+		if (order != null){
+			type(ELEMENT_CATEGORY_ORDER, order, true);
+		}
+		if (description != null){
+			type(ELEMENT_DESCRIPTION, description, true);
+		}
 	}
 
 	/**
@@ -169,7 +180,6 @@ public class ForumManageCategory extends ForumBase {
 	 */
 	public void addNewCategoryInForum(String catName, String order, int chooseRestricted, String[] restricted, 
 			String description, int setPermission, String[] userGroup, boolean... permission){
-		button = new Button(driver);
 		goToAddCategory();
 		inputDataCategoryInForum(catName, order, chooseRestricted, restricted, description, setPermission, userGroup, permission);
 		button.save();
@@ -340,4 +350,37 @@ public class ForumManageCategory extends ForumBase {
 		Utils.pause(1000);
 	}
 
+	/**
+	 * Open new window, login by another account and delete a category based on its name.
+	 * @param dataUser: User name
+	 * @param dataPass: Pass
+	 * @param catName: Category Name
+	 */
+	public void loginInNewWindowToDeleteCategory(String dataUser,String dataPass,String catName){
+
+		ManageAccount acc;
+		WebDriver tmpDriver = new FirefoxDriver();
+		String tmpbaseUrl = System.getProperty("baseUrl");
+		if (tmpbaseUrl==null) tmpbaseUrl = DEFAULT_BASEURL;                
+		tmpDriver.get(tmpbaseUrl);
+
+		acc = new ManageAccount(tmpDriver);
+		acc.signIn(dataUser, dataPass);
+		
+		tmpDriver.findElement(ELEMENT_FORUM_LINK).click();
+        Utils.pause(WAIT_INTERVAL);
+		//Open category
+		tmpDriver.findElement(By.linkText(catName)).click();
+		Utils.pause(WAIT_INTERVAL);
+		//Delete category
+		tmpDriver.findElement(ELEMENT_MANAGE_CATEGORY).click();
+		Utils.pause(WAIT_INTERVAL);
+		tmpDriver.findElement(ELEMENT_DELETE_CATEGORY).click();;
+		Utils.pause(WAIT_INTERVAL);
+		tmpDriver.findElement(ELEMENT_OK_DELETE_CATEGORY).click();
+
+		acc.signOut();
+		tmpDriver.manage().deleteAllCookies();
+		tmpDriver.quit();
+	}
 }

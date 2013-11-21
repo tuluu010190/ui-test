@@ -34,6 +34,7 @@ public class ForumBase extends PlatformBase {
 
 	//-----------------Forum Home screen--------------------------------------------
 	public final By ELEMENT_ADD_CATEGORY = By.linkText("Add Category");
+	public final By ELEMENT_FORUM_ACTION_BAR = By.id("UIForumActionBar");
 	public final By ELEMENT_WHAT_GOING_ON = By.xpath("//div[contains(text(),'Going on?')]");
 	public final By ELEMENT_ADD_FORUM = By.linkText("Add Forum");
 	public final String ELEMENT_BREAD_FORUM = "//li[text()='${forum}']";
@@ -368,6 +369,7 @@ public class ForumBase extends PlatformBase {
 	public void goToForums(){
 		info("--Go to Forums--");
 		click(ELEMENT_FORUM_LINK);
+		waitForAndGetElement(ELEMENT_FORUM_ACTION_BAR);
 	}
 
 	public void goToForumHome(){

@@ -27,6 +27,9 @@ public class PlatformPermission extends PlatformBase {
 		group.put("Development", "developers");
 		group.put("Content Management", "web-contributors");
 		group.put("Administration", "administrators");
+		group.put("Platform", "platform");
+		group.put("Organization", "organization");
+		group.put("Human Resources", "human-resources");
 	}
 
 	//set permission screen
@@ -94,7 +97,7 @@ public class PlatformPermission extends PlatformBase {
 	 */
 	public void selectGroupPermission(String grouppath){
 		userGroup = new UserGroupManagement(driver);
-		userGroup.selectGroup(grouppath);
+		userGroup.selectGroup(grouppath,true);
 		if(waitForAndGetElement(ELEMENT_SELECT_THIS_GROUP, DEFAULT_TIMEOUT,0) != null)
 			click(ELEMENT_SELECT_THIS_GROUP);
 	}
