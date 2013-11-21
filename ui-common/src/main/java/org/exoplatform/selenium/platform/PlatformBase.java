@@ -623,7 +623,6 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SEARCH_APPLICATION = By.xpath("//a[@title='Search']");
 	public final String ELEMENT_GADGET_SEARCH_APPLICATION_PAGE_EDITOR = "//div[@id='UIApplicationList17']//div[contains(text(),'${gadget}')]";
 
-
 	//Administration Menu for admin acc
 
 	//public final By ELEMENT_MENU_ADMIN_DROPDOWN = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']/a[@class='dropdown-toggle']");
@@ -1213,26 +1212,26 @@ public class PlatformBase extends TestBase {
 		String [] paths = folderPath.split("/");
 		for (String path : paths)
 			click(By.linkText(path));
-		if(newFolder!=""){
-			click(ELEMENT_CREATE_FOLDER_BUTTON);
-			alert.inputAlertText(newFolder);
-			click(By.linkText(newFolder));
-		}
-		if (upload)
-		{
-			info("-- Upload file --");
-			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
-			driver.switchTo().frame(frame);
-			WebElement upload2 = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
-			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);
-			upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
-			info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
-			switchToParentWindow();
-			waitForAndGetElement(By.linkText(uploadFileName));
-		}
-		button.cancel();
-		Utils.pause(1000);
-		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);	
+				if(newFolder!=""){
+					click(ELEMENT_CREATE_FOLDER_BUTTON);
+					alert.inputAlertText(newFolder);
+					click(By.linkText(newFolder));
+				}
+				if (upload)
+				{
+					info("-- Upload file --");
+					WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
+					driver.switchTo().frame(frame);
+					WebElement upload2 = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
+					((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);
+					upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
+					info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
+					switchToParentWindow();
+					waitForAndGetElement(By.linkText(uploadFileName));
+				}
+				button.cancel();
+				Utils.pause(1000);
+				waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);	
 	}
 
 	/** Switch to new browser window
@@ -1285,20 +1284,22 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	/** Restart browser
-	 *  @author thuntn
-	 *  
-	 */
+/*	*//**
+	 * function to restart browser
+	 * @param 
+	 * @return
+	 *//*
 	public void restartBrowser(){
 
 		String handlesBefore = driver.getWindowHandle();
 		Set<org.openqa.selenium.Cookie> cookieBefore = driver.manage().getCookies();
-		((JavascriptExecutor) driver).executeScript("window.open();");
+//		((JavascriptExecutor) driver).executeScript("window.open();");
 		backToPreviousBrowser(cookieBefore, handlesBefore);
 		driver.close();
-		for(String winHandle : driver.getWindowHandles()){
-			driver.switchTo().window(winHandle);
-		}
+		initSeleniumTest();
+//		for(String winHandle : driver.getWindowHandles()){
+//			driver.switchTo().window(winHandle);
+//		}
 		driver.navigate().to(baseUrl);
-	}
+	}*/
 }

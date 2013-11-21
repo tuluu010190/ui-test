@@ -26,6 +26,13 @@ public class ManageAccount extends PlatformBase {
 	public final String MESSAGE_ALERT_PASSWORD = "Password and Confirm Password must be the same.";
 	public final String MESSAGE_INVALID_EMAIL_ADDRESS = "Your email address is invalid. Please enter another one.";
 
+	//Login form
+	public final By ELEMENT_LOGIN_CONTAINER = By.className("loginContainer");
+	public final String ELEMENT_LOGIN_HEADER_LABEL = "//div[@class='loginHeader introBox']//div[@class='userLoginIcon' and text()='Connect to your account']";
+	public final String MESSAGE_LOGIN_FAILED = "//*[contains(text(),'Sign in failed. Wrong username or password.')]";
+	public final String ELEMENT_REMEMBER_MY_LOGIN_YES = "//label[@class='iPhoneCheckLabelOn']//span[text()='Yes']";
+
+
 	public ManageAccount(WebDriver dr){
 		driver = dr;
 	}
