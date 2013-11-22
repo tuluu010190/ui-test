@@ -184,6 +184,31 @@ public class NavigationToolbar extends PlatformBase {
 		}
 	}
 
+	//Go to Portal/Sites
+		public void goToSites(){
+			info("--Go to Sites --");
+			String url = DEFAULT_BASEURL + "/g/:platform:administrators/portalnavigation";
+			//driver.get(url);
+			Utils.pause(1000);
+			for(int repeat=0;; repeat ++){
+				if (repeat > 1){
+					driver.get(url);
+					break;
+				}
+				//mouseOverAndClick(ELEMENT_LINK_SETUP);
+				mouseOver(ELEMENT_LINK_SETUP, true);
+				if (waitForAndGetElement(ELEMENT_LINK_PORTAL, 5000, 0)!= null) {	
+					mouseOver(ELEMENT_LINK_PORTAL, false);
+					if (waitForAndGetElement(ELEMENT_LINK_SITES, 5000, 0)!= null){
+						click(ELEMENT_LINK_SITES);
+						break;
+					}
+				}
+				info("Retry...[" + repeat + "]");
+			}
+		}
+	
+	
 	//Go to add page locator with Editor
 	//	public void goToAddPageEditor(){
 	//		info("Go to add page editor");

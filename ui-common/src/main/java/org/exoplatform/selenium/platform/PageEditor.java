@@ -432,7 +432,7 @@ public class PageEditor extends PlatformBase {
 	 * @param group
 	 * @param container
 	 */
-	public void addNewContainer(String group, String container){
+	public void addNewContainer(String group, String container, By... targetPosition){
 		info("Add new container: " + container);
 		try{
 			click(ELEMENT_CONTAINER_TAB);
@@ -441,7 +441,10 @@ public class PageEditor extends PlatformBase {
 			clearCache();
 		}
 		click(By.linkText(group));
-		dragAndDropToObject(By.id(container), By.className("UIRowContainer"));
+		if(targetPosition.length>0)
+			dragAndDropToObject(By.id(container), targetPosition[0]);
+		else
+			dragAndDropToObject(By.id(container), By.className("UIRowContainer"));
 		Utils.pause(2000);
 	}
 
@@ -450,13 +453,19 @@ public class PageEditor extends PlatformBase {
 	 * @param container
 	 * @param iconDelete
 	 */
-	public void removeContainer(Object container, Object iconDelete){
+	public void removeContainer(Object container, Object iconDelete, Object...params){
+		boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
 		info("Delete a container..." + container);
 		magAlert = new ManageAlert(driver);
 		mouseOver(container, true);
+		//		String idContainer = waitForAndGetElement(container).getAttribute("id");
+		//		WebElement e = waitForAndGetElement(iconDelete,DEFAULT_TIMEOUT,1,2);
+		//		((JavascriptExecutor)driver).executeScript("arguments[0].click();",e);
+		//		((JavascriptExecutor)driver).executeScript("javascript:if(confirm('Are you sure you want to delete this Container?'))ajaxGet('/portal/intranet/?portal:componentId="+idContainer+"&portal:action=DeleteComponent&ajaxRequest=true')");
 		click(iconDelete);
 		magAlert.acceptAlert();
-		waitForElementNotPresent(iconDelete);
+		if(verify)
+			waitForElementNotPresent(container);
 	}
 
 	/**function add new container and app to layout of page
@@ -485,14 +494,18 @@ public class PageEditor extends PlatformBase {
 	 * @param portletId (ex: "Collaboration/AnswersPortlet")
 
 	 */
-	public void addNewPortlet(String category, String portletId){
+	public void addNewPortlet(String category, String portletId, By... targetPosition){
 		info("Add new application: " + portletId);
 		click(ELEMENT_APPLICATION_TAB);
 		click(By.linkText(category));
-		if(waitForAndGetElement(ELEMENT_DROP_TARGET_NO_LAYOUT,DEFAULT_TIMEOUT,0)!=null)
-			dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_NO_LAYOUT);
-		else
-			dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_NO_LAYOUT_PORTAL);
+		if(targetPosition.length>0)
+			dragAndDropToObject(By.id(portletId), targetPosition[0]);
+		else{
+			if(waitForAndGetElement(ELEMENT_DROP_TARGET_NO_LAYOUT,DEFAULT_TIMEOUT,0)!=null)
+				dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_NO_LAYOUT);
+			else
+				dragAndDropToObject(By.id(portletId), ELEMENT_DROP_TARGET_NO_LAYOUT_PORTAL);
+		}
 		Utils.pause(1000);
 	}
 

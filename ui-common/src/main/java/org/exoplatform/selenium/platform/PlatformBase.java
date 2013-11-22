@@ -380,6 +380,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
 	public final By ELEMENT_SWITCH_VIEW_MODE = By.linkText("Switch View mode");
 	
+	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
 	public final By ELEMENT_TITLE_NAVIGATION_MANAGEMENT = By.xpath("//*[contains(@class, 'popupTitle') and text() = 'Navigation Management']");
@@ -435,6 +436,9 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.id("UIPage");
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT_PORTAL = By.xpath("//*[text() = 'Portal Page']/..");
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
+	public final By ELEMENT_NAVIGATION_BODY_LEFT = By.xpath("//*[@id='NavigationBody']//*[@id='LeftNavigation']");
+	public final By ELEMENT_NAVIGATION_BODY_RIGHT = By.xpath("//*[@id='NavigationBody']//*[@id='RightBody']");
+	public final By ELEMENT_PAGE_PORTAL = By.xpath("//*[text() = 'Portal Page']");
 	public final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[contains(text(),'Content List')]");
 	public final By ELEMENT_CLV_PORTLET = By.className("UICLVPortlet");
 	public final By ELEMENT_FRAME_CONTAIN_PORTLET = By.xpath("//div[contains(@id,'UIPortlet')]");
@@ -445,6 +449,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SELECT_CONTENT_PATH_LINK_AUX = By.xpath("//*[contains(@class, 'uiIconAddPath')]");
 	public final String ELEMENT_CONTENT_IN_CONTENT_DETAIL_PORTLET = "//*[contains(@id, 'UISingleContentViewerPortlet')]//*[@class='Title' and text()='${contentName}']";
 	public final String ELEMENT_GADGET_APPLICATION_PAGE_EDITOR = "//div[@id='UIApplicationList0']//div[contains(text(),'${gadget}')]";
+	public final String ELEMENT_PORTLET_TITLE = "//*[@class='portletLayoutDecorator' and contains(text(), '${portletTitle}')]";
 
 	public final By ELEMENT_CONTENTS_BY_QUERY_PORTLET = By.xpath("//div[contains(text(),'Content By Query')]");
 	public final By ELEMENT_CATEGORY_CONTENT = By.linkText("Content");
