@@ -97,6 +97,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>plf-func</id>
+			<properties>
+				<testSuite>plf-func.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>social</id>
 			<properties>
 				<testSuite>social.xml</testSuite>

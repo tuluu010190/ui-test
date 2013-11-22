@@ -62,16 +62,21 @@ public class TestBase {
 	By ELEMENT_CONFIRM_PASS_ACCOUNT = By.name("confirmUserPasswordAccount");
 	By ELEMENT_ROOT_PASS_ACCOUNT = By.name("adminPassword");
 	By ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT = By.name("confirmAdminPassword");
-	By ELEMENT_AGREEMENT_CHECKBOX = By.xpath("//*[@id = 'agreement']");
+	public final By ELEMENT_AGREEMENT_CHECKBOX = By.xpath("//*[@id = 'agreement']");
 	By ELEMENT_INPUT_USERNAME = By.name("username"); 
-	By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue']");
-	By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
+	public final By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue' and @class='btn active']");
+	public final By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
 	By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
 	By ELEMENT_INPUT_PASSWORD = By.name("password");
 	By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+
+	public final String ELEMENT_TERM_CONDITION_BOX = "//div[@class='header' and text()='Terms and Conditions Agreement']/..";
+	public final By ELEMENT_CONTINUE_BUTTON_DISABLE = By.xpath("//button[text()='Continue' and @class='btn inactive']");
+	public final By ELEMENT_TERM_CONDITION_CONTENT = By.xpath("//div[@id='AccountSetup' and @class='content']");
+
 	/*======== End of Term and conditions =====*/
 
-	public void initSeleniumTest(Object... opParams){
+	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
 		String browser = System.getProperty("browser");
 		if("chrome".equals(browser)){
 			driver = new ChromeDriver();
@@ -85,12 +90,16 @@ public class TestBase {
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		action = new Actions(driver);
+	}
+
+	public void initSeleniumTest(Object... opParams){
+		initSeleniumTestWithOutTermAndCondition();
 		info("Term and conditions");
 		termsAndConditions(opParams);
 		info("End of term and conditions");
 	}
-	
-	
+
+
 
 	/**
 	 * Check term and conditions
@@ -145,7 +154,7 @@ public class TestBase {
 		Utils.pause(1000);     
 	}
 
-	public void accountSetup(){
+	public void accountSetupWithoutGreeting(){
 		type(ELEMENT_INPUT_USERNAME, "fqa", true);
 		type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
 		type(ELEMENT_LASTNAME_ACCOUNT, "VN", true);
@@ -156,6 +165,10 @@ public class TestBase {
 		type(ELEMENT_ROOT_CONFIRM_PASS_ACCOUNT, "gtngtn", true);
 		click(ELEMENT_SUBMIT_BUTTON);
 		waitForTextNotPresent("Create your account");
+	}
+
+	public void accountSetup(){
+		accountSetupWithoutGreeting();
 		click(ELEMENT_START_BUTTON);
 		waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
 	}
@@ -837,7 +850,7 @@ public class TestBase {
 		String javascript = argu1 + argu2 + argu3;
 		((JavascriptExecutor)driver).executeScript(javascript, targetElement);
 	}
-	
+
 	/** change lanugage of browser
 	 * @author phuongdt
 	 * @param language
@@ -852,7 +865,7 @@ public class TestBase {
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		action = new Actions(driver);
 	}
-	
+
 	/**
 	 * get random string
 	 * @author phuongdt
@@ -863,8 +876,8 @@ public class TestBase {
 		StringBuilder sb = new StringBuilder();
 		Random random = new Random();
 		for (int i = 0; i < 6; i++) {
-		    char c = chars[random.nextInt(chars.length)];
-		    sb.append(c);
+			char c = chars[random.nextInt(chars.length)];
+			sb.append(c);
 		}
 		return sb.toString();
 	}
