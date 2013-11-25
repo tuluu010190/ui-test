@@ -223,10 +223,10 @@ public class PLF_UnifiedSearch extends Template {
 	@Test(priority=0)
 	public void test04_FilterSearch(){
 		/*Declare variables*/
-		String searchText = "Search70834";
-		String spaceName = "Search70834Space";
-		String wikiName = "Search70834Wiki";
-		String contentName = "Search70834Content";
+		String searchText = "qfind";
+		String spaceName = "qfindS";
+		String wikiName = "qfindW";
+		String contentName = "qfindC";
 		String[][] wikiPath = {{"Wiki Home/"+wikiName}};
 
 		//Create data
@@ -236,7 +236,7 @@ public class PLF_UnifiedSearch extends Template {
 		naviToolbar.goToSiteExplorer();
 		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
-		conTemp.createNewFile(contentName, contentName, contentName);
+		conTemp.createNewWebContent(contentName, contentName, "", "", "", "");
 
 		//Add wiki page
 		info("Add new wiki page");		
@@ -254,17 +254,17 @@ public class PLF_UnifiedSearch extends Template {
 		qsPage.quickSearch(searchText);
 
 		//- By default, quick search returns results for items located in the current site only, as attachment SearchResult.png
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Space"));
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Wiki"));
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Content"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "S"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "W"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "C"));
 
 		/*Step 2: Filter search*/
 		//On filter area, click on fields that you want to search
 		uncheck(qsPage.ELEMENT_FILTER_SEARCH_SPACE_CHECKBOX,2);
 		//The page will search only selected fields for results
-		waitForElementNotPresent(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Space"));
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Wiki"));
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Content"));
+		waitForElementNotPresent(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "S"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "W"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "C"));
 
 		/*clear data*/
 		info("-- Clear data --");
@@ -287,10 +287,10 @@ public class PLF_UnifiedSearch extends Template {
 	@Test(priority=1)
 	public void test05_QuickSearch(){
 		/*Declare variables*/
-		String searchText = "Search70771";
-		String spaceName = "Search70771Space";
-		String wikiName = "Search70771Wiki";
-		String contentName = "Search70771Content";
+		String searchText = "quick";
+		String spaceName = "quickS";
+		String wikiName = "quickW";
+		String contentName = "quickC";
 		String[][] wikiPath = {{"Wiki Home/"+wikiName}};
 
 		//Create data
@@ -300,7 +300,7 @@ public class PLF_UnifiedSearch extends Template {
 		naviToolbar.goToSiteExplorer();
 		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
-		conTemp.createNewFile(contentName, contentName, contentName);
+		conTemp.createNewWebContent(contentName, contentName, "", "", "", "");
 
 		//Add wiki page
 		info("Add new wiki page");		
@@ -318,9 +318,9 @@ public class PLF_UnifiedSearch extends Template {
 		qsPage.quickSearch(searchText);
 
 		//- By default, quick search returns results for items with All types located in the current site only, as attachment SearchResult.png
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Space"));
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Wiki"));
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "Content"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "S"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "W"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", searchText).replace("${item}", "C"));
 
 		/*clear data*/
 		info("-- Clear data --");

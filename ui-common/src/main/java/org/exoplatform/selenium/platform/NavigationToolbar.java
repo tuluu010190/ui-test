@@ -555,7 +555,7 @@ public class NavigationToolbar extends PlatformBase {
 	 * Get pageID to edit layout
 	 * @author phuongdt
 	 */
-	String getPageId(){
+	public String getPageId(){
 		String pageElement = waitForAndGetElement(ELEMENT_PAGE_ID).getAttribute("id");
 		int beginIndex = pageElement.indexOf("-");
 		return pageElement.substring(beginIndex+1);

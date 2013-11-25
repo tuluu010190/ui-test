@@ -480,8 +480,9 @@ public class Wiki_BasicAction_Other extends Permalink {
 	 * Watch Page
 	 * NB: For this test case, we have to configure Email in File
 	 * == gatein/config/configuration.properties == 
+	 * ERROR: Refer https://jira.exoplatform.org/browse/WIKI-766
 	 */
-	@Test
+	@Test (groups="error")
 	public void test15_WatchUnwatchPage(){
 		String title = "Wiki_watch_title_15";
 		String content = "Wiki_watch_content_15";

@@ -380,7 +380,8 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECT_HOME_PAGE = "//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img";
 	public final String ELEMENT_NAVIGATION_HOME_NODE = "//div[@class='HomeNode']";				 
 	public final String ELEMENT_NODE_ADD_NEW_TOP_NODE = "//div[@id='UINavigationNodeSelectorPopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";
-	public final By ELEMENT_NODE_ADD_NEW = By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconAddNode']");
+	//public final By ELEMENT_NODE_ADD_NEW = By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconAddNode']");
+	public final By ELEMENT_NODE_ADD_NEW = By.xpath("//*[@id='NavigationNodePopupMenu']/*[@class='uiContextMenuContainer']//*[@class='uiIconAddNode']");
 	//public final String ELEMENT_NODE_EDIT = "//div[@id='NavigationNodePopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon EditSelectedNode16x16Icon']";
 	//	public final String ELEMENT_NAVIGATION_NODE_AREA= "//div[@class='Node']"; 
 
@@ -614,10 +615,12 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_DRIVER_BOX = By.xpath("//div[@class='btn dropdown-toggle']");
 	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
 	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
+	public final By ELEMENT_FILE_INPUT_DOC = By.xpath("//*[@class='inputDoc']");
 
 	//Search icon
 	public final By ELEMENT_QUICK_SEARCH_ICON = By.xpath("//i[@class='uiIconPLF24x24Search']");
 	public final By ELEMENT_QUICK_SEARCH_TEXTBOX = By.name("adminkeyword");
+	public final By ELEMENT_SEE_ALL_SEARCH_RESULTS = By.linkText("See All Search Results");
 
 	//Search porlet
 	public final By ELEMENT_SEARCH_APPLICATION = By.xpath("//a[@title='Search']");

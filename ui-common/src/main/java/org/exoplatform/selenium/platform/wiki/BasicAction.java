@@ -629,7 +629,7 @@ public class BasicAction extends Permission{
 		if (comment.length > 0){
 			type(ELEMENT_COMMENT_TEXTBOX, comment[0], true);
 		}
-		click(ELEMENT_PUBLISH_ACTIVITY_CHECKBOX, 2);
+		check(ELEMENT_PUBLISH_ACTIVITY_CHECKBOX, 2);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 	}

@@ -64,13 +64,13 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_COMMENT = "//div[@class='ContentBox']//*[contains(text(), '${activityText}')]";
 	public final String ELEMENT_SHOW_HIDE_COMMENTS = "/following::*[@class='CommentListInfo']/a[contains(text(), '${inforComment}')]";
 
-//	public final String ELEMENT_COMMENT_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[@class= 'uiIconComment uiIconLightGray']";
+	//	public final String ELEMENT_COMMENT_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[@class= 'uiIconComment uiIconLightGray']";
 	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/../../../..//button[contains(@id,'CommentButton')]";
 	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(),'${activityText}')]/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
 	public final String ELEMENT_COMMENT_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[@class= 'uiIconComment uiIconLightGray']";
-//	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/..//button[contains(@id,'CommentButton')]";
+	//	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/..//button[contains(@id,'CommentButton')]";
 	public final String ELEMENT_INPUT_COMMENT_TEXT_AREA = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]";
-//	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
+	//	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
 	public final String ELEMENT_MENTION_USER_AVATAR = "//*[@data-display='${userName}']/*[@class='avatarSmall']";
 
 	//	public final String ELEMENT_LIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'LikeLink')]";
@@ -108,6 +108,38 @@ public class Activity extends SocialBase {
 		}
 	}
 
+	/** Choose folder path in select file/folder function
+	 * @author phuongdt
+	 * @param driveName
+	 * @param folderPath
+	 */
+	public void goToFolderPath(String driveName, String folderPath,Object...params ){
+		Boolean verify = (Boolean) (params.length > 0 ? params[0] : false);
+		info("-- Selecting a file to post on activity --");
+		waitForAndGetElement(ELEMENT_FILE_LINK);
+		click(ELEMENT_FILE_LINK);
+		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);	
+		info("----Select drive----");
+		if(waitForAndGetElement(ELEMENT_DRIVER_CURRENT.replace("${driveName}", driveName), DEFAULT_TIMEOUT, 0)==null){
+			click(ELEMENT_DRIVER_BOX,2);
+			click(ELEMENT_DRIVER_OPTION.replace("${driveName}", driveName));
+		}
+		info("---Select folder path----");
+		String [] paths = folderPath.split("/");
+		String lastFolder = paths[paths.length-1];
+		String subFolderPath;
+		if(paths.length>3)
+			subFolderPath = paths[paths.length-2]+"/"+paths[paths.length-1];
+		else
+			subFolderPath = folderPath.substring(folderPath.indexOf("/")+1);
+		for (String path : paths){
+			click(By.linkText(path));
+
+		}
+		if(verify){
+			waitForAndGetElement("//*[@drivename='"+paths[0]+"' and @currentfolder='"+ subFolderPath + "'and text()= '"+lastFolder+"']");
+		}
+	}
 	/**
 	 * Select a file to post on activity
 	 * @param driveName
@@ -120,11 +152,19 @@ public class Activity extends SocialBase {
 	 */
 	public void selectFile(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
+		Boolean shareActivity = (Boolean)(params.length > 1 ? params[1] : true);
 		alert = new ManageAlert(driver);
 		info("-- Selecting a file to post on activity --");
-		waitForAndGetElement(ELEMENT_FILE_LINK);
-		click(ELEMENT_FILE_LINK);
-		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);	
+		for(int repeat=0;; repeat ++){
+			if (repeat > 3){
+				waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);
+				break;
+			}
+			click(ELEMENT_FILE_LINK);
+			if(waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP,5000,0)!=null)
+				break;
+			info("Retry...[" + repeat + "]");
+		}
 		info("----Select drive----");
 		if(waitForAndGetElement(ELEMENT_DRIVER_CURRENT.replace("${driveName}", driveName), DEFAULT_TIMEOUT, 0)==null){
 			click(ELEMENT_DRIVER_BOX,2);
@@ -139,7 +179,8 @@ public class Activity extends SocialBase {
 			alert.inputAlertText(newFolder);
 			click(By.linkText(newFolder));
 		}
-		if (upload)
+
+		if (upload && uploadFileName!="")
 		{
 			info("-- Upload file --");
 			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
@@ -154,12 +195,26 @@ public class Activity extends SocialBase {
 		}
 		else 
 		{
-			click(By.linkText(selectFileName));
-			Utils.pause(500);
+			if(selectFileName!=""){
+				click(By.linkText(selectFileName));
+				Utils.pause(500);
+			}
 		}
-		click(ELEMENT_SELECT_BUTTON);
-		click(ELEMENT_SHARE_BUTTON);
-		waitForAndGetElement(By.linkText(uploadFileName));
+		if(shareActivity){
+			click(ELEMENT_SELECT_BUTTON);
+			if(upload && uploadFileName!="")
+				assert waitForAndGetElement(ELEMENT_FILE_INPUT_DOC).getText().contains(uploadFileName);
+			else{
+				if(selectFileName!=""){
+					assert waitForAndGetElement(ELEMENT_FILE_INPUT_DOC).getText().contains(selectFileName);
+				}
+			}
+			click(ELEMENT_SHARE_BUTTON);
+			if(upload)
+				waitForAndGetElement(By.linkText(uploadFileName));
+			else
+				waitForAndGetElement(By.linkText(selectFileName));
+		}
 	}
 
 	/**

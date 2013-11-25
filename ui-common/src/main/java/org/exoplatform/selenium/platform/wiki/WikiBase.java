@@ -116,6 +116,8 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_SEARCH_FOR = By.xpath("//a[@class='ItemIcon MenuIcon' and contains(@title,'Search for')]"); 
 	public final By ELEMENT_SEARCH_ICON = By.xpath("//div[@class='SearchIcon']");
 	public final By ELEMENT_SEARCH_ADVANCE=By.id("text");
+	public final String ELEMENT_WIKI_SEARCH_ITEM_OPTION = "//*[@id='wikis']//*[@alt='${item}']";
+	public final String ELEMENT_WIKI_SEARCH_DROPDOWN = "//*[@id='wikis']//*[@class='btn dropdown-toggle']";
 	public final String ELEMENT_RESULT_SEARCH = "//*[@id='UIWikiAdvanceSearchResult']//*[contains(@href, '${pageName}') and contains(text(),'${pageName}')]";
 	public final String ELEMENT_VERIFY_RESULT_SEARCH = "//*[@id='UIWikiAdvanceSearchResult']//span[text()='0']/../strong[text()='${pageName}']";
 	public final String ELEMENT_VERIFY_MESSAGE = "No matching search result.";
@@ -627,13 +629,15 @@ public class WikiBase extends PlatformBase{
 	public void advancedSearch(String keyword, String...space){
 		info("--Advanced Search--");
 
-		type(ELEMENT_QUICK_SEARCH, "advance search", true);
+		type(ELEMENT_QUICK_SEARCH, keyword, true);
 		//type(ELEMENT_QUICK_SEARCH,keyword,true);
 		((JavascriptExecutor) driver).executeScript("javascript:eXo.wiki.UIWikiSearchBox.doAdvanceSearch();");
 		Utils.pause(1000);
 		type(ELEMENT_SEARCH_ADVANCE,keyword,true);
-		if(space.length > 0)
-			select(By.name("wikis"), space[0]);
+		if(space.length > 0){
+			click(ELEMENT_WIKI_SEARCH_DROPDOWN,2);
+			click(ELEMENT_WIKI_SEARCH_ITEM_OPTION.replace("${item}", space[0]));
+		}
 		click(ELEMENT_SEARCH_BUTTON);	
 		Utils.pause(1000);
 	}

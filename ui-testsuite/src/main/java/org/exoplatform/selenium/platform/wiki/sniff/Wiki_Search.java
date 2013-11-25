@@ -78,7 +78,7 @@ public class Wiki_Search extends Template {
 		addWikiPageWithContentMultiLine(title, content);
 		
 		goToWiki();
-		advancedSearch("line5", "/spaces/" + spaceName.toLowerCase());
+		advancedSearch("line5", spaceName);
 		assert getText(ELEMENT_SEARCH_RESULT) != "0";
 		waitForAndGetElement(ELEMENT_PAGE_RESULT.replace("${title}", title));
 		
