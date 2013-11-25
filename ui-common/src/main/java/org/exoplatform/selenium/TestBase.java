@@ -881,4 +881,28 @@ public class TestBase {
 		}
 		return sb.toString();
 	}
+
+	/**
+	 * Copy and paste a string from one locator to other
+	 * 
+	 * @param destination
+	 * @param target
+	 */
+	public void copyPasteString(By origin, By target, String value) {
+		WebElement element1 = driver.findElement(origin);
+		WebElement element2 = driver.findElement(target);
+
+		info("Type into the first locator");
+		element1.clear();
+		element1.click();
+		element1.sendKeys(value);
+
+		info("Copy from the first locator");
+		element1.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+		element1.sendKeys(Keys.chord(Keys.CONTROL, "c"));
+
+		info("Paste to the second locator");
+		element2.click();
+		element2.sendKeys(Keys.chord(Keys.CONTROL, "v"));
+	}
 }

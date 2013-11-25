@@ -241,6 +241,12 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
 	public final String ELEMENT_USER_EDIT_ICON = "//*[@id='UIListUsersGird']//*[text()='${username}']/../..//*[@data-original-title='Edit User Info']";
 	public final By ELEMENET_USER_MANAGEMENT_GRID = By.id("UIListUsersGird");
+	
+	public String USER_REG_SAME_ACC_FAIL_MSG = "//span[@class='errorIcon' and contains(text(),'This user name already exists, please enter a different name.')]";
+	public String USER_REG_UPPER_LETTER_FAIL_MSG = "//span[@class='warningIcon' and contains(text(),'nly lowercase letters, digits, dot and underscore characters are allowed for the field')]";
+	public String USER_REG_COPYPASTE_PASSWORD_FAIL_MSG = "//span[@class='errorIcon' and contains(text(),'Password and Confirm Password must be the same.')]";
+	public String USER_REG_INVALID_EMAIL_FAIL_MSG = "//span[contains(text(),'Your email address is invalid. Please enter a different address.')]";
+
 
 	//Group Management TAB
 	public final By ELEMENT_GROUP_MANAGEMENT_INFO = By.xpath("//*[@class='uiGroupInfoContainer UIGroupInfo']");
