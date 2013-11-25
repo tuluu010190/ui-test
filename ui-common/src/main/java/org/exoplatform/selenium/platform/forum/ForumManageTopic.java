@@ -42,7 +42,7 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_DELETE_TOPIC = By.id("UITopicDetailConfirm0");
 	public By ELEMENT_EDIT_TOPIC = By.xpath("//*[contains(@href, 'EditTopic')]");
 	public By ELEMENT_MOVE_TOPIC = By.xpath("//div[@class='dropdown uiDropdownWithIcon actionIcon open']//i[@class='uiIconMove']");
-	public By ELEMENT_APPROVE_TOPIC = By.xpath("//a[@class='ItemIcon SetApproveIcon' and text()='Approve']");
+	public By ELEMENT_APPROVE_TOPIC = By.xpath("//*[text()='Approve']");
 	public By ELEMENT_CHECK_ALL = By.xpath("//*[@id='UITopicContent']//input[@title='Check All']");
 	public String ELEMENT_BREADCRUMB_TOPIC = "//a[@data-original-title='${forum}']/../../li[text()='${topic}']"; 
 	public String MSG_DELETE_TOPIC = "Are you sure you want to delete this topic ?";

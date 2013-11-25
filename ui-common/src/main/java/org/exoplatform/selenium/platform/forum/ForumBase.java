@@ -298,6 +298,7 @@ public class ForumBase extends PlatformBase {
 
 	//Gmail
 	public String ELEMENT_GMAIL_EMAIL = "//span/b[text()='[${category}][${forum}] ${topic}']";
+		
 	/*-----------------------------common function-------------------------------------*/
 
 	/** function: input data to a frame in other frame
