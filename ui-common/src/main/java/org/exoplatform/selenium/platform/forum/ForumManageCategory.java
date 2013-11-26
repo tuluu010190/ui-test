@@ -253,7 +253,8 @@ public class ForumManageCategory extends ForumBase {
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", element);
 		element.sendKeys(Utils.getAbsoluteFilePath("TestData/" + file));
 		switchToParentWindow();
-		waitForAndGetElement("//*[contains(text(),'" + file + "')]", DEFAULT_TIMEOUT, 1, 2);
+		String[] links = file.split("/");
+		waitForAndGetElement("//*[contains(text(),'" + links[links.length-1] + "')]", DEFAULT_TIMEOUT, 1, 2);
 		button.save();
 		waitForMessage(MSG_IMPORT_CATEGORY);
 		info("Import file " + file + "successfully");
@@ -357,7 +358,7 @@ public class ForumManageCategory extends ForumBase {
 	 * @param catName: Category Name
 	 */
 	public void loginInNewWindowToDeleteCategory(String dataUser,String dataPass,String catName){
-
+		//By Khanhnt
 		ManageAccount acc;
 		WebDriver tmpDriver = new FirefoxDriver();
 		String tmpbaseUrl = System.getProperty("baseUrl");
