@@ -310,6 +310,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_PORTAL = "//*[@class='siteName' and text()='${siteName}']";
 	public final String ELEMENT_PORTAL_EDIT_LAYOUT = "//*[@class='siteName' and text()='${siteName}']/../..//*[text()='Edit Layout']";
 	public final String ELEMENT_PORTAL_EDIT_CONFIGURATION = "//*[text()='${siteName}']/../..//*[text()='Edit Site Configuration']";
+	public final String ELEMENT_PORTAL_NAME_SITE_ACCESS = "//img[contains(@src, 'sites/${portalName}')]";
 
 	//Portal Edit Layout screen
 	public final By ELEMENT_EDIT_INLINE_COMPOSER = By.xpath("//*[@class='PopupTitle popupTitle' and text()='Edit Inline Composer']");
@@ -341,6 +342,9 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//*[@id='ListPermissionSelector']//a[@title='${group}']";
 	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//*[@id='UIPermissionSelector']//*[contains(text(), '${group}')]";
 	public final By ELEMENT_PERMISSION_GRID = By.id("PermissionGrid");
+	
+	//Portal Template TAB
+	public final By ELEMENT_PORTAL_TEMPLATE_TAB= By.linkText("Portal Templates");
 
 	////
 	public final String ELEMENT_PAGINATOR_PAGE_LINK = "//a[contains(@class, 'Number') and text()='${number}']";

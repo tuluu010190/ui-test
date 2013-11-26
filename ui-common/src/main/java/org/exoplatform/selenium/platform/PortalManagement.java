@@ -8,6 +8,7 @@ import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class PortalManagement extends PlatformBase {
 
@@ -16,6 +17,9 @@ public class PortalManagement extends PlatformBase {
 	Dialog dialog = new Dialog(driver);
 	ManageAlert alt = new ManageAlert(driver);
 	Button button;
+	public By ELEMENT_PORTAL_NAME_EXIST = By.xpath("//span[contains(text(),'This portal name already exists.')]");
+	public By ELEMENT_POPUP_ADD_PORTAL = By.xpath("//div[@class='UIPopupWindow UIDragObject uiPopup']");
+	public final String MESSAGE_PORTAL_NAME_REQUIRED_FIELD = "The field \"Portal Name\" is required.";
 
 	public void configPortal(String portalName, String label, String description, String portalLocale, String portalSkin, String portalSession, 
 			boolean publicMode, Map<String, String> permissions, String editGroupId, String editMembership, String...template){
@@ -53,10 +57,14 @@ public class PortalManagement extends PlatformBase {
 			setEditPermissions(editGroupId, editMembership);
 		}
 		if (template.length > 0){
-			click(By.linkText(template[0]));
+			click(ELEMENT_PORTAL_TEMPLATE_TAB);
+			WebElement temp = getElementFromTextByJquery(template[0]);
+			temp.click();
+//			click(By.linkText(template[0]));
 		}
 		button.save();
-		waitForElementNotPresent(ELEMENT_EDIT_PERMISSION_SETTING);
+		if (waitForAndGetElement(ELEMENT_POPUP_ADD_PORTAL,10000,0) == null)
+			waitForElementNotPresent(ELEMENT_EDIT_PERMISSION_SETTING);
 	}
 
 	//Add new portal
@@ -88,7 +96,7 @@ public class PortalManagement extends PlatformBase {
 		alt.waitForConfirmation("Are you sure you want to delete this portal?");
 		//info("--Verify portal is deleted--");
 		//		pause(30000);
-		waitForTextNotPresent(portalName, 180000);
+		waitForElementNotPresent(ELEMENT_PORTAL_DELETE_ICON.replace("${portalName}", portalName), 180000);
 	}
 
 	//Verify the existence of portal

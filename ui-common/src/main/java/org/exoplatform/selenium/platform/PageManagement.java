@@ -51,6 +51,14 @@ public class PageManagement extends PlatformBase {
 	public final String ELEMENT_LIST_PAGE = "//*[@id='UIRepeater']//tbody/tr[${number}]//*[@title='${titlePage}']"; 
 	public final String ELEMENT_PAGE_DELETE_ICON_AUX = ELEMENT_LIST_PAGE.replace("${number}", "${number}").replace("${titlePage}", "${titlePage}") + "/../..//*[@class='uiIconDelete uiIconLightGray']";
 	
+	//Manage page form
+	public final By ELEMENT_SITEMAP_PAGE = By.xpath("//a[@href='/portal/intranet/SiteMapPage']");
+	public final By ELEMENT_PORTAL_ADMINISTRATION = By.xpath("//div[@class='ExpandIcon ClearFix']//a[@class='NodeIcon DefaultPageIcon' and text()='Portal Administration']");
+	public final By ELEMENT_APPLICATION_REGISTRY_PAGE = By.xpath("//div[@class='ChildrenContainer']//a[@class='NodeIcon DefaultPageIcon' and text()='Applications Registry']");
+	public final By ELEMENT_MANAGE_PAGES = By.xpath("//div[@class='ChildrenContainer']//a[@class='NodeIcon DefaultPageIcon' and text()='Manage Pages']");
+	public final By ELEMENT_ADD_USER_PAGES = By.xpath("//div[@class='ChildrenContainer']//a[@class='NodeIcon DefaultPageIcon' and text()='Add User']");
+	public final By ELEMENT_MANAGE_USERS_AND_GROUPS_PAGES = By.xpath("//div[@class='ChildrenContainer']//a[@class='NodeIcon DefaultPageIcon' and text()='Manage Users and Groups']");
+	
 	/*================== Common Function ===================*/
 	//Add a new page in PageManagement
 	public void addNewPageAtManagePages(PageType type, String pageName, String pageTitle, boolean publicMode, 
