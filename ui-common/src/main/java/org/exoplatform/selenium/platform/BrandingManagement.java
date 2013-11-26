@@ -15,7 +15,7 @@ import org.openqa.selenium.WebElement;
  *
  */
 public class BrandingManagement extends PlatformBase {
-	public final By ELEMENT_PREVIEW_LOGO_ID = By.id("PreviewImg");
+	public final By ELEMENT_PREVIEW_LOGO = By.id("PreviewImg");
 	public final By ELEMENT_UPLOAD_BUTTON = By.id("btUpload");
 	public final By ELEMENT_NAVIGATION_STYLE = By.id("navigationStyle");
 	public final By ELEMENT_TABLE_COLUMN_CONTAINER = By.className("UITableColumnContainer");
@@ -27,6 +27,14 @@ public class BrandingManagement extends PlatformBase {
 	public final By ELEMENT_LOGO_CONTAINER_PREVIEW = By.xpath("//div[@id='StylePreview']//a[@class='HomeLink']/img[@alt='Home']");
 	public final By ELEMENT_LOGO_CONTAINER_TOOLBAR = By.xpath("//div[contains(@class,'UIRowContainer')]/div[@id='PlatformAdminToolbarContainer']//a[@class='HomeLink']/img[@alt='Home']");
 	
+//	public final By SAVE_INFO_MSG = By.id("saveinfo");
+//	public final By CANCEL_INFO_MSG = By.id("cancelinfo");
+//	public final By INCORRECT_LOGO_MSG = By.id("mustpng");
+	public final String SAVE_INFO_MSG = "Changes in branding settings have been saved ";
+	public final String CANCEL_INFO_MSG = "Changes in branding settings have been canceled";
+	public final String INCORRECT_LOGO_MSG = "The file must be in photo format png";
+
+	
 	public BrandingManagement(WebDriver dr) {
 		driver = dr;
 		button = new Button(driver);
@@ -37,7 +45,7 @@ public class BrandingManagement extends PlatformBase {
 	 * @author phuongdt
 	 * @param urlFile
 	 */
-	public void uploadLogo(String urlFile){
+	public void uploadLogo(String urlFile, boolean verifyPreview, boolean verifySave){
 		info("-- Upload new logo--");
 		WebElement preElement = waitForAndGetElement(ELEMENT_LOGO_CONTAINER_PREVIEW);
 		WebElement element = waitForAndGetElement(ELEMENT_LOGO_CONTAINER_TOOLBAR); 
@@ -48,15 +56,19 @@ public class BrandingManagement extends PlatformBase {
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", upload);
 		upload.sendKeys(Utils.getAbsoluteFilePath("TestData/"+urlFile));
-		preElement = waitForAndGetElement(ELEMENT_LOGO_CONTAINER_PREVIEW);
-		String newsrc = preElement.getAttribute("src"); 
-		info("-- Verify preview logo --");
-		assert (!oldsrc.contentEquals(newsrc));
-		button.save();
-		element = waitForAndGetElement(ELEMENT_LOGO_CONTAINER_TOOLBAR);
-		String newsrc1 = element.getAttribute("src"); 
-		info("-- Verify Navigation Bar logo --");
-		assert (!oldsrc1.contentEquals(newsrc1));
+		if (verifyPreview) {
+			preElement = waitForAndGetElement(ELEMENT_LOGO_CONTAINER_PREVIEW);
+			String newsrc = preElement.getAttribute("src"); 
+			info("-- Verify preview logo --");
+			assert (!oldsrc.contentEquals(newsrc));
+		}
+		if (verifySave) {
+			button.save();
+			element = waitForAndGetElement(ELEMENT_LOGO_CONTAINER_TOOLBAR);
+			String newsrc1 = element.getAttribute("src"); 
+			info("-- Verify Navigation Bar logo --");
+			assert (!oldsrc1.contentEquals(newsrc1));
+		}
 	}
 	
 	/** 

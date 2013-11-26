@@ -99,7 +99,7 @@ public class PLF_Branding extends PlatformBase{
 		/* Step 4: Save*/
 		//-Click on Save
 		//New Logo is shown as preview
-		brandMag.uploadLogo(urlFile);		
+		brandMag.uploadLogo(urlFile, true, true);		
 	}
 	
 	/**

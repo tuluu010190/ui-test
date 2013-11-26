@@ -49,7 +49,7 @@ public class NavigationToolbar extends PlatformBase {
 			}
 			info("Retry...[" + repeat + "]");
 		}
-		waitForAndGetElement(brandMag.ELEMENT_PREVIEW_LOGO_ID);
+		waitForAndGetElement(brandMag.ELEMENT_PREVIEW_LOGO);
 		waitForAndGetElement(brandMag.ELEMENT_UPLOAD_BUTTON);
 		waitForAndGetElement(brandMag.ELEMENT_NAVIGATION_STYLE);
 		waitForAndGetElement(brandMag.ELEMENT_TABLE_COLUMN_CONTAINER);
