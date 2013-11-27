@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.plf.functional.homepageactivitystream;
+package org.exoplatform.selenium.platform.plf.functional.homepageactivitystream.activitycomposer;
 
 import static org.exoplatform.selenium.TestLogger.info;
 

@@ -41,7 +41,7 @@ public class SearchAdministration extends PlatformBase {
 	 */
 	public void disableContentTypeSearch(String contentType){
 		info("-- Disable a content type --");
-		if(waitForAndGetElement(ELEMENT_CONTENT_TYPE_ENABLE_DISABLE_BUTTON.replace("${contentType}", contentType).replace("${action}", "Disable"))!=null)
+		if(waitForAndGetElement(ELEMENT_CONTENT_TYPE_ENABLE_DISABLE_BUTTON.replace("${contentType}", contentType).replace("${action}", "Disable"),DEFAULT_TIMEOUT,0)!=null)
 			click(By.xpath(ELEMENT_CONTENT_TYPE_ENABLE_DISABLE_BUTTON.replace("${contentType}", contentType).replace("${action}", "Disable")));
 		waitForAndGetElement(ELEMENT_CONTENT_TYPE_ENABLE_DISABLE_BUTTON.replace("${contentType}", contentType).replace("${action}", "Enable"));
 		Utils.pause(1000);

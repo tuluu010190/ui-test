@@ -287,10 +287,10 @@ public class PLF_UnifiedSearch extends Template {
 	@Test(priority=1)
 	public void test05_QuickSearch(){
 		/*Declare variables*/
-		String searchText = "quick";
-		String spaceName = "quickS";
-		String wikiName = "quickW";
-		String contentName = "quickC";
+		String searchText = "test5";
+		String spaceName = "test5S";
+		String wikiName = "test5W";
+		String contentName = "test5C";
 		String[][] wikiPath = {{"Wiki Home/"+wikiName}};
 
 		//Create data

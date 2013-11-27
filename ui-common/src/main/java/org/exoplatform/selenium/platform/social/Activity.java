@@ -87,6 +87,8 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_SHOW_ALL_COMMENTS = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/../*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]/div[contains(@id,'CommentBlockBound')]//a[contains(text(),'View all "+"${inforComment}"+"')]";
 	public final String ELEMENT_HIDE_ALL_COMMENTS = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/../*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]/div[contains(@id,'CommentBlockBound')]//a[contains(text(),'Hide all "+"${inforComment}"+"')]";
 	public final String ELEMENT_AVATAR_LIST_LIKER_INDEX = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/../*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//div[@class='listPeopleContent']/div[@class='listLiked']/a[@class='avatarXSmall'][${index}]/img";
+	public final String ELEMENT_YOU_LIKE_THIS_ACTIVITY = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/../*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//div[@class='listPeopleContent']/*[contains(text(),'You liked this')]";
+	public final String ELEMENT_USER_NAME_LIKE_THIS_ACTIVITY = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/../*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//div[@class='listPeopleContent']/*[contains(text(),'${userName} liked this')]";
 	public final String ELEMENT_USER_PROFILE_POPUP = "//table[@id='tipName']//a[contains(text(),'${userName}')]";
 
 	/*public Activity(WebDriver dr){
@@ -192,6 +194,7 @@ public class Activity extends SocialBase {
 			switchToParentWindow();
 			waitForAndGetElement(By.linkText(uploadFileName));
 			click(By.linkText(uploadFileName));
+			Utils.pause(500);
 		}
 		else 
 		{
@@ -202,6 +205,7 @@ public class Activity extends SocialBase {
 		}
 		if(shareActivity){
 			click(ELEMENT_SELECT_BUTTON);
+			Utils.pause(1000);
 			if(upload && uploadFileName!="")
 				assert waitForAndGetElement(ELEMENT_FILE_INPUT_DOC).getText().contains(uploadFileName);
 			else{

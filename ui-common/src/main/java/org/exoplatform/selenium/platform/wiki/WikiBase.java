@@ -74,7 +74,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_WIKI_HOME_PAGE=By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
 	public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/*[contains(text(), 'Wiki Home')]");
 	public final String ELEMENT_NODE_WIKI_PAGE = "//*[@class='node']//*[contains(text(), '{$node}')]";
-	
+
 	//Space Switcher
 	public final By ELEMENT_SPACE_SWITCHER_BREADCRUMB = By.id("DisplayModesDropDown");
 	public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText lostFocus']") ;
@@ -95,6 +95,9 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_CANCEL_BUTTON_ADD_PAGE_NULL_TITLE = By.xpath("//button[text()='Cancel']");
 	public final String MESSAGE_PAGE_ALREADY_EXISTS = "The page title already exists. Please select another one.";
 	public final String MESSAGE_CANCEL_CREATE_PAGE = "to leave this page?";
+	public final By ELEMENT_UPLOAD_NAME = By.name("file");
+	public final By ELEMENT_UPLOAD_NEW_FILE_BUTTON = By.xpath("//*[text()='Upload New File']");
+	public final By ELEMENT_BODY_CONTAINER = By.xpath("//*[@class='uiRightContainerArea']");
 	//"Are you sure to leave this page?";
 	public final By ELEMENT_OK_BUTTON_WIKI_PAGE = By.xpath("//div[contains(@class, 'uiAction')]/a[text()='OK']");
 
@@ -211,7 +214,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_WIKI_PAGE_INFO_FEED = By.xpath("//*[@id='UIWikiPageInfoArea']/div[@class='txtFeed']");
 	public final By ELEMENT_COMPARE_TEXT = By.xpath("//div[contains(text(),'Compared With')]");
 	public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfoArea']//a[contains(text(), 'V')]");
-	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'v.{$version}')]";
+	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'V{$version}')]";
 	public final String ELEMENT_VERSION_LINK_AUX= "//a[contains(text(),'v. {$version}')]";
 	public final String ELEMENT_RESTORE_LINK = "//td/label/a[contains(text(), 'v. {$version}')]/../../..//*[@class='uiIconRestore']";
 	public final By ELEMENT_COMPARE_BUTTON = By.xpath("//*[text()='Compare the selected versions']");	
@@ -474,7 +477,7 @@ public class WikiBase extends PlatformBase{
 	/**
 	 * Migrate to PLF 4
 	 */
-	 /**
+	/**
 	 * @author vuna2
 	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
 	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
@@ -571,9 +574,18 @@ public class WikiBase extends PlatformBase{
 		//ELEMENT_UPLOAD_FILE = By.xpath("//input[@id='WikiUploadFile']");
 
 		try{
-			//WebElement element = waitForAndGetElementNotDisplay(ELEMENT_UPLOAD_FILE);
-			WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_FILE, 10000, 1, notDisplay);
-			element.sendKeys(path);
+			for(int i =0; i<=4; i++){
+				if(waitForAndGetElement(ELEMENT_UPLOAD_NAME, 5000, 0, notDisplay)!=null)
+					break;
+				else{
+					((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", waitForAndGetElement(ELEMENT_BODY_CONTAINER));
+				}
+			}
+			WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, 5000, 1, notDisplay);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
+					"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload);
+			upload.sendKeys(path);
 
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);

@@ -74,17 +74,17 @@ public class PLF_HomePageGadget_SuggestionsGadget extends Activity{
 		//Login with mary and create new space
 		acc.userSignIn(userType.PUBLISHER);
 		magMember.goToMySpacePage();
-		magMember.addNewSpace(spaceName1, "");
+		magMember.addNewSpace(spaceName1, "", 60000);
 
 		//Login with demo and create new space
 		acc.userSignIn(userType.DEVELOPER);
 		magMember.goToMySpacePage();
-		magMember.addNewSpace(spaceName2, "");
+		magMember.addNewSpace(spaceName2, "", 60000);
 
 		//Login with james and create new space
 		acc.userSignIn(userType.AUTHOR);
 		magMember.goToMySpacePage();
-		magMember.addNewSpace(spaceName3, "");
+		magMember.addNewSpace(spaceName3, "", 60000);
 
 		//Login with user john
 		acc.userSignIn(userType.ADMIN);

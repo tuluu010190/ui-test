@@ -1,4 +1,4 @@
-	package org.exoplatform.selenium.platform.social;
+package org.exoplatform.selenium.platform.social;
 
 import static org.exoplatform.selenium.TestLogger.*;
 
@@ -51,8 +51,15 @@ public class PeopleConnection extends SocialBase {
 		//By ELEMENT_CONNECT_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li/a[@title='Connect']");
 		//By ELEMENT_CANCEL_REQUEST_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Cancel Request']");
 		//By ELEMENT_CANCEL_REQUEST_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li[2]/a[@title='Cancel Request']");
-		info("-- Go to every one tab --");
-		click(ELEMENT_EVERYONE_TAB);
+		info("-- Connect the user: " + peopleName);
+		if(waitForAndGetElement(ELEMENT_EVERYONE_TAB,5000,0)==null){
+			info("----Go to My connections----");
+			goToMyConnections();
+			info("---Click  every one tab-----");
+			click(ELEMENT_EVERYONE_TAB);
+		}
+		else
+			click(ELEMENT_EVERYONE_TAB);
 		info("-----Click connect to people-----");
 		waitForAndGetElement(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 		click(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));

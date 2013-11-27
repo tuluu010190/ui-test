@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.gatein.functional;
+package org.exoplatform.selenium.platform.gatein.functional.dashboard;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -17,7 +17,7 @@ import org.testng.annotations.Test;
  * @date 08-Nov-2013
  */
 
-public class Gatein_Dashboard extends DashBoard{
+public class Gatein_Dashboard_ManageGadget extends DashBoard{
 
 	ManageAccount magAc;
 	NavigationToolbar navTool;

@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.gatein.functional.basicportlets;
+package org.exoplatform.selenium.platform.gatein.functional.basicportlets.administration;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -29,7 +29,6 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 	NavigationToolbar navTool;
 	PageManagement pageMag;
 	PageEditor pageE;
-	Button but;
 	ManageApplications magApp;
 
 	@BeforeMethod
@@ -40,8 +39,8 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 		navTool = new NavigationToolbar(driver);
 		pageMag = new PageManagement(driver);
 		pageE = new PageEditor(driver);
-		but = new Button(driver);
 		magApp = new ManageApplications(driver);
+		button = new Button(driver);
 		magAc.signIn(DATA_USER1,DATA_PASS);
 	}
 
@@ -522,7 +521,7 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 		//- All current values of category are displayed in form
 		//- Category Name is disable, can not be changed, others can be changed
 		magApp.goToEditCategoryAtManageApplications(categoryName);
-		WebElement elemSave = waitForAndGetElement(but.ELEMENT_SAVE_BUTTON);
+		WebElement elemSave = waitForAndGetElement(button.ELEMENT_SAVE_BUTTON);
 		WebElement elemDisplayName = waitForAndGetElement(magApp.ELEMENT_FIELD_DISPLAY_NAME);
 
 		/* Step 2: Delete category( at window 2) */
@@ -569,7 +568,7 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 		info("Create new remote gadget again");
 		magApp.addRemoteGadget(url);
 		waitForAndGetElement(magApp.MESSAGE_GADGET_INFO_EXISTING_GADGET);
-		but.ok();
+		button.ok();
 
 		/*Clear data*/
 		info("-- Clear data --");
@@ -601,7 +600,7 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 		//Show message alert this category name already exists
 		magApp.addNewCategoryAtManageApplications(categoryName, displayName, categoryDescription, true, null, false);
 		waitForAndGetElement(magApp.MESSAGE_CATEGORY_EXISTING);
-		but.ok();
+		button.ok();
 
 		/*Clear data*/
 		info("-- Clear data --");

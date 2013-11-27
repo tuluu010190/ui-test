@@ -18,8 +18,6 @@ public class DashBoard extends PlatformBase {
 
 	NavigationToolbar nav = new NavigationToolbar(driver);
 	Dialog dialog = new Dialog(driver);
-	ManageAlert alt = new ManageAlert(driver);
-	Button button = new Button(driver);
 
 	/* Dashboard Page*/
 	public  final String MESSAGE_DRAG_GADGETS_HERE = "Drag your gadgets here.";
@@ -115,7 +113,7 @@ public class DashBoard extends PlatformBase {
 
 	//Delete a tab
 	public void deleteTabOnDashboard(String currentName){
-		alt = new ManageAlert(driver);
+		alert = new ManageAlert(driver);
 		info("--Delete selected page on dashboard--");
 		WebElement tab = waitForAndGetElement(By.linkText(currentName), 10000, 0);
 
@@ -123,8 +121,8 @@ public class DashBoard extends PlatformBase {
 			mouseOverAndClick(By.linkText(currentName));
 		}
 		click(ELEMENT_DASHBOARD_SELECTED_DELETE);
-		alt.waitForConfirmation("Really want to remove this dashboard?");
-		alt.acceptAlert();
+		alert.waitForConfirmation("Really want to remove this dashboard?");
+		alert.acceptAlert();
 		waitForElementNotPresent(ELEMENT_TAB_LINK.replace("${tabName}", currentName));
 	}
 
@@ -169,6 +167,7 @@ public class DashBoard extends PlatformBase {
 	public void actionOnGadgetOnDashboard(String gadgetTitleDisplay, String action){
 		info(action+" gadget" + gadgetTitleDisplay);
 		Boolean isDisplay = false;
+		button = new Button(driver);
 		if(waitForAndGetElement(ELEMENT_GADGET_CONTENT_FORM, DEFAULT_TIMEOUT,0)!=null){
 			isDisplay = true;
 		}
@@ -176,8 +175,8 @@ public class DashBoard extends PlatformBase {
 		waitForAndGetElement(actionGadgetIcon);
 		click(actionGadgetIcon, 2);
 		if(action.contains("Delete Gadget")){
-			alt = new ManageAlert(driver);
-			alt.waitForConfirmation("Are you sure you want to delete this gadget?");
+			alert = new ManageAlert(driver);
+			alert.waitForConfirmation("Are you sure you want to delete this gadget?");
 			//waitForTextNotPresent(gadgetTitleDisplay);
 			waitForElementNotPresent(ELEMENT_GADGET_TITLE.replace("${title}", gadgetTitleDisplay));
 		}

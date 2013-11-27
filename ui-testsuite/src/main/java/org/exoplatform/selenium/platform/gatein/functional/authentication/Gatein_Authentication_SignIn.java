@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.gatein.functional;
+package org.exoplatform.selenium.platform.gatein.functional.authentication;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
  * @author havtt
  * @date 08-Nov-2013
  */
-public class Gatein_Authentication extends PlatformBase {
+public class Gatein_Authentication_SignIn extends PlatformBase {
 
 	ManageAccount magAc;
 	NavigationToolbar navTool;

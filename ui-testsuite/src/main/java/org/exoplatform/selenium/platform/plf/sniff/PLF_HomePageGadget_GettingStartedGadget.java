@@ -99,19 +99,19 @@ public class PLF_HomePageGadget_GettingStartedGadget extends Activity{
 		//Check direction when performing an action
 		click(homeGad.ELEMENT_PROFILE_PICTURE);
 		waitForAndGetElement(homeGad.ELEMENT_PROFILE_PAGE);
-		click(ELEMENT_HOME_PAGE);
+		navToolBar.goToHomePage();
 		click(homeGad.ELEMENT_CONNECT_TO_COWORKERS);
 		waitForAndGetElement(homeGad.ELEMENT_ALL_PEOPLE);
-		click(ELEMENT_HOME_PAGE);
+		navToolBar.goToHomePage();
 		click(homeGad.ELEMENT_JOIN_A_SPACE);
 		waitForAndGetElement(homeGad.ELEMENT_ALL_SPACE);
-		click(ELEMENT_HOME_PAGE);
+		navToolBar.goToHomePage();
 		click(homeGad.ELEMENT_POST_AN_ACTIVITY);
 		String url = driver.getCurrentUrl();
 		assert url.contains("#");
 		click(homeGad.ELEMENT_UPLOAD_A_DOCUMENT);
 		waitForAndGetElement(homeGad.ELEMENT_PERSONAL_DOCUMENT);
-		click(ELEMENT_HOME_PAGE);
+		navToolBar.goToHomePage();
 		
 		// Perform an action on Getting started Gadget (upload file)
 		selectFile(driverName,true,folderPath,"",uploadFileName,folder);
@@ -120,7 +120,7 @@ public class PLF_HomePageGadget_GettingStartedGadget extends Activity{
 		//Join a space
 		magMember.goToMySpacePage();
 		magMember.addNewSpace(spaceName, "");
-		click(ELEMENT_HOME_PAGE);
+		navToolBar.goToHomePage();
 		waitForAndGetElement(homeGad.ELEMENT_FINISH_JOIN_TO_SPACE.replace("${status}", "done"));
 		// Post an activity
 		addActivity(true, activity1, false,"");
@@ -137,7 +137,7 @@ public class PLF_HomePageGadget_GettingStartedGadget extends Activity{
 		//Add profile picture
 		click(homeGad.ELEMENT_PROFILE_PICTURE);
 		peoPro.changeAvatar("TestData/"+file);
-		click(ELEMENT_HOME_PAGE);
+		navToolBar.goToHomePage();
 		waitForAndGetElement(homeGad.ELEMENT_INPROGRESS_COMPLETE);
 		
 		//Remove Getting Started gadget

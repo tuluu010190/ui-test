@@ -603,8 +603,8 @@ public class BasicAction extends Permission{
 	public void addBlankWikiPageHasAttachment(String title, String content, String link){
 		goToAddBlankPage();
 		info("Add new wiki page having attachment");
-		addWikiPageSourceEditor(title, content);
 		String[] upload = link.split(";");
+		addWikiPageSourceEditor(title, content);
 		for (int i = 0; i < upload.length; i++){
 			attachFileInWiki("TestData/" + upload[i], 2);
 		}

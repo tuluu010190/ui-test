@@ -402,7 +402,7 @@ public class SpaceManagement extends SocialBase {
 	public void goToSpaceFromMySpaceNavigation(String spaceName){
 		info("-- Go to space "+spaceName+" --");
 		click(ELEMENT_SPACE_NAVIGATION_SPACE_ITEM.replace("${spaceName}", spaceName));
-		waitForAndGetElement(ELEMENT_SPACE_ACTIVITY_STREAM_PORTLET);
+		waitForAndGetElement(ELEMENT_SPACE_ACTIVITY_STREAM_PORTLET,60000,1);
 	}
 }
 

@@ -230,7 +230,7 @@ public class ActionBar extends EcmsBase{
 			info("retry...[" + repeat + "]");
 		}
 		mouseOverAndClick(ELEMENT_NEW_CONTENT_LINK);
-		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK, DEFAULT_TIMEOUT, 1, 2);
+		waitForElementNotPresent(ELEMENT_NEW_CONTENT_LINK, DEFAULT_TIMEOUT, 1);
 	}
 
 	//Go to add new folder
