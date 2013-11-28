@@ -59,6 +59,15 @@ public class Activity extends SocialBase {
 	public final By ELEMENT_UPLOAD_BUTTON = By.xpath("//*[@data-original-title='Upload file.']");
 	public final By ELEMENT_ATTACH_BUTTON = By.id("AttachButton");
 	public final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
+	public final By ELEMENT_NEXT_THUMBNAIL = By.cssSelector("div#NextThumbnail i.uiIconArrowRight.uiIconLightGray");
+	public final By ELEMENT_THUMBNAIL = By.id("Thumbnails"); 
+	public final By ELEMENT_THUMBNAIL_SHOW = By.cssSelector("div#Thumbnails img.thumbnailShown"); 
+	public final By ELEMENT_THUMBNAIL_NEXT = By.xpath("//div[@id='Thumbnails']/img[2]"); 
+	public final By ELEMENT_CROSS_BUTTON = By.xpath("//a[@class='uiIconClose uiIconLightGray']"); 
+	public final By ELEMENT_SHARE_DISPLAY = By.xpath("//div[@class='uiLinkShareDisplay blastShare']");
+	public final By ELEMENT_PICTURE_SHARE = By.xpath("//div[@id='UIThumbnailLeftBox']"); 
+	public final By ELEMENT_TITLE_SHARE = By.xpath("//div[@id='UIRightBox']/h5[@id='LinkTitle']"); 
+	public final By ELEMENT_URL_SHARE = By.xpath("//div[@id='LinkUrl']");
 
 	//	public final String ELEMENT_COMMENT_LINK = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'CommentLink')]";
 	public final String ELEMENT_COMMENT = "//div[@class='ContentBox']//*[contains(text(), '${activityText}')]";
@@ -268,7 +277,7 @@ public class Activity extends SocialBase {
 			waitForAndGetElement(By.linkText(link));
 		}
 	}
-
+	
 	//	/**
 	//	 * Delete activity 
 	//	 * @param activityText: input a String 
