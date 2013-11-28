@@ -23,15 +23,25 @@ public class Permission extends WikiBase{
 
 	/////
 	/*=================== Page permission ===================*/
-	/** Add page permission for an user
-	 * @author: Thuntn
+	/** 
+	 * Add permission for a Wiki page
 	 * 
-	 * @param option: if the value of option determines  meaning of the userGroups parameter
-	 * option = 0: userGroup[0]= user
-	 * option = 1: userGroup[0]= user
-	 * option = 2: userGroup[0] = path of a group
-	 * option !=0,1,2: userGroup[0] = path of a group, userGroup[1] = membership
-	 * @param userGroup: array of string
+	 * @param option
+	 *  		if the value of option determines  meaning of the userGroups parameter
+	 *  <br/>
+	 * 			<li> option = 0: userGroup[0]= user
+	 * 			<li> option = 1: userGroup[0]= user
+	 * 			<li> option = 2: userGroup[0] = path of a group
+	 * 			<li> option !=0,1,2: userGroup[0] = path of a group, userGroup[1] = membership
+	 * @param userGroup
+	 * 			user/group of users that will be set permission
+	 * @param type
+	 * 			optional parameter to search user
+	 * 
+	 * @see WikiBase#goToPagePermission()
+	 * @see PlatformPermission#selectUserPermission(String, int...)
+	 * @see PlatformPermission#selectGroupPermission(String)
+	 * @see PlatformPermission#selectGroupMembership(String, String)				
 	 */
 	public void addPagePermission(int option, String[] userGroup, int... type){
 		button = new Button(driver);
@@ -61,10 +71,20 @@ public class Permission extends WikiBase{
 		}
 	}
 
-	/** Edit permission for wiki's page
-	 * @author HangNTT
-	 * @param user: username 
-	 * @param edit: true , then this user/group have edit permission and vice versa
+	/** 
+	 * Edit permission for wiki's page
+	 * 
+	 * @param user
+	 * 			 user name of user account that will be set permission 
+	 * @param edit
+	 * 			 to verify if edit action will be performed or not
+	 * @param viewPage
+	 * 			 page of which permission will be changed
+	 * @param option
+	 * 			 optional parameter
+	 * 
+	 * @see #addEditPagePermission(org.exoplatform.selenium.platform.ManageAccount.userType, String, By)
+	 * @see WikiBase#goToPagePermission()
 	 */
 	public void editPagePermission(String user, boolean viewPage, boolean edit, Object... option){
 		button = new Button(driver);
@@ -108,10 +128,15 @@ public class Permission extends WikiBase{
 		Utils.pause(1000);
 	}
 	
-	/** Delete permission for an user
-	 * @author: HangNTT
-	 * @param user: username or group, or membership. eg: "*:/platform/users"
+	/** 
+	 * Delete permission for an user
 	 * 
+	 * @param user 
+	 * 			user name or group, or membership that will be deleted from Wiki page 
+	 * 			<br/> eg: "*:/platform/users"
+	 * 
+	 * @see #deletePermissionWithUserAdmin(String, By)
+	 * @see WikiBase#goToPagePermission()
 	 */
 	public void deletePagePermission(String user){
 		button = new Button(driver);	
@@ -130,10 +155,19 @@ public class Permission extends WikiBase{
 	}
 
 	/**
+	 * Add or edit current permission of Wiki page
 	 * 
-	 * @param userType: login with User (Admin, Developer, etc...)
-	 * @param user: user that we want to set a permission
-	 * @param elementPage: Link to a Wiki page
+	 * @param userType 
+	 * 				Group Membership of user (i.e. Admin, Developer, etc...)
+	 * @param user 
+	 * 				user that we want to set a permission
+	 * @param elementPage
+	 * 				Link to a Wiki page
+	 * 
+	 * @see #editPagePermission(String, boolean, boolean, Object...)
+	 * @see WikiBase#goToWiki()
+	 * @see ManageAccount#userSignIn(org.exoplatform.selenium.platform.ManageAccount.userType)
+	 * @see ManaggeAccount#SignOut()
 	 */
 	public void addEditPagePermission(ManageAccount.userType userType, String user, By elementPage){
 		magAcc = new ManageAccount(driver);
@@ -148,10 +182,17 @@ public class Permission extends WikiBase{
 	}
 
 	/**
+	 * Remove a Wiki page permission 
 	 * 
-	 * @param userType: login with User (Admin, Developer, etc...)
-	 * @param elementPage: Link to a Wiki page
-	 * @param user: user that we want to set a permission
+	 * @param userType 
+	 * 				Group Membership of user (i.e. Admin, Developer, etc...)
+	 * @param user 
+	 * 				user that we want to set a permission
+	 * @param elementPage
+	 * 				Link to a Wiki page
+	 * 
+	 * @see #editPagePermission(String, boolean, boolean, Object...)
+	 * @see WikiBase#goToWiki()
 	 */
 	public void removePagePermission(ManageAccount.userType userType, By elementPage, String user){
 		magAcc = new ManageAccount(driver);
@@ -167,13 +208,23 @@ public class Permission extends WikiBase{
 
 	/*================== Space Permissions ===================*/
 	/**
+	 * Add permission for Wiki page in Space
 	 * 
-	 * @param option: if the value of option determines  meaning of the userGroups parameter
-	 * option = 0: userGroup[0]= user
-	 * option = 1: userGroup[0]= user
-	 * option = 2: userGroup[0] = path of a group
-	 * option !=0,1,2: userGroup[0] = path of a group, userGroup[1] = membership
-	 * @param groupUser: array of string
+	 * @param option
+	 * 			 if the value of option determines  meaning of the userGroups parameter
+	 * 				<li>option = 0: userGroup[0]= user
+	 * 				<li>option = 1: userGroup[0]= user
+	 * 				<li>option = 2: userGroup[0] = path of a group
+	 * 				<li>option !=0,1,2: userGroup[0] = path of a group, userGroup[1] = membership
+	 * @param groupUser
+	 * 			 user or group of users that will be added into Wiki page permission list
+	 * @param type 
+	 * 			optional parameter
+	 * 
+	 * @see WikiBase#goToSpacePermission()
+	 * @see PlatformPermission#selectUserPermission(String, int...)
+	 * @see PlatformPermission#selectGroupPermission(String)
+	 * @see PlatformPermission#selectGroupMembership(String, String)
 	 */
 	public void addSpacePermission(int option, String[] groupUser, Integer...type){
 		button = new Button(driver);
@@ -212,13 +263,23 @@ public class Permission extends WikiBase{
 		Utils.pause(1000);
 	}
 
-	/** Edit a space permission for an user, or a group
-	 * @author thuntn
-	 * @param userGroup: username or group, or membership. eg: "*:/platform/users"
-	 * @param view: true , then this user/group have view permission and vice versa
-	 * @param edit: true , then this user/group have edit permission and vice versa
-	 * @param adminPage: true , then this user/group have admin page permission and vice versa
-	 * @param adminSpace: true , then this user/group have admin space permission and vice versa
+	/** 
+	 * Edit a space permission for an user, or a group
+	 * 
+	 * @param userGroup
+	 * 				username or group, or membership. eg: "*:/platform/users"
+	 * @param view
+	 * 				if set value as "true" , then this user/group have view permission and vice versa
+	 * @param edit
+	 * 				if set value as "true" , then this user/group have edit permission and vice versa
+	 * @param adminPage
+	 * 				if set value as "true" , then this user/group have admin page permission and vice versa
+	 * @param adminSpace
+	 * 				if set value as "true" , then this user/group have admin space permission and vice versa
+	 * @param type
+	 * 				optional parameter to verify or not display of user acc in page permission list
+	 * 
+	 * @see WikiBase#goToPagePermission()
 	 */
 	public void editSpacePermission(String userGroup,boolean view,boolean edit, boolean adminPage, 
 			boolean adminSpace, Integer...type ){
@@ -283,10 +344,13 @@ public class Permission extends WikiBase{
 		waitForTextNotPresent(MSG_PERMISSION_SAVE);
 	}
 
-	/** Delete a space permission for an user, or a group
-	 * @author thuntn
-	 * @param userGroup: username or group, or membership. eg: "*:/platform/users"
+	/** 
+	 * Delete a space permission for an user, or a group
 	 * 
+	 * @param userGroup 
+	 * 				username or group, or membership which will be deleted (i.e. "*:/platform/users")
+	 * 
+	 * @see WikiBase#goToSpacePermission()
 	 */
 	public void deleteSpacePermission(String userGroup){
 		button = new Button(driver);
@@ -307,10 +371,18 @@ public class Permission extends WikiBase{
 
 	//////////
 	/**
-	 * @author HangNTT
-	 * @param pageOrSpace: boolean type[0]: gotoPage, type[1]: gotoSpace
-	 * @param type: boolean type[0]: viewPage, type[1]: editPage, type[2]: adminPage, type[3]: adminSpace
+	 * Verify Space Wiki page permission
+	 * 
+	 * @param pageOrSpace
+	 * 				 boolean type[0]: gotoPage, type[1]: gotoSpace
+	 * @param type
+	 * 				 boolean type[0]: viewPage, type[1]: editPage, type[2]: adminPage, type[3]: adminSpace
 	 * @param username
+	 * 				 user account that will be verified
+	 * @param optional
+	 * 				 optional parameter to verfiy or not the display of user in permission list
+	 * 
+	 * @see WikiBase#goToPagePermission()
 	 */
 	public void verifyPermissions(boolean[] pageOrSpace, boolean[] type, String username, Integer... optional){	
 		button = new Button(driver);
@@ -371,9 +443,17 @@ public class Permission extends WikiBase{
 
 	//////////
 	/**
-	 * @lienTM
+	 * Delete Wiki page permission with Admin acc
+	 * 
 	 * @param user
+	 * 				User account that will be removed
 	 * @param element_page
+	 * 				Link to Wiki page
+	 * 
+	 * @see WikiBase#goToWiki()
+	 * @see #deletePagePermission(String)
+	 * @see ManageAccount#userSignIn(org.exoplatform.selenium.platform.ManageAccount.userType)
+	 * @see ManageAccount#signOut()
 	 */
 	public void deletePermissionWithUserAdmin(String user, By element_page){
 		magAcc = new ManageAccount(driver);
@@ -387,9 +467,16 @@ public class Permission extends WikiBase{
 	}
 
 	/**
-	 * @lientTM
+	 * Check view Wiki page
+	 * 
 	 * @param user
+	 * 			Group membership of user defined by userType in class ManageAccount 
 	 * @param element_page
+	 * 			Link to Wiki page
+	 * 
+	 * @see WikiBase#goToWiki()
+	 * @see ManageAccount#userSignIn(org.exoplatform.selenium.platform.ManageAccount.userType)
+	 * @see ManageAccount#signOut()
 	 */
 	public void checkViewPage(ManageAccount.userType user, By element_page){
 		magAcc = new ManageAccount(driver);
@@ -403,10 +490,18 @@ public class Permission extends WikiBase{
 	}
 	
 	/**
+	 * Check edit Wiki page
 	 * 
-	 * @param userType: login with User (Admin, Developer, etc...)
-	 * @param elementPage: Link to a Wiki page
+	 * @param userType
+	 * 			 Group Membership of User (i.e. Admin, Developer, etc...)
+	 * @param elementPage
+	 * 			 Link to a Wiki page
 	 * @param content
+	 * 			 Content that will be updated to Wiki page
+	 * 
+	 * @see WikiBase#goToWiki()
+	 * @see ManageAccount#userSignIn(org.exoplatform.selenium.platform.ManageAccount.userType)
+	 * @see ManageAccount#signOut()
 	 */
 	public void checkEditPage(ManageAccount.userType user, By elementPage, String content){
 		magAcc = new ManageAccount(driver);
@@ -421,8 +516,13 @@ public class Permission extends WikiBase{
 	}
 	
 	/**
-	 * Check user/group permission is not listed in page permission list
+	 * Check if user/group permission is not listed in Wiki page permission list
+	 * 
 	 * @param user
+	 * 			user account that need to be checked
+	 * 
+	 * @see WikiBase#goToPagePermission()
+	 * 
 	 */
 	public void checkUserNotInPagePermission(String user){
 		button = new Button(driver);	

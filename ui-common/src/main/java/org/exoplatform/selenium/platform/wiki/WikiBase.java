@@ -255,22 +255,18 @@ public class WikiBase extends PlatformBase{
 
 	//================== PLF4/Common function for Wiki ==================//
 	//////
-	/**
-	 * @author vuna2
-	 */
-	public void goToIntranetHomePage(){
-		Utils.pause(500);
-		click(ELEMENT_INTRANET_HOME_PAGE);
-		waitForTextPresent("Join a space");
-	}
+//	/**
+//	 * @author vuna2
+//	 */
+//  REDUNDANT METHOD (see: NavigationToolbar#goToHomePage() method)
+//	public void goToIntranetHomePage(){
+//		Utils.pause(500);
+//		click(ELEMENT_INTRANET_HOME_PAGE);
+//		waitForTextPresent("Join a space");
+//	}
 
 	/**
-	 * Go to Wiki
-	 * @author hakt
-	 */
-	/**
-	 * Migrate to PLF 4
-	 * <li>Update by @author vuna2</li> 
+	 * Go to Wiki portlet
 	 */
 	public void goToWiki(){
 		info("--Go to Wiki--");
@@ -280,8 +276,8 @@ public class WikiBase extends PlatformBase{
 	}
 
 	/**
-	 * Go to wiki home
-	 * @author hakt
+	 * Go to Wiki homepage
+	 * 
 	 */
 	public void goToWikiHome(){
 		info("-- Go to Wiki Home page --");
@@ -295,10 +291,8 @@ public class WikiBase extends PlatformBase{
 	}
 
 	/**
-	 * Migrate to PLF 4
-	 * <li>Update by @author vuna2</li> 
-	 * Go to add blank wiki page
-	 * @author hakt
+	 * Go to "Add blank wiki page"
+	 * 
 	 */
 	public void goToAddBlankPage(){
 		info("--Go to add blank wiki page--");
@@ -309,8 +303,9 @@ public class WikiBase extends PlatformBase{
 		Utils.pause(1000);
 	}
 
-	/** Go to Delete Page
-	 * @author HangNTT
+	/** 
+	 * Go to Delete Wiki Page
+	 * 
 	 */
 	public void goToDeletePage()
 	{
@@ -325,9 +320,12 @@ public class WikiBase extends PlatformBase{
 	}
 
 	/**
-	 * @author vuna2
-	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
-	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 * Access to some Wiki page with specific user account
+	 * 
+	 * @param user
+	 * 			type: Root, Admin, Author, Developer or Publisher
+	 * @param wikiPath
+	 * 			an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
 	 */
 	public void goToWikiPage(String wikiPath, ManageAccount.userType... user){
 		magAcc = new ManageAccount(driver);		
@@ -372,7 +370,7 @@ public class WikiBase extends PlatformBase{
 	//Wiki page > Template page
 	/**
 	 * Go to add template wiki page
-	 * @author hakt
+	 * 
 	 */
 	public void goToAddTemplateWikiPage(){
 		info("--Go to add template wiki page--");
@@ -383,10 +381,7 @@ public class WikiBase extends PlatformBase{
 	}	
 
 	/**
-	 * Migrate to PLF 4
-	 * <li>Update by @author vuna2</li> 
-	 *  Go to Move Page
-	 * @author HangNTT
+	 *  Go to Move Wiki Page
 	 */
 	public void goToMovePage(){
 		Utils.pause(500);
@@ -396,12 +391,12 @@ public class WikiBase extends PlatformBase{
 	}
 
 	/**
-	 * Migrate to PLF 4
-	 * <li>Update by @author vuna2</li>
-	 * Move Page
-	 * @author: HangNTT
+	 * Move Wiki page
+	 * 
 	 * @param pageName1
+	 * 				Name of Wiki page before moved
 	 * @param pageName2
+	 * 				Name of Wiki page after moved
 	 */
 	public void movePage(String pageName1, String pageName2, Object...opts){
 		String space = (String) (opts.length > 0 ? opts[0] : "");
@@ -443,10 +438,7 @@ public class WikiBase extends PlatformBase{
 	}
 
 	/** 
-	 * Migrate to PLF 4
-	 * <li>Update by @author vuna2</li>
-	 * Go to Page Permission
-	 * @author: HangNTT
+	 * Go to Wiki Page Permission
 	 */
 	public void goToPagePermission(){
 		//Utils.pause(2000);
@@ -461,8 +453,8 @@ public class WikiBase extends PlatformBase{
 		waitForElementPresent(ELEMENT_PAGE_PERMISSION_POPUP);*/
 	}
 
-	/** Go to space setting
-	 * @author thuntn
+	/** 
+	 * Go to space setting
 	 */
 	public void goToSpacePermission(){
 		if (isElementNotPresent(ELEMENT_PERMISSION_LINK)){
@@ -475,12 +467,10 @@ public class WikiBase extends PlatformBase{
 	}
 
 	/**
-	 * Migrate to PLF 4
-	 */
-	/**
-	 * @author vuna2
-	 * @param user: (type: Root, Admin, Author, Developer or Publisher)
-	 * @param wikiPath: an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
+	 * Go to Wiki page infor
+	 * 
+	 * @param optional
+	 * 				optional parameter of this method
 	 */
 	public void goToPageInfo(Object... optional){
 		magAcc = new ManageAccount(driver);
@@ -510,7 +500,7 @@ public class WikiBase extends PlatformBase{
 	}
 
 	/**
-	 * @author lientm
+	 * Go to Page Info from current page
 	 */
 	public void goToPageInfoFromCurrentPage(){
 		mouseOverAndClick(ELEMENT_MORE_LINK);
@@ -518,9 +508,11 @@ public class WikiBase extends PlatformBase{
 		waitForTextPresent("Summary");
 	}
 
-	/** function go to Wiki page of a Space
-	 * @author lientm
+	/** 
+	 * Go to Wiki page of a Space
+	 * 
 	 * @param spaceName
+	 * 				Name of space that user is standing on
 	 */
 	public void goToWikiFromSpace(String spaceName){
 		magMember = new ManageMember(driver);
@@ -541,8 +533,8 @@ public class WikiBase extends PlatformBase{
 		waitForAndGetElement(ELEMENT_TITLE_WIKI_HOME);
 	}
 
-	/** Go to the template management page
-	 * @author thuntn
+	/** 
+	 * Go to the Wiki template management page
 	 */
 	public void goToTemplateManagement(){
 		info("--Go to the template management page--");
@@ -554,9 +546,13 @@ public class WikiBase extends PlatformBase{
 		waitForAndGetElement(ELEMENT_ADD_TEMPLATE_LINK);
 	}
 
-	/** Attach a file
-	 * @author thuntn
+	/** 
+	 * Attach a file to a Wiki page
+	 * 
 	 * @param link
+	 * 			link of file that will be attached
+	 * @param type
+	 * 			optional parameter of this method.
 	 */
 	public void attachFileInWiki(String link, Integer...type ){
 		int notDisplay = 0;
@@ -606,9 +602,11 @@ public class WikiBase extends PlatformBase{
 		waitForAndGetElement(By.linkText(link.replace("TestData/", "")));
 	}
 
-	/** Delete an attachment
-	 * @author thuntn
-	 * @param fName: name of a file which will be deleted
+	/** 
+	 * Delete an attachment on a Wiki page
+	 * 
+	 * @param fName
+	 * 			 name of a file which will be deleted
 	 */
 	public void deleteAnAttachment(String fName){
 		info("--Delete an attachment--");
@@ -619,10 +617,11 @@ public class WikiBase extends PlatformBase{
 		waitForElementNotPresent(removeIcon);
 	}
 
-	//Wiki page > Search
-	/** Quick search
-	 * @author thuntn
+	/** 
+	 * Wiki Quick search
+	 * 
 	 * @param keyword
+	 * 			search keyword
 	 */
 	public void quickSearch(String keyword){
 		info("--Using quick search option ...--");
@@ -633,10 +632,13 @@ public class WikiBase extends PlatformBase{
 		Utils.pause(2000);
 	}
 
-	/**Advance search
-	 * @author thuntn
-	 * @param keyword:
-	 * @param space: space name which is searched
+	/**
+	 * Wiki Advanced search
+	 * 
+	 * @param keyword
+	 * 			search keyword
+	 * @param space
+	 * 			space name to which search keyword belongs. This is optional parameter.
 	 */
 	public void advancedSearch(String keyword, String...space){
 		info("--Advanced Search--");
@@ -654,12 +656,18 @@ public class WikiBase extends PlatformBase{
 		Utils.pause(1000);
 	}
 
+	/**
+	 * Go to Add relation for Wiki page
+	 */
 	public void goToAddRelation(){
 		goToPageInfoFromCurrentPage();
 		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
 		waitForAndGetElement(ELEMENT_SELECT_SPACE);
 	}
 
+	/**
+	 * Go to export Wiki page to PDF
+	 */
 	public void goToExportPageAsPDF(){
 		info("Export wiki page as pdf");
 		mouseOverAndClick(ELEMENT_MORE_LINK);
@@ -667,6 +675,9 @@ public class WikiBase extends PlatformBase{
 		Utils.pause(1000);
 	}
 
+	/**
+	 * Go to Permalink of Wiki page
+	 */
 	public void goToPermalink(){
 		info("Go to permalink");
 		mouseOverAndClick(ELEMENT_MORE_LINK);
@@ -674,6 +685,9 @@ public class WikiBase extends PlatformBase{
 		Utils.pause(1000);
 	}
 
+	/**
+	 * Watch a Wiki page
+	 */
 	public void watchWikiPage(){
 		button = new Button(driver);
 
@@ -686,6 +700,9 @@ public class WikiBase extends PlatformBase{
 		waitForAndGetElement(ELEMENT_UNWATCH_LINK);
 	}
 
+	/**
+	 * Unwatch a Wiki page
+	 */
 	public void unwatchWikiPage(){
 		button = new Button(driver);
 

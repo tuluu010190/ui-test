@@ -50,11 +50,16 @@ public class RichTextMode extends Template {
 	public By ELEMENT_COLOR_MESSAGE = By.id("pd-content-input");
 	
 	/**
-	 * function add link to wiki page
+	 * Add link to a Wiki page
+	 * 
 	 * @param search
+	 * 			parameter to choose whether to search page link or not
 	 * @param page
+	 * 			Wiki page that will be the target link
 	 * @param label
+	 * 			label of link that will be added into Wiki page
 	 * @param tooltip
+	 * 			
 	 */
 	public void insertPageLink2WikiPage(boolean search, String page, String label, String tooltip){
 		mouseOverAndClick(ELEMENT_LINK);
@@ -76,9 +81,15 @@ public class RichTextMode extends Template {
 	}
 	
 	/**
-	 * function select a macro
+	 * Select a macro in a Wiki page editor
+	 * 
 	 * @param cat
+	 * 			category to which a macro that will be chosen belongs
 	 * @param macro
+	 * 			macro name that will be chosen
+	 * 
+	 * @see #createTipMessageMacro(String)
+	 * @see #createColorMacro(String, String)
 	 */
 	public void goToSelectAMacro(String cat, String macro){
 		info("Go to a macro: " + macro);
@@ -92,8 +103,10 @@ public class RichTextMode extends Template {
 	}
 	
 	/**
-	 * function add macro: Tip Message
+	 * Add macro: "Tip Message"
+	 * 
 	 * @param message
+	 * 			 message that will be displayed in macro
 	 */
 	public void createTipMessageMacro(String message){
 		goToSelectAMacro("Formatting", "Tip Message");
@@ -103,9 +116,12 @@ public class RichTextMode extends Template {
 	}
 	
 	/**
-	 * function add macro: color
+	 * Add macro: "color" into a Wiki page
+	 * 
 	 * @param color
+	 * 			color setting of macro
 	 * @param message
+	 * 			message setting of macro
 	 */
 	public void createColorMacro(String color, String message){
 		goToSelectAMacro("Formatting", "Color");
@@ -115,9 +131,12 @@ public class RichTextMode extends Template {
 	}
 	
 	/**
-	 * function add table
+	 * Add table to a Wiki page
+	 * 
 	 * @param rows
+	 * 			Number of rows that will be added in the table
 	 * @param columns
+	 * 			Number of columns that will be added in the table
 	 */
 	public void insertTable2WikiPage(String rows, String columns){
 		mouseOverAndClick(ELEMENT_TABLE_LINK);
@@ -129,7 +148,7 @@ public class RichTextMode extends Template {
 	}
 	
 	/**
-	 * function click End then Enter in content frame in Rich text mode
+	 * Click End then Enter in content frame in Rich text mode of Wiki page editor
 	 */
 	public void typeEnterInRichText(){
 		try {

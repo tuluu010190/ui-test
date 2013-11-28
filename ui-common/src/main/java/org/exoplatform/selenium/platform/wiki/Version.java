@@ -13,8 +13,8 @@ import org.openqa.selenium.WebElement;
  */
 public class Version extends BasicAction{
 
-	/** View change of a page
-	 * @author thuntn
+	/** 
+	 * View change of a Wiki page
 	 */
 	public void viewChange()
 	{
@@ -23,9 +23,11 @@ public class Version extends BasicAction{
 		waitForAndGetElement(ELEMENT_COMPARE_TEXT);
 	}
 
-	/**View a version of a page
-	 * @author thuntn
-	 * @param version: number of version
+	/**
+	 * View version of a Wiki page
+	 * 
+	 * @param version
+	 * 			 number of version
 	 */
 	public void viewVersion(String version){
 		info("--View a version of a page--");
@@ -47,9 +49,11 @@ public class Version extends BasicAction{
 		Utils.pause(1000);
 	}
 
-	/** Restore a version of a page
-	 * @author thuntn
-	 * @param version: number of version
+	/** 
+	 * Restore version of a Wiki page
+	 * 
+	 * @param version
+	 * 			 number of version
 	 */
 	public void restoreVersion(String version){
 		info("--Restore a version of a page--");
@@ -69,10 +73,13 @@ public class Version extends BasicAction{
 		Utils.pause(1000);
 	}
 
-	/** Compare 2 versions of a page
-	 * @author thuntn
-	 * @param first: number of the first version
-	 * @param second: number of the second version
+	/** 
+	 * Compare 2 versions of a Wiki page
+	 * 
+	 * @param first
+	 * 			number of the first version
+	 * @param second
+	 * 			number of the second version
 	 */
 	public void compareVersion(String first, String second){
 		info("--Compare 2 versions of a page--");
@@ -105,8 +112,7 @@ public class Version extends BasicAction{
 	}
 
 	/**
-	 * @author vuna2
-	 * <li>Go to the revisions page (of selected wiki page)</li>
+	 * Go to the Revisions page of the selected Wiki page
 	 */
 	public void goToRevisionsPage(){
 			click(ELEMENT_MORE_LINK);
@@ -115,9 +121,12 @@ public class Version extends BasicAction{
 		}
 
 	/**
-	 * @author vuna2
-	 * @param firstNumberVersion: first version to compare (String)
-	 * @param secondNumberVersion: second version to compare (String)
+	 * Change compare versions of a Wiki page
+	 * 
+	 * @param firstNumberVersion
+	 * 				first version to compare 
+	 * @param secondNumberVersion
+	 * 				second version to compare
 	 */
 	public void changeCompareVersions(String firstNumberVersion, String secondNumberVersion){
 		Utils.pause(1000);
@@ -126,8 +135,7 @@ public class Version extends BasicAction{
 	}
 
 	/**
-	 * @author vuna2
-	 * <li>Go to the View Page History (selected wiki page)</li>
+	 * Go to the View Page History of the selected Wiki page
 	 */
 	public void viewPageHistory(){
 		Utils.pause(1000);

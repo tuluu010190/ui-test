@@ -17,13 +17,19 @@ public class Template extends BasicAction{
 	//Dialog dialog = new Dialog(driver);
 	//Button button = new Button(driver);
 	
-	/** Add a wiki page from template
-	 * @author thuntn
+	/** 
+	 * Add a wiki page from template
+	 * 
 	 * @param title
+	 * 			title of Wiki page
 	 * @param content
-	 * @param mode: mode =1: edit a wiki page in richtext
-	 * mode =0 : edit a wiki page in source editor
+	 * 			content of Wiki page
+	 * @param mode
+	 * <br/>
+	 *  		<li>mode =1: edit a wiki page in richtext
+	 *     		<li>mode =0 : edit a wiki page in source editor
 	 * @param template
+	 * 			template of Wiki page
 	 */
 	public void addWikiPageFromTemplate(String title, int mode, String template)
 	{
@@ -49,11 +55,15 @@ public class Template extends BasicAction{
 		//waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
 	}
 
-	/**Add a wiki page template
-	 * @author thuntn
+	/**
+	 * Add a wiki page template
+	 * 
 	 * @param title
+	 * 			title of Wiki Template
 	 * @param description
-	 * @param content
+	 * 			description of Wiki Template
+	 * @param content	
+	 * 			content of Wiki Template
 	 */
 	public void addTemplate(String title, String description, String content){
 		dialog = new Dialog(driver);
@@ -77,13 +87,17 @@ public class Template extends BasicAction{
 	}
 	
 	/**
+	 *
 	 *Edit a wiki page template
-	 * @author thuntn
-	 * @param oldTitle: old title of a template
-	 * @param title: new title
-	 * @param description: new description
-	 * @param content: new content
-	 * If you don't want to edit any field, you can pass null value to the respective parameter
+	 * 
+	 * @param oldTitle
+	 * 			 old title of the template
+	 * @param title
+	 * 			 new title of the template. Can be <code>null</code>.
+	 * @param description
+	 * 			 new description of the template. Can be <code>null</code>.
+	 * @param content
+	 * 			 new content of the template. Can be <code>null</code>.
 	 */
 	public void editTemplate(String oldTitle, String title, String description, String content){
 
@@ -109,9 +123,11 @@ public class Template extends BasicAction{
 		waitForElementNotPresent(ELEMENT_SAVE_TEMPLATE_INPUT);
 	}
 	
-	/** Delete a wiki page template
-	 * @author thuntn
+	/** 
+	 * Delete a wiki page template
+	 * 
 	 * @param title
+	 * 				title of a Wiki page
 	 */
 	public void deleteTemplate(String title){
 		magAlert = new ManageAlert(driver);
@@ -123,9 +139,11 @@ public class Template extends BasicAction{
 		Utils.pause(500);
 	}
 	
-	/** Search for templates
-	 * @author thuntn
+	/** 
+	 * Search for templates
+	 * 
 	 * @param keyword
+	 * 				Search keyword
 	 */
 	public void searchTemplate(String keyword){
 		type(ELEMENT_SEARCH_TEMPLATE_INPUT, keyword, true);

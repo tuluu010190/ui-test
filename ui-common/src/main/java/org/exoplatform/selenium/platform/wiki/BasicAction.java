@@ -163,7 +163,8 @@ public class BasicAction extends Permission{
 	 * 				options to choose whether wiki page will be edited in RichText mode or Source mode
 	 * 					mode = 1 : edit a wiki page in richtext
 	 *        			mode = 0 : edit a wiki page in source editor
-	 * 
+	 *        
+	 * @see WikiBase#goToWiki()
 	 */
 	public void addBlankWikiPageAdvanceForm(int totalPages, String[] wikiParentPath, String[] titlePage, String[] contentPage, int mode){
 		goToWiki();	
@@ -471,6 +472,7 @@ public class BasicAction extends Permission{
 	 * 			an element path indicates how to access wiki page (eg, "Wiki home/WikiTest"). Can not be <code>null</code>.  
 	 * 
 	 * @see #deleteWikiPage(String[])
+	 * @see WikiBase#goToWiki()
 	 * 
 	 */
 	public void resetDataByDeleteWikiPage(ManageAccount.userType user, String[] wikiPath){
@@ -498,6 +500,7 @@ public class BasicAction extends Permission{
 	 * 			New content of page.  Can not be <code>null</code>.
 	 * 
 	 * @see #editWikiPage(String, String, int)
+	 * @see WikiBase#goToWiki()
 	 * 
 	 */
 	public void checkViewEditPage(By element_page, String content, String new_content){
