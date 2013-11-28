@@ -31,6 +31,7 @@ public class ForumManageCategory extends ForumBase {
 		button = new Button(driver);
 		alert = new ManageAlert(driver);
 		per = new PlatformPermission(driver);
+		account = new ManageAccount(driver);
 	}
 
 	//------------category home screen----------------------------------------------------------------------

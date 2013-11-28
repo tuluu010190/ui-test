@@ -57,7 +57,14 @@ public class DashBoard extends PlatformBase {
 		Utils.pause(1000);
 		waitForAndGetElement(ELEMENT_DASHBOARD_NEW_INPUT).clear();
 		waitForAndGetElement(ELEMENT_DASHBOARD_NEW_INPUT).sendKeys(displayName);
-		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
+		for(int repeat=0;;repeat++){
+			click(ELEMENT_DASHBOARD_NEW_INPUT);
+			Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
+			if (waitForAndGetElement(ELEMENT_DASHBOARD_NEW_INPUT).getText().equals(displayName))
+				break;
+			if(repeat > 5) break;
+		}
+
 		if (verify) {
 			waitForAndGetElement(ELEMENT_TAB_LINK.replace("${tabName}", displayName));
 		}

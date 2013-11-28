@@ -14,6 +14,7 @@ public class NavigationManagement extends  PlatformBase{
 
 	public NavigationManagement(WebDriver dr) {
 		driver = dr;
+		button = new Button(driver);
 	}
 
 	ManageAlert alt = new ManageAlert(driver);

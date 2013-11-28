@@ -15,6 +15,7 @@ public class PageEditor extends PlatformBase {
 
 	public PageEditor (WebDriver dr){
 		driver = dr;
+		magAlert = new ManageAlert(driver);
 	}
 
 	NavigationToolbar nav = new NavigationToolbar(driver);
@@ -84,7 +85,7 @@ public class PageEditor extends PlatformBase {
 		waitForAndGetElement(ELEMENT_ADDWIZARD_TEXT2);
 		click(button.ELEMENT_NEXT_BUTTON);
 	}
-	
+
 	public void createNewPageEmptyLayoutWithGadget(String pageName, String gadget){
 		info("Create new page winzard empty layout and drags and drop gadget");
 		goToPageEditor_EmptyLayout(pageName);
@@ -400,7 +401,7 @@ public class PageEditor extends PlatformBase {
 		click(ELEMENT_EDIT_CONTAINER_ICON);
 		waitForAndGetElement(By.id("UIContainerForm"));
 	}
-	
+
 	/**function go to edit a portlet
 	 * @author lientm
 	 * @param elementPortlet
@@ -433,7 +434,12 @@ public class PageEditor extends PlatformBase {
 	 */
 	public void addNewContainer(String group, String container){
 		info("Add new container: " + container);
-		click(ELEMENT_CONTAINER_TAB);
+		try{
+			click(ELEMENT_CONTAINER_TAB);
+		}catch(org.openqa.selenium.UnhandledAlertException e){
+			magAlert.waitForConfirmation("The target block ID to update is not found : EmptyAjaxBlock",40000);
+			clearCache();
+		}
 		click(By.linkText(group));
 		dragAndDropToObject(By.id(container), By.className("UIRowContainer"));
 		Utils.pause(2000);
@@ -472,7 +478,7 @@ public class PageEditor extends PlatformBase {
 		}
 		Utils.pause(1000);
 	}
-	
+
 	/** add new porlet to layout of page
 	 * @author phuongdt
 	 * @param category (ex: "Collaboration")
@@ -497,7 +503,7 @@ public class PageEditor extends PlatformBase {
 		click(ELEMENT_PAGE_FINISH_BUTTON);
 		waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON, 60000);
 	}
-	
+
 	/**
 	 * Add access permission for a group in portlet
 	 * 
@@ -519,5 +525,15 @@ public class PageEditor extends PlatformBase {
 		click(ELEMENT_PORTLET_PERMISSION_MEMBERSHIP.replace("${membership}", membership));
 		Utils.pause(1000);
 		click(ELEMENT_PORTLET_SAVE_AND_CLOSE_BUTTON);
+	}
+
+	public void switchViewMode(){
+		try{
+			click(ELEMENT_SWITCH_VIEW_MODE);
+		}catch(org.openqa.selenium.UnhandledAlertException e){
+			doubleClickOnElement(ELEMENT_SWITCH_VIEW_MODE);
+			magAlert.waitForConfirmation("The target block ID to update is not found : EmptyAjaxBlock",40000);
+			clearCache();
+		}
 	}
 }

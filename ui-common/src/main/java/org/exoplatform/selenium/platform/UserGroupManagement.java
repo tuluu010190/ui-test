@@ -268,7 +268,7 @@ public class UserGroupManagement extends PlatformBase {
 			info("Go to " + temp[i]);
 			if (isInPermissionTab){
 				if (isElementPresent(By.xpath(groupName_5.replace("${groupName}", temp[i])))){
-					click(By.xpath(groupName.replace("${groupName}", temp[i])));
+					click(By.xpath(groupName_5.replace("${groupName}", temp[i])));
 				}else if (isElementPresent(By.xpath(groupName.replace("${groupName}", temp[i])))){
 					click(By.xpath(groupName.replace("${groupName}", temp[i])));
 				}else if (isElementPresent(By.xpath(groupName_2.replace("${groupName}", temp[i])))){

@@ -100,7 +100,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 	 * This case has an issue: FORUM-695
 	 */
 
-	@Test(groups="error")
+	@Test
 	public void test03_TagTopic() {
 		String titleCat = "Category 03";
 		String titleForum = "Forum 03";
@@ -121,7 +121,7 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 	/** Watch & Unwatch topic
 	 * CaseID: 68915
 	 */
-	@Test(groups="fail")
+	@Test
 	public void test04_WatchUnwatchTopic() {
 		String titleCat = "Category 68915";
 		String titleForum = "Forum 68915";

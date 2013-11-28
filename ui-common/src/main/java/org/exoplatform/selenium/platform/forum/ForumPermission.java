@@ -66,11 +66,13 @@ public class ForumPermission extends ForumBase {
 		switch (type){
 		case 1:
 			info("Set permission by type directly");
-			type(per.ELEMENT_PERMISSION_INPUT, userGroup[0], true);
+//			type(per.ELEMENT_PERMISSION_INPUT, userGroup[0], true);
+			waitForAndGetElement(per.ELEMENT_PERMISSION_INPUT).sendKeys(userGroup[0]);
 			break;
 		case 2:	
 			info("Set permission for user " + userGroup[0]);
 			click(per.ELEMENT_SELECT_USER_ICON);
+			waitForAndGetElement(per.ELEMENT_SELECT_USER_POPUP);
 			if (userGroup.length > 1){
 				per.selectUserPermission(userGroup[0], Integer.parseInt(userGroup[1]));
 			}else {
@@ -81,12 +83,14 @@ public class ForumPermission extends ForumBase {
 		case 3:	
 			info("Set permission for group " + userGroup[0]);
 			click(per.ELEMENT_SELECT_GROUP_ICON);
+			waitForAndGetElement(per.ELEMENT_SELECT_GROUP_POPUP);
 			per.selectGroupPermission(userGroup[0]);
 			waitForElementNotPresent(per.ELEMENT_SELECT_GROUP_POPUP);
 			break;
 		case 4:	
 			info("Set permission with membership " + userGroup[1] + "/" + userGroup[0]);
 			click(per.ELEMENT_SELECT_MEMBERSHIP_ICON);
+			waitForAndGetElement(per.ELEMENT_SELECT_ROLE_POPUP);
 			per.selectGroupMembership(userGroup[0], userGroup[1]);
 			waitForElementNotPresent(per.ELEMENT_SELECT_ROLE_POPUP);
 			break;

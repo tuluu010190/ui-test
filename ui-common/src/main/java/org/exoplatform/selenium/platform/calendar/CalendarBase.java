@@ -93,8 +93,7 @@ public class CalendarBase extends PlatformBase {
 	public By ELEMENT_CAL_EDIT_MENU = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'EditCalendar')]");
 	public By ELEMENT_CAL_SETTING_MENU = By.xpath("//*[@id='UIActionBar']//i[@class='uiIconSetting uiIconLightGray']");
 	public String ELEMENT_CAL_SETTING_TIMEZONE_VALUE = "//*[@id='setting']//select[@name='timeZone']/option[@value='${timezoneOpt}']";
-	public By ELEMENT_SETTING_ZONE_SAVE_BUTTON = By.xpath("//*[@id='UICalendarSettingForm']//*[text()='Save']");
-
+	
 	//------------Export calendar---------------
 	public By ELEMENT_CALENDAR_EXPORT = By.xpath("//div[@id='CalendarPopupMenu']//*[@class='uiIconCalExportCalendar uiIconLightGray']");
 	public By ELEMENT_CALENDAR_EXPORT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Export Calendar']");
@@ -701,7 +700,7 @@ public class CalendarBase extends PlatformBase {
 		info("-- Select filter option of Timezone --");
 		select(ELEMENT_TIME_ZONE,timezoneOpt);	
 		Utils.pause(1000);
-		click(ELEMENT_SETTING_ZONE_SAVE_BUTTON);
+		click(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
 		Utils.pause(3000);
 	}
 

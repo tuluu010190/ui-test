@@ -34,7 +34,7 @@ public class ForumBase extends PlatformBase {
 
 	//-----------------Forum Home screen--------------------------------------------
 	public final By ELEMENT_ADD_CATEGORY = By.linkText("Add Category");
-	public final By ELEMENT_FORUM_ACTION_BAR = By.id("UIForumActionBar");
+	public final By ELEMENT_FORUM_STATE = By.id("UIForumIconState");
 	public final By ELEMENT_WHAT_GOING_ON = By.xpath("//div[contains(text(),'Going on?')]");
 	public final By ELEMENT_ADD_FORUM = By.linkText("Add Forum");
 	public final String ELEMENT_BREAD_FORUM = "//li[text()='${forum}']";
@@ -149,7 +149,7 @@ public class ForumBase extends PlatformBase {
 	public final String ELEMENT_BBCODE_DELETE_ICON = "//*[contains(@data-action,'${tag}') and @data-original-title='Delete BBCode']";
 	public final By ELEMENT_BBCODE_DELETE_MESSAGE = By.xpath("//span[contains(text(),'Are you sure you want to delete this BB Code ?')]");
 
-	public final By ELEMENT_BBCODE_ADD_POPUP = By.id("UIForumPopupWindow");
+	public final By ELEMENT_BBCODE_ADD_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and contains(text(),'Add BBCode')]");
 	public final By ELEMENT_BBCODE_EDIT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Edit BBCode']");
 	public final By ELEMENT_BBCODE_TAG	= By.id("TagName");
 	public final By ELEMENT_BBCODE_REPLACEMENT = By.id("Replacement");
@@ -372,7 +372,7 @@ public class ForumBase extends PlatformBase {
 	public void goToForums(){
 		info("--Go to Forums--");
 		click(ELEMENT_FORUM_LINK);
-		waitForAndGetElement(ELEMENT_FORUM_ACTION_BAR);
+		waitForAndGetElement(ELEMENT_FORUM_STATE,DEFAULT_TIMEOUT,0);
 	}
 
 	public void goToForumHome(){

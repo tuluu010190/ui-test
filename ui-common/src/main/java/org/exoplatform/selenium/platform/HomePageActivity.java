@@ -877,7 +877,6 @@ public class HomePageActivity extends PlatformBase{
 	public void checkEventActivity(String event,String date, String month,boolean...display){
 		info("Check Event activity after adding an event");
 		boolean show = display.length > 0 ? display[0] : true;
-		driver.navigate().refresh();
 		if(show){
 			waitForAndGetElement(By.linkText(event));
 			waitForAndGetElement(ELEMENT_EVENT_MONTH_ICON.replace("${event}", event).replace("${month}", month));

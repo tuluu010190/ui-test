@@ -78,8 +78,8 @@ public class Gatein_Dashboard extends DashBoard {
 	 */
 	@Test
 	public void test03_AddRenameDeleteTab(){
-		String name = "New tab";
-		String newName = "New tab update";
+		String name = "Tab 68884";
+		String newName = "Tab 68884 update";
 
 		navTool.goToDashboard();
 		addNewTabOnDashboard(name, true);

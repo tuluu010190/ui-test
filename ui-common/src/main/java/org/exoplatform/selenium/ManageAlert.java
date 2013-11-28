@@ -59,13 +59,13 @@ public class ManageAlert extends TestBase{
 	}
 
 	//Accept a confirmation
-	public void waitForConfirmation(String confirmationText) {
+	public void waitForConfirmation(String confirmationText,int...wait) {
 		String message = getTextFromAlert();
+		int timeOut = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 
 		//log("confirmation: " + message);
-
 		if (message.isEmpty()) {
-			if (loopCount > 5) {
+			if (loopCount > timeOut/500) {
 				Assert.fail("Message is empty");
 			}
 			Utils.pause(500);
@@ -75,12 +75,13 @@ public class ManageAlert extends TestBase{
 		}
 
 		for (int second = 0;; second++) {
-			if (second >= DEFAULT_TIMEOUT) {
+			if (second >= timeOut) {
 				Assert.fail("Timeout at waitForConfirmation: " + confirmationText);
 			}
 			if (message.equals(confirmationText)) {
 				break;
 			}
+			
 			Utils.pause(100);
 		}
 		Alert alert = driver.switchTo().alert();

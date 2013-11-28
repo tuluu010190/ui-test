@@ -84,6 +84,7 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		navMag.addNodeForPortal(portalName, parentNode, true, nodeName, true, languages, nodeName, pageSelectorName, pageSelectorName, true, true);
 
 		info("Edit node's page: " + nodeName);
+		editNavigation(portalName);
 		rightClickOnElement(nodeLinkToEdit);
 		click(ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
 		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
@@ -136,6 +137,7 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		navMag.addNodeForPortal(portalName, parentNode, true, nodeName, true, languages, nodeName, pageSelectorName, pageSelectorName, true, true);
 
 		info("Edit node's page: " + nodeName);
+		editNavigation(portalName);
 		rightClickOnElement(nodeLinkToEdit);
 		click(ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
 		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
@@ -188,7 +190,6 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 
 		info("Add a new node by right click");
 		navMag.addNodeForPortal(portalName, parentNode, false, nodeName2, true, languages, nodeName2, "", "Profile", true, true);
-		button.save();
 		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 
 		info("View Page before editing...");
@@ -238,6 +239,7 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 
 		info("Add a new node by right click");
 		navMag.addNodeForPortal(portalName, parentNode, false, nodeName2, true, languages, nodeName2, "", "Profile", true, true);
+		editNavigation(portalName);
 		rightClickOnElement(nodeLinkToMove);
 		click(ELEMENT_NAVIGATION_MOVE_UP_NODE);
 		button.save();
@@ -291,6 +293,7 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		navMag.addNodeForPortal(portalName, parentNode, true, nodeName, true, languages, nodeName, pageSelectorName, pageSelectorName, true, true);
 
 		info("Copy that node and paste to group Wiki");
+		editNavigation(portalName);
 		copyNode(nodeLinkToCopy);
 		pasteNode(nodeLinkToPaste);
 		waitForAndGetElement(nodeAfterCopy);	
@@ -355,7 +358,7 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		languages.put("English", "");
 		String nodeLinkToEdit = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
 		String portletTitle = "test06PortletTitle";
-		
+
 		info("Go to Administration/Portal Sites");
 		navToolbar.goToPortalSites();
 
@@ -363,10 +366,11 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		navMag.addNodeForPortal(portalName, parentNode, true, nodeName, true, languages, nodeName, pageSelectorName, pageSelectorName, true, true);
 
 		info("Edit node's page: " + nodeName);
+		editNavigation(portalName);
 		rightClickOnElement(nodeLinkToEdit);
 		click(ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
 		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
-		
+
 		info("Add an application when edit page...");
 		click(ELEMENT_CATEGORY_ADMINISTRATION);
 		dragAndDropToObject(ELEMENT_ACCOUNT_PORTLET, ELEMENT_DROP_TARGET_NO_LAYOUT);
@@ -375,7 +379,7 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		waitForAndGetElement(ELEMENT_INPUT_PASSWORD);
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		waitForElementNotPresent(ELEMENT_INPUT_USERNAME);
-			
+
 		info("Edit an application when edit page...");
 		pageEditor.goToEditPortlet(ELEMENT_FRAME_CONTAIN_PORTLET);
 		type(ELEMENT_CONTAINER_TITLE, portletTitle, true);
@@ -388,7 +392,7 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		WebElement element = waitForAndGetElement(ELEMENT_PORTLET_FRAGMENT.replace("${portletName}", "UIAccountPortlet"));
 		String valueStyle = element.getAttribute("style");
 		assert valueStyle.equals("width: 100%; height: 600px;"): "Failed to edit portlet: " + portletTitle;
-		
+
 		info("Move an application when edit page...");
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
@@ -410,7 +414,7 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		pageEditor.removePortlet(ELEMENT_LIST_PORTLET_LAYOUT_DECORATOR.replace("${portletName}", "Organization Portlet"), ELEMENT_DELETE_PORTLET_ICON, false);
 		pageEditor.removePortlet(ELEMENT_LIST_PORTLET_LAYOUT_DECORATOR.replace("${portletName}", "Page Management Portlet"), ELEMENT_DELETE_PORTLET_ICON, false);
 		pageEditor.finishEditLayout();
-		
+
 		info("Reset data");
 		rightClickOnElement(nodeLinkToEdit);
 		click(ELEMENT_NAVIGATION_DELETE_NODE);
@@ -441,29 +445,32 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 		String portalName = "intranet";
 		String nodeLink = ELEMENT_NODE_LINK.replace("${nodeLabel}", "Documents");
 		String containerTitle = "test07EditContainerTitle";
-		
+
 		info("Go to Administration/Portal Sites");
 		navToolbar.goToPortalSites();
-		
+
 		info("Edit node's page properties");
 		editNavigation(portalName);
 		rightClickOnElement(nodeLink);
 		click(ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
+//		clearCache();
 		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
-		
+
 		info("Add a container...");
 		pageEditor.addNewContainer("Rows Layout", "oneRow");
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		waitForAndGetElement(ELEMENT_DROP_TARGET_HAS_LAYOUT);
 		click(ELEMENT_SWITCH_VIEW_MODE);
-		
+
 		info("Edit a container...");
 		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT, true);
 		click(ELEMENT_EDIT_CONTAINER_ICON);
+		waitForAndGetElement(ELEMENT_CONTAINER_SETTING_TAB);
 		type(ELEMENT_CONTAINER_TITLE, containerTitle, true);
 		type(ELEMENT_WIDTH_TEXTBOX, "150px", true);
 		type(ELEMENT_HEIGHT_TEXTBOX, "150px", true);
 		button.save();
+		waitForElementNotPresent(ELEMENT_CONTAINER_SETTING_TAB);
 		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT, true);
 		waitForAndGetElement(ELEMENT_NAME_CONTAINER.replace("${nameContainer}", containerTitle));
 		click(ELEMENT_SWITCH_VIEW_MODE);
@@ -473,14 +480,15 @@ public class Gatein_Navigation_PortalNavigation_EditNavigation extends PortalMan
 
 		info("Move a container...");
 		click(ELEMENT_SWITCH_VIEW_MODE);
+//		pageEditor.switchViewMode();
 		pageEditor.addNewContainer("Rows Layout", "oneRow");
-		waitForAndGetElement(ELEMENT_LIST_CONTAINER.replace("${number}", "1").replace("${nameContainer}", "Container"), DEFAULT_TIMEOUT, 1, 2);
-		waitForAndGetElement(ELEMENT_LIST_CONTAINER.replace("${number}", "2").replace("${nameContainer}", containerTitle), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ELEMENT_LIST_CONTAINER.replace("${number}", "2").replace("${nameContainer}", "documents"), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ELEMENT_LIST_CONTAINER.replace("${number}", "1").replace("${nameContainer}", containerTitle), DEFAULT_TIMEOUT, 1, 2);
 
 		mouseOver(ELEMENT_NAME_CURRENT_CONTAINER.replace("${nameContainer}", "Container"), true);
 		dragAndDropToObject(ELEMENT_DRAG_CURRENT_CONTAINER.replace("${nameContainer}", "Container"), ELEMENT_PORTLET_LAYOUT_DECORATOR);
-		waitForAndGetElement(ELEMENT_LIST_CONTAINER.replace("${number}", "1").replace("${nameContainer}", containerTitle), DEFAULT_TIMEOUT, 1, 2);
-		waitForAndGetElement(ELEMENT_LIST_CONTAINER.replace("${number}", "2").replace("${nameContainer}", "Container"), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ELEMENT_LIST_CONTAINER.replace("${number}", "2").replace("${nameContainer}", containerTitle), DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ELEMENT_LIST_CONTAINER.replace("${number}", "1").replace("${nameContainer}", "Container"), DEFAULT_TIMEOUT, 1, 2);
 
 		info("Delete a container...");
 		pageEditor.removeContainer(ELEMENT_NAME_CURRENT_CONTAINER.replace("${nameContainer}", "Container"), ELEMENT_DELETE_CONTAINER_ICON);

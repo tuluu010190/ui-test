@@ -36,6 +36,8 @@ public class Calendar_PublishActivities_Event extends CalendarBase{
 		toolBar = new NavigationToolbar(driver);
 		homeAct = new HomePageActivity(driver);
 		button = new Button(driver);
+		goToCalendarPage();
+		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
 	}
 
 	@AfterMethod
