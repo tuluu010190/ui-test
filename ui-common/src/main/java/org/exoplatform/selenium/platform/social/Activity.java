@@ -81,6 +81,10 @@ public class Activity extends SocialBase {
 	public final String ELEMENT_INPUT_COMMENT_TEXT_AREA = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]";
 	//	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(), '${activityText}')]/..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
 	public final String ELEMENT_MENTION_USER_AVATAR = "//*[@data-display='${userName}']/*[@class='avatarSmall']";
+	public final String ELEMENT_COMMENT_DATETIME = "//*[contains(text(), '${activityText}')]/../../../..//*[@class='dateTime'  and contains(text(),'${DATETIME}')]";
+	//public final String ELEMENT_COMMENT_DATETIME = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]/../../../../"
+	//		+ "	div[@class='author']/../span[contains(@class'dateTime')]/p[@class='contentComment'  and contains(text(),'${commentText}')]";
+	public final String ELEMENT_COMMENT_AVATAR = "//*[contains(text(), '${activityText}')]/..//a[@class='avatarXSmall']/img";//"//*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//div[@class='commentList']//a[@class='avatarXSmall']";
 
 	//	public final String ELEMENT_LIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'LikeLink')]";
 	//	public final String ELEMENT_UNLIKE_ICON = "//div[@class='text' or @class = 'description'or @class='linkSource' or contains(@id, 'ContextBox')]/*[contains(text(), '${activityText}')]//ancestor::div[contains(@id,'ActivityContextBox')]//*[starts-with(@id, 'UnLikeLink')]";

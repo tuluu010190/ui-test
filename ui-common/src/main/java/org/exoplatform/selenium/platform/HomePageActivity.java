@@ -46,7 +46,7 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_COMMENTBOX="//*[text()='${title}']/../../../..//div[@class='exo-mentions']/div[contains(@id,'DisplayCommentTextarea')]";
 	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
 	public final String ELEMENT_COMMENT_BLOCK = "//a[contains(text(),'${title}')]/../../../..//div[contains(@class,'commentItem commentItemLast')]";
-	public final String ELEMENT_COMMENT_LAST = "//a[contains(text(),'${title}')]/../../../..//div[contains(@class,'commentItem commentItemLast')]//*[contains(text(), '${comment}')]";
+	public final String ELEMENT_COMMENT_LAST = "//*[contains(text(),'${title}')]/../../../..//div[contains(@class,'commentItem commentItemLast')]//*[contains(text(), '${comment}')]";
 
 	//Comment box for ECMS data type
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_2 = "//*[@title='${title}']/ancestor::div[@class='boxContainer']//*[@class='contentComment']";
@@ -499,14 +499,14 @@ public class HomePageActivity extends PlatformBase{
 		char[] contChar = content.toCharArray();
 
 		info("Check content and number of lines of content on activity");
-		
+
 		if(content.contains("<br>")){
 			cont = content.split("<br>");
 			contChar= content.toCharArray();
 		}else{
 			cont = content.split("<br/>");
 		}
-		
+
 		if (activityContent.contains("...")){
 			String sumary = activityContent.replace("...", "");
 			sum = sumary.split("\n");

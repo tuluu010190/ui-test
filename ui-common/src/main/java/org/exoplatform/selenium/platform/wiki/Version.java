@@ -8,6 +8,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 /**
+ * Provides all methods of managing all versions of a page when editing the content of a page.
  * 
  *
  */

@@ -15,6 +15,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 
 /**
+ * Provides all methods of managing all WebElements on Wiki.
  * 
  * 
  */

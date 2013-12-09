@@ -10,6 +10,8 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 /**
+ * Provides all methods of creating and delete a template.
+ * 
  * 
  */
 public class Template extends BasicAction{
@@ -22,8 +24,6 @@ public class Template extends BasicAction{
 	 * 
 	 * @param title
 	 * 			title of Wiki page
-	 * @param content
-	 * 			content of Wiki page
 	 * @param mode
 	 * <br/>
 	 *  		<li>mode =1: edit a wiki page in richtext

@@ -10,6 +10,8 @@ import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 
 /**
+ * Provides all methods of managing the restrictions to apply on a wiki or a page and to specific users, groups or memberships.
+ *
  *
  */
 public class Permission extends WikiBase{
@@ -167,7 +169,7 @@ public class Permission extends WikiBase{
 	 * @see #editPagePermission(String, boolean, boolean, Object...)
 	 * @see WikiBase#goToWiki()
 	 * @see ManageAccount#userSignIn(org.exoplatform.selenium.platform.ManageAccount.userType)
-	 * @see ManaggeAccount#SignOut()
+	 * @see ManageAccount#signOut()
 	 */
 	public void addEditPagePermission(ManageAccount.userType userType, String user, By elementPage){
 		magAcc = new ManageAccount(driver);
@@ -452,7 +454,6 @@ public class Permission extends WikiBase{
 	 * 
 	 * @see WikiBase#goToWiki()
 	 * @see #deletePagePermission(String)
-	 * @see ManageAccount#userSignIn(org.exoplatform.selenium.platform.ManageAccount.userType)
 	 * @see ManageAccount#signOut()
 	 */
 	public void deletePermissionWithUserAdmin(String user, By element_page){
@@ -492,7 +493,7 @@ public class Permission extends WikiBase{
 	/**
 	 * Check edit Wiki page
 	 * 
-	 * @param userType
+	 * @param user
 	 * 			 Group Membership of User (i.e. Admin, Developer, etc...)
 	 * @param elementPage
 	 * 			 Link to a Wiki page
@@ -500,7 +501,6 @@ public class Permission extends WikiBase{
 	 * 			 Content that will be updated to Wiki page
 	 * 
 	 * @see WikiBase#goToWiki()
-	 * @see ManageAccount#userSignIn(org.exoplatform.selenium.platform.ManageAccount.userType)
 	 * @see ManageAccount#signOut()
 	 */
 	public void checkEditPage(ManageAccount.userType user, By elementPage, String content){

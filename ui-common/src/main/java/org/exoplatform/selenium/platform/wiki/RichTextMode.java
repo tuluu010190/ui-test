@@ -12,6 +12,8 @@ import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 
 /**
+ * Provides all methods of editing a wiki page directly in the wiki markup language.
+ * 
  * 
  */
 public class RichTextMode extends Template {
