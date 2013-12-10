@@ -501,16 +501,16 @@ public class Activity extends SocialBase {
 	public void mentionActivity(boolean isActivity, String activityText, String userName){
 		hpActivity = new HomePageActivity(driver);
 		if(isActivity){
-			info ("-- Adding a mention activity --");			
+			info ("-- Adding a mention activity --");	
 			WebElement inputText = waitForAndGetElement(hpActivity.ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT, 1, 2);
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", inputText);
+			Utils.pause(1000);
 			click(ELEMENT_MENTION_USER_BUTTON);
 			inputText.sendKeys(userName);
-			Utils.pause(1000);
-			click(hpActivity.ELEMENT_ACTIVITY_TEXTBOX);
-			Utils.pause(1000);
 			click(ELEMENT_MENTION_USER_AVATAR.replace("${userName}", userName));
 			Utils.pause(1000);
+			click(hpActivity.ELEMENT_ACTIVITY_TEXTBOX);
+			Utils.pause(1000);			
 			click(ELEMENT_SHARE_BUTTON);
 			waitForAndGetElement(By.xpath(ELEMENT_USER_NAME_LINK_ACTIVITY.replace("${userName}", userName)));
 		}
