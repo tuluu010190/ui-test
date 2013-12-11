@@ -45,7 +45,8 @@ public class ForumPermission extends ForumBase {
 	public final String ELEMENT_VIEW_POST_FORUM_FORUM_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[3]//input[@type='checkbox']";
 	public final String ELEMENT_START_TOPIC_FORUM_FORUM_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[4]//input[@type='checkbox']";
 	public final String ELEMENT_POST_FORUM_FORUM_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[5]//input[@type='checkbox']";
-
+	public final By ELEMENT_FORUM_FORUM_PERMISSION = By.id("forumPermission");
+	
 	//Set permission for topic
 	public final String ELEMENT_WHO_CAN_VIEW_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[2]//input[@type='checkbox']";
 	public final String ELEMENT_WHO_CAN_POST_CHECKBOX = "//*[contains(text(), '${user}')]/../../td[3]//input[@type='checkbox']";
@@ -210,8 +211,27 @@ public class ForumPermission extends ForumBase {
 	 * @param permission
 	 */
 	public void configPermission4Forum(int type, String[] userGroup, boolean...permission){
-		click(button.ELEMENT_ADD_BUTTON);
-		String check = userGroup[0];
+		//click(button.ELEMENT_ADD_BUTTON);
+		setPermissionWithOption(type, userGroup);
+		click(ELEMENT_FORUM_FORUM_PERMISSION);
+		Utils.pause(1000);
+		click(button.ELEMENT_ADD_BUTTON,2);
+		Utils.pause(1000);
+		String check = "";
+		String[] groups = userGroup[0].split("/");
+		if ((type == 4) || (type == 3)){
+			for(int i = 0; i < groups.length; i ++){
+				if (per.group.get(groups[i]) != null)
+					check += "/" + per.group.get(groups[i]).toLowerCase();
+				else{
+					check += "/" + groups[i].toLowerCase();
+				}
+			}
+		}
+		else
+			check = userGroup[0].toLowerCase();
+		
+		//String check = userGroup[0];
 		if (userGroup.length > 2){
 			check = userGroup[2];
 		}

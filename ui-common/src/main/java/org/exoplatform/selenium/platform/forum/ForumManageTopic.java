@@ -89,6 +89,8 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_TOPIC_ADD_TYPE_POPUP = By.xpath("//span[@class='PopupTitle' and text()='Topic Type']");
 	public By ELEMENT_TOPIC_TYPE_NAME = By.id("topicTypeName");
 	public By ELEMENT_CANCEL_ADD_TYPE = By.xpath(".//*[@id='UIAddTopicTypeForm']/div[3]/a[text()='Cancel']");
+	public String MESSAGE_WAIT_APPROVE="Your topic is pending moderation. It will be displayed after approval.";
+	public String APPROVE_TITLE = "${title} (Pending)";
 
 	//------------------edit topic screen------------------------------------------------------
 	public By ELEMENT_TOPIC_EDIT_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Edit Topic']");
@@ -113,9 +115,9 @@ public class ForumManageTopic extends ForumBase {
 	public String ELEMENT_suggestion = "#searchTagName div:contains('${tag}') font:contains('(${No})')";
 
 	//-------------------censor topic list form-----------------------------------------------
-	public By ELEMENT_POPUP_CENSOR_TOPIC = By.xpath("//span[@class='PopupTitle' and text()='Censor Topics List']");
-	public String ELEMENT_CENSOR_TOPIC_CHECKBOX = "//*[text()='${topic}']/../../../../td/input[@type='checkbox']";
-	public By ELEMENT_CENSOR_APPROVE_BUTTON = By.linkText("Approve");
+	public By ELEMENT_POPUP_CENSOR_TOPIC = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Censor Topics List']");
+	public String ELEMENT_CENSOR_TOPIC_CHECKBOX ="//*[text()='${topic}']/../../../../*//input[@type='checkbox']";
+	public By ELEMENT_CENSOR_APPROVE_BUTTON = By.xpath("//*[text()='Approve']");
 
 	//-------------------Go to topic types management screen----------------------------------------------------
 	public By ELEMENT_TOPIC_TYPES=By.xpath("//span[text()='Topic Types']");
@@ -523,7 +525,7 @@ public class ForumManageTopic extends ForumBase {
 		waitForAndGetElement(magFor.ELEMENT_CENSOR_TOPIC);
 		click(magFor.ELEMENT_CENSOR_TOPIC);
 		waitForAndGetElement(ELEMENT_POPUP_CENSOR_TOPIC);
-		check(element_topic);
+		check(element_topic,2);
 		click(ELEMENT_CENSOR_APPROVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_POPUP_CENSOR_TOPIC);
 		info("Approve a topic successfully");

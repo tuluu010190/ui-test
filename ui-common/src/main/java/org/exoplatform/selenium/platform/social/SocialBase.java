@@ -43,7 +43,7 @@ public class SocialBase extends PlatformBase {
 	public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
 
 	// Go to My Space -> Select a space > click setting icon
-	public final By ELEMENT_SETTINGS = By.xpath("//a[@title='Settings']");
+	public final By ELEMENT_SETTINGS = By.xpath("//*[@title='Settings']");
 
 	// Go to My Space -> Select a space > click Navigation tab
 	public final By ELEMENT_NAVIGATION_TAB = By.xpath("//a[text()='Navigations']");

@@ -37,7 +37,7 @@ public class ForumManageForum extends ForumBase {
 	public By ELEMENT_EDIT_FORUM = By.xpath("//*[contains(@href, 'EditForum')]");
 	public By ELEMENT_MOVE_FORUM = By.xpath("//*[contains(@href, 'MoveForum')]");
 	public By ELEMENT_START_TOPIC = By.xpath("//a[@class='ItemIcon PostnewThreadIcon' and contains(text(),'Start Topic')]");
-	public By ELEMENT_CENSOR_TOPIC = By.xpath("//a[@class='ItemIcon SetUnWaiting' and text()='Censor ']");
+	public By ELEMENT_CENSOR_TOPIC =By.linkText("Censor");
 	public By ELEMENT_MODERATOR_PANEL = By.xpath("//*[@id='uicomponent.id' and @class='UIForumModerator']");
 	public By ELEMENT_RULE_PANEL = By.id("UIPostRules");
 	public String ELEMENT_TOPIC_LINK = "//a[contains(text(),'${topic}')]";
@@ -74,8 +74,12 @@ public class ForumManageForum extends ForumBase {
 	public By ELEMENT_EXPORT_FORUM_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Export Forums']");
 	public By ELEMENT_EXPORT_FORUM_COMPRESS = By.id("createZip");
 
-	/*-------------------------------------Common function--------------------------------*/
+	//------------------Censor topic-------------------------------------------------------
+	public final String MESSAGE_CENSOR = "This post may contain offensive content. It will be displayed after moderation.";
+	public final String CENSORED_TITLE = "${title} (Censored)";
 
+	
+	/*-------------------------------------Common function--------------------------------*/
 	/** function: go to add forum
 	 * @author lientm
 	 */
@@ -213,7 +217,7 @@ public class ForumManageForum extends ForumBase {
 		info("Create forum successfully");
 	}
 
-
+	
 	/** function: delete a forum
 	 * @author lientm
 	 * @param title: title of forum that needs to delete
@@ -409,4 +413,14 @@ public class ForumManageForum extends ForumBase {
 
 	}
 
+	/**
+	 * Determine if the emails are autofill.
+	 * Created by khanhnt at Dec 9, 2013
+	 * @param email
+	 */
+	public void isEmailAutofillInModerator(String email){
+		click(ELEMENT_MODERATOR_TAB);
+		waitForTextPresent(email);
+	}
+	
 }

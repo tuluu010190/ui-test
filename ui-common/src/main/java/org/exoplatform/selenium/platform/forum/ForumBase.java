@@ -21,6 +21,7 @@ import org.testng.Assert;
  * @author lientm
  * @date 19 Aug 2013
  */
+
 public class ForumBase extends PlatformBase {
 
 	public PageEditor pageE ;
@@ -42,7 +43,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_INFO = By.xpath("//span[@class='PopupIcon InfoMessageIcon']");
 	public final By ELEMENT_JUMP_TO = By.id("forumLink");
 	public final By ELEMENT_GO_BUTTON = By.linkText("Go");
-	public final By ELEMENT_MODERATION = By.linkText("Moderation");
+	public final By ELEMENT_MODERATION = By.className("uiIconForumModerator");
 	public final By ELEMENT_MODERTATION_DELETE_BUTTON = By.xpath("//*[@id='ModerationMenu']//a[contains(text(),'Delete')]");
 	public final By ELEMENT_WATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'AddWatching')]");
 	public final By ELEMENT_UNWATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'UnWatch')]");
@@ -55,6 +56,7 @@ public class ForumBase extends PlatformBase {
 	public final String ELEMENT_HOME_FORUM = "Forum Home";
 	public final By ELEMENT_USER_MANAGEMENT = By.xpath("//*[@id='ManageModerator']//*[@class='uiIconUser uiIconLightGray']");
 	public final By ELEMENT_MORE_BUTTON = By.xpath("//div[contains(text(),'More')]");
+	public final By ELEMENT_PENDING = By.id("PendingJob");
 
 	//Administration menu
 	//	public final By ELEMENT_ADMINISTRATION = By.className("uiIconForumAdmin");
@@ -122,7 +124,7 @@ public class ForumBase extends PlatformBase {
 	//----------------Set Censor keywords form----------------------------------
 	public final By ELEMENT_CENSOR_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Censor Keyword']");
 	public final By ELEMENT_CENSORED_KEYWORDS =  By.id("censorKeyword");
-
+	
 	//----------------Set Ban IP form--------------------------------------------
 	public final By ELEMENT_BAN_IP_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Banned IPs']");
 	public final By ELEMENT_BAN_IP_FILTER = By.id("searchIpBan");
@@ -303,6 +305,10 @@ public class ForumBase extends PlatformBase {
 	//Gmail
 	public String ELEMENT_GMAIL_EMAIL = "//span/b[text()='[${category}][${forum}] ${topic}']";
 		
+	//Pending job
+	public final By ELEMENT_PENDING_JOB_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Waiting for Approval']");
+	public By ELEMENT_APPROVE_PENDING_JOB = By.xpath("//*[text()='Approve']");
+	public final By ELEMENT_CLOSE_PENDING_POPUP = By.className("ClosePopup");
 	/*-----------------------------common function-------------------------------------*/
 
 	/** function: input data to a frame in other frame
@@ -1422,4 +1428,31 @@ public class ForumBase extends PlatformBase {
 
 	}
 
+	//--------------------------------Pending job-----------------------------------//
+	/**
+	 * Open pending job form.
+	 * Created by khanhnt at Dec 11, 2013
+	 */
+	public void goToPendingJob(){
+		click(ELEMENT_PENDING);
+		waitForAndGetElement(ELEMENT_PENDING_JOB_POPUP);
+	}
+	
+	/**
+	 * Approve a pending job.
+	 * Created by khanhnt at Dec 11, 2013
+	 * @param jobTitle: title of job.
+	 * @param jobContent: content of job.
+	 * @param isApprove: true -> approve, false -> no and delete.
+	 */
+	public void approvePendingJob(String jobTitle,String jobContent,boolean isApprove){
+		info("Approve a peding job");
+		click(By.linkText(jobTitle));
+		waitForTextPresent(jobContent);
+		click(ELEMENT_APPROVE_PENDING_JOB);
+		waitForAndGetElement(ELEMENT_PENDING_JOB_POPUP);
+		click(ELEMENT_CLOSE_PENDING_POPUP);
+		waitForElementNotPresent(ELEMENT_PENDING_JOB_POPUP);
+		info("Approve a peding job successfully");
+	}
 }

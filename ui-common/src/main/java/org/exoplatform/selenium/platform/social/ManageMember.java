@@ -468,7 +468,7 @@ public class ManageMember extends SpaceManagement {
 		}else if (advanceSpace){
 			addNewSpace(spaceName, spaceDescription, advanceParam[0], advanceParam[1], advanceParam[2], advanceParam[3]);
 		}	
-		goToSettings();
+		goToSpaceMenu("Space Settings");
 		goToMembers();
 		inviteSingleUser(user);
 	}		

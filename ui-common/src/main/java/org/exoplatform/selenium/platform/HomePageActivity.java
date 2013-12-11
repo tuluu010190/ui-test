@@ -820,21 +820,28 @@ public class HomePageActivity extends PlatformBase{
 	 * @author phuongdt
 	 * Delete activity 
 	 * @param activityText: input a String 
+	 * @param verify[0] -> false: user cannot delete this activity 
 	 */
-	public void deleteActivity (String activityText) {
+	public void deleteActivity (String activityText,boolean...verify) {
 		info("-- Deleting an activity " +activityText+" --");
-		WebElement elem = waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
+		boolean canDelete = verify.length>0?verify[0]:true;
+		if(!canDelete)
+			waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
+		else{
+			WebElement elem = waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
 
-		String deleteActivityIconID;
-		deleteActivityIconID = elem.getAttribute("id");
+			String deleteActivityIconID;
+			deleteActivityIconID = elem.getAttribute("id");
 
-		JavascriptExecutor executor = (JavascriptExecutor)driver;
-		executor.executeScript("document.getElementById('"+deleteActivityIconID+"').click();");
-		waitForAndGetElement(ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY);
-		button.ok();
-		waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", activityText)));
-		waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
-		Utils.pause(1000);
+			JavascriptExecutor executor = (JavascriptExecutor)driver;
+			executor.executeScript("document.getElementById('"+deleteActivityIconID+"').click();");
+			waitForAndGetElement(ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY);
+			button.ok();
+			waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", activityText)));
+			waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
+			Utils.pause(1000);
+		}
+		
 	}
 
 	/**
