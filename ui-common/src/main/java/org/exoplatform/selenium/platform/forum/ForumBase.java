@@ -29,7 +29,7 @@ public class ForumBase extends PlatformBase {
 	public PlatformPermission per ;
 
 	public final By ELEMENT_FORUM_LINK = By.linkText("Forums");
-	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//*[@class='UIPopupWindow UIDragObject uiPopup']//*[text()='OK']");
+	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//div[@class='UIPopupWindow UIDragObject uiPopup']/.//a[text()='OK']");
 	public final By ELEMENT_OK_DELETE = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='OK']");
 	public final By ELEMENT_CANCEL_DELETE = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='Cancel']");
 
@@ -51,7 +51,8 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_EXPORT_CATEGORY = By.xpath("//*[@id='Administrations']//*[@class='uiIconExport']");
 	public final By ELEMENT_EXPORT_FORUM = By.linkText("Export Forum");
 	public final By ELEMENT_LEGEN_PANEL = By.id("UIForumIconState");
-	public final By ELEMENT_STATISTIC_PANEL = By.xpath("//*[text()='Forums Statistics']");
+	public final By ELEMENT_MODERATOR_PANEL = By.id("uicomponent.id");
+	public final By ELEMENT_STATISTIC_PANEL = By.id("UICategoryInfo");//By.xpath("//*[text()='Forums Statistics']");
 	public final By ELEMENT_HOME_BUTTON = By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
 	public final String ELEMENT_HOME_FORUM = "Forum Home";
 	public final By ELEMENT_USER_MANAGEMENT = By.xpath("//*[@id='ManageModerator']//*[@class='uiIconUser uiIconLightGray']");
@@ -252,8 +253,10 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_SHOW_RULE_CHECKBOX = By.id("isShowRules");
 	public final By ELEMENT_SHOW_STATISTIC_CHECKBOX = By.id("isShowStatistic");
 	public final By ELEMENT_USE_AJAX_CHECKBOX = By.id("isUseAjax");
-	public final String ELEMENT_SELECT_DISPLAY_CHECKBOX = "//*[contains(text(), '${name}')]/..//input";
+	public final String ELEMENT_SELECT_DISPLAY_CHECKBOX = "//span[@class='uiCheckbox']//span[contains(text(), '${name}')]/..//input";
+	//public final String ELEMENT_SELECT_DISPLAY_CHECKBOX = "//span[contains(text(), '${name}')]/..//input";
 	public final By ELEMENT_FORUM_PORTLET_CLOSE_BUTTON = By.id("Close");
+	public final By ELEMENT_FORUM_PORTLET_SAVE_BUTTON = By.cssSelector("#UISettingEditModeForm.UIForm div.uiAction button.btn");
 
 	//attach file popup
 	public final By ELEMENT_POPUP_UPLOAD_FILE = By.xpath("//span[@class='PopupTitle' and text()='Attach File']");
@@ -357,7 +360,7 @@ public class ForumBase extends PlatformBase {
 			loopCount = 0;
 		}
 	}
-
+	
 	/** function: Attach file in attach popup
 	 * @author lientm
 	 * @param number: number of upload container that need upload file
@@ -1226,13 +1229,15 @@ public class ForumBase extends PlatformBase {
 		button = new Button(driver);
 		if (!isCategory){
 			click("//*[contains(text(), '" + itemName + "')]/../..");
+			//click(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
 		}
 		if (display){
 			check(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
 		}else {
 			uncheck(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
 		}
-		button.save();
+		//button.save();
+		click(ELEMENT_FORUM_PORTLET_SAVE_BUTTON);
 		click(ELEMENT_OK_INFOR_POPUP);
 		Utils.pause(1000);
 	}	

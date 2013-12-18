@@ -38,7 +38,7 @@ public class ForumManagePoll extends ForumBase {
 	}
 
 	//Poll Manage
-	public By ELEMENT_POLL = By.xpath("//div[@class='UITopicPoll']");
+	public By ELEMENT_POLL = By.id("UITopicPoll");
 	public By ELEMENT_ADD_POLL = By.linkText("Add Poll"); 
 	public final By ELEMENT_POLL_MORE_ACTION = By.xpath("//form[@id='UITopicPoll']//i[@class='uiIconSettings uiIconLightGray']");
 	public final By ELEMENT_POLL_EDIT_LINK = By.xpath("//form[@id='UITopicPoll']//i[@class='uiIconEdit uiIconLightGray']");
@@ -273,13 +273,13 @@ public class ForumManagePoll extends ForumBase {
 		if (check){
 			waitForElementNotPresent(ELEMENT_POLL_POPUP);
 			info("Add poll successfully");
+			Utils.pause(500);
+			for(int i = 0; i < options.length; i ++)
+				waitForAndGetElement(ELEMENT_OPTION.replace("${option}", options[i]));
 		}
 
 		//Check after add poll
 		//waitForTextPresent(pollQuestion);
-		Utils.pause(500);
-		for(int i = 0; i < options.length; i ++)
-			waitForAndGetElement(ELEMENT_OPTION.replace("${option}", options[i]));
 	} 
 	/** function: go to add poll for topic from More action/Add poll
 	 * @author lientm

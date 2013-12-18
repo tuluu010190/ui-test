@@ -64,6 +64,8 @@ public class ForumManageTopic extends ForumBase {
 
 	public By ELEMENT_TOPIC_CONTENT_TAB = By.linkText("Content");
 	public By ELEMENT_TOPIC_TITLE = By.id("ThreadTitle");
+	public By ELEMENT_TOPIC_MESSAGE_CKEDITOR = By.id("cke_messageContent");
+	public By ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");//By.id("scayt_0");
 	public By ELEMENT_TOPIC_MESSAGE_FRAME_1 = By.xpath("//iframe[@id='messageContent___Frame']");
 	public By ELEMENT_TOPIC_MESSAGE_FRAME_2 = By.xpath("//td[@id='xEditingArea']/iframe");
 	public String ELEMENT_REMOVE_FILE = "//a[contains(@title, '${file}')]/../*//img[@class='DustBin']";
@@ -193,7 +195,10 @@ public class ForumManageTopic extends ForumBase {
 		}
 
 		if (message != "" && message != null){
-			inputDataToFrameInFrame(ELEMENT_TOPIC_MESSAGE_FRAME_1, ELEMENT_TOPIC_MESSAGE_FRAME_2, message, true,false);
+			if(isElementPresent(ELEMENT_TOPIC_MESSAGE_CKEDITOR))
+				inputDataToFrame(ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR, message, true,false);
+			else
+				inputDataToFrameInFrame(ELEMENT_TOPIC_MESSAGE_FRAME_1, ELEMENT_TOPIC_MESSAGE_FRAME_2, message,true,false);
 			switchToParentWindow();	
 		}
 		if(file.length > 0 && file[0] != "" && file[0] != null){
