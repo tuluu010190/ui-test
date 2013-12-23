@@ -199,7 +199,6 @@ public class PLF_HomePageActivityStream_Activity_General extends Activity{
 		- The activity is displayed in the activity stream		*/
 		mMember.goToMySpacePage();
 		mMember.addNewSpace(spaceName, "");
-		goToActivityStream();
 		addActivity(true, text, false, "");
 		goToMembers(spaceName);
 		mMember.inviteSingleUser(userType.DEVELOPER);

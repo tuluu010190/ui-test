@@ -112,10 +112,10 @@ public class TestBase {
 			driver.manage().window().maximize();
 			driver.navigate().refresh();
 			Utils.pause(2000);
-			
+
 			ManageAccount acc = new ManageAccount(driver);
 			acc.signOut();
-			firstTimeLogin = false;
+			firstTimeLogin=false;
 			checkPLFVersion();
 		}
 	}
@@ -172,7 +172,7 @@ public class TestBase {
 			firstTimeLogin = true;
 			info("-- Administrator account (FQA) has been created successfully... --");
 		} 
-		Utils.pause(1000);     
+		Utils.pause(5000);     
 	}
 
 	/**

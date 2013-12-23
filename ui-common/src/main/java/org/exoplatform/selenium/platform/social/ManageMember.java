@@ -74,6 +74,7 @@ public class ManageMember extends SpaceManagement {
 	//Adapt to PLF 4.1
 	public final String ELEMENT_LEFT_PANEL_SPACE_ITEM_PLF4_1 = "//li[contains(@class,'spaceItem')]/a/span[@data-original-title='${spaceName}']";
 
+
 	/*-------------------------------- Common functions for SOCIAL -----------------------------------*/
 
 	public By getCheckBox(String text) {
