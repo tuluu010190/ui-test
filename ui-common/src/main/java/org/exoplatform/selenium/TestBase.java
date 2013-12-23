@@ -105,14 +105,9 @@ public class TestBase {
 		info("Term and conditions");
 		termsAndConditions(opParams);
 		info("End of term and conditions");
-		
 		if(!firstTimeLogin)
 			checkPLFVersion();
 		else{
-			driver.manage().window().maximize();
-			driver.navigate().refresh();
-			Utils.pause(2000);
-
 			ManageAccount acc = new ManageAccount(driver);
 			acc.signOut();
 			firstTimeLogin=false;
