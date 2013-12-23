@@ -18,7 +18,8 @@ public class SocialBase extends PlatformBase {
 	//public final By ELEMENT_JOIN_SPACE_LINK = By.xpath("//div[@class='uiSpaceNavigationPortlet']/..//div/a[contains(text(),'Join a space')]");
 
 	// Go to My space link
-	public final By ELEMENT_MY_SPACES_LINK = By.linkText("My Spaces");
+//	public final By ELEMENT_MY_SPACES_LINK = By.linkText("My Spaces");
+	public final By ELEMENT_MY_SPACES_LINK  = By.xpath("//a[text()='My Spaces']");
 	public final By ELEMENT_ALL_SPACE_LINK = By.linkText("All Spaces");
 	public final By ELEMENT_INVATATION_RECEIVES_LINK = By.linkText("Invitations Received");
 	public final By ELEMENT_REQUESTS_PENDING_LINK = By.linkText("Requests Pending");

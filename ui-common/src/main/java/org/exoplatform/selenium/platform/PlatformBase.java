@@ -59,7 +59,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CALENDAR_PAGE = By.className("uiIconPLFCalendar");
 	public final String ELEMENT_LEFT_NAVIGATION_ITEM_INDEX="//ul[@class='uiCompanyNavigations']//li[${index}]/a[text()='${menuItem}']";
 	public final By ELEMENT_SPACE_NAVIGATION = By.className("spaceNavigation");
-	public final String ELEMENT_SPACE_NAVIGATION_SPACE_ITEM = "//*[@class='spaceNavigation']//a[contains(text(),'${spaceName}')]";
+	public final String ELEMENT_SPACE_NAVIGATION_SPACE_ITEM = "//*[@class='spaceNavigation']//*[contains(text(),'${spaceName}')]";
 	public final String ELEMENT_SPACE_NAVIGATION_SPACE_ITEM_INDEX = "//*[@class='spaceNavigation']/li[${index}]/a[contains(text(),'${spaceName}')]";
 	public final By ELEMENT_LEFT_NAVIGATION_SEARCH_SPACE=By.xpath("//*[@id='UISpaceNavigationPortlet']//*[@value='Search Spaces']");
 
@@ -399,9 +399,9 @@ public class PlatformBase extends TestBase {
 	
 	public final By ELEMENT_SWITCH_VIEW_MODE = By.linkText("Switch View mode");
 	public final String ELEMENT_PAGE_COLUMN = "//tr[@class='TRContainer']//td['${index}']";
-	public final By ELEMENT_VIEW_PAGE_PROPERTIES = By.linkText("View Page properties");	
+	public final By ELEMENT_VIEW_PAGE_PROPERTIES = By.linkText("View Page properties");
+	
 	public final By ELEMENT_PAGE_EXIST_WARNING_MSG = By.xpath("//*[contains(text(),'This page name already exists')]");
-
 	
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
@@ -484,7 +484,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_PAGE_MANAGEMENT_PORTLET = By.id("Administration/PageManagementPortlet");
 	public final By ELEMENT_ORGANIZATION_PORTLET = By.id("Administration/OrganizationPortlet");
 	public final By ELEMENT_CONTENTS_LIST_VIEWER_PORTLET = By.id("Content/ContentListViewerPortlet");
-	public final By ELEMENT_ANWSER_PORTLET = By.id("Collaboration/AnswersPortlet");
+	public final By ELEMENT_ANWSER_PORTLET = By.xpath("//div[@id='Collaboration/AnswersPortlet']/div");
 	public final By ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE = By.id("UIAnswersPortlet");
 	public final By ELEMENT_ACCOUNT_PORTLET_IN_VIEW_PAGE = By.id("UIAccountPortlet");
 	public final By ELEMENT_BY_QUERY_TEXTAREA = By.xpath("//textarea[@id='UICLVConfigContentByQueryTextArea']");

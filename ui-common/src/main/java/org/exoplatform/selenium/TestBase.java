@@ -121,6 +121,10 @@ public class TestBase {
 		if(!firstTimeLogin)
 			checkPLFVersion();
 		else{
+			driver.manage().window().maximize();
+			driver.navigate().refresh();
+			Utils.pause(2000);
+
 			ManageAccount acc = new ManageAccount(driver);
 			acc.signOut();
 			firstTimeLogin=false;
@@ -530,11 +534,11 @@ public class TestBase {
 	}
 
 	public void waitForMessage(String message,int...wait) {
-        int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
-        //info("--Verify message: " + message);
-        Utils.pause(500);
-//        waitForTextPresent(message, waitTime);
-        waitForAndGetElement("//*[contains(text(),'"+message+"')]",waitTime);
+		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
+		//info("--Verify message: " + message);
+		Utils.pause(500);
+		//waitForTextPresent(message, waitTime);
+		waitForAndGetElement("//*[contains(text(),'"+message+"')]",waitTime);
 	}
 
 	public void type(Object locator, String value, boolean validate, Object...opParams) {	
