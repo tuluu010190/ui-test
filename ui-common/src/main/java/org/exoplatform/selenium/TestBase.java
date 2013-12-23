@@ -179,6 +179,7 @@ public class TestBase {
 	 * Verify plf version
 	 */
 	public void checkPLFVersion(){
+		waitForTextNotPresent("terms and conditions agreement");
 		try{
 			info("Verify platform version");
 			String des = driver.findElement(ELEMENT_PLF_INFORMATION).getText();
