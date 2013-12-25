@@ -573,13 +573,13 @@ public class WikiBase extends PlatformBase{
 		info("Attach a file: " + path);
 		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_FRAME_UPLOAD));
 		//ELEMENT_UPLOAD_FILE = By.xpath("//input[@id='WikiUploadFile']");
-
 		try{
 			for(int i =0; i<=4; i++){
 				if(waitForAndGetElement(ELEMENT_UPLOAD_NAME, 5000, 0, notDisplay)!=null)
 					break;
 				else{
-					((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", waitForAndGetElement(ELEMENT_BODY_CONTAINER));
+					((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", 
+							waitForAndGetElement(ELEMENT_BODY_CONTAINER));
 				}
 			}
 			WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, 5000, 1, notDisplay);

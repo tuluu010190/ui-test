@@ -112,6 +112,8 @@ public class BasicAction extends Permission{
 	 */
 	public void addWikiPageSourceEditor(String title, String content){
 		info("Modify data with source editor");
+		if(isElementPresent(ELEMENT_SOURCE_EDITOR_BUTTON))
+			click(ELEMENT_SOURCE_EDITOR_BUTTON);
 		Utils.pause(1000);
 		if(title != null){
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
@@ -660,6 +662,8 @@ public class BasicAction extends Permission{
 		info("Modify data with source editor");
 		if(title != null)
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
+		if(this.plfVersion.equalsIgnoreCase("4.1"))
+			click(ELEMENT_SOURCE_EDITOR_BUTTON);
 		if(content != null){
 			String[] line = content.split("/");
 			for (int i = 0; i < line.length; i ++){

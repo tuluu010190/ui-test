@@ -109,6 +109,10 @@ public class TestBase {
 		if(!firstTimeLogin)
 			checkPLFVersion();
 		else{
+			driver.manage().window().maximize();
+			driver.navigate().refresh();
+			Utils.pause(2000);
+			
 			ManageAccount acc = new ManageAccount(driver);
 			acc.signOut();
 			firstTimeLogin = false;
