@@ -101,7 +101,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_NEWFILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='File']");
 	//By.linkText("File");
 	public final By ELEMENT_NEWFILE_NAME_TEXTBOX = By.id("name");
-	public final By ELEMENT_NEWFILE_CONTENT_FRAME = By.xpath("//*[@id='cke_contents_contentHtml']/iframe");
+	public final By ELEMENT_NEWFILE_CONTENT_FRAME = By.xpath("//*[@id='cke_1_contents']/iframe");
 	public final By ELEMENT_NEWFILE_TITLE_TEXTBOX = By.id("title0");
 	//public final By ELEMENT_NEWFILE_DESC_TEXTBOX = By.id("description0");
 	public final By ELEMENT_NEWFILE_DESCRIPTION_TEXTBOX = By.id("description0");
@@ -114,7 +114,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_NEWFILE_TEXT_TAB_XPATH = By.xpath("//*[contains(text(),'View as Plain text')]");
 	public final String ELEMENT_NEWFILE_TEXT_TAB_P_CSS = ".textContent>pre";
 	public final By ELEMENT_NEWFILE_MIME_COMBOX_ID = By.name("mimetype") ;
-	public final By ELEMENT_NEWFILE_TEXTAREA_ID = By.id("contentPlain") ;
+	public final By ELEMENT_NEWFILE_TEXTAREA_ID = By.id("contentHtml") ;
 	public final String ELEMENT_NEWFILE_PRE_CSS = ".content>pre";	
 
 	//Picture on Head Layout
@@ -311,9 +311,9 @@ public class ContentTemplate extends EcmsBase{
 		if (!lines){
 			if (waitForAndGetElement(ELEMENT_NEWFILE_CONTENT_FRAME, 3000, 0) != null){
 				inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME, cont, true);
-			}else if (waitForAndGetElement(ELEMENT_NEWFILE_TEXTAREA_ID, 3000, 0) != null){
+			}else //if (waitForAndGetElement(ELEMENT_NEWFILE_TEXTAREA_ID, 3000, 0) != null){
 				type(ELEMENT_NEWFILE_TEXTAREA_ID, cont, true);
-			}
+			//}
 			switchToParentWindow();
 		}else {
 			typeMultiLineInCkeContent(ELEMENT_NEWFILE_CONTENT_FRAME, cont);
