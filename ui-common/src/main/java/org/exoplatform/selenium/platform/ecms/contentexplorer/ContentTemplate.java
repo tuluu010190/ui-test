@@ -19,6 +19,7 @@ import org.openqa.selenium.WebElement;
 public class ContentTemplate extends EcmsBase{
 	public ContentTemplate(WebDriver dr,String...plfVersion) {
 		super(dr);
+		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
 		// TODO Auto-generated constructor stub
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
 	}
@@ -51,9 +52,8 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_WEBCONTENT_ILLUSTRATION_TAB = By.xpath("//*[contains(text(),'Illustration')]");
 	public final By ELEMENT_WEBCONTENT_UPLOAD_FRAME = By.xpath("//*[contains(@name,'uploadIFrame')]");
 	//public final By ELEMENT_WEBCONTENT_FILE_IMAGE = By.name("file");
-
-	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
-	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME_41 = By.xpath("//td[@id='cke_exo:summary']/iframe");
+	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME = By.xpath("//div[@id='cke_exo:summary']//iframe");
+	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME_41 = By.xpath("//div[contains(@id,'cke_htmlData')]//iframe");
 	public final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.xpath("//*[contains(text(),'Advanced')]");
 	public final By ELEMENT_WEBCONTENT_CSS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentCSS')]");
 	public final By ELEMENT_WEBCONTENT_JS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentJS')]");
@@ -138,8 +138,11 @@ public class ContentTemplate extends EcmsBase{
 	//public final By ELEMENT_PRODUCT_TITLE_TEXTBOX = By.id("title");
 	public final By ELEMENT_PRODUCT_ILLUSTRATION = By.xpath("//input[@name='illustration']");
 	public final By ELEMENT_PRODUCT_SUMMARY_FRAME = By.xpath("//*[@id='cke_contents_summary']/iframe");
+	public final By ELEMENT_PRODUCT_SUMMARY_FRAME_41 = By.xpath("//*[@id='cke_summary']/iframe");
 	public final By ELEMENT_PRODUCT_BENEFIT_FRAME = By.xpath("//*[@id='cke_contents_productBenefits']/iframe");
+	public final By ELEMENT_PRODUCT_BENEFIT_FRAME_41 = By.xpath("//*[@id='cke_productBenefits']/iframe");
 	public final By ELEMENT_PRODUCT_FEATURE_FRAME = By.xpath("//*[@id='cke_contents_productFeatures']/iframe");
+	public final By ELEMENT_PRODUCT_FEATURE_FRAME_41 = By.xpath("//*[@id='cke_productFeatures']/iframe");
 
 	public final By ELEMENT_FREE_CONT_ACCEPT = By.xpath("//form[contains(@id,'EditTextForm')]/a[2]");
 	public final By ELEMENT_FREE_CONT_INPUT = By.xpath("//iframe[contains(@title,'Rich text editor, newText')]");
@@ -258,16 +261,15 @@ public class ContentTemplate extends EcmsBase{
 			selectOption(ELEMENT_PIC_LANG, optionLang);
 		}
 		if (cont != ""){
-			if(this.plfVersion.equalsIgnoreCase("4.1"))
-				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41,cont);
-			else if(this.plfVersion.equalsIgnoreCase("4.0"))
+			if(this.plfVersion.equalsIgnoreCase("4.0"))
 				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME,cont);
-
+			else if(this.plfVersion.equalsIgnoreCase("4.1"))
+				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME,cont,true);
 			switchToParentWindow();
 		}
 		if (sum!="" || img !=""){
-			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
 			if (img!=""){
+				click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
 				//driver.switchTo().frame(waitForAndGetElement(ELEMENT_WEBCONTENT_UPLOAD_FRAME, 3000, 1, 2));
 				//type(ELEMENT_WEBCONTENT_FILE_IMAGE, Utils.getAbsoluteFilePath(img), false);			
 				WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 0, 2);
@@ -283,8 +285,10 @@ public class ContentTemplate extends EcmsBase{
 				inputDataToFrame(eWebContentSum, sum);
 				switchToParentWindow();
 			}else {
-				typeMultiLineInCkeContent(eWebContentSum, sum);
-
+				if(waitForAndGetElement(ELEMENT_WEBCONTENT_SUMMARY_FRAME_41,5000,0,1)!=null)
+					typeMultiLineInCkeContent(ELEMENT_WEBCONTENT_SUMMARY_FRAME_41, sum);
+				else //if(waitForAndGetElement(ELEMENT_WEBCONTENT_SUMMARY_FRAME,5000,0,1)!=null)
+					typeMultiLineInCkeContent(ELEMENT_WEBCONTENT_SUMMARY_FRAME, sum);				
 			}
 		}
 		if(css!="" || js !=""){
@@ -471,18 +475,30 @@ public class ContentTemplate extends EcmsBase{
 		}
 		if (sum != ""){
 			if (! lines){
-				inputDataToFrame(ELEMENT_PRODUCT_SUMMARY_FRAME, sum, true);
+				if(waitForAndGetElement(ELEMENT_PRODUCT_SUMMARY_FRAME,5000,0,2)!=null)
+					inputDataToFrame(ELEMENT_PRODUCT_SUMMARY_FRAME, sum, true);
+				else //if(waitForAndGetElement(ELEMENT_PRODUCT_SUMMARY_FRAME_41,5000,0,2)!=null)
+					inputDataToFrame(ELEMENT_PRODUCT_SUMMARY_FRAME_41, sum, true);
 				switchToParentWindow();
 			}else {
-				typeMultiLineInCkeContent(ELEMENT_PRODUCT_SUMMARY_FRAME, sum);
+				if(waitForAndGetElement(ELEMENT_PRODUCT_SUMMARY_FRAME,5000,0,2)!=null)
+					typeMultiLineInCkeContent(ELEMENT_PRODUCT_SUMMARY_FRAME, sum);
+				else //if(waitForAndGetElement(ELEMENT_PRODUCT_SUMMARY_FRAME_41,5000,0,2)!=null)
+					typeMultiLineInCkeContent(ELEMENT_PRODUCT_SUMMARY_FRAME_41, sum);
 			}
 		}
 		if (benefit != ""){
-			inputDataToFrame(ELEMENT_PRODUCT_BENEFIT_FRAME, sum, true);
+			if(waitForAndGetElement(ELEMENT_PRODUCT_BENEFIT_FRAME,5000,0,2)!=null)
+				inputDataToFrame(ELEMENT_PRODUCT_BENEFIT_FRAME, sum, true);
+			else //if(waitForAndGetElement(ELEMENT_PRODUCT_BENEFIT_FRAME_41,5000,0,2)!=null)
+				inputDataToFrame(ELEMENT_PRODUCT_BENEFIT_FRAME_41, sum, true);
 			switchToParentWindow();
 		}
 		if (feature != ""){
-			inputDataToFrame(ELEMENT_PRODUCT_FEATURE_FRAME, sum, true);
+			if(waitForAndGetElement(ELEMENT_PRODUCT_FEATURE_FRAME,5000,0,2)!=null)
+				inputDataToFrame(ELEMENT_PRODUCT_FEATURE_FRAME, sum, true);
+			else //if(waitForAndGetElement(ELEMENT_PRODUCT_FEATURE_FRAME_41,5000,0,2)!=null)
+				inputDataToFrame(ELEMENT_PRODUCT_FEATURE_FRAME_41, sum, true);
 			switchToParentWindow();
 		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);

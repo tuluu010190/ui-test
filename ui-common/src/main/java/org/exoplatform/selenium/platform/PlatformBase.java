@@ -1011,6 +1011,9 @@ public class PlatformBase extends TestBase {
 			}else if (waitForAndGetElement(ELEMENT_NAVIGATION_PASTE_NODE, 5000, 0) != null){
 				click(ELEMENT_NAVIGATION_PASTE_NODE);
 				return;
+			} else if(waitForAndGetElement(ELEMENT_ECMS_PASTE_NODE, 5000, 0) != null){
+				click(ELEMENT_ECMS_PASTE_NODE);
+				return;
 			}
 			else if (waitForAndGetElement(ELEMENT_ECMS_PASTE_NODE, 5000, 0) != null){
 				click(ELEMENT_ECMS_PASTE_NODE);
@@ -1109,9 +1112,7 @@ public class PlatformBase extends TestBase {
 				WebElement e = waitForAndGetElement(framelocator,DEFAULT_TIMEOUT,1,2);
 				driver.switchTo().frame(e);
 				inputsummary = driver.switchTo().activeElement();
-
 				inputsummary.click();
-
 				inputsummary.clear();
 
 				if (validate.length >0)
@@ -1213,12 +1214,27 @@ public class PlatformBase extends TestBase {
 		String[] lines = content.split("/");
 
 		if (lines.length > 0){
-			driver.switchTo().frame(waitForAndGetElement(cke_frame));
+			
+			WebElement e = waitForAndGetElement(cke_frame,DEFAULT_TIMEOUT,1,2);
+			driver.switchTo().frame(e);
 			inputsummary = driver.switchTo().activeElement();
 			inputsummary.click();
+			inputsummary.clear();
+
 			for (int i = 0; i < lines.length; i++){
-				inputsummary.sendKeys(lines[i]);
-				inputsummary.sendKeys(Keys.ENTER);
+				if(this.plfVersion.equalsIgnoreCase("4.0")){
+					inputsummary.sendKeys(lines[i]);
+					inputsummary.sendKeys(Keys.ENTER);
+				} else if(this.plfVersion.equalsIgnoreCase("4.1")){
+					String newStr = "<p>" + lines[i]+"</p>";;
+					if(i==0)
+						newStr = "<p>" + lines[i]+"</p>";
+					else{
+						newStr = "<p>"+inputsummary.getText().replace("\n","</p><p>")+ "</p>";
+						newStr +="<p>" + lines[i]+"</p>";
+					}
+					((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + newStr + "'");
+				}
 				Utils.pause(500);
 			}
 		}

@@ -899,12 +899,15 @@ public class ActionBar extends EcmsBase{
 	//Undo deleted Items
 	public void undoDeletion(String...nodeName){
 		String node = nodeName.length > 0 ? nodeName[0]: "";
-
+		
 		info("-- Undo deletion --");
 		if (node != ""){
 			waitForTextPresent("\'" + node + "' was deleted succesfully.");
 		}
-		click(ELEMENT_UNDO_DELETED_ITEM);
+		if(this.plfVersion.equalsIgnoreCase("4.1"))
+			((JavascriptExecutor)driver).executeScript("arguments[0].click();",waitForAndGetElement(ELEMENT_UNDO_DELETED_ITEM));
+		else if(this.plfVersion.equalsIgnoreCase("4.0"))
+			click(ELEMENT_UNDO_DELETED_ITEM);
 		if (waitForAndGetElement(button.ELEMENT_OK_BUTTON, 3000, 0) != null){
 			click(button.ELEMENT_OK_BUTTON);
 		}
