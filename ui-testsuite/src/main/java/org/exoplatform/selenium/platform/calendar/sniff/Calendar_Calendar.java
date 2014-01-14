@@ -3,6 +3,8 @@ package org.exoplatform.selenium.platform.calendar.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.List;
+
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -10,7 +12,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.exoplatform.selenium.platform.calendar.CalendarBase;
-
 import org.exoplatform.selenium.platform.calendar.Event;
 import org.exoplatform.selenium.platform.calendar.Task;
 
@@ -45,11 +46,11 @@ public class Calendar_Calendar extends CalendarBase{
 	@Test
 	public void test01_CheckHighlightedMiniCalendar() {
 		String eventName = "event68653";
-		String taskName = "task 68653";
+		String taskName = "task68653";
 		info("Check highlighted mini calendar");
 
-		evt.addQuickEvent(eventName,eventName,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),true);
-		tsk.addQuickTask(taskName,taskName,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),true);
+		evt.addQuickEvent(eventName,eventName,getDate(1,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),false);
+		tsk.addQuickTask(taskName,taskName,getDate(2,"MM/dd/yyyy"),getDate(2,"MM/dd/yyyy"),false);
 		driver.navigate().refresh();
 
 		List <WebElement> highLight = driver.findElements(By.xpath("//td[@class='highLight']"));
@@ -57,9 +58,11 @@ public class Calendar_Calendar extends CalendarBase{
 			boolean verify = we.getText().equals(getDate(1,"dd")) || we.getText().equals(getDate(2,"dd"));
 			assert verify;
 		}
-
-		deleteEventTask(eventName);
-		deleteEventTask(taskName);
+		Utils.pause(3000);
+		deleteEventTask(eventName,selectDayOption.ONEDAY);
+		info("Event deleted successfully");
+		deleteEventTask(taskName,selectDayOption.ONEDAY);
+		info("Task deleted successfully");
 	}
 
 	/**Export calendar, Import calendar
@@ -119,18 +122,26 @@ public class Calendar_Calendar extends CalendarBase{
 		String[] user = {"mary"};
 		boolean[] canEdit = {true};
 
-		info("Add/Delete Shared Calendar");
+		info("Add Calendar");
 		addCalendar(calendar,calendar,"red");
+		info("Share Calendar");
 		shareCalendar(calendar,user,canEdit);
+
+		info("Confirm shared Calendar");
 		acc.signOut();
 		acc.signIn(DATA_USER2,DATA_PASS);
 		goToCalendarPage();
-
-		deleteSharedCalendar(calendar);
+		driver.navigate().refresh();
+		waitForAndGetElement(ELEMENT_CALENDAR_GET_BY_TAG_LI.replace("${calendar}",calendar));
+		
+		info("Delete shared Calendar");
 		acc.signOut();
 		acc.signIn(DATA_USER1,DATA_PASS);
 		goToCalendarPage();
-		deleteCalendar(calendar);
+		driver.navigate().refresh();
+		deleteCalendar(calendar,true);
+		
+		
 	}
 
 	/**Edit Shared Calendar, 
