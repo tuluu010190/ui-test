@@ -488,7 +488,11 @@ public class Activity extends SocialBase {
 	public void waitForActivityPresent(String activityText, boolean isCurrentPosition){
 		info("-- Verify Activity "+activityText+"--");
 		if(!isCurrentPosition){
-			Locatable hoverItem = (Locatable) driver.findElement(By.xpath("//div[@class='TRContainer ClearFix']"));
+			Locatable hoverItem;
+			if(this.plfVersion.equals("4.0"))
+				hoverItem = (Locatable) driver.findElement(By.xpath("//div[@class='TRContainer ClearFix']"));
+			else
+				hoverItem = (Locatable) driver.findElement(By.xpath("//div[@class='TRContainer clearfix']"));
 			int y = hoverItem.getCoordinates().onPage().getY();
 			((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+y+");");
 		}
@@ -511,7 +515,11 @@ public class Activity extends SocialBase {
 	public void waitForActivityNotPresent(String activityText, boolean isCurrentPosition){
 		info("-- Verify Activity "+activityText+"--");
 		if(!isCurrentPosition){
-			Locatable hoverItem = (Locatable) driver.findElement(By.xpath("//div[@class='TRContainer ClearFix']"));
+			Locatable hoverItem;
+			if(this.plfVersion.equals("4.0"))
+				hoverItem = (Locatable) driver.findElement(By.xpath("//div[@class='TRContainer ClearFix']"));
+			else
+				hoverItem = (Locatable) driver.findElement(By.xpath("//div[@class='TRContainer clearfix']"));
 			int y = hoverItem.getCoordinates().onPage().getY();
 			((JavascriptExecutor)driver).executeScript("window.scrollBy(0,"+y+");");
 		}
