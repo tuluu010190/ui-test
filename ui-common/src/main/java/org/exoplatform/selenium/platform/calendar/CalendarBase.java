@@ -181,11 +181,11 @@ public class CalendarBase extends PlatformBase {
 	public String ELEMENT_BUTTON_VIEW_ACTIVE = "//li[@class='btn active']/a[text()='${view}']";
 	public String ELEMENT_BUTTON_MORE = "//*[@class='btn-group containerMoreItem']/*[@data-toggle='dropdown']";
 
-	public String EVENT_WEEK_VIEW = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${eventTitle}')]";
+	//public String EVENT_WEEK_VIEW = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${eventTitle}')]";
 	public String EVENT_DAY_VIEW = "//*[@id='UIDayView']//div[contains(text(),'${eventTitle}')]";
 	public String EVENT_MONTH_VIEW = "//*[@id='UIMonthView']//span[contains(text(),'${eventTitle}')]";
 	public String EVENT_LIST_VIEW = "//*[@id='UIListUsers']//span[contains(text(),'${eventTitle}')]";
-	public String EVENT_WORK_WEEK_VIEW = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${eventTitle}')]";
+//	public String EVENT_WORK_WEEK_VIEW = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${eventTitle}')]";
 
 	//----------------Group calendar---------------------------------
 	public String ELEMENT_GROUP_CAL = "//*[@id='UICalendars']//a[contains(text(),'${calName}')]";
@@ -327,6 +327,7 @@ public class CalendarBase extends PlatformBase {
 	 */
 	public void goToAddCalendar(){
 		click(ELEMENT_CALENDAR_ACTIONS_ICON);
+		Utils.pause(3000);
 		click(ELEMENT_CALENDAR_ADD_MENU);
 	}
 
