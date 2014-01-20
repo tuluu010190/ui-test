@@ -50,7 +50,7 @@ public class ManageMember extends SpaceManagement {
 	public final String ELEMENT_MEMBERS_TABLE = "//th[contains(text(),'Members')]/ancestor::table";
 	public final String ELEMENT_PENDING_TABLE = "//th[contains(text(),'Pending')]/ancestor::table";
 	public final String ELEMENT_INVITED_TABLE = "//th[contains(text(),'Invited')]/ancestor::table";
-	public final String ELEMENT_SELECTED_USER_BOX = "//span[@data-original-title='${username}']/../..//input[@class='checkbox']";
+	public final String ELEMENT_SELECTED_USER_BOX = "//span[text()='${username}']/../..//input[@class='checkbox']";
 	//Adapt to plf4.1.0
 	public final String ELEMENT_SELECTED_USER_BOX_PLF4_1 = "//span[@class='text' and contains(text(),'${username}')]/../..//input[@class='checkbox']";	
 	public final String ELEMENT_GRAND_MANAGER_BUTTON = ELEMENT_MEMBERS_TABLE + "/..//td[contains(text(),'${username}')]/..//*[@class='iPhoneCheckHandle']";
