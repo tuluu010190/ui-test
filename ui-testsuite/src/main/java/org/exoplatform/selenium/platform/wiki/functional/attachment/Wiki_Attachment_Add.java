@@ -46,30 +46,30 @@ public class Wiki_Attachment_Add extends BasicAction{
 	 * Verify result
 	 * * Click Cancel
 	 */
-	@Test
-	public  void test01_AttachAnImageForPage(){
+	  @Test
+      public void test01_AttachAnImageForPage(){
 
-		String DATA_WIKI_PAGE_NAME="Blank_Wiki_Page_With_Image1";
-		String DATA_WIKI_PAGE_CONTENT="Blank_Wiki_Page_With_Image_Content";
-		String ATTACHMENT_NAME="Winter.jpg";
-		String ATTACHMENT_PATH="TestData/"+ATTACHMENT_NAME;
-		By ATTACHMENT_FILE_LINK=By.xpath("//*[text()='"+ATTACHMENT_NAME+"']");
+              String DATA_WIKI_PAGE_NAME="Blank_Wiki_Page_With_Image1";
+              String DATA_WIKI_PAGE_CONTENT="Blank_Wiki_Page_With_Image_Content";
+              String ATTACHMENT_NAME="Winter.jpg";
+              String ATTACHMENT_PATH="TestData/"+ATTACHMENT_NAME;
+              By ATTACHMENT_FILE_LINK=By.xpath("//*[text()='"+ATTACHMENT_NAME+"']");
 
-		info("Attach one image for wiki page");
+              info("Attach one image for wiki page");
 
-		goToAddBlankPage();
+              goToAddBlankPage();
 
-		addWikiPageSourceEditor(DATA_WIKI_PAGE_NAME, DATA_WIKI_PAGE_CONTENT);
+              addWikiPageSourceEditor(DATA_WIKI_PAGE_NAME, DATA_WIKI_PAGE_CONTENT);
 
-		attachFileInWiki(ATTACHMENT_PATH, 2);
-		
-		waitForAndGetElement(ATTACHMENT_FILE_LINK);
+              attachFileInWiki(ATTACHMENT_PATH, 2);
+              
+              waitForAndGetElement(ATTACHMENT_FILE_LINK);
 
-		//click(ELEMENT_CANCEL_BUTTON);
-		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
-		waitForTextPresent(MESSAGE_CANCEL_CREATE_PAGE);
-		click(button.ELEMENT_OK_BUTTON);
-	}
+              //click(ELEMENT_CANCEL_BUTTON);
+              click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
+              waitForTextPresent(MESSAGE_CANCEL_CREATE_PAGE);
+              click(button.ELEMENT_OK_BUTTON);
+      }
 
 	/**
 	 * Qmetry Id: 69694

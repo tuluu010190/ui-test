@@ -111,6 +111,7 @@ public class WikiBase extends PlatformBase{
 	public By ELEMENT_UPLOAD_FILE = By.xpath("//div[@class='uiUploadInput']//*[@type='file']"); 
 	public final By ELEMENT_FRAME_UPLOAD=By.xpath("//div[@class='uiUploadInput']/iframe");
 	public final String ELEMENT_REMOVE_ATTACHMENT = "//a[text()='{$file}']/../../td/a/i[@class='uiIconDelete']";
+	public final String ELEMENT_ATTACHMENT_TITLE = "//*[@class='uiAttachmentUploadListForm clearfix']//*[text()='${fileName}']";
 
 	//Add page from template
 	public final String ELEMENT_SELECT_TEMPLATE_LINK = "//input[@value = '{$template}']";

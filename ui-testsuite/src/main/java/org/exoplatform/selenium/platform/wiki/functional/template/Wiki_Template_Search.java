@@ -46,6 +46,7 @@ public class Wiki_Template_Search extends Template{
 		String DATA_TEMPLATE_TITLE="Search_Template_01";
 		String DATA_TEMPLATE_DESC="This is New Template 01";
 		String DATA_TEMPLATE_CONTENT="Content of New Template 01";
+		
 
 		info("Search template when the key is matched");
 
@@ -56,7 +57,15 @@ public class Wiki_Template_Search extends Template{
 		searchTemplate(DATA_TEMPLATE_TITLE);
 
 		waitForAndGetElement(ELEMENT_NEW_TEMPLATE_LINK.replace("${TEMPLATE_TITLE}", DATA_TEMPLATE_TITLE));
+		
+		magAc.signOut();
 
+		magAc.signIn("john", "gtn"); 
+
+		goToWiki();
+		goToTemplateManagement();
+
+		
 		deleteTemplate(DATA_TEMPLATE_TITLE);
 	}
 
@@ -75,6 +84,7 @@ public class Wiki_Template_Search extends Template{
 		String DATA_TEMPLATE_DESC="This is New Template 02";
 		String DATA_TEMPLATE_CONTENT="Content of New Template 02";
 		String DATA_SEARCH_KEY_WORD="Search_Template_0222";
+		String DATA_SEARCH_KEY_BLANK="";
 
 		info("Search template when the key is matched");
 
@@ -87,13 +97,7 @@ public class Wiki_Template_Search extends Template{
 		searchTemplate(DATA_SEARCH_KEY_WORD);
 
 		waitForAndGetElement(By.xpath(ELEMENT_EMPTY_DATA));
-
-		magAc.signOut();
-
-		magAc.signIn("john", "gtn"); 
-
-		goToWiki();
-
+		searchTemplate(DATA_SEARCH_KEY_BLANK);
 		deleteTemplate(DATA_TEMPLATE_TITLE);
 	}
 
