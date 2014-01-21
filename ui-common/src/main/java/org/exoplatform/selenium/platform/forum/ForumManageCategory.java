@@ -24,7 +24,7 @@ public class ForumManageCategory extends ForumBase {
 
 	ForumPermission frumPer;
 	ManageAccount account;
-
+	ManageAlert magAlert;
 	public ForumManageCategory(WebDriver dr,String...plfVersion){
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
 		driver = dr;
@@ -33,6 +33,7 @@ public class ForumManageCategory extends ForumBase {
 		alert = new ManageAlert(driver,this.plfVersion);
 		per = new PlatformPermission(driver,this.plfVersion);
 		account = new ManageAccount(driver,this.plfVersion);
+		magAlert = new ManageAlert(dr, plfVersion);
 	}
 
 	//------------category home screen----------------------------------------------------------------------
