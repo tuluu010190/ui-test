@@ -21,7 +21,7 @@ import org.openqa.selenium.WebElement;
  */
 public class WikiBase extends PlatformBase{
 
-	ManageAccount magAcc = new ManageAccount(driver);
+	ManageAccount magAcc = new ManageAccount(driver,this.plfVersion);
 	UserGroupManagement userGroup = new UserGroupManagement(driver);
 	Button button = new Button(driver);
 	ManageMember magMember = new ManageMember(driver);
@@ -335,7 +335,7 @@ public class WikiBase extends PlatformBase{
 	 * 			an element path indicates how to access wiki page (eg, "Wiki home/WikiTest")
 	 */
 	public void goToWikiPage(String wikiPath, ManageAccount.userType... user){
-		magAcc = new ManageAccount(driver);		
+		magAcc = new ManageAccount(driver,this.plfVersion);
 		ManageAccount.userType usr = (ManageAccount.userType) (user.length > 0 ? user[0] : null);
 
 		if (usr != null){
@@ -480,7 +480,7 @@ public class WikiBase extends PlatformBase{
 	 * 				optional parameter of this method
 	 */
 	public void goToPageInfo(Object... optional){
-		magAcc = new ManageAccount(driver);
+		magAcc = new ManageAccount(driver,this.plfVersion);
 		ManageAccount.userType usr = (ManageAccount.userType) (optional.length > 0 ? optional[0] : null);
 		String path = (String) (optional.length > 1 ? optional[1] : "");
 		if (usr != null){
