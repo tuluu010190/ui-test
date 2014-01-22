@@ -80,6 +80,7 @@ public class WikiBase extends PlatformBase{
 	//Space Switcher
 	public final By ELEMENT_SPACE_SWITCHER_BREADCRUMB = By.id("DisplayModesDropDown");
 	public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText lostFocus']") ;
+	public final By ELEMENT_SPACE_SWITCHER_INPUT_FOCUS = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText focus']") ;
 	public final By ELEMENT_SPACE_SWITCHER_PLACEHOLDER = By.xpath("//*[contains(text(),'Filter Spaces')]");
 
 	/*------------------add/edit wiki page---------------------*/

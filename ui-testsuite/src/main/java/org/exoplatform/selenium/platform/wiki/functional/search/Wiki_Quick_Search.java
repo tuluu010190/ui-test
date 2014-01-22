@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform.wiki.functional.search;
 
+
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;

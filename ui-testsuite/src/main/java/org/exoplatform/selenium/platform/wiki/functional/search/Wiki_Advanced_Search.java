@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform.wiki.functional.search;
 
+
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -37,7 +38,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 
 		addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
 
-		advancedSearch(PAGE_NAME1, "intranet");
+		advancedSearch(PAGE_NAME1, "Intranet");
 
 		click(ELEMENT_PAGE1);
 
@@ -57,7 +58,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 
 		addBlankWikiPage(PAGE_NAME1, PAGE_NAME1, 0);
 
-		advancedSearch("bbb", "intranet");
+		advancedSearch("bbb", "Intranet");
 
 		//waitForTextPresent(ELEMENT_VERIFY_MESSAGE);
 		waitForAndGetElement(ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", "bbb"), DEFAULT_TIMEOUT, 1, 2);
@@ -94,7 +95,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 
 		goToWiki();
 
-		advancedSearch(PAGE_NAME1, "intranet");
+		advancedSearch(PAGE_NAME1, "Intranet");
 
 		//waitForTextPresent(ELEMENT_VERIFY_MESSAGE);
 		waitForAndGetElement(ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", PAGE_NAME1), DEFAULT_TIMEOUT, 1, 2);
