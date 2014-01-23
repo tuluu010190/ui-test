@@ -22,6 +22,7 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_EDIT_MENU_ID = By.xpath("//*[@id='UIAdminToolbarPortlet']/../..");
 	public final By ELEMENT_SEO_MENU = By.xpath("//span[contains(text(),'SEO')]");
 	public final By ELEMENT_PAGE_ID = By.xpath("//*[contains(@id, 'UIPage-')]");
+	public final By ELEMENT_ADD_PAGE_MENU = By.xpath("//a[contains(text(),'Add Page')]");
 
 	public NavigationToolbar(WebDriver dr, String...plfVersion){
 		driver = dr;
@@ -351,7 +352,11 @@ public class NavigationToolbar extends PlatformBase {
 	//Go to Page Creation Wizard
 	public void goToPageCreationWizard(){
 		info("Go to add page wizard");
+		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
+		click(ELEMENT_ADD_PAGE_MENU);
 		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'PageCreationWizard', true));");
+		
 		//waitForTextPresent("Page Creation Wizard");
 		Utils.pause(500);
 	}

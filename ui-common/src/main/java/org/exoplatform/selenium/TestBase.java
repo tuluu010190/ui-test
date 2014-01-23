@@ -764,7 +764,7 @@ public class TestBase {
 		if (new File(pathFile).isFile()){
 			found = true;
 		}
-		info("File exists: " + found);
+		info("File exists: " + file + " is " + found);
 		return found;
 	}
 
