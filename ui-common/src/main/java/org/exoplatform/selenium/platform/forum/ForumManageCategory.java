@@ -250,9 +250,9 @@ public class ForumManageCategory extends ForumBase {
 			click(ELEMENT_DELETE_CATEGORY);
 			click(ELEMENT_OK_DELETE_CATEGORY);
 		}
-		else if (plfVersion =="4.1"){
+		else{// if (plfVersion =="4.1"){
 			click (ELEMENT_DELETE_CATEGORY_PLF4_1);
-			alert.acceptAlert();
+			click(ELEMENT_OK_DELETE_CATEGORY);
 		}		
 		if(check == true){
 			//waitForTextNotPresent(title);
