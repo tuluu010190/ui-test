@@ -87,20 +87,20 @@ public class PlatformBase extends TestBase {
 	//By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
 
 	//Page
-//	public final By ELEMENT_MENU_PAGE_LINK = By.xpath("//li[@class='dropdown-submenu']/a[contains(text(),'Page')]");
-//	public final By ELEMENT_MENU_EDIT_LAYOUT = By.xpath("//a[contains(text(),'Edit Layout')]");
-//	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[text()='SEO']");
-//	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.xpath("//a[contains(text(),'Add Page')]");
-//	
+	//	public final By ELEMENT_MENU_PAGE_LINK = By.xpath("//li[@class='dropdown-submenu']/a[contains(text(),'Page')]");
+	//	public final By ELEMENT_MENU_EDIT_LAYOUT = By.xpath("//a[contains(text(),'Edit Layout')]");
+	//	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[text()='SEO']");
+	//	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.xpath("//a[contains(text(),'Add Page')]");
+	//	
 	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
 	public final By ELEMENT_MENU_SEO_LINK = By.linkText("SEO");
 	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
-	
+
 	//Add page
 	public final By ELEMENT_PAGE_NAME = By.id("pageName");
-	
-	
+
+
 	//site
 	public final By ELEMENT_MENU_EDIT_SITES = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Site')]");
 	public final By ELEMENT_MENU_EDIT_SITES_NAV = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Navigation')]");
@@ -225,15 +225,15 @@ public class PlatformBase extends TestBase {
 	/*
 	 * Context menu
 	 * */
-//	public final By ELEMENT_CUT_NODE = By.className("uiIconEcmsCut");
+	//	public final By ELEMENT_CUT_NODE = By.className("uiIconEcmsCut");
 	public final By ELEMENT_CUT_NODE = By.className("uiIconCutNode");
 	public final By ELEMENT_ECMS_CUT_NODE = By.className("uiIconEcmsCut");
 	//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsCut']"); 
-//	public final By ELEMENT_PASTE_NODE = By.className("uiIconEcmsPaste");
+	//	public final By ELEMENT_PASTE_NODE = By.className("uiIconEcmsPaste");
 	public final By ELEMENT_PASTE_NODE = By.className("uiIconPasteNode");
 	public final By ELEMENT_ECMS_PASTE_NODE = By.className("uiIconEcmsPaste");
 	//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsPaste']"); 
-//	public final By ELEMENT_COPY_NODE = By.className("uiIconEcmsCopy");
+	//	public final By ELEMENT_COPY_NODE = By.className("uiIconEcmsCopy");
 	public final By ELEMENT_COPY_NODE = By.className("uiIconCopyNode");
 	public final By ELEMENT_ECMS_COPY_NODE = By.className("uiIconEcmsCopy");
 	//By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsCopy']"); 
@@ -252,7 +252,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//form[@id='UISearchForm']/div[2]/a";
 	public final String ELEMENT_USER_EDIT_ICON = "//*[@id='UIListUsersGird']//*[text()='${username}']/../..//*[@data-original-title='Edit User Info']";
 	public final By ELEMENET_USER_MANAGEMENT_GRID = By.id("UIListUsersGird");
-	
+
 	public String USER_REG_SAME_ACC_FAIL_MSG = "//span[@class='errorIcon' and contains(text(),'This user name already exists, please enter a different name.')]";
 	public String USER_REG_UPPER_LETTER_FAIL_MSG = "//span[@class='warningIcon' and contains(text(),'nly lowercase letters, digits, dot and underscore characters are allowed for the field')]";
 	public String USER_REG_COPYPASTE_PASSWORD_FAIL_MSG = "//span[@class='errorIcon' and contains(text(),'Password and Confirm Password must be the same.')]";
@@ -274,7 +274,7 @@ public class PlatformBase extends TestBase {
 
 	//Group Management tree
 	public String ELEMENT_GROUP_TREE = "//div[@class='groupNavigationContainer']//a[@title='${groupName}']";
-	
+
 	//Add Group Form
 	public final By ELEMENT_INPUT_GROUP_NAME = By.name("name");
 	public final By ELEMENT_INPUT_GROUP_NAME_2 = By.name("groupName");
@@ -282,7 +282,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_INPUT_LABEL_1 = By.xpath("//*[contains(@id, 'Label')]");
 	public final String ELEMENT_TEXTAREA_DESCRIPTION = "//textarea[@id='description']";
 
-//	public final By ELEMENT_GROUP_SEARCH_USER_ICON = By.xpath("//form[@id='UIGroupMembershipForm']//*[contains(@class, 'uiIconSearch')]");
+	//	public final By ELEMENT_GROUP_SEARCH_USER_ICON = By.xpath("//form[@id='UIGroupMembershipForm']//*[contains(@class, 'uiIconSearch')]");
 	public final By ELEMENT_GROUP_SEARCH_USER_ICON = By.xpath("//*[@id='UIGroupMembershipForm']//a[@data-original-title='Select User']");
 	public final By ELEMENT_GROUP_SEARCH_USER_SEARCH_INPUT = By.xpath("//input[@name='Quick Search']"); //don't change to By.id because there is a space
 	public final By ELEMENT_GROUP_SEARCH_USER_SEARCH_ICON = By.xpath("//*[@id='UIUserSelector']//a[@data-original-title='Quick Search']");
@@ -292,7 +292,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_GROUP_SEARCH_POPUP_ADD_ICON = "//form[@id='UIUserSelector']//div[@class='UIAction']//a[@class='ActionButton LightBlueStyle']";
 	public final String ELEMENT_SELECT_MEMBERSHIP = "//select[@name='membership']";
 	public final String ELEMENT_GROUP_USER_IN_TABLE = "//*[@class='UIUserInGroup']//*[text()='${username}']";
-//	public final String ELEMENT_GROUP_USER_IN_TABLE = "//*[@id='UIListUsers']//span[@data-original-title='fqa']";
+	//	public final String ELEMENT_GROUP_USER_IN_TABLE = "//*[@id='UIListUsers']//span[@data-original-title='fqa']";
 
 	//Membership Management
 	public final By ELEMENT_TAB_MEMBERSHIP_MANAGEMENT = By.xpath("//*[contains(@class, 'uiIconMembership')]/parent::a");
@@ -344,7 +344,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_PAGE_LAYOUT_SETTING_COMBOBOX_OPTION = "//*[@id='UIDropDownPageTemp']/ul[@class='dropdown-menu']/li/a[text()='${PageConfigOpt}']";
 	public final By ELEMENT_PAGE_LAYOUT_OPTION_EMPTY = By.xpath("//*[@id='UIPageTemplateOptions']//a[contains(text(),'Empty Layout')]");
 	public final By ELEMENT_PAGE_LAYOUT_OPTION_DASHBOARD = By.xpath("//*[@id='UIPageTemplateOptions']//a[contains(text(),'Dashboard Layout')]");
-	
+
 	//Permission Setting TAB
 	public final By ELEMENT_PERMISSION_SETTING_TAB= By.linkText("Permission Settings");
 	public final By ELEMENT_CHECKBOX_PUBLIC_MODE = By.id("publicMode");
@@ -360,7 +360,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//*[@id='ListPermissionSelector']//a[@title='${group}']";
 	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = "//*[@id='UIPermissionSelector']//*[contains(text(), '${group}')]";
 	public final By ELEMENT_PERMISSION_GRID = By.id("PermissionGrid");
-	
+
 	//Portal Template TAB
 	public final By ELEMENT_PORTAL_TEMPLATE_TAB= By.linkText("Portal Templates");
 
@@ -396,13 +396,13 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_PORTLET_LABEL = "//div[@class='CPortletLayoutDecorator' and contains(text(), '${portletName}')]";	
 	public final String ELEMENT_PAGE_FINISH_BUTTON = "//*[@data-original-title='Finish']";
 	public final By ELEMENT_PAGE_CLOSE = By.xpath("//a[@title='Abort']");
-	
+
 	public final By ELEMENT_SWITCH_VIEW_MODE = By.linkText("Switch View mode");
 	public final String ELEMENT_PAGE_COLUMN = "//tr[@class='TRContainer']//td['${index}']";
 	public final By ELEMENT_VIEW_PAGE_PROPERTIES = By.linkText("View Page properties");
-	
+
 	public final By ELEMENT_PAGE_EXIST_WARNING_MSG = By.xpath("//*[contains(text(),'This page name already exists')]");
-	
+
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
@@ -531,14 +531,14 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_NAME_CURRENT_CONTAINER = "//*[text()='${nameContainer}']/ancestor::div[contains(@class, 'EdittingContainer')]";
 	public final String ELEMENT_DRAG_CURRENT_CONTAINER = "//*[text()='${nameContainer}']/../*[@title='Hold this area to drag this container']";
 	public final String ELEMENT_LIST_CONTAINER = "//*[@class='UIRowContainer']/div[${number}]//*[contains(text(), '${nameContainer}')]";
-	
+
 	//Porlet setting
 	public final By ELEMENT_PORLET_SETTING_TAB = By.xpath("//*[text()='Portlet Setting']");
 	public final By ELEMENT_EDIT_MODE_TAB = By.xpath("//*[text()='Edit Mode']");
 	public final By ELEMENT_SELECT_ICON_TAB = By.xpath("//*[text()='Select Icon']");
 	public final By ELEMENT_DECORATION_THEMES_TAB = By.xpath("//*[text()='Decoration Themes']");
 	public final By ELEMENT_ACCESS_PERMISSION_TAB = By.xpath("//*[text()='Access Permission']");
-	
+
 	public final By ELEMENT_ACCESS_PERMISSION_MAKEITPUBLIC = By.id("publicMode");
 
 	/*
@@ -559,7 +559,7 @@ public class PlatformBase extends TestBase {
 	//Edit portlet Form
 	public final By ELEMENT_WINDOW_SETTINGS_TAB = By.xpath("//div[@id='UIMaskWorkspace']//div[text()='Window Settings']");
 	public final By ELEMENT_WINDOWS_TITLE = By.xpath("//*[@id='title']");
-	
+
 	public final By ELEMENT_PORTLET_ACCESS_PERMISSION_TAB = By.xpath("//*[@id='tab-UIPortletForm']//a[@data-target='#PortletPermission-tab']");
 	public final By ELEMENT_PORTLET_ADD_PERMISSION_BUTTON = By.xpath("//*[@id='PortletPermissionSelector']//a[contains(text(),'Add Permission')]");
 	public final By ELEMENT_PORTLET_LIST_PERMISSION_WINDOW = By.xpath("//*[@id='PortletPermissionSelectorPopup']//span[contains(text(),'ListPermissionSelector')]");
@@ -698,7 +698,7 @@ public class PlatformBase extends TestBase {
 	//public final By ELEMENT_MENU_USERS = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/newStaff' and text()='Users']");
 	//public final By ELEMENT_MENU_APPLICATONS = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/registry']");
 	//public final By ELEMENT_MENU_CONTENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:web-contributors/siteExplorer' and text()='Content']");
-//	public final By ELEMENT_MENU_PORTAL = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/pageManagement' and text()='Portal']");
+	//	public final By ELEMENT_MENU_PORTAL = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/pageManagement' and text()='Portal']");
 	public final By ELEMENT_MENU_PORTAL = By.linkText("Portal");
 	public final By ELEMENT_MENU_PORTAL_PAGES_MANAGEMENT = By.linkText("Pages");
 	public final By ELEMENT_MENU_ADMININISTRATION = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/servicesManagement' and text()='Administration']");
@@ -1107,9 +1107,9 @@ public class PlatformBase extends TestBase {
 
 	//Function to add data to frame
 	public void inputDataToFrame(By framelocator, String data, boolean...validate){
+		boolean isValid = validate.length > 0 ? validate[0] : false;
 		try {
 			WebElement inputsummary = null;
-
 			for (int repeat = 0;; repeat++) {
 				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 					Assert.fail("Fail to input data to frame " + framelocator);
@@ -1119,21 +1119,14 @@ public class PlatformBase extends TestBase {
 				inputsummary = driver.switchTo().activeElement();
 				inputsummary.click();
 				inputsummary.clear();
-
-				if (validate.length >0)
-					if (validate[0]){
-						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
-						if (data.equals(inputsummary.getText())) break;
-					}
-					else{
-						inputsummary.sendKeys(data);
+				((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
+				if (isValid){
+					if (data.equals(inputsummary.getText())) 
 						break;
-					}
-				else {
-					inputsummary.sendKeys(data);
-					if (data.equals(inputsummary.getText())) break;
 				}
-
+				else{
+					break;
+				}
 				switchToParentWindow();
 			}
 		} catch (StaleElementReferenceException e) {
@@ -1219,7 +1212,7 @@ public class PlatformBase extends TestBase {
 		String[] lines = content.split("/");
 
 		if (lines.length > 0){
-			
+
 			WebElement e = waitForAndGetElement(cke_frame,DEFAULT_TIMEOUT,1,2);
 			driver.switchTo().frame(e);
 			inputsummary = driver.switchTo().activeElement();
@@ -1308,26 +1301,26 @@ public class PlatformBase extends TestBase {
 		String [] paths = folderPath.split("/");
 		for (String path : paths)
 			click(By.linkText(path));
-				if(newFolder!=""){
-					click(ELEMENT_CREATE_FOLDER_BUTTON);
-					alert.inputAlertText(newFolder);
-					click(By.linkText(newFolder));
-				}
-				if (upload)
-				{
-					info("-- Upload file --");
-					WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
-					driver.switchTo().frame(frame);
-					WebElement upload2 = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
-					((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);
-					upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
-					info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
-					switchToParentWindow();
-					waitForAndGetElement(By.linkText(uploadFileName));
-				}
-				button.cancel();
-				Utils.pause(1000);
-				waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);	
+		if(newFolder!=""){
+			click(ELEMENT_CREATE_FOLDER_BUTTON);
+			alert.inputAlertText(newFolder);
+			click(By.linkText(newFolder));
+		}
+		if (upload)
+		{
+			info("-- Upload file --");
+			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
+			driver.switchTo().frame(frame);
+			WebElement upload2 = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);
+			upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
+			info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
+			switchToParentWindow();
+			waitForAndGetElement(By.linkText(uploadFileName));
+		}
+		button.cancel();
+		Utils.pause(1000);
+		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);	
 	}
 
 	/** Switch to new browser window
@@ -1380,7 +1373,7 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-/*	*//**
+	/*	*//**
 	 * function to restart browser
 	 * @param 
 	 * @return
