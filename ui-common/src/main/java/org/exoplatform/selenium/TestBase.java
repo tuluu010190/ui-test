@@ -735,6 +735,7 @@ public class TestBase {
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		action = new Actions(driver);
 		termsAndConditions();
+		checkPLFVersion();
 	}
 
 	/**function set driver to auto open new window when click link

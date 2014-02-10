@@ -246,16 +246,18 @@ public class ForumManageCategory extends ForumBase {
 
 		click(ELEMENT_MANAGE_CATEGORY);
 		info("Delete category");
-		if(plfVersion =="4.0"){
-			click(ELEMENT_DELETE_CATEGORY);
-			click(ELEMENT_OK_DELETE_CATEGORY);
-		}
-		else{// if (plfVersion =="4.1"){
+		if(plfVersion =="4.1"){
 			click (ELEMENT_DELETE_CATEGORY_PLF4_1);
+			//click(ELEMENT_OK_DELETE_CATEGORY);
+			alert.acceptAlert();
+		}
+		else{// if (plfVersion =="4.0"){
+			click(ELEMENT_DELETE_CATEGORY);
 			click(ELEMENT_OK_DELETE_CATEGORY);
 		}		
 		if(check == true){
 			//waitForTextNotPresent(title);
+			alert.acceptAlert();
 			waitForElementNotPresent(By.linkText(title));
 		}
 		info("Delete category successfully");
@@ -277,10 +279,19 @@ public class ForumManageCategory extends ForumBase {
 		String[] links = file.split("/");
 		waitForAndGetElement("//*[contains(text(),'" + links[links.length-1] + "')]", DEFAULT_TIMEOUT, 1, 2);
 		button.save();
-		waitForMessage(MSG_IMPORT_CATEGORY);
-		info("Import file " + file + "successfully");
-		click(ELEMENT_OK_INFOR_POPUP);
-		Utils.pause(1000);
+		//click(ELEMENT_ADMINISTRATION);
+		//click(ELEMENT_IMPORT);
+		if(plfVersion =="4.0"){
+			waitForMessage(MSG_IMPORT_CATEGORY);
+			
+			info("Import file " + file + "successfully");
+			click(ELEMENT_OK_INFOR_POPUP);
+			Utils.pause(1000);
+		}
+		else{// if (plfVersion =="4.1"){
+			info("Import file " + file + "successfully");
+		}		
+	
 	}
 
 	/** function: export a category
