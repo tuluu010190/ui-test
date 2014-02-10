@@ -425,7 +425,7 @@ public class TestBase {
 		} finally {
 			loopCount = 0;
 		}
-		Utils.pause(300);
+		Utils.pause(500);
 	}
 
 	public void clearCache(){
