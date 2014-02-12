@@ -34,10 +34,10 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		initSeleniumTest();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
-		mngFru = new ForumManageForum(driver);
+		mngFru = new ForumManageForum(driver,this.plfVersion);
 		mngCat = new ForumManageCategory(driver);
-		mngPost = new ForumManagePost(driver);
-		mngTopic = new ForumManageTopic(driver);
+		mngPost = new ForumManagePost(driver,this.plfVersion);
+		mngTopic = new ForumManageTopic(driver,this.plfVersion);
 		hpgAct = new HomePageActivity(driver);
 		navTool = new NavigationToolbar(driver);
 		
@@ -138,7 +138,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		//create category, forum, topic
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,descTop);
 		click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
-		mngTopic.editTopic(newTopic, descTop, "",  0, userGroup,false,false,false);
+		mngTopic.editTopic(newTopic, "", "",  0, userGroup,false,false,false);
 			
 		navTool.goToHomePage();
 		waitForAndGetElement(By.linkText(newTopic));
@@ -160,7 +160,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 		String titleForum = "Forum 04";
 		String titleTop = "Topic 04";
 		String descTop = "line1<br>line2<br>line3<br>line4<br>line5";
-		String newDesc = "New line1<br>line2<br>line3<br>line4<br>line5<br>line6";
+		String newDesc = "New<br>";
 		String[] userGroup ={};
 		
 		info("Update topic title");
@@ -171,7 +171,7 @@ public class Forum_Forum_PublishActivity_TopicActivity extends ForumBase{
 			
 		navTool.goToHomePage();
 		waitForAndGetElement(By.linkText(titleTop));
-		hpgAct.checkUpdateTopic(titleTop, newDesc);
+		hpgAct.checkUpdateTopic(titleTop, newDesc + descTop);
 		
 		//Delete data
 		goToForums();
