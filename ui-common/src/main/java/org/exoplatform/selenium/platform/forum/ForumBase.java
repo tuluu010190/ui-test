@@ -238,6 +238,9 @@ public class ForumBase extends PlatformBase {
 	public final String ELEMENT_MY_SUBSCRIPTION_OBJECT_WATCH = "//div[@id='UIForumUserSettingForm']//a[contains(text(),'${object}')]" ;
 	public final String ELEMENT_RSS_TOPIC_LINK = "//xhtml:span[text()='${topic}']";
 	
+	public final By ELEMENT_MY_SUBSCRIPTION_NEXT_PAGE = By.xpath("//div[@id='ForumUserWatches-tab']//*[@data-original-title='Next Page']");
+	public final By ELEMENT_MY_SUBSCRIPTION_TOTAL_PAGE = By.xpath("//div[@id='ForumUserWatches-tab']//span[@class='pagesTotalNumber']");
+
 	//---------------------Notifications------------------
 	public final By ELEMENT_NOTIFICATION_LINK = By.xpath("//*[@id='Administrations']//*[@class='uiIconNotification']"); 
 	public final By ELEMENT_NOTIFY_FRAME=By.xpath("//*[@id='xEditingArea']/iframe");
@@ -1251,16 +1254,17 @@ public class ForumBase extends PlatformBase {
 	 * @param display: = true: check to display
 	 * 				   = false: uncheck
 	 */
-	public void selectDisplayCategoryAndForum(String itemName, boolean isCategory, boolean display){
+	public void selectDisplayCategoryAndForum(String itemName, boolean display){
 		button = new Button(driver);
-		if (!isCategory){
-			click("//*[contains(text(), '" + itemName + "')]/../..");
-			//click(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
-		}
+		String[] items = itemName.split("/");
+
+		click("//*[contains(text(), '" + items[0] + "')]/../..");
+		//click(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
+
 		if (display){
-			check(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
+			check(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", items[items.length-1]), 2);
 		}else {
-			uncheck(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", itemName), 2);
+			uncheck(ELEMENT_SELECT_DISPLAY_CHECKBOX.replace("${name}", items[items.length-1]), 2);
 		}
 		//button.save();
 		click(ELEMENT_FORUM_PORTLET_SAVE_BUTTON);
@@ -1490,4 +1494,27 @@ public class ForumBase extends PlatformBase {
 		waitForElementNotPresent(ELEMENT_PENDING_JOB_POPUP);
 		info("Approve a peding job successfully");
 	}
+
+	/**
+	 * Switch page to show Object on My subscription
+	 * @param object
+	 */
+	public void checkObjectOnMySubscriptionPresent(String object){
+
+		int page = 0;
+		if(waitForAndGetElement(ELEMENT_MY_SUBSCRIPTION_TOTAL_PAGE,5000,0) != null){
+			page = Integer.parseInt(waitForAndGetElement(ELEMENT_MY_SUBSCRIPTION_TOTAL_PAGE).getText());
+			for(int i = 1; i < page; i++){
+				if(waitForAndGetElement(ELEMENT_MY_SUBSCRIPTION_OBJECT_WATCH.replace("${object}", object),5000,0) == null){
+
+					if(waitForAndGetElement(ELEMENT_MY_SUBSCRIPTION_NEXT_PAGE,5000,0) != null){
+						click(ELEMENT_MY_SUBSCRIPTION_NEXT_PAGE);
+					}
+				}else break;
+			}
+		}
+		waitForAndGetElement(ELEMENT_MY_SUBSCRIPTION_OBJECT_WATCH.replace("${object}", object));
+
+	}
+
 }
