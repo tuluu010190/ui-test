@@ -18,10 +18,14 @@ public class HomePageGadget extends PlatformBase{
 	//-------Invitation Gadget --------
 	public By ELEMENT_INVITATION_GADGET = By.id("InvitationsPortlet");
 	public String ELEMENT_SHOW_CONNECTIONS_REQUEST_USER = "//div[@id='InvitationsPortlet']//div[@class='peopleInviteName']//div[text()='${nameinvitation}']";
+	public String ELEMENT_INVITATION_GADGET_USER_41 = "//div[@id='InvitationsPortlet']//div[@class='peopleInviteName']//a[contains(text(),'${nameinvitation}')]";
+	public String ELEMENT_SHOW_CONNECTIONS_REQUEST_USER_PLF41="//div[@id='InvitationsPortlet']//div[@class='peopleInvitePicture pull-left avatarXSmall']//a[@href='/portal/intranet/profile/james']";
 	public String ELEMENT_SHOW_CONNECTIONS_REQUEST_SPACE= "//div[@id='InvitationsPortlet']//div[@class='spaceInviteInfo']//div[text()='${namespace}']";
 	public String ELEMENT_VERIFY_STATUS_SPACE = "//div[@id='InvitationsPortlet']//div[@class='spaceInviteInfo']//div[text()='${namespace}']/../div[@class='spaceproperties']/div[@class='spacevisibility' and contains(text(),'${statusspace}')]";
 	public String ELEMENT_SHOW_ACCEPTS_BUTTON = "//div[@id='InvitationsPortlet']//div[@class='peopleInviteInfo']//div[text()='${peopleName}']/..//a[text()='Accept']";
+	public String ELEMENT_INVITATION_GADGET_USER_ACCEPT_41 = "//div[@id='InvitationsPortlet']//div[@class='peopleInviteInfo']//a[text()='${peopleName}']/../..//a[contains(text(),'Accept')]";
 	public String ELEMENT_REMOVE_INVITATION_BUTTON = "//div[@id='InvitationsPortlet']//div[@class='peopleInviteInfo']//div[text()='${peopleName}']/..//i[@class='uiIconClose']";
+	public String ELEMENT_REMOVE_INVITATION_BUTTON_41 = "//div[@id='InvitationsPortlet']//div[@class='peopleInviteInfo']//a[text()='${peopleName}']/../..//i[@class='uiIconClose']";
 	public String ELEMENT_TITLE_OF_GAGDET = "//div[@id='InvitationsPortlet']/..//span[text()='${number}']";
 	public By ELEMENT_PROFILE_PICTURE_GADGET = By.xpath("//div[@class='peopleInvitePicture pull-left avatarXSmall']");
 	public String ELEMENT_SPACE_ACCEPT_BUTTON = "//div[@id='InvitationsPortlet']//div[@class='spaceInviteInfo']//div[text()='${namespace}']/..//a[text()='Accept']";
@@ -116,11 +120,16 @@ public class HomePageGadget extends PlatformBase{
 	 */
 	public void acceptInvitationGadget(String peopleName) {
 		info("-- Accept an invitation --");
-		mouseOver(ELEMENT_SHOW_ACCEPTS_BUTTON.replace("${peopleName}", peopleName),true);
-		WebElement element = waitForAndGetElement(ELEMENT_SHOW_ACCEPTS_BUTTON.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT,1,2);
+		String elementAccept = "";
+		if(this.plfVersion.equalsIgnoreCase("4.0"))
+			elementAccept = ELEMENT_SHOW_ACCEPTS_BUTTON;
+		else
+			elementAccept = ELEMENT_INVITATION_GADGET_USER_ACCEPT_41;
+		mouseOver(elementAccept.replace("${peopleName}", peopleName),true);
+		WebElement element = waitForAndGetElement(elementAccept.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		//click(SHOW_ACCETPS_BUTTON.replace("${peopleName}", peopleName));
-		waitForElementNotPresent(ELEMENT_SHOW_ACCEPTS_BUTTON.replace("${peopleName}", peopleName));
+		waitForElementNotPresent(elementAccept.replace("${peopleName}", peopleName));
 		//waitForAndGetElement(REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName));
 	}
 
@@ -130,11 +139,16 @@ public class HomePageGadget extends PlatformBase{
 	 */
 	public void removeInvitationGadget(String peopleName){
 		info("-- Remove an invitation --");
+		String eRemove = "";
+		if(this.plfVersion.equalsIgnoreCase("4.0"))
+			eRemove = ELEMENT_REMOVE_INVITATION_BUTTON;
+		else
+			eRemove = ELEMENT_REMOVE_INVITATION_BUTTON_41;
 		//mouseOver(REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName),true);
-		WebElement element = waitForAndGetElement(ELEMENT_REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT,1,2);
+		WebElement element = waitForAndGetElement(eRemove.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		//click(REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName));
-		waitForElementNotPresent(ELEMENT_REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName));
+		waitForElementNotPresent(eRemove.replace("${peopleName}", peopleName));
 	}
 
 
@@ -168,8 +182,8 @@ public class HomePageGadget extends PlatformBase{
 	 * @param peopleName
 	 */
 	public void connectSpaceSuggestionsGadget(String spaceName) {
-		info("-- Connect Suggestions user --");
-		mouseOver(ELEMENT_VERIFY_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName),true);
+		info("-- Connect Suggestions user --"); 
+//		mouseOver(ELEMENT_VERIFY_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName),true);
 		WebElement element = waitForAndGetElement(ELEMENT_REQUEST_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName), DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		waitForElementNotPresent(ELEMENT_REQUEST_SPACE_SUGGESTIONS.replace("${spaceName}", spaceName));
