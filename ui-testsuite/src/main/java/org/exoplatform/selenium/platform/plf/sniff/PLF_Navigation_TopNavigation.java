@@ -49,10 +49,10 @@ public class PLF_Navigation_TopNavigation extends BasicAction {
 		info("Login with " + DATA_USER1);
 		magAcc = new ManageAccount(driver, this.plfVersion);
 		naviToolbar = new NavigationToolbar(driver, this.plfVersion);
-		peoPro = new PeopleProfile(driver);
-		evt = new Event(driver);
+		peoPro = new PeopleProfile(driver, this.plfVersion);
+		evt = new Event(driver, this.plfVersion);
 		mngTopic = new ForumManageTopic(driver, this.plfVersion);
-		mngPoll = new ForumManagePoll(driver);
+		mngPoll = new ForumManagePoll(driver, this.plfVersion);
 		mngCat = new ForumManageCategory(driver, this.plfVersion);
 		mngFru = new ForumManageForum(driver, this.plfVersion);
 		actBar = new ActionBar(driver, this.plfVersion);

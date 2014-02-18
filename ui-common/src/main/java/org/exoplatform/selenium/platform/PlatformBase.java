@@ -58,9 +58,11 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_FORUM_PAGE = By.className("uiIconUIForms");
 	public final By ELEMENT_CALENDAR_PAGE = By.className("uiIconPLFCalendar");
 	public final String ELEMENT_LEFT_NAVIGATION_ITEM_INDEX="//ul[@class='uiCompanyNavigations']//li[${index}]/a[text()='${menuItem}']";
+	public final String ELEMENT_LEFT_NAVIGATION_ITEM_INDEX_PLF41="//ul[@class='uiCompanyNavigations']//li[${index}]/a[@href='${menuItem}']";
 	public final By ELEMENT_SPACE_NAVIGATION = By.className("spaceNavigation");
 	public final String ELEMENT_SPACE_NAVIGATION_SPACE_ITEM = "//*[@class='spaceNavigation']//*[contains(text(),'${spaceName}')]";
 	public final String ELEMENT_SPACE_NAVIGATION_SPACE_ITEM_INDEX = "//*[@class='spaceNavigation']/li[${index}]/a[contains(text(),'${spaceName}')]";
+	public final String ELEMENT_SPACE_NAVIGATION_SPACE_ITEM_INDEX_PLF41 = "//*[@class='spaceNavigation']/li[${index}]/a[@class='spaceIcon avatarMini']/*[@data-original-title = '${spaceName}']";
 	public final By ELEMENT_LEFT_NAVIGATION_SEARCH_SPACE=By.xpath("//*[@id='UISpaceNavigationPortlet']//*[@value='Search Spaces']");
 
 	/*
@@ -1332,7 +1334,12 @@ public class PlatformBase extends TestBase {
 		for (String path : paths)
 			click(By.linkText(path));
 		if(newFolder!=""){
-			click(ELEMENT_CREATE_FOLDER_BUTTON);
+			if(plfVersion =="4.1"){
+			click(ELEMENT_CREATE_FOLDER_BUTTON_PLF41);
+			}
+			else{
+				click(ELEMENT_CREATE_FOLDER_BUTTON);
+			}
 			alert.inputAlertText(newFolder);
 			click(By.linkText(newFolder));
 		}
@@ -1351,6 +1358,7 @@ public class PlatformBase extends TestBase {
 		button.cancel();
 		Utils.pause(1000);
 		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);	
+		
 	}
 
 	/** Switch to new browser window
