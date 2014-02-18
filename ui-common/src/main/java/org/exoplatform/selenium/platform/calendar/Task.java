@@ -328,7 +328,10 @@ public class Task extends CalendarBase{
 		inputFromToTask(from, to, allDay);
 		click(ELEMENT_BUTTON_TASK_SAVE);
 		if(allDay)
-			waitForAndGetElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", name));
+			if(this.plfVersion.contains("4.0"))
+				waitForAndGetElement(ELEMENT_EVENT_TASK_ALL_DAY.replace("${event}", name));
+			else
+				waitForAndGetElement(ELEMENT_EVENT_TASK_ALL_DAY_PLF41.replace("${event}", name));
 		else
 			waitForAndGetElement(ELEMENT_EVENT_TASK_ONE_DAY.replace("${taskName}", name));
 
