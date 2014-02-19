@@ -49,12 +49,12 @@ public class Gatein_GlobalSetting extends PlatformBase {
 	 */
 	@Test
 	public void test01_ChangeUserProfile(){
-		String username = "userprofile1";
+		String username = getRandomString();
 		String password = "123456";
 		String firstName = "User";
 		String lastName = "Profile";
 		String displayName = "New User";
-		String email = "userprofile1@gmail.com";
+		String email = username + "@gmail.com";
 		
 		String newFirstName = "UserUpdate";
 		String newLastName = "ProfileUpdate";
