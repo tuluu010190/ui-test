@@ -330,7 +330,7 @@ public class UserGroupManagement extends PlatformBase {
 		boolean verifyMembership;
 		info("--Creating new membership--");
 		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
-
+		waitForAndGetElement(ELEMENT_INPUT_NAME);
 		type(ELEMENT_INPUT_NAME, membershipName, true);
 		type(ELEMENT_TEXTAREA_DESCRIPTION, membershipDesc, true);
 		button.save();

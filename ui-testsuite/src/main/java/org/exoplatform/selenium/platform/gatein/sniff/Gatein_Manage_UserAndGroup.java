@@ -27,10 +27,10 @@ public class Gatein_Manage_UserAndGroup extends PlatformBase{
 	public void setUpBeforeTest(){
 		initSeleniumTest();
 		driver.get(baseUrl);
-		magAc = new ManageAccount(driver);
-		navTool = new NavigationToolbar(driver);
-		user = new UserGroupManagement(driver);
-		but = new Button(driver);
+		magAc = new ManageAccount(driver, this.plfVersion);
+		navTool = new NavigationToolbar(driver, this.plfVersion);
+		user = new UserGroupManagement(driver, this.plfVersion);
+		but = new Button(driver, this.plfVersion);
 		dialog = new Dialog(driver);
 		
 		magAc.signIn("john", "gtn"); 
@@ -47,12 +47,12 @@ public class Gatein_Manage_UserAndGroup extends PlatformBase{
 	 */
 	@Test
 	public void test01_EditSearchDeleteUser(){
-		String username = "sniffmanageuser01";
-		String password = "123456";
-		String firstName = "Sniff";
-		String lastName = "Manage User";
-		String displayName = "New User";
-		String email = "sniffmanageuser01@gmail.com";
+		String username = getRandomString();
+		String password = username;
+		String firstName = username;
+		String lastName = username;
+		String displayName = username;
+		String email = username+"@gmail.com";
 		
 		String newFirstName = "UserUpdate";
 		String newLastName = "ProfileUpdate";
@@ -99,14 +99,14 @@ public class Gatein_Manage_UserAndGroup extends PlatformBase{
 		user.addGroup(groupName, groupLabel, groupDesc, true);
 		
 		info("Edit group");
-		user.editGroup(groupName, null, newLabel, newDesc, true);
+		user.editGroup(groupLabel, null, newLabel, newDesc, true);
 		
 		info("Add some user into group");
 		user.addUsersToGroup("mary", "member", true, true);
 		user.addUsersToGroup("demo", "manager", false, true);
 		
 		info("Delete group");
-		user.deleteGroup(groupName, true);
+		user.deleteGroup(groupLabel, true);
 	}
 	
 	/**CaseId: 68904 + 70415 + 70416 -> Add, edit, delete membership
