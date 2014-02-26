@@ -578,13 +578,14 @@ public class TestBase {
 	}
 
 	// Select option from combo box
-	public void select(Object locator, String option) {
+	public void select(Object locator, String option, int...display) {
+		int isDisplay = display.length > 0 ? display[0] : 1;
 		try {
 			for (int second = 0;; second++) {
 				if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 					Assert.fail("Timeout at select: " + option + " into " + locator);
 				}
-				Select select = new Select(waitForAndGetElement(locator));
+				Select select = new Select(waitForAndGetElement(locator,DEFAULT_TIMEOUT,1,isDisplay));
 				select.selectByVisibleText(option);
 				if (option.equals(select.getFirstSelectedOption().getText())) {
 					break;

@@ -51,7 +51,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_WEBCONTENT_UPLOAD_FRAME = By.xpath("//*[contains(@name,'uploadIFrame')]");
 	//public final By ELEMENT_WEBCONTENT_FILE_IMAGE = By.name("file");
 	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME = By.xpath("//td[@id='cke_contents_exo:summary']/iframe");
-	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME_41 = By.xpath("//div[contains(@id,'cke_htmlData')]//iframe");
+	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME_41 = By.xpath("//*[@id='cke_exo:summary']//iframe");
 	public final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.xpath("//*[contains(text(),'Advanced')]");
 	public final By ELEMENT_WEBCONTENT_CSS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentCSS')]");
 	public final By ELEMENT_WEBCONTENT_JS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentJS')]");
@@ -73,6 +73,7 @@ public class ContentTemplate extends EcmsBase{
 	public final By ELEMENT_HTML_FILE_CONTENT = By.id("contentHtml");
 	public final By ELEMENT_HTML_FILE_LANGUAGE = By.className("selectbox");
 	public final By ELEMENT_HTML_FILE_CKEDITOR_FRAME = By.xpath("//*[@class='cke_contents']/iframe");
+	public final By ELEMENT_HTML_FILE_CKEDITOR_FRAME_41 = By.xpath("//*[@id='cke_contentHtml']//iframe");
 	public final By ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY = By.tagName("body");
 	/*End Added*/
 	//Contact us document
@@ -119,6 +120,7 @@ public class ContentTemplate extends EcmsBase{
 	public final String ELEMENT_NEWFILE_TEXT_TAB_P_CSS = ".textContent>pre";
 	public final By ELEMENT_NEWFILE_MIME_COMBOX_ID = By.name("mimetype") ;
 	public final By ELEMENT_NEWFILE_TEXTAREA_ID = By.id("contentHtml") ;
+	public final By ELEMENT_NEWFILE_TEXTPLAIN = By.id("contentPlain") ;
 	public final String ELEMENT_NEWFILE_PRE_CSS = ".content>pre";	
 
 	//Picture on Head Layout
@@ -136,11 +138,11 @@ public class ContentTemplate extends EcmsBase{
 	//public final By ELEMENT_PRODUCT_TITLE_TEXTBOX = By.id("title");
 	public final By ELEMENT_PRODUCT_ILLUSTRATION = By.xpath("//input[@name='illustration']");
 	public final By ELEMENT_PRODUCT_SUMMARY_FRAME = By.xpath("//*[@id='cke_contents_summary']/iframe");
-	public final By ELEMENT_PRODUCT_SUMMARY_FRAME_41 = By.xpath("//*[@id='cke_summary']/iframe");
+	public final By ELEMENT_PRODUCT_SUMMARY_FRAME_41 = By.xpath("//*[@id='cke_summary']//iframe");
 	public final By ELEMENT_PRODUCT_BENEFIT_FRAME = By.xpath("//*[@id='cke_contents_productBenefits']/iframe");
-	public final By ELEMENT_PRODUCT_BENEFIT_FRAME_41 = By.xpath("//*[@id='cke_productBenefits']/iframe");
+	public final By ELEMENT_PRODUCT_BENEFIT_FRAME_41 = By.xpath("//*[@id='cke_productBenefits']//iframe");
 	public final By ELEMENT_PRODUCT_FEATURE_FRAME = By.xpath("//*[@id='cke_contents_productFeatures']/iframe");
-	public final By ELEMENT_PRODUCT_FEATURE_FRAME_41 = By.xpath("//*[@id='cke_productFeatures']/iframe");
+	public final By ELEMENT_PRODUCT_FEATURE_FRAME_41 = By.xpath("//*[@id='cke_productFeatures']//iframe");
 
 	public final By ELEMENT_FREE_CONT_ACCEPT = By.xpath("//form[contains(@id,'EditTextForm')]/a[2]");
 	public final By ELEMENT_FREE_CONT_INPUT = By.xpath("//iframe[contains(@title,'Rich text editor, newText')]");
@@ -338,6 +340,8 @@ public class ContentTemplate extends EcmsBase{
 		}else {
 			typeMultiLineInCkeContent(ELEMENT_NEWFILE_CONTENT_FRAME, cont);
 		}
+		if(mimeType.equalsIgnoreCase("text/plain"))
+			type(ELEMENT_NEWFILE_TEXTPLAIN,cont,true);
 		type(ELEMENT_NEWFILE_TITLE_TEXTBOX, title, false);
 		if (!description.isEmpty()){
 			type(ELEMENT_NEWFILE_DESCRIPTION_TEXTBOX, description, false);
@@ -397,7 +401,10 @@ public class ContentTemplate extends EcmsBase{
 
 		click(ELEMENT_HEAD_LAYOUT_LINK);
 		type(ELEMENT_HEAD_LAYOUT_NAME_TEXTBOX, name, false);
-		inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, content);
+		if(this.plfVersion.equalsIgnoreCase("4.0"))
+			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, content);
+		else
+			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41,content);
 		switchToParentWindow();
 		if (file != ""){
 			WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 0, 2);
@@ -427,7 +434,10 @@ public class ContentTemplate extends EcmsBase{
 				int length = links.length;
 				waitForAndGetElement(By.xpath("//div[contains(text(),'" + links[length-1]+ "')]"));
 			}
-			inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME, illustrationSummary);
+			if(this.plfVersion.equals("4.0"))
+				inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME, illustrationSummary);
+			else
+				inputDataToFrame(ELEMENT_WEBCONTENT_SUMMARY_FRAME_41, illustrationSummary);
 			switchToParentWindow();
 		}
 		//Advanced tab
@@ -616,13 +626,15 @@ public class ContentTemplate extends EcmsBase{
 		}
 		if (!content.isEmpty()){
 			/*switch to ckeditor frame*/
-			driver.switchTo().frame(driver.findElement(ELEMENT_HTML_FILE_CKEDITOR_FRAME));
-			/*locator body of ckeditor*/
+			/*driver.switchTo().frame(driver.findElement(ELEMENT_HTML_FILE_CKEDITOR_FRAME));
+			locator body of ckeditor
 			type(ELEMENT_HTML_FILE_CKEDITOR_FRAME_BODY, content, false);
-			/*return main frame*/
-			driver.switchTo().defaultContent();
-
-			inputDataToFrame(ELEMENT_HTML_FILE_CKEDITOR_FRAME, content, true);
+			return main frame
+			driver.switchTo().defaultContent();*/
+			if(this.plfVersion.equalsIgnoreCase("4.0"))
+				inputDataToFrame(ELEMENT_HTML_FILE_CKEDITOR_FRAME, content, true);
+			else
+				inputDataToFrame(ELEMENT_HTML_FILE_CKEDITOR_FRAME_41, content, true);
 			switchToParentWindow();
 			//			
 			//			/*switch to ckeditor frame*/

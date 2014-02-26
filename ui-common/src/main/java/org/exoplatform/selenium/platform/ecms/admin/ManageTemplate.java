@@ -26,8 +26,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
  */
 public class ManageTemplate extends EcmsBase{
 
-	public ManageTemplate(WebDriver dr) {
+	public ManageTemplate(WebDriver dr,String...plfVersion) {
 		super(dr);
+		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
 		// TODO Auto-generated constructor stub
 	}
 
@@ -51,22 +52,23 @@ public class ManageTemplate extends EcmsBase{
 	public final By ELEMENT_PAGINATOR_ADD_TEMPLATE_BUTTON = By.xpath("//*[@class='PageTemplateList']//*[text()='Add Template']");
 	public final String ELEMENT_TAB = "//*[@class = 'title' and contains(text(), '${typeTemplate}')]/..//*[text()='${tab}']";
 	public final By ELEMENT_ACTION_TAB = By.xpath(ELEMENT_TAB.replace("${typeTemplate}", "Documents").replace("${tab}", "Actions"));
+	public final By ELEMENT_ACTION_TAB_ACTIVE = By.xpath("//li[@class='active']/a[text()='Actions']");
 	public final By ELEMENT_OTHER_TAB = By.xpath(ELEMENT_TAB.replace("${typeTemplate}", "Documents").replace("${tab}", "Others"));
 	public final String ELEMENT_VIEW_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/..//*[@class='uiIconView']";
 	public final String ELEMENT_EDIT_METADATA_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/..//*[@class='uiIconEdit']";
 	public final String ELEMENT_EDIT_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/../..//*[@class='uiIconEdit']";
 	public final String ELEMENT_DELETE_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/../..//*[@class='uiIconDelete']";
 	public final String ELEMENT_DELETE_METADATA_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/..//*[@class='uiIconDelete']";
-	
+
 	/*Added by PhuongDT
 	 *Date: 28/08/2013 
-	*/
+	 */
 	public final By ELEMENT_ADD_TEMPLATE_DOCUMENT_BUTTON = By.xpath("//*[@id = 'tab-UITemplateContainer']//*[text()='Add Template']");
 	public final By ELEMENT_ADD_TEMPLATE_ACTION_BUTTON = By.xpath("//*[@id = 'tab-UIActionsTemplateContainer']//*[text()='Add Template']");
 	public final By ELEMENT_ADD_TEMPLATE_OTHER_BUTTON = By.xpath("//*[@id = 'tab-UIOthersTemplateContainer']//*[text()='Add Template']");
 	public final By ELEMENT_TEMPLATE_ACTION_DIALOG_CONTENT = By.id("dialog");
-	
-	
+
+
 	/*End Add*/
 	//Edit template
 	public final String ELEMENT_CONTENT = "//*[@id='${tab}']//*[@name='content']";
@@ -111,20 +113,21 @@ public class ManageTemplate extends EcmsBase{
 	public final By ELEMENT_METADATA_ADD_PERMISSION_ICON = By.xpath("//*[contains(@class, 'uiIconAddPermission')]");
 	public final By ELEMENT_INPUT_DIALOG_TEMPLATE = By.name("dialogTemplate");
 	public final By ELEMENT_INPUT_VIEW_TEMPLATE = By.name("viewTemplate");
-	
+
 	/*==================================================================*/
 
 	/* 
 	 * Modified by: PhuongDT 
 	 * Date: 28/08/2013
 	 * Content: Change ELEMENT_ADD_TEMPLATE_BUTTON
-	*/
+	 */
 	//Open Add New Template Form
 	public void openAddNewTemplateForm(Object...params) {
 		String temp = (String) (params.length > 0 ? params[0] : "");
 		info("-- Open [Add Template] form --");
 		if (temp.equals("Actions")){
 			click(ELEMENT_ACTION_TAB);
+			waitForAndGetElement(ELEMENT_ACTION_TAB_ACTIVE);
 			click(ELEMENT_ADD_TEMPLATE_ACTION_BUTTON);
 		}else if (temp.equals("Others")){
 			click(ELEMENT_OTHER_TAB);
@@ -146,12 +149,15 @@ public class ManageTemplate extends EcmsBase{
 	public void fillInTemplateForm(String templateName, String templateLabel, String groupPath, String membership, Object... params) {   
 		boolean isDocumentTemplate = (Boolean) (params.length > 0 ? params[0]: false);
 
-		select(ELEMENT_TEMPLATE_NAME, templateName);
+		select(ELEMENT_TEMPLATE_NAME, templateName,2);
 		type(ELEMENT_TEMPLATE_LABEL, templateLabel, false);
 		if (isDocumentTemplate){
 			click(ELEMENT_IS_DOCUMENT_TEMPLATE, 2);
 		}
-		selectMembership(groupPath, membership, "AddPermission");      
+		if(this.plfVersion.equalsIgnoreCase("4.0"))
+			selectMembership(groupPath, membership, "AddPermission");      
+		else
+			selectMembership(groupPath, membership, "Add Permission");
 		//Switch between tabs
 		//click(ELEMENT_DIALOG_TAB);   
 		String dialogContent =  (String) (params.length > 1 ? params[1]: "");
@@ -178,7 +184,7 @@ public class ManageTemplate extends EcmsBase{
 		Clipboard clipboard = toolkit.getSystemClipboard();
 		StringSelection strSel = new StringSelection(content);
 		clipboard.setContents(strSel, null);
-		
+
 		WebElement element = driver.findElement(ELEMENT_TEMPLATE_ACTION_DIALOG_CONTENT);
 		element.clear();
 		element.sendKeys(Keys.CONTROL+"v");
@@ -418,12 +424,12 @@ public class ManageTemplate extends EcmsBase{
 	public void editMetadata(String metadata, String[] permission, String label, Object...params){
 		String group = permission[0];
 		String membership = permission[1];
-		
+
 		Boolean dialog = (Boolean) (params.length > 0 ? params[0]: false);
 		String dialogTemplate = (String) (params.length > 1 ? params[1]: "");
 		Boolean view = (Boolean) (params.length > 2 ? params[2]: false);
 		String viewTemplate = (String) (params.length > 3 ? params[3]: "");
-		
+
 		info("-- Editing Metadata " + metadata);
 		actionsOnMetadata(metadata, "Edit");
 
@@ -450,7 +456,7 @@ public class ManageTemplate extends EcmsBase{
 			click(ELEMENT_METADATA_TAB.replace("${tab}", "Dialog Template"));
 			type(ELEMENT_INPUT_DIALOG_TEMPLATE, dialogTemplate, true);
 		}
-		
+
 		//Edit a view template
 		if (view){
 			info("-- Edit a view template --");

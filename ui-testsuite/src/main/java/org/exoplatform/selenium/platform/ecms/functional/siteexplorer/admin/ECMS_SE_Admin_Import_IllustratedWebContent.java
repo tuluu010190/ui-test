@@ -33,10 +33,10 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		driver.get(baseUrl);
 		magAcc = new ManageAccount(driver);
 		navToolBar = new NavigationToolbar(driver);
-		actBar = new ActionBar(driver);
-		cTemplate = new ContentTemplate(driver);
-		cMenu = new ContextMenu(driver);
-		siteExp = new SitesExplorer(driver);
+		actBar = new ActionBar(driver,this.plfVersion);
+		cTemplate = new ContentTemplate(driver,this.plfVersion);
+		cMenu = new ContextMenu(driver,this.plfVersion);
+		siteExp = new SitesExplorer(driver,this.plfVersion);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 
 		info("Add Import icon to action bar if it does not existed");

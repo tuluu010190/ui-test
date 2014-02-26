@@ -444,8 +444,9 @@ public class ActionBar extends EcmsBase{
 		else 
 		{
 			waitForAndGetElement(ELEMENT_IMPORT_FILE_LABEL.replace("${fileName}", files[length-1]));
+			Utils.pause(1000);
 			click(ELEMENT_IMPORT);
-			Utils.pause(500);
+			
 			waitForMessage("Imported successfully.");
 			click(button.ELEMENT_OK_BUTTON);
 		}

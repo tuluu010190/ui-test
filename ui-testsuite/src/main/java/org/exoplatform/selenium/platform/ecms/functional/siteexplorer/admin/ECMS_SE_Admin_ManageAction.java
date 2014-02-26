@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.admin;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -47,10 +48,10 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			driver.get(baseUrl);
 			info("Login ECMS with " + DATA_USER);
 			magAcc = new ManageAccount(driver);
-			ecMain = new ECMainFunction(driver); 
+			ecMain = new ECMainFunction(driver,this.plfVersion); 
 			magScript = new ManageScript(driver);
 			magAction = new ManageAction(driver);
-			magTemplate = new ManageTemplate(driver);
+			magTemplate = new ManageTemplate(driver,this.plfVersion);
 			navToolBar = new NavigationToolbar(driver);
 			cTemplate = new ContentTemplate(driver);
 			cMenu = new ContextMenu(driver);
@@ -111,8 +112,8 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			ecMain.goToActionsTabInContentAdmin();
 			magAction.addActionType(actionTypeName, scriptName+ ".groovy", variable);
 			
-			/*Step 4: Create a template*/
-			/*Step 5: Input data into Dialog*/
+			/*Step 4: Create a template
+			Step 5: Input data into Dialog*/
 			info("Create a template - action tab");
 			ecMain.goToTemplateTab();
 			magTemplate.openAddNewTemplateForm("Actions");
@@ -130,7 +131,7 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			/*Step 7: Add manual action for node*/
 			info("Add manual action for node");
 			ecms.goToNode(By.linkText(FILE_TITLE));
-			
+			Utils.pause(2000);
 			//Check if Category button is shown on action bar
 			actBar.addItem2ActionBar("manageActions", actBar.ELEMENT_ACTION_ICON);
 			

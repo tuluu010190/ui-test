@@ -36,7 +36,7 @@ public class ECMS_SE_Admin_Import_WebContent extends PlatformBase {
 		magAcc = new ManageAccount(driver);
 		navToolBar = new NavigationToolbar(driver);
 		actBar = new ActionBar(driver);
-		cTemplate = new ContentTemplate(driver);
+		cTemplate = new ContentTemplate(driver,this.plfVersion);
 		cMenu = new ContextMenu(driver);
 		siteExp = new SitesExplorer(driver);
 		magAcc.signIn(DATA_USER1, DATA_PASS);

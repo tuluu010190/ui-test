@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.ecms.admin;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
@@ -15,8 +16,9 @@ import org.openqa.selenium.WebDriver;
  */
 public class ManageScript extends EcmsBase{
 
-	public ManageScript(WebDriver dr) {
+	public ManageScript(WebDriver dr,String...plfVersion) {
 		super(dr);
+		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
 		// TODO Auto-generated constructor stub
 	}
 

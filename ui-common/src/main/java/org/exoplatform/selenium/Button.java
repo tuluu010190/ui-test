@@ -31,7 +31,7 @@ public class Button extends TestBase{
 	public final By ELEMENT_SAVE_BUTTON_POPUP_WINDOWS = By.xpath("//*[contains(@class, 'popup')]//*[text()='Save']");
 	public final By ELEMENT_CANCEL_BUTTON = By.xpath("//*[text()='Cancel']");
 	public final By ELEMENT_CANCEL_BUTTON_AUX = By.xpath("//*[@data-original-title='Cancel']");
-	public final By ELEMENT_CLOSE_BUTTON = By.xpath("//*[text()='Close']");
+	public final By ELEMENT_CLOSE_BUTTON = By.xpath("//*[normalize-space(text())='Close']");
 	public final By ELEMENT_ADD_BUTTON = By.xpath("//*[text()='Add']");
 	public final By ELEMENT_SELECT_BUTTON = By.xpath("//*[text()='Select']");
 	public final By ELEMENT_CONFIRM_BUTTON = By.xpath("//*[text()='Confirm']");

@@ -4,6 +4,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.UserGroupManagement;
+import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -24,6 +25,7 @@ public class EcmsBase extends ManageAccount {
 	}
 
 	protected UserGroupManagement userGroup = new UserGroupManagement(driver);
+	protected SitesExplorer se ;
 	Button button;
 	//Dialog dialog = new Dialog(driver);
 
@@ -421,6 +423,7 @@ public class EcmsBase extends ManageAccount {
 	//input: path: path of a node, split by  "/" character 
 	public void goToNode(Object locator, Object...params)
 	{
+		se = new SitesExplorer(driver, plfVersion);
 		Boolean nodeAdminView = (Boolean) (params.length > 0 ? params[0]: false);
 		if (nodeAdminView && (locator instanceof String)){
 			String[] nodes = ((String) locator).split("/");

@@ -7,12 +7,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
+import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.openqa.selenium.By;
@@ -49,7 +51,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			info("Login ECMS with " + DATA_USER);
 			magAcc = new ManageAccount(driver);
 			actBar = new ActionBar(driver);
-			cTemplate = new ContentTemplate(driver);
+			cTemplate = new ContentTemplate(driver,this.plfVersion);
 			siteExp = new SitesExplorer(driver);
 			navToolBar = new NavigationToolbar(driver);
 			ecms = new EcmsBase(driver);
@@ -436,20 +438,22 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 		@Test
 		public void test08_ActivateVersionForContactUsDocument(){
 			/*Declare variable*/
-			DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd - hh:mm");
+			DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+			String folder = "Folder79699";
 		 
 			/*Step 1: Create node*/
 			//Create Contact Us document
 			info("Create Contact Us document");
+			cTemplate.createNewFolder(folder, folderType.Content);
+			cTemplate.goToNode(folder);
+			Utils.pause(1000);
 			actBar.goToAddNewContent();
 			cTemplate.createNewContactUs();
 		    //get current date time with Date()
 			Date date = new Date();
 
-			String node1 = dateFormat.format(date).replace(":", "h");
-			info(node1);
+			String node1 = dateFormat.format(date);
 			By bNode = By.xpath("//*[contains(text(), '"+node1+"')]");
-			cTemplate.goToNode(bNode);
 			
 			/*Step 2: Check node before active*/
 			//Check if Category button is shown on action bar
@@ -480,7 +484,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			info("clear data");
 			cTemplate.goToNode(bNode);
 			cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_CHECKOUT);
-			cMenu.deleteData(bNode);
+			cMenu.deleteDocument(ecms.ELEMENT_NODE_LINK.replace("${nodeLabel}", folder));
 		}
 		
 		/**
