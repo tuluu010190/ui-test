@@ -41,6 +41,7 @@ public class WikiBase extends PlatformBase{
 	//Add page menu
 	public final By ELEMENT_ADD_PAGE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(),'Add Page')]");
 	public final By ELEMENT_BLANK_PAGE_LINK = By.linkText("Blank Page");
+	public final By ELEMENT_BLANK_PAGE_LINK_41 = By.xpath ("//i[@class='uiIconAddPage']");
 	public final By ELEMENT_FROM_TEMPLATE_LINK = By.linkText("From Template...");
 
 	//Edit menu
@@ -69,8 +70,10 @@ public class WikiBase extends PlatformBase{
 	//Search area
 	public final By ELEMENT_QUICK_SEARCH = By.id("wikiSearchValue");
 	public final By ELEMENT_SEARCH_RESULT = By.className("resultNumber");
-	public final String ELEMENT_PAGE_RESULT = "//*[@id='UIWikiAdvanceSearchResult']//*[contains(text(), '${title}')]";
-
+	//public final String ELEMENT_PAGE_RESULT = "//*[@id='UIWikiAdvanceSearchResult']//*[contains(text(), '${title}')]";
+	public final String ELEMENT_PAGE_RESULT="//*[@href='/portal/intranet/wiki/${title}']";
+	public final String ELEMENT_PAGE_SPACR_RESULT="";
+	
 	//Wiki Home
 	public final By ELEMENT_WIKI_HOME_LINK=By.xpath("//a[text()='Wiki Home']");
 	public final By ELEMENT_WIKI_HOME_PAGE=By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
@@ -306,7 +309,10 @@ public class WikiBase extends PlatformBase{
 		Utils.pause(500);
 		//mouseOver(ELEMENT_ADD_PAGE_LINK, true);
 		mouseOverAndClick(ELEMENT_ADD_PAGE_LINK);
-		mouseOverAndClick(ELEMENT_BLANK_PAGE_LINK);
+		if (isElementNotPresent(ELEMENT_BLANK_PAGE_LINK))
+		mouseOverAndClick(ELEMENT_BLANK_PAGE_LINK_41);
+		else
+			mouseOverAndClick(ELEMENT_BLANK_PAGE_LINK);
 		Utils.pause(1000);
 	}
 

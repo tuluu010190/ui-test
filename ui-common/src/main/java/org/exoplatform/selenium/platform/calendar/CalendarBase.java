@@ -133,8 +133,8 @@ public class CalendarBase extends PlatformBase {
 	//-----------Event/Task -----------
 	public String ELEMENT_EVENT_TASK_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//div[contains(text(),'${event}')]";
 	public String ELEMENT_EVENT_TASK_ALL_DAY_PLF41 = "//*[@id='UIWeekViewGridAllDay']//div[contains(@class,'eventAlldayContent') and contains(.,'${event}')]";
-	public String ELEMENT_EVENT_TASK_ONE_DAY = "//*[@id='UIWeekViewGrid']//div[contains(text(),'${taskName}')]/parent::div[@class='clearfix']/div[@class='eventContainerBar eventTitle pull-left']";
-	//public String ELEMENT_EVENT_TASK_ONE_DAY = "//*[@id='UIWeekViewGrid']//div[contains(@deschtml,'${taskName}')]";
+	//public String ELEMENT_EVENT_TASK_ONE_DAY = "//*[@id='UIWeekViewGrid']//div[contains(text(),'${taskName}')]/parent::div[@class='clearfix']/div[@class='eventContainerBar eventTitle pull-left']";
+	public String ELEMENT_EVENT_TASK_ONE_DAY = "//*[@id='UIWeekViewGrid']//div[contains(text(),'${taskName}')]";
 	public String ELEMENT_EVENT_TASK_ONE_DAY_1 = "//*[@id='UIWeekView']//div[contains(text(),'${taskName}')]";
 	public String ELEMENT_EVENT_TASK_WORKING_PANE = "//*[@id='UIWeekViewGrid']//div[@class='eventContainer' and contains(text(),'${event}')]";
 	public String ELEMENT_EVENT_TASK_WORKING_PANE_PLF41 = "//*[@id='UIWeekViewGrid']//div[contains(@class,'eventAlldayContent') and contains(.,'${event}')]";
@@ -497,7 +497,7 @@ public class CalendarBase extends PlatformBase {
 		alert = new ManageAlert(driver);
 		info("--Delete event--");
 		click(ELEMENT_DELETE_FEEDS);
-		alert.waitForConfirmation(MSG_FEEDS_DELETE);
+		alert.verifyAlertMessage(MSG_FEEDS_DELETE);
 		waitForElementNotPresent(By.linkText(name));
 		click(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
 	}
@@ -641,7 +641,7 @@ public class CalendarBase extends PlatformBase {
 			break;
 		}
 		click(ELEMENT_EVENT_TASK_DELETE_MENU);
-		alert.waitForConfirmation(MSG_EVENT_TASK_DELETE);
+		alert.verifyAlertMessage(MSG_EVENT_TASK_DELETE);
 		driver.navigate().refresh();
 		Utils.pause(1000);
 		if (optDay.equals(selectDayOption.ALLDAY)){
