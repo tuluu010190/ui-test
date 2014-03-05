@@ -54,15 +54,20 @@ public class Wiki_Version_Restore extends Version{
 		editWikiPage("1st edit restore 01", "1st edit page content", 0);
 
 		editWikiPage("2nd edit restore 01", "2nd edit page content", 0);
-
+		
+		goToRevisionsPage();
+		
+		click(ELEMENT_VIEW_PAGE_HISTORY);
+		
 		restoreVersion("1");
 
 		waitForTextPresent("page content 01");
 
-		goToRevisionsPage();
 
+		
 		//waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "4"));
-
+		goToWikiPage("Wiki Home/2nd edit restore 01");
+		
 		deleteCurrentWikiPage();
 	}
 }

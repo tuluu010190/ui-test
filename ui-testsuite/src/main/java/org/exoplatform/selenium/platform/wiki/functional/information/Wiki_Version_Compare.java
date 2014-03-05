@@ -62,8 +62,8 @@ public class Wiki_Version_Compare extends Version{
 		goToRevisionsPage();
 
 		//waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
-
-		compareVersion("1", "3");
+		click(ELEMENT_VIEW_PAGE_HISTORY);
+		compareVersion("1", "2");
 
 		Utils.captureScreen("FNC_KS_WIKI_VERSION_COMPARE_01");
 
@@ -95,18 +95,19 @@ public class Wiki_Version_Compare extends Version{
 		editWikiPage("2nd edit compare 02", "2nd edit page content", 0);
 
 		goToRevisionsPage();
-
+		
 		//waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
-
+		
 		Utils.pause(500);
 		driver.navigate().refresh();
 		Utils.pause(2000);
+		click(ELEMENT_VIEW_PAGE_HISTORY);
 		//click(ELEMENT_VERSION_CHECKBOX.replace("{$version}", "2"), 2);
 		WebElement vCheckbox = waitForAndGetElement(ELEMENT_VERSION_CHECKBOX.replace("{$version}", "2"), DEFAULT_TIMEOUT, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vCheckbox);
 
 		waitForAndGetElement(ELEMENT_DISABLE_COMPARE_BUTTON_AUX);
-
+		goToWikiPage("Wiki Home/2nd edit compare 02");
 		deleteCurrentWikiPage();
 	}
 
@@ -130,14 +131,14 @@ public class Wiki_Version_Compare extends Version{
 
 		editWikiPage("1st edit compare 03", "1st edit page content", 0);
 
-		editWikiPage("2nd edit comapre 03", "2nd edit page content", 0);
+		editWikiPage("2nd edit compare 03", "2nd edit page content", 0);
 
 		goToRevisionsPage();
-
+		click(ELEMENT_VIEW_PAGE_HISTORY);
 		//waitForAndGetElement(ELEMENT_CURRENT_VERSION.replace("${version}", "3"));
 
-		//waitForAndGetElement(ELEMENT_DISABLE_COMPARE_BUTTON);
-
+		waitForAndGetElement(ELEMENT_DISABLE_COMPARE_BUTTON_AUX);
+		goToWikiPage("Wiki Home/2nd edit compare 03");
 		deleteCurrentWikiPage();
 	}	
 }

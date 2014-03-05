@@ -21,6 +21,7 @@
 			<package
 				name="org.exoplatform.selenium.platform.wiki.functional.pagepermission.*" />
 		</packages>
+		
 	</test>
 	<test name="wiki-func-attachment" enabled="true">
 		<groups>

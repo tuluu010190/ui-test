@@ -14,6 +14,7 @@ import org.openqa.selenium.WebElement;
  */
 public class Version extends BasicAction{
 
+	public final By ELEMENT_VIEW_PAGE_HISTORY = By.xpath("//*[text()='View Page History']");
 	/** 
 	 * View change of a Wiki page
 	 */
@@ -84,7 +85,7 @@ public class Version extends BasicAction{
 	 */
 	public void compareVersion(String first, String second){
 		info("--Compare 2 versions of a page--");
-
+	
 		String versionCheckbox1 = ELEMENT_VERSION_CHECKBOX.replace("{$version}", first);
 		String versionCheckbox2= ELEMENT_VERSION_CHECKBOX.replace("{$version}", second);
 		if (isTextPresent("Page History")){
@@ -103,11 +104,13 @@ public class Version extends BasicAction{
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vCheckbox2);
 		
 		WebElement cButton = waitForAndGetElement(ELEMENT_COMPARE_BUTTON, 3000, 0, 2);
+		
+	
 		if (cButton != null){
 			//click(ELEMENT_COMPARE_BUTTON);
 			((JavascriptExecutor)driver).executeScript("arguments[0].click();", cButton);
 		}else {
-			click(By.xpath("//*[text()='Compare selected']"));
+			click(By.xpath("//*[text()='Compare with selected versions']"));
 		}
 		waitForAndGetElement(ELEMENT_COMPARE_TEXT);
 	}

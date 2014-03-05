@@ -36,8 +36,8 @@ public class WikiBase extends PlatformBase{
 
 	//Company/Left panel > Wiki Link
 	public final By ELEMENT_WIKI_LINK=By.xpath("//ul[@class='uiCompanyNavigations']//li/a[text()='Wiki']");
-	public final By ELEMENT_WIKI_LINK_PLF41=By.xpath("//*[@data-original-title='Wiki']");
-
+//	public final By ELEMENT_WIKI_LINK_PLF41=By.xpath("//*[@data-original-title='Wiki']");
+	public final By ELEMENT_WIKI_LINK_PLF41=By.xpath("//*[@href='/portal/intranet/wiki']");
 	//Add page menu
 	public final By ELEMENT_ADD_PAGE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(),'Add Page')]");
 	public final By ELEMENT_BLANK_PAGE_LINK = By.linkText("Blank Page");
@@ -49,6 +49,7 @@ public class WikiBase extends PlatformBase{
 
 	//More menu
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(), 'More')]");
+	//public final By ELEMENT_MORE_LINK = By.xpath("");
 	public final By ELEMENT_DELETE_LINK = By.linkText("Delete Page");
 	public final By ELEMENT_DELETE_LINK_2 = By.className("uiIconDeletePage");
 	public final By ELEMENT_WATCH_LINK = By.linkText("Watch");
@@ -220,7 +221,8 @@ public class WikiBase extends PlatformBase{
 	/*-------------------------Page information management------------------------------*/
 	public final By ELEMENT_WIKI_PAGE_INFO_FEED = By.xpath("//*[@id='UIWikiPageInfoArea']/div[@class='txtFeed']");
 	public final By ELEMENT_COMPARE_TEXT = By.xpath("//div[contains(text(),'Compared With')]");
-	public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfoArea']//a[contains(text(), 'V')]");
+//	public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfoArea']//a[contains(text(), 'V')]");
+	public final By ELEMENT_REVISION_LINK = By.xpath("//*[@id='UIWikiPageInfo']//div[@class='actionCenter']");
 	public final String ELEMENT_VERSION_LINK= "//a[contains(text(),'V{$version}')]";
 	public final String ELEMENT_VERSION_LINK_AUX= "//a[contains(text(),'v.{$version}')]";
 	public final String ELEMENT_RESTORE_LINK = "//td/label/a[contains(text(), 'v.{$version}')]/../../..//*[@class='uiIconRestore']";

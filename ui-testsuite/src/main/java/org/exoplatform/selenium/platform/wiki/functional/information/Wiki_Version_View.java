@@ -68,6 +68,9 @@ public class Wiki_Version_View extends Version{
 
 		editWikiPage(dataInfo[4], dataInfo[5], 0);
 
+	//	click(By.xpath("//*[text()='View Page History']"));
+		goToRevisionsPage();
+		
 		viewVersion("3");
 
 		waitForTextPresent(dataInfo[5]);
@@ -104,6 +107,8 @@ public class Wiki_Version_View extends Version{
 
 		editWikiPage(dataInfo[4], dataInfo[5], 0);
 
+		goToRevisionsPage();
+		
 		viewVersion("1");
 
 		waitForTextPresent(dataInfo[1]);
@@ -141,6 +146,9 @@ public class Wiki_Version_View extends Version{
 
 		editWikiPage(dataInfo[4], dataInfo[5], 0);
 
+	
+		goToRevisionsPage();
+		
 		viewVersion("1");
 
 		waitForTextPresent(dataInfo[1]);
@@ -182,6 +190,7 @@ public class Wiki_Version_View extends Version{
 
 		editWikiPage(dataInfo[4], dataInfo[5], 0);
 
+		goToRevisionsPage();
 		viewVersion("1");
 
 		waitForTextPresent(dataInfo[1]);
