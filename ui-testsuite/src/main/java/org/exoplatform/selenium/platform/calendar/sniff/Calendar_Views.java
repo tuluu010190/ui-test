@@ -128,7 +128,7 @@ public class Calendar_Views extends CalendarBase{
 
 		info("Choose Week view of Calendar");
 		if(waitForAndGetElement(ELEMENT_BUTTON_VIEW_ACTIVE.replace("${view}", "Week"),10000,0) == null){
-			click(ELEMENT_BUTTON_LIST_VIEW);
+			click(ELEMENT_BUTTON_WEEK_VIEW);
 			waitForAndGetElement(ELEMENT_BUTTON_VIEW_ACTIVE.replace("${view}", "Week"));
 		}
 
@@ -138,7 +138,7 @@ public class Calendar_Views extends CalendarBase{
 		
 		
 		info("Choose List view of Calendar");
-		if(waitForAndGetElement(ELEMENT_BUTTON_VIEW_ACTIVE.replace("${view}", "list"),10000,0) == null){
+		if(waitForAndGetElement(ELEMENT_BUTTON_VIEW_ACTIVE.replace("${view}", "List"),10000,0) == null){
 			click(ELEMENT_BUTTON_LIST_VIEW);
 			waitForAndGetElement(ELEMENT_BUTTON_VIEW_ACTIVE.replace("${view}", "List"));
 		}

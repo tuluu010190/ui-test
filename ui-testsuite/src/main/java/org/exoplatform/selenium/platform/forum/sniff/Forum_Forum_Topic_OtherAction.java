@@ -136,10 +136,10 @@ public class Forum_Forum_Topic_OtherAction extends ForumBase{
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop, titleTop);
 		
 
-		mngTopic.watchItem(true);
+		
 			click(mngFru.ELEMENT_TOPIC_LINK.replace("${topic}", titleTop));
 		waitForAndGetElement(mngPost.ELEMENT_POST_REPLY_BUTTON);
-
+		mngTopic.watchItem(true);
 		mngPost.postReply(newTopic, newTopic, "", "", "");
 
 		goToMail(EMAIL_ADDRESS1,EMAIL_PASS);
