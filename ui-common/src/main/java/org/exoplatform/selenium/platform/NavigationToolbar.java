@@ -251,6 +251,7 @@ public class NavigationToolbar extends PlatformBase {
 		info("----Go to Edit page editor----");
 		String id = waitForAndGetElement(By.xpath("//*[@class='UIPage']")).getAttribute("id").replace("UIPage-", "");
 		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('" + id + "', 'EditCurrentPage', true));");
+		Utils.pause(500);
 	}
 
 	//Go to change language for user interface
