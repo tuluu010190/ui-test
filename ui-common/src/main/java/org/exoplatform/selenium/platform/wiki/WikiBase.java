@@ -94,6 +94,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_SPACE_SWITCHER_INPUT_FOCUS = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText focus']") ;
 	public final By ELEMENT_SPACE_SWITCHER_PLACEHOLDER = By.xpath("//*[contains(text(),'Filter Spaces')]");
 	public final String ELEMENT_SPACE_SWITCHER_SELECT = "//a[text() = '${spaceName}']";
+	public final String ELEMENT_CURRENT_SPACE_SWITCHER_SELECT= "//*[@id='uiSpaceSwitcher_BreadCrumb']//span[text()='${name}']";
 	
 	/*------------------add/edit wiki page---------------------*/
 	//Source Editor mode
@@ -116,7 +117,8 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_BODY_CONTAINER = By.xpath("//*[@class='uiRightContainerArea']");
 	//"Are you sure to leave this page?";
 	public final By ELEMENT_OK_BUTTON_WIKI_PAGE = By.xpath("//div[contains(@class, 'uiAction')]/a[text()='OK']");
-
+	public final String ELEMENT_SPACE_NAVIGATION_NAME = ("//div[@class='name' and contains(text(),'${spaceName}')]");
+	
 	//Richtext mode
 	public final By ELEMENT_SOURCE_EDITOR_BUTTON= By.xpath("//*[contains(text(),'Source Editor')]");
 	public final By ELEMENT_SOURCE_EDITOR_BUTTON_PLF4_1 = By.xpath("//button[contains(text(),'Source Editor')]");

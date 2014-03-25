@@ -10,6 +10,7 @@
 		<classes>
  			<class name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Advanced_Search" />
  			<class name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Quick_Search" />
+			<class name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Space_Switcher" />
  		</classes>
 	</test>
 
