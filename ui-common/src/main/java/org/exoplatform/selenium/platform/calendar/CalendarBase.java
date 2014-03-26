@@ -211,8 +211,14 @@ public class CalendarBase extends PlatformBase {
 	public final By ELEMENT_TOOLBAR_START_TIME = By.name("start_time");
 	public final By ELEMENT_TOOLBAR_END_TIME = By.name("end_time");
 	public final By ELEMENT_TOOLBAR_SELECT_CALENDAR = By.name("Calendar");
-	public final String ELEMENT_CREATE_EVENT_MESSAGE = "//*[contains(text(),'The Event was added to ${userName}')]";
-	public final String ELEMENT_CREATE_TASK_MESSAGE = "//*[contains(text(),'The Task was added to ${userName}')]";
+	public final String ELEMENT_CREATE_EVENT_MESSAGE = "//*[contains(text(),'The Event was added to ${calendar}')]";
+	public final String ELEMENT_CREATE_TASK_MESSAGE = "//*[contains(text(),'The Task was added to ${calendar}')]";
+	public final By ELEMENT_PRIVATE_CALENDAR = By.xpath("//optgroup[@label='privateCalendar']");
+	public final By ELEMENT_PUBLIC_CALENDAR = By.xpath("//optgroup[@label='publicCalendar']");
+	public final String ELEMENT_MESSAGE_WARNING_CALENDAR = "//span[contains(text(), 'Sorry, you cannot create an event that ends before it starts.')]";
+	public final String ELEMENT_TOOLBAR_TIME_CONTENT = "//*[@name='start_time']//option[${index}]";
+	public final By ELEMENT_TOOLBAR_MINI_CALENDAR = By.xpath("//*[@class='weekDays']");
+
 	/*================== Common functions for Calendar =================*/
 
 	/** 
@@ -687,7 +693,7 @@ public class CalendarBase extends PlatformBase {
 		goToAddCalendar();
 		inputAddCalendarForm(name,description,color,groups);
 		click(ELEMENT_CAL_ADD_SAVE_BUTTON);
-		
+
 		waitForAndGetElement(ELEMENT_CALENDAR_GET_BY_TAG_LI.replace("${calendar}", name));
 	}
 
@@ -990,17 +996,17 @@ public class CalendarBase extends PlatformBase {
 		}
 		if (opt.length > 0 && opt[0] != null){
 			select(ELEMENT_TOOLBAR_SELECT_CALENDAR,opt[0]);
-			button.save();
+			button.save();			
 			if(verify){
 				if(isEvent){
-					waitForAndGetElement(ELEMENT_CREATE_EVENT_MESSAGE.replace("${userName}", opt[0]));
+					waitForAndGetElement(ELEMENT_CREATE_EVENT_MESSAGE.replace("${calendar}", opt[0]));
 					Utils.pause(3000);
-					waitForElementNotPresent(ELEMENT_CREATE_EVENT_MESSAGE.replace("${userName}", opt[0]));
+					waitForElementNotPresent(ELEMENT_CREATE_EVENT_MESSAGE.replace("${calendar}", opt[0]));
 				}
 				else{
-					waitForAndGetElement(ELEMENT_CREATE_TASK_MESSAGE.replace("${userName}", opt[0]));
+					waitForAndGetElement(ELEMENT_CREATE_TASK_MESSAGE.replace("${calendar}", opt[0]));
 					Utils.pause(3000);
-					waitForElementNotPresent(ELEMENT_CREATE_TASK_MESSAGE.replace("${userName}", opt[0]));
+					waitForElementNotPresent(ELEMENT_CREATE_TASK_MESSAGE.replace("${calendar}", opt[0]));
 				}
 			}
 		}
@@ -1008,14 +1014,14 @@ public class CalendarBase extends PlatformBase {
 			button.save();
 			if(verify){
 				if(isEvent){
-					waitForAndGetElement(ELEMENT_CREATE_EVENT_MESSAGE.replace("${userName}", waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
+					waitForAndGetElement(ELEMENT_CREATE_EVENT_MESSAGE.replace("${calendar}", waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
 					Utils.pause(3000);
-					waitForElementNotPresent(ELEMENT_CREATE_EVENT_MESSAGE.replace("${userName}",  waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
+					waitForElementNotPresent(ELEMENT_CREATE_EVENT_MESSAGE.replace("${calendar}",  waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
 				}
 				else{
-					waitForAndGetElement(ELEMENT_CREATE_TASK_MESSAGE.replace("${userName}", waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
+					waitForAndGetElement(ELEMENT_CREATE_TASK_MESSAGE.replace("${calendar}", waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
 					Utils.pause(3000);
-					waitForElementNotPresent(ELEMENT_CREATE_TASK_MESSAGE.replace("${userName}",  waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
+					waitForElementNotPresent(ELEMENT_CREATE_TASK_MESSAGE.replace("${calendar}",  waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK).getText()));
 
 				}
 			}
