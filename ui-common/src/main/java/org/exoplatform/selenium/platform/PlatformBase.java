@@ -1186,7 +1186,7 @@ public class PlatformBase extends TestBase {
 				if (validate.length >0)
 					if (validate[0]){
 						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
-						if (data.equals(inputsummary.getText())) break;
+						if (inputsummary.getText().contains(data)) break;
 					}
 					else{
 						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
