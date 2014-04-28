@@ -181,7 +181,7 @@ public class PLF_HomepageGadgets_CalendarGadget_Tasks extends CalendarBase{
 		 *Input Data: 
 		 *Expected Outcome: Task is added with status "Completed"		*/
 		addCalendar(calendar, calendar,null);
-		task.goToAddTask();
+		task.goToAddTaskFromActionBar();
 		click(task.ELEMENT_BUTTON_TASK_MORE_DETAILS);
 		task.inputDataTabDetailTask(task1, task1,getDate(0,"MM/dd/yyyy"),getDate(0,"MM/dd/yyyy"), false, null, calendar, null, "Completed");
 		click(task.ELEMENT_BUTTON_TASK_SAVE_DETAILS);
@@ -263,7 +263,7 @@ public class PLF_HomepageGadgets_CalendarGadget_Tasks extends CalendarBase{
 		 *Input Data: 
 		 *Expected Outcome: Task is added in the previous day with status "Completed"		*/
 		addCalendar(calendar, calendar,null);
-		task.goToAddTask();
+		task.goToAddTaskFromActionBar();
 		click(task.ELEMENT_BUTTON_TASK_MORE_DETAILS);
 		task.inputDataTabDetailTask(task1, task1, getDate(-1,"MM/dd/yyyy"),getDate(-1,"MM/dd/yyyy"), false, null, calendar,null, "Completed");
 		click(task.ELEMENT_BUTTON_TASK_SAVE_DETAILS);

@@ -67,6 +67,7 @@ public class ManageAccount extends PlatformBase {
 		click(ELEMENT_SIGN_IN_BUTTON);
 		if(verify)
 			waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON);
+		Utils.pause(2000);
 	}
 
 	/** Login to acme portal
