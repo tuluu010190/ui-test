@@ -722,4 +722,15 @@ public class BasicAction extends Permission{
 		}
 		Utils.pause(1000);
 	}
+	
+	/**edit title of wiki page by double click on title
+	 * @author lientm
+	 * @param newTitle
+	 */
+	public void editWikiPageTitleByClickTitle(String newTitle){
+		click(ELEMENT_PAGE_TITLE);
+		type(By.id("EdiableInput"), newTitle, true, 2);
+		waitForAndGetElement(By.id("EdiableInput")).sendKeys(Keys.RETURN);
+		waitForAndGetElement("//*[@id='titleInfo' and text()='" + newTitle + "']");
+	}
 }
