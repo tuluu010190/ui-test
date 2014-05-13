@@ -22,7 +22,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
-		magAc.signIn("john", "gtn");
+		magAc.signIn(DATA_USER1,DATA_PASS);;
 	}
 	
 	//Qmetry ID: 69797
@@ -102,7 +102,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 
 		magAc.signOut();
 
-		magAc.signIn("john", "gtn");
+		magAc.signIn(DATA_USER1,DATA_PASS);;
 
 		goToWiki();
 

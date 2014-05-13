@@ -50,7 +50,7 @@ public class Gatein_Navigation_GroupNavigation_EditNavigation extends GroupNavig
 		pageMag = new PageManagement(driver, this.plfVersion);
 		navMag = new NavigationManagement(driver, this.plfVersion);
 		pageEditor = new PageEditor(driver, this.plfVersion);
-		magAc.signIn("john", "gtn");
+		magAc.signIn(DATA_USER1,DATA_PASS);;
 		driver.navigate().refresh();
 	}
 
@@ -89,7 +89,7 @@ public class Gatein_Navigation_GroupNavigation_EditNavigation extends GroupNavig
 		info("Verify position of Administration after changing order");
 		waitForAndGetElement(groupAdminNewPosition);
 		magAc.signOut();
-		magAc.signIn("john", "gtn");
+		magAc.signIn(DATA_USER1,DATA_PASS);;
 		navToolbar.goToGroupSites();
 		//Verify position of Administration after SignOut and SignIn  
 		waitForElementNotPresent(groupAdminOldPosition);

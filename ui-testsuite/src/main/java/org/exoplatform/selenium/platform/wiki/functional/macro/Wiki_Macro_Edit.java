@@ -34,7 +34,7 @@ public class Wiki_Macro_Edit extends ManageDraft{
 		magWiki = new WikiBase();
 		magRTM = new RichTextMode();
 		magWikiAction = new BasicAction();
-		magAc.signIn("john", "gtn"); 
+		magAc.signIn(DATA_USER1,DATA_PASS);; 
 	}
 
 	@AfterMethod

@@ -35,7 +35,7 @@ public class Forum_FAQ extends FAQ {
 		magAns = new AnswerManageAnwser(driver,this.plfVersion);
 		button = new Button(driver, this.plfVersion);
 		pageE = new PageEditor(driver, this.plfVersion);
-		magAc.signIn("john", "gtn");
+		magAc.signIn(DATA_USER1,DATA_PASS);;
 		goToAnswer();
 	}
 

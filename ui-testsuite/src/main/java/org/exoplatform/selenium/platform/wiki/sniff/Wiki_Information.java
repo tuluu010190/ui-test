@@ -30,8 +30,7 @@ public class Wiki_Information extends Version {
 		magAc = new ManageAccount(driver);
 		but = new Button(driver);
 		magMem = new ManageMember(driver);
-
-		magAc.signIn("john", "gtn"); 
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		goToWiki();
 	}
 

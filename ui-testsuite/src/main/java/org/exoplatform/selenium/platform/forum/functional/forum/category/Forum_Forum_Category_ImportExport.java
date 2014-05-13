@@ -184,9 +184,7 @@ public class Forum_Forum_Category_ImportExport extends ForumBase {
     magCat .deleteCategoryInForum(catName2);
   }
 
-/* *CaseId: 72819 -> Functional-Forum-Forum-Category-Import without file uploaded.
-   * This is medium test case, so it is not required to executed.
-   *
+  /*
   @Test
   public void test03_ImportCategory_NoFile(){
 	  magCat .importCategoryInForum();
