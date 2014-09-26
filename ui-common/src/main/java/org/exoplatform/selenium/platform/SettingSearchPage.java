@@ -87,6 +87,7 @@ public class SettingSearchPage extends PlatformBase {
 
 	//Search result form
 	public final By ELEMENT_RESULT_SEARCH_PAGE = By.id("resultPage");
+
 	public final String ELEMENT_RESULT_LINK = "//div[@id='resultPage']//a[contains(.,'${item}')]";
 	//	public final String ELEMENT_RESULT_ITEM = "//div[@id='resultPage']//a[contains(.,'${item}')]/../..//*[contains(text(),'${keySearch}')]";
 	//	public final String ELEMENT_RESULT_SEARCH_PAGE_ITEM = "//div[@id='resultPage']//*[@class='content']/h6//*[contains(text(),'${eventname}')]";
@@ -99,10 +100,8 @@ public class SettingSearchPage extends PlatformBase {
 	public final String ELEMENT_RESULT_ITEM = "//div[@id='resultPage']//*[@class='content']/h6//*[contains(.,'${keySearch}')]";
 	public final String ELEMENT_RESULT_SEARCH_ITEM = "//div[@id='resultPage']//a[text()='${item}']";
 
-	//Quick Search elements
-	public final String ELEMENT_QUICKSEARCH_RESULT_FIRSTRESULT ="//*[@id='quickSearchResult1']//*[contains(@href,'${keySearch}')]";
-
 	//Search result form
+
 	public final String ELEMENT_RESULT_ITEM_LIST = "//*[@id='result']/*[@class='resultBox clearfix ${item}']//a[text()='${keySearch}']";
 	public final String ELEMENT_RESULT_LOCATION_DATETIME = "//div[@id='resultPage']//a[contains(text(),'${item}')]/*[contains(text(),'${keySearch}')]/../../../*[@class='detail']";
 	public final String ELEMENT_RESULT_EXCERPT = "//div[@id='resultPage']//a[contains(text(),'${item}')]/*[contains(text(),'${keySearch}')]/../../../*[@class='excerpt']";
@@ -124,6 +123,11 @@ public class SettingSearchPage extends PlatformBase {
 	public final String ELEMENT_QUICKSEARCH_RESULT = "//*[@id='quickSearchResult${number}']//*[@href=contains(text(),'${name}')]";
 	public final String ELEMENT_SEARCH_RESULT_EMPHASIZE = "//strong[normalize-space(text())='${text}']";
 	public final String ELEMENT_QUICKSEARCH_RESULT_NO_ORDER="//*[@href=contains(text(),'${name}')]";
+	
+	//Quick Search elements
+	public final String ELEMENT_QUICKSEARCH_RESULT_FIRSTRESULT = "//*[@id='quickSearchResult1']//*[contains(text(),'${name}')]";
+	public final String ELEMENT_QUICKSEARCH_RESULT_SECONDRESULT = "//*[@id='quickSearchResult2']//*[@href = contains(text(),'${name}')]";
+
 	//Task page result
 	public final String ELEMENT_RESULT_SEARCH_PAGE_ICON = "//*[@id='result']//div[contains(@class,'resultBox')]//*[contains(text(),'${name_document}')]/../../..//i[contains(@class,'webContent')]";
 	public final String ELEMENT_RESULT_SEARCH_PAGE_TITLE = "//*[@id='result']//div[contains(@class,'resultBox')]//a[contains(text(),'${name_document}')]";

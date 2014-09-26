@@ -3,22 +3,40 @@ package org.exoplatform.selenium.platform.plf.functional.unifiedsearch;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.TestBase;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationManagement;
 import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.PageManagement;
+import org.exoplatform.selenium.platform.SearchAdministration;
 import org.exoplatform.selenium.platform.SettingSearchPage;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
+import org.exoplatform.selenium.platform.calendar.Event;
+import org.exoplatform.selenium.platform.calendar.Task;
+import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.EcmsPermission;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
+import org.exoplatform.selenium.platform.forum.AnswerManageAnwser;
+import org.exoplatform.selenium.platform.forum.AnswerManageQuestion;
+import org.exoplatform.selenium.platform.forum.ForumManageCategory;
+import org.exoplatform.selenium.platform.forum.ForumManageForum;
+import org.exoplatform.selenium.platform.forum.ForumManagePost;
+import org.exoplatform.selenium.platform.forum.ForumManageTopic;
+import org.exoplatform.selenium.platform.social.ManageMember;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
+import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.Template;
+import org.openqa.selenium.By;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 
 public class PLF_UnifiedSearch_FileSearch extends Template {
 
@@ -28,14 +46,29 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 	//Platform
 	NavigationToolbar naviToolbar;
 	ManageAccount magAcc;
+	SearchAdministration searchAdmin;
 	SettingSearchPage qsPage;
+	PageEditor pEditor;
 	PageManagement pageMag;
 	ActionBar actBar;
 	ContentTemplate conTemp;
+	ManageMember magMember;
 	ContextMenu cMenu;
 	SitesExplorer siteExp;
+	PeopleProfile peoPro;
+	SpaceManagement spaceMag;
+	Event evt;
+	Task tsk;
+	ForumManageForum mngFru;
+	ForumManageTopic mngTopic;
+	ForumManagePost mngPost;
+	ForumManageCategory mngCat;
+	AnswerManageAnwser ansMagAn;
+	AnswerManageQuestion magQuest;
+	NavigationManagement navMag;
+	EcmsBase ecms;
 	EcmsPermission ePerm;
-	TestBase testBase;
+
 
 	@BeforeMethod
 	public void beforeMethods() {
@@ -44,13 +77,30 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		info("Login with " + DATA_USER1);
 		magAcc = new ManageAccount(driver, this.plfVersion);
 		naviToolbar = new NavigationToolbar(driver, this.plfVersion);
+
+		searchAdmin = new SearchAdministration(driver);
 		qsPage = new SettingSearchPage(driver);
+		pEditor = new PageEditor(driver, this.plfVersion);
 		pageMag = new PageManagement(driver, this.plfVersion);
 		actBar = new ActionBar(driver, this.plfVersion);
 		conTemp = new ContentTemplate(driver, this.plfVersion);
+		magMember = new ManageMember(driver, this.plfVersion);
 		cMenu = new ContextMenu(driver, this.plfVersion);
 		siteExp = new SitesExplorer(driver, this.plfVersion);
+		evt = new Event(driver, this.plfVersion);
+		tsk = new Task(driver, this.plfVersion);
 		button = new Button(driver, this.plfVersion);
+		peoPro = new PeopleProfile(driver, this.plfVersion);
+		spaceMag = new SpaceManagement(driver, this.plfVersion);
+		mngFru = new ForumManageForum(driver, this.plfVersion);
+		mngTopic = new ForumManageTopic(driver, this.plfVersion);
+		mngPost = new ForumManagePost(driver, this.plfVersion);
+		mngCat = new ForumManageCategory(driver, this.plfVersion);
+		ansMagAn = new AnswerManageAnwser(driver, this.plfVersion);
+		magQuest = new AnswerManageQuestion(driver, this.plfVersion);
+		navMag = new NavigationManagement(driver, this.plfVersion);
+		ecms = new EcmsBase(driver, this.plfVersion);
+		alert = new ManageAlert(driver, this.plfVersion);
 		ePerm = new EcmsPermission(driver);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 	}
@@ -103,12 +153,13 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 
 	}
 
+
 	@Test
-	/** 
-	 * == Display a File in the Search Result page ==
-	 * Test case ID: 104244
-	 * Step 1: Connect to Site, in the Quick Search box, input a valid characters to search a File (Test)
-	 * Step 2: Click on "See All Search Results"
+	 /** 
+	  * == Display a File in the Search Result page ==
+	  * Test case ID: 104244
+	  * Step 1: Connect to Site, in the Quick Search box, input a valid characters to search a File (Test)
+	  * Step 2: Click on "See All Search Results"
 	 */
 	public void test02_DisplayAFileInTheSearchResultPage() {
 		/*Declare variables*/
@@ -171,7 +222,7 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		//Define the rigths for the file 
 		actBar.goToNodePermissionManagement();
 		ePerm.deletePermission(user, true);
-		ePerm.deletePermission(user2, true);
+
 		//Change user 
 		magAcc.signOut();
 		magAcc.userSignIn(userType.PUBLISHER);
@@ -193,6 +244,22 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 	 * Test case ID: 104248
 	 * Step 1: Connect to Site, in the Quick Search box, input a valid characters to search a File (Test)
 	 * Step 2: Click on the File 
+=======
+		
+		//Check the result
+		Assert.assertFalse(driver.findElement(By.xpath(qsPage.ELEMENT_RESULT_ITEM.replace("${eventname}", fileName1))).isDisplayed(), "test fail");
+		//Back to homepage
+		click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
+		info("Back to homepage");
+		
+	}
+	
+	@Test
+	 /** 
+	  * == Download the File from the Search Results ==
+	  * Test case ID: 104248
+	  * Step 1: Connect to Site, in the Quick Search box, input a valid characters to search a File (Test)
+	  * Step 2: Click on the File 
 	 */
 	public void test04_DownloadTheFileFromTheSearchResults () {
 		String searchText = "Test104248";
@@ -209,6 +276,7 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		actBar.goToAddNewContent();
 		info("Open document creation form");
 		conTemp.createNewFile(fileName1, content, fileName1);
+
 		info("Document created");
 		click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
 		info("Back to homepage"); 
@@ -232,12 +300,22 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 	 * Step 1: Connect to iIntranet in the Quick Search box, input a valid characters to search a File (Test)
 	 * Step 2: Open new tab (tab 2) Input into the address bar of new tab on browser: {host}:{port}/rest/search?q={keysearch}&types=all / Then Enter
 	 * Step 3: Back to tab at step 1, check order of items of search result
+=======
+	}
+
+	@Test
+	 /** 
+	  * == Display Files in the Floating Result by pertinence ==
+	  * Test case ID: 104250
+	  * Step 1: - Connect to iIntranet in the Quick Search box, input a valid characters to search a File (Test)
+>>>>>>> FQA-1967: 4.1.x/FNC/PLF/Unified Search/File Search and Page
 	 */
 	public void test05_DisplayFilesInTheFloatingResultByPertinence() {
 		String searchText = "Test104250";
 		String fileName1 = "Test104250";
 		String fileName2 = "title2";
 		String fileName3 = "title3";
+
 		String fileTitle = "Test104250";
 		String content = "Test104250";
 		String content2 = "Content";
@@ -294,5 +372,38 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName1));
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName2));
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName3));
+
+		
+		
+		/*Step 1: - Connect to iIntranet in the Quick Search box, input a valid characters to search a File (Test) */
+		//Create files 
+//		for(i=0; i <=1; i++) {
+		//Create data
+				//Some files are existed
+				//Some documents are existed on Site explorer
+//				info("Add new webcontent");
+//				naviToolbar.goToSiteExplorer();
+//				info("Open the site explorer page");
+//				actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
+//				actBar.goToAddNewContent();
+//				info("Open document creation form");
+//				if(i==0) {
+//					conTemp. createNewFullFile(fileName1, content2, fileTitle, desc, creator, source);
+//					info("Document created");
+//				}
+//				else if(i==1) {
+//					conTemp. createNewFullFile(fileName2, content, fileTitle, desc, creator, source);
+//					info("Document created");
+//				}
+//				click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
+//				info("Back to homepage"); 
+//		}	
+				//search files
+				qsPage.quickSearch(searchText);
+				//check the result
+				waitForAndGetElement(By.xpath(qsPage.ELEMENT_QUICKSEARCH_RESULT_FIRSTRESULT.replace("${name}", fileName1)));
+				waitForAndGetElement(By.xpath(qsPage.ELEMENT_QUICKSEARCH_RESULT_SECONDRESULT.replace("${name}", fileName2)));
+				//back to homepage
+				click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
 	}
 }

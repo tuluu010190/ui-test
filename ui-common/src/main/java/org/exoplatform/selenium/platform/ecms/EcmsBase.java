@@ -215,6 +215,7 @@ public class EcmsBase extends ManageAccount {
 	//System TAB  
 	public final By ELEMENT_SYSTEM_TAB = By.xpath("//a[contains(@title,'System')]");
 
+
 	public final By ELEMENT_PERMISSION_LINK = By.xpath("//*[@class='actionIcon']//*[contains(@class,'uiIconEcmsViewPermissions')]");
 	//	public final By ELEMENT_PERMISSION_LINK2 = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsViewPermissions uiIconEcmsLightGray']");
 	public final By ELEMENT_EXPORT_LINK = By.xpath("//i[contains(@class,'uiIconEcmsExportNode')]");
@@ -242,6 +243,7 @@ public class EcmsBase extends ManageAccount {
 	//	public final String ELEMENT_EDIT_VIEW2 = "//*[@data-original-title='${viewName}']/../..//*[contains(@class,'uiIconEditInfo')]"; //*[@id='UIViewList']
 	public final String ELEMENT_DELETE_VIEW = "//*[@data-original-title='${viewName}']/../..//*[@data-original-title='Delete']";
 	//	public final String ELEMENT_DELETE_VIEW2 = "//*[@data-original-title='${viewName}']/../..//*[@class='uiIconDelete']";
+
 
 	//Edit View Form 
 	public final By ELEMENT_CHECKBOX_VERSION=By.id("manageVersions");
