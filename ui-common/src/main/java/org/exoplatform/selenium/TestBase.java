@@ -52,6 +52,7 @@ public class TestBase {
 	public int loopCount = 0;	
 	public boolean ieFlag;	 
 	public boolean chromeFlag;
+
 	/**
 	 * 4.0 : Version 4.0.x.
 	 * 4.1 : Version 4.1.x.
@@ -81,7 +82,7 @@ public class TestBase {
 	public final By ELEMENT_CONTINUE_BUTTON = By.xpath("//button[text()='Continue' and @class='btn active']");
 	public final By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
 	public final By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
-	
+
 	public final By ELEMENT_INPUT_PASSWORD = By.name("password");
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_PLF_INFORMATION = By.id("platformInfoDiv");
@@ -96,6 +97,14 @@ public class TestBase {
 	public final By ELEMENT_YOUR_ACCOUNT_LABEL = By.xpath("//h5[contains(text(), 'Create your account')]");
 	public final By ELEMENT_ADMIN_PASS_LABEL = By.xpath("//h5[contains(text(), 'Admin Password')]");
 	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
+
+	public TestBase(){
+
+	}
+
+	public TestBase(WebDriver dr){
+		driver = dr;
+	}
 
 	/*======== End of Term and conditions =====*/	
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
@@ -122,6 +131,7 @@ public class TestBase {
 			capabilities.setCapability(FirefoxDriver.PROFILE, profile);
 
 			driver = new FirefoxDriver(capabilities);
+
 		}
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -186,7 +196,7 @@ public class TestBase {
 	 * Verify plf version
 	 */
 	public void checkPLFVersion(){
-//		waitForTextNotPresent("terms and conditions agreement");
+		//		waitForTextNotPresent("terms and conditions agreement");
 		try{
 			info("Verify platform version");
 			String des = driver.findElement(ELEMENT_PLF_INFORMATION).getText();
@@ -744,41 +754,67 @@ public class TestBase {
 	public void getDriverAutoSave(){
 		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
 
-		FirefoxProfile fp = new FirefoxProfile();	
+		String browser = System.getProperty("browser");
 
-		info("Save file to " + pathFile);
-		fp.setPreference("browser.download.manager.showWhenStarting", false);
-		fp.setPreference("browser.download.dir", pathFile);
-		fp.setPreference("browser.download.folderList", 2);
-		//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", 
-		//				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;application/bzip2;" +
-		//				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-		//				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip;application/octet-stream");
+		baseUrl = System.getProperty("baseUrl");
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		if("chrome".equals(browser)){
+			driver = new ChromeDriver();
+			chromeFlag = true;
+		} else if ("iexplorer".equals(browser)){
+			driver = initIEDriver();
 
-		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
-				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
-				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
-				"application/octet-stream" +
-				";application/pdf;application/msword;text/plain;" +
-				"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
-				"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
-				"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
+			this.ieFlag = true;
+		} else {
+			System.setProperty("browser", "firefox");
+			FirefoxProfile fp = new FirefoxProfile();	
 
-		fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
-		fp.setPreference("pref.downloads.disable_button.edit_actions", true);
-		//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
-		fp.setPreference("pdfjs.disabled", true); 
-		//		fp.setPreference("pdfjs.firstRun", false); 
-		//		fp.setPreference("pdfjs.migrationVersion", 1);
+			info("Save file to " + pathFile);
+			fp.setPreference("browser.download.manager.showWhenStarting", false);
+			fp.setPreference("browser.download.dir", pathFile);
+			fp.setPreference("browser.download.folderList", 2);
+			//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", 
+			//				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;application/bzip2;" +
+			//				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+			//				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip;application/octet-stream");
 
-		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
-		driver = new FirefoxDriver(fp);
+			fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
+					"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
+					"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+					"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
+					"application/octet-stream" +
+					";application/pdf;application/msword;text/plain;" +
+					"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
+					"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
+					"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
+
+			fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
+			fp.setPreference("pref.downloads.disable_button.edit_actions", true);
+			//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
+			fp.setPreference("pdfjs.disabled", true); 
+			//		fp.setPreference("pdfjs.firstRun", false); 
+			//		fp.setPreference("pdfjs.migrationVersion", 1);
+
+			fp.setPreference("browser.helperApps.alwaysAsk.force", false);
+			driver = new FirefoxDriver(fp);
+		}
+
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		action = new Actions(driver);
 		termsAndConditions();
 		checkPLFVersion();
+	}
+
+	/**
+	 * Init IE driver
+	 */
+	public WebDriver initIEDriver(){
+		System.setProperty("webdriver.ie.driver","D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe") ;
+		DesiredCapabilities capabilitiesIE = DesiredCapabilities.internetExplorer();
+		capabilitiesIE.setCapability("ignoreProtectedModeSettings", true);
+		capabilitiesIE.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+		return new InternetExplorerDriver(capabilitiesIE);
 	}
 
 	/**function set driver to auto open new window when click link
