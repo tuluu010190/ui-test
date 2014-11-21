@@ -4,11 +4,17 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.space.SpaceRegistrationDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.space.SpaceVisibilityDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.Version;
 import org.openqa.selenium.By;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
 /**
@@ -20,36 +26,54 @@ public class Wiki_Information extends Version {
 	ManageAccount magAc;
 	Button but;
 	ManageMember magMem;
-
-	@BeforeMethod
-	public void setUpBeforeTest(){
+	TextBoxDatabase txData;
+	WikiTemplateDatabase wTempData;
+	AttachmentFileDatabase fData;
+	SpaceVisibilityDatabase sVisData;
+	SpaceRegistrationDatabase sRegData;
+	@BeforeTest
+	public void setBeforeTest() throws Exception{
 		initSeleniumTest();
+		getDefaultUserPass(userDataFilePath,defaultSheet,false,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		but = new Button(driver);
 		magMem = new ManageMember(driver);
-		magAc.signIn(DATA_USER1, DATA_PASS); 
-		goToWiki();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		txData = new TextBoxDatabase();
+		wTempData = new WikiTemplateDatabase();
+		sVisData = new SpaceVisibilityDatabase();
+		sRegData = new SpaceRegistrationDatabase();
+		fData = new AttachmentFileDatabase();
+		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		wTempData.setWikiTemplateData(wikiTemplateFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);	
+		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		sVisData.setSpaceVisibleData(spaceVisibleFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		sRegData.setSpaceRegistrationData(spaceRegistrationFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 	}
-
-	@AfterMethod
-	public void afterTest(){
-		//magAc.signOut();
+	@AfterTest
+	public void setAfterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
-	
+
+	@BeforeMethod
+	public void setBeforeMethod(){
+		goToWiki();
+	}
+
 	/**
 	 * CaseId: 109192 -> View Page General information
 	 */
 	@Test
 	public void test01_ViewPageGeneralInformation(){
-		String title = "Wiki_sniff_infor_page_title_01";
-		String content = "Wiki_sniff_infor_page_content_01";
-		String link = "Wiki_Sniff_Attachment_01.doc";
-		String newTitle = "Wiki_sniff_infor_page_title_01_update";
-		String newContent = "Wiki_sniff_infor_page_content_01_update";
+		String title = txData.getContentByArrayTypeRandom(1);
+		String content =  txData.getContentByArrayTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByArrayTypeRandom(1);
+		String newContent = "newcontent"+txData.getContentByArrayTypeRandom(1);
+		String link = fData.getAttachFileByArrayTypeRandom(1,2,3);
 
+		info(link);
 		addBlankWikiPageHasAttachment(title, content, link);
 		editWikiPage(newTitle, newContent, 0);
 
@@ -61,17 +85,18 @@ public class Wiki_Information extends Version {
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "2"));
 
 		deleteCurrentWikiPage();
+
 	}
-	
+
 	/**
 	 * CaseId: 109193 -> View Page history to compare versions
 	 */
 	@Test
 	public void test02_ViewPageHistoryToCompareVersions(){
-		String title = "Wiki_sniff_infor_page_title_02";
-		String content = "Wiki_sniff_infor_page_content_02";
-		String newTitle = "Wiki_sniff_infor_page_title_02_update";
-		String newContent = "Wiki_sniff_infor_page_content_02_update";
+		String title = txData.getContentByArrayTypeRandom(1);
+		String content =  txData.getContentByArrayTypeRandom(1);
+		String newTitle = "newtitle"+txData.getContentByArrayTypeRandom(1);
+		String newContent = "newcontent"+txData.getContentByArrayTypeRandom(1);
 
 		addBlankWikiPage(title, content, 0);
 		editWikiPage(newTitle, newContent, 0);
@@ -89,27 +114,31 @@ public class Wiki_Information extends Version {
 		click(By.linkText(newTitle));
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**
 	 * CaseId: 70337 -> Add Relation between 2 pages different space
 	 */
 	@Test
 	public void test03_AddRelationDifferentSpace(){
-		String spaceName1 = "relationspace031";
-		String title1 = "Wiki_sniff_relation_title_03_1";
-		String content1 = "Wiki_sniff_relation_content_03_1";
+		String spaceName1 = txData.getContentByArrayTypeRandom(1)+"1";
+		String title1 = txData.getContentByArrayTypeRandom(1)+"1";
+		String content1 =  txData.getContentByArrayTypeRandom(1)+"1";
 
-		String spaceName2 = "relationspace032";
-		String title2 = "Wiki_sniff_relation_title_03_2";
-		String content2 = "Wiki_sniff_relation_content_03_2";
+
+		String spaceName2 = txData.getContentByArrayTypeRandom(1)+"2";
+		String title2 = "newtitle"+txData.getContentByArrayTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByArrayTypeRandom(1)+"2";
+
+		String visible = sVisData.getSpaceVisible(0);
+		String validate = sRegData.getSpaceRegistration(1);
 
 		magMem.goToAllSpaces();
-		magMem.addNewSpace(spaceName1, "", "Visible", "Validation", "", "");
+		magMem.addNewSpace(spaceName1, "", visible, validate, "", "");
 		goToWikiFromSpace(spaceName1);
 		addBlankWikiPage(title1, content1, 0);
 
 		magMem.goToAllSpaces();
-		magMem.addNewSpace(spaceName2, "", "Visible", "Validation", "", "");
+		magMem.addNewSpace(spaceName2, "", visible, validate, "", "");
 		goToWikiFromSpace(spaceName2);
 		addBlankWikiPage(title2, content2, 0);
 
@@ -120,23 +149,25 @@ public class Wiki_Information extends Version {
 		magMem.deleteSpace(spaceName1, 180000);
 		magMem.deleteSpace(spaceName2, 180000);
 	}
-	
+
 	/**
 	 * CaseId: 70340 -> Add Relation with intranet portal
 	 */
 	@Test
 	public void test04_AddRelationWithIntranetPortal(){
-		String title1 = "Wiki_relation_title_04_1";
-		String content1 = "Wiki_relation_content_04_1";
+		String spaceName = txData.getContentByArrayTypeRandom(1)+"1";
+		String title1 = txData.getContentByArrayTypeRandom(1)+"1";
+		String content1 =  txData.getContentByArrayTypeRandom(1)+"1";
+		String title2 = "newtitle"+txData.getContentByArrayTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByArrayTypeRandom(1)+"2";
 
-		String spaceName = "relationspace04";
-		String title2 = "Wiki_relation_title_04_2";
-		String content2 = "Wiki_relation_content_04_2";
+		String visible = sVisData.getSpaceVisible(0);
+		String validate = sRegData.getSpaceRegistration(1);
 
 		addBlankWikiPage(title1, content1, 0);
 
 		magMem.goToAllSpaces();
-		magMem.addNewSpace(spaceName, "", "Visible", "Validation", "", "");
+		magMem.addNewSpace(spaceName, "", visible, validate, "", "");
 		goToWikiFromSpace(spaceName);
 		addBlankWikiPage(title2, content2, 0);
 
@@ -154,14 +185,17 @@ public class Wiki_Information extends Version {
 	 */
 	@Test
 	public void test05_AddRelationSameSpace(){
-		String spaceName = "relationspace05";
-		String title1 = "Wiki_relation_title_05_1";
-		String content1 = "Wiki_relation_content_05_1";		
-		String title2 = "Wiki_relation_title_05_2";
-		String content2 = "Wiki_relation_content_05_2";
+		String spaceName = txData.getContentByArrayTypeRandom(1)+"1";
+		String title1 = txData.getContentByArrayTypeRandom(1)+"1";
+		String content1 =  txData.getContentByArrayTypeRandom(1)+"1";
+		String title2 = "newtitle"+txData.getContentByArrayTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByArrayTypeRandom(1)+"2";
+
+		String visible = sVisData.getSpaceVisible(0);
+		String validate = sRegData.getSpaceRegistration(1);
 
 		magMem.goToAllSpaces();
-		magMem.addNewSpace(spaceName, "", "Visible", "Validation", "", "");
+		magMem.addNewSpace(spaceName, "", visible, validate, "", "");
 		goToWikiFromSpace(spaceName);
 		addBlankWikiPage(title1, content1, 0);
 		goToWikiHome();
@@ -173,17 +207,17 @@ public class Wiki_Information extends Version {
 		magMem.goToAllSpaces();
 		magMem.deleteSpace(spaceName, 180000);
 	}
-	
+
 	/**
 	 * CaseId: 70342 -> Add relation in the case there is no space
 	 */
 	@Test
 	public void test06_AddRelation_NoSpace(){
-		String title = "Wiki_sniff_infor_page_title_06";
-		String content = "Wiki_sniff_infor_page_content_06";
+		String title = txData.getContentByArrayTypeRandom(1);
+		String content =  txData.getContentByArrayTypeRandom(1);
 
 		magAc.signOut();
-		magAc.signIn("fqa", DATA_PASS);
+		magAc.signIn(DATA_USER2, DATA_PASS);
 		goToWiki();
 		addBlankWikiPage(title, content, 0);
 		goToAddRelation();
@@ -194,16 +228,16 @@ public class Wiki_Information extends Version {
 		click(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**
 	 * CaseId: 70344 -> Delete relation
 	 */
 	@Test
 	public void test07_DeleteRelation(){
-		String title1 = "Wiki_sniff_infor_page_title_07_1";
-		String content1 = "Wiki_sniff_infor_page_content_07_1";
-		String title2 = "Wiki_sniff_infor_page_title_07_2";
-		String content2 = "Wiki_sniff_infor_page_content_07_2";
+		String title1 = txData.getContentByArrayTypeRandom(1)+"1";
+		String content1 =  txData.getContentByArrayTypeRandom(1)+"1";
+		String title2 = "newtitle"+txData.getContentByArrayTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByArrayTypeRandom(1)+"2";
 
 		addBlankWikiPage(title1, content1, 0);
 		goToWikiHome();
@@ -218,17 +252,17 @@ public class Wiki_Information extends Version {
 		click(By.linkText(title2));
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**
 	 * CaseId: 109191 -> View Page info
 	 */
 	@Test
 	public void test08_ViewPageInfo(){
-		String title = "Wiki_sniff_infor_page_title_08";
-		String content = "Wiki_sniff_infor_page_content_08";
+		String title = txData.getContentByArrayTypeRandom(1);
+		String content =  txData.getContentByArrayTypeRandom(1);
 
-		String child1Title = "Wiki_sniff_infor_page_title_08_child1";
-		String child2Title = "Wiki_sniff_infor_page_title_08_child2";
+		String child1Title = "child"+title;
+		String child2Title = "child"+content;
 
 		info("Add wiki page");
 		addBlankWikiPage(title, content, 0);
@@ -261,47 +295,48 @@ public class Wiki_Information extends Version {
 		click(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
-	
+
 	/**Version Creation
 	 * CaseId: 109771
 	 * update follow issue https://jira.exoplatform.org/browse/FQA-1772
 	 */
 	@Test
 	public void test09_VersionCreation(){
-		String title1 = "Wiki_page_109771";
-		String content1 = "Content page 109771";
-		String title2 = "Wiki_page_109771 update";
-		String content2 = "Content page 109771 update";
-		String link = "Wiki_Sniff_Attachment_01.jpg";
-		String title3 = "Wiki_page_109771 update 2";
+		String title1 = txData.getContentByArrayTypeRandom(1)+"1";
+		String content1 =  txData.getContentByArrayTypeRandom(1)+"1";
+		String title2 = "newtitle"+txData.getContentByArrayTypeRandom(1)+"2";
+		String content2 = "newcontent"+txData.getContentByArrayTypeRandom(1)+"2";
+
+		String link = fData.getAttachFileByArrayTypeRandom(1,2,3);
+		String title3 = txData.getContentByArrayTypeRandom(1)+"3";
 
 		info("Create new wiki page -> it has verion 1");
 		addBlankWikiPage(title1, content1, 0);
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "1"));
-		
+
 		info("Edit title of page by click edit -> it has version 2");
 		editWikiPage(title2, null, 0);
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "2"));
-		
+
 		info("Edit content of page by click edit -> it has verstion 3");
 		editWikiPage(null, content2, 0);
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "3"));
-		
+
 		info("Add new attachment -> page's version is not changed");
 		click(ELEMENT_ATTACHMENT_ICON);
 		attachFileInWiki("TestData/" + link, 2);
 		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "1"));
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "3"));
-		
+
 		info("Delete acttachment -> page's version is not changed");
 		deleteAnAttachment(link);		
 		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "0"));
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "3"));
-		
+
 		info("Edit title by double click -> page's version is not changed");
 		editWikiPageTitleByClickTitle(title3);
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "3"));
-		
+
 		info("Delete data");
 		deleteCurrentWikiPage();
 	}

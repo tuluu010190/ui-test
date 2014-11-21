@@ -47,23 +47,58 @@ public class TestBase {
 	protected boolean ieFlag;	 
 	protected boolean chromeFlag;
 	
-	/**
-	 * 4.0 : Version 4.0.x.
-	 * 4.1 : Version 4.1.x.
-	 * 4.2 : Version 4.2.x.
-	 * ect...
-	 */
 	protected String plfVersion = "";
 	public final int ACTION_REPEAT = 5;
 	public static boolean firstTimeLogin = false;
 	public Actions action;
+	
+	/*========System Property====================*/
+	protected Boolean isRandom;
+	protected Boolean isUseFile;
+	
+	protected String jdbcDriver;
+	protected String dbUrl;
+	protected String user;
+	protected String pass;
+	
+	protected String sqlWiki;
+	protected String sqlAttach;
+	protected String sqlUser;
 
-	//public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
-	//public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
-	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
-	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
+	protected String defaultSheet;
+	
+	protected String userDataFilePath;
+	protected String wikiRichTextFilePath;
+	protected String attachmentFilePath;
+	protected String texboxFilePath;
+	protected String wikiTemplateFilePath;
+	protected String spaceVisibleFilePath;
+	protected String spaceRegistrationFilePath;
+
+	/*========Default System Property=============*/
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
-
+	
+	public final  Boolean DEFAULT_ISRANDOM = true;
+	public final  Boolean DEFAULT_ISUSEFILE = true;
+	
+	public final  String DEFAULT_JDBCDRIVER = "com.mysql.jdbc.Driver";
+	public final  String DEFAULT_DBURL = "jdbc:mysql://localhost:3306/selenium";
+	public final  String DEFAULT_USERMYSQL = "root";
+	public final  String DEFAULT_USERPASS = "exo";
+	
+	public final  String DEFAULT_SQLWIKI = "select * from wiki order by id asc";
+	public final  String DEFAULT_SQLATTACHMENT = "select * from space order by id asc";
+	public final  String DEFAULT_SQLUSER = "select type,username,password,email from user order by id asc";
+	
+	public final String DEFAULT_SHEET="sheet1";
+	public final String DEFAULT_USERFILEURL="DataDriven/" + "user.xls";
+	public final String DEFAULT_ATTACHMENTFILEURL="DataDriven/" + "attachment_file.xls";
+	public final String DEFAULT_TEXTBOXFILEURL="DataDriven/" + "textbox.xls";
+	public final String DEFAULT_WIKITEMPLATEFILEURL="DataDriven/" + "wiki_template.xls";
+	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
+	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
+	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
+	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -92,6 +127,55 @@ public class TestBase {
 	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
 
 	/*======== End of Term and conditions =====*/	
+	/**
+	 * Get System Property
+	 */
+	public void getSystemProperty(){
+		baseUrl = System.getProperty("baseUrl");
+		
+		jdbcDriver = System.getProperty("jdbcDriver");
+		dbUrl = System.getProperty("dbUrl");
+		user = System.getProperty("user");
+		pass = System.getProperty("pass");
+		sqlWiki = System.getProperty("sqlWiki");
+		sqlAttach = System.getProperty("sqlAttach");
+		sqlUser = System.getProperty("sqlUser");
+		
+		defaultSheet = System.getProperty("defaultSheet");
+		
+		userDataFilePath = System.getProperty("userDataFilePath");
+		wikiRichTextFilePath = System.getProperty("wikiRichTextFilePath");
+		attachmentFilePath = System.getProperty("attachmentFilePath");
+		texboxFilePath = System.getProperty("texboxFilePath");
+		wikiTemplateFilePath = System.getProperty("wikiTemplateFilePath");
+		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
+		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
+
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		
+		if (isRandom==null) isRandom = DEFAULT_ISRANDOM;
+		if (isUseFile==null) isUseFile = DEFAULT_ISUSEFILE;
+		
+		if (jdbcDriver==null) jdbcDriver = DEFAULT_JDBCDRIVER;
+		if (dbUrl==null) dbUrl = DEFAULT_DBURL;
+		if (user==null) user = DEFAULT_USERMYSQL;
+		if (pass==null) pass = DEFAULT_USERPASS;
+		
+		if (sqlWiki==null) sqlWiki = DEFAULT_SQLWIKI;
+		if (sqlAttach==null) sqlAttach = DEFAULT_SQLATTACHMENT;
+		if (sqlUser==null) sqlUser = DEFAULT_SQLUSER;
+		
+		if (defaultSheet==null) defaultSheet = DEFAULT_SHEET;
+		
+		if (userDataFilePath==null) userDataFilePath = DEFAULT_USERFILEURL;
+		if (wikiRichTextFilePath==null) wikiRichTextFilePath = DEFAULT_WIKIRICHTEXTFILEURL;
+		if (attachmentFilePath==null) attachmentFilePath = DEFAULT_ATTACHMENTFILEURL;
+		if (wikiTemplateFilePath==null) wikiTemplateFilePath = DEFAULT_WIKITEMPLATEFILEURL;
+		if (texboxFilePath==null) texboxFilePath = DEFAULT_TEXTBOXFILEURL;
+		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
+		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
+	}
+	
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
 		String browser = System.getProperty("browser");
 		if("chrome".equals(browser)){
@@ -109,9 +193,7 @@ public class TestBase {
             
 			driver = new FirefoxDriver();
 		}
-		baseUrl = System.getProperty("baseUrl");
-		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
-		info("Base url is " + baseUrl);
+		getSystemProperty();
 		action = new Actions(driver);
 	}
 
@@ -719,8 +801,7 @@ public class TestBase {
 		
 		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 		driver = new FirefoxDriver(fp);
-		baseUrl = System.getProperty("baseUrl");
-		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		getSystemProperty();
 		action = new Actions(driver);
 		termsAndConditions();
 		checkPLFVersion();

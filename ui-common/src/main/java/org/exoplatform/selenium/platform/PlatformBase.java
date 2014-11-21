@@ -5,6 +5,7 @@ import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.TestBase;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
@@ -21,17 +22,14 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 public class PlatformBase extends TestBase {
 
-	public final String DATA_USER1 = "john";
-	public final String DATA_PASS = "gtn";
-	public final String DATA_USER2 = "mary";
+	public String DATA_USER1 = "john";
+	public  String DATA_USER2 = "mary";
+	public  String DATA_USER3 = "james";
+	public  String DATA_USER4 = "demo";
+	public  String USER_ROOT = "root";
+	public  String PASS_ROOT = "gtngtn";
 
-	public final String USER_ROOT = "root";//"root@acme.com";
-	public final String PASS_ROOT = "gtngtn";
-//	public final String DATA_USER1 = "john.smith@acme.com";
-//	public final String DATA_USER2 = "mary.williams@acme.com";
-	public final String DATA_USER3 = "james";//"james.davis@acme.com";
-	public final String DATA_USER4 = "demo";//"jack.demo@acme.com";
-//	public final String DATA_PASS = "gtngtn";
+	public String DATA_PASS = "gtn";
 
 	public ManageAlert alert = new ManageAlert(driver);
 	public Button button = new Button(driver);
@@ -52,7 +50,7 @@ public class PlatformBase extends TestBase {
 	 * */
 	public final String ELEMENT_SIGN_IN_LINK = "//b[contains(text(),'Sign in')]";
 	public final By ELEMENT_REFRESH = By.xpath("//div[@class='activityStreamStatus pull-left']");
-	
+
 
 	/*
 	 * Log in Form - Sign-out 
@@ -79,7 +77,7 @@ public class PlatformBase extends TestBase {
 	public By ELEMENT_CALENDAR_PANEL = By.xpath("//div[@class='uiBox uiCalendars']");
 	public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/*[contains(text(), 'Wiki Home')]");
 
-	
+
 	/*
 	 * Navigation Bar
 	 */
@@ -232,7 +230,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_NOTIFICATION_LINK = By.linkText("Notifications");
 	public final By ELEMENT_MY_CONNECTIONS_LINK = By.linkText("My Connections");
 	public final String ELEMENT_PROFILE_PAGE = "//div[@id='UIProfile']//h3[contains(.,'${user}')]";
-	
+
 	//User-> Setting
 	public final By ELEMENT_CHANGE_PASSWORD_TAB = By.linkText("Change Password");
 	public final By ELEMENT_ACCOUNT_PROFILE_TAB = By.linkText("Account Profiles");
@@ -408,7 +406,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_BROWSE_GROUP = By.xpath("//h6[text()='Browse and select a group']");
 	public final By ELEMENT_PERMISSION_GRID = By.id("PermissionGrid");
 	public final By ELEMENT_PERMISSION_GRID_DELETE_ICON = By.xpath("//*[@id='PermissionGrid']//*[@data-original-title='Delete']");
-	
+
 	//Portal Template TAB
 	public final By ELEMENT_PORTAL_TEMPLATE_TAB= By.linkText("Portal Templates");
 
@@ -802,7 +800,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_JUSTIFY=".//*[@class='postContent']//..[contains(text(),'${descripTopic}')][@style='text-align: justify;']";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_NUM_LIST=".//*[@class='postContent']//ol/li[contains(text(),'${nameItem}')]";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_BULLET_LIST=".//*[@class='postContent']//ul/li[contains(text(),'${nameItem}')]";
-    public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_INCREASE=".//*[@class='postContent']//p[@style='margin-left: 40px;'][contains(text(),'${nameItem}')]";
+	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_INCREASE=".//*[@class='postContent']//p[@style='margin-left: 40px;'][contains(text(),'${nameItem}')]";
 	public final By ELEMENT_RESULT_FLOATING_RESULTS_DISCUSSION_ICON= By.xpath("//*[@class='uiQuickSearchResult']/descendant::tr[th[contains(text(),'Discussion')]]//a/i[contains(@class,'uiIconPLFDiscussion')]");
 	public final String ELEMENT_RESULT_FLOATING_RESULTS_NAME= "//*[@class='uiQuickSearchResult']/descendant::tr[th[contains(text(),'${type_Search}')]]//a[contains(.,'${detail_Name}')]";
 
@@ -815,9 +813,9 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SEARCH_APPLICATION = By.xpath("//a[@title='Search']");
 	public final String ELEMENT_GADGET_SEARCH_APPLICATION_PAGE_EDITOR = "//div[@id='UIApplicationList17']//div[contains(text(),'${gadget}')]";
 	public final By ELEMENT_QUICK_SEARCH_PORTLET = By.id("Search/local._unified-search.QuicksearchPortlet");
-	
-	
-	
+
+
+
 	//Administration Menu for admin acc
 
 	//public final By ELEMENT_MENU_ADMIN_DROPDOWN = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']/a[@class='dropdown-toggle']");
@@ -842,7 +840,24 @@ public class PlatformBase extends TestBase {
 	public By PRODUCTS_LABEL_FRENCH = By.xpath("//*[text()='Produits']");
 	public By PRODUCTS_LABEL_GERMAN = By.xpath("//*[text()='Produkte']");
 
-	///////////////////
+	/****************************Method*************************************/
+	/**
+	 * get Default User Pass
+	 * @throws Exception 
+	 */
+	public void getDefaultUserPass(String userDataFile, String userSheet, Object... opParams) throws Exception{
+		UserDatabase userData = new UserDatabase();
+		userData.setUserData(userDataFile,userSheet,opParams);
+		DATA_USER1 = userData.userName.get(0);
+		DATA_PASS = userData.password.get(0);
+		DATA_USER2 = userData.userName.get(1);
+
+		USER_ROOT = userData.userName.get(4);
+		PASS_ROOT = userData.password.get(4);
+		DATA_USER3 = userData.userName.get(2);
+		DATA_USER4 = userData.userName.get(3);
+	}
+
 	//Set view permissions for portal
 	public void setViewPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM.replace("${membership}", membership);
@@ -853,7 +868,7 @@ public class PlatformBase extends TestBase {
 		String[] groups = groupId.split("/");
 		Utils.pause(500);
 		click(ELEMENT_ADD_PERMISSION_BUTTON);
-//		waitForAndGetElement(ELEMENT_BROWSE_GROUP);
+		//		waitForAndGetElement(ELEMENT_BROWSE_GROUP);
 		for (String group : groups) {
 			String groupToSelect = ELEMENT_SELECT_ACCESS_GROUP_ITEM.replace("${group}", group);
 			click(groupToSelect);
@@ -1406,7 +1421,7 @@ public class PlatformBase extends TestBase {
 		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 5000,0) == null)
 			click(ELEMENT_GMAIL_SIGN_IN_LINK); 
 
-//		waitForAndGetElement(ELEMENT_GMAIL_USERNAME,60000);
+		//		waitForAndGetElement(ELEMENT_GMAIL_USERNAME,60000);
 		type(ELEMENT_GMAIL_USERNAME, email, true);
 		type(ELEMENT_GMAIL_PASS, pass, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
