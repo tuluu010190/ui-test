@@ -46,27 +46,27 @@ public class TestBase {
 	public int loopCount = 0;	
 	protected boolean ieFlag;	 
 	protected boolean chromeFlag;
-	
+
 	protected String plfVersion = "";
 	public final int ACTION_REPEAT = 5;
 	public static boolean firstTimeLogin = false;
 	public Actions action;
-	
+
 	/*========System Property====================*/
 	protected Boolean isRandom;
 	protected Boolean isUseFile;
-	
+
 	protected String jdbcDriver;
 	protected String dbUrl;
 	protected String user;
 	protected String pass;
-	
+
 	protected String sqlWiki;
 	protected String sqlAttach;
 	protected String sqlUser;
 
 	protected String defaultSheet;
-	
+
 	protected String userDataFilePath;
 	protected String wikiRichTextFilePath;
 	protected String attachmentFilePath;
@@ -77,19 +77,19 @@ public class TestBase {
 
 	/*========Default System Property=============*/
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
-	
+
 	public final  Boolean DEFAULT_ISRANDOM = true;
 	public final  Boolean DEFAULT_ISUSEFILE = true;
-	
+
 	public final  String DEFAULT_JDBCDRIVER = "com.mysql.jdbc.Driver";
 	public final  String DEFAULT_DBURL = "jdbc:mysql://localhost:3306/selenium";
 	public final  String DEFAULT_USERMYSQL = "root";
 	public final  String DEFAULT_USERPASS = "exo";
-	
+
 	public final  String DEFAULT_SQLWIKI = "select * from wiki order by id asc";
 	public final  String DEFAULT_SQLATTACHMENT = "select * from space order by id asc";
 	public final  String DEFAULT_SQLUSER = "select type,username,password,email from user order by id asc";
-	
+
 	public final String DEFAULT_SHEET="sheet1";
 	public final String DEFAULT_USERFILEURL="DataDriven/" + "user.xls";
 	public final String DEFAULT_ATTACHMENTFILEURL="DataDriven/" + "attachment_file.xls";
@@ -98,7 +98,7 @@ public class TestBase {
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
-	
+
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -132,7 +132,7 @@ public class TestBase {
 	 */
 	public void getSystemProperty(){
 		baseUrl = System.getProperty("baseUrl");
-		
+
 		jdbcDriver = System.getProperty("jdbcDriver");
 		dbUrl = System.getProperty("dbUrl");
 		user = System.getProperty("user");
@@ -140,9 +140,9 @@ public class TestBase {
 		sqlWiki = System.getProperty("sqlWiki");
 		sqlAttach = System.getProperty("sqlAttach");
 		sqlUser = System.getProperty("sqlUser");
-		
+
 		defaultSheet = System.getProperty("defaultSheet");
-		
+
 		userDataFilePath = System.getProperty("userDataFilePath");
 		wikiRichTextFilePath = System.getProperty("wikiRichTextFilePath");
 		attachmentFilePath = System.getProperty("attachmentFilePath");
@@ -152,21 +152,21 @@ public class TestBase {
 		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
 
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
-		
+
 		if (isRandom==null) isRandom = DEFAULT_ISRANDOM;
 		if (isUseFile==null) isUseFile = DEFAULT_ISUSEFILE;
-		
+
 		if (jdbcDriver==null) jdbcDriver = DEFAULT_JDBCDRIVER;
 		if (dbUrl==null) dbUrl = DEFAULT_DBURL;
 		if (user==null) user = DEFAULT_USERMYSQL;
 		if (pass==null) pass = DEFAULT_USERPASS;
-		
+
 		if (sqlWiki==null) sqlWiki = DEFAULT_SQLWIKI;
 		if (sqlAttach==null) sqlAttach = DEFAULT_SQLATTACHMENT;
 		if (sqlUser==null) sqlUser = DEFAULT_SQLUSER;
-		
+
 		if (defaultSheet==null) defaultSheet = DEFAULT_SHEET;
-		
+
 		if (userDataFilePath==null) userDataFilePath = DEFAULT_USERFILEURL;
 		if (wikiRichTextFilePath==null) wikiRichTextFilePath = DEFAULT_WIKIRICHTEXTFILEURL;
 		if (attachmentFilePath==null) attachmentFilePath = DEFAULT_ATTACHMENTFILEURL;
@@ -175,7 +175,7 @@ public class TestBase {
 		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
 	}
-	
+
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
 		String browser = System.getProperty("browser");
 		if("chrome".equals(browser)){
@@ -186,11 +186,10 @@ public class TestBase {
 			ieFlag = true;
 		} else {
 			FirefoxProfile profile = new FirefoxProfile();
-            profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
-            profile.setPreference("dom.max_script_run_time", 0);
-            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-            capabilities.setCapability(FirefoxDriver.PROFILE, profile);
-            
+			profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
+			profile.setPreference("dom.max_script_run_time", 0);
+			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+			capabilities.setCapability(FirefoxDriver.PROFILE, profile);
 			driver = new FirefoxDriver();
 		}
 		getSystemProperty();
@@ -212,7 +211,7 @@ public class TestBase {
 			driver.manage().window().maximize();
 			driver.navigate().refresh();
 			Utils.pause(2000);
-			ManageAccount acc = new ManageAccount(driver,this.plfVersion);
+			ManageAccount acc = new ManageAccount(driver);
 			acc.signOut();
 			firstTimeLogin=false;
 			checkPLFVersion();
@@ -270,6 +269,9 @@ public class TestBase {
 
 	}
 
+	/**
+	 * Create new first account
+	 */
 	public void accountSetupWithoutGreeting(){
 		type(ELEMENT_INPUT_USERNAME, "fqa", true);
 		type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
@@ -283,12 +285,21 @@ public class TestBase {
 		waitForTextNotPresent("Create your account");
 	}
 
+	/**
+	 * Account setup
+	 */
 	public void accountSetup(){
 		accountSetupWithoutGreeting();
 		click(ELEMENT_START_BUTTON);
 		waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
 	}
 
+	/**
+	 * Get element
+	 * @param locator
+	 * @param opParams
+	 * @return
+	 */
 	public WebElement getElement(Object locator, Object... opParams) {
 		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
 		WebDriver wDriver = (WebDriver) (opParams.length > 0 ? opParams[0]: driver);	
@@ -313,7 +324,6 @@ public class TestBase {
 				if (isDisplay(by)) return e;
 			}
 		} catch (NoSuchElementException ex) {
-			//			info("NoSuchElementException");
 		}catch(StaleElementReferenceException ex)
 		{
 			checkCycling(ex, 10);
@@ -334,11 +344,16 @@ public class TestBase {
 		return !isElementPresent(locator);
 	}
 
-	/*
-	 * @opPram[0]: timeout
-	 * @opPram[1]: 0,1
-	 * 0: No Assert
-	 * 1: Assert
+	/**
+	 * Get element
+	 * @param locator
+	 * 					locator of element
+	 * @param opParams
+	 * 					opPram[0]: timeout
+	 * 					opPram[1]: 0,1
+	 * 					0: No Assert
+	 * 					1: Assert
+	 * @return
 	 */
 	public WebElement waitForAndGetElement(Object locator, Object... opParams) {
 		WebElement elem = null;
@@ -362,11 +377,16 @@ public class TestBase {
 		return null;
 	}
 
-	/*
-	 * @opPram[0]: timeout
-	 * @opPram[1]: 0,1
-	 * 0: No Assert
-	 * 1: Assert
+	/**
+	 * Get element
+	 * @param locator
+	 * 					locator of element
+	 * @param opParams
+	 * 					opPram[0]: timeout
+	 * 					opPram[1]: 0,1
+	 * 					0: No Assert
+	 * 					1: Assert
+	 * @return
 	 */
 	public WebElement waitForElementNotPresent(Object locator, int... opParams) {
 		WebElement elem = null;
@@ -391,6 +411,12 @@ public class TestBase {
 		return elem;
 	}
 
+	/**
+	 * 
+	 * @param text
+	 * @param opts
+	 * @return
+	 */
 	public boolean isTextPresent(String text, int...opts) {
 		int display = opts.length > 0 ? opts[0] : 1;
 		Utils.pause(500);
@@ -443,10 +469,6 @@ public class TestBase {
 			Utils.pause(WAIT_INTERVAL);
 			dragAndDropToObject(sourceLocator, targetLocator);
 		}catch (UnhandledAlertException e) {
-			/*checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			Utils.pause(WAIT_INTERVAL);
-			dragAndDropToObject(sourceLocator, targetLocator);*/
-			//acceptAlert();
 			try {
 				Alert alert = driver.switchTo().alert();
 				alert.accept();
@@ -462,7 +484,6 @@ public class TestBase {
 	}
 
 	public void click(Object locator, Object... opParams) {
-		//Actions actions = new Actions(driver);
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);		
 		Actions actions = new Actions(driver);
 		try {
@@ -598,9 +619,7 @@ public class TestBase {
 
 	public void waitForMessage(String message,int...wait) {
 		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
-		//info("--Verify message: " + message);
 		Utils.pause(500);
-		//waitForTextPresent(message, waitTime);
 		waitForAndGetElement("//*[contains(text(),'"+message+"')]",waitTime);
 	}
 
@@ -764,9 +783,8 @@ public class TestBase {
 		return bool;
 	}
 
-	//////
 	/** function: set driver to auto save file to TestData/TestOutput
-	 * @author lientm
+
 	 */
 	public void getDriverAutoSave(){
 		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
@@ -777,11 +795,6 @@ public class TestBase {
 		fp.setPreference("browser.download.manager.showWhenStarting", false);
 		fp.setPreference("browser.download.dir", pathFile);
 		fp.setPreference("browser.download.folderList", 2);
-		//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", 
-		//				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;application/bzip2;" +
-		//				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-		//				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip;application/octet-stream");
-
 		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
 				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
 				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
@@ -794,11 +807,7 @@ public class TestBase {
 
 		fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
 		fp.setPreference("pref.downloads.disable_button.edit_actions", true);
-//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
 		fp.setPreference("pdfjs.disabled", true); 
-//		fp.setPreference("pdfjs.firstRun", false); 
-//		fp.setPreference("pdfjs.migrationVersion", 1);
-		
 		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 		driver = new FirefoxDriver(fp);
 		getSystemProperty();
@@ -808,7 +817,6 @@ public class TestBase {
 	}
 
 	/**function set driver to auto open new window when click link
-	 * @author lientm
 	 */
 	public void getDriverAutoOpenWindow(){
 		FirefoxProfile fp = new FirefoxProfile();		
@@ -823,7 +831,6 @@ public class TestBase {
 
 	/**
 	 * function: check a file existed in folder
-	 * @author lientm
 	 * @param file: file name (eg: export.zip)
 	 * @return: true -> file exist
 	 * false-> file is not exist
@@ -841,7 +848,6 @@ public class TestBase {
 
 	/**
 	 * function delete file in folder test output
-	 * @author lientm
 	 * @param file: file name
 	 */
 	public void deleteFile(String file){
@@ -857,7 +863,6 @@ public class TestBase {
 	}
 
 	/**
-	 * @author lientm
 	 * @param fileName
 	 */
 	public void cutPasteFileFromOutputToTestData(String fileName){
@@ -898,7 +903,6 @@ public class TestBase {
 
 	/**
 	 * function get current Date of system follow a format
-	 * @author lientm
 	 * @param fomat
 	 * @return
 	 */
@@ -907,14 +911,6 @@ public class TestBase {
 		Date date = new Date(); 
 		return (dateFormat.format(date));
 	}
-
-	//Get current date time
-	//	public String getCurrentDateTime(){
-	//		//MM/dd/yyyy HH:mm:ss
-	//		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-	//		Date date = new Date();
-	//		return (dateFormat.format(date));
-	//	}
 
 	//Add 1 minute to current date time
 	public String addMinuteToCurrentDateTime(int min, String...format){
@@ -925,7 +921,6 @@ public class TestBase {
 	}
 
 	/** Get date in format "dd"
-	 * @author thuntn
 	 * @param gap: distance from current date
 	 * @return date in format "dd"
 	 */
@@ -935,9 +930,8 @@ public class TestBase {
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		return (dateFormat.format(cal.getTime()));	
 	}
-	
+
 	/** Get day of week
-	 * @author phuongdt
 	 * @param gap: distance from current date
 	 * @return day of week (monday, tuesday,..., sunday)
 	 */
@@ -949,7 +943,6 @@ public class TestBase {
 
 	/**
 	 * Get minute in format "mm" from current date
-	 * @author havtt
 	 * @return minute
 	 * 
 	 */
@@ -963,7 +956,6 @@ public class TestBase {
 
 	/**
 	 * Change attribute "display" of HTML tag from "none" to "block" 
-	 * @author havtt
 	 */
 	public void changeDisplayAttributeHTML(String locator){
 		WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, 2);
@@ -980,7 +972,6 @@ public class TestBase {
 
 	/**
 	 * Mouse hover by Javascript
-	 * @author havtt
 	 * @date 06-Nov-2013
 	 * @param 
 	 */
@@ -994,7 +985,6 @@ public class TestBase {
 	}
 
 	/** change lanugage of browser
-	 * @author phuongdt
 	 * @param language
 	 * English: "en"
 	 * French: "fr"
@@ -1010,7 +1000,6 @@ public class TestBase {
 
 	/**
 	 * get random string
-	 * @author phuongdt
 	 * @return
 	 */
 	public String getRandomString(){
@@ -1023,10 +1012,9 @@ public class TestBase {
 		}
 		return sb.toString();
 	}
-	
+
 	/**
-	 * get a list of random numbers author quynhpt
-	 * 
+	 * get a list of random numbers
 	 * @return
 	 */
 	public String getRandomNumber() {
@@ -1063,10 +1051,9 @@ public class TestBase {
 		element2.click();
 		element2.sendKeys(Keys.chord(Keys.CONTROL, "v"));
 	}
-	
+
 	/**
 	 * Get minute in format "HH" from current date
-	 * @author chinhdtt
 	 * @return hours
 	 * 
 	 */
@@ -1077,9 +1064,8 @@ public class TestBase {
 		int minute = cal.get(Calendar.HOUR);
 		return (minute); 
 	}
-	
+
 	/**
-	 * @author lientm
 	 * @param object
 	 * @param classElement
 	 * @return = true: if there is not scroll bar on element
@@ -1095,4 +1081,25 @@ public class TestBase {
 		int offset = Integer.parseInt(offsetHeight);
 		return scroll == offset;
 	}
+	
+	/**
+	 * function get an element from link text when cannot get by text in xpath
+	 * @param text
+	 * @return
+	 */
+	public WebElement getElementFromTextByJquery(String text){
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		Utils.pause(2000);
+		try{
+			WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
+			return web;
+		}catch(org.openqa.selenium.WebDriverException e){
+			WebElement web = (WebElement) js.executeScript("return $(\"a:contains('" + text + "')\").get(0);");
+			return web;
+		}
+	}
+	
+	
+	
 }

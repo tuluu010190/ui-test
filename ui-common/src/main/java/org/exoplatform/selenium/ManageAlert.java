@@ -7,15 +7,13 @@ import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
 /**
- * <li> This class provides simple way to manage all type of Alert in PLF4 </li>
- * @author vuna2
+ * This class provides simple way to manage all type of Alert in PLF4
  * @Date January, 30th, 2013
  *
  */
 public class ManageAlert extends TestBase{
 
 	public ManageAlert(WebDriver dr,String...plfVersion){
-		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
 		driver = dr;
 	}
 
@@ -27,7 +25,9 @@ public class ManageAlert extends TestBase{
 	public final By ELEMENT_INFO = By.xpath("//*[contains(@class, 'infoIcon')]");
 	public final By ELEMENT_CONFIRM = By.xpath("//*[contains(@class, 'confirmationIcon')]");
 
-	//Accept an alert
+	/**
+	 * accept alert
+	 */
 	public void acceptAlert() {
 		try {
 			Alert alert = driver.switchTo().alert();
@@ -38,7 +38,9 @@ public class ManageAlert extends TestBase{
 		Utils.pause(1000);
 	}
 
-	//Cancel an Alert
+	/**
+	 * Cancel alert
+	 */
 	public void cancelAlert() {
 		try {
 			Alert alert = driver.switchTo().alert();
@@ -49,7 +51,10 @@ public class ManageAlert extends TestBase{
 		Utils.pause(1000);
 	}
 
-	//Get Text
+	/**
+	 * Get text from alert
+	 * @return
+	 */
 	public String getTextFromAlert() {
 		Utils.pause(1000);
 		try {
@@ -60,12 +65,14 @@ public class ManageAlert extends TestBase{
 		}
 	}
 
-	//Accept a confirmation
+	/**
+	 * wait for confirmation
+	 * @param confirmationText
+	 * @param wait: wait[0]: timeout
+	 */
 	public void waitForConfirmation(String confirmationText,int...wait) {
 		String message = getTextFromAlert();
 		int timeOut = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
-
-		//log("confirmation: " + message);
 		if (message.isEmpty()) {
 			if (loopCount > timeOut/500) {
 				Assert.fail("Message is empty");
@@ -91,11 +98,12 @@ public class ManageAlert extends TestBase{
 		Utils.pause(3000);
 	}
 
-	//Verify a message
+	/**
+	 * Verify Alert Message
+	 * @param message
+	 */
 	public void verifyAlertMessage(String message){
 		Utils.pause(1000);
-		//waitForElementPresent(ELEMENT_ALERT);
-		//assert isElementPresent(ELEMENT_ALERT):"Not found alert";
 		if (isElementPresent(ELEMENT_MESSAGE)){
 			assert getText(ELEMENT_MESSAGE).contains(message):"Message is wrong";
 		}else if (isElementPresent(ELEMENT_INFO)){
@@ -113,7 +121,10 @@ public class ManageAlert extends TestBase{
 		Utils.pause(1000);
 	}
 
-	//Input text
+	/**
+	 * Input Alert Text
+	 * @param text
+	 */
 	public void inputAlertText(String text){
 		try {
 			Alert alert = driver.switchTo().alert();

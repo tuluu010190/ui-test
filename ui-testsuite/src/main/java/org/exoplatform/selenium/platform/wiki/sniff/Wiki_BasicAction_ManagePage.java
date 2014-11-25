@@ -6,14 +6,12 @@ import java.awt.event.KeyEvent;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.HomePagePlatform;
+import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiRichTextDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.HomePageActivity;
-import org.exoplatform.selenium.platform.ManageAccount;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.wiki.AddEditPageManagement;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
@@ -36,8 +34,6 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	HomePagePlatform hp;
 	ManageAccount magAc;
 	Button but;
-	NavigationToolbar naTool;
-	HomePageActivity activity;
 	WikiRichTextDatabase wData;
 	RichTextEditor rtMode;
 	WikiDraftPage mDraft;
@@ -56,8 +52,6 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		but = new Button(driver);
-		naTool = new NavigationToolbar(driver);
-		activity = new HomePageActivity(driver);
 		hp = new HomePagePlatform(driver);
 		wHome = new WikiHomePage(driver);
 		button = new Button(driver, this.plfVersion);
@@ -402,8 +396,8 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		check(apManagement.ELEMENT_PUBLISH_ACTIVITY_CHECKBOX,2);
 		apManagement.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", newTitle));
-		naTool.goToHomePage();
-		waitForAndGetElement(activity.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
+		hp.goToHomePage();
+		waitForAndGetElement(hp.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
 
 		info("Edit content of page -> check comment in activity");
 		hp.goToWiki();
@@ -414,8 +408,8 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		check(apManagement.ELEMENT_PUBLISH_ACTIVITY_CHECKBOX,2);
 		apManagement.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", newTitle));
-		naTool.goToHomePage();
-		waitForAndGetElement(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
+		hp.goToHomePage();
+		waitForAndGetElement(hp.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
 
 		wHome.goToHomeWikiPage();
 		wHome.goToAPage(newTitle);
@@ -448,8 +442,8 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		uncheck(apManagement.ELEMENT_PUBLISH_ACTIVITY_CHECKBOX,2);
 		apManagement.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", newTitle));
-		naTool.goToHomePage();
-		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
+		hp.goToHomePage();
+		waitForElementNotPresent(hp.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
 
 		info("Edit content of page -> check comment in activity");
 		hp.goToWiki();
@@ -460,8 +454,8 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		uncheck(apManagement.ELEMENT_PUBLISH_ACTIVITY_CHECKBOX,2);
 		apManagement.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", newTitle));
-		naTool.goToHomePage();
-		waitForElementNotPresent(activity.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
+		hp.goToHomePage();
+		waitForElementNotPresent(hp.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
 
 		wHome.goToHomeWikiPage();
 		wHome.goToAPage(newTitle);

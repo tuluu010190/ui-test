@@ -5,8 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 /**
- * <li> This class provides simple way to manage all type of buttons in PLF4 </li>
- * @author vuna2
+ * This class provides simple way to manage all type of buttons in PLF4
  * @Date January, 30th, 2013
  *
  */
@@ -14,13 +13,10 @@ public class Button extends TestBase{
 
 	public Button(WebDriver dr,String...plfVersion) {
 		driver = dr;
-		this.plfVersion = plfVersion.length > 0 ? plfVersion[0]:"4.0";
 	}
 
-	//public final By ELEMENT_CONFIRM_BUTTON = By.xpath("//*[text()='Confirm']");
 	public final By ELEMENT_SAVE_CLOSE_BUTTON = By.xpath("//*[text()='Save & Close']");
 	public final By ELEMENT_SAVE_CLOSE_BUTTON_2 = By.xpath("//*[text()='Save And Close']");
-	//By.linkText("Save & Close");
 
 	public final By ELEMENT_OK_BUTTON = By.xpath("//*[text()='OK']");
 	public final By ELEMENT_OK_BUTTON_LINK = By.linkText("OK");
@@ -31,7 +27,7 @@ public class Button extends TestBase{
 	public final By ELEMENT_APPLY_FRENCH_BUTTON = By.linkText("Appliquer");
 	public final By ELEMENT_APPLY_GERMAN_BUTTON = By.linkText("Anwenden");
 	public final By ELEMENT_APPLY_BUTTON = By.xpath("//*[text()='Apply']");
-	//By.linkText("Apply");
+
 	public final By ELEMENT_SAVE_BUTTON = By.xpath("//*[text()='Save']"); 
 	public final By ELEMENT_SAVE_BUTTON_POPUP_WINDOWS = By.xpath("//*[contains(@class, 'popup')]//*[text()='Save']");
 	public final By ELEMENT_CANCEL_BUTTON = By.xpath("//*[contains(text(),'Cancel')]");
@@ -43,9 +39,9 @@ public class Button extends TestBase{
 	public final By ELEMENT_SELECT_BUTTON = By.xpath("//*[text()='Select']");
 	public final By ELEMENT_CONFIRM_BUTTON = By.xpath("//*[text()='Confirm']");
 	public final By ELEMENT_CLOSE_WINDOW = By.xpath("//*[contains(@class, 'uiIconClose') and @title = 'Close Window']");
-	//By.className("uiIconClose"); 
+
 	public final By ELEMENT_MOVE_BUTTON = By.xpath("//button[contains(text(), 'Move')]");
-	public final By ELEMENT_FINISH_ICON = By.xpath("//a[@title='Finish']"); //Finish editing portlet icon
+	public final By ELEMENT_FINISH_ICON = By.xpath("//a[@title='Finish']"); 
 	public final By ELEMENT_NEXT_BUTTON = By.xpath("//*[text()='Next']");	
 	public final By ELEMENT_ABORT_BUTTON = By.xpath("//*[text()='Abort']");
 	public final By ELEMENT_RESET_BUTTON = By.xpath("//*[text()='Reset']");
@@ -65,20 +61,27 @@ public class Button extends TestBase{
 	public final By ELEMENT_RENAME_BUTTON = By.xpath("//*[text()='Rename']");
 	public final By ELEMENT_NEXT_PAGE_BUTTON = By.xpath("//*[(@data-original-title or @title)='Next Page']");
 
-	/*
-	 * General
-	 * 
+	/**
+	 * Click button confirm
 	 */
 	public void confirm() {
 		waitForAndGetElement(ELEMENT_CONFIRM_BUTTON);
 		click(ELEMENT_CONFIRM_BUTTON);
 		Utils.pause(500);
 	}
+
+	/**
+	 * Click button save
+	 */
 	public void save() {
 		waitForAndGetElement(ELEMENT_SAVE_BUTTON);
 		click(ELEMENT_SAVE_BUTTON);
 		Utils.pause(500);
 	}
+
+	/**
+	 * Click button ok
+	 */
 	public void ok() {
 		if (waitForAndGetElement(ELEMENT_OK_BUTTON, 5000, 0) != null){
 			click(ELEMENT_OK_BUTTON);
@@ -87,11 +90,19 @@ public class Button extends TestBase{
 		}
 		Utils.pause(500);
 	}
+
+	/**
+	 * Click button no
+	 */
 	public void no() {
 		waitForAndGetElement(ELEMENT_NO_BUTTON);
 		click(ELEMENT_NO_BUTTON);
 		Utils.pause(500);
 	}
+
+	/**
+	 * Click button yes
+	 */
 	public void yes() {		
 		if (waitForAndGetElement(ELEMENT_YES_BUTTON, 3000, 0) != null){
 			click(ELEMENT_YES_BUTTON);
@@ -100,7 +111,10 @@ public class Button extends TestBase{
 		}
 		Utils.pause(500);
 	}
-	
+
+	/**
+	 * Click button close
+	 */
 	public void close(){
 		waitForAndGetElement(ELEMENT_CLOSE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
@@ -108,6 +122,9 @@ public class Button extends TestBase{
 		Utils.pause(500);
 	}
 
+	/**
+	 * Click button cancel
+	 */
 	public void cancel(){
 		if (waitForAndGetElement(ELEMENT_CANCEL_BUTTON, 3000, 0) != null){
 			click(ELEMENT_CANCEL_BUTTON);
@@ -116,6 +133,9 @@ public class Button extends TestBase{
 		}
 	}
 
+	/**
+	 * Click button add
+	 */
 	public void add(){
 		waitForAndGetElement(ELEMENT_ADD_BUTTON);
 		click(ELEMENT_ADD_BUTTON);
@@ -123,6 +143,9 @@ public class Button extends TestBase{
 		Utils.pause(500);
 	}
 
+	/**
+	 * Click button Save and Close
+	 */
 	public void saveAndClose(){
 		if (waitForAndGetElement(ELEMENT_SAVE_CLOSE_BUTTON, 3000, 0) != null){
 			click(ELEMENT_SAVE_CLOSE_BUTTON);
@@ -132,35 +155,53 @@ public class Button extends TestBase{
 		Utils.pause(500);
 	}
 
+	/**
+	 * Click btton apply
+	 */
 	public void apply(){
 		waitForAndGetElement(ELEMENT_APPLY_BUTTON);
 		click(ELEMENT_APPLY_BUTTON);
 	}
 
+	/**
+	 * Click button next
+	 */
 	public void next(){
 		waitForAndGetElement(ELEMENT_NEXT_BUTTON);
 		click(ELEMENT_NEXT_BUTTON);	
 		Utils.pause(500);
 	}
 
+	/**
+	 * Click button refresh
+	 */
 	public void refresh(){	
 		waitForAndGetElement(ELEMENT_REFRESH_BUTTON);
 		click(ELEMENT_REFRESH_BUTTON);
 		Utils.pause(500);
 	}
 
+	/**
+	 * Click button rename
+	 */
 	public void rename(){
 		waitForAndGetElement(ELEMENT_RENAME_BUTTON);
 		click(ELEMENT_RENAME_BUTTON);
 		Utils.pause(500);
 	}
 
+	/**
+	 * click button previous
+	 */
 	public void previous(){
 		waitForAndGetElement(ELEMENT_PREVIOUS_BUTTON);
 		click(ELEMENT_PREVIOUS_BUTTON);	
 		Utils.pause(500);
 	}
 
+	/**
+	 * Click button closeWinow
+	 */
 	public void closeWindow(){
 		if (isElementPresent(ELEMENT_CLOSE_WINDOW)){
 			click(ELEMENT_CLOSE_WINDOW);

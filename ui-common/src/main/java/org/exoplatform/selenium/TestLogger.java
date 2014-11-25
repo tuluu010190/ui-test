@@ -3,7 +3,7 @@ import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
 
 /**
- *
+ * TestLogger
  */
 public class TestLogger {
 
