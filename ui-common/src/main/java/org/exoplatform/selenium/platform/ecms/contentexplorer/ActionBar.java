@@ -225,9 +225,10 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_NAVIGATION_DISPLAY_ORDER = By.id("Index");
 
 	public final By ELEMENT_REFRESH_BUTTON = By.xpath("//*[contains(@class,'uiIconRefresh')]");
-		
+
 	// site management link
-	public final By ELEMENT_SITES_MANAGEMENT_ICON=By.xpath("//*[@class='uiIconEcmsHome uiIconEcmsLightGray']");
+	public final By ELEMENT_SITES_MANAGEMENT_ICON=By.xpath("//*[@class='uiIconEcmsHome uiIconEcmsLightGray']");	
+	public final By ELEMENT_RESTORE_FROM_TRASH=By.xpath("//*[@class='uiIconEcmsRestoreFromTrash']");
 	/*==================================================================================*/
 	//Go to Sites Management
 	public void showDrives(){
