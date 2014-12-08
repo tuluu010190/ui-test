@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiRichTextDatabase;
@@ -32,7 +32,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	AddEditPageManagement apManagement;
 	WikiHomePage wHome;
 	HomePagePlatform hp;
-	ManageAccount magAc;
+	ManageLogInOut magAc;
 	Button but;
 	WikiRichTextDatabase wData;
 	RichTextEditor rtMode;
@@ -40,6 +40,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	TextBoxDatabase txData;
 	WikiTemplateDatabase wTempData;
 	WikiRichTextDatabase wRichTextData;
+	Button button;
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		hp.goToWiki();
@@ -48,9 +49,9 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	@BeforeTest
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
-		getDefaultUserPass(texboxFilePath,defaultSheet,false,jdbcDriver,dbUrl,user,pass,sqlUser);
+		getDefaultUserPass(userDataFilePath,defaultSheet,true,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
-		magAc = new ManageAccount(driver);
+		magAc = new ManageLogInOut(driver);
 		but = new Button(driver);
 		hp = new HomePagePlatform(driver);
 		wHome = new WikiHomePage(driver);

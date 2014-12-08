@@ -35,21 +35,21 @@ public class ExcelUtils {
 	}
 
 	public static String[][] getData(){
-		int xRows = ExcelWSheet.getLastRowNum()+1;
+		int xRows = ExcelWSheet.getLastRowNum();
 		info(String.valueOf(xRows));
-		int xCols = ExcelWSheet.getRow(0).getLastCellNum()+1;
+		int xCols = ExcelWSheet.getRow(0).getLastCellNum();
 		info("number col: " + xCols);
 		int nRow = 1;
 		String[][] xData = new String[xRows][xCols];
 
-		for (int i = 0; i < xRows-1; i++) {
+		for (int i = 0; i < xRows; i++) {
 			HSSFRow row = ExcelWSheet.getRow(nRow);
-			for (int j = 0; j < xCols-1; j++) {
+			for (int j = 0; j < xCols; j++) {
 				HSSFCell cell = row.getCell(j);
 				if(cell==null)
 					continue;
 				else{
-					if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC){
+					if (cell.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC){
 						String value = String.valueOf((int)Math.round(cell.getNumericCellValue()));
 						xData[i][j] = value;
 					}

@@ -1,5 +1,5 @@
 package org.exoplatform.selenium.platform.objectdatabase.common;
-
+import static org.exoplatform.selenium.TestLogger.info;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -34,7 +34,7 @@ public class AttachmentFileDatabase {
 	 */
 	public void setAttachFileData(String userDataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
-		for(int i = 0; i<testData.length-1; i++)
+		for(int i = 0; i<testData.length; i++)
 		{	
 			type.add(Integer.valueOf(testData[i][0]));
 			attachName.add(testData[i][1]);
@@ -95,11 +95,6 @@ public class AttachmentFileDatabase {
 		return arrayAttachFile;
 	}
 
-	/**
-	 * getAttachFileByArrayTypeRandom
-	 * @param type
-	 * @return
-	 */
 	public String getAttachFileByArrayTypeRandom(int...type){
 		ArrayList<String> arrayAttachFile = new ArrayList<String>();
 		Random randomGenerator = new Random();
@@ -113,6 +108,7 @@ public class AttachmentFileDatabase {
 		}
 		int index = randomGenerator.nextInt(arrayAttachFile.size());
 		String attachFile = arrayAttachFile.get(index);
+		info("AttachFile is: "+attachFile);
 		return attachFile;
 	}
 }

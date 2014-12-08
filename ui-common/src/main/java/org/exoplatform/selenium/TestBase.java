@@ -14,7 +14,7 @@ import java.util.Random;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -64,6 +64,7 @@ public class TestBase {
 	protected String sqlWiki;
 	protected String sqlAttach;
 	protected String sqlUser;
+	protected String sqlContent;
 
 	protected String defaultSheet;
 
@@ -74,6 +75,7 @@ public class TestBase {
 	protected String wikiTemplateFilePath;
 	protected String spaceVisibleFilePath;
 	protected String spaceRegistrationFilePath;
+	protected String groupsCalenderFilePath;
 
 	/*========Default System Property=============*/
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
@@ -89,6 +91,7 @@ public class TestBase {
 	public final  String DEFAULT_SQLWIKI = "select * from wiki order by id asc";
 	public final  String DEFAULT_SQLATTACHMENT = "select * from space order by id asc";
 	public final  String DEFAULT_SQLUSER = "select type,username,password,email from user order by id asc";
+	public final  String DEFAULT_SQLCONTENT = "select * from textbox order by id asc";
 
 	public final String DEFAULT_SHEET="sheet1";
 	public final String DEFAULT_USERFILEURL="DataDriven/" + "user.xls";
@@ -98,7 +101,7 @@ public class TestBase {
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
-
+	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -164,6 +167,7 @@ public class TestBase {
 		if (sqlWiki==null) sqlWiki = DEFAULT_SQLWIKI;
 		if (sqlAttach==null) sqlAttach = DEFAULT_SQLATTACHMENT;
 		if (sqlUser==null) sqlUser = DEFAULT_SQLUSER;
+		if (sqlContent==null) sqlContent = DEFAULT_SQLCONTENT;
 
 		if (defaultSheet==null) defaultSheet = DEFAULT_SHEET;
 
@@ -211,7 +215,7 @@ public class TestBase {
 			driver.manage().window().maximize();
 			driver.navigate().refresh();
 			Utils.pause(2000);
-			ManageAccount acc = new ManageAccount(driver);
+			ManageLogInOut acc = new ManageLogInOut(driver);
 			acc.signOut();
 			firstTimeLogin=false;
 			checkPLFVersion();
@@ -483,13 +487,22 @@ public class TestBase {
 		Utils.pause(1000);
 	}
 
+	/**
+	 * Click by using javascript
+	 * @param locator: locator of element
+	 */
+	public void clickByJavascript(Object locator, Object... opParams){
+		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);	
+		WebElement e = waitForAndGetElement(locator,DEFAULT_TIMEOUT, 1, notDisplay);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", e);
+	}
+	
 	public void click(Object locator, Object... opParams) {
-		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);		
-		Actions actions = new Actions(driver);
+		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);  
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);
 			if(element.isEnabled())
-				actions.click(element).perform();
+				((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 			else {
 				debug("Element is not enabled");
 				click(locator, notDisplay);
@@ -497,16 +510,17 @@ public class TestBase {
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			click(locator, notDisplay);
+			clickByJavascript(locator, notDisplay);
 		} catch (ElementNotVisibleException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			click(locator, notDisplay);
+			clickByJavascript(locator, notDisplay);
 		} finally {
 			loopCount = 0;
 		}
 		Utils.pause(500);
 	}
+
 
 	public void clearCache(){
 		Actions actionObject = new Actions(driver);
@@ -550,7 +564,22 @@ public class TestBase {
 			loopCount = 0;
 		}
 	}
-
+	
+	/**
+	 * Mouse hover by Javascript
+	 */
+	public void mouseHoverByJavaScript(Object locator, Object...opParams)
+	{
+		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);
+		WebElement targetElement;
+		String argu1 = "var evObj = document.createEvent('MouseEvents');";
+		String argu2 = "evObj.initMouseEvent('mouseover',true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);";
+		String argu3 =  "arguments[0].dispatchEvent(evObj);";
+		String javascript = argu1 + argu2 + argu3;
+		targetElement = waitForAndGetElement(locator,5000, 1, notDisplay);
+		((JavascriptExecutor)driver).executeScript(javascript, targetElement);
+	}
+	
 	public void mouseOver(Object locator, boolean safeToSERE, Object...opParams) {
 		WebElement element;
 		Actions actions = new Actions(driver);
@@ -968,20 +997,6 @@ public class TestBase {
 		FirefoxProfile fp = new FirefoxProfile();
 
 		fp.setPreference("dom.max_script_run_time", 30);
-	}
-
-	/**
-	 * Mouse hover by Javascript
-	 * @date 06-Nov-2013
-	 * @param 
-	 */
-	public void mouseHoverByJavaScript(WebElement targetElement)
-	{
-		String argu1 = "var evObj = document.createEvent('MouseEvents');";
-		String argu2 = "evObj.initMouseEvent('mouseover',true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);";
-		String argu3 =  "arguments[0].dispatchEvent(evObj);";
-		String javascript = argu1 + argu2 + argu3;
-		((JavascriptExecutor)driver).executeScript(javascript, targetElement);
 	}
 
 	/** change lanugage of browser
