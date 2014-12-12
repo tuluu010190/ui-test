@@ -14,12 +14,13 @@ import org.openqa.selenium.WebElement;
 /**
  * 
  * @author vuna2
+ * updated by anhpp
  * 
  */
 public class ContentTemplate extends EcmsBase {
 	public ContentTemplate(WebDriver dr, String... plfVersion) {
 		super(dr);
-		this.plfVersion = plfVersion.length > 0 ? plfVersion[0] : "4.0";
+		this.plfVersion = plfVersion.length > 0 ? plfVersion[0] : "4.1";
 	}
 
 	ActionBar actBar = new ActionBar(driver);
@@ -116,7 +117,7 @@ public class ContentTemplate extends EcmsBase {
 	// CSS File
 	public final By ELEMENT_CSS_FILE_LINK = By
 			.xpath("//*[@class='templateLabel']//*[text()='CSS File']");
-	
+
 	// JS File
 	public final By ELEMENT_JS_FILE_LINK = By
 			.xpath("//*[@class='templateLabel']//*[text()='Javascript File']");
@@ -311,7 +312,6 @@ public class ContentTemplate extends EcmsBase {
 		boolean lines = (Boolean) (params.length > 0 ? params[0] : false);
 		String optionLang = (String) (params.length > 1 ? params[1] : "");
 		By eWebContentSum;
-		
 		if (this.plfVersion.equalsIgnoreCase("4.0"))
 		{
 			eWebContentSum = ELEMENT_WEBCONTENT_SUMMARY_FRAME;
@@ -331,11 +331,18 @@ public class ContentTemplate extends EcmsBase {
 			selectOption(ELEMENT_PIC_LANG, optionLang);
 		}
 		if (cont != "") {
-			if (this.plfVersion.equalsIgnoreCase("4.0"))
+			if (this.plfVersion.equalsIgnoreCase("4.0")){
 				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, cont,true);
+			}
 			else
 				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, cont,true);
 			switchToParentWindow();
+			/*if (this.plfVersion.equalsIgnoreCase("4.1"))
+				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, cont,
+						true);
+			else
+				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, cont, true);
+			switchToParentWindow();*/
 		}
 		if (sum != "" || img != "") {
 			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
@@ -681,6 +688,7 @@ public class ContentTemplate extends EcmsBase {
 			waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace(
 					"${content}", title)));
 		}
+
 		Utils.pause(1000);
 	}
 
@@ -1028,7 +1036,7 @@ public class ContentTemplate extends EcmsBase {
 					0) != null) {
 				type(ELEMENT_NEWFILE_TEXTAREA_ID, contentEdit, true);
 			} else {// if(waitForAndGetElement(ELEMENT_NEWFILE_CONTENT_FRAME_41,
-					// 3000, 0) != null){
+				// 3000, 0) != null){
 				inputDataToFrame(ELEMENT_NEWFILE_CONTENT_FRAME_41, contentEdit,
 						true);
 			}
@@ -1065,12 +1073,12 @@ public class ContentTemplate extends EcmsBase {
 
 		info("-- Editing Illustrated Web Content -- " + title);
 		actBar.goToEditDocument(title);
-		
+
 		if (this.plfVersion.equalsIgnoreCase("4.0"))
 			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, contentToEdit, true);
 		else
 			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, contentToEdit, true);
-		
+
 		switchToParentWindow();
 
 		// Main Content tab
