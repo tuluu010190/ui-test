@@ -69,6 +69,13 @@ public class CalendarManagement extends PlatformBase{
 	//Remove calendar
 	public final By ELEMENT_YES_BUTTON = By.xpath("//*[contains(@class, 'popup')]//*[contains(text(),'Yes')]");
 	public final String ELEMENT_CONFIRM_REMOVE_CALENDAR_MSG="Are you sure you want to delete this calendar and all its events?";
+	
+	//Set timezone
+	public By ELEMENT_CAL_SETTING_MENU = By.xpath("//*[@id='UIActionBar']//i[@class='uiIconSetting uiIconLightGray']");
+	public String ELEMENT_CAL_SETTING_TIMEZONE_VALUE = "//*[@id='setting']//select[@name='timeZone']/option[@value='${timezoneOpt}']";
+	public By ELEMENT_TIME_ZONE = By.name("timeZone");
+	public By ELEMENT_SELECTED_TIME_ZONE = By.xpath("//*[@name='timeZone']//*[@selected='selected']");
+	public By ELEMENT_SETTINGS_FORM_SAVE_BUTTON = By.xpath("//*[@id='UICalendarSettingForm']//*[text()='Save']");
 	/**
 	 * constructor
 	 * @param dr
@@ -285,5 +292,21 @@ public class CalendarManagement extends PlatformBase{
 		}
 		click(ELEMENT_CALENDAR_SHARE_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_CALENDAR_SHARE_SAVE_BUTTON);
+	}
+	
+	/** 
+	 * Set timezone for Calendar
+	 * 
+	 * @param timezoneOpt
+	 * 				time zone of calendar, e.g.: (GMT -11:00) Pacific/Samoa
+	 */
+	public void setTimezoneForCalendar(String timezoneOpt){
+		click(ELEMENT_CAL_SETTING_MENU);
+		Utils.pause(3000);
+		info("-- Select filter option of Timezone --");
+		select(ELEMENT_TIME_ZONE,timezoneOpt);	
+		Utils.pause(1000);
+		click(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
+		Utils.pause(3000);
 	}
 }

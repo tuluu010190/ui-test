@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.calendar;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
@@ -12,7 +13,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AddEditEventTaskManagement extends PlatformBase {
+public class AddEditTaskManagement extends PlatformBase {
 
 	//------------------------------------Add Quick Task Form--------------------------------------\\
 	public By ELEMENT_QUICK_ADD_TASK_POPUP = By.id("UIQuickAddTaskPopupWindow");
@@ -49,7 +50,6 @@ public class AddEditEventTaskManagement extends PlatformBase {
 	public By ELEMENT_BUTTON_TASK_SAVE_DETAILS = By.xpath("//*[@id='UITaskForm']//*[text()='Save']");
 	public By ELEMENT_TASK_FILE_INPUT = By.xpath("//*[@id='upload']//*[@name='file']");
 	
-	
 	//Attach file form
 	public By ELEMENT_ATTACH_SAVE_BUTTON = By.xpath("//form[@id='UIAttachFileForm']//*[text()='Save']");
 	public By ELEMENT_TASK_ADD_ATTACHMENT = By.xpath("//button[contains(@onclick,'AddAttachment')]");
@@ -57,7 +57,7 @@ public class AddEditEventTaskManagement extends PlatformBase {
 	public By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachFileForm']//*[text()='Save']");
 	public String ELEMENT_ATTACHMENT_FORM_FILE_NAME = "//*[text()='$fileName']";
 	
-	public AddEditEventTaskManagement(WebDriver dr){
+	public AddEditTaskManagement(WebDriver dr){
 		driver = dr;
 	}
 
@@ -256,34 +256,57 @@ public class AddEditEventTaskManagement extends PlatformBase {
 	}	
 
 	/**
-	 * Check default suggestion task time in quick add form
-	 * @param from
-	 * @param duration
+	 * Check default suggestion task time in detail add form
+	 * @param fromDateTime (Format: MM/dd/yyyy HH:mm)
+	 * @param toDateTime (Format: MM/dd/yyyy HH:mm)
+	 * @param duration	 
 	 */
-	public void checkSuggestionTaskTimeInQuickForm(String from, int duration){
+	public void checkSuggestionTaskTimeInQuickForm(String fromDateTime, String toDateTime, int duration){
 		info("Check date is current date");
+		DateFormat formatterTime = new SimpleDateFormat("HH:mm");
+		DateFormat formatterDate = new SimpleDateFormat("MM/dd/yyyy");
 		String dateFrom = getValue(ELEMENT_QUICK_INPUT_TASK_FROM_DATE);
 		String dateTo = getValue(ELEMENT_QUICK_INPUT_TASK_TO_DATE);
-		assert dateFrom.equals(getCurrentDate("MM/dd/yyyy"));
-		assert dateTo.equals(getCurrentDate("MM/dd/yyyy"));
-
-		info("Check default suggestion task time");
-		if (from == null || from == ""){
-			info("Check time suggestion default");				
-		}else {
-			info("Check suggesion when select From time");
-			click(ELEMENT_QUICK_INPUT_TASK_FROM_TIME_INPUT, 2);
-			click(ELEMENT_QUICK_TASK_SELECT_FROM_TIME.replace("${time}", from));
-			Utils.pause(2000);
-		}
 		String fromTime = waitForAndGetElement(ELEMENT_QUICK_INPUT_TASK_FROM_TIME, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
-		info("From is " + fromTime);
 		String toTime = waitForAndGetElement(ELEMENT_QUICK_INPUT_TASK_TO_TIME, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
-		info("From is " + toTime);
-		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+
+		info("Check default suggestion EVENT time");
+		if (fromDateTime == null || fromDateTime == ""){
+			info("Check time suggestion default");
+			assert dateFrom.equals(getCurrentDate("MM/dd/yyyy"));
+		}
+		else{
+			info("Check suggesion when select from time");
+			try {
+				Date fr = formatterDate.parse(fromDateTime);
+				Date frTime = formatterTime.parse(fromDateTime);
+				assert dateFrom.equals(formatterDate.format(fr));
+				assert fromTime.equals(formatterDate.format(frTime));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (toDateTime == null || toDateTime == ""){
+			info("Check time suggestion default");
+			assert dateTo.equals(getCurrentDate("MM/dd/yyyy"));
+		}
+		else {
+			info("Check suggesion when select to time");
+			try {
+				Date to = formatterDate.parse(toDateTime);
+				Date tTime = formatterTime.parse(toDateTime);
+				assert dateTo.equals(formatterDate.format(to));
+				assert toTime.equals(formatterDate.format(tTime));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		info("Check duration");
 		try {
-			Date fr = formatter.parse(fromTime);
-			Date to = formatter.parse(toTime);
+			Date fr = formatterTime.parse(fromTime);
+			Date to = formatterTime.parse(toTime);
 			long diff = (to.getTime() - fr.getTime())/60000;
 			info("Duration is " + diff + " minus");
 			assert duration == (int) diff;
@@ -294,34 +317,56 @@ public class AddEditEventTaskManagement extends PlatformBase {
 
 	/**
 	 * Check default suggestion task time in detail add form
-	 * @param from
-	 * @param duration
+	 * @param fromDateTime (Format: MM/dd/yyyy HH:mm)
+	 * @param toDateTime (Format: MM/dd/yyyy HH:mm)
+	 * @param duration	 
 	 */
-	public void checkSuggestionTaskTimeInDetailForm(String from, int duration){
+	public void checkSuggestionTaskTimeInDetailForm(String fromDateTime, String toDateTime, int duration){
 		info("Check date is current date");
+		SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
+		SimpleDateFormat formatterDate = new SimpleDateFormat("MM/dd/yyyy");
 		String dateFrom = getValue(ELEMENT_ADD_EDIT_TASK_FROM_DATE);
 		String dateTo = getValue(ELEMENT_ADD_EDIT_TASK_TO_DATE);
-		assert dateFrom.equals(getCurrentDate("MM/dd/yyyy"));
-		assert dateTo.equals(getCurrentDate("MM/dd/yyyy"));
-
-		info("Check default suggestion task time");
-		if (from == null || from == ""){
-			info("Check time suggestion default");				
-		}else {
-			info("Check suggesion when select From time");
-			click(ELEMENT_ADD_EDIT_TASK_FROM_TIME_INPUT, 2);
-			click(ELEMENT_ADD_EDIT_TASK_SELECT_FROM_TIME.replace("${time}", from));
-			Utils.pause(2000);
-		}
-
 		String fromTime = waitForAndGetElement(ELEMENT_ADD_EDIT_INPUT_TASK_FROM_TIME, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
-		info("From is " + fromTime);
 		String toTime = waitForAndGetElement(ELEMENT_ADD_EDIT_INPUT_TASK_TO_TIME, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
-		info("From is " + toTime);
-		SimpleDateFormat formatter = new SimpleDateFormat("HH:mm");
+
+		info("Check default suggestion EVENT time");
+		if (fromDateTime == null || fromDateTime == ""){
+			info("Check time suggestion default");
+			assert dateFrom.equals(getCurrentDate("MM/dd/yyyy"));
+		}
+		else{
+			info("Check suggesion when select from time");
+			try {
+				Date fr = formatterDate.parse(fromDateTime);
+				Date frTime = formatterTime.parse(fromDateTime);
+				assert dateFrom.equals(formatterDate.format(fr));
+				assert fromTime.equals(formatterDate.format(frTime));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		if (toDateTime == null || toDateTime == ""){
+			info("Check time suggestion default");
+			assert dateTo.equals(getCurrentDate("MM/dd/yyyy"));
+		}
+		else {
+			info("Check suggesion when select to time");
+			try {
+				Date to = formatterDate.parse(toDateTime);
+				Date tTime = formatterTime.parse(toDateTime);
+				assert dateTo.equals(formatterDate.format(to));
+				assert toTime.equals(formatterDate.format(tTime));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		info("Check duration");
 		try {
-			Date fr = formatter.parse(fromTime);
-			Date to = formatter.parse(toTime);
+			Date fr = formatterTime.parse(fromTime);
+			Date to = formatterTime.parse(toTime);
 			long diff = (to.getTime() - fr.getTime())/60000;
 			info("Duration is " + diff + " minus");
 			assert duration == (int) diff;

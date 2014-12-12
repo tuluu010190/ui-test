@@ -518,7 +518,7 @@ public class TestBase {
 		} finally {
 			loopCount = 0;
 		}
-		Utils.pause(500);
+		Utils.pause(1000);
 	}
 
 

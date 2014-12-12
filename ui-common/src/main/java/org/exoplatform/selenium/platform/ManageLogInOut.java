@@ -2,13 +2,17 @@ package org.exoplatform.selenium.platform;
 
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
 public class ManageLogInOut extends PlatformBase {
-
+	
+	public final By ELEMENT_SIGN_IN_BUTTON = By.xpath("//*[@class='loginButton']/*");
+	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
+	
 	ManageAlert magAlert;
 	public ManageLogInOut(WebDriver dr){
 		driver = dr;

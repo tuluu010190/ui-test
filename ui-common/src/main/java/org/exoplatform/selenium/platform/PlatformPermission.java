@@ -81,7 +81,8 @@ public class PlatformPermission extends PlatformBase {
 		String[] temp = user.split("/");
 		if (temp.length > 0){
 			for (int i = 0; i < temp.length; i ++){
-				click(ELEMENT_SELECT_USER_ICON);
+				if(waitForAndGetElement(ELEMENT_SELECT_USER_ICON, 5000,0)!=null)
+					click(ELEMENT_SELECT_USER_ICON);
 				searchUser(temp[i], type);
 				check((ELEMENT_USER_CHECKBOX.replace("${user}", temp[i])), 2);
 				click(ELEMENT_ADD_USERS_BUTTON);

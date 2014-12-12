@@ -23,9 +23,37 @@ public class PlatformBase extends TestBase {
 	public  String USER_ROOT = "root";
 	public  String PASS_ROOT = "gtngtn";
 	public String DATA_PASS = "gtn";
-	
-	public final By ELEMENT_SIGN_IN_BUTTON = By.xpath("//*[@class='loginButton']/*");
-	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
+
+	//Gmail
+	public final String GMAIL_URL = "https://mail.google.com";
+	public final String EMAIL_ADDRESS1 = "exomailtest01@gmail.com";
+	public final String EMAIL_ADDRESS2 = "exoservice@gmail.com";
+	public final String EMAIL_PASS = "exoadmin";
+	public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
+	public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']//*[@class='iH']//*[@class='ar9 T-I-J3 J-J5-Ji']");
+	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
+	public final By ELEMENT_MAIL_CONTENT = By.xpath("//*[contains(@class, 'adP adO')]/div");
+	public final By ELEMENT_GMAIL_USERNAME = By.id("Email");
+	public final By ELEMENT_GMAIL_PASS = By.id("Passwd");
+	public final By ELEMENT_GMAIL_SIGN_IN = By.id("signIn");
+	public final String ELEMENT_GMAIL_TITLE = "//td/div[@class='xS']//div[@class='xT']//span/b[contains(text(),'{$title}')]";
+	public final By ELEMENT_GMAIL_COMPOSE = By.xpath("//div[contains(text(),'COMPOSE')]");
+	public final By ELEMENT_GMAIL_SHOW_DETAIL = By.xpath("//img[@aria-label='Show details']");
+	public final String ELEMENT_GMAIL_TO_FIELD = "//td/span[text()='to:']/../..//span[text()='${to}']";
+	public final By ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC = By.cssSelector("a[id='account-chooser-link']");
+	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.cssSelector("a[id='account-chooser-add-account']");
+	public final By ELEMENT_FIRST_MAIL = By.xpath("//div[@class='iA g6' and contains(text(),'Hi')]/../../../../../table[@class='cf iB']");
+	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";//*[contains(text(),'${content}')]";
+	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
+
+
+	/**
+	 * Arrow option
+	 */
+	public enum selectArrowOption{
+		NEXT, PREVIOUS, NOW
+	}
+
 	/****************************Method*************************************/
 	/**
 	 * get default user pass from data driven
@@ -47,7 +75,7 @@ public class PlatformBase extends TestBase {
 		DATA_USER3 = userData.userName.get(2);
 		DATA_USER4 = userData.userName.get(3);
 	}
-	
+
 	/**Function to add data to frame
 	 * 
 	 * @param framelocator
@@ -105,5 +133,40 @@ public class PlatformBase extends TestBase {
 		finally {
 			loopCount = 0;
 		}
+	}
+	
+	/**
+	 * function: check content of mail
+	 * @param mail: element title of mail
+	 * @param content: mail content
+	 */
+	public void checkMail(By mail, String content){
+		info("Check and delete mail");
+		waitForAndGetElement(mail,300000);
+		click(mail);	
+		if(waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${content}",content),20000,0) == null )
+			click(ELEMENT_FIRST_MAIL);
+		assert waitForAndGetElement(ELEMENT_GMAIL_CONTENT).getText().contains(content);
+	}
+	
+	/**
+	 * function: delete mail
+	 * @param mail: element title of mail
+	 * @param content: mail content
+	 */
+	public void deleteMail(By mail, String content){
+		info("Check and delete mail");
+		waitForAndGetElement(mail,300000);
+		click(mail);	
+		info("delete mail");
+		if (waitForAndGetElement(ELEMENT_DELETE_MAIL_2, 5000, 0) == null){
+			click(ELEMENT_DELETE_MAIL);
+			info("Delete 1");
+		}else {
+			click(ELEMENT_DELETE_MAIL_2);
+			info("Delete 2");
+		}
+		waitForElementNotPresent(mail);
+		Utils.pause(1000);
 	}
 }
