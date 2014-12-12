@@ -1,0 +1,331 @@
+package org.exoplatform.selenium.platform.calendar;
+
+import static org.exoplatform.selenium.TestLogger.info;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
+import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.PlatformBase;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+public class AddTaskEvent extends PlatformBase {
+
+
+
+
+	//------------------------------------Add Quick Task--------------------------------------\\
+	public By ELEMENT_QUICK_ADD_TASK_POPUP = By.id("UIQuickAddTaskPopupWindow");
+	public By ELEMENT_INPUT_TASK_TITLE = By.xpath("//*[@id='UIQuickAddTask']//*[@name='eventName']");
+	public By ELEMENT_INPUT_TASK_NOTE = By.xpath("//*[@id='UIQuickAddTask']//*[@id='description']");
+	public By ELEMENT_INPUT_TASK_CALENDAR = By.xpath("//*[@id='UIQuickAddTask']//*[@name='calendar']");
+	public By ELEMENT_INPUT_TASK_CATEGORY = By.xpath("//*[@id='UIQuickAddTask']//*[@name='category']");
+	public By ELEMENT_CHECKBOX_TASK_ALLDAY = By.xpath("//*[@id='UIQuickAddTask']//*[@name='allDay']");
+	public By ELEMENT_INPUT_TASK_FROM = By.xpath("//*[@id='UIQuickAddTask']//*[@name='from']");
+	public By ELEMENT_INPUT_TASK_TO = By.xpath("//*[@id='UIQuickAddTask']//*[@name='to']");
+	public By ELEMENT_INPUT_TASK_FROM_TIME_IN = By.xpath("//*[@id='UIQuickAddTask']//*[@id='fromTime']/..//*[@class='UIComboboxInput']");
+	public String ELEMENT_TASK_SELECT_FROM_TIME = "//*[@id='UIQuickAddTask']//*[@id='fromTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
+	public By ELEMENT_INPUT_TASK_TO_TIME_IN = By.xpath("//*[@id='UIQuickAddTask']//*[@id='toTime']/..//*[@class='UIComboboxInput']");
+	public String ELEMENT_TASK_SELECT_TO_TIME = "//*[@id='UIQuickAddTask']//*[@id='toTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
+	public By ELEMENT_ADD_EDIT_TASK_TO = By.xpath("//*[@id='UITaskForm']//*[@name='to']");
+	public By ELEMENT_BUTTON_TASK_SAVE = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='Save']");
+
+
+	//----------------------------------Task Form ( details )------------------------------------\\
+	public By ELEMENT_ADD_EDIT_TASK_TITLE = By.xpath("//*[@id='UITaskForm']//*[@name='eventName']");
+	public By ELEMENT_ADD_EDIT_TASK_NOTE = By.xpath("//*[@id='UITaskForm']//*[@id='description']");
+	public By ELEMENT_ADD_EDIT_TASK_CALENDAR = By.xpath("//*[@id='UITaskForm']//*[@name='calendar']");
+	public By ELEMENT_ADD_EDIT_TASK_CATEGORY = By.xpath("//*[@id='UITaskForm']//*[@name='category']");
+	public By ELEMENT_ADD_EDIT_TASK_ALLDAY = By.xpath("//*[@id='UITaskForm']//*[@name='allDay']");
+	public By ELEMENT_ADD_EDIT_TASK_FROM = By.xpath("//*[@id='UITaskForm']//*[@name='from']");
+	public By ELEMENT_ADD_EDIT_TASK_FROM_TIME_IN = By.xpath("//*[@id='UITaskForm']//*[@id='fromTime']/..//*[@class='UIComboboxInput']");
+	public String ELEMENT_ADD_EDIT_TASK_SELECT_FROM_TIME = "//*[@id='UITaskForm']//*[@id='fromTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
+	public By ELEMENT_ADD_EDIT_TASK_TO_TIME_IN = By.xpath("//*[@id='UITaskForm']//*[@id='toTime']/..//*[@class='UIComboboxInput']");
+	public String ELEMENT_ADD_EDIT_TASK_SELECT_TO_TIME = "//*[@id='UITaskForm']//*[@id='toTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
+	public By ELEMENT_BUTTON_TASK_MORE_DETAILS = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='More Details']");
+	public By ELEMENT_ATTACH_SAVE_BUTTON = By.xpath("//form[@id='UIAttachFileForm']//*[text()='Save']");
+	public By ELEMENT_TASK_ADD_ATTACHMENT = By.xpath("//button[contains(@onclick,'AddAttachment')]");
+	public By ELEMENT_TASK_FILE_INPUT = By.xpath("//*[@id='upload']//*[@name='file']");
+	public By ELEMENT_TASK_STATUS = By.name("status");
+	public By ELEMENT_BUTTON_TASK_SAVE_DETAILS = By.xpath("//*[@id='UITaskForm']//*[text()='Save']");
+	public String ELEMENT_TASK_ATTACHMENT = "//*[@id='UITaskForm']/..//a[@data-original-title='${file}']";
+	public By ELEMENT_INPUT_TASK_FROM_TIME = By.xpath("//form[@id='UIQuickAddTask']//*[@id='fromTime']");
+	public By ELEMENT_INPUT_TASK_TO_TIME = By.xpath("//form[@id='UIQuickAddTask']//*[@id='toTime']");
+
+	public AddTaskEvent(WebDriver dr, String...plfVersion){
+		driver = dr;
+		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
+	}
+
+	/*==========Input data form =========*/
+	/**
+	 * Input into basic fields of Quick task form and tab details of Add task form
+	 * 
+	 * @param name
+	 * 			name of a task
+	 * @param note
+	 * 			note of a task 
+	 * @param opt
+	 * 			optional parameter
+	 * 			opt[0]: calendar
+	 * 			opt[1]: category
+	 */
+	public void inputBasicQuickTask(String name, String note, String...opt){
+		boolean quick = (waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP,5000,0) != null) ? true : false;
+		if(quick){
+			if (name != null){
+				type(ELEMENT_INPUT_TASK_TITLE, name, true);
+			}
+			if (note != null){
+				type(ELEMENT_INPUT_TASK_NOTE, note, true);
+			}
+
+			if (opt.length > 0 && opt[0] != null){
+				select(ELEMENT_INPUT_TASK_CALENDAR, opt[0]);
+			}
+			if (opt.length > 1 && opt[1] != null){
+				select(ELEMENT_INPUT_TASK_CATEGORY, opt[1]);
+			}
+		}else{
+			if (name != null){
+				type(ELEMENT_ADD_EDIT_TASK_TITLE, name, true);
+			}
+			if (note != null){
+				type(ELEMENT_ADD_EDIT_TASK_NOTE, note, true);
+			}
+			if (opt.length > 0 && opt[0] != null){
+				select(ELEMENT_ADD_EDIT_TASK_CALENDAR, opt[0]);
+			}
+			if (opt.length > 1 && opt[1] != null){
+				select(ELEMENT_ADD_EDIT_TASK_CATEGORY, opt[1]);
+			}
+
+		}
+	}
+
+	public void inputDataTask(String name, String note, String from, String to, boolean allDay, String...opt){
+		inputBasicQuickTask(name, note, opt);
+		inputFromToTask(from, to, allDay);
+	}
+
+	/**
+	 * Input into "From, To" fields of a task
+	 * 
+	 * @param from
+	 * 			From date, time of a task i.e.: 11/06/2013 14:00
+	 * @param to
+	 * 			To date, time of a task, i.e.: 11/06/2013 14:00
+	 * @param allDay
+	 * 			Option "all day" of a task
+	 */
+	public void inputFromToTask(String from, String to, boolean allDay){
+		boolean quick = (waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP,5000,0) != null) ? true : false; 
+		if(quick){
+			if(allDay){
+				check(ELEMENT_CHECKBOX_TASK_ALLDAY,2);
+				if ((from != null) & (from != ""))
+					type(ELEMENT_INPUT_TASK_FROM, from, true);
+				check(ELEMENT_CHECKBOX_TASK_ALLDAY,2);
+				if ((to != null) & (to != ""))
+					type(ELEMENT_INPUT_TASK_TO, to, true);
+
+			}else {
+				uncheck(ELEMENT_CHECKBOX_TASK_ALLDAY,2);
+				if ((from != null) & (from != "")){
+					String[] dateTimeFrom = from.split(" ");
+					if(dateTimeFrom.length > 0)
+						type(ELEMENT_INPUT_TASK_FROM, dateTimeFrom[0], true);
+					if(dateTimeFrom.length > 1){
+						click(ELEMENT_INPUT_TASK_FROM_TIME_IN, 2);
+						click(ELEMENT_TASK_SELECT_FROM_TIME.replace("${time}", dateTimeFrom[1]));
+					}
+					Utils.pause(1000);
+
+				}
+				if ((to != null) & (to != "")){
+					String[] dateTimeTo = to.split(" ");
+					if(dateTimeTo.length > 0)
+						type(ELEMENT_INPUT_TASK_TO, dateTimeTo[0], true);
+					if(dateTimeTo.length > 1){
+						click(ELEMENT_INPUT_TASK_TO_TIME_IN, 2);
+						click(ELEMENT_TASK_SELECT_TO_TIME.replace("${time}", dateTimeTo[1]));
+					}
+					Utils.pause(1000);
+				}
+			}
+
+		}else{
+			if(allDay){
+				check(ELEMENT_ADD_EDIT_TASK_ALLDAY,2);
+				if ((from != null) & (from != ""))
+					type(ELEMENT_ADD_EDIT_TASK_FROM, from, true);
+
+				if ((to != null) & (to != ""))
+					type(ELEMENT_ADD_EDIT_TASK_TO, to, true);
+			}
+			else{
+				uncheck(ELEMENT_ADD_EDIT_TASK_ALLDAY,2);
+				if ((from != null) & (from != "")){
+					String[] dateTime = from.split(" ");
+					if(dateTime.length > 0)
+						type(ELEMENT_ADD_EDIT_TASK_FROM, dateTime[0], true);
+					if(dateTime.length > 1){
+
+						//						type(ELEMENT_ADD_EDIT_TASK_FROM_TIME, dateTime[1], false);
+						click(ELEMENT_ADD_EDIT_TASK_FROM_TIME_IN, 2);
+						click(ELEMENT_ADD_EDIT_TASK_SELECT_FROM_TIME.replace("${time}", dateTime[1]));
+						Utils.pause(1000);
+					}
+				}
+				if ((to != null) & (to != "")){
+					String[] dateTime = to.split(" ");
+					type(ELEMENT_ADD_EDIT_TASK_TO, dateTime[0], true);
+					if(dateTime.length > 1){
+						click(ELEMENT_ADD_EDIT_TASK_TO_TIME_IN, 2);
+						click(ELEMENT_ADD_EDIT_TASK_SELECT_TO_TIME.replace("${time}", dateTime[1]));
+
+						Utils.pause(1000);
+
+					}
+				}
+			}
+		}
+	}
+	
+	
+	/**
+	 * Attach file in "Add new task" form
+	 * 
+	 * @param path
+	 * 				path of attachment of a task
+	 */
+	public void attachFileToTask(String path){
+
+		click(ELEMENT_TASK_ADD_ATTACHMENT);
+		WebElement eFile = waitForAndGetElement(ELEMENT_TASK_FILE_INPUT,DEFAULT_TIMEOUT,1,2);
+		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';",eFile);
+
+		eFile.sendKeys(Utils.getAbsoluteFilePath(path));
+		String[] links = path.split("/");
+		waitForAndGetElement("//*[text()='"+links[links.length-1]+"']");
+		switchToParentWindow();
+
+	}	
+	
+	
+	/**
+	 * Input into other fields in tab details of a task
+	 * 
+	 * @param status
+	 * 				"status" of a task 
+	 * 
+	 */
+	public void inputOtherFieldsTabDetailsTask(String status){
+
+		if ((status != null) & (status != "")){
+			select(ELEMENT_TASK_STATUS, status);
+		}
+	}
+	
+	/**
+	 * @author lientm
+	 * @param from
+	 * @param duration
+	 */
+	public void checkSuggestionTaskTime(String from, int duration){
+		info("Check date is current date");
+		String dateFrom = getValue(ELEMENT_INPUT_TASK_FROM);
+		String dateTo = getValue(ELEMENT_INPUT_TASK_TO);
+		assert dateFrom.equals(getCurrentDate("MM/dd/yyyy"));
+		assert dateTo.equals(getCurrentDate("MM/dd/yyyy"));
+
+		info("Check suggestion time");
+		if (from == null){
+			info("Check time suggestion default");				
+		}else {
+			info("Check suggesion when select From time");
+			click(ELEMENT_INPUT_TASK_FROM_TIME_IN, 2);
+			click(ELEMENT_TASK_SELECT_FROM_TIME.replace("${time}", from));
+			Utils.pause(2000);
+		}
+		String fromTime = waitForAndGetElement(ELEMENT_INPUT_TASK_FROM_TIME, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
+		info("From is " + fromTime);
+		String toTime = waitForAndGetElement(ELEMENT_INPUT_TASK_TO_TIME, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
+		info("From is " + toTime);
+		DateFormat formatter = new SimpleDateFormat("HH:mm");
+		try {
+			Date fr = (Date)formatter.parse(fromTime);
+			Date to = (Date)formatter.parse(toTime);
+			long diff = (to.getTime() - fr.getTime())/60000;
+			info("Duration is " + diff + " minus");
+			assert duration == (int) diff;
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	
+	/** 
+	 * Input into tab Detail of Add task form
+	 * 
+	 * @param name
+	 * 				name of a task
+	 * @param note
+	 * 				note of a task 
+	 * @param from
+	 * 				From date, time of a task
+	 * @param to
+	 * 				To date, time of a task
+	 * @param allDay
+	 * 				option "All day" of a task
+	 * @param path
+	 * 				path of attachment of a task
+	 * @param opt
+	 * 				optional parameter to choose whether to input Details for task or not
+	 */
+
+	public void inputDataTabDetailTask(String name, String note, String from, String to, boolean allDay, String path,  String...opt){
+		inputBasicQuickTask(name, note, opt);
+		inputFromToTask(from, to, allDay);
+		if((path != "") & (path != null)){
+			attachFileToTask(path);
+			click(ELEMENT_ATTACH_SAVE_BUTTON);
+		}
+		if((opt.length > 2) & (opt.length <= 3))
+			inputOtherFieldsTabDetailsTask(opt[2]);	
+	}
+	
+	
+	/**
+	 * Save add Task
+	 */
+	public void saveAddTask(){
+		click(ELEMENT_BUTTON_TASK_SAVE);
+		waitForElementNotPresent(ELEMENT_BUTTON_TASK_SAVE);
+	}
+	
+	/**
+	 * Save a task with more details
+	 */
+	public void saveAddTaskDetails(){
+		click(ELEMENT_BUTTON_TASK_SAVE_DETAILS);
+	}
+
+	/**
+	 * Click on more details
+	 */
+	public void moreDetailsTask(){
+		click(ELEMENT_BUTTON_TASK_MORE_DETAILS);
+	}
+	
+	public void removeAttachment(String file){
+		click(ELEMENT_TASK_ATTACHMENT.replace("${file}", "Remove"));
+		waitForElementNotPresent(ELEMENT_TASK_ATTACHMENT.replace("${file}", file));
+	}
+	
+}

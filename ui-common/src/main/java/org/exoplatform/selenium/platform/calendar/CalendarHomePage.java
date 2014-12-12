@@ -22,7 +22,10 @@ public class CalendarHomePage extends PlatformBase{
 	public final By ELEMENT_CALENDAR_WORKING_PANEL = By.id("UICalendarWorkingContainer");
 	public final String ELEMENT_CELL_TO_WORKING_PANEL = "//td[contains(@startfull,'$date $time:00')]";
 	public String ELEMENT_ANY_TARGET_DATE = "//*[contains(@startfull, '${targetDate}')]";
-
+	public By ELEMENT_CALENDAR_PANEL = By.xpath("//div[@class='uiBox uiCalendars']");
+	public By ELEMENT_SHOW_HIDE_LEFT_PANEL = By.xpath("//div[@id='ShowHideAll']/i");
+	public final By ELEMENT_TOOLBAR_MINI_CALENDAR = By.xpath("//*[@class='weekDays']");
+	
 	//View button
 	public final String ELEMENT_CALENDAR_VIEW_BUTTON = "//*[text()='$view']";
 	public final String ELEMENT_CALENDAR_ACTIVE_VIEW = "//*[@class='btn active']//*[text()='$view']";

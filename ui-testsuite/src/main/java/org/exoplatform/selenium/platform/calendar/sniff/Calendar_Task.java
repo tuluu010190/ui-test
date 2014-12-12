@@ -15,7 +15,9 @@ import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -29,13 +31,17 @@ public class Calendar_Task extends PlatformBase {
 	CalendarManagement cMang;
 	UserDatabase userData;
 
+	@BeforeMethod
+	public void setUpBeforeMethod() throws Exception{
+		magAc.signIn(DATA_USER1, DATA_PASS);
+	}
+	
 	@BeforeTest
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		magAc = new ManageLogInOut(driver);
-		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp = new HomePagePlatform(driver);
 		cHome= new CalendarHomePage(driver);
 		task= new AddEditTaskManagement(driver);
@@ -50,9 +56,13 @@ public class Calendar_Task extends PlatformBase {
 		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
 	}
 
+	@AfterMethod
+	public void afterMethod(){
+		magAc.signOut();
+	}
+	
 	@AfterTest
 	public void afterTest(){
-		magAc.signOut();
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
@@ -82,6 +92,7 @@ public class Calendar_Task extends PlatformBase {
 			-The default duration for task is 30 minutes*/
 		info("Add a task");
 		hp.goToCalendarPage();
+		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
 		cHome.goToAddTaskByRightClickFromMainPanel(date,time);
 		info("Check default time ");
 		task.checkSuggestionTaskTimeInQuickForm(time, time, 30);

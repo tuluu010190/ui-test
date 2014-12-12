@@ -30,14 +30,18 @@ public class Calendar_Event extends PlatformBase {
 	CalendarManagement cMang;
 	UserDatabase userData;
 	String fullName;
-
+	
+	@BeforeMethod
+	public void setUpBeforeMethod() throws Exception{
+		magAc.signIn(DATA_USER1, DATA_PASS);
+	}
+	
 	@BeforeTest
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		magAc = new ManageLogInOut(driver);
-		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp = new HomePagePlatform(driver);
 		cHome= new CalendarHomePage(driver);
 		event= new AddEditEventManagement(driver);
@@ -51,9 +55,13 @@ public class Calendar_Event extends PlatformBase {
 		fullName = userData.fullName.get(0);
 	}
 
+	@AfterMethod
+	public void afterMethod(){
+		magAc.signOut();
+	}
+	
 	@AfterTest
 	public void afterTest(){
-		magAc.signOut();
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
@@ -89,6 +97,7 @@ public class Calendar_Event extends PlatformBase {
 			- Schedule*/
 		info("Add a event");
 		hp.goToCalendarPage();
+		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
 		cHome.goToAddEventFromActionBar();
 		event.moreDetailsEvent();
 

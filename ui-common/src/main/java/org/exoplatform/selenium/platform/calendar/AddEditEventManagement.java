@@ -36,6 +36,7 @@ public class AddEditEventManagement extends PlatformBase {
 	public String ELEMENT_QUICK_EVENT_SELECT_TO_TIME = "//*[@id='UIQuickAddEvent']//*[@id='toTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
 	public String ELEMENT_QUICK_EVENT_SELECT_FROM_TIME = "//*[@id='UIQuickAddEvent']//*[@id='fromTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
 	public By ELEMENT_BUTTON_EVENT_SAVE = By.xpath("//*[@id='UIQuickAddEventPopupWindow']//*[text()='Save']");
+	public String ELEMENT_ITEM_QUICK_EVENT_CATEGORY_OPTION="//*[@id='UIQuickAddEventPopupWindow']//*[@name='category']/*[text()='$category']";
 
 	//----------------------------------Add EVENT Form (more details )------------------------------------\\
 	public By ELEMENT_ADD_EDIT_EVENT_NAME = By.xpath("//*[@id='UIEventForm']//*[@name='eventName']");
