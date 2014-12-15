@@ -2,22 +2,21 @@ package org.exoplatform.selenium.platform.calendar;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.interactions.Actions;
 
 public class CalendarHomePage extends PlatformBase{
 
 	PlatformPermission per;
 	ManageAlert alert;
+
 	//Calendar panel
 	public final By ELEMENT_CALENDAR_WORKING_PANEL = By.id("UICalendarWorkingContainer");
 	public final String ELEMENT_CELL_TO_WORKING_PANEL = "//td[contains(@startfull,'$date $time:00')]";
@@ -25,10 +24,17 @@ public class CalendarHomePage extends PlatformBase{
 	public By ELEMENT_CALENDAR_PANEL = By.xpath("//div[@class='uiBox uiCalendars']");
 	public By ELEMENT_SHOW_HIDE_LEFT_PANEL = By.xpath("//div[@id='ShowHideAll']/i");
 	public final By ELEMENT_TOOLBAR_MINI_CALENDAR = By.xpath("//*[@class='weekDays']");
-	
+
 	//View button
 	public final String ELEMENT_CALENDAR_VIEW_BUTTON = "//*[text()='$view']";
 	public final String ELEMENT_CALENDAR_ACTIVE_VIEW = "//*[@class='btn active']//*[text()='$view']";
+
+	//bar
+	public final By ELEMENT_TODAY_ACTION_BAR=By.xpath("//*[@class='todayActionBar']");
+	public final By ELEMENT_NEXT_BUTTON_ANY_VIEW=By.xpath("//*[@class='title']//*[@class='uiIconMiniArrowRight uiIconLightGray']");
+	public final By ELEMENT_PREVIOUS_BUTTON_ANY_VIEW=By.xpath("//*[@class='title']//*[@class='uiIconMiniArrowLeft uiIconLightGray']");
+	public final By ELEMENT_CATEGORY_OPTION=By.xpath("//*[@name='eventCategories']");
+	public final String ELEMENT_CATEGORY_OPTION_SELECTED="//*[@name='eventCategories']//*[@selected='selected' and text()='$name']";
 
 	//Day View
 	public final String ELEMENT_EVENT_TASK_DAY_VIEW_ALL_DAY="//*[@id='UIDayView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(.,'$name')]";
@@ -39,7 +45,7 @@ public class CalendarHomePage extends PlatformBase{
 	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY="//*[@id='UIWeekViewGrid']//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//*[contains(@starttimefull,'$date')]//div[contains(text(),'$name')]";
-
+	public final String ELEMENT_WEEK_VIEW_BAR_TIME="//*[@class='eventWeekBar']//td['$index']/a";
 
 	//Month View
 	public final String ELEMENT_EVENT_TASK_MONTH_VIEW="//*[@id='UIMonthView']//span[contains(text(),'$name')]";
@@ -47,7 +53,8 @@ public class CalendarHomePage extends PlatformBase{
 
 	//List View
 	public final String ELEMENT_EVENT_TASK_LIST_VIEW="//*[@id='UIListView']//*[@class='uiListViewRow']//*[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_LIST_VIEW="//*[@id='UIListView']//*[@class='uiListViewRow']//*[contains(text(),'$date')]/../..//*[contains(text(),'$name')]";
+	public final String ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW="//*[@id='UIListView']//*[contains(text(),'$name')]/../..//td[5][contains(text(),'$date')]";
+	public final String ELEMENT_EVENT_TASK_END_DETAIL_DATE_LIST_VIEW="//*[@id='UIListView']//*[contains(text(),'$name')]/../..//td[6][contains(text(),'$date')]";
 
 	//Work Week View
 	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(text(),'$name')]";
@@ -81,6 +88,21 @@ public class CalendarHomePage extends PlatformBase{
 	public String ELEMENT_CONFIRM_DELETE_TASK_MSG = "Are you sure you want to delete this task?";
 	public String ELEMENT_CONFIRM_DELETE_EVENT_MSG = "Are you sure you want to delete this event?";
 
+	//page navigation
+	public By ELEMENT_NEXT_PAGE=By.xpath("//*[@class='uiIconNextArrow']");
+	public By ELEMENT_PREVIOUS_PAGE=By.xpath("//*[@class='uiIconPrevArrow']");
+	public By ELEMENT_TOTAL_PAGE=By.xpath("//*[@class='pagesTotalNumber']");
+	public By ELEMENT_CURRENT_PAGE=By.xpath("//*[@class='active']/*[contains(@href,'objectId')]");
+	public String ELEMENT_ANY_PAGE="//*[contains(@href,'objectId') and text()='$page']";
+	
+	//quick search
+	public By ELEMENT_QUICK_SEARCH_INPUT=By.id("value");
+	public String ELEMENT_QUICK_SEARCH_FORM = "//div[@class='uiSearchForm uiSearchInput pull-right']";
+	public String ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT = "//*[@id='UIListView']//button[contains(text(),'Close Search')]";
+	public String ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM = "//*[@id='UIListView']//button[contains(text(),'Advanced Search')]";
+	public String ELEMENT_INPUT_TEXT_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//*[@id='text']";
+	public String ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//button[contains(text(),'Search')]";
+
 	/**
 	 * constructor
 	 * @param dr
@@ -91,166 +113,10 @@ public class CalendarHomePage extends PlatformBase{
 	}
 
 	/**
-	 * 
-	 * @param date
-	 * 				date to create event
-	 * 				format: MM/dd/yyyy (Ex: 12/09/2014)
-	 * @param time
-	 * 				time to create event
-	 * 				format: hh:mm (Ex: 12:30)
+	 * Category list
 	 */
-	public void goToAddEventByLeftClickFromMainPanel(String date, String time){
-		info("Go to add task by right clicking from main panel");
-		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
-		SimpleDateFormat format2 = new SimpleDateFormat("MMM dd yyyy");
-		String tempDate2 = getCurrentDate("MMM dd yyyy");
-		Date tempDate1 = null;
-		String tempTime = getCurrentDate("HH")+":00";
-
-		info("Get date");
-		if(date!=null && date!=""){
-			try {
-				tempDate1 = format1.parse(date);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			tempDate2 = format2.format(tempDate1);
-			info("Selected date is " + tempDate2);
-		}
-		else{
-			tempDate2 = getCurrentDate("MMM dd yyyy");
-			info("Selected date is current date" + tempDate2);
-		}
-
-		info("Get time");
-		if(time!=null && time!=""){
-			tempTime = time;
-			info("Selected date is " + tempTime);
-		}
-		else{
-			tempTime = getCurrentDate("HH")+":00";
-			info("Selected date is current date" + tempTime);
-		}
-		String cell = ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", tempDate2).replace("$time", tempTime);
-		info(cell);
-		waitForAndGetElement(cell).click();
-		waitForAndGetElement(ELEMENT_QUICK_ADD_EVENT_POPUP);
-	}
-
-	/**
-	 * 
-	 * @param date
-	 * 				date to create event
-	 * 				format: MM/dd/yyyy (Ex: 12/09/2014)
-	 * @param time
-	 * 				time to create event
-	 * 				format: hh:mm (Ex: 12:30)
-	 */
-	public void goToAddEventByRightClickFromMainPanel(String date, String time){
-		info("Go to add task by right clicking from main panel");
-		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
-		SimpleDateFormat format2 = new SimpleDateFormat("MMM dd yyyy");
-		String tempDate2 = getCurrentDate("MMM dd yyyy");
-		Date tempDate1 = null;
-		String tempTime = getCurrentDate("HH")+":00";
-
-		info("Get date");
-		if(date!=null && date!=""){
-			try {
-				tempDate1 = format1.parse(date);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			tempDate2 = format2.format(tempDate1);
-			info("Selected date is " + tempDate2);
-		}
-		else{
-			tempDate2 = getCurrentDate("MMM dd yyyy");
-			info("Selected date is current date" + tempDate2);
-		}
-
-		info("Get time");
-		if(time!=null && time!=""){
-			tempTime = time;
-			info("Selected date is " + tempTime);
-		}
-		else{
-			tempTime = getCurrentDate("HH")+":00";
-			info("Selected date is current date" + tempTime);
-		}
-
-		String cell = ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", tempDate2).replace("$time", tempTime);
-		rightClickOnElement(cell);
-		click(ELEMENT_RIGHT_CLICK_ADD_EVENT);
-		waitForAndGetElement(ELEMENT_QUICK_ADD_EVENT_POPUP);
-	}
-
-	/**
-	 * 
-	 * @param date
-	 * 				date to create task
-	 * 				format: MM/dd/yyyy (Ex: 12/09/2014)
-	 * @param time
-	 * 				time to create task
-	 * 				format: hh:mm (Ex: 12:30)
-	 */
-	public void goToAddTaskByRightClickFromMainPanel(String date, String time){
-		info("Go to add task by right clicking from main panel");
-		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
-		SimpleDateFormat format2 = new SimpleDateFormat("MMM dd yyyy");
-		String tempDate2 = getCurrentDate("MMM dd yyyy");
-		Date tempDate1 = null;
-		String tempTime = getCurrentDate("HH")+":00";
-
-		info("Get date");
-		if(date!=null && date!=""){
-			try {
-				tempDate1 = format1.parse(date);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			tempDate2 = format2.format(tempDate1);
-			info("Selected date is " + tempDate2);
-		}
-		else{
-			tempDate2 = getCurrentDate("MMM dd yyyy");
-			info("Selected date is current date" + tempDate2);
-		}
-
-		info("Get time");
-		if(time!=null && time!=""){
-			tempTime = time;
-			info("Selected date is " + tempTime);
-		}
-		else{
-			tempTime = getCurrentDate("HH")+":00";
-			info("Selected date is current date" + tempTime);
-		}
-
-		String cell = ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", tempDate2).replace("$time", tempTime);
-		rightClickOnElement(cell);
-		click(ELEMENT_RIGHT_CLICK_ADD_TASK);
-		waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP);
-	}
-
-	/**
-	 * Open "Add new task" form from action bar
-	 * 
-	 */
-	public void goToAddTaskFromActionBar(){
-		info("Go to Add Task page from action bar"); 
-		click(ELEMENT_BUTTON_TASK);
-		waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP);
-	}
-
-	/**
-	 * Open "Add new event" form from action bar
-	 * 
-	 */
-	public void goToAddEventFromActionBar(){
-		info("Go to Add Task page from action bar"); 
-		click(ELEMENT_BUTTON_EVENT);
-		waitForAndGetElement(ELEMENT_QUICK_ADD_EVENT_POPUP);
+	public enum selectCategoryOption{
+		ALL, MEETING, CALL, CLIENT, ANNIVERSARY, HOLIDAY
 	}
 
 	/**
@@ -280,23 +146,23 @@ public class CalendarHomePage extends PlatformBase{
 			break;
 		case WEEK:
 			click(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "Week"));
-			waitForAndGetElement(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "Week"));
+			waitForAndGetElement(ELEMENT_CALENDAR_ACTIVE_VIEW.replace("$view", "Week"));
 			break;
 		case LIST:
 			click(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "List"));
-			waitForAndGetElement(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "List"));
+			waitForAndGetElement(ELEMENT_CALENDAR_ACTIVE_VIEW.replace("$view", "List"));
 			break;
 		case MONTH:
 			click(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "Month"));
-			waitForAndGetElement(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "Month"));
+			waitForAndGetElement(ELEMENT_CALENDAR_ACTIVE_VIEW.replace("$view", "Month"));
 			break;
 		case WORKWEEK:
 			click(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "Work Week"));
-			waitForAndGetElement(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "Work Week"));
+			waitForAndGetElement(ELEMENT_CALENDAR_ACTIVE_VIEW.replace("$view", "Work Week"));
 			break;
 		default:
 			click(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "Week"));
-			waitForAndGetElement(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "Week"));
+			waitForAndGetElement(ELEMENT_CALENDAR_ACTIVE_VIEW.replace("$view", "Week"));
 			break;
 		}
 	}
@@ -400,7 +266,7 @@ public class CalendarHomePage extends PlatformBase{
 		info("Got to edit task from list view");
 		goToView(selectViewOption.LIST);
 		if(date!=null && date!="")
-			rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date),2);
+			rightClickOnElement(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date),2);
 		else
 			rightClickOnElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name),2);
 	}
@@ -524,7 +390,17 @@ public class CalendarHomePage extends PlatformBase{
 				break;
 			}
 		case LIST:
-			waitForElementNotPresent(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,10000,0)!=null){
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while(!(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText()))){
+					click(ELEMENT_NEXT_PAGE);
+					waitForElementNotPresent(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+				}
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+			}
+			else{
+				waitForElementNotPresent(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+			}
 			break;
 		case MONTH:
 			waitForElementNotPresent(ELEMENT_EVENT_TASK_MONTH_VIEW.replace("$name", name));
@@ -601,7 +477,17 @@ public class CalendarHomePage extends PlatformBase{
 			}
 			break;
 		case LIST:
-			waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while((waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name),5000,0)==null)
+						&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+					click(ELEMENT_NEXT_PAGE);
+				waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+			}
+			else{
+				waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+			}
 			break;
 		case MONTH:
 			waitForAndGetElement(ELEMENT_EVENT_TASK_MONTH_VIEW.replace("$name", name));
@@ -678,7 +564,17 @@ public class CalendarHomePage extends PlatformBase{
 			}
 			break;
 		case LIST:
-			waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while((waitForAndGetElement(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date),5000,0)==null)
+						&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+					click(ELEMENT_NEXT_PAGE);
+				waitForAndGetElement(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+			}
+			else{
+				waitForAndGetElement(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+			}
 			break;
 		case MONTH:
 			waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date));
@@ -755,7 +651,17 @@ public class CalendarHomePage extends PlatformBase{
 			}
 			break;
 		case LIST:
-			waitForElementNotPresent(ELEMENT_EVENT_TASK_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while(!(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText()))){
+					click(ELEMENT_NEXT_PAGE);
+					waitForElementNotPresent(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+				}
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+			}
+			else{
+				waitForElementNotPresent(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+			}
 			break;
 		case MONTH:
 			waitForElementNotPresent(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date));
@@ -861,5 +767,72 @@ public class CalendarHomePage extends PlatformBase{
 		driver.navigate().refresh();
 		Utils.pause(1000);
 		verifyIsNotPresentEventTask(name, view, optionDay);
+	}
+
+	/**
+	 * select category from list
+	 * @param option
+	 * 				category type: call, all, client, holiday,anniversary
+	 */
+	public void selectCategory(selectCategoryOption option){
+		info("Select category from list");
+		if(option!=null){
+			switch(option){
+			case ALL:
+				select(ELEMENT_CATEGORY_OPTION,"All");
+				break;
+			case ANNIVERSARY:
+				select(ELEMENT_CATEGORY_OPTION,"Anniversary");
+				break;
+			case CALL:
+				select(ELEMENT_CATEGORY_OPTION,"Calls");
+				break;
+			case CLIENT:
+				select(ELEMENT_CATEGORY_OPTION,"Clients");
+				break;
+			case HOLIDAY:
+				select(ELEMENT_CATEGORY_OPTION,"Holiday");
+				break;
+			case MEETING:
+				select(ELEMENT_CATEGORY_OPTION,"Meeting");
+				break;
+			default:
+				select(ELEMENT_CATEGORY_OPTION,"All");
+				break;
+
+			}
+		}
+	}
+	
+	/**
+	 * Do quick calendar search
+	 * @param keyword
+	 * 				keyword which is to input into search box 
+	 */
+	public void quickSearchCalendar(String keyword){
+		info("----Type in quick search box----");
+		type(ELEMENT_QUICK_SEARCH_INPUT,keyword,true);
+		Actions action = new Actions(driver);
+		action.sendKeys(Keys.RETURN).build().perform();
+		waitForAndGetElement(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
+	}
+	
+	/** 
+	 * Advance search in Calendar
+	 * 
+	 * @param keyword
+	 * 			keyword which is to input into search box 
+	 */
+	public void advanceSearchCalendar(String keyword){
+		info("----Open Advance Search window----");
+		waitForAndGetElement(ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM);
+		click(ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM);
+		info("----Input keyword----");
+		waitForAndGetElement(ELEMENT_INPUT_TEXT_ADVANCE_SEARCH);
+		type(ELEMENT_INPUT_TEXT_ADVANCE_SEARCH,keyword,true);
+		click(ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH);
+		info("----Confirm search result displayed----");
+		Utils.pause(3000);
+		waitForAndGetElement(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 	}
 }

@@ -9,7 +9,8 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
-import org.exoplatform.selenium.platform.calendar.CalendarManagement.selectActionOption;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfCalendarOption;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
@@ -53,7 +54,8 @@ public class Calendar_Task extends PlatformBase {
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
 	}
 
 	@AfterMethod
@@ -92,8 +94,9 @@ public class Calendar_Task extends PlatformBase {
 			-The default duration for task is 30 minutes*/
 		info("Add a task");
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
-		cHome.goToAddTaskByRightClickFromMainPanel(date,time);
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
+		task.goToAddTaskByRightClickFromMainPanel(date,time);
 		info("Check default time ");
 		task.checkSuggestionTaskTimeInQuickForm(time, time, 30);
 
@@ -138,7 +141,7 @@ public class Calendar_Task extends PlatformBase {
 			-The default duration for task is 30 minutes*/
 		info("Add a task");
 		hp.goToCalendarPage();
-		cHome.goToAddTaskFromActionBar();
+		task.goToAddTaskFromActionBar();
 		info("Check default time ");
 		task.checkSuggestionTaskTimeInQuickForm(null,null, 30);
 
@@ -186,7 +189,7 @@ public class Calendar_Task extends PlatformBase {
 			-up has appears*/
 		info("Add a task");
 		hp.goToCalendarPage();
-		cHome.goToAddTaskFromActionBar();
+		task.goToAddTaskFromActionBar();
 		task.moreDetailsTask();
 
 		/*Step number: 2
@@ -264,7 +267,7 @@ public class Calendar_Task extends PlatformBase {
 		 *Expected Outcome: 
 			Calendar is created and shared*/
 		hp.goToCalendarPage();
-		cMang.goToAddCalendar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
 		cMang.inputDataInDetailTabCalendarForm(calendarName, calendarName, calendarColor);
 		cMang.saveAddCalendar();
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendarName));
@@ -285,8 +288,9 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
-		cMang.executeActionCalendar(calendarName, selectActionOption.ADDTASK);
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
+		cMang.executeActionCalendar(calendarName, menuOfCalendarOption.ADDTASK);
 		info("Check default date");
 		task.checkSuggestionTaskTimeInQuickForm(null,null, 30);
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
@@ -381,7 +385,7 @@ public class Calendar_Task extends PlatformBase {
 			Task is created in personal calendar*/ 
 		info("Test 8: Add a task in personal calendar by icon settings of a calendar");
 		hp.goToCalendarPage();
-		cMang.executeActionCalendar(userData.fullName.get(0), selectActionOption.ADDTASK);
+		cMang.executeActionCalendar(userData.fullName.get(0), menuOfCalendarOption.ADDTASK);
 		info("Check default date");
 		task.checkSuggestionTaskTimeInQuickForm(null,null, 30);
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
@@ -476,7 +480,7 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.executeActionCalendar(groupCalendar, selectActionOption.ADDTASK);
+		cMang.executeActionCalendar(groupCalendar, menuOfCalendarOption.ADDTASK);
 		info("Check default date");
 		task.checkSuggestionTaskTimeInQuickForm(null,null, 30);
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
@@ -486,13 +490,15 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
 		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
 		cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
 
 		info("Test 12 Edit a task in group calendar");
@@ -593,7 +599,7 @@ public class Calendar_Task extends PlatformBase {
 				-The default duration for task is 30 minutes*/
 		info("Add a task");
 		hp.goToCalendarPage();
-		cHome.goToAddTaskFromActionBar();
+		task.goToAddTaskFromActionBar();
 		info("Check default time ");
 		task.checkSuggestionTaskTimeInQuickForm(null,null, 30);
 
@@ -631,7 +637,7 @@ public class Calendar_Task extends PlatformBase {
 		hp.goToCalendarPage();
 		String fullName = userData.fullName.get(0);
 		info(fullName);
-		cMang.executeActionCalendar(fullName, selectActionOption.ADDTASK);
+		cMang.executeActionCalendar(fullName, menuOfCalendarOption.ADDTASK);
 		info("Check default date");
 		task.checkSuggestionTaskTimeInQuickForm(null, null, 30);
 
@@ -671,7 +677,7 @@ public class Calendar_Task extends PlatformBase {
 		info("Create data test");
 		info("Add a task");
 		hp.goToCalendarPage();
-		cHome.goToAddTaskFromActionBar();
+		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
 		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
@@ -742,7 +748,7 @@ public class Calendar_Task extends PlatformBase {
 				- Duration is 30 min by default (set in file configuration.properties)*/
 		info("Add a task");
 		hp.goToCalendarPage();
-		cHome.goToAddTaskByRightClickFromMainPanel(date,time);
+		task.goToAddTaskByRightClickFromMainPanel(date,time);
 		info("Check default time ");
 		task.checkSuggestionTaskTimeInQuickForm(date+" "+time,date+" "+ "18:30", 30);
 

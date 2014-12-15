@@ -937,8 +937,8 @@ public class TestBase {
 	 */
 	public String getCurrentDate(String format){
 		DateFormat dateFormat = new SimpleDateFormat(format);
-		Date date = new Date(); 
-		return (dateFormat.format(date));
+		Date date = new Date();
+		return (dateFormat.format(date)); 
 	}
 
 	//Add 1 minute to current date time

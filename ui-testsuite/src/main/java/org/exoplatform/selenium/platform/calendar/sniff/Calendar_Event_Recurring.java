@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.calendar.AddEditEventManagement.repeatT
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
@@ -73,7 +74,7 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		String contentEvent2 = txData.getContentByArrayTypeRandom(1)+"2115632";
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.moreDetailsEvent();
 		check(event.ELEMENT_ADD_EDIT_EVENT_REPEAT_CHECKBOX,2);
@@ -180,7 +181,7 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		String contentEvent2 = txData.getContentByArrayTypeRandom(1)+"2115639";
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCATEGORY);
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.moreDetailsEvent();
 		check(event.ELEMENT_ADD_EDIT_EVENT_REPEAT_CHECKBOX,2);
@@ -316,7 +317,7 @@ public class Calendar_Event_Recurring extends PlatformBase {
 
 		 *Expected Outcome: 
 			- The pop up "Quick Add Event" is displayed*/
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		
 		/*Step number: 3
 		 *Step Name: Step 3: Add a recurring event
@@ -452,7 +453,7 @@ public class Calendar_Event_Recurring extends PlatformBase {
 			- A recurring event is displayed*/
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.moreDetailsEvent();
 		check(event.ELEMENT_ADD_EDIT_EVENT_REPEAT_CHECKBOX,2);
@@ -523,7 +524,7 @@ public class Calendar_Event_Recurring extends PlatformBase {
 
 		 *Expected Outcome: 
 			- Series of events is displayed with an extra icon, see attachment [extraIcon.png]*/
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.moreDetailsEvent();
 		check(event.ELEMENT_ADD_EDIT_EVENT_REPEAT_CHECKBOX,2);

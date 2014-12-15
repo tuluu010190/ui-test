@@ -46,6 +46,13 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";//*[contains(text(),'${content}')]";
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
+	/**
+	 * Available option
+	 */
+	public enum selectInvitationOption{
+		ALWAYS, NEVER, ASK
+	}
+
 
 	/**
 	 * Arrow option

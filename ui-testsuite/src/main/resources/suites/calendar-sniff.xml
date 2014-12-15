@@ -13,6 +13,9 @@
 			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_Event_Recurring" />
 			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_Calendar" />
 			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_Category" />
+			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_View" />
+			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_Setting" />
+			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_Search" />
 		</classes>
 	</test>
 	<listeners>

@@ -16,13 +16,66 @@ public class CalendarManagement extends PlatformBase{
 	PlatformPermission pPer;
 	ManageAlert alert;
 
-	//Common calendar action menu
+	//Common calendar action menu (icon +)
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_ICON = By.xpath("//*[@class='uiIconCalSimplePlus uiIconLightGray']");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_ADD = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'AddCalendar')]");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_REMOTE = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'RemoteCalendar')]");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_ADD_EVENT_CATEGORY = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'AddEventCategory')]");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_IMPORT = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'ImportCalendar')]");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_CALENDAR_SETTING = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'CalendarSetting')]");
+
+	//Calendar setting form
+	public By ELEMENT_CALENDAR_SETTING_FORM=By.id("UICalendarSettingForm");
+	public String ELEMENT_CALENDAR_SETTING_TAB_ITEM="//*[@data-toggle='tab' and text()='$tab']";
+	public By ELEMENT_CALENDAR_SETTING_VIEW_TYPE=By.name("viewType");
+	public By ELEMENT_CALENDAR_SETTING_TIME_ZONE=By.name("timeZone");
+	public By ELEMENT_CALENDAR_SETTING_DATE_FORMAT=By.name("dateFormat");
+	public By ELEMENT_CALENDAR_SETTING_TIME_FORMAT=By.name("timeFormat");
+	public By ELEMENT_CALENDAR_SETTING_WEEK_START_ON=By.name("weekStartOn");
+	public By ELEMENT_CALENDAR_SETTING_SHOW_WORKING_TIME_CHECKBOX = By.name("showWorkingTime");
+	public By ELEMENT_CALENDAR_SETTING_SHOW_WORKING_BEGIN_TIME = By.name("beginTime");
+	public By ELEMENT_CALENDAR_SETTING_SHOW_WORKING_END_TIME = By.name("endTime");
+	public By ELEMENT_CALENDAR_SETTING_NEVER_SEND_INVITE_CHECKBOX = By.xpath("//*[@value='never']");
+	public By ELEMENT_CALENDAR_SETTING_ALWAYS_SEND_INVITE_CHECKBOX = By.xpath("//*[@value='always']");
+	public By ELEMENT_CALENDAR_SETTING_ASK_SEND_INVITE_CHECKBOX = By.xpath("//*[@value='ask']");
+	public String ELEMENT_CALENDAR_SETTING_TIMEZONE_VALUE = "//*[@id='setting']//select[@name='timeZone']/option[@value='$time']";
+	public String ELEMENT_CALENDAR_SETTING_VIEWTYPE_VALUE = "//*[@id='setting']//select[@name='viewType']/option[@value='$view']";
+	public String ELEMENT_CALENDAR_SETTING_DATEFORMAT_VALUE = "//*[@id='setting']//select[@name='dateFormat']/option[@value='$date']";
+	public String ELEMENT_CALENDAR_SETTING_TIMEFORMATE_VALUE = "//*[@id='setting']//select[@name='timeFormat']/option[@value='$time']";
+	public String ELEMENT_CALENDAR_SETTING_STARTON_VALUE = "//*[@id='setting']//select[@name='weekStartOn']/option[@value='$time']";
+	public By ELEMENT_SETTING_FORM_SAVE_BUTTON = By.xpath("//*[@id='UICalendarSettingForm']//*[text()='Save']");
+	public By ELEMENT_SETTING_FORM_CANCEL_BUTTON = By.xpath("//*[@id='UICalendarSettingForm']//*[text()='Cancel']");
+
+	//Calendar setting - Displayed calendar form
+	public String ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM="//*[@id='UIPopupCalendarSettingContainer']//*[text()='Personal Calendars']/../..//*[@class='calendarName' and text()='$name']";
+	public String ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_CHECKBOX="//*[@id='UIPopupCalendarSettingContainer']//*[text()='Personal Calendars']/../..//*[@class='calendarName' and text()='$name']/../..//*[@class='iconCheckBox checkbox' or @class='checkbox iconCheckBox']";
+	public String ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_UNCHECKBOX="//*[@id='UIPopupCalendarSettingContainer']//*[text()='Personal Calendars']/../..//*[@class='calendarName' and text()='$name']/../..//*[@class='iconUnCheckBox checkbox' or @class='checkbox iconUnCheckBox']";
+	public String ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM="//*[@id='UIPopupCalendarSettingContainer']//*[text()='Group Calendars']/../..//*[@class='calendarName' and contains(text(),'$name')]";
+	public String ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_CHECKBOX="//*[@id='UIPopupCalendarSettingContainer']//*[text()='Group Calendars']/../..//*[@class='calendarName' and contains(text(),'$name')]/../..//*[@class='iconCheckBox checkbox' or @class='checkbox iconCheckBox']";
+	public String ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_UNCHECKBOX="//*[@id='UIPopupCalendarSettingContainer']//*[text()='Group Calendars']/../..//*[@class='calendarName' and contains(text(),'$name')]/../..//*[@class='iconUnCheckBox checkbox' or @class='checkbox iconUnCheckBox']";
+
+	//Calendar setting - Feed tab
+	public By ELEMENT_FEED_TAB_FORM = By.id("feedTab");
+	public By ELEMENT_FEED_TAB_SAVE_BUTTON = By.xpath("//*[@id='feedTab']//*[text()='Add']");
+	public By ELEMENT_FEED_EDIT_FEED_FORM=By.xpath("//*[@id='UIEditFeed' and @class='UIEditFeed']");
+	public By ELEMENT_FEED_EDIT_FEED_SAVE_FORM=By.xpath("//*[@id='UIEditFeed' and @class='UIEditFeed']//*[contains(@onclick,'Save')]");
+	public By ELEMENT_FEED_EDIT_FEED_CANCEL_FORM=By.xpath("//*[@id='UIEditFeed' and @class='UIEditFeed']//*[contains(@onclick,'Cancel')]");
+	public By ELEMENT_FEED_NAME_INPUT=By.id("name");
+	public By ELEMENT_FEED_URL_INPUT=By.id("url");
+	public By ELEMENT_FEED_CALENDAR_OPTION=By.name("addMore");
+	public By ELEMENT_FEED_EDIT_FEED_RESET_URL=By.xpath("//*[@id='UIEditFeed' and @class='UIEditFeed']//*[@data-original-title='Reset URL']");
+	public By ELEMENT_FEED_EDIT_FEED_GENERATE_URL=By.xpath("//*[@id='UIEditFeed' and @class='UIEditFeed']//*[@data-original-title='Generate URL']");
+	public By ELEMENT_FEED_EDIT_FEED_ADD_CALENDAR=By.xpath("//*[@id='UIEditFeed' and @class='UIEditFeed']//*[@data-original-title='Add Calendar']");
+	public String ELEMENT_FEED_EDIT_FEED_DELETE_CALENDAR="//*[@id='UIEditFeed' and @class='UIEditFeed']//*[text()='$name']/../..//*[@class='uiIconDelete uiIconLightGray']";
+	public String ELEMENT_FEED_LIST_ITEM_RSS="//*[@id='UIFeedList']//*[text()='$name']/../..//*[@data-original-title='Rss']";
+	public String ELEMENT_FEED_LIST_ITEM_RSS_BUTTON="//*[@id='UIFeedList']//*[text()='$name']/../..//*[@data-original-title='Rss']";
+	public String ELEMENT_FEED_LIST_ITEM_EDIT_BUTTON="//*[@id='UIFeedList']//*[text()='$name']/../..//*[@data-original-title='Edit']";
+	public String ELEMENT_FEED_LIST_ITEM_DELETE_BUTTON="//*[@id='UIFeedList']//*[text()='$name']/../..//*[@data-original-title='Delete']";
+	public String ELEMENT_FEED_CONFIRM_DELETE="Are you sure you want to delete this feed from the list?";
+	public String ELEMENT_FEED_CONFIRM_ADD_FEED="The feed $name has been generated successfully";
+
+	//Remote calendar form
+	public By ELEMENT_REMOTE_CALENDAR_FORM=By.id("UICalendarPopupWindow");
 
 	//Add event category form
 	public By ELEMENT_ADD_EVENT_CATEGORY_FORM = By.id("UICalendarPopupAction");
@@ -34,7 +87,7 @@ public class CalendarManagement extends PlatformBase{
 	public String ELEMENT_LIST_EDIT_EVENT_BUTTON = ".//*[@id='UIEventCategoryList']//span[contains(text(),'${categoryName}')]/parent::td/parent::tr//a[@data-original-title='Edit']/i[@class='uiIconEdit uiIconLightGray']";
 	public By ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE = By.id("btnEventCategoryFormContainer");
 	public final By ELEMENT_TOOLBAR_MINI_CALENDAR = By.xpath("//*[@class='weekDays']");
-	
+
 	//Add calendar form
 	public By ELEMENT_CALENDAR_ADD_FORM = By.id("UICalendarPopupWindow");
 	public By ELEMENT_CALENDAR_DISPLAY_NAME_INPUT = By.id("displayName");
@@ -53,7 +106,6 @@ public class CalendarManagement extends PlatformBase{
 	public String ELEMENT_GROUP_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Group Calendars']/..//*[text()='$calendar']";
 	public String ELEMENT_PERSONAL_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Personal Calendars']/..//*[text()='$calendar']";
 	public String ELEMENT_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='$calendar']";
-	public String ELEMENT_CALENDAR_SETTING_ICON="//*[text()='$calendar']/../..//*[contains(@class,'uiIconCalSettingMini')]";
 	public By ELEMENT_CALENDAR_RIGHT_MENU=By.id("tmpMenuElement");
 	public By ELEMENT_CALENDAR_ADD_TASK_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconCalCreateTask uiIconLightGray']");
 	public By ELEMENT_CALENDAR_ADD_EVENT_MENU =By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconCalCreateEvent uiIconLightGray']");
@@ -62,9 +114,10 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_REMOVE_MENU = By.xpath("//*[@id='tmpMenuElement']//*[contains(@href,'RemoveCalendar')]");
 	public By ELEMENT_CALENDAR_IMPORT_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconCalImportCalendar uiIconLightGray']");
 	public By ELEMENT_CALENDAR_EXPORT_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconCalExportCalendar uiIconLightGray']");
-	public By ELEMENT_CALENDAR_REFRESH_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconRefresh uiIconLightGray']");	
+	public By ELEMENT_CALENDAR_REFRESH_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconRefresh uiIconLightGray']");
 
-	//Event/Task
+	//Forms after click common calendar action menu (icon *)
+	public String ELEMENT_CALENDAR_SETTING_ICON="//*[text()='$calendar']/../..//*[contains(@class,'uiIconCalSettingMini')]";
 	public By ELEMENT_CALENDAR_QUICK_ADD_EVENT_FORM = By.id("UIQuickAddEventPopupWindow");
 	public By ELEMENT_CALENDAR_QUICK_ADD_TASK_FORM = By.id("UIQuickAddTask");
 	public By ELEMENT_CALENDAR_IMPORT_FORM = By.xpath("//*[@class='uiImportForm']");
@@ -76,7 +129,7 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_EXPORT_POPUP_FORM=By.id("UICalendarPopupWindow");
 	public By ELEMENT_CALENDAR_EXPORT_FILE_NAME=By.id("name");
 	public By ELEMENT_CALENDAR_EXPORT_SAVE_BUTTON=By.xpath("//*[@id='UIExportForm']//*[text()='Save']");
-	
+
 	//Import form
 	public By ELEMENT_CALENDAR_IMPORT_POPUP_FORM=By.id("UIImportForm");
 	public By ELEMENT_CALENDAR_IMPORT_DESC_INPUT = By.xpath("//form[@id='UIImportForm']//*[@id='description']");
@@ -85,7 +138,7 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_IMPORT_DELETE_ICON = By.xpath("//a[@data-original-title='Delete']/i[@class='uiIconDelete uiIconLightGray']");
 	public By ELEMENT_CALENDAR_IMPORT_NAME_INPUT = By.id("displayName");
 	public By ELEMENT_CALENDAR_IMPORT_COLOR = By.xpath("//*[contains(@class,'displayValue')]");
-	
+
 	//Share calendar form
 	public By ELEMENT_CALENDAR_SHARE_INPUT = By.id("PermissionOwnerInput");
 	public By ELEMENT_CALENDAR_SELECT_USER_ICON = By.xpath("//*[@class='uiIconUser uiIconLightGray']");
@@ -99,13 +152,7 @@ public class CalendarManagement extends PlatformBase{
 	//Remove calendar
 	public final By ELEMENT_YES_BUTTON = By.xpath("//*[contains(@class, 'popup')]//*[contains(text(),'Yes')]");
 	public final String ELEMENT_CONFIRM_REMOVE_CALENDAR_MSG="Are you sure you want to delete this calendar and all its events?";
-	
-	//Set timezone
-	public By ELEMENT_CAL_SETTING_MENU = By.xpath("//*[@id='UIActionBar']//i[@class='uiIconSetting uiIconLightGray']");
-	public String ELEMENT_CAL_SETTING_TIMEZONE_VALUE = "//*[@id='setting']//select[@name='timeZone']/option[@value='${timezoneOpt}']";
-	public By ELEMENT_TIME_ZONE = By.name("timeZone");
-	public By ELEMENT_SELECTED_TIME_ZONE = By.xpath("//*[@name='timeZone']//*[@selected='selected']");
-	public By ELEMENT_SETTINGS_FORM_SAVE_BUTTON = By.xpath("//*[@id='UICalendarSettingForm']//*[text()='Save']");
+
 	/**
 	 * constructor
 	 * @param dr
@@ -116,16 +163,85 @@ public class CalendarManagement extends PlatformBase{
 		alert = new ManageAlert(driver);
 	};
 
-	/** 
-	 * Open "Add calendar" form
-	 * 
+	/**
+	 * View list in calendar (Click icon +)
 	 */
-	public void goToAddCalendar(){
-		info("Go to add calendar");
+	public enum menuOfMainCalendar{
+		IMPORT, ADDCAL, REMOTECAL, ADDCATEGORY, CALSETTING
+	}
+
+	/**
+	 * View list in calendar (click on an calendar - Click icon *)
+	 */
+	public enum menuOfCalendarOption{
+		ADDTASK, ADDEVENT, EDIT, REMOVE, SHARE, IMPORT, EXPORT, REFRESH
+	}
+
+	/**
+	 * Execute action of calendar: Edit, Delete, Share, export....
+	 * 
+	 * @param calendar
+	 * 				name of calendar
+	 * @param action
+	 * 				action that needs to be done, e.g.: "ShareCalendar"
+	 */
+	public void goToMenuFromMainCalendar(menuOfMainCalendar action){
+		info("Select action from menu");
 		click(ELEMENT_CALENDAR_MENU_ACTIONS_ICON);
-		Utils.pause(3000);
-		click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD);
-		waitForAndGetElement(ELEMENT_CALENDAR_ADD_FORM);
+		switch(action){
+		case ADDCAL:
+			info("Go to add calendar");
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD);
+			waitForAndGetElement(ELEMENT_CALENDAR_ADD_FORM);
+			break;
+		case REMOTECAL:
+			info("Go to remote calendar");
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_REMOTE);
+			waitForAndGetElement(ELEMENT_REMOTE_CALENDAR_FORM);
+			break;
+		case ADDCATEGORY:
+			info("Go to add category calendar");
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD_EVENT_CATEGORY);
+			waitForAndGetElement(ELEMENT_ADD_EVENT_CATEGORY_FORM);
+			break;
+		case CALSETTING:
+			info("Go to calendar setting");
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_CALENDAR_SETTING);
+			waitForAndGetElement(ELEMENT_CALENDAR_SETTING_FORM);
+			break;
+		case IMPORT:
+			info("Import calendar");
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_IMPORT);
+			waitForAndGetElement(ELEMENT_CALENDAR_IMPORT_POPUP_FORM);
+			break;
+		default:
+			info("Go to add calendar");
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD);
+			waitForAndGetElement(ELEMENT_CALENDAR_QUICK_ADD_TASK_FORM);
+			break;
+		}
+	}
+
+	/** 
+	 * Delete a calendar
+	 * 
+	 * @param name
+	 * 				name of calendar
+	 * @param verify
+	 * 				optional parameter. If not be set, by default, it is considered that calendar is deleted 
+	 * 				= true: verify that calendar is deleted, 
+	 * 				= false: not verify that calendar is deleted, 
+	 */
+	public void deleteCalendar(String name, boolean...verify){
+		boolean isVerify = (verify.length > 0 ? verify[0]: false);
+		info("Remove calendar");
+		driver.navigate().refresh();
+		executeActionCalendar(name, menuOfCalendarOption.REMOVE);
+		if(isVerify)
+			alert.verifyAlertMessage(ELEMENT_CONFIRM_REMOVE_CALENDAR_MSG);
+		else
+			click(ELEMENT_YES_BUTTON);
+		waitForElementNotPresent(ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", name));
 	}
 
 	/** 
@@ -147,74 +263,12 @@ public class CalendarManagement extends PlatformBase{
 	 * 				false: select a group by select group icon
 	 */
 	public void editCalendar(String oldName,String name, String description, String color, String group){
-		executeActionCalendar(oldName, selectActionOption.EDIT);
+		executeActionCalendar(oldName, menuOfCalendarOption.EDIT);
 		inputDataInDetailTabCalendarForm(name, description, color);
 		if(group!=null && group!="")
-		selectGroupInGroupTabCalendarForm(group,true);
+			selectGroupInGroupTabCalendarForm(group,true);
 	}
-	
-	/** 
-	 * Open "Add calendar" form
-	 * 
-	 */
-	public void goToAddEventCategoryCalendar(){
-		info("Go to add calendar");
-		click(ELEMENT_CALENDAR_MENU_ACTIONS_ICON);
-		Utils.pause(3000);
-		click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD_EVENT_CATEGORY);
-		waitForAndGetElement(ELEMENT_ADD_EVENT_CATEGORY_FORM);
-	}
-	
-	/** 
-	 * Go to Calendar Actions> Add Event Category
-	 * 
-	 * @param categoryName
-	 * 				category name of Calendar
-	 */
-	public void addEventCategory(String categoryName){
-		info("----Add new event category----");
-		type(ELEMENT_ADD_EVENT_CATEGORY_INPUT,categoryName,true);
-		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_ADD);
-		info("----Verify if event category is added in Category List or not----");
-		waitForAndGetElement(ELEMENT_LIST_EVENT_CATEGORY.replace("${categoryName}", categoryName));
-		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	 
-	}
-	
-	/** 
-	 * Delete Event Category
-	 * 
-	 * @param categoryName
-	 * 				category name of calendar
-	 */
-	public void deleteEventCategory(String categoryName){
-		ManageAlert alert = new ManageAlert(driver);
-		Button button = new Button(driver);
-		waitForAndGetElement(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
-		click(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
-		alert.acceptAlert();
-		button.yes();
-		waitForElementNotPresent(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
-		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	
-	}
-	
-	/** 
-	 * Edit Event Category
-	 * 
-	 * @param oldCategory
-	 * 						old category name
-	 * @param newCategory
-	 * 						new category name
-	 */
 
-	public void editEventCategory(String oldCategory, String newCategory){
-		waitForAndGetElement(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",oldCategory));
-		click(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",oldCategory));
-		type(ELEMENT_ADD_EVENT_CATEGORY_INPUT,newCategory,true);
-		click(ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE);
-		waitForAndGetElement(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",newCategory));
-		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);
-	}
-	
 	/** 
 	 * Input into tab Detail of Add calendar form
 	 * 
@@ -271,6 +325,56 @@ public class CalendarManagement extends PlatformBase{
 		waitForElementNotPresent(ELEMENT_CALENDAR_ADD_FORM);
 	}
 
+	/** 
+	 * Go to Calendar Actions> Add Event Category
+	 * 
+	 * @param categoryName
+	 * 				category name of Calendar
+	 */
+	public void addEventCategory(String categoryName){
+		info("----Add new event category----");
+		type(ELEMENT_ADD_EVENT_CATEGORY_INPUT,categoryName,true);
+		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_ADD);
+		info("----Verify if event category is added in Category List or not----");
+		waitForAndGetElement(ELEMENT_LIST_EVENT_CATEGORY.replace("${categoryName}", categoryName));
+		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	 
+	}
+
+	/** 
+	 * Delete Event Category
+	 * 
+	 * @param categoryName
+	 * 				category name of calendar
+	 */
+	public void deleteEventCategory(String categoryName){
+		ManageAlert alert = new ManageAlert(driver);
+		Button button = new Button(driver);
+		waitForAndGetElement(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		click(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		alert.acceptAlert();
+		button.yes();
+		waitForElementNotPresent(ELEMENT_LIST_DELETE_EVENT_BUTTON.replace("${categoryName}",categoryName));
+		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);	
+	}
+
+	/** 
+	 * Edit Event Category
+	 * 
+	 * @param oldCategory
+	 * 						old category name
+	 * @param newCategory
+	 * 						new category name
+	 */
+
+	public void editEventCategory(String oldCategory, String newCategory){
+		waitForAndGetElement(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",oldCategory));
+		click(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",oldCategory));
+		type(ELEMENT_ADD_EVENT_CATEGORY_INPUT,newCategory,true);
+		click(ELEMENT_EDIT_EVENT_CATEGORY_BUTTON_UPDATE);
+		waitForAndGetElement(ELEMENT_LIST_EDIT_EVENT_BUTTON.replace("${categoryName}",newCategory));
+		click(ELEMENT_ADD_EVENT_CATEGORY_BUTTON_CLOSE);
+	}
+
 	/**
 	 * Open menu an a calendar
 	 * @param calendar
@@ -284,13 +388,6 @@ public class CalendarManagement extends PlatformBase{
 	}
 
 	/**
-	 * View list in calendar
-	 */
-	public enum selectActionOption{
-		ADDTASK, ADDEVENT, EDIT, REMOVE, SHARE, IMPORT, EXPORT, REFRESH
-	}
-
-	/**
 	 * Execute action of calendar: Edit, Delete, Share, export....
 	 * 
 	 * @param calendar
@@ -298,7 +395,7 @@ public class CalendarManagement extends PlatformBase{
 	 * @param action
 	 * 				action that needs to be done, e.g.: "ShareCalendar"
 	 */
-	public void executeActionCalendar(String calendar, selectActionOption action){
+	public void executeActionCalendar(String calendar, menuOfCalendarOption action){
 		info("Select action from menu");
 		openMenuOfCalendar(calendar);
 		switch(action){
@@ -341,28 +438,6 @@ public class CalendarManagement extends PlatformBase{
 	}
 
 	/** 
-	 * Delete a calendar
-	 * 
-	 * @param name
-	 * 				name of calendar
-	 * @param verify
-	 * 				optional parameter. If not be set, by default, it is considered that calendar is deleted 
-	 * 				= true: verify that calendar is deleted, 
-	 * 				= false: not verify that calendar is deleted, 
-	 */
-	public void deleteCalendar(String name, boolean...verify){
-		boolean isVerify = (verify.length > 0 ? verify[0]: false);
-		info("Remove calendar");
-		driver.navigate().refresh();
-		executeActionCalendar(name, selectActionOption.REMOVE);
-		if(isVerify)
-			alert.verifyAlertMessage(ELEMENT_CONFIRM_REMOVE_CALENDAR_MSG);
-		else
-			click(ELEMENT_YES_BUTTON);
-		waitForElementNotPresent(ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", name));
-	}
-
-	/** 
 	 * Share a calendar
 	 * 
 	 * @param calendar
@@ -380,7 +455,7 @@ public class CalendarManagement extends PlatformBase{
 	 */
 	public void shareCalendar(String calendar, String[] userGroup, boolean[] canEdit, int...mode){
 		info("Share calendar");
-		executeActionCalendar(calendar, selectActionOption.SHARE);
+		executeActionCalendar(calendar, menuOfCalendarOption.SHARE);
 		for(int i = 0; i < userGroup.length; i++){
 			int modeUser = mode.length > i ? mode[i] : 0;
 			switch (modeUser){
@@ -413,7 +488,7 @@ public class CalendarManagement extends PlatformBase{
 		click(ELEMENT_CALENDAR_SHARE_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_CALENDAR_SHARE_SAVE_BUTTON);
 	}
-	
+
 	/** 
 	 * Share a calendar
 	 * 
@@ -424,7 +499,7 @@ public class CalendarManagement extends PlatformBase{
 	 */
 	public void removeUserGrooupFromShareCalendar(String calendar, String[] userGroup){
 		info("Share calendar");
-		executeActionCalendar(calendar, selectActionOption.SHARE);
+		executeActionCalendar(calendar, menuOfCalendarOption.SHARE);
 		for(int i = 0; i < userGroup.length; i++){
 			click(By.xpath(ELEMENT_DELETE_SHARE_USER.replace("{$user}",userGroup[i])));
 		}
@@ -449,7 +524,7 @@ public class CalendarManagement extends PlatformBase{
 		switchToParentWindow();
 		waitForAndGetElement(ELEMENT_CALENDAR_IMPORT_DELETE_ICON);
 	}
-	
+
 	/** 
 	 * Import calendar
 	 * 
@@ -483,7 +558,7 @@ public class CalendarManagement extends PlatformBase{
 		waitForAndGetElement(By.linkText(name));
 	}
 
-	
+
 	/**
 	 * Export calendar
 	 * 
@@ -494,26 +569,231 @@ public class CalendarManagement extends PlatformBase{
 	 */
 	public void exportCalendar(String calendar, String name){
 		info("Export calendar");
-		executeActionCalendar(calendar, selectActionOption.EXPORT);
+		executeActionCalendar(calendar, menuOfCalendarOption.EXPORT);
 		waitForAndGetElement(ELEMENT_CALENDAR_EXPORT_POPUP_FORM);
 		type(ELEMENT_CALENDAR_EXPORT_FILE_NAME,name,true);
 		click(ELEMENT_CALENDAR_EXPORT_SAVE_BUTTON);
 		waitForElementNotPresent(ELEMENT_CALENDAR_EXPORT_POPUP_FORM);
 	}
-	
-	/** 
-	 * Set timezone for Calendar
-	 * 
-	 * @param timezoneOpt
-	 * 				time zone of calendar, e.g.: (GMT -11:00) Pacific/Samoa
+
+	/**
+	 * change values in setting tab of calendar setting form
+	 * @param viewtype
+	 * 					default view fof calendar: Week, Day, Month, List, Work Week
+	 * @param timezone
+	 * 					time zone of calendar, e.g.: (GMT -11:00) Pacific/Samoa	 * 				
+	 * @param dateformat
+	 * 					date format of calendar:dd/mm/yyyy, dd-mm-yyyy, mm/dd/yyyy, mm-dd-yyyy
+	 * @param timeformat
+	 * 					time format of calendar: AM/PM, 24 Hours
+	 * @param day
+	 * 			 start day of week: monday, tuesday, wednesday, thursday, saturday, sunday
+	 * @param isShow
+	 * 			true: show calendar
+	 * 			false: don't show calendar
+	 * @param option
+	 * 			option to send mail inviatation: NEVER, ASK, ALWAYS
 	 */
-	public void setTimezoneForCalendar(String timezoneOpt){
-		click(ELEMENT_CAL_SETTING_MENU);
-		Utils.pause(3000);
-		info("-- Select filter option of Timezone --");
-		select(ELEMENT_TIME_ZONE,timezoneOpt);	
-		Utils.pause(1000);
-		click(ELEMENT_SETTINGS_FORM_SAVE_BUTTON);
-		Utils.pause(3000);
+	public void changeSettingCalendar(String viewtype, String timezone, String dateformat, String timeformat, String day, Boolean isShow, selectInvitationOption option){
+		click(ELEMENT_CALENDAR_SETTING_TAB_ITEM.replace("$tab", "Settings"));
+
+		if(viewtype!=null && viewtype != ""){
+			info("-- Select filter option of view type --");
+			select(ELEMENT_CALENDAR_SETTING_VIEW_TYPE,viewtype);
+		}
+		if(timezone!=null && timezone != ""){
+			info("-- Select filter option of Timezone --");
+			select(ELEMENT_CALENDAR_SETTING_TIME_ZONE,timezone);	
+		}
+		if(dateformat!=null && dateformat != ""){
+			info("-- Select filter option of date format --");
+			select(ELEMENT_CALENDAR_SETTING_DATE_FORMAT,dateformat);
+		}
+		if(timeformat!=null && timeformat != ""){
+			info("-- Select filter option of time format --");
+			select(ELEMENT_CALENDAR_SETTING_TIME_FORMAT,timeformat);
+		}
+		if(day!=null && day != ""){
+			info("-- Select filter option of week start on --");
+			select(ELEMENT_CALENDAR_SETTING_WEEK_START_ON,day);
+		}
+		if(isShow!=null){
+			info("-- Select show calendar or not --");
+			if(isShow)
+				check(ELEMENT_CALENDAR_SETTING_SHOW_WORKING_TIME_CHECKBOX,2);
+			else
+				uncheck(ELEMENT_CALENDAR_SETTING_SHOW_WORKING_TIME_CHECKBOX,2);
+		}
+
+		if(option!=null){
+			info("-- Select send invitaion option --");
+			switch(option){
+			case NEVER:
+				check(ELEMENT_CALENDAR_SETTING_NEVER_SEND_INVITE_CHECKBOX,2);
+				break;
+			case ALWAYS:
+				check(ELEMENT_CALENDAR_SETTING_ALWAYS_SEND_INVITE_CHECKBOX,2);
+				break;
+			case ASK:
+				check(ELEMENT_CALENDAR_SETTING_ASK_SEND_INVITE_CHECKBOX,2);
+				break;
+			default:
+				check(ELEMENT_CALENDAR_SETTING_NEVER_SEND_INVITE_CHECKBOX,2);
+				break;
+			}
+		}
+	}
+
+	/**
+	 * save setting form
+	 */
+	public void saveSetting(){
+		click(ELEMENT_SETTING_FORM_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_CALENDAR_SETTING_FORM);
+	}
+
+	/**
+	 * cancel setting form
+	 */
+	public void cancelSetting(){
+		click(ELEMENT_SETTING_FORM_CANCEL_BUTTON);
+		waitForElementNotPresent(ELEMENT_CALENDAR_SETTING_FORM);
+
+	}
+
+	/**
+	 * show/hide personal calendar in tab displayed calendar of calendar setting form
+	 * @param calendarName
+	 * 						name of calendar
+	 * @param isShow
+	 * 						true: check show calendar
+	 * 						false: hide calendar
+	 */
+	public void showHidePersonalCalendar(String calendarName, Boolean isShow){
+		info("Show/Hide personal calenar");
+		if(isShow!=null){
+			if(isShow){
+				if(waitForAndGetElement(ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName),5000,0)!=null)
+					click(ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName));
+				waitForAndGetElement(ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_CHECKBOX.replace("$name", calendarName));
+			}
+			else{
+				if(waitForAndGetElement(ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_CHECKBOX.replace("$name", calendarName),5000,0)!=null)
+					click(ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_CHECKBOX.replace("$name", calendarName));
+				waitForAndGetElement(ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName));
+			}
+		}
+		else{
+			if(waitForAndGetElement(ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName),5000,0)!=null)
+				click(ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName));
+			waitForAndGetElement(ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_CHECKBOX.replace("$name", calendarName));
+		}
+	}
+
+	/**
+	 * show/hide group calendar in tab displayed calendar of calendar setting form
+	 * @param calendarName
+	 * 						name of calendar
+	 * @param isShow
+	 * 						true: check show calendar
+	 * 						false: hide calendar
+	 */
+	public void showHideGroupCalendar(String calendarName, Boolean isShow){
+		info("Show/Hide group calenar");
+		if(isShow!=null){
+			if(isShow){
+				if(waitForAndGetElement(ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName),5000,0)!=null)
+					click(ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName));
+				waitForAndGetElement(ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_CHECKBOX.replace("$name", calendarName));
+			}
+			else{
+				if(waitForAndGetElement(ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_CHECKBOX.replace("$name", calendarName),5000,0)!=null)
+					click(ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_CHECKBOX.replace("$name", calendarName));
+				waitForAndGetElement(ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName));
+			}
+		}
+		else{
+			if(waitForAndGetElement(ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName),5000,0)!=null)
+				click(ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_UNCHECKBOX.replace("$name", calendarName));
+			waitForAndGetElement(ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_CHECKBOX.replace("$name", calendarName));
+		}
+	}
+
+	/**
+	 * Add/Edit new feed
+	 * @param name
+	 * 				name of feed
+	 * @param url
+	 * 				url of feed
+	 * @param calendars
+	 * 				calendar  list (split by "/": ex: John Smith/Development)
+	 */
+	public void addEditFeed(String name, String url, String calendars){
+		info("Add new feed");
+		if(name!=null && name!=""){
+			type(ELEMENT_FEED_NAME_INPUT,name,true);
+		}
+		if(url!=null && url!=""){
+			type(ELEMENT_FEED_URL_INPUT,name,true);
+		}
+		if(calendars!=null && calendars!=""){
+			String[] calendar = calendars.split("/");
+			for(int i =0; i<calendar.length; i++){
+				select(ELEMENT_FEED_CALENDAR_OPTION,calendar[i]);
+				click(ELEMENT_FEED_EDIT_FEED_ADD_CALENDAR);
+			}
+		}
+	}
+
+	/**
+	 * Generate URL
+	 */
+	public void generateUrl(){
+		info("Generate URL");
+		click(ELEMENT_FEED_EDIT_FEED_GENERATE_URL);
+	}
+
+	/**
+	 * Reset URL
+	 */
+	public void resetUrl(){
+		info("Reset URL");
+		click(ELEMENT_FEED_EDIT_FEED_RESET_URL);
+	}
+
+	/**
+	 * delete calendar from feed
+	 * @param calendar
+	 * 					name of calendar
+	 */
+	public void deleteCalendar(String calendar){
+		info("delete calendar from feed");
+		if(calendar!=null && calendar!=""){
+			click(ELEMENT_FEED_EDIT_FEED_DELETE_CALENDAR.replace("$name", calendar));
+			waitForElementNotPresent(ELEMENT_FEED_EDIT_FEED_DELETE_CALENDAR.replace("$name", calendar));
+		}
+	}
+	
+	/**
+	 * Delete Feed
+	 * @param feed
+	 * 				name of feed
+	 * @param isVerify
+	 * 				true: verify confirm message
+	 * 				false: not verify confirm message
+	 */
+	public void deleteFeed(String feed, Boolean isVerify){
+		info("Delete Feed");
+		ManageAlert alert = new ManageAlert(driver);
+		Button button = new Button(driver);
+		click(ELEMENT_FEED_LIST_ITEM_DELETE_BUTTON.replace("$name", feed));
+		if(isVerify!=null){
+			if(isVerify)
+				alert.verifyAlertMessage(ELEMENT_FEED_CONFIRM_DELETE);
+			else
+				click(button.ELEMENT_YES_BUTTON);
+		}
+		else
+			click(button.ELEMENT_YES_BUTTON);
 	}
 }

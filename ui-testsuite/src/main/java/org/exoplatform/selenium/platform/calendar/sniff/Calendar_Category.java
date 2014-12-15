@@ -8,6 +8,7 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.calendar.AddEditEventManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.testng.annotations.*;
@@ -70,8 +71,9 @@ public class Calendar_Category extends PlatformBase {
 		 *Expected Outcome: 
 			Event Categories form is displayed with a list of all existing event categories and a sub form to add new category*/
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
-		cMang.goToAddEventCategoryCalendar();
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCATEGORY);
 		
 		/*Step number: 2
 		 *Step Name: -
@@ -85,9 +87,9 @@ public class Calendar_Category extends PlatformBase {
 			- Added category is displayed in list above
 			- This category is visible while creating an event/task and used for the creator only*/ 
 		cMang.addEventCategory(oldNameCategory);
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		waitForAndGetElement(event.ELEMENT_ITEM_QUICK_EVENT_CATEGORY_OPTION.replace("$category", oldNameCategory));
-		event.quickCancelAddEditEvent();
+		event.cancelQuickAddEditEvent();
 		
 		info("Test 2: Edit Event Category");
 		/*Step number: 3
@@ -101,11 +103,11 @@ public class Calendar_Category extends PlatformBase {
 			- Change is saved, all values disappears from edit form
 			- Existing categorylist also is updated*/ 
 		hp.goToCalendarPage();
-		cMang.goToAddEventCategoryCalendar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCATEGORY);
 		cMang.editEventCategory(oldNameCategory, newNameCategory);
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		waitForAndGetElement(event.ELEMENT_ITEM_QUICK_EVENT_CATEGORY_OPTION.replace("$category", newNameCategory));
-		event.quickCancelAddEditEvent();
+		event.cancelQuickAddEditEvent();
 		
 		info("Test 3: Delete Event Category");
 		/*Step number: 2
@@ -121,7 +123,7 @@ public class Calendar_Category extends PlatformBase {
 			- This category is deleted from the category management list
 			- Event(s)/task(s) that was added into this category are not deleted and they have "all" as category*/
 		hp.goToCalendarPage();
-		cMang.goToAddEventCategoryCalendar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCATEGORY);
 		cMang.deleteEventCategory(newNameCategory);
 	}
 }

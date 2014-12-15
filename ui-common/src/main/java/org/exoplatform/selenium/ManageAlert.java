@@ -105,12 +105,12 @@ public class ManageAlert extends TestBase{
 	public void verifyAlertMessage(String message){
 		Utils.pause(1000);
 		if (isElementPresent(ELEMENT_MESSAGE)){
-			assert getText(ELEMENT_MESSAGE).contains(message):"Message is wrong";
+			assert getText(ELEMENT_MESSAGE).contains(message):"Message is wrong. Actual msg is "+getText(ELEMENT_MESSAGE);	
 		}else if (isElementPresent(ELEMENT_INFO)){
-			assert getText(ELEMENT_INFO).contains(message):"Message is wrong";	
+			assert getText(ELEMENT_INFO).contains(message):"Message is wrong. Actual msg is "+getText(ELEMENT_INFO);	
 		}
 		else if (isElementPresent(ELEMENT_CONFIRM)){
-			assert getText(ELEMENT_CONFIRM).contains(message):"Message is wrong";        
+			assert getText(ELEMENT_CONFIRM).contains(message):"Message is wrong. Actual msg is "+getText(ELEMENT_CONFIRM);	
 		}
 		if (waitForAndGetElement(button.ELEMENT_OK_BUTTON, 5000, 0) != null){
 			click(button.ELEMENT_OK_BUTTON);

@@ -7,12 +7,12 @@ import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.calendar.AddEditEventManagement;
 import org.exoplatform.selenium.platform.calendar.AddEditEventManagement.selectAvailableOption;
-import org.exoplatform.selenium.platform.calendar.AddEditEventManagement.selectInvitationOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
-import org.exoplatform.selenium.platform.calendar.CalendarManagement.selectActionOption;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfCalendarOption;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
@@ -97,8 +97,9 @@ public class Calendar_Event extends PlatformBase {
 			- Schedule*/
 		info("Add a event");
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
-		cHome.goToAddEventFromActionBar();
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
+		event.goToAddEventFromActionBar();
 		event.moreDetailsEvent();
 
 		/*Step number: 2
@@ -173,7 +174,7 @@ public class Calendar_Event extends PlatformBase {
 			- New event is added successfully*/
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
 		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
@@ -193,7 +194,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),true);
 		event.moreDetailsEvent();
 		click(event.ELEMENT_EVENT_SCHEDULE_TAB);
@@ -235,7 +236,7 @@ public class Calendar_Event extends PlatformBase {
 			- Schedule*/
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		info("Check default time ");
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
@@ -284,7 +285,7 @@ public class Calendar_Event extends PlatformBase {
 			- Schedule*/
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.moreDetailsEvent();
 
@@ -299,7 +300,7 @@ public class Calendar_Event extends PlatformBase {
 			- Time on schedule tab is correct (input at step 1)*/ 
 		click(event.ELEMENT_EVENT_SCHEDULE_TAB);
 		event.checkScheduleTimeOfUser(getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30");
-		event.detailCancelAddEditEvent();
+		event.cancelAddEditDetailEvent();
 	}
 
 	/**
@@ -330,7 +331,7 @@ public class Calendar_Event extends PlatformBase {
 			- Schedule*/
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		event.moreDetailsEvent();
 
@@ -377,10 +378,10 @@ public class Calendar_Event extends PlatformBase {
 			- When set a new From time, To time = From time + 1 hour
 			- From date = To date = Current date*/
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		info("Check default time ");
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
-		event.quickCancelAddEditEvent();
+		event.cancelQuickAddEditEvent();
 
 		/*Step number: 2
 		 *Step Name: Step2: Check date suggestion when add event on a calendar
@@ -395,11 +396,11 @@ public class Calendar_Event extends PlatformBase {
 			- When set a new From time, To time = From time + 1 hour
 			- From date = To date = current date*/
 		hp.goToCalendarPage();
-		cMang.executeActionCalendar(fullName, selectActionOption.ADDEVENT);
+		cMang.executeActionCalendar(fullName, menuOfCalendarOption.ADDEVENT);
 
 		info("Check default date");
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
-		event.quickCancelAddEditEvent();
+		event.cancelQuickAddEditEvent();
 
 		/*Step number: 3
 		 *Step Name: Setp3: Check date suggestion when add event by left click on main panel
@@ -413,12 +414,12 @@ public class Calendar_Event extends PlatformBase {
 			- When set new From time, To time = From time + 1 hour
 			- From date = To date = Date of click*/
 		cHome.goToView(selectViewOption.WEEK);
-		cHome.goToAddEventByLeftClickFromMainPanel("","");
+		event.goToAddEventByLeftClickFromMainPanel("","");
 		info("Check default time ");
 		event.checkSuggestionEventTimeInQuickForm(null,null, 30);
 		event.inputFromToQuickEvent(from, "", false);
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
-		event.quickCancelAddEditEvent();
+		event.cancelQuickAddEditEvent();
 
 		/*Step number: 4
 		 *Step Name: Step4: Check date suggestion when add event by right click on main panel
@@ -430,10 +431,10 @@ public class Calendar_Event extends PlatformBase {
 			- Open quick add event form with to time = from time + 1 hour
 			- When set new from time, to time alway = to time + 1 hour
 			- From date = To date = current date*/ 
-		cHome.goToAddEventByRightClickFromMainPanel("","");
+		event.goToAddEventByRightClickFromMainPanel("","");
 		info("Check default time ");
 		event.checkSuggestionEventTimeInQuickForm(null,null,60);
-		event.quickCancelAddEditEvent();
+		event.cancelQuickAddEditEvent();
 	}
 
 	/**
@@ -465,7 +466,7 @@ public class Calendar_Event extends PlatformBase {
 			- Schedule*/
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		event.moreDetailsEvent();
 
@@ -524,7 +525,7 @@ public class Calendar_Event extends PlatformBase {
 			- Schedule*/
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		event.moreDetailsEvent();
 		
@@ -576,7 +577,7 @@ public class Calendar_Event extends PlatformBase {
 			- The pop up "Quick Add Event" is displayed with fields + Title + Description + From + To + All day checkbox + Calendar + Event Category*/
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 
 		/*Step number: 2
 		 *Step Name: Step 2: View more detail
@@ -674,7 +675,7 @@ public class Calendar_Event extends PlatformBase {
 			Schedule tab includes a schedule table listing available/busy time of participants*/
 		click(event.ELEMENT_EVENT_SCHEDULE_TAB);
 		waitForAndGetElement(event.ELEMENT_ADD_PARTICIPANTS_BUTTON_IN_SCHEDULE_TAB);
-		event.detailCancelAddEditEvent();
+		event.cancelAddEditDetailEvent();
 
 	}
 
@@ -772,7 +773,7 @@ public class Calendar_Event extends PlatformBase {
 		 *Expected Outcome: 
 			Event is created in personal calendar*/ 
 		hp.goToCalendarPage();
-		cMang.executeActionCalendar(fullName, selectActionOption.ADDEVENT);
+		cMang.executeActionCalendar(fullName, menuOfCalendarOption.ADDEVENT);
 		info("Check default date");
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
@@ -837,7 +838,7 @@ public class Calendar_Event extends PlatformBase {
 		info("Create data test");
 		info("Add a event");
 		hp.goToCalendarPage();
-		cHome.goToAddEventFromActionBar();
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		event.saveQuickAddEvent();
 		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
@@ -907,7 +908,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.executeActionCalendar(groupCalendar, selectActionOption.ADDEVENT);
+		cMang.executeActionCalendar(groupCalendar, menuOfCalendarOption.ADDEVENT);
 		info("Check default date");
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
@@ -917,13 +918,15 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
 		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
 		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
 
 		info("Test 18 Edit an event in group calendar");
@@ -1031,7 +1034,7 @@ public class Calendar_Event extends PlatformBase {
 		 *Expected Outcome: 
 			Calendar is created and shared*/
 		hp.goToCalendarPage();
-		cMang.goToAddCalendar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
 		cMang.inputDataInDetailTabCalendarForm(calendarName, calendarName, calendarColor);
 		cMang.saveAddCalendar();
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendarName));
@@ -1061,8 +1064,9 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
-		cMang.executeActionCalendar(calendarName, selectActionOption.ADDEVENT);
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
+		cMang.executeActionCalendar(calendarName, menuOfCalendarOption.ADDEVENT);
 		info("Check default date");
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);

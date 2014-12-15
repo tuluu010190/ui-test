@@ -32,6 +32,7 @@ public class AddEditTaskManagement extends PlatformBase {
 	public String ELEMENT_QUICK_TASK_SELECT_FROM_TIME = "//*[@id='UIQuickAddTask']//*[@id='fromTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
 	public By ELEMENT_BUTTON_TASK_SAVE = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='Save']");
 	public String ELEMENT_ATTACH_FILE_NAME = "//*[@data-original-title='$fileName']";
+	public By ELEMENT_BUTTON_TASK_QUICK_CANCEL = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='Cancel']");
 	//----------------------------------Add Task Form (more details )------------------------------------\\
 	public By ELEMENT_ADD_EDIT_TASK_NAME = By.xpath("//*[@id='UITaskForm']//*[@name='eventName']");
 	public By ELEMENT_ADD_EDIT_TASK_NOTE = By.xpath("//*[@id='UITaskForm']//*[@id='description']");
@@ -49,6 +50,7 @@ public class AddEditTaskManagement extends PlatformBase {
 	public By ELEMENT_BUTTON_TASK_MORE_DETAILS = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='More Details']");
 	public By ELEMENT_BUTTON_TASK_SAVE_DETAILS = By.xpath("//*[@id='UITaskForm']//*[text()='Save']");
 	public By ELEMENT_TASK_FILE_INPUT = By.xpath("//*[@id='upload']//*[@name='file']");
+	public By ELEMENT_BUTTON_EVENT_CANCEL_DETAILS = By.xpath("//*[@id='UITaskForm']//*[text()='Cancel']");
 	
 	//Attach file form
 	public By ELEMENT_ATTACH_SAVE_BUTTON = By.xpath("//form[@id='UIAttachFileForm']//*[text()='Save']");
@@ -57,10 +59,72 @@ public class AddEditTaskManagement extends PlatformBase {
 	public By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachFileForm']//*[text()='Save']");
 	public String ELEMENT_ATTACHMENT_FORM_FILE_NAME = "//*[text()='$fileName']";
 	
+	CalendarHomePage cHome;
 	public AddEditTaskManagement(WebDriver dr){
 		driver = dr;
+		cHome = new CalendarHomePage(driver);
 	}
 
+
+	/**
+	 * 
+	 * @param date
+	 * 				date to create task
+	 * 				format: MM/dd/yyyy (Ex: 12/09/2014)
+	 * @param time
+	 * 				time to create task
+	 * 				format: hh:mm (Ex: 12:30)
+	 */
+	public void goToAddTaskByRightClickFromMainPanel(String date, String time){
+		info("Go to add task by right clicking from main panel");
+		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat("MMM dd yyyy");
+		String tempDate2 = getCurrentDate("MMM dd yyyy");
+		Date tempDate1 = null;
+		String tempTime = getCurrentDate("HH")+":00";
+
+		info("Get date");
+		if(date!=null && date!=""){
+			try {
+				tempDate1 = format1.parse(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			tempDate2 = format2.format(tempDate1);
+			info("Selected date is " + tempDate2);
+		}
+		else{
+			tempDate2 = getCurrentDate("MMM dd yyyy");
+			info("Selected date is current date" + tempDate2);
+		}
+
+		info("Get time");
+		if(time!=null && time!=""){
+			tempTime = time;
+			info("Selected date is " + tempTime);
+		}
+		else{
+			tempTime = getCurrentDate("HH")+":00";
+			info("Selected date is current date" + tempTime);
+		}
+
+		String cell = cHome.ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", tempDate2).replace("$time", tempTime);
+		rightClickOnElement(cell);
+		click(cHome.ELEMENT_RIGHT_CLICK_ADD_TASK);
+		waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP);
+	}
+
+	/**
+	 * Open "Add new task" form from action bar
+	 * 
+	 */
+	public void goToAddTaskFromActionBar(){
+		info("Go to Add Task page from action bar"); 
+		click(cHome.ELEMENT_BUTTON_TASK);
+		waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP);
+	}
+
+	
 	/**
 	 * Input into basic fields of Quick task form
 	 * 
@@ -383,6 +447,20 @@ public class AddEditTaskManagement extends PlatformBase {
 		waitForElementNotPresent(ELEMENT_BUTTON_TASK_SAVE);
 	}
 
+	/**
+	 * Click on cancel button
+	 */
+	public void cancelQuickAddEditTask(){
+		click(ELEMENT_BUTTON_TASK_QUICK_CANCEL);
+		waitForElementNotPresent(ELEMENT_BUTTON_TASK_QUICK_CANCEL);
+	}
+	
+	public void cancelAddEditDetailTask(){
+		click(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);
+		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);
+	}
+
+	
 	/**
 	 * Save a task with more details
 	 */

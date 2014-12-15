@@ -148,6 +148,112 @@ public class AddEditEventManagement extends PlatformBase {
 		alert = new ManageAlert(driver);
 	}
 
+
+	/**
+	 * 
+	 * @param date
+	 * 				date to create event
+	 * 				format: MM/dd/yyyy (Ex: 12/09/2014)
+	 * @param time
+	 * 				time to create event
+	 * 				format: hh:mm (Ex: 12:30)
+	 */
+	public void goToAddEventByLeftClickFromMainPanel(String date, String time){
+		info("Go to add task by right clicking from main panel");
+		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat("MMM dd yyyy");
+		String tempDate2 = getCurrentDate("MMM dd yyyy");
+		Date tempDate1 = null;
+		String tempTime = getCurrentDate("HH")+":00";
+
+		info("Get date");
+		if(date!=null && date!=""){
+			try {
+				tempDate1 = format1.parse(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			tempDate2 = format2.format(tempDate1);
+			info("Selected date is " + tempDate2);
+		}
+		else{
+			tempDate2 = getCurrentDate("MMM dd yyyy");
+			info("Selected date is current date" + tempDate2);
+		}
+
+		info("Get time");
+		if(time!=null && time!=""){
+			tempTime = time;
+			info("Selected date is " + tempTime);
+		}
+		else{
+			tempTime = getCurrentDate("HH")+":00";
+			info("Selected date is current date" + tempTime);
+		}
+		String cell = cHome.ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", tempDate2).replace("$time", tempTime);
+		info(cell);
+		waitForAndGetElement(cell).click();
+		waitForAndGetElement(ELEMENT_QUICK_ADD_EVENT_POPUP);
+	}
+
+	/**
+	 * 
+	 * @param date
+	 * 				date to create event
+	 * 				format: MM/dd/yyyy (Ex: 12/09/2014)
+	 * @param time
+	 * 				time to create event
+	 * 				format: hh:mm (Ex: 12:30)
+	 */
+	public void goToAddEventByRightClickFromMainPanel(String date, String time){
+		info("Go to add task by right clicking from main panel");
+		SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat("MMM dd yyyy");
+		String tempDate2 = getCurrentDate("MMM dd yyyy");
+		Date tempDate1 = null;
+		String tempTime = getCurrentDate("HH")+":00";
+
+		info("Get date");
+		if(date!=null && date!=""){
+			try {
+				tempDate1 = format1.parse(date);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			tempDate2 = format2.format(tempDate1);
+			info("Selected date is " + tempDate2);
+		}
+		else{
+			tempDate2 = getCurrentDate("MMM dd yyyy");
+			info("Selected date is current date" + tempDate2);
+		}
+
+		info("Get time");
+		if(time!=null && time!=""){
+			tempTime = time;
+			info("Selected date is " + tempTime);
+		}
+		else{
+			tempTime = getCurrentDate("HH")+":00";
+			info("Selected date is current date" + tempTime);
+		}
+
+		String cell = cHome.ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", tempDate2).replace("$time", tempTime);
+		rightClickOnElement(cell);
+		click(cHome.ELEMENT_RIGHT_CLICK_ADD_EVENT);
+		waitForAndGetElement(ELEMENT_QUICK_ADD_EVENT_POPUP);
+	}
+	
+	/**
+	 * Open "Add new event" form from action bar
+	 * 
+	 */
+	public void goToAddEventFromActionBar(){
+		info("Go to Add Task page from action bar"); 
+		click(cHome.ELEMENT_BUTTON_EVENT);
+		waitForAndGetElement(ELEMENT_QUICK_ADD_EVENT_POPUP);
+	}
+	
 	/**
 	 * Input into basic fields of Quick EVENT form
 	 * 
@@ -623,12 +729,6 @@ public class AddEditEventManagement extends PlatformBase {
 			break;
 		}
 	}
-	/**
-	 * Available option
-	 */
-	public enum selectInvitationOption{
-		ALWAYS, NEVER, ASK
-	}
 
 	/**
 	 * selectSendInvitation
@@ -704,14 +804,14 @@ public class AddEditEventManagement extends PlatformBase {
 	/**
 	 * Click on cancel button
 	 */
-	public void quickCancelAddEditEvent(){
+	public void cancelQuickAddEditEvent(){
 		click(ELEMENT_BUTTON_EVENT_QUICK_CANCEL);
 		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_QUICK_CANCEL);
 	}
 	
-	public void detailCancelAddEditEvent(){
+	public void cancelAddEditDetailEvent(){
 		click(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);
-		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_MORE_DETAILS);
+		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);
 	}
 
 	/**

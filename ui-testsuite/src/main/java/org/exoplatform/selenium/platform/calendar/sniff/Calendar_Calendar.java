@@ -12,7 +12,8 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
-import org.exoplatform.selenium.platform.calendar.CalendarManagement.selectActionOption;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfCalendarOption;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
@@ -79,7 +80,8 @@ public class Calendar_Calendar extends PlatformBase {
 		 *Expected Outcome: 
 			- Left panel is collapsed, mini calendar and calendar list are not shown*/
 		hp.goToCalendarPage();
-		cMang.setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
 		click(cHome.ELEMENT_SHOW_HIDE_LEFT_PANEL);
 		waitForElementNotPresent(cHome.ELEMENT_CALENDAR_PANEL);
 		waitForElementNotPresent(cHome.ELEMENT_TOOLBAR_MINI_CALENDAR);
@@ -125,7 +127,7 @@ public class Calendar_Calendar extends PlatformBase {
 		 *Expected Outcome: 
 			- The calendar is added into Personal Calendar*/ 
 		hp.goToCalendarPage();
-		cMang.goToAddCalendar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
 		cMang.inputDataInDetailTabCalendarForm(calendarName, calendarName, calendarColor);
 		cMang.saveAddCalendar();
 		waitForAndGetElement(cMang.ELEMENT_PERSONAL_CALENDAR_LIST_ITEM.replace("$calendar", calendarName));
@@ -188,7 +190,7 @@ public class Calendar_Calendar extends PlatformBase {
 		 *Expected Outcome: 
 			- The group calendar is added normally and displayed at the group calendar*/ 
 		hp.goToCalendarPage();
-		cMang.goToAddCalendar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
 		cMang.inputDataInDetailTabCalendarForm(calendarName, calendarName, calendarColor);
 		cMang.selectGroupInGroupTabCalendarForm(groupCalendar,true);
 		cMang.saveAddCalendar();
@@ -255,7 +257,7 @@ public class Calendar_Calendar extends PlatformBase {
 		 *Expected Outcome: 
 			- can see and do following actions only:RefreshRemove*/ 
 		hp.goToCalendarPage();
-		cMang.goToAddCalendar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
 		cMang.inputDataInDetailTabCalendarForm(calendarName, calendarName, calendarColor);
 		cMang.saveAddCalendar();
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendarName));
@@ -299,7 +301,7 @@ public class Calendar_Calendar extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.executeActionCalendar(calendarName, selectActionOption.EDIT);
+		cMang.executeActionCalendar(calendarName, menuOfCalendarOption.EDIT);
 		cMang.inputDataInDetailTabCalendarForm(newCalendar, newCalendar, calendarColor);
 		cMang.saveAddCalendar();
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", newCalendar));
@@ -353,7 +355,7 @@ public class Calendar_Calendar extends PlatformBase {
 		 *Expected Outcome: 
 			- He/ she cannot view shared calendar in shared list*/ 
 		hp.goToCalendarPage();
-		cMang.goToAddCalendar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
 		cMang.inputDataInDetailTabCalendarForm(calendarName, calendarName, calendarColor);
 		cMang.saveAddCalendar();
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendarName));
@@ -405,7 +407,7 @@ public class Calendar_Calendar extends PlatformBase {
 			- The current week is highlighted with a gray color
 			- The current day is highlighted with a square*/
 		hp.goToCalendarPage();
-		cHome.goToAddTaskFromActionBar();
+		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(1,"MM/dd/yyyy"), getDate(1,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
 		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY);
@@ -446,11 +448,11 @@ public class Calendar_Calendar extends PlatformBase {
 		String calendarColor = "purple";
 		info("Create data test");
 		hp.goToCalendarPage();
-		cMang.goToAddCalendar();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
 		cMang.inputDataInDetailTabCalendarForm(calendarName, calendarName, calendarColor);
 		cMang.saveAddCalendar();
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendarName));
-		cMang.executeActionCalendar(calendarName, selectActionOption.ADDTASK);
+		cMang.executeActionCalendar(calendarName, menuOfCalendarOption.ADDTASK);
 		task.inputDataTaskInQuickForm(taskName, taskName, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
 		cHome.verifyIsPresentEventTask(taskName, selectViewOption.WEEK, selectDayOption.ONEDAY);
