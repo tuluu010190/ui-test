@@ -293,6 +293,7 @@ public class AddEditEventManagement extends PlatformBase {
 	 * 			optional parameter
 	 * 			opt[0]: calendar
 	 * 			opt[1]: category
+	 * 			opt[2]: location
 	 */
 	public void inputBasicDetailEvent(String name, String note, String...opt){
 		info("Input into basic fields of Quick EVENT form");
@@ -307,6 +308,9 @@ public class AddEditEventManagement extends PlatformBase {
 		}
 		if (opt.length > 1 && opt[1] != null){
 			select(ELEMENT_ADD_EDIT_EVENT_CATEGORY, opt[1]);
+		}
+		if (opt.length > 2 && opt[2] != null){
+			type(ELEMENT_ADD_EDIT_EVENT_LOCATION, opt[2], true);
 		}
 	}
 

@@ -102,6 +102,11 @@ public class CalendarHomePage extends PlatformBase{
 	public String ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM = "//*[@id='UIListView']//button[contains(text(),'Advanced Search')]";
 	public String ELEMENT_INPUT_TEXT_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//*[@id='text']";
 	public String ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//button[contains(text(),'Search')]";
+	
+	//Preview
+	public By ELEMENT_PREVIEW_TASK_EVENT_FORM=By.id("UIEventPreview");
+	public String ELEMENT_PREVIEW_TASK_EVENT_NAME="//*[@id='UIEventPreview']//*[text()='$name']";
+	public By ELEMENT_CLOSE_PREVIEW_TASK_EVENT_FORM=By.xpath("//*[@id='UIEventPreview']//*[text()='Close']");
 
 	/**
 	 * constructor
@@ -761,12 +766,12 @@ public class CalendarHomePage extends PlatformBase{
 				alert.verifyAlertMessage(ELEMENT_CONFIRM_DELETE_EVENT_MSG);
 			else
 				alert.verifyAlertMessage(ELEMENT_CONFIRM_DELETE_TASK_MSG);
+			driver.navigate().refresh();
+			Utils.pause(1000);
+			verifyIsNotPresentEventTask(name, view, optionDay);
 		}
 		else
 			button.yes();
-		driver.navigate().refresh();
-		Utils.pause(1000);
-		verifyIsNotPresentEventTask(name, view, optionDay);
 	}
 
 	/**

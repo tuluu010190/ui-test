@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.TestBase;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
+import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -11,22 +12,18 @@ import org.openqa.selenium.WebDriver;
 public class HomePagePlatform extends TestBase{
 	WikiHomePage wHome;
 	CalendarHomePage cHome;
+	SpaceManagement sMang;
 	
 	//Left panel
 	public final By ELEMENT_WIKI_LINK_PLF=By.xpath("//*[@data-original-title='Wiki']");
 	public final By ELEMENT_HOME_LINK_PLF=By.xpath("//*[@data-original-title='Home']");
 	public final By ELEMENT_CALENDAR_LINK_PLF=By.xpath("//*[@data-original-title='Calendar']");
+	public final By ELEMENT_MY_SPACE_LINK_PLF=By.xpath("//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'My Spaces')]");
+	public final String ELEMENT_SPECIFIC_SPACE_LINK_PLF ="//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'{$space}')]";
 
 	//Middle homepage panel
 	public final By ELEMENT_HOMPAGE_MIDDLE_PANEL = By.id("OfficeMiddle");
 	
-	//Wiki activity
-	public final String ELEMENT_WIKI_COMMENT_EDIT_TITLE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'title has been updated to: ${title}')]";
-	public final String ELEMENT_WIKI_COMMENT_EDIT_CONTENT = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'content has been edited')]";
-	public final String ELEMENT_ACTIVITY_WIKI_TITLE = "//*[@class='linkTitle' and text()='${title}']";
-	public final String ELEMENT_ACTIVITY_WIKI_CONTENT = "//*[@class='linkTitle' and text()='${title}']/../../..//*[@class='contentWiki theContent']/*[@class='text']";
-	public final String ELEMENT_ACTIVITY_WIKI_VERSION = "//*[@class='linkTitle' and text()='${title}']/../..//*[@class = 'pull-right versionLabel' and contains(text(), 'Version: ${version}')]";
-	public final String ELEMENT_ACTIVITY_MOVE_WIKI_PAGE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'Page has been moved to: ${path}')]";
 
 	//Right panel
 
@@ -38,6 +35,7 @@ public class HomePagePlatform extends TestBase{
 		this.driver=dr;
 		wHome = new WikiHomePage(dr);
 		cHome = new CalendarHomePage(dr);
+		sMang = new SpaceManagement(dr);
 	}
 	
 	/**
@@ -65,6 +63,15 @@ public class HomePagePlatform extends TestBase{
 		info("-- Go to calendar home page --");
 		click(ELEMENT_CALENDAR_LINK_PLF);
 		waitForAndGetElement(cHome.ELEMENT_CALENDAR_WORKING_PANEL);
+	}
+	
+	/**
+	 * Go to My Space
+	 */
+	public void goToMySpace(){
+		info("-- Go to My space page --");
+		click(ELEMENT_MY_SPACE_LINK_PLF);
+		waitForAndGetElement(sMang.ELEMENT_SPACE_MY_SPACE_PORTLE);
 	}
 }
 

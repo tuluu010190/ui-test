@@ -51,14 +51,15 @@ public class AddEditTaskManagement extends PlatformBase {
 	public By ELEMENT_BUTTON_TASK_SAVE_DETAILS = By.xpath("//*[@id='UITaskForm']//*[text()='Save']");
 	public By ELEMENT_TASK_FILE_INPUT = By.xpath("//*[@id='upload']//*[@name='file']");
 	public By ELEMENT_BUTTON_EVENT_CANCEL_DETAILS = By.xpath("//*[@id='UITaskForm']//*[text()='Cancel']");
-	
+	public By ELEMENT_ADD_EDIT_TASK_STATUS = By.xpath("//*[@id='UITaskForm']//*[@name='status']");
+
 	//Attach file form
 	public By ELEMENT_ATTACH_SAVE_BUTTON = By.xpath("//form[@id='UIAttachFileForm']//*[text()='Save']");
 	public By ELEMENT_TASK_ADD_ATTACHMENT = By.xpath("//button[contains(@onclick,'AddAttachment')]");
 	public String ELEMENT_TASK_ATTACHMENT = "//*[@id='UITaskForm']/..//a[@data-original-title='${file}']";
 	public By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachFileForm']//*[text()='Save']");
 	public String ELEMENT_ATTACHMENT_FORM_FILE_NAME = "//*[text()='$fileName']";
-	
+
 	CalendarHomePage cHome;
 	public AddEditTaskManagement(WebDriver dr){
 		driver = dr;
@@ -124,7 +125,7 @@ public class AddEditTaskManagement extends PlatformBase {
 		waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP);
 	}
 
-	
+
 	/**
 	 * Input into basic fields of Quick task form
 	 * 
@@ -152,7 +153,7 @@ public class AddEditTaskManagement extends PlatformBase {
 			select(ELEMENT_QUICK_INPUT_TASK_CATEGORY, opt[1]);
 		}
 	}
-	
+
 	/**
 	 * Input into basic fields of task detail form
 	 * 
@@ -224,7 +225,7 @@ public class AddEditTaskManagement extends PlatformBase {
 			}
 		}
 	}
-	
+
 	/**
 	 * Input into "From, To" and check/uncheck allday checkbox fields of a task in detail form
 	 * 
@@ -283,7 +284,7 @@ public class AddEditTaskManagement extends PlatformBase {
 		inputBasicQuickTask(name, note, opt);
 		inputFromToQuickTask(from, to, allDay);
 	}
-	
+
 	/**
 	 * Input into basic fields of detail task form
 	 * @param name
@@ -440,6 +441,41 @@ public class AddEditTaskManagement extends PlatformBase {
 	}
 
 	/**
+	 * View list in calendar
+	 */
+	public enum statusTask{
+		INPROGRESS,CANCELLED,COMPLETED,NEEDACTION;
+	}
+
+	/**
+	 * select status of task from list
+	 * @param option
+	 * 				category type: NPROGRESS,CANCELLED,COMPLETED,NEEDACTION;
+	 */
+	public void selectStatus(statusTask option){
+		info("Select status of task from list");
+		if(option!=null){
+			switch(option){
+			case INPROGRESS:
+				select(ELEMENT_ADD_EDIT_TASK_STATUS,"In Progress");
+				break;
+			case CANCELLED:
+				select(ELEMENT_ADD_EDIT_TASK_STATUS,"Canceled");
+				break;
+			case COMPLETED:
+				select(ELEMENT_ADD_EDIT_TASK_STATUS,"Completed");
+				break;
+			case NEEDACTION:
+				select(ELEMENT_ADD_EDIT_TASK_STATUS,"Need Action");
+				break;
+			default:
+				select(ELEMENT_ADD_EDIT_TASK_STATUS,"Need Action");
+				break;
+			}
+		}
+	}
+
+	/**
 	 * Save add Task
 	 */
 	public void saveQuickAddTask(){
@@ -454,13 +490,13 @@ public class AddEditTaskManagement extends PlatformBase {
 		click(ELEMENT_BUTTON_TASK_QUICK_CANCEL);
 		waitForElementNotPresent(ELEMENT_BUTTON_TASK_QUICK_CANCEL);
 	}
-	
+
 	public void cancelAddEditDetailTask(){
 		click(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);
 		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);
 	}
 
-	
+
 	/**
 	 * Save a task with more details
 	 */

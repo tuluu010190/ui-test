@@ -16,6 +16,7 @@ import org.exoplatform.selenium.platform.wiki.AddEditPageManagement;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
+import org.exoplatform.selenium.platform.social.HomepageActivity;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
@@ -40,6 +41,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 	TextBoxDatabase txData;
 	WikiTemplateDatabase wTempData;
 	WikiRichTextDatabase wRichTextData;
+	HomepageActivity hpAct;
 	Button button;
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
@@ -59,6 +61,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		rtMode = new RichTextEditor(driver);
 		apManagement = new AddEditPageManagement(driver);
 		mDraft = new WikiDraftPage(driver);
+		hpAct = new HomepageActivity(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		txData = new TextBoxDatabase();
 		wTempData = new WikiTemplateDatabase();
@@ -398,7 +401,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		apManagement.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", newTitle));
 		hp.goToHomePage();
-		waitForAndGetElement(hp.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
+		waitForAndGetElement(hpAct.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
 
 		info("Edit content of page -> check comment in activity");
 		hp.goToWiki();
@@ -410,7 +413,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		apManagement.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", newTitle));
 		hp.goToHomePage();
-		waitForAndGetElement(hp.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
+		waitForAndGetElement(hpAct.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
 
 		wHome.goToHomeWikiPage();
 		wHome.goToAPage(newTitle);
@@ -444,7 +447,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		apManagement.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", newTitle));
 		hp.goToHomePage();
-		waitForElementNotPresent(hp.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
+		waitForElementNotPresent(hpAct.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", newTitle));
 
 		info("Edit content of page -> check comment in activity");
 		hp.goToWiki();
@@ -456,7 +459,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		apManagement.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LINK.replace("${pageTitle}", newTitle));
 		hp.goToHomePage();
-		waitForElementNotPresent(hp.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
+		waitForElementNotPresent(hpAct.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", newTitle));
 
 		wHome.goToHomeWikiPage();
 		wHome.goToAPage(newTitle);

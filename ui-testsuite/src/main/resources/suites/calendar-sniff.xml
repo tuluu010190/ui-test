@@ -16,6 +16,7 @@
 			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_View" />
 			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_Setting" />
 			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_Search" />
+			<class name="org.exoplatform.selenium.platform.calendar.sniff.Calendar_Publish_Activity" />
 		</classes>
 	</test>
 	<listeners>
