@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
+
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -21,6 +22,7 @@ public class HomePagePlatform extends TestBase{
 	AnswerHomePage aHome;
 	ForumHomePage fHome;
 	FaqHomePage fqHome;
+
 	
 	//Left panel
 	public final By ELEMENT_FORUM_LINK_PLF=By.xpath("//*[@data-original-title='Forums']");
@@ -42,15 +44,13 @@ public class HomePagePlatform extends TestBase{
 
 	//Middle homepage panel
 	public final By ELEMENT_HOMPAGE_MIDDLE_PANEL = By.id("OfficeMiddle");
-	
-	//Right panel
-
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
 
 	//Administration
 	public final By ELEMENT_ADMINISTRATION_CONTENT = By.xpath("//*[text()='Content']");
 	public final By ELEMENT_ADMINISTRATION_SITEEXPLORER = By.xpath("//*[text()='Sites Explorer']");
+
 
 
 	/**

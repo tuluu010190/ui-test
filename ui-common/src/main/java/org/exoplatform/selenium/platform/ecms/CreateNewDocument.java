@@ -39,12 +39,18 @@ public class CreateNewDocument extends PlatformBase{
 		this.driver= driver;
 		alert = new ManageAlert(driver);
 	}
-
+	
+    /**
+     * Select a document by type
+     */
 	public enum selectDocumentType{
 		FILE, WEBCONTENT, ACCESSIBLEMEDIA, ANNOUNCEMENT, CSSFILE, CONTACTUS, HTMLFILE, ILLUSTRATEDWEBCONTENT,
 		JAVASCRIPTFILE, PRODUCT, WEBLINK
 	}
-
+    /**
+     * Create a new document
+     * @param type
+     */
 	public void createNewDoc(selectDocumentType type) {
 
 		info("Go to type "+ type);
@@ -95,29 +101,54 @@ public class CreateNewDocument extends PlatformBase{
 		}
 	}
 
+	/**
+	 * Add a new file
+	 * @param title
+	 * @param content
+	 */
 	public void addNewFile(String title, String content) {
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
 		inputDataToFrame(ELEMENT_FILEFORM_BLANK_CONTENT , content, true);
 		switchToParentWindow();
 	}
 
+	/**
+	 * Add a new Webcontent
+	 * @param title
+	 * @param content
+	 */
 	public void addNewWebContent(String title, String content) {
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
 		inputDataToFrame(ELEMENT_FILEFORM_BLANK_CONTENT , content, true);
 		switchToParentWindow();
 	}
 
+	/**
+	 * Save and close a file form
+	 */
 	public void saveAndClose() {
 		click(ELEMENT_FILEFORM_BUTTON_SAVEANDCLOSE);
 	}
 
+	/**
+	 * Add a link into webcontent
+	 * @param url
+	 */
 	public void addLinkInWebContent(String url) {
 		click(ELEMENT_WEBCONTENTFORM_BUTTON_LINK);
 		type(ELEMENT_WEBCONTENTFORM_LINK_ADRESS, url, true);
 		click(ELEMENT_WEBCONTENTFORM_LINK_OK);
 	}
 
-	// To complete \\
+	/**
+	 * Create a Advanced Document
+	 * @param name
+	 * @param content
+	 * @param title
+	 * @param desc
+	 * @param creator
+	 * @param source
+	 */
 	public void createAdvancedDocument(String name, String content, String title, String desc, String creator, String source) {
 		
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
