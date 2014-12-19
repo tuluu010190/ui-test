@@ -4,13 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-/**
- * This class provides simple way to manage basic modal dialogs 
- * by specifying a message, a title, an icon, and a message type 
- * or a type of option
- * @Date January, 30th, 2013
- *
- */
+
 public class Dialog extends TestBase{
 
 	public Dialog(WebDriver dr) {

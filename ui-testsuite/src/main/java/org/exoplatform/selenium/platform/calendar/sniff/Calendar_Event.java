@@ -36,7 +36,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
 	
-	@BeforeTest
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -60,7 +60,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 	}
 	
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -73,7 +73,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: Event with attachment is exist
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=4)
 	public  void test01_02_AddRemoveAttachmentOfEvent() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"115621";
 		String content = txData.getContentByArrayTypeRandom(1)+"115621";
@@ -97,6 +97,7 @@ public class Calendar_Event extends PlatformBase {
 			- Schedule*/
 		info("Add a event");
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		event.goToAddEventFromActionBar();
@@ -152,7 +153,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: 
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=1)
 	public  void test03_CheckBusyTimeOnScheduleTab() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"115622";
 		String content = txData.getContentByArrayTypeRandom(1)+"115622";
@@ -173,11 +174,14 @@ public class Calendar_Event extends PlatformBase {
 		 *Expected Outcome: 
 			- New event is added successfully*/
 		info("Add a event");
-		hp.goToCalendarPage();
+		hp.goToCalendarPage();		
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		/*Step number: 2
 		 *Step Name: Step 2: Add participant to event
@@ -205,7 +209,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
 	}
 
 	/**
@@ -214,7 +218,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: 
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=3)
 	public  void test04_EditScheduleOfEvent() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"115623";
 		String content = txData.getContentByArrayTypeRandom(1)+"115623";
@@ -263,7 +267,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: 
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=2)
 	public  void test05_CheckStartEndTimeOfEventOnSchedule() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"115624";
 		String contentEvent = txData.getContentByArrayTypeRandom(1)+"115624";
@@ -309,7 +313,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: 
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=5)
 	public  void test06_CheckPrivacy() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"115625";
 		String content = txData.getContentByArrayTypeRandom(1)+"115625";
@@ -348,11 +352,11 @@ public class Calendar_Event extends PlatformBase {
 		click(event.ELEMENT_EVENT_PARTICIPANTS_TAB);
 		event.selectPrivacyParticipant(true);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
 	}
 
 	/**
@@ -361,7 +365,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: Time suggestion is set on configuration.properties#auto suggest the end of event time about 1 hourexo.calendar.default.event.suggest=2
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=6)
 	public  void test07_CheckDateSuggestion() {
 		String from = getDate(0,"MM/dd/yyyy HH")+":00";
 		info("Test 7: Check date suggestion");
@@ -501,7 +505,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: 
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=7)
 	public  void test09_AddAParticipant() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"115628";
 		String contentEvent = txData.getContentByArrayTypeRandom(1)+"115628";
@@ -552,10 +556,10 @@ public class Calendar_Event extends PlatformBase {
 		click(event.ELEMETN_INVITATION_SAVE_BUTTON);
 		event.selectSendInvitation(selectInvitationOption.NEVER);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
 		
 		info("Clear data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
 	}
 
 	/**
@@ -564,7 +568,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: 
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=8)
 	public  void test10_MoreDetailsAddeditEventPopup() {
 		info("Test 10 [More Details] add/edit event popup");
 		/*Step Number: 1
@@ -744,7 +748,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: 
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=9)
 	public  void test13_14_15_AddEditDeleteAnEventInPersonalCalendar() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"1115684";
 		String contentEvent = txData.getContentByArrayTypeRandom(1)+"1115684";
@@ -778,7 +782,7 @@ public class Calendar_Event extends PlatformBase {
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Test 14 Edit an Event in personal calendar");
 		/*Step Number: 1
@@ -805,7 +809,7 @@ public class Calendar_Event extends PlatformBase {
 		event.checkSuggestionEventTimeInDetailForm(null,null, 60);
 		event.inputDataEventInDetailForm(titleEvent2, contentEvent2, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Test 15 Delete an Event in personal calendar");
 		/*Step Number: 1
@@ -818,7 +822,7 @@ public class Calendar_Event extends PlatformBase {
 			- Click OK at confirmation message
 		 *Expected Outcome: 
 			- The event is removed normally.*/ 
-		cHome.deleteEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleEvent2, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
 	}
 
 	/**
@@ -827,21 +831,21 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: The event is created
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=10)
 	public  void test16_DragDropEvent() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"1115649";
 		String contentEvent = txData.getContentByArrayTypeRandom(1)+"1115649";
-		String current = getCurrentDate("MMM dd yyyy");
-		String time="12:00";
-		String cell = cHome.ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", current).replace("$time", time);
+		String dateTime=getDate(1,"MM/dd/yyyy");
 
 		info("Create data test");
 		info("Add a event");
 		hp.goToCalendarPage();
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
+		String fromTime = waitForAndGetElement(event.ELEMENT_QUICK_INPUT_EVENT_FROM_TIME_INPUT, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
+		String toTime = waitForAndGetElement(event.ELEMENT_QUICK_INPUT_EVENT_TO_TIME_INPUT, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Test 16 Drag-drop event");
 		/*Step Number: 1
@@ -854,13 +858,13 @@ public class Calendar_Event extends PlatformBase {
 		 *Expected Outcome: 
 			- Event is moved to new place in working pane
 			- time of event is updated according to new place in main pane*/ 
-		cHome.goToView(selectViewOption.WEEK);
-		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", titleEvent)),cell);
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
-		event.checkSuggestionEventTimeInDetailForm(time, time, 60);
+		cHome.goToView(selectViewOption.MONTH);
+		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", titleEvent).replace("$date", getDate(0, "MMM dd yyyy"))),By.xpath(cHome.ELEMENT_ANY_TARGET_DATE.replace("${targetDate}", getDate(1, "MMM dd yyyy"))));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"));
+		event.checkSuggestionEventTimeInDetailForm(dateTime+" "+fromTime, dateTime+" "+toTime, 60);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));	
+		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"));	
 	}
 
 
@@ -874,7 +878,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: 
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=11)
 	public  void test17_18_19_AddEditDeleteAnEventInGroupCalendar() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"1115690";
 		String contentEvent = txData.getContentByArrayTypeRandom(1)+"1115690";
@@ -918,6 +922,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
@@ -925,6 +930,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
@@ -1012,7 +1018,7 @@ public class Calendar_Event extends PlatformBase {
 	 * Pre-Condition: 
 	 * Post-Condition: 
 	 */
-	@Test
+	@Test(priority=12)
 	public  void test20_21_22_AddEditDeleteAnEventInSharedCalendar() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"1115689";
 		String contentEvent = txData.getContentByArrayTypeRandom(1)+"1115689";
@@ -1064,6 +1070,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		cMang.executeActionCalendar(calendarName, menuOfCalendarOption.ADDEVENT);

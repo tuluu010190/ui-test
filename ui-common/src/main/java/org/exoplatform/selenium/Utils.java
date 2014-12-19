@@ -25,15 +25,14 @@ import javax.imageio.ImageIO;
 
 import org.openqa.selenium.WebDriver;
 
-
-/**
- * Utils.java
- * @author vuna2
- *
- */
 public class Utils {
-	//public WebDriver driver;
-	//
+
+	private static Scanner scanner;
+
+	/**
+	 * Pause
+	 * @param timeInMillis
+	 */
 	public static void pause(long timeInMillis) {
 		try {
 			Thread.sleep(timeInMillis);
@@ -54,9 +53,8 @@ public class Utils {
 
 	/**
 	 * Capture the screen of the current graphics device
-	 * @author vuna2
-	 * @param fileName: input an image name (String)
-	 * @throws InterruptedException
+	 * @param fileName
+	 * 					input an image name (String)
 	 */
 	public static void captureScreen(String fileName){
 		String path;
@@ -83,8 +81,9 @@ public class Utils {
 	}
 
 	/**
-	 * 
-	 * @return the size of the default screen
+	 * the size of the default screen
+	 * @return
+	 * 			the size of the default screen
 	 */
 	public static Rectangle getScreenSize() {
 		GraphicsEnvironment graphE = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -96,13 +95,12 @@ public class Utils {
 			return new Rectangle(1000,1000);
 	}
 
-	//
 	/**
 	 * Simulating keyboard presses 
-	 * @author vuna2
-	 * @param firstKey: send the first key (type: KeyEvent)
-	 * @param secondKey: send the second key (type: KeyEvent) 
-	 * @throws InterruptedException 
+	 * @param firstKey
+	 * 					send the first key (type: KeyEvent)
+	 * @param params
+	 * 					send the second key (type: KeyEvent)  
 	 */
 	public static void javaSimulateKeyPress(int firstKey, Object... params){
 		int secondKey = (Integer) (params.length > 0 ? params[0]: KeyEvent.VK_ENTER);
@@ -145,15 +143,22 @@ public class Utils {
 	}
 	 */
 
-	//This function returns a absolute path from a relative path
+	/**
+	 * This function returns a absolute path from a relative path
+	 * @param relativeFilePath
+	 * @return - FQA-2092: Run and check calendar sniff on IE and FF
+	 */
 	public static String getAbsoluteFilePath(String relativeFilePath){
 		String curDir = System.getProperty("user.dir");
 		String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
 		return absolutePath;
 	}
-
-	//InputStream to String
-	//Get a File Content
+	
+	/**
+	 * Get a File Content
+	 * @param filePath
+	 * @return fileContent
+	 */
 	public static String getFileContent(String filePath){
 		String path = getAbsoluteFilePath(filePath);
 		FileInputStream fis = null;
@@ -162,11 +167,17 @@ public class Utils {
 		} catch (FileNotFoundException e) {
 			error("Failed to find location of... " + filePath);
 		}
-		String inputStreamString = new Scanner(fis,"UTF-8").useDelimiter("\\A").next();		
+		scanner = new Scanner(fis,"UTF-8");
+		String inputStreamString = scanner.useDelimiter("\\A").next();		
 		return inputStreamString;	
 	}
 
-	//Get a file name from current Url
+	/**
+	 * Get a file name from current Url
+	 * @param driver
+	 * @param params
+	 * @return fileName
+	 */
 	public static String getFileNameFromCurrentUrl(WebDriver driver, Object...params){
 		Boolean extension = (Boolean) (params.length > 0 ? params[0] : false);
 
@@ -189,8 +200,9 @@ public class Utils {
 	}
 
 	/**
-	 * @author lientm
-	 * @return ipV4 of local machine
+	 * ipV4 of local machine
+	 * @return
+	 * 			ipV4 of local machine
 	 */
 	public static String getIPOfLocal(){
 		info("Get IP of localhost");
@@ -207,8 +219,9 @@ public class Utils {
 	}
 
 	/**
-	 * @author lientm
-	 * @return map of interface name and Ip of local machine
+	 * map of interface name and Ip of local machine
+	 * @return
+	 * 			map of interface name and Ip of local machine
 	 */
 	public static Map<String, String> getInterfaces(){
 		Map<String,String> inter = new HashMap <String,String>();

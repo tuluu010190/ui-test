@@ -29,7 +29,7 @@ public class Calendar_Setting extends PlatformBase {
 	String fullName;
 	ManageAlert alert;
 
-	@BeforeTest
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -49,7 +49,7 @@ public class Calendar_Setting extends PlatformBase {
 		fullName = userData.fullName.get(0);
 	}
 
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		magAc.signOut();
 		driver.manage().deleteAllCookies();
@@ -202,8 +202,8 @@ public class Calendar_Setting extends PlatformBase {
 
 		info("verify dateformat of list view");
 		cHome.goToView(selectViewOption.LIST);
-		waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", titleEvent).replace("$date", getDate(0,formatDate)));
-		waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", titleTask).replace("$date", getDate(0,formatDate)));
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,formatDate), selectViewOption.LIST, selectDayOption.ALLDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleTask, getDate(0,formatDate), selectViewOption.LIST, selectDayOption.ALLDAY);
 
 		info("Delete data");
 		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ALLDAY,null);
@@ -228,7 +228,8 @@ public class Calendar_Setting extends PlatformBase {
 		String defaultFormatDate = "MM/dd/yyyy";
 		String timeFrom;
 		String timeTo;
-
+		String timeEvent;
+		String timeTask;
 		info("Test 4: Setup time format to show calendar");
 		/*Step Number: 1
 		 *Step Name: Step 1: Show calendar setting form
@@ -244,26 +245,26 @@ public class Calendar_Setting extends PlatformBase {
 		/*Step number: 2
 		 *Step Name: Step 2: Set time format
 		 *Step Description: 
-			- Choose a format from list for Time format
-			- Click Save
+					- Choose a format from list for Time format
+					- Click Save
 		 *Input Data: 
 
 		 *Expected Outcome: 
-			New setting is saved*/
+					New setting is saved*/
 		cMang.changeSettingCalendar("Week",null,defaultFormatDate.toLowerCase(),formatTime,null,null,null);
 		cMang.saveSetting();
 		hp.goToCalendarPage();
 
 		/*Step number: 3
 		 *Step Name: Step 3: Check after re
-		-setup time format
+				-setup time format
 		 *Step Description: 
-			- Click Add event/task
-			- Check calendar in List View or search result
+					- Click Add event/task
+					- Check calendar in List View or search result
 		 *Input Data: 
 
 		 *Expected Outcome: 
-			All fields relate to time are displayed as new selected format*/ 
+					All fields relate to time are displayed as new selected format*/ 
 		info("verify dateformat of event");
 		hp.goToCalendarPage();
 		event.goToAddEventFromActionBar();
@@ -284,17 +285,43 @@ public class Calendar_Setting extends PlatformBase {
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		task.saveQuickAddTask();
 
-		info("verify dateformat of list view");
+		info("verify dateformat of list view - event");
 		cHome.goToView(selectViewOption.LIST);
-		String timeEvent=waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", titleEvent).replace("$date", getDate(0,defaultFormatDate))).getText();
-		String timeTask=waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", titleTask).replace("$date", getDate(0,defaultFormatDate))).getText();
-		info(timeEvent);
+		if(waitForAndGetElement(cHome.ELEMENT_TOTAL_PAGE,5000,0)!=null){
+			click(cHome.ELEMENT_ANY_PAGE.replace("$page", "1"));
+			while((waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleEvent),5000,0)==null)
+					&& !(waitForAndGetElement(cHome.ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(cHome.ELEMENT_CURRENT_PAGE).getText())))
+				click(cHome.ELEMENT_NEXT_PAGE);
+			waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleEvent));
+			timeEvent=waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", titleEvent).replace("$date", getDate(0,defaultFormatDate))).getText();
+			click(cHome.ELEMENT_ANY_PAGE.replace("$page", "1"));
+		}
+		else{
+			waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleEvent));
+			timeEvent=waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", titleEvent).replace("$date", getDate(0,defaultFormatDate))).getText();
+		}
 		assert (timeEvent.contains("AM")||timeFrom.contains("PM"));
+
+		info("verify dateformat of list view - task");
+		cHome.goToView(selectViewOption.LIST);
+		if(waitForAndGetElement(cHome.ELEMENT_TOTAL_PAGE,5000,0)!=null){
+			click(cHome.ELEMENT_ANY_PAGE.replace("$page", "1"));
+			while((waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleTask),5000,0)==null)
+					&& !(waitForAndGetElement(cHome.ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(cHome.ELEMENT_CURRENT_PAGE).getText())))
+				click(cHome.ELEMENT_NEXT_PAGE);
+			waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleTask));
+			timeTask=waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", titleTask).replace("$date", getDate(0,defaultFormatDate))).getText();
+			click(cHome.ELEMENT_ANY_PAGE.replace("$page", "1"));
+		}
+		else{
+			waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleTask));
+			timeTask=waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", titleTask).replace("$date", getDate(0,defaultFormatDate))).getText();
+		}
 		assert (timeTask.contains("AM")||timeTo.contains("PM"));
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar("Week",null,defaultFormatDate.toLowerCase(),defaultFormatTime,null,null,null);
 		cMang.saveSetting();
@@ -360,8 +387,8 @@ public class Calendar_Setting extends PlatformBase {
 		task.saveQuickAddTask();
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
 
 	}
 
@@ -409,12 +436,12 @@ public class Calendar_Setting extends PlatformBase {
 		 *Step Description: 
 			Select Week View
 		 *Input Data: 
-		
+
 		 *Expected Outcome: 
 			The start date of week on both mini calendar and main calendar is new selected date*/
 		cHome.goToView(selectViewOption.WEEK);
 		waitForAndGetElement(cHome.ELEMENT_WEEK_VIEW_BAR_TIME.replace("$index","2")).getText().contains(dayBar);
-		
+
 		info("Reset data");
 		hp.goToCalendarPage();
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
@@ -507,7 +534,7 @@ public class Calendar_Setting extends PlatformBase {
 		String defaultFormatDate = "MM/dd/yyyy";
 		String defaultTimeZone = "(GMT +07:00) Asia/Ho_Chi_Minh";
 		String defaultDay="Monday";
-		
+
 		info("Test 8: Set invitation option");
 		/*Step Number: 1
 		 *Step Name: Step 1: Show calendar setting form
@@ -531,7 +558,7 @@ public class Calendar_Setting extends PlatformBase {
 			Setting calendar was set*/
 		cMang.changeSettingCalendar("Week",defaultTimeZone,defaultFormatDate.toLowerCase(),defaultFormatTime,defaultDay,false,selectInvitationOption.ALWAYS);
 		cMang.saveSetting();
-		
+
 		/*Step number: 3
 		 *Step Name: Step 3: Check invitation option while adding event
 		 *Step Description: 
@@ -548,7 +575,7 @@ public class Calendar_Setting extends PlatformBase {
 		click(event.ELEMENT_EVENT_PARTICIPANTS_TAB);
 		assert waitForAndGetElement(event.ELEMENT_SEND_INVITATION_ALWAYS_CHECKBOX, 5000,1,2).isSelected();
 		event.cancelAddEditDetailEvent();
-		
+
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar("Week",defaultTimeZone,defaultFormatDate.toLowerCase(),defaultFormatTime,defaultDay,false,selectInvitationOption.NEVER);
 		cMang.saveSetting();
@@ -574,12 +601,12 @@ public class Calendar_Setting extends PlatformBase {
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Test 9: Displayed calendar");
 		/*Step Number: 1
@@ -608,7 +635,7 @@ public class Calendar_Setting extends PlatformBase {
 		click(cMang.ELEMENT_CALENDAR_SETTING_TAB_ITEM.replace("$tab", "Displayed Calendars"));
 		waitForAndGetElement(cMang.ELEMENT_DISPLAY_FORM_PERSONAL_CALENDAR_ITEM_CHECKBOX.replace("$name", fullName));
 		waitForAndGetElement(cMang.ELEMENT_DISPLAY_FORM_GROUP_CALENDAR_ITEM_CHECKBOX.replace("$name", group));
-		
+
 		/*Step number: 3
 		 *Step Name: -
 		 *Step Description: 
@@ -624,8 +651,8 @@ public class Calendar_Setting extends PlatformBase {
 		cMang.saveSetting();
 		waitForElementNotPresent(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", fullName));
 		waitForElementNotPresent(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", group));
-		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Reset data");
 		hp.goToCalendarPage();
@@ -634,8 +661,8 @@ public class Calendar_Setting extends PlatformBase {
 		cMang.showHidePersonalCalendar(fullName, true);
 		cMang.showHideGroupCalendar(group, true);
 		cMang.saveSetting();
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", fullName));
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", group));
 	}
@@ -650,7 +677,7 @@ public class Calendar_Setting extends PlatformBase {
 	public  void test10_11_12_AddEditDeleteNewFeed() {
 		String name = txData.getContentByArrayTypeRandom(1)+"old115657";
 		String newName = txData.getContentByArrayTypeRandom(1)+"new115657";
-		
+
 		String calendar=fullName;
 		info("Test 10 Add new feed");
 		/*Step Number: 1
@@ -680,7 +707,7 @@ public class Calendar_Setting extends PlatformBase {
 		click(cMang.ELEMENT_CALENDAR_SETTING_TAB_ITEM.replace("$tab", "Feeds"));
 		click(cMang.ELEMENT_FEED_TAB_SAVE_BUTTON);
 		waitForAndGetElement(cMang.ELEMENT_FEED_EDIT_FEED_FORM);
-		
+
 		/*Step number: 3
 		 *Step Name: Step 3: Add new feed
 		 *Step Description: 
@@ -695,7 +722,7 @@ public class Calendar_Setting extends PlatformBase {
 		click(cMang.ELEMENT_FEED_EDIT_FEED_SAVE_FORM);
 		alert.verifyAlertMessage(cMang.ELEMENT_FEED_CONFIRM_ADD_FEED.replace("$name", name));
 		waitForAndGetElement(cMang.ELEMENT_FEED_LIST_ITEM_RSS_BUTTON.replace("$name", name));
-		
+
 		info("Test 11 Edit a feed");		
 		/*Step number: 4
 		 *Step Name: 
@@ -712,7 +739,7 @@ public class Calendar_Setting extends PlatformBase {
 		click(cMang.ELEMENT_FEED_EDIT_FEED_SAVE_FORM);
 		alert.verifyAlertMessage(cMang.ELEMENT_FEED_CONFIRM_ADD_FEED.replace("$name", newName));
 		waitForAndGetElement(cMang.ELEMENT_FEED_LIST_ITEM_RSS_BUTTON.replace("$name", newName));
-		
+
 		info("Test 12 Delete a feed");
 		/*Step number: 2
 		 *Step Name: 

@@ -87,7 +87,8 @@ public class PlatformBase extends TestBase {
 	 * 
 	 * @param framelocator
 	 * @param data
-	 * @param validate: if not passed, then not clear old data of frame, verify that new data is input correctly
+	 * @param validate
+	 * 					if not passed, then not clear old data of frame, verify that new data is input correctly
 	 * 		           = true, clear old data of frame
 	 * 				   = false, not clear old data, not verify that new data is input correctly
 	 */
@@ -144,8 +145,10 @@ public class PlatformBase extends TestBase {
 	
 	/**
 	 * function: check content of mail
-	 * @param mail: element title of mail
-	 * @param content: mail content
+	 * @param mail
+	 * 				element title of mail
+	 * @param content
+	 * 				mail content
 	 */
 	public void checkMail(By mail, String content){
 		info("Check and delete mail");
@@ -158,8 +161,10 @@ public class PlatformBase extends TestBase {
 	
 	/**
 	 * function: delete mail
-	 * @param mail: element title of mail
-	 * @param content: mail content
+	 * @param mail
+	 * 					element title of mail
+	 * @param content
+	 * 					mail content
 	 */
 	public void deleteMail(By mail, String content){
 		info("Check and delete mail");

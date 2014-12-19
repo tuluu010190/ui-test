@@ -460,6 +460,7 @@ public class AddEditEventManagement extends PlatformBase {
 	 */
 	public void checkSuggestionEventTimeInQuickForm(String fromDateTime, String toDateTime, int duration){
 		info("Check date is current date");
+		DateFormat formatterTimeTemp = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		DateFormat formatterTime = new SimpleDateFormat("HH:mm");
 		DateFormat formatterDate = new SimpleDateFormat("MM/dd/yyyy");
 		String dateFrom = getValue(ELEMENT_QUICK_INPUT_EVENT_FROM_DATE);
@@ -476,9 +477,9 @@ public class AddEditEventManagement extends PlatformBase {
 			info("Check suggesion when select from time");
 			try {
 				Date fr = formatterDate.parse(fromDateTime);
-				Date frTime = formatterTime.parse(fromDateTime);
+				Date frTime = formatterTimeTemp.parse(fromDateTime);
 				assert dateFrom.equals(formatterDate.format(fr));
-				assert fromTime.equals(formatterDate.format(frTime));
+				assert fromTime.equals(formatterTime.format(frTime));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -492,9 +493,9 @@ public class AddEditEventManagement extends PlatformBase {
 			info("Check suggesion when select to time");
 			try {
 				Date to = formatterDate.parse(toDateTime);
-				Date tTime = formatterTime.parse(toDateTime);
+				Date tTime = formatterTimeTemp.parse(toDateTime);
 				assert dateTo.equals(formatterDate.format(to));
-				assert toTime.equals(formatterDate.format(tTime));
+				assert toTime.equals(formatterTime.format(tTime));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -520,8 +521,9 @@ public class AddEditEventManagement extends PlatformBase {
 	 */
 	public void checkSuggestionEventTimeInDetailForm(String fromDateTime, String toDateTime, int duration){
 		info("Check date is current date");
-		SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
-		SimpleDateFormat formatterDate = new SimpleDateFormat("MM/dd/yyyy");
+		DateFormat formatterTimeTemp = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+		DateFormat formatterTime = new SimpleDateFormat("HH:mm");
+		DateFormat formatterDate = new SimpleDateFormat("MM/dd/yyyy");
 		String dateFrom = getValue(ELEMENT_ADD_EDIT_EVENT_FROM_DATE);
 		String dateTo = getValue(ELEMENT_ADD_EDIT_EVENT_TO_DATE);
 		String fromTime = waitForAndGetElement(ELEMENT_ADD_EDIT_INPUT_EVENT_FROM_TIME, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
@@ -536,9 +538,9 @@ public class AddEditEventManagement extends PlatformBase {
 			info("Check suggesion when select from time");
 			try {
 				Date fr = formatterDate.parse(fromDateTime);
-				Date frTime = formatterTime.parse(fromDateTime);
+				Date frTime = formatterTimeTemp.parse(fromDateTime);
 				assert dateFrom.equals(formatterDate.format(fr));
-				assert fromTime.equals(formatterDate.format(frTime));
+				assert fromTime.equals(formatterTime.format(frTime));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -552,9 +554,9 @@ public class AddEditEventManagement extends PlatformBase {
 			info("Check suggesion when select to time");
 			try {
 				Date to = formatterDate.parse(toDateTime);
-				Date tTime = formatterTime.parse(toDateTime);
+				Date tTime = formatterTimeTemp.parse(toDateTime);
 				assert dateTo.equals(formatterDate.format(to));
-				assert toTime.equals(formatterDate.format(tTime));
+				assert toTime.equals(formatterTime.format(tTime));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -589,7 +591,6 @@ public class AddEditEventManagement extends PlatformBase {
 	/**
 	 * convertFromTimeToIndex
 	 * @param time (ex: HH:mm)
-	 * @return
 	 */
 	@SuppressWarnings("deprecation")
 	public int convertFromTimeToIndex(String time){
@@ -787,6 +788,7 @@ public class AddEditEventManagement extends PlatformBase {
 	public void saveQuickAddEvent(){
 		click(ELEMENT_BUTTON_EVENT_SAVE);
 		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_SAVE);
+		Utils.pause(500);
 	}
 
 	/**
@@ -795,6 +797,7 @@ public class AddEditEventManagement extends PlatformBase {
 	public void saveAddEventDetails(){
 		click(ELEMENT_BUTTON_EVENT_SAVE_DETAILS);
 		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_SAVE_DETAILS);
+		Utils.pause(500);
 	}
 
 	/**
@@ -932,7 +935,7 @@ public class AddEditEventManagement extends PlatformBase {
 	 * 				ONLY_EVENT, FOLLOW_EVENT or ALL_EVENT
 	 * @param date
 	 * 				date of event: format (MMM dd yyyy)
-	 * @param options
+	 * @param opParams
 	 * 				isVerify, if not be set, the event/task will be automatically set as verify delete confirm message
 	 * 				= true: verify delete confirm message
 	 * 				= false: not verify delete confirm message
@@ -977,7 +980,7 @@ public class AddEditEventManagement extends PlatformBase {
 	 * edit recurring event
 	 * @param optEditType
 	 * 				type of edit recurring
-	 * @param options
+	 * @param opParams
 	 * 				isVerify, if not be set, the event/task will be automatically set as verify edit confirm message
 	 * 				= true: verify edit confirm message
 	 * 				= false: not verify edit confirm message	 */

@@ -42,7 +42,8 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 	String fullName;
 	String spaceName;
 	String spaceDes;
-	@BeforeTest
+	
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -68,7 +69,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		createDataTest();
 	}
 
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		deleteDataTest();
 		magAc.signOut();
@@ -84,7 +85,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		sMang.goToCreateSpace();
 		sMang.inputDataToSettingTab(spaceName, spaceDes);
 		sMang.doCreateSpace();
-		Utils.pause(5000);
+		Utils.pause(500);
 	}
 	
 	/**
@@ -213,8 +214,8 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			<p>
 			- Starts and End time are edited</p>*/
-		cHome.goToView(selectViewOption.WEEK);
-		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", titleEvent).replace("$date", getDate(0, "MMM dd yyyy"))),By.xpath(cHome.ELEMENT_ANY_TARGET_DATE.replace("${targetDate}", getDate(-1, "MMM dd yyyy HH")+":00:00")));
+		cHome.goToView(selectViewOption.MONTH);
+		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", titleEvent).replace("$date", getDate(0, "MMM dd yyyy"))),By.xpath(cHome.ELEMENT_ANY_TARGET_DATE.replace("${targetDate}", getDate(-1, "MMM dd yyyy"))));
 
 		/*Step number: 3
 		 *Step Name: <p>Step 3: Check activity after drap & drop event<br data
@@ -368,7 +369,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			<p>
 			- A recurring event is added</p>*/
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
 		check(event.ELEMENT_ADD_EDIT_EVENT_REPEAT_CHECKBOX,2);
 		event.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,"5");
 		click(event.ELEMENT_SAVE_EVENT_OCCURRING);
@@ -432,7 +433,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The event in the activity stream is updated
 			- A comment is added to the activity with the following message Event is now an all day event.*/
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
 		check(event.ELEMENT_ADD_EDIT_EVENT_ALLDAY,2);
 		event.saveAddEventDetails();
 		
@@ -473,7 +474,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDEVENT);
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
 		
 		/*Step number: 2
 		 *Step Name: - Update Event
@@ -484,7 +485,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The title of event in the activity stream is updated 
 			- A comment is added with the following message: "Title has been updated to: $value."*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
 		event.inputBasicDetailEvent(newTitleEvent, null);
 		event.saveAddEventDetails();
 		
@@ -525,7 +526,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDEVENT);
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
 
 		/*Step number: 2
 		 *Step Name: - Update an event
@@ -536,7 +537,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The description of event in the activity stream is updated
 			- A comment is added to the activity with the following message: Description has been updated to: $value.*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
 		event.inputBasicDetailEvent(null, newContent);
 		event.saveAddEventDetails();
 		
@@ -577,7 +578,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDEVENT);
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
 		
 		/*Step number: 2
 		 *Step Name: - Update Event
@@ -588,7 +589,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The location of event in the activity stream is updated
 			- A comment is added to the activity with the following message: Location has been updated to: $value.*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
 		check(event.ELEMENT_ADD_EDIT_EVENT_REPEAT_CHECKBOX,2);
 		event.inputBasicDetailEvent(null,null,null,null,location);
 		event.saveAddEventDetails();
@@ -630,7 +631,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDTASK);
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
 
 		/*Step number: 2
 		 *Step Name: - Edit the task
@@ -642,7 +643,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- A comment is added with the following message: Attachment(s) has been added to the task.
 			- The content of activity isn't updated*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
 		task.attachFileToTask("TestData/" + link);
 		task.saveAddTaskDetails();
 		
@@ -684,7 +685,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDTASK);
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
 
 		/*Step number: 2
 		 *Step Name: - Edit task
@@ -695,7 +696,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The content of task's activity is updated
 			- A comment is added: 'Note has been updated to: $value.*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
 		task.inputBasicDetailTask(null, newContent);
 		task.saveAddTaskDetails();
 		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
@@ -737,7 +738,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDTASK);
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
 		
 		/*Step number: 2
 		 *Step Name: - Edit task
@@ -749,7 +750,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The content of activity of the task is updated with the Finished icon.
 			- A comment is added with the following message: Task has been completed.*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
 		task.selectStatus(statusTask.CANCELLED);
 		task.saveAddTaskDetails();
 		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);

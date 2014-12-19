@@ -20,7 +20,7 @@ public class CalendarHomePage extends PlatformBase{
 	//Calendar panel
 	public final By ELEMENT_CALENDAR_WORKING_PANEL = By.id("UICalendarWorkingContainer");
 	public final String ELEMENT_CELL_TO_WORKING_PANEL = "//td[contains(@startfull,'$date $time:00')]";
-	public String ELEMENT_ANY_TARGET_DATE = "//*[contains(@startfull, '${targetDate}')]";
+	public String ELEMENT_ANY_TARGET_DATE = "//*[contains(@startfull, '${targetDate}') or contains(@starttimefull, '${targetDate}')]";
 	public By ELEMENT_CALENDAR_PANEL = By.xpath("//div[@class='uiBox uiCalendars']");
 	public By ELEMENT_SHOW_HIDE_LEFT_PANEL = By.xpath("//div[@id='ShowHideAll']/i");
 	public final By ELEMENT_TOOLBAR_MINI_CALENDAR = By.xpath("//*[@class='weekDays']");
@@ -41,7 +41,7 @@ public class CalendarHomePage extends PlatformBase{
 	public final String ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY="//*[@id='UIDayViewGrid']//div[contains(text(),'$name')]";
 
 	//Week View
-	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(.,'$name')]";
+	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer') and contains(@style,'display: block')]//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY="//*[@id='UIWeekViewGrid']//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//*[contains(@starttimefull,'$date')]//div[contains(text(),'$name')]";
@@ -49,7 +49,9 @@ public class CalendarHomePage extends PlatformBase{
 
 	//Month View
 	public final String ELEMENT_EVENT_TASK_MONTH_VIEW="//*[@id='UIMonthView']//span[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW="//*[@id='UIMonthView']//*[contains(@starttimefull,'$date')]//span[contains(text(),'$name')]";
+	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW="//*[@id='UIMonthView']//*[@class='eventMonthContent']//*[@class='rowContainerDay']/*[contains(@starttimefull,'$date')]//span[contains(text(),'$name')]";
+	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE="//*[@id='UIMonthView']//*[@class='eventMonthContent']//*[@class='moreEventContainer']//*[contains(@starttimefull,'$date')]//span[contains(text(),'$name')]";
+	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_ICON="//*[@id='UIMonthView']//*[contains(@starttimefull,'$date')]/..//*[@class='moreEvent' and not(contains(@style, 'display'))]/*[@class='moreEventLabel']";
 
 	//List View
 	public final String ELEMENT_EVENT_TASK_LIST_VIEW="//*[@id='UIListView']//*[@class='uiListViewRow']//*[contains(text(),'$name')]";
@@ -94,7 +96,7 @@ public class CalendarHomePage extends PlatformBase{
 	public By ELEMENT_TOTAL_PAGE=By.xpath("//*[@class='pagesTotalNumber']");
 	public By ELEMENT_CURRENT_PAGE=By.xpath("//*[@class='active']/*[contains(@href,'objectId')]");
 	public String ELEMENT_ANY_PAGE="//*[contains(@href,'objectId') and text()='$page']";
-	
+
 	//quick search
 	public By ELEMENT_QUICK_SEARCH_INPUT=By.id("value");
 	public String ELEMENT_QUICK_SEARCH_FORM = "//div[@class='uiSearchForm uiSearchInput pull-right']";
@@ -102,7 +104,7 @@ public class CalendarHomePage extends PlatformBase{
 	public String ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM = "//*[@id='UIListView']//button[contains(text(),'Advanced Search')]";
 	public String ELEMENT_INPUT_TEXT_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//*[@id='text']";
 	public String ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//button[contains(text(),'Search')]";
-	
+
 	//Preview
 	public By ELEMENT_PREVIEW_TASK_EVENT_FORM=By.id("UIEventPreview");
 	public String ELEMENT_PREVIEW_TASK_EVENT_NAME="//*[@id='UIEventPreview']//*[text()='$name']";
@@ -170,6 +172,7 @@ public class CalendarHomePage extends PlatformBase{
 			waitForAndGetElement(ELEMENT_CALENDAR_ACTIVE_VIEW.replace("$view", "Week"));
 			break;
 		}
+		Utils.pause(500);
 	}
 
 	/**
@@ -186,13 +189,15 @@ public class CalendarHomePage extends PlatformBase{
 		waitForAndGetElement(ELEMENT_CALENDAR_ACTIVE_VIEW.replace("$view", "Day"));
 		switch(optionDay){
 		case ONEDAY:
-			rightClickOnElement(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name),2);
+			scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name)));
+			rightClickOnElement(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name));
 			break;
 		case ALLDAY:
-			rightClickOnElement(ELEMENT_EVENT_TASK_DAY_VIEW_ALL_DAY.replace("$name", name),2);
+			rightClickOnElement(ELEMENT_EVENT_TASK_DAY_VIEW_ALL_DAY.replace("$name", name));
 			break;
 		default:
-			rightClickOnElement(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name),2);
+			scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name)));
+			rightClickOnElement(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name));
 			break;
 		}
 	}
@@ -212,27 +217,30 @@ public class CalendarHomePage extends PlatformBase{
 		if(date!=null && date!=""){
 			switch(optionDay){
 			case ONEDAY:
-				info(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
-				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date),2);
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;
 			case ALLDAY:
-				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ALL_DAY.replace("$name", name).replace("$date", date),2);
+				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ALL_DAY.replace("$name", name).replace("$date", date));
 				break;
 			default:
-				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date),2);
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;	
 			}
 		}
 		else{
 			switch(optionDay){
 			case ONEDAY:
-				rightClickOnElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name),2);
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
-				rightClickOnElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ALL_DAY.replace("$name", name),2);
+				rightClickOnElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ALL_DAY.replace("$name", name));
 				break;
 			default:
-				rightClickOnElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name),2);
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			}
 		}
@@ -242,8 +250,6 @@ public class CalendarHomePage extends PlatformBase{
 	 * goToRightMenuTaskEventFromMonthView
 	 * @param name
 	 * 				name of event or task
-	 * @param optionDay
-	 * 				select ONEDAY or ALLDAY
 	 * @param date
 	 * 				date of event: format (MMM dd yyyy)
 	 */
@@ -251,29 +257,63 @@ public class CalendarHomePage extends PlatformBase{
 		info("Got to edit task from month view");
 		goToView(selectViewOption.MONTH);
 		if(date!=null && date!=""){
-			info(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date));
-			rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date),2);
+			if(waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date), 5000,0)==null
+					&& waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_ICON.replace("$date", date), 5000,0)!=null){
+				info("Click more button");
+				click(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_ICON.replace("$date", date),2);
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE.replace("$name", name).replace("$date", date)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE.replace("$name", name).replace("$date", date));
+			}
+			else{
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date));
+			}
 		}
-		else
-			rightClickOnElement(ELEMENT_EVENT_TASK_MONTH_VIEW.replace("$name", name),2);
+		else{
+			scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_MONTH_VIEW.replace("$name", name)));
+			rightClickOnElement(ELEMENT_EVENT_TASK_MONTH_VIEW.replace("$name", name));
+		}
 	}
 
 	/**
 	 * goToRightMenuTaskEventFromListView
 	 * @param name
 	 * 				name of event or task
-	 * @param optionDay
-	 * 				select ONEDAY or ALLDAY
 	 * @param date
 	 * 				date of event: format (MMM dd yyyy)
 	 */
 	public void goToRightMenuTaskEventFromListView(String name, String date){
 		info("Got to edit task from list view");
 		goToView(selectViewOption.LIST);
-		if(date!=null && date!="")
-			rightClickOnElement(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date),2);
-		else
-			rightClickOnElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name),2);
+		if(date!=null && date!=""){
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				info("paginator page in calendar list view");
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while((waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name),5000,0)==null)
+						&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+					click(ELEMENT_NEXT_PAGE);
+				waitForAndGetElement(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+				rightClickOnElement(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+			}
+			else{
+				waitForAndGetElement(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+				rightClickOnElement(ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW.replace("$name", name).replace("$date", date));
+			}			
+		}
+		else{
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while((waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name),5000,0)==null)
+						&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+					click(ELEMENT_NEXT_PAGE);
+				waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+				rightClickOnElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+			}
+			else{
+				waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+				rightClickOnElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+			}	
+		}
 	}
 
 	/**
@@ -291,26 +331,30 @@ public class CalendarHomePage extends PlatformBase{
 		if(date!=null && date!=""){
 			switch(optionDay){
 			case ONEDAY:
-				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date),2);
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;
 			case ALLDAY:
-				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ALL_DAY.replace("$name", name).replace("$date", date),2);
+				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ALL_DAY.replace("$name", name).replace("$date", date));
 				break;
 			default:
-				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date),2);
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;	
 			}
 		}
 		else{
 			switch(optionDay){
 			case ONEDAY:
-				rightClickOnElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name),2);
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
-				rightClickOnElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY.replace("$name", name),2);
+				rightClickOnElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY.replace("$name", name));
 				break;
 			default:
-				rightClickOnElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name),2);
+				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name)));
+				rightClickOnElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 
 			}
@@ -452,7 +496,6 @@ public class CalendarHomePage extends PlatformBase{
 	 */
 	public void verifyIsPresentEventTask(String name, selectViewOption view, selectDayOption optionDay){
 		info("Verify task and event is not displayed on calendar panel");
-		driver.navigate().refresh();
 		goToView(view);
 		switch(view){
 		case DAY:
@@ -536,7 +579,6 @@ public class CalendarHomePage extends PlatformBase{
 	 * 				select ONEDAY or ALLDAY
 	 * @param date
 	 * 				date of event: format (MMM dd yyyy)
-	 * @return: true if event exist, false if event doesn't exist
 	 */
 	public void verifyIsPresentEventTaskWithDateTime(String name, String date, selectViewOption view, selectDayOption optionDay){
 		info("Verify task and event is not displayed on calendar panel");
@@ -582,7 +624,13 @@ public class CalendarHomePage extends PlatformBase{
 			}
 			break;
 		case MONTH:
-			waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date));
+			if(waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date), 5000,0)==null
+			&& waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_ICON.replace("$date", date), 5000,0)!=null){
+				click(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_ICON.replace("$date", date),2);
+				waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE.replace("$name", name).replace("$date", date));
+			}
+			else
+				waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date));
 			break;
 		case WORKWEEK:
 			switch(optionDay){
@@ -623,7 +671,6 @@ public class CalendarHomePage extends PlatformBase{
 	 * 				select ONEDAY or ALLDAY
 	 * @param date
 	 * 				date of event: format (MMM dd yyyy)
-	 * @return: true if event exist, false if event doesn't exist
 	 */
 	public void verifyIsNotPresentEventTaskWithDateTime(String name, String date, selectViewOption view, selectDayOption optionDay){
 		info("Verify task and event is not displayed on calendar panel");
@@ -669,7 +716,12 @@ public class CalendarHomePage extends PlatformBase{
 			}
 			break;
 		case MONTH:
-			waitForElementNotPresent(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date));
+			if(waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date), 5000,0)==null
+			&& waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_ICON.replace("$date", date), 5000,0)!=null){
+				click(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_ICON.replace("$date", date),2);
+				waitForElementNotPresent(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE.replace("$name", name).replace("$date", date));
+			}else
+				waitForElementNotPresent(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", name).replace("$date", date));
 			break;
 		case WORKWEEK:
 			switch(optionDay){
@@ -784,31 +836,30 @@ public class CalendarHomePage extends PlatformBase{
 		if(option!=null){
 			switch(option){
 			case ALL:
-				select(ELEMENT_CATEGORY_OPTION,"All");
+				select(ELEMENT_CATEGORY_OPTION,"All",2);
 				break;
 			case ANNIVERSARY:
-				select(ELEMENT_CATEGORY_OPTION,"Anniversary");
+				select(ELEMENT_CATEGORY_OPTION,"Anniversary",2);
 				break;
 			case CALL:
-				select(ELEMENT_CATEGORY_OPTION,"Calls");
+				select(ELEMENT_CATEGORY_OPTION,"Calls",2);
 				break;
 			case CLIENT:
-				select(ELEMENT_CATEGORY_OPTION,"Clients");
+				select(ELEMENT_CATEGORY_OPTION,"Clients",2);
 				break;
 			case HOLIDAY:
-				select(ELEMENT_CATEGORY_OPTION,"Holiday");
+				select(ELEMENT_CATEGORY_OPTION,"Holiday",2);
 				break;
 			case MEETING:
-				select(ELEMENT_CATEGORY_OPTION,"Meeting");
+				select(ELEMENT_CATEGORY_OPTION,"Meeting",2);
 				break;
 			default:
-				select(ELEMENT_CATEGORY_OPTION,"All");
 				break;
 
 			}
 		}
 	}
-	
+
 	/**
 	 * Do quick calendar search
 	 * @param keyword
@@ -821,7 +872,7 @@ public class CalendarHomePage extends PlatformBase{
 		action.sendKeys(Keys.RETURN).build().perform();
 		waitForAndGetElement(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 	}
-	
+
 	/** 
 	 * Advance search in Calendar
 	 * 

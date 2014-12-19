@@ -35,7 +35,7 @@ public class Calendar_Calendar extends PlatformBase {
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
 	
-	@BeforeTest
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		getDriverAutoSave();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -56,7 +56,7 @@ public class Calendar_Calendar extends PlatformBase {
 		magAc.signOut();
 	}
 	
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -80,6 +80,7 @@ public class Calendar_Calendar extends PlatformBase {
 		 *Expected Outcome: 
 			- Left panel is collapsed, mini calendar and calendar list are not shown*/
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		click(cHome.ELEMENT_SHOW_HIDE_LEFT_PANEL);
@@ -313,8 +314,7 @@ public class Calendar_Calendar extends PlatformBase {
 		waitForAndGetElement(cMang.ELEMENT_SHARED_CALENDAR_LIST_ITEM.replace("$calendar", newCalendar));
 		driver.navigate().refresh();
 		cMang.openMenuOfCalendar(newCalendar);
-		waitForAndGetElement(cMang.ELEMENT_CALENDAR_REMOVE_MENU);
-		waitForAndGetElement(cMang.ELEMENT_CALENDAR_SHARE_MENU);
+		waitForAndGetElement(cMang.ELEMENT_CALENDAR_REMOVE_SHARE_CALENDAR);
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_IMPORT_MENU);
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_EXPORT_MENU);
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_REFRESH_MENU);
@@ -410,7 +410,7 @@ public class Calendar_Calendar extends PlatformBase {
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(1,"MM/dd/yyyy"), getDate(1,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
 
 		/*Step number: 2
 		 *Step Name: Step 2:Check highlight in the mini calendar
@@ -429,7 +429,7 @@ public class Calendar_Calendar extends PlatformBase {
 		}
 
 		info("clear data");
-		cHome.deleteEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,null);
 	}
 
 	/**
@@ -455,7 +455,7 @@ public class Calendar_Calendar extends PlatformBase {
 		cMang.executeActionCalendar(calendarName, menuOfCalendarOption.ADDTASK);
 		task.inputDataTaskInQuickForm(taskName, taskName, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(taskName, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Test 12 Export calendar");
 		/*Step Number: 1
@@ -471,7 +471,7 @@ public class Calendar_Calendar extends PlatformBase {
 		cMang.deleteCalendar(calendarName,true);
 
 		info("Check the task is not present");
-		cHome.verifyIsNotPresentEventTask(taskName, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Test 13: Import calendar");
 		/*Step Number: 1
@@ -492,10 +492,10 @@ public class Calendar_Calendar extends PlatformBase {
 
 		info("Check the task is present ");
 		driver.navigate().refresh();
-		cHome.verifyIsPresentEventTask(taskName, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Delete file and task");
 		deleteFile("TestOutput/" + attachment);
-		cHome.deleteEventTask(taskName, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(taskName, selectViewOption.LIST, selectDayOption.ONEDAY,null);
 	}
 }

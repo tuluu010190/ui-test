@@ -132,9 +132,6 @@ public class RichTextEditor extends PlatformBase{
 	 * 			category to which a macro that will be chosen belongs
 	 * @param macro
 	 * 			macro name that will be chosen
-	 * 
-	 * @see #createTipMessageMacro(String)
-	 * @see #createColorMacro(String, String)
 	 */
 	public void goToSelectAMacro(String cat, String macro){
 		info("Select a macro: " + macro);

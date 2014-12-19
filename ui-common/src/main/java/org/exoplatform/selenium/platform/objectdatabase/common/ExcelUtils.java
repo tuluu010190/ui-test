@@ -5,7 +5,6 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import static org.exoplatform.selenium.TestLogger.info;
 
 public class ExcelUtils {
 	private static HSSFSheet ExcelWSheet;
@@ -36,9 +35,7 @@ public class ExcelUtils {
 
 	public static String[][] getData(){
 		int xRows = ExcelWSheet.getLastRowNum();
-		info(String.valueOf(xRows));
 		int xCols = ExcelWSheet.getRow(0).getLastCellNum();
-		info("number col: " + xCols);
 		int nRow = 1;
 		String[][] xData = new String[xRows][xCols];
 
@@ -58,7 +55,6 @@ public class ExcelUtils {
 						xData[i][j] = value;
 					}
 				}
-				info(xData[i][j]);
 			}
 			nRow++;
 		}

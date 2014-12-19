@@ -12,15 +12,12 @@ import org.exoplatform.selenium.platform.calendar.AddEditEventManagement.repeatT
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
-import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class Calendar_Event_Recurring extends PlatformBase {
 	HomePagePlatform hp;
@@ -32,7 +29,7 @@ public class Calendar_Event_Recurring extends PlatformBase {
 	CalendarManagement cMang;
 	UserDatabase userData;
 
-	@BeforeTest
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -51,7 +48,7 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 	}
 
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		magAc.signOut();
 		driver.manage().deleteAllCookies();
@@ -163,8 +160,8 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
 
 		info("Clear data");
-		event.deleteRecurringEvent(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY, recurringType.FOLLOW_EVENT,getDate(0,"MMM dd yyyy"),true);
-		event.deleteRecurringEvent(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY, recurringType.FOLLOW_EVENT,getDate(1,"MMM dd yyyy"),true);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.FOLLOW_EVENT,getDate(0,"MMM dd yyyy"),true);
+		event.deleteRecurringEvent(titleEvent2, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.FOLLOW_EVENT,getDate(1,"MMM dd yyyy"),true);
 	}
 
 	/**
@@ -181,7 +178,7 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		String contentEvent2 = txData.getContentByArrayTypeRandom(1)+"2115639";
 		info("Add a event");
 		hp.goToCalendarPage();
-		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCATEGORY);
+		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.moreDetailsEvent();
 		check(event.ELEMENT_ADD_EDIT_EVENT_REPEAT_CHECKBOX,2);
@@ -470,8 +467,8 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		 *Expected Outcome: 
 			- Start and End dates and times of event are updated
 			- Event is marked as 'edited' by an icon with tooltip.*/
-		cHome.goToView(selectViewOption.WEEK);
-		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", titleEvent).replace("$date", getDate(0, "MMM dd yyyy"))),By.xpath(cHome.ELEMENT_ANY_TARGET_DATE.replace("${targetDate}", getDate(-1, "MMM dd yyyy HH")+":00:00")));
+		cHome.goToView(selectViewOption.MONTH);
+		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", titleEvent).replace("$date", getDate(0, "MMM dd yyyy"))),By.xpath(cHome.ELEMENT_ANY_TARGET_DATE.replace("${targetDate}", getDate(-1, "MMM dd yyyy"))));
 
 		/*Step number: 3
 		 *Step Name: Step 3: Check show tooltip after drag and drop event
@@ -481,15 +478,15 @@ public class Calendar_Event_Recurring extends PlatformBase {
 
 		 *Expected Outcome: 
 			A tooltip is displayed "edited recurring event"*/ 
-		cHome.goToView(selectViewOption.WEEK);
-		mouseOver(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", titleEvent).replace("$date", getDate(-1, "MMM dd yyyy")),true);
+		cHome.goToView(selectViewOption.MONTH);
+		mouseOver(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", titleEvent).replace("$date", getDate(-1, "MMM dd yyyy")),true);
 		waitForAndGetElement(event.ELEMENT_TITLE_RECURRING_EVENT);
 		waitForAndGetElement(event.ELEMENT_DATE_TIME_RECURRING_EVENT);
 		assert waitForAndGetElement(event.ELEMENT_EDITED_RECURRING_TEXT_RECURRING_EVENT).getText().contains("Edited Recurring event");
 
 		info("Clear data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(-1,"MMM dd yyyy"));
-		event.deleteRecurringEvent(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),false);
+		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(-1,"MMM dd yyyy"));
+		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),false);
 	}
 	
 	/**
@@ -540,8 +537,8 @@ public class Calendar_Event_Recurring extends PlatformBase {
 
 		 *Expected Outcome: 
 			- The popover of the event shows + Title of event+ Description+ Location+ Time+ Icon is the same icon with the label "Recurring event", pls see attachment [Recurring_icon_On_Popover.png]*/
-		cHome.goToView(selectViewOption.WEEK);
-		mouseOver(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", titleEvent).replace("$date", getDate(0, "MMM dd yyyy")),true);
+		cHome.goToView(selectViewOption.MONTH);
+		mouseOver(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", titleEvent).replace("$date", getDate(0, "MMM dd yyyy")),true);
 		waitForAndGetElement(event.ELEMENT_TITLE_RECURRING_EVENT);
 		waitForAndGetElement(event.ELEMENT_DATE_TIME_RECURRING_EVENT);
 		waitForAndGetElement(event.ELEMENT_RECURRING_TEXT_RECURRING_EVENT);

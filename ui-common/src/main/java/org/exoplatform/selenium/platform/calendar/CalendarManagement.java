@@ -112,6 +112,7 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_EDIT_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconEdit uiIconLightGray']");
 	public By ELEMENT_CALENDAR_SHARE_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconCalShare uiIconLightGray']");
 	public By ELEMENT_CALENDAR_REMOVE_MENU = By.xpath("//*[@id='tmpMenuElement']//*[contains(@href,'RemoveCalendar')]");
+	public By ELEMENT_CALENDAR_REMOVE_SHARE_CALENDAR=By.xpath("//*[@id='tmpMenuElement']//*[contains(@href,'RemoveSharedCalendar')]");
 	public By ELEMENT_CALENDAR_IMPORT_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconCalImportCalendar uiIconLightGray']");
 	public By ELEMENT_CALENDAR_EXPORT_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconCalExportCalendar uiIconLightGray']");
 	public By ELEMENT_CALENDAR_REFRESH_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconRefresh uiIconLightGray']");
@@ -179,9 +180,6 @@ public class CalendarManagement extends PlatformBase{
 
 	/**
 	 * Execute action of calendar: Edit, Delete, Share, export....
-	 * 
-	 * @param calendar
-	 * 				name of calendar
 	 * @param action
 	 * 				action that needs to be done, e.g.: "ShareCalendar"
 	 */
@@ -258,9 +256,6 @@ public class CalendarManagement extends PlatformBase{
 	 * @param group
 	 * 				group: example (/developers, /platform/administrators, /platform/users, /platform/web-contributors, 
 	 * 				/organization/management/executive-board, /organization/employees
-	 * @param isType
-	 * 				true: select a group by typing
-	 * 				false: select a group by select group icon
 	 */
 	public void editCalendar(String oldName,String name, String description, String color, String group){
 		executeActionCalendar(oldName, menuOfCalendarOption.EDIT);
@@ -383,7 +378,7 @@ public class CalendarManagement extends PlatformBase{
 	public void openMenuOfCalendar(String calendar){
 		info("Open menu of a calendar");
 		mouseHoverByJavaScript(ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendar),2);
-		click(ELEMENT_CALENDAR_SETTING_ICON.replace("$calendar", calendar),2);
+		clickByJavascript(ELEMENT_CALENDAR_SETTING_ICON.replace("$calendar", calendar),2);
 		waitForAndGetElement(ELEMENT_CALENDAR_RIGHT_MENU);
 	}
 
@@ -400,35 +395,35 @@ public class CalendarManagement extends PlatformBase{
 		openMenuOfCalendar(calendar);
 		switch(action){
 		case ADDTASK:
-			click(ELEMENT_CALENDAR_ADD_TASK_MENU,2);
+			clickByJavascript(ELEMENT_CALENDAR_ADD_TASK_MENU,2);
 			waitForAndGetElement(ELEMENT_CALENDAR_QUICK_ADD_TASK_FORM);
 			break;
 		case ADDEVENT:
-			click(ELEMENT_CALENDAR_ADD_EVENT_MENU,2);
+			clickByJavascript(ELEMENT_CALENDAR_ADD_EVENT_MENU,2);
 			waitForAndGetElement(ELEMENT_CALENDAR_QUICK_ADD_EVENT_FORM);
 			break;
 		case EDIT:
-			click(ELEMENT_CALENDAR_EDIT_MENU,2);
+			clickByJavascript(ELEMENT_CALENDAR_EDIT_MENU,2);
 			waitForAndGetElement(ELEMENT_CALENDAR_ADD_FORM);
 			break;
 		case REMOVE:
-			click(ELEMENT_CALENDAR_REMOVE_MENU,2);
+			clickByJavascript(ELEMENT_CALENDAR_REMOVE_MENU,2);
 			waitForAndGetElement(ELEMENT_CALENDAR_REMOVE_FORM);
 			break;
 		case SHARE:
-			click(ELEMENT_CALENDAR_SHARE_MENU,2);
+			clickByJavascript(ELEMENT_CALENDAR_SHARE_MENU,2);
 			waitForAndGetElement(ELEMENT_CALENDAR_SHARE_FORM);
 			break;
 		case IMPORT:
-			click(ELEMENT_CALENDAR_IMPORT_MENU,2);
+			clickByJavascript(ELEMENT_CALENDAR_IMPORT_MENU,2);
 			waitForAndGetElement(ELEMENT_CALENDAR_IMPORT_FORM);
 			break;
 		case EXPORT:
-			click(ELEMENT_CALENDAR_EXPORT_MENU,2);
+			clickByJavascript(ELEMENT_CALENDAR_EXPORT_MENU,2);
 			waitForAndGetElement(ELEMENT_CALENDAR_EXPORT_FORM);
 			break;
 		case REFRESH:
-			click(ELEMENT_CALENDAR_REFRESH_MENU,2);
+			clickByJavascript(ELEMENT_CALENDAR_REFRESH_MENU,2);
 			break;
 		default:
 			click(ELEMENT_CALENDAR_ADD_TASK_MENU,2);

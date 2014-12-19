@@ -16,11 +16,7 @@ import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 public class Calendar_Task extends PlatformBase {
 	HomePagePlatform hp;
@@ -37,7 +33,7 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
 	
-	@BeforeTest
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -53,9 +49,6 @@ public class Calendar_Task extends PlatformBase {
 		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		hp.goToCalendarPage();
-		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
-		cMang.saveSetting();
 	}
 
 	@AfterMethod
@@ -63,7 +56,7 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signOut();
 	}
 	
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -94,6 +87,7 @@ public class Calendar_Task extends PlatformBase {
 			-The default duration for task is 30 minutes*/
 		info("Add a task");
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		task.goToAddTaskByRightClickFromMainPanel(date,time);
@@ -288,6 +282,7 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		cMang.executeActionCalendar(calendarName, menuOfCalendarOption.ADDTASK);
@@ -490,6 +485,7 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
@@ -497,6 +493,7 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
@@ -670,15 +667,15 @@ public class Calendar_Task extends PlatformBase {
 		info("Test 15 Drag-drop task");
 		String titleTask = txData.getContentByArrayTypeRandom(1)+"1115649";
 		String contentTask = txData.getContentByArrayTypeRandom(1)+"1115649";
-		String current = getCurrentDate("MMM dd yyyy");
-		String time="12:00";
-		String cell = cHome.ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", current).replace("$time", time);
-
+		String dateTime=getDate(1,"MM/dd/yyyy");
+		
 		info("Create data test");
 		info("Add a task");
 		hp.goToCalendarPage();
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
+		String fromTime = waitForAndGetElement(task.ELEMENT_QUICK_INPUT_TASK_FROM_TIME_INPUT, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
+		String toTime = waitForAndGetElement(task.ELEMENT_QUICK_INPUT_TASK_TO_TIME_INPUT, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
 		task.saveQuickAddTask();
 		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
 
@@ -692,13 +689,14 @@ public class Calendar_Task extends PlatformBase {
 		 *Expected Outcome: 
 				- Event /task is moved to new place in working pane
 				- time of event is updated according to new place in main pane*/ 
-		cHome.goToView(selectViewOption.WEEK);
-		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", titleTask)),cell);
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
-		task.checkSuggestionTaskTimeInDetailForm(time, time,30);
+		cHome.goToView(selectViewOption.MONTH);
+		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", titleTask).replace("$date", getDate(0, "MMM dd yyyy"))),By.xpath(cHome.ELEMENT_ANY_TARGET_DATE.replace("${targetDate}", getDate(1, "MMM dd yyyy"))));
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"));
+		task.checkSuggestionTaskTimeInDetailForm(dateTime+" "+fromTime, dateTime+" "+toTime, 30);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);	
+		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"));	
+
 	}
 
 	/**

@@ -27,16 +27,6 @@ public class ManageLogInOut extends PlatformBase {
 	 */
 	public void signIn(String username, String password,Boolean...opParams) {
 		Boolean verify = (Boolean) (opParams.length > 0 ? opParams[0]: true);
-		Boolean maxWin = (Boolean) (opParams.length > 1 ? opParams[1]: true);
-		if(maxWin){
-			driver.manage().window().maximize();
-			driver.navigate().refresh();
-			Utils.pause(2000);
-		}
-		if (firstTimeLogin){
-			signOut();
-			firstTimeLogin = false;
-		}
 		info("--Sign in as " + username + "--");
 		type(ELEMENT_INPUT_USERNAME, username, true);
 		type(ELEMENT_INPUT_PASSWORD, password, true);
@@ -64,7 +54,7 @@ public class ManageLogInOut extends PlatformBase {
 			info("Retry...[" + repeat + "]");
 		}
 		click(ELEMENT_SIGN_OUT_LINK);
-		Utils.pause(1000);
+		waitForAndGetElement(ELEMENT_INPUT_USERNAME);
 		if ( ExpectedConditions.alertIsPresent() != null ){
 			magAlert = new ManageAlert(driver);
 			magAlert.acceptAlert();

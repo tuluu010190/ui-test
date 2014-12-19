@@ -329,6 +329,7 @@ public class AddEditTaskManagement extends PlatformBase {
 	public void checkSuggestionTaskTimeInQuickForm(String fromDateTime, String toDateTime, int duration){
 		info("Check date is current date");
 		DateFormat formatterTime = new SimpleDateFormat("HH:mm");
+		DateFormat formatterTimeTemp = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		DateFormat formatterDate = new SimpleDateFormat("MM/dd/yyyy");
 		String dateFrom = getValue(ELEMENT_QUICK_INPUT_TASK_FROM_DATE);
 		String dateTo = getValue(ELEMENT_QUICK_INPUT_TASK_TO_DATE);
@@ -344,9 +345,9 @@ public class AddEditTaskManagement extends PlatformBase {
 			info("Check suggesion when select from time");
 			try {
 				Date fr = formatterDate.parse(fromDateTime);
-				Date frTime = formatterTime.parse(fromDateTime);
+				Date frTime = formatterTimeTemp.parse(fromDateTime);
 				assert dateFrom.equals(formatterDate.format(fr));
-				assert fromTime.equals(formatterDate.format(frTime));
+				assert fromTime.equals(formatterTime.format(frTime));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -360,9 +361,9 @@ public class AddEditTaskManagement extends PlatformBase {
 			info("Check suggesion when select to time");
 			try {
 				Date to = formatterDate.parse(toDateTime);
-				Date tTime = formatterTime.parse(toDateTime);
+				Date tTime = formatterTimeTemp.parse(toDateTime);
 				assert dateTo.equals(formatterDate.format(to));
-				assert toTime.equals(formatterDate.format(tTime));
+				assert toTime.equals(formatterTime.format(tTime));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -388,6 +389,7 @@ public class AddEditTaskManagement extends PlatformBase {
 	 */
 	public void checkSuggestionTaskTimeInDetailForm(String fromDateTime, String toDateTime, int duration){
 		info("Check date is current date");
+		DateFormat formatterTimeTemp = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		SimpleDateFormat formatterTime = new SimpleDateFormat("HH:mm");
 		SimpleDateFormat formatterDate = new SimpleDateFormat("MM/dd/yyyy");
 		String dateFrom = getValue(ELEMENT_ADD_EDIT_TASK_FROM_DATE);
@@ -404,9 +406,9 @@ public class AddEditTaskManagement extends PlatformBase {
 			info("Check suggesion when select from time");
 			try {
 				Date fr = formatterDate.parse(fromDateTime);
-				Date frTime = formatterTime.parse(fromDateTime);
+				Date frTime = formatterTimeTemp.parse(fromDateTime);
 				assert dateFrom.equals(formatterDate.format(fr));
-				assert fromTime.equals(formatterDate.format(frTime));
+				assert fromTime.equals(formatterTime.format(frTime));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -420,9 +422,9 @@ public class AddEditTaskManagement extends PlatformBase {
 			info("Check suggesion when select to time");
 			try {
 				Date to = formatterDate.parse(toDateTime);
-				Date tTime = formatterTime.parse(toDateTime);
+				Date tTime = formatterTimeTemp.parse(toDateTime);
 				assert dateTo.equals(formatterDate.format(to));
-				assert toTime.equals(formatterDate.format(tTime));
+				assert toTime.equals(formatterTime.format(tTime));
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -481,6 +483,7 @@ public class AddEditTaskManagement extends PlatformBase {
 	public void saveQuickAddTask(){
 		click(ELEMENT_BUTTON_TASK_SAVE);
 		waitForElementNotPresent(ELEMENT_BUTTON_TASK_SAVE);
+		Utils.pause(500);
 	}
 
 	/**
@@ -503,6 +506,7 @@ public class AddEditTaskManagement extends PlatformBase {
 	public void saveAddTaskDetails(){
 		click(ELEMENT_BUTTON_TASK_SAVE_DETAILS);
 		waitForElementNotPresent(ELEMENT_BUTTON_TASK_SAVE_DETAILS);
+		Utils.pause(500);
 	}
 
 	/**

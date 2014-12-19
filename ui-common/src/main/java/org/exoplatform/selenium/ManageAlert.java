@@ -6,11 +6,6 @@ import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 
-/**
- * This class provides simple way to manage all type of Alert in PLF4
- * @Date January, 30th, 2013
- *
- */
 public class ManageAlert extends TestBase{
 
 	public ManageAlert(WebDriver dr,String...plfVersion){
@@ -53,7 +48,7 @@ public class ManageAlert extends TestBase{
 
 	/**
 	 * Get text from alert
-	 * @return
+	 * @return text from alert
 	 */
 	public String getTextFromAlert() {
 		Utils.pause(1000);
@@ -68,7 +63,8 @@ public class ManageAlert extends TestBase{
 	/**
 	 * wait for confirmation
 	 * @param confirmationText
-	 * @param wait: wait[0]: timeout
+	 * @param wait
+	 * 				wait[0]: timeout
 	 */
 	public void waitForConfirmation(String confirmationText,int...wait) {
 		String message = getTextFromAlert();

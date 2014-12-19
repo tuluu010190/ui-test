@@ -29,7 +29,7 @@ public class Calendar_Search extends PlatformBase {
 	String fullName;
 	ManageAlert alert;
 
-	@BeforeTest
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -49,7 +49,7 @@ public class Calendar_Search extends PlatformBase {
 		fullName = userData.fullName.get(0);
 	}
 
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		magAc.signOut();
 		driver.manage().deleteAllCookies();
@@ -76,12 +76,12 @@ public class Calendar_Search extends PlatformBase {
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Test 1: Quick search");
 		/*Step Number: 1
@@ -105,8 +105,8 @@ public class Calendar_Search extends PlatformBase {
 		click(cHome.ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
 	}
 
 	/**
@@ -129,12 +129,12 @@ public class Calendar_Search extends PlatformBase {
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
 
 		info("Test 2: Advanced search");
 		/*Step Number: 1
@@ -163,8 +163,8 @@ public class Calendar_Search extends PlatformBase {
 		click(cHome.ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
 
 	}
 }

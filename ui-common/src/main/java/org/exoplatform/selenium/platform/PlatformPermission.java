@@ -34,7 +34,8 @@ public class PlatformPermission extends PlatformBase {
 	/**
 	 * Search user by key search
 	 * @param keySearch
-	 * @param type: type of search
+	 * @param type
+	 * 				type of search
 	 * 				1: search by user name
 	 * 				2: search by first name
 	 * 				3: search by last name
@@ -70,7 +71,8 @@ public class PlatformPermission extends PlatformBase {
 	 * Select user permission
 	 * @param user
 	 * 				list of user: john/mary
-	 * @param type: type of search
+	 * @param type
+	 * 				type of search
 	 * 				1: search by user name
 	 * 				2: search by first name
 	 * 				3: search by last name
@@ -110,7 +112,7 @@ public class PlatformPermission extends PlatformBase {
 
 	/**
 	 * Select group membership
-	 * @param grouppath
+	 * @param groupPath
 	 * 					path group: (Ex: Organization/Employees)
 	 * @param membership
 	 * 					membership: (Ex:  author)

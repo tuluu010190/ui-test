@@ -101,7 +101,7 @@ public class TestBase {
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
-	
+
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -115,7 +115,7 @@ public class TestBase {
 	public final By ELEMENT_START_BUTTON = By.xpath("//button[text()='Start']");
 	public final By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
 	public final By ELEMENT_INPUT_PASSWORD = By.name("password");
-	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+	public final By ELEMENT_ACCOUNT_NAME_LINK = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a/img");
 	public final By ELEMENT_PLF_INFORMATION = By.id("platformInfoDiv");
 
 	public final String ELEMENT_TERM_CONDITION_BOX = "//div[@class='header' and text()='Terms and Conditions Agreement']/..";
@@ -200,77 +200,37 @@ public class TestBase {
 		action = new Actions(driver);
 	}
 
-	public void initSeleniumTest(Object... opParams){
-		initSeleniumTestWithOutTermAndCondition();
-		info("Term and conditions");
-		termsAndConditions(opParams);
-		info("End of term and conditions");
-
-		if(!firstTimeLogin){
-			info("This is not the first time login");
-			checkPLFVersion();
-		}
-		else{
-			info("This is the first time login");
-			driver.manage().window().maximize();
-			driver.navigate().refresh();
-			Utils.pause(2000);
-			ManageLogInOut acc = new ManageLogInOut(driver);
-			acc.signOut();
-			firstTimeLogin=false;
-			checkPLFVersion();
-		}
-	}
-
 	/**
 	 * Check term and conditions
 	 * 
 	 */
 	public void termsAndConditions(Object... opParams){
+		info("Term and conditions");
 		Boolean isCreateAccount = (Boolean)(opParams.length>0 ? opParams[0]:true);
 		driver.get(baseUrl);
+		ManageLogInOut acc = new ManageLogInOut(driver);
 		info("Agreement page");
 		if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 3000, 0, 2) != null) {
 			info("-- Checking the terms and conditions agreement... --");
 			click(ELEMENT_AGREEMENT_CHECKBOX, 2);
 			click(ELEMENT_CONTINUE_BUTTON);
 			waitForTextNotPresent("terms and conditions agreement");
-
 			info("-- Creating an Admin account: FQA... --");
-			if(isCreateAccount==true)
+			if(isCreateAccount==true){
 				accountSetup();
-			firstTimeLogin = true;
-			info("-- Administrator account (FQA) has been created successfully... --");
+				info("-- Administrator account (FQA) has been created successfully... --");
+				driver.navigate().refresh();
+				acc.signOut();
+			}
 		}else if (waitForAndGetElement(ELEMENT_ROOT_PASS_ACCOUNT, 3000, 0, 2) != null){
 			info("-- Creating an Admin account: FQA... --");
 			accountSetup();
-			firstTimeLogin = true;
 			info("-- Administrator account (FQA) has been created successfully... --");
+			driver.navigate().refresh();
+			acc.signOut();
 		} 
-		Utils.pause(3000);     
-	}
-
-	/**
-	 * Verify plf version
-	 */
-	public void checkPLFVersion(){
-		waitForTextNotPresent("terms and conditions agreement");
-		try{
-			info("Verify platform version");
-			String des = driver.findElement(ELEMENT_PLF_INFORMATION).getText();
-			if(des.contains("v4.0")){
-				this.plfVersion = "4.0";
-				info("Platform version 4.0.x");
-			}
-			else if(des.contains("v4.1")){
-				this.plfVersion="4.1";
-				info("Platform version 4.1.x");
-			}
-		}catch(Exception e){
-			info("Unknown platform version. Set to default version 4.0.x.");
-			this.plfVersion="4.0";
-		}
-
+		Utils.pause(3000);   
+		info("End of term and conditions");
 	}
 
 	/**
@@ -298,11 +258,52 @@ public class TestBase {
 		waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
 	}
 
+	public void initSeleniumTest(Object... opParams){
+		initSeleniumTestWithOutTermAndCondition();
+		driver.manage().window().maximize();
+		driver.navigate().refresh();
+		termsAndConditions(opParams);
+	}
+
+	/** function: set driver to auto save file to TestData/TestOutput
+
+	 */
+	public void getDriverAutoSave(){
+		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
+
+		FirefoxProfile fp = new FirefoxProfile();	
+
+		info("Save file to " + pathFile);
+		fp.setPreference("browser.download.manager.showWhenStarting", false);
+		fp.setPreference("browser.download.dir", pathFile);
+		fp.setPreference("browser.download.folderList", 2);
+		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
+				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
+				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
+				"application/octet-stream" +
+				";application/pdf;application/msword;text/plain;" +
+				"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
+				"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
+				"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
+
+		fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
+		fp.setPreference("pref.downloads.disable_button.edit_actions", true);
+		fp.setPreference("pdfjs.disabled", true); 
+		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
+		driver = new FirefoxDriver(fp);
+		getSystemProperty();
+		action = new Actions(driver);
+		driver.manage().window().maximize();
+		driver.navigate().refresh();
+		termsAndConditions();
+	}
+
 	/**
 	 * Get element
 	 * @param locator
 	 * @param opParams
-	 * @return
+	 * @return an element
 	 */
 	public WebElement getElement(Object locator, Object... opParams) {
 		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
@@ -316,7 +317,12 @@ public class TestBase {
 		return elem;
 	}
 
-	//return element only in case the element is displayed.
+	/**
+	 * get an element
+	 * @param locator
+	 * @param opParams
+	 * @return element
+	 */
 	public WebElement getDisplayedElement(Object locator, Object... opParams) {
 		By by = locator instanceof By ? (By)locator : By.xpath(locator.toString());
 		WebDriver wDriver = (WebDriver) (opParams.length > 0 ? opParams[0]: driver);	
@@ -340,10 +346,22 @@ public class TestBase {
 		return null;
 	}
 
+	/**
+	 * verify element exists or not
+	 * @param locator
+	 * @return true if element exists
+	 * 			false if element doesn't exist
+	 */
 	public boolean isElementPresent(Object locator) {
 		return getElement(locator) != null;
 	}
 
+	/**
+	 * verify element exists or not
+	 * @param locator
+	 * @return true if element doesn't exists
+	 * 			false if element exist
+	 */
 	public boolean isElementNotPresent(Object locator) {
 		return !isElementPresent(locator);
 	}
@@ -357,7 +375,7 @@ public class TestBase {
 	 * 					opPram[1]: 0,1
 	 * 					0: No Assert
 	 * 					1: Assert
-	 * @return
+	 * @return an element
 	 */
 	public WebElement waitForAndGetElement(Object locator, Object... opParams) {
 		WebElement elem = null;
@@ -390,7 +408,7 @@ public class TestBase {
 	 * 					opPram[1]: 0,1
 	 * 					0: No Assert
 	 * 					1: Assert
-	 * @return
+	 * @return	an element
 	 */
 	public WebElement waitForElementNotPresent(Object locator, int... opParams) {
 		WebElement elem = null;
@@ -419,7 +437,8 @@ public class TestBase {
 	 * 
 	 * @param text
 	 * @param opts
-	 * @return
+	 * @return 	true if text exist
+	 * 			false if test is not exist
 	 */
 	public boolean isTextPresent(String text, int...opts) {
 		int display = opts.length > 0 ? opts[0] : 1;
@@ -428,6 +447,12 @@ public class TestBase {
 		return allVisibleTexts.contains(text);
 	}
 
+	/**
+	 * get text of element
+	 * @param locator
+	 * @param opts
+	 * @return text of element
+	 */
 	public String getText(Object locator,int...opts) {
 		WebElement element = null;
 		int display = opts.length > 0 ? opts[0] : 1;
@@ -443,6 +468,11 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * get list of element
+	 * @param xpath
+	 * @return list of elements
+	 */
 	public List<WebElement> getElements(String xpath) {
 		try {
 			return driver.findElements(By.xpath(xpath));
@@ -455,10 +485,21 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * verify text exists or noet
+	 * @param text
+	 * @return true if text exists
+	 * 			false if text doesn't exits
+	 */
 	public boolean isTextNotPresent(String text) {
 		return !isTextPresent(text);
 	}
 
+	/**
+	 * drag and drop element
+	 * @param sourceLocator
+	 * @param targetLocator
+	 */
 	public void dragAndDropToObject(Object sourceLocator, Object targetLocator) {
 		info("--Drag and drop to object--");
 		Actions action = new Actions(driver);
@@ -489,20 +530,32 @@ public class TestBase {
 
 	/**
 	 * Click by using javascript
-	 * @param locator: locator of element
+	 * @param locator
+	 * @param opParams
 	 */
 	public void clickByJavascript(Object locator, Object... opParams){
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);	
 		WebElement e = waitForAndGetElement(locator,DEFAULT_TIMEOUT, 1, notDisplay);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", e);
 	}
-	
+
+	/**
+	 * click action
+	 * @param locator
+	 * @param opParams
+	 */
 	public void click(Object locator, Object... opParams) {
-		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);  
+		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);	
+		Boolean isUseJavascript =  (Boolean) (opParams.length > 1 ? opParams[1]: false);	
+		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);
-			if(element.isEnabled())
-				((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+			if(element.isEnabled()){
+				if(isUseJavascript)
+					((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+				else
+					actions.click(element).perform();
+			}
 			else {
 				debug("Element is not enabled");
 				click(locator, notDisplay);
@@ -510,18 +563,20 @@ public class TestBase {
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			clickByJavascript(locator, notDisplay);
+			click(locator, notDisplay);
 		} catch (ElementNotVisibleException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			clickByJavascript(locator, notDisplay);
+			click(locator, notDisplay);
 		} finally {
 			loopCount = 0;
 		}
-		Utils.pause(1000);
+		Utils.pause(500);
 	}
 
-
+	/**
+	 * clear cache
+	 */
 	public void clearCache(){
 		Actions actionObject = new Actions(driver);
 		try{
@@ -532,7 +587,11 @@ public class TestBase {
 		}
 	}
 
-	//Use this function to verify if a check-box is checked (using when creating a portal/publicMode)
+	/**
+	 * Use this function to verify if a check-box is checked (using when creating a portal/publicMode)
+	 * @param locator
+	 * @param opParams
+	 */
 	public void check(Object locator, int... opParams) {
 		int notDisplayE = opParams.length > 0 ? opParams[0]: 0;
 		Actions actions = new Actions(driver);
@@ -553,6 +612,11 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * get value attribute
+	 * @param locator
+	 * @return value of element
+	 */
 	public String getValue(Object locator) {
 		try {
 			return waitForAndGetElement(locator).getAttribute("value");
@@ -564,9 +628,11 @@ public class TestBase {
 			loopCount = 0;
 		}
 	}
-	
+
 	/**
 	 * Mouse hover by Javascript
+	 * @param locator
+	 * @param opParams
 	 */
 	public void mouseHoverByJavaScript(Object locator, Object...opParams)
 	{
@@ -579,7 +645,13 @@ public class TestBase {
 		targetElement = waitForAndGetElement(locator,5000, 1, notDisplay);
 		((JavascriptExecutor)driver).executeScript(javascript, targetElement);
 	}
-	
+
+	/**
+	 * mouse over action
+	 * @param locator
+	 * @param safeToSERE
+	 * @param opParams
+	 */
 	public void mouseOver(Object locator, boolean safeToSERE, Object...opParams) {
 		WebElement element;
 		Actions actions = new Actions(driver);
@@ -608,6 +680,10 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * mouse over and clic
+	 * @param locator
+	 */
 	public void mouseOverAndClick(Object locator) {
 		WebElement element;
 		Actions actions = new Actions(driver);
@@ -619,6 +695,11 @@ public class TestBase {
 		actions.moveToElement(element).click(element).build().perform();
 	}
 
+	/**
+	 * wait for text present
+	 * @param text
+	 * @param opts
+	 */
 	public void waitForTextPresent(String text, int...opts) {
 		int waitTime = opts.length > 0 ? opts[0] : DEFAULT_TIMEOUT;
 		int display = opts.length > 1 ? opts[1] : 1;
@@ -633,6 +714,11 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * wait for text not present
+	 * @param text
+	 * @param wait
+	 */
 	public void waitForTextNotPresent(String text,int...wait) {
 		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		for (int second = 0;; second++) {
@@ -646,12 +732,24 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * wait for msg
+	 * @param message
+	 * @param wait
+	 */
 	public void waitForMessage(String message,int...wait) {
 		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		Utils.pause(500);
 		waitForAndGetElement("//*[contains(text(),'"+message+"')]",waitTime);
 	}
 
+	/**
+	 * type to textbox
+	 * @param locator
+	 * @param value
+	 * @param validate
+	 * @param opParams
+	 */
 	public void type(Object locator, String value, boolean validate, Object...opParams) {	
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);
 		try {
@@ -684,7 +782,12 @@ public class TestBase {
 		}
 	}
 
-	// Select option from combo box
+	/**
+	 * Select option from combo box
+	 * @param locator
+	 * @param option
+	 * @param display
+	 */
 	public void select(Object locator, String option, int...display) {
 		int isDisplay = display.length > 0 ? display[0] : 1;
 		try {
@@ -706,9 +809,14 @@ public class TestBase {
 		} finally {
 			loopCount = 0;
 		}
+		Utils.pause(500);
 	}
 
-	//un-check a checked-box
+	/**
+	 * un-check a checked-box
+	 * @param locator
+	 * @param opParams
+	 */
 	public void uncheck(Object locator, int... opParams) {
 		int notDisplayE = opParams.length > 0 ? opParams[0]: 0;
 		Actions actions = new Actions(driver);
@@ -728,6 +836,12 @@ public class TestBase {
 			loopCount = 0;
 		}
 	}
+
+	/**
+	 * rightClickOnElement
+	 * @param locator
+	 * @param opParams
+	 */
 	public void rightClickOnElement(Object locator, int...opParams) {
 		int display = opParams.length > 0 ? opParams[0]: 0;
 		Actions actions = new Actions(driver);
@@ -748,7 +862,10 @@ public class TestBase {
 		}
 	}
 
-	//doubleClickOnElement
+	/**
+	 * doubleClickOnElement
+	 * @param locator
+	 */
 	public void doubleClickOnElement(Object locator) {
 		Actions actions = new Actions(driver);
 		try {
@@ -763,6 +880,11 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * checkCycling
+	 * @param e
+	 * @param loopCountAllowed
+	 */
 	public void checkCycling(Exception e, int loopCountAllowed) {
 		info("Exception:" + e.getClass().getName());
 		if (loopCount > loopCountAllowed) {
@@ -772,7 +894,9 @@ public class TestBase {
 		loopCount++;
 	}
 
-	//function to switch to parent windows
+	/**
+	 * function to switch to parent windows
+	 */
 	public void switchToParentWindow (){
 		try
 		{
@@ -794,6 +918,12 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * check element displays or net
+	 * @param locator
+	 * @return true if element displays
+	 * 			false if element doesn't display
+	 */
 	public boolean isDisplay(Object locator) {
 		boolean bool = false;
 		WebElement e = getElement(locator);
@@ -812,40 +942,8 @@ public class TestBase {
 		return bool;
 	}
 
-	/** function: set driver to auto save file to TestData/TestOutput
-
-	 */
-	public void getDriverAutoSave(){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
-
-		FirefoxProfile fp = new FirefoxProfile();	
-
-		info("Save file to " + pathFile);
-		fp.setPreference("browser.download.manager.showWhenStarting", false);
-		fp.setPreference("browser.download.dir", pathFile);
-		fp.setPreference("browser.download.folderList", 2);
-		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
-				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
-				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
-				"application/octet-stream" +
-				";application/pdf;application/msword;text/plain;" +
-				"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
-				"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
-				"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
-
-		fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
-		fp.setPreference("pref.downloads.disable_button.edit_actions", true);
-		fp.setPreference("pdfjs.disabled", true); 
-		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
-		driver = new FirefoxDriver(fp);
-		getSystemProperty();
-		action = new Actions(driver);
-		termsAndConditions();
-		checkPLFVersion();
-	}
-
-	/**function set driver to auto open new window when click link
+	/**
+	 * function set driver to auto open new window when click link
 	 */
 	public void getDriverAutoOpenWindow(){
 		FirefoxProfile fp = new FirefoxProfile();		
@@ -855,13 +953,12 @@ public class TestBase {
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		action = new Actions(driver);
 		termsAndConditions();
-		checkPLFVersion();
 	}
 
 	/**
 	 * function: check a file existed in folder
-	 * @param file: file name (eg: export.zip)
-	 * @return: true -> file exist
+	 * @param file file name (eg: export.zip)
+	 * @return true -> file exist
 	 * false-> file is not exist
 	 */
 	public boolean checkFileExisted(String file){
@@ -877,7 +974,7 @@ public class TestBase {
 
 	/**
 	 * function delete file in folder test output
-	 * @param file: file name
+	 * @param file file name
 	 */
 	public void deleteFile(String file){
 		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/" + file;
@@ -892,6 +989,7 @@ public class TestBase {
 	}
 
 	/**
+	 * cutPasteFileFromOutputToTestData
 	 * @param fileName
 	 */
 	public void cutPasteFileFromOutputToTestData(String fileName){
@@ -915,10 +1013,19 @@ public class TestBase {
 		deleteFile("TestOutput/" + fileName);
 	}
 
+	/**
+	 * 
+	 * define language
+	 *
+	 */
 	public enum Language{
 		en, fr, vi, lo;
 	}
 
+	/**
+	 * set language 
+	 * @param language
+	 */
 	public void getDriverSetLanguage(Language language){
 		String locale = language.toString();
 		FirefoxProfile profile = new FirefoxProfile();
@@ -932,8 +1039,8 @@ public class TestBase {
 
 	/**
 	 * function get current Date of system follow a format
-	 * @param fomat
-	 * @return
+	 * @param format
+	 * @return current Date of system
 	 */
 	public String getCurrentDate(String format){
 		DateFormat dateFormat = new SimpleDateFormat(format);
@@ -941,7 +1048,12 @@ public class TestBase {
 		return (dateFormat.format(date)); 
 	}
 
-	//Add 1 minute to current date time
+	/**
+	 * Add 1 minute to current date time
+	 * @param min
+	 * @param format
+	 * @return
+	 */
 	public String addMinuteToCurrentDateTime(int min, String...format){
 		DateFormat dateFormat = format.length > 0 ? new SimpleDateFormat(format[0]) : new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
@@ -950,7 +1062,7 @@ public class TestBase {
 	}
 
 	/** Get date in format "dd"
-	 * @param gap: distance from current date
+	 * @param gap distance from current date
 	 * @return date in format "dd"
 	 */
 	public String getDate(int gap, String format){
@@ -961,7 +1073,7 @@ public class TestBase {
 	}
 
 	/** Get day of week
-	 * @param gap: distance from current date
+	 * @param gap distance from current date
 	 * @return day of week (monday, tuesday,..., sunday)
 	 */
 	public int getDayOfWeek(int gap){
@@ -985,6 +1097,7 @@ public class TestBase {
 
 	/**
 	 * Change attribute "display" of HTML tag from "none" to "block" 
+	 * @param locator
 	 */
 	public void changeDisplayAttributeHTML(String locator){
 		WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, 2);
@@ -992,7 +1105,9 @@ public class TestBase {
 	}
 
 
-
+	/**
+	 * setPreferenceRunTime
+	 */
 	public void setPreferenceRunTime(){
 		FirefoxProfile fp = new FirefoxProfile();
 
@@ -1015,7 +1130,7 @@ public class TestBase {
 
 	/**
 	 * get random string
-	 * @return
+	 * @return random string
 	 */
 	public String getRandomString(){
 		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
@@ -1030,7 +1145,7 @@ public class TestBase {
 
 	/**
 	 * get a list of random numbers
-	 * @return
+	 * @return random numbers
 	 */
 	public String getRandomNumber() {
 		char[] chars = "0123456789".toCharArray();
@@ -1046,8 +1161,9 @@ public class TestBase {
 	/**
 	 * Copy and paste a string from one locator to other
 	 * 
-	 * @param destination
+	 * @param origin
 	 * @param target
+	 * @param value
 	 */
 	public void copyPasteString(By origin, By target, String value) {
 		WebElement element1 = driver.findElement(origin);
@@ -1082,7 +1198,6 @@ public class TestBase {
 
 	/**
 	 * @param object
-	 * @param classElement
 	 * @return = true: if there is not scroll bar on element
 	 *         = false: if there is scroll bar on element
 	 */
@@ -1096,11 +1211,11 @@ public class TestBase {
 		int offset = Integer.parseInt(offsetHeight);
 		return scroll == offset;
 	}
-	
+
 	/**
 	 * function get an element from link text when cannot get by text in xpath
 	 * @param text
-	 * @return
+	 * @return an element from link text
 	 */
 	public WebElement getElementFromTextByJquery(String text){
 
@@ -1114,7 +1229,17 @@ public class TestBase {
 			return web;
 		}
 	}
-	
-	
-	
+
+	/**
+	 * scrollBarToGetElement
+	 * @param object
+	 * @param opParams
+	 */
+	public void scrollBarToGetElement(By object, int...opParams) {
+		int display = opParams.length > 0 ? opParams[0]: 0;
+		WebElement element = waitForAndGetElement(object,5000,1,display);
+		JavascriptExecutor jse;
+		jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].scrollIntoView(true);", element);
+	}
 }

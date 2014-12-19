@@ -23,7 +23,7 @@ public class Calendar_Category extends PlatformBase {
 	CalendarManagement cMang;
 	UserDatabase userData;
 
-	@BeforeTest
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -40,7 +40,7 @@ public class Calendar_Category extends PlatformBase {
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 	}
 
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		magAc.signOut();
 		driver.manage().deleteAllCookies();
@@ -71,6 +71,7 @@ public class Calendar_Category extends PlatformBase {
 		 *Expected Outcome: 
 			Event Categories form is displayed with a list of all existing event categories and a sub form to add new category*/
 		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCATEGORY);
