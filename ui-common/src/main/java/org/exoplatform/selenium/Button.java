@@ -117,7 +117,6 @@ public class Button extends TestBase{
 	public void close(){
 		waitForAndGetElement(ELEMENT_CLOSE_BUTTON);
 		click(ELEMENT_CLOSE_BUTTON);
-		waitForElementNotPresent(ELEMENT_CLOSE_BUTTON);
 		Utils.pause(500);
 	}
 

@@ -551,8 +551,10 @@ public class TestBase {
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);
 			if(element.isEnabled()){
-				if(isUseJavascript)
+				if(isUseJavascript){
+					info("use javasript to click");
 					((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+				}
 				else
 					actions.click(element).perform();
 			}
@@ -571,7 +573,7 @@ public class TestBase {
 		} finally {
 			loopCount = 0;
 		}
-		Utils.pause(500);
+		Utils.pause(1000);
 	}
 
 	/**
@@ -597,7 +599,6 @@ public class TestBase {
 		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
-
 			if (!element.isSelected()) {
 				actions.click(element).perform();
 			} else {
@@ -610,6 +611,7 @@ public class TestBase {
 		} finally {
 			loopCount = 0;
 		}
+		Utils.pause(500);
 	}
 
 	/**
@@ -1052,7 +1054,7 @@ public class TestBase {
 	 * Add 1 minute to current date time
 	 * @param min
 	 * @param format
-	 * @return
+	 * @return string minute
 	 */
 	public String addMinuteToCurrentDateTime(int min, String...format){
 		DateFormat dateFormat = format.length > 0 ? new SimpleDateFormat(format[0]) : new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
@@ -1241,5 +1243,39 @@ public class TestBase {
 		JavascriptExecutor jse;
 		jse = (JavascriptExecutor) driver;
 		jse.executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+	
+	/**
+	 * inputDataToCKEditor
+	 * @param framelocator
+	 * @param data
+	 */
+	public void inputDataToCKEditor(By framelocator, String data){
+		info("input data to ckeditor");
+		try {
+			WebElement inputsummary = null;
+			WebElement e = waitForAndGetElement(framelocator,DEFAULT_TIMEOUT,1,2);
+			driver.switchTo().frame(e);
+			inputsummary = driver.switchTo().activeElement();
+			inputsummary.click();
+			inputsummary.clear();
+			((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
+			switchToParentWindow();
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			driver.switchTo().defaultContent();
+			inputDataToCKEditor (framelocator, data);
+		} catch (ElementNotVisibleException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			driver.switchTo().defaultContent();
+			inputDataToCKEditor (framelocator,data);
+		}catch (WebDriverException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			driver.switchTo().defaultContent();
+			inputDataToCKEditor (framelocator,data);
+		}
 	}
 }

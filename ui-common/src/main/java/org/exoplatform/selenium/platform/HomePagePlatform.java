@@ -3,7 +3,10 @@ package org.exoplatform.selenium.platform;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.TestBase;
+import org.exoplatform.selenium.platform.answer.AnswerHomePage;
+import org.exoplatform.selenium.platform.answer.FaqHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
+import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.openqa.selenium.By;
@@ -13,8 +16,13 @@ public class HomePagePlatform extends TestBase{
 	WikiHomePage wHome;
 	CalendarHomePage cHome;
 	SpaceManagement sMang;
+	AnswerHomePage aHome;
+	ForumHomePage fHome;
+	FaqHomePage fqHome;
 	
 	//Left panel
+	public final By ELEMENT_FORUM_LINK_PLF=By.xpath("//*[@data-original-title='Forums']");
+	public final By ELEMENT_ANSWER_LINK_PLF=By.xpath("//*[@data-original-title='Answer']");
 	public final By ELEMENT_WIKI_LINK_PLF=By.xpath("//*[@data-original-title='Wiki']");
 	public final By ELEMENT_HOME_LINK_PLF=By.xpath("//*[@data-original-title='Home']");
 	public final By ELEMENT_CALENDAR_LINK_PLF=By.xpath("//*[@data-original-title='Calendar']");
@@ -36,6 +44,9 @@ public class HomePagePlatform extends TestBase{
 		wHome = new WikiHomePage(dr);
 		cHome = new CalendarHomePage(dr);
 		sMang = new SpaceManagement(dr);
+		aHome = new AnswerHomePage(dr);
+		fHome = new ForumHomePage(dr);
+		fqHome = new FaqHomePage(dr);
 	}
 	
 	/**
@@ -71,7 +82,37 @@ public class HomePagePlatform extends TestBase{
 	public void goToMySpace(){
 		info("-- Go to My space page --");
 		click(ELEMENT_MY_SPACE_LINK_PLF);
-		waitForAndGetElement(sMang.ELEMENT_SPACE_MY_SPACE_PORTLE);
+		waitForAndGetElement(sMang.ELEMENT_SPACE_MY_SPACE_PORTLET);
+	}
+	
+	/**
+	 * Go to answer page
+	 */
+	public void goToAnswer(){
+		info("-- Go to answer page --");
+		click(ELEMENT_ANSWER_LINK_PLF);
+		waitForAndGetElement(aHome.ELEMENT_ANSWER_PORTLET);
+	}
+	
+	/**
+	 * Go to forum page
+	 */
+	public void goToForum(){
+		info("-- Go to forum page --");
+		click(ELEMENT_FORUM_LINK_PLF);
+		waitForAndGetElement(fHome.ELEMENT_FORUM_PORTLET);
+	}
+	
+	/**
+	 * Go to faq page
+	 */
+	public void goToFaq(){
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		info("Base url is " + baseUrl);
+		String url = baseUrl + "/intranet/home/FAQ";
+		info("-- Go to FAQ page --");
+		driver.get(url);
+		waitForAndGetElement(fqHome.ELEMENT_FAQ_QUESTION_LIST);
 	}
 }
 

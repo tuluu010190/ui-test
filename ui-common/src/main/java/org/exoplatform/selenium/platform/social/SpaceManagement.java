@@ -14,7 +14,7 @@ public class SpaceManagement extends PlatformBase {
 	Button button;
 
 	//Space portlets
-	public By ELEMENT_SPACE_MY_SPACE_PORTLE = By.id("UIMySpacesPortlet");
+	public By ELEMENT_SPACE_MY_SPACE_PORTLET = By.id("UIMySpacesPortlet");
 	public By ELEMENT_SPACE_ALL_SPACE_PORTLET = By.id("UIAllSpacesPortlet");
 	public By ELEMENT_SPACE_INVITATION_SPACE_PORTLET = By.id("UIInvitationSpacesPortlet");
 	public By ELEMENT_SPACE_PENDING_SPACE_PORTLET = By.id("UIPendingSpacesPortlet");

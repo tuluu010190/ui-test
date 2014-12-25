@@ -140,10 +140,10 @@ public class AddEditPageManagement extends WikiHomePage{
 		}
 		if (content != null){
 			if(isClearContent){
-				inputDataToFrame(ELEMENT_CONTENT_WIKI_FRAME, content);
+				inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
 			}
 			else{
-				inputDataToFrame(ELEMENT_CONTENT_WIKI_FRAME, content);
+				inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
 			}
 			Utils.pause(1000);
 			driver.switchTo().defaultContent();
