@@ -8,6 +8,7 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -68,7 +69,7 @@ public class TestBase {
 	//public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
 	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
-	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
+	public final String DEFAULT_BASEURL="http://192.168.1.36:8080/portal";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -443,6 +444,7 @@ public class TestBase {
 			if(element.isEnabled())
 				actions.click(element).perform();
 			else {
+				
 				debug("Element is not enabled");
 				click(locator, notDisplay);
 			}
@@ -459,6 +461,7 @@ public class TestBase {
 		}
 		Utils.pause(500);
 	}
+
 
 	/**
 	 * Click by using javascript
@@ -488,7 +491,7 @@ public class TestBase {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
 
 			if (!element.isSelected()) {
-				clickByJavascript(locator,notDisplayE);
+				click(locator,notDisplayE);
 			} else {
 				info("Element " + locator + " is already checked.");
 			}
@@ -1203,5 +1206,63 @@ public class TestBase {
 		// Note: could optionally check for handle found here and throw
 		// an exception if no window was found.
 		return foundHandle;
+	}
+
+	/**
+	 * Upload file on IE
+	 * @param file: name of file
+	 */
+	protected void uploadFile(String file){
+		String fs = File.separator;
+		try {
+			Process proc=Runtime.getRuntime().exec(Utils.getAbsoluteFilePath("TestData\\uploadFile.exe") + " " + Utils.getAbsoluteFilePath(file.replace("/", fs)));
+			InputStream is = proc.getInputStream();
+			int retCode = 0;
+			while(retCode != -1)
+			{
+				retCode = is.read();
+				if(retCode == -1)
+					info("Now Exiting");
+			} 
+			info("done upload");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Download fileon IE
+	 * @param file
+	 */
+	public void downloadFile(String file){
+		String download = "TestData\\downloadIE9.exe";
+		String fs = File.separator;
+		String pathDownload = Utils.getAbsoluteFilePath(download);
+		try {
+			Process proc=Runtime.getRuntime().exec(pathDownload + " " + Utils.getAbsoluteFilePath("TestData" +fs + "TestOutput" + fs + file));
+			InputStream is = proc.getInputStream();
+			int retCode = 0;
+			while(retCode != -1)
+			{
+				retCode = is.read();
+				info("Now Exiting");
+			} 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Get element by class name via Javascript
+	 * @param className
+	 * @param index
+	 * @return
+	 */
+	public WebElement getElementByJavascript(String className,int...index){
+		int i = index.length > 0 ? index[0] : 0;
+		WebElement e = (WebElement)((JavascriptExecutor) driver).executeScript("return document.getElementsByClassName('"+className+"')["+i+"];");
+		return e;
 	}
 }
