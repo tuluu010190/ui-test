@@ -45,6 +45,12 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";//*[contains(text(),'${content}')]";
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
+	//page navigation
+	public By ELEMENT_NEXT_PAGE=By.xpath("//*[@class='uiIconNextArrow']");
+	public By ELEMENT_PREVIOUS_PAGE=By.xpath("//*[@class='uiIconPrevArrow']");
+	public By ELEMENT_TOTAL_PAGE=By.xpath("//*[@class='pagesTotalNumber']");
+	public By ELEMENT_CURRENT_PAGE=By.xpath("//*[@class='active']/*[contains(@href,'objectId') or contains(@href,'javascript')]");
+	public String ELEMENT_ANY_PAGE="//*[contains(@href,'objectId') or contains(@href,'javascript') and text()='$page']";
 	/**
 	 * Available option
 	 */

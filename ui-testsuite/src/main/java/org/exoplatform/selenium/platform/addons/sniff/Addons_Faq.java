@@ -1,9 +1,8 @@
-package org.exoplatform.selenium.platform.forum.sniff;
+package org.exoplatform.selenium.platform.addons.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -17,14 +16,13 @@ import org.exoplatform.selenium.platform.gatein.AnswerPage;
 import org.exoplatform.selenium.platform.gatein.FaqPage;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
 import org.exoplatform.selenium.platform.gatein.PageManagement;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
-public class Forum_Faq   extends PlatformBase {
+public class Addons_Faq   extends PlatformBase {
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
@@ -125,7 +123,7 @@ public class Forum_Faq   extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question1, content1, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 
 		info("Create answer 1");
 		aHome.goToHomeCategory();
@@ -147,7 +145,7 @@ public class Forum_Faq   extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat2, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question2, content2, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 
 		info("Create answer 2");
 		aHome.goToHomeCategory();

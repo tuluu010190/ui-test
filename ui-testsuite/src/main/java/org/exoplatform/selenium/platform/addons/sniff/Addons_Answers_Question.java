@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.forum.sniff;
+package org.exoplatform.selenium.platform.addons.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -19,7 +19,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
-public class Forum_Answers_Question extends PlatformBase {
+public class Addons_Answers_Question extends PlatformBase {
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
@@ -60,6 +60,7 @@ public class Forum_Answers_Question extends PlatformBase {
 	
 	@AfterMethod
 	public void afterMethod(){
+		switchToParentWindow();
 		magAc.signOut();
 	}
 	@BeforeMethod
@@ -81,7 +82,7 @@ public class Forum_Answers_Question extends PlatformBase {
 		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(title, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 
 		info("Test 1: Vote question");
@@ -122,7 +123,7 @@ public class Forum_Answers_Question extends PlatformBase {
 		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(title, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 
 		info("Test 2: Send to friend");
@@ -144,7 +145,8 @@ public class Forum_Answers_Question extends PlatformBase {
 		//Check email
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		checkAndDeleteMail(mail, contentMail);
-
+		switchToParentWindow();
+		
 		info("clear data");
 		qMang.goToActionOfQuestionByRightClick(title,actionQuestionOption.DELETE);
 		waitForAndGetElement(qMang.ELEMENT_QUESTION_CONFIRM_DELETE);
@@ -185,7 +187,7 @@ public class Forum_Answers_Question extends PlatformBase {
 		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(title, content, null, "TestData/" + link);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 
 		info("Test 4: Edit a question");
@@ -261,7 +263,7 @@ public class Forum_Answers_Question extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(title, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		
 		/*Step number: 2
 		 *Step Name: Move a question
@@ -311,7 +313,7 @@ public class Forum_Answers_Question extends PlatformBase {
 		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(title, content, null, "TestData/" + link);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 
 		info("Test 7: Edit a question in Manage Answer form");
@@ -388,7 +390,7 @@ public class Forum_Answers_Question extends PlatformBase {
 		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(title, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 
 		/*Step number: 2
@@ -462,7 +464,7 @@ public class Forum_Answers_Question extends PlatformBase {
 		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(title, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 
 		/*Step number: 2

@@ -9,19 +9,19 @@
 		</groups>
 		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Answers_Answers" />
+				name="org.exoplatform.selenium.platform.addons.sniff.Addons_Answers_Answers" />
 			<class
-				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Answers_Category" />
+				name="org.exoplatform.selenium.platform.addons.sniff.Addons_Answers_Category" />
 			<class
-				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Answers_PublishActivity" />
+				name="org.exoplatform.selenium.platform.addons.sniff.Addons_Answers_PublishActivity" />
 			<class
-				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Answers_Question" />
+				name="org.exoplatform.selenium.platform.addons.sniff.Addons_Answers_Question" />
 			<class
-				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Answers_Search" />
+				name="org.exoplatform.selenium.platform.addons.sniff.Addons_Answers_Search" />
 			<class
-				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Answers_Setting" />
+				name="org.exoplatform.selenium.platform.addons.sniff.Addons_Answers_Setting" />
 				<class
-				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Faq" />
+				name="org.exoplatform.selenium.platform.addons.sniff.Addons_Faq" />
 		</classes>
 	</test>
 	<listeners>

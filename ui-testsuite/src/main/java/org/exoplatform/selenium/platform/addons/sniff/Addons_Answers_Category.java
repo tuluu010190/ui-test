@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.forum.sniff;
+package org.exoplatform.selenium.platform.addons.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -19,7 +19,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
-public class Forum_Answers_Category  extends PlatformBase {
+public class Addons_Answers_Category  extends PlatformBase {
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
@@ -60,6 +60,7 @@ public class Forum_Answers_Category  extends PlatformBase {
 	}
 	@AfterMethod
 	public void afterMethod(){
+		switchToParentWindow();
 		magAc.signOut();
 	}
 	@BeforeMethod
@@ -149,7 +150,7 @@ public class Forum_Answers_Category  extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question1, content1, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		
 		info("Create category 2");
 		aHome.goToHomeCategory();
@@ -234,7 +235,7 @@ public class Forum_Answers_Category  extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question1, content1, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		
 		/*Step number: 3
 		 *Step Name: Watch
@@ -259,7 +260,7 @@ public class Forum_Answers_Category  extends PlatformBase {
 		//Check email
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		checkAndDeleteMail(mail, contentMail);
-		
+		switchToParentWindow();
 		/*Step number: 2
 		 *Step Name: Unwatch
 		 *Step Description: 
@@ -285,7 +286,7 @@ public class Forum_Answers_Category  extends PlatformBase {
 		//Check email
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		checkAndDeleteMail(mail, contentMail);
-		
+		switchToParentWindow();
 		info("Clear data");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);

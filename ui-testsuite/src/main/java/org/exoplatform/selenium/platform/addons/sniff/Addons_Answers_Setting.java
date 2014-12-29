@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.forum.sniff;
+package org.exoplatform.selenium.platform.addons.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -25,7 +25,7 @@ import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.testng.annotations.*;
 
 
-public class Forum_Answers_Setting  extends PlatformBase {
+public class Addons_Answers_Setting  extends PlatformBase {
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
@@ -125,7 +125,7 @@ public class Forum_Answers_Setting  extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question1, content1, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 
 		info("Create answer 1");
 		aHome.goToHomeCategory();
@@ -156,7 +156,7 @@ public class Forum_Answers_Setting  extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat2, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question2, content2, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 
 		info("Create answer 2");
 		aHome.goToHomeCategory();
@@ -242,7 +242,11 @@ public class Forum_Answers_Setting  extends PlatformBase {
 		 *Expected Outcome: 
 			- Setting is saved,*/ 
 		aPage.settingDiscussion(true,cat1+"/"+for1);
-		click(pagEditor.ELEMENT_EDIT_CLOSE_BUTTON);
+		click(pagEditor.ELEMENT_PAGE_EDITOR_CLOSE_BUTTON);
+		pagEditor.finishEditLayout();
+		aPage.goToEditAnswerPortlet();
+		aPage.setDisplayCategoryScoping(paCat1, true);
+		click(pagEditor.ELEMENT_PAGE_EDITOR_CLOSE_BUTTON);
 		pagEditor.finishEditLayout();
 	}
 }

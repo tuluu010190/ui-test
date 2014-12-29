@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.forum.sniff;
+package org.exoplatform.selenium.platform.addons.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -19,7 +19,7 @@ import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.testng.annotations.*;
 
 
-public class Forum_Answers_Search  extends PlatformBase {
+public class Addons_Answers_Search  extends PlatformBase {
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
@@ -104,7 +104,7 @@ public class Forum_Answers_Search  extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question1, content1, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 
 		info("Create answer 1");
 		aHome.goToHomeCategory();
@@ -135,7 +135,7 @@ public class Forum_Answers_Search  extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat2, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question2, content2, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 
 		info("Create answer 2");
 		aHome.goToHomeCategory();

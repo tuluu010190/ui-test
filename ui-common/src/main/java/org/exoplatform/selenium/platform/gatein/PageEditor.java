@@ -35,10 +35,9 @@ public class PageEditor extends PlatformBase {
 	public final By ELEMENT_EDIT_PAGE_PAGE = By.id("UIPage");
 	public final By ELEMENT_PAGE_EDITOR_SAVE_BUTTON=By.xpath("//*[@id='UIPageForm']//*[text()='Save']");
 	public final By ELEMENT_PAGE_EDITOR_SAVE_AND_CLOSE_BUTTON=By.xpath("//*[text()='Save And Close']");
-	public final By ELEMENT_PAGE_EDITOR_CLOSE_BUTTON=By.xpath("//*[text()='Close']");
+	public final By ELEMENT_PAGE_EDITOR_CLOSE_BUTTON=By.id("Close");
 	public final By ELEMENT_FRAME_CONTAIN_PORTLET = By.xpath("//div[contains(@id,'UIPortlet')]");
 	public final By ELEMENT_EDIT_SAVE_BUTTON=By.xpath("//*[text()='Save']");
-	public final By ELEMENT_EDIT_CLOSE_BUTTON=By.xpath("//*[text()='Close']");
 	public final By ELEMENT_PAGE_OK_BUTTON=By.xpath("//*[contains(@class,'UIPopupWindow')]//a[text()='OK']");
 	
 	public PageEditor(WebDriver dr){

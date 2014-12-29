@@ -90,13 +90,6 @@ public class CalendarHomePage extends PlatformBase{
 	public String ELEMENT_CONFIRM_DELETE_TASK_MSG = "Are you sure you want to delete this task?";
 	public String ELEMENT_CONFIRM_DELETE_EVENT_MSG = "Are you sure you want to delete this event?";
 
-	//page navigation
-	public By ELEMENT_NEXT_PAGE=By.xpath("//*[@class='uiIconNextArrow']");
-	public By ELEMENT_PREVIOUS_PAGE=By.xpath("//*[@class='uiIconPrevArrow']");
-	public By ELEMENT_TOTAL_PAGE=By.xpath("//*[@class='pagesTotalNumber']");
-	public By ELEMENT_CURRENT_PAGE=By.xpath("//*[@class='active']/*[contains(@href,'objectId')]");
-	public String ELEMENT_ANY_PAGE="//*[contains(@href,'objectId') and text()='$page']";
-
 	//quick search
 	public By ELEMENT_QUICK_SEARCH_INPUT=By.id("value");
 	public String ELEMENT_QUICK_SEARCH_FORM = "//div[@class='uiSearchForm uiSearchInput pull-right']";

@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.forum.sniff;
+package org.exoplatform.selenium.platform.addons.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -22,7 +22,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
-public class Forum_Answers_PublishActivity   extends PlatformBase {
+public class Addons_Answers_PublishActivity   extends PlatformBase {
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
@@ -117,7 +117,7 @@ public class Forum_Answers_PublishActivity   extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 
 		info("Create answer");
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
@@ -204,7 +204,7 @@ public class Forum_Answers_PublishActivity   extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 
 		info("Test 5: Submit an answer");
 		/*Step Number: 1
@@ -321,7 +321,7 @@ public class Forum_Answers_PublishActivity   extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		
 		info("Test 3: Unactivate a question");
 		/*Step Number: 1
@@ -407,7 +407,7 @@ public class Forum_Answers_PublishActivity   extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		
 		info("Test 8: Edit question title");
 		/*Step Number: 1
@@ -471,7 +471,7 @@ public class Forum_Answers_PublishActivity   extends PlatformBase {
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
 		qMang.inputDataToQuestionForm(question, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
 		
 		info("Test 9: Open Answers application from Answer's activity");
 		/*Step Number: 1

@@ -50,20 +50,20 @@ public class QuestionManagement extends PlatformBase {
 	public String ELEMENT_ATTACH_FILE_NAME = "//*[@data-original-title='$fileName']";
 
 	//More actions
-	public By ELEMENT_QUESTION_MORE_ACTION_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'uiIconSettings')]");
-	public By ELEMENT_QUESTION_PRINT_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'uiIconPrint')]");
-	public By ELEMENT_QUESTION_EDIT_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'uiIconEdit')]");
-	public By ELEMENT_QUESTION_MOVE_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'uiIconMove')]");
-	public By ELEMENT_QUESTION_SEND_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'uiIconAnsSentMail')]");
-	public By ELEMENT_QUESTION_DELETE_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'uiIconTrash')]");
+	public By ELEMENT_QUESTION_MORE_ACTION_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconSettings')]");
+	public By ELEMENT_QUESTION_PRINT_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconPrint')]");
+	public By ELEMENT_QUESTION_EDIT_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconEdit')]");
+	public By ELEMENT_QUESTION_MOVE_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconMove')]");
+	public By ELEMENT_QUESTION_SEND_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconAnsSentMail')]");
+	public By ELEMENT_QUESTION_DELETE_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconTrash')]");
 
 	//Question menu action
-	public By ELEMENT_QUESTION_COMMENT=By.xpath("//*[@class='uiIconComment uiIconLightGray']");
-	public By ELEMENT_QUESTION_ANSWER=By.xpath("//*[@class='uiIconAnsAnswer uiIconLightGray']");
-	public By ELEMENT_QUESTION_EDIT=By.xpath("//*[@class='uiIconEdit uiIconLightGray']");
-	public By ELEMENT_QUESTION_DELETE=By.xpath("//*[@class='uiIconTrash uiIconLightGray']");
-	public By ELEMENT_QUESTION_MOVE=By.xpath("//*[@class='uiIconMove uiIconLightGray']");
-	public By ELEMENT_QUESTION_SEND=By.xpath("//*[@class='uiIconAnsSentMail uiIconLightGray']");
+	public String ELEMENT_QUESTION_COMMENT="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconComment uiIconLightGray']";
+	public String ELEMENT_QUESTION_ANSWER="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconAnsAnswer uiIconLightGray']";
+	public String ELEMENT_QUESTION_EDIT="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconEdit uiIconLightGray']";
+	public String ELEMENT_QUESTION_DELETE="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconTrash uiIconLightGray']";
+	public String ELEMENT_QUESTION_MOVE="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconMove uiIconLightGray']";
+	public String ELEMENT_QUESTION_SEND="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconAnsSentMail uiIconLightGray']";
 
 	//Comment question form
 	public By ELEMENT_QUESTION_COMMENT_FORM=By.id("UICommentForm");
@@ -174,32 +174,32 @@ public class QuestionManagement extends PlatformBase {
 		switch(action){
 		case COMMENT:
 			info("Comment question");
-			click(ELEMENT_QUESTION_COMMENT);
+			click(ELEMENT_QUESTION_COMMENT.replace("$question", question));
 			waitForAndGetElement(ELEMENT_QUESTION_COMMENT_FORM);
 			break;
 		case ANSWER:
 			info("Answer question");
-			click(ELEMENT_QUESTION_ANSWER);
+			click(ELEMENT_QUESTION_ANSWER.replace("$question", question));
 			waitForAndGetElement(ELEMENT_QUESTION_ANSWER_FORM);
 			break;
 		case EDIT:
 			info("Edit question");
-			click(ELEMENT_QUESTION_EDIT);
+			click(ELEMENT_QUESTION_EDIT.replace("$question", question));
 			waitForAndGetElement(ELEMENT_QUESTION_EDIT_FORM);
 			break;
 		case DELETE:
 			info("Delete question");
-			click(ELEMENT_QUESTION_DELETE);
+			click(ELEMENT_QUESTION_DELETE.replace("$question", question));
 			waitForAndGetElement(ELEMENT_QUESTION_DELETE_FORM);
 			break;
 		case MOVE:
 			info("Move question");
-			click(ELEMENT_QUESTION_MOVE);
+			click(ELEMENT_QUESTION_MOVE.replace("$question", question));
 			waitForAndGetElement(ELEMENT_QUESTION_MOVE_FORM);
 			break;
 		case SEND:
 			info("Send question");
-			click(ELEMENT_QUESTION_SEND);
+			click(ELEMENT_QUESTION_SEND.replace("$question", question));
 			waitForAndGetElement(ELEMENT_QUESTION_SEND_FORM);
 			break;
 		default:
@@ -277,6 +277,12 @@ public class QuestionManagement extends PlatformBase {
 	 */
 	public void goToEditQuestionFromManageQuestionForm(String question){
 		info("Go to edit question from manage question form");
+		if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+			click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+			while((waitForAndGetElement(ELEMENT_MANAGE_QUESTION_EDIT_QUESTION.replace("$question", question),5000,0)==null)
+					&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+				click(ELEMENT_NEXT_PAGE);
+		}
 		click(ELEMENT_MANAGE_QUESTION_EDIT_QUESTION.replace("$question", question));
 		waitForAndGetElement(ELEMENT_QUESTION_EDIT_FORM);
 	}
@@ -287,6 +293,12 @@ public class QuestionManagement extends PlatformBase {
 	 */
 	public void goToDeleteQuestionFromManageQuestionForm(String question){
 		info("Go to delete question from manage question form");
+		if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+			click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+			while((waitForAndGetElement(ELEMENT_MANAGE_QUESTION_DELETE_QUESTION.replace("$question", question),5000,0)==null)
+					&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+				click(ELEMENT_NEXT_PAGE);
+		}
 		click(ELEMENT_MANAGE_QUESTION_DELETE_QUESTION.replace("$question", question));
 		waitForAndGetElement(ELEMENT_QUESTION_DELETE_FORM);
 	}
@@ -301,10 +313,22 @@ public class QuestionManagement extends PlatformBase {
 	public void approveQuestionFromManageQuestionForm(String question, Boolean isApprove){
 		if(isApprove){
 			info("Approve question");
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while((waitForAndGetElement(ELEMENT_MANAGE_QUESTION_APPROVE_QUESTION_CHECKBOX.replace("$question", question),5000,0,2)==null)
+						&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+					click(ELEMENT_NEXT_PAGE);
+			}
 			check(By.xpath(ELEMENT_MANAGE_QUESTION_APPROVE_QUESTION_CHECKBOX.replace("$question", question)),2);
 		}
 		else{
 			info("Dis-approve question");
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while((waitForAndGetElement(ELEMENT_MANAGE_QUESTION_APPROVE_QUESTION_CHECKBOX.replace("$question", question),5000,0,2)==null)
+						&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+					click(ELEMENT_NEXT_PAGE);
+			}
 			uncheck(By.xpath(ELEMENT_MANAGE_QUESTION_APPROVE_QUESTION_CHECKBOX.replace("$question", question)),2);
 		}
 	}
@@ -319,10 +343,22 @@ public class QuestionManagement extends PlatformBase {
 	public void activeQuestionFromManageQuestionForm(String question, Boolean isActive){
 		if(isActive){
 			info("Active question");
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while((waitForAndGetElement(ELEMENT_MANAGE_QUESTION_ACTIVE_QUESTION_CHECKBOX.replace("$question", question),5000,0,2)==null)
+						&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+					click(ELEMENT_NEXT_PAGE);
+			}
 			check(By.xpath(ELEMENT_MANAGE_QUESTION_ACTIVE_QUESTION_CHECKBOX.replace("$question", question)),2);
 		}
 		else{
 			info("Un-active question");
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				click(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while((waitForAndGetElement(ELEMENT_MANAGE_QUESTION_ACTIVE_QUESTION_CHECKBOX.replace("$question", question),5000,0,2)==null)
+						&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+					click(ELEMENT_NEXT_PAGE);
+			}
 			uncheck(By.xpath(ELEMENT_MANAGE_QUESTION_ACTIVE_QUESTION_CHECKBOX.replace("$question", question)),2);
 		}
 	}

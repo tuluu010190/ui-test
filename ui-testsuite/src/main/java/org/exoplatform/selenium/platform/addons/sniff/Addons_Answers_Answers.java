@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.forum.sniff;
+package org.exoplatform.selenium.platform.addons.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -25,7 +25,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
-public class Forum_Answers_Answers  extends PlatformBase {
+public class Addons_Answers_Answers  extends PlatformBase {
 	AnswerPage aPage;
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
@@ -41,11 +41,13 @@ public class Forum_Answers_Answers  extends PlatformBase {
 	ManageAlert alert;
 	PageEditor pagEditor;
 	Button button;
-	String question;
-	String content;
+	String question1;
+	String content1;
 	String paCat1;
 	String paDes1;
 	String fullName;
+	String question2;
+	String content2;
 
 	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
@@ -71,8 +73,10 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		question = txData.getContentByArrayTypeRandom(1)+"116814";
-		content = txData.getContentByArrayTypeRandom(1)+"116814";
+		question1 = txData.getContentByArrayTypeRandom(1)+"1116814";
+		content1 = txData.getContentByArrayTypeRandom(1)+"1116814";
+		question2 = txData.getContentByArrayTypeRandom(1)+"2116814";
+		content2 = txData.getContentByArrayTypeRandom(1)+"2116814";
 		paCat1 = txData.getContentByArrayTypeRandom(1)+"p116814";
 		paDes1 = txData.getContentByArrayTypeRandom(1)+"p116814";
 		fullName = userData.fullName.get(0);
@@ -114,9 +118,15 @@ public class Forum_Answers_Answers  extends PlatformBase {
 
 		info("Create question");
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
-		qMang.inputDataToQuestionForm(question, content, null, null);
+		qMang.inputDataToQuestionForm(question1, content1, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
-		button.ok();
+		click(button.ELEMENT_OK_BUTTON_LINK);
+		
+		info("Create question");
+		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
+		qMang.inputDataToQuestionForm(question2, content2, null, null);
+		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
+		click(button.ELEMENT_OK_BUTTON_LINK);
 	}
 
 	public void deleteDataTest(){
@@ -144,17 +154,17 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		aHome.goToHomeCategory();
 		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		aMang.goToAnswerQuestion(question);
+		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer1, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer1).replace("$fullname", fullName));
 
-		aMang.goToAnswerQuestion(question);
+		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer2, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer2).replace("$fullname", fullName));
 
-		aMang.goToAnswerQuestion(question);
+		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer3, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer3).replace("$fullname", fullName));
@@ -184,7 +194,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		info("Clear data");
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.deleteAnswer(answer1);
 		aMang.deleteAnswer(answer2);
 		aMang.deleteAnswer(answer3);
@@ -216,7 +226,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		aHome.goToHomeCategory();
 		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		aMang.goToAnswerQuestion(question);
+		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
@@ -239,7 +249,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForElementNotPresent(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
 		/*Step number: 3
@@ -257,7 +267,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.goToActionOfAnswerFromMoreAction(answer,actionAnswerOption.EDIT);
 		aMang.inputDataToAnswer(null, null, true, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -266,7 +276,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
 		info("Clear data");
@@ -275,7 +285,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.deleteAnswer(answer);
 	}
 
@@ -308,7 +318,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		aHome.goToHomeCategory();
 		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		aMang.goToAnswerQuestion(question);
+		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, false, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 
@@ -317,7 +327,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForElementNotPresent(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
 		/*Step number: 2
@@ -336,7 +346,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.goToActionOfAnswerFromMoreAction(answer,actionAnswerOption.EDIT);
 		aMang.inputDataToAnswer(null, true, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -345,7 +355,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
 		/*Step number: 3
@@ -364,7 +374,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.goToActionOfAnswerFromMoreAction(answer,actionAnswerOption.EDIT);
 		aMang.inputDataToAnswer(null, false, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -373,7 +383,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForElementNotPresent(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
 
@@ -383,7 +393,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		hp.goToAnswer();
 		aHome.goToHomeCategory();
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.deleteAnswer(answer);
 	}
 
@@ -433,7 +443,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		aHome.goToHomeCategory();
 		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		aMang.goToAnswerQuestion(question);
+		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
@@ -504,7 +514,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		aHome.goToHomeCategory();
 		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		aMang.goToAnswerQuestion(question);
+		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
@@ -523,7 +533,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		aHome.goToHomeCategory();
 		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		comMang.goToCommentQuestion(question);
+		comMang.goToCommentQuestion(question1);
 		comMang.inputDataToComment(comment);
 		click(comMang.ELEMENT_COMMENT_FORM_SAVE_BUTTON);
 		waitForAndGetElement(comMang.ELEMENT_COMMENT_AUTHOR.replace("$comment", comment).replace("$fullname", fullName));
@@ -591,7 +601,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		aHome.goToHomeCategory();
 		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		aMang.goToAnswerQuestion(question);
+		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
@@ -607,7 +617,7 @@ public class Forum_Answers_Answers  extends PlatformBase {
 
 		 *Expected Outcome: 
 			- Comment successfully*/
-		comMang.goToCommentQuestion(question);
+		comMang.goToCommentQuestion(question1);
 		comMang.inputDataToComment(comment);
 		click(comMang.ELEMENT_COMMENT_FORM_SAVE_BUTTON);
 		waitForAndGetElement(comMang.ELEMENT_COMMENT_AUTHOR.replace("$comment", comment).replace("$fullname", fullName));
@@ -670,12 +680,12 @@ public class Forum_Answers_Answers  extends PlatformBase {
 		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		qMang.goToManageQuestionForm();
 		click(qMang.ELEMENT_MANAGE_QUESTION_FORM_OPEN_QUESTION_TAB);
-		click(qMang.ELEMENT_MANAGE_QUESTION_ANSWER_QUESTION.replace("$question", question));
+		click(qMang.ELEMENT_MANAGE_QUESTION_ANSWER_QUESTION.replace("$question", question2));
 		aMang.inputDataToAnswer(answer, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForElementNotPresent(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForAndGetElement(qMang.ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON).click();
-		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question2)));
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
 		info("Clear data");
