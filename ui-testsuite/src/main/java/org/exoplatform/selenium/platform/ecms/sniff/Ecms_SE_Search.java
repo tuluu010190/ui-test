@@ -33,7 +33,7 @@ public class Ecms_SE_Search extends PlatformBase {
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
 
-	@BeforeTest
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		getDriverAutoSave();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -55,7 +55,7 @@ public class Ecms_SE_Search extends PlatformBase {
 		magAc.signOut();
 	}
 
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();

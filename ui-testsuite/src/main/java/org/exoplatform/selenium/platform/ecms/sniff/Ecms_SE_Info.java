@@ -3,7 +3,6 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -35,7 +34,7 @@ public class Ecms_SE_Info extends PlatformBase{
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
 
-	@BeforeTest
+	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		getDriverAutoSave();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -60,7 +59,7 @@ public class Ecms_SE_Info extends PlatformBase{
 		magAc.signOut();
 	}
 
-	@AfterTest
+	@AfterClass
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
 		driver.quit();

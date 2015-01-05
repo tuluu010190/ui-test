@@ -5,13 +5,9 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome.selectDriverOption;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome.selectDriverOrder;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -28,7 +24,7 @@ import org.testng.annotations.*;
 			magAc.signIn(DATA_USER1, DATA_PASS);
 		}
 
-		@BeforeTest
+		@BeforeClass
 		public void setUpBeforeTest() throws Exception{
 			getDriverAutoSave();
 			getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -43,7 +39,7 @@ import org.testng.annotations.*;
 			magAc.signOut();
 		}
 
-		@AfterTest
+		@AfterClass
 		public void afterTest(){
 			driver.manage().deleteAllCookies();
 			driver.quit();
