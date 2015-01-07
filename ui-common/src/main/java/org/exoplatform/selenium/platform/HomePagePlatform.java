@@ -6,6 +6,7 @@ import org.exoplatform.selenium.TestBase;
 import org.exoplatform.selenium.platform.answer.AnswerHomePage;
 import org.exoplatform.selenium.platform.answer.FaqHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
+import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
@@ -15,6 +16,7 @@ import org.openqa.selenium.WebDriver;
 public class HomePagePlatform extends TestBase{
 	WikiHomePage wHome;
 	CalendarHomePage cHome;
+	SiteExplorerHome SEHome;
 	SpaceManagement sMang;
 	AnswerHomePage aHome;
 	ForumHomePage fHome;
@@ -26,14 +28,30 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_WIKI_LINK_PLF=By.xpath("//*[@data-original-title='Wiki']");
 	public final By ELEMENT_HOME_LINK_PLF=By.xpath("//*[@data-original-title='Home']");
 	public final By ELEMENT_CALENDAR_LINK_PLF=By.xpath("//*[@data-original-title='Calendar']");
+
+
+	//Wiki activity
+	public final String ELEMENT_WIKI_COMMENT_EDIT_TITLE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'title has been updated to: ${title}')]";
+	public final String ELEMENT_WIKI_COMMENT_EDIT_CONTENT = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'content has been edited')]";
+	public final String ELEMENT_ACTIVITY_WIKI_TITLE = "//*[@class='linkTitle' and text()='${title}']";
+	public final String ELEMENT_ACTIVITY_WIKI_CONTENT = "//*[@class='linkTitle' and text()='${title}']/../../..//*[@class='contentWiki theContent']/*[@class='text']";
+	public final String ELEMENT_ACTIVITY_WIKI_VERSION = "//*[@class='linkTitle' and text()='${title}']/../..//*[@class = 'pull-right versionLabel' and contains(text(), 'Version: ${version}')]";
+	public final String ELEMENT_ACTIVITY_MOVE_WIKI_PAGE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'Page has been moved to: ${path}')]";
 	public final By ELEMENT_MY_SPACE_LINK_PLF=By.xpath("//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'My Spaces')]");
 	public final String ELEMENT_SPECIFIC_SPACE_LINK_PLF ="//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'{$space}')]";
 
 	//Middle homepage panel
 	public final By ELEMENT_HOMPAGE_MIDDLE_PANEL = By.id("OfficeMiddle");
 	
-
 	//Right panel
+
+	//Tool bar
+	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
+
+	//Administration
+	public final By ELEMENT_ADMINISTRATION_CONTENT = By.xpath("//*[text()='Content']");
+	public final By ELEMENT_ADMINISTRATION_SITEEXPLORER = By.xpath("//*[text()='Sites Explorer']");
+
 
 	/**
 	 * constructor
@@ -43,12 +61,13 @@ public class HomePagePlatform extends TestBase{
 		this.driver=dr;
 		wHome = new WikiHomePage(dr);
 		cHome = new CalendarHomePage(dr);
+		SEHome = new SiteExplorerHome(dr);
 		sMang = new SpaceManagement(dr);
 		aHome = new AnswerHomePage(dr);
 		fHome = new ForumHomePage(dr);
 		fqHome = new FaqHomePage(dr);
 	}
-	
+
 	/**
 	 * Go to Wiki portlet
 	 */
@@ -66,7 +85,7 @@ public class HomePagePlatform extends TestBase{
 		click(ELEMENT_HOME_LINK_PLF);
 		waitForAndGetElement(ELEMENT_HOMPAGE_MIDDLE_PANEL);
 	}
-	
+
 	/**
 	 * Go to Home Calendar Page
 	 */
@@ -75,16 +94,22 @@ public class HomePagePlatform extends TestBase{
 		click(ELEMENT_CALENDAR_LINK_PLF);
 		waitForAndGetElement(cHome.ELEMENT_CALENDAR_WORKING_PANEL);
 	}
-	
-	/**
-	 * Go to My Space
-	 */
-	public void goToMySpace(){
-		info("-- Go to My space page --");
-		click(ELEMENT_MY_SPACE_LINK_PLF);
-		waitForAndGetElement(sMang.ELEMENT_SPACE_MY_SPACE_PORTLET);
+
+	public void goToSiteExplorer() {
+		info("-- Go to site explorer home page --");
+		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		mouseOver(ELEMENT_ADMINISTRATION_CONTENT, true);
+		click(ELEMENT_ADMINISTRATION_SITEEXPLORER);
+		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_WORKING_PANEL);
 	}
-	
+
+	/**
+	 * Go to my spaces
+	 */
+	public void goToMySpaces(){
+		info("-- Go to my spaces --");
+		click(ELEMENT_MY_SPACE_LINK_PLF);
+	}
 	/**
 	 * Go to answer page
 	 */

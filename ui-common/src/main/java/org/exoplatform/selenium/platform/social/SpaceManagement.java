@@ -1,17 +1,30 @@
 package org.exoplatform.selenium.platform.social;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.platform.PlatformPermission;
+import static org.exoplatform.selenium.TestLogger.info;
+/**
+ * update : quynhpt
+ * date: 0601/2014
+ *
+ */
 public class SpaceManagement extends PlatformBase {
 	PlatformPermission per;
 	ManageAlert alert;
 	Button button;
+	Dialog dialog;
+	
+	// Add form space
+	public final By ELEMENT_ADDNEWSPACE_BUTTON = By.xpath("//button[contains(.,'Add New Space')]");
+	public final By ELEMENT_ADDNEWSPACE_FORM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add New Space']");
+	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
+	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
 
 	//Space portlets
 	public By ELEMENT_SPACE_MY_SPACE_PORTLET = By.id("UIMySpacesPortlet");
@@ -25,8 +38,6 @@ public class SpaceManagement extends PlatformBase {
 
 	//Setting tab form
 	public By ELEMENT_SPACE_SETTING_TAB=By.xpath("//*[@data-target='#UISpaceSettings-tab']");
-	public By ELEMENT_SPACE_NAME_INPUT=By.id("displayName");
-	public By ELEMENT_SPACE_DESCRIPTION_INPUT=By.id("description");
 
 	//Access and Edit tab form
 	public By ELEMENT_SPACE_ACCESS_EDIT_TAB=By.xpath("//*[@data-target='#UISpaceVisibility-tab']");
@@ -57,6 +68,7 @@ public class SpaceManagement extends PlatformBase {
 		this.driver=dr;
 		alert = new ManageAlert(driver);
 		button = new Button(driver);
+		dialog = new Dialog(driver);
 	}
 
 	/**
@@ -111,4 +123,42 @@ public class SpaceManagement extends PlatformBase {
 		}
 	}
 
+	/**
+	 * Migrate to PLF 4
+	 * <li>Update by @author vuna2</li>
+	 * Click on a button with a specific label
+	 * 
+	 * @param label : Button label
+	 */
+	public void clickButton(String label) {
+		By button = By.xpath("//div[@class='uiAction']/*[text()='" + label + "']");
+		//("//*[contains(@class,'ActionButton') and text()='" + label + "']");
+		waitForAndGetElement(button);
+		clickByJavascript(button);
+	}
+	
+	/**
+	 * Create quickly a new space
+	 * 
+	 * @param name : Space name
+	 * @param desc : Space description
+	 * 
+	 */
+	public void addNewSpace(String name, String desc, int... params) {
+		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT; 
+		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
+			click(ELEMENT_ADDNEWSPACE_BUTTON);
+		}else {
+			click(By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]"));
+		}
+		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM);
+		type(ELEMENT_SPACE_NAME_INPUT, name, true);
+		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
+		clickButton("Create");
+		waitForAndGetElement(By.linkText(name), iTimeout);
+		if(waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0) == null){
+			click(By.linkText(name));
+			waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0);
+		}
+  }
 }

@@ -81,7 +81,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 	 * Create data test
 	 */
 	public void createDataTest(){
-		hp.goToMySpace();
+		hp.goToMySpaces();
 		sMang.goToCreateSpace();
 		sMang.inputDataToSettingTab(spaceName, spaceDes);
 		sMang.doCreateSpace();
@@ -92,7 +92,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 	 * Delete datatest
 	 */
 	public void deleteDataTest(){
-		hp.goToMySpace();
+		hp.goToMySpaces();
 		sMang.deleteSpace(spaceName, false);
 	}
 	
