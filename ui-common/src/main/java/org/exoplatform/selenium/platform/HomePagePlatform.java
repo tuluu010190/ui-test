@@ -51,17 +51,16 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_ADMINISTRATION_CONTENT = By.xpath("//*[text()='Content']");
 	public final By ELEMENT_ADMINISTRATION_SITEEXPLORER = By.xpath("//*[text()='Sites Explorer']");
 
-		// administration panel
+	// administration panel
 	public final By ELEMENT_TOPBAR_ADMINISTRATION_BUTTON =By.xpath(".//*[@id='UISetupPlatformToolBarPortlet']/a");
 	public final By ELEMENT_TOPBAR_CONTENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Content')]");
 	public final By ELEMENT_CONTENT_TOPBAR_ADMINISTRATION = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Content Administration')]");
 	
-		// Edit panel
+	// Edit panel
 	public final By ELEMENT_EDIT_BUTTON = By.xpath(".//*[@id='UIAdminToolbarContainer']//*[@class='uiIconPLF24x24Edit']");
 	public final By ELEMENT_SITE_TOP_LIST = By.xpath(".//*[@id='UIAdminToolbarContainer']/ul/li[3]/a");
 	public final By ELEMENT_ADD_PAGE_DROP_LIST = By.xpath(".//*[@id='UIAdminToolbarContainer']/ul/li[3]/ul[@class='dropdown-menu']/li[4]/a"); 
-
-
+	
 	/**
 	 * constructor
 	 * @param dr
@@ -104,7 +103,9 @@ public class HomePagePlatform extends TestBase{
 		waitForAndGetElement(cHome.ELEMENT_CALENDAR_WORKING_PANEL);
 	}
 
-
+    /**
+     * Go to Site Explorer page
+     */
 	public void goToSiteExplorer() {
 		info("-- Go to site explorer home page --");
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);
@@ -158,7 +159,6 @@ public class HomePagePlatform extends TestBase{
 		click(ELEMENT_TOPBAR_ADMINISTRATION_BUTTON);
 		mouseOver(ELEMENT_TOPBAR_CONTENT, true);
 		click(ELEMENT_CONTENT_TOPBAR_ADMINISTRATION);
-
 	}
 }
 

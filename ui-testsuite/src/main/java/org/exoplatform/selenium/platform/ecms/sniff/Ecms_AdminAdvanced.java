@@ -7,6 +7,7 @@ import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
+import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmFunctions;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
@@ -27,16 +28,26 @@ import org.testng.annotations.*;
 			getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 			driver.get(baseUrl);
 			magAc = new ManageLogInOut(driver);
-			magAc.signIn(DATA_USER1, DATA_PASS);
+			
 			hp = new HomePagePlatform(driver);
 			txData = new TextBoxDatabase();
 			caPage= new ContentAdministrationManagement(driver);
 			txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 		}	
+		@BeforeMethod
+		public void beforeMethod(){
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			hp.goToPageAdministration();
+			caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
+		}
+		
+		@AfterMethod
+		public void afterMethod(){
+			magAc.signOut();
+		}
 		
 		@AfterClass
-		public void afterTest(){
-			magAc.signOut();
+		public void afterClass(){
 			driver.quit();
 		}	
 		
@@ -49,13 +60,12 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Delete Action Type.</li>
 	*/
 	@Test
-	public void test01_AddActionType() {
+	public void test01_02_03_Add_Edit_Delete_ActionType() {
 		info("Test 1: Add Action Type");
-		String title = txData.getContentByArrayTypeRandom(1)+"116581";
-		String Newtitle = txData.getContentByArrayTypeRandom(1)+"new116581";
+		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String Newtitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		hp.goToPageAdministration();
-		caPage.goToSpecificFunctions(mainEcmFunctions.ACTIONS);
+		caPage.goToSpecificFunctions(specificEcmFunctions.ACTIONS);
 		caPage.addActionType(title, null, null);
 		waitForAndGetElement(caPage.ELEMENT_ECM_ACTION_LIST.replace("{$name}",title));
 		caPage.editActionType(title,Newtitle,null,null);
@@ -84,9 +94,9 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Delete Query.</li>
 	*/
 	@Test
-	public  void test02_AddQuery() {
+	public  void test04_05_06_Add_Edit_Delete_Query() {
 		info("Test 2: Add Query");
-		String title = txData.getContentByArrayTypeRandom(1)+"116581";
+		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String type = "SQL";
 		String permission = "any";
 		/*Step Number: 1
@@ -100,8 +110,7 @@ import org.testng.annotations.*;
 			- Click Save
 		*Expected Outcome: 
 			The query is added successfully*/ 
-		hp.goToPageAdministration();
-		caPage.goToSpecificFunctions(mainEcmFunctions.QUERIES);
+		caPage.goToSpecificFunctions(specificEcmFunctions.QUERIES);
 		caPage.addQueries(title, null, null, permission);
 		caPage.editQueries(title,type, null, null);
 		waitForAndGetElement(By.xpath(caPage.ELEMENT_ECM_ADVANCED_QUERIES_TYPE_LIST.replace("{$name}", title).replace("{$type}","sql")));
@@ -118,12 +127,12 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Delete Script.</li>
 	*/
 	@Test
-	public  void test03_AddScript() {
+	public  void test10_11_12_Add_Edit_Delete_Script() {
 		info("Test 3: Add Script");
-		String title = txData.getContentByArrayTypeRandom(1)+"116581";
-		String Newtitle = txData.getContentByArrayTypeRandom(1)+"new116581";
-		String content = txData.getContentByArrayTypeRandom(1)+"content116581";
-		String script = txData.getContentByArrayTypeRandom(1)+"script116581.groovy";
+		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String Newtitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String script = txData.getContentByArrayTypeRandom(1)+"script"+getRandomNumber()+".groovy";
 		/*Step Number: 1
 		*Step Name: -
 		*Step Description: 
@@ -135,8 +144,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The script is Added successfully*/ 
 		
-		hp.goToPageAdministration();
-		caPage.goToSpecificFunctions(mainEcmFunctions.SCRIPTS);
+		caPage.goToSpecificFunctions(specificEcmFunctions.SCRIPTS);
 		caPage.addScripts(title, content, script);
 		waitForAndGetElement(caPage.ELEMENT_ECM_ADVANCED_SCRIPT_LIST.replace("{$name}",title));
 		caPage.EditScripts(title,Newtitle,null,null);
@@ -152,11 +160,11 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Delete Categories.</li>
 	*/
 	@Test
-	public  void test04_AddCategories() {
+	public  void test07_08_09_Add_Edit_Delete_Categories() {
 		info("Test 4: Add Categories");
-		String name = txData.getContentByArrayTypeRandom(1)+"116615";
+		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String lifeCycle ="Content Addition";
-		String nameAction = txData.getContentByArrayTypeRandom(1)+"116615";
+		String nameAction = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String targetPath = "root";
 		String workspace="knowledge";
 		/*Step Number: 1
@@ -171,8 +179,8 @@ import org.testng.annotations.*;
 			- Add/copy/cut/paste/delete category in category tree
 		*Expected Outcome: 
 			The Category is created successfully*/ 
-		hp.goToPageAdministration();
-		caPage.goToSpecificFunctions(mainEcmFunctions.CATEGORIES);
+		
+		caPage.goToSpecificFunctions(specificEcmFunctions.CATEGORIES);
 		caPage.addCategories(name, nameAction, lifeCycle, targetPath);
 		caPage.editCategories(name, null, null, null, workspace, targetPath);
 		waitForAndGetElement(By.xpath(caPage.ELEMENT_ECM_ADVANCED_CATEGORIES_WORKSPACE_LIST.replace("{$name}",name).replace("{$workspace}",workspace)));
