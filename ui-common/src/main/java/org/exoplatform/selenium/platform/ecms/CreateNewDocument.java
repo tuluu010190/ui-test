@@ -3,10 +3,12 @@ package org.exoplatform.selenium.platform.ecms;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class CreateNewDocument extends PlatformBase{
 
@@ -15,10 +17,21 @@ public class CreateNewDocument extends PlatformBase{
 
 	SiteExplorerHome SEHome;
 
+	// template form
 	public final By ELEMENT_ADDDOCUMENT_FILE = By.xpath("//*[@class='uiIcon64x64Templatent_file']");
 	public final By ELEMENT_ADDDOCUMENT_WEBCONTENT = By.xpath("//*[@class='uiIcon64x64Templateexo_webContent']");
-
-	//Document form
+    public final By ELEMENT_ADDDOCUMENT_ACCESSIBLE_MEDIA = By.xpath(".//*[@class='uiIcon64x64Templateexo_accessibleMedia']");
+    public final By ELEMENT_ADDDOCUMENT_ANNOUNCEMENT = By.xpath(".//*[@class='uiIcon64x64Templateexo_announcement']");
+    public final By ELEMENT_ADDDOCUMENT_CSS_FILE = By.xpath(".//*[@class='uiIcon64x64Templateexo_cssFile']");
+    public final By ELEMENT_ADDDOCUMENT_CONTACT_US = By.xpath(".//*[@class='uiIcon64x64Templateacme_contact_us']");
+    public final By ELEMENT_ADDDOCUMENT_HTML_FILE = By.xpath(".//*[@class='uiIcon64x64Templateexo_htmlFile']");
+    public final By ELEMENT_ADDDOCUMENT_ILLUSTRATED_WEB_CONTENT = By.xpath(".//*[@class='uiIcon64x64Templateexo_pictureOnHeadWebcontent']");
+    public final By ELEMENT_ADDDOCUMENT_JAVASCRIPT_FILE = By.xpath(".//*[@class='uiIcon64x64Templateexo_jsFile']");
+    public final By ELEMENT_ADDDOCUMENT_PRODUCT_FILE = By.xpath(".//*[@class='uiIcon64x64Templateacme_product']");
+    public final By ELEMENT_ADDDOCUMENT_WEBLINK = By.xpath(".//*[@class='uiIcon64x64Templateexo_link']");
+    
+    
+    //Document form
 	public final By ELEMENT_DOCFORM_BLANK_TITLE = By.xpath("//*[@id='title0']");
 	public final By ELEMENT_DOCFORM_BLANK_DESC = By.xpath("//*[@id='description0']");
 	public final By ELEMENT_DOCFORM_BLANK_CREATOR = By.xpath("//*[@id='creator0']");
@@ -35,6 +48,17 @@ public class CreateNewDocument extends PlatformBase{
 	public final By ELEMENT_WEBCONTENTFORM_LINK_ADRESS = By.xpath("//*[@id='cke_128_textInput']");
 	public final By ELEMENT_WEBCONTENTFORM_LINK_OK = By.xpath("//*[@id='cke_275_label']");
 
+	//New folder popup
+	public final By ELEMENT_ADD_NEW_FOLDER_POPUP_TITLE= By.xpath(".//*[@id='UIPopupWindow']//span[text()='New Folder']");
+	public final By ELEMENT_USE_CUSTOM_TYPE_FOLDER = By.id("customTypeCheckBox");
+	public final By ELEMENT_FOLDER_TITLE_TEXTBOX = By.id("titleTextBox");
+	public final By ELEMENT_FOLDER_TYPE_OPTION = By.name("customTypeSelectBox");
+	public final String ELEMENT_CONTENT_FOLDER_TYPE = "nt:unstructured";
+	
+	public final String ELEMENT_DOCUMENT_FOLDER_TYPE = "nt:folder";
+	public final By ELEMENT_DOCUMENT_FOLDER_TYPE_XPATH = By.xpath("//option[text()='Document Folder']");
+	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//*[text()='Create Folder']");
+	
 	public CreateNewDocument(WebDriver driver) {
 		this.driver= driver;
 		alert = new ManageAlert(driver);
@@ -62,51 +86,102 @@ public class CreateNewDocument extends PlatformBase{
 			break;
 
 		case ACCESSIBLEMEDIA:
-			//ToDO
+			click(ELEMENT_ADDDOCUMENT_ACCESSIBLE_MEDIA);
 			break;
 
 		case ANNOUNCEMENT:
-			//ToDO
+			click(ELEMENT_ADDDOCUMENT_ANNOUNCEMENT);
 			break;
 
 		case CSSFILE:
-			//ToDO
+			click(ELEMENT_ADDDOCUMENT_CSS_FILE);
 			break;
 
 		case CONTACTUS:
-			//ToDO
+			click(ELEMENT_ADDDOCUMENT_CONTACT_US);
 			break;
 
 		case HTMLFILE:
-			//ToDO
+			click(ELEMENT_ADDDOCUMENT_HTML_FILE);
 			break;
 
 		case ILLUSTRATEDWEBCONTENT:
-			//ToDO
+			click(ELEMENT_ADDDOCUMENT_ILLUSTRATED_WEB_CONTENT);
 			break;
 
 		case WEBLINK:
-			//ToDO
+			click(ELEMENT_ADDDOCUMENT_WEBLINK);
 			break;
 
 		case PRODUCT:
-			//ToDO
+			click(ELEMENT_ADDDOCUMENT_PRODUCT_FILE);
 			break;
 
 		case JAVASCRIPTFILE:
-			//ToDO
+			click(ELEMENT_ADDDOCUMENT_JAVASCRIPT_FILE);
 			break;
 		}
 	}
+	
+	/**
+	 * Define Folder types
+	 * By  quynhpt
+	 * Date 16/01/2015
+	 */
+	public enum folderType {
+		None, Content, Document, Css;
+	}
+	
+	/**
+	 * Add and select the type of new Content Folder
+	 * By QuynhPT
+	 * Date 16/01/2015
+	 * @param title
+	 * @param type
+	 */
+	public void createNewFolder(String title, folderType type) {
+		info("-- Creating a new folder --");
+		//Verify that the popup is shown
+		waitForAndGetElement(ELEMENT_ADD_NEW_FOLDER_POPUP_TITLE,2000,0);
+		//Verify that has check box element is shown on the popup
+		WebElement checkBox= waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER,5000, 0);
+		//if check box is avaiabled and unchecked, so, check it.
+		if (checkBox != null && !checkBox.isSelected()) {
+			click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
+		}
+		//Select a type of new folder 
+		switch (type) {
+		case Content:
+			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
+			break;
+		case Document:
+			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
+			selectOption(ELEMENT_FOLDER_TYPE_OPTION,
+					ELEMENT_DOCUMENT_FOLDER_TYPE);
+			break;
+		default:
+			break;
+		}
+		//Save the changes
+		click(ELEMENT_CREATE_FOLDER_BUTTON);
+		Utils.pause(2000);
+	}
 
 	/**
-	 * Add a new file
+	 * Add a new file only with title and content string
+	 * update QuynhPT
+	 * date 13/01/2015
 	 * @param title
 	 * @param content
 	 */
 	public void addNewFile(String title, String content) {
+		this.driver.navigate().refresh();
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
-		inputDataToFrame(ELEMENT_FILEFORM_BLANK_CONTENT , content, true);
+		WebElement e = waitForAndGetElement(ELEMENT_FILEFORM_BLANK_CONTENT,DEFAULT_TIMEOUT,1,2);
+		driver.switchTo().frame(e);
+		WebElement inputsummary = driver.switchTo().activeElement();
+		inputsummary.click();
+		inputsummary.sendKeys(content);
 		switchToParentWindow();
 	}
 

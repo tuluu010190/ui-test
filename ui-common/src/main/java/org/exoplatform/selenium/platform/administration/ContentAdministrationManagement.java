@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.administration;
 
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -108,8 +109,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 	// Explorer, views
 	public By ELEMENT_ECM_EXPLORER_VIEWS_ADD_VIEWS = By.xpath("//*[@class='UIViewList']//*[contains(text(),'Add View')]");
 	public By ELEMENT_ECM_EXPLORER_NAME_VIEW_FORM = By.xpath("//*[@id='viewName']");
-	public By ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM = By.xpath("//*[@id='UIViewFormTabPane']//*[contains(text(),'Action')]");
-	public By ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM = By.xpath("//*[@id='UITabContainer']//*[contains(text(),'Add')]");
+	
 	public String ELEMENT_ECM_EXPLORER_CHOOSE_TAB_CATEGORY_VIEW_FORM ="//*[contains(text(),'{$tab}')and @class='control-label']/../div/span/input";
 	public By ELEMENT_ECM_EXPLORE_TAB_NAME_VIEW_FORM = By.xpath("//*[@id='tabName']");
 	public By ELEMENT_ECM_EXPLORE_SAVE_TAB_VIEW_FORM = By.xpath("//*[@id='UITabForm']//*[contains(text(),'Save')]");
@@ -125,8 +125,48 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public String ELEMENT_ECM_EXPLORER_VIEW_SHOW_A_VIEW_LIST ="//*[@id='UIViewList']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconView uiIconLightGray']";
 	public String ELEMENT_ECM_EXPLORER_NAME_VIEW_SHOW_VIEW = "//*[@id='viewName' and @value='{$name}']";
 	public String ELEMENT_ECM_EXPLORER_TAB_ICONS_LIST_SHOW_VIEW ="//*[@id='UITabList']//*[contains(text(),'{$tab}')]";
-	public By ELEMENT_ECM_EXPLORER_CLOSE_VIEW_MODE = By.xpath(".//*[@id='UIViewFormTabPane']//*[contains(text(),'Close')]");		
-
+	public By ELEMENT_ECM_EXPLORER_CLOSE_VIEW_MODE = By.xpath(".//*[@id='UIViewFormTabPane']//*[contains(text(),'Close')]");
+	public String ELEMENT_ECM_EXPLORER_EDIT = ".//*[@data-original-title='${nameView}']/../..//i[@class='uiIconEditInfo uiIconLightGray']";
+	public By ELEMENT_ECM_EXPLORER_EDIT_VIEWS_SAVE_BUTTON = By.xpath(".//*[@id='UIViewFormTabPane']//button[text()='Save']");
+	
+	//Explorer,Views-->Actions tab
+	public By ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM = By.xpath("//*[@id='UIViewFormTabPane']//*[contains(text(),'Action')]");
+	public By ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM = By.xpath(".//*[@id='UITabList']//i[@class='uiIconEdit uiIconLightGray']");
+	public By ELEMENT_ECM_EXPLORER_DELETE_ACTION_VIEW_FORM =By.xpath(".//*[@id='UITabList']//i[@class='uiIconDelete uiIconLightGray']");
+	
+	//Explorer,Views-->Actions tab-->Add/Edit popup
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_CATEGORY=By.id("addCategory");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_TRANSLATION=By.id("addLocalizationLink");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_CONTENT_NAVIGATION=By.id("contentNavigation");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_IMPORT_NOTE=By.id("importNode");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_CATEGORIES=By.id("manageCategories");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_RELATIONS=By.id("manageRelations");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_APPROVE_CONTENT=By.id("publicationApproveContent");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_SHOW_JCR_STRUCTURE=By.id("showJCRStructure");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_METADATA=By.id("viewMetadatas");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_PROPERTIES=By.id("viewProperties");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_DOCUMENT=By.id("addDocument");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_SYMLINK=By.id("addSymLink");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_EDIT_DOCUMENT=By.id("editDocument");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_ACTIONS=By.id("manageActions");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_HIDE_SHOW_CONTENT=By.id("manageHidden");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_VERSIONS=By.id("manageVersions");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_PUBLISH=By.id("publicationPublish");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_TAG_DOCUMENT=By.id("taggingDocument");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_NODE_TYPE=By.id("viewNodeType");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VOTE=By.id("vote");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_FOLDER=By.id("addFolder");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_COMMENT=By.id("comment");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_EXPORT_NODE=By.id("exportNode");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_AUDITING=By.id("manageAuditing");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_PUBLICATION=By.id("managePublications");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_OVERLOAD_THUMBNAIL=By.id("overloadThumbnail");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_REQUEST_APPROVAL=By.id("publicationRequestApproval");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_UPLOAD=By.id("upload");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_PERMISSIONS=By.id("viewPermissions");
+	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_WATCH_DOCUMENT=By.id("watchDocument");
+	public By ELEMENT_ECM_EXPORER_ACTIONS_POPUP_SAVE_BUTTON=By.xpath(".//*[@id='UITabForm']//button[text()='Save']");
+	
 	// explorer, tags
 	public By ELEMENT_ECM_EXPLORER_TAGS_ADD_STYLE_BUTTON = By.xpath("//*[@id='UITagManager']//*[contains(text(),'Add Style')]");
 	public By ELEMENT_ECM_EXPLORER_TAGS_ADD_NAME_FORM = By.xpath("//*[@id='styleName']");
@@ -226,6 +266,16 @@ public class ContentAdministrationManagement extends PlatformBase{
 	}
 
 	/**
+	 * select action type for a web view
+	 * By quynhpt
+	 */
+	public enum specificEcmActionstypes {
+		ADD_CATEGORY, ADD_TRANSLATION, CONTENT_NAVIGATION, IMPORT_NOTE, MANAGE_CATEGORIES, MANAGE_RELATION, APPROVE_CONTENT, SHOW_JCR_STRUCTURE, VIEW_METADATA, 
+		VIEW_PROPERTIES, ADD_DOCUMENT, ADD_SYMLINK, EDIT_DOCUMENT, MANAGE_ACTIONS, HIDE_SHOW_CONTENT, MANAGE_VERSION, PUBLISH, TAG_DOCUMENT, VIEW_NODE_TYPE, VOTE, 
+		ADD_FOLDER, COMMENT, EXPORT_NODE, MANAGE_AUDITING, MANAGE_PUBLISHTATION, OVERLOAD_THUMBNAILS, REQUEST_APPROVAL, UPLOAD, VIEW_PERMISSIONS, WATCH_DOCUMENTS;
+	}
+	
+	/**
 	 * Go to Explorer function
 	 * @param main
 	 */
@@ -294,6 +344,104 @@ public class ContentAdministrationManagement extends PlatformBase{
 		}
 	}
 
+    /**
+     * select an actions to add for a view type
+     * @param action
+     */
+	public void goTospecificEcmActionstypes (specificEcmActionstypes action){
+			switch(action){
+			case ADD_CATEGORY:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_CATEGORY,2);
+				break;
+			case ADD_TRANSLATION:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_TRANSLATION,2);
+				break;
+			case CONTENT_NAVIGATION:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_CONTENT_NAVIGATION,2);
+				break;
+			case IMPORT_NOTE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_IMPORT_NOTE,2);
+				break;
+			case MANAGE_CATEGORIES :
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_CATEGORIES,2);
+				break;
+			case MANAGE_RELATION:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_RELATIONS,2);
+				break;
+			case APPROVE_CONTENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_APPROVE_CONTENT,2);
+				break;
+			case SHOW_JCR_STRUCTURE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_SHOW_JCR_STRUCTURE,2);
+				break;
+			case VIEW_METADATA:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_METADATA,2);
+				break;
+			case VIEW_PROPERTIES:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_PROPERTIES,2);
+				break;
+			case ADD_DOCUMENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_DOCUMENT,2);
+				break;
+			case ADD_SYMLINK:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_SYMLINK,2);
+				break;
+			case EDIT_DOCUMENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_EDIT_DOCUMENT,2);
+				break;
+			case MANAGE_ACTIONS:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_ACTIONS,2);
+				break;
+			case HIDE_SHOW_CONTENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_HIDE_SHOW_CONTENT,2);
+				break;
+			case MANAGE_VERSION :
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_VERSIONS,2);
+				break;
+			case PUBLISH:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_PUBLISH,2);
+				break;
+			case TAG_DOCUMENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_TAG_DOCUMENT,2);
+				break;
+			case VIEW_NODE_TYPE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_NODE_TYPE,2);
+				break;
+			case VOTE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VOTE,2);
+				break;
+			case ADD_FOLDER:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_FOLDER,2);
+				break;
+			case COMMENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_COMMENT,2);
+				break;
+			case EXPORT_NODE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_EXPORT_NODE,2);
+				break;
+			case MANAGE_AUDITING:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_AUDITING,2);
+				break;
+			case MANAGE_PUBLISHTATION:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_PUBLICATION,2);
+				break;
+			case OVERLOAD_THUMBNAILS :
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_OVERLOAD_THUMBNAIL,2);
+				break;
+			case REQUEST_APPROVAL:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_REQUEST_APPROVAL,2);
+				break;
+			case UPLOAD:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_UPLOAD,2);
+				break;
+			case VIEW_PERMISSIONS:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_PERMISSIONS,2);
+				break;
+			case WATCH_DOCUMENTS:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_WATCH_DOCUMENT,2);
+				break;
+			}
+	}
 	/**
 	 * Add a new View
 	 * @param name
@@ -418,6 +566,28 @@ public class ContentAdministrationManagement extends PlatformBase{
 			}
 		}
 		click(ELEMENT_ECM_EXPLORER_DRIVES_SAVE_FORM);
+	}
+	
+	/**
+	 * Add more actions for a View type
+	 * By QuynhPT
+	 * date 09/01/2015
+	 * @param nameView the name of View type as: Web, Admin, Icon, List, Categories
+	 * @param applyActions  the name of actions that list in the popup
+	 */
+	public void addActionsForAView (String nameView,specificEcmActionstypes action){
+        click(By.xpath(ELEMENT_ECM_EXPLORER_EDIT.replace("${nameView}", nameView)));
+        Utils.pause(2000);
+        click(ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM);
+		Utils.pause(1000);
+		click(ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM);
+		Utils.pause(2000);
+		goTospecificEcmActionstypes(action);
+		Utils.pause(2000);
+		click(ELEMENT_ECM_EXPORER_ACTIONS_POPUP_SAVE_BUTTON);
+		Utils.pause(2000);
+		click(ELEMENT_ECM_EXPLORER_EDIT_VIEWS_SAVE_BUTTON);
+		Utils.pause(1000);
 	}
 
 	/**
@@ -779,4 +949,5 @@ public class ContentAdministrationManagement extends PlatformBase{
 		alert.acceptAlert();
 		waitForElementNotPresent(By.xpath(ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE.replace("{$name}", name)));
 	}
+
 }

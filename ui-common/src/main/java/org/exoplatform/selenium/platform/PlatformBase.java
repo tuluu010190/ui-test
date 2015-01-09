@@ -9,6 +9,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 import static org.exoplatform.selenium.TestLogger.info;
@@ -204,5 +205,36 @@ public class PlatformBase extends TestBase {
 			loopCount = 0;
 		}
 	}
+	
+	/**
+	 * Select option from combo box
+	 * By QuynhPT
+	 * @param locator
+	 * @param option
+	 */
+	public void selectOption(Object locator, String option) {
+		try {
+			for (int second = 0;; second++) {
+				if (second >= DEFAULT_TIMEOUT / WAIT_INTERVAL) {
+					Assert.fail("Timeout at select: " + option + " into "
+							+ locator);
+				}
+				Select select = new Select(waitForAndGetElement(locator));
+				select.selectByValue(option);
+				if (option.equals(select.getFirstSelectedOption().getAttribute(
+						"value"))) {
+					break;
+				}
+				Utils.pause(WAIT_INTERVAL);
+			}
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT / WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			select(locator, option);
+		} finally {
+			loopCount = 0;
+		}
+	}
+
 	
 }
