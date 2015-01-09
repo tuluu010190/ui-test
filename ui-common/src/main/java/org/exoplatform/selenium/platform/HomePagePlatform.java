@@ -23,7 +23,6 @@ public class HomePagePlatform extends TestBase{
 	ForumHomePage fHome;
 	FaqHomePage fqHome;
 
-	
 	//Left panel
 	public final By ELEMENT_FORUM_LINK_PLF=By.xpath("//*[@data-original-title='Forums']");
 	public final By ELEMENT_ANSWER_LINK_PLF=By.xpath("//*[@data-original-title='Answer']");
@@ -44,6 +43,7 @@ public class HomePagePlatform extends TestBase{
 
 	//Middle homepage panel
 	public final By ELEMENT_HOMPAGE_MIDDLE_PANEL = By.id("OfficeMiddle");
+
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
 
@@ -51,16 +51,48 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_ADMINISTRATION_CONTENT = By.xpath("//*[text()='Content']");
 	public final By ELEMENT_ADMINISTRATION_SITEEXPLORER = By.xpath("//*[text()='Sites Explorer']");
 
+	// top panel
+	//edit
+	public final By ELEMENT_EDIT_PAGE = By.xpath("//*[@id='UIAdminToolbarContainer']//*[@class='dropdown-submenu']//*[@href='#' and contains(text(), 'Page')]");
+	public final By ELEMENT_EDIT_PAGE_SEO = By.xpath("//*[@data-original-title = 'SEO Management']");
+	
 	// administration panel
-	public final By ELEMENT_TOPBAR_ADMINISTRATION_BUTTON =By.xpath(".//*[@id='UISetupPlatformToolBarPortlet']/a");
+	public final By ELEMENT_TOPBAR_ADMINISTRATION_BUTTON =By.xpath("//*[@class='uiIconPLF24x24Setup']");
 	public final By ELEMENT_TOPBAR_CONTENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Content')]");
 	public final By ELEMENT_CONTENT_TOPBAR_ADMINISTRATION = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Content Administration')]");
+	public final By ELEMENT_CONTENT_TOPBAR_SITEEXPLORER = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Sites Explorer')]");
+	public final By ELEMENT_TOPBAR_ADMINISTRATION_PORTAL = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Portal')]");
+	public final By ELEMENT_PORTAL_TOPBAR_SITE = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[text()='Sites']");
+	
+	//User 
+	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
+	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
+	public final String ELEMENT_CHANGELANGUAGE_LANGUAGE = "//*[text()='${language}']";
+	public final String ELEMENT_AVATAR_CHANGELANGUAGE_APPLY = "//*[text()='${text}']";
+	
+	//Manage sites
+	public final By ELEMENT_EDITNAVIG_ACME = By.xpath("//*[text()='acme']/../..//*[@class='uiIconNavigation uiIconLightGray']");
+	public final By ELEMENT_EDITNAVIG_INTRANET = By.xpath("//*[text()='intranet']/../..//*[@class='uiIconNavigation uiIconLightGray']");
+	public final String ELEMENT_EDITSITE_SITE = "//*[@title='${name}']"; 
+	public final String ELEMENT_EDITSITE_SITESUPPRIMER = "//*[@class='uiIconDeleteNode']";
+	public final By ELEMENT_EDITSITE_SAVEBTN = By.xpath("//*[@class='btn' and text()='Save']");
 	
 	// Edit panel
 	public final By ELEMENT_EDIT_BUTTON = By.xpath(".//*[@id='UIAdminToolbarContainer']//*[@class='uiIconPLF24x24Edit']");
+	public final By ELEMENT_EDIT_CONTENT = By.xpath("//*[@class='quickEditUnchecked']");
+	public final By ELEMENT_EDIT_CONTENT_CHECK = By.xpath("//*[@class='quickEditChecked']");
 	public final By ELEMENT_SITE_TOP_LIST = By.xpath(".//*[@id='UIAdminToolbarContainer']/ul/li[3]/a");
-	public final By ELEMENT_ADD_PAGE_DROP_LIST = By.xpath(".//*[@id='UIAdminToolbarContainer']/ul/li[3]/ul[@class='dropdown-menu']/li[4]/a"); 
+	public final By ELEMENT_ADD_PAGE_DROP_LIST = By.xpath(".//*[@id='UIAdminToolbarContainer']/ul/li[3]/ul[@class='dropdown-menu']/li[4]/a");
 	
+	//SEO Management
+	public final By ELEMENT_SEO_LANGUAGE_SHOW = By.xpath("//*[@onClick='eXo.ecm.WCMUtils.showSEOLanguage(true)']");
+	public final By ELEMENT_SEO_LANGUAGE_SELECTBOX = By.xpath("//*[@name='language']");
+	public final By ELEMENT_SEO_TITLEBOX = By.xpath("//*[@id='title']");
+	public final By ELEMENT_SEO_DELETE = By.xpath("//*[@title='Delete']");
+	public final By ELEMENT_SEO_HELPDESC = By.xpath("//*[text()='Description: ']/..//*[@id='DescriptionHelp']");
+	public final By ELEMENT_SEO_HELPKEYWORD = By.xpath("//*[text()='Keywords: ']/..//*[@id='DescriptionHelp']");
+	public final By ELEMENT_SEO_HELPPRIORITY = By.xpath("//*[@id='PriorityHelp']");
+
 	/**
 	 * constructor
 	 * @param dr
@@ -114,6 +146,7 @@ public class HomePagePlatform extends TestBase{
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_WORKING_PANEL);
 	}
 
+
 	/**
 	 * Go to my spaces
 	 */
@@ -121,6 +154,7 @@ public class HomePagePlatform extends TestBase{
 		info("-- Go to my spaces --");
 		click(ELEMENT_MY_SPACE_LINK_PLF);
 	}
+
 	/**
 	 * Go to answer page
 	 */
@@ -129,7 +163,7 @@ public class HomePagePlatform extends TestBase{
 		click(ELEMENT_ANSWER_LINK_PLF);
 		waitForAndGetElement(aHome.ELEMENT_ANSWER_PORTLET);
 	}
-	
+
 	/**
 	 * Go to forum page
 	 */
@@ -138,7 +172,7 @@ public class HomePagePlatform extends TestBase{
 		click(ELEMENT_FORUM_LINK_PLF);
 		waitForAndGetElement(fHome.ELEMENT_FORUM_PORTLET);
 	}
-	
+
 	/**
 	 * Go to faq page
 	 */
@@ -150,7 +184,7 @@ public class HomePagePlatform extends TestBase{
 		driver.get(url);
 		waitForAndGetElement(fqHome.ELEMENT_FAQ_QUESTION_LIST);
 	}
-	
+
 	/**
 	 * Go to content administration
 	 */
@@ -160,5 +194,6 @@ public class HomePagePlatform extends TestBase{
 		mouseOver(ELEMENT_TOPBAR_CONTENT, true);
 		click(ELEMENT_CONTENT_TOPBAR_ADMINISTRATION);
 	}
+	
 }
 

@@ -19,8 +19,9 @@ public class SiteExplorerHome extends PlatformBase{
 	ManageAlert alert;
 	Button button;
 	CreateNewDocument CreNewDoc;
-	public final By ELEMENT_SITEEXPLORER_WORKING_PANEL = By.xpath("//*[@class='navItemSelected' and text()='Content Explorer']");
 
+	public final By ELEMENT_SITEEXPLORER_WORKING_PANEL = By.xpath("//*[@class='navItemSelected' and text()='Content Explorer']");
+	
 	//Action Bar
 	public final By ELEMENT_ACTIONBAR_ADDDOCUMENT = By.xpath("//*[@class='uiIconEcmsAddDocument uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_ADDFOLDER = By.xpath("//*[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
@@ -29,6 +30,12 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_ACTIONBAR_SEARCHBAR = By.xpath("//*[@id='simpleSearch']");
 	public final By ELEMENT_ACTIONBAR_MORE = By.xpath("//*[@class='dropdown pull-right listHiddenActionsContainer']/..//*[text()='More ']");
 	public final By ELEMENT_ACTIONBAR_METADATA = By.xpath("//*[@class='actionIcon']/..//*[text()=' Metadata']");
+
+	public final By ELEMENT_ACTIONBAR_ADDTRANSLATION = By.xpath("//*[@class='uiIconEcmsAddLocalizationLink uiIconEcmsLightGray']");
+	public final By ELEMENT_ACTIONBAR_ADDCOMMENT = By.xpath("//*[@class='uiIconEcmsComment uiIconEcmsLightGray']");
+	public final By ELEMENT_ACTIONBAR_ADDTAG = By.xpath("//*[@class='uiIconEcmsTaggingDocument uiIconEcmsLightGray']");
+	public final By ELEMENT_ACTIONBAR_PUBLICATION = By.xpath("//*[@class='uiIconEcmsManagePublications uiIconEcmsLightGray']");
+	public final By ELEMENT_ACTIONBAR_VOTE = By.xpath("//*[@class='uiIconEcmsVote uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_RELATION = By.xpath(".//i[@class='uiIconEcmsManageRelations uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_IMPORT_BUTTON = By.xpath(".//i[@class='uiIconEcmsImportNode uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_EXPORT_BUTTON= By.xpath(".//*[@class='uiIconEcmsExportNode uiIconEcmsLightGray']");
@@ -88,12 +95,21 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_MANAGEPUBLICATION_REVISION_TAB = By.linkText("Revision");
 	public final By ELEMENT_MANAGEPUBLICATION_HISTORY_TAB = By.linkText("History");
 	public final String ELEMENT_MANAGEPUBLICATION_HISTORY_ITEM = "//div[text()='${state}']";
-	
-	
+
+	//add translation 
+	public final By ELEMENT_ADDTRANSLATION_SELECTDOC = By.xpath("//*[@title='Select Document']");
+	public final String ELEMENT_FOLDERSELECTOR_PATH = "//*[@class='nodeName' and text()=' ${path}' ]";
+	public final String ELEMENT_FOLDERSELECTOR_CONTENTDETAIL_FINALPATH = "//*[@class='OddItem']//*[text()='${name}']";
+	public final By ELEMENT_SAVE_BTN = By.xpath("//*[text()='Save']");
+	public final By ELEMENT_ADD_BTN = By.xpath("//*[text()='Add']");
+	public final By ELEMENT_CLOSE_BTN = By.xpath("//*[text()='Close']");
+	public final By ELEMENT_OK_BTN = By.xpath("//*[text()='OK']");
+
 	//settings driver display
 	public final By ELEMENT_DRIVERSETTINGS_SORTBY = By.xpath("//*[@class='selectbox' and @name='sortBy']");
 	public final By ELEMENT_DRIVERSETTINGS_ORDER = By.xpath("//*[@class='selectbox' and @name='order']");
 	public final By ELEMENT_DRIVERSETTINGS_SAVE = By.xpath("//*[@class='btn btn-primary' and text()='Save']");
+
 	// upload
 	public final By ELEMENT_ACTIONBAR_UPLOAD = By.xpath("//*[@class='uiIconEcmsUpload uiIconEcmsLightGray']");
 	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
@@ -121,6 +137,10 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_ACTION_DELETE = By.xpath("//*[@class='uiIconEcmsDelete']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_SAVEDSEARCH = By.xpath("//*[@class='uiIconEcmsSavedSearchesMini uiIconEcmsLightGray']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_ADVANCEDSEARCH = By.xpath("//*[@class='actionIcon advancedSearchIcon pull-right']//*[@class='uiIconSearch uiIconLightGray']");
+	public final By ELEMENT_SITEEXPLORER_LEFTBOX_ROOTNODE = By.xpath("//*[@class='uiIconEcmsHome uiIconEcmsLightGray']");
+	public final By ELEMENT_SITEEXPLORER_LEFTBOX_RELATION = By.xpath("//*[@class='uiIconEcmsRelationMini uiIconEcmsLightGray']");
+	public final By ELEMENT_SITEEXPLORER_LEFTBOX_EXPLORER = By.xpath("//*[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
+	public final String ELEMENT_SITEEXPLORER_LEFTBOX_TITLE_TRANSLATION="//*[text()='fr (${title})']";
 	public final By ELEMENT_SITEEXPLORER_LIST_LOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsLock']");
 	
 	//advanced search 
@@ -153,6 +173,18 @@ public class SiteExplorerHome extends PlatformBase{
 	public final String ELEMENT_USER_CHECKBOX = "//*[text()='${user}']/../..//*[@type='checkbox']"; 
 	public final By ELEMENT_QUICK_SEARCH_BUTTON = By.xpath("//a[@data-original-title='Quick Search']");
 	public final By ELEMENT_ADD_USERS_BUTTON = By.xpath("//*[@id='UIUserSelector']//*[text()='Add']");
+
+	//comment
+	public final String ELEMENT_SITEEXPLORER_COMMENT = "//*[text()=' ${number} Comment(s)']";
+	public final By ELEMENT_SITEEXPLORER_COMMENT_SHOW = By.xpath("//*[text()='Show comments']");
+	public final By ELEMENT_SITEEXPLORER_COMMENT_EDIT = By.xpath("//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_SITEEXPLORER_COMMENT_DELETE = By.xpath("//*[@class='uiIconTrash uiIconLightGray']");
+	public final String ELEMENT_SITEEXPLORER_COMMENT_CONTENT = "//*[text()='${content}']";
+
+
+    //vote
+	public final By ELEMENT_SITEEXPLORER_VOTE_AVERAGE = By.xpath("//*[@data-original-title='Average']");
+	public final By ELEMENT_SITEEXPLORER_VOTEONDOCUMENT = By.xpath("//*[@class='uiVote clearfix']");
 	
 	//sideBar
 	public final String ELEMENT_SE_NODE = "//*[@title='{$node}']"; 
@@ -161,6 +193,11 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SIDE_BAR_RELATION_ICON=By.xpath(".//*[@id='UISideBar']//i[@class='uiIconEcmsRelationMini uiIconEcmsLightGray']");
 	public final String ELEMENT_SIDE_BAR_RELATION_TAB_FILE_TITLE=".//*[@id='UISideBar']//a[text()='${nameContent}']";
     public final By ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON=By.xpath(".//*[@id='UISideBar']//i[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
+	//tag
+	public final By ELEMENT_SITEEXPLORER_TAG_DELETE = By.xpath("//*[@class='uiIconClose']");
+	public final By ELEMENT_SITEEXPLORER_TAG_NAME = By.xpath("//*[@id='names']");
+	public final String ELEMENT_SITEEXPLORER_TAG_EXISTING = "//*[@class='actionField']//*[contains(text(),'${name}')]";
+	public final By ELEMENT_SITEEXPLORER_TAG_INPUT= By.xpath("//*[@id='tagName']");
 	
 	public SiteExplorerHome(WebDriver dr){
 		this.driver=dr;
@@ -175,6 +212,7 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_ACTIONBAR_ADDFOLDER);
 		waitForAndGetElement(ELEMENT_ADDFOLDERBOX);
 	}
+
     /**
      * Create a new folder. Input the title and folder type
      * @param title
@@ -186,6 +224,7 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_ADDFOLDER_CREATEFOLDERBUTTON);
 		waitForAndGetElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
 	}
+
 	
     /**
      * Go to New content page
@@ -194,8 +233,6 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_ACTIONBAR_ADDDOCUMENT);
 		waitForAndGetElement(ELEMENT_ADDDOCUMENT_CHOICETYPE);
 	}
-
-	
 	/**
 	 * Delete data by title
 	 * @param title
@@ -211,9 +248,11 @@ public class SiteExplorerHome extends PlatformBase{
 
 	/**
 	 * Upload a file
+	 *
 	 * @param link
 	 * @param params
-	 * @return SiteExplorerHome
+	 * @return 
+	 * @return
 	 */
 	public SiteExplorerHome uploadFile(String link, Object... params) {
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
@@ -240,13 +279,16 @@ public class SiteExplorerHome extends PlatformBase{
 		Utils.pause(2000);
 		return new SiteExplorerHome(driver);
 	}
+
     /**
      * Go to Edit page of a document
      */
+
 	public void goToEditDocument() {
 		click(ELEMENT_ACTIONBAR_EDIT);
 		Utils.pause(3000);
 	}
+
 
 	/**
 	 * Edit a Document
@@ -261,25 +303,27 @@ public class SiteExplorerHome extends PlatformBase{
 		}
 	}
     /**
-     * Go to Intranet activity stream
+     * Go to Intranet page
      */
 	public void goToIntranet() {
 		click(ELEMENT_SITEEXPLORER_LEFTBOX_INTRANET);
 	}
-    /**
-     * Go to Document folder
-     */
+
+	/**
+	 * Go to Personal document
+	 */
 	public void goToDocument() {
 		click(ELEMENT_SITEEXPLORER_LEFTBOX_DOCUMENT);
 	}
 	/**
-	 * Go to Space drive
+	 * Go to Space page
 	 * @param spaceName
 	 */
 	public void goToSpace(String spaceName) {
 		click(ELEMENT_ACTIONBAR_SHOWDRIVES);
 		click(By.xpath((ELEMENT_SELECTDRIVE_SPECIFICDRIVE).replace("${spaceName}", spaceName)));
 	}
+
     /**
      * Select Drive by option
      *
@@ -291,6 +335,7 @@ public class SiteExplorerHome extends PlatformBase{
      * Select Drive by order
      *
      */
+
 	public enum selectDriverOrder{
 		ASCENDING, DESCENDING
 	}
@@ -671,4 +716,41 @@ public class SiteExplorerHome extends PlatformBase{
 		button.close();
 		
 	}
+	/**
+	 * Change status of Publication
+	 * Update QuynhPT
+	 * @param status draff, stage, publish
+	 */
+	public void changeStatusPulication(String status) {
+		waitForAndGetElement(ELEMENT_MANAGEPUBLICATION_STATE.replace("${status}", status));
+		click(ELEMENT_MANAGEPUBLICATION_STATE.replace("${status}", status));
+	}
+
+	/**
+	 * Add a Translation
+	 */
+	public void addTranslation() {
+		click(ELEMENT_ACTIONBAR_ADDTRANSLATION);
+		click(ELEMENT_ADDTRANSLATION_SELECTDOC);
+	}
+	
+	/**
+	 * In the file explorer, add path1 to  path 3 for the left side box and lastPath for selecting in the right side box
+	 * @param lastPath
+	 * @param path1
+	 * @param path2
+	 * @param path3
+	 */
+	public void editFolderPath(String lastPath, String path1, String path2, String path3) {
+		if(path1 != "") {
+			click(By.xpath((ELEMENT_FOLDERSELECTOR_PATH).replace("${path}", path1)));
+			if(path2 != "") {
+				click(By.xpath((ELEMENT_FOLDERSELECTOR_PATH).replace("${path}", path2)));
+				if(path3 != "") {
+					click(By.xpath((ELEMENT_FOLDERSELECTOR_PATH).replace("${path}", path3)));
+				}
+			}
+		}
+		click(By.xpath((ELEMENT_FOLDERSELECTOR_CONTENTDETAIL_FINALPATH).replace("${name}", lastPath)));
+	}	
 }

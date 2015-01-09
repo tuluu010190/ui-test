@@ -39,10 +39,11 @@ public class CreateNewDocument extends PlatformBase{
 
 	//New file form
 	public final By ELEMENT_FILEFORM_BLANK_NAME = By.xpath("//*[@id='name']");
-	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//div[@id= 'cke_1_contents']/iframe");
+	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
 	public final By ELEMENT_FILEFORM_BLANK_CONTENT2 = By.xpath("//*[@id='cke_1_contents']/iframe");
 	public final By ELEMENT_FILEFORM_BUTTON_SAVEANDCLOSE = By.xpath("//*[@class='btn' and text()='Save & Close']"); 
-
+	public final By ELEMENT_FILEFORM_LANGUAGE = By.xpath("//*[@name='content-lang']");
+	
 	//New Web content form
 	public final By ELEMENT_WEBCONTENTFORM_BUTTON_LINK = By.xpath("//*[@class='cke_button_icon cke_button__link_icon']");
 	public final By ELEMENT_WEBCONTENTFORM_LINK_ADRESS = By.xpath("//*[@id='cke_128_textInput']");
@@ -71,6 +72,7 @@ public class CreateNewDocument extends PlatformBase{
 		FILE, WEBCONTENT, ACCESSIBLEMEDIA, ANNOUNCEMENT, CSSFILE, CONTACTUS, HTMLFILE, ILLUSTRATEDWEBCONTENT,
 		JAVASCRIPTFILE, PRODUCT, WEBLINK
 	}
+
 	/**
 	 * Create a new document
 	 * @param type
@@ -81,6 +83,7 @@ public class CreateNewDocument extends PlatformBase{
 		case FILE:
 			click(ELEMENT_ADDDOCUMENT_FILE);
 			break;
+			
 		case WEBCONTENT:
 			click(ELEMENT_ADDDOCUMENT_WEBCONTENT);
 			break;
@@ -199,6 +202,7 @@ public class CreateNewDocument extends PlatformBase{
 	/**
 	 * Save and close a file form
 	 */
+
 	public void saveAndClose() {
 		click(ELEMENT_FILEFORM_BUTTON_SAVEANDCLOSE);
 	}
@@ -226,6 +230,7 @@ public class CreateNewDocument extends PlatformBase{
 
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
 		inputDataToFrame(ELEMENT_FILEFORM_BLANK_CONTENT , content, true);
+
 		switchToParentWindow();
 		if(title != "" && title != null){
 			type(ELEMENT_DOCFORM_BLANK_TITLE,title, true);
@@ -240,5 +245,4 @@ public class CreateNewDocument extends PlatformBase{
 			type(ELEMENT_DOCFORM_BLANK_SOURCE,source, true);
 		}
 	}
-
 }
