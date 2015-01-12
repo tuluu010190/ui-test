@@ -33,7 +33,7 @@ public class Addons_Answers_Category  extends PlatformBase {
 	AnswerManagement aMang;
 	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
-		getDriverAutoSave();
+		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		magAc = new ManageLogInOut(driver);
@@ -47,7 +47,6 @@ public class Addons_Answers_Category  extends PlatformBase {
 		txData = new TextBoxDatabase();
 		fData = new AttachmentFileDatabase();
 		userData = new UserDatabase();
-		magAc.signIn(DATA_USER1, DATA_PASS);
 		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

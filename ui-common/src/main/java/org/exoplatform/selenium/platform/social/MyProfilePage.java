@@ -116,9 +116,9 @@ public class MyProfilePage extends PlatformBase {
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", upload);
-		upload.sendKeys(Utils.getAbsoluteFilePath(linkfile));
+		upload.sendKeys(getAbsoluteFilePath(linkfile));
 		Utils.pause(3000);
-		info("Upload file " + Utils.getAbsoluteFilePath(linkfile));
+		info("Upload file " + getAbsoluteFilePath(linkfile));
 		switchToParentWindow();
 		click(ELEMENT_CONFIRM);
 		waitForElementNotPresent(ELEMENT_CONFIRM);

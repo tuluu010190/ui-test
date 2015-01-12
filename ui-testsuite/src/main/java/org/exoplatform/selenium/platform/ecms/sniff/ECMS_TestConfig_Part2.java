@@ -41,7 +41,7 @@ public class ECMS_TestConfig_Part2 extends PlatformBase{
 	@BeforeSuite(alwaysRun=true)
 	public void setUpBeforSuite() throws Exception{
 		info("Start setUpBeforeSuite");
-		getDriverAutoSave();
+		initSeleniumTest();
 		caPage = new ContentAdministrationManagement(driver);
 		navTool = new NavigationToolbar(driver);
 		magAc = new ManageLogInOut(driver);
@@ -54,7 +54,7 @@ public class ECMS_TestConfig_Part2 extends PlatformBase{
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
 		info("Start setUpBeforeClass");
-		getDriverAutoSave();
+		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);

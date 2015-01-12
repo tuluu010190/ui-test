@@ -20,7 +20,7 @@ public class HomePagePlatform extends TestBase{
     public final By ELEMENT_PLF_HOMEPAGE_GADGET_PORTLET = By.xpath(".//*[@id='OfficeRightMiddle']");	
 	//Left panel
 	public final By ELEMENT_FORUM_LINK_PLF=By.xpath("//*[@data-original-title='Forums']");
-	public final By ELEMENT_ANSWER_LINK_PLF=By.xpath("//*[@data-original-title='Answer']");
+	public final By ELEMENT_ANSWER_LINK_PLF=By.xpath("//*[@data-original-title='Answers']");
 	public final By ELEMENT_WIKI_LINK_PLF=By.xpath("//*[@data-original-title='Wiki']");
 	public final By ELEMENT_HOME_LINK_PLF=By.xpath("//*[@data-original-title='Home']");
 	public final By ELEMENT_CALENDAR_LINK_PLF=By.xpath("//*[@data-original-title='Calendar']");

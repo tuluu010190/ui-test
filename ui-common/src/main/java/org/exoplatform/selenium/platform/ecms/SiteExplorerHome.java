@@ -443,8 +443,8 @@ public class SiteExplorerHome extends PlatformBase{
 								DEFAULT_TIMEOUT, 1, 2));
 		Utils.pause(10000);
 		info("Select a file to upload");
-		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(link));
-		info("Upload file " + Utils.getAbsoluteFilePath(link));
+		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(getAbsoluteFilePath(link));
+		info("Upload file " + getAbsoluteFilePath(link));
 		info("Switch to Parent window");
 		switchToParentWindow();
 		if (verify) {
@@ -857,7 +857,7 @@ public class SiteExplorerHome extends PlatformBase{
 		WebElement upload = waitForAndGetElement(ELEMENT_IMPORT_NODE_POPUP_UPLOAD_BUTTON, DEFAULT_TIMEOUT,1,2);
 	
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload);
-		upload.sendKeys(Utils.getAbsoluteFilePath(linkFile));
+		upload.sendKeys(getAbsoluteFilePath(linkFile));
 		String[] nameFile = linkFile.split("/");
 		waitForAndGetElement(ELEMENT_IMPORT_NODE_POPUP_UPLOAD_FILE_LABEL.replace("${fileName}", nameFile[1]));
 		
@@ -867,7 +867,7 @@ public class SiteExplorerHome extends PlatformBase{
 		if(version){
 			WebElement uploadVersion = waitForAndGetElement(ELEMENT_IMPORT_NODE_POPUP_VERSION_HISTORY_BUTTON, DEFAULT_TIMEOUT,1,2);
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", uploadVersion);
-			uploadVersion.sendKeys(Utils.getAbsoluteFilePath(linkVersion));
+			uploadVersion.sendKeys(getAbsoluteFilePath(linkVersion));
 			String[] namefile = linkVersion.split("/");
 			waitForAndGetElement(ELEMENT_IMPORT_NODE_POPUP_UPLOAD_FILE_LABEL.replace("${fileName}", namefile[1]));
 		}

@@ -314,7 +314,7 @@ public class ForumHomePage extends PlatformBase {
 		WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1,2);
 		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", element);
 		info("Get the file to attach");
-		element.sendKeys(Utils.getAbsoluteFilePath(pathFile+fileName));
+		element.sendKeys(getAbsoluteFilePath(pathFile+fileName));
 		info("Verify that the file is attached");
 		waitForAndGetElement(ELEMENT_UPLOAD_POPUP_NAMEFILE.replace("${fileName}", fileName));
 		info("The file is attached successfully");

@@ -312,7 +312,7 @@ public class TaskManagement extends PlatformBase {
 		click(ELEMENT_TASK_ADD_ATTACHMENT);
 		WebElement eFile = waitForAndGetElement(ELEMENT_TASK_FILE_INPUT,DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';",eFile);
-		eFile.sendKeys(Utils.getAbsoluteFilePath(path));
+		eFile.sendKeys(getAbsoluteFilePath(path));
 		waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", links[links.length-1]));
 		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
 		waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", links[links.length-1]));

@@ -51,8 +51,8 @@ public class Branding extends PlatformBase {
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", upload);
 		Utils.pause(10000);
 		info("Select a file to upload");
-		upload.sendKeys(Utils.getAbsoluteFilePath(link));
-		info("Upload file " + Utils.getAbsoluteFilePath(link));
+		upload.sendKeys(getAbsoluteFilePath(link));
+		info("Upload file " + getAbsoluteFilePath(link));
 		info("Switch to Parent window");
 		switchToParentWindow();
 		if (verify) {

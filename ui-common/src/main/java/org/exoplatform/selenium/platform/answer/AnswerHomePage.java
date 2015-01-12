@@ -20,7 +20,7 @@ public class AnswerHomePage extends PlatformBase {
 	public By ELEMENT_SUBMIT_QUESTION=By.xpath("//*[@class='uiIconAnsSubmitQuestion uiIconLightGray']");
 	public By ELEMENT_CATEGORY_BUTTON=By.xpath("//*[@class='uiIconAnsManageCategory']");
 	public String ELEMENT_QUESTION_LIST_ITEM="//*[@class='rightContent']//*[text()='$question']";
-	public String ELEMENT_QUESTION_SELECTED_ITEM="//*[@class='questionSelect']//*[contains(text(),'$question')]";
+	public String ELEMENT_QUESTION_SELECTED_ITEM="//*[contains(@class,'questionSelect')]//*[@class='theContent questionName' and contains(text(),'$question')]";
 	public By ELEMENT_MANAGE_QUESTION_BUTTON=By.xpath("//*[@class='uiIconAnsManageQuestion']");
 
 	//Breadcumb

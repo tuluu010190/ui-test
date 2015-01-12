@@ -32,6 +32,7 @@ public class ForumCategoryManagement extends PlatformBase {
 	
 	//Popup confirmation
 	public final By ELEMENT_OK_DELETE = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='OK']");
+	public final String ELEMENT_CATEGORY_DELETE_CONFIRM_MSG="Are you sure you want to delete this category ?";
 	
 	//Export forum popup
 	public final By ELEMENT_EXPORT_FORUM_EXPORTALL = By.xpath("//*[@id='checkAll']");
@@ -124,7 +125,7 @@ public class ForumCategoryManagement extends PlatformBase {
 			info("Click on Delete link");
 			click(ELEMENT_DELETE_CATEGORY);
 			Utils.pause(1000);
-			alert.waitForMessage("Are you sure you want to delete this category?");
+			alert.waitForMessage(ELEMENT_CATEGORY_DELETE_CONFIRM_MSG);
 			click(ELEMENT_OK_DELETE);
 			break;
 		case WATCHES:
@@ -173,7 +174,7 @@ public class ForumCategoryManagement extends PlatformBase {
 		info("Wait the category is shown");
 		waitForAndGetElement(ELEMENT_FORUM_CATEGORY_HOME_TITLE_LINK.replace("${name}", nameCat),3000,0);
 		info("Click on the category");
-		click(ELEMENT_FORUM_CATEGORY_HOME_TITLE_LINK.replace("${name}", nameCat),3000,0);
+		click(ELEMENT_FORUM_CATEGORY_HOME_TITLE_LINK.replace("${name}", nameCat));
 		info("Select Delete link");
 		selectItemManageCategoryMenu(specifManageCategoryMenu.DELETE);
 		info("Verify that the category is deleted");

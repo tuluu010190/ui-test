@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform;
 
+import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -63,6 +64,7 @@ public class PlatformPermission extends PlatformBase {
 			break;
 
 		}
+		Utils.pause(500);
 		click(ELEMENT_QUICK_SEARCH_BUTTON);
 		waitForAndGetElement((ELEMENT_USER_CHECKBOX.replace("${user}", keySearch)),5000,1,2);
 	}

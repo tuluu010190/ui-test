@@ -83,7 +83,7 @@ public class AnswerPage extends PlatformBase {
 		info("Create Answer Page");
 		navTool.goToAddPage();
 		click(pagMang.ELEMENT_PAGE_UP_LEVEL);
-		pagMang.inputPageInfoStep1("Answer", null, null, "Answer", null, null);
+		pagMang.inputPageInfoStep1("Answers", null, null, "Answers", null, null);
 		click(pagMang.ELEMENT_PAGE_NEXT_BUTTON);
 		click(pagMang.ELEMENT_PAGE_NEXT_BUTTON);
 		pagEditor.selectApplication("answer-AnswersPortlet", pagEditor.ELEMENT_EDIT_PAGE_PAGE);

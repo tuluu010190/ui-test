@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.calendar.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -369,7 +370,8 @@ public class Calendar_View extends PlatformBase {
 			- Next week/previous week is displayed correctly
 			- Mini calendar is updated also*/ 
 		hp.goToCalendarPage();
-		cHome.goToView(selectViewOption.WEEK);
+		click(cHome.ELEMENT_TODAY_ACTION_BAR);
+		Utils.pause(500);
 		cHome.goToView(selectViewOption.WORKWEEK);
 		click(cHome.ELEMENT_TODAY_ACTION_BAR);
 		cHome.verifyIsPresentEventTask(titleEventCur, selectViewOption.WORKWEEK, selectDayOption.ALLDAY);
@@ -513,6 +515,7 @@ public class Calendar_View extends PlatformBase {
 			- Mini calendar is updated also*/ 
 		hp.goToCalendarPage();
 		click(cHome.ELEMENT_TODAY_ACTION_BAR);
+		Utils.pause(500);
 		cHome.goToView(selectViewOption.MONTH);
 
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEventCur, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ALLDAY);

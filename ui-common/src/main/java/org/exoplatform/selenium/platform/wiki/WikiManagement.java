@@ -470,7 +470,7 @@ public class WikiManagement extends WikiHomePage{
 			notDisplay = (Integer)type[0];
 		}
 
-		String path = Utils.getAbsoluteFilePath(link);
+		String path = getAbsoluteFilePath(link);
 		info("Attach a file: " + path);
 		try{
 			for(int i =0; i<=4; i++){

@@ -51,7 +51,7 @@ public class Addons_Faq   extends PlatformBase {
 	String fullName;
 	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
-		getDriverAutoSave();
+		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		magAc = new ManageLogInOut(driver);

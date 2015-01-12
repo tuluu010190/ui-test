@@ -64,8 +64,8 @@ public class Calendar_Search extends PlatformBase {
 	 */
 	@Test
 	public  void test01_QuickSearch() {
-		String titleEvent = txData.getContentByArrayTypeRandom(1)+"dinnere115694";
-		String titleTask = txData.getContentByArrayTypeRandom(1)+"dinnert115694";
+		String titleEvent = txData.getContentByArrayTypeRandom(1)+"dinnere115694"+" dinner";
+		String titleTask = txData.getContentByArrayTypeRandom(1)+"dinnert115694"+ " dinner";
 		String content = txData.getContentByArrayTypeRandom(1)+"115694";
 		String defaultFormatDate="MM/dd/yyyy";
 		String key="dinner";
@@ -101,7 +101,6 @@ public class Calendar_Search extends PlatformBase {
 		cHome.quickSearchCalendar(key1);
 		waitForElementNotPresent(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleEvent));
 		waitForElementNotPresent(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleTask));
-		waitForElementNotPresent(cHome.ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 		click(cHome.ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 
 		info("Delete data");
@@ -117,8 +116,8 @@ public class Calendar_Search extends PlatformBase {
 	 */
 	@Test
 	public  void test02_AdvancedSearch() {
-		String titleEvent = txData.getContentByArrayTypeRandom(1)+"dinnere115695";
-		String titleTask = txData.getContentByArrayTypeRandom(1)+"dinnert115695";
+		String titleEvent = txData.getContentByArrayTypeRandom(1)+"dinnere115695"+" dinner";
+		String titleTask = txData.getContentByArrayTypeRandom(1)+"dinnert115695"+" dinner";
 		String content = txData.getContentByArrayTypeRandom(1)+"115695";
 		String defaultFormatDate="MM/dd/yyyy";
 		String key="dinner";
@@ -159,7 +158,6 @@ public class Calendar_Search extends PlatformBase {
 		cHome.advanceSearchCalendar(key1);
 		waitForElementNotPresent(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleEvent));
 		waitForElementNotPresent(cHome.ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", titleTask));
-		waitForElementNotPresent(cHome.ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 		click(cHome.ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 
 		info("Delete data");

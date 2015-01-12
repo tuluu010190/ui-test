@@ -48,13 +48,13 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-		
-				<dependency>
-	    		<groupId>org.apache.poi</groupId>
-		        <artifactId>poi</artifactId>
-		        <version>3.10.1</version>
+
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.10.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
@@ -96,7 +96,7 @@
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
 		</dependency>
-                
+
 		<dependency>
 			<groupId>stax</groupId>
 			<artifactId>stax-api</artifactId>
@@ -110,20 +110,30 @@
 		</dependency>
 
 		<dependency>
-		    <groupId>xml-apis</groupId>
-		    <artifactId>xml-apis</artifactId>
-		    <version>1.4.01</version>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
 		</dependency>
-                
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.26</version>
 		</dependency>
-		
+
 		<!-- <dependency> <groupId>org.exoplatform.platform</groupId> <artifactId>exo.platform.packaging.tomcat</artifactId> 
 			<version>${org.exoplatform.platform.version}</version> <type>zip</type> </dependency> -->
-		
+		<dependency>
+			<groupId>com.holmos</groupId>
+			<artifactId>holmos-webtest</artifactId>
+			<version>1.0.2u9</version>
+		</dependency>
+
+		<!--<dependency> <groupId>jacob-project</groupId> <artifactId>jacob</artifactId> 
+			<version>1.18-M2</version> <scope>system</scope> <systemPath>${user.dir}/ui-testsuite/src/main/resources/TestData/jacob.jar</systemPath> 
+			</dependency> <dependency> <groupId>autoitx4java</groupId> <artifactId>autoitx4java</artifactId> 
+			<version>0.0.1</version> <scope>system</scope> <systemPath>${user.dir}/ui-testsuite/src/main/resources/TestData/AutoItX4Java.jar</systemPath> 
+			</dependency> -->
 	</dependencies>
 	<modules>
 		<module>ui-common</module>

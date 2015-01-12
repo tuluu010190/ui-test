@@ -14,9 +14,7 @@ import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class EventManagement extends PlatformBase {
 
@@ -61,6 +59,7 @@ public class EventManagement extends PlatformBase {
 	public By ELEMENT_BUTTON_EVENT_SAVE_DETAILS = By.xpath("//*[@id='UIEventForm']//*[text()='Save']");
 	public String ELEMENT_ATTACH_FILE_NAME = "//*[@data-original-title='$fileName']";
 	public By ELEMENT_EVENT_FILE_INPUT = By.xpath("//*[@id='upload']//*[@name='file']");
+	public By ELEMENT_SELECT_FILE_BUTTUN=By.xpath("//*[@class='btn' and text()='Select File']");
 
 	public By ELEMENT_EVENT_REMINDER_TAB = By.xpath("//*[text()='Reminders']");
 	public By ELEMENT_EVENT_PARTICIPANTS_TAB = By.xpath("//*[text()='Participants']");
@@ -72,7 +71,7 @@ public class EventManagement extends PlatformBase {
 	public By ELEMENT_EVENT_ADD_ATTACHMENT = By.xpath("//button[contains(@onclick,'AddAttachment')]");
 	public String ELEMENT_EVENT_ATTACHMENT = "//*[@id='UIEventForm']/..//a[@data-original-title='${file}']";
 	public By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachFileForm']//*[text()='Save']");
-	public String ELEMENT_ATTACHMENT_FORM_FILE_NAME = "//*[text()='$fileName']";
+	public String ELEMENT_ATTACHMENT_FORM_FILE_NAME = "//*[@class='fileNameLabel' and text()='$fileName']";
 
 	//Schedule tab
 	public final By ELEMENT_ADD_PARTICIPANTS_BUTTON_IN_SCHEDULE_TAB = By.xpath("//*[@id='UIEventForm']//*[@class='uiIconCalInviteUser uiIconLightGray']");
@@ -243,7 +242,7 @@ public class EventManagement extends PlatformBase {
 		click(cHome.ELEMENT_RIGHT_CLICK_ADD_EVENT);
 		waitForAndGetElement(ELEMENT_QUICK_ADD_EVENT_POPUP);
 	}
-	
+
 	/**
 	 * Open "Add new event" form from action bar
 	 * 
@@ -253,7 +252,7 @@ public class EventManagement extends PlatformBase {
 		click(cHome.ELEMENT_BUTTON_EVENT);
 		waitForAndGetElement(ELEMENT_QUICK_ADD_EVENT_POPUP);
 	}
-	
+
 	/**
 	 * Input into basic fields of Quick EVENT form
 	 * 
@@ -440,16 +439,19 @@ public class EventManagement extends PlatformBase {
 	 * 				path of attachment of a EVENT
 	 */
 	public void attachFileToEvent(String path){
-		String[] links = path.split("/");
+		String fullPath="";
+		if ("win".equals(server)){
+			fullPath="TestData\\" + path;
+		}
+		else{
+			fullPath="TestData/" + path;
+		}
 		click(ELEMENT_EVENT_ADD_ATTACHMENT);
-		WebElement eFile = waitForAndGetElement(ELEMENT_EVENT_FILE_INPUT,DEFAULT_TIMEOUT,1,2);
-		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';",eFile);
-		eFile.sendKeys(Utils.getAbsoluteFilePath(path));
-		waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", links[links.length-1]));
-		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
-		waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", links[links.length-1]));
-		switchToParentWindow();
-
+		waitForAndGetElement(ELEMENT_SELECT_FILE_BUTTUN).click();
+		uploadFileUsingRobot(fullPath);
+		waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", path));
+		click(ELEMENT_ATTACHMENT_SAVE_BUTTON,0,true);
+		waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", path));
 	}	
 
 	/**
@@ -815,7 +817,7 @@ public class EventManagement extends PlatformBase {
 		click(ELEMENT_BUTTON_EVENT_QUICK_CANCEL);
 		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_QUICK_CANCEL);
 	}
-	
+
 	public void cancelAddEditDetailEvent(){
 		click(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);
 		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);

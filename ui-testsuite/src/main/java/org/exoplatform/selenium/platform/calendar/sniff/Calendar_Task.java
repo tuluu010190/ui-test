@@ -32,7 +32,7 @@ public class Calendar_Task extends PlatformBase {
 	public void setUpBeforeMethod() throws Exception{
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
-	
+
 	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
@@ -55,7 +55,7 @@ public class Calendar_Task extends PlatformBase {
 	public void afterMethod(){
 		magAc.signOut();
 	}
-	
+
 	@AfterClass
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
@@ -166,68 +166,72 @@ public class Calendar_Task extends PlatformBase {
 	 */
 	@Test
 	public  void test03_04_AddRemoveAttachmentOfTask() {
-		info("Test 4: Add attachment to task");
-		String titleTask = txData.getContentByArrayTypeRandom(1)+"115610";
-		String content = txData.getContentByArrayTypeRandom(1)+"115610";
-		String link = fData.getAttachFileByArrayTypeRandom(1);
-		/*Step Number: 1
-		 *Step Name: Step 1: Open Add task form
-		 *Step Description: 
+		if ("iexplorer".equals(browser)){
+			info("Test 4: Add attachment to task on IE manually");
+		}else{
+			info("Test 4: Add attachment to task");
+			String titleTask = txData.getContentByArrayTypeRandom(1)+"115610";
+			String content = txData.getContentByArrayTypeRandom(1)+"115610";
+			String link = fData.getAttachFileByArrayTypeRandom(1);
+			/*Step Number: 1
+			 *Step Name: Step 1: Open Add task form
+			 *Step Description: 
 			- Select a calendar, Click Setting icon of this calendar and choose [Add Task] or Click Task button on action bar
 			- Input start and end time
 			- Click [More Details
-		 *Input Data: 
+			 *Input Data: 
 
-		 *Expected Outcome: 
+			 *Expected Outcome: 
 			Add/Edit Task pop
 			-up has appears*/
-		info("Add a task");
-		hp.goToCalendarPage();
-		task.goToAddTaskFromActionBar();
-		task.moreDetailsTask();
+			info("Add a task");
+			hp.goToCalendarPage();
+			task.goToAddTaskFromActionBar();
+			task.moreDetailsTask();
 
-		/*Step number: 2
-		 *Step Name: Step 2: Add attachment
-		 *Step Description: 
+			/*Step number: 2
+			 *Step Name: Step 2: Add attachment
+			 *Step Description: 
 			- Click [Add Attachment]
 			- Browse to file and click save
-		 *Input Data: 
+			 *Input Data: 
 
-		 *Expected Outcome: 
+			 *Expected Outcome: 
 			- Attachment is added to event*/ 
-		info("Add attachment");
-		task.inputDataTaskInDetailForm(titleTask, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
-		task.attachFileToTask("TestData/" + link);
-		task.saveAddTaskDetails();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+			info("Add attachment");
+			task.inputDataTaskInDetailForm(titleTask, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
+			task.attachFileToTask("TestData/" + link);
+			task.saveAddTaskDetails();
+			cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
 
-		info("Test 3: Remove attachment of task");
-		/*Step Number: 1
-		 *Step Name: Step 1: Open edit task form
-		 *Step Description: 
+			info("Test 3: Remove attachment of task");
+			/*Step Number: 1
+			 *Step Name: Step 1: Open edit task form
+			 *Step Description: 
 			- Go to calendar
 			- Select task which has attachment and edit
-		 *Input Data: 
+			 *Input Data: 
 
-		 *Expected Outcome: 
+			 *Expected Outcome: 
 			- Edit form appears*/
 
-		/*Step number: 2
-		 *Step Name: Step 2: Remove attachment
-		 *Step Description: 
+			/*Step number: 2
+			 *Step Name: Step 2: Remove attachment
+			 *Step Description: 
 			- Click [Delete] icon
 			- Click Save
-		 *Input Data: 
+			 *Input Data: 
 
-		 *Expected Outcome: 
+			 *Expected Outcome: 
 			- Attachment is deleted*/ 
-		info("Remove the attachment");
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
-		task.removeAttachment(link);
-		task.saveAddTaskDetails();
+			info("Remove the attachment");
+			cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+			task.removeAttachment(link);
+			task.saveAddTaskDetails();
 
-		info("Delete data");
-		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+			info("Delete data");
+			cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		}
 	}
 
 	/**
@@ -668,7 +672,7 @@ public class Calendar_Task extends PlatformBase {
 		String titleTask = txData.getContentByArrayTypeRandom(1)+"1115649";
 		String contentTask = txData.getContentByArrayTypeRandom(1)+"1115649";
 		String dateTime=getDate(1,"MM/dd/yyyy");
-		
+
 		info("Create data test");
 		info("Add a task");
 		hp.goToCalendarPage();

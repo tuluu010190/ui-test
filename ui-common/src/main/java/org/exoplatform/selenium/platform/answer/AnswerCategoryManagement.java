@@ -1,16 +1,14 @@
 package org.exoplatform.selenium.platform.answer;
 
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
-import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class AnswerCategoryManagement extends PlatformBase {
 	AnswerHomePage aHome;
@@ -307,7 +305,7 @@ public class AnswerCategoryManagement extends PlatformBase {
 		goToActionOfCategoryFromActionBar(actionCategoryOption.IMPORT);
 		WebElement eFile = waitForAndGetElement(ELEMENT_IMPORT_CATEGORY_INPUT,DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';",eFile);
-		eFile.sendKeys(Utils.getAbsoluteFilePath(path));
+		eFile.sendKeys(getAbsoluteFilePath(path));
 		waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", links[links.length-1]));
 		switchToParentWindow();
 		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);

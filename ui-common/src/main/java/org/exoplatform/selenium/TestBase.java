@@ -1,8 +1,18 @@
 package org.exoplatform.selenium;
 
 import static org.exoplatform.selenium.TestLogger.debug;
+import static org.exoplatform.selenium.TestLogger.error;
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.StringSelection;
+import java.awt.event.KeyEvent;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -11,8 +21,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 import java.util.Set;
-
 import org.apache.commons.io.FileUtils;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.openqa.selenium.Alert;
@@ -37,10 +47,10 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
 public class TestBase {
-
+	private static Scanner scanner;
 	public WebDriver driver;
 	public WebDriver newDriver;
-	public static String baseUrl;
+
 	protected int DEFAULT_TIMEOUT = 30000; //milliseconds = 30 seconds
 	protected int WAIT_INTERVAL = 1000; //milliseconds  
 	public int loopCount = 0;	
@@ -52,7 +62,18 @@ public class TestBase {
 	public static boolean firstTimeLogin = false;
 	public Actions action;
 
+	//Driver path
+	//public static String ieDriver="D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe";
+	public String uploadfile= getAbsoluteFilePath("TestData\\attachFile.exe");
+	public String downloadfile=getAbsoluteFilePath("TestData\\downloadIE9.exe");
+	public String ieDriver=getAbsoluteFilePath("TestData\\IEDriverServer.exe");
+	public String chromeDriver= getAbsoluteFilePath("TestData\\chromedriver.exe");
+
 	/*========System Property====================*/
+	public static String baseUrl;
+	public static String browser;
+	public static String server;
+
 	protected Boolean isRandom;
 	protected Boolean isUseFile;
 
@@ -84,6 +105,8 @@ public class TestBase {
 
 	/*========Default System Property=============*/
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
+	public final String DEFAULT_BROWSER="firefox";//iexplorer, firefox, chrome
+	public final String DEFAULT_SERVER="ubuntu"; //win, ubuntu
 
 	public final  Boolean DEFAULT_ISRANDOM = true;
 	public final  Boolean DEFAULT_ISUSEFILE = true;
@@ -144,13 +167,15 @@ public class TestBase {
 	public final By ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT = By.name("file");
 	public final By ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_SAVE_BUTTON = By.xpath(".//*[@id='UIAttachFileForm']//button[text()='Save']");
 	public final String ELEMENT_UPLOAD_POPUP_NAMEFILE = "//*[@class='fileNameLabel' and contains(text(),'${fileName}')]";
-	
+
 	public final By ELEMENT_SAVE_BTN = By.xpath("//*[text()='Save']");
 	/*======== End of Term and conditions =====*/	
 	/**
 	 * Get System Property
 	 */
 	public void getSystemProperty(){
+		browser = System.getProperty("browser");
+		server = System.getProperty("server");
 		baseUrl = System.getProperty("baseUrl");
 
 		jdbcDriver = System.getProperty("jdbcDriver");
@@ -170,13 +195,15 @@ public class TestBase {
 		wikiTemplateFilePath = System.getProperty("wikiTemplateFilePath");
 		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
 		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
-        changLangDataPath = System.getProperty("changLangDataPath");
-        remoteGadgetDataFilePath = System.getProperty("remoteGadgetDataFilePath");
-        appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
-        getStartFilePath = System.getProperty("getStartFilePath");
-        wikiMessageFilePath = System.getProperty("wikiMessageFilePath");
+		changLangDataPath = System.getProperty("changLangDataPath");
+		remoteGadgetDataFilePath = System.getProperty("remoteGadgetDataFilePath");
+		appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
+		getStartFilePath = System.getProperty("getStartFilePath");
+		wikiMessageFilePath = System.getProperty("wikiMessageFilePath");
 
+		if (browser==null) browser = DEFAULT_BROWSER;
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		if (server==null) server = DEFAULT_SERVER;
 
 		if (isRandom==null) isRandom = DEFAULT_ISRANDOM;
 		if (isUseFile==null) isUseFile = DEFAULT_ISUSEFILE;
@@ -200,50 +227,96 @@ public class TestBase {
 		if (texboxFilePath==null) texboxFilePath = DEFAULT_TEXTBOXFILEURL;
 		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
-	    if (changLangDataPath==null) changLangDataPath = DEFAULT_CHANGELANGUADATAURL;
-	    if (remoteGadgetDataFilePath==null) remoteGadgetDataFilePath = DEFAULT_REMOTEGADGETURL;
-	    if (appGateinDataFilePath==null) appGateinDataFilePath = DEFAULT_APPGATEINURL;
-	    if (getStartFilePath==null) getStartFilePath = DEFAULT_GETTINGSTARTEDURL;
-	    if (wikiMessageFilePath==null) wikiMessageFilePath = DEFAULT_WIKIMESSAGEURL;
+		if (changLangDataPath==null) changLangDataPath = DEFAULT_CHANGELANGUADATAURL;
+		if (remoteGadgetDataFilePath==null) remoteGadgetDataFilePath = DEFAULT_REMOTEGADGETURL;
+		if (appGateinDataFilePath==null) appGateinDataFilePath = DEFAULT_APPGATEINURL;
+		if (getStartFilePath==null) getStartFilePath = DEFAULT_GETTINGSTARTEDURL;
+		if (wikiMessageFilePath==null) wikiMessageFilePath = DEFAULT_WIKIMESSAGEURL;
+
+		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
+		wikiRichTextFilePath = getAbsoluteFilePath(wikiRichTextFilePath);
+		attachmentFilePath = getAbsoluteFilePath(attachmentFilePath);
+		texboxFilePath = getAbsoluteFilePath(texboxFilePath);
+		wikiTemplateFilePath = getAbsoluteFilePath(wikiTemplateFilePath);
+		spaceVisibleFilePath = getAbsoluteFilePath(spaceVisibleFilePath);
+		spaceRegistrationFilePath = getAbsoluteFilePath(spaceRegistrationFilePath);
+		changLangDataPath = getAbsoluteFilePath(changLangDataPath);
+		remoteGadgetDataFilePath = getAbsoluteFilePath(remoteGadgetDataFilePath);
+		appGateinDataFilePath = getAbsoluteFilePath(appGateinDataFilePath);
+		getStartFilePath = getAbsoluteFilePath(getStartFilePath);
+		wikiMessageFilePath = getAbsoluteFilePath(wikiMessageFilePath);
 	}
-	
+
+
+	/**
+	 * Init IE driver
+	 */
+	public WebDriver initIEDriver(){
+		info("Init IE driver");
+		System.setProperty("webdriver.ie.driver",ieDriver) ;
+		DesiredCapabilities  capabilitiesIE = DesiredCapabilities.internetExplorer();
+		capabilitiesIE.setCapability("ignoreProtectedModeSettings", true);
+		capabilitiesIE.setCapability("nativeEvents", false);
+		capabilitiesIE.setCapability("javascriptEnabled", true);
+		capabilitiesIE.setCapability("requireWindowFocus", true);
+		capabilitiesIE.setCapability("enablePersistentHover", false);
+		capabilitiesIE.setCapability("ignoreZoomSetting", true);
+		capabilitiesIE.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+		capabilitiesIE.setCapability("initialBrowserUrl", baseUrl);
+		return new InternetExplorerDriver(capabilitiesIE);
+	}
+
+	/**
+	 * 
+	 * Init FF driver
+	 */
+	public WebDriver initFFDriver(){
+		String pathFile="";
+		if ("win".equals(server)){
+			pathFile = System.getProperty("user.dir") + "\\src\\main\\resources\\TestData\\TestOutput";
+		}
+		else{
+			pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
+		}
+		info("Init FF driver");
+		FirefoxProfile profile = new FirefoxProfile();
+		profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
+		profile.setPreference("dom.max_script_run_time", 0);
+		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+		capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+		info("Save file to " + pathFile);
+		profile.setPreference("browser.download.manager.showWhenStarting", false);
+		profile.setPreference("browser.download.dir", pathFile);
+		profile.setPreference("browser.download.folderList", 2);
+		profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
+				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
+				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
+				"application/octet-stream" +
+				";application/pdf;application/msword;text/plain;" +
+				"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
+				"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
+				"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
+
+		profile.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
+		profile.setPreference("pref.downloads.disable_button.edit_actions", true);
+		profile.setPreference("pdfjs.disabled", true); 
+		profile.setPreference("browser.helperApps.alwaysAsk.force", false);
+		return new FirefoxDriver(profile);
+	}
 
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
-		String browser = System.getProperty("browser");
+
+		getSystemProperty();
 		if("chrome".equals(browser)){
 			driver = new ChromeDriver();
 			chromeFlag = true;
 		} else if ("iexplorer".equals(browser)){
-			driver = new InternetExplorerDriver();
+			driver = initIEDriver();
 			ieFlag = true;
 		} else {
-			String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
-			FirefoxProfile profile = new FirefoxProfile();
-			profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
-			profile.setPreference("dom.max_script_run_time", 0);
-			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			capabilities.setCapability(FirefoxDriver.PROFILE, profile);
-			info("Save file to " + pathFile);
-			profile.setPreference("browser.download.manager.showWhenStarting", false);
-			profile.setPreference("browser.download.dir", pathFile);
-			profile.setPreference("browser.download.folderList", 2);
-			profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
-					"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
-					"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-					"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
-					"application/octet-stream" +
-					";application/pdf;application/msword;text/plain;" +
-					"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
-					"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
-					"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
-
-			profile.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
-			profile.setPreference("pref.downloads.disable_button.edit_actions", true);
-			profile.setPreference("pdfjs.disabled", true); 
-			profile.setPreference("browser.helperApps.alwaysAsk.force", false);
-			driver = new FirefoxDriver();
+			driver = initFFDriver();
 		}
-		getSystemProperty();
 		action = new Actions(driver);
 	}
 
@@ -284,6 +357,7 @@ public class TestBase {
 	 * Create new first account
 	 */
 	public void accountSetupWithoutGreeting(){
+		click(ELEMENT_INPUT_USERNAME);
 		type(ELEMENT_INPUT_USERNAME, "fqa", true);
 		type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
 		type(ELEMENT_LASTNAME_ACCOUNT, "VN", true);
@@ -305,6 +379,10 @@ public class TestBase {
 		waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
 	}
 
+	/**
+	 * init browser
+	 * @param opParams
+	 */
 	public void initSeleniumTest(Object... opParams){
 		initSeleniumTestWithOutTermAndCondition();
 		driver.manage().window().maximize();
@@ -312,38 +390,19 @@ public class TestBase {
 		termsAndConditions(opParams);
 	}
 
-	/** function: set driver to auto save file to TestData/TestOutput
-
+	/**
+	 * initNewIEBrowserWithNativeEvent
 	 */
-	public void getDriverAutoSave(){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
-
-		FirefoxProfile fp = new FirefoxProfile();	
-
-		info("Save file to " + pathFile);
-		fp.setPreference("browser.download.manager.showWhenStarting", false);
-		fp.setPreference("browser.download.dir", pathFile);
-		fp.setPreference("browser.download.folderList", 2);
-		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
-				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
-				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
-				"application/octet-stream" +
-				";application/pdf;application/msword;text/plain;" +
-				"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
-				"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
-				"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
-
-		fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
-		fp.setPreference("pref.downloads.disable_button.edit_actions", true);
-		fp.setPreference("pdfjs.disabled", true); 
-		fp.setPreference("browser.helperApps.alwaysAsk.force", false);
-		driver = new FirefoxDriver(fp);
-		getSystemProperty();
-		action = new Actions(driver);
-		driver.manage().window().maximize();
-		driver.navigate().refresh();
-		termsAndConditions();
+	public void initNewIEBrowserWithNativeEvent(){
+		info("initNewIEBrowserWithNativeEvent");
+		System.setProperty("webdriver.ie.driver",ieDriver) ;
+		DesiredCapabilities  capabilitiesIE = DesiredCapabilities.internetExplorer();
+		capabilitiesIE.setCapability("ignoreProtectedModeSettings", true);
+		capabilitiesIE.setCapability("nativeEvents", true);
+		capabilitiesIE.setCapability("ignoreZoomSetting", true);
+		capabilitiesIE.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+		capabilitiesIE.setCapability("initialBrowserUrl", baseUrl);
+		newDriver = new InternetExplorerDriver(capabilitiesIE);
 	}
 
 	/**
@@ -687,12 +746,9 @@ public class TestBase {
 	{
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);
 		WebElement targetElement;
-		String argu1 = "var evObj = document.createEvent('MouseEvents');";
-		String argu2 = "evObj.initMouseEvent('mouseover',true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);";
-		String argu3 =  "arguments[0].dispatchEvent(evObj);";
-		String javascript = argu1 + argu2 + argu3;
+		String mouseOverScript = "if(document.createEvent){var evObj = document.createEvent('MouseEvents');evObj.initEvent('mouseover', true, false); arguments[0].dispatchEvent(evObj);} else if(document.createEventObject) { arguments[0].fireEvent('onmouseover');}";
 		targetElement = waitForAndGetElement(locator,5000, 1, notDisplay);
-		((JavascriptExecutor)driver).executeScript(javascript, targetElement);
+		((JavascriptExecutor)driver).executeScript(mouseOverScript, targetElement);
 	}
 
 	/**
@@ -1027,7 +1083,9 @@ public class TestBase {
 	 * @param file file name
 	 */
 	public void deleteFile(String file){
+		String fs = File.separator;
 		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/" + file;
+		pathFile=pathFile.replace("/", fs);
 		File Files = new File(pathFile);
 		if(checkFileExisted(file)){
 			Files.setWritable(true);
@@ -1043,9 +1101,12 @@ public class TestBase {
 	 * @param fileName
 	 */
 	public void cutPasteFileFromOutputToTestData(String fileName){
+		String fs = File.separator;
 		String source = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + fileName;
+		source=source.replace("/", fs);
 		//directory where file will be copied
 		String target = System.getProperty("user.dir") + "/src/main/resources/TestData/";
+		target=target.replace("/", fs);
 
 		//name of source file
 		File sourceFile = new File(source);
@@ -1292,7 +1353,7 @@ public class TestBase {
 		jse = (JavascriptExecutor) driver;
 		jse.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
-	
+
 	/**
 	 * inputDataToCKEditor
 	 * @param framelocator
@@ -1307,7 +1368,8 @@ public class TestBase {
 			inputsummary = driver.switchTo().activeElement();
 			inputsummary.click();
 			inputsummary.clear();
-			((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
+			inputsummary.sendKeys(data);
+			//	((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
 			switchToParentWindow();
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
@@ -1333,30 +1395,7 @@ public class TestBase {
 		action.sendKeys(Keys.ENTER).perform();
 		action.release();
 	}
-	
-	/**
-	 * Attach file in attach popup
-	 * @author lientm 
-	 * Update QuynhPT
-	 * @param number
-	 *            : number of upload container that need upload file
-	 * @param filePath
-	 *            : path to file upload
-	 */
-	public void attachFile(String pathFile, String fileName) {
-		info("Attach a file");
-		WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1,2);
-		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", element);
-		info("Get the file to attach");
-		element.sendKeys(Utils.getAbsoluteFilePath(pathFile+fileName));
-		info("Verify that the file is attached");
-		waitForAndGetElement(ELEMENT_UPLOAD_POPUP_NAMEFILE.replace("${fileName}", fileName));
-		info("The file is attached successfully");
-		info("Click on Save button");
-		click(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_SAVE_BUTTON);
-		Utils.pause(2000);
-	}
-	
+
 	/**
 	 * Import a Category
 	 * 
@@ -1367,10 +1406,219 @@ public class TestBase {
 		info("Attach a file");
 		WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1,2);
 		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", element);
-		element.sendKeys(Utils.getAbsoluteFilePath(pathFile + fileName));
+		element.sendKeys(getAbsoluteFilePath(pathFile + fileName));
 		waitForAndGetElement(ELEMENT_UPLOAD_POPUP_NAMEFILE.replace("${fileName}", fileName));
 		click(ELEMENT_SAVE_BTN);
 		Utils.pause(2000);
+	}
+
+	/**
+	 * This function returns a absolute path from a relative path
+	 * @param relativeFilePath
+	 * @return - FQA-2092: Run and check calendar sniff on IE and FF
+	 */
+	public String getAbsoluteFilePath(String relativeFilePath){
+		String fs = File.separator;
+		String curDir = System.getProperty("user.dir");
+		String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
+		absolutePath=absolutePath.replace("/", fs);
+		return absolutePath;
+	}
+
+	/**
+	 * Get a File Content
+	 * @param filePath
+	 * @return fileContent
+	 */
+	public String getFileContent(String filePath){
+		String path = getAbsoluteFilePath(filePath);
+		FileInputStream fis = null;
+		try {
+			fis = new FileInputStream(path);
+		} catch (FileNotFoundException e) {
+			error("Failed to find location of... " + filePath);
+		}
+		scanner = new Scanner(fis,"UTF-8");
+		String inputStreamString = scanner.useDelimiter("\\A").next();		
+		return inputStreamString;	
+	}
+
+	/**
+	 * Get a file name from current Url
+	 * @param driver
+	 * @param params
+	 * @return fileName
+	 */
+	public String getFileNameFromCurrentUrl(WebDriver driver, Object...params){
+		Boolean extension = (Boolean) (params.length > 0 ? params[0] : false);
+
+		String currentUrl = driver.getCurrentUrl();
+		File file = new File(currentUrl);
+		String fileNameWithExt = file.getName();
+
+		if (extension){
+			int position = fileNameWithExt.lastIndexOf(".");
+			String fileNameWithOutExt = null;
+			if (position >= 0) {
+				fileNameWithOutExt = fileNameWithExt.substring(0, position);
+			}else{
+				fileNameWithOutExt = fileNameWithExt;
+			}
+			return fileNameWithOutExt;
+		}else {
+			return fileNameWithExt;
+		}
+	}
+
+	/**
+	 * Attach file in attach popup
+	 * @param number
+	 *            : number of upload container that need upload file
+	 * @param filePath
+	 *            : path to file upload
+	 */
+	public void attachFile(String pathFile, String fileName) {
+		info("Attach a file");
+		WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1,2);
+		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", element);
+		info("Get the file to attach");
+		element.sendKeys(getAbsoluteFilePath(pathFile+fileName));
+		info("Verify that the file is attached");
+		waitForAndGetElement(ELEMENT_UPLOAD_POPUP_NAMEFILE.replace("${fileName}", fileName));
+		info("The file is attached successfully");
+		info("Click on Save button");
+		click(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_SAVE_BUTTON);
+		Utils.pause(2000);
+	}
+
+	/**
+	 * Upload file using AutoIt
+	 * @param file
+	 */
+	public void uploadFileUsingAutoIt(String file){
+		info("Upload file using AutoIt");
+		String fs = File.separator;
+		String path=getAbsoluteFilePath("TestData\\attachFile.exe") + " " + getAbsoluteFilePath(file.replace("/", fs));
+		try {
+			info(path);
+			Runtime.getRuntime().exec(path);
+			info("done upload");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Download file using autoit
+	 * @param file
+	 */
+	public void downloadFileUsingAutoIt(String file){
+		info("Download file using AutoIt");
+		String download = "TestData\\downloadIE9.exe";
+		String fs = File.separator;
+		String pathDownload = getAbsoluteFilePath(download);
+		try {
+			Process proc=Runtime.getRuntime().exec(pathDownload + " " + getAbsoluteFilePath("TestData" +fs + "TestOutput" + fs + file));
+			InputStream is = proc.getInputStream();
+			int retCode = 0;
+			while(retCode != -1)
+			{
+				retCode = is.read();
+				info("Now Exiting");
+			} 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * Download file using Robot class
+	 * @param element
+	 * @throws AWTException
+	 * @throws InterruptedException
+	 */
+	public void downloadFileUsingRobot(WebElement element) throws AWTException, InterruptedException {
+		info("Upload file using Robot");
+		Robot robot = new Robot();
+
+		// Get the focus on the element..don't use click since it stalls the driver         
+		element.sendKeys("");
+
+		//simulate pressing enter           
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+
+		// Wait for the download manager to open           
+		Utils.pause(2000);
+		// Switch to download manager tray via Alt+N
+		robot.keyPress(KeyEvent.VK_ALT);
+		robot.keyPress(KeyEvent.VK_N);
+		robot.keyRelease(KeyEvent.VK_N);
+		robot.keyRelease(KeyEvent.VK_ALT);
+
+		// Press S key to save           
+		robot.keyPress(KeyEvent.VK_S);
+		robot.keyRelease(KeyEvent.VK_S);
+		Thread.sleep(2000);
+
+		// Switch back to download manager tray via Alt+N
+		robot.keyPress(KeyEvent.VK_ALT);
+		robot.keyPress(KeyEvent.VK_N);
+		robot.keyRelease(KeyEvent.VK_N);
+		robot.keyRelease(KeyEvent.VK_ALT);
+
+		// Tab to X exit key
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_TAB);
+
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_TAB);
+
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_TAB);
+
+		// Press Enter to close the Download Manager
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+	}
+
+	/**
+	 * setClipboardData
+	 * @param string
+	 */
+	public static void setClipboardData(String string) {
+		//StringSelection is a class that can be used for copy and paste operations.
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+	}
+
+	/**
+	 * uploadFileUsingRobot
+	 * @param fileLocation
+	 */
+	public void uploadFileUsingRobot(String fileLocation) {
+		info("Upload file using Robot");
+		String fs = File.separator;
+		String path=getAbsoluteFilePath(fileLocation.replace("/", fs));
+		try {
+			//Setting clipboard with file location
+			setClipboardData(path);
+			//native key strokes for CTRL, V and ENTER keys
+			Robot robot = new Robot();
+			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			robot.delay(1000);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
 	}
 	/**
 	 * Get date by text format

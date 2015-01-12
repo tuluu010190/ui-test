@@ -25,13 +25,13 @@ public class NavigationToolbar extends PlatformBase {
 	MyProfilePage myPro;
 	SiteExplorerHome SEHome;
 	ManageSites magSites;
-	
+
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
 	public final By ELEMENT_TOOLBAR_THEMELIGHT = By.xpath("//*[@class='UIContainer UIToolbarContainer UIToolbarContainerLight']");
 	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_HELP_TOOLBAR = By.className("uiIconPLF24x24Help");
-	
+
 	public final By ELEMENT_DOC_EXO_OF_HOME_GETTING_STARTED = By.xpath(".//*[@id='newBreadcrumbs']//*[contains(text(),'Getting Started')]");
 	// toolbar--> upload file
 	public By ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS = By.xpath("//*[@id='ListRecords']//*[contains(text(),'Personal Documents')]");
@@ -45,7 +45,7 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_ADMINISTRATION_PORTAL_PAGES=By.xpath("//*[text()='Pages']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_BRANDING=By.xpath("//*[text()='Branding']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_IDE=By.xpath("//*[text()='IDE']");
-	
+
 	//Administation-->Content
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
 	public final By ELEMENT_MENU_CONTENT_LINK = By.xpath("//li[@class='dropdown-submenu']/a[text()='Content']");
@@ -53,17 +53,17 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_SITE_EXPLORER_HOME = By.className("uiIconEcmsHome");
 	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[contains(@class, 'uiIconEcmsAddFolder')]");
 	public final By ELEMENT_SEARCH_LINK = By.xpath("//*[@class='dropdown-menu']//*[text()='Search']");
-	
-	
+
+
 	// administration panel
 	public final By ELEMENT_TOPBAR_ADMINISTRATION_BUTTON =By.xpath("//*[@class='uiIconPLF24x24Setup']");
 	public final By ELEMENT_TOPBAR_CONTENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Content')]");
 	public final By ELEMENT_CONTENT_TOPBAR_ADMINISTRATION = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Content Administration')]");
-	
+
 	//Setup icon
 	public final By ELEMENT_LINK_SETUP=By.xpath("//*[@class='uiIconPLF24x24Setup']");
 	public final By ELEENT_LINK_APPLICATION=By.xpath("//*[contains(@href,'/portal/g/:platform:administrators/administration/registry')]");
-	
+
 	//Edit menu
 	public final By ELEMENT_LINK_EDIT=By.xpath("//*[@class='uiIconPLF24x24Edit']");
 	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
@@ -75,25 +75,25 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_EDIT_PAGE_SEO = By.xpath("//*[@data-original-title = 'SEO Management']");
 	public final By ELEMENT_EDIT_CONTENT = By.xpath("//*[@class='quickEditUnchecked']");
 	public final By ELEMENT_EDIT_CONTENT_CHECK = By.xpath("//*[@class='quickEditChecked']");
-	
+
 	//User Menu
 	public final By ELEMENT_MY_PROFILE_LINK = By.xpath("//i[@class='uiIconPLFProfile']/..");
 	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
 	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
-	
+
 	//Administration-->Application
 	public final By ELEMENT_ADMINISTRATION_APPLICATION = By.xpath(".//*[text()='Applications']");
 	public final By ELEMENT_ADD_TOOTLBAR = By.xpath("//*[@id='UICreatePlatformToolBarPortlet']//*[@class='uiIconPLF24x24Add']");
-	
+
 	public final By ELEMENT_ADD_WIKI_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconWikiWiki']");
 	public final By ELEMENT_ADD_POOL_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconPoll']");
 	public final By ELEMENT_ADD_TOPIC_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconUIForms']");
 	public final By ELEMENT_ADD_EVENT_CLASS_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconPLFEventTask']");
 	public final By ELEMENT_UPLOAD_FILE_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconUpload']");
-	
+
 	public final By ELEMENT_NEXT_BUTTON = By.xpath("//*[@id='UICreateList']//*[contains(text(),'Next')]");
 	public final By ELEMENT_SAVE_BUTTON = By.xpath("//*[@id='UICreateList']//*[contains(text(),'Save')]");
-	
+
 	// add wiki from toolbar
 	public final By ELEMENT_ADD_WIKI_SET_LOCATION = By.xpath("//*[@id='uiWikiSpaceSwitcher_CreateWiki']//*[@id='DisplayModesDropDown']/div");
 	public final String ELEMENT_ADD_WIKI_CHOOSE_LOCATION = "//*[@class='spaceChooserPopup']//*[contains(text(),'{$location}')]";
@@ -101,17 +101,17 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_ADD_POLL_SET_LOCATION = By.xpath("//*[@id='ScrollSelectlocation']//*[@class='btn dropdown-toggle']");
 	public final By ELEMENT_SELECT_FORUM_COMBOBOX = By.xpath(".//*[@id='uiForumFilterforumId']//div[@class='btn dropdown-toggle']");
 	public final String ELEMENT_SELECT_FORUM_NAME = ".//*[@id='uiForumFilterforumId']//*[contains(text(),'${forum}')]";
-	
+
 	// event or task
 	public final By ELEMENT_ADD_EVENT_RADIO_BUTTON = By.xpath("//*[@id='QuickAddEventContainer']//*[@class='radio' and @value='Event']");
 	public final By ELEMENT_ADD_TASK_RADIO_BUTTON = By.xpath("//*[@id='QuickAddEventContainer']//*[@class='radio' and @value='Task']");
 	public final By ELEMENT_ADD_TITLE = By.id("Title");
-	
+
 	public final  String ELEMENT_CHECK_NAME_UPLOADED_FILE= "//*[@id='ListRecords']//*[contains(text(),'{$name}')]";
 	//Quick search
 	public final By ELEMENT_TOOLBAR_QUICKSEARCH = By.xpath("//*[@class='uiIconPLF24x24Search']");
-	
-	
+
+
 	public NavigationToolbar(WebDriver dr){
 		driver = dr;
 		paMang=new PageManagement(dr);
@@ -120,7 +120,7 @@ public class NavigationToolbar extends PlatformBase {
 		SEHome = new SiteExplorerHome(dr);
 		magSites = new ManageSites(dr);
 	} 
-	
+
 	/**
 	 * Go to Edit Layout
 	 */
@@ -130,7 +130,7 @@ public class NavigationToolbar extends PlatformBase {
 		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
 		click(ELEMENT_MENU_EDIT_LAYOUT);
 	}
-	
+
 	/** 
 	 * Go to add page form: Edit-->Page-->Add page
 	 */
@@ -142,7 +142,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_MENU_ADD_PAGE_LINK);
 		waitForAndGetElement(paWin.ELEMENT_PAGE_CREATION_WIZARD);
 	}
-	
+
 	/**
 	 * Go to Manage Sites page: Administration-->Portal->Sites
 	 * By QuynhPT
@@ -156,21 +156,24 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_ADMINISTRATION_PORTAL_SITES);
 		waitForAndGetElement(magSites.ELEMENT_MANAGESITES_TITLE,3000,0);
 	}
-	
+
 	/**
 	 * Go to Manage Sites page: Administration-->Portal->Pages
 	 * By QuynhPT
 	 */
 	public void goToPotalPages(){
 		info("--Go to Portal-->Pages--");
+		String url=baseUrl+"/g/:platform:administrators/administration/pageManagement";
 		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION);
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);
 		mouseOver(ELEMENT_ADMINISTRATION_PORTAL, true);
-		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_PAGES);
-		click(ELEMENT_ADMINISTRATION_PORTAL_PAGES);
+		if(waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_PAGES,5000,0)==null)
+			driver.get(url);
+		else
+			click(ELEMENT_ADMINISTRATION_PORTAL_PAGES);
 		waitForAndGetElement(paMang.ELEMENT_MANAGEPAGES_TITLE);
 	}
-	
+
 	/**
 	 * List sublink in user menu
 	 * @author quynhpt
@@ -215,10 +218,10 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_ACCOUNT_NAME_LINK);
 		Utils.pause(1000);
 	}
-	
-     /**
-      *  Go to Site Explorer page: Administration-->Content->Site Explorer
-     */
+
+	/**
+	 *  Go to Site Explorer page: Administration-->Content->Site Explorer
+	 */
 	public void goToSiteExplorer() {
 		info("-- Go to site explorer home page --");
 		Utils.pause(500);
@@ -282,7 +285,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_AVATAR_CHANGELANGUAGE);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Go to content administration
 	 */
@@ -294,8 +297,8 @@ public class NavigationToolbar extends PlatformBase {
 		info("base url of content admin is " + baseUrl);
 		for(int repeat=0;; repeat ++){
 			if (repeat > 1){
-					driver.get(url);
-					break;
+				driver.get(url);
+				break;
 			}
 			mouseOver(ELEMENT_LINK_SETUP, true);
 			if (waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK, 5000, 0)!= null) {
@@ -306,8 +309,8 @@ public class NavigationToolbar extends PlatformBase {
 				}
 			}
 			info("Retry...[" + repeat + "]");
-			}
-			Utils.pause(1000);
+		}
+		Utils.pause(1000);
 	}
 	/**
 	 * Go to IDE page
@@ -363,7 +366,7 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_BRANDING,5000,0);
 		click(ELEMENT_ADMINISTRATION_PORTAL_BRANDING);
 	}
-	
+
 
 	/**
 	 * Go to create wiki page from the toolbars
@@ -379,7 +382,7 @@ public class NavigationToolbar extends PlatformBase {
 		}
 		click(ELEMENT_NEXT_BUTTON);
 	}
-	
+
 	/**
 	 * Go to add a pool from the toolbar
 	 * @param location
@@ -425,7 +428,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_NEXT_BUTTON);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Add an event or a task from the toolbar
 	 * @param eventTask
@@ -446,7 +449,7 @@ public class NavigationToolbar extends PlatformBase {
 		type(ELEMENT_ADD_TITLE,name,true);
 		click(ELEMENT_SAVE_BUTTON);
 	}
-	
+
 	/**
 	 * Go to upload file fron the toolbar
 	 * @param drive
@@ -457,29 +460,29 @@ public class NavigationToolbar extends PlatformBase {
 		info("-- Upload file --");
 		click(ELEMENT_ADD_TOOTLBAR);
 		click(ELEMENT_UPLOAD_FILE_TOOLBAR);
-		
+
 		if(drive!=""){
-			
+
 		}
-		
+
 		if(pathInDrive!=""){
-			
+
 		}else{
 			click(ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS);
 		}
-		
+
 		WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
 		driver.switchTo().frame(frame);
 		Utils.pause(2000);
 		((JavascriptExecutor)driver).executeScript("document.getElementsByTagName('input')[0].style.display = 'block';");
 		Utils.pause(2000);
-		driver.findElement(ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON).sendKeys(Utils.getAbsoluteFilePath(linkFile));
+		driver.findElement(ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON).sendKeys(getAbsoluteFilePath(linkFile));
 		Utils.pause(1000);
 		switchToParentWindow();
 		info("Upload finished");
 	}
-	
-	
+
+
 	/**
 	 * Open search administration
 	 */

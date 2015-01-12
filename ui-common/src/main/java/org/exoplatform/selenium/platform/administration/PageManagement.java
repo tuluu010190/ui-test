@@ -22,8 +22,8 @@ public class PageManagement extends PlatformBase {
 	public final By ELEMENT_MANGEPAGES_INFORM_POPUP_OK= By.xpath(".//*[text()='OK']");
 	//Results search
 	public final String ELEMENT_MANAGEPAGES_CONTENT_TITLE_COLUMN=".//*[text()='${tilte}']";
-	public final By ELEMENT_MAGEPAGES_CONTENT_ACTION_COLUMN=By.xpath(".//*[@class='uiIconDelete uiIconLightGray']");
-	
+	public final By ELEMENT_MAGEPAGES_CONTENT_ACTION_COLUMN_DELETE=By.xpath(".//*[@class='uiIconDelete uiIconLightGray']");
+	public final By ELEMENT_MAGEPAGES_CONTENT_ACTION_COLUMN_EDIT=By.xpath(".//*[@class='uiIconEditInfo uiIconLightGray']");
 	
 	public PageManagement(WebDriver dr){
 		driver = dr;
@@ -49,10 +49,20 @@ public class PageManagement extends PlatformBase {
 	public void deletePage(String titlePage){
 		info("Delete a page");
 		inputTitle(titlePage);
-		click(ELEMENT_MAGEPAGES_CONTENT_ACTION_COLUMN);
+		click(ELEMENT_MAGEPAGES_CONTENT_ACTION_COLUMN_DELETE);
 		alert.acceptAlert();
 		waitForAndGetElement(ELEMENT_MANGEPAGES_INFORM_POPUP_OK);
 		click(ELEMENT_MANGEPAGES_INFORM_POPUP_OK);
+		waitForElementNotPresent(ELEMENT_MANAGEPAGES_CONTENT_TITLE_COLUMN.replace("${tilte}",titlePage));
+	}
+	
+	/**
+	 * Go to edit a page
+	 * @param titilePage
+	 */
+	public void editPage(String titlePage){
+		info("Go to edit a page");
+		inputTitle(titlePage);
 		waitForElementNotPresent(ELEMENT_MANAGEPAGES_CONTENT_TITLE_COLUMN.replace("${tilte}",titlePage));
 	}
 	

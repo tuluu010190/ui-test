@@ -1,7 +1,5 @@
 package org.exoplatform.selenium.platform.administration;
 
-import static org.exoplatform.selenium.TestLogger.info;
-
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -73,29 +73,33 @@ public class AnswerManagement  extends PlatformBase {
 	 */
 	public void inputDataToAnswer(String content, Boolean isApprove, Boolean isActive, String related){
 		info("Input data to answer form");
-		info("input content");
+		
 		if(content!=null && content!=""){
+			info("input content");
 			inputDataToCKEditor(ELEMENT_ANSWER_FORM_DATA_FRAME_INPUT,content);
 		}
 
-		info("approve or not");
+		
 		if(isApprove!=null){
+			info("approve or not");
 			if(isApprove)
 				check(ELEMENT_ANSWER_APPROVE_CHECKBOX,2);
 			else
 				uncheck(ELEMENT_ANSWER_APPROVE_CHECKBOX,2);
 		}
 
-		info("active or not");
+		
 		if(isActive!=null){
+			info("active or not");
 			if(isActive)
 				check(ELEMENT_ANSWER_ACTIVATE_CHECKBOX,2);
 			else
 				uncheck(ELEMENT_ANSWER_ACTIVATE_CHECKBOX,2);
 		}
 
-		info("input related questions");
+		
 		if(related!=null && related!=""){
+			info("input related questions");
 
 		}
 	}

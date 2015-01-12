@@ -80,6 +80,10 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 	 * Create data test
 	 */
 	public void createDataTest(){
+		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.saveSetting();
 		hp.goToMySpaces();
 		sMang.goToCreateSpace();
 		sMang.addNewSpaceSimple(spaceName, spaceDes);

@@ -17,6 +17,7 @@ public class CalendarManagement extends PlatformBase{
 	ManageAlert alert;
 
 	//Common calendar action menu (icon +)
+	public By ELEMENT_CALENDAR_MENU = By.id("tmpMenuElement");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_ICON = By.xpath("//*[@class='uiIconCalSimplePlus uiIconLightGray']");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_ADD = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'AddCalendar')]");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_REMOTE = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'RemoteCalendar')]");
@@ -187,36 +188,37 @@ public class CalendarManagement extends PlatformBase{
 	 */
 	public void goToMenuFromMainCalendar(menuOfMainCalendar action){
 		info("Select action from menu");
-		click(ELEMENT_CALENDAR_MENU_ACTIONS_ICON);
+		click(ELEMENT_CALENDAR_MENU_ACTIONS_ICON,0,true);
+		waitForAndGetElement(ELEMENT_CALENDAR_MENU);
 		switch(action){
 		case ADDCAL:
 			info("Go to add calendar");
-			click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD);
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD,0,true);
 			waitForAndGetElement(ELEMENT_CALENDAR_ADD_FORM);
 			break;
 		case REMOTECAL:
 			info("Go to remote calendar");
-			click(ELEMENT_CALENDAR_MENU_ACTIONS_REMOTE);
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_REMOTE,0,true);
 			waitForAndGetElement(ELEMENT_REMOTE_CALENDAR_FORM);
 			break;
 		case ADDCATEGORY:
 			info("Go to add category calendar");
-			click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD_EVENT_CATEGORY);
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD_EVENT_CATEGORY,0,true);
 			waitForAndGetElement(ELEMENT_ADD_EVENT_CATEGORY_FORM);
 			break;
 		case CALSETTING:
 			info("Go to calendar setting");
-			click(ELEMENT_CALENDAR_MENU_ACTIONS_CALENDAR_SETTING);
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_CALENDAR_SETTING,0,true);
 			waitForAndGetElement(ELEMENT_CALENDAR_SETTING_FORM);
 			break;
 		case IMPORT:
 			info("Import calendar");
-			click(ELEMENT_CALENDAR_MENU_ACTIONS_IMPORT);
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_IMPORT,0,true);
 			waitForAndGetElement(ELEMENT_CALENDAR_IMPORT_POPUP_FORM);
 			break;
 		default:
 			info("Go to add calendar");
-			click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD);
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_ADD,0,true);
 			waitForAndGetElement(ELEMENT_CALENDAR_QUICK_ADD_TASK_FORM);
 			break;
 		}
@@ -514,10 +516,10 @@ public class CalendarManagement extends PlatformBase{
 		info("--Upload Calendar--");
 		WebElement element = waitForAndGetElement(ELEMENT_CALENDAR_IMPORT_SELECT_FILE, DEFAULT_TIMEOUT, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", element);
-		element.sendKeys(Utils.getAbsoluteFilePath(path));
+		element.sendKeys(getAbsoluteFilePath(path));
 		String[] links = path.split("/");
 		waitForAndGetElement("//*[text()='"+links[links.length-1]+"']");
-		info("import " + Utils.getAbsoluteFilePath(path));
+		info("import " + getAbsoluteFilePath(path));
 		switchToParentWindow();
 		waitForAndGetElement(ELEMENT_CALENDAR_IMPORT_DELETE_ICON);
 	}

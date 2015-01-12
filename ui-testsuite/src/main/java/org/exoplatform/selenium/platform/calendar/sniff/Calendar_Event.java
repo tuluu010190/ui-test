@@ -30,16 +30,16 @@ public class Calendar_Event extends PlatformBase {
 	CalendarManagement cMang;
 	UserDatabase userData;
 	String fullName;
-	
+
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
-	
+
 	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
-		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		getDefaultUserPass(DEFAULT_USERFILEURL,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);
@@ -59,7 +59,7 @@ public class Calendar_Event extends PlatformBase {
 	public void afterMethod(){
 		magAc.signOut();
 	}
-	
+
 	@AfterClass
 	public void afterTest(){
 		driver.manage().deleteAllCookies();
@@ -77,74 +77,78 @@ public class Calendar_Event extends PlatformBase {
 	public  void test01_02_AddRemoveAttachmentOfEvent() {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"115621";
 		String content = txData.getContentByArrayTypeRandom(1)+"115621";
-		String link = fData.getAttachFileByArrayTypeRandom(1);
-		info("Test 1: Add attachment to event");
+		String link = fData.getAttachFileByArrayTypeRandom(2);
+		if ("iexplorer".equals(browser)){
+			info("Test 1: Add attachment to event on IE manually");
+		}else{
+			info("Test 1: Add attachment to event");
 
-		/*Step Number: 1
-		 *Step Name: Step 1: Open Add event form
-		 *Step Description: 
+			/*Step Number: 1
+			 *Step Name: Step 1: Open Add event form
+			 *Step Description: 
 			- Select a calendar, Click Setting icon of this calendar and choose [Add Event] or Click Event button on action bar
 			- Input start and end time
 			- Click [More Details
-		 *Input Data: 
+			 *Input Data: 
 
-		 *Expected Outcome: 
+			 *Expected Outcome: 
 			Add/Edit Event pop
 			-up has 4 tabs 
 			- Details
 			- Reminders
 			- Participants
 			- Schedule*/
-		info("Add a event");
-		hp.goToCalendarPage();
-		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
-		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
-		cMang.saveSetting();
-		event.goToAddEventFromActionBar();
-		event.moreDetailsEvent();
+			info("Add a event");
+			hp.goToCalendarPage();
+			cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
+			cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+			cMang.saveSetting();
+			event.goToAddEventFromActionBar();
+			event.moreDetailsEvent();
 
-		/*Step number: 2
-		 *Step Name: Step 2: Add attachment
-		 *Step Description: 
+			/*Step number: 2
+			 *Step Name: Step 2: Add attachment
+			 *Step Description: 
 			- Click [Add Attachment]
 			- Browse to file and click save
-		 *Input Data: 
+			 *Input Data: 
 
-		 *Expected Outcome: 
+			 *Expected Outcome: 
 			- Attachment is added to event*/ 
-		info("Add attachment");
-		event.inputDataEventInDetailForm(titleEvent, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
-		event.attachFileToEvent("TestData/" + link);
-		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY);
+			info("Add attachment");
+			event.inputDataEventInDetailForm(titleEvent, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
+			event.attachFileToEvent(link);
+			event.saveAddEventDetails();
+			cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY);
 
-		info("Test 2: Remove attachment of event");
-		/*Step Number: 1
-		 *Step Name: Step 1: Open edit event form
-		 *Step Description: 
+			info("Test 2: Remove attachment of event");
+			/*Step Number: 1
+			 *Step Name: Step 1: Open edit event form
+			 *Step Description: 
 			- Go to calendar
 			- Select event which has attachment and edit
-		 *Input Data: 
+			 *Input Data: 
 
-		 *Expected Outcome: 
+			 *Expected Outcome: 
 			- Edit form appears*/
 
-		/*Step number: 2
-		 *Step Name: Step 2: Remove attachment
-		 *Step Description: 
+			/*Step number: 2
+			 *Step Name: Step 2: Remove attachment
+			 *Step Description: 
 			- Click [Delete] icon
 			- Click Save
-		 *Input Data: 
+			 *Input Data: 
 
-		 *Expected Outcome: 
+			 *Expected Outcome: 
 			- Attachment is deleted*/ 
-		info("Remove the attachment");
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY,null);
-		event.removeAttachment(link);
-		event.saveAddEventDetails();
+			info("Remove the attachment");
+			cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+			event.removeAttachment(link);
+			event.saveAddEventDetails();
 
-		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+			info("Delete data");
+			cHome.deleteEventTask(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		}
 	}
 
 	/**
@@ -204,7 +208,7 @@ public class Calendar_Event extends PlatformBase {
 		click(event.ELEMENT_EVENT_SCHEDULE_TAB);
 		event.addParticipants(DATA_USER1, 1);
 		event.checkBusyTimeOfUser(DATA_USER1, getDate(0,"HH")+":00", getDate(0,"HH")+":30");
-		
+
 		info("clear data");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
@@ -353,7 +357,7 @@ public class Calendar_Event extends PlatformBase {
 		event.selectPrivacyParticipant(true);
 		event.saveAddEventDetails();
 		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
-		
+
 		info("Clear data");
 		hp.goToCalendarPage();
 		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
@@ -494,7 +498,7 @@ public class Calendar_Event extends PlatformBase {
 		event.selectSendInvitation(selectInvitationOption.ALWAYS);
 		event.saveAddEventDetails();
 		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
-		
+
 		info("Clear data");
 		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
 	}
@@ -532,7 +536,7 @@ public class Calendar_Event extends PlatformBase {
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		event.moreDetailsEvent();
-		
+
 		/*Step number: 2
 		 *Step Name: Step 2: Add aprticipant
 		 *Step Description: 
@@ -557,7 +561,7 @@ public class Calendar_Event extends PlatformBase {
 		event.selectSendInvitation(selectInvitationOption.NEVER);
 		event.saveAddEventDetails();
 		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
-		
+
 		info("Clear data");
 		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
 	}
@@ -597,7 +601,7 @@ public class Calendar_Event extends PlatformBase {
 			- Participants
 			- Schedule*/
 		event.moreDetailsEvent();
-		
+
 		/*Step number: 3
 		 *Step Name: Step 3: View details tab
 		 *Step Description: 
@@ -630,7 +634,7 @@ public class Calendar_Event extends PlatformBase {
 		waitForAndGetElement(event.ELEMENT_ADD_EDIT_INPUT_EVENT_TO_TIME,5000,1,2);
 		waitForAndGetElement(event.ELEMENT_ADD_EDIT_EVENT_REPEAT_CHECKBOX,5000,1,2);
 		waitForAndGetElement(event.ELEMENT_EVENT_ADD_ATTACHMENT);
-	
+
 		/*Step number: 4
 		 *Step Name: Step 4: View Reminder tab
 		 *Step Description: 
@@ -645,7 +649,7 @@ public class Calendar_Event extends PlatformBase {
 		click(event.ELEMENT_EVENT_REMINDER_TAB);
 		waitForAndGetElement(event.ELEMENT_REMINDER_BY_POPUP,5000,1,2);
 		waitForAndGetElement(event.ELEMENT_REMINDER_BY_MAIL,5000,1,2);
-		
+
 		/*Step number: 5
 		 *Step Name: Step 5: View Participants tab
 		 *Step Description: 
@@ -668,7 +672,7 @@ public class Calendar_Event extends PlatformBase {
 		waitForAndGetElement(event.ELEMENT_SEND_INVITATION_ALWAYS_CHECKBOX,5000,1,2);
 		waitForAndGetElement(event.ELEMENT_SEND_INVITATION_ASK_CHECKBOX,5000,1,2);
 		waitForAndGetElement(event.ELEMENT_ADD_PARTICIPANTS_BUTTON_IN_PARTICIPANT_TAB);
-		
+
 		/*Step number: 6
 		 *Step Name: Step 5: View Schedule tab
 		 *Step Description: 

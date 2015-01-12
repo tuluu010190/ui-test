@@ -17,13 +17,13 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 public class PlatformBase extends TestBase {
 
-	public String DATA_USER1 = "john";
-	public  String DATA_USER2 = "mary";
-	public  String DATA_USER3 = "james";
-	public  String DATA_USER4 = "demo";
-	public  String USER_ROOT = "root";
-	public  String PASS_ROOT = "gtngtn";
-	public String DATA_PASS = "gtn";
+	public static String DATA_USER1 = "john";
+	public static String DATA_USER2 = "mary";
+	public static String DATA_USER3 = "james";
+	public static String DATA_USER4 = "demo";
+	public static String USER_ROOT = "root";
+	public static String PASS_ROOT = "gtngtn";
+	public static String DATA_PASS = "gtn";
 
 	//Gmail
 	public final String GMAIL_URL = "https://mail.google.com";
@@ -54,7 +54,7 @@ public class PlatformBase extends TestBase {
 	public By ELEMENT_PREVIOUS_PAGE=By.xpath("//*[@class='uiIconPrevArrow']");
 	public By ELEMENT_TOTAL_PAGE=By.xpath("//*[@class='pagesTotalNumber']");
 	public By ELEMENT_CURRENT_PAGE=By.xpath("//*[@class='active']/*[contains(@href,'objectId') or contains(@href,'javascript')]");
-	public String ELEMENT_ANY_PAGE="//*[contains(@href,'objectId') or contains(@href,'javascript') and text()='$page']";
+	public String ELEMENT_ANY_PAGE="//*[contains(@href,'ShowPage') and text()='$page']";
 	//frame
 	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//div[@id= 'cke_1_contents']/iframe");
 	public final By ELEMENT_FILEFORM_BLANK_NAME = By.id("name");
@@ -85,7 +85,7 @@ public class PlatformBase extends TestBase {
 	 * @param opParams
 	 * @throws Exception
 	 */
-	public void getDefaultUserPass(String userDataFile, String userSheet, Object... opParams) throws Exception{
+	public static void getDefaultUserPass(String userDataFile, String userSheet, Object... opParams) throws Exception{
 		info("Get deault user pass from data driven");
 		UserDatabase userData = new UserDatabase();
 		userData.setUserData(userDataFile,userSheet,opParams);

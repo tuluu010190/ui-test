@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.answer;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
-import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
@@ -147,7 +146,7 @@ public class QuestionManagement extends PlatformBase {
 			click(ELEMENT_SUBMIT_QUESTION_FORM_ATTACHMENT_BUTTON);
 			WebElement eFile = waitForAndGetElement(ELEMENT_QUESTION_FILE_INPUT,DEFAULT_TIMEOUT,1,2);
 			((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';",eFile);
-			eFile.sendKeys(Utils.getAbsoluteFilePath(pathFile));
+			eFile.sendKeys(getAbsoluteFilePath(pathFile));
 			waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", links[links.length-1]));
 			click(ELEMENT_ATTACH_SAVE_BUTTON);
 			waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", links[links.length-1]));

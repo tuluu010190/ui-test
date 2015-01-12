@@ -87,7 +87,7 @@ public class PageCreationWizard extends PlatformBase {
 		}
 		if(disName!=null && disName!=""){
 			info("Input display name");
-			type(ELEMENT_PAGE_NAME_INPUT,name,true);
+			type(ELEMENT_PAGE_DISPLAY_NAME_INPUT,name,true);
 		}
 		if(isVis!=null){
 			info("Input Visible");

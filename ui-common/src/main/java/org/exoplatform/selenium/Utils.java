@@ -11,23 +11,19 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import javax.imageio.ImageIO;
 
-import org.openqa.selenium.WebDriver;
-
 public class Utils {
 
-	private static Scanner scanner;
+
 
 	/**
 	 * Pause
@@ -143,61 +139,6 @@ public class Utils {
 	}
 	 */
 
-	/**
-	 * This function returns a absolute path from a relative path
-	 * @param relativeFilePath
-	 * @return - FQA-2092: Run and check calendar sniff on IE and FF
-	 */
-	public static String getAbsoluteFilePath(String relativeFilePath){
-		String curDir = System.getProperty("user.dir");
-		String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
-		return absolutePath;
-	}
-	
-	/**
-	 * Get a File Content
-	 * @param filePath
-	 * @return fileContent
-	 */
-	public static String getFileContent(String filePath){
-		String path = getAbsoluteFilePath(filePath);
-		FileInputStream fis = null;
-		try {
-			fis = new FileInputStream(path);
-		} catch (FileNotFoundException e) {
-			error("Failed to find location of... " + filePath);
-		}
-		scanner = new Scanner(fis,"UTF-8");
-		String inputStreamString = scanner.useDelimiter("\\A").next();		
-		return inputStreamString;	
-	}
-
-	/**
-	 * Get a file name from current Url
-	 * @param driver
-	 * @param params
-	 * @return fileName
-	 */
-	public static String getFileNameFromCurrentUrl(WebDriver driver, Object...params){
-		Boolean extension = (Boolean) (params.length > 0 ? params[0] : false);
-
-		String currentUrl = driver.getCurrentUrl();
-		File file = new File(currentUrl);
-		String fileNameWithExt = file.getName();
-
-		if (extension){
-			int position = fileNameWithExt.lastIndexOf(".");
-			String fileNameWithOutExt = null;
-			if (position >= 0) {
-				fileNameWithOutExt = fileNameWithExt.substring(0, position);
-			}else{
-				fileNameWithOutExt = fileNameWithExt;
-			}
-			return fileNameWithOutExt;
-		}else {
-			return fileNameWithExt;
-		}
-	}
 
 	/**
 	 * ipV4 of local machine
