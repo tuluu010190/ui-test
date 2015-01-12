@@ -8,6 +8,7 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmFunctions;
+import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificView;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
@@ -64,13 +65,14 @@ public class Ecms_AdminExplorer extends PlatformBase{
 		info("Test 1: Add, edit and delete Drive");
 		String title = txData.getContentByArrayTypeRandom(1)+"116587";
 		String permission = "any";
-		String[] view ={"Admin"};
-		String[] newView = {"Web"};
+		specificView[] view ={specificView.ADMIN};
+		specificView[] newView = {specificView.WEB};
+		String [] newV={"Web"};
 		
 		caPage.goToSpecificFunctions(specificEcmFunctions.DRIVES);
 		caPage.addDrives(title, permission, view);
 		caPage.editDrives(title, newView);
-		waitForAndGetElement(By.xpath(caPage.ELEMENT_ECM_EXPLORER_DRIVES_VIEW_OF_VIEWS_LIST.replace("{$name}",title).replace("{$view}",newView[0])));
+		waitForAndGetElement(By.xpath(caPage.ELEMENT_ECM_EXPLORER_DRIVES_VIEW_OF_VIEWS_LIST.replace("{$name}",title).replace("{$view}",newV[0])));
 		// delete drive
 		caPage.deleteDrives(title);
 		/*Step Number: 1

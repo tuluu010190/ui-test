@@ -13,7 +13,7 @@
 
 	<properties>
 		<cargo.skip>false</cargo.skip>
-		<maven.test.skip>false</maven.test.skip>
+		<maven.test.skip>true</maven.test.skip>
 		<!-- <selenium.port>4444</selenium.port> -->
 		<!-- <servlet.port>18880</servlet.port> -->
 		<!-- <selenium.background>true</selenium.background> -->
@@ -29,15 +29,15 @@
 
 	<profiles>
 		<profile>
-			<id>calendar-sniff</id>
-			<properties>
-				<testSuite>calendar-sniff.xml</testSuite>
-			</properties>
-		</profile>
-		<profile>
 			<id>answer-sniff</id>
 			<properties>
 				<testSuite>answer-sniff.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>calendar-sniff</id>
+			<properties>
+				<testSuite>calendar-sniff.xml</testSuite>
 			</properties>
 		</profile>
 		<profile>
@@ -51,15 +51,6 @@
 			<properties>
 				<testSuite>testng-failed.xml</testSuite>
 			</properties>
-		</profile>
-		<profile>
-			<id>regression</id>
-			<properties>
-				<testSuite>regression.xml</testSuite>
-			</properties>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
 		</profile>
 	</profiles>
 
@@ -82,8 +73,9 @@
 						</goals>
 						<configuration>
 							<skip>${maven.test.skip}</skip>
-							<!--<systemPropertyVariables> <webdriver.chrome.driver>chromedriver</webdriver.chrome.driver> 
-								</systemPropertyVariables> -->
+							<systemPropertyVariables>
+								<webdriver.ie.driver>D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe</webdriver.ie.driver>
+							</systemPropertyVariables>
 							<suiteXmlFiles>
 								<suiteXmlFile>${project.build.OutputDirectory}/suites/${testSuite}</suiteXmlFile>
 							</suiteXmlFiles>

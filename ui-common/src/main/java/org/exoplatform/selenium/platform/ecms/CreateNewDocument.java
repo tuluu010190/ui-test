@@ -39,26 +39,24 @@ public class CreateNewDocument extends PlatformBase{
 		this.driver= driver;
 		alert = new ManageAlert(driver);
 	}
-	
-    /**
-     * Select a document by type
-     */
+
+	/**
+	 * Select a document by type
+	 */
 	public enum selectDocumentType{
 		FILE, WEBCONTENT, ACCESSIBLEMEDIA, ANNOUNCEMENT, CSSFILE, CONTACTUS, HTMLFILE, ILLUSTRATEDWEBCONTENT,
 		JAVASCRIPTFILE, PRODUCT, WEBLINK
 	}
-    /**
-     * Create a new document
-     * @param type
-     */
+	/**
+	 * Create a new document
+	 * @param type
+	 */
 	public void createNewDoc(selectDocumentType type) {
-
 		info("Go to type "+ type);
 		switch(type){
 		case FILE:
 			click(ELEMENT_ADDDOCUMENT_FILE);
 			break;
-
 		case WEBCONTENT:
 			click(ELEMENT_ADDDOCUMENT_WEBCONTENT);
 			break;
@@ -150,7 +148,7 @@ public class CreateNewDocument extends PlatformBase{
 	 * @param source
 	 */
 	public void createAdvancedDocument(String name, String content, String title, String desc, String creator, String source) {
-		
+
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
 		inputDataToFrame(ELEMENT_FILEFORM_BLANK_CONTENT , content, true);
 		switchToParentWindow();
@@ -167,5 +165,5 @@ public class CreateNewDocument extends PlatformBase{
 			type(ELEMENT_DOCFORM_BLANK_SOURCE,source, true);
 		}
 	}
-	
+
 }

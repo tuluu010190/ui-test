@@ -22,7 +22,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public By ELEMENT_ECMS_FUNCTIONS_SCRIPTS =By.xpath("//*[@class='uiIconEcmsScriptManager uiIconEcmsLightGray']");
 	public By ELEMENT_ECMS_FUNCTIONS_QUERIES =By.xpath("//*[@class='uiIconEcmsQueriesManager uiIconEcmsLightGray']");
 	public By ELEMENT_ECMS_FUNCTIONS_CATEGORIES =By.xpath("//*[@class='uiIconEcmsTaxonomyManagerTrees uiIconEcmsLightGray']");
-	
+
 	// function Advanced, ACTIONS
 	public By ELEMENT_ADD_ACTION_TYPE = By.xpath("//*[@id='UIActionManager']//*[@class='btn']");
 	public By ELEMENT_ECM_ACTION_NAME_FORM = By.xpath("//*[@class='uiForm UIActionTypeForm']//*[@id='name']");
@@ -32,7 +32,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public String ELEMENT_ECM_ACTION_LIST = "//*[@id='UIActionTypeList']//div[contains(text(),'{$name}')]";
 	public String ELEMENT_ECM_ACTION_DELETE_LIST ="//*[@id='UIActionTypeList']//div[contains(text(),'{$name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
 	public String ELEMENT_ECM_ACTION_EDIT_LIST ="//*[@id='UIActionTypeList']//div[contains(text(),'{$name}')]/../..//*[@class='uiIconEdit uiIconLightGray']";
-	
+
 	//function Advanced, Scripts
 	public By ELEMENT_ECM_ADVANCED_SCRIPT_ADD_SCRIPT = By.xpath("//*[@id='UIScriptList']//*[contains(text(),'Add Script')]");
 	public By ELEMENT_ECM_ADVANCED_SCRIPT_NAME_FORM = By.xpath("//*[@id='scriptLabel']");
@@ -42,7 +42,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public String ELEMENT_ECM_ADVANCED_SCRIPT_EDIT_LIST = "//*[contains(text(),'{$name}')]/../..//*[@title='Edit']";
 	public String ELEMENT_ECM_ADVANCED_SCRIPT_DELETE_LIST = ".//*[contains(text(),'{$name}')]/../..//*[@title='Delete']";
 	public String ELEMENT_ECM_ADVANCED_SCRIPT_LIST = ".//*[@id='UIScriptList']//*[contains(text(),'{$name}')]";
-	
+
 	//function Advanced, queries
 	public By ELEMENT_ECM_ADVANCED_QUERIES_ADD_QUERIES = By.xpath("//*[@id='UIQueriesList']//*[contains(text(),'Add Query')]");
 	public By ELEMENT_ECM_ADVANCED_QUERIES_NAME_FORM = By.xpath(".//*[@id='UIQueriesForm']//*[@id='name']");
@@ -55,18 +55,18 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public String ELEMENT_ECM_ADVANCED_QUERIES_TYPE_LIST = "//*[contains(text(),'{$name}')]/../../td[2]//*[contains(text(),'{$type}')]";
 	public String ELEMENT_ECM_ADVANCED_QUERIES_DELETE_BUTTON = "//*[contains(text(),'{$name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
 	public String ELEMENT_ECM_ADVANCED_QUERIES_LIST = ".//*[@id='UIQueriesList']//*[contains(text(),'{$name}')]";
-	
+
 	// functions Advanced, categories
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_ADD_CATEGORIES = By.xpath(".//*[@id='UITaxonomyTreeList']//*[contains(text(),'Add Category Tree')]");
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_NAME_FORM = By.xpath(".//*[@id='TaxoTreeName']");
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_NEXT_1STPAGE_FORM = By.xpath(".//*[@id='TaxonomyTreeMainForm']//*[contains(text(),'Next')]");
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_NEXT_2NDPAGE_FORM = By.xpath(".//*[@id='UIPermissionTreeForm']//*[contains(text(),'Next')]");
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_NEXT_3RDPAGE_FORM = By.xpath(".//*[@id='UIActionTaxonomyManager']//*[contains(text(),'Next')]");
-	
+
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_PREVIOUS_2NDPAGE = By.xpath("//*[@id='UIPermissionTreeForm']//*[contains(text(),'Previous')]");
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_PREVIOUS_3RDPAGE = By.xpath("//*[@id='UIActionTaxonomyManager']//*[contains(text(),'Previous')]");
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_PREVIOUS_4THPAGE = By.xpath("//*[@id='UITaxonomyTreeCreateChild']//*[contains(text(),'Previous')]");
-	
+
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_NAME_ACTION_FORM = By.xpath(".//*[@id='actionName']");
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_LIFECYCLE_FORM = By.xpath(".//*[@id='UIActionForm']//*[@class='selectbox']");
 	public By ELEMENT_ECM_ADVANCED_CATEGORIES_OPEN_TARGETPATH_ACTION_FORM = By.xpath(".//*[@id='UIActionForm']//*[@id='targetPath']/../a[1]");
@@ -81,8 +81,8 @@ public class ContentAdministrationManagement extends PlatformBase{
 
 	public By ELEMENT_ECMS_FUNCTIONS_VIEWS =By.xpath("//*[@class='uiIconEcmsViewManager uiIconEcmsLightGray']");
 	public By ELEMENT_ECMS_FUNCTIONS_TAGS =By.xpath("//*[@class='uiIconEcmsFolksonomyManager uiIconEcmsLightGray']");
-	
-	
+
+
 	// Explorer, drives
 	public By ELEMENT_ECM_EXPLORER_DRIVES_ADD_DRIVES = By.xpath("//*[@id='UIDriveList']//*[contains(text(),'Add Drive')]");
 	public By ELEMENT_ECM_EXPLORER_NAME_DRIVES_FORM = By.xpath("//*[@id='name']");
@@ -118,7 +118,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public String ELEMENT_ECM_EXPLORER_NAME_VIEW_SHOW_VIEW = "//*[@id='viewName' and @value='{$name}']";
 	public String ELEMENT_ECM_EXPLORER_TAB_ICONS_LIST_SHOW_VIEW ="//*[@id='UITabList']//*[contains(text(),'{$tab}')]";
 	public By ELEMENT_ECM_EXPLORER_CLOSE_VIEW_MODE = By.xpath(".//*[@id='UIViewFormTabPane']//*[contains(text(),'Close')]");		
-			
+
 	// explorer, tags
 	public By ELEMENT_ECM_EXPLORER_TAGS_ADD_STYLE_BUTTON = By.xpath("//*[@id='UITagManager']//*[contains(text(),'Add Style')]");
 	public By ELEMENT_ECM_EXPLORER_TAGS_ADD_NAME_FORM = By.xpath("//*[@id='styleName']");
@@ -128,18 +128,18 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public String ELEMENT_ECM_EXPLORER_TAGS_EDIT_LIST = "//*[@id='UITagManager']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconEdit uiIconLightGray']";
 	public String ELEMENT_ECM_EXPLORER_TAGS_DELETE_LIST = "//*[@id='UITagManager']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconRemove uiIconLightGray']";
 	public String ELEMENT_ECM_EXPLORER_TAGS_LIST_CHECK_HTML_CONTENT = "//*[@id='UITagManager']//*[contains(text(),'{$name}')]/../..//*[contains(text(),'{$html}')]";
-	
+
 	//common element
 	public By ELEMENT_ECM_COMMON_ADD_PERMISSION_BUTTON = By.xpath(".//*[@class='uiIconAddPermission uiIconLightGray']");
 	public By ELEMENT_ECM_COMMON_ANY_PERMISSION = By.xpath("//*[@class='uiIconAddAnyPermission uiIconLightGray']");
-    
+
 	/**
 	 * Select a function as: Explorer, Advanced, Template and Repositoty
 	 */
 	public enum mainEcmFunctions{
 		EXPLORER,ADVANCED,TEMPLATES,REPOSITORY;
 	}
-	
+
 	/**
 	 * Select a subfunction as Documents, List, Metadata, Drives,
 	 * Tags, NameSpaces,Nodestypes,Locks, Categories, Queries, Scripts
@@ -148,6 +148,15 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 */
 	public enum specificEcmFunctions{
 		DOCUMENTS,LIST,METADATA,VIEW,DRIVES,TAGS,NAMESPACES,NODESTYPES,LOCKS,CATEGORIES,QUERIES,SCRIPTS,ACTIONS;
+	}
+	
+	/**
+	 * 
+	 * view option
+	 *
+	 */
+	public enum specificView{
+		ADMIN, CATEGORY, LIST, ICON, WEB
 	}
 
 	/**
@@ -170,7 +179,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 			break;
 		}
 	}
-	
+
 	/**
 	 * Select a sub function in Advance function
 	 * @param spec
@@ -198,9 +207,11 @@ public class ContentAdministrationManagement extends PlatformBase{
 		case TAGS :
 			click(ELEMENT_ECMS_FUNCTIONS_TAGS);
 			break;
+		default:
+			break;
 		}
 	}
-    
+
 	/**
 	 * Add a new View
 	 * @param name
@@ -256,7 +267,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param permission
 	 * @param applyViews
 	 */
-	public void addDrives(String name, String permission,String[] applyViews){
+	public void addDrives(String name, String permission,specificView[] applyViews){
 		click(ELEMENT_ECM_EXPLORER_DRIVES_ADD_DRIVES);
 		type(ELEMENT_ECM_EXPLORER_NAME_DRIVES_FORM,name,true);
 
@@ -264,21 +275,24 @@ public class ContentAdministrationManagement extends PlatformBase{
 		if(permission=="any")
 			click(ELEMENT_ECM_COMMON_ANY_PERMISSION);
 		click(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_FORM);
-		for(String arrayElement : applyViews ){
+		for(specificView arrayElement : applyViews ){
 			switch(arrayElement){
-			case "Admin" :
+			case ADMIN :
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_ADMIN,2);
 				break;
-			case "Categories":
+			case CATEGORY:
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_CATEGORIES,2);
 				break;
-			case "Icons":
+			case ICON:
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_ICONS,2);
 				break;
-			case "List" :
+			case LIST :
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_LIST,2);
 				break;
-			case "Web" :
+			case WEB :
+				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_WEB,2);
+				break;
+			default:
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_WEB,2);
 				break;
 			}
@@ -291,7 +305,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param name
 	 * @param applyViews (All the view want to be check have to be specified, the other will be uncheck) 
 	 */
-	public void editDrives(String name,String[] applyViews){
+	public void editDrives(String name,specificView[] applyViews){
 		click(By.xpath(ELEMENT_ECM_EXPLORER_DRIVES_EDIT_LIST.replace("{$name}", name)));
 		click(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_FORM);
 		uncheck(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_ADMIN,2);
@@ -299,21 +313,24 @@ public class ContentAdministrationManagement extends PlatformBase{
 		uncheck(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_ICONS,2);
 		uncheck(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_LIST,2);
 		uncheck(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_WEB,2);
-		for(String arrayElement : applyViews ){
+		for(specificView arrayElement : applyViews ){
 			switch(arrayElement){
-			case "Admin" :
+			case ADMIN :
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_ADMIN,2);
 				break;
-			case "Categories":
+			case CATEGORY:
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_CATEGORIES,2);
 				break;
-			case "Icons":
+			case ICON:
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_ICONS,2);
 				break;
-			case "List" :
+			case LIST :
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_LIST,2);
 				break;
-			case "Web" :
+			case WEB :
+				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_WEB,2);
+				break;
+			default:
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_WEB,2);
 				break;
 			}
@@ -437,7 +454,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 			select(ELEMENT_ECM_ACTION_SCRIPT_FORM,script);
 		if(variables!=null)
 			type(ELEMENT_ECM_ACTION_VARIABLES_FORM,variables, true);
-		
+
 		click(ELEMENT_ECM_ACTION_SAVE_FORM);
 	}
 	/**
@@ -475,7 +492,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 			type(ELEMENT_ECM_ADVANCED_SCRIPT_SCRIPT_FORM,script,true);
 		if(content!=null)
 			type(ELEMENT_ECM_ADVANCED_SCRIPT_CONTENT_FORM,content, true);
-		
+
 		click(ELEMENT_ECM_ADVANCED_SCRIPT_SAVE_FORM);
 	}
 	/**
@@ -492,7 +509,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 			type(ELEMENT_ECM_ADVANCED_SCRIPT_SCRIPT_FORM,script,true);
 		if(content!=null)
 			type(ELEMENT_ECM_ADVANCED_SCRIPT_CONTENT_FORM,content, true);
-		
+
 		click(ELEMENT_ECM_ADVANCED_SCRIPT_SAVE_FORM);
 		waitForAndGetElement(ELEMENT_ECM_ADVANCED_SCRIPT_LIST.replace("{$name}",name));
 		waitForElementNotPresent(ELEMENT_ECM_ADVANCED_SCRIPT_LIST.replace("{$name}",oldname));
