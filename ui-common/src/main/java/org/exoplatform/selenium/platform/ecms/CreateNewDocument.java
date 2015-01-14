@@ -74,7 +74,6 @@ public class CreateNewDocument extends PlatformBase{
 	 * Create a new document
 	 * @param type
 	 */
-
 	public void createNewDoc(selectDocumentType type) {
 		info("Go to type "+ type);
 		switch(type){

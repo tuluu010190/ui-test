@@ -308,11 +308,6 @@ import org.testng.annotations.*;
 		CreNewDoc.addNewFile(title, content);
 		CreNewDoc.saveAndClose();
 
-		/*click(SEHome.ELEMENT_ACTIONBAR_ADDCOMMENT);
-		this.driver.navigate().refresh();
-		inputFrame(CreNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content2);
-		info("Click on Save button");
-		click(SEHome.ELEMENT_SITEEXPLORER_COMMENT_SAVE);*/
 		SEHome.addEditComment(content2,true);
 		waitForAndGetElement(By.xpath((SEHome.ELEMENT_SITEEXPLORER_COMMENT).replace("${number}", "1")));
 		

@@ -106,10 +106,11 @@ public class SiteExplorerHome extends PlatformBase{
 	public final String ELEMENT_MANAGEPUBLICATION_HISTORY_ITEM = "//div[text()='${state}']";
 
 	//add translation popup
-	public final By ELEMENT_ADDTRANSLATION_SELECTDOC = By.xpath(".//*[@id='UIAddTranslationForm']//button[text()='Select Document']");
+	public final By ELEMENT_ACTIONBAR_ADDTAG = By.xpath("//*[@class='uiIconEcmsTaggingDocument uiIconEcmsLightGray']");
+	public final By ELEMENT_ADDTRANSLATION_SELECTDOC = By.xpath("//*[@title='Select Document']");
 	public final String ELEMENT_FOLDERSELECTOR_PATH = "//*[@class='nodeName' and text()=' ${path}' ]";
 	public final String ELEMENT_FOLDERSELECTOR_CONTENTDETAIL_FINALPATH = "//*[@class='OddItem']//*[text()='${name}']";
-	public final By ELEMENT_SAVE_BTN = By.xpath(".//*[@id='UIAddTranslationForm']//*[text()='Save']");
+	public final By ELEMENT_SAVE_BTN = By.xpath("//*[text()='Save']");
 	public final By ELEMENT_ADD_BTN = By.xpath("//*[text()='Add']");
 	public final By ELEMENT_CLOSE_BTN = By.xpath("//*[text()='Close']");
 	public final By ELEMENT_OK_BTN = By.xpath("//*[text()='OK']");
@@ -148,10 +149,11 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_ACTION_OPEN_IN_MS_OFFICE = By.xpath("//*[@class='uiIconDownload uiIconLightGray']");
 	public final By ELEMENT_SITEEXPLORER_ACTION_ADDSYMLINK = By.xpath("//*[@class='uiIconEcmsAddSymLink']");
 
-	
+	//Left explorer box
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_ROOTNODE = By.xpath("//*[@class='uiIconEcmsHome uiIconEcmsLightGray']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_RELATION = By.xpath("//*[@class='uiIconEcmsRelationMini uiIconEcmsLightGray']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_EXPLORER = By.xpath("//*[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
+	
 	public final String ELEMENT_SITEEXPLORER_LEFTBOX_TITLE_TRANSLATION="//*[text()='fr (${title})']";
 	public final By ELEMENT_SITEEXPLORER_LIST_LOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsLock']");
 	public final By ELEMENT_SITEEXPLORER_LIST_UNLOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsUnlock']");
@@ -422,10 +424,6 @@ public class SiteExplorerHome extends PlatformBase{
 	
 	/**
 	 * Upload a file from TesData folder
-=======
-	 * Upload a file
-	 *
->>>>>>> FQA-2104: 4.2/sniff/ecms/admin-wcm
 	 * @param link
 	 * @param params
 	 * @return 
