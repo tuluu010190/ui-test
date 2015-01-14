@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.administration;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class ContentAdministrationManagement extends PlatformBase{
@@ -82,6 +83,13 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public By ELEMENT_ECMS_FUNCTIONS_VIEWS =By.xpath("//*[@class='uiIconEcmsViewManager uiIconEcmsLightGray']");
 	public By ELEMENT_ECMS_FUNCTIONS_TAGS =By.xpath("//*[@class='uiIconEcmsFolksonomyManager uiIconEcmsLightGray']");
 
+	public By ELEMENT_ECMS_FUNCTIONS_NODES = By.xpath("//*[@class='uiIconEcmsNodeTypeManager uiIconEcmsLightGray']");
+	public By ELEMENT_ECMS_FUNCTIONS_NAMESPACES = By.xpath("//*[@class='uiIconEcmsNamespaceManager uiIconEcmsLightGray']");
+	public By ELEMENT_ECMS_FUNCTIONS_LOCKS = By.xpath("//*[@class='uiIconEcmsUnLockManager uiIconEcmsLightGray']");
+	public By ELEMENT_ECMS_FUNCTIONS_DOCUMENTS = By.xpath("//*[@class='uiIconEcmsTemplatesManager uiIconEcmsLightGray']");
+	public By ELEMENT_ECMS_FUNCTIONS_LIST = By.xpath("//*[@class='uiIconEcmsCLVTemplatesManager uiIconEcmsLightGray']");
+	public By ELEMENT_ECMS_FUNCTIONS_METADATA = By.xpath("//*[@class='uiIconEcmsMetadataManager uiIconEcmsLightGray']");
+
 
 	// Explorer, drives
 	public By ELEMENT_ECM_EXPLORER_DRIVES_ADD_DRIVES = By.xpath("//*[@id='UIDriveList']//*[contains(text(),'Add Drive')]");
@@ -132,6 +140,64 @@ public class ContentAdministrationManagement extends PlatformBase{
 	//common element
 	public By ELEMENT_ECM_COMMON_ADD_PERMISSION_BUTTON = By.xpath(".//*[@class='uiIconAddPermission uiIconLightGray']");
 	public By ELEMENT_ECM_COMMON_ANY_PERMISSION = By.xpath("//*[@class='uiIconAddAnyPermission uiIconLightGray']");
+
+
+	// repository, nodes type
+	public By ELEMENT_ECM_REPOSITORY_NODES_ADD = By.xpath("//*[@id='ListNodeType']//*[contains(text(),'Add')]");
+	public By ELEMENT_ECM_REPOSITORY_NODES_NAME_FORM = By.xpath("//*[@id='nodeTypeName']");
+	public By ELEMENT_ECM_REPOSITORY_NODES_SUPER_TYPES_FORM = By.xpath("//*[@id='superTypes']");
+	public By ELEMENT_ECM_REPOSITORY_NODES_MIXIN_TYPES = By.xpath("//*[@name='mixinType']");
+	public By ELEMENT_ECM_REPOSITORY_NODES_SAVE_FORM = By.xpath("//*[@id='UINodeTypeForm']//*[contains(text(),'Save')]");
+	public By ELEMENT_ECM_REPOSITORY_NODES_SEARCH_NODE = By.xpath("//*[@id='NodeTypeText']");
+	public String ELEMENT_ECM_REPOSITORY_NODES_SHOW_SPECIFIC_NODE = ".//*[@id='ListNodeType']//*[contains(text(),'{$node}')]/../..//*[@class='uiIconPreview uiIconLightGray']";
+	public String ELEMENT_ECM_REPOSITORY_NODES_CHECK_SUPER_TYPES = "//*[@id='superTypes' and @value='{$types}']";
+	public By ELEMENT_ECM_REPOSITORY_NODES_CLOSE_FORM = By.xpath("//*[@id='UINodeTypeForm']//*[contains(text(),'Close')]");
+	
+	// repository, namespaces
+	public By ELEMENT_ECM_REPOSITORY_NAMESPACES_ADD = By.xpath("//*[@id='UINamespaceManager']//*[contains(text(),'Register')]");
+	public By ELEMENT_ECM_REPOSITORY_NAMESPACES_FORM_NAME = By.xpath("//*[@id='namespace']");
+	public By ELEMENT_ECM_REPOSITORY_NAMESPACES_URI_FORM = By.xpath("//*[@id='uri']");
+	public By ELEMENT_ECM_REPOSITORY_NAMESPACES_SAVE_FORM = By.xpath("//*[@id='UINamespaceForm']//*[contains(text(),'Save')]");
+	public String ELEMENT_ECM_REPOSITORY_NAMESPACES_CHECK_LIST_URL_AND_PREFIX= ".//*[@id='UINamespaceList']//*[contains(text(),'{$prefix}')]/../..//*[contains(text(),'{$url}')]";
+	
+	// repository Locks
+	public By ELEMENT_ECM_REPOSITORY_LOCKS_DEVELOPMENT_GROUP = By.xpath("//*[@id='UIPermissionSelector']//*[contains(text(),'Development')]");
+	public By ELEMENT_ECM_REPOSITORY_LOCKS_ALL_GROUP = By.xpath("//*[@id='UIPermissionSelector']//*[contains(text(),'*')]");
+	public String ELEMENT_ECM_REPOSITORY_CHECK_LOCK_PERMISSION = "//*[@id='UILockHolderList']//*[contains(text(),'{$group}')]";
+	public String ELEMENT_ECM_REPOSITORY_DELETE_LOCK_PERMISSION = "//*[@id='UILockHolderList']//*[contains(text(),'{$group}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
+	public By ELEMENT_ECM_REPOSITORY_MANAGE_LOCK = By.xpath("//*[@id='UIUnLockManager']//*[contains(text(),'Manage Lock')]");
+	public String ELEMENT_ECM_REPOSITORY_UNLOCK_NODE_LIST = "//*[@id='UILockNodeList']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconUnlockMini uiIconLightGray']";
+	
+	// templates, Documents
+	public By ELEMENT_ECM_TEMPLATES_DOCUMENTS_ADD_DOCUMENT = By.xpath("//*[@id='UITemplateContainer']//*[contains(text(),'Add Template')]");
+	public By ELEMENT_ECM_TEMPLATES_DOCUMENTS_LABEL_FORM = By.xpath("//*[@id='label']");	
+	public By ELEMENT_ECM_TEMPLATES_DOCUMENTS_SAVE_FORM = By.xpath("//*[@id='UITemplateForm']//*[contains(text(),'Save')]");
+	public String ELEMENT_ECM_TEMPLATES_DOCUMENTS_LIST = "//*[@id='UITemplateList']//*[contains(text(),'{$name}')]";
+	public String ELEMENT_ECM_TEMPLATES_DOCUMENTS_LIST_EDIT = "//*[@id='UITemplateList']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconEdit uiIconLightGray']";
+	public By ELEMENT_ECM_TEMPLATES_DOCUMENTS_SAVE_EDIT_FORM = By.xpath("//*[@id='UITemplateEditForm']//*[contains(text(),'Save')]");
+	public String ELEMENT_ECM_TEMPLATES_DOCUMENTS_LIST_DELETE = "//*[@id='UITemplateList']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
+
+	// templates, List
+	public By ELEMENT_ECM_TEMPLATES_LIST_ADD_LIST = By.xpath("//*[@id='ContentTemplateContainer']//*[contains(text(),'Add Template')]");
+	public By ELEMENT_ECM_TEMPLATES_LIST_TEMPLATE_NAME_FORM = By.xpath("//*[@id='template']");
+	public By ELEMENT_ECM_TEMPLATES_LIST_NAME_FORM = By.xpath("//*[@id='title']");
+	public By ELEMENT_ECM_TEMPLATES_LIST_CONTENT_FORM = By.xpath("//*[@id='content']");
+	public By ELEMENT_ECM_TEMPLATES_LIST_SAVE_FORM = By.xpath("//*[@id='UICLVTemplateForm_ContentTemplateContainer']//*[contains(text(),'Save')]");
+	public String ELEMENT_ECM_TEMPLATES_LIST_CHECK_LIST ="//*[@id='UICLVTemplateList']//*[contains(text(),'{$name}')]/../..//*[contains(text(),'{$template}')]";
+	public String ELEMENT_ECM_TEMPLATES_LIST_CHECK_BY_NAME ="//*[@id='UICLVTemplateList']//*[contains(text(),'{$name}')]";
+	public String ELEMENT_ECM_TEMPLATES_LIST_EDIT_LIST ="//*[@id='UICLVTemplateList']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconEdit uiIconLightGray']";
+	public String ELEMENT_ECM_TEMPLATES_LIST_DELETE_LIST ="//*[@id='UICLVTemplateList']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
+	
+	// templates, metadata
+	public String ELEMENT_ECM_TEMPLATES_METADATA_LIST = "//*[@id='UIMetadataList']//*[contains(text(),'{$name}')]";
+	public String ELEMENT_ECM_TEMPLATES_METADATA_FORM_EDIT = "//*[@id='UIMetadataList']//*[contains(text(),'{$name}')]/..//*[@class='uiIconEdit uiIconLightGray']";
+	public By ELEMENT_ECM_TEMPLATES_METEDATA_FORM_EDIT_LABEL =By.xpath("//*[@id='metadataLabel']");
+	public By ELEMENT_ECM_TEMPLATES_METADATA_FORM_APPLY = By.xpath("//*[@id='UIMetadataForm']//*[contains(text(),'Apply')]");
+	public String ELEMENT_ECM_TEMPLATES_METADATA_FORM_SHOW = "//*[@id='UIMetadataList']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconView uiIconLightGray']";
+	public String ELEMENT_ECM_TEMPLATES_METADATA_CHECK_MATADATA_INFORMATION = "//*[@class='metadataInfoDetails']//*[contains(text(),'{$metadata}')]";
+	public By ELEMENT_ECM_TEMPLATES_METADATA_CLOSE_VIEW = By.xpath("//*[@id='ViewMetadataPopup']//*[contains(text(),'Close')]");
+	public String ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE = "//*[@id='UIMetadataList']//*[contains(text(),'{$name}')]/..//*[@class='uiIconDelete uiIconLightGray']";
+
 
 	/**
 	 * Select a function as: Explorer, Advanced, Template and Repositoty
@@ -207,7 +273,23 @@ public class ContentAdministrationManagement extends PlatformBase{
 		case TAGS :
 			click(ELEMENT_ECMS_FUNCTIONS_TAGS);
 			break;
-		default:
+		case NODESTYPES :
+			click(ELEMENT_ECMS_FUNCTIONS_NODES);
+			break;
+		case NAMESPACES :
+			click(ELEMENT_ECMS_FUNCTIONS_NAMESPACES);
+			break;
+		case LOCKS :
+			click(ELEMENT_ECMS_FUNCTIONS_LOCKS);
+			break;	
+		case DOCUMENTS :
+			click(ELEMENT_ECMS_FUNCTIONS_DOCUMENTS);
+			break;
+		case LIST :
+			click(ELEMENT_ECMS_FUNCTIONS_LIST);
+			break;
+		case METADATA :
+			click(ELEMENT_ECMS_FUNCTIONS_METADATA);
 			break;
 		}
 	}
@@ -568,5 +650,133 @@ public class ContentAdministrationManagement extends PlatformBase{
 		click(By.xpath(ELEMENT_ECM_ADVANCED_QUERIES_DELETE_BUTTON.replace("{$name}", name)));
 		alert.acceptAlert();
 		waitForElementNotPresent(ELEMENT_ECM_ADVANCED_QUERIES_LIST.replace("{$name}",name));
+	}
+	
+	/**
+	 * opt 0 is mixin type, true or false
+	 */
+	public void addNodeType(String name,String superTypes,Object... opParams){
+		String mixinType = (String) (opParams.length>0 ? opParams[0] : null);
+		click(ELEMENT_ECM_REPOSITORY_NODES_ADD);
+		type(ELEMENT_ECM_REPOSITORY_NODES_NAME_FORM,name,true);
+		type(ELEMENT_ECM_REPOSITORY_NODES_SUPER_TYPES_FORM,superTypes,true);
+		if(mixinType!=null)
+			select(ELEMENT_ECM_REPOSITORY_NODES_MIXIN_TYPES, mixinType);
+		click(ELEMENT_ECM_REPOSITORY_NODES_SAVE_FORM);
+	}
+
+	/**
+	 * Search a Node and check it
+	 * @param name
+	 * @param types
+	 */
+	public void searchNodeAndCheckIt(String name,String types){
+		type(ELEMENT_ECM_REPOSITORY_NODES_SEARCH_NODE,name,true);
+		waitForAndGetElement(ELEMENT_ECM_REPOSITORY_NODES_SEARCH_NODE).sendKeys(Keys.ENTER);
+		click(By.xpath(ELEMENT_ECM_REPOSITORY_NODES_SHOW_SPECIFIC_NODE.replace("{$node}", name)));
+		waitForAndGetElement(By.xpath(ELEMENT_ECM_REPOSITORY_NODES_CHECK_SUPER_TYPES.replace("{$types}", types)));
+		click(ELEMENT_ECM_REPOSITORY_NODES_CLOSE_FORM);
+	}
+	/**
+	 * register Name space
+	 * @param nameSpacePrefix
+	 * @param url
+	 */
+	public void registerNamespace(String nameSpacePrefix, String url){
+		click(ELEMENT_ECM_REPOSITORY_NAMESPACES_ADD);
+		type(ELEMENT_ECM_REPOSITORY_NAMESPACES_FORM_NAME, nameSpacePrefix,true);
+		type(ELEMENT_ECM_REPOSITORY_NAMESPACES_URI_FORM, url,true);
+		click(ELEMENT_ECM_REPOSITORY_NAMESPACES_SAVE_FORM);
+	}
+	/**
+	 * Add a document in Template
+	 * @param label
+	 * @param permission
+	 */
+	public void addDocumentInTemplates(String label, String permission){
+		click(ELEMENT_ECM_TEMPLATES_DOCUMENTS_ADD_DOCUMENT);
+		type(ELEMENT_ECM_TEMPLATES_DOCUMENTS_LABEL_FORM, label, true);
+		click(ELEMENT_ECM_COMMON_ADD_PERMISSION_BUTTON);
+		if(permission=="any")
+			click(ELEMENT_PERMISSION_ANY);
+		click(ELEMENT_ECM_TEMPLATES_DOCUMENTS_SAVE_FORM);
+	}
+	/**
+	 * Edita Document in Templates
+	 * @param oldName
+	 * @param newName
+	 */
+	public void editDocumentInTemplates(String oldName, String newName){
+		click(By.xpath(ELEMENT_ECM_TEMPLATES_DOCUMENTS_LIST_EDIT.replace("{$name}",oldName)));
+		type(ELEMENT_ECM_TEMPLATES_DOCUMENTS_LABEL_FORM, newName, true);
+		click(ELEMENT_ECM_TEMPLATES_DOCUMENTS_SAVE_EDIT_FORM);
+		waitForAndGetElement(By.xpath(ELEMENT_ECM_TEMPLATES_DOCUMENTS_LIST.replace("{$name}",newName)));
+	}
+	/**
+	 * Delete a Document in Template
+	 * @param title
+	 */
+	public void deleteDocumentTemplate(String title){
+		click(By.xpath(ELEMENT_ECM_TEMPLATES_DOCUMENTS_LIST_DELETE.replace("{$name}", title)));
+		alert.acceptAlert();
+		waitForElementNotPresent(By.xpath(ELEMENT_ECM_TEMPLATES_DOCUMENTS_LIST.replace("{$name}",title)));
+	}
+	/**
+	 * Add a template into list
+	 * @param name
+	 * @param nameTemplate
+	 * @param content
+	 */
+	public void addTemplateInList(String name,String nameTemplate, String content){
+		click(ELEMENT_ECM_TEMPLATES_LIST_ADD_LIST);
+		type(ELEMENT_ECM_TEMPLATES_LIST_TEMPLATE_NAME_FORM,nameTemplate,true);
+		type(ELEMENT_ECM_TEMPLATES_LIST_NAME_FORM,name,true);
+		type(ELEMENT_ECM_TEMPLATES_LIST_CONTENT_FORM,content,true);
+		click(ELEMENT_ECM_TEMPLATES_LIST_SAVE_FORM);
+		waitForAndGetElement(By.xpath(ELEMENT_ECM_TEMPLATES_LIST_CHECK_LIST.replace("{$name}",name).replace("{$template}",nameTemplate)));
+	}
+	/**
+	 * Edit a Template in List
+	 * @param oldTem
+	 * @param newName
+	 */
+	public void editTemplateNameInList(String oldTem, String newName){
+		click(By.xpath(ELEMENT_ECM_TEMPLATES_LIST_EDIT_LIST.replace("{$name}",oldTem)));
+		type(ELEMENT_ECM_TEMPLATES_LIST_NAME_FORM,newName,true);
+		click(ELEMENT_ECM_TEMPLATES_LIST_SAVE_FORM);
+		waitForAndGetElement(By.xpath(ELEMENT_ECM_TEMPLATES_LIST_CHECK_BY_NAME.replace("{$name}",newName)));
+	}
+	/**
+	 * Delete a Template in List
+	 * @param name
+	 */
+	public void deleteTemplateList(String name){
+		click(By.xpath(ELEMENT_ECM_TEMPLATES_LIST_DELETE_LIST.replace("{$name}",name)));
+		alert.acceptAlert();
+		waitForElementNotPresent(By.xpath(ELEMENT_ECM_TEMPLATES_LIST_DELETE_LIST.replace("{$name}",name)));
+	}
+	/**
+	 * Edit a Metadata name and Permission
+	 * @param oldName
+	 * @param newName
+	 * @param permission
+	 */
+	public void editeMetadataNameAndPermission(String oldName, String newName, String permission){
+		click(By.xpath(ELEMENT_ECM_TEMPLATES_METADATA_FORM_EDIT.replace("{$name}",oldName)));
+		type(ELEMENT_ECM_TEMPLATES_METEDATA_FORM_EDIT_LABEL,newName,true);
+		click(ELEMENT_ECM_COMMON_ADD_PERMISSION_BUTTON);
+		if(permission=="any")
+			click(ELEMENT_PERMISSION_ANY);
+		click(ELEMENT_ECM_TEMPLATES_METADATA_FORM_APPLY);
+		waitForElementNotPresent(By.xpath(ELEMENT_ECM_TEMPLATES_LIST_DELETE_LIST.replace("{$name}",oldName)));
+	}
+	/**
+	 * Delete a Metadata
+	 * @param name
+	 */
+	public void deleteMetadata(String name){
+		click(By.xpath(ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE.replace("{$name}", name)));
+		alert.acceptAlert();
+		waitForElementNotPresent(By.xpath(ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE.replace("{$name}", name)));
 	}
 }

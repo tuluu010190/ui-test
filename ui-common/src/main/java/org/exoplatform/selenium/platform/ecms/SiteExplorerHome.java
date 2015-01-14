@@ -58,6 +58,7 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_ACTION_DELETE = By.xpath("//*[@class='uiIconEcmsDelete']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_SAVEDSEARCH = By.xpath("//*[@class='uiIconEcmsSavedSearchesMini uiIconEcmsLightGray']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_ADVANCEDSEARCH = By.xpath("//*[@class='actionIcon advancedSearchIcon pull-right']//*[@class='uiIconSearch uiIconLightGray']");
+	public final By ELEMENT_SITEEXPLORER_LIST_LOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsLock']");
 	
 	//advanced search 
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_NAME = By.xpath("//*[@id='keyword']");
@@ -281,5 +282,13 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_SITEEXPLORER_LEFTBOX_SAVEDSEARCH);
 		Utils.pause(2000);
 		click(ELEMENT_SITEEXPLORER_LEFTBOX_ADVANCEDSEARCH);
+	}
+	/**
+	 * Lock a Node
+	 * @param name
+	 */
+	public void lockNode(String name){
+		rightClickOnElement(By.xpath(ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}",name)));
+		click(ELEMENT_SITEEXPLORER_LIST_LOCK_NODE);
 	}
 }
