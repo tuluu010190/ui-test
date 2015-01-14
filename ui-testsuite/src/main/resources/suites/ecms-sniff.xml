@@ -31,6 +31,8 @@
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminExplorer" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminAdvanced" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_WCM" />
 		</classes>
 	</test>
 	<listeners>

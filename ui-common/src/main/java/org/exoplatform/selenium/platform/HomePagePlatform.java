@@ -3,11 +3,9 @@ package org.exoplatform.selenium.platform;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.TestBase;
-import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.answer.AnswerHomePage;
 import org.exoplatform.selenium.platform.answer.FaqHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
-import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 
@@ -18,7 +16,6 @@ import org.openqa.selenium.WebDriver;
 public class HomePagePlatform extends TestBase{
 	WikiHomePage wHome;
 	CalendarHomePage cHome;
-	SiteExplorerHome SEHome;
 	SpaceManagement sMang;
 	AnswerHomePage aHome;
 	ForumHomePage fHome;
@@ -44,46 +41,13 @@ public class HomePagePlatform extends TestBase{
 
 	//Middle homepage panel
 	public final By ELEMENT_HOMPAGE_MIDDLE_PANEL = By.id("OfficeMiddle");
-
-	//Tool bar
-	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
-
-	//Administration
-	public final By ELEMENT_ADMINISTRATION_CONTENT = By.xpath("//*[text()='Content']");
-	public final By ELEMENT_ADMINISTRATION_SITEEXPLORER = By.xpath("//*[text()='Sites Explorer']");
-
-	// top panel
-	//edit
-	public final By ELEMENT_EDIT_PAGE = By.xpath("//*[@id='UIAdminToolbarContainer']//*[@class='dropdown-submenu']//*[@href='#' and contains(text(), 'Page')]");
-	public final By ELEMENT_EDIT_PAGE_SEO = By.xpath("//*[@data-original-title = 'SEO Management']");
 	
-	// administration panel
-	public final By ELEMENT_TOPBAR_ADMINISTRATION_BUTTON =By.xpath("//*[@class='uiIconPLF24x24Setup']");
-	public final By ELEMENT_TOPBAR_CONTENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Content')]");
-	public final By ELEMENT_CONTENT_TOPBAR_ADMINISTRATION = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Content Administration')]");
-	public final By ELEMENT_CONTENT_TOPBAR_SITEEXPLORER = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Sites Explorer')]");
-	public final By ELEMENT_TOPBAR_ADMINISTRATION_PORTAL = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Portal')]");
-	public final By ELEMENT_PORTAL_TOPBAR_SITE = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[text()='Sites']");
-	
-	//User 
-	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
-	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
-	public final String ELEMENT_CHANGELANGUAGE_LANGUAGE = "//*[text()='${language}']";
-	public final String ELEMENT_AVATAR_CHANGELANGUAGE_APPLY = "//*[text()='${text}']";
-	
-	//Manage sites
-	public final By ELEMENT_EDITNAVIG_ACME = By.xpath("//*[text()='acme']/../..//*[@class='uiIconNavigation uiIconLightGray']");
-	public final By ELEMENT_EDITNAVIG_INTRANET = By.xpath("//*[text()='intranet']/../..//*[@class='uiIconNavigation uiIconLightGray']");
-	public final String ELEMENT_EDITSITE_SITE = "//*[@title='${name}']"; 
-	public final String ELEMENT_EDITSITE_SITESUPPRIMER = "//*[@class='uiIconDeleteNode']";
-	public final By ELEMENT_EDITSITE_SAVEBTN = By.xpath("//*[@class='btn' and text()='Save']");
-	
-	// Edit panel
-	public final By ELEMENT_EDIT_BUTTON = By.xpath(".//*[@id='UIAdminToolbarContainer']//*[@class='uiIconPLF24x24Edit']");
-	public final By ELEMENT_EDIT_CONTENT = By.xpath("//*[@class='quickEditUnchecked']");
-	public final By ELEMENT_EDIT_CONTENT_CHECK = By.xpath("//*[@class='quickEditChecked']");
 	public final By ELEMENT_SITE_TOP_LIST = By.xpath(".//*[@id='UIAdminToolbarContainer']/ul/li[3]/a");
 	public final By ELEMENT_ADD_PAGE_DROP_LIST = By.xpath(".//*[@id='UIAdminToolbarContainer']/ul/li[3]/ul[@class='dropdown-menu']/li[4]/a");
+	public final By ELEMENT_EDITSITE_SAVEBTN = By.xpath("//*[@class='btn' and text()='Save']");
+	
+	//Site Explorer activities
+	public final By ELEMENT_SITEMAPS_ACTIVITY = By.xpath(".//*[@data-original-title='sitemaps']/../../../..//div[@class='commentItem commentItemLast']//p[text()='File has been updated.']");
 	
 	//SEO Management
 	public final By ELEMENT_SEO_LANGUAGE_SHOW = By.xpath("//*[@onClick='eXo.ecm.WCMUtils.showSEOLanguage(true)']");
@@ -102,7 +66,7 @@ public class HomePagePlatform extends TestBase{
 		this.driver=dr;
 		wHome = new WikiHomePage(dr);
 		cHome = new CalendarHomePage(dr);
-		SEHome = new SiteExplorerHome(dr);
+	
 		sMang = new SpaceManagement(dr);
 		aHome = new AnswerHomePage(dr);
 		fHome = new ForumHomePage(dr);
@@ -135,20 +99,6 @@ public class HomePagePlatform extends TestBase{
 		click(ELEMENT_CALENDAR_LINK_PLF);
 		waitForAndGetElement(cHome.ELEMENT_CALENDAR_WORKING_PANEL);
 	}
-
-    /**
-     * Go to Site Explorer page
-     */
-	public void goToSiteExplorer() {
-		info("-- Go to site explorer home page --");
-		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION);
-		click(ELEMENT_TOOLBAR_ADMINISTRATION);
-		Utils.pause(2000);
-		mouseOver(ELEMENT_ADMINISTRATION_CONTENT, true);
-		click(ELEMENT_ADMINISTRATION_SITEEXPLORER);
-		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_WORKING_PANEL);
-	}
-
 
 	/**
 	 * Go to my spaces
@@ -190,13 +140,13 @@ public class HomePagePlatform extends TestBase{
 
 	/**
 	 * Go to content administration
-	 */
+	 *//*
 	public void goToPageAdministration(){
 		info("Go to content administration");
 		click(ELEMENT_TOPBAR_ADMINISTRATION_BUTTON);
 		mouseOver(ELEMENT_TOPBAR_CONTENT, true);
 		click(ELEMENT_CONTENT_TOPBAR_ADMINISTRATION);
-	}
+	}*/
 	
 }
 

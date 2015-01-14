@@ -18,7 +18,7 @@ import org.exoplatform.selenium.platform.forum.ForumCategoryManagement;
 import org.exoplatform.selenium.platform.forum.ForumManagement;
 import org.exoplatform.selenium.platform.gatein.AnswerPage;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
-import org.exoplatform.selenium.platform.gatein.PageManagement;
+import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
@@ -40,7 +40,7 @@ public class Addons_Answers_Setting  extends PlatformBase {
 	UserDatabase userData;
 	ManageAlert alert;
 	NavigationToolbar navTool;
-	PageManagement pagMang;
+	PageCreationWizard pagMang;
 	PageEditor pagEditor;
 	AnswerPage aPage;
 	Button button;
@@ -76,7 +76,7 @@ public class Addons_Answers_Setting  extends PlatformBase {
 		aHome=new AnswerHomePage(driver);
 		alert = new ManageAlert(driver);
 		navTool = new NavigationToolbar(driver);
-		pagMang = new PageManagement(driver);
+		pagMang = new PageCreationWizard(driver);
 		pagEditor = new PageEditor(driver);
 		aPage = new AnswerPage(driver);
 		fMang=new ForumManagement(driver);

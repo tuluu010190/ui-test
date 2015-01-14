@@ -9,11 +9,10 @@ import java.util.Date;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmActionstypes;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmFunctions;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.folderType;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
@@ -30,6 +29,7 @@ public class Ecms_SE_Admin extends PlatformBase{
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
 	SpaceManagement spManag;
+	NavigationToolbar navTool;
 	TextBoxDatabase txData;
 	UserDatabase userData;
 	AttachmentFileDatabase fData;
@@ -50,6 +50,7 @@ public class Ecms_SE_Admin extends PlatformBase{
 		CreNewDoc = new CreateNewDocument(driver);
 		spManag = new SpaceManagement(driver);
 		caPage = new ContentAdministrationManagement(driver);
+		navTool = new NavigationToolbar(driver);
 		
 		txData = new TextBoxDatabase();
 		fData = new AttachmentFileDatabase();
@@ -103,19 +104,7 @@ public class Ecms_SE_Admin extends PlatformBase{
 		String[] arrayPath={"sites"};
 		
 		//Go to Site Explorer
-		hp.goToSiteExplorer();
-				
-		//check action
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_RELATION, 3000, 0) == null) {
-			hp.goToPageAdministration();
-			caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-			caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_RELATION);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			hp.goToSiteExplorer();
-		}
-		
+		navTool.goToSiteExplorer();	
 		info("Add Relation");
 		//Create node1
 		SEHome.goToAddNewContent();
@@ -134,7 +123,17 @@ public class Ecms_SE_Admin extends PlatformBase{
 		CreNewDoc.addNewFile(node2, node2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-				
+		SEHome.selectNode(node2);		
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_RELATION);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_RELATION);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(node2);
+		}		
 		//Click on "More" link 
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		//Select Relation link
@@ -192,19 +191,8 @@ public class Ecms_SE_Admin extends PlatformBase{
 		String[] arrayPath={"sites"};
 		
 		//Go to Site Explorer
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 				
-		//check action
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_RELATION, 3000, 0) == null) {
-			hp.goToPageAdministration();
-			caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-			caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-			caPage.addActionsForAView("Web",
-					specificEcmActionstypes.MANAGE_RELATION);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			hp.goToSiteExplorer();
-		}
 		
 		info("Add Relation");
 		//Create node1
@@ -224,10 +212,20 @@ public class Ecms_SE_Admin extends PlatformBase{
 		CreNewDoc.addNewFile(node2, node2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-				
-		//Click on "More" link 
+		SEHome.selectNode(node2);
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_RELATION);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_RELATION);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(node2);
+		}			
+		info("click on More link");
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
-		//Select Relation link
+		info("Select Relation");
 		SEHome.goToManageRelation();
 		SEHome.addRelation(nameContent,arrayPath);
 		SEHome.deleteRelation(node1.toLowerCase());
@@ -260,18 +258,8 @@ public class Ecms_SE_Admin extends PlatformBase{
 		String[] arrayPath = { "sites" };
 
 		//Go to Site Explorer
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		
-		//Check action
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_RELATION, 3000, 0) == null) {
-			hp.goToPageAdministration();
-			caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-			caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_RELATION);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			hp.goToSiteExplorer();
-		}
 		
 		info("Show/ Hide Relation");
 		// Create node1
@@ -291,10 +279,20 @@ public class Ecms_SE_Admin extends PlatformBase{
 		CreNewDoc.addNewFile(node2, node2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-		
-		// Click on "More" link
+		SEHome.selectNode(node2);
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_RELATION);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_RELATION);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(node2);
+		}		
+		info("click on More link");
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
-		// Select Relation link
+		info("Select relation");
 		SEHome.goToManageRelation();
 		SEHome.addRelation(nameContent, arrayPath);
 		SEHome.closeAddRelationPopup();
@@ -324,7 +322,7 @@ public class Ecms_SE_Admin extends PlatformBase{
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
 		String filePath = fData.getAttachFileByArrayTypeRandom(11);
 		//Go to Site Explorer
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		//Click on Add New Folder button
 		SEHome.goToAddNewFolder();
 		
@@ -332,24 +330,17 @@ public class Ecms_SE_Admin extends PlatformBase{
 		CreNewDoc.createNewFolder(node1, folderType.Content);
 		//Select the folder
 		SEHome.selectNode(node1);
-		
-		//Check action
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_IMPORT_BUTTON, 3000, 0) == null) {
-			// Click on "More" link
-			click(SEHome.ELEMENT_ACTIONBAR_MORE);
-			//if not found elment, go to Administration to add it
-			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_IMPORT_BUTTON, 3000, 0) == null) {
-				hp.goToPageAdministration();
-				caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-				caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-				caPage.addActionsForAView("Web",specificEcmActionstypes.IMPORT_NOTE);
-				magAc.signOut();
-				magAc.signIn(DATA_USER1, DATA_PASS);
-				hp.goToSiteExplorer();
-				SEHome.selectNode(node1);
-			}
-		}
-		
+	
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_IMPORT_BUTTON);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.IMPORT_NOTE);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(node1);
+		}		
 		SEHome.goToImportNode();
 		SEHome.importNode("TestData/"+filePath,"Create New",false, "");
 		
@@ -380,7 +371,7 @@ public class Ecms_SE_Admin extends PlatformBase{
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
 		
 		//Go to Site Explorer
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		
 		info("Export a node");
 		//Click on Add New Folder button
@@ -391,24 +382,16 @@ public class Ecms_SE_Admin extends PlatformBase{
 		//Select the folder
 		SEHome.selectNode(node1);
 		
-		//verify the Export action on action bar
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_EXPORT_BUTTON, 3000, 0) == null) {
-			// Click on "More" link
-			click(SEHome.ELEMENT_ACTIONBAR_MORE);
-			// if not found elment, go to Administration to add it
-			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_EXPORT_BUTTON, 3000, 0) == null) {
-				hp.goToPageAdministration();
-				caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-				caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-				caPage.addActionsForAView("Web",specificEcmActionstypes.EXPORT_NODE);
-				magAc.signOut();
-				magAc.signIn(DATA_USER1, DATA_PASS);
-				hp.goToSiteExplorer();
-				// Select the folder
-				SEHome.selectNode(node1);
-			}
-		}
-		
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_EXPORT_BUTTON);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.EXPORT_NODE);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(node1);
+		}		
 		SEHome.goToExportNode();
 		SEHome.exportNode(true, false);
 		
@@ -441,7 +424,7 @@ public class Ecms_SE_Admin extends PlatformBase{
 		String categoryTree = "powers";
 		String nameSelectedCategory = "Healing";
 		
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		info("Add Category");
 		//Create node1
 		SEHome.goToAddNewContent();
@@ -450,24 +433,16 @@ public class Ecms_SE_Admin extends PlatformBase{
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
 			
-		// verify the Export action on action bar
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_CATEGORY, 3000,
-				0) == null) {
-			// Click on "More" link
-			click(SEHome.ELEMENT_ACTIONBAR_MORE);
-			// if not found elment, go to Administration to add it
-			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_CATEGORY,3000, 0) == null) {
-				hp.goToPageAdministration();
-				caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-				caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-				caPage.addActionsForAView("Web",specificEcmActionstypes.ADD_CATEGORY);
-				magAc.signOut();
-				magAc.signIn(DATA_USER1, DATA_PASS);
-				hp.goToSiteExplorer();
-				SEHome.selectNode(node1);
-			}
-		}
-
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_CATEGORY);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.ADD_CATEGORY);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(node1);
+		}		
 		SEHome.goToAddCategory();
 		SEHome.addCategory(categoryTree,arrayCatePath, nameSelectedCategory);
 		waitForAndGetElement(SEHome.ELEMENT_ADD_CATEGORY_POPUP_DELETE_CATEGORY.replace("${nameCategory}",nameSelectedCategory));
@@ -505,30 +480,23 @@ public class Ecms_SE_Admin extends PlatformBase{
 		
 		info("Add Category");
 		//Create node1
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-			
-		// verify the Export action on action bar
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_CATEGORY, 3000,
-				0) == null) {
-			// Click on "More" link
-			click(SEHome.ELEMENT_ACTIONBAR_MORE);
-			// if not found elment, go to Administration to add it
-			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_CATEGORY,3000, 0) == null) {
-				hp.goToPageAdministration();
-				caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-				caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-				caPage.addActionsForAView("Web",specificEcmActionstypes.ADD_CATEGORY);
-				magAc.signOut();
-				magAc.signIn(DATA_USER1, DATA_PASS);
-				hp.goToSiteExplorer();
-				SEHome.selectNode(node1);
-			}
-		}
+		
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_CATEGORY);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.ADD_CATEGORY);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(node1);
+		}	
 
 		SEHome.goToAddCategory();
 		SEHome.addCategory(categoryTree,arrayCatePath, nameSelectedCategory);
@@ -567,31 +535,24 @@ public class Ecms_SE_Admin extends PlatformBase{
 		
 		info("View Node Properties");
 		// Create node1
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-		
-		// verify the Export action on action bar
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_PROPERTIES,3000, 0) == null) {
-			// Click on "More" link
-			click(SEHome.ELEMENT_ACTIONBAR_MORE);
-			// if not found elment, go to Administration to add it
-			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_PROPERTIES, 3000, 0) == null) {
-				hp.goToPageAdministration();
-				caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-				caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-				caPage.addActionsForAView("Web",specificEcmActionstypes.VIEW_PROPERTIES);
-				magAc.signOut();
-				magAc.signIn(DATA_USER1, DATA_PASS);
-				hp.goToSiteExplorer();
-				SEHome.selectNode(node1);
-			}
-		}
-		
-		//Add a property
+		SEHome.selectNode(node1);
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_PROPERTIES);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.VIEW_PROPERTIES);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(node1);
+		}	
+		info("Add a property");
 		SEHome.goToProperties();
 		SEHome.addProperty(property, property);
 		
@@ -625,30 +586,22 @@ public class Ecms_SE_Admin extends PlatformBase{
 		
 		info("Manage Publication");
 		// Create node1
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-		
-		// verify the Export action on action bar
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_MANAGER_PUBLISHTATION, 3000, 0) == null) {
-			// Click on "More" link
-			click(SEHome.ELEMENT_ACTIONBAR_MORE);
-			// if not found elment, go to Administration to add it
-			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_MANAGER_PUBLISHTATION, 3000,0) == null) {
-				hp.goToPageAdministration();
-				caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-				caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-				caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_PUBLISHTATION);
-				magAc.signOut();
-				magAc.signIn(DATA_USER1, DATA_PASS);
-				hp.goToSiteExplorer();
-				SEHome.selectNode(node1);
-			}
-		}
-		
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_MANAGER_PUBLISHTATION);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_PUBLISHTATION);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(node1);
+		}	
 		//Select Staged state for this document
 		SEHome.goToManagePublishtation();
 		SEHome.managePublication("Staged", dateFormat.format(date.getTime()),dateFormat.format(date.getTime()));

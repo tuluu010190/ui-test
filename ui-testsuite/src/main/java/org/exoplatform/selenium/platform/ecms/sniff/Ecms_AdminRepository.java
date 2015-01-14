@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
@@ -25,6 +26,7 @@ public class Ecms_AdminRepository extends PlatformBase{
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;		
 	ContentAdministrationManagement caPage;
+	NavigationToolbar navTool;
 	CreateNewDocument CreNewDoc;
 	SiteExplorerHome SEHome;
 	@BeforeClass
@@ -35,6 +37,7 @@ public class Ecms_AdminRepository extends PlatformBase{
 		magAc = new ManageLogInOut(driver);
 		CreNewDoc = new CreateNewDocument(driver);
 		SEHome = new SiteExplorerHome(driver);
+		navTool = new NavigationToolbar(driver);
 		hp = new HomePagePlatform(driver);
 		txData = new TextBoxDatabase();
 		caPage= new ContentAdministrationManagement(driver);
@@ -44,13 +47,13 @@ public class Ecms_AdminRepository extends PlatformBase{
 	@BeforeMethod
 	public void beforeMethod(){
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		hp.goToPageAdministration();
+		navTool.goToContentAdministration();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 	}
 	
 	@AfterClass
 	public void afterTest(){
-		magAc.signOut();
+		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
 
@@ -76,18 +79,18 @@ public class Ecms_AdminRepository extends PlatformBase{
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		info("Create new file document");
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		CreNewDoc.addNewWebContent(title, content);
 		CreNewDoc.saveAndClose();
 		SEHome.lockNode(title);
-		hp.goToPageAdministration();
+		navTool.goToContentAdministration();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 		caPage.goToSpecificFunctions(specificEcmFunctions.LOCKS);
 		click(By.xpath(caPage.ELEMENT_ECM_REPOSITORY_UNLOCK_NODE_LIST.replace("{$name}",title)));
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.deleteData(title);
 	}
 
@@ -172,14 +175,14 @@ public class Ecms_AdminRepository extends PlatformBase{
 		 *Expected Outcome: 
 			- Group is added permission. All users In the group will be able unlock a locked node
 			- Group is removed permission*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		info("Create new file document");
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		CreNewDoc.addNewWebContent(title, content);
 		CreNewDoc.saveAndClose();
 		SEHome.lockNode(title);
-		hp.goToPageAdministration();
+		navTool.goToContentAdministration();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 		caPage.goToSpecificFunctions(specificEcmFunctions.LOCKS);
 		click(caPage.ELEMENT_ECM_REPOSITORY_MANAGE_LOCK);
@@ -188,7 +191,7 @@ public class Ecms_AdminRepository extends PlatformBase{
 		waitForAndGetElement(caPage.ELEMENT_ECM_REPOSITORY_CHECK_LOCK_PERMISSION.replace("{$group}",group));
 		click(caPage.ELEMENT_ECM_REPOSITORY_DELETE_LOCK_PERMISSION.replace("{$group}",group));
 		waitForElementNotPresent(caPage.ELEMENT_ECM_REPOSITORY_CHECK_LOCK_PERMISSION.replace("{$group}",group));
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.deleteData(title);	
 	}
 }

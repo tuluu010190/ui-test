@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 public class Button extends TestBase{
 
 	public Button(WebDriver dr,String...plfVersion) {
-		driver = dr;
+		this.driver = dr;
 	}
 
 	public final By ELEMENT_SAVE_CLOSE_BUTTON = By.xpath("//*[text()='Save & Close']");

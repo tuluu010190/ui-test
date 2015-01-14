@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome.selectDriverOption;
@@ -18,6 +19,7 @@ import org.testng.annotations.*;
 		HomePagePlatform hp;
 		ManageLogInOut magAc;
 		SiteExplorerHome SEHome;
+		NavigationToolbar navTool;
 
 		@BeforeMethod
 		public void setUpBeforeMethod() throws Exception{
@@ -32,6 +34,7 @@ import org.testng.annotations.*;
 			magAc = new ManageLogInOut(driver);
 			hp = new HomePagePlatform(driver);
 			SEHome = new SiteExplorerHome(driver);
+			navTool = new NavigationToolbar(driver);
 		}
 
 		@AfterMethod
@@ -65,7 +68,7 @@ import org.testng.annotations.*;
 			- Click Save
 		*Expected Outcome: 
 			New Displaying is shown directly*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.openSettingsDriver(selectDriverOption.MODIFIEDDATE, selectDriverOrder.DESCENDING);
 		waitForAndGetElement(By.xpath("//*[@class='nodeLabel']//*[text()='acme']"));
 		SEHome.openSettingsDriver(selectDriverOption.ALPHABETICAL, selectDriverOrder.ASCENDING);

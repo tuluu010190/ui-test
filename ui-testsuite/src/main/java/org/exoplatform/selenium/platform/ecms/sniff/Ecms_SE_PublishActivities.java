@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
@@ -31,6 +32,7 @@ import org.testng.annotations.*;
 		CreateNewDocument createDoc;
 		HomepageActivity aHome;
 		AttachmentFileDatabase fData;
+		NavigationToolbar navTool;
 		ManageAlert alert;
 		
 		@BeforeClass
@@ -41,6 +43,7 @@ import org.testng.annotations.*;
 			alert = new ManageAlert(driver);
 			seHome = new SiteExplorerHome(driver);
 			hp = new HomePagePlatform(driver);
+			navTool = new NavigationToolbar(driver);
 			aHome = new HomepageActivity(driver);
 			createDoc = new CreateNewDocument(driver);
 			txData = new TextBoxDatabase();
@@ -61,6 +64,7 @@ import org.testng.annotations.*;
 		
 		@AfterClass
 		public void afterClass(){
+			driver.manage().deleteAllCookies();
 			driver.quit();
 		}
 		
@@ -73,9 +77,11 @@ import org.testng.annotations.*;
 	@Test
 	public  void test01_02_CheckIntranetHomepageAfterAddingAFileContent_EditFileFromTheFileActivity() {
 		info("Test 1,2: Check intranet homepage after adding a File content");
+		info("Get data test");
 		String random=getRandomNumber();
 		String title =  txData.getContentByArrayTypeRandom(1)+random;
 		String content =  txData.getContentByArrayTypeRandom(1)+random;
+		info("Fnishing Getting data test");
 		/*Step Number: 1
 		*Step Name: - Add a File Content
 		*Step Description: 
@@ -91,7 +97,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- A new Content activity is added in the activity stream
 			- Informations displayed in the featured content are :1. File icon 2.File's name3.File description if exist 4.Version (if exist) and file size*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.FILE);
 		createDoc.addNewFile(title, content);
@@ -113,7 +119,7 @@ import org.testng.annotations.*;
 		createDoc.saveAndClose();
 		
 		// delete data
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.deleteData(title);
  	}
 
@@ -144,7 +150,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- A new Content activity is added in the activity stream
 			- Informations displayed in the featured content are :1. Icon corresponding to the content type2. Name of the content3. First 4 lines of content's summary4. Type of the content5.Version6. Current status*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		createDoc.addNewWebContent(title, content);
@@ -168,7 +174,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The content activity is updated in the activity stream with the new summary
 			- A comment is added: Document has been published.*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.selectNode(title);
 		seHome.goToPublication();
 		seHome.changeStatusPulication("Published");
@@ -178,7 +184,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}",comment)));
 		
 		// delete data
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.deleteData(title);
  	}
 
@@ -208,7 +214,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- A new Content activity is added in the activity stream
 			- Information displayed in the featured content are:1. Icon corresponding to the content type2. Name of the content3. First 4 lines of content's summary4. Type of the content5.Version6. Current status*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.PRODUCT);
 		createDoc.addNewProduct(title, summary);
@@ -217,7 +223,7 @@ import org.testng.annotations.*;
 		aHome.checkActivityAddProduct(title, null, null);
 		
 		// delete data
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.deleteData(title);	
  	}
 
@@ -249,7 +255,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- A new Content activity is added in the activity stream
 			- Informations displayed in the featured content are :1. File icon 2.File's name3.File description if exist 4.Version (if exist) and file size*/
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.FILE);
 		createDoc.addNewFile(title, content);
@@ -271,7 +277,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The content activity is updated in the activity stream with the new title
 			- A comment is added:File has been updated.*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.selectNode(title);
 		seHome.goToEditDocument();
 		seHome.editDocument(newContent);
@@ -280,7 +286,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}",comment)));
 		
 		// delete data
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.deleteData(title);
 	}
 
@@ -291,11 +297,13 @@ import org.testng.annotations.*;
 	@Test
 	public  void test07_CheckIntranetHomepageAfterAddingTagToAContent() {
 		info("Test 7: Check intranet homepage after adding tag to a content");
+		info("Get data test");
 		String random=getRandomNumber();
 		String title =  txData.getContentByArrayTypeRandom(1)+random;
 		String content =  txData.getContentByArrayTypeRandom(1)+random;
 		String tag =txData.getContentByArrayTypeRandom(22);
 		String secondTags=txData.getContentByArrayTypeRandom(23);
+		info("Fnishing Getting data test");
 		/*Step Number: 1
 		*Step Name: - Add a Content
 		*Step Description: 
@@ -310,7 +318,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- A new Content activity is added in the activity stream*/
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		createDoc.addNewFile(title, content);
@@ -333,7 +341,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The content of the content activity isn't updated in the activity stream 
 			- A comment is added: Tag: $value has been added.*/
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.selectNode(title);
 		seHome.addTagToAContent(tag);
 		hp.goToHomePage();
@@ -349,14 +357,14 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- One comment isadded the activity: Tag: $value, $value have been added.*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.selectNode(title);
 		seHome.addTagToAContent(secondTags);
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Tags: "+secondTags+" have been added.")));
 
 		// delete data
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.deleteData(title);
  	}
 
@@ -367,9 +375,11 @@ import org.testng.annotations.*;
 	@Test
 	public  void test08_CheckIntranetHomepageAfterDeletingAContent() {
 		info("Test 8: Check intranet homepage after deleting a content");
+		info("Get data test");
 		String random=getRandomNumber();
 		String title =  txData.getContentByArrayTypeRandom(1)+random;
 		String content =  txData.getContentByArrayTypeRandom(1)+random;
+		info("Fnishing Getting data test");
 		/*Step Number: 1
 		*Step Name: - Add a Content
 		*Step Description: 
@@ -384,7 +394,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- A new Content activity is added in the activity stream*/
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		createDoc.addNewFile(title, content);
@@ -406,7 +416,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The Content activity related to the content is removed from the activity stream*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.deleteData(title);
 		hp.goToHomePage();
 		waitForElementNotPresent(By.xpath(aHome.ELEMENT_ACTIVITY_WEBCONTENT_TITLE.replace("{$title}", title)));
@@ -445,13 +455,13 @@ import org.testng.annotations.*;
 		String newTitle =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String category="intranet";
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.uploadFile("TestData/"+path);
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",path)));
 		
 		info("Test 10 Check intranet homepage after editing Title of an uploaded file");
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.selectNode(path);
 		seHome.goToEditDocument();
 		type(seHome.ELEMENT_FILE_FORM_TITLE,newTitle, true );
@@ -474,7 +484,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The content of theFile activity isn't updated in the activity stream
 			- A comment is added: Category: $value has been added.*/
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.selectNode(path);
 		seHome.addCategoryForNode(path,category);
 		hp.goToHomePage();
@@ -490,7 +500,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",path).replace("{$comment}","Category: "+category+" has been added.")));
 	
 		info("Test 12 Check intranet homepage after deleting an uploaded file");
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.deleteData(path);
 		waitForElementNotPresent(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",path)));
  	}
@@ -518,7 +528,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The content explorer is opened to edit the content*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		createDoc.addNewFile(title, content);
@@ -527,10 +537,10 @@ import org.testng.annotations.*;
 		driver.navigate().refresh();
 		aHome.checkActivityAddWebContent(title,null,null);
 		click(By.xpath(aHome.ELEMENT_ACTIVITY_EDIT_A_NODE.replace("{$title}", title)));
-		inputDataToFrame(createDoc.ELEMENT_FILEFORM_BLANK_CONTENT2,newContent,true);
+		inputFrame(createDoc.ELEMENT_FILEFORM_BLANK_CONTENT2,newContent);
 		switchToParentWindow();
 		createDoc.saveAndClose();
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		
 		info("Test 13 View a content from the Content activity");
 		hp.goToHomePage();
@@ -561,7 +571,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The content explorer is opened to edit the content*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.uploadFile("TestData/"+path);
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",path)));
@@ -572,7 +582,7 @@ import org.testng.annotations.*;
 		click(By.xpath(aHome.ELEMENT_ACTIVITY_EDIT_A_NODE.replace("{$title}", path)));
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_EDIT_FROM_HOMEPAGE.replace("{$title}",path)));
 		
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.deleteData(path);
  	}
 
@@ -598,7 +608,7 @@ import org.testng.annotations.*;
 			- A comment is added: File has been moved to: $valuewhere $value = path of the file.d*/ 
 		String path = fData.getAttachFileByArrayTypeRandom(1);
 		String fileRecept="intranet";
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.uploadFile("TestData/"+path);
 		dragAndDropToObject(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", path)), By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", fileRecept)));
 		alert.acceptAlert();
@@ -607,7 +617,7 @@ import org.testng.annotations.*;
 		
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",path).replace("{$comment}","File has been moved to:")));
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.selectNode(fileRecept);
 		seHome.deleteData(path);
 	}
@@ -635,7 +645,7 @@ import org.testng.annotations.*;
 		String title =  txData.getContentByArrayTypeRandom(1)+random;
 		String content =  txData.getContentByArrayTypeRandom(1)+random;
 		String fileRecept="intranet";
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		createDoc.addNewFile(title, content);
@@ -647,7 +657,7 @@ import org.testng.annotations.*;
 		
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Publication has been moved to:")));
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.selectNode(fileRecept);
 		seHome.deleteData(title);
 		

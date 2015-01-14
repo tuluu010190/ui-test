@@ -72,6 +72,7 @@ public class TestBase {
 	protected String wikiRichTextFilePath;
 	protected String attachmentFilePath;
 	protected String texboxFilePath;
+	protected String changLangDataPath;
 	protected String wikiTemplateFilePath;
 	protected String spaceVisibleFilePath;
 	protected String spaceRegistrationFilePath;
@@ -101,6 +102,7 @@ public class TestBase {
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
+	public final String DEFAULT_CHANGELANGUADATAURL="DataDriven/" + "ChangeLanguage.xls";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -153,6 +155,7 @@ public class TestBase {
 		wikiTemplateFilePath = System.getProperty("wikiTemplateFilePath");
 		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
 		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
+        changLangDataPath = System.getProperty("changLangDataPath");
 
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 
@@ -178,7 +181,9 @@ public class TestBase {
 		if (texboxFilePath==null) texboxFilePath = DEFAULT_TEXTBOXFILEURL;
 		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
+	    if (changLangDataPath==null) changLangDataPath = DEFAULT_CHANGELANGUADATAURL;
 	}
+	
 
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
 		String browser = System.getProperty("browser");
@@ -611,7 +616,7 @@ public class TestBase {
 		} finally {
 			loopCount = 0;
 		}
-		Utils.pause(500);
+		Utils.pause(2000);
 	}
 
 	/**
@@ -837,6 +842,7 @@ public class TestBase {
 		} finally {
 			loopCount = 0;
 		}
+		Utils.pause(2000);
 	}
 
 	/**

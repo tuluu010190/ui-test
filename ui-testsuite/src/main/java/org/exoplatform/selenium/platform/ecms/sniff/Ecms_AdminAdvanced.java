@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
@@ -22,33 +23,43 @@ import org.testng.annotations.*;
 		ManageLogInOut magAc;
 		TextBoxDatabase txData;		
 		ContentAdministrationManagement caPage;
+		NavigationToolbar navTool;
 		@BeforeClass
-		public void setUpBeforeTest() throws Exception{
+		public void setUpBeforeClass() throws Exception{
+			info("Start Before class");
 			initSeleniumTest();
 			getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-			driver.get(baseUrl);
 			magAc = new ManageLogInOut(driver);
+			navTool = new NavigationToolbar(driver);
 			
 			hp = new HomePagePlatform(driver);
 			txData = new TextBoxDatabase();
 			caPage= new ContentAdministrationManagement(driver);
 			txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
+			info("End Before class");
 		}	
 		@BeforeMethod
 		public void beforeMethod(){
+			info("Start Before Method");
 			magAc.signIn(DATA_USER1, DATA_PASS);
-			hp.goToPageAdministration();
+			navTool.goToContentAdministration();
 			caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
+			info("End Before Method");
 		}
 		
 		@AfterMethod
 		public void afterMethod(){
+			info("Start After Method");
 			magAc.signOut();
+			info("End After Method");
 		}
 		
 		@AfterClass
 		public void afterClass(){
+			info("Start After Class");
+			driver.manage().deleteAllCookies();
 			driver.quit();
+			info("End After Class");
 		}	
 		
 	/**
@@ -61,14 +72,18 @@ import org.testng.annotations.*;
 	*/
 	@Test
 	public void test01_02_03_Add_Edit_Delete_ActionType() {
-		info("Test 1: Add Action Type");
+		info("Test 01: Add Action Type");
+		info("Get the data test");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String Newtitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		caPage.goToSpecificFunctions(specificEcmFunctions.ACTIONS);
-		caPage.addActionType(title, null, null);
+		caPage.addActionType(title,"","");
+		info("Verify that the title is replaced");
 		waitForAndGetElement(caPage.ELEMENT_ECM_ACTION_LIST.replace("{$name}",title));
-		caPage.editActionType(title,Newtitle,null,null);
+		info("Test 02: Edit Action Type");
+		caPage.editActionType(title,Newtitle,"","");
+		info("Test 03: Delete Action Type");
 		caPage.deleteAction(Newtitle);
 		
 		/*Step Number: 1
@@ -95,7 +110,8 @@ import org.testng.annotations.*;
 	*/
 	@Test
 	public  void test04_05_06_Add_Edit_Delete_Query() {
-		info("Test 2: Add Query");
+		info("Test 04: Add Query");
+		info("Get the data test");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String type = "SQL";
 		String permission = "any";
@@ -111,9 +127,12 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The query is added successfully*/ 
 		caPage.goToSpecificFunctions(specificEcmFunctions.QUERIES);
-		caPage.addQueries(title, null, null, permission);
-		caPage.editQueries(title,type, null, null);
+		caPage.addQueries(title,"","",permission);
+		info("Test 05: Edit Query");
+		caPage.editQueries(title,type,"","");
+		info("Verify that the query is edited with new title");
 		waitForAndGetElement(By.xpath(caPage.ELEMENT_ECM_ADVANCED_QUERIES_TYPE_LIST.replace("{$name}", title).replace("{$type}","sql")));
+		info("Test 06: Delete Query");
 		caPage.deleteQueries(title);
 		
 		}
@@ -128,7 +147,8 @@ import org.testng.annotations.*;
 	*/
 	@Test
 	public  void test10_11_12_Add_Edit_Delete_Script() {
-		info("Test 3: Add Script");
+		info("Test 10: Add Script");
+		info("Get the data test");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String Newtitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -146,8 +166,11 @@ import org.testng.annotations.*;
 		
 		caPage.goToSpecificFunctions(specificEcmFunctions.SCRIPTS);
 		caPage.addScripts(title, content, script);
+		info("Verify that the script is added in the list");
 		waitForAndGetElement(caPage.ELEMENT_ECM_ADVANCED_SCRIPT_LIST.replace("{$name}",title));
-		caPage.EditScripts(title,Newtitle,null,null);
+		info("Test 11: Edit Script");
+		caPage.EditScripts(title,Newtitle,"","");
+		info("Test 12: Delete Script");
 		caPage.deleteScripts(Newtitle);
  	}
 
@@ -161,7 +184,8 @@ import org.testng.annotations.*;
 	*/
 	@Test
 	public  void test07_08_09_Add_Edit_Delete_Categories() {
-		info("Test 4: Add Categories");
+		info("Test 07: Add Categories");
+		info("Get the data test");
 		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String lifeCycle ="Content Addition";
 		String nameAction = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -182,8 +206,11 @@ import org.testng.annotations.*;
 		
 		caPage.goToSpecificFunctions(specificEcmFunctions.CATEGORIES);
 		caPage.addCategories(name, nameAction, lifeCycle, targetPath);
-		caPage.editCategories(name, null, null, null, workspace, targetPath);
+		info("Test 08: Edit Categories");
+		caPage.editCategories(name,"","","", workspace, targetPath);
+		info("Verify that the category is edited with new changes");
 		waitForAndGetElement(By.xpath(caPage.ELEMENT_ECM_ADVANCED_CATEGORIES_WORKSPACE_LIST.replace("{$name}",name).replace("{$workspace}",workspace)));
+		info("Test 09: Delete Categories");
 		caPage.deleteCategories(name);
 	}
 

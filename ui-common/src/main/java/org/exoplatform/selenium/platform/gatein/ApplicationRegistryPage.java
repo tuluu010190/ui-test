@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 
 public class ApplicationRegistryPage extends PlatformBase {
 	NavigationToolbar navTool;
-	PageManagement pagMang;
+	PageCreationWizard pagMang;
 	PageEditor pagEditor;
 	HomePagePlatform hp;
 	ManageAlert alert;
@@ -25,7 +25,7 @@ public class ApplicationRegistryPage extends PlatformBase {
 	public ApplicationRegistryPage(WebDriver dr){
 		driver = dr;
 		navTool = new NavigationToolbar(driver);
-		pagMang = new PageManagement(driver);
+		pagMang = new PageCreationWizard(driver);
 		pagEditor = new PageEditor(driver);
 		hp= new HomePagePlatform(driver);
 		alert=new ManageAlert(driver);

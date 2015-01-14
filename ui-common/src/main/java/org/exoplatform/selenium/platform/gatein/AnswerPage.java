@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 
 public class AnswerPage extends PlatformBase {
 	NavigationToolbar navTool;
-	PageManagement pagMang;
+	PageCreationWizard pagMang;
 	PageEditor pagEditor;
 	HomePagePlatform hp;
 	ManageAlert alert;
@@ -66,7 +66,7 @@ public class AnswerPage extends PlatformBase {
 	public AnswerPage(WebDriver dr){
 		driver = dr;
 		navTool = new NavigationToolbar(dr);
-		pagMang = new PageManagement(dr);
+		pagMang = new PageCreationWizard(dr);
 		pagEditor = new PageEditor(dr);
 		hp= new HomePagePlatform(dr);
 		alert=new ManageAlert(dr);

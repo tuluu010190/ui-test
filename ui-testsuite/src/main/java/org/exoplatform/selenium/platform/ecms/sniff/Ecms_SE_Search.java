@@ -7,6 +7,7 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
@@ -23,10 +24,13 @@ public class Ecms_SE_Search extends PlatformBase {
 	ManageLogInOut magAc;
 	SiteExplorerHome SEHome;
 	PlatformPermission PlfPerm;
-	TextBoxDatabase txData;
-	Button btn;
-	UserDatabase userData;
+	NavigationToolbar navTool;
 	ManageAlert mngAlert;
+	Button btn;
+	
+	TextBoxDatabase txData;
+	UserDatabase userData;
+
 
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
@@ -43,6 +47,8 @@ public class Ecms_SE_Search extends PlatformBase {
 		SEHome = new SiteExplorerHome(driver);
 		PlfPerm = new PlatformPermission(driver);
 		btn = new Button(driver, this.plfVersion);
+		navTool = new NavigationToolbar(driver);
+		
 		txData = new TextBoxDatabase();
 		userData = new UserDatabase();
 		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -72,7 +78,7 @@ public class Ecms_SE_Search extends PlatformBase {
 
 		String name = txData.getContentByArrayTypeRandom(1)+"116566";
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		/*Step Number: 1
 		 *Step Name: Step 1: Advanced search
 		 *Step Description: 
@@ -110,7 +116,7 @@ public class Ecms_SE_Search extends PlatformBase {
 
 		String name = txData.getContentByArrayTypeRandom(1)+"116594";
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		/*Step Number: 1
 		 *Step Name: -
 		 *Step Description: 
@@ -153,7 +159,7 @@ public class Ecms_SE_Search extends PlatformBase {
 			- Click Quick Search or press Enter
 		 *Expected Outcome: 
 			The result appears: all documents which has title or content including search keyword appear*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 
 		type(SEHome.ELEMENT_ACTIONBAR_SEARCHBAR, "document" , true);
 		driver.findElement(SEHome.ELEMENT_ACTIONBAR_SEARCHBAR).sendKeys(Keys.ENTER);
@@ -171,7 +177,7 @@ public class Ecms_SE_Search extends PlatformBase {
 
 		String name = txData.getContentByArrayTypeRandom(1)+"116594";
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		/*Step Number: 1
 		 *Step Name: -
 		 *Step Description: 
@@ -205,9 +211,9 @@ public class Ecms_SE_Search extends PlatformBase {
 	public  void test06_EditQueryInAdvancedSearch() {
 		info("Test 6: Edit query in Advanced search");
 		
-		String name = txData.getContentByArrayTypeRandom(1)+"116594";
+		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		
 		/*Step Number: 1
 		 *Step Name: -
@@ -227,14 +233,14 @@ public class Ecms_SE_Search extends PlatformBase {
 		click(SEHome.ELEMENT_SITEXPLORER_ADVANCEDSEARCH_CREATEQUERYTAB);
 		type(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_NAMEQUERY, name, true);
 		click(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_SAVEQUERYBTN);
-		waitForAndGetElement(By.xpath("//*[text()='"+name+"']"));
+		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_RESULT.replace("${name}",name));
 		
 		
 		click(By.xpath((SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_EDITQUERYBTN).replace("${name}", name)));
 		select(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_QUERYTYPE, "xPath" );
 		click(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_SAVEEDITQUERYBTN);
-		waitForAndGetElement(By.xpath("//*[@id='UISavedQuery']//*[text()='"+name+"']/../..//*[text()='xpath']"));
+		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_RESULT1.replace("${name}",name));
 		click(By.xpath((SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_DELETEQUERYBTN).replace("${name}", name)));
 		mngAlert.acceptAlert();
-		waitForElementNotPresent(By.xpath("//*[text()='"+name+"']"));
+		waitForElementNotPresent(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_RESULT.replace("${name}",name));
 	}}

@@ -7,10 +7,8 @@ import org.exoplatform.selenium.TestBase;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -56,6 +54,9 @@ public class PlatformBase extends TestBase {
 	public By ELEMENT_TOTAL_PAGE=By.xpath("//*[@class='pagesTotalNumber']");
 	public By ELEMENT_CURRENT_PAGE=By.xpath("//*[@class='active']/*[contains(@href,'objectId') or contains(@href,'javascript')]");
 	public String ELEMENT_ANY_PAGE="//*[contains(@href,'objectId') or contains(@href,'javascript') and text()='$page']";
+	//frame
+	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//div[@id= 'cke_1_contents']/iframe");
+	public final By ELEMENT_FILEFORM_BLANK_NAME = By.id("name");
 	/**
 	 * Available option
 	 */
@@ -157,7 +158,7 @@ public class PlatformBase extends TestBase {
 	 * @param validate: if not passed, then not clear old data of frame, verify that new data is input correctly
 	 * 		           = true, clear old data of frame
 	 * 				   = false, not clear old data, not verify that new data is input correctly
-	 */
+	 *//*
 	public void inputDataToFrame(By framelocator, String data, boolean...validate){
 		try {
 			WebElement inputsummary = null;
@@ -207,7 +208,8 @@ public class PlatformBase extends TestBase {
 		finally {
 			loopCount = 0;
 		}
-	}
+	}*/
+	
 	/**
 	 * Type a text to a Frame using for CKEDITOR
 	 * By QuynhPT

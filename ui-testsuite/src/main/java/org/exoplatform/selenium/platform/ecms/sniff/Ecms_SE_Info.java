@@ -5,8 +5,11 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
+import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
+import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmActionstypes;
 import org.exoplatform.selenium.platform.ecms.ECMS_Permission;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
@@ -22,6 +25,9 @@ public class Ecms_SE_Info extends PlatformBase{
 	ManageLogInOut magAc;
 	SiteExplorerHome SEHome;
 	PlatformPermission PlfPerm;
+	NavigationToolbar navTool;
+	ContentAdministrationManagement caMag;
+	
 	AttachmentFileDatabase fData;
 	UserDatabase userData;
 	Button btn;
@@ -44,6 +50,9 @@ public class Ecms_SE_Info extends PlatformBase{
 		SEHome = new SiteExplorerHome(driver);
 		PlfPerm = new PlatformPermission(driver);
 		btn = new Button(driver, this.plfVersion);
+		navTool = new NavigationToolbar(driver);
+		caMag = new ContentAdministrationManagement(driver);
+		
 		txData = new TextBoxDatabase();
 		userData = new UserDatabase();
 		fData = new AttachmentFileDatabase();
@@ -82,13 +91,14 @@ public class Ecms_SE_Info extends PlatformBase{
 	 *<li> Post-Condition: </li>
 	 */
 	@Test
-	public  void test01_03_04_AddEditDeletePermission() {
+	public  void test01_02_03_AddEditDeletePermission() {
 		info("Test 1: Add Permission");
-
-		String node1 = txData.getContentByArrayTypeRandom(1)+"116591";
+		info("Get data test");
+		String node1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String folderType = "Content Folder";
+		info("Finished getting data test");
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewFolder();
 		info("Add permisison for a node");
 		//Create node1, node2
@@ -103,13 +113,13 @@ public class Ecms_SE_Info extends PlatformBase{
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		//Check if mary has edit, read on node1
 		SEHome.selectNode(node1);
 		//Delete data
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 
 
 		/*Step Number: 1
@@ -126,14 +136,15 @@ public class Ecms_SE_Info extends PlatformBase{
 		 *Expected Outcome: 
 			- The node is added permission
 			- User will take action on it as his rights*/ 
-
+		info("Test 02: Edit Permission");
 		SEHome.selectNode(node1);
 		SEHome.goToPermission();
 		EcmsPerm.changeRight("user", "Mary", false, false, true, "");
 		waitForAndGetElement(By.xpath("//*[@checked='' and @name='maryremove']/.."));
-		
+		EcmsPerm.closePermission();
+		info("Test 03: Delete Permission");
 		EcmsPerm.deletePermissionNode("mary");
-
+		info("Delete data test");
 		SEHome.deleteData(node1);
 	}
 
@@ -144,10 +155,11 @@ public class Ecms_SE_Info extends PlatformBase{
 	 *<li> Post-Condition: </li>
 	 */
 	@Test
-	public  void test02_ViewMetadata() {
-		info("Test 2: View metadata");
-		
+	public  void test04_ViewMetadata() {
+		info("Test 04: View metadata");
+		info("Get data test");
 		String path = fData.getAttachFileByArrayTypeRandom(1);
+		info("Finished getting data test");
 		/*Step Number: 1
 		 *Step Name: -
 		 *Step Description: 
@@ -158,11 +170,21 @@ public class Ecms_SE_Info extends PlatformBase{
 			- Click Metadata
 		 *Expected Outcome: 
 			View matadata form is shown*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.uploadFile("TestData/"+path);
-		click(By.xpath((SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", path)));
-		click(SEHome.ELEMENT_ACTIONBAR_MORE);
-		click(SEHome.ELEMENT_ACTIONBAR_METADATA); 
-		waitForAndGetElement(By.xpath("//*[@id='UIViewMetadataManager']"));
+		SEHome.selectNode(path);
+		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_METADATA);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caMag.addActionsForAView("Web",specificEcmActionstypes.VIEW_METADATA);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			SEHome.selectNode(path);
+		}
+		SEHome.viewMetadata();
+		info("Delete data test");
+		SEHome.deleteData(path);
 	}
 }

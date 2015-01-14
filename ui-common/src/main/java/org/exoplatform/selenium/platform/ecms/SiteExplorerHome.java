@@ -6,19 +6,18 @@ import org.exoplatform.selenium.ManageAlert;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.HomePagePlatform;
+import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
+import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class SiteExplorerHome extends PlatformBase{
 
-	PlatformPermission per;
-	ManageAlert alert;
-	Button button;
-	CreateNewDocument CreNewDoc;
+public class SiteExplorerHome extends PlatformBase{
 
 	public final By ELEMENT_SITEEXPLORER_WORKING_PANEL = By.xpath("//*[@class='navItemSelected' and text()='Content Explorer']");
 	
@@ -42,6 +41,7 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_ACTIONBAR_MANAGER_PUBLISHTATION =By.xpath(".//i[@class='uiIconEcmsManagePublications uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_CATEGORY = By.xpath("//*[@class='uiIconEcmsManageCategories uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_TAG = By.xpath("//*[@class='uiIconEcmsTaggingDocument uiIconEcmsLightGray']");
+	public final By ELEMENT_ACTIONBAR_SHOWDRIVES = By.id("driveAction");
 	
 	//Add Category popup
 	public final By ELEMENT_ADD_CATEGORY_POPUP_SELECT_CATEGORY_TAB = By.xpath(".//*[@id='UICategoryManager']//a[text()='Select Category']");
@@ -77,7 +77,14 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_RELATION_POPUP_SELECT_RELATION_TAB_CLOSE_BUTTON=By.xpath(".//*[@id='UIRelationManager']//button[text()='Close']");
 	public final String ELEMENT_RELATION_POPUP_RELATION_LIST_DELETE_BUTTON=".//*[@id='RelateAddedList']//span[contains(.,'${nameContent}')]/../..//i[@class='uiIconDelete uiIconLightGray']";
 	public final String MESSAGE_DELETE_RELATION = "Are you sure you want to delete this relation?";
+
+	//Metadata popup
+	public final By ELEMENT_METADATA_POPUP_CANCEL= By.xpath(".//*[@id='UIViewMetadataContainer']//button[text()='Cancel']");
+	public final By ELEMENT_METADATA_POPUP= By.xpath("//*[@id='UIViewMetadataManager']");
 	
+	//Drive area
+	public final String ELEMENT_ACTIONBAR_SELECTED_DRIVE= ".//*[@id='UIDrivesArea']//*[@data-original-title='${drive}']";
+
 	// View Properties form
 	public final By ELEMENT_VIEWPROPERTIES_PROPERTIES_TAB = By.linkText("Properties");
 	public final By ELEMENT_VIEWPROPERTIES_ADD_PROPERTY_TAB = By.linkText("Add New Property");
@@ -115,9 +122,7 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
 	public final By ELEMENT_UPLOAD_LINK = By.id("MultiUploadInputFiles");
 	public final By ELEMENT_ACTIONBAR_EDIT = By.xpath("//*[@class='uiIconEcmsEditDocument uiIconEcmsLightGray']");
-	public final By ELEMENT_ACTIONBAR_SHOWDRIVES = By.xpath("//*[@id='driveAction']");
 	public final By ELEMENT_FILE_FORM_TITLE = By.xpath("//*[@id='title0']");
-	
 	//Drive selection
 	public final String ELEMENT_SELECTDRIVE_SPECIFICDRIVE = "//*[@class='driveLabel' and @data-original-title='${spaceName}']";
 
@@ -130,12 +135,6 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_ADDFOLDER_FOLDERTYPE = By.xpath("//*[@class='selectbox']");
 	public final By ELEMENT_ADDFOLDER_CREATEFOLDERBUTTON = By.xpath("//*[@class='btn addFolderButton']");
 
-	//Left explorer box
-	public final By ELEMENT_SITEEXPLORER_LEFTBOX_INTRANET = By.xpath("//*[@class='uiIcon16x16FolderDefault uiIcon16x16exo_portalFolder' and @title='intranet']");
-	public final By ELEMENT_SITEEXPLORER_LEFTBOX_DOCUMENT = By.xpath("//*[@class='uiIcon16x16FolderDefault uiIcon16x16exo_documentFolder' and @title='documents']");
-	public final By ELEMENT_SITEEXPLORER_LEFTBOX_SPACE = By.xpath("//*[@class='uiIcon16x16FolderDefault uiIcon16x16exo_portalFolder' and @title='intranet']");
-	public final String ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME = "//*[@class='nodeName' and text()='${title}']";
-	public final By ELEMENT_SITEEXPLORER_ACTION_DELETE = By.xpath("//*[@class='uiIconEcmsDelete']");
 	public final By ELEMENT_SITEEXPLORER_ACTION_COPY = By.xpath("//*[@class='uiIconEcmsCopy']");
 	public final By ELEMENT_SITEEXPLORER_ACTION_CUT = By.xpath("//*[@class='uiIconEcmsCut']");
 	public final By ELEMENT_SITEEXPLORER_ACTION_PASTE = By.xpath("//*[@class='uiIconEcmsPaste']");
@@ -144,8 +143,6 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_ACTION_ADDSYMLINK = By.xpath("//*[@class='uiIconEcmsAddSymLink']");
 
 	
-	public final By ELEMENT_SITEEXPLORER_LEFTBOX_SAVEDSEARCH = By.xpath("//*[@class='uiIconEcmsSavedSearchesMini uiIconEcmsLightGray']");
-	public final By ELEMENT_SITEEXPLORER_LEFTBOX_ADVANCEDSEARCH = By.xpath("//*[@class='actionIcon advancedSearchIcon pull-right']//*[@class='uiIconSearch uiIconLightGray']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_ROOTNODE = By.xpath("//*[@class='uiIconEcmsHome uiIconEcmsLightGray']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_RELATION = By.xpath("//*[@class='uiIconEcmsRelationMini uiIconEcmsLightGray']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_EXPLORER = By.xpath("//*[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
@@ -153,7 +150,6 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_LIST_LOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsLock']");
 	public final By ELEMENT_SITEEXPLORER_LIST_UNLOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsUnlock']");
 
-	
 	//advanced search 
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_NAME = By.xpath("//*[@id='keyword']");
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_SEARCHBTN = By.xpath("//*[@id='tab-UIContentNameSearch']//*[@class='btn' and text()='Search']");
@@ -165,6 +161,8 @@ public class SiteExplorerHome extends PlatformBase{
 	public final String ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_EDITQUERYBTN = "//*[text()='${name}']/../..//*[@class='uiIconEdit uiIconLightGray']";
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_QUERYTYPE = By.xpath("//*[@class='uiForm EditQueryForm']/..//*[@class='selectbox']");
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_SAVEEDITQUERYBTN = By.xpath("//*[@id='EditQueryForm']//*[@class='btn' and text()='Save']");
+	public final String ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_RESULT ="//*[text()='${name}']";
+	public final String ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_RESULT1 = "//*[@id='UISavedQuery']//*[text()='${name}']/../..//*[text()='xpath']";
 	
 	//Confirm delete box
 	public final By ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE= By.xpath("//*[@class='uiAction uiActionBorder']//*[text()='Delete']");
@@ -202,13 +200,6 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_VOTE_AVERAGE = By.xpath("//*[@data-original-title='Average']");
 	public final By ELEMENT_SITEEXPLORER_VOTEONDOCUMENT = By.xpath("//*[@class='uiVote clearfix']");
 	
-	//sideBar
-	public final String ELEMENT_SE_NODE = "//*[@title='{$node}']"; 
-	public final By ELEMENT_SIDE_BAR_MAINTAB =By.xpath(".//*[@id='UISideBar']//h6[@class='title']");
-	public final By ELEMENT_SIDEBAR_SITES_MANAGEMENT = By.xpath("//*[@data-original-title = 'Sites Management' or @title = 'Sites Management']");
-	public final By ELEMENT_SIDE_BAR_RELATION_ICON=By.xpath(".//*[@id='UISideBar']//i[@class='uiIconEcmsRelationMini uiIconEcmsLightGray']");
-	public final String ELEMENT_SIDE_BAR_RELATION_TAB_FILE_TITLE=".//*[@id='UISideBar']//a[text()='${nameContent}']";
-    public final By ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON=By.xpath(".//*[@id='UISideBar']//i[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
 	//Tag
 	public final By ELEMENT_SITEEXPLORER_TAG_DELETE = By.xpath("//*[@class='uiIconClose']");
 	public final By ELEMENT_SITEEXPLORER_TAG_NAME = By.xpath("//*[@id='names']");
@@ -216,7 +207,6 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_TAG_INPUT= By.xpath("//*[@id='tagName']");
 	public final By ELEMENT_TAG_FORM = By.xpath("//*[@id='names']");
 	public final By ELEMENT_ADD_TAG_FORM = By.xpath("//*[@id='UITaggingForm']//*[contains(text(),'Add')]");
-	public final String ELEMENT_PUBLICATION_STATUS = "//*[text()='${status}']/..//*[@class='node']";
 	public final By ELEMENT_CLOSE_TAG_FORM = By.xpath("//*[@id='UITaggingForm']//*[contains(text(),'Close')]");
 	
 	//Add category
@@ -230,19 +220,74 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_RENAME_SAVE = By.xpath("//*[@id='renameLink']");
 	
 	public final By ELEMENT_CHECK_OPEN_WEBCONTENT_IN_MSOFFICE = By.xpath("//*[@id='main']//*[contains(text(),'css')]");
+	// SideBar
+	public final String ELEMENT_SE_NODE = "//*[@title='${node}']";
+	public final By ELEMENT_SIDE_BAR_MAINTAB = By.xpath(".//*[@id='UISideBar']//h6[@class='title']");
+	public final By ELEMENT_SIDEBAR_SITES_MANAGEMENT = By.xpath("//*[@data-original-title = 'Sites Management' or @title = 'Sites Management']");
+	public final By ELEMENT_SIDE_BAR_RELATION_ICON = By.xpath(".//*[@id='UISideBar']//i[@class='uiIconEcmsRelationMini uiIconEcmsLightGray']");
+	public final String ELEMENT_SIDE_BAR_RELATION_TAB_FILE_TITLE = ".//*[@id='UISideBar']//a[text()='${nameContent}']";
+	public final By ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON = By.xpath(".//*[@id='UISideBar']//i[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
+	public final By ELEMENT_SITEEXPLORER_LEFTBOX_INTRANET = By.xpath("//*[@class='uiIcon16x16FolderDefault uiIcon16x16exo_portalFolder' and @title='intranet']");
+	public final By ELEMENT_SITEEXPLORER_LEFTBOX_DOCUMENT = By.xpath("//*[@class='uiIcon16x16FolderDefault uiIcon16x16exo_documentFolder' and @title='documents']");
+	public final By ELEMENT_SITEEXPLORER_LEFTBOX_SPACE = By.xpath("//*[@class='uiIcon16x16FolderDefault uiIcon16x16exo_portalFolder' and @title='intranet']");
+	public final String ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME = "//*[@class='nodeName' and text()='${title}']";
+	public final By ELEMENT_SITEEXPLORER_ACTION_DELETE = By.xpath("//*[@class='uiIconEcmsDelete']");
+	public final By ELEMENT_SITEEXPLORER_LEFTBOX_SAVEDSEARCH = By.xpath("//*[@class='uiIconEcmsSavedSearchesMini uiIconEcmsLightGray']");
+	public final By ELEMENT_SITEEXPLORER_LEFTBOX_ADVANCEDSEARCH = By.xpath("//*[@class='actionIcon advancedSearchIcon pull-right']//*[@class='uiIconSearch uiIconLightGray']");
+		
+	//Publication box
+	public final String ELEMENT_PUBLICATION_STATUS = "//*[text()='${status}']/..//*[@class='node']";
+	
+	//SEO folder
+	public final By ELEMENT_SEO_FOLDER_FILE = By.xpath("//*[@class='text']//*[@data-original-title='sitemaps']");
+
+	PlatformPermission per;
+	ManageAlert alert;
+	Button button;
+	CreateNewDocument CreNewDoc;
+	HomePagePlatform hp;
+	ManageLogInOut magAc;
+	ContentAdministrationManagement caPage ;
 	
 	public SiteExplorerHome(WebDriver dr){
 		this.driver=dr;
-		alert = new ManageAlert(driver);
-		CreNewDoc = new CreateNewDocument(driver);
-		button = new Button(driver);
+		alert = new ManageAlert(dr);
+		CreNewDoc = new CreateNewDocument(dr);
+		button = new Button(dr);
+        hp = new HomePagePlatform(dr);
+        magAc = new ManageLogInOut(dr);
+        caPage = new ContentAdministrationManagement(dr);
 	}
+	/**
+	 * Go to a folder by a path in SE
+	 * Example: go to Site management drive-->a folder
+	 * @param path
+	 * @param drive
+	 */
+	public void goToPath(String path, String drive){
+		info("Go to selected Drive");
+		waitForAndGetElement(ELEMENT_ACTIONBAR_SHOWDRIVES);
+		click(ELEMENT_ACTIONBAR_SHOWDRIVES);
+		waitForAndGetElement(ELEMENT_ACTIONBAR_SELECTED_DRIVE.replace("${drive}",drive));
+		click(ELEMENT_ACTIONBAR_SELECTED_DRIVE.replace("${drive}",drive));
+		waitForAndGetElement(ELEMENT_SIDE_BAR_MAINTAB);
+		info("Go to folder");
+		String[] arrayPath = path.split("/");
+		for (String arrayElement : arrayPath){
+			selectNode(arrayElement);
+		}
+	}
+	
     /**
      * Open Add a new folder popup
      */
 	public void goToAddNewFolder() {
+		info("Add a new folder");
+		info("Click on New folder on Action Bar");
 		click(ELEMENT_ACTIONBAR_ADDFOLDER);
+		info("Verify that Add folder popup is shown");
 		waitForAndGetElement(ELEMENT_ADDFOLDERBOX);
+		info("The folder is shown successfully");
 	}
 
     /**
@@ -251,10 +296,15 @@ public class SiteExplorerHome extends PlatformBase{
      * @param folderType
      */
 	public void createFolder(String title, String folderType) {
+		info("Type a title:"+title+" for the folder");
 		type(ELEMENT_ADDFOLDER_NAME, title, true);
+		info("Select folder type:"+folderType);
 		select(ELEMENT_ADDFOLDER_FOLDERTYPE, folderType );
+		info("Click on Create folder button");
 		click(ELEMENT_ADDFOLDER_CREATEFOLDERBUTTON);
+		info("Verify that the folder is created");
 		waitForAndGetElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
+		info("The folder is created successfully");
 	}
 
 	
@@ -262,28 +312,39 @@ public class SiteExplorerHome extends PlatformBase{
      * Go to New content page
      */
 	public void goToAddNewContent() {
+		info("Click on New Document on Action Bar");
 		click(ELEMENT_ACTIONBAR_ADDDOCUMENT);
+		info("Verify that New content page is shown");
 		waitForAndGetElement(ELEMENT_ADDDOCUMENT_CHOICETYPE);
+		info("New content page is shown successfully");
 	}
-	
+	/**
+	 * Add Symlink for a node
+	 * @param node
+	 */
 	public void addSymlink(String node){
 		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", node)));
 		click(ELEMENT_SITEEXPLORER_ACTION_ADDSYMLINK);
 		Utils.pause(2000);
 	}
 	
-	
 	/**
 	 * Delete data by title
 	 * @param title
 	 */
 	public void deleteData(String title) {
+		info("Click on File Explorer icon");
 		click(ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON);
 		Utils.pause(2000);
+		info("Right click on nodename");
 		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
+		info("Click on Delete link");
 		click(ELEMENT_SITEEXPLORER_ACTION_DELETE);
+		info("Click on Delete button on Confirm popup");
 		click(ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE);
+		info("Verify that the node is deleted");
 		waitForElementNotPresent(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
+		info("the node is deleted successfully");
 	}
 	/**
 	 * 
@@ -301,7 +362,7 @@ public class SiteExplorerHome extends PlatformBase{
 	}
 	
 	/**
-	 * 
+	 * Cut and paste node
 	 * @param title
 	 * @param destination
 	 */
@@ -314,7 +375,11 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		Utils.pause(2000);
 	}
-
+    /**
+     * Rename a node
+     * @param node
+     * @param newName
+     */
 	public void renameNode(String node, String newName){
 		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", node)));
 		click(ELEMENT_SITEEXPLORER_ACTION_RENAME);
@@ -333,8 +398,10 @@ public class SiteExplorerHome extends PlatformBase{
 	 * @return
 	 */
 	public SiteExplorerHome uploadFile(String link, Object... params) {
+		info("Upload a file to Site Explorer");
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
 		if (waitForAndGetElement(ELEMENT_ACTIONBAR_UPLOAD, DEFAULT_TIMEOUT, 0) == null) {
+			info("Click on More link");
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
 		((JavascriptExecutor) driver)
@@ -344,9 +411,10 @@ public class SiteExplorerHome extends PlatformBase{
 						waitForAndGetElement(ELEMENT_UPLOAD_LINK,
 								DEFAULT_TIMEOUT, 1, 2));
 		Utils.pause(10000);
-		//type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false, 2);
+		info("Select a file to upload");
 		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(link));
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
+		info("Switch to Parent window");
 		switchToParentWindow();
 		if (verify) {
 			String links[] = link.split("/");
@@ -367,8 +435,6 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_ACTIONBAR_EDIT);
 		Utils.pause(3000);
 	}
-
-
 	/**
 	 * Add tag to a Content
 	 * @param title
@@ -381,7 +447,6 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_ADD_TAG_FORM);
 		click(ELEMENT_CLOSE_TAG_FORM);
 	}
-	
 	/**
 	 * Edit a Document
 	 * @param content
@@ -389,7 +454,7 @@ public class SiteExplorerHome extends PlatformBase{
 	public void editDocument(String content) {
 		driver.navigate().refresh();
 		if(content != ""){	
-			inputDataToFrame(CreNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content, false);
+	        inputFrame(CreNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT, content);
 			switchToParentWindow();
 		}
 	}
@@ -400,16 +465,16 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_SITEEXPLORER_LEFTBOX_INTRANET);
 	}
 
-	/**
-	 * Go to Personal document
-	 */
+	  /**
+     * Go to document
+     */
 	public void goToDocument() {
 		click(ELEMENT_SITEEXPLORER_LEFTBOX_DOCUMENT);
 	}
-	/**
-	 * Go to Space page
-	 * @param spaceName
-	 */
+
+	  /**
+     * Go to space
+     */
 	public void goToSpace(String spaceName) {
 		click(ELEMENT_ACTIONBAR_SHOWDRIVES);
 		click(By.xpath((ELEMENT_SELECTDRIVE_SPECIFICDRIVE).replace("${spaceName}", spaceName)));
@@ -422,7 +487,8 @@ public class SiteExplorerHome extends PlatformBase{
 	public enum selectDriverOption{
 		ALPHABETICAL, TYPE, CREATEDDATE, MODIFIEDDATE
 	}
-    /**
+    
+	/**
      * Select Drive by order
      *
      */
@@ -475,16 +541,23 @@ public class SiteExplorerHome extends PlatformBase{
 	 * Go to Permission popup
 	 */
 	public void goToPermission() {
+		info("Click on More link on Action bar");
 		click(ELEMENT_ACTIONBAR_MORE);
+		info("Click on Permission on Action bar");
 		click(ELEMENT_ACTIONBAR_PERMISSION);
+		info("Finished opening permission popup");
 	}
 	/**
 	 * Select a node by name
 	 * @param nodeName
 	 */
 	public void selectNode(String nodeName) {
-		click(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", nodeName)));
+		info("Verify that nodeName:"+nodeName+" is shown");
+		waitForAndGetElement(ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", nodeName));
+		info("Click on the nodeName:"+nodeName);
+		click(ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", nodeName));
 		Utils.pause(2000);
+		info("Finished selecting nodeName:"+nodeName);
 	}
 	/**
 	 * Go to Advanced Search page
@@ -816,15 +889,6 @@ public class SiteExplorerHome extends PlatformBase{
 		button.close();
 		
 	}
-	/**
-	 * Change status of Publication
-	 * Update QuynhPT
-	 * @param status draff, stage, publish
-	 */
-	public void changeStatusPulication(String status) {
-		waitForAndGetElement(ELEMENT_MANAGEPUBLICATION_STATE.replace("${status}", status));
-		click(ELEMENT_MANAGEPUBLICATION_STATE.replace("${status}", status));
-	}
 
 	/**
 	 * Add a Translation
@@ -876,6 +940,83 @@ public class SiteExplorerHome extends PlatformBase{
 		Utils.pause(2000);
 		click(ELEMENT_CATEGORY_ADD_ROOT_NODE);
 		Utils.pause(2000);
+	}
+	  /**
+     * Go to the publication status' form
+     */
+	public void changeStatusPulication(String status) {
+		waitForAndGetElement(ELEMENT_PUBLICATION_STATUS.replace("${status}", status));
+		click((ELEMENT_PUBLICATION_STATUS).replace("${status}", status));
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Go to root drive as Site Management, Collaboration tabs... of sidebar
+	 */
+	public void goToRootDrive(){
+		waitForAndGetElement(ELEMENT_SIDE_BAR_MAINTAB);
+		click(ELEMENT_SIDE_BAR_MAINTAB);
+		Utils.pause(2000);
+	}
+	/**
+	 * Check Action is avaiable
+	 * @param locator
+	 * @param viewType
+	 * @param type
+	 * @return
+	 */
+	public boolean checkAction(Object locator) {
+		info("Check Action");
+		boolean ischeck=false;
+		if (waitForAndGetElement(locator, 3000,0) == null) {
+			info("The action is not avaiable on Action bar");
+			info("Click on More link");
+			click(ELEMENT_ACTIONBAR_MORE);
+			if (waitForAndGetElement(locator,3000, 0) == null){
+				info("The action is not avaiable in More menu");
+				ischeck=true;
+			}else ischeck=false;
+		}
+		else ischeck=false;
+		return ischeck;
+	}
+	/**
+	 * Open View Metadata popup
+	 */
+	public void viewMetadata(){
+		info("View Metadata");
+		info("Click on More link");
+		click(ELEMENT_ACTIONBAR_MORE);
+		info("Click on Metadata link");
+		click(ELEMENT_ACTIONBAR_METADATA); 
+		info("Verify that View metadata popup is shown");
+		waitForAndGetElement(ELEMENT_METADATA_POPUP);
+		info("Close the popup");
+		click(ELEMENT_METADATA_POPUP_CANCEL);
+		info("Metadata popup is shown successfully");
+	}
+	/**
+	 * Add/Edit a comment
+	 * @param content
+	 */
+	public void addEditComment(String content, boolean isAdd){
+		info("Add/Edit a comment");
+		if(isAdd){
+			info("Click on Add comment on action bar");
+		    click(ELEMENT_ACTIONBAR_ADDCOMMENT);
+		}else {
+			info("Click on Edit comment button on action bar");
+			click(ELEMENT_SITEEXPLORER_COMMENT_EDIT);
+		}
+		info("Refresh the page");
+		this.driver.navigate().refresh();
+		info("Input a content to the frame");
+		inputFrame(ELEMENT_FILEFORM_BLANK_CONTENT,content);
+		info("Switch to parent window");
+		switchToParentWindow();
+		info("Click on Save button");
+		click(ELEMENT_SAVE_BTN);
+		info("Finish adding/Editing the Comment");
 	}
 	
 }

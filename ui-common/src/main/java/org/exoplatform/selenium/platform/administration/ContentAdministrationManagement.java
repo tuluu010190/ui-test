@@ -7,12 +7,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
+import static org.exoplatform.selenium.TestLogger.info;
+
 public class ContentAdministrationManagement extends PlatformBase{
-	ManageAlert alert ;
-	public ContentAdministrationManagement(WebDriver dr){
-		driver = dr;
-		alert= new ManageAlert(driver);
-	}
 
 	public By ELEMENT_ADVANCED_CATEGORIES_ECM_FUNCTIONS =By.xpath("//*[@class='ecmAdminPanel pull-left']//a[contains(text(),'Advanced')]");
 	public By ELEMENT_EXPLORER_CATEGORIES_ECM_FUNCTIONS =By.xpath("//*[@class='ecmAdminPanel pull-left']//a[contains(text(),'Explorer')]");
@@ -125,16 +122,17 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public String ELEMENT_ECM_EXPLORER_VIEW_SHOW_A_VIEW_LIST ="//*[@id='UIViewList']//*[contains(text(),'{$name}')]/../..//*[@class='uiIconView uiIconLightGray']";
 	public String ELEMENT_ECM_EXPLORER_NAME_VIEW_SHOW_VIEW = "//*[@id='viewName' and @value='{$name}']";
 	public String ELEMENT_ECM_EXPLORER_TAB_ICONS_LIST_SHOW_VIEW ="//*[@id='UITabList']//*[contains(text(),'{$tab}')]";
-	public By ELEMENT_ECM_EXPLORER_CLOSE_VIEW_MODE = By.xpath(".//*[@id='UIViewFormTabPane']//*[contains(text(),'Close')]");
-	public String ELEMENT_ECM_EXPLORER_EDIT = ".//*[@data-original-title='${nameView}']/../..//i[@class='uiIconEditInfo uiIconLightGray']";
-	public By ELEMENT_ECM_EXPLORER_EDIT_VIEWS_SAVE_BUTTON = By.xpath(".//*[@id='UIViewFormTabPane']//button[text()='Save']");
-	
 	//Explorer,Views-->Actions tab
 	public By ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM = By.xpath("//*[@id='UIViewFormTabPane']//*[contains(text(),'Action')]");
 	public By ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM = By.xpath(".//*[@id='UITabList']//i[@class='uiIconEdit uiIconLightGray']");
 	public By ELEMENT_ECM_EXPLORER_DELETE_ACTION_VIEW_FORM =By.xpath(".//*[@id='UITabList']//i[@class='uiIconDelete uiIconLightGray']");
 	
 	//Explorer,Views-->Actions tab-->Add/Edit popup
+	public By ELEMENT_ECM_EXPLORER_CLOSE_VIEW_MODE = By.xpath(".//*[@id='UIViewFormTabPane']//*[contains(text(),'Close')]");		
+	public String ELEMENT_ECM_EXPLORER_EDIT = ".//*[@data-original-title='${nameView}']/../..//i[@class='uiIconEditInfo uiIconLightGray']";
+	public By ELEMENT_ECM_EXPLORER_EDIT_VIEWS_SAVE_BUTTON = By.xpath(".//*[@id='UIViewFormTabPane']//button[text()='Save']");
+	
+	//Expolorer,Views-->Actions tab-->Add/Edit popup
 	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_CATEGORY=By.id("addCategory");
 	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_TRANSLATION=By.id("addLocalizationLink");
 	public By ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_CONTENT_NAVIGATION=By.id("contentNavigation");
@@ -238,6 +236,11 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public By ELEMENT_ECM_TEMPLATES_METADATA_CLOSE_VIEW = By.xpath("//*[@id='ViewMetadataPopup']//*[contains(text(),'Close')]");
 	public String ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE = "//*[@id='UIMetadataList']//*[contains(text(),'{$name}')]/..//*[@class='uiIconDelete uiIconLightGray']";
 
+	ManageAlert alert ;
+	public ContentAdministrationManagement(WebDriver dr){
+		driver = dr;
+		alert= new ManageAlert(dr);
+	}
 
 	/**
 	 * Select a function as: Explorer, Advanced, Template and Repositoty
@@ -280,20 +283,26 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param main
 	 */
 	public void goToSpecificMainFunctions(mainEcmFunctions main){
+		info("Go to select a main function");
 		switch(main){
 		case EXPLORER :
+			info("Select Explorer tab");
 			click(ELEMENT_EXPLORER_CATEGORIES_ECM_FUNCTIONS);
 			break;
 		case ADVANCED:
+			info("Select Advanced tab");
 			click (ELEMENT_ADVANCED_CATEGORIES_ECM_FUNCTIONS);
 			break;
 		case TEMPLATES:
+			info("Select Templates tab");
 			click (ELEMENT_TEMPLATE_CATEGORIES_ECM_FUNCTIONS);
 			break;
 		case REPOSITORY:
+			info("Select Repository tab");
 			click (ELEMENT_RESPONSITORY_CATEGORIES_ECM_FUNCTIONS);
 			break;
 		}
+		info("The main function is selected successfully");
 	}
 
 	/**
@@ -301,147 +310,64 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param spec
 	 */
 	public void goToSpecificFunctions(specificEcmFunctions spec){
+		info("Go to select a function in Advance tab");
 		switch(spec){
 		case ACTIONS :
+			info("Select Actions function");
 			click(ELEMENT_ECMS_FUNCTIONS_ACTIONS);
 			break;
 		case SCRIPTS :
+			info("Select Scripts function");
 			click(ELEMENT_ECMS_FUNCTIONS_SCRIPTS);
 			break;
 		case QUERIES :
+			info("Select Queries function");
 			click(ELEMENT_ECMS_FUNCTIONS_QUERIES);
 			break;
 		case CATEGORIES :
+			info("Select Categories function");
 			click(ELEMENT_ECMS_FUNCTIONS_CATEGORIES);
 			break;
 		case DRIVES :
+			info("Select Drives function");
 			click(ELEMENT_ECMS_FUNCTIONS_DRIVES);
 			break;
 		case VIEW :
+			info("Select Views function");
 			click(ELEMENT_ECMS_FUNCTIONS_VIEWS);
 			break;
 		case TAGS :
+			info("Select Tags function");
 			click(ELEMENT_ECMS_FUNCTIONS_TAGS);
 			break;
 		case NODESTYPES :
+			info("Select NodeStypes function");
 			click(ELEMENT_ECMS_FUNCTIONS_NODES);
 			break;
 		case NAMESPACES :
+			info("Select NameSpace function");
 			click(ELEMENT_ECMS_FUNCTIONS_NAMESPACES);
 			break;
 		case LOCKS :
+			info("Select Locks function");
 			click(ELEMENT_ECMS_FUNCTIONS_LOCKS);
 			break;	
 		case DOCUMENTS :
+			info("Select Documents function");
 			click(ELEMENT_ECMS_FUNCTIONS_DOCUMENTS);
 			break;
 		case LIST :
+			info("Select List function");
 			click(ELEMENT_ECMS_FUNCTIONS_LIST);
 			break;
 		case METADATA :
+			info("Select Metadata function");
 			click(ELEMENT_ECMS_FUNCTIONS_METADATA);
 			break;
 		}
+		info("End of selecting a function in Advance tab");
 	}
 
-    /**
-     * select an actions to add for a view type
-     * @param action
-     */
-	public void goTospecificEcmActionstypes (specificEcmActionstypes action){
-			switch(action){
-			case ADD_CATEGORY:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_CATEGORY,2);
-				break;
-			case ADD_TRANSLATION:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_TRANSLATION,2);
-				break;
-			case CONTENT_NAVIGATION:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_CONTENT_NAVIGATION,2);
-				break;
-			case IMPORT_NOTE:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_IMPORT_NOTE,2);
-				break;
-			case MANAGE_CATEGORIES :
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_CATEGORIES,2);
-				break;
-			case MANAGE_RELATION:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_RELATIONS,2);
-				break;
-			case APPROVE_CONTENT:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_APPROVE_CONTENT,2);
-				break;
-			case SHOW_JCR_STRUCTURE:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_SHOW_JCR_STRUCTURE,2);
-				break;
-			case VIEW_METADATA:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_METADATA,2);
-				break;
-			case VIEW_PROPERTIES:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_PROPERTIES,2);
-				break;
-			case ADD_DOCUMENT:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_DOCUMENT,2);
-				break;
-			case ADD_SYMLINK:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_SYMLINK,2);
-				break;
-			case EDIT_DOCUMENT:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_EDIT_DOCUMENT,2);
-				break;
-			case MANAGE_ACTIONS:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_ACTIONS,2);
-				break;
-			case HIDE_SHOW_CONTENT:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_HIDE_SHOW_CONTENT,2);
-				break;
-			case MANAGE_VERSION :
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_VERSIONS,2);
-				break;
-			case PUBLISH:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_PUBLISH,2);
-				break;
-			case TAG_DOCUMENT:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_TAG_DOCUMENT,2);
-				break;
-			case VIEW_NODE_TYPE:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_NODE_TYPE,2);
-				break;
-			case VOTE:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VOTE,2);
-				break;
-			case ADD_FOLDER:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_FOLDER,2);
-				break;
-			case COMMENT:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_COMMENT,2);
-				break;
-			case EXPORT_NODE:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_EXPORT_NODE,2);
-				break;
-			case MANAGE_AUDITING:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_AUDITING,2);
-				break;
-			case MANAGE_PUBLISHTATION:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_PUBLICATION,2);
-				break;
-			case OVERLOAD_THUMBNAILS :
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_OVERLOAD_THUMBNAIL,2);
-				break;
-			case REQUEST_APPROVAL:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_REQUEST_APPROVAL,2);
-				break;
-			case UPLOAD:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_UPLOAD,2);
-				break;
-			case VIEW_PERMISSIONS:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_PERMISSIONS,2);
-				break;
-			case WATCH_DOCUMENTS:
-				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_WATCH_DOCUMENT,2);
-				break;
-			}
-	}
 	/**
 	 * Add a new View
 	 * @param name
@@ -498,37 +424,50 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param applyViews
 	 */
 	public void addDrives(String name, String permission,specificView[] applyViews){
+		info("Click on Add button of the drive in the list");
 		click(ELEMENT_ECM_EXPLORER_DRIVES_ADD_DRIVES);
+		info("Type a name for the drive");
 		type(ELEMENT_ECM_EXPLORER_NAME_DRIVES_FORM,name,true);
-
+		info("Click on Add Permission button for the drive");
 		click(ELEMENT_ECM_COMMON_ADD_PERMISSION_BUTTON);
-		if(permission=="any")
+		if(permission=="any"){
+			info("Set 'any' permission for the drive");
 			click(ELEMENT_ECM_COMMON_ANY_PERMISSION);
+		}
+		info("Click on Aplly Views tab");
 		click(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_FORM);
 		for(specificView arrayElement : applyViews ){
+			info("Select a view type for the drive");
 			switch(arrayElement){
 			case ADMIN :
+				info("Add Admin view type");
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_ADMIN,2);
 				break;
 			case CATEGORY:
+				info("Add Category view type");
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_CATEGORIES,2);
 				break;
 			case ICON:
+				info("Add Icon view type");
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_ICONS,2);
 				break;
 			case LIST :
+				info("Add List view type");
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_LIST,2);
 				break;
 			case WEB :
+				info("Add WEB view type");
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_WEB,2);
 				break;
 			default:
+				info("Add WEB view type");
 				check(ELEMENT_ECM_EXPLORER_APPLY_VIEWS_CHECKBOX_WEB,2);
 				break;
 			}
 		}
-
+		info("Save all changes");
 		click(ELEMENT_ECM_EXPLORER_DRIVES_SAVE_FORM);
+		info("Finished adding a drive");
 	}
 	/**
 	 * 
@@ -568,27 +507,6 @@ public class ContentAdministrationManagement extends PlatformBase{
 		click(ELEMENT_ECM_EXPLORER_DRIVES_SAVE_FORM);
 	}
 	
-	/**
-	 * Add more actions for a View type
-	 * By QuynhPT
-	 * date 09/01/2015
-	 * @param nameView the name of View type as: Web, Admin, Icon, List, Categories
-	 * @param applyActions  the name of actions that list in the popup
-	 */
-	public void addActionsForAView (String nameView,specificEcmActionstypes action){
-        click(By.xpath(ELEMENT_ECM_EXPLORER_EDIT.replace("${nameView}", nameView)));
-        Utils.pause(2000);
-        click(ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM);
-		Utils.pause(1000);
-		click(ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM);
-		Utils.pause(2000);
-		goTospecificEcmActionstypes(action);
-		Utils.pause(2000);
-		click(ELEMENT_ECM_EXPORER_ACTIONS_POPUP_SAVE_BUTTON);
-		Utils.pause(2000);
-		click(ELEMENT_ECM_EXPLORER_EDIT_VIEWS_SAVE_BUTTON);
-		Utils.pause(1000);
-	}
 
 	/**
 	 * Delete a drive
@@ -641,9 +559,14 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param name
 	 */
 	public void deleteCategories(String name){
+		info("Delete the category");
+		info("Click on Delete button of the category");
 		click(By.xpath(ELEMENT_ECM_ADVANCED_CATEGORIES_DELETE.replace("{$name}", name)));
+		info("Click on Ok button of the alert popup");
 		alert.acceptAlert();
+		info("Verify that the category is deleted");
 		waitForElementNotPresent(By.xpath(ELEMENT_ECM_ADVANCED_CATEGORIES_DELETE.replace("{$name}", name)));
+		info("The category is deleted succcessfully");
 	}
 	/**
 	 * Add a new category
@@ -653,17 +576,29 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param targetPath
 	 */
 	public void addCategories(String name,String nameAction,String lifeCycle, String targetPath){
+		info("Add a category");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_ADD_CATEGORIES);
+		info("Type a name for the category");
 		type(ELEMENT_ECM_ADVANCED_CATEGORIES_NAME_FORM,name,true);
+		info("Click on Next button of the step 1");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_NEXT_1STPAGE_FORM);
+		info("Click on Next button of the step 2");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_NEXT_2NDPAGE_FORM);
+		info("Type a name for the action of the category");
 		type(ELEMENT_ECM_ADVANCED_CATEGORIES_NAME_ACTION_FORM,nameAction,true);
+		info("Select a lifeCycle");
 		select(ELEMENT_ECM_ADVANCED_CATEGORIES_LIFECYCLE_FORM,lifeCycle);
+		info("Click on target path on action form");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_OPEN_TARGETPATH_ACTION_FORM);
-		if(targetPath=="root")
+		if(targetPath=="root"){
+			info("if targetPath is root, select ROOT node");
 			click(ELEMENT_ECM_ADVANCED_CATEGORIES_ROOT_NODE_ACTION_FORM);
+		}
+		info("Save all changes");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_SAVE_FORM);
+		info("Close the form");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_CLOSE_FORM);
+		info("Finish adding the category");
 	}
 
 	/**
@@ -676,22 +611,34 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param pathWorkspace
 	 */
 	public void editCategories(String name,String nameAction,String lifeCycle, String targetPath,String workspace,String pathWorkspace){
+		info("Edit the Category");
+		info("Click on Edit button of the category in the list");
 		click(By.xpath(ELEMENT_ECM_ADVANCED_CATEGORIES_EDIT_FORM.replace("{$name}",name)));
+		info("Click on Previous button of step4");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_PREVIOUS_4THPAGE);
+		info("Click on Previous button of step3");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_PREVIOUS_3RDPAGE);
+		info("Click on Previous button of step2");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_PREVIOUS_2NDPAGE);
-		if(workspace!=null){
+		if(!workspace.isEmpty()){
+			info("Select the workspace:"+workspace+" for the category");
 			select(ELEMENT_ECM_ADVANCED_CATEGORIES_WORKSPACE_SELECT_FORM,workspace);
+			info("Click on Add button of home path form");
 			click(ELEMENT_ECM_ADVANCED_CATEGORIES_ADD_HOME_PATH_FORM);
-			if(pathWorkspace=="root")
+			if(pathWorkspace=="root"){
+				info("if workspace is root, click on ROOT node");
 				click(ELEMENT_ECM_ADVANCED_CATEGORIES_ROOT_NODE_ACTION_FORM);
+			}
 		}
+		info("Click on Next butotn of step 1");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_NEXT_1STPAGE_FORM);
-		// here to manage permission if needed
+		info("Click on Next button of step 2");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_NEXT_2NDPAGE_FORM);
-		// here to manage the lifecycle and nameAction etc..
+		info("Click on Save button");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_SAVE_FORM);
+		info("Close the form");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_CLOSE_FORM);
+		info("Finished editing the category");
 	}
 	/**
 	 * Add a new action type
@@ -700,13 +647,20 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param variables
 	 */
 	public void addActionType(String name, String script,String variables){
+		info("Add a action type");
 		click(ELEMENT_ADD_ACTION_TYPE);
+		info("Type a name");
 		type(ELEMENT_ECM_ACTION_NAME_FORM,name,true);
-		if(script!=null)
+		if(!script.isEmpty()){
+			info("Select a script in form");
 			select(ELEMENT_ECM_ACTION_SCRIPT_FORM,script);
-		if(variables!=null)
+		}
+		if(!variables.isEmpty()){
+			info("Type a variable in form");
 			type(ELEMENT_ECM_ACTION_VARIABLES_FORM,variables, true);
-
+		}
+		info("Save all changes");
+		waitForAndGetElement(ELEMENT_ECM_ACTION_SAVE_FORM);
 		click(ELEMENT_ECM_ACTION_SAVE_FORM);
 	}
 	/**
@@ -717,19 +671,30 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param variables
 	 */
 	public void editActionType(String name,String newName, String script,String variables){
+		info("Edit a action type");
+		info("Select a action in the list");
 		click(By.xpath(ELEMENT_ECM_ACTION_EDIT_LIST.replace("{$name}", name)));
+		info("Add a action type");
 		addActionType( newName,  script,variables);
+		info("Verify that the new action is added");
 		waitForAndGetElement(ELEMENT_ECM_ACTION_LIST.replace("{$name}",newName));
+		info("Verify that the old action is replaced");
 		waitForElementNotPresent(ELEMENT_ECM_ACTION_LIST.replace("{$name}",name));
+		info("End of Editing action type");
 	}
 	/**
 	 * Delete a action type
 	 * @param name
 	 */
 	public void deleteAction(String name){
+		info("Delete a action");
+		info("Click on Delete button of the action");
 		click(By.xpath(ELEMENT_ECM_ACTION_DELETE_LIST.replace("{$name}", name)));
+		info("Click on OK button on Alert popup");
 		alert.acceptAlert();
+		info("Verify that the action is deleted");
 		waitForElementNotPresent(ELEMENT_ECM_ACTION_LIST.replace("{$name}",name));
+		info("The action is deleted successfully");
 	}
 	/**
 	 * Add a new script
@@ -738,14 +703,21 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param script
 	 */
 	public void addScripts(String name, String content,String script){
+		info("Add a script");
 		click(ELEMENT_ECM_ADVANCED_SCRIPT_ADD_SCRIPT);
+		info("Type a name for the script");
 		type(ELEMENT_ECM_ADVANCED_SCRIPT_NAME_FORM,name,true);
-		if(script!=null)
+		if(!script.isEmpty()){
+			info("Type a script on the form");
 			type(ELEMENT_ECM_ADVANCED_SCRIPT_SCRIPT_FORM,script,true);
-		if(content!=null)
+		}
+		if(!content.isEmpty()){
+			info("Type a content for the script");
 			type(ELEMENT_ECM_ADVANCED_SCRIPT_CONTENT_FORM,content, true);
-
+		}
+		info("Save all changes");
 		click(ELEMENT_ECM_ADVANCED_SCRIPT_SAVE_FORM);
+		info("Finish adding the script");
 	}
 	/**
 	 * Edit a Script
@@ -755,25 +727,39 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param script
 	 */
 	public void EditScripts(String oldname,String name, String content,String script){
+		info("Edit the script");
+		info("Click on Edit button of the script on the list");
 		click(By.xpath(ELEMENT_ECM_ADVANCED_SCRIPT_EDIT_LIST.replace("{$name}", oldname)));
+		info("Type the mame for the script");
 		type(ELEMENT_ECM_ADVANCED_SCRIPT_NAME_FORM,name,true);
-		if(script!=null)
+		if(!script.isEmpty()){
+			info("Type a script: "+script+" on the script form");
 			type(ELEMENT_ECM_ADVANCED_SCRIPT_SCRIPT_FORM,script,true);
-		if(content!=null)
+		}
+		if(!content.isEmpty()){
+			info("Type a content: "+content+" for the script");
 			type(ELEMENT_ECM_ADVANCED_SCRIPT_CONTENT_FORM,content, true);
-
+		}
+		info("Save all changes");
 		click(ELEMENT_ECM_ADVANCED_SCRIPT_SAVE_FORM);
+		info("Verify that the script is saved with new changes");
 		waitForAndGetElement(ELEMENT_ECM_ADVANCED_SCRIPT_LIST.replace("{$name}",name));
+		info("Verify that old script is changed");
 		waitForElementNotPresent(ELEMENT_ECM_ADVANCED_SCRIPT_LIST.replace("{$name}",oldname));
+		info("Editing the script is changed successfully");
 	}
 	/**
 	 * Delete a script by name
 	 * @param name
 	 */
 	public void deleteScripts(String name){
+		info("Click on Delete button of the script");
 		click(By.xpath(ELEMENT_ECM_ADVANCED_SCRIPT_DELETE_LIST.replace("{$name}", name)));
+		info("Click on OK button of the alert popup");
 		alert.acceptAlert();
+		info("Verify that the script is deleted");
 		waitForElementNotPresent(ELEMENT_ECM_ADVANCED_SCRIPT_LIST.replace("{$name}",name));
+		info("The script is deleted successfullyy");
 	}
 	/**
 	 * Add a new query
@@ -783,47 +769,75 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param permission
 	 */
 	public void addQueries(String name,String queryType, String statement,String permission){
+		info("Add a query");
+		info("Click on Add button");
 		click(ELEMENT_ECM_ADVANCED_QUERIES_ADD_QUERIES);
+		info("Type a name for the query");
 		type(ELEMENT_ECM_ADVANCED_QUERIES_NAME_FORM,name,true);
-		if(queryType!=null)
+		if(!queryType.isEmpty()){
+			info("Select the type:"+queryType+"for the query");
 			select(ELEMENT_ECM_ADVANCED_QUERIES_QUERY_TYPE_FORM,queryType);
-		if(statement!=null)
+		}
+		if(!statement.isEmpty()){
+			info("Type a text: "+statement+"for the statement of the query");
 			type(ELEMENT_ECM_ADVANCED_QUERIES_STATEMENT_FORM,statement, true);
+		}
+		info("Select permission form of the query");
 		click(ELEMENT_ECM_ADVANCED_QUERIES_PERMISSION_FORM);
 		if(permission=="any"){
+			info("Set permission of the query is:"+permission);
 			click(ELEMENT_PERMISSION_ANY);
 		}
+		info("Save all changes");
 		click(ELEMENT_ECM_ADVANCED_QUERIES_SAVE_FORM);
+		info("Adding the query is success");
 	}
 	/**
-	 * Edit a queri
+	 * Edit a query
 	 * @param name
 	 * @param queryType
 	 * @param statement
 	 * @param permission
 	 */
 	public void editQueries(String name,String queryType, String statement,String permission){
+		info("Click on Edit button of the query");
 		click(ELEMENT_ECM_ADVANCED_QUERIES_EDIT_BUTTON.replace("{$name}",name));
-		if(queryType!=null)
+		if(!queryType.isEmpty()){
+			info("Select a type for the query");
 			select(ELEMENT_ECM_ADVANCED_QUERIES_QUERY_TYPE_FORM,queryType);
-		if(statement!=null)
+		}
+		if(!statement.isEmpty()){
+			info("Type the statement: "+statement+" for the query");
 			type(ELEMENT_ECM_ADVANCED_QUERIES_STATEMENT_FORM,statement, true);
-		if(permission!=null)
+		}
+		if(!permission.isEmpty()){
+			info("Select permission for the query");
 			click(ELEMENT_ECM_ADVANCED_QUERIES_PERMISSION_FORM);
+		}
+		info("Save all changes");
 		click(ELEMENT_ECM_ADVANCED_QUERIES_SAVE_FORM);
+		info("Editing is finished");
 	}
 	/**
 	 * Delete a queri
 	 * @param name
 	 */
 	public void deleteQueries(String name){
+		info("Delete a query");
+		info("Click on Delete button of the query");
 		click(By.xpath(ELEMENT_ECM_ADVANCED_QUERIES_DELETE_BUTTON.replace("{$name}", name)));
+		info("Click on OK button of the alert popup");
 		alert.acceptAlert();
+		info("Verify that the query is deleted");
 		waitForElementNotPresent(ELEMENT_ECM_ADVANCED_QUERIES_LIST.replace("{$name}",name));
+		info("The query is deleted successfully");
 	}
 	
 	/**
-	 * opt 0 is mixin type, true or false
+	 * Add a node type
+	 * @param name
+	 * @param superTypes
+	 * @param opParams
 	 */
 	public void addNodeType(String name,String superTypes,Object... opParams){
 		String mixinType = (String) (opParams.length>0 ? opParams[0] : null);
@@ -948,6 +962,139 @@ public class ContentAdministrationManagement extends PlatformBase{
 		click(By.xpath(ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE.replace("{$name}", name)));
 		alert.acceptAlert();
 		waitForElementNotPresent(By.xpath(ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE.replace("{$name}", name)));
+	}
+	
+	/**
+	 * Add more actions for a View type
+	 * By QuynhPT
+	 * date 09/01/2015
+	 * @param nameView the name of View type as: Web, Admin, Icon, List, Categories
+	 * @param applyActions  the name of actions that list in the popup
+	 */
+	public void addActionsForAView (String nameView,specificEcmActionstypes action){
+		
+		info("Go to Explorer tab");
+		goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
+		info("Go to Views link");
+		goToSpecificFunctions(specificEcmFunctions.VIEW);
+		info("Click on Edit button of the View type");
+        click(By.xpath(ELEMENT_ECM_EXPLORER_EDIT.replace("${nameView}", nameView)));
+        Utils.pause(2000);
+        info("Open Action tab");
+        click(ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM);
+		Utils.pause(1000);
+		info("Click on Add action button");
+		click(ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM);
+		Utils.pause(2000);
+		info("Select the action");
+		goTospecificEcmActionstypes(action);
+		Utils.pause(2000);
+		info("Click on Save button of Action popup");
+		click(ELEMENT_ECM_EXPORER_ACTIONS_POPUP_SAVE_BUTTON);
+		Utils.pause(2000);
+		info("Save all changes");
+		click(ELEMENT_ECM_EXPLORER_EDIT_VIEWS_SAVE_BUTTON);
+		Utils.pause(1000);
+		info("Finished Adding action for a view");
+	}
+	
+	 /**
+     * select an actions to add for a view type
+     * @param action
+     */
+	public void goTospecificEcmActionstypes (specificEcmActionstypes action){
+			switch(action){
+			case ADD_CATEGORY:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_CATEGORY,2);
+				break;
+			case ADD_TRANSLATION:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_TRANSLATION,2);
+				break;
+			case CONTENT_NAVIGATION:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_CONTENT_NAVIGATION,2);
+				break;
+			case IMPORT_NOTE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_IMPORT_NOTE,2);
+				break;
+			case MANAGE_CATEGORIES :
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_CATEGORIES,2);
+				break;
+			case MANAGE_RELATION:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_RELATIONS,2);
+				break;
+			case APPROVE_CONTENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_APPROVE_CONTENT,2);
+				break;
+			case SHOW_JCR_STRUCTURE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_SHOW_JCR_STRUCTURE,2);
+				break;
+			case VIEW_METADATA:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_METADATA,2);
+				break;
+			case VIEW_PROPERTIES:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_PROPERTIES,2);
+				break;
+			case ADD_DOCUMENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_DOCUMENT,2);
+				break;
+			case ADD_SYMLINK:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_SYMLINK,2);
+				break;
+			case EDIT_DOCUMENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_EDIT_DOCUMENT,2);
+				break;
+			case MANAGE_ACTIONS:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_ACTIONS,2);
+				break;
+			case HIDE_SHOW_CONTENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_HIDE_SHOW_CONTENT,2);
+				break;
+			case MANAGE_VERSION :
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_VERSIONS,2);
+				break;
+			case PUBLISH:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_PUBLISH,2);
+				break;
+			case TAG_DOCUMENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_TAG_DOCUMENT,2);
+				break;
+			case VIEW_NODE_TYPE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_NODE_TYPE,2);
+				break;
+			case VOTE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VOTE,2);
+				break;
+			case ADD_FOLDER:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_ADD_FOLDER,2);
+				break;
+			case COMMENT:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_COMMENT,2);
+				break;
+			case EXPORT_NODE:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_EXPORT_NODE,2);
+				break;
+			case MANAGE_AUDITING:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_AUDITING,2);
+				break;
+			case MANAGE_PUBLISHTATION:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_MANAGE_PUBLICATION,2);
+				break;
+			case OVERLOAD_THUMBNAILS :
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_OVERLOAD_THUMBNAIL,2);
+				break;
+			case REQUEST_APPROVAL:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_REQUEST_APPROVAL,2);
+				break;
+			case UPLOAD:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_UPLOAD,2);
+				break;
+			case VIEW_PERMISSIONS:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_VIEW_PERMISSIONS,2);
+				break;
+			case WATCH_DOCUMENTS:
+				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_WATCH_DOCUMENT,2);
+				break;
+			}
 	}
 
 }

@@ -15,7 +15,7 @@ import org.exoplatform.selenium.platform.answer.AnswerCategoryManagement.actionC
 import org.exoplatform.selenium.platform.gatein.AnswerPage;
 import org.exoplatform.selenium.platform.gatein.FaqPage;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
-import org.exoplatform.selenium.platform.gatein.PageManagement;
+import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
@@ -35,7 +35,7 @@ public class Addons_Faq   extends PlatformBase {
 	AnswerManagement aMang;
 	FaqHomePage fhPage;
 	AnswerPage aPage;
-	PageManagement pMang;
+	PageCreationWizard pMang;
 	FaqPage fPage;
 	String question1;
 	String content1;
@@ -62,7 +62,7 @@ public class Addons_Faq   extends PlatformBase {
 		qMang = new QuestionManagement(driver);
 		aMang = new AnswerManagement(driver);
 		pagEditor = new PageEditor(driver);
-		pMang = new PageManagement(driver);
+		pMang = new PageCreationWizard(driver);
 		fPage = new FaqPage(driver);
 		aPage = new AnswerPage(driver);
 		fhPage = new FaqHomePage(driver);

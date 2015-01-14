@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
@@ -22,6 +23,8 @@ public class Ecms_SE_Create extends PlatformBase{
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
 	SpaceManagement spManag;
+	NavigationToolbar navTool;
+	
 	TextBoxDatabase txData;
 	UserDatabase userData;
 	AttachmentFileDatabase fData;
@@ -43,6 +46,8 @@ public class Ecms_SE_Create extends PlatformBase{
 		SEHome = new SiteExplorerHome(driver);
 		CreNewDoc = new CreateNewDocument(driver);
 		spManag = new SpaceManagement(driver);
+		navTool = new NavigationToolbar(driver);
+		
 		txData = new TextBoxDatabase();
 		fData = new AttachmentFileDatabase();
 		userData = new UserDatabase();
@@ -88,7 +93,7 @@ public class Ecms_SE_Create extends PlatformBase{
 		 *Expected Outcome: 
 			- Folder is deleted
 			- A modal message appears with Undo option. You can click undo to restore*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewFolder();
 		info("Create new file document");
 		SEHome.createFolder(title, folderType);
@@ -125,7 +130,7 @@ public class Ecms_SE_Create extends PlatformBase{
 			- Click Save & Close
 		 *Expected Outcome: 
 			File is Edited successfully*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		info("Create new file document");
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
@@ -172,7 +177,7 @@ public class Ecms_SE_Create extends PlatformBase{
 
 		 *Expected Outcome: 
 			The Web Content document is edited successfully*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		info("Create new file document");
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
@@ -223,7 +228,7 @@ public class Ecms_SE_Create extends PlatformBase{
 
 		 *Expected Outcome: 
 			The selected content/media is inserted to Main Content as a link.In view mode, user can click this link to view/download file.*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		info("Create new file document");
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
@@ -236,7 +241,7 @@ public class Ecms_SE_Create extends PlatformBase{
 		driver.get(url);
 
 		info("Delete file document");
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.deleteData(title);
 	}
 
@@ -267,7 +272,7 @@ public class Ecms_SE_Create extends PlatformBase{
 		 *Expected Outcome: 
 			- File Dialog open for user to choose files to upload*/
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 
 		/*Step number: 2
 		 *Step Name: 
@@ -308,7 +313,7 @@ public class Ecms_SE_Create extends PlatformBase{
 		 *Expected Outcome: 
 			- File Dialog open for user to choose files to upload*/
 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToIntranet();
 		SEHome.goToDocument();
 		
@@ -359,7 +364,7 @@ public class Ecms_SE_Create extends PlatformBase{
 			- File Dialog open for user to choose files to upload*/
 	
 		
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToSpace(spaceName);
 		
 		/*Step number: 2

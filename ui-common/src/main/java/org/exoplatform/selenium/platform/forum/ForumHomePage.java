@@ -170,20 +170,20 @@ public class ForumHomePage extends PlatformBase {
 	 */
 	public void addCategory(String nameCat, String order, String description) {
 		waitForAndGetElement(ELEMENT_ACTIONBAR_ADDCATEGORY);
-		//click on Add Category button
+		info("click on Add Category button");
 		click(ELEMENT_ACTIONBAR_ADDCATEGORY);
-		//check if title is null
+		info("check if title is null");
 	    if(nameCat==null)
 	    	assert false:"lack of the values of title";
-	    //input the title for the category
+	    info("input the title for the category");
 	    type(ELEMENT_ADDCATEGORY_POPUP_TITLE,nameCat,true);
 	    
-	    //check and input Oder field
+	    info("check and input Oder field");
 	    if(order!=null){
 	    	waitForAndGetElement(ELEMENT_ADDCATEGORY_POPUP_ORDER).clear();
 	    	type(ELEMENT_ADDCATEGORY_POPUP_ORDER,order,true);
 	    }
-        //check and input description
+        info("check and input description");
 	    if (description!=null){
 	    	waitForAndGetElement(ELEMENT_ADDCATEGORY_POPUP_DESCRIPTION).clear();
 	    	type(ELEMENT_ADDCATEGORY_POPUP_DESCRIPTION,description,true);

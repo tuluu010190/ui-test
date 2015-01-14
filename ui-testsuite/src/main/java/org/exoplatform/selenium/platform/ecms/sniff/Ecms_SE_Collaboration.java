@@ -15,7 +15,6 @@ import org.exoplatform.selenium.platform.ecms.EditPageWCM;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
-import org.exoplatform.selenium.platform.gatein.PageManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.openqa.selenium.By;
@@ -36,7 +35,6 @@ import org.testng.annotations.*;
 		SiteExplorerHome SEHome;
 		CreateNewDocument creNewDoc;
 		EditPageWCM editPageWCM;
-		PageManagement pMag;
 		PageEditor pEdit;
 		NavigationToolbar navTool;
 		AcmeHomePage acmeHP;
@@ -56,7 +54,6 @@ import org.testng.annotations.*;
 			SEHome = new SiteExplorerHome(driver);
 			creNewDoc = new CreateNewDocument(driver);
 			editPageWCM = new EditPageWCM(driver);
-			pMag = new PageManagement(driver);
 			pEdit = new PageEditor(driver);
 			navTool = new NavigationToolbar(driver);
 			acmeHP = new AcmeHomePage(driver);
@@ -103,7 +100,7 @@ import org.testng.annotations.*;
 			- Documents are created
 			- French document is list in Languages list of English document.When you add this content in a CLV or SCV, change language, you will see effect*/ 
 		
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
 		creNewDoc.addNewFile(title, content);
@@ -155,14 +152,15 @@ import org.testng.annotations.*;
 			- Save
 		*Expected Outcome: 
 			You can see the comment at the bottom of document/uploaded file.*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
 		creNewDoc.addNewFile(title, content);
 		creNewDoc.saveAndClose();
 
 		click(SEHome.ELEMENT_ACTIONBAR_ADDCOMMENT);
-		inputDataToFrame(creNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content2, true);
+		this.driver.navigate().refresh();
+		inputFrame(creNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content2);
 		switchToParentWindow();
 		click(SEHome.ELEMENT_SAVE_BTN);
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_COMMENT.replace("${number}", "1"));
@@ -207,7 +205,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			Node is added tag. You can find document using tag in Tag cloud of FE*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
 		creNewDoc.addNewFile(title, content);
@@ -252,7 +250,7 @@ import org.testng.annotations.*;
 			- Click on Vote icon on action bar, perform to vote
 		*Expected Outcome: 
 			The node is voted*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.uploadFile("TestData/"+fileName);
 		click(By.xpath((SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", fileName)));
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
@@ -271,13 +269,14 @@ import org.testng.annotations.*;
 	@Test
 	public  void test05_EditComment() {
 		info("Test 5: Edit Comment");
-		
+		info("Get data test");
 		String number1= getRandomNumber();
 		String number2 = getRandomNumber();
 		String title = txData.getContentByArrayTypeRandom(1)+number1;
 		String content = txData.getContentByArrayTypeRandom(1)+number1;
 		String content2 = txData.getContentByArrayTypeRandom(1)+number2;
 		String content3 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		info("Finished getting data test");
 		
 		/*Step Number: 1
 		*Step Name: -
@@ -292,25 +291,29 @@ import org.testng.annotations.*;
 			- Show comment, click on Edit icon, perform to edit, click Save
 		*Expected Outcome: 
 			- Comment is edited*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
+		info("Add a new content");
 		SEHome.goToAddNewContent();
+		info("Select a document type");
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
+		info("Create a new file");
 		creNewDoc.addNewFile(title, content);
+		info("Save and close the file");
 		creNewDoc.saveAndClose();
-
-		click(SEHome.ELEMENT_ACTIONBAR_ADDCOMMENT);
-		inputDataToFrame(creNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content2, true);
-		switchToParentWindow();
-		click(SEHome.ELEMENT_SAVE_BTN);
+		
+		SEHome.addEditComment(content2,true);
+		info("Veriy that the comment is added");
 		waitForAndGetElement(By.xpath((SEHome.ELEMENT_SITEEXPLORER_COMMENT).replace("${number}", "1")));
 		
+		info("Click on Show comment button on action bar");
 		click(SEHome.ELEMENT_SITEEXPLORER_COMMENT_SHOW);
-		click(SEHome.ELEMENT_SITEEXPLORER_COMMENT_EDIT);
-		inputDataToFrame(creNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content3, true);
-		switchToParentWindow();
-		click(SEHome.ELEMENT_SAVE_BTN);
+		SEHome.addEditComment(content3,false);
+		
+		info("Click on Show comment button on action bar");
 		click(SEHome.ELEMENT_SITEEXPLORER_COMMENT_SHOW);
+		info("Verify that the comment is edited");
 		waitForAndGetElement(By.xpath((SEHome.ELEMENT_SITEEXPLORER_COMMENT_CONTENT).replace("${content}", content3)));
+		info("The coment is edited successfully");
 		SEHome.deleteData(title);
  	}
 
@@ -343,14 +346,15 @@ import org.testng.annotations.*;
 			- Show the comment, click on Delete icon ,click OK
 		*Expected Outcome: 
 			Comment is deleted*/ 
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		SEHome.goToAddNewContent();
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
 		creNewDoc.addNewFile(title, content);
 		creNewDoc.saveAndClose();
 
 		click(SEHome.ELEMENT_ACTIONBAR_ADDCOMMENT);
-		inputDataToFrame(creNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content2, true);
+		this.driver.navigate().refresh();
+		inputFrame(creNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content2);
 		switchToParentWindow();
 		click(SEHome.ELEMENT_SAVE_BTN);
 		waitForAndGetElement(By.xpath((SEHome.ELEMENT_SITEEXPLORER_COMMENT).replace("${number}", "1")));

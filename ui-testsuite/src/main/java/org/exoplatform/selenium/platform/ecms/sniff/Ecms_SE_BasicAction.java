@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
@@ -31,6 +32,7 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 	SiteExplorerHome seHome;
 	CreateNewDocument CreNewDoc;
 	ContentAdministrationManagement caPage;
+	NavigationToolbar navTool;
 	
 	ManageAlert alert;
 
@@ -43,6 +45,7 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);
 		caPage = new ContentAdministrationManagement(driver);
+		navTool = new NavigationToolbar(driver);
 		txData = new TextBoxDatabase();
 		fData = new AttachmentFileDatabase();
 		userData = new UserDatabase();
@@ -59,13 +62,14 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		
 	}
 
 
 	@AfterClass
 	public void afterClass(){
+		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
 
@@ -112,7 +116,7 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		String node =folderTitle .toLowerCase();
 		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		seHome.goToAddNewFolder();
 		seHome.createFolder(folderTitle, "Content Folder");
 		seHome.addSymlink(folderTitle);
@@ -147,7 +151,7 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		
 		String titleCommonNode= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		seHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
@@ -225,7 +229,7 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 
 		String titleCommonNode= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		seHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
@@ -236,11 +240,12 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		newDriver = new FirefoxDriver();
 		newDriver.get(baseUrl);
 		ManageLogInOut  acc = new ManageLogInOut(newDriver);
-		HomePagePlatform hp2 = new HomePagePlatform(newDriver);
+		NavigationToolbar navTool2 = new NavigationToolbar(newDriver);
+		SiteExplorerHome seHome2 = new SiteExplorerHome(newDriver);
 		acc.signIn(DATA_USER2, DATA_PASS);
-		hp2.goToSiteExplorer();
-		acc.rightClickOnElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}",titleCommonNode )));
-		acc.waitForElementNotPresent(seHome.ELEMENT_SITEEXPLORER_LIST_LOCK_NODE);
+		navTool2.goToSiteExplorer();
+		acc.rightClickOnElement(By.xpath((seHome2.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}",titleCommonNode )));
+		acc.waitForElementNotPresent(seHome2.ELEMENT_SITEEXPLORER_LIST_LOCK_NODE);
 		acc.signOut();
 
 		info("Test 10 Unlock a node");
@@ -248,9 +253,9 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		seHome.unlockNode(titleCommonNode);
 
 		acc.signIn(DATA_USER2, DATA_PASS);
-		hp2.goToSiteExplorer();
-		acc.rightClickOnElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}",titleCommonNode )));
-		acc.waitForElementNotPresent(seHome.ELEMENT_SITEEXPLORER_LIST_UNLOCK_NODE);
+		navTool2.goToSiteExplorer();
+		acc.rightClickOnElement(By.xpath((seHome2.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}",titleCommonNode )));
+		acc.waitForElementNotPresent(seHome2.ELEMENT_SITEEXPLORER_LIST_UNLOCK_NODE);
 		acc.signOut();
 		newDriver.quit();
 		
@@ -302,7 +307,7 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		
 		String titleCommonNode= (txData.getContentByArrayTypeRandom(1)+getRandomNumber()).toLowerCase();
 		
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		seHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
@@ -367,7 +372,7 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		String titleCommonNode= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String newName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		hp.goToSiteExplorer();
+		navTool.goToSiteExplorer();
 		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		seHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);

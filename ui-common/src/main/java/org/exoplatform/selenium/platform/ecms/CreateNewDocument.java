@@ -37,8 +37,6 @@ public class CreateNewDocument extends PlatformBase{
 	public final By ELEMENT_DOCFORM_BLANK_SOURCE = By.xpath("//*[@id='source0']");
 
 	//New file form
-	public final By ELEMENT_FILEFORM_BLANK_NAME = By.xpath("//*[@id='name']");
-	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
 	public final By ELEMENT_FILEFORM_BLANK_CONTENT2 = By.xpath("//*[@id='cke_1_contents']/iframe");
 	public final By ELEMENT_FILEFORM_BUTTON_SAVEANDCLOSE = By.xpath("//*[@class='btn' and text()='Save & Close']"); 
 	public final By ELEMENT_FILEFORM_LANGUAGE = By.xpath("//*[@name='content-lang']");
@@ -80,46 +78,47 @@ public class CreateNewDocument extends PlatformBase{
 		info("Go to type "+ type);
 		switch(type){
 		case FILE:
+			info("Select File type");
 			click(ELEMENT_ADDDOCUMENT_FILE);
 			break;
-			
 		case WEBCONTENT:
+			info("Select WebContent type");
 			click(ELEMENT_ADDDOCUMENT_WEBCONTENT);
 			break;
-
 		case ACCESSIBLEMEDIA:
+			info("Select Accessiblemedia type");
 			click(ELEMENT_ADDDOCUMENT_ACCESSIBLE_MEDIA);
 			break;
-
 		case ANNOUNCEMENT:
+			info("Select Announcement type");
 			click(ELEMENT_ADDDOCUMENT_ANNOUNCEMENT);
 			break;
-
 		case CSSFILE:
+			info("Select Css file type");
 			click(ELEMENT_ADDDOCUMENT_CSS_FILE);
 			break;
-
 		case CONTACTUS:
+			info("Select Contact us type");
 			click(ELEMENT_ADDDOCUMENT_CONTACT_US);
 			break;
-
 		case HTMLFILE:
+			info("Select HTML file type");
 			click(ELEMENT_ADDDOCUMENT_HTML_FILE);
 			break;
-
 		case ILLUSTRATEDWEBCONTENT:
+			info("Select Illustrated webcontent type");
 			click(ELEMENT_ADDDOCUMENT_ILLUSTRATED_WEB_CONTENT);
 			break;
-
 		case WEBLINK:
+			info("Select Weblink type");
 			click(ELEMENT_ADDDOCUMENT_WEBLINK);
 			break;
-
 		case PRODUCT:
+			info("Select Product type");
 			click(ELEMENT_ADDDOCUMENT_PRODUCT);
 			break;
-
 		case JAVASCRIPTFILE:
+			info("Select Javascript file type");
 			click(ELEMENT_ADDDOCUMENT_JAVASCRIPT_FILE);
 			break;
 		}
@@ -143,28 +142,32 @@ public class CreateNewDocument extends PlatformBase{
 	 */
 	public void createNewFolder(String title, folderType type) {
 		info("-- Creating a new folder --");
-		//Verify that the popup is shown
+		info("Verify that the popup is shown");
 		waitForAndGetElement(ELEMENT_ADD_NEW_FOLDER_POPUP_TITLE,2000,0);
-		//Verify that has check box element is shown on the popup
+		info("Verify that has check box element is shown on the popup");
 		WebElement checkBox= waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER,5000, 0);
-		//if check box is avaiabled and unchecked, so, check it.
+		info("if check box is avaiabled and unchecked, so, check it.");
 		if (checkBox != null && !checkBox.isSelected()) {
+			info("Check on check box");
 			click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
 		}
-		//Select a type of new folder 
+		info("Select a type of new folder");
 		switch (type) {
 		case Content:
+			info("Type a text to title field of Content type");
 			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
 			break;
 		case Document:
+			info("Type a text to title field of Document type");
 			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
+			info("Select Document type");
 			selectOption(ELEMENT_FOLDER_TYPE_OPTION,
 					ELEMENT_DOCUMENT_FOLDER_TYPE);
 			break;
 		default:
 			break;
 		}
-		//Save the changes
+		info("Save the changes");
 		click(ELEMENT_CREATE_FOLDER_BUTTON);
 		Utils.pause(2000);
 	}
@@ -179,12 +182,7 @@ public class CreateNewDocument extends PlatformBase{
 	public void addNewFile(String title, String content) {
 		this.driver.navigate().refresh();
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
-		WebElement e = waitForAndGetElement(ELEMENT_FILEFORM_BLANK_CONTENT,DEFAULT_TIMEOUT,1,2);
-		driver.switchTo().frame(e);
-		WebElement inputsummary = driver.switchTo().activeElement();
-		inputsummary.click();
-		inputsummary.sendKeys(content);
-		switchToParentWindow();
+		inputFrame(ELEMENT_FILEFORM_BLANK_CONTENT,content);
 	}
 
 	/**
@@ -193,9 +191,10 @@ public class CreateNewDocument extends PlatformBase{
 	 * @param content
 	 */
 	public void addNewWebContent(String title, String content) {
+		driver.navigate().refresh();
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
-		inputDataToFrame(ELEMENT_FILEFORM_BLANK_CONTENT , content, true);
-		switchToParentWindow();
+		inputFrame(ELEMENT_FILEFORM_BLANK_CONTENT, content);
+		//switchToParentWindow();
 	}
 
 	/**
@@ -204,8 +203,9 @@ public class CreateNewDocument extends PlatformBase{
 	 * @param summary
 	 */
 	public void addNewProduct(String title, String summary){
+		driver.navigate().refresh();
 		type(ELEMENT_FILEFORM_BLANK_NAME,title,true);
-		inputDataToFrame(ELEMENT_FILEFORM_BLANK_CONTENT,summary,true);
+		inputFrame(ELEMENT_FILEFORM_BLANK_CONTENT,summary);
 		switchToParentWindow();
 	}
 	
@@ -215,6 +215,7 @@ public class CreateNewDocument extends PlatformBase{
 
 	public void saveAndClose() {
 		click(ELEMENT_FILEFORM_BUTTON_SAVEANDCLOSE);
+		Utils.pause(2000);
 	}
 
 	/**
@@ -239,7 +240,7 @@ public class CreateNewDocument extends PlatformBase{
 	public void createAdvancedDocument(String name, String content, String title, String desc, String creator, String source) {
 
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
-		inputDataToFrame(ELEMENT_FILEFORM_BLANK_CONTENT , content, true);
+		inputFrame(ELEMENT_FILEFORM_BLANK_CONTENT , content);
 
 		switchToParentWindow();
 		if(title != "" && title != null){

@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
@@ -24,6 +25,7 @@ import org.testng.annotations.*;
 		ManageLogInOut magAc;
 		TextBoxDatabase txData;		
 		ContentAdministrationManagement caPage;
+		NavigationToolbar navTool;
 		CreateNewDocument CreNewDoc;
 		SiteExplorerHome SEHome;
 		@BeforeClass
@@ -34,6 +36,7 @@ import org.testng.annotations.*;
 			magAc = new ManageLogInOut(driver);
 			CreNewDoc = new CreateNewDocument(driver);
 			SEHome = new SiteExplorerHome(driver);
+			navTool = new NavigationToolbar(driver);
 			hp = new HomePagePlatform(driver);
 			txData = new TextBoxDatabase();
 			caPage= new ContentAdministrationManagement(driver);
@@ -43,12 +46,12 @@ import org.testng.annotations.*;
 		@BeforeMethod
 		public void beforeMethod(){
 			magAc.signIn(DATA_USER1, DATA_PASS);
-			hp.goToPageAdministration();
+			navTool.goToContentAdministration();
 		}
 		
 		@AfterClass
 		public void afterTest(){
-			magAc.signOut();
+			driver.manage().deleteAllCookies();
 			driver.quit();
 		}
 		
