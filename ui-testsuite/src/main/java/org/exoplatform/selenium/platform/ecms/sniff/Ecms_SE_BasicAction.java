@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;

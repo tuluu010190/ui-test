@@ -17,8 +17,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 
-public class SiteExplorerHome extends PlatformBase{
 
+
+public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_WORKING_PANEL = By.xpath("//*[@class='navItemSelected' and text()='Content Explorer']");
 	
 	//Action Bar
@@ -255,9 +256,6 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_TAG_POPUP_NAME_FIELD=By.id("tagName");
 	public final By ELEMENT_TAG_POPUP_SAVE=By.xpath(".//*[@id='UITagForm']//*[text()='Save']");
 	public final By ELEMENT_TAGE_POPUP_CLOSE=By.xpath(".//span[text()='Edit Tag']/..//*[@title='Close Window']");
-	//Publication box
-	public final String ELEMENT_PUBLICATION_STATUS = "//*[text()='${status}']/..//*[@class='node']";
-	
 	//SEO folder
 	public final By ELEMENT_SEO_FOLDER_FILE = By.xpath("//*[@class='text']//*[@data-original-title='sitemaps']");
     //Personal document
@@ -268,8 +266,11 @@ public class SiteExplorerHome extends PlatformBase{
     //Space drive
     public final String ELEMENT_SPACE_DRIVE_FILE = ".//*[@id='UIDocumentNodeList']//span[text()='${file}']";
     public final String ELEMENT_SPACE_DRIVE_CHECKBOX=".//*[@id='UIDocumentNodeList']//span[text()='${file}']/../../..//*[@type='checkbox']";
-    
-	PlatformPermission per;
+  //Publication box
+  	public final String ELEMENT_PUBLICATION_STATUS = "//*[text()='${status}']/..//*[@class='node']";
+	
+  	
+  	PlatformPermission per;
 	ManageAlert alert;
 	Button button;
 	CreateNewDocument CreNewDoc;
@@ -356,7 +357,6 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_SITEEXPLORER_ACTION_ADDSYMLINK);
 		Utils.pause(2000);
 	}
-	
 	/**
 	 * Delete data by title
 	 * @param title
@@ -376,6 +376,7 @@ public class SiteExplorerHome extends PlatformBase{
 		info("the node is deleted successfully");
 	}
 	/**
+<<<<<<< HEAD
 	 * 
 	 * @param title
 	 * @param destination
@@ -421,6 +422,10 @@ public class SiteExplorerHome extends PlatformBase{
 	
 	/**
 	 * Upload a file from TesData folder
+=======
+	 * Upload a file
+	 *
+>>>>>>> FQA-2104: 4.2/sniff/ecms/admin-wcm
 	 * @param link
 	 * @param params
 	 * @return 
@@ -541,6 +546,7 @@ public class SiteExplorerHome extends PlatformBase{
     /**
      * Go to Intranet page
      */
+    
 	public void goToIntranet() {
 		click(ELEMENT_SITEEXPLORER_LEFTBOX_INTRANET);
 	}

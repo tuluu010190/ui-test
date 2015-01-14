@@ -726,6 +726,7 @@ public class Ecms_WCM extends ECMS_TestConfig {
 		String language2=changLangData.language.get(index2);
 		info("language2 is:"+language2);
 	    String apply2 = changLangData.applyBtn.get(index2);
+
 		
 		/*Step Number: 1
 		 *Step Name: Step 1: Add SEO metadas with localization

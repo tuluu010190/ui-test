@@ -23,7 +23,6 @@ public class AcmeHomePage extends PlatformBase {
 	public final By ELEMENT_NAVIGATION_MENU_OVERVIEW_FRENCH = By.xpath(".//*[@id='navigation-generator']//a[@title='Présentation']");
 	public final By ELEMENT_NAVIGATION_MENU_OVERVIEW_ENGLISH= By.xpath(".//*[@id='navigation-generator']//a[@title='Overview']");
 	
-	
 	public AcmeHomePage(WebDriver driver) {
 		this.driver= driver;
 		contList = new ContentList(driver);
@@ -60,4 +59,5 @@ public class AcmeHomePage extends PlatformBase {
 		type(contList.ELEMENT_DISPLAY_SETTING_TAB_HEADER_FIELD, newContent, true);
 		click(contList.ELEMENT_CONTENT_LIST_SAVE_BTN);
 	}
+	
 }

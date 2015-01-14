@@ -74,6 +74,7 @@ public class CreateNewDocument extends PlatformBase{
 	 * Create a new document
 	 * @param type
 	 */
+
 	public void createNewDoc(selectDocumentType type) {
 		info("Go to type "+ type);
 		switch(type){
@@ -81,6 +82,7 @@ public class CreateNewDocument extends PlatformBase{
 			info("Select File type");
 			click(ELEMENT_ADDDOCUMENT_FILE);
 			break;
+			
 		case WEBCONTENT:
 			info("Select WebContent type");
 			click(ELEMENT_ADDDOCUMENT_WEBCONTENT);
@@ -241,7 +243,6 @@ public class CreateNewDocument extends PlatformBase{
 
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
 		inputFrame(ELEMENT_FILEFORM_BLANK_CONTENT , content);
-
 		switchToParentWindow();
 		if(title != "" && title != null){
 			type(ELEMENT_DOCFORM_BLANK_TITLE,title, true);
