@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.wiki.BasicAction;
  *
  * @author HangNTT
  * @date: 13/12/2012
+ * updated by anhpp
  */
 public class Wiki_Advanced_Search extends BasicAction {
 
@@ -26,7 +27,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
 	
-	//Qmetry ID: 69797
+	//Qmetry ID: 118253
 	//Search when the keyword is matched
 	@Test
 	public void test01_SearchWhenKeyWordIsMatched() {
@@ -46,7 +47,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 		deleteCurrentWikiPage();
 	}
 	
-	//Qmetry ID: 69799
+	//Qmetry ID: 118255
 	//Search when the keyword is not matched
 	@Test
 	public void test02_SearchWhenKeyWordIsNotMatched() {
@@ -69,7 +70,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 		deleteCurrentWikiPage();
 	}
 	
-	//Qmetry ID: 69807
+	//Qmetry ID: 118257
 	//View content of search result when user does not have permission to view page
 	@Test
 	public void test03_ViewContentOfSearchResultWhenUserDoesNotHavePermissionToViewPage() {
