@@ -14,6 +14,8 @@
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Info" />
 			<class
+				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_PushlishActivities" />
+			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Search" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Setting" />
@@ -26,7 +28,7 @@
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminExplorer" />
 			<class
-				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminAdvanced " />
+				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminAdvanced" />
 		</classes>
 	</test>
 	<listeners>

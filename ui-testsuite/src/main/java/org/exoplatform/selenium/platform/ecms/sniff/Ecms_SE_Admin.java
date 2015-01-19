@@ -451,13 +451,12 @@ public class Ecms_SE_Admin extends PlatformBase{
 		Utils.pause(5000);
 			
 		// verify the Export action on action bar
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_ADD_CATEGORY_BUTTON, 3000,
+		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_CATEGORY, 3000,
 				0) == null) {
 			// Click on "More" link
 			click(SEHome.ELEMENT_ACTIONBAR_MORE);
 			// if not found elment, go to Administration to add it
-			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_ADD_CATEGORY_BUTTON,
-					3000, 0) == null) {
+			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_CATEGORY,3000, 0) == null) {
 				hp.goToPageAdministration();
 				caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
 				caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
@@ -514,13 +513,12 @@ public class Ecms_SE_Admin extends PlatformBase{
 		Utils.pause(5000);
 			
 		// verify the Export action on action bar
-		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_ADD_CATEGORY_BUTTON, 3000,
+		if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_CATEGORY, 3000,
 				0) == null) {
 			// Click on "More" link
 			click(SEHome.ELEMENT_ACTIONBAR_MORE);
 			// if not found elment, go to Administration to add it
-			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_ADD_CATEGORY_BUTTON,
-					3000, 0) == null) {
+			if (waitForAndGetElement(SEHome.ELEMENT_ACTIONBAR_CATEGORY,3000, 0) == null) {
 				hp.goToPageAdministration();
 				caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
 				caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);

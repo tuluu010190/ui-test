@@ -29,9 +29,8 @@ public class CreateNewDocument extends PlatformBase{
     public final By ELEMENT_ADDDOCUMENT_JAVASCRIPT_FILE = By.xpath(".//*[@class='uiIcon64x64Templateexo_jsFile']");
     public final By ELEMENT_ADDDOCUMENT_PRODUCT_FILE = By.xpath(".//*[@class='uiIcon64x64Templateacme_product']");
     public final By ELEMENT_ADDDOCUMENT_WEBLINK = By.xpath(".//*[@class='uiIcon64x64Templateexo_link']");
-    
-    
-    //Document form
+	public final By ELEMENT_ADDDOCUMENT_PRODUCT = By.xpath("//*[@class='uiIcon64x64Templateacme_product']");
+	
 	public final By ELEMENT_DOCFORM_BLANK_TITLE = By.xpath("//*[@id='title0']");
 	public final By ELEMENT_DOCFORM_BLANK_DESC = By.xpath("//*[@id='description0']");
 	public final By ELEMENT_DOCFORM_BLANK_CREATOR = By.xpath("//*[@id='creator0']");
@@ -117,7 +116,7 @@ public class CreateNewDocument extends PlatformBase{
 			break;
 
 		case PRODUCT:
-			click(ELEMENT_ADDDOCUMENT_PRODUCT_FILE);
+			click(ELEMENT_ADDDOCUMENT_PRODUCT);
 			break;
 
 		case JAVASCRIPTFILE:
@@ -199,6 +198,17 @@ public class CreateNewDocument extends PlatformBase{
 		switchToParentWindow();
 	}
 
+	/**
+	 * Add a new product
+	 * @param title
+	 * @param summary
+	 */
+	public void addNewProduct(String title, String summary){
+		type(ELEMENT_FILEFORM_BLANK_NAME,title,true);
+		inputDataToFrame(ELEMENT_FILEFORM_BLANK_CONTENT,summary,true);
+		switchToParentWindow();
+	}
+	
 	/**
 	 * Save and close a file form
 	 */

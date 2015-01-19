@@ -214,7 +214,7 @@ import org.testng.annotations.*;
 		creNewDoc.saveAndClose();
 
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
-		click(SEHome.ELEMENT_ACTIONBAR_ADDTAG);
+		click(SEHome.ELEMENT_ACTIONBAR_TAG);
 		type(SEHome.ELEMENT_SITEEXPLORER_TAG_NAME, content2, true);
 		click(SEHome.ELEMENT_ADD_BTN);
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_TAG_EXISTING.replace("${name}", content2));

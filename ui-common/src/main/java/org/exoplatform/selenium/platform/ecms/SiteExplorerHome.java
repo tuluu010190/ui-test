@@ -33,7 +33,6 @@ public class SiteExplorerHome extends PlatformBase{
 
 	public final By ELEMENT_ACTIONBAR_ADDTRANSLATION = By.xpath("//*[@class='uiIconEcmsAddLocalizationLink uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_ADDCOMMENT = By.xpath("//*[@class='uiIconEcmsComment uiIconEcmsLightGray']");
-	public final By ELEMENT_ACTIONBAR_ADDTAG = By.xpath("//*[@class='uiIconEcmsTaggingDocument uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_PUBLICATION = By.xpath("//*[@class='uiIconEcmsManagePublications uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_VOTE = By.xpath("//*[@class='uiIconEcmsVote uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_RELATION = By.xpath(".//i[@class='uiIconEcmsManageRelations uiIconEcmsLightGray']");
@@ -41,7 +40,8 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_ACTIONBAR_EXPORT_BUTTON= By.xpath(".//*[@class='uiIconEcmsExportNode uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_PROPERTIES = By.xpath(".//i[@class='uiIconEcmsViewProperties uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_MANAGER_PUBLISHTATION =By.xpath(".//i[@class='uiIconEcmsManagePublications uiIconEcmsLightGray']");
-	public final By ELEMENT_ACTIONBAR_ADD_CATEGORY_BUTTON= By.xpath(".//*[@class='uiIconEcmsManageCategories uiIconEcmsLightGray']");
+	public final By ELEMENT_ACTIONBAR_CATEGORY = By.xpath("//*[@class='uiIconEcmsManageCategories uiIconEcmsLightGray']");
+	public final By ELEMENT_ACTIONBAR_TAG = By.xpath("//*[@class='uiIconEcmsTaggingDocument uiIconEcmsLightGray']");
 	
 	//Add Category popup
 	public final By ELEMENT_ADD_CATEGORY_POPUP_SELECT_CATEGORY_TAB = By.xpath(".//*[@id='UICategoryManager']//a[text()='Select Category']");
@@ -116,7 +116,8 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_UPLOAD_LINK = By.id("MultiUploadInputFiles");
 	public final By ELEMENT_ACTIONBAR_EDIT = By.xpath("//*[@class='uiIconEcmsEditDocument uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_SHOWDRIVES = By.xpath("//*[@id='driveAction']");
-
+	public final By ELEMENT_FILE_FORM_TITLE = By.xpath("//*[@id='title0']");
+	
 	//Drive selection
 	public final String ELEMENT_SELECTDRIVE_SPECIFICDRIVE = "//*[@class='driveLabel' and @data-original-title='${spaceName}']";
 
@@ -193,11 +194,22 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SIDE_BAR_RELATION_ICON=By.xpath(".//*[@id='UISideBar']//i[@class='uiIconEcmsRelationMini uiIconEcmsLightGray']");
 	public final String ELEMENT_SIDE_BAR_RELATION_TAB_FILE_TITLE=".//*[@id='UISideBar']//a[text()='${nameContent}']";
     public final By ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON=By.xpath(".//*[@id='UISideBar']//i[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
-	//tag
+	//Tag
 	public final By ELEMENT_SITEEXPLORER_TAG_DELETE = By.xpath("//*[@class='uiIconClose']");
 	public final By ELEMENT_SITEEXPLORER_TAG_NAME = By.xpath("//*[@id='names']");
 	public final String ELEMENT_SITEEXPLORER_TAG_EXISTING = "//*[@class='actionField']//*[contains(text(),'${name}')]";
 	public final By ELEMENT_SITEEXPLORER_TAG_INPUT= By.xpath("//*[@id='tagName']");
+	public final By ELEMENT_TAG_FORM = By.xpath("//*[@id='names']");
+	public final By ELEMENT_ADD_TAG_FORM = By.xpath("//*[@id='UITaggingForm']//*[contains(text(),'Add')]");
+	public final String ELEMENT_PUBLICATION_STATUS = "//*[text()='${status}']/..//*[@class='node']";
+	public final By ELEMENT_CLOSE_TAG_FORM = By.xpath("//*[@id='UITaggingForm']//*[contains(text(),'Close')]");
+	
+	//Add category
+	public final By ELEMENT_CATEGORY_CHANGE_FORM_SELECT_CATEGORY =By.xpath("//*[@id='UICategoryManager']//*[contains(text(),'Select Category')]");
+	public final By ELEMENT_CATEGORY_SELECT_CATEGORY_TREE = By.xpath("//*[@name='taxonomyTree']");
+	public final By ELEMENT_CATEGORY_ADD_ROOT_NODE = By.xpath("//*[@class='uiIconAddRootNode uiIconLightGray']");
+	
+	public String ELEMENT_DOCUMENT_VIEW = "//*[@id='UITabContent']//*[contains(text(),'{$content}')]";
 	
 	public SiteExplorerHome(WebDriver dr){
 		this.driver=dr;
@@ -247,8 +259,7 @@ public class SiteExplorerHome extends PlatformBase{
 	}
 
 	/**
-	 * Upload a file
-	 *
+	 * Upload a file from TesData folder
 	 * @param link
 	 * @param params
 	 * @return 
@@ -266,7 +277,8 @@ public class SiteExplorerHome extends PlatformBase{
 						waitForAndGetElement(ELEMENT_UPLOAD_LINK,
 								DEFAULT_TIMEOUT, 1, 2));
 		Utils.pause(10000);
-		type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false, 2);
+		//type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false, 2);
+		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(link));
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
 		if (verify) {
@@ -291,12 +303,24 @@ public class SiteExplorerHome extends PlatformBase{
 
 
 	/**
+	 * Add tag to a Content
+	 * @param title
+	 * @param tag
+	 */
+	public void addTagToAContent(String tag){
+		click(ELEMENT_ACTIONBAR_MORE);
+		click(ELEMENT_ACTIONBAR_TAG);
+		type(ELEMENT_TAG_FORM,tag,true);
+		click(ELEMENT_ADD_TAG_FORM);
+		click(ELEMENT_CLOSE_TAG_FORM);
+	}
+	
+	/**
 	 * Edit a Document
 	 * @param content
 	 */
 	public void editDocument(String content) {
 		driver.navigate().refresh();
-
 		if(content != ""){	
 			inputDataToFrame(CreNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content, false);
 			switchToParentWindow();
@@ -442,7 +466,7 @@ public class SiteExplorerHome extends PlatformBase{
      * date 16/01/2015
      */
 	public void goToAddCategory(){
-		click(ELEMENT_ACTIONBAR_ADD_CATEGORY_BUTTON);
+		click(ELEMENT_ACTIONBAR_CATEGORY);
 		Utils.pause(2000);
 	}
 	/**
@@ -753,4 +777,29 @@ public class SiteExplorerHome extends PlatformBase{
 		}
 		click(By.xpath((ELEMENT_FOLDERSELECTOR_CONTENTDETAIL_FINALPATH).replace("${name}", lastPath)));
 	}	
+	
+	/**
+	 * Go to publication
+	 */
+	public void goToPublication() {
+		click(ELEMENT_ACTIONBAR_MORE);
+		click(ELEMENT_ACTIONBAR_PUBLICATION);
+	}
+	
+	/**
+	 * Add a category for a node
+	 * @param node
+	 * @param category
+	 */
+	public void addCategoryForNode(String node, String category){
+		click(ELEMENT_ACTIONBAR_CATEGORY);
+		Utils.pause(2000);
+		click(ELEMENT_CATEGORY_CHANGE_FORM_SELECT_CATEGORY);
+		Utils.pause(2000);
+		select(ELEMENT_CATEGORY_SELECT_CATEGORY_TREE,category);
+		Utils.pause(2000);
+		click(ELEMENT_CATEGORY_ADD_ROOT_NODE);
+		Utils.pause(2000);
+	}
+	
 }
