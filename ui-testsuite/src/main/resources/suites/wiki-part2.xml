@@ -49,8 +49,6 @@
 			<class
 				name="org.exoplatform.selenium.platform.wiki.functional.template.Wiki_Template_Edit" />
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.template.Wiki_Template_Other" />
-			<class
 				name="org.exoplatform.selenium.platform.wiki.functional.template.Wiki_Template_Search" />
 		</classes>
 	</test>

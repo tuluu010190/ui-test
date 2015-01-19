@@ -289,10 +289,11 @@ public class WikiBase extends PlatformBase{
 	public final String ELEMENT_RESTORE_LINK = "//td/label/a[contains(text(), 'v.{$version}')]/../../..//*[@class='uiIconRestore uiIconLightGray']";
 	public final By ELEMENT_COMPARE_BUTTON = By.xpath("//*[text()='Compare the selected versions']");	
 	public final By ELEMENT_VIEW_CHANGE = By.linkText("(View Change)");
-	public String ELEMENT_ATTACHMENT_NUMBER = "//*[@id='UIWikiPageInfoArea']//a[contains(text(),'${No}')]/*[@class='uiIconAttach']";
-	public By ELEMENT_ATTACHMENT_ICON = By.xpath("//*[@id='UIWikiPageInfoArea']//*[@class='uiIconAttach']");
-	public String ELEMENT_CREATOR_PAGE_INFO = "//*[@id='UIWikiPageInfoArea']//a[1][text()='${fullName}']";
-	public String ELEMENT_UPDATER_PAGE_INFO = "//*[@id='UIWikiPageInfoArea']//a[2][text()='${fullName}']";
+	public final String ELEMENT_ATTACHMENT_NUMBER_ICON = ".//i[@class='uiIconAttach']";
+	public final String ELEMENT_ATTACHMENT_NUMBER = ".//*[@id='UIWikiPageInfoArea']//a[contains(text(),'${number}')]";
+	public final By ELEMENT_ATTACHMENT_ICON = By.xpath("//*[@id='UIWikiPageInfoArea']//*[@class='uiIconAttach']");
+	public final String ELEMENT_CREATOR_PAGE_INFO = "//*[@id='UIWikiPageInfoArea']//a[1][text()='${fullName}']";
+	public final String ELEMENT_UPDATER_PAGE_INFO = "//*[@id='UIWikiPageInfoArea']//a[2][text()='${fullName}']";
 	public final By ELEMENT_ADD_MORE_RELATION_BUTTON = By.xpath("//button[text()='Add More Relations']");
 	public final By ELEMENT_PAGE_TITLE = By.id("titleInfo");
 

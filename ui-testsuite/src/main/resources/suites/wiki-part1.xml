@@ -9,11 +9,9 @@
 		</groups>
 		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Add" />
+				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Add" /> 
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Delete" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Download" />
+				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Delete" />	
 		</classes>
 	</test>
 

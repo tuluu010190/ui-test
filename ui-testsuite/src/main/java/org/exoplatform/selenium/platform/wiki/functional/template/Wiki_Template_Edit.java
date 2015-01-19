@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 /*--
  *-- Author: HaKT
  *-- Date: 19 Dec 2012
+ *   updated by anhpp
  **/
 public class Wiki_Template_Edit extends Template{
 
@@ -36,7 +37,7 @@ public class Wiki_Template_Edit extends Template{
 	}
 	
 	/**
-	 * Qmetry ID: 69751
+	 * Qmetry ID: 118300
 	 * Case 01: Edit created template
 	 * - Create new Template
 	 * - Edit template

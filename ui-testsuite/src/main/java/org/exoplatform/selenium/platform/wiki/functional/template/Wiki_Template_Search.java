@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 /*--
  *-- Author: HaKT
  *-- Date: 19 Dec 2012
+ *	 updated by anhpp
  **/
 public class Wiki_Template_Search extends Template{
 
@@ -34,7 +35,7 @@ public class Wiki_Template_Search extends Template{
 	}
 
 	/**
-	 * Qmetry ID: 69794
+	 * Qmetry ID: 118303
 	 * Case 01: Search template when the key is matched
 	 * - Create new Template
 	 * - Fill in search form new template title, press Enter
@@ -66,12 +67,12 @@ public class Wiki_Template_Search extends Template{
 		goToWiki();
 		goToTemplateManagement();
 
-		
+		info("restore data");
 		deleteTemplate(DATA_TEMPLATE_TITLE);
 	}
 
 	/**
-	 * Qmetry ID: 69795
+	 * Qmetry ID: 118304
 	 * Case 02: Search template when the key is not matched
 	 * - Create new Template
 	 * - Fill in search form with a word not match with any template title, press Enter
@@ -106,11 +107,12 @@ public class Wiki_Template_Search extends Template{
 
 		goToWiki();
 
+		info("restore data");
 		deleteTemplate(DATA_TEMPLATE_TITLE);
 	}
 
 	/**
-	 * Qmetry ID: 69793
+	 * Qmetry ID: 118302
 	 * Case 03: Search template when Search field is blank
 	 * - Create new Template
 	 * - Leave search field blank, press Enter
@@ -141,6 +143,7 @@ public class Wiki_Template_Search extends Template{
 
 		Utils.captureScreen(DATA_AFTER_CREAT_NEW_TEMPLATE);
 
+		info("restore data");
 		deleteTemplate(DATA_TEMPLATE_TITLE);
 	}
 }

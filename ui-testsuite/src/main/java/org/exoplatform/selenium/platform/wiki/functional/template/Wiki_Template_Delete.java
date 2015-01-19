@@ -12,6 +12,7 @@ import org.testng.annotations.Test;
 /*--
  *-- Author: HaKT
  *-- Date: 18 Dec 2012
+ *   updated by anhpp 
  **/
 
 public class Wiki_Template_Delete extends Template{
@@ -37,7 +38,7 @@ public class Wiki_Template_Delete extends Template{
 	}
 
 	/**
-	 * Qmetry ID: 69750
+	 * Qmetry ID: 118299
 	 * Delete template when OK with confirmation
 	 * Create a new template
 	 * Delete template, click OK with confirmation message
@@ -62,7 +63,7 @@ public class Wiki_Template_Delete extends Template{
 	}
 
 	/**
-	 * Qmetry ID: 69749
+	 * Qmetry ID: 118298
 	 * Delete template when Cancel with confirmation
 	 * Create a new template
 	 * Delete template, click Cancel with confirmation message
@@ -89,6 +90,7 @@ public class Wiki_Template_Delete extends Template{
 
 		goToWikiHome();
 
+		info("restore data");
 		deleteTemplate(DATA_TEMPLATE_TITLE);
 	}
 }
