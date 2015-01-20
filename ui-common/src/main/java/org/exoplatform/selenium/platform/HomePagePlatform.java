@@ -57,6 +57,7 @@ public class HomePagePlatform extends TestBase{
 	//edit
 	public final By ELEMENT_EDIT_PAGE = By.xpath("//*[@id='UIAdminToolbarContainer']//*[@class='dropdown-submenu']//*[@href='#' and contains(text(), 'Page')]");
 	public final By ELEMENT_EDIT_PAGE_SEO = By.xpath("//*[@data-original-title = 'SEO Management']");
+	public final By ELEMENT_EDIT_PAGE_EDITLAYOUT = By.xpath("//*[contains(text(), 'Edit Layout')]");
 	
 	// administration panel
 	public final By ELEMENT_TOPBAR_ADMINISTRATION_BUTTON =By.xpath("//*[@class='uiIconPLF24x24Setup']");

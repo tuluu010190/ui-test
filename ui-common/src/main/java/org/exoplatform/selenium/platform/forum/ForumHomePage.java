@@ -1,7 +1,6 @@
 package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
@@ -16,12 +15,17 @@ public class ForumHomePage extends PlatformBase {
 	PlatformPermission per;
 	ManageAlert alert;
 	Button button;
-
 	//Action bar
 	public final By ELEMENT_ACTIONBAR_ADDCATEGORY = By.xpath("//*[@class='uiIconAddCategory uiIconLightGray']");
 	public final By ELEMENT_ACTIONBAR_ADDFORUM = By.xpath("//*[@class='uiIconForumCreateForum uiIconForumLightGray']");
 	public final By ELEMENT_ACTIONBAR_USER = By.xpath("//*[@class='uiIconUser uiIconLightGray']");
 	public final By ELEMENT_ACTIONBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconForumAdmin uiIconForumLightGray']");
+	public final By ELEMENT_ACTIONBAR_SETTINGS = By.xpath("//*[@class='uiIconSetting uiIconLightGray']");
+
+	//administration
+	public final By ELEMENT_ACTIONBAR_ADMIN_BANIP = By.xpath("//*[@class='uiIconForumBanIp']");
+	public final By ELEMENT_ACTIONBAR_ADMIN_BBCODE = By.xpath("//*[@class='uiIconForumBBCode']");
+
 	
 	//Add Category popup
 	public final By ELEMENT_ADDCATEGORY_POPUP_CATEGORY_TAB= By.xpath(".//*[@id='UICategoryForm']//a[text()='Category']");
@@ -89,11 +93,7 @@ public class ForumHomePage extends PlatformBase {
 	public final By ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_SAVE_BUTTON = By.xpath(".//*[@id='UIAttachFileForm']//button[text()='Save']");
 	public final String ELEMENT_UPLOAD_POPUP_NAMEFILE = "//*[@class='fileNameLabel' and contains(text(),'${fileName}')]";
 	
-	//administration
-	public final By ELEMENT_ACTIONBAR_ADMIN_BANIP = By.xpath("//*[@class='uiIconForumBanIp']");
-	public final By ELEMENT_ACTIONBAR_ADMIN_BBCODE = By.xpath("//*[@class='uiIconForumBBCode']");
-	
-	// add BBCODE
+	//add BBCODE
 	public final By ELEMENT_ADMIN_BBCODE_ADDBBCODE = By.xpath("//*[text()='Add BBCode']");
 	public final By ELEMENT_BBCODE_ADDBBCODEFORM_TAG = By.xpath("//*[@id='TagName']");
 	public final By ELEMENT_BBCODE_ADDBBCODEFORM_REPLACEMENT = By.xpath("//*[@id='Replacement']");
@@ -130,6 +130,56 @@ public class ForumHomePage extends PlatformBase {
     
     //Button
 	public final By ELEMENT_OK_BTN = By.xpath("//*[@class='btn actionOK']");
+	public final String ELEMENT_BBCODE_TAG_VERIFY = "//*[contains(text(),'${tag}')]";
+	public final By ELEMENT_BBCODE_USE_OPTION =By.xpath("//*[@id='UseOption']");
+	public final By ELEMENT_BBCODE_CONFIRM_DELETETAG = By.xpath("//*[text()='Are you sure you want to delete this BB Code ?']/../../..//*[@class='btn actionOK']");
+	
+
+	//Settings 
+	public final By ELEMENT_FORUM_SETTINGS_FORUMSETTINGS = By.xpath("//*[text()='Forum Settings']");
+	public final By ELEMENT_FORUM_SETTINGS_MYSUSCRIB = By.xpath("//*[text()='My Subscriptions']");
+	public final By ELEMENT_FORUM_SETTINGS_SCREENNAME = By.xpath("//*[@id='ScreenName']");
+	public final By ELEMENT_FORUM_SETTINGS_MAXTHREADS = By.xpath("//*[@name='MaximumThreads']");
+	public final By ELEMENT_FORUM_SETTINGS_EMAILADRESS = By.xpath("//*[@id='EmailAddress']");
+	public final By ELEMENT_FORUM_SETTINGS_UPDATE = By.xpath("//*[text()='Update']");
+	public final By ELEMENT_FORUM_SETTINGS_SAVE = By.xpath("//*[text()='Save']");
+	public final By ELEMENT_FORUM_SETTINGS_SUBMIT = By.xpath("//*[text()='Submit']");
+	public final By ELEMENT_FORUM_USERS_FORUMSETTINGS = By.xpath("//*[@data-target='#ForumUserOption-tab']");
+	public final By ELEMENT_FORUM_USERS_BAN = By.xpath("//*[text()='Ban User']");
+	public final By ELEMENT_FORUM_USERS_TOPICS = By.xpath("//*[text()='Topics']");
+	public final By ELEMENT_FORUM_USERS_POSTS = By.xpath("//*[text()='Posts']");
+	public final By ELEMENT_FORUM_CLOSEBTN = By.xpath("//*[@class='btn' and text()='Close']");
+	public final String ELEMENT_FORUM_VERIFY_USER = "//*[text()='${user}']";
+	
+	//forum & category
+	public final String ELEMENT_FORUM_TITLECAT = "//*[text()='${title}']";
+	
+	//add category
+	public final By ELEMENT_FORUM_CATEGORY_NAME = By.xpath("//*[@id='CategoryTitle']");
+	
+	//add forum
+	public final By ELEMENT_FORUM_FORUM_NAME = By.xpath("//*[@id='ForumTitle']");
+	
+	//users
+	public final String ELEMENT_FORUM_USERS_EDIT = "//*[text()='${name}']/..//*[@class='uiIconEdit uiIconLightGray']";
+	public final By ELEMENT_FORUM_USERS_POPUP_SEARCH_FIELD=By.xpath(".//*[@id='SearchUser']");
+	public final By ELEMENT_FORUM_ADDTOPIC = By.xpath("//*[@id='UITopicContainer']/div[2]//*[@class='uiIconForumCreateTopic uiIconForumWhite']");
+	public final By ELEMENT_FORUM_ADDPOST = By.xpath("//*[@class='pull-left actionContainer']//*[@class='uiPostReplyIcon btn btn-primary']");
+	public final By ELEMENT_FORUM_MESSAGE = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
+	public final By ELEMENT_FORUM_GOTOTOPIC = By.xpath("//*[@id='UIContextPopupMenu1']");
+	public final By ELEMENT_FORUM_POST_TITLE = By.xpath("//*[@id='PostTitle']");
+	public final By ELEMENT_FORUM_TOPIC_TITLE = By.xpath("//*[@id='ThreadTitle']");
+	
+	//search
+	public final By ELEMENT_SEARCH_TEXTBOX = By.xpath("//*[@id='inputValue']");
+	public final By ELEMENT_SEARCH__ADVANCEDSEARCH_TEXTBOX = By.xpath("//*[@id='SearchValue']");
+	public final String ELEMENT_SEARCH_FORUM_POST = "//*[text()='Post']/../..//*[text()='${name}']";
+	public final String ELEMENT_SEARCH_FORUM_TOPIC = "//*[text()='Topic']/../..//*[text()='${name}']";
+	public final String ELEMENT_SEARCH_FORUM_FORUM = "//*[text()='Forum']/../..//*[text()='${name}']";
+	public final String ELEMENT_SEARCH_FORUM_CATEGORY = "//*[text()='Category']/../..//*[text()='${name}']";
+	public final By ELEMENT_SEARCH_FORUM_ADVANCEDSEARCH = By.xpath("//*[text()='Advanced Search']");
+	public final By ELEMENT_SEARCH_FORUM_ADVANCEDSEARCH_SEARCHLOCATION = By.xpath("//*[@name='SearchType']");
+	public final By ELEMENT_SEARCH_FORUM_ADVANCEDSEARCH_SEARCH = By.xpath("//*[@class='btn' and text()='Search']");
 	
 	/**
 	 * constructor
@@ -140,7 +190,6 @@ public class ForumHomePage extends PlatformBase {
 		alert = new ManageAlert(driver);
 		button = new Button(driver);
 	}
-
 	/**
 	 * Go to home category
 	 */
@@ -152,26 +201,6 @@ public class ForumHomePage extends PlatformBase {
 		waitForElementNotPresent(ELEMENT_CATEGORY_BREADCUMB_HOME);
 	}
 	
-	/**
-	 * Add a BBcode
-	 * Update QuynhPT
-	 * @param tag
-	 * @param replacement
-	 * @param description
-	 * @param example
-	 * @param use
-	 *<li> add a java doc </li>
-	 */
-	public void AddBBCode(String tag, String replacement, String description, String example, boolean use ) {
-		click(ELEMENT_ADMIN_BBCODE_ADDBBCODE);
-		type(ELEMENT_BBCODE_ADDBBCODEFORM_TAG , tag, true);
-		type(ELEMENT_BBCODE_ADDBBCODEFORM_REPLACEMENT , replacement, true);
-		type(ELEMENT_BBCODE_ADDBBCODEFORM_DESCRIPTION , description, true);
-		type(ELEMENT_BBCODE_ADDBBCODEFORM_EXAMPLE , example, true);
-		if(use==true) {
-			check(By.xpath("//*[@id='UseOption']"));
-		}
-	}
 
 	/**
 	 * Add a new category By QuynhPT
@@ -702,4 +731,78 @@ public class ForumHomePage extends PlatformBase {
 		info("Reply topic successfully");
 	}
 	
+	/**
+	 * Add a BBcode
+	 * Update QuynhPT
+	 * @param tag
+	 * @param replacement
+	 * @param description
+	 * @param example
+	 * @param use
+	 *<li> add a java doc </li>
+	 */
+	public void AddBBCode(String tag, String replacement, String description, String example, boolean use ) {
+		info("Click on Add button of Add BBCode popup");
+		click(ELEMENT_ADMIN_BBCODE_ADDBBCODE);
+		info("Input new tag");
+		type(ELEMENT_BBCODE_ADDBBCODEFORM_TAG , tag, true);
+		info("Input new replacement");
+		type(ELEMENT_BBCODE_ADDBBCODEFORM_REPLACEMENT , replacement, true);
+		info("Input new description");
+		type(ELEMENT_BBCODE_ADDBBCODEFORM_DESCRIPTION , description, true);
+		info("Input new example");
+		type(ELEMENT_BBCODE_ADDBBCODEFORM_EXAMPLE , example, true);
+		if(use==true)
+			check(ELEMENT_BBCODE_USE_OPTION);
+	}
+	
+	/**
+	 * addCategorySimple
+	 * @param name
+	 * 
+	 */
+	public void addCategorySimple(String name) {
+		click(ELEMENT_ACTIONBAR_ADDCATEGORY);
+		type(ELEMENT_FORUM_CATEGORY_NAME, name, true);
+		click(ELEMENT_FORUM_SETTINGS_SAVE);
+	}
+	
+	/**
+	 * addForumSimple
+	 * @param name
+	 * 
+	 */
+	public void addForumSimple(String name) {
+		click(ELEMENT_ACTIONBAR_ADDFORUM);
+		type(ELEMENT_FORUM_FORUM_NAME, name, true);
+		click(ELEMENT_FORUM_SETTINGS_SAVE);
+	}
+	
+	/**
+	 * addTopicSimple
+	 * @param name
+	 * @param message
+	 * 
+	 */
+	public void addTopicSimple(String name, String message) {
+		click(ELEMENT_FORUM_ADDTOPIC);
+		type(ELEMENT_FORUM_TOPIC_TITLE, name, true);
+		inputFrame(ELEMENT_FORUM_MESSAGE , message);
+		switchToParentWindow();
+		click(ELEMENT_FORUM_SETTINGS_SUBMIT);
+	}
+	
+	/**
+	 * addPostSimple
+	 * @param name
+	 * @param message
+	 * 
+	 */
+	public void addPostSimple(String name, String message) {
+		click(ELEMENT_FORUM_ADDPOST);
+		type(ELEMENT_FORUM_POST_TITLE, name, true);
+		inputFrame(ELEMENT_FORUM_MESSAGE , message);
+		switchToParentWindow();
+		click(ELEMENT_FORUM_SETTINGS_SUBMIT);
+	}
 }

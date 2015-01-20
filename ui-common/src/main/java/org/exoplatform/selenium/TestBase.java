@@ -1284,4 +1284,12 @@ public class TestBase {
 			inputDataToCKEditor (framelocator,data);
 		}
 	}
+	/**
+	 * Press Enter key
+	 */
+	public void pressEnterKey(){
+		Actions action = new Actions(this.driver);
+		action.sendKeys(Keys.ENTER).perform();
+		action.release();
+	}
 }

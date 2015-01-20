@@ -9,9 +9,12 @@ import org.openqa.selenium.WebDriver;
 
 import static org.exoplatform.selenium.TestLogger.info;
 public class ForumCategoryManagement extends PlatformBase {
+	
 	PlatformPermission per;
 	ManageAlert alert;
 	Button button;
+	
+	
 	public final By ELEMENT_ADD_CATEGORY_BUTTON=By.xpath("//*[@class='uiIconAddCategory uiIconLightGray']");
 	
 	//Add category form
