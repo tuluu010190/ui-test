@@ -185,13 +185,11 @@ public class SpaceManagement extends SocialBase {
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
 		clickButton("Create");
 		waitForAndGetElement(By.linkText(name), iTimeout);
-		//waitForElementPresent(By.xpath("//div[contains(@class,'UISpaceName')]/a[@title='" + name + "']"),iTimeout);
 		if(waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0) == null){
 			click(By.linkText(name));
 			waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0);
 		}
 			
-		//Utils.pause(1000);
 	}
 
 	/**
@@ -287,6 +285,7 @@ public class SpaceManagement extends SocialBase {
 		Utils.pause(1000);
 		waitForElementNotPresent(By.xpath(ELEMENT_ACTION_USER_ON_SPACE.replace("${spaceName}", name).replace("${action}", "Delete")), iTimeout);
 		info(name + " was deleted successfully");
+		Utils.pause(2000);
 	}
 
 	/**

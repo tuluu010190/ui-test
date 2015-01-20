@@ -143,9 +143,10 @@ public class SocialBase extends PlatformBase {
 		info("Go to All Spaces");
 		clickByJavascript(ELEMENT_JOIN_SPACE_LINK);
 		if(waitForAndGetElement("//button[contains(.,'Add New Space')]",DEFAULT_TIMEOUT,0)== null){
-			clearCache();
+			//clearCache();
 			waitForAndGetElement("//button[contains(.,'Add New Space')]");
 		}
+		Utils.pause(2000);
 	}
 
 	// Go to Invitation Receives

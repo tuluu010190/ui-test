@@ -381,7 +381,7 @@ public class WikiBase extends PlatformBase{
 		}else{
 			click(ELEMENT_TITLE_WIKI_HOME_LINK);
 		}
-		Utils.pause(200);
+		Utils.pause(2000);
 	}
 
 	/**
@@ -537,7 +537,7 @@ public class WikiBase extends PlatformBase{
 		if (verify){
 			waitForAndGetElement(ELEMENT_VERIFY_AFTER_MOVE_PAGE);
 		}
-		Utils.pause(1000);
+		Utils.pause(2000);
 	}
 
 	/** 
@@ -634,7 +634,6 @@ public class WikiBase extends PlatformBase{
 		}
 		clickByJavascript(ELEMENT_WIKI_LINK_IN_SPACE);
 		waitForAndGetElement(ELEMENT_WIKI_HOME);
-		Utils.pause(1000);
 	}
 
 	/** 

@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.wiki;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Dialog;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.openqa.selenium.By;
 
@@ -84,6 +85,7 @@ public class Permalink extends BasicAction {
 		waitForAndGetElement(ELEMENT_MAKE_RESTRICT_BUTTON);
 		assert getText(ELEMENT_PERMALINK_NOTIFY).contains(DATA_NOTIFY_PUBLIC);
 		dialog.closeMessageDialog();
+		Utils.pause(2000);
 	}
 	
 	/**

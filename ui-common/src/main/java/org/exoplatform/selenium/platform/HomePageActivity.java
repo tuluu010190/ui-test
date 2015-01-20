@@ -511,6 +511,7 @@ public class HomePageActivity extends PlatformBase{
 			info("Check version");
 			waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_WIKI_VERSION.replace("${title}", title).replace("${version}", version)));
 		}
+		Utils.pause(2000);
 	}
 
 	/**
@@ -542,6 +543,7 @@ public class HomePageActivity extends PlatformBase{
 			waitForAndGetElement(ELEMENT_ACTIVITY_MOVE_WIKI_PAGE.replace("${title}", title).replace("${path}", path));
 		}
 		info("Move a wiki page: successful...");
+		Utils.pause(2000);
 	}
 
 
@@ -912,10 +914,9 @@ public class HomePageActivity extends PlatformBase{
 			waitForAndGetElement(ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY);
 			button.ok();
 			if(verifyElement)
-				//	waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", activityText)));
 				waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
-			Utils.pause(1000);
 		}
+		Utils.pause(2000);
 
 	}
 
@@ -947,6 +948,7 @@ public class HomePageActivity extends PlatformBase{
 			int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_ICON.replace("${activityText}", activityText)).getText().trim());
 			assert (newNumLike==(numLike-1)):"Number of like is not updated";
 		}
+		Utils.pause(2000);
 
 	}
 

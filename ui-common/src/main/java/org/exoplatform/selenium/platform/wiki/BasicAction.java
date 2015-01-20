@@ -89,17 +89,14 @@ public class BasicAction extends Permission{
 			info("-- Cancel Wiki Page --");
 			click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
 			waitForWikiConfirmation(MESSAGE_CANCEL_CREATE_PAGE);
-			//waitForWikiConfirmation("Are you sure to leave this page?");
 			waitForElementNotPresent(ELEMENT_TITLE_WIKI_INPUT);
 		}else{
 			info("-- Saving Wiki Page... --");
 			click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-			//waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		}
 
 		if (!message.isEmpty()){ 
 			info(message);
-			//waitForMessage(message);
 			if (waitForAndGetElement(button.ELEMENT_OK_BUTTON, 3000, 0, 2) != null){
 				click(button.ELEMENT_OK_BUTTON);
 				click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
@@ -108,11 +105,8 @@ public class BasicAction extends Permission{
 			}
 		}
 
-		/*if (verify){
-			waitForTextPresent(content);
-		}*/
-		Utils.pause(1000);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		Utils.pause(2000);
 	}
 
 	/**
@@ -257,15 +251,9 @@ public class BasicAction extends Permission{
 		else{
 			addWikiPageRichText(title, content);
 		}
-		//In PLF4, there is no more Minor Edit Option
-		/*if (minorEdit) {
-			click(ELEMENT_MINOR_EDIT_BUTTON);
-			waitForElementNotPresent(ELEMENT_MINOR_EDIT_BUTTON);
-		}*/		
 		//save();
 		switchToParentWindow();
 		Utils.pause(500);
-		//click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		mouseOverAndClick(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE,100000);
 		Utils.pause(2000);
@@ -292,7 +280,7 @@ public class BasicAction extends Permission{
 			click(ELEMENT_DELETE_OK_BUTTON);
 			waitForElementNotPresent(ELEMENT_DELETE_OK_BUTTON);
 		}
-		Utils.pause(1000);
+		Utils.pause(2000);
 	}
 
 	/**
@@ -692,6 +680,7 @@ public class BasicAction extends Permission{
 		clickByJavascript(ELEMENT_PUBLISH_ACTIVITY_CHECKBOX, 2);
 		clickByJavascript(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		Utils.pause(2000);
 	}
 
 	/**
