@@ -47,6 +47,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>ecms-sniff</id>
+			<properties>
+				<testSuite>ecms-sniff.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>testng-failed</id>
 			<properties>
 				<testSuite>testng-failed.xml</testSuite>
