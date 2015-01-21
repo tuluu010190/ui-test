@@ -63,4 +63,5 @@ public class ManageLogInOut extends PlatformBase {
 			magAlert.acceptAlert();
 		}
 	}
+	
 }

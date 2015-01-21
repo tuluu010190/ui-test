@@ -1,5 +1,8 @@
 package org.exoplatform.selenium.platform;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import org.exoplatform.selenium.TestBase;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
@@ -29,6 +32,7 @@ public class PlatformBase extends TestBase {
 	public final String EMAIL_ADDRESS1 = "exomailtest01@gmail.com";
 	public final String EMAIL_ADDRESS2 = "exoservice@gmail.com";
 	public final String EMAIL_PASS = "exoadmin";
+	public final String ELEMENT_MAIL_SUBJECT = ".//span[contains(.,'${subject}')]";
 	public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']//*[@class='iH']//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
@@ -128,7 +132,6 @@ public class PlatformBase extends TestBase {
 	public void checkAndDeleteMail(By mail, String content){
 		info("Check and delete mail");
 		waitForAndGetElement(mail,300000);
-
 		click(mail);	
 		if(waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${content}",content),20000,0) == null )
 			click(ELEMENT_FIRST_MAIL);
@@ -205,6 +208,21 @@ public class PlatformBase extends TestBase {
 			loopCount = 0;
 		}
 	}
+	/**
+	 * Type a text to a Frame using for CKEDITOR
+	 * By QuynhPT
+	 * @param frameLocator
+	 * @param content
+	 */
+	public void inputFrame(By frameLocator,String content){
+		//this.driver.navigate().refresh();
+		WebElement e = waitForAndGetElement(frameLocator,DEFAULT_TIMEOUT,1,2);
+		driver.switchTo().frame(e);
+		WebElement inputsummary = driver.switchTo().activeElement();
+		inputsummary.click();
+		inputsummary.sendKeys(content);
+		switchToParentWindow();
+	}
 	
 	/**
 	 * Select option from combo box
@@ -236,5 +254,17 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	
+	/**
+	 * Add by @author vuna2
+	 * <li> Switch to a new browser/ Popup window</li> 
+	 */
+	public void switchToNewWindow(){
+		Set<String> windowids = driver.getWindowHandles(); 
+		Iterator<String> iter= windowids.iterator();
+		while(iter.hasNext()) {
+			String windowHandle = iter.next(); 
+			driver.switchTo().window(windowHandle);
+			info("Switch to new windown successfully");
+		} 
+	}
 }
