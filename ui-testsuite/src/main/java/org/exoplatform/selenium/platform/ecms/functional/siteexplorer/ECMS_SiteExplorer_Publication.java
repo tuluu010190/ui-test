@@ -44,7 +44,6 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 		button = new Button(driver, this.plfVersion);
 		ePerm = new EcmsPermission(driver);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
-		testBase = new TestBase();
 		ecms = new EcmsBase(driver, this.plfVersion);
 	}
 

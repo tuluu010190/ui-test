@@ -92,8 +92,8 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/*[contains(text(), 'Wiki Home')]");
 
 	public final String ELEMENT_PAGE_NOT_FOUND = "//h3[text()='Page Not Found']";
-	public final String ELEMENT_NODE_WIKI_PAGE = "a[href$= '{$node}']";
-
+	public final String ELEMENT_NODE_WIKI_PAGE = "//a[contains(text(), '${node}')]";
+	
 	//Space Switcher
 	public final By ELEMENT_SPACE_SWITCHER_BREADCRUMB = By.id("DisplayModesDropDown");
 	public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText lostFocus']") ;
@@ -324,6 +324,10 @@ public class WikiBase extends PlatformBase{
 
 	//Wiki page > Revisions page
 	public final String ELEMENT_CURRENT_VERSION = "//*[@id='UIWikiPageInfo']//a[text()='Current Version (v.${version})']";
+	public final String ELEMENT_PAGE_HISTORY_CURRENT_VERSION = "//*[@id='UIWikiHistorySpaceArea']//a[text()='Current Version ( v.${version})']";
+	public final String ELEMENT_PAGE_INFO_VERSION = "//*[@id='UIWikiPageInfo']//a[text()='${version}']";
+	public final String ELEMENT_VIEW_CHANGE_CURRENT_VERSION = "//*[@id='UIWikiPageVersionsCompare']//b[text()='Current version ']";
+	public final String ELEMENT_VIEW_CHANGE_VERSION = "//*[@id='UIWikiPageVersionsCompare']//b[text()='${version}']";
 	public final By ELEMENT_DISABLE_COMPARE_BUTTON = By.xpath("//*[contains(@class, 'disableButton') and text()='Compare Selected']");
 	public final By ELEMENT_DISABLE_COMPARE_BUTTON_AUX = By.xpath("//*[contains(@class, 'disableButton') and text()='Compare the selected versions']");
 
@@ -363,9 +367,9 @@ public class WikiBase extends PlatformBase{
 		info("--Go to Wiki--");
 		Utils.pause(1000);
 		if(waitForAndGetElement(ELEMENT_WIKI_LINK, 5000,0)!=null)
-			clickByJavascript(ELEMENT_WIKI_LINK);
+			click(ELEMENT_WIKI_LINK);
 		else
-			clickByJavascript(ELEMENT_WIKI_LINK_PLF41);
+			click(ELEMENT_WIKI_LINK_PLF41);
 		waitForAndGetElement(ELEMENT_TITLE_WIKI_HOME_LINK);	
 	}
 
@@ -392,11 +396,11 @@ public class WikiBase extends PlatformBase{
 		info("--Go to add blank wiki page--");
 		Utils.pause(500);
 		//mouseOver(ELEMENT_ADD_PAGE_LINK, true);
-		clickByJavascript(ELEMENT_ADD_PAGE_LINK);
+		click(ELEMENT_ADD_PAGE_LINK);
 		if (isElementNotPresent(ELEMENT_BLANK_PAGE_LINK))
-			clickByJavascript(ELEMENT_BLANK_PAGE_LINK_41);
+			click(ELEMENT_BLANK_PAGE_LINK_41);
 		else
-			clickByJavascript(ELEMENT_BLANK_PAGE_LINK);
+			click(ELEMENT_BLANK_PAGE_LINK);
 		Utils.pause(1000);
 	}
 
@@ -408,11 +412,11 @@ public class WikiBase extends PlatformBase{
 	{
 		info("Deleting a wiki page...");
 		//mouseOver(ELEMENT_MORE_LINK,true);
-		clickByJavascript(ELEMENT_MORE_LINK);
+		click(ELEMENT_MORE_LINK);
 		if (waitForAndGetElement(ELEMENT_DELETE_LINK_2, 5000, 0) == null){
-			clickByJavascript(ELEMENT_DELETE_LINK);
+			click(ELEMENT_DELETE_LINK);
 		}else {
-			clickByJavascript(ELEMENT_DELETE_LINK_2);
+			click(ELEMENT_DELETE_LINK_2);
 		}
 	}
 
@@ -454,13 +458,13 @@ public class WikiBase extends PlatformBase{
 			//if(waitForAndGetElement(bExpandIcon.replace("{$node}",nodeNext),5000,0) == null){
 			//	click(bExpandIcon.replace("{$node}",node));
 			//}
-			if(waitForAndGetElement(ELEMENT_NODE_WIKI_PAGE.replace("{$node}",nodeNext),5000,0) == null){
-				click(ELEMENT_NODE_WIKI_PAGE.replace("{$node}",node));
+			if(waitForAndGetElement(ELEMENT_NODE_WIKI_PAGE.replace("${node}",nodeNext),5000,0) == null){
+				click(ELEMENT_NODE_WIKI_PAGE.replace("${node}",node));
 			}  
 			Utils.pause(100);
 		}
 		String nodeLast = nodes[length];
-		clickByJavascript(ELEMENT_NODE_WIKI_PAGE.replace("{$node}",nodeLast));
+		click(ELEMENT_NODE_WIKI_PAGE.replace("${node}",nodeLast));
 		Utils.pause(2000);
 	}
 
@@ -547,7 +551,7 @@ public class WikiBase extends PlatformBase{
 		//Utils.pause(2000);
 		if(waitForAndGetElement(ELEMENT_PAGE_PERMISSION_POPUP, 5000, 0) == null) {
 			mouseOverAndClick(ELEMENT_MORE_LINK);
-			clickByJavascript(ELEMENT_PAGE_PERMISSION_LINK,2);	
+			click(ELEMENT_PAGE_PERMISSION_LINK,2);	
 		}
 		Utils.pause(1000);
 		info("-- Go to Page Permissions...successful");
@@ -632,7 +636,7 @@ public class WikiBase extends PlatformBase{
 			click(element_space);
 			Utils.pause(2000);
 		}
-		clickByJavascript(ELEMENT_WIKI_LINK_IN_SPACE);
+		click(ELEMENT_WIKI_LINK_IN_SPACE);
 		waitForAndGetElement(ELEMENT_WIKI_HOME);
 	}
 
@@ -717,7 +721,7 @@ public class WikiBase extends PlatformBase{
 		String removeIcon= ELEMENT_REMOVE_ATTACHMENT.replace("{$file}", fName);
 
 		//click(ELEMENT_EDIT_PAGE_LINK);
-		clickByJavascript(removeIcon);
+		click(removeIcon);
 		waitForElementNotPresent(removeIcon);
 	}
 

@@ -53,7 +53,6 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		button = new Button(driver, this.plfVersion);
 		ePerm = new EcmsPermission(driver);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
-		testBase = new TestBase();
 	}
 
 	@AfterMethod

@@ -47,34 +47,15 @@ public class ManageAccount extends PlatformBase {
 	//Sign-in function for eXoGTN
 	public void signIn(String username, String password,Boolean...opParams) {
 		Boolean verify = (Boolean) (opParams.length > 0 ? opParams[0]: true);
-		Boolean maxWin = (Boolean) (opParams.length > 1 ? opParams[1]: true);
-		if(maxWin){
-			driver.manage().window().maximize();
-			driver.navigate().refresh();
-			Utils.pause(2000);
-		}
-		if (firstTimeLogin){
+		if(waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK,5000,0)!=null){
 			signOut();
-			firstTimeLogin = false;
 		}
 		info("--Sign in as " + username + "--");
-
-		if (System.getProperty("browser").equals("iexplorer")){
-			if (waitForAndGetElement(ELEMENT_INPUT_USERNAME,10000,0) == null){
-				info("User logged in already");
-				signOut();
-			}
-		}
-		/*if (isElementPresent(ELEMENT_GO_TO_PORTAL) ){
-			click(ELEMENT_GO_TO_PORTAL);		
-		}
-		click(ELEMENT_SIGN_IN_LINK);*/
-		Utils.pause(1000);
 		type(ELEMENT_INPUT_USERNAME, username, true);
 		type(ELEMENT_INPUT_PASSWORD, password, true);
 		click(ELEMENT_SIGN_IN_BUTTON);
 		if(verify)
-			waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON,100000);
+			waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON);
 		Utils.pause(2000);
 	}
 
@@ -95,28 +76,25 @@ public class ManageAccount extends PlatformBase {
 
 	//Sign-out for eXoGTN
 	public void signOut(){
-		//mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
-		//mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
 		info("Sign out");
 		for(int repeat=0;; repeat ++){
 			if (repeat > 1){
 				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
 				break;
 			}
-			clickByJavascript(ELEMENT_ACCOUNT_NAME_LINK);
+			click(ELEMENT_ACCOUNT_NAME_LINK);
 			if (waitForAndGetElement(ELEMENT_SIGN_OUT_LINK, 5000, 0) != null){
 				info("Element " + ELEMENT_SIGN_OUT_LINK + "... is displayed");
 				break;
 			}
 			info("Retry...[" + repeat + "]");
 		}
-		clickByJavascript(ELEMENT_SIGN_OUT_LINK,2);
-		Utils.pause(1000);
+		click(ELEMENT_SIGN_OUT_LINK);
+		waitForAndGetElement(ELEMENT_INPUT_USERNAME);
 		if ( ExpectedConditions.alertIsPresent() != null ){
 			magAlert = new ManageAlert(driver);
 			magAlert.acceptAlert();
 		}
-		//driver.get(baseUrl);
 	}
 
 	// Edit account info in Setting

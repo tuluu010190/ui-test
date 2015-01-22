@@ -1218,12 +1218,12 @@ public class PlatformBase extends TestBase {
 	 */
 	public void openNewBrowser(){
 		//Open new browser by Javascript
-		//String handlesBefore = driver.getWindowHandle();
 		((JavascriptExecutor) driver).executeScript("window.open()");
-		//driver.manage().deleteAllCookies();
 		for(String winHandle : driver.getWindowHandles()){
 			driver.switchTo().window(winHandle);
 		}
+		driver.manage().window().maximize();
+		driver.navigate().refresh();
 		driver.navigate().to(baseUrl);
 	}
 

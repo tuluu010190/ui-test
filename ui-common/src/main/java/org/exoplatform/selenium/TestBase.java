@@ -18,7 +18,6 @@ import java.util.Random;
 import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
-import org.exoplatform.selenium.platform.ManageAccount;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -99,70 +98,61 @@ public class TestBase {
 	public final By ELEMENT_ADMIN_PASS_LABEL = By.xpath("//h5[contains(text(), 'Admin Password')]");
 	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
 
-	public TestBase(){
+	//Driver path
+	//public static String ieDriver="D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe";
+	public static String uploadfile= Utils.getAbsoluteFilePath("TestData\\uploadFile.exe");
+    public static String downloadfile=Utils.getAbsoluteFilePath("TestData\\downloadIE9.exe");
+    public static String ieDriver=Utils.getAbsoluteFilePath("TestData\\IEDriverServer.exe");
+    public static String chromeDriver= Utils.getAbsoluteFilePath("TestData\\chromedriver.exe");
 
+    public TestBase(){
 	}
-
+    
 	public TestBase(WebDriver dr){
 		driver = dr;
 	}
 
-	/*======== End of Term and conditions =====*/	
+	/**
+	 * Init IE driver
+	 */
+	public WebDriver initIEDriver(){
+		info("Init IE driver");
+		System.setProperty("webdriver.ie.driver",ieDriver) ;
+		DesiredCapabilities  capabilitiesIE = DesiredCapabilities.internetExplorer();
+		capabilitiesIE.setCapability("ignoreProtectedModeSettings", true);
+		capabilitiesIE.setCapability("nativeEvents", false);
+		capabilitiesIE.setCapability("ignoreZoomSetting", true);
+		capabilitiesIE.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+		return new InternetExplorerDriver(capabilitiesIE);
+	}
+	
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
 		String browser = System.getProperty("browser");
-
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		if("chrome".equals(browser)){
 			driver = new ChromeDriver();
 			chromeFlag = true;
 		} else if ("iexplorer".equals(browser)){
-			System.setProperty("webdriver.ie.driver","D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe") ;
-			DesiredCapabilities  capabilitiesIE = DesiredCapabilities.internetExplorer();
-			capabilitiesIE.setCapability("ignoreProtectedModeSettings", true);
-			driver = new InternetExplorerDriver(capabilitiesIE);
-
-			this.ieFlag = true;
+			driver = initIEDriver();
+			ieFlag = true;
 		} else {
-			System.setProperty("browser", "firefox");
 			FirefoxProfile profile = new FirefoxProfile();
 			profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
 			profile.setPreference("dom.max_script_run_time", 0);
 			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 			capabilities.setCapability(FirefoxDriver.PROFILE, profile);
-
-			driver = new FirefoxDriver(capabilities);
-
+			driver = new FirefoxDriver();
 		}
-		baseUrl = System.getProperty("baseUrl");
-		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
-		info("Base url is " + baseUrl);
-
 		action = new Actions(driver);
 	}
 
 	public void initSeleniumTest(Object... opParams){
 		initSeleniumTestWithOutTermAndCondition();
-		info("Term and conditions");
+		driver.manage().window().maximize();
+		driver.navigate().refresh();
+		checkPLFVersion();
 		termsAndConditions(opParams);
-		info("End of term and conditions");
-
-		if(!firstTimeLogin){
-			info("This is not the first time login");
-			checkPLFVersion();
-			info("ieFlag of TestBase is " + ieFlag);
-		}
-		else{
-			info("This is the first time login");
-			driver.manage().window().maximize();
-			driver.navigate().refresh();
-			Utils.pause(2000);
-			info("ieFlag of TestBase is " + ieFlag);
-			ManageAccount acc = new ManageAccount(driver,this.plfVersion);
-			acc.signOut();
-			firstTimeLogin=false;
-			checkPLFVersion();
-		}
 	}
 
 	/**
@@ -175,7 +165,7 @@ public class TestBase {
 		info("Agreement page");
 		if (waitForAndGetElement(ELEMENT_AGREEMENT_CHECKBOX, 3000, 0, 2) != null) {
 			info("-- Checking the terms and conditions agreement... --");
-			clickByJavascript(ELEMENT_AGREEMENT_CHECKBOX, 2);
+			click(ELEMENT_AGREEMENT_CHECKBOX, 2);
 			click(ELEMENT_CONTINUE_BUTTON);
 			waitForTextNotPresent("terms and conditions agreement");
 
@@ -756,9 +746,7 @@ public class TestBase {
 	 */
 	public void getDriverAutoSave(){
 		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
-
 		String browser = System.getProperty("browser");
-
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		if("chrome".equals(browser)){
@@ -766,21 +754,13 @@ public class TestBase {
 			chromeFlag = true;
 		} else if ("iexplorer".equals(browser)){
 			driver = initIEDriver();
-
 			this.ieFlag = true;
 		} else {
-			System.setProperty("browser", "firefox");
 			FirefoxProfile fp = new FirefoxProfile();	
-
 			info("Save file to " + pathFile);
 			fp.setPreference("browser.download.manager.showWhenStarting", false);
 			fp.setPreference("browser.download.dir", pathFile);
 			fp.setPreference("browser.download.folderList", 2);
-			//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", 
-			//				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;application/bzip2;" +
-			//				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-			//				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip;application/octet-stream");
-
 			fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
 					"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
 					"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
@@ -793,31 +773,16 @@ public class TestBase {
 
 			fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
 			fp.setPreference("pref.downloads.disable_button.edit_actions", true);
-			//		fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/pdf");
 			fp.setPreference("pdfjs.disabled", true); 
-			//		fp.setPreference("pdfjs.firstRun", false); 
-			//		fp.setPreference("pdfjs.migrationVersion", 1);
-
 			fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 			driver = new FirefoxDriver(fp);
 		}
-
 		baseUrl = System.getProperty("baseUrl");
-		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		action = new Actions(driver);
+		driver.manage().window().maximize();
+		driver.navigate().refresh();
 		termsAndConditions();
 		checkPLFVersion();
-	}
-
-	/**
-	 * Init IE driver
-	 */
-	public WebDriver initIEDriver(){
-		System.setProperty("webdriver.ie.driver","D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe") ;
-		DesiredCapabilities capabilitiesIE = DesiredCapabilities.internetExplorer();
-		capabilitiesIE.setCapability("ignoreProtectedModeSettings", true);
-		capabilitiesIE.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
-		return new InternetExplorerDriver(capabilitiesIE);
 	}
 
 	/**function set driver to auto open new window when click link

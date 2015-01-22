@@ -4,7 +4,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 
 /**
@@ -33,21 +32,13 @@ public class Version extends BasicAction{
 	 */
 	public void viewVersion(String version){
 		info("--View a version of a page--");
-
 		String versionLink = ELEMENT_VERSION_LINK.replace("{$version}",version);
-		String versionLinkBis = ELEMENT_VERSION_LINK_AUX.replace("{$version}",version);
+		String versionLinkAux = ELEMENT_VERSION_LINK_AUX.replace("{$version}",version);
 		click(ELEMENT_REVISION_LINK);
-		Utils.pause(500);
-		driver.navigate().refresh();
-		Utils.pause(1000);
-		//click(versionLink);
-		if (waitForAndGetElement(versionLink, DEFAULT_TIMEOUT, 0, 2) != null){
-			WebElement vLink = waitForAndGetElement(versionLink, DEFAULT_TIMEOUT, 0, 2);
-			((JavascriptExecutor)driver).executeScript("arguments[0].click();", vLink);
-		}else if (waitForAndGetElement(versionLinkBis, DEFAULT_TIMEOUT, 0, 2) != null){
-			WebElement vLink = waitForAndGetElement(versionLinkBis, DEFAULT_TIMEOUT, 0, 2);
-			((JavascriptExecutor)driver).executeScript("arguments[0].click();", vLink);
-		}	
+		if(waitForAndGetElement(versionLink, 5000, 0)!=null)
+			click(versionLink);
+		else
+			click(versionLinkAux);
 		Utils.pause(1000);
 	}
 
@@ -59,7 +50,6 @@ public class Version extends BasicAction{
 	 */
 	public void restoreVersion(String version){
 		info("--Restore a version of a page--");
-
 		String versionLink = ELEMENT_RESTORE_LINK.replace("{$version}",version);
 		if (isTextPresent("Page History")){
 			info("-- You are currently in the revision page --");		
@@ -69,9 +59,7 @@ public class Version extends BasicAction{
 		Utils.pause(500);
 		driver.navigate().refresh();
 		Utils.pause(2000);
-		//click(versionLink);
-		WebElement vLink = waitForAndGetElement(versionLink, DEFAULT_TIMEOUT, 1, 2);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vLink);
+		click(versionLink);
 		Utils.pause(1000);
 	}
 
@@ -85,7 +73,7 @@ public class Version extends BasicAction{
 	 */
 	public void compareVersion(String first, String second){
 		info("--Compare 2 versions of a page--");
-	
+
 		String versionCheckbox1 = ELEMENT_VERSION_CHECKBOX.replace("{$version}", first);
 		String versionCheckbox2= ELEMENT_VERSION_CHECKBOX.replace("{$version}", second);
 		if (isTextPresent("Page History")){
@@ -96,19 +84,11 @@ public class Version extends BasicAction{
 		Utils.pause(500);
 		driver.navigate().refresh();
 		Utils.pause(2000);
-		//click(versionCheckbox1, 2);
-		WebElement vCheckbox1 = waitForAndGetElement(versionCheckbox1, DEFAULT_TIMEOUT, 1, 2);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vCheckbox1);
-		//click(versionCheckbox2, 2);
-		WebElement vCheckbox2 = waitForAndGetElement(versionCheckbox2, DEFAULT_TIMEOUT, 1, 2);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", vCheckbox2);
-		
+		click(versionCheckbox1, 2);
+		click(versionCheckbox2, 2);
 		WebElement cButton = waitForAndGetElement(ELEMENT_COMPARE_BUTTON, 3000, 0, 2);
-		
-	
 		if (cButton != null){
-			//click(ELEMENT_COMPARE_BUTTON);
-			((JavascriptExecutor)driver).executeScript("arguments[0].click();", cButton);
+			click(ELEMENT_COMPARE_BUTTON);
 		}else {
 			click(By.xpath("//*[text()='Compare with selected versions']"));
 		}
@@ -119,10 +99,10 @@ public class Version extends BasicAction{
 	 * Go to the Revisions page of the selected Wiki page
 	 */
 	public void goToRevisionsPage(){
-			click(ELEMENT_MORE_LINK);
-			click(ELEMENT_PAGE_INFO_LINK);
-			Utils.pause(1000);
-		}
+		click(ELEMENT_MORE_LINK);
+		click(ELEMENT_PAGE_INFO_LINK);
+		Utils.pause(1000);
+	}
 
 	/**
 	 * Change compare versions of a Wiki page
@@ -143,7 +123,6 @@ public class Version extends BasicAction{
 	 */
 	public void viewPageHistory(){
 		Utils.pause(1000);
-		//click(By.linkText("View Page History"));
 		click(By.xpath("//*[contains(text(),'View Page History')]"));
 		waitForTextPresent("Revision");
 	}
