@@ -14,7 +14,7 @@
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Info" />
 			<class
-				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_PushlishActivities" />
+				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_PublishActivities" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_BasicAction" />	
 			<class
