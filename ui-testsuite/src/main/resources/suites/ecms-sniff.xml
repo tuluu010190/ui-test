@@ -16,6 +16,8 @@
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_PushlishActivities" />
 			<class
+				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_BasicAction" />	
+			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Search" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Setting" />

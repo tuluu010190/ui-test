@@ -136,6 +136,14 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_SPACE = By.xpath("//*[@class='uiIcon16x16FolderDefault uiIcon16x16exo_portalFolder' and @title='intranet']");
 	public final String ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME = "//*[@class='nodeName' and text()='${title}']";
 	public final By ELEMENT_SITEEXPLORER_ACTION_DELETE = By.xpath("//*[@class='uiIconEcmsDelete']");
+	public final By ELEMENT_SITEEXPLORER_ACTION_COPY = By.xpath("//*[@class='uiIconEcmsCopy']");
+	public final By ELEMENT_SITEEXPLORER_ACTION_CUT = By.xpath("//*[@class='uiIconEcmsCut']");
+	public final By ELEMENT_SITEEXPLORER_ACTION_PASTE = By.xpath("//*[@class='uiIconEcmsPaste']");
+	public final By ELEMENT_SITEEXPLORER_ACTION_RENAME = By.xpath("//*[@class='uiIconEcmsRename']");
+	public final By ELEMENT_SITEEXPLORER_ACTION_OPEN_IN_MS_OFFICE = By.xpath("//*[@class='uiIconDownload uiIconLightGray']");
+	public final By ELEMENT_SITEEXPLORER_ACTION_ADDSYMLINK = By.xpath("//*[@class='uiIconEcmsAddSymLink']");
+
+	
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_SAVEDSEARCH = By.xpath("//*[@class='uiIconEcmsSavedSearchesMini uiIconEcmsLightGray']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_ADVANCEDSEARCH = By.xpath("//*[@class='actionIcon advancedSearchIcon pull-right']//*[@class='uiIconSearch uiIconLightGray']");
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_ROOTNODE = By.xpath("//*[@class='uiIconEcmsHome uiIconEcmsLightGray']");
@@ -143,6 +151,8 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_LEFTBOX_EXPLORER = By.xpath("//*[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
 	public final String ELEMENT_SITEEXPLORER_LEFTBOX_TITLE_TRANSLATION="//*[text()='fr (${title})']";
 	public final By ELEMENT_SITEEXPLORER_LIST_LOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsLock']");
+	public final By ELEMENT_SITEEXPLORER_LIST_UNLOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsUnlock']");
+
 	
 	//advanced search 
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_NAME = By.xpath("//*[@id='keyword']");
@@ -182,7 +192,12 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_COMMENT_DELETE = By.xpath("//*[@class='uiIconTrash uiIconLightGray']");
 	public final String ELEMENT_SITEEXPLORER_COMMENT_CONTENT = "//*[text()='${content}']";
 
-
+	// clipboard
+	public final By ELEMENT_SITEEXPLORER_CLIPBOARD = By.xpath("//*[@id='UISideBar']//*[@class='uiIconEcmsClipboardMini uiIconEcmsLightGray']");
+	public final String ELEMENT_CLIPBOARD_PASTE_NODE = "//*[@id='UISideBar']//*[contains(text(),'{$node}')]/../..//*[@class='uiIconEcmsPaste uiIconEcmsLightGray']";
+	public final String ELEMENT_CLIPBOARD_DELETE_NODE = "//*[@id='UISideBar']//*[contains(text(),'{$node}')]/../..//*[@class='uiIconEcmsDelete uiIconEcmsLightGray']";
+	public final By ELEMENT_CLIPBOARD_CLEAR_ALL = By.xpath("//*[@id='UIClipboard']//*[contains(text(),'Clear All')]");
+	
     //vote
 	public final By ELEMENT_SITEEXPLORER_VOTE_AVERAGE = By.xpath("//*[@data-original-title='Average']");
 	public final By ELEMENT_SITEEXPLORER_VOTEONDOCUMENT = By.xpath("//*[@class='uiVote clearfix']");
@@ -210,6 +225,11 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_CATEGORY_ADD_ROOT_NODE = By.xpath("//*[@class='uiIconAddRootNode uiIconLightGray']");
 	
 	public String ELEMENT_DOCUMENT_VIEW = "//*[@id='UITabContent']//*[contains(text(),'{$content}')]";
+	
+	public final By ELEMENT_SITEEXPLORER_RENAME_FIELD = By.xpath("//*[@id='renameField']");
+	public final By ELEMENT_SITEEXPLORER_RENAME_SAVE = By.xpath("//*[@id='renameLink']");
+	
+	public final By ELEMENT_CHECK_OPEN_WEBCONTENT_IN_MSOFFICE = By.xpath("//*[@id='main']//*[contains(text(),'css')]");
 	
 	public SiteExplorerHome(WebDriver dr){
 		this.driver=dr;
@@ -245,6 +265,14 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_ACTIONBAR_ADDDOCUMENT);
 		waitForAndGetElement(ELEMENT_ADDDOCUMENT_CHOICETYPE);
 	}
+	
+	public void addSymlink(String node){
+		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", node)));
+		click(ELEMENT_SITEEXPLORER_ACTION_ADDSYMLINK);
+		Utils.pause(2000);
+	}
+	
+	
 	/**
 	 * Delete data by title
 	 * @param title
@@ -257,7 +285,46 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE);
 		waitForElementNotPresent(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
 	}
+	/**
+	 * 
+	 * @param title
+	 * @param destination
+	 */
+	public void copyPasteNode(String title,String destination){
+		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
+		click(ELEMENT_SITEEXPLORER_ACTION_COPY);
+		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", destination)));
+		click(ELEMENT_SITEEXPLORER_ACTION_PASTE);
+		driver.navigate().refresh();
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * 
+	 * @param title
+	 * @param destination
+	 */
+	public void cutPasteNode(String title,String destination){
+		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
+		click(ELEMENT_SITEEXPLORER_ACTION_CUT);
+		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", destination)));
+		click(ELEMENT_SITEEXPLORER_ACTION_PASTE);
+		driver.navigate().refresh();
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		Utils.pause(2000);
+	}
 
+	public void renameNode(String node, String newName){
+		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", node)));
+		click(ELEMENT_SITEEXPLORER_ACTION_RENAME);
+		type(ELEMENT_SITEEXPLORER_RENAME_FIELD,newName,true);
+		click(ELEMENT_SITEEXPLORER_RENAME_SAVE);
+		Utils.pause(2000);
+		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		
+	}
+	
 	/**
 	 * Upload a file from TesData folder
 	 * @param link
@@ -435,7 +502,16 @@ public class SiteExplorerHome extends PlatformBase{
 		rightClickOnElement(By.xpath(ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}",name)));
 		click(ELEMENT_SITEEXPLORER_LIST_LOCK_NODE);
 	}
-
+	
+	/**
+	 * Unlock a Node
+	 * @param name
+	 */
+	public void unlockNode(String name){
+		rightClickOnElement(By.xpath(ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}",name)));
+		click(ELEMENT_SITEEXPLORER_LIST_UNLOCK_NODE);
+	}
+	
 	
 	/**
 	 * By QuynhPT

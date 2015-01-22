@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.TestBase;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.answer.AnswerHomePage;
 import org.exoplatform.selenium.platform.answer.FaqHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
@@ -140,7 +141,9 @@ public class HomePagePlatform extends TestBase{
      */
 	public void goToSiteExplorer() {
 		info("-- Go to site explorer home page --");
+		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION);
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		Utils.pause(2000);
 		mouseOver(ELEMENT_ADMINISTRATION_CONTENT, true);
 		click(ELEMENT_ADMINISTRATION_SITEEXPLORER);
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_WORKING_PANEL);
