@@ -87,8 +87,11 @@ public class HomePagePlatform extends TestBase{
 	 */
 	public void goToHomePage(){
 		info("--Go to Home page--");
+		info("Click on Home link of intranet page");
 		click(ELEMENT_HOME_LINK_PLF);
+		info("Verify that the home page of intranet is shown");
 		waitForAndGetElement(ELEMENT_HOMPAGE_MIDDLE_PANEL);
+		info("the intranet is shown sucessfully"); 
 	}
 
 	/**
@@ -96,8 +99,11 @@ public class HomePagePlatform extends TestBase{
 	 */
 	public void goToCalendarPage(){
 		info("-- Go to calendar home page --");
+		info("click on Calendar link");
 		click(ELEMENT_CALENDAR_LINK_PLF);
+		info("Verify that Calendar page is shown");
 		waitForAndGetElement(cHome.ELEMENT_CALENDAR_WORKING_PANEL);
+		info("The calendar page is shown successfully");
 	}
 
 	/**
@@ -122,8 +128,11 @@ public class HomePagePlatform extends TestBase{
 	 */
 	public void goToForum(){
 		info("-- Go to forum page --");
+		info("Click on Forum link");
 		click(ELEMENT_FORUM_LINK_PLF);
+		info("Verify that the forum portlet is shown");
 		waitForAndGetElement(fHome.ELEMENT_FORUM_PORTLET);
+		info("The forum portlet is shown successfully");
 	}
 
 	/**

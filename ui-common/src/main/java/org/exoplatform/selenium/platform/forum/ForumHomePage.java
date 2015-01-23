@@ -58,6 +58,8 @@ public class ForumHomePage extends PlatformBase {
 	public final By ELEMENT_FORUM_WHAT_GOING_ON = By.xpath("//div[contains(text(),'Going on?')]");
 	public final By ELEMENT_FORUM_START_TOPIC_DISABLE = By.xpath("//*[@id='UITopicContainer']//*[@data-original-title='Forum is closed for posting.']");
 	public final By ELEMENT_FORUM_START_TOPIC_BUTTON = By.xpath("//*[@class='btn btn-primary pull-left']");
+	public final String ELEMENT_SELECT_FORUM_TOPIC = "//*[contains(text(),'${link}')]";
+	
 	//Manage Category menu
 	public final By ELEMENT_MANAGE_CATEGORY = By.xpath("//*[@class='uiIconForumManageCategory uiIconForumLightGray']");
 	public final By ELEMENT_DELETE_CATEGORY = By.xpath("//*[@id='UICategoryConfirm0' and contains(text(),'Delete')]");
@@ -77,7 +79,9 @@ public class ForumHomePage extends PlatformBase {
 	public final By ELEMENT_START_TOPIC_POPUP_TITLE = By.xpath(".//*[@id='UIForumPopupWindow']//span[@class='PopupTitle popupTitle']");
 	public final By ELEMENT_START_TOPIC_POPUP_TITLE_FILED = By.id("ThreadTitle");
 	public final By ELEMENT_START_TOPIC_MESSAGE_FRAME_CKEDITOR = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
-	public final By ELEMENT_START_TOPIC_ATTACH_FILE =By.xpath("//*[@id='ThreadContent']/div/div[3]/div/button");
+	public final By ELEMENT_START_TOPIC_ATTACH_FILE =By.xpath("//*[@id='ThreadContent']//*[@class='uiIconAttach uiIconLightGray']");
+	public final String ELEMENT_SELECT_TOPIC = "//*[contains(text(),'{$topic}')]";
+
 	
 	//Upload file popup
 	public final By ELEMENT_UPLOAD_POPUP_FILE = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Attach File']");
@@ -100,7 +104,7 @@ public class ForumHomePage extends PlatformBase {
 
 	//Breadcumb
 	public By ELEMENT_CATEGORY_BREADCUMB_HOME=By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
-	public String ELEMENT_CATEGORY_FORUM_BREAD = "//*[text()='${category}']/../../*[text()='${forum}']";
+	public String ELEMENT_CATEGORY_FORUM_BREAD = "//*[text()='${category}']/../..//*[text()='${forum}']";
 	
 	//Contextmenu by right clicking
 	public final By ELEMENT_WATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'AddWatching')]");
@@ -111,10 +115,20 @@ public class ForumHomePage extends PlatformBase {
 	public final By ELEMENT_OK_INFOR_POPUP = By.xpath("//div[@class='UIPopupWindow UIDragObject uiPopup']/.//a[text()='OK']");
 	public final String MESSAGE_UNWATCH = "You are no longer watching this item.";	
 	
-	//Forum portlets
+	//Forum/Category portlets
 	public By ELEMENT_FORUM_PORTLET = By.id("UIForumPortlet");
-
-	//Button
+	public final String ELEMENT_PORTLET_CONTENT_LINK=".//*[contains(text(),'${topic}')]";
+	
+	//Topic 
+	public final String ELEMENT_TOPIC_REPPLY_CONTENT=".//*[contains(text(),'${content}')]";
+	public final String ELEMENT_TOPIC_LAST_REPLY = ".//*[contains(text(),'${reply}')]/../../../../following::div[7][@class='uiBox forumQuickReply uiCollapExpand']";
+    public final By ELEMENT_TOPIC_POST_REPLY_BOTTOM= By.xpath(".//*[@id='UITopicDetail']/div[5]//a[text()='Post Reply']");
+	
+    //New post popup
+    public final By ELEMENT_TOPIC_NEW_POST_TITLE= By.xpath(".//*[@id='UIForumPopupWindow']//span[text()='New Post']");
+    public final By ELEMENT_TOPIC_NEW_POST_TITLE_FIELD=By.id("PostTitle");
+    
+    //Button
 	public final By ELEMENT_OK_BTN = By.xpath("//*[@class='btn actionOK']");
 	
 	/**
@@ -172,23 +186,23 @@ public class ForumHomePage extends PlatformBase {
 		waitForAndGetElement(ELEMENT_ACTIONBAR_ADDCATEGORY);
 		info("click on Add Category button");
 		click(ELEMENT_ACTIONBAR_ADDCATEGORY);
-		info("check if title is null");
-	    if(nameCat==null)
-	    	assert false:"lack of the values of title";
 	    info("input the title for the category");
 	    type(ELEMENT_ADDCATEGORY_POPUP_TITLE,nameCat,true);
-	    
 	    info("check and input Oder field");
-	    if(order!=null){
-	    	waitForAndGetElement(ELEMENT_ADDCATEGORY_POPUP_ORDER).clear();
-	    	type(ELEMENT_ADDCATEGORY_POPUP_ORDER,order,true);
+	    if(!order.isEmpty()){
+	    	 info("Clear all old order data");
+	    	 waitForAndGetElement(ELEMENT_ADDCATEGORY_POPUP_ORDER).clear();
+	    	 info("Input new order");
+	    	 type(ELEMENT_ADDCATEGORY_POPUP_ORDER,order,true);
 	    }
         info("check and input description");
-	    if (description!=null){
+	    if (!description.isEmpty()){
+	    	info("Clear all old description data");
 	    	waitForAndGetElement(ELEMENT_ADDCATEGORY_POPUP_DESCRIPTION).clear();
+	    	info("Input new description data");
 	    	type(ELEMENT_ADDCATEGORY_POPUP_DESCRIPTION,description,true);
 	    }
-	    Utils.pause(2000);	
+	    Utils.pause(2000);
 	}
 	
 	/**
@@ -196,9 +210,12 @@ public class ForumHomePage extends PlatformBase {
 	 * By QuynhPT
 	 */
 	public void saveChangesAddCategory(){
+		info("Wait Save button is shown");
 		waitForAndGetElement(ELEMENT_ADDCATEGORY_POPUP_SAVE_BUTTON);
+		info("Click on Save button");
 		click(ELEMENT_ADDCATEGORY_POPUP_SAVE_BUTTON);
 		Utils.pause(2000);
+		 info("Fisnihed adding a category");
 	}
 	/**
 	 * Cancel all changes of Add Category
@@ -219,25 +236,27 @@ public class ForumHomePage extends PlatformBase {
 	public void addForum(String nameForum, String order, String description) {
 		// TODO Auto-generated method stub
 		waitForAndGetElement(ELEMENT_ACTIONBAR_ADDFORUM);
-		//click on Add forum button
+		info("click on Add forum button");
 		click(ELEMENT_ACTIONBAR_ADDFORUM);
-		//check if title is null
-	    if(nameForum==null)
-	    	assert false:"lack of the values of title";
-	    //input the title for the forum
+	    info("input the title for the forum");
 	    type(ELEMENT_ADDFORUM_POPUP_TITLE,nameForum,true);
 	    
-	    //check and input Oder field
-	    if(order!=null){
+	    info("check and input Oder field");
+	    if(!order.isEmpty()){
+	    	info("Clear all old order data");
 	    	waitForAndGetElement(ELEMENT_ADDFORUM_POPUP_ORDER).clear();
+	    	info("Input new order data");
 	    	type(ELEMENT_ADDFORUM_POPUP_ORDER,order,true);
 	    }
-        //check and input description
-	    if (description!=null){
+        info("check and input description");
+	    if (!description.isEmpty()){
+	    	info("Clear all old description data");
 	    	waitForAndGetElement(ELEMENT_ADDFORUM_POPUP_DESCRIPTION).clear();
+	    	info("Input new description data");
 	    	type(ELEMENT_ADDFORUM_POPUP_DESCRIPTION,description,true);
 	    }
-	    Utils.pause(2000);	
+	    Utils.pause(2000);
+	    info("Finish inputing data to forum form");
 	}
 	
 	/**
@@ -245,9 +264,12 @@ public class ForumHomePage extends PlatformBase {
 	 * By QuynhPT
 	 */
 	public void saveChangesAddForum(){
+		info("Wait Save button is shown");
 		waitForAndGetElement(ELEMENT_ADDFORUM_POPUP_SAVE_BUTTON);
+		info("Click on Save button");
 		click(ELEMENT_ADDFORUM_POPUP_SAVE_BUTTON);
 		Utils.pause(2000);
+		info("Finish adding new forum");
 	}
 	/**
 	 * Cancel all changes of Add FORUM
@@ -324,14 +346,16 @@ public class ForumHomePage extends PlatformBase {
 	 *
 	 */
 	public enum specifMoreActionMenu{
-		START_TOPIC,EDIT,LOCK,UNLOCK,CLOSE,OPEN,MOVE,DELETE,EXPORT_FORUM,WATCHES,BANNED_IPS;
+		START_TOPIC,EDIT,LOCK,UNLOCK,CLOSE,OPEN,MOVE,DELETE,EXPORT_FORUM,WATCHES,BANNED_IPS,ADDPOLL;
 	}
 	/**
 	 * Open More Action menu
 	 * By QuynhPT
 	 */
 	public void openMoreActionMenu(){
+		info("Wait More link is shown");
 		waitForAndGetElement(ELEMENT_MORE_ACTION);
+		info("Click on More link");
 		click(ELEMENT_MORE_ACTION);
 	}
 	/**
@@ -341,21 +365,33 @@ public class ForumHomePage extends PlatformBase {
 	 */
     public void selectItemMoreActionMenu(specifMoreActionMenu item){
     	openMoreActionMenu();
+    	info("Select a link on More menu");
     	switch(item) {
 		case START_TOPIC:
+			info("wait Start Topic button is shown");
 			waitForAndGetElement(ELEMENT_START_TOPIC_BUTTON);
+			info("click on Start Topic button");
 			click(ELEMENT_START_TOPIC_BUTTON);
+			info("Verify that the popup is shown");
 			waitForAndGetElement(ELEMENT_START_TOPIC_POPUP_TITLE);
+			info("The popup is shown successfully");
 			break;
 		case EDIT:
+			info("click on Edit link");
 			click(ELEMENT_EDIT_FORUM);
+			info("Verify that Edit popup is shown");
 			waitForAndGetElement(ELEMENT_POPUP_ADD_FORUM);
+			info("The popup is shown successfully");
 			break;
 		case DELETE:
+			info("click on Delete link");
 			click(ELEMENT_DELETE_FORUM);
 			Utils.pause(1000);
+			info("Verify that Confirm popup is shown");
 			alert.waitForMessage("Are you sure you want to delete this forum ?");
+			info("Click on OK button of Confirm popup");
 			click(ELEMENT_OK_DELETE);
+			info("Finish deleting the forum");
 			break;
 		case WATCHES:
 			break;
@@ -374,9 +410,13 @@ public class ForumHomePage extends PlatformBase {
 		case EXPORT_FORUM:
 			break;
 		case MOVE:
+			info("Wait Move link is shown");
 			waitForAndGetElement(ELEMENT_MOVE_FORUM);
+			info("Click on Move link");
 			click(ELEMENT_MOVE_FORUM);
+			info("Verify that Move popup is shown");
 			waitForAndGetElement(ELEMENT_POPUP_MOVE_FORUM);
+			info("The popup is shown successfully");
 			break;
 		case BANNED_IPS:
 			break;
@@ -390,10 +430,15 @@ public class ForumHomePage extends PlatformBase {
      */
 	public void deleteCategory(String nameCat) {
 		// TODO Auto-generated method stub
+		info("Wait the category is shown");
 		waitForAndGetElement(ELEMENT_FORUM_DETAIL_CATEGORY_NAME_LINK.replace("${name}", nameCat));
+		info("Click on the category");
 		click(ELEMENT_FORUM_DETAIL_CATEGORY_NAME_LINK.replace("${name}", nameCat));
+		info("Select Delete link");
 		selectItemManageCategoryMenu(specifManageCategoryMenu.DELETE);
+		info("Verify that the category is deleted");
 		waitForElementNotPresent(ELEMENT_FORUM_DETAIL_CATEGORY_NAME_LINK.replace("${name}", nameCat));
+		info("The category is deleted successfully");
 	}
 	/**
 	 * Go to a detail forum in list
@@ -409,7 +454,7 @@ public class ForumHomePage extends PlatformBase {
 	 * By QuynhPT
 	 * @param name
 	 */
-	public void goToDetailCategory(String name){
+	public void goToCategory(String name){
 		goToHomeCategory();
 		click(ELEMENT_FORUM_DETAIL_FORUM_NAME_LINK.replace("${name}", name));
 	}
@@ -460,7 +505,7 @@ public class ForumHomePage extends PlatformBase {
 		selectItemMoreActionMenu(specifMoreActionMenu.MOVE);
 		click(By.linkText(destination));
 		waitForElementNotPresent(ELEMENT_POPUP_MOVE_FORUM);
-		goToDetailCategory(destination);
+		goToCategory(destination);
 		waitForAndGetElement(ELEMENT_FORUM_DETAIL_FORUM_NAME_LINK.replace("${name}", forum));
 		info("Move forum successfully");
 	}
@@ -511,26 +556,55 @@ public class ForumHomePage extends PlatformBase {
 	 * @param message
 	 */
 	public void startTopic(String title, String message,String pathFile,String fileName) {
-		info("Start a topic");
-		goToStartTopic();
-		info("Input data in content tab");
+		/*info("Start a topic");
+		goToStartTopic();*/
+		info("Verify that the pop up is shown");
 		waitForAndGetElement(ELEMENT_START_TOPIC_POPUP_TITLE_FILED);
-		
-		if(title !="")
+		info("Refresh the page");
+		this.driver.navigate().refresh();
+		if(!title.isEmpty()){
+			info("Input the title:"+title);
 			type(ELEMENT_START_TOPIC_POPUP_TITLE_FILED, title, true);
+		}
 		
-		if (message !="")
+		if (!message.isEmpty()){
+			info("Input the message:"+message);
 			inputFrame(ELEMENT_START_TOPIC_MESSAGE_FRAME_CKEDITOR,message);
+		}
 		
-		if (pathFile !="" || fileName !="") {
+		if (!pathFile.isEmpty()|| !fileName.isEmpty()) {
+			info("click on Attached file button");
 			click(ELEMENT_START_TOPIC_ATTACH_FILE);
+			info("Verify that upload button is shown");
 			waitForAndGetElement(ELEMENT_UPLOAD_POPUP_FILE);
+			info("Attached file");
 			attachFile(pathFile,fileName);
+			info("Verify that upload popup is closed");
 			waitForElementNotPresent(ELEMENT_UPLOAD_POPUP_FILE);
 		}
+		info("click on Submit button");
 		click(ELEMENT_SUBMIT_BUTTON);
+		info("Verify that the topic is created");
 		waitForAndGetElement(By.linkText(title));
 		info("Start topic successfully");
+	}
+	/**
+	 * Open a topic
+	 * @param name
+	 */
+	public void goToTopic(String name){
+		info("Click on the topic with the name:"+name);
+		click(ELEMENT_SELECT_FORUM_TOPIC.replace("${link}", name));
+		Utils.pause(2000);
+	}
+	/**
+	 * Open a forum
+	 * @param name
+	 */
+	public void goToForum(String name){
+		info("Click on the forum with the name:"+name);
+		click(ELEMENT_SELECT_FORUM_TOPIC.replace("${link}",name));
+		Utils.pause(2000);
 	}
 	
 	/**
@@ -546,8 +620,12 @@ public class ForumHomePage extends PlatformBase {
         info("Attach a file");
 		WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1,2);
 		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", element);
+		info("Get the file to attach");
 		element.sendKeys(Utils.getAbsoluteFilePath(pathFile+fileName));
+		info("Verify that the file is attached");
 		waitForAndGetElement(ELEMENT_UPLOAD_POPUP_NAMEFILE.replace("${fileName}", fileName));
+		info("The file is attached successfully");
+		info("Click on Save button");
 		click(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_SAVE_BUTTON);
 		Utils.pause(2000);
 	}
@@ -581,6 +659,47 @@ public class ForumHomePage extends PlatformBase {
 			selectItemMoreActionMenu(specifMoreActionMenu.OPEN);
 			waitForAndGetElement(ELEMENT_FORUM_START_TOPIC_BUTTON);
 		}
+	}
+	/**
+	 * Reply the topic
+	 * @param newTitle
+	 * @param newMessg
+	 * @param pathFile
+	 * @param fileName
+	 */
+	public void replyTopic(String newTitle,String newMessg,String pathFile,String fileName){
+		info("Click on Post Reply button"); 
+		click(ELEMENT_TOPIC_POST_REPLY_BOTTOM);
+		info("Verify that the pop up is shown");
+		waitForAndGetElement(ELEMENT_TOPIC_NEW_POST_TITLE);
+		info("Refresh the page");
+		this.driver.navigate().refresh();
+		if(!newTitle.isEmpty()){
+			info("Input the title:"+newTitle);
+			waitForAndGetElement(ELEMENT_TOPIC_NEW_POST_TITLE_FIELD).clear();
+			type(ELEMENT_TOPIC_NEW_POST_TITLE_FIELD,newTitle, true);
+		}
+		
+		if (!newMessg.isEmpty()){
+			info("Input the message:"+newMessg);
+			inputFrame(ELEMENT_START_TOPIC_MESSAGE_FRAME_CKEDITOR,newMessg);
+		}
+		
+		if (!pathFile.isEmpty()|| !fileName.isEmpty()) {
+			info("click on Attached file button");
+			click(ELEMENT_START_TOPIC_ATTACH_FILE);
+			info("Verify that upload button is shown");
+			waitForAndGetElement(ELEMENT_UPLOAD_POPUP_FILE);
+			info("Attached file");
+			attachFile(pathFile,fileName);
+			info("Verify that upload popup is closed");
+			waitForElementNotPresent(ELEMENT_UPLOAD_POPUP_FILE);
+		}
+		info("click on Submit button");
+		click(ELEMENT_SUBMIT_BUTTON);
+		info("Verify that the replying is created");
+		waitForAndGetElement(ELEMENT_TOPIC_REPPLY_CONTENT.replace("${content}", newMessg));
+		info("Reply topic successfully");
 	}
 	
 }

@@ -8,11 +8,13 @@
 		</groups>
 		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Forum_BasicAction" />
+				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Forum_BasicAction"/>
 			<class 
-			    name="org.exoplatform.selenium.platform.forum.sniff.Forum_Forum_MoreAction" />
+			    name="org.exoplatform.selenium.platform.forum.sniff.Forum_Forum_MoreAction"/>
 			<class
-				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Administration" />
+				name="org.exoplatform.selenium.platform.forum.sniff.Forum_Administration"/>
+			<class
+				name="org.exoplatform.selenium.platform.forum.sniff.Forum_PublishActivity"/>
 		</classes>
 	</test>
 	<listeners>

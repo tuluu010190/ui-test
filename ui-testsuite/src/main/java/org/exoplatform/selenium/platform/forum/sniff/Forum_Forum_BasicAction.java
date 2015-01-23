@@ -197,7 +197,7 @@ public class Forum_Forum_BasicAction extends PlatformBase {
 		forumHP.saveChangesAddCategory();
 		
 		forumHP.goToHomeCategory();
-		forumHP.goToDetailCategory(category1);
+		forumHP.goToCategory(category1);
 		// Add a forum in the category1
 		forumHP.addForum(forum, order,forum );
 		forumHP.saveChangesAddForum();

@@ -2,9 +2,12 @@ package org.exoplatform.selenium.platform.social;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class HomepageActivity extends PlatformBase {
 
@@ -73,7 +76,23 @@ public class HomepageActivity extends PlatformBase {
 	public String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = "//*[@id='boxContainer']//*[contains(text(),'{$title}')]/../../../..//*[@class='commentList']//*[contains(text(),'{$comment}')]";
 	public String ELEMENT_ACTIVITY_VIEW_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
+	public String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'{$name}')]";
+
 	
+	//Comment box
+	public final String ELEMENT_COMMENTBOX="//*[contains(text(),'${title}')]/../../../..//div[@class='replaceTextArea editable']";
+	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
+	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/../../../..//button[contains(@id,'CommentButton')]";
+	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(),'${activityText}')]/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
+	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
+	public final String ELEMENT_COMMENT_TEXT = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]";
+	public final String ELEMENT_ACTIVITY_LIKE_ICON_BLUE = ".//*[@data-original-title='${nameFile}']/../../../..//i[@class='uiIconThumbUp uiIconBlue']";
+	public final String ELEMENT_ACTIVITY_COMMENT_VIEW_HOVEROVER = ".//*[contains(text(),'${comment}')]/../..//*[@class='uiIconWatch uiIconLightGray']";
+	
+	//Activity for Forum
+	public final String ELEMENT_ACTIVITY_POLL_VOTE_FOR_POLL = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconSocVote uiIconSocLightGray']";
+	public final String ELEMENT_ACTIVITY_TOPIC_REPLY = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconReply uiIconLightGray']";
+	public final String ELEMENT_ACTIVITY_TOPIC_VIEW_LAST_REPLY = ".//*[contains(text(),'${topic}')]/../../..//*[@class='uiIconSocLastestReply uiIconSocLightGray']";
 	/**
 	 * constructor
 	 * @param dr
@@ -89,6 +108,16 @@ public class HomepageActivity extends PlatformBase {
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_FILE_TITLE.replace("{$title}", title)));
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_FILE_CHECK_ICON_FILE.replace("{$title}", title)));
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_FILE_TITLE_CHECK_FILE_SIZE.replace("{$title}", title)));
+	}
+	
+	/**
+	 * Check if there is an activity in the stream
+	 * @param name
+	 */
+	public void checkActivity(String name){
+		info("Verify that the activity of the name:"+name+" is shown");
+		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",name)));
+		info("The activity of the name:"+name+" is shown successfully");
 	}
 	
 	/**
@@ -161,5 +190,25 @@ public class HomepageActivity extends PlatformBase {
 			}
 			assert sumTemp[3].contains(cont[3]+"...");
 		}
-	} 
+	}
+	
+	/**
+	 * Add a new comment on activity stream
+	 * @param activityText: input a text (String) 
+	 * @param contentOfComment: input a comment (String)
+	 */
+	public void addComment(String filename, String textContent){
+		WebElement input_icon= this.driver.findElement(By.xpath(ELEMENT_ICON_COMMENT.replace("${title}", filename)));
+		input_icon.click();
+		switchToParentWindow();
+		
+		WebElement input= this.driver.findElement(By.xpath(ELEMENT_COMMENTBOX.replace("${title}",filename)));
+		Actions action =new Actions(driver);
+		action.moveToElement(input).sendKeys(textContent).build().perform();
+		
+		
+	    WebElement add_button= this.driver.findElement(By.xpath(ELEMENT_COMMENT_BUTTON.replace("${activityText}", filename)));
+	    add_button.click();
+	    Utils.pause(2000);
+	}
 }

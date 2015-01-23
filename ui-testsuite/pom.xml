@@ -53,6 +53,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>forum-sniff</id>
+			<properties>
+				<testSuite>forum-sniff.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>testng-failed</id>
 			<properties>
 				<testSuite>testng-failed.xml</testSuite>

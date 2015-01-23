@@ -217,12 +217,16 @@ public class PlatformBase extends TestBase {
 	 * @param content
 	 */
 	public void inputFrame(By frameLocator,String content){
-		//this.driver.navigate().refresh();
+		info("Finding the frameLocator:"+frameLocator);
 		WebElement e = waitForAndGetElement(frameLocator,DEFAULT_TIMEOUT,1,2);
+		info("Switch to the frame:"+frameLocator);
 		driver.switchTo().frame(e);
 		WebElement inputsummary = driver.switchTo().activeElement();
+		info("focus on the text area");
 		inputsummary.click();
+		info("Input the content:"+content);
 		inputsummary.sendKeys(content);
+		info("Back to parent window");
 		switchToParentWindow();
 	}
 	
