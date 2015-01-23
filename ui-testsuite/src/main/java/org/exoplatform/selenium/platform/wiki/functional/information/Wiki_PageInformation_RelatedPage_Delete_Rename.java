@@ -13,7 +13,6 @@ import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 /**
- * @author chinhdtt
  * @date 13 May 2014
  */
 public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
@@ -45,7 +44,7 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 	}
 
 	/**
-	 * Case ID:99193.
+	 * Case ID:118194
 	 * Test Case Name: Renaming a page from another space should correctly be updated in Page Info Layout of a related page.
 	 * Pre-Condition: User is member of Space 1, Space 2, Space 3
 		Wiki of "Space 1" has following pages:
@@ -69,9 +68,9 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 	 */
 	@Test
 	public  void test01_RenamingAPageFromAnotherSpaceShouldCorrectlyBeUpdatedInPageInfoLayoutOfARelatedPage() {
-		info("Test 9: Renaming a page from another space should correctly be updated in Page Info Layout of a related page");
-		String space1 = "Space01";		
-		String space2 = "Space02";
+		info("Test 1: Renaming a page from another space should correctly be updated in Page Info Layout of a related page");
+		String space1 = "Space01118194";		
+		String space2 = "Space02118194";
 		String title1 = "Page 1";
 		String title2 = "Page A";
 		String title3 = "Page B";
@@ -139,7 +138,7 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 	}
 
 	/**
-	 * Case ID:99194.
+	 * Case ID:118195
 	 * Test Case Name: Renaming a Space should be correctly updated in Page Info Layout of a related page
 	 * Pre-Condition: User is member of Space 1, Space 2, Space 3
 
@@ -164,7 +163,7 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 	 */
 	@Test
 	public  void test02_RenamingASpaceShouldBeCorrectlyUpdatedInPageInfoLayoutOfARelatedPage() {
-		info("Test 10: Renaming a Space should be correctly updated in Page Info Layout of a related page");
+		info("Test 2: Renaming a Space should be correctly updated in Page Info Layout of a related page");
 		String space1 = "Space99194A";
 		String space2 = "Space99194B";
 		String title1 = "Page 1";
@@ -229,71 +228,56 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 	}
 
 	/**
-	 * Qmetry ID: 69742
-	 * Case ID 06
-	 * <li><Delete page/li>
-	 * <li>Step 1: Create new pages</li>
-	 * <li>Step 2: Add related page</li>
-	 * <li>Step 3: Delete related page</li>
+	 * Qmetry ID: 118183
+	 * Case ID 03
+	 * <Delete page/li>
+	 * Step 1: Create new pages
+	 * Step 2: Add related page
+	 * Step 3: Delete related page
 	 */
 	@Test
 	public void test03_DeletePage(){
-		String[][] pageInfo = {{"Page69742_1", "Page69742_2"}, {"content of page1", "content of page2"}};
-
-		String[][] wikiPath = {{"Wiki Home", "Wiki Home"}, {"Wiki Home/Page69742_1", "Wiki Home/Page69742_2"}};
-
+		String[][] pageInfo = {{"Page118183_1", "Page118183_2"}, {"content of page1", "content of page2"}};
+		String[][] wikiPath = {{"Wiki Home", "Wiki Home"}, {"Wiki Home/Page118183_1", "Wiki Home/Page118183_2"}};
 		addBlankWikiPageAndRelatePage(2, wikiPath[0], pageInfo, 0, wikiPath[1][0], pageInfo[0][1]);
-
 		removeRelatedPage(true, true, null, pageInfo[0][1]);
-
 		deleteWikiPage(wikiPath[1]);
 	}
 
 	/**
-	 * Qmetry ID: 69747
-	 * Case ID 07
-	 * <li>Delete related page when cancel confirm message</li>
-	 * <li>Step 1: Create new pages</li>
-	 * <li>Step 2: Add related page</li>
-	 * <li>Step 3: Delete related page</li>
+	 * Qmetry ID: 118183
+	 * Case ID 04
+	 * Delete related page when cancel confirm message
+	 * Step 1: Create new pages
+	 * Step 2: Add related page
+	 * Step 3: Delete related page
 	 */
 	@Test
 	public void test04_DeleteRelatedPageWhenCancelConfirmMessage(){
-		String[][] pageInfo = {{"relatedPage07_1", "relatedPage07_2"}, {"content of page1", "content of page2"}};
-
-		String[][] wikiPath = {{"Wiki Home", "Wiki Home"}, {"Wiki Home/relatedPage07_1", "Wiki Home/relatedPage07_2"}};
-
+		String[][] pageInfo = {{"relatedPage04_1", "relatedPage04_2"}, {"content of page1", "content of page2"}};
+		String[][] wikiPath = {{"Wiki Home", "Wiki Home"}, {"Wiki Home/relatedPage04_1", "Wiki Home/relatedPage04_2"}};
 		addBlankWikiPageAndRelatePage(2, wikiPath[0], pageInfo, 0, wikiPath[1][0], pageInfo[0][1]);
-
 		removeRelatedPage(false, true, null, pageInfo[0][1]);
-
 		deleteWikiPage(wikiPath[1]);
 	}
 
 	/**
-	 * Qmetry ID: 69748
-	 * Case ID 08
-	 * <li>Delete related page when user does not have permission to edit page</li>
-	 * <li>Step 1: Create new pages</li>
-	 * <li>Step 2: Add related page</li>
-	 * <li>Step 3: Delete related page</li>
+	 * Qmetry ID: 118184
+	 * Case ID 05
+	 * Delete related page when user does not have permission to edit page
+	 * Step 1: Create new pages
+	 * Step 2: Add related page
+	 * Step 3: Delete related page
 	 */
 	@Test
 	public void test05_DeleteRelatedPageWhenUserDoesNotHavePermissionToEditPage(){
-		String[][] pageInfo = {{"relatedPage08_1", "relatedPage08_2"}, {"content of page1", "content of page2"}};
-
-		String[][] wikiPath = {{"Wiki Home", "Wiki Home"}, {"Wiki Home/relatedPage08_1", "Wiki Home/relatedPage08_2"}};
-
+		String[][] pageInfo = {{"relatedPage05_1", "relatedPage05_2"}, {"content of page1", "content of page2"}};
+		String[][] wikiPath = {{"Wiki Home", "Wiki Home"}, {"Wiki Home/relatedPage05_1", "Wiki Home/relatedPage05_2"}};
 		boolean[] editInfo = {true, false, false};
-
 		addBlankWikiPageAndEditPagePermissions(2, wikiPath[0], pageInfo, 0, editInfo, "any", 2);
-
 		addRelatedPage(wikiPath[1][1], pageInfo[0][0]);
-
 		goToPageInfo(ManageAccount.userType.AUTHOR, wikiPath[1][1]);
-
 		waitForElementNotPresent(ELEMENT_REMOVE_RELATED_PAGE_LINK.replace("${relatedPage}", pageInfo[0][0]));
-
 		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath[1]);
 	}
 }

@@ -8,24 +8,21 @@ import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
  * 
- * @author vuna2
- * <li>Date: Dec 11, 2012</li>
- * <li>Test cases: Wiki\Info\Related_Page</li>
+ * Date: Dec 11, 2012
+ * Test cases: Wiki\Info\Related_Page
  */
 public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
-	
+
 	ManageAccount magAc;
 	Button button;			
 	ManageMember mMember;	
-	
+
 	public String admin = "john";
 	public String pass = "gtn";
 
@@ -46,93 +43,70 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	}
 
 	/**
-	 * Qmetry ID: 69691
+	 * Qmetry ID: 118175
 	 * Case ID 01
-	 * <li> Add related page </li>
-	 * <li> Step 1: Create new pages </li>
-	 * <li> Step 2: Open form to see page's information </li>
-	 * <li> Step 3: Add related page </li>
+	 *  Add related page 
+	 *  Step 1: Create new pages 
+	 *  Step 2: Open form to see page's information 
+	 *  Step 3: Add related page 
 	 */
 	@Test
 	public void test01_AddRelatedPage(){
 		String[][] pageInfo = {{"relatedPage01_1", "relatedPage01_2"}, {"content of page1", "content of page2"}};
-
 		String[][] wikiPath = {{"Wiki Home", "Wiki Home"}, {"Wiki Home/relatedPage01_1", "Wiki Home/relatedPage01_2"}};
-
 		addBlankWikiPageAndRelatePage(2, wikiPath[0], pageInfo, 0, wikiPath[1][0], pageInfo[0][1]);
-
 		deleteWikiPage(wikiPath[1]);
-		
 		magAc.signOut();
 	}
-	
+
 	/**
-	 * Qmetry ID: 69692
+	 * Qmetry ID: 118176
 	 * Case ID 02
-	 * <li>Add related page when user does not have permission to edit this page</li>
-	 * <li>Step 1: Create new pages</li>
-	 * <li>Step 2: Set permission for page</li>
-	 * <li>Step 3: Open form to see page's information</li>
-	 * <li>Step 4: Add related page</li>
+	 * Add related page when user does not have permission to edit this page
+	 * Step 1: Create new pages
+	 * Step 2: Set permission for page
+	 * Step 3: Open form to see page's information
+	 * Step 4: Add related page
 	 */
 	@Test
 	public void test02_AddRelatedPageWhenUserDoesNotHavePermissionToEditThisPage(){		
 		String[][] pageInfo = {{"relatedPage02"}, {"content of page"}};
-
 		String[][] wikiPath = {{"Wiki Home"}, {"Wiki Home/relatedPage02"}};
-
 		boolean[] editInfo = {true, false, false};
-
 		addBlankWikiPageAndEditPagePermissions(1, wikiPath[0], pageInfo, 0, editInfo, "any", 2);
-
 		goToPageInfo(ManageAccount.userType.PUBLISHER, "Wiki Home/relatedPage02");
-
 		Utils.captureScreen("FNC_KS_WIKI_INFO_CASE_02");
-
 		waitForElementNotPresent(ELEMENT_ADD_MORE_RELATION_BUTTON);
-
 		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath[1]);
 	}
-	
+
 	/**
-	 * Qmetry ID: 69693
+	 * Qmetry ID: 118177
 	 * Case ID 03
-	 * <li>Add related page when user does not have permission to view selected page</li>
-	 * <li>Step 1: Create new pages</li>
-	 * <li>Step 2: Set permission for page</li>
-	 * <li>Step 3: Open form to see page's information</li>
-	 * <li>Step 4: Add related page</li>
+	 * Add related page when user does not have permission to view selected page
+	 * Step 1: Create new pages
+	 * Step 2: Set permission for page
+	 * Step 3: Open form to see page's information
+	 * Step 4: Add related page
 	 */
 	@Test
 	public void test03_AddRelatedPageWhenUserDoesNotHavePermissionToViewSelectedPage(){
 		String[][] pageInfo = {{"relatedPage03_1", "relatedPage03_2"}, {"content of page1", "content of page2"}};
-
 		String[][] wikiPath = {{"Wiki Home", "Wiki Home"}, {"Wiki Home/relatedPage03_1", "Wiki Home/relatedPage03_2"}};
-
 		boolean[] editInfo = {false, false, false};
-
 		addBlankWikiPageAndEditPagePermissions(2, wikiPath[0], pageInfo, 0, editInfo, "any", 2);
-
-		goToWikiPage(wikiPath[1][0]);
-		
-		editPagePermission("any", true, true, false, 2);
-		
+		goToWikiPage(wikiPath[1][0]);		
+		editPagePermission("any", true, true, false, 2);		
 		goToPageInfo(ManageAccount.userType.AUTHOR, wikiPath[1][0]);
-
 		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
-
 		waitForElementNotPresent(By.xpath(ELEMENT_SELECTED_PAGE.replace("${relatedPage}", pageInfo[0][1])));
-
 		button.cancel();
-
 		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath[1]);
 	}
 
-	
-	
-	
+
 	/**
-	 * Case ID:99195.
+	 * Case ID:118196
 	 * Test Case Name: Add 2 relations from 2 different spaces.
 	 * Pre-Condition: User is member of Space 1, Space 2, Space 3
 
@@ -154,9 +128,9 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	@Test
 	public  void test04_Add2RelationsFrom2DifferentSpaces() {
 		info("Test 11: Add 2 relations from 2 different spaces");
-		String space1 = "Space99195A";
-		String space2 = "Space99195B";
-		String space3 = "Space99195C";
+		String space1 = "Space118196A";
+		String space2 = "Space118196B";
+		String space3 = "Space118196C";
 		String title1 = "Page 1";
 		String title2 = "Page A";
 		String title3 = "Page a";
@@ -232,8 +206,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 		 - "Page a" is added as a related pages on page info layout
          - "Page A" is still displayed as a related pages on page info layout	*/ 
 		info("Add Relations with page a");
-		WebElement element = waitForAndGetElement(ELEMENT_ADD_MORE_RELATION_BUTTON);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
 		click(ELEMENT_SELECT_SPACE);
 		click(ELEMENT_SPACE_NAME_SELECTED.replace("${space}", space3.toLowerCase()));
 		click(By.xpath(ELEMENT_SELECTED_PAGE.replace("${relatedPage}", title3)));
@@ -252,7 +225,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	}
 
 	/**
-	 * Case ID:99196.
+	 * Case ID:118197
 	 * Test Case Name: Add related popup must display the currently browsed space by default.
 	 * Pre-Condition: User is member of Space 2
 		Space 2 wiki has following pages:
@@ -266,7 +239,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	@Test
 	public  void test05_AddRelatedPopupMustDisplayTheCurrentlyBrowsedSpaceByDefault() {
 		info("Test 12: Add related popup must display the currently browsed space by default");
-		String spaceName = "Space99196";
+		String spaceName = "Space118197";
 		String title1 = "Page 1";
 		String title2 = "Page 2";
 		String wikiPath = "Wiki Home";
@@ -298,8 +271,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 		 - Popup to select a page is displayed
 		 - Label "Select the space:" with the space switcher are displayed */
 		info("Click on Add More button");
-		WebElement element = waitForAndGetElement(ELEMENT_ADD_MORE_RELATION_BUTTON);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
 		waitForAndGetElement(ELEMENT_SELECT_SPACE);
 
 		/*Step 4: 
@@ -314,7 +286,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	}
 
 	/**
-	 * Case ID:99197.
+	 * Case ID:118198
 	 * Test Case Name: Add relation to a page from another space.
 	 * Pre-Condition: User is member of Space 1 and Space 2
 
@@ -332,8 +304,8 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	@Test
 	public  void test06_AddRelationToAPageFromAnotherSpace() {
 		info("Test 13: Add relation to a page from another space");
-		String space1 = "Space99197A";
-		String space2 = "Space99197B";
+		String space1 = "Space118198A";
+		String space2 = "Space118198B";
 		String title1 = "Page 1";
 		String title2 = "Page A";
 		String wikiPath = "Wiki Home";	
@@ -394,7 +366,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	}
 
 	/**
-	 * Case ID:99198.
+	 * Case ID:118199
 	 * Test Case Name: Add relation to a page from the same space.
 	 * Pre-Condition: 
 	 * User is member of Space 1
@@ -408,7 +380,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	@Test
 	public  void test07_AddRelationToAPageFromTheSameSpace() {
 		info("Test 14 Add relation to a page from the same space");
-		String spaceName = "Space99198";
+		String spaceName = "Space118199";
 		String title1 = "Page 1";
 		String title2 = "Page 2";
 		String wikiPath = "Wiki Home";
@@ -451,8 +423,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 		mouseOverAndClick(ELEMENT_PAGE_INFO_LINK);
 		Utils.pause(1000);
 		info("Add Relations page");
-		WebElement element = waitForAndGetElement(ELEMENT_ADD_MORE_RELATION_BUTTON);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
 		click(By.xpath(ELEMENT_SELECTED_PAGE.replace("${relatedPage}", title1)));
 		Utils.pause(500);
 		click(button.ELEMENT_SELECT_BUTTON);
@@ -465,7 +436,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	}
 
 	/**
-	 * Case ID:99199.
+	 * Case ID:118200
 	 * Test Case Name: User should be able to select the currently browsed space.
 	 * Pre-Condition: 
 	 * User is member of Space 2		
@@ -480,7 +451,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	@Test
 	public  void test08_UserShouldBeAbleToSelectTheCurrentlyBrowsedSpace() {
 		info("Test 15: User should be able to select the currently browsed spaceView content of current version while view content of other version");
-		String spaceName = "Space99199";
+		String spaceName = "Space118200";
 		String title1 = "Page 1";
 		String title2 = "Page 2";
 		String title3 = "Page 3";
@@ -521,8 +492,7 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 		 *Input Data: 
 		 *Expected Outcome: - The popup to select a related page is displayed	*/
 		info("Click on Add More button");
-		WebElement element = waitForAndGetElement(ELEMENT_ADD_MORE_RELATION_BUTTON);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
 		waitForAndGetElement(ELEMENT_SELECT_SPACE);
 
 		/*
@@ -546,5 +516,5 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 		mMember.goToAllSpaces();
 		mMember.deleteSpace(spaceName,300000);
 	}
-	
+
 }

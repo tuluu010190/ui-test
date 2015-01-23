@@ -10,13 +10,13 @@ import org.openqa.selenium.WebDriver;
 
 public class SocialBase extends PlatformBase {
 
-//	SpaceManagement spaceMag;
+	//	SpaceManagement spaceMag;
 
 	public final By ELEMENT_JOIN_SPACE_LINK = By.xpath("//div[@class='uiSpaceNavigationPortlet']/div/a/i[contains(@class, 'uiIconPLFMan')]");
 	//public final By ELEMENT_JOIN_SPACE_LINK = By.xpath("//div[@class='uiSpaceNavigationPortlet']/..//div/a[contains(text(),'Join a space')]");
 
 	// Go to My space link
-//	public final By ELEMENT_MY_SPACES_LINK = By.linkText("My Spaces");
+	//	public final By ELEMENT_MY_SPACES_LINK = By.linkText("My Spaces");
 	public final By ELEMENT_ALL_SPACE_LINK = By.linkText("All Spaces");
 	public final By ELEMENT_INVITATION_RECEIVES_LINK = By.linkText("Invitations Received");
 	public final By ELEMENT_REQUESTS_PENDING_LINK = By.linkText("Requests Pending");
@@ -34,7 +34,7 @@ public class SocialBase extends PlatformBase {
 	public final By ELEMENT_MY_SPACE_SEARCH_BOX = By.xpath("//*[@id='UISpaceNavigationPortlet']//input[@value='Search Spaces']");
 	public final By ELEMENT_MY_SPACE_NO_FOUND_LABEL = By.xpath("//*[@id='UISpaceNavigationPortlet']//*[@class='noSpace' and text()='No space found']");
 	public final String ELEMENT_SPACE_TOOL_TIP = "//*[@id='UISpaceNavigationPortlet']//*[@class='tooltip fade bottom in']/*[@class='tooltip-inner' and text()='${space}']";
-	
+
 	// Go to My Space > All Spaces Tab
 	public final String ELEMENT_SEND_REQUEST_LINK = "//*[@id='UIManageAllSpaces']//*[text()='${spaceName}']/../../ul//*[text()='Request to Join']";
 	public final String ELEMENT_INVITATION_LEAVE_LINK_IN_ALL_SPACES = "//*[@id='UIManageAllSpaces']//*[text()='${spaceName}']/../../ul//*[text()='Leave']";
@@ -105,11 +105,11 @@ public class SocialBase extends PlatformBase {
 	public final By ELEMENT_ACTIVITY_STREAM_TAB = By.xpath("//div[@id='UIUserNavigationPortlet']//*[contains(text(),'Activities')]");
 
 	/*------------------- End of parameters ---------------------*/	
-	
+
 	public SocialBase(){
-		 
+
 	}
-	
+
 	public SocialBase(WebDriver dr, String...plfVersion){
 		dr = driver; 
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";	
@@ -118,30 +118,18 @@ public class SocialBase extends PlatformBase {
 	/**
 	 * Common functions for Social
 	 */
-	// Go to My Space Page
-	/**
-	 * Migrate to PLF 4
-	 * <li> Update by @author vuna2 </li>
-	 */
-	
 	public void goToMySpacePage(){
 		info("--Go to My Space Page--");
-		//waitForElementPresent(ELEMENT_MY_SPACES_LINK);
-		//click(ELEMENT_MY_SPACES_LINK);
-		//		Utils.pause(500);
-		//		click(ELEMENT_JOIN_SPACE_LINK);
-		//		waitForTextPresent("Add New Space");
-		//		goToMySpacePage();
 		goToAllSpaces();
 		waitForAndGetElement(ELEMENT_MY_SPACES_LINK);
-		clickByJavascript(ELEMENT_MY_SPACES_LINK);
+		click(ELEMENT_MY_SPACES_LINK);
 		Utils.pause(500);
 	}
 
 	// Go to All Spaces
 	public void goToAllSpaces(){
 		info("Go to All Spaces");
-		clickByJavascript(ELEMENT_JOIN_SPACE_LINK);
+		click(ELEMENT_JOIN_SPACE_LINK);
 		if(waitForAndGetElement("//button[contains(.,'Add New Space')]",DEFAULT_TIMEOUT,0)== null){
 			//clearCache();
 			waitForAndGetElement("//button[contains(.,'Add New Space')]");

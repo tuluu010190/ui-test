@@ -65,7 +65,6 @@ public class SpaceManagement extends SocialBase {
 	public final String MESSAGE_DELETE_SPACE            = "Cannot undo one deleted space with all its page navigations and group. Are you sure to delete this space?";
 	public final String ELEMENT_VERIFY_SPACE_NAME_ACTIVITY = "//div[@class='author']/a[contains(text(),'${spaceName}')]";
 	public final String ELEMENT_SPACE_MENU_ITEM = "//*[@id='spaceMenuTab']//span[contains(text(),'${menuItem}')]";
-	public final String ELEMENT_SPACE_MENU_ITEM_41 = "//*[@id='spaceMenuTab']//span[contains(text(),'${menuItem}')]";
 	public final String ELEMENT_SPACE_CURRENT_MENU_ITEM = "//li[@class='active item']//span[text()='${menuItem}']";
 	public final By ELEMENT_SPACE_MORE_ITEM = By.xpath("//i[@class='uiIconAppMoreButton']");
 
@@ -103,19 +102,19 @@ public class SpaceManagement extends SocialBase {
 	public final By ELEMENT_SPACE_ANSWER_PORTLET = By.id("UIAnswersPortlet");
 	public final By ELEMENT_SPACE_FAQ_PORTLET = By.id("UIFAQPortlet");
 	public final By ELEMENT_SPACE_MEMBER_PORTLET = By.id("UIMembersPortlet");
-	
+
 	//Space action bar
 	public final String ELEMENT_SPACE_TAB_NAME = "//*[@id='spaceMenuTab']/li['${index}']/a/span[text()='${tabName}']";
-	
+
 	//----Space setting
 	//Application tab
 	public final String ELEMENT_APPLICATIONS_IN_SPACE = "//*[@id='UISpaceApplication']//*[text()='${app}']";
 	public final By ELEMENT_APPLICATIONS_TAB_IN_MENU_SETTING = By.linkText("Applications");
 	public final String ELEMENT_APPLICATIONS_DELETE_ICON_IN_MENU_SETTING = "//*[text()='${app}']/../..//*[@class='uiIconClose pull-right']";
-	
+
 	//Space settings tab
 	public final By ELEMENT_MEMBER_TAB = By.xpath("//*[@id='UITabPane']//a[@data-target='#UISpaceMember-tab' and contains(text(),'Members')]");
-	
+
 	public SpaceManagement(WebDriver dr, String...plfVersion){
 		driver = dr;
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
@@ -138,7 +137,7 @@ public class SpaceManagement extends SocialBase {
 		By button = By.xpath("//div[@class='uiAction']/*[text()='" + label + "']");
 		//("//*[contains(@class,'ActionButton') and text()='" + label + "']");
 		waitForAndGetElement(button);
-		clickByJavascript(button);
+		click(button);
 	}
 
 	/**
@@ -150,19 +149,6 @@ public class SpaceManagement extends SocialBase {
 		waitForAndGetElement(tab);
 		click(tab);
 	}
-	/**
-	 * Migrate to PLF 4
-	 * <li>Update by @author vuna2</li>
-	 * Do a action on space such as Edit, delete, ...
-	 * 
-	 * @param action : Action name 
-	 * @param spaceName : Space name
-	 */
-	/*public void doAction(String action, String spaceName){
-		By actionLink = By.xpath("//a[text()='" + spaceName + "']/../../../div/button[text()='" + action + "']");
-				//("//a[text()='" + spaceName + "']/ancestor::div[contains(@class,'ContentBox')]//a[text()='" + action + "']");
-		click(actionLink);
-	}*/
 
 	/**
 	 * Migrate to PLF 4
@@ -189,7 +175,7 @@ public class SpaceManagement extends SocialBase {
 			click(By.linkText(name));
 			waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0);
 		}
-			
+
 	}
 
 	/**
@@ -277,11 +263,7 @@ public class SpaceManagement extends SocialBase {
 		doAction("Delete", name);    
 		magAlert = new ManageAlert(driver);
 		magAlert.acceptAlert();
-//		if (waitForAndGetElement(button.ELEMENT_OK_BUTTON, 3000, 0, 2) != null){
-//			click(button.ELEMENT_OK_BUTTON);
-//		}
 		button.ok();
-		
 		Utils.pause(1000);
 		waitForElementNotPresent(By.xpath(ELEMENT_ACTION_USER_ON_SPACE.replace("${spaceName}", name).replace("${action}", "Delete")), iTimeout);
 		info(name + " was deleted successfully");
@@ -310,7 +292,7 @@ public class SpaceManagement extends SocialBase {
 		}
 		button.save();
 		Utils.pause(500);
-//		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
+		//		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		if(name == newName){
 			waitForAndGetElement("//*[contains(text(),'Updated space information successfully.')]");
 			dialog.closeMessageDialog();
@@ -391,26 +373,19 @@ public class SpaceManagement extends SocialBase {
 	 * @author phuongdt
 	 * @param menuItem
 	 */
-	public void goToSpaceMenu(String menuItem,int...wait){
-		int timeout = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
+	public void goToSpaceMenu(String menuItem){
 		info("-- Go To " + menuItem + " --");
-		String eMenuItem = "";
-		if(this.plfVersion.equalsIgnoreCase("4.1")){
-			eMenuItem = ELEMENT_SPACE_MENU_ITEM_41;
-		}else
-			eMenuItem = ELEMENT_SPACE_MENU_ITEM;
-
-		if(waitForAndGetElement(eMenuItem.replace("${menuItem}", menuItem),timeout,0) != null)
-			click(By.xpath(eMenuItem.replace("${menuItem}", menuItem)));
+		if(waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem),5000,0) != null)
+			click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem)));
 		else{
 			click(ELEMENT_SPACE_MORE_ITEM);
 			Utils.pause(2000);
 			String []items = menuItem.split(" ");
 			if(items.length>1){
-				click(By.xpath(eMenuItem.replace("${menuItem}", menuItem.split(" ")[0]+" ...")));
+				click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem.split(" ")[0]+" ...")));
 			}
 			else{
-				click(By.xpath(eMenuItem.replace("${menuItem}", menuItem)));
+				click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem)));
 			}
 		}	
 
@@ -443,7 +418,7 @@ public class SpaceManagement extends SocialBase {
 		click(ELEMENT_SPACE_IN_MY_SPACE_LIST.replace("${space}", spaceName));
 		waitForAndGetElement(ELEMENT_SPACE_ACTIVITY_STREAM_PORTLET,60000,1);
 	}
-	
+
 	/**
 	 * @author lientm
 	 * @param tabName

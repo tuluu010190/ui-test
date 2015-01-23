@@ -89,7 +89,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: The activity is added to the activity stream of the space		*/
 		mMember.goToMySpacePage();
 		mMember.addNewSpace(spaceName,"");
-		spaceMan.goToSpaceMenu("Activity Stream",100000);
+		spaceMan.goToSpaceMenu("Activity Stream");
 		addActivity(true, text, false, "");
 
 		/*

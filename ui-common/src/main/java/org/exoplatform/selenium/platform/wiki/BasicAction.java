@@ -12,10 +12,8 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 /**
  * Provides all methods of adding and editing pages. 
@@ -23,10 +21,6 @@ import org.openqa.selenium.WebElement;
  * 
  */
 public class BasicAction extends Permission{
-
-	//Dialog dialog = new Dialog(driver);
-	//Button button = new Button(driver);
-	//ManageAlert magAlert;
 
 	Dialog dialog = new Dialog(driver);
 	ManageAlert magAlert = new ManageAlert(driver);
@@ -382,9 +376,7 @@ public class BasicAction extends Permission{
 		goToPageInfo(null, wikiPath);
 		driver.navigate().refresh();
 		Utils.pause(3000);
-		//click(ELEMENT_ADD_MORE_RELATION_BUTTON);
-		WebElement element = waitForAndGetElement(ELEMENT_ADD_MORE_RELATION_BUTTON);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		click(ELEMENT_ADD_MORE_RELATION_BUTTON);
 		Utils.pause(1000);
 		if (space != ""){
 			click(ELEMENT_SELECT_SPACE);
@@ -619,10 +611,7 @@ public class BasicAction extends Permission{
 		String ELEMENT_PARAGRAPH_ID = "H"+paragraphTitle;
 
 		mouseOver(By.id(ELEMENT_PARAGRAPH_ID), true);
-		//click(By.xpath("//*[@title='Edit section: " + paragraphTitle + "']"), 2);
-
-		WebElement element = waitForAndGetElement(By.xpath("//*[@data-original-title='Edit Section: " + paragraphTitle + "']"));
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		click(By.xpath("//*[@title='Edit section: " + paragraphTitle + "']"), 2);
 		Utils.pause(500);
 		driver.navigate().refresh();
 		Utils.pause(2000);

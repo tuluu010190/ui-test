@@ -93,7 +93,6 @@ public class WikiBase extends PlatformBase{
 
 	public final String ELEMENT_PAGE_NOT_FOUND = "//h3[text()='Page Not Found']";
 	public final String ELEMENT_NODE_WIKI_PAGE = "//a[contains(text(), '${node}')]";
-	
 	//Space Switcher
 	public final By ELEMENT_SPACE_SWITCHER_BREADCRUMB = By.id("DisplayModesDropDown");
 	public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText lostFocus']") ;
@@ -458,7 +457,7 @@ public class WikiBase extends PlatformBase{
 			//if(waitForAndGetElement(bExpandIcon.replace("{$node}",nodeNext),5000,0) == null){
 			//	click(bExpandIcon.replace("{$node}",node));
 			//}
-			if(waitForAndGetElement(ELEMENT_NODE_WIKI_PAGE.replace("${node}",nodeNext),5000,0) == null){
+			if(waitForAndGetElement(ELEMENT_NODE_WIKI_PAGE.replace("{$node}",nodeNext),5000,0) == null){
 				click(ELEMENT_NODE_WIKI_PAGE.replace("${node}",node));
 			}  
 			Utils.pause(100);

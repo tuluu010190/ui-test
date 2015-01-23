@@ -187,7 +187,6 @@ public class TestBase {
 	 * Verify plf version
 	 */
 	public void checkPLFVersion(){
-		//		waitForTextNotPresent("terms and conditions agreement");
 		try{
 			info("Verify platform version");
 			String des = driver.findElement(ELEMENT_PLF_INFORMATION).getText();
@@ -200,8 +199,8 @@ public class TestBase {
 				info("Platform version 4.1.x or 4.2");
 			}
 		}catch(Exception e){
-			info("Unknown platform version. Set to default version 4.0.x.");
-			this.plfVersion="4.0";
+			info("Unknown platform version. Set to default version 4.1.x.");
+			this.plfVersion="4.1";
 		}
 
 	}
@@ -407,10 +406,6 @@ public class TestBase {
 			Utils.pause(WAIT_INTERVAL);
 			dragAndDropToObject(sourceLocator, targetLocator);
 		}catch (UnhandledAlertException e) {
-			/*checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			Utils.pause(WAIT_INTERVAL);
-			dragAndDropToObject(sourceLocator, targetLocator);*/
-			//acceptAlert();
 			try {
 				Alert alert = driver.switchTo().alert();
 				alert.accept();
@@ -644,7 +639,7 @@ public class TestBase {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
 
 			if (element.isSelected()) {
-				clickByJavascript(locator,notDisplayE);
+				click(locator,notDisplayE);
 			} else {
 				info("Element " + locator + " is already unchecked.");
 			}
@@ -740,7 +735,6 @@ public class TestBase {
 		return bool;
 	}
 
-	//////
 	/** function: set driver to auto save file to TestData/TestOutput
 	 * @author lientm
 	 */

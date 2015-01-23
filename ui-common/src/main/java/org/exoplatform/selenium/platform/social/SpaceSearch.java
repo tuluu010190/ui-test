@@ -1,11 +1,11 @@
 package org.exoplatform.selenium.platform.social;
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.event.KeyEvent;
+
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 /**
  * 
@@ -26,8 +26,7 @@ public class SpaceSearch extends SocialBase {
 		waitForAndGetElement(ELEMENT_SEARCH_TEXTBOX);	
 		type(ELEMENT_SEARCH_TEXTBOX, spaceName, true);	
 		info("Click search button");	
-		WebElement searchButton = waitForAndGetElement(ELEMENT_SEARCH_BUTTON, DEFAULT_TIMEOUT, 1, 2);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", searchButton);
+		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
 		if (verify) {	
 			waitForAndGetElement(DATA_SPACE_LINK);		
 		}
