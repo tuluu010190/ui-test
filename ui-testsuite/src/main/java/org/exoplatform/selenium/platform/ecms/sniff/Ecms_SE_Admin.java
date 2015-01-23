@@ -12,7 +12,7 @@ import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentTy
 import org.testng.annotations.*;
 
 
-public class Ecms_SE_Admin extends ECMS_TestConfig{
+public class Ecms_SE_Admin extends ECMS_TestConfig_Part2{
 	/**
 	 * Add manage publishtation to action bar of Web view type
 	 */

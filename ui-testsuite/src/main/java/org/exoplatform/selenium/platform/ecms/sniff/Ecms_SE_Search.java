@@ -18,7 +18,7 @@ import org.openqa.selenium.Keys;
 import org.testng.annotations.*;
 
 
-public class Ecms_SE_Search extends ECMS_TestConfig {
+public class Ecms_SE_Search extends ECMS_TestConfig_Part2 {
 	/**
 	 *<li> Case ID:116566.</li>
 	 *<li> Test Case Name: Advanced search.</li>

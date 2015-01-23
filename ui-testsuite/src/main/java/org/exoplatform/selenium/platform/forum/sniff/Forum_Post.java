@@ -5,7 +5,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
-
 	/**
 	* @author eXo
 	*
@@ -15,26 +14,37 @@ import org.testng.annotations.*;
 		String nameCat ;
 		String nameForum;
 		String nameTopic;
-		
+		/**
+		 * Create a category, forum and topic
+		 */
 		public void prepareData(){
+			info("Create data test");
 			nameCat = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 			nameForum = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 			nameTopic = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 			String description= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+			info("Finished creating data test");
+			info("Open forum portlet");
 			hp.goToForum();
-			foHome.addCategory(nameCat,"",description);
-			foHome.saveChangesAddCategory();
-			foHome.addForum(nameForum,"",description);
-			foHome.saveChangesAddForum();
-			foHome.goToStartTopic();
-			foHome.startTopic(nameTopic, description, "", "");
-			foHome.goToTopic(nameTopic);
+			info("Add a new category");
+			forumCatMag.addCategorySimple(nameCat,"",description);
+			info("Add a new forum");
+			forumMag.addForumSimple(nameForum,"",description);
+			info("Add a new topic");
+			forumMag.goToStartTopic();
+			foTopic.startTopic(nameTopic, description, "", "");
+			forumHP.goToTopic(nameTopic);
 		}
-		
+		/**
+		 * Delete data test
+		 */
 		public void deletaData(){
+			info("Open forum portlet");
 			hp.goToForum();
-			click(foHome.ELEMENT_CATEGORY_BREADCUMB_HOME);
-			foHome.deleteCategory(nameCat);
+			info("Go to Forum home page");
+			forumHP.goToHomeCategory();
+			info("Delete category");
+			forumCatMag.deleteCategory(nameCat);
 		}
 		
 	/**
@@ -77,32 +87,40 @@ public  void test01_02_03_04_05_Add_Edit_Quote_Delete_AddPrivate_Post() {
 		*Expected Outcome: 
 			- Post reply is added successfully*/ 
 		prepareData();
+		info("Reply a topic");
 		foTopic.postReply(title, content);
-		waitForAndGetElement(By.xpath(foTopic.ELEMENT_POST_IN_TOPIC.replace("{$title}",title).replace("{$content}",content)));
+		info("Verify that the post is created");
+		waitForAndGetElement(foTopic.ELEMENT_POST_IN_TOPIC.replace("{$title}",title).replace("{$content}",content));
 		
 		info("Test 2: Edit a post");
 		foTopic.editPost(title, newTitle, "");
-		waitForAndGetElement(By.xpath(foTopic.ELEMENT_POST_IN_TOPIC.replace("{$title}",newTitle).replace("{$content}",content)));
+		info("Verify that the post is edited");
+		waitForAndGetElement(foTopic.ELEMENT_POST_IN_TOPIC.replace("{$title}",newTitle).replace("{$content}",content));
 
 		info("Test 3: Quote a post");
+		info("Quote a post");
 		foTopic.quotePost(newTitle, "");
-		waitForAndGetElement(By.xpath(foTopic.ELEMENT_POST_IN_TOPIC_QUOTE.replace("{$title}","Re: "+newTitle).replace("{$content}",content)));
+		info("Verify that quote a post successfully");
+		waitForAndGetElement(foTopic.ELEMENT_POST_IN_TOPIC_QUOTE.replace("{$title}","Re: "+newTitle).replace("{$content}",content));
 
 		
 		info("Test 4: Delete a post");
-		click(By.xpath(foTopic.ELEMENT_DELETE_POST.replace("{$title}","Re: "+newTitle )));
+		info("Click on delete button of the post that is replied");
+		click(foTopic.ELEMENT_DELETE_POST.replace("{$title}","Re: "+newTitle ));
+		info("Click on OK button of the confirm popup");
 		click(foTopic.ELEMENT_DELETE_BOX_CONFIRMATION);
-		
-		waitForElementNotPresent(By.xpath(foTopic.ELEMENT_POST_IN_TOPIC.replace("{$title}","Re: "+newTitle).replace("{$content}",content)));
-		
-		click(By.xpath(foTopic.ELEMENT_DELETE_POST.replace("{$title}",newTitle )));
+		info("Verify that the replied post is deleted");
+		waitForElementNotPresent(foTopic.ELEMENT_POST_IN_TOPIC.replace("{$title}","Re: "+newTitle).replace("{$content}",content));
+		info("Click on delete button of the post");
+		click(foTopic.ELEMENT_DELETE_POST.replace("{$title}",newTitle ));
+		info("Click on OK button of the confirm popup");
 		click(foTopic.ELEMENT_DELETE_BOX_CONFIRMATION);
-		
-		waitForElementNotPresent(By.xpath(foTopic.ELEMENT_POST_IN_TOPIC.replace("{title}",newTitle).replace("{$content}",content)));
+		info("Verify that the post is deleted");
+		waitForElementNotPresent(foTopic.ELEMENT_POST_IN_TOPIC.replace("{title}",newTitle).replace("{$content}",content));
 		
 		info("Test 5: Add a private post");
 		foTopic.privatePost(nameTopic, "",contentPrivate );
-		
+		info("Verify that the post is privated");
 		waitForAndGetElement(By.xpath(foTopic.ELEMENT_POST_IN_TOPIC_PRIVATE.replace("{$title}","Re: "+nameTopic).replace("{$content}",contentPrivate)));
 		info("Delete data");
 		deletaData();

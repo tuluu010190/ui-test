@@ -31,8 +31,7 @@ public class Forum_BookMark extends Forum_TestConfig {
 		info("go to Forum home page");
 		hp.goToForum();
 		info("Add a category");
-		forumHP.addCategory(nameCat,"",description );
-		forumHP.saveChangesAddCategory();
+		forumCatMag.addCategorySimple(nameCat,"",description );
 
 		/*Step number: 2
 		 *Step Name: Bookmark a category
@@ -47,7 +46,8 @@ public class Forum_BookMark extends Forum_TestConfig {
 		info("Bookmark the topic");
 		forumHP.bookmark(nameCat);
 		info("Delete the category");
-		forumHP.deleteCategory(nameCat);
+		forumHP.goToHomeCategory();
+		forumCatMag.deleteCategory(nameCat);
 	}
 
 	/**
@@ -77,11 +77,9 @@ public class Forum_BookMark extends Forum_TestConfig {
 		info("go to Forum home page");
 		hp.goToForum();
 		info("Add a category");
-		forumHP.addCategory(nameCat,"",description);
-		forumHP.saveChangesAddCategory();
+		forumCatMag.addCategorySimple(nameCat,"",description);
 		info("Add a forum in the category");
-		forumHP.addForum(nameForum,"",description);
-		forumHP.saveChangesAddForum();
+		forumMag.addForumSimple(nameForum,"",description);
 		info("Verify that the forum is shown successfully");
 		waitForAndGetElement(forumHP.ELEMENT_DETAIL_FORUM_CATEGORY_TITLE.replace("${title}",nameForum));
 
@@ -99,7 +97,8 @@ public class Forum_BookMark extends Forum_TestConfig {
 		click(forumHP.ELEMENT_CATEGORY_BREADCUMB_HOME);
 		forumHP.bookmark(nameForum);
 		info("Delete the category");
-		forumHP.deleteCategory(nameCat);
+		forumHP.goToHomeCategory();
+		forumCatMag.deleteCategory(nameCat);
 
 	}
 
@@ -131,16 +130,14 @@ public class Forum_BookMark extends Forum_TestConfig {
 		info("go to Forum home page");
 		hp.goToForum();
 		info("Add a category");
-		forumHP.addCategory(nameCat,"",nameCat);
-		forumHP.saveChangesAddCategory();
+		forumCatMag.addCategorySimple(nameCat,"",nameCat);
 		info("Add a forum in the category");
-		forumHP.addForum(nameForum,"",nameForum);
-		forumHP.saveChangesAddForum();
+		forumMag.addForumSimple(nameForum,"",nameForum);
 		info("Verify that the forum is shown successfully");
 		waitForAndGetElement(forumHP.ELEMENT_DETAIL_FORUM_CATEGORY_TITLE.replace("${title}",nameForum));
 		info("Create a topic without attached file");
-		foHome.goToStartTopic();
-		forumHP.startTopic(topic1, topic1,"","");
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1,"","");
 
 		/*Step number: 2
 		 *Step Name: Bookmark a topic
@@ -154,7 +151,8 @@ public class Forum_BookMark extends Forum_TestConfig {
         info("Bookmark the topic");
 		forumHP.bookmark(topic1);
 		info("Delete the category");
-		forumHP.deleteCategory(nameCat);
+		forumHP.goToHomeCategory();
+		forumCatMag.deleteCategory(nameCat);
 
 	}
 	

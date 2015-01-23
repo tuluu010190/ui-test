@@ -12,7 +12,7 @@ import org.testng.annotations.*;
  * @author eXo
  *
  */
-public class Ecms_AdminRepository extends ECMS_TestConfig{
+public class Ecms_AdminRepository extends ECMS_TestConfig_Part1{
 
 	/**
 	 *<li> Case ID:116588.</li>
@@ -43,7 +43,6 @@ public class Ecms_AdminRepository extends ECMS_TestConfig{
 		CreNewDoc.saveAndClose();
 		SEHome.lockNode(title);
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 		caPage.goToSpecificFunctions(specificEcmFunctions.LOCKS);
 		click(caPage.ELEMENT_ECM_REPOSITORY_UNLOCK_NODE_LIST.replace("{$name}",title));
@@ -65,8 +64,8 @@ public class Ecms_AdminRepository extends ECMS_TestConfig{
 		String superTypes ="exo:calendar";
 
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.NODESTYPES);
 		caPage.addNodeType(name, superTypes);
 		caPage.searchNodeAndCheckIt(name, superTypes+", nt:base");
@@ -108,8 +107,8 @@ public class Ecms_AdminRepository extends ECMS_TestConfig{
 		 *Expected Outcome: 
 			New namespace is registered successfully.*/ 
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.NAMESPACES);
 		caPage.registerNamespace(prefix, url);
 		waitForAndGetElement(caPage.ELEMENT_ECM_REPOSITORY_NAMESPACES_CHECK_LIST_URL_AND_PREFIX.replace("{$url}",url).replace("{$prefix}",prefix));
@@ -146,8 +145,8 @@ public class Ecms_AdminRepository extends ECMS_TestConfig{
 		CreNewDoc.saveAndClose();
 		SEHome.lockNode(title);
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.LOCKS);
 		click(caPage.ELEMENT_ECM_REPOSITORY_MANAGE_LOCK);
 		click(caPage.ELEMENT_ECM_REPOSITORY_LOCKS_DEVELOPMENT_GROUP);

@@ -73,7 +73,7 @@ public class HomepageActivity extends PlatformBase {
 	public String ELEMENT_ACTIVITY_EDIT_FROM_HOMEPAGE ="//*[@id='UIDocumentForm']//*[contains(text(),'{$title}')]";
 	
 	// Common activity
-	public String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = "//*[@id='boxContainer']//*[contains(text(),'{$title}')]/../../../..//*[@class='commentList']//*[contains(text(),'{$comment}')]";
+	public String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[@class='commentList']//*[contains(text(),'{$comment}')]";
 	public String ELEMENT_ACTIVITY_VIEW_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'{$name}')]";

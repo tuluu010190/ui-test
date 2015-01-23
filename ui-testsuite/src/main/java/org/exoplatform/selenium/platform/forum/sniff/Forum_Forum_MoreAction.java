@@ -51,65 +51,60 @@ public class Forum_Forum_MoreAction extends Forum_TestConfig {
 		String cate = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String forum  = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
 		
-		// Add a category
-		forumHP.addCategory(cate, "", cate);
-		forumHP.saveChangesAddCategory();
+		info("Add a category");
+		forumCatMag.addCategorySimple(cate, "", cate);
 		
-		// Add a forum in the category
-		forumHP.addForum(forum, "", forum);
-		forumHP.saveChangesAddForum();
+		info("Add a forum in the category");
+		forumMag.addForumSimple(forum, "", forum);
 		
-		//lock the forum
-		forumHP.lockAndUnlock(true);
-		waitForAndGetElement(forumHP.ELEMENT_FORUM_START_TOPIC_DISABLE);
+		info("lock the forum");
+		forumMag.lockAndUnlock(true);
 		
-		//sign out and log in with user2
+		info("sign out and log in with user2");
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
-		//Go to the forum
-		forumHP.goToDetailForum(forum);
-		waitForAndGetElement(forumHP.ELEMENT_FORUM_START_TOPIC_DISABLE);
+		info("Go to the forum");
+		forumHP.goToForum(forum);
+		waitForAndGetElement(forumMag.ELEMENT_FORUM_START_TOPIC_DISABLE);
 		
-		// sign out and log in with user1
+		info("sign out and log in with user1");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
-		//Go to the forum
-		forumHP.goToDetailForum(forum);
+		info("Go to the forum");
+		forumHP.goToForum(forum);
 		
-		//unlock the forum
-		forumHP.lockAndUnlock(false);
-		//Verify that the forum is unlocked
-		waitForAndGetElement(forumHP.ELEMENT_FORUM_START_TOPIC_BUTTON);
+		info("unlock the forum");
+		forumMag.lockAndUnlock(false);
 		
-		// sign out and log in with user2
+		info("sign out and log in with user2");
 		magAc.signOut();
 	    magAc.signIn(DATA_USER2, DATA_PASS);
 	    
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
-		// Go to the forum
-		forumHP.goToDetailForum(forum);
-		//Verify that the forum is enabled
-		waitForAndGetElement(forumHP.ELEMENT_FORUM_START_TOPIC_BUTTON);
+		info("Go to the forum");
+		forumHP.goToForum(forum);
+		info("Verify that the forum is enabled");
+		waitForAndGetElement(forumMag.ELEMENT_FORUM_START_TOPIC_BUTTON);
 		
-		//log in back USER1
+		info("log in back USER1");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		// go to Forum home page
+	    info("go to Forum home page");
 		hp.goToForum();
 		
-		// Delete category
+		info("Delete category");
 		forumHP.goToHomeCategory();
-		forumHP.deleteCategory(cate);
+		forumCatMag.deleteCategory(cate);
 
 	}
 	
@@ -135,63 +130,57 @@ public class Forum_Forum_MoreAction extends Forum_TestConfig {
 		String cate = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String forum  = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
 
-		// Add a category
-		forumHP.addCategory(cate, "", cate);
-		forumHP.saveChangesAddCategory();
+		info("Add a category");
+		forumCatMag.addCategorySimple(cate, "", cate);
 
-		// Add a forum in the category
-		forumHP.addForum(forum, "", forum);
-		forumHP.saveChangesAddForum();
+		info("Add a forum in the category");
+		forumMag.addForumSimple(forum, "", forum);
 
-		//Close the forum
-		forumHP.closeAndOpen(true);
-		waitForAndGetElement(forumHP.ELEMENT_FORUM_START_TOPIC_DISABLE);
+		info("Close the forum");
+		forumMag.closeAndOpen(true);
 		
-		// sign out and log in with user2
+		info("sign out and log in with user2");
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
-		//Verify that the forum is hided
+		info("Verify that the forum is hided");
 		waitForElementNotPresent(forumHP.ELEMENT_FORUM_TITLE_LINK.replace("${name}",forum));
 		
-		// sign out and log in with user1
+		info("sign out and log in with user1");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
-		// Go to the forum
-		forumHP.goToDetailForum(forum);
+		info("Go to the forum");
+		forumHP.goToForum(forum);
 		
-		//open the forum
-		forumHP.closeAndOpen(false);
-		
-		// Verify that the forum is opened
-		waitForAndGetElement(forumHP.ELEMENT_FORUM_START_TOPIC_BUTTON);
+		info("open the forum");
+		forumMag.closeAndOpen(false);
 
-		// sign out and log in with user2
+		info("sign out and log in with user2");
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
-		// Go to the forum
+		info("Go to the forum");
 		waitForAndGetElement(forumHP.ELEMENT_FORUM_TITLE_LINK.replace("${name}",forum));
 		
-		// log in back USER1
+		info("log in back USER1");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
 
-		// Delete category
+		info("Delete category");
 		forumHP.goToHomeCategory();
-		forumHP.deleteCategory(cate);
+		forumCatMag.deleteCategory(cate);
 
 	}
 }

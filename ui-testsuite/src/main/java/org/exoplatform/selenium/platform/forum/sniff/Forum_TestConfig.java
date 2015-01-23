@@ -11,7 +11,9 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.answer.AnswerCategoryManagement;
 import org.exoplatform.selenium.platform.ecms.EditPageWCM;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
+import org.exoplatform.selenium.platform.forum.ForumCategoryManagement;
 import org.exoplatform.selenium.platform.forum.ForumHomePage;
+import org.exoplatform.selenium.platform.forum.ForumManagement;
 import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
 import org.exoplatform.selenium.platform.forum.PrivateMessageManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
@@ -29,8 +31,9 @@ public class Forum_TestConfig extends PlatformBase{
 
 	HomePagePlatform hp;
 	NavigationToolbar navTool;
-
+	ForumCategoryManagement forumCatMag;
 	ForumHomePage forumHP;
+	ForumManagement forumMag;
 	ManageLogInOut magAc;
 	MyProfilePage myPro;
 
@@ -41,7 +44,6 @@ public class Forum_TestConfig extends PlatformBase{
 	ManageAlert magAlert;
 	AnswerCategoryManagement cMang;
 	Button button;
-	ForumHomePage foHome;
 	ForumTopicManagement foTopic;
 	HomepageActivity aHome;
 	EditPageWCM editPage;
@@ -62,11 +64,12 @@ public class Forum_TestConfig extends PlatformBase{
 		magAlert = new ManageAlert(driver);
 		cMang = new AnswerCategoryManagement(driver);
 		button = new Button(driver);
-		foHome = new ForumHomePage(driver);
 		foTopic = new ForumTopicManagement(driver);
 		aHome = new HomepageActivity(driver);
 		editPage = new EditPageWCM(driver);
 		msgManage = new PrivateMessageManagement(driver);
+		forumCatMag = new ForumCategoryManagement(driver);
+		forumMag = new ForumManagement(driver);
 
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

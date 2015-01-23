@@ -47,6 +47,7 @@ public class Forum_Administration extends Forum_TestConfig {
 	 *<li> Pre-Condition: </li>
 	 *<li> Post-Condition: </li>
 	 */
+	@Test
 	public void test02_03_04_AddEditDeleteBBCode() {
 		info("Test 2: Add BB code");
 		info("Create data test");
@@ -71,33 +72,17 @@ public class Forum_Administration extends Forum_TestConfig {
 		 *Input Data:
 		 *Expected Outcome:
           BB code is added successfully*/
-		info("Add BBcode");
 		info("Go to Forum portlet");
 		hp.goToForum();
-		info("Click on Administration menu");
-		click(forumHP.ELEMENT_ACTIONBAR_ADMINISTRATION);
-		info("Select BBCode");
-		click(forumHP.ELEMENT_ACTIONBAR_ADMIN_BBCODE);
 		info("Add BBcode");
-		forumHP.AddBBCode(tag, replacement, "", example, false);
-		info("Click on Save button and save all changes");
-		click(hp.ELEMENT_EDITSITE_SAVEBTN);
-		info("Verify that BBcode is created");
-		waitForAndGetElement(forumHP.ELEMENT_BBCODE_TAG_VERIFY.replace("${tag}", tag.toUpperCase()));
+		forumHP.addBBCode(tag, replacement, "", example, false);
 		info("BBcode is created successfully");
-		info("Edit BBcode");
-		info("Click on Edit BBcode");
-		click(forumHP.ELEMENT_BBCODE_EDITBBCODE.replace("${tag}", tag.toUpperCase()));
+		info("Test 03: Edit BB code");
 		info("Edit a BBCode");
-		forumHP.AddBBCode(tag, replacement, "", example2, false);
-		info("click on Save button and save all changes");
-		click(hp.ELEMENT_EDITSITE_SAVEBTN);
-		info("Verify that BBcode is edited with changes");
-		waitForAndGetElement(forumHP.ELEMENT_BBCODE_TAG_VERIFY.replace("${tag}", tag.toUpperCase()));
+		forumHP.editBBCode(tag, replacement, "", example2, false);
 		info("BBcode is edited with changes successfully");
+		info("Test 04: Delete BB code");
 		info("Delete BBcode");
-		click(forumHP.ELEMENT_BBCODE_DELETEBBCODE.replace("${tag}", tag.toUpperCase()));
-		click(forumHP.ELEMENT_BBCODE_CONFIRM_DELETETAG);
-		waitForElementNotPresent(forumHP.ELEMENT_BBCODE_TAG_VERIFY.replace("${tag}", tag.toUpperCase()));
+		forumHP.deleteBBcode(tag);
 	}
 }

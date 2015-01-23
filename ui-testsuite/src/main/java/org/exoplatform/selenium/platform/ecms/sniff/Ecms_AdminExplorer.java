@@ -19,7 +19,7 @@ import org.testng.annotations.*;
  * @author rosso
  *
  */
-public class Ecms_AdminExplorer extends ECMS_TestConfig{
+public class Ecms_AdminExplorer extends ECMS_TestConfig_Part1{
 
 	/**
 	 *<li> Case ID:116587.</li>
@@ -40,7 +40,6 @@ public class Ecms_AdminExplorer extends ECMS_TestConfig{
 		String [] newV={"Web"};
 		info("Finished getting data test");
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
 		caPage.goToSpecificFunctions(specificEcmFunctions.DRIVES);
 		caPage.addDrives(title, permission, view);
@@ -82,21 +81,21 @@ public class Ecms_AdminExplorer extends ECMS_TestConfig{
 		String permission = "john";
 		
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
-		// add a view
+		info("add a view");
 		caPage.addView(title, tabName, tab, oldPermission);
-		// show a view
+		info("show a view");
 		click(By.xpath(caPage.ELEMENT_ECM_EXPLORER_VIEW_SHOW_A_VIEW_LIST.replace("{$name}",title)));
 		waitForAndGetElement(By.xpath(caPage.ELEMENT_ECM_EXPLORER_NAME_VIEW_SHOW_VIEW.replace("{$name}",title)));
 		click(caPage.ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM);
 		waitForAndGetElement(By.xpath(caPage.ELEMENT_ECM_EXPLORER_TAB_ICONS_LIST_SHOW_VIEW.replace("{$tab}",tab[0])));
 		click(caPage.ELEMENT_ECM_EXPLORER_CLOSE_VIEW_MODE);
-		// edit a view
+		info("edit a view");
 		caPage.editViewPermissionUser(title, "Fqa", permission);
 		waitForAndGetElement(By.xpath(caPage.ELEMENT_ECM_EXPLORER_VIEW_PERMISSIONS_LIST.replace("{$name}",title).replace("{$permission}","John")));
-		// delete a view
+		info("delete a view");
 		caPage.deleteView(title);
 		
 		/*Step Number: 1
@@ -132,8 +131,8 @@ public class Ecms_AdminExplorer extends ECMS_TestConfig{
 		
 		hp.goToHomePage();
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.TAGS);
 		caPage.addTags(title, occurences, oldHtml);
 		caPage.updateTags(title, null, html);

@@ -62,8 +62,8 @@ public class Forum_Settings extends Forum_TestConfig {
 		String name2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		hp.goToForum();
-		forumHP.addCategorySimple(name);
-		forumHP.addForumSimple(name2);
+		forumCatMag.addCategorySimple(name,"","");
+		forumMag.addForumSimple(name2,"","");
 		/*Step Number: 1
 		 *Step Name: Setting Forum porlet from edit mode
 		 *Step Description:

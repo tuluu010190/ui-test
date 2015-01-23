@@ -12,7 +12,7 @@ import org.testng.annotations.*;
 	* @author rosso
 	*
 	*/
-	public class Ecms_AdminAdvanced extends ECMS_TestConfig{
+	public class Ecms_AdminAdvanced extends ECMS_TestConfig_Part1{
 		
 	/**
 	*<li> Case ID:116581.</li>
@@ -29,7 +29,6 @@ import org.testng.annotations.*;
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String Newtitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
 		caPage.goToSpecificFunctions(specificEcmFunctions.ACTIONS);
 		caPage.addActionType(title,"","");
@@ -81,8 +80,8 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The query is added successfully*/ 
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.QUERIES);
 		caPage.addQueries(title,"","",permission);
 		info("Test 05: Edit Query");
@@ -121,8 +120,8 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The script is Added successfully*/ 
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.SCRIPTS);
 		caPage.addScripts(title, content, script);
 		info("Verify that the script is added in the list");
@@ -163,8 +162,8 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The Category is created successfully*/ 
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.CATEGORIES);
 		caPage.addCategories(name, nameAction, lifeCycle, targetPath);
 		info("Test 08: Edit Categories");

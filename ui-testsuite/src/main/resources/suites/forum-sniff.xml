@@ -18,6 +18,7 @@
 			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Settings"/>
 			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Post"/>
 			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_PrivateMessage"/>
+			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Topic"/>
 		</classes>
 	</test>
 	<listeners>

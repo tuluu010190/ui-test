@@ -11,7 +11,7 @@ import org.testng.annotations.*;
 	* @author eXo
 	*
 	*/
-	public class Ecms_AdminTemplates extends ECMS_TestConfig{
+	public class Ecms_AdminTemplates extends ECMS_TestConfig_Part1{
 		
 	/**
 	*<li> Case ID:116589.</li>
@@ -40,11 +40,10 @@ import org.testng.annotations.*;
 		String superTypes = "exo:metadata";
 		String permission="any";
 		navTool.goToContentAdministration();
-		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 		caPage.goToSpecificFunctions(specificEcmFunctions.NODESTYPES);
 		caPage.addNodeType(title, superTypes,"true");
-		driver.navigate().refresh();
+		//driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.TEMPLATES);
 		caPage.goToSpecificFunctions(specificEcmFunctions.METADATA);
 		
@@ -84,6 +83,7 @@ import org.testng.annotations.*;
 			- Template list is displayed with 4 columns: Icon, Template, Type, Actions
 			- A new template is created successfully*/ 
 		navTool.goToContentAdministration();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.TEMPLATES);
 		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.DOCUMENTS);
 		caPage.addDocumentInTemplates(title,permission);
@@ -122,6 +122,7 @@ import org.testng.annotations.*;
 			- A new template is created successfully*/ 
 
 		navTool.goToContentAdministration();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.TEMPLATES);
 		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.LIST);
 		caPage.addTemplateInList(name,tempName,content);

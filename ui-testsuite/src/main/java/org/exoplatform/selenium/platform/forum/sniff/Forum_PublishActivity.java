@@ -23,10 +23,8 @@ import org.testng.annotations.*;
 			nameCat = txData.getContentByArrayTypeRandom(1)+getRandomNumber()+"des";
 			nameForum = txData.getContentByArrayTypeRandom(1)+getRandomNumber()+"des";
 			hp.goToForum();
-			foHome.addCategory(nameCat,"",nameCat);
-			foHome.saveChangesAddCategory();
-			foHome.addForum(nameForum,"",nameForum);
-			foHome.saveChangesAddForum();
+			forumCatMag.addCategorySimple(nameCat,"",nameCat);
+			forumMag.addForumSimple(nameForum,"",nameForum);
 			info("Fnished preparing data test");
 		}
 		/**
@@ -36,9 +34,9 @@ import org.testng.annotations.*;
 		public void deleteDataTest(){
 			info("Delete data test");
 			hp.goToForum();
-			foHome.goToHomeCategory();
+			forumHP.goToHomeCategory();
 			info("Delete catefory");
-			foHome.deleteCategory(nameCat);
+			forumCatMag.deleteCategory(nameCat);
 			info("Finished deleting data test");
 		}
 		
@@ -86,26 +84,23 @@ import org.testng.annotations.*;
 		
 		
 		hp.goToForum();
-		foHome.goToHomeCategory();
+		forumHP.goToHomeCategory();
 		info("Create a second Category");
-		foHome.addCategory(Cat,"",Cat);
-		foHome.saveChangesAddCategory();
+		forumCatMag.addCategorySimple(Cat,"",Cat);
 		info("Create a second forum");
-		foHome.addForum(Forum,"",Forum);
-		foHome.saveChangesAddForum();
+		forumMag.addForumSimple(Forum,"",Forum);
 		
 		info("Start a topic in second forum of second Category");
-		foHome.goToStartTopic();
-		foHome.startTopic(Topic,Topic, "", "");
+		forumMag.goToStartTopic();
+		foTopic.startTopic(Topic,Topic, "", "");
 		
 		info("Move Topic:"+Topic);
-		foHome.goToTopic(Topic);
-		//foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenu.MOVE);
+		forumHP.goToTopic(Topic);
 		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.MOVE);
 		info("Move the topic to a forum");
 		foTopic.moveTopicToForum(nameCat,nameForum);
 		info("Verify that the forum is moved to new category");
-		waitForAndGetElement(foHome.ELEMENT_CATEGORY_FORUM_BREAD.replace("${forum}",nameForum).replace("${category}",nameCat));
+		waitForAndGetElement(forumHP.ELEMENT_CATEGORY_FORUM_BREAD.replace("${forum}",nameForum).replace("${category}",nameCat));
 		
 		hp.goToHomePage();
 		info("Verify that the topic's activity is shown on intranet");
@@ -114,8 +109,8 @@ import org.testng.annotations.*;
 		
 		info("Delete topic");
 		hp.goToForum();
-		foHome.goToHomeCategory();
-		foHome.deleteCategory(Cat);
+		forumHP.goToHomeCategory();
+		forumCatMag.deleteCategory(Cat);
 		deleteDataTest();
 		info("Test01: finished testing");
  	}
@@ -169,10 +164,10 @@ import org.testng.annotations.*;
 		
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1, "", "");
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1, "", "");
 		
 		hp.goToHomePage();
 		aHome.checkActivity(topic1);
@@ -197,18 +192,14 @@ import org.testng.annotations.*;
 		prepareDataTest();
 		
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1,"","");
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1,"","");
 		
 		info("Edit topic:"+topic1);
-		foHome.goToTopic(topic1);
-		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.EDIT);
-		type(foHome.ELEMENT_START_TOPIC_POPUP_TITLE_FILED, topicNewName, true);
-		info("Click on Submit button");
-		click(foHome.ELEMENT_SUBMIT_BUTTON);
-		info("All changes are saved");
+		forumHP.goToTopic(topic1);
+		foTopic.editTopic(topicNewName,"");
 		
 		hp.goToHomePage();
 		info("Verify that the topic's activity is updated");
@@ -232,17 +223,14 @@ import org.testng.annotations.*;
 		info("Finish Creating data test for test 4");
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1,"","");
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1,"","");
 		
 		info("Edit topic:"+topic1);
-		foHome.goToTopic(topic1);
-		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.EDIT);
-		inputFrame(foHome.ELEMENT_START_TOPIC_MESSAGE_FRAME_CKEDITOR,newContent);
-		info("Click on Submit button");
-		click(foHome.ELEMENT_SUBMIT_BUTTON);
+		forumHP.goToTopic(topic1);
+		foTopic.editTopic("", newContent);
 		
 		hp.goToHomePage();
 		info("Verify that the new topic's activity is shown");
@@ -266,13 +254,13 @@ import org.testng.annotations.*;
 		info("Finished Creating data test for test 5");
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1,"","");
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1,"","");
 		
 		info("Lock topic:"+topic1);
-		foHome.goToTopic(topic1);
+		forumHP.goToTopic(topic1);
 		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.LOCK);
 		info("Verify that Post reply button is not shown when the topic is locked");
 		waitForElementNotPresent(foTopic.ELEMENT_POST_REPLY);
@@ -308,13 +296,13 @@ import org.testng.annotations.*;
 		info("Finished Creating data test for test 6");
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1,"","");
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1,"","");
 		
 		info("Delete topic:"+topic1);
-		foHome.goToTopic(topic1);
+		forumHP.goToTopic(topic1);
 		foTopic.deleteTopic();
 		hp.goToHomePage();
 		info("Verify that the topic's activity is deleted after the topic is deleted");
@@ -353,12 +341,12 @@ import org.testng.annotations.*;
 			- A Poll's activity is added to the activity stream*/ 
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
 		
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1, "", "");
-		foHome.goToTopic(topic1);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1, "", "");
+		forumHP.goToTopic(topic1);
 		info("Add a new poll to the topic");
 		foTopic.addPoll(question, option1, option2);
 		
@@ -385,12 +373,12 @@ import org.testng.annotations.*;
 		info("Finish Creating data test for test 8");
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
 		
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1, "", "");
-		foHome.goToTopic(topic1);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1, "", "");
+		forumHP.goToTopic(topic1);
 		info("Add a new poll to the topic");
 		foTopic.addPoll(question, option1, option2);
 		
@@ -398,7 +386,7 @@ import org.testng.annotations.*;
 		info("Click on Vote of Poll's activity on the stream");
 		click(By.xpath(aHome.ELEMENT_ACTIVITY_POLL_VOTE_FOR_POLL.replace("{$name}",question)));
 		info("Verify that the page redirects to the poll");
-		waitForAndGetElement(foTopic.ELEMENT_EDIT_POLL_MORE_ACTIONS);
+		waitForAndGetElement(foTopic.ELEMENT_MORE_ACTIONS_POLL);
 		info("the page redirects to the poll successfully");
 		deleteDataTest();
 		info("Test 08: Finish testing");
@@ -420,12 +408,12 @@ import org.testng.annotations.*;
 		info("Finished Creating data test for test 9");
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
 		
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1, "", "");
-		foHome.goToTopic(topic1);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1, "", "");
+		forumHP.goToTopic(topic1);
 		info("Add a new poll to the topic");
 		foTopic.addPoll(question, option1, option2);
 		
@@ -455,12 +443,12 @@ import org.testng.annotations.*;
 		info("Finished Creating  data test for test 10");
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
 		
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1, "", "");
-		foHome.goToTopic(topic1);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1, "", "");
+		forumHP.goToTopic(topic1);
 		info("Add a new poll to the topic");
 		foTopic.addPoll(question, option1, option2);
 		
@@ -500,12 +488,11 @@ import org.testng.annotations.*;
 		info("Finished test data");
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
 		
-		foHome.goToStartTopic();
-		foHome.startTopic(topic1, topic1, "", "");
-		//foHome.goToTopic(topic1);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1, "", "");
 		
 		hp.goToHomePage();
 		info("Click on Reply button of the topic:"+topic1);
@@ -546,17 +533,17 @@ import org.testng.annotations.*;
 		info("Finished test data for test 12");
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
 		
 		info("Create a topic");
-		foHome.goToStartTopic();
-		foHome.startTopic(topic, topic,"","");
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic, topic,"","");
 		info("Finished Creating a topic");
 		info("Open the topic:"+topic);
-		foHome.goToTopic(topic);
+		forumHP.goToTopic(topic);
 		info("Reply the topic");
-		foHome.replyTopic(reply, reply, "","");
+		foTopic.replyTopic(reply, reply, "","");
 		
 		
 		hp.goToHomePage();
@@ -566,7 +553,7 @@ import org.testng.annotations.*;
 		info("Click on View Last Reply icon");
 		click(aHome.ELEMENT_ACTIVITY_TOPIC_VIEW_LAST_REPLY.replace("${topic}",topic));
 		info("Verify that the last reply is shown in forum");
-		waitForAndGetElement(foHome.ELEMENT_TOPIC_LAST_REPLY.replace("${reply}",reply));
+		waitForAndGetElement(forumHP.ELEMENT_TOPIC_LAST_REPLY.replace("${reply}",reply));
 		info("the last reply is shown in forum successfully");
 		deleteDataTest();
 		info("Test 12: Finish testing");
@@ -609,12 +596,12 @@ import org.testng.annotations.*;
 		info("Finished test data for test 13");
 		prepareDataTest();
 		hp.goToForum();
-		foHome.goToCategory(nameCat);
-		foHome.goToForum(nameForum);
+		forumHP.goToCategory(nameCat);
+		forumHP.goToForum(nameForum);
 		
 		info("Create a topic");
-		foHome.goToStartTopic();
-		foHome.startTopic(topic, topic,"","");
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic, topic,"","");
 		info("Finished Creating a topic");
 		
 		hp.goToHomePage();
@@ -627,7 +614,7 @@ import org.testng.annotations.*;
 		info("Click on the View icon");
 		click(aHome.ELEMENT_ACTIVITY_COMMENT_VIEW_HOVEROVER.replace("${comment}",comment));
 		info("Verify that the page redirects to related reply in the forum");
-		waitForAndGetElement(foHome.ELEMENT_TOPIC_REPPLY_CONTENT.replace("${content}",comment));
+		waitForAndGetElement(foTopic.ELEMENT_TOPIC_REPPLY_CONTENT.replace("${content}",comment));
 		info("The related reply is shown in forum successfully");
 		deleteDataTest();
 		info("Test 13: Finish testing");

@@ -131,6 +131,13 @@ public class TestBase {
 	public final By ELEMENT_ADMIN_PASS_LABEL = By.xpath("//h5[contains(text(), 'Admin Password')]");
 	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
 
+	//Upload file popup
+	public final By ELEMENT_UPLOAD_POPUP_FILE = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Attach File']");
+	public final By ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT = By.name("file");
+	public final By ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_SAVE_BUTTON = By.xpath(".//*[@id='UIAttachFileForm']//button[text()='Save']");
+	public final String ELEMENT_UPLOAD_POPUP_NAMEFILE = "//*[@class='fileNameLabel' and contains(text(),'${fileName}')]";
+	
+	public final By ELEMENT_SAVE_BTN = By.xpath("//*[text()='Save']");
 	/*======== End of Term and conditions =====*/	
 	/**
 	 * Get System Property
@@ -1291,5 +1298,44 @@ public class TestBase {
 		Actions action = new Actions(this.driver);
 		action.sendKeys(Keys.ENTER).perform();
 		action.release();
+	}
+	
+	/**
+	 * Attach file in attach popup
+	 * @author lientm 
+	 * Update QuynhPT
+	 * @param number
+	 *            : number of upload container that need upload file
+	 * @param filePath
+	 *            : path to file upload
+	 */
+	public void attachFile(String pathFile, String fileName) {
+		info("Attach a file");
+		WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1,2);
+		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", element);
+		info("Get the file to attach");
+		element.sendKeys(Utils.getAbsoluteFilePath(pathFile+fileName));
+		info("Verify that the file is attached");
+		waitForAndGetElement(ELEMENT_UPLOAD_POPUP_NAMEFILE.replace("${fileName}", fileName));
+		info("The file is attached successfully");
+		info("Click on Save button");
+		click(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_SAVE_BUTTON);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Import a Category
+	 * 
+	 * @param pathFile
+	 * @param fileName
+	 */
+	public void importCat(String pathFile, String fileName) {
+		info("Attach a file");
+		WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1,2);
+		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", element);
+		element.sendKeys(Utils.getAbsoluteFilePath(pathFile + fileName));
+		waitForAndGetElement(ELEMENT_UPLOAD_POPUP_NAMEFILE.replace("${fileName}", fileName));
+		click(ELEMENT_SAVE_BTN);
+		Utils.pause(2000);
 	}
 }

@@ -47,9 +47,15 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>ecms-sniff</id>
+			<id>ecms-sniff-part1</id>
 			<properties>
-				<testSuite>ecms-sniff.xml</testSuite>
+				<testSuite>ecms-sniff-part1.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>ecms-sniff-part2</id>
+			<properties>
+				<testSuite>ecms-sniff-part2.xml</testSuite>
 			</properties>
 		</profile>
 		<profile>

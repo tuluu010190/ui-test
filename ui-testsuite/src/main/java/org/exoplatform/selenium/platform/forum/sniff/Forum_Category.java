@@ -37,8 +37,7 @@ public class Forum_Category extends Forum_TestConfig{
 		info("go to Forum home page");
 		hp.goToForum();
 		info("Add a category");
-		forumHP.addCategory(nameCat,"",description);
-		forumHP.saveChangesAddCategory();
+		forumCatMag.addCategorySimple(nameCat,"",description);
 
 		/*Step number: 2
 		 *Step Name: Watch a category
@@ -54,12 +53,11 @@ public class Forum_Category extends Forum_TestConfig{
         info("Click on Watch link");
 		click(forumHP.ELEMENT_WATCH);
 		info("Add a forum in the category");
-		forumHP.addForum(nameForum,"",description);
-		forumHP.saveChangesAddForum();
+		forumMag.addForumSimple(nameForum,"",description);
 		info("Verify that the forum is shown successfully");
 		waitForAndGetElement(forumHP.ELEMENT_DETAIL_FORUM_CATEGORY_TITLE.replace("${title}",nameForum));
 		info("Create a topic without attached file");
-		forumHP.startTopic(topic1, topic1,"","");
+		foTopic.startTopic(topic1, topic1,"","");
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
@@ -68,7 +66,7 @@ public class Forum_Category extends Forum_TestConfig{
 		click((forumHP.ELEMENT_FORUM_DETAIL_FORUM_NAME_LINK).replace("${name}", topic1));
 		click(forumHP.ELEMENT_TOPIC_REPLY);
 		type(forumHP.ELEMENT_TOPIC_REPLY_TITLE, content, true);
-		inputFrame(forumHP.ELEMENT_START_TOPIC_MESSAGE_FRAME_CKEDITOR, content);
+		inputFrame(foTopic.ELEMENT_START_TOPIC_MESSAGE_FRAME_CKEDITOR, content);
 		click(forumHP.ELEMENT_SUBMIT_BUTTON); 
 		
 		goToMail("fqaexovn@gmail.com", "exoadmin");
@@ -89,13 +87,14 @@ public class Forum_Category extends Forum_TestConfig{
 		info("Add a forum in the category");
 		click(forumHP.ELEMENT_CATEGORY_BREADCUMB_HOME);
 		click(forumHP.ELEMENT_UNWATCH);
-		forumHP.addForum(nameForum,"",description);
-		forumHP.saveChangesAddForum();
+		forumMag.addForumSimple(nameForum,"",description);
 		info("Verify that the forum is shown successfully");
 		waitForAndGetElement(forumHP.ELEMENT_DETAIL_FORUM_CATEGORY_TITLE.replace("${title}",nameForum));
 		info("Create a topic without attached file");
-		forumHP.startTopic(topic1,description,"","");
-		forumHP.deleteCategory(nameCat);
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1,description,"","");
+		forumHP.goToHomeCategory();
+		forumCatMag.deleteCategory(nameCat);
 	}
 
 	/**
@@ -135,13 +134,14 @@ public class Forum_Category extends Forum_TestConfig{
 		info("go to Forum home page");
 		hp.goToForum();
 		info("Add a category");
-		forumHP.addCategory(nameCat,"",nameCat);
-		forumHP.saveChangesAddCategory();
-
+		forumCatMag.addCategorySimple(nameCat,"",nameCat);
+		info("Test 03: Edit a category");
 		info("edit category");
-		forumHP.editCategory(nameCat2);
+		forumCatMag.editCategory(nameCat2);
+		info("Test 04: Delete a category");
 		info("delete category");
-		forumHP.deleteCategory(nameCat2);
+		forumHP.goToHomeCategory();
+		forumCatMag.deleteCategory(nameCat2);
 	}
 
 	/**
@@ -171,8 +171,7 @@ public class Forum_Category extends Forum_TestConfig{
 		info("go to Forum home page");
 		hp.goToForum();
 		info("Add a category");
-		forumHP.addCategory(nameCat,"",description);
-		forumHP.saveChangesAddCategory();
+		forumCatMag.addCategorySimple(nameCat,"",description);
 
 		/*Step number: 2
 		 *Step Name: Export a category
@@ -186,7 +185,7 @@ public class Forum_Category extends Forum_TestConfig{
 		 *Expected Outcome: 
 			Category is exported successfully*/
         info("Export category");
-		click(forumHP.ELEMENT_CATEGORY_BREADCUMB_HOME);
+        forumHP.goToHomeCategory();
 		forumHP.exportCategory(nameCat);
 
 		/*Step number: 3
@@ -201,11 +200,11 @@ public class Forum_Category extends Forum_TestConfig{
 		 *Expected Outcome: 
 			Category is imported successfully*/ 
 		info("Delete category");
-		forumHP.deleteCategory(nameCat);
+		forumCatMag.deleteCategory(nameCat);
+		
         info("Import category");
-		click(forumHP.ELEMENT_ACTIONBAR_ADMINISTRATION);
-		click(forumHP.ELEMENT_ACTIONBAR_ADMIN_IMPORT);
-		forumHP.importCat("Downloads/", "ks-export.zip");
+        forumHP.goToHomeCategory();
+        forumHP.importCategory("Downloads/","ks-export.zip");
 	}
 
 	/**
@@ -234,12 +233,10 @@ public class Forum_Category extends Forum_TestConfig{
 		info("go to Forum home page");
 		hp.goToForum();
 		info("Add a category");
-		forumHP.addCategory(nameCat,"",nameCat);
-		forumHP.saveChangesAddCategory();
+		forumCatMag.addCategorySimple(nameCat,"",nameCat);
 
 		info("Add a forum in the category");
-		forumHP.addForum(nameForum,"",nameForum);
-		forumHP.saveChangesAddForum();
+		forumMag.addForumSimple(nameForum,"",nameForum);
 
 
 		/*Step number: 2
@@ -254,9 +251,8 @@ public class Forum_Category extends Forum_TestConfig{
 		 *Expected Outcome: 
 			Forums are exported successfully*/
 		info("Export the forum");
-		click(forumHP.ELEMENT_CATEGORY_BREADCUMB_HOME);
 		forumHP.goToCategory(nameCat);
-		forumHP.exportForum(nameForum);
+		forumCatMag.exportForum(nameForum);
 		
 		/*Step number: 3
 		 *Step Name: Import forums
@@ -270,11 +266,12 @@ public class Forum_Category extends Forum_TestConfig{
 		 *Expected Outcome: 
 			Forums are imported successfully*/
         info("Import forum");
-		forumHP.importForum("Downloads/", "ks-export.zip");
+		forumCatMag.importForum("Downloads/", "ks-export.zip");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		info("Delete category");
 		hp.goToForum();
-		forumHP.deleteCategory(nameCat);
+		forumHP.goToHomeCategory();
+		forumCatMag.deleteCategory(nameCat);
 	  }
 	}

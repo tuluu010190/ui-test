@@ -178,14 +178,16 @@ public class Addons_Answers_Setting  extends PlatformBase {
 		
 		info("Create category");
 		hp.goToForum();
-		fcMang.goToAddCategory();
+		fcMang.addCategorySimple(cat1,"","");
+		/*fcMang.goToAddCategory();
 		fcMang.inputBasicDataToCategoryTab(cat1, null, null);
-		click(fcMang.ELEMENT_CATEGORY_ADD_FORM_SAVE_BUTTON);
+		click(fcMang.ELEMENT_CATEGORY_ADD_FORM_SAVE_BUTTON);*/
 		
 		info("Create forum");
-		fMang.goToAddForum();
-		fMang.inputDataInAddForumTab_addForum(for1,null,null,null,null,null);
-		click(fMang.ELEMENT_FORUM_ADD_FORM_SAVE_BUTTON);
+		//fMang.goToAddForum();
+		fMang.addForumSimple(for1,"","");
+		/*fMang.inputDataInAddForumTab_addForum(for1,null,null,null,null,null);
+		click(fMang.ELEMENT_FORUM_ADD_FORM_SAVE_BUTTON);*/
 	}
 
 	public void deleteDataTest(){

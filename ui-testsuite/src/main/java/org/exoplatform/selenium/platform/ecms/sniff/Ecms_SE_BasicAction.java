@@ -15,7 +15,7 @@ import org.testng.annotations.*;
  * @author eXo
  *
  */
-public class Ecms_SE_BasicAction extends ECMS_TestConfig{
+public class Ecms_SE_BasicAction extends ECMS_TestConfig_Part2{
 	/**
 	 *<li> Case ID:116565.</li>
 	 *<li> Test Case Name: Add symlink for a node.</li>

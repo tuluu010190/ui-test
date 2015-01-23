@@ -1,83 +1,276 @@
 package org.exoplatform.selenium.platform.forum;
 
-import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 import static org.exoplatform.selenium.TestLogger.info;
-public class ForumManagement extends PlatformBase {
-	PlatformPermission per;
-	ManageAlert alert;
-	Button button;
-	public final By ELEMENT_ADD_FORUM_BUTTUN=By.xpath("//*[@class='uiIconForumCreateForum uiIconForumLightGray']");
 
-	//Add forum form
-	public final By ELEMENT_ADD_FORUM_FORM=By.id("UIForumForm");
-	public By ELEMENT_FORUM_ADD_FORM_SAVE_BUTTON=By.xpath("//*[@id='UIForumForm']//*[text()='Save']");
-	public By ELEMENT_FORUM_ADD_FORM_CANCEL_BUTTON=By.xpath("//*[@id='UIForumForm']//*[text()='Save']");
-	public By ELEMENT_SELECT_CATERORY = By.name("Category");
-	public By ELEMENT_ADD_FORUM_TAB = By.xpath("//div[@class='MiddleTab' and text()='Add Forum']");
-	public By ELEMENT_FORUM_TITLE = By.id("ForumTitle");
-	public By ELEMENT_FORUM_ORDER = By.id("ForumOrder");
-	public By ELEMENT_FORUM_STATE = By.name("ForumState");
-	public By ELEMENT_FORUM_STATUS = By.name("ForumStatus");
-	public By ELEMENT_FORUM_DESCRIPTION = By.id("Description");
-	public By ELEMENT_MODERATOR_TAB = By.linkText("Moderation Options");
-	public By ELEMENT_FORUM_MODERATOR = By.id("Moderator");
-	public By ELEMENT_FORUM_AUTO_FILL = By.name("AutoAddEmailNotify");
-	public By ELEMENT_NOTIFY_ADD_POST = By.id("NotifyWhenAddPost");
-	public By ELEMENT_NOTIFY_ADD_TOPIC = By.id("NotifyWhenAddTopic");
-	public By ELEMENT_MODERATE_THREAD = By.id("ModerateThread");
+public class ForumManagement extends PlatformBase {
+	
+	//Home page of forum
+	public final String ELEMENT_FORUM_FORUM_NAME_LINK=".//*[text()='${name}']";
+	public final String ELEMENT_FORUM_CATEGORY_TITLE= ".//*[@id='UIForumDescription']//strong[text()='${title}']";
+	public final By ELEMENT_FORUM_START_TOPIC_DISABLE = By.xpath("//*[@id='UITopicContainer']//*[@data-original-title='Forum is closed for posting.']");
+	public final By ELEMENT_FORUM_START_TOPIC_BUTTON = By.xpath("//*[@class='btn btn-primary pull-left']");
+	
+	//Action bar
+	public final By ELEMENT_ACTIONBAR_ADDFORUM = By.xpath("//*[@class='uiIconForumCreateForum uiIconForumLightGray']");
+	
+	//Add/Edit forum popup
+	public final By ELEMENT_EDITFORUM_POPUP_TITLE = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Forum']");
+	public final By ELEMENT_ADDFORUM_POPUP_TITLE= By.id("ForumTitle");
+	public final By ELEMENT_ADDFORUM_POPUP_ORDER= By.id("ForumOrder");
+	public final By ELEMENT_ADDFORUM_POPUP_DESCRIPTION= By.id("Description");
+	public final By ELEMENT_ADDFORUM_POPUP_SAVE_BUTTON= By.xpath(".//*[@id='UIForumForm']//button[text()='Save']");
+	public final By ELEMENT_ADDFORUM_POPUP_CANCEL_BUTTON= By.xpath(".//*[@id='UIForumForm']//button[text()='Cancel']");
+	
+	//More Action menu
+	public final By ELEMENT_MORE_ACTION_FORUM = By.xpath("//*[@class='uiIconSettings uiIconLightGray']");
+	public final By ELEMENT_EDIT_FORUM = By.xpath("//*[contains(@href, 'EditForum')]");
+	public final By ELEMENT_DELETE_FORUM = By.xpath("//*[contains(@data-action, 'RemoveForum')]");
+	public final By ELEMENT_MOVE_FORUM = By.xpath("//*[contains(@href, 'MoveForum')]");
+	public final By ELEMENT_START_TOPIC_BUTTON = By.xpath(".//*[@class='uiIconForumCreateTopic uiIconForumLightGray']");
+	public final By ELEMENT_LOCK_FORUM = By.className("uiIconLockMedium");
+	public final By ELEMENT_UNLOCK_FORUM = By.className("uiIconUnlockMedium");
+	public final By ELEMENT_CLOSE_FORUM = By.xpath("//a[contains(@href,'SetCloseForum')]");
+	public final By ELEMENT_OPEN_FORUM = By.xpath("//a[contains(@href,'SetOpenForum')]");
+	
+	//Start topic popup
+	public final By ELEMENT_START_TOPIC_POPUP_TITLE = By.xpath(".//*[@id='UIForumPopupWindow']//span[@class='PopupTitle popupTitle']");
+	
+	//Popup confirmation
+	public By ELEMENT_OK_DELETE = By.xpath("//*[@id='UIForumPopupConfirmation']//*[text()='OK']");
+	
+	//Move forum popup
+	public final By ELEMENT_POPUP_MOVE_FORUM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Move Forum']");
+	
+	ManageAlert alert;
+	ForumHomePage forumHP;
 	/**
 	 * constructor
 	 * @param dr
 	 */
 	public ForumManagement(WebDriver dr){
 		this.driver=dr;
-		alert = new ManageAlert(driver);
-		button = new Button(driver);
+		alert = new ManageAlert(dr);
+		forumHP = new ForumHomePage(dr);
 	}
 
 	/**
-	 * Go to Add forum
-	 */
-	public void goToAddForum(){
-		info("Go to Add forum");
-		click(ELEMENT_ADD_FORUM_BUTTUN);
-		waitForAndGetElement(ELEMENT_ADD_FORUM_FORM);
-	}
-
-	/**
-	 * input data in add forum tab in add forum popup
-	 * @param title
-	 * @param catName
+	 * Add a new forum
+	 * By QuynhPT
+	 * @param nameForum
 	 * @param order
-	 * @param state
-	 * @param status
 	 * @param description
 	 */
-	public void inputDataInAddForumTab_addForum(String title, String catName, String order, String state, String status, String description){
-		info("Input data in add forum tab");
-		if(title!=null && title!=""){
-			type(ELEMENT_FORUM_TITLE, title, true);
-		}
-		if (catName != null && catName!=""){
-			select(ELEMENT_SELECT_CATERORY, catName);
-		}	
-		if(order!=null && order!=""){
-			type(ELEMENT_FORUM_ORDER, order, true);
-		}
-		if (state != null && state!=""){
-			select(ELEMENT_FORUM_STATE, state);
-		}
-		if (status != null && status!=""){
-			select(ELEMENT_FORUM_STATUS, status);
-		}
-		if(description!=null && description!=""){
-			type(ELEMENT_FORUM_DESCRIPTION, description, true);
+	public void addForumSimple(String nameForum, String order, String description) {
+		// TODO Auto-generated method stub
+		waitForAndGetElement(ELEMENT_ACTIONBAR_ADDFORUM);
+		info("click on Add forum button");
+		click(ELEMENT_ACTIONBAR_ADDFORUM);
+	    info("input the title for the forum");
+	    type(ELEMENT_ADDFORUM_POPUP_TITLE,nameForum,true);
+	    
+	    info("check and input Oder field");
+	    if(!order.isEmpty()){
+	    	info("Clear all old order data");
+	    	waitForAndGetElement(ELEMENT_ADDFORUM_POPUP_ORDER).clear();
+	    	info("Input new order data");
+	    	type(ELEMENT_ADDFORUM_POPUP_ORDER,order,true);
+	    }
+        info("check and input description");
+	    if (!description.isEmpty()){
+	    	info("Clear all old description data");
+	    	waitForAndGetElement(ELEMENT_ADDFORUM_POPUP_DESCRIPTION).clear();
+	    	info("Input new description data");
+	    	type(ELEMENT_ADDFORUM_POPUP_DESCRIPTION,description,true);
+	    }
+		info("Click on Save button");
+		click(ELEMENT_ADDFORUM_POPUP_SAVE_BUTTON);
+		Utils.pause(2000);
+		info("Finish adding new forum");
+	}
+	
+	/**
+	 * Cancel all changes of Add FORUM
+	 * By QuynhPT
+	 */
+	public void cancelChangeAddForum(){
+		waitForAndGetElement(ELEMENT_ADDFORUM_POPUP_CANCEL_BUTTON);
+		click(ELEMENT_ADDFORUM_POPUP_CANCEL_BUTTON);
+		Utils.pause(2000);
+	}
+	/**
+	 * list sublinks in More Action menu of Forum
+	 * @author quynhpt
+	 *
+	 */
+	public enum specifMoreActionMenu{
+		START_TOPIC,EDIT,LOCK,UNLOCK,CLOSE,OPEN,MOVE,DELETE,EXPORT_FORUM,WATCHES,BANNED_IPS;
+	}
+	/**
+	 * select a item in More Action menu for a forum
+	 * By QuynhPT
+	 * @param item
+	 */
+    public void selectItemMoreActionMenu(specifMoreActionMenu item){
+    	info("Wait More link is shown");
+		waitForAndGetElement(ELEMENT_MORE_ACTION_FORUM);
+		info("Click on More link");
+		click(ELEMENT_MORE_ACTION_FORUM);
+    	info("Select a link on More menu");
+    	switch(item) {
+		case START_TOPIC:
+			info("wait Start Topic button is shown");
+			waitForAndGetElement(ELEMENT_START_TOPIC_BUTTON);
+			info("click on Start Topic button");
+			click(ELEMENT_START_TOPIC_BUTTON);
+			info("Verify that the popup is shown");
+			waitForAndGetElement(ELEMENT_START_TOPIC_POPUP_TITLE);
+			info("The popup is shown successfully");
+			break;
+		case EDIT:
+			info("click on Edit link");
+			click(ELEMENT_EDIT_FORUM);
+			info("Verify that Edit popup is shown");
+			waitForAndGetElement(ELEMENT_EDITFORUM_POPUP_TITLE);
+			info("The popup is shown successfully");
+			break;
+		case DELETE:
+			info("click on Delete link");
+			click(ELEMENT_DELETE_FORUM);
+			Utils.pause(1000);
+			info("Verify that Confirm popup is shown");
+			alert.waitForMessage("Are you sure you want to delete this forum ?");
+			info("Click on OK button of Confirm popup");
+			click(ELEMENT_OK_DELETE);
+			info("Finish deleting the forum");
+			break;
+		case WATCHES:
+			break;
+		case LOCK:
+			click(ELEMENT_LOCK_FORUM);
+			break;
+		case UNLOCK:
+			click(ELEMENT_UNLOCK_FORUM);
+			break;
+		case CLOSE:
+			click(ELEMENT_CLOSE_FORUM);
+			break;
+		case OPEN:
+			click(ELEMENT_OPEN_FORUM);
+			break;
+		case EXPORT_FORUM:
+			break;
+		case MOVE:
+			info("Wait Move link is shown");
+			waitForAndGetElement(ELEMENT_MOVE_FORUM);
+			info("Click on Move link");
+			click(ELEMENT_MOVE_FORUM);
+			info("Verify that Move popup is shown");
+			waitForAndGetElement(ELEMENT_POPUP_MOVE_FORUM);
+			info("The popup is shown successfully");
+			break;
+		case BANNED_IPS:
+			break;
+		default:
+			break;
 		}
 	}
+	
+	/**
+	 * Edit a forum
+	 * By QuynhPT
+	 * @param newNameForum
+	 * @param order
+	 * @param newDescription
+	 */
+	public void editForum(String newName, String order,String newDescription) {
+		// TODO Auto-generated method stub
+		selectItemMoreActionMenu(specifMoreActionMenu.EDIT);
+        info("Input a new title");
+		type(ELEMENT_ADDFORUM_POPUP_TITLE,newName,true);
+		info("check and input Oder field");
+		if (!order.isEmpty())
+			type(ELEMENT_ADDFORUM_POPUP_ORDER,order,true);
+		info("check and input description");
+		if (!newDescription.isEmpty())
+			type(ELEMENT_ADDFORUM_POPUP_DESCRIPTION,newDescription,true);
+		info("Click on Save button");
+		click(ELEMENT_ADDFORUM_POPUP_SAVE_BUTTON);
+		Utils.pause(2000);
+		info("Finish edting new forum");
+
+	}
+	
+	/**
+	 * Open or Close a forum
+	 * By QuynhPT
+	 * @param isClose =true if a forum is closed
+	 *               =false if a forum is opened
+	 */
+	public void closeAndOpen(boolean isClose){
+		if (isClose) {
+			selectItemMoreActionMenu(specifMoreActionMenu.CLOSE);
+			waitForAndGetElement(ELEMENT_FORUM_START_TOPIC_DISABLE);
+		}else {
+			selectItemMoreActionMenu(specifMoreActionMenu.OPEN);
+			waitForAndGetElement(ELEMENT_FORUM_START_TOPIC_BUTTON);
+		}
+	}
+	
+	/**
+	 * Delete a forum in the list
+	 * By QuynhPT
+	 * @param name
+	 */
+	public void deleteForum(String name){
+		selectItemMoreActionMenu(specifMoreActionMenu.DELETE);
+		info("Verify that the forum is deleted");
+		waitForElementNotPresent(ELEMENT_FORUM_FORUM_NAME_LINK.replace("${name}",name));
+	}
+	
+	/**
+	 * function: move a forum from a category to another category
+	 * Update QuynhPT
+	 * @param forum: title of forum that needs to move
+	 * @param destination: title of destination category
+	 */
+	public void moveForum(String forum, String destination){
+		info("move forum to category " + destination);
+		selectItemMoreActionMenu(specifMoreActionMenu.MOVE);
+		click(By.linkText(destination));
+		waitForElementNotPresent(ELEMENT_POPUP_MOVE_FORUM);
+		forumHP.goToCategory(destination);
+		waitForAndGetElement(ELEMENT_FORUM_FORUM_NAME_LINK.replace("${name}", forum));
+		info("Move forum successfully");
+	}
+	/**
+	 * Open Start Topic popup
+	 * By QuynhPT
+	 */
+	public void goToStartTopic(){
+		info("Go to start topic from more action");
+		selectItemMoreActionMenu(specifMoreActionMenu.START_TOPIC);
+	}
+	
+	/**
+	 * Lock or Unlock a forum
+	 * By QuynhPT
+	 * @param islock =true if a forum is locked
+	 *               =false if a forum is unlocked
+	 */
+	public void lockAndUnlock(boolean islock){
+		if (islock) {
+			selectItemMoreActionMenu(specifMoreActionMenu.LOCK);
+			waitForAndGetElement(ELEMENT_FORUM_START_TOPIC_DISABLE);
+		}else {
+			selectItemMoreActionMenu(specifMoreActionMenu.UNLOCK);
+			waitForAndGetElement(ELEMENT_FORUM_START_TOPIC_BUTTON);
+		}
+	}
+	
 }

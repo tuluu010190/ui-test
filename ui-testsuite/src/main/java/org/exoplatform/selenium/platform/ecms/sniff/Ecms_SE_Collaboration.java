@@ -12,7 +12,7 @@ import org.testng.annotations.*;
  * @author exo
  */
 
-	public class Ecms_SE_Collaboration extends ECMS_TestConfig {
+	public class Ecms_SE_Collaboration extends ECMS_TestConfig_Part2 {
 		
 		
 	/**
@@ -64,12 +64,14 @@ import org.testng.annotations.*;
 		CreNewDoc.saveAndClose();
 		
 		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", title));
-		SEHome.addDocumentTranslation("General Drives/Sites Management", title2);
+		SEHome.addDocumentTranslation("General Drives/Sites Management/acme/documents", title2);
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_RELATION);
 		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_RELATION);
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_TITLE_TRANSLATION.replace("${title}", title2));
 		
-		SEHome.selectNode("documents");
+		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(title);
 		SEHome.deleteData(title2);
  	}
@@ -205,6 +207,7 @@ import org.testng.annotations.*;
 		info("Upload file");
 		navTool.goToSiteExplorer();
 		SEHome.goToPath("acme/documents", "Sites Management");
+		
 		SEHome.uploadFile("TestData/"+fileName);
 		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", fileName));
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);

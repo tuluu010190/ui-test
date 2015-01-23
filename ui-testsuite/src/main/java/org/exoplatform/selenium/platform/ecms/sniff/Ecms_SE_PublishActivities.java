@@ -12,7 +12,7 @@ import org.testng.annotations.*;
 	* @author eXo
 	*
 	*/
-	public class Ecms_SE_PublishActivities extends ECMS_TestConfig {
+	public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 	/**
 	*<li> Case ID:116665.</li>
 	*<li> Test Case Name: Check intranet homepage after adding a File content.</li>
@@ -224,8 +224,7 @@ import org.testng.annotations.*;
 			- A comment is added:File has been updated.*/ 
 		navTool.goToSiteExplorer();
 		SEHome.selectNode(title);
-		SEHome.goToEditDocument();
-		SEHome.editDocument(newContent);
+		SEHome.editDocument("",newContent);
 		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}",comment)));
@@ -424,8 +423,7 @@ import org.testng.annotations.*;
 		
 		info("Edit the file");
 		SEHome.selectNode(file);
-		SEHome.goToEditDocument();
-		type(SEHome.ELEMENT_FILE_FORM_TITLE,newTitle, true );
+		SEHome.editDocument(newTitle,"");
 		CreNewDoc.saveAndClose();
 		
 		info("Delete the file");
@@ -472,7 +470,7 @@ import org.testng.annotations.*;
 		SEHome.addCategoryForNode(file,"intranet");
 		
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",file).replace("{$comment}","Category:intranet has been added.")));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",file).replace("{$comment}","Category: intranet has been added.")));
 		
 		info("Delete the file");
 		navTool.goToSiteExplorer();
@@ -643,7 +641,7 @@ import org.testng.annotations.*;
 		
 		info("Upload a file");
 		navTool.goToSiteExplorer();
-		SEHome.goToPath("acme/documents","Sites Management");
+		//SEHome.goToPath("acme/documents","Sites Management");
 		SEHome.uploadFile("TestData/"+file);
 		
 		info("Move the file");
@@ -653,11 +651,11 @@ import org.testng.annotations.*;
 		
 		info("Check the comment on the activity");
 		hp.goToHomePage();
-		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",file).replace("{$comment}","File has been moved to:"));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$comment}","File has been moved to: /sites/intranet/"+file));
 
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    SEHome.goToPath("acme/documents","Sites Management");
+	    //SEHome.goToPath("acme/documents","Sites Management");
 		SEHome.deleteData(file);
 	}
 
@@ -689,7 +687,7 @@ import org.testng.annotations.*;
 		
 		info("Create a new Content");
 		navTool.goToSiteExplorer();
-		SEHome.goToPath("acme/documents","Sites Management");
+		//SEHome.goToPath("acme/documents","Sites Management");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		CreNewDoc.addNewFile(title, content);
@@ -702,11 +700,11 @@ import org.testng.annotations.*;
 		
 		info("Check the comment on the activity");
 		hp.goToHomePage();
-		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Publication has been moved to:"));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$comment}","Publication has been moved to: /sites/intranet/"+title));
 
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    SEHome.goToPath("acme/documents","Sites Management");
+	   // SEHome.goToPath("acme/documents","Sites Management");
 		SEHome.deleteData(title);
 		
  	}

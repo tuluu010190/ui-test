@@ -14,7 +14,7 @@ import org.testng.annotations.*;
  */
 
 
-public class Ecms_WCM extends ECMS_TestConfig {
+public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 	/**
 	 *<li> Case ID:116568.</li>
 	 *<li> Test Case Name: Create new Content List viewer page with mode "By Folder".</li>

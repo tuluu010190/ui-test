@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
-public class Ecms_SE_Create extends ECMS_TestConfig{
+public class Ecms_SE_Create extends ECMS_TestConfig_Part2{
 
 	/**
 	 *<li> Case ID:116569.</li>
@@ -90,8 +90,8 @@ public class Ecms_SE_Create extends ECMS_TestConfig{
 		Utils.pause(5000);
 
 		info("Edit a content");
-		SEHome.goToEditDocument();
-		SEHome.editDocument(content2);
+		SEHome.selectNode(name);
+		SEHome.editDocument("",content2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
 
@@ -140,9 +140,8 @@ public class Ecms_SE_Create extends ECMS_TestConfig{
 		Utils.pause(5000);
 
 		info("Edit the content");
-		click(SEHome.ELEMENT_ACTIONBAR_MORE);
-		SEHome.goToEditDocument();
-		SEHome.editDocument(content2);
+		SEHome.selectNode(name);
+		SEHome.editDocument("",content2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
 
@@ -277,8 +276,7 @@ public class Ecms_SE_Create extends ECMS_TestConfig{
 		 *Expected Outcome: 
 			- File Dialog open for user to choose files to upload*/
 		navTool.goToSiteExplorer();
-		SEHome.goToIntranet();
-		SEHome.goToDocument();
+		SEHome.goToPath("intranet/documents","Sites Management");
 		
 		/*Step number: 2
 		 *Step Name: 
@@ -292,12 +290,10 @@ public class Ecms_SE_Create extends ECMS_TestConfig{
 			- Files are uploaded successfully*/ 
 		info("Upload a file");
 		SEHome.uploadFile("TestData/"+fileName);
-		info("filename:"+fileName);
-		String[] name = fileName.split("\\.");
-		info("name[0]:"+name[0]);
-		waitForAndGetElement(SEHome.ELEMENT_PERSONAL_DOCUMENT_FILE.replace("${file}",name[0]));
+		waitForAndGetElement(SEHome.ELEMENT_GRID_LIST_CONTENT.replace("${file}",fileName));
 		info("Delete the file");
-		SEHome.selectAndDeleteByCheckBox(name[0]);
+		SEHome.deleteFile(fileName);
+		
 	}
 
 	/**
@@ -346,13 +342,12 @@ public class Ecms_SE_Create extends ECMS_TestConfig{
 			- Files are uploaded successfully*/ 
 
 		SEHome.uploadFile("TestData/"+fileName);
-		info("fileName:"+fileName);
-		String[] name = fileName.split("\\.");
-		info("name[0]:"+name[0]);
-		waitForAndGetElement(SEHome.ELEMENT_SPACE_DRIVE_FILE.replace("${file}",name[0]));
-		this.driver.navigate().refresh();
+		click(SEHome.ELEMENT_ADDRESS_BAR_ICON_VIEW);
+		click(SEHome.ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON);
+		waitForAndGetElement(SEHome.ELEMENT_SPACE_DRIVE_NODE_TREE_FILE.replace("${file}",fileName));
 		info("Delete the file");
-		SEHome.selectAndDeleteByCheckBox(name[0]);
+		SEHome.deleteData(fileName);
+		
 		
 	}
 }

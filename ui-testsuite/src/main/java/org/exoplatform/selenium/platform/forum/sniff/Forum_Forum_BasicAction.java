@@ -32,20 +32,18 @@ public class Forum_Forum_BasicAction extends Forum_TestConfig {
 		String nameCat = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String nameForum = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		//go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
-		//Add a category
-		forumHP.addCategory(nameCat,"",nameCat);
-		forumHP.saveChangesAddCategory();
-		//Add a forum in the category
-		forumHP.addForum(nameForum,"",nameForum);
-		forumHP.saveChangesAddForum();
-		//Verify that the forum is shown successfully
+		info("Add a category");
+		forumCatMag.addCategorySimple(nameCat,"",nameCat);
+		info("Add a forum in the category");
+		forumMag.addForumSimple(nameForum,"",nameForum);
+		info("Verify that the forum is shown successfully");
 		waitForAndGetElement(forumHP.ELEMENT_DETAIL_FORUM_CATEGORY_TITLE.replace("${title}",nameForum));
 		
-		//Delete category
+		info("Delete category");
 		forumHP.goToHomeCategory();
-		forumHP.deleteCategory(nameCat);
+		forumCatMag.deleteCategory(nameCat);
 	} 
 	
 	/** 
@@ -66,25 +64,21 @@ public class Forum_Forum_BasicAction extends Forum_TestConfig {
 		String nameCat = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String nameForum = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String newNameForum=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		//oder by default =0
-		String order="";
-		//go to Forum home page
+	
+		info("go to Forum home page");
 		hp.goToForum();
-		//Add a category
-		forumHP.addCategory(nameCat,order,nameCat);
-		forumHP.saveChangesAddCategory();
-		//Add a forum in the category
-		forumHP.addForum(nameForum,order,nameForum);
-		forumHP.saveChangesAddForum();
-	    //Edit the forum
-		forumHP.editForum(newNameForum,order,newNameForum);
-		forumHP.saveChangesAddForum();
-		//Verify that the forum is edit successfully
+		info("Add a category");
+		forumCatMag.addCategorySimple(nameCat,"",nameCat);
+		info("Add a forum in the category");
+		forumMag.addForumSimple(nameForum,"",nameForum);
+	    info("Edit the forum");
+		forumMag.editForum(newNameForum,"",newNameForum);
+		info("Verify that the forum is edit successfully");
 		waitForAndGetElement(forumHP.ELEMENT_DETAIL_FORUM_CATEGORY_TITLE.replace("${title}",newNameForum));
 		
-		//Delete category
+		info("Delete category");
 		forumHP.goToHomeCategory();
-		forumHP.deleteCategory(nameCat);
+		forumCatMag.deleteCategory(nameCat);
 	} 
 
 	/** 
@@ -104,21 +98,18 @@ public class Forum_Forum_BasicAction extends Forum_TestConfig {
 		info("test03: Delete Forum");
 		String nameCat = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String nameForum = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		//oder by default =0
-		String order="";
-		//go to Forum home page
+		
+		info("go to Forum home page");
 		hp.goToForum();
-		//Add a category
-		forumHP.addCategory(nameCat,order,nameCat);
-		forumHP.saveChangesAddCategory();
-		//Add a forum in the category
-		forumHP.addForum(nameForum,order,nameForum);
-		forumHP.saveChangesAddForum();
-		//Delete forum
-		forumHP.deleteForum(nameForum);
-		//Delete category
+		info("Add a category");
+		forumCatMag.addCategorySimple(nameCat,"",nameCat);
+		info("Add a forum in the category");
+		forumMag.addForumSimple(nameForum,"",nameForum);
+		info("Delete forum");
+		forumMag.deleteForum(nameForum);
+		info("Delete category");
 		forumHP.goToHomeCategory();
-		forumHP.deleteCategory(nameCat);
+		forumCatMag.deleteCategory(nameCat);
 	} 
     
 	/** 
@@ -139,33 +130,29 @@ public class Forum_Forum_BasicAction extends Forum_TestConfig {
 		String category1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String category2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String forum = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		// oder by default =0
-		String order = "";
-		// go to Forum home page
-		hp.goToForum();
-		// Add a category 1
-		forumHP.addCategory(category1, order, category1);
-		forumHP.saveChangesAddCategory();
 		
+		info("go to Forum home page");
+		hp.goToForum();
+		info("Add a category 1");
+		forumCatMag.addCategorySimple(category1, "", category1);
+		info("go to Home page of category");
 		forumHP.goToHomeCategory();
-		// Add a category 2
-		forumHP.addCategory(category2, order, category2);
-		forumHP.saveChangesAddCategory();
+		info("Add a category 2");
+		forumCatMag.addCategorySimple(category2,"", category2);
 		
 		forumHP.goToHomeCategory();
 		forumHP.goToCategory(category1);
-		// Add a forum in the category1
-		forumHP.addForum(forum, order,forum );
-		forumHP.saveChangesAddForum();
+		info(" Add a forum in the category1");
+		forumMag.addForumSimple(forum,"",forum );
 		
-		//Move forum
-		forumHP.moveForum(forum, category2);
+		info("Move forum");
+		forumMag.moveForum(forum, category2);
 		
-		//Delete data
+		info("Delete data");
 		forumHP.goToHomeCategory();
-		forumHP.deleteCategory(category2);
+		forumCatMag.deleteCategory(category2);
 		forumHP.goToHomeCategory();
-		forumHP.deleteCategory(category1);
+		forumCatMag.deleteCategory(category1);
 	}
 	
 	/** 
@@ -192,49 +179,49 @@ public class Forum_Forum_BasicAction extends Forum_TestConfig {
 		String topic1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String topic2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
-		//Go to My Profile
+		info("Go to My Profile");
 		navTool.selectALinkOfUserMenu(specifUserToolBar.MY_PROFILE);
-		//Change email address
+		info("Change email address");
 		myPro.updateBasicInformation("","",EMAIL_ADDRESS1);
 		
-		// go to Forum home page
+		info("go to Forum home page");
 		hp.goToForum();
-		// Verify that the forum home page is shown full
+		info("Verify that the forum home page is shown full");
 		waitForAndGetElement(forumHP.ELEMENT_FORUM_WHAT_GOING_ON);
 		
-		// Add a category
-		forumHP.addCategory(category,"",category);
-		forumHP.saveChangesAddCategory();
+		info("Add a category");
+		forumCatMag.addCategorySimple(category,"",category);
 		
-		// Add a forum in the category1
-		forumHP.addForum(forum,"", forum);
-		forumHP.saveChangesAddForum();
+		info("Add a forum in the category1");
+		forumMag.addForumSimple(forum,"", forum);
 		
-		//Watch forum
+		info("Watch forum");
 		forumHP.watchItem(true);
-		//Create a topic without attached file
-		forumHP.startTopic(topic1, topic1,"","");
+		info("Create a topic without attached file");
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic1, topic1,"","");
 		
-		//Check email after watching
+		info("Check email after watching");
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		checkAndDeleteMail(By.xpath(ELEMENT_MAIL_SUBJECT.replace("${category}",category).replace("${forum}", forum).replace("${topic}", topic1)), forum);
 		
 		switchToParentWindow();
 		
-		//Unwatch forum
+		info("Unwatch forum");
 		forumHP.watchItem(false);
-		forumHP.startTopic(topic2, topic2,"","");
+		forumMag.goToStartTopic();
+		foTopic.startTopic(topic2, topic2,"","");
 		
-		//Check email after unwatching
+		info("Check email after unwatching");
 		switchToNewWindow();
 		Utils.pause(30000);
 		waitForElementNotPresent(ELEMENT_MAIL_SUBJECT.replace("${category}",category).replace("${forum}", forum).replace("${topic}", topic2));
 		
 		switchToParentWindow();
 		
-		///Delete data
+		info("Delete data");
 		forumHP.goToHomeCategory();
-		forumHP.deleteCategory(category);
+		forumCatMag.deleteCategory(category);
 
 	}
 

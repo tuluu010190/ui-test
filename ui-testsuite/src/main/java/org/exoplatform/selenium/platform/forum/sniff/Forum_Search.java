@@ -29,11 +29,11 @@ public class Forum_Search extends Forum_TestConfig {
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		hp.goToForum();
-		forumHP.addCategorySimple(name);
-		forumHP.addForumSimple(name2);
-		forumHP.addTopicSimple(name3, content);
-		click(forumHP.ELEMENT_FORUM_GOTOTOPIC);
-		forumHP.addPostSimple(name4, content);
+		forumCatMag.addCategorySimple(name,"","");
+		forumMag.addForumSimple(name2,"","");
+		foTopic.addTopicSimple(name3, content);
+		forumHP.goToTopic(name3);
+		foTopic.addPostSimple(name4, content);
 		/*Step Number: 1
 		 *Step Name: Prepare data: create a caterory, forum, topic, post
 		 *Step Description:
@@ -90,11 +90,11 @@ public class Forum_Search extends Forum_TestConfig {
 		Categories, forums, topics, posts are created successfully*/
 
 		hp.goToForum();
-		forumHP.addCategorySimple(name);
-		forumHP.addForumSimple(name2);
-		forumHP.addTopicSimple(name3, content);
-		click(forumHP.ELEMENT_FORUM_GOTOTOPIC);
-		forumHP.addPostSimple(name4, content);
+		forumCatMag.addCategorySimple(name,"","");
+		forumMag.addForumSimple(name2,"","");
+		foTopic.addTopicSimple(name3, content);
+		forumHP.goToTopic(name3);
+		foTopic.addPostSimple(name4, content);
 		
 		/*Step number: 2
 		 *Step Name: Step 2: Access the Advanced search form

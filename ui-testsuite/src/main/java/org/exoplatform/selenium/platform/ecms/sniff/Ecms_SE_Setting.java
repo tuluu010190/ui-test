@@ -14,7 +14,7 @@ import org.testng.annotations.*;
 
 
 
-	public class Ecms_SE_Setting extends ECMS_TestConfig{
+	public class Ecms_SE_Setting extends ECMS_TestConfig_Part2{
 
 	/**
 	*<li> Case ID:116604.</li>

@@ -48,7 +48,7 @@ import org.testng.annotations.*;
 		String content =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		hp.goToForum();
-		foHome.goToPrivateMessage();
+		forumHP.goToPrivateMessage();
 		msgManage.goComposeMessage();
 		msgManage.writeMessage(contact, title, content);
 		
@@ -56,7 +56,7 @@ import org.testng.annotations.*;
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		
 		hp.goToForum();
-		foHome.goToPrivateMessage();
+		forumHP.goToPrivateMessage();
 		msgManage.checkInboxMessage("john", title, content);
 		
 		info("Test 2: Reply a message");
@@ -67,7 +67,7 @@ import org.testng.annotations.*;
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		
 		hp.goToForum();
-		foHome.goToPrivateMessage();
+		forumHP.goToPrivateMessage();
 		msgManage.checkInboxMessage("mary", newTitle, content);
 		
  	}
@@ -111,7 +111,7 @@ import org.testng.annotations.*;
 		String content =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		hp.goToForum();
-		foHome.goToPrivateMessage();
+		forumHP.goToPrivateMessage();
 		msgManage.goComposeMessage();
 		msgManage.writeMessage(contact, title, content);
 		msgManage.goSendMessages();
@@ -122,7 +122,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToForum();
-		foHome.goToPrivateMessage();
+		forumHP.goToPrivateMessage();
 		msgManage.checkInboxMessage("mary", "Forward:"+title, content);
 		
 		info("Test 4: Delete a message");
