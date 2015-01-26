@@ -25,13 +25,13 @@ public class Permission extends WikiBase{
 	public Permission() {
 		ieFlag = super.ieFlag;
 	}
-	
+
 	public final String ELEMENT_PERMISSION = "//*[@id='UIPermissionGrid']//*[contains(text(),'${user}')]";
 
 	public Permission(WebDriver dr){
 		driver = dr;
 	}
-	
+
 	/////
 	/*=================== Page permission ===================*/
 	/** 
@@ -265,7 +265,7 @@ public class Permission extends WikiBase{
 		waitForMessage(MSG_PERMISSION_SAVE);
 
 		dialog.closeMessageDialog();
-		
+
 		Utils.pause(1000);
 	}
 
@@ -311,49 +311,34 @@ public class Permission extends WikiBase{
 		info("--Add space permission--");
 
 		if (view){
-			if(!waitForAndGetElement(bViewSpace, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				clickByJavascript(bViewSpace, notDisplay);
-			}
+			check(bViewSpace, notDisplay);
 		}else{
-			if(waitForAndGetElement(bViewSpace, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				clickByJavascript(bViewSpace, notDisplay);
-				Utils.pause(1000);
-				assert !waitForAndGetElement(bEditPage,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
-				assert !waitForAndGetElement(bAdminPage,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
-				assert !waitForAndGetElement(bAdminSpace,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
-			}
+			uncheck(bViewSpace, notDisplay);
+			Utils.pause(1000);
+			assert !waitForAndGetElement(bEditPage,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
+			assert !waitForAndGetElement(bAdminPage,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
+			assert !waitForAndGetElement(bAdminSpace,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
 		}
 		if (edit){
-			if(!waitForAndGetElement(bEditPage, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				clickByJavascript(bEditPage, notDisplay);
-			}
+			check(bEditPage, notDisplay);
 		}else{
-			if(waitForAndGetElement(bEditPage, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				clickByJavascript(bEditPage, notDisplay);
-				Utils.pause(1000);
-				assert !waitForAndGetElement(bAdminPage,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
-				assert !waitForAndGetElement(bAdminSpace,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
-			}
+			uncheck(bEditPage, notDisplay);
+			Utils.pause(1000);
+			assert !waitForAndGetElement(bAdminPage,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
+			assert !waitForAndGetElement(bAdminSpace,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
 		}
 		if (adminPage){
-			if(!waitForAndGetElement(bAdminPage, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				clickByJavascript(bAdminPage, notDisplay);
-			}
+			check(bAdminPage, notDisplay);
 		}else{
-			if(waitForAndGetElement(bAdminPage, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				clickByJavascript(bAdminPage, notDisplay);
-				Utils.pause(1000);
-				assert !waitForAndGetElement(bAdminSpace,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
-			}
+			uncheck(bAdminPage, notDisplay);
+			Utils.pause(1000);
+			assert !waitForAndGetElement(bAdminSpace,DEFAULT_TIMEOUT,1,notDisplay).isSelected();
 		}
 
 		if (adminSpace){
-			if(!waitForAndGetElement(bAdminSpace, DEFAULT_TIMEOUT, 1, notDisplay).isSelected()){
-				clickByJavascript(bAdminSpace, notDisplay);
-			}
+			check(bAdminSpace, notDisplay);
 		}else{
-			if(waitForAndGetElement(bAdminSpace, DEFAULT_TIMEOUT, 1, notDisplay).isSelected())
-				clickByJavascript(bAdminSpace, notDisplay);
+			uncheck(bAdminSpace, notDisplay);
 		}
 
 		button.save();

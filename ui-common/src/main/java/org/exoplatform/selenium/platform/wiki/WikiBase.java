@@ -201,6 +201,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_SELECT_MEMBERSHIP = By.className("uiIconMembership");
 	public final String ELEMENT_USER_PERMISSIONS = "//*[contains(text(), '${user}')]";
 	public final String ELEMENT_EDIT_PAGE_PERMISSIONS = "//*[contains(text(), '${user}')]/../..//input[contains(@id, 'EDITPAGE')]";
+	//public final String ELEMENT_EDIT_PAGE_PERMISSIONS = "//input[contains(@id, 'EDITPAGE${user}')]";
 	public final String ELEMENT_VIEW_PAGE_PERMISSIONS = "//*[contains(text(), '${user}')]/../..//input[contains(@id, 'VIEWPAGE')]";
 	public final String ELEMENT_DELETE_PERMISSIONS = "//*[contains(text(), '${user}')]/../..//*[contains(@class, 'uiIconDelete')]";
 	public final By ELEMENT_PAGE_PERMISSION_POPUP = By.xpath("//span[contains(@class, 'popupTitle') and text()='Page Permissions']");

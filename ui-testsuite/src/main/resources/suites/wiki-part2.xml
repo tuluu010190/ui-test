@@ -29,9 +29,7 @@
 			<class
 				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_Delete" />
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_Edit" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_Others" />
+				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_CheckPermission" />
 		</classes>
 	</test>
 
