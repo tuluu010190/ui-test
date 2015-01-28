@@ -69,7 +69,7 @@ public class PageCreationWizard extends PlatformBase {
 			info("Input name");
 			type(ELEMENT_PAGE_NAME_INPUT,name,true);
 		}
-		if(isMode){
+		if(isMode!=null){
 			info("Input mode");
 			if(isMode)
 				check(ELEMENT_PAGE_MODE_CHECKBOX,2);
@@ -84,16 +84,16 @@ public class PageCreationWizard extends PlatformBase {
 			info("Input display name");
 			type(ELEMENT_PAGE_NAME_INPUT,name,true);
 		}
-		if(isVis){
+		if(isVis!=null){
 			info("Input Visible");
-			if(isMode)
+			if(isVis)
 				check(ELEMENT_PAGE_VISIBLE_CHECKBOX,2);
 			else
 				uncheck(ELEMENT_PAGE_VISIBLE_CHECKBOX,2);
 		}
-		if(isPub){
+		if(isPub!=null){
 			info("Input publication date");
-			if(isMode)
+			if(isPub)
 				check(ELEMENT_PAGE_PUBLICATION_DATE_CHECKBOX,2);
 			else
 				uncheck(ELEMENT_PAGE_PUBLICATION_DATE_CHECKBOX,2);
