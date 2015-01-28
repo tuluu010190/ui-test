@@ -77,7 +77,7 @@ public class Permission extends WikiBase{
 			break;
 			}		
 			Utils.pause(1000);
-			clickByJavascript(button.ELEMENT_ADD_BUTTON);
+			click(button.ELEMENT_ADD_BUTTON);
 			Utils.pause(1000);
 			button.save();
 		}
@@ -151,7 +151,7 @@ public class Permission extends WikiBase{
 		info("--Delete permission--");
 
 		if (waitForAndGetElement(Delete,10000,0) != null){
-			clickByJavascript(Delete);
+			click(Delete);
 		}
 		waitForElementNotPresent(Delete);
 		button.save();

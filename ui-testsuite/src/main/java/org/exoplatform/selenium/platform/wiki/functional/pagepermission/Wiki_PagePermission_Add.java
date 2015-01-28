@@ -12,7 +12,6 @@ import org.testng.annotations.Test;
 
 /**
  * @date 17/12/2012
- * @author lientm
  *
  */
 public class Wiki_PagePermission_Add extends BasicAction {
@@ -20,7 +19,7 @@ public class Wiki_PagePermission_Add extends BasicAction {
 	ManageAccount magAc;
 	Button button;
 	PlatformPermission per;
-	
+
 	public String DATA_USER_ADMIN = DATA_USER1;
 	public String DATA_PASS_ADMIN = DATA_PASS;
 

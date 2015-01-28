@@ -53,7 +53,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_FROM_TEMPLATE_LINK = By.xpath("//a[contains(.,'From Template...')]");
 
 	//Edit menu
-	public final By ELEMENT_EDIT_PAGE_LINK= By.cssSelector("div[id='UIWikiPageControlArea_PageToolBar'] i[class='uiIconEditPage uiIconLightGray']");;
+	public final By ELEMENT_EDIT_PAGE_LINK= By.xpath("//*[@class='uiIconEditPage uiIconLightGray']");
 	public final By ELEMENT_EDIT_COMPARE_CHANGE = By.xpath("//*[contains(text(), 'Compare Revisions')]");
 	public final String ELEMENT_EDIT_COMPARE_VERSION = "//*[@class = 'changeVersionInfo' and contains(text(), '${version}')]";
 
