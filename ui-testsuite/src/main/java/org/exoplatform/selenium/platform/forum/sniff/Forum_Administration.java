@@ -1,17 +1,6 @@
 package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.acme.AcmeHomePage;
-import org.exoplatform.selenium.platform.forum.ForumHomePage;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.testng.annotations.*;
 
 /**
@@ -19,43 +8,7 @@ import org.testng.annotations.*;
 * @date 20/01/2015
 */
 
-public class Forum_Administration extends PlatformBase {
-	
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	ManageAlert magAlert;
-	Button but;
-	TextBoxDatabase txData;
-	NavigationToolbar navTool;
-	AcmeHomePage acmeHP;
-	AttachmentFileDatabase fData;
-	ForumHomePage forumHP;
-	
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
-		initSeleniumTest();
-		getDefaultUserPass(userDataFilePath,defaultSheet,true,jdbcDriver,dbUrl,user,pass,sqlUser);
-		driver.get(baseUrl);
-		magAc = new ManageLogInOut(driver);
-		but = new Button(driver);
-		hp = new HomePagePlatform(driver);
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		txData = new TextBoxDatabase();
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		navTool = new NavigationToolbar(driver);
-		acmeHP = new AcmeHomePage(driver);
-		magAlert = new ManageAlert(driver, this.plfVersion);
-		fData = new AttachmentFileDatabase();
-		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		forumHP = new ForumHomePage(driver);
-	}
-	
-	@AfterMethod
-	public void afterMethod(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
-	
+public class Forum_Administration extends Forum_TestConfig {
 	/**
 	 *<li> Case ID:116690.</li>
 	 *<li> Test Case Name: Ban IP.</li>
@@ -68,12 +21,12 @@ public class Forum_Administration extends PlatformBase {
 		/*Step Number: 1
 		 *Step Name: -
 		 *Step Description:
-Step 1: Add Ban IP
+		 *Step 1: Add Ban IP
 		 *Input Data:
-- click on Administration menu and select â€œBan IPâ€
-- Add IP into list and click on â€œAddâ€
+		 *- click on Administration menu and select â€œBan IP
+		 *- Add IP into list and click on â€œAddâ€
 		 *Expected Outcome:
-Ban IP is added successfully to listBan IP user can not add post/create topic*/
+		 *Ban IP is added successfully to listBan IP user can not add post/create topic*/
 		hp.goToForum();
 		click(forumHP.ELEMENT_ACTIONBAR_ADMINISTRATION);
 		click(forumHP.ELEMENT_ACTIONBAR_ADMIN_BANIP);
@@ -105,20 +58,20 @@ Ban IP is added successfully to listBan IP user can not add post/create topic*/
 		/*Step Number: 1
 		 *Step Name: Go To BB code manage
 		 *Step Description:
-- Click on Administration menu and select"BB Code"
+		 *- Click on Administration menu and select"BB Code"
 		 *Input Data:
 		 *Expected Outcome:
-BB code management screen is shown.*/
+		 *BB code management screen is shown.*/
 		/*Step number: 2
 		 *Step Name: Add BB Code
 		 *Step Description:
-- Click on Add BBCode
-- Enter data into fields
-- Save
+		 *- Click on Add BBCode
+		 *- Enter data into fields
+		 *- Save
 		 *Input Data:
 		 *Expected Outcome:
           BB code is added successfully*/
-		//add
+		info("Add BBcode");
 		info("Go to Forum portlet");
 		hp.goToForum();
 		info("Click on Administration menu");
@@ -132,7 +85,7 @@ BB code management screen is shown.*/
 		info("Verify that BBcode is created");
 		waitForAndGetElement(forumHP.ELEMENT_BBCODE_TAG_VERIFY.replace("${tag}", tag.toUpperCase()));
 		info("BBcode is created successfully");
-		//edit
+		info("Edit BBcode");
 		info("Click on Edit BBcode");
 		click(forumHP.ELEMENT_BBCODE_EDITBBCODE.replace("${tag}", tag.toUpperCase()));
 		info("Edit a BBCode");
@@ -142,7 +95,7 @@ BB code management screen is shown.*/
 		info("Verify that BBcode is edited with changes");
 		waitForAndGetElement(forumHP.ELEMENT_BBCODE_TAG_VERIFY.replace("${tag}", tag.toUpperCase()));
 		info("BBcode is edited with changes successfully");
-		//delete
+		info("Delete BBcode");
 		click(forumHP.ELEMENT_BBCODE_DELETEBBCODE.replace("${tag}", tag.toUpperCase()));
 		click(forumHP.ELEMENT_BBCODE_CONFIRM_DELETETAG);
 		waitForElementNotPresent(forumHP.ELEMENT_BBCODE_TAG_VERIFY.replace("${tag}", tag.toUpperCase()));

@@ -2,17 +2,6 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.acme.AcmeHomePage;
-import org.exoplatform.selenium.platform.ecms.EditPageWCM;
-import org.exoplatform.selenium.platform.forum.ForumHomePage;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -21,45 +10,7 @@ import org.testng.annotations.*;
 * @date 20/01/2015
 */
 
-public class Forum_Settings extends PlatformBase {
-
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	ManageAlert magAlert;
-	Button but;
-	TextBoxDatabase txData;
-	NavigationToolbar navTool;
-	AcmeHomePage acmeHP;
-	AttachmentFileDatabase fData;
-	ForumHomePage forumHP;
-	EditPageWCM editPage;
-	
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
-		initSeleniumTest();
-		getDefaultUserPass(userDataFilePath,defaultSheet,true,jdbcDriver,dbUrl,user,pass,sqlUser);
-		driver.get(baseUrl);
-		magAc = new ManageLogInOut(driver);
-		but = new Button(driver);
-		hp = new HomePagePlatform(driver);
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		txData = new TextBoxDatabase();
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		navTool = new NavigationToolbar(driver);
-		acmeHP = new AcmeHomePage(driver);
-		magAlert = new ManageAlert(driver, this.plfVersion);
-		fData = new AttachmentFileDatabase();
-		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		forumHP = new ForumHomePage(driver);
-		editPage = new EditPageWCM(driver);
-	}
-	
-	@AfterMethod
-	public void afterMethod(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
-	
+public class Forum_Settings extends Forum_TestConfig {
 	/**
 	 *<li> Case ID:116686.</li>
 	 *<li> Test Case Name: User Settings.</li>

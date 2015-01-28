@@ -7,9 +7,12 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Forum_BasicAction"/>
-			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Forum_MoreAction"/>
-			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Administration"/>
+		    <class name="org.exoplatform.selenium.platform.forum.sniff.Forum_TestConfig" />
+			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_BookMark" />
+			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Category" />
+			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Forum_BasicAction" />
+			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Forum_MoreAction" />
+			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Administration" />
 			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_PublishActivity"/>
 			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Search"/>
 			<class name="org.exoplatform.selenium.platform.forum.sniff.Forum_Settings"/>

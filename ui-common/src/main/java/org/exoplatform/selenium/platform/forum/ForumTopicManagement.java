@@ -24,7 +24,7 @@ public class ForumTopicManagement extends PlatformBase {
 	public final By ELEMENT_MOVE_TOPIC = By.xpath("//*[contains(@href, 'MoveTopic')]");
 	public final By ELEMENT_LOCK_TOPIC = By.className("uiIconLockMedium");
 	public final By ELEMENT_UNLOCK_TOPIC = By.className("uiIconUnlockMedium");
-	public final By ELEMENT_ADD_POLL = By.xpath("//*[@id='UITopicDetail']//*[@class='uiIconPoll']");
+	public final By ELEMENT_ADD_POLL = By.xpath(".//*[@id='UITopicDetail']//a[contains(text(),'Add Poll')]");
 	
 	// Post on a topic
 	public final By ELEMENT_TOPIC_POST_A_REPLY_TITLE = By.id("PostTitle");
@@ -126,6 +126,8 @@ public class ForumTopicManagement extends PlatformBase {
 			waitForAndGetElement(ELEMENT_MOVE_TOPIC);
 			info("Click on move topic link");
 			click(ELEMENT_MOVE_TOPIC);
+			break;
+		default:
 			break;
 
 		}

@@ -2,16 +2,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.ManageAlert;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.forum.ForumHomePage.specifMoreActionMenu;
-import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.social.HomepageActivity;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -20,49 +11,9 @@ import org.testng.annotations.*;
 	* @author eXo
 	*
 	*/
-	public class Forum_PublishActivity extends PlatformBase{
-		HomePagePlatform hp;
-		ManageLogInOut magAc;
-		TextBoxDatabase txData;		
-		ForumHomePage foHome;
-		ForumTopicManagement foTopic;
-		HomepageActivity aHome;
-		AttachmentFileDatabase fData;
-		ManageAlert alert;
+	public class Forum_PublishActivity extends Forum_TestConfig{
 		String nameCat ;
 		String nameForum;
-		
-		@BeforeClass
-		public void setUpBeforeClass() throws Exception{
-			info("Start BeforeClass");
-			initSeleniumTest();
-			getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-			magAc = new ManageLogInOut(driver);
-			alert = new ManageAlert(driver);
-			hp = new HomePagePlatform(driver);
-			aHome = new HomepageActivity(driver);
-			foTopic = new ForumTopicManagement(driver);
-			foHome = new ForumHomePage(driver);
-			
-			txData = new TextBoxDatabase();
-			txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-			fData = new AttachmentFileDatabase();
-			fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-			
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			prepareDataTest();
-			info("End BeforeClass");
-		}	
-		
-		@AfterClass
-		public void afterClass(){
-			info("Start AfterClass");
-			deleteDataTest();
-			magAc.signOut();
-			driver.quit();
-			info("End AfterClass");
-		}
-		
 		/**
 		 * Prepare data test
 		 * Create a new category,a new forum
@@ -126,11 +77,13 @@ import org.testng.annotations.*;
 			- Topic is moved to destination Forum successfully
 			- In activity stream, a comment is added into activity,message is "Topic has been moved to: $value.Where $value is :Space>Category>Forum...*/ 
 		info("Create data test");
+		prepareDataTest();
 		String Forum=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String Cat=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String Topic=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String comment ="Topic have been moved to: "+nameCat+">"+nameForum;
 		info("Finishing creating data test");
+		
 		
 		hp.goToForum();
 		foHome.goToHomeCategory();
@@ -163,6 +116,7 @@ import org.testng.annotations.*;
 		hp.goToForum();
 		foHome.goToHomeCategory();
 		foHome.deleteCategory(Cat);
+		deleteDataTest();
 		info("Test01: finished testing");
  	}
 
@@ -212,6 +166,8 @@ import org.testng.annotations.*;
 			- New Topic is created
 			- An activity is added into activity stream
 			- Informations that are displayed in the featured content :1. Topic's title2. Rating average over the Topic3. First 4 lines of the topic content4. Number of replies*/ 
+		
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -220,7 +176,7 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		aHome.checkActivity(topic1);
-
+		deleteDataTest();
 		info("Test 2: Finished testing");
 		
 	}
@@ -237,6 +193,8 @@ import org.testng.annotations.*;
 		String topicNewName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String comment = "Title has been updated to: ";
 		info("Finished Creating data test for test 3");
+		
+		prepareDataTest();
 		
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
@@ -256,7 +214,7 @@ import org.testng.annotations.*;
 		info("Verify that the topic's activity is updated");
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",topicNewName).replace("{$comment}",comment+topicNewName)));
 		info("The topic's activity is updated successfully");
-		
+		deleteDataTest();
 		info("Test 3: Finish testing");
 	}
     /**
@@ -272,7 +230,7 @@ import org.testng.annotations.*;
 		String newContent=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String comment2 ="Content has been edited.";
 		info("Finish Creating data test for test 4");
-		
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -290,7 +248,7 @@ import org.testng.annotations.*;
 		info("Verify that the new topic's activity is shown");
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",topic1).replace("{$comment}",comment2)));
 		info("the new topic's activity is shown successfully");
-		
+		deleteDataTest();
 		info("Test 04: finished testing");
 	}
 	/**
@@ -306,7 +264,7 @@ import org.testng.annotations.*;
 		String comment3="Topic has been unlocked.";
 		String comment4="Topic has been locked.";
 		info("Finished Creating data test for test 5");
-		
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -335,7 +293,7 @@ import org.testng.annotations.*;
 		info("Verify that topic's activity is shown");
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",topic1).replace("{$comment}",comment3)));
 		info("The topic's activity is shown successfully");
-		
+		deleteDataTest();
 		info("Test 05: Finish testing");
 	}
 	/**
@@ -348,7 +306,7 @@ import org.testng.annotations.*;
         info("Create data test for test 6");
 		String topic1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Finished Creating data test for test 6");
-		
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -362,6 +320,7 @@ import org.testng.annotations.*;
 		info("Verify that the topic's activity is deleted after the topic is deleted");
 		waitForElementNotPresent(By.xpath(aHome.ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",topic1)));
 		info("the topic's activity is deleted sucessfully");
+		deleteDataTest();
 		info("Test 06: Finish testing");
 	}
 	/**
@@ -392,6 +351,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Poll is added to topic
 			- A Poll's activity is added to the activity stream*/ 
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -406,7 +366,7 @@ import org.testng.annotations.*;
 		info("Verify that topic's activity is added to the stream");
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",topic1).replace("{$comment}",comment)));
 		info("The topic's activity is added to the stream successfully");
-		
+		deleteDataTest();
 		info("Test 07: Finished testing");
 		
 	}
@@ -423,7 +383,7 @@ import org.testng.annotations.*;
 		String option1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String option2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Finish Creating data test for test 8");
-		
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -440,7 +400,7 @@ import org.testng.annotations.*;
 		info("Verify that the page redirects to the poll");
 		waitForAndGetElement(foTopic.ELEMENT_EDIT_POLL_MORE_ACTIONS);
 		info("the page redirects to the poll successfully");
-		
+		deleteDataTest();
 		info("Test 08: Finish testing");
 	}
     /**
@@ -458,7 +418,7 @@ import org.testng.annotations.*;
 		String option3 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String comment2="Poll has been updated.";
 		info("Finished Creating data test for test 9");
-		
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -476,7 +436,7 @@ import org.testng.annotations.*;
 		info("Verify that the poll's comment is shown on the stream");
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",question).replace("{$comment}",comment2)));
 		info("the poll's comment is shown on the stream successfully");
-	
+		deleteDataTest();
 		info("Test 09: Testing finished");
     }
     /**
@@ -493,7 +453,7 @@ import org.testng.annotations.*;
 		String option2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String comment3="Poll has been removed.";
 		info("Finished Creating  data test for test 10");
-		
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -511,7 +471,7 @@ import org.testng.annotations.*;
 		info("Verify that the comment is added to the topic on the stream after deleted poll");
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",topic1).replace("{$comment}",comment3)));
 		info("The comment is added to the topic on the stream successfully after deleted poll");
-		
+		deleteDataTest();
 		info("Test 10: finshed testing");
     }
 
@@ -538,6 +498,7 @@ import org.testng.annotations.*;
 		info("Create test data");
 		String topic1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Finished test data");
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -554,7 +515,7 @@ import org.testng.annotations.*;
 		info("Reply popup of the topic is shown successfully");
 		info("Click on cancel button of the post");
 		click(foTopic.ELEMENT_TOPIC_CANCEL_A_POST);
-		
+		deleteDataTest();
 		info("Test 11: finsihed testing");
  	}
 
@@ -583,7 +544,7 @@ import org.testng.annotations.*;
 		String topic = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String reply = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Finished test data for test 12");
-		
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -607,7 +568,7 @@ import org.testng.annotations.*;
 		info("Verify that the last reply is shown in forum");
 		waitForAndGetElement(foHome.ELEMENT_TOPIC_LAST_REPLY.replace("${reply}",reply));
 		info("the last reply is shown in forum successfully");
-		
+		deleteDataTest();
 		info("Test 12: Finish testing");
 
  	}
@@ -646,7 +607,7 @@ import org.testng.annotations.*;
 		String topic = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String comment =txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Finished test data for test 13");
-		
+		prepareDataTest();
 		hp.goToForum();
 		foHome.goToCategory(nameCat);
 		foHome.goToForum(nameForum);
@@ -668,7 +629,7 @@ import org.testng.annotations.*;
 		info("Verify that the page redirects to related reply in the forum");
 		waitForAndGetElement(foHome.ELEMENT_TOPIC_REPPLY_CONTENT.replace("${content}",comment));
 		info("The related reply is shown in forum successfully");
-		
+		deleteDataTest();
 		info("Test 13: Finish testing");
  	}
 }

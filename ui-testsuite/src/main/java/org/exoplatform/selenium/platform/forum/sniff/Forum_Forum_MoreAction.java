@@ -1,58 +1,13 @@
 package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.forum.ForumHomePage;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.testng.annotations.*;
 /**
  * @author quynhpt
  * Date 21/01/2015
  */
 
-public class Forum_Forum_MoreAction extends PlatformBase {
-	HomePagePlatform hp;
-	NavigationToolbar navTool;
-	
-	ForumHomePage forumHP;
-	ManageLogInOut magAc;
-	MyProfilePage myPro;
-	
-	AttachmentFileDatabase fData;
-	TextBoxDatabase txData;
-
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
-		initSeleniumTest();
-		getDefaultUserPass(userDataFilePath,defaultSheet,true,jdbcDriver,dbUrl,user,pass,sqlUser);
-		
-		hp = new HomePagePlatform(driver);
-		navTool = new NavigationToolbar(driver);
-		forumHP = new ForumHomePage(driver);
-		magAc = new ManageLogInOut(driver);
-		myPro = new MyProfilePage(driver);
-		
-		txData = new TextBoxDatabase();
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		
-		fData = new AttachmentFileDatabase();
-		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		
-		magAc.signIn(DATA_USER1, DATA_PASS);
-	}
-
-
-	@AfterMethod
-	public void afterMethod(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
+public class Forum_Forum_MoreAction extends Forum_TestConfig {
 	
 	/**
 	 * CaseID: 116749

@@ -3,15 +3,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.NavigationToolbar.specifUserToolBar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.forum.ForumHomePage;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 /**
@@ -19,44 +11,8 @@ import org.testng.annotations.*;
  * Date 20/01/2015
  */
 
-public class Forum_Forum_BasicAction extends PlatformBase {
-	HomePagePlatform hp;
-	NavigationToolbar navTool;
+public class Forum_Forum_BasicAction extends Forum_TestConfig {
 	
-	ForumHomePage forumHP;
-	ManageLogInOut magAc;
-	MyProfilePage myPro;
-	
-	AttachmentFileDatabase fData;
-	TextBoxDatabase txData;
-
-
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
-		initSeleniumTest();
-		getDefaultUserPass(userDataFilePath,defaultSheet,true,jdbcDriver,dbUrl,user,pass,sqlUser);
-		
-		hp = new HomePagePlatform(driver);
-		navTool = new NavigationToolbar(driver);
-		forumHP = new ForumHomePage(driver);
-		magAc = new ManageLogInOut(driver);
-		myPro = new MyProfilePage(driver);
-		
-		txData = new TextBoxDatabase();
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		
-		fData = new AttachmentFileDatabase();
-		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		
-		magAc.signIn(DATA_USER1, DATA_PASS);
-	}
-
-	@AfterMethod
-	public void afterMethod(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
-
 	/** 
 	 * CaseID: 116735
 	 * Case_name: Add a forum
