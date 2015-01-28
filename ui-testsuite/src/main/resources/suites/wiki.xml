@@ -1,21 +1,31 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Platform Functional Test" verbose="1" preserve-order="true">
-	<!-- <test name="wiki-functional-test" enabled="true"> <groups> <run> <exclude 
+	<test name="wiki-functional-test" enabled="true"> <groups> <run> <exclude 
 		name="pending" /> </run> </groups> <packages> <package name="org.exoplatform.selenium.platform.wiki.functional.*" 
-		/> </packages> </test> -->
+		/> </packages> </test> 
 	<test name="wiki-func-pagepermission" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
 			</run>
 		</groups>
+		<classes> 
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.pagepermission.Wiki_PagePermission_Add" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.pagepermission.Wiki_PagePermission_Delete" />
+	        <class
+				name="org.exoplatform.selenium.platform.wiki.functional.pagepermission.Wiki_PagePermission_Edit" />	
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.pagepermission.Wiki_PagePermission_Other" />	
+		</classes>
 		<packages>
 			<package
 				name="org.exoplatform.selenium.platform.wiki.functional.pagepermission.*" />
-		</packages>
+		</packages> 
 
-	</test>
+	</test> 
 	<test name="wiki-func-attachment" enabled="true">
 		<groups>
 			<run>
@@ -46,6 +56,14 @@
 				<exclude name="pending" />
 			</run>
 		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_Version_Compare" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_Version_Restore" />
+	        <class
+				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_Version_View" />	
+		</classes>
 		<packages>
 			<package
 				name="org.exoplatform.selenium.platform.wiki.functional.information.*" />
