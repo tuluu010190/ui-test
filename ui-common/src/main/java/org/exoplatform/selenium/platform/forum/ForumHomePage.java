@@ -26,7 +26,7 @@ public class ForumHomePage extends PlatformBase {
 	public final By ELEMENT_ACTIONBAR_MANAGECAT_EDIT = By.xpath("//*[@class='dropdown-menu uiCategoryPopupMenu']/li[1]/a");
 	public final By  ELEMENT_ACTIONBAR_MANAGECAT_EXPORTFORUM = By.xpath("//*[@class='dropdown-menu uiCategoryPopupMenu']/li[2]/a");
 	public final By  ELEMENT_ACTIONBAR_MANAGECAT_IMPORTFORUM = By.xpath("//*[@class='dropdown-menu uiCategoryPopupMenu']/li[3]/a");
-	
+	public final By ELEMENT_ACTIONBAR_PRIVATE_MESSAGE = By.xpath(".//*[@id='uiRightActionBar']//a[contains(.,'Private Messages')]");
 	//Add Category popup
 	public final By ELEMENT_ADDCATEGORY_POPUP_CATEGORY_TAB= By.xpath(".//*[@id='UICategoryForm']//a[text()='Category']");
 	public final By ELEMENT_ADDCATEGORY_POPUP_PERMISSION_TAB= By.xpath(".//*[@id='UICategoryForm']//a[text()='Permissions']");
@@ -412,12 +412,12 @@ public class ForumHomePage extends PlatformBase {
 	}
     
 	/**
-	 * list sublinks in More Action menu
+	 * list sublinks in More Action menu of Forum
 	 * @author quynhpt
 	 *
 	 */
 	public enum specifMoreActionMenu{
-		START_TOPIC,EDIT,LOCK,UNLOCK,CLOSE,OPEN,MOVE,DELETE,EXPORT_FORUM,WATCHES,BANNED_IPS,ADDPOLL;
+		START_TOPIC,EDIT,LOCK,UNLOCK,CLOSE,OPEN,MOVE,DELETE,EXPORT_FORUM,WATCHES,BANNED_IPS;
 	}
 	/**
 	 * Open More Action menu
@@ -695,15 +695,6 @@ public class ForumHomePage extends PlatformBase {
 		info("Start topic successfully");
 	}
 	/**
-	 * Open a topic
-	 * @param name
-	 */
-	public void goToTopic(String name){
-		info("Click on the topic with the name:"+name);
-		click(ELEMENT_SELECT_FORUM_TOPIC.replace("${link}", name));
-		Utils.pause(2000);
-	}
-	/**
 	 * Open a forum
 	 * @param name
 	 */
@@ -933,6 +924,25 @@ public class ForumHomePage extends PlatformBase {
 		check(ELEMENT_EXPORTCAT_EXPORT.replace("${title}", name), 2);
 		info("Save all changes");
 		click(ELEMENT_SAVE_BTN);
+	}
+	
+	/**
+	 * Open a topic
+	 * @param name
+	 */
+	public void goToTopic(String name){
+		info("Click on the topic with the name:"+name);
+		click(ELEMENT_SELECT_FORUM_TOPIC.replace("${link}", name));
+		Utils.pause(2000);
+	}
+   /**
+    * Go to Private Message
+    */
+	public void goToPrivateMessage() {
+		// TODO Auto-generated method stub
+		info("Click on Private Message button");
+		click(ELEMENT_ACTIONBAR_PRIVATE_MESSAGE);
+		Utils.pause(2000);
 	}
 	
 }

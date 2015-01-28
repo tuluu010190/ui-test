@@ -13,6 +13,7 @@ import org.exoplatform.selenium.platform.ecms.EditPageWCM;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
+import org.exoplatform.selenium.platform.forum.PrivateMessageManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.social.HomepageActivity;
@@ -44,7 +45,7 @@ public class Forum_TestConfig extends PlatformBase{
 	ForumTopicManagement foTopic;
 	HomepageActivity aHome;
 	EditPageWCM editPage;
-	
+	PrivateMessageManagement msgManage;
 
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -65,6 +66,7 @@ public class Forum_TestConfig extends PlatformBase{
 		foTopic = new ForumTopicManagement(driver);
 		aHome = new HomepageActivity(driver);
 		editPage = new EditPageWCM(driver);
+		msgManage = new PrivateMessageManagement(driver);
 
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

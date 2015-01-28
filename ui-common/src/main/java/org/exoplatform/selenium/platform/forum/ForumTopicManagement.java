@@ -5,15 +5,12 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
-import org.exoplatform.selenium.platform.forum.ForumHomePage.specifMoreActionMenu;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import static org.exoplatform.selenium.TestLogger.info;
 
 public class ForumTopicManagement extends PlatformBase {
-	PlatformPermission per;
-	ManageAlert alert;
-	Button button;
 	
 	public By ELEMENT_POST_REPLY =By.xpath("//*[@id='UITopicDetail']//*[@class='pull-left actionContainer']/a[contains(text(),'Post Reply')]");
 	
@@ -30,6 +27,22 @@ public class ForumTopicManagement extends PlatformBase {
 	public final By ELEMENT_TOPIC_POST_A_REPLY_TITLE = By.id("PostTitle");
 	public final By ELEMENT_TOPIC_CANCEL_A_POST = By.xpath("//*[@id='UIPostForm']//*[contains(text(),'Cancel')]");
 	
+    // reply post form 
+    public By ELEMENT_TITLE_POST = By.id("PostTitle");
+    public By ELEMENT_POST_CONTENT = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
+    public By ELEMENT_POST_FORM_SUBMIT = By.xpath("//*[@id='UIPostForm']//*[contains(text(),'Submit')]");
+    public String ELEMENT_POST_IN_TOPIC = "//*[@class='postViewTitle' and contains(text(),'{$title}')]/../..//*[@class='postContent']//*[contains(text(),'{$content}')]";
+    public String ELEMENT_POST_IN_TOPIC_QUOTE = "//*[@class='postViewTitle' and contains(text(),'{$title}')]/../..//*[@class='contentQuote']//*[contains(text(),'{$content}')]";
+    public String ELEMENT_POST_IN_TOPIC_PRIVATE = "//*[@class='postViewTitle' and contains(text(),'{$title}')]//*[contains(text(),'Post Private')]/../../..//*[contains(text(),'{$content}')]";
+    
+    // foot page of post
+    public String ELEMENT_EDIT_POST = "//*[@class='postViewTitle' and contains(text(),'{$title}')]/../..//*[@data-original-title='Edit This Post']";
+	public String ELEMENT_QUOTE_POST = "//*[@class='postViewTitle' and contains(text(),'{$title}')]/../..//*[@data-original-title='Reply with Quote']";
+    public String ELEMENT_DELETE_POST = "//*[@class='postViewTitle' and contains(text(),'{$title}')]/../..//*[@data-original-title='Delete This Post']";
+	public String ELEMENT_PRIVATE_POST = "//*[@class='postViewTitle' and contains(text(),'{$title}')]/../..//*[@data-original-title='Private Reply']";
+
+    public By ELEMENT_DELETE_BOX_CONFIRMATION = By.xpath("//*[@id='UIForumPopupConfirmation']//*[contains(text(),'OK')]");
+    
 	//  Poll
     public By ELEMENT_POLL_QUESTION = By.id("Question");
     public By ELEMENT_POLL_OPTIONS0 = By.id("Option0");
@@ -46,6 +59,9 @@ public class ForumTopicManagement extends PlatformBase {
 	public String ELEMENT_UI_POPUP_MOVE_TOPIC ="//*[@id='MoveTopicForm']//*[@class='node']//*[contains(text(),'{$forum}')]";
 	public final String ELEMENT_MOVE_POPUP_COLLASPE_NODE =".//*[@class='uiIconNode collapseIcon'][contains(.,'${category}')]";
 	
+	PlatformPermission per;
+	ManageAlert alert;
+	Button button;
 	/**
 	 * constructor
 	 * @param dr
@@ -74,6 +90,7 @@ public class ForumTopicManagement extends PlatformBase {
 		}
 		info("Finish moving");
 	}
+	
 	/**
 	 * Open More Action menu
 	 * By QuynhPT
@@ -84,17 +101,24 @@ public class ForumTopicManagement extends PlatformBase {
 		info("Click on More link");
 		click(ELEMENT_MORE_ACTION);
 	}
-	
+	/**
+	 * list sublinks in More Action menu of Topic
+	 * @author quynhpt
+	 *
+	 */
+	public enum specifMoreActionMenuTopic{
+		EDIT,ADD_POLL,LOCK,UNLOCK,CLOSE,OPEN,STICK,SPLIT,MOVE,DELETE,WATCHES;
+	}
 	/**
 	 * select a item in More Action menu
 	 * By QuynhPT
 	 * @param item
 	 */
-    public void selectItemMoreActionMenuTopic(specifMoreActionMenu item){
+    public void selectItemMoreActionMenuTopic(specifMoreActionMenuTopic item){
     	openMoreActionMenu();
     	info("Select a link in More menu of the topic");
     	switch(item) {
-    	case ADDPOLL:
+    	case ADD_POLL:
     		info("Click on Add poll button");
     		click(ELEMENT_ADD_POLL);
     		break;
@@ -127,20 +151,92 @@ public class ForumTopicManagement extends PlatformBase {
 			info("Click on move topic link");
 			click(ELEMENT_MOVE_TOPIC);
 			break;
+		case CLOSE:
+			break;
+		case OPEN:
+			break;
+		case STICK:
+			break;
+		case SPLIT:
+			break;
 		default:
 			break;
 
 		}
 	}
 	
+    /**
+     * Post a reply
+     * @param title
+     * @param content
+     */
+    public void postReply(String title, String content){
+    	click(ELEMENT_POST_REPLY);
+    	
+		if (title !="")
+			type(ELEMENT_TITLE_POST,title,true);
+		
+		inputFrame(ELEMENT_POST_CONTENT, content);
+		click(ELEMENT_POST_FORM_SUBMIT);
+    }
+    
+    /**
+     * Edit a post
+     * @param title
+     * @param newTitle
+     * @param newContent
+     */
+    public void editPost(String title, String newTitle,String newContent){
+    	click(By.xpath(ELEMENT_EDIT_POST.replace("{$title}", title)));
+    	
+    	if (newTitle !="")
+			type(ELEMENT_TITLE_POST,newTitle,true);
+    	
+    	if(newContent !="")
+    		inputFrame(ELEMENT_POST_CONTENT, newContent);
+    	click(ELEMENT_POST_FORM_SUBMIT);
+    }
+    
+    /**
+     * Quote a post 
+     * @param title
+     * @param newContent
+     */
+    public void quotePost(String title,String newContent){
+    	click(By.xpath(ELEMENT_QUOTE_POST.replace("{$title}",title)));
+    	
+    	if(newContent !="")
+    		inputFrame(ELEMENT_POST_CONTENT, newContent);
+    	
+    	click(ELEMENT_POST_FORM_SUBMIT);
+    }
+    
+    /**
+     * Create a private post
+     * @param titlePost
+     * @param newTitle
+     * @param content
+     */
+    public void privatePost(String titlePost, String newTitle, String content){
+    	click(By.xpath(ELEMENT_PRIVATE_POST.replace("{$title}",titlePost)));
+    	
+    	if(newTitle !="")
+			type(ELEMENT_TITLE_POST,newTitle,true);
+    	
+    	if(content !="")
+    		inputFrame(ELEMENT_POST_CONTENT, content);
+    	
+    	click(ELEMENT_POST_FORM_SUBMIT);
+    }
+    
 	/**
-	 * Add Poll
+	 * Add poll
 	 * @param question
 	 * @param option1
 	 * @param option2
 	 */
     public void addPoll(String question, String option1, String option2){
-    	selectItemMoreActionMenuTopic(specifMoreActionMenu.ADDPOLL);
+    	selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.ADD_POLL);
     	info("Input a question to poll");
     	type(ELEMENT_POLL_QUESTION,question,true);
     	info("Input an option 1 to poll");
@@ -197,6 +293,7 @@ public class ForumTopicManagement extends PlatformBase {
      */
     public void deleteTopic(){
     	info("Delete the topic");
-    	selectItemMoreActionMenuTopic(specifMoreActionMenu.DELETE);
+    	selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.DELETE);
     }
+
 }

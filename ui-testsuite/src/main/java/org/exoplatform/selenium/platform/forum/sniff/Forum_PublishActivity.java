@@ -2,7 +2,7 @@ package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.platform.forum.ForumHomePage.specifMoreActionMenu;
+import org.exoplatform.selenium.platform.forum.ForumTopicManagement.specifMoreActionMenuTopic;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -100,8 +100,8 @@ import org.testng.annotations.*;
 		
 		info("Move Topic:"+Topic);
 		foHome.goToTopic(Topic);
-		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenu.MOVE);
-		
+		//foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenu.MOVE);
+		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.MOVE);
 		info("Move the topic to a forum");
 		foTopic.moveTopicToForum(nameCat,nameForum);
 		info("Verify that the forum is moved to new category");
@@ -204,7 +204,7 @@ import org.testng.annotations.*;
 		
 		info("Edit topic:"+topic1);
 		foHome.goToTopic(topic1);
-		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenu.EDIT);
+		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.EDIT);
 		type(foHome.ELEMENT_START_TOPIC_POPUP_TITLE_FILED, topicNewName, true);
 		info("Click on Submit button");
 		click(foHome.ELEMENT_SUBMIT_BUTTON);
@@ -239,7 +239,7 @@ import org.testng.annotations.*;
 		
 		info("Edit topic:"+topic1);
 		foHome.goToTopic(topic1);
-		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenu.EDIT);
+		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.EDIT);
 		inputFrame(foHome.ELEMENT_START_TOPIC_MESSAGE_FRAME_CKEDITOR,newContent);
 		info("Click on Submit button");
 		click(foHome.ELEMENT_SUBMIT_BUTTON);
@@ -273,7 +273,7 @@ import org.testng.annotations.*;
 		
 		info("Lock topic:"+topic1);
 		foHome.goToTopic(topic1);
-		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenu.LOCK);
+		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.LOCK);
 		info("Verify that Post reply button is not shown when the topic is locked");
 		waitForElementNotPresent(foTopic.ELEMENT_POST_REPLY);
 		info("The topic is locked successfully");
@@ -284,7 +284,7 @@ import org.testng.annotations.*;
 		info("The topic's activity is shown successfully");
 		
 		hp.goToForum();
-		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenu.UNLOCK);
+		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenuTopic.UNLOCK);
 		info("Verify that Post reply button is shown when the topic is unlocked");
 		waitForAndGetElement(foTopic.ELEMENT_POST_REPLY);
 		info("The topic is unlocked successfully");
@@ -315,7 +315,7 @@ import org.testng.annotations.*;
 		
 		info("Delete topic:"+topic1);
 		foHome.goToTopic(topic1);
-		foTopic.selectItemMoreActionMenuTopic(specifMoreActionMenu.DELETE);
+		foTopic.deleteTopic();
 		hp.goToHomePage();
 		info("Verify that the topic's activity is deleted after the topic is deleted");
 		waitForElementNotPresent(By.xpath(aHome.ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",topic1)));
