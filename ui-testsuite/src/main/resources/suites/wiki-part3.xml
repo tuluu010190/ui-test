@@ -25,7 +25,7 @@
 		</groups>
 		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.spaceswitcher.Wiki_SpaceSwitcher_Display" />
+				name="org.exoplatform.selenium.platform.wiki.functional.spaceswitcher.Wiki_Navigation_Across_Space" />
 			<class
 				name="org.exoplatform.selenium.platform.wiki.functional.spaceswitcher.Wiki_SpaceSwitcher" />
 		</classes>
@@ -48,19 +48,6 @@
 				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Activity_Dislike" />
 			<class
 				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Activity_Display" />
-		</classes>
-	</test>
-
-	<test name="wiki-func-navigationacrossspace" enabled="true">
-		<groups>
-			<run>
-				<exclude name="pending" />
-			</run>
-		</groups>
-		<classes>
-
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.navigationacrossspace.Wiki_Navigation_Across_Space" />
 		</classes>
 	</test>
 

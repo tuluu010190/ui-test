@@ -116,14 +116,14 @@ public class SpaceManagement extends SocialBase {
 	public final By ELEMENT_MEMBER_TAB = By.xpath("//*[@id='UITabPane']//a[@data-target='#UISpaceMember-tab' and contains(text(),'Members')]");
 
 	public SpaceManagement(WebDriver dr, String...plfVersion){
-		driver = dr;
+		this.driver = dr;
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
-		userGroup = new UserGroupManagement(driver);
-		dialog = new Dialog(driver);
-		button = new Button(driver);
-		magAlert = new ManageAlert(driver);
-		actBar = new ActionBar(driver);
-		spSearch = new SpaceSearch(driver);
+		userGroup = new UserGroupManagement(dr);
+		dialog = new Dialog(dr);
+		button = new Button(dr);
+		magAlert = new ManageAlert(dr);
+		actBar = new ActionBar(dr);
+		spSearch = new SpaceSearch(dr);
 	}
 
 	/**

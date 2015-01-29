@@ -95,9 +95,11 @@ public class WikiBase extends PlatformBase{
 	public final String ELEMENT_NODE_WIKI_PAGE = "//a[contains(text(), '${node}')]";
 	//Space Switcher
 	public final By ELEMENT_SPACE_SWITCHER_BREADCRUMB = By.id("DisplayModesDropDown");
-	public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText lostFocus']") ;
+	//public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText lostFocus']") ;
+	public final By ELEMENT_SPACE_SWITCHER_INPUT = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//li[contains(@class, 'spaceSearch')]//input[contains(@placeholder, 'Filter Spaces')]");
 	public final By ELEMENT_SPACE_SWITCHER_INPUT_FOCUS = By.xpath("//*[@id='uiSpaceSwitcher_BreadCrumb']//input[@class='spaceSearchText focus']") ;
-	public final By ELEMENT_SPACE_SWITCHER_PLACEHOLDER = By.xpath("//*[contains(text(),'Filter Spaces')]");
+	//public final By ELEMENT_SPACE_SWITCHER_PLACEHOLDER = By.xpath("//*[contains(text(),'Filter Spaces')]");
+	public final By ELEMENT_SPACE_SWITCHER_PLACEHOLDER = By.xpath("//script[contains(text(),'Filter Spaces')]");
 	public final String ELEMENT_SPACE_SWITCHER_SELECT = "//a[text() = '${spaceName}']";
 	public final String ELEMENT_CURRENT_SPACE_SWITCHER_SELECT= "//*[@id='uiSpaceSwitcher_BreadCrumb']//span[text()='${name}']";
 	public final String ELEMENT_SPACE_SWITCHER_AVATAR_SPACE = "//li[@class='spaceOption hover']/..//img[@alt='${spaceName}']";

@@ -755,6 +755,9 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_SELECT_CATEGORY_ITEM = "//*[@class='item category' and text()='${catName}']";
 	public final By ELEMENT_LOCATION_WIKI = By.xpath("//*[@id='uiWikiSpaceSwitcher_CreateWiki']//input[@class='spaceSearchText lostFocus']");
 	public final String ELEMENT_CREATE_WIKI_INTRANET = "//*[@id='uiWikiSpaceSwitcher_CreateWiki']//span[text()='${name}']";
+	public final String ELEMENT_CREATE_WIKI_PERSONAL = "//a[contains(@title, '${name}')]/i";
+	public final String ELEMENT_CHECK_WIKI_PAGE_PERSONAL ="//*[@id='iconTreeExplorer']/a[contains(@href, '${name}')]/i";
+	public final String ELEMENT_CHECK_SELECT_LOCATION = "//a[text()='${name}']";
 	public final By ELEMENT_CREATE_WIKI_LABEL = By.xpath("//*[contains(text(),  'Create a new Wiki Page')]");
 	public final By ELEMENT_UPLOAD_FILE_LABEL = By.xpath("//*[contains(text(), 'Select Drive')]");
 	public final By ELEMENT_UPLOAD_FILE_DRIVER = By.id("DriveTypeDropDown");	

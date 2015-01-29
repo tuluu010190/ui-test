@@ -11,6 +11,7 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.social.ApplicationManagement;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.social.SocialBase;
+import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.WikiBase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
@@ -27,6 +28,9 @@ public class Wiki_SpaceSwitcher extends WikiBase{
 	NavigationToolbar nav; 	
 	ApplicationManagement mApplication; 
 	SocialBase sb;
+	NavigationToolbar nt;
+	SpaceManagement sm;
+	
 
 	@BeforeMethod
 	public void beforeMethod(){
@@ -41,6 +45,8 @@ public class Wiki_SpaceSwitcher extends WikiBase{
 		nav = new NavigationToolbar(driver, this.plfVersion);
 		mApplication = new ApplicationManagement(driver);
 		sb = new SocialBase();
+		nt = new NavigationToolbar(driver, this.plfVersion);
+		sm = new SpaceManagement(driver, this.plfVersion);
 		acc.signIn(DATA_USER1, DATA_PASS);		
 	}
 
@@ -147,7 +153,7 @@ public class Wiki_SpaceSwitcher extends WikiBase{
 	@Test
 	public  void test03_ListOfSpacesShouldBeDisplayedWhenUserIsMemberOfAtLeastOneSpace() {
 		info("Test 3: List of spaces should be displayed when user is member of at least one space");
-		String spaceName = "Space79642A";
+		String spaceName = "Space"+getRandomNumber();
 		String avatar = "ECMS_DMS_SE_Article.jpg";
 
 		//Pre-Condition
@@ -323,6 +329,7 @@ public class Wiki_SpaceSwitcher extends WikiBase{
 		- wiki's breadcrumb is showing the space switcher component with the label "Intranet"		*/ 
 		goToWiki();
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
+		waitForAndGetElement(ELEMENT_DISPLAY_MODE.replace("${space}", "Intranet"));
 		click(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		info("Title of space switcher");
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_LOCATION);
@@ -354,14 +361,22 @@ public class Wiki_SpaceSwitcher extends WikiBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Personal wiki is displayed		*/
-		nav.goToWiki();
-
+		
+		info("--Go to Add Wiki Page--");		
+		nt.goToCreateMenu();
+		click(ELEMENT_ADD_WIKI_ICON);
+		waitForAndGetElement(ELEMENT_ADD_WIKI_FORM);
+		click(ELEMENT_CREATE_WIKI_INTRANET.replace("${name}", "Intranet"));
+		waitForAndGetElement(ELEMENT_CREATE_WIKI_PERSONAL.replace("${name}", "My Wiki"));
+		click(ELEMENT_CREATE_WIKI_PERSONAL.replace("${name}", "My Wiki"));
+		button.next();
 		/*
 		- check display of "My Wiki" on Space Switcher
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Space Switcher component is displayed in the breadcrumb with value "My Wiki"		*/ 
 		Utils.pause(500);
+		waitForAndGetElement(ELEMENT_DISPLAY_MODE.replace("${space}", "My Wiki"));
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		mouseOverAndClick(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		info("MyWiki");
@@ -391,11 +406,29 @@ public class Wiki_SpaceSwitcher extends WikiBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A list is opened		*/ 
+		String space1 = "Space79646A";
+		String space2 = "Space79646B";
+
+		//Pre-Condition
+		mMember.goToAllSpaces();
+		mMember.addNewSpace(space1, "");
+		mMember.goToAllSpaces();
+		mMember.addNewSpace(space2, "");
+		
 		goToWiki();
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		click(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		info("Title of space switcher");
+		info("A list is opened");
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_LOCATION);
+		waitForAndGetElement(ELEMENT_CREATE_WIKI_PERSONAL.replace("${name}", "My Wiki"));
+		waitForAndGetElement(ELEMENT_CREATE_WIKI_PERSONAL.replace("${name}", "Intranet"));
+		waitForAndGetElement(ELEMENT_CHECK_SELECT_LOCATION.replace("${name}", space1));
+		waitForAndGetElement(ELEMENT_CHECK_SELECT_LOCATION.replace("${name}", space2));
+		
+		mMember.goToAllSpaces();
+		mMember.deleteSpace(space1,300000);
+		Utils.pause(1000);
+		mMember.deleteSpace(space2,300000);
 	}
 
 	/**
@@ -473,6 +506,7 @@ public class Wiki_SpaceSwitcher extends WikiBase{
 		- Space Switcher component is displayed in the breadcrumb with value "Mobile"		*/
 		goToWikiFromSpace(spaceName);
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
+		waitForAndGetElement(By.xpath(ELEMENT_CURRENT_SPACE_SWITCHER_SELECT.replace("${name}", spaceName)));
 		click(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		info("Space's Name");
 		waitForAndGetElement(By.xpath(ELEMENT_SPACE_SWITCHER_SELECT.replace("${spaceName}", spaceName)));
@@ -552,8 +586,9 @@ public class Wiki_SpaceSwitcher extends WikiBase{
 		info("Title of space switcher");
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_LOCATION);
 		info("My Wiki");
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_MYWIKI.replace("${index}", "4"));
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
-		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_MYWIKI.replace("${index}", "4"));		
+				
 	}
 
 	/**
@@ -720,7 +755,7 @@ public class Wiki_SpaceSwitcher extends WikiBase{
 	 * Generated by chinhdtt at 2014/05/12 13:45:02
 	 * Issue: https://jira.exoplatform.org/browse/COMMONS-324
 	 */
-	@Test (groups = "errors")
+	@Test
 	public  void test16_SpaceSwitcherShouldNotDisplayMoreThan10LastestBrowsedSpaces() {
 		info("Test 16 space switcher should not display more than 10 lastest browsed spaces");		
 		String space1 = "Space79644A";

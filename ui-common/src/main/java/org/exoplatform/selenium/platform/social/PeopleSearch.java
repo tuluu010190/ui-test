@@ -18,7 +18,8 @@ public class PeopleSearch extends SocialBase{
 	//Go to username link -> Find Connections
 
 	//Search people by name
-	public final By ELEMENT_NAME_OF_PEOPLE = By.id("Search");
+	//public final By ELEMENT_NAME_OF_PEOPLE = By.id("Search");
+	public final By ELEMENT_NAME_OF_PEOPLE = By.id("name");
 
 	//Search people by position
 	public final By ELEMENT_ROLE_OF_PEOPLE = By.id("position");
