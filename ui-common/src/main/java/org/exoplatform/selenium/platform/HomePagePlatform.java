@@ -21,6 +21,9 @@ public class HomePagePlatform extends TestBase{
 	ForumHomePage fHome;
 	FaqHomePage fqHome;
 
+	public final By ELEMENT_PLF_HOMEPAGE_DISPLAY = By.xpath("//*[@class='navItemSelected']//*[@href='/portal/intranet/home']");
+	public final By ELEMENT_PLF_HOMEPAGE_ACTIVITY_PORTLET = By.xpath(".//*[@id='UIUserActivityStreamPortlet']//div[@class='uiUserActivitiesContainer']");
+    public final By ELEMENT_PLF_HOMEPAGE_GADGET_PORTLET = By.xpath(".//*[@id='OfficeRightMiddle']");	
 	//Left panel
 	public final By ELEMENT_FORUM_LINK_PLF=By.xpath("//*[@data-original-title='Forums']");
 	public final By ELEMENT_ANSWER_LINK_PLF=By.xpath("//*[@data-original-title='Answer']");

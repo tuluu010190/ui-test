@@ -39,14 +39,19 @@ public class PageCreationWizard extends PlatformBase {
 	
 	//Page Editor left side bar header
 	public final By ELEMENT_PAGE_FINISH_BTN = By.xpath("//*[@class='uiIconSave uiIconDarkGray pull-right']");
+	public final By ELEMENT_PAGE_ABORT_BTN = By.xpath(".//*[@id='UIPageEditor']//*[@data-original-title='Abort']");
 	
-	//Application tabs
+	//Application panel
 	public final By ELEMENT_APPLICATION_CONTENT_TAB = By.xpath("//*[@title='Content']");
+	public final By ELEMENT_APPLICATION_ADMINISTRATION_TAB=By.xpath("//*[@title='Administration']");
 	public final By ELEMENT_APPLICATION_CONTENT_DETAIL = By.xpath("//*[@id='Content/SingleContentViewer']");
 	public final By ELEMENT_APPLICATION_CONTENT_LIST = By.xpath("//*[@id='Content/ContentListViewerPortlet']");
+	public final String ELEMENT_APPLICATION_APPLICATION = ".//*[@id='${name}']";
+	public final String ELEMENT_APPLICATION_REMOTE_GADGET = ".//*[@id='UIApplicationList']//*[contains(text(),'${name}')]";
 	
 	//Layout
 	public  final By ELEMENT_PAGEEDITOR_VIEWPAGE = By.xpath("//*[@class='VIEW-PAGE']");
+	public final String ELEMENT_PAGEEDITOR_CONTENT=".//*[@class='UIComponentBlock']//*[contains(text(),'${name}')]";
 	
 	public PageCreationWizard(WebDriver dr){
 		driver = dr;
@@ -105,7 +110,7 @@ public class PageCreationWizard extends PlatformBase {
 	 * @param tab
 	 * @param element
 	 */
-	public void addApplication(By tab, By element) {
+	public void addApplication(Object tab, Object element) {
 		click(tab);
 		Utils.pause(1000);
 		dragAndDropToObject(element, ELEMENT_PAGEEDITOR_VIEWPAGE);
@@ -156,4 +161,5 @@ public class PageCreationWizard extends PlatformBase {
 		click(contDetail.ELEMENT_CONTENT_DETAIL_CLOSE_BTN);
 		click(ELEMENT_PAGE_FINISH_BTN);
 	}
+	
 }

@@ -27,13 +27,15 @@ public class NavigationToolbar extends PlatformBase {
 	ManageSites magSites;
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
-
+	public final By ELEMENT_TOOLBAR_THEMELIGHT = By.xpath("//*[@class='UIContainer UIToolbarContainer UIToolbarContainerLight']");
 
 	//Administration Menu
 	//Administration-->Portal
 	public final By ELEMENT_ADMINISTRATION_PORTAL = By.xpath("//*[text()='Portal']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_SITES=By.xpath("//*[text()='Sites']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_PAGES=By.xpath("//*[text()='Pages']");
+	public final By ELEMENT_ADMINISTRATION_PORTAL_BRANDING=By.xpath("//*[text()='Branding']");
+	public final By ELEMENT_ADMINISTRATION_PORTAL_IDE=By.xpath("//*[text()='IDE']");
 	
 	//Administation-->Content
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
@@ -68,6 +70,9 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
 	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
 	
+	//Administration-->Application
+	public final By ELEMENT_ADMINISTRATION_APPLICATION = By.xpath(".//*[text()='Applications']");
+	
 	public NavigationToolbar(WebDriver dr){
 		driver = dr;
 		paMang=new PageManagement(dr);
@@ -79,13 +84,13 @@ public class NavigationToolbar extends PlatformBase {
 	
 	/**
 	 * Go to Portal Application Registry
-	 */
+	 *//*
 	public void goToApplicationRegistry() {
 		info("--Go to Portal Application Registry--");
 		click(ELEMENT_LINK_SETUP);
 		click(ELEENT_LINK_APPLICATION);
 		Utils.pause(1000);
-	}
+	}*/
 	
 	/**
 	 * Go to Edit Layout
@@ -209,15 +214,6 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void goToSEO(){
 		info("Go to SEO page");
-		/*waitForAndGetElement(ELEMENT_LINK_EDIT);
-		click(ELEMENT_LINK_EDIT);
-		waitForAndGetElement(ELEMENT_EDIT_PAGE);
-		mouseOver(ELEMENT_EDIT_PAGE, true);
-		//waitForAndGetElement(ELEMENT_EDIT_PAGE_SEO);
-		click(ELEMENT_EDIT_PAGE_SEO);
-		Utils.pause(2000);*/
-		
-		Utils.pause(1000);
 		info("Click on Edit button");
 		click(ELEMENT_LINK_EDIT);
 		info("Hover over on Page link");
@@ -234,7 +230,7 @@ public class NavigationToolbar extends PlatformBase {
 		info("Go to Edit content");
 		waitForAndGetElement(ELEMENT_LINK_EDIT);
 		click(ELEMENT_LINK_EDIT);
-		check(ELEMENT_EDIT_CONTENT);
+		check(ELEMENT_EDIT_CONTENT,2);
 	}
 	/**
 	 * Go to Un-edit content
@@ -283,6 +279,60 @@ public class NavigationToolbar extends PlatformBase {
 			info("Retry...[" + repeat + "]");
 			}
 			Utils.pause(1000);
+	}
+	/**
+	 * Go to IDE page
+	 */
+	public void goToIDE(){
+		info("-- Go to IDE home page --");
+		Utils.pause(500);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LINK_SETUP);
+				break;
+			}
+			mouseOver(ELEMENT_LINK_SETUP, true);
+			if (waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_IDE, 5000, 0) != null){
+				info("Element " +ELEMENT_ADMINISTRATION_PORTAL_IDE + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		mouseOverAndClick(ELEMENT_ADMINISTRATION_PORTAL_IDE);
+		Utils.pause(2000);
+	}
+	/**
+	 * Go to Application home page
+	 */
+	public void goToApplication(){
+		info("-- Go to Application home page --");
+		Utils.pause(500);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LINK_SETUP);
+				break;
+			}
+			mouseOver(ELEMENT_LINK_SETUP, true);
+			if (waitForAndGetElement(ELEMENT_ADMINISTRATION_APPLICATION, 5000, 0) != null){
+				info("Element " +ELEMENT_ADMINISTRATION_APPLICATION + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		mouseOverAndClick(ELEMENT_ADMINISTRATION_APPLICATION);
+		Utils.pause(2000);
+	}
+
+	/**
+	 * Go to Banding page
+	 */
+	public void goToBanding() {
+		info("-- Go to Banding page --");
+		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,5000,0);
+		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		mouseOver(ELEMENT_ADMINISTRATION_PORTAL, true);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_BRANDING,5000,0);
+		click(ELEMENT_ADMINISTRATION_PORTAL_BRANDING);
 	}
 	
 }

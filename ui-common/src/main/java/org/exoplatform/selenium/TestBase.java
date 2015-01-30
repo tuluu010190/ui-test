@@ -77,6 +77,8 @@ public class TestBase {
 	protected String spaceVisibleFilePath;
 	protected String spaceRegistrationFilePath;
 	protected String groupsCalenderFilePath;
+	protected String remoteGadgetDataFilePath;
+	protected String appGateinDataFilePath;
 
 	/*========Default System Property=============*/
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
@@ -103,6 +105,8 @@ public class TestBase {
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
 	public final String DEFAULT_CHANGELANGUADATAURL="DataDriven/" + "ChangeLanguage.xls";
+	public final String DEFAULT_REMOTEGADGETURL="DataDriven/"+"remote_gadget_links.xls";
+	public final String DEFAULT_APPGATEINURL="DataDriven/"+"application_gatein.xls";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -163,6 +167,8 @@ public class TestBase {
 		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
 		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
         changLangDataPath = System.getProperty("changLangDataPath");
+        remoteGadgetDataFilePath = System.getProperty("remoteGadgetDataFilePath");
+        appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
 
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 
@@ -189,6 +195,8 @@ public class TestBase {
 		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
 	    if (changLangDataPath==null) changLangDataPath = DEFAULT_CHANGELANGUADATAURL;
+	    if (remoteGadgetDataFilePath==null) remoteGadgetDataFilePath = DEFAULT_REMOTEGADGETURL;
+	    if (appGateinDataFilePath==null) appGateinDataFilePath = DEFAULT_APPGATEINURL;
 	}
 	
 

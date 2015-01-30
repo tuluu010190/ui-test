@@ -58,7 +58,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 
 		 *Expected Outcome: 
 			- All web contents/documents in selected folder are listed in Content List Viewer portlet in this page*/ 
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		navTool.goToAddPage();
 		pagCW.inputPageInfoStep1(content, true, "English", content, true,false);
 		click(pagCW.ELEMENT_ADDNEWPAGE_BTNNEXT);
@@ -120,7 +120,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 
 		 *Expected Outcome: 
 			All selected web content/documents are displayed as list in List Content Viewer page*/ 
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		
 		navTool.goToAddPage();
 		pagCW.inputPageInfoStep1(content, true, "English", content, true,false);
@@ -177,7 +177,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 
 		 *Expected Outcome: 
 			- The selected web content/document is displayed*/ 
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		navTool.goToAddPage();
 
 		pagCW.inputPageInfoStep1(content, true, "English", content, true,false);
@@ -228,7 +228,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 			- Open edit mode: Mouse over Edit, Click Content
 		 */
 
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		navTool.goToAddPage();
 
 		pagCW.inputPageInfoStep1(content, true, "English", content, true,false);
@@ -294,7 +294,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		CreNewDoc.saveAndClose();
 
 		//go to acme
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		
 		//search
 		acmeHP.searchQuickSearchBox(content );
@@ -304,7 +304,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		navTool.goToSiteExplorer();
 		SEHome.goToPublication();
 		SEHome.changeStatusPulication("Published");
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		Utils.pause(5000);
 		acmeHP.searchQuickSearchBox(content);
 		waitForAndGetElement((acmeHP.ELEMENT_SEARCHRESULT_TITLE).replace("${title}",content));
@@ -351,7 +351,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.selectNode(content);
 		SEHome.goToPublication();
 		SEHome.changeStatusPulication("Published");
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		acmeHP.goToNews();
 		click(acmeHP.ELEMENT_TOPIC_DEFENSE);
 		waitForAndGetElement(acmeHP.ELEMENT_NEWS_DEFENSE_CONTENT.replace("${title}",content));
@@ -402,7 +402,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		 *Expected Outcome: 
 			- [1] Selected document/web content is displayed into this page with draft 
 			- [2] Selected document/web content is published into this page with published status*/ 
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		navTool.goToAddPage();
 
 		pagCW.inputPageInfoStep1(content , true, "English", content, true,false);
@@ -418,7 +418,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		
 		SEHome.goToPublication();
 		SEHome.changeStatusPulication("Published");
-		this.driver.get(DEFAULT_BASEURL+"/acme/overview/"+content+"");
+		this.driver.get(baseUrl+"/acme/overview/"+content+"");
 		navTool.goToUnEditContent();
 		//Verify that Selected document/web content is published into this page with published status
 		waitForAndGetElement(acmeHP.ELEMENT_OVERVIEWS_CONTENT.replace("${title}",content));
@@ -484,7 +484,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		CreNewDoc.addNewWebContent(content2,content2);
 		CreNewDoc.saveAndClose();
 			
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		
 		navTool.goToAddPage();
 		pagCW.inputPageInfoStep1(title, true, "English",title, true,false);
@@ -525,7 +525,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		waitForElementNotPresent(contList.ELEMENT_CONTENT_LIST_CONTENT_TITLE.replace("${title}",content2));
 		
 		info("Delete create files");
-		this.driver.get(DEFAULT_BASEURL+"/intranet");
+		this.driver.get(baseUrl+"/intranet");
 		navTool.goToSiteExplorer();
 		SEHome.deleteData(content1);
 		SEHome.deleteData(content2);
@@ -580,7 +580,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		CreNewDoc.addNewWebContent(content2 ,content2);
 		CreNewDoc.saveAndClose();
 			
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		
 		navTool.goToAddPage();
 		pagCW.inputPageInfoStep1(title, true, "English",title, true,false);
@@ -611,7 +611,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		waitForAndGetElement(contList.ELEMENT_CONTENT_LIST_CONTENT_TITLE.replace("${title}",content2));
 		
 		info("Delete created files");
-		this.driver.get(DEFAULT_BASEURL+"/intranet");
+		this.driver.get(baseUrl+"/intranet");
 		navTool.goToSiteExplorer();
 		SEHome.deleteData(content1);
 		SEHome.deleteData(content2);
@@ -663,7 +663,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		CreNewDoc.addNewWebContent(content2,content2);
 		CreNewDoc.saveAndClose();
 		
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		navTool.goToAddPage();
 		pagCW.inputPageInfoStep1(title, true, "English",title, true,false);
 		click(pagCW.ELEMENT_ADDNEWPAGE_BTNNEXT);
@@ -691,7 +691,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		waitForAndGetElement(contDetail.ELEMENT_CONTENT_DETAIL_VIEW_CONTENT.replace("${title}",content2));
 		
 		info("Delete created files");
-		this.driver.get(DEFAULT_BASEURL+"/intranet");
+		this.driver.get(baseUrl+"/intranet");
 		navTool.goToSiteExplorer();
 		SEHome.deleteData(content1);
 		SEHome.deleteData(content2);
@@ -746,7 +746,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 			- Selected language is listed on the left of SEO 
 			- Page source will be shown likein precondition
 			- Go to Sites management/acme/ SEO folder there will be sitemap.xml file*/
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		Utils.pause(2000);
 		navTool.goToSEO();
 		
@@ -764,7 +764,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		navTool.goToChangeLanguage();
 		changLang.changeLanguage(language2,apply2);
 		
-		this.driver.get(DEFAULT_BASEURL+"/intranet");
+		this.driver.get(baseUrl+"/intranet");
 		navTool.goToSiteExplorer();
 		SEHome.goToPath("acme/SEO", "Sites Management");
 		//Verify that sitemaps is created in SEO folder
@@ -776,7 +776,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.goToPath("acme/SEO", "Sites Management");
 		SEHome.deleteData("SEO");
 		info("Detete added language on SEO management");
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		navTool.goToSEO();
 		seoMang.deleteLanguage(language1);
 	}
@@ -826,7 +826,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 			- Language is updated
 			- View page source, updated SEO information is shown
 			- Sitemap.xml is updated*/ 
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		Utils.pause(2000);
 		navTool.goToSEO();
 		
@@ -848,7 +848,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		//Verify that the language is changed to English
 		waitForAndGetElement(acmeHP.ELEMENT_NAVIGATION_MENU_OVERVIEW_ENGLISH);
 		
-		this.driver.get(DEFAULT_BASEURL+"/intranet");
+		this.driver.get(baseUrl+"/intranet");
 		//Verify that sitemaps file is updated
 		waitForAndGetElement(hp.ELEMENT_SITEMAPS_ACTIVITY);
 	
@@ -858,7 +858,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.goToPath("acme/SEO", "Sites Management");
 		SEHome.deleteData("SEO");
 		info("Detete added language on SEO management");
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		navTool.goToSEO();
 		seoMang.deleteLanguage(language1);
 	}
@@ -886,7 +886,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 
 		 *Expected Outcome: 
 			You can see the new title will be displayed on TITLE element of your web page.*/ 
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		Utils.pause(2000);
 		navTool.goToSEO();
 		type(seoMang.ELEMENT_SEO_TITLEBOX, title, true);
@@ -919,7 +919,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 
 		 *Expected Outcome: 
 			Tool tips is shown for user to understand the SEO*/ 
-		this.driver.get(DEFAULT_BASEURL+"/acme");
+		this.driver.get(baseUrl+"/acme");
 		navTool.goToSEO();
 		mouseOver(seoMang.ELEMENT_SEO_HELPDESC, true);
 		waitForAndGetElement(seoMang.ELEMENT_SEO_HELP_POPOVER);

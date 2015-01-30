@@ -65,6 +65,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>plf-sniff</id>
+			<properties>
+				<testSuite>plf-sniff.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>testng-failed</id>
 			<properties>
 				<testSuite>testng-failed.xml</testSuite>

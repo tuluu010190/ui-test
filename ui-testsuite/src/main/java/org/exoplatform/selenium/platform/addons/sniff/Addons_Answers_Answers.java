@@ -16,7 +16,7 @@ import org.exoplatform.selenium.platform.answer.AnswerManagement.actionAnswerOpt
 import org.exoplatform.selenium.platform.answer.CommentManagement.actionCommentOption;
 import org.exoplatform.selenium.platform.answer.AnswerCategoryManagement.actionCategoryOption;
 import org.exoplatform.selenium.platform.gatein.AnswerPage;
-import org.exoplatform.selenium.platform.gatein.ApplicationRegistryPage;
+import org.exoplatform.selenium.platform.gatein.ApplicationHomePage;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
@@ -36,7 +36,7 @@ public class Addons_Answers_Answers  extends PlatformBase {
 	AnswerHomePage aHome;
 	CommentManagement comMang;
 	AttachmentFileDatabase fData;
-	ApplicationRegistryPage cPage;
+	ApplicationHomePage cPage;
 	UserDatabase userData;
 	ManageAlert alert;
 	PageEditor pagEditor;
@@ -65,7 +65,7 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		button = new Button(driver);
 		aHome=new AnswerHomePage(driver);
 		alert = new ManageAlert(driver);
-		cPage = new ApplicationRegistryPage(driver);
+		cPage = new ApplicationHomePage(driver);
 		txData = new TextBoxDatabase();
 		fData = new AttachmentFileDatabase();
 		userData = new UserDatabase();

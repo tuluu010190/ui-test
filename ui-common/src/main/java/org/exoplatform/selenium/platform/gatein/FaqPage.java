@@ -15,7 +15,7 @@ public class FaqPage  extends PlatformBase {
 	PageEditor pagEditor;
 	HomePagePlatform hp;
 	ManageAlert alert;
-	ApplicationRegistryPage arPage;
+	ApplicationHomePage arPage;
 
 	//Template tab
 	public final By ELEMENT_FAQ_EDIT_TEMPLATE_TAB = By.xpath("//button[contains(text(), 'Edit Template')]");
@@ -30,7 +30,7 @@ public class FaqPage  extends PlatformBase {
 		pagEditor = new PageEditor(dr);
 		hp= new HomePagePlatform(dr);
 		alert=new ManageAlert(dr);
-		arPage=new ApplicationRegistryPage(dr);
+		arPage=new ApplicationHomePage(dr);
 	}
 	/**
 	 * Create FAQ Page
