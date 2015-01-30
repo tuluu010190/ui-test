@@ -97,12 +97,16 @@ import org.testng.annotations.*;
 			- Documents are created
 			- French document is list in Languages list of English document.When you add this content in a CLV or SCV, change language, you will see effect*/ 
 		
+		info("Create content 1");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
 		creNewDoc.addNewFile(title, content);
 		creNewDoc.saveAndClose();
-		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_ROOTNODE);
+		
+		SEHome.selectNode("documents");
+		info("Create content 2");
 		SEHome.goToAddNewContent();
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
 		creNewDoc.addNewFile(title2, content2);
@@ -111,13 +115,12 @@ import org.testng.annotations.*;
 		creNewDoc.saveAndClose();
 		
 		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", title));
-		SEHome.addTranslation();
-		SEHome.editFolderPath(""+title2, "General Drives", "Sites Management", "");
-		click(SEHome.ELEMENT_SAVE_BTN);
+		SEHome.addDocumentTranslation("General Drives/Sites Management", title2);
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_RELATION);
 		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_RELATION);
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_TITLE_TRANSLATION.replace("${title}", title2));
-		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_EXPLORER);
+		
+		SEHome.selectNode("documents");
 		SEHome.deleteData(title);
 		SEHome.deleteData(title2);
  	}
@@ -131,11 +134,13 @@ import org.testng.annotations.*;
 	@Test
 	public  void test02_AddComment() {
 		info("Test 2: Add Comment");
+		info("Get data test");
 		String number1= getRandomNumber();
 		String number2 = getRandomNumber();
 		String title = txData.getContentByArrayTypeRandom(1)+number1;
 		String content = txData.getContentByArrayTypeRandom(1)+number1;
 		String content2 = txData.getContentByArrayTypeRandom(1)+number2;
+		info("Fnishing Getting data test");
 		
 		/*Step Number: 1
 		*Step Name: -
@@ -149,18 +154,19 @@ import org.testng.annotations.*;
 			- Save
 		*Expected Outcome: 
 			You can see the comment at the bottom of document/uploaded file.*/ 
+		info("Create content 1");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
 		creNewDoc.addNewFile(title, content);
 		creNewDoc.saveAndClose();
 
-		click(SEHome.ELEMENT_ACTIONBAR_ADDCOMMENT);
-		this.driver.navigate().refresh();
-		inputFrame(creNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content2);
-		switchToParentWindow();
-		click(SEHome.ELEMENT_SAVE_BTN);
+		info("Add a comment");
+		SEHome.addEditComment(content2,true);
+		
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_COMMENT.replace("${number}", "1"));
+		SEHome.selectNode("documents");
 		SEHome.deleteData(title);
  	}
 
@@ -181,8 +187,8 @@ import org.testng.annotations.*;
 	*<li> Post-Condition: A tag is already created.</li>
 	*/
 	@Test
-	public  void test03_07_08_AddEditDeleteATag() {
-		info("Test 3: Add a tag");
+	public  void test05_06_07_AddEditDeleteATag() {
+		info("Test 05: Add a tag");
 		String number1= getRandomNumber();
 		String number2 = getRandomNumber();
 		String title = txData.getContentByArrayTypeRandom(1)+number1;
@@ -202,26 +208,26 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			Node is added tag. You can find document using tag in Tag cloud of FE*/ 
+		info("Create content 1");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
 		creNewDoc.addNewFile(title, content);
 		creNewDoc.saveAndClose();
 
-		click(SEHome.ELEMENT_ACTIONBAR_MORE);
-		click(SEHome.ELEMENT_ACTIONBAR_TAG);
-		type(SEHome.ELEMENT_SITEEXPLORER_TAG_NAME, content2, true);
-		click(SEHome.ELEMENT_ADD_BTN);
-		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_TAG_EXISTING.replace("${name}", content2));
+		info("Add a tag to the Content");
+		SEHome.selectNode(title);
+		SEHome.addTag(content2);
+		info("Verify that the tag is shown in Tag tab of SE");
+		click(SEHome.ELEMENT_SITEEXPLORER_TAG_CLOUD_TAB);
+		waitForAndGetElement(SEHome.ELEMENT_SIDEBAR_TAGCLOUD_NAME.replace("${name}",content2));
 		
-		click(SEHome.ELEMENT_SITEEXPLORER_TAG_EXISTING.replace("${name}", content2));
-		type(SEHome.ELEMENT_SITEEXPLORER_TAG_INPUT, content3, true);
-		click(SEHome.ELEMENT_SAVE_BTN);
-		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_TAG_EXISTING.replace("${name}", content3));
+		info("Test 06: Edit a tag");
+		SEHome.editTag(content2,content3);
 		
-		click(SEHome.ELEMENT_SITEEXPLORER_TAG_DELETE);
-		magAlert.acceptAlert();
-		click(SEHome.ELEMENT_CLOSE_BTN);
+		info("Test 07: Delete a tag");
+		SEHome.deleteTag(content3);
 		SEHome.deleteData(title);
  	}
 
@@ -232,8 +238,8 @@ import org.testng.annotations.*;
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test04_VoteForDocumentuploadedFile() {
-		info("Test 4: Vote for document/uploaded file");
+	public  void test08_VoteForDocumentuploadedFile() {
+		info("Test 08: Vote for document/uploaded file");
 		
 		String fileName = fData.getAttachFileByArrayTypeRandom(1);
 		
@@ -247,9 +253,11 @@ import org.testng.annotations.*;
 			- Click on Vote icon on action bar, perform to vote
 		*Expected Outcome: 
 			The node is voted*/ 
+		info("Upload file");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.uploadFile("TestData/"+fileName);
-		click(By.xpath((SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", fileName)));
+		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", fileName));
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		click(SEHome.ELEMENT_ACTIONBAR_VOTE);
 		click(SEHome.ELEMENT_SITEEXPLORER_VOTE_AVERAGE);
@@ -264,8 +272,8 @@ import org.testng.annotations.*;
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test05_EditComment() {
-		info("Test 5: Edit Comment");
+	public  void test03_EditComment() {
+		info("Test 3: Edit Comment");
 		info("Get data test");
 		String number1= getRandomNumber();
 		String number2 = getRandomNumber();
@@ -289,6 +297,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Comment is edited*/ 
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		info("Add a new content");
 		SEHome.goToAddNewContent();
 		info("Select a document type");
@@ -321,8 +330,8 @@ import org.testng.annotations.*;
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test06_DeleteComment() {
-		info("Test 6: Delete Comment");
+	public  void test04_DeleteComment() {
+		info("Test 4: Delete Comment");
 		
 		String number1= getRandomNumber();
 		String number2 = getRandomNumber();
@@ -344,6 +353,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			Comment is deleted*/ 
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		creNewDoc.createNewDoc(selectDocumentType.FILE);
 		creNewDoc.addNewFile(title, content);

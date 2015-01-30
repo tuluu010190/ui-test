@@ -124,7 +124,8 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public String ELEMENT_ECM_EXPLORER_TAB_ICONS_LIST_SHOW_VIEW ="//*[@id='UITabList']//*[contains(text(),'{$tab}')]";
 	//Explorer,Views-->Actions tab
 	public By ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM = By.xpath("//*[@id='UIViewFormTabPane']//*[contains(text(),'Action')]");
-	public By ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM = By.xpath(".//*[@id='UITabList']//i[@class='uiIconEdit uiIconLightGray']");
+	public By ELEMENT_ECM_EXPLORER_EDIT_ACTION_VIEW_FORM = By.xpath(".//*[@id='UITabList']//i[@class='uiIconEdit uiIconLightGray']");
+	public By ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM = By.xpath(".//*[@id='UITabContainer']//button[text()='Add']");
 	public By ELEMENT_ECM_EXPLORER_DELETE_ACTION_VIEW_FORM =By.xpath(".//*[@id='UITabList']//i[@class='uiIconDelete uiIconLightGray']");
 	
 	//Explorer,Views-->Actions tab-->Add/Edit popup
@@ -972,7 +973,6 @@ public class ContentAdministrationManagement extends PlatformBase{
 	 * @param applyActions  the name of actions that list in the popup
 	 */
 	public void addActionsForAView (String nameView,specificEcmActionstypes action){
-		
 		info("Go to Explorer tab");
 		goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
 		info("Go to Views link");
@@ -1095,6 +1095,35 @@ public class ContentAdministrationManagement extends PlatformBase{
 				check(ELEMENT_ECM_EXPLORER_ACTIONS_POPUP_WATCH_DOCUMENT,2);
 				break;
 			}
+	}
+	/**
+	 * Add all actions
+	 */
+	public void addAllActions(){
+		info("Go to Explorer tab");
+		goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
+		info("Go to Views link");
+		goToSpecificFunctions(specificEcmFunctions.VIEW);
+		info("Click on Edit button of the View type");
+        click(ELEMENT_ECM_EXPLORER_EDIT.replace("${nameView}","Web"));
+        Utils.pause(2000);
+        info("Open Action tab");
+        click(ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM);
+		Utils.pause(1000);
+		info("Click on Add action button");
+		click(ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM);
+		Utils.pause(2000);
+		info("Select the actions");
+		for(specificEcmActionstypes type: specificEcmActionstypes.values())
+			goTospecificEcmActionstypes(type);
+		Utils.pause(2000);
+		info("Click on Save button of Action popup");
+		click(ELEMENT_ECM_EXPORER_ACTIONS_POPUP_SAVE_BUTTON);
+		Utils.pause(2000);
+		info("Save all changes");
+		click(ELEMENT_ECM_EXPLORER_EDIT_VIEWS_SAVE_BUTTON);
+		Utils.pause(1000);
+		info("Finished Adding action for a view");
 	}
 
 }

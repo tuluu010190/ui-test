@@ -12,7 +12,6 @@ import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmActionstypes;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.folderType;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
@@ -38,11 +37,10 @@ public class Ecms_SE_Admin extends PlatformBase{
 	
 	ContentAdministrationManagement caPage;
 
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
+	@BeforeClass
+	public void setUpBeforeClass() throws Exception{
 		getDriverAutoSave();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		driver.get(baseUrl);
 		
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);
@@ -60,16 +58,25 @@ public class Ecms_SE_Admin extends PlatformBase{
 		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 		magAc.signIn(DATA_USER1, DATA_PASS);
+		//addActions();
 	}
 
-	
-
-	@AfterMethod
-	public void afterMethod(){
+	@AfterClass
+	public void afterClass(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
 
+	/**
+	 * Add manage publishtation to action bar of Web view type
+	 */
+	public void addActions(){
+		info("Go to Explorer tab");
+		navTool.goToContentAdministration();
+		caPage.addAllActions();
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+	}
 	/**
 	 * By QuynhPT
 	 *<li> Case ID:116656</li>
@@ -95,63 +102,54 @@ public class Ecms_SE_Admin extends PlatformBase{
 			- A relation is added for a node.
 			*/ 
 		
-		//Declare input data test
+		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String node2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		info("Finished data test");
 		
 		//Declare a string array
 		String[] nameContent={node1};
-		String[] arrayPath={"sites"};
 		
-		//Go to Site Explorer
-		navTool.goToSiteExplorer();	
-		info("Add Relation");
-		//Create node1
+		info("Create content 1");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
 		
-		//Go back to farther node
-		click(SEHome.ELEMENT_SIDE_BAR_MAINTAB);
-		Utils.pause(2000);
+		SEHome.selectNode("documents");
 		
-		// Create node2
+		info("Create content 2");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node2, node2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
+		
+		
 		SEHome.selectNode(node2);		
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_RELATION);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_RELATION);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(node2);
-		}		
-		//Click on "More" link 
+		info("Click on More link ");
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
-		//Select Relation link
+		info("Add relation");
 		SEHome.goToManageRelation();
-		SEHome.addRelation(nameContent,arrayPath);
+		SEHome.addRelation(nameContent,"sites/acme/documents");
 		SEHome.closeAddRelationPopup();
 		Utils.pause(5000);
 		
-		//Check Relation on left of sideBar
+		info("Select relation tab of SE");
 		SEHome.goToRelationSideBar();
 		waitForAndGetElement(SEHome.ELEMENT_SIDE_BAR_RELATION_TAB_FILE_TITLE.replace("${nameContent}",node1));
 		click(SEHome.ELEMENT_SIDE_BAR_RELATION_TAB_FILE_TITLE.replace("${nameContent}",node1));
 		Utils.pause(2000);
 		
-		//Verify the file in reference section
+		info("Verify the file in reference section");
 		waitForAndGetElement(SEHome.ELEMENT_SIDE_BAR_RELATION_TAB_FILE_TITLE.replace("${nameContent}",node2));
 		
 		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 		SEHome.deleteData(node2);
 	}
@@ -182,52 +180,38 @@ public class Ecms_SE_Admin extends PlatformBase{
 			- Relation is deleted for a node.
 			*/ 
 
-		//Declare input data test
+		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String node2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		
-		//Declare a string array
 		String[] nameContent={node1};
-		String[] arrayPath={"sites"};
+		info("Finished data test");
 		
-		//Go to Site Explorer
+		
+		info("Create content 1");
 		navTool.goToSiteExplorer();
-				
-		
-		info("Add Relation");
-		//Create node1
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
 		
-		//Go back to farther node
-		click(SEHome.ELEMENT_SIDE_BAR_MAINTAB);
-		Utils.pause(2000);
+        SEHome.selectNode("documents");
 		
-		// Create node2
+		info("Create content 2");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node2, node2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
+		
+		
 		SEHome.selectNode(node2);
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_RELATION);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_RELATION);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(node2);
-		}			
 		info("click on More link");
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		info("Select Relation");
 		SEHome.goToManageRelation();
-		SEHome.addRelation(nameContent,arrayPath);
+		SEHome.addRelation(nameContent,"sites/acme/documents");
 		SEHome.deleteRelation(node1.toLowerCase());
 		SEHome.closeAddRelationPopup();
 		Utils.pause(2000);
@@ -238,6 +222,8 @@ public class Ecms_SE_Admin extends PlatformBase{
 		waitForElementNotPresent(SEHome.ELEMENT_SIDE_BAR_RELATION_TAB_FILE_TITLE.replace("${nameContent}",node1));
 		
 		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 		SEHome.deleteData(node2);
 		
@@ -249,52 +235,37 @@ public class Ecms_SE_Admin extends PlatformBase{
 	@Test
 	public  void test03_ShowHideRelation() {
 		info("Test 3: Show/Hide Relation");
-		
-		// Declare input data test
+		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
 		String node2 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
-		// Declare a string array
 		String[] nameContent = { node1 };
-		String[] arrayPath = { "sites" };
+		info("Finished data test");
 
-		//Go to Site Explorer
+		info("Create content 1");
 		navTool.goToSiteExplorer();
-		
-		
-		info("Show/ Hide Relation");
-		// Create node1
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-
-		// Go back to farther node
-		click(SEHome.ELEMENT_SIDE_BAR_MAINTAB);
-		Utils.pause(2000);
-
-		// Create node2
+		
+        SEHome.selectNode("documents");
+		
+		info("Create content 2");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node2, node2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
+		
+		
 		SEHome.selectNode(node2);
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_RELATION);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_RELATION);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(node2);
-		}		
 		info("click on More link");
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		info("Select relation");
 		SEHome.goToManageRelation();
-		SEHome.addRelation(nameContent, arrayPath);
+		SEHome.addRelation(nameContent,"sites/acme/documents");
 		SEHome.closeAddRelationPopup();
 		Utils.pause(5000);
 		
@@ -307,6 +278,8 @@ public class Ecms_SE_Admin extends PlatformBase{
 		waitForAndGetElement(SEHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		
 		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 		SEHome.deleteData(node2);
 	}
@@ -318,33 +291,29 @@ public class Ecms_SE_Admin extends PlatformBase{
 	@Test
 	public  void test04_ImportANode() {
 		info("Test 4: Import a Node");
-
+		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
 		String filePath = fData.getAttachFileByArrayTypeRandom(11);
-		//Go to Site Explorer
+		info("Finished data test");
+		
+		info("Add New folder");
 		navTool.goToSiteExplorer();
-		//Click on Add New Folder button
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewFolder();
 		
-		//Create Folder node
+		info("Create Folder node");
 		CreNewDoc.createNewFolder(node1, folderType.Content);
-		//Select the folder
+		info("Select folder");
 		SEHome.selectNode(node1);
-	
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_IMPORT_BUTTON);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.IMPORT_NOTE);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(node1);
-		}		
+		
+		info("Import a node");
+		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		SEHome.goToImportNode();
 		SEHome.importNode("TestData/"+filePath,"Create New",false, "");
 		
 		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 	}
 
@@ -367,35 +336,28 @@ public class Ecms_SE_Admin extends PlatformBase{
 		 *Expected Outcome: 
 			- Node is exported successfully.
 		*/ 
-
+		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
+		info("Finished data test");
 		
-		//Go to Site Explorer
+		info("Add New folder");
 		navTool.goToSiteExplorer();
-		
-		info("Export a node");
-		//Click on Add New Folder button
+		SEHome.goToPath("acme/documents","Sites Management");
 		SEHome.goToAddNewFolder();
-				
-		//Create Folder node
-		CreNewDoc.createNewFolder(node1, folderType.Content);
-		//Select the folder
-		SEHome.selectNode(node1);
 		
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_EXPORT_BUTTON);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.EXPORT_NODE);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(node1);
-		}		
+		info("Create Folder node");
+		CreNewDoc.createNewFolder(node1, folderType.Content);
+		info("Select folder");
+		SEHome.selectNode(node1);
+						
+		info("Export a node");
+		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		SEHome.goToExportNode();
 		SEHome.exportNode(true, false);
 		
 		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 	}
 
@@ -418,37 +380,32 @@ public class Ecms_SE_Admin extends PlatformBase{
 		 *Expected Outcome: 
 			- Category added for Document/uploaded file
 		*/
-
+		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
 		String[] arrayCatePath={"Defense"};
 		String categoryTree = "powers";
 		String nameSelectedCategory = "Healing";
+		info("Finished data test");
 		
+		info("Create a content");
 		navTool.goToSiteExplorer();
-		info("Add Category");
-		//Create node1
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
 			
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_CATEGORY);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.ADD_CATEGORY);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(node1);
-		}		
+		info("Add Category");
+		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		SEHome.goToAddCategory();
 		SEHome.addCategory(categoryTree,arrayCatePath, nameSelectedCategory);
 		waitForAndGetElement(SEHome.ELEMENT_ADD_CATEGORY_POPUP_DELETE_CATEGORY.replace("${nameCategory}",nameSelectedCategory));
 		SEHome.closeAddCategoryPopup();
 		
 		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 	}
 	
@@ -473,37 +430,33 @@ public class Ecms_SE_Admin extends PlatformBase{
 		 *Expected Outcome: 
 			- Document/uploaded file doesn't have any category.
 		*/
+		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
 		String[] arrayCatePath={"Defense"};
 		String categoryTree = "powers";
 		String nameSelectedCategory = "Healing";
+		info("Finished data test");
 		
-		info("Add Category");
-		//Create node1
+		info("Create a content");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
 		
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_CATEGORY);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.ADD_CATEGORY);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(node1);
-		}	
-
+		info("Add Category");
+		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		SEHome.goToAddCategory();
 		SEHome.addCategory(categoryTree,arrayCatePath, nameSelectedCategory);
+		info("Delete Category");
 		SEHome.deleteCategory(nameSelectedCategory);
 		SEHome.closeAddCategoryPopup();
 		
 		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 		
 	}
@@ -529,34 +482,29 @@ public class Ecms_SE_Admin extends PlatformBase{
 		   - Manage properties form is shown, and all properties of this node is shown here.
 		   - New properties is added
 		   */
-
+		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
 		String property = "exo:summary";
+		info("Finished data test");
 		
-		info("View Node Properties");
-		// Create node1
+		info("Create a content");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
+		
+		info("View Node Properties");
 		SEHome.selectNode(node1);
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_PROPERTIES);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.VIEW_PROPERTIES);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(node1);
-		}	
-		info("Add a property");
+		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		SEHome.goToProperties();
 		SEHome.addProperty(property, property);
 		
 		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 		
 	}
@@ -579,34 +527,29 @@ public class Ecms_SE_Admin extends PlatformBase{
 		 *Expected Outcome: 
 			- Document/uploaded file is published during the time in From and To field
 		*/
-		
+		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
 		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
 		Date date = new Date();
+		info("Finished data test");
 		
-		info("Manage Publication");
-		// Create node1
+		info("Create a content");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		CreNewDoc.addNewFile(node1, node1);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_MANAGER_PUBLISHTATION);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_PUBLISHTATION);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(node1);
-		}	
-		//Select Staged state for this document
+		
+		info("Manage Publication");
+		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		SEHome.goToManagePublishtation();
 		SEHome.managePublication("Staged", dateFormat.format(date.getTime()),dateFormat.format(date.getTime()));
 		
 		info("Delete all data test");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 		
 	}

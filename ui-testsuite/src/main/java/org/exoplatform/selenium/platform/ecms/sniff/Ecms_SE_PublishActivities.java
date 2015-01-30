@@ -50,7 +50,9 @@ import org.testng.annotations.*;
 			txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 			fData = new AttachmentFileDatabase();
 			fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+			
 		}	
+		
 		@BeforeMethod
 		public void beforeMethod(){
 			magAc.signIn(DATA_USER1, DATA_PASS);
@@ -68,6 +70,7 @@ import org.testng.annotations.*;
 			driver.quit();
 		}
 		
+		
 	/**
 	*<li> Case ID:116665.</li>
 	*<li> Test Case Name: Check intranet homepage after adding a File content.</li>
@@ -76,7 +79,7 @@ import org.testng.annotations.*;
 	*/
 	@Test
 	public  void test01_02_CheckIntranetHomepageAfterAddingAFileContent_EditFileFromTheFileActivity() {
-		info("Test 1,2: Check intranet homepage after adding a File content");
+		info("Test 1: Check intranet homepage after adding a File content");
 		info("Get data test");
 		String random=getRandomNumber();
 		String title =  txData.getContentByArrayTypeRandom(1)+random;
@@ -105,7 +108,7 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		aHome.checkActivityAddFile(title);
 		
-		info("Test 15 Edit a file from the File activity");
+		info("Test 2 Edit a file from the File activity");
 		/*Step Number: 1
 		*Step Name: 
 		*Step Description: 
@@ -343,7 +346,8 @@ import org.testng.annotations.*;
 			- A comment is added: Tag: $value has been added.*/
 		navTool.goToSiteExplorer();
 		seHome.selectNode(title);
-		seHome.addTagToAContent(tag);
+		seHome.addTag(tag);
+		//seHome.addTagToAContent(tag);
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Tag: "+tag+" has been added.")));
 
@@ -359,7 +363,7 @@ import org.testng.annotations.*;
 			- One comment isadded the activity: Tag: $value, $value have been added.*/ 
 		navTool.goToSiteExplorer();
 		seHome.selectNode(title);
-		seHome.addTagToAContent(secondTags);
+		seHome.addTag(secondTags);
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Tags: "+secondTags+" have been added.")));
 
@@ -426,15 +430,9 @@ import org.testng.annotations.*;
 	/**
 	*<li> Case ID:116672.</li>
 	*<li> Test Case Name: Check intranet homepage after Uploading a file.</li>
-	*<li> Case ID:116674.</li>
-	*<li> Test Case Name: Check intranet homepage after editing Title of an uploaded file.</li>
-	*<li> Case ID:116673.</li>
-	*<li> Test Case Name: Check intranet homepage after adding a category to an uploaded file.</li>
-	*<li> Case ID:116675.</li>
-	*<li> Test Case Name: Check intranet homepage after deleting an uploaded file.</li>
 	*/
 	@Test
-	public  void test09_10_11_12_CheckIntranetHomepageAfterUploadingAFile_CheckIntranetHomepageAfterEditingTitleOfAnUploadedFile_CheckIntranetHomepageAfterAddingACategoryToAnUploadedFile_CheckIntranetHomepageAfterDeletingAnUploadedFile() {
+	public  void test09_CheckIntranetHomepageAfterUploadingAFile(){
 		info("Test 9: Check intranet homepage after Uploading a file");
 		/*Step Number: 1
 		*Step Name: 
@@ -450,23 +448,60 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- A File activity is added to the activity stream*/ 
-		
-		String path = fData.getAttachFileByArrayTypeRandom(1);
-		String newTitle =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		String category="intranet";
-
+		info("Create data test");
+		String file = fData.getAttachFileByArrayTypeRandom(1);
+		info("Finish creating data test");
+        
+		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.uploadFile("TestData/"+path);
+		seHome.goToPath("acme/documents","Sites Management");
+		seHome.uploadFile("TestData/"+file);
+		
+		info("Go to the activity and verify that the file's activity is shown");
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",path)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",file)));
 		
-		info("Test 10 Check intranet homepage after editing Title of an uploaded file");
+	    info("Delete the file");
+	    navTool.goToSiteExplorer();
+		seHome.goToPath("acme/documents","Sites Management");
+	    seHome.deleteData(file);
+		
+	}
+	
+	/**
+	*<li> Case ID:116674.</li>
+	*<li> Test Case Name: Check intranet homepage after editing Title of an uploaded file.</li>
+	*/
+	@Test
+	public  void test10_CheckIntranetHomepageAfterEditingAFile(){
+		info("Test 10:Check intranet homepage after editing Title of an uploaded file");
+		info("Create data test");
+		String file = fData.getAttachFileByArrayTypeRandom(1);
+		String newTitle =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		info("Finish creating data test");
+        
+		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.selectNode(path);
+		seHome.goToPath("acme/documents","Sites Management");
+		seHome.uploadFile("TestData/"+file);
+		
+		info("Edit the file");
+		seHome.selectNode(file);
 		seHome.goToEditDocument();
 		type(seHome.ELEMENT_FILE_FORM_TITLE,newTitle, true );
 		createDoc.saveAndClose();
 		
+		info("Delete the file");
+		navTool.goToSiteExplorer();
+	    seHome.goToPath("acme/documents","Sites Management");
+		seHome.deleteData(file);
+	}
+	/**
+	*<li> Case ID:116673.</li>
+	*<li> Test Case Name: Check intranet homepage after adding a category to an uploaded file.</li>
+	*/
+	@Test
+	public void test11_CheckIntranetHomepageAfterAddingACategoryforUploadFile(){
 		info("Test 11: Check intranet homepage after adding a category to an uploaded file");
 		/*Step number: 2
 		*Step Name: - Add a Category to the uploaded file
@@ -484,10 +519,32 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The content of theFile activity isn't updated in the activity stream
 			- A comment is added: Category: $value has been added.*/
+		info("Create data test");
+		String file = fData.getAttachFileByArrayTypeRandom(1);
+		info("Finish creating data test");
+        
+		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.selectNode(path);
-		seHome.addCategoryForNode(path,category);
-		hp.goToHomePage();
+		seHome.goToPath("acme/documents","Sites Management");
+		seHome.uploadFile("TestData/"+file);
+		
+		info("Add a category to the file");
+		seHome.selectNode(file);
+		
+		info("Check add category action is avaiable");
+		/*boolean ischeck = seHome.checkAction(seHome.ELEMENT_ACTIONBAR_CATEGORY);
+		info("ischeck:"+ischeck);
+		if(ischeck==true){
+			navTool.goToContentAdministration();
+			caPage.addActionsForAView("Web",specificEcmActionstypes.ADD_CATEGORY);
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+			navTool.goToSiteExplorer();	
+			seHome.selectNode(file);
+		}*/
+		info("Add a category to the file");
+		seHome.addCategoryForNode(file,"intranet");
+
 		/*Step number: 3
 		*Step Name: - Add more 2 categories
 		*Step Description: 
@@ -497,28 +554,119 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Two new comments are added to the activity: Category: $value has been added.*/ 
+		hp.goToHomePage();
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",file).replace("{$comment}","Category:intranet has been added.")));
+		
+		info("Delete the file");
+		navTool.goToSiteExplorer();
+	    seHome.goToPath("acme/documents","Sites Management");
+		seHome.deleteData(file);
+	}
+	/**
+	*<li> Case ID:116675.</li>
+	*<li> Test Case Name: Check intranet homepage after deleting an uploaded file.</li>
+	*/
+	public void test12_CheckIntranetHomepageAfterDeletingAFile(){
+		info("Test 12:Check intranet homepage after deleting an uploaded file");
+		info("Create data test");
+		String file = fData.getAttachFileByArrayTypeRandom(1);
+		info("Finish creating data test");
+        
+		info("Upload a file");
+		navTool.goToSiteExplorer();
+		seHome.goToPath("acme/documents","Sites Management");
+		seHome.uploadFile("TestData/"+file);
+		
+		info("Delete the file");
+		navTool.goToSiteExplorer();
+	    seHome.goToPath("acme/documents","Sites Management");
+		seHome.deleteData(file);
+		
+		info("Check the activity");
+		hp.goToHomePage();
+		waitForElementNotPresent(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",file)));
+	}
+	
+	/*@Test
+	public  void test09_10_11_12_CheckIntranetHomepageAfterUploadingAFile_CheckIntranetHomepageAfterEditingTitleOfAnUploadedFile_CheckIntranetHomepageAfterAddingACategoryToAnUploadedFile_CheckIntranetHomepageAfterDeletingAnUploadedFile() {
+		info("Test 9: Check intranet homepage after Uploading a file");
+		Step Number: 1
+		*Step Name: 
+		*Step Description: 
+			- Connect to Intranet
+			- Navigate Admin 
+			-> Content 
+			-> Content Explorer 
+			- Select a folder and click [Upload] in Action Bar
+			- Browse to select a file
+			- Back to the Home page
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- A File activity is added to the activity stream 
+		
+		String path = fData.getAttachFileByArrayTypeRandom(1);
+		String newTitle =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String category="intranet";
+
+		navTool.goToSiteExplorer();
+		seHome.uploadFile("TestData/"+path);
+		hp.goToHomePage();
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",path)));
+		
+		info("Test 10:Check intranet homepage after editing Title of an uploaded file");
+		navTool.goToSiteExplorer();
+		seHome.selectNode(path);
+		seHome.goToEditDocument();
+		type(seHome.ELEMENT_FILE_FORM_TITLE,newTitle, true );
+		createDoc.saveAndClose();
+		
+		info("Test 11: Check intranet homepage after adding a category to an uploaded file");
+		Step number: 2
+		*Step Name: - Add a Category to the uploaded file
+		*Step Description: 
+			- Connect to Intranet
+			- Navigate Admin 
+			-> Content 
+			-> Content Explorer 
+			- Select the uploaded file and click [Categories] in Action Bar
+			- Open [Select Catogory] Tab and Add a category to the file
+			- Click [Close] Button to finish adding category
+			- Back to the Homepage
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- The content of theFile activity isn't updated in the activity stream
+			- A comment is added: Category: $value has been added.
+		navTool.goToSiteExplorer();
+		seHome.selectNode(path);
+		seHome.addCategoryForNode(path,category);
+		hp.goToHomePage();
+		Step number: 3
+		*Step Name: - Add more 2 categories
+		*Step Description: 
+			- Add two others categories two the file
+			- Back to the Homepage
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- Two new comments are added to the activity: Category: $value has been added. 
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",path).replace("{$comment}","Category: "+category+" has been added.")));
 	
-		info("Test 12 Check intranet homepage after deleting an uploaded file");
+		info("Test 12:Check intranet homepage after deleting an uploaded file");
 		navTool.goToSiteExplorer();
 		seHome.deleteData(path);
 		waitForElementNotPresent(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",path)));
  	}
 
-
+*/
 	/**
 	*<li> Case ID:116680.</li>
 	*<li> Test Case Name: Edit a content from the Content activity.</li>
-	*<li> Case ID:116681.</li>
-	*<li> Test Case Name: View a content from the Content activity.</li>
 	*/
 	@Test
-	public  void test12_13_EditAContentFromTheContentActivity_ViewAContentFromTheContentActivity() {
-		info("Test 12 Edit a content from the Content activity");
-		String random=getRandomNumber();
-		String title =  txData.getContentByArrayTypeRandom(1)+random;
-		String content =  txData.getContentByArrayTypeRandom(1)+random;
-		String newContent =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+	public  void test13_EditAContentFromTheContentActivity(){
+		info("Test 13: Edit a content from the Content activity");
 		/*Step Number: 1
 		*Step Name: 
 		*Step Description: ;
@@ -528,11 +676,21 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The content explorer is opened to edit the content*/ 
+		info("Create data test");
+		String random=getRandomNumber();
+		String title =  txData.getContentByArrayTypeRandom(1)+random;
+		String content =  txData.getContentByArrayTypeRandom(1)+random;
+		String newContent =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		info("Finish creating data test");
+		
+		info("Create a new Content");
 		navTool.goToSiteExplorer();
+		seHome.goToPath("acme/documents","Sites Management");
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		createDoc.addNewFile(title, content);
 		createDoc.saveAndClose();
+		
 		hp.goToHomePage();
 		driver.navigate().refresh();
 		aHome.checkActivityAddWebContent(title,null,null);
@@ -540,50 +698,117 @@ import org.testng.annotations.*;
 		inputFrame(createDoc.ELEMENT_FILEFORM_BLANK_CONTENT2,newContent);
 		switchToParentWindow();
 		createDoc.saveAndClose();
+		
+		info("Delete the file");
 		navTool.goToSiteExplorer();
-		
-		info("Test 13 View a content from the Content activity");
-		hp.goToHomePage();
-		click(By.xpath(aHome.ELEMENT_ACTIVITY_VIEW_A_NODE.replace("{$title}", title)));
-		waitForAndGetElement(By.xpath(seHome.ELEMENT_DOCUMENT_VIEW.replace("{$content}", newContent )));
-		
+	    seHome.goToPath("acme/documents","Sites Management");
 		seHome.deleteData(title);
- 	}
-
-
+		
+	}
 	/**
-	*<li> Case ID:116682.</li>
-	*<li> Test Case Name: View a file from the File activity.</li>
+	*<li> Case ID:116681.</li>
+	*<li> Test Case Name: View a content from the Content activity.</li>
 	*/
-	@Test
-	public  void test14_15_ViewAndEditAFileFromTheFileActivity() {
-		info("Test 14 View a file from the File activity");
-
-		String path = fData.getAttachFileByArrayTypeRandom(1);
-
-
-		/*Step Number: 1
+	public  void test14_ViewAContentFromTheContentActivity(){
+		info("Test 14: View a content from the Content activity");
+		info("Create data test");
+		String random=getRandomNumber();
+		String title =  txData.getContentByArrayTypeRandom(1)+random;
+		String content =  txData.getContentByArrayTypeRandom(1)+random;
+		info("Finish creating data test");
+		
+		info("Create a new Content");
+		navTool.goToSiteExplorer();
+		seHome.goToPath("acme/documents","Sites Management");
+		seHome.goToAddNewContent();
+		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		createDoc.addNewFile(title, content);
+		createDoc.saveAndClose();
+		
+		info("View the content from the activity");
+		hp.goToHomePage();
+		click(aHome.ELEMENT_ACTIVITY_VIEW_A_NODE.replace("{$title}", title));
+		waitForAndGetElement(seHome.ELEMENT_DOCUMENT_VIEW.replace("{$content}", content));
+		
+		info("Delete the file");
+		navTool.goToSiteExplorer();
+	    seHome.goToPath("acme/documents","Sites Management");
+		seHome.deleteData(title);
+	}
+	
+	/*@Test
+	public  void test13_14_EditAContentFromTheContentActivity_ViewAContentFromTheContentActivity() {
+		info("Test 13: Edit a content from the Content activity");
+		String random=getRandomNumber();
+		String title =  txData.getContentByArrayTypeRandom(1)+random;
+		String content =  txData.getContentByArrayTypeRandom(1)+random;
+		String newContent =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		Step Number: 1
 		*Step Name: 
-		*Step Description: 
+		*Step Description: ;
 			- Connect to Intranet
 			- From the Content activity, click on the link "Edit"
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- The content explorer is opened to edit the content*/ 
+			- The content explorer is opened to edit the content 
 		navTool.goToSiteExplorer();
-		seHome.uploadFile("TestData/"+path);
+		seHome.goToAddNewContent();
+		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		createDoc.addNewFile(title, content);
+		createDoc.saveAndClose();
+		
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",path)));
-		click(By.xpath(aHome.ELEMENT_ACTIVITY_VIEW_A_NODE.replace("{$title}", path)));
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_PREVIEW_FILE_WINDOW_NAME_OF_FILE.replace("{$title}",path)));
-		
-		info("Edit a file from the activity view");
-		click(By.xpath(aHome.ELEMENT_ACTIVITY_EDIT_A_NODE.replace("{$title}", path)));
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_EDIT_FROM_HOMEPAGE.replace("{$title}",path)));
+		driver.navigate().refresh();
+		aHome.checkActivityAddWebContent(title,null,null);
+		click(By.xpath(aHome.ELEMENT_ACTIVITY_EDIT_A_NODE.replace("{$title}", title)));
+		inputFrame(createDoc.ELEMENT_FILEFORM_BLANK_CONTENT2,newContent);
+		switchToParentWindow();
+		createDoc.saveAndClose();
 		
 		navTool.goToSiteExplorer();
-		seHome.deleteData(path);
+		
+		info("Test 14: View a content from the Content activity");
+		hp.goToHomePage();
+		click(By.xpath(aHome.ELEMENT_ACTIVITY_VIEW_A_NODE.replace("{$title}", title)));
+		waitForAndGetElement(By.xpath(seHome.ELEMENT_DOCUMENT_VIEW.replace("{$content}", newContent )));
+		
+		seHome.deleteData(title);
+ 	}*/
+
+
+	/**
+	*<li> Case ID:116682.</li>
+	*<li> Test Case Name: View a file from the File activity.</li>
+	*<li> Test Case Name: Edit a file from the File activity.</li>
+	*/
+	@Test
+	public  void test15_ViewAndEditAFileFromTheFileActivity() {
+		info("Test 15: View a file from the File activity");
+		info("Create data test");
+		String file = fData.getAttachFileByArrayTypeRandom(1);
+		info("Finish creating data test");
+		
+		info("Upload a file");
+		navTool.goToSiteExplorer();
+		seHome.goToPath("acme/documents","Sites Management");
+		seHome.uploadFile("TestData/"+file);
+		
+		info("View the content from the activity");
+		hp.goToHomePage();
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",file));
+		click(aHome.ELEMENT_ACTIVITY_VIEW_A_NODE.replace("{$title}",file));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_PREVIEW_FILE_WINDOW_NAME_OF_FILE.replace("{$title}",file));
+		
+		info("Edit the content from the activity");
+		hp.goToHomePage();
+		click(aHome.ELEMENT_ACTIVITY_EDIT_A_NODE.replace("{$title}",file));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_EDIT_FROM_HOMEPAGE.replace("{$title}",file));
+		
+		info("Delete the file");
+		navTool.goToSiteExplorer();
+	    seHome.goToPath("acme/documents","Sites Management");
+		seHome.deleteData(file);
  	}
 
 
@@ -606,20 +831,35 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The content of the file content activity isn't updated in the activity stream
 			- A comment is added: File has been moved to: $valuewhere $value = path of the file.d*/ 
-		String path = fData.getAttachFileByArrayTypeRandom(1);
+		
+		info("Create data test");
+		String file = fData.getAttachFileByArrayTypeRandom(1);
 		String fileRecept="intranet";
+		info("Finish creating data test");
+		
+		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.uploadFile("TestData/"+path);
-		dragAndDropToObject(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", path)), By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", fileRecept)));
+		seHome.goToPath("acme/documents","Sites Management");
+		seHome.uploadFile("TestData/"+file);
+		
+	/*	String path = fData.getAttachFileByArrayTypeRandom(1);
+		String fileRecept="intranet";*/
+		
+		/*navTool.goToSiteExplorer();
+		seHome.uploadFile("TestData/"+path);*/
+		info("Move the file");
+		dragAndDropToObject(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", file)), By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", fileRecept)));
 		alert.acceptAlert();
 		Utils.pause(2000);
-		hp.goToHomePage();
 		
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",path).replace("{$comment}","File has been moved to:")));
+		info("Check the comment on the activity");
+		hp.goToHomePage();
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",file).replace("{$comment}","File has been moved to:")));
 
+		info("Delete the file");
 		navTool.goToSiteExplorer();
-		seHome.selectNode(fileRecept);
-		seHome.deleteData(path);
+	    seHome.goToPath("acme/documents","Sites Management");
+		seHome.deleteData(file);
 	}
 
 	/**
@@ -641,24 +881,39 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The content of the content activity isn't updated in the activity stream
 			- A comment is added: Publication has been moved to: $value$value = path of the content.*/ 
+		info("Create data test");
 		String random=getRandomNumber();
 		String title =  txData.getContentByArrayTypeRandom(1)+random;
 		String content =  txData.getContentByArrayTypeRandom(1)+random;
 		String fileRecept="intranet";
+		info("Finish creating data test");
+		
+		/*navTool.goToSiteExplorer();
+		seHome.goToAddNewContent();
+		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		createDoc.addNewFile(title, content);
+		createDoc.saveAndClose();*/
+		
+		info("Create a new Content");
 		navTool.goToSiteExplorer();
+		seHome.goToPath("acme/documents","Sites Management");
 		seHome.goToAddNewContent();
 		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		createDoc.addNewFile(title, content);
 		createDoc.saveAndClose();
+		
+		info("Move the content");
 		dragAndDropToObject(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)), By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", fileRecept)));
 		alert.acceptAlert();
 		Utils.pause(2000);
-		hp.goToHomePage();
 		
+		info("Check the comment on the activity");
+		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Publication has been moved to:")));
 
+		info("Delete the file");
 		navTool.goToSiteExplorer();
-		seHome.selectNode(fileRecept);
+	    seHome.goToPath("acme/documents","Sites Management");
 		seHome.deleteData(title);
 		
  	}

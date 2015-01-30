@@ -7,22 +7,22 @@
 			</run>
 		</groups>
 		<classes>
-			<class
-				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Collaboration" />
+		    <class 
+			    name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Admin" />
+			 <class
+				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_BasicAction" />
 			<class 
-			    name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Create" />
-			<class
+			    name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Create" />  
+			 <class
+				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Collaboration" /> 
+			<!--<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Info" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_PublishActivities" />
 			<class
-				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_BasicAction" />	
-			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Search" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Setting" />
-			<class 
-			    name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_SE_Admin" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminTemplates" />
 			<class
@@ -32,7 +32,7 @@
 			<class
 				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminAdvanced" />
 			<class
-				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_WCM" />
+				name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_WCM" /> -->
 		</classes>
 	</test>
 	<listeners>

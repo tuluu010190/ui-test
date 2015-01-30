@@ -9,7 +9,6 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmActionstypes;
 import org.exoplatform.selenium.platform.ecms.ECMS_Permission;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
@@ -173,16 +172,7 @@ public class Ecms_SE_Info extends PlatformBase{
 		navTool.goToSiteExplorer();
 		SEHome.uploadFile("TestData/"+path);
 		SEHome.selectNode(path);
-		boolean ischeck = SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_METADATA);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caMag.addActionsForAView("Web",specificEcmActionstypes.VIEW_METADATA);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			SEHome.selectNode(path);
-		}
+		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		SEHome.viewMetadata();
 		info("Delete data test");
 		SEHome.deleteData(path);

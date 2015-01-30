@@ -31,16 +31,10 @@ public class Ecms_SE_Create extends PlatformBase{
 	SiteExplorerHome SEHome;
 	CreateNewDocument CreNewDoc;
 
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
-		magAc.signIn(DATA_USER1, DATA_PASS);
-	}
-
 	@BeforeClass
-	public void setUpBeforeTest() throws Exception{
+	public void setUpBeforeClass() throws Exception{
 		getDriverAutoSave();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		driver.get(baseUrl);
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);
 		SEHome = new SiteExplorerHome(driver);
@@ -54,6 +48,11 @@ public class Ecms_SE_Create extends PlatformBase{
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
+	}
+	
+	@BeforeMethod
+	public void setUpBeforeMethod() throws Exception{
+		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
 
 	@AfterMethod
@@ -78,9 +77,10 @@ public class Ecms_SE_Create extends PlatformBase{
 	@Test
 	public  void test01_10_Create_DeleteContentFolder() {
 		info("Test 1: Create Content folder");
-
+        info("Create data test");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String folderType = "Content Folder";
+		info("Finished creating data test");
 
 		/*Step Number: 1
 		 *Step Name: -
@@ -93,12 +93,16 @@ public class Ecms_SE_Create extends PlatformBase{
 		 *Expected Outcome: 
 			- Folder is deleted
 			- A modal message appears with Undo option. You can click undo to restore*/ 
+		info("Create a content folder");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewFolder();
 		info("Create new file document");
 		SEHome.createFolder(title, folderType);
 
-		info("Delete file document");
+		info("Test 10: Delete file document");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(title);
 	}
 
@@ -115,10 +119,11 @@ public class Ecms_SE_Create extends PlatformBase{
 	@Test
 	public  void test02_06_07_Create_Edit_DeleteFileDocument() {
 		info("Test 2: Delete File document");
-
+		info("Create data test");
 		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		info("Finished creating data test");
 
 		/*Step Number: 1
 		 *Step Name: -
@@ -130,7 +135,9 @@ public class Ecms_SE_Create extends PlatformBase{
 			- Click Save & Close
 		 *Expected Outcome: 
 			File is Edited successfully*/ 
+		info("Create a content");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		info("Create new file document");
 		CreNewDoc.createNewDoc(selectDocumentType.FILE);
@@ -138,13 +145,15 @@ public class Ecms_SE_Create extends PlatformBase{
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
 
+		info("Edit a content");
 		SEHome.goToEditDocument();
 		SEHome.editDocument(content2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-		//		waitForAndGetElement(By.xpath(("//*[text()='${content}']").replace("${content}", content2)));
 
 		info("Delete file document");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(name);
 	}
 
@@ -163,11 +172,11 @@ public class Ecms_SE_Create extends PlatformBase{
 	@Test
 	public  void test03_08_09_Create_Edit_Delete_WebContentDocument() {
 		info("Test 3: Create Web Content document");
-
+		info("Create data test");
 		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-
+		info("Finished creating data test");
 		/*Step Number: 1
 		 *Step Name: Step 1: Edit Web Content document
 		 *Step Description: 
@@ -178,6 +187,7 @@ public class Ecms_SE_Create extends PlatformBase{
 		 *Expected Outcome: 
 			The Web Content document is edited successfully*/ 
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		info("Create new file document");
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
@@ -185,14 +195,16 @@ public class Ecms_SE_Create extends PlatformBase{
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
 
-		click(By.linkText("More"));
+		info("Edit the content");
+		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		SEHome.goToEditDocument();
 		SEHome.editDocument(content2);
 		CreNewDoc.saveAndClose();
 		Utils.pause(5000);
-		//		waitForAndGetElement(By.xpath(("//*[text()='${content}']").replace("${content}", content2)));
 
 		info("Delete file document");
+		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(name);
 	}
 
@@ -205,11 +217,11 @@ public class Ecms_SE_Create extends PlatformBase{
 	@Test
 	public  void test04_InsertDocumentsmediasInAWebContentByFCKContentSelector() {
 		info("Test 4: Insert documents/medias in a web content by FCK Content Selector");
-
+		info("Create data test");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String link = "exoplatform.com";
-
+		info("Finished creating data test");
 		/*Step Number: 1
 		 *Step Name: Step 1: Insert documents/medias in a web content by FCK Content Selector
 		 *Step Description: 
@@ -228,13 +240,17 @@ public class Ecms_SE_Create extends PlatformBase{
 
 		 *Expected Outcome: 
 			The selected content/media is inserted to Main Content as a link.In view mode, user can click this link to view/download file.*/ 
+		info("Add a new content");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		info("Create new file document");
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		CreNewDoc.addNewWebContent(title, content);
 		CreNewDoc.addLinkInWebContent(link);
 		CreNewDoc.saveAndClose();
+		
+		
 		String url = driver.getCurrentUrl();
 		click(By.xpath("//*[contains(text(),'exoplatform.com')]"));
 		info(url);
@@ -242,6 +258,7 @@ public class Ecms_SE_Create extends PlatformBase{
 
 		info("Delete file document");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(title);
 	}
 
@@ -257,9 +274,9 @@ public class Ecms_SE_Create extends PlatformBase{
 	@Test
 	public  void test05_11_Upload_DeleteAFileInContentExplorer() {
 		info("Test 5: Upload a file in Content explorer");
-
-		String path = fData.getAttachFileByArrayTypeRandom(1);
-
+		info("Create data test");
+		String file = fData.getAttachFileByArrayTypeRandom(1);
+		info("Finished creating data test");
 		/*Step Number: 1
 		 *Step Name: -
 		 *Step Description: 
@@ -271,8 +288,10 @@ public class Ecms_SE_Create extends PlatformBase{
 			- Click on Upload icon on action bar or right click on the main pane then click Upload Files
 		 *Expected Outcome: 
 			- File Dialog open for user to choose files to upload*/
-
+        info("Upload a file");
 		navTool.goToSiteExplorer();
+		SEHome.goToPath("acme/documents", "Sites Management");
+		SEHome.uploadFile("TestData/"+file);
 
 		/*Step number: 2
 		 *Step Name: 
@@ -285,8 +304,8 @@ public class Ecms_SE_Create extends PlatformBase{
 			- Progress bar appears at the bottomUser can: + Cancel 1 file + Abort all + View tooltip of file size + Mouse over to see containing folder
 			- Files are uploaded successfully*/ 
 		
-		SEHome.uploadFile("TestData/"+path);
-		SEHome.deleteData(path);
+		info("Delete a file");
+		SEHome.deleteData(file);
 	}
 
 	/**
@@ -300,8 +319,9 @@ public class Ecms_SE_Create extends PlatformBase{
 	@Test
 	public  void test12_15_Upload_DeleteAFileInIntranetDocument() {
 		info("Test 12 Upload a file in Intranet/Document");
-		
+		info("Create data test");
 		String fileName = fData.getAttachFileByArrayTypeRandom(1);
+		info("Finished creating data test");
 		/*Step Number: 1
 		 *Step Name: -
 		 *Step Description: 
@@ -313,7 +333,6 @@ public class Ecms_SE_Create extends PlatformBase{
 		 *Expected Outcome: 
 			- File Dialog open for user to choose files to upload*/
 
-		navTool.goToSiteExplorer();
 		SEHome.goToIntranet();
 		SEHome.goToDocument();
 		
@@ -327,9 +346,12 @@ public class Ecms_SE_Create extends PlatformBase{
 		 *Expected Outcome: 
 			- Progress bar appears at the bottomUser can: + Cancel 1 file + Abort all + View tooltip of file size + Mouse over to see containing folder
 			- Files are uploaded successfully*/ 
-		
+		info("Upload a file");
 		SEHome.uploadFile("TestData/"+fileName);
-		
+		String[] name = fileName.split(".");
+		waitForAndGetElement(SEHome.ELEMENT_PERSONAL_DOCUMENT_FILE.replace("${file}",name[0]));
+		info("Delete the file");
+		SEHome.selectAndDeleteByCheckBox(name[0]);
 	}
 
 	/**
@@ -345,11 +367,11 @@ public class Ecms_SE_Create extends PlatformBase{
 	@Test
 	public  void test13_14_Upload_DeleteAFileInSpaceDocument() {
 		info("Test 13 Upload a file in Space/Document");
-		
-		String path = fData.getAttachFileByArrayTypeRandom(1);
+		info("Create data test");
+		String fileName = fData.getAttachFileByArrayTypeRandom(1);
 		String spaceName = txData.getContentByArrayTypeRandom(1)+"space";;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-	
+		info("Finished creating data test");
 		hp.goToMySpaces();
 		spManag.addNewSpace(spaceName, content);
 		/*Step Number: 1
@@ -364,7 +386,6 @@ public class Ecms_SE_Create extends PlatformBase{
 			- File Dialog open for user to choose files to upload*/
 	
 		
-		navTool.goToSiteExplorer();
 		SEHome.goToSpace(spaceName);
 		
 		/*Step number: 2
@@ -378,7 +399,11 @@ public class Ecms_SE_Create extends PlatformBase{
 			- Progress bar appears at the bottomUser can: + Cancel 1 file + Abort all + View tooltip of file size + Mouse over to see containing folder
 			- Files are uploaded successfully*/ 
 
-		SEHome.uploadFile("TestData/"+path);
+		SEHome.uploadFile("TestData/"+fileName);
+		String[] name = fileName.split(".");
+		waitForAndGetElement(SEHome.ELEMENT_SPACE_DRIVE_FILE.replace("${file}",name[0]));
+		info("Delete the file");
+		SEHome.selectAndDeleteByCheckBox(name[0]);
 		
 	}
 }

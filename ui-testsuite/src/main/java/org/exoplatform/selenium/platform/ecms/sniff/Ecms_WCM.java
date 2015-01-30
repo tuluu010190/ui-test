@@ -14,7 +14,6 @@ import org.exoplatform.selenium.platform.administration.ChangeLanguages;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ManageSites;
 import org.exoplatform.selenium.platform.administration.PageManagement;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmActionstypes;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.SEOManagement;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
@@ -59,8 +58,8 @@ public class Ecms_WCM extends PlatformBase {
 	AcmeHomePage acmeHP;
 	ContentAdministrationManagement caPage;
 
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
+	@BeforeClass
+	public void setUpBeforeClass() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,true,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
@@ -90,13 +89,15 @@ public class Ecms_WCM extends PlatformBase {
 		magAlert = new ManageAlert(driver, this.plfVersion);
 		
 		magAc.signIn(DATA_USER1, DATA_PASS);
+		
 	}
 
-	@AfterMethod
-	public void afterMethod(){
+	@AfterClass
+	public void afterClass(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
+	
 
 	/**
 	 *<li> Case ID:116568.</li>
@@ -432,16 +433,6 @@ public class Ecms_WCM extends PlatformBase {
 		CreNewDoc.addNewWebContent(content, content);
 		CreNewDoc.saveAndClose();
 		SEHome.selectNode(content);
-		Boolean ischeck= SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_PUBLICATION);
-		if (ischeck) {
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_PUBLISHTATION);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();
-			SEHome.goToPath("acme/categories/powers/Defense","Sites Management");
-			SEHome.selectNode(content);
-		}
 		SEHome.goToPublication();
 		SEHome.changeStatusPulication("Published");
 		this.driver.get(DEFAULT_BASEURL+"/acme");
@@ -508,16 +499,7 @@ public class Ecms_WCM extends PlatformBase {
 		waitForAndGetElement(contList.ELEMENT_CONTENT_LIST_CONTENT_TITLE.replace("${title}", content));
 		navTool.goToSiteExplorer();
 		SEHome.selectNode(content);
-		Boolean ischeck= SEHome.checkAction(SEHome.ELEMENT_ACTIONBAR_PUBLICATION);
-		if (ischeck) {
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.MANAGE_PUBLISHTATION);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();
-			SEHome.goToPath("acme/categories/powers/Defense","Sites Management");
-			SEHome.selectNode(content);
-		}
+		
 		SEHome.goToPublication();
 		SEHome.changeStatusPulication("Published");
 		this.driver.get(DEFAULT_BASEURL+"/acme/overview/"+content+"");

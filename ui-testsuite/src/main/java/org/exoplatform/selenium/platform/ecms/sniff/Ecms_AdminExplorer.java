@@ -119,9 +119,8 @@ public class Ecms_AdminExplorer extends PlatformBase{
 		String[] tab={"Add Category"};
 		String permission = "john";
 		
-		
-		hp.goToHomePage();
 		navTool.goToContentAdministration();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
 		caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
 		// add a view
 		caPage.addView(title, tabName, tab, oldPermission);

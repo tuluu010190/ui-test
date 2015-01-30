@@ -26,6 +26,7 @@ public class AcmeHomePage extends PlatformBase {
 	
 	public AcmeHomePage(WebDriver driver) {
 		this.driver= driver;
+		contList = new ContentList(driver);
 	}
 
 	/**

@@ -114,7 +114,6 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		String random= getRandomNumber();
 		String folderTitle = txData.getContentByArrayTypeRandom(1)+random;
 		String node =folderTitle .toLowerCase();
-		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		
 		navTool.goToSiteExplorer();
 		seHome.goToAddNewFolder();
