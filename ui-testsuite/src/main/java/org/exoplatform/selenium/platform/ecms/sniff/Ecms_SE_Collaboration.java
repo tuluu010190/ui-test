@@ -2,20 +2,8 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.acme.AcmeHomePage;
-import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
-import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
-import org.exoplatform.selenium.platform.gatein.PageEditor;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -24,46 +12,7 @@ import org.testng.annotations.*;
  * @author exo
  */
 
-	public class Ecms_SE_Collaboration extends PlatformBase {
-
-		HomePagePlatform hp;
-		ManageLogInOut magAc;
-		ManageAlert magAlert;
-		Button but;
-		TextBoxDatabase txData;
-		SiteExplorerHome SEHome;
-		CreateNewDocument creNewDoc;
-		PageEditor pEdit;
-		NavigationToolbar navTool;
-		AcmeHomePage acmeHP;
-		AttachmentFileDatabase fData;
-
-		@BeforeMethod
-		public void setUpBeforeTest() throws Exception{
-			initSeleniumTest();
-			getDefaultUserPass(userDataFilePath,defaultSheet,true,jdbcDriver,dbUrl,user,pass,sqlUser);
-			driver.get(baseUrl);
-			magAc = new ManageLogInOut(driver);
-			but = new Button(driver);
-			hp = new HomePagePlatform(driver);
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			txData = new TextBoxDatabase();
-			txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-			SEHome = new SiteExplorerHome(driver);
-			creNewDoc = new CreateNewDocument(driver);
-			pEdit = new PageEditor(driver);
-			navTool = new NavigationToolbar(driver);
-			acmeHP = new AcmeHomePage(driver);
-			magAlert = new ManageAlert(driver, this.plfVersion);
-			fData = new AttachmentFileDatabase();
-			fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		}
-
-		@AfterMethod
-		public void afterTest(){
-			driver.manage().deleteAllCookies();
-			driver.quit();
-		}
+	public class Ecms_SE_Collaboration extends ECMS_TestConfig {
 		
 		
 	/**
@@ -101,18 +50,18 @@ import org.testng.annotations.*;
 		navTool.goToSiteExplorer();
 		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
-		creNewDoc.createNewDoc(selectDocumentType.FILE);
-		creNewDoc.addNewFile(title, content);
-		creNewDoc.saveAndClose();
+		CreNewDoc.createNewDoc(selectDocumentType.FILE);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 		
 		SEHome.selectNode("documents");
 		info("Create content 2");
 		SEHome.goToAddNewContent();
-		creNewDoc.createNewDoc(selectDocumentType.FILE);
-		creNewDoc.addNewFile(title2, content2);
-		select(creNewDoc.ELEMENT_FILEFORM_LANGUAGE, "fr", 2);
+		CreNewDoc.createNewDoc(selectDocumentType.FILE);
+		CreNewDoc.addNewFile(title2, content2);
+		select(CreNewDoc.ELEMENT_FILEFORM_LANGUAGE, "fr", 2);
 		Utils.pause(2000);
-		creNewDoc.saveAndClose();
+		CreNewDoc.saveAndClose();
 		
 		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", title));
 		SEHome.addDocumentTranslation("General Drives/Sites Management", title2);
@@ -158,9 +107,9 @@ import org.testng.annotations.*;
 		navTool.goToSiteExplorer();
 		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
-		creNewDoc.createNewDoc(selectDocumentType.FILE);
-		creNewDoc.addNewFile(title, content);
-		creNewDoc.saveAndClose();
+		CreNewDoc.createNewDoc(selectDocumentType.FILE);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 
 		info("Add a comment");
 		SEHome.addEditComment(content2,true);
@@ -212,9 +161,9 @@ import org.testng.annotations.*;
 		navTool.goToSiteExplorer();
 		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
-		creNewDoc.createNewDoc(selectDocumentType.FILE);
-		creNewDoc.addNewFile(title, content);
-		creNewDoc.saveAndClose();
+		CreNewDoc.createNewDoc(selectDocumentType.FILE);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 
 		info("Add a tag to the Content");
 		SEHome.selectNode(title);
@@ -301,11 +250,11 @@ import org.testng.annotations.*;
 		info("Add a new content");
 		SEHome.goToAddNewContent();
 		info("Select a document type");
-		creNewDoc.createNewDoc(selectDocumentType.FILE);
+		CreNewDoc.createNewDoc(selectDocumentType.FILE);
 		info("Create a new file");
-		creNewDoc.addNewFile(title, content);
+		CreNewDoc.addNewFile(title, content);
 		info("Save and close the file");
-		creNewDoc.saveAndClose();
+		CreNewDoc.saveAndClose();
 		
 		SEHome.addEditComment(content2,true);
 		info("Veriy that the comment is added");
@@ -355,20 +304,21 @@ import org.testng.annotations.*;
 		navTool.goToSiteExplorer();
 		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.goToAddNewContent();
-		creNewDoc.createNewDoc(selectDocumentType.FILE);
-		creNewDoc.addNewFile(title, content);
-		creNewDoc.saveAndClose();
+		CreNewDoc.createNewDoc(selectDocumentType.FILE);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 
-		click(SEHome.ELEMENT_ACTIONBAR_ADDCOMMENT);
+		/*click(SEHome.ELEMENT_ACTIONBAR_ADDCOMMENT);
 		this.driver.navigate().refresh();
-		inputFrame(creNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content2);
-		switchToParentWindow();
-		click(SEHome.ELEMENT_SAVE_BTN);
+		inputFrame(CreNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT , content2);
+		info("Click on Save button");
+		click(SEHome.ELEMENT_SITEEXPLORER_COMMENT_SAVE);*/
+		SEHome.addEditComment(content2,true);
 		waitForAndGetElement(By.xpath((SEHome.ELEMENT_SITEEXPLORER_COMMENT).replace("${number}", "1")));
 		
 		click(SEHome.ELEMENT_SITEEXPLORER_COMMENT_SHOW);
 		click(SEHome.ELEMENT_SITEEXPLORER_COMMENT_DELETE);
-		magAlert.acceptAlert();
+		alert.acceptAlert();
 		waitForElementNotPresent(By.xpath((SEHome.ELEMENT_SITEEXPLORER_COMMENT).replace("${number}", "1")));
 		SEHome.deleteData(title);
  	}

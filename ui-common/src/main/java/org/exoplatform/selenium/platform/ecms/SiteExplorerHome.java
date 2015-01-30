@@ -262,7 +262,8 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SEO_FOLDER_FILE = By.xpath("//*[@class='text']//*[@data-original-title='sitemaps']");
     //Personal document
 	public final String ELEMENT_PERSONAL_DOCUMENT_FILE = ".//*[@id='UIDocumentNodeList']//span[text()='${file}']";
-    public final String ELEMENT_PERSONAL_DOCUMENT_FILE_CHECKBOX=".//*[@id='UIDocumentNodeList']//span[text()='${file}']/../../..//*[@type='checkbox']";
+
+    public final String ELEMENT_PERSONAL_DOCUMENT_FILE_CHECKBOX=".//*[@id='UIDocumentNodeList']//span[text()='${file}']/../../..//span/input";
 	
     //Space drive
     public final String ELEMENT_SPACE_DRIVE_FILE = ".//*[@id='UIDocumentNodeList']//span[text()='${file}']";
@@ -425,7 +426,7 @@ public class SiteExplorerHome extends PlatformBase{
 	 * @return 
 	 * @return
 	 */
-	public SiteExplorerHome uploadFile(String link, Object... params) {
+	public void uploadFile(String link, Object... params) {
 		info("Upload a file to Site Explorer");
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
 		if (waitForAndGetElement(ELEMENT_ACTIONBAR_UPLOAD, DEFAULT_TIMEOUT, 0) == null) {
@@ -452,7 +453,6 @@ public class SiteExplorerHome extends PlatformBase{
 		}
 		info("Upload file successfully");
 		Utils.pause(2000);
-		return new SiteExplorerHome(driver);
 	}
 
     /**
@@ -477,8 +477,6 @@ public class SiteExplorerHome extends PlatformBase{
 		type(ELEMENT_TAG_FORM,tag,true);
 		info("Click on Add button");
 		click(ELEMENT_ADD_TAG_FORM);
-		info("Verify that tag is created");
-		waitForAndGetElement(ELEMENT_TAG_POPUP_LINK_TAGS.replace("${name}",tag));
 		info("The tag is created successfully");
 		info("Close the popup");
 		click(ELEMENT_TAG_POPUP_CLOSE);
@@ -559,7 +557,7 @@ public class SiteExplorerHome extends PlatformBase{
      */
 	public void goToSpace(String spaceName) {
 		click(ELEMENT_ACTIONBAR_SHOWDRIVES);
-		click(By.xpath((ELEMENT_SELECTDRIVE_SPECIFICDRIVE).replace("${spaceName}", spaceName)));
+		click(By.xpath((ELEMENT_SELECTDRIVE_SPECIFICDRIVE).replace("${spaceName}",spaceName)));
 	}
 
     /**
@@ -1021,6 +1019,9 @@ public class SiteExplorerHome extends PlatformBase{
 	 * @param category
 	 */
 	public void addCategoryForNode(String node, String category){
+		info("Click on More menu");
+		click(ELEMENT_ACTIONBAR_MORE);
+		Utils.pause(2000);
 		click(ELEMENT_ACTIONBAR_CATEGORY);
 		Utils.pause(2000);
 		click(ELEMENT_CATEGORY_CHANGE_FORM_SELECT_CATEGORY);

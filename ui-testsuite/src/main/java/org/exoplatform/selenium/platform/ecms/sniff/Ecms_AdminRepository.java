@@ -2,18 +2,9 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmFunctions;
-import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
-import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
@@ -21,42 +12,7 @@ import org.testng.annotations.*;
  * @author eXo
  *
  */
-public class Ecms_AdminRepository extends PlatformBase{
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	TextBoxDatabase txData;		
-	ContentAdministrationManagement caPage;
-	NavigationToolbar navTool;
-	CreateNewDocument CreNewDoc;
-	SiteExplorerHome SEHome;
-	@BeforeClass
-	public void setUpBeforeTest() throws Exception{
-		initSeleniumTest();
-		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		driver.get(baseUrl);
-		magAc = new ManageLogInOut(driver);
-		CreNewDoc = new CreateNewDocument(driver);
-		SEHome = new SiteExplorerHome(driver);
-		navTool = new NavigationToolbar(driver);
-		hp = new HomePagePlatform(driver);
-		txData = new TextBoxDatabase();
-		caPage= new ContentAdministrationManagement(driver);
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-	}	
-
-	@BeforeMethod
-	public void beforeMethod(){
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		navTool.goToContentAdministration();
-		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
-	}
-	
-	@AfterClass
-	public void afterTest(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
-
+public class Ecms_AdminRepository extends ECMS_TestConfig{
 
 	/**
 	 *<li> Case ID:116588.</li>
@@ -87,9 +43,10 @@ public class Ecms_AdminRepository extends PlatformBase{
 		CreNewDoc.saveAndClose();
 		SEHome.lockNode(title);
 		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 		caPage.goToSpecificFunctions(specificEcmFunctions.LOCKS);
-		click(By.xpath(caPage.ELEMENT_ECM_REPOSITORY_UNLOCK_NODE_LIST.replace("{$name}",title)));
+		click(caPage.ELEMENT_ECM_REPOSITORY_UNLOCK_NODE_LIST.replace("{$name}",title));
 		navTool.goToSiteExplorer();
 		SEHome.deleteData(title);
 	}
@@ -107,6 +64,9 @@ public class Ecms_AdminRepository extends PlatformBase{
 		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String superTypes ="exo:calendar";
 
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 		caPage.goToSpecificFunctions(specificEcmFunctions.NODESTYPES);
 		caPage.addNodeType(name, superTypes);
 		caPage.searchNodeAndCheckIt(name, superTypes+", nt:base");
@@ -147,6 +107,9 @@ public class Ecms_AdminRepository extends PlatformBase{
 			- Click Save button
 		 *Expected Outcome: 
 			New namespace is registered successfully.*/ 
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 		caPage.goToSpecificFunctions(specificEcmFunctions.NAMESPACES);
 		caPage.registerNamespace(prefix, url);
 		waitForAndGetElement(caPage.ELEMENT_ECM_REPOSITORY_NAMESPACES_CHECK_LIST_URL_AND_PREFIX.replace("{$url}",url).replace("{$prefix}",prefix));
@@ -183,6 +146,7 @@ public class Ecms_AdminRepository extends PlatformBase{
 		CreNewDoc.saveAndClose();
 		SEHome.lockNode(title);
 		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 		caPage.goToSpecificFunctions(specificEcmFunctions.LOCKS);
 		click(caPage.ELEMENT_ECM_REPOSITORY_MANAGE_LOCK);

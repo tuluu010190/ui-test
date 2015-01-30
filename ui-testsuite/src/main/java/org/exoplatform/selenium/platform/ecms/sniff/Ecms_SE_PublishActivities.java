@@ -3,18 +3,7 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
-import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
-import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.social.HomepageActivity;
-import org.exoplatform.selenium.ManageAlert;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -23,54 +12,7 @@ import org.testng.annotations.*;
 	* @author eXo
 	*
 	*/
-	public class Ecms_SE_PublishActivities extends PlatformBase {
-		HomePagePlatform hp;
-		ManageLogInOut magAc;
-		TextBoxDatabase txData;		
-		ContentAdministrationManagement caPage;
-		SiteExplorerHome seHome;
-		CreateNewDocument createDoc;
-		HomepageActivity aHome;
-		AttachmentFileDatabase fData;
-		NavigationToolbar navTool;
-		ManageAlert alert;
-		
-		@BeforeClass
-		public void setUpBeforeClass() throws Exception{
-			initSeleniumTest();
-			getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-			magAc = new ManageLogInOut(driver);
-			alert = new ManageAlert(driver);
-			seHome = new SiteExplorerHome(driver);
-			hp = new HomePagePlatform(driver);
-			navTool = new NavigationToolbar(driver);
-			aHome = new HomepageActivity(driver);
-			createDoc = new CreateNewDocument(driver);
-			txData = new TextBoxDatabase();
-			txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-			fData = new AttachmentFileDatabase();
-			fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-			
-		}	
-		
-		@BeforeMethod
-		public void beforeMethod(){
-			magAc.signIn(DATA_USER1, DATA_PASS);
-		}
-		
-		@AfterMethod
-		public void afterMethod(){
-			magAc.signOut();
-			
-		}
-		
-		@AfterClass
-		public void afterClass(){
-			driver.manage().deleteAllCookies();
-			driver.quit();
-		}
-		
-		
+	public class Ecms_SE_PublishActivities extends ECMS_TestConfig {
 	/**
 	*<li> Case ID:116665.</li>
 	*<li> Test Case Name: Check intranet homepage after adding a File content.</li>
@@ -101,10 +43,10 @@ import org.testng.annotations.*;
 			- A new Content activity is added in the activity stream
 			- Informations displayed in the featured content are :1. File icon 2.File's name3.File description if exist 4.Version (if exist) and file size*/ 
 		navTool.goToSiteExplorer();
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.FILE);
-		createDoc.addNewFile(title, content);
-		createDoc.saveAndClose();
+		SEHome.goToAddNewContent();
+		CreNewDoc.createNewDoc(selectDocumentType.FILE);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
 		aHome.checkActivityAddFile(title);
 		
@@ -119,11 +61,11 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The Content explorer is opened in the file to edit*/ 
 		click(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_EDIT_FILE_FROM_ACTIVITY.replace("{$title}", title)));
-		createDoc.saveAndClose();
+		CreNewDoc.saveAndClose();
 		
 		// delete data
 		navTool.goToSiteExplorer();
-		seHome.deleteData(title);
+		SEHome.deleteData(title);
  	}
 
 	/**
@@ -154,10 +96,10 @@ import org.testng.annotations.*;
 			- A new Content activity is added in the activity stream
 			- Informations displayed in the featured content are :1. Icon corresponding to the content type2. Name of the content3. First 4 lines of content's summary4. Type of the content5.Version6. Current status*/ 
 		navTool.goToSiteExplorer();
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
-		createDoc.addNewWebContent(title, content);
-		createDoc.saveAndClose();
+		SEHome.goToAddNewContent();
+		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		CreNewDoc.addNewWebContent(title, content);
+		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
 		aHome.checkActivityAddWebContent(title, null, null);
 		
@@ -178,9 +120,9 @@ import org.testng.annotations.*;
 			- The content activity is updated in the activity stream with the new summary
 			- A comment is added: Document has been published.*/ 
 		navTool.goToSiteExplorer();
-		seHome.selectNode(title);
-		seHome.goToPublication();
-		seHome.changeStatusPulication("Published");
+		SEHome.selectNode(title);
+		SEHome.goToPublication();
+		SEHome.changeStatusPulication("Published");
 		hp.goToHomePage();
 		driver.navigate().refresh();
 		aHome.checkActivityAddWebContent(title, "1", "Published");
@@ -188,7 +130,7 @@ import org.testng.annotations.*;
 		
 		// delete data
 		navTool.goToSiteExplorer();
-		seHome.deleteData(title);
+		SEHome.deleteData(title);
  	}
 
 	/**
@@ -218,16 +160,16 @@ import org.testng.annotations.*;
 			- A new Content activity is added in the activity stream
 			- Information displayed in the featured content are:1. Icon corresponding to the content type2. Name of the content3. First 4 lines of content's summary4. Type of the content5.Version6. Current status*/ 
 		navTool.goToSiteExplorer();
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.PRODUCT);
-		createDoc.addNewProduct(title, summary);
-		createDoc.saveAndClose();
+		SEHome.goToAddNewContent();
+		CreNewDoc.createNewDoc(selectDocumentType.PRODUCT);
+		CreNewDoc.addNewProduct(title, summary);
+		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
 		aHome.checkActivityAddProduct(title, null, null);
 		
 		// delete data
 		navTool.goToSiteExplorer();
-		seHome.deleteData(title);	
+		SEHome.deleteData(title);	
  	}
 
 	/**
@@ -259,10 +201,10 @@ import org.testng.annotations.*;
 			- A new Content activity is added in the activity stream
 			- Informations displayed in the featured content are :1. File icon 2.File's name3.File description if exist 4.Version (if exist) and file size*/
 		navTool.goToSiteExplorer();
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.FILE);
-		createDoc.addNewFile(title, content);
-		createDoc.saveAndClose();
+		SEHome.goToAddNewContent();
+		CreNewDoc.createNewDoc(selectDocumentType.FILE);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
 		aHome.checkActivityAddFile(title);
 		
@@ -281,16 +223,16 @@ import org.testng.annotations.*;
 			- The content activity is updated in the activity stream with the new title
 			- A comment is added:File has been updated.*/ 
 		navTool.goToSiteExplorer();
-		seHome.selectNode(title);
-		seHome.goToEditDocument();
-		seHome.editDocument(newContent);
-		createDoc.saveAndClose();
+		SEHome.selectNode(title);
+		SEHome.goToEditDocument();
+		SEHome.editDocument(newContent);
+		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}",comment)));
 		
 		// delete data
 		navTool.goToSiteExplorer();
-		seHome.deleteData(title);
+		SEHome.deleteData(title);
 	}
 
 	/**
@@ -322,10 +264,10 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- A new Content activity is added in the activity stream*/
 		navTool.goToSiteExplorer();
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
-		createDoc.addNewFile(title, content);
-		createDoc.saveAndClose();
+		SEHome.goToAddNewContent();
+		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
 		driver.navigate().refresh();
 		aHome.checkActivityAddWebContent(title,null,null);
@@ -345,9 +287,8 @@ import org.testng.annotations.*;
 			- The content of the content activity isn't updated in the activity stream 
 			- A comment is added: Tag: $value has been added.*/
 		navTool.goToSiteExplorer();
-		seHome.selectNode(title);
-		seHome.addTag(tag);
-		//seHome.addTagToAContent(tag);
+		SEHome.selectNode(title);
+		SEHome.addTag(tag);
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Tag: "+tag+" has been added.")));
 
@@ -362,14 +303,14 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- One comment isadded the activity: Tag: $value, $value have been added.*/ 
 		navTool.goToSiteExplorer();
-		seHome.selectNode(title);
-		seHome.addTag(secondTags);
+		SEHome.selectNode(title);
+		SEHome.addTag(secondTags);
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Tags: "+secondTags+" have been added.")));
 
 		// delete data
 		navTool.goToSiteExplorer();
-		seHome.deleteData(title);
+		SEHome.deleteData(title);
  	}
 
 	/**
@@ -399,10 +340,10 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- A new Content activity is added in the activity stream*/
 		navTool.goToSiteExplorer();
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
-		createDoc.addNewFile(title, content);
-		createDoc.saveAndClose();
+		SEHome.goToAddNewContent();
+		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
 		driver.navigate().refresh();
 		aHome.checkActivityAddWebContent(title,null,null);
@@ -421,16 +362,12 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The Content activity related to the content is removed from the activity stream*/ 
 		navTool.goToSiteExplorer();
-		seHome.deleteData(title);
+		SEHome.deleteData(title);
 		hp.goToHomePage();
 		waitForElementNotPresent(By.xpath(aHome.ELEMENT_ACTIVITY_WEBCONTENT_TITLE.replace("{$title}", title)));
  	}
 
 
-	/**
-	*<li> Case ID:116672.</li>
-	*<li> Test Case Name: Check intranet homepage after Uploading a file.</li>
-	*/
 	@Test
 	public  void test09_CheckIntranetHomepageAfterUploadingAFile(){
 		info("Test 9: Check intranet homepage after Uploading a file");
@@ -454,8 +391,8 @@ import org.testng.annotations.*;
         
 		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-		seHome.uploadFile("TestData/"+file);
+		SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.uploadFile("TestData/"+file);
 		
 		info("Go to the activity and verify that the file's activity is shown");
 		hp.goToHomePage();
@@ -463,8 +400,8 @@ import org.testng.annotations.*;
 		
 	    info("Delete the file");
 	    navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-	    seHome.deleteData(file);
+		SEHome.goToPath("acme/documents","Sites Management");
+	    SEHome.deleteData(file);
 		
 	}
 	
@@ -482,19 +419,19 @@ import org.testng.annotations.*;
         
 		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-		seHome.uploadFile("TestData/"+file);
+		SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.uploadFile("TestData/"+file);
 		
 		info("Edit the file");
-		seHome.selectNode(file);
-		seHome.goToEditDocument();
-		type(seHome.ELEMENT_FILE_FORM_TITLE,newTitle, true );
-		createDoc.saveAndClose();
+		SEHome.selectNode(file);
+		SEHome.goToEditDocument();
+		type(SEHome.ELEMENT_FILE_FORM_TITLE,newTitle, true );
+		CreNewDoc.saveAndClose();
 		
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    seHome.goToPath("acme/documents","Sites Management");
-		seHome.deleteData(file);
+	    SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.deleteData(file);
 	}
 	/**
 	*<li> Case ID:116673.</li>
@@ -525,43 +462,25 @@ import org.testng.annotations.*;
         
 		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-		seHome.uploadFile("TestData/"+file);
+		SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.uploadFile("TestData/"+file);
+		
+		info("Select the file");
+		SEHome.selectNode(file);
 		
 		info("Add a category to the file");
-		seHome.selectNode(file);
+		SEHome.addCategoryForNode(file,"intranet");
 		
-		info("Check add category action is avaiable");
-		/*boolean ischeck = seHome.checkAction(seHome.ELEMENT_ACTIONBAR_CATEGORY);
-		info("ischeck:"+ischeck);
-		if(ischeck==true){
-			navTool.goToContentAdministration();
-			caPage.addActionsForAView("Web",specificEcmActionstypes.ADD_CATEGORY);
-			magAc.signOut();
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToSiteExplorer();	
-			seHome.selectNode(file);
-		}*/
-		info("Add a category to the file");
-		seHome.addCategoryForNode(file,"intranet");
-
-		/*Step number: 3
-		*Step Name: - Add more 2 categories
-		*Step Description: 
-			- Add two others categories two the file
-			- Back to the Homepage
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- Two new comments are added to the activity: Category: $value has been added.*/ 
 		hp.goToHomePage();
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",file).replace("{$comment}","Category:intranet has been added.")));
 		
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    seHome.goToPath("acme/documents","Sites Management");
-		seHome.deleteData(file);
-	}
+	    SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.deleteData(file);
+
+ 	}
+
 	/**
 	*<li> Case ID:116675.</li>
 	*<li> Test Case Name: Check intranet homepage after deleting an uploaded file.</li>
@@ -574,92 +493,19 @@ import org.testng.annotations.*;
         
 		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-		seHome.uploadFile("TestData/"+file);
+		SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.uploadFile("TestData/"+file);
 		
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    seHome.goToPath("acme/documents","Sites Management");
-		seHome.deleteData(file);
+	    SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.deleteData(file);
 		
 		info("Check the activity");
 		hp.goToHomePage();
 		waitForElementNotPresent(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",file)));
 	}
 	
-	/*@Test
-	public  void test09_10_11_12_CheckIntranetHomepageAfterUploadingAFile_CheckIntranetHomepageAfterEditingTitleOfAnUploadedFile_CheckIntranetHomepageAfterAddingACategoryToAnUploadedFile_CheckIntranetHomepageAfterDeletingAnUploadedFile() {
-		info("Test 9: Check intranet homepage after Uploading a file");
-		Step Number: 1
-		*Step Name: 
-		*Step Description: 
-			- Connect to Intranet
-			- Navigate Admin 
-			-> Content 
-			-> Content Explorer 
-			- Select a folder and click [Upload] in Action Bar
-			- Browse to select a file
-			- Back to the Home page
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- A File activity is added to the activity stream 
-		
-		String path = fData.getAttachFileByArrayTypeRandom(1);
-		String newTitle =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		String category="intranet";
-
-		navTool.goToSiteExplorer();
-		seHome.uploadFile("TestData/"+path);
-		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",path)));
-		
-		info("Test 10:Check intranet homepage after editing Title of an uploaded file");
-		navTool.goToSiteExplorer();
-		seHome.selectNode(path);
-		seHome.goToEditDocument();
-		type(seHome.ELEMENT_FILE_FORM_TITLE,newTitle, true );
-		createDoc.saveAndClose();
-		
-		info("Test 11: Check intranet homepage after adding a category to an uploaded file");
-		Step number: 2
-		*Step Name: - Add a Category to the uploaded file
-		*Step Description: 
-			- Connect to Intranet
-			- Navigate Admin 
-			-> Content 
-			-> Content Explorer 
-			- Select the uploaded file and click [Categories] in Action Bar
-			- Open [Select Catogory] Tab and Add a category to the file
-			- Click [Close] Button to finish adding category
-			- Back to the Homepage
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- The content of theFile activity isn't updated in the activity stream
-			- A comment is added: Category: $value has been added.
-		navTool.goToSiteExplorer();
-		seHome.selectNode(path);
-		seHome.addCategoryForNode(path,category);
-		hp.goToHomePage();
-		Step number: 3
-		*Step Name: - Add more 2 categories
-		*Step Description: 
-			- Add two others categories two the file
-			- Back to the Homepage
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- Two new comments are added to the activity: Category: $value has been added. 
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",path).replace("{$comment}","Category: "+category+" has been added.")));
-	
-		info("Test 12:Check intranet homepage after deleting an uploaded file");
-		navTool.goToSiteExplorer();
-		seHome.deleteData(path);
-		waitForElementNotPresent(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE.replace("{$title}",path)));
- 	}
-
-*/
 	/**
 	*<li> Case ID:116680.</li>
 	*<li> Test Case Name: Edit a content from the Content activity.</li>
@@ -685,24 +531,23 @@ import org.testng.annotations.*;
 		
 		info("Create a new Content");
 		navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
-		createDoc.addNewFile(title, content);
-		createDoc.saveAndClose();
+		SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.goToAddNewContent();
+		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 		
 		hp.goToHomePage();
 		driver.navigate().refresh();
 		aHome.checkActivityAddWebContent(title,null,null);
-		click(By.xpath(aHome.ELEMENT_ACTIVITY_EDIT_A_NODE.replace("{$title}", title)));
-		inputFrame(createDoc.ELEMENT_FILEFORM_BLANK_CONTENT2,newContent);
-		switchToParentWindow();
-		createDoc.saveAndClose();
+		click(aHome.ELEMENT_ACTIVITY_EDIT_A_NODE.replace("{$title}", title));
+		inputFrame(CreNewDoc.ELEMENT_FILEFORM_BLANK_CONTENT2,newContent);
+		CreNewDoc.saveAndClose();
 		
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    seHome.goToPath("acme/documents","Sites Management");
-		seHome.deleteData(title);
+	    SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.deleteData(title);
 		
 	}
 	/**
@@ -719,64 +564,23 @@ import org.testng.annotations.*;
 		
 		info("Create a new Content");
 		navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
-		createDoc.addNewFile(title, content);
-		createDoc.saveAndClose();
+		SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.goToAddNewContent();
+		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 		
 		info("View the content from the activity");
 		hp.goToHomePage();
 		click(aHome.ELEMENT_ACTIVITY_VIEW_A_NODE.replace("{$title}", title));
-		waitForAndGetElement(seHome.ELEMENT_DOCUMENT_VIEW.replace("{$content}", content));
+		waitForAndGetElement(SEHome.ELEMENT_DOCUMENT_VIEW.replace("{$content}", content));
 		
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    seHome.goToPath("acme/documents","Sites Management");
-		seHome.deleteData(title);
+	    SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.deleteData(title);
 	}
 	
-	/*@Test
-	public  void test13_14_EditAContentFromTheContentActivity_ViewAContentFromTheContentActivity() {
-		info("Test 13: Edit a content from the Content activity");
-		String random=getRandomNumber();
-		String title =  txData.getContentByArrayTypeRandom(1)+random;
-		String content =  txData.getContentByArrayTypeRandom(1)+random;
-		String newContent =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		Step Number: 1
-		*Step Name: 
-		*Step Description: ;
-			- Connect to Intranet
-			- From the Content activity, click on the link "Edit"
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- The content explorer is opened to edit the content 
-		navTool.goToSiteExplorer();
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
-		createDoc.addNewFile(title, content);
-		createDoc.saveAndClose();
-		
-		hp.goToHomePage();
-		driver.navigate().refresh();
-		aHome.checkActivityAddWebContent(title,null,null);
-		click(By.xpath(aHome.ELEMENT_ACTIVITY_EDIT_A_NODE.replace("{$title}", title)));
-		inputFrame(createDoc.ELEMENT_FILEFORM_BLANK_CONTENT2,newContent);
-		switchToParentWindow();
-		createDoc.saveAndClose();
-		
-		navTool.goToSiteExplorer();
-		
-		info("Test 14: View a content from the Content activity");
-		hp.goToHomePage();
-		click(By.xpath(aHome.ELEMENT_ACTIVITY_VIEW_A_NODE.replace("{$title}", title)));
-		waitForAndGetElement(By.xpath(seHome.ELEMENT_DOCUMENT_VIEW.replace("{$content}", newContent )));
-		
-		seHome.deleteData(title);
- 	}*/
-
-
 	/**
 	*<li> Case ID:116682.</li>
 	*<li> Test Case Name: View a file from the File activity.</li>
@@ -791,8 +595,8 @@ import org.testng.annotations.*;
 		
 		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-		seHome.uploadFile("TestData/"+file);
+		SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.uploadFile("TestData/"+file);
 		
 		info("View the content from the activity");
 		hp.goToHomePage();
@@ -807,8 +611,8 @@ import org.testng.annotations.*;
 		
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    seHome.goToPath("acme/documents","Sites Management");
-		seHome.deleteData(file);
+	    SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.deleteData(file);
  	}
 
 
@@ -839,27 +643,22 @@ import org.testng.annotations.*;
 		
 		info("Upload a file");
 		navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-		seHome.uploadFile("TestData/"+file);
+		SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.uploadFile("TestData/"+file);
 		
-	/*	String path = fData.getAttachFileByArrayTypeRandom(1);
-		String fileRecept="intranet";*/
-		
-		/*navTool.goToSiteExplorer();
-		seHome.uploadFile("TestData/"+path);*/
 		info("Move the file");
-		dragAndDropToObject(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", file)), By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", fileRecept)));
+		dragAndDropToObject(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", file),SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", fileRecept));
 		alert.acceptAlert();
 		Utils.pause(2000);
 		
 		info("Check the comment on the activity");
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",file).replace("{$comment}","File has been moved to:")));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",file).replace("{$comment}","File has been moved to:"));
 
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    seHome.goToPath("acme/documents","Sites Management");
-		seHome.deleteData(file);
+	    SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.deleteData(file);
 	}
 
 	/**
@@ -888,33 +687,27 @@ import org.testng.annotations.*;
 		String fileRecept="intranet";
 		info("Finish creating data test");
 		
-		/*navTool.goToSiteExplorer();
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
-		createDoc.addNewFile(title, content);
-		createDoc.saveAndClose();*/
-		
 		info("Create a new Content");
 		navTool.goToSiteExplorer();
-		seHome.goToPath("acme/documents","Sites Management");
-		seHome.goToAddNewContent();
-		createDoc.createNewDoc(selectDocumentType.WEBCONTENT);
-		createDoc.addNewFile(title, content);
-		createDoc.saveAndClose();
+		SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.goToAddNewContent();
+		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		CreNewDoc.addNewFile(title, content);
+		CreNewDoc.saveAndClose();
 		
 		info("Move the content");
-		dragAndDropToObject(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)), By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", fileRecept)));
+		dragAndDropToObject(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", title), SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", fileRecept));
 		alert.acceptAlert();
 		Utils.pause(2000);
 		
 		info("Check the comment on the activity");
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Publication has been moved to:")));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Publication has been moved to:"));
 
 		info("Delete the file");
 		navTool.goToSiteExplorer();
-	    seHome.goToPath("acme/documents","Sites Management");
-		seHome.deleteData(title);
+	    SEHome.goToPath("acme/documents","Sites Management");
+		SEHome.deleteData(title);
 		
  	}
 }

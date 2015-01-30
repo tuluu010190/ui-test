@@ -2,16 +2,8 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmFunctions;
-import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
-import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.testng.annotations.*;
 
 
@@ -19,43 +11,7 @@ import org.testng.annotations.*;
 	* @author eXo
 	*
 	*/
-	public class Ecms_AdminTemplates extends PlatformBase{
-
-		HomePagePlatform hp;
-		ManageLogInOut magAc;
-		TextBoxDatabase txData;		
-		ContentAdministrationManagement caPage;
-		NavigationToolbar navTool;
-		CreateNewDocument CreNewDoc;
-		SiteExplorerHome SEHome;
-		@BeforeClass
-		public void setUpBeforeTest() throws Exception{
-			initSeleniumTest();
-			getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-			driver.get(baseUrl);
-			magAc = new ManageLogInOut(driver);
-			CreNewDoc = new CreateNewDocument(driver);
-			SEHome = new SiteExplorerHome(driver);
-			navTool = new NavigationToolbar(driver);
-			hp = new HomePagePlatform(driver);
-			txData = new TextBoxDatabase();
-			caPage= new ContentAdministrationManagement(driver);
-			txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-		}	
-
-		@BeforeMethod
-		public void beforeMethod(){
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToContentAdministration();
-		}
-		
-		@AfterClass
-		public void afterTest(){
-			driver.manage().deleteAllCookies();
-			driver.quit();
-		}
-		
-		
+	public class Ecms_AdminTemplates extends ECMS_TestConfig{
 		
 	/**
 	*<li> Case ID:116589.</li>
@@ -83,7 +39,8 @@ import org.testng.annotations.*;
 		String newName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String superTypes = "exo:metadata";
 		String permission="any";
-		
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
 		caPage.goToSpecificFunctions(specificEcmFunctions.NODESTYPES);
 		caPage.addNodeType(title, superTypes,"true");
@@ -126,6 +83,8 @@ import org.testng.annotations.*;
 			- Form to manage template is shown with:  + 3 tabs are added to categorize templates by their nature : Documents, Actions and Others
 			- Template list is displayed with 4 columns: Icon, Template, Type, Actions
 			- A new template is created successfully*/ 
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.DOCUMENTS);
 		caPage.addDocumentInTemplates(title,permission);
 		waitForAndGetElement(caPage.ELEMENT_ECM_TEMPLATES_DOCUMENTS_LIST.replace("{$name}",title));
@@ -161,6 +120,9 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Manage List template is shown with:  + 3 tabs. One for each type of clv template : Content for list templates, Navigation for navigation templates and Paginator for paginator templates. All tree tabs have the same table inside + In Document tab: 3 columns: Name, Template, Actions
 			- A new template is created successfully*/ 
+
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.LIST);
 		caPage.addTemplateInList(name,tempName,content);
 		caPage.editTemplateNameInList(name,newName);

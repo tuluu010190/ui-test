@@ -2,28 +2,8 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.acme.AcmeHomePage;
-import org.exoplatform.selenium.platform.administration.ChangeLanguages;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
-import org.exoplatform.selenium.platform.administration.ManageSites;
-import org.exoplatform.selenium.platform.administration.PageManagement;
-import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
-import org.exoplatform.selenium.platform.ecms.SEOManagement;
-import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
-import org.exoplatform.selenium.platform.gatein.ContentDetail;
-import org.exoplatform.selenium.platform.gatein.ContentList;
-import org.exoplatform.selenium.platform.gatein.PageEditor;
-import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
-import org.exoplatform.selenium.platform.objectdatabase.common.ChangeLanguageDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -34,71 +14,7 @@ import org.testng.annotations.*;
  */
 
 
-public class Ecms_WCM extends PlatformBase {
-
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	ManageAlert magAlert;
-	PageManagement paMang;
-	ChangeLanguages changLang;
-	ManageSites maSite;
-	Button but;
-	
-	TextBoxDatabase txData;
-	ChangeLanguageDatabase changLangData;
-	
-	SiteExplorerHome SEHome;
-	CreateNewDocument CreNewDoc;
-	PageCreationWizard pagCW;
-	ContentList contList;
-	ContentDetail contDetail;
-	SEOManagement seoMang;
-	PageEditor pEdit;
-	NavigationToolbar navTool;
-	AcmeHomePage acmeHP;
-	ContentAdministrationManagement caPage;
-
-	@BeforeClass
-	public void setUpBeforeClass() throws Exception{
-		initSeleniumTest();
-		getDefaultUserPass(userDataFilePath,defaultSheet,true,jdbcDriver,dbUrl,user,pass,sqlUser);
-		
-		magAc = new ManageLogInOut(driver);
-		but = new Button(driver);
-		hp = new HomePagePlatform(driver);
-		
-		txData = new TextBoxDatabase();
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		changLangData = new ChangeLanguageDatabase();
-		changLangData.setChangeLanguageData(changLangDataPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		
-		SEHome = new SiteExplorerHome(driver);
-		paMang = new PageManagement(driver);
-		CreNewDoc = new CreateNewDocument(driver);
-		pagCW = new PageCreationWizard(driver);
-		contList = new ContentList(driver);
-		contDetail = new ContentDetail(driver);
-		seoMang = new SEOManagement(driver);
-		changLang = new ChangeLanguages(driver);
-		caPage = new ContentAdministrationManagement(driver);
-		
-		maSite = new ManageSites(driver);
-		pEdit = new PageEditor(driver);
-		navTool = new NavigationToolbar(driver);
-		acmeHP = new AcmeHomePage(driver);
-		magAlert = new ManageAlert(driver, this.plfVersion);
-		
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		
-	}
-
-	@AfterClass
-	public void afterClass(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
-	
-
+public class Ecms_WCM extends ECMS_TestConfig {
 	/**
 	 *<li> Case ID:116568.</li>
 	 *<li> Test Case Name: Create new Content List viewer page with mode "By Folder".</li>

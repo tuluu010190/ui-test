@@ -2,70 +2,23 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
+//import org.exoplatform.selenium.Button;
+//import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.PlatformPermission;
-import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
+//import org.exoplatform.selenium.platform.HomePagePlatform;
+//import org.exoplatform.selenium.platform.ManageLogInOut;
+//import org.exoplatform.selenium.platform.NavigationToolbar;
+//import org.exoplatform.selenium.platform.PlatformBase;
+//import org.exoplatform.selenium.platform.PlatformPermission;
+//import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
+//import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+//import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.*;
 
 
-public class Ecms_SE_Search extends PlatformBase {
-
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	SiteExplorerHome SEHome;
-	PlatformPermission PlfPerm;
-	NavigationToolbar navTool;
-	ManageAlert mngAlert;
-	Button btn;
-	
-	TextBoxDatabase txData;
-	UserDatabase userData;
-
-
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
-		magAc.signIn(DATA_USER1, DATA_PASS);
-	}
-
-	@BeforeClass
-	public void setUpBeforeTest() throws Exception{
-		getDriverAutoSave();
-		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		driver.get(baseUrl);
-		magAc = new ManageLogInOut(driver);
-		hp = new HomePagePlatform(driver);
-		SEHome = new SiteExplorerHome(driver);
-		PlfPerm = new PlatformPermission(driver);
-		btn = new Button(driver, this.plfVersion);
-		navTool = new NavigationToolbar(driver);
-		
-		txData = new TextBoxDatabase();
-		userData = new UserDatabase();
-		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-		mngAlert = new ManageAlert(driver);
-	}
-
-	@AfterMethod
-	public void afterMethod(){
-		magAc.signOut();
-	}
-
-	@AfterClass
-	public void afterTest(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
+public class Ecms_SE_Search extends ECMS_TestConfig {
 	/**
 	 *<li> Case ID:116566.</li>
 	 *<li> Test Case Name: Advanced search.</li>
@@ -76,7 +29,7 @@ public class Ecms_SE_Search extends PlatformBase {
 	public  void test01_AdvancedSearch() {
 		info("Test 1: Advanced search");
 
-		String name = txData.getContentByArrayTypeRandom(1)+"116566";
+		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
 		navTool.goToSiteExplorer();
 		/*Step Number: 1
@@ -114,7 +67,7 @@ public class Ecms_SE_Search extends PlatformBase {
 	public  void test02_04_CreateDeleteQueryInAdvancedSearch() {
 		info("Test 2: Create query in Advanced search");
 
-		String name = txData.getContentByArrayTypeRandom(1)+"116594";
+		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
 		navTool.goToSiteExplorer();
 		/*Step Number: 1
@@ -136,7 +89,7 @@ public class Ecms_SE_Search extends PlatformBase {
 		click(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_SAVEQUERYBTN);
 		waitForAndGetElement(By.xpath("//*[@id='UISavedQuery']//*[text()='"+name+"']"));
 		click(By.xpath((SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_DELETEQUERYBTN).replace("${name}", name)));
-		mngAlert.acceptAlert();
+		alert.acceptAlert();
 		waitForElementNotPresent(By.xpath("//*[text()='"+name+"']"));
 	}
 
@@ -175,7 +128,7 @@ public class Ecms_SE_Search extends PlatformBase {
 	public  void test05_ExecuteQueryInAdvancedSearch() {
 		info("Test 5: Execute query in Advanced search");
 
-		String name = txData.getContentByArrayTypeRandom(1)+"116594";
+		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
 		navTool.goToSiteExplorer();
 		/*Step Number: 1
@@ -241,6 +194,6 @@ public class Ecms_SE_Search extends PlatformBase {
 		click(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_SAVEEDITQUERYBTN);
 		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_RESULT1.replace("${name}",name));
 		click(By.xpath((SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_DELETEQUERYBTN).replace("${name}", name)));
-		mngAlert.acceptAlert();
+		alert.acceptAlert();
 		waitForElementNotPresent(SEHome.ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_RESULT.replace("${name}",name));
 	}}

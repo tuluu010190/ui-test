@@ -2,15 +2,15 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
+//import org.exoplatform.selenium.platform.HomePagePlatform;
+//import org.exoplatform.selenium.platform.ManageLogInOut;
+//import org.exoplatform.selenium.platform.NavigationToolbar;
+//import org.exoplatform.selenium.platform.PlatformBase;
+//import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmFunctions;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificView;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+//import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -19,47 +19,7 @@ import org.testng.annotations.*;
  * @author rosso
  *
  */
-public class Ecms_AdminExplorer extends PlatformBase{
-
-
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	TextBoxDatabase txData;
-	NavigationToolbar navTool;
-	ContentAdministrationManagement caPage;
-	
-	@BeforeMethod
-	public void beforeMethod(){
-		info("Start Before Method");
-		navTool.goToContentAdministration();
-		caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
-		info("End Before Method");
-	}
-	
-	@BeforeClass
-	public void setUpBeforeClass() throws Exception{
-		info("Start Before class");
-		initSeleniumTest();
-		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		driver.get(baseUrl);
-		magAc = new ManageLogInOut(driver);
-		navTool = new NavigationToolbar(driver);
-		hp = new HomePagePlatform(driver);
-		txData = new TextBoxDatabase();
-		caPage= new ContentAdministrationManagement(driver);
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		info("End Before class");
-	}	
-
-	@AfterClass
-	public void afterClass(){
-		info("Start After Class");
-		driver.manage().deleteAllCookies();
-		driver.quit();
-		info("End After Class");
-	}		
-
+public class Ecms_AdminExplorer extends ECMS_TestConfig{
 
 	/**
 	 *<li> Case ID:116587.</li>
@@ -73,13 +33,15 @@ public class Ecms_AdminExplorer extends PlatformBase{
 	public  void test01_02_03_Add_Edit_Delete_Drive() {
 		info("Test 01: Add Drive");
 		info("Get data test");
-		String title = txData.getContentByArrayTypeRandom(1)+"116587";
+		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String permission = "any";
 		specificView[] view ={specificView.ADMIN};
 		specificView[] newView = {specificView.WEB};
 		String [] newV={"Web"};
 		info("Finished getting data test");
-		
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
 		caPage.goToSpecificFunctions(specificEcmFunctions.DRIVES);
 		caPage.addDrives(title, permission, view);
 		caPage.editDrives(title, newView);
@@ -113,13 +75,14 @@ public class Ecms_AdminExplorer extends PlatformBase{
 	@Test
 	public  void test04_05_06_07_Add_Edit_Delete_View_AView() {
 		info("Test 02 : Add, edit, show and delete a View");
-		String title = txData.getContentByArrayTypeRandom(1)+"116627";
-		String tabName = txData.getContentByArrayTypeRandom(1)+"tab116627";
+		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String tabName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String oldPermission = "fqa";
 		String[] tab={"Add Category"};
 		String permission = "john";
 		
 		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
 		caPage.goToSpecificFunctions(specificEcmFunctions.VIEW);
 		// add a view
@@ -162,13 +125,15 @@ public class Ecms_AdminExplorer extends PlatformBase{
 	@Test
 	public  void test08_09_10_Add_Edit_Delete_Tags() {
 		info("Test 03: Add, edit and delete Tags");
-		String title = txData.getContentByArrayTypeRandom(1)+"116598";
+		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String occurences = "1..*";
 		String html="font-size:10px;";
 		String oldHtml = "font-size:12px;";
 		
 		hp.goToHomePage();
 		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.EXPLORER);
 		caPage.goToSpecificFunctions(specificEcmFunctions.TAGS);
 		caPage.addTags(title, occurences, oldHtml);
 		caPage.updateTags(title, null, html);

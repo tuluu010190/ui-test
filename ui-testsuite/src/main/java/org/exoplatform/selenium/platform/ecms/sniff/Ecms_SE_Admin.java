@@ -7,66 +7,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
-import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.folderType;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
-import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.testng.annotations.*;
 
 
-public class Ecms_SE_Admin extends PlatformBase{
-
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	SpaceManagement spManag;
-	NavigationToolbar navTool;
-	TextBoxDatabase txData;
-	UserDatabase userData;
-	AttachmentFileDatabase fData;
-	SiteExplorerHome SEHome;
-	CreateNewDocument CreNewDoc;
-	
-	ContentAdministrationManagement caPage;
-
-	@BeforeClass
-	public void setUpBeforeClass() throws Exception{
-		getDriverAutoSave();
-		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		
-		magAc = new ManageLogInOut(driver);
-		hp = new HomePagePlatform(driver);
-		SEHome = new SiteExplorerHome(driver);
-		CreNewDoc = new CreateNewDocument(driver);
-		spManag = new SpaceManagement(driver);
-		caPage = new ContentAdministrationManagement(driver);
-		navTool = new NavigationToolbar(driver);
-		
-		txData = new TextBoxDatabase();
-		fData = new AttachmentFileDatabase();
-		userData = new UserDatabase();
-		
-		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		//addActions();
-	}
-
-	@AfterClass
-	public void afterClass(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
-
+public class Ecms_SE_Admin extends ECMS_TestConfig{
 	/**
 	 * Add manage publishtation to action bar of Web view type
 	 */
@@ -163,8 +109,8 @@ public class Ecms_SE_Admin extends PlatformBase{
 	@Test
 	public  void test02_DeleteRelation() {
 		info("Test 02: Delete Relation");
-		/*
-		 * Precondition: If Relations is not available on action bar, 
+		
+		 /* Precondition: If Relations is not available on action bar, 
 		 * go to Content Administration/ Manage View and edit your current view in use with Relation option ticked
 		 * Step Number: 1
 		 *Step Description: 
@@ -177,8 +123,8 @@ public class Ecms_SE_Admin extends PlatformBase{
             - Go to Manage relation list tab
             - Click on corresponding Delete icon of Relation 
 		 *Expected Outcome: 
-			- Relation is deleted for a node.
-			*/ 
+			- Relation is deleted for a node.*/
+			 
 
 		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -336,6 +282,7 @@ public class Ecms_SE_Admin extends PlatformBase{
 		 *Expected Outcome: 
 			- Node is exported successfully.
 		*/ 
+
 		info("Create data test");
 		String node1 = txData.getContentByArrayTypeRandom(1)+ getRandomNumber();
 		info("Finished data test");

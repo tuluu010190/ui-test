@@ -2,14 +2,8 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
 import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmFunctions;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -18,49 +12,7 @@ import org.testng.annotations.*;
 	* @author rosso
 	*
 	*/
-	public class Ecms_AdminAdvanced extends PlatformBase{
-		HomePagePlatform hp;
-		ManageLogInOut magAc;
-		TextBoxDatabase txData;		
-		ContentAdministrationManagement caPage;
-		NavigationToolbar navTool;
-		@BeforeClass
-		public void setUpBeforeClass() throws Exception{
-			info("Start Before class");
-			initSeleniumTest();
-			getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-			magAc = new ManageLogInOut(driver);
-			navTool = new NavigationToolbar(driver);
-			
-			hp = new HomePagePlatform(driver);
-			txData = new TextBoxDatabase();
-			caPage= new ContentAdministrationManagement(driver);
-			txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-			info("End Before class");
-		}	
-		@BeforeMethod
-		public void beforeMethod(){
-			info("Start Before Method");
-			magAc.signIn(DATA_USER1, DATA_PASS);
-			navTool.goToContentAdministration();
-			caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
-			info("End Before Method");
-		}
-		
-		@AfterMethod
-		public void afterMethod(){
-			info("Start After Method");
-			magAc.signOut();
-			info("End After Method");
-		}
-		
-		@AfterClass
-		public void afterClass(){
-			info("Start After Class");
-			driver.manage().deleteAllCookies();
-			driver.quit();
-			info("End After Class");
-		}	
+	public class Ecms_AdminAdvanced extends ECMS_TestConfig{
 		
 	/**
 	*<li> Case ID:116581.</li>
@@ -76,7 +28,9 @@ import org.testng.annotations.*;
 		info("Get the data test");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String Newtitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
 		caPage.goToSpecificFunctions(specificEcmFunctions.ACTIONS);
 		caPage.addActionType(title,"","");
 		info("Verify that the title is replaced");
@@ -126,6 +80,9 @@ import org.testng.annotations.*;
 			- Click Save
 		*Expected Outcome: 
 			The query is added successfully*/ 
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
 		caPage.goToSpecificFunctions(specificEcmFunctions.QUERIES);
 		caPage.addQueries(title,"","",permission);
 		info("Test 05: Edit Query");
@@ -163,7 +120,9 @@ import org.testng.annotations.*;
 			- Click Save
 		*Expected Outcome: 
 			The script is Added successfully*/ 
-		
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
 		caPage.goToSpecificFunctions(specificEcmFunctions.SCRIPTS);
 		caPage.addScripts(title, content, script);
 		info("Verify that the script is added in the list");
@@ -203,7 +162,9 @@ import org.testng.annotations.*;
 			- Add/copy/cut/paste/delete category in category tree
 		*Expected Outcome: 
 			The Category is created successfully*/ 
-		
+		navTool.goToContentAdministration();
+		this.driver.navigate().refresh();
+		caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
 		caPage.goToSpecificFunctions(specificEcmFunctions.CATEGORIES);
 		caPage.addCategories(name, nameAction, lifeCycle, targetPath);
 		info("Test 08: Edit Categories");

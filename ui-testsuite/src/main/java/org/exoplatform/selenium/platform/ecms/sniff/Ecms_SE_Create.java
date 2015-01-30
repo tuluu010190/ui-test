@@ -3,68 +3,12 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
-import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
-import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
-public class Ecms_SE_Create extends PlatformBase{
-
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	SpaceManagement spManag;
-	NavigationToolbar navTool;
-	
-	TextBoxDatabase txData;
-	UserDatabase userData;
-	AttachmentFileDatabase fData;
-	SiteExplorerHome SEHome;
-	CreateNewDocument CreNewDoc;
-
-	@BeforeClass
-	public void setUpBeforeClass() throws Exception{
-		getDriverAutoSave();
-		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		magAc = new ManageLogInOut(driver);
-		hp = new HomePagePlatform(driver);
-		SEHome = new SiteExplorerHome(driver);
-		CreNewDoc = new CreateNewDocument(driver);
-		spManag = new SpaceManagement(driver);
-		navTool = new NavigationToolbar(driver);
-		
-		txData = new TextBoxDatabase();
-		fData = new AttachmentFileDatabase();
-		userData = new UserDatabase();
-		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-	}
-	
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
-		magAc.signIn(DATA_USER1, DATA_PASS);
-	}
-
-	@AfterMethod
-	public void afterMethod(){
-		magAc.signOut();
-	}
-
-	@AfterClass
-	public void afterTest(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
+public class Ecms_SE_Create extends ECMS_TestConfig{
 
 	/**
 	 *<li> Case ID:116569.</li>
@@ -332,7 +276,7 @@ public class Ecms_SE_Create extends PlatformBase{
 			- Click on Upload icon on action bar or right click on the main pane then click Upload Files
 		 *Expected Outcome: 
 			- File Dialog open for user to choose files to upload*/
-
+		navTool.goToSiteExplorer();
 		SEHome.goToIntranet();
 		SEHome.goToDocument();
 		
@@ -348,7 +292,9 @@ public class Ecms_SE_Create extends PlatformBase{
 			- Files are uploaded successfully*/ 
 		info("Upload a file");
 		SEHome.uploadFile("TestData/"+fileName);
-		String[] name = fileName.split(".");
+		info("filename:"+fileName);
+		String[] name = fileName.split("\\.");
+		info("name[0]:"+name[0]);
 		waitForAndGetElement(SEHome.ELEMENT_PERSONAL_DOCUMENT_FILE.replace("${file}",name[0]));
 		info("Delete the file");
 		SEHome.selectAndDeleteByCheckBox(name[0]);
@@ -369,7 +315,7 @@ public class Ecms_SE_Create extends PlatformBase{
 		info("Test 13 Upload a file in Space/Document");
 		info("Create data test");
 		String fileName = fData.getAttachFileByArrayTypeRandom(1);
-		String spaceName = txData.getContentByArrayTypeRandom(1)+"space";;
+		String spaceName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Finished creating data test");
 		hp.goToMySpaces();
@@ -384,8 +330,8 @@ public class Ecms_SE_Create extends PlatformBase{
 			- Click on Upload icon on action bar or right click on the main pane then click Upload Files
 		 *Expected Outcome: 
 			- File Dialog open for user to choose files to upload*/
-	
-		
+	    
+		navTool.goToSiteExplorer();
 		SEHome.goToSpace(spaceName);
 		
 		/*Step number: 2
@@ -400,8 +346,11 @@ public class Ecms_SE_Create extends PlatformBase{
 			- Files are uploaded successfully*/ 
 
 		SEHome.uploadFile("TestData/"+fileName);
-		String[] name = fileName.split(".");
+		info("fileName:"+fileName);
+		String[] name = fileName.split("\\.");
+		info("name[0]:"+name[0]);
 		waitForAndGetElement(SEHome.ELEMENT_SPACE_DRIVE_FILE.replace("${file}",name[0]));
+		this.driver.navigate().refresh();
 		info("Delete the file");
 		SEHome.selectAndDeleteByCheckBox(name[0]);
 		

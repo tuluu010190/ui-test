@@ -2,18 +2,11 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.ManageAlert;
-import org.exoplatform.selenium.platform.HomePagePlatform;
+
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
-import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
-import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
@@ -23,57 +16,7 @@ import org.testng.annotations.*;
  * @author eXo
  *
  */
-public class Ecms_SE_BasicAction extends PlatformBase{
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	TextBoxDatabase txData;
-	UserDatabase userData;
-	AttachmentFileDatabase fData;
-	SiteExplorerHome seHome;
-	CreateNewDocument CreNewDoc;
-	ContentAdministrationManagement caPage;
-	NavigationToolbar navTool;
-	
-	ManageAlert alert;
-
-	@BeforeClass
-	public void setUpBeforeClass() throws Exception{
-		initSeleniumTest();
-		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		driver.get(baseUrl);
-
-		magAc = new ManageLogInOut(driver);
-		hp = new HomePagePlatform(driver);
-		caPage = new ContentAdministrationManagement(driver);
-		navTool = new NavigationToolbar(driver);
-		txData = new TextBoxDatabase();
-		fData = new AttachmentFileDatabase();
-		userData = new UserDatabase();
-		seHome = new SiteExplorerHome(driver);
-		CreNewDoc = new CreateNewDocument(driver);
-		alert= new ManageAlert(driver);
-		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
-		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
-
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		
-	}
-
-	@BeforeMethod
-	public void setUpBeforeMethod() throws Exception{
-		navTool.goToSiteExplorer();
-		
-	}
-
-
-	@AfterClass
-	public void afterClass(){
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
-
-
+public class Ecms_SE_BasicAction extends ECMS_TestConfig{
 	/**
 	 *<li> Case ID:116565.</li>
 	 *<li> Test Case Name: Add symlink for a node.</li>
@@ -110,28 +53,28 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 			- Add a web content file
 		 *Expected Outcome: 
 			The webcontent file created must appears in the Symlink*/ 
-		//String folderTitle="folder116565";
+		
 		String random= getRandomNumber();
 		String folderTitle = txData.getContentByArrayTypeRandom(1)+random;
 		String node =folderTitle .toLowerCase();
 		
 		navTool.goToSiteExplorer();
-		seHome.goToAddNewFolder();
-		seHome.createFolder(folderTitle, "Content Folder");
-		seHome.addSymlink(folderTitle);
-		waitForAndGetElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", node+".lnk")));
+		SEHome.goToAddNewFolder();
+		SEHome.createFolder(folderTitle, "Content Folder");
+		SEHome.addSymlink(folderTitle);
+		waitForAndGetElement(By.xpath((SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", node+".lnk")));
 		
-		click(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", folderTitle)));
-		seHome.goToAddNewContent();
+		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", folderTitle));
+		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		CreNewDoc.addNewWebContent(node,node);
 		CreNewDoc.saveAndClose();
 		
-		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-		click(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", node+".lnk")));
-		waitForAndGetElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", node)));
-		seHome.deleteData(node+".lnk");
-		seHome.deleteData(folderTitle);
+		click(SEHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", node+".lnk"));
+		waitForAndGetElement(By.xpath((SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", node)));
+		SEHome.deleteData(node+".lnk");
+		SEHome.deleteData(folderTitle);
 	}
 
 	/**
@@ -151,8 +94,8 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		String titleCommonNode= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		navTool.goToSiteExplorer();
-		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-		seHome.goToAddNewContent();
+		click(SEHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		CreNewDoc.addNewWebContent(titleCommonNode, titleCommonNode);
 		CreNewDoc.saveAndClose();
@@ -166,24 +109,24 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		 *Expected Outcome: 
 			Node is pasted into destination node*/ 
 		info("Test 4: Drag and drop a node");
-		dragAndDropToObject(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", titleCommonNode)),By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", destination)));
+		dragAndDropToObject(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", titleCommonNode),SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", destination));
 		alert.acceptAlert();
 
-		click(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", destination)));
+		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", destination));
 
 		info("Test 3: Cut/paste a node");
-		seHome.cutPasteNode(titleCommonNode, secondDestination);
+		SEHome.cutPasteNode(titleCommonNode, secondDestination);
 
-		click(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", secondDestination)));
+		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", secondDestination));
 
 		info("Test 2: Copy/paste a node");
-		seHome.copyPasteNode(titleCommonNode, destination);
+		SEHome.copyPasteNode(titleCommonNode, destination);
 
-		// delete data
-		click(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", destination)));
-		seHome.deleteData(titleCommonNode);
-		click(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", secondDestination)));
-		seHome.deleteData(titleCommonNode);
+		info("delete data");
+		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", destination));
+		SEHome.deleteData(titleCommonNode);
+		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", secondDestination));
+		SEHome.deleteData(titleCommonNode);
 	}
 
 	/**
@@ -202,9 +145,9 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 
 		 *Expected Outcome: 
 			The structure or the content of node appears*/ 
-//		rightClickOnElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}",titleCommonNode )));
-//		click(seHome.ELEMENT_SITEEXPLORER_ACTION_OPEN_IN_MS_OFFICE);
-//		waitForAndGetElement(seHome.ELEMENT_CHECK_OPEN_WEBCONTENT_IN_MSOFFICE);
+//		rightClickOnElement(By.xpath((SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}",titleCommonNode )));
+//		click(SEHome.ELEMENT_SITEEXPLORER_ACTION_OPEN_IN_MS_OFFICE);
+//		waitForAndGetElement(SEHome.ELEMENT_CHECK_OPEN_WEBCONTENT_IN_MSOFFICE);
 //		driver.close();
 	}
 
@@ -229,36 +172,36 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		String titleCommonNode= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		navTool.goToSiteExplorer();
-		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-		seHome.goToAddNewContent();
+		click(SEHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		CreNewDoc.addNewWebContent(titleCommonNode,titleCommonNode);
 		CreNewDoc.saveAndClose();
-		seHome.lockNode(titleCommonNode);
+		SEHome.lockNode(titleCommonNode);
 
 		newDriver = new FirefoxDriver();
 		newDriver.get(baseUrl);
 		ManageLogInOut  acc = new ManageLogInOut(newDriver);
 		NavigationToolbar navTool2 = new NavigationToolbar(newDriver);
-		SiteExplorerHome seHome2 = new SiteExplorerHome(newDriver);
+		SiteExplorerHome SEHome2 = new SiteExplorerHome(newDriver);
 		acc.signIn(DATA_USER2, DATA_PASS);
 		navTool2.goToSiteExplorer();
-		acc.rightClickOnElement(By.xpath((seHome2.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}",titleCommonNode )));
-		acc.waitForElementNotPresent(seHome2.ELEMENT_SITEEXPLORER_LIST_LOCK_NODE);
+		acc.rightClickOnElement(SEHome2.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}",titleCommonNode ));
+		acc.waitForElementNotPresent(SEHome2.ELEMENT_SITEEXPLORER_LIST_LOCK_NODE);
 		acc.signOut();
 
 		info("Test 10 Unlock a node");
 
-		seHome.unlockNode(titleCommonNode);
+		SEHome.unlockNode(titleCommonNode);
 
 		acc.signIn(DATA_USER2, DATA_PASS);
 		navTool2.goToSiteExplorer();
-		acc.rightClickOnElement(By.xpath((seHome2.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}",titleCommonNode )));
-		acc.waitForElementNotPresent(seHome2.ELEMENT_SITEEXPLORER_LIST_UNLOCK_NODE);
+		acc.rightClickOnElement(SEHome2.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}",titleCommonNode ));
+		acc.waitForElementNotPresent(SEHome2.ELEMENT_SITEEXPLORER_LIST_UNLOCK_NODE);
 		acc.signOut();
 		newDriver.quit();
 		
-		seHome.deleteData(titleCommonNode);
+		SEHome.deleteData(titleCommonNode);
 	}
 
 	/**
@@ -307,42 +250,42 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		String titleCommonNode= (txData.getContentByArrayTypeRandom(1)+getRandomNumber()).toLowerCase();
 		
 		navTool.goToSiteExplorer();
-		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-		seHome.goToAddNewContent();
+		click(SEHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		CreNewDoc.addNewWebContent(titleCommonNode,titleCommonNode);
 		CreNewDoc.saveAndClose();
 		
 		// clean the clipboard
-		rightClickOnElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", titleCommonNode)));
-		click(seHome.ELEMENT_SITEEXPLORER_ACTION_COPY);
-		click(seHome.ELEMENT_SITEEXPLORER_CLIPBOARD);
-		click(seHome.ELEMENT_CLIPBOARD_CLEAR_ALL);
-		click(seHome.ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON);
-		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		rightClickOnElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", titleCommonNode));
+		click(SEHome.ELEMENT_SITEEXPLORER_ACTION_COPY);
+		click(SEHome.ELEMENT_SITEEXPLORER_CLIPBOARD);
+		click(SEHome.ELEMENT_CLIPBOARD_CLEAR_ALL);
+		click(SEHome.ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON);
+		click(SEHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		
 		info("Test 10 Paste Clipboard");
 		
-		rightClickOnElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", titleCommonNode)));
-		click(seHome.ELEMENT_SITEEXPLORER_ACTION_COPY);
-		click(seHome.ELEMENT_SITEEXPLORER_CLIPBOARD);
-		click(By.xpath(seHome.ELEMENT_CLIPBOARD_PASTE_NODE.replace("{$node}",titleCommonNode)));
-		click(seHome.ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON);
+		rightClickOnElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", titleCommonNode));
+		click(SEHome.ELEMENT_SITEEXPLORER_ACTION_COPY);
+		click(SEHome.ELEMENT_SITEEXPLORER_CLIPBOARD);
+		click(SEHome.ELEMENT_CLIPBOARD_PASTE_NODE.replace("{$node}",titleCommonNode));
+		click(SEHome.ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON);
 	
 		// delete the past node
-		rightClickOnElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", titleCommonNode)));
-		click(seHome.ELEMENT_SITEEXPLORER_ACTION_DELETE);
-		click(seHome.ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE);
-		waitForAndGetElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", titleCommonNode)));
+		rightClickOnElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", titleCommonNode));
+		click(SEHome.ELEMENT_SITEEXPLORER_ACTION_DELETE);
+		click(SEHome.ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE);
+		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", titleCommonNode));
 		
 		info("Test 9: Delete Clipboard");
-		rightClickOnElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", titleCommonNode)));
-		click(seHome.ELEMENT_SITEEXPLORER_ACTION_COPY);
-		click(seHome.ELEMENT_SITEEXPLORER_CLIPBOARD);
-		click(By.xpath(seHome.ELEMENT_CLIPBOARD_DELETE_NODE.replace("{$node}",titleCommonNode)));
+		rightClickOnElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", titleCommonNode));
+		click(SEHome.ELEMENT_SITEEXPLORER_ACTION_COPY);
+		click(SEHome.ELEMENT_SITEEXPLORER_CLIPBOARD);
+		click(SEHome.ELEMENT_CLIPBOARD_DELETE_NODE.replace("{$node}",titleCommonNode));
 		
-		waitForElementNotPresent(By.xpath(seHome.ELEMENT_CLIPBOARD_DELETE_NODE.replace("{$node}",titleCommonNode)));
-		seHome.deleteData(titleCommonNode);
+		waitForElementNotPresent(SEHome.ELEMENT_CLIPBOARD_DELETE_NODE.replace("{$node}",titleCommonNode));
+		SEHome.deleteData(titleCommonNode);
 		
 	}
 
@@ -372,16 +315,16 @@ public class Ecms_SE_BasicAction extends PlatformBase{
 		String newName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		navTool.goToSiteExplorer();
-		click(seHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-		seHome.goToAddNewContent();
+		click(SEHome.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		SEHome.goToAddNewContent();
 		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
 		CreNewDoc.addNewWebContent(titleCommonNode,titleCommonNode);
 		CreNewDoc.saveAndClose();
 		
-		seHome.renameNode(titleCommonNode, newName);
-		waitForElementNotPresent(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", titleCommonNode)));
-		waitForAndGetElement(By.xpath((seHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", newName)));
-		seHome.deleteData(newName);
+		SEHome.renameNode(titleCommonNode, newName);
+		waitForElementNotPresent(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", titleCommonNode));
+		waitForAndGetElement(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", newName));
+		SEHome.deleteData(newName);
 	}
 
 }

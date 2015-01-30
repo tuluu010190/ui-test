@@ -984,7 +984,7 @@ public class ContentAdministrationManagement extends PlatformBase{
         click(ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM);
 		Utils.pause(1000);
 		info("Click on Add action button");
-		click(ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM);
+		click(ELEMENT_ECM_EXPLORER_EDIT_ACTION_VIEW_FORM);
 		Utils.pause(2000);
 		info("Select the action");
 		goTospecificEcmActionstypes(action);
@@ -1111,7 +1111,7 @@ public class ContentAdministrationManagement extends PlatformBase{
         click(ELEMENT_ECM_EXPLORER_GO_TO_ACTION_FORM);
 		Utils.pause(1000);
 		info("Click on Add action button");
-		click(ELEMENT_ECM_EXPLORER_ADD_ACTION_VIEW_FORM);
+		click(ELEMENT_ECM_EXPLORER_EDIT_ACTION_VIEW_FORM);
 		Utils.pause(2000);
 		info("Select the actions");
 		for(specificEcmActionstypes type: specificEcmActionstypes.values())
