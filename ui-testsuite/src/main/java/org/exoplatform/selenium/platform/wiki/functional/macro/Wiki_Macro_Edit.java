@@ -27,7 +27,8 @@ public class Wiki_Macro_Edit extends ManageDraft{
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-	    getDriverAutoSave();
+		initSeleniumTest();
+		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		button = new Button(driver);
 		magWiki = new WikiBase();
@@ -50,7 +51,7 @@ public class Wiki_Macro_Edit extends ManageDraft{
 		String title = "Page 71281_71282";
 		String content = "{{jira URL='https://jira.exoplatform.org/' style='table'}} SOC-123 {{/jira}}";
 		String newcontent = "{{jira URL='https://jira.exoplatform.org/' style='table'}} ECMS-235 {{/jira}}";
-		
+
 		//Add Jira macro in SourceEditor; Can not add from RichTextMode
 		info("Add new wiki page at Rich Text mode:");
 		goToWiki();
@@ -60,16 +61,16 @@ public class Wiki_Macro_Edit extends ManageDraft{
 		//Save wiki page
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
-		 
+
 		//Check the availability of JIRA macro
 		waitForAndGetElement(By.xpath("//a[@href='https://jira.exoplatform.org/browse/SOC-123']"));
-		
+
 		//Edit page
 		editWikiPage(title, newcontent, 0);
-		
+
 		//Check the availability of JIRA macro
 		waitForAndGetElement(By.xpath("//a[@href='https://jira.exoplatform.org/browse/ECMS-235']"));
-		
+
 		//Delete wiki page before exit test case
 		deleteCurrentWikiPage();
 	}	

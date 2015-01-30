@@ -53,9 +53,11 @@ public class RichTextMode extends Template {
 	public String ELEMENT_MACRO_LABEL = "//*[text()='${macro}']";
 	public By ELEMENT_RICHTEXTMODE_FRAME = By.id("gwt-RichTextArea");
 	public String ELEMENT_MACRO_BOX = "//div[@class='box']/*[contains(.,'${macro}')]";
+	public String ELEMENT_MACRO_CHILDREN = "//*[@id='UIViewContentDisplay']//a[contains(text(),'${name}')]";
 	public String ELEMENT_MACRO_EXCERPT = "//*[@class='ExcerptClass' and contains(text(),'${macro}')]";
 	public String ELEMENT_MACRO_INFO_MESSAGE = "//*[@class='box infomessage' and contains(text(),'${macro}')]";
 	public String ELEMENT_MACRO_TABLE_CONTENT = "//span[@class='macro-placeholder' and contains(.,'toc')]";
+	public String ELEMENT_MACRO_CHECK_MESSAGE = "//*[@id='UIViewContentDisplay']//div[text()='${message}']";
 	public String ELEMENT_MACRO_TIP_MESSAGE = "//*[@class='box tipmessage' and contains(text(),'${macro}')]";
 	public String ELEMENT_MACRO_ERROR_MESSAGE = "//*[@class='box errormessage' and contains(text(),'${macro}')]";
 	public String ELEMENT_MACRO_SUCCESS_MESSAGE = "//*[@class='box successmessage' and contains(text(),'${macro}')]";
@@ -85,12 +87,17 @@ public class RichTextMode extends Template {
 	public By ELEMENT_CODE_LANGUAGE_INPUT = By.id("pd-language-input");
 	public By ELEMENT_CODE_TITLE_INPUT = By.id("pd-title-input");
 	public By ELEMENT_CODE_CONTENT_INPUT = By.id("pd-content-input");
-	public String ELEMENT_MACRO_CODE = "//div[@class='box code' and contains(.,'${macro}')]";
+	public String ELEMENT_MACRO_CODE = "//div[@class='box' and contains(.,'${macro}')]";
 
 	//Macro: Color
 	public By ELEMENT_COLOR_TEXTBOX = By.id("pd-name-input");
 	public By ELEMENT_COLOR_MESSAGE = By.id("pd-content-input");
 
+	//Macro: IFrame
+	public By ELEMENT_IFRAME_HEIGHT = By.id("pd-height-input");
+	public By ELEMENT_IFRAME_WIDTH = By.id("pd-width-input");
+	public By ELEMENT_IFRAME_SOURCE = By.id("pd-src-input");
+	
 	//Image
 	public By ELEMENT_IMAGE_LINK = By.xpath("//*[text()='Image']");
 	public By ELEMENT_IMAGE_LINK_ATTACH = By.xpath("//*[text()='Attached Image...']");
@@ -362,6 +369,20 @@ public class RichTextMode extends Template {
 		if(wiki!=null)
 			selectOption(ELEMENT_HTML_WIKI, wiki);
 		type(ELEMENT_HTML_CONTENT,content, true);
+		click(but.ELEMENT_CREATE_MACRO_BUTTON);
+	}
+	
+	/**
+	 * Create an IFrame Macro
+	 * @param width
+	 * @param height
+	 * @param source
+	 */
+	public void createIFrameMacro(String width, String height, String source){
+		goToSelectAMacro("Other", "IFrame");
+		type(ELEMENT_IFRAME_HEIGHT, height, true);
+		type(ELEMENT_IFRAME_WIDTH, width, true);
+		type(ELEMENT_IFRAME_SOURCE, source, true);
 		click(but.ELEMENT_CREATE_MACRO_BUTTON);
 	}
 	
