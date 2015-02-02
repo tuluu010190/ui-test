@@ -191,7 +191,18 @@ public class WikiBase extends PlatformBase{
 	public final String ELEMENT_MOVE_PAGE_CURRENT_DESTINATION = "//*[@id='DisplayModesDropDown']//span[1][text()='{$item}']";
 	public final By ELEMENT_DESTINATION_LIST_SCROLLBAR = By.xpath("//*[@id='UIWikiPopupContainerL1']//*[@class='spaceChooserPopup']");
 	public final String ELEMENT_DESTINATION_TREE_ITEM = "//*[@id='iconTreeExplorer']/*[contains(.,'${treeItem}')]";
-
+	public final String ELEMENT_CONTENT_LINK = "//*[@id='UIViewContentDisplay']//span[contains(@class, 'wikigeneratedlinkcontent') and contains(text(),'${title}')]"; 
+	public final String ELEMENT_CONTENT_BLANK = "//div[@id='UIViewContentDisplay']//p";
+	public final String ELEMENT_CONTENT_BOLD = "//*[@id='UIViewContentDisplay']//strong[contains(text(),'${title}')]";
+	public final String ELEMENT_CONTENT_ITALIC = "//*[@id='UIViewContentDisplay']//em[contains(text(),'${title}')]";
+	public final String ELEMENT_CONTENT_STRIKE = "//*[@id='UIViewContentDisplay']//del[contains(text(),'${title}')]";
+	public final String ELEMENT_CONTENT_UNDERLINE = "//*[@id='UIViewContentDisplay']//ins[contains(text(),'${title}')]";
+	public final String ELEMENT_CONTENT_HEADING = ".//span[contains(text(),'${title}')]";
+	public final String ELEMENT_CONTENT_BULLETED_LIST = "//*[@id='UIViewContentDisplay']//ul//li[contains(text(),'${title}')]";
+	public final String ELEMENT_CONTENT_NUMBERED_LIST = "//*[@id='UIViewContentDisplay']//ol//li[contains(text(),'${title}')]";
+	public final String ELEMENT_CONTENT_TABLE = "//*[@id='UIViewContentDisplay']//table";
+	public final String ELEMENT_PAGE_TREE_ITEM = "//*[@id='iconTreeExplorer']//a[contains(text(),'${title}')]/i";
+	public final String ELEMENT_TITLE_INFO = "//*[@id='titleInfo' and text()= '${title}']";
 	/*-------------------------Permission page--------------------*/
 	public final By ELEMENT_SELECT_USER = By.xpath("//a[contains(@onclick, 'OpenSelectUserForm')]");
 	public final String ELEMENT_USERNAME_CHECK = "//input[@id='${user}' and @type='checkbox']";

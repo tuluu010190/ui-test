@@ -62,7 +62,7 @@ public class Wiki_Information extends Version {
 		waitForAndGetElement(ELEMENT_CREATOR_PAGE_INFO.replace("${fullName}", "John Smith"));
 		waitForAndGetElement(ELEMENT_UPDATER_PAGE_INFO.replace("${fullName}", "John Smith"));
 		waitForAndGetElement(ELEMENT_VIEW_CHANGE);
-		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "1"));
+		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${number}", "1"));
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "2"));
 
 		deleteCurrentWikiPage();
@@ -301,13 +301,13 @@ public class Wiki_Information extends Version {
 		info("Add new attachment -> page's version is not changed");
 		click(ELEMENT_ATTACHMENT_ICON);
 		attachFileInWiki("TestData" + java.io.File.separator + link, 2);
-		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "1"));
+		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${number}", "1"));
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "3"));
 		
 		info("Delete acttachment -> page's version is not changed");
 		clickByJavascript(ELEMENT_NODE_WIKI_PAGE.replace("{$node}", title2));
 		deleteAnAttachment(link);		
-		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "0"));
+		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${number}", "0"));
 		waitForAndGetElement(ELEMENT_VERSION_LINK.replace("{$version}", "3"));
 		
 		info("Edit title by double click -> page's version is not changed");

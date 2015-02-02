@@ -77,6 +77,11 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
@@ -86,8 +91,9 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	 * Qmetry ID: 69720
 	 * Test Case ID 002
 	 * Create new page using existing template 
+	 * This test case is removed from Qmetry and was also includeded in test28_CreateNewPageUsingExistingTemplate()
 	 */
-	@Test
+	/*@Test*/
 	public void test02_AddNewPageWithTemplate(){
 		String title = "TestCase 002";
 		int mode = 0;
@@ -97,6 +103,11 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		goToWiki();
 		addWikiPageFromTemplate(title, mode, template);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		
 		//Reset data
 		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
@@ -120,7 +131,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 
 		info("-- Create new page when click [Confirm] button --");
 		addBlankWikiPage(null, content, mode, false, infoMessage); 
-		waitForTextPresent("Untitled");
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", "Untitled"));
 
 		info("-- Create new page when click [Cancel] button --");
 		goToWikiHome();
@@ -153,8 +164,14 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		//Create new page with a blank template
 		goToWiki();
 		addBlankWikiPage(title, content, mode);
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForElementNotPresent(ELEMENT_CONTENT_BLANK);
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
 	}
 
@@ -283,8 +300,15 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addBlankWikiPage(title, content, mode);
 		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForAndGetElement(ELEMENT_CONTENT_BOLD.replace("${title}", title));
+		
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();    
 	}
 
@@ -303,8 +327,14 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addBlankWikiPage(title, content, mode);
 		waitForAndGetElement(By.xpath("//em[text()='" + content.replace("//", "") + "']"));
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForAndGetElement(ELEMENT_CONTENT_ITALIC.replace("${title}", title));
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();    
 	}
 
@@ -324,8 +354,14 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addBlankWikiPage(title, content, mode);
 		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForAndGetElement(ELEMENT_CONTENT_STRIKE.replace("${title}", title));
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
 	}
 
@@ -345,8 +381,14 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addBlankWikiPage(title, content, mode);
 		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForAndGetElement(ELEMENT_CONTENT_UNDERLINE.replace("${title}", title));
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
 	}
 
@@ -366,8 +408,14 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addBlankWikiPage(title, content, mode);
 		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForAndGetElement(ELEMENT_CONTENT_HEADING.replace("${title}", title));
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
 	}
 
@@ -390,8 +438,18 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addBlankWikiPage(title, content, mode);
 		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForAndGetElement(ELEMENT_CONTENT_BULLETED_LIST.replace("${title}", "item 1"));
+		waitForAndGetElement(ELEMENT_CONTENT_BULLETED_LIST.replace("${title}", "item 2"));
+		waitForAndGetElement(ELEMENT_CONTENT_BULLETED_LIST.replace("${title}", "item 3"));
+		waitForAndGetElement(ELEMENT_CONTENT_BULLETED_LIST.replace("${title}", "item 4"));
+		
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
 	}
 
@@ -414,8 +472,17 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addBlankWikiPage(title, content, mode);
 		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForAndGetElement(ELEMENT_CONTENT_NUMBERED_LIST.replace("${title}", "item 1"));
+		waitForAndGetElement(ELEMENT_CONTENT_NUMBERED_LIST.replace("${title}", "item 2"));
+		waitForAndGetElement(ELEMENT_CONTENT_NUMBERED_LIST.replace("${title}", "item 3"));
+		waitForAndGetElement(ELEMENT_CONTENT_NUMBERED_LIST.replace("${title}", "item 4"));
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
 	}
 
@@ -436,8 +503,15 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addBlankWikiPage(title, content, mode);
 		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForAndGetElement(ELEMENT_CONTENT_TABLE);
+		
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
 	}
 
@@ -457,8 +531,14 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addBlankWikiPage(title, content, mode);
 		waitForAndGetElement(ELEMENT_CONTENT);
 		info("Create new page successfully");
+		
+		info("Check destination path");
+		goToWiki();
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title));
+		click(By.linkText(title));
+		waitForAndGetElement(ELEMENT_CONTENT_LINK.replace("${title}", title));
+		
 		//Reset data
-		goToWikiPage("Wiki Home/"+title);
 		deleteCurrentWikiPage();
 	}
 
@@ -493,6 +573,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 
 		//Delete data test
 		goToManageDraft();
+		waitForAndGetElement(ELEMENT_DELETE_DRAFT.replace("${title}", title));
 		deleteDraft(title);
 	}
 
@@ -532,6 +613,9 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		addWikiPageSourceEditor(title, content);
 		Utils.pause(30000);
 		assert isElementPresent(ELEMENT_DRAFT_NOTIFY);
+		
+		goToManageDraft();
+		waitForAndGetElement(ELEMENT_DELETE_DRAFT.replace("${title}", title));
 
 		//Delete data test
 		mMember.goToAllSpaces();
@@ -655,13 +739,18 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		 *Expected Outcome: 
 		- Show page successfully		*/ 
 		Utils.pause(500);
-		goToWikiPage("Wiki Home/"+title);
+		goToWiki();
+		click(ELEMENT_PAGE_TREE_ITEM.replace("${title}", pageLink));
+		waitForAndGetElement(ELEMENT_PAGE_TREE_ITEM.replace("${title}", title));
+		click(ELEMENT_PAGE_TREE_ITEM.replace("${title}", title));
+		//goToWikiPage("Wiki Home/"+title);
 		waitForAndGetElement(By.linkText(label));
 		click(By.linkText(label));
+		waitForAndGetElement(ELEMENT_TITLE_INFO.replace("${title}", pageLink));
 
 		//Delete data test
-		goToWikiPage("Wiki Home/"+title);
-		deleteCurrentWikiPage();
+		//goToWikiPage("Wiki Home/"+title);
+		///deleteCurrentWikiPage();
 		goToWikiPage("Wiki Home/"+pageLink);
 		deleteCurrentWikiPage();
 	}
@@ -1113,8 +1202,9 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	 * Post-Condition: 
 	 * Done with OSs and browsers : 
 	 * Generated by chinhdtt at 2014/03/13 14:10:14
+	 * This test case is removed from Qmetry and also was included in test cases in Rich text Editor mode
 	 */
-	@Test
+	/*@Test*/
 	public  void test29_CreatePageUsingRichTextEditor() {
 		info("Test 12 Create Page using Rich Text Editor");
 		String title = "Case 71096"; 
@@ -1239,7 +1329,8 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	public  void test32_PreviewAPageWithImageByAnotherUser() {
 		info("Test 31 Preview a page with image by another user");
 		String title = "Case 106576"; 		
-		String file = "Winter.jpg";
+		//String file = "Winter.jpg";
+		String imageLocation = "http://www.menucool.com/slider/prod/image-slider-4.jpg";		
 		/*
 		- Connect with the user admin
 		- Go to Intranet/Wiki
@@ -1252,7 +1343,8 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		goToAddBlankPage();
 		Utils.pause(500);
 		addWikiPageRichText(title, "");
-		insertImageFile(file, true);
+		insertExternalImage(imageLocation, "300", "300", "image71113", alignmentType.LEFT,true);
+		//insertImageFile(file, true);
 		Utils.pause(2000);
 		info("-- Saving Wiki Page... --");
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);

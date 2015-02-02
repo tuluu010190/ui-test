@@ -1,6 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Platform Functional Test" verbose="1" preserve-order="true">
+
 	<test name="wiki-functional-test" enabled="true">
 		<groups>
 			<run>
@@ -11,6 +12,7 @@
 			<package name="org.exoplatform.selenium.platform.wiki.functional.*" />
 		</packages>
 	</test>
+
 	<test name="wiki-func-pagepermission" enabled="true">
 		<groups>
 			<run>

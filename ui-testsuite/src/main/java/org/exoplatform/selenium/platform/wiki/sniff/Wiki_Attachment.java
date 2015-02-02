@@ -67,7 +67,7 @@ public class Wiki_Attachment extends BasicAction {
 		addWikiPageSourceEditor(newTitle, newContent);
 		attachFileInWiki("TestData" + File.separator + newLink, 2);
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "2"));
+		waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${number}", "2"));
 		info("parent handle is " + driver.getWindowHandle());
 		info("Check download attachment successfully");
 		click(ELEMENT_ATTACHMENT_ICON);
@@ -94,7 +94,7 @@ public class Wiki_Attachment extends BasicAction {
 		info("Delete attachment");
 		deleteAnAttachment(link);
 		deleteAnAttachment(newLink);
-		//waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "1"));
+		//waitForAndGetElement(ELEMENT_ATTACHMENT_NUMBER.replace("${number}", "1"));
 
 		deleteCurrentWikiPage();	
 	}

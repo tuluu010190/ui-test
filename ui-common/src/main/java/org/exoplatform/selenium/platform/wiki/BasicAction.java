@@ -647,7 +647,7 @@ public class BasicAction extends Permission{
 		}
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForAndGetElement(By.xpath(ELEMENT_ATTACHMENT_NUMBER.replace("${No}", "" + upload.length)));
+		waitForAndGetElement(By.xpath(ELEMENT_ATTACHMENT_NUMBER.replace("${number}", "" + upload.length)));
 	}
 
 	/** Edit wiki page that check public activity
