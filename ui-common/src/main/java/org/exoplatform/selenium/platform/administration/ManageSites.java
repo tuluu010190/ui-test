@@ -23,9 +23,18 @@ public class ManageSites extends PlatformBase {
 	public final By ELEMENT_NAVIGATION_MANAGEMENT_POPUP_TITLE=By.xpath(".//*[@class='PopupTitle popupTitle'][text()='Navigation Management']");
 	public final String ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME=".//*[@title='${name}']";
 	public final By ELEMENT_NAVIGATION_MANAGEMENT_SAVE = By.xpath(".//*[text()='Save']");
+	public final String ELEMENT_NAVIGATION_SPECIFIC_NODE ="//*[@id='UINavigationNodeSelector']//*[@class='uiIconFileMini uiIconLightGray' ]/../..//*[contains(text(),'{$name}')]";
+	public final String ELEMENT_NAVIGATION_SUB_NODE_CHECK = "//*[@id='UINavigationNodeSelector']//*[@class='uiIconNode collapseIcon' and contains(text(),'{$node}')]";
 	
 	//Contextmenu
 	public final By ELEMENT_MANAGESITES_CONTEXTMENU_DELETE_ICON= By.xpath(".//*[@id='NavigationNodePopupMenu']//*[@class='uiIconDeleteNode']");
+	
+	// new node
+	public final By ELEMENT_UP_LEVEL_PATH_NODE = By.xpath("//*[@id='UINavigationNodeSelector']//*[@class='uiIconUpLevel uiIconLightGray']");
+	public final By ELEMENT_ADD_NODE = By.xpath("//*[@id='UINavigationManagement']/..//*[contains(text(),'Add Node')]");
+	public final By ELEMENT_NODE_NAME = By.id("name");
+	
+	
 	
 	public ManageSites(WebDriver dr){
 		driver = dr;
@@ -78,6 +87,19 @@ public class ManageSites extends PlatformBase {
 		case MOVE_DOWN:
 			break;
 		}
+	}
+	
+	public void addNode(String title,String path){
+		
+		if(path=="")
+			click(ELEMENT_UP_LEVEL_PATH_NODE);
+		else
+			click(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("{$name}",path));
+			
+		click(ELEMENT_ADD_NODE);
+		type(ELEMENT_NODE_NAME,title,true);
+		click(ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		click(ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
 	}
 	
 	/**

@@ -32,6 +32,10 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_CALENDAR_LINK_PLF=By.xpath("//*[@data-original-title='Calendar']");
 	public final By ELEMENT_CONNECTION_LINK_PLF =By.xpath("//*[@data-original-title='Connections']");
 
+	public final By ELEMENT_CONNECTIONS_LINK_PLF=By.xpath("//*[@data-original-title='Connections']");
+	public final By ELEMENT_SEARCH_SPACE = By.xpath("//*[@id='UISpaceNavigationPortlet']//*[@class='searchText LostFocus']");
+	public final String ELEMENT_RESULT_SEARCH_SPACE = "//*[@id='UISpaceNavigationPortlet']//*[@class='spaceNavigation']//*[contains(text(),'{$space}')]";
+	public final String ELEMENT_LEFT_PANEL = "//*[@class='uiCompanyNavigations']//*[contains(text(),'{$name}')]";
 	//Wiki activity
 	public final String ELEMENT_WIKI_COMMENT_EDIT_TITLE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'title has been updated to: ${title}')]";
 	public final String ELEMENT_WIKI_COMMENT_EDIT_CONTENT = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'content has been edited')]";
@@ -41,6 +45,8 @@ public class HomePagePlatform extends TestBase{
 	public final String ELEMENT_ACTIVITY_MOVE_WIKI_PAGE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'Page has been moved to: ${path}')]";
 	public final By ELEMENT_MY_SPACE_LINK_PLF=By.xpath("//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'My Spaces')]");
 	public final String ELEMENT_SPECIFIC_SPACE_LINK_PLF ="//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'{$space}')]";
+	public final String ELEMENT_NUMBER_OF_SPACE_IN_LIST_LINK = "//*[@class='spaceNavigation']/li[{$number}]/a";
+			
 	
 	//Middle homepage panel
 	public final By ELEMENT_HOMPAGE_MIDDLE_PANEL = By.id("OfficeMiddle");
@@ -93,6 +99,7 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_EDITSITE_SAVEBTN = By.xpath("//*[@class='btn' and text()='Save']");
 	public final By ELEMENT_HP_ACTIVITY_SHAREBTN = By.xpath("//*[@id='ShareButton']");
 	
+	
 	//SEO Management
 	public final By ELEMENT_SEO_LANGUAGE_SHOW = By.xpath("//*[@onClick='eXo.ecm.WCMUtils.showSEOLanguage(true)']");
 	public final By ELEMENT_SEO_LANGUAGE_SELECTBOX = By.xpath("//*[@name='language']");
@@ -143,7 +150,6 @@ public class HomePagePlatform extends TestBase{
 		this.driver=dr;
 		wHome = new WikiHomePage(dr);
 		cHome = new CalendarHomePage(dr);
-
 		sMang = new SpaceManagement(dr);
 		aHome = new AnswerHomePage(dr);
 		fHome = new ForumHomePage(dr);
@@ -224,7 +230,7 @@ public class HomePagePlatform extends TestBase{
 		driver.get(url);
 		waitForAndGetElement(fqHome.ELEMENT_FAQ_QUESTION_LIST);
 	}
-
+	
 	/**
 	 * Go to connexion
 	 */

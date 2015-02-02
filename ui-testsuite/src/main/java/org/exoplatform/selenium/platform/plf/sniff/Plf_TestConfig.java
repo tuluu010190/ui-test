@@ -11,6 +11,7 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ManageSites;
 import org.exoplatform.selenium.platform.administration.PageManagement;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
+import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.gatein.ApplicationHomePage;
 import org.exoplatform.selenium.platform.gatein.GadgetManagement;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
@@ -21,6 +22,7 @@ import org.exoplatform.selenium.platform.objectdatabase.plf.GettingStartedDataba
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.exoplatform.selenium.platform.social.HomepageActivity;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.SocialHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.testng.annotations.*;
 
@@ -47,6 +49,10 @@ public class Plf_TestConfig extends PlatformBase {
 	RemoteGadgetDatabase remoteGadData;
 	ApplicationGateinDatabase appGateData;
 	GettingStartedDatabase getStartData;
+	
+	//
+	ForumHomePage forumHP;
+	SocialHomePage sHome;
 
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -69,6 +75,8 @@ public class Plf_TestConfig extends PlatformBase {
 		hpAct = new HomepageActivity(driver);
 		profilPage = new MyProfilePage(driver);
 		SEHome = new SiteExplorerHome(driver);
+		forumHP = new ForumHomePage(driver);
+		sHome = new SocialHomePage(driver);
 		
 		txData = new TextBoxDatabase();
 		userData = new UserDatabase();

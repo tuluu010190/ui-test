@@ -60,6 +60,11 @@ public class SpaceManagement extends PlatformBase {
 	public String ELEMENT_SPACE_CONFIRM_DELETE="Are you sure you want to delete this space? This cannot be undone. All page navigations and this group will also be deleted";
 	public By ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON=By.xpath("//*[text()='OK']");
 
+	// settings apps
+	public By ELEMENT_SETTINGS_APP_TAB = By.xpath("//*[@id='UITabPane']//*[@class='nav nav-tabs']//*[contains(text(),'Applications')]");
+	public String ELEMENT_DELETE_APP_FROM_TOPBAR = ".//*[@id='UISpaceApplication']//*[contains(text(),'{$application}')]/../..//*[@class='uiIconClose pull-right']";
+	
+	public String ELEMENT_SPACE_NAME_BREADCUMB ="//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name' and contains(text(),'{$name}')]";
 	/**
 	 * constructor
 	 * @param dr
@@ -160,5 +165,15 @@ public class SpaceManagement extends PlatformBase {
 			click(By.linkText(name));
 			waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0);
 		}
-  }
+	}
+	
+	/**
+	 * Delete an app from the top menu of space
+	 * @param app
+	 */
+	public void deleteApplications(String app){
+		click(ELEMENT_SETTINGS_APP_TAB);
+		click(By.xpath(ELEMENT_DELETE_APP_FROM_TOPBAR.replace("{$application}",app)));
+	}
+	
 }
