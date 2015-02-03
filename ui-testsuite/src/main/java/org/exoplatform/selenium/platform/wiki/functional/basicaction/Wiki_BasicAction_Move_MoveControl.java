@@ -82,6 +82,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		String subpage3 = "SubPage3";
 		String subpage4 = "SubPage4";
 		String subpage5 = "SubPage5";
+		String subpage5CaseSensitive = "subpage5";
 		String title4 = "Page C";
 
 		//Pre-Condition: 
@@ -108,7 +109,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		click(By.linkText(title3));
 		addBlankWikiPage(subpage4, subpage4, 0);
 		click(By.linkText(title3));
-		addBlankWikiPage(subpage5, subpage5, 0);
+		addBlankWikiPage(subpage5CaseSensitive, subpage5CaseSensitive, 0);
 
 		info("Add page to space Destination");
 		mMember.goToAllSpaces();
@@ -175,10 +176,13 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","3"));
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","4")).getText().contains("SubPage4 already exists");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","4"));
-		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","5")).getText().contains("SubPage5 already exists");
-		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","5"));
-		waitForElementNotPresent(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","6"));
+		/*assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","5")).getText().contains("SubPage5 already exists");
+		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","5"));*/
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","5"));
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","5"));
+		
 		button.cancel();
+		
 
 		//Delete data test
 		mMember.goToAllSpaces();
@@ -210,6 +214,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		String title1 = "Page A";
 		String title2 = "Page B";
 		String title3 = "Page 1";
+		String title4 = "page 1";
 
 		//Pre-Condition: 
 		info("Create all space and page");
@@ -225,7 +230,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		addBlankWikiPage(title2, title2, 0);
 		click(By.linkText("Wiki Home"));
 		Utils.pause(1000);
-		addBlankWikiPage(title3, title3, 0);
+		addBlankWikiPage(title4, title4, 0);
 
 		info("Add page to space Destination");
 		mMember.goToAllSpaces();
@@ -248,7 +253,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		click(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		click(ELEMENT_SPACE_SWITCHER_SELECT.replace("${spaceName}", spaceMove));
 		Utils.pause(500);
-		click(By.linkText(title1));
+		click(By.linkText(title4));
 		Utils.pause(1000);
 
 		/*
@@ -274,7 +279,8 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		 *Expected Outcome: 
 		- The Page is moved to the wiki of "Space Destination"		*/ 
 		info("Move page to Space Destination");
-		movePage(title1,"", spaceDest, false);
+		movePage(title4,"", spaceDest, false);
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title4));
 
 		//Delete data test
 		mMember.goToAllSpaces();
@@ -329,6 +335,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		String subpage5 = "SubPage5";
 		String subpage6 = "SubPage6";
 		String subpage7 = "SubPage7";
+		String subpage5CaseSensitive = "subpage5";
 		String title4 = "Page C";
 
 		//Pre-Condition: 
@@ -355,7 +362,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		click(By.linkText(title3));
 		addBlankWikiPage(subpage4, subpage4, 0);
 		click(By.linkText(title3));
-		addBlankWikiPage(subpage5, subpage5, 0);
+		addBlankWikiPage(subpage5CaseSensitive, subpage5CaseSensitive, 0);
 		click(By.linkText(title3));
 		addBlankWikiPage(subpage6, subpage6, 0);
 		click(By.linkText(title3));
@@ -432,9 +439,11 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","3"));
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","4")).getText().contains("SubPage4 already exists");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","4"));
-		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","5")).getText().contains("SubPage5 already exists");
+		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","5")).getText().contains("SubPage6 already exists");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","5"));
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","6")).getText().contains("and more...");
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","7"));
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","7"));
 		button.cancel();
 
 		//Delete data test
@@ -484,6 +493,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		String subpage3 = "SubPage3";
 		String subpage4 = "SubPage4";
 		String subpage5 = "SubPage5";
+		String subpage5CaseSensitive = "subpage5";
 
 		//Pre-Condition: 
 		info("Create all space and page");
@@ -509,7 +519,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		click(By.linkText(title3));
 		addBlankWikiPage(subpage4, subpage4, 0);
 		click(By.linkText(title3));
-		addBlankWikiPage(subpage5, subpage5, 0);
+		addBlankWikiPage(subpage5CaseSensitive, subpage5CaseSensitive, 0);
 
 		info("Add page to space Destination");
 		mMember.goToAllSpaces();
@@ -580,10 +590,12 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","4"));
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","5")).getText().contains("SubPage4 already exists");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","5"));
-		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","6")).getText().contains("SubPage5 already exists");
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","6"));
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","6"));	
+		/*assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","6")).getText().contains("SubPage5 already exists");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","6"));
 		waitForElementNotPresent(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","7"));
-		button.cancel();
+		button.cancel();*/
 
 		//Delete data test
 		mMember.goToAllSpaces();
@@ -637,6 +649,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		String subpage5 = "SubPage5";
 		String subpage6 = "SubPage6";
 		String subpage7 = "SubPage7";
+		String subpage5CaseSensitive = "subpage5";
 		String title4 = "Page C";
 
 		//Pre-Condition: 
@@ -663,7 +676,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		click(By.linkText(title3));
 		addBlankWikiPage(subpage4, subpage4, 0);
 		click(By.linkText(title3));
-		addBlankWikiPage(subpage5, subpage5, 0);
+		addBlankWikiPage(subpage5CaseSensitive, subpage5CaseSensitive, 0);
 		click(By.linkText(title3));
 		addBlankWikiPage(subpage6, subpage6, 0);
 		click(By.linkText(title3));
@@ -742,10 +755,13 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","4"));
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","5")).getText().contains("SubPage4 already exists");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","5"));
-		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","6")).getText().contains("SubPage5 already exists");
+		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","6")).getText().contains("SubPage6 already exists");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","6"));
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","7")).getText().contains("and more...");
 		waitForElementNotPresent(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","8"));
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","8"));
+		
+		/*waitForElementNotPresent(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","8"));*/
 		button.cancel();
 
 		//Delete data test
@@ -1406,6 +1422,8 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","5")).getText().contains("SubPage5 already exists");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","5"));
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","6")).getText().contains("and more...");
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","7"));
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","7"));
 		button.cancel();
 
 		//Delete data test
@@ -1798,6 +1816,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		- Space Navigation is not displayed anymore. Wiki on the Company menu is selected		*/ 
 		info("Move page to Intranet");
 		movePage(title2, "", "Intranet", false);
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title2));
 		click(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		click(ELEMENT_SPACE_SWITCHER_SELECT.replace("${spaceName}", "Intranet"));
 		Utils.pause(500);
@@ -1879,6 +1898,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		- User Navigation is displayed, with "My Wiki" selected		*/ 
 		info("Move page to My wiki");
 		movePage(title2, "", "My Wiki", false);
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title2));
 		click(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
 		click(ELEMENT_MY_WIKI_NAME_SELECTED);
 		Utils.pause(500);
@@ -1967,6 +1987,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		- Space Navigation of "Space Destination 2" is displayed		*/ 
 		info("Move page to Space2");
 		movePage(title2, "", spaceDest, false);
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", title2));
 
 		//Delete data test
 		mMember.goToAllSpaces();
@@ -2060,7 +2081,8 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		- Tooltip "Rename the page to move" is displayed		*/ 
 		mouseOver(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","1"), true);
 		info("Check tooltip display");
-		waitForAndGetElement(By.xpath("//*[@title='"+tooltip+"']"));		
+		waitForAndGetElement(By.xpath("//*[@title='"+tooltip+"']"));
+		button.cancel();
 
 		//Detele data test
 		mMember.goToAllSpaces();
@@ -2216,7 +2238,8 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		- A tooltip is displayed with the message "Rename the sub-page to move"		*/ 
 		mouseOver(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","1"), true);
 		info("Check tooltip display");
-		waitForAndGetElement(By.xpath("//*[@title='"+tooltip+"']"));		
+		waitForAndGetElement(By.xpath("//*[@title='"+tooltip+"']"));
+		button.cancel();
 
 		//Detele data test
 		mMember.goToAllSpaces();
@@ -2378,6 +2401,8 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","5")).getText().contains("SubPage5 already exists");
 		waitForAndGetElement(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","5"));
 		assert waitForAndGetElement(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","6")).getText().contains("and more...");
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_MESSAGE.replace("${index}","7"));
+		waitForElementNotPresent(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","7"));
 
 		/*
 		- Put your mouse over "Rename" next to the message "Sub
@@ -2387,7 +2412,8 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		- A tooltip is displayed with the message "Rename the sub-page to move"		*/ 
 		mouseOver(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","1"), true);
 		info("Check tooltip display");
-		waitForAndGetElement(By.xpath("//*[@title='"+tooltip+"']"));		
+		waitForAndGetElement(By.xpath("//*[@title='"+tooltip+"']"));
+		button.cancel();
 
 		//Detele data test
 		mMember.goToAllSpaces();
@@ -2554,6 +2580,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		mouseOver(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","2"), true);
 		info("Check tooltip display");
 		waitForAndGetElement(By.xpath("//*[@title='"+tooltip2+"']"));
+		button.cancel();
 
 		//Detele data test
 		mMember.goToAllSpaces();
@@ -2738,6 +2765,7 @@ public class Wiki_BasicAction_Move_MoveControl extends BasicAction{
 		mouseOver(ELEMENT_MOVE_PAGE_RENAME_LINK.replace("${index}","2"), true);
 		info("Check tooltip display");
 		waitForAndGetElement(By.xpath("//*[@title='"+tooltip2+"']"));
+		button.cancel();
 
 		//Detele data test
 		mMember.goToAllSpaces();

@@ -1,8 +1,6 @@
 package org.exoplatform.selenium.platform.social;
 import static org.exoplatform.selenium.TestLogger.info;
 
-import java.awt.event.KeyEvent;
-
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +13,8 @@ import org.openqa.selenium.WebDriver;
 
 public class SpaceSearch extends SocialBase {
 	public final By ELEMENT_SEARCH_TEXTBOX = By.id("SpaceSearch");
+	public final String ELEMENT_SEARCH_SPACE_BUTTON = ("//*[@id='UISpaceSearch']//a[contains(@data-original-title, 'Search')]/i");
+
 
 	public SpaceSearch(WebDriver dr){
 		driver = dr;
@@ -22,11 +22,13 @@ public class SpaceSearch extends SocialBase {
 	//Search space by name
 	public void searchSpaceByName (String spaceName, boolean verify) {	
 		By DATA_SPACE_LINK = By.linkText(spaceName);	
+		System.out.println(DATA_SPACE_LINK);
 		info("Input data into search textbox");	
 		waitForAndGetElement(ELEMENT_SEARCH_TEXTBOX);	
 		type(ELEMENT_SEARCH_TEXTBOX, spaceName, true);	
 		info("Click search button");	
-		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
+		click(ELEMENT_SEARCH_SPACE_BUTTON);
+		
 		if (verify) {	
 			waitForAndGetElement(DATA_SPACE_LINK);		
 		}

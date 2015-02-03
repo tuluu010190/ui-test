@@ -68,6 +68,8 @@ public class Wiki_BasicAction_MoveAPage extends ManageDraft {
 		addBlankWikiPage(PAGE_NAME2, PAGE_NAME2, 0);
 		editPagePermission("any", true, false, false, 2);
 		magAcc.signOut();
+		
+		info("-- James can not move Wiki6 to Wiki 7 --");
 		magAcc.signIn(DATA_USER3, "gtn");
 		goToWiki();
 		click(ELEMENT_PAGE1);
@@ -149,6 +151,7 @@ public class Wiki_BasicAction_MoveAPage extends ManageDraft {
 		goToWiki();
 		click(ELEMENT_PAGE1);		
 		movePage(PAGE_NAME1, PAGE_NAME2);
+		waitForAndGetElement(ELEMENT_DESTINATION_TREE_ITEM.replace("${treeItem}", PAGE_NAME2));
 		click(ELEMENT_PAGE2);
 		deleteCurrentWikiPage();
 	}
@@ -359,6 +362,7 @@ public class Wiki_BasicAction_MoveAPage extends ManageDraft {
 		/*Clear data*/
 		spaceMag.goToAllSpaces();
 		spaceMag.deleteSpace(spaceMove,300000);
+		Utils.pause(3000);
 		spaceMag.deleteSpace(spaceDest,300000);
 	}
 

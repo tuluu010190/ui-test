@@ -599,7 +599,7 @@ public class RichTextMode extends Template {
 		Utils.pause(500);
 		click(but.ELEMENT_SELECT_BUTTON);
 		waitForElementNotPresent(but.ELEMENT_SELECT_BUTTON);
-		click(ELEMENT_ATTACH_FILE_PATH);
+		//click(ELEMENT_ATTACH_FILE_PATH);
 		WebElement upload = waitForAndGetElement(ELEMENT_ATTACH_FILE_PATH, 5000, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
@@ -834,7 +834,7 @@ public class RichTextMode extends Template {
 		Utils.pause(500);
 		click(but.ELEMENT_SELECT_BUTTON);
 		waitForElementNotPresent(but.ELEMENT_SELECT_BUTTON);
-		click(ELEMENT_ATTACH_FILE_PATH);
+		//click(ELEMENT_ATTACH_FILE_PATH);
 		WebElement upload = waitForAndGetElement(ELEMENT_ATTACH_FILE_PATH, 8000, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
