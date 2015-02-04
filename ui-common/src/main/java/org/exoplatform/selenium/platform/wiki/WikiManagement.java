@@ -11,7 +11,7 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AddEditPageManagement extends WikiHomePage{
+public class WikiManagement extends WikiHomePage{
 	//Source editor
 	public final By ELEMENT_TITLE_WIKI_INPUT = By.id("titleInput");
 	public final By ELEMENT_CONTENT_WIKI_INPUT = By.id("Markup");
@@ -46,7 +46,7 @@ public class AddEditPageManagement extends WikiHomePage{
 	 * constructor
 	 * @param dr
 	 */
-	public AddEditPageManagement(WebDriver dr){
+	public WikiManagement(WebDriver dr){
 		super(dr);
 		this.driver=dr;
 	}
@@ -82,7 +82,7 @@ public class AddEditPageManagement extends WikiHomePage{
 		}
 		waitForAndGetElement(ELEMENT_CONTENT_WIKI_FRAME);
 	}
-
+	
 	/**
 	 * Modify Wiki content with Source editor
 	 * 
@@ -120,9 +120,9 @@ public class AddEditPageManagement extends WikiHomePage{
 			}
 		}	
 	}
-
+	
 	/**
-	 * Modify Wiki content with RichText editor
+	 * Modify Wiki content with rich text
 	 * 
 	 * 
 	 * @param title
@@ -148,6 +148,56 @@ public class AddEditPageManagement extends WikiHomePage{
 			Utils.pause(1000);
 			driver.switchTo().defaultContent();
 		}
+		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+	}
+
+	/**
+	 * Add a simple wiki page with rich text
+	 * 
+	 * @param title
+	 *            updated title of the wiki page. Can not be <code>null</code>
+	 * @param content
+	 *            updated content of the wiki page. Can not be <code>null</code>
+	 */
+	public void addWikiPageSimpleWithRichText(String title, String content){
+		info("Input a title for the page");
+		if(!title.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, title, false);
+		info("Input a content for the page");
+	    if(!content.isEmpty()){
+	    	inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
+	    	Utils.pause(1000);
+			driver.switchTo().defaultContent();
+	    }
+	    info("Save all changes");
+	    click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		info("Wiki page simple is created successfully");
+	}
+
+	/**
+	 * Edit a simple wiki page with rich editor
+	 * 
+	 * @param newTitle
+	 *            updated title of the wiki page. Can not be <code>null</code>
+	 * @param newContent
+	 *            updated content of the wiki page. Can not be <code>null</code>
+	 */
+	public void editWikipageSimpleWithRichText(String newTitle,String newContent){
+		info("Input a new title for the page");
+		if(!newTitle.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
+		info("Input a new content for the page");
+		if(!newContent.isEmpty()){
+			inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, newContent);
+			Utils.pause(1000);
+			driver.switchTo().defaultContent();
+		}
+		 info("Save all changes");
+		 click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		 waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		 info("Wiki page simple is edited successfully");
 	}
 
 	/**

@@ -12,7 +12,7 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiRichTextDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
-import org.exoplatform.selenium.platform.wiki.AddEditPageManagement;
+import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
@@ -30,7 +30,7 @@ import org.testng.annotations.Test;
 
 public class Wiki_BasicAction_ManagePage extends PlatformBase{
 
-	AddEditPageManagement apManagement;
+	WikiManagement apManagement;
 	WikiHomePage wHome;
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
@@ -59,7 +59,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		wHome = new WikiHomePage(driver);
 		button = new Button(driver, this.plfVersion);
 		rtMode = new RichTextEditor(driver);
-		apManagement = new AddEditPageManagement(driver);
+		apManagement = new WikiManagement(driver);
 		mDraft = new WikiDraftPage(driver);
 		hpAct = new HomepageActivity(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
@@ -130,7 +130,7 @@ public class Wiki_BasicAction_ManagePage extends PlatformBase{
 		info("Add new wiki page at Source Editor");		
 		wHome.goToAddBlankPage();
 		apManagement.goToSourceEditor();
-		apManagement.inputDataToPageSourceEditor(title1,content1,true,true);
+		apManagement.inputDataToPageRichText(title1,content1,true,true);
 		apManagement.saveAddPage();
 
 		info("Add new wiki page at Rich Text mode");

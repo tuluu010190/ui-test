@@ -276,4 +276,38 @@ public class PlatformBase extends TestBase {
 			info("Switch to new windown successfully");
 		} 
 	}
+	
+	/** Switch to new browser window
+	 * @author havtt
+	 */
+	public void switchToNewBrowserWindow(String user, String pass){
+		ManageLogInOut magAcc = new ManageLogInOut(driver);
+		magAcc = new ManageLogInOut(driver);
+
+		this.openNewBrowser();
+		if (user != null){
+			if (isElementNotPresent(ELEMENT_INPUT_USERNAME)){
+				magAcc.signOut();
+			}else{
+				info("-- User.logIn: " + user);
+			}
+			magAcc.signIn(user, pass);
+			Utils.pause(1000);
+		}
+	}
+	
+	/**
+	 * Add by @author vuna2
+	 * Open a new browser by Javascript
+	 */
+	public void openNewBrowser(){
+		//Open new browser by Javascript
+		((JavascriptExecutor) driver).executeScript("window.open()");
+		for(String winHandle : driver.getWindowHandles()){
+			driver.switchTo().window(winHandle);
+		}
+		driver.manage().window().maximize();
+		driver.navigate().refresh();
+		driver.navigate().to(baseUrl);
+	}
 }

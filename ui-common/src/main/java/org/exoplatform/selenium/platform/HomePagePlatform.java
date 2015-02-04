@@ -36,6 +36,9 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_SEARCH_SPACE = By.xpath("//*[@id='UISpaceNavigationPortlet']//*[@class='searchText LostFocus']");
 	public final String ELEMENT_RESULT_SEARCH_SPACE = "//*[@id='UISpaceNavigationPortlet']//*[@class='spaceNavigation']//*[contains(text(),'{$space}')]";
 	public final String ELEMENT_LEFT_PANEL = "//*[@class='uiCompanyNavigations']//*[contains(text(),'{$name}')]";
+	// right panel
+	public final String ELEMENT_SUGGESTIONS_USER = "//*[@class='uiBox uiSuggestions']//*[contains(text(),'{$user}')]";
+
 	//Wiki activity
 	public final String ELEMENT_WIKI_COMMENT_EDIT_TITLE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'title has been updated to: ${title}')]";
 	public final String ELEMENT_WIKI_COMMENT_EDIT_CONTENT = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'content has been edited')]";

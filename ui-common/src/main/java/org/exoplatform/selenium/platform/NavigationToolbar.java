@@ -25,9 +25,20 @@ public class NavigationToolbar extends PlatformBase {
 	MyProfilePage myPro;
 	SiteExplorerHome SEHome;
 	ManageSites magSites;
+	
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
 	public final By ELEMENT_TOOLBAR_THEMELIGHT = By.xpath("//*[@class='UIContainer UIToolbarContainer UIToolbarContainerLight']");
+	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
+	public final By ELEMENT_HELP_TOOLBAR = By.className("uiIconPLF24x24Help");
+	
+	//
+	public final By ELEMENT_DOC_EXO_OF_HOME_GETTING_STARTED = By.xpath(".//*[@id='newBreadcrumbs']//*[contains(text(),'Getting Started')]");
+	// toolbar--> upload file
+	public By ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS = By.xpath("//*[@id='ListRecords']//*[contains(text(),'Personal Documents')]");
+	public By ELEMENT_UPLOAD_FILE_GO_TO_UPLOAD = By.xpath("//*[@id='UIDocumentSelector']//*[@class='UIDSUploadInput']");
+	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON = By.xpath(".//input[@type='file']");
+
 
 	//Administration Menu
 	//Administration-->Portal
@@ -72,6 +83,32 @@ public class NavigationToolbar extends PlatformBase {
 	
 	//Administration-->Application
 	public final By ELEMENT_ADMINISTRATION_APPLICATION = By.xpath(".//*[text()='Applications']");
+	public final By ELEMENT_ADD_TOOTLBAR = By.xpath("//*[@id='UICreatePlatformToolBarPortlet']//*[@class='uiIconPLF24x24Add']");
+	
+	public final By ELEMENT_ADD_WIKI_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconWikiWiki']");
+	public final By ELEMENT_ADD_POOL_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconPoll']");
+	public final By ELEMENT_ADD_TOPIC_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconUIForms']");
+	public final By ELEMENT_ADD_EVENT_CLASS_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconPLFEventTask']");
+	public final By ELEMENT_UPLOAD_FILE_TOOLBAR = By.xpath("//*[@id='UICreateList']//*[@class='uiIconUpload']");
+	
+	public final By ELEMENT_NEXT_BUTTON = By.xpath("//*[@id='UICreateList']//*[contains(text(),'Next')]");
+	public final By ELEMENT_SAVE_BUTTON = By.xpath("//*[@id='UICreateList']//*[contains(text(),'Save')]");
+	
+	// add wiki from toolbar
+	public final By ELEMENT_ADD_WIKI_SET_LOCATION = By.xpath("//*[@id='uiWikiSpaceSwitcher_CreateWiki']//*[@id='DisplayModesDropDown']/div");
+	public final String ELEMENT_ADD_WIKI_CHOOSE_LOCATION = "//*[@class='spaceChooserPopup']//*[contains(text(),'{$location}')]";
+	//add poll/topic 
+	public final By ELEMENT_ADD_POLL_SET_LOCATION = By.xpath("//*[@id='ScrollSelectlocation']//*[@class='btn dropdown-toggle']");
+	public final By ELEMENT_SELECT_FORUM_COMBOBOX = By.xpath(".//*[@id='uiForumFilterforumId']//div[@class='btn dropdown-toggle']");
+	public final String ELEMENT_SELECT_FORUM_NAME = ".//*[@id='uiForumFilterforumId']//*[contains(text(),'${forum}')]";
+	
+	// event or task
+	public final By ELEMENT_ADD_EVENT_RADIO_BUTTON = By.xpath("//*[@id='QuickAddEventContainer']//*[@class='radio' and @value='Event']");
+	public final By ELEMENT_ADD_TASK_RADIO_BUTTON = By.xpath("//*[@id='QuickAddEventContainer']//*[@class='radio' and @value='Task']");
+	public final By ELEMENT_ADD_TITLE = By.id("Title");
+	
+	public final  String ELEMENT_CHECK_NAME_UPLOADED_FILE= "//*[@id='ListRecords']//*[contains(text(),'{$name}')]";
+	
 	
 	public NavigationToolbar(WebDriver dr){
 		driver = dr;
@@ -81,16 +118,6 @@ public class NavigationToolbar extends PlatformBase {
 		SEHome = new SiteExplorerHome(dr);
 		magSites = new ManageSites(dr);
 	} 
-	
-	/**
-	 * Go to Portal Application Registry
-	 *//*
-	public void goToApplicationRegistry() {
-		info("--Go to Portal Application Registry--");
-		click(ELEMENT_LINK_SETUP);
-		click(ELEENT_LINK_APPLICATION);
-		Utils.pause(1000);
-	}*/
 	
 	/**
 	 * Go to Edit Layout
@@ -333,6 +360,121 @@ public class NavigationToolbar extends PlatformBase {
 		mouseOver(ELEMENT_ADMINISTRATION_PORTAL, true);
 		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_BRANDING,5000,0);
 		click(ELEMENT_ADMINISTRATION_PORTAL_BRANDING);
+	}
+	
+
+	/**
+	 * Go to create wiki page from the toolbars
+	 * @param location
+	 */
+	public void goToCreateWikiPage(String location){
+		info("Go to create wiki page");
+		click(ELEMENT_ADD_TOOTLBAR);
+		click(ELEMENT_ADD_WIKI_TOOLBAR);
+		if(!location.isEmpty()){
+			click(ELEMENT_ADD_WIKI_SET_LOCATION);
+			click(ELEMENT_ADD_WIKI_CHOOSE_LOCATION.replace("{$location}", location));
+		}
+		click(ELEMENT_NEXT_BUTTON);
+	}
+	
+	/**
+	 * Go to add a pool from the toolbar
+	 * @param location
+	 * @param forum
+	 */
+	public void goToAddPoll(String location,String forum){
+		info("Go to add poll from tootlbar");
+		click(ELEMENT_ADD_TOOTLBAR);
+		info("Click on Poll link");
+		click(ELEMENT_ADD_POOL_TOOLBAR);
+		if (!location.isEmpty()){
+			info("Set location for the poll");
+			click(ELEMENT_ADD_POLL_SET_LOCATION);
+		}
+		info("click on Next button");
+		click(ELEMENT_NEXT_BUTTON);
+		info("Select a forum for poll");
+		click(ELEMENT_SELECT_FORUM_COMBOBOX);
+		click(ELEMENT_SELECT_FORUM_NAME.replace("${forum}",forum));
+		info("Click on next button");
+		click(ELEMENT_NEXT_BUTTON);
+		Utils.pause(2000);
+	}
+	/**
+	 * Add a topic from the toolbar
+	 * @param location
+	 * @param forum
+	 */
+	public void goToAddTopic(String location,String forum){
+		info("Go to add a topic from toolbar");
+		click(ELEMENT_ADD_TOOTLBAR);
+		click(ELEMENT_ADD_TOPIC_TOOLBAR);
+		if (location!=""){
+			click(ELEMENT_ADD_POLL_SET_LOCATION);
+		}
+		click(ELEMENT_NEXT_BUTTON);
+		info("click on Next button");
+		click(ELEMENT_NEXT_BUTTON);
+		info("Select a forum for topic");
+		click(ELEMENT_SELECT_FORUM_COMBOBOX);
+		click(ELEMENT_SELECT_FORUM_NAME.replace("${forum}",forum));
+		info("Click on next button");
+		click(ELEMENT_NEXT_BUTTON);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Add an event or a task from the toolbar
+	 * @param eventTask
+	 * @param name
+	 * @param from
+	 * @param to
+	 * @param calendar
+	 */
+	public void goToAddEventTask(String eventTask,String name,String from, String to, String calendar){
+		click(ELEMENT_ADD_TOOTLBAR);
+		click(ELEMENT_ADD_EVENT_CLASS_TOOLBAR);
+		if(eventTask=="event"){
+			check(ELEMENT_ADD_EVENT_RADIO_BUTTON,2);
+		}
+		if(eventTask=="task"){
+			check(ELEMENT_ADD_TASK_RADIO_BUTTON,2);
+		}
+		type(ELEMENT_ADD_TITLE,name,true);
+		click(ELEMENT_SAVE_BUTTON);
+	}
+	
+	/**
+	 * Go to upload file fron the toolbar
+	 * @param drive
+	 * @param pathInDrive
+	 * @param linkFile
+	 */
+	public void goToUploadFile(String drive, String pathInDrive,String linkFile){
+		info("-- Upload file --");
+		click(ELEMENT_ADD_TOOTLBAR);
+		click(ELEMENT_UPLOAD_FILE_TOOLBAR);
+		
+		if(drive!=""){
+			
+		}
+		
+		if(pathInDrive!=""){
+			
+		}else{
+			click(ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS);
+		}
+		
+		WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
+		driver.switchTo().frame(frame);
+		Utils.pause(2000);
+		((JavascriptExecutor)driver).executeScript("document.getElementsByTagName('input')[0].style.display = 'block';");
+		Utils.pause(2000);
+		driver.findElement(ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON).sendKeys(Utils.getAbsoluteFilePath(linkFile));
+		Utils.pause(1000);
+		switchToParentWindow();
+		info("Upload finished");
 	}
 	
 }
