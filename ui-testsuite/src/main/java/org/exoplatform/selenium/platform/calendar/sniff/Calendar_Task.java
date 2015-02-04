@@ -4,7 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.calendar.AddEditTaskManagement;
+import org.exoplatform.selenium.platform.calendar.TaskManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
@@ -23,7 +23,7 @@ public class Calendar_Task extends PlatformBase {
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
 	CalendarHomePage cHome;
-	AddEditTaskManagement task;
+	TaskManagement task;
 	AttachmentFileDatabase fData;
 	CalendarManagement cMang;
 	UserDatabase userData;
@@ -41,7 +41,7 @@ public class Calendar_Task extends PlatformBase {
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);
 		cHome= new CalendarHomePage(driver);
-		task= new AddEditTaskManagement(driver);
+		task= new TaskManagement(driver);
 		cMang = new CalendarManagement(driver);
 		txData = new TextBoxDatabase();
 		fData = new AttachmentFileDatabase();

@@ -26,6 +26,7 @@ public class ForumTopicManagement extends PlatformBase {
 	
     //Rate
     public final String ELEMENT_FORUM_VOTE_MARK = "//*[@data-original-title='${star}']";
+	public String ELEMENT_POST_TITLE =".//*[@class='postViewTitle'][contains(text(),'${title}')]";
 	
 	//More Action menu
 	public final By ELEMENT_MORE_ACTION = By.xpath("//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");

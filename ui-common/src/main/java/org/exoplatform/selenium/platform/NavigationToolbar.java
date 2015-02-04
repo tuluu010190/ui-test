@@ -32,13 +32,11 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_HELP_TOOLBAR = By.className("uiIconPLF24x24Help");
 	
-	//
 	public final By ELEMENT_DOC_EXO_OF_HOME_GETTING_STARTED = By.xpath(".//*[@id='newBreadcrumbs']//*[contains(text(),'Getting Started')]");
 	// toolbar--> upload file
 	public By ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS = By.xpath("//*[@id='ListRecords']//*[contains(text(),'Personal Documents')]");
 	public By ELEMENT_UPLOAD_FILE_GO_TO_UPLOAD = By.xpath("//*[@id='UIDocumentSelector']//*[@class='UIDSUploadInput']");
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON = By.xpath(".//input[@type='file']");
-
 
 	//Administration Menu
 	//Administration-->Portal
@@ -54,7 +52,9 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_MENU_SITE_EXPLORER = By.linkText("Sites Explorer");
 	public final By ELEMENT_SITE_EXPLORER_HOME = By.className("uiIconEcmsHome");
 	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[contains(@class, 'uiIconEcmsAddFolder')]");
-
+	public final By ELEMENT_SEARCH_LINK = By.xpath("//*[@class='dropdown-menu']//*[text()='Search']");
+	
+	
 	// administration panel
 	public final By ELEMENT_TOPBAR_ADMINISTRATION_BUTTON =By.xpath("//*[@class='uiIconPLF24x24Setup']");
 	public final By ELEMENT_TOPBAR_CONTENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Content')]");
@@ -108,6 +108,8 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_ADD_TITLE = By.id("Title");
 	
 	public final  String ELEMENT_CHECK_NAME_UPLOADED_FILE= "//*[@id='ListRecords']//*[contains(text(),'{$name}')]";
+	//Quick search
+	public final By ELEMENT_TOOLBAR_QUICKSEARCH = By.xpath("//*[@class='uiIconPLF24x24Search']");
 	
 	
 	public NavigationToolbar(WebDriver dr){
@@ -477,4 +479,29 @@ public class NavigationToolbar extends PlatformBase {
 		info("Upload finished");
 	}
 	
+	
+	/**
+	 * Open search administration
+	 */
+	public void goToAdminSearch() {
+		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		mouseOver( ELEMENT_MENU_CONTENT_LINK , true);
+		click(ELEMENT_SEARCH_LINK);
+	}
+	/**
+	 * Open quick search on toolbar
+	 */
+	public void goToQuickSearch(){
+		info("Click on Quick search icon");
+		click(ELEMENT_TOOLBAR_QUICKSEARCH);
+	}
+	/**
+	 * Open My profile page
+	 */
+	public void goToMyProfile(){
+		info("Click on Avatar");
+		click(ELEMENT_TOPBAR_AVATAR);
+		info("Click on My profile link");
+		click(ELEMENT_MY_PROFILE_LINK);
+	}
 }

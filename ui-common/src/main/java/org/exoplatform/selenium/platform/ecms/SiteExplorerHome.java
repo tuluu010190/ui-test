@@ -6,11 +6,7 @@ import org.exoplatform.selenium.ManageAlert;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.PlatformPermission;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -278,23 +274,18 @@ public class SiteExplorerHome extends PlatformBase{
     //Publication box
   	public final String ELEMENT_PUBLICATION_STATUS = "//*[text()='${status}']/..//*[@class='node']";
 	
-  	
-  	PlatformPermission per;
+	//Right column content
+	public final String ELEMENT_SITE_EXPLORER_RIGHT_COLUMN_CONTENT=".//*[@id='UITabContent']//a[contains(text(),'${title}')]";
+	
 	ManageAlert alert;
 	Button button;
 	CreateNewDocument CreNewDoc;
-	HomePagePlatform hp;
-	ManageLogInOut magAc;
-	ContentAdministrationManagement caPage ;
 	
 	public SiteExplorerHome(WebDriver dr){
 		this.driver=dr;
 		alert = new ManageAlert(dr);
 		CreNewDoc = new CreateNewDocument(dr);
 		button = new Button(dr);
-        hp = new HomePagePlatform(dr);
-        magAc = new ManageLogInOut(dr);
-        caPage = new ContentAdministrationManagement(dr);
 	}
 	/**
 	 * Go to a folder by a path in SE

@@ -13,7 +13,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AddEditTaskManagement extends PlatformBase {
+public class TaskManagement extends PlatformBase {
 
 	//------------------------------------Add Quick Task Form--------------------------------------\\
 	public By ELEMENT_QUICK_ADD_TASK_POPUP = By.id("UIQuickAddTaskPopupWindow");
@@ -61,7 +61,7 @@ public class AddEditTaskManagement extends PlatformBase {
 	public String ELEMENT_ATTACHMENT_FORM_FILE_NAME = "//*[text()='$fileName']";
 
 	CalendarHomePage cHome;
-	public AddEditTaskManagement(WebDriver dr){
+	public TaskManagement(WebDriver dr){
 		driver = dr;
 		cHome = new CalendarHomePage(driver);
 	}

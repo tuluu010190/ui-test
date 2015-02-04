@@ -39,13 +39,13 @@ import org.testng.annotations.*;
 			- All applications dedicated to the space are shown on space menu
 			- Click on each applications, the application will show up in the main page*/ 
 		info("Verify the expected outcome");
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_AGENDA);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_WIKI);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_DOCUMENTS);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_SETTINGS);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_ANSWER);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_FORUMS);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_AGENDA);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_WIKI);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_DOCUMENTS);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_SETTINGS);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ANSWER);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_FORUMS);
 		
 		info("Delete the space");
 		hp.goToMySpaces();
@@ -68,17 +68,17 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The application is removed from the space's toolbar*/ 
-		sHome.goToSettings();
+		spaceHome.goToSettings();
 		spaceMg.deleteApplications("Answer");
 		
 		info("Verify the expected outcome");
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_AGENDA);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_FORUMS);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_WIKI);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_DOCUMENTS);
-		waitForAndGetElement(sHome.ELEMENT_SPACE_MENU_SETTINGS);
-		waitForElementNotPresent(sHome.ELEMENT_SPACE_MENU_ANSWER);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_AGENDA);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_FORUMS);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_WIKI);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_DOCUMENTS);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_SETTINGS);
+		waitForElementNotPresent(spaceHome.ELEMENT_SPACE_MENU_ANSWER);
 		
 		info("Delete the space");
 		hp.goToMySpaces();

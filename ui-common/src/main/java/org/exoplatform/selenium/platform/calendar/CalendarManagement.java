@@ -154,6 +154,8 @@ public class CalendarManagement extends PlatformBase{
 	public final By ELEMENT_YES_BUTTON = By.xpath("//*[contains(@class, 'popup')]//*[contains(text(),'Yes')]");
 	public final String ELEMENT_CONFIRM_REMOVE_CALENDAR_MSG="Are you sure you want to delete this calendar and all its events?";
 
+	//Preview popup
+	public final String ELEMENT_CALENDAR_PREVIEW_TASK_EVENT=".//*[@id='UIPreviewPopup']//strong[contains(text(),'${name}')]";
 	/**
 	 * constructor
 	 * @param dr

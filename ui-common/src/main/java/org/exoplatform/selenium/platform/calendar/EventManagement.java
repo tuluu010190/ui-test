@@ -18,7 +18,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class AddEditEventManagement extends PlatformBase {
+public class EventManagement extends PlatformBase {
 
 	//------------------------------------Add Quick EVENT Form--------------------------------------\\
 	public By ELEMENT_QUICK_ADD_EVENT_POPUP = By.id("UIQuickAddEventPopupWindow");
@@ -141,7 +141,7 @@ public class AddEditEventManagement extends PlatformBase {
 	PlatformPermission pPer;
 	CalendarHomePage cHome;
 	ManageAlert alert;
-	public AddEditEventManagement(WebDriver dr){
+	public EventManagement(WebDriver dr){
 		driver = dr;
 		pPer = new PlatformPermission(driver);
 		cHome = new CalendarHomePage(driver);

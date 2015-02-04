@@ -5,8 +5,8 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.calendar.AddEditEventManagement;
-import org.exoplatform.selenium.platform.calendar.AddEditEventManagement.selectAvailableOption;
+import org.exoplatform.selenium.platform.calendar.EventManagement;
+import org.exoplatform.selenium.platform.calendar.EventManagement.selectAvailableOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
@@ -25,7 +25,7 @@ public class Calendar_Event extends PlatformBase {
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
 	CalendarHomePage cHome;
-	AddEditEventManagement event;
+	EventManagement event;
 	AttachmentFileDatabase fData;
 	CalendarManagement cMang;
 	UserDatabase userData;
@@ -44,7 +44,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);
 		cHome= new CalendarHomePage(driver);
-		event= new AddEditEventManagement(driver);
+		event= new EventManagement(driver);
 		cMang = new CalendarManagement(driver);
 		txData = new TextBoxDatabase();
 		fData = new AttachmentFileDatabase();

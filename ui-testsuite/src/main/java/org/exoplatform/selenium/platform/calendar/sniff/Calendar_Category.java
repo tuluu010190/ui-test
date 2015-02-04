@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.calendar.AddEditEventManagement;
+import org.exoplatform.selenium.platform.calendar.EventManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
@@ -19,7 +19,7 @@ public class Calendar_Category extends PlatformBase {
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
 	CalendarHomePage cHome;
-	AddEditEventManagement event;
+	EventManagement event;
 	CalendarManagement cMang;
 	UserDatabase userData;
 
@@ -32,7 +32,7 @@ public class Calendar_Category extends PlatformBase {
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp = new HomePagePlatform(driver);
 		cHome= new CalendarHomePage(driver);
-		event= new AddEditEventManagement(driver);
+		event= new EventManagement(driver);
 		cMang = new CalendarManagement(driver);
 		txData = new TextBoxDatabase();
 		userData = new UserDatabase();

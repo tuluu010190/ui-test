@@ -27,6 +27,7 @@ public class WikiHomePage extends PlatformBase{
 	//Content of page
 	public final String ELEMENT_MARCRO_COLOR = "//*[@style='color:${color};' and contains(text(),'${message}')]";
 	public final By ELEMENT_PAGE_TITLE_INFO = By.id("titleInfo");
+	public final String ELEMENT_PAGE_TITLE = ".//*[@id='titleInfo'][text()='${title}']";
 	public final By ELEMENT_PAGE_TITLE_EDIT_TEXTBOX = By.id("EdiableInput");
 	
 	//Action bar

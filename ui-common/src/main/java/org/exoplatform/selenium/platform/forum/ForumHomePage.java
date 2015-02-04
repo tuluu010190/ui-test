@@ -233,6 +233,8 @@ public class ForumHomePage extends PlatformBase {
 			info("Import a category");
 			click(ELEMENT_ACTIONBAR_ADMIN_IMPORT);
 			break;
+		default:
+			break;
 		}
 	}
    

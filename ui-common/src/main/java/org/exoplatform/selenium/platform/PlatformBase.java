@@ -154,64 +154,6 @@ public class PlatformBase extends TestBase {
 		Utils.pause(1000);
 	}
 	
-	/**Function to add data to frame
-	 * 
-	 * @param framelocator
-	 * @param data
-	 * @param validate: if not passed, then not clear old data of frame, verify that new data is input correctly
-	 * 		           = true, clear old data of frame
-	 * 				   = false, not clear old data, not verify that new data is input correctly
-	 *//*
-	public void inputDataToFrame(By framelocator, String data, boolean...validate){
-		try {
-			WebElement inputsummary = null;
-
-			for (int repeat = 0;; repeat++) {
-				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
-					Assert.fail("Fail to input data to frame " + framelocator);
-				}
-				WebElement e = waitForAndGetElement(framelocator,DEFAULT_TIMEOUT,1,2);
-				driver.switchTo().frame(e);
-				inputsummary = driver.switchTo().activeElement();
-				inputsummary.click();
-				inputsummary.clear();
-
-				if (validate.length >0)
-					if (validate[0]){
-						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
-						if (inputsummary.getText().contains(data)) break;
-					}
-					else{
-						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
-						break;
-					}
-				else {
-					((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
-					if (inputsummary.getText().contains(data)) break;
-				}
-
-				switchToParentWindow();
-			}
-		} catch (StaleElementReferenceException e) {
-			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			Utils.pause(WAIT_INTERVAL);
-			driver.switchTo().defaultContent();
-			inputDataToFrame (framelocator, data,validate);
-		} catch (ElementNotVisibleException e) {
-			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			Utils.pause(WAIT_INTERVAL);
-			driver.switchTo().defaultContent();
-			inputDataToFrame (framelocator,data,validate);
-		}catch (WebDriverException e) {
-			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			Utils.pause(WAIT_INTERVAL);
-			driver.switchTo().defaultContent();
-			inputDataToFrame (framelocator,data,validate);
-		}
-		finally {
-			loopCount = 0;
-		}
-	}*/
 	
 	/**
 	 * Type a text to a Frame using for CKEDITOR

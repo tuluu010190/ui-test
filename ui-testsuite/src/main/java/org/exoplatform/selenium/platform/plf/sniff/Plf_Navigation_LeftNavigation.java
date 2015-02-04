@@ -115,7 +115,7 @@ import org.testng.annotations.*;
 			The space is opened in the Home space's stream*/ 
 
 		hp.goToMySpaces();
-		waitForAndGetElement(sHome.ELEMENT_SPACE_PANEL);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_PANEL);
 		
  	}
 

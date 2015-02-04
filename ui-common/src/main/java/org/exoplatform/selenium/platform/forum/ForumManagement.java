@@ -32,7 +32,7 @@ public class ForumManagement extends PlatformBase {
 	public final By ELEMENT_EDIT_FORUM = By.xpath("//*[contains(@href, 'EditForum')]");
 	public final By ELEMENT_DELETE_FORUM = By.xpath("//*[contains(@data-action, 'RemoveForum')]");
 	public final By ELEMENT_MOVE_FORUM = By.xpath("//*[contains(@href, 'MoveForum')]");
-	public final By ELEMENT_START_TOPIC_BUTTON = By.xpath(".//*[@class='uiIconForumCreateTopic uiIconForumLightGray']");
+	public final By ELEMENT_START_TOPIC_BUTTON = By.xpath("//*[contains(@href, 'AddTopic')]");
 	public final By ELEMENT_LOCK_FORUM = By.className("uiIconLockMedium");
 	public final By ELEMENT_UNLOCK_FORUM = By.className("uiIconUnlockMedium");
 	public final By ELEMENT_CLOSE_FORUM = By.xpath("//a[contains(@href,'SetCloseForum')]");
@@ -125,7 +125,7 @@ public class ForumManagement extends PlatformBase {
     	switch(item) {
 		case START_TOPIC:
 			info("wait Start Topic button is shown");
-			waitForAndGetElement(ELEMENT_START_TOPIC_BUTTON);
+			waitForAndGetElement(ELEMENT_START_TOPIC_BUTTON,2000,0);
 			info("click on Start Topic button");
 			click(ELEMENT_START_TOPIC_BUTTON);
 			info("Verify that the popup is shown");
@@ -134,6 +134,7 @@ public class ForumManagement extends PlatformBase {
 			break;
 		case EDIT:
 			info("click on Edit link");
+			waitForAndGetElement(ELEMENT_EDIT_FORUM,2000,0);
 			click(ELEMENT_EDIT_FORUM);
 			info("Verify that Edit popup is shown");
 			waitForAndGetElement(ELEMENT_EDITFORUM_POPUP_TITLE);
@@ -141,6 +142,7 @@ public class ForumManagement extends PlatformBase {
 			break;
 		case DELETE:
 			info("click on Delete link");
+			waitForAndGetElement(ELEMENT_DELETE_FORUM,2000,0);
 			click(ELEMENT_DELETE_FORUM);
 			Utils.pause(1000);
 			info("Verify that Confirm popup is shown");
@@ -152,22 +154,26 @@ public class ForumManagement extends PlatformBase {
 		case WATCHES:
 			break;
 		case LOCK:
+			waitForAndGetElement(ELEMENT_LOCK_FORUM,2000,0);
 			click(ELEMENT_LOCK_FORUM);
 			break;
 		case UNLOCK:
+			waitForAndGetElement(ELEMENT_UNLOCK_FORUM,2000,0);
 			click(ELEMENT_UNLOCK_FORUM);
 			break;
 		case CLOSE:
+			waitForAndGetElement(ELEMENT_CLOSE_FORUM,2000,0);
 			click(ELEMENT_CLOSE_FORUM);
 			break;
 		case OPEN:
+			waitForAndGetElement(ELEMENT_OPEN_FORUM,2000,0);
 			click(ELEMENT_OPEN_FORUM);
 			break;
 		case EXPORT_FORUM:
 			break;
 		case MOVE:
 			info("Wait Move link is shown");
-			waitForAndGetElement(ELEMENT_MOVE_FORUM);
+			waitForAndGetElement(ELEMENT_MOVE_FORUM,2000,0);
 			info("Click on Move link");
 			click(ELEMENT_MOVE_FORUM);
 			info("Verify that Move popup is shown");

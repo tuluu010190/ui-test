@@ -14,8 +14,10 @@ public class PageEditor extends PlatformBase {
 	public final By ELEMENT_EDIT_PORTLET_FORM=By.id("tab-UIPortletForm");
 	public final By ELEMENT_EDIT_PORTLET_FORM_CLOSE_BUTTON=By.xpath("//*[@id='tab-UIPortletForm']//*[text()='Close']");
 	public final By ELEMENT_EDIT_PORTLET_FORM_SAVE_BUTTON=By.xpath("//*[@id='tab-UIPortletForm']//*[text()='Save']");
+	public final By ELEMENT_EDIT_PORTLET_FORM_SAVESETTINGS_BUTTON=By.xpath("//*[@id='tab-UIPortletForm']//*[text()='Save Settings']");
 	public final By ELEMENT_EDIT_PORTLET_FORM_SAVE_AND_CLOSE_BUTTON=By.xpath("//*[@id='tab-UIPortletForm']//*[text()='Save And Close']");
 	public final By ELEMENT_EDIT_PORTLET_FORM_CANCEL_BUTTON=By.xpath("//*[@id='tab-UIPortletForm']//*[text()='Cancel']");
+	public final By ELEMENT_EDIT_PORTLET_FORM_RESULTPERPAGE = By.xpath("//*[@id='resultsPerPage']");
 	
 	//Application
 	public final String ELEMENT_EDIT_PORTLET_CATEGORY_APPLICATION_ARROW_RIGHT="//*[@title='$category']/*[@class='uiIconArrowRight pull-right']";

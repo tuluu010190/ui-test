@@ -6,8 +6,8 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.calendar.AddEditEventManagement;
-import org.exoplatform.selenium.platform.calendar.AddEditTaskManagement;
+import org.exoplatform.selenium.platform.calendar.EventManagement;
+import org.exoplatform.selenium.platform.calendar.TaskManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
@@ -22,10 +22,10 @@ public class Calendar_Setting extends PlatformBase {
 	ManageLogInOut magAc;
 	TextBoxDatabase txData;
 	CalendarHomePage cHome;
-	AddEditEventManagement event;
+	EventManagement event;
 	CalendarManagement cMang;
 	UserDatabase userData;
-	AddEditTaskManagement task;
+	TaskManagement task;
 	String fullName;
 	ManageAlert alert;
 
@@ -38,8 +38,8 @@ public class Calendar_Setting extends PlatformBase {
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);
 		cHome= new CalendarHomePage(driver);
-		event= new AddEditEventManagement(driver);
-		task= new AddEditTaskManagement(driver);
+		event= new EventManagement(driver);
+		task= new TaskManagement(driver);
 		cMang = new CalendarManagement(driver);
 		txData = new TextBoxDatabase();
 		userData = new UserDatabase();

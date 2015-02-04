@@ -161,5 +161,19 @@ public class PageCreationWizard extends PlatformBase {
 		click(contDetail.ELEMENT_CONTENT_DETAIL_CLOSE_BTN);
 		click(ELEMENT_PAGE_FINISH_BTN);
 	}
-	
+	/**
+	 * Create a simple page
+	 * @param title
+	 * @param description
+	 */
+	public void addAPageSimple(String title,String description){
+		info("Input the title and descript");
+		inputPageInfoStep1(title, true, "English",description, true,false);
+		info("click on Next button of step 1");
+		click(ELEMENT_ADDNEWPAGE_BTNNEXT);
+		info("click on Next button of step 2");
+		click(ELEMENT_ADDNEWPAGE_BTNNEXT);
+		info("Save all changes");
+		click(ELEMENT_PAGE_FINISH_BTN);
+	}
 }

@@ -8,10 +8,16 @@
 		</groups>
 		<classes>
 		    <class name="org.exoplatform.selenium.platform.plf.sniff.Plf_TestConfig"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Integration"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Navigation_LeftNavigation"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Navigation_SpaceNavigation"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Navigation_TopNavigation"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Navigation_UserNavigation"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_UnifiedSearch"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Branding"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Registration"/>
 			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_TermAndCondition"/>
 			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_AccountSetup"/>
-			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Integration"/>
-			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Branding"/>
 		</classes>
 	</test>
 	<listeners>

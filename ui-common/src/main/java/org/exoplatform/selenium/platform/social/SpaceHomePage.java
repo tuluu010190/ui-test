@@ -1,15 +1,11 @@
 package org.exoplatform.selenium.platform.social;
 
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class SocialHomePage extends PlatformBase{
+public class SpaceHomePage extends PlatformBase{
 
-	PlatformPermission per;
-	ManageAlert alert;
 	
 	public final By ELEMENT_SPACE_PANEL=By.xpath(".//*[@id='UIMySpacesPortlet']");
 	
@@ -21,14 +17,15 @@ public class SocialHomePage extends PlatformBase{
 	public final By ELEMENT_SPACE_MENU_DOCUMENTS = By.xpath(".//*[@class='tabName' and contains(text(),'Documents')]");
 	public final By ELEMENT_SPACE_MENU_SETTINGS = By.xpath(".//*[@class='tabName' and contains(text(),'Space Settings')]");
 	public final By ELEMENT_SPACE_MENU_ANSWER = By.xpath(".//*[@class='tabName' and contains(text(),'Answer')]");
+	public final String ELEMENT_SPACE_NAME = ".//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name'][contains(text(),'${name}')]";
+	
 	
 	/**
 	 * constructor
 	 * @param dr
 	 */
-	public SocialHomePage(WebDriver dr){
+	public SpaceHomePage(WebDriver dr){
 		this.driver=dr;
-		alert = new ManageAlert(driver);
 	}
 	/**
 	 * Go to settings app
