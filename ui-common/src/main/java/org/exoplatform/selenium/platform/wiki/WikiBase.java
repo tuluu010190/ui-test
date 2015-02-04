@@ -131,6 +131,10 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_UPLOAD_NAME = By.name("file");
 	public final By ELEMENT_UPLOAD_NEW_FILE_BUTTON = By.xpath("//*[text()='Upload New File' or text()='Upload new file']");
 	public final By ELEMENT_BODY_CONTAINER = By.xpath("//*[@class='uiRightContainerArea']");
+	public final String ELEMENT_CHECK_CONTENT = "//*[@id='UIViewContentDisplay']//p[contains(text(),'${title}')]";
+	//public final By ELEMENT_EDIT_PARAGRAPH_BUTTON = By.xpath(".//*[@id='Hparagraph1']/span/../..//*[@class='uiIconEdit uiIconLightGray wikimodel-freestanding']");
+	public final String ELEMENT_EDIT_PARAGRAPH_BUTTON = ".//*[contains(@id, '${paragraph}')]/span/../..//*[@class='uiIconEdit uiIconLightGray wikimodel-freestanding']";
+	
 	//"Are you sure to leave this page?";
 	public final By ELEMENT_OK_BUTTON_WIKI_PAGE = By.xpath("//div[contains(@class, 'uiAction')]/a[text()='OK']");
 	public final String ELEMENT_SPACE_NAVIGATION_NAME = ("//div[@class='name' and contains(text(),'${spaceName}')]");
@@ -146,6 +150,12 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_THREE_LAYOUT_MID = By.xpath("//div[@style='float:left;width:32.300000000000004%;padding-right:1.5%;'][2]");
 	public final By ELEMENT_THREE_LAYOUT_LEFT = By.xpath("//div[@style='float:left;width:32.300000000000004%;']");
 	public final String EMENENT_STATUS_LAYOUT = "//th[contains(text(), '${title}')]";
+	public final String ELEMENT_CHECK_IMAGE = "//img[contains(@alt, '${file}')]";
+	public final String ELEMENT_CHECK_EMAIL = "//*[@id='body']//a[contains(@metadata, 'mailto') and contains(text(),'${label}')]";
+	public final String ELEMENT_CHECK_WEB_PAGE = "//*[@id='body']//a[contains(@metadata, 'url') and contains(text(),'${label}')]";
+	public final String ELEMENT_CHECK_WIKI_PAGE_LINK = "//*[@id='body']//a[contains(@metadata, 'doc') and contains(text(),'${label}')]";
+	
+	
 	public final String EMENENT_HOW_LAYOUT = "//a[contains(text(), '${title}')]";
 	public final By EMENENT_LEAVE_PLANING_LAYOUT = By.xpath("//*[contains(text(), 'The Confluence team uses tables to communicate scheduled leave times')]"); 
 

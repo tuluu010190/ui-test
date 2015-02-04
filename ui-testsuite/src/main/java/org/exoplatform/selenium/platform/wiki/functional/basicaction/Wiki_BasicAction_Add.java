@@ -33,8 +33,6 @@ import org.testng.annotations.Test;
 
 /**
  * Created by The eXo Platform SAS
- * Author : Hoang Manh Dung
- *          dunghm@exoplatform.com
  * Dec 10, 2012  
  */
 public class Wiki_BasicAction_Add extends ManageDraft{
@@ -267,8 +265,6 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	 * Qmetry ID: 69700
 	 * Test Case ID 008
 	 * Cancel creating new wiki page
-	 * --Update PLF4: button OK on confirm message is not working
-	 * ==> FIXED (@vuna)
 	 */ 
 	@Test
 	public void test08_CancelAddNewPage(){
@@ -279,9 +275,6 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		goToWiki();
 		addBlankWikiPage(title, content, mode, true);
 		waitForTextNotPresent(title);
-
-		//Reset data
-		//deleteCurrentWikiPage();
 	}
 
 	/**

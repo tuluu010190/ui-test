@@ -14,8 +14,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.ManageAccount;
 
 /**
- * 
- * @author thaopth
  * Date: 07/12/2012
  */
 public class Wiki_BasicAction_Edit extends ManageDraft {
@@ -51,18 +49,29 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	@Test
 	public void test01_EditPage () {
 		//Define data test
-		String DATA_WIKI_TITLE = "wikipage01";
+		String DATA_WIKI_TITLE = "wikipage01 before edit";
+		String DATA_WIKI_TITLE_EDITED = "wikipage01 after edit";
 		String DATA_WIKI_CONTENT = "test01_content before edit";
 		String DATA_WIKI_CONTENT_EDITED = "Wiki content afer editing";
 
+		info("-- Add new wiki page --");
 		goToWiki();
-
-		addBlankWikiPage(DATA_WIKI_TITLE, DATA_WIKI_CONTENT, 0);
-
-		editWikiPage(DATA_WIKI_TITLE, DATA_WIKI_CONTENT_EDITED, 0);
+		addBlankWikiPage(DATA_WIKI_TITLE, DATA_WIKI_CONTENT, 0);		
+		waitForAndGetElement(By.linkText(DATA_WIKI_TITLE));
+		waitForAndGetElement(ELEMENT_CHECK_CONTENT.replace("${title}", DATA_WIKI_CONTENT));
 		
+		info("-- Edit wiki page --");
+		editWikiPage(DATA_WIKI_TITLE_EDITED, DATA_WIKI_CONTENT_EDITED, 0);
+		
+		info("-- Verify result after edit --");
+		goToWiki();
+		waitForAndGetElement(By.linkText(DATA_WIKI_TITLE_EDITED));
+		click(By.linkText(DATA_WIKI_TITLE_EDITED));
+		waitForAndGetElement(ELEMENT_CHECK_CONTENT.replace("${title}", DATA_WIKI_CONTENT_EDITED));
+		
+		info("-- Reset data --");
 		deleteCurrentWikiPage();
-		waitForTextNotPresent(DATA_WIKI_TITLE);
+		waitForTextNotPresent(DATA_WIKI_TITLE_EDITED);
 	}
 	
 	/**
@@ -123,15 +132,13 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	 * == ==
 	 * KS/wiki/basic action/edit
 	 * Edit paragraph when the level of header is equal to  paragraph below
-	 * Date: 25/02/2013: Lientm: Edit icon paragraph does not work fine, it is difficult to click its
-	 * => FIXED (@vuna)
 	 */
 	@Test
 	public void test03_EditParagraphWhenTheLevelOfHeaderIsEqualToParagraphBelow () {
 		
-		String DATA_WIKI_TITLE = "Test edit wiki with paragraph1";
-		String DATA_WIKI_CONTENT = "= paragraph1 = \n = paragraph2 =";
-		String DATA_PARAGRAPH1_NEW = "= test edit paragraph =";
+		String DATA_WIKI_TITLE = "Test edit wiki with paragraph1" + getRandomNumber();
+		String DATA_WIKI_CONTENT = "= paragraph1 = \n = paragraph2 =" + getRandomNumber();
+		String DATA_PARAGRAPH1_NEW = "= test edit paragraph =" + getRandomNumber();
 
 		goToWiki();
 		addBlankWikiPage(DATA_WIKI_TITLE, DATA_WIKI_CONTENT, 0, false);
@@ -150,7 +157,6 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	 * == ==
 	 * KS/wiki/basic action/edit
 	 * Case 04: Edit paragraph when the level of header is greater than paragraph below
-	 * Date: 25/02/2013: Lientm: Edit icon paragraph does not work fine, it is difficult to click its
 	 */
 	@Test
 	public void test04_EditParagraphWhenTheLevelOfHeaderGreaterThanParagraphBelow () {
@@ -169,17 +175,6 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		//Clear data	
 		deleteCurrentWikiPage();	
 	}
-	
-	/*
-	 * == On PLF 4, there is no more Minor Edit button ==
-	 * == This case would be removed ==
-	 * KS/Wiki/Basic Action/Edit
-	 * Case 05: Minor edit
-	 */
-	/*
-	@Test
-	public void test05_MinorEdit () {
-	}*/
 	
 	/**
 	 * Case ID:70784.
@@ -263,6 +258,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		waitForElementNotPresent(EMEMENT_DRAFT_CHANGE_VIEW);
 		click(ELEMENT_DRAFT_CONTINUE_EDIT_LINK);
 		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_TITLE_WIKI_INPUT);
 
 		/*
 		- re-open the page and click [Edit]
@@ -339,6 +335,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		waitForElementNotPresent(EMEMENT_DRAFT_CHANGE_VIEW);
 		click(ELEMENT_DRAFT_RESUME__LINK);
 		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_TITLE_WIKI_INPUT);
 
 		/*
 		- Repeat the step 3
@@ -452,6 +449,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		click(ELEMENT_DRAFT_TITLE.replace("${title}", title));
 		info("Edit mode");
 		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_TITLE_WIKI_INPUT);
 
 		//Delete data test
 		goToManageDraft();

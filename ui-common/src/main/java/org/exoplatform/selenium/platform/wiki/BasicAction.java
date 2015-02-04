@@ -14,6 +14,8 @@ import org.exoplatform.selenium.platform.social.ManageMember;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 /**
  * Provides all methods of adding and editing pages. 
@@ -611,9 +613,19 @@ public class BasicAction extends Permission{
 		String ELEMENT_PARAGRAPH_ID = "H"+paragraphTitle;
 
 		mouseOver(By.id(ELEMENT_PARAGRAPH_ID), true);
-		click(By.xpath("//*[@title='Edit section: " + paragraphTitle + "']"), 2);
+		//mouseOver("//*[@id='Hparagraph1']/span", true);
+		//click(By.xpath("//*a[@title='Edit section: " + paragraphTitle + "']"), 2);
+		//click(ELEMENT_EDIT_PARAGRAPH_BUTTON.replace("${title}", paragraphTitle));
+		//mouseOver(ELEMENT_EDIT_PARAGRAPH_BUTTON, true);
+		//click(ELEMENT_EDIT_PARAGRAPH_BUTTON);
 		Utils.pause(500);
-		driver.navigate().refresh();
+		clickByJavascript(ELEMENT_EDIT_PARAGRAPH_BUTTON.replace("${paragraph}", paragraphTitle));
+		/*WebElement el = driver.findElement(ELEMENT_EDIT_PARAGRAPH_BUTTON);
+		Actions action = new Actions(driver);
+		action.moveToElement(el).click().perform();*/
+		//click(ELEMENT_EDIT_PARAGRAPH_BUTTON);
+		/*Utils.pause(500);
+		driver.navigate().refresh();*/
 		Utils.pause(2000);
 		type(ELEMENT_CONTENT_WIKI_INPUT, paragraphContent, true);
 		switchToParentWindow();
