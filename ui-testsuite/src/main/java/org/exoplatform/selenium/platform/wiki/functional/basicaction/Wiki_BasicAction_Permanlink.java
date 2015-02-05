@@ -19,6 +19,7 @@ import org.testng.annotations.*;
 	* @date 26/05/2014
 	*/
 	public class Wiki_BasicAction_Permanlink extends Permalink {
+	SpaceManagement spacemanage;
 	ManageAccount magAcc;
 	Dialog dialog;
 	SpaceManagement spaceMag;
@@ -39,7 +40,7 @@ import org.testng.annotations.*;
 		member = new ManageMember(driver, this.plfVersion);
 		button = new Button(driver);
 		searchS = new SpaceSearch(driver);
-		
+		spacemanage = new SpaceManagement(driver, this.plfVersion);
 		magAcc.signIn(DATA_USER1,DATA_PASS);
 		goToWiki();
 	}
@@ -122,6 +123,7 @@ import org.testng.annotations.*;
 			The page is dispalyed*/
 		driver.get(permalink);
 		magAcc.signIn(user, DATA_PASS);
+		waitForAndGetElement(By.linkText(title));
 		waitForTextPresent(content);
 		
 		/*Step number: 7
@@ -205,6 +207,7 @@ import org.testng.annotations.*;
 			The page is dispalyed*/
 		driver.get(permalink);
 		magAcc.signIn(user, DATA_PASS);
+		waitForAndGetElement(By.linkText(title));
 		waitForTextPresent(content);
 		
 		/*Step number: 6
@@ -273,6 +276,7 @@ import org.testng.annotations.*;
 			The page is dispalyed*/
 		driver.get(permalink);
 		magAcc.signIn(user, DATA_PASS);
+		waitForAndGetElement(By.linkText(title));
 		waitForTextPresent(content);
 		
 		/*Step number: 4
@@ -347,6 +351,7 @@ import org.testng.annotations.*;
 			The "Page Not found" is displayed, the user B cannot view the page*/ 
 		driver.get(permalink);
 		magAcc.signIn(user, DATA_PASS);
+		waitForElementNotPresent(By.linkText(title));
 		waitForTextPresent("Page Not Found");
 		magAcc.signOut();
 		
@@ -385,6 +390,7 @@ import org.testng.annotations.*;
 		spaceMag.goToSpaceFromMySpaceNavigation(space);
 		spaceMag.goToSpaceMenu("Wiki");
 		addBlankWikiPage(title, content, 0);
+		waitForAndGetElement(By.linkText(title));
 		
 		/*Step number: 2
 		*Step Name: Step 2: Check show Page Permission
@@ -412,8 +418,10 @@ import org.testng.annotations.*;
 	@Test
 	public void test06_AccessToSpaceSettingByAPageCreator() {
 		String space = "space78475";
-		String title = "Wiki 78475";
-		String content = "Content of wiki 78475";
+		String title1 = "Wiki 784751";
+		String content1 = "Content of wiki 784751";
+		String title2 = "Wiki 784752";
+		String content2 = "Content of wiki 784752";
 		String user = "mary";
 		String fullName = "Mary";
 		
@@ -435,6 +443,9 @@ import org.testng.annotations.*;
 		spaceMag.goToAllSpaces();
 		spaceMag.addNewSpace(space, "", "Visible", "Validation", "", "");
 		spaceMag.goToSpaceFromMySpaceNavigation(space);
+		spaceMag.goToSpaceMenu("Wiki");
+		addBlankWikiPage(title1, content1, 0);
+		waitForAndGetElement(By.linkText(title1));
 		spaceMag.goToSpaceMenu("Space Settings");
 		spaceMag.goToMembers();
 		member.inviteSingleUser(user, fullName);
@@ -462,8 +473,11 @@ import org.testng.annotations.*;
 			- A page wiki is created in the space
 			- User B has not access to the space setting for the wiki application*/ 
 		spaceMag.goToSpaceFromMySpaceNavigation(space);
+		waitForElementNotPresent(spacemanage.ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", "Space Settings"));
 		spaceMag.goToSpaceMenu("Wiki");
-		addBlankWikiPage(title, content, 0);
+		addBlankWikiPage(title2, content2, 0);
+		waitForAndGetElement(By.linkText(title2));
+		
 		click(ELEMENT_BROWSE_LINK);
 		waitForElementNotPresent(ELEMENT_WIKI_SETTING_LINK);
 		magAcc.signOut();
@@ -673,6 +687,7 @@ import org.testng.annotations.*;
 		spaceMag.goToSpaceFromMySpaceNavigation(space);
 		spaceMag.goToSpaceMenu("Wiki");
 		addBlankWikiPage(title, content, 0);
+		waitForAndGetElement(By.linkText(title));
 		waitForAndGetElement(ELEMENT_STATUS_IN_INFO_PAGE.replace("${title}", title).replace("${status}", "Restricted"));
 		
 		spaceMag.goToMySpacePage();
