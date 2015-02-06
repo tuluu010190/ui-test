@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -14,6 +15,18 @@ public class HomepageActivity extends PlatformBase {
 	//Author of activity
 	public final String ELEMENT_ACTIVITY_AUTHOR_SPACE="//*[@class='author']//*[contains(@href,'$user')]/../..//*[@data-original-title='$space']";
 
+	// Composer
+	public final By ELEMENT_COMPOSER_INPUT_FILED = By.xpath(".//*[@id='DisplaycomposerInput']");
+	public final By ELEMENT_COMPOSER_FILE_BUTTON = By.xpath(".//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
+	public final By ELEMENT_COMPOSER_MENTION_BUTTON = By.xpath(".//i[@class='uiIconSocMention uiIconSocLightGray']");
+	public final By ELEMENT_COMPOSER_LINK_BUTTON = By.xpath(".//i[@class='uiIconSocUILinkActivityComposer uiIconSocLightGray']");
+	public final By ELEMENT_COMPOSER_INPUT_LINK_FIELD = By.xpath(".//*[@id='InputLink']");
+	public final By ELEMENT_COMPOSER_ATTACH_LINK_BUTTON = By.xpath(".//*[@id='AttachButton']");
+	public final By ELEMENT_COMPOSER_SHARE_BUTTON = By.xpath(".//*[@id='ShareButton']");
+	public final By ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='placeholder']");
+	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
+		
+		
 	//Task/Event activity
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TITLE = "//*[@class='linkTitle' and text()='$name']";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_DESCRIPTION = "//*[@class='linkTitle' and text()='$name']/../..//*[text()='$description ']";
@@ -210,5 +223,48 @@ public class HomepageActivity extends PlatformBase {
 	    WebElement add_button= this.driver.findElement(By.xpath(ELEMENT_COMMENT_BUTTON.replace("${activityText}", filename)));
 	    add_button.click();
 	    Utils.pause(2000);
+	}
+	
+	/**
+	 * Add new activity for space 
+	 * @param addText: boolean
+	 * @param text: input a text (String)
+	 * @param addLink: boolean
+	 * @param link: input a link (String)
+	 */
+	public void addActivity (boolean addText, String text, boolean addLink, String link) {
+		info("-- Adding an activity--");
+		Utils.pause(3000);
+		if (addText) 
+		{
+			info("----Add text into activity text box-----");
+			WebElement inputText = waitForAndGetElement(ELEMENT_COMPOSER_INPUT_FILED,100000);
+			WebElement shareButton = waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
+			WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL);
+			((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '';", workingLabel);
+			((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '"+text+"';", inputText);
+			((JavascriptExecutor)driver).executeScript("arguments[0].disabled = false;", shareButton);
+			((JavascriptExecutor)driver).executeScript("arguments[0].className = 'pull-right btn btn-primary';", shareButton);
+		}
+		if (addLink)
+		{
+			info("----Click on Link----");
+			waitForAndGetElement( ELEMENT_COMPOSER_LINK_BUTTON).click();
+			info("----Input link into link box-----");
+			waitForAndGetElement(ELEMENT_COMPOSER_INPUT_LINK_FIELD);
+			type(ELEMENT_COMPOSER_INPUT_LINK_FIELD, link, true);
+			waitForAndGetElement(ELEMENT_COMPOSER_ATTACH_LINK_BUTTON);
+			info("----Click attach button-----");
+			click(ELEMENT_COMPOSER_ATTACH_LINK_BUTTON);
+			waitForAndGetElement(By.id("LinkTitle"));
+		}
+		waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
+		info("----Click share button----");
+		click(ELEMENT_COMPOSER_SHARE_BUTTON);
+		Utils.pause(1000);
+		info("-- Verify that an activity has been added --");
+		if (addText) {
+			waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", text)));
+		}
 	}
 }

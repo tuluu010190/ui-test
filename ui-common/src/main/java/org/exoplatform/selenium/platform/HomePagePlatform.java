@@ -30,7 +30,7 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_WIKI_LINK_PLF=By.xpath("//*[@data-original-title='Wiki']");
 	public final By ELEMENT_HOME_LINK_PLF=By.xpath("//*[@data-original-title='Home']");
 	public final By ELEMENT_CALENDAR_LINK_PLF=By.xpath("//*[@data-original-title='Calendar']");
-
+	public final By ELEMENT_CONNECTION_LINK_PLF =By.xpath("//*[@data-original-title='Connections']");
 
 	//Wiki activity
 	public final String ELEMENT_WIKI_COMMENT_EDIT_TITLE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'title has been updated to: ${title}')]";
@@ -41,7 +41,7 @@ public class HomePagePlatform extends TestBase{
 	public final String ELEMENT_ACTIVITY_MOVE_WIKI_PAGE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'Page has been moved to: ${path}')]";
 	public final By ELEMENT_MY_SPACE_LINK_PLF=By.xpath("//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'My Spaces')]");
 	public final String ELEMENT_SPECIFIC_SPACE_LINK_PLF ="//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'{$space}')]";
-
+	
 	//Middle homepage panel
 	public final By ELEMENT_HOMPAGE_MIDDLE_PANEL = By.id("OfficeMiddle");
 	
@@ -81,14 +81,17 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_EDITNAVIG_INTRANET = By.xpath("//*[text()='intranet']/../..//*[@class='uiIconNavigation uiIconLightGray']");
 	public final String ELEMENT_EDITSITE_SITE = "//*[@title='${name}']"; 
 	public final String ELEMENT_EDITSITE_SITESUPPRIMER = "//*[@class='uiIconDeleteNode']";
-	public final By ELEMENT_EDITSITE_SAVEBTN = By.xpath("//*[@class='btn' and text()='Save']");
 	
 	// Edit panel
 	public final By ELEMENT_EDIT_BUTTON = By.xpath(".//*[@id='UIAdminToolbarContainer']//*[@class='uiIconPLF24x24Edit']");
 	public final By ELEMENT_EDIT_CONTENT = By.xpath("//*[@class='quickEditUnchecked']");
 	public final By ELEMENT_EDIT_CONTENT_CHECK = By.xpath("//*[@class='quickEditChecked']");
+	
+	public final By ELEMENT_HP_ACTIVITY_TEXTBOX = By.xpath("//*[@id='DisplaycomposerInput']");
 	public final By ELEMENT_SITE_TOP_LIST = By.xpath(".//*[@id='UIAdminToolbarContainer']/ul/li[3]/a");
 	public final By ELEMENT_ADD_PAGE_DROP_LIST = By.xpath(".//*[@id='UIAdminToolbarContainer']/ul/li[3]/ul[@class='dropdown-menu']/li[4]/a");
+	public final By ELEMENT_EDITSITE_SAVEBTN = By.xpath("//*[@class='btn' and text()='Save']");
+	public final By ELEMENT_HP_ACTIVITY_SHAREBTN = By.xpath("//*[@id='ShareButton']");
 	
 	//SEO Management
 	public final By ELEMENT_SEO_LANGUAGE_SHOW = By.xpath("//*[@onClick='eXo.ecm.WCMUtils.showSEOLanguage(true)']");
@@ -99,6 +102,39 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_SEO_HELPKEYWORD = By.xpath("//*[text()='Keywords: ']/..//*[@id='DescriptionHelp']");
 	public final By ELEMENT_SEO_HELPPRIORITY = By.xpath("//*[@id='PriorityHelp']");
 
+	//calendar gadget
+	public final By ELEMENT_HP_CALENDARGADGET_BOX = By.xpath("//*[@class='calendarPortletData uiBox']");
+	public final By ELEMENT_HP_CALENDARGADGET_RIGHTARROW = By.xpath("//*[@class='uiIconMiniArrowRight uiIconLightGray']");
+	public final By ELEMENT_HP_CALENDARGADGET_LEFTARROW = By.xpath("//*[@class='uiIconMiniArrowLeft uiIconLightGray']");
+	public final String ELEMENT_HP_CALENDARGADGET_DISPLAYEDDAY = "//*[contains(text(), '${day}')]";
+	public final By ELEMENT_HP_CALENDARGADGET_SETTINGS = By.xpath("//*[@class='uiIconSetting uiIconLightGray']");
+	public final By ELEMENT_HP_CALENDARGADGET_SETTINGS_DISPLAYEDCAL = By.xpath("//*[contains(text(),'Displayed Calendars')]");
+	public final By ELEMENT_HP_CALENDARGADGET_SETTINGS_SETTINGSCAL = By.xpath("//*[contains(text(),'Displayed Calendars')]/../..//*[contains(text(),'Settings')]");
+	public final String ELEMENT_HP_CALENDARGADGET_SETTINGS_REMOVECAL = "//*[@data-original-title='${title}']/..//*[@class='uiIconDel']";
+	public final String ELEMENT_HP_CALENDARGADGET_SETTINGS_ADDCALNAME = "//*[text()='${title}']";
+	public final By ELEMENT_HP_CALENDARGADGET_SETTINGS_ADDCAL = By.xpath("//*[@class='uiIconSimplePlusMini uiIconLightGray']");
+	public final By ELEMENT_HP_CALENDARGADGET_SETTINGS_SEARCHCAL = By.xpath("//*[@class='PLFcalendarSearchKey']");
+
+	//Getting Started
+	public final By ELEMENT_HP_GETTINGSTARTED_BOX = By.xpath("//*[@class='UIGadgetThemes uiBox uiGettingStarted']");
+	public final By ELEMENT_HP_GETTINGSTARTED_TITLE = By.xpath(".//*[@class='GettingStarted']//h6[text()='Getting Started']");
+	public final String ELEMENT_HP_GETTINGSTARTED_TASKS=".//*[@class='GettingStarted']//*[contains(text(),'${name}')]";
+	public final By ELEMENT_HP_GETTINGSTARTED_CONNETTOCOWORKERS = By.xpath("//*[text()='Connect to coworkers']");
+	public final String ELEMENT_HP_GETTINGSTARTED_CONNETTOCOWORKERSBTN = "//*[text()='${name}']/../../..//*[text()='Connect']";
+	public final By ELEMENT_HP_GETTINGSTARTED_ACCEPTTOCOWORKERSBTN = By.xpath("//*[text()='Confirm']");
+	public final By ELEMENT_HP_GETTINGSTARTED_CONNETTOCOWORKERS_DONE = By.xpath("//*[@class='done']/..//*[text()='Connect to coworkers']");
+	public final By ELEMENT_HP_GETTINGSTARTED_ADDPROFILEPIC = By.xpath("//*[text()='Add a profile picture']");
+	public final By ELEMENT_HP_GETTINGSTARTED_JOINSPACE = By.xpath("//*[text()='Join a space']");
+	public final By ELEMENT_HP_GETTINGSTARTED_UPLOADDOC = By.xpath("//*[text()='Upload a document']");
+	public final By ELEMENT_HP_GETTINGSTARTED_POSTACTIVITY = By.xpath("//*[text()='Post an activity ']");
+
+	public final By ELEMENT_HP_GETTINGSTARTED_PROFILEPAGE = By.xpath("//*[@class='uiIconAppprofile uiIconDefaultApp']");
+	public final By ELEMENT_HP_GETTINGSTARTED_CONNECTIONPAGE = By.xpath("//*[@class='uiIconAppconnections uiIconDefaultApp']");
+	public final By ELEMENT_HP_GETTINGSTARTED_CHECKJOINSPACE = By.xpath("//*[@class='active']//*[text()='All Spaces']");
+	public final By ELEMENT_HP_GETTINGSTARTED_CHECKUPLOADDOC = By.xpath("//*[@id='UIJCRExplorerPortlet']");
+	public final By ELEMENT_HP_GETTINGSTARTED_PROGRESSRATE = By.xpath("//*[@id='progress-rate']/../../../..//*[contains(text(), '100 %')]");
+	public final By ELEMENT_HP_GETTINGSTARTED_CLOSEBOX = By.xpath("//*[@class='gadgetTitle title center']//*[@class='uiIconClose pull-right']");
+
 	/**
 	 * constructor
 	 * @param dr
@@ -107,7 +143,7 @@ public class HomePagePlatform extends TestBase{
 		this.driver=dr;
 		wHome = new WikiHomePage(dr);
 		cHome = new CalendarHomePage(dr);
-	
+
 		sMang = new SpaceManagement(dr);
 		aHome = new AnswerHomePage(dr);
 		fHome = new ForumHomePage(dr);
@@ -189,6 +225,21 @@ public class HomePagePlatform extends TestBase{
 		waitForAndGetElement(fqHome.ELEMENT_FAQ_QUESTION_LIST);
 	}
 
-	
+	/**
+	 * Go to connexion
+	 */
+	public void goToConnection() {
+		info("-- Go to connexion page --");
+		info("Click on connexion link");
+		click(ELEMENT_CONNECTION_LINK_PLF);
+	}
+    /**
+     * type Activity
+     * @param text
+     *//*
+	public void typeActivity(String text) {
+		type(ELEMENT_HP_ACTIVITY_TEXTBOX, text, false);
+		click(ELEMENT_HP_ACTIVITY_SHAREBTN);
+	}*/
 }
 

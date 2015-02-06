@@ -79,6 +79,7 @@ public class TestBase {
 	protected String groupsCalenderFilePath;
 	protected String remoteGadgetDataFilePath;
 	protected String appGateinDataFilePath;
+	protected String getStartFilePath;
 
 	/*========Default System Property=============*/
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
@@ -107,6 +108,7 @@ public class TestBase {
 	public final String DEFAULT_CHANGELANGUADATAURL="DataDriven/" + "ChangeLanguage.xls";
 	public final String DEFAULT_REMOTEGADGETURL="DataDriven/"+"remote_gadget_links.xls";
 	public final String DEFAULT_APPGATEINURL="DataDriven/"+"application_gatein.xls";
+	public final String DEFAULT_GETTINGSTARTEDURL="DataDriven/"+"getting_started.xls";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -169,6 +171,7 @@ public class TestBase {
         changLangDataPath = System.getProperty("changLangDataPath");
         remoteGadgetDataFilePath = System.getProperty("remoteGadgetDataFilePath");
         appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
+        getStartFilePath = System.getProperty("getStartFilePath");
 
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 
@@ -197,6 +200,7 @@ public class TestBase {
 	    if (changLangDataPath==null) changLangDataPath = DEFAULT_CHANGELANGUADATAURL;
 	    if (remoteGadgetDataFilePath==null) remoteGadgetDataFilePath = DEFAULT_REMOTEGADGETURL;
 	    if (appGateinDataFilePath==null) appGateinDataFilePath = DEFAULT_APPGATEINURL;
+	    if (getStartFilePath==null) getStartFilePath = DEFAULT_GETTINGSTARTEDURL;
 	}
 	
 

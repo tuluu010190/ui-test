@@ -10,13 +10,18 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.administration.ManageSites;
 import org.exoplatform.selenium.platform.administration.PageManagement;
+import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.gatein.ApplicationHomePage;
 import org.exoplatform.selenium.platform.gatein.GadgetManagement;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.plf.GettingStartedDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
+import org.exoplatform.selenium.platform.social.HomepageActivity;
+import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.testng.annotations.*;
 
 
@@ -32,11 +37,16 @@ public class Plf_TestConfig extends PlatformBase {
 	PageCreationWizard pagCW;
 	ManageSites magSite;
 	PageManagement pagMang;
+	SpaceManagement spaceMg;
+	HomepageActivity hpAct;
+	MyProfilePage profilPage;
+	SiteExplorerHome SEHome;
 	
 	TextBoxDatabase txData;
 	UserDatabase userData;
 	RemoteGadgetDatabase remoteGadData;
 	ApplicationGateinDatabase appGateData;
+	GettingStartedDatabase getStartData;
 
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -55,6 +65,10 @@ public class Plf_TestConfig extends PlatformBase {
 		pagCW =new PageCreationWizard(driver);
 		magSite = new ManageSites(driver);
 		pagMang = new PageManagement(driver);
+		spaceMg = new SpaceManagement(driver);
+		hpAct = new HomepageActivity(driver);
+		profilPage = new MyProfilePage(driver);
+		SEHome = new SiteExplorerHome(driver);
 		
 		txData = new TextBoxDatabase();
 		userData = new UserDatabase();
@@ -64,6 +78,8 @@ public class Plf_TestConfig extends PlatformBase {
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 		remoteGadData.setRemoteGadgetData(remoteGadgetDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		appGateData.setApplicationGateinData(appGateinDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		getStartData = new GettingStartedDatabase();
+		getStartData.setGettingStartedData(getStartFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		info("End setUpBeforeClass");
 	}
 	
