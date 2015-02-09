@@ -744,12 +744,15 @@ public class TestBase {
 		baseUrl = System.getProperty("baseUrl");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		if("chrome".equals(browser)){
+			info("Init chrome");
 			driver = new ChromeDriver();
 			chromeFlag = true;
 		} else if ("iexplorer".equals(browser)){
+			info("Init IE");
 			driver = initIEDriver();
 			this.ieFlag = true;
 		} else {
+			info("Init firefox");
 			FirefoxProfile fp = new FirefoxProfile();	
 			info("Save file to " + pathFile);
 			fp.setPreference("browser.download.manager.showWhenStarting", false);
@@ -771,12 +774,11 @@ public class TestBase {
 			fp.setPreference("browser.helperApps.alwaysAsk.force", false);
 			driver = new FirefoxDriver(fp);
 		}
-		baseUrl = System.getProperty("baseUrl");
 		action = new Actions(driver);
 		driver.manage().window().maximize();
 		driver.navigate().refresh();
-		termsAndConditions();
 		checkPLFVersion();
+		termsAndConditions();
 	}
 
 	/**function set driver to auto open new window when click link
