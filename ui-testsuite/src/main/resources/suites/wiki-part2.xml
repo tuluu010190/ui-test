@@ -1,7 +1,8 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Wiki Functional Test" verbose="1" preserve-order="true">
-	<test name="wiki-func-search" enabled="true">
+	
+	<test name="wiki-func-spaceswitcher" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
@@ -9,15 +10,13 @@
 		</groups>
 		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Advanced_Search" />
+				name="org.exoplatform.selenium.platform.wiki.functional.spaceswitcher.Wiki_Navigation_Across_Space" />
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Quick_Search" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Space_Switcher" />
+				name="org.exoplatform.selenium.platform.wiki.functional.spaceswitcher.Wiki_SpaceSwitcher" />
 		</classes>
 	</test>
-
-	<test name="wiki-func-spacepermission" enabled="true">
+	
+	<test name="wiki-func-info" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
@@ -25,11 +24,17 @@
 		</groups>
 		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_Add" />
+				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_RelatedPage_Add" />
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_Delete" />
+				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_RelatedPage_Delete_Rename" />
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_CheckPermission" />
+				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_RelatedPage_View" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_Version_Compare" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_Version_Restore" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_Version_View" />
 		</classes>
 	</test>
 

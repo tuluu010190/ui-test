@@ -14,10 +14,12 @@
 				name="org.exoplatform.selenium.platform.wiki.functional.pagepermission.Wiki_PagePermission_Delete" />
 			<class
 				name="org.exoplatform.selenium.platform.wiki.functional.pagepermission.Wiki_PagePermission_CheckPermission" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.pagepermission.Wiki_PagePermission_Other" />
 		</classes>
 	</test>
 
-	<test name="wiki-func-spaceswitcher" enabled="true">
+	<test name="wiki-func-search" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
@@ -25,12 +27,44 @@
 		</groups>
 		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.spaceswitcher.Wiki_Navigation_Across_Space" />
+				name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Advanced_Search" />
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.spaceswitcher.Wiki_SpaceSwitcher" />
+				name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Quick_Search" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Space_Switcher" />
 		</classes>
 	</test>
-
+	
+	<test name="wiki-func-spacepermission" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_Add" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_Delete" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_CheckPermission" />
+		</classes>
+	</test>
+	
+	<test name="wiki-func-attachment" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Add" /> 
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Delete" />	
+		</classes>
+	</test>
+	
 	<test name="wiki-func-activities" enabled="true">
 		<groups>
 			<run>

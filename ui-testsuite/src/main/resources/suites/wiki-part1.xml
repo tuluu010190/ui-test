@@ -1,20 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Wiki Functional Test" verbose="1" preserve-order="true">
-	<test name="wiki-func-attachment" enabled="true">
-		<groups>
-			<run>
-				<exclude name="pending" />
-			</run>
-		</groups>
-		<classes>
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Add" /> 
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Delete" />	
-		</classes>
-	</test>
-
 	<test name="wiki-func-basicaction" enabled="true">
 		<groups>
 			<run>
@@ -38,28 +24,8 @@
 				name="org.exoplatform.selenium.platform.wiki.functional.basicaction.Wiki_BasicAction_Move_MoveLayout" />
 			<class
 				name="org.exoplatform.selenium.platform.wiki.functional.basicaction.Wiki_BasicAction_Permanlink" />
-		</classes>
-	</test>
-
-	<test name="wiki-func-info" enabled="true">
-		<groups>
-			<run>
-				<exclude name="pending" />
-			</run>
-		</groups>
-		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_RelatedPage_Add" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_RelatedPage_Delete_Rename" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_RelatedPage_View" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_Version_Compare" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_Version_Restore" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.information.Wiki_PageInformation_Version_View" />
+				name="org.exoplatform.selenium.platform.wiki.functional.basicaction.Wiki_BasicAction_Watch_Unwatch" />
 		</classes>
 	</test>
 
