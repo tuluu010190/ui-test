@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class WikiManagement extends WikiHomePage{
+	
 	//Source editor
 	public final By ELEMENT_TITLE_WIKI_INPUT = By.id("titleInput");
 	public final By ELEMENT_CONTENT_WIKI_INPUT = By.id("Markup");
@@ -171,11 +172,10 @@ public class WikiManagement extends WikiHomePage{
 			driver.switchTo().defaultContent();
 	    }
 	    info("Save all changes");
-	    click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+	    saveAddPage();
 		info("Wiki page simple is created successfully");
 	}
-
+	
 	/**
 	 * Edit a simple wiki page with rich editor
 	 * 
@@ -195,11 +195,58 @@ public class WikiManagement extends WikiHomePage{
 			driver.switchTo().defaultContent();
 		}
 		 info("Save all changes");
-		 click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		 waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		 saveAddPage();
 		 info("Wiki page simple is edited successfully");
 	}
 
+	/**
+	 * Add a simple wiki page with source editor
+	 * @param title
+	 * @param content
+	 */
+	public void addWikiPageSimpleWithSourceEditor(String title, String content){
+		info("Input a title for the page");
+		goToSourceEditor();
+		String[] text ;
+		if(!title.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, title,true);
+		info("Input a content for the page");
+	    if(!content.isEmpty()){
+	    	text = content.split("</br>");
+	    	for(int i=0; i < text.length; i++){
+				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+			}
+	    }
+	    info("Save all changes");
+	    saveAddPage();
+		info("Wiki page simple is created successfully");
+	}
+	/**
+	 * Edit a simple wiki page with source editor
+	 * @param newTitle
+	 * @param newContent
+	 */
+	public void editWikiPageSimpleWithSourceEditor(String newTitle, String newContent){
+		info("Input a title for the page");
+		goToSourceEditor();
+		String[] text ;
+		if(!newTitle.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
+		info("Input a content for the page");
+	    if(!newContent.isEmpty()){
+	    	waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).clear();
+	    	text = newContent.split("</br>");
+	    	for(int i=0; i < text.length; i++){
+				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+			}
+	    }
+	    info("Save all changes");
+	    saveAddPage();
+		info("Wiki page simple is created successfully");
+	}
+	
 	/**
 	 * Save add page
 	 */

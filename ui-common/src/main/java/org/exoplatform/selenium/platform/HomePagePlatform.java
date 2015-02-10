@@ -3,12 +3,12 @@ package org.exoplatform.selenium.platform;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.TestBase;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.answer.AnswerHomePage;
 import org.exoplatform.selenium.platform.answer.FaqHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
-
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -193,7 +193,7 @@ public class HomePagePlatform extends TestBase{
 	public void goToWiki(){
 		info("--Go to Wiki--");
 		click(ELEMENT_WIKI_LINK_PLF);
-		waitForAndGetElement(wHome.ELEMENT_WIKI_HOME_PAGE_LINK);	
+		Utils.pause(2000);
 	}
 
 	/**
