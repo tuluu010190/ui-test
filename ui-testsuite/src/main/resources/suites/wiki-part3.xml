@@ -34,57 +34,6 @@
 				name="org.exoplatform.selenium.platform.wiki.functional.search.Wiki_Space_Switcher" />
 		</classes>
 	</test>
-	
-	<test name="wiki-func-spacepermission" enabled="true">
-		<groups>
-			<run>
-				<exclude name="pending" />
-			</run>
-		</groups>
-		<classes>
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_Add" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_Delete" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermissions.Wiki_Permissions_WikiPermissions_CheckPermission" />
-		</classes>
-	</test>
-	
-	<test name="wiki-func-attachment" enabled="true">
-		<groups>
-			<run>
-				<exclude name="pending" />
-			</run>
-		</groups>
-		<classes>
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Add" /> 
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.attachment.Wiki_Attachment_Delete" />	
-		</classes>
-	</test>
-	
-	<test name="wiki-func-activities" enabled="true">
-		<groups>
-			<run>
-				<exclude name="pending" />
-			</run>
-		</groups>
-		<classes>
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Activity_Add" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Activity_Delete" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Activity_Update" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Activity_Dislike" />
-			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Activity_Display" />
-		</classes>
-	</test>
-
 	<listeners>
 		<listener class-name="org.exoplatform.selenium.TestReportListener" />
 	</listeners>

@@ -214,6 +214,24 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>wiki-part4</id>
+			<properties>
+				<testSuite>wiki-part4.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>wiki-part5</id>
+			<properties>
+				<testSuite>wiki-part5.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>wiki-part6</id>
+			<properties>
+				<testSuite>wiki-part6.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>gatein-sniff</id>
 			<properties>
 				<testSuite>gatein-sniff.xml</testSuite>
