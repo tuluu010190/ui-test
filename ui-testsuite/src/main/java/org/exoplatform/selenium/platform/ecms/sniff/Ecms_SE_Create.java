@@ -315,7 +315,7 @@ public class Ecms_SE_Create extends ECMS_TestConfig_Part2{
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Finished creating data test");
 		hp.goToMySpaces();
-		spManag.addNewSpace(spaceName, content);
+		spManag.addNewSpaceSimple(spaceName, content);
 		/*Step Number: 1
 		 *Step Name: -
 		 *Step Description: 

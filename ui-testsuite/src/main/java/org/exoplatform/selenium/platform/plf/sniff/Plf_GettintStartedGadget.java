@@ -211,7 +211,7 @@ public class Plf_GettintStartedGadget extends Plf_TestConfig {
 			- A link labelled "Close" is displayed to invite the user to remove the gadget*/ 
 		info("add an avatar");
 		click(hp.ELEMENT_HP_GETTINGSTARTED_ADDPROFILEPIC);
-		profilPage.changeAvatar("TestData/"+path);
+		myProfile.changeAvatar("TestData/"+path);
 		info("upload a document");
 		hp.goToHomePage();
 		click(hp.ELEMENT_HP_GETTINGSTARTED_UPLOADDOC);
@@ -222,7 +222,7 @@ public class Plf_GettintStartedGadget extends Plf_TestConfig {
 		this.driver.navigate().refresh();
 		info("Joint a space");
 		hp.goToMySpaces();
-		spaceMg.addNewSpace(spacename, spacename);
+		spaceMg.addNewSpaceSimple(spacename, spacename);
 		info("Verify that the progress is completed 100%");
 		hp.goToHomePage();
 		waitForAndGetElement(hp.ELEMENT_HP_GETTINGSTARTED_PROGRESSRATE);

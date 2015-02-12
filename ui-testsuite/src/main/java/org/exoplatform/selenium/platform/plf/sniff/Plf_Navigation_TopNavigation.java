@@ -65,7 +65,7 @@ import org.testng.annotations.*;
 		
 		hp.goToForum();
 		info("Verify that the forum home page is shown full");
-		waitForAndGetElement(forumHP.ELEMENT_FORUM_WHAT_GOING_ON);
+		waitForAndGetElement(forumHP.ELEMENT_FORUM_WHAT_GOING_ON,3000,0);
 		
 		info("Add a category");
 		forumCatMag.addCategorySimple(category,"",category);
@@ -85,7 +85,7 @@ import org.testng.annotations.*;
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		navToolBar.goToAddPoll("",forum);
 		info("Verify that the poll popup is shown");
-		waitForAndGetElement(foTopic.ELEMENT_POLL_SUBMIT);
+		waitForAndGetElement(foTopic.ELEMENT_POLL_SUBMIT,3000,0);
 		info("Delete data");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
@@ -119,7 +119,7 @@ import org.testng.annotations.*;
 		
 		hp.goToForum();
 		info("Verify that the forum home page is shown full");
-		waitForAndGetElement(forumHP.ELEMENT_FORUM_WHAT_GOING_ON);
+		waitForAndGetElement(forumHP.ELEMENT_FORUM_WHAT_GOING_ON,3000,0);
 		
 		info("Add a category");
 		forumCatMag.addCategorySimple(category,"",category);
@@ -151,7 +151,7 @@ import org.testng.annotations.*;
 			- A new Post editor is opened*/ 
 		navToolBar.goToAddTopic("",forum);
 		info("Verify that the topic is shown");
-		waitForAndGetElement(forumMg.ELEMENT_START_TOPIC_POPUP_TITLE);
+		waitForAndGetElement(forumMg.ELEMENT_START_TOPIC_POPUP_TITLE,3000,0);
 		info("Delete data");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);

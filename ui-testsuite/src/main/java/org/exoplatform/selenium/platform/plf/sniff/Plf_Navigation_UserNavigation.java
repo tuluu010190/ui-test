@@ -32,12 +32,12 @@ import org.testng.annotations.*;
 			- The list of applications of space are displayed in the following order:* Profile* Activity Stream* Connections* Wiki
 			- Click on each applications, the application will show up in the main page*/ 
 		click(By.xpath(hp.ELEMENT_SUGGESTIONS_USER.replace("{$user}","FQA VN")));
-		waitForAndGetElement(By.xpath(userProfile.ELEMENT_NAME_OF_USER_TOP_LEFT.replace("{$name}","FQA VN")));
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR);
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIRST_APP_PROFILE);
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR_THIRD_APP_CONNECTIONS);
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR_FORTH_APP_WIKI);
+		waitForAndGetElement(myProfile.ELEMENT_NAME_OF_USER_TOP_LEFT.replace("{$name}","FQA VN"));
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR);
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIRST_APP_PROFILE);
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_THIRD_APP_CONNECTIONS);
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FORTH_APP_WIKI);
 	}
 
 	/**
@@ -61,12 +61,12 @@ import org.testng.annotations.*;
 			- Click on each applications, the application will show up in the main page*/ 
 		click(navToolBar.ELEMENT_TOPBAR_AVATAR);
 		click(navToolBar.ELEMENT_MY_PROFILE_LINK);
-		waitForAndGetElement(By.xpath(userProfile.ELEMENT_NAME_OF_USER_TOP_LEFT.replace("{$name}","John Smith")));
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR);
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIRST_APP_PROFILE);
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR_THIRD_APP_CONNECTIONS);
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR_FORTH_APP_WIKI);
-		waitForAndGetElement(userProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIFTH_APP_DASHBOARD);
+		waitForAndGetElement(myProfile.ELEMENT_NAME_OF_USER_TOP_LEFT.replace("{$name}","John Smith"));
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR);
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIRST_APP_PROFILE);
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_THIRD_APP_CONNECTIONS);
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FORTH_APP_WIKI);
+		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIFTH_APP_DASHBOARD);
  	}
 }

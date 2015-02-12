@@ -68,7 +68,7 @@ public class ForumManagement extends PlatformBase {
 	 */
 	public void addForumSimple(String nameForum, String order, String description) {
 		// TODO Auto-generated method stub
-		waitForAndGetElement(ELEMENT_ACTIONBAR_ADDFORUM);
+		waitForAndGetElement(ELEMENT_ACTIONBAR_ADDFORUM,3000,0);
 		info("click on Add forum button");
 		click(ELEMENT_ACTIONBAR_ADDFORUM);
 	    info("input the title for the forum");

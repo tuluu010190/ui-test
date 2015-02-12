@@ -8,6 +8,9 @@
 		</groups>
 		<classes>
 		    <class name="org.exoplatform.selenium.platform.plf.sniff.Plf_TestConfig"/>
+		    <class name="org.exoplatform.selenium.platform.plf.sniff.Plf_HomepageGadget_WhoIsOnlineGadget"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Plf_HomepageGadget_InvitationGadget"/>
+			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_HomepageGadget_SuggestionGadget"/>
 			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Integration"/>
 			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Navigation_LeftNavigation"/>
 			<class name="org.exoplatform.selenium.platform.plf.sniff.Plf_Navigation_SpaceNavigation"/>

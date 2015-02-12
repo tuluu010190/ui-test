@@ -14,12 +14,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class HomePagePlatform extends TestBase{
-	WikiHomePage wHome;
-	CalendarHomePage cHome;
-	SpaceManagement sMang;
-	AnswerHomePage aHome;
-	ForumHomePage fHome;
-	FaqHomePage fqHome;
 
 	public final By ELEMENT_PLF_HOMEPAGE_DISPLAY = By.xpath("//*[@class='navItemSelected']//*[@href='/portal/intranet/home']");
 	public final By ELEMENT_PLF_HOMEPAGE_ACTIVITY_PORTLET = By.xpath(".//*[@id='UIUserActivityStreamPortlet']//div[@class='uiUserActivitiesContainer']");
@@ -145,6 +139,39 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_HP_GETTINGSTARTED_PROGRESSRATE = By.xpath("//*[@id='progress-rate']/../../../..//*[contains(text(), '100 %')]");
 	public final By ELEMENT_HP_GETTINGSTARTED_CLOSEBOX = By.xpath("//*[@class='gadgetTitle title center']//*[@class='uiIconClose pull-right']");
 
+	// Who's online gadget
+	public final String ELEMENT_WHO_ONLINE_ICON_PEOPLE_NUMBER = "//*[@id='onlineList']/li[{$number}]/a";
+	public final String ELEMENT_WHO_ONLINE_POP_UP_NAME = "//*[@id='tipName']//*[contains(text(),'{$name}')]";
+	public final By ELEMENT_WHO_ONLINE_DEFAULT_AVATAR = By.xpath("//*[@id='tiptip_content']//*[@src='/eXoSkin/skin/images/system/UserAvtDefault.png']");
+	public final By ELEMENT_WHO_ONLINE_CONNECT = By.xpath("//*[@id='tiptip_content']/div//*[contains(text(),'Connect')]");
+	public final By ELEMENT_WHO_ONLINE_CANCEL_CONNECT = By.xpath("//*[@id='tiptip_content']/div//*[contains(text(),'Cancel Request')]");
+	
+	// invitation gadget
+    public final String ELEMENT_INVITATIONS_NAME_OF_PEOPLE_WHO_SEND_REQUEST = "//*[@id='InvitationsPortlet']//*[@class='peopleInviteName']//*[contains(text(),'${name}')]";
+	public final String ELEMENT_INVITATIONS_PEOPLE_AVATAR = ".//*[contains(text(),'${name}')]/../../../..//*[@class='peopleInvitePicture pull-left avatarXSmall']";
+	public final String ELEMENT_INVITAITONS_SPACE_ICON = ".//*[contains(text(),'${name}')]/../..//*[@class='spaceInvitePicture pull-left avatarXSmall']";
+	public final String ELEMENT_INVITAITONS_SPACE_STATUS_MEMBERS=".//*[contains(text(),'${name}')]/..//*[contains(text(),'${statusMember}')]";
+	public final String ELEMENT_INVITATIONS_PEOPLE_ACCEPT_BTN = "//div[@id='InvitationsPortlet']//div[@class='peopleInviteInfo']//a[text()='${name}']/../..//a[contains(text(),'Accept')]";
+	public final String ELEMENT_INVITATIONS_PEOPLE_REFUSE_BTN = "//div[@id='InvitationsPortlet']//div[@class='peopleInviteInfo']//a[text()='${name}']/../..//i[@class='uiIconClose']";
+	public final By ELEMENT_INVITATIONS_GADGET = By.id("InvitationsPortlet");
+	public final String ELEMENT_INVITATIONS_NUMBER= "//*[@id='InvitationsPortlet']//*[contains(text(),'${number}')]";
+	
+	// suggestion gadget
+	public final By ELEMENT_SUGGESTION_BOX = By.xpath(".//*[@class='uiBox uiSuggestions']");
+	public final String ELEMENT_SUGGESTION_NAME ="//*[@id='peopleSuggest']//*[contains(text(),'${name}')]";
+	public final String ELEMENT_SUGGESTION_PEOPLE_CANCEL_BTN ="	//*[@id='peopleSuggest']//*[contains(text(),'${name}')]/../..//*[@class='uiIconClose']";
+	public final String ELEMENT_SUGGESTION_PEOPLE_CONNECT_BTN ="//*[@id='peopleSuggest']//*[contains(text(),'${name}')]/../..//a[contains(text(),'Connect')]";
+	public final String ELEMENT_SUGGESTION_SPACE ="//*[@id='spaceSuggest']//*[contains(text(),'${space}')]";
+	public final String ELEMENT_SUGGESTION_SPACE_REQUEST_BTN ="//*[@id='spaceSuggest']//*[contains(text(),'${space}')]/..//*[contains(text(),'Request')]";
+	public final String ELEMENT_SUGGESTION_SPACE_CANCEL_BTN ="//*[@id='spaceSuggest']//*[contains(text(),'${space}')]/..//i[@class='uiIconClose']";
+	
+	WikiHomePage wHome;
+	CalendarHomePage cHome;
+	SpaceManagement sMang;
+	AnswerHomePage aHome;
+	ForumHomePage fHome;
+	FaqHomePage fqHome;
+	ConnectionsManagement connMg;
 	/**
 	 * constructor
 	 * @param dr
@@ -157,6 +184,7 @@ public class HomePagePlatform extends TestBase{
 		aHome = new AnswerHomePage(dr);
 		fHome = new ForumHomePage(dr);
 		fqHome = new FaqHomePage(dr);
+		connMg = new ConnectionsManagement(dr);
 	}
 
 	/**
@@ -233,6 +261,17 @@ public class HomePagePlatform extends TestBase{
 		driver.get(url);
 		waitForAndGetElement(fqHome.ELEMENT_FAQ_QUESTION_LIST);
 	}
+	/**
+	 * Open Connections page
+	 */
+	public void goToConnections(){
+		info("--Go to Connections page---");
+		info("Click on Connection link");
+		click(ELEMENT_CONNECTIONS_LINK_PLF);
+		info("Verify that the connections portlet is shown");
+		waitForAndGetElement(connMg.ELEMENT_CONNECTION_EVERYONE_TITLE,2000,0);
+		info("The connections portlet is shown successfully");
+	}
 	
 	/**
 	 * Go to connexion
@@ -242,13 +281,6 @@ public class HomePagePlatform extends TestBase{
 		info("Click on connexion link");
 		click(ELEMENT_CONNECTION_LINK_PLF);
 	}
-    /**
-     * type Activity
-     * @param text
-     *//*
-	public void typeActivity(String text) {
-		type(ELEMENT_HP_ACTIVITY_TEXTBOX, text, false);
-		click(ELEMENT_HP_ACTIVITY_SHAREBTN);
-	}*/
+   
 }
 

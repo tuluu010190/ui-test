@@ -5,13 +5,13 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.Branding;
+import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.IDEManagement;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.QuickSearchResult;
-import org.exoplatform.selenium.platform.UserProfile;
 import org.exoplatform.selenium.platform.administration.ManageSites;
 import org.exoplatform.selenium.platform.administration.PageManagement;
 import org.exoplatform.selenium.platform.administration.SearchAdministration;
@@ -39,6 +39,7 @@ import org.exoplatform.selenium.platform.objectdatabase.plf.GettingStartedDataba
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.exoplatform.selenium.platform.social.HomepageActivity;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.SettingSpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
@@ -59,6 +60,7 @@ public class Plf_TestConfig extends PlatformBase {
 	
 	CalendarHomePage calHome;
 	CalendarManagement calMg;
+	ConnectionsManagement connMg;
 	
 	EventManagement eventMag;
 	
@@ -72,7 +74,7 @@ public class Plf_TestConfig extends PlatformBase {
 	
 	ManageSites magSite;
 	ManageLogInOut magAc;
-	MyProfilePage profilPage;
+	MyProfilePage myProfile;
 	ManageAlert alert;
 	
 	NavigationToolbar navToolBar;
@@ -85,13 +87,12 @@ public class Plf_TestConfig extends PlatformBase {
 	SiteExplorerHome SEHome;
 	SpaceManagement spaceMg;
 	SpaceHomePage spaceHome;
+	SettingSpaceManagement setMag;
 	SearchAdministration seaAdmin;
 	
 	PageEditor pagEditor;
 	PageManagement pagMang;
 	PageCreationWizard pagCW;
-	
-	UserProfile userProfile;
 	
 	QuickSearchResult quickSearch;
 	QuestionManagement qMang;
@@ -135,13 +136,14 @@ public class Plf_TestConfig extends PlatformBase {
 		pagEditor = new PageEditor(driver);
 		
 		hpAct = new HomepageActivity(driver);
-		profilPage = new MyProfilePage(driver);
+		myProfile = new MyProfilePage(driver);
 		
 		
 		SEHome = new SiteExplorerHome(driver);
 		spaceHome = new SpaceHomePage(driver);
 		spaceMg = new SpaceManagement(driver);
 		seaAdmin= new SearchAdministration(driver);
+		setMag = new SettingSpaceManagement(driver);
 		
 		forumHP = new ForumHomePage(driver);
 		forumMg = new ForumManagement(driver);
@@ -152,9 +154,9 @@ public class Plf_TestConfig extends PlatformBase {
 		calMg = new CalendarManagement(driver);
 		qMang = new QuestionManagement(driver);
 		quickSearch = new QuickSearchResult(driver);
+		connMg = new ConnectionsManagement(driver);
 		
-		
-		userProfile=new UserProfile(driver);
+		//userProfile=new UserProfile(driver);
 		wikiHome=new WikiHomePage(driver);
 		wikiMag = new WikiManagement(driver);
 		eventMag = new EventManagement(driver);

@@ -171,13 +171,13 @@ public class ForumCategoryManagement extends PlatformBase {
 	public void deleteCategory(String nameCat) {
 		// TODO Auto-generated method stub
 		info("Wait the category is shown");
-		waitForAndGetElement(ELEMENT_FORUM_CATEGORY_HOME_TITLE_LINK.replace("${name}", nameCat));
+		waitForAndGetElement(ELEMENT_FORUM_CATEGORY_HOME_TITLE_LINK.replace("${name}", nameCat),3000,0);
 		info("Click on the category");
-		click(ELEMENT_FORUM_CATEGORY_HOME_TITLE_LINK.replace("${name}", nameCat));
+		click(ELEMENT_FORUM_CATEGORY_HOME_TITLE_LINK.replace("${name}", nameCat),3000,0);
 		info("Select Delete link");
 		selectItemManageCategoryMenu(specifManageCategoryMenu.DELETE);
 		info("Verify that the category is deleted");
-		waitForElementNotPresent(ELEMENT_FORUM_CATEGORY_HOME_TITLE_LINK.replace("${name}", nameCat));
+		waitForElementNotPresent(ELEMENT_FORUM_CATEGORY_HOME_TITLE_LINK.replace("${name}", nameCat),3000,0);
 		info("The category is deleted successfully");
 	}
 	

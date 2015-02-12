@@ -30,11 +30,11 @@ import org.testng.annotations.*;
 			- The left Navigation is displayed
 			- The "COMPANY" list is displayed with applications in the following order:* Home* Connections* Wiki* Documents* Forums* Calendar* Other personal pages*/ 
 		info("Verify expected outcome");
-		waitForAndGetElement(hp.ELEMENT_FORUM_LINK_PLF);
-		waitForAndGetElement(hp.ELEMENT_WIKI_LINK_PLF);
-		waitForAndGetElement(hp.ELEMENT_HOME_LINK_PLF);
-		waitForAndGetElement(hp.ELEMENT_CALENDAR_LINK_PLF);
-		waitForAndGetElement(hp.ELEMENT_CONNECTIONS_LINK_PLF);
+		waitForAndGetElement(hp.ELEMENT_FORUM_LINK_PLF,3000,0);
+		waitForAndGetElement(hp.ELEMENT_WIKI_LINK_PLF,3000,0);
+		waitForAndGetElement(hp.ELEMENT_HOME_LINK_PLF,3000,0);
+		waitForAndGetElement(hp.ELEMENT_CALENDAR_LINK_PLF,3000,0);
+		waitForAndGetElement(hp.ELEMENT_CONNECTIONS_LINK_PLF,3000,0);
 
 		
 		
@@ -67,12 +67,12 @@ import org.testng.annotations.*;
 		magSite.goToEditNavigation("intranet");
 		magSite.addNode(title,"");
 		 info("Verify that the node is added");
-		waitForAndGetElement(By.xpath(hp.ELEMENT_LEFT_PANEL.replace("{$name}",title)));
+		waitForAndGetElement(hp.ELEMENT_LEFT_PANEL.replace("{$name}",title),3000,0);
 		
 		magSite.goToEditNavigation("intranet");
 		magSite.addNode(title2,title);
 		magSite.goToEditNavigation("intranet");
-		waitForAndGetElement(By.xpath(magSite.ELEMENT_NAVIGATION_SUB_NODE_CHECK.replace("{$node}",title)));
+		waitForAndGetElement(magSite.ELEMENT_NAVIGATION_SUB_NODE_CHECK.replace("{$node}",title),3000,0);
 		/*Step number: 2
 		*Step Name: Add sub
 		-node to the group navigation
@@ -134,10 +134,10 @@ import org.testng.annotations.*;
 		String space2= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Create space 1");
 		hp.goToMySpaces();
-		spaceMg.addNewSpace(space1, space1);
+		spaceMg.addNewSpaceSimple(space1, space1);
 		info("Create space 2");
 		hp.goToMySpaces();
-		spaceMg.addNewSpace(space2, space2);
+		spaceMg.addNewSpaceSimple(space2, space2);
 		
 		
 		/*Step Number: 1
@@ -196,10 +196,10 @@ import org.testng.annotations.*;
 		
 		
 		hp.goToMySpaces();
-		spaceMg.addNewSpace(space1, space1);
+		spaceMg.addNewSpaceSimple(space1, space1);
 		
 		hp.goToMySpaces();
-		spaceMg.addNewSpace(space2, space2);
+		spaceMg.addNewSpaceSimple(space2, space2);
 		
 		/*Step Number: 1
 		*Step Name: Connect to intranet
@@ -222,14 +222,14 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- All spaces having a word containing with the inputed letter are displayed*/
 		type(hp.ELEMENT_SEARCH_SPACE,"a",false);
-		waitForAndGetElement(By.xpath(hp.ELEMENT_RESULT_SEARCH_SPACE.replace("{$space}", space1)));
-		waitForAndGetElement(By.xpath(hp.ELEMENT_RESULT_SEARCH_SPACE.replace("{$space}", space2)));
+		waitForAndGetElement(hp.ELEMENT_RESULT_SEARCH_SPACE.replace("{$space}", space1),3000,0);
+		waitForAndGetElement(hp.ELEMENT_RESULT_SEARCH_SPACE.replace("{$space}", space2),3000,0);
 		
 		hp.goToHomePage();
 		
 		type(hp.ELEMENT_SEARCH_SPACE,"ah",false);
-		waitForAndGetElement(By.xpath(hp.ELEMENT_RESULT_SEARCH_SPACE.replace("{$space}", space2)));
-		waitForElementNotPresent(By.xpath(hp.ELEMENT_RESULT_SEARCH_SPACE.replace("{$space}", space1)));
+		waitForAndGetElement(hp.ELEMENT_RESULT_SEARCH_SPACE.replace("{$space}", space2),3000,0);
+		waitForElementNotPresent(hp.ELEMENT_RESULT_SEARCH_SPACE.replace("{$space}", space1),3000,0);
 		/*Step number: 3
 		*Step Name: Search by inputting two letters
 		*Step Description: 

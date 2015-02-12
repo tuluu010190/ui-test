@@ -7,7 +7,6 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-import org.exoplatform.selenium.platform.PlatformPermission;
 import static org.exoplatform.selenium.TestLogger.info;
 /**
  * update : quynhpt
@@ -15,16 +14,11 @@ import static org.exoplatform.selenium.TestLogger.info;
  *
  */
 public class SpaceManagement extends PlatformBase {
-	PlatformPermission per;
-	ManageAlert alert;
-	Button button;
-	Dialog dialog;
 	
 	// Add form space
 	public final By ELEMENT_ADDNEWSPACE_BUTTON = By.xpath("//button[contains(.,'Add New Space')]");
 	public final By ELEMENT_ADDNEWSPACE_FORM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add New Space']");
-	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
-	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
+	
 
 	//Space portlets
 	public By ELEMENT_SPACE_MY_SPACE_PORTLET = By.id("UIMySpacesPortlet");
@@ -36,9 +30,11 @@ public class SpaceManagement extends PlatformBase {
 	public By ELEMENT_ADD_NEW_SPACE_BUTTON = By.xpath("//*[@class='uiIconSocSimplePlus uiIconSocWhite']");
 	public By ELEMENT_ADD_SPACE_FORM = By.id("UIPopupAddSpace");
 
-	//Setting tab form
-	public By ELEMENT_SPACE_SETTING_TAB=By.xpath("//*[@data-target='#UISpaceSettings-tab']");
+	//Add new space popup
+	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
+	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
 
+	
 	//Access and Edit tab form
 	public By ELEMENT_SPACE_ACCESS_EDIT_TAB=By.xpath("//*[@data-target='#UISpaceVisibility-tab']");
 	public By ELEMENT_SPACE_VISIBILITY_VISIBLE_CHECKBOX=By.xpath("//*[@value='private']");
@@ -60,11 +56,13 @@ public class SpaceManagement extends PlatformBase {
 	public String ELEMENT_SPACE_CONFIRM_DELETE="Are you sure you want to delete this space? This cannot be undone. All page navigations and this group will also be deleted";
 	public By ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON=By.xpath("//*[text()='OK']");
 
-	// settings apps
-	public By ELEMENT_SETTINGS_APP_TAB = By.xpath("//*[@id='UITabPane']//*[@class='nav nav-tabs']//*[contains(text(),'Applications')]");
-	public String ELEMENT_DELETE_APP_FROM_TOPBAR = ".//*[@id='UISpaceApplication']//*[contains(text(),'{$application}')]/../..//*[@class='uiIconClose pull-right']";
-	
 	public String ELEMENT_SPACE_NAME_BREADCUMB ="//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name' and contains(text(),'{$name}')]";
+	
+	
+	ManageAlert alert;
+	Button button;
+	Dialog dialog;
+	
 	/**
 	 * constructor
 	 * @param dr
@@ -83,14 +81,6 @@ public class SpaceManagement extends PlatformBase {
 		info("Open create space form");
 		click(ELEMENT_ADD_NEW_SPACE_BUTTON);
 		waitForAndGetElement(ELEMENT_ADD_SPACE_FORM);
-	}
-
-	/**
-	 * Do create space
-	 */
-	public void doCreateSpace(){
-		info("Do create space");
-		click(ELEMENET_SPACE_CREATE_BUTTON);
 	}
 	
 /**
@@ -111,37 +101,7 @@ public class SpaceManagement extends PlatformBase {
 		
 	}
 
-	/**
-	 * input name, des into setting tab
-	 * @param name
-	 * 				name of space
-	 * @param des
-	 * 				description of space
-	 */
-	public void inputDataToSettingTab(String name, String des){
-		info("Input data to setting tab");
-		if(name!=null && name!=""){
-			type(ELEMENT_SPACE_NAME_INPUT,name,true);
-		}
-		if(des!=null && des!=""){
-			type(ELEMENT_SPACE_DESCRIPTION_INPUT,des,true);
-		}
-	}
 
-	/**
-	 * Migrate to PLF 4
-	 * <li>Update by @author vuna2</li>
-	 * Click on a button with a specific label
-	 * 
-	 * @param label : Button label
-	 */
-	public void clickButton(String label) {
-		By button = By.xpath("//div[@class='uiAction']/*[text()='" + label + "']");
-		//("//*[contains(@class,'ActionButton') and text()='" + label + "']");
-		waitForAndGetElement(button);
-		clickByJavascript(button);
-	}
-	
 	/**
 	 * Create quickly a new space
 	 * 
@@ -149,17 +109,18 @@ public class SpaceManagement extends PlatformBase {
 	 * @param desc : Space description
 	 * 
 	 */
-	public void addNewSpace(String name, String desc, int... params) {
+	public void addNewSpaceSimple(String name, String desc, int... params) {
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT; 
 		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
 			click(ELEMENT_ADDNEWSPACE_BUTTON);
 		}else {
 			click(By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]"));
 		}
-		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM);
+		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM,3000,0);
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
-		clickButton("Create");
+		info("Save all changes");
+		click(ELEMENET_SPACE_CREATE_BUTTON);
 		waitForAndGetElement(By.linkText(name), iTimeout);
 		if(waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0) == null){
 			click(By.linkText(name));
@@ -167,13 +128,6 @@ public class SpaceManagement extends PlatformBase {
 		}
 	}
 	
-	/**
-	 * Delete an app from the top menu of space
-	 * @param app
-	 */
-	public void deleteApplications(String app){
-		click(ELEMENT_SETTINGS_APP_TAB);
-		click(By.xpath(ELEMENT_DELETE_APP_FROM_TOPBAR.replace("{$application}",app)));
-	}
 	
+
 }

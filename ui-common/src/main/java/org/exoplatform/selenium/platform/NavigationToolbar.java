@@ -149,12 +149,12 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void goToPotalSites(){
 		info("--Go to Portal-->Sites--");
-		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION);
+		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);
-		mouseOver(ELEMENT_ADMINISTRATION_PORTAL, true);
-		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_SITES);
+		mouseOver(ELEMENT_ADMINISTRATION_PORTAL,true);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_SITES,3000,0);
 		click(ELEMENT_ADMINISTRATION_PORTAL_SITES);
-		waitForAndGetElement(magSites.ELEMENT_MANAGESITES_TITLE);
+		waitForAndGetElement(magSites.ELEMENT_MANAGESITES_TITLE,3000,0);
 	}
 	
 	/**
@@ -387,20 +387,20 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void goToAddPoll(String location,String forum){
 		info("Go to add poll from tootlbar");
-		click(ELEMENT_ADD_TOOTLBAR);
+		waitForAndGetElement(ELEMENT_ADD_TOOTLBAR,3000,0).click();
 		info("Click on Poll link");
-		click(ELEMENT_ADD_POOL_TOOLBAR);
+		waitForAndGetElement(ELEMENT_ADD_POOL_TOOLBAR,3000,0).click();
 		if (!location.isEmpty()){
 			info("Set location for the poll");
-			click(ELEMENT_ADD_POLL_SET_LOCATION);
+			click(ELEMENT_ADD_POLL_SET_LOCATION,3000,0);
 		}
 		info("click on Next button");
-		click(ELEMENT_NEXT_BUTTON);
+		click(ELEMENT_NEXT_BUTTON,2000,0);
 		info("Select a forum for poll");
-		click(ELEMENT_SELECT_FORUM_COMBOBOX);
-		click(ELEMENT_SELECT_FORUM_NAME.replace("${forum}",forum));
+		waitForAndGetElement(ELEMENT_SELECT_FORUM_COMBOBOX,3000,0).click();
+		waitForAndGetElement(ELEMENT_SELECT_FORUM_NAME.replace("${forum}",forum),2000,0).click();
 		info("Click on next button");
-		click(ELEMENT_NEXT_BUTTON);
+		click(ELEMENT_NEXT_BUTTON,2000,0);
 		Utils.pause(2000);
 	}
 	/**

@@ -46,9 +46,9 @@ public class ManageSites extends PlatformBase {
 	 * @param site as acme or intranet
 	 */
 	public void goToEditNavigation(String site){
-		waitForAndGetElement(ELEMENT_MANAGESITES_EDIT_NAVIGATION_ICON.replace("${site}", site));
+		waitForAndGetElement(ELEMENT_MANAGESITES_EDIT_NAVIGATION_ICON.replace("${site}", site),3000,0);
 		click(ELEMENT_MANAGESITES_EDIT_NAVIGATION_ICON.replace("${site}", site));
-		waitForAndGetElement(ELEMENT_NAVIGATION_MANAGEMENT_POPUP_TITLE);
+		waitForAndGetElement(ELEMENT_NAVIGATION_MANAGEMENT_POPUP_TITLE,3000,0);
 	}
 	/**
 	 * list all sublinks in Contextmenu
@@ -88,18 +88,19 @@ public class ManageSites extends PlatformBase {
 			break;
 		}
 	}
-	
+	/**
+	 * Add a node
+	 * @param title
+	 * @param path
+	 */
 	public void addNode(String title,String path){
-		
 		if(path=="")
-			click(ELEMENT_UP_LEVEL_PATH_NODE);
+			waitForAndGetElement(ELEMENT_UP_LEVEL_PATH_NODE,3000,0).click();
 		else
-			click(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("{$name}",path));
-			
-		click(ELEMENT_ADD_NODE);
+			waitForAndGetElement(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("{$name}",path),3000,0).click();
+		waitForAndGetElement(ELEMENT_ADD_NODE,3000,0).click();
 		type(ELEMENT_NODE_NAME,title,true);
-		click(ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
-		click(ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		waitForAndGetElement(ELEMENT_NAVIGATION_MANAGEMENT_SAVE,3000,0).click();
 	}
 	
 	/**

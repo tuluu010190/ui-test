@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.calendar.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -83,9 +82,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 	public void createDataTest(){
 		hp.goToMySpaces();
 		sMang.goToCreateSpace();
-		sMang.inputDataToSettingTab(spaceName, spaceDes);
-		sMang.doCreateSpace();
-		Utils.pause(500);
+		sMang.addNewSpaceSimple(spaceName, spaceDes);
 	}
 	
 	/**

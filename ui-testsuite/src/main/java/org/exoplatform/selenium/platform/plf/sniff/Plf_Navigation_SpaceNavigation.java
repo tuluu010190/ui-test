@@ -24,7 +24,7 @@ import org.testng.annotations.*;
 		info("Test 1: Show the space menu");
 		String space1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToMySpaces();
-		spaceMg.addNewSpace(space1, space1);
+		spaceMg.addNewSpaceSimple(space1, space1);
 		
 		/*Step Number: 1
 		*Step Name: Show space applications
@@ -39,13 +39,13 @@ import org.testng.annotations.*;
 			- All applications dedicated to the space are shown on space menu
 			- Click on each applications, the application will show up in the main page*/ 
 		info("Verify the expected outcome");
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_AGENDA);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_WIKI);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_DOCUMENTS);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_SETTINGS);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ANSWER);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_FORUMS);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM,3000,0);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_AGENDA,3000,0);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_WIKI,3000,0);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_DOCUMENTS,3000,0);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_SETTINGS,3000,0);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ANSWER,3000,0);
+		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_FORUMS,3000);
 		
 		info("Delete the space");
 		hp.goToMySpaces();
@@ -58,7 +58,7 @@ import org.testng.annotations.*;
 		info("Test 02: Remove application of space's toolbar");
 		String space1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToMySpaces();
-		spaceMg.addNewSpace(space1, space1);
+		spaceMg.addNewSpaceSimple(space1, space1);
 		
 		/*Step number: 2
 		*Step Name: Remove an application
@@ -68,8 +68,8 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The application is removed from the space's toolbar*/ 
-		spaceHome.goToSettings();
-		spaceMg.deleteApplications("Answer");
+		spaceHome.goToSettingTab();
+		setMag.deleteApplications("Answer");
 		
 		info("Verify the expected outcome");
 		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM);
