@@ -50,11 +50,7 @@ public class ECMS_SE_Info_Permission  extends PlatformBase {
 	String folder;
 	String document;
 	String subdocument;
-	
-	/**
-	 * QuynhPT changed from BeforeMethod to BeforeTest
-	 * date : 21/10/2014
-	 */
+
 	@BeforeTest
 	public void beforeTest() {
 		initSeleniumTest();
@@ -63,10 +59,6 @@ public class ECMS_SE_Info_Permission  extends PlatformBase {
 		navToolBar.goToSiteExplorer();
 	}
 
-	/**
-	 * QuynhPT changed from AfterMethod to AfterTest
-	 * date: 21/10/2014
-	 */
 	@AfterTest
 	public void afterTest() {
 		info("Logout ECMS");
@@ -384,6 +376,7 @@ public class ECMS_SE_Info_Permission  extends PlatformBase {
 		magAcc.signOut();
 		magAcc.signIn(DATA_USER2, DATA_PASS);
 		navToolBar.goToSiteExplorer();
+		waitForAndGetElement(bFolder);
 
 		//Check if mary has edit, read on node1
 		rightClickOnElement(bFolder);
@@ -668,24 +661,6 @@ public class ECMS_SE_Info_Permission  extends PlatformBase {
 
 		/*Step 3: Open 'Permission Management' pop-up*/
 		//Login by user is not locker
-		
-		/**
-		 * QuynhPT commented this line
-		 * date 21/10/2014
-		 */
-		//loginWithAnotherAccOnThesameBrowser(DATA_USER2, DATA_PASS);
-		
-		/**
-		 * QuynhPT commented these lines
-		 * date 21/10/2014
-		 */
-		//magAcc = new ManageAccount(newDriver);
-		//actBar= new ActionBar(newDriver);
-		//navToolBar = new NavigationToolbar(newDriver);
-		//ePerm = new EcmsPermission(newDriver);
-		//btn = new Button(newDriver);
-		//cMenu = new ContextMenu(newDriver);
-		
 		initSeleniumTest();
 		setUpPages();
 		magAcc.signIn(DATA_USER2, DATA_PASS);
@@ -699,11 +674,16 @@ public class ECMS_SE_Info_Permission  extends PlatformBase {
 		//User can not add/delete or edit permission of this node
 		waitForAndGetElement(ePerm.ELEMENT_TITLE_PERMISSION_POPUP,DEFAULT_TIMEOUT,1);
 		waitForElementNotPresent(ePerm.ELEMENT_DELETE_USER_PERMISSION_1.replace("${userOrGroupName}", user), DEFAULT_TIMEOUT,1);
+		waitForElementNotPresent(ePerm.ELEMENT_INPUT_USER);
+		waitForElementNotPresent(ePerm.ELEMENT_SELECT_USER.replace("${user}", "Select User"));
+		waitForElementNotPresent(ePerm.ELEMENT_SELECT_USER.replace("${user}", "Select Membership"));
+		waitForElementNotPresent(ePerm.ELEMENT_SELECT_USER.replace("${user}", "Select Everyone"));
+
 		info("The test is succcessfull");
 		btn.close();
 		magAcc.signOut();
 
-		/*Clear data*/
+		//Clear data
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 		navToolBar.goToSiteExplorer();
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
@@ -727,7 +707,6 @@ public class ECMS_SE_Info_Permission  extends PlatformBase {
 		//Create node (folder, document) or upload file
 		mDrive.addView2Drive("Admin", "Managed Sites");
 		
-		/**QuynhPT added more this line*/
 		navToolBar.goToSiteExplorer();
 		
 		actBar.goToViewMode("Admin");
@@ -902,6 +881,10 @@ public class ECMS_SE_Info_Permission  extends PlatformBase {
 		//User can not add/delete or edit permission of this node
 		waitForElementNotPresent(By.className("permission"),DEFAULT_TIMEOUT,1);
 		waitForElementNotPresent(ePerm.ELEMENT_DELETE_USER_PERMISSION_1.replace("${userOrGroupName}", user), DEFAULT_TIMEOUT,1);
+		waitForElementNotPresent(ePerm.ELEMENT_INPUT_USER);
+		waitForElementNotPresent(ePerm.ELEMENT_SELECT_USER.replace("${user}", "Select User"));
+		waitForElementNotPresent(ePerm.ELEMENT_SELECT_USER.replace("${user}", "Select Membership"));
+		waitForElementNotPresent(ePerm.ELEMENT_SELECT_USER.replace("${user}", "Select Everyone"));
 		info("The test is succcessfull");
 		btn.close();
 

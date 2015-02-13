@@ -77,10 +77,11 @@
 			</run>
 		</groups>
 		<classes>
- 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ECMS_SiteExplorer_OtherChecks" />
- 		</classes>
-	</test> 
-	
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ECMS_SiteExplorer_OtherChecks" />
+		</classes>
+	</test>
+
 	<test name="ecms-func-se-collaboration" enabled="true">
 		<groups>
 			<run>
@@ -88,8 +89,9 @@
 			</run>
 		</groups>
 		<classes>
- 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ECMS_SiteExplorer_Collaboration" />
- 		</classes>
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ECMS_SiteExplorer_Collaboration" />
+		</classes>
 	</test>
 
 	<listeners>
