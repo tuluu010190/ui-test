@@ -57,8 +57,9 @@ public class ECMS_SE_Admin_Import_WebContent extends PlatformBase {
 	/**
 	 * CaseID: 75003
 	 * Import a Web Content into Web Content
+	 * ERROR: This case related to issue ECMS-5119: Can import a web content into another web content
 	 */
-	@Test(groups={"error"})
+	@Test
 	public void test01_ImportWebContentToWebContent(){
 		String title = "test01_ImportWebContentToWebContent";
 		String css="p{color:red;}";
@@ -84,12 +85,14 @@ public class ECMS_SE_Admin_Import_WebContent extends PlatformBase {
 	 */
 	@Test
 	public void test02_ImportAccessibleBreadcrumbToWebContent(){
-		String title = "test02_ImportAccessibleBreadcrumbToWebContent";
+		String title = "test02_ImportAccessibleBreadcrumbToWebContent" + getRandomNumber();
 		String css="p{color:red;}";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
 		String linkImage = "TestData/test01_webcontent.jpg";
 		String linkFile = "TestData/test02_AccessibleBreadcrumb.xml";
-		String fileImport = "test02_AccessibleBreadcrumb";
+		
+		//String fileImport = "test02_AccessibleBreadcrumb";
+		String fileImport = "test02_ImportAccessibleToIllustrated";	
 		By bImport = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", fileImport));
 		
 		info("Import a Web Content into Web Content");

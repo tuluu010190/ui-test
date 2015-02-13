@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.admin;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -47,8 +48,6 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 	@AfterMethod
 	public void afterMethods() {
 		info("Logout ECMS");
-		//		logoutEcms();
-		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
 
@@ -56,8 +55,9 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 	 * 
 	 * CaseID: 75017
 	 * Import a Illustrated Web Content into Illustrated Web Content
+	 * ERROR: This case is related to issue: ECMS-5119: Can import a web content into another web content
 	 */
-	@Test(groups={"error"})
+	@Test
 	public void test01_ImportIllustratedIntoIllustrated(){
 		String title = "test01_ImportIllustrated";
 		String css="p{color:red;}";
@@ -81,10 +81,11 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 	/**
 	 * CaseID: 75019
 	 * Import Accessible Media into Illustrated Web Content
+	 * Error: ECMS-6692
 	 */
 	@Test
 	public void test02_ImportAccessibleMediaIntoIllustrated(){
-		String title = "test02_ImportAccessibleMediaIntoIllustrated";
+		String title = "test02_Illustrated" + getRandomNumber();
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
 		String css="p{color:red;}";
 		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
@@ -112,13 +113,13 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 	 */
 	@Test
 	public void test03_ImportFileIntoIllustrated(){
-		String title = "test03_Illustrated";
+		String title = "test03_Illustrated" + getRandomNumber();
 		String css="p{color:red;}";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
-		String linkFile = "TestData/test03_ImportFileToIllustrated.xml";
-		String fileImport = "test03_ImportFileIntoIllustrated";
+		String linkFile = "TestData/test8_File.xml";
+		String fileImport = "test8_File";
 		By bImport = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", fileImport));
 		
 		info("Import File into Illustrated Web Content");
@@ -129,6 +130,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import File into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -143,7 +145,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		String title = "test04_ImportAccessibleBreadcrumbIntoIllustrated";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
 		String css="p{color:red;}";
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
 		String linkFile = "TestData/test04_AccessibleBreadcrumb.xml";
 		String fileImport = "test04_AccessibleBreadcrumb";
@@ -157,6 +159,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import Accessible Breadcrumb into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -171,10 +174,10 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		String title = "test05_ImportAccessibleNavigationIntoIllustrated";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
 		String css="p{color:red;}";
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
-		String linkFile = "TestData/test05_AccessibleNavigation.xml";
-		String fileImport = "test05_AccessibleNavigation";
+		String linkFile = "TestData/test04_AccessibleNavigation.xml";
+		String fileImport = "test04_AccessibleNavigation";
 		By bImport = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", fileImport));
 		
 		info("Import Accessible Navigation into Illustrated Web Content");
@@ -185,6 +188,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import Accessible Navigation into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -199,10 +203,10 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		String title = "test06_ImportAccessibleSiteSearchBox";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
 		String css="p{color:red;}";
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
-		String linkFile = "TestData/test06_AccessibleSiteSearchBox.xml";
-		String fileImport = "test06_AccessibleSiteSearchBox";
+		String linkFile = "TestData/test05_SiteSearchBox.zip";
+		String fileImport = "test05_SiteSearchBox";
 		By bImport = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", fileImport));
 		
 		info("Import Accessible Site Search Box into Illustrated Web Content");
@@ -213,6 +217,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import Accessible Site Search Box into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -227,7 +232,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		String title = "test07_ImportAnnouncementIntoIllustrated";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
 		String css="p{color:red;}";
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
 		String linkFile = "TestData/test07_Announcement.zip";
 		String fileImport = "test07_Announcement";
@@ -241,6 +246,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import Announcement into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -256,7 +262,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		By contactUs = By.xpath("//*[@title='"+title+"']/../../../../ul//*[@class='uiIcon16x16acme_contact_usDefault uiIcon16x16acme_contact_us']");
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
 		String css="p{color:red;}";
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
 		String linkFile = "TestData/test08_ContactUs.zip";
 		
@@ -268,6 +274,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import Contact Us into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(contactUs);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -282,7 +289,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		String title = "test09_ImportHTMLFileIntoIllustrated";
 		String css="p{color:red;}";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
 		String linkFile = "TestData/test09_htmlFile.zip";
 		String fileImport = "test09_htmlFile";
@@ -296,6 +303,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import HTML File into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -310,7 +318,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		String title = "test10_ImportWebContentIntoIllustrated";
 		String css="p{color:red;}";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
 		String linkFile = "TestData/test10_WebContent.xml";
 		String fileImport = "test10_WebContent";
@@ -324,6 +332,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import WebContent into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -338,7 +347,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		String title = "test11_ImportJSFileIntoIllustrated";
 		String css="p{color:red;}";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
 		String linkFile = "TestData/test11_JSFile.zip";
 		String fileImport = "test11_JSFile";
@@ -352,6 +361,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import JS File into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -363,10 +373,10 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 	 */
 	@Test
 	public void test12_ImportProductIntoIllustrated(){
-		String title = "test12_ImportProductIntoIllustrated";
+		String title = "test12_ImportProductIntoIllustrated" + getRandomNumber();
 		String css="p{color:red;}";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
 		String linkFile = "TestData/test12_Product.zip";
 		String fileImport = "test12_Product";
@@ -380,6 +390,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import Product into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);
@@ -394,7 +405,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		String title = "test13_ImportProductIntoIllustrated";
 		String css="p{color:red;}";
 		By bNode = By.xpath(siteExp.ELEMENT_NODE_LINK.replace("${nodeLabel}", title));
-		String linkImage = "TestData/test01_ImportIllustrated01.jpg";
+		String linkImage = "";
 		String linkIllustration = "TestData/test01_ImportIllustrated02.png";
 		String linkFile = "TestData/test13_WebLink.zip";
 		String fileImport = "test13_WebLink";
@@ -408,6 +419,7 @@ public class ECMS_SE_Admin_Import_IllustratedWebContent extends PlatformBase {
 		info("Import Web Link into Illustrated Web Content");
 		actBar.importNode(linkFile, "","Create New", false);
 		waitForAndGetElement(bImport);
+		this.driver.navigate().refresh();
 		
 		//Delete data
 		cMenu.deleteDocument(bNode);

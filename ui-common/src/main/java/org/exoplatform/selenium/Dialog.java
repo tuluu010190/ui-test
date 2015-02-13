@@ -1,6 +1,7 @@
 package org.exoplatform.selenium;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -13,12 +14,12 @@ import org.openqa.selenium.WebDriver;
  *
  */
 public class Dialog extends TestBase{
-
+	ManageAlert alt;
 	public Dialog(WebDriver dr) {
 		driver = dr;
+		alt = new ManageAlert(dr);
 	}
 
-	public ManageAlert alt = new ManageAlert(driver);
 	
 	//Dialog warning
 	public final String ELEMENT_POPUP_WARNING = "//*[@class='UIPopupWindow UIDragObject uiPopup']//*[@class='warningIcon' and contains(text(),'${message}')]";

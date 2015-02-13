@@ -454,7 +454,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_PAGE_EXIST_WARNING_MSG = By.xpath("//*[contains(text(),'This page name already exists')]");
 
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
-	public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
+	//public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
+	public final String ELEMENT_NODE_LINK = "//span[contains(@class,'nodeName') and text()='${nodeLabel}']";
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
 	public final By ELEMENT_TITLE_NAVIGATION_MANAGEMENT = By.xpath("//*[contains(@class, 'popupTitle') and text() = 'Navigation Management']");
 	public final By ELEMENT_ADD_NODE_LINK = By.linkText("Add Node");

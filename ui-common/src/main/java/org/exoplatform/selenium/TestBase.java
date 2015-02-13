@@ -68,7 +68,7 @@ public class TestBase {
 	//public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
 	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
-	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
+	public final String DEFAULT_BASEURL="http://192.168.1.21:8080/portal";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -108,8 +108,10 @@ public class TestBase {
     public TestBase(){
 	}
     
+    Actions actions;
 	public TestBase(WebDriver dr){
 		driver = dr;
+		actions = new Actions(driver);
 	}
 
 	/**
@@ -653,7 +655,7 @@ public class TestBase {
 	}
 	public void rightClickOnElement(Object locator, int...opParams) {
 		int display = opParams.length > 0 ? opParams[0]: 0;
-		Actions actions = new Actions(driver);
+		Actions actions = new Actions(this.driver);
 		Utils.pause(500);
 		try {
 			WebElement element = waitForAndGetElement(locator,DEFAULT_TIMEOUT,1,display);

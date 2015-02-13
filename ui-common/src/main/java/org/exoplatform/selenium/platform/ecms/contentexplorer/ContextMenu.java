@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.ecms.contentexplorer;
 
 import static org.exoplatform.selenium.TestLogger.info;
+import junit.framework.Assert;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
@@ -12,21 +13,16 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 
 /**
  * 
  * @author vuna2
  *
  */
+
 public class ContextMenu extends EcmsBase{
-	public ContextMenu(WebDriver dr, String...plfVersion) {
-		super(dr);
-		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.1";
-		// TODO Auto-generated constructor stub
-	}
-	Dialog dialog = new Dialog(driver);
-	Button button = new Button(driver);
+	
+	
 
 	/*
 	 * @Added by PhuongDT
@@ -45,8 +41,12 @@ public class ContextMenu extends EcmsBase{
 	public final By ELEMENT_MENU_CHECKOUT = By.className("uiIconEcmsCheckOut");
 	public final By ELEMENT_MENU_RENAME_NODE = By.linkText("Rename");
 	public final By ELEMENT_MENU_PASTE = By.xpath("//a[contains(text(),'Paste')]");
-	public final By ELEMENT_MENU_DELETE = By.xpath(".//*[@class='uiIconEcmsDelete']");
+	//public final By ELEMENT_MENU_DELETE = By.xpath(".//*[@class='uiIconEcmsDelete']");
+	public final By ELEMENT_MENU_DELETE = By.xpath(".//i[contains(@class, 'uiIconEcmsDelete')]");
+	//public final String ELEMENT_MENU_DELETE = "//i[contains(@class, 'uiIconEcmsDelete')]";
 			//By.className("uiIconEcmsDelete");
+	
+	public final By ELEMENT_MENU_DELETE_ILLUSTRATED_BUTTON = By.xpath(".//*[@class='uiAction uiActionBorder']//button[text()='Delete']");
 	public final By ELEMENT_MENU_DELETE_RIGHT_CLICK_POPUP = By.xpath("//*[@id='JCRContextMenu']/div/ul/li[7]/a");
 	public final By ELEMENT_MENU_EDIT = By.className("uiIconEcmsEditDocument");
 	public final By ELEMENT_MENU_ADD_SYMLINK = By.className("uiIconEcmsAddSymLink");
@@ -64,7 +64,15 @@ public class ContextMenu extends EcmsBase{
 	public final String WARNING_MESSAGE_CANNOT_PASTE = "You cannot paste the copied node type on the current node.";
 	public final String ELEMENT_VERIFY = "//*[text()='${destination}']/../../../../*//*[text()='${source}']";
 	/*=========================================================*/
-
+	Dialog dialog;
+	Button button;
+	public ContextMenu(WebDriver dr, String...plfVersion) {
+		super(dr);
+		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.1";
+		dialog = new Dialog(dr);
+		button = new Button(dr);
+	}
+	
 	/**
 	 * Define a type of action (on NODE) 
 	 * @author vuna2
@@ -212,7 +220,7 @@ public class ContextMenu extends EcmsBase{
 		info(locator.toString() + " is deleted successfully");		
 		Utils.pause(1000);
 	}
-
+	
 	//Delete data
 	public void deleteData(By data){
 		goToNode(data);

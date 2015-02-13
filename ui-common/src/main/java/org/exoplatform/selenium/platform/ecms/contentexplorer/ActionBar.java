@@ -116,19 +116,19 @@ public class ActionBar extends EcmsBase{
 	//publication form
 
 	public final By ELEMENT_PUBLIC_STATUS = By.xpath("//*[contains(text(),'Published')]/..//a");
-    public final By ELEMENT_STAGED_STATUS = By.xpath("//*[contains(text(),'Staged')]/..//a");
-    public final By ELEMENT_PENDING_STATUS = By.xpath("//*[contains(text(),'Pending')]/..//a");
-    public final By ELEMENT_APPROVED_STATUS = By.xpath("//*[contains(text(),'Approved')]/..//a");
+	public final By ELEMENT_STAGED_STATUS = By.xpath("//*[contains(text(),'Staged')]/..//a");
+	public final By ELEMENT_PENDING_STATUS = By.xpath("//*[contains(text(),'Pending')]/..//a");
+	public final By ELEMENT_APPROVED_STATUS = By.xpath("//*[contains(text(),'Approved')]/..//a");
 	public final By ELEMENT_CURRENT_STATUS = By.xpath("//*[@class='currentStatus']");
 	public final String ELEMENT_CURRENT_SPECIFIC_STATUS = "//*[@class='currentStatus']/p[contains(text(),'${status}')]";
 	public final By ELEMENT_CURRENT_PUBLIC_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Published']");
-    public final By ELEMENT_CURRENT_DRAFT_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Draft']");
-    public final By ELEMENT_CURRENT_PENDING_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Pending']");
-    public final By ELEMENT_CURRENT_APPROVED_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Approved']");
-    public final By ELEMENT_CURRENT_STAGED_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Staged']");
-    public final String MSG_INVALID_DATE_TIME = "The date format is invalid. Please check again.";
-    public final String ELEMENT_REVISION = "//td[contains(text(),'${state}[Current Revision]')]";
-    public final String ELEMENT_HISTORY_ITEM = "//div[text()='${state}']";
+	public final By ELEMENT_CURRENT_DRAFT_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Draft']");
+	public final By ELEMENT_CURRENT_PENDING_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Pending']");
+	public final By ELEMENT_CURRENT_APPROVED_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Approved']");
+	public final By ELEMENT_CURRENT_STAGED_STATUS = By.xpath("//*[@class='currentStatus']/*[text()='Staged']");
+	public final String MSG_INVALID_DATE_TIME = "The date format is invalid. Please check again.";
+	public final String ELEMENT_REVISION = "//td[contains(text(),'${state}[Current Revision]')]";
+	public final String ELEMENT_HISTORY_ITEM = "//div[text()='${state}']";
 
 	//View Properties form
 	public final By ELEMENT_VIEW_PROPERTIES_ICON = By.xpath("//i[contains(@class,'uiIconEcmsViewProperties')]");
@@ -160,9 +160,10 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_PUBLICATION_TAB = By.xpath("//a[contains(text(),'Publication')]");
 	public final By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");
 	public final By ELEMENT_EDIT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsEditDocument']");
-	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument']");
+	//public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument']");
+	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument uiIconEcmsLightGray']");
 	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
-    public final By ELEMENT_PUBLISH_ICON = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsPublicationPublish']");
+	public final By ELEMENT_PUBLISH_ICON = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsPublicationPublish']");
 	public final By ELEMENT_PUBLICATION_ICON = By.className("uiIconEcmsManagePublications");
 
 	public final By ELEMENT_PUBLICATION_NODE_ICON=By.xpath("//*[contains(@class,'uiIconEcmsManagePublications uiIconEcmsLightGray')]");
@@ -181,8 +182,8 @@ public class ActionBar extends EcmsBase{
 	public final String ELEMENT_PUBLICATION_STATE = "//p[contains(text(),'{$state}')]/../a[@class='node']";	
 	public final By ELEMENT_SCHEDULE_TAB = By.xpath("//a[text()='Scheduled']");	
 	public final By ELEMENT_PUB_FROM_INPUT = By.name("UIPublicationPanelStartDateInput");
-    public final By ELEMENT_HISTORY_TAB = By.linkText("History");
-    public final By ELEMENT_REVISION_TAB = By.linkText("Revision");
+	public final By ELEMENT_HISTORY_TAB = By.linkText("History");
+	public final By ELEMENT_REVISION_TAB = By.linkText("Revision");
 
 	public final By ELEMENT_PUB_TO_INPUT = By.name("UIPublicationPanelEndDateInput");
 	public final String ELEMENT_REVISION_DATE = "//*[contains(text(), '${status}')]/../td[2]";
@@ -203,7 +204,7 @@ public class ActionBar extends EcmsBase{
 	public final String ELEMENT_SORT_BY_TYPE = "//*[@class='dropdown-menu']//*[contains(text(), '${type}')]";
 	public final By ELEMENT_SORT_DOWN_ARROW = By.className("uiIconSortDown");
 	public final By ELEMENT_SORT_UP_ARROW = By.className("uiIconSortUp");
-	
+
 	// Add site path
 	public final String ELEMENT_SITE_PATH = "//span[@class='nodeName' and text()='${title}']";
 	public final String ELEMENT_ACTIONS = "//*[contains(text(), '${action}')]";
@@ -427,23 +428,19 @@ public class ActionBar extends EcmsBase{
 		waitForAndGetElement(ELEMENT_IMPORT_LINK);
 		click(ELEMENT_IMPORT_LINK);
 		//Switch to frame upload file
-		//		driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME));
 		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload);
 		upload.sendKeys(Utils.getAbsoluteFilePath(linkFile));	
-		//		type(ELEMENT_UPLOAD_IMG_ID, Utils.getAbsoluteFilePath(linkFile), false);
 		Utils.pause(500);
-		//		switchToParentWindow();
+		switchToParentWindow();
 
 		select(ELEMENT_BEHAVIOR, behavior);
 		if (version)
 		{		
-			//			driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_VERSION_FRAME));
 			WebElement uploadVersion = waitForAndGetElement(ELEMENT_UPLOAD_VERSION_ID, DEFAULT_TIMEOUT,1,2);
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", uploadVersion);
 			uploadVersion.sendKeys(Utils.getAbsoluteFilePath(linkVersion));
 			Utils.pause(500);
-			//			switchToParentWindow();
 			click(ELEMENT_IMPORT);
 			Utils.pause(500);
 			waitForMessage("Imported successfully.");
@@ -454,7 +451,7 @@ public class ActionBar extends EcmsBase{
 			waitForAndGetElement(ELEMENT_IMPORT_FILE_LABEL.replace("${fileName}", files[length-1]));
 			Utils.pause(1000);
 			click(ELEMENT_IMPORT);
-			
+
 			waitForMessage("Imported successfully.");
 			click(button.ELEMENT_OK_BUTTON);
 		}
@@ -917,7 +914,7 @@ public class ActionBar extends EcmsBase{
 	//Undo deleted Items
 	public void undoDeletion(String...nodeName){
 		String node = nodeName.length > 0 ? nodeName[0]: "";
-		
+
 		info("-- Undo deletion --");
 		if (node != ""){
 			info("\'" + node + "' was deleted succesfully.");
@@ -1246,12 +1243,12 @@ public class ActionBar extends EcmsBase{
 		}
 		waitForAndGetElement(ELEMENT_HISTORY_TAB);
 		waitForAndGetElement(ELEMENT_REVISION_TAB);
-		
+
 		click(ELEMENT_HISTORY_TAB);
 		waitForAndGetElement(ELEMENT_HISTORY_ITEM.replace("${state}", state));
-		
+
 		button.close();
-		
+
 	}
 
 	/**Add View properties to action bar if it is not shown on action bar
@@ -1694,7 +1691,7 @@ public class ActionBar extends EcmsBase{
 			return true;
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -1721,10 +1718,10 @@ public class ActionBar extends EcmsBase{
 			check(By.xpath(ELEMENT_NAVIGATION_LIST_PATH.replace("${path}", forDetail)),2);	
 		}
 		if(verify){
-		Utils.pause(500);
-		button.save();	
+			Utils.pause(500);
+			button.save();	
 		}
 		else button.cancel();
-			
+
 	}
 }

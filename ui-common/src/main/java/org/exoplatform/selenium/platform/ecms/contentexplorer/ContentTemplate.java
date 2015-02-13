@@ -395,6 +395,7 @@ public class ContentTemplate extends EcmsBase {
 			type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, false);
 		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForAndGetElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", name));		
 		Utils.pause(3000);
 	}
 
@@ -520,8 +521,6 @@ public class ContentTemplate extends EcmsBase {
 			((JavascriptExecutor) driver).executeScript(
 					"arguments[0].style.display = 'block';", upload);
 			upload.sendKeys(Utils.getAbsoluteFilePath(file));
-			// //
-			switchToParentWindow();
 			String links[] = file.split("/");
 			int length = links.length;
 			waitForAndGetElement(By
@@ -537,13 +536,11 @@ public class ContentTemplate extends EcmsBase {
 		if (illustrationSummary != "" || illustrationImage != "") {
 			click(ELEMENT_WEBCONTENT_ILLUSTRATION_TAB);
 			if (illustrationImage != "") {
-				WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME,
+				WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_ILLUSTRATION,
 						DEFAULT_TIMEOUT, 0, 2);
 				((JavascriptExecutor) driver).executeScript(
 						"arguments[0].style.display = 'block';", upload);
 				upload.sendKeys(Utils.getAbsoluteFilePath(illustrationImage));
-				// //
-				switchToParentWindow();
 				String links[] = illustrationImage.split("/");
 				int length = links.length;
 				waitForAndGetElement(By.xpath("//div[contains(text(),'"

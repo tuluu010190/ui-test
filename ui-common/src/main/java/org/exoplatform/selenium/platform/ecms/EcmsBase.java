@@ -57,7 +57,8 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_ADDRESS_BAR = By.id("address");
 
 	//New Folder
-	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder']");
+	//public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder']");
+	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
 	public final By ELEMENT_FOLDER_POPUP_TITLE = By.xpath("//*[contains(@class, 'popupTitle') and text()='New Folder']");
 	public final By ELEMENT_FOLDER_TITLE_TEXTBOX = By.id("titleTextBox");
 	public final By ELEMENT_FOLDER_TYPE_OPTION = By.name("customTypeSelectBox");
@@ -217,6 +218,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_EDIT_NODE_CHECKBOX = By.id("set_property");
 	public final By ELEMENT_REMOVE_NODE_CHECKBOX = By.id("remove");
 	public final By ELEMENT_UPLOAD_NAME = By.name("file");
+	public final By ELEMENT_UPLOAD_ILLUSTRATION=By.xpath("//*[@id='illustration']//*[@name='file']");
 	public final By ELEMENT_UPLOAD_FRAME_EDIT = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_UPLOAD_REMOVE = By.xpath("//i[@class='uiIconDelete uiIconLightGray']");
 	public final By ELEMENT_PIC_FILE_REMOVE = By.xpath("//img[@class='ActionIcon Remove16x16Icon']");

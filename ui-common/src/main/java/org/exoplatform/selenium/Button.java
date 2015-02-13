@@ -23,6 +23,7 @@ public class Button extends TestBase{
 	//By.linkText("Save & Close");
 
 	public final By ELEMENT_OK_BUTTON = By.xpath("//*[text()='OK']");
+	public final String ELMENT_CLOSE_BUTTON_IMPORT_NODE = "//a[contains(@class, 'uiIconClose pull-right') and contains(@title, 'Close Window')] ";
 	public final By ELEMENT_OK_BUTTON_LINK = By.linkText("OK");
 	public final By ELEMENT_NO_BUTTON = By.xpath("//*[text()='No']");
 	public final By ELEMENT_NO_BUTTON_AUX = By.xpath("//*[contains(@class, 'popup')]//*[contains(text(),'No')]");
