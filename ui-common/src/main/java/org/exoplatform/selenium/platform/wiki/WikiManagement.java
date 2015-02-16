@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -13,6 +14,10 @@ import org.openqa.selenium.WebElement;
 
 public class WikiManagement extends WikiHomePage{
 	
+	
+	
+	public final String ELEMENT_PAGE_INFOR_RECENT_CHANES = ".//*[contains(text(),'v.1')]/../..//*[contains(text(),'John Smith')]";
+	public final String ELEMENT_PAGE_INFOR_HIERARCHY_CHILD_PAGES = ".//*[contains(text(),'Child Pages')]/..//*[contains(text(),'${child}')]";
 	//Source editor
 	public final By ELEMENT_TITLE_WIKI_INPUT = By.id("titleInput");
 	public final By ELEMENT_CONTENT_WIKI_INPUT = By.id("Markup");
@@ -50,6 +55,52 @@ public class WikiManagement extends WikiHomePage{
 	public final By ELEMENT_WIKI_PAGE_MOVE_POPUP_SAVE = By.xpath(".//*[@id='UIWikiMovePageForm']//button[contains(text(),'Move')]");
 	public final String ELEMENT_WIKI_PAGE_MOVE_POPUP_NODE =".//*[@id='UIMoveTree']//*[contains(text(),'${name}')]";
 	
+	//Information table
+	public final String ELEMENT_WIKI_PAGE_INFOMATION_VERSION= ".//*[@id='UIWikiPageInfoArea']//*[text()='${version}']";
+	public final By ELEMENT_WIKI_PAGE_INFORMATION_TABLE_TITLE = By.xpath(".//*[@id='UIWikiPageVersionsList2']//*[text()='Page History']");
+    public final String ELEMENT_WIKI_PAGE_INFORMATION_TABLE_CONTENT =".//a[text()='reversion']/../../..//td[contains(text(),'${text}')]";
+	
+    //Information area
+    public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_EDIT_INFOR = ".//*[@id='UIWikiPageInfoArea']//*[contains(.,'${info}')]";
+	public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_TOTAL_ATTACHEDFILES=".//*[@id='UIWikiPageInfoArea']//*[contains(text(),'${number}')]";
+	public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_RESTRICTED_STATUS=".//*[@id='UIWikiPageInfoArea']//*[contains(text(),'${status}')]";
+	
+	//Page info
+	public final String ELEMENT_WIKI_PAGE_PAGE_INFO_TITLE = ".//*[@id='UIWikiPageContainer']/h4[text()='Page Info']";
+	public final By ELEMENT_PAGE_INFO_VIEW_PAGE_INFO_BTN = By.xpath(".//button[text()='View Page History']");
+	public final String ELEMENT_PAGE_INFOR_SUMMARY_TITLE = ".//*[@id='UIWikiPageInfo']//*[contains(text(),'Title')]/../..//*[contains(text(),'${content}')]";
+	public final String ELEMENT_PAGE_INFOR_SUMMARY_AUTHOR =".//*[@id='UIWikiPageInfo']//*[contains(text(),'Author')]/../..//*[contains(text(),'${fullname}')]/..//*[contains(text(),'${date}')]";
+	public final String ELEMENT_PAGE_INFOR_SUMMARY_LAST_CHANGED = ".//*[@id='UIWikiPageInfo']//*[contains(text(),'Last changed by')]/../..//*[contains(text(),'${fullname}')]/..//*[contains(text(),'${date}')]";
+	public final By ELEMENT_PAGE_INFOR_RELATED = By.xpath(".//*[@id='UIWikiPageInfo']//*[contains(text(),'Wiki')]/..//*[contains(text(),'Related Pages')]/..//*[contains(text(),'Actions')]");
+	public final By ELEMENT_PAGE_INFO_ADD_MORE_RELATIONS = By.xpath(".//*[@id='UIWikiPageInfo']//button[text()='Add More Relations']");
+	public final String ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT = ".//*[@id='UIWikiPageInfo']//*[contains(text(),'${col1}')]/..//*[contains(text(),'${col2}')]";
+	public final String ELEMENT_PAGE_INFO_RELATED_TABLE_DELETE_BTN =".//*[contains(text(),'${name}')]/../../../../..//*[@class='uiIconDelete uiIconLightGray']";
+	
+	public final By ELEMENT_PAGE_INFOR_HIERARCHY_PARENT_PAGES = By.xpath(".//*[contains(text(),'Parent Page')]/..//*[contains(text(),'Wiki Home')]");
+	
+	//Page History
+	public final By ELEMENT_WIKI_PAGE_PAGE_HISTORY_TITLE =By.xpath(".//h4[text()='Page History']");
+	public final String ELEMENT_WIKI_PAGE_PAGE_HISTORY_CHECKBOX = ".//a[contains(text(),'${reversion}')]/../../..//input";
+	public final By ELEMENT_WIKI_PAGE_PAGE_HISTORY_COMPARE_BTN = By.xpath(".//button[text()='Compare the selected versions']");
+	
+	//Compare reversion
+	public final By ELEMENT_WIKI_PAGE_COMPARE_REVERSION_TITLE = By.xpath(".//h4[text()='Compare Revisions']");
+	public final String ELEMENT_PAGE_HISTORY_COMPARE_CONTENT =".//*[@id='UIWikiPageVersionsCompare']//*[contains(text(),'${text}')]";
+	
+	
+	//Add more relations
+	public final By ELEMENT_ADD_RELATED_PAGE_POPUP_TITLE = By.xpath(".//*[contains(text(),'Add Related Page')]");
+	public final By ELEMENT_ADD_RELATED_PAGE_POPUP_DROPDOWN=By.xpath(".//*[contains(text(),'Add Related Page')]/../..//*[@data-toggle='dropdown']");
+	public final String ELEMENT_ADD_RELATED_POPUP_DROPDOWN_LOCATION = ".//*[contains(text(),'Add Related Page')]/../..//*[contains(text(),'${location}')]";
+	public final String ELEMENT_ADD_RELATED_POPUP_CONTENT = ".//*[contains(text(),'Add Related Page')]/../..//*[contains(text(),'${page}')]";
+	public final By ELEMENT_ADD_RELATED_POPUP_SELECT_BTN = By.xpath(".//button[text()='Select']");
+	public final By ELEMENT_ADD_RELATED_POPUP_CLOSE_BTN = By.xpath(".//*[contains(text(),'Add Related Page')]/..//*[@class='uiIconClose pull-right']");
+	
+	//Space swithcher drop down
+	public final By ELEMENT_SPACE_SWITHCHER_DROPDOWN_CLOSE=By.xpath(".//*[@id='uiSpaceSwitcher_UIWikiSelectPageForm']/.//*[@title='Close']");
+	public final By ELEMENT_ADD_RELATED_POPUP_DROPDOWN_NOSPACE = By.xpath(".//*[@id='UISpaceSwitcher_nospace'][text()='No Spaces']");
+	
+	ManageAlert alert;
 	/**
 	 * constructor
 	 * @param dr
@@ -57,6 +108,7 @@ public class WikiManagement extends WikiHomePage{
 	public WikiManagement(WebDriver dr){
 		super(dr);
 		this.driver=dr;
+		alert = new ManageAlert(dr);
 	}
 
 	/**
@@ -351,6 +403,7 @@ public class WikiManagement extends WikiHomePage{
 		waitForAndGetElement(By.linkText(link.replace("TestData/", "")));
 	}
 	
+	
 	/**
 	 * Attach many files to a wiki page
 	 */
@@ -412,6 +465,130 @@ public class WikiManagement extends WikiHomePage{
 		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page1),2000);
 		info("The page 1 is moved to page 2");
 	}
-	
+	/**
+	 * Open information table
+	 * @param page
+	 * @param version
+	 */
+	public void viewInformationTable(String page, String version){
+		info("Open a wiki page 1");
+		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page),2000,0).click();
+		info("Open information table");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFOMATION_VERSION.replace("${version}", version),2000,0).click();
+		info("Verify that the table is shown");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_INFORMATION_TABLE_TITLE,2000,0);
+	}
+	/**
+	 * Open page info
+	 * @param page
+	 */
+	public void viewPageInfo(String page){
+		info("Open a wiki page 1");
+		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page),2000,0).click();
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on Page Info link");
+		if (waitForAndGetElement(ELEMENT_PAGE_INFO, 5000, 0) == null){
+			mouseOverAndClick(ELEMENT_PAGE_INFO);
+		}else {
+			click(ELEMENT_PAGE_INFO);
+		}
+		info("The page info is shown");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_PAGE_INFO_TITLE,2000,0);
+	}
+	/**
+	 * Open Page History
+	 */
+	public void openPageHistory(){
+		info("Click on View page info button");
+		waitForAndGetElement(ELEMENT_PAGE_INFO_VIEW_PAGE_INFO_BTN,2000,0).click();
+		info("Page history is shown");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_PAGE_HISTORY_TITLE,2000,0);
+	}
+	/**
+	 * Compare 2 reversion
+	 * @param reversion1
+	 * @param reversion2
+	 */
+	public void compareTwoReversion(String reversion1, String reversion2){
+		info("Select reversion 1");
+		check(ELEMENT_WIKI_PAGE_PAGE_HISTORY_CHECKBOX.replace("${reversion}",reversion1),2);
+		info("Select reversion 2");
+		check(ELEMENT_WIKI_PAGE_PAGE_HISTORY_CHECKBOX.replace("${reversion}",reversion2),2);
+		info("Click on Compare button");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_PAGE_HISTORY_COMPARE_BTN,2000,0).click();
+		info("Compare reversion page is shown");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_COMPARE_REVERSION_TITLE,2000,0);
+		
+	}
+	/**
+	 * Delete an attachment file
+	 */
+	public void deleteAttachmentFile(){
+		info("Click on detele button");
+		click(ELEMENT_PAGE_DELETEATTACHFILE);
+		info("Verify that the file is removed");
+		waitForElementNotPresent(ELEMENT_PAGE_DOWNLOADATTACHFILE);
+	}
+	/**
+	 * Open add related page popup
+	 */
+	public void openAddRelationsPopup(){
+		info("Click on Add more relations");
+		waitForAndGetElement(ELEMENT_PAGE_INFO_ADD_MORE_RELATIONS,2000,0).click();
+		waitForAndGetElement(ELEMENT_ADD_RELATED_PAGE_POPUP_TITLE,200,0);
+		info("Add related page popup is shown");
+	}
+	/**
+	 * Check options in Add Relations drop down list
+	 * @param spaces
+	 */
+	public void checkAddRelationDropDownList(String spaces){
+		info("Click on Drop down");
+		waitForAndGetElement(ELEMENT_ADD_RELATED_PAGE_POPUP_DROPDOWN,2000,0).click();
+		info("Verify that Intranet location is shown is the list");
+		waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_DROPDOWN_LOCATION.replace("${location}","Intranet"),2000,0);
+		info("Verify that My wiki location is shown is the list");
+		waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_DROPDOWN_LOCATION.replace("${location}","My Wiki"),2000,0);
+		if (!spaces.isEmpty()) {
+			String[] arraySpace = spaces.split("/");
+			for(String space:arraySpace){
+				info("Verify that "+space+" location is shown is the list");
+				waitForAndGetElement(
+						ELEMENT_ADD_RELATED_POPUP_DROPDOWN_LOCATION.replace(
+								"${location}",space), 2000, 0);
+			}
+		
+		}
+		waitForAndGetElement(ELEMENT_SPACE_SWITHCHER_DROPDOWN_CLOSE,2000,0).click();
+		info("All options are checked");
+	}
+	/**
+	 * Add a relation to a page
+	 * @param location
+	 * @param page
+	 */
+	public void addRelations(String location,String page){
+		info("Click on Drop down");
+		waitForAndGetElement(ELEMENT_ADD_RELATED_PAGE_POPUP_DROPDOWN,2000,0).click();
+		info("Select a location");
+		click(ELEMENT_ADD_RELATED_POPUP_DROPDOWN_LOCATION.replace("${location}",location));
+	    info("Select a page in the list");
+	    waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_CONTENT.replace("${page}",page),2000,0).click();
+	    info("Save all changes");
+	    waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_SELECT_BTN,2000,0).click();
+	}
+	/**
+	 * Delete a relation of a page
+	 * @param relation
+	 */
+	public void deleteRelation(String relation){
+		info("Click on Delete button");
+		waitForAndGetElement(ELEMENT_PAGE_INFO_RELATED_TABLE_DELETE_BTN.replace("${name}",relation),2000,0);
+		click(ELEMENT_PAGE_INFO_RELATED_TABLE_DELETE_BTN.replace("${name}",relation));
+		alert.acceptAlert();
+		waitForElementNotPresent(ELEMENT_PAGE_INFO_RELATED_TABLE_DELETE_BTN.replace("${name}",relation));
+		info("The relation is deleted");
+	}
 	
 }

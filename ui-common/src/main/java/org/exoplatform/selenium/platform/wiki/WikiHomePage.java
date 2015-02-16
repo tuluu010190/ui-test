@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 public class WikiHomePage extends PlatformBase{
 
 	public final String ELEMENT_WIKI_PAGE_LINK = "//*[@href='/portal/intranet/wiki/${pageTitle}']";
-	public final By ELEMENT_WIKI_HOME_PAGE_LINK = By.xpath("//*[@href='/portal/intranet/wiki/WikiHome']");
+	public final By ELEMENT_WIKI_HOME_PAGE_LINK = By.xpath(".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'Wiki Home')]");
 	public final By ELEMENT_WIKI_HOME_PAGE_TEXT = By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
 	public final By ELEMENT_ADD_PAGE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(),'Add Page')]");
 	public final By ELEMENT_FROM_TEMPLATE_LINK = By.xpath ("//i[@class='uiIconAddPageFromTemplate']");
@@ -27,6 +27,7 @@ public class WikiHomePage extends PlatformBase{
 	public final By ELEMENT_DELETE_LINK_2 = By.className("uiIconDeletePage");
 	public final By ELEMENT_CONFIRM_WIKI_DELETE = By.xpath(".//*[@id='UIWikiDeletePageConfirm']//button[text()='OK']");
 	public final By ELEMENT_MOVE_PAGE = By.xpath(".//*[text()='Move Page']");
+	public final By ELEMENT_PAGE_INFO = By.xpath(".//*[text()='Page Info']");
 	
 	//Content of page
 	public final String ELEMENT_MARCRO_COLOR = "//*[@style='color:${color};' and contains(text(),'${message}')]";
@@ -112,7 +113,7 @@ public class WikiHomePage extends PlatformBase{
 	public void deleteWiki(String title){
 		info("Go to delete wiki page...");
 		info("Select the wiki page to delete");
-		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
+		selectAPage(title);
 		info("Click on More link");
 		click(ELEMENT_MORE_LINK);
 		if (waitForAndGetElement(ELEMENT_DELETE_LINK, 5000, 0) == null){
@@ -123,8 +124,17 @@ public class WikiHomePage extends PlatformBase{
 		waitForAndGetElement(ELEMENT_CONFIRM_WIKI_DELETE,2000,0).click();
 		waitForElementNotPresent(ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 	}
-	
-	
+	/**
+	 * Select a page
+	 * @param page
+	 */
+	public void selectAPage(String page){
+		info("Go to a wiki page...");
+		info("Select the wiki page");
+		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page),2000,0).click();
+		info("The page is shown");
+		waitForAndGetElement(ELEMENT_PAGE_TITLE.replace("${title}", page),2000,0);
+	}
 	/**
 	 * Go to "Go to My Draft"
 	 * 

@@ -11,6 +11,8 @@ import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiMessageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiRichTextDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
+import org.exoplatform.selenium.platform.social.SpaceHomePage;
+import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
@@ -33,6 +35,8 @@ public class Wiki_TestConfig extends PlatformBase {
 	WikiSettingManagement wSettingMg;
 	
 	RichTextEditor rtMode;
+	SpaceManagement spaMg;
+	SpaceHomePage spaHome;
 	
 	TextBoxDatabase txData;
 	AttachmentFileDatabase fData;
@@ -58,6 +62,8 @@ public class Wiki_TestConfig extends PlatformBase {
 		wSettingMg= new WikiSettingManagement(driver);
 		
 		rtMode = new RichTextEditor(driver);
+		spaMg = new SpaceManagement(driver);
+		spaHome = new SpaceHomePage(driver);
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

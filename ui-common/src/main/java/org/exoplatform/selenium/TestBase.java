@@ -1353,4 +1353,16 @@ public class TestBase {
 		click(ELEMENT_SAVE_BTN);
 		Utils.pause(2000);
 	}
+	/**
+	 * Get date by text format
+	 * ex. Saturday, Febuary 16, 2015
+	 * @param format
+	 */
+	public String getDateByTextFormat(String format){
+		DateFormat dateFormat = new SimpleDateFormat(format);
+		Calendar cal = Calendar.getInstance();
+		String date = dateFormat.format(cal.getTime());
+		info(date);
+		return date;
+	}
 }

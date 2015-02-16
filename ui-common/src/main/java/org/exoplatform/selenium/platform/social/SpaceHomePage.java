@@ -23,6 +23,10 @@ public class SpaceHomePage extends PlatformBase{
 	
 	//Navigation menu
 	public By ELEMENT_SPACE_SPACE_SETTINGS=By.xpath("//*[@class='uiIconAppSpaceSettingPortlet uiIconDefaultApp']/..");
+	public By ELEMENT_SPACE_WIKI_TAB=By.xpath(".//*[@id='spaceMenuTab']//*[contains(text(),'Wiki')]");
+	
+	//left menu
+	public String ELEMENT_SPACE_LEFT_MENU_SPACE_NAME = ".//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'${name}')]";
 	
 	
 	SettingSpaceManagement setSpaceMg;
@@ -44,5 +48,24 @@ public class SpaceHomePage extends PlatformBase{
 		click(ELEMENT_SPACE_SPACE_SETTINGS);
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_SPACE_SETTINGS_TITLE,3000,0);
 		info("Space setting page is shown");
+	}
+	/**
+	 * Open Wiki portlet of space
+	 */
+	public void goToWikiTab(){
+		info("--Open Wiki tab of the space");
+		info("Click on the tab");
+		waitForAndGetElement(ELEMENT_SPACE_WIKI_TAB,3000,0).click();
+		info("wiki page is shown");
+	}
+	/**
+	 * Open a space from left menu
+	 * @param name
+	 */
+	public void goToSpace(String name){
+		info("Go to the Space:"+name);
+		waitForAndGetElement(ELEMENT_SPACE_LEFT_MENU_SPACE_NAME.replace("${name}",name),2000,0).click();
+		waitForAndGetElement(ELEMENT_SPACE_NAME.replace("${name}",name),2000,0);
+		info("The space is shown");
 	}
 }
