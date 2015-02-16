@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
+import org.exoplatform.selenium.platform.HomepageActivity;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -18,7 +19,6 @@ import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
 import org.exoplatform.selenium.platform.forum.PrivateMessageManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.social.HomepageActivity;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.testng.annotations.*;
 /**

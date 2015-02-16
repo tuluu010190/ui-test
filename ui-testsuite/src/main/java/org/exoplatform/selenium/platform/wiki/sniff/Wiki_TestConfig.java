@@ -3,13 +3,14 @@ package org.exoplatform.selenium.platform.wiki.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePagePlatform;
+import org.exoplatform.selenium.platform.HomepageActivity;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiMessageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiRichTextDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
-import org.exoplatform.selenium.platform.social.HomepageActivity;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
 import org.exoplatform.selenium.platform.wiki.WikiDraftPage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
@@ -37,6 +38,7 @@ public class Wiki_TestConfig extends PlatformBase {
 	AttachmentFileDatabase fData;
 	WikiRichTextDatabase wData;
 	WikiTemplateDatabase wTempData;
+	WikiMessageDatabase  wMessage;
 	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -69,6 +71,10 @@ public class Wiki_TestConfig extends PlatformBase {
 		wTempData = new WikiTemplateDatabase();
 		wTempData.setWikiTemplateData(wikiTemplateFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 	
+		wMessage = new WikiMessageDatabase();
+		wMessage.setWikiMessageData(wikiMessageFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		
 		info("End setUpBeforeClass");
 	}
 	

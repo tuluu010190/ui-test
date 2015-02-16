@@ -43,6 +43,13 @@ public class WikiManagement extends WikiHomePage{
 	public final String ELEMENT_PREVIEW_TEMPLATE_CONTENT = "//*[@class='uiWikiPageTitlePreview' and contains(text(), '${template}')]";
 	public By ELEMENT_CLOSE_PREVIEW_WINDOW=By.xpath("//div[text()='Preview']/..//*[contains(@class,'uiIconClose')]");
 
+	//comment field
+	public final By ELEMENT_WIKI_PAGE_INPUT_COMMENT = By.id("Comment");
+	
+	//Move page popup
+	public final By ELEMENT_WIKI_PAGE_MOVE_POPUP_SAVE = By.xpath(".//*[@id='UIWikiMovePageForm']//button[contains(text(),'Move')]");
+	public final String ELEMENT_WIKI_PAGE_MOVE_POPUP_NODE =".//*[@id='UIMoveTree']//*[contains(text(),'${name}')]";
+	
 	/**
 	 * constructor
 	 * @param dr
@@ -242,17 +249,17 @@ public class WikiManagement extends WikiHomePage{
 				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
 			}
 	    }
-	    info("Save all changes");
-	    saveAddPage();
-		info("Wiki page simple is created successfully");
+		
 	}
 	
 	/**
 	 * Save add page
 	 */
 	public void saveAddPage(){
+		 info("Save all changes");
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		info("Wiki page simple is created successfully");
 	}
 
 	/**
@@ -267,6 +274,7 @@ public class WikiManagement extends WikiHomePage{
 	 * publish page
 	 */
 	public void publishPage(){
+		info("check on publish checkbox");
 		check(ELEMENT_PUBLISH_ACTIVITY_CHECKBOX, 2);
 	}
 
@@ -374,4 +382,36 @@ public class WikiManagement extends WikiHomePage{
 		type(ELEMENT_CONTENT_WIKI_INPUT, paragraphContent, true);
 		switchToParentWindow();
 	}
+	/**
+	 * input a comment to new wiki page
+	 * @param comment
+	 */
+	public void addComment(String comment){
+		info("Input a comment to wiki page");
+		type(ELEMENT_WIKI_PAGE_INPUT_COMMENT,comment,true);
+	}
+	/**
+	 * Move page 1 to page 2
+	 * @param page1
+	 * @param page2
+	 */
+	public void movePage(String page1, String page2){
+		info("Open a wiki page 1");
+		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page1),2000,0).click();
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on Move page link");
+		if (waitForAndGetElement(ELEMENT_MOVE_PAGE, 5000, 0) == null){
+			mouseOverAndClick(ELEMENT_MOVE_PAGE);
+		}else {
+			click(ELEMENT_MOVE_PAGE);
+		}
+		info("Move page popup is shown");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_MOVE_POPUP_NODE.replace("${name}", page2),2000,0).click();
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_MOVE_POPUP_SAVE,2000,0).click();
+		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page1),2000);
+		info("The page 1 is moved to page 2");
+	}
+	
+	
 }

@@ -7,6 +7,7 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.Branding;
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
+import org.exoplatform.selenium.platform.HomepageActivity;
 import org.exoplatform.selenium.platform.IDEManagement;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -37,7 +38,6 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGatein
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.plf.GettingStartedDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
-import org.exoplatform.selenium.platform.social.HomepageActivity;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.exoplatform.selenium.platform.social.SettingSpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;

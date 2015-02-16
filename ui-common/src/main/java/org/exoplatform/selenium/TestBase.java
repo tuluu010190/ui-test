@@ -74,6 +74,7 @@ public class TestBase {
 	protected String texboxFilePath;
 	protected String changLangDataPath;
 	protected String wikiTemplateFilePath;
+	protected String wikiMessageFilePath;
 	protected String spaceVisibleFilePath;
 	protected String spaceRegistrationFilePath;
 	protected String groupsCalenderFilePath;
@@ -109,6 +110,7 @@ public class TestBase {
 	public final String DEFAULT_REMOTEGADGETURL="DataDriven/"+"remote_gadget_links.xls";
 	public final String DEFAULT_APPGATEINURL="DataDriven/"+"application_gatein.xls";
 	public final String DEFAULT_GETTINGSTARTEDURL="DataDriven/"+"getting_started.xls";
+	public final String DEFAULT_WIKIMESSAGEURL = "DataDriven/"+"wiki_message.xls";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -172,6 +174,7 @@ public class TestBase {
         remoteGadgetDataFilePath = System.getProperty("remoteGadgetDataFilePath");
         appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
         getStartFilePath = System.getProperty("getStartFilePath");
+        wikiMessageFilePath = System.getProperty("wikiMessageFilePath");
 
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 
@@ -201,6 +204,7 @@ public class TestBase {
 	    if (remoteGadgetDataFilePath==null) remoteGadgetDataFilePath = DEFAULT_REMOTEGADGETURL;
 	    if (appGateinDataFilePath==null) appGateinDataFilePath = DEFAULT_APPGATEINURL;
 	    if (getStartFilePath==null) getStartFilePath = DEFAULT_GETTINGSTARTEDURL;
+	    if (wikiMessageFilePath==null) wikiMessageFilePath = DEFAULT_WIKIMESSAGEURL;
 	}
 	
 

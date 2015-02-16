@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.social;
+package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -86,11 +86,11 @@ public class HomepageActivity extends PlatformBase {
 	public String ELEMENT_ACTIVITY_EDIT_FROM_HOMEPAGE ="//*[@id='UIDocumentForm']//*[contains(text(),'{$title}')]";
 	
 	// Common activity
-	public String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[@class='commentList']//*[contains(text(),'{$comment}')]";
+	public String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[contains(text(),'{activity}')]/../../../../..//*[contains(text(),\"${comment}\")]";
 	public String ELEMENT_ACTIVITY_VIEW_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'{$name}')]";
-
+    public String ELEMENT_ACTIVITY_VERSION = ".//*[contains(text(),'${name}')]/../../..//*[.//*[@class='pull-right versionLabel'][text()='${version}']";
 	
 	//Comment box
 	public final String ELEMENT_COMMENTBOX="//*[contains(text(),'${title}')]/../../../..//div[@class='replaceTextArea editable']";
@@ -129,8 +129,42 @@ public class HomepageActivity extends PlatformBase {
 	 */
 	public void checkActivity(String name){
 		info("Verify that the activity of the name:"+name+" is shown");
-		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",name)));
+		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",name)),3000,0);
 		info("The activity of the name:"+name+" is shown successfully");
+	}
+	/**
+	 * Check comment of an activity
+	 * @param activity
+	 * @param comment
+	 */
+	public void checkCommentOfActivity(String activity, String comment){
+		info("Verify that the comment is added");
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${activity}",activity).replace("${comment}", comment),3000,0);
+		info("The comment is added successfully");
+	}
+	/**
+	 * Check activity of adding wiki page with 4 lines in the content
+	 * @param title
+	 * @param content
+	 * @param version
+	 * @param first4lines
+	 */
+	public void checkActivityAddWikiPage(String title, String content, String version){
+		if(version==null)
+			version="Version: 1";
+		String[] arrayline;
+		arrayline=content.split("</br>");
+		info("Check wiki page's title");
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",title),2000,0);
+		info("Check wiki page's version");
+		waitForAndGetElement(ELEMENT_ACTIVITY_VERSION.replace("${name}",title).replace("${version}",version),2000,0);
+		info("Check first 4 lines of the wiki page");
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[0]),2000,0);
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[1]),2000,0);
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[2]),2000,0);
+		waitForAndGetElement(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[3]),2000,0);
+		info("Check line 5 of the wiki page is not shown");
+		waitForElementNotPresent(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[4]));
 	}
 	
 	/**

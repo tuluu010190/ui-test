@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.calendar.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePagePlatform;
+import org.exoplatform.selenium.platform.HomepageActivity;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
@@ -20,7 +21,6 @@ import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainC
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
-import org.exoplatform.selenium.platform.social.HomepageActivity;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;

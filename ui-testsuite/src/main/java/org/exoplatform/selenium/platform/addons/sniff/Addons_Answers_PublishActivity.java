@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
+import org.exoplatform.selenium.platform.HomepageActivity;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.answer.AnswerHomePage;
@@ -17,7 +18,6 @@ import org.exoplatform.selenium.platform.answer.QuestionManagement.actionQuestio
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
-import org.exoplatform.selenium.platform.social.HomepageActivity;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 

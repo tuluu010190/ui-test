@@ -26,6 +26,7 @@ public class WikiHomePage extends PlatformBase{
 	public final By ELEMENT_DELETE_LINK = By.xpath(".//*[text()='Delete Page']");
 	public final By ELEMENT_DELETE_LINK_2 = By.className("uiIconDeletePage");
 	public final By ELEMENT_CONFIRM_WIKI_DELETE = By.xpath(".//*[@id='UIWikiDeletePageConfirm']//button[text()='OK']");
+	public final By ELEMENT_MOVE_PAGE = By.xpath(".//*[text()='Move Page']");
 	
 	//Content of page
 	public final String ELEMENT_MARCRO_COLOR = "//*[@style='color:${color};' and contains(text(),'${message}')]";
@@ -122,6 +123,7 @@ public class WikiHomePage extends PlatformBase{
 		waitForAndGetElement(ELEMENT_CONFIRM_WIKI_DELETE,2000,0).click();
 		waitForElementNotPresent(ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 	}
+	
 	
 	/**
 	 * Go to "Go to My Draft"
