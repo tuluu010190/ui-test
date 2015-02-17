@@ -196,11 +196,18 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		cTemplate.createNewFolder(titlePaste, folderType.Document);
 
 		//Cut and paste the Document folder into Document Folder
+		info("Cut and paste folder");
+		/*cMenu.cutNode(bDoc);
+		rightClickOnElement(bDocDes);
+		cMenu.pasteNode(bDocDes);*/
 		cMenu.cutAndPasteNode(bDoc, bDocDes);
 
 		//Verify if paste Document Folder successfully in Document Folder 
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		waitForElementNotPresent(bDoc);
 		ecms.goToNode(bDocDes);
 		waitForAndGetElement(bDocDes);
+		waitForAndGetElement(bDoc);
 
 		//Delete data
 		cMenu.deleteDocument(bDocDes);
@@ -230,8 +237,11 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		cMenu.cutAndPasteNode(bDoc, bDocDes);
 
 		//Verify if paste Document Folder successfully in Content Folder 
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		waitForElementNotPresent(bDoc);
 		ecms.goToNode(bDocDes);
 		waitForAndGetElement(bDocDes);
+		waitForAndGetElement(bDoc);
 
 		//Delete data
 		cMenu.deleteDocument(bDocDes);
@@ -264,8 +274,11 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		cMenu.cutAndPasteNode(bDoc, bDocDes);
 
 		//Verify if paste Document folder successfully into Web Content document 
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		waitForElementNotPresent(bDoc);
 		ecms.goToNode(bDocDes);
 		waitForAndGetElement(bDocDes);
+		waitForAndGetElement(bDoc);
 
 		//Delete data
 		cMenu.deleteDocument(bDocDes);
@@ -410,7 +423,8 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		By bDoc=By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", titleCut));
 		
 		String img="TestData/ECMS_Admin_ManageCategories_Display.jpg";
-		By bDocDes=By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", img));
+		String img1 = "ECMS_Admin_ManageCategories_Display.jpg";
+		By bDocDes=By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", img1));
 
 		info("Cut a Document Folder and paste it into Uploaded File!");
 		
@@ -458,10 +472,11 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		cMenu.cutAndPasteNode(bDoc, bDocDes);
 	
 		//Verify if paste file document in a node
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForElementNotPresent(bDoc);
 		ecms.goToNode(bDocDes);
-		ecms.goToNode(bDoc);
-		waitForAndGetElement(By.xpath("//*[contains(@value,'"+ titlePaste + "/" + titleCut + "')]"));
+		waitForAndGetElement(bDoc);
+	
 
 		//Delete data
 		cMenu.deleteDocument(bDocDes);
@@ -483,20 +498,22 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 
 		info("Cut a CSS File Document and paste it into a Content Folder!");
 	
+		//Create a Content Folder -destination
+		cTemplate.createNewFolder(titlePaste, folderType.Content);
+				
 		//Create a CSS File document - source
 		actBar.goToAddNewContent();
 		click(cTemplate.ELEMENT_CSS_FILE_LINK);
 		cTemplate.createNewCssFile(titleCut, "", ""	);
 
-		//Create a Content Folder -destination
-		cTemplate.createNewFolder(titlePaste, folderType.Content);
-
 		//Cut and paste the CSS File Document into Content Folder
 		cMenu.cutAndPasteNode(bDoc, bDocDes);
 	
 		//Verify if paste CSS File document in Content Folder
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		waitForElementNotPresent(bDoc);
 		ecms.goToNode(bDocDes);
-		waitForAndGetElement(bDocDes);
+		waitForAndGetElement(bDoc);
 		
 		//Delete data
 		cMenu.deleteDocument(bDocDes);
@@ -530,8 +547,10 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		cMenu.cutAndPasteNode(bDoc, bDocDes);
 	
 		//Verify if paste JS File document in Content Folder
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		waitForElementNotPresent(bDoc);
 		ecms.goToNode(bDocDes);
-		waitForAndGetElement(bDocDes);
+		waitForAndGetElement(bDoc);
 		
 		//Delete data
 		cMenu.deleteDocument(bDocDes);
@@ -564,8 +583,10 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		cMenu.cutAndPasteNode(bDoc, bDocDes);
 	
 		//Verify if paste HTML File document into Content Folder
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		waitForElementNotPresent(bDoc);
 		ecms.goToNode(bDocDes);
-		waitForAndGetElement(bDocDes);
+		waitForAndGetElement(bDoc);
 		
 		//Delete data
 		cMenu.deleteDocument(bDocDes);
@@ -584,10 +605,14 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 
 		info("Cut a checkin File Document and paste it into a Content Folder!");
 
+		//Create a Content Folder -destination
+		cTemplate.createNewFolder(titlePaste, folderType.Content);
+		
 		//Create a File document
 		actBar.goToAddNewContent();
 		cTemplate.createNewAnnouncement(titleCut, titleCut);
 		cMenu.contextMenuAction(bDoc, cMenu.ELEMENT_MENU_CHECKIN);
+		
 
 		//Add icon Version to action bar
 		actBar.addItem2ActionBar("manageVersions", actBar.ELEMENT_VERSIONS_LINK);
@@ -596,16 +621,17 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 
 		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
-		//Create a Content Folder -destination
-		cTemplate.createNewFolder(titlePaste, folderType.Content);
-
 		//Cut and paste the checked in File Document into Content Folder
 		cMenu.cutAndPasteNode(bDoc, bDocDes);
 
 		//Verify if paste the File Document into Content Folder
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForElementNotPresent(bDoc);
+		ecms.goToNode(bDocDes);
+		waitForAndGetElement(bDoc);
+		/*waitForElementNotPresent(bDoc);
 		ecms.goToNode(titlePaste);
-		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", titleCut));
+		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", titleCut));*/
 
 		//Delete data
 		cMenu.deleteDocument(bDocDes);
@@ -624,22 +650,25 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		
 		info("Cut an Uploaded File and paste it into a Content Folder!");
 
+		//Create a Content Folder -destination
+		//click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		cTemplate.createNewFolder(titleDes, folderType.Content);
+		
 		//Upload an Uploaded File - source
 		ecms.uploadFile(img);
 		waitForAndGetElement(bDoc);
-
-		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-
-		//Create a Content Folder -destination
-		cTemplate.createNewFolder(titleDes, folderType.Content);
 
 		//Cut and paste the Uploaded File to a Content Folder
 		cMenu.cutAndPasteNode(bDoc, bDocDes);
 
 		//Verify if paste Uploaded File in a Content Folder
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		waitForElementNotPresent(bDoc);
-		ecms.goToNode(titleDes);
+		ecms.goToNode(bDocDes);
 		waitForAndGetElement(bDoc);
+		/*waitForElementNotPresent(bDoc);
+		ecms.goToNode(titleDes);
+		waitForAndGetElement(bDoc);*/
 
 		//Delete data
 		cMenu.deleteDocument(bDocDes);

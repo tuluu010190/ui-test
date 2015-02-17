@@ -102,6 +102,10 @@ public class ECMS_SE_BasicAction_Clipboard extends PlatformBase {
 		//Clear all action in list
 		click(siteExp.ELEMENT_CLEAR_ALL_ICON);
 		waitForAndGetElement(siteExp.MESSAGE_CLEAR_ALL);
+		waitForElementNotPresent(siteExp.ELEMENT_CLIPBOARD_PATH.replace("${name}", DATA_CONTENT_FOLDER));
+		waitForElementNotPresent(siteExp.ELEMENT_CLIPBOARD_PATH.replace("${name}", DATA_DOCUMENT_FOLDER));
+		waitForElementNotPresent(siteExp.ELEMENT_CLIPBOARD_PATH.replace("${name}", DATA_FILE_NAME));
+		waitForElementNotPresent(siteExp.ELEMENT_CLIPBOARD_PATH.replace("${name}", "Winter.jpg"));
 
 		//Delete data
 		click(siteExp.ELEMENT_SIDEBAR_FILE_EXPLORER);

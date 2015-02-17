@@ -1116,6 +1116,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	public void cutNode(Object locator)	{
+		info("Cut Node");
 		for (int i =0;; i++){
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 				Assert.fail("Timeout");
@@ -1123,7 +1124,7 @@ public class PlatformBase extends TestBase {
 			rightClickOnElement(locator);
 			if (waitForAndGetElement(ELEMENT_ECMS_CUT_NODE, 5000, 0)!=null){
 				debug("==Cut node " + locator + "==");
-				click((ELEMENT_ECMS_CUT_NODE));
+				click((ELEMENT_ECMS_CUT_NODE));				
 				return;
 			}else if (waitForAndGetElement(ELEMENT_NAVIGATION_CUT_NODE, 5000, 0) != null){
 				click(ELEMENT_NAVIGATION_CUT_NODE);
@@ -1132,7 +1133,8 @@ public class PlatformBase extends TestBase {
 				click(ELEMENT_CUT_NODE);
 				return;
 			}
-			Utils.pause(WAIT_INTERVAL);
+			//Utils.pause(WAIT_INTERVAL);
+			Utils.pause(2000);
 		}
 	}
 
@@ -1157,6 +1159,7 @@ public class PlatformBase extends TestBase {
 	}
 
 	public void pasteNode(Object locator) {
+		info("Paste Node");
 		for (int i =0;; i++){
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL){
 				Assert.fail("Timeout");
@@ -1176,7 +1179,8 @@ public class PlatformBase extends TestBase {
 				click(ELEMENT_ECMS_PASTE_NODE);
 				return;
 			}
-			Utils.pause(WAIT_INTERVAL);
+			//Utils.pause(WAIT_INTERVAL);
+			Utils.pause(1000);
 		}
 	}
 
