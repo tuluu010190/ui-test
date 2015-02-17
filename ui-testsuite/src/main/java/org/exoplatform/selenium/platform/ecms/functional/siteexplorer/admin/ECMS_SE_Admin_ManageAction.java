@@ -81,10 +81,10 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 		public void test01_CreateActionForNewTypeActionAddedManually(){
 			/*Declare variable*/
 			String scriptFileContent = "TestData/test01_CreateActionForNewTypeActionAddedManually_Script.txt"; 
-			String scriptLabel = "sendtomail"; 
-			String scriptName = "sendtomail";
-			String actionTypeName = "sendtomail";
-			String variable = "exo:description";
+			String scriptLabel = "sendtomail"+ getRandomNumber(); 
+			String scriptName = scriptLabel;//"sendtomail" + getRandomNumber();
+			String actionTypeName = scriptLabel;// + getRandomNumber();
+			String variable = "exo:description" + getRandomNumber();
 			
 			String templateName = "exo:"+scriptName;
 			String label = "labelTest";
@@ -92,10 +92,10 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			String membership = "*";
 			
 			String fileDialogContent = "TestData/test01_CreateActionForNewTypeActionAddedManually_Dialog.txt";
-			String CONTENT_FOLDER_TITLE = "test01_CreateActionForNewTypeActionAddedManually_Folder";
-			String FILE_TITLE = "test01_CreateActionForNewTypeActionAddedManually_File";
+			String CONTENT_FOLDER_TITLE = "test01_CreateActionForNewTypeActionAddedManually_Folder" + getRandomNumber();
+			String FILE_TITLE = "test01_CreateActionForNewTypeActionAddedManually_File" + getRandomNumber();
 			
-			String actionName = "actionName";
+			String actionName = "actionName" + getRandomNumber();
 			String lifeCycle = "User Action";
 			String actionType = "exo:"+scriptName;
 			
@@ -128,11 +128,13 @@ public class ECMS_SE_Admin_ManageAction extends PlatformBase{
 			
 			/*Step 7: Add manual action for node*/
 			info("Add manual action for node");
-			ecms.goToNode(By.linkText(FILE_TITLE));
+			//ecms.goToNode(By.linkText(FILE_TITLE));
 			Utils.pause(2000);
 			//Check if Category button is shown on action bar
 			actBar.addItem2ActionBar("manageActions", actBar.ELEMENT_ACTION_ICON);
 			
+			ecms.goToNode(By.linkText(CONTENT_FOLDER_TITLE));
+			click(By.linkText(FILE_TITLE));
 			actBar.addNewAction(actionName, lifeCycle, actionType);
 			assert actBar.isActionPresent("actionName");
 			

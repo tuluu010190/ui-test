@@ -67,9 +67,9 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 		@Test
 		public void test01_RenameRelationDocument(){
 			/*Declare variable*/
-			String node1 = "test01_RenameRelationDocument_01";
-			String node2 = "test01_RenameRelationDocument_02";
-			String newNode2="New test01_RenameRelationDocument_02";
+			String node1 = "test01_RenameRelationDocument_01" + getRandomNumber();
+			String node2 = "test01_RenameRelationDocument_02" + getRandomNumber();
+			String newNode2="New test01_RenameRelationDocument_02" + getRandomNumber();
 			By bNode1 = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 			By bNode2 = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
 			By bNewNode2 = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", newNode2));
@@ -80,7 +80,7 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 			click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 			actBar.goToAddNewContent();
 			cTemplate.createNewFile(node2,node2,node2);
-			cTemplate.goToNode(bNode1);
+			//cTemplate.goToNode(bNode1);
 			
 			/*Step 2: Select relation*/
 			actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
@@ -116,8 +116,8 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 		@Test
 		public void test02_AddRelationForDocument(){
 			/*Declare variable*/
-			String node1 = "test02_AddFelationForDocument_01";
-			String node2 = "test02_AddFelationForDocument_02";
+			String node1 = "test02_AddRelationForDocument_01";
+			String node2 = "test02_AddRelationForDocument_02";
 			By bNode2 = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node2));
 			By bNode1 = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 			
@@ -130,12 +130,12 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 			actBar.goToAddNewContent();
 			cTemplate.createNewFile(node2, node2, node2);
 			//go to document
-			cTemplate.goToNode(bNode2);
+			cTemplate.goToNode(bNode1);
 			
 			/*Step 2: Show form to select relation*/
 			/*Step 3: Select relation*/
 			actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
-			actBar.createRelation(node2, "sites/"+node1);
+			actBar.createRelation(node1, "sites/"+node2);
 			
 			/*Step 4: Check relation*/
 			//verify relation tab
@@ -163,7 +163,7 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 		 * Step 4: Check relation
 		 */
 		@Test
-		public void test03_AddRelationRorNodeToUploadedFile(){
+		public void test03_AddRelationForNodeToUploadedFile(){
 			/*Declare variable*/
 			String node1 = "test03_AddRelationRorNodeToUploadedFile";
 			String file = "test03_AddRelationRorNodeToUploadedFile_file.txt";

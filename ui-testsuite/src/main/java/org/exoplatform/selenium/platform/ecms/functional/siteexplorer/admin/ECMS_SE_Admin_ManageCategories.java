@@ -63,7 +63,7 @@ public class ECMS_SE_Admin_ManageCategories extends PlatformBase {
 	@Test
 	public void test01_AddCategoryForDocument(){
 		/*Declare variable*/
-		String node1 = "test01_AddCategoryForDocument";
+		String node1 = "test01_AddCategoryForDocument" + getRandomNumber();
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 		String categoryPath = "Defense";
 		String categoryTree = "powers";
@@ -79,6 +79,7 @@ public class ECMS_SE_Admin_ManageCategories extends PlatformBase {
 		//Check if Category button is shown on action bar
 		actBar.addItem2ActionBar("addCategory", actBar.ELEMENT_CATEGORIES_LINK);
 		//Add category for node
+		ecms.goToNode(By.linkText(node1));
 		actBar.addCategoryForNode(categoryTree, false, categoryPath, categoryNode);
 		actBar.goToManageCategories();
 		waitForAndGetElement(By.xpath("//*[text() = '" + categoryTree + "/" + categoryPath + "/" + categoryNode+"']"));

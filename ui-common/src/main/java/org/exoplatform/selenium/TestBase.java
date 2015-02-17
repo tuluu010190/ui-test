@@ -68,7 +68,8 @@ public class TestBase {
 	//public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
 	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
-	public final String DEFAULT_BASEURL="http://192.168.1.21:8080/portal";
+	//public final String DEFAULT_BASEURL="http://192.168.1.21:8080/portal";
+	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -584,7 +585,7 @@ public class TestBase {
 				if (loop >= ACTION_REPEAT) {
 					Assert.fail("Timeout at type: " + value + " into " + locator);
 				}
-				WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);		
+				WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);	
 				if (element != null){
 					if (validate) element.clear();
 					element.click();

@@ -101,7 +101,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_CHECKIN);
 			
 			//Verify: Version info form appears and node isn't activated version
-			info("Version info form appears and node isn't activated version");
+			info("Version info form appears and node is activated version");
 			actBar.openVersionInfoForm(bNode);
 			assert isTextPresent("(Base Version)");
 			
@@ -153,7 +153,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_CHECKIN);
 			
 			//Verify: Version info form appears and node isn't activated version
-			info("Version info form appears and node isn't activated version");
+			info("Version info form appears and node is activated version");
 			actBar.openVersionInfoForm(bNode);
 			assert isTextPresent("(Base Version)");
 			
@@ -206,8 +206,8 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			cTemplate.inputHtmlFile("","fr",newContent);
 			cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_CHECKIN);
 			
-			//Verify: Version info form appears and node isn't activated version
-			info("Version info form appears and node isn't activated version");
+			//Verify: Version info form appears and node is activated version
+			info("Version info form appears and node is activated version");
 			actBar.openVersionInfoForm(bNode);
 			assert isTextPresent("(Base Version)");
 			
@@ -257,8 +257,8 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			//Click [Check In] from the Right-click menu for a node 
 			cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_CHECKIN);
 			
-			//Verify: Version info form appears and node isn't activated version
-			info("Version info form appears and node isn't activated version");
+			//Verify: Version info form appears and node is activated version
+			info("Version info form appears and node is activated version");
 			actBar.openVersionInfoForm(bNode);
 			assert isTextPresent("(Base Version)");
 			
@@ -308,8 +308,8 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			//Click [Check In] from the Right-click menu for a node 
 			cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_CHECKIN);
 			
-			//Verify: Version info form appears and node isn't activated version
-			info("Version info form appears and node isn't activated version");
+			//Verify: Version info form appears and node is activated version
+			info("Version info form appears and node is activated version");
 			actBar.openVersionInfoForm(bNode);
 			assert isTextPresent("(Base Version)");
 			

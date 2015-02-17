@@ -174,6 +174,8 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_DATA_TITLE = "//*[@data-original-title = '${dataTitle}']";
 	public final String ELEMENT_SYMLINK_TITLE = "//*[@data-original-title = '${symlinkTitle}']";
 	public final String ELEMENT_TARGET_NODE = "//*[contains(text(),'${node}')]/../../td/a[@data-original-title='select']";
+	public final String ELEMENT_SELECT_NODE = "//*[@id='UISelectPathPanel']//tr[2]//i[contains(@class,'uiIconValidate uiIconLightGray')]";
+	public final String ELEMENT_SELECT_NODE_1 = "//*[@id='UISelectPathPanel']//tr[1]//i[contains(@class,'uiIconValidate uiIconLightGray')]";
 	public final String ELEMENT_SYMLINK = "//*[@title='${symlinkTitle}']/i[@class='iconLinkSmall']/../..";
 	public final String ELEMENT_SYMLINK_OTHER = "//*[@data-original-title='${name}.lnk']/*[@class='LinkSmall']";
 	public final String ELEMENT_SYMLINK_PATH_NODE_TITLE = "//*[@id='UIOneNodePathSelector']//a/i[@title='${node}']";
@@ -661,12 +663,14 @@ public class EcmsBase extends ManageAccount {
 			click(By.xpath("//*[@id='UIOneNodePathSelector']//a/i[@title='" + temp[i] + "']"));
 			Utils.pause(100);
 		}
-		By element_select1 = By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']");
-		By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
-		if (waitForAndGetElement(element_select1, 5000, 0) != null){
-			click(element_select1);
-		}else if (waitForAndGetElement(element_select2, 5000, 0) != null){
+		//By element_select1 = By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']");
+		//By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
+		By element_select2 = By.xpath(ELEMENT_SELECT_NODE);
+		By element_select1 = By.xpath(ELEMENT_SELECT_NODE_1);
+		if (waitForAndGetElement(element_select2, 5000, 0) != null){
 			click(element_select2);
+		}else if (waitForAndGetElement(element_select1, 5000, 0) != null){
+			click(element_select1);
 		}
 		Utils.pause(500);
 	}
