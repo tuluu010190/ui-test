@@ -11,10 +11,9 @@ import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class WikiManagement extends WikiHomePage{
-	
-	
 	
 	public final String ELEMENT_PAGE_INFOR_RECENT_CHANES = ".//*[contains(text(),'v.1')]/../..//*[contains(text(),'John Smith')]";
 	public final String ELEMENT_PAGE_INFOR_HIERARCHY_CHILD_PAGES = ".//*[contains(text(),'Child Pages')]/..//*[contains(text(),'${child}')]";
@@ -24,6 +23,7 @@ public class WikiManagement extends WikiHomePage{
 	public final By ELEMENT_PUBLISH_ACTIVITY_CHECKBOX = By.id("PublishActivityUpper");
 	public final By ELEMENT_PREVIEW_BUTTON = By.xpath("//*[@class='uiIconWatchPage']");
 	public final By ELEMENT_PREVIEW_SCREEN = By.xpath("//div[@class='popupTitle' and text()='Preview']");
+	public final By ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT = By.xpath(".//*[@id='UIWikiPageEditForm']//*[contains(text(),'Draft saved')]");
 
 	//Richtext mode
 	public final By ELEMENT_CONTENT_WIKI_FRAME = By.xpath("//div[@class='xRichTextEditor']/iframe");
@@ -40,15 +40,21 @@ public class WikiManagement extends WikiHomePage{
 	//Draft notification
 	public By ELEMENT_DRAFT_NOTIFY = By.xpath("//*[contains(@class, 'uiWikiPageEditForm') and contains(text(), 'Draft saved at')]");
 
-	//Add page from template
-	public final String ELEMENT_SELECT_TEMPLATE_LINK = "//input[@value = '{$template}']";
-	public final By ELEMENT_TEMPLATE_SELECT_FORM = By.id("UIWikiSelectTemplateForm");
+	//Comfirmation popup
+	public By ELEMENT_CONFIRMATION_POPUP_YES_BTN = By.xpath(".//*[@id='UIPortalApplication']//button[text()='Yes']");
 	
+	//Add page from template
+	public final String ELEMENT_SELECT_TEMPLATE_LINK = ".//*[contains(text(),'${template}')]/../..//input";
+    public final String ELEMENT_TEMPLATE_PREVIEW_BTN = ".//*[contains(text(),'${template}')]/../..//*[@class='uiIconPreview uiIconLightGray']";
+	public final By ELEMENT_TEMPLATE_SELECT_FORM = By.id("UIWikiSelectTemplateForm");
+	public final By ELEMENT_TEMPLATE_SELECT_BTN = By.xpath(".//*[@id='UIWikiSelectTemplateForm']//*[text()='Select']");
+	public final By ELEMENT_TEMPLATE_CANCEL_BTN = By.xpath(".//*[@id='UIWikiSelectTemplateForm']//*[text()='Cancel']");
 	//Preview page
 	public final String ELEMENT_PREVIEW_TEMPLATE_CONTENT = "//*[@class='uiWikiPageTitlePreview' and contains(text(), '${template}')]";
 	public By ELEMENT_CLOSE_PREVIEW_WINDOW=By.xpath("//div[text()='Preview']/..//*[contains(@class,'uiIconClose')]");
-
-	//comment field
+    public By ELEMENT_TEMPLATE_PREVIEW_PAGE_CLOSE_BTN = By.xpath(".//*[@id='UIWikiMaskWorkspace']//*[@class='uiIconClose uiIconLightGray']");
+	
+    //comment field
 	public final By ELEMENT_WIKI_PAGE_INPUT_COMMENT = By.id("Comment");
 	
 	//Move page popup
@@ -64,6 +70,8 @@ public class WikiManagement extends WikiHomePage{
     public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_EDIT_INFOR = ".//*[@id='UIWikiPageInfoArea']//*[contains(.,'${info}')]";
 	public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_TOTAL_ATTACHEDFILES=".//*[@id='UIWikiPageInfoArea']//*[contains(text(),'${number}')]";
 	public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_RESTRICTED_STATUS=".//*[@id='UIWikiPageInfoArea']//*[contains(text(),'${status}')]";
+	
+	
 	
 	//Page info
 	public final String ELEMENT_WIKI_PAGE_PAGE_INFO_TITLE = ".//*[@id='UIWikiPageContainer']/h4[text()='Page Info']";
@@ -100,6 +108,12 @@ public class WikiManagement extends WikiHomePage{
 	public final By ELEMENT_SPACE_SWITHCHER_DROPDOWN_CLOSE=By.xpath(".//*[@id='uiSpaceSwitcher_UIWikiSelectPageForm']/.//*[@title='Close']");
 	public final By ELEMENT_ADD_RELATED_POPUP_DROPDOWN_NOSPACE = By.xpath(".//*[@id='UISpaceSwitcher_nospace'][text()='No Spaces']");
 	
+	
+	//Content page
+	public final String ELEMENT_WIKI_PAGE_CONTENT = ".//*[@id='UIViewContentDisplay']//*[contains(text(),'${text}')]";
+	public final String ELEMENT_WIKI_PAGE_EDIT_PARAGRAPH_BTN= ".//*[@id='UIViewContentDisplay']//*[contains(text(),'${text}')]/../..//*[@class='uiIconEdit uiIconLightGray wikimodel-freestanding']";
+	
+	
 	ManageAlert alert;
 	/**
 	 * constructor
@@ -117,7 +131,7 @@ public class WikiManagement extends WikiHomePage{
 	public void selectTemplateWikiPage(String template){
 		info("--Select a template--");
 		waitForAndGetElement(ELEMENT_TEMPLATE_SELECT_FORM);
-		By eTemplate = By.xpath(ELEMENT_SELECT_TEMPLATE_LINK.replace("{$template}",template));
+		By eTemplate = By.xpath(ELEMENT_SELECT_TEMPLATE_LINK.replace("${template}",template));
 		click(eTemplate, 2);
 	}
 
@@ -223,7 +237,7 @@ public class WikiManagement extends WikiHomePage{
 	public void addWikiPageSimpleWithRichText(String title, String content){
 		info("Input a title for the page");
 		if(!title.isEmpty())
-			type(ELEMENT_TITLE_WIKI_INPUT, title, false);
+			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		info("Input a content for the page");
 	    if(!content.isEmpty()){
 	    	inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
@@ -257,6 +271,24 @@ public class WikiManagement extends WikiHomePage{
 		 saveAddPage();
 		 info("Wiki page simple is edited successfully");
 	}
+	/**
+	 * Edit a wiki page with auto save status
+	 * @param newTitle
+	 * @param newContent
+	 */
+	public void editWikiPageWithAutoSaveWithoutSaving(String newTitle, String newContent){
+		info("Input a new title for the page");
+		if(!newTitle.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
+		info("Input a new content for the page");
+		if(!newContent.isEmpty()){
+			inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, newContent);
+			Utils.pause(1000);
+			driver.switchTo().defaultContent();
+		}
+		 info("Waiting 30s before saved all changes");
+		 waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+	}
 
 	/**
 	 * Add a simple wiki page with source editor
@@ -281,6 +313,53 @@ public class WikiManagement extends WikiHomePage{
 	    saveAddPage();
 		info("Wiki page simple is created successfully");
 	}
+	/**
+	 * Add a page with checking auto save after 30s
+	 * @param title
+	 * @param content
+	 */
+	public void addWikiPageSimpleWithAutoSaveStatus(String title, String content){
+		info("Input a title for the page");
+		if(!title.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
+		info("Input a content for the page");
+	    if(!content.isEmpty()){
+	    	inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
+	    	Utils.pause(1000);
+			driver.switchTo().defaultContent();
+	    }
+	    info("Waiting 30s before saved all changes");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+	    info("Save all changes");
+	    saveAddPage();
+		info("Wiki page simple is created successfully");
+		
+	}
+	
+	/**
+	 * Add a new page that has auto save without save
+	 * @param title
+	 * @param content
+	 */
+	public void addWikiPageHasAutoSaveWithoutSave(String title, String content){
+		info("Input a title for the page");
+		if(!title.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
+		info("Input a content for the page");
+	    if(!content.isEmpty()){
+	    	inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
+	    	Utils.pause(1000);
+			driver.switchTo().defaultContent();
+	    }
+	    info("Waiting 30s before saved all changes");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+		info("Cancel adding page");
+		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
+		waitForAndGetElement(ELEMENT_CONFIRMATION_POPUP_YES_BTN,2000,0).click();
+		Utils.pause(2000);
+	}
+	
+	
 	/**
 	 * Edit a simple wiki page with source editor
 	 * @param newTitle
@@ -589,6 +668,67 @@ public class WikiManagement extends WikiHomePage{
 		alert.acceptAlert();
 		waitForElementNotPresent(ELEMENT_PAGE_INFO_RELATED_TABLE_DELETE_BTN.replace("${name}",relation));
 		info("The relation is deleted");
+	}
+	/**
+	 * Add a simple wiki page by template format
+	 * @param template
+	 */
+	public void addSimpleWikiPageByTemplate(String template,String newTitle){
+		info("Select a template");
+		selectTemplateWikiPage(template);
+		click(ELEMENT_TEMPLATE_SELECT_BTN);
+		if(!newTitle.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
+		Utils.pause(2000);
+		info("Save all changes");
+		saveAddPage();
+	}
+	
+	/**
+	 * Add a simple wiki page with template with auto save status
+	 * @param template
+	 */
+	public void addSimpleWikiPageByTemplateWithAutoSave(String template,String newTitle){
+		info("Select a template");
+		selectTemplateWikiPage(template);
+		click(ELEMENT_TEMPLATE_SELECT_BTN);
+		Utils.pause(2000);
+		if(!newTitle.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
+		info("Waiting 30s before saved all changes");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+		info("Save all changes");
+		saveAddPage();
+	}
+	/**
+	 * Preview a template
+	 * @param template
+	 */
+	public void previewATemplate(String template){
+		info("Preview the template");
+		click(ELEMENT_TEMPLATE_PREVIEW_BTN.replace("${template}",template));
+		info("Verify that the layout is shown");
+		waitForAndGetElement(ELEMENT_PREVIEW_TEMPLATE_CONTENT.replace("${template}",template),2000,0);
+		click(ELEMENT_TEMPLATE_PREVIEW_PAGE_CLOSE_BTN);
+		Utils.pause(2000);
+		click(ELEMENT_TEMPLATE_CANCEL_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * Rename the title of the page by double-click on the title field
+	 * @param title
+	 * @param newTitle
+	 */
+	public void renamePageByDoubleClick(String title,String newTitle){
+		info("Open the page");
+		selectAPage(title);
+		Actions action = new Actions(this.driver);
+		action.doubleClick(waitForAndGetElement(ELEMENT_PAGE_TITLE.replace("${title}", title),2000,0)).perform();
+		type(ELEMENT_WIKI_PAGE_TITLE_RENAME_FIELD,newTitle,true);
+		Actions actionEnter = new Actions(this.driver);
+		actionEnter.sendKeys(Keys.ENTER).perform();
+		actionEnter.release();
+		Utils.pause(20000);
 	}
 	
 }

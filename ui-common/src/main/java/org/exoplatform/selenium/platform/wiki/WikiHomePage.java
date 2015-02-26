@@ -16,6 +16,7 @@ public class WikiHomePage extends PlatformBase{
 	public final By ELEMENT_ADD_PAGE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(),'Add Page')]");
 	public final By ELEMENT_FROM_TEMPLATE_LINK = By.xpath ("//i[@class='uiIconAddPageFromTemplate']");
 	public final By ELEMENT_BLANK_PAGE_LINK = By.xpath ("//i[@class='uiIconAddPage']");
+	public final By ELEMENT_WIKI_PAGE_TITLE_RENAME_FIELD = By.xpath(".//*[@id='EdiableInput']");
 	
 	public final String ELEMENT_WIKI_HOME_PAGE_TITLE = "//*[@id='titleInfo' and text()='${title}']";
 
@@ -47,6 +48,7 @@ public class WikiHomePage extends PlatformBase{
 	//Browsers
 	public final By ELEMENT_SEARCH_BROWSERS_DROPDOWN = By.xpath("//*[@class='uiActionWithLabel']/..//*[text()='Browse']");
 	public final By ELEMENT_SEARCH_BROWSERS_WIKI_SETTINGS = By.xpath(".//*[@class='dropdown-menu']//*[text()='Wiki Settings']");
+	public final By ELEMENT_SEARCH_BROWSERS_MY_DRAFT = By.xpath(".//*[@class='dropdown-menu']//*[text()='My Drafts']");
 	
 	//tree explorer
 	public final String ELEMENT_TREE_WIKI_NAME = ".//*[@id='iconTreeExplorer']//*[contains(text(),'${name}')]";
@@ -140,9 +142,11 @@ public class WikiHomePage extends PlatformBase{
 	 * 
 	 */
 	public void goToMyDraft(){
-		info("--Go to add blank wiki page--");
-		mouseOverAndClick(ELEMENT_ADD_PAGE_LINK);
-		mouseOverAndClick(ELEMENT_BLANK_PAGE_LINK);
+		info("Click on Browser drop down");
+		click(ELEMENT_SEARCH_BROWSERS_DROPDOWN);
+		info("Select wiki settings label");
+		click(ELEMENT_SEARCH_BROWSERS_MY_DRAFT);
+		Utils.pause(2000);
 	}
 	/**
 	 * Open search page with a text
