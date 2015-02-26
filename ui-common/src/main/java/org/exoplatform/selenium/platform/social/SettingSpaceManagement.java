@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform.social;
 
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.PlatformBase;
 
 import static org.exoplatform.selenium.TestLogger.info;
@@ -26,12 +27,28 @@ public class SettingSpaceManagement extends PlatformBase{
 	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
 	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
 	
+	//Navigation tab
+	public final By ELEMENT_SPACE_SETTING_NAVIGATION_TAB = By.xpath(".//*[@id='UITabPane']//*[contains(text(),'Navigations')]");
+	public final By ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON = By.xpath(".//*[@id='UISpaceNavigationManagement']//button[text()='Add Node']");
+	public final String ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST =".//*[@id='UISpaceNavigationNodeSelector']//*[contains(text(),'${name}')]";
+	
+	//Add/Edit page node popup
+	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_NODE_TITLE = By.xpath(".//*[@id='AddNode']//*[contains(.,'Add/ Edit Page Node')]");
+	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_NAME = By.xpath(".//*[@id='name']");
+	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_SAVE = By.xpath(".//*[@id='UIPageNodeForm']//button[text()='Save']");
+	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_LABEL = By.xpath(".//*[@id='UIPageNodeForm']//*[contains(text(),'Label')]/..//input");
+	//Context menu
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Edit this Node')]");
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_DELETE= By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Delete Node')]");
+	
+	ManageAlert alert;
 	/**
 	 * constructor
 	 * @param dr
 	 */
 	public SettingSpaceManagement(WebDriver dr){
 		this.driver=dr;
+		alert = new ManageAlert(dr);
 	}
 	
 	/**
@@ -79,5 +96,60 @@ public class SettingSpaceManagement extends PlatformBase{
 			info("input a description");
 			type(ELEMENT_SPACE_DESCRIPTION_INPUT,des,true);
 		}
+	}
+	/**
+	 * Open Navigation tab
+	 */
+	public void goToNavigationTab(){
+		info("Select Navigation tab");
+		waitForAndGetElement(ELEMENT_SPACE_SETTING_NAVIGATION_TAB,3000,0).click();
+		info("The tab is opened succcessfully");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON,3000,0);
+	}
+	/**
+	 * add a new simple node
+	 * @param name
+	 */
+	public void addANodeSimple(String name){
+		info("Click on Add node button");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON,3000,0).click();
+		info("The popup is shown");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_NODE_TITLE,2000,0);
+		info("Input a new name for the node");
+		type(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_NAME,name,true);
+		info("Save all changes");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_SAVE,2000,0).click();
+		info("Verify that the node is added successfully");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", name),3000,0);
+	}
+	/**
+	 * Edit a node with new label
+	 * @param nodeName
+	 * @param label
+	 */
+	public void editANodeSimple(String nodeName, String label){
+		info("Right click on the node");
+		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		info("Select edit link");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT,2000,0).click();
+		info("Input a new name for lable field");
+		type(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_LABEL,label,true);
+		info("Save all changes");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_SAVE,2000,0).click();
+		info("Verify that the node is edited successfully");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", label),3000,0);
+	}
+	/**
+	 * Delete a node
+	 * @param nodeName
+	 */
+	public void deleteANode(String nodeName){
+		info("Right click on the node");
+		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		info("Select delete link");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_DELETE,2000,0).click();
+		alert.acceptAlert();
+		info("Verify that the node is deleted successfully");
+		waitForElementNotPresent(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}",nodeName));
 	}
 }

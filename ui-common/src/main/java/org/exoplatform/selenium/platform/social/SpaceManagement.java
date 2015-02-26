@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.social;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -19,7 +20,15 @@ public class SpaceManagement extends PlatformBase {
 	public final By ELEMENT_ADDNEWSPACE_BUTTON = By.xpath("//button[contains(.,'Add New Space')]");
 	public final By ELEMENT_ADDNEWSPACE_FORM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add New Space']");
 	
-
+	//Search panel
+	public final By ELEMENT_MY_SPACE_SEARCH_TEXT_BOX = By.xpath(".//*[@id='SpaceSearch']");
+	public final By ELEMENT_MY_SPACE_SEARCH_BTN = By.xpath(".//*[@id='UISpaceSearch']//i[@class='uiIconSearch uiIconLightGray']");
+	public final String ELEMENT_MY_SPACE_SEARCH_RESULT = ".//*[@id='UIManageMySpaces']//*[contains(text(),'${name}')]";
+	public final String ELEMENT_MY_SPACE_SEARCH_RESULT_NUMBER = ".//*[@id='UIManageMySpaces']//*[@class='number'][text()='${number}']";
+	
+	//Letter list 
+	public final String ELEMENT_MY_SPACE_LETTER_LIST= ".//*[@class='letterList']//*[text()='${alpha}']";
+	
 	//Space portlets
 	public By ELEMENT_SPACE_MY_SPACE_PORTLET = By.id("UIMySpacesPortlet");
 	public By ELEMENT_SPACE_ALL_SPACE_PORTLET = By.id("UIAllSpacesPortlet");
@@ -51,13 +60,25 @@ public class SpaceManagement extends PlatformBase {
 	public By ELEMENET_SPACE_CREATE_BUTTON=By.xpath("//*[@class='uiAction']/*[text()='Create']");
 	
 	//Delete space
-	public String ELEMENT_SPACE_TITLE="//*[@class='spaceTitle']//*[text()='$space']";
-	public String ELEMENT_SPACE_DELETE_BUTTON="//*[@class='spaceTitle']//*[text()='$space']/../../..//*[text()='Delete']";
+	public String ELEMENT_SPACE_TITLE="//*[@class='spaceTitle']//*[text()='${space}']";
+	public String ELEMENT_SPACE_DELETE_BUTTON="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Delete']";
 	public String ELEMENT_SPACE_CONFIRM_DELETE="Are you sure you want to delete this space? This cannot be undone. All page navigations and this group will also be deleted";
 	public By ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON=By.xpath("//*[text()='OK']");
 
 	public String ELEMENT_SPACE_NAME_BREADCUMB ="//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name' and contains(text(),'{$name}')]";
 	
+	//Invitations received tab
+	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//*[@id='UIManageMySpaces']//*[contains(text(),'Invitations Received')]");
+	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN = ".//*[contains(text(),'${space}')]/../..//button[text()='Accept']";
+	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN = ".//*[contains(text(),'${space}')]/../..//button[text()='Ignore']";
+	
+	//All Spaces tab
+	public final By ELEMENT_MY_SPACE_ALL_SPACES_TAB = By.xpath(".//*[@id='UIManageMySpaces']//*[contains(text(),'All Spaces')]");
+	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN = ".//*[contains(text(),'${space}')]/../..//button[text()='Request to Join']";
+	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING = ".//*[contains(text(),'${space}')]/../..//*[contains(text(),'Request Pending')]";
+	
+	//Request pending tab
+	public final By ELEMENT_MY_SPACE_REQUEST_PENDING_TAB = By.xpath(".//*[contains(text(),'Requests Pending')]");
 	
 	ManageAlert alert;
 	Button button;
@@ -93,11 +114,11 @@ public class SpaceManagement extends PlatformBase {
  */
 	public void deleteSpace(String spaceName, Boolean isVerify){
 		info("Do create space");
-		click(ELEMENT_SPACE_DELETE_BUTTON.replace("$space", spaceName));
+		click(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName));
 		if(isVerify)
 			alert.verifyAlertMessage(ELEMENT_SPACE_CONFIRM_DELETE);
 		click(ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON);
-		waitForElementNotPresent(ELEMENT_SPACE_DELETE_BUTTON.replace("$space", spaceName),60000);
+		waitForElementNotPresent(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName),60000);
 		
 	}
 
@@ -122,12 +143,81 @@ public class SpaceManagement extends PlatformBase {
 		info("Save all changes");
 		click(ELEMENET_SPACE_CREATE_BUTTON);
 		waitForAndGetElement(By.linkText(name), iTimeout);
-		if(waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0) == null){
+		/*if(waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0) == null){
 			click(By.linkText(name));
 			waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0);
+		}*/
+	}
+	/**
+	 * Search a space by name or description
+	 * @param name
+	 * @param number
+	 */
+	public void searchSpace(String name, String number){
+		info("Waiting my space is shown");
+		waitForAndGetElement(ELEMENT_MY_SPACE_SEARCH_TEXT_BOX,3000,0);
+		info("Input the space into search text box");
+		type(ELEMENT_MY_SPACE_SEARCH_TEXT_BOX,name,true);
+		info("Click on Search button");
+		click(ELEMENT_MY_SPACE_SEARCH_BTN);
+		if(!name.isEmpty()){
+			info("Verify that the space is shown in the search result");
+			waitForAndGetElement(ELEMENT_MY_SPACE_SEARCH_RESULT.replace("${name}", name),3000,0);
+		}
+		if(!number.isEmpty()){
+			info("Verify that the number of search result is shown correctly");
+			waitForAndGetElement(ELEMENT_MY_SPACE_SEARCH_RESULT_NUMBER.replace("${number}", number),3000,0);
 		}
 	}
+    /**
+     * Click on an alpha in the list
+     * @param alpha
+     * @param name
+     */
+	public void searchByLetterList(String alpha,String name){
+		info("Waiting my space is shown");
+		waitForAndGetElement(ELEMENT_MY_SPACE_LETTER_LIST.replace("${alpha}", alpha),3000,0);
+		info("click on the alpha");
+		click(ELEMENT_MY_SPACE_LETTER_LIST.replace("${alpha}", alpha));
+		info("Verify that the space is shown in the search result");
+		waitForAndGetElement(ELEMENT_MY_SPACE_SEARCH_RESULT.replace("${name}", name),3000,0);
+	}
+	/**
+	 * Open Invitations received tab
+	 */
+	public void goToInvitationsReceivedTab(){
+		info("Open Invitation Received tab");
+		waitForAndGetElement(ELEMENT_MY_SPACE_INVITATION_RECEIVED,3000,0);
+		click(ELEMENT_MY_SPACE_INVITATION_RECEIVED);
+		Utils.pause(2000);
+	}
+	/**
+	 * Open All Spaces tab
+	 */
+	public void goToAllSpacesTab(){
+		info("Open All spaces tab");
+		waitForAndGetElement(ELEMENT_MY_SPACE_ALL_SPACES_TAB,3000,0);
+		click(ELEMENT_MY_SPACE_ALL_SPACES_TAB);
+		Utils.pause(2000);
+	}
 	
-	
-
+	/**
+	 * Send a request to a space
+	 * @param space
+	 */
+	public void sendARequestToASpace(String space){
+		info("Send a request to a space");
+		waitForAndGetElement(ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN.replace("${space}", space),2000,0).click();
+		info("Verify that request to join button is hidden and request pending status is shown");
+		waitForAndGetElement(ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING.replace("${space}", space),3000,0);
+	}
+	/**
+	 * Open request pending tab
+	 */
+	public void goToRequestPendingTab(){
+		info("Open Request pending tab");
+		//waitForAndGetElement(ELEMENT_MY_SPACE_REQUEST_PENDING_TAB,3000,0);
+		click(ELEMENT_MY_SPACE_REQUEST_PENDING_TAB);
+		Utils.pause(2000);
+	}
 }
