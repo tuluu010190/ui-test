@@ -135,6 +135,7 @@ public class WikiManagement extends WikiHomePage{
 		info("--Select a template--");
 		waitForAndGetElement(ELEMENT_TEMPLATE_SELECT_FORM);
 		By eTemplate = By.xpath(ELEMENT_SELECT_TEMPLATE_LINK.replace("${template}",template));
+		info("eTemplate:"+eTemplate.toString());
 		click(eTemplate, 2);
 	}
 
@@ -238,14 +239,14 @@ public class WikiManagement extends WikiHomePage{
 	 *            updated content of the wiki page. Can not be <code>null</code>
 	 */
 	public void addWikiPageSimpleWithRichText(String title, String content){
+		this.driver.navigate().refresh();
 		info("Input a title for the page");
 		if(!title.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		info("Input a content for the page");
 	    if(!content.isEmpty()){
-	    	inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
-	    	Utils.pause(1000);
-			driver.switchTo().defaultContent();
+	    	//inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
+	    	inputFrame(ELEMENT_CONTENT_WIKI_FRAME, content);
 	    }
 	    info("Save all changes");
 	    saveAddPage();
@@ -266,9 +267,10 @@ public class WikiManagement extends WikiHomePage{
 			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
 		info("Input a new content for the page");
 		if(!newContent.isEmpty()){
-			inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, newContent);
-			Utils.pause(1000);
-			driver.switchTo().defaultContent();
+			inputFrame(ELEMENT_CONTENT_WIKI_FRAME, newContent);
+			//inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, newContent);
+			/*Utils.pause(1000);
+			driver.switchTo().defaultContent();*/
 		}
 		 info("Save all changes");
 		 saveAddPage();
@@ -280,15 +282,19 @@ public class WikiManagement extends WikiHomePage{
 	 * @param newContent
 	 */
 	public void editWikiPageWithAutoSaveWithoutSaving(String newTitle, String newContent){
-		info("Input a new title for the page");
+		info("Input a title for the page");
+		goToSourceEditor();
+		String[] text ;
 		if(!newTitle.isEmpty())
-			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
-		info("Input a new content for the page");
-		if(!newContent.isEmpty()){
-			inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, newContent);
-			Utils.pause(1000);
-			driver.switchTo().defaultContent();
-		}
+			type(ELEMENT_TITLE_WIKI_INPUT, newTitle,true);
+		info("Input a content for the page");
+	    if(!newContent.isEmpty()){
+	    	text = newContent.split("</br>");
+	    	for(int i=0; i < text.length; i++){
+				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+			}
+	    }
 		 info("Waiting 30s before saved all changes");
 		 waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
 	}
@@ -331,9 +337,10 @@ public class WikiManagement extends WikiHomePage{
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		info("Input a content for the page");
 	    if(!content.isEmpty()){
-	    	inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
+	    	inputFrame(ELEMENT_CONTENT_WIKI_FRAME, content);
+	    	/*inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
 	    	Utils.pause(1000);
-			driver.switchTo().defaultContent();
+			driver.switchTo().defaultContent();*/
 	    }
 	}
 	/**
@@ -343,13 +350,17 @@ public class WikiManagement extends WikiHomePage{
 	 */
 	public void addWikiPageSimpleWithAutoSaveStatus(String title, String content){
 		info("Input a title for the page");
+		goToSourceEditor();
+		String[] text ;
 		if(!title.isEmpty())
-			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
+			type(ELEMENT_TITLE_WIKI_INPUT, title,true);
 		info("Input a content for the page");
 	    if(!content.isEmpty()){
-	    	inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
-	    	Utils.pause(1000);
-			driver.switchTo().defaultContent();
+	    	text = content.split("</br>");
+	    	for(int i=0; i < text.length; i++){
+				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+			}
 	    }
 	    info("Waiting 30s before saved all changes");
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
@@ -366,13 +377,17 @@ public class WikiManagement extends WikiHomePage{
 	 */
 	public void addWikiPageHasAutoSaveWithoutSave(String title, String content){
 		info("Input a title for the page");
+		goToSourceEditor();
+		String[] text ;
 		if(!title.isEmpty())
-			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
+			type(ELEMENT_TITLE_WIKI_INPUT, title,true);
 		info("Input a content for the page");
 	    if(!content.isEmpty()){
-	    	inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
-	    	Utils.pause(1000);
-			driver.switchTo().defaultContent();
+	    	text = content.split("</br>");
+	    	for(int i=0; i < text.length; i++){
+				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
+				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
+			}
 	    }
 	    info("Waiting 30s before saved all changes");
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
@@ -838,12 +853,14 @@ public class WikiManagement extends WikiHomePage{
 		info("Check the link's format");
 		String link = waitForAndGetElement(ELEMENT_GMAIL_CONTENT_LINK_WIKI.replace("${page}",title),3000,0).getAttribute("href").toString();
 	    String defaultLink = baseUrl+"/intranet/wiki/"+title;
+	    driver.close();
 	    info("link:"+link);
 	    info("default:"+defaultLink);
 		if(link.contentEquals(defaultLink)==true)
 			assert true;
 		else assert false:"the link's format is incorrect";
 		Utils.pause(2000);
+		
 	}
 	/**
 	 * Get a permalink of the page
@@ -859,7 +876,7 @@ public class WikiManagement extends WikiHomePage{
 	}
 	/**
 	 * Un check view permission for a user or a group
-	 * @param usergroup
+	 * @param locator
 	 */
 	public void unCheckViewAUserOfPage(Object locator){
 		info("Click on More link");

@@ -147,7 +147,6 @@ public class HomepageActivity extends PlatformBase {
 	 * @param title
 	 * @param content
 	 * @param version
-	 * @param first4lines
 	 */
 	public void checkActivityAddWikiPage(String title, String content, String version){
 		if(version==null)
@@ -241,8 +240,8 @@ public class HomepageActivity extends PlatformBase {
 	
 	/**
 	 * Add a new comment on activity stream
-	 * @param activityText: input a text (String) 
-	 * @param contentOfComment: input a comment (String)
+	 * @param filename
+	 * @param textContent
 	 */
 	public void addComment(String filename, String textContent){
 		WebElement input_icon= this.driver.findElement(By.xpath(ELEMENT_ICON_COMMENT.replace("${title}", filename)));
@@ -261,10 +260,10 @@ public class HomepageActivity extends PlatformBase {
 	
 	/**
 	 * Add new activity for space 
-	 * @param addText: boolean
-	 * @param text: input a text (String)
-	 * @param addLink: boolean
-	 * @param link: input a link (String)
+	 * @param addText
+	 * @param text
+	 * @param addLink
+	 * @param link
 	 */
 	public void addActivity (boolean addText, String text, boolean addLink, String link) {
 		info("-- Adding an activity--");

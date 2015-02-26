@@ -14,8 +14,8 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 	 */
 	
 	@Test
-	public  void test01_EditPageUsingSourceEditor() {
-		info("Test 01: Edit page with Source Editor");
+	public  void test02_EditPageUsingSourceEditor() {
+		info("Test 02: Edit page with Source Editor");
 		String wiki = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String wiki2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -53,8 +53,8 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 	 */
 	
 	@Test
-	public  void test02_EditPageUsingRichTextEditor() {
-		info("Test 2: Edit Page with Rich Text Editor");
+	public  void test01_EditPageUsingRichTextEditor() {
+		info("Test 1: Edit Page with Rich Text Editor");
 		String wiki = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String wiki2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -154,7 +154,8 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		wHome.goToEditPage();
-		wikiMg.editWikipageSimpleWithRichText(title2,title2);
+		wikiMg.editWikiPageSimpleWithSourceEditor(title2,title2);
+		wikiMg.saveAddPage();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title2),2000,0);
 		
 		info("Delete the page");
@@ -226,7 +227,7 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 			- Add new page successfully */
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(title, title);
+		wikiMg.addWikiPageSimpleWithSourceEditor(title, title);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		/*Step Number: 2
@@ -332,7 +333,7 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 			- Add new page successfully */
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(title, title);
+		wikiMg.addWikiPageSimpleWithSourceEditor(title, title);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		/*Step Number: 2

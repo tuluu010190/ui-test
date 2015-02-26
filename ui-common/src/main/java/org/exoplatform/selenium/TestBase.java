@@ -1371,6 +1371,7 @@ public class TestBase {
 			inputsummary.sendKeys(data);
 			//	((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
 			switchToParentWindow();
+			//((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
@@ -1387,6 +1388,7 @@ public class TestBase {
 			driver.switchTo().defaultContent();
 			inputDataToCKEditor (framelocator,data);
 		}
+		switchToParentWindow();
 	}
 	/**
 	 * Press Enter key
@@ -1472,10 +1474,8 @@ public class TestBase {
 
 	/**
 	 * Attach file in attach popup
-	 * @param number
-	 *            : number of upload container that need upload file
-	 * @param filePath
-	 *            : path to file upload
+	 * @param pathFile
+	 * @param fileName
 	 */
 	public void attachFile(String pathFile, String fileName) {
 		info("Attach a file");

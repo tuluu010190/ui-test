@@ -47,6 +47,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>social-sniff</id>
+			<properties>
+				<testSuite>social-sniff.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>ecms-sniff-part1</id>
 			<properties>
 				<testSuite>ecms-sniff-part1.xml</testSuite>

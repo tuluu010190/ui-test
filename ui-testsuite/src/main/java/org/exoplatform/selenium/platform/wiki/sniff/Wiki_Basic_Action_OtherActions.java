@@ -6,7 +6,12 @@ import org.testng.annotations.*;
 import org.exoplatform.selenium.Utils;
 
 public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
-
+    
+	@AfterMethod
+	public void setAfterMedthod(){
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+	}
 	/**
 	 *<li> Case ID:122810.</li>
 	 *<li> Test Case Name: Move Page.</li>
@@ -60,8 +65,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	 * check issue WIKI-976 (wrong link in the mail)
 	 */
 	@Test
-	public  void test02_WatchAWikiPageOfIntranet() {
-		info("Test 2: Watch a wiki page of intranet");
+	public  void test17_WatchAWikiPageOfIntranet() {
+		info("Test 17: Watch a wiki page of intranet");
 
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String update = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -307,7 +312,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki,wiki);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki,wiki);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		/*Step number: 2
@@ -330,11 +335,11 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		driver.get(perLink);
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LEFTBOX.replace("${title}",wiki));
 		
-		info("Delete page");
+		/*info("Delete page");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);
+		spaMg.deleteSpace(space,false);*/
 
 	}
 
@@ -373,7 +378,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki,wiki);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki,wiki);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		String perLink=wikiMg.permalinkAPage();
@@ -395,11 +400,12 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		driver.get(perLink);
 		waitForAndGetElement(wHome.ELEMENT_WIKI_HOME_PAGENOTFOUND);
 		
-		info("Delete page");
+		
+		/*info("Delete page");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);
+		spaMg.deleteSpace(space,false);*/
 	}
 
 	/**
@@ -430,7 +436,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki,wiki);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki,wiki);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
 		
 		info("Watch the wiki");
@@ -473,7 +479,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(title,title);
+		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		magAc.signOut();
@@ -555,7 +561,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(title,title);
+		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		info("Un check view permission of any group");
@@ -632,7 +638,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page");
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(title,title);
+		wikiMg.addWikiPageSimpleWithSourceEditor(title,title);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0);
 		
 		String perLink = wikiMg.permalinkAPage();
@@ -640,8 +646,6 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Un check view permission of any group");
 		wikiMg.unCheckViewAUserOfPage(wHome.ELEMENT_PERMISSION_VIEW_ANY);
 		
-		/*uncheck(wHome.ELEMENT_PERMISSION_VIEW_ANY, 2);
-		click(wHome.ELEMENT_PERMISSION_BUTTON_SAVE);*/
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
@@ -699,7 +703,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki1,wiki1);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		info("Create space 2 and wiki page 2");
@@ -784,10 +788,10 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		waitForAndGetElement((wHome.ELEMENT_WIKI_PAGE_LEFTBOX).replace("${title}", wiki1));
 		
         
-		info("Delete data test");
+		/*info("Delete data test");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space1,false);
-		spaMg.deleteSpace(space2,false);
+		spaMg.deleteSpace(space2,false);*/
 	}
 
 	/**
@@ -831,12 +835,12 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki1,wiki1);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki2,wiki2);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		/*Step number: 3
@@ -888,9 +892,9 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		waitForAndGetElement((wHome.ELEMENT_WIKI_PAGE_LEFTBOX).replace("${title}", wiki1));
 		
         
-		info("Delete data test");
+		/*info("Delete data test");
 		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);
+		spaMg.deleteSpace(space,false);*/
 		
 	}
 
@@ -936,13 +940,13 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki1,wiki1);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		info("Add new wiki page 2 for space ");
 		wHome.goToHomeWikiPage();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki2,wiki2);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		/*Step number: 3
@@ -986,9 +990,9 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 			- "Page 1" is moved to "Page 2" in Space 1*/ 
 
 		wikiMg.movePage(wiki1, wiki2);
-		info("Delete data test");
+		/*info("Delete data test");
 		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);
+		spaMg.deleteSpace(space,false);*/
 	}
 
 	/**
@@ -1033,12 +1037,12 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki1,wiki1);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki2,wiki2);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		/*Step number: 3
@@ -1093,9 +1097,9 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		hp.goToWiki();
 		waitForElementNotPresent((wHome.ELEMENT_WIKI_PAGE_LEFTBOX).replace("${title}",wiki1));
 		
-		info("Delete data test");
+		/*info("Delete data test");
 		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);
+		spaMg.deleteSpace(space,false);*/
 	}
 
 	/**
@@ -1144,7 +1148,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki1,wiki1);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		info("Create space 2 and wiki page 2");
@@ -1154,13 +1158,13 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 2 for space 2");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki2,wiki2);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		info("Add new wiki page 1 for space 2");
 		wHome.goToHomeWikiPage();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki1,wiki1);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		
 		
@@ -1205,10 +1209,10 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		wikiMg.renameAfterPageHasSameName(newTitle,"");
 		waitForAndGetElement((wHome.ELEMENT_WIKI_PAGE_LEFTBOX).replace("${title}",newTitle));
 		
-		info("Delete data test");
+		/*info("Delete data test");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space1,false);
-		spaMg.deleteSpace(space2,false);
+		spaMg.deleteSpace(space2,false);*/
 	}
 
 	/**
@@ -1219,8 +1223,8 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	 *check issue WIKI-725 (bug -> the user mary can move in the page without edit permission)
 	 */
 	@Test(groups="pending")
-	public  void test17_MovePageWhenUserHasNoEditPermissionAtDestinationPage() {
-		info("Test 17 Move page when user has no edit permission at destination page");
+	public  void test02_MovePageWhenUserHasNoEditPermissionAtDestinationPage() {
+		info("Test 02: Move page when user has no edit permission at destination page");
 		
 		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -1268,14 +1272,14 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki1,wiki1);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
 		wikiMg.addAUserToPermission("mary","");
 		
 		info("Add new wiki page 2 for space 2");
 		wHome.goToHomeWikiPage();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki2,wiki2);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
 		wikiMg.addAUserToPermission("mary",wHome.ELEMENT_PERMISSION_EDIT_USER.replace("${user}", "mary"));
@@ -1354,7 +1358,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
-		wikiMg.addWikiPageSimpleWithRichText(wiki1,wiki1);
+		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
@@ -1405,9 +1409,9 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 
 		
         
-        info("Delete data test");
+        /*info("Delete data test");
 		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);
+		spaMg.deleteSpace(space,false);*/
 	}
 	
 }

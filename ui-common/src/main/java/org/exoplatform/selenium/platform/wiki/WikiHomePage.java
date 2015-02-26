@@ -5,7 +5,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class WikiHomePage extends PlatformBase{
@@ -89,9 +88,10 @@ public class WikiHomePage extends PlatformBase{
 	public final By ELEMENT_WIKI_PAGE_NOT_FOUND = By.xpath(".//*[@id='UIWikiPageArea']//*[contains(text(),'Page Not Found')]");
 	
 	//Action bar
-	public String ELEMENT_ATTACHMENT_NUMBER = "//*[@id='UIWikiPageInfoArea']//a[contains(text(),'${No}')]/*[@class='uiIconAttach']";
-	public By ELEMENT_ATTACHMENT_ICON = By.xpath("//*[@id='UIWikiPageInfoArea']//*[@class='uiIconAttach']");
-	public By ELEMENT_SEARCH_TEXTBOX = By.xpath("//*[@id='wikiSearchValue']");
+	public final String ELEMENT_ATTACHMENT_NUMBER = "//*[@id='UIWikiPageInfoArea']//a[contains(text(),'${No}')]/*[@class='uiIconAttach']";
+	public final By ELEMENT_ATTACHMENT_ICON = By.xpath("//*[@id='UIWikiPageInfoArea']//*[@class='uiIconAttach']");
+	public final By ELEMENT_SEARCH_TEXTBOX = By.xpath("//*[@id='wikiSearchValue']");
+	public final By ELEMENT_SEARCH_BTN = By.xpath(".//*[@id='UIWikiSearchBox']//*[@class='uiIconSearch uiIconLightGray']");
 	
 	//Browsers
 	public final By ELEMENT_SEARCH_BROWSERS_DROPDOWN = By.xpath("//*[@class='uiActionWithLabel']/..//*[text()='Browse']");
@@ -119,6 +119,7 @@ public class WikiHomePage extends PlatformBase{
 		info("--Go to add blank wiki page--");
 		mouseOverAndClick(ELEMENT_ADD_PAGE_LINK);
 		mouseOverAndClick(ELEMENT_BLANK_PAGE_LINK);
+		info("Blank wiki page is shown");
 	}
 
 	/**
@@ -185,9 +186,9 @@ public class WikiHomePage extends PlatformBase{
 	public void selectAPage(String page){
 		info("Go to a wiki page...");
 		info("Select the wiki page");
-		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page),2000,0).click();
+		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page),5000,0).click();
 		info("The page is shown");
-		waitForAndGetElement(ELEMENT_PAGE_TITLE.replace("${title}", page),2000,0);
+		waitForAndGetElement(ELEMENT_PAGE_TITLE.replace("${title}", page),3000,0);
 	}
 	/**
 	 * Go to "Go to My Draft"
@@ -207,8 +208,8 @@ public class WikiHomePage extends PlatformBase{
 	public void goTosearchPage(String text){
 		info("Input a text to search field");
 		type(ELEMENT_SEARCH_TEXTBOX, text, true);
-		info("Press Enter key");
-		driver.findElement(ELEMENT_SEARCH_TEXTBOX).sendKeys(Keys.ENTER);
+		Utils.pause(1000);
+		click(ELEMENT_SEARCH_BTN);
         Utils.pause(2000);
 	}
 	/**

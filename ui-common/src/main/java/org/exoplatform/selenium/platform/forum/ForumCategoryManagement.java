@@ -151,8 +151,7 @@ public class ForumCategoryManagement extends PlatformBase {
 	 
 	/**
 	 * Edit a category
-	 * 
-	 * @param nameCat
+	 * @param newName
 	 */
 	public void editCategory(String newName) {
 		selectItemManageCategoryMenu(specifManageCategoryMenu.EDIT_CATEGORY);

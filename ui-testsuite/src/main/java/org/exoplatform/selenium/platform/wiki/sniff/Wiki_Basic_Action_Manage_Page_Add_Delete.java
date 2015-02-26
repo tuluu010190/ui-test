@@ -19,8 +19,8 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 	 *<li> Post-Condition: </li>
 	 */
 	@Test
-	public  void test01_08_Create_Delete_PageUsingSourceEditor() {
-		info("Test 01: Create page using Source Editor");
+	public  void test02_09_Create_Delete_PageUsingSourceEditor() {
+		info("Test 02: Create page using Source Editor");
 		String wiki = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		/*Step Number: 1
@@ -70,8 +70,8 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 	 *<li> Post-Condition: </li>
 	 */
 	@Test
-	public  void test02_09_Create_Delete_PageUsingRichTextEditor() {
-		info("Test 2: Create Page using Rich Text Editor");
+	public  void test01_08_Create_Delete_PageUsingRichTextEditor() {
+		info("Test 01: Create Page using Rich Text Editor");
 		String wiki = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		/*Step Number: 1

@@ -115,7 +115,6 @@ public class ForumTopicManagement extends PlatformBase {
 	}
 	/**
 	 * Move a topic to a forum
-	 * @param locatorForum
 	 * @param category
 	 * @param forum
 	 */

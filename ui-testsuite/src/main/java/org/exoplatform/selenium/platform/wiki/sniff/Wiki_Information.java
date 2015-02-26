@@ -70,7 +70,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		
 		info("Delete the page");
 		hp.goToWiki();
-		wHome.deleteWiki(title);
+		wHome.deleteWiki(newTitle);
 	}
 
 	/**
@@ -422,10 +422,10 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("intranet's portal is added as a related pages on page info layout");
 		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}","portal").replace("${col2}","Wiki Home"),2000,0);
 		
-		info("Delete data test");
+		/*info("Delete data test");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space1,false);
-		spaMg.deleteSpace(space2,false);
+		spaMg.deleteSpace(space2,false);*/
 	    
 	}	
 	
@@ -543,10 +543,10 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("intranet's portal is added as a related pages on page info layout");
 		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}",space2).replace("${col2}",title2),2000,0);
 		
-		info("Delete data test");
+		/*info("Delete data test");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space1,false);
-		spaMg.deleteSpace(space2,false);
+		spaMg.deleteSpace(space2,false);*/
 	    
 	}	
 	
@@ -720,9 +720,9 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("Page 2 is added as a related pages on page info layout");
 		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}",space1).replace("${col2}",title2),2000,0);
 		
-		info("Delete data test");
+		/*info("Delete data test");
 		hp.goToMySpaces();
-		spaMg.deleteSpace(space1,false);
+		spaMg.deleteSpace(space1,false);*/
 	    
 	}
 	/**
@@ -859,9 +859,9 @@ public class Wiki_Information extends Wiki_TestConfig {
 		info("The relation is deleted and don't show in Related Page form");
 		wikiMg.deleteRelation(title2);
 		
-		info("Delete data test");
+		/*info("Delete data test");
 		hp.goToMySpaces();
-		spaMg.deleteSpace(space1,false);
+		spaMg.deleteSpace(space1,false);*/
 	    
 	}	
 }

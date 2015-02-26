@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.social;
 
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 
 import static org.exoplatform.selenium.TestLogger.info;
@@ -26,7 +27,15 @@ public class SpaceSettingManagement extends PlatformBase{
 	//Settings tab
 	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
 	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
+	public final String ELEMENT_SPACE_CHANGE_ROLE_USER_MEMBER= ".//*[contains(text(),'${user}')]/..//*[@class='uiSwitchBtn']";
+	public final String ELEMENT_SPACE_DELETE_USER_BTN = "//*[contains(text(),'${user}')]/..//*[@class='uiIconDelete uiIconLightGray']";
+	public final String ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT=".//*[contains(text(),'${user}')]/..//*[@class='uiIconValidate uiIconLightGray']";
 	
+	
+	//invitation member
+	public final String ELEMENT_SPACE_INVITED_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Invited')]/../../..//*[contains(text(),'${user}')]";
+	public final String ELEMENT_SPACE_MEMBERS_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Members')]/../../..//*[contains(text(),'${user}')]";
+
 	//Navigation tab
 	public final By ELEMENT_SPACE_SETTING_NAVIGATION_TAB = By.xpath(".//*[@id='UITabPane']//*[contains(text(),'Navigations')]");
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON = By.xpath(".//*[@id='UISpaceNavigationManagement']//button[text()='Add Node']");
@@ -66,6 +75,44 @@ public class SpaceSettingManagement extends PlatformBase{
 		click(ELEMENT_ADD);
 		info("click on Invite button");
 		click(ELEMENT_SPACE_MEMBERS_INVITE);
+		info("Verify that user is shown in invitation table");
+		waitForAndGetElement(ELEMENT_SPACE_INVITED_USER_TABLE.replace("${user}",userName),2000,0);
+	}
+	/**
+	 * Change role of a user in the list
+	 * if role's status is NO, this will change to YES
+	 * if role's status is YES, this will change to NO
+	 */
+	public void changeRole(String user){
+		info("OPen members tab");
+		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
+		info("Click on change role button of manager column");
+		click(ELEMENT_SPACE_CHANGE_ROLE_USER_MEMBER.replace("${user}",user));
+		Utils.pause(2000);
+		
+	}
+	/**
+	 * Remove a user in the list
+	 * @param user
+	 */
+	public void removeUser(String user){
+		info("OPen members tab");
+		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
+		info("Click on Delete button to remove user");
+		click(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user));
+		waitForElementNotPresent(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user));
+	}
+	/**
+	 * Accept a pending request to a space
+	 * @param user
+	 */
+	public void acceptRequest(String user){
+		info("OPen members tab");
+		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
+		info("Click on Delete button to remove user");
+		click(ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT.replace("${user}",user));
+		info("Verify that the member is shown in member list");
+		waitForAndGetElement(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user),2000,0);
 	}
 	
 	/**

@@ -56,9 +56,10 @@ public class SpaceManagement extends SpaceHomePage {
 	//Button create
 	public By ELEMENET_SPACE_CREATE_BUTTON=By.xpath("//*[@class='uiAction']/*[text()='Create']");
 	
-	//Delete space
+	//My space
 	public String ELEMENT_SPACE_TITLE="//*[@class='spaceTitle']//*[text()='${space}']";
 	public String ELEMENT_SPACE_DELETE_BUTTON="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Delete']";
+	public final String ELEMENT_SPACE_LEAVE_BTN = "//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Leave']";
 	public String ELEMENT_SPACE_CONFIRM_DELETE="Are you sure you want to delete this space? This cannot be undone. All page navigations and this group will also be deleted";
 	public By ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON=By.xpath("//*[text()='OK']");
 
@@ -118,13 +119,22 @@ public class SpaceManagement extends SpaceHomePage {
  * 					false: not verify content of confirm msg
  */
 	public void deleteSpace(String spaceName, Boolean isVerify){
-		info("Do create space");
+		info("Do delete space");
 		click(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName));
 		if(isVerify)
 			alert.verifyAlertMessage(ELEMENT_SPACE_CONFIRM_DELETE);
 		click(ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON);
 		waitForElementNotPresent(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName),60000);
 		
+	}
+	/**
+	 * Leave a space
+	 * @param space
+	 */
+	public void leaveSpace(String space){
+		info("Do leave space");
+		click(ELEMENT_SPACE_LEAVE_BTN.replace("${space}", space));
+		waitForElementNotPresent(ELEMENT_SPACE_LEAVE_BTN.replace("${space}", space));
 	}
 
 
@@ -221,7 +231,7 @@ public class SpaceManagement extends SpaceHomePage {
 		Utils.pause(2000);
 	}
 	/**
-	 * Accept a invitation of the space
+	 * Accept an invitation of the space
 	 * @param space
 	 */
 	public void acceptAInvitation(String space){
@@ -231,5 +241,17 @@ public class SpaceManagement extends SpaceHomePage {
 		click(ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN.replace("${space}",space));
 		info("Verify that the user joijed to the space");
 		waitForAndGetElement( ELEMENT_SPACE_NAME.replace("${name}",space),3000,0);
+	}
+	/**
+	 * Ignore an invitation of the space
+	 * @param space
+	 */
+	public void ignoreAInvitation(String space){
+		info("Open invitation received tab");
+		goToInvitationsReceivedTab();
+		info("Click on Ignore button of the space");
+		click(ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN.replace("${space}",space));
+		info("Verify that the user didn't join to the space");
+		waitForElementNotPresent(ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN.replace("${space}",space));
 	}
 }

@@ -4,13 +4,18 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
-
+     
 
 	/**
 	* @author eXo
 	*
 	*/
 	public class Wiki_Settings extends Wiki_TestConfig{
+		@AfterTest()
+		public void setAfterTest(){
+			magAc.signOut();
+			magAc.signIn(DATA_USER1, DATA_PASS);
+		}
 
 	/**
 	*<li> Case ID:122830.</li>
@@ -43,13 +48,13 @@ import org.testng.annotations.*;
 	@Test
 	public  void test02_EditTemplate() {
 		info("Test 2: Edit template");
-		String template="Two-Column Layout";
+		String template = wTempData.getWikiTemplateRandom();
 		String newTitle=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		hp.goToWiki();
 		wHome.goToWikiSettingPage();
 		wSettingMg.editTemplate(template, newTitle, "", "");
-		waitForAndGetElement(By.xpath(wSettingMg.ELEMENT_EDIT_TEMPLATE.replace("{$template}",newTitle)));
+		waitForAndGetElement(wSettingMg.ELEMENT_EDIT_TEMPLATE.replace("{$template}",newTitle));
 		/*Step Number: 1
 		*Step Name: Step 1: Edit template
 		*Step Description: 
@@ -94,7 +99,7 @@ import org.testng.annotations.*;
 	@Test
 	public  void test04_DeleteTemplate() {
 		info("Test 4: Delete template");
-		String template="Status Meeting";
+		String template = wTempData.getWikiTemplateRandom();
 		/*Step Number: 1
 		*Step Name: Step 1: Delete template
 		*Step Description: 
@@ -121,7 +126,7 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Delete permission for Wiki.</li>
 	*/
 	@Test
-	public  void test05_AddPermissionForWiki() {
+	public  void test05_06_07_AddEditDeletePermissionForWiki() {
 		info("Test 5: Add Permission for Wiki");
 		String wiki = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -142,7 +147,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			New permission is added in list*/
 		wHome.goToPermissions();
-		click(By.xpath(wHome.ELEMENT_REMOVE_PERMISSION.replace("{$name}", "any")));
+		click(wHome.ELEMENT_REMOVE_PERMISSION.replace("{$name}", "any"));
 		PlfPerm.selectUserPermission("mary", 1);
 		click(wHome.ELEMENT_ADD_PERMISSION);
 		click(wHome.ELEMENT_SAVE_PERMISSION);
@@ -186,7 +191,7 @@ import org.testng.annotations.*;
 		hp.goToWiki();
 		wHome.selectAPage(wiki);
 		wHome.goToPermissions();
-		click(By.xpath(wHome.ELEMENT_REMOVE_PERMISSION.replace("{$name}", "mary")));
+		click(wHome.ELEMENT_REMOVE_PERMISSION.replace("{$name}", "mary"));
 		click(wHome.ELEMENT_SAVE_PERMISSION);
 		
 		magAc.signOut();
@@ -211,7 +216,7 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Delete permission for space wiki.</li>
 	*/
 	@Test
-	public void test08_AddPermissionForSpaceWiki() {
+	public void test08_09_AddEditPermissionForSpaceWiki() {
 		info("Test 8: Add Permission for space wiki");
 		String space =txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String link="";
@@ -263,7 +268,7 @@ import org.testng.annotations.*;
 		wHome.selectAPage(wiki);
 		wHome.goToPermissions();
 		// mary can now edit the page
-		check(By.xpath(wHome.ELEMENT_CHECK_PERMISSION_EDIT_PAGE.replace("{$name}", "mary")),2);
+		check(wHome.ELEMENT_CHECK_PERMISSION_EDIT_PAGE.replace("{$name}", "mary"),2);
 		click(wHome.ELEMENT_SAVE_PERMISSION);
 		
 		magAc.signOut();
@@ -279,7 +284,7 @@ import org.testng.annotations.*;
 		spaHome.goToWikiTab();
 		wHome.selectAPage(wiki);
 		wHome.goToPermissions();
-		click(By.xpath(wHome.ELEMENT_REMOVE_PERMISSION.replace("{$name}", "mary")));
+		click(wHome.ELEMENT_REMOVE_PERMISSION.replace("{$name}", "mary"));
 		click(wHome.ELEMENT_SAVE_PERMISSION);
 		
 		magAc.signOut();
@@ -287,11 +292,11 @@ import org.testng.annotations.*;
 		driver.get(link);
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_NOT_FOUND);
 		
-		// delete data
+		/*// delete data
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToMySpaces();
-		spaMg.deleteSpace(space, false);
+		spaMg.deleteSpace(space, false);*/
  	}
 }

@@ -197,8 +197,10 @@ public class PlatformBase extends TestBase {
 		} 
 	}
 	
-	/** Switch to new browser window
-	 * @author havtt
+	/**
+	 * Switch to new browser window
+	 * @param user
+	 * @param pass
 	 */
 	public void switchToNewBrowserWindow(String user, String pass){
 		ManageLogInOut magAcc = new ManageLogInOut(driver);

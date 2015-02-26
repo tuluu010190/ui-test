@@ -425,8 +425,6 @@ public class SiteExplorerHome extends PlatformBase{
 	 * Upload a file from TesData folder
 	 * @param link
 	 * @param params
-	 * @return 
-	 * @return
 	 */
 	public void uploadFile(String link, Object... params) {
 		info("Upload a file to Site Explorer");
@@ -467,7 +465,6 @@ public class SiteExplorerHome extends PlatformBase{
 	}
 	/**
 	 * Add tag to a Content
-	 * @param title
 	 * @param tag
 	 */
 	public void addTag(String tag){
@@ -684,10 +681,9 @@ public class SiteExplorerHome extends PlatformBase{
 	}
 
 	/**
-	 * By QuynhPT
 	 * Add a Relation for many files
-	 * @param nameContent  is an array that has the names of contents which will be related
-	 * @param arrayPath    is an array of a path where is put the content files
+	 * @param nameContent
+	 * @param path
 	 */
 	public void addRelation(String[] nameContent,String path) {
 		for (String arrayElement:nameContent){
@@ -708,8 +704,6 @@ public class SiteExplorerHome extends PlatformBase{
 	}
 	/**
 	 * Add category for a file in SE
-	 * By QuynhPT
-	 * date 16/01/2015
 	 * @param categoryTreeName
 	 * @param arrayCatePath
 	 * @param nameSelectedCategory
@@ -739,9 +733,8 @@ public class SiteExplorerHome extends PlatformBase{
 		Utils.pause(2000);
 	}
 	/**
-	 * By QuynhPT
 	 * Go to the path that include content files to create relation
-	 * @param arrayPath the path of the folder where is put the content files
+	 * @param path
 	 */
 	public void goToPathHasFiles(String path) {
 		// Open "Select Relation" tab

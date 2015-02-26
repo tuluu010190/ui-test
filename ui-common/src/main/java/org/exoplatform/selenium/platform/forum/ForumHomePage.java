@@ -300,14 +300,11 @@ public class ForumHomePage extends PlatformBase {
 		click(ELEMENT_SELECT_FORUM_TOPIC.replace("${link}",name));
 		Utils.pause(2000);
 	}
+	
 	/**
 	 * Attach file in attach popup
-	 * @author lientm 
-	 * Update QuynhPT
-	 * @param number
-	 *            : number of upload container that need upload file
-	 * @param filePath
-	 *            : path to file upload
+	 * @param pathFile
+	 * @param fileName
 	 */
 	public void attachFile(String pathFile, String fileName) {
 		info("Attach a file");
@@ -399,10 +396,10 @@ public class ForumHomePage extends PlatformBase {
 		click(ELEMENT_BBCODE_POPUP_CLOSEBTN);
 	}
 	
-	/**
-	 * Bookmark a topic, a category and a forum
-	 * @param topic
-	 */
+    /**
+     * Bookmark a topic, a category and a forum
+     * @param name
+     */
 	public void bookmark(String name){
 		info("Right click on the topic");
 		rightClickOnElement(ELEMENT_FORUM_TITLE_LINK.replace("${name}", name));

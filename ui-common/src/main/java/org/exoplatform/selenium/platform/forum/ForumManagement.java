@@ -188,9 +188,8 @@ public class ForumManagement extends PlatformBase {
 	}
 	
 	/**
-	 * Edit a forum
-	 * By QuynhPT
-	 * @param newNameForum
+	 *  Edit a forum
+	 * @param newName
 	 * @param order
 	 * @param newDescription
 	 */
@@ -241,9 +240,8 @@ public class ForumManagement extends PlatformBase {
 	
 	/**
 	 * function: move a forum from a category to another category
-	 * Update QuynhPT
-	 * @param forum: title of forum that needs to move
-	 * @param destination: title of destination category
+	 * @param forum
+	 * @param destination
 	 */
 	public void moveForum(String forum, String destination){
 		info("move forum to category " + destination);
