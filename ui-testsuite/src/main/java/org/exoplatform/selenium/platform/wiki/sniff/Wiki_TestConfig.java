@@ -11,6 +11,7 @@ import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiMessageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiRichTextDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiTemplateDatabase;
+import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
@@ -37,12 +38,14 @@ public class Wiki_TestConfig extends PlatformBase {
 	RichTextEditor rtMode;
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
+	SpaceSettingManagement setSpaceMg;
 	
 	TextBoxDatabase txData;
 	AttachmentFileDatabase fData;
 	WikiRichTextDatabase wData;
 	WikiTemplateDatabase wTempData;
 	WikiMessageDatabase  wMessage;
+	
 	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -64,6 +67,7 @@ public class Wiki_TestConfig extends PlatformBase {
 		rtMode = new RichTextEditor(driver);
 		spaMg = new SpaceManagement(driver);
 		spaHome = new SpaceHomePage(driver);
+		setSpaceMg = new SpaceSettingManagement(driver);
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

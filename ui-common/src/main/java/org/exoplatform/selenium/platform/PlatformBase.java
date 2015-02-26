@@ -32,7 +32,7 @@ public class PlatformBase extends TestBase {
 	public final String EMAIL_PASS = "exoadmin";
 	public final String ELEMENT_MAIL_SUBJECT = ".//span[contains(.,'${subject}')]";
 	public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
-	public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']//*[@class='iH']//*[@class='ar9 T-I-J3 J-J5-Ji']");
+	public final By ELEMENT_DELETE_MAIL_2 = By.xpath(".//*[@class='iH']//*[@data-tooltip='Delete']//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
 	public final By ELEMENT_MAIL_CONTENT = By.xpath("//*[contains(@class, 'adP adO')]/div");
 	public final By ELEMENT_GMAIL_USERNAME = By.id("Email");
@@ -45,7 +45,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC = By.cssSelector("a[id='account-chooser-link']");
 	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.cssSelector("a[id='account-chooser-add-account']");
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//tr[1]//span[contains(text(),'Hi')]");
-	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";//*[contains(text(),'${content}')]";
+	public final String ELEMENT_GMAIL_CONTENT = ".//span[contains(.,'\"${title}\" page was modified')]";
+	
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
 	//page navigation
@@ -57,6 +58,10 @@ public class PlatformBase extends TestBase {
 	//frame
 	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//div[@id= 'cke_1_contents']/iframe");
 	public final By ELEMENT_FILEFORM_BLANK_NAME = By.id("name");
+	
+	//Email notification
+	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
+	public final String ELEMENT_GMAIL_CONTENT_LINK_WIKI = ".//a[contains(@href,'${page}')]";
 	/**
 	 * Available option
 	 */
@@ -125,34 +130,7 @@ public class PlatformBase extends TestBase {
 		Utils.pause(1000);
 	}
 
-	/**
-	 * function: check content of mail then delete mail
-	 * @param mail element title of mail
-	 * @param content mail content
-	 */
-	public void checkAndDeleteMail(By mail, String content){
-		info("Check and delete mail");
-		waitForAndGetElement(mail,300000);
-//		click(mail);	
-//		if(waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${content}",content),20000,0) == null )
-		for(String winHandle : driver.getWindowHandles()){
-			driver.switchTo().window(winHandle);
-		}
-			click(ELEMENT_FIRST_MAIL);
-		assert waitForAndGetElement(ELEMENT_GMAIL_CONTENT).getText().contains(content);
-		info("Found notify mail");
-
-		info("delete mail");
-		if (waitForAndGetElement(ELEMENT_DELETE_MAIL_2, 5000, 0) == null){
-			click(ELEMENT_DELETE_MAIL);
-			info("Delete 1");
-		}else {
-			click(ELEMENT_DELETE_MAIL_2);
-			info("Delete 2");
-		}
-		waitForElementNotPresent(mail);
-		Utils.pause(1000);
-	}
+	
 	
 	
 	/**
@@ -251,5 +229,31 @@ public class PlatformBase extends TestBase {
 		driver.manage().window().maximize();
 		driver.navigate().refresh();
 		driver.navigate().to(baseUrl);
+	}
+	
+	/**
+	 * function: check content of mail then delete mail
+	 * @param mail element title of mail
+	 * @param content mail content
+	 */
+	public void checkAndDeleteMail(By mail, String content){
+		info("Check and delete mail");
+		waitForAndGetElement(mail,300000);
+		click(mail);	
+		if(waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${content}",content),20000,0) == null )
+			click(ELEMENT_FIRST_MAIL);
+		assert waitForAndGetElement(ELEMENT_GMAIL_CONTENT).getText().contains(content);
+		info("Found notify mail");
+
+		info("delete mail");
+		if (waitForAndGetElement(ELEMENT_DELETE_MAIL_2, 5000, 0) == null){
+			click(ELEMENT_DELETE_MAIL);
+			info("Delete 1");
+		}else {
+			click(ELEMENT_DELETE_MAIL_2);
+			info("Delete 2");
+		}
+		waitForElementNotPresent(mail);
+		Utils.pause(1000);
 	}
 }

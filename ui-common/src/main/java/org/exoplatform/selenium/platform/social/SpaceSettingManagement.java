@@ -8,7 +8,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class SettingSpaceManagement extends PlatformBase{
+public class SpaceSettingManagement extends PlatformBase{
 
 	public By ELEMENT_SPACE_SPACE_SETTINGS_TITLE=By.xpath(".//*[text()='Space Configuration']");
 	
@@ -46,7 +46,7 @@ public class SettingSpaceManagement extends PlatformBase{
 	 * constructor
 	 * @param dr
 	 */
-	public SettingSpaceManagement(WebDriver dr){
+	public SpaceSettingManagement(WebDriver dr){
 		this.driver=dr;
 		alert = new ManageAlert(dr);
 	}

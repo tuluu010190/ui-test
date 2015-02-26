@@ -18,7 +18,7 @@ public class SOC_TestConfig extends PlatformBase {
 	
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
-	SettingSpaceManagement setSpaceMg;
+	SpaceSettingManagement setSpaceMg;
 	
 	TextBoxDatabase txData;
 	
@@ -32,7 +32,7 @@ public class SOC_TestConfig extends PlatformBase {
 		
 		spaMg = new SpaceManagement(driver);
 		spaHome = new SpaceHomePage(driver);
-		setSpaceMg = new SettingSpaceManagement(driver);
+		setSpaceMg = new SpaceSettingManagement(driver);
 		hp = new HomePagePlatform(driver);
 		
 		txData = new TextBoxDatabase();

@@ -10,7 +10,7 @@ import org.openqa.selenium.WebDriver;
 
 public class WikiHomePage extends PlatformBase{
 
-	public final String ELEMENT_WIKI_PAGE_LINK = "//*[@href='/portal/intranet/wiki/${pageTitle}']";
+	public final String ELEMENT_WIKI_PAGE_LINK = ".//*[@id='iconTreeExplorer']//*[contains(text(),'${pageTitle}')]";
 	public final By ELEMENT_WIKI_HOME_PAGE_LINK = By.xpath(".//*[@id='UIWikiBreadCrumb']//*[contains(text(),'Wiki Home')]");
 	public final By ELEMENT_WIKI_HOME_PAGE_TEXT = By.xpath("//*[@id='titleInfo' and text()='Wiki Home']");
 	public final By ELEMENT_ADD_PAGE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(),'Add Page')]");
@@ -20,7 +20,13 @@ public class WikiHomePage extends PlatformBase{
 	
 	public final String ELEMENT_WIKI_HOME_PAGE_TITLE = "//*[@id='titleInfo' and text()='${title}']";
 
-	public final By ELEMENT_EDIT_PAGE_LINK= By.xpath("//*[@class='uiIconEditPage uiIconLightGray']");;
+	public final String ELEMENT_WIKI_PAGE_LEFTBOX = "//*[@id='iconTreeExplorer']//*[contains(text(),'${title}')]";
+	public final By ELEMENT_EDIT_PAGE_LINK= By.xpath("//*[@class='uiIconEditPage uiIconLightGray']");
+	public final By ELEMENT_WIKI_HOME_PAGENOTFOUND = By.xpath("//*[text()='Page Not Found']");
+	public final By ELEMENT_WIKI_HOME_PAGE_LOCATION_MYWIKI = By.xpath("//*[@class='btn dropdown-toggle']//*[text()='My Wiki']");
+	public final By ELEMENT_BTN_OK = By.xpath("//*[text()='OK']");
+	public final By ELEMENT_UNWATCH_CONFIRM = By.xpath("//*[contains(text(),'You have stopped watching this page now.')]");
+	public final By ELEMENT_WIKI_HOME_LEFTBOX_WIKIHOME = By.xpath("//*[text()=' Wiki Home']");
 	
 	//More menu
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//div[contains(text(), 'More')]");
@@ -29,6 +35,39 @@ public class WikiHomePage extends PlatformBase{
 	public final By ELEMENT_CONFIRM_WIKI_DELETE = By.xpath(".//*[@id='UIWikiDeletePageConfirm']//button[text()='OK']");
 	public final By ELEMENT_MOVE_PAGE = By.xpath(".//*[text()='Move Page']");
 	public final By ELEMENT_PAGE_INFO = By.xpath(".//*[text()='Page Info']");
+	public final By ELEMENT_MOVE_LINK = By.xpath("//*[@class='uiIconMovePage']");
+	public final By ELEMENT_WATCH_LINK = By.xpath("//*[@class='uiIconWatchPage']");
+	public final By ELEMENT_UNWATCH_LINK = By.xpath("//*[@class='uiIconUnWatchPage']");
+	public final By ELEMENT_PERMISSION_LINK = By.xpath("//*[@class='uiIconPagePermission']");
+	public final By ELEMENT_PDF_LINK = By.xpath("//*[@class='uiIconExportAsPDF']");
+	
+	//Permalink page
+	public final By ELEMENT_PERMALINK_LINK = By.xpath("//*[@class='uiIconPermalink']");
+	public final By ELEMENT_PERMALINK_LINKCOPY = By.xpath("//*[@id='PermalinkText']");
+	public final By ELEMENT_PERMALINK_MANAGEPERM = By.xpath("//*[text()='Manage Permissions']");
+	public final By ELEMENT_PERMALINK_MAKEPUBLIC = By.xpath("//*[text()='Make Public']");
+	public final By ELEMENT_PERMALINK_RESTRICT = By.xpath("//*[text()='Restrict']");
+	public final String ELEMENT_PERMALINK_STATUS = ".//*[@id='UIWikiPermalinkForm']//*[text()='${status}']";
+	public final By ELEMENT_PERMALINK_CLOSE=By.xpath(".//*[@id='UIWikiPopupWindowL1']//*[@class='uiIconClose pull-right']");
+	
+	//permission page
+	public final By ELEMENT_PERMISSION_EDIT_ANY = By.xpath("//*[@id='EDITPAGEany']");
+	public final String ELEMENT_PERMISSION_EDIT_USER = "//*[@id='EDITPAGE${user}']";
+	public final By ELEMENT_PERMISSION_BUTTON_SAVE = By.xpath("//*[text()='Save']");
+	public final By ELEMENT_PERMISSION_VIEW_ANY = By.xpath("//*[@id='VIEWPAGEany']");
+	public final String ELEMENT_PERMISSION_REMOVE_USER_GROUP = ".//*[@id='UIPermissionGrid']//*[contains(text(),'${name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
+	
+	//move wiki
+	public final By ELEMENT_MOVE_SPACESWITCHER = By.xpath("//*[@id='uiSpaceSwitcher_UIWikiMovePageForm']/..//*[@class='btn dropdown-toggle']");
+	public final By ELEMENT_MOVE_SPACESWITCHER_MYWIKI = By.xpath("//*[@class='uiIconWikiMyWiki uiIconWikiLightGray']");
+	public final String ELEMENT_MOVE_SPACESWITCHER_OTHERSPACE = "//*[text()='${name}']";
+	public final By ELEMENT_MOVE_BTNMOVE = By.xpath("//*[@class='btn btn-primary' and contains(text(),'Move')]");
+	public final String ELEMENT_MOVE_SPACESWITCHER_OTHERPAGE = "//*[@id='UIMoveTree']/../..//*[contains(text(),'${title}')]";
+	public final By ELEMENT_MOVE_RENAMEWIKI = By.xpath("//*[text()='Rename']");
+	public final By ELEMENT_MOVE_RESTRICTED = By.xpath("//*[@class='warningIcon' and contains(text(),'You have no edit permission at the destination page')]");
+	public final String ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR=".//*[@id='UIWikiPopupWindowL1']//*[contains(text(),'Move Page')]/../..//*[contains(text(),'${locator}')]";
+	public final String ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_SAME_NAME=".//*[@class='alert'][contains(.,'${message}')]";
+	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME=By.xpath(".//*[@class='alert']/a[text()='Rename']");
 	
 	//Content of page
 	public final String ELEMENT_MARCRO_COLOR = "//*[@style='color:${color};' and contains(text(),'${message}')]";
@@ -52,6 +91,10 @@ public class WikiHomePage extends PlatformBase{
 	
 	//tree explorer
 	public final String ELEMENT_TREE_WIKI_NAME = ".//*[@id='iconTreeExplorer']//*[contains(text(),'${name}')]";
+	//Permission
+	public final By ELEMENT_PERMISSION_NAMEORGROUP = By.xpath("//*[@id='PermissionOwner']");
+	public final By ELEMENT_PERMISSION_BTNADD = By.xpath("//*[text()='Add']");
+
 	/**
 	 * constructor
 	 * @param dr

@@ -39,7 +39,7 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatab
 import org.exoplatform.selenium.platform.objectdatabase.plf.GettingStartedDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
-import org.exoplatform.selenium.platform.social.SettingSpaceManagement;
+import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
@@ -87,7 +87,7 @@ public class Plf_TestConfig extends PlatformBase {
 	SiteExplorerHome SEHome;
 	SpaceManagement spaceMg;
 	SpaceHomePage spaceHome;
-	SettingSpaceManagement setMag;
+	SpaceSettingManagement setMag;
 	SearchAdministration seaAdmin;
 	
 	PageEditor pagEditor;
@@ -143,7 +143,7 @@ public class Plf_TestConfig extends PlatformBase {
 		spaceHome = new SpaceHomePage(driver);
 		spaceMg = new SpaceManagement(driver);
 		seaAdmin= new SearchAdministration(driver);
-		setMag = new SettingSpaceManagement(driver);
+		setMag = new SpaceSettingManagement(driver);
 		
 		forumHP = new ForumHomePage(driver);
 		forumMg = new ForumManagement(driver);

@@ -42,6 +42,7 @@ public class WikiManagement extends WikiHomePage{
 
 	//Comfirmation popup
 	public By ELEMENT_CONFIRMATION_POPUP_YES_BTN = By.xpath(".//*[@id='UIPortalApplication']//button[text()='Yes']");
+	public String ELEMENT_POPUP_MESSAGE_CONTENT = ".//*[contains(text(),'${message}')]";
 	
 	//Add page from template
 	public final String ELEMENT_SELECT_TEMPLATE_LINK = ".//*[contains(text(),'${template}')]/../..//input";
@@ -71,8 +72,6 @@ public class WikiManagement extends WikiHomePage{
 	public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_TOTAL_ATTACHEDFILES=".//*[@id='UIWikiPageInfoArea']//*[contains(text(),'${number}')]";
 	public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_RESTRICTED_STATUS=".//*[@id='UIWikiPageInfoArea']//*[contains(text(),'${status}')]";
 	
-	
-	
 	//Page info
 	public final String ELEMENT_WIKI_PAGE_PAGE_INFO_TITLE = ".//*[@id='UIWikiPageContainer']/h4[text()='Page Info']";
 	public final By ELEMENT_PAGE_INFO_VIEW_PAGE_INFO_BTN = By.xpath(".//button[text()='View Page History']");
@@ -96,6 +95,7 @@ public class WikiManagement extends WikiHomePage{
 	public final String ELEMENT_PAGE_HISTORY_COMPARE_CONTENT =".//*[@id='UIWikiPageVersionsCompare']//*[contains(text(),'${text}')]";
 	
 	
+	
 	//Add more relations
 	public final By ELEMENT_ADD_RELATED_PAGE_POPUP_TITLE = By.xpath(".//*[contains(text(),'Add Related Page')]");
 	public final By ELEMENT_ADD_RELATED_PAGE_POPUP_DROPDOWN=By.xpath(".//*[contains(text(),'Add Related Page')]/../..//*[@data-toggle='dropdown']");
@@ -113,6 +113,9 @@ public class WikiManagement extends WikiHomePage{
 	public final String ELEMENT_WIKI_PAGE_CONTENT = ".//*[@id='UIViewContentDisplay']//*[contains(text(),'${text}')]";
 	public final String ELEMENT_WIKI_PAGE_EDIT_PARAGRAPH_BTN= ".//*[@id='UIViewContentDisplay']//*[contains(text(),'${text}')]/../..//*[@class='uiIconEdit uiIconLightGray wikimodel-freestanding']";
 	
+	//Email notification
+	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
+	public final String ELEMENT_GMAIL_CONTENT_LINK_WIKI = ".//a[contains(@href,'${page}')]";
 	
 	ManageAlert alert;
 	/**
@@ -312,6 +315,26 @@ public class WikiManagement extends WikiHomePage{
 	    info("Save all changes");
 	    saveAddPage();
 		info("Wiki page simple is created successfully");
+	}
+	
+	/**
+	 * Add a simple wiki page with rich text
+	 * 
+	 * @param title
+	 *            updated title of the wiki page. Can not be <code>null</code>
+	 * @param content
+	 *            updated content of the wiki page. Can not be <code>null</code>
+	 */
+	public void addSimplePageWithRichText(String title, String content){
+		info("Input a title for the page");
+		if(!title.isEmpty())
+			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
+		info("Input a content for the page");
+	    if(!content.isEmpty()){
+	    	inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
+	    	Utils.pause(1000);
+			driver.switchTo().defaultContent();
+	    }
 	}
 	/**
 	 * Add a page with checking auto save after 30s
@@ -545,6 +568,34 @@ public class WikiManagement extends WikiHomePage{
 		info("The page 1 is moved to page 2");
 	}
 	/**
+	 * Move a page1 of destination 1 to a page 2 of destination 2
+	 * @param page1
+	 * @param page2
+	 * @param locator
+	 */
+	public void movePageDiffDestination(String page1, String page2, String locator){
+		info("Open a wiki page 1");
+		waitForAndGetElement(ELEMENT_TREE_WIKI_NAME.replace("${name}",page1),2000,0).click();
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on Move page link");
+		if (waitForAndGetElement(ELEMENT_MOVE_PAGE, 5000, 0) == null){
+			mouseOverAndClick(ELEMENT_MOVE_PAGE);
+		}else {
+			click(ELEMENT_MOVE_PAGE);
+		}
+		info("Move page popup is shown");
+		info("Click on Drop down");
+		waitForAndGetElement(ELEMENT_MOVE_SPACESWITCHER,2000,0).click();
+		info("Select a location");
+		click(ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR.replace("${locator}",locator));
+	    info("Select a page in the list");
+	    waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR.replace("${locator}",page2),2000,0).click();
+	    info("Save all changes");
+	    waitForAndGetElement(ELEMENT_MOVE_BTNMOVE,2000,0).click();
+		
+	}
+	/**
 	 * Open information table
 	 * @param page
 	 * @param version
@@ -657,6 +708,8 @@ public class WikiManagement extends WikiHomePage{
 	    info("Save all changes");
 	    waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_SELECT_BTN,2000,0).click();
 	}
+	
+	
 	/**
 	 * Delete a relation of a page
 	 * @param relation
@@ -730,5 +783,138 @@ public class WikiManagement extends WikiHomePage{
 		actionEnter.release();
 		Utils.pause(20000);
 	}
+	/**
+	 * Watch a page
+	 */
+	public void watchAPage(String mess){
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on watch link");
+		click(ELEMENT_WATCH_LINK);
+		info("Show message :'You started watching this page now.'");
+        waitForAndGetElement(ELEMENT_POPUP_MESSAGE_CONTENT.replace("${message}",mess),2000,0);
+		click(ELEMENT_BTN_OK);
+		Utils.pause(2000);
+	}
 	
+	/**
+	 * un-Watch a page
+	 */
+	public void unWatchAPage(String mess){
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on watch link");
+		click(ELEMENT_UNWATCH_LINK);
+		info("Show message : 'You stopped watching this page now.'");
+        waitForAndGetElement(ELEMENT_POPUP_MESSAGE_CONTENT.replace("${message}",mess),2000,0);
+		click(ELEMENT_BTN_OK);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * function: check content of mail then delete mail
+	 * @param title title of the page
+	 */
+	public void checkEmailNotification(String title){
+		info("Check and delete mail");
+		String parentWindow = driver.getWindowHandle();
+		info("parentWindow:"+parentWindow);
+		  for(String windowHandle  : driver.getWindowHandles()){
+			     driver.switchTo().window(windowHandle);
+			     info("driver.title:"+driver.getTitle());
+		}
+		waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,0);
+		info("Found notify mail");
+
+		info("ELEMENT_GMAIL_CONTENT:"+ELEMENT_GMAIL_CONTENT.replace("${title}",title));
+		info("Open email");
+		waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title)).click();
+		  for(String windowHandle  : driver.getWindowHandles()){
+			     driver.switchTo().window(windowHandle);
+			     info("driver.title.last:"+driver.getTitle());
+		}
+		info("Verify that the link is shown as correct format:");
+		click(ELEMENT_GMAIL_PREVIOUS_EMAIL);
+		info("Check the link's format");
+		String link = waitForAndGetElement(ELEMENT_GMAIL_CONTENT_LINK_WIKI.replace("${page}",title),3000,0).getAttribute("href").toString();
+	    String defaultLink = baseUrl+"/intranet/wiki/"+title;
+	    info("link:"+link);
+	    info("default:"+defaultLink);
+		if(link.contentEquals(defaultLink)==true)
+			assert true;
+		else assert false:"the link's format is incorrect";
+		Utils.pause(2000);
+	}
+	/**
+	 * Get a permalink of the page
+	 * @return perLink
+	 */
+	public String permalinkAPage(){
+		info("click on Permalink link");
+		click(ELEMENT_MORE_LINK);
+		click(ELEMENT_PERMALINK_LINK);
+		info("Get the link");
+		String perLink=waitForAndGetElement(ELEMENT_PERMALINK_LINKCOPY).getAttribute("value");
+		return perLink;
+	}
+	/**
+	 * Un check view permission for a user or a group
+	 * @param usergroup
+	 */
+	public void unCheckViewAUserOfPage(Object locator){
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on permission link");
+		click(ELEMENT_PERMISSION_LINK);
+		info("Uncheck view permission checkbox");
+		uncheck(locator, 2);
+		info("Click on save button");
+		click(ELEMENT_PERMISSION_BUTTON_SAVE);
+	}
+	
+	/**
+	 * Add more permission for a user
+	 * @param namegroup
+	 */
+	public void addAUserToPermission(String namegroup,Object permission){
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on permission link");
+		click(ELEMENT_PERMISSION_LINK);
+		info("type a name or a group");
+		type(ELEMENT_PERMISSION_NAMEORGROUP, namegroup, true);
+		click(ELEMENT_PERMISSION_BTNADD);
+		if(!permission.toString().isEmpty())
+			check(permission, 2);
+		info("Click on save button");
+		click(ELEMENT_PERMISSION_BUTTON_SAVE);
+	}
+	/**
+	 * remove a user or a group in permission table of a page
+	 * @param usergroup
+	 */
+	public void removeAUserGroup(String usergroup){
+		info("Click on More link");
+		click(ELEMENT_MORE_LINK);
+		info("Click on permission link");
+		click(ELEMENT_PERMISSION_LINK);
+		click(ELEMENT_PERMISSION_REMOVE_USER_GROUP.replace("${name}",usergroup));
+		info("Click on save button");
+		click(ELEMENT_PERMISSION_BUTTON_SAVE);
+	}
+	/**
+	 * Rename a page from alert message when move a page to a destination that has same name
+	 * @param newTitle
+	 * @param newContent
+	 */
+	public void renameAfterPageHasSameName(String newTitle,String newContent){
+		info("Click on Rename link on the alert message area");
+		click(ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME);
+		info("Input a new name or content");
+		editWikiPageSimpleWithSourceEditor(newTitle,newContent);
+		info("Save all changes");
+		saveAddPage();
+		Utils.pause(2000);
+	}
+
 }

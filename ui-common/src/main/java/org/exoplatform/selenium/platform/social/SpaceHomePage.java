@@ -29,14 +29,14 @@ public class SpaceHomePage extends PlatformBase{
 	public String ELEMENT_SPACE_LEFT_MENU_SPACE_NAME = ".//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'${name}')]";
 	
 	
-	SettingSpaceManagement setSpaceMg;
+	SpaceSettingManagement setSpaceMg;
 	/**
 	 * constructor
 	 * @param dr
 	 */
 	public SpaceHomePage(WebDriver dr){
 		this.driver=dr;
-		setSpaceMg = new SettingSpaceManagement(driver);
+		setSpaceMg = new SpaceSettingManagement(driver);
 	}
 	
 	/**

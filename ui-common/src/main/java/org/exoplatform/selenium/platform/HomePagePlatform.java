@@ -32,6 +32,7 @@ public class HomePagePlatform extends TestBase{
 	public final String ELEMENT_LEFT_PANEL = "//*[@class='uiCompanyNavigations']//*[contains(text(),'{$name}')]";
 	// right panel
 	public final String ELEMENT_SUGGESTIONS_USER = "//*[@class='uiBox uiSuggestions']//*[contains(text(),'{$user}')]";
+	public final String ELEMENT_SPACE_BYNAME = "//*[@data-original-title='${name}']";
 
 	//Wiki activity
 	public final String ELEMENT_WIKI_COMMENT_EDIT_TITLE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'title has been updated to: ${title}')]";

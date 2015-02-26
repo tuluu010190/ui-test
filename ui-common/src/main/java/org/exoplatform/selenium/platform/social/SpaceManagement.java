@@ -1,10 +1,7 @@
 package org.exoplatform.selenium.platform.social;
 
-import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -14,7 +11,7 @@ import static org.exoplatform.selenium.TestLogger.info;
  * date: 0601/2014
  *
  */
-public class SpaceManagement extends PlatformBase {
+public class SpaceManagement extends SpaceHomePage {
 	
 	// Add form space
 	public final By ELEMENT_ADDNEWSPACE_BUTTON = By.xpath("//button[contains(.,'Add New Space')]");
@@ -80,19 +77,27 @@ public class SpaceManagement extends PlatformBase {
 	//Request pending tab
 	public final By ELEMENT_MY_SPACE_REQUEST_PENDING_TAB = By.xpath(".//*[contains(text(),'Requests Pending')]");
 	
+	//Members
+	public final By ELEMENT_SPACE_GOWIKI = By.xpath("//*[@class='uiIconAppWikiPortlet uiIconDefaultApp']/..//*[@id='wiki']");
+	public final By ELEMENT_SPACE_MEMBERS = By.xpath("//*[@data-toggle='tab' and text()='Members']");
+	public final By ELEMENT_SPACE_GOSETTINGS = By.xpath("//*[@id='settings']");
+	public final By ELEMENT_SPACE_TEXTBOX_USER = By.xpath("//*[@id='user']");
+	public final By ELEMENT_SPACE_TEXTBOX_USER_SUGGEST = By.xpath("//*[@class='text' and text()='Mary Williams']");
+	public final By ELEMENT_SPACE_BTN_INVITE = By.xpath("//*[text()='Invite']");
+		
+	public final By ELEMENT_SPACE_BTN_ACCEPT_INVITE = By.xpath("//*[text()='Accept']");
+	public final By ELEMENT_SPACE_ALLSPACES = By.xpath("//*[text()='All Spaces']");
+		
 	ManageAlert alert;
-	Button button;
-	Dialog dialog;
 	
-	/**
-	 * constructor
+	 /** 
+	  * constructor
 	 * @param dr
 	 */
 	public SpaceManagement(WebDriver dr){
+		super(dr);
 		this.driver=dr;
 		alert = new ManageAlert(driver);
-		button = new Button(driver);
-		dialog = new Dialog(driver);
 	}
 
 	/**
@@ -143,10 +148,6 @@ public class SpaceManagement extends PlatformBase {
 		info("Save all changes");
 		click(ELEMENET_SPACE_CREATE_BUTTON);
 		waitForAndGetElement(By.linkText(name), iTimeout);
-		/*if(waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0) == null){
-			click(By.linkText(name));
-			waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0);
-		}*/
 	}
 	/**
 	 * Search a space by name or description
@@ -216,8 +217,19 @@ public class SpaceManagement extends PlatformBase {
 	 */
 	public void goToRequestPendingTab(){
 		info("Open Request pending tab");
-		//waitForAndGetElement(ELEMENT_MY_SPACE_REQUEST_PENDING_TAB,3000,0);
 		click(ELEMENT_MY_SPACE_REQUEST_PENDING_TAB);
 		Utils.pause(2000);
+	}
+	/**
+	 * Accept a invitation of the space
+	 * @param space
+	 */
+	public void acceptAInvitation(String space){
+		info("Open invitation received tab");
+		goToInvitationsReceivedTab();
+		info("Click on Accept button of the space");
+		click(ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN.replace("${space}",space));
+		info("Verify that the user joijed to the space");
+		waitForAndGetElement( ELEMENT_SPACE_NAME.replace("${name}",space),3000,0);
 	}
 }

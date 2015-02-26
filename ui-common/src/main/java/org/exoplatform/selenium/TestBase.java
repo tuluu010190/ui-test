@@ -217,11 +217,30 @@ public class TestBase {
 			driver = new InternetExplorerDriver();
 			ieFlag = true;
 		} else {
+			String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
 			FirefoxProfile profile = new FirefoxProfile();
 			profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
 			profile.setPreference("dom.max_script_run_time", 0);
 			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 			capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+			info("Save file to " + pathFile);
+			profile.setPreference("browser.download.manager.showWhenStarting", false);
+			profile.setPreference("browser.download.dir", pathFile);
+			profile.setPreference("browser.download.folderList", 2);
+			profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
+					"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
+					"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+					"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
+					"application/octet-stream" +
+					";application/pdf;application/msword;text/plain;" +
+					"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
+					"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
+					"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
+
+			profile.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
+			profile.setPreference("pref.downloads.disable_button.edit_actions", true);
+			profile.setPreference("pdfjs.disabled", true); 
+			profile.setPreference("browser.helperApps.alwaysAsk.force", false);
 			driver = new FirefoxDriver();
 		}
 		getSystemProperty();
