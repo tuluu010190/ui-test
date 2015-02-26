@@ -17,7 +17,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
 public class ECMS_SiteExplorer_Collaboration extends PlatformBase {
 	//Platform
 	ManageAccount magAc;
@@ -30,6 +29,7 @@ public class ECMS_SiteExplorer_Collaboration extends PlatformBase {
 	ActionBar actBar;
 	EcmsBase ecms;
 	ManageAlert magAlert;
+
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -147,7 +147,7 @@ public class ECMS_SiteExplorer_Collaboration extends PlatformBase {
 	 * Step 4: Check hiding comments
 	 */
 	public void  test03_CommentDocument() {
-		String fileName = "test03";
+		String fileName = "test03" + getRandomNumber();
 		String comment = "myComment";
 
 		info("Go to Sites Explorer");
@@ -158,8 +158,13 @@ public class ECMS_SiteExplorer_Collaboration extends PlatformBase {
 		cTemplate.createNewFile(fileName, comment, comment);
 		info("data created");
 		actBar.addComment(comment);
-		waitForAndGetElement(By.xpath("//*[@onclick='eXo.ecm.WCMUtils.showHideComponent(this)']"));
+		
+		//waitForAndGetElement(By.xpath("//*[@onclick='eXo.ecm.WCMUtils.showHideComponent(this)']"));
+		//waitForAndGetElement(By.xpath("//*[@onclick='eXo.ecm.WCMUtils.showHideComponent(this)']//a[contains(text(),'Show comments')]"));
 		info("Hide/show comment checked");
+		click(ecms.ELEMENT_HIDE_COMMENT_LINK);
+		waitForAndGetElement(ecms.ELEMENT_SHOW_COMMENT_LINK);
+		waitForElementNotPresent(By.xpath(ecms.ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", comment)));
 		info("Test successful");
 		cMenu.deleteDocument(By.linkText(fileName));
 		info("Data cleaned");
@@ -182,6 +187,7 @@ public class ECMS_SiteExplorer_Collaboration extends PlatformBase {
 		cTemplate.createNewFolder(folderName, folderType.Content);
 		info("data created");
 		click(By.linkText(folderName));
+		waitForElementNotPresent(ecms.ELEMENT_ADD_COMMENT_LINK);
 		click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		waitForElementNotPresent(ecms.ELEMENT_ADD_COMMENT_LINK);
 		info("Impossible to comment folder checked");
@@ -295,6 +301,7 @@ public class ECMS_SiteExplorer_Collaboration extends PlatformBase {
 		cTemplate.createNewFolder(folderName, folderType.Content);
 		info("data created");
 		click(By.linkText("test07"));
+		waitForElementNotPresent(ecms.ELEMENT_VOTE_LINK);
 		click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		waitForElementNotPresent(ecms.ELEMENT_VOTE_LINK);
 		info("Impossible to vote a folder checked");
@@ -351,6 +358,7 @@ public class ECMS_SiteExplorer_Collaboration extends PlatformBase {
 		cTemplate.createNewFolder(folderName, folderType.Content);
 		info("data created");
 		click(By.linkText("test09"));
+		waitForElementNotPresent(By.xpath(siteExp.ELEMENT_BUTTON_WATCH_UNWATCH));
 		click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		waitForElementNotPresent(By.xpath(siteExp.ELEMENT_BUTTON_WATCH_UNWATCH));
 		info("Impossible to watch folder checked");

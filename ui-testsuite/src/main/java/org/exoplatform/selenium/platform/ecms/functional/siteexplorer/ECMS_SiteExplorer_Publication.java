@@ -29,6 +29,7 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	EcmsPermission ePerm;
 	TestBase testBase;
 	EcmsBase ecms;
+	NavigationToolbar navToolbar;
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -65,12 +66,14 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test01_AddApproveStatusFromDraftStatus(){
 
-		String doc_Name = "doc_test_67519";
+		String doc_Name = "doc_test_67519" + getRandomNumber();
 		String doc_Content = "Content of File: Add Approve status from Draft status";
 		By file_locator = By.linkText(doc_Name);
 
 		info("Add Approve status from Draft status");
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");
@@ -93,12 +96,14 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test02_AddPendingRevisionFromDraftRevision(){
 
-		String doc_Name = "doc_test_67190";
+		String doc_Name = "doc_test_67190" + getRandomNumber();
 		String doc_Content = "Content of File: Add Pending revision from Draft revision";
 		By file_locator = By.linkText(doc_Name);
 
 		info("Add Pending revision from Draft revision");
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");
@@ -122,12 +127,14 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test03_AddPublishedStatusFromDraftStatus(){
 
-		String doc_Name = "doc_test_67191";
+		String doc_Name = "doc_test_67191" + getRandomNumber();
 		String doc_Content = "Content of File: Add Published status from Draft status";
 		By file_locator = By.linkText(doc_Name);
 
 		info("Add Published status from Draft status");
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");
@@ -151,12 +158,14 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test04_AddStageStatusFromDraftStatus(){
 
-		String doc_Name = "doc_test_66273";
+		String doc_Name = "doc_test_66273" + getRandomNumber();
 		String doc_Content = "Content of File: Add Stage status from Draft status";
 		By file_locator = By.linkText(doc_Name);
 
 		info("Add Stage status from Draft status");
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");
@@ -183,6 +192,8 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 
 		info("Check showing Manage publication form");
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");
@@ -209,14 +220,16 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test06_PublishChildNodeNotNTFileWhenParentPublished(){
 
-		String parent_Name = "parent_test_94786";
+		String parent_Name = "parent_test_94786" + getRandomNumber();
 		String parent_Content = "Parent node test 94786";
-		String child_Name = "child_test_94786";
+		String child_Name = "child_test_94786" + getRandomNumber();
 		String child_Sum = "Child node test 94786";
 		By file_locator = By.linkText(parent_Name);
 
 		info("Publish child node which is not nt:file when parent has been published");
 		// Add parent content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewWebContent(parent_Name, parent_Content, "", "", "", "");
 
@@ -230,7 +243,7 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 
 		// Check Publish icon for child content
 		ecms.goToNode(parent_Name+"/"+child_Name);
-		if ((waitForAndGetElement(actBar.ELEMENT_PUBLICATION, 10000, 0) == null )){
+		if ((waitForAndGetElement(actBar.ELEMENT_PUBLISH_ICON, 10000, 0) == null )){
 			click(actBar.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
 		waitForAndGetElement(actBar.ELEMENT_PUBLISH_ICON);
@@ -252,7 +265,7 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test07_PublishChildNodeNTFileWhenParentPublished(){
 
-		String parent_Name = "parent_test_94785";
+		String parent_Name = "parent_test_94785" + getRandomNumber();
 		String parent_Content = "Parent node test 94785";
 		String child_Name = "child_test_94785";
 		String child_Content = "Child node test 94785";
@@ -260,6 +273,8 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 
 		info("Publish child node which is nt:file when parent has been published");
 		// Add parent content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewWebContent(parent_Name, parent_Content, "", "", "", "");
 
@@ -296,13 +311,15 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test08_PublishContentWhenOnlySetTimeInFromField(){
 
-		String doc_Name = "doc_test_66269";
+		String doc_Name = "doc_test_66269" + getRandomNumber();
 		String doc_Content = "Content of File: Publish content when only set time in From field";
 		By file_locator = By.linkText(doc_Name);
 
 		info("Publish content when only set time in From field");
 
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");
@@ -320,6 +337,7 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 		Utils.pause(180000);
 		actBar.openManagePublicationForm();
 		waitForAndGetElement(actBar.ELEMENT_CURRENT_PUBLIC_STATUS);
+		
 		info("Status published check");
 		info("Test successful");
 		// Remove test data
@@ -339,12 +357,14 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test09_PublishContentWhenOnlySetTimeInToField(){
 
-		String doc_Name = "doc_test_66270";
+		String doc_Name = "doc_test_66270" + getRandomNumber();
 		String doc_Content = "Content of File: Publish content when only set time in To field";
 		By file_locator = By.linkText(doc_Name);
 
 		info("Publish content when only set time in To field");
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");
@@ -380,7 +400,7 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test10_PublishContentWhenPutInvalidDateFormat(){
 
-		String doc_Name = "doctest66271";
+		String doc_Name = "doctest66271" + getRandomNumber();
 		String doc_Content = "Content of File: Publish content when put invalid date format";
 		By file_locator = By.linkText(doc_Name);
 		String invalidDate = "10/10/2013";
@@ -388,6 +408,8 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 		info("Publish content when put invalid date format");
 
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");
@@ -412,12 +434,14 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 */
 	public void test11_PublishContentWithTimeInBothFromAndToFields(){
 
-		String doc_Name = "doc_test_66272";
+		String doc_Name = "doc_test_66272" + getRandomNumber();
 		String doc_Content = "Content of doc_66272";
 		By file_locator = By.linkText(doc_Name);
 
 		info("Publish content with setting publication time in both Form and To field");
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");
@@ -425,7 +449,7 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 		String oneMinuteAfterCurrentTime = addMinuteToCurrentDateTime(1);
 		String fourMinuteAfterCurrentTime = addMinuteToCurrentDateTime(4);
 		actBar.managePublication("Staged",oneMinuteAfterCurrentTime,fourMinuteAfterCurrentTime);
-		Utils.pause(100000);
+		Utils.pause(180000);
 
 		//Check status of document
 		actBar.openManagePublicationForm();
@@ -454,13 +478,15 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 	 * Step 4: Change status to Published
 	 */
 	public void Test12_PublishContentWithoutSettingPublicationTime() {
-		String doc_Name = "doctest66271";
+		String doc_Name = "doctest66271" + getRandomNumber();
 		String doc_Content = "Content of File: Publish content without setting publication time";
 		By file_locator = By.linkText(doc_Name);
 
 		info("Publish content when put invalid date format");
-
+		
 		// Add a content
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
 		actBar.goToAddNewContent();
 		conTemp.createNewFile(doc_Name, doc_Content, null);
 		info("Data created");

@@ -147,7 +147,18 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
 	//By.linkText("Content administration");
 	public final String ELEMENT_DATA_ORIGINAL_TITLE ="//*[@data-original-title='${title}']";
-
+	public final String ELEMENT_CONTENT_ADMIN_EXPLORER ="//*[text()='Explorer']";
+	public final String ELEMENT_CONTENT_ADMIN_DRIVES ="//*[@class='uiIconEcmsDriveManager uiIconEcmsLightGray']";
+	public final String ELEMENT_CONTENT_ADMIN_DRIVES_CATEGORY ="//*[@data-original-title='${title}']";
+	public final String ELEMENT_CONTENT_ADMIN_COLLABORATION_EDIT =".//*[@class='uiGrid table table-hover table-striped']//tr[1]//i[@class='uiIconEditInfo uiIconLightGray']";
+	public final String ELEMENT_CONTENT_ADMIN_COLLABORATION_PERMISSION =".//*[@id='permissions' and @value='*:/platform/web-contributors,*:/platform/administrators']";
+	public final String ELEMENT_CONTENT_ADMIN_CANCEL =".//*[@class='btn' and text()='Cancel']";
+	
+	public final String ELEMENT_CONTENT_GROUPS_EDIT =".//*[@class='uiGrid table table-hover table-striped']//tr[2]//i[@class='uiIconEditInfo uiIconLightGray']";
+	public final String ELEMENT_CONTENT_ADMIN_GROUPS_PERMISSION =".//*[@id='permissions' and @value='*:${groupId}']";
+	
+	public final String ELEMENT_CONTENT_PERSONAL_DOCUMENTS_EDIT =".//*[@class='uiGrid table table-hover table-striped']//tr[4]//i[@class='uiIconEditInfo uiIconLightGray']";
+	public final String ELEMENT_CONTENT_ADMIN_PERSONAL_DOCUMENTS_PERMISSION =".//*[@id='permissions' and @value='*:/platform/users']";
 	//Search form (Administration > Content > Search menu)
 	public final By ELEMENT_MENU_SEARCH = By.linkText("Search");
 	public final By ELEMENT_SEARCH_FORM_CONTENT_TYPE_COLUMN = By.xpath("//tr/th[text()='Content Type']");

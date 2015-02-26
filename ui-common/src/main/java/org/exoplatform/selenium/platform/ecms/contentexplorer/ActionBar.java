@@ -164,7 +164,7 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument uiIconEcmsLightGray']");
 
 	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
-	public final By ELEMENT_PUBLISH_ICON = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsPublicationPublish']");
+	public final By ELEMENT_PUBLISH_ICON = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsPublicationPublish uiIconEcmsLightGray']");
 	public final By ELEMENT_PUBLICATION_ICON = By.className("uiIconEcmsManagePublications");
 
 	public final By ELEMENT_PUBLICATION_NODE_ICON=By.xpath("//*[contains(@class,'uiIconEcmsManagePublications uiIconEcmsLightGray')]");
@@ -1036,6 +1036,7 @@ public class ActionBar extends EcmsBase{
 		waitForElementNotPresent(ELEMENT_ADD_COMMENT_POPUP);
 		click(ELEMENT_SHOW_COMMENT_LINK);
 		waitForAndGetElement(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", comment)));
+		waitForAndGetElement(ELEMENT_HIDE_COMMENT_LINK);
 	}
 
 	/**function edit a comment

@@ -139,6 +139,7 @@ public class ECMS_SiteExplorer_OtherChecks extends PlatformBase {
 		String DATA_DRIVE_NAME = "Collaboration";
 		By pdriver = By.xpath(magDrv.ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", DATA_DRIVE_NAME));
 		
+		
 		//Go to Site Explorer
 		navToolbar.goToSiteExplorer();
 		actBar.showDrives();
@@ -146,7 +147,7 @@ public class ECMS_SiteExplorer_OtherChecks extends PlatformBase {
 		click(pdriver);
 		info("go to the driver");
 		//check for initialed folder 
-		waitForAndGetElement((ELEMENT_NODE_LINK).replace("${nodeLabel}", "groups"));
+		waitForAndGetElement((ELEMENT_NODE_LINK).replace("${nodeLabel}", "Groups"));
 		waitForAndGetElement((ELEMENT_NODE_LINK).replace("${nodeLabel}", "sites"));
 		waitForAndGetElement((ELEMENT_NODE_LINK).replace("${nodeLabel}", "tags"));
 		//check for actions
@@ -154,9 +155,14 @@ public class ECMS_SiteExplorer_OtherChecks extends PlatformBase {
 		waitForAndGetElement(ELEMENT_NEW_FOLDER_LINK);
 		//check the rights
 		navToolbar.goToContentAdministration();
-		click(By.xpath("//*[text()='Explorer']"));
-		click(By.xpath("//*[@class='uiIconEcmsDriveManager uiIconEcmsLightGray']"));
-		waitForAndGetElement("//*[@data-original-title='Collaboration']/../..//*[@data-original-title='*:/platform/administrators,*:/platform/web-contributors']");
+		
+		click(ELEMENT_CONTENT_ADMIN_EXPLORER);
+		click(ELEMENT_CONTENT_ADMIN_DRIVES);
+		//waitForAndGetElement("//*[@data-original-title='Collaboration']/../..//*[@data-original-title='*:/platform/administrators,*:/platform/web-contributors']");
+		waitForAndGetElement(ELEMENT_CONTENT_ADMIN_DRIVES_CATEGORY.replace("${title}", "Collaboration"));
+		click(ELEMENT_CONTENT_ADMIN_COLLABORATION_EDIT);
+		waitForAndGetElement(ELEMENT_CONTENT_ADMIN_COLLABORATION_PERMISSION);
+		click(ELEMENT_CONTENT_ADMIN_CANCEL);
 		info("Test Collaboration drive succeed");
 	}
 
@@ -183,9 +189,13 @@ public class ECMS_SiteExplorer_OtherChecks extends PlatformBase {
 		waitForAndGetElement(ELEMENT_NEW_FOLDER_LINK);
 		//check the permission
 		navToolbar.goToContentAdministration();
-		click(By.xpath("//*[text()='Explorer']"));
-		click(By.xpath("//*[@class='uiIconEcmsDriveManager uiIconEcmsLightGray']"));
-		waitForAndGetElement("//*[@data-original-title='Groups']/../..//*[@data-original-title='*:${groupId}']");
+		click(ELEMENT_CONTENT_ADMIN_EXPLORER);
+		click(ELEMENT_CONTENT_ADMIN_DRIVES);
+		waitForAndGetElement(ELEMENT_CONTENT_ADMIN_DRIVES_CATEGORY.replace("${title}", "Groups"));
+		click(ELEMENT_CONTENT_GROUPS_EDIT);
+		waitForAndGetElement(ELEMENT_CONTENT_ADMIN_GROUPS_PERMISSION);
+		click(ELEMENT_CONTENT_ADMIN_CANCEL);
+			
 		info("Test Group drive succeed");
 	}
 
@@ -219,10 +229,12 @@ public class ECMS_SiteExplorer_OtherChecks extends PlatformBase {
 		waitForAndGetElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", "Public"));
 		//check the permission
 		navToolbar.goToContentAdministration();
-		click(By.xpath("//*[text()='Explorer']"));
-		click(By.xpath("//*[@class='uiIconEcmsDriveManager uiIconEcmsLightGray']"));
-		waitForAndGetElement(By.xpath("//*[@data-original-title='Personal Documents']/../..//*[@data-original-title=' /Users /${userId} /Private']"));
-		info("Test Personal document succeed");
+		click(ELEMENT_CONTENT_ADMIN_EXPLORER);
+		click(ELEMENT_CONTENT_ADMIN_DRIVES);
+		waitForAndGetElement(ELEMENT_CONTENT_ADMIN_DRIVES_CATEGORY.replace("${title}", "Personal Documents"));
+		click(ELEMENT_CONTENT_PERSONAL_DOCUMENTS_EDIT);
+		waitForAndGetElement(ELEMENT_CONTENT_ADMIN_PERSONAL_DOCUMENTS_PERMISSION);
+		click(ELEMENT_CONTENT_ADMIN_CANCEL);
 	}
 
 	@Test(dependsOnMethods = { "test04_PersonalDocument" },alwaysRun=true)
@@ -250,9 +262,11 @@ public class ECMS_SiteExplorer_OtherChecks extends PlatformBase {
 		waitForAndGetElement(ELEMENT_NEW_FOLDER_LINK);
 		//check the permission
 		navToolbar.goToContentAdministration();
-		click(By.xpath("//*[text()='Explorer']"));
-		click(By.xpath("//*[@class='uiIconEcmsDriveManager uiIconEcmsLightGray']"));
-		waitForAndGetElement("//*[@data-original-title='Personal Documents']/../..//*[@data-original-title='*:/platform/users']");
+		click(ELEMENT_CONTENT_ADMIN_EXPLORER);
+		click(ELEMENT_CONTENT_ADMIN_DRIVES);
+		waitForAndGetElement(ELEMENT_CONTENT_ADMIN_DRIVES_CATEGORY.replace("${title}", "Personal Documents"));
+		click(ELEMENT_CONTENT_PERSONAL_DOCUMENTS_EDIT);
+		waitForAndGetElement(ELEMENT_CONTENT_ADMIN_PERSONAL_DOCUMENTS_PERMISSION);
 		info("Test Public folder succeed");
 	}
 

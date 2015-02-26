@@ -41,7 +41,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_ACME_SEARCH_RESULT = "//a[text()='${result}']";
 	public final By ELEMENT_ACME_SEARCH_BUTTON = By.linkText("Search");  
 	public final String ELEMENT_ACME_TAB_CATEGORY = "//*[@class='Tab']//*[text()='${content}']";
-	
+
 	//Sign-in form
 	public final By ELEMENT_LOGIN_BUTTON = By.name("signIn");
 	//By.xpath("//*[@id='UIPortalLoginFormAction']");
@@ -76,7 +76,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_JS_FOLDER_TYPE_XPATH = By.xpath("//option[text()='Javascript Folder']");
 	public final String ELEMENT_FOLDER_ICON = "//*[@title='${folderTitle}' and contains(@class, '${folderType}')]";	
 	public final String MESSAGE_FOLDER_HINT_CHECKBOX = "Check if you intend to store web contents or custom document types in this folder";
-	
+
 	//Add new Page
 	public final By ELEMENT_NEWPAGE_NAME_TEXTBOX = By.id("pageName");	
 	public final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//a[@title='Finish']");
@@ -145,13 +145,13 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_ADD_NODE_CHECKBOX = By.id("add_node"); 
 	public final By ELEMENT_SET_PROPERTY_CHECKBOX = By.id("set_property");
 	public final By ELEMENT_REMOVE_CHECKBOX = By.id("remove");
-	
+
 	//Permission Management Form
 	public final By ELEMENT_PERMISSION_MANAGEMENT_POPUP = By.id("UIPopupWindow");
 	public final String ELEMENT_PERMISSION_MANAGEMENT_TEXT = "Permission Management";
 	public final By ELEMENT_PERMISSION_MANAGEMENT_GRID = By.className("permissionInfo");
 	public final By ELEMENT_MANAGE_TAGS = By.className("uiIconEcmsFolksonomyManager"); 
-	
+
 	//By.linkText("Manage Tags");
 	public final By ELEMENT_TAG_PERMISSION = By.xpath("//*[contains(text(),'Tag Permission Manager')]");
 
@@ -211,9 +211,9 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SYSTEM_TAB = By.xpath("//a[contains(@title,'System')]");
 
 	public final By ELEMENT_PERMISSION_LINK = By.xpath("//*[@class='actionIcon']//*[contains(@class,'uiIconEcmsViewPermissions')]");
-//	public final By ELEMENT_PERMISSION_LINK2 = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsViewPermissions uiIconEcmsLightGray']");
+	//	public final By ELEMENT_PERMISSION_LINK2 = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsViewPermissions uiIconEcmsLightGray']");
 	public final By ELEMENT_EXPORT_LINK = By.xpath("//i[contains(@class,'uiIconEcmsExportNode')]");
-//	public final By ELEMENT_EXPORT_LINK2 = By.xpath("//i[@class='uiIconEcmsExportNode']");
+	//	public final By ELEMENT_EXPORT_LINK2 = By.xpath("//i[@class='uiIconEcmsExportNode']");
 	public final By ELEMENT_IMPORT_LINK = By.className("uiIconEcmsImportNode");
 
 	//Content template
@@ -234,9 +234,9 @@ public class EcmsBase extends ManageAccount {
 
 
 	public final String ELEMENT_EDIT_VIEW = "//*[@data-original-title='${viewName}']/../..//*[@data-original-title='Edit']"; //*[@id='UIViewList']
-//	public final String ELEMENT_EDIT_VIEW2 = "//*[@data-original-title='${viewName}']/../..//*[contains(@class,'uiIconEditInfo')]"; //*[@id='UIViewList']
+	//	public final String ELEMENT_EDIT_VIEW2 = "//*[@data-original-title='${viewName}']/../..//*[contains(@class,'uiIconEditInfo')]"; //*[@id='UIViewList']
 	public final String ELEMENT_DELETE_VIEW = "//*[@data-original-title='${viewName}']/../..//*[@data-original-title='Delete']";
-//	public final String ELEMENT_DELETE_VIEW2 = "//*[@data-original-title='${viewName}']/../..//*[@class='uiIconDelete']";
+	//	public final String ELEMENT_DELETE_VIEW2 = "//*[@data-original-title='${viewName}']/../..//*[@class='uiIconDelete']";
 
 	//Edit View Form 
 	public final By ELEMENT_CHECKBOX_VERSION=By.id("manageVersions");
@@ -272,7 +272,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_VERIFY_THUMBNAIL = "//*[text()='${name}']//../../../*[@class='nodeLabel']/*[@class='thumbnailImage']";
 	public final String ELEMENT_VERIFY_DATE_NODE = "//*[text()='${namenode}']/../../*[contains(text(),'Created on')or contains(text(),'by')]";
 	public final String ELEMENT_VERIFY_CREATEDON_LABEL = "//*[contains(text(),'${content}')]/../..//p[contains(text(), 'Created on')]";
-	
+
 	public final By ELEMENT_ACME_DRIVE = By.linkText("acme-category");
 	public final By ELEMENT_SITES_MANAGEMENT_DRIVE = By.xpath("//*[@class = 'driveLabel' and @data-original-title = 'Sites Management']");
 	public final By ELEMENT_DMS_ADMIN_DRIVE = By.linkText("DMS Administration");
@@ -296,7 +296,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_HREF_NODE_LINK = "//*[contains(@href, '${nodeName}')]"; 
 	public final String ELEMENT_FILE_CLONE = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]";
 	public final String ELEMENT_FILE_CREATED_DATE = ELEMENT_DATA_TITLE.replace("${dataTitle}", "${nodeTitle}") + "/../../*[contains(@class, 'columnDatetime')]";
-	
+
 	//Edit Tag Form
 	public final By ELEMENT_TAG_CLOUD = By.className("uiIconEcmsTagExplorerMini");
 	public final By ELEMENT_EDIT_TAGS = By.xpath("//*[@title='Edit Tags']");
@@ -328,7 +328,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_NODE_ADDRESS = "//input[@id='address' and contains(@value,'/${content}')]";
 	public final String PERSONAL_DRIVE_BREADCRUMB = "//div[@class='breadcrumbLink']//a[@data-original-title='Personal Documents']";
 	public final By ELEMENT_VIEW_MORE_BUTTON = By.xpath("//div[@class='pull-right MoreButton']");
-	
+
 	//Undo Deleted items
 	public final By ELEMENT_UNDO_DELETED_ITEM = By.xpath("//*[@class='uiIconSuccess']/../*[contains(text(), 'Undo')]");
 	public final String MESSAGE_ITEM_DELETED_SUCCESSFULLY = "//*[contains(text(), \"\'${title}\' was deleted succesfully.\")]";
@@ -347,6 +347,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_ADD_COMMENT_FRAME = By.xpath("//*[@id='cke_contents_comment']/iframe");
 	public final By ELEMENT_ADD_COMMENT_FRAME_41 = By.xpath("//*[@id='cke_comment']//iframe"); 
 	public final By ELEMENT_SHOW_COMMENT_LINK = By.linkText("Show comments");
+	public final String ELEMENT_HIDE_COMMENT_LINK = "//*[@onclick='eXo.ecm.WCMUtils.showHideComponent(this)']//a[contains(text(),'Hide comments')]";
 	public final String ELEMENT_SHOW_COMMENT_CONTENT = "//*[@class='commentBox uiBox']//p[contains(text(), '${comment}')]";
 	public final String ELEMENT_EDIT_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Edit this comment']";
 	public final String ELEMENT_DELETE_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Remove this comment']";
@@ -364,7 +365,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SELECT_DOCUMENT_BUTTON = By.xpath("//*[text()='Select Document']");
 	public final By ELEMENT_PARENT_DRIVER = By.xpath("//*[@id='BreadcumbsContainer']/li[2]/a");
 	public final String ELEMENT_BREADCUMBSCONTAINER = "//*[@id='BreadcumbsContainer']//a[text()='${fileName}']";
-	
+
 	public final By ELEMENT_SELECT_DOCUMENT_POPUP = By.xpath("//*[@id='UIPopupSymLink']//span[text()='Select Document']");
 	public final String ELEMENT_TRANSLATION_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='fr (${fileName})']";
 	public final String ELEMENT_REF_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='${fileName}']";
@@ -374,7 +375,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_RSS_ICON = By.xpath("//*[@data-original-title='RSS Feed']");
 	public final String ELEMENT_CLV_TITLE = "//*[@class='Title' and contains(text(), '${title}')]";
 	public final String ELEMENT_CLV_PUBLISH_DATE = ELEMENT_CLV_TITLE + "/../div[contains(text(), '${date}')]";
-	
+
 
 
 	////////////////////////////////
@@ -501,8 +502,8 @@ public class EcmsBase extends ManageAccount {
 		}else if (isElementPresent(By.xpath("//*[@data-original-title = 'Select User']"))){
 			click(By.xpath("//*[@data-original-title = 'Select User']"));
 		}
-			click(ELEMENT_USER);
-		
+		click(ELEMENT_USER);
+
 		Utils.pause(1000);
 	}
 
@@ -522,7 +523,7 @@ public class EcmsBase extends ManageAccount {
 		click(By.linkText(membership));
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Select Everyone
 	 * @author phuongdt
@@ -582,7 +583,7 @@ public class EcmsBase extends ManageAccount {
 		}
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; " +
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", waitForAndGetElement(ELEMENT_UPLOAD_LINK, DEFAULT_TIMEOUT, 1, 2));
-		
+
 		Utils.pause(10000);
 		type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false,2);
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
@@ -593,7 +594,7 @@ public class EcmsBase extends ManageAccount {
 			Utils.pause(2000);
 			waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
 		}
-		
+
 		info("Upload file successfully");
 		Utils.pause(2000);
 	}
@@ -632,7 +633,7 @@ public class EcmsBase extends ManageAccount {
 	 */
 	//upload many file
 	public void uploadMultiFileSerial(String...file){
-		
+
 		if (file.length > 0){
 			if (waitForAndGetElement(By.xpath("//a[@class='actionIcon' and contains(text(),'Upload')]"),DEFAULT_TIMEOUT,0)==null){
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
@@ -649,7 +650,7 @@ public class EcmsBase extends ManageAccount {
 			waitForElementNotPresent(By.xpath("//*[@class='loaddingPercent pull-right']"));
 		}
 	}
-	
+
 
 	//Function to select home path
 	public void selectHomePathForCategoryTree(String homePath){
@@ -663,11 +664,13 @@ public class EcmsBase extends ManageAccount {
 			click(By.xpath("//*[@id='UIOneNodePathSelector']//a/i[@title='" + temp[i] + "']"));
 			Utils.pause(100);
 		}
-		//By element_select1 = By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']");
-		//By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
-		By element_select2 = By.xpath(ELEMENT_SELECT_NODE);
-		By element_select1 = By.xpath(ELEMENT_SELECT_NODE_1);
-		if (waitForAndGetElement(element_select2, 5000, 0) != null){
+		By element_select1 = By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']");
+		By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
+//		By element_select2 = By.xpath(ELEMENT_SELECT_NODE);
+//		By element_select1 = By.xpath(ELEMENT_SELECT_NODE_1);
+		if (waitForAndGetElement(element_select1, 5000, 0) != null){
+			click(element_select1);
+		}else if (waitForAndGetElement(element_select2, 5000, 0) != null){
 			click(element_select2);
 		}else if (waitForAndGetElement(element_select1, 5000, 0) != null){
 			click(element_select1);
@@ -681,8 +684,8 @@ public class EcmsBase extends ManageAccount {
 		if (temp.length != 0){
 			for (int i=0; i < temp.length ; i++ ){
 				if (waitForAndGetElement(By.id(temp[i]), DEFAULT_TIMEOUT, 0, 2) != null){
-						check(By.id(temp[i]), 2);
-						info("Select checkbox with id " + temp[i]);
+					check(By.id(temp[i]), 2);
+					info("Select checkbox with id " + temp[i]);
 				}else{
 					info("Can not found checkbox with id " + temp[i]);
 				}
@@ -691,7 +694,7 @@ public class EcmsBase extends ManageAccount {
 			info("Input checkbox list wrong");
 		}
 	}
-	
+
 	/**
 	 * Function to uncheck check-box list using id of check-box
 	 * @param viewList
@@ -701,8 +704,8 @@ public class EcmsBase extends ManageAccount {
 		if (temp.length != 0){
 			for (int i=0; i < temp.length ; i++ ){
 				if (waitForAndGetElement(By.id(temp[i]), DEFAULT_TIMEOUT, 0, 2) != null){
-						uncheck(By.id(temp[i]), 2);
-						info("Select checkbox with id " + temp[i]);
+					uncheck(By.id(temp[i]), 2);
+					info("Select checkbox with id " + temp[i]);
 				}else{
 					info("Can not found checkbox with id " + temp[i]);
 				}
