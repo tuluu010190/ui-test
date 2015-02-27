@@ -119,11 +119,11 @@ public class ContextMenu extends EcmsBase{
 		if (!nodeName.isEmpty()){
 			//if (waitForAndGetElement(ELEMENT_MENU_RENAME_NODE, 5000, 1) != null){
 			//	click(ELEMENT_MENU_RENAME_NODE);
-			Utils.pause(1000);
-			type(ELEMENT_INPUT_RENAME_NODE, nodeName, true);	        	     	        	
-			button.rename(); 		
+			type(ELEMENT_INPUT_RENAME_NODE, nodeName, true);
+			button.rename();
 			waitForTextPresent(nodeName);
 			info("Node is renamed successfully");
+			//}
 		}
 		Utils.pause(1000);
 	}

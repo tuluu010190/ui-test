@@ -38,6 +38,7 @@ import org.testng.annotations.Test;
 /*
  * @author: Lientm
  * @date: 24/09/2012
+ * updated by anhpp
  */
 public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	//Platform
@@ -84,7 +85,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 
 
 
-	/** CaseId: 102044
+	/** CaseId: 119683
 	 * case01: Add new Symlink has the same name with existing Symlink in document  
 	 * create new document - document has parent type is nt:nt:unstructured: web content
 	 * check cannot add 2 symlinks have samve name in document
@@ -117,7 +118,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_WEB_CONTENT);
 	}
 
-	/** CaseId: 102043
+	/** CaseId: 119682
 	 * case02: Add new Symlink has the same name with existing Symlink in Content Folder
 	 * create new content folder
 	 * add 2 symlink have same name for content folder
@@ -551,19 +552,19 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 */
 	@Test
 	public void test14_AddSymlinkForaNodeNotNtFileWhenItsParentNodeHAsCheckInStatus(){
-		String WEB_NAME = "ecmstestwebcontent1001";
+		String WEB_NAME = "webcontent1001";
 		By WEB_BY = By.linkText(WEB_NAME);
 
-		String WEB_NAME2 = "ecmstestwebcontent1002";
+		String FILE_NAME = "file1001";
 
 
 		info("Add new web content");
 		actBar.goToAddNewContent();
 		cTemplate.createNewWebContent(WEB_NAME, "Web test", "","","","");
 		
-		info("Add web content in the 1st web content created");
+		info("Add html file content in the 1st web content created");
 		actBar.goToAddNewContent();
-		cTemplate.createNewWebContent(WEB_NAME2, "Web test", "","","","");
+		cTemplate.createNewFile(FILE_NAME,FILE_NAME,FILE_NAME);
 		
 		cMenu.contextMenuAction(WEB_BY,cMenu.ELEMENT_MENU_CHECKIN);
 		click(WEB_BY);
@@ -604,7 +605,7 @@ public class ECMS_SE_BasicAction_AddSymlink extends PlatformBase{
 	 * add symlink for some node
 	 * -- Error of selenium -- Impossible to select two elements in the right panel
 	 */
-	@Test(groups={"error"})
+	@Test
 	public void test16_AddSymlinkForSomeNodesAtTheSameTime(){
 		String folderName = "ECMS_AddSymlink_Content_folder_16";
 		String fileName = "ECMS_AddSymlink_file_16";

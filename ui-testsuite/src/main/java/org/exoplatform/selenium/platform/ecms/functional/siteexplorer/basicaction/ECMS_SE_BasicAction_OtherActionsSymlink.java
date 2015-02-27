@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.basicaction;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
@@ -14,11 +15,15 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
+/*
+ * updated by anhpp
+ */
 public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 	//Platform
 	Button button;
@@ -67,7 +72,7 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 	}
 
 	
-	/** CaseId: 102008
+	/** CaseId: 119664
 	 * case01: Copy Symlink node to other node
 	 * create 2 node: content folder 1 and 2
 	 * create symlink for content folder 1
@@ -107,7 +112,7 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 	}
 	
 	
-	/** CaseId: 101954
+	/** CaseId: 119644
 	 * case02: Create child nodes in Symlink node
 	 * create new node: content folder
 	 * add symlink for node
@@ -148,7 +153,7 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);
 	}
 	
-	/** CaseId: 101971
+	/** CaseId: 119651
 	 * case03: Cut Symlink node to other node
 	 * create 2 node: content folder 1 and 2
 	 * create symlink for content folder 1
@@ -190,7 +195,7 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);
 	}
 	
-	/** CaseId: 101886
+	/** CaseId: 119617
 	 * Case04: Edit the name of added link node in “Symlink Name”
 	 * create node - content folder
 	 * add symlink with input name
@@ -217,7 +222,7 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER);
 	}
 	
-	/**CaseID: 101895
+	/**CaseID: 119624
 	 * case05: Open form to add Symlink for node using icon in action bar
 	 * go to add symlink
 	 * check form
@@ -236,7 +241,7 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 		dialog.closeMessageDialog();
 	}
 
-	/** CaseId: 101868
+	/** CaseId: 119605
 	 * case06: Rename Symlink node
 	 * create new node - content folder
 	 * add symlink for node
@@ -251,8 +256,8 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 		By ELEMENT_CONTENT_FOLDER_2 = By.xpath(ecms.ELEMENT_SIDEBAR_NODE_TITLE.replace("${nodeName}", DATA_CONTENT_FOLDER_2));
 
 		By ELEMENT_CONTENT_FOLDER_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME));
-		String SYMLINK_NAME_NEW = "symlink36_edited.lnk";
-		By ELEMENT_CONTENT_FOLDER_SYMLINK_NAME = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME_NEW));
+		String SYMLINK_NAME_NEW = "symlink06_edited.lnk";
+		By ELEMENT_CONTENT_FOLDER_SYMLINK_NEW = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME_NEW));
 
 		//create new content folder 1
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_1, ELEMENT_CONTENT_FOLDER_1);
@@ -269,18 +274,29 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 		info("Add symlink for content folder 1 successfully");
 
 		//rename symlink
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_SYMLINK, cMenu.ELEMENT_MENU_RENAME_NODE, SYMLINK_NAME_NEW);
-		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK_NAME); 
+		//cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_SYMLINK, cMenu.ELEMENT_MENU_RENAME_NODE, SYMLINK_NAME_NEW);
+		rightClickOnElement(By.linkText(SYMLINK_NAME));
+		click(cMenu.ELEMENT_MENU_RENAME_NODE);
+		type(cMenu.ELEMENT_INPUT_RENAME_NODE, SYMLINK_NAME_NEW, true);
+		WebElement element = waitForAndGetElement(cMenu.ELEMENT_INPUT_RENAME_NODE);
+		element.sendKeys(Keys.RETURN);
+		
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK_NEW); 
 
+		//folder 1 is not renamed
+		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_1);
+		
 		//folder 2 is not renamed
 		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_2);
+		
+		
 
 		//delete data
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);	  
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);	 
 	}
 	
-	/** CaseId: 101869
+	/** CaseId: 119606
 	 * case07: Rename the node which is the target node
 	 * create 2 new node - content folder 1, content folder 2
 	 * add symlink for content folder 1 with target node is content folder 2
@@ -296,8 +312,8 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 		By ELEMENT_CONTENT_FOLDER_2 = By.xpath(ecms.ELEMENT_SIDEBAR_NODE_TITLE.replace("${nodeName}", DATA_CONTENT_FOLDER_2));
 
 		By ELEMENT_CONTENT_FOLDER_SYMLINK = By.xpath(ecms.ELEMENT_SYMLINK.replace("${symlinkTitle}", SYMLINK_NAME));
-		String DATA_CONTENT_FOLDER_2_NEW = "contentfolder07_2_edited";
-		By ELEMENT_CONTENT_FOLDER_2_NEW = By.linkText(DATA_CONTENT_FOLDER_2_NEW);
+		String DATA_CONTENT_FOLDER_1_NEW = "contentfolder07_1_edited";
+		By ELEMENT_CONTENT_FOLDER_1_NEW = By.linkText(DATA_CONTENT_FOLDER_1_NEW);
 
 		//create new content folder 1
 		cTemplate.createAndCheckContentFolder(DATA_CONTENT_FOLDER_1, ELEMENT_CONTENT_FOLDER_1);
@@ -313,21 +329,26 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Add symlink for content folder 1 successfully");
 
-		//rename content folder 2
-		ecms.goToNode(ELEMENT_CONTENT_FOLDER_2);
-		cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_2, cMenu.ELEMENT_MENU_RENAME_NODE, DATA_CONTENT_FOLDER_2_NEW);
-
-		//check name of symlink is not change
+		//rename content folder 1
 		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1);
+		//cMenu.contextMenuAction(ELEMENT_CONTENT_FOLDER_2, cMenu.ELEMENT_MENU_RENAME_NODE, DATA_CONTENT_FOLDER_2_NEW);
+		rightClickOnElement(ELEMENT_CONTENT_FOLDER_1);
+		click(cMenu.ELEMENT_MENU_RENAME_NODE);
+		type(cMenu.ELEMENT_INPUT_RENAME_NODE, DATA_CONTENT_FOLDER_1_NEW, true);
+		WebElement element = waitForAndGetElement(cMenu.ELEMENT_INPUT_RENAME_NODE);
+		element.sendKeys(Keys.RETURN);
+		
+		//check name of symlink is not change
+		ecms.goToNode(ELEMENT_CONTENT_FOLDER_1_NEW);
 		waitForAndGetElement(ELEMENT_CONTENT_FOLDER_SYMLINK);
 		info("Symlink is kept old name");
 
 		//delete data
-		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);
-		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2_NEW);		  
+		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1_NEW);
+		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_2);		  
 	}
 	
-	/** CaseId: 102136
+	/** CaseId: 119726
 	 * case08: Restore deleted Symlink
 	 * create new node - content folder
 	 * add symlink for node 
@@ -383,7 +404,7 @@ public class ECMS_SE_BasicAction_OtherActionsSymlink extends PlatformBase{
 	
 	
 	
-	/** CaseId: 101858
+	/** CaseId: 119603
 	 * case09: View content of Symlink
 	 * create new node - content folder
 	 * add symlink for node with target node is folder: acme/documents

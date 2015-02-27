@@ -586,7 +586,7 @@ public class TestBase {
 				}
 				WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);	
 				if (element != null){
-					if (validate) element.clear();
+					if (validate)element.clear();
 					element.click();
 					element.sendKeys(value);
 					if (!validate || value.equals(getValue(locator))) {

@@ -18,7 +18,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
+/*
+ * updated by anhpp
+ */
 public class ECMS_SE_BasicAction_DeleteSymlink extends PlatformBase{
 	//Platform
 	Button button;
@@ -68,7 +70,7 @@ public class ECMS_SE_BasicAction_DeleteSymlink extends PlatformBase{
 	
 	
 	
-	/** CaseId: 101913
+	/** CaseId: 119630
 	 * case01: Delete Symlink node
 	 * create new node - content folder
 	 * add symlink for node
@@ -107,7 +109,7 @@ public class ECMS_SE_BasicAction_DeleteSymlink extends PlatformBase{
 	}
 	
 	
-	/** CaseId: 101914
+	/** CaseId: 119631
 	 * case02: Delete the node which is the target node
 	 * create 2 content folder: 1 and 2
 	 * add symlink for content folder 1 with target node = content folder 2
@@ -150,7 +152,7 @@ public class ECMS_SE_BasicAction_DeleteSymlink extends PlatformBase{
 		cMenu.deleteDocument(ELEMENT_CONTENT_FOLDER_1);
 	}
 	
-	/** CaseId: 101860
+	/** CaseId: 119604
 	 * case03: Remove Symlink of node
 	 * create new node - content folder
 	 * add symlink for node
