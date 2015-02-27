@@ -18,6 +18,7 @@ import org.testng.Assert;
 
 import java.util.HashMap;
 
+
 import static org.exoplatform.selenium.TestLogger.info;
 
 
@@ -98,6 +99,8 @@ public class ActionBar extends EcmsBase{
 
 	//Publication > Add Category Form
 	public By ELEMENT_CATEGORIES_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsManageCategories uiIconEcmsLightGray']"); 
+	//public By ELEMENT_MULTI_CATEGORIES = By.xpath("//*[@class='uiGrid table table-hover table-striped']//tr[${index}]//i[@class='uiIconValidate uiIconLightGray']");
+	public String ELEMENT_MULTI_CATEGORIES = "//*[@class='uiGrid table table-hover table-striped']//tr[${index}]//i[@class='uiIconValidate uiIconLightGray']";
 	public By ELEMENT_CATEGORIES_MORE_LINK = By.xpath("//*[text()='More']/..//a[text()='Categories']");
 	public By ELEMENT_SELECT_CATEGORY_TAB = By.xpath("//*[text()='Select Category']");
 	public By ELEMENT_CATEGORY_TREE_BOX = By.name("taxonomyTree");
@@ -464,9 +467,9 @@ public class ActionBar extends EcmsBase{
 
 		By ELEMENT_ADD_CATEGORY_SPECIFIC = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@title='select']");
 		// By ELEMENT_CATEGORY_LIST = By.xpath("//th[text()='Category']")
-		//By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@data-original-title='select']");
-		By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath(".//*[@id='UISelectTaxonomyPanel']//tr[1]//i[contains(@class,'uiIconValidate uiIconLightGray')]");
-		
+		//By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath(".//*[@id='UISelectTaxonomyPanel']//tr[1]//i[contains(@class,'uiIconValidate uiIconLightGray')]");
+		By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@data-original-title='select']");
+		//By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath("//*[@class='uiGrid table table-hover table-striped']//tr[1]//i[@class='uiIconValidate uiIconLightGray']");
 		if (waitForAndGetElement(ELEMENT_CATEGORIES_LINK, 5000, 0) == null){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 			waitForAndGetElement(ELEMENT_CATEGORIES_LINK);
@@ -503,7 +506,58 @@ public class ActionBar extends EcmsBase{
 		/*waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_TAB);*/
 		info ("------Category " + categoryName + " is added succesfully");
 	}
+	
+	//Add multi categories for node
+		public void addMultiCategoriesForNode(String categoryTree, boolean rootTree, String index, Object...params) {
+			String categoryPath = (String) (params.length > 0 ? params[0]:"");
+			//String categoryName = (String) (params.length > 1 ? params[1]:"");
 
+			//By ELEMENT_ADD_CATEGORY_SPECIFIC = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@title='select']");
+			// By ELEMENT_CATEGORY_LIST = By.xpath("//th[text()='Category']")
+			//By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@data-original-title='select']");
+			///String ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = ELEMENT_MULTI_CATEGORIES.replace("${index}", index);
+			By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath(ELEMENT_MULTI_CATEGORIES.replace("${index}", index));
+			
+
+			if (waitForAndGetElement(ELEMENT_CATEGORIES_LINK, 5000, 0) == null){
+				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+				waitForAndGetElement(ELEMENT_CATEGORIES_LINK);
+			}
+			click(ELEMENT_CATEGORIES_LINK);
+
+			waitForAndGetElement(ELEMENT_SELECT_CATEGORY_TAB);
+			click(ELEMENT_SELECT_CATEGORY_TAB);
+			Utils.pause(500);
+			select(ELEMENT_CATEGORY_TREE_BOX, categoryTree);
+			if (rootTree) {
+				click(ELEMENT_ADD_ROOT_BUTTON);
+				waitForTextPresent(categoryTree);
+				checkUnexpectedError();	
+			}
+			else {
+				if (categoryPath != ""){
+					String paths [] = categoryPath.split("/");
+					for (String path : paths)
+						click(By.xpath("//*[@title='"+path+"']"));
+				}
+				/*if (waitForAndGetElement(ELEMENT_ADD_CATEGORY_SPECIFIC, 5000, 0) != null){
+					click(ELEMENT_ADD_CATEGORY_SPECIFIC);	
+				}else {*/
+					click(ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER);
+				//}
+				Utils.pause(500);
+				checkUnexpectedError();
+				//waitForTextPresent(categoryPath);
+			}
+			if (waitForAndGetElement(button.ELEMENT_CLOSE_BUTTON, 3000, 0) != null ){
+				click(button.ELEMENT_CLOSE_BUTTON);
+			}
+			/*waitForElementNotPresent(ELEMENT_SELECT_CATEGORY_TAB);*/
+			//info ("------Category " + categoryName + " is added succesfully");
+		}
+
+	
+	
 	/*
 	 * Add version for a node
 	 * + locator: locator of node
@@ -1066,10 +1120,11 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_SHOW_COMMENT_LINK);
 		click(By.xpath(ELEMENT_DELETE_COMMENT_ICON.replace("${comment}", comment)));
 		alert.acceptAlert();
-		if (waitForAndGetElement(ELEMENT_SHOW_COMMENT_LINK, 5000, 0) != null){
+		/*if (waitForAndGetElement(ELEMENT_SHOW_COMMENT_LINK, 5000, 0) != null){
 			click(ELEMENT_SHOW_COMMENT_LINK);
-		}
+		}*/
 		waitForElementNotPresent(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", comment)));
+		waitForElementNotPresent(ELEMENT_SHOW_COMMENT_LINK);
 	}
 
 	/** function vote for a document/uploaded file

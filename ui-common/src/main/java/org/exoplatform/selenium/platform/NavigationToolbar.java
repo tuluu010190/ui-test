@@ -464,7 +464,10 @@ public class NavigationToolbar extends PlatformBase {
 	//Function go to Home Page
 	public void goToHomePage(){
 		info("-- Go to home page --");
+		waitForAndGetElement(ELEMENT_HOME_PAGE, 40000);
+		info("Wait success");
 		clickByJavascript(ELEMENT_HOME_PAGE);
+		info("Click success");
 		Utils.pause(1000);
 		driver.navigate().refresh();
 		waitForAndGetElement(ELEMENT_REFRESH,60000);

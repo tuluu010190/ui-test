@@ -70,7 +70,6 @@ public class TestBase {
 	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
 	//public final String DEFAULT_BASEURL="http://192.168.1.21:8080/portal";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
-
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");

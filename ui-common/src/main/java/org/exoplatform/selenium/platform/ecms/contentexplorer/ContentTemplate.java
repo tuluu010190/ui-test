@@ -50,7 +50,7 @@ public class ContentTemplate extends EcmsBase {
 	public final String ELEMENT_WEBCONTENT_CONTENT_NAME = ".//*[@ data-original-title='${nameContent}']";
 	public final String ELEMENT_WEBCONTENT_CONTENT_NAME_DOCUMENT_VIEW=".//*[@id='UITabContent']//*[contains(text(),'${content}')]";
 
-	//public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX = By.id("title");	
+	public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX = By.id("title0");	
 	public final By ELEMENT_WEBCONTENT_NAME_TEXTBOX = By.id("name");	
 	public final By ELEMENT_WEBCONTENT_CONTENT_FRAME = By.xpath("//*[contains(@id,'cke_contents_htmlData')]/iframe");
 	public final By ELEMENT_WEBCONTENT_CONTENT_FRAME_41 = By.xpath("//*[@id= 'cke_1_contents']//iframe");
@@ -157,7 +157,7 @@ public class ContentTemplate extends EcmsBase {
 	//		.xpath("//*[contains(text(),'View as Plain text')]");
 	public final By ELEMENT_NEWFILE_TEXT_TAB_XPATH = By
 			.xpath("//a[contains(text(),'View as Plain text')]");
-	
+
 	public final String ELEMENT_NEWFILE_TEXT_TAB_P_CSS = ".textContent>pre";
 	public final By ELEMENT_NEWFILE_MIME_COMBOX_ID = By.name("mimetype");
 	public final By ELEMENT_NEWFILE_TEXTAREA_ID = By.id("contentHtml");
@@ -320,6 +320,7 @@ public class ContentTemplate extends EcmsBase {
 			String sum, String css, String js, Object... params) {
 		boolean lines = (Boolean) (params.length > 0 ? params[0] : false);
 		String optionLang = (String) (params.length > 1 ? params[1] : "");
+		boolean isVerify = (Boolean) (params.length > 0 ? params[0] : true);
 		By eWebContentSum;
 		if (this.plfVersion.equalsIgnoreCase("4.0"))
 		{
@@ -327,7 +328,7 @@ public class ContentTemplate extends EcmsBase {
 		}
 		else{
 			eWebContentSum = ELEMENT_WEBCONTENT_SUMMARY_FRAME_41;
-			}
+		}
 		/*if (this.plfVersion.equalsIgnoreCase("4.1"))
 			eWebContentSum = ELEMENT_WEBCONTENT_SUMMARY_FRAME_41;
 		else
@@ -346,7 +347,7 @@ public class ContentTemplate extends EcmsBase {
 			else
 				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, cont,true);
 			switchToParentWindow();
-						
+
 			/*if (this.plfVersion.equalsIgnoreCase("4.1"))
 				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, cont,
 						true);
@@ -395,7 +396,8 @@ public class ContentTemplate extends EcmsBase {
 			type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, false);
 		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		waitForAndGetElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", name));		
+		if(isVerify=true)
+			waitForAndGetElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", name));		
 		Utils.pause(3000);
 	}
 
@@ -1172,7 +1174,6 @@ public class ContentTemplate extends EcmsBase {
 		info("-- Editing Web Content --" + title);
 		actBar.goToEditDocument(title);
 		driver.navigate().refresh();
-		// type(ELEMENT_WEBCONTENT_TITLE_TEXTBOX, title_edit, true);
 		// waitForAndGetElement(ELEMENT_WEBCONTENT_NAME_TEXTBOX).clear();
 		if (contentToEdit != "") {
 			if (this.plfVersion.equalsIgnoreCase("4.1"))

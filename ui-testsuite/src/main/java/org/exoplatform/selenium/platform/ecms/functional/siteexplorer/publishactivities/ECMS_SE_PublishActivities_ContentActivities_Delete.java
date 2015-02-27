@@ -68,7 +68,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Delete extends Platform
 	 */
 	@Test
 	public void test01_RemoveContentActivityAfterDeleteAContent(){
-		String FILE_TITLE_01 = "ECMS_SE_Content_01";
+		String FILE_TITLE_01 = "ECMS_SE_Content_01" + getRandomNumber();
 		By bNode = By.xpath(SE.ELEMENT_SE_NODE.replace("{$node}", FILE_TITLE_01));
 		
 		info("Go to Content Explorer");
@@ -78,12 +78,25 @@ public class ECMS_SE_PublishActivities_ContentActivities_Delete extends Platform
 		actBar.goToAddNewContent();
 		cTemplate.createNewWebContent(FILE_TITLE_01, FILE_TITLE_01, "", "", "", "");
 
+		//Make sure content activity is added successfully
+		info("-- Back to the Home page --");
+	    navToolBar.goToHomePage();
+	     
+	    //A new Content acsActivitytivity is added in the activity stream
+	    info("-- Check activity after adding a content --");
+	    sActivity.checkInforAfterAddingDocument(FILE_TITLE_01, "", "Web Content", "", "", "", "", "");
+		
+	    // Delete Node added above
+	    navToolBar.goToSiteExplorer();
+	    click(By.linkText(FILE_TITLE_01));
+	    
 		info("Delete a node in Site Explorer");
 		cMenu.deleteDocument(bNode);
 
 		info("Go to Intranet Homepage");
 		navToolBar.goToHomePage();
 
+		//Content acsActivitytivity is removed from the activity stream
 		info("Check if a node activity is displayed or not");
 		waitForElementNotPresent(By.linkText(FILE_TITLE_01));
 	}
@@ -107,6 +120,10 @@ public class ECMS_SE_PublishActivities_ContentActivities_Delete extends Platform
 		
 		info("Go to Intranet Homepage");
 		navToolBar.goToHomePage();
+		
+		//A new Content acsActivitytivity is added in the activity stream
+	    info("-- Check activity after adding a content --");
+	    sActivity.checkInforAfterAddingDocument(FILE_TITLE_02, "", "Web Content", "", "", "", "", "");
 
 		info("Delete a node activity");
 		sActivity.deleteActivity(FILE_TITLE_02);

@@ -495,7 +495,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Add extends PlatformBas
 	     
 	     //Add a new content: Free Layout
 	     actBar.goToAddNewContent();
-	     cTemplate.createNewWebContent(node,node,"", "", "", "");
+	     cTemplate.createNewWebContent(node,node,"", "", "", "",false,"",false);
 	     
 	     /*Step 3: Check content activity after add Free Layout Webcontent*/
 	     //Back to the Home page

@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.publishac
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -27,7 +29,8 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 	ActionBar actBar;
 	NavigationToolbar navToolBar;
 	HomePageActivity activity;
-
+	ContentTemplate contemp;
+	
 	//Ecms
 	EcmsBase ecms;
 	ContentTemplate cTemplate;
@@ -50,6 +53,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		cMenu = new ContextMenu(driver, this.plfVersion);
 		activity = new HomePageActivity(driver, this.plfVersion);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
+		contemp = new ContentTemplate(driver, this.plfVersion);
 
 	}
 
@@ -70,11 +74,14 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 	@Test
 	public void test01_UpdateContentActivityAfterEditTitleOfDocument(){
 		//Declare variable
-		String node = "node01";
+		String node = "node01" + getRandomNumber();
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
-		String newnode = "newnode1";
-		By bNewNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", newnode));
-
+		//String newnode = "newnode1";
+		String title = "Title of Web Content";
+		String comment = "Title has been updated to:";
+		//By bNewNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", newnode));
+		
+		
 		/*Step 1: Add new content*/ 
 		//Open Sites Explorer
 		info("-- Open Sites Explorer --");
@@ -82,28 +89,36 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 
 		//Add a new content
 		actBar.goToAddNewContent();
-		cTemplate.createNewWebContent(node,node,"", "", "", "");
-
+		//cTemplate.createNewWebContent(node,node,"", "", "", "");	
+		cTemplate.createNewFile(node, node, node);
+		
 		/*Step 2: Edit title of content*/
 		//Edit the title of the shared content
-		cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_RENAME_NODE, newnode);
+		actBar.goToEditDocument(node);
+		driver.navigate().refresh();
+		type(contemp.ELEMENT_WEBCONTENT_TITLE_TEXTBOX, title, true);
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		
+		//cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_RENAME_NODE, newnode);
 
 		/*Step 3: Check content activity after edit title of content*/
 		//Back to the Home page
 		info("-- Back to the Home page --");
 		navToolBar.goToHomePage();
 
-		//The content activity is updated in the activity stream with the new title
+		//The new title is not updated in the content activity.
 		info("-- Check activity after adding a content --");
-		activity.checkInforAfterAddingDocument(newnode, "", "Web Content", "", "", "", "", "");
-
-		//A comment is added: Title has been updated to: $value.
-		activity.checkTitleAfterEditing(newnode,newnode);
+		activity.checkInforAfterAddingDocument(node, "", "Web Content", "", "", "", "", "");
+		isTextNotPresent(title);
+		//A comment is added: Title has been updated to: $value.	
+		//activity.checkTitleAfterEditing(node,title);
+		waitForAndGetElement(By.xpath(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT_3.replace("${comment}",comment+" "+title)));
 		/*Clear data*/
 		info("clear data");
 		info("-- Open Sites Explorer --");
 		navToolBar.goToSiteExplorer();
-		cMenu.deleteDocument(bNewNode);
+		cMenu.deleteDocument(bNode);
 	}
 
 	/**
@@ -116,7 +131,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 	@Test
 	public void test02_UpdateContentActivityAfterEditSummaryOfContent(){
 		//Declare variable
-		String node = "node02";
+		String node = "node02" + getRandomNumber();
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
 		String summary = "Summary of web content";
 		String comment = "Summary has been updated to:";
@@ -145,7 +160,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 
 		//A comment is added: Summary has been updated to: $value.
 		info("-- Verify comment --");
-		waitForAndGetElement((By.xpath(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT_2.replace("${comment}",comment+" "+summary))));
+		waitForAndGetElement((By.xpath(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT_2.replace("${comment}",comment+"       "+summary))));
 
 		/*Clear data*/
 		info("clear data");
@@ -195,6 +210,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		//A comment is added: Content has been updated.
 		info("-- Verify comment --");
 		waitForAndGetElement((By.xpath(activity.ELEMENT_ACTIVITY_COMMENT_CONTENT_2.replace("${title}", "").replace("${comment}",comment ))));
+		
 		/*Clear data*/
 		info("clear data");
 		info("-- Open Sites Explorer --");
@@ -317,12 +333,14 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 	@Test
 	public void test06_UpdateContentActivityAfterAddACategoryToAContent(){
 		//Declare variable
-		String node = "node06";
+		String node = "node06" + getRandomNumber();
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
 		String categoryPath = "Defense";
 		String categoryTree = "powers";
 		String categoryNode = "Healing";
 		String categoryNode1 = "Vision";
+		String index1 = "1";
+		String index2 = "4";
 
 		/*Step 1 : Add content*/ 
 		//Open Sites Explorer
@@ -340,7 +358,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		actBar.addItem2ActionBar("addCategory", actBar.ELEMENT_CATEGORIES_LINK);
 		//Add category for node
 		cTemplate.goToNode(bNode);
-		actBar.addCategoryForNode(categoryTree, false, categoryPath, categoryNode);
+		actBar.addMultiCategoriesForNode(categoryTree, false, index1 ,categoryPath);
 
 		/*Step 3: Check content activity after add category to content*/
 		//Back to the Home page
@@ -359,7 +377,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		/*Step 4: Add 2 categories to content*/
 		navToolBar.goToSiteExplorer();
 		cTemplate.goToNode(bNode);
-		actBar.addCategoryForNode(categoryTree, false, categoryPath, categoryNode1);
+		actBar.addMultiCategoriesForNode(categoryTree, false, index2, categoryPath);
 
 		//Back to the Home page
 		info("-- Back to the Home page --");
@@ -372,6 +390,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 
 		//A comment is added: Category: $value has been added.
 		info("-- Verify comment --");
+		activity.checkCategoryAfterAddingToContent(node, categoryNode);
 		activity.checkCategoryAfterAddingToContent(node, categoryNode1);
 
 		/*Clear data*/
@@ -392,11 +411,16 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 	@Test
 	public void test07_UpdateContentActivityAfterRemoveACategoryToAContent(){
 		//Declare variable
-		String node = "node07";
+		String node = "node07" + getRandomNumber();
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
 		String categoryPath = "Defense";
 		String categoryTree = "powers";
-		String categoryNode = "Healing";
+		String categoryNode1 = "Healing";
+		String categoryNode2 = "Immunity";
+		String categoryNode3 = "Vision";
+		String index1 = "1";
+		String index2 = "2";
+		String index3 = "4";
 
 		/*Step 1 : Add content*/ 
 		//Open Sites Explorer
@@ -414,10 +438,10 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		actBar.addItem2ActionBar("addCategory", actBar.ELEMENT_CATEGORIES_LINK);
 		//Add category for node
 		cTemplate.goToNode(bNode);
-		actBar.addCategoryForNode(categoryTree, false, categoryPath, categoryNode);
+		actBar.addMultiCategoriesForNode(categoryTree, false, index1, categoryPath);
 
 		/*Step 3: Remove a category in content*/
-		actBar.deleteCategory(categoryTree + "/"+ categoryPath + "/" + categoryNode);
+		actBar.deleteCategory(categoryTree + "/"+ categoryPath + "/" + categoryNode1);
 
 		/*Step 4: Check content activity after remove a category*/
 		//Back to the Home page
@@ -427,12 +451,43 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		//The content of the content activity isn't updated in the activity stream 
 		info("-- Check activity after adding a content --");
 		activity.checkInforAfterAddingDocument(node, "", "Web Content", "", "", "", "", "");
-		waitForElementNotPresent(activity.ELEMENT_CONTENT.replace("@{fileName}", node).replace("${text}", categoryNode));
+		waitForElementNotPresent(activity.ELEMENT_CONTENT.replace("@{fileName}", node).replace("${text}", categoryNode1));
 
 		//A comment is added: Category: $value has been removed.
 		info("-- Verify comment --");
-		activity.checkCategoryAfterRemovingToContent(node, categoryNode);
+		activity.checkCategoryAfterRemovingToContent(node, categoryNode1);
+		
+		/*Step 5:Remove more category in content: 
+	        - Back to [Categories]
+	        - Choose two categories in [References Categories ] tab and click [Delete]*/
+		info ("Step 5: Remove more category in content");
+		navToolBar.goToSiteExplorer();
+		cTemplate.goToNode(bNode);
+		
+		info("Add more 2 nodes");
+		actBar.addMultiCategoriesForNode(categoryTree, false, index2, categoryPath);
+		actBar.addMultiCategoriesForNode(categoryTree, false, index3, categoryPath);
+		
+		info("Delete 2 nodes that just added");
+		actBar.deleteCategory(categoryTree + "/"+ categoryPath + "/" + categoryNode2);
+		actBar.deleteCategory(categoryTree + "/"+ categoryPath + "/" + categoryNode3);
+		
+		/*Step 6: Check Content activity after delete more categories*/
+		info("Step 6: Check Content activity after delete more categories");
+		navToolBar.goToHomePage();
 
+		//The content of the content activity isn't updated in the activity stream 
+		info("-- Check activity after adding a content --");
+		activity.checkInforAfterAddingDocument(node, "", "Web Content", "", "", "", "", "");
+		waitForElementNotPresent(activity.ELEMENT_CONTENT.replace("@{fileName}", node).replace("${text}", categoryNode1));
+		waitForElementNotPresent(activity.ELEMENT_CONTENT.replace("@{fileName}", node).replace("${text}", categoryNode2));
+		waitForElementNotPresent(activity.ELEMENT_CONTENT.replace("@{fileName}", node).replace("${text}", categoryNode3));
+
+		//A comment is added: Category: $value has been removed.
+		info("-- Verify comment --");
+		activity.checkCategoryAfterRemovingToContent(node, categoryNode2);
+		activity.checkCategoryAfterRemovingToContent(node, categoryNode3);
+		
 		/*Clear data*/
 		info("clear data");
 		info("-- Open Sites Explorer --");
@@ -678,7 +733,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 	@Test
 	public void test11_UpdateContentActivityAfterEditACommentOfAContent(){
 		//Declare variable
-		String node = "node11";
+		String node = "node11" + getRandomNumber();
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
 		String oldComment = "Comment to file document";
 		String newComment = "New comment to file document";
@@ -699,10 +754,22 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		actBar.addItem2ActionBar("comment", actBar.ELEMENT_ADD_COMMENT_LINK);
 		cTemplate.goToNode(bNode);
 		actBar.addComment(oldComment);
+		
+		// Check content activity after add comment
+		navToolBar.goToHomePage();
+
+		//The content of the content activity isn't updated in the activity stream 
+		info("-- Check activity after adding a content --");
+		activity.checkInforAfterAddingDocument(node, "", "Web Content", "", "", "", "", "");
+
+		//The comment of the activity is added
+		info("-- Verify comment --");
+		activity.checkCommentOfContentAfterAddingToContent(node, oldComment);
 
 		/*Step 3: Edit comment*/
 		//- Click [Show comment]
 		//- Edit the comment of the content
+		navToolBar.goToSiteExplorer();
 		cTemplate.goToNode(bNode);
 		actBar.editComment(oldComment, newComment);
 
@@ -738,7 +805,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 	@Test
 	public void test12_UpdateContentActivityAfterRemoveACommentOfAContent(){
 		//Declare variable
-		String node = "node12";
+		String node = "node12" + getRandomNumber();
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
 		String comment = "Comment to file document";
 
@@ -758,16 +825,34 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 		actBar.addItem2ActionBar("comment", actBar.ELEMENT_ADD_COMMENT_LINK);
 		cTemplate.goToNode(bNode);
 		actBar.addComment(comment);
+		
+		/*// Check content activity after add comment
+		navToolBar.goToHomePage();
 
-		/*Step 3: Remove content*/
+		//The content of the content activity isn't updated in the activity stream 
+		info("-- Check activity after adding a content --");
+		activity.checkInforAfterAddingDocument(node, "", "Web Content", "", "", "", "", "");
+
+		//The comment of the activity is added
+		info("-- Verify comment --");
+		activity.checkCommentOfContentAfterAddingToContent(node, comment);*/
+
+		/*Step 3: Remove comment*/
 		//- Click [Show comment] and click [Delete]
+		//navToolBar.goToSiteExplorer();
 		cTemplate.goToNode(bNode);
 		actBar.deleteComment(comment);
+
 
 		/*Step 4: Check content activity after edit comment*/
 		//Back to the Home page
 		info("-- Back to the Home page --");
 		navToolBar.goToHomePage();
+		//waitForAndGetElement(".//*[@class='uiIconHome']", 4000);
+		//driver.navigate().refresh();
+		clickByJavascript(".//*[@class='uiIconHome']");
+		//click(".//*[@class='uiIconHome']");
+		Utils.pause(1000);
 
 		//The content of the content activity isn't updated in the activity stream 
 		info("-- Check activity after adding a content --");
@@ -1003,7 +1088,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Update extends Platform
 	@Test
 	public void test17_UpdateContentActivityAfterRestoreARevisionOfContent(){
 		//Declare variable
-		String node = "node17";
+		String node = "node17" + getRandomNumber();
 		By bNode = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node));
 		String version = "1";
 		String summary = "Summary of web content";

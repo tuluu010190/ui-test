@@ -88,7 +88,9 @@ public class ECMS_SE_PublishActivities_ContentActivities_NotUpdateAS extends Pla
 
 		info("Go to Intranet Homepage");
 		navToolBar.goToHomePage();
-		isTextPresent(FILE_TITLE_01);
+		//isTextPresent(FILE_TITLE_01);
+		info("-- Check activity after adding a content --");
+		sActivity.checkInforAfterAddingDocument(FILE_TITLE_01, "", "Web Content", "", "", "", "", "");
 		WebElement COMMENT = waitForAndGetElement(sActivity.ELEMENT_COMMENT_LINK.replace("${activityText}",FILE_TITLE_01));
 		Utils.pause(3000);
 		String nbComment_old = COMMENT.getText();
@@ -146,6 +148,8 @@ public class ECMS_SE_PublishActivities_ContentActivities_NotUpdateAS extends Pla
 
 		info("Go to Intranet Homepage");
 		navToolBar.goToHomePage();
+		info("-- Check activity after adding a content --");
+		sActivity.checkInforAfterAddingDocument(FILE_TITLE_02, "", "Web Content", "", "", "", "", "");
 		Utils.pause(3000);
 		WebElement COMMENT = waitForAndGetElement(sActivity.ELEMENT_COMMENT_LINK.replace("${activityText}",FILE_TITLE_02));
 		String nbComment_old = COMMENT.getText().trim();
@@ -202,6 +206,8 @@ public class ECMS_SE_PublishActivities_ContentActivities_NotUpdateAS extends Pla
 
 		info("Go to Intranet Homepage");
 		navToolBar.goToHomePage();
+		info("-- Check activity after adding a content --");
+		sActivity.checkInforAfterAddingDocument(FILE_TITLE_03, "", "Web Content", "", "", "", "", "");
 		Utils.pause(3000);
 		WebElement COMMENT = waitForAndGetElement(sActivity.ELEMENT_COMMENT_LINK.replace("${activityText}",FILE_TITLE_03));
 		String nbComment_old = COMMENT.getText();

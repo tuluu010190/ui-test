@@ -56,6 +56,7 @@ public class HomePageActivity extends PlatformBase{
 
 	//Comment box for ECMS data type
 	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_2 = "//*[@class='contentComment' and contains(text(),'${comment}')]";
+	public final String ELEMENT_ACTIVITY_COMMENT_CONTENT_3 = "//*[@class='ContentBlock' and contains(text(),'${comment}')]";
 	public final String ELEMENT_ACTIVITY_DELETE_COMMENT_ICON = "//*[@class='contentComment' and contains(text(), '${comment}')]/../..//*[contains(@id, 'DeleteCommentButton')]";
 	public final String DATA_MESSAGE_CONFIRM_DELETE_COMMENT = "Are you sure you want to delete this comment?";
 
