@@ -391,8 +391,6 @@ public class Wiki_Activity_Update extends Permalink{
 		Utils.pause(2000);
 		deleteCurrentWikiPage();
 	}	
-	
-	
 
 	/**
 	 * Case ID:118086.

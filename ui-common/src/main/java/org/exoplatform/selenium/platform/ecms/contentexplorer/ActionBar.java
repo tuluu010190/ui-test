@@ -160,9 +160,13 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_PUBLICATION_TAB = By.xpath("//a[contains(text(),'Publication')]");
 	public final By ELEMENT_TEMPLATE_LIST_TEXT = By.xpath("//div[contains(text(),'Select your template in the list below')]");
 	public final By ELEMENT_EDIT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsEditDocument uiIconEcmsLightGray']");
+<<<<<<< HEAD
 	//public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument']");
 	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument uiIconEcmsLightGray']");
 
+=======
+	public final By ELEMENT_NEW_CONTENT_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddDocument uiIconEcmsLightGray']");
+>>>>>>> 663f255... FQA-2207: PLF 4.2/ECMS FNC High - Migrate commons and test cases (ECMS/SE/Publish Activities/File Activities and ECMS/SE/Other Checks)
 	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
 	public final By ELEMENT_PUBLISH_ICON = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsPublicationPublish uiIconEcmsLightGray']");
 	public final By ELEMENT_PUBLICATION_ICON = By.className("uiIconEcmsManagePublications");

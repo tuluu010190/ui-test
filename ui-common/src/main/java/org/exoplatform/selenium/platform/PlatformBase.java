@@ -141,7 +141,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_MENU_CONTENT_LINK = By.xpath("//li[@class='dropdown-submenu']/a[text()='Content']");
 	public final By ELEMENT_MENU_SITE_EXPLORER = By.linkText("Sites Explorer");
 	public final By ELEMENT_SITE_EXPLORER_HOME = By.className("uiIconEcmsHome");
-	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[contains(@class, 'uiIconEcmsAddFolder')]");
+	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[contains(@class, 'uiIconEcmsAddFolder uiIconEcmsLightGray')]");
 
 	//By.linkText("Sites Explorer");
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
@@ -466,7 +466,11 @@ public class PlatformBase extends TestBase {
 
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	//public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
+<<<<<<< HEAD
 	public final String ELEMENT_NODE_LINK = "//span[contains(@class,'nodeName') and text()='${nodeLabel}']";
+=======
+	public final String ELEMENT_NODE_LINK = "//*[@class='nodeName' and contains(text(),'${nodeLabel}')]";
+>>>>>>> 663f255... FQA-2207: PLF 4.2/ECMS FNC High - Migrate commons and test cases (ECMS/SE/Publish Activities/File Activities and ECMS/SE/Other Checks)
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
 	public final By ELEMENT_TITLE_NAVIGATION_MANAGEMENT = By.xpath("//*[contains(@class, 'popupTitle') and text() = 'Navigation Management']");
 	public final By ELEMENT_ADD_NODE_LINK = By.linkText("Add Node");

@@ -57,7 +57,10 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_ADDRESS_BAR = By.id("address");
 
 	//New Folder
+<<<<<<< HEAD
 	//public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder']");
+=======
+>>>>>>> 663f255... FQA-2207: PLF 4.2/ECMS FNC High - Migrate commons and test cases (ECMS/SE/Publish Activities/File Activities and ECMS/SE/Other Checks)
 	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
 	public final By ELEMENT_FOLDER_POPUP_TITLE = By.xpath("//*[contains(@class, 'popupTitle') and text()='New Folder']");
 	public final By ELEMENT_FOLDER_TITLE_TEXTBOX = By.id("titleTextBox");

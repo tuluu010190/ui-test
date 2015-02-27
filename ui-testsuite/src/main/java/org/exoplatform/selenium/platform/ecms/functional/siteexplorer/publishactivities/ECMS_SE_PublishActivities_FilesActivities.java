@@ -51,18 +51,19 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 	@BeforeTest
 	public void beforeTest() {
 		getDriverAutoSave();
+		//initSeleniumTest();
 		driver.get(baseUrl);
 		info("Login ECMS with " + DATA_USER1);
-		magAcc = new ManageAccount(driver);
-		actBar = new ActionBar(driver);
-		cTemplate = new ContentTemplate(driver);
-		siteExp = new SitesExplorer(driver);
-		navToolBar = new NavigationToolbar(driver);
-		ecms = new EcmsBase(driver);
-		cMenu= new ContextMenu(driver);
-		btn = new Button(driver);
-		activity = new HomePageActivity(driver);
-		magMember = new ManageMember(driver);
+		magAcc = new ManageAccount(driver, this.plfVersion);
+		actBar = new ActionBar(driver, this.plfVersion);
+		cTemplate = new ContentTemplate(driver, this.plfVersion);
+		siteExp = new SitesExplorer(driver, this.plfVersion);
+		navToolBar = new NavigationToolbar(driver, this.plfVersion);
+		ecms = new EcmsBase(driver, this.plfVersion);
+		cMenu= new ContextMenu(driver, this.plfVersion);
+		btn = new Button(driver, this.plfVersion);
+		activity = new HomePageActivity(driver, this.plfVersion);
+		magMember = new ManageMember(driver, this.plfVersion);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 	}
 
@@ -80,54 +81,20 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 		spacename = "Space"+num_ran;
 		spacedesc = "Description Of Space_"+num_ran;
 	}
-	
-	/**
-	 * == Not update File activity after creating a new folder ==
-	 * Test case ID: 76991
-	 * Step 1: 	- Connect to Intranet
-				- Open Sites Explorer 
-				- Create a new folder
-				- Back to the Home page
-	 */
-	@Test
-	public void test01_NotUpdateFileActivityAfterCreatingANewFolder(){
-		//Declare variable
-		By elementFolder = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", folder));
 
-		//Open Sites Explorer
-		info("-- Open Sites Explorer --");
-		navToolBar.goToSiteExplorer();
-		
-		//Create a new folder
-		info("-- Create parent folder --");
-		cTemplate.createNewFolder(folder, folderType.None);
-		
-		//Back to the Home page
-		info("-- Back to the Home page --");
-		navToolBar.goToHomePage();
-		
-		//No activity is displayed in the activity stream
-		info("-- Check activity after adding a folder --");
-		waitForElementNotPresent(activity.ELEMENT_CONTENT_NAME.replace("@{fileName}", folder));
-		
-		/*Clear data*/
-		info ("-- Clear data --");
-		info("-- Open Sites Explorer --");
-		navToolBar.goToSiteExplorer();
-		cMenu.deleteData(elementFolder);	
-	}
 	
 	/**
 	 * == Add File activity after uploading a file in a space ==
-	 * Test case ID: 76992
-	 * Step 1: 	- Connect to Intranet
-				- Add new space
-				- Open Documents in this space
-				- Upload a file
-				- Back to the Home page
+	 * Test case ID: 119397
+	 * Steps: 	    - Connect to Intranet
+				    - Add new space
+				    - Open Documents in this space
+				    - Upload a file
+				    - Back to the Home page
+	 * Expectation: - A File activity is added to the activity stream
 	 */
 	@Test
-	public void test02_AddFileActivityAfterUploadingAFileInASpace(){
+	public void test01_AddFileActivityAfterUploadingAFileInASpace(){
 		//Declare variable
 		String file = "ECMS_DMS_SE_Upload_imgfile.jpg";
 		
@@ -157,16 +124,93 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 	}
 	
 	/**
+	 * == Add File activity after uploading a file in CE ==
+	 * Test case ID: 119398
+	 * Steps:       - Connect to Intranet
+	 			    - Go to Sites explorer (except personal drive)
+				    - Upload a file
+				    - Back to the Home page
+	 * Expectation: - A File activity is added to the activity stream
+	 */
+	@Test
+	public void test02_AddFileActivityAfterUploadingAFileInCE(){
+		//Declare variable
+		String file = "KS_Wiki_Attachment_pdffile.pdf";
+		By elementfile = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", file));
+						
+		//Go to SE
+		navToolBar.goToSiteExplorer();
+					
+		//Upload a file: image, pdf or office document (except personal document drive)
+		ecms.uploadFile("TestData/"+file);
+						
+		//Back to the Home page
+		info("-- Back to the Home page --");
+		navToolBar.goToHomePage();
+						
+		//- The File activity is displayed in the activity stream
+		info("-- A File activity is added to the activity stream --");
+		activity.checkInforAfterAddingDocument(file, "", "File", "91 bytes", "", "", "", "");
+						
+		/*Clear data*/
+		info ("-- Clear data --");
+		navToolBar.goToSiteExplorer();
+		cMenu.deleteData(elementfile);
+	}
+	
+	
+	/**
+	 * == Not update File activity after creating a new folder ==
+	 * Test case ID: 119443
+	 * Step 1: 	    - Connect to Intranet
+				    - Open Sites Explorer 
+				    - Create a new folder
+				    - Back to the Home page
+	 * Expectation: - No activity is displayed in the activity stream
+	 */
+	@Test
+	public void test03_NotUpdateFileActivityAfterCreatingANewFolder(){
+		//Declare variable
+		By elementFolder = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", folder));
+
+		//Open Sites Explorer
+		info("-- Open Sites Explorer --");
+		navToolBar.goToSiteExplorer();
+		
+		//Create a new folder
+		info("-- Create parent folder --");
+		cTemplate.createNewFolder(folder, folderType.None);
+		
+		//Back to the Home page
+		info("-- Back to the Home page --");
+		navToolBar.goToHomePage();
+		
+		//No activity is displayed in the activity stream
+		info("-- Check activity after adding a folder --");
+		waitForElementNotPresent(activity.ELEMENT_CONTENT_NAME.replace("@{fileName}", folder));
+		
+		/*Clear data*/
+		info ("-- Clear data --");
+		info("-- Open Sites Explorer --");
+		navToolBar.goToSiteExplorer();
+		cMenu.deleteData(elementFolder);	
+	}
+	
+	
+	/**
 	 * == Displaying of file format (image, pdf, office) in the File activity (1) ==
-	 * Test case ID: 76994
-	 * Step 1: 	- Connect to Intranet
-				- Go to SE and  Upload a file: image, pdf or office document (except personal document drive)
-				- Go back intranet home page
+	 * Test case ID: 119444
+	 * Steps: 	    - Connect to Intranet
+				    - Go to SE and  Upload a file: image, pdf or office document (except personal document drive)
+				    - Go back intranet home page
+	 * Expectation: - The File activity is displayed in the activity stream
+                    - A preview of the file is displayed (only first page for documents)
+
 		PENDING: check  preview of the file is displayed (only first page for documents)
 		Refer: https://jira.exoplatform.org/browse/FQA-1250
 	 */
 	@Test (groups={"pending"})
-	public void test03_DisplayingOfFileFormatImagePdfOfficeInTheFileActivity1(){
+	public void test04_DisplayingOfFileFormatImagePdfOfficeInTheFileActivity1(){
 		//Declare variable
 		String file = "KS_Wiki_Attachment_pdffile.pdf";
 		By elementfile = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", file));
@@ -195,11 +239,17 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 	
 	/**
 	 * == Display the content of the File activity ==
-	 * Test case ID: 76995
-	 * Step 1: 	Create file activity
+	 * Test case ID: 119445
+	 * Steps: 	- Connect to Intranet 
+                - Go to CE and upload a file (except personal document drive)
+                - Go back intranet home page
+     * Expectation: - The File activity is displayed in the activity stream with following informations:
+					  + File's title if exist, or file's name instead
+   					  + File description if exist
+					  + Version (if exist) and file size
 	 */
 	@Test
-	public void test04_DisplayTheContentOfTheFileActivity(){
+	public void test05_DisplayTheContentOfTheFileActivity(){
 		//Declare variable
 		String file = "KS_Wiki_Attachment_pdffile.pdf";
 		By elementfile = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", file));
@@ -233,7 +283,7 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 		
 		//The File activity is displayed in the activity stream
 		info("-- A File activity is added to the activity stream --");
-		activity.checkInforAfterAddingDocument(file, "", "File", "1 MB", "", "1", desc, "");
+		activity.checkInforAfterAddingDocument(file, "", "File", "91 bytes", "", "1", desc, "");
 		activity.checkTitleAfterEditing(file, title);
 		
 		/*Clear data*/
@@ -244,12 +294,12 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 	
 	/**
 	 * == Edit a file from the File activity from intranet home page ==
-	 * Test case ID: 76997
+	 * Test case ID: 119446
 	 * Step 1: Create file activity
 	 * Step 2: Edit file from activity stream
 	 */
 	@Test
-	public void test05_EditAFileFromTheFileActivityFromIntranetHomePage(){
+	public void test06_EditAFileFromTheFileActivityFromIntranetHomePage(){
 		//Declare variable
 		String file = "KS_Wiki_Attachment_pdffile.pdf";
 		By elementfile = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", file));
@@ -267,7 +317,7 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 				
 		//- The File activity is displayed in the activity stream
 		info("-- A File activity is added to the activity stream --");
-		activity.checkInforAfterAddingDocument(file, "", "File", "1 MB", "", "", "", "");
+		activity.checkInforAfterAddingDocument(file, "", "File", "91 bytes", "", "", "", "");
 				
 		/*Step 2: Edit file from activity stream*/
 		//From the file activity, click on the link "Edit"
@@ -285,12 +335,12 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 	
 	/**
 	 * == Remove the File activity after deleting a file in Content explorer ==
-	 * Test case ID: 77000
+	 * Test case ID: 119447
 	 * Step 1: Create file activity
 	 * Step 2: Delete File
 	 */
 	@Test
-	public void test06_RemoveTheFileActivityAfterDeletingAFileInContentExplorer(){
+	public void test07_RemoveTheFileActivityAfterDeletingAFileInContentExplorer(){
 		//Declare variable
 		String file = "KS_Wiki_Attachment_pdffile.pdf";
 		By elementfile = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", file));
@@ -308,7 +358,7 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 				
 		//- The File activity is displayed in the activity stream
 		info("-- A File activity is added to the activity stream --");
-		activity.checkInforAfterAddingDocument(file, "", "File", "1 MB", "", "", "", "");
+		activity.checkInforAfterAddingDocument(file, "", "File", "91 bytes", "", "", "", "");
 				
 		/*Step 2: Delete File*/
 		//Delete the file
@@ -326,13 +376,13 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 	
 	/**
 	 * == Delete a File activity from intranet activity stream by owner ==
-	 * Test case ID: 77027
+	 * Test case ID: 119448
 	 * Step 1: Create file activity
 	 * Step 2: See delete activity icon
 	 * Step 3: Delete activity
 	 */
 	@Test
-	public void test07_DeleteAFileActivityFromIntranetActivityStreamByOwner(){
+	public void test08_DeleteAFileActivityFromIntranetActivityStreamByOwner(){
 		//Declare variable
 		String file = "KS_Wiki_Attachment_pdffile.pdf";
 		By elementfile = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", file));
@@ -350,7 +400,7 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 				
 		//- The File activity is displayed in the activity stream
 		info("-- A File activity is added to the activity stream --");
-		activity.checkInforAfterAddingDocument(file, "", "File", "1 MB", "", "", "", "");
+		activity.checkInforAfterAddingDocument(file, "", "File", "91 bytes", "", "", "", "");
 				
 		/*Step 2: See delete activity icon*/
 		/*Step 3: Delete activity*/
@@ -364,20 +414,18 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 		info ("-- Clear data --");
 		navToolBar.goToSiteExplorer();
 		cMenu.deleteData(elementfile);
-		
-		//*[contains(text(), 'KS_Wiki_Attachment_pdffile.pdf')]/../../../../../..//*[contains(@id, 'DeleteActivityButton')]
 	}
 	
 	/**
 	 * == Displaying of file format (image, pdf, office) in the File activity (2) ==
-	 * Test case ID: 77112
+	 * Test case ID: 119449
 	 * Step 1: 	- Connect to Intranet
 				- Go to CE and  Upload a file: image, pdf or office document (except personal document drive)
 				- Go back intranet home page
 		Verify by comparison width heigh and width: The orientation of the file can be portrait or landscape following its original orientation
 	 */
 	@Test
-	public void test08_DisplayingOfFileFormatImagePdfOfficeInTheFileActivity2(){
+	public void test09_DisplayingOfFileFormatImagePdfOfficeInTheFileActivity2(){
 		//Declare variable
 		String file1 = "portrait08.jpg";
 		String file2 = "landscape08.jpg";
@@ -426,13 +474,13 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 	
 	/**
 	 * == Delete a File activity from space activity stream by owner ==
-	 * Test case ID: 77325
+	 * Test case ID: 119450
 	 * Step 1: Create file activity
 	 * Step 2: See delete activity icon
 	 * Step 3: Delete activity
 	 */
 	@Test
-	public void test09_DeleteAFileActivityFromSpaceActivityStreamByOwner(){
+	public void test10_DeleteAFileActivityFromSpaceActivityStreamByOwner(){
 		//Declare variable
 		String file = "KS_Wiki_Attachment_pdffile.pdf";
 				
@@ -454,7 +502,7 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 				
 		//- The File activity is displayed in the activity stream
 		info("-- A File activity is added to the activity stream --");
-		activity.checkInforAfterAddingDocument(file, "", "File", "1 MB", "", "", "", "");
+		activity.checkInforAfterAddingDocument(file, "", "File", "91 bytes", "", "", "", "");
 				
 		/*Step 2: See delete activity icon*/
 		/*Step 3: Delete activity*/
@@ -472,12 +520,12 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 	
 	/**
 	 * == Remove the File activity after deleting a file in Space document ==
-	 * Test case ID: 77326
+	 * Test case ID: 119451
 	 * Step 1: Create file activity
 	 * Step 2: Delete File
 	 */
 	@Test
-	public void test10_RemoveTheFileActivityAfterDeletingAFileInSpaceDocument(){
+	public void test11_RemoveTheFileActivityAfterDeletingAFileInSpaceDocument(){
 		//Declare variable
 		String file = "KS_Wiki_Attachment_pdffile.pdf";
 		By elementfile = By.xpath(ecms.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", file));
@@ -500,7 +548,7 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 				
 		//- The File activity is displayed in the activity stream
 		info("-- A File activity is added to the activity stream --");
-		activity.checkInforAfterAddingDocument(file, "", "File", "1 MB", "", "", "", "");
+		activity.checkInforAfterAddingDocument(file, "", "File", "91 bytes", "", "", "", "");
 				
 		/*Step 2: Delete File*/
 		//Delete file from space
@@ -524,42 +572,10 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 		magMember.deleteSpace(spacename);
 	}
 	
-	/**
-	 * == Add File activity after uploading a file in CE ==
-	 * Test case ID: 77327
-	 * Step 1: - Go to Sites explorer (except personal drive)
-				- Upload a file
-				- Back to the Home page
-	 */
-	@Test
-	public void test11_AddFileActivityAfterUploadingAFileInCE(){
-		//Declare variable
-		String file = "KS_Wiki_Attachment_pdffile.pdf";
-		By elementfile = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", file));
-						
-		//Go to SE
-		navToolBar.goToSiteExplorer();
-					
-		//Upload a file: image, pdf or office document (except personal document drive)
-		ecms.uploadFile("TestData/"+file);
-						
-		//Back to the Home page
-		info("-- Back to the Home page --");
-		navToolBar.goToHomePage();
-						
-		//- The File activity is displayed in the activity stream
-		info("-- A File activity is added to the activity stream --");
-		activity.checkInforAfterAddingDocument(file, "", "File", "1 MB", "", "", "", "");
-						
-		/*Clear data*/
-		info ("-- Clear data --");
-		navToolBar.goToSiteExplorer();
-		cMenu.deleteData(elementfile);
-	}
 	
 	/**
 	 * == Edit a file from the File activity from space ==
-	 * Test case ID: 77330
+	 * Test case ID: 119452
 	 * Step 1: Create file activity
 	 * Step 2: Edit file from activity stream
 	 */
@@ -586,7 +602,7 @@ public class ECMS_SE_PublishActivities_FilesActivities  extends PlatformBase {
 				
 		//- The File activity is displayed in the activity stream
 		info("-- A File activity is added to the activity stream --");
-		activity.checkInforAfterAddingDocument(file, "", "File", "1 MB", "", "", "", "");
+		activity.checkInforAfterAddingDocument(file, "", "File", "91 bytes", "", "", "", "");
 				
 		/*Step 2: Edit file from activity stream*/
 		//From the file activity, click on the link "Edit"
