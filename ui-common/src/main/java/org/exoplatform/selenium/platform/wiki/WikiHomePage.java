@@ -68,6 +68,9 @@ public class WikiHomePage extends PlatformBase{
 	public final String ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR=".//*[@id='UIWikiPopupWindowL1']//*[contains(text(),'Move Page')]/../..//*[contains(text(),'${locator}')]";
 	public final String ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_SAME_NAME=".//*[@class='alert'][contains(.,'${message}')]";
 	public final By ELEMENT_MOVE_PAGE_POPUP_ALERT_MESSAGE_RENAME=By.xpath(".//*[@class='alert']/a[text()='Rename']");
+
+	public final By ELEMENT_PAGE_PERMISSIONS = By.xpath(".//*[text()='Page Permissions']");
+	public final By ELEMENT_PERMALINK = By.xpath("//*[@id='UIWikiPageControlArea_PageToolBar']//*[text()='Permalink']");
 	
 	//Content of page
 	public final String ELEMENT_MARCRO_COLOR = "//*[@style='color:${color};' and contains(text(),'${message}')]";
@@ -78,6 +81,12 @@ public class WikiHomePage extends PlatformBase{
 	public final By ELEMENT_PAGE_DOWNLOADATTACHFILE = By.xpath("//*[@data-original-title='Download Attachment']");
 	public final By ELEMENT_PAGE_DELETEATTACHFILE = By.xpath("//*[@class='uiIconDelete uiIconLightGray']");
 	
+	public final By ELEMENT_SAVE_PERMISSION = By.xpath(".//*[@id='UIWikiPagePermissionForm']//*[contains(text(),'Save')]");
+	public final By ELEMENT_ADD_PERMISSION = By.xpath("//*[@id='uiWikiPermissionOwner']//*[contains(text(),'Add')]");
+	public final String ELEMENT_CHECK_PERMISSION_EDIT_PAGE =".//*[@id='UIPermissionGrid']/table//*[contains(text(),'{$name}')]/../..//*[@id='EDITPAGE{$name}']";
+	public final String ELEMENT_REMOVE_PERMISSION = ".//*[@id='UIPermissionGrid']/table//*[contains(text(),'{$name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
+	
+	public final By ELEMENT_WIKI_PAGE_NOT_FOUND = By.xpath(".//*[@id='UIWikiPageArea']//*[contains(text(),'Page Not Found')]");
 	
 	//Action bar
 	public String ELEMENT_ATTACHMENT_NUMBER = "//*[@id='UIWikiPageInfoArea']//a[contains(text(),'${No}')]/*[@class='uiIconAttach']";
@@ -211,5 +220,22 @@ public class WikiHomePage extends PlatformBase{
 		info("Select wiki settings label");
 		click(ELEMENT_SEARCH_BROWSERS_WIKI_SETTINGS);
 		Utils.pause(2000);
+	}
+	
+	/**
+	 * Open permissions for the wiki
+	 */
+	public void goToPermissions(){
+		info("Permissions page");
+		click(ELEMENT_MORE_LINK);
+		click(ELEMENT_PAGE_PERMISSIONS);
+	}
+	
+	public String getPermaLink(){
+		String link="";
+		click(ELEMENT_MORE_LINK);
+		click(ELEMENT_PERMALINK);
+		link = waitForAndGetElement(ELEMENT_PERMALINK_LINKCOPY).getAttribute("value");
+		return link;
 	}
 }

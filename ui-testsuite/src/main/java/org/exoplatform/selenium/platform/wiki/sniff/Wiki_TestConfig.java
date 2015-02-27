@@ -6,6 +6,7 @@ import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.HomepageActivity;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.wiki.WikiMessageDatabase;
@@ -28,7 +29,9 @@ public class Wiki_TestConfig extends PlatformBase {
 	HomePagePlatform hp;
 	HomepageActivity hpAct;
 	ManageLogInOut magAc;
-
+	
+	PlatformPermission PlfPerm;
+	
 	WikiManagement wikiMg;
 	WikiHomePage wHome;
 	WikiDraftPage wDraft;
@@ -57,6 +60,8 @@ public class Wiki_TestConfig extends PlatformBase {
 		
 		hp = new HomePagePlatform(driver);
 		hpAct = new HomepageActivity(driver);
+		
+		PlfPerm = new PlatformPermission(driver);
 		
 		wikiMg = new WikiManagement(driver);
 		wHome = new WikiHomePage(driver);

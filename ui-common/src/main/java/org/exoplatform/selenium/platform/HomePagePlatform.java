@@ -30,6 +30,8 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_SEARCH_SPACE = By.xpath("//*[@id='UISpaceNavigationPortlet']//*[@class='searchText LostFocus']");
 	public final String ELEMENT_RESULT_SEARCH_SPACE = "//*[@id='UISpaceNavigationPortlet']//*[@class='spaceNavigation']//*[contains(text(),'{$space}')]";
 	public final String ELEMENT_LEFT_PANEL = "//*[@class='uiCompanyNavigations']//*[contains(text(),'{$name}')]";
+	public final String ELEMENT_SPECIFIC_PANEL = "//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'{$space}')]";
+	
 	// right panel
 	public final String ELEMENT_SUGGESTIONS_USER = "//*[@class='uiBox uiSuggestions']//*[contains(text(),'{$user}')]";
 	public final String ELEMENT_SPACE_BYNAME = "//*[@data-original-title='${name}']";
@@ -283,5 +285,9 @@ public class HomePagePlatform extends TestBase{
 		click(ELEMENT_CONNECTION_LINK_PLF);
 	}
    
+	public void goToSpecificSpace(String space){
+		info("Go to space "+space);
+		click(By.xpath(ELEMENT_SPECIFIC_PANEL.replace("{$space}",space)));
+	}
 }
 
