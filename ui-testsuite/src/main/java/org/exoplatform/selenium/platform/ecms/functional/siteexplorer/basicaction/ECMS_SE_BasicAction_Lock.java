@@ -122,6 +122,9 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		info("Unlock node by locker");
 		cMenu.contextMenuAction(FILE_PATH_LOCKED, cMenu.ELEMENT_MENU_UNLOCK);
 		waitForAndGetElement(FILE_PATH);
+		rightClickOnElement(FILE_PATH);
+		waitForElementNotPresent(cMenu.ELEMENT_MENU_UNLOCK);
+		waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//Delete data
 		cMenu.deleteDocument(FILE_PATH);
@@ -259,6 +262,10 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		info("Unlock child node");
 		cMenu.contextMenuAction(FILE_PATH_LOCKED, cMenu.ELEMENT_MENU_UNLOCK);
 		waitForAndGetElement(FILE_PATH);
+		waitForAndGetElement(FILE_PATH);
+		rightClickOnElement(FILE_PATH);
+		waitForElementNotPresent(cMenu.ELEMENT_MENU_UNLOCK);
+		waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
 		//Delete data
 		cMenu.deleteDocument(ANNOUN_PATH_LOCKED);
@@ -271,7 +278,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 	 * Verify cannot lock check in node
 	 */
 	@Test
-	public void test06_LockNodeWhileItIsBeingInCheckStatus() {
+	public void test06_LockNodeWhileItIsBeingInCheckInStatus() {
 		String DATA_FILE_NAME = "EMCS_DMS_SE_Lock_Case06";
 		By FILE_PATH = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_FILE_NAME));
 
@@ -415,6 +422,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		navToolBar.goToSiteExplorer();
 		rightClickOnElement(FILE_PATH_LOCKED);
 		waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
+		waitForElementNotPresent(cMenu.ELEMENT_MENU_UNLOCK);
 
 		//Delete data
 		cMenu.deleteDocument(FILE_PATH);
@@ -451,8 +459,13 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cMenu.contextMenuAction(WEB_CONTENT_PATH, cMenu.ELEMENT_MENU_CHECKIN);
 
 		info("Check can lock child node");
-		rightClickOnElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", WEB_CONTENT));
-
+		//rightClickOnElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", WEB_CONTENT));
+		rightClickOnElement(By.linkText(WEB_CONTENT2));
+		waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
+		cMenu.contextMenuAction(By.linkText(WEB_CONTENT2), cMenu.ELEMENT_CONTEXT_MENU_LOCK);
+		assert cMenu.isLockedNode(By.linkText(WEB_CONTENT2));
+		
+		
 		//Delete data
 		ecms.goToNode(WEB_CONTENT_PATH);
 		cMenu.contextMenuAction(WEB_CONTENT_PATH, cMenu.ELEMENT_MENU_CHECKOUT);
@@ -499,6 +512,9 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		rightClickOnElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", WEB_CONTENT2));
 		Utils.pause(2000);
 		waitForAndGetElement(cMenu.ELEMENT_MENU_UNLOCK).click();
+		rightClickOnElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", WEB_CONTENT2));
+		Utils.pause(2000);
+		waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		
 		//Delete data
 		ecms.goToNode(WEB_CONTENT_PATH);
@@ -520,9 +536,12 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		String WEB_CONTENT_CONTENT = "EMCS_DMS_SE_Lock_Case12_Content";
 		By WEB_CONTENT_PATH = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", WEB_CONTENT));
 
-		String WEB_CONTENT2 = "Lock_Case12";
-		String WEB_CONTENT_CONTENT2 = "Case12_Content";
+		/*String WEB_CONTENT2 = "Lock_Case12";
+		String WEB_CONTENT_CONTENT2 = "Case12_Content";*/
 
+		String DATA_FILE_NAME = "dataTest";
+		//By FILE_PATH = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_FILE_NAME));
+		
 		info("Go to site explorer");
 		navToolBar.goToSiteExplorer();
 
@@ -532,13 +551,14 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		driver.navigate().refresh();
 		info("Create child node is file document");
 		actBar.goToAddNewContent();
-		cTemplate.createNewWebContent(WEB_CONTENT2, WEB_CONTENT_CONTENT2, "", "", "", "");
-
+		//cTemplate.createNewWebContent(WEB_CONTENT2, WEB_CONTENT_CONTENT2, "", "", "", "");
+		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
+		
 		info("Check in parent node");
 		cMenu.contextMenuAction(WEB_CONTENT_PATH, cMenu.ELEMENT_MENU_CHECKIN);
 
 		info("Check can not lock child node");
-		rightClickOnElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", WEB_CONTENT2));
+		rightClickOnElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_FILE_NAME));
 
 		waitForElementNotPresent(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 
@@ -547,112 +567,4 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 		cMenu.contextMenuAction(WEB_CONTENT_PATH, cMenu.ELEMENT_MENU_CHECKOUT);
 		cMenu.deleteDocument(WEB_CONTENT_PATH); // pas present
 	}
-	// --------------------------------------------------- Not hight priority ----------------------------------------------------------	
-
-
-	//	/**CaseId: Automatically unlock a node after 30 minutes
-	//	 * Create new node
-	//	 * lock node
-	//	 * wait 30 minutes
-	//	 * check auto unlock node
-	//	 */
-	//	@Test
-	//	public void test10_AutomaticallyUnlockNodeAfter30Minutes(){
-	//		String DATA_FILE_TITLE = "EMCS_SE_BasicAction_Lock_Case10";
-	//		By FILE_PATH = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_FILE_TITLE));
-	//		By FILE_PATH_LOCKED = By.linkText(DATA_FILE_TITLE);
-	//
-	//		info("Go to site explorer");
-	//		navToolBar.goToSiteExplorer();
-	//
-	//		info("Create new file document");
-	//		actBar.goToAddNewContent();
-	//		cTemplate.createNewFile(DATA_FILE_TITLE, DATA_FILE_TITLE, DATA_FILE_TITLE);
-	//		
-	//		info("Lock node");
-	//		cMenu.contextMenuAction(FILE_PATH, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
-	//		assert cMenu.isLockedNode(FILE_PATH_LOCKED);
-	//		
-	//		info("Wait 30 minutes");
-	//		Utils.pause(1800000);
-	//		
-	//		info("Check automatically unlock node");
-	//		driver.navigate().refresh();
-	//		Utils.pause(3000);
-	//		rightClickOnElement(FILE_PATH_LOCKED);
-	//		waitForAndGetElement(cMenu.ELEMENT_CONTEXT_MENU_LOCK);
-	//		
-	//		cMenu.deleteDocument(FILE_PATH);
-	//	}
-	//	
-	//	/**CaseId: 74529 -> Lock a Parent & Child selection
-	//	 * 
-	//	 */
-	//	@Test
-	//	public void test11_LockParentAndChildNodeSelection(){
-	//		String DATA_FOLDER = "contentfolder11";
-	//		String FILE_NAME = "EMCS_SE_BasicAction_Lock_Case11";
-	//		By ELEMENT_FILE = By.linkText(FILE_NAME);
-	//		
-	//		info("Add New Content icon in action bar of File management view");
-	//		navToolBar.goToPersonalDocuments();
-	//		actBar.goToViewMode("List");
-	//		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "List", "List");
-	//		
-	//		info("Create parent node");
-	//		navToolBar.goToPersonalDocuments();
-	//		actBar.goToViewMode("List");
-	//		cTemplate.createNewFolder(DATA_FOLDER, folderType.None);
-	//		ecms.goToNode(DATA_FOLDER, true);
-	//		
-	//		info("Create child node");
-	//		actBar.goToAddNewContent();
-	//		cTemplate.createNewFile(FILE_NAME, FILE_NAME, FILE_NAME);		
-	//		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
-	//		click(By.xpath(siteExp.ELEMENT_ARROW_RIGHT.replace("${nodeName}", DATA_FOLDER)));
-	//		waitForAndGetElement(ELEMENT_FILE);
-	//		
-	//		info("Lock parent and child node");
-	//		actBar.lockNodeFromActionBar(DATA_FOLDER + "/" + FILE_NAME);
-	//		
-	//		//actBar.deleteDataInAdminView(DATA_FOLDER);
-	//		actBar.actionsOnElement(DATA_FOLDER, actionType.DELETE);
-	//	}
-	//	
-	//	/**CaseId: 74536 -> Unlock a Parent & Child selection
-	//	 * 
-	//	 */
-	//	@Test
-	//	public void test12_UnlockParentAndChildSelection(){
-	//		String DATA_FOLDER = "contentfolder12";
-	//		String FILE_NAME = "EMCS_SE_BasicAction_Lock_Case12";
-	//		By ELEMENT_FILE = By.linkText(FILE_NAME);
-	//		
-	//		info("Add New Content icon in action bar of File management view");
-	//		navToolBar.goToPersonalDocuments();
-	//		actBar.goToViewMode("List");
-	//		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "List", "List");
-	//		
-	//		info("Create parent node");
-	//		navToolBar.goToPersonalDocuments();
-	//		actBar.goToViewMode("List");
-	//		cTemplate.createNewFolder(DATA_FOLDER, folderType.None);
-	//		ecms.goToNode(DATA_FOLDER, true);
-	//		
-	//		info("Create child node");
-	//		actBar.goToAddNewContent();
-	//		cTemplate.createNewFile(FILE_NAME, FILE_NAME, FILE_NAME);		
-	//		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
-	//		click(By.xpath(siteExp.ELEMENT_ARROW_RIGHT.replace("${nodeName}", DATA_FOLDER)));
-	//		waitForAndGetElement(ELEMENT_FILE);
-	//		
-	//		info("Lock parent and child node");
-	//		actBar.lockNodeFromActionBar(DATA_FOLDER + "/" + FILE_NAME);
-	//		
-	//		info("Unlock parent and child node");
-	//		actBar.unLockNodeFromActionBar(DATA_FOLDER + "/" + FILE_NAME);
-	//		
-	//		//actBar.deleteDataInAdminView(DATA_FOLDER);
-	//		actBar.actionsOnElement(DATA_FOLDER, actionType.DELETE);
-	//	}
 }

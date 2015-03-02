@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.basicaction;
 
 import static org.exoplatform.selenium.TestLogger.*;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
@@ -14,6 +15,7 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
+import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
@@ -172,7 +174,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 	 * 
 	 */
 	@Test
-	public void test03_FreeLayoutContentInEditMode(){
+	public void test03_EidtFreeLayoutContentInEditMode(){
 		String DATA_FILE_TITLE_03 = "EMCS_LAyout_03";
 		By bDocument = By.linkText(DATA_FILE_TITLE_03);
 		String newDATA="new data 03";
@@ -278,11 +280,13 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(DATA_FILE_TITLE_30, DATA_FILE_TITLE_30, DATA_FILE_TITLE_30);
 		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_CONTEXT_MENU_LOCK);
+		assert cMenu.isLockedNode(bDocument): "Lock node unsuccessfully";
 
 		//edit File
 		actBar.goToEditDocument(DATA_FILE_TITLE_30);
 
 		//Edit Document form appears: current information of document is displayed in form. Name is disable, can not be changed
+		isTextPresent(DATA_FILE_TITLE_30);
 		WebElement element = waitForAndGetElement(cTemplate.ELEMENT_NEWFILE_NAME_TEXTBOX);
 		isElementPresent(element.getAttribute("disabled"));
 		button.close();
@@ -379,7 +383,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 	 */
 	//edit checked in document
 	@Test
-	public void test09_EditNodeIsInChechStatus(){	
+	public void test09_EditNodeIsInCheckInStatus(){	
 		String DATA_FILE_TITLE_33 = "FNC_ECMS_FEX_ACTION_09_33";
 		By bDocument = By.linkText(DATA_FILE_TITLE_33);
 
@@ -443,7 +447,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 	 * 
 	 */
 	@Test
-	public void test11_EditDocumentWithSaveAndCloseButtons() {
+	public void test11_EditDocumentWhenClickOnSaveAndCloseButtons() {
 		String DATA_FILE_TITLE_05 = "FNC_ECMS_FEX_ACTION_09_05";
 		String DATA_FILE_TITLE_05_EDIT = "FNC_ECMS_FEX_ACTION_09_05 edit";
 		By bDocument = By.linkText(DATA_FILE_TITLE_05);
@@ -489,7 +493,8 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		button.yes(); 
 		
 		waitForElementNotPresent(cTemplate.ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", DATA_FILE_TITLE_04_EDIT), 3000, 0);
-
+		waitForAndGetElement(cTemplate.ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", DATA_FILE_TITLE_04), 3000, 0);
+		
 		//delete document
 		cMenu.deleteDocument(bDocument);
 	}
@@ -500,7 +505,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 	 * 
 	 */
 	@Test
-	public void test13_EditDocumentWhenClickOnSaveCloseButton(){
+	public void test13_EditDocumentWhenClickOnSaveAndCloseButton(){
 		String DATA_FILE_TITLE_02 = "FNC_ECMS_FEX_ACTION_09_02";
 		String DATA_FILE_TITLE_02_EDIT = "FNC_ECMS_FEX_ACTION_09_02_Edit";
 		By bDoc= By.linkText(DATA_FILE_TITLE_02);
@@ -510,6 +515,8 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 		cTemplate.createNewFile(DATA_FILE_TITLE_02, DATA_FILE_TITLE_02,DATA_FILE_TITLE_02);
 		cTemplate.editFile(DATA_FILE_TITLE_02, DATA_FILE_TITLE_02_EDIT, DATA_FILE_TITLE_02_EDIT);
 
+		waitForAndGetElement(cTemplate.ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", DATA_FILE_TITLE_02_EDIT), 3000, 0);
+		
 		//delete document
 		cMenu.deleteDocument(bDoc);
 	}
@@ -544,8 +551,41 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 	 * 
 	 */
 	@Test
-	public void test15_EditChildNodeNtFileFolderHasParentNodeIsIsCheckInStatus(){	
+	public void test15_EditChildNodeNtFileFolderHasParentNodeIsInCheckInStatus(){	
+		String DATA_FILE_TITLE_90 = "FNC_ECMS_FEX_ACTION_09_90";
+		//String DATA_UPLOAD_FILE_90 = "TestData/test.txt";
+		String DATA_FOLDER_90 = "FNC_ECMS_FOLDER_DATA_90";
+		By bDocument = By.linkText(DATA_FILE_TITLE_90);
+		By bFolder = By.linkText(DATA_FOLDER_90);
+		//By bTest = By.linkText("test.txt");
+
+		info("Edit a document in a locked document");
+		//choose site management drive, and create an article
+		actBar.goToAddNewContent();
+		cTemplate.createNewWebContent(DATA_FILE_TITLE_90, DATA_FILE_TITLE_90, "", "", "", "");
+
+		info("add a child node: Create a folder");
+		cTemplate.createNewFolder(DATA_FOLDER_90, folderType.Content);
+		//ecms.uploadFile(DATA_UPLOAD_FILE_90);
 		
+		info("Check in parent node");
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_CHECKIN);
+
+		info("Select child node");
+		ecms.goToNode(bFolder);
+
+		info("expected: can not see Edit button in action Bar or right click into child node");
+		waitForElementNotPresent(actBar.ELEMENT_EDIT_LINK);
+
+		rightClickOnElement(bFolder);
+		waitForElementNotPresent(cMenu.ELEMENT_MENU_EDIT);
+		
+		info("check out Parent Node");
+		ecms.goToNode(bDocument);
+		cMenu.contextMenuAction(bDocument, cMenu.ELEMENT_MENU_CHECKOUT);
+
+		info("Reset Data");
+		cMenu.deleteDocument(bDocument);	
 	}
 	
 	
@@ -602,6 +642,9 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 
 		//edit and delete file
 		cTemplate.editFile(DATA_FILE_TITLE_13, DATA_FILE_TITLE_13_EDIT, DATA_FILE_TITLE_13_EDIT);
+		waitForAndGetElement(cTemplate.ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", DATA_FILE_TITLE_13_EDIT), 3000, 0);
+		
+		info("Reset data");
 		cMenu.deleteDocument(bDocument);
 	}
 
