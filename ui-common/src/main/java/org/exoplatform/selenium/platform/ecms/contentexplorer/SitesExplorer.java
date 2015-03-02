@@ -71,7 +71,8 @@ public class SitesExplorer extends EcmsBase{
 	public final By MESSAGE_CLEAR_ALL = By.xpath("//*[contains(text(),'There are no items in the clipboard.')]");
 	public final String ELEMENT_TITLE_LEFT_PANEL = "//div[@id='UITreeExplorer']//div[contains(@onmousedown,'collaboration:/sites/${title}')]";
 
-	public final String ELEMENT_DOCUMENT_TITLE = "//*[@class='nodeLabel']/*[text()='${title}']";
+	//public final String ELEMENT_DOCUMENT_TITLE = "//*[@class='nodeLabel']/*[text()='${title}']";
+	public final String ELEMENT_DOCUMENT_TITLE = "//div[contains(@data-original-title,'${title}')]";
 	
 	//Document View Edit mode
 	public final String ELEMENT_DOCUMENT_CONTENT_EDIT_MODE=".//*[@class='WCMInlineEditable cke_editable cke_editable_inline cke_contents_ltr cke_show_borders']/p[contains(text(),'${content}')]/..";

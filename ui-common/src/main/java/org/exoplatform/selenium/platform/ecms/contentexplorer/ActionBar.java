@@ -965,6 +965,33 @@ public class ActionBar extends EcmsBase{
 		button.close();	
 		Utils.pause(500);
 	}
+	
+	public void createMultiRelation(String nodeName1, String pathToNodeName2, String index, Object...params){
+		//WebElement addRelation = waitForAndGetElement(ELEMENT_ADD_RELATION_LINK, 5000, 0);
+		String[] temp;
+		String delimiter = "/";
+		temp = pathToNodeName2.split(delimiter);
+		Boolean nodeAdminView = (Boolean) (params.length > 0 ? params[0]: false);
+
+		info("-- Create a relation:--" + nodeName1 + " and " + temp[temp.length - 1]);
+		if (nodeAdminView){	
+			goToNode(nodeName1, true);
+		}else {
+			goToNode(nodeName1);
+		}
+		if (isTextPresent("Relations")){
+			info("-- Add Relation tab is already displayed --");
+			click(ELEMENT_ADD_RELATION_LINK);
+		}else {
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			click(ELEMENT_ADD_RELATION_LINK);
+		}
+		click(ELEMENT_SELECT_RELATION_TAB);
+		selectMultiHomePathForCategoryTree(pathToNodeName2,index);
+		waitForTextPresent(temp[temp.length - 1]);
+		button.close();	
+		Utils.pause(500);
+	}
 
 	//Undo deleted Items
 	public void undoDeletion(String...nodeName){

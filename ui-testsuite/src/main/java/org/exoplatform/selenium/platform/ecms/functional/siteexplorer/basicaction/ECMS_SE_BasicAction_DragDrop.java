@@ -71,7 +71,7 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 	 */
 	@Test
 	public void test01_DragAndDropFromLeftToRightPane(){
-		String documentName="document101932";
+		String documentName="document101932" + getRandomNumber();
 
 		// step 1 : Add a new content
 		navToolBar.goToSiteExplorer();
@@ -106,7 +106,7 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 	 */
 	@Test
 	public void test02_DragAndDropFromRightToLeftPane(){
-		String documentName="document101933";
+		String documentName="document101933" + getRandomNumber();
 
 		// step 1 : Add a new content
 		navToolBar.goToSiteExplorer();
@@ -114,16 +114,18 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 		cTemplate.createNewWebContent(documentName, documentName, "", "", "", "");
 		info(" Web content added : "+documentName);
 		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
-
-		// Step 2 & 3 : drag it from the left to the right
-		qsPage.dragAndDropToObject(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}",documentName),cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
+		/*Utils.pause(4000);
+		driver.navigate().refresh();
+		Utils.pause(10000);*/
+		// Step 2 & 3 : drag it from the right to the left
+		qsPage.dragAndDropToObject(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName),cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
 		alert.acceptAlert();
 		info("drag and drop object in 'intranet' ");
 		Utils.pause(3000);
 		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
 		waitForElementNotPresent(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName));
-		click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
-		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}",documentName));
+		/*click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
+		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}",documentName));*/
 
 		// delete data
 		click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
@@ -139,7 +141,7 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 	 */
 	@Test(groups={"pending"})
 	public void test03_DragAndDropInRightPane(){
-		String documentName="document101936";
+		String documentName="document101936" + getRandomNumber();
 
 		// step 1 : Add a new content
 		navToolBar.goToSiteExplorer();
@@ -150,14 +152,16 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 
 		// Step 2 & 3 : drag it from the left to the right
 		Utils.pause(1000);
-		qsPage.dragAndDropToObject(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName),siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}","intranet"));
+		qsPage.dragAndDropToObject(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName),siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}","intranet"));	
+		/*if (waitForAndGetElement(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName), 3000, 0) != null)
+			qsPage.dragAndDropToObject(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName),siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}","intranet"));*/	
 		alert.acceptAlert();
 		info("drag and drop object in 'intranet' ");
 		Utils.pause(3000);
 		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
 		waitForElementNotPresent(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName));
-		click(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}","intranet"));
-		waitForAndGetElement(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName));
+		/*click(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}","intranet"));
+		waitForAndGetElement(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName));*/
 
 		// delete data
 		click(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}","intranet"));
@@ -172,7 +176,7 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 	 */
 	@Test
 	public void test04_DragAndDropInTheLeftPane(){
-		String documentName="document101933";
+		String documentName="document101933" + getRandomNumber();
 
 		// step 1 : Add a new content
 		navToolBar.goToSiteExplorer();
@@ -188,8 +192,8 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 		Utils.pause(3000);
 		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
 		waitForElementNotPresent(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}",documentName));
-		click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
-		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}",documentName));
+		/*click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
+		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}",documentName));*/
 
 		// delete data
 		click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
@@ -207,9 +211,9 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 	public void test05_DragAndDropANodeInAdminView(){
 		String drive = "Managed Sites";
 		String view = "Admin";
-		String documentName  = "document102125";
+		String documentName  = "document102125" + getRandomNumber();
 
-		// pre conditions
+		// Show admin view
 		info("Change view of drive, check admin");
 		ecMain.goToManageDrive();
 		click(By.xpath(magDrv.ELEMENT_DRIVE_EDIT_AUX.replace("${driveName}", drive)));
@@ -221,19 +225,21 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 
 		info("Change the view for web");
 		click(cTemplate.ELEMENT_VIEW_MODE_LINK.replace("${viewName}","Web"));
-
+		
 		actBar.goToAddNewContent();
 		cTemplate.createNewWebContent(documentName, documentName, "", "", "", "");
 		info(" Web content added : "+documentName);
 
 		info("Change the view for Admin");
 		click(cTemplate.ELEMENT_VIEW_MODE_LINK.replace("${viewName}","Admin"));
-
+		
+		
 		info("pass");
 		alert.acceptAlert();
 		info("pass2");
-		qsPage.dragAndDropToObject(By.xpath("//*[@id='UIDocumentNodeList']/div/div[3]"),By.xpath("//*[@id='UIDocumentNodeList']/div/div[1]"));
-
+		//qsPage.dragAndDropToObject(By.xpath("//*[@id='UIDocumentNodeList']/div/div[3]"),By.xpath("//*[@id='UIDocumentNodeList']/div/div[1]"));
+		qsPage.dragAndDropToObject(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}",documentName),siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}","acme"));
+		
 		// check the document has been move
 		waitForElementNotPresent(cMenu.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}",documentName));
 		click(cMenu.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}","acme"));

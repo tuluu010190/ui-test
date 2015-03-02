@@ -92,7 +92,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 	@Test
 	public void test01_DeleteNodeWhenUserHasRightToRemove(){	
 
-		String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_BasicAction_Delete_content_01";
+		String DATA_CONTENT_FOLDER = "ECMS_DMS_SE_BasicAction_Delete_content_01" + getRandomNumber();
 		By CONTENT_FOLDER = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DATA_CONTENT_FOLDER));
 
 		String DATA_FILE_NAME = "ECMS_DMS_SE_BasicAction_Delete_File_01";
@@ -108,19 +108,22 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		cTemplate.createNewFolder(DATA_CONTENT_FOLDER, folderType.Content);
 
 		//Create a File Document
+		click(CONTENT_FOLDER);
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(DATA_FILE_NAME, DATA_FILE_NAME, DATA_FILE_NAME);
 
 		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		click(CONTENT_FOLDER);
 		waitForAndGetElement(FILE_DOCUMENT);
 
 		//Upload a File
+		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		ecms.uploadFile(DATA_UPLOAD_FILE_PATH);
 		waitForAndGetElement(UPLOAD_FILE_NAME);
 
 		//Delete Nodes
 		cMenu.deleteDocument(CONTENT_FOLDER);
-		cMenu.deleteDocument(FILE_DOCUMENT);
+		//cMenu.deleteDocument(FILE_DOCUMENT);
 		cMenu.deleteDocument(UPLOAD_FILE_NAME);
 
 		//Goto Trash driver
@@ -370,17 +373,18 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		String content_0 = "Delete document with references";
 		String webContentName_1 = "deleteDocumentWithRef_1";
 		String content_1 = "Delete document with references_1";
+		String index = "2";
 		String pathTowebContentName_1 = "sites/" + webContentName_1;
 
-		Object[] paras = {true,"Authoring","manageRelations"};
+		/*Object[] paras = {true,"Authoring","manageRelations"};*/
 
-		info("make relations available");
+		/*info("make relations available");
 		ecMain.goToManageViews();
 		mnView.editView("Web", "", false, false, paras);
 
 		info("-- logout to take effect --");
 		magAcc.signOut();
-		magAcc.signIn(DATA_USER1, DATA_PASS);
+		magAcc.signIn(DATA_USER1, DATA_PASS);*/
 
 		info("-- Go to Sites Explorer --");
 		navToolBar.goToSiteExplorer();
@@ -396,7 +400,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Create a relation between 2 nodes --");
 		actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
-		actBar.createRelation(webContentName_0, pathTowebContentName_1);
+		actBar.createMultiRelation(webContentName_0, pathTowebContentName_1, index);
 
 		info("-- Delete a document --");
 		rightClickOnElement(By.linkText(webContentName_0));
@@ -425,7 +429,9 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		String webContentName_1 = "deleteMultipleDocumentWithRef_1";
 		String content_1 = "Delete multiple documents with references_1";
-		Object[] paras = {true,"Authoring","manageRelations"};
+		//String pathTowebContentName_1 = "" + webContentName_1;
+		String index = "2";
+		/*Object[] paras = {true,"Authoring","manageRelations"};
 
 		info("make relations available");
 		ecMain.goToManageViews();
@@ -433,7 +439,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- logout to take effect --");
 		magAcc.signOut();
-		magAcc.signIn(DATA_USER1, DATA_PASS);
+		magAcc.signIn(DATA_USER1, DATA_PASS);*/
 		info("-- Go to Sites Explorer --");
 		navToolBar.goToSiteExplorer();
 		actBar.chooseDrive(ecms.ELEMENT_COLLABORATION_DRIVE);
@@ -451,7 +457,8 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		info("-- Create a relation between 2 nodes --");
 		actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.chooseDrive(ecms.ELEMENT_COLLABORATION_DRIVE);
-		actBar.createRelation(webContentName_0, webContentName_1);
+		//actBar.createRelation(webContentName_0, webContentName_1);
+		actBar.createMultiRelation(webContentName_0, "", index);
 
 		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 
@@ -463,6 +470,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		rightClickOnElement(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}", webContentName_0));
 
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", waitForAndGetElement(cMenu.ELEMENT_MENU_DELETE_RIGHT_CLICK_POPUP, DEFAULT_TIMEOUT, 1));
+		driver.navigate().refresh();
 		magAlert.verifyAlertMessage("Are you sure you want to delete the 3 selected items and their references?");
 		Utils.captureScreen("Delete_multiple_document_with_references");
 
@@ -482,7 +490,8 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		String DATA_UPLOAD_FILE_PATH_1 = "TestData/" + data1;
 		String DATA_UPLOAD_FILE_PATH_2 = "TestData/" + data2;
 		String folderName = "deleteMutipleFilesFolders";
-		Object[] paras = {true,"Authoring","manageRelations"};
+		String index = "2";
+	/*	Object[] paras = {true,"Authoring","manageRelations"};
 
 		info("make relations available");
 		ecMain.goToManageViews();
@@ -490,7 +499,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- logout to take effect --");
 		magAcc.signOut();
-		magAcc.signIn(DATA_USER1, DATA_PASS);
+		magAcc.signIn(DATA_USER1, DATA_PASS);*/
 
 		info("-- Create files and folder --");
 		navToolBar.goToSiteExplorer();
@@ -504,7 +513,8 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		//actBar.addRelationToActionBar();
 		actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
 		actBar.chooseDrive(ecms.ELEMENT_COLLABORATION_DRIVE);
-		actBar.createRelation(data1, data2);
+		//click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
+		actBar.createMultiRelation(data1, "", index);
 		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 		Utils.pause(1000);
 		info("-- Delete multiple items with reference --");
@@ -518,7 +528,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		//click(cMenu.ELEMENT_MENU_DELETE_RIGHT_CLICK_POPUP);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", waitForAndGetElement(cMenu.ELEMENT_MENU_DELETE_RIGHT_CLICK_POPUP, DEFAULT_TIMEOUT, 1));
-
+		driver.navigate().refresh();
 		magAlert.verifyAlertMessage("Are you sure you want to delete the 4 selected files, their references, folders and all subfolders?");
 		Utils.captureScreen("Delete_multiple_Files_Folders_with_references");
 
@@ -539,8 +549,9 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		String data2 = "KS_WiKi_Attachment_TxtFile.txt";		
 		String DATA_UPLOAD_FILE_PATH_1 ="TestData/" + data1;
 		String DATA_UPLOAD_FILE_PATH_2 ="TestData/" + data2;
+		String index = "2";
 
-		Object[] paras = {true,"Authoring","manageRelations"};
+		/*Object[] paras = {true,"Authoring","manageRelations"};
 
 		info("make relations available");
 		ecMain.goToManageViews();
@@ -548,7 +559,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- logout to take effect --");
 		magAcc.signOut();
-		magAcc.signIn(DATA_USER1, DATA_PASS);
+		magAcc.signIn(DATA_USER1, DATA_PASS);*/
 
 
 		info("-- Upload 2 files --");
@@ -561,7 +572,10 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Add a relation --");
 
-		actBar.createRelation(data1, data2);
+		//actBar.createRelation(data1, data2);
+		actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
+		actBar.chooseDrive(ecms.ELEMENT_COLLABORATION_DRIVE);
+		actBar.createMultiRelation(data1, "", index);
 		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 		Utils.pause(1000);
 
@@ -596,15 +610,17 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		String folderName = "deleteMutipleFilesFoldersItems";
 		String webContentName = "webContent";
 		String content = "Delete multiple files, folders and items with references";
-		Object[] paras = {true,"Authoring","manageRelations"};
-
+		String index = "2";
+		
+		/*Object[] paras = {true,"Authoring","manageRelations"};
+		
 		info("make relations available");
 		ecMain.goToManageViews();
 		mnView.editView("Web", "", false, false, paras);
 
 		info("-- logout to take effect --");
 		magAcc.signOut();
-		magAcc.signIn(DATA_USER1, DATA_PASS);
+		magAcc.signIn(DATA_USER1, DATA_PASS);*/
 
 		info("-- Create documents and folders --");
 		navToolBar.goToSiteExplorer();
@@ -616,11 +632,14 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		actBar.goToAddNewContent();
 		cTemplate.createNewWebContent(webContentName, content, "", "", "", "");
-		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
-		waitForTextNotPresent(content);
+		/*click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
+		waitForTextNotPresent(content);*/
 
 		info("-- Add a relation --");
-		actBar.createRelation(data1, data2);
+		actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
+		actBar.chooseDrive(ecms.ELEMENT_COLLABORATION_DRIVE);
+		//actBar.createRelation(data1, data2);
+		actBar.createMultiRelation(data1, "", index);
 		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 		Utils.pause(1000);
 
@@ -660,7 +679,8 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		String DATA_UPLOAD_FILE_PATH_1 ="TestData/" + data1;
 		String webContentName = "webContent";
 		String content = "Delete single file with references";
-		Object[] paras = {true,"Authoring","manageRelations"};
+		String index = "1";
+		/*Object[] paras = {true,"Authoring","manageRelations"};
 
 		info("make relations available");
 		ecMain.goToManageViews();
@@ -668,10 +688,11 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- logout to take effect --");
 		magAcc.signOut();
-		magAcc.signIn(DATA_USER1, DATA_PASS);
+		magAcc.signIn(DATA_USER1, DATA_PASS);*/
 
 		info("-- Create documents and folders --");
 		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_COLLABORATION_DRIVE);
 
 		ecms.uploadFile(DATA_UPLOAD_FILE_PATH_1);
 		actBar.goToAddNewContent();
@@ -680,8 +701,9 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		info("-- Add a relation --");
 		//actBar.addRelationToActionBar();
 		//actBar.addItem2ActionBar("manageRelations", actBar.ELEMENT_ADD_RELATION_LINK);
-		actBar.createRelation(webContentName, "sites/" + data1);
-		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		//actBar.createRelation(webContentName, "sites/" + data1);
+		actBar.createMultiRelation(webContentName, "", index);
+		click(siteExp.ELEMENT_SIDEBAR_COLLABORATION);
 
 		info("-- Delete document with relation --");
 		rightClickOnElement(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}", webContentName));
@@ -713,6 +735,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		info("-- Undo Deletion --");
 		actBar.undoDeletion();
 		waitForAndGetElement(ecms.MESSAGE_ITEM_RESTORED_SUCCESSFULLY.replace("${title}", data1));
+		//waitForAndGetElement(By.linkText(data1));
 
 		actBar.actionsOnElement(data1, actionType.DELETE);
 	}
@@ -761,8 +784,9 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		String data2 = "ECMS_Undo_Delete_5.txt";
 		String DATA_UPLOAD_FILE_PATH_1 ="TestData/" + data1;
 		String DATA_UPLOAD_FILE_PATH_2 ="TestData/" + data2;
+		String index = "2";
 
-		Object[] paras = {true,"Authoring","manageRelations"};
+		/*Object[] paras = {true,"Authoring","manageRelations"};
 
 		info("make relations available");
 		ecMain.goToManageViews();
@@ -770,7 +794,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- logout to take effect --");
 		magAcc.signOut();
-		magAcc.signIn(DATA_USER1, DATA_PASS);
+		magAcc.signIn(DATA_USER1, DATA_PASS);*/
 
 		info("-- Upload a file --");
 		navToolBar.goToPersonalDocuments();
@@ -778,7 +802,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		ecms.uploadFile(DATA_UPLOAD_FILE_PATH_2);
 		
 		info("-- Add a relation --");
-		actBar.createRelation("ECMS_Undo_Delete_4", "Users/j___/jo___/joh___/john/Private/"+ data2, true);
+		actBar.createMultiRelation("ECMS_Undo_Delete_4", "Users/j___/jo___/joh___/john/Private/"+ data2, index);
 		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
 		
 		info("-- Delete Files--");
@@ -788,7 +812,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		
 		info("-- Undo Deletion --");
 		actBar.undoDeletion();
-		waitForAndGetElement(ecms.MESSAGE_MULTI_ITEMS_RESTORED_SUCCESSFULLY.replace("${title}", "1 items"));
+		waitForAndGetElement(ecms.MESSAGE_ITEM_RESTORED_SUCCESSFULLY.replace("${title}", data1));
 
 		info("-- Review a relation --");
 		ecms.goToNode("ECMS_Undo_Delete_4", true);
@@ -796,6 +820,7 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		waitForTextPresent(data2);
 		button.close();
 		
+		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
 		actBar.actionsOnElement(data1, actionType.DELETE);
 		actBar.actionsOnElement(data2, actionType.DELETE);
 
