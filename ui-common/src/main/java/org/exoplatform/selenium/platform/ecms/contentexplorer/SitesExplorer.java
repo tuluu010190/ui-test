@@ -54,6 +54,7 @@ public class SitesExplorer extends EcmsBase{
 	public final By ELEMENT_SIDEBAR_COLLABORATION = By.xpath("//*[@data-original-title = 'Collaboration']");
 	public final String ELEMENT_PATH_ADDRESS = "//*[@id='address' and @value='${path}']";
 	public final String ELEMENT_NODE_TREE_EXPLORER_NAME=".//*[@id='UITreeExplorer']//a/span[contains(@class,'nodeName')][contains(text(),'${name_document}')]";
+	public final String ELEMENT_SIDEBAR_PERSONAL_DOCUMENTS = "//*[@class='uiIconEcms24x24DrivePersonal Documents uiIconEcms24x24LightGray driveIcon']";
 	
 	//File Explorer - relation -clipboard - tag clould - saved search
 	public final String ELEMENT_TAG_IN_CONTAINER_LIST = "//*[@class='tagContainer']/*[text()='${tagName}']"; 

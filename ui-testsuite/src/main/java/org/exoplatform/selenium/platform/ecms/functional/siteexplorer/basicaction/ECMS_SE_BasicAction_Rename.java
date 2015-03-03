@@ -76,7 +76,7 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Go to Personal Drive
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
-
+		
 		//Test Data > Upload a file: filename.txt
 		ecms.uploadFile(filePath);
 
@@ -84,7 +84,8 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		rightClickOnElement(eFile);
 
 		//Rename a file and click [Cancel Button]
-		click(cMenu.ELEMENT_MENU_RENAME_NODE);
+		waitForAndGetElement(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);
+		click(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);	
 		type(cMenu.ELEMENT_INPUT_RENAME_NODE, newFileName, true);
 		button.cancel();
 		waitForAndGetElement(eFile);
@@ -369,21 +370,23 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 	@Test
 	public void test11_RenameFormUI(){
 		String filePath = "TestData/test.txt";
-		By mFile = By.xpath(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}", "test.txt"));
+		//By mFile = By.xpath(siteExp.ELEMENT_DOCUMENT_TITLE.replace("${title}", "test.txt"));
 		By eFile = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", "test.txt"));
 
 		info("-- Test case: Rename Form UI --");
 
-		//Go to Sites Management 
+		//Go to Personal Drive 
 		navToolBar.goToSiteExplorer();
 		actBar.showDrives();
 
 		//Test Data > Upload a file: filename.txt
-		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		//click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
+		click(siteExp.ELEMENT_SIDEBAR_PERSONAL_DOCUMENTS);
 		ecms.uploadFile(filePath);
 
 		//Main area > Open rename form
-		rightClickOnElement(mFile);
+		//rightClickOnElement(mFile);
+		rightClickOnElement(cMenu.ELEMENT_MAIN_AREA_NODE.replace("${title}", "test.txt"));
 		click(cMenu.ELEMENT_MENU_RENAME_NODE);
 		waitForAndGetElement(cMenu.ELEMENT_INPUT_RENAME_NODE);
 		waitForAndGetElement(button.ELEMENT_RENAME_BUTTON);
@@ -391,7 +394,8 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		button.cancel();
 
 		//Left panel > Open rename form
-		rightClickOnElement(eFile);
+		//rightClickOnElement(eFile);
+		rightClickOnElement(cMenu.ELEMENT_LEFT_PANEL_AREA_NODE.replace("${title}", "test.txt"));
 		click(cMenu.ELEMENT_MENU_RENAME_NODE);
 		waitForAndGetElement(cMenu.ELEMENT_INPUT_RENAME_NODE);
 		waitForAndGetElement(button.ELEMENT_RENAME_BUTTON);
@@ -452,7 +456,9 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 
 		actBar.goToViewMode("Web");
 		actBar.addItem2ActionBar("viewProperties", actBar.ELEMENT_VIEW_PROPERTIES_ICON);
-		navToolBar.goToPersonalDocuments();
+		//navToolBar.goToPersonalDocuments();
+		Utils.pause(500);
+		click(ELEMENT_PERSONAL_DOCUMENTS);
 		actBar.goToViewMode("Web");
 
 		//Test Data > Upload a file: filename.txt

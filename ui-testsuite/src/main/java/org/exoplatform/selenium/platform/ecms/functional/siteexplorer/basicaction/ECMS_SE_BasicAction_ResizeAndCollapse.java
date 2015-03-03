@@ -88,20 +88,28 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 	public void test03_ActionInRightPanelAfterResizeLeftPanel_IntranetDocument(){
 		nav.goToPersonalDocuments();
 		resize.showSideBar();
-
+		
+		info("Check to make sure items exist in action Bar");
+		waitForAndGetElement(actBar.ELEMENT_NEW_FOLDER_LINK);
+		waitForAndGetElement(actBar.ELEMENT_ADD_RELATION_LINK);
+		
+		info("Resize left panel to maximum");
 		resize.resizeLimitPanel(500);
 		String left = waitForAndGetElement(resize.ELEMENT_LEFT_CONTAINER).getAttribute("style").replace("width: ", "").replace(";", "");
 		info("Size of left container to maximum is" + left);
 
+		info("Check to make sure items in action bar now in More drop down");
 		waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-		waitForElementNotPresent(actBar.ELEMENT_NEW_FOLDER_LINK);
+		//waitForElementNotPresent(actBar.ELEMENT_NEW_FOLDER_LINK);
 		waitForElementNotPresent(ecms.ELEMENT_UPLOAD_FILE_LINK);
 		waitForElementNotPresent(ecms.ELEMENT_PERMISSION_LINK);
+		waitForElementNotPresent(actBar.ELEMENT_ADD_RELATION_LINK);
 
 		click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		waitForAndGetElement(actBar.ELEMENT_NEW_FOLDER_LINK);
 		waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_LINK, DEFAULT_TIMEOUT, 1, 2);
 		waitForAndGetElement(ecms.ELEMENT_PERMISSION_LINK);	
+		waitForAndGetElement(actBar.ELEMENT_ADD_RELATION_LINK);
 	}
 
 	/**CaseId: 102096 -> Show the resize pointer of the left panel from Content explorer
@@ -129,7 +137,7 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 
 		resize.resizeLimitPanel(200);
 		String left = waitForAndGetElement(resize.ELEMENT_LEFT_CONTAINER).getAttribute("style").replace("width: ", "").replace(";", "");
-		info("Size of left container after resize left panel is" + left);
+		info("Size of left container after resize left panel is " + left);
 		assert left != "";
 		assert left != "240px;";
 	}
@@ -162,6 +170,10 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 	public void test07_ActionInRightPanelAfterResizeLeftPanel_ContentExplorer(){
 		nav.goToSiteExplorer();
 
+		waitForAndGetElement(ecms.ELEMENT_ADD_TRANSLATION_LINK);
+		waitForAndGetElement(actBar.ELEMENT_NEW_FOLDER_LINK);
+		waitForAndGetElement(actBar.ELEMENT_ADD_RELATION_LINK);
+		
 		resize.resizeLimitPanel(600);
 		String left = waitForAndGetElement(resize.ELEMENT_LEFT_CONTAINER).getAttribute("style").replace("width: ", "").replace(";", "");
 		info("Size of left container to maximum is" + left);
@@ -171,12 +183,15 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 		waitForElementNotPresent(ecms.ELEMENT_UPLOAD_FILE_LINK);
 		waitForElementNotPresent(ecms.ELEMENT_PERMISSION_LINK);
 		waitForElementNotPresent(ecms.ELEMENT_ADD_TRANSLATION_LINK);
+		waitForElementNotPresent(actBar.ELEMENT_NEW_FOLDER_LINK);
+		waitForElementNotPresent(actBar.ELEMENT_ADD_RELATION_LINK);
 
 		click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		waitForAndGetElement(actBar.ELEMENT_NEW_CONTENT_LINK);
 		waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_LINK, DEFAULT_TIMEOUT, 1, 2);
 		waitForAndGetElement(ecms.ELEMENT_PERMISSION_LINK);
 		waitForAndGetElement(ecms.ELEMENT_ADD_TRANSLATION_LINK);
+		waitForAndGetElement(actBar.ELEMENT_ADD_RELATION_LINK);
 	}
 
 	/**CaseId: 102106 -> Show the resize pointer of the left panel from Space/Document
@@ -261,6 +276,10 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 		//Open Documents in this space
 		waitForAndGetElement(magMember.ELEMENT_DOCUMENTS_TAB);
 		click(magMember.ELEMENT_DOCUMENTS_TAB);
+		
+		waitForAndGetElement(actBar.ELEMENT_NEW_FOLDER_LINK);
+		waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_LINK, DEFAULT_TIMEOUT, 1, 2);
+		waitForAndGetElement(ecms.ELEMENT_PERMISSION_LINK);
 
 		resize.showSideBar();
 
@@ -269,7 +288,8 @@ public class ECMS_SE_BasicAction_ResizeAndCollapse extends PlatformBase {
 		info("Size of left container to maximum is" + left);
 
 		waitForAndGetElement(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-		waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_LINK);  
+		//waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_LINK);  
+		waitForElementNotPresent(ecms.ELEMENT_UPLOAD_FILE_LINK);
 		waitForElementNotPresent(actBar.ELEMENT_NEW_FOLDER_LINK);
 		waitForElementNotPresent(ecms.ELEMENT_PERMISSION_LINK);
 

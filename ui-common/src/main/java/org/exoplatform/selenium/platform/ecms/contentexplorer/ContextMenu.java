@@ -46,6 +46,8 @@ public class ContextMenu extends EcmsBase{
 	public final By ELEMENT_MENU_DELETE = By.xpath(".//i[contains(@class, 'uiIconEcmsDelete')]");
 	//public final String ELEMENT_MENU_DELETE = "//i[contains(@class, 'uiIconEcmsDelete')]";
 	//By.className("uiIconEcmsDelete");
+	public final String ELEMENT_MAIN_AREA_NODE = "//div[contains(@data-original-title,'${title}')]";
+	public final String ELEMENT_LEFT_PANEL_AREA_NODE = "//i[contains(@title,'${title}')]";
 
 	public final By ELEMENT_MENU_DELETE_ILLUSTRATED_BUTTON = By.xpath(".//*[@class='uiAction uiActionBorder']//button[text()='Delete']");
 	public final By ELEMENT_MENU_DELETE_RIGHT_CLICK_POPUP = By.xpath("//*[@id='JCRContextMenu']/div/ul/li[7]/a");
