@@ -98,10 +98,12 @@ public class TestBase {
 	protected String wikiMessageFilePath;
 	protected String spaceVisibleFilePath;
 	protected String spaceRegistrationFilePath;
+	protected String spaceappFilePath;
 	protected String groupsCalenderFilePath;
 	protected String remoteGadgetDataFilePath;
 	protected String appGateinDataFilePath;
 	protected String getStartFilePath;
+	
 
 	/*========Default System Property=============*/
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
@@ -128,12 +130,14 @@ public class TestBase {
 	public final String DEFAULT_WIKITEMPLATEFILEURL="DataDriven/" + "wiki_template.xls";
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
+	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
 	public final String DEFAULT_CHANGELANGUADATAURL="DataDriven/" + "ChangeLanguage.xls";
 	public final String DEFAULT_REMOTEGADGETURL="DataDriven/"+"remote_gadget_links.xls";
 	public final String DEFAULT_APPGATEINURL="DataDriven/"+"application_gatein.xls";
 	public final String DEFAULT_GETTINGSTARTEDURL="DataDriven/"+"getting_started.xls";
 	public final String DEFAULT_WIKIMESSAGEURL = "DataDriven/"+"wiki_message.xls";
+	
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -195,6 +199,7 @@ public class TestBase {
 		wikiTemplateFilePath = System.getProperty("wikiTemplateFilePath");
 		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
 		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
+		spaceappFilePath=System.getProperty("spaceappFilePath");
 		changLangDataPath = System.getProperty("changLangDataPath");
 		remoteGadgetDataFilePath = System.getProperty("remoteGadgetDataFilePath");
 		appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
@@ -227,6 +232,7 @@ public class TestBase {
 		if (texboxFilePath==null) texboxFilePath = DEFAULT_TEXTBOXFILEURL;
 		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
+		if (spaceappFilePath==null) spaceappFilePath= DEFAULT_SPACEAPPLICATIONURL;
 		if (changLangDataPath==null) changLangDataPath = DEFAULT_CHANGELANGUADATAURL;
 		if (remoteGadgetDataFilePath==null) remoteGadgetDataFilePath = DEFAULT_REMOTEGADGETURL;
 		if (appGateinDataFilePath==null) appGateinDataFilePath = DEFAULT_APPGATEINURL;
@@ -245,6 +251,7 @@ public class TestBase {
 		appGateinDataFilePath = getAbsoluteFilePath(appGateinDataFilePath);
 		getStartFilePath = getAbsoluteFilePath(getStartFilePath);
 		wikiMessageFilePath = getAbsoluteFilePath(wikiMessageFilePath);
+		spaceappFilePath = getAbsoluteFilePath(spaceappFilePath);
 	}
 
 
@@ -1602,12 +1609,22 @@ public class TestBase {
 		info("Upload file using Robot");
 		String fs = File.separator;
 		String path=getAbsoluteFilePath(fileLocation.replace("/", fs));
+		info("path in uploadRobot:"+path);
 		try {
+			Robot robot = new Robot();
+			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_A);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_A);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_X);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_X);
 			//Setting clipboard with file location
 			setClipboardData(path);
 			//native key strokes for CTRL, V and ENTER keys
-			Robot robot = new Robot();
-			robot.delay(1000);
+			
 			robot.keyPress(KeyEvent.VK_CONTROL);
 			robot.keyPress(KeyEvent.VK_V);
 			robot.keyRelease(KeyEvent.VK_V);

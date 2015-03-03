@@ -2,14 +2,12 @@ package org.exoplatform.selenium.platform.social;
 
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.PlatformBase;
-
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class SpaceSettingManagement extends PlatformBase{
+public class SpaceSettingManagement extends SpaceHomePage{
 
 	public By ELEMENT_SPACE_SPACE_SETTINGS_TITLE=By.xpath(".//*[text()='Space Configuration']");
 	
@@ -23,6 +21,23 @@ public class SpaceSettingManagement extends PlatformBase{
 	//Application tab
 	public By ELEMENT_SETTINGS_APP_TAB = By.xpath("//*[@id='UITabPane']//*[@class='nav nav-tabs']//*[contains(text(),'Applications')]");
 	public String ELEMENT_DELETE_APP_FROM_TOPBAR = ".//*[@id='UISpaceApplication']//*[contains(text(),'{$application}')]/../..//*[@class='uiIconClose pull-right']";
+	public final By ELEMENT_APPLICATION_TAB_ADD_APPLICATION_BTN=By.xpath(".//*[@id='UISpaceApplication-tab']//button[text()='Add Application']");
+	public final String ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT=".//*[@id='UISpaceApplication']//strong[contains(text(),'${app}')]";
+	public final String ELEMENT_APPLICATION_TAB_APPLICATION_DELETE_BTN=".//*[@id='UISpaceApplication']//strong[contains(text(),'${app}')]/../..//*[@class='uiIconClose pull-right']";
+	
+	//Access and Edit tab
+	public final By ELEMENT_ACCESS_AND_EDIT_TAB = By.xpath("//*[@id='UITabPane']//*[@class='nav nav-tabs']//*[contains(text(),'Access & Edit')]"); 
+	public final By ELEMENT_ACCESS_HIDDEN_RADIO=By.xpath(".//*[@id='UISpacePermission']//input[@value='hidden']");
+	public final String ELEMENT_ACCESS_PERMISSION_RADIO=".//*[@id='UISpacePermission']//input[@value='${right}']";
+	public final By ELEMENT_ACCESS_PERMISSION_SAVE_BTN=By.xpath(".//*[@id='UISpacePermission']//button[text()='Save']");
+	public final By ELEMENT_ACCESS_ALERTS_POPUP_OK_BTN= By.xpath(".//*[@class='PopupTitle popupTitle'][contains(text(),'Alerts')]/../..//*[@class='btn']");
+	
+	//Add application popup
+	public final By ELEMENT_ADD_APPLICATION_POPUP_TITLE=By.xpath("//*[contains(text(),'Space Application Installer')]");
+	public final String ELEMENT_ADD_APPLICATION_POPUP_CATEGOGY=".//*[@id='${category}']";
+	public final String ELEMENT_ADD_APPLICATION_POPUP_APPLICATION_ADD_BTN =".//*[@id='UIApplicationListSelector']//*[contains(text(),'${app}')]/../..//*[contains(text(),'Add')]";
+	public final By ELEMENT_ADD_APPLICATION_POPUP_CLOSE_BTN=By.xpath(".//*[@id='UIAddApplication']//*[@class='uiIconClose pull-right']");
+	
 	
 	//Settings tab
 	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
@@ -50,12 +65,25 @@ public class SpaceSettingManagement extends PlatformBase{
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Edit this Node')]");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_DELETE= By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Delete Node')]");
 	
+	//Access space information
+	public final By ELEMENT_SPACE_ACCESS_RESTRICED_AREA_TITLE=By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Restricted Area']");
+	public final By ELEMENT_SPACE_ACCESS_INFO=By.xpath(".//*[@class='spaceAccessInfo']");
+	public final By ELEMENT_SPACE_ACCESS_JOIN_BTN=By.xpath(".//*[@title='Join']");
+	public final By ELEMENT_SPACE_ACCESS_REQUEST_JOIN_BTN=By.xpath(".//*[@title='Request to Join']");
+	
+	public final By ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_TITLE=By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Space not found']");
+	public final By ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_INFO=By.xpath(".//*[@id='UISpaceAccessPortlet']//*[contains(text(),'No space is available at this URL.')]");
+	public final By ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_FIND_BTN=By.xpath(".//*[@id='UISpaceAccessPortlet']//a[text()='Find Spaces']");
+	public final By ELEMENT_SPACE_ACCESS_SPACE_DENIED = By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Access Denied']");
+	public final By ELEMENT_SPACE_ACCESS_SPACE_DENIED_INFO=By.xpath(".//*[@class='spaceAccessInfo']");
+	
 	ManageAlert alert;
 	/**
 	 * constructor
 	 * @param dr
 	 */
 	public SpaceSettingManagement(WebDriver dr){
+		super(dr);
 		this.driver=dr;
 		alert = new ManageAlert(dr);
 	}
@@ -101,6 +129,16 @@ public class SpaceSettingManagement extends PlatformBase{
 		info("Click on Delete button to remove user");
 		click(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user));
 		waitForElementNotPresent(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user));
+	}
+	/**
+	 * Remove an application
+	 * @param app
+	 */
+	public void removeApplication(String app){
+		info("Click on Remove icon");
+		click(ELEMENT_APPLICATION_TAB_APPLICATION_DELETE_BTN.replace("${app}",app));
+		waitForAndGetElement(ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT.replace("${app}", app));
+		info("the application is removed");
 	}
 	/**
 	 * Accept a pending request to a space
@@ -151,7 +189,25 @@ public class SpaceSettingManagement extends PlatformBase{
 		info("Select Navigation tab");
 		waitForAndGetElement(ELEMENT_SPACE_SETTING_NAVIGATION_TAB,3000,0).click();
 		info("The tab is opened succcessfully");
+		waitForAndGetElement(ELEMENT_APPLICATION_TAB_ADD_APPLICATION_BTN,3000,0);
+	}
+	/**
+	 * Open Application tab
+	 */
+	public void goToApplicationTab(){
+		info("Select Application tab");
+		waitForAndGetElement(ELEMENT_SETTINGS_APP_TAB,3000,0).click();
+		info("The tab is opened succcessfully");
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON,3000,0);
+	}
+	/**
+	 * Open Access and Edit tab
+	 */
+	public void goToAccessEditTab(){
+		info("Select Application tab");
+		waitForAndGetElement(ELEMENT_ACCESS_AND_EDIT_TAB,3000,0).click();
+		info("The tab is opened succcessfully");
+		waitForAndGetElement(ELEMENT_ACCESS_HIDDEN_RADIO,3000,0);
 	}
 	/**
 	 * add a new simple node
@@ -170,6 +226,25 @@ public class SpaceSettingManagement extends PlatformBase{
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", name),3000,0);
 	}
 	/**
+	 * Add an application 
+	 * @param category
+	 * @param application
+	 */
+	public void addApplication(String category,String application){
+		info("Click on Add application button");
+		click(ELEMENT_APPLICATION_TAB_ADD_APPLICATION_BTN);
+		info("the popup is shown");
+		waitForAndGetElement(ELEMENT_ADD_APPLICATION_POPUP_TITLE,2000,0);
+		info("Select a category");
+		if(!category.isEmpty())
+			click(ELEMENT_ADD_APPLICATION_POPUP_CATEGOGY.replace("${category}",category));
+		if(!application.isEmpty())
+			click(ELEMENT_ADD_APPLICATION_POPUP_APPLICATION_ADD_BTN.replace("${app}",application));
+		info("Close the popup after installed application");
+		click(ELEMENT_ADD_APPLICATION_POPUP_CLOSE_BTN);
+		waitForElementNotPresent(ELEMENT_ADD_APPLICATION_POPUP_TITLE);
+	}
+	/**
 	 * Edit a node with new label
 	 * @param nodeName
 	 * @param label
@@ -185,6 +260,19 @@ public class SpaceSettingManagement extends PlatformBase{
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_SAVE,2000,0).click();
 		info("Verify that the node is edited successfully");
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", label),3000,0);
+	}
+	/**
+	 * Set permissions for a space
+	 * @param arrayRight
+	 */
+	public void setPermissionForSpace(String[] arrayRight){
+		for(String right: arrayRight){
+			info("Select a permission for space:"+right);
+			check(ELEMENT_ACCESS_PERMISSION_RADIO.replace("${right}", right),2);
+		}
+		info("Save all changes");
+		click(ELEMENT_ACCESS_PERMISSION_SAVE_BTN);
+		//click(ELEMENT_ACCESS_ALERTS_POPUP_OK_BTN);
 	}
 	/**
 	 * Delete a node

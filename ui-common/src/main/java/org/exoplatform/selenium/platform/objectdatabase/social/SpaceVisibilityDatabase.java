@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.objectdatabase.space;
+package org.exoplatform.selenium.platform.objectdatabase.social;
 
 import java.util.ArrayList;
 import java.util.Random;

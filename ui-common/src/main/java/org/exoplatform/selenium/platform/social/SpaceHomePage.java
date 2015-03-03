@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -36,7 +37,7 @@ public class SpaceHomePage extends PlatformBase{
 	 */
 	public SpaceHomePage(WebDriver dr){
 		this.driver=dr;
-		setSpaceMg = new SpaceSettingManagement(driver);
+		
 	}
 	
 	/**
@@ -46,7 +47,7 @@ public class SpaceHomePage extends PlatformBase{
 		info("--Open Setting tab of the space");
 		info("Click on the tab");
 		click(ELEMENT_SPACE_SPACE_SETTINGS);
-		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_SPACE_SETTINGS_TITLE,3000,0);
+		Utils.pause(3000);
 		info("Space setting page is shown");
 	}
 	/**

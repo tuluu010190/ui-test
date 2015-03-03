@@ -36,10 +36,14 @@ public class SpaceManagement extends SpaceHomePage {
 	public By ELEMENT_ADD_NEW_SPACE_BUTTON = By.xpath("//*[@class='uiIconSocSimplePlus uiIconSocWhite']");
 	public By ELEMENT_ADD_SPACE_FORM = By.id("UIPopupAddSpace");
 
-	//Add new space popup
+	//Add new space popup and Setting tab
 	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
 	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
-
+	public final By ELEMENT_SPACE_CHANGE_AVATAR_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Change Picture']");
+	public final By ELEMENT_UPLOAD_POPUP_SELECT_FILE_BTN=By.xpath(".//*[@id='Uploader']//label[text()='Select File']");
+	public final By ELEMENT_SPACE_SAVE_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Save']");
+	public final By ELEMENT_SPACE_UPLOAD_CONFIRM_BTN=By.xpath(".//*[@id='UIAvatarUploader']//button[text()='Confirm']");
+	public final By ELEMENT_SPACE_UPLOAD_SAVE_BTN=By.xpath(".//*[@id='UIAvatarUploadContent']//button[text()='Save']");
 	
 	//Access and Edit tab form
 	public By ELEMENT_SPACE_ACCESS_EDIT_TAB=By.xpath("//*[@data-target='#UISpaceVisibility-tab']");
@@ -58,8 +62,12 @@ public class SpaceManagement extends SpaceHomePage {
 	
 	//My space
 	public String ELEMENT_SPACE_TITLE="//*[@class='spaceTitle']//*[text()='${space}']";
-	public String ELEMENT_SPACE_DELETE_BUTTON="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Delete']";
+	public final String ELEMENT_SPACE_DESCRIPTION=".//*[@id='UIManageMySpaces']//*[@class='content limitText'][text()='${des}']";
+	public final By ELEMENT_SPACE_AVATAR_DEFAULT=By.xpath(".//*[@id='UISpaceInfo']//*[contains(@src,'SpaceAvtDefault.png')]");
+	public final String ELEMENT_SPACE_DELETE_BUTTON="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Delete']";
 	public final String ELEMENT_SPACE_LEAVE_BTN = "//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Leave']";
+	public final String ELEMENT_SPACE_EDIT_BTN = "	//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Edit']";
+
 	public String ELEMENT_SPACE_CONFIRM_DELETE="Are you sure you want to delete this space? This cannot be undone. All page navigations and this group will also be deleted";
 	public By ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON=By.xpath("//*[text()='OK']");
 
@@ -158,6 +166,49 @@ public class SpaceManagement extends SpaceHomePage {
 		info("Save all changes");
 		click(ELEMENET_SPACE_CREATE_BUTTON);
 		waitForAndGetElement(By.linkText(name), iTimeout);
+	}
+	/**
+	 * Edit a Space
+	 * @param space
+	 * @param newName
+	 * @param newDes
+	 * @param isChangeAvatar
+	 * @param filepath
+	 */
+	public void editSpaceSimple(String space,String newName,String newDes,boolean isChangeAvatar,String filepath){
+		info("Click on Edit button of the space");
+		click(ELEMENT_SPACE_EDIT_BTN.replace("${space}",space));
+		if(!newName.isEmpty()){
+			info("Input new name");
+			type(ELEMENT_SPACE_NAME_INPUT,newName,true);
+		}
+		if(!newDes.isEmpty()){
+			info("Input new description");
+			type(ELEMENT_SPACE_DESCRIPTION_INPUT,newDes,true);
+		}
+		if(isChangeAvatar==true){
+		   info("click on change picture button");
+		   click(ELEMENT_SPACE_CHANGE_AVATAR_BTN);
+		   info("click on upload button");
+		   click(ELEMENT_UPLOAD_POPUP_SELECT_FILE_BTN);
+		   Utils.pause(2000);
+		   info("filepath:"+filepath);
+		   uploadFileUsingRobot(filepath);
+		   Utils.pause(2000);
+		   click(ELEMENT_SPACE_UPLOAD_CONFIRM_BTN);
+		   click(ELEMENT_SPACE_UPLOAD_SAVE_BTN);
+		   Utils.pause(2000);
+		}
+			
+	}
+	/**
+	 * Save change all when edit a space
+	 */
+	public void saveChangesSpace(){
+		info("click on Save button");
+		click(ELEMENT_SPACE_SAVE_BTN);
+		info("Save all changes");
+		Utils.pause(2000);
 	}
 	/**
 	 * Search a space by name or description
