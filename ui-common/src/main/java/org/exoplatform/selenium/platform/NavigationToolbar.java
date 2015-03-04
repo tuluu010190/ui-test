@@ -13,12 +13,27 @@ import org.openqa.selenium.WebElement;
 
 public class NavigationToolbar extends PlatformBase {
 
+	
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
 	public final By ELEMENT_TOOLBAR_THEMELIGHT = By.xpath("//*[@class='UIContainer UIToolbarContainer UIToolbarContainerLight']");
 	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_HELP_TOOLBAR = By.className("uiIconPLF24x24Help");
-
+	public final By ELEMENT_TOOLBAR_NOTIFICATION_LIST = By.xpath(".//*[@id='UINotificationPopoverToolbarPortlet']//*[contains(@class,'uiIconPLF24x24Bell')]");
+    public final String ELEMENT_TOOLBAR_NOTIFICATION_NUMEBER=".//*[contains(@class,'badgeNotification')][contains(text(),'${num}')]";
+	
+    //Notificaiton list
+    public final By ELEMENT_NOTIFICATION_DROPDOWN=By.cssSelector("#NotificationPopup");
+	/**
+	 * user: fullname of the user that comments on the activity
+	 * des: description of the notification as: "has commented on your activity."
+	 * act: activity's name
+	 */
+	public final String ELEMENT_NOTIFICATION_LIST_COMMENT_ACTIVITY = ".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'${user}')]/../..//*[contains(.,'${des}')]/..//*[contains(.,'${act}')]";
+	public final String ELEMENT_NOTIFICATION_LIST_CONNECT_USER=".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'${user}')]/../..//*[contains(.,' ${des}')]";
+	public final By ELEMENT_NOTIFICATION_LIST_CONNECT_USER_STATUS= By.xpath(".//*[@id='NotificationPopup']//*[contains(text(),'Accept')]/../../..//*[contains(@class,'status')]");
+	public final String ELEMENT_NOTIFICATION_LIST_INVITATION_SPACE_STATUS=".//*[@id='NotificationPopup']//*[contains(@class,'text-bold')][contains(text(),'${space}')]/..";
+	
 	public final By ELEMENT_DOC_EXO_OF_HOME_GETTING_STARTED = By.xpath(".//*[@id='newBreadcrumbs']//*[contains(text(),'Getting Started')]");
 	// toolbar--> upload file
 	public By ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS = By.xpath("//*[@id='ListRecords']//*[contains(text(),'Personal Documents')]");
@@ -29,17 +44,17 @@ public class NavigationToolbar extends PlatformBase {
 	// users 
 	public final By ELEMENT_ADMINISTRATION_USERS =By.xpath("//*[text()='Users']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS = By.xpath("//*[text()='Add Users']");
-	//public final By ELEMENT_GROUP_AND_ROLE_LINK = By.xpath("//*[text()='Groups and Roles']");
 	public final By ELEMENT_GROUP_AND_ROLE_LINK = By.xpath(".//*[@id='UISetupPlatformToolBarPortlet']//a[contains(@href,'management')]");
-	
-	//Administration Menu
+
 	//Administration-->Portal
 	public final By ELEMENT_ADMINISTRATION_PORTAL = By.xpath("//*[text()='Portal']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_SITES=By.xpath("//*[text()='Sites']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_PAGES=By.xpath("//*[text()='Pages']");
+	public final By ELEMENT_ADMINISTRATION_PORTAL_EMAIL_NOTIFICATIONS= By.xpath(".//*[contains(@id,'UISetupPlatformToolBarPortlet')]//*[contains(@href,'notification')]");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_BRANDING=By.xpath("//*[text()='Branding']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_IDE=By.xpath("//*[text()='IDE']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES = By.xpath("//*[text()='Group Sites']");
+	
 	
 	//Administation-->Content
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
@@ -75,6 +90,7 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_MY_DASHBOARD_LINK = By.xpath("//i[@class='uiIconPLFDashboard']/..");
 	public final By ELEMENT_MY_SETTINGS_LINK = By.className("uiIconSetting");
 	public final By ELEMENT_MY_CONNECTION_LINK = By.className("uiIconPLFMyConnection");
+	public final By ELEMENT_MY_NOTIFICATIONS_LINK = By.xpath("//i[@class='uiIconPLFNotifications']/..");
 	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
 	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
 	public final By ELEMENT_MY_WIKI_LINK = By.xpath("//i[@class='uiIconWikiMyWiki']/..");
@@ -558,17 +574,6 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	/**
-	 * Go to add an user
-	 */
-	public void goToAddUser(){
-		info("Go to add user page");
-		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
-		click(ELEMENT_TOOLBAR_ADMINISTRATION);
-		mouseOver(ELEMENT_ADMINISTRATION_USERS,true);
-		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS,3000,0);
-		click(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS);
-	}
-	/**
 	 * Open My dashboard
 	 */
 	public void goToMyDashboard(){
@@ -589,8 +594,57 @@ public class NavigationToolbar extends PlatformBase {
 		selectALinkOfUserMenu(specifUserToolBar.MY_CONNECTIONS);
 		Utils.pause(2000);
 	}
+	/**
+	 * Go to My wiki page
+	 */
 	public void goToMyWiki(){
 		selectALinkOfUserMenu(specifUserToolBar.MY_WIKI);
 		Utils.pause(2000);
 	}
+	
+	/**
+	 * Go to email notification
+	 */
+	public void goToEmailNotifications(){
+		info("Go to email notifications");
+		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
+		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		mouseOver(ELEMENT_ADMINISTRATION_PORTAL,true);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_EMAIL_NOTIFICATIONS,3000,0);
+		click(ELEMENT_ADMINISTRATION_PORTAL_EMAIL_NOTIFICATIONS);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Go to the notifications of the user
+	 */
+	public void goToMyNotifications(){
+		info("Go to notifications");
+		info("Click on Avatar");
+		click(ELEMENT_TOPBAR_AVATAR);
+		info("Click on My profile link");
+		click(ELEMENT_MY_NOTIFICATIONS_LINK);
+	}
+	
+	/**
+	 * Go to add an user
+	 */
+	public void goToAddUser(){
+		info("Go to add user page");
+		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
+		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		mouseOver(ELEMENT_ADMINISTRATION_USERS,true);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS,3000,0);
+		click(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS);
+	}
+	/**
+	 * Open Notification list
+	 */
+	public void goToNotificationList(){
+		info("Click on Notification icon");
+		click(ELEMENT_TOOLBAR_NOTIFICATION_LIST);
+		info("Notification list is shown");
+		waitForAndGetElement(ELEMENT_NOTIFICATION_DROPDOWN,3000,1);
+	}
+	
 }

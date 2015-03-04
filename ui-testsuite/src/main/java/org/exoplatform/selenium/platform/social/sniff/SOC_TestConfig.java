@@ -13,12 +13,16 @@ import org.exoplatform.selenium.platform.objectdatabase.chat.ChatStatusDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ConnectStatusDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDescriptionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactIMDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactPhoneDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityMessageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
+import org.exoplatform.selenium.platform.social.EmailNotificationsAdministration;
+import org.exoplatform.selenium.platform.social.MyNotificationsPage;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -64,10 +68,12 @@ public class SOC_TestConfig extends PlatformBase {
 	LinksDatabase lnkData;
 	UserDatabase userData;
 	ChatStatusDatabase chatStatus;
-	
+	UserInfoDatabase userInfoData;
+
 	SiteExplorerDriveDatabase siteExDrive;
 	SiteExplorerPathDatabase siteExPath;
-	
+	NotificationDescriptionDatabase notiDes;
+
 	Button button;
 	ConnectionsManagement connMag;
 	SpaceSettingManagement setSpaceMg;
@@ -79,6 +85,10 @@ public class SOC_TestConfig extends PlatformBase {
 	ActivityMessageDatabase activityMes;
 	ConnectStatusDatabase conStatus;
 	ChatStatus chat;
+	EmailNotificationsAdministration emailNotif;
+	MyNotificationsPage myNotifPage;
+	MyProfilePage myProfil;
+	
 	PageEditor pagEditor;
 	
 	@BeforeClass
@@ -95,6 +105,7 @@ public class SOC_TestConfig extends PlatformBase {
 		connMag = new ConnectionsManagement(driver);
 		chat = new ChatStatus(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
+		emailNotif = new EmailNotificationsAdministration(driver);
 		pagEditor = new PageEditor(driver);
 		hp = new HomePagePlatform(driver);
 		pagEditor = new PageEditor(driver);
@@ -133,6 +144,8 @@ public class SOC_TestConfig extends PlatformBase {
 
 		addUserPage = new UserAddManagement(driver);
 		userAndGroup = new UserAndGroupManagement(driver);
+		myProfil = new MyProfilePage(driver);
+		myNotifPage= new MyNotificationsPage(driver);
 
 		mailSuffixData = new MailSuffixDatabase();
 		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -152,6 +165,11 @@ public class SOC_TestConfig extends PlatformBase {
 		
 		button = new Button(driver);
 
+		notiDes = new NotificationDescriptionDatabase();
+		notiDes.setData(notiDesFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		userInfoData = new UserInfoDatabase();
+		userInfoData.setUserInfoData(userInfoFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
 		info("End setUpBeforeClass");
 	}
 

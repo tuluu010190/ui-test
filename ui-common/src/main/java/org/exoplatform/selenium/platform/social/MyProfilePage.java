@@ -6,10 +6,6 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-/**
- * @author quynhpt
- * date 21/01/2015
- */
 public class MyProfilePage extends PlatformBase {
 
 	public final By ELEMENT_EDIT_MY_PROFILE_LINK = By.xpath(".//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='uiIconEdit uiIconLightGray']");
@@ -59,10 +55,11 @@ public class MyProfilePage extends PlatformBase {
 	public final String ELEMENT_UIEXPERIENCE_PROFILE_PORTLET = "//*[@id='UIExperienceProfilePortlet']//*[contains(text(),'${content}')]";
 	
 	//Basic information
-	public final By ELEMENT_EDIT_BASIC_INFORMATION = By.xpath("//*[@id='UIBasicInfoSection']//*[@class='uiIconEdit']");
+	public final By ELEMENT_MY_PROFILE_EDIT_BTN=By.xpath(".//*[@id='UIExperienceProfilePortlet']/div/button");
 	public final By ELEMENT_FIRST_NAME_TEXTBOX_EDIT = By.id("firstName");
 	public final By ELEMENT_LAST_NAME_TEXTBOX_EDIT = By.id("lastName");
 	public final By ELEMENT_EMAIL_TEXTBOX_EDIT = By.id("email");
+	public final By ELEMENT_EDIT_BASIC_INFO_SAVE_BUTTON = By.xpath(".//*[@id='UIEditUserProfileForm']//*[contains(@class,'btn-save')]");
 
 	//Contact
 	public final By ELEMENT_CONTACT_EDIT_ICON = By.xpath(".//*[@id='UIContactSection']//*[contains(text(),'Contact')]/..//*[@class='uiIconEdit']");
@@ -188,20 +185,18 @@ public class MyProfilePage extends PlatformBase {
 	 */
 	public void updateBasicInformation(String firstName,String lastName,String email){
 		info("Update basic information");
-		if(waitForAndGetElement(ELEMENT_EDIT_BASIC_INFORMATION,5000,0)!=null){
-			click(ELEMENT_EDIT_BASIC_INFORMATION);
-		}
-		if (firstName !="" && firstName!=null){
-			info("update firstname");
-			type(ELEMENT_FIRST_NAME_TEXTBOX_EDIT, firstName, true);
-		}
-		if (lastName !="" && lastName!=null){
-			info("update lastName");
-			type(ELEMENT_LAST_NAME_TEXTBOX_EDIT, lastName, true);
-		}
-		if (email !="" && email!=null){
-			info("update email");
-			type(ELEMENT_EMAIL_TEXTBOX_EDIT, email, true);
+		if(firstName !="" || lastName !="" || email !=""){
+			waitForAndGetElement(ELEMENT_MY_PROFILE_EDIT_BTN,2000,1);
+			click(ELEMENT_MY_PROFILE_EDIT_BTN);
+			Utils.pause(2000);
+			if (firstName !="")
+				type(ELEMENT_FIRST_NAME_TEXTBOX_EDIT, firstName, true);
+			if (lastName !="")
+				type(ELEMENT_LAST_NAME_TEXTBOX_EDIT, lastName, true);
+			if (email !="")
+				type(ELEMENT_EMAIL_TEXTBOX_EDIT, email, true);
+			click(ELEMENT_EDIT_BASIC_INFO_SAVE_BUTTON);
+			Utils.pause(2000);
 		}
 	} 
 

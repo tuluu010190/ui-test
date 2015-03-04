@@ -12,6 +12,13 @@ public class UserInfoDatabase {
 	public ArrayList<String> password;
 	public ArrayList<String> email;
 	public ArrayList<String> displayName;
+	
+	public ArrayList<String> newUserName;
+	public ArrayList<String> newFirstName;
+	public ArrayList<String> newLastName;
+	public ArrayList<String> newPassword;
+	public ArrayList<String> newEmail;
+	public ArrayList<String> newDisplayName;
 
 	/**
 	 * userInfoDatabase
@@ -44,6 +51,13 @@ public class UserInfoDatabase {
 		password = new ArrayList<String>();
 		email = new ArrayList<String>();
 		displayName = new ArrayList<String>();
+		
+		newUserName=new ArrayList<String>();
+		newFirstName=new ArrayList<String>();
+		newLastName=new ArrayList<String>();
+		newPassword=new ArrayList<String>();
+		newEmail=new ArrayList<String>();
+		newDisplayName=new ArrayList<String>();
 	}
 
 	/**
@@ -187,5 +201,31 @@ public class UserInfoDatabase {
 		return displayName;
 	}
 
-	
+	/**
+	 * Get data by type
+	 * @param type
+	 * @return index
+	 */
+	public Integer getRandomIndexByType(int type){
+		Random randomGenerator = new Random();
+		newUserName.clear();
+		newFirstName.clear();
+		newLastName.clear();
+		newPassword.clear();
+		newEmail.clear();
+		newDisplayName.clear();
+		for(int i = 0; i<this.type.size(); i++)
+		{	
+			if(this.type.get(i) == type) {
+				newUserName.add(this.userName.get(i));
+				newFirstName.add(this.firstName.get(i));
+				newLastName.add(this.lastName.get(i));
+				newPassword.add(this.password.get(i));
+				newEmail.add(this.email.get(i));
+				newDisplayName.add(this.displayName.get(i));
+			}
+		}
+		Integer index = randomGenerator.nextInt(newUserName.size());
+		return index;
+	}
 }

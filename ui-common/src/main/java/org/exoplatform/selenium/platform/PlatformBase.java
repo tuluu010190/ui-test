@@ -26,7 +26,7 @@ public class PlatformBase extends TestBase {
 	public static String PASS_ROOT = "gtngtn";
 	public static String DATA_PASS = "gtn";
 	public static String DATA_NAME_USER1 = "John Smith";
-	public static String DATA_NAME_USER2 = "Marry Williams";
+	public static String DATA_NAME_USER2 = "Mary Williams";
 	public static String DATA_NAME_USER3 = "Jame Davis";
 	public static String DATA_NAME_USER4 = "Jack Miller";
 	
@@ -52,7 +52,6 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//tr[1]//span[contains(text(),'Hi')]");
 	public final String ELEMENT_GMAIL_CONTENT = ".//span[contains(.,'\"${title}\" page was modified')]";
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
-	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
 
 	public ManageAlert alert = new ManageAlert(driver);
 	
@@ -67,7 +66,10 @@ public class PlatformBase extends TestBase {
 	//frame
 	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
 	public final By ELEMENT_FILEFORM_BLANK_NAME = By.id("name");
-	
+	//Email notification
+	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
+	public final String ELEMENT_GMAIL_CONTENT_LINK_WIKI = ".//a[contains(@href,'${page}')]";
+		
 	/**
 	 * Available option
 	 */
@@ -266,40 +268,53 @@ public class PlatformBase extends TestBase {
 		Utils.pause(1000);
 	}
 	
+	/**
+	 * function: check content of mail then delete mail
+	 * @param title title of the page
+	 * @object if true check it's present, false check if it's not present
+	 */
+	public void checkEmailNotification(String title,Object... opParams){
+		info("Check and delete mail");
+		Boolean checkOrNo = (Boolean)(opParams.length > 0 ? opParams[0]: true);
+		String parentWindow = driver.getWindowHandle();
+		info("parentWindow:"+parentWindow);
+		  for(String windowHandle  : driver.getWindowHandles()){
+			     driver.switchTo().window(windowHandle);
+			     info("driver.title:"+driver.getTitle());
+		}
+		if(checkOrNo==true){
+			waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,1);
+		}else{
+			waitForElementNotPresent(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,1);
+		}		
+	}
 	
+	
+	/**
+	 * User pageinator
+	 * @param locator
+	 * @param exceptionMessage
+	 */
 	public void usePaginator(Object locator, String exceptionMessage) {
 		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
-		//String page1Namespace = ELEMENT_PAGINATOR_PAGE_NAMESPACE_LINK.replace("${number}", "1"); 
 
-		if (waitForAndGetElement(page1, 5000, 0) != null){
+		if (waitForAndGetElement(page1, 5000, 0) != null)
 			click(page1);
-		}/*else if (waitForAndGetElement(page1Namespace, 3000, 0) != null){
-			click(page1Namespace);
-		}*/
 		Utils.pause(500);
 		int totalPages = 0;
 		if (waitForAndGetElement(ELEMENT_TOTAL_PAGE, 3000, 0) != null){
 			totalPages = isElementPresent(ELEMENT_TOTAL_PAGE) ? Integer.valueOf(getText(ELEMENT_TOTAL_PAGE)) : 1;
-		}/*else if (waitForAndGetElement(ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER, 3000, 0) != null){
-			totalPages = isElementPresent(ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER) ? Integer.valueOf(getText(ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER)) : 1;
-		}*/
+		}
 		info("-- The total pages is: " + totalPages);
 		int i = 1;
 		while (isElementNotPresent(locator)) {
 			if (i == totalPages) {
-				//Assert.fail(exceptionMessage);
 				info(exceptionMessage);
 				break;
 			}
 			if (waitForAndGetElement(ELEMENT_NEXT_PAGE, 3000, 0) != null){
 				click(ELEMENT_NEXT_PAGE);
-				//waitForAndGetElement(ELEMENT_PAGINATOR_NAMESPACE_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
-			}/*else if (waitForAndGetElement(ELEMENT_PAGINATOR_NEXT_ICON, 3000, 0) != null){
-				click(ELEMENT_PAGINATOR_NEXT_ICON);
-				waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
-			}else {
-				click(button.ELEMENT_NEXT_PAGE_BUTTON);
-			}*/
+			}
 			Utils.pause(500);
 		}
 	}

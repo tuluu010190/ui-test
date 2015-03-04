@@ -137,6 +137,8 @@ public class TestBase {
 	protected String gateinDefaultGroupsFilePath;
 	protected String gateinNodesFilePath;
 	
+	protected String notiDesFilePath;
+	
 	/*========Default System Property=============*/
 	public final String DEFAULT_NATIVE_EVENT = "true";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
@@ -212,6 +214,8 @@ public class TestBase {
 	public final String DEFAULT_GROUPNAMEURL="DataDriven/"+"gatein_group_name.xls";
 	
 	public final String DEFAULT_CHATSTATUS_URL = "DataDriven/"+"chat_status.xls";
+	public final String DEFAULT_NOTIFICATION_DESCRIPTION_URL = "DataDriven/"+"soc_notification_description.xls";
+	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -312,6 +316,7 @@ public class TestBase {
 		contactPhoneFilePath = System.getProperty("contactPhoneFilePath");
 		activityMesFilePath = System.getProperty("activityMesFilePath");
 		chatStatusFilePath = System.getProperty("chatStatusFilePath");
+		notiDesFilePath = System.getProperty("notiDesFilePath");
 		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -381,7 +386,8 @@ public class TestBase {
         if (portalPermisMemFilePath==null) portalPermisMemFilePath = DEFAULT_PORTAL_PERMISSION_MEMBERSHIPS_URL;
         if (videoLinksFilePath==null) videoLinksFilePath = DEFAULT_VIDEO_EMBBED_LINKS_PATH;
         if (chatStatusFilePath==null) chatStatusFilePath = DEFAULT_CHATSTATUS_URL;
-        
+        if (notiDesFilePath==null) notiDesFilePath = DEFAULT_NOTIFICATION_DESCRIPTION_URL;
+		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
 		mailSuffixFilePath = getAbsoluteFilePath(mailSuffixFilePath);
@@ -430,6 +436,7 @@ public class TestBase {
 		portalPermisMemFilePath = getAbsoluteFilePath(portalPermisMemFilePath);
 		groupNameDataFilePath = getAbsoluteFilePath(groupNameDataFilePath);
 		videoLinksFilePath = getAbsoluteFilePath(videoLinksFilePath);
+		notiDesFilePath = getAbsoluteFilePath(notiDesFilePath);
 	}
 
 

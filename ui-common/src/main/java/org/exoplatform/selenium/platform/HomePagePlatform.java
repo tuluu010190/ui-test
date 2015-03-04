@@ -357,11 +357,25 @@ public class HomePagePlatform extends TestBase{
 	}
 	
    
+    /**
+     * Go to a space
+     * @param space
+     */
 	public void goToSpecificSpace(String space){
 		info("Go to space "+space);
 		click(By.xpath(ELEMENT_SPECIFIC_PANEL.replace("{$space}",space)));
 	}
 	
 	
+	/**
+	 * Go to connexion
+	 */
+	public void goToConnection() {
+		info("-- Go to connexion page --");
+		info("Click on connexion link");
+		click(ELEMENT_CONNECTION_LINK_PLF);
+	}
+	
+
 }
 

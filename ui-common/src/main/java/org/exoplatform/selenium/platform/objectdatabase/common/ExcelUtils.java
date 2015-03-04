@@ -48,10 +48,12 @@ public class ExcelUtils {
 				else{
 					if (cell.getCellType() == org.apache.poi.ss.usermodel.Cell.CELL_TYPE_NUMERIC){
 						String value = String.valueOf((int)Math.round(cell.getNumericCellValue()));
+						if(value!=null)
 						xData[i][j] = value;
 					}
-					else{//(cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
+					else{
 						String value =  cell.getStringCellValue();
+						if(value!=null)
 						xData[i][j] = value;
 					}
 				}
