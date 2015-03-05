@@ -53,6 +53,7 @@ public class SpaceManagement extends SpaceHomePage {
 	public By ELEMENT_SPACE_REGISTRATION_CLOSED_CHECKBOX=By.xpath("//*[@value='close']");
 	public By ELEMENT_SPACE_RESGISTRATION_VALIDATION_CHECKBOX=By.xpath("//*[@value='validation']");
 
+	
 	//Access and Edit tab form
 	public By ELEMENT_SPACE_INVITE_GROUP_USER_TAB=By.xpath("//*[@data-target='#UISpaceGroupBound-tab']");
 	public By ELEMENT_SPACE_SELECT_EXIST_GROUP_CHECKBOX=By.id("UseExistingGroupCheckBox");
@@ -75,13 +76,13 @@ public class SpaceManagement extends SpaceHomePage {
 	
 	//Invitations received tab
 	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//*[@id='UIManageMySpaces']//*[contains(text(),'Invitations Received')]");
-	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN = ".//*[contains(text(),'${space}')]/../..//button[text()='Accept']";
-	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN = ".//*[contains(text(),'${space}')]/../..//button[text()='Ignore']";
+	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Accept']";
+	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Ignore']";
 	
 	//All Spaces tab
 	public final By ELEMENT_MY_SPACE_ALL_SPACES_TAB = By.xpath(".//*[@id='UIManageMySpaces']//*[contains(text(),'All Spaces')]");
-	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN = ".//*[contains(text(),'${space}')]/../..//button[text()='Request to Join']";
-	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING = ".//*[contains(text(),'${space}')]/../..//*[contains(text(),'Request Pending')]";
+	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Request to Join']";
+	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING = ".//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Request Pending')]";
 	
 	//Request pending tab
 	public final By ELEMENT_MY_SPACE_REQUEST_PENDING_TAB = By.xpath(".//*[contains(text(),'Requests Pending')]");
@@ -93,7 +94,8 @@ public class SpaceManagement extends SpaceHomePage {
 	public final By ELEMENT_SPACE_TEXTBOX_USER = By.xpath("//*[@id='user']");
 	public final By ELEMENT_SPACE_TEXTBOX_USER_SUGGEST = By.xpath("//*[@class='text' and text()='Mary Williams']");
 	public final By ELEMENT_SPACE_BTN_INVITE = By.xpath("//*[text()='Invite']");
-		
+	public final String ELEMENT_SPACE_BTN_MANAGER = "//*[text()='${name}']/..//*[@class='switchBtnLabelOff']";
+	
 	public final By ELEMENT_SPACE_BTN_ACCEPT_INVITE = By.xpath("//*[text()='Accept']");
 	public final By ELEMENT_SPACE_ALLSPACES = By.xpath("//*[text()='All Spaces']");
 		

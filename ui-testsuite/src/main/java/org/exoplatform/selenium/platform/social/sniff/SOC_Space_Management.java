@@ -41,15 +41,15 @@ public class SOC_Space_Management extends SOC_TestConfig {
 		spaMg.addNewSpaceSimple(space,space);
 		
 		info("Focus on home space page");
-		waitForAndGetElement(hpAc.ELEMENT_COMPOSER_INPUT_FILED,3000,0);
+		waitForAndGetElement(hpAct.ELEMENT_COMPOSER_INPUT_FILED,3000,0);
 		info("All default portlet is displayed");
-		waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_ACTIVITY_PORTLET,2000,0);
-		waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_AGENDA_PORTLET,2000,0);
-		waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_DOCUMENT_PORTLET,2000,0);
-		waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_FORUM_PORTLET,2000,0);
-		waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_MEMBER_PORTLET,2000,0);
-		waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_SPACE_SETTING_PORTLET,2000,0);
-		waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_WIKI_PORTLET,2000,0);
+		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_ACTIVITY_PORTLET,2000,0);
+		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_AGENDA_PORTLET,2000,0);
+		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_DOCUMENT_PORTLET,2000,0);
+		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_FORUM_PORTLET,2000,0);
+		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_MEMBER_PORTLET,2000,0);
+		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_SPACE_SETTING_PORTLET,2000,0);
+		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_WIKI_PORTLET,2000,0);
 		
 		/*info("Delete a Space");
 		hp.goToMySpaces();
@@ -93,11 +93,11 @@ public class SOC_Space_Management extends SOC_TestConfig {
 		info("Verify that Application is added to space");
 		waitForAndGetElement(setSpaceMg.ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT.replace("${app}",app),3000,0);
 		info("name of application is shown on right of space menu portlet");
-		if(waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0)==null){
-		  hpAc.openMorelist();
-		  waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
+		if(waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0)==null){
+		  hpAct.openMorelist();
+		  waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
 		}else
-		waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
+		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
 		
 		
 		/*info("Delete a Space");
@@ -221,7 +221,7 @@ public class SOC_Space_Management extends SOC_TestConfig {
 		spaMg.searchSpace(space,"");
 		spaMg.editSpaceSimple(space, newName, newName, true, "TestData/"+filename);
 		spaMg.saveChangesSpace();
-		waitForAndGetElement(hpAc.ELEMENT_SPACE_MENU_ACTIVITY_PORTLET,2000,0);
+		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_ACTIVITY_PORTLET,2000,0);
  
 		info("All changes are saved");
 		hp.goToMySpaces();
@@ -312,8 +312,8 @@ public class SOC_Space_Management extends SOC_TestConfig {
 		info("Verify that Application is added to space");
 		waitForAndGetElement(setSpaceMg.ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT.replace("${app}",app),3000,0);
 		setSpaceMg.removeApplication(app);
-		waitForElementNotPresent(hpAc.ELEMENT_SPACE_MENU_MORE_BTN,3000,0);
-		waitForElementNotPresent(hpAc.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
+		waitForElementNotPresent(hpAct.ELEMENT_SPACE_MENU_MORE_BTN,3000,0);
+		waitForElementNotPresent(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
 		
 		/*info("Delete a Space");
 		hp.goToMySpaces();

@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform;
 import java.util.Iterator;
 import java.util.Set;
 
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.TestBase;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
@@ -24,7 +25,7 @@ public class PlatformBase extends TestBase {
 	public static String USER_ROOT = "root";
 	public static String PASS_ROOT = "gtngtn";
 	public static String DATA_PASS = "gtn";
-
+	
 	//Gmail
 	public final String GMAIL_URL = "https://mail.google.com";
 	public final String EMAIL_ADDRESS1 = "exomailtest01@gmail.com";
@@ -49,6 +50,20 @@ public class PlatformBase extends TestBase {
 	
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
+	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
+	public final By ELEMENT_FILE_LINK = By.xpath("//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
+	public final String ELEMENT_DRIVER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${driveName}')]";
+	public final By ELEMENT_DRIVER_BOX = By.xpath("//div[@class='btn dropdown-toggle']");
+	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
+	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//i[@class='uiIconPlus uiIconLightGray']");
+	public final By ELEMENT_CREATE_FOLDER_BUTTON_PLF41 = By.xpath("//i[@class='uiIconEcmsAddFolder uiIconEcmsLightGrey']");
+	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
+	public final By ELEMENT_UPLOAD_IMG_ID = By.name("file");
+	public final By ELEMENT_FILE_INPUT_DOC = By.xpath("//*[@class='inputDoc']");
+	public final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
+	public final By ELEMENT_SELECT_BUTTON = By.xpath("//button[text()='Select']");
+	public ManageAlert alert = new ManageAlert(driver);
+	
 	//page navigation
 	public By ELEMENT_NEXT_PAGE=By.xpath("//*[@class='uiIconNextArrow']");
 	public By ELEMENT_PREVIOUS_PAGE=By.xpath("//*[@class='uiIconPrevArrow']");

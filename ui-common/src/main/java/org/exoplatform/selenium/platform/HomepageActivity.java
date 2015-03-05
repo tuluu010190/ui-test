@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
@@ -36,8 +37,13 @@ public class HomepageActivity extends PlatformBase {
 	public final By ELEMENT_COMPOSER_SHARE_BUTTON = By.xpath(".//*[@id='ShareButton']");
 	public final By ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='placeholder']");
 	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
+	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON = By.xpath(".//input[@type='file']");	
 		
-		
+	//Upload popup
+	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP=By.xpath(".//*[@id='DriveTypeDropDown']/div[@class='btn dropdown-toggle']");
+	public final String ELEMENT_ACTIVITY_UPLOAD_POPUP_NODE=".//*[@id='ListRecords']//a[@data-original-title='${nameNode}']";
+	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE=By.xpath(".//*[@id='UIPopupComposer']//*[@class='uiIconClose pull-right']");
+	
 	//Task/Event activity
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TITLE = "//*[@class='linkTitle' and text()='$name']";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_DESCRIPTION = "//*[@class='linkTitle' and text()='$name']/../..//*[text()='$description ']";
@@ -97,32 +103,57 @@ public class HomepageActivity extends PlatformBase {
 	public String ELEMENT_ACTIVITY_EDIT_FROM_HOMEPAGE ="//*[@id='UIDocumentForm']//*[contains(text(),'{$title}')]";
 	
 	// Common activity
-	public String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[contains(text(),'{activity}')]/../../../../..//*[contains(text(),\"${comment}\")]";
-	public String ELEMENT_ACTIVITY_VIEW_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
-	public String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
-	public String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'{$name}')]";
-    public String ELEMENT_ACTIVITY_VERSION = ".//*[contains(text(),'${name}')]/../../..//*[.//*[@class='pull-right versionLabel'][text()='${version}']";
+	public final String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[contains(text(),'{activity}')]/../../../../..//*[contains(text(),\"${comment}\")]";
+	public final String ELEMENT_ACTIVITY_VIEW_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
+	public final String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
+	public final String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'{$name}')]";
+    public final String ELEMENT_ACTIVITY_VERSION = ".//*[contains(text(),'${name}')]/../../..//*[.//*[@class='pull-right versionLabel'][text()='${version}']";
+	public final String ELEMENT_ACTIVITY_TITLE="//*[@id='boxContainer']//*[contains(text(),'${text}')]/../..//*[contains(text(),'${file}')]";
+	public final String ELEMENT_PUBLICATION_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentItem commentItemLast']";
+	public final String ELEMENT_PUBLICATION_DELETE_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentRight']/..//*[@class='uiIconClose uiIconLightGray controllDelete']";
+	public final String ELEMENT_PUBLICATION_FIRSTPOST_AUTHOR = "//div[1]/form//*[@class='heading']//*[@class='author']//*[contains(text(),'${name}')]";
+	public final By ELEMENT_PUBLICATION_FIRSTPOST_AUTHORAVATAR = By.xpath("//div[1]/form//*[@class='activityAvatar avatarCircle']");
+	public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIVITYTEXT = By.xpath("//div[1]/form//*[@class='description']");
+	
 	
 	//Comment box
 	public final String ELEMENT_COMMENTBOX="//*[contains(text(),'${title}')]/../../../..//div[@class='replaceTextArea editable']";
 	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
+	public final String ELEMENT_ICON_LIKE = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconThumbUp uiIconLightGray']";
 	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/../../../..//button[contains(@id,'CommentButton')]";
 	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(),'${activityText}')]/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
 	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
-	public final String ELEMENT_COMMENT_TEXT = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]";
+	public final String ELEMENT_COMMENT_TEXT = "//*[contains(text(),'${activityText}')]/../../../..//p[@class='contentComment'  and contains(.,'${commentText}')]";
 	public final String ELEMENT_ACTIVITY_LIKE_ICON_BLUE = ".//*[@data-original-title='${nameFile}']/../../../..//i[@class='uiIconThumbUp uiIconBlue']";
 	public final String ELEMENT_ACTIVITY_COMMENT_VIEW_HOVEROVER = ".//*[contains(text(),'${comment}')]/../..//*[@class='uiIconWatch uiIconLightGray']";
+	public final String ELEMENT_PUBLICATION_COMMENTPOSTED = "//*[@class='commentList']//*[contains(text(),'${content}')]";
+	public final String ELEMENT_PUBLICATION_SEEALLCOMMENTBTN = "//*[contains(text(),'${activity}')]/../..//*[contains(@class,'commentListInfo')]//a[@href]";
 	
 	//Activity for Forum
 	public final String ELEMENT_ACTIVITY_POLL_VOTE_FOR_POLL = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconSocVote uiIconSocLightGray']";
 	public final String ELEMENT_ACTIVITY_TOPIC_REPLY = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconReply uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_TOPIC_VIEW_LAST_REPLY = ".//*[contains(text(),'${topic}')]/../../..//*[@class='uiIconSocLastestReply uiIconSocLightGray']";
+	
+	//Activity for connection
+	public final String ELEMENT_PUBLICATION_ACTIVITYTEXT_CONNECTED = "//*[contains(text(),\"I'm now connected with 1 user(s)\")]/../../../..//p[@class='contentComment'  and contains(text(),\"I'm now connected with ${user}\")]";
+	
+	//Activity for Space
+	public final String ELEMENT_ACTIVITY_SPACE_AVATAR = ".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(@src,'SpaceAvtDefault.png')]";
+	public final String ELEMENT_ACTIVITY_SPACE_DESCRIPTION = ".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(text(),'${des}')]";
+	public final String ELEMENT_ACTIVITY_SPACE_MEMBER_NUMBER = ".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(text(),'${num}')]";
+	public final String ELEMENT_ACTIVITY_USERJOIN_SPACE = "//*[text()='${user}']/../..//*[contains(text(),'Has joined the space.')]";
+	public final String ELEMENT_ACTIVITY_SPACE_CHANGE_NAME=".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Name has been updated to: ${space}.')]";
+	public final String ELEMENT_ACTIVITY_SPACE_SPACE_LAST_COMMENT=".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[@class='commentItem commentItemLast']//*[@class='contentComment']";
+	
+	
+	Button button;
 	/**
 	 * constructor
 	 * @param dr
 	 */
 	public HomepageActivity(WebDriver dr){
 		this.driver=dr;
+		button = new Button(dr);
 	}
 	/**
 	 * Check activity after added a file
@@ -268,6 +299,17 @@ public class HomepageActivity extends PlatformBase {
 	    add_button.click();
 	    Utils.pause(2000);
 	}
+	/**
+	 * Delete a comment of an activity
+	 * @param name
+	 * @param comment
+	 */
+	public void deleteComment(String name,String comment){
+		info("Hover over on the comment");
+		mouseOver(ELEMENT_PUBLICATION_LASTCOMMENT.replace("${title}", name), true);
+		click(ELEMENT_PUBLICATION_DELETE_LASTCOMMENT.replace("${title}", comment));
+		click(button.ELEMENT_OK_BUTTON);
+	}
 	
 	/**
 	 * Add new activity for space 
@@ -318,5 +360,146 @@ public class HomepageActivity extends PlatformBase {
 		info("Click on More button");
 		click(ELEMENT_SPACE_MENU_MORE_BTN);
 		Utils.pause(2000);
+	}
+	
+	/**
+	 * Add an activity stream with a text and a attached file
+	 * @param nameDrive
+	 * @param pathFolder where put upload file
+	 * @param pathData   where put Test Data folder
+	 * @param nameFile
+	 * @param addtext
+	 * @param text
+	 * @return ActivityStream page
+	 */
+	public void addActivity(String nameDrive,String pathFolder,String pathData,String nameFile,boolean addText,String text) {
+		info("-- Adding an activity--");
+		Utils.pause(3000);
+		openUploadPopup(nameDrive,pathFolder);
+		uploadFileFromAS(pathData,nameFile);
+		driver.navigate().refresh();
+		selectFile(nameDrive,pathFolder,nameFile);
+		info("click on Select button");
+		waitForAndGetElement(ELEMENT_SELECT_BUTTON).click();
+		Utils.pause(3000);
+	    info("add a text to composer box of AS");
+		if(addText)
+		addText(text);
+		info("----Click share button----");
+		waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
+		click(ELEMENT_COMPOSER_SHARE_BUTTON);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Select a file in Select File popup 
+	 * @param nameDrive
+	 * @param pathFolder
+	 */
+	public void selectFile(String nameDrive, String pathFolder,String nameFile){
+		//click on drop down list
+		click(ELEMENT_ACTIVITY_UPLOAD_POPUP);
+		//select a driver
+		if(!nameDrive.isEmpty())
+		click(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive));
+		//go to the folder by path
+		String[] arrayPath = pathFolder.split("/");
+		for(String arrayElement:arrayPath){
+			click(ELEMENT_ACTIVITY_UPLOAD_POPUP_NODE.replace("${nameNode}", arrayElement));
+			Utils.pause(2000);
+		}
+		waitForAndGetElement(By.linkText(nameFile)).click();
+		Utils.pause(2000);
+	}
+	/**
+	 * Add an activity stream with selecting a document that
+	 * existed in SE
+	 * @param nameDrive
+	 * @param pathFolder
+	 * @param nameFile
+	 * @param textDes
+	 */
+	public void addActivity(String nameDrive,String pathFolder,String nameFile,String textDes){
+		info("-- Adding an activity--");
+		Utils.pause(3000);
+		openUploadPopup(nameDrive,pathFolder);
+		waitForAndGetElement(By.linkText(nameFile)).click();
+		info("click on Select button");
+		click(ELEMENT_SELECT_BUTTON);
+		Utils.pause(1000);
+	    info("add a text to composer box of AS");
+		if(!textDes.isEmpty())
+		addText(textDes);
+		info("----Click share button----");
+		waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
+		click(ELEMENT_COMPOSER_SHARE_BUTTON);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Open Upload Popup from Activity Stream
+	 * @param nameDrive 
+	 * @param path  where put the upload file
+	 * @param return ActivityStream page
+	 */
+	public void openUploadPopup(String nameDrive,String path){
+		info("----Click on file icon----");
+		waitForAndGetElement(ELEMENT_COMPOSER_FILE_BUTTON,3000,0);
+		click(ELEMENT_COMPOSER_FILE_BUTTON);
+		info("----Upload a file-----");
+		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);
+		//click on drop down list
+		click(ELEMENT_ACTIVITY_UPLOAD_POPUP);
+		//select a driver
+		if(!nameDrive.isEmpty())
+		click(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive));
+		//go to the folder by path
+		String[] arrayPath = path.split("/");
+		for(String arrayElement:arrayPath){
+			click(ELEMENT_ACTIVITY_UPLOAD_POPUP_NODE.replace("${nameNode}", arrayElement));
+			Utils.pause(2000);
+		}
+	}
+	/**
+	 * Upload a file from Upload Popup
+	 * @param path     where put TestDate folder
+	 * @param nameFile
+	 * @return ActivityStream page
+	 */
+	public void uploadFileFromAS(String path,String nameFile){
+		info("-- Upload file --");
+		WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
+		driver.switchTo().frame(frame);
+		Utils.pause(2000);
+		((JavascriptExecutor)driver).executeScript("document.getElementsByTagName('input')[0].style.display = 'block';");
+		Utils.pause(2000);
+		driver.findElement(ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON).sendKeys(getAbsoluteFilePath(path+nameFile));
+		Utils.pause(1000);
+		switchToParentWindow();
+		click(ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE);
+		Utils.pause(2000);
+		info("Upload finished");
+	}
+	
+	/**
+	 * Add a Text to Composer box of AS
+	 * @param contentText
+	 * @return Activity Stream page
+	 */
+	public void addText(String contentText) {
+		info("----Add text into activity text box-----");
+		WebElement inputText = waitForAndGetElement(ELEMENT_COMPOSER_INPUT_FILED, 100000);
+		WebElement shareButton = waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
+		WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL);
+		((JavascriptExecutor) driver).executeScript(
+				"arguments[0].textContent = '';", workingLabel);
+		((JavascriptExecutor) driver).executeScript(
+				"arguments[0].textContent = '" + contentText + "';", inputText);
+		((JavascriptExecutor) driver).executeScript(
+				"arguments[0].disabled = false;", shareButton);
+		((JavascriptExecutor) driver).executeScript(
+				"arguments[0].className = 'pull-right btn btn-primary';",
+				shareButton);
+		Utils.pause(1000);
 	}
 }

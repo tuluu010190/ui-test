@@ -86,6 +86,9 @@ public class TestBase {
 	protected String sqlAttach;
 	protected String sqlUser;
 	protected String sqlContent;
+	
+	protected String siteExpDrivePath;
+	protected String siteExpPathPath;
 
 	protected String defaultSheet;
 
@@ -93,6 +96,7 @@ public class TestBase {
 	protected String wikiRichTextFilePath;
 	protected String attachmentFilePath;
 	protected String texboxFilePath;
+	protected String linkPath;
 	protected String changLangDataPath;
 	protected String wikiTemplateFilePath;
 	protected String wikiMessageFilePath;
@@ -131,6 +135,10 @@ public class TestBase {
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
+	
+	public final String DEFAULT_SITEEXPLORERDRIVE="DataDriven/" + "SE_drive.xls";
+	public final String DEFAULT_SITEEXPLORERPATH="DataDriven/" + "SE_path.xls";
+	
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
 	public final String DEFAULT_CHANGELANGUADATAURL="DataDriven/" + "ChangeLanguage.xls";
 	public final String DEFAULT_REMOTEGADGETURL="DataDriven/"+"remote_gadget_links.xls";
@@ -139,6 +147,8 @@ public class TestBase {
 	public final String DEFAULT_WIKIMESSAGEURL = "DataDriven/"+"wiki_message.xls";
 	
 
+	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
+	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -205,6 +215,10 @@ public class TestBase {
 		appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
 		getStartFilePath = System.getProperty("getStartFilePath");
 		wikiMessageFilePath = System.getProperty("wikiMessageFilePath");
+		
+		siteExpDrivePath=System.getProperty("siteExpDrivePath");
+		siteExpPathPath=System.getProperty("siteExpPathPath");
+		linkPath=System.getProperty("linkPath");
 
 		if (browser==null) browser = DEFAULT_BROWSER;
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -224,6 +238,9 @@ public class TestBase {
 		if (sqlContent==null) sqlContent = DEFAULT_SQLCONTENT;
 
 		if (defaultSheet==null) defaultSheet = DEFAULT_SHEET;
+		
+		if (siteExpDrivePath==null) siteExpDrivePath = DEFAULT_SITEEXPLORERDRIVE;
+		if (siteExpPathPath==null) siteExpPathPath = DEFAULT_SITEEXPLORERPATH;
 
 		if (userDataFilePath==null) userDataFilePath = DEFAULT_USERFILEURL;
 		if (wikiRichTextFilePath==null) wikiRichTextFilePath = DEFAULT_WIKIRICHTEXTFILEURL;
@@ -238,6 +255,7 @@ public class TestBase {
 		if (appGateinDataFilePath==null) appGateinDataFilePath = DEFAULT_APPGATEINURL;
 		if (getStartFilePath==null) getStartFilePath = DEFAULT_GETTINGSTARTEDURL;
 		if (wikiMessageFilePath==null) wikiMessageFilePath = DEFAULT_WIKIMESSAGEURL;
+		if (linkPath==null) linkPath = DEFAULT_LINKSURL;
 
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		wikiRichTextFilePath = getAbsoluteFilePath(wikiRichTextFilePath);
@@ -252,6 +270,10 @@ public class TestBase {
 		getStartFilePath = getAbsoluteFilePath(getStartFilePath);
 		wikiMessageFilePath = getAbsoluteFilePath(wikiMessageFilePath);
 		spaceappFilePath = getAbsoluteFilePath(spaceappFilePath);
+		
+		siteExpDrivePath = getAbsoluteFilePath(siteExpDrivePath);
+		siteExpPathPath = getAbsoluteFilePath(siteExpPathPath);
+		linkPath = getAbsoluteFilePath(linkPath);
 	}
 
 
@@ -1648,5 +1670,14 @@ public class TestBase {
 		String date = dateFormat.format(cal.getTime());
 		info(date);
 		return date;
+	}
+	/**
+	 * Scroll to a element on the website
+	 * @param element
+	 * @param driver
+	 */
+	public static void scrollToElement(WebElement element, WebDriver driver) {
+	    JavascriptExecutor jse = (JavascriptExecutor) driver;
+	    jse.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 }

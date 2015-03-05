@@ -170,6 +170,71 @@ public class HomePagePlatform extends TestBase{
 	public final String ELEMENT_SUGGESTION_SPACE_REQUEST_BTN ="//*[@id='spaceSuggest']//*[contains(text(),'${space}')]/..//*[contains(text(),'Request')]";
 	public final String ELEMENT_SUGGESTION_SPACE_CANCEL_BTN ="//*[@id='spaceSuggest']//*[contains(text(),'${space}')]/..//i[@class='uiIconClose']";
 	
+	// main frame
+	public final String ELEMENT_PUBLICATION_TITLE = "//*[@title='${title}']";
+	
+	public final String ELEMENT_PUBLICATION_LIKE = "//*[@title='${title}']/../../../..//*[@class='uiIconThumbUp uiIconLightGray']";
+	public final String ELEMENT_PUBLICATION_LIKED = "//*[@title='${title}']/../../../..//*[@class='uiIconThumbUp uiIconBlue']";
+	public final By ELEMENT_PUBLICATION_WHOLIKED = By.xpath("//*[@class='listLiked']//*[@class='avatarXSmall']");
+	public final By ELEMENT_PUBLICATION_WHOLIKEDPOPUP = By.xpath("//*[@id='tiptip_content']");
+	
+	public final String ELEMENT_PUBLICATION_COMMENT_CONTENT = "//*[contains(@title,'${title}')]/../../../..//*[@class='uiIconComment uiIconLightGray']";
+	public final String ELEMENT_PUBLICATION_COMMENT_STATUS = "//*[text()='${title}']/../../../..//*[@class='uiIconComment uiIconLightGray']";
+	public final String ELEMENT_PUBLICATION_COMMENTTEXTBOX_CONTENT = "//*[@title='${title}']/../../../..//*[@class='replaceTextArea editable']";
+	public final String ELEMENT_PUBLICATION_COMMENTTEXTBOX_STATUS = "//*[text()='${title}']/../../../..//*[@class='replaceTextArea editable']";
+	public final By ELEMENT_PUBLICATION_COMMENTBTN = By.xpath("//*[@data-original-title='Comment']");
+	public final String ELEMENT_PUBLICATION_COMMENTBTN_STATUS = "//*[text()='${title}']/..//*[text()='Comment']";
+	//public final String ELEMENT_PUBLICATION_COMMENTPOSTED = "//*[@class='commentList']//*[contains(text(),'${content}')]";
+	public final String ELEMENT_PUBLICATION_AUTHOR = "//*[@title='${title}']/../../../..//*[@class='author']";
+	public final String ELEMENT_PUBLICATION_DELETE = "//*[@title='${title}']/../../../..//*[@class='uiIconClose uiIconLightGray controllDelete']";
+	//public final String ELEMENT_PUBLICATION_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentItem commentItemLast']";
+	//public final String ELEMENT_PUBLICATION_DELETE_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentRight']/..//*[@class='uiIconClose uiIconLightGray controllDelete']";
+	//public final String ELEMENT_PUBLICATION_COMMENT = "//*[@class='contentComment' and contains(text(),'${content}')]";
+	//public final By ELEMENT_PUBLICATION_SEEALLCOMMENTBTN = By.xpath("//*[contains(text(), 'View all 10 comments')]");
+	public final String ELEMENT_PUBLICATION_COMMENTORDER = "//div[1]/form/div[3]/div/div/div[4]/div[2]/div[${number}]/div//*[contains(text(),'${comment}')]";
+	//public final String ELEMENT_PUBLICATION_COMMENTORDER_SPACE = "//*[contains(text(),'${comment}')]";
+	//public final String ELEMENT_PUBLICATION_USERJOIN_SPACE = "//*[text()='${user}']/../..//*[contains(text(),'Has joined the space.')]";
+	//public final String ELEMENT_PUBLICATION_USERMANAGE_SPACE = "//*[@class='author']//*[contains(text(), '${author}')]/../..//*[contains(text(),'${user}')]";
+	
+	//public final String ELEMENT_PUBLICATION_FIRSTPOST_AUTHOR = "//div[1]/form//*[@class='heading']//*[@class='author']//*[contains(text(),'${name}')]";
+	//public final By ELEMENT_PUBLICATION_FIRSTPOST_AUTHORAVATAR = By.xpath("//div[1]/form//*[@class='activityAvatar avatarCircle']");
+	//public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIVITYTEXT = By.xpath("//div[1]/form//*[@class='description']");
+	//public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIVITYTEXT_CONNECTED = By.xpath("//div[1]/form//*[@class='description' and contains(text(), 'm now connected with 1 user(s)')]");
+	public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIONBAR = By.xpath("//div[1]/form//*[@class='actionBar clearfix']");
+	
+	public final String ELEMENT_PUBLICATION_SUGGEST_USER = ".//*[@data-display='${name}']";
+	public final String ELEMENT_PUBLICATION_USER_SHARED = "//*[@href='http://localhost:8080/portal/intranet/profile/${name}']";
+	
+	public final By ELEMENT_PUBLICATION_ADDFILE = By.xpath("//*[@class='actionIcon uidocactivitycomposer']");
+	public final By ELEMENT_PUBLICATION_ADDFILE_NEWFOLDER = By.xpath("//*[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
+	public final By ELEMENT_PUBLICATION_SHAREDFILE = By.xpath("//*[@class='uiBox roundedBottom introBox fileShare']");
+	
+	public final By ELEMENT_PUBLICATION_ADDLINK = By.xpath("//*[@class='actionIcon uilinkactivitycomposer']");
+	public final By ELEMENT_PUBLICATION_ADDLINK_INPUT = By.xpath("//*[@id='InputLink']");
+	public final By ELEMENT_PUBLICATION_ADDLINK_ATTCHBTN = By.xpath("//*[@id='AttachButton']");
+	public final By ELEMENT_PUBLICATION_SHAREDLINK = By.xpath("//*[@class='uiBox roundedBottom introBox linkShare']");
+	
+	public final By ELEMENT_PUBLICATION_DISPLAYMODE_ALLACTIVITIES = By.xpath("//*[@id='DisplayModesDropDown']/../..//*[text()='All Activities']");
+	public final By ELEMENT_PUBLICATION_DISPLAYMODE_MYSPACE_OPTION = By.xpath("//*[@class='OptionItem' and text()='My Spaces']");
+	public final By ELEMENT_PUBLICATION_DISPLAYMODE_MYSPACE = By.xpath("//*[@id='DisplayModesDropDown']/../..//*[text()='My Spaces']");
+	public final By ELEMENT_PUBLICATION_DISPLAYMODE_CONNECTION_OPTION = By.xpath("//*[@class='OptionItem' and text()='Connections']");
+	public final By ELEMENT_PUBLICATION_DISPLAYMODE_CONNECTION = By.xpath("//*[@id='DisplayModesDropDown']/../..//*[text()='Connections']");
+	public final By ELEMENT_PUBLICATION_DISPLAYMODE_MYACTIVITIES_OPTION = By.xpath("//*[@class='OptionItem' and text()='My Activities']");
+	public final By ELEMENT_PUBLICATION_DISPLAYMODE_MYACTIVITIES = By.xpath("//*[@id='DisplayModesDropDown']/../..//*[text()='My Activities']");
+
+	public final String ELEMENT_PUBLICATION_DISPLAYORDER = "//div[${number}]/form//*[contains(text(), '${title}')]";
+	public final String ELEMENT_PUBLICATION_DISPLAYORDER_WEBCONTENT = "//div[${number}]/form//*[@class='uiIcon64x64Templateexo_webContent']";
+	public final String ELEMENT_PUBLICATION_DISPLAYORDER_FILE = "//div[${number}]/form//*[@class='uiIcon64x64FileHtml uiIcon64x64nt_file']";
+	public final String ELEMENT_PUBLICATION_DISPLAYORDER_PRODUCT = "//div[${number}]/form//*[@class='uiIcon64x64Templateacme_product']";
+	public final String ELEMENT_PUBLICATION_DISPLAYORDER_PDF = "//div[${number}]/form//*[@data-original-title='ECMS_DMS_SE_Upload_pdffile.pdf']//*[@class='pdfImageBorder']";
+	
+	// add file box
+	public final By ELEMENT_PUBLICATION_ADDFILE_LOCATION = By.xpath("//*[@class='uiIconGeneralDrive uiIconLightGray']");
+	public final By ELEMENT_PUBLICATION_ADDFILE_LOCATION_GENERALDRIVES = By.xpath("//*[@class='uiIconGeneralDrive uiIconLightGray']/../..//*[contains(text(),'General Drives')]");
+	public final By ELEMENT_PUBLICATION_ADDFILE_LOCATION_GENERALDRIVES_MANAGEDSITES = By.xpath("//*[@data-original-title='Managed Sites']");
+	public final String ELEMENT_PUBLICATION_ADDFILE_LOCATION_GENERALDRIVES_MANAGEDSITES_FILE = "//*[@data-original-title='${title}']";
+	public final By ELEMENT_PUBLICATION_ADDFILE_UPLOAD = By.xpath("//*[@class='uiIconUpload uiIconLightGray']");
+	
 	WikiHomePage wHome;
 	CalendarHomePage cHome;
 	SpaceManagement sMang;

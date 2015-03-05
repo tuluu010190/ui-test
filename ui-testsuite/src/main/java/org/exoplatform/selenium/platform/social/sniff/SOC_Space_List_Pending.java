@@ -50,5 +50,11 @@ public class SOC_Space_List_Pending extends SOC_TestConfig {
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);
 	}
+
+	@AfterMethod
+	public void setAfterMethod(){
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+	}
 	
 }
