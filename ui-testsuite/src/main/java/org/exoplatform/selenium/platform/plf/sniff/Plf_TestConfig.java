@@ -37,6 +37,7 @@ import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.plf.GettingStartedDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -106,6 +107,7 @@ public class Plf_TestConfig extends PlatformBase {
 	ApplicationGateinDatabase appGateData;
 	GettingStartedDatabase getStartData;
 	AttachmentFileDatabase fData;
+	SpaceApplicationDatabase spAppData;
 
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -174,7 +176,10 @@ public class Plf_TestConfig extends PlatformBase {
 		appGateData.setApplicationGateinData(appGateinDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		getStartData = new GettingStartedDatabase();
 		getStartData.setGettingStartedData(getStartFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		spAppData = new SpaceApplicationDatabase();
+		spAppData.setAppData(spaceappFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		info("End setUpBeforeClass");
+		
 	}
 	
 	@AfterClass

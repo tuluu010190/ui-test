@@ -175,5 +175,6 @@ public class PageCreationWizard extends PlatformBase {
 		click(ELEMENT_ADDNEWPAGE_BTNNEXT);
 		info("Save all changes");
 		click(ELEMENT_PAGE_FINISH_BTN);
+		Utils.pause(2000);
 	}
 }

@@ -279,6 +279,7 @@ public class EventManagement extends PlatformBase {
 		if (opt.length > 1 && opt[1] != null){
 			select(ELEMENT_QUICK_INPUT_EVENT_CATEGORY, opt[1]);
 		}
+		Utils.pause(2000);
 	}
 
 	/**
@@ -790,7 +791,7 @@ public class EventManagement extends PlatformBase {
 	public void saveQuickAddEvent(){
 		click(ELEMENT_BUTTON_EVENT_SAVE);
 		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_SAVE);
-		Utils.pause(500);
+		Utils.pause(2000);
 	}
 
 	/**

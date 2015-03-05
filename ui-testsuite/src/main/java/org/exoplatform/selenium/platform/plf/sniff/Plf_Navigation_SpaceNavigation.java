@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.plf.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-
 import org.testng.annotations.*;
 
 
@@ -57,6 +56,12 @@ import org.testng.annotations.*;
 	public  void test02_RemoveApplicationToolbar() {
 		info("Test 02: Remove application of space's toolbar");
 		String space1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		int index = spAppData.getRandomIndexByType(1);
+		info("index:"+index);
+		String app = spAppData.newApplication.get(index);
+		info("app:"+app);
+		String category = spAppData.newCategory.get(index);
+		info("cate:"+category);
 		hp.goToMySpaces();
 		spaceMg.addNewSpaceSimple(space1, space1);
 		
@@ -68,17 +73,17 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The application is removed from the space's toolbar*/ 
-		spaceHome.goToSettingTab();
-		setMag.deleteApplications("Answer");
 		
-		info("Verify the expected outcome");
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_AGENDA);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_FORUMS);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_WIKI);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_DOCUMENTS);
-		waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_SETTINGS);
-		waitForElementNotPresent(spaceHome.ELEMENT_SPACE_MENU_ANSWER);
+		info(" Click on Add Application, select application and click add button");
+		spaceMg.goToSettingTab();
+		setMag.goToApplicationTab();
+		setMag.addApplication(category,app);
+		
+		info("Verify that Application is added to space");
+		waitForAndGetElement(setMag.ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT.replace("${app}",app),3000,0);
+		setMag.removeApplication(app);
+		waitForElementNotPresent(hpAct.ELEMENT_SPACE_MENU_MORE_BTN,3000,0);
+		waitForElementNotPresent(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
 		
 		info("Delete the space");
 		hp.goToMySpaces();

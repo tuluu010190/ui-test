@@ -3,10 +3,17 @@ package org.exoplatform.selenium.platform.plf.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.ArrayList;
+
 import org.testng.annotations.*;
 
 
 public class Plf_GettintStartedGadget extends Plf_TestConfig {
+	@AfterMethod
+	public void setAfterMethod(){
+		magAc.signOut();
+		info("Sign in with john account");
+		magAc.signIn(DATA_USER1, DATA_PASS);
+	}
 	/**
 	 *<li> Case ID:120844.</li>
 	 *<li> Test Case Name: Check display of Getting started Gadget.</li>
@@ -83,7 +90,7 @@ public class Plf_GettintStartedGadget extends Plf_TestConfig {
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		info("Accept an requested connection");
-		hp.goToConnection();
+		hp.goToConnections();
 		click(hp.ELEMENT_HP_GETTINGSTARTED_ACCEPTTOCOWORKERSBTN);
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);

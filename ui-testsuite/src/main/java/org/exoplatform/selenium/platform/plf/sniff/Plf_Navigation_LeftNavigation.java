@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.plf.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
@@ -35,8 +34,6 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hp.ELEMENT_HOME_LINK_PLF,3000,0);
 		waitForAndGetElement(hp.ELEMENT_CALENDAR_LINK_PLF,3000,0);
 		waitForAndGetElement(hp.ELEMENT_CONNECTIONS_LINK_PLF,3000,0);
-
-		
 		
  	}
 
@@ -69,10 +66,6 @@ import org.testng.annotations.*;
 		 info("Verify that the node is added");
 		waitForAndGetElement(hp.ELEMENT_LEFT_PANEL.replace("{$name}",title),3000,0);
 		
-		magSite.goToEditNavigation("intranet");
-		magSite.addNode(title2,title);
-		magSite.goToEditNavigation("intranet");
-		waitForAndGetElement(magSite.ELEMENT_NAVIGATION_SUB_NODE_CHECK.replace("{$node}",title),3000,0);
 		/*Step number: 2
 		*Step Name: Add sub
 		-node to the group navigation
@@ -83,6 +76,12 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- In the Group Navigation panel, a small button is displayed to fold/unfold sub nodes*/ 
+		magSite.goToEditNavigation("intranet");
+		magSite.addNode(title,title2);
+		magSite.goToEditNavigation("intranet");
+		click(magSite.ELEMENT_NAVIGATION_SUB_NODE_CHECK.replace("{$node}",title));
+		waitForAndGetElement(magSite.ELEMENT_NAVIGATION_SUB_NODE_CHECK.replace("{$node}",title2),3000,0);
+		click(magSite.ELEMENT_SAVE_NODE);
 		
  	}
 
@@ -162,8 +161,8 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The space is opened*/
 		info("Open space 1 in the list");
-		click(By.xpath(hp.ELEMENT_NUMBER_OF_SPACE_IN_LIST_LINK.replace("{$number}","2")));
-		waitForAndGetElement(By.xpath(spaceMg.ELEMENT_SPACE_NAME_BREADCUMB.replace("{$name}",space1)));
+		click(hp.ELEMENT_NUMBER_OF_SPACE_IN_LIST_LINK.replace("{$number}","2"));
+		waitForAndGetElement(spaceMg.ELEMENT_SPACE_NAME_BREADCUMB.replace("{$name}",space1));
 		/*Step number: 3
 		*Step Name: Show last browsed spaces on the top
 		*Step Description: 
@@ -175,12 +174,8 @@ import org.testng.annotations.*;
 			- In "MY SPACES" The last browsed space jump to the top of the list*/ 
 		
 		hp.goToHomePage();
-		click(By.xpath(hp.ELEMENT_NUMBER_OF_SPACE_IN_LIST_LINK.replace("{$number}","1")));
-		waitForAndGetElement(By.xpath(spaceMg.ELEMENT_SPACE_NAME_BREADCUMB.replace("{$name}",space1)));
-		info("Delete spaces");
-		hp.goToMySpaces();
-		spaceMg.deleteSpace(space1, false);
-		spaceMg.deleteSpace(space2, false);
+		click(hp.ELEMENT_NUMBER_OF_SPACE_IN_LIST_LINK.replace("{$number}","1"));
+		waitForAndGetElement(spaceMg.ELEMENT_SPACE_NAME_BREADCUMB.replace("{$name}",space2));
  	}
 
 	/**

@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.answer;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
@@ -152,6 +153,7 @@ public class QuestionManagement extends PlatformBase {
 			waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", links[links.length-1]));
 			switchToParentWindow();
 		}
+		Utils.pause(2000);
 	}
 
 	/**

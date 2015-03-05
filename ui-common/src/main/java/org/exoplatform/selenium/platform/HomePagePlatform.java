@@ -27,7 +27,7 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_CONNECTION_LINK_PLF =By.xpath("//*[@data-original-title='Connections']");
 
 	public final By ELEMENT_CONNECTIONS_LINK_PLF=By.xpath("//*[@data-original-title='Connections']");
-	public final By ELEMENT_SEARCH_SPACE = By.xpath("//*[@id='UISpaceNavigationPortlet']//*[@class='searchText LostFocus']");
+	public final By ELEMENT_SEARCH_SPACE = By.xpath(".//*[@id='UISpaceNavigationPortlet']//input[contains(@placeholder,'Search Spaces')]");
 	public final String ELEMENT_RESULT_SEARCH_SPACE = "//*[@id='UISpaceNavigationPortlet']//*[@class='spaceNavigation']//*[contains(text(),'{$space}')]";
 	public final String ELEMENT_LEFT_PANEL = "//*[@class='uiCompanyNavigations']//*[contains(text(),'{$name}')]";
 	public final String ELEMENT_SPECIFIC_PANEL = "//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'{$space}')]";
@@ -145,9 +145,10 @@ public class HomePagePlatform extends TestBase{
 
 	// Who's online gadget
 	public final String ELEMENT_WHO_ONLINE_ICON_PEOPLE_NUMBER = "//*[@id='onlineList']/li[{$number}]/a";
+	public final String ELEMENT_WHO_ONLINE_PEOPLE_AVATAR=".//*[@id='onlineList']//*[contains(@href,'${name}')]";
 	public final String ELEMENT_WHO_ONLINE_POP_UP_NAME = "//*[@id='tipName']//*[contains(text(),'{$name}')]";
 	public final By ELEMENT_WHO_ONLINE_DEFAULT_AVATAR = By.xpath("//*[@id='tiptip_content']//*[@src='/eXoSkin/skin/images/system/UserAvtDefault.png']");
-	public final By ELEMENT_WHO_ONLINE_CONNECT = By.xpath("//*[@id='tiptip_content']/div//*[contains(text(),'Connect')]");
+	public final By ELEMENT_WHO_ONLINE_CONNECT = By.xpath("//*[@id='tiptip_content']//*[contains(text(),'Connect')]");
 	public final By ELEMENT_WHO_ONLINE_CANCEL_CONNECT = By.xpath("//*[@id='tiptip_content']/div//*[contains(text(),'Cancel Request')]");
 	
 	// invitation gadget
@@ -210,6 +211,7 @@ public class HomePagePlatform extends TestBase{
 		info("Verify that the home page of intranet is shown");
 		waitForAndGetElement(ELEMENT_HOMPAGE_MIDDLE_PANEL);
 		info("the intranet is shown sucessfully"); 
+		Utils.pause(2000);
 	}
 
 	/**
@@ -286,18 +288,12 @@ public class HomePagePlatform extends TestBase{
 		info("The connections portlet is shown successfully");
 	}
 	
-	/**
-	 * Go to connexion
-	 */
-	public void goToConnection() {
-		info("-- Go to connexion page --");
-		info("Click on connexion link");
-		click(ELEMENT_CONNECTION_LINK_PLF);
-	}
    
 	public void goToSpecificSpace(String space){
 		info("Go to space "+space);
 		click(By.xpath(ELEMENT_SPECIFIC_PANEL.replace("{$space}",space)));
 	}
+	
+	
 }
 

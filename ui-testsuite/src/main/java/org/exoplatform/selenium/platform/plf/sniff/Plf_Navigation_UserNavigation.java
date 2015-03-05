@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.plf.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
@@ -31,7 +30,7 @@ import org.testng.annotations.*;
 			- The Horizontal toolbar is displayed
 			- The list of applications of space are displayed in the following order:* Profile* Activity Stream* Connections* Wiki
 			- Click on each applications, the application will show up in the main page*/ 
-		click(By.xpath(hp.ELEMENT_SUGGESTIONS_USER.replace("{$user}","FQA VN")));
+		click(hp.ELEMENT_SUGGESTIONS_USER.replace("{$user}","FQA VN"));
 		waitForAndGetElement(myProfile.ELEMENT_NAME_OF_USER_TOP_LEFT.replace("{$name}","FQA VN"));
 		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR);
 		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIRST_APP_PROFILE);

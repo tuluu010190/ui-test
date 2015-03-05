@@ -83,7 +83,7 @@ public class AnswerPage extends PlatformBase {
 		info("Create Answer Page");
 		navTool.goToAddPage();
 		click(pagMang.ELEMENT_PAGE_UP_LEVEL);
-		pagMang.inputPageInfoStep1("Answers", null, null, "Answers", null, null);
+		pagMang.inputPageInfoStep1("Answers", null, null,"Answers", null, null);
 		click(pagMang.ELEMENT_PAGE_NEXT_BUTTON);
 		click(pagMang.ELEMENT_PAGE_NEXT_BUTTON);
 		pagEditor.selectApplication("answer-AnswersPortlet", pagEditor.ELEMENT_EDIT_PAGE_PAGE);
@@ -92,6 +92,7 @@ public class AnswerPage extends PlatformBase {
 		check(pagEditor.ELEMENT_PUBLIC_MODE,2);
 		click(pagEditor.ELEMENT_PAGE_EDITOR_SAVE_BUTTON);
 		pagEditor.finishEditLayout();
+		Utils.pause(2000);
 	}
 
 
@@ -102,6 +103,7 @@ public class AnswerPage extends PlatformBase {
 		info("Go to edit answer portlet");
 		navTool.goToEditLayout();
 		pagEditor.goToEditPortlet(pagEditor.ELEMENT_FRAME_CONTAIN_PORTLET);
+		Utils.pause(2000);
 	}
 
 	/**
@@ -117,6 +119,7 @@ public class AnswerPage extends PlatformBase {
 			else
 				uncheck(ELEMENT_ANSWER_PERMISSION_TAB_PUBLIC_MODE,2);
 		}
+		Utils.pause(2000);
 	}
 
 	/**

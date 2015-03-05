@@ -196,7 +196,8 @@ public class WikiManagement extends WikiHomePage{
 					waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
 				}
 			}
-		}	
+		}
+		Utils.pause(2000);
 	}
 	
 	/**
@@ -832,9 +833,8 @@ public class WikiManagement extends WikiHomePage{
 	 */
 	public void checkEmailNotification(String title){
 		info("Check and delete mail");
-		String parentWindow = driver.getWindowHandle();
-		info("parentWindow:"+parentWindow);
-		  for(String windowHandle  : driver.getWindowHandles()){
+		
+		for(String windowHandle  : driver.getWindowHandles()){
 			     driver.switchTo().window(windowHandle);
 			     info("driver.title:"+driver.getTitle());
 		}
@@ -843,17 +843,31 @@ public class WikiManagement extends WikiHomePage{
 
 		info("ELEMENT_GMAIL_CONTENT:"+ELEMENT_GMAIL_CONTENT.replace("${title}",title));
 		info("Open email");
-		waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title)).click();
-		  for(String windowHandle  : driver.getWindowHandles()){
-			     driver.switchTo().window(windowHandle);
-			     info("driver.title.last:"+driver.getTitle());
-		}
-		info("Verify that the link is shown as correct format:");
-		click(ELEMENT_GMAIL_PREVIOUS_EMAIL);
-		info("Check the link's format");
-		String link = waitForAndGetElement(ELEMENT_GMAIL_CONTENT_LINK_WIKI.replace("${page}",title),3000,0).getAttribute("href").toString();
-	    String defaultLink = baseUrl+"/intranet/wiki/"+title;
-	    driver.close();
+		 waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title)).click();
+		 String defaultLink = baseUrl+"/intranet/wiki/"+title;
+		 //Store childs and parent windows
+		 Object[] allWindows =driver.getWindowHandles().toArray();
+		 //Get parent window
+		 String paWindow=allWindows[0].toString();
+		 //Get child window 1. Here is gmail browser
+		 String chilwindow1=allWindows[1].toString();
+		 //Get child window 2. Here is last child window when click on subtitle of email notification
+		 String chilwindow2=allWindows[2].toString();
+		 //Focus on Child window2
+		 driver.switchTo().window(chilwindow2);
+		 info("Verify that the link is shown as correct format:");
+		 click(ELEMENT_GMAIL_PREVIOUS_EMAIL);
+		 info("Check the link's format");
+		 String link = waitForAndGetElement(ELEMENT_GMAIL_CONTENT_LINK_WIKI.replace("${page}",title),3000,0).getAttribute("href").toString();
+		 //close child window 2
+		 driver.close();
+		 //Focus on child window 1
+		 driver.switchTo().window(chilwindow1);
+		 //close child window 1
+		 driver.close();
+		 //Focus on parent window
+		 driver.switchTo().window(paWindow);
+	 
 	    info("link:"+link);
 	    info("default:"+defaultLink);
 		if(link.contentEquals(defaultLink)==true)

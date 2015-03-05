@@ -483,7 +483,7 @@ public class TaskManagement extends PlatformBase {
 	public void saveQuickAddTask(){
 		click(ELEMENT_BUTTON_TASK_SAVE);
 		waitForElementNotPresent(ELEMENT_BUTTON_TASK_SAVE);
-		Utils.pause(500);
+		Utils.pause(2000);
 	}
 
 	/**

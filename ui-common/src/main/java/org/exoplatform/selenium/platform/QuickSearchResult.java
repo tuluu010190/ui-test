@@ -11,6 +11,7 @@ public class QuickSearchResult extends PlatformBase{
 	public final By ELEMENT_QUICKSEARCHRESULT_SORTBY = By.xpath("//*[@class='btn dropdown-toggle']");
 	public final By ELEMENT_QUICKSEARCHRESULT_SORTBY_DATE = By.xpath("//*[@sort='date']");
 	public final String ELEMENT_QUICKSEARCHRESULT_ICONDOC = "//*[@class='uiIcon64x64TemplateFolderDefault uiIcon64x64Templateacme_product']/../..//*[text()='${title}']";
+	public final By ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH=By.xpath(".//*[@class='message']/*[contains(text(),'See All Search Results')]");
 	
 	
 	//filter box

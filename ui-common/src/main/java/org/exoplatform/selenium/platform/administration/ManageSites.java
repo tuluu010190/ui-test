@@ -23,7 +23,7 @@ public class ManageSites extends PlatformBase {
 	public final By ELEMENT_NAVIGATION_MANAGEMENT_POPUP_TITLE=By.xpath(".//*[@class='PopupTitle popupTitle'][text()='Navigation Management']");
 	public final String ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME=".//*[@title='${name}']";
 	public final By ELEMENT_NAVIGATION_MANAGEMENT_SAVE = By.xpath(".//*[text()='Save']");
-	public final String ELEMENT_NAVIGATION_SPECIFIC_NODE ="//*[@id='UINavigationNodeSelector']//*[@class='uiIconFileMini uiIconLightGray' ]/../..//*[contains(text(),'{$name}')]";
+	public final String ELEMENT_NAVIGATION_SPECIFIC_NODE ="//*[@id='UINavigationNodeSelector']//*[@class='uiIconFileMini uiIconLightGray' ]/../..//*[contains(text(),'${name}')]";
 	public final String ELEMENT_NAVIGATION_SUB_NODE_CHECK = "//*[@id='UINavigationNodeSelector']//*[@class='uiIconNode collapseIcon' and contains(text(),'{$node}')]";
 	
 	//Contextmenu
@@ -32,6 +32,7 @@ public class ManageSites extends PlatformBase {
 	// new node
 	public final By ELEMENT_UP_LEVEL_PATH_NODE = By.xpath("//*[@id='UINavigationNodeSelector']//*[@class='uiIconUpLevel uiIconLightGray']");
 	public final By ELEMENT_ADD_NODE = By.xpath("//*[@id='UINavigationManagement']/..//*[contains(text(),'Add Node')]");
+	public final By ELEMENT_SAVE_NODE = By.xpath("//*[@id='UINavigationManagement']/..//*[contains(text(),'Save')]");
 	public final By ELEMENT_NODE_NAME = By.id("name");
 	
 	
@@ -93,14 +94,21 @@ public class ManageSites extends PlatformBase {
 	 * @param title
 	 * @param path
 	 */
-	public void addNode(String title,String path){
-		if(path=="")
-			waitForAndGetElement(ELEMENT_UP_LEVEL_PATH_NODE,3000,0).click();
-		else
-			waitForAndGetElement(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("{$name}",path),3000,0).click();
-		waitForAndGetElement(ELEMENT_ADD_NODE,3000,0).click();
-		type(ELEMENT_NODE_NAME,title,true);
-		waitForAndGetElement(ELEMENT_NAVIGATION_MANAGEMENT_SAVE,3000,0).click();
+	public void addNode(String title,String subTitle){
+		if(subTitle.isEmpty()){
+			click(ELEMENT_UP_LEVEL_PATH_NODE);
+			click(ELEMENT_ADD_NODE);
+		    type(ELEMENT_NODE_NAME,title,true);
+		}else{
+			waitForAndGetElement(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("${name}",title));
+			click(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("${name}",title));
+			click(ELEMENT_ADD_NODE);
+			type(ELEMENT_NODE_NAME,subTitle,true);
+		}
+		click(ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		Utils.pause(1000);
+		click(ELEMENT_SAVE_NODE);
+		Utils.pause(2000);
 	}
 	
 	/**

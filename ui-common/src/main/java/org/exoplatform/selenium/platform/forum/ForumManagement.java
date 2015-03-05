@@ -259,6 +259,7 @@ public class ForumManagement extends PlatformBase {
 	public void goToStartTopic(){
 		info("Go to start topic from more action");
 		selectItemMoreActionMenu(specifMoreActionMenu.START_TOPIC);
+		Utils.pause(2000);
 	}
 	
 	/**

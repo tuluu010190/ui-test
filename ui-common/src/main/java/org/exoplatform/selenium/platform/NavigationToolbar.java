@@ -395,15 +395,16 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_ADD_POOL_TOOLBAR,3000,0).click();
 		if (!location.isEmpty()){
 			info("Set location for the poll");
-			click(ELEMENT_ADD_POLL_SET_LOCATION,3000,0);
+			click(ELEMENT_ADD_POLL_SET_LOCATION);
 		}
 		info("click on Next button");
-		click(ELEMENT_NEXT_BUTTON,2000,0);
+		click(ELEMENT_NEXT_BUTTON);
+		Utils.pause(2000);
 		info("Select a forum for poll");
 		waitForAndGetElement(ELEMENT_SELECT_FORUM_COMBOBOX,3000,0).click();
 		waitForAndGetElement(ELEMENT_SELECT_FORUM_NAME.replace("${forum}",forum),2000,0).click();
 		info("Click on next button");
-		click(ELEMENT_NEXT_BUTTON,2000,0);
+		click(ELEMENT_NEXT_BUTTON);
 		Utils.pause(2000);
 	}
 	/**
@@ -497,7 +498,9 @@ public class NavigationToolbar extends PlatformBase {
 	public void goToQuickSearch(){
 		info("Click on Quick search icon");
 		click(ELEMENT_TOOLBAR_QUICKSEARCH);
+		Utils.pause(2000);
 	}
+	
 	/**
 	 * Open My profile page
 	 */
@@ -506,5 +509,6 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_TOPBAR_AVATAR);
 		info("Click on My profile link");
 		click(ELEMENT_MY_PROFILE_LINK);
+		Utils.pause(2000);
 	}
 }

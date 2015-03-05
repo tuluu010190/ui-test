@@ -133,7 +133,6 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Check email notification and link's format of the page");
 		goToMail("fqaexovn@gmail.com", "exoadmin");
 		wikiMg.checkEmailNotification(title);
-        switchToParentWindow();
         
         info("Delete page");
         hp.goToWiki();
@@ -1394,7 +1393,6 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Check email notification and link's format of the page");
 		goToMail("fqaexovn@gmail.com", "exoadmin");
 		wikiMg.checkEmailNotification(wiki1);
-        switchToParentWindow();
 		
 		/*Step number: 3
 		 *Step Name: Step 3: Open the Wiki page via email notification

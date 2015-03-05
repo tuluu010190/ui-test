@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.interactions.Actions;
@@ -14,16 +15,6 @@ import org.testng.annotations.*;
 
 public class Plf_UnifiedSearch extends Plf_TestConfig{
 
-	public void createDataTest(){
-		info("create data test");
-		if(waitForAndGetElement(hp.ELEMENT_ANSWER_LINK_PLF, 5000,0)==null){
-			aPage.createAnswerPage();
-			aPage.goToEditAnswerPortlet();
-			aPage.doPublicMode(true);
-			click(pagEditor.ELEMENT_PAGE_EDITOR_SAVE_AND_CLOSE_BUTTON);
-			pagEditor.finishEditLayout();
-		}
-	}
 
 	/**
 	 *<li> Case ID:120868.</li>
@@ -106,9 +97,10 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 			- By default, quick search returns results for items located in the current site only, as attachment SearchResult.png*/
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,"dinner",true);
-		action.sendKeys(Keys.ENTER);
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
+		/*action.sendKeys(Keys.ENTER);
 		action.perform();
-		action.release();
+		action.release();*/
 		/*Step number: 2
 		 *Step Name: Sort search results
 		 *Step Description: 
@@ -118,6 +110,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 		 *Expected Outcome: 
 			Search result will sorted by Relevance, or Date, or Title respectively*/ 
 		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SORTBY);
+		Utils.pause(2000);
 		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SORTBY_DATE);
 		waitForAndGetElement((quickSearch.ELEMENT_SEARCHRESULT_CONTENT_FILE_TITLE).replace("${name}", "Immunity"),5000,0);
 	}
@@ -285,9 +278,9 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 			- Item in search result is clickable and open it when user click*/ 
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,"cloud",true);
-		action.sendKeys(Keys.ENTER);
-		action.perform();
-		action.release();
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
+		/*action.sendKeys(Keys.ENTER);
+		action.perform();*/
 	    
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_FILESTYPECHECK, 2);
@@ -329,9 +322,9 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 		String name ="Speed";
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,"cloud",true);
-		action.sendKeys(Keys.ENTER);
-		action.perform();
-		action.release();
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
+		/*action.sendKeys(Keys.ENTER);
+		action.perform();*/
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_DOCTYPECHECK, 2);
 		
@@ -580,8 +573,8 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 	public  void test13_SearchWikis() {
 		info("Test 13 Search wikis");
 
-		String title = txData.getContentByArrayTypeRandom(1);
-		String content = txData.getContentByArrayTypeRandom(1);
+		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();;
 
 		hp.goToWiki();
 		wikiHome.goToAddBlankPage();
@@ -623,7 +616,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 		waitForAndGetElement(quickSearch.ELEMENT_SEARCHRESULT_CONTENT_WIKI_LOCATION.replace("${name}",title).replace("${location}","intranet"),2000,0);
 		
 		info("Verify that Item in search result is clickable and open it when user click ");
-        click(quickSearch.ELEMENT_SEARCHRESULT_CONTENT_WIKI_TITLE);
+        click(quickSearch.ELEMENT_SEARCHRESULT_CONTENT_WIKI_TITLE.replace("${name}",title));
         waitForAndGetElement(wikiHome.ELEMENT_PAGE_TITLE.replace("${title}",title),5000,0);
 	}
 
@@ -637,8 +630,8 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 	public  void test14_SearchSpaces() {
 		info("Test 14 Search spaces");
 		
-		String title = txData.getContentByArrayTypeRandom(1);
-		String content = txData.getContentByArrayTypeRandom(1);
+		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		hp.goToMySpaces();
 		spaceMg.addNewSpaceSimple(title, content);
@@ -707,9 +700,10 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 		
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,"John Smith",true);
-		Actions action = new Actions(this.driver);
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
+		/*Actions action = new Actions(this.driver);
 		action.sendKeys(Keys.ENTER);
-		action.perform();
+		action.perform();*/
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_PEOPLETYPECHECK, 2);
 		
@@ -726,7 +720,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 		info("Verify that the gender is shown");
 		waitForAndGetElement(quickSearch.ELEMENT_SEARCHRESULT_CONTENT_USER_GENDER.replace("${fullname}","John Smith").replace("${gender}","male"),2000,0);
 		info("Verify that Item in search result is clickable and open it when user click ");
-        click(quickSearch.ELEMENT_SEARCHRESULT_CONTENT_USER_FULL_NAME.replace("${fullname}","John Smith"),5000,0);
+        click(quickSearch.ELEMENT_SEARCHRESULT_CONTENT_USER_FULL_NAME.replace("${fullname}","John Smith"));
 
 	}
 
@@ -740,11 +734,9 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 	public  void test16_SearchAnswers() {
 		info("Test 16 Search answers");
 
-		info("Test 9: Search Discussions");
 		String question = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber()+"des";
 
-		createDataTest();
 		hp.goToAnswer();
 		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(question, content, null, null);

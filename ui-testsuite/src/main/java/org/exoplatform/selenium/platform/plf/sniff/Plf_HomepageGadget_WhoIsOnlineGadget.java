@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.plf.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
@@ -12,11 +13,20 @@ import org.testng.annotations.*;
 	*
 	*/
 	public class Plf_HomepageGadget_WhoIsOnlineGadget extends Plf_TestConfig{
-		
 		FirefoxDriver driver2 ;
 		FirefoxDriver driver3;
 		ManageLogInOut magAc2;
 		ManageLogInOut magAc3;
+		
+		@BeforeMethod
+		public void setBeforeMethod(){
+			initBrowsers();
+		}
+		
+		@AfterMethod
+		public void setAfterMethod(){
+			closeBrowsers();
+		}
 		
 		/**
 		 * Log in as Mary and Demo on 2 browsers
@@ -49,7 +59,7 @@ import org.testng.annotations.*;
 	@Test
 	public  void test01_CheckDisplayOfWhosOnlineGadget() {
 		info("Test 1: Check display of Who's online gadget");
-		initBrowsers();
+		//initBrowsers();
 		/*Step Number: 1
 		*Step Name: Check display of this gadget
 		*Step Description: 
@@ -66,7 +76,7 @@ import org.testng.annotations.*;
 		
 		magAc.mouseOver(hp.ELEMENT_WHO_ONLINE_ICON_PEOPLE_NUMBER.replace("${number}","2"),true);
 		waitForAndGetElement(hp.ELEMENT_WHO_ONLINE_POP_UP_NAME.replace("${name}", "Mary"),2000,0);
-		closeBrowsers();
+		//closeBrowsers();
  	}
 
 	/**
@@ -77,7 +87,7 @@ import org.testng.annotations.*;
 	@Test
 	public  void test02_ShowInformationOfUser() {
 		info("Test 2: Show information of user");
-		initBrowsers();
+		//initBrowsers();
 		//magAc.signOut();
 		
 		/*Step Number: 1
@@ -92,7 +102,7 @@ import org.testng.annotations.*;
 		magAc3.mouseOver(hp.ELEMENT_WHO_ONLINE_ICON_PEOPLE_NUMBER.replace("${number}","1"), true);
 		magAc3.waitForAndGetElement(hp.ELEMENT_WHO_ONLINE_POP_UP_NAME.replace("{$name}", "Mary"),3000,0);
 		magAc3.waitForAndGetElement(hp.ELEMENT_WHO_ONLINE_DEFAULT_AVATAR,3000,0);
-		closeBrowsers();
+		//closeBrowsers();
 		//magAc.signIn(DATA_USER1, DATA_PASS);
  	}
 
@@ -104,7 +114,7 @@ import org.testng.annotations.*;
 	@Test
 	public  void test03_ConnectToUsers() {
 		info("Test 3: Connect to users");
-		initBrowsers();
+		//initBrowsers();
 		//magAc3.signOut();
 		/*Step Number: 1
 		*Step Name: Connect to users
@@ -119,10 +129,13 @@ import org.testng.annotations.*;
 			- Who's online is at the right
 			- Connect button is shown
 			- Connection request is sent to mary*/
+
 		driver.navigate().refresh();
-		magAc.mouseOver(hp.ELEMENT_WHO_ONLINE_ICON_PEOPLE_NUMBER.replace("{$number}","2"),true);
-		magAc.waitForAndGetElement(hp.ELEMENT_WHO_ONLINE_POP_UP_NAME.replace("{$name}", "Mary"),3000,0);
+		Utils.pause(2000);
+		magAc.mouseOver(hp.ELEMENT_WHO_ONLINE_PEOPLE_AVATAR.replace("${name}","mary"),true);
+		Utils.pause(2000);
 		magAc.waitForAndGetElement(hp.ELEMENT_WHO_ONLINE_CONNECT,3000,0).click();
+		magAc.waitForAndGetElement(hp.ELEMENT_WHO_ONLINE_POP_UP_NAME.replace("{$name}", "Mary"),3000,0);
 		/*Step number: 2
 		*Step Name: Verify if connection request is sent
 		*Step Description: 
@@ -136,9 +149,11 @@ import org.testng.annotations.*;
 		magAc2.waitForAndGetElement(hp.ELEMENT_INVITATIONS_NAME_OF_PEOPLE_WHO_SEND_REQUEST.replace("{$name}", "John"),2000,0);
 		
 		driver.navigate().refresh();
-		magAc.mouseOver(hp.ELEMENT_WHO_ONLINE_ICON_PEOPLE_NUMBER.replace("{$number}","2"),true);
+		Utils.pause(2000);
+		magAc.mouseOver(hp.ELEMENT_WHO_ONLINE_PEOPLE_AVATAR.replace("${name}","mary"),true);
+		Utils.pause(2000);
 		magAc.waitForAndGetElement(hp.ELEMENT_WHO_ONLINE_CANCEL_CONNECT,3000,0).click();
-		closeBrowsers();
+		//closeBrowsers();
 	}
 
 	/**
@@ -149,7 +164,7 @@ import org.testng.annotations.*;
 	@Test
 	public  void test04_AccessActivitysStreamOfUsers() {
 		info("Test 4: Access activity's stream of users");
-		initBrowsers();
+		//initBrowsers();
 		//magAc.signOut();
 		/*Step Number: 1
 		*Step Name: Access to activity stream of other users
@@ -164,6 +179,6 @@ import org.testng.annotations.*;
 		driver3.navigate().refresh();
 		magAc3.click(hp.ELEMENT_WHO_ONLINE_ICON_PEOPLE_NUMBER.replace("{$number}","1"));
 		magAc3.waitForAndGetElement(myProfile.ELEMENT_NAME_OF_PROFILE_TOP_LEFT.replace("{$name}","Mary"),3000,0);
-		closeBrowsers();
+		//closeBrowsers();
  	}
 }

@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.plf.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -16,6 +17,41 @@ import org.testng.annotations.*;
 		
 		String space1;
 		String space2;
+		@AfterMethod
+		public void setAfterMethod(){
+			info("Sign out");
+			magAc.signOut();
+			info("Sign in with mary account");
+			magAc.signIn(DATA_USER2, DATA_PASS);
+			hp.goToConnections();
+			connMg.resetConnection("John Smith");
+			
+			info("Sign out");
+			magAc.signOut();
+			info("Sign in with james account");
+			magAc.signIn(DATA_USER3, DATA_PASS);
+			hp.goToConnections();
+			connMg.resetConnection("John Smith");
+			
+			info("Sign out");
+			magAc.signOut();
+			info("Sign in with demo account");
+			magAc.signIn(DATA_USER4, DATA_PASS);
+			hp.goToConnections();
+			connMg.resetConnection("John Smith");
+			
+			info("Sign out");
+			magAc.signOut();
+			info("Sign in with FQAVN account");
+			magAc.signIn("fqa","gtngtn");
+			hp.goToConnections();
+			connMg.resetConnection("John Smith");
+			
+			magAc.signOut();
+			info("Sign in with john account");
+			magAc.signIn(DATA_USER1, DATA_PASS);
+		}
+		
 	/**
 	 * Create 3 connections requests to John account
 	 * Create 2 space request to John account
@@ -80,13 +116,7 @@ import org.testng.annotations.*;
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToMySpaces();
 		spaceMg.deleteSpace(space2, false);
-		magAc.signOut();
 		
-		info("Sign in with john account");
-		magAc.signOut();
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		hp.goToConnections();
-		connMg.removeConnection("Mary Williams");
 	}
 	/**
 	*<li> Case ID:120861.</li>
@@ -149,6 +179,7 @@ import org.testng.annotations.*;
 	    info("Verify that The title of the gadget will show the total number of requests received which is 5");
 	    waitForAndGetElement(By.xpath(hp.ELEMENT_INVITATIONS_NUMBER.replace("${number}", "5")),2000,0);
 	
+	    deleteDataTest();
 	}
 	/**
 	*<li> Case ID:120855.</li>
@@ -171,14 +202,33 @@ import org.testng.annotations.*;
 		/*Expected Outcome: 
 			- The invitation of root, mary is shown on the invitation gadget
 			- The Accept and Refuse button are displayed.
-			- John is connected to john and the invitation fades out and is permanently removed from the list
+			- John is connected to mary and the invitation fades out and is permanently removed from the list
 			- Request of root are moving to the top of the gadget if needed*/ 
+		info("--Send request 1 to John");
+		magAc.signOut();
+		info("Sign in with mary account");
+		magAc.signIn(DATA_USER2, DATA_PASS);
+		hp.goToConnections();
+		connMg.connectToAUser("John Smith");
+		
+		info("--Send request 2 to John");
+		info("Sign out");
+		magAc.signOut();
+		info("Sign in with james account");
+		magAc.signIn(DATA_USER3, DATA_PASS);
+		hp.goToConnections();
+		connMg.connectToAUser("John Smith");
+		
+		magAc.signOut();
+		info("Sign in with john account");
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		mouseOver(hp.ELEMENT_INVITATIONS_PEOPLE_AVATAR .replace("${name}","Mary"),true);
+		Utils.pause(2000);
 		WebElement elementToClick=waitForAndGetElement(hp.ELEMENT_INVITATIONS_PEOPLE_ACCEPT_BTN.replace("${name}","Mary Williams"),5000,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", elementToClick);
 		waitForElementNotPresent(hp.ELEMENT_INVITATIONS_PEOPLE_AVATAR .replace("${name}","Mary"));
-		hp.goToConnections();
-		waitForAndGetElement(connMg.ELEMENT_CONNECTION_EVERYONE_REVOVE_BTN.replace("${user}","Mary Williams"),2000,0);
+		waitForAndGetElement(hp.ELEMENT_INVITATIONS_PEOPLE_AVATAR .replace("${name}","James"));
+		
 	}
 	
 	/**
@@ -190,6 +240,7 @@ import org.testng.annotations.*;
 	@Test
 	public void test04_RefuseARequest(){
         info("Test 04: Refuse a request");
+        //createRequestsConnections();
 		/*Step Number: 1
 		*Step Name: Refuse a request
 		*Step Description: 
@@ -203,14 +254,34 @@ import org.testng.annotations.*;
 			- Invitations of root, james are displayed on Invitation gadget
 			- The Accept and Refuse button are displayed.
 			- The invitation of jack fades out and is permanently removed from the list
-			- Requests of James is moved to the top of the gadget*/ 
+			- Requests of James is moved to the top of the gadget*/
+        info("--Send request 3 to John");
+		info("Sign out");
+		magAc.signOut();
+		info("Sign in with demo account");
+		magAc.signIn(DATA_USER4, DATA_PASS);
+		hp.goToConnections();
+		connMg.connectToAUser("John Smith");
 		
+		info("--Send request 2 to John");
+		info("Sign out");
+		magAc.signOut();
+		info("Sign in with james account");
+		magAc.signIn(DATA_USER3, DATA_PASS);
+		hp.goToConnections();
+		connMg.connectToAUser("John Smith");
+        
+		magAc.signOut();
+		info("Sign in with john account");
+		magAc.signIn(DATA_USER1, DATA_PASS);
         mouseOver(hp.ELEMENT_INVITATIONS_PEOPLE_AVATAR .replace("${name}","Jack"),true);
-		WebElement elementToClick2=waitForAndGetElement(By.xpath(hp.ELEMENT_INVITATIONS_PEOPLE_REFUSE_BTN.replace("{$name}","Jack Miller")),5000,1,2);
+		Utils.pause(2000);
+        WebElement elementToClick2=waitForAndGetElement(By.xpath(hp.ELEMENT_INVITATIONS_PEOPLE_REFUSE_BTN.replace("${name}","Jack Miller")),5000,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", elementToClick2);
 		waitForElementNotPresent(hp.ELEMENT_INVITATIONS_PEOPLE_AVATAR .replace("${name}","Jack"));
+        waitForAndGetElement(hp.ELEMENT_INVITATIONS_PEOPLE_AVATAR .replace("${name}","James"));
+		
 		hp.goToConnections();
 		waitForAndGetElement(connMg.ELEMENT_CONNECTION_EVERYONE_CONNECT_BTN.replace("${user}","Jack Miller"),2000,0);
-		deleteDataTest();
 	}
 }

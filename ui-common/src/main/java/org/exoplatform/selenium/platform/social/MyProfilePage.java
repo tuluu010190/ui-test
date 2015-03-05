@@ -148,6 +148,6 @@ public class MyProfilePage extends PlatformBase {
 		if(!url.isEmpty())
 			info("url is not empty");
 		click(ELEMENT_CONTACT_SAVE_BUTTON);
-			
+		Utils.pause(2000);	
 	}
 }
