@@ -1,0 +1,53 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Wiki Functional Test" verbose="1" preserve-order="true">
+	<test name="wiki-func-macro" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.macro.Wiki_Macro_Add" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.macro.Wiki_Macro_Edit" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.macro.Wiki_Macro_Othercheck" />
+		</classes>
+	</test>
+	<test name="wiki-func-template" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.template.Wiki_Template_Add" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.template.Wiki_Template_Delete" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.template.Wiki_Template_Edit" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.template.Wiki_Template_Search" />
+		</classes>
+	</test>
+	<test name="wiki-func-basicaction" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.basicaction.Wiki_BasicAction_Permanlink" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.basicaction.Wiki_BasicAction_Move" />
+		</classes>
+	</test>
+
+	<listeners>
+		<listener class-name="org.exoplatform.selenium.TestReportListener" />
+	</listeners>
+</suite>
