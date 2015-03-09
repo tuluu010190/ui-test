@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnod
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
@@ -177,7 +178,7 @@ public class ECMS_SE_CreateNode_CSSFile extends Activity{
 		String data0 = "p{color:green;}";
 
 		String FILE_TITLE_RED = "ECMS_SE_CSS_FILE_RED_03";
-		String data1 = "p{ color:red;}";
+		String data1 = "p{color:red;}";
 		String activity1 = "activity102174";
 		String comment1 = "comment102174";
 		info("Go to CSS Folder in Site Explorer");
@@ -253,9 +254,12 @@ public class ECMS_SE_CreateNode_CSSFile extends Activity{
 		String acValue = acElement.getCssValue("color");
 		info("-- The dispalyed color on ACME -- " + acValue);
 		assert acValue.equals("rgba(255, 0, 0, 1)"): "Error: could set the text color to red...";
-
+		info("Assert successfully");
+		
 		info("Restore data");
+		waitForAndGetElement(ELEMENT_LINK_SETUP, 5000,0);
+		info("Wait successfully");
 		navToolBar.goToSiteExplorer();
-		cMenu.deleteDocument(By.linkText(FILE_TITLE_RED));
+		//cMenu.deleteDocument(By.linkText(FILE_TITLE_RED));
 	}
 }

@@ -346,6 +346,9 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, DOCUMENT_SUB_FOLDER_TITLE, false);
 		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
 		waitForAndGetElement(cTemplate.ELEMENT_VERIFY_FILE_CONTENT.replace("${content}", DOCUMENT_SUB_FOLDER_TITLE));
+		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
+		ecms.goToNode(DOCUMENT_FOLDER_TITLE);
+		waitForAndGetElement(By.linkText(DOCUMENT_SUB_FOLDER_TITLE));
 		info("Add New Document folder into locked folder: successful");
 
 		info("Restore data");
@@ -370,7 +373,10 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 		ecms.goToNode(CONTENT_FOLDER_TITLE);
 		cTemplate.createNewFolder(CONTENT_SUB_FOLDER_TITLE, folderType.Content);		
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE_AUX.replace("${title1}", CONTENT_FOLDER_TITLE).replace("${title2}", CONTENT_SUB_FOLDER_TITLE));
-
+		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
+		ecms.goToNode(CONTENT_FOLDER_TITLE);
+		waitForAndGetElement(By.linkText(CONTENT_SUB_FOLDER_TITLE));
+		
 		info("Restore data");
 		cMenu.deleteDocument(By.linkText(CONTENT_FOLDER_TITLE));
 	}
@@ -382,8 +388,8 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 	 */
 	@Test
 	public void test11_AddDocumentFolderInAnotherDocumentFolder(){
-		String DOCUMENT_FOLDER_TITLE = "ECMS_SE_Folder_DocumentFolder_12";
-		String DOCUMENT_SUB_FOLDER_TITLE = "ECMS_SE_Folder_DocumentSubFolder_12";
+		String DOCUMENT_FOLDER_TITLE = "ECMS_SE_Folder_DocumentFolder_12" + getRandomNumber();
+		String DOCUMENT_SUB_FOLDER_TITLE = "ECMS_SE_Folder_DocumentSubFolder_12" + getRandomNumber();
 
 		info("Add a folder in root path");
 		navToolBar.goToSiteExplorer();
@@ -393,7 +399,10 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 		ecms.goToNode(DOCUMENT_FOLDER_TITLE);
 		cTemplate.createNewFolder(DOCUMENT_SUB_FOLDER_TITLE, folderType.None);		
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE_AUX.replace("${title1}", DOCUMENT_FOLDER_TITLE).replace("${title2}", DOCUMENT_SUB_FOLDER_TITLE));
-
+		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
+		ecms.goToNode(DOCUMENT_FOLDER_TITLE);
+		waitForAndGetElement(By.linkText(DOCUMENT_SUB_FOLDER_TITLE));
+		
 		info("Restore data");
 		cMenu.deleteDocument(By.linkText(DOCUMENT_FOLDER_TITLE));
 	}
@@ -418,7 +427,10 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 		info("Step 3: Do add Document folder");
 		cTemplate.createNewFolder(DOCUMENT_FOLDER_TITLE, folderType.Document);
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE_AUX.replace("${title1}", CONTENT_FOLDER_TITLE).replace("${title2}", DOCUMENT_FOLDER_TITLE));
-
+		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
+		ecms.goToNode(CONTENT_FOLDER_TITLE);
+		waitForAndGetElement(By.linkText(DOCUMENT_FOLDER_TITLE));
+		
 		info("Restore data");
 		cMenu.deleteDocument(By.linkText(CONTENT_FOLDER_TITLE));
 	}
@@ -460,7 +472,7 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 	 */
 	@Test
 	public void test14_CreatesDocumentFolderIfNotSpecified(){
-		String FOLDER_TITLE = "ECMS_SE_Folder_15";
+		String FOLDER_TITLE = "ECMS_SE_Folder_15" + getRandomNumber();
 
 		info("Step1: Go to [intranet/documents] and Open form [Add new folder]");
 		navToolBar.goToSiteExplorer();
@@ -470,6 +482,24 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 		cTemplate.createNewFolder(FOLDER_TITLE, folderType.None);
 
 		info("Step 3: Check properties and view information");
+		ecms.goToNode(By.linkText(FOLDER_TITLE));
+		info("Add viewProperties to Action bar");
+		actBar.addItem2ActionBar("viewProperties", actBar.ELEMENT_VIEW_PROPERTIES);
+		
+		info("Check jcr:primaryType must be nt:folder");
+		ecms.goToNode("intranet/documents");
+		ecms.goToNode(By.linkText(FOLDER_TITLE));
+		if(waitForAndGetElement(actBar.ELEMENT_VIEW_PROPERTIES, 3000, 0) != null)
+			click(actBar.ELEMENT_VIEW_PROPERTIES);
+		else { 
+			click (actBar.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			click(actBar.ELEMENT_VIEW_PROPERTIES);
+		}
+		waitForAndGetElement("//div[contains(text(),'nt:folder')]/../..//td[contains(text(),'jcr:primaryType')]");
+		button.close();
+		
+		info("View Information");
+		ecms.goToNode(By.linkText(FOLDER_TITLE));
 		cMenu.contextMenuAction(By.linkText(FOLDER_TITLE), cMenu.ELEMENT_VIEW_INFORMATION);
 		waitForAndGetElement(cMenu.ELEMENT_POPUP_VIEW_INFORMATION_TYPE.replace("${folderName}", "Folder"));
 		button.close();
@@ -554,12 +584,26 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 	public void test17_CreatedFolderIsOfTheSelectedType(){
 		String CSS_FOLDER_TITLE = "ECMS_SE_CSS_Folder_18";
 
-		info("Create a new folder using [Css Folder] type");
+		info("Step 1: Create a new folder using [Css Folder] type");
 		navToolBar.goToSiteExplorer();
 		cTemplate.createNewFolder(CSS_FOLDER_TITLE, folderType.Css);
 		waitForAndGetElement(ecms.ELEMENT_FOLDER_ICON.replace("${folderTitle}", CSS_FOLDER_TITLE).replace("${folderType}", "cssFolder"));
 
-		info("Check type of folder");
+		info("Step 2 Check type of folder");
+		ecms.goToNode(By.linkText(CSS_FOLDER_TITLE));
+		info("Add viewProperties to Action bar");
+		actBar.addItem2ActionBar("viewProperties", actBar.ELEMENT_VIEW_PROPERTIES);
+		
+		info("Check jcr:primaryType must be exo:cssFolder");
+		ecms.goToNode(By.linkText(CSS_FOLDER_TITLE));
+		if(waitForAndGetElement(actBar.ELEMENT_VIEW_PROPERTIES, 3000, 0) != null)
+			click(actBar.ELEMENT_VIEW_PROPERTIES);
+		else { 
+			click (actBar.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			click(actBar.ELEMENT_VIEW_PROPERTIES);
+		}
+		waitForAndGetElement("//div[contains(text(),'exo:cssFolder')]/../..//td[contains(text(),'jcr:primaryType')]");
+		info("View information");
 		cMenu.contextMenuAction(By.linkText(CSS_FOLDER_TITLE), cMenu.ELEMENT_VIEW_INFORMATION);
 		waitForAndGetElement(cMenu.ELEMENT_POPUP_VIEW_INFORMATION_TYPE.replace("${folderName}", "Folder"));
 		button.close();
@@ -667,6 +711,10 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 		cTemplate.createNewFolder(DOCUMENT_FOLDER_TITLE, folderType.Document);
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE_AUX.replace("${title1}", CONTENT_FOLDER_TITLE).replace("${title2}", DOCUMENT_FOLDER_TITLE));
 		
+		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
+		ecms.goToNode(CONTENT_FOLDER_TITLE);
+		waitForAndGetElement(By.linkText(DOCUMENT_FOLDER_TITLE));
+		
 		info("Restore data");
 		cMenu.deleteDocument(By.linkText(CONTENT_FOLDER_TITLE));
 	}
@@ -750,7 +798,13 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 		info("Step 2: Check User can add sub-node into child node: folder");
 		ecms.goToNode(By.linkText(ANNOUNCE_NAME));
 		cTemplate.createNewFolder(ANNOUNCE_NAME_SUB_FOLDER_TITLE, folderType.Content);
-
+		
+		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
+		ecms.goToNode(CONTENT_FOLDER_TITLE);
+		waitForAndGetElement(By.linkText(ANNOUNCE_NAME));
+		ecms.goToNode(ANNOUNCE_NAME);
+		waitForAndGetElement(By.linkText(ANNOUNCE_NAME_SUB_FOLDER_TITLE));
+		
 		//delete data
 		navToolBar.goToSiteExplorer();
 		cMenu.contextMenuAction(By.linkText(CONTENT_FOLDER_TITLE), cMenu.ELEMENT_MENU_CHECKOUT);

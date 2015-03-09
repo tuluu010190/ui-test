@@ -66,7 +66,7 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_MAXIMIZE_ICON = By.xpath("//*[contains(@class, 'uiIconEcmsExpand')]");
 	public final By ELEMENT_MINIMIZE_ICON = By.xpath("//*[contains(@class, 'uiIconEcmsCollapse')]");
 	public final By ELEMENT_CHANGE_CONTENT_TYPE = By.xpath("//*[contains(@class, 'changeTypeLink')]");
-
+	public final By ELEMENT_UI_DOCUMENT_WORKSPACE = By.id("UIDocumentWorkspace");
 	//Accessible Media
 	public final By ELEMENT_ACCESSIBLEMEDIA_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Accessible Media']");
 
@@ -254,8 +254,7 @@ public class ContentTemplate extends EcmsBase {
 	// Add New Folder
 	public final By ELEMENT_CREATE_FOLDER_BUTTON = By
 			.xpath("//*[text()='Create Folder']");
-	public final By ELEMENT_USE_CUSTOM_TYPE_FOLDER = By
-			.id("customTypeCheckBox");
+	public final By ELEMENT_USE_CUSTOM_TYPE_FOLDER = By.xpath(".//*[@id='customTypeCheckBox']");
 	public final String ELEMENT_VERIFY_FILE_CONTENT = "//*[contains(text(),'${content}')]";
 
 	// Message
@@ -681,11 +680,8 @@ public class ContentTemplate extends EcmsBase {
 			break;
 		case None:
 			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
-			if (fType == null) {
-				info("-- Add a new folder without selecting folder's type --");
-			} else if (fType != null && fType.isSelected()) {
-				click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
-			}
+			if(waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0) != null)
+				uncheck(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
 			break;
 		default:
 			break;

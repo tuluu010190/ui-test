@@ -247,6 +247,7 @@ public class ECMS_SE_CreateNode_Document extends PlatformBase{
 		switchToParentWindow();
 		button.save();
 		waitForAndGetElement(By.linkText(FILE_TITLE));
+		waitForAndGetElement(button.ELEMENT_CLOSE_BUTTON);
 		button.close();
 		waitForElementNotPresent(button.ELEMENT_CLOSE_BUTTON);
 
@@ -261,7 +262,7 @@ public class ECMS_SE_CreateNode_Document extends PlatformBase{
 	@Test
 	public void test07_AddContentWhenClickOnMaximizeMinimizeIcon(){
 		String FILE_TITLE = "ECMS_SE_Document_07_"+getRandomNumber();
-
+		
 		info("Go to Content Explorer");
 		navToolBar.goToSiteExplorer();
 
@@ -276,6 +277,7 @@ public class ECMS_SE_CreateNode_Document extends PlatformBase{
 		click(cTemplate.ELEMENT_MAXIMIZE_ICON);
 		waitForAndGetElement(cTemplate.ELEMENT_MINIMIZE_ICON);		
 		click(cTemplate.ELEMENT_MINIMIZE_ICON);
+		
 		button.saveAndClose();
 		waitForAndGetElement(By.linkText(FILE_TITLE));
 
