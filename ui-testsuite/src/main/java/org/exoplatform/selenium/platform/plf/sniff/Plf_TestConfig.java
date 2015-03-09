@@ -7,15 +7,13 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.Branding;
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.HomepageActivity;
+import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.IDEManagement;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.QuickSearchResult;
-import org.exoplatform.selenium.platform.administration.ManageSites;
-import org.exoplatform.selenium.platform.administration.PageManagement;
-import org.exoplatform.selenium.platform.administration.SearchAdministration;
+import org.exoplatform.selenium.platform.administration.ContentSearchAdministration;
 import org.exoplatform.selenium.platform.answer.AnswerHomePage;
 import org.exoplatform.selenium.platform.answer.QuestionManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
@@ -28,10 +26,12 @@ import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.forum.ForumManagement;
 import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
 import org.exoplatform.selenium.platform.gatein.AnswerPage;
-import org.exoplatform.selenium.platform.gatein.ApplicationHomePage;
+import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.GadgetManagement;
+import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
+import org.exoplatform.selenium.platform.gatein.PortalManagePages;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGateinDatabase;
@@ -51,7 +51,7 @@ import org.testng.annotations.*;
 
 public class Plf_TestConfig extends PlatformBase {
 
-	ApplicationHomePage appHP;
+	ApplicationRegistry appHP;
 	AnswerHomePage aHome;
 	AnswerPage aPage;
 	Actions action;
@@ -73,14 +73,14 @@ public class Plf_TestConfig extends PlatformBase {
 	ForumManagement forumMg;
 	ForumCategoryManagement forumCatMag;
 	
-	ManageSites magSite;
+	PortalManageSites magSite;
 	ManageLogInOut magAc;
 	MyProfilePage myProfile;
 	ManageAlert alert;
 	
 	NavigationToolbar navToolBar;
 	
-	HomepageActivity hpAct;
+	ActivityStream hpAct;
 	HomePagePlatform hp;
 	
 	TaskManagement taskMag;
@@ -89,10 +89,10 @@ public class Plf_TestConfig extends PlatformBase {
 	SpaceManagement spaceMg;
 	SpaceHomePage spaceHome;
 	SpaceSettingManagement setMag;
-	SearchAdministration seaAdmin;
+	ContentSearchAdministration seaAdmin;
 	
 	PageEditor pagEditor;
-	PageManagement pagMang;
+	PortalManagePages pagMang;
 	PageCreationWizard pagCW;
 	
 	QuickSearchResult quickSearch;
@@ -123,28 +123,28 @@ public class Plf_TestConfig extends PlatformBase {
 		branding = new Branding(driver);
 		but = new Button(driver);
 		
-		appHP = new ApplicationHomePage(driver);
+		appHP = new ApplicationRegistry(driver);
 		aPage = new AnswerPage(driver);
 		aHome = new AnswerHomePage(driver);
 		action = new Actions(driver);
 		
 		gadMag = new GadgetManagement(driver);
 		
-		magSite = new ManageSites(driver);
+		magSite = new PortalManageSites(driver);
 		alert = new ManageAlert(driver);
 		
 		pagCW =new PageCreationWizard(driver);
-		pagMang = new PageManagement(driver);
+		pagMang = new PortalManagePages(driver);
 		pagEditor = new PageEditor(driver);
 		
-		hpAct = new HomepageActivity(driver);
+		hpAct = new ActivityStream(driver);
 		myProfile = new MyProfilePage(driver);
 		
 		
 		SEHome = new SiteExplorerHome(driver);
 		spaceHome = new SpaceHomePage(driver);
 		spaceMg = new SpaceManagement(driver);
-		seaAdmin= new SearchAdministration(driver);
+		seaAdmin= new ContentSearchAdministration(driver);
 		setMag = new SpaceSettingManagement(driver);
 		
 		forumHP = new ForumHomePage(driver);

@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.HomepageActivity;
+import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -45,7 +45,7 @@ public class Forum_TestConfig extends PlatformBase{
 	AnswerCategoryManagement cMang;
 	Button button;
 	ForumTopicManagement foTopic;
-	HomepageActivity aHome;
+	ActivityStream aHome;
 	EditPageWCM editPage;
 	PrivateMessageManagement msgManage;
 
@@ -65,7 +65,7 @@ public class Forum_TestConfig extends PlatformBase{
 		cMang = new AnswerCategoryManagement(driver);
 		button = new Button(driver);
 		foTopic = new ForumTopicManagement(driver);
-		aHome = new HomepageActivity(driver);
+		aHome = new ActivityStream(driver);
 		editPage = new EditPageWCM(driver);
 		msgManage = new PrivateMessageManagement(driver);
 		forumCatMag = new ForumCategoryManagement(driver);

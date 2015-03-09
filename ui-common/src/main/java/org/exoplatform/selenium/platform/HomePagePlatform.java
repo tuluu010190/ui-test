@@ -202,8 +202,8 @@ public class HomePagePlatform extends TestBase{
 	//public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIVITYTEXT_CONNECTED = By.xpath("//div[1]/form//*[@class='description' and contains(text(), 'm now connected with 1 user(s)')]");
 	public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIONBAR = By.xpath("//div[1]/form//*[@class='actionBar clearfix']");
 	
-	public final String ELEMENT_PUBLICATION_SUGGEST_USER = ".//*[@data-display='${name}']";
-	public final String ELEMENT_PUBLICATION_USER_SHARED = "//*[@href='http://localhost:8080/portal/intranet/profile/${name}']";
+	//public final String ELEMENT_PUBLICATION_SUGGEST_USER = ".//*[@data-display='${name}']";
+	//public final String ELEMENT_PUBLICATION_USER_SHARED = "//*[@href='http://localhost:8080/portal/intranet/profile/${name}']";
 	
 	public final By ELEMENT_PUBLICATION_ADDFILE = By.xpath("//*[@class='actionIcon uidocactivitycomposer']");
 	public final By ELEMENT_PUBLICATION_ADDFILE_NEWFOLDER = By.xpath("//*[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");

@@ -16,7 +16,7 @@ public class AnswerPage extends PlatformBase {
 	PageEditor pagEditor;
 	HomePagePlatform hp;
 	ManageAlert alert;
-	ApplicationHomePage arPage;
+	ApplicationRegistry arPage;
 
 	//Answer page
 	public final String ELEMENT_ANSWER_EDIT_PORTLET_TAB="//*[text()='$name']";
@@ -70,7 +70,7 @@ public class AnswerPage extends PlatformBase {
 		pagEditor = new PageEditor(dr);
 		hp= new HomePagePlatform(dr);
 		alert=new ManageAlert(dr);
-		arPage=new ApplicationHomePage(dr);
+		arPage=new ApplicationRegistry(dr);
 	}
 	/**
 	 * Create Answer Page

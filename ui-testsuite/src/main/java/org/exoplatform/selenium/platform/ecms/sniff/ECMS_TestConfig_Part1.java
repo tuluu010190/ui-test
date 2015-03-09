@@ -8,16 +8,16 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.acme.AcmeHomePage;
 import org.exoplatform.selenium.platform.administration.ChangeLanguages;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
-import org.exoplatform.selenium.platform.administration.ManageSites;
-import org.exoplatform.selenium.platform.administration.PageManagement;
+import org.exoplatform.selenium.platform.administration.ContentAdministration;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.SEOManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.ChangeLanguageDatabase;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.gatein.ContentDetail;
 import org.exoplatform.selenium.platform.gatein.ContentList;
+import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
+import org.exoplatform.selenium.platform.gatein.PortalManagePages;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.testng.annotations.*;
@@ -29,15 +29,15 @@ public class ECMS_TestConfig_Part1 extends PlatformBase{
 	ManageLogInOut magAc;
 	NavigationToolbar navTool;
 
-	ContentAdministrationManagement caPage;
+	ContentAdministration caPage;
 	SiteExplorerHome SEHome;
 	CreateNewDocument CreNewDoc;
 	
 	
 	AcmeHomePage acmeHP;
-	PageManagement paMang;
+	PortalManagePages paMang;
 	ChangeLanguages changLang;
-	ManageSites maSite;
+	PortalManageSites maSite;
 	PageCreationWizard pagCW;
 	ContentList contList;
 	ContentDetail contDetail;
@@ -58,15 +58,15 @@ public class ECMS_TestConfig_Part1 extends PlatformBase{
 		
 		SEHome = new SiteExplorerHome(driver);
 		CreNewDoc = new CreateNewDocument(driver);
-		caPage = new ContentAdministrationManagement(driver);
+		caPage = new ContentAdministration(driver);
 		navTool = new NavigationToolbar(driver);
-		paMang = new PageManagement(driver);
+		paMang = new PortalManagePages(driver);
 		pagCW = new PageCreationWizard(driver);
 		contList = new ContentList(driver);
 		contDetail = new ContentDetail(driver);
 		seoMang = new SEOManagement(driver);
 		changLang = new ChangeLanguages(driver);
-		maSite = new ManageSites(driver);
+		maSite = new PortalManageSites(driver);
 		acmeHP = new AcmeHomePage(driver);
 		
 		txData = new TextBoxDatabase();

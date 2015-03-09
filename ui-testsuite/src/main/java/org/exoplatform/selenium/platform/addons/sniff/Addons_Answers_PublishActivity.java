@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.HomepageActivity;
+import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.answer.AnswerHomePage;
@@ -31,7 +31,7 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 	AnswerManagement aMang;
 	AnswerHomePage aHome;
 	CommentManagement comMang;
-	HomepageActivity hpAct;
+	ActivityStream hpAct;
 	AttachmentFileDatabase fData;
 	UserDatabase userData;
 	ManageAlert alert;
@@ -54,7 +54,7 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 		cMang = new AnswerCategoryManagement(driver);
 		comMang = new CommentManagement(driver);
 		aMang = new AnswerManagement(driver);
-		hpAct = new HomepageActivity(driver);
+		hpAct = new ActivityStream(driver);
 		button = new Button(driver);
 		aHome=new AnswerHomePage(driver);
 		alert = new ManageAlert(driver);

@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.HomepageActivity;
+import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -35,7 +35,7 @@ public class SOC_TestConfig extends PlatformBase {
 	WikiManagement wikiMg;
 	
 	SpaceApplicationDatabase spAppData;
-	HomepageActivity hpAct;
+	ActivityStream hpAct;
 	ManageLogInOut magAc;
 	MyProfilePage myProfile;
 
@@ -89,7 +89,7 @@ public class SOC_TestConfig extends PlatformBase {
 		fData = new AttachmentFileDatabase();
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
-		hpAct = new HomepageActivity(driver);
+		hpAct = new ActivityStream(driver);
 		
 		rtMode = new RichTextEditor(driver);
 		spaMg = new SpaceManagement(driver);

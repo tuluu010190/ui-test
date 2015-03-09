@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.administration;
+package org.exoplatform.selenium.platform.gatein;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
  * Date 23/01/2014
  * Path: Administration-->Portal-->Sites
  */
-public class ManageSites extends PlatformBase {
+public class PortalManageSites extends PlatformBase {
 	ManageAlert alert;
 	
 	public final By ELEMENT_MANAGESITES_TITLE=By.xpath(".//*[@id='UIPortalNavigationPortlet']//h5[text()='Manage Sites']");
@@ -37,7 +37,7 @@ public class ManageSites extends PlatformBase {
 	
 	
 	
-	public ManageSites(WebDriver dr){
+	public PortalManageSites(WebDriver dr){
 		driver = dr;
 		alert = new ManageAlert(dr);
 	} 

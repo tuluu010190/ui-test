@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.administration;
+package org.exoplatform.selenium.platform.gatein;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -13,7 +13,7 @@ import org.openqa.selenium.WebDriver;
  * date 22/01/2015
  * Path: Administration-->Portal-->Pages
  */
-public class PageManagement extends PlatformBase {
+public class PortalManagePages extends PlatformBase {
 	ManageAlert alert;
 	
 	public final By ELEMENT_MANAGEPAGES_TITLE=By.xpath(".//*[text()='Manage Pages']");
@@ -25,7 +25,7 @@ public class PageManagement extends PlatformBase {
 	public final By ELEMENT_MAGEPAGES_CONTENT_ACTION_COLUMN_DELETE=By.xpath(".//*[@class='uiIconDelete uiIconLightGray']");
 	public final By ELEMENT_MAGEPAGES_CONTENT_ACTION_COLUMN_EDIT=By.xpath(".//*[@class='uiIconEditInfo uiIconLightGray']");
 	
-	public PageManagement(WebDriver dr){
+	public PortalManagePages(WebDriver dr){
 		driver = dr;
 		alert = new ManageAlert(dr);
 	} 

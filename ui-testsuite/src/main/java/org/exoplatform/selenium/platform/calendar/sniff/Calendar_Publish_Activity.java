@@ -3,7 +3,7 @@ package org.exoplatform.selenium.platform.calendar.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.HomepageActivity;
+import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
@@ -37,7 +37,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 	CalendarManagement cMang;
 	UserDatabase userData;
 	SpaceManagement sMang;
-	HomepageActivity hpAct;
+	ActivityStream hpAct;
 	String fullName;
 	String spaceName;
 	String spaceDes;
@@ -55,7 +55,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		task= new TaskManagement(driver);
 		cMang = new CalendarManagement(driver);
 		sMang = new SpaceManagement(driver);
-		hpAct = new HomepageActivity(driver);
+		hpAct = new ActivityStream(driver);
 		txData = new TextBoxDatabase();
 		fData = new AttachmentFileDatabase();
 		userData = new UserDatabase();

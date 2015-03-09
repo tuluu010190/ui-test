@@ -113,6 +113,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 		waitForAndGetElement(hpAct.ELEMENT_PUBLICATION_COMMENTPOSTED.replace("${content}", content2));
 
 		info("Test 15: Delete comment");
+		hp.goToHomePage();
 		hpAct.deleteComment(name, content2);
 		waitForElementNotPresent(hpAct.ELEMENT_PUBLICATION_COMMENTPOSTED.replace("${content}", content2));
 	}
@@ -168,6 +169,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 	@Test
 	public  void test04_MentionAUserInActivityComposer() {
 		info("Test 4: Mention a user in activity composer");
+		String text = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		/*Step Number: 1
 		 *Step Name: Step 1: Mentions on User Activity Stream
 		 *Step Description: 
@@ -182,11 +184,9 @@ public class SOC_HomePage extends SOC_TestConfig {
 		 *Expected Outcome: 
 			- The suggestion list is hidden
 			- In the activity stream, mentions are displayed as a link on "Firstname Lastname" to the user's activities page*/ 
-		type(hpAct.ELEMENT_COMPOSER_INPUT_FILED, "@Mary", false);
-		click(hp.ELEMENT_PUBLICATION_SUGGEST_USER.replace("${name}", "Mary Williams"));
-		click(hpAct.ELEMENT_COMPOSER_SHARE_BUTTON);
-
-		waitForAndGetElement(hp.ELEMENT_PUBLICATION_USER_SHARED.replace("${name}", "mary"));
+		hp.goToHomePage();
+		hpAct.addActivity("Mary",text);
+		
 	}
 
 	/**
@@ -211,8 +211,8 @@ public class SOC_HomePage extends SOC_TestConfig {
 
 		 *Expected Outcome: 
 			- The message will show in Activity Stream*/ 
-		type(hpAct.ELEMENT_COMPOSER_INPUT_FILED, name, false);
-		click(hpAct.ELEMENT_COMPOSER_SHARE_BUTTON);
+		hp.goToHomePage();
+		hpAct.addActivity(true,name,false,"");
 		waitForElementNotPresent(hp.ELEMENT_PUBLICATION_TITLE.replace("${title}", name));
 	}
 
@@ -334,6 +334,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 
 		 *Expected Outcome: 
 			- Activity is added into activity stream*/ 
+		hp.goToHomePage();
 		Utils.pause(3000);
 		hpAct.openUploadPopup("",folderPath);
 		hpAct.uploadFileFromAS("TestData/",uploadFileName);
@@ -381,6 +382,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 
 		 *Expected Outcome: 
 			- Activity is added into activity stream*/ 
+		hp.goToHomePage();
 		hpAct.addActivity(true, textDes, true, link);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TITLE.replace("${text}",textDes).replace("${file}",link));
 
@@ -420,7 +422,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 			}
 			else
 			textDesMedi = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-			
+			hp.goToHomePage();
 			hpAct.addActivity(true,textDesMedi, false, "");
 			Utils.pause(2000);
 		}
@@ -615,6 +617,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 			The last action date is the latest of:
 			1. The publication date 
 			2. The date of the last comment posted*/ 
+		hp.goToHomePage();
 		String activity1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hpAct.addActivity(true,activity1, false, "");
 		String activity2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -663,7 +666,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 			7.the Action bar (Comment and Like links + custom actions)
 			8.the like section (optional)
 			9.the comment section (optional)*/ 
-	
+		hp.goToHomePage();
 		hpAct.addActivity(true, name, false, "");
 
 		waitForAndGetElement(hpAct.ELEMENT_PUBLICATION_FIRSTPOST_AUTHOR.replace("${name}", "John Smith"));
@@ -697,6 +700,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 			- onlythe latest (most recently posted) two comments are displayed below the activity.
 			- "View all 10 comments" message is shown 
 			- all comments is displayed, in the time order (oldest at the top)*/ 
+		hp.goToHomePage();
 		hpAct.addActivity(true, name, false, "");
 		String commentfirst=null;
 		String comment=null;
@@ -755,7 +759,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 		 *Expected Outcome: 
 			- Input text field is displayed in activity, click comment button to show comment textbox
 			- Comment will be added into comment section of activity*/ 
-
+		hp.goToHomePage();
 		hpAct.addActivity(true, name, false, "");
 		hpAct.addComment(name, content);
 		waitForAndGetElement(hpAct.ELEMENT_COMMENT_TEXT.replace("${activityText}",name).replace("${commentText}","Mary"));

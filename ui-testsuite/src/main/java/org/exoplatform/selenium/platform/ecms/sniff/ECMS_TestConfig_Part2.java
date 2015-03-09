@@ -4,11 +4,11 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.HomepageActivity;
+import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement;
+import org.exoplatform.selenium.platform.administration.ContentAdministration;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.ECMS_Permission;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
@@ -26,12 +26,12 @@ public class ECMS_TestConfig_Part2 extends PlatformBase{
 	SpaceManagement spManag;
 	NavigationToolbar navTool;
 
-	ContentAdministrationManagement caPage;
+	ContentAdministration caPage;
 	SiteExplorerHome SEHome;
 	CreateNewDocument CreNewDoc;
 	
 	ECMS_Permission EcmsPerm;
-	HomepageActivity aHome;
+	ActivityStream aHome;
 	
 	ManageAlert alert;
 	TextBoxDatabase txData;
@@ -42,7 +42,7 @@ public class ECMS_TestConfig_Part2 extends PlatformBase{
 	public void setUpBeforSuite() throws Exception{
 		info("Start setUpBeforeSuite");
 		initSeleniumTest();
-		caPage = new ContentAdministrationManagement(driver);
+		caPage = new ContentAdministration(driver);
 		navTool = new NavigationToolbar(driver);
 		magAc = new ManageLogInOut(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
@@ -61,10 +61,10 @@ public class ECMS_TestConfig_Part2 extends PlatformBase{
 		SEHome = new SiteExplorerHome(driver);
 		CreNewDoc = new CreateNewDocument(driver);
 		spManag = new SpaceManagement(driver);
-		caPage = new ContentAdministrationManagement(driver);
+		caPage = new ContentAdministration(driver);
 		navTool = new NavigationToolbar(driver);
 		EcmsPerm = new ECMS_Permission(driver);
-		aHome = new HomepageActivity(driver);
+		aHome = new ActivityStream(driver);
 		alert = new ManageAlert(driver, this.plfVersion);
 		
 		txData = new TextBoxDatabase();

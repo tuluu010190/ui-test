@@ -9,7 +9,7 @@ import org.openqa.selenium.WebDriver;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-public class ContentAdministrationManagement extends PlatformBase{
+public class ContentAdministration extends PlatformBase{
 
 	public By ELEMENT_ADVANCED_CATEGORIES_ECM_FUNCTIONS =By.xpath("//*[@class='ecmAdminPanel pull-left']//a[contains(text(),'Advanced')]");
 	public By ELEMENT_EXPLORER_CATEGORIES_ECM_FUNCTIONS =By.xpath("//*[@class='ecmAdminPanel pull-left']//a[contains(text(),'Explorer')]");
@@ -238,7 +238,7 @@ public class ContentAdministrationManagement extends PlatformBase{
 	public String ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE = "//*[@id='UIMetadataList']//*[contains(text(),'{$name}')]/..//*[@class='uiIconDelete uiIconLightGray']";
 
 	ManageAlert alert ;
-	public ContentAdministrationManagement(WebDriver dr){
+	public ContentAdministration(WebDriver dr){
 		driver = dr;
 		alert= new ManageAlert(dr);
 	}

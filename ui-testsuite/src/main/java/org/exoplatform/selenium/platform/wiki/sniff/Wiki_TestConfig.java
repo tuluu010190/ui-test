@@ -3,7 +3,7 @@ package org.exoplatform.selenium.platform.wiki.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.HomepageActivity;
+import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
@@ -27,7 +27,7 @@ import org.testng.annotations.*;
 public class Wiki_TestConfig extends PlatformBase {
 
 	HomePagePlatform hp;
-	HomepageActivity hpAct;
+	ActivityStream hpAct;
 	ManageLogInOut magAc;
 	
 	PlatformPermission PlfPerm;
@@ -59,7 +59,7 @@ public class Wiki_TestConfig extends PlatformBase {
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		
 		hp = new HomePagePlatform(driver);
-		hpAct = new HomepageActivity(driver);
+		hpAct = new ActivityStream(driver);
 		
 		PlfPerm = new PlatformPermission(driver);
 		

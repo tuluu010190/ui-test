@@ -4,10 +4,10 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
-import org.exoplatform.selenium.platform.administration.ManageSites;
-import org.exoplatform.selenium.platform.administration.PageManagement;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
+import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
+import org.exoplatform.selenium.platform.gatein.PortalManagePages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -21,10 +21,10 @@ import org.openqa.selenium.WebElement;
  */
 public class NavigationToolbar extends PlatformBase {
 	PageCreationWizard paWin;
-	PageManagement paMang;
+	PortalManagePages paMang;
 	MyProfilePage myPro;
 	SiteExplorerHome SEHome;
-	ManageSites magSites;
+	PortalManageSites magSites;
 
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
@@ -114,11 +114,11 @@ public class NavigationToolbar extends PlatformBase {
 
 	public NavigationToolbar(WebDriver dr){
 		driver = dr;
-		paMang=new PageManagement(dr);
+		paMang=new PortalManagePages(dr);
 		myPro = new MyProfilePage(dr);
 		paWin = new PageCreationWizard(dr);
 		SEHome = new SiteExplorerHome(dr);
-		magSites = new ManageSites(dr);
+		magSites = new PortalManageSites(dr);
 	} 
 
 	/**

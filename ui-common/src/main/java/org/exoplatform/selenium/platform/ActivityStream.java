@@ -11,7 +11,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-public class HomepageActivity extends PlatformBase {
+public class ActivityStream extends PlatformBase {
 
 	//Author of activity
 	public final String ELEMENT_ACTIVITY_AUTHOR_SPACE="//*[@class='author']//*[contains(@href,'$user')]/../..//*[@data-original-title='$space']";
@@ -38,7 +38,9 @@ public class HomepageActivity extends PlatformBase {
 	public final By ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='placeholder']");
 	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON = By.xpath(".//input[@type='file']");	
-		
+	public final String ELEMENT_PUBLICATION_SUGGEST_USER = ".//*[@id='UIComposer']//*[contains(@data-display,'${name}')]";	
+	public final String ELEMENT_PUBLICATION_USER_SHARED = ".//*[@class='description']//*[contains(text(),'${name}')]";
+	
 	//Upload popup
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP=By.xpath(".//*[@id='DriveTypeDropDown']/div[@class='btn dropdown-toggle']");
 	public final String ELEMENT_ACTIVITY_UPLOAD_POPUP_NODE=".//*[@id='ListRecords']//a[@data-original-title='${nameNode}']";
@@ -151,7 +153,7 @@ public class HomepageActivity extends PlatformBase {
 	 * constructor
 	 * @param dr
 	 */
-	public HomepageActivity(WebDriver dr){
+	public ActivityStream(WebDriver dr){
 		this.driver=dr;
 		button = new Button(dr);
 	}
@@ -501,5 +503,20 @@ public class HomepageActivity extends PlatformBase {
 				"arguments[0].className = 'pull-right btn btn-primary';",
 				shareButton);
 		Utils.pause(1000);
+	}
+	/**
+	 * Post a activity with mention a user and description text
+	 * @param username
+	 * @param text
+	 */
+	public void addActivity(String username, String text){
+		type(ELEMENT_COMPOSER_INPUT_FILED, "@"+username,false);
+		click(ELEMENT_PUBLICATION_SUGGEST_USER.replace("${name}",username));
+		Utils.pause(2000);
+		if(!text.isEmpty())
+			type(ELEMENT_COMPOSER_INPUT_FILED,text,false);
+		click(ELEMENT_COMPOSER_SHARE_BUTTON);
+		Utils.pause(2000);
+		waitForAndGetElement(ELEMENT_PUBLICATION_USER_SHARED.replace("${name}",username));
 	}
 }

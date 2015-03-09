@@ -2,8 +2,8 @@ package org.exoplatform.selenium.platform.ecms.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.mainEcmFunctions;
-import org.exoplatform.selenium.platform.administration.ContentAdministrationManagement.specificEcmFunctions;
+import org.exoplatform.selenium.platform.administration.ContentAdministration.mainEcmFunctions;
+import org.exoplatform.selenium.platform.administration.ContentAdministration.specificEcmFunctions;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 

@@ -6,11 +6,10 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.administration.PageManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class ApplicationHomePage extends PlatformBase {
+public class ApplicationRegistry extends PlatformBase {
 
 	public final By ELEMENT_APPLICATION_REGISTRY_PORTLET=By.id("UIApplicationRegistryPortlet");
 	public final By ELEMENT_MANAGE_APPLICATION_BUTTON=By.xpath("//*[@class='uiIconManageApplication uiIconLightGray']");
@@ -40,14 +39,14 @@ public class ApplicationHomePage extends PlatformBase {
 	PageEditor pagEditor;
 	HomePagePlatform hp;
 	ManageAlert alert;
-	PageManagement pagMag;
-	public ApplicationHomePage(WebDriver dr){
+	PortalManagePages pagMag;
+	public ApplicationRegistry(WebDriver dr){
 		driver = dr;
 		navTool = new NavigationToolbar(dr);
 		pagEditor = new PageEditor(dr);
 		hp=new HomePagePlatform(dr);
 		alert=new ManageAlert(dr);
-		pagMag = new PageManagement(dr);
+		pagMag = new PortalManagePages(dr);
 	}
 
 	/**
