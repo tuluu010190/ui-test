@@ -41,6 +41,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>gatein-sniff</id>
+			<properties>
+				<testSuite>gatein-sniff.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>wiki-sniff</id>
 			<properties>
 				<testSuite>wiki-sniff.xml</testSuite>

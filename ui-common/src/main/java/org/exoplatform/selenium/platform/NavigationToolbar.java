@@ -39,6 +39,11 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON = By.xpath(".//input[@type='file']");
 
 	//Administration Menu
+	// users 
+	public final By ELEMENT_ADMINISTRATION_USERS =By.xpath("//*[text()='Users']");
+	public final By ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS = By.xpath("//*[text()='Add Users']");
+
+	//Administration Menu
 	//Administration-->Portal
 	public final By ELEMENT_ADMINISTRATION_PORTAL = By.xpath("//*[text()='Portal']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_SITES=By.xpath("//*[text()='Sites']");
@@ -510,5 +515,17 @@ public class NavigationToolbar extends PlatformBase {
 		info("Click on My profile link");
 		click(ELEMENT_MY_PROFILE_LINK);
 		Utils.pause(2000);
+	}
+	
+	/**
+	 * Go to add an user
+	 */
+	public void goToAddUser(){
+		info("Go to add user page");
+		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
+		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		mouseOver(ELEMENT_ADMINISTRATION_USERS,true);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS,3000,0);
+		click(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS);
 	}
 }
