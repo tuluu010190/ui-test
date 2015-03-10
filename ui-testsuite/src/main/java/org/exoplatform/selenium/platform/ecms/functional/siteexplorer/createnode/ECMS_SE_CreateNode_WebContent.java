@@ -68,10 +68,10 @@ public class ECMS_SE_CreateNode_WebContent extends PlatformBase{
 	 */
 	@Test
 	public void test01_CreateWebContentInWebContentFolderWithNameInDifferentLanguages(){
-		String WEB_CONTENT_VN_TITLE = "Lập_trình_viên_eXo_01";
+		String WEB_CONTENT_VN_TITLE = "Lập_trình_viên_eXo_01" + getRandomNumber();
 		By vnTitle = By.linkText(WEB_CONTENT_VN_TITLE);
 
-		String WEB_CONTENT_FR_TITLE = "Développer_eXo_01";
+		String WEB_CONTENT_FR_TITLE = "Développer_eXo_01" + getRandomNumber();
 		By frTitle = By.linkText(WEB_CONTENT_FR_TITLE);
 
 		info("Go to Site Explorer");
@@ -137,7 +137,7 @@ public class ECMS_SE_CreateNode_WebContent extends PlatformBase{
 	 */
 	@Test
 	public void test03_AddWebContentInWebContentFolderWithBlankName(){
-		String WEB_CONTENT_TITLE = "ECMS_WebContent_03";
+		String WEB_CONTENT_TITLE = "ECMS_WebContent_03" + getRandomNumber();
 
 		info("Go to Site Explorer");
 		navToolBar.goToSiteExplorer();
@@ -155,7 +155,7 @@ public class ECMS_SE_CreateNode_WebContent extends PlatformBase{
 	 * Add web content in Web Content folder with special characters in Name
 	 * error : selenium has a problem with the specials characters
 	 */
-	@Test(groups={"error"})
+	@Test(groups={"pending"})
 	public void test04_AddWebContentInWebContentFolderWithSpecialCharactersInName(){
 		String WEB_CONTENT_TITLE = cTemplate.DATA_SPECIAL_CHARACTER_STRING + "WebContent_04";
 		String charSpecials="!@#$%&*()./:[]{}<>',;~`";

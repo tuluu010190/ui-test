@@ -77,6 +77,10 @@ public class ECMS_SE_CreateNode_File extends PlatformBase{
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(FILE_TITLE, FILE_TITLE, FILE_TITLE);
 		
+		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
+		ecms.goToNode(By.linkText(CONTENT_FOLDER_TITLE));
+		waitForAndGetElement(By.linkText(FILE_TITLE));
+		
 		//Delete data
 		info("Restore data");
 		cMenu.deleteDocument(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", CONTENT_FOLDER_TITLE));		
@@ -101,6 +105,10 @@ public class ECMS_SE_CreateNode_File extends PlatformBase{
 		ecms.goToNode(By.linkText(DOCUMENT_FOLDER_TITLE));
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(FILE_TITLE, FILE_TITLE, FILE_TITLE);
+		
+		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
+		ecms.goToNode(By.linkText(DOCUMENT_FOLDER_TITLE));
+		waitForAndGetElement(By.linkText(FILE_TITLE));
 
 		//Delete data
 		info("Restore data");
@@ -183,6 +191,10 @@ public class ECMS_SE_CreateNode_File extends PlatformBase{
 		ecms.goToNode(By.linkText(DOCUMENT_FOLDER_TITLE));
 		actBar.goToAddNewContent();
 		cTemplate.createNewFile(FILE_TITLE, FILE_TITLE, FILE_TITLE);
+		
+		click(actBar.ELEMENT_SITES_MANAGEMENT_ICON);
+		ecms.goToNode(By.linkText(DOCUMENT_FOLDER_TITLE));
+		waitForAndGetElement(By.linkText(FILE_TITLE));
 
 		//Delete data
 		info("Restore data");

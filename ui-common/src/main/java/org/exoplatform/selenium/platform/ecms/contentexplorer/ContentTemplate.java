@@ -54,6 +54,7 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_WEBCONTENT_NAME_TEXTBOX = By.id("name");	
 	public final By ELEMENT_WEBCONTENT_CONTENT_FRAME = By.xpath("//*[contains(@id,'cke_contents_htmlData')]/iframe");
 	public final By ELEMENT_WEBCONTENT_CONTENT_FRAME_41 = By.xpath("//*[@id= 'cke_1_contents']//iframe");
+	public final By ELEMENT_WEBCONTNET_CONTENT_FRAME_2 = By.xpath("//iframe[contains(@class,'cke_wysiwyg_frame cke_reset')]");
 	public final By ELEMENT_WEBCONTENT_ADD_CONTENT_LINK = By.xpath("//*[@title='Insert Content Link']");
 	public final By ELEMENT_WEBCONTENT_ILLUSTRATION_TAB = By.xpath("//*[contains(text(),'Illustration')]");
 	public final By ELEMENT_WEBCONTENT_UPLOAD_FRAME = By.xpath("//*[contains(@name,'uploadIFrame')]");
@@ -343,8 +344,11 @@ public class ContentTemplate extends EcmsBase {
 			if (this.plfVersion.equalsIgnoreCase("4.0")){
 				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, cont,true);
 			}
-			else
+			else if(waitForAndGetElement(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, 5000, 0) != null)
 				inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, cont,true);
+			else {
+				inputDataToFrame(ELEMENT_WEBCONTNET_CONTENT_FRAME_2, cont,true);
+			}
 			switchToParentWindow();
 
 			/*if (this.plfVersion.equalsIgnoreCase("4.1"))
@@ -395,7 +399,7 @@ public class ContentTemplate extends EcmsBase {
 			type(ELEMENT_WEBCONTENT_JS_TEXTAREA, js, false);
 		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		if(isVerify=true)
+		if(isVerify)
 			waitForAndGetElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", name));		
 		Utils.pause(3000);
 	}
@@ -513,8 +517,10 @@ public class ContentTemplate extends EcmsBase {
 		type(ELEMENT_HEAD_LAYOUT_NAME_TEXTBOX, name, false);
 		if (this.plfVersion.equalsIgnoreCase("4.0"))
 			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, content);
-		else
+		else if(waitForAndGetElement(ELEMENT_WEBCONTENT_CONTENT_FRAME_41,3000,0) != null)
 			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, content);
+		else 
+			inputDataToFrame(ELEMENT_WEBCONTNET_CONTENT_FRAME_2, content);
 		switchToParentWindow();
 		if (file != "") {
 			WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME,

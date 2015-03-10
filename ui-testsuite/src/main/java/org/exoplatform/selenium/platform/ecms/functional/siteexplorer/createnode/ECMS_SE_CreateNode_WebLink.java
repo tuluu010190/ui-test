@@ -67,7 +67,7 @@ public class ECMS_SE_CreateNode_WebLink extends PlatformBase{
 	 */
 	@Test
 	public void test01_CreateLinkInSiteExplorer(){
-		String linkName = "ECMS_SE_CreateNode_Link_01";
+		String linkName = "ECMS_SE_CreateNode_Link_01" + getRandomNumber();
 		String url = "http://www.google.com";
 		
 		info("Go to Site Explorer");
@@ -84,7 +84,9 @@ public class ECMS_SE_CreateNode_WebLink extends PlatformBase{
 		click(By.linkText(url));
 		
 		switchToNewWindow();
-		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", "Google"));
+		//waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", "Google"));
+		String url1 = driver.getCurrentUrl();
+		assert url1.contains("www.google.com");
 		driver.switchTo().window(handlesBefore);
 		
 		info("Restore data");
