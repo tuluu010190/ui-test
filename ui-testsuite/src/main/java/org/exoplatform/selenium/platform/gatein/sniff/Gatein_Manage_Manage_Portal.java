@@ -13,11 +13,11 @@ import org.testng.annotations.Test;
 
 public class Gatein_Manage_Manage_Portal extends GateIn_TestConfig{
 	
-	@BeforeMethod
+	/*@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-	}	
+	}	*/
 	
 	/**
 	 * Test case ID: 123059
@@ -62,7 +62,7 @@ public class Gatein_Manage_Manage_Portal extends GateIn_TestConfig{
 			- The switched portal is changed successfully*/
 		info("Test Case 02: Switch to new portal");
 		driver.get(baseUrl + "/" + portalName);
-		waitForAndGetElement(portSite.ELEMENT_NEW_PORTAL_SWITCH.replace("${portalName}", portalName));
+		waitForAndGetElement(portSite.ELEMENT_NEW_PORTAL_SWITCH.replace("${portalName}", portalName),3000,0);
 		
 
 		/*Step Number: 3

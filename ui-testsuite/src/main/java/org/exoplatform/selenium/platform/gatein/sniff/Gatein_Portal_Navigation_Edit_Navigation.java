@@ -193,6 +193,7 @@ import org.testng.annotations.*;
 		portSite.goToEditNavigation(portalName);
 		portSite.editNodePage(nodeName);
 		pagCW.addContainer("oneRow");
+		
 		portSite.editNodePage(nodeName);
 		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}","Container"));
 		info("Click on Save button");

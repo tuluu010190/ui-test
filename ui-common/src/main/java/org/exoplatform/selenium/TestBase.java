@@ -127,6 +127,8 @@ public class TestBase {
 	protected String portalDefaultFilePath;
 	protected String portalPermisGroupFilePath;
 	protected String portalPermisMemFilePath;
+	protected String gateinDefaultGroupsFilePath;
+	protected String gateinNodesFilePath;
 	
 
 	/*========Default System Property=============*/
@@ -188,6 +190,9 @@ public class TestBase {
 	public final String DEFAULT_MAILSUFFIXURL="DataDriven/"+"mail_suffix.xls";
 	public final String DEFAULT_USERSEARCHOPTIONURL="DataDriven/"+"gatein_user_search_options.xls";
 	
+    public final String DEFAULT_GATEINDEFAULTGROUPSURL="DataDriven/"+"gatein_default_groups.xls";
+    public final String DEFAULT_GATEINNODESURL="DataDriven/"+"gatein_nodes.xls";
+    
 	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
 	public final String DEFAULT_GROUPNAMEURL="DataDriven/"+"gatein_group_name.xls";
 
@@ -263,7 +268,9 @@ public class TestBase {
 		appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
 		getStartFilePath = System.getProperty("getStartFilePath");
 		wikiMessageFilePath = System.getProperty("wikiMessageFilePath");
-
+		gateinDefaultGroupsFilePath = System.getProperty("gateinDefaultGroupsFilePath");
+		gateinNodesFilePath = System.getProperty("gateinNodesFilePath");
+		
 		siteExpDrivePath=System.getProperty("siteExpDrivePath");
 		siteExpPathPath=System.getProperty("siteExpPathPath");
 		linkPath=System.getProperty("linkPath");
@@ -327,8 +334,9 @@ public class TestBase {
 		if (getStartFilePath==null) getStartFilePath = DEFAULT_GETTINGSTARTEDURL;
 		if (wikiMessageFilePath==null) wikiMessageFilePath = DEFAULT_WIKIMESSAGEURL;
 		if (linkPath==null) linkPath = DEFAULT_LINKSURL;
+		if (gateinDefaultGroupsFilePath==null) gateinDefaultGroupsFilePath = DEFAULT_GATEINDEFAULTGROUPSURL;
+		if (gateinNodesFilePath==null) gateinNodesFilePath = DEFAULT_GATEINNODESURL;
 		
-
 		if (gadgetFilePath==null) gadgetFilePath = DEFAULT_GADGETURL;
 		if (containerFilePath==null) containerFilePath = DEFAULT_CONTAINERURL;
 		if (appLayoutFilePath==null) appLayoutFilePath = DEFAULT_APPLAYOUTURL;
@@ -367,7 +375,8 @@ public class TestBase {
 		siteExpDrivePath = getAbsoluteFilePath(siteExpDrivePath);
 		siteExpPathPath = getAbsoluteFilePath(siteExpPathPath);
 		linkPath = getAbsoluteFilePath(linkPath);
-		
+		gateinDefaultGroupsFilePath = getAbsoluteFilePath(gateinDefaultGroupsFilePath);
+		gateinNodesFilePath = getAbsoluteFilePath(gateinNodesFilePath);
 
 		gadgetFilePath = getAbsoluteFilePath(gadgetFilePath);
 		containerFilePath = getAbsoluteFilePath(containerFilePath);

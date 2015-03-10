@@ -74,6 +74,15 @@ public class ContainersDatabase {
 		return index;
 	}
 	
+	/**
+	 * Get Container Id by index
+	 * @param index
+	 * @return id.get(index)
+	 */
+	public String getContainerIdByIndex(int index){
+		return id.get(index);
+	}
+	
 	
 	/**
 	 * Get Category container by index

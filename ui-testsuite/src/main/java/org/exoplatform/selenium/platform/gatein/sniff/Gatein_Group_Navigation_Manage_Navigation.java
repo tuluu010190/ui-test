@@ -44,11 +44,11 @@ public class Gatein_Group_Navigation_Manage_Navigation extends GateIn_TestConfig
 			- Show group navigation list*/
 		info("Test Case 01: Show navigation list default of user John");
 		navToolBar.goToGroupSites();
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group1));
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group2));
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group3));
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group4));
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group5));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group1));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group2));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group3));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group4));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group5));
 		
 		/*Step Number: 2
 		 *Step Name: Add Navigation of group
@@ -60,15 +60,15 @@ public class Gatein_Group_Navigation_Manage_Navigation extends GateIn_TestConfig
 		 *Expected Outcome: 
 			- Add Navigation successfully*/
 		info("TestCase 02: Add new navigation for new group");
-		groupNavigate.addNewNavigationForGroup(groupName);
+		groupManage.addNewNavigationForGroup(groupName);
 		
 		info("Show navigation list after add a new group of user John");
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}", groupName));
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group1));
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group2));
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group3));
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group4));
-		waitForAndGetElement(groupNavigate.ELEMENT_GROUP_NAME.replace("${groupName}",group5));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}", groupName));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group1));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group2));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group3));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group4));
+		waitForAndGetElement(groupManage.ELEMENT_GROUP_NAME.replace("${groupName}",group5));
 		
 		/*Step Number: 3
 		 *Step Name: Delete Navigation of group
@@ -79,7 +79,7 @@ public class Gatein_Group_Navigation_Manage_Navigation extends GateIn_TestConfig
 		 *Expected Outcome: 
 			- The navigation group is removed successfully*/
 		info("Delete navigation of group");
-		groupNavigate.deleteNavigationForGroup(groupName);
+		groupManage.deleteNavigationForGroup(groupName);
 		
 		info("Delete group");
 		navToolBar.goToUsersAndGroupsManagement();

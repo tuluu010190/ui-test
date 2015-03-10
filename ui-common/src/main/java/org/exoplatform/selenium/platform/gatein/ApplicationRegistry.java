@@ -240,6 +240,7 @@ public class ApplicationRegistry extends PlatformBase {
 	 */
 	public void addACategory(String categoryName, String displayName, String des) {
 		info("Click on Add Category button");
+		Utils.pause(2000);
 		click(ELEMENT_APPLICATION_REGISTRY_ADD_CATEGORY_BTN);
 		info("Input category name");
 		type(ELEMENT_ADD_CATEGORY_NAME, categoryName, true);
@@ -288,6 +289,7 @@ public class ApplicationRegistry extends PlatformBase {
 		alert.acceptAlert();
 		info("Verify that the category is deleted");
 		waitForElementNotPresent(ELEMENT_LEFT_PANEL_APPLICATION_CATEGORY_DELETE_BTN.replace("${category}", nameCategory),2000,0);
+		Utils.pause(3000);
 	}
 	/**
 	 * Select a portlet on the left panel

@@ -260,6 +260,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The page is removed from the list
 			*/ 
+		navToolBar.goToPotalPages();
 		portMg.deletePage(title,"");
 	}
 

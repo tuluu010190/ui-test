@@ -53,9 +53,15 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>gatein-sniff</id>
+			<id>gatein-sniff-part1</id>
 			<properties>
-				<testSuite>gatein-sniff.xml</testSuite>
+				<testSuite>gatein-sniff-part1.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>gatein-sniff-part2</id>
+			<properties>
+				<testSuite>gatein-sniff-part2.xml</testSuite>
 			</properties>
 		</profile>
 		<profile>

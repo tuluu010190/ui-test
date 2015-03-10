@@ -741,10 +741,10 @@ public class PortalManageSites extends PlatformBase {
 				"${portalName}", portalName);
 		info("--Delete portal (" + portalName + ")--");
 		click(portalDeleteIcon);
-		alert.waitForConfirmation("Are you sure you want to delete this portal?");
+		alert.acceptAlert();
+		//alert.waitForConfirmation("Are you sure you want to delete this portal?");
 		waitForElementNotPresent(
-				ELEMENT_PORTAL_DELETE_ICON.replace("${portalName}", portalName),
-				180000);
+				ELEMENT_PORTAL_DELETE_ICON.replace("${portalName}", portalName),2000);
 	}
 	
 	/**

@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import junit.framework.Assert;
 import org.exoplatform.selenium.Dialog;
+
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -67,6 +68,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
 	public final String ELEMENT_MSG_CONFIRM_DELETE = "Are you sure you want to delete ${userName} user?";
 	public final String ELEMENT_MSG_RESULT = "No result found.";
+	
 
 	ManageAlert alert;
 	Dialog dialog;

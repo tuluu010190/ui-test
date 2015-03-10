@@ -68,6 +68,8 @@ public class ManageAlert extends TestBase{
 	 */
 	public void waitForConfirmation(String confirmationText,int...wait) {
 		String message = getTextFromAlert();
+		System.out.println(message);
+		System.out.println(confirmationText);
 		int timeOut = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		if (message.isEmpty()) {
 			if (loopCount > timeOut/500) {

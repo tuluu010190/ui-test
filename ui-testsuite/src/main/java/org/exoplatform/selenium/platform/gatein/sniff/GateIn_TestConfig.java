@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.gatein.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -13,12 +14,12 @@ import org.exoplatform.selenium.platform.gatein.MyDashBoard;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManagePages;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
+import org.exoplatform.selenium.platform.gatein.PortalGroupNavigation;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.LanguageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.PermissionDatabase;
-import org.exoplatform.selenium.platform.gatein.PortalGroupNavigation;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.AppAddGateinDatabase;
@@ -27,7 +28,9 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationLayout
 import org.exoplatform.selenium.platform.objectdatabase.gatein.CategoriesGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ContainersDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.CreateNewGateinDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.DefaultGroupDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GadgetsGateinDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinNodesDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalDefaultDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalGroupsPermissionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalMemberShipsPermissionDatabase;
@@ -54,10 +57,11 @@ public class GateIn_TestConfig extends PlatformBase {
 	PortalManageSites portSite;
 
 	Button but;
+	PortalGroupNavigation groupManage;
+	ManageAlert magAlert;
 	
 	UserAddManagement addUserPage;
 	UserAndGroupManagement userAndGroup;
-	PortalGroupNavigation groupNavigate;
 	
 	PageCreationWizard pagCW;
 	
@@ -74,6 +78,8 @@ public class GateIn_TestConfig extends PlatformBase {
 	GateinPortalGroupsPermissionDatabase portGroupPermisData;
 	GateinPortalMemberShipsPermissionDatabase portMemPermisData;
 	PermissionDatabase permissData;
+	DefaultGroupDatabase defaultGroupData;
+	GateinNodesDatabase gateinNodesData;
 	
 	UserInfoDatabase userInfoData;
 	UserSearchOptionDatabase userSearchOptionData;
@@ -106,12 +112,12 @@ public class GateIn_TestConfig extends PlatformBase {
 
 		portMg = new PortalManagePages(driver);
 		portSite = new PortalManageSites(driver);
+		groupManage = new PortalGroupNavigation(driver);
+		magAlert = new ManageAlert(driver, this.plfVersion);
 		
 		but = new Button(driver, this.plfVersion);
 		addUserPage = new UserAddManagement(driver);
-		groupNavigate = new PortalGroupNavigation(driver);
 		
-		addUserPage = new UserAddManagement(driver);
 		userAndGroup = new UserAndGroupManagement(driver);
 		pagCW = new PageCreationWizard(driver);
 		
@@ -177,6 +183,11 @@ public class GateIn_TestConfig extends PlatformBase {
 		groupNameData = new GroupNameDatabase();
 		groupNameData.setGroupNameData(groupNameDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
+		defaultGroupData = new DefaultGroupDatabase();
+		defaultGroupData.setDefaulGroupData(gateinDefaultGroupsFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		gateinNodesData = new GateinNodesDatabase();
+		gateinNodesData.setNodesData(gateinNodesFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		info("End setUpBeforeClass");
 	}
 	

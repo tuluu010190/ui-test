@@ -117,5 +117,31 @@ public class ApplicationLayoutDatabase {
 		return category.get(index);
 	}
 	
+	/**
+	 * Get Category Application by index
+	 * @param index
+	 * @return category.get(index)
+	 */
+	public String getCategoryApplicationByIndex(int index){
+		return category.get(index);
+	}
+	
+	/**
+	 * Get Title Application by index
+	 * @param index
+	 * @return title.get(index)
+	 */
+	public String getTitleApplicationByIndex(int index){
+		return title.get(index);
+	}
+	
+	/**
+	 * Get Id Application by index
+	 * @param index
+	 * @return id.get(index)
+	 */
+	public String getIdApplicationByIndex(int index){
+		return id.get(index);
+	}
 	
 }

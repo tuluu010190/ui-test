@@ -12,11 +12,11 @@ import org.testng.annotations.Test;
 
 public class Gatein_User_And_Group_Management extends GateIn_TestConfig{
 	
-	@BeforeMethod
+	/*@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-	}
+	}*/
 	
 	
 	/**
