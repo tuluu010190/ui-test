@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.gatein;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import java.awt.Button;
 import junit.framework.Assert;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -69,12 +68,13 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_MSG_CONFIRM_DELETE = "Are you sure you want to delete ${userName} user?";
 	public final String ELEMENT_MSG_RESULT = "No result found.";
 
-	Button button;
 	ManageAlert alert;
 	Dialog dialog;
 
 	public UserAndGroupManagement(WebDriver dr) {
 		this.driver = dr;
+		alert = new ManageAlert(dr);
+		dialog = new Dialog(dr);
 	}
 
 	/**
@@ -92,6 +92,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	}
 	/**
 	 * Select group management tab
+	 * function: Choose Group Tab
 	 */
 	public void chooseGroupTab() {
 		info("-- Choose Group Management tab--");
@@ -101,7 +102,8 @@ public class UserAndGroupManagement extends PlatformBase {
 	}
     /**
      * Select membership management tab
-     */
+	 * function: Choose MemberShip Tab
+	 */
 	public void chooseMembershipTab() {
 		info("-- Choose Membership Management tab--");
 		Utils.pause(500);
@@ -199,7 +201,6 @@ public class UserAndGroupManagement extends PlatformBase {
 	 *            (True: if you want to verify new user added successfully)
 	 */
 	public void addUsersToGroup(String userNames, String memberShip, boolean select, boolean verify) {
-		button = new Button();
 		info("--Adding users to group--");
 		String[] users = userNames.split(",");
 		if (select) {
@@ -275,17 +276,14 @@ public class UserAndGroupManagement extends PlatformBase {
 	 *            time to wait to verify group deleted successfully
 	 */
 	public void deleteGroup(String groupName, boolean verify, int...wait) {
-		alert = new ManageAlert(driver, this.plfVersion);
 		info("-- Delete group: " + groupName + "--");
 		int waitTime= wait.length > 0 ? wait[0]: DEFAULT_TIMEOUT;
 		click(ELEMENT_GROUP_REMOVE_ICON);
-
-		alert.waitForConfirmation(ELEMENT_MSG_CONFIRM_DELETE_GROUP);
+		alert.acceptAlert();
 		if (verify) {
 			waitForElementNotPresent(
 					ELEMENT_GROUP_NODE.replace("${groupName}", groupName),
 					waitTime);
-
 		}
 		Utils.pause(1000);
 	}

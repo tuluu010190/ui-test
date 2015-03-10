@@ -117,6 +117,7 @@ public class TestBase {
 	protected String containerFilePath;
 	protected String appLayoutFilePath;
 	protected String nativeEvent;
+	protected String groupNameDataFilePath;
 
 	protected String appListGateinFilePath;
 	protected String appAddGateinFilePath;
@@ -188,6 +189,7 @@ public class TestBase {
 	public final String DEFAULT_USERSEARCHOPTIONURL="DataDriven/"+"gatein_user_search_options.xls";
 	
 	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
+	public final String DEFAULT_GROUPNAMEURL="DataDriven/"+"gatein_group_name.xls";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -269,6 +271,8 @@ public class TestBase {
 		gadgetFilePath = System.getProperty("gadgetFilePath");
 		containerFilePath = System.getProperty("containerFilePath");
 		appLayoutFilePath = System.getProperty("appLayoutFilePath");
+		
+		groupNameDataFilePath = System.getProperty("groupNameDataFilePath");
 
 		
 		appListGateinFilePath = System.getProperty("appListGateinFilePath");
@@ -328,6 +332,7 @@ public class TestBase {
 		if (gadgetFilePath==null) gadgetFilePath = DEFAULT_GADGETURL;
 		if (containerFilePath==null) containerFilePath = DEFAULT_CONTAINERURL;
 		if (appLayoutFilePath==null) appLayoutFilePath = DEFAULT_APPLAYOUTURL;
+		if (groupNameDataFilePath==null) groupNameDataFilePath = DEFAULT_GROUPNAMEURL;
 
 		if (appListGateinFilePath==null) appListGateinFilePath = DEFAULT_APPLISTGETINURL;
 		if (appAddGateinFilePath==null) appAddGateinFilePath = DEFAULT_APPADDGATEINURL;
@@ -376,6 +381,7 @@ public class TestBase {
 		portalDefaultFilePath = getAbsoluteFilePath(portalDefaultFilePath);
 		portalPermisGroupFilePath = getAbsoluteFilePath(portalPermisGroupFilePath);
 		portalPermisMemFilePath = getAbsoluteFilePath(portalPermisMemFilePath);
+		groupNameDataFilePath = getAbsoluteFilePath(groupNameDataFilePath);
 	}
 
 

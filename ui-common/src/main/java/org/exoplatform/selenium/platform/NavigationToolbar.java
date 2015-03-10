@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
+import org.exoplatform.selenium.platform.gatein.PortalGroupNavigation;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManagePages;
@@ -19,6 +20,7 @@ public class NavigationToolbar extends PlatformBase {
 	MyProfilePage myPro;
 	SiteExplorerHome SEHome;
 	PortalManageSites magSites;
+	PortalGroupNavigation groupNavigate;
 
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
@@ -36,8 +38,8 @@ public class NavigationToolbar extends PlatformBase {
 	// users 
 	public final By ELEMENT_ADMINISTRATION_USERS =By.xpath("//*[text()='Users']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS = By.xpath("//*[text()='Add Users']");
-	//public final String ELEMENT_MANAGE_USER = ".//*[@id='UISetupPlatformToolBarPortlet']//a[text()='Users']";	
-	public final String ELEMENT_GROUP_AND_ROLE_LINK = ".//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Groups and Roles')]";
+	public final By ELEMENT_GROUP_AND_ROLE_LINK = By.xpath("//*[text()='Groups and Roles']");
+	
 	//Administration Menu
 	//Administration-->Portal
 	public final By ELEMENT_ADMINISTRATION_PORTAL = By.xpath("//*[text()='Portal']");
@@ -45,9 +47,8 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_ADMINISTRATION_PORTAL_PAGES=By.xpath("//*[text()='Pages']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_BRANDING=By.xpath("//*[text()='Branding']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_IDE=By.xpath("//*[text()='IDE']");
-	public final By ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES=By.xpath("//*[text()='Group Sites']");
+	public final By ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES = By.xpath("//*[text()='Group Sites']");
 	
-
 	//Administation-->Content
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
 	public final By ELEMENT_MENU_CONTENT_LINK = By.xpath("//li[@class='dropdown-submenu']/a[text()='Content']");
@@ -121,6 +122,7 @@ public class NavigationToolbar extends PlatformBase {
 		paWin = new PageCreationWizard(dr);
 		SEHome = new SiteExplorerHome(dr);
 		magSites = new PortalManageSites(dr);
+		groupNavigate = new PortalGroupNavigation(dr);
 	} 
 
 	/**
@@ -194,6 +196,7 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(2000);
 		info("Page Managements is shown successfully");
 	}
+	
 
 	/**
 	 * function: Go to Users and Group management (Administration --> Users --> Groups and Roles)
@@ -202,10 +205,8 @@ public class NavigationToolbar extends PlatformBase {
 		info("--Go to Users and groups management--");
 		click(ELEMENT_LINK_SETUP);
 		mouseOver(ELEMENT_ADMINISTRATION_USERS, true);
-		//WebElement element = waitForAndGetElement(By.xpath(ELEMENT_GROUP_AND_ROLE_LINK), DEFAULT_TIMEOUT, 1, 2);		
 		click(ELEMENT_GROUP_AND_ROLE_LINK);
-		//((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
-		Utils.pause(500);
+		Utils.pause(2000);
 	}
 	
 	/**

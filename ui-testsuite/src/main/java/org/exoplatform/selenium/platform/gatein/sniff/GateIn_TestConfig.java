@@ -18,6 +18,7 @@ import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.LanguageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.PermissionDatabase;
+import org.exoplatform.selenium.platform.gatein.PortalGroupNavigation;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.AppAddGateinDatabase;
@@ -31,6 +32,7 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalDefau
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalGroupsPermissionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalMemberShipsPermissionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.PagesManagementListDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.GroupNameDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.UserSearchOptionDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
@@ -55,6 +57,8 @@ public class GateIn_TestConfig extends PlatformBase {
 	
 	UserAddManagement addUserPage;
 	UserAndGroupManagement userAndGroup;
+	PortalGroupNavigation groupNavigate;
+	
 	PageCreationWizard pagCW;
 	
 	MyDashBoard myDash;
@@ -64,6 +68,7 @@ public class GateIn_TestConfig extends PlatformBase {
 	ContainersDatabase contaiData;
 	ApplicationLayoutDatabase appLayData;
 	RemoteGadgetDatabase remoteGadData;
+	GroupNameDatabase groupNameData;
 	
 	GateinPortalDefaultDatabase portDeftData;
 	GateinPortalGroupsPermissionDatabase portGroupPermisData;
@@ -103,6 +108,8 @@ public class GateIn_TestConfig extends PlatformBase {
 		portSite = new PortalManageSites(driver);
 		
 		but = new Button(driver, this.plfVersion);
+		addUserPage = new UserAddManagement(driver);
+		groupNavigate = new PortalGroupNavigation(driver);
 		
 		addUserPage = new UserAddManagement(driver);
 		userAndGroup = new UserAndGroupManagement(driver);
@@ -167,6 +174,8 @@ public class GateIn_TestConfig extends PlatformBase {
 		
 		langData = new LanguageDatabase();
 		langData.setLanguageData(languageFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
+		groupNameData = new GroupNameDatabase();
+		groupNameData.setGroupNameData(groupNameDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		info("End setUpBeforeClass");
 	}
