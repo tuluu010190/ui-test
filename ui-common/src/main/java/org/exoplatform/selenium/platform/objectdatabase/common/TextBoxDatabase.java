@@ -35,7 +35,7 @@ public class TextBoxDatabase {
 	 */
 	public void setContentData(String userDataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
-		for(int i = 0; i<testData.length-1; i++)
+		for(int i = 0; i<testData.length; i++)
 		{	
 			type.add(Integer.valueOf(testData[i][0]));
 			content.add(testData[i][1]);
@@ -99,19 +99,16 @@ public class TextBoxDatabase {
 	/**
 	 * getContentByArrayTypeRandom
 	 * @param type
-	 * @return
+	 * @return Content
 	 */
-	public String getContentByArrayTypeRandom(int...type){
+	public String getContentByArrayTypeRandom(int type){
 		ArrayList<String> arrayContent = new ArrayList<String>();
 		Random randomGenerator = new Random();
-		for (int j = 0; j<type.length; j++){
 			for(int i = 0; i<this.type.size(); i++)
 			{	
-				if(this.type.get(i) == type[j]) {
+				if(this.type.get(i) == type)
 					arrayContent.add(this.content.get(i));
-				}
 			}
-		}
 		int index = randomGenerator.nextInt(arrayContent.size());
 		String Content = arrayContent.get(index);
 		return Content;

@@ -2,11 +2,12 @@ package org.exoplatform.selenium.platform.gatein.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.ecms.EditPageWCM;
+//import org.exoplatform.selenium.platform.ecms.EditPageWCM;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.GadgetManagement;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
@@ -31,6 +32,7 @@ import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 
 public class GateIn_TestConfig extends PlatformBase {
@@ -40,14 +42,16 @@ public class GateIn_TestConfig extends PlatformBase {
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
 	SpaceSettingManagement setSpaceMg;
+
 	PortalManagePages portMg;
 	PortalManageSites portSite;
+
+	Button but;
 	
 	UserAddManagement addUserPage;
 	
 	PageCreationWizard pagCW;
 	
-	EditPageWCM editPage;
 	MyDashBoard myDash;
 	
 	TextBoxDatabase txData;
@@ -55,11 +59,10 @@ public class GateIn_TestConfig extends PlatformBase {
 	ContainersDatabase contaiData;
 	ApplicationLayoutDatabase appLayData;
 	RemoteGadgetDatabase remoteGadData;
+	
 	GateinPortalDefaultDatabase portDeftData;
 	GateinPortalGroupsPermissionDatabase portGroupPermisData;
 	GateinPortalMemberShipsPermissionDatabase portMemPermisData;
-	
-	EditPageWCM editPageWCM;
 	
 	GadgetManagement gadMg;
 	
@@ -79,16 +82,17 @@ public class GateIn_TestConfig extends PlatformBase {
 		
 		magAc = new ManageLogInOut(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		editPageWCM = new EditPageWCM(driver);
 		spaMg = new SpaceManagement(driver);
 		spaHome = new SpaceHomePage(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
 		hp = new HomePagePlatform(driver);
 		navToolBar = new NavigationToolbar(driver);
-		editPage = new EditPageWCM(driver);
 		myDash = new MyDashBoard(driver);
+
 		portMg = new PortalManagePages(driver);
 		portSite = new PortalManageSites(driver);
+		
+		but = new Button(driver, this.plfVersion);
 		
 		addUserPage = new UserAddManagement(driver);
 		
@@ -141,6 +145,11 @@ public class GateIn_TestConfig extends PlatformBase {
 		
 		info("End setUpBeforeClass");
 	}
+	
+	@AfterMethod
+    public void afterMethod(){
+    	driver.get(baseUrl);
+    }
 	
 	@AfterClass
 	public void afterTest(){

@@ -105,6 +105,9 @@ public class TestBase {
 	protected String spaceappFilePath;
 	protected String groupsCalenderFilePath;
 	protected String remoteGadgetDataFilePath;
+	protected String languageFilePath;
+	//protected String selectPathFilePath;
+	//protected String membershipFilePath;
 	protected String appGateinDataFilePath;
 	protected String getStartFilePath;
 
@@ -163,6 +166,9 @@ public class TestBase {
 
 	public final String DEFAULT_GADGETURL = "DataDriven/"+"gatein_gadget.xls";
 	public final String DEFAULT_CONTAINERURL="DataDriven/"+"containers_layout.xls";
+	public final String DEFAULT_LANGUAGEURL="DataDriven/"+"language.xls";
+	public final String DEFAULT_SELECTPATHURL="DataDriven/"+"selectPath.xls";
+	public final String DEFAULT_MEMBERSHIPURL="DataDriven/"+"membership.xls";
 	
 	public final String DEFAULT_APPLAYOUTURL="DataDriven/"+"applications_layout.xls";
 
@@ -235,6 +241,9 @@ public class TestBase {
 		wikiRichTextFilePath = System.getProperty("wikiRichTextFilePath");
 		attachmentFilePath = System.getProperty("attachmentFilePath");
 		texboxFilePath = System.getProperty("texboxFilePath");
+	//	selectPathFilePath = System.getProperty("selectPathFilePath");
+		languageFilePath = System.getProperty("languageFilePath");
+	//membershipFilePath = System.getProperty("membershipFilePath");
 		wikiTemplateFilePath = System.getProperty("wikiTemplateFilePath");
 		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
 		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
@@ -292,6 +301,9 @@ public class TestBase {
 		if (attachmentFilePath==null) attachmentFilePath = DEFAULT_ATTACHMENTFILEURL;
 		if (wikiTemplateFilePath==null) wikiTemplateFilePath = DEFAULT_WIKITEMPLATEFILEURL;
 		if (texboxFilePath==null) texboxFilePath = DEFAULT_TEXTBOXFILEURL;
+		//if (selectPathFilePath==null) selectPathFilePath = DEFAULT_SELECTPATHURL;
+		if (languageFilePath==null) languageFilePath = DEFAULT_LANGUAGEURL;
+		//if (membershipFilePath==null) membershipFilePath = DEFAULT_MEMBERSHIPURL;
 		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
 		if (spaceappFilePath==null) spaceappFilePath= DEFAULT_SPACEAPPLICATIONURL;
@@ -322,6 +334,9 @@ public class TestBase {
 		wikiRichTextFilePath = getAbsoluteFilePath(wikiRichTextFilePath);
 		attachmentFilePath = getAbsoluteFilePath(attachmentFilePath);
 		texboxFilePath = getAbsoluteFilePath(texboxFilePath);
+	//	selectPathFilePath = getAbsoluteFilePath(selectPathFilePath);
+		languageFilePath = getAbsoluteFilePath(languageFilePath);
+	//	membershipFilePath = getAbsoluteFilePath(membershipFilePath);
 		wikiTemplateFilePath = getAbsoluteFilePath(wikiTemplateFilePath);
 		spaceVisibleFilePath = getAbsoluteFilePath(spaceVisibleFilePath);
 		spaceRegistrationFilePath = getAbsoluteFilePath(spaceRegistrationFilePath);

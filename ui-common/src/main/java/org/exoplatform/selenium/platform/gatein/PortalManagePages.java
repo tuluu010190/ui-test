@@ -2,20 +2,21 @@ package org.exoplatform.selenium.platform.gatein;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
+
 /**
- * @author quynhpt
- * date 22/01/2015
  * Path: Administration-->Portal-->Pages
  */
 public class PortalManagePages extends PlatformBase {
-
-	ManageAlert alert;
 	
 	public final By ELEMENT_MANAGEPAGES_TITLE=By.xpath(".//*[text()='Manage Pages']");
 	public final By ELEMENT_MANAGEPAGES_TITLE_FIELD=By.id("pageTitle");
@@ -39,10 +40,19 @@ public class PortalManagePages extends PlatformBase {
 	public final By ELEMENT_MANAGEPAGES_ADD_NEW_PAGE_POPUP_CHECKBOX = By.cssSelector("#UIMaskWorkspace #showMaxWindow");
 	public final By ELEMENT_MANAGEPAGES_ADD_NEW_PAGE_POPUP_TYPE_DROPBOX =By.xpath(".//*[@name='ownerType']"); 
 			
+
+	ManageAlert alert;
+	NavigationToolbar navTool;
+	Button button;
+	Dialog dialog;
+	
 	public PortalManagePages(WebDriver dr){
 		driver = dr;
 		alert = new ManageAlert(dr);
+		button = new Button(driver, this.plfVersion);
+		dialog = new Dialog(driver);
 	} 
+
 	
 	/**
 	 * Search a page
@@ -80,6 +90,7 @@ public class PortalManagePages extends PlatformBase {
 								.replace("${title}", title), 2000, 0);
 		}
 	}
+
 	
 	/**
 	 * Delete a page
@@ -94,6 +105,7 @@ public class PortalManagePages extends PlatformBase {
 		click(ELEMENT_MANGEPAGES_INFORM_POPUP_OK);
 		waitForElementNotPresent(ELEMENT_MANAGEPAGES_CONTENT_TITLE_COLUMN.replace("${tilte}",titlePage));
 	}
+
 	
 	/**
 	 * Go to edit a page

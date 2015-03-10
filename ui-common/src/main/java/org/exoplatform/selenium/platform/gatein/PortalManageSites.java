@@ -13,11 +13,9 @@ import org.openqa.selenium.WebDriver;
  */
 public class PortalManageSites extends PlatformBase {
 	
-
-	ManageAlert alert;
-	
 	public final By ELEMENT_MANAGESITES_TITLE=By.xpath(".//*[@id='UIPortalNavigationPortlet']//h5[text()='Manage Sites']");
 	public final String ELEMENT_MANAGESITES_EDIT_NAVIGATION_ICON=".//*[@class='managementBlock']//div[text()='${site}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
+
 	public final String ELEMENT_MANAGESITES_EDIT_LAYOUT_ICON=".//*[@class='managementBlock']//div[text()='${site}']/../..//*[contains(@class,'uiIconEditLayout')]";
 	public final String ELEMENT_MANAGESITES_EDIT_CONFIG_ICON=".//*[@class='managementBlock']//div[text()='${site}']/../..//*[contains(@class,'uiIconEditPortalConfig')]";
 	
@@ -25,7 +23,9 @@ public class PortalManageSites extends PlatformBase {
 	public final By ELEMENT_MANAGESITES_EDIT_LAYOUT_SITE_CONFIG_BTN = By.cssSelector(".PageProfileIcon");
 	public final String ELEMENT_MANAGESITES_PORTAL_LABEL =".//*[contains(@class,'siteName')][contains(text(),'${portal}')]/..//*[contains(@class,'siteLabel')][contains(text(),'${label}')]";
 	public final String ELEMENT_MANAGESITES_PORTAL_DESC =".//*[contains(@class,'siteName')][contains(text(),'${portal}')]/..//*[contains(@class,'siteDescription')][contains(text(),'${desc}')]";
-	
+
+	public final String ELEMENT_ADD_NAVIGATION_BUTTON = "//*[contains(text(),'Add Navigation')]";
+
 	//Navigation Management popup
 	public final By ELEMENT_NAVIGATION_MANAGEMENT_POPUP_TITLE=By.xpath(".//*[@class='PopupTitle popupTitle'][text()='Navigation Management']");
 	public final String ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME=".//*[@title='${name}']";
@@ -59,7 +59,7 @@ public class PortalManageSites extends PlatformBase {
 	public final By ELEMENT_NODE_NAME = By.id("name");
 	
 	
-	
+	ManageAlert alert;
 	public PortalManageSites(WebDriver dr){
 		driver = dr;
 		alert = new ManageAlert(dr);
@@ -207,15 +207,13 @@ public class PortalManageSites extends PlatformBase {
 		click(ELEMENT_ADD_NEW_PORTAL_POPUP_PERMISSION_TAB);
 		info("Select public permission checkbox");
 		check(ELEMENT_ADD_NEW_PORTAL_POPUP_PUBLIC_PERMISSION,2);
-		info("Select Edit permission settings tab");
-		click(ELEMENT_ADD_NEW_PORTAL_POPUP_EDIT_PERMISSITION_SETTINGS);
-		info("Click on Select permission button");
-		click(ELEMENT_ADD_NEW_PORTAL_POPUP_SELECT_PERMISSION_BTN);
 		if(!groupsPath.isEmpty()){
+			info("Select Edit permission settings tab");
+			click(ELEMENT_ADD_NEW_PORTAL_POPUP_EDIT_PERMISSITION_SETTINGS);
+			info("Click on Select permission button");
+			click(ELEMENT_ADD_NEW_PORTAL_POPUP_SELECT_PERMISSION_BTN);
 			info("Select a group");
 			selectGroup(groupsPath);
-		}
-		if(!memberShips.isEmpty()){
 			info("Select a meberships");
 			selectMemberShip(memberShips);
 		}
@@ -277,15 +275,13 @@ public class PortalManageSites extends PlatformBase {
 		click(ELEMENT_ADD_NEW_PORTAL_POPUP_PERMISSION_TAB);
 		info("Select public permission checkbox");
 		check(ELEMENT_ADD_NEW_PORTAL_POPUP_PUBLIC_PERMISSION,2);
-		info("Select Edit permission settings tab");
-		click(ELEMENT_ADD_NEW_PORTAL_POPUP_EDIT_PERMISSITION_SETTINGS);
-		info("Click on Select permission button");
-		click(ELEMENT_ADD_NEW_PORTAL_POPUP_SELECT_PERMISSION_BTN);
 		if(!groupsPath.isEmpty()){
+			info("Select Edit permission settings tab");
+			click(ELEMENT_ADD_NEW_PORTAL_POPUP_EDIT_PERMISSITION_SETTINGS);
+			info("Click on Select permission button");
+			click(ELEMENT_ADD_NEW_PORTAL_POPUP_SELECT_PERMISSION_BTN);
 			info("Select a group");
 			selectGroup(groupsPath);
-		}
-		if(!memberShips.isEmpty()){
 			info("Select a meberships");
 			selectMemberShip(memberShips);
 		}

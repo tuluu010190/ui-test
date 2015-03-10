@@ -13,6 +13,12 @@ public class ContainersDatabase {
 	public ArrayList<String> newCategory;
 	public ArrayList<String> newId;
 
+	/**
+	 * ContainersDatabase
+	 * @param type
+	 * @param Category
+	 * @param id
+	 */
 	public ContainersDatabase(ArrayList<Integer> type, ArrayList<String> Category, 
 			ArrayList<String>id){
 		this.type = type;
@@ -20,6 +26,9 @@ public class ContainersDatabase {
 		this.id = id;
 	}
 
+	/**
+	 * ContainersDatabase
+	 */
 	public ContainersDatabase(){
 		type  = new ArrayList<Integer>();
 		Category  = new ArrayList<String>();
@@ -28,6 +37,13 @@ public class ContainersDatabase {
 		newId  = new ArrayList<String>();
 	}
 
+	/**
+	 * setContainersData
+	 * @param userDataFile
+	 * @param userSheet
+	 * @param opParams
+	 * @throws Exception
+	 */
 	public void setContainersData(String userDataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
 		for(int i = 0; i<testData.length; i++)
@@ -38,6 +54,11 @@ public class ContainersDatabase {
 		}
 	}
 	
+	/**
+	 * getRandomIndexByType
+	 * @param type
+	 * @return index
+	 */
 	public Integer getRandomIndexByType(int type){
 		Random randomGenerator = new Random();
 		newCategory.clear();
@@ -51,6 +72,25 @@ public class ContainersDatabase {
 		}
 		Integer index = randomGenerator.nextInt(newCategory.size());
 		return index;
+	}
+	
+	
+	/**
+	 * Get Category container by index
+	 * @param index
+	 * @return Category.get(index)
+	 */
+	public String getCategoryByIndex(int index){
+		return Category.get(index);
+	}
+	
+	/**
+	 * Get id container by index
+	 * @param index
+	 * @return id.get(index)
+	 */
+	public String getidByIndex(int index){
+		return id.get(index);
 	}
 	
 	

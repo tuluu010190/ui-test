@@ -10,13 +10,13 @@ import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.answer.AnswerCategoryManagement;
-import org.exoplatform.selenium.platform.ecms.EditPageWCM;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.forum.ForumCategoryManagement;
 import org.exoplatform.selenium.platform.forum.ForumHomePage;
 import org.exoplatform.selenium.platform.forum.ForumManagement;
 import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
 import org.exoplatform.selenium.platform.forum.PrivateMessageManagement;
+import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
@@ -46,9 +46,9 @@ public class Forum_TestConfig extends PlatformBase{
 	Button button;
 	ForumTopicManagement foTopic;
 	ActivityStream aHome;
-	EditPageWCM editPage;
 	PrivateMessageManagement msgManage;
-
+	PageCreationWizard pagCW;
+	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
 		info("Start setUpBeforeClass");
@@ -66,7 +66,8 @@ public class Forum_TestConfig extends PlatformBase{
 		button = new Button(driver);
 		foTopic = new ForumTopicManagement(driver);
 		aHome = new ActivityStream(driver);
-		editPage = new EditPageWCM(driver);
+		
+		pagCW = new PageCreationWizard(driver);
 		msgManage = new PrivateMessageManagement(driver);
 		forumCatMag = new ForumCategoryManagement(driver);
 		forumMag = new ForumManagement(driver);

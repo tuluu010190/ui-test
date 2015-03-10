@@ -11,6 +11,7 @@ import org.testng.annotations.*;
 	*/
 	public class Gatein_Portal_Navigation_Edit_LayOut extends GateIn_TestConfig{
 
+		
 	/**
 	*<li> Case ID:99433.</li>
 	*<li> Test Case Name: Change site's config of portal.</li>
@@ -61,6 +62,8 @@ import org.testng.annotations.*;
 		String idName = appLayData.newId.get(index2);
 		String name = appLayData.newTitle.get(index2);
 		
+		String container = contaiData.id.get(0);
+		
 		/*Step Number: 1
 		*Step Name: Step 1: Add application into container when edit layout for group's page
 		*Step Description: 
@@ -80,11 +83,11 @@ import org.testng.annotations.*;
 		
 		info("Add a container");
 		portMg.editPage(title,type);
-		pagCW.addContainer("oneRow");
+		pagCW.addContainer(container);
 		
 		info("Add an application to the container");
 		portMg.editPage(title,type);
-		pagCW.addApp(name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}","Container"));
+		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}","Container"));
  
 		info("Verify that the application is added successfully in the container");
 		portMg.editPage(title,type);
@@ -125,7 +128,7 @@ import org.testng.annotations.*;
 		
 		info("Add an application to the layout");
 		navToolBar.goToEditLayout();
-		pagCW.addApp(name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
+		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
  
 		info("Move an application to new place");
 		navToolBar.goToEditLayout();
@@ -195,7 +198,7 @@ import org.testng.annotations.*;
 		
 		info("Add an application to the layout");
 		navToolBar.goToEditLayout();
-		pagCW.addApp(name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
+		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
  
 		info("Verify that the application is added successfully in the container");
 		navToolBar.goToEditLayout();
@@ -239,7 +242,7 @@ import org.testng.annotations.*;
 
 		info("Add an application to the layout");
 		navToolBar.goToEditLayout();
-		pagCW.addApp(name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
+		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
 		
 		info("Edit an application");
 		navToolBar.goToEditLayout();
@@ -300,7 +303,7 @@ import org.testng.annotations.*;
 		
 		info("Add an application to the layout");
 		navToolBar.goToEditLayout();
-		pagCW.addApp(name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
+		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
 		
 		info("Test 09: Add container when edit layout for portal's page");
 		/*Step Number: 1
@@ -423,7 +426,7 @@ import org.testng.annotations.*;
 		
 		info("Add an application to the container");
 		navToolBar.goToEditLayout();
-		pagCW.addApp(name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}","Container"));
+		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}","Container"));
  
 		info("Verify that the application is added successfully in the container");
 		navToolBar.goToEditLayout();

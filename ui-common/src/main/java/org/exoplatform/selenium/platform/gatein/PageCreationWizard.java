@@ -5,7 +5,6 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.ecms.EditPageWCM;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
@@ -52,6 +51,7 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_APPLICATION_TAB = By.linkText("Applications");
 	public final By ELEMENT_APPLICATION_CONTENT_TAB = By.xpath("//*[@title='Content']");
 	public final By ELEMENT_APPLICATION_ADMINISTRATION_TAB=By.xpath("//*[@title='Administration']");
+	public final String ELEMENT_APPLICATION_SUB_TAB = ".//*[@id='UIApplicationList']//*[contains(@title,'${tabName}')]";
 	public final By ELEMENT_APPLICATION_CONTENT_DETAIL = By.xpath("//*[@id='Content/SingleContentViewer']");
 	public final By ELEMENT_APPLICATION_CONTENT_LIST = By.xpath("//*[@id='Content/ContentListViewerPortlet']");
 	public final String ELEMENT_APPLICATION_APPLICATION = ".//*[@id='${name}']";
@@ -61,6 +61,7 @@ public class PageCreationWizard extends PlatformBase {
 	//Container panel
 	public final By ELEMENT_CONTAINER_TAB = By.linkText("Containers");
 	public final By ELEMENT_SWITCH_VIEW_MODE = By.linkText("Switch View mode");
+	public final By ELEMENT_VIEW_PROPERTIES = By.cssSelector(".PageProfileIcon");
 	
 	//Container popup editor
 	public final By ELEMENT_CONTAINER_POPUP_TITLE = By.id("title");
@@ -68,12 +69,27 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_CONTAINER_POPUP_WIDTH = By.id("width");
 	public final By ELEMENT_CONTAINER_POPUP_HEIGHT = By.id("height");
 
+	//View properties popup
+	public final By ELEMENT_VIEW_PROPERTIES_POPUP = By.cssSelector(".MaskContainer");
+	public final By ELEMENT_VIEW_PROPERTIES_TITLE = By.id("title");
+	public final String ELEMENT_PERMISSION_SELECTOR_POPUP_GROUP = ".//*[contains(@class,'uiIconNode')][contains(@title,'${group}')]";
+	public final String ELEMENT_PERMISSION_SELECTOR_POPUP_MEMEBRSHIP = ".//*[@id='ListPermissionSelector']//*[contains(@title,'${member}')]";
+	public final By ELEMENT_VIEW_PROPERTIES_SHOW_MAX_WINDOW = By.cssSelector("#showMaxWindow");
+	public final By ELEMENT_VIEW_PROPERTIES_SAVE_BTN = By.xpath(".//*[@id='UIPageForm']//button[text()='Save']");
+	public final String ELEMENT_VIEW_PROPERTIES_ACCESS_PERMISSTION_VALUE=".//*[@id='PermissionGrid']//*[contains(text(),'${group}')]";
+	public final String ELEMENT_VIEW_PROPERTIES_GROUP_REMOVE_BTN=".//*[@id='PermissionGrid']//*[contains(text(),'${group}')]/../..//*[contains(@class,'uiIconDelete')]";
+	public final By ELEMENT_VIEW_PROPERTIES_DELETE_EDIT_PERMISSION_BTN=By.xpath(".//*[@id='UIPermissionSelector']//*[contains(text(),'Delete Permission')]");
+	public final By ELEMENT_VIEW_PROPERTIES_PERMISSION_TAB = By.xpath(".//*[contains(@data-target,'#PermissionSetting-tab')]");
+	public final By ELEMENT_VIEW_PROPERTIES_EDIT_PERMISSITION_SETTINGS= By.xpath(".//*[contains(text(),'Edit Permission Settings')]");
+	public final By ELEMENT_VIEW_PROPERTIES_SELECT_PERMISSION_BTN= By.xpath(".//*[contains(text(),'Select Permission')]");
+	public final By ELEMENT_VIEW_PROPERTIES_ADD_PERMISSION_BTN= By.cssSelector(".uiIconAddUser");
 	
 	//Layout
 	public  final By ELEMENT_PAGEEDITOR_VIEWPAGE = By.xpath("//*[@class='VIEW-PAGE']");
 	public final String ELEMENT_PAGEEDITOR_CONTENT=".//*[@class='UIComponentBlock']//*[contains(text(),'${name}')]";
 	public final By ELEMENT_PAGEEDITOR_FINISHBTN = By.xpath("//*[contains(@class,'uiIconSave')]");
 	public final By ELEMENT_SWITCH_VIEW_MODE_NAME_APPLICATION_CLASS = By.xpath(".//*[contains(@class,'portletName')]");
+	
 	
 	public final String ELEMENT_APPLICATION_IN_LAYOUT_PAGE = ".//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${name}')]";
 	public final String ELEMENT_APPLICATION_EDIT_ICON = "//span[contains(text(),'${name}')]/../../../..//*[contains(@class,'uiIconEdit')]";
@@ -93,6 +109,7 @@ public class PageCreationWizard extends PlatformBase {
 	public final String ELEMENT_APPLICATION_HOLDER_MOVE="//span[contains(text(),'${name}')]/..//*[contains(@class,'uiIconDragDrop')]";
 	public final String ELEMENT_APPLICATION_PRECEDING_PORTLET = "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app1}')]/../../../preceding-sibling::*[contains(@class,'UIPortlet')]//*[contains(text(),'${app2}')]";
 	public final String ELEMENT_APPLICATION_FOLLOWING_PORTLET= "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app1}')]/../../../following-sibling::*[contains(@class,'UIPortlet')]//*[contains(text(),'${app2}')]";
+	
 	//Application popup
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_TAB = By.xpath(".//*[@id='tab-UIPortletForm']//*[contains(@data-target,'PortletSetting')]");
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_TITLE = By.id("title");
@@ -105,11 +122,40 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_SAVE = By.id("Save");
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_CANCEL = By.id("Close");
 	
+	final public By ELEMENT_ADDNEWPAGE_NODENAME = By.xpath("//*[@id='pageName']");
+	final public By ELEMENT_ADDNEWPAGE_DISPLAYNAME = By.xpath("//*[@id='i18nizedLabel']");
+
+	//page editor
+	final public By ELEMENT_PAGEEDITOR_CONTENTTAB = By.xpath("//*[@title='Content']");
+	final public By ELEMENT_PAGEEDITOR_CONTENTLIST = By.xpath("//*[@id='Content/ContentListViewerPortlet']");
+	final public By ELEMENT_PAGEEDITOR_CONTENTDETAIL = By.xpath("//*[@id='Content/SingleContentViewer']");
+	final public By ELEMENT_PAGEEDITOR_FORUM = By.xpath("//*[@class='LAYOUT-BLOCK LAYOUT-PORTLET']");
+	final public By ELEMENT_PAGEEDITOR_EDITELEMENT = By.xpath("//*[@class='uiIconEdit uiIconWhite']");
+	final public By ELEMENT_PAGEEDITOR_ADDPATHBTN = By.xpath("//*[@class='uiIconAddPath uiIconLightGray']");
+	final public By ELEMENT_PAGEEDITOR_SAVEBTN = By.xpath("//*[@class='btn' and text()='Save']");
+	final public By ELEMENT_PAGEEDITOR_OKBTN = By.xpath("//*[@class='btn' and text()='OK']");
+	final public By ELEMENT_PAGEEDITOR_CLOSEBTN = By.xpath("//*[@class='btn' and text()='Close']");
+	final public By ELEMENT_PAGEEDITOR_FINISHLIGHTBTN = By.xpath("//*[@class='uiIconSave uiIconLightGray pull-right']");
+	//final public By ELEMENT_PAGEEDITOR_FINISHBTN = By.xpath("//*[contains(@class,'uiIconSave')]");
+	final public By ELEMENT_PAGEEDITOR_BYCONTENTRADIOBN = By.xpath("//*[@class='radio' and @value='ManualViewerMode']");
+
+	//Multiple content selector
+	final public String ELEMENT_FOLDERSELECTOR_PATH = "//*[@class='nodeName' and text()=' ${path}' ]";
+	final public String ELEMENT_FOLDERSELECTOR_CONTENTLIST_FINALPATH = "//*[@class='Item' and text()='${name}']";
+	final public String ELEMENT_FOLDERSELECTOR_CONTENTDETAIL_FINALPATH = "//*[@class='OddItem']//*[text()='${name}']";
+	
+	//Content Detail Preference
+	final public By ELEMENT_CONTENTDETAILPREF_TABCONTENTDISPLAY = By.xpath("//*[@class='uiContentBox']");
+	final public By ELEMENT_CONTENTDETAILPREF_TABCONTENTPREFERENCES = By.xpath("//*[@data-original-title='Preferences']");
+	final public By ELEMENT_CONTENTDETAILPREF_TABDISPLAYSETTINGS = By.xpath("//*[@data-target='#clvDisplayTab-tab']");
+	final public By ELEMENT_CONTENTDETAILPREF_HEADERTXTBOX = By.xpath("//*[@id='UICLVConfigHeaderFormStringInput']");
+
+	public final By ELEMENT_EDITFORUM_CATEGORY = By.xpath("//*[@class='uiIconCategory uiIconLightGray']/../..//*[@class='checkbox']");
+	
 	ContentList contList;
 	ContentDetail contDetail;
 	ManageAlert magAlert;
 	Button but;
-	EditPageWCM editPage;
 	
 	public PageCreationWizard(WebDriver dr){
 		driver = dr;
@@ -117,7 +163,6 @@ public class PageCreationWizard extends PlatformBase {
 		contDetail = new ContentDetail(dr);
 		magAlert = new ManageAlert(dr);
 		but = new Button(dr);
-		editPage = new EditPageWCM(dr);
 	}
 	
 	/**
@@ -182,10 +227,12 @@ public class PageCreationWizard extends PlatformBase {
 	 * @param appLocator
 	 * @param layoutLocator
 	 */
-	public void addApp(String nameApp,Object appLocator,Object layoutLocator){
+	public void addApp(String tabName,String nameApp,Object appLocator,Object layoutLocator){
 		info("Add an application to the layout");
 		click(ELEMENT_APPLICATION_TAB);
 		Utils.pause(1000);
+		if(!tabName.isEmpty())
+			click(ELEMENT_APPLICATION_SUB_TAB.replace("${tabName}", tabName));
 		dragAndDropToObject(appLocator,layoutLocator);
 		info("Verify that the application is shown in the layout");
 		waitForAndGetElement(ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",nameApp),3000,0);
@@ -252,9 +299,7 @@ public class PageCreationWizard extends PlatformBase {
 		click(ELEMENT_ADDNEWPAGE_BTNNEXT);
 		info("click on Next button of step 2");
 		click(ELEMENT_ADDNEWPAGE_BTNNEXT);
-		info("Save all changes");
-		click(ELEMENT_PAGE_FINISH_BTN);
-		Utils.pause(2000);
+		saveChangesPageEditor();
 	}
 	/**
 	 * Add a Container
@@ -263,7 +308,7 @@ public class PageCreationWizard extends PlatformBase {
 	 */
 	public void addContainer(String numRow){
 		info("Add container");
-		info("Add new container: " + "oneRow");
+		info("Add new container: " + numRow);
 		try{
 			click(ELEMENT_CONTAINER_TAB);
 		}catch(org.openqa.selenium.UnhandledAlertException e){
@@ -273,6 +318,8 @@ public class PageCreationWizard extends PlatformBase {
 		click(By.linkText("Rows Layout"));
 		dragAndDropToObject(By.id(numRow), By.className("UIRowContainer"));
 		Utils.pause(2000);
+		mouseOver(ELEMENT_DROP_SOURCE_HAS_LAYOUT, true);
+		waitForAndGetElement(ELEMENT_CONTAINER_TITLE.replace("${title}","Container"));
 		saveChangesPageEditor();
 		info("the container is added");
 	}
@@ -450,6 +497,8 @@ public class PageCreationWizard extends PlatformBase {
 		info("Move an application to new place");
 			click(ELEMENT_APPLICATION_TAB);
 		if (!titleSource.isEmpty()) {
+			info("titleSource"+titleSource);
+			info("titleTarget"+titleTarget);
 			mouseOver(ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",titleSource),true);
 			Utils.pause(3000);
 		} 
@@ -460,7 +509,7 @@ public class PageCreationWizard extends PlatformBase {
 		Dimension size = elTarget.getSize();
 		
 		Actions builder = new Actions(this.driver);
-		info("Hold the source");
+		info("Hold the source:");
 		builder.clickAndHold(elSource).build().perform();
 		info("Move the mouse to the middle of the portlet");
 		Action actionMove = builder.moveToElement(elTarget).build();
@@ -504,5 +553,139 @@ public class PageCreationWizard extends PlatformBase {
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		if(verify.length>0)
 		waitForAndGetElement(ELEMENT_SWITCH_VIEW_MODE_NAME_APPLICATION_CLASS,2000,0);
+	}
+	/**
+	 * View properties
+	 * @param verify
+	 */
+	public void viewProperties(boolean... verify){
+		info("Click on Switch view mode button");
+		click(ELEMENT_VIEW_PROPERTIES);
+		if(verify.length>0)
+			waitForAndGetElement(ELEMENT_VIEW_PROPERTIES_POPUP,2000,0);
+	}
+	/**
+	 * Get old title of a page 
+	 * @return title
+	 */
+	public String getOldTitle(){
+		WebElement el= this.driver.findElement(ELEMENT_VIEW_PROPERTIES_TITLE);
+		String tilte =  el.getAttribute("value");
+		info("tilte:"+tilte);
+		return tilte;
+	}
+	/**
+	 * Change Properties of a page
+	 * @param title
+	 * @param groupsPath
+	 * @param memberShips
+	 * @param isShowMaxWindow
+	 */
+	public void changeProperties(String title,String groupsPath,String memberShips,boolean isAccessPermision,boolean isEditPermission,boolean... isShowMaxWindow){
+		if(!title.isEmpty()){
+			info("Input new title");
+			type(ELEMENT_VIEW_PROPERTIES_TITLE,title,true);
+		}
+		if(!groupsPath.isEmpty()){
+			info("Select a group");
+			click(ELEMENT_VIEW_PROPERTIES_PERMISSION_TAB);
+			if(isAccessPermision==true){
+				click(ELEMENT_VIEW_PROPERTIES_ADD_PERMISSION_BTN);
+				info("Select a group");
+				selectGroup(groupsPath);
+				info("Select a meberships");
+				selectMemberShip(memberShips);
+			}
+			if(isEditPermission==true){
+				info("Select Edit permission settings tab");
+				click(ELEMENT_VIEW_PROPERTIES_EDIT_PERMISSITION_SETTINGS);
+				info("Click on Select permission button");
+				click(ELEMENT_VIEW_PROPERTIES_SELECT_PERMISSION_BTN);
+				selectGroup(groupsPath);
+				info("Select a meberships");
+				selectMemberShip(memberShips);
+			}
+		}
+		if(isShowMaxWindow.length>0){
+			info("Check on show Max window checkbox");
+			check(ELEMENT_VIEW_PROPERTIES_SHOW_MAX_WINDOW,2);
+		}
+		saveChangeProperties();
+	}
+	/**
+	 * Save changes all when View Properties
+	 */
+	public void saveChangeProperties(){
+		info("Save all changes");
+		click(ELEMENT_VIEW_PROPERTIES_SAVE_BTN);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Select a group in permission selector popup
+	 * @param groupsPath is path of groups as:Platform/Content Manangement
+	 */
+	public void selectGroup(String groupsPath){
+		info("Select a group with the path:"+groupsPath);
+		String[] groups = groupsPath.split("/");
+		for(String groupSelect: groups){
+			info("Select group:"+groupSelect);
+			click(ELEMENT_PERMISSION_SELECTOR_POPUP_GROUP.replace("${group}", groupSelect));
+		}
+		Utils.pause(2000);
+	}
+	/**
+	 * Select a membership of a group
+	 * @param memberShip
+	 */
+	public void selectMemberShip(String memberShip){
+		info("Select a membership:"+memberShip);
+		click(ELEMENT_PERMISSION_SELECTOR_POPUP_MEMEBRSHIP.replace("${member}",memberShip));
+		Utils.pause(2000);
+	}
+	/**
+	 * Reset default values of Page's properties after changed
+	 * @param title
+	 * @param groupPath
+	 * @param memberShip
+	 * @param isShowMaxWindow
+	 */
+	public void resetValuesProperties(String title, String groupPath,String editPermission,boolean... isShowMaxWindow){
+		if(!title.isEmpty()){
+			info("Reset old name");
+			type(ELEMENT_VIEW_PROPERTIES_TITLE,title,true);
+		}
+		if(!groupPath.isEmpty()){
+			info("remove a group");
+			removeGroup(groupPath.toLowerCase());
+		}
+		if(!editPermission.isEmpty()){
+			info("Remove a meberships");
+			deleteEditPermission();
+		}
+		if(isShowMaxWindow.length>0){
+			info("UnCheck on show Max window checkbox");
+			uncheck(ELEMENT_VIEW_PROPERTIES_SHOW_MAX_WINDOW,2);
+		}
+		saveChangeProperties();
+	}
+	/**
+	 * Remove a group permission
+	 * @param group
+	 */
+	public void removeGroup(String group){
+		info("Click on Delete button of the group:"+ group);
+		click(ELEMENT_VIEW_PROPERTIES_GROUP_REMOVE_BTN.replace("${group}", group));
+		alert.acceptAlert();
+		info("The group is removed");
+		waitForElementNotPresent(ELEMENT_VIEW_PROPERTIES_GROUP_REMOVE_BTN.replace("${group}", group));
+	}
+	/**
+	 * Delete edit permission of a page
+	 */
+	public void deleteEditPermission(){
+		info("Click on Delete Permission");
+		click(ELEMENT_VIEW_PROPERTIES_DELETE_EDIT_PERMISSION_BTN);
+		Utils.pause(2000);
 	}
 }

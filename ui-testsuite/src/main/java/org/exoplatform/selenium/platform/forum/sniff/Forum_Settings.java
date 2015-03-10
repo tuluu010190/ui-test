@@ -77,13 +77,13 @@ public class Forum_Settings extends Forum_TestConfig {
 		click(hp.ELEMENT_EDIT_BUTTON);
 		mouseOver(hp.ELEMENT_EDIT_PAGE, true);
 		click(hp.ELEMENT_EDIT_PAGE_EDITLAYOUT);
-		mouseOver(editPage.ELEMENT_PAGEEDITOR_FORUM, true);
-		click(editPage.ELEMENT_PAGEEDITOR_EDITELEMENT);
-		uncheck(editPage.ELEMENT_EDITFORUM_CATEGORY, 2);
-		click(editPage.ELEMENT_PAGEEDITOR_SAVEBTN);
-		click(editPage.ELEMENT_PAGEEDITOR_OKBTN);
-		click(editPage.ELEMENT_PAGEEDITOR_CLOSEBTN);
-		click(editPage.ELEMENT_PAGEEDITOR_FINISHLIGHTBTN);
+		mouseOver(pagCW.ELEMENT_PAGEEDITOR_FORUM, true);
+		click(pagCW.ELEMENT_PAGEEDITOR_EDITELEMENT);
+		uncheck(pagCW.ELEMENT_EDITFORUM_CATEGORY, 2);
+		click(pagCW.ELEMENT_PAGEEDITOR_SAVEBTN);
+		click(pagCW.ELEMENT_PAGEEDITOR_OKBTN);
+		click(pagCW.ELEMENT_PAGEEDITOR_CLOSEBTN);
+		click(pagCW.ELEMENT_PAGEEDITOR_FINISHLIGHTBTN);
 		waitForElementNotPresent((forumHP.ELEMENT_FORUM_TITLECAT).replace("${title}", name));
 	}
 	/**

@@ -50,6 +50,8 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_ADMINISTRATION_PORTAL_PAGES=By.xpath("//*[text()='Pages']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_BRANDING=By.xpath("//*[text()='Branding']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_IDE=By.xpath("//*[text()='IDE']");
+	public final By ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES=By.xpath("//*[text()='Group Sites']");
+	
 
 	//Administation-->Content
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
@@ -161,7 +163,20 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_ADMINISTRATION_PORTAL_SITES);
 		waitForAndGetElement(magSites.ELEMENT_MANAGESITES_TITLE,3000,0);
 	}
-
+	
+	/**
+	 * Go to Manage Group Sites page: Administration-->Portal->Group Sites
+	 */
+	public void goToGroupSites(){
+		info("--Go to Portal-->Sites--");
+		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
+		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		mouseOver(ELEMENT_ADMINISTRATION_PORTAL,true);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES,3000,0);
+		click(ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES);
+		waitForAndGetElement(magSites.ELEMENT_ADD_NAVIGATION_BUTTON,3000,0);
+	}
+	
 	/**
 	 * Go to Manage Sites page: Administration-->Portal->Pages
 	 */
