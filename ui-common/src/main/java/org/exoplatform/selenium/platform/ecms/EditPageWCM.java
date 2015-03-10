@@ -22,7 +22,7 @@ public class EditPageWCM extends PlatformBase {
 	final public By ELEMENT_PAGEEDITOR_OKBTN = By.xpath("//*[@class='btn' and text()='OK']");
 	final public By ELEMENT_PAGEEDITOR_CLOSEBTN = By.xpath("//*[@class='btn' and text()='Close']");
 	final public By ELEMENT_PAGEEDITOR_FINISHLIGHTBTN = By.xpath("//*[@class='uiIconSave uiIconLightGray pull-right']");
-	final public By ELEMENT_PAGEEDITOR_FINISHBTN = By.xpath("//*[@class='uiIconSave uiIconDarkGray pull-right']");
+	//final public By ELEMENT_PAGEEDITOR_FINISHBTN = By.xpath("//*[contains(@class,'uiIconSave')]");
 	final public By ELEMENT_PAGEEDITOR_BYCONTENTRADIOBN = By.xpath("//*[@class='radio' and @value='ManualViewerMode']");
 
 	//Multiple content selector
@@ -91,4 +91,5 @@ public class EditPageWCM extends PlatformBase {
 			click(By.xpath((ELEMENT_FOLDERSELECTOR_CONTENTDETAIL_FINALPATH).replace("${name}", lastPath)));
 		}
 	}	
+	
 }

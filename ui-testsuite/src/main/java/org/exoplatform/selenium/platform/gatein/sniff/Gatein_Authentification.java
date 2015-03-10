@@ -9,7 +9,7 @@ import org.testng.annotations.*;
 	* @author eXo
 	*
 	*/
-	public class Gatein_Authentification extends Gatein_TestConfig{
+	public class Gatein_Authentification extends GateIn_TestConfig{
 
 	/**
 	*<li> Case ID:123066.</li>

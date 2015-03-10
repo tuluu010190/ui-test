@@ -83,6 +83,7 @@ public class NavigationToolbar extends PlatformBase {
 
 	//User Menu
 	public final By ELEMENT_MY_PROFILE_LINK = By.xpath("//i[@class='uiIconPLFProfile']/..");
+	public final By ELEMENT_MY_DASHBOARD_LINK = By.xpath("//i[@class='uiIconPLFDashboard']/..");
 	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
 	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
 
@@ -204,6 +205,7 @@ public class NavigationToolbar extends PlatformBase {
 		case MY_WIKI:
 			break;
 		case MY_DASHBOARD:
+			click(ELEMENT_MY_DASHBOARD_LINK);
 			break;
 		case MY_NOTIFICATION:
 			break;
@@ -527,5 +529,12 @@ public class NavigationToolbar extends PlatformBase {
 		mouseOver(ELEMENT_ADMINISTRATION_USERS,true);
 		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS,3000,0);
 		click(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS);
+	}
+	/**
+	 * Open My dashboard
+	 */
+	public void goToMyDashboard(){
+		selectALinkOfUserMenu(specifUserToolBar.MY_DASHBOARD);
+		Utils.pause(2000);
 	}
 }

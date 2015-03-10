@@ -107,7 +107,9 @@ public class TestBase {
 	protected String remoteGadgetDataFilePath;
 	protected String appGateinDataFilePath;
 	protected String getStartFilePath;
-	
+	protected String gadgetFilePath;
+	protected String containerFilePath;
+	protected String appLayoutFilePath;
 
 	/*========Default System Property=============*/
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
@@ -145,8 +147,10 @@ public class TestBase {
 	public final String DEFAULT_APPGATEINURL="DataDriven/"+"application_gatein.xls";
 	public final String DEFAULT_GETTINGSTARTEDURL="DataDriven/"+"getting_started.xls";
 	public final String DEFAULT_WIKIMESSAGEURL = "DataDriven/"+"wiki_message.xls";
+	public final String DEFAULT_GADGETURL = "DataDriven/"+"gatein_gadget.xls";
+	public final String DEFAULT_CONTAINERURL="DataDriven/"+"containers_layout.xls";
 	
-
+	public final String DEFAULT_APPLAYOUTURL="DataDriven/"+"applications_layout.xls";
 	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
@@ -219,6 +223,9 @@ public class TestBase {
 		siteExpDrivePath=System.getProperty("siteExpDrivePath");
 		siteExpPathPath=System.getProperty("siteExpPathPath");
 		linkPath=System.getProperty("linkPath");
+		gadgetFilePath = System.getProperty("gadgetFilePath");
+		containerFilePath = System.getProperty("containerFilePath");
+		appLayoutFilePath = System.getProperty("appLayoutFilePath");
 
 		if (browser==null) browser = DEFAULT_BROWSER;
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -256,6 +263,10 @@ public class TestBase {
 		if (getStartFilePath==null) getStartFilePath = DEFAULT_GETTINGSTARTEDURL;
 		if (wikiMessageFilePath==null) wikiMessageFilePath = DEFAULT_WIKIMESSAGEURL;
 		if (linkPath==null) linkPath = DEFAULT_LINKSURL;
+		
+		if (gadgetFilePath==null) gadgetFilePath = DEFAULT_GADGETURL;
+		if (containerFilePath==null) containerFilePath = DEFAULT_CONTAINERURL;
+		if (appLayoutFilePath==null) appLayoutFilePath = DEFAULT_APPLAYOUTURL;
 
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		wikiRichTextFilePath = getAbsoluteFilePath(wikiRichTextFilePath);
@@ -274,6 +285,10 @@ public class TestBase {
 		siteExpDrivePath = getAbsoluteFilePath(siteExpDrivePath);
 		siteExpPathPath = getAbsoluteFilePath(siteExpPathPath);
 		linkPath = getAbsoluteFilePath(linkPath);
+		
+		gadgetFilePath = getAbsoluteFilePath(gadgetFilePath);
+		containerFilePath = getAbsoluteFilePath(containerFilePath);
+		appLayoutFilePath = getAbsoluteFilePath(appLayoutFilePath);
 	}
 
 
