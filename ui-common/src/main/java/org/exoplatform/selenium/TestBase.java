@@ -99,7 +99,7 @@ public class TestBase {
 	protected String wikiRichTextFilePath;
 	protected String attachmentFilePath;
 	protected String texboxFilePath;
-	//protected String membershipFilePath;
+	protected String permissionPath;
 	protected String linkPath;
 	protected String changLangDataPath;
 	protected String wikiTemplateFilePath;
@@ -110,8 +110,6 @@ public class TestBase {
 	protected String groupsCalenderFilePath;
 	protected String remoteGadgetDataFilePath;
 	protected String languageFilePath;
-	//protected String selectPathFilePath;
-	//protected String membershipFilePath;
 	protected String appGateinDataFilePath;
 	protected String getStartFilePath;
 
@@ -157,7 +155,7 @@ public class TestBase {
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
-
+	public final String DEFAULT_PERMISSIONURL="DataDriven/"+"permission.xls";
 	public final String DEFAULT_SITEEXPLORERDRIVE="DataDriven/" + "SE_drive.xls";
 	public final String DEFAULT_SITEEXPLORERPATH="DataDriven/" + "SE_path.xls";
 
@@ -185,7 +183,6 @@ public class TestBase {
     public final String DEFAULT_PORTAL_PERMISSION_GROUP_URL="DataDriven/"+"gatein_portal_groups.xls";
     public final String DEFAULT_PORTAL_PERMISSION_MEMBERSHIPS_URL="DataDriven/"+"gatein_portal_memberships.xls";
 
-	//public final String DEFAULT_MEMBERSHIPURL = "DataDriven/"+"gatein_membership.xls";
 	public final String DEFAULT_USERINFOURL="DataDriven/"+"userinfo.xls";
 	public final String DEFAULT_MAILSUFFIXURL="DataDriven/"+"mail_suffix.xls";
 	public final String DEFAULT_USERSEARCHOPTIONURL="DataDriven/"+"gatein_user_search_options.xls";
@@ -254,6 +251,7 @@ public class TestBase {
 		attachmentFilePath = System.getProperty("attachmentFilePath");
 		texboxFilePath = System.getProperty("texboxFilePath");
 		languageFilePath = System.getProperty("languageFilePath");
+		permissionPath = System.getProperty("permissionPath");
 		wikiTemplateFilePath = System.getProperty("wikiTemplateFilePath");
 		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
 		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
@@ -315,6 +313,7 @@ public class TestBase {
 		if (wikiTemplateFilePath==null) wikiTemplateFilePath = DEFAULT_WIKITEMPLATEFILEURL;
 		if (texboxFilePath==null) texboxFilePath = DEFAULT_TEXTBOXFILEURL;
 		if (languageFilePath==null) languageFilePath = DEFAULT_LANGUAGEURL;
+		if (permissionPath==null) permissionPath = DEFAULT_PERMISSIONURL;
 		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
 		if (spaceappFilePath==null) spaceappFilePath= DEFAULT_SPACEAPPLICATIONURL;
@@ -349,6 +348,7 @@ public class TestBase {
 		attachmentFilePath = getAbsoluteFilePath(attachmentFilePath);
 		texboxFilePath = getAbsoluteFilePath(texboxFilePath);
 		languageFilePath = getAbsoluteFilePath(languageFilePath);
+		permissionPath = getAbsoluteFilePath(permissionPath);
 		wikiTemplateFilePath = getAbsoluteFilePath(wikiTemplateFilePath);
 		spaceVisibleFilePath = getAbsoluteFilePath(spaceVisibleFilePath);
 		spaceRegistrationFilePath = getAbsoluteFilePath(spaceRegistrationFilePath);

@@ -13,12 +13,6 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-/**
- * 
- * Update quynhpt
- * date 22/01/2015
- *
- */
 public class NavigationToolbar extends PlatformBase {
 	PageCreationWizard paWin;
 	PortalManagePages paMang;

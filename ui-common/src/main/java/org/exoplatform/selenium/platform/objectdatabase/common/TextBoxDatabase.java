@@ -3,7 +3,6 @@ package org.exoplatform.selenium.platform.objectdatabase.common;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 public class TextBoxDatabase {
 	public ArrayList<Integer> type;
 	public ArrayList<String> content;
@@ -45,7 +44,7 @@ public class TextBoxDatabase {
 	/**
 	 * Get file name by index
 	 * @param index
-	 * @return
+	 * @return content.get(index)
 	 */
 	public String getContentByIndex(int index){
 		return content.get(index);
@@ -53,7 +52,7 @@ public class TextBoxDatabase {
 	
 	/**
 	 * get file name random
-	 * @return
+	 * @return Content
 	 */
 	public String getContentRandom(){
 		Random randomGenerator = new Random();
@@ -65,7 +64,7 @@ public class TextBoxDatabase {
 	/**
 	 * getArrayContentByType
 	 * @param type
-	 * @return
+	 * @return arrayContent
 	 */
 	public ArrayList<String> getArrayContentByType(int type){
 		ArrayList<String> arrayContent = new ArrayList<String>();
@@ -81,7 +80,7 @@ public class TextBoxDatabase {
 	/**
 	 * getArrayContentByArrayType
 	 * @param type
-	 * @return
+	 * @return arrayContent
 	 */
 	public ArrayList<String> getArrayContentByArrayType(int...type){
 		ArrayList<String> arrayContent = new ArrayList<String>();

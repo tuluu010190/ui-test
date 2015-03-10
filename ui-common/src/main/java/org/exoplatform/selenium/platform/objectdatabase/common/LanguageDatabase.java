@@ -3,7 +3,6 @@ package org.exoplatform.selenium.platform.objectdatabase.common;
 import java.util.ArrayList;
 import java.util.Random;
 
-
 public class LanguageDatabase {
 	public ArrayList<String> lang;
 

@@ -11,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.ManageAlert;
 
-
 public class UserAndGroupManagement extends PlatformBase {
 	
 	public final String ELEMENT_LINK_SETUP = ".//*[@id='UISetupPlatformToolBarPortlet']/a";
@@ -75,7 +74,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	Dialog dialog;
 
 	public UserAndGroupManagement(WebDriver dr) {
-		driver = dr;
+		this.driver = dr;
 	}
 
 	/**

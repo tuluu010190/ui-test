@@ -15,7 +15,9 @@ import org.exoplatform.selenium.platform.gatein.PortalManagePages;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
+import org.exoplatform.selenium.platform.objectdatabase.common.LanguageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.PermissionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.AppAddGateinDatabase;
@@ -66,6 +68,8 @@ public class GateIn_TestConfig extends PlatformBase {
 	GateinPortalDefaultDatabase portDeftData;
 	GateinPortalGroupsPermissionDatabase portGroupPermisData;
 	GateinPortalMemberShipsPermissionDatabase portMemPermisData;
+	PermissionDatabase permissData;
+	
 	UserInfoDatabase userInfoData;
 	UserSearchOptionDatabase userSearchOptionData;
 	MailSuffixDatabase mailSuffixData;
@@ -77,6 +81,7 @@ public class GateIn_TestConfig extends PlatformBase {
 	CreateNewGateinDatabase creatGateinData;
 	CategoriesGateinDatabase cateGateinData;
 	PagesManagementListDatabase pagMgListData;
+	LanguageDatabase langData;
 	
 	
 	@BeforeClass
@@ -156,6 +161,12 @@ public class GateIn_TestConfig extends PlatformBase {
 
 		mailSuffixData = new MailSuffixDatabase();
 		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		permissData = new PermissionDatabase();
+		permissData.setDesData(permissionPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
+		
+		langData = new LanguageDatabase();
+		langData.setLanguageData(languageFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 		
 		info("End setUpBeforeClass");
 	}

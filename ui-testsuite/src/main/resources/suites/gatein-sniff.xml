@@ -13,8 +13,9 @@
 			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_User_And_Group_Management" />
 			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Manage_Pages" />
 			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Manage_Application" />
-			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Manage_Application.java" />
+			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Manage_Manage_Portal" />
 			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Authentification" />
+		
 		</classes>
 	</test>
 	<listeners>

@@ -2,13 +2,15 @@ package org.exoplatform.selenium.platform.gatein;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.util.Map;
+
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 /**
- * 
  * Path: Administration-->Portal-->Sites
  */
 public class PortalManageSites extends PlatformBase {
@@ -58,6 +60,35 @@ public class PortalManageSites extends PlatformBase {
 	public final By ELEMENT_SAVE_NODE = By.xpath("//*[@id='UINavigationManagement']/..//*[contains(text(),'Save')]");
 	public final By ELEMENT_NODE_NAME = By.id("name");
 	
+	// Add New Portal
+	public final String ELEMENT_ADD_NEW_PORTAL_LINK = ".//*[@id='UISiteManagement']//a[contains(text(),'Add New Site')]";
+	public final By ELEMENT_INPUT_NAME = By.id("name");
+	public final By ELEMENT_PORTAL_LABEL = By.id("label");
+	public final By ELEMENT_PORTAL_DESCRIPTION = By.id("description");
+	public final String ELEMENT_SELECT_LOCALE = "//*[@class='selectbox' and contains(@name,'locale')]";
+	public final String ELEMENT_SELECT_SKIN = "//*[@class='selectbox' and contains(@name,'skin')]";
+	
+	public final String ELEMENT_PROPERTIES_TAB = "//a[contains(text(),'Properties')]";
+	public final String ELEMENT_SELECT_SESSION_ALIVE = "//*[@class='selectbox' and contains(@name,'sessionAlive')]";
+	
+	public final String ELEMENT_PERMISSION_SETTING_TAB = "//a[contains(text(),'Permission Settings')]";
+	public final By ELEMENT_CHECKBOX_PUBLIC_MODE = By.id("publicMode");
+	public final By ELEMENT_ADD_PERMISSION_BUTTON = By.className("uiIconAddUser uiIconWhite");
+	public final String ELEMENT_EDIT_PERMISSION_SETTING = "//a[contains(text(),'Edit Permission Settings')]";
+	public final String ELEMENT_PORTAL_TEMPLATE_TAB = "//a[contains(text(),'Portal Templates')]";
+	
+	public final String ELEMENT_SAVE_BUTTON = "//button[contains(text(),'Save')]";
+	
+	public final String ELEMENT_SELECT_ACCESS_GROUP_ITEM = "//a[contains(@title,'${group}')]/i";
+	public final String ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM = "//a[contains(@title,'${membership}')]";
+	public final String ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP = ".//*[@id='PermissionGrid']//span[contains(text(),'${membership}')]";
+	public final String ELEMENT_SELECT_PERMISSION_BUTTON = "//a[@class='btn' and contains(text(),'Select Permission')]";
+	public final String ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP = "//*[@class='controls' and contains(text(),'${membership}')]";		
+	public final By ELEMENT_POPUP_ADD_PORTAL = By.id("UIMaskWorkspace");
+	public final String ELEMENT_PORTAL_DELETE_ICON = "//*[contains(text(),'${portalName}')]/../..//i[@class='uiIconTrash uiIconLightGray']";
+	
+	public final String ELEMENT_NEW_PORTAL_ADD = "//*[@class='siteName' and text()='${portalName}']";
+	public final String ELEMENT_NEW_PORTAL_SWITCH = "//img[contains(@src, 'sites/${portalName}')]";
 	
 	ManageAlert alert;
 	public PortalManageSites(WebDriver dr){
@@ -69,10 +100,11 @@ public class PortalManageSites extends PlatformBase {
 	 * Open Navigation Management popup
 	 * @param site as acme or intranet
 	 */
-	public void goToEditNavigation(String site){
-		waitForAndGetElement(ELEMENT_MANAGESITES_EDIT_NAVIGATION_ICON.replace("${site}", site),3000,0);
+	public void goToEditNavigation(String site) {
+		waitForAndGetElement(ELEMENT_MANAGESITES_EDIT_NAVIGATION_ICON.replace(
+				"${site}", site), 3000, 0);
 		click(ELEMENT_MANAGESITES_EDIT_NAVIGATION_ICON.replace("${site}", site));
-		waitForAndGetElement(ELEMENT_NAVIGATION_MANAGEMENT_POPUP_TITLE,3000,0);
+		waitForAndGetElement(ELEMENT_NAVIGATION_MANAGEMENT_POPUP_TITLE, 3000, 0);
 	}
 	/**
 	 * Edit layout of a portal
@@ -145,16 +177,17 @@ public class PortalManageSites extends PlatformBase {
 	 * @param title
 	 * @param path
 	 */
-	public void addNode(String title,String subTitle){
-		if(subTitle.isEmpty()){
+	public void addNode(String title, String subTitle) {
+		if (subTitle.isEmpty()) {
 			click(ELEMENT_UP_LEVEL_PATH_NODE);
 			click(ELEMENT_ADD_NODE);
-		    type(ELEMENT_NODE_NAME,title,true);
-		}else{
-			waitForAndGetElement(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("${name}",title));
-			click(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("${name}",title));
+			type(ELEMENT_NODE_NAME, title, true);
+		} else {
+			waitForAndGetElement(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace(
+					"${name}", title));
+			click(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("${name}", title));
 			click(ELEMENT_ADD_NODE);
-			type(ELEMENT_NODE_NAME,subTitle,true);
+			type(ELEMENT_NODE_NAME, subTitle, true);
 		}
 		click(ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
 		Utils.pause(1000);
@@ -167,14 +200,16 @@ public class PortalManageSites extends PlatformBase {
 	 * @param locator
 	 * @param link
 	 */
-	public void deleteNode(String title){
+	public void deleteNode(String title) {
 		info("Delete a node");
 		info("Right click on the node");
-		rightClickOnElement(ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME.replace("${name}",title));
+		rightClickOnElement(ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME.replace(
+				"${name}", title));
 		info("Select Delete link");
 		selectItem(specifiContextMenu.DELETE_NODE);
 		info("Verify that the node is deleted");
-		waitForElementNotPresent(ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME.replace("${name}",title));
+		waitForElementNotPresent(ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME
+				.replace("${name}", title));
 		waitForAndGetElement(ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
 		info("Click on Save button");
 		click(ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
@@ -287,5 +322,165 @@ public class PortalManageSites extends PlatformBase {
 		}
 		saveNewPortal();
 	}
+	 /** 
+	  * Add New Portal
+	 * @param portalName
+	 * @param label
+	 * @param description
+	 * @param portalLocale
+	 * @param portalSkin
+	 * @param portalSession
+	 * @param publicMode
+	 * @param permissions
+	 * @param editGroupId
+	 * @param editMembership
+	 * @param template
+	 */
+	
+	public void addNewPortal(String portalName, String label,
+			String description, String portalLocale, String portalSkin,
+			String portalSession, boolean publicMode,
+			Map<String, String> permissions, String editGroupId,
+			String editMembership, String... template) {
+		info("--Create new portal--");
+		click(ELEMENT_ADD_NEW_PORTAL_LINK);
+		configPortal(portalName, label, description, portalLocale, portalSkin,
+				portalSession, publicMode, permissions, editGroupId,
+				editMembership, template);
+	}
+
+	/**
+	 * Configure Portal
+	 * @param portalName
+	 * @param label
+	 * @param description
+	 * @param portalLocale
+	 * @param portalSkin
+	 * @param portalSession
+	 * @param publicMode
+	 * @param permissions
+	 * @param editGroupId
+	 * @param editMembership
+	 * @param template
+	 */
+	
+	public void configPortal(String portalName, String label,String description, String portalLocale, String portalSkin,
+			String portalSession, boolean publicMode,Map<String, String> permissions, String editGroupId,
+			String editMembership, String... template) {
+		if (portalName != null) {
+			type(ELEMENT_INPUT_NAME, portalName, true);
+		}
+		if (label != null) {
+			type(ELEMENT_PORTAL_LABEL, label, true);
+		}
+		if (description != null) {
+			type(ELEMENT_PORTAL_DESCRIPTION, description, true);
+		}
+		if (portalLocale != null) {
+			select(ELEMENT_SELECT_LOCALE, portalLocale);
+		}
+		if (portalSkin != null) {
+			select(ELEMENT_SELECT_SKIN, portalSkin);
+		}
+		if (portalSession != null) {
+			click(ELEMENT_PROPERTIES_TAB);
+			select(ELEMENT_SELECT_SESSION_ALIVE, portalSession);
+		}
+		click(ELEMENT_PERMISSION_SETTING_TAB);
+		if (publicMode) {
+			check(ELEMENT_CHECKBOX_PUBLIC_MODE, 2);
+			waitForElementNotPresent(ELEMENT_ADD_PERMISSION_BUTTON);
+		} else {
+			for (String key : permissions.keySet()) {
+				setViewPermissions(key, permissions.get(key));
+			}
+		}
+		if (editGroupId != null && editMembership != null) {
+			click(ELEMENT_EDIT_PERMISSION_SETTING);
+			setEditPermissions(editGroupId, editMembership);
+		}
+		if (template.length > 0) {
+			click(ELEMENT_PORTAL_TEMPLATE_TAB);
+			WebElement temp = getElementFromTextByJquery(template[0]);
+			temp.click();
+		}
+		click(ELEMENT_SAVE_BUTTON);
+		Utils.pause(2000);
+		waitForElementNotPresent(ELEMENT_POPUP_ADD_PORTAL, 180000, 0);
+		if (waitForAndGetElement(ELEMENT_POPUP_ADD_PORTAL, 10000, 0) == null)
+			waitForElementNotPresent(ELEMENT_EDIT_PERMISSION_SETTING, 120000);
+	}
+
+	/**
+	 * Set View Permissions
+	 * @param groupId
+	 * @param membership
+	 */
+	
+	public void setViewPermissions(String groupId, String membership) {
+		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM
+				.replace("${membership}", membership);
+		String selectedMembership = ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP
+				.replace("${membership}", membership);
+
+		info("--Setting view permission to " + groupId + ", " + membership
+				+ "--");
+		String[] groups = groupId.split("/");
+		Utils.pause(500);
+		click(ELEMENT_ADD_PERMISSION_BUTTON);
+		for (String group : groups) {
+			String groupToSelect = ELEMENT_SELECT_ACCESS_GROUP_ITEM.replace(
+					"${group}", group);
+			click(groupToSelect);
+		}
+		Utils.pause(500);
+		click(membershipToSelect);
+		Utils.pause(500);
+		waitForAndGetElement(selectedMembership);
+	}
+	
+	
+	/**
+	 * Set Edit Permissions
+	 * @param groupId
+	 * @param membership
+	 */
+	public void setEditPermissions(String groupId, String membership) {
+		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM
+				.replace("${membership}", membership);
+		String selectedMembership = ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP
+				.replace("${membership}", membership);
+
+		info("--Setting edit permission to " + groupId + ", " + membership
+				+ "--");
+		String[] groups = groupId.split("/");
+		click(ELEMENT_SELECT_PERMISSION_BUTTON);
+		Utils.pause(500);
+		waitForTextPresent("Permission Selector");
+		for (String group : groups) {
+			String groupToSelect = ELEMENT_SELECT_ACCESS_GROUP_ITEM.replace(
+					"${group}", group);
+			click(groupToSelect);
+		}
+		click(membershipToSelect);
+		waitForTextNotPresent("Permission Selector");
+		waitForAndGetElement(selectedMembership, DEFAULT_TIMEOUT, 1, 2);
+	}
+
+	/**
+	 * Delete Portal
+	 * @param portalName
+	 */
+	public void deletePortal(String portalName) {
+		String portalDeleteIcon = ELEMENT_PORTAL_DELETE_ICON.replace(
+				"${portalName}", portalName);
+		info("--Delete portal (" + portalName + ")--");
+		click(portalDeleteIcon);
+		alert.waitForConfirmation("Are you sure you want to delete this portal?");
+		waitForElementNotPresent(
+				ELEMENT_PORTAL_DELETE_ICON.replace("${portalName}", portalName),
+				180000);
+	}
+
 	
 }
