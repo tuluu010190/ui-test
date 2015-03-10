@@ -70,6 +70,8 @@ public class PlatformBase extends TestBase {
 	public By ELEMENT_TOTAL_PAGE=By.xpath("//*[@class='pagesTotalNumber']");
 	public By ELEMENT_CURRENT_PAGE=By.xpath("//*[@class='active']/*[contains(@href,'objectId') or contains(@href,'javascript')]");
 	public String ELEMENT_ANY_PAGE="//*[contains(@href,'ShowPage') and text()='$page']";
+	public String ELEMENT_PAGINATOR_PAGE_LINK = "//*[@class='pagination uiPageIterator clearfix']//a[contains(Text(),'${number}')]";
+	
 	//frame
 	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
 	public final By ELEMENT_FILEFORM_BLANK_NAME = By.id("name");
@@ -266,5 +268,43 @@ public class PlatformBase extends TestBase {
 		}
 		waitForElementNotPresent(mail);
 		Utils.pause(1000);
+	}
+	
+	
+	public void usePaginator(Object locator, String exceptionMessage) {
+		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
+		//String page1Namespace = ELEMENT_PAGINATOR_PAGE_NAMESPACE_LINK.replace("${number}", "1"); 
+
+		if (waitForAndGetElement(page1, 5000, 0) != null){
+			click(page1);
+		}/*else if (waitForAndGetElement(page1Namespace, 3000, 0) != null){
+			click(page1Namespace);
+		}*/
+		Utils.pause(500);
+		int totalPages = 0;
+		if (waitForAndGetElement(ELEMENT_TOTAL_PAGE, 3000, 0) != null){
+			totalPages = isElementPresent(ELEMENT_TOTAL_PAGE) ? Integer.valueOf(getText(ELEMENT_TOTAL_PAGE)) : 1;
+		}/*else if (waitForAndGetElement(ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER, 3000, 0) != null){
+			totalPages = isElementPresent(ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER) ? Integer.valueOf(getText(ELEMENT_PAGINATOR_NAMESPACE_TOTAL_NUMBER)) : 1;
+		}*/
+		info("-- The total pages is: " + totalPages);
+		int i = 1;
+		while (isElementNotPresent(locator)) {
+			if (i == totalPages) {
+				//Assert.fail(exceptionMessage);
+				info(exceptionMessage);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_NEXT_PAGE, 3000, 0) != null){
+				click(ELEMENT_NEXT_PAGE);
+				//waitForAndGetElement(ELEMENT_PAGINATOR_NAMESPACE_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
+			}/*else if (waitForAndGetElement(ELEMENT_PAGINATOR_NEXT_ICON, 3000, 0) != null){
+				click(ELEMENT_PAGINATOR_NEXT_ICON);
+				waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
+			}else {
+				click(button.ELEMENT_NEXT_PAGE_BUTTON);
+			}*/
+			Utils.pause(500);
+		}
 	}
 }

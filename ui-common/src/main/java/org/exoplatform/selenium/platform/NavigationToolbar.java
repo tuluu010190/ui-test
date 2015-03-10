@@ -42,7 +42,8 @@ public class NavigationToolbar extends PlatformBase {
 	// users 
 	public final By ELEMENT_ADMINISTRATION_USERS =By.xpath("//*[text()='Users']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS = By.xpath("//*[text()='Add Users']");
-
+	//public final String ELEMENT_MANAGE_USER = ".//*[@id='UISetupPlatformToolBarPortlet']//a[text()='Users']";	
+	public final String ELEMENT_GROUP_AND_ROLE_LINK = ".//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Groups and Roles')]";
 	//Administration Menu
 	//Administration-->Portal
 	public final By ELEMENT_ADMINISTRATION_PORTAL = By.xpath("//*[text()='Portal']");
@@ -200,6 +201,19 @@ public class NavigationToolbar extends PlatformBase {
 		info("Page Managements is shown successfully");
 	}
 
+	/**
+	 * function: Go to Users and Group management (Administration --> Users --> Groups and Roles)
+	 */
+	public void goToUsersAndGroupsManagement() {
+		info("--Go to Users and groups management--");
+		click(ELEMENT_LINK_SETUP);
+		mouseOver(ELEMENT_ADMINISTRATION_USERS, true);
+		//WebElement element = waitForAndGetElement(By.xpath(ELEMENT_GROUP_AND_ROLE_LINK), DEFAULT_TIMEOUT, 1, 2);		
+		click(ELEMENT_GROUP_AND_ROLE_LINK);
+		//((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		Utils.pause(500);
+	}
+	
 	/**
 	 * List sublink in user menu
 	 * @author quynhpt

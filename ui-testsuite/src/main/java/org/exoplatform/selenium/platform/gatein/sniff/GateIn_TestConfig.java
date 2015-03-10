@@ -7,7 +7,6 @@ import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
-//import org.exoplatform.selenium.platform.ecms.EditPageWCM;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.GadgetManagement;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
@@ -15,7 +14,10 @@ import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManagePages;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
+import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
+import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.AppAddGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.AppListGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationLayoutDatabase;
@@ -28,6 +30,7 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalGroup
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalMemberShipsPermissionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.PagesManagementListDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.UserSearchOptionDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -49,7 +52,7 @@ public class GateIn_TestConfig extends PlatformBase {
 	Button but;
 	
 	UserAddManagement addUserPage;
-	
+	UserAndGroupManagement userAndGroup;
 	PageCreationWizard pagCW;
 	
 	MyDashBoard myDash;
@@ -63,7 +66,9 @@ public class GateIn_TestConfig extends PlatformBase {
 	GateinPortalDefaultDatabase portDeftData;
 	GateinPortalGroupsPermissionDatabase portGroupPermisData;
 	GateinPortalMemberShipsPermissionDatabase portMemPermisData;
-	
+	UserInfoDatabase userInfoData;
+	UserSearchOptionDatabase userSearchOptionData;
+	MailSuffixDatabase mailSuffixData;
 	GadgetManagement gadMg;
 	
 	ApplicationRegistry appRegistry;
@@ -95,7 +100,7 @@ public class GateIn_TestConfig extends PlatformBase {
 		but = new Button(driver, this.plfVersion);
 		
 		addUserPage = new UserAddManagement(driver);
-		
+		userAndGroup = new UserAndGroupManagement(driver);
 		pagCW = new PageCreationWizard(driver);
 		
 		
@@ -142,6 +147,15 @@ public class GateIn_TestConfig extends PlatformBase {
 		
 		portMemPermisData = new GateinPortalMemberShipsPermissionDatabase();
 		portMemPermisData.setData(portalPermisMemFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		userInfoData = new UserInfoDatabase();
+		userInfoData.setUserInfoData(userInfoFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		userSearchOptionData = new UserSearchOptionDatabase();
+		userSearchOptionData.setUserSearchOptionData(userSearchOptionFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+
+		mailSuffixData = new MailSuffixDatabase();
+		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
 		info("End setUpBeforeClass");
 	}

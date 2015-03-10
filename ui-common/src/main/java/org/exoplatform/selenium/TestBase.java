@@ -93,9 +93,13 @@ public class TestBase {
 	protected String defaultSheet;
 
 	protected String userDataFilePath;
+	protected String userInfoFilePath;
+	protected String mailSuffixFilePath;
+	protected String userSearchOptionFilePath;
 	protected String wikiRichTextFilePath;
 	protected String attachmentFilePath;
 	protected String texboxFilePath;
+	//protected String membershipFilePath;
 	protected String linkPath;
 	protected String changLangDataPath;
 	protected String wikiTemplateFilePath;
@@ -181,6 +185,11 @@ public class TestBase {
     public final String DEFAULT_PORTAL_PERMISSION_GROUP_URL="DataDriven/"+"gatein_portal_groups.xls";
     public final String DEFAULT_PORTAL_PERMISSION_MEMBERSHIPS_URL="DataDriven/"+"gatein_portal_memberships.xls";
 
+	//public final String DEFAULT_MEMBERSHIPURL = "DataDriven/"+"gatein_membership.xls";
+	public final String DEFAULT_USERINFOURL="DataDriven/"+"userinfo.xls";
+	public final String DEFAULT_MAILSUFFIXURL="DataDriven/"+"mail_suffix.xls";
+	public final String DEFAULT_USERSEARCHOPTIONURL="DataDriven/"+"gatein_user_search_options.xls";
+	
 	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
@@ -238,12 +247,13 @@ public class TestBase {
 		defaultSheet = System.getProperty("defaultSheet");
 
 		userDataFilePath = System.getProperty("userDataFilePath");
+		userInfoFilePath = System.getProperty("userInfoFilePath");
+		mailSuffixFilePath = System.getProperty("mailSuffixFilePath");
+		userSearchOptionFilePath = System.getProperty("userSearchOptionFilePath");
 		wikiRichTextFilePath = System.getProperty("wikiRichTextFilePath");
 		attachmentFilePath = System.getProperty("attachmentFilePath");
 		texboxFilePath = System.getProperty("texboxFilePath");
-	//	selectPathFilePath = System.getProperty("selectPathFilePath");
 		languageFilePath = System.getProperty("languageFilePath");
-	//membershipFilePath = System.getProperty("membershipFilePath");
 		wikiTemplateFilePath = System.getProperty("wikiTemplateFilePath");
 		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
 		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
@@ -297,13 +307,14 @@ public class TestBase {
 		if (siteExpPathPath==null) siteExpPathPath = DEFAULT_SITEEXPLORERPATH;
 
 		if (userDataFilePath==null) userDataFilePath = DEFAULT_USERFILEURL;
+		if (userInfoFilePath==null) userInfoFilePath = DEFAULT_USERINFOURL;
+		if (mailSuffixFilePath==null) mailSuffixFilePath = DEFAULT_MAILSUFFIXURL;
+		if (userSearchOptionFilePath==null) userSearchOptionFilePath = DEFAULT_USERSEARCHOPTIONURL;
 		if (wikiRichTextFilePath==null) wikiRichTextFilePath = DEFAULT_WIKIRICHTEXTFILEURL;
 		if (attachmentFilePath==null) attachmentFilePath = DEFAULT_ATTACHMENTFILEURL;
 		if (wikiTemplateFilePath==null) wikiTemplateFilePath = DEFAULT_WIKITEMPLATEFILEURL;
 		if (texboxFilePath==null) texboxFilePath = DEFAULT_TEXTBOXFILEURL;
-		//if (selectPathFilePath==null) selectPathFilePath = DEFAULT_SELECTPATHURL;
 		if (languageFilePath==null) languageFilePath = DEFAULT_LANGUAGEURL;
-		//if (membershipFilePath==null) membershipFilePath = DEFAULT_MEMBERSHIPURL;
 		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
 		if (spaceappFilePath==null) spaceappFilePath= DEFAULT_SPACEAPPLICATIONURL;
@@ -331,12 +342,13 @@ public class TestBase {
         if (portalPermisMemFilePath==null) portalPermisMemFilePath = DEFAULT_PORTAL_PERMISSION_MEMBERSHIPS_URL;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
+		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
+		mailSuffixFilePath = getAbsoluteFilePath(mailSuffixFilePath);
+		userSearchOptionFilePath = getAbsoluteFilePath(userSearchOptionFilePath);
 		wikiRichTextFilePath = getAbsoluteFilePath(wikiRichTextFilePath);
 		attachmentFilePath = getAbsoluteFilePath(attachmentFilePath);
 		texboxFilePath = getAbsoluteFilePath(texboxFilePath);
-	//	selectPathFilePath = getAbsoluteFilePath(selectPathFilePath);
 		languageFilePath = getAbsoluteFilePath(languageFilePath);
-	//	membershipFilePath = getAbsoluteFilePath(membershipFilePath);
 		wikiTemplateFilePath = getAbsoluteFilePath(wikiTemplateFilePath);
 		spaceVisibleFilePath = getAbsoluteFilePath(spaceVisibleFilePath);
 		spaceRegistrationFilePath = getAbsoluteFilePath(spaceRegistrationFilePath);
