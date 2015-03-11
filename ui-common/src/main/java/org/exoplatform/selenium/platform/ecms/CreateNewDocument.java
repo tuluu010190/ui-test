@@ -43,8 +43,8 @@ public class CreateNewDocument extends PlatformBase{
 	
 	//New Web content form
 	public final By ELEMENT_WEBCONTENTFORM_BUTTON_LINK = By.xpath("//*[@class='cke_button_icon cke_button__link_icon']");
-	public final By ELEMENT_WEBCONTENTFORM_LINK_ADRESS = By.xpath("//*[@id='cke_128_textInput']");
-	public final By ELEMENT_WEBCONTENTFORM_LINK_OK = By.xpath("//*[@id='cke_275_label']");
+	public final By ELEMENT_WEBCONTENTFORM_LINK_ADRESS = By.xpath("//*[text()='URL']/../..//*[contains(@id,'textInput')]");
+	public final By ELEMENT_WEBCONTENTFORM_LINK_OK = By.xpath("//*[@class='cke_dialog_body']//*[text()='OK']");
 
 	//New folder popup
 	public final By ELEMENT_ADD_NEW_FOLDER_POPUP_TITLE= By.xpath(".//*[@id='UIPopupWindow']//span[text()='New Folder']");
@@ -193,8 +193,9 @@ public class CreateNewDocument extends PlatformBase{
 	 */
 	public void addNewWebContent(String title, String content) {
 		driver.navigate().refresh();
+		Utils.pause(1000);
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
-		inputFrame(ELEMENT_FILEFORM_BLANK_CONTENT, content);
+		inputDataToCKEditor(ELEMENT_FILEFORM_BLANK_CONTENT, content);
 		//switchToParentWindow();
 	}
 

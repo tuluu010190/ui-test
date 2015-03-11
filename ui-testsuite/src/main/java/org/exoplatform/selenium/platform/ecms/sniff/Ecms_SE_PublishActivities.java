@@ -126,7 +126,7 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		driver.navigate().refresh();
 		aHome.checkActivityAddWebContent(title, "1", "Published");
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}",comment)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}",comment)));
 		
 		// delete data
 		navTool.goToSiteExplorer();
@@ -227,7 +227,7 @@ import org.testng.annotations.*;
 		SEHome.editDocument("",newContent);
 		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}",comment)));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}",comment)));
 		
 		// delete data
 		navTool.goToSiteExplorer();
@@ -289,7 +289,7 @@ import org.testng.annotations.*;
 		SEHome.selectNode(title);
 		SEHome.addTag(tag);
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Tag: "+tag+" has been added.")));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}","Tag: "+tag+" has been added.")));
 
 		
 		/*Step number: 3
@@ -305,7 +305,7 @@ import org.testng.annotations.*;
 		SEHome.selectNode(title);
 		SEHome.addTag(secondTags);
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",title).replace("{$comment}","Tags: "+secondTags+" have been added.")));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}","Tags: "+secondTags+" have been added.")));
 
 		// delete data
 		navTool.goToSiteExplorer();
@@ -470,7 +470,7 @@ import org.testng.annotations.*;
 		SEHome.addCategoryForNode(file,"intranet");
 		
 		hp.goToHomePage();
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$title}",file).replace("{$comment}","Category: intranet has been added.")));
+		waitForAndGetElement(By.xpath(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",file).replace("${comment}","Category: intranet has been added.")));
 		
 		info("Delete the file");
 		navTool.goToSiteExplorer();
@@ -651,7 +651,7 @@ import org.testng.annotations.*;
 		
 		info("Check the comment on the activity");
 		hp.goToHomePage();
-		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$comment}","File has been moved to: /sites/intranet/"+file));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",file).replace("${comment}","File has been moved to: /sites/intranet/"+file));
 
 		info("Delete the file");
 		navTool.goToSiteExplorer();
@@ -700,7 +700,7 @@ import org.testng.annotations.*;
 		
 		info("Check the comment on the activity");
 		hp.goToHomePage();
-		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("{$comment}","Publication has been moved to: /sites/intranet/"+title));
+		waitForAndGetElement(aHome.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",title).replace("${comment}","Publication has been moved to: /sites/intranet/"+title));
 
 		info("Delete the file");
 		navTool.goToSiteExplorer();

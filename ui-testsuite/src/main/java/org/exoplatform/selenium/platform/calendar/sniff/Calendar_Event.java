@@ -39,7 +39,7 @@ public class Calendar_Event extends PlatformBase {
 	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
-		getDefaultUserPass(DEFAULT_USERFILEURL,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);

@@ -71,11 +71,10 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Edit menu
 	public final By ELEMENT_LINK_EDIT=By.xpath("//*[@class='uiIconPLF24x24Edit']");
-	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
-	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
+	public final By ELEMENT_MENU_PAGE_LINK = By.xpath("//*[@tabindex='-1' and contains(text(),'Page')]");
+	public final By ELEMENT_MENU_EDIT_LAYOUT = By.xpath("//*[contains(text(),'Edit Layout')]");
 	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[contains(text(), 'SEO')]");
-	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
-	//public final By ELEMENT_EDIT_BUTTON = By.xpath(".//*[@id='UIAdminToolbarContainer']//*[@class='uiIconPLF24x24Edit']");
+	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.xpath("//*[contains(text(), 'Add Page')]");
 	public final By ELEMENT_EDIT_PAGE = By.xpath("//*[@id='UIAdminToolbarContainer']//*[@class='dropdown-submenu']//*[@href='#' and contains(text(), 'Page')]");
 	public final By ELEMENT_EDIT_PAGE_SEO = By.xpath("//*[@data-original-title = 'SEO Management']");
 	public final By ELEMENT_EDIT_CONTENT = By.xpath("//*[@class='quickEditUnchecked']");
@@ -134,7 +133,7 @@ public class NavigationToolbar extends PlatformBase {
 		info("--Go to Edit Layout--");
 		click(ELEMENT_LINK_EDIT);
 		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
-		click(ELEMENT_MENU_EDIT_LAYOUT);
+		click(ELEMENT_MENU_EDIT_LAYOUT,2,true);
 	}
 
 	/** 
@@ -145,7 +144,7 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_LINK_EDIT);
 		click(ELEMENT_LINK_EDIT);
 		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
-		click(ELEMENT_MENU_ADD_PAGE_LINK);
+		click(ELEMENT_MENU_ADD_PAGE_LINK,2,true);
 		waitForAndGetElement(paWin.ELEMENT_PAGE_CREATION_WIZARD);
 	}
 
@@ -269,7 +268,9 @@ public class NavigationToolbar extends PlatformBase {
 		info("Go to Edit content");
 		waitForAndGetElement(ELEMENT_LINK_EDIT);
 		click(ELEMENT_LINK_EDIT);
-		check(ELEMENT_EDIT_CONTENT,2);
+		if(waitForAndGetElement(ELEMENT_EDIT_CONTENT,5000,0)!=null)
+			click(ELEMENT_EDIT_CONTENT);
+		waitForAndGetElement(ELEMENT_EDIT_CONTENT_CHECK);
 	}
 	/**
 	 * Go to Un-edit content
@@ -279,7 +280,8 @@ public class NavigationToolbar extends PlatformBase {
 		info("Go to un Edit content");
 		waitForAndGetElement(ELEMENT_LINK_EDIT);
 		click(ELEMENT_LINK_EDIT);
-		click(ELEMENT_EDIT_CONTENT_CHECK);
+		if(waitForAndGetElement(ELEMENT_EDIT_CONTENT_CHECK,5000,0)!=null)
+			click(ELEMENT_EDIT_CONTENT_CHECK);
 	}
 	/**
 	 * Open Change language popup
@@ -507,7 +509,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_TOOLBAR_QUICKSEARCH);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Open My profile page
 	 */
@@ -518,7 +520,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_MY_PROFILE_LINK);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Go to add an user
 	 */

@@ -79,14 +79,8 @@ public class ApplicationRegistry extends PlatformBase {
 	 */
 	public void checkAllShowImportApplicaion(){
 		info("Show all import application");
-		if ("iexplorer".equals(browser)){
-			navTool.goToPotalPages();
-			pagMag.editPage("registry");
-		}
-		else{
-			navTool.goToApplication();
-			navTool.goToEditLayout();
-		}
+		navTool.goToApplication();
+		navTool.goToEditLayout();
 		pagEditor.goToEditPortlet(pagEditor.ELEMENT_FRAME_CONTAIN_PORTLET);
 		showImportApplication(true);
 		click(pagEditor.ELEMENT_EDIT_PORTLET_FORM_SAVE_BUTTON);

@@ -86,7 +86,7 @@ public class TestBase {
 	protected String sqlAttach;
 	protected String sqlUser;
 	protected String sqlContent;
-	
+
 	protected String siteExpDrivePath;
 	protected String siteExpPathPath;
 
@@ -110,8 +110,10 @@ public class TestBase {
 	protected String gadgetFilePath;
 	protected String containerFilePath;
 	protected String appLayoutFilePath;
+	protected String nativeEvent;
 
 	/*========Default System Property=============*/
+	public final String DEFAULT_NATIVE_EVENT = "true";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
 	public final String DEFAULT_BROWSER="firefox";//iexplorer, firefox, chrome
 	public final String DEFAULT_SERVER="ubuntu"; //win, ubuntu
@@ -137,10 +139,10 @@ public class TestBase {
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
-	
+
 	public final String DEFAULT_SITEEXPLORERDRIVE="DataDriven/" + "SE_drive.xls";
 	public final String DEFAULT_SITEEXPLORERPATH="DataDriven/" + "SE_path.xls";
-	
+
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
 	public final String DEFAULT_CHANGELANGUADATAURL="DataDriven/" + "ChangeLanguage.xls";
 	public final String DEFAULT_REMOTEGADGETURL="DataDriven/"+"remote_gadget_links.xls";
@@ -152,7 +154,7 @@ public class TestBase {
 	
 	public final String DEFAULT_APPLAYOUTURL="DataDriven/"+"applications_layout.xls";
 	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
-	
+
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -192,6 +194,7 @@ public class TestBase {
 	 * Get System Property
 	 */
 	public void getSystemProperty(){
+		nativeEvent = System.getProperty("nativeEvent");
 		browser = System.getProperty("browser");
 		server = System.getProperty("server");
 		baseUrl = System.getProperty("baseUrl");
@@ -219,7 +222,7 @@ public class TestBase {
 		appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
 		getStartFilePath = System.getProperty("getStartFilePath");
 		wikiMessageFilePath = System.getProperty("wikiMessageFilePath");
-		
+
 		siteExpDrivePath=System.getProperty("siteExpDrivePath");
 		siteExpPathPath=System.getProperty("siteExpPathPath");
 		linkPath=System.getProperty("linkPath");
@@ -227,6 +230,7 @@ public class TestBase {
 		containerFilePath = System.getProperty("containerFilePath");
 		appLayoutFilePath = System.getProperty("appLayoutFilePath");
 
+		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		if (server==null) server = DEFAULT_SERVER;
@@ -245,7 +249,7 @@ public class TestBase {
 		if (sqlContent==null) sqlContent = DEFAULT_SQLCONTENT;
 
 		if (defaultSheet==null) defaultSheet = DEFAULT_SHEET;
-		
+
 		if (siteExpDrivePath==null) siteExpDrivePath = DEFAULT_SITEEXPLORERDRIVE;
 		if (siteExpPathPath==null) siteExpPathPath = DEFAULT_SITEEXPLORERPATH;
 
@@ -281,7 +285,7 @@ public class TestBase {
 		getStartFilePath = getAbsoluteFilePath(getStartFilePath);
 		wikiMessageFilePath = getAbsoluteFilePath(wikiMessageFilePath);
 		spaceappFilePath = getAbsoluteFilePath(spaceappFilePath);
-		
+
 		siteExpDrivePath = getAbsoluteFilePath(siteExpDrivePath);
 		siteExpPathPath = getAbsoluteFilePath(siteExpPathPath);
 		linkPath = getAbsoluteFilePath(linkPath);
@@ -300,7 +304,14 @@ public class TestBase {
 		System.setProperty("webdriver.ie.driver",ieDriver) ;
 		DesiredCapabilities  capabilitiesIE = DesiredCapabilities.internetExplorer();
 		capabilitiesIE.setCapability("ignoreProtectedModeSettings", true);
-		capabilitiesIE.setCapability("nativeEvents", false);
+		if ("true".equals(nativeEvent)){
+			info("Set nativeEvent is TRUE");
+			capabilitiesIE.setCapability("nativeEvents", true);
+		}
+		else{
+			info("Set nativeEvent is FALSE");
+			capabilitiesIE.setCapability("nativeEvents", false);
+		}
 		capabilitiesIE.setCapability("javascriptEnabled", true);
 		capabilitiesIE.setCapability("requireWindowFocus", true);
 		capabilitiesIE.setCapability("enablePersistentHover", false);
@@ -362,6 +373,22 @@ public class TestBase {
 			driver = initFFDriver();
 		}
 		action = new Actions(driver);
+	}
+	
+	/**
+	 * init newDriver
+	 */
+	public void initNewDriver(){
+		getSystemProperty();
+		if("chrome".equals(browser)){
+			newDriver = new ChromeDriver();
+			chromeFlag = true;
+		} else if ("iexplorer".equals(browser)){
+			newDriver = initIEDriver();
+			ieFlag = true;
+		} else {
+			newDriver = initFFDriver();
+		}
 	}
 
 	/**
@@ -751,6 +778,15 @@ public class TestBase {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
 			if (!element.isSelected()) {
 				actions.click(element).perform();
+				if(waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE).getAttribute("type")!=null && waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE).getAttribute("type")!="checkbox"){
+					info("Checkbox is not checked");
+					if (!element.isSelected()) {
+						info("check by javascript");
+						waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
+						JavascriptExecutor js = (JavascriptExecutor)driver; 
+						js.executeScript("arguments[0].click();", element);  
+					}
+				}
 			} else {
 				info("Element " + locator + " is already checked.");
 			}
@@ -1412,10 +1448,18 @@ public class TestBase {
 			inputsummary = driver.switchTo().activeElement();
 			inputsummary.click();
 			inputsummary.clear();
-			inputsummary.sendKeys(data);
-			//	((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
-			switchToParentWindow();
-			//((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
+			if ("iexplorer".equals(browser)){
+				if ("true".equals(nativeEvent)){
+					info("Set nativeEvent is TRUE");
+					((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
+				}
+				else{
+					info("Set nativeEvent is FALSE");
+					inputsummary.sendKeys(data);
+				}
+			} else {
+				((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
+			}
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
@@ -1661,7 +1705,7 @@ public class TestBase {
 			//Setting clipboard with file location
 			setClipboardData(path);
 			//native key strokes for CTRL, V and ENTER keys
-			
+
 			robot.keyPress(KeyEvent.VK_CONTROL);
 			robot.keyPress(KeyEvent.VK_V);
 			robot.keyRelease(KeyEvent.VK_V);
@@ -1692,7 +1736,7 @@ public class TestBase {
 	 * @param driver
 	 */
 	public static void scrollToElement(WebElement element, WebDriver driver) {
-	    JavascriptExecutor jse = (JavascriptExecutor) driver;
-	    jse.executeScript("arguments[0].scrollIntoView(true);", element);
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 }

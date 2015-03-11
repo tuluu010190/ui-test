@@ -315,6 +315,8 @@ public class HomePagePlatform extends TestBase{
 	public void goToAnswer(){
 		info("-- Go to answer page --");
 		click(ELEMENT_ANSWER_LINK_PLF);
+		if(waitForAndGetElement(aHome.ELEMENT_ANSWER_PORTLET,5000,0)==null)
+			driver.navigate().refresh();
 		waitForAndGetElement(aHome.ELEMENT_ANSWER_PORTLET);
 	}
 

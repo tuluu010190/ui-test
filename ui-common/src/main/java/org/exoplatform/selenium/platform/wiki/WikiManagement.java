@@ -116,6 +116,7 @@ public class WikiManagement extends WikiHomePage{
 	//Email notification
 	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
 	public final String ELEMENT_GMAIL_CONTENT_LINK_WIKI = ".//a[contains(@href,'${page}')]";
+	public final String ELEMENT_GMAIL_CONTENT_WIKI = ".//span[contains(.,'\"${title}\" page was modified')]";
 	
 	ManageAlert alert;
 	/**
@@ -136,16 +137,16 @@ public class WikiManagement extends WikiHomePage{
 		waitForAndGetElement(ELEMENT_TEMPLATE_SELECT_FORM);
 		By eTemplate = By.xpath(ELEMENT_SELECT_TEMPLATE_LINK.replace("${template}",template));
 		info("eTemplate:"+eTemplate.toString());
-		click(eTemplate, 2);
+		click(eTemplate, 2,true);
 	}
 
 	/**
 	 * Change to Source Editor mode
 	 */
 	public void goToSourceEditor(){
-		if(waitForAndGetElement(ELEMENT_SOURCE_EDITOR_BUTTON,5000,0,2)!=null){
+		if(waitForAndGetElement(ELEMENT_SOURCE_EDITOR_BUTTON,5000,0)!=null){
 			info("Go to Source Editor");
-			click(ELEMENT_SOURCE_EDITOR_BUTTON);	
+			click(ELEMENT_SOURCE_EDITOR_BUTTON,0,true);	
 		}
 		waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT);
 	}
@@ -154,9 +155,9 @@ public class WikiManagement extends WikiHomePage{
 	 * Change to Rich Text Mode
 	 */
 	public void goToRichTextEditor(){
-		if(waitForAndGetElement(ELEMENT_RICHTEXT_BUTTON,5000,0,2)!=null){
+		if(waitForAndGetElement(ELEMENT_RICHTEXT_BUTTON,5000,0)!=null){
 			info("Go to Rich Text Mode");
-			click(ELEMENT_RICHTEXT_BUTTON);
+			click(ELEMENT_RICHTEXT_BUTTON,0,true);	
 		}
 		waitForAndGetElement(ELEMENT_CONTENT_WIKI_FRAME);
 	}
@@ -172,6 +173,7 @@ public class WikiManagement extends WikiHomePage{
 	 * 
 	 */
 	public void inputDataToPageSourceEditor(String title, String content, Boolean isClearTitle, Boolean isClearContent){
+		goToSourceEditor();
 		String[] text ;
 		info("Modify data with source editor");
 		if(title != null){
@@ -211,6 +213,7 @@ public class WikiManagement extends WikiHomePage{
 	 * 
 	 */
 	public void inputDataToPageRichText(String title, String content, Boolean isClearTitle, Boolean isClearContent){
+		goToRichTextEditor();
 		if(title != null){
 			if(isClearTitle)
 				type(ELEMENT_TITLE_WIKI_INPUT, title, true);
@@ -241,6 +244,7 @@ public class WikiManagement extends WikiHomePage{
 	 */
 	public void addWikiPageSimpleWithRichText(String title, String content){
 		this.driver.navigate().refresh();
+		goToRichTextEditor();
 		info("Input a title for the page");
 		if(!title.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
@@ -263,6 +267,7 @@ public class WikiManagement extends WikiHomePage{
 	 *            updated content of the wiki page. Can not be <code>null</code>
 	 */
 	public void editWikipageSimpleWithRichText(String newTitle,String newContent){
+		goToRichTextEditor();
 		info("Input a new title for the page");
 		if(!newTitle.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
@@ -333,6 +338,7 @@ public class WikiManagement extends WikiHomePage{
 	 *            updated content of the wiki page. Can not be <code>null</code>
 	 */
 	public void addSimplePageWithRichText(String title, String content){
+		goToRichTextEditor();
 		info("Input a title for the page");
 		if(!title.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
@@ -393,7 +399,7 @@ public class WikiManagement extends WikiHomePage{
 	    info("Waiting 30s before saved all changes");
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
 		info("Cancel adding page");
-		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
+		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE,0,true);
 		waitForAndGetElement(ELEMENT_CONFIRMATION_POPUP_YES_BTN,2000,0).click();
 		Utils.pause(2000);
 	}
@@ -427,7 +433,7 @@ public class WikiManagement extends WikiHomePage{
 	 */
 	public void saveAddPage(){
 		 info("Save all changes");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		click(ELEMENT_SAVE_BUTTON_ADD_PAGE,0,true);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		info("Wiki page simple is created successfully");
 	}
@@ -436,7 +442,7 @@ public class WikiManagement extends WikiHomePage{
 	 * Cancel add page
 	 */
 	public void cancelAddPage(){
-		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
+		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE,0,true);
 		waitForElementNotPresent(ELEMENT_CANCEL_BUTTON_ADD_PAGE);
 	}
 
@@ -838,12 +844,12 @@ public class WikiManagement extends WikiHomePage{
 			     driver.switchTo().window(windowHandle);
 			     info("driver.title:"+driver.getTitle());
 		}
-		waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,0);
+		waitForAndGetElement(ELEMENT_GMAIL_CONTENT_WIKI.replace("${title}",title),30000,0);
 		info("Found notify mail");
 
-		info("ELEMENT_GMAIL_CONTENT:"+ELEMENT_GMAIL_CONTENT.replace("${title}",title));
+		info("ELEMENT_GMAIL_CONTENT:"+ELEMENT_GMAIL_CONTENT_WIKI.replace("${title}",title));
 		info("Open email");
-		 waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title)).click();
+		 waitForAndGetElement(ELEMENT_GMAIL_CONTENT_WIKI.replace("${title}",title)).click();
 		 String defaultLink = baseUrl+"/intranet/wiki/"+title;
 		 //Store childs and parent windows
 		 Object[] allWindows =driver.getWindowHandles().toArray();

@@ -129,20 +129,23 @@ public class QuestionManagement extends PlatformBase {
 	 * @param pathFile
 	 */
 	public void inputDataToQuestionForm(String title, String content, String language, String pathFile){
-		info("input title");
 		if(title!=null && title!=""){
+			info("input title");
 			type(ELEMENT_SUBMIT_QUESTION_FORM_TITLE_INPUT,title,true);
 		}
-		info("input content");
+		
 		if(content!=null && content!=""){
+			info("input content");
 			inputDataToCKEditor(ELEMENT_SUBMIT_QUESTION_FORM_DATA_FRAME_INPUT,content);
 		}
-		info("input language");
+		
 		if(language!=null && language!=""){
+			info("input language");
 			select(ELEMENT_SUBMIT_QUESTION_FORM_LANGUAGE_SELECT_BOX,language);
 		}
-		info("input pathFile");
+		
 		if(pathFile!=null && pathFile!=""){
+			info("input pathFile");
 			String[] links = pathFile.split("/");
 			click(ELEMENT_SUBMIT_QUESTION_FORM_ATTACHMENT_BUTTON);
 			WebElement eFile = waitForAndGetElement(ELEMENT_QUESTION_FILE_INPUT,DEFAULT_TIMEOUT,1,2);

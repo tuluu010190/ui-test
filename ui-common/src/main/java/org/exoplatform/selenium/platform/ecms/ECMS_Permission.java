@@ -105,15 +105,15 @@ public class ECMS_Permission extends PlatformBase {
 		info("Select check boxes right");
 		if(read==true){
 			info("Read right is true, click on Read checkbox");
-			check(ELEMENT_PERMISSION_CHECKBOXREAD);
+			check(ELEMENT_PERMISSION_CHECKBOXREAD,2);
 		}
 		if(modify==true){
 			info("Modify right is true, click on Modify checkbox");
-			check(ELEMENT_PERMISSION_CHECKBOXMODIFY);
+			check(ELEMENT_PERMISSION_CHECKBOXMODIFY,2);
 		}
 		if(remove==true){
 			info("Remove right is true, click on Remove checkbox");
-			check(ELEMENT_PERMISSION_CHECKBOXREMOVE);
+			check(ELEMENT_PERMISSION_CHECKBOXREMOVE,2);
 		}
 		Utils.pause(5000);
 		info("Finished selecting right checkbox");

@@ -65,7 +65,6 @@ public class Ecms_AdminRepository extends ECMS_TestConfig_Part1{
 
 		navTool.goToContentAdministration();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
-		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.NODESTYPES);
 		caPage.addNodeType(name, superTypes);
 		caPage.searchNodeAndCheckIt(name, superTypes+", nt:base");
@@ -108,7 +107,6 @@ public class Ecms_AdminRepository extends ECMS_TestConfig_Part1{
 			New namespace is registered successfully.*/ 
 		navTool.goToContentAdministration();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
-		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.NAMESPACES);
 		caPage.registerNamespace(prefix, url);
 		waitForAndGetElement(caPage.ELEMENT_ECM_REPOSITORY_NAMESPACES_CHECK_LIST_URL_AND_PREFIX.replace("{$url}",url).replace("{$prefix}",prefix));
@@ -146,7 +144,6 @@ public class Ecms_AdminRepository extends ECMS_TestConfig_Part1{
 		SEHome.lockNode(title);
 		navTool.goToContentAdministration();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.REPOSITORY);
-		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.LOCKS);
 		click(caPage.ELEMENT_ECM_REPOSITORY_MANAGE_LOCK);
 		click(caPage.ELEMENT_ECM_REPOSITORY_LOCKS_DEVELOPMENT_GROUP);

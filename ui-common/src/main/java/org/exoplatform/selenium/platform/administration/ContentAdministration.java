@@ -191,6 +191,7 @@ public class ContentAdministration extends PlatformBase{
 	public String ELEMENT_ECM_REPOSITORY_NODES_SHOW_SPECIFIC_NODE = ".//*[@id='ListNodeType']//*[contains(text(),'{$node}')]/../..//*[@class='uiIconPreview uiIconLightGray']";
 	public String ELEMENT_ECM_REPOSITORY_NODES_CHECK_SUPER_TYPES = "//*[@id='superTypes' and @value='{$types}']";
 	public By ELEMENT_ECM_REPOSITORY_NODES_CLOSE_FORM = By.xpath("//*[@id='UINodeTypeForm']//*[contains(text(),'Close')]");
+	public By ELEMENT_ECM_REPOSITORY_NODES_OK_FORM = By.xpath("//*[@class='uiAction uiActionBorder']//*[contains(text(),'OK')]");
 	
 	// repository, namespaces
 	public By ELEMENT_ECM_REPOSITORY_NAMESPACES_ADD = By.xpath("//*[@id='UINamespaceManager']//*[contains(text(),'Register')]");
@@ -236,6 +237,7 @@ public class ContentAdministration extends PlatformBase{
 	public String ELEMENT_ECM_TEMPLATES_METADATA_CHECK_MATADATA_INFORMATION = "//*[@class='metadataInfoDetails']//*[contains(text(),'{$metadata}')]";
 	public By ELEMENT_ECM_TEMPLATES_METADATA_CLOSE_VIEW = By.xpath("//*[@id='ViewMetadataPopup']//*[contains(text(),'Close')]");
 	public String ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE = "//*[@id='UIMetadataList']//*[contains(text(),'{$name}')]/..//*[@class='uiIconDelete uiIconLightGray']";
+	public By ELEMENT_ECM_TEMPLATES_METADATA_FORM_OK_FORM = By.xpath("//*[@class='uiAction uiActionBorder']//*[contains(text(),'OK')]");
 
 	ManageAlert alert ;
 	public ContentAdministration(WebDriver dr){
@@ -848,6 +850,7 @@ public class ContentAdministration extends PlatformBase{
 		if(mixinType!=null)
 			select(ELEMENT_ECM_REPOSITORY_NODES_MIXIN_TYPES, mixinType);
 		click(ELEMENT_ECM_REPOSITORY_NODES_SAVE_FORM);
+		click(ELEMENT_ECM_REPOSITORY_NODES_OK_FORM);
 	}
 
 	/**
@@ -963,6 +966,7 @@ public class ContentAdministration extends PlatformBase{
 		click(By.xpath(ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE.replace("{$name}", name)));
 		alert.acceptAlert();
 		waitForElementNotPresent(By.xpath(ELEMENT_ECM_TEMPLATES_METADATA_FORM_DELETE.replace("{$name}", name)));
+		click(ELEMENT_ECM_TEMPLATES_METADATA_FORM_OK_FORM);
 	}
 	
 	/**

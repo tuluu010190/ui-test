@@ -286,7 +286,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		hpAct.checkActivity(newTitle);
 		info("Verify that No comment is added to the activity above");
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY
-				.replace("${activity}", newTitle)
+				.replace("${title}", newTitle)
 				.replace("${comment}", comment));
 		
 		info("Delete the page");
@@ -364,7 +364,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		info("Verify that only A comment that input above is added in the activity");
 		hpAct.checkCommentOfActivity(title,comment);
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY
-				.replace("${activity}", title).replace("${comment}", comment1));
+				.replace("${title}", title).replace("${comment}", comment1));
 		
 		/*Step Number: 3
 		 *Step Name: Edit Wiki Page with no comment

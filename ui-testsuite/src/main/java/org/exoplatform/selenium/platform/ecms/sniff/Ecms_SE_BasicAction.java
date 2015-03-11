@@ -7,7 +7,6 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.*;
 
 
@@ -178,7 +177,7 @@ public class Ecms_SE_BasicAction extends ECMS_TestConfig_Part2{
 		CreNewDoc.saveAndClose();
 		SEHome.lockNode(titleCommonNode);
 
-		newDriver = new FirefoxDriver();
+		initNewDriver();
 		newDriver.get(baseUrl);
 		ManageLogInOut  acc = new ManageLogInOut(newDriver);
 		NavigationToolbar navTool2 = new NavigationToolbar(newDriver);

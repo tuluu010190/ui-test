@@ -29,7 +29,7 @@ public class PlatformBase extends TestBase {
 	//Gmail
 	public final String GMAIL_URL = "https://mail.google.com";
 	public final String EMAIL_ADDRESS1 = "exomailtest01@gmail.com";
-	public final String EMAIL_ADDRESS2 = "exoservice@gmail.com";
+	public final String EMAIL_ADDRESS2 = "fqaexovn@gmail.com";
 	public final String EMAIL_PASS = "exoadmin";
 	public final String ELEMENT_MAIL_SUBJECT = ".//span[contains(.,'${subject}')]";
 	public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
@@ -47,8 +47,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.cssSelector("a[id='account-chooser-add-account']");
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//tr[1]//span[contains(text(),'Hi')]");
 	public final String ELEMENT_GMAIL_CONTENT = ".//span[contains(.,'\"${title}\" page was modified')]";
-	
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
+	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
 
 	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
 	public final By ELEMENT_FILE_LINK = By.xpath("//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
@@ -71,12 +71,9 @@ public class PlatformBase extends TestBase {
 	public By ELEMENT_CURRENT_PAGE=By.xpath("//*[@class='active']/*[contains(@href,'objectId') or contains(@href,'javascript')]");
 	public String ELEMENT_ANY_PAGE="//*[contains(@href,'ShowPage') and text()='$page']";
 	//frame
-	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//div[@id= 'cke_1_contents']/iframe");
+	public final By ELEMENT_FILEFORM_BLANK_CONTENT = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
 	public final By ELEMENT_FILEFORM_BLANK_NAME = By.id("name");
 	
-	//Email notification
-	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
-	public final String ELEMENT_GMAIL_CONTENT_LINK_WIKI = ".//a[contains(@href,'${page}')]";
 	/**
 	 * Available option
 	 */
@@ -114,40 +111,6 @@ public class PlatformBase extends TestBase {
 		DATA_USER4 = userData.userName.get(3);
 	}
 
-	/**
-	 * Go to gmail and login
-	 * @param email
-	 * @param pass
-	 */
-	public void goToMail(String email, String pass){	
-		((JavascriptExecutor) driver).executeScript("window.open()");
-		for(String winHandle : driver.getWindowHandles()){
-			driver.switchTo().window(winHandle);
-		}
-		info("Go to gmail");
-		driver.navigate().to(GMAIL_URL);
-		driver.manage().window().maximize();
-
-		//login to mail
-		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 5000,0) == null){
-			if (waitForAndGetElement(ELEMENT_GMAIL_SIGN_IN_LINK,3000,0) != null)
-				click(ELEMENT_GMAIL_SIGN_IN_LINK); 
-			else{
-				click(ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC);
-				click(ELEMENT_GMAIL_ADD_ACCOUNT);
-			}
-		}
-		type(ELEMENT_GMAIL_USERNAME, email, true);
-		type(ELEMENT_GMAIL_PASS, pass, true);
-		click(ELEMENT_GMAIL_SIGN_IN);
-		clearCache();
-		click(ELEMENT_GMAIL_INBOX);
-		Utils.pause(1000);
-	}
-
-	
-	
-	
 	/**
 	 * Type a text to a Frame using for CKEDITOR
 	 * By QuynhPT
@@ -249,6 +212,37 @@ public class PlatformBase extends TestBase {
 	}
 	
 	/**
+	 * Go to gmail and login
+	 * @param email
+	 * @param pass
+	 */
+	public void goToMail(String email, String pass){	
+		((JavascriptExecutor) driver).executeScript("window.open()");
+		for(String winHandle : driver.getWindowHandles()){
+			driver.switchTo().window(winHandle);
+		}
+		info("Go to gmail");
+		driver.navigate().to(GMAIL_URL);
+		driver.manage().window().maximize();
+
+		//login to mail
+		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 5000,0) == null){
+			if (waitForAndGetElement(ELEMENT_GMAIL_SIGN_IN_LINK,3000,0) != null)
+				click(ELEMENT_GMAIL_SIGN_IN_LINK); 
+			else{
+				click(ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC);
+				click(ELEMENT_GMAIL_ADD_ACCOUNT);
+			}
+		}
+		type(ELEMENT_GMAIL_USERNAME, email, true);
+		type(ELEMENT_GMAIL_PASS, pass, true);
+		click(ELEMENT_GMAIL_SIGN_IN);
+		clearCache();
+		click(ELEMENT_GMAIL_INBOX);
+		Utils.pause(1000);
+	}
+	
+	/**
 	 * function: check content of mail then delete mail
 	 * @param mail element title of mail
 	 * @param content mail content
@@ -259,7 +253,7 @@ public class PlatformBase extends TestBase {
 		click(mail);	
 		if(waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${content}",content),20000,0) == null )
 			click(ELEMENT_FIRST_MAIL);
-		assert waitForAndGetElement(ELEMENT_GMAIL_CONTENT).getText().contains(content);
+		assert waitForAndGetElement(ELEMENT_MAIL_CONTENT).getText().contains(content);
 		info("Found notify mail");
 
 		info("delete mail");

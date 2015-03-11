@@ -105,7 +105,7 @@ public class ActivityStream extends PlatformBase {
 	public String ELEMENT_ACTIVITY_EDIT_FROM_HOMEPAGE ="//*[@id='UIDocumentForm']//*[contains(text(),'{$title}')]";
 	
 	// Common activity
-	public final String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[contains(text(),'{activity}')]/../../../../..//*[contains(text(),\"${comment}\")]";
+	public final String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[contains(text(),'${title}')]/../../../../..//*[contains(text(),\"${comment}\")]";
 	public final String ELEMENT_ACTIVITY_VIEW_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'{$name}')]";
@@ -370,9 +370,8 @@ public class ActivityStream extends PlatformBase {
 	 * @param pathFolder where put upload file
 	 * @param pathData   where put Test Data folder
 	 * @param nameFile
-	 * @param addtext
+	 * @param addText
 	 * @param text
-	 * @return ActivityStream page
 	 */
 	public void addActivity(String nameDrive,String pathFolder,String pathData,String nameFile,boolean addText,String text) {
 		info("-- Adding an activity--");
@@ -442,7 +441,6 @@ public class ActivityStream extends PlatformBase {
 	 * Open Upload Popup from Activity Stream
 	 * @param nameDrive 
 	 * @param path  where put the upload file
-	 * @param return ActivityStream page
 	 */
 	public void openUploadPopup(String nameDrive,String path){
 		info("----Click on file icon----");
@@ -466,7 +464,6 @@ public class ActivityStream extends PlatformBase {
 	 * Upload a file from Upload Popup
 	 * @param path     where put TestDate folder
 	 * @param nameFile
-	 * @return ActivityStream page
 	 */
 	public void uploadFileFromAS(String path,String nameFile){
 		info("-- Upload file --");
@@ -486,7 +483,6 @@ public class ActivityStream extends PlatformBase {
 	/**
 	 * Add a Text to Composer box of AS
 	 * @param contentText
-	 * @return Activity Stream page
 	 */
 	public void addText(String contentText) {
 		info("----Add text into activity text box-----");
