@@ -594,7 +594,7 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_ADD_WIKI_FORM);
 		button.next();
 	}
-
+    
 	/** Go to upload file
 	 * Mouse over on the button "Create" (+)
 	 * Select the item "Upload File"
@@ -606,7 +606,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_ADD_UPLOAD_FILE_ICON);
 		waitForAndGetElement(ELEMENT_UPLOAD_FILE_FORM);
 	}
-
+    
 	/** Go to upload file
 	 * Mouse over on the button "Create" (+)
 	 */

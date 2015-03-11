@@ -750,4 +750,26 @@ public class EcmsBase extends ManageAccount {
 			info("Input checkbox list wrong");
 		}
 	}
+	
+	/**
+	 *  Goto upload in Content/Site Explorer
+	 *  Mouse over on the button "More"
+	 *  Click on "Upload"
+	 */
+	public void goToUpload(){
+		info("--Goto Upload in Content/Site Explorer");
+		if(waitForAndGetElement(ELEMENT_MORE_LINK_WITHOUT_BLOCK, DEFAULT_TIMEOUT,0)==null){
+			mouseOverAndClick(ELEMENT_UPLOAD_LINK_XPATH);
+		}
+		else{
+			mouseOverAndClick(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			if(waitForAndGetElement(ELEMENT_UPLOAD_LINK_XPATH, DEFAULT_TIMEOUT,0)==null){
+				info("cannot find Upload button");
+			}
+			else{
+				mouseOverAndClick(ELEMENT_UPLOAD_LINK_XPATH);
+			}
+			
+		}
+	}
 }

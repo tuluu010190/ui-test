@@ -401,8 +401,7 @@ public class ContentTemplate extends EcmsBase {
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		if(isVerify)
 			waitForAndGetElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", name));		
-		Utils.pause(3000);
-	}
+		Utils.pause(3000);	}
 
 	// Web Content > [Insert content link]
 	public void addContentLinkInFCKEditor(String path, String file) {

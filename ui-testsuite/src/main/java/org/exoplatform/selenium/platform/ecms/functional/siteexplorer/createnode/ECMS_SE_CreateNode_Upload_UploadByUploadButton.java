@@ -16,7 +16,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-
+/*
+ * updated by anhpp
+ */
 public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase {
 	//Platform
 	ManageAccount magAcc;
@@ -46,7 +48,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
-	/*QMetry ID:102235 
+	/*QMetry ID:119766
 	 * Title: Upload a file from the [Upload] button in Document
 	 * */
 	@Test
@@ -61,7 +63,6 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		click(ELEMENT_UPLOAD_LINK_XPATH);
 		ecms.uploadFile(data + FileName);
 		
-		
 		info("Wait the element of upload zone at the bottom");
 		waitForAndGetElement(ecms.ELEMENT_UPLOAD_CLOSE_TAB);
 		waitForAndGetElement(ecms.ELEMENT_UPLOAD_INFORMATION_ICON);
@@ -74,7 +75,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		action.actionsOnElement(title, actionType.DELETE);
 	}
 	
-	/* QmetryID: 102265
+	/* QmetryID: 119790
 	 * Upload a file from the [Upload] button in Site Explorer 
 	 * */
 	@Test
@@ -84,9 +85,8 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		
 		info("Go to site explorer");
 		navToolBar.goToSiteExplorer();
-		click(ELEMENT_UPLOAD_LINK_XPATH);
+		ecms.goToUpload();
 		ecms.uploadFile(data + FileName);
-		
 		
 		info("Wait the element of upload zone at the bottom");
 		waitForAndGetElement(ecms.ELEMENT_UPLOAD_CLOSE_TAB);
@@ -119,14 +119,14 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 	public void Test04_UploadMultipleFileFromTheUploadButtonInDocument(){
 	}
 	
-	/*QmetryID: 102312
+	/*QmetryID: 119824
 	 * Upload a file from the [Upload] button in a document in Intranet/Document
 	 * 
 	 * */
 	@Test
 	public void Test05_UploadAFileFromTheUploadButtonInADocumentInIntranetDocument(){
-		String Web_Content_Name = "Webcontent_Case_102312";
-		String Web_Content_Cont = "Content of Webcontent_102312";
+		String Web_Content_Name = "webcontent102312";
+		String Web_Content_Cont = "contentWebcontent102312";
 		String FileName = "ECMS_DMS_SE_Upload_imgfile.jpg";
 		String title = "ECMS_DMS_SE_Upload_imgfile";
 		String data = "TestData/";
@@ -144,7 +144,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		
 		info("Upload file in webcontent folder");
 		action.goToViewMode("List");
-		click(ELEMENT_UPLOAD_LINK_XPATH);
+		ecms.goToUpload();
 		ecms.uploadFile(data + FileName);
 		waitForAndGetElement(ecms.ELEMENT_MESSAGE_FILE_UPLOADED);
 		
@@ -157,7 +157,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		info("Delete File: " + Web_Content_Name);
 		action.actionsOnElement(Web_Content_Name, actionType.DELETE);
 	}
-	/*QmetryID: 102313
+	/*QmetryID: 119825
 	 * Upload a file from the [Upload] button in a document in Site Explorer
 	 * 
 	 * */
@@ -177,7 +177,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", Illustrated_Web_Content_Title));
 		
 		info("Upload file in Illustrated web content folder");
-		click(ELEMENT_UPLOAD_LINK_XPATH);
+		ecms.goToUpload();
 		ecms.uploadFile(data + FileName);
 		waitForAndGetElement(ecms.ELEMENT_MESSAGE_FILE_UPLOADED);
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", FileName));
@@ -186,7 +186,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		cMenu.deleteDocument(By.linkText(Illustrated_Web_Content_Title));
 	}
 	
-	/*QmetryID: 102314
+	/*QmetryID: 119826
 	 * Upload a file from the [Upload] button in a content folder in Sites Explorer
 	 * */
 	@Test
@@ -202,7 +202,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		
 		info("Upload file in content folder");
 		click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", FolderName));
-		click(ELEMENT_UPLOAD_LINK_XPATH);
+		ecms.goToUpload();
 		ecms.uploadFile("TestData/" + FileName);
 		
 		info("Wait the element of upload zone at the bottom");
@@ -217,7 +217,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		cMenu.deleteDocument(By.linkText(FolderName));
 	}
 	
-	/*QmetryID: 102315
+	/*QmetryID: 119827
 	 * Upload a file from the [Upload] button in a folder in Document
 	 * */
 	@Test
@@ -255,7 +255,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		action.actionsOnElement(FolderName, actionType.DELETE);
 	}
 	
-	/*QmetryID: 102316
+	/*QmetryID: 119828
 	 * Upload a file from the [Upload] button in a document folder in Sites Explorer
 	 * */
 	@Test
@@ -271,7 +271,7 @@ public class ECMS_SE_CreateNode_Upload_UploadByUploadButton extends PlatformBase
 		
 		info("Upload file in content folder");
 		click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", DocFolderName));
-		click(ELEMENT_UPLOAD_LINK_XPATH);
+		ecms.goToUpload();
 		ecms.uploadFile("TestData/" + FileName);
 		
 		info("Wait the element of upload zone at the bottom");
