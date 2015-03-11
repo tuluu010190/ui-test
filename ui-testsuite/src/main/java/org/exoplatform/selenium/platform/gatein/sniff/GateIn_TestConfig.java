@@ -7,12 +7,18 @@ import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.ecms.EditPageWCM;
+import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
+import org.exoplatform.selenium.platform.gatein.GadgetManagement;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.AppAddGateinDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.AppListGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationLayoutDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.CategoriesGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ContainersDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.CreateNewGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GadgetsGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
@@ -44,6 +50,14 @@ public class GateIn_TestConfig extends PlatformBase {
 	
 	
 	EditPageWCM editPageWCM;
+	
+	GadgetManagement gadMg;
+	
+	ApplicationRegistry appRegistry;
+	AppListGateinDatabase appGateInData;
+	AppAddGateinDatabase appAddGateinData;
+	CreateNewGateinDatabase creatGateinData;
+	CategoriesGateinDatabase cateGateinData;
 	
 	
 	@BeforeClass
@@ -80,6 +94,24 @@ public class GateIn_TestConfig extends PlatformBase {
 		
 		remoteGadData = new RemoteGadgetDatabase();
 		remoteGadData.setRemoteGadgetData(remoteGadgetDataFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		gadMg = new GadgetManagement(driver);
+		
+		appRegistry = new ApplicationRegistry(driver);
+		appGateInData = new AppListGateinDatabase();
+		appGateInData.setApplicationGateinData(appListGateinFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+	
+		appAddGateinData = new AppAddGateinDatabase();
+		appAddGateinData.setAppAddGateinData(appAddGateinFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		creatGateinData = new CreateNewGateinDatabase();
+		creatGateinData.setGateinData(createNewGateinFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		cateGateinData = new CategoriesGateinDatabase();
+		cateGateinData.setGateinData(categoriesGateinFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		txData = new TextBoxDatabase();
+		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		info("End setUpBeforeClass");
 	}

@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.testng.annotations.*;
 
 
-public class GateIn_Dashboard extends GateIn_TestConfig {
+public class Gatein_Dashboard extends GateIn_TestConfig {
 
 
 

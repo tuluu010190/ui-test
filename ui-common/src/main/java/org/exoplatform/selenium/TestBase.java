@@ -107,10 +107,17 @@ public class TestBase {
 	protected String remoteGadgetDataFilePath;
 	protected String appGateinDataFilePath;
 	protected String getStartFilePath;
+
 	protected String gadgetFilePath;
 	protected String containerFilePath;
 	protected String appLayoutFilePath;
 	protected String nativeEvent;
+
+	protected String appListGateinFilePath;
+	protected String appAddGateinFilePath;
+	protected String createNewGateinFilePath;
+	protected String categoriesGateinFilePath;
+	
 
 	/*========Default System Property=============*/
 	public final String DEFAULT_NATIVE_EVENT = "true";
@@ -149,10 +156,18 @@ public class TestBase {
 	public final String DEFAULT_APPGATEINURL="DataDriven/"+"application_gatein.xls";
 	public final String DEFAULT_GETTINGSTARTEDURL="DataDriven/"+"getting_started.xls";
 	public final String DEFAULT_WIKIMESSAGEURL = "DataDriven/"+"wiki_message.xls";
+
 	public final String DEFAULT_GADGETURL = "DataDriven/"+"gatein_gadget.xls";
 	public final String DEFAULT_CONTAINERURL="DataDriven/"+"containers_layout.xls";
 	
 	public final String DEFAULT_APPLAYOUTURL="DataDriven/"+"applications_layout.xls";
+
+	public final String DEFAULT_APPLISTGETINURL="DataDriven/"+"gatein_applications_list.xls";
+	public final String DEFAULT_APPADDGATEINURL="DataDriven/"+"gatein_applications_add.xls";
+	public final String DEFAULT_CREATENEWGATEINURL="DataDriven/"+"create_new_gatein.xls";
+	public final String DEFAULT_CATEGORIGATEINURL="DataDriven/"+"gatein_categories.xls";
+
+
 	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
 
 	/*======= Welcome Screen (Term and Conditions) =====*/
@@ -226,9 +241,18 @@ public class TestBase {
 		siteExpDrivePath=System.getProperty("siteExpDrivePath");
 		siteExpPathPath=System.getProperty("siteExpPathPath");
 		linkPath=System.getProperty("linkPath");
+
 		gadgetFilePath = System.getProperty("gadgetFilePath");
 		containerFilePath = System.getProperty("containerFilePath");
 		appLayoutFilePath = System.getProperty("appLayoutFilePath");
+
+		
+		appListGateinFilePath = System.getProperty("appListGateinFilePath");
+		appAddGateinFilePath = System.getProperty("appAddGateinFilePath");
+		
+		createNewGateinFilePath =System.getProperty("createNewGateinFilePath");
+		categoriesGateinFilePath = System.getProperty("categoriesGateinFilePath");
+
 
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -268,9 +292,17 @@ public class TestBase {
 		if (wikiMessageFilePath==null) wikiMessageFilePath = DEFAULT_WIKIMESSAGEURL;
 		if (linkPath==null) linkPath = DEFAULT_LINKSURL;
 		
+
 		if (gadgetFilePath==null) gadgetFilePath = DEFAULT_GADGETURL;
 		if (containerFilePath==null) containerFilePath = DEFAULT_CONTAINERURL;
 		if (appLayoutFilePath==null) appLayoutFilePath = DEFAULT_APPLAYOUTURL;
+
+		if (appListGateinFilePath==null) appListGateinFilePath = DEFAULT_APPLISTGETINURL;
+		if (appAddGateinFilePath==null) appAddGateinFilePath = DEFAULT_APPADDGATEINURL;
+		
+		if (createNewGateinFilePath==null) createNewGateinFilePath = DEFAULT_CREATENEWGATEINURL;
+		if (categoriesGateinFilePath==null) categoriesGateinFilePath = DEFAULT_CATEGORIGATEINURL;
+
 
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		wikiRichTextFilePath = getAbsoluteFilePath(wikiRichTextFilePath);
@@ -290,9 +322,15 @@ public class TestBase {
 		siteExpPathPath = getAbsoluteFilePath(siteExpPathPath);
 		linkPath = getAbsoluteFilePath(linkPath);
 		
+
 		gadgetFilePath = getAbsoluteFilePath(gadgetFilePath);
 		containerFilePath = getAbsoluteFilePath(containerFilePath);
 		appLayoutFilePath = getAbsoluteFilePath(appLayoutFilePath);
+
+		appListGateinFilePath = getAbsoluteFilePath(appListGateinFilePath);
+		appAddGateinFilePath = getAbsoluteFilePath(appAddGateinFilePath);
+		createNewGateinFilePath = getAbsoluteFilePath(createNewGateinFilePath);
+		categoriesGateinFilePath = getAbsoluteFilePath(categoriesGateinFilePath);
 	}
 
 

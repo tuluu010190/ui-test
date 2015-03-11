@@ -9,6 +9,7 @@ public class PageEditor extends PlatformBase {
 	//Common
 	public final By ELEMENT_EDIT_PORTLET_ICON = By.xpath("//*[@data-original-title='Edit Portlet']");
 	public final By ELEMENT_DELETE_PORTLET_ICON = By.xpath("//*[@data-original-title='Delete Portlet']");
+	public final String ELEMENT_EDITOR_PAGE_APPLICATION_PORTLET =".//*[@class='portletLayoutDecorator'][contains(text(),'${name}')]";
 	
 	//Edit portlet form
 	public final By ELEMENT_EDIT_PORTLET_FORM=By.id("tab-UIPortletForm");
@@ -42,17 +43,30 @@ public class PageEditor extends PlatformBase {
 	public final By ELEMENT_EDIT_SAVE_BUTTON=By.xpath("//*[text()='Save']");
 	public final By ELEMENT_PAGE_OK_BUTTON=By.xpath("//*[contains(@class,'UIPopupWindow')]//a[text()='OK']");
 	
+	
+	
 	public PageEditor(WebDriver dr){
 		driver = dr;
 	}
 	
-	/**
-	 * 
-	 * @param elementPortlet
-	 */
-	public void goToEditPortlet(Object elementPortlet){
+    /**
+     * Edit a Portlet with locator of the portlet
+     * @param locatorPortlet
+     */
+	public void goToEditPortlet(Object locatorPortlet){
 		info("Go to edit portlet");
-		mouseOver(elementPortlet, true);
+		mouseOver(locatorPortlet, true);
+		click(ELEMENT_EDIT_PORTLET_ICON);
+		waitForAndGetElement(ELEMENT_EDIT_PORTLET_FORM);
+	}
+	
+	/**
+	 * Edit a Portlet with the name of portlet
+	 * @param namePortlet
+	 */
+	public void goToEditPortlet(String namePortlet){
+		info("Go to edit portlet");
+		mouseOver(ELEMENT_EDITOR_PAGE_APPLICATION_PORTLET.replace("${name}", namePortlet), true);
 		click(ELEMENT_EDIT_PORTLET_ICON);
 		waitForAndGetElement(ELEMENT_EDIT_PORTLET_FORM);
 	}

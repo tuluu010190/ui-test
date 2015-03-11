@@ -37,7 +37,8 @@ public class FaqPage  extends PlatformBase {
 	 */
 	public void createFaqPage(){
 		info("Show all import application");
-		arPage.checkAllShowImportApplicaion();
+		arPage.displayImportApplicaions();
+		arPage.importAllApplications();
 		hp.goToHomePage();
 
 		info("Create FAQ Page");

@@ -77,7 +77,8 @@ public class AnswerPage extends PlatformBase {
 	 */
 	public void createAnswerPage(){
 		info("Show all import application");
-		arPage.checkAllShowImportApplicaion();
+		arPage.displayImportApplicaions();
+		arPage.importAllApplications();
 		hp.goToHomePage();
 
 		info("Create Answer Page");

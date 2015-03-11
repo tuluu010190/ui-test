@@ -7,8 +7,10 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_TestConfig" />
+			<class name="org.exoplatform.selenium.platform.gatein.sniff.GateIn_TestConfig" />
 			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Authentification" />
+			<class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Manage_Application" />
+		    <class name="org.exoplatform.selenium.platform.gatein.sniff.Gatein_Dashboard" />
 		</classes>
 	</test>
 	<listeners>
