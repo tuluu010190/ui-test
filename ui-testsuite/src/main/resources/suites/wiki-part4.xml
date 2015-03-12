@@ -17,7 +17,7 @@
 			<class
 				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Activity_Display" />
 			<class
-				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Wiki_Activity_Update" />
+				name="org.exoplatform.selenium.platform.wiki.functional.activities.Wiki_Activity_Update" />
 		</classes>
 	</test>
 	<test name="wiki-func-attachment" enabled="true">
