@@ -14,8 +14,10 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -24,7 +26,7 @@ import org.testng.annotations.Test;
  * 
  * @author vuna2
  * August, 2nd, 2013	
- *
+ * updated by anhpp
  */
 public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	//Platform
@@ -64,7 +66,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 66208
+	 * Qmetry ID: 119728
 	 * Cancel uploading an existing file in Document
 	 * 
 	 */
@@ -92,7 +94,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 74417
+	 * Qmetry ID: 119776
 	 * Keep an existing file when uploading in Document
 	 * 
 	 */
@@ -129,7 +131,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 74418
+	 * Qmetry ID: 119777
 	 * Replace an existing file in Document
 	 * 
 	 */
@@ -152,7 +154,8 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 		click(actBar.ELEMENT_EDIT_LINK);
 		type(cTemplate.ELEMENT_NEWFILE_TITLE_TEXTBOX, editTitle, false);
 		button.saveAndClose();
-		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
+		//click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
+		waitForAndGetElement(ecms.ELEMENT_BACK_PREVIOUS).click();
 		WebElement elementBefore = waitForAndGetElement(ecms.ELEMENT_FILE_INFORMATION.replace("${node}", FILE_OPOFFICE_NAME));
 		String dateBefore = elementBefore.getText();
 		info("Date of document creation..." + dateBefore);
@@ -178,7 +181,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 74449
+	 * Qmetry ID: 119801
 	 * Keep existing files when uploading in Site Explorer
 	 * 
 	 */
@@ -212,7 +215,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 74450
+	 * Qmetry ID: 119802
 	 * Replace an existing file in Site Explorer
 	 * 
 	 */
@@ -251,7 +254,7 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 74842
+	 * Qmetry ID: 119816
 	 * Cancel uploading an existing file in Site Explorer
 	 * 
 	 */
@@ -281,7 +284,6 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 		info("Restore data");
 		cMenu.deleteDocument(By.linkText(FILE_NAME));
 	}	
-	
 	//Verify warning message after uploading a file in Documents/Content Explorer
 	public void uploadFileAndCheckDisplayedMessage(String uploadFileName){
 		ecms.uploadFile(uploadFileName);
@@ -290,4 +292,5 @@ public class ECMS_SE_CreateNode_Upload_Action_FileExisting extends PlatformBase{
 		waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_ACTION.replace("${action}", "Replace"));
 		waitForAndGetElement(ecms.ELEMENT_UPLOAD_FILE_ACTION.replace("${action}", "Keep both"));
 	}
+
 }

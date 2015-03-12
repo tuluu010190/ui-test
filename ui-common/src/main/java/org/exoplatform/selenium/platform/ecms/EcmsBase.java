@@ -5,10 +5,12 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
 import static org.exoplatform.selenium.TestLogger.info;
 
 /**
@@ -55,7 +57,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_ADMIN_VIEW_MODE_LINK = "//i[@class='uiIconEcmsViewDefault uiIconEcmsViewAdmin uiIconEcmsLightGray']";
 	//public final String ELEMENT_VIEW_MODE_LINK = "//i[contains(@class,'uiIconEcmsViewDefault')]/../..//*[@data-original-title='${viewName}']";
 	public final By ELEMENT_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack uiIconEcmsLightGray");
-	//public final String ELEMENT_BACK_PREVIOUS = "//i[@class='uiIconEcmsGoBack uiIconEcmsLightGray']";
+	public final By ELEMENT_BACK_PREVIOUS = By.xpath("//i[@class='uiIconEcmsGoBack uiIconEcmsLightGray']");
 	public final By ELEMENT_ADDRESS_BAR = By.id("address");
 
 	//New Folder
@@ -323,7 +325,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_NODE_ADMIN_VIEW = "//*[contains(@class, 'columnText')]//*[contains(text(), '${nodeName}')]";
 	public final String ELEMENT_NODE_ICON_ARROW_RIGHT = "//*[contains(text(), '${nodeName}')]/../..//*[contains(@class, 'columnArrow')]";
 	public final String ELEMENT_NODE_NAME_CONSECUTIVE = "//*[@class='uiListGrid']/div[contains(@mousedown, '${node1}')]/..//*[@class='nodeName' and contains(text(), '${node2}')]";
-	public final String ELEMENT_FILE_INFORMATION = ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", "${node}") + "/../*[contains(@class, 'fileInfoBottom')]";
+	public final String ELEMENT_FILE_INFORMATION = ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", "${node}") + "/../../*[@class='fileInfoBottom']";
 	public final String ELEMENT_FILE_CLONE_CHECKBOX = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]//*[@name='checkbox']";	
 	public final String ELEMENT_NODE_ROW_VIEW = "//*[@data-original-title='${nodeName}']/ancestor::div[contains(@class, 'rowView')]"; //HaVTT added
 	public final By ELEMENT_VIEW_CHECKBOX_ALL = By.id("UIFileViewCheckBox"); //HaVTT added
@@ -592,6 +594,7 @@ public class EcmsBase extends ManageAccount {
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", waitForAndGetElement(ELEMENT_UPLOAD_LINK, DEFAULT_TIMEOUT, 1, 2));
 
 		Utils.pause(10000);
+		info(link);
 		type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false,2);
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
