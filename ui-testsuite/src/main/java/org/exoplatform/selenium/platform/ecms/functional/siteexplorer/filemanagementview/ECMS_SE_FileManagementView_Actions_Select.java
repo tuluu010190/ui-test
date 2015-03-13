@@ -21,8 +21,8 @@ import org.testng.annotations.Test;
 /**
  * Created date: 04-Sep-2013
  * author: havtt
- * 
- * */
+ * updated by anhpp
+ */
 public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 
 	//Platform
@@ -59,7 +59,8 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 		driver.quit();
 	}
 
-	/**CaseID: 74543
+	/**
+	 * CaseID: 119513
 	 * author: havtt
 	 * Show "Clear Selection" link
 	 */
@@ -75,12 +76,13 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 			WebElement element = waitForAndGetElement(ecms.ELEMENT_UI_CHECKBOX.replace("${element}", nodes[i]), 3000, 1, 2);
 			assert element.isSelected() : "Failed to checkbox...." + nodes[i];  		
 		}
-		
+
 		//Check if Clear Selection is displayed or not
 		assertTrue(actBar.isActionsOnActionBarPresent(actBar.ELEMENT_CLEAR_SELECTION));
 	}
 
-	/**CaseID: 74541
+	/**
+	 * CaseID: 119511
 	 * author: havtt
 	 * Select multiple nodes
 	 */
@@ -88,12 +90,12 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 	public void test02_selectMultipleNodes() {
 		info("Go to Personal Document");
 		navToolBar.goToPersonalDocuments();
-		
+
 		//Choose node 1
 		info("Choose Document node");
 		WebElement document_blankspace = waitForAndGetElement(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", "Documents"));
 		document_blankspace.click();
-		
+
 		info("Verify Document checkbox");
 		WebElement document_checkbox = waitForAndGetElement(ecms.ELEMENT_UI_CHECKBOX.replace("${element}","Documents"), 3000, 1, 2);
 		assert document_checkbox.isSelected() : "Document unchecked";
@@ -109,7 +111,8 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 		assert document_checkbox.isSelected() : "Document unchecked after checking node 2";
 	}
 
-	/**CaseID: 74552
+	/**
+	 * CaseID: 119519
 	 * author: havtt
 	 * Show actions of a node
 	 */
@@ -117,7 +120,7 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 	public void test03_showActionNode() {
 		info("Go to Personal Document");
 		navToolBar.goToPersonalDocuments();
-		
+
 		//Check a node
 		info("Choose Music node");
 		WebElement music = waitForAndGetElement(ecms.ELEMENT_UI_CHECKBOX.replace("${element}","Music"), 3000, 1, 2);
@@ -136,7 +139,8 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 		waitForAndGetElement(actBar.ELEMENT_DOWNLOAD_NODE);
 	}
 
-	/**CaseID: 74558
+	/**
+	 * CaseID: 119522
 	 * author: havtt
 	 * Show commons actions for multiple items
 	 */
@@ -144,7 +148,7 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 	public void test04_showCommonActionNode() {
 		info("Go to Personal Document");
 		navToolBar.goToPersonalDocuments();
-		
+
 		//Choose node 1
 		info("Choose Document node");
 		WebElement document = waitForAndGetElement(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", "Documents"));
@@ -167,13 +171,14 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 		waitForAndGetElement(actBar.ELEMENT_DELETE_NODE_ICON);
 		waitForAndGetElement(actBar.ELEMENT_LOCK_ICON);
 		waitForAndGetElement(actBar.ELEMENT_ADD_SYMLINK_LIST_VIEW);
-		
+
 		waitForElementNotPresent(actBar.ELEMENT_RENAME_NODE);
 		waitForElementNotPresent(cMenu.ELEMENT_VIEW_INFORMATION);
 		waitForElementNotPresent(actBar.ELEMENT_DOWNLOAD_NODE);
 	}
 
-	/**CaseID: 74539
+	/**
+	 * CaseID: 119510
 	 * author: havtt
 	 * Select all items in the current view
 	 */
@@ -198,7 +203,7 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 		click(ecms.ELEMENT_VIEW_CHECKBOX_ALL, 2);
 		WebElement checkall = waitForAndGetElement(ecms.ELEMENT_VIEW_CHECKBOX_ALL, 3000, 1, 2);
 		assert checkall.isSelected() : "All unchecked";
-		
+
 		info("Verify node 1, node 2");
 		WebElement node1 = waitForAndGetElement(ecms.ELEMENT_UI_CHECKBOX.replace("${element}", NODE1_TITLE), 3000, 1, 2);
 		WebElement node2 = waitForAndGetElement(ecms.ELEMENT_UI_CHECKBOX.replace("${element}", NODE2_TITLE), 3000, 1, 2);
@@ -207,7 +212,16 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 
 		//Delete all nodes
 		info("Delete all created");
-		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE); 
 		actBar.actionsOnElement(PARENT_DOCUMENT_FOLDER_TITLE, actionType.DELETE);
+	}
+	
+	/**
+	 * CaseID: 119520
+	 * Show background color for a selected item
+	 * Cannot be automated
+	 */
+	@Test (groups="pending")
+	public void test05_ShowBackgroundColorForASelectedItem(){
 	}
 }

@@ -1086,8 +1086,11 @@ public class ContentTemplate extends EcmsBase {
 
 		if (this.plfVersion.equalsIgnoreCase("4.0"))
 			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME, contentToEdit, true);
-		else
-			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, contentToEdit, true);
+		else if(waitForAndGetElement(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, 5000, 0) != null)
+			inputDataToFrame(ELEMENT_WEBCONTENT_CONTENT_FRAME_41, contentToEdit,true);
+		else {
+			inputDataToFrame(ELEMENT_WEBCONTNET_CONTENT_FRAME_2, contentToEdit,true);
+		}
 
 		switchToParentWindow();
 

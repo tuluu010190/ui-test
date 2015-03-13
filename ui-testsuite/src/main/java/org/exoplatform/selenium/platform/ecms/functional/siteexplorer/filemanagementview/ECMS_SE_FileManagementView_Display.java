@@ -433,6 +433,6 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 	 * Can not be automated
 	 */
 	@Test(groups="pending")
-	public void test12_ShowSizeOfFileDocument(){
+	public void test12_ShowTheScrollForTheListOfPages(){
 	}
 }

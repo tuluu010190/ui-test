@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.filemanagementview;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -9,6 +10,7 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -17,6 +19,7 @@ import org.testng.annotations.Test;
 /**
  * @author: HaKT
  * @date: 04/09/2013
+ * updated by anhpp
  */
 public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends PlatformBase {
 	ManageAccount magAcc;
@@ -38,9 +41,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 
 		info("Config New Content on action bar for admin view if it is not available on action bar");
 		navToolBar.goToPersonalDocuments();
-
 		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "Admin", "Admin");
-
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 	}
 
@@ -52,11 +53,12 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 	}
 
 
-	/**CaseId: 101455, 112008,101551
+	/**
+	 * CaseId: 119496,119558,119560
 	 * Add Edit Delete a File document
 	 */
 	@Test
-	public void test01_13_15_AddEditDeleteFileDocument(){
+	public void test01_02_03_AddEditDeleteFileDocument(){
 		String File_Name="File_Case_67416_ 78956";
 		String File_Content="File_Content_67416";
 		String File_Content_Edit="Edited File_Content_67416_To_ 78956";
@@ -68,31 +70,34 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		info("Edit File & verify edited content");
 		conTemp.editFile(null, "", File_Content_Edit);
 		assert driver.getPageSource().contains(File_Content_Edit);
+
 		info("Delete Fle document");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.actionsOnElement(File_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101518
+	/**
+	 * CaseId: 119317
 	 * Add/Delete a new folder
 	 */
 	@Test
-	public void test02_15_AddDeleteNewFolder(){
+	public void test04_AddDeleteNewFolder(){
 
 		String Folder_Name = "Folder_Case-78915";
 		info("Add/Delete a new folder");
 		conTemp.createNewFolder(Folder_Name, folderType.None);
 
+		info("Restore data");
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", Folder_Name));
-
 		actBar.actionsOnElement(Folder_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101519
+	/**
+	 * CaseId: 119541
 	 * Create JS file
 	 */
 	@Test
-	public void test03_AddNewJsFile(){
+	public void test05_AddNewJsFile(){
 		String Js_Name = "Js_Case_78917";
 		String Js_Data = "alert(\"Hello! I am an alert box!!\");";
 		info("Create JS file");
@@ -100,18 +105,18 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		click(conTemp.ELEMENT_NEW_JS_FILE_LINK);
 		conTemp.createNewJsFile(Js_Name, "0",Js_Data);
 
+		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", Js_Name));
-
 		actBar.actionsOnElement(Js_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101520
+	/**
+	 * CaseId: 119542
 	 * Create a web Link
 	 */
 	@Test
-	public void test04_AddNewWebLink(){
+	public void test06_AddNewWebLink(){
 
 		String Web_Link_Name="Web_link_case_78918";
 		String URL = "http://google.com.vn";
@@ -122,18 +127,18 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 
 		conTemp.createNewLink(Web_Link_Name, URL);
 
+		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", Web_Link_Name));
-
 		actBar.actionsOnElement(Web_Link_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101521
+	/**
+	 * CaseId: 119543
 	 * Create an Accessible media
 	 */
 	@Test
-	public void test05_AddNewAccessibleMedia(){
+	public void test07_AddNewAccessibleMedia(){
 		String name = "AccessibleMedia_78920" ;
 		String lang = "en";
 		info("Create an Accessible media");
@@ -141,18 +146,20 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 
 		//	Create new accessible media here
 		conTemp.createAccessibleMedia(name,lang,name,name,name);
-		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 
+		info("Restore data");
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", name));
 		actBar.actionsOnElement(name, actionType.DELETE);
 
 	}
 
-	/**CaseId: 101522
+	/**
+	 * CaseId: 119544
 	 * Create an Announcement
 	 */
 	@Test
-	public void test06_AddNewAnnoucement(){
+	public void test08_AddNewAnnoucement(){
 
 		String Announcement_Name = "Announcement_Case_78922";
 		String Announcement_Summary ="Accounceent_summary_case_78922";
@@ -160,18 +167,18 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.goToAddNewContent();
 		conTemp.createNewAnnouncement(Announcement_Name, Announcement_Summary);
 
+		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", Announcement_Name));
-
 		actBar.actionsOnElement(Announcement_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101523
+	/**
+	 * CaseId: 119545
 	 * Create a new css file
 	 */
 	@Test
-	public void test07_AddNewCssFile(){
+	public void test09_AddNewCssFile(){
 
 		String CssFile_Name="CSS_File_case_78923";
 		String CSS_Data = "p{color: red;}";
@@ -180,18 +187,18 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		click(conTemp.ELEMENT_CSS_FILE_LINK);
 		conTemp.createNewCssFile(CssFile_Name, "", CSS_Data);
 
+		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", CssFile_Name));
-
 		actBar.actionsOnElement(CssFile_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101524
+	/**
+	 * CaseId: 119546
 	 * Add new HTML File document
 	 */
 	@Test
-	public void test08_AddNewHtmlFile(){
+	public void test10_AddNewHtmlFile(){
 
 		String Html_File_Name="HTML_File_case_78925";
 		String Html_content= "Content Of HTML file";
@@ -200,18 +207,18 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.goToAddNewContent();
 		conTemp.createNewHtmlFile(Html_File_Name,"", Html_content); 
 
+		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", Html_File_Name));
-
 		actBar.actionsOnElement(Html_File_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101525
+	/**
+	 * CaseId: 119547
 	 * Add new Illustrated Web Content
 	 */
 	@Test
-	public void test09_AddNewIllustratedWebContent(){
+	public void test11_AddNewIllustratedWebContent(){
 
 		String Illustrated_WC_Name="Illustrated_WC_case_78926";
 		String Illustrated_WC_content= "Content Of Illustrated_WC";
@@ -221,37 +228,37 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.goToAddNewContent();
 		conTemp.createNewIllustratedWebContent(Illustrated_WC_Name, Illustrated_WC_content, path2Image, "", "", "", "");
 
+		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", Illustrated_WC_Name));
-
 		actBar.actionsOnElement(Illustrated_WC_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101526
+	/**
+	 * CaseId: 119548
 	 * Add new Web Content
 	 */
 	@Test
-	public void test10_AddNewWebContent(){
+	public void test12_AddNewWebContent(){
 
 		String WC_Name="WC_case_78927";
 		String WC_content= "Content Of WC";
 		info("Add new Web Content");
 		actBar.goToAddNewContent();
-		conTemp.createNewWebContent(WC_Name, WC_content, "", "", "", "");
+		conTemp.createNewWebContent(WC_Name, WC_content, "", "", "", "",false);
 
+		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", WC_Name));
-
 		actBar.actionsOnElement(WC_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101527
+	/**
+	 * CaseId: 119549
 	 * Add new Product
 	 */
 	@Test
-	public void test11_AddNewProduct(){
+	public void test13_AddNewProduct(){
 		String Product_Name="Product_case_78928";
 		String Product_Summary="Summary of product case78928";
 		String Product_Benefit="Benefit of product case78928";
@@ -261,18 +268,18 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.goToAddNewContent();
 		conTemp.createFullNewProduct(Product_Name, "", Product_Summary,Product_Benefit , Product_Feature);
 
+		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", Product_Name));
-
 		actBar.actionsOnElement(Product_Name, actionType.DELETE);
 	}
 
-	/**CaseId: 101528
+	/**
+	 * CaseId: 119550
 	 * Add new Contact us
 	 */
 	@Test
-	public void test12_AddNewContactUs(){
+	public void test14_AddNewContactUs(){
 		String Your_Name="John Smith";
 		String Your_Address="Address of case 78930";
 		String Your_Email="exoservice@gmail.com";
@@ -284,19 +291,19 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		actBar.goToAddNewContent();
 		conTemp.createNewContactUs(Your_Name, Your_Address, Your_Email, Your_Phone, Your_Message);
 
+		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", ContactUs_Name));
-
 		actBar.actionsOnElement(ContactUs_Name, actionType.DELETE);
 
 	}
 
-	/**CaseId: 101548
-	 *Edit illustrated web content
+	/**
+	 * CaseId: 119559
+	 * Edit illustrated web content
 	 */
 	@Test
-	public void test14_EditIllustratedWebContent(){
+	public void test15_EditIllustratedWebContent(){
 		String Illustrated_WC_Name="Illustrated_WC_case_78957";
 		String Illustrated_WC_content= "Content Of Illustrated_WC";
 		String path2Image = "TestData/Winter.jpg";
@@ -307,8 +314,8 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		conTemp.createNewIllustratedWebContent(Illustrated_WC_Name, Illustrated_WC_content, path2Image, "", "", "", "");
 
 		conTemp.editIllustratedWebContent(null, Illustrated_WC_Edited_content, "", "", "", "", "");
-
 		waitForTextPresent(Illustrated_WC_Edited_content);
+
 		info("Delete File document");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.actionsOnElement(Illustrated_WC_Name, actionType.DELETE);
