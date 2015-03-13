@@ -76,23 +76,44 @@
 		</profile>
 
 		<profile>
-			<id>ecms-se-basicaction</id>
+			<id>ecms-se-basicaction-part1</id>
 			<properties>
-				<testSuite>ecms-se-basicaction.xml</testSuite>
+				<testSuite>ecms-se-basicaction-part1.xml</testSuite>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>ecms-se-basicaction-part2</id>
+			<properties>
+				<testSuite>ecms-se-basicaction-part2.xml</testSuite>
 			</properties>
 		</profile>
 
 		<profile>
-			<id>ecms-se-createnode</id>
+			<id>ecms-se-createnode-part1</id>
 			<properties>
-				<testSuite>ecms-se-createnode.xml</testSuite>
+				<testSuite>ecms-se-createnode-part1.xml</testSuite>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>ecms-se-createnode-part2</id>
+			<properties>
+				<testSuite>ecms-se-createnode-part2.xml</testSuite>
 			</properties>
 		</profile>
 
 		<profile>
-			<id>ecms-se-others</id>
+			<id>ecms-se-others-part1</id>
 			<properties>
-				<testSuite>ecms-se-others.xml</testSuite>
+				<testSuite>ecms-se-others-part1.xml</testSuite>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>ecms-se-others-part2</id>
+			<properties>
+				<testSuite>ecms-se-others-part2.xml</testSuite>
 			</properties>
 		</profile>
 
