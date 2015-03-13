@@ -1,0 +1,40 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="ECMS Functional Test" verbose="1" preserve-order="true">
+	<test name="ecms-func-se-collaboration" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.collaboration.ECMS_SE_Collaboration_Manage_Tag" />
+		</classes>
+	</test>
+
+	<test name="ecms-func-se-filemanagementview" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.filemanagementview.ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.filemanagementview.ECMS_SE_FileManagementView_Actions_OtherActions" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.filemanagementview.ECMS_SE_FileManagementView_Actions_Scroll" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.filemanagementview.ECMS_SE_FileManagementView_Actions_Select" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.filemanagementview.ECMS_SE_FileManagementView_Actions_Sort" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.filemanagementview.ECMS_SE_FileManagementView_Configure" />
+		</classes>
+	</test>
+	<listeners>
+		<listener class-name="org.exoplatform.selenium.TestReportListener" />
+	</listeners>
+</suite>

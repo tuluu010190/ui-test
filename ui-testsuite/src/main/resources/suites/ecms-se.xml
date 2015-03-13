@@ -1,18 +1,27 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="ECMS Functional Test" verbose="1" preserve-order="true">
-	<test name="ecms-func-se" enabled="true">
+	<test name="ecms-func-se-basicaction" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
 			</run>
 		</groups>
-		<packages>
-			<package
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.*" />
-		</packages>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.basicaction.ECMS_SE_BasicAction_AddSymlink" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.basicaction.ECMS_SE_BasicAction_DeleteSymlink" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.basicaction.ECMS_SE_BasicAction_OtherActionsSymlink" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.basicaction.ECMS_SE_BasicAction_Clipboard" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.basicaction.ECMS_SE_BasicAction_CutPaste" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.basicaction.ECMS_SE_BasicAction_Delete" />
+		</classes>
 	</test>
-
 	<listeners>
 		<listener class-name="org.exoplatform.selenium.TestReportListener" />
 	</listeners>

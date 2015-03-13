@@ -1,0 +1,26 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="ECMS Functional Test" verbose="1" preserve-order="true">
+	<test name="ecms-func-se-createnode" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Category" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_CSSFile" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Document" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_File" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Folder" />
+		</classes>
+	</test>
+	<listeners>
+		<listener class-name="org.exoplatform.selenium.TestReportListener" />
+	</listeners>
+</suite>
