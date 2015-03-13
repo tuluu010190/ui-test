@@ -23,6 +23,7 @@ import org.testng.annotations.Test;
 /**
  * @author: HaKT
  * @date: 29/08/2013
+ * updated by anhpp
  */
 public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 
@@ -55,10 +56,10 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
-	
-	
+
+
 	/**
-	 * Qmetry ID: 101477
+	 * Qmetry ID: 119514
 	 * Show "Created on" for a file
 	 * Configure New Content on action bar for Admin view
 	 * Go to Personal document to create new file
@@ -72,7 +73,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		String DATA_FILE_CONTENT="Content of File_Case_101477";
 
 		navToolBar.goToPersonalDocuments();	
-		
+
 		action.addItem2ActionBar("addDocument", action.ELEMENT_NEW_CONTENT_LINK, "Admin", "Admin"); 
 		action.chooseDrive(ecmBase.ELEMENT_PERSONAL_DRIVE); 
 
@@ -92,7 +93,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 101478
+	 * Qmetry ID: 119515
 	 * Show "Created on" for a folder
 	 * Go to Personal document to create new file
 	 * Verify label Created on below folder above
@@ -110,13 +111,13 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		info("Verify 'Created on' label");
 		//waitForAndGetElement(By.xpath(ELEMENT_VERIFY_CREATEDON_LABEL.replace("${content}", DATA_FOLDER_NAME)));
 		waitForAndGetElement(ecmBase.ELEMENT_VERIFY_DATE_NODE.replace("${namenode}", DATA_FOLDER_NAME));
-		
+
 		info("Delete folder");
 		action.actionsOnElement(DATA_FOLDER_NAME, actionType.DELETE);
 	}
 
 	/**
-	 * Qmetry ID: 101481
+	 * Qmetry ID: 119517
 	 * Show "Updated" for a file
 	 * Go to Personal document to create new file
 	 * Edit this file
@@ -151,7 +152,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 101483
+	 * Qmetry ID: 119518
 	 * Displaying in File management view
 	 * Go to Personal document
 	 * Check displaying: 
@@ -185,9 +186,9 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		info("Font weight of information under name:" + label);
 		assert label.equalsIgnoreCase("400");
 	}
-	
+
 	/**
-	 * Qmetry ID: 101489
+	 * Qmetry ID: 119523
 	 * Show folder children by clicking on arrow
 	 * Go to Personal document
 	 * Create a web content
@@ -198,14 +199,14 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		String Web_Content_Name="WebContent_Case_101489";
 		String Web_Content_Cont="Content of WebContent_Case_101489";
 		navToolBar.goToPersonalDocuments();	
-		
+
 		info("Check on Add Document on Admin view");
 		action.addItem2ActionBar("addDocument", action.ELEMENT_NEW_CONTENT_LINK, "Admin", "Admin"); 
 		navToolBar.goToPersonalDocuments();
-		
+
 		info("Create a web content in personal document");
 		action.goToAddNewContent();
-		contemp.createNewWebContent(Web_Content_Name, Web_Content_Cont, "", "", "", "");
+		contemp.createNewWebContent(Web_Content_Name, Web_Content_Cont, "", "", "", "",false);
 
 		action.chooseDrive(ecmBase.ELEMENT_PERSONAL_DRIVE); 
 
@@ -217,15 +218,15 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		waitForElementNotPresent(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "medias")));
 
 		info("Click arrow icon to view child list");
-		
+
 		//temporary user double-click. Because it does not work when using single-click.
 		click(ecmBase.ELEMENT_ARROW_RIGHT.replace("${nodeName}", Web_Content_Name));
 		click(ecmBase.ELEMENT_ARROW_RIGHT.replace("${nodeName}", Web_Content_Name));
-		
+
 		info("Verify arrow direction is down");
 		//waitForAndGetElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_DOWN.replace("${content}",Web_Content_Name)));
 		waitForAndGetElement(ecmBase.ELEMENT_ARROW_DOWN.replace("${nodeName}", Web_Content_Name));
-		
+
 		info("Verify children list of web content");
 		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "css")));
 		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", "default")));
@@ -238,7 +239,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 101494
+	 * Qmetry ID: 119524
 	 * Show path of a file by click on a name
 	 * Go to Personal document
 	 * Create a new file
@@ -264,7 +265,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 101495
+	 * Qmetry ID: 119525
 	 * Show path of a folder by click on a name
 	 * Go to Personal document
 	 * Create a new folder
@@ -288,7 +289,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 101499
+	 * Qmetry ID: 119528
 	 * ShowBreadcrumb
 	 * Go to Personal document
 	 * Create a new folder
@@ -317,7 +318,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 101502
+	 * Qmetry ID: 119531
 	 * Click the link "More" to show folder children
 	 * Go to Personal document
 	 * Set up browsing preference to display 5 items per page
@@ -336,15 +337,15 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		String Child_Folder_6="Child_Folder_6";
 
 		navToolBar.goToPersonalDocuments();
-		
+
 		info("Set Preference 5 nodes per page");
 		browserPre.setUpPreferenceOption(null, "5");
-		
+
 		info("Create a parent folder in personal document");
 		contemp.createNewFolder(Parent_Folder_Name, folderType.None);
 		//rightClickOnElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Parent_Folder_Name)));
 		click(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Parent_Folder_Name)));
-		
+
 		info("Create 6 child folders");
 		contemp.createNewFolder(Child_Folder_1, folderType.None);
 
@@ -362,7 +363,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 		//rightClickOnElement(By.xpath(ELEMENT_PERSONAL_DOCUMENT_ARROW_RIGHT.replace("${content}", Parent_Folder_Name)));
 		rightClickOnElement(ecmBase.ELEMENT_ARROW_RIGHT.replace("${nodeName}", Parent_Folder_Name));
 		click(ecmBase.ELEMENT_ARROW_RIGHT.replace("${nodeName}", Parent_Folder_Name));
-		
+
 		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_1)));
 		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_2)));
 		waitForAndGetElement(By.xpath(ecmBase.ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", Child_Folder_3)));
@@ -378,7 +379,7 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 	}
 
 	/**
-	 * Qmetry ID: 74584
+	 * Qmetry ID: 119532
 	 * ShowSizeOfFileDocument
 	 * Go to Personal document
 	 * Create a new folder
@@ -415,5 +416,23 @@ public class ECMS_SE_FileManagementView_Display extends PlatformBase{
 
 		info("Delete folder");
 		action.actionsOnElement(DATA_FOLDER_NAME, actionType.DELETE);
+	}
+
+	/**
+	 * Qmetry ID: 119527
+	 * Show selection background color for all the width
+	 * Can not be automated
+	 */
+	@Test(groups="pending")
+	public void test11_ShowSelectionBackgroundColorForAllTheWidth(){
+	}
+
+	/**
+	 * Qmetry ID: 119533
+	 * Show the scroll for the list of pages
+	 * Can not be automated
+	 */
+	@Test(groups="pending")
+	public void test12_ShowSizeOfFileDocument(){
 	}
 }

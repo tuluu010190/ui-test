@@ -20,6 +20,7 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 /**
  * @author: HangNTT
  * @date: 29/08/2013
+ * updated by anhpp
  */
 public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 	
@@ -50,7 +51,16 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		button = new Button(driver);
 	}
 	
-	/**CaseId: 101461 -> Hide the explorer tree panel in side bar
+	@AfterMethod
+	public void afterTest(){
+		magAc.signOut();
+		driver.manage().deleteAllCookies();
+		driver.quit();
+	}
+	
+	/**
+	 * CaseId: 119501
+	 * Hide the explorer tree panel in side bar
 	 */
 	@Test
 	public void test01_HideTheExplorerTreePanelInSideBar(){
@@ -70,7 +80,9 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		waitForElementNotPresent(ecms.ELEMENT_SITEBAR_SHARED);
 	}
 	
-	/**CaseId: 101501 -> Show the explorer tree panel in side bar
+	/**
+	 * CaseId: 119530
+	 * Show the explorer tree panel in side bar
 	 */
 	@Test
 	public void test02_ShowTheExplorerTreePanelInSideBar(){	
@@ -95,7 +107,9 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		waitForAndGetElement(ecms.ELEMENT_SITEBAR_SHARED);
 	}
 	
-	/**CaseId: 101510 -> Verify the box "Show Side bar" in preference
+	/**
+	 * CaseId: 119535
+	 * Verify "Hide explorer panel in side bar" box for File Management View
 	 */
 	@Test
 	public void test03_VerifyHideExplorerPanelInSideBarBox(){	
@@ -106,7 +120,9 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		info("Checkbox show sidebar is not checked");		
 	}
 	
-	/**CaseId: 101509 -> Verify "Hide explorer panel in side bar" box for File Management View
+	/**
+	 * CaseId: 119536 
+	 * Verify the box "Show Side bar" in preference
 	 */
 	@Test
 	public void test04_VerifyTheBoxShowSidebarInPreference(){		
@@ -123,10 +139,5 @@ public class ECMS_SE_FileManagementView_Configure extends PlatformBase {
 		button.save();
 	}
 
-	@AfterMethod
-	public void afterTest(){
-		magAc.signOut();
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
+	
 }
