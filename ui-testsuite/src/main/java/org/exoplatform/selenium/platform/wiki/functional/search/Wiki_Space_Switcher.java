@@ -154,8 +154,8 @@ public class Wiki_Space_Switcher extends BasicAction{
 	@Test
 	public  void test04_SearchIsWorkingAsAFilterInTheListOfSpaces() {
 		info("Test 04: Search is working as a filter in the list of spaces");
-		String mobileSpace = "Mobile118262";
-		String longNameSpace = "Long title for a space name 31";
+		String mobileSpace = "Mobile118262" + getRandomNumber();
+		String longNameSpace = "Long title" + getRandomNumber();
 		magMember.goToMySpacePage();	
 		magMember.addNewSpace(mobileSpace, "");
 		magMember.goToMySpacePage();
@@ -200,9 +200,14 @@ public class Wiki_Space_Switcher extends BasicAction{
 
 		 *Expected Outcome: 
 				- List of last browsed space is displayed again*/
-		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).clear();
+		/*waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).clear();
 		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).click();
-		type(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS," ",true);
+		type(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS," ",true);*/
+		
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).clear();
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).click();
+		type(ELEMENT_SPACE_SWITCHER_INPUT," ",true);
+		
 		waitForAndGetElement(ELEMENT_SPACE_NAME_SELECTED.replace("${space}", mobileSpace.toLowerCase()));
 		waitForAndGetElement(ELEMENT_SPACE_NAME_SELECTED.replace("${space}", longNameSpace.toLowerCase().replace(" ", "_")));
 		/*Step number: 5
@@ -214,7 +219,9 @@ public class Wiki_Space_Switcher extends BasicAction{
 		 *Expected Outcome: 
 				- List of sapces is updated and displaying : * Mobile*/ 
 		
-		type(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS,"bile",true);
+		//type(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS,"bile",true);
+		type(ELEMENT_SPACE_SWITCHER_INPUT,"bile",true);
+		
 		//waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).sendKeys("bile");
 		waitForAndGetElement(ELEMENT_SPACE_NAME_SELECTED.replace("${space}", mobileSpace.toLowerCase()));
 
@@ -528,8 +535,11 @@ public class Wiki_Space_Switcher extends BasicAction{
 
 		 *Expected Outcome: 
 				- List of last browsed spaces is displayed again*/
-		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).clear();
-		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).sendKeys(" ");
+		/*waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).clear();
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).sendKeys(" ");*/
+		
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).clear();
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).sendKeys(" ");
 
 		//Press Enter key
 		Utils.javaSimulateKeyPress(KeyEvent.VK_ENTER);
@@ -544,11 +554,16 @@ public class Wiki_Space_Switcher extends BasicAction{
 		 *Expected Outcome: 
 				Space switcher is displaying :
 				- "No Spaces"*/ 
-		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).sendKeys("Longtitle");
+		//waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).sendKeys("Longtitle");
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).sendKeys("Longtitle");
 		waitForAndGetElement(ELEMENT_NO_SPACE_OPTION);
 		Utils.pause(500);
-		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).clear();
-		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).sendKeys("Long  title");
+		/*waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).clear();
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT_FOCUS).sendKeys("Long  title");*/
+		
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).clear();
+		waitForAndGetElement(ELEMENT_SPACE_SWITCHER_INPUT).sendKeys("Long  title");
+		
 		waitForAndGetElement(ELEMENT_NO_SPACE_OPTION);
 
 		//resote data

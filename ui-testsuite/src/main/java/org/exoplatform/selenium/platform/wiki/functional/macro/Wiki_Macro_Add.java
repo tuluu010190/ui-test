@@ -743,7 +743,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 	/**
 	 * This test case is related to an issue on Jira which has status = "Open": Wiki-965: "Formula" macro doesn't work
 	 */
-	@Test
+	@Test (groups="pending")
 	public void test19_InsertFormulaMacro(){
 		String title = "Insert Formula";
 		String fontsize = "NORMAL";

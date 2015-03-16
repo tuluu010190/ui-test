@@ -8,6 +8,7 @@ import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.server.handler.FindElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
@@ -20,6 +21,8 @@ import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 
 public class PlatformBase extends TestBase {
+	
+	ManageAlert magAlt;
 
 	public final String DATA_USER1 = "john";
 	public final String DATA_PASS = "gtn";
@@ -692,10 +695,13 @@ public class PlatformBase extends TestBase {
 	//public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']/div[@gh='tm']/div/div//div[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_DELETE_MAIL = By.xpath("//*[@id=':ro']/div[2]//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	public final By ELEMENT_DELETE_MAIL_2 = By.xpath("//*[@id=':5']//*[@class='iH']//*[@class='ar9 T-I-J3 J-J5-Ji']");
-	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
+	//public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title, 'Inbox')]");
+	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title,'Inbox') and contains(@title, 'Inbox')]");
 	public final By ELEMENT_MAIL_CONTENT = By.xpath("//*[contains(@class, 'adP adO')]/div");
 	public final By ELEMENT_GMAIL_USERNAME = By.id("Email");
-	public final By ELEMENT_GMAIL_PASS = By.id("Passwd");
+	//public final By ELEMENT_GMAIL_PASS = By.id("Passwd");
+	public final By ELEMENT_GMAIL_PASS = By.xpath(".//*[@name='Passwd']");
+	//public final String ELEMENT_GMAIL_PASS = ".//input[@type='password']";
 	public final By ELEMENT_GMAIL_SIGN_IN = By.id("signIn");
 	public final String ELEMENT_GMAIL_TITLE = "//td/div[@class='xS']//div[@class='xT']//span/b[contains(text(),'{$title}')]";
 	public final By ELEMENT_GMAIL_COMPOSE = By.xpath("//div[contains(text(),'COMPOSE')]");
@@ -1474,6 +1480,7 @@ public class PlatformBase extends TestBase {
 
 	//function open and go to mail
 	public void goToMail(String email, String pass){	
+		magAlt = new ManageAlert(driver);
 		((JavascriptExecutor) driver).executeScript("window.open()");
 		for(String winHandle : driver.getWindowHandles()){
 			driver.switchTo().window(winHandle);
@@ -1497,8 +1504,10 @@ public class PlatformBase extends TestBase {
 		type(ELEMENT_GMAIL_USERNAME, email, true);
 		type(ELEMENT_GMAIL_PASS, pass, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
-		clearCache();
-		click(ELEMENT_GMAIL_INBOX);
+		//clearCache();
+		magAlt.acceptAlert();
+		Utils.pause(5000);
+		click(ELEMENT_GMAIL_INBOX, 4000);
 		Utils.pause(1000);
 	}
 

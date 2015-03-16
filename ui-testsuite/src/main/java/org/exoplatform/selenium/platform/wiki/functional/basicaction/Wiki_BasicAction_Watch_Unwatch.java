@@ -39,9 +39,9 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 	 */
 	@Test
 	public void test01_CheckNotificationEmail_WhenAddNewChildPage(){
-		String title = "Parent page 78298";
+		String title = "Parent page 78298" + getRandomNumber();
 		String content = "content of parent page";
-		String childTitle = "Child page 78298";
+		String childTitle = "Child page 78298" + getRandomNumber();
 		String childContent = "content of child page";
 		
 		magAc.updateUserProfile(null, null, null, "exomailtest01@gmail.com");
@@ -57,8 +57,10 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 		goToMail(EMAIL_ADDRESS1,EMAIL_PASS);
 		Utils.pause(300000);
 		waitForElementNotPresent(By.xpath(mail.replace("${title}", title)));
+		info("Wait sucess");
 		
 		driver.switchTo().window(handlesBefore);
+		info("switch sucess");
 		click(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
@@ -71,14 +73,14 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 	 */
 	@Test
 	public void test02_CheckNotificationEmail_WhenWatchUnwatchPage(){
-		String title = "Page 78299";
+		String title = "Page 78299" + getRandomNumber();
 		String content = "page 78299 content";
-		String newTitle = "Page 78299 update 1";
+		String newTitle = "Page 78299 update 1" + getRandomNumber();
 		String newContent = "Page 78299 content update 1";
 		String newTitle2 = "Page 78299 update 2";
-		String newContent2 = "Page 78299 content update 2";
+		String newContent2 = "Page 78299 content update 2" + getRandomNumber();
 		String newTitle3 = "Page 78299 update 3";
-		String newContent3 = "Page 78299 content update 3";
+		String newContent3 = "Page 78299 content update 3" + getRandomNumber();
 			
 		magAc.updateUserProfile(null, null, null, "exomailtest01@gmail.com");
 		

@@ -194,8 +194,8 @@ public class Wiki_Attachment_Add extends BasicAction{
 		attachFileInWiki(ATTACHMENT_PATH, 2);
 		waitForAndGetElement(ATTACHMENT_FILE_LINK);
 		click(ATTACHMENT_FILE_LINK);
-		switchToNewWindow();
-		switchToParentWindow();
+		/*switchToNewWindow();
+		switchToParentWindow();*/
 		assert checkFileExisted(ATTACHMENT_NAME);
 		
 	}

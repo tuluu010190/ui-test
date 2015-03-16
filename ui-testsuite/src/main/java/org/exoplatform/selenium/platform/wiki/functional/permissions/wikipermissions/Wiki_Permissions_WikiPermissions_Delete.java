@@ -65,9 +65,9 @@ public class Wiki_Permissions_WikiPermissions_Delete extends WikiBase{
 	public  void test01_DeletePermissionsForAGroup() {
 		info("Test 1: Delete permissions for a group");
 		
-		String[] user = {"/Development"};
-		String title = "Delete permission118244";
-		String space = "space118244";
+		String[] user = {"Development"};
+		String title = "Delete permission118244" + getRandomNumber();
+		String space = "space118244" + getRandomNumber();
 		
 		spMag.goToAllSpaces();
 		spMag.addNewSpace(space, space);
@@ -234,7 +234,7 @@ public class Wiki_Permissions_WikiPermissions_Delete extends WikiBase{
 	public  void test03_DeleteViewPermissionForAGroup() {
 		info("Test 3: Delete permission for a group by unchecking all permission checkbox");
 
-		String[] user = {"/Platform/Content Management"};
+		String[] user = {"Platform/Content Management"};
 		String title = "Delete permission 3113635";
 		String space = "space3113635";
 

@@ -215,8 +215,8 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 	public  void test03_VerifyAdminPagesPermissionOfAUser() {
 		info("Test 3: Verify Admin Pages permission of a user");
 		String[] user = {"demo"};
-		String title = "Delete permission 113638";
-		String space = "space113638";
+		String title = "Delete permission 113638" + getRandomNumber();
+		String space = "space113638" + getRandomNumber();
 
 		spMag.goToAllSpaces();
 		spMag.addNewSpace(space, space);
@@ -274,8 +274,10 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 		click(ELEMENT_NODE_WIKI_PAGE.replace("${node}",title));
 		click(ELEMENT_BROWSE_LINK);
 		waitForAndGetElement(ELEMENT_MY_DRAFT);
-		waitForAndGetElement(ELEMENT_WIKI_SETTING_LINK);
-
+		waitForElementNotPresent(ELEMENT_WIKI_SETTING_LINK);
+		click(ELEMENT_MORE_LINK);
+		waitForAndGetElement(ELEMENT_PAGE_PERMISSION_LINK);
+		
 		magAcc.userSignIn(userType.ADMIN);
 		spMag.goToAllSpaces();
 		spMag.deleteSpace(space);
@@ -351,6 +353,8 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 		click(ELEMENT_BROWSE_LINK);
 		waitForAndGetElement(ELEMENT_MY_DRAFT);
 		waitForAndGetElement(ELEMENT_WIKI_SETTING_LINK);
+		click(ELEMENT_MORE_LINK);
+		waitForAndGetElement(ELEMENT_PAGE_PERMISSION_LINK);
 
 		magAcc.userSignIn(userType.ADMIN);
 		spMag.goToAllSpaces();
@@ -367,9 +371,9 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 	@Test
 	public  void test05_VerifyViewPermissionForAGroup() {
 		info("Test 5: Verify View permission for a group");
-		String[] user = {"/Development"};
-		String title = "Delete permission 113638";
-		String space = "space113638";
+		String[] user = {"Development"};
+		String title = "Delete permission 113638" + getRandomNumber();
+		String space = "space113638" + getRandomNumber();
 
 		spMag.goToAllSpaces();
 		spMag.addNewSpace(space, space);
@@ -424,6 +428,9 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 		click(ELEMENT_NODE_WIKI_PAGE.replace("${node}",title));
 		waitForAndGetElement(ELEMENT_MORE_LINK);
 		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
+		click(ELEMENT_BROWSE_LINK);
+		waitForAndGetElement(ELEMENT_MY_DRAFT);
+		waitForElementNotPresent(ELEMENT_WIKI_SETTING_LINK);
 		click(ELEMENT_MORE_LINK);
 		waitForElementNotPresent(ELEMENT_DELETE_LINK);
 		waitForElementNotPresent(ELEMENT_MOVE_PAGE_LINK);
@@ -442,7 +449,7 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 	@Test
 	public  void test06_VerifyAdminPagesPermissionOfAGroup() {
 		info("Test 6: Verify Admin Pages permission of a group");
-		String[] user = {"/Platform/Content Management"};
+		String[] user = {"Platform/Content Management"};
 		String title = "Delete permission 113637";
 		String space = "space113637";
 
@@ -500,6 +507,8 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 		click(ELEMENT_BROWSE_LINK);
 		waitForAndGetElement(ELEMENT_MY_DRAFT);
 		waitForElementNotPresent(ELEMENT_WIKI_SETTING_LINK);
+		click(ELEMENT_MORE_LINK);
+		waitForAndGetElement(ELEMENT_PAGE_PERMISSION_LINK);
 
 		magAcc.userSignIn(userType.ADMIN);
 		spMag.goToAllSpaces();
@@ -516,7 +525,7 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 	@Test
 	public  void test07_VerifyAdminWikiPermissionForAGroup() {
 		info("Test 7: Verify Admin Wiki permission for a group");
-		String[] user = {"/Platform/Content Management"};
+		String[] user = {"Platform/Content Management"};
 		String title = "Delete permission 113635";
 		String space = "space113635";
 
@@ -569,8 +578,16 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 			- The user A can see Page Permissions from More menu*/ 
 		magAcc.userSignIn(userType.PUBLISHER);
 		magMem.acceptInvitation(space);
+		
+		goToWikiFromSpace(space);
+		click(ELEMENT_NODE_WIKI_PAGE.replace("${node}",title));
+		click(ELEMENT_BROWSE_LINK);
+		waitForAndGetElement(ELEMENT_MY_DRAFT);
+		waitForAndGetElement(ELEMENT_WIKI_SETTING_LINK);
+		click(ELEMENT_MORE_LINK);
+		waitForAndGetElement(ELEMENT_PAGE_PERMISSION_LINK);
 
-		By element_space = By.linkText(space);
+		/*By element_space = By.linkText(space);
 		info("Go to wiki page of space " + space);
 		Utils.pause(1000);
 		if (isElementNotPresent(ELEMENT_WIKI_LINK_IN_SPACE)){
@@ -579,7 +596,7 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 			Utils.pause(2000);
 		}
 		click(ELEMENT_WIKI_LINK_IN_SPACE);	
-		waitForAndGetElement(ELEMENT_PAGE_NOT_FOUND);
+		waitForAndGetElement(ELEMENT_PAGE_NOT_FOUND);*/
 		magAcc.userSignIn(userType.ADMIN);
 		spMag.goToAllSpaces();
 		spMag.deleteSpace(space);
@@ -595,7 +612,7 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 	@Test
 	public  void test08_VerifyEditPermissionForAGroup() {
 		info("Test 8: Verify Edit permission for a group");
-		String[] userGroup = {"/Development"};
+		String[] userGroup = {"Development"};
 		String title = "Delete permission 113636";
 		String space = "space113636";
 
@@ -652,6 +669,13 @@ public class Wiki_Permissions_WikiPermissions_CheckPermission extends WikiBase{
 		magMem.acceptInvitation(space);
 		goToWikiFromSpace(space);
 		click(ELEMENT_NODE_WIKI_PAGE.replace("${node}",title));
+		waitForAndGetElement(ELEMENT_ADD_PAGE_LINK);
+		waitForAndGetElement(ELEMENT_EDIT_PAGE_LINK);
+		
+		click(ELEMENT_BROWSE_LINK);
+		waitForAndGetElement(ELEMENT_MY_DRAFT);
+		waitForElementNotPresent(ELEMENT_WIKI_SETTING_LINK);
+		
 		click(ELEMENT_MORE_LINK);
 		waitForAndGetElement(ELEMENT_PAGE_INFO_LINK);
 		waitForElementNotPresent(ELEMENT_PAGE_PERMISSION_LINK);

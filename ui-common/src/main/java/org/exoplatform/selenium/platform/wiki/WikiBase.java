@@ -80,6 +80,7 @@ public class WikiBase extends PlatformBase{
 
 	//Search area
 	public final By ELEMENT_QUICK_SEARCH = By.id("wikiSearchValue");
+	public final String ELEMENT_SEARCH_BUT = "//*[@data-original-title='Advanced Search']/i";
 	public final By ELEMENT_SEARCH_RESULT = By.className("resultNumber");
 	//public final String ELEMENT_PAGE_RESULT = "//*[@id='UIWikiAdvanceSearchResult']//*[contains(text(), '${title}')]";
 	public final String ELEMENT_PAGE_RESULT = "//*[@href='/portal/intranet/wiki/${title}']";
@@ -757,7 +758,9 @@ public class WikiBase extends PlatformBase{
 	public void quickSearch(String keyword){
 		info("--Using quick search option ...--");
 		type(ELEMENT_QUICK_SEARCH, keyword, true);
-		((JavascriptExecutor) driver).executeScript("javascript:eXo.wiki.UIWikiSearchBox.doAdvanceSearch();");
+		click(ELEMENT_SEARCH_BUT);
+		Utils.pause(1000);
+		//((JavascriptExecutor) driver).executeScript("javascript:eXo.wiki.UIWikiSearchBox.doAdvanceSearch();");
 		//waitForTextPresent("Search Results");
 		info("Return " + getText(ELEMENT_SEARCH_RESULT) + " results");
 		Utils.pause(2000);
@@ -776,7 +779,8 @@ public class WikiBase extends PlatformBase{
 
 		type(ELEMENT_QUICK_SEARCH, keyword, true);
 		//type(ELEMENT_QUICK_SEARCH,keyword,true);
-		((JavascriptExecutor) driver).executeScript("javascript:eXo.wiki.UIWikiSearchBox.doAdvanceSearch();");
+		//((JavascriptExecutor) driver).executeScript("javascript:eXo.wiki.UIWikiSearchBox.doAdvanceSearch();");
+		click(ELEMENT_SEARCH_BUT);
 		Utils.pause(1000);
 		type(ELEMENT_SEARCH_ADVANCE,keyword,true);
 		if(space.length > 0){

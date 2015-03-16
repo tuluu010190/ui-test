@@ -32,7 +32,7 @@ public class Wiki_Advanced_Search extends BasicAction {
 	@Test
 	public void test01_SearchWhenKeyWordIsMatched() {
 		
-		String PAGE_NAME1 = "Wiki_Advanced_Search_01";
+		String PAGE_NAME1 = "Wiki_Advanced_Search_01" + getRandomNumber();
 
 		By ELEMENT_PAGE1 = By.xpath(ELEMENT_RESULT_SEARCH.replace("${pageName}", PAGE_NAME1));
 
