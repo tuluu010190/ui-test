@@ -805,7 +805,7 @@ public class TestBase {
 	 * false-> file is not exist
 	 */
 	public boolean checkFileExisted(String file){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/" + file;
+		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + file;
 		boolean found = false;
 
 		if (new File(pathFile).isFile()){
@@ -821,7 +821,7 @@ public class TestBase {
 	 * @param file: file name
 	 */
 	public void deleteFile(String file){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/" + file;
+		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + file;
 		File Files = new File(pathFile);
 		if(checkFileExisted(file)){
 			Files.setWritable(true);

@@ -14,8 +14,10 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -23,6 +25,7 @@ import org.testng.annotations.Test;
 /*
  * @author: PhuongDT
  * @date: 04/09/2013
+ * updated by anhpp
  */
 public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBase {
 	//Platform
@@ -63,12 +66,13 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Add to favorite a Parent & Child selection ==
-	 * Test case ID: 74473
+	 * Test case ID: 119497
 	 * Step 1: Open File Management View
 	 * Step 2: Create nodes
 	 * Step 3: Add parent and child nodes to favorite
+	 * https://jira.exoplatform.org/browse/ECMS-4576
 	 */
-	@Test (groups ="ERROR")
+	@Test
 	public void test01_AddToFavoriteAParentAndChildSelection(){
 		/*Declare variables*/
 		String parentDocument = "addtofavoriteparent1";
@@ -121,8 +125,8 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		//Verify Parent and Child node are added in the list "Favorite"
 		info("-- Verify Parent and Child node are added in the list --");
 		driver.navigate().refresh();
-		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", parentDocument));
-		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", childDocument));
+		waitForElementNotPresent(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", parentDocument));
+		waitForElementNotPresent(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", childDocument));
 
 		/*clear data*/				
 		info("-- Clear data in document folder --");
@@ -132,7 +136,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Delete a Parent & Child selection ==
-	 * Test case ID: 74476
+	 * Test case ID: 119498
 	 * Step 1: Open File management view
 	 * Step 2: Create folders
 	 * Step 3: Delete both of parent and child nodes
@@ -187,7 +191,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Hide actions of a node ==
-	 * Test case ID: 74503
+	 * Test case ID: 119499
 	 * Step 1: Open File management view
 	 * Step 2: Select a node
 	 * Step 3: Not select a node
@@ -202,30 +206,19 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		navToolBar.goToPersonalDocuments();
 		actBar.goToViewMode("Admin");
 		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK, "Admin", "Admin");
-
 		//Go to intranet/documents
-		navToolBar.goToPersonalDocuments();
-
-		//Click on [Admin] view icon or [List] view icon
-		actBar.goToViewMode("Admin");
-		//actBar.goToViewMode("List");
-
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
+		
 		/*Step 2: Select a document mode*/
 		//Create a document
 		info("-- Create a document --");
-		//		actBar.goToAddNewContent();
-		//		cTemplate.createNewFile(dnode, dnode, dnode);
-
-		//Select a node
-		actBar.goToNodeByAddressPath("/");
+		actBar.goToAddNewContent();
+		cTemplate.createNewFile(dnode, dnode, dnode);
+		info("--Verify display action download --");
+		waitForAndGetElement(actBar.ELEMENT_DOWNLOAD_NODE);
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		info("-- Select a node --");
-		Utils.pause(4000);
-		//		check(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", dnode)), 2);
-		//		Utils.pause(2000);
-		//		uncheck(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", dnode)), 2);
-		//		Utils.pause(2000);
-		click(By.xpath("//*[@class='rowView fileViewRowView Normal clearfix' and contains(., 'test03_HideActionsOfANode')]"));
-		Utils.pause(2000);
+		check(By.xpath(actBar.ELEMENT_SELECT_CHECKBOX.replace("${name}", dnode)), 2);
 
 		info("--Verify actions for this node are displayed on top of the top action bar --");
 		info("--Verify display action copy node --");
@@ -244,8 +237,8 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		waitForAndGetElement(cMenu.ELEMENT_VIEW_INFORMATION);
 		info("--Verify display action add to favorite --");
 		waitForAndGetElement(actBar.ELEMENT_ADD_TO_FAVORITE_NODE);
-		info("--Verify display action download --");
-		waitForAndGetElement(actBar.ELEMENT_DOWNLOAD_NODE);
+		//icon is hidden by More
+		click(actBar.ELEMENT_MORE_LINK_ACTION_BAR);
 		info("--Verify display action copy to url --");
 		waitForAndGetElement(actBar.ELEMENT_COPY_TO_URL_NODE);
 		info("--Verify display action view document --");
@@ -253,7 +246,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 		/*Step 3: Not select a document node*/		
 		info("-- Not select a node --");
-		uncheck(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", dnode)), 2);
+		uncheck(By.xpath(actBar.ELEMENT_SELECT_CHECKBOX.replace("${name}", dnode)), 2);
 		Utils.pause(2000);
 		info("-- Actions are hidden --");
 		info("--Verify hidden action copy node --");
@@ -286,7 +279,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Hide folder children by clicking on arrow ==
-	 * Test case ID: 74504
+	 * Test case ID: 119500
 	 * Step 1: Show sub-nodes of a node
 	 * Step 2: Hide sub-nodes of a node
 	 */
@@ -371,7 +364,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Lock a Parent & Child selection ==
-	 * Test case ID: 74529
+	 * Test case ID: 119502
 	 * Step 1: Open File Management View
 	 * Step 2: Lock both of parent and child nodes
 	 */
@@ -438,7 +431,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Unlock a Parent & Child selection ==
-	 * Test case ID: 74536
+	 * Test case ID: 119509
 	 * Step 1: Open File Management View
 	 * Step 2: Lock both of parent and child nodes
 	 * Step 3: Unlock parent & child nodes
@@ -474,10 +467,13 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		//select parent and child node
 		info("-- Select parent and child node --");
 		actBar.goToNodeByAddressPath("/");
-
+		driver.navigate().refresh();
+		Utils.pause(2000);
+		
 		/*Step 2: Lock both of parent and child nodes*/		
 		//Click on triangle icon beside a document/ folder
 		info("-- Click on triangle icon beside a document/ folder --");
+		click(By.xpath(siteExp.ELEMENT_ARROW_RIGHT.replace("${nodeName}", parentFolder)),2);
 		click(By.xpath(siteExp.ELEMENT_ARROW_RIGHT.replace("${nodeName}", parentFolder)),2);
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", childDocument));
 
@@ -506,7 +502,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Selection Checkboxes should remain visible on browser resize ==
-	 * Test case ID: 74542
+	 * Test case ID: 119512
 	 * Step 1: Open File Management View
 	 * Step 2: Resize the browser horizontally
 	 */
@@ -545,7 +541,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Add Symlink to a Parent & Child selection ==
-	 * Test case ID: 77822
+	 * Test case ID: 119537
 	 * Step 1: Open File Management View
 	 * Step 2: Create symlink for parent and child nodes
 	 */
@@ -599,8 +595,10 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 		//From action bar, choose [Add Symlink] icon
 		info("-- From action bar, choose [Add Symlink] icon --");
-		actBar.goToAddSymlinkTab();
-
+		
+		//actBar.goToAddSymlinkTab();
+		click(actBar.ELEMENT_ADD_SYMLINK_NODE_PARENT_CHILD);
+		Utils.pause(2000);
 		//The child's symlink is created
 		info("-- The child's symlink is created --");
 		waitForAndGetElement(ELEMENT_CHILD_LINK);
@@ -625,7 +623,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Copy a Parent & Child selection ==
-	 * Test case ID: 77823
+	 * Test case ID: 119538
 	 * Step 1: Open File Management View
 	 * Step 2: Copy paste both of parent and child nodes
 	 */
@@ -744,7 +742,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Cut a Parent & Child selection ==
-	 * Test case ID: 77824
+	 * Test case ID: 119539
 	 * Step 1: Open File Management View
 	 * Step 2: Cut paste both of parent and child nodes
 	 */
@@ -863,7 +861,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Clear selection ==
-	 * Test case ID: 78907
+	 * Test case ID: 119540
 	 * Step 1: Open File Management View
 	 * Step 2: Select many items
 	 * Step 3: Clear selection
@@ -892,9 +890,10 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		check(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", folder1)), 2);
 		WebElement thisElement = driver.findElement(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", folder1)));
 		assert (thisElement.isSelected());
-		click(By.xpath("//*[@class='rowView fileViewRowView Normal clearfix' and contains(., 'test11_ClearSelection_2')]"));
-		thisElement = driver.findElement(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", folder2)));
-		assert (thisElement.isSelected());
+		//click(By.xpath("//*[@class='rowView fileViewRowView Normal clearfix' and contains(., 'test11_ClearSelection_2')]"));
+		check(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", folder2)), 2);
+		WebElement thatElement = driver.findElement(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", folder2)));
+		assert (thatElement.isSelected());
 
 		//A link [Clear selection] is displayed on the right of the action bar
 		info("-- A link [Clear selection] is displayed on the right of the action bar --");
@@ -1008,7 +1007,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == View Permission of folder ==
-	 * Test case ID: 78938
+	 * Test case ID: 119553
 	 * Step 1: Select node to view permission of node
 	 * Step 2: Open 'Permission Management' pop-up
 	 */
@@ -1043,153 +1042,23 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		btn.close();
 
 		/*Clear data*/
-		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		info("-- Delete folder node --");
 		actBar.actionsOnElement(folder, actionType.DELETE);
 
 		//Verify folder node is not present
 		waitForElementNotPresent(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", folder));
-	}
-
-
-	/**
-	 * == Export a folder ==
-	 * Test case ID: 78940
-	 * Step 1: Create a node
-	 * Step 2: Open form to export node
-	 * Step 3: Select  format for exported document
-	 * Step 4: Export node
-	 */
-	@Test
-	public void test15_ExportAFolder(){
-		/*Declare variables*/
-		String folder = "folder15";
-		/*Step 1: Create a node*/		
-		//Add icon "Export" to action bar
-		navToolBar.goToPersonalDocuments();
-		actBar.goToViewMode("Admin");
-		actBar.addItem2ActionBar("exportNode", actBar.ELEMENT_EXPORT_LINK, "Admin", "Admin");
-
-		//Go to intranet/documents
-		navToolBar.goToPersonalDocuments();
-
-		//Create a folder
-		info("-- Create a folder --");
-		cTemplate.createNewFolder(folder, folderType.None);
-
-		//Select a folder node
-		info("-- Select folder node --");
-		actBar.goToNodeByAddressPath("/"+folder);
-
-		/*Step 2: Open form to export node*/
-		/*Step 3: Select  format for exported document*/
-		/*Step 4: Export node*/
-		/*Note: Use function getDriverAutoSave() instead of initSeleniumTest() in method beforeMethods
-		 * to set output folder of export function
-		 */
-		//Export node in zip file, systemview, 
-		info("Export node in zip file, systemview");
-		actBar.exportNode(true, true, false);
-
-		//Node is exported into your computer
-		assert checkFileExisted("sysview.zip");
-
-		/*Clear data*/
-		//delete  node
-		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
-		info("-- Delete folder node --");
-		actBar.actionsOnElement(folder, actionType.DELETE);
-		waitForElementNotPresent(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", folder));
-
-		//delete file on computer
-		deleteFile("TestOutput/"+"sysview.zip");
-		assert (!checkFileExisted("sysview.zip"));
-	}
-
-	/**
-	 * == Import a node ==
-	 * Test case ID: 78941
-	 * Step 1: Create a node
-	 * Step 2: Export a node
-	 * Step 3: Open 'Import Node' pop-up
-	 * Step 4: Browse an .xml file to import
-	 * Step 5: Select format of imported node
-	 * Step 6: Import node
-	 */
-	@Test
-	public void test16_ImportANode(){
-		/*Declare variables*/
-		String folder = "folder16";
-		String subfolder = "subfolder16";
-		String filePath = "TestData/TestOutput/sysview.xml";
-		/*Step 1: Create a node*/		
-		//Add icon "Export" and "Import" to action bar
-		navToolBar.goToPersonalDocuments();
-		actBar.goToViewMode("Admin");
-		actBar.addItem2ActionBar("importNode", actBar.ELEMENT_IMPORT_LINK, "Admin", "Admin");
-		actBar.addItem2ActionBar("exportNode", actBar.ELEMENT_EXPORT_LINK, "Admin", "Admin");
-
-		//Go to intranet/documents
-		navToolBar.goToPersonalDocuments();
-
-		//Create a folder
-		info("-- Create a folder --");
-		cTemplate.createNewFolder(folder, folderType.None);
-		cTemplate.createNewFolder(subfolder, folderType.None);
-
-		//Select a folder node to export
-		info("-- Select sub folder node --");
-		actBar.goToNodeByAddressPath("/"+subfolder);
-
-		/*Step 2: Export a node*/				
-		//Export node in xml file, systemview, 
-		info("Export node in xml file, systemview");
-		actBar.exportNode(true, false, false);
-
-		//Node is exported into your computer
-		assert checkFileExisted("sysview.xml");
-
-		/* Step 3: Open 'Import Node' pop-up */
-		/* Step 4: Browse an .xml file to import*/
-		/* Step 5: Select format of imported node*/
-		/* Step 6: Import node*/
-		//Import node
-		//Select a folder node to import
-		info("-- Select folder node --");
-		actBar.goToNodeByAddressPath("/"+folder);
-
-		info("Import node");
-		actBar.importNode(filePath,"","Create New",false);
-
-		//Node is imported into Content folder
-		info("Node is imported into Content folder");
-		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", subfolder));
-
-		/*Clear data*/
-		//Go to root node
-		actBar.goToNodeByAddressPath("/");
-		info("-- Delete folder node --");
-		actBar.actionsOnElement(folder, actionType.DELETE);
-		actBar.actionsOnElement(subfolder, actionType.DELETE);
-
-		//Verify folder node is not present
-		waitForElementNotPresent(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", folder));
-		waitForElementNotPresent(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", subfolder));
-
-		//delete file on computer
-		deleteFile("TestOutput/"+"sysview.xml");
-		assert (!checkFileExisted("sysview.xml"));
 	}
 
 	/**
 	 * == Add category for document ==
-	 * Test case ID: 78942
+	 * Test case ID: 119535
 	 * Step 1: Create node
 	 * Step 2: Open form to add category
 	 * Step 3: Add category for document
 	 */
 	@Test
-	public void test17_AddCategoryForDocument(){
+	public void test15_AddCategoryForDocument(){
 		/*Declare variables*/
 		String document = "document17";
 		String categoryPath = "Defense";
@@ -1240,14 +1109,14 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 	/**
 	 * == Publish content with setting publication ==
-	 * Test case ID: 78943
+	 * Test case ID: 119556
 	 * Step 1: Show site explorer by legal user
 	 * Step 2: Create new node with draft status
 	 * Step 3: Show Manage Publication form of a draft node
 	 * Step 4: Change status to Published
 	 */
 	@Test
-	public void test18_PublishContentWithSettingPublication(){
+	public void test16_PublishContentWithSettingPublication(){
 		/*Declare variables*/
 		String document = "document18";
 		/*Step 1: Show site explorer by legal user*/
@@ -1304,7 +1173,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 	 * PENDING: refer issue https://jira.exoplatform.org/browse/FQA-1057: [SELENIUM] Cannot upload thumbnail on ecms
 	 */
 	@Test(groups = "pending")
-	public void test19_AddThumbnailImageForNode(){
+	public void test17_AddThumbnailImageForNode(){
 		/*Declare variables*/
 		String document = "document19";
 		String image = "TestData/test19_AddThumbnailImageForNode.jpg";

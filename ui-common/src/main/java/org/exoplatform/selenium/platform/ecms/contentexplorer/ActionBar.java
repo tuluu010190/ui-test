@@ -57,6 +57,7 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_VIEW_DOCUMENT_NODE = By.className("uiIconEcmsViewDocument");
 	public final By ELEMENT_DELETE_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsDelete']");
 	public final By ELEMENT_ADD_SYMLINK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsAddSymLink']");
+	public final By ELEMENT_ADD_SYMLINK_NODE_PARENT_CHILD = By.xpath("//*[@id='JCRContextMenu']//*[contains(@class,'uiIconEcmsAddSymLink')]");
 	public final By ELEMENT_LOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsLock']");
 	public final By ELEMENT_UNLOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//i[@class='uiIconEcmsUnlock']");
 	/*End added*/
@@ -204,7 +205,7 @@ public class ActionBar extends EcmsBase{
 	public final String ELEMENT_CATEGORY_OPTION = "//*[@name='taxonomyTree']/option[@value='${CATEGORY_TREE_NAME}']";
 
 	//Personal Documents > Action Bar > Sort By 
-	public final By ELEMENT_SORT_BY_BUTTON = By.xpath("//*[@id='FileViewBreadcrumb']//*[@class='btn dropdown-toggle']");
+	public final By ELEMENT_SORT_BY_BUTTON = By.xpath("//*[@id='FileViewBreadcrumb']//*[contains(@class,'btn btn-small dropdown-toggle')]");
 	public final String ELEMENT_SORT_BY_TYPE = "//*[@class='dropdown-menu']//*[contains(text(), '${type}')]";
 	public final By ELEMENT_SORT_DOWN_ARROW = By.className("uiIconSortDown");
 	public final By ELEMENT_SORT_UP_ARROW = By.className("uiIconSortUp");
@@ -410,7 +411,10 @@ public class ActionBar extends EcmsBase{
 		{
 			click(ELEMENT_EXPORT);
 		}
+		
 		Utils.pause(20000);
+		//click(button.ELEMENT_OK_BUTTON);
+		//Utils.pause(5000);
 		waitForElementNotPresent(ELEMENT_EXPORT);
 	}
 
@@ -469,7 +473,7 @@ public class ActionBar extends EcmsBase{
 		By ELEMENT_ADD_CATEGORY_SPECIFIC = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@title='select']");
 		// By ELEMENT_CATEGORY_LIST = By.xpath("//th[text()='Category']")
 		//By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath(".//*[@id='UISelectTaxonomyPanel']//tr[1]//i[contains(@class,'uiIconValidate uiIconLightGray')]");
-		By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath("//div[contains(text(),'"+categoryName+"')]/following::a[@data-original-title='select']");
+		By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath("//div[contains(normalize-space(), categoryName) and @class='Text']/../../td/a[@data-original-title='Select']");
 		//By ELEMENT_ADD_CATEGORY_SPECIFIC_OTHER = By.xpath("//*[@class='uiGrid table table-hover table-striped']//tr[1]//i[@class='uiIconValidate uiIconLightGray']");
 		if (waitForAndGetElement(ELEMENT_CATEGORIES_LINK, 5000, 0) == null){
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);

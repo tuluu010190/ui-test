@@ -18,7 +18,7 @@ import org.testng.annotations.Test;
  * 
  * @author hangntt
  * August, 2013
- *
+ * updated by anhpp
  */
 public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 
@@ -43,12 +43,18 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 	}
 	
+	@AfterMethod
+	public void afterMethod() {
+		driver.manage().deleteAllCookies();
+		driver.quit();
+	}
+	
 	/**
-	 * Qmetry ID: 101466 & 101465
+	 * Qmetry ID: 119505 & 119506
 	 * Sort & Revert the default sort of documents by "Date"
 	 */
 	@Test
-	public void test01_RevertTheDefaultSortOfDocumentsByDate(){
+	public void test01_02_RevertTheDefaultSortOfDocumentsByDate(){
 		String dFile = "TestData/ECMS_DMS_SE_Upload_docfile.doc";
 		String document = "ECMS_DMS_SE_Upload_docfile";
 		String aFolder = "testdocuments";
@@ -70,11 +76,11 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 	}
 
 	/**
-	 * Qmetry ID: 101467 & 101464
+	 * Qmetry ID: 119504 & 119507
 	 * Sort & Revert the default sort of documents by "Name"
 	 */
 	@Test
-	public void test02_RevertTheDefaultSortOfDocumentsByName(){
+	public void test03_04_RevertTheDefaultSortOfDocumentsByName(){
 		String aFolder = "adocuments";
 		String bFolder = "bdocuments";
 
@@ -95,11 +101,11 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 	}
 
 	/**
-	 * Qmetry ID: 101468 & 101463
+	 * Qmetry ID: 119503 & 119508
 	 * Sort & Revert the default sort of documents by "Size"
 	 */
 	@Test
-	public void test03_RevertTheDefaultSortOfDocumentsBySize(){
+	public void test05_06_RevertTheDefaultSortOfDocumentsBySize(){
 		String dFile = "TestData/ECMS_DMS_SE_Upload_docfile.doc";
 		String document = "ECMS_DMS_SE_Upload_docfile";
 		String iFile = "TestData/ECMS_DMS_SE_Upload_imgfile.jpg";
@@ -122,11 +128,11 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 	}
 
 	/**
-	 * Qmetry ID: 101500 & 101506
+	 * Qmetry ID: 119529 & 119534
 	 * Show the DOWN/UP arrow for Descending ordering/ Ascending ordering"
 	 */
 	@Test
-	public void test04_ShowTheDownUpArrowForDescendingAscendingOrdering(){
+	public void test07_08_ShowTheDownUpArrowForDescendingAscendingOrdering(){
 		info("-- Go to Personal Documents --");
 		navToolBar.goToPersonalDocuments();
 		actBar.sortBy("Size");
@@ -139,11 +145,11 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 	}
 	
 	/**
-	 * Qmetry ID: 101480
+	 * Qmetry ID: 119516
 	 * Show "Sort By" list"
 	 */
 	@Test
-	public void test05_SortBylist(){
+	public void test09_SortBylist(){
 		info("-- Go to Personal Documents --");
 		navToolBar.goToPersonalDocuments();
 		click(actBar.ELEMENT_SORT_BY_BUTTON);
@@ -153,9 +159,5 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 		click(actBar.ELEMENT_SORT_BY_BUTTON);
 	}
 	
-	@AfterMethod
-	public void afterMethod() {
-		driver.manage().deleteAllCookies();
-		driver.quit();
-	}
+
 }
