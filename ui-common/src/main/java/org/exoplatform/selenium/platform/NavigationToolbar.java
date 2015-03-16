@@ -247,20 +247,25 @@ public class NavigationToolbar extends PlatformBase {
 	//Go to Portal Application Registry
 	public void goToApplicationRegistry() {
 		info("--Go to Portal Application Registry--");
-		for (int repeat = 0;; repeat ++){
-			if (repeat > 4){
-				mouseOverAndClick(ELEMENT_LINK_SETUP);
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		info("Base url is " + baseUrl);
+		String url = baseUrl + "/g/:platform:administrators/administration/registry";
+		//driver.get(url);
+		Utils.pause(1000);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				driver.get(url);
 				break;
 			}
 			mouseOver(ELEMENT_LINK_SETUP, false);
-			if (waitForAndGetElement(ELEMENT_APPLICATIONS_LINK, 3000, 0) != null){
+			if (waitForAndGetElement(ELEMENT_APPLICATIONS_LINK, 500, 0) != null){
 				info("Link application is displayed");
+				click(ELEMENT_APPLICATIONS_LINK);
 				break;
 			}
 			info("Retry..." + repeat + "...");
 		}
-		click(ELEMENT_APPLICATIONS_LINK);
-		Utils.pause(500);
+		driver.navigate().refresh();
 	}
 
 	public void goToEditPageEditor () {

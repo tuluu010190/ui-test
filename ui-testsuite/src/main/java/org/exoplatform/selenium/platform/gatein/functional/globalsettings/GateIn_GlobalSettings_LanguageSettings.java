@@ -456,7 +456,7 @@ public class GateIn_GlobalSettings_LanguageSettings extends PortalManagement {
 		navTool.goToEditPageEditor();
 		setUseCaptcha(false,true);
 		Utils.pause(1000);
-		magAc.signOut();
+		magAc.signOutAcme();
 
 		/* Step 1: Create new account in public mode */
 		//- Select Register link on the top right
@@ -478,11 +478,11 @@ public class GateIn_GlobalSettings_LanguageSettings extends PortalManagement {
 		driver.get(baseUrl+"/acme");
 		magAc.signInAcme(username,password);
 		waitForAndGetElement(magAc.PRODUCTS_LABEL_FRENCH);
-		magAc.signOut();
-
+		magAc.signOutAcme();
+		
 		//Delete data test
 		driver.get(baseUrl);
-		magAc.signInAcme(USER_ROOT,PASS_ROOT);
+		magAc.signIn(USER_ROOT,PASS_ROOT);
 		info("Change to English");		
 		magAc.changeLanguageForUser("Anglais");
 		navTool.goToUsersAndGroupsManagement();

@@ -97,6 +97,26 @@ public class ManageAccount extends PlatformBase {
 		}
 	}
 
+	/**
+	 * Sign out from acme
+	 */
+	public void signOutAcme(){
+		info("Sign out");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				break;
+			}
+			click(ELEMENT_ACCOUNT_NAME_LINK);
+			if (waitForAndGetElement(ELEMENT_SIGN_OUT_LINK, 5000, 0) != null){
+				info("Element " + ELEMENT_SIGN_OUT_LINK + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		click(ELEMENT_SIGN_OUT_LINK);
+	}
+	
 	// Edit account info in Setting
 	// Hover [user name] -> Setting
 	public void editUserSetting(String firstName, String lastName, String email, String displayName, String currentPassword, String newPassword,
@@ -213,13 +233,11 @@ public class ManageAccount extends PlatformBase {
 		}
 		if (language == "French"){
 			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK);
-			waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP);
 			click(By.linkText(language));
 			button.apply();
 			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP);
 		}else {
 			mouseOverAndClick(ELEMENT_CHANGE_LANGUAGE_LINK_FRENCH);
-			waitForAndGetElement(ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH);
 			click(By.linkText(language));
 			click(button.ELEMENT_APPLY_FRENCH_BUTTON);
 			waitForElementNotPresent(ELEMENT_CHANGE_LANGUAGE_POPUP_FRENCH);
