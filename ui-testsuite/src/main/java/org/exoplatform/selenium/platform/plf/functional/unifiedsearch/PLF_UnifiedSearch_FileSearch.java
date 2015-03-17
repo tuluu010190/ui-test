@@ -32,7 +32,6 @@ import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.Template;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -204,7 +203,6 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		String searchText = "TestUnseen";
 		String fileName1 = "TestUnseen";
 		String user = "any";
-		String user2 = "*:/platform/web-contributors";
 
 		/*Step 1: Connect to a Site, input a valid characters in the quich search box to have the file 'Test' as result*/
 		//Create data

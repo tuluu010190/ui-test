@@ -292,7 +292,7 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 		//In Application Registry form:
 		//- Create category & assign group A with membership B to access
 		info("Add new category");
-		navTool.goToApplicationRegistry();
+		//navTool.goToApplicationRegistry();
 		magApp.addNewCategoryAtManageApplications(categoryName, displayName, categoryDescription, true, permissions, true);
 
 		//- Add application into category
@@ -545,7 +545,7 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 		//- Select category above from left pane and click Delete
 		//- Click OK to confirm
 		//The category is removed from left pane
-		loginWithAnotherAccOnThesameBrowser("root", "gtn");
+		loginWithAnotherAccOnThesameBrowser(USER_ROOT, PASS_ROOT);
 		navTool = new NavigationToolbar(newDriver);
 		magApp = new ManageApplications(newDriver);
 		navTool.goToApplicationRegistry();
