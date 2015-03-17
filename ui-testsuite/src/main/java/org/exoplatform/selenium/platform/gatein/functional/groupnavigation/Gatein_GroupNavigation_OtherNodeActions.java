@@ -543,7 +543,7 @@ public class Gatein_GroupNavigation_OtherNodeActions extends GroupNavigation{
 		type(ELEMENT_HEIGHT_TEXTBOX, "600px", true);
 		button.save();
 		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT, true);
-		waitForAndGetElement(ELEMENT_NAME_CONTAINER.replace("${nameContainer}", containerTitle));
+
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		WebElement element = waitForAndGetElement(ELEMENT_EDITING_CONTAINER);
 		String valueStyle = element.getAttribute("style");
@@ -650,12 +650,12 @@ public class Gatein_GroupNavigation_OtherNodeActions extends GroupNavigation{
 		/*Declare variables*/
 		String groupNameDisplayName = "Administration";
 		String nodeNameHome ="Group Navigation";
-		String pageName = "page73982";
+		String pageName = "page7398200";
 		String category = "Collaboration";
-		String portletId = "Collaboration/AnswersPortlet";
+		String portletId = "Collaboration/ForumPortlet";
 		String nodeLinkToEdit = ELEMENT_NODE_LINK.replace("${nodeLabel}", pageName);
 		String parentLinkToEdit = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);
-		String portletTitle = "title73621";
+		String portletTitle = "title7362100";
 
 		/* Step 1: Add page */
 		//Create new page by wizard
@@ -673,7 +673,7 @@ public class Gatein_GroupNavigation_OtherNodeActions extends GroupNavigation{
 		info("Add new container and application to page layout");
 		pageEditor.addNewPortlet(category, portletId);
 		click(ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE);
+		waitForAndGetElement(ELEMENT_FORUM_PORTLET_IN_VIEW_PAGE);
 		pageEditor.finishEditLayout();
 
 		/* Step 2: Show form to edit portlet when edit node's page */
@@ -712,7 +712,7 @@ public class Gatein_GroupNavigation_OtherNodeActions extends GroupNavigation{
 		button.saveAndClose();
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		waitForAndGetElement(ELEMENT_NAME_PORTLET.replace("${portletName}", portletTitle));
-		WebElement element = waitForAndGetElement(ELEMENT_PORTLET_FRAGMENT.replace("${portletName}", "UIAnswersPortlet"));
+		WebElement element = waitForAndGetElement(ELEMENT_PORTLET_FRAGMENT.replace("${portletName}", "UIForumPortlet"));
 		String valueStyle = element.getAttribute("style");
 		assert valueStyle.contains("width: 100%; height: 600px;"): "Failed to edit portlet: " + portletTitle;
 
@@ -744,9 +744,9 @@ public class Gatein_GroupNavigation_OtherNodeActions extends GroupNavigation{
 		/*Declare variables*/
 		String groupNameDisplayName = "Administration";
 		String nodeNameHome ="Group Navigation";
-		String pageName = "page74042";
+		String pageName = "page7404200";
 		String category = "Collaboration";
-		String portletId = "Collaboration/AnswersPortlet";
+		String portletId = "Collaboration/ForumPortlet";
 		String portletId1 = "Administration/AccountPortlet";
 		String category1 = "Administration";
 		String nodeLinkToEdit = ELEMENT_NODE_LINK.replace("${nodeLabel}", pageName);
@@ -768,7 +768,7 @@ public class Gatein_GroupNavigation_OtherNodeActions extends GroupNavigation{
 		info("Add new container and application to page layout");
 		pageEditor.addNewPortlet(category, portletId);
 		click(ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE);
+		waitForAndGetElement(ELEMENT_FORUM_PORTLET_IN_VIEW_PAGE);
 		waitForElementNotPresent(ELEMENT_ACCOUNT_PORTLET_IN_VIEW_PAGE);
 		pageEditor.finishEditLayout();
 
@@ -789,7 +789,7 @@ public class Gatein_GroupNavigation_OtherNodeActions extends GroupNavigation{
 		//New portlet is added in page area
 		pageEditor.addNewPortlet(category1, portletId1);
 		click(ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE);
+		waitForAndGetElement(ELEMENT_FORUM_PORTLET_IN_VIEW_PAGE);
 		waitForAndGetElement(ELEMENT_ACCOUNT_PORTLET_IN_VIEW_PAGE);
 
 		/* Step 4: Check Save & Finish */

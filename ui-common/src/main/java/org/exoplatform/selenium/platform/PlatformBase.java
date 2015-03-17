@@ -468,7 +468,7 @@ public class PlatformBase extends TestBase {
 
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	//public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
-	public final String ELEMENT_NODE_LINK = "//*[@class='nodeName' and contains(text(),'${nodeLabel}')]";
+	public final String ELEMENT_NODE_LINK = "//*[contains(@class,'node')]//*[contains(text(),'${nodeLabel}')]";
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
 	public final By ELEMENT_TITLE_NAVIGATION_MANAGEMENT = By.xpath("//*[contains(@class, 'popupTitle') and text() = 'Navigation Management']");
 	public final By ELEMENT_ADD_NODE_LINK = By.linkText("Add Node");
@@ -554,6 +554,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CONTENTS_LIST_VIEWER_PORTLET = By.id("Content/ContentListViewerPortlet");
 	public final By ELEMENT_ANWSER_PORTLET = By.xpath("//div[@id='Collaboration/AnswersPortlet']/div");
 	public final By ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE = By.id("UIAnswersPortlet");
+	public final By ELEMENT_FORUM_PORTLET_IN_VIEW_PAGE = By.id("UIForumPortlet");
 	public final By ELEMENT_ACCOUNT_PORTLET_IN_VIEW_PAGE = By.id("UIAccountPortlet");
 	public final By ELEMENT_BY_QUERY_TEXTAREA = By.xpath("//textarea[@id='UICLVConfigContentByQueryTextArea']");
 	public final By ELEMENT_WORKSPACE_SELECT = By.xpath("//select[@id='UICLVConfigWorkspaceFormSelectBox']");
