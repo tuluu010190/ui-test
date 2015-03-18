@@ -705,13 +705,79 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 	}
 
 	/**
+	 *<li> Case ID:116661.</li>
+	 *<li> Test Case Name: Manage the title.</li>
+	 *<li> Pre-Condition: </li>
+	 *<li> Post-Condition: </li>
+	 */
+	@Test
+	public  void test11_ManageTheTitle() {
+		info("Test 15 Manage the title");
+		String random = getRandomNumber();
+		String title = txData.getContentByArrayTypeRandom(1)+random;
+		
+		/*Step Number: 1
+		 *Step Name: Step 1: Manage the title
+		 *Step Description: 
+			- Log in acme home page as admin
+			- Go to Edit/ Page/ SEO
+			- Enter the title that you want.
+			- Click Save
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			You can see the new title will be displayed on TITLE element of your web page.*/ 
+		this.driver.get(baseUrl+"/acme");
+		Utils.pause(2000);
+		navTool.goToSEO();
+		type(seoMang.ELEMENT_SEO_TITLEBOX, title, true);
+		click(seoMang.ELEMENT_SEO_SAVE);
+		click(seoMang.ELEMENT_SEO_CLOSE);
+		this.driver.navigate().refresh();
+		info("title:"+driver.getTitle().toString());
+		//Verify that the title of the page is changed
+	    if(this.driver.getTitle().toString().contains(title))
+	    	assert true;
+	    	else assert false:"The title of the page is not changed";
+	}
+
+	/**
+	 *<li> Case ID:116662.</li>
+	 *<li> Test Case Name: Check SEO tool tips.</li>
+	 *<li> Pre-Condition: </li>
+	 *<li> Post-Condition: </li>
+	 */
+	@Test
+	public  void test12_CheckSEOToolTips() {
+		info("Test 11 Check SEO tool tips");
+		/*Step Number: 1
+		 *Step Name: Step 1: Check SEO tool tips
+		 *Step Description: 
+			- Log in acme home page as admin
+			- Go to Edit/ Page/ SEO
+			- Mouse over ? icon beside Description, Keywords, Priority
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			Tool tips is shown for user to understand the SEO*/ 
+		this.driver.get(baseUrl+"/acme");
+		navTool.goToSEO();
+		mouseOver(seoMang.ELEMENT_SEO_HELPDESC, true);
+		waitForAndGetElement(seoMang.ELEMENT_SEO_HELP_POPOVER);
+		mouseOver(seoMang.ELEMENT_SEO_HELPKEYWORD, true);
+		waitForAndGetElement(seoMang.ELEMENT_SEO_HELP_POPOVER);
+		mouseOver(seoMang.ELEMENT_SEO_HELPPRIORITY, true);
+		waitForAndGetElement(seoMang.ELEMENT_SEO_HELP_POPOVER);
+	}
+	
+	/**
 	 *<li> Case ID:116637.</li>
 	 *<li> Test Case Name: Add SEO metadas with localization.</li>
 	 *<li> Pre-Condition: <title> ... </title><meta name="description" content=" ... " /><meta name="keywords" content=" ... " /><meta name="robots" content=" ... " /></li>
 	 *<li> Post-Condition: </li>
 	 */
 	@Test
-	public  void test12_AddSEOMetadasWithLocalization() {
+	public  void test13_AddSEOMetadasWithLocalization() {
 		info("Test 12 Add SEO metadas with localization");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -794,7 +860,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 	 */
 
 	@Test
-	public  void test13_14_UpdateDeleteSEOMetadatasWithLocalization() {
+	public  void test14_15_UpdateDeleteSEOMetadatasWithLocalization() {
 		info("Test 13_14 Update SEO metadatas with localization");
 		String random = getRandomNumber();
 		String title = txData.getContentByArrayTypeRandom(1)+random;
@@ -861,71 +927,5 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		this.driver.get(baseUrl+"/acme");
 		navTool.goToSEO();
 		seoMang.deleteLanguage(language1);
-	}
-
-	/**
-	 *<li> Case ID:116661.</li>
-	 *<li> Test Case Name: Manage the title.</li>
-	 *<li> Pre-Condition: </li>
-	 *<li> Post-Condition: </li>
-	 */
-	@Test
-	public  void test15_ManageTheTitle() {
-		info("Test 15 Manage the title");
-		String random = getRandomNumber();
-		String title = txData.getContentByArrayTypeRandom(1)+random;
-		
-		/*Step Number: 1
-		 *Step Name: Step 1: Manage the title
-		 *Step Description: 
-			- Log in acme home page as admin
-			- Go to Edit/ Page/ SEO
-			- Enter the title that you want.
-			- Click Save
-		 *Input Data: 
-
-		 *Expected Outcome: 
-			You can see the new title will be displayed on TITLE element of your web page.*/ 
-		this.driver.get(baseUrl+"/acme");
-		Utils.pause(2000);
-		navTool.goToSEO();
-		type(seoMang.ELEMENT_SEO_TITLEBOX, title, true);
-		click(seoMang.ELEMENT_SEO_SAVE);
-		click(seoMang.ELEMENT_SEO_CLOSE);
-		this.driver.navigate().refresh();
-		info("title:"+driver.getTitle().toString());
-		//Verify that the title of the page is changed
-	    if(this.driver.getTitle().toString().contains(title))
-	    	assert true;
-	    	else assert false:"The title of the page is not changed";
-	}
-
-	/**
-	 *<li> Case ID:116662.</li>
-	 *<li> Test Case Name: Check SEO tool tips.</li>
-	 *<li> Pre-Condition: </li>
-	 *<li> Post-Condition: </li>
-	 */
-	@Test
-	public  void test11_CheckSEOToolTips() {
-		info("Test 11 Check SEO tool tips");
-		/*Step Number: 1
-		 *Step Name: Step 1: Check SEO tool tips
-		 *Step Description: 
-			- Log in acme home page as admin
-			- Go to Edit/ Page/ SEO
-			- Mouse over ? icon beside Description, Keywords, Priority
-		 *Input Data: 
-
-		 *Expected Outcome: 
-			Tool tips is shown for user to understand the SEO*/ 
-		this.driver.get(baseUrl+"/acme");
-		navTool.goToSEO();
-		mouseOver(seoMang.ELEMENT_SEO_HELPDESC, true);
-		waitForAndGetElement(seoMang.ELEMENT_SEO_HELP_POPOVER);
-		mouseOver(seoMang.ELEMENT_SEO_HELPKEYWORD, true);
-		waitForAndGetElement(seoMang.ELEMENT_SEO_HELP_POPOVER);
-		mouseOver(seoMang.ELEMENT_SEO_HELPPRIORITY, true);
-		waitForAndGetElement(seoMang.ELEMENT_SEO_HELP_POPOVER);
 	}
 }
