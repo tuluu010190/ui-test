@@ -270,7 +270,6 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_LINK_EDIT);
 		if(waitForAndGetElement(ELEMENT_EDIT_CONTENT,5000,0)!=null)
 			click(ELEMENT_EDIT_CONTENT);
-		waitForAndGetElement(ELEMENT_EDIT_CONTENT_CHECK);
 	}
 	/**
 	 * Go to Un-edit content
