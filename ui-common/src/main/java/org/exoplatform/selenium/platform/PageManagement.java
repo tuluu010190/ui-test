@@ -111,6 +111,7 @@ public class PageManagement extends PlatformBase {
 		}		
 		click(ELEMENT_EDIT_PERMISSION_SETTING);
 		setEditPermissions(groupId, membership);
+		Utils.pause(1000);
 		button.save();
 		Utils.pause(1000);
 		if (validate) {

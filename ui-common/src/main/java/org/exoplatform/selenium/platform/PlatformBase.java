@@ -509,7 +509,7 @@ public class PlatformBase extends TestBase {
 	//Add new Page
 	public final By ELEMENT_NEWPAGE_NAME_TEXTBOX = By.id("pageName");	
 	//public final By ELEMENT_NEWPAGE_SAVE_BUTTON = By.xpath("//*[@data-original-title='Finish']");
-	public final By ELEMENT_NEWPAGE_LAYOUT_OPTION = By.className("caret");
+	public final By ELEMENT_NEWPAGE_LAYOUT_OPTION = By.xpath(".//*[@id='UIDropDownPageTemp']/div");
 	//By.xpath("//div[@class='DropDownSelectLabel']") ;
 
 	//Page Creation Wizard -> Page Configs
