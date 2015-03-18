@@ -299,15 +299,15 @@ public class Gatein_BasicPortlets_Organization_GroupManagement extends PlatformB
 	 */
 	@Test
 	public void test09_CheckExistenceOfPageinDeletedGroup() {
-		String groupName = "Gateingroup09";
-		String groupLabel = "Group Label 09";
+		String groupName = "Gateingroup73658";
+		String groupLabel = "Group Label 73658";
 		String groupDesc = "create new group";
 
-		String pageName = "ManagePageName09";
-		String pageTitle = "ManagePageTitle09";
+		String pageName = "ManagePageName73658";
+		String pageTitle = "ManagePageTitle73658";
 		String membership = "*";
 
-		String nodeName = "NodeName09";
+		String nodeName = "NodeName73658";
 
 		info("Add new group");
 		navTool.goToUsersAndGroupsManagement();
@@ -337,10 +337,9 @@ public class Gatein_BasicPortlets_Organization_GroupManagement extends PlatformB
 		info("Check the existence of pages after group is deleted");
 		navTool.goToManagePages();
 		pageMag.searchPageInManagementPage(PageType.GROUP, nodeName, true);
-		pageMag.searchPageInManagementPage(PageType.GROUP, pageTitle, true);
+		pageMag.searchPageInManagementPage(PageType.GROUP, pageTitle, false);
 
 		info("Restore data");
-		pageMag.deletePage(PageType.GROUP, pageTitle);
 		pageMag.deletePage(PageType.GROUP, nodeName);
 	}
 

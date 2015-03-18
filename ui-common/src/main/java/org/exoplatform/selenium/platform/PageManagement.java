@@ -164,9 +164,11 @@ public class PageManagement extends PlatformBase {
 		Utils.pause(1000);
 		if (validate)
 		{
-			if (pageTitle != null){
-				waitForTextPresent(pageTitle);
-			}
+			waitForAndGetElement(ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle));
+		}
+		else{
+			waitForElementNotPresent(ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitle));
+			button.ok();
 		}
 	}
 
