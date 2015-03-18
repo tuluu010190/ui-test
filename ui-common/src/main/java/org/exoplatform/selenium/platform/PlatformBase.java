@@ -469,6 +469,7 @@ public class PlatformBase extends TestBase {
 	//PortalNavigation - http://localhost:8080/portal/g/:platform:administrators/portalnavigation
 	//public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
 	public final String ELEMENT_NODE_LINK = "//*[contains(@class,'node')]//*[contains(text(),'${nodeLabel}')]";
+	public final String ELEMENT_NODE_LINK2 = "//*[@title='${nodeLabel}']";
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
 	public final By ELEMENT_TITLE_NAVIGATION_MANAGEMENT = By.xpath("//*[contains(@class, 'popupTitle') and text() = 'Navigation Management']");
 	public final By ELEMENT_ADD_NODE_LINK = By.linkText("Add Node");
@@ -484,8 +485,10 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SELECT_PAGE_BUTTON = By.xpath("//a[@data-original-title='Select Page']");
 	public final By ELEMENT_NO_RESULT_FOUND_MSG = By.xpath("//span[contains(text(),'No result found')]");
 
-	public final String ELEMENT_LIST_NODE_LINK = ELEMENT_NODE_LINK.replace("${nodeLabel}", "${nodeLabel}") + "/..//li[${number}]//*[@title='${childNode}']";
+	public final String ELEMENT_LIST_NODE_LINK = ELEMENT_NODE_LINK2.replace("${nodeLabel}", "${nodeLabel}") + "/..//li[${number}]//*[@title='${childNode}']";
+	public final String ELEMENT_LIST_NODE_LINK2 = ELEMENT_NODE_LINK2.replace("${nodeLabel}", "${nodeLabel}") + "/..//li[${number}]//*[@title='${childNode}']";
 	public final String ELEMENT_CHILD_NODE_LINK = ELEMENT_NODE_LINK.replace("${nodeLabel}", "${nodeLabel}") + "/../*[contains(@class, 'childrenContainer')]//*[@title='${childNode}']";
+	public final String ELEMENT_CHILD_NODE_LINK2 = ELEMENT_NODE_LINK2.replace("${nodeLabel}", "${nodeLabel}") + "/..//*[@title='${childNode}']";
 	public final String ELEMENT_SELECT_HOME_PAGE = "//div[@id='UIRepeater']//table//tbody/tr/td[5]/div[@class='ActionContainer']/img";
 	public final String ELEMENT_NAVIGATION_HOME_NODE = "//div[@class='HomeNode']";				 
 	public final String ELEMENT_NODE_ADD_NEW_TOP_NODE = "//div[@id='UINavigationNodeSelectorPopupMenu']/div[@class='UIContextMenuContainer']//a[@class='ItemIcon AddNode16x16Icon']";

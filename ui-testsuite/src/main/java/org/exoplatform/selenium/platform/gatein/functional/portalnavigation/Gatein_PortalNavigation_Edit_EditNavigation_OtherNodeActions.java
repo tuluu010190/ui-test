@@ -112,9 +112,9 @@ public class Gatein_PortalNavigation_Edit_EditNavigation_OtherNodeActions extend
 
 		info("Check the existence of copied node");
 		click(ELEMENT_EDIT_NAVIGATION.replace("${navigation}", portalName));
-		waitForAndGetElement(ELEMENT_CHILD_NODE_LINK.replace("${nodeLabel}", parentNode).replace("${childNode}", nodeName1));
-		click(ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName2));
-		waitForAndGetElement(ELEMENT_LIST_NODE_LINK.replace("${nodeLabel}", nodeName2).replace("${number}", "1").replace("${childNode}", nodeName1));
+		waitForAndGetElement(ELEMENT_CHILD_NODE_LINK2.replace("${nodeLabel}", parentNode).replace("${childNode}", nodeName1));
+		click(ELEMENT_NODE_LINK2.replace("${nodeLabel}", nodeName2));
+		waitForAndGetElement(ELEMENT_LIST_NODE_LINK2.replace("${nodeLabel}", nodeName2).replace("${number}", "1").replace("${childNode}", nodeName1));
 		button.save();
 		waitForElementNotPresent(ELEMENT_TITLE_NAVIGATION_MANAGEMENT);
 
@@ -194,7 +194,7 @@ public class Gatein_PortalNavigation_Edit_EditNavigation_OtherNodeActions extend
 		info("Check the existence of cut node");
 		click(ELEMENT_EDIT_NAVIGATION.replace("${navigation}", portalName));
 		waitForElementNotPresent(ELEMENT_CHILD_NODE_LINK.replace("${nodeLabel}", parentNode).replace("${childNode}", nodeName1));
-		click(ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName2));
+		click(ELEMENT_NODE_LINK2.replace("${nodeLabel}", nodeName2));
 		waitForAndGetElement(ELEMENT_LIST_NODE_LINK.replace("${nodeLabel}", nodeName2).replace("${number}", "1").replace("${childNode}", nodeName1));
 		button.save();
 		waitForElementNotPresent(ELEMENT_TITLE_NAVIGATION_MANAGEMENT);
@@ -295,8 +295,8 @@ public class Gatein_PortalNavigation_Edit_EditNavigation_OtherNodeActions extend
 		info("Check the existence of cut node");
 		click(ELEMENT_EDIT_NAVIGATION.replace("${navigation}", portalName));
 		waitForElementNotPresent(ELEMENT_CHILD_NODE_LINK.replace("${nodeLabel}", parentNode).replace("${childNode}", pageName));
-		click(ELEMENT_NODE_LINK.replace("${nodeLabel}", targetNode));
-		waitForAndGetElement(ELEMENT_CHILD_NODE_LINK.replace("${nodeLabel}", targetNode).replace("${childNode}", pageName));
+		click(ELEMENT_NODE_LINK2.replace("${nodeLabel}", targetNode));
+		waitForAndGetElement(ELEMENT_CHILD_NODE_LINK2.replace("${nodeLabel}", targetNode).replace("${childNode}", pageName));
 
 		info("Restore data");
 		navMag.deleteNode(portalName, targetNode, pageName, false);
@@ -467,11 +467,11 @@ public class Gatein_PortalNavigation_Edit_EditNavigation_OtherNodeActions extend
 
 		info("Check the existence of cloned node");
 		click(ELEMENT_EDIT_NAVIGATION.replace("${navigation}", portalName));
-		waitForAndGetElement(ELEMENT_CHILD_NODE_LINK.replace("${nodeLabel}", parentNode).replace("${childNode}", nodeName));
+		waitForAndGetElement(ELEMENT_CHILD_NODE_LINK2.replace("${nodeLabel}", parentNode).replace("${childNode}", nodeName));
 
 		if(isElementNotPresent(By.xpath("//*[@class='uiIconNode expandIcon nodeSelected' and @title = '"+targetNode+"']")))
-			click(ELEMENT_NODE_LINK.replace("${nodeLabel}", targetNode));
-		waitForAndGetElement(ELEMENT_CHILD_NODE_LINK.replace("${nodeLabel}", targetNode).replace("${childNode}", nodeName));
+			click(ELEMENT_NODE_LINK2.replace("${nodeLabel}", targetNode));
+		waitForAndGetElement(ELEMENT_CHILD_NODE_LINK2.replace("${nodeLabel}", targetNode).replace("${childNode}", nodeName));
 		button.save();
 		waitForElementNotPresent(ELEMENT_TITLE_NAVIGATION_MANAGEMENT);
 

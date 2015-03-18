@@ -30,7 +30,7 @@ public class NavigationManagement extends  PlatformBase{
 		button = new Button(driver);
 		String currentNode="";
 		if(currentNodeLabel!="") {
-			currentNode = ELEMENT_NODE_LINK.replace("${nodeLabel}", currentNodeLabel); 
+			currentNode = ELEMENT_NODE_LINK2.replace("${nodeLabel}", currentNodeLabel); 
 		}
 		else {
 			currentNode = "//*[@class='uiIconUpLevel uiIconLightGray']"; 
@@ -106,7 +106,7 @@ public class NavigationManagement extends  PlatformBase{
 		if (verifyNode) {
 			//waitForTextNotPresent("Page Node Settings");
 			//waitForTextPresent(nodeName);
-			waitForAndGetElement( ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName));
+			waitForAndGetElement( ELEMENT_NODE_LINK2.replace("${nodeLabel}", nodeName));
 			//button.save();
 			//waitForTextNotPresent("Navigation Management");
 		}
@@ -118,7 +118,7 @@ public class NavigationManagement extends  PlatformBase{
 	public void editNodeInPortalNavigation(String currentNavigation, String nodeNameHome, String nodeName, boolean extendedLabelMode, Map<String, String> languages, 
 			String nodeLabel, String pageName, String pageTitle, boolean firstLevel){
 		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);
-		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
+		String currentNodeName = ELEMENT_NODE_LINK2.replace("${nodeLabel}", nodeName);
 
 		//Go to [Edit Navigation]
 		if (waitForAndGetElement(ELEMENT_TITLE_NAVIGATION_MANAGEMENT, 5000, 0) == null){
@@ -174,9 +174,9 @@ public class NavigationManagement extends  PlatformBase{
 		info("--Delete a node from navigation--");
 		alt = new ManageAlert(driver);
 		button = new Button(driver);
-		String currentNodeHome = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeNameHome);
-		String currentNodeName = ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
-		String currentChildNodeName = ELEMENT_CHILD_NODE_LINK.replace("${nodeLabel}", nodeNameHome).replace("${childNode}", nodeName);
+		String currentNodeHome = ELEMENT_NODE_LINK2.replace("${nodeLabel}", nodeNameHome);
+		String currentNodeName = ELEMENT_NODE_LINK2.replace("${nodeLabel}", nodeName);
+		String currentChildNodeName = ELEMENT_CHILD_NODE_LINK2.replace("${nodeLabel}", nodeNameHome).replace("${childNode}", nodeName);
 		editNavigation(currentNavigation);
 		//currentNodeHome.equals(ELEMENT_NAVIGATION_NODE_AREA)
 		if (firstLevel){
