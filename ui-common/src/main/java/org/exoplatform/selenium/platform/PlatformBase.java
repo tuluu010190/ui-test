@@ -8,7 +8,6 @@ import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.remote.server.handler.FindElement;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 

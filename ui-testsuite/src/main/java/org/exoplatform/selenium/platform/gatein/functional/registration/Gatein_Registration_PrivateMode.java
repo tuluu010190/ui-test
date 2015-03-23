@@ -33,10 +33,9 @@ public class Gatein_Registration_PrivateMode extends PlatformBase {
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
 		navTool = new NavigationToolbar(driver);
+		button = new Button(driver);
 		user = new UserGroupManagement(driver);
 		dialog = new Dialog(driver);
-		button = new Button(driver);
-
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
 
@@ -49,7 +48,7 @@ public class Gatein_Registration_PrivateMode extends PlatformBase {
 
 	/**
 	 * Create new account with valid value
-	 * CaseId: 73343
+	 * CaseId: 123376
 	 */
 	 @Test
 	 public void test01_createNewValidAccount(){
@@ -75,7 +74,7 @@ public class Gatein_Registration_PrivateMode extends PlatformBase {
 
 	 /**
 	  * Create new account with user name the same with existing but different by lower/upper case
-	  * CaseId: 73520
+	  * CaseId: 123379
 	  */
 	 @Test
 	 public void test02_createSameAccountButUpperLetter(){
@@ -108,7 +107,7 @@ public class Gatein_Registration_PrivateMode extends PlatformBase {
 
 	 /**
 	  * Create new account with User name the same with existing
-	  * CaseId: 73774
+	  * CaseId: 123380
 	  */
 	 @Test
 	 public void test03_createSameAccountWithExistingOne(){
@@ -139,7 +138,7 @@ public class Gatein_Registration_PrivateMode extends PlatformBase {
 
 	 /**
 	  * Create new account when copy from Password and paste to Confirm Password field.
-	  * CaseId: 73874
+	  * CaseId: 123382
 	  */
 	 @Test
 	 public void test04_copyPastePassword(){
@@ -201,5 +200,32 @@ public class Gatein_Registration_PrivateMode extends PlatformBase {
 		 button.save();
 		 waitForAndGetElement(USER_REG_INVALID_EMAIL_FAIL_MSG);
 		 dialog.closeMessageDialog();
+	 }
+	 
+	 /**
+	  * Create new account with invalid format Email address
+	  * CaseId: 123386
+	  */
+	 @Test(groups="PENDING")
+	 public void test06_CheckConfigurableUsernameValidationWithRegularExpression(){
+		 
+	 }
+	 
+	 /**
+	  * Create new account with invalid format Email address
+	  * CaseId: 123388
+	  */
+	 @Test(groups="PENDING")
+	 public void test07_CheckConfigurableUsernameValidationWithMinimal_MaximalLengthOfTheValidatedField(){
+		 
+	 }
+	 
+	 /**
+	  * Create new account with invalid format Email address
+	  * CaseId: 123390
+	  */
+	 @Test(groups="PENDING")
+	 public void test08_CheckMessageOfConfiguredUsernameValidator(){
+		 
 	 }
 }

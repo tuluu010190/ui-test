@@ -3,7 +3,6 @@ package org.exoplatform.selenium.platform.wiki.functional.permissions.wikipermis
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformPermission;
@@ -13,7 +12,6 @@ import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.exoplatform.selenium.platform.wiki.Permission;
 import org.exoplatform.selenium.platform.wiki.WikiBase;
-import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
