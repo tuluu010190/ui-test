@@ -530,10 +530,16 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT = By.id("UIPage");
 	public final By ELEMENT_DROP_TARGET_NO_LAYOUT_PORTAL = By.xpath("//*[text() = 'Portal Page']/..");
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
+	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT_CENTER_PAGE = By.xpath("//*[@class='RightBodyTDContainer TDContainer']//*[@class='UIRowContainer EmptyContainer']");
+	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT_CENTER_PAGE_VIEW_MODE =By.xpath("//*[@class='UIComponentBlock NormalContainerBlock']/div[1]/div/div//*[@class='UIContainer EdittingContainer']//*[@class='UIComponentBlock NormalContainerBlock']//*[@class='UIRowContainer EmptyContainer']");
+	public final By ELEMENT_EDIT_CENTER_CONTAINER_NEW_LAYOUT = By.xpath("//*[@id='RightBody']//*[@class='UIRowContainer ']//*[@class='uiIconEdit uiIconWhite']");
+	public final By ELEMENT_DELETE_CENTER_CONTAINER_NEW_LAYOUT = By.xpath("//*[@id='RightBody']//*[@class='UIRowContainer ']//*[@class='uiIconTrash uiIconWhite']");
+	
+	
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT_NEW = By.xpath("//div[@class='UIRowContainer EmptyContainer' and not(div)]");
 	public final By ELEMENT_NAVIGATION_BODY_LEFT = By.xpath("//*[@id='NavigationBody']//*[@id='LeftNavigation']");
 	public final By ELEMENT_NAVIGATION_BODY_RIGHT = By.xpath("//*[@id='NavigationBody']//*[@id='RightBody']");
-	public final By ELEMENT_PAGE_PORTAL = By.xpath("//*[text() = 'Portal Page']");
+	public final By ELEMENT_PAGE_PORTAL = By.xpath(".//*[@id='UIPageBody']");
 	public final By ELEMENT_ADD_CONTENT_LIST_PORTLET = By.xpath("//div[contains(text(),'Content List')]");
 	public final By ELEMENT_CLV_PORTLET = By.className("UICLVPortlet");
 	public final By ELEMENT_FRAME_CONTAIN_PORTLET = By.xpath("//div[contains(@id,'UIPortlet')]");
@@ -589,6 +595,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_CONTAINER_ROW_1 = By.xpath("//*[@class='UIRowContainer']/div[1]");
 	public final By ELEMENT_CONTAINER_TAB = By.linkText("Containers");
 	public final By ELEMENT_EDIT_CONTAINER_ICON = By.xpath("//*[@data-original-title='Edit Container']");
+	public final By ELEMENT_EDIT_CONTAINER_MOUSE_OVER = By.xpath(".//*[@class='UIComponentBlock OverContainerBlock']//*[@data-original-title='Edit Container']/i");
 	public final By ELEMENT_DELETE_CONTAINER_ICON = By.xpath("//*[@data-original-title='Delete Container']");
 	public final By ELEMENT_CONTAINER_TITLE = By.id("title");
 	public final By ELEMENT_CONTAINER_DRAG_DROP_ICON = By.xpath(ELEMENT_DRAG_CONTAINER);
@@ -608,7 +615,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_DRAG_CURRENT_CONTAINER = "//*[text()='${nameContainer}']/../*[@title='Hold this area to drag this container']";
 	public final String ELEMENT_DRAG_CURRENT_CONTAINER_PLF41 = "//*[text()='${nameContainer}']/../*[@data-original-title='Hold this area to drag this container']";
 	public final String ELEMENT_LIST_CONTAINER = "//*[@class='UIRowContainer']/div[${number}]//*[contains(text(), '${nameContainer}')]";
-
+	public final By ELEMENT_SITES_CONFIG = By.xpath(".//*[@id='UIPortalComposer']//a[contains(text(),'Site')]");
 	//Porlet setting
 	public final By ELEMENT_PORLET_SETTING_TAB = By.xpath("//*[text()='Portlet Setting']");
 	public final By ELEMENT_EDIT_MODE_TAB = By.xpath("//*[text()='Edit Mode']");

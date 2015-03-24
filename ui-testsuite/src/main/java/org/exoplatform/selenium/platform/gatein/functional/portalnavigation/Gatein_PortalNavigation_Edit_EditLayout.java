@@ -59,7 +59,6 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		info("Gatein_Navigation_GroupNavigation_EditNavigation: Finish testing");
 		driver.manage().deleteAllCookies();
 		driver.quit();
-
 	}
 
 	/** Check edited container with new title and after click Finish function 
@@ -85,7 +84,8 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		pageEditor.addNewContainer(categoryContainer, typeContainer, ELEMENT_NAVIGATION_BODY_RIGHT);
 
 		//- Move mouse on the container and click on Edit icon of added container on mark layer
-		pageEditor.goToEditContainer(ELEMENT_DROP_TARGET_HAS_LAYOUT);
+		WebElement elem = waitForAndGetElement(ELEMENT_EDIT_CENTER_CONTAINER_NEW_LAYOUT, 5000,1,2);
+		pageEditor.goToEditContainerByJavaScript(elem);
 	
 		//Edit container form appears with 2 tabs:
 		//Container settings:
@@ -109,8 +109,7 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		type(ELEMENT_WIDTH_TEXTBOX, "300px", true);
 		type(ELEMENT_HEIGHT_TEXTBOX, "300px", true);
 		button.save();
-		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT, true);
-		waitForAndGetElement(ELEMENT_NAME_CONTAINER.replace("${nameContainer}", containerTitle));
+		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT_CENTER_PAGE, true);
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 
 		/* Step 4: Check  Finish */
@@ -122,8 +121,8 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		/*Clear data*/
 		goToPortalEditLayout(portalName);
 		click(ELEMENT_CONTAINER_TAB);
-		pageEditor.removeContainer(ELEMENT_DROP_TARGET_HAS_LAYOUT, ELEMENT_DELETE_CONTAINER_ICON);
-		waitForElementNotPresent(ELEMENT_DROP_TARGET_HAS_LAYOUT);	
+		WebElement containerDelete = waitForAndGetElement(ELEMENT_DELETE_CENTER_CONTAINER_NEW_LAYOUT,5000,1,2);
+		pageEditor.goToDeleteContainerByJavaScript(containerDelete);
 		pageEditor.finishEditLayout();
 	}
 	
@@ -151,8 +150,8 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		pageEditor.addNewContainer(categoryContainer, typeContainer, ELEMENT_NAVIGATION_BODY_RIGHT);
 
 		//- Move mouse on the container and click on Edit icon of added container on mark layer
-		pageEditor.goToEditContainer(ELEMENT_DROP_TARGET_HAS_LAYOUT);
-
+		WebElement elem = waitForAndGetElement(ELEMENT_EDIT_CENTER_CONTAINER_NEW_LAYOUT, 5000,1,2);
+		pageEditor.goToEditContainerByJavaScript(elem);
 		//Edit container form appears with 2 tabs:
 		//Container settings:
 		//- Container Id: can not be changed
@@ -176,7 +175,7 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		type(ELEMENT_HEIGHT_TEXTBOX, "300px", true);
 		button.save();
 		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT, true);
-		waitForAndGetElement(ELEMENT_NAME_CONTAINER.replace("${nameContainer}", containerTitle));
+
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT, true);
@@ -194,8 +193,9 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		/*Clear data*/
 		goToPortalEditLayout(portalName);
 		click(ELEMENT_CONTAINER_TAB);
-		pageEditor.removeContainer(ELEMENT_DROP_TARGET_HAS_LAYOUT,ELEMENT_DELETE_CONTAINER_ICON);
-		waitForElementNotPresent(ELEMENT_DROP_TARGET_HAS_LAYOUT);	
+		WebElement containerDelete = waitForAndGetElement(ELEMENT_DELETE_CENTER_CONTAINER_NEW_LAYOUT,5000,1,2);
+		pageEditor.goToDeleteContainerByJavaScript(containerDelete);
+		waitForElementNotPresent(containerDelete);	
 		pageEditor.finishEditLayout();
 	}
 			
@@ -209,7 +209,7 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 	@Test
 	public void test03_CheckChangeWidthHeightAndClickFinishFunctionAfterEditPortlet() {
 		String category = "Collaboration";
-		String portletId = "Collaboration/AnswersPortlet";
+		String portletId = "Collaboration/ForumPortlet";
 		String portletTitle = "title74180";
 		String portalName = "intranet";
 		
@@ -221,9 +221,10 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		info("Add application when edit layout of portal");
 		pageEditor.addNewPortlet(category, portletId);
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
-		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE);
+		waitForAndGetElement(ELEMENT_FORUM_PORTLET_IN_VIEW_PAGE);
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
-		pageEditor.goToEditPortlet(ELEMENT_PORTLET_TITLE.replace("${portletTitle}", "Answers Portlet"));
+
+		pageEditor.goToEditPortlet(ELEMENT_PORTLET_TITLE.replace("${portletTitle}", "Forum Portlet"));
 
 		//Edit portlet form is shown properly with current main information in form includes:
 		//- Portlet Setting
@@ -247,7 +248,7 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		button.saveAndClose();
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 		waitForAndGetElement(ELEMENT_NAME_PORTLET.replace("${portletName}", portletTitle));
-		WebElement element = waitForAndGetElement(ELEMENT_PORTLET_FRAGMENT.replace("${portletName}", "UIAnswersPortlet"));
+		WebElement element = waitForAndGetElement(ELEMENT_PORTLET_FRAGMENT.replace("${portletName}", "UIForumPortlet"));
 		String valueStyle = element.getAttribute("style");
 		assert valueStyle.contains("width: 100%; height: 400px;"): "Failed to edit portlet: " + portletTitle;
 
@@ -275,7 +276,7 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 	@Test
 	public void test04_CheckFinishFunctionAfterChangePortletLayout() {
 		String category = "Collaboration";
-		String portletId = "Collaboration/AnswersPortlet";
+		String portletId = "Collaboration/ForumPortlet";
 		String portletTitle = "title74127";
 		String portalName = "intranet";
 
@@ -287,9 +288,9 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		info("Add application when edit layout of portal");
 		pageEditor.addNewPortlet(category, portletId, ELEMENT_NAVIGATION_BODY_RIGHT);
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
-		waitForAndGetElement(ELEMENT_ANWSER_PORTLET_IN_VIEW_PAGE);
+		waitForAndGetElement(ELEMENT_FORUM_PORTLET_IN_VIEW_PAGE);
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
-		pageEditor.goToEditPortlet(ELEMENT_PORTLET_TITLE.replace("${portletTitle}", "Answers Portlet"));
+		pageEditor.goToEditPortlet(ELEMENT_PORTLET_TITLE.replace("${portletTitle}", "Forum Portlet"));
 
 		//Edit portlet form is shown properly with current main information in form includes:
 		//- Portlet Setting
@@ -313,7 +314,7 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		button.saveAndClose();
 		click(ELEMENT_SWITCH_VIEW_MODE_PORTAL);
 		waitForAndGetElement(ELEMENT_NAME_PORTLET.replace("${portletName}", portletTitle));
-		WebElement element = waitForAndGetElement(ELEMENT_PORTLET_FRAGMENT.replace("${portletName}", "UIAnswersPortlet"));
+		WebElement element = waitForAndGetElement(ELEMENT_PORTLET_FRAGMENT.replace("${portletName}", "UIForumPortlet"));
 		String valueStyle = element.getAttribute("style");
 		assert valueStyle.contains("width: 100%; height: 400px;"): "Failed to edit portlet: " + portletTitle;
 		
@@ -392,7 +393,6 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 	 */
 	@Test
 	public void test06_CheckEditCurrentPortalWithNoEditRight() {
-		
 		String portalName = "intranet";
 		String DeleteEditPermision = "The ${field} list can not be empty.";
 		
@@ -409,4 +409,6 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		button.ok();
 		button.cancel();
 	}
+	
+
 }

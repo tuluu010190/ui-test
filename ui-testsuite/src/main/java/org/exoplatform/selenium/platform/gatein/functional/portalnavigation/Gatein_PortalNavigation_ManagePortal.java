@@ -49,7 +49,7 @@ public class Gatein_PortalNavigation_ManagePortal extends PortalManagement{
 	/**CaseId: 73501,73502 -> Add and delete site
 	 * Bug: https://jira.exoplatform.org/browse/PORTAL-3940
 	 */
-	@Test (groups = "errors")
+	@Test
 	public void test01_AddDeletePortal(){
 		String portalName = "gateinfunctportal73501";
 

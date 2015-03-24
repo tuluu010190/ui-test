@@ -581,7 +581,6 @@ public class TestBase {
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);
 		try {
 			for (int loop = 1;; loop++) {
-				System.out.println(loop);
 				if (loop >= ACTION_REPEAT) {
 					Assert.fail("Timeout at type: " + value + " into " + locator);
 				}

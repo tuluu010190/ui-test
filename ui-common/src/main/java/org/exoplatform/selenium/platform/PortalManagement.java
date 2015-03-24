@@ -68,9 +68,9 @@ public class PortalManagement extends PlatformBase {
 			setEditPermissions(editGroupId, editMembership);
 		}
 		if (template.length > 0){
-			click(ELEMENT_PORTAL_TEMPLATE_TAB);
-			WebElement temp = getElementFromTextByJquery(template[0]);
-			temp.click();
+//			click(ELEMENT_PORTAL_TEMPLATE_TAB);
+//			WebElement temp = getElementFromTextByJquery(template[0]);
+//			temp.click();
 		}
 		button.save();
 		Utils.pause(2000);

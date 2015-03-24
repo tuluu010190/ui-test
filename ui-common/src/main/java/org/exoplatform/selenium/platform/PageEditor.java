@@ -9,7 +9,9 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class PageEditor extends PlatformBase {
 
@@ -417,10 +419,28 @@ public class PageEditor extends PlatformBase {
 		info("Go to edit container ");
 		click(ELEMENT_CONTAINER_TAB);
 		mouseOver(elementContainer, true);
-		info("mouse over");
-		Utils.pause(2000);
-		mouseOverAndClick(ELEMENT_EDIT_CONTAINER_ICON);
+//		info("mouse over");
+//		Utils.pause(2000);
+		mouseOverAndClick(ELEMENT_EDIT_CONTAINER_MOUSE_OVER);
 		waitForAndGetElement(By.id("UIContainerForm"));
+	}
+	/**
+	 * Edit a container, using javascript
+	 * @param element
+	 */
+	public void goToEditContainerByJavaScript(WebElement element){
+		click(ELEMENT_CONTAINER_TAB);
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		waitForAndGetElement(By.id("UIContainerForm"));
+	}
+	
+	/**
+	 * Delete a container, using a javascript
+	 * @param element
+	 */
+	public void goToDeleteContainerByJavaScript(WebElement element){
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+		magAlert.acceptAlert();
 	}
 
 	/**function go to edit a portlet
