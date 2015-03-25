@@ -407,8 +407,8 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", childDocument));
 
 		//From action bar, choose [Lock]
-		actBar.lockNodeFromActionBar(parentFolder);
-		actBar.lockNodeFromActionBar(childDocument);
+		actBar.lockNode(parentFolder);
+		actBar.lockNode(childDocument);
 
 		//clear data 
 		info("-- clear data --");
@@ -478,8 +478,8 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", childDocument));
 
 		//From action bar, choose [Lock]
-		actBar.lockNodeFromActionBar(parentFolder);
-		actBar.lockNodeFromActionBar(childDocument);
+		actBar.lockNode(parentFolder);
+		actBar.lockNode(childDocument);
 
 		/*Step 3: Unlock parent & child nodes*/
 		info("-- unlock node --");

@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.concurrent.TimeUnit;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
@@ -25,83 +26,60 @@ public class CKeditor extends PlatformBase {
 	ForumBase foruBas;
 	private WebElement el;
 
-	// ----------------------CKeditor
+	// ----------------------CKeditor for the files has only one CKEDITOR
 	// -------------------------------------------------------------------------------
-	public final By ELEMENT_CKEDITOR_TEXT_CONTENT = By
-			.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
-	public final By ELEMENT_CKEDITOR_POPUP = By
-			.xpath(".//*[@id='UIForumPopupWindow']");
-	public final By ELEMENT_CKEDITOR_MAXIMIZE = By
-			.xpath(".//*[@class='cke_button_icon cke_button__maximize_icon']");
-	public final By ELEMENT_CKEDITOR_MAXIMIZE_STYLE = By
-			.xpath(".//*[@id='ThreadContent-tab'][@style='position: static; overflow: visible; z-index: 9995;']");
-	public final By ELEMENT_CKEDITOR_MINIMIZE_STYLE = By
-			.xpath(".//*[@id='ThreadContent-tab'][@style='']");
+	public final By ELEMENT_CKEDITOR_TEXT_CONTENT = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
+	public final By ELEMENT_CKEDITOR_TEXT_CONTENT_BENEFITS = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset' and @title='Rich Text Editor,productBenefits']");
+	public final By ELEMENT_CKEDITOR_TEXT_CONTENT_FEATURES = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset' and @title='Rich Text Editor,productFeatures']");
+	public final By ELEMENT_CKEDITOR_POPUP = By.xpath(".//*[@id='UIForumPopupWindow']");
+	public final By ELEMENT_CKEDITOR_MAXIMIZE = By.xpath(".//*[@class='cke_button_icon cke_button__maximize_icon']");
+	public final By ELEMENT_CKEDITOR_MAXIMIZE_STYLE = By.xpath(".//*[@id='ThreadContent-tab'][@style='position: static; overflow: visible; z-index: 9995;']");
+	public final By ELEMENT_CKEDITOR_MINIMIZE_STYLE = By.xpath(".//*[@id='ThreadContent-tab'][@style='']");
 
-	public final By ELEMENT_CKEDITOR_CUT = By
-			.xpath(".//*[@class='cke_button_icon cke_button__cut_icon']");
-	public final By ELEMENT_CKEDITOR_COPY = By
-			.xpath(".//*[@class='cke_button_icon cke_button__copy_icon']");
-	public final By ELEMENT_CKEDITOR_PASTE = By
-			.xpath(".//*[@class='cke_button_icon cke_button__pastetext_icon']");
-	public final By ELEMENT_CKEDITOR_UNDO = By
-			.xpath(".//*[@class='cke_button_icon cke_button__undo_icon']");
-	public final By ELEMENT_CKEDITOR_REDO = By
-			.xpath(".//*[@class='cke_button_icon cke_button__redo_icon']");
-	public final By ELEMENT_CKEDITOR_BOLD = By
-			.xpath(".//*[@class='cke_button_icon cke_button__bold_icon']");
-	public final By ELEMENT_CKEDITOR_ITALIC = By
-			.xpath(".//*[@class='cke_button_icon cke_button__italic_icon']");
-	public final By ELEMENT_CKEDITOR_UNDERLINE = By
-			.xpath(".//*[@class='cke_button_icon cke_button__underline_icon']");
-	public final By ELEMENT_CKEDITOR_ALIGNLEFT = By
-			.xpath(".//*[@class='cke_button_icon cke_button__justifyleft_icon']");
-	public final By ELEMENT_CKEDITOR_ALIGNRIGHT = By
-			.xpath(".//*[@class='cke_button_icon cke_button__justifyright_icon']");
-	public final By ELEMENT_CKEDITOR_CENTER = By
-			.xpath(".//*[@class='cke_button_icon cke_button__justifycenter_icon']");
-	public final By ELEMENT_CKEDITOR_JUSTIFY = By
-			.xpath(".//*[@class='cke_button_icon cke_button__justifyblock_icon']");
-	public final By ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST = By
-			.xpath(".//*[@class='cke_button_icon cke_button__numberedlist_icon']");
-	public final By ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST = By
-			.xpath(".//*[@class='cke_button_icon cke_button__bulletedlist_icon']");
-	public final By ELEMENT_CKEDITOR_DECREASE_INDENT = By
-			.xpath(".//*[@class='cke_button_icon cke_button__outdent_icon']");
-	public final By ELEMENT_CKEDITOR_INCREASE_INDENT = By
-			.xpath(".//*[@class='cke_button_icon cke_button__indent_icon']");
-	public final By ELEMENT_CKEDITOR_TEXT_COLOR = By
-			.xpath(".//*[@class='cke_button_icon cke_button__textcolor_icon']");
+	public final By ELEMENT_CKEDITOR_CUT = By.cssSelector(".cke_button__cut_icon");
+	public final By ELEMENT_CKEDITOR_COPY = By.cssSelector(".cke_button__copy_icon");
+	public final By ELEMENT_CKEDITOR_PASTE = By.cssSelector(".cke_button__pastetext_icon");
+	public final By ELEMENT_CKEDITOR_UNDO = By.cssSelector(".cke_button__undo_icon");
+	public final By ELEMENT_CKEDITOR_REDO = By.cssSelector(".cke_button__redo_icon");
+	public final By ELEMENT_CKEDITOR_BOLD = By.cssSelector(".cke_button__bold_icon");
+	public final By ELEMENT_CKEDITOR_BOLD_FEATURES =By.cssSelector("#cke_productFeatures .cke_button__bold_icon");
+	public final By ELEMENT_CKEDITOR_BOLD_BENEFITS = By.cssSelector("#cke_productBenefits .cke_button__bold_icon");
+	public final By ELEMENT_CKEDITOR_ITALIC = By.cssSelector(".cke_button__italic_icon");
+	public final By ELEMENT_CKEDITOR_UNDERLINE = By.cssSelector(".cke_button__underline_icon");
+	public final By ELEMENT_CKEDITOR_ALIGNLEFT = By.cssSelector(".cke_button__justifyleft_icon");
+	public final By ELEMENT_CKEDITOR_ALIGNRIGHT = By.cssSelector(".cke_button__justifyright_icon");
+	public final By ELEMENT_CKEDITOR_CENTER = By.cssSelector(".cke_button__justifycenter_icon");
+	public final By ELEMENT_CKEDITOR_JUSTIFY =By.cssSelector(".cke_button__justifyblock_icon");
+	public final By ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST = By.cssSelector(".cke_button__numberedlist_icon");
+	public final By ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST = By.cssSelector(".cke_button__bulletedlist_icon");
+	public final By ELEMENT_CKEDITOR_DECREASE_INDENT =By.cssSelector(".cke_button__outdent_icon");
+	public final By ELEMENT_CKEDITOR_INCREASE_INDENT = By.cssSelector(".cke_button__indent_icon");
+	public final By ELEMENT_CKEDITOR_TEXT_COLOR = By.cssSelector(".cke_button__textcolor_icon");
 	public final String ELEMENT_CKEDITOR_TEXT_COLOR_STYLE = ".//span[@class='cke_colorbox'][@style='background-color:#${codeColor}']";
-	public final By ELEMENT_CKEDITOR_BLOCK_QUOTE = By
-			.xpath(".//*[@class='cke_button_icon cke_button__blockquote_icon']");
-	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE = By
-			.xpath(".//*[@class='cke_button_icon cke_button__syntaxhighlight_icon']");
-	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TAB = By
-			.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Source code']");
-	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_ADVANCE_TAB = By
-			.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Advanced']");
-	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TEXTAREA = By
-			.xpath(".//div[@class='cke_dialog_ui_input_textarea']");
-	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_LANGUAGE_BOX = By
-			.xpath(".//div[@class='cke_dialog_ui_input_select']");
+	public final By ELEMENT_CKEDITOR_BLOCK_QUOTE = By.cssSelector(".cke_button__blockquote_icon");
+	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE = By.cssSelector(".cke_button__syntaxhighlight_icon");
+	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TAB = By.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Source code']");
+	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_ADVANCE_TAB = By.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Advanced']");
+	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TEXTAREA = By.xpath(".//div[@class='cke_dialog_ui_input_textarea']");
+	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_LANGUAGE_BOX = By.xpath(".//div[@class='cke_dialog_ui_input_select']");
 	public final String ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_LANGUAGE_ITEM = ".//div[@class='cke_dialog_ui_input_select']//option[contains(text(),'${nameLang}')]";
-	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_OK_BUTTON = By
-			.xpath(".//*[@id='cke_708_label']");
-	public final By ELEMENT_CKEDITOR_HELP_BB_CODE = By
-			.xpath(".//*[@class='cke_button_icon cke_button__helpbbcode.btn_icon']");
-	public final By ELEMENT_CKEDITOR_BBCODE_HELP_CONTENT = By
-			.xpath(".//*[@id='SubBody']//td[contains(text(),'BB Code')]");
+	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_OK_BUTTON = By.xpath(".//*[@id='cke_708_label']");
+	public final By ELEMENT_CKEDITOR_HELP_BB_CODE = By.xpath(".//*[@class='cke_button_icon cke_button__helpbbcode.btn_icon']");
+	public final By ELEMENT_CKEDITOR_BBCODE_HELP_CONTENT = By.xpath(".//*[@id='SubBody']//td[contains(text(),'BB Code')]");
 
-	public final By ELEMENT_CKEDITOR_BUTTON_RESIZE = By
-			.xpath(".//*[@class='uiIconResize pull-right uiIconLightGray']");
-	public final By ELEMENT_CKEDITOR_BUTTON_CANCEL = By
-			.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Cancel')]");
-	public final By ELEMENT_CKEDITOR_BUTTON_SUBMIT = By
-			.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Submit')]");
-	public final By ELEMENT_CKEDITOR_BUTTON_PREVIEW = By
-			.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Preview')]");
-
+	public final By ELEMENT_CKEDITOR_BUTTON_RESIZE = By.xpath(".//*[@class='uiIconResize pull-right uiIconLightGray']");
+	public final By ELEMENT_CKEDITOR_BUTTON_CANCEL = By.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Cancel')]");
+    public final By ELEMENT_CKEDITOR_BUTTON_SUBMIT = By.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Submit')]");
+	public final By ELEMENT_CKEDITOR_BUTTON_PREVIEW = By.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Preview')]");
+	//--------------------------------------------CKEDITOR FOR FILES THAT HAS MANY CKEDITORS TOOL
+	
+	public final String ELEMENT_CKEDITOR_BOLD_BY_TAB = "#${tab} .cke_button__bold_icon";
+	public final String ELEMENT_CKEDITOR_ITALIC_BY_TAB = "#${tab} .cke_button__italic_icon";
+	public final String ELEMENT_CKEDITOR_UNDERLINE_BY_TAB = "#${tab} .cke_button__underline_icon";
+	
+	public final By ELEMENT_CKEDITOR_BOLD_TAB2 = By.cssSelector("#tab2 .cke_button__bold_icon");
+	public final By ELEMENT_CKEDITOR_ITALIC_TAB2 = By.cssSelector("#tab2 .cke_button__italic_icon");
+	public final By ELEMENT_CKEDITOR_UNDERLINE_TAB2 = By.cssSelector("#tab2 .cke_button__underline_icon");
 	// --------------------------------------------common
 	// functions-------------------------------------------------------
 
@@ -190,42 +168,93 @@ public class CKeditor extends PlatformBase {
 	}
 
 	/**
-	 * Select all the text and click on bold button
+	 * Bold the text of the content
+	 * this function is used for the files has one CKEditor tool
 	 * 
 	 */
 	public void cke_Bold() {
-		if (isElementPresent(ELEMENT_CKEDITOR_BOLD)) {
 			info("Bold a text");
-			WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
 			click(ELEMENT_CKEDITOR_BOLD);
+			Utils.pause(200);
+	}
+	
+	/**
+	 * Bold the text of the content 
+	 * this function is used for the files has many CKEditor tool
+	 * @param nameTabId is the name of Id of the tab as:tab1, tab2...
+	 */
+	public void cke_Bold(String nameTabId){
+		info("Bold a text");
+		click(By.cssSelector(ELEMENT_CKEDITOR_BOLD_BY_TAB.replace("${tab}",nameTabId)));
+		Utils.pause(200);
+	}
+	/**
+	 * Select all the text and click on bold button for Features
+	 * 
+	 */
+	public void cke_Bold_Features() {
+		if (isElementPresent(ELEMENT_CKEDITOR_BOLD_FEATURES)) {
+			info("Bold a text");
+			WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT_FEATURES);
+			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+			click(ELEMENT_CKEDITOR_BOLD_FEATURES);
+		}
+	}
+	
+	/**
+	 * Select all the text and click on bold button for Benefits
+	 * 
+	 */
+	public void cke_Bold_Benefits() {
+		if (isElementPresent(ELEMENT_CKEDITOR_BOLD_BENEFITS)) {
+			info("Bold a text");
+			WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT_BENEFITS);
+			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+			click(ELEMENT_CKEDITOR_BOLD_BENEFITS);
 		}
 	}
 
 	/**
-	 * Select all the text and click on italic button
+	 * Italic the text of the content
+	 * this function is used for the files has only one CKEditor tool
 	 * 
 	 */
 	public void cke_Italic() {
-		if (isElementPresent(ELEMENT_CKEDITOR_ITALIC)) {
 			info("italic a text");
-			WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
 			click(ELEMENT_CKEDITOR_ITALIC);
-		}
+			Utils.pause(2000);
+	}
+	/**
+	 * Italic the text of the content 
+	 * this function is used for the files has many CKEditor tool
+	 * @param nameTabId is the name of ID tag of the tab
+	 */
+	public void cke_Italic(String nameTabId) {
+			info("italic a text");
+			click(By.cssSelector(ELEMENT_CKEDITOR_ITALIC_BY_TAB.replace("${tab}",nameTabId)));
+			Utils.pause(2000);
 	}
 
 	/**
-	 * Select all the text and click on underline button
+	 * Underline the text of the content
+	 * this function is used for the files has only one CKEditor tool
 	 * 
 	 */
 	public void cke_Underline() {
-		if (isElementPresent(ELEMENT_CKEDITOR_UNDERLINE)) {
 			info("Underline a text");
-			WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
 			click(ELEMENT_CKEDITOR_UNDERLINE);
-		}
+			Utils.pause(2000);
+	}
+	
+	/**
+	 * Underline the text of the content
+	 * this function is used for the files has many CKEditor tool
+	 * @param nameTabId is the name of ID tag of the tab
+	 */
+	public void cke_Underline(String nameTabId) {
+			info("Underline a text");
+			click(By.cssSelector(ELEMENT_CKEDITOR_UNDERLINE_BY_TAB.replace("${tab}",nameTabId)));
+			Utils.pause(2000);
 	}
 
 	/**

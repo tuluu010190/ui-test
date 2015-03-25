@@ -203,7 +203,6 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SITEBAR_INTRANET_DOCUMENT = By.xpath("//a/span[@class='nodeName' and text()='documents']");
 
 	//View Area
-	//public final By ELEMENT_VIEWAREA_ACME = By.xpath("//*[@title='acme']");
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
 	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
 
@@ -217,9 +216,7 @@ public class EcmsBase extends ManageAccount {
 
 
 	public final By ELEMENT_PERMISSION_LINK = By.xpath("//*[@class='actionIcon']//*[contains(@class,'uiIconEcmsViewPermissions')]");
-	//	public final By ELEMENT_PERMISSION_LINK2 = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsViewPermissions uiIconEcmsLightGray']");
 	public final By ELEMENT_EXPORT_LINK = By.xpath("//i[contains(@class,'uiIconEcmsExportNode')]");
-	//	public final By ELEMENT_EXPORT_LINK2 = By.xpath("//i[@class='uiIconEcmsExportNode']");
 	public final By ELEMENT_IMPORT_LINK = By.className("uiIconEcmsImportNode");
 
 	//Content template
@@ -233,16 +230,12 @@ public class EcmsBase extends ManageAccount {
 
 	//Explorer
 	/* Manage View Page */
-	//public By ELEMENT_ICON_VIEW_WCM_EDIT= By.xpath("//div[@title='WCM View']/../..//*[@class='EditInfoIcon']");
-	//public By ELEMENT_LINK_TAB_PUBLICATION= By.xpath("//a[contains(text(),'Publication')]");
 	public final By ELEMENT_MANAGE_VIEW = By.xpath("//a[contains(text(),'Manage View')]");
 	public final By ELEMENT_MANAGEMENT_VIEW = By.className("uiIconEcmsViewManager");
 
 
 	public final String ELEMENT_EDIT_VIEW = "//*[@data-original-title='${viewName}']/../..//*[@data-original-title='Edit']"; //*[@id='UIViewList']
-	//	public final String ELEMENT_EDIT_VIEW2 = "//*[@data-original-title='${viewName}']/../..//*[contains(@class,'uiIconEditInfo')]"; //*[@id='UIViewList']
 	public final String ELEMENT_DELETE_VIEW = "//*[@data-original-title='${viewName}']/../..//*[@data-original-title='Delete']";
-	//	public final String ELEMENT_DELETE_VIEW2 = "//*[@data-original-title='${viewName}']/../..//*[@class='uiIconDelete']";
 
 
 	//Edit View Form 
@@ -329,7 +322,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_NODE_NAME_CONSECUTIVE = "//*[@class='uiListGrid']/div[contains(@mousedown, '${node1}')]/..//*[@class='nodeName' and contains(text(), '${node2}')]";
 	public final String ELEMENT_FILE_INFORMATION = ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", "${node}") + "/../../*[@class='fileInfoBottom']";
 	public final String ELEMENT_FILE_CLONE_CHECKBOX = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]//*[@name='checkbox']";	
-	public final String ELEMENT_NODE_ROW_VIEW = "//*[@data-original-title='${nodeName}']/ancestor::div[contains(@class, 'rowView')]"; //HaVTT added
+	public final String ELEMENT_NODE_ROW_VIEW = "//*[contains(@data-original-title,'${nodeName}')]/ancestor::div[contains(@class, 'rowView')]"; //HaVTT added
 	public final By ELEMENT_VIEW_CHECKBOX_ALL = By.id("UIFileViewCheckBox"); //HaVTT added
 	public final String ELEMENT_PERSONAL_DOCUMENT_NODE= "//*[@class='nodeName' and contains(text(), '${content}')]";
 	public final String ELEMENT_NODE_ADDRESS = "//input[@id='address' and contains(@value,'/${content}')]";
@@ -356,7 +349,6 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_SHOW_COMMENT_LINK = By.linkText("Show comments");
 	public final String ELEMENT_HIDE_COMMENT_LINK = "//*[@onclick='eXo.ecm.WCMUtils.showHideComponent(this)']//a[contains(text(),'Hide comments')]";
 	public final String ELEMENT_SHOW_COMMENT_CONTENT = "//*[@class='commentBox uiBox']//p[contains(text(), '${comment}')]";
-	//public final String ELEMENT_SHOW_COMMENT_BUTTON = ".//a[@class='btn' and contains(text(),'Show comments')]";
 	public final String ELEMENT_EDIT_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Edit this comment']";
 	public final String ELEMENT_DELETE_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Remove this comment']";
 
