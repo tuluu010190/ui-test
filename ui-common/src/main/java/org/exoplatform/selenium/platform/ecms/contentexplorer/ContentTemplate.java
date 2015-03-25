@@ -161,13 +161,31 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_NEWFILE_DESCRIPTION_TEXTBOX = By.id("description0");
 	public final By ELEMENT_NEWFILE_CREATOR_TEXTBOX = By.id("creator0");
 	public final By ELEMENT_NEWFILE_SOURCE_TEXTBOX = By.id("source0");
-	public final By ELEMENT_NEWFILE_SOURCE_LINK_XPATH = By.xpath("//*[@title='Source']");
-	public final By ELEMENT_NEWFILE_SOURCE_TEXTAREA_XPATH = By.xpath("//div[@id='cke_1_contents']/textarea");
-	public final By ELEMENT_NEWFILE_FRAME_HTML_TAB_XPATH = By.xpath("//iframe[@class='ECMIframe']");
-	public final By ELEMENT_NEWFILE_HTML_TAB_P_XPATH = By.xpath("//html/body/p");
-	public final By ELEMENT_NEWFILE_HTML_TAB_B_XPATH = By.xpath("//html/body/b");
-	public final By ELEMENT_NEWFILE_HTML_TAB_B_XPATH_2 = By.xpath("html/body/p/b");
-	public final By ELEMENT_NEWFILE_TEXT_TAB_XPATH = By.xpath("//a[contains(text(),'View as Plain text')]");
+	public final By ELEMENT_NEWFILE_SOURCE_LINK_XPATH = By
+			.xpath("//*[@title='Source']");
+	public final By ELEMENT_NEWFILE_SOURCE_TEXTAREA_XPATH = By
+			.xpath("//div[@id='cke_1_contents']/textarea");
+	public final By ELEMENT_NEWFILE_FRAME_HTML_TAB_XPATH = By
+			.xpath("//iframe[@class='ECMIframe']");
+	public final By ELEMENT_NEWFILE_HTML_TAB_P_XPATH = By
+			.xpath("//html/body/p");
+	public final By ELEMENT_NEWFILE_HTML_TAB_B_XPATH = By
+			.xpath("//html/body/b");
+	public final By ELEMENT_NEWFILE_HTML_TAB_B_XPATH_2 = By
+			.xpath("html/body/p/b");
+	//public final By ELEMENT_NEWFILE_TEXT_TAB_XPATH = By
+	//		.xpath("//*[contains(text(),'View as Plain text')]");
+	public final By ELEMENT_NEWFILE_TEXT_TAB_XPATH = By
+			.xpath("//a[contains(text(),'View as Plain text')]");
+	
+	// Text options
+	public final By ELEMENT_CHOOSE_TEMPLATES= By.xpath(".//span[contains(text(),'Templates')]/..");
+	public final By ELEMENT_VIEW_SOURCE = By.xpath("//*[@class='cke_button_label cke_button__source_label' and contains(text(),'Source')]");
+	
+	// templates
+	public final By ELEMENT_TEMPLATE_IMAGE_AND_TITLE = By.xpath("//*[@class='cke_tpl_title' and contains(text(),'Image and Title')]");
+	public final By ELEMENT_BUTTON_CANCEL_TEMPLATE_CHOOSE = By.xpath("//*[@class='cke_dialog_ui_button' and contains(text(),'Cancel')]");
+	public final By ELEMENT_TEMPLATE_CHECK_TEXT_ON_DOCUMENT_VIEW_WITH_IMAGE_TITLE_TEMPLATE = By.xpath(".//*[@id='UIDocumentWorkspace']//*[contains(text(),'Type the title here')]/../p[contains(text(),'Type the text here')]");
 
 	public final String ELEMENT_NEWFILE_TEXT_TAB_P_CSS = ".textContent>pre";
 	public final By ELEMENT_NEWFILE_MIME_COMBOX_ID = By.name("mimetype");

@@ -2,8 +2,6 @@ package org.exoplatform.selenium.platform.forum.functional.forum.ckeditor;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import java.awt.AWTException;
-import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 import org.exoplatform.selenium.platform.ManageAccount;
@@ -222,17 +220,9 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 		driver.get(url_acme);
 
 		info("Copy a text on the home page of acme");
-		Robot robot=null;
-		try {
-			robot = new Robot();
-		} catch (AWTException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		robot.setAutoDelay(20);
-		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_HOME);
-		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_A);
-		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_C);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL, KeyEvent.VK_HOME);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL, KeyEvent.VK_A);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL, KeyEvent.VK_C);
 
 		info("Go to the forum portlet");
 		driver.get(baseUrl);
@@ -591,16 +581,8 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,text);
 		WebElement e = waitForAndGetElement(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,DEFAULT_TIMEOUT,1,2);
 		driver.switchTo().frame(e);
-		Robot robot=null;
-		try {
-			robot = new Robot();
-		} catch (AWTException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		robot.setAutoDelay(20);
-		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_HOME);
-		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_A);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL, KeyEvent.VK_HOME);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL, KeyEvent.VK_A);
 		switchToParentWindow();
 		cke.cke_InscrIndent();
 

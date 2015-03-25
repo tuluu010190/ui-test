@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.concurrent.TimeUnit;
 
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManagePost;
@@ -32,6 +33,10 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_MAXIMIZE_STYLE = By.xpath(".//*[@id='ThreadContent-tab'][@style='position: static; overflow: visible; z-index: 9995;']");
 	public final By ELEMENT_CKEDITOR_MINIMIZE_STYLE = By.xpath(".//*[@id='ThreadContent-tab'][@style='']");
 
+	public final By ELEMENT_CKEDITOR_SOURCE=By.cssSelector(".cke_button_icon.cke_button__source_icon");
+	public final By ELEMENT_CKEDITOR_TEMPLATE = By.cssSelector(".cke_button_icon.cke_button__templates_icon");
+	public final By ELEMENT_CKEDITOR_TEMPLATE_CANCEL=By.xpath("//*[@class='cke_dialog_ui_hbox_last']//*[contains(text(),'Cancel')]");
+	public final String ELEMENT_CKEDITOR_TEMPLATE_TYE="//*[@class='cke_tpl_item']//*[text()='${type}']";
 	public final By ELEMENT_CKEDITOR_CUT = By.cssSelector(".cke_button__cut_icon");
 	public final By ELEMENT_CKEDITOR_COPY = By.cssSelector(".cke_button__copy_icon");
 	public final By ELEMENT_CKEDITOR_PASTE = By.cssSelector(".cke_button__pastetext_icon");
@@ -59,6 +64,17 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_ANCHOR = By.cssSelector(".cke_button__anchor_icon");
 	public final By ELEMENT_CKEDITOR_REMOVE_LINK = By.cssSelector(".cke_button__unlink_icon");
 	
+	public final By ELEMENT_CKEDITOR_REPLACE=By.cssSelector(".cke_button_icon.cke_button__replace_icon");
+	public final By ELEMENT_CKEDITOR_REPLACE_FIND_WHAT=By.xpath("//*[@class='cke_dialog_contents_body']/div[2]//*[text()='Find what:']/../..//*[@type='text']");
+	public final By ELEMENT_CKEDITOR_REPLACE_WITH=By.xpath("//*[@class='cke_dialog_contents_body']/div[2]//*[text()='Replace with:']/../..//*[@type='text']");
+	public final By ELEMENT_CKEDITOR_REPLACE_BUTTON=By.xpath("//*[@class='cke_dialog_contents_body']/div[2]//*[text()='Replace']");
+	public final By ELEMENT_CKEDITOR_REPLACE_ALL_BUTTON=By.xpath("//*[@class='cke_dialog_contents_body']/div[2]//*[text()='Replace All']");
+	public final By ELEMENT_CKEDITOR_CANCEL_BUTTON=By.xpath("//div[3]//*[text()='Cancel']");
+	
+	public final By ELEMENT_CKEDITOR_FIND=By.cssSelector("cke_button_icon.cke_button__find_icon");
+	public final By ELEMENT_CKEDITOR_FIND_WHAT=By.xpath("//*[@class='cke_dialog_contents_body']/div[1]//*[text()='Find what:']/../..//*[@type='text']");
+	public final By ELEMENT_CKEDITOR_FIND_BUTTON=By.xpath("//*[@class='cke_dialog_contents_body']/div[1]//*[text()='Find']");
+	
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TAB = By.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Source code']");
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_ADVANCE_TAB = By.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Advanced']");
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TEXTAREA = By.xpath(".//div[@class='cke_dialog_ui_input_textarea']");
@@ -75,7 +91,7 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_BUTTON_PREVIEW = By.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Preview')]");
 
 	public final By ELEMENT_CKEDITOR_BUTTON_SELECTALL = By.cssSelector(".cke_button__selectall_icon");
-	
+
 	//--------------------------------------------CKEDITOR FOR DIALOG FRAME
 	public final By ELEMENT_CKEDITOR_DIALOG_PASTE_FRAME = By.xpath(".//*[contains(@class,'cke_reset_all') and contains(@role,'dialog') and not(contains(@style,'display: none;'))]//iframe");
 	public final By ELEMENT_CKEDITOR_DIALOG_OK_BTN = By.xpath(".//*[contains(@class,'cke_reset_all') and contains(@role,'dialog') and not(contains(@style,'display: none;'))]//*[contains(@class,'cke_dialog_ui_button_ok')]");
@@ -142,6 +158,7 @@ public class CKeditor extends PlatformBase {
 		this.plfVersion = plfVersion.length > 0 ? plfVersion[0] : "4.0";
 		mngTopic = new ForumManageTopic(driver, this.plfVersion);
 		foruBas = new ForumBase();
+		alert = new ManageAlert(driver, this.plfVersion);
 	}
 
 	/**
@@ -852,4 +869,28 @@ public class CKeditor extends PlatformBase {
 		return driver.findElements(locator).size() > 0;
 	}
 
+	/**
+	 * Replace text in ckeditor
+	 * @param oldText
+	 * @param newText
+	 */
+	public void replaceText(String oldText, String newText){
+		type(ELEMENT_CKEDITOR_REPLACE_FIND_WHAT, oldText, true,2);
+		type(ELEMENT_CKEDITOR_REPLACE_WITH, newText, true,2);
+		click(ELEMENT_CKEDITOR_REPLACE_ALL_BUTTON,2);
+		alert.acceptAlert();
+		click(ELEMENT_CKEDITOR_CANCEL_BUTTON,2);
+	}
+	
+	/**
+	 * Find text in ckeditor
+	 * @param findText
+	 * @param newText
+	 */
+	public void findText(String findText){
+		type(ELEMENT_CKEDITOR_REPLACE_FIND_WHAT, findText, true,2);
+		click(ELEMENT_CKEDITOR_FIND_BUTTON,2);
+		alert.acceptAlert();
+		click(ELEMENT_CKEDITOR_CANCEL_BUTTON,2);
+	}
 }

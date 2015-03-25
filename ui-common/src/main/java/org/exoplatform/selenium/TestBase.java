@@ -5,6 +5,12 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.awt.AWTException;
 import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.datatransfer.Clipboard;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.StringSelection;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.IOException;
@@ -92,19 +98,19 @@ public class TestBase {
 	public final By ELEMENT_YOUR_ACCOUNT_LABEL = By.xpath("//h5[contains(text(), 'Create your account')]");
 	public final By ELEMENT_ADMIN_PASS_LABEL = By.xpath("//h5[contains(text(), 'Admin Password')]");
 	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
-	
+
 	public final By ELEMENT_GOOGLE_PAGE_LOGO = By.id("hplogo");
 
 	//Driver path
 	public static String uploadfile= Utils.getAbsoluteFilePath("TestData\\uploadFile.exe");
-    public static String downloadfile=Utils.getAbsoluteFilePath("TestData\\downloadIE9.exe");
-    public static String ieDriver=Utils.getAbsoluteFilePath("TestData\\IEDriverServer.exe");
-    public static String chromeDriver= Utils.getAbsoluteFilePath("TestData\\chromedriver.exe");
+	public static String downloadfile=Utils.getAbsoluteFilePath("TestData\\downloadIE9.exe");
+	public static String ieDriver=Utils.getAbsoluteFilePath("TestData\\IEDriverServer.exe");
+	public static String chromeDriver= Utils.getAbsoluteFilePath("TestData\\chromedriver.exe");
 
-    public TestBase(){
+	public TestBase(){
 	}
-    
-    Actions actions;
+
+	Actions actions;
 	public TestBase(WebDriver dr){
 		driver = dr;
 		actions = new Actions(driver);
@@ -123,7 +129,7 @@ public class TestBase {
 		capabilitiesIE.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
 		return new InternetExplorerDriver(capabilitiesIE);
 	}
-	
+
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
 		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
 		String browser = System.getProperty("browser");
@@ -222,9 +228,9 @@ public class TestBase {
 		}
 
 	}
-    /**
-     * Account setup without Greeting
-     */
+	/**
+	 * Account setup without Greeting
+	 */
 	public void accountSetupWithoutGreeting(){
 		type(ELEMENT_INPUT_USERNAME, "fqa", true);
 		type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
@@ -494,7 +500,7 @@ public class TestBase {
 			if(element.isEnabled())
 				actions.click(element).perform();
 			else {
-				
+
 				debug("Element is not enabled");
 				click(locator, notDisplay);
 			}
@@ -1039,13 +1045,13 @@ public class TestBase {
 		cal.add(Calendar.MINUTE, min);
 		return (dateFormat.format(cal.getTime()));	
 	}
-    /**
-     * Add time to Current date time
-     * @param number
-     * @param typeOfTime
-     * @param format
-     * @return
-     */
+	/**
+	 * Add time to Current date time
+	 * @param number
+	 * @param typeOfTime
+	 * @param format
+	 * @return
+	 */
 	public String addTimeToCurrentDateTime(int number, int typeOfTime, String...format){
 		DateFormat dateFormat = format.length > 0 ? new SimpleDateFormat(format[0]) : new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
@@ -1105,9 +1111,9 @@ public class TestBase {
 	}
 
 
-   /**
-    * Set preference run time
-    */
+	/**
+	 * Set preference run time
+	 */
 	public void setPreferenceRunTime(){
 		FirefoxProfile fp = new FirefoxProfile();
 
@@ -1377,7 +1383,7 @@ public class TestBase {
 		WebElement e = (WebElement)((JavascriptExecutor) driver).executeScript("return document.getElementsByClassName('"+className+"')["+i+"];");
 		return e;
 	}
-	
+
 	/**
 	 *This function will try to get an element. if after timeout, the element is not found.
 	 *The function will refresh the page and find the element again.
@@ -1398,18 +1404,62 @@ public class TestBase {
 		Utils.pause(2000);
 		info("The elemnt is shown successfully");
 	}
-	
+
 	/**
 	 * typeUsingRobot
 	 * @param robot
 	 * @param keycodes
 	 */
-	public void typeUsingRobot(Robot robot, int... keycodes){
+	public void pressGroupKeysUsingRobot(int... keycodes){
+		info("Copy a text on the home page of acme");
+		Robot robot=null;
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		robot.setAutoDelay(20);
 		for(int keycode:keycodes){
 			robot.keyPress(keycode);
 		}
 		for(int keycode:keycodes){
 			robot.keyRelease(keycode);
 		}
+	}
+
+	/**
+	 * Clear clipboard
+	 */
+	public void clearClipboard(){
+		StringSelection stringSelection = new StringSelection("");
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
+		            stringSelection, null);  
+	}
+
+	/**
+	 * Get clipboard
+	 * @return
+	 */
+	public String getClipboard(){
+		String result = "";
+		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+		//odd: the Object param of getContents is not currently used
+		Transferable contents = clipboard.getContents(null);
+		boolean hasTransferableText =
+				(contents != null) &&
+				contents.isDataFlavorSupported(DataFlavor.stringFlavor)
+				;
+		if (hasTransferableText) {
+			try {
+				result = (String)contents.getTransferData(DataFlavor.stringFlavor);
+			}
+			catch (UnsupportedFlavorException | IOException ex){
+				System.out.println(ex);
+				ex.printStackTrace();
+			}
+		}
+		info("result is "+result);
+		return result;
 	}
 }
