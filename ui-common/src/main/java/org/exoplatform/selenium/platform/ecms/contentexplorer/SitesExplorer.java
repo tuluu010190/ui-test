@@ -87,6 +87,14 @@ public class SitesExplorer extends EcmsBase{
 	public final String ELEMENT_BUTTON_WATCH_EMAIL = "//*[text()='Email']";
 	public final String ELEMENT_BUTTON_WATCH_WATCH = "//*[@class='btn' and text()='Watch']";
 	
+	//main content strong
+	public final String ELEMENT_CONTENT_STRONG = "//strong/..//*[text()='${title}']";
+	
+	//CKEditor
+	public final By ELEMENT_CONTENT_ALIGNRIGHT = By.xpath("//*[@style='text-align: right;']");
+	public final String ELEMENT_CONTENT_ALIGNRIGHT_INFRAME = "//*[@class='textContent']/..//*[text()='<p style=\"text-align: right;\">${name}</p>']";
+	public final By ELEMENT_CONTENT_INDENT = By.xpath("//*[@style='margin-left: 40px;']");
+	
 	/*================***==================*/
 
 	//Verify if Driver is present

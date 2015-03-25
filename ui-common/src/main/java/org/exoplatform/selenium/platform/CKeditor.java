@@ -14,12 +14,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-/**
- * 
- * by quynhpt
- * date 14/10/2014
- * 
- */
 public class CKeditor extends PlatformBase {
 	ForumManagePost mngPost;
 	ForumManageTopic mngTopic;
@@ -63,6 +57,7 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TEXTAREA = By.xpath(".//div[@class='cke_dialog_ui_input_textarea']");
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_LANGUAGE_BOX = By.xpath(".//div[@class='cke_dialog_ui_input_select']");
 	public final String ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_LANGUAGE_ITEM = ".//div[@class='cke_dialog_ui_input_select']//option[contains(text(),'${nameLang}')]";
+
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_OK_BUTTON = By.xpath(".//*[@id='cke_708_label']");
 	public final By ELEMENT_CKEDITOR_HELP_BB_CODE = By.xpath(".//*[@class='cke_button_icon cke_button__helpbbcode.btn_icon']");
 	public final By ELEMENT_CKEDITOR_BBCODE_HELP_CONTENT = By.xpath(".//*[@id='SubBody']//td[contains(text(),'BB Code')]");
@@ -71,6 +66,9 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_BUTTON_CANCEL = By.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Cancel')]");
     public final By ELEMENT_CKEDITOR_BUTTON_SUBMIT = By.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Submit')]");
 	public final By ELEMENT_CKEDITOR_BUTTON_PREVIEW = By.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Preview')]");
+	
+	public final By ELEMENT_CKEDITOR_BUTTON_SELECTALL = By.cssSelector(".cke_button__selectall_icon");
+	
 	//--------------------------------------------CKEDITOR FOR FILES THAT HAS MANY CKEDITORS TOOL
 	
 	public final String ELEMENT_CKEDITOR_BOLD_BY_TAB = "#${tab} .cke_button__bold_icon";
@@ -80,6 +78,7 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_BOLD_TAB2 = By.cssSelector("#tab2 .cke_button__bold_icon");
 	public final By ELEMENT_CKEDITOR_ITALIC_TAB2 = By.cssSelector("#tab2 .cke_button__italic_icon");
 	public final By ELEMENT_CKEDITOR_UNDERLINE_TAB2 = By.cssSelector("#tab2 .cke_button__underline_icon");
+
 	// --------------------------------------------common
 	// functions-------------------------------------------------------
 

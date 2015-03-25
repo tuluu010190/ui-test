@@ -113,7 +113,11 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_FILE_VIEW_NAME = "//*[@id='UISocialPopupWindow']//*[text()='${fileName}']";
 	public final String ELEMENT_FILE_COMMENT_MOVING = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File has been moved to: ${path}']";
 	public final String ELEMENT_FILE_COMMENT_MOVING_41 = "//*[@data-original-title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File has been moved to: ${path}']";
-
+	public final String ELEMENT_FILE_EDIT = "//*[contains(text(),'${title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
+	public final String ELEMENT_FILE_VIEW = "//*[contains(text(),'${title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
+	public final String ELEMENT_FILE_CHECKCOMMENTRIGHT = "//*[contains(text(),'${title}')]/../../../..//*[@style='text-align: right;']";
+	
+	
 	//Attach file
 	public final String ELEMENT_FILE_COMMENT_ADD_ATTACH_FILE = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File(s) has been attached.']";
 	public final String ELEMENT_FILE_COMMENT_REMOVE_ATTACH_FILE = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File(s) has been removed.']";
