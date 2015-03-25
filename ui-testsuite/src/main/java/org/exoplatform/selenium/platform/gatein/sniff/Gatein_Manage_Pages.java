@@ -296,12 +296,10 @@ import org.testng.annotations.*;
 			*/
 		navToolBar.goToPotalPages();
 		portMg.addPage(pageName, title,"");
-		portMg.searchPage(title,"","");
-		portMg.editPage(title);
+		portMg.editPage(title,"");
 		pagCW.addApp(name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
 		info("Verify that all changes of page is saved");
-		portMg.searchPage(title,"","");
-		portMg.editPage(title);
+		portMg.editPage(title,"");
 		waitForAndGetElement(pagCW.ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",name),3000,0);
 		pagCW.saveChangesPageEditor();
 		portMg.deletePage(title,"");
@@ -397,13 +395,11 @@ import org.testng.annotations.*;
 		info("Add a new page with group type");
 		portMg.addPage(pageName, title,type);
 		info("Edit a page");
-		portMg.searchPage(title, "", type);
-		portMg.editPage(title);
+		portMg.editPage(title,type);
 		pagCW.addApp(name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
 		
 		info("Verify that all changes of page is saved");
-		portMg.searchPage(title, "", type);
-		portMg.editPage(title);
+		portMg.editPage(title,type);
 		waitForAndGetElement(pagCW.ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",name),3000,0);
 		pagCW.saveChangesPageEditor();
 		

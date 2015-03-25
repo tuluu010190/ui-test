@@ -99,9 +99,9 @@ public class PortalManagePages extends PlatformBase {
 	 * Go to edit a page
 	 * @param titilePage
 	 */
-	public void editPage(String titlePage){
+	public void editPage(String titlePage,String type){
 		info("Go to edit a page");
-		searchPage(titlePage,"","");
+		searchPage(titlePage,"",type);
 		info("Click on Edit button");
 		click(ELEMENT_MAGEPAGES_CONTENT_ACTION_COLUMN_EDIT);
 		Utils.pause(2000);

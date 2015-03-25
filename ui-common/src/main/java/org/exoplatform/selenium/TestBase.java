@@ -118,6 +118,9 @@ public class TestBase {
 	protected String createNewGateinFilePath;
 	protected String categoriesGateinFilePath;
 	protected String pageMagListFilePath;
+	protected String portalDefaultFilePath;
+	protected String portalPermisGroupFilePath;
+	protected String portalPermisMemFilePath;
 	
 
 	/*========Default System Property=============*/
@@ -168,7 +171,9 @@ public class TestBase {
 	public final String DEFAULT_CREATENEWGATEINURL="DataDriven/"+"create_new_gatein.xls";
 	public final String DEFAULT_CATEGORIGATEINURL="DataDriven/"+"gatein_categories.xls";
 	public final String DEFAULT_PAGE_MANAGEMENT_LIST_URL="DataDriven/"+"gatein_page_management_list.xls";
-
+    public final String DEFAULT_PORTAL_DEFAULT_GATEIN_URL="DataDriven/"+"gatein_portal_defaults.xls";
+    public final String DEFAULT_PORTAL_PERMISSION_GROUP_URL="DataDriven/"+"gatein_portal_groups.xls";
+    public final String DEFAULT_PORTAL_PERMISSION_MEMBERSHIPS_URL="DataDriven/"+"gatein_portal_memberships.xls";
 
 	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
 
@@ -255,6 +260,9 @@ public class TestBase {
 		createNewGateinFilePath =System.getProperty("createNewGateinFilePath");
 		categoriesGateinFilePath = System.getProperty("categoriesGateinFilePath");
 		pageMagListFilePath = System.getProperty("pageMagListFilePath");
+		portalDefaultFilePath = System.getProperty("portalDefaultFilePath");
+		portalPermisGroupFilePath = System.getProperty("portalPermisGroupFilePath");
+		portalPermisMemFilePath = System.getProperty("portalPermisMemFilePath");
 
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -305,8 +313,11 @@ public class TestBase {
 		if (createNewGateinFilePath==null) createNewGateinFilePath = DEFAULT_CREATENEWGATEINURL;
 		if (categoriesGateinFilePath==null) categoriesGateinFilePath = DEFAULT_CATEGORIGATEINURL;
 		if (pageMagListFilePath==null) pageMagListFilePath = DEFAULT_PAGE_MANAGEMENT_LIST_URL;
-
-
+   
+		if (portalDefaultFilePath==null) portalDefaultFilePath = DEFAULT_PORTAL_DEFAULT_GATEIN_URL;
+		if (portalPermisGroupFilePath==null) portalPermisGroupFilePath = DEFAULT_PORTAL_PERMISSION_GROUP_URL;
+        if (portalPermisMemFilePath==null) portalPermisMemFilePath = DEFAULT_PORTAL_PERMISSION_MEMBERSHIPS_URL;
+		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		wikiRichTextFilePath = getAbsoluteFilePath(wikiRichTextFilePath);
 		attachmentFilePath = getAbsoluteFilePath(attachmentFilePath);
@@ -335,6 +346,9 @@ public class TestBase {
 		createNewGateinFilePath = getAbsoluteFilePath(createNewGateinFilePath);
 		categoriesGateinFilePath = getAbsoluteFilePath(categoriesGateinFilePath);
 		pageMagListFilePath = getAbsoluteFilePath(pageMagListFilePath);
+		portalDefaultFilePath = getAbsoluteFilePath(portalDefaultFilePath);
+		portalPermisGroupFilePath = getAbsoluteFilePath(portalPermisGroupFilePath);
+		portalPermisMemFilePath = getAbsoluteFilePath(portalPermisMemFilePath);
 	}
 
 

@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.gatein.GadgetManagement;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManagePages;
+import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.AppAddGateinDatabase;
@@ -21,6 +22,9 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.CategoriesGateinD
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ContainersDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.CreateNewGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GadgetsGateinDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalDefaultDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalGroupsPermissionDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalMemberShipsPermissionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.PagesManagementListDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
@@ -37,6 +41,7 @@ public class GateIn_TestConfig extends PlatformBase {
 	SpaceHomePage spaHome;
 	SpaceSettingManagement setSpaceMg;
 	PortalManagePages portMg;
+	PortalManageSites portSite;
 	
 	UserAddManagement addUserPage;
 	
@@ -50,7 +55,9 @@ public class GateIn_TestConfig extends PlatformBase {
 	ContainersDatabase contaiData;
 	ApplicationLayoutDatabase appLayData;
 	RemoteGadgetDatabase remoteGadData;
-	
+	GateinPortalDefaultDatabase portDeftData;
+	GateinPortalGroupsPermissionDatabase portGroupPermisData;
+	GateinPortalMemberShipsPermissionDatabase portMemPermisData;
 	
 	EditPageWCM editPageWCM;
 	
@@ -81,10 +88,12 @@ public class GateIn_TestConfig extends PlatformBase {
 		editPage = new EditPageWCM(driver);
 		myDash = new MyDashBoard(driver);
 		portMg = new PortalManagePages(driver);
+		portSite = new PortalManageSites(driver);
 		
 		addUserPage = new UserAddManagement(driver);
 		
 		pagCW = new PageCreationWizard(driver);
+		
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -120,6 +129,15 @@ public class GateIn_TestConfig extends PlatformBase {
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		portDeftData = new GateinPortalDefaultDatabase();
+		portDeftData.setData(portalDefaultFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		portGroupPermisData = new GateinPortalGroupsPermissionDatabase();
+		portGroupPermisData.setData(portalPermisGroupFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		portMemPermisData = new GateinPortalMemberShipsPermissionDatabase();
+		portMemPermisData.setData(portalPermisMemFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
 		info("End setUpBeforeClass");
 	}

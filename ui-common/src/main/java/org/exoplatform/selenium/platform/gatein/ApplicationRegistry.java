@@ -122,7 +122,7 @@ public class ApplicationRegistry extends PlatformBase {
 		info("Show all import application");
 		if ("iexplorer".equals(browser)){
 			navTool.goToPotalPages();
-			pagMag.editPage("registry");
+			pagMag.editPage("registry","");
 		}
 		else{
 			navTool.goToApplication();

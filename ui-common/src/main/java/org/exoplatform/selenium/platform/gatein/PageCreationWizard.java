@@ -73,6 +73,7 @@ public class PageCreationWizard extends PlatformBase {
 	public  final By ELEMENT_PAGEEDITOR_VIEWPAGE = By.xpath("//*[@class='VIEW-PAGE']");
 	public final String ELEMENT_PAGEEDITOR_CONTENT=".//*[@class='UIComponentBlock']//*[contains(text(),'${name}')]";
 	public final By ELEMENT_PAGEEDITOR_FINISHBTN = By.xpath("//*[contains(@class,'uiIconSave')]");
+	public final By ELEMENT_SWITCH_VIEW_MODE_NAME_APPLICATION_CLASS = By.xpath(".//*[contains(@class,'portletName')]");
 	
 	public final String ELEMENT_APPLICATION_IN_LAYOUT_PAGE = ".//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${name}')]";
 	public final String ELEMENT_APPLICATION_EDIT_ICON = "//span[contains(text(),'${name}')]/../../../..//*[contains(@class,'uiIconEdit')]";
@@ -493,5 +494,15 @@ public class PageCreationWizard extends PlatformBase {
 		}
 		saveChangesPageEditor();
 		info("the container is deleted");
+	}
+	/**
+	 * Change to Switch view mode
+	 * @param verify
+	 */
+	public void switchViewMode(boolean... verify){
+		info("Click on Switch view mode button");
+		click(ELEMENT_SWITCH_VIEW_MODE);
+		if(verify.length>0)
+		waitForAndGetElement(ELEMENT_SWITCH_VIEW_MODE_NAME_APPLICATION_CLASS,2000,0);
 	}
 }
