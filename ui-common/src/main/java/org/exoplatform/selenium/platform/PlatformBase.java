@@ -133,7 +133,6 @@ public class PlatformBase extends TestBase {
 	
 	/**
 	 * Select option from combo box
-	 * By QuynhPT
 	 * @param locator
 	 * @param option
 	 */
@@ -144,6 +143,7 @@ public class PlatformBase extends TestBase {
 					Assert.fail("Timeout at select: " + option + " into "
 							+ locator);
 				}
+			
 				Select select = new Select(waitForAndGetElement(locator));
 				select.selectByValue(option);
 				if (option.equals(select.getFirstSelectedOption().getAttribute(

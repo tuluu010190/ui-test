@@ -164,19 +164,25 @@ public class NavigationToolbar extends PlatformBase {
 
 	/**
 	 * Go to Manage Sites page: Administration-->Portal->Pages
-	 * By QuynhPT
 	 */
 	public void goToPotalPages(){
-		info("--Go to Portal-->Pages--");
-		String url=baseUrl+"/g/:platform:administrators/administration/pageManagement";
-		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION);
-		click(ELEMENT_TOOLBAR_ADMINISTRATION);
-		mouseOver(ELEMENT_ADMINISTRATION_PORTAL, true);
-		if(waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_PAGES,5000,0)==null)
-			driver.get(url);
-		else
-			click(ELEMENT_ADMINISTRATION_PORTAL_PAGES);
-		waitForAndGetElement(paMang.ELEMENT_MANAGEPAGES_TITLE);
+		info("-- Go to Page Management page --");
+		Utils.pause(500);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_LINK_SETUP);
+				break;
+			}
+			mouseOver(ELEMENT_LINK_SETUP, true);
+			if (waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL, 5000, 0) != null){
+				info("Element " + ELEMENT_ADMINISTRATION_PORTAL + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		mouseOverAndClick(ELEMENT_ADMINISTRATION_PORTAL);
+		Utils.pause(2000);
+		info("Page Managements is shown successfully");
 	}
 
 	/**

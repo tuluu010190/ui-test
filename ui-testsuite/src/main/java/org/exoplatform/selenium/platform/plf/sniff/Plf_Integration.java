@@ -179,7 +179,7 @@ public class Plf_Integration extends Plf_TestConfig  {
 		 
 		 info("Delete created page");
 		 navToolBar.goToPotalPages();
-		 pagMang.deletePage(page);
+		 pagMang.deletePage(page,"");
 			
  		 info("Delete Gadget");
 		 navToolBar.goToApplication();

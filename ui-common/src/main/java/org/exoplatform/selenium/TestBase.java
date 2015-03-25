@@ -117,6 +117,7 @@ public class TestBase {
 	protected String appAddGateinFilePath;
 	protected String createNewGateinFilePath;
 	protected String categoriesGateinFilePath;
+	protected String pageMagListFilePath;
 	
 
 	/*========Default System Property=============*/
@@ -166,6 +167,7 @@ public class TestBase {
 	public final String DEFAULT_APPADDGATEINURL="DataDriven/"+"gatein_applications_add.xls";
 	public final String DEFAULT_CREATENEWGATEINURL="DataDriven/"+"create_new_gatein.xls";
 	public final String DEFAULT_CATEGORIGATEINURL="DataDriven/"+"gatein_categories.xls";
+	public final String DEFAULT_PAGE_MANAGEMENT_LIST_URL="DataDriven/"+"gatein_page_management_list.xls";
 
 
 	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
@@ -252,7 +254,7 @@ public class TestBase {
 		
 		createNewGateinFilePath =System.getProperty("createNewGateinFilePath");
 		categoriesGateinFilePath = System.getProperty("categoriesGateinFilePath");
-
+		pageMagListFilePath = System.getProperty("pageMagListFilePath");
 
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -302,6 +304,7 @@ public class TestBase {
 		
 		if (createNewGateinFilePath==null) createNewGateinFilePath = DEFAULT_CREATENEWGATEINURL;
 		if (categoriesGateinFilePath==null) categoriesGateinFilePath = DEFAULT_CATEGORIGATEINURL;
+		if (pageMagListFilePath==null) pageMagListFilePath = DEFAULT_PAGE_MANAGEMENT_LIST_URL;
 
 
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
@@ -331,6 +334,7 @@ public class TestBase {
 		appAddGateinFilePath = getAbsoluteFilePath(appAddGateinFilePath);
 		createNewGateinFilePath = getAbsoluteFilePath(createNewGateinFilePath);
 		categoriesGateinFilePath = getAbsoluteFilePath(categoriesGateinFilePath);
+		pageMagListFilePath = getAbsoluteFilePath(pageMagListFilePath);
 	}
 
 

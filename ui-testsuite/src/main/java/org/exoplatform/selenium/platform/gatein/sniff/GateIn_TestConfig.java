@@ -11,6 +11,7 @@ import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.GadgetManagement;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
+import org.exoplatform.selenium.platform.gatein.PortalManagePages;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.AppAddGateinDatabase;
@@ -20,6 +21,7 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.CategoriesGateinD
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ContainersDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.CreateNewGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GadgetsGateinDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.PagesManagementListDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
@@ -34,6 +36,7 @@ public class GateIn_TestConfig extends PlatformBase {
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
 	SpaceSettingManagement setSpaceMg;
+	PortalManagePages portMg;
 	
 	UserAddManagement addUserPage;
 	
@@ -58,6 +61,7 @@ public class GateIn_TestConfig extends PlatformBase {
 	AppAddGateinDatabase appAddGateinData;
 	CreateNewGateinDatabase creatGateinData;
 	CategoriesGateinDatabase cateGateinData;
+	PagesManagementListDatabase pagMgListData;
 	
 	
 	@BeforeClass
@@ -76,6 +80,7 @@ public class GateIn_TestConfig extends PlatformBase {
 		navToolBar = new NavigationToolbar(driver);
 		editPage = new EditPageWCM(driver);
 		myDash = new MyDashBoard(driver);
+		portMg = new PortalManagePages(driver);
 		
 		addUserPage = new UserAddManagement(driver);
 		
@@ -109,6 +114,9 @@ public class GateIn_TestConfig extends PlatformBase {
 		
 		cateGateinData = new CategoriesGateinDatabase();
 		cateGateinData.setGateinData(categoriesGateinFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		pagMgListData = new PagesManagementListDatabase();
+		pagMgListData.setPagesListData(pageMagListFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

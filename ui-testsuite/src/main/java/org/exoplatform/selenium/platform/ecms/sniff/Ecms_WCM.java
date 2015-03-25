@@ -74,7 +74,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.deleteData(content);
 		info("Delete created page");
 		navTool.goToPotalPages();
-		paMang.deletePage(content);
+		paMang.deletePage(content,"");
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
@@ -137,7 +137,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.deleteData(content);
 		info("Delete created page");
 		navTool.goToPotalPages();
-		paMang.deletePage(content);
+		paMang.deletePage(content,"");
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
@@ -194,7 +194,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.deleteData(content);
 		info("Delete created page");
 		navTool.goToPotalPages();
-		paMang.deletePage(content);
+		paMang.deletePage(content,"");
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
@@ -254,7 +254,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.deleteData(content);
 		info("Delete created page");
 		navTool.goToPotalPages();
-		paMang.deletePage(content);
+		paMang.deletePage(content,"");
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
@@ -429,7 +429,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.deleteData(content);
 		info("Delete created page");
 		navTool.goToPotalPages();
-		paMang.deletePage(content);
+		paMang.deletePage(content,"");
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
@@ -531,7 +531,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.deleteData(content2);
 	    info("Delete created page");
 		navTool.goToPotalPages();
-		paMang.deletePage(title);
+		paMang.deletePage(title,"");
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
@@ -617,7 +617,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.deleteData(content2);
 		info("Delete created page");
 		navTool.goToPotalPages();
-		paMang.deletePage(title);
+		paMang.deletePage(title,"");
 		info("Delete created node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
@@ -697,7 +697,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		SEHome.deleteData(content2);
 		info("Delete create page");
 		navTool.goToPotalPages();
-		paMang.deletePage(title);
+		paMang.deletePage(title,"");
 		info("Delete created node on navigation");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
