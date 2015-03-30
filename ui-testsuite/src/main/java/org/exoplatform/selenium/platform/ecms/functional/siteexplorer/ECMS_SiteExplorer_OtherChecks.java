@@ -59,7 +59,7 @@ public class ECMS_SiteExplorer_OtherChecks extends PlatformBase {
 		driver.quit();
 	}
 
-	@Test(dependsOnMethods = { "test04_PersonalDocument" },alwaysRun=true)
+	@Test(dependsOnMethods = { "test05_PersonalDocument" },alwaysRun=true)
 	/**
 	 * == Public folder ==
 	 * Test case ID: 119464
@@ -256,9 +256,9 @@ public class ECMS_SiteExplorer_OtherChecks extends PlatformBase {
 		waitForAndGetElement(ELEMENT_NEW_FOLDER_LINK);
 		
 		//check for initialed folder 
-		waitForAndGetElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", "Documents"));
-		waitForAndGetElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", "Music"));
-		waitForAndGetElement(ELEMENT_NODE_LINK.replace("${nodeLabel}", "Public"));
+		waitForAndGetElement(ELEMENT_NODE_LINK3.replace("${nodeLabel}", "Documents"));
+		waitForAndGetElement(ELEMENT_NODE_LINK3.replace("${nodeLabel}", "Music"));
+		waitForAndGetElement(ELEMENT_NODE_LINK3.replace("${nodeLabel}", "Public"));
 		
 		//check the permission
 		navToolbar.goToContentAdministration();

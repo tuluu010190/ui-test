@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.event.KeyEvent;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.CKeditor;
@@ -290,7 +291,7 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 	 *<li> Pre-Condition: Package is started with all extensions</li>
 	 *<li> Post-Condition: </li>
 	 */
-	@Test
+	@Test (groups="pending")
 	public  void test03_10_Edit_ViewAnAccessibleMediaFromActivityStream() {
 		info("Test 3: Edit an accessible media from activity stream");
 
@@ -323,12 +324,13 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 
 		 *Expected Outcome: 
 			Alternative text is filled & decorated*/
-
-		click(ckEdit.ELEMENT_CKEDITOR_INCREASE_INDENT);
+	
 		Utils.pause(3000);
-		inputDataToFrame(cTemplate.ELEMENT_ACCESSIBLE_MEDIA_ALTERNATIVE_FRAME, name, true);
+		//inputDataToFrame(cTemplate.ELEMENT_ACCESSIBLE_MEDIA_ALTERNATIVE_FRAME, name, true);
+		cTemplate.inputFrame(cTemplate.ELEMENT_ACCESSIBLE_MEDIA_ALTERNATIVE_FRAME, name);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
+		click(ckEdit.ELEMENT_CKEDITOR_INCREASE_INDENT);
 		switchToParentWindow();
-
 
 		/*Step number: 3
 		 *Step Name: Save content
@@ -412,10 +414,12 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 
 		 *Expected Outcome: 
 			Content is filled & decorated*/
-
-		inputDataToFrame(cTemplate.ELEMENT_NEWFILE_CONTENT_FRAME_41, name, false);
-		switchToParentWindow();
+		cTemplate.inputFrame(cTemplate.ELEMENT_NEWFILE_CONTENT_FRAME_41, name);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
+		//inputDataToFrame(cTemplate.ELEMENT_NEWFILE_CONTENT_FRAME_41, name, false);
+		switchToParentWindow();
+		
 
 		/*Step number: 3
 		 *Step Name: Save content
@@ -473,7 +477,7 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 	 *
 	 * https://jira.exoplatform.org/browse/ECMS-6140
 	 */
-	@Test (groups="PENDING")
+	@Test (groups="pending")
 	public  void test05_12_Edit_ViewAFileWithApplicationxGroovyHtmlFromActivityStream() {
 		info("Test 5: Edit a File with application/x-groovy+html from activity stream");
 
@@ -600,9 +604,12 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 		actBar.goToAddNewContent();
 		click(cTemplate.ELEMENT_NEW_HTML_FILE_LINK);
 		type(cTemplate.ELEMENT_HTML_FILE_NAME, name, true);
-		inputDataToFrame(cTemplate.ELEMENT_HTML_FILE_CKEDITOR_FRAME_41, name, true);
-		switchToParentWindow();
+		cTemplate.inputFrame(cTemplate.ELEMENT_HTML_FILE_CKEDITOR_FRAME_41, name);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
+		//inputDataToFrame(cTemplate.ELEMENT_HTML_FILE_CKEDITOR_FRAME_41, name, true);
+		switchToParentWindow();
+		//click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
 
 		/*Step number: 3
 		 *Step Name: Save content
@@ -683,10 +690,12 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 
 		 *Expected Outcome: 
 			Summary is filled & decorated*/
-		
-		inputDataToFrame(cTemplate.ELEMENT_PRODUCT_SUMMARY_FRAME_41, name, true);
-		switchToParentWindow();
+		cTemplate.inputFrame(cTemplate.ELEMENT_PRODUCT_SUMMARY_FRAME_41, name);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
+		//inputDataToFrame(cTemplate.ELEMENT_PRODUCT_SUMMARY_FRAME_41, name, true);
+		switchToParentWindow();
+		//click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
 		
 		/*Step number: 3
 		 *Step Name: Fill content in Benefit
@@ -696,10 +705,12 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 
 		 *Expected Outcome: 
 			Benefit is filled & decorated*/
-
-		inputDataToFrame(cTemplate.ELEMENT_PRODUCT_BENEFIT_FRAME_41, name, true);
-		switchToParentWindow();
+		cTemplate.inputFrame(cTemplate.ELEMENT_PRODUCT_BENEFIT_FRAME_41, name);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
+		//inputDataToFrame(cTemplate.ELEMENT_PRODUCT_BENEFIT_FRAME_41, name, true);
+		//switchToParentWindow();
+		//click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
 		
 		/*Step number: 4
 		 *Step Name: Fill content in Feature
@@ -709,10 +720,13 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 
 		 *Expected Outcome: 
 			Feature is filled & decorated*/
-	
-		inputDataToFrame(cTemplate.ELEMENT_PRODUCT_FEATURE_FRAME_41, name, true);
-		switchToParentWindow();
+		cTemplate.inputFrame(cTemplate.ELEMENT_PRODUCT_FEATURE_FRAME_41, name);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
+		
+		//inputDataToFrame(cTemplate.ELEMENT_PRODUCT_FEATURE_FRAME_41, name, true);
+		switchToParentWindow();
+		//click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
 		
 		/*Step number: 5
 		 *Step Name: Save content
@@ -784,8 +798,11 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 		Utils.pause(500);
 		click(cTemplate.ELEMENT_WEBCONTENT_LINK);
 		type(cTemplate.ELEMENT_WEBCONTENT_NAME_TEXTBOX, name, false);
-		inputDataToFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name,true);
+		/*inputDataToFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name,true);
 		switchToParentWindow();
+		click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);*/
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
 		
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
@@ -805,9 +822,12 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 			Comment is filled & decorated & well displayed.*/
 
 		actBar.goToAddComment();
-		inputDataToFrame(actBar.ELEMENT_ADD_COMMENT_FRAME_41, name, true);
-		switchToParentWindow();
+		cTemplate.inputFrame(cTemplate.ELEMENT_ADD_COMMENT_FRAME_41, name);
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
+		//inputDataToFrame(actBar.ELEMENT_ADD_COMMENT_FRAME_41, name, true);
+		switchToParentWindow();
+		//click(ckEdit.ELEMENT_CKEDITOR_ALIGNRIGHT);
 		click(button.ELEMENT_SAVE_BUTTON);
 		
 		/*Step number: 3

@@ -466,6 +466,7 @@ public class PlatformBase extends TestBase {
 	//public final String ELEMENT_NODE_LINK = "//*[@class='node']//*[@title='${nodeLabel}']";
 	public final String ELEMENT_NODE_LINK = "//*[contains(@class,'node')]//*[contains(text(),'${nodeLabel}')]";
 	public final String ELEMENT_NODE_LINK2 = "//*[@title='${nodeLabel}']";
+	public final String ELEMENT_NODE_LINK3 = ".//*[@id='UIDocumentNodeList']//span[contains(text(),'${nodeLabel}')]";
 	public final String ELEMENT_EDIT_NAVIGATION = "//*[text()='${navigation}']/../..//*[@class='uiIconNavigation uiIconLightGray']";
 	public final By ELEMENT_TITLE_NAVIGATION_MANAGEMENT = By.xpath("//*[contains(@class, 'popupTitle') and text() = 'Navigation Management']");
 	public final By ELEMENT_ADD_NODE_LINK = By.linkText("Add Node");
@@ -1672,6 +1673,7 @@ public class PlatformBase extends TestBase {
 	public void loginWithAnotherAccOnThesameBrowser(String User2, String Pass2){
 		newDriver = new FirefoxDriver();
 		newDriver.get(baseUrl);
+		driver.manage().window().maximize();
 		ManageAccount  acc = new ManageAccount(newDriver);
 		acc.signIn(User2, Pass2);
 		Utils.pause(2000);

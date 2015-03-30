@@ -91,7 +91,8 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 		// delete data
 		click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}",documentName));
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentName));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentName));
+		cMenu.deleteDocument(documentName);
 		info("Data deleted");
 
 
@@ -130,7 +131,8 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 		// delete data
 		click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}",documentName));
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentName));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentName));
+		cMenu.deleteDocument(documentName);
 		info("Data deleted");
 	}
 
@@ -198,7 +200,8 @@ public class ECMS_SE_BasicAction_DragDrop extends PlatformBase {
 		// delete data
 		click(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}","intranet"));
 		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}",documentName));
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentName));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentName));
+		cMenu.deleteDocument(documentName);
 		info("Data deleted");
 	}
 

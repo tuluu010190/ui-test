@@ -196,8 +196,14 @@ public class ECMS_SE_FileManagementView_Actions_Select extends PlatformBase{
 
 		info("-- Create child nodes --");
 		ecms.goToNode(PARENT_DOCUMENT_FOLDER_TITLE, true);
-		cTemplate.createNewFolder(NODE1_TITLE, folderType.None);
-		cTemplate.createNewFolder(NODE2_TITLE, folderType.None);
+		/*cTemplate.createNewFolder(NODE1_TITLE, folderType.None);
+		cTemplate.createNewFolder(NODE2_TITLE, folderType.None);*/
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, NODE1_TITLE, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, NODE2_TITLE, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
 
 		info("Check all check boxes");
 		click(ecms.ELEMENT_VIEW_CHECKBOX_ALL, 2);

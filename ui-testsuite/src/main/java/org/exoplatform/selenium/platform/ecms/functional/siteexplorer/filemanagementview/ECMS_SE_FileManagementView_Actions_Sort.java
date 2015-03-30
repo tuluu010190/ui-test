@@ -8,7 +8,6 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -63,7 +62,11 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 		navToolBar.goToPersonalDocuments();
 
 		ecms.uploadFile(dFile);
-		cTemp.createNewFolder(aFolder, folderType.None);
+		//cTemp.createNewFolder(aFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, aFolder, true);
+		click(cTemp.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 
 		actBar.sortBy("Date");
 		waitForAndGetElement(ecms.ELEMENT_NODE_NAME_CONSECUTIVE.replace("${node1}", document).replace("${node2}", aFolder));
@@ -87,8 +90,15 @@ public class ECMS_SE_FileManagementView_Actions_Sort extends PlatformBase {
 		info("-- Go to Personal Documents --");
 		navToolBar.goToPersonalDocuments();
 
-		cTemp.createNewFolder(aFolder, folderType.None);
-		cTemp.createNewFolder(bFolder, folderType.None);
+		/*cTemp.createNewFolder(aFolder, folderType.None);
+		cTemp.createNewFolder(bFolder, folderType.None);*/
+		
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, aFolder, true);
+		click(cTemp.ELEMENT_CREATE_FOLDER_BUTTON);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, bFolder, true);
+		click(cTemp.ELEMENT_CREATE_FOLDER_BUTTON);
 
 		info("-- Select & Revert [Sort By] Name --");
 		actBar.sortBy("Name");

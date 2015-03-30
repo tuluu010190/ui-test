@@ -1,6 +1,8 @@
 package org.exoplatform.selenium.platform.ecms.functional.siteexplorer.admin;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -24,12 +26,14 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 		ManageAccount magAcc;
 		ActionBar actBar;
 		NavigationToolbar navToolBar;
+		Button button;
 
 		//Ecms
 		EcmsBase ecms;
 		ContentTemplate cTemplate;
 		SitesExplorer siteExp;
 		ContextMenu cMenu;
+		
 
 		public final String file = "phuong_filecontent.txt";
 
@@ -45,6 +49,7 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 			navToolBar = new NavigationToolbar(driver);
 			ecms = new EcmsBase(driver);
 			cMenu= new ContextMenu(driver);
+			button = new Button(driver, this.plfVersion);
 			magAcc.signIn(DATA_USER1, DATA_PASS);
 			navToolBar.goToSiteExplorer();
 		}
@@ -87,7 +92,16 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 			actBar.createRelation(node1, "sites/"+node2);
 			/*Step 3: Rename related document*/
 			cTemplate.goToNode(bNode2);
-			cMenu.contextMenuAction(bNode2, cMenu.ELEMENT_MENU_RENAME_NODE, newNode2);
+			//right click on file
+			rightClickOnElement(bNode2);
+			//Rename a file and click [Rename Button]
+			waitForAndGetElement(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);
+			click(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);	
+			type(cMenu.ELEMENT_INPUT_RENAME_NODE, newNode2, true);
+			button.rename();
+			waitForAndGetElement(bNewNode2);
+			//cMenu.contextMenuAction(bNode2, cMenu.ELEMENT_MENU_RENAME_NODE, newNode2);
+			
 			/*Step 4: Check relation*/
 			//verify relation tab
 			cTemplate.goToNode(bNode1);
@@ -165,8 +179,8 @@ public class ECMS_SE_Admin_ManageRelation extends PlatformBase {
 		@Test
 		public void test03_AddRelationForNodeToUploadedFile(){
 			/*Declare variable*/
-			String node1 = "test03_AddRelationRorNodeToUploadedFile";
-			String file = "test03_AddRelationRorNodeToUploadedFile_file.txt";
+			String node1 = "test03_AddRelation" + getRandomNumber();
+			String file = "test03_AddRelationFile_file.txt";
 			By bNode1 = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", node1));
 			By bFile1 = By.xpath(siteExp.ELEMENT_SE_NODE.replace("{$node}", file));
 			/*Step 1: Create node*/

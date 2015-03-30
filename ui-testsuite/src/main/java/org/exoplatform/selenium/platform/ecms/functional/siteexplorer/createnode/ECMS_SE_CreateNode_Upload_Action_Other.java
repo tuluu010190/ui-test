@@ -71,7 +71,7 @@ public class ECMS_SE_CreateNode_Upload_Action_Other extends PlatformBase{
 	 */
 	@Test
 	public void test01_UploadFileInLockedNodeByUserIsNotLockerInSiteExplorer(){
-		String DOCUMENT_FOLDER_TITLE = "ECMS_SE_Upload_Other_01";
+		String DOCUMENT_FOLDER_TITLE = "ECMS_SE_Upload_Other_01" + getRandomNumber();
 
 		info("Go to Content Explorer");
 		navToolBar.goToSiteExplorer();
@@ -80,19 +80,28 @@ public class ECMS_SE_CreateNode_Upload_Action_Other extends PlatformBase{
 		cTemplate.createNewFolder(DOCUMENT_FOLDER_TITLE, folderType.Document);	
 		cMenu.contextMenuAction(By.linkText(DOCUMENT_FOLDER_TITLE), cMenu.ELEMENT_CONTEXT_MENU_LOCK);
 		assert cMenu.isLockedNode(By.linkText(DOCUMENT_FOLDER_TITLE)): "Failed to lock the node..." + DOCUMENT_FOLDER_TITLE;
+		driver.close();
 
 		info("Login by user is not locker");
-		switchToNewBrowserWindow(DATA_USER2, DATA_PASS);
+		initSeleniumTest();
+		driver.get(baseUrl);
+		ecms = new EcmsBase(driver);
+		navToolBar = new NavigationToolbar(driver);
+		magAcc = new ManageAccount(driver);
+		cMenu = new ContextMenu(driver);
+		magAcc.signIn(DATA_USER2, DATA_PASS);
+		
 		info("Checking... [Mary] can not see [Upload] icon on action bar");
 		navToolBar.goToSiteExplorer();
 		ecms.goToNode(By.linkText(DOCUMENT_FOLDER_TITLE));
 		waitForElementNotPresent(ELEMENT_UPLOAD_LINK_XPATH,DEFAULT_TIMEOUT,1);
-		switchToParentWindow();
-
+		//switchToParentWindow();
+		magAcc.signOut();
+		
 		info("Restore data");
+		magAcc.signIn(DATA_USER1, DATA_PASS);
 		navToolBar.goToSiteExplorer();
 		cMenu.deleteDocument(By.linkText(DOCUMENT_FOLDER_TITLE));
-		driver.quit();
 	}
 
 	/**

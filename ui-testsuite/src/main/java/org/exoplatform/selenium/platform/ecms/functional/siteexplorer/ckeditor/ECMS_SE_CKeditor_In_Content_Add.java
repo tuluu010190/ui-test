@@ -80,7 +80,7 @@ import org.testng.annotations.Test;
 	@Test
 	public  void test01_AddCommentForDocument() {
 		info("Test 1: Add Comment for document");
-		String WEB_CONTENT_NAME = "webcontent01";
+		String WEB_CONTENT_NAME = "webcontent01" + getRandomNumber();
 		String CK_COMMENT = "Comment of test01";
 		/*Step Number: 1
 		*Step Name: Create node*/
@@ -96,7 +96,8 @@ import org.testng.annotations.Test;
          
          info("Restore data");
          actBar.goToNodeByAddressPath("/");
-         cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", WEB_CONTENT_NAME));
+         //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", WEB_CONTENT_NAME));
+         cMenu.deleteDocument(WEB_CONTENT_NAME);
  	}
 
 	/**
@@ -127,7 +128,8 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_BREADCRUM_NAME));
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_BREADCRUM_NAME));
+        cMenu.deleteDocument(ACCESSIBLE_BREADCRUM_NAME);
  	}
 
 	/**
@@ -159,7 +161,8 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_NAVIGATION_NAME));
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_NAVIGATION_NAME));
+        cMenu.deleteDocument(ACCESSIBLE_NAVIGATION_NAME);
  	}
 
 	/**
@@ -191,7 +194,8 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_SEARCHBOX_NAME));
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_SEARCHBOX_NAME));
+        cMenu.deleteDocument(ACCESSIBLE_SEARCHBOX_NAME);
  	}
 
 	/**
@@ -223,7 +227,8 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", WEBCONTENT_NAME));
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", WEBCONTENT_NAME));
+        cMenu.deleteDocument( WEBCONTENT_NAME);
 		
  	}
 
@@ -256,14 +261,15 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ILL_WEBCONTENT_NAME));
- 	}
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ILL_WEBCONTENT_NAME));
+        cMenu.deleteDocument(ILL_WEBCONTENT_NAME);
+	}
 
 	/**
 	* Case ID:119874.
 	* Test Case Name: Add new a Accessible media. 
 	*/
-	@Test
+	@Test (groups="pending")
 	public  void test07_AddNewAAccessibleMedia() {
 		info("Test 7: Add new a Accessible media");
 		String ACCESSIBLE_MEDIA_NAME = "Accessiblemedia"+getRandomNumber();
@@ -284,8 +290,8 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_MEDIA_NAME));
-
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_MEDIA_NAME));
+        cMenu.deleteDocument(ACCESSIBLE_MEDIA_NAME);
  	}
 
 	/**
@@ -312,7 +318,8 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ANNOUNCEMENT_NAME));
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ANNOUNCEMENT_NAME));
+        cMenu.deleteDocument(ANNOUNCEMENT_NAME);
  	}
 
 	/**
@@ -339,7 +346,8 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", FILE_NAME));
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", FILE_NAME));
+        cMenu.deleteDocument(FILE_NAME);
  	}
 
 	/**
@@ -347,7 +355,7 @@ import org.testng.annotations.Test;
 	* Test Case Name: Add new File with application/x-groovy+html.
 	* https://jira.exoplatform.org/browse/ECMS-6644
 	*/
-	@Test
+	@Test (groups="pending")
 	public  void test10_AddNewFileWithApplicationGroovyHtml() {
 		info("Test 10 Add new File with application/x-groovy+html");
 		String FILE_GROOVYHTML_NAME = "groovyhtml"+getRandomNumber();
@@ -369,7 +377,8 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", FILE_GROOVYHTML_NAME));
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", FILE_GROOVYHTML_NAME));
+        cMenu.deleteDocument(FILE_GROOVYHTML_NAME);
  	}
 
 	/**
@@ -398,7 +407,8 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", HTMLFILE_NAME));
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", HTMLFILE_NAME));
+        cMenu.deleteDocument(HTMLFILE_NAME);
  	}
 
 	/**
@@ -433,6 +443,7 @@ import org.testng.annotations.Test;
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
-        cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", PRODUCT_NAME));
-
- 	}}
+        //cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", PRODUCT_NAME));
+        cMenu.deleteDocument(PRODUCT_NAME);
+ 	}	
+}

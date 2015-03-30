@@ -546,8 +546,8 @@ public class CKEditor_Formatting extends PlatformBase {
 
 		click(cTemplate.ELEMENT_NEWFILE_LINK);
 		type(cTemplate.ELEMENT_NEWFILE_NAME_TEXTBOX, name, false);
-        ckEdit.cke_BlockQuote();
         cTemplate.inputFrame(cTemplate.ELEMENT_NEWFILE_CONTENT_FRAME_41, name);
+        ckEdit.cke_BlockQuote();
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		
 		info("Verify that the text is blocked quote correctly");
@@ -621,11 +621,12 @@ public class CKEditor_Formatting extends PlatformBase {
 
 		 *Expected Outcome: 
 			Text is in italic effect*/
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name);
         ckEdit.cke_Bold("tab4");
         ckEdit.cke_Italic("tab4");
         ckEdit.cke_Underline("tab4");
         ckEdit.cke_Strike("tab4");
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name);
+		
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(3000);
 
@@ -643,8 +644,6 @@ public class CKEditor_Formatting extends PlatformBase {
 		
 		info("Delete the file");
 		ecms.deleteData(name);
-		
-
 	}
 
 	/**
@@ -744,13 +743,13 @@ public class CKEditor_Formatting extends PlatformBase {
 		click(cTemplate.ELEMENT_WEBCONTENT_LINK);
 		type(cTemplate.ELEMENT_WEBCONTENT_NAME_TEXTBOX, name0, false);
         ckEdit.cke_AlignLeft("tab4");
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name1+"\n");
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name1+"\n", false);
 		ckEdit.cke_Center("tab4");
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name2+"\n");
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name2+"\n", false);
 		ckEdit.cke_AlignRight("tab4");
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name3+"\n");
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name3+"\n", false);
 		ckEdit.cke_Justify("tab4");
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name4);
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name4, false);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		
 		info("Verify that the effects are applied successfully");
@@ -838,11 +837,11 @@ public class CKEditor_Formatting extends PlatformBase {
 		click(cTemplate.ELEMENT_WEBCONTENT_LINK);
 		type(cTemplate.ELEMENT_WEBCONTENT_NAME_TEXTBOX, name, false);
         ckEdit.cke_InsertRemoveBulletList("tab4");
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name1+"\n");
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name2+"\n");
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name1+"\n", false);
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name2+"\n", false);
 		ckEdit.cke_InsertRemoveNumList("tab4");
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name3+"\n");
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name4);
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name3+"\n", false);
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name4, false);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		
 		info("Verify that bullet and numeric are inserted");
@@ -927,7 +926,7 @@ public class CKEditor_Formatting extends PlatformBase {
 		click(cTemplate.ELEMENT_WEBCONTENT_LINK);
 		type(cTemplate.ELEMENT_WEBCONTENT_NAME_TEXTBOX, name, false);
 		ckEdit.cke_PaintColorText("tab4",codeColorText);
-		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name1+"\n");
+		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name1+"\n", false);
 		ckEdit.cke_PaintColorBackgroundText("tab4",codeColorBackGroundText);
 		cTemplate.inputFrame(cTemplate.ELEMENT_WEBCONTENT_CONTENT_FRAME_41, name2);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);

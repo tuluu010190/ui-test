@@ -31,8 +31,11 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 
 	@BeforeMethod
 	public void beforeMethods() {
+		//initSeleniumTest();
+		//getDriverAutoSave();
 		initSeleniumTest();
-		
+		driver.get(baseUrl);
+
 		magAcc = new ManageAccount(driver);
 		navToolBar = new NavigationToolbar(driver);
 		actBar = new ActionBar(driver);

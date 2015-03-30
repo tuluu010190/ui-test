@@ -10,7 +10,6 @@ import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -71,7 +70,10 @@ public class ECMS_SE_FileManagementView_Actions_Scroll extends PlatformBase {
 		info( "-- create data --");
 		for(int i=0; i<=5; i++) {
 			info("-- Create parent folder --");
-			cTemplate.createNewFolder(folderName +i, folderType.None);
+			//cTemplate.createNewFolder(folderName +i, folderType.None);
+			actBar.goToAddNewFolder();
+			type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, folderName +i, true);
+			click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
 		}
 
 		info( "--check the scroll bar present --");
@@ -110,7 +112,10 @@ public class ECMS_SE_FileManagementView_Actions_Scroll extends PlatformBase {
 		info( "-- create data --");
 		for(int i=0; i<=5; i++) {
 			info("-- Create parent folder --");
-			cTemplate.createNewFolder(folderName+i, folderType.None);
+			//cTemplate.createNewFolder(folderName+i, folderType.None);
+			actBar.goToAddNewFolder();
+			type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, folderName +i, true);
+			click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
 		}
 
 		click(By.xpath(("//*[@class='nodeName' and text()= 'Favorites']/../..")));

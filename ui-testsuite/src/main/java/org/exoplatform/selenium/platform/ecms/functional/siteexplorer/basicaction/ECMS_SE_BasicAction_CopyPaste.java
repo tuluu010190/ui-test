@@ -518,7 +518,6 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 		By FILE_PATH = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", FILE_NAME));
 		By FILE_PATH_NEW = By.xpath(ELEMENT_SUB_NODE.replace("${parent}", ANNOUN_NAME.replaceAll("_", "").toLowerCase()).replace("${child}", FILE_NAME));
 		
-
 		info("Go to CE");
 		navToolBar.goToSiteExplorer();
 

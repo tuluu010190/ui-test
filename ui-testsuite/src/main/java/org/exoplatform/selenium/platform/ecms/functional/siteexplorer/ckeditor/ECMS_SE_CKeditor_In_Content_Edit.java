@@ -131,7 +131,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_BREADCRUM_NAME));
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_BREADCRUM_NAME));
+		cMenu.deleteDocument(NEW_ACCESSIBLE_BREADCRUM_NAME);
 	}
 
 	/**
@@ -200,7 +201,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_NAVIGATION_NAME));
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_NAVIGATION_NAME));
+		cMenu.deleteDocument(NEW_ACCESSIBLE_NAVIGATION_NAME);
 	}
 
 	/**
@@ -267,7 +269,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_SEARCHBOX_NAME));
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_SEARCHBOX_NAME));
+		cMenu.deleteDocument(NEW_ACCESSIBLE_SEARCHBOX_NAME);
 	}
 
 	/**
@@ -335,7 +338,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", WEBCONTENT_NAME));
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", WEBCONTENT_NAME));
+		cMenu.deleteDocument(WEBCONTENT_NAME);
 	}
 
 	/**
@@ -402,7 +406,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ILL_WEBCONTENT_NAME));
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ILL_WEBCONTENT_NAME));
+		cMenu.deleteDocument(ILL_WEBCONTENT_NAME);
 	}
 
 	/**
@@ -456,8 +461,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 		cTemplate.editNewAccessibleMedia(ACCESSIBLE_MEDIA_NAME,true,NEW_ACCESSIBLE_MEDIA_NAME,NEW_ACCESSIBLE_MEDIA_ALTER,"",true);
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_MEDIA_NAME));
-
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ACCESSIBLE_MEDIA_NAME));
+		cMenu.deleteDocument(NEW_ACCESSIBLE_MEDIA_NAME);
 	}
 
 	/**
@@ -509,7 +514,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 		cTemplate.editNewAnnouncement(ANNOUNCEMENT_NAME,NEW_ANNOUNCEMENT_SUM,true);
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ANNOUNCEMENT_NAME));
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", ANNOUNCEMENT_NAME));
+		cMenu.deleteDocument(ANNOUNCEMENT_NAME);
 	}
 
 	/**
@@ -563,7 +569,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", FILE_NAME));
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", FILE_NAME));
+		cMenu.deleteDocument(FILE_NAME);
 	}
 
 	/**
@@ -574,7 +581,7 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 	 *<li> Post-Condition: </li>
 	 *https://jira.exoplatform.org/browse/ECMS-6644
 	 */
-	@Test
+	@Test (groups="pending")
 	public  void test09_EditFileWithApplicationxGroovyHtml() {
 		info("Test 9: Edit File with application/x-groovy+html");
 		String FILE_GROOVYHTML_NAME = "groovyhtml"+getRandomNumber();
@@ -676,7 +683,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", HTMLFILE_NAME));
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", HTMLFILE_NAME));
+		cMenu.deleteDocument(HTMLFILE_NAME);
 	}
 
 	/**
@@ -752,8 +760,8 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", PRODUCT_NAME));
-
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", PRODUCT_NAME));
+		cMenu.deleteDocument(PRODUCT_NAME);
 	}
 
 	/**
@@ -811,6 +819,7 @@ public class ECMS_SE_CKeditor_In_Content_Edit  extends PlatformBase{
 		
 		info("Restore data");
 		actBar.goToNodeByAddressPath("/");
-		cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", WEB_CONTENT_NAME));
+		//cMenu.deleteDocument(ecms.ELEMENT_NODE_ROW_VIEW.replace("${nodeName}", WEB_CONTENT_NAME));
+		cMenu.deleteDocument(WEB_CONTENT_NAME);
 	}
 }

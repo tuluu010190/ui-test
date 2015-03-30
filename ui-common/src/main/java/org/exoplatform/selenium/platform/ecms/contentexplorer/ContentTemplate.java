@@ -87,7 +87,9 @@ public class ContentTemplate extends EcmsBase {
 	// Webcontent for CK Editor
 	public final By ELEMENT_WEBCONTENT_CKEDITOR_FRAME1_41 = By.xpath("//*[@id='tab4']//iframe");
 	public final By ELEMENT_WEBCONTENT_CKEDITOR_FRAME2_41 = By.xpath("//*[@id='cke_exo:summary']//iframe");
-	public final String ELEMENT_WEBCONTENT_CONTENT_BOLD_ITALIC_UNDERLINE_STRIKE = ".//p/strong/em/u/s[contains(text(),'${content}')]";
+	//public final String ELEMENT_WEBCONTENT_CONTENT_BOLD_ITALIC_UNDERLINE_STRIKE = ".//p/strong/em/u/s[contains(text(),'${content}')]";
+	public final String ELEMENT_WEBCONTENT_CONTENT_BOLD_ITALIC_UNDERLINE_STRIKE = ".//p/s/u/em/strong[contains(text(),'${content}')]";
+	
 	// Illus Webcontent for CK Editor
 	public final By ELEMENT_ILLWEBCONTENT_CKEDITOR_FRAME1_41 = By.xpath("//*[@id='tab1']//iframe[@class='cke_wysiwyg_frame cke_reset']");
 	public final By ELEMENT_ILLWEBCONTENT_CKEDITOR_FRAME2_41 = By.xpath("//*[@id='cke_exo:summary']//iframe");
@@ -261,10 +263,17 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//*[text()='Create Folder']");
 	public final By ELEMENT_USE_CUSTOM_TYPE_FOLDER = By.xpath(".//*[@id='customTypeCheckBox']");
 	public final String ELEMENT_VERIFY_FILE_CONTENT = "//*[contains(text(),'${content}')]";
+
 	public final String ELEMENT_FOLDER_CONTENT = "//*[@title='${content}']";
+
+
+	//public final String ELEMENT_FOLDER_CONTENT="//*[@title='${content}']";
+
 
 	public final By ELEMENT_TAB_VIEW_AS_HTML = By.xpath(".//*[@id='myTab']//*[contains(@href,'#tab1')]");
 	public final String ELEMENT_FILE_CONTENT_DECORATED = "//u/em/strong[contains(text(),'${content}')]";
+
+	//public final String ELEMENT_FOLDER_CONTENT = "//*[@title='${content}']";
 
 	// Message
 	public final String MESSAGE_NAME_REQUIRED_FIELD = "The field \"Name\" is required.";
@@ -879,13 +888,14 @@ public class ContentTemplate extends EcmsBase {
 		None, Content, Document, Css;
 	}
 
+
 	/**
 	 * add new Content Folder
 	 * 
 	 * @param title
 	 * @param type
 	 * @param params
-	 */
+	 *//*
 	public void createNewFolder(String title, folderType type, Object... params) {
 		Boolean checkFolder = (Boolean) (params.length > 0 ? params[0] : true);
 
@@ -919,10 +929,48 @@ public class ContentTemplate extends EcmsBase {
 		if (checkFolder) {
 			waitForAndGetElement(By.xpath(ELEMENT_FOLDER_CONTENT.replace(
 					"${content}", title)));
-		}
+		}*/
 
-		Utils.pause(1000);
-	}
+	// add new Content Folder
+		public void createNewFolder(String title, folderType type, Object... params) {
+			Boolean checkFolder = (Boolean) (params.length > 0 ? params[0] : true);
+			//WebElement typeFolder = driver.findElement(By.id("customTypeCheckBox"));
+			WebElement typeFolder = waitForAndGetElement(".//*[@id='customTypeCheckBox']", 4000, 0);
+			info("-- Creating a new folder --");
+			actBar.goToAddNewFolder();
+			if (waitForAndGetElement(typeFolder, 2000,0) != null && !typeFolder.isSelected())
+				check(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
+			switch (type) {
+			case Content:
+				type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
+				selectOption(ELEMENT_FOLDER_TYPE_OPTION,
+						ELEMENT_CONTENT_FOLDER_TYPE);
+				break;
+			case Document:
+				selectOption(ELEMENT_FOLDER_TYPE_OPTION,
+						ELEMENT_DOCUMENT_FOLDER_TYPE);
+				type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
+				break;
+			case Css:
+				selectOption(ELEMENT_FOLDER_TYPE_OPTION, ELEMENT_CSS_FOLDER_TYPE);
+				type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
+				break;
+			case None:
+				type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
+				if(waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 5000, 0) != null)
+					uncheck(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
+				break;
+			default:
+				break;
+			}
+			click(ELEMENT_CREATE_FOLDER_BUTTON);
+			if (checkFolder) {
+				waitForAndGetElement(By.xpath(ELEMENT_FOLDER_CONTENT.replace(
+						"${content}", title)));
+			}
+			Utils.pause(1000);
+			info("A new folder was created");
+		}
 
 	/**
 	 * Create a new Css file
@@ -1205,14 +1253,17 @@ public class ContentTemplate extends EcmsBase {
 	 * @param frameLocator
 	 * @param content
 	 */
-	public void inputFrame(By frameLocator, String content) {
+	public void inputFrame(By frameLocator, String content, boolean...params) {
+		boolean clear = params.length > 0 ? params[0] : true;
 		info("Finding the frameLocator:" + frameLocator);
 		WebElement e = waitForAndGetElement(frameLocator, DEFAULT_TIMEOUT, 1, 2);
+		//scrollToElement(e,driver);
 		info("Switch to the frame:" + frameLocator);
 		driver.switchTo().frame(e);
 		WebElement inputsummary = driver.switchTo().activeElement();
 		info("Input the content:" + content);
-		inputsummary.clear();
+		if (clear)
+			inputsummary.clear();
 		inputsummary.sendKeys(content);
 		info("Back to parent window");
 		switchToParentWindow();

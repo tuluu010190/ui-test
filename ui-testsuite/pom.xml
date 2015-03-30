@@ -72,6 +72,13 @@
 				<testSuite>ecms-se-officetest-part2.xml</testSuite>
 			</properties>
 		</profile>
+		
+		<profile>
+			<id>ecms-admin</id>
+			<properties>
+				<testSuite>ecms-admin.xml</testSuite>
+			</properties>
+		</profile>
 
 		<profile>
 			<id>ecms-se-activities</id>

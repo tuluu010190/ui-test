@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.event.KeyEvent;
 import java.util.concurrent.TimeUnit;
 
 import org.exoplatform.selenium.ManageAlert;
@@ -63,18 +64,18 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_SHOW_BLOCKS = By.cssSelector(".cke_button__showblocks_icon");
 	public final By ELEMENT_CKEDITOR_ANCHOR = By.cssSelector(".cke_button__anchor_icon");
 	public final By ELEMENT_CKEDITOR_REMOVE_LINK = By.cssSelector(".cke_button__unlink_icon");
-	
+
 	public final By ELEMENT_CKEDITOR_REPLACE=By.cssSelector(".cke_button_icon.cke_button__replace_icon");
 	public final By ELEMENT_CKEDITOR_REPLACE_FIND_WHAT=By.xpath("//*[@class='cke_dialog_contents_body']/div[2]//*[text()='Find what:']/../..//*[@type='text']");
 	public final By ELEMENT_CKEDITOR_REPLACE_WITH=By.xpath("//*[@class='cke_dialog_contents_body']/div[2]//*[text()='Replace with:']/../..//*[@type='text']");
 	public final By ELEMENT_CKEDITOR_REPLACE_BUTTON=By.xpath("//*[@class='cke_dialog_contents_body']/div[2]//*[text()='Replace']");
 	public final By ELEMENT_CKEDITOR_REPLACE_ALL_BUTTON=By.xpath("//*[@class='cke_dialog_contents_body']/div[2]//*[text()='Replace All']");
 	public final By ELEMENT_CKEDITOR_CANCEL_BUTTON=By.xpath("//div[3]//*[text()='Cancel']");
-	
+
 	public final By ELEMENT_CKEDITOR_FIND=By.cssSelector("cke_button_icon.cke_button__find_icon");
 	public final By ELEMENT_CKEDITOR_FIND_WHAT=By.xpath("//*[@class='cke_dialog_contents_body']/div[1]//*[text()='Find what:']/../..//*[@type='text']");
 	public final By ELEMENT_CKEDITOR_FIND_BUTTON=By.xpath("//*[@class='cke_dialog_contents_body']/div[1]//*[text()='Find']");
-	
+
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TAB = By.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Source code']");
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_ADVANCE_TAB = By.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Advanced']");
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TEXTAREA = By.xpath(".//div[@class='cke_dialog_ui_input_textarea']");
@@ -95,7 +96,7 @@ public class CKeditor extends PlatformBase {
 	//--------------------------------------------CKEDITOR FOR DIALOG FRAME
 	public final By ELEMENT_CKEDITOR_DIALOG_PASTE_FRAME = By.xpath(".//*[contains(@class,'cke_reset_all') and contains(@role,'dialog') and not(contains(@style,'display: none;'))]//iframe");
 	public final By ELEMENT_CKEDITOR_DIALOG_OK_BTN = By.xpath(".//*[contains(@class,'cke_reset_all') and contains(@role,'dialog') and not(contains(@style,'display: none;'))]//*[contains(@class,'cke_dialog_ui_button_ok')]");
-	
+
 	//--------------------------------------------CKEDITOR FOR FILES THAT HAS MANY CKEDITORS TOOL
 
 	public final String ELEMENT_CKEDITOR_BOLD_BY_TAB = "#${tab} .cke_button__bold_icon";
@@ -116,35 +117,35 @@ public class CKeditor extends PlatformBase {
 	public final String ELEMENT_CKEDITOR_PARAGRAHP_FORMAT_DROP_DOWN_BOX=".//*[@id='${tab}']//*[@title='Paragraph Format']";
 	public final By ELEMENT_CKEDITOR_PARAGRAPH_FORMAT_FRAME = By.cssSelector(".cke_panel_frame");
 	public final String ELEMENT_CKEDITOR_PARAGRAPH_FORMAT_SELECTION = ".//*[@title='${title}']";
-	
+
 	public final String ELEMENT_CKEDITOR_PARAGRAPH_FONT_DROP_DOWN_BOX = ".//*[@id='${tab}']//*[@title='Font Name']";
 	public final String ELEMENT_CKEDITOR_PARAGRAPH_FONT_SELECTION = ".//*[@class='cke_panel_block' and @style='']//a[@title=\"${font}\"]";
-	
+
 	public final String ELEMENT_CKEDITOR_PARAGRAPH_SIZE_DROP_DOWN_BOX = ".//*[@id='${tab}']//*[@title='Font Size']";
 	public final String ELEMENT_CKEDITOR_PARAGRAPH_SIZE_SELECTION = ".//*[@class='cke_panel_block' and @style='']//a[@title='${fontSize}']";
-	
+
 	public final String ELEMENT_CKEDITOR_MAXIMIZE_BY_TAB ="#${tab} .cke_button__maximize_icon";
 	public final String ELEMENT_CKEDITOR_DECREASE_INDENT_BY_TAB ="#${tab} .cke_button__outdent_icon";
 	public final String ELEMENT_CKEDITOR_INCREASE_INDENT_BY_TAB ="#${tab} .cke_button__indent_icon";
 	public final String ELEMENT_CKEDITOR_ANCHOR_BY_TAB = "#${tab} .cke_button__anchor_icon";
 	public final String ELEMENT_CKEDITOR_REMOVE_LINK_BY_TAB = "#${tab} .cke_button__unlink_icon";
-	
+
 	public final By ELEMENT_CKEDITOR_BOLD_TAB2 = By.cssSelector("#tab2 .cke_button__bold_icon");
 	public final By ELEMENT_CKEDITOR_ITALIC_TAB2 = By.cssSelector("#tab2 .cke_button__italic_icon");
 	public final By ELEMENT_CKEDITOR_UNDERLINE_TAB2 = By.cssSelector("#tab2 .cke_button__underline_icon");
 
 	public final By ELEMENT_CKEDITOR_BACKGROUND_COLOR = By.xpath(".//*[@class='cke_button_icon cke_button__bgcolor_icon']");
 	public final By ELEMENT_CKEDITOR_BACKGROUND_COLOR_FRAME = By.xpath(".//*[@class='cke_panel_frame']");
-	
+
 	public final By ELEMENT_CKEDITOR_INSERT_LINK =By.cssSelector(".cke_button__link_icon']");
 	public final By ELEMENT_CKEDITOR_TYPE_LINK = By.xpath("//*[contains(@class,'cke_dialog_ui_labeled_label cke_required') and text()='URL']/..//input[@class='cke_dialog_ui_input_text']");
-	
+
 	public final By ELEMENT_CKEDITOR_PARAGRAPH_FORMAT = By.xpath(".//*[@class='cke_combo_text']");
-	
-	
+
+
 	public final By ELEMENT_CKEDITOR_TYPE_ANCHOR = By.xpath("//input[@class='cke_dialog_ui_input_text']");
-	
-	
+
+
 	// --------------------------------------------common
 	// functions-------------------------------------------------------
 
@@ -176,7 +177,7 @@ public class CKeditor extends PlatformBase {
 			el.sendKeys(Keys.ENTER);
 		}
 	}
-	
+
 	/**
 	 * Maximize/Minize CKeditor
 	 */
@@ -223,11 +224,11 @@ public class CKeditor extends PlatformBase {
 	 * Click on paste button
 	 */
 	public void cke_Paste() {
-			info("Paste a text");
-			el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
-			el.sendKeys(Keys.END);
-			el.sendKeys(Keys.ENTER);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "v"));
+		info("Paste a text");
+		el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
+		el.sendKeys(Keys.END);
+		el.sendKeys(Keys.ENTER);
+		el.sendKeys(Keys.chord(Keys.CONTROL, "v"));
 	}
 
 	/**
@@ -247,17 +248,17 @@ public class CKeditor extends PlatformBase {
 			click(ELEMENT_CKEDITOR_REDO);
 		}
 	}
-	
+
 	/**
 	 * Click on paste button by namTabId
 	 * for the file that has many CKEditors
 	 */
 	public void cke_Paste(String nameTabId) {
-			info("Paste a text");
-			WebElement el = waitForAndGetElement(ELEMENT_CKEDITOR_TEXT_AREA_FRAME.replace("${tab}",nameTabId));
-			el.sendKeys(Keys.ENTER);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "v"));
-			Utils.pause(1000);
+		info("Paste a text");
+		WebElement el = waitForAndGetElement(ELEMENT_CKEDITOR_TEXT_AREA_FRAME.replace("${tab}",nameTabId));
+		el.sendKeys(Keys.ENTER);
+		el.sendKeys(Keys.chord(Keys.CONTROL, "v"));
+		Utils.pause(1000);
 	}
 	/**
 	 * Paste a text into Dialog frame after click Paste button
@@ -280,6 +281,7 @@ public class CKeditor extends PlatformBase {
 	 */
 	public void cke_Strike(String nameTabId){
 		info("Strike a text");
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ELEMENT_CKEDITOR_STIKE_BY_TAB.replace("${tab}",nameTabId));
 		Utils.pause(200);
 	}
@@ -300,6 +302,7 @@ public class CKeditor extends PlatformBase {
 	 */
 	public void cke_Bold() {
 		info("Bold a text");
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ELEMENT_CKEDITOR_BOLD);
 		Utils.pause(200);
 	}
@@ -311,6 +314,7 @@ public class CKeditor extends PlatformBase {
 	 */
 	public void cke_Bold(String nameTabId){
 		info("Bold a text");
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(By.cssSelector(ELEMENT_CKEDITOR_BOLD_BY_TAB.replace("${tab}",nameTabId)));
 		Utils.pause(200);
 	}
@@ -347,6 +351,7 @@ public class CKeditor extends PlatformBase {
 	 */
 	public void cke_Italic() {
 		info("italic a text");
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ELEMENT_CKEDITOR_ITALIC);
 		Utils.pause(2000);
 	}
@@ -357,6 +362,7 @@ public class CKeditor extends PlatformBase {
 	 */
 	public void cke_Italic(String nameTabId) {
 		info("italic a text");
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(By.cssSelector(ELEMENT_CKEDITOR_ITALIC_BY_TAB.replace("${tab}",nameTabId)));
 		Utils.pause(2000);
 	}
@@ -368,6 +374,7 @@ public class CKeditor extends PlatformBase {
 	 */
 	public void cke_Underline() {
 		info("Underline a text");
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(ELEMENT_CKEDITOR_UNDERLINE);
 		Utils.pause(2000);
 	}
@@ -379,6 +386,7 @@ public class CKeditor extends PlatformBase {
 	 */
 	public void cke_Underline(String nameTabId) {
 		info("Underline a text");
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
 		click(By.cssSelector(ELEMENT_CKEDITOR_UNDERLINE_BY_TAB.replace("${tab}",nameTabId)));
 		Utils.pause(2000);
 	}
@@ -388,21 +396,22 @@ public class CKeditor extends PlatformBase {
 	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_AlignLeft() {
-			info("Align left a text");
-			click(ELEMENT_CKEDITOR_ALIGNLEFT);
-			Utils.pause(1000);
+		info("Align left a text");
+		click(ELEMENT_CKEDITOR_ALIGNLEFT);
+		Utils.pause(1000);
 	}
-	
-	
+
+
 	/**
 	 * Click on align left to put the text on the left side
 	 * this function is used for the files that has many CKEDitor tools
 	 * @param nameTabId
 	 */
 	public void cke_AlignLeft(String nameTabId) {
-			info("Align left a text");
-			click(ELEMENT_CKEDITOR_ALIGNLEFT_BY_TAB.replace("${tab}",nameTabId));
-			Utils.pause(1000);
+		info("Align left a text");
+		//pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
+		click(ELEMENT_CKEDITOR_ALIGNLEFT_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
 	}
 
 	/**
@@ -410,20 +419,21 @@ public class CKeditor extends PlatformBase {
 	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_AlignRight() {
-			info("Align right a text");
-			click(ELEMENT_CKEDITOR_ALIGNRIGHT);
-			Utils.pause(1000);
+		info("Align right a text");
+		click(ELEMENT_CKEDITOR_ALIGNRIGHT);
+		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Click on align right to put the text on the right side
 	 * this function is used for the files that has many CKEDitor tools
 	 * @param nameTabId
 	 */
 	public void cke_AlignRight(String nameTabId) {
-			info("Align right a text");
-			click(ELEMENT_CKEDITOR_ALIGNRIGHT_BY_TAB.replace("${tab}",nameTabId));
-			Utils.pause(1000);
+		info("Align right a text");
+		//pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
+		click(ELEMENT_CKEDITOR_ALIGNRIGHT_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
 	}
 
 	/**
@@ -431,20 +441,21 @@ public class CKeditor extends PlatformBase {
 	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_Center() {
-			info("put a text in the center");
-			click(ELEMENT_CKEDITOR_CENTER);
-			Utils.pause(1000);
+		info("put a text in the center");
+		click(ELEMENT_CKEDITOR_CENTER);
+		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Click on center button to put the text in the center
 	 * this function is used for the files that has many CKEDitor tools
 	 * @param nameTabId
 	 */
 	public void cke_Center(String nameTabId) {
-			info("put a text in the center");
-			click(ELEMENT_CKEDITOR_CENTER_BY_TAB.replace("${tab}",nameTabId));
-			Utils.pause(1000);
+		info("put a text in the center");
+		//pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
+		click(ELEMENT_CKEDITOR_CENTER_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
 	}
 	/**
 	 * Show blocks
@@ -467,7 +478,7 @@ public class CKeditor extends PlatformBase {
 		click(ELEMENT_CKEDITOR_DIALOG_OK_BTN);
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Anchor
 	 * this function is used for the files that has many CKEDitor tools
@@ -480,7 +491,7 @@ public class CKeditor extends PlatformBase {
 		type(ELEMENT_CKEDITOR_TYPE_ANCHOR, name, true);
 		click(ELEMENT_CKEDITOR_DIALOG_OK_BTN);
 		Utils.pause(1000);
-		
+
 	}
 
 	/**
@@ -488,20 +499,21 @@ public class CKeditor extends PlatformBase {
 	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_Justify() {
-			info("justify a text");
-			click(ELEMENT_CKEDITOR_JUSTIFY);
-			Utils.pause(1000);
+		info("justify a text");
+		click(ELEMENT_CKEDITOR_JUSTIFY);
+		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Click on justify button
 	 * this function is used for the files that has many CKEDitor tools
 	 * @param nameTabId
 	 */
 	public void cke_Justify(String nameTabId) {
-			info("justify a text");
-			click(ELEMENT_CKEDITOR_JUSTIFY_BY_TAB.replace("${tab}",nameTabId));
-			Utils.pause(1000);
+		info("justify a text");
+		//pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
+		click(ELEMENT_CKEDITOR_JUSTIFY_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
 	}
 
 	/**
@@ -509,20 +521,20 @@ public class CKeditor extends PlatformBase {
 	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_InsertRemoveNumList() {
-			info("insert/remove number list of a text");
-			click(ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST);
-			Utils.pause(1000);
+		info("insert/remove number list of a text");
+		click(ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST);
+		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Select all the text and click on Insert/remove numeric list
 	 * this function is used for the files that has many CKEDitor tools
 	 * @param nameTabId
 	 */
 	public void cke_InsertRemoveNumList(String nameTabId) {
-			info("insert/remove number list of a text");
-			click(ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST_BY_TAB.replace("${tab}",nameTabId));
-			Utils.pause(1000);
+		info("insert/remove number list of a text");
+		click(ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
 	}
 
 	/**
@@ -530,20 +542,20 @@ public class CKeditor extends PlatformBase {
 	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_InsertRemoveBulletList() {
-			info("insert/remove bullet list of a text");
-			click(ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST);
-			Utils.pause(1000);
+		info("insert/remove bullet list of a text");
+		click(ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST);
+		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Select all the text and click on Insert/remove bullet list
 	 * this function is used for the files that has many CKEDitor tools
 	 * @param nameTabId
 	 */
 	public void cke_InsertRemoveBulletList(String nameTabId) {
-			info("insert/remove bullet list of a text");
-			click(ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST_BY_TAB.replace("${tab}",nameTabId));
-			Utils.pause(1000);
+		info("insert/remove bullet list of a text");
+		click(ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
 	}
 
 	/**
@@ -592,14 +604,14 @@ public class CKeditor extends PlatformBase {
 	 * @param codeColor get a code of a color into the color table
 	 */
 	public void cke_PaintColorText(String codeColor) {
-			info("paint a text");
-			click(ELEMENT_CKEDITOR_TEXT_COLOR);
-			// select a color into the color table
-			waitForAndGetElement(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE);
-			click(By.xpath(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE.replace(
-					"${codeColor}", codeColor)));
+		info("paint a text");
+		click(ELEMENT_CKEDITOR_TEXT_COLOR);
+		// select a color into the color table
+		waitForAndGetElement(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE);
+		click(By.xpath(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE.replace(
+				"${codeColor}", codeColor)));
 	}
-	
+
 	/**
 	 * Select all the text. Then click on Text Color button and select a color
 	 * into the table
@@ -608,15 +620,15 @@ public class CKeditor extends PlatformBase {
 	 * @param nameTabId
 	 */
 	public void cke_PaintColorText(String nameTabId,String codeColor) {
-			info("paint a text");
-			Utils.pause(1000);
-			click(ELEMENT_CKEDITOR_TEXT_COLOR_BY_TAB.replace("${tab}", nameTabId));
-			WebElement e = waitForAndGetElement(ELEMENT_CKEDITOR_BACKGROUND_COLOR_FRAME ,DEFAULT_TIMEOUT,1,2);
-			driver.switchTo().frame(e);
-			driver.switchTo().activeElement();
-			click(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE.replace("${codeColor}",codeColor), 1);
-			driver.switchTo().defaultContent();
-			Utils.pause(1000);
+		info("paint a text");
+		Utils.pause(1000);
+		click(ELEMENT_CKEDITOR_TEXT_COLOR_BY_TAB.replace("${tab}", nameTabId));
+		WebElement e = waitForAndGetElement(ELEMENT_CKEDITOR_BACKGROUND_COLOR_FRAME ,DEFAULT_TIMEOUT,1,2);
+		driver.switchTo().frame(e);
+		driver.switchTo().activeElement();
+		click(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE.replace("${codeColor}",codeColor), 1);
+		driver.switchTo().defaultContent();
+		Utils.pause(1000);
 	}
 	/**
 	 * Paint color for background of a text
@@ -662,7 +674,7 @@ public class CKeditor extends PlatformBase {
 		click(ELEMENT_CKEDITOR_REMOVE_LINK_BY_TAB.replace("${tab}", nameTabId));
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Remove Format 
 	 * this function is used for the files that has many CKEDitor tools
@@ -705,7 +717,7 @@ public class CKeditor extends PlatformBase {
 		driver.switchTo().defaultContent();
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Select a paragraph font
 	 * this function is used for the files that has many CKEDitor tools
@@ -727,8 +739,9 @@ public class CKeditor extends PlatformBase {
 	 * Click on Block Quote button
 	 */
 	public void cke_BlockQuote() {
-			info("block quote a text");
-			click(ELEMENT_CKEDITOR_BLOCK_QUOTE);
+		info("block quote a text");
+		pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL,KeyEvent.VK_A);
+		click(ELEMENT_CKEDITOR_BLOCK_QUOTE);
 	}
 
 	/**
@@ -881,7 +894,7 @@ public class CKeditor extends PlatformBase {
 		alert.acceptAlert();
 		click(ELEMENT_CKEDITOR_CANCEL_BUTTON,2);
 	}
-	
+
 	/**
 	 * Find text in ckeditor
 	 * @param findText

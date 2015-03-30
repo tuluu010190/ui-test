@@ -11,7 +11,7 @@
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.CKEditor_Formatting" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.CKEditor_InlineEditing" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.CKEditor_InsertObject" />
-			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.test01_ChangeSkinOfCKEditorToKama" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.CKEditor_Skin" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.ECMS_SE_CKeditor_In_Content_Add" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.ECMS_SE_CKEditor_PublishActivity" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.ECMS_SE_CKeditor_Usability" />

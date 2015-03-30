@@ -8,7 +8,6 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
-import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate.folderType;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 
 import org.testng.annotations.AfterMethod;
@@ -83,10 +82,13 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 	@Test
 	public void test04_AddDeleteNewFolder(){
 
-		String Folder_Name = "Folder_Case-78915";
+		String Folder_Name = "Folder_Case-78915" + getRandomNumber();
 		info("Add/Delete a new folder");
-		conTemp.createNewFolder(Folder_Name, folderType.None);
-
+		//conTemp.createNewFolder(Folder_Name, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, Folder_Name, true);
+		click(conTemp.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		info("Restore data");
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", Folder_Name));
 		actBar.actionsOnElement(Folder_Name, actionType.DELETE);

@@ -162,8 +162,11 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		/*Step 2: Create folders*/
 		//Create parent folder 
 		info("-- Create parent folder --");
-		cTemplate.createNewFolder(parentFolder, folderType.None);
-
+		//cTemplate.createNewFolder(parentFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, parentFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		//Create a document in the parent node (child node)
 		info("-- Create child node --");
 		actBar.goToNodeByAddressPath("//"+parentFolder);
@@ -303,8 +306,11 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 		//Create parent folder 
 		info("-- Create parent folder --");
-		cTemplate.createNewFolder(parentFolder, folderType.None);
-
+		//cTemplate.createNewFolder(parentFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, parentFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		//Create a document in the parent node (child node)
 		info("-- Create child node --");
 		actBar.goToNodeByAddressPath("/"+parentFolder);
@@ -388,8 +394,10 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 		//Create parent folder 
 		info("-- Create parent folder --");
-		cTemplate.createNewFolder(parentFolder, folderType.None);
-
+		//cTemplate.createNewFolder(parentFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, parentFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
 		//Create a document in the parent node (child node)
 		info("-- Create child node --");
 		actBar.goToNodeByAddressPath("/"+parentFolder);
@@ -456,8 +464,11 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 		//Create parent folder 
 		info("-- Create parent folder --");
-		cTemplate.createNewFolder(parentFolder, folderType.None);
-
+		//cTemplate.createNewFolder(parentFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, parentFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		//Create a document in the parent node (child node)
 		info("-- Create child node --");
 		actBar.goToNodeByAddressPath("/"+parentFolder);
@@ -520,8 +531,11 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 		//Create parent folder 
 		info("-- Create a folder --");
-		cTemplate.createNewFolder(folder, folderType.None);
-
+		//cTemplate.createNewFolder(folder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, folder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		/*Step 2: Resize the browser horizontally (744, 1301)*/		
 		driver.manage().window().setSize(new org.openqa.selenium.Dimension(300, 744));
 		Utils.pause(3000);
@@ -569,8 +583,11 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 		//Create parent folder 
 		info("-- Create parent folder --");
-		cTemplate.createNewFolder(parentFolder, folderType.None);
-
+		//cTemplate.createNewFolder(parentFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, parentFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		//Create a document in the parent node (child node)
 		info("-- Create child node --");
 		actBar.goToNodeByAddressPath("/"+parentFolder);
@@ -651,19 +668,28 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 		//Create source folder 
 		info("-- Create source folder --");
-		cTemplate.createNewFolder(sourceFolder, folderType.None);
-
+		//cTemplate.createNewFolder(sourceFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, sourceFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		//Create target folder 
 		info("-- Create target folder --");
-		cTemplate.createNewFolder(targetFolder, folderType.None);
-
+		//cTemplate.createNewFolder(targetFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, targetFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		//Go to source folder
 		actBar.goToNodeByAddressPath("/"+sourceFolder);
 
 		//Create parent folder 
 		info("-- Create parent folder --");
-		cTemplate.createNewFolder(parentFolder, folderType.None);
-
+		//cTemplate.createNewFolder(parentFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, parentFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+	
 		//Create a document in the parent node (child node)
 		info("-- Create child node --");
 		actBar.goToNodeByAddressPath("/"+sourceFolder+"/"+parentFolder);
@@ -769,19 +795,25 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 
 		//Create source folder 
 		info("-- Create source folder --");
-		cTemplate.createNewFolder(sourceFolder, folderType.None);
-
+		//cTemplate.createNewFolder(sourceFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, sourceFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
 		//Create target folder 
 		info("-- Create target folder --");
-		cTemplate.createNewFolder(targetFolder, folderType.None);
-
+		//cTemplate.createNewFolder(targetFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, targetFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
 		//Go to source folder
 		actBar.goToNodeByAddressPath("/"+sourceFolder);
 
 		//Create parent folder 
 		info("-- Create parent folder --");
-		cTemplate.createNewFolder(parentFolder, folderType.None);
-
+		//cTemplate.createNewFolder(parentFolder, folderType.None);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, parentFolder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
 		//Create a document in the parent node (child node)
 		info("-- Create child node --");
 		actBar.goToNodeByAddressPath("/"+sourceFolder+"/"+parentFolder);
@@ -882,9 +914,15 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		/*Step 2: Select many items*/	
 		//Creat 2 item
 		info("-- Create 2 folder items --");
-		cTemplate.createNewFolder(folder1, folderType.None);
-		cTemplate.createNewFolder(folder2, folderType.None);
-
+		/*cTemplate.createNewFolder(folder1, folderType.None);
+		cTemplate.createNewFolder(folder2, folderType.None);*/
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, folder1, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, folder2, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		//Check on checkboxes at the right of 2 or more nodes to select them
 		info("-- Check on checkboxes at the right of 2 or more nodes to select them --");
 		check(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", folder1)), 2);
@@ -1022,7 +1060,10 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		//Create a folder
 		info("-- Create a folder --");
 		cTemplate.createNewFolder(folder, folderType.None);
-
+		actBar.goToAddNewFolder();
+		type(ecms.ELEMENT_FOLDER_TITLE_TEXTBOX, folder, true);
+		click(cTemplate.ELEMENT_CREATE_FOLDER_BUTTON);
+		
 		//Select a folder node
 		info("-- Select folder node --");
 		actBar.goToNodeByAddressPath("/"+folder);

@@ -176,7 +176,12 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_CONTEXT_MENU_ADD_SYMLINK = By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsAddSymLink']");
 	public final String ELEMENT_DATA_TITLE = "//*[@data-original-title = '${dataTitle}']";
 	public final String ELEMENT_SYMLINK_TITLE = "//*[@data-original-title = '${symlinkTitle}']";
-	public final String ELEMENT_TARGET_NODE = ".//*[@id='UISelectPathPanel']//*[@class='Text' and contains(.,'${node}')]/../..//*[@data-original-title='Select']";
+
+	//public final String ELEMENT_TARGET_NODE = ".//*[@id='UISelectPathPanel']//*[@class='Text' and contains(.,'${node}')]/../..//*[@data-original-title='Select']";
+
+	//public final String ELEMENT_TARGET_NODE = "//*[contains(text(),'${node}')]/../../td/a[@data-original-title='select']";
+	public final String ELEMENT_TARGET_NODE = "//div[contains(normalize-space(), '${node}') and @class='Text']/../../td/a[@data-original-title='Select']/i";
+
 	public final String ELEMENT_TARGET_REFERENCE = ".//*[@class='uiGrid table table-hover table-striped']//tr[${index}]//*[@class='uiIconValidate uiIconLightGray']";
 	public final String ELEMENT_SELECT_NODE = "//*[@id='UISelectPathPanel']//tr[2]//i[contains(@class,'uiIconValidate uiIconLightGray')]";
 	public final String ELEMENT_SELECT_NODE_1 = "//*[@id='UISelectPathPanel']//tr[1]//i[contains(@class,'uiIconValidate uiIconLightGray')]";
@@ -904,12 +909,13 @@ public class EcmsBase extends ManageAccount {
 		}else if (waitForAndGetElement(element_select2, 5000, 0) != null){
 			info("youy 2: "+element_select2);
 			click(element_select2);
+
 		}else if (waitForAndGetElement(element_select1, 5000, 0) != null){
 			info("youy 3: "+element_select1);
 			click(element_select1);
-		}else if (waitForAndGetElement(element_select1, 5000, 0) != null){
+		}/*else if (waitForAndGetElement(element_select1, 5000, 0) != null){
 			click(element_select1);
-		}
+		}*/
 		Utils.pause(500);
 	}
 	/**

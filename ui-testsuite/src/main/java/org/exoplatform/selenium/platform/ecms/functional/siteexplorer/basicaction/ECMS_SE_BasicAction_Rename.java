@@ -76,10 +76,20 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Go to Personal Drive
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
+		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
-
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
+		
 		//right click on eFile
 		rightClickOnElement(eFile);
 
@@ -111,13 +121,33 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Go to Personal Drive
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
-
+		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
+		
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
-
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
+		
 		//Rename a file
-		cMenu.contextMenuAction(eFile, cMenu.ELEMENT_MENU_RENAME_NODE, newFileName);
+		//cMenu.contextMenuAction(eFile, cMenu.ELEMENT_MENU_RENAME_NODE, newFileName);
+		//right click on eFile
+				rightClickOnElement(eFile);
 
+				//Rename a file and click [Cancel Button]
+				waitForAndGetElement(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);
+				click(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);	
+				type(cMenu.ELEMENT_INPUT_RENAME_NODE, newFileName, true);
+				button.rename();
+				waitForAndGetElement(editFile);
+		
 		//View information
 		cMenu.contextMenuAction(editFile, cMenu.ELEMENT_VIEW_INFORMATION);
 		waitForAndGetElement(cMenu.ELEMENT_POPUP_VIEW_INFORMATION_NAME.replace("${fileName}", newFileName + ".txt"));
@@ -151,9 +181,20 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Go to Personal Drive
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
-
+		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
+		
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
 
 		//right click on eFile
 		rightClickOnElement(eFile);
@@ -185,10 +226,21 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Go to Personal Drive
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
-
+		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
+		
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
-
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
+		
 		//right click on eFile
 		rightClickOnElement(eFile);
 
@@ -223,10 +275,21 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Go to Personal Drive
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
-
+		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
+		
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
-
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
+		
 		//right click on eFile
 		rightClickOnElement(eFile);
 
@@ -269,16 +332,27 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Go to Personal Drive
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
-
+		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
+		
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
 
 		//right click on eFile
 		rightClickOnElement(eFile);
 
 		//Focus is set in rename field
 		click(cMenu.ELEMENT_MENU_RENAME_NODE);
-		type(cMenu.ELEMENT_INPUT_RENAME_NODE, newFileName, false);
+		type(cMenu.ELEMENT_INPUT_RENAME_NODE, newFileName, true);
 		WebElement element = waitForAndGetElement(cMenu.ELEMENT_INPUT_RENAME_NODE);
 		String fileName = element.getAttribute("value");
 		assert fileName.equals(newFileName): "Failed: Focus is set in rename field";
@@ -317,14 +391,34 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Go to Personal Drive
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
-
+		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
+		
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
 
 		//Rename a file
-		cMenu.contextMenuAction(eFile, cMenu.ELEMENT_MENU_RENAME_NODE, newFileName);
-		waitForAndGetElement(editFile);
+		/*cMenu.contextMenuAction(eFile, cMenu.ELEMENT_MENU_RENAME_NODE, newFileName);
+		waitForAndGetElement(editFile);*/
+		//right click on file
+				rightClickOnElement(eFile);
 
+				//Rename a file and click [Cancel Button]
+				waitForAndGetElement(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);
+				click(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);	
+				type(cMenu.ELEMENT_INPUT_RENAME_NODE, newFileName, true);
+				button.rename();
+				waitForAndGetElement(editFile);
+				
 		//Restore data
 		cMenu.deleteDocument(editFile);
 	}
@@ -344,9 +438,18 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 
 		//Go to sites management
 		navToolBar.goToSiteExplorer();
-
+		
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
 
 		//Rename form
 		rightClickOnElement(eFile);
@@ -382,8 +485,17 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Test Data > Upload a file: filename.txt
 		//click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		click(siteExp.ELEMENT_SIDEBAR_PERSONAL_DOCUMENTS);
-		ecms.uploadFile(filePath);
-
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
+		
 		//Main area > Open rename form
 		//rightClickOnElement(mFile);
 		rightClickOnElement(cMenu.ELEMENT_MAIN_AREA_NODE.replace("${title}", "test.txt"));
@@ -423,13 +535,33 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		//Go to Personal Drive
 		navToolBar.goToPersonalDocuments();
 		magDrv.addView2Drive("Web", "Personal Documents");
+		navToolBar.goToSiteExplorer();
+		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
 
 		//Rename a file
-		cMenu.contextMenuAction(eFile, cMenu.ELEMENT_MENU_RENAME_NODE, newFileName);
-		waitForAndGetElement(editFile);
+		/*cMenu.contextMenuAction(eFile, cMenu.ELEMENT_MENU_RENAME_NODE, newFileName);
+		waitForAndGetElement(editFile);*/
+		//right click on file
+				rightClickOnElement(eFile);
+
+				//Rename a file and click [Cancel Button]
+				waitForAndGetElement(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);
+				click(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);	
+				type(cMenu.ELEMENT_INPUT_RENAME_NODE, newFileName, true);
+				button.rename();
+				waitForAndGetElement(editFile);
 
 		//Restore data
 		cMenu.deleteDocument(editFile);
@@ -462,7 +594,16 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		actBar.goToViewMode("Web");
 
 		//Test Data > Upload a file: filename.txt
-		ecms.uploadFile(filePath);
+		//ecms.uploadFile(filePath);
+		if (waitForAndGetElement(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
+			click(ecms.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			info("click upload button");
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		}
+		else
+			click(ecms.ELEMENT_ACTION_BAR_UPLOAD_BTN);
+		uploadFileUsingRobot(filePath);
 
 		//Go to properties tab
 		doubleClickOnElement(eFile);
@@ -473,8 +614,17 @@ public class ECMS_SE_BasicAction_Rename extends PlatformBase{
 		click(ecms.ELEMENT_BACK_PREVIOUS_NODE);
 
 		//Rename a file
-		cMenu.contextMenuAction(eFile, cMenu.ELEMENT_MENU_RENAME_NODE, newFileName);
-		waitForAndGetElement(editFile);
+		/*cMenu.contextMenuAction(eFile, cMenu.ELEMENT_MENU_RENAME_NODE, newFileName);
+		waitForAndGetElement(editFile);*/
+		//right click on file
+				rightClickOnElement(eFile);
+
+				//Rename a file and click [Cancel Button]
+				waitForAndGetElement(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);
+				click(cMenu.ELEMENT_MENU_RENAME_NODE, 3000);	
+				type(cMenu.ELEMENT_INPUT_RENAME_NODE, newFileName, true);
+				button.rename();
+				waitForAndGetElement(editFile);
 
 		//Go to properties tab
 		doubleClickOnElement(editFile);

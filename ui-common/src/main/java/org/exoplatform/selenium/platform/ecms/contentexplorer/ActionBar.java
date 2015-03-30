@@ -165,7 +165,7 @@ public class ActionBar extends EcmsBase{
 
 	public final By ELEMENT_PUBLICATION = By.xpath("//a[contains(text(),'Publications')]");
 	public final By ELEMENT_PUBLISH_ICON = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsPublicationPublish uiIconEcmsLightGray']");
-	public final By ELEMENT_PUBLICATION_ICON = By.className("uiIconEcmsManagePublications");
+	public final By ELEMENT_PUBLICATION_ICON = By.className("uiIconEcmsManagePublications uiIconEcmsLightGray");
 	public final By ELEMENT_VIEW_PROPERTIES = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsViewProperties uiIconEcmsLightGray']");
 
 	public final By ELEMENT_PUBLICATION_NODE_ICON=By.xpath("//*[contains(@class,'uiIconEcmsManagePublications uiIconEcmsLightGray')]");
