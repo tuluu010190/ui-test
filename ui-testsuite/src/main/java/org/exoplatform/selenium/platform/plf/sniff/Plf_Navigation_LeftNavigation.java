@@ -63,6 +63,7 @@ import org.testng.annotations.*;
 		navToolBar.goToPotalSites();
 		magSite.goToEditNavigation("intranet");
 		magSite.addNode(title,"");
+		magSite.saveNode();
 		 info("Verify that the node is added");
 		waitForAndGetElement(hp.ELEMENT_LEFT_PANEL.replace("{$name}",title),3000,0);
 		

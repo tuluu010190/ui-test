@@ -91,7 +91,7 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_SWITCH_VIEW_MODE_NAME_APPLICATION_CLASS = By.xpath(".//*[contains(@class,'portletName')]");
 	
 	
-	public final String ELEMENT_APPLICATION_IN_LAYOUT_PAGE = ".//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${name}')]";
+	public final String ELEMENT_APPLICATION_IN_LAYOUT_PAGE = "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${name}')]";
 	public final String ELEMENT_APPLICATION_EDIT_ICON = "//span[contains(text(),'${name}')]/../../../..//*[contains(@class,'uiIconEdit')]";
 	public final String ELEMENT_APPLICATION_DELETE_ICON = "//span[contains(text(),'${name}')]/../../../..//*[contains(@class,'uiIconTrash')]";
 	
@@ -107,8 +107,8 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_CONTAINER_HOLDER_MOVE = By.xpath(".//*[@class='UIRowContainer EmptyContainer']/../../../..//*[contains(@class,'uiIconDragDrop')]");
 	public final By ELEMENT_PORTLET = By.xpath(".//*[contains(@class,'UIPortlet')]");
 	public final String ELEMENT_APPLICATION_HOLDER_MOVE="//span[contains(text(),'${name}')]/..//*[contains(@class,'uiIconDragDrop')]";
-	public final String ELEMENT_APPLICATION_PRECEDING_PORTLET = "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app1}')]/../../../preceding-sibling::*[contains(@class,'UIPortlet')]//*[contains(text(),'${app2}')]";
-	public final String ELEMENT_APPLICATION_FOLLOWING_PORTLET= "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app1}')]/../../../following-sibling::*[contains(@class,'UIPortlet')]//*[contains(text(),'${app2}')]";
+	public final String ELEMENT_APPLICATION_PRECEDING_PORTLET = "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app1}')]/../../../preceding-sibling::*//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app2}')]";
+	public final String ELEMENT_APPLICATION_FOLLOWING_PORTLET= "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app1}')]/../../../following-sibling::*//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app2}')]";
 	
 	//Application popup
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_TAB = By.xpath(".//*[@id='tab-UIPortletForm']//*[contains(@data-target,'PortletSetting')]");
@@ -158,7 +158,7 @@ public class PageCreationWizard extends PlatformBase {
 	Button but;
 	
 	public PageCreationWizard(WebDriver dr){
-		driver = dr;
+		this.driver = dr;
 		contList = new ContentList(dr);
 		contDetail = new ContentDetail(dr);
 		magAlert = new ManageAlert(dr);
@@ -497,9 +497,10 @@ public class PageCreationWizard extends PlatformBase {
 		info("Move an application to new place");
 			click(ELEMENT_APPLICATION_TAB);
 		if (!titleSource.isEmpty()) {
-			info("titleSource"+titleSource);
-			info("titleTarget"+titleTarget);
+			info("titleSource:"+titleSource);
+			info("titleTarget:"+titleTarget);
 			mouseOver(ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",titleSource),true);
+			waitForAndGetElement(ELEMENT_APPLICATION_EDIT_ICON.replace("${name}",titleSource),3000,1);
 			Utils.pause(3000);
 		} 
 		WebElement elSource = waitForAndGetElement(ELEMENT_APPLICATION_HOLDER_MOVE.replace("${name}",titleSource),2000,0);
