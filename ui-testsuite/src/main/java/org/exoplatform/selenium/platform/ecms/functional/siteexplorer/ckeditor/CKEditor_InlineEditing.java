@@ -55,7 +55,6 @@ import org.testng.annotations.*;
 
 		@AfterMethod
 		public void afterMethod() {
-			info("-- User signOut --");
 			driver.manage().deleteAllCookies();
 			driver.quit();
 		}
@@ -68,7 +67,7 @@ import org.testng.annotations.*;
 	public  void test01_CancelInlineEditingByClickingCancelIcon() {
 		info("Test 1: Cancel inline editing by clicking Cancel icon");
 		String title ="Ice";
-		driver.get(DEFAULT_BASEURL+"/acme");
+		driver.get(baseUrl+"/acme");
 		
 		navToolBar.changeEditModeEnable();
 		acme.editContentByTitle(title);

@@ -24,10 +24,11 @@ public class CKeditor extends PlatformBase {
 	// ----------------------CKeditor for the files has only one CKEDITOR
 	// -------------------------------------------------------------------------------
 	public final By ELEMENT_CKEDITOR_TEXT_CONTENT = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
+	public final String ELEMENT_CKEDITOR_TEXT_AREA_FRAME= "#${tab} iframe";
 	public final By ELEMENT_CKEDITOR_TEXT_CONTENT_BENEFITS = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset' and @title='Rich Text Editor,productBenefits']");
 	public final By ELEMENT_CKEDITOR_TEXT_CONTENT_FEATURES = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset' and @title='Rich Text Editor,productFeatures']");
 	public final By ELEMENT_CKEDITOR_POPUP = By.xpath(".//*[@id='UIForumPopupWindow']");
-	public final By ELEMENT_CKEDITOR_MAXIMIZE = By.xpath(".//*[@class='cke_button_icon cke_button__maximize_icon']");
+	public final By ELEMENT_CKEDITOR_MAXIMIZE = By.cssSelector(".cke_button__maximize_icon");
 	public final By ELEMENT_CKEDITOR_MAXIMIZE_STYLE = By.xpath(".//*[@id='ThreadContent-tab'][@style='position: static; overflow: visible; z-index: 9995;']");
 	public final By ELEMENT_CKEDITOR_MINIMIZE_STYLE = By.xpath(".//*[@id='ThreadContent-tab'][@style='']");
 
@@ -40,6 +41,7 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_BOLD_FEATURES =By.cssSelector("#cke_productFeatures .cke_button__bold_icon");
 	public final By ELEMENT_CKEDITOR_BOLD_BENEFITS = By.cssSelector("#cke_productBenefits .cke_button__bold_icon");
 	public final By ELEMENT_CKEDITOR_ITALIC = By.cssSelector(".cke_button__italic_icon");
+	public final By ELEMENT_CKEDITOR_STRIKE = By.cssSelector(".cke_button__strike_icon']");
 	public final By ELEMENT_CKEDITOR_UNDERLINE = By.cssSelector(".cke_button__underline_icon");
 	public final By ELEMENT_CKEDITOR_ALIGNLEFT = By.cssSelector(".cke_button__justifyleft_icon");
 	public final By ELEMENT_CKEDITOR_ALIGNRIGHT = By.cssSelector(".cke_button__justifyright_icon");
@@ -50,9 +52,13 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_DECREASE_INDENT =By.cssSelector(".cke_button__outdent_icon");
 	public final By ELEMENT_CKEDITOR_INCREASE_INDENT = By.cssSelector(".cke_button__indent_icon");
 	public final By ELEMENT_CKEDITOR_TEXT_COLOR = By.cssSelector(".cke_button__textcolor_icon");
-	public final String ELEMENT_CKEDITOR_TEXT_COLOR_STYLE = ".//span[@class='cke_colorbox'][@style='background-color:#${codeColor}']";
+	public final String ELEMENT_CKEDITOR_TEXT_COLOR_STYLE = ".//*[contains(@class,'cke_colorblock')][not(contains(@style,'display: none;'))]//*[@class='cke_colorbox'][@style='background-color:#${codeColor}']";
 	public final By ELEMENT_CKEDITOR_BLOCK_QUOTE = By.cssSelector(".cke_button__blockquote_icon");
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE = By.cssSelector(".cke_button__syntaxhighlight_icon");
+	public final By ELEMENT_CKEDITOR_SHOW_BLOCKS = By.cssSelector(".cke_button__showblocks_icon");
+	public final By ELEMENT_CKEDITOR_ANCHOR = By.cssSelector(".cke_button__anchor_icon");
+	public final By ELEMENT_CKEDITOR_REMOVE_LINK = By.cssSelector(".cke_button__unlink_icon");
+	
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TAB = By.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Source code']");
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_ADVANCE_TAB = By.xpath(".//*[@class='cke_dialog_tabs']/a[@title='Advanced']");
 	public final By ELEMENT_CKEDITOR_ADD_UPDATE_CODE_SOURCECODE_TEXTAREA = By.xpath(".//div[@class='cke_dialog_ui_input_textarea']");
@@ -69,17 +75,60 @@ public class CKeditor extends PlatformBase {
 	public final By ELEMENT_CKEDITOR_BUTTON_PREVIEW = By.xpath(".//*[@id='UITopicForm']//button[contains(text(),'Preview')]");
 
 	public final By ELEMENT_CKEDITOR_BUTTON_SELECTALL = By.cssSelector(".cke_button__selectall_icon");
-
+	
+	//--------------------------------------------CKEDITOR FOR DIALOG FRAME
+	public final By ELEMENT_CKEDITOR_DIALOG_PASTE_FRAME = By.xpath(".//*[contains(@class,'cke_reset_all') and contains(@role,'dialog') and not(contains(@style,'display: none;'))]//iframe");
+	public final By ELEMENT_CKEDITOR_DIALOG_OK_BTN = By.xpath(".//*[contains(@class,'cke_reset_all') and contains(@role,'dialog') and not(contains(@style,'display: none;'))]//*[contains(@class,'cke_dialog_ui_button_ok')]");
+	
 	//--------------------------------------------CKEDITOR FOR FILES THAT HAS MANY CKEDITORS TOOL
 
 	public final String ELEMENT_CKEDITOR_BOLD_BY_TAB = "#${tab} .cke_button__bold_icon";
 	public final String ELEMENT_CKEDITOR_ITALIC_BY_TAB = "#${tab} .cke_button__italic_icon";
 	public final String ELEMENT_CKEDITOR_UNDERLINE_BY_TAB = "#${tab} .cke_button__underline_icon";
-
+	public final String ELEMENT_CKEDITOR_PASTE_BY_TAB ="#${tab} .cke_button__paste_icon";
+	public final String ELEMENT_CKEDITOR_STIKE_BY_TAB = "#${tab} .cke_button__strike_icon";
+	public final String ELEMENT_CKEDITOR_ALIGNLEFT_BY_TAB = "#${tab} .cke_button__justifyleft_icon";
+	public final String ELEMENT_CKEDITOR_ALIGNRIGHT_BY_TAB = "#${tab} .cke_button__justifyright_icon";
+	public final String ELEMENT_CKEDITOR_CENTER_BY_TAB = "#${tab} .cke_button__justifycenter_icon";
+	public final String ELEMENT_CKEDITOR_JUSTIFY_BY_TAB ="#${tab} .cke_button__justifyblock_icon";
+	public final String ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST_BY_TAB = "#${tab} .cke_button__bulletedlist_icon";
+	public final String ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST_BY_TAB = "#${tab} .cke_button__numberedlist_icon";
+	public final String ELEMENT_CKEDITOR_TEXT_COLOR_BY_TAB = "#${tab} .cke_button__textcolor_icon";
+	public final String ELEMENT_CKEDITOR_BACKGROUND_COLOR_BY_TAB = "#${tab} .cke_button__bgcolor_icon";
+	public final String ELEMENT_CKEDITOR_REMOVE_FORMAT_BY_TAB = "#${tab} .cke_button__removeformat_icon";
+	public final String ELEMENT_CKEDITOR_INSERT_LINK_BY_TAB = "#${tab} .cke_button__link_icon";
+	public final String ELEMENT_CKEDITOR_PARAGRAHP_FORMAT_DROP_DOWN_BOX=".//*[@id='${tab}']//*[@title='Paragraph Format']";
+	public final By ELEMENT_CKEDITOR_PARAGRAPH_FORMAT_FRAME = By.cssSelector(".cke_panel_frame");
+	public final String ELEMENT_CKEDITOR_PARAGRAPH_FORMAT_SELECTION = ".//*[@title='${title}']";
+	
+	public final String ELEMENT_CKEDITOR_PARAGRAPH_FONT_DROP_DOWN_BOX = ".//*[@id='${tab}']//*[@title='Font Name']";
+	public final String ELEMENT_CKEDITOR_PARAGRAPH_FONT_SELECTION = ".//*[@class='cke_panel_block' and @style='']//a[@title=\"${font}\"]";
+	
+	public final String ELEMENT_CKEDITOR_PARAGRAPH_SIZE_DROP_DOWN_BOX = ".//*[@id='${tab}']//*[@title='Font Size']";
+	public final String ELEMENT_CKEDITOR_PARAGRAPH_SIZE_SELECTION = ".//*[@class='cke_panel_block' and @style='']//a[@title='${fontSize}']";
+	
+	public final String ELEMENT_CKEDITOR_MAXIMIZE_BY_TAB ="#${tab} .cke_button__maximize_icon";
+	public final String ELEMENT_CKEDITOR_DECREASE_INDENT_BY_TAB ="#${tab} .cke_button__outdent_icon";
+	public final String ELEMENT_CKEDITOR_INCREASE_INDENT_BY_TAB ="#${tab} .cke_button__indent_icon";
+	public final String ELEMENT_CKEDITOR_ANCHOR_BY_TAB = "#${tab} .cke_button__anchor_icon";
+	public final String ELEMENT_CKEDITOR_REMOVE_LINK_BY_TAB = "#${tab} .cke_button__unlink_icon";
+	
 	public final By ELEMENT_CKEDITOR_BOLD_TAB2 = By.cssSelector("#tab2 .cke_button__bold_icon");
 	public final By ELEMENT_CKEDITOR_ITALIC_TAB2 = By.cssSelector("#tab2 .cke_button__italic_icon");
 	public final By ELEMENT_CKEDITOR_UNDERLINE_TAB2 = By.cssSelector("#tab2 .cke_button__underline_icon");
 
+	public final By ELEMENT_CKEDITOR_BACKGROUND_COLOR = By.xpath(".//*[@class='cke_button_icon cke_button__bgcolor_icon']");
+	public final By ELEMENT_CKEDITOR_BACKGROUND_COLOR_FRAME = By.xpath(".//*[@class='cke_panel_frame']");
+	
+	public final By ELEMENT_CKEDITOR_INSERT_LINK =By.cssSelector(".cke_button__link_icon']");
+	public final By ELEMENT_CKEDITOR_TYPE_LINK = By.xpath("//*[contains(@class,'cke_dialog_ui_labeled_label cke_required') and text()='URL']/..//input[@class='cke_dialog_ui_input_text']");
+	
+	public final By ELEMENT_CKEDITOR_PARAGRAPH_FORMAT = By.xpath(".//*[@class='cke_combo_text']");
+	
+	
+	public final By ELEMENT_CKEDITOR_TYPE_ANCHOR = By.xpath("//input[@class='cke_dialog_ui_input_text']");
+	
+	
 	// --------------------------------------------common
 	// functions-------------------------------------------------------
 
@@ -110,13 +159,23 @@ public class CKeditor extends PlatformBase {
 			el.sendKeys(Keys.ENTER);
 		}
 	}
-
+	
 	/**
 	 * Maximize/Minize CKeditor
 	 */
 	public void cke_Max_Minmize() {
-		if (isElementPresent(ELEMENT_CKEDITOR_MAXIMIZE))
-			click(ELEMENT_CKEDITOR_MAXIMIZE);
+		info("Click on Max or Minmize");
+		click(ELEMENT_CKEDITOR_MAXIMIZE);
+		Utils.pause(1000);
+	}
+
+	/**
+	 * Maximize/Minize CKeditor
+	 */
+	public void cke_Max_Minmize(String nameTabId) {
+		info("Click on Max or Minmize");
+		click(ELEMENT_CKEDITOR_MAXIMIZE_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
 	}
 
 	/**
@@ -147,13 +206,11 @@ public class CKeditor extends PlatformBase {
 	 * Click on paste button
 	 */
 	public void cke_Paste() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_TEXT_CONTENT,5000,0)!=null) {
 			info("Paste a text");
 			el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
 			el.sendKeys(Keys.END);
 			el.sendKeys(Keys.ENTER);
 			el.sendKeys(Keys.chord(Keys.CONTROL, "v"));
-		}
 	}
 
 	/**
@@ -172,6 +229,51 @@ public class CKeditor extends PlatformBase {
 		if (waitForAndGetElement(ELEMENT_CKEDITOR_REDO,5000,0)!=null) {
 			click(ELEMENT_CKEDITOR_REDO);
 		}
+	}
+	
+	/**
+	 * Click on paste button by namTabId
+	 * for the file that has many CKEditors
+	 */
+	public void cke_Paste(String nameTabId) {
+			info("Paste a text");
+			WebElement el = waitForAndGetElement(ELEMENT_CKEDITOR_TEXT_AREA_FRAME.replace("${tab}",nameTabId));
+			el.sendKeys(Keys.ENTER);
+			el.sendKeys(Keys.chord(Keys.CONTROL, "v"));
+			Utils.pause(1000);
+	}
+	/**
+	 * Paste a text into Dialog frame after click Paste button
+	 */
+	public void cke_PasteDialog(String nameTabId){
+		info("Click on Paste button of ckeditor");
+		click(ELEMENT_CKEDITOR_PASTE_BY_TAB.replace("${tab}",nameTabId));
+		info("Paste a text into the frame");
+		WebElement el = waitForAndGetElement(ELEMENT_CKEDITOR_DIALOG_PASTE_FRAME);
+		el.sendKeys(Keys.ENTER);
+		el.sendKeys(Keys.chord(Keys.CONTROL, "v"));
+		Utils.pause(1000);
+		click(ELEMENT_CKEDITOR_DIALOG_OK_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * Strike a text
+	 * this function is used for the files has many CKEditor tool
+	 * @param nameTabId is the name of Id of the tab as:tab1, tab2...
+	 */
+	public void cke_Strike(String nameTabId){
+		info("Strike a text");
+		click(ELEMENT_CKEDITOR_STIKE_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(200);
+	}
+	/**
+	 * Strike a text
+	 * this function is used for the files hase only one CKEDITOR tool
+	 */
+	public void cke_Strike(){
+		info("Strike a text");
+		click(ELEMENT_CKEDITOR_STRIKE);
+		Utils.pause(1000);
 	}
 
 	/**
@@ -266,99 +368,205 @@ public class CKeditor extends PlatformBase {
 
 	/**
 	 * Click on align left to put the text on the left side
+	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_AlignLeft() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_ALIGNLEFT,5000,0)!=null) {
 			info("Align left a text");
 			click(ELEMENT_CKEDITOR_ALIGNLEFT);
-		}
+			Utils.pause(1000);
+	}
+	
+	
+	/**
+	 * Click on align left to put the text on the left side
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_AlignLeft(String nameTabId) {
+			info("Align left a text");
+			click(ELEMENT_CKEDITOR_ALIGNLEFT_BY_TAB.replace("${tab}",nameTabId));
+			Utils.pause(1000);
 	}
 
 	/**
 	 * Click on align right to put the text on the right side
+	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_AlignRight() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_ALIGNRIGHT,5000,0)!=null) {
 			info("Align right a text");
 			click(ELEMENT_CKEDITOR_ALIGNRIGHT);
-		}
+			Utils.pause(1000);
+	}
+	
+	/**
+	 * Click on align right to put the text on the right side
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_AlignRight(String nameTabId) {
+			info("Align right a text");
+			click(ELEMENT_CKEDITOR_ALIGNRIGHT_BY_TAB.replace("${tab}",nameTabId));
+			Utils.pause(1000);
 	}
 
 	/**
 	 * Click on center button to put the text in the center
+	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_Center() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_CENTER,5000,0)!=null) {
 			info("put a text in the center");
 			click(ELEMENT_CKEDITOR_CENTER);
-		}
+			Utils.pause(1000);
+	}
+	
+	/**
+	 * Click on center button to put the text in the center
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_Center(String nameTabId) {
+			info("put a text in the center");
+			click(ELEMENT_CKEDITOR_CENTER_BY_TAB.replace("${tab}",nameTabId));
+			Utils.pause(1000);
+	}
+	/**
+	 * Show blocks
+	 * this function is used for the files that has only one CKEditor tool
+	 */
+	public void cke_showBlocks(){
+		info("Show blocks");
+		click(ELEMENT_CKEDITOR_SHOW_BLOCKS);
+		Utils.pause(1000);
+	}
+	/**
+	 * Anchor
+	 * this function is used for the files that has only one CKEditor tool
+	 * @param name
+	 */
+	public void cke_anchor(String name){
+		info("Click on Anchor");
+		click(ELEMENT_CKEDITOR_ANCHOR);
+		type(ELEMENT_CKEDITOR_TYPE_ANCHOR, name, true);
+		click(ELEMENT_CKEDITOR_DIALOG_OK_BTN);
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * Anchor
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 * @param name
+	 */
+	public void cke_anchor(String nameTabId,String name){
+		info("Click on anchor");
+		click(ELEMENT_CKEDITOR_ANCHOR_BY_TAB.replace("${tab}",nameTabId));
+		type(ELEMENT_CKEDITOR_TYPE_ANCHOR, name, true);
+		click(ELEMENT_CKEDITOR_DIALOG_OK_BTN);
+		Utils.pause(1000);
+		
 	}
 
 	/**
 	 * Click on justify button
+	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_Justify() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_JUSTIFY,5000,0)!=null) {
 			info("justify a text");
 			click(ELEMENT_CKEDITOR_JUSTIFY);
-		}
+			Utils.pause(1000);
+	}
+	
+	/**
+	 * Click on justify button
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_Justify(String nameTabId) {
+			info("justify a text");
+			click(ELEMENT_CKEDITOR_JUSTIFY_BY_TAB.replace("${tab}",nameTabId));
+			Utils.pause(1000);
 	}
 
 	/**
 	 * Select all the text and click on Insert/remove numeric list
-	 * 
+	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_InsertRemoveNumList() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST,5000,0)!=null) {
 			info("insert/remove number list of a text");
-			/*WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));*/
 			click(ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST);
-		}
+			Utils.pause(1000);
+	}
+	
+	/**
+	 * Select all the text and click on Insert/remove numeric list
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_InsertRemoveNumList(String nameTabId) {
+			info("insert/remove number list of a text");
+			click(ELEMENT_CKEDITOR_INSERT_REMOVE_NUMLIST_BY_TAB.replace("${tab}",nameTabId));
+			Utils.pause(1000);
 	}
 
 	/**
 	 * Select all the text and click on Insert/remove bullet list
-	 * 
+	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_InsertRemoveBulletList() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST,5000,0)!=null) {
 			info("insert/remove bullet list of a text");
-			/*WebElement e = waitForAndGetElement(ELEMENT_CKEDITOR_TEXT_CONTENT,DEFAULT_TIMEOUT,1,2);
-			driver.switchTo().frame(e);*/
-			//inputsummary = driver.switchTo().activeElement();
-			/*WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
-			//WebElement el = driver.findElement(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-			Utils.pause(3000);*/
 			click(ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST);
-		}
+			Utils.pause(1000);
+	}
+	
+	/**
+	 * Select all the text and click on Insert/remove bullet list
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_InsertRemoveBulletList(String nameTabId) {
+			info("insert/remove bullet list of a text");
+			click(ELEMENT_CKEDITOR_INSERT_REMOVE_BULLETLIST_BY_TAB.replace("${tab}",nameTabId));
+			Utils.pause(1000);
 	}
 
 	/**
 	 * Select all the text and click on Decrease indent button
-	 * 
+	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_DescrIndent() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_DECREASE_INDENT,5000,0)!=null) {
-			info("decrease indent of a text");
-			WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-			click(ELEMENT_CKEDITOR_DECREASE_INDENT);
-		}
+		info("decrease indent of a text");
+		click(ELEMENT_CKEDITOR_DECREASE_INDENT);
+		Utils.pause(1000);
+	}
+	/**
+	 * Select all the text and click on Decrease indent button
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_DescrIndent(String nameTabId) {
+		info("decrease indent of a text");
+		click(ELEMENT_CKEDITOR_DECREASE_INDENT_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
 	}
 
 	/**
 	 * Select all the text and click on Increase indent button
-	 * 
+	 * this function is used for the files that has only one CKEditor tool
 	 */
 	public void cke_InscrIndent() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_INCREASE_INDENT,5000,0)!=null) {
-			info("increase indent of a text");
-			WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-			click(ELEMENT_CKEDITOR_INCREASE_INDENT);
-		}
+		info("increase indent of a text");
+		click(ELEMENT_CKEDITOR_INCREASE_INDENT);
+		Utils.pause(1000);
+	}
+	/**
+	 * Select all the text and click on Increase indent button
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_InscrIndent(String nameTabId) {
+		info("increase indent of a text");
+		click(ELEMENT_CKEDITOR_INCREASE_INDENT_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
 	}
 
 	/**
@@ -367,26 +575,143 @@ public class CKeditor extends PlatformBase {
 	 * @param codeColor get a code of a color into the color table
 	 */
 	public void cke_PaintColorText(String codeColor) {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_INCREASE_INDENT,5000,0)!=null) {
 			info("paint a text");
-			WebElement el = driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT);
-			el.sendKeys(Keys.chord(Keys.CONTROL, "a"));
 			click(ELEMENT_CKEDITOR_TEXT_COLOR);
 			// select a color into the color table
 			waitForAndGetElement(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE);
 			click(By.xpath(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE.replace(
 					"${codeColor}", codeColor)));
-		}
+	}
+	
+	/**
+	 * Select all the text. Then click on Text Color button and select a color
+	 * into the table
+	 * @param codeColor get a code of a color into the color table
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_PaintColorText(String nameTabId,String codeColor) {
+			info("paint a text");
+			Utils.pause(1000);
+			click(ELEMENT_CKEDITOR_TEXT_COLOR_BY_TAB.replace("${tab}", nameTabId));
+			WebElement e = waitForAndGetElement(ELEMENT_CKEDITOR_BACKGROUND_COLOR_FRAME ,DEFAULT_TIMEOUT,1,2);
+			driver.switchTo().frame(e);
+			driver.switchTo().activeElement();
+			click(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE.replace("${codeColor}",codeColor), 1);
+			driver.switchTo().defaultContent();
+			Utils.pause(1000);
+	}
+	/**
+	 * Paint color for background of a text
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 * @param codeColor
+	 */
+	public void cke_PaintColorBackgroundText(String nameTabId,String codeColor){
+		info("Paint color for background text");
+		Utils.pause(1000);
+		click(ELEMENT_CKEDITOR_BACKGROUND_COLOR_BY_TAB.replace("${tab}", nameTabId));
+		info("Switch to the background color frame");
+		WebElement e = waitForAndGetElement(ELEMENT_CKEDITOR_BACKGROUND_COLOR_FRAME ,DEFAULT_TIMEOUT,1,2);
+		driver.switchTo().frame(e);
+		driver.switchTo().activeElement();
+		info("Select the color");
+		click(ELEMENT_CKEDITOR_TEXT_COLOR_STYLE.replace("${codeColor}",codeColor), 1);
+		driver.switchTo().defaultContent();
+		Utils.pause(1000);
+	}
+	/**
+	 * Insert a link
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 * @param url
+	 */
+	public void cke_link(String nameTabId,String url){
+		info("Click on Link button");
+		click(ELEMENT_CKEDITOR_INSERT_LINK_BY_TAB.replace("${tab}",nameTabId));
+		type(ELEMENT_CKEDITOR_TYPE_LINK,url, false);
+		Utils.pause(1000);
+		switchToParentWindow();
+		click(ELEMENT_CKEDITOR_DIALOG_OK_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * Remove a link
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_removeLink(String nameTabId){
+		info("Click on remove link button");
+		click(ELEMENT_CKEDITOR_REMOVE_LINK_BY_TAB.replace("${tab}", nameTabId));
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * Remove Format 
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 */
+	public void cke_removeFormat(String nameTabId){
+		info("Remove format");
+		click(ELEMENT_CKEDITOR_REMOVE_FORMAT_BY_TAB.replace("${tab}",nameTabId));
+		Utils.pause(1000);
+	}
+	/**
+	 * Select a paragraph format
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 * @param value
+	 */
+	public void cke_paragraphFormat(String nameTabId,String format){
+		info("Click on drop down box");
+		click(ELEMENT_CKEDITOR_PARAGRAHP_FORMAT_DROP_DOWN_BOX.replace("${tab}",nameTabId));
+		WebElement f = waitForAndGetElement(ELEMENT_CKEDITOR_PARAGRAPH_FORMAT_FRAME,DEFAULT_TIMEOUT,1,2);
+		driver.switchTo().frame(f);
+		driver.switchTo().activeElement();
+		click(ELEMENT_CKEDITOR_PARAGRAPH_FORMAT_SELECTION.replace("${title}",format));
+		driver.switchTo().defaultContent();
+		Utils.pause(1000);
+	}
+	/**
+	 * Select a paragraph font
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 * @param font
+	 */
+	public void cke_paragraphFont(String nameTabId,String font){
+		info("Click on drop down box");
+		click(ELEMENT_CKEDITOR_PARAGRAPH_FONT_DROP_DOWN_BOX.replace("${tab}",nameTabId));
+		WebElement f = waitForAndGetElement(ELEMENT_CKEDITOR_PARAGRAPH_FORMAT_FRAME,DEFAULT_TIMEOUT,1,2);
+		driver.switchTo().frame(f);
+		driver.switchTo().activeElement();
+		click(ELEMENT_CKEDITOR_PARAGRAPH_FONT_SELECTION.replace("${font}",font));
+		driver.switchTo().defaultContent();
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * Select a paragraph font
+	 * this function is used for the files that has many CKEDitor tools
+	 * @param nameTabId
+	 * @param font
+	 */
+	public void cke_FontSize(String nameTabId,String fontSize){
+		info("Click on drop down box");
+		click(ELEMENT_CKEDITOR_PARAGRAPH_SIZE_DROP_DOWN_BOX.replace("${tab}",nameTabId));
+		WebElement f = waitForAndGetElement(ELEMENT_CKEDITOR_PARAGRAPH_FORMAT_FRAME,DEFAULT_TIMEOUT,1,2);
+		driver.switchTo().frame(f);
+		driver.switchTo().activeElement();
+		click(ELEMENT_CKEDITOR_PARAGRAPH_SIZE_SELECTION.replace("${fontSize}",fontSize));
+		driver.switchTo().defaultContent();
+		Utils.pause(1000);
 	}
 
 	/**
 	 * Click on Block Quote button
 	 */
 	public void cke_BlockQuote() {
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_BLOCK_QUOTE,5000,0)!=null) {
 			info("block quote a text");
 			click(ELEMENT_CKEDITOR_BLOCK_QUOTE);
-		}
 	}
 
 	/**
@@ -481,21 +806,14 @@ public class CKeditor extends PlatformBase {
 	 */
 	public void focusDataInContent() {
 		info("Input data in the content section");
-		if (waitForAndGetElement(ELEMENT_CKEDITOR_TEXT_CONTENT,5000,0)!=null) {
-			//	if (tex != "" && tex != null) {
-			if (waitForAndGetElement(
-					mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR, 5000, 0) != null)
-				driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT).sendKeys(Keys.ARROW_LEFT);
-			else
-				// (this.plfVersion.equalsIgnoreCase("4.0"))
-				driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT).sendKeys(Keys.ARROW_LEFT);
-			/*foruBas.inputDataToFrameInFrame(
-							mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_1,
-							mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_2, tex, true,
-							false);*/
-			switchToParentWindow();
-		}
-		//}
+		if (waitForAndGetElement(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,
+				5000, 0) != null)
+			driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT).sendKeys(
+					Keys.ARROW_LEFT);
+		else
+			driver.findElement(ELEMENT_CKEDITOR_TEXT_CONTENT).sendKeys(
+					Keys.ARROW_LEFT);
+		switchToParentWindow();
 	}
 
 	/**

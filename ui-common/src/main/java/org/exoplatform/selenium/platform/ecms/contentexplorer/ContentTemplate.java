@@ -7,7 +7,6 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.CKeditor;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +14,7 @@ import org.openqa.selenium.WebElement;
 
 
 public class ContentTemplate extends EcmsBase {
+	
 	ActionBar actBar;
 	Button button ;
 	ManageAlert magAlert;
@@ -47,10 +47,22 @@ public class ContentTemplate extends EcmsBase {
 	//WebContent
 	public final By ELEMENT_WEBCONTENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Web Content']");
 	public final By ELEMENT_ILLUSTRATED_WEBCONTENT_LINK = By.xpath("//*[@class='templateLabel']//*[text()='Illustrated Web Content']");
-
+	public final String ELEMENT_WEBCONTENT_CONTENT_PARAGRAPH_FORMAT =".//${format}[contains(text(),'${content}')]";
+	public final String ELEMENT_WEBCONTENT_CONTENT_PARAGRAPH_FONT =".//*[contains(@style,'font-family:${font}')][contains(text(),'${content}')]";
+	public final String ELEMENT_WEBCONTENT_CONTENT_PARAGRAPH_FONT_SIZE_FONT_NAME=".//*[contains(@style,'font-size:${fontSize}px;')]//*[contains(@style,'font-family: ${fontName}')][contains(text(),'${content}')]";
+	
 	public final String ELEMENT_WEBCONTENT_CONTENT_NAME = ".//*[@ data-original-title='${nameContent}']";
-	public final String ELEMENT_WEBCONTENT_CONTENT_NAME_DOCUMENT_VIEW=".//*[@id='UITabContent']//*[contains(text(),'${content}')]";
-
+	public final String ELEMENT_WEBCONTENT_CONTENT_NAME_DOCUMENT_VIEW=".//*[@id='UITabContent']//p[contains(text(),'${content}')]";
+	public final String ELEMENT_WEBCONTENT_CONTENT_DOCUMENT_VIEW_AS_LINK=".//*[@id='UITabContent']//*[contains(@href,'${url}')]";
+	public final String ELEMENT_CONTENT_WEBCONTENT_ALIGHLEFT = ".//*[@id='UITabContent']/p[contains(text(),'${content}')]";
+	public final String ELEMENT_CONTENT_WEBCONTENT_ALIGHRIGHT = ".//*[@id='UITabContent']/p[contains(@style,'text-align: right;')][contains(text(),'${content}')]";
+	public final String ELEMENT_CONTENT_WEBCONTENT_ALIGHCENTER = ".//*[@id='UITabContent']/p[contains(@style,'text-align: center;')][contains(text(),'${content}')]";
+	public final By ELEMENT_CONTENT_WEBCONTENT_JUSTIFY = By.xpath("//*[@id='UITabContent']/p[contains(@style,'text-align: justify;')]");
+	public final String ELEMENT_CONTENT_WEBCONTENT_BULLET = ".//*[@id='UITabContent']/ul/li[contains(text(),'${content}')]";
+	public final String ELEMENT_CONTENT_WEBCONTENT_NUMBERIC=".//*[@id='UITabContent']/ol/li[contains(text(),'${content}')]";
+	public final String ELEMENT_CONTENT_WEBCONTENT_PAINT_TEXT_COLOR = ".//*[@id='UITabContent']//span[contains(@style,'color:#${codeColor};')][contains(text(),'${content}')]";
+	public final String ELEMENT_CONTENT_WEBCONTENT_PAINT_TEXT_BACKGROUND_COLOR=".//*[@id='UITabContent']//span[contains(@style,'background-color:#${codeColor};')][contains(text(),'${content}')]";
+	
 	public final By ELEMENT_WEBCONTENT_TITLE_TEXTBOX = By.id("title0");	
 	public final By ELEMENT_WEBCONTENT_NAME_TEXTBOX = By.id("name");	
 	public final By ELEMENT_WEBCONTENT_CONTENT_FRAME = By.xpath("//*[contains(@id,'cke_contents_htmlData')]/iframe");
@@ -75,6 +87,7 @@ public class ContentTemplate extends EcmsBase {
 	//Webcontent for CK Editor
 	public final By ELEMENT_WEBCONTENT_CKEDITOR_FRAME1_41 = By.xpath("//*[@id='tab4']//iframe");
 	public final By ELEMENT_WEBCONTENT_CKEDITOR_FRAME2_41 = By.xpath("//*[@id='cke_exo:summary']//iframe");
+	public final String ELEMENT_WEBCONTENT_CONTENT_BOLD_ITALIC_UNDERLINE_STRIKE=".//p/strong/em/u/s[contains(text(),'${content}')]";
 	//Illus Webcontent for CK Editor
 	public final By ELEMENT_ILLWEBCONTENT_CKEDITOR_FRAME1_41 = By.xpath("//*[@id='tab1']//iframe[@class='cke_wysiwyg_frame cke_reset']");
 	public final By ELEMENT_ILLWEBCONTENT_CKEDITOR_FRAME2_41 = By.xpath("//*[@id='cke_exo:summary']//iframe");
@@ -121,6 +134,7 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_MAIN_TAB_LANGUAGE = By.className("selectbox");
 
 	public final String ELEMENT_UITAB_CONTENT = ".//*[@id='UIDocumentContainer']//div[contains(text(),'${content}')]";
+	public final String ELEMETN_CONTENT_OF_WEBCONTENT_FILES=".//*[contains(text(),'${content}')]";
 	public final String ELEMENT_UITAB_CONTENT_UEMSTRONG = ".//*[@id='UIDocumentContainer']//strong/em/u[contains(text(),'${content}')]";
     
 	// CSS File
@@ -133,7 +147,11 @@ public class ContentTemplate extends EcmsBase {
 
 	// File
 	public final By ELEMENT_NEWFILE_LINK = By.xpath("//*[@class='templateLabel']//*[text()='File']");
-	// By.linkText("File");
+	public final By ELEMENT_FILE_CONTENT_FRAME = By.xpath(".//*[@id='myTabContent']//iframe[@class='ECMIframe']");
+	public final By ELEMENT_CONTENT_FILE_BLOCKQUTE = By.xpath(".//blockquote/p");
+	public final By ELEMENT_CONTENT_FILE_INSCREASE = By.xpath("//*[contains(@style,'margin-left: 40.0px;')]");
+	public final By ELEMENT_CONTENT_FILE_DESCREASE = By.xpath("html/body/p");
+	
 	public final By ELEMENT_NEWFILE_NAME_TEXTBOX = By.id("name");
 
 	public final By ELEMENT_NEWFILE_CONTENT_FRAME = By.xpath("//*[@id='cke_1_contents']//iframe");
