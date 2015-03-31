@@ -5,7 +5,9 @@ import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -17,6 +19,7 @@ import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
 
 public class Forum_Forum_PortletSettings extends ForumBase {
+	
 	ManageAccount acc;
 	ForumManageCategory fmCat;
 	ForumManageForum fmForum;
@@ -320,8 +323,8 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 	 */
 	@Test
 	public void test08_EnableTheDisablingModeratorPanelInForumPorletSetting() {
-		String catName = "Category setting forum 01";
-		String fmName = "Test 02 new forum";
+		String catName = "Category setting forum 10";
+		String fmName = "Test 10 new forum";
 
 		info("TC 72673: Enable Moderator Panel");
 		goToForums();
@@ -340,7 +343,7 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 		info("Element checked");
 		info("Remove data");
 		goToForumHome();
-		click("//*[text()='"+catName+"']");
+		click(By.linkText(catName));
 		fmCat.deleteCategoryInForum(catName);
 		info("Data deleted");
 		goToUserManagement(DATA_USER4);
@@ -362,9 +365,9 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 	 * Step 4: Check Forum application after settings
 	 */
 	public void test09_EnableTheDisablingPollPanelInForumPorletSetting() {
-		String catName = "Category setting forum 04";
-		String fmName = "Test 04 new forum";
-		String topName = "Test 04 topic";
+		String catName = "Category setting forum 10";
+		String fmName = "Test 10 new forum";
+		String topName = "Test 10 topic";
 		String pollQuestion = "Poll 02";
 		String[] pollOptions = {"Option 01", "Option 02"};
 
@@ -377,7 +380,9 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 		selectPanel(true);
 		click(ELEMENT_FORUM_PORTLET_CLOSE_BUTTON);
 		pageE.finishEditLayout();
-		click("//*[text()='"+catName+"']");
+		fmTopic.addCategoryForumTopic(catName, fmName, topName,topName);
+		goToForumHome();
+		click(By.linkText(catName));
 		fmCat.deleteCategoryInForum(catName);
 		//Demo signins and verify created poll
 		info("Demo signins and verify created poll");
@@ -390,7 +395,7 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 		//********************************Remove data***********************************//
 		info("Remove data");
 		goToForumHome();
-		click("//*[text()='"+catName+"']");
+		click(fmCat.ELEMENT_CATEGORY_NAME);
 		fmCat.deleteCategoryInForum(catName);
 		info("Data deleted");
 		goToUserManagement(DATA_USER4);
@@ -412,9 +417,9 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 	 * Step 4: Check Forum application after settings
 	 */
 	public void test10_EnableTheDisablingQuickReplyPanelInForumPorletSetting() {
-		String catName = "Category setting forum 06";
-		String fmName = "Test 06 new forum";
-		String topName = "Test 06 topic";
+		String catName = "Category setting forum 10";
+		String fmName = "Test 10 new forum";
+		String topName = "Test 10 topic";
 
 		//Enable quick reply panel for forum portlet
 		info("Enable quick reply panel for forum portlet");
@@ -426,6 +431,7 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 		pageE.finishEditLayout();
 		//Demo signins and verify quick reply panel
 		info("Demo signins and verify if quick reply panel displays");
+		fmTopic.addCategoryForumTopic(catName, fmName, topName,topName);
 		acc.signOut();
 		acc.signIn(DATA_USER4, DATA_PASS);
 		goToForums();
@@ -438,7 +444,7 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 		acc.signOut();
 		acc.signIn(DATA_USER1, DATA_PASS);
 		goToForums();
-		click("//*[text()='"+catName+"']");
+		click(By.linkText(catName));
 		fmCat.deleteCategoryInForum(catName);
 		info("Data deleted");
 		goToUserManagement(DATA_USER4);
@@ -475,10 +481,11 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 		pageE.finishEditLayout();
 		//Demo signins and verify Rules panel
 		info("Demo signins and verify if Rules panel displays");
+		fmTopic.addCategoryForumTopic(catName, fmName, topName,topName);
 		acc.signOut();
 		acc.signIn(DATA_USER4, DATA_PASS);
 		goToForums();
-		click("//*[text()='"+fmName+"']");
+		click(By.linkText(catName));
 		click(By.linkText(topName));
 		waitForAndGetElement(fmForum.ELEMENT_RULE_PANEL);
 		info("Element checked");
@@ -486,7 +493,7 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 		acc.signOut();
 		acc.signIn(DATA_USER1, DATA_PASS);
 		goToForums();
-		click("//*[text()='"+catName+"']");
+		click(fmCat.ELEMENT_CATEGORY_NAME);
 		fmCat.deleteCategoryInForum(catName);
 		info("Data deleted");
 		goToUserManagement(DATA_USER4);
@@ -568,7 +575,7 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 		acc.signOut();
 		acc.signIn(DATA_USER1, DATA_PASS);
 		goToForums();
-		click("//*[text()='"+catName1+"']");
+		click(By.linkText(catName1));
 		fmCat.deleteCategoryInForum(catName1);
 		info("Data deleted");
 		info("Test succeed");
@@ -632,7 +639,7 @@ public class Forum_Forum_PortletSettings extends ForumBase {
 		acc.signOut();
 		acc.signIn(DATA_USER1, DATA_PASS);
 		goToForums();
-		click("//*[text()='"+catName+"']");
+		click(fmCat.ELEMENT_CATEGORY_NAME.replace("${catName}", catName));
 		fmCat.deleteCategoryInForum(catName);
 		info("Data deleted");
 		info("Test succeed");

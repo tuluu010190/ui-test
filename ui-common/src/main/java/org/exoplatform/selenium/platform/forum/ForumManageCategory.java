@@ -44,6 +44,7 @@ public class ForumManageCategory extends ForumBase {
 	public final By ELEMENET_UICATEGORY = By.id("UICategories"); 
 	public final By ELEMENT_UIGRID = By.className("uiGrid");		
 	public final By ELEMENT_TEXT_TITLE_CATEGORY = By.className("actionOpenLink");
+	public final String ELEMENT_CATEGORY_NAME = "//*[text()='${catName}']";
 
 	//------------Manage category menu---------------------------------------------------------------------
 	public final By ELEMENT_MANAGE_CATEGORY = By.xpath("//*[@class='uiIconForumManageCategory uiIconForumLightGray']");
