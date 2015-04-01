@@ -25,6 +25,10 @@ public class PlatformBase extends TestBase {
 	public static String USER_ROOT = "root";
 	public static String PASS_ROOT = "gtngtn";
 	public static String DATA_PASS = "gtn";
+	public static String DATA_NAME_USER1 = "John Smith";
+	public static String DATA_NAME_USER2 = "Marry Williams";
+	public static String DATA_NAME_USER3 = "Jame Davis";
+	public static String DATA_NAME_USER4 = "Jack Miller";
 	
 	//Gmail
 	public final String GMAIL_URL = "https://mail.google.com";
@@ -50,18 +54,6 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
 
-	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
-	public final By ELEMENT_FILE_LINK = By.xpath("//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
-	public final String ELEMENT_DRIVER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${driveName}')]";
-	public final By ELEMENT_DRIVER_BOX = By.xpath("//div[@class='btn dropdown-toggle']");
-	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
-	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//i[@class='uiIconPlus uiIconLightGray']");
-	public final By ELEMENT_CREATE_FOLDER_BUTTON_PLF41 = By.xpath("//i[@class='uiIconEcmsAddFolder uiIconEcmsLightGrey']");
-	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
-	public final By ELEMENT_UPLOAD_IMG_ID = By.name("file");
-	public final By ELEMENT_FILE_INPUT_DOC = By.xpath("//*[@class='inputDoc']");
-	public final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
-	public final By ELEMENT_SELECT_BUTTON = By.xpath("//button[text()='Select']");
 	public ManageAlert alert = new ManageAlert(driver);
 	
 	//page navigation
@@ -105,12 +97,15 @@ public class PlatformBase extends TestBase {
 		userData.setUserData(userDataFile,userSheet,opParams);
 		DATA_USER1 = userData.userName.get(0);
 		DATA_PASS = userData.password.get(0);
+		DATA_NAME_USER1 =userData.fullName.get(0);
 		DATA_USER2 = userData.userName.get(1);
-
+		DATA_NAME_USER2 =userData.fullName.get(1);
 		USER_ROOT = userData.userName.get(4);
 		PASS_ROOT = userData.password.get(4);
 		DATA_USER3 = userData.userName.get(2);
+		DATA_NAME_USER3 =userData.fullName.get(2);
 		DATA_USER4 = userData.userName.get(3);
+		DATA_NAME_USER4 =userData.fullName.get(3);
 	}
 
 	/**

@@ -2,12 +2,9 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
-import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 
 
@@ -972,7 +969,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 	 * @param uploadFileLink
 	 * @param uploadFileName
 	 * @param option: newFolder
-	 */
+	 *//*
 	public void selectFile(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
 		Boolean shareActivity = (Boolean)(params.length > 1 ? params[1] : true);
@@ -1046,7 +1043,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 			else
 				waitForAndGetElement(By.linkText(selectFileName));
 		}
-	}
+	}*/
 
 	/**
 	 *<li> Case ID:121941.</li>

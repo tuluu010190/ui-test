@@ -1,17 +1,11 @@
 package org.exoplatform.selenium;
 
 import static org.exoplatform.selenium.TestLogger.*;
-import java.awt.*;
 
-import java.awt.AWTException;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.Rectangle;
-import java.awt.Robot;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -189,5 +183,17 @@ public class Utils {
 			e.printStackTrace();
 		}
 		return inter;
+	}
+	
+	/**
+	 *  This function returns a absolute path from a relative path that get from excel file
+	 * @param relativeFilePath
+	 * @return
+	 */
+	public static String getAbsoluteFilePathFromFile(String relativeFilePath) {
+		String curDir = System.getProperty("user.home");
+		String absolutePath = curDir + relativeFilePath;
+		info("absolutePath:" + absolutePath);
+		return absolutePath;
 	}
 }

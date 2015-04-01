@@ -78,7 +78,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
-		maSite.deleteNode(content);
+		navMag.deleteNode(content);
 		
 	}
 
@@ -141,7 +141,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
-		maSite.deleteNode(content);
+		navMag.deleteNode(content);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
-		maSite.deleteNode(content);
+		navMag.deleteNode(content);
 	}
 
 	/**
@@ -258,7 +258,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
-		maSite.deleteNode(content);
+		navMag.deleteNode(content);
 	}
 
 	/**
@@ -433,7 +433,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
-		maSite.deleteNode(content);
+		navMag.deleteNode(content);
 	}
 
 	/**
@@ -535,7 +535,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		info("Delete a node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
-		maSite.deleteNode(title);
+		navMag.deleteNode(title);
 	}
 
 	/**
@@ -621,7 +621,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		info("Delete created node on navigation menu");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
-		maSite.deleteNode(title);
+		navMag.deleteNode(title);
 	}
 
 	/**
@@ -701,7 +701,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		info("Delete created node on navigation");
 		navTool.goToPotalSites();
 		maSite.goToEditNavigation("acme");
-		maSite.deleteNode(title);
+		navMag.deleteNode(title);
 	}
 
 	/**

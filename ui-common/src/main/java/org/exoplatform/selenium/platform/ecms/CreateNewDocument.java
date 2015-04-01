@@ -196,7 +196,6 @@ public class CreateNewDocument extends PlatformBase{
 		Utils.pause(1000);
 		type(ELEMENT_FILEFORM_BLANK_NAME, title, true);
 		inputDataToCKEditor(ELEMENT_FILEFORM_BLANK_CONTENT, content);
-		//switchToParentWindow();
 	}
 
 	/**

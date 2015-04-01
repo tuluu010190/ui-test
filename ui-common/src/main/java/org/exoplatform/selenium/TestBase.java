@@ -9,7 +9,6 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -23,6 +22,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+
 import org.apache.commons.io.FileUtils;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.openqa.selenium.Alert;
@@ -89,6 +89,9 @@ public class TestBase {
 
 	protected String siteExpDrivePath;
 	protected String siteExpPathPath;
+	protected String siteExpContentTypeFilePath;
+	protected String videoLinksFilePath;
+	protected String dataTestFilePath;
 
 	protected String defaultSheet;
 
@@ -159,8 +162,11 @@ public class TestBase {
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
 	public final String DEFAULT_PERMISSIONURL="DataDriven/"+"permission.xls";
-	public final String DEFAULT_SITEEXPLORERDRIVE="DataDriven/" + "SE_drive.xls";
-	public final String DEFAULT_SITEEXPLORERPATH="DataDriven/" + "SE_path.xls";
+	public final String DEFAULT_SITEEXPLORERDRIVE="DataDriven/" + "se_drive.xls";
+	public final String DEFAULT_SITEEXPLORERPATH="DataDriven/" + "se_path.xls";
+	public final String DEFAULT_DATATESTPATH="DataDriven/" + "dataTest_folder_fath.xls";
+	public final String DEFAULT_SITE_EXPLORER_CONTENT_TYPE_PATH="DataDriven/"+"se_content_types.xls";
+	public final String DEFAULT_VIDEO_EMBBED_LINKS_PATH = "DataDriven/"+"video_embbed_links.xls";
 
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
 	public final String DEFAULT_CHANGELANGUADATAURL="DataDriven/" + "ChangeLanguage.xls";
@@ -273,6 +279,9 @@ public class TestBase {
 		
 		siteExpDrivePath=System.getProperty("siteExpDrivePath");
 		siteExpPathPath=System.getProperty("siteExpPathPath");
+		siteExpContentTypeFilePath = System.getProperty("siteExpContentTypeFilePath");
+		
+		dataTestFilePath = System.getProperty("dataTestPath");
 		linkPath=System.getProperty("linkPath");
 
 		gadgetFilePath = System.getProperty("gadgetFilePath");
@@ -291,6 +300,7 @@ public class TestBase {
 		portalDefaultFilePath = System.getProperty("portalDefaultFilePath");
 		portalPermisGroupFilePath = System.getProperty("portalPermisGroupFilePath");
 		portalPermisMemFilePath = System.getProperty("portalPermisMemFilePath");
+		videoLinksFilePath = System.getProperty("videoLinksFilePath");
 
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -314,6 +324,8 @@ public class TestBase {
 
 		if (siteExpDrivePath==null) siteExpDrivePath = DEFAULT_SITEEXPLORERDRIVE;
 		if (siteExpPathPath==null) siteExpPathPath = DEFAULT_SITEEXPLORERPATH;
+		if (siteExpContentTypeFilePath==null) siteExpContentTypeFilePath = DEFAULT_SITE_EXPLORER_CONTENT_TYPE_PATH;
+		if (dataTestFilePath==null) dataTestFilePath = DEFAULT_DATATESTPATH;
 
 		if (userDataFilePath==null) userDataFilePath = DEFAULT_USERFILEURL;
 		if (userInfoFilePath==null) userInfoFilePath = DEFAULT_USERINFOURL;
@@ -352,6 +364,7 @@ public class TestBase {
 		if (portalDefaultFilePath==null) portalDefaultFilePath = DEFAULT_PORTAL_DEFAULT_GATEIN_URL;
 		if (portalPermisGroupFilePath==null) portalPermisGroupFilePath = DEFAULT_PORTAL_PERMISSION_GROUP_URL;
         if (portalPermisMemFilePath==null) portalPermisMemFilePath = DEFAULT_PORTAL_PERMISSION_MEMBERSHIPS_URL;
+        if (videoLinksFilePath==null) videoLinksFilePath = DEFAULT_VIDEO_EMBBED_LINKS_PATH;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -374,6 +387,9 @@ public class TestBase {
 
 		siteExpDrivePath = getAbsoluteFilePath(siteExpDrivePath);
 		siteExpPathPath = getAbsoluteFilePath(siteExpPathPath);
+		siteExpContentTypeFilePath = getAbsoluteFilePath(siteExpContentTypeFilePath);
+		
+		dataTestFilePath = getAbsoluteFilePath(dataTestFilePath);
 		linkPath = getAbsoluteFilePath(linkPath);
 		gateinDefaultGroupsFilePath = getAbsoluteFilePath(gateinDefaultGroupsFilePath);
 		gateinNodesFilePath = getAbsoluteFilePath(gateinNodesFilePath);
@@ -391,6 +407,7 @@ public class TestBase {
 		portalPermisGroupFilePath = getAbsoluteFilePath(portalPermisGroupFilePath);
 		portalPermisMemFilePath = getAbsoluteFilePath(portalPermisMemFilePath);
 		groupNameDataFilePath = getAbsoluteFilePath(groupNameDataFilePath);
+		videoLinksFilePath = getAbsoluteFilePath(videoLinksFilePath);
 	}
 
 
@@ -1836,5 +1853,29 @@ public class TestBase {
 	public static void scrollToElement(WebElement element, WebDriver driver) {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("arguments[0].scrollIntoView(true);", element);
+	}
+	
+	/**
+	 *This function will try to get an element. if after timeout, the element is not found.
+	 *The function will refresh the page and find the element again.
+	 * @param element
+	 */
+	public void waitElementAndTryGetElement(Object element){
+		info("-- Starting finding element --");
+		Utils.pause(500);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				if(waitForAndGetElement(element,3000,0)!=null);
+				break;
+			}
+			if (waitForAndGetElement(element, 5000, 0) != null){
+				info("Element "+element+" is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			this.driver.navigate().refresh();
+		}
+		Utils.pause(2000);
+		info("The elemnt is shown successfully");
 	}
 }

@@ -3,7 +3,6 @@ package org.exoplatform.selenium.platform.gatein.sniff;
 import java.util.Map;
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**

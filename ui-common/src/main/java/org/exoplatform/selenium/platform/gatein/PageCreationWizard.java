@@ -452,8 +452,8 @@ public class PageCreationWizard extends PlatformBase {
 	 */
 	public void checkPositions(Object positionFirst, Object positionEnd){
 		info("Verify that positions of element is changed");
-		waitForElementNotPresent(positionFirst,2000,0);
-		waitForAndGetElement(positionEnd,2000,0);
+		waitForElementNotPresent(positionFirst,2000,1);
+		waitForAndGetElement(positionEnd,2000,1);
 		saveChangesPageEditor();
 	}
 	

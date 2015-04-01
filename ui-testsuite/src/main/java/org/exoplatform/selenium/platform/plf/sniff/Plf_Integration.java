@@ -175,7 +175,7 @@ public class Plf_Integration extends Plf_TestConfig  {
  		 info("Delete node on navigation");
  		 navToolBar.goToPotalSites();
 		 magSite.goToEditNavigation("intranet");
-		 magSite.deleteNode(page);
+		 navMag.deleteNode(page);
 		 
 		 info("Delete created page");
 		 navToolBar.goToPotalPages();

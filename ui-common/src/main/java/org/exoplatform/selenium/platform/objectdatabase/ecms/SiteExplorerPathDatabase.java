@@ -10,8 +10,8 @@ import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
 public class SiteExplorerPathDatabase {
 	public ArrayList<String> siteExPath;
 
-	public SiteExplorerPathDatabase(ArrayList<String> spaceReg){
-		this.siteExPath = spaceReg;
+	public SiteExplorerPathDatabase(ArrayList<String> siteExPath){
+		this.siteExPath = siteExPath;
 	}
 
 	public SiteExplorerPathDatabase() {

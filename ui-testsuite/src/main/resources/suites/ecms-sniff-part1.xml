@@ -8,6 +8,7 @@
 		</groups>
 		<classes>
 		    <class name="org.exoplatform.selenium.platform.ecms.sniff.ECMS_TestConfig_Part1" />
+		    <class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_Document_Preview" />
 			<class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminTemplates" />
 			<class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminRepository" />
 			<class name="org.exoplatform.selenium.platform.ecms.sniff.Ecms_AdminExplorer" />

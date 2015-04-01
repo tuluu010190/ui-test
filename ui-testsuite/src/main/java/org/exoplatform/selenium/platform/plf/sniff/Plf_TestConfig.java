@@ -28,6 +28,7 @@ import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
 import org.exoplatform.selenium.platform.gatein.AnswerPage;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.GadgetManagement;
+import org.exoplatform.selenium.platform.gatein.NavigationManagement;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
@@ -74,6 +75,7 @@ public class Plf_TestConfig extends PlatformBase {
 	ForumCategoryManagement forumCatMag;
 	
 	PortalManageSites magSite;
+	NavigationManagement navMag;
 	ManageLogInOut magAc;
 	MyProfilePage myProfile;
 	ManageAlert alert;
@@ -127,6 +129,7 @@ public class Plf_TestConfig extends PlatformBase {
 		aPage = new AnswerPage(driver);
 		aHome = new AnswerHomePage(driver);
 		action = new Actions(driver);
+		navMag = new NavigationManagement(driver);
 		
 		gadMag = new GadgetManagement(driver);
 		

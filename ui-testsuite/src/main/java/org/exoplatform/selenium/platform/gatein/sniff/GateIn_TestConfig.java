@@ -11,6 +11,7 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.GadgetManagement;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
+import org.exoplatform.selenium.platform.gatein.NavigationManagement;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManagePages;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
@@ -55,6 +56,7 @@ public class GateIn_TestConfig extends PlatformBase {
 
 	PortalManagePages portMg;
 	PortalManageSites portSite;
+	NavigationManagement navMag;
 
 	Button but;
 	PortalGroupNavigation groupManage;
@@ -114,6 +116,7 @@ public class GateIn_TestConfig extends PlatformBase {
 		portSite = new PortalManageSites(driver);
 		groupManage = new PortalGroupNavigation(driver);
 		magAlert = new ManageAlert(driver, this.plfVersion);
+		navMag = new NavigationManagement(driver);
 		
 		but = new Button(driver, this.plfVersion);
 		addUserPage = new UserAddManagement(driver);

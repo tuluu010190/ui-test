@@ -62,8 +62,8 @@ import org.testng.annotations.*;
 	    info("Add a note to left Navigation menu");
 		navToolBar.goToPotalSites();
 		magSite.goToEditNavigation("intranet");
-		magSite.addNode(title,"");
-		magSite.saveNode();
+		navMag.addNode(title,"");
+		navMag.saveNode();
 		 info("Verify that the node is added");
 		waitForAndGetElement(hp.ELEMENT_LEFT_PANEL.replace("{$name}",title),3000,0);
 		
@@ -78,11 +78,11 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- In the Group Navigation panel, a small button is displayed to fold/unfold sub nodes*/ 
 		magSite.goToEditNavigation("intranet");
-		magSite.addNode(title,title2);
+		navMag.addNode(title,title2);
 		magSite.goToEditNavigation("intranet");
-		click(magSite.ELEMENT_NAVIGATION_SUB_NODE_CHECK.replace("{$node}",title));
-		waitForAndGetElement(magSite.ELEMENT_NAVIGATION_SUB_NODE_CHECK.replace("{$node}",title2),3000,0);
-		click(magSite.ELEMENT_SAVE_NODE);
+		click(navMag.ELEMENT_NAVIGATION_SUB_NODE_CHECK.replace("{$node}",title));
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_SUB_NODE_CHECK.replace("{$node}",title2),3000,0);
+		navMag.closeNavigationManagementPopup();
 		
  	}
 

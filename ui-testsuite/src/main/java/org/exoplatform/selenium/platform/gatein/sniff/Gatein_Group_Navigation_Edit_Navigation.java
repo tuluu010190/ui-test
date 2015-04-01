@@ -2,18 +2,9 @@ package org.exoplatform.selenium.platform.gatein.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.exoplatform.selenium.Utils;
-import org.openqa.selenium.WebElement;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 /**
- * 
- * @author tult
- * @date march, 19th, 2015
  * 
  * 
  */
@@ -79,17 +70,15 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 	@Test
 	public void test02_03_04_AddEditDeleteNodeForGroup(){
 		String groupAdmin = defaultGroupData.getDefaultGroupsByIndex(1);
-		String nodePortalAdministration = gateinNodesData.getNodesByIndex(0);
+
 		String nodeName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String nodeNameEdit = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String pageSelectorName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-
-		Map<String, String> languages = new HashMap<String, String>();
-		languages.put("English", "");
-
+		String newNodeName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
+		String namePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String titlePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		
 		info("Go to Group Sites/Edit navigation");
 		navToolBar.goToGroupSites();
-
+		groupManage.editNavigation(groupAdmin);
 		
 		/*Step Number: 1
 		*Step Name: Step 1: Add node		
@@ -102,15 +91,15 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		*Expected Outcome: 
 			- Add node successfully*/
 		info("Test Case 02: Add a new node for group Administration");
-		groupManage.addNodeForGroup(groupAdmin, nodePortalAdministration, false, 
-				nodeName, true, languages, nodeName, 
-				pageSelectorName, pageSelectorName, true, false);
-
-		if(this.plfVersion.contains("4.0"))
-			click(navToolBar.ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL.replace("${groupName}", "Portal Admin"));
-		else
-			click(navToolBar.ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}", "Portal Admin"));
-		waitForTextPresent(nodeName);
+		info("Add a new node");
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector(namePage, titlePage, true,false,false);
+		navMag.saveNode();
+		info("Add node successfully");
+		groupManage.editNavigation(groupAdmin);
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME.replace(
+				"${name}", nodeName));
+		navMag.saveNode();
 		info("A new node has been added...successful");
 		
 		/*Step Number: 2
@@ -125,19 +114,26 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		*Expected Outcome: 
 			- The node is updated with the change value*/
 		info("Test Case 03: Edit node for group");
-		groupManage.editNodeInGroupNavigation(groupAdmin, nodeName, nodeNameEdit, "profile", "portal", "Profile");
+		info("Edit a node");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editThisNode(nodeName);
+		navMag.inputInfoNodeSetting(true, "",newNodeName,true,false);
+		navMag.saveNode();
 		
-		/*editNodeInGroupNavigation(groupAdminDisplayName, nodeName, nodeNameEdit, "profile", "portal");
-		button.save();
-		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);*/
-		if(this.plfVersion.contains("4.0"))
-			click(navToolBar.ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL.replace("${groupName}", "Portal Admin"));
-		else
-			click(navToolBar.ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}", "Portal Admin"));
-		click(navToolBar.ELEMENT_SUB_NODE_NAVIGATION_LEFT_PANEL.replace("${groupName}", nodeNameEdit));
-		waitForTextPresent("Basic information");
-		waitForTextPresent("Contact");
-		waitForTextPresent("Experience");
+		info("Verify that the node is changed with new name");
+		groupManage.editNavigation(groupAdmin);
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME.replace(
+				"${name}",newNodeName));
+		navMag.editThisNode(newNodeName);
+		info("Verify that label mode is not checked");
+		waitForElementNotPresent(navMag.ELEMENT_NODE_SETTING_SWITCH_MODE_CHECKED);
+		info("Verify that language box is not shown");
+		waitForElementNotPresent(navMag.ELEMENT_NODE_SETTING_LANGUAGE_BOX);
+		info("Verify that visible is not checked");
+		waitForElementNotPresent(navMag.ELEMENT_NODE_SETTING_VISIBLE_CHECKED);
+		info("Verify that publish date and time is not shown");
+		waitForElementNotPresent(navMag.ELEMENT_NODE_SETTING_PUBLISH_DATE_TIME);
+		navMag.saveNode();
 
 		/*Step Number: 3
 		*Step Name: Step 3: Delete node		
@@ -150,52 +146,24 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		*Expected Outcome: 
 			- The node is removed from the list*/
 		info("Test Case 04: Delete a node");
-		navToolBar.goToGroupSites();
-		groupManage.deleteNodeForGroup(groupAdmin, nodeNameEdit);
-		if(waitForAndGetElement(navToolBar.ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}", "Portal Admin"), 4000, 0) != null){
-			click(navToolBar.ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}", "Portal Admin"));
-			waitForElementNotPresent(navToolBar.ELEMENT_SUB_NODE_NAVIGATION_LEFT_PANEL.replace("${groupName}", nodeNameEdit));
-		}
-		else
-			waitForElementNotPresent(navToolBar.ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}", "Portal Admin"));
-		
-		info("Reset data");
-		navToolBar.goToPotalPages();
-		portMg.deletePage(pageSelectorName, "group");
+		groupManage.editNavigation(groupAdmin);
+		navMag.deleteNode(nodeName);
 	}
 	
 	
 	/**
 	*<li> Case ID:123117.</li>
 	*<li> Test Case Name: Copy and Paste node.</li>
-	*<li> Case ID:123118.</li>
-	*<li> Test Case Name: Cut and Paste Node.</li>
-	*<li> Case ID:123119.</li>
-	*<li> Test Case Name: Clone and Paste Node.</li>
 	*/
 	@Test
-	public void test05_06_07_CopyCutCloneAndPasteNode(){
+	public void test05_CopyAndPasteNode(){
 		String groupAdmin = defaultGroupData.getDefaultGroupsByIndex(1);
-		
-		String nodePortalAdministration = gateinNodesData.getNodesByIndex(0);
-		String nodeSitesManagement = gateinNodesData.getNodesByIndex(1);
-		String nodeManagement = gateinNodesData.getNodesByIndex(2);
-		
-		String nodeName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String pageSelectorName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		
-		String nodeAdmin = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodePortalAdministration);
-		String nodeLinkToCopy = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
-		String nodeLinkToPaste = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement);
-		String nodeLinkToClone = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeManagement);
-		String nodeAfterCopy = groupManage.ELEMENT_CHILD_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement).replace("${childNode}", nodeName);
-
-		Map<String, String> languages = new HashMap<String, String>();
-		languages.put("English", "");
+		String nodeName1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String nodeName2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
 		info("Go to Group Sites/Edit navigation");
 		navToolBar.goToGroupSites();
-		
+		groupManage.editNavigation(groupAdmin);
 		/*Step Number: 1
 		*Step Name: Step 1: Copy and Paste node		
 		*Step Description: 
@@ -207,71 +175,24 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		*Expected Outcome: 
 			- Node is copied to new place*/
 		info("Test Case 05: Copy and Paste node");
-		info("Add a new node for group Administration");
-		groupManage.addNodeForGroup(groupAdmin, nodePortalAdministration, false, 
-				nodeName, true, languages, nodeName, 
-				pageSelectorName, pageSelectorName, true, false);
-
-		info("Copy that node and paste to group Site Management");
+		info("Add a new node 1");
+		navMag.addNode(nodeName1,"");
+		navMag.saveNode();
+		
+		info("Add a new node 2");
 		groupManage.editNavigation(groupAdmin);
-		groupManage.copyNode(nodeLinkToCopy);
-		groupManage.pasteNode(nodeLinkToPaste);
-		waitForAndGetElement(nodeAfterCopy);	
-		rightClickOnElement(nodeAfterCopy);
-		click(groupManage.EEMENT_DELETE_SELECTED_NODE);
-		magAlert.acceptAlert();
-		waitForElementNotPresent(nodeAfterCopy);
-
-		/*Step Number: 2
-		*Step Name: Step 2: Cut and Paste Node		
-		*Step Description: 
-			- Go to Group Sites/Edit navigation
-			- Select a node
-			- Right click on node and choose Cut from the drop-down menu. 
-			- Right click the position you want to paste this node and select Paste Node.  
-		*Input Data: 
-		*Expected Outcome: 
-			- Node is cut to new place*/
-		info("Test Case 06: Cut and Paste Node");
-		click(nodeAdmin);
-		groupManage.cutNode(nodeLinkToCopy);
-		groupManage.pasteNode(nodeLinkToPaste);
-		waitForAndGetElement(nodeAfterCopy);
-		click(nodeAdmin);
-		waitForElementNotPresent(nodeLinkToCopy);
-
-		/*Step Number: 3
-		*Step Name: Step 3: Clone and Paste Node		
-		*Step Description: 
-			- Go to Group Sites/Edit navigation
-			- Select a node
-			- Right click on node and choose Clone Node from the drop-down menu. 
-			- Right click the position that you want to paste this node and select Paste Node
-		*Input Data: 
-		*Expected Outcome: 
-			- Node is clone successfully and have properties is the same with node is copied*/
-		info("Test Case 07: Clone and Paste Node");
-		click(nodeLinkToPaste);
-		groupManage.cloneNode(nodeAfterCopy);
-		groupManage.pasteNode(nodeLinkToClone);
-		but.save();
-		waitForElementNotPresent(but.ELEMENT_SAVE_BUTTON);
-
-		info("Verify that a new node is created in Pages Management");
-		navToolBar.goToPotalPages();
-		portMg.searchPage(pageSelectorName, "", "group", true);
-		waitForAndGetElement(portMg.ELEMENT_LIST_PAGE.replace("${number}", "1").replace("${titlePage}", pageSelectorName));
-		waitForAndGetElement(portMg.ELEMENT_LIST_PAGE.replace("${number}", "2").replace("${titlePage}", pageSelectorName));
-
-		click(portMg.ELEMENT_PAGE_DELETE_ICON_AUX.replace("${number}", "2").replace("${titlePage}", pageSelectorName));
-		magAlert.acceptAlert();
-		waitForElementNotPresent(portMg.ELEMENT_PAGE_DELETE_ICON_AUX.replace("${number}", "2").replace("${titlePage}", pageSelectorName));
-
-		info("Reset data");
-		portMg.deletePage(pageSelectorName, "group");
-		navToolBar.goToGroupSites();
-		groupManage.deleteNode(groupAdmin, nodeSitesManagement, nodeName, false);
-		groupManage.deleteNode(groupAdmin, nodeManagement, nodeName, false);
+		navMag.addNode(nodeName2,"");
+		navMag.saveNode();
+		
+		info("Copy and paste a node");
+		groupManage.editNavigation(groupAdmin);
+		navMag.copyNode(nodeName1);
+		navMag.pasteNode(nodeName2);
+		info("Verify that node 2 has only one children is node1");
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PARENT_CHILD_NODE.replace("${parent}",nodeName2).replace("${child}",nodeName1));
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_NUMBER_CHILD_NODES.replace("${parent}",nodeName2).replace("${numberChild}","1"));
+		navMag.closeNavigationManagementPopup();
+		
 	}
 	
 	
@@ -281,19 +202,9 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 	*/
 	@Test
 	public void test08_ChangeNodeOrder(){
-		String nodeSitesManagement = gateinNodesData.getNodesByIndex(1);
 		String groupAdmin = defaultGroupData.getDefaultGroupsByIndex(1);
-		
-		String nodeName1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String pageSelectorName1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String nodeName2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String pageSelectorName2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		
-		Map<String, String> languages = new HashMap<String, String>();
-		languages.put("English", "");
-		
-		String nodeLink = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement);
-		String nodeLinkToMove = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName2);
+		String nodeName1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String nodeName2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
 		/*Step Number: 1
 		*Step Name: Step 1: Change node order		
@@ -308,41 +219,30 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		info("Go to Group Sites/Edit navigation");
 		navToolBar.goToGroupSites();
 
-		info("Add a new node for group Sites Management");
-		groupManage.addNodeForGroup(groupAdmin, nodeSitesManagement, false, 
-				nodeName1, true, languages, nodeName1, 
-				pageSelectorName1, pageSelectorName1, true, false);
-		groupManage.addNodeForGroup(groupAdmin, nodeSitesManagement, false, 
-				nodeName2, true, languages, nodeName2, 
-				pageSelectorName2, pageSelectorName2, true, false);
+		info("Add a new node 1");
 		groupManage.editNavigation(groupAdmin);
-		click(nodeLink);
-		info("Select Move Up from the drop-down menu");
-		rightClickOnElement(nodeLinkToMove);
-		click(groupManage.ELEMENT_NAVIGATION_MOVE_UP_NODE);
-		but.save();
-		waitForElementNotPresent(but.ELEMENT_SAVE_BUTTON);
-
-		info("Verify the position of node....");
+		navMag.addNode(nodeName1,"");
+		navMag.saveNode();
+		
+		info("Add a new node 2");
 		groupManage.editNavigation(groupAdmin);
-		click(nodeLink);
-		waitForAndGetElement(groupManage.ELEMENT_LIST_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement).replace("${number}", "1").replace("${childNode}", nodeName2));
-		waitForAndGetElement(groupManage.ELEMENT_LIST_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement).replace("${number}", "2").replace("${childNode}", nodeName1));	
-		rightClickOnElement(nodeLinkToMove);
-		click(groupManage.ELEMENT_NAVIGATION_MOVE_DOWN_NODE);
-		waitForAndGetElement(groupManage.ELEMENT_LIST_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement).replace("${number}", "1").replace("${childNode}", nodeName1));
-		waitForAndGetElement(groupManage.ELEMENT_LIST_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement).replace("${number}", "2").replace("${childNode}", nodeName2));
-		but.save();
-		waitForElementNotPresent(but.ELEMENT_SAVE_BUTTON);
-
-		info("Reset data");
-		navToolBar.goToPotalPages();
-		portMg.deletePage(pageSelectorName1, "group");
-		portMg.deletePage(pageSelectorName2, "group");
-
-		navToolBar.goToGroupSites();
-		groupManage.deleteNode(groupAdmin, nodeSitesManagement, nodeName1, false);
-		groupManage.deleteNode(groupAdmin, nodeSitesManagement, nodeName2, false);
+		navMag.addNode(nodeName2,"");
+		navMag.saveNode();
+		
+		info("move up node2 to node 1");
+		groupManage.editNavigation(groupAdmin);
+		navMag.moveUpNode(nodeName2);
+		
+		info("Verify that node 2 is moved up node1");
+		waitForElementNotPresent(navMag.ELEMENT_NAVIGATION_PREVIOUS_NODE.replace("${currentNode}",nodeName2).replace("${previousNode}",nodeName1));
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_NEXT_NODE.replace("${currentNode}",nodeName2).replace("${nextNode}",nodeName1));
+		
+		info("move down node 2 to node 1");
+		navMag.moveDownNode(nodeName2);
+		info("Verify that node 2 is moved up node1");
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PREVIOUS_NODE.replace("${currentNode}",nodeName2).replace("${previousNode}",nodeName1));
+		waitForElementNotPresent(navMag.ELEMENT_NAVIGATION_NEXT_NODE.replace("${currentNode}",nodeName2).replace("${nextNode}",nodeName1));
+		navMag.closeNavigationManagementPopup();
 	}
 	
 	
@@ -353,28 +253,22 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 	@Test
 	public void test09_EditNodePageProperties(){
 		String groupAdmin = defaultGroupData.getDefaultGroupsByIndex(1);
-		String nodeSitesManagement = gateinNodesData.getNodesByIndex(1);
+		String nodeName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String namePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String titlePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		String nodeName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String pageSelectorName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String pageSelectorNameEdit = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		
-		String groupPermissionPath = portGroupPermisData.getContentByIndex(3);
-		String permission = portMemPermisData.getContentByIndex(3);
-		
-		String nodeLink = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement);
-		String nodeLinkToEdit = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
-		
-		Map<String, String> languages = new HashMap<String, String>();
-		languages.put("English", "");
+		String newTitlePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String groupPath = portGroupPermisData.getContentByIndex(0);
+		String memberships = portMemPermisData.getContentByIndex(0);
 
 		info("Go to Group Sites/Edit navigation");
 		navToolBar.goToGroupSites();
 
-		info("Add a node for group Sites Management");
-		groupManage.addNodeForGroup(groupAdmin, nodeSitesManagement, false, 
-				nodeName, true, languages, nodeName, 
-				pageSelectorName, pageSelectorName, true, false);
+		info("Add a new node");
+		groupManage.editNavigation(groupAdmin);
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector(namePage, titlePage, true,false,false);
+		navMag.saveNode();
 		
 		/*Step Number: 1
 		*Step Name: Step 1: Edit node's page properties		
@@ -388,27 +282,23 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		*Input Data: 
 		*Expected Outcome: 
 			- Page Setting, Permission setting tab is updated successfully with new changes*/
-		info("Edit node's page properties");
 		groupManage.editNavigation(groupAdmin);
-		click(nodeLink);
-		rightClickOnElement(nodeLinkToEdit);
-		waitForAndGetElement(groupManage.ELEMENT_EDIT_SELECTED_PAGE_NODE);
-		click(groupManage.ELEMENT_EDIT_SELECTED_PAGE_NODE);
-	
-		pagCW.editViewProperties(pageSelectorNameEdit, groupPermissionPath, permission);
+		navMag.editNodePage(nodeName);
+		pagCW.viewProperties();
+		pagCW.changeProperties(newTitlePage,groupPath,memberships,true,false);
 		
-		waitForElementNotPresent(portMg.ELEMENT_VIEW_PAGE_PROPERTIES);
-		click(ELEMENT_SAVE_BTN);
-		waitForElementNotPresent(but.ELEMENT_SAVE_BUTTON);
-
-		info("Verify [Page Settings] is updated");
-		navToolBar.goToPotalPages();
-		portMg.deletePage(pageSelectorNameEdit, "group");
-
-
-		info("Reset data");
-		navToolBar.goToGroupSites();
-		groupManage.deleteNode(groupAdmin, nodeSitesManagement, nodeName, false);
+		info("Verify that the changs are updated");
+		pagCW.viewProperties();
+		info("Page settings is updated");
+		String titleActual = pagCW.getOldTitle();
+		info("titleActual:"+titleActual);
+		info("newtitle:"+newTitlePage);
+		info("Permission setting tab is updated");
+		click(pagCW.ELEMENT_VIEW_PROPERTIES_PERMISSION_TAB);
+		waitForAndGetElement(pagCW.ELEMENT_VIEW_PROPERTIES_ACCESS_PERMISSTION_VALUE.replace("${group}",groupPath.toLowerCase()),2000,0);
+		pagCW.saveChangeProperties();
+		pagCW.saveChangesPageEditor();
+		if(!titleActual.equals(newTitlePage)) assert false:"The title:"+newTitlePage+" is not updated";
 	}
 	
 	/**
@@ -424,19 +314,33 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 	@Test
 	public void test10_11_12_13_AddEditMoveAndDeleteContainerWhenEditPagePropertiesOfNode(){
 		String groupAdmin = defaultGroupData.getDefaultGroupsByIndex(1);
-		String nodeAddUser = gateinNodesData.getNodesByIndex(3);
-		String nodeLink = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeAddUser);
 		String containerTitle = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String containerId = contaiData.getContainerIdByIndex(0);
+		
+		String nodeName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String namePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String titlePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		
+		
+		info("Get information of an application");
+		int index2 = appLayData.getRandomIndexByType(1);
+		String idApplication = appLayData.newId.get(index2);
+		String titleApplication = appLayData.newTitle.get(index2);
 
 		info("Go to Group Sites/Edit navigation");
 		navToolBar.goToGroupSites();
 
-		info("Edit node's page properties");
+		info("Add a new node");
 		groupManage.editNavigation(groupAdmin);
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector(namePage, titlePage, true,false,false);
+		navMag.saveNode();
+
+		info("Add a new application");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.addApp("",titleApplication,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idApplication),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
+		navMag.closeNavigationManagementPopup();
 
 		/*Step Number: 1
 		*Step Name: Step 1: Add container when edit page properties of node	
@@ -452,14 +356,10 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 			- Add container successfully
 			- The page is displayed in the view mode with all changes*/
 		info("Test Case 10: Add a container...");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
 		pagCW.addContainer(containerId);
-		
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(pagCW.ELEMENT_DROP_TARGET_HAS_LAYOUT);
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
+		navMag.closeNavigationManagementPopup();
 	
 		/*Step Number: 2
 		*Step Name: Step 2:  Edit container when edit page properties of node	
@@ -478,22 +378,11 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 			- The page is displayed in the view mode with all changes*/
 		info("Test Case 11: Edit a container...");
 		info("Edit node's page properties");
-		pagCW.editContainer("", containerTitle, "150px", "150px");	
-		info("Verify that container was updated successfully");
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-		mouseOver(pagCW.ELEMENT_DROP_TARGET_HAS_LAYOUT, true);
-		if(this.plfVersion.contains("4.0"))
-			waitForAndGetElement(pagCW.ELEMENT_NAME_CONTAINER.replace("${nameContainer}", containerTitle));
-		else
-			waitForAndGetElement(pagCW.ELEMENT_NAME_CONTAINER_PLF41.replace("${nameContainer}", containerTitle));
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(but.ELEMENT_SAVE_BUTTON);
-		WebElement element = waitForAndGetElement(pagCW.ELEMENT_EDITING_CONTAINER);
-		String valueStyle = element.getAttribute("style");
-		assert valueStyle.equals("width: 150px; height: 150px;"): "Failed to edit the value of container: " + containerTitle;
-
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.editContainer("Container", containerTitle, "", "");
+		navMag.closeNavigationManagementPopup();
+		
 		/*Step Number: 3
 		*Step Name: Step 3:  Move container when edit page properties of node	
 		*Step Description: 
@@ -508,27 +397,17 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 			- The container is updated with the change value
 			- The page is displayed in the view mode with all changes*/
 		info("Test Case 12: Move a container");
-		info("Add new another container");
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
-		waitForElementNotPresent(but.ELEMENT_SAVE_BUTTON);
-		pagCW.addContainer(containerId);
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.moveContainer(containerTitle,pagCW.ELEMENT_CONTAINER_HOLDER_MOVE,pagCW.ELEMENT_PORTLET,87);
+		navMag.closeNavigationManagementPopup();
 		
-		info("Check order of 2 containers before move");
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "2").replace("${nameContainer}", "Container"), DEFAULT_TIMEOUT, 1, 2);
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "1").replace("${nameContainer}", containerTitle), DEFAULT_TIMEOUT, 1, 2);
-		info("Move container");
-		pagCW.moveContainer("",pagCW.ELEMENT_CONTAINER_HOLDER_MOVE,pagCW.ELEMENT_PORTLET,87);
-		info("Check order of 2 containers after move");
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "1").replace("${nameContainer}", "Container"), DEFAULT_TIMEOUT, 1, 2);
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "3").replace("${nameContainer}", containerTitle), DEFAULT_TIMEOUT, 1, 2);
-		click(pagCW.ELEMENT_PAGE_ABORT_BUTTON);
-		waitForElementNotPresent(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
+		info("Check order of the container");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.checkPositions(pagCW.ELEMENT_CONTAINER_PRECEDING_PORTLET,pagCW.ELEMENT_CONTAINER_FOLLOWING_PORTLET);
+		navMag.closeNavigationManagementPopup();
+		
 	
 		/*Step Number: 4
 		*Step Name: Step 4:  Delete container when edit page properties of node	
@@ -544,16 +423,10 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 			- The container is updated with the change value
 			- The page is displayed in the view mode with all changes*/
 		info("Test Case 13: Delete a container...");
-		info("Delete container 1");
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-		pagCW.deleteContainer("Container");
-		info("Delete container 2");
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
 		pagCW.deleteContainer(containerTitle);
+		navMag.closeNavigationManagementPopup();
 	}
 	
 	
@@ -569,37 +442,26 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 	*/
 	@Test
 	public void test14_15_16_17_AddEditMoveAndDeleteApplicationWhenEditPagePropertiesOfNode(){
-		String nodeSitesManagement = gateinNodesData.getNodesByIndex(1);
 		String groupAdmin = defaultGroupData.getDefaultGroupsByIndex(1);	
-		String pageSelectorName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String portletTitle = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String nodeName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String nodeLink = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
-		String nodeLinkSitesManagement = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement);
+		String containerId = contaiData.getContainerIdByIndex(0);
+		String nodeName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String namePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String titlePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		String categoryApplication = appLayData.getCategoryApplicationByIndex(0);
-		String idApplication1 = appLayData.getIdApplicationByIndex(3);
-		String idApplication2 = appLayData.getIdApplicationByIndex(5);
-		String idApplication3 = appLayData.getIdApplicationByIndex(4);
-		String titleApplication1 = appLayData.getTitleApplicationByIndex(5);
-		String titleApplication2 = appLayData.getTitleApplicationByIndex(4);
-
-		Map<String, String> languages = new HashMap<String, String>();
-		languages.put("English", "");
-
+		info("Get information of an application");
+		int index2 = appLayData.getRandomIndexByType(1);
+		String idApplication = appLayData.newId.get(index2);
+		String nameApplication = appLayData.newTitle.get(index2);
+		
 		info("Go to Group Sites/Edit navigation");
 		navToolBar.goToGroupSites();
 
-		info("Add a node for group Sites Management");
-		groupManage.addNodeForGroup(groupAdmin, nodeSitesManagement, false, 
-				nodeName, true, languages, nodeName, 
-				pageSelectorName, pageSelectorName, true, false);
+		info("Add a new node");
 		groupManage.editNavigation(groupAdmin);
-		click(nodeLinkSitesManagement);
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector(namePage, titlePage, true,false,false);
+		navMag.saveNode();
+		
 		/*Step Number: 1
 		*Step Name: Step 1:  Add application when edit page properties of node	
 		*Step Description: 
@@ -614,15 +476,28 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 			- Add application successfully
 			- The page is displayed in the view mode with all changes*/
 		info("Test Case 14: Add an application when edit page...");
-		pagCW.addApplication(pagCW.ELEMENT_APPLICATION_CATEGORY.replace("${applicationCategor}", categoryApplication), pagCW.ELEMENT_APPLICATION_ID.replace("${applicationId}", idApplication1));
-		info("Check to verify that application was added successfully");
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(ELEMENT_INPUT_USERNAME);
-		waitForAndGetElement(ELEMENT_INPUT_PASSWORD);
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
-		waitForElementNotPresent(ELEMENT_INPUT_USERNAME);
-		pagCW.saveChangesPageEditor();
 
+		info("Add a new application");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.addApp("",nameApplication,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idApplication),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
+		navMag.closeNavigationManagementPopup();
+		
+		info("Add a container...");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.addContainer(containerId);
+		navMag.closeNavigationManagementPopup();
+		
+		info("Verify that the application is added successfully");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.switchViewMode(true);
+		pagCW.saveChangesPageEditor();
+		navMag.closeNavigationManagementPopup();
+		
+		info("Test Case 15: Edit an application when edit page...");
+		String newTitle= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		/*Step Number: 2
 		*Step Name: Step 2:  Edit application when edit page properties of node	
 		*Step Description: 
@@ -638,19 +513,22 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		*Expected Outcome: 
 			- The application is updated with the change value
 			- The page is displayed in the view mode with all changes*/
-		info("Test Case 15: Edit an application when edit page...");
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-		pagCW.editApplication("", portletTitle, "600px", "600px");
-		but.saveAndClose();
-		info("Check to verify application was edited successfully");
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(but.ELEMENT_SAVE_BUTTON);
-		waitForAndGetElement(pagCW.ELEMENT_NAME_PORTLET.replace("${portletName}", portletTitle));
-		WebElement element = waitForAndGetElement(pagCW.ELEMENT_PORTLET_FRAGMENT.replace("${portletName}", "UIAccountPortlet"));
-		String valueStyle = element.getAttribute("style");
-		assert valueStyle.equals("width: 100%; height: 600px;"): "Failed to edit portlet: " + portletTitle;
+		
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.editApplication(nameApplication,newTitle,"","");
+		pagCW.saveChangesApplication();
+		pagCW.saveChangesPageEditor();
+		navMag.closeNavigationManagementPopup();
+		
+		info("Verify that the application is edited successfully");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		waitForAndGetElement(pagCW.ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",newTitle),3000,0);
+		pagCW.switchViewMode(true);
+		pagCW.saveChangesPageEditor();
+		navMag.closeNavigationManagementPopup();
+		
 
 		/*Step Number: 3
 		*Step Name: Step 3:  Move application when edit page properties of node
@@ -666,27 +544,21 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 			- The application is move to new place
 			- The page is displayed in the view mode with all changes*/
 		info("Test Case 16: Move an application when edit page...");
-		info("Add 2 more new applications");
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-		pagCW.addApplication(pagCW.ELEMENT_APPLICATION_CATEGORY.replace("${applicationCategor}", categoryApplication), pagCW.ELEMENT_APPLICATION_ID.replace("${applicationId}", idApplication2));
-		pagCW.addApplication(pagCW.ELEMENT_APPLICATION_CATEGORY.replace("${applicationCategor}", categoryApplication), pagCW.ELEMENT_APPLICATION_ID.replace("${applicationId}", idApplication3));
-		info("Check order of applications before moving application");
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "3").replace("${nameContainer}", portletTitle));
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "2").replace("${nameContainer}", titleApplication2));
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "1").replace("${nameContainer}", titleApplication1));
-		info("Move application");
-		pagCW.moveApplication(portletTitle, titleApplication1, 87);
-		info("Verify that the page is updated after moving...");
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "2").replace("${nameContainer}", portletTitle));
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "1").replace("${nameContainer}", titleApplication1));
-		waitForAndGetElement(pagCW.ELEMENT_LIST_CONTAINER.replace("${number}", "3").replace("${nameContainer}", titleApplication2));
-		click(pagCW.ELEMENT_PAGE_ABORT_BUTTON);
-		waitForElementNotPresent(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
+		info("Move an application to new place");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.moveApplication(newTitle,"Container",87);
+		info("Click on Save button");
+		navMag.closeNavigationManagementPopup();
+		
+		
+		info("Verify that the application is moved successfully");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.checkPositions(pagCW.ELEMENT_CONTAINER_FOLLOWING_PORTLET,pagCW.ELEMENT_CONTAINER_PRECEDING_PORTLET);
+		navMag.closeNavigationManagementPopup();
 	
+		info("Test Case 17: Delete an application when edit page...");
 		/*Step Number: 4
 		*Step Name: Step 4: Remove application when edit page properties of node
 		*Step Description: 
@@ -700,30 +572,11 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		*Expected Outcome: 
 			- The application is removed successfully
 			- The page is displayed in the view mode with all changes*/
-		info("Test Case 17: Delete an application when edit page...");
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		pagCW.deleteApplication(titleApplication1);
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		pagCW.deleteApplication(portletTitle);
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		pagCW.deleteApplication(titleApplication2);
-
-		info("Reset data");
-		info("Delete created node");
+		
 		groupManage.editNavigation(groupAdmin);
-		click(nodeLinkSitesManagement);
-		rightClickOnElement(nodeLink);
-		click(groupManage.EEMENT_DELETE_SELECTED_NODE);
-		magAlert.acceptAlert();
-		waitForElementNotPresent(nodeLink);
-		but.save();
-		waitForElementNotPresent(but.ELEMENT_SAVE_BUTTON);
-		info("Delete created page");
-		navToolBar.goToPotalPages();
-		portMg.deletePage(pageSelectorName, "group");
+		navMag.editNodePage(nodeName);
+		pagCW.deleteApplication(newTitle);
+		navMag.closeNavigationManagementPopup();
 	}
 	
 	/**
@@ -732,20 +585,16 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 	*/
 	@Test
 	public void test18_AddApplicationIntoContainerWhenEditPagePropertiesOfNode(){
-		String nodeSitesManagement = gateinNodesData.getNodesByIndex(1);
 		String groupAdmin = defaultGroupData.getDefaultGroupsByIndex(1);	
-		String pageSelectorName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String nodeName = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String nodeLink = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeName);
-		String nodeLinkSitesManagement = groupManage.ELEMENT_NODE_LINK.replace("${nodeLabel}", nodeSitesManagement);
 		
-		String categoryApplication = appLayData.getCategoryApplicationByIndex(15);
-		String containerId = contaiData.getContainerIdByIndex(0); 
-		String name = appLayData.getTitleApplicationByIndex(15);
-		String idName = appLayData.getIdApplicationByIndex(15);
+		String nodeName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String namePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String titlePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		Map<String, String> languages = new HashMap<String, String>();
-		languages.put("English", "");
+		info("Get information of an application");
+		int index2 = appLayData.getRandomIndexByType(1);
+		String idName = appLayData.newId.get(index2);
+		String name = appLayData.newTitle.get(index2);
 
 		info("Go to Group Sites/Edit navigation");
 		navToolBar.goToGroupSites();
@@ -765,43 +614,127 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		*Expected Outcome: 
 			- The application is removed successfully
 			- The page is displayed in the view mode with all changes*/
-		info("Add a node for group Sites Management");
-		groupManage.addNodeForGroup(groupAdmin, nodeSitesManagement, false, 
-				nodeName, true, languages, nodeName, 
-				pageSelectorName, pageSelectorName, true, false);
+		
+		info("Add a new node");
 		groupManage.editNavigation(groupAdmin);
-		click(nodeLinkSitesManagement);
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-
-		info("Add an a new container for node");
-		pagCW.addContainer(containerId);
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector(namePage, titlePage, true,false,false);
+		navMag.saveNode();
 		
-		info("Add a application to above created container");
-		rightClickOnElement(nodeLink);
-		click(groupManage.ELEMENT_NAVIGATION_EDIT_PAGE_NODE);
-		waitForAndGetElement(pagCW.ELEMENT_VIEW_PAGE_PROPERTIES);
-		click(pagCW.ELEMENT_APPLICATION_TAB);
-		Utils.pause(1000);
-		click(pagCW.ELEMENT_APPLICATION_CATEGORY.replace("${applicationCategor}", categoryApplication));
-		dragAndDropToObject(pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}","Container"));
+		info("Edit a node");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
+		pagCW.addContainer("oneRow");
+		
+		navMag.editNodePage(nodeName);
+		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}","Container"));
+		info("Click on Save button");
+		click(navMag.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		
+		info("Verify that the application is added successfully in the container");
+		groupManage.editNavigation(groupAdmin);
+		navMag.editNodePage(nodeName);
 		waitForAndGetElement(pagCW.ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",name),3000,0);
-		Utils.pause(2000);
-		info("Switch to view mode to verify application added to container successfully");
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
-		waitForAndGetElement(pagCW.ELEMENT_FORUM_PORTLET_IN_VIEW_PAGE);
-		click(pagCW.ELEMENT_SWITCH_VIEW_MODE);
+		pagCW.switchViewMode(true);
 		pagCW.saveChangesPageEditor();
+		click(navMag.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+	}
+
+	/**
+	*<li> Case ID:123118.</li>
+	*<li> Test Case Name: Cut and Paste Node.</li>
+	*/
+	@Test
+	public void test06_CutAndPasteNode(){
+		String groupAdmin = defaultGroupData.getDefaultGroupsByIndex(1);
+		String nodeName1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String nodeName2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+
+		info("Go to Group Sites/Edit navigation");
+		navToolBar.goToGroupSites();
+	
+		/*Step Number: 1
+		*Step Name: Step 1: Copy and Paste node		
+		*Step Description: 
+			- Go to Group Sites/Edit navigation
+			- Select a node
+			- Right click on node and choose Copy from the drop-down menu. 
+			- Right click the position you want to paste this node and select Paste Node. 
+		*Input Data: 
+		*Expected Outcome: 
+			- Node is copied to new place*/
+		info("Add a new node 1");
+		groupManage.editNavigation(groupAdmin);
+		navMag.addNode(nodeName1,"");
+		navMag.saveNode();
 		
-		info("Reset data");
-		rightClickOnElement(nodeLink);
-		click(groupManage.EEMENT_DELETE_SELECTED_NODE);
-		magAlert.acceptAlert();
-		waitForElementNotPresent(nodeLink);
-		but.save();
-		waitForElementNotPresent(but.ELEMENT_SAVE_BUTTON);
-		navToolBar.goToPotalPages();
-		portMg.deletePage(pageSelectorName, "group");
+		info("Add a new node 2");
+		groupManage.editNavigation(groupAdmin);
+		navMag.addNode(nodeName2,"");
+		navMag.saveNode();
+		
+		info("Cut and paste a node");
+		groupManage.editNavigation(groupAdmin);
+		navMag.cutNode(nodeName1);
+		navMag.pasteNode(nodeName2);
+		
+		info("Verify that node 2 has only one children is node1");
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PARENT_CHILD_NODE.replace("${parent}",nodeName2).replace("${child}",nodeName1));
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_NUMBER_CHILD_NODES.replace("${parent}",nodeName2).replace("${numberChild}","1"));
+		navMag.closeNavigationManagementPopup();
+		
+		info("Verify that node 1 is only one avaiable");
+		groupManage.editNavigation(groupAdmin);
+		waitForElementNotPresent(navMag.ELEMENT_NAVIGATION_PARENT_NODE.replace("${parent}",nodeName1));
+		navMag.closeNavigationManagementPopup();
+	}
+
+	/**
+	*<li> Case ID:123118.</li>
+	*<li> Test Case Name: Cut and Paste Node.</li>
+	*/
+	@Test
+	public void test07_CloneAndPasteNode(){
+		String groupAdmin = defaultGroupData.getDefaultGroupsByIndex(1);
+		String nodeName1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String nodeName2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+	
+		info("Go to Group Sites/Edit navigation");
+		navToolBar.goToGroupSites();
+	
+		/*Step Number: 1
+		*Step Name: Step 1: Copy and Paste node		
+		*Step Description: 
+			- Go to Group Sites/Edit navigation
+			- Select a node
+			- Right click on node and choose Copy from the drop-down menu. 
+			- Right click the position you want to paste this node and select Paste Node. 
+		*Input Data: 
+		*Expected Outcome: 
+			- Node is copied to new place*/
+		info("Add a new node 1");
+		groupManage.editNavigation(groupAdmin);
+		navMag.addNode(nodeName1,"");
+		navMag.saveNode();
+		
+		info("Add a new node 2");
+		groupManage.editNavigation(groupAdmin);
+		navMag.addNode(nodeName2,"");
+		navMag.saveNode();
+		
+		info("Cut and paste a node");
+		groupManage.editNavigation(groupAdmin);
+		navMag.cloneNode(nodeName1);
+		navMag.pasteNode(nodeName2);
+		
+		info("Verify that node 2 has only one children is node1");
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PARENT_CHILD_NODE.replace("${parent}",nodeName2).replace("${child}",nodeName1));
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_NUMBER_CHILD_NODES.replace("${parent}",nodeName2).replace("${numberChild}","1"));
+		navMag.closeNavigationManagementPopup();
+		
+		info("Verify that node 1 is more one avaiable");
+		groupManage.editNavigation(groupAdmin);
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PARENT_NODE.replace("${parent}",nodeName1));
+		navMag.closeNavigationManagementPopup();
 	}
 }

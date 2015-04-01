@@ -47,9 +47,9 @@ import org.testng.annotations.*;
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
 		info("Add a new node");
-		portSite.addNode(nodeName,"");
-		portSite.inputInfoPageSelector(namePage, titlePage, true,false,false);
-		portSite.saveNode();
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector(namePage, titlePage, true,false,false);
+		navMag.saveNode();
 		
 		info("Test 02: Edit node Page");
 		/*Step Number: 1
@@ -66,7 +66,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			Page Setting, Permission setting tab are updated successfully with new changes*/
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.viewProperties();
 		pagCW.changeProperties(newTitlePage,groupPath,memberships,true,false);
 		
@@ -95,7 +95,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The node is removed from the list*/
-		portSite.deleteNode(nodeName);
+		navMag.deleteNode(nodeName);
 	}
 
 	/**
@@ -124,29 +124,29 @@ import org.testng.annotations.*;
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
 		info("Add a new node");
-		portSite.addNode(nodeName,"");
-		portSite.saveNode();
+		navMag.addNode(nodeName,"");
+		navMag.saveNode();
 		
 		info("Edit a node");
 		portSite.goToEditNavigation(portalName);
-		portSite.editThisNode(nodeName);
-		portSite.inputInfoNodeSetting(true, "",newNodeName,true,false);
-		portSite.saveNode();
+		navMag.editThisNode(nodeName);
+		navMag.inputInfoNodeSetting(true, "",newNodeName,true,false);
+		navMag.saveNode();
 		
 		info("Verify that the node is changed with new name");
 		portSite.goToEditNavigation(portalName);
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME.replace(
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME.replace(
 				"${name}",newNodeName));
-		portSite.editThisNode(newNodeName);
+		navMag.editThisNode(newNodeName);
 		info("Verify that label mode is not checked");
-		waitForElementNotPresent(portSite.ELEMENT_NODE_SETTING_SWITCH_MODE_CHECKED);
+		waitForElementNotPresent(navMag.ELEMENT_NODE_SETTING_SWITCH_MODE_CHECKED);
 		info("Verify that language box is not shown");
-		waitForElementNotPresent(portSite.ELEMENT_NODE_SETTING_LANGUAGE_BOX);
+		waitForElementNotPresent(navMag.ELEMENT_NODE_SETTING_LANGUAGE_BOX);
 		info("Verify that visible is not checked");
-		waitForElementNotPresent(portSite.ELEMENT_NODE_SETTING_VISIBLE_CHECKED);
+		waitForElementNotPresent(navMag.ELEMENT_NODE_SETTING_VISIBLE_CHECKED);
 		info("Verify that publish date and time is not shown");
-		waitForElementNotPresent(portSite.ELEMENT_NODE_SETTING_PUBLISH_DATE_TIME);
-		portSite.saveNode();
+		waitForElementNotPresent(navMag.ELEMENT_NODE_SETTING_PUBLISH_DATE_TIME);
+		navMag.saveNode();
 	}
 
 	/**
@@ -185,27 +185,27 @@ import org.testng.annotations.*;
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
 		info("Add a new node");
-		portSite.addNode(nodeName,"");
-		portSite.inputInfoPageSelector(namePage, titlePage, true,false,false);
-		portSite.saveNode();
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector(namePage, titlePage, true,false,false);
+		navMag.saveNode();
 		
 		info("Edit a node");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.addContainer("oneRow");
 		
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}","Container"));
 		info("Click on Save button");
-		click(portSite.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		click(navMag.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
 		
 		info("Verify that the application is added successfully in the container");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		waitForAndGetElement(pagCW.ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",name),3000,0);
 		pagCW.switchViewMode(true);
 		pagCW.saveChangesPageEditor();
-		click(portSite.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		click(navMag.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
 	}
 
 	/**
@@ -246,38 +246,38 @@ import org.testng.annotations.*;
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
 		info("Add a new node");
-		portSite.addNode(nodeName,"");
-		portSite.inputInfoPageSelector("","",false,true,false);
-		portSite.selectPage(titlePage);
-		portSite.saveNode();
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector("","",false,true,false);
+		navMag.selectPage(titlePage);
+		navMag.saveNode();
 		
 		info("Edit a node");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		info("Add an application to the layout");
 		pagCW.addApp("",portlet1,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idportlet1),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
 		info("Click on Save button");
-		portSite.closeNavigationManagementPopup();
+		navMag.closeNavigationManagementPopup();
 		
 		info("Move an application to new place");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.moveApplication(portlet1,"Announcement",87);
 		info("Click on Save button");
-		portSite.closeNavigationManagementPopup();
+		navMag.closeNavigationManagementPopup();
 		
 		
 		info("Verify that the application is moved successfully");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.checkPositions(pagCW.ELEMENT_APPLICATION_PRECEDING_PORTLET.replace("${app1}","Announcement").replace("${app2}",portlet1),
 				pagCW.ELEMENT_APPLICATION_FOLLOWING_PORTLET.replace("${app1}","Announcement").replace("${app2}",portlet1));
-		portSite.closeNavigationManagementPopup();
+		navMag.closeNavigationManagementPopup();
 		
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.deleteApplication(portlet1);
-		portSite.closeNavigationManagementPopup();
+		navMag.closeNavigationManagementPopup();
 		
 	}
 
@@ -321,23 +321,23 @@ import org.testng.annotations.*;
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
 		info("Add a new node");
-		portSite.addNode(nodeName,"");
-		portSite.inputInfoPageSelector(namePage, titlePage, true,false,false);
-		portSite.saveNode();
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector(namePage, titlePage, true,false,false);
+		navMag.saveNode();
 		
 		info("Add an application to the page");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
 		info("Click on Save button");
-		portSite.closeNavigationManagementPopup();
+		navMag.closeNavigationManagementPopup();
 		
 		info("Verify that the application is added successfully");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.switchViewMode(true);
 		pagCW.saveChangesPageEditor();
-		portSite.closeNavigationManagementPopup();
+		navMag.closeNavigationManagementPopup();
 		
 		info("Test 07: Edit application when edit page properties of node");
 		String newTitle= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -360,19 +360,19 @@ import org.testng.annotations.*;
 		- The page is displayed in the view mode with all changes
 			*/
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.editApplication(name,newTitle,"","");
 		pagCW.saveChangesApplication();
 		pagCW.saveChangesPageEditor();
-		portSite.closeNavigationManagementPopup();
+		navMag.closeNavigationManagementPopup();
 		
 		info("Verify that the application is edited successfully");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		waitForAndGetElement(pagCW.ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",newTitle),3000,0);
 		pagCW.switchViewMode(true);
 		pagCW.saveChangesPageEditor();
-		portSite.closeNavigationManagementPopup();
+		navMag.closeNavigationManagementPopup();
 		
 		info("Test 08: Remove application when edit page properties of node");
 		/*Step Number: 1
@@ -392,9 +392,9 @@ import org.testng.annotations.*;
 		- The page is displayed in the view mode with all changes
 			*/
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.deleteApplication(newTitle);
-		portSite.closeNavigationManagementPopup();
+		navMag.closeNavigationManagementPopup();
 	}
 
 	/**
@@ -415,8 +415,7 @@ import org.testng.annotations.*;
 		String namePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String titlePage= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		//String num=getRandomNumber();
-		//String title = txData.getContentByArrayTypeRandom(1)+num;
+		
 		info("Get information of an application");
 		int index2 = appLayData.getRandomIndexByType(1);
 		String idName = appLayData.newId.get(index2);
@@ -441,23 +440,24 @@ import org.testng.annotations.*;
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
 		info("Add a new node");
-		portSite.addNode(nodeName,"");
-		portSite.inputInfoPageSelector(namePage, titlePage, true,false,false);
-		portSite.saveNode();
+		navMag.addNode(nodeName,"");
+		navMag.inputInfoPageSelector(namePage, titlePage, true,false,false);
+		navMag.saveNode();
 		
 		info("Add an application to the page");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
 		info("Click on Save button");
-		click(portSite.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		navMag.closeNavigationManagementPopup();
+		
 		
 		info("Add a container to the layout");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.addContainer("oneRow");
 		info("Click on Save button");
-		click(portSite.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		navMag.closeNavigationManagementPopup();
 		
 		info("Test 11: Edit container when edit page properties of node");
 		String newTitle= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -481,9 +481,9 @@ import org.testng.annotations.*;
 			*/
 		 info("Edit a container");
 		 portSite.goToEditNavigation(portalName);
-		 portSite.editNodePage(nodeName);
+		 navMag.editNodePage(nodeName);
 		 pagCW.editContainer("Container",newTitle, "","");
-		 click(portSite.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		 navMag.closeNavigationManagementPopup();
 		 
 		 info("Test 12: Move container when edit page properties of node");
 		 /*Step Number: 1
@@ -504,15 +504,15 @@ import org.testng.annotations.*;
 				*/
 		 info("Move a container to new place");
 		 portSite.goToEditNavigation(portalName);
-		 portSite.editNodePage(nodeName);
+		 navMag.editNodePage(nodeName);
 		 pagCW.moveContainer(newTitle,pagCW.ELEMENT_CONTAINER_HOLDER_MOVE,pagCW.ELEMENT_PORTLET,87);
-		 click(portSite.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		 navMag.closeNavigationManagementPopup();
 		 
 		 info("Verify that the container is changed the position");
 		 portSite.goToEditNavigation(portalName);
-		 portSite.editNodePage(nodeName);
+		 navMag.editNodePage(nodeName);
 		 pagCW.checkPositions(pagCW.ELEMENT_CONTAINER_PRECEDING_PORTLET,pagCW.ELEMENT_CONTAINER_FOLLOWING_PORTLET);
-		 click(portSite.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		 navMag.closeNavigationManagementPopup();
 		 
 		 info("Test 13: Delete container when edit page properties of node");
 		/*Step Number: 1
@@ -533,9 +533,9 @@ import org.testng.annotations.*;
 			*/
 		info("Delete a container");
 		portSite.goToEditNavigation(portalName);
-		portSite.editNodePage(nodeName);
+		navMag.editNodePage(nodeName);
 		pagCW.deleteContainer(newTitle);
-		click(portSite.ELEMENT_NAVIGATION_MANAGEMENT_SAVE);
+		navMag.closeNavigationManagementPopup();
 	}
 
 	/**
@@ -563,22 +563,22 @@ import org.testng.annotations.*;
 		info("Add a new node 1");
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
-		portSite.addNode(nodeName1,"");
-		portSite.saveNode();
+		navMag.addNode(nodeName1,"");
+		navMag.saveNode();
 		
 		info("Add a new node 2");
 		portSite.goToEditNavigation(portalName);
-		portSite.addNode(nodeName2,"");
-		portSite.saveNode();
+		navMag.addNode(nodeName2,"");
+		navMag.saveNode();
 		
 		info("Copy and paste a node");
 		portSite.goToEditNavigation(portalName);
-		portSite.copyNode(nodeName1);
-		portSite.pasteNode(nodeName2);
+		navMag.copyNode(nodeName1);
+		navMag.pasteNode(nodeName2);
 		info("Verify that node 2 has only one children is node1");
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_PARENT_CHILD_NODE.replace("${parent}",nodeName2).replace("${child}",nodeName1));
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_NUMBER_CHILD_NODES.replace("${parent}",nodeName2).replace("${numberChild}","1"));
-		portSite.closeNavigationManagementPopup();
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PARENT_CHILD_NODE.replace("${parent}",nodeName2).replace("${child}",nodeName1));
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_NUMBER_CHILD_NODES.replace("${parent}",nodeName2).replace("${numberChild}","1"));
+		navMag.closeNavigationManagementPopup();
 	}
 
 	/**
@@ -606,28 +606,28 @@ import org.testng.annotations.*;
 		info("Add a new node 1");
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
-		portSite.addNode(nodeName1,"");
-		portSite.saveNode();
+		navMag.addNode(nodeName1,"");
+		navMag.saveNode();
 		
 		info("Add a new node 2");
 		portSite.goToEditNavigation(portalName);
-		portSite.addNode(nodeName2,"");
-		portSite.saveNode();
+		navMag.addNode(nodeName2,"");
+		navMag.saveNode();
 		
 		info("Cut and paste a node");
 		portSite.goToEditNavigation(portalName);
-		portSite.cutNode(nodeName1);
-		portSite.pasteNode(nodeName2);
+		navMag.cutNode(nodeName1);
+		navMag.pasteNode(nodeName2);
 		
 		info("Verify that node 2 has only one children is node1");
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_PARENT_CHILD_NODE.replace("${parent}",nodeName2).replace("${child}",nodeName1));
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_NUMBER_CHILD_NODES.replace("${parent}",nodeName2).replace("${numberChild}","1"));
-		portSite.closeNavigationManagementPopup();
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PARENT_CHILD_NODE.replace("${parent}",nodeName2).replace("${child}",nodeName1));
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_NUMBER_CHILD_NODES.replace("${parent}",nodeName2).replace("${numberChild}","1"));
+		navMag.closeNavigationManagementPopup();
 		
 		info("Verify that node 1 is only one avaiable");
 		portSite.goToEditNavigation(portalName);
-		waitForElementNotPresent(portSite.ELEMENT_NAVIGATION_PARENT_NODE.replace("${parent}",nodeName1));
-		portSite.closeNavigationManagementPopup();
+		waitForElementNotPresent(navMag.ELEMENT_NAVIGATION_PARENT_NODE.replace("${parent}",nodeName1));
+		navMag.closeNavigationManagementPopup();
 	}
 
 	/**
@@ -655,28 +655,28 @@ import org.testng.annotations.*;
 		info("Add a new node 1");
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
-		portSite.addNode(nodeName1,"");
-		portSite.saveNode();
+		navMag.addNode(nodeName1,"");
+		navMag.saveNode();
 		
 		info("Add a new node 2");
 		portSite.goToEditNavigation(portalName);
-		portSite.addNode(nodeName2,"");
-		portSite.saveNode();
+		navMag.addNode(nodeName2,"");
+		navMag.saveNode();
 		
-		info("Cut and paste a node");
+		info("Clone and paste a node");
 		portSite.goToEditNavigation(portalName);
-		portSite.cloneNode(nodeName1);
-		portSite.pasteNode(nodeName2);
+		navMag.cloneNode(nodeName1);
+		navMag.pasteNode(nodeName2);
 		
 		info("Verify that node 2 has only one children is node1");
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_PARENT_CHILD_NODE.replace("${parent}",nodeName2).replace("${child}",nodeName1));
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_NUMBER_CHILD_NODES.replace("${parent}",nodeName2).replace("${numberChild}","1"));
-		portSite.closeNavigationManagementPopup();
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PARENT_CHILD_NODE.replace("${parent}",nodeName2).replace("${child}",nodeName1));
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_NUMBER_CHILD_NODES.replace("${parent}",nodeName2).replace("${numberChild}","1"));
+		navMag.closeNavigationManagementPopup();
 		
 		info("Verify that node 1 is more one avaiable");
 		portSite.goToEditNavigation(portalName);
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_PARENT_NODE.replace("${parent}",nodeName1));
-		portSite.closeNavigationManagementPopup();
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PARENT_NODE.replace("${parent}",nodeName1));
+		navMag.closeNavigationManagementPopup();
 	}
 
 	/**
@@ -704,28 +704,28 @@ import org.testng.annotations.*;
 		info("Add a new node 1");
 		navToolBar.goToPotalSites();
 		portSite.goToEditNavigation(portalName);
-		portSite.addNode(nodeName1,"");
-		portSite.saveNode();
+		navMag.addNode(nodeName1,"");
+		navMag.saveNode();
 		
 		info("Add a new node 2");
 		portSite.goToEditNavigation(portalName);
-		portSite.addNode(nodeName2,"");
-		portSite.saveNode();
+		navMag.addNode(nodeName2,"");
+		navMag.saveNode();
 		
 		info("move up node2 to node 1");
 		portSite.goToEditNavigation(portalName);
-		portSite.moveUpNode(nodeName2);
+		navMag.moveUpNode(nodeName2);
 		
 		info("Verify that node 2 is moved up node1");
-		waitForElementNotPresent(portSite.ELEMENT_NAVIGATION_PREVIOUS_NODE.replace("${currentNode}",nodeName2).replace("${previousNode}",nodeName1));
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_NEXT_NODE.replace("${currentNode}",nodeName2).replace("${nextNode}",nodeName1));
+		waitForElementNotPresent(navMag.ELEMENT_NAVIGATION_PREVIOUS_NODE.replace("${currentNode}",nodeName2).replace("${previousNode}",nodeName1));
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_NEXT_NODE.replace("${currentNode}",nodeName2).replace("${nextNode}",nodeName1));
 		
 		info("move down node 2 to node 1");
-		portSite.moveDownNode(nodeName2);
+		navMag.moveDownNode(nodeName2);
 		info("Verify that node 2 is moved up node1");
-		waitForAndGetElement(portSite.ELEMENT_NAVIGATION_PREVIOUS_NODE.replace("${currentNode}",nodeName2).replace("${previousNode}",nodeName1));
-		waitForElementNotPresent(portSite.ELEMENT_NAVIGATION_NEXT_NODE.replace("${currentNode}",nodeName2).replace("${nextNode}",nodeName1));
-		portSite.closeNavigationManagementPopup();
+		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_PREVIOUS_NODE.replace("${currentNode}",nodeName2).replace("${previousNode}",nodeName1));
+		waitForElementNotPresent(navMag.ELEMENT_NAVIGATION_NEXT_NODE.replace("${currentNode}",nodeName2).replace("${nextNode}",nodeName1));
+		navMag.closeNavigationManagementPopup();
 		
 	}
 }

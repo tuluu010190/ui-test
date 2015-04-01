@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.ecms;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 
 import static org.exoplatform.selenium.TestLogger.info;
@@ -9,14 +10,23 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SiteExplorerHome extends PlatformBase{
-	public final By ELEMENT_SITEEXPLORER_WORKING_PANEL = By.xpath("//*[@class='navItemSelected' and text()='Content Explorer']");
+	
 
+	public final By ELEMENT_SITEEXPLORER_WORKING_PANEL = By.xpath("//*[@class='navItemSelected' and text()='Content Explorer']");
+	public final By ELEMENT_DOCUMENT_LIST_ROW_CONTENT = By.xpath(".//*[@id='UIDocumentNodeList']//*[contains(@class,'rowView')]");
+	
 	//Address Bar
 	public final By ELEMENT_ADDRESS_BAR_ICON_VIEW = By.xpath(".//*[@id='UIAddressBar']//*[@class='uiIconEcmsViewDefault uiIconEcmsViewIcons uiIconEcmsLightGray']");
+	public final By ELEMENT_SITE_PATH= By.cssSelector("#address");
+	
 	//Action Bar
 	public final By ELEMENT_ACTIONBAR_ADDDOCUMENT = By.xpath("//*[@class='uiIconEcmsAddDocument uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_ADDFOLDER = By.xpath("//*[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
@@ -39,7 +49,9 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_ACTIONBAR_TAG = By.xpath("//*[@class='uiIconEcmsTaggingDocument uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_SHOWDRIVES = By.id("driveAction");
 	public final By ELEMENT_ACTIONBAR_DELETE=By.xpath(".//*[@id='ECMContextMenu']//*[@class='uiIconEcmsDelete']");
-
+	public final By ELEMENT_SITE_EXPLORER_ALL_CHECKBOX= By.xpath("//input[@type='checkbox' and @name= 'UIFileViewCheckBox']");
+	public final By ELEMENT_DELETE_ALL_BUTTON = By.xpath(".//*[@id='JCRContextMenu']//i[@class='uiIconEcmsDelete']");
+	
 	//Add Category popup
 	public final By ELEMENT_ADD_CATEGORY_POPUP_SELECT_CATEGORY_TAB = By.xpath(".//*[@id='UICategoryManager']//a[text()='Select Category']");
 	public final By ELEMENT_ADD_CATEGORY_POPUP_MENU = By.name("taxonomyTree");
@@ -79,6 +91,10 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_METADATA_POPUP_CANCEL= By.xpath(".//*[@id='UIViewMetadataContainer']//button[text()='Cancel']");
 	public final By ELEMENT_METADATA_POPUP= By.xpath("//*[@id='UIViewMetadataManager']");
 
+	// go to Show drives
+     public final By ELEMENT_SHOW_DRIVES = By.cssSelector("#driveAction");
+     public final String ELEMENT_SELECTED_DRIVE= ".//*[@data-original-title='${nameDrive}']";
+		
 	//Drive area
 	public final String ELEMENT_ACTIONBAR_SELECTED_DRIVE= ".//*[@id='UIDrivesArea']//*[@data-original-title='${drive}']";
 
@@ -130,7 +146,7 @@ public class SiteExplorerHome extends PlatformBase{
 
 	//Add document
 	public final By ELEMENT_ADDDOCUMENT_CHOICETYPE = By.xpath("//*[@class='templateTitle']");
-
+	
 	//Add folder
 	public final By ELEMENT_ADDFOLDERBOX = By.xpath("//*[@class='PopupTitle popupTitle']");
 	public final By ELEMENT_ADDFOLDER_NAME = By.xpath("//*[@id='titleTextBox']");
@@ -153,6 +169,20 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_SITEEXPLORER_LIST_LOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsLock']");
 	public final By ELEMENT_SITEEXPLORER_LIST_UNLOCK_NODE = By.xpath("//*[@id='ECMContextMenu']//*[@class='uiIconEcmsUnlock']");
 
+	//Left panel of SE
+	public final By ELEMENT_FILE_EXPLORER = By.xpath("//*[@data-original-title = 'File Explorer']");
+	public final By ELEMENT_FILE_EXPLORER_ICON = By.xpath(".//i[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
+	public String ELEMENT_FILE_TITLE_RIGHT_PANEL=".//*[@class='nodeGroup']//span[text()='${fileName}']";
+	
+	 //View detail a content in SE
+    public By ELEMENT_CONTENT_THUMBNAIL = By.xpath(".//*[@class='iconContainer']/i");
+    public String ELEMENT_WEBCONTENT_NAME = ".//*[@id='UIDocumentContainer']//h6[text()='${nameFile}']";
+    public By ELEMENT_CONTENT_MESSAGE_NOT_AVAILABLE = By.xpath(".//h4[text()='The preview of this document is not available.']");
+    public By ELEMENT_CONTENT_MESSAGE_TOO_MANY_PAGES = By.xpath(".//h4[text()='The preview is not available for content with over 99 pages.']");
+    public By ELEMENT_CONTENT_MESSAGE_OVER_SIZE= By.xpath(".//h4[text()='The preview is not available for content larger than 5 MB.']");
+    public By ELEMENT_CONTENT_DOWNLOAD_BUTTON= By.xpath(".//*[@class='btn btn-primary']");
+    public By ELEMENT_CONTENT_OPEN_DESKTOP=By.xpath(".//*[@class='btn'][text()='Open on Desktop']");
+	
 	//advanced search 
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_NAME = By.xpath("//*[@id='keyword']");
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_SEARCHBTN = By.xpath("//*[@id='tab-UIContentNameSearch']//*[@class='btn' and text()='Search']");
@@ -175,7 +205,9 @@ public class SiteExplorerHome extends PlatformBase{
 	public By ELEMENT_EVENT_FILE_INPUT = By.xpath("//*[@id='upload']//*[@name='file']");
 	public By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachFileForm']//*[text()='Save']");
 	public String ELEMENT_ATTACH_FILE_NAME = "//*[@data-original-title='$fileName']";
-
+	public final By ELEMENT_UPLOAD_PROGRESS_BAR = By.xpath(".//*[contains(@class,'progress progress-striped pull-right')]");
+	public final By ELEMENT_UPLOAD_BUTTON = By.xpath("//a[@class='actionIcon' and contains(text(),'Upload')]");
+	
 	//Permission
 	public final By ELEMENT_PERMISSION_USER = By.xpath("//*[@class='uiIconSelectUser uiIconLightGray']");
 	public final By ELEMENT_PERMISSION_GROUP = By.xpath("//*[@class='uiIconSelectMember uiIconLightGray']");
@@ -274,15 +306,30 @@ public class SiteExplorerHome extends PlatformBase{
 	//Right column content
 	public final String ELEMENT_SITE_EXPLORER_RIGHT_COLUMN_CONTENT=".//*[@id='UITabContent']//a[contains(text(),'${title}')]";
 
+	//View detail a content
+	 public String ELEMENT_CONTENT_NAME = ".//*[@id='UIDocumentContainer']//span[text()='${nameFile}']";
+	 
+	// View icons
+	public final By ELEMENT_LIST_VIEW_ICON = By.xpath("//*[@data-original-title = 'List']");
+	public final By ELEMENT_ADMIN_VIEW_ICON = By.xpath("//*[@data-original-title = 'Admin']");
+	public final By ELEMENT_ICONS_VIEW = By.xpath("//*[@data-original-title = 'Icons']");
+	public final By ELEMENT_WEB_VIEW = By.xpath("//*[@data-original-title = 'Web']");
+	public final By ELEMENT_CATEGORIES_VIEW = By.xpath("//*[@data-original-title = 'Categories']");
+	
+	//Add new content
+    public String ELEMENT_SITE_EXPLORER_CONTENT_NAME= ".//*[@id='UISelectDocumentForm']//i[@data-original-title='${nameContent}']";
+	
 	ManageAlert alert;
 	Button button;
 	CreateNewDocument CreNewDoc;
+	Dialog dialog;
 
 	public SiteExplorerHome(WebDriver dr){
 		this.driver=dr;
 		alert = new ManageAlert(dr);
 		CreNewDoc = new CreateNewDocument(dr);
 		button = new Button(dr);
+		dialog= new Dialog(driver);
 	}
 	/**
 	 * Go to a folder by a path in SE
@@ -416,37 +463,73 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 	}
-
+	
 	/**
-	 * Upload a file from TesData folder
+	 * Upload a file
 	 * @param link
 	 * @param params
 	 */
-	public void uploadFile(String link, Object... params) {
-		info("Upload a file to Site Explorer");
+	public void uploadFileWithDymanicPath(String link, Object... params) {
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
-		if (waitForAndGetElement(ELEMENT_ACTIONBAR_UPLOAD, DEFAULT_TIMEOUT, 0) == null) {
-			info("Click on More link");
-			click(ELEMENT_ACTIONBAR_MORE);
+		if (waitForAndGetElement(ELEMENT_UPLOAD_BUTTON, DEFAULT_TIMEOUT, 0) == null) {
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
 		((JavascriptExecutor) driver)
-		.executeScript(
-				"arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; "
-						+ "arguments[0].style.width = '1px'; arguments[0].style.opacity = 1",
+				.executeScript(
+						"arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; "
+								+ "arguments[0].style.width = '1px'; arguments[0].style.opacity = 1",
 						waitForAndGetElement(ELEMENT_UPLOAD_LINK,
 								DEFAULT_TIMEOUT, 1, 2));
+		
 		Utils.pause(10000);
-		info("Select a file to upload");
-		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(getAbsoluteFilePath(link));
-		info("Upload file " + getAbsoluteFilePath(link));
-		info("Switch to Parent window");
-		switchToParentWindow();
+		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePathFromFile(link));
+		info("Upload file " + Utils.getAbsoluteFilePathFromFile(link));
+		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR,120000,0);
+				  
+		info("verify:"+verify);
 		if (verify) {
 			String links[] = link.split("/");
 			int length = links.length;
 			Utils.pause(2000);
-			waitForAndGetElement(By.xpath("//*[contains(text(),'"+ links[length - 1] + "')]"));
+			waitForAndGetElement(By.xpath("//*[contains(text(),'"
+					+ links[length - 1] + "')]"));
 		}
+
+		info("Upload file successfully");
+		Utils.pause(2000);
+	}
+
+	/**
+	 * Upload a file
+	 * @param link
+	 * @param params
+	 */
+	public void uploadFile(String link, Object... params) {
+		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
+		if (waitForAndGetElement(ELEMENT_UPLOAD_BUTTON, DEFAULT_TIMEOUT, 0) == null) {
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+		}
+		((JavascriptExecutor) driver)
+				.executeScript(
+						"arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; "
+								+ "arguments[0].style.width = '1px'; arguments[0].style.opacity = 1",
+						waitForAndGetElement(ELEMENT_UPLOAD_LINK,
+								DEFAULT_TIMEOUT, 1, 2));
+		
+		Utils.pause(10000);
+		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePathFromFile(link));
+		info("Upload file " + Utils.getAbsoluteFilePathFromFile(link));
+		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR,120000,0);
+				  
+		info("verify:"+verify);
+		if (verify) {
+			String links[] = link.split("/");
+			int length = links.length;
+			Utils.pause(2000);
+			waitForAndGetElement(By.xpath("//*[contains(text(),'"
+					+ links[length - 1] + "')]"));
+		}
+
 		info("Upload file successfully");
 		Utils.pause(2000);
 	}
@@ -1098,6 +1181,142 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_ACTIONBAR_DELETE);
 		click(ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE);
 		waitForElementNotPresent(ELEMENT_PERSONAL_DOCUMENT_FILE_CHECKBOX.replace("${file}",file));
+	}
+	
+	/**
+	 * Open drive area
+	 */
+	public void openDrives() {
+		Utils.pause(500);
+		if (waitForAndGetElement(ELEMENT_SHOW_DRIVES, 3000, 0) != null)
+			click(ELEMENT_SHOW_DRIVES);
+	    else
+			click(By.xpath("//*[@title = 'Show Drives']"));
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * Go to a drive
+	 * @param nameDrive
+	 */
+	public void selectADrive(String nameDrive){
+		info("Go to a folder of a drive");
+		waitForAndGetElement(ELEMENT_SELECTED_DRIVE.replace("${nameDrive}", nameDrive));
+		click(ELEMENT_SELECTED_DRIVE.replace("${nameDrive}", nameDrive));
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Go to a folder
+	 * @param path
+	 */
+	public void goToAFolder(String path){
+		info("Go to a folder of a drive");
+		Utils.pause(1000);
+		WebElement pathInput = waitForAndGetElement(ELEMENT_SITE_PATH,2000,1,2);
+		pathInput.clear();
+		pathInput.sendKeys(path);
+		
+		Actions action = new Actions(this.driver);
+		action.moveToElement(pathInput).sendKeys(Keys.ENTER).build().perform();
+		action.moveToElement(pathInput).release();
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Open Web view type
+	 */
+	public void clickWebView() {
+		info("Select a view type");
+		waitForAndGetElement(ELEMENT_WEB_VIEW);
+		click(ELEMENT_WEB_VIEW);
+		Utils.pause(3000);
+	}
+	
+	/**
+	 * Open Admin view type
+	 */
+	public void clickAdminView() {
+		info("Select a view type");
+		waitForAndGetElement(ELEMENT_ADMIN_VIEW_ICON);
+		click(ELEMENT_ADMIN_VIEW_ICON);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Select File Explorer tree on left panel
+	 */
+	public void selectFileExplorer(){
+		info("Select File Explorer");
+		WebElement el = (new WebDriverWait(driver, 30))
+				  .until(ExpectedConditions.presenceOfElementLocated(ELEMENT_FILE_EXPLORER_ICON));
+		el.click();
+		Utils.pause(3000);
+	}
+	
+	/**
+	 * Click on Delete button
+	 */
+	public void clickDeleteButton(){
+		info("click on Delete button");
+		waitElementAndTryGetElement(ELEMENT_DELETE_ALL_BUTTON);
+		WebElement el = waitForAndGetElement(ELEMENT_DELETE_ALL_BUTTON);
+		/*WebElement el = (new WebDriverWait(driver, 30))
+				  .until(ExpectedConditions.presenceOfElementLocated(ELEMENT_DELETE_ALL_BUTTON));*/
+		el.click();
+		dialog.deleteInDialog();
+		Utils.pause(3000);
+	}
+	
+	/**
+	 * Open a file from right panel
+	 * @param filename
+	 */
+	public void selectAFile(String filename){
+		info("Waiting the file:"+filename+" is shown");
+		waitForAndGetElement(ELEMENT_FILE_TITLE_RIGHT_PANEL.replace("${fileName}", filename),3000,1);
+		info("Select the file");
+		click(ELEMENT_FILE_TITLE_RIGHT_PANEL.replace("${fileName}", filename));
+		Utils.pause(3000);
+		info("The document is opened");
+	}
+	
+	/**
+	 * Select all files in folder under admin view
+	 */
+	public void selectAllFiles() {
+		info("Select all file");
+		WebElement el = (new WebDriverWait(driver, 30))
+				  .until(ExpectedConditions.presenceOfElementLocated(ELEMENT_SITE_EXPLORER_ALL_CHECKBOX));
+		if (waitForAndGetElement(ELEMENT_DOCUMENT_LIST_ROW_CONTENT, 5000, 0) != null) {
+			info("check on the checkbox");
+			el.click();
+			Utils.pause(3000);
+			info("Click on Delete button");
+			clickDeleteButton();
+		}
+		
+	}
+	
+	/**
+	 * Select a new content in list
+	 * @param nameContent
+	 */
+	public void selectAContentType(String nameContent){
+		info("Select a content");
+		WebElement el = (new WebDriverWait(driver, 30))
+				  .until(ExpectedConditions.presenceOfElementLocated(By.xpath(ELEMENT_SITE_EXPLORER_CONTENT_NAME.replace("${nameContent}", nameContent))));
+		el.click();
+		Utils.pause(3000);
+	}
+	/**
+	 * Delete all files in a folder under Admin view
+	 */
+	public void deleteAllFiles(){
+		info("Select Admin view type");
+		clickAdminView();
+		info("Select All checkbox");
+		selectAllFiles();
 	}
 
 }

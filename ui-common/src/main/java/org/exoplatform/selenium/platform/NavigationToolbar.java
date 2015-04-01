@@ -3,19 +3,15 @@ package org.exoplatform.selenium.platform;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
+import org.exoplatform.selenium.platform.gatein.PortalManageSites;
+import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class NavigationToolbar extends PlatformBase {
-	/*PageCreationWizard paWin;
-	PortalManagePages paMang;
-	MyProfilePage myPro;*/
-	/*SiteExplorerHome SEHome;
-	PortalManageSites magSites;*/
-	/*PortalGroupNavigation groupNavigate;
-	PortalGroupNavigation groupManage;*/
 
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
@@ -115,18 +111,15 @@ public class NavigationToolbar extends PlatformBase {
 	public final String ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41 = ELEMENT_NODE_NAVIGATION_LEFT_PANEL.replace("${groupName}", "${groupName}") + "/..//*[contains(@class, 'uiIconMiniArrowDown uiIconLightGray')]";
 	public final String ELEMENT_SUB_NODE_NAVIGATION_LEFT_PANEL = ".//*[@id='UIGroupsNavigationPortlet']//*[@data-original-title='${groupName}']";
 	
+	PageCreationWizard paWin;
+	MyProfilePage myPro;
+	PortalManageSites magSites;
+	
 	public NavigationToolbar(WebDriver dr){
 		this.driver = dr;
-	/*	paMang=new PortalManagePages(dr);
+		paWin = new PageCreationWizard(dr);
 		myPro = new MyProfilePage(dr);
-		paWin = new PageCreationWizard(dr);*/
-		/*SEHome = new SiteExplorerHome(dr);
-		magSites = new PortalManageSites(dr);*/
-/*<<<<<<< HEAD
-		groupNavigate = new PortalGroupNavigation(dr);
-=======
-		groupManage = new PortalGroupNavigation(dr);
->>>>>>> FQA-2264: PLF 4.2 - Write Sniff/Gatein (Navigation/Group Navigation/Edit Navigation)*/
+		magSites = new PortalManageSites(dr);
 	} 
 
 	/**
@@ -149,7 +142,7 @@ public class NavigationToolbar extends PlatformBase {
 		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
 		click(ELEMENT_MENU_ADD_PAGE_LINK,2,true);
 		Utils.pause(3000);
-		//waitForAndGetElement(paWin.ELEMENT_PAGE_CREATION_WIZARD);
+		waitForAndGetElement(paWin.ELEMENT_PAGE_CREATION_WIZARD,3000,0);
 	}
 
 	/**
@@ -164,7 +157,7 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_SITES,3000,0);
 		click(ELEMENT_ADMINISTRATION_PORTAL_SITES);
 		Utils.pause(3000);
-		//waitForAndGetElement(magSites.ELEMENT_MANAGESITES_TITLE,3000,0);
+		waitForAndGetElement(magSites.ELEMENT_MANAGESITES_TITLE,3000,0);
 	}
 	
 	/**
@@ -178,22 +171,8 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES,3000,0);
 		click(ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES);
 		Utils.pause(3000);
-		//waitForAndGetElement(magSites.ELEMENT_ADD_NAVIGATION_BUTTON,3000,0);
+		waitForAndGetElement(magSites.ELEMENT_ADD_NAVIGATION_BUTTON,3000,0);
 	}
-	
-	/**
-	 * Go to Group Sites page: Administration-->Portal-> Group Sites
-	 *//*
-		public void goToGroupSites(){
-			info("--Go to Portal-->Sites--");
-			waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
-			click(ELEMENT_TOOLBAR_ADMINISTRATION);
-			mouseOver(ELEMENT_ADMINISTRATION_PORTAL,true);
-			waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES,3000,0);
-			click(ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES);
-			Utils.pause(3000);
-			//waitForAndGetElement(groupManage.ELEMENT_ADD_NAVIGATION_BTN,3000,0);
-		}*/
 	
 	/**
 	 * Go to Manage Sites page: Administration-->Portal->Pages
@@ -247,7 +226,7 @@ public class NavigationToolbar extends PlatformBase {
 		case MY_PROFILE:
 			click(ELEMENT_MY_PROFILE_LINK);
 			Utils.pause(2000);
-			//waitForAndGetElement(myPro.ELEMENT_MY_PROFILE_TAB);
+			waitForAndGetElement(myPro.ELEMENT_MY_PROFILE_TAB,3000,0);
 			break;
 		case MY_ACTIVITY:
 			break;
@@ -268,7 +247,6 @@ public class NavigationToolbar extends PlatformBase {
 	}
 	/**
 	 * Open User menu by click on username
-	 * Update QuynhPT
 	 */
 	public void openUserMenu() {
 		info("--Open User Menu--");

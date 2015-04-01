@@ -29,7 +29,11 @@ public class ActivityStream extends PlatformBase {
 	
 	// Composer
 	public final By ELEMENT_COMPOSER_INPUT_FILED = By.xpath(".//*[@id='DisplaycomposerInput']");
-	public final By ELEMENT_COMPOSER_FILE_BUTTON = By.xpath(".//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
+	public final By ELEMENT_COMPOSER_FILE_BUTTON = By.cssSelector(".uiIconSocUIDocActivityComposer.uiIconSocLightGray");
+	public final By ELEMENT_SELECT_BUTTON= By.cssSelector("#UIPopupComposer .uiAction .btn:first-child");
+	public final By ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY=By.cssSelector(".uiActivityFileAttachment");
+	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
+	
 	public final By ELEMENT_COMPOSER_MENTION_BUTTON = By.xpath(".//i[@class='uiIconSocMention uiIconSocLightGray']");
 	public final By ELEMENT_COMPOSER_LINK_BUTTON = By.xpath(".//i[@class='uiIconSocUILinkActivityComposer uiIconSocLightGray']");
 	public final By ELEMENT_COMPOSER_INPUT_LINK_FIELD = By.xpath(".//*[@id='InputLink']");
@@ -40,11 +44,16 @@ public class ActivityStream extends PlatformBase {
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON = By.xpath(".//input[@type='file']");	
 	public final String ELEMENT_PUBLICATION_SUGGEST_USER = ".//*[@id='UIComposer']//*[contains(@data-display,'${name}')]";	
 	public final String ELEMENT_PUBLICATION_USER_SHARED = ".//*[@class='description']//*[contains(text(),'${name}')]";
+	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_PROGRESS_UPLOAD = By.xpath(".//*[@id='UIDocumentSelector']//*[@class='pull-left percent']");
+	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE_BTN =By.xpath(".//*[@id='UIPopupComposer']//*[contains(@title,'Close Window')]");
+	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	
 	//Upload popup
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP=By.xpath(".//*[@id='DriveTypeDropDown']/div[@class='btn dropdown-toggle']");
 	public final String ELEMENT_ACTIVITY_UPLOAD_POPUP_NODE=".//*[@id='ListRecords']//a[@data-original-title='${nameNode}']";
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE=By.xpath(".//*[@id='UIPopupComposer']//*[@class='uiIconClose pull-right']");
+	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
+	
 	
 	//Task/Event activity
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TITLE = "//*[@class='linkTitle' and text()='$name']";
@@ -90,7 +99,7 @@ public class ActivityStream extends PlatformBase {
 	public String ELEMENT_ACTIVITY_FILE_EDIT_FILE_FROM_ACTIVITY = "//*[@class='fileTypeContent']/..//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 
 	// Activity of web content
-	public String ELEMENT_ACTIVITY_WEBCONTENT_TITLE = "//*[@class='uiIcon64x64Templateexo_webContent']/../..//*[@class='linkTitle' and contains(text(),'{$title}')]";
+	//public String ELEMENT_ACTIVITY_WEBCONTENT_TITLE = "//*[@class='uiIcon64x64Templateexo_webContent']/../..//*[@class='linkTitle' and contains(text(),'{$title}')]";
 	public String ELEMENT_ACTIVITY_WEBCONTENT_CHECK_VERSION ="//*[@class='uiIcon64x64Templateexo_webContent']/../..//*[@class='linkTitle' and contains(text(),'{$title}')]/..//*[@class='versionFile' and contains(text(),'Version: {$version}')]";
 	public String ELEMENT_ACTIVITY_WEBCONTENT_CHECK_STATUS ="//*[@class='uiIcon64x64Templateexo_webContent']/../..//*[@class='linkTitle' and contains(text(),'{$title}')]/..//*[@class='versionFile' and contains(text(),'- {$status}')]";
 
@@ -117,11 +126,20 @@ public class ActivityStream extends PlatformBase {
 	public final By ELEMENT_PUBLICATION_FIRSTPOST_AUTHORAVATAR = By.xpath("//div[1]/form//*[@class='activityAvatar avatarCircle']");
 	public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIVITYTEXT = By.xpath("//div[1]/form//*[@class='description']");
 	
+	//Document preview activity
+	public final String ELEMENT_ACTIVITY_DOCUMENT_MEDIA_TITLE = ".//*[@class='linkTitle'][@data-original-title='${title}']";
+	public final String ELEMENT_ACTIVITY_WEBCONTENT_TITLE =".//a[@title='${title}']";
+	public final String ELEMENT_ACTIVITY_AUDIO_VIDEO_TITLE=".//a[@href='${link}']";
+	public final String ELEMENT_ACTIVITY_DOCUMENT_MEDIA_VIEW_LINK =".//*[contains(@data-original-title,'${nameFile}')]/../../../..//i[@class='uiIconWatch uiIconLightGray']";
+	public final String ELEMENT_ACTIVITY_EMBBED_MEDIA_VIEW_LINK =".//*[contains(@href,'${linkFile}')]/../../../..//i[@class='uiIconWatch uiIconLightGray']";
+	public final String ELEMENT_ACTIVITY_WEBCONTENT_VIEW_LINK=".//a[@title='${nameContent}']/../../../..//i[@class='uiIconWatch uiIconLightGray']";
+	public final String ELEMENT_ACTIVITY_DOCUMENT_MEDIA_DOWNLOAD_BTN=".//*[contains(@data-original-title,'${nameFile}')]/../../../..//*[contains(@class,'uiIconDownload')]/..";
 	
 	//Comment box
 	public final String ELEMENT_COMMENTBOX="//*[contains(text(),'${title}')]/../../../..//div[@class='replaceTextArea editable']";
 	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
 	public final String ELEMENT_ICON_LIKE = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconThumbUp uiIconLightGray']";
+	public final String ELEMENT_LIKE_NUMBER = "//*[contains(text(),'${title}')]/../../../..//*[contains(@class,'uiIconThumbUp')]/..";
 	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/../../../..//button[contains(@id,'CommentButton')]";
 	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(),'${activityText}')]/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
 	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
@@ -183,7 +201,7 @@ public class ActivityStream extends PlatformBase {
 	 */
 	public void checkCommentOfActivity(String activity, String comment){
 		info("Verify that the comment is added");
-		waitForAndGetElement(ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${activity}",activity).replace("${comment}", comment),3000,0);
+		waitForAndGetElement(ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY.replace("${title}",activity).replace("${comment}", comment),3000,1);
 		info("The comment is added successfully");
 	}
 	/**
@@ -370,48 +388,44 @@ public class ActivityStream extends PlatformBase {
 	 * @param pathFolder where put upload file
 	 * @param pathData   where put Test Data folder
 	 * @param nameFile
-	 * @param addText
+	 * @param addtext
 	 * @param text
+	 * @return ActivityStream page
 	 */
 	public void addActivity(String nameDrive,String pathFolder,String pathData,String nameFile,boolean addText,String text) {
 		info("-- Adding an activity--");
 		Utils.pause(3000);
 		openUploadPopup(nameDrive,pathFolder);
 		uploadFileFromAS(pathData,nameFile);
-		driver.navigate().refresh();
-		selectFile(nameDrive,pathFolder,nameFile);
-		info("click on Select button");
-		waitForAndGetElement(ELEMENT_SELECT_BUTTON).click();
-		Utils.pause(3000);
-	    info("add a text to composer box of AS");
+		
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY, 3000, 0) != null)
+						break;
+			}
+			if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY, 5000, 0) != null) {
+				info("Element " + ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY
+						+ " is displayed");
+					break;
+			}
+			info("Retry...[" + repeat + "]");
+			this.driver.navigate().refresh();
+			openUploadPopup(nameDrive,pathFolder);
+			waitForAndGetElement(By.linkText(nameFile)).click();
+			Utils.pause(2000);
+			info("click on Select button");
+			click(ELEMENT_SELECT_BUTTON);
+		}
+		
+		info("add a text to composer box of AS");
 		if(addText)
 		addText(text);
 		info("----Click share button----");
-		waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
+		waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON,2000,0);
 		click(ELEMENT_COMPOSER_SHARE_BUTTON);
 		Utils.pause(2000);
 	}
 	
-	/**
-	 * Select a file in Select File popup 
-	 * @param nameDrive
-	 * @param pathFolder
-	 */
-	public void selectFile(String nameDrive, String pathFolder,String nameFile){
-		//click on drop down list
-		click(ELEMENT_ACTIVITY_UPLOAD_POPUP);
-		//select a driver
-		if(!nameDrive.isEmpty())
-		click(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive));
-		//go to the folder by path
-		String[] arrayPath = pathFolder.split("/");
-		for(String arrayElement:arrayPath){
-			click(ELEMENT_ACTIVITY_UPLOAD_POPUP_NODE.replace("${nameNode}", arrayElement));
-			Utils.pause(2000);
-		}
-		waitForAndGetElement(By.linkText(nameFile)).click();
-		Utils.pause(2000);
-	}
 	/**
 	 * Add an activity stream with selecting a document that
 	 * existed in SE
@@ -423,11 +437,25 @@ public class ActivityStream extends PlatformBase {
 	public void addActivity(String nameDrive,String pathFolder,String nameFile,String textDes){
 		info("-- Adding an activity--");
 		Utils.pause(3000);
-		openUploadPopup(nameDrive,pathFolder);
-		waitForAndGetElement(By.linkText(nameFile)).click();
-		info("click on Select button");
-		click(ELEMENT_SELECT_BUTTON);
-		Utils.pause(1000);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY, 3000, 0) != null)
+						break;
+			}
+			if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY, 5000, 0) != null) {
+				info("Element " + ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY
+						+ " is displayed");
+					break;
+			}
+			info("Retry...[" + repeat + "]");
+			this.driver.navigate().refresh();
+			openUploadPopup(nameDrive,pathFolder);
+			waitForAndGetElement(By.linkText(nameFile)).click();
+			Utils.pause(2000);
+			info("click on Select button");
+			click(ELEMENT_SELECT_BUTTON);
+		}
+		
 	    info("add a text to composer box of AS");
 		if(!textDes.isEmpty())
 		addText(textDes);
@@ -444,38 +472,60 @@ public class ActivityStream extends PlatformBase {
 	 */
 	public void openUploadPopup(String nameDrive,String path){
 		info("----Click on file icon----");
-		waitForAndGetElement(ELEMENT_COMPOSER_FILE_BUTTON,3000,0);
-		click(ELEMENT_COMPOSER_FILE_BUTTON);
+		Utils.pause(500);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_BUTTON, 3000, 0) != null) {
+					click(ELEMENT_COMPOSER_FILE_BUTTON);
+					if (waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP, 3000, 0) != null) {
+						break;
+					}
+				}
+			}
+			if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_BUTTON, 5000, 0) != null) {
+				info("Element " + ELEMENT_COMPOSER_FILE_BUTTON
+						+ " is displayed");
+				click(ELEMENT_COMPOSER_FILE_BUTTON);
+				if (waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP, 3000, 0) != null) {
+					break;
+				}
+			}
+			info("Retry...[" + repeat + "]");
+			this.driver.navigate().refresh();
+			click(ELEMENT_COMPOSER_FILE_BUTTON);
+		}
 		info("----Upload a file-----");
-		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);
-		//click on drop down list
+		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP,2000,1);
+		info("Click on drop down list");
 		click(ELEMENT_ACTIVITY_UPLOAD_POPUP);
-		//select a driver
+		info("select a driver:"+nameDrive);
 		if(!nameDrive.isEmpty())
 		click(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive));
-		//go to the folder by path
+		info("go to the folder by path:"+path);
 		String[] arrayPath = path.split("/");
 		for(String arrayElement:arrayPath){
 			click(ELEMENT_ACTIVITY_UPLOAD_POPUP_NODE.replace("${nameNode}", arrayElement));
 			Utils.pause(2000);
 		}
 	}
+	
 	/**
 	 * Upload a file from Upload Popup
-	 * @param path     where put TestDate folder
+	 * @param path     where put TestData folder
 	 * @param nameFile
+	 * @return ActivityStream page
 	 */
 	public void uploadFileFromAS(String path,String nameFile){
 		info("-- Upload file --");
-		WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
+		WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH,3000,0);
 		driver.switchTo().frame(frame);
 		Utils.pause(2000);
 		((JavascriptExecutor)driver).executeScript("document.getElementsByTagName('input')[0].style.display = 'block';");
 		Utils.pause(2000);
-		driver.findElement(ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON).sendKeys(getAbsoluteFilePath(path+nameFile));
-		Utils.pause(1000);
+		driver.findElement(ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON).sendKeys(Utils.getAbsoluteFilePathFromFile(path+nameFile));
 		switchToParentWindow();
-		click(ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE);
+		waitForElementNotPresent(ELEMENT_ACTIVITY_UPLOAD_POPUP_PROGRESS_UPLOAD,3000,0);
+		click(ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE_BTN);
 		Utils.pause(2000);
 		info("Upload finished");
 	}
@@ -515,4 +565,75 @@ public class ActivityStream extends PlatformBase {
 		Utils.pause(2000);
 		waitForAndGetElement(ELEMENT_PUBLICATION_USER_SHARED.replace("${name}",username));
 	}
+	
+	/**
+	 * Open Preview mode by clicking on View link
+	 * 
+	 * @param nameDocument
+	 * @param type
+	 *            if type=1, this is for office document files and media files
+	 *            if type=2, this is for webcontent files if type=3, this is for
+	 *            embedded medias as: youtube, vimeo, slideshared...
+	 * @param link
+	 */
+	public void openPreviewMode(String nameDocument,int type,String link){
+		info("Open Preview mode");
+		switch(type){
+		case 1:
+			info("this is a documents or medias");
+			waitElementAndTryGetElement(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_VIEW_LINK.replace("${nameFile}", nameDocument));
+		    click(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_VIEW_LINK.replace("${nameFile}", nameDocument));
+			break;
+		case 2:
+			info("this is a content");
+			waitElementAndTryGetElement(ELEMENT_ACTIVITY_WEBCONTENT_VIEW_LINK.replace("${nameContent}", nameDocument));
+		    click(ELEMENT_ACTIVITY_WEBCONTENT_VIEW_LINK.replace("${nameContent}", nameDocument));
+			break;
+		case 3: 
+			info("this is a embedded media");
+			waitElementAndTryGetElement(ELEMENT_ACTIVITY_EMBBED_MEDIA_VIEW_LINK.replace("${linkFile}",link));
+		    click(ELEMENT_ACTIVITY_EMBBED_MEDIA_VIEW_LINK.replace("${linkFile}",link));
+			break;
+		default:
+			info("Not type for your format.Please check your type");
+			break;
+		}
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Open Preview mode by clicking on file's name
+	 * 
+	 * @param fileName
+	 * @param link
+	 * @param type
+	 *            if type=1, this is for office document files and media files
+	 *            if type=2, this is for webcontent files if type=3, this is for
+	 *            embedded medias as: youtube, vimeo, slideshared...
+	 */
+	public void openPreviewMode(String fileName,String link,int type){
+		info("Open Preview mode");
+		switch(type){
+		case 1:
+			info("this is a documents or medias");
+			waitElementAndTryGetElement(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_TITLE.replace("${title}", fileName));
+		    click(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_TITLE.replace("${title}", fileName));
+			break;
+		case 2:
+			info("this is a content");
+			waitElementAndTryGetElement(ELEMENT_ACTIVITY_WEBCONTENT_TITLE.replace("${title}",fileName));
+		    click(ELEMENT_ACTIVITY_WEBCONTENT_TITLE.replace("${title}",fileName));
+			break;
+		case 3: 
+			info("this is a embedded media");
+			waitElementAndTryGetElement(ELEMENT_ACTIVITY_AUDIO_VIDEO_TITLE.replace("${link}",link));
+		    click(ELEMENT_ACTIVITY_AUDIO_VIDEO_TITLE.replace("${link}",link));
+			break;
+		default:
+			info("Not type for your format.Please check your type");
+			break;
+		}
+		Utils.pause(2000);
+	}
+	
 }
