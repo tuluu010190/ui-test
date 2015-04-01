@@ -64,11 +64,6 @@ public class TestBase {
 	public static boolean firstTimeLogin = false;
 	public Actions action;
 
-	//public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
-	//public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
-	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
-	//public final String AJAX_LOADING_MASK = "//div[@id='AjaxLoadingMask']";
-	//public final String DEFAULT_BASEURL="http://192.168.1.21:8080/portal";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -97,9 +92,10 @@ public class TestBase {
 	public final By ELEMENT_YOUR_ACCOUNT_LABEL = By.xpath("//h5[contains(text(), 'Create your account')]");
 	public final By ELEMENT_ADMIN_PASS_LABEL = By.xpath("//h5[contains(text(), 'Admin Password')]");
 	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
+	
+	public final By ELEMENT_GOOGLE_PAGE_LOGO = By.id("hplogo");
 
 	//Driver path
-	//public static String ieDriver="D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe";
 	public static String uploadfile= Utils.getAbsoluteFilePath("TestData\\uploadFile.exe");
     public static String downloadfile=Utils.getAbsoluteFilePath("TestData\\downloadIE9.exe");
     public static String ieDriver=Utils.getAbsoluteFilePath("TestData\\IEDriverServer.exe");
@@ -142,6 +138,7 @@ public class TestBase {
 			FirefoxProfile profile = new FirefoxProfile();
 			profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
 			profile.setPreference("dom.max_script_run_time", 0);
+			profile.setEnableNativeEvents(false);
 			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
 			capabilities.setCapability(FirefoxDriver.PROFILE, profile);
 			driver = new FirefoxDriver();
@@ -206,7 +203,9 @@ public class TestBase {
 		}
 
 	}
-
+    /**
+     * Account setup without Greeting
+     */
 	public void accountSetupWithoutGreeting(){
 		type(ELEMENT_INPUT_USERNAME, "fqa", true);
 		type(ELEMENT_FIRSTNAME_ACCOUNT, "FQA", true);
@@ -220,12 +219,21 @@ public class TestBase {
 		waitForTextNotPresent("Create your account");
 	}
 
+	/**
+	 * Account Setup
+	 */
 	public void accountSetup(){
 		accountSetupWithoutGreeting();
 		click(ELEMENT_START_BUTTON);
 		waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK);
 	}
 
+	/**
+	 * Get Element
+	 * @param locator
+	 * @param opParams
+	 * @return WebElement
+	 */
 	public WebElement getElement(Object locator, Object... opParams) {
 		By by = null;
 		String text = "";
@@ -252,7 +260,12 @@ public class TestBase {
 		return elem;
 	}
 
-	//return element only in case the element is displayed.
+	/**
+	 * return element only in case the element is displayed.
+	 * @param locator
+	 * @param opParams
+	 * @return WebElement
+	 */
 	public WebElement getDisplayedElement(Object locator, Object... opParams) {
 		WebDriver wDriver = (WebDriver) (opParams.length > 0 ? opParams[0]: driver);
 		WebElement e = null;
@@ -299,7 +312,7 @@ public class TestBase {
 		return !isElementPresent(locator);
 	}
 
-	/*
+	/**
 	 * @opPram[0]: timeout
 	 * @opPram[1]: 0,1
 	 * 0: No Assert
@@ -327,7 +340,7 @@ public class TestBase {
 		return null;
 	}
 
-	/*
+	/**
 	 * @opPram[0]: timeout
 	 * @opPram[1]: 0,1
 	 * 0: No Assert
@@ -356,6 +369,12 @@ public class TestBase {
 		return elem;
 	}
 
+	/**
+	 * Check a text is present or not
+	 * @param text
+	 * @param opts
+	 * @return true or false
+	 */
 	public boolean isTextPresent(String text, int...opts) {
 		int display = opts.length > 0 ? opts[0] : 1;
 		Utils.pause(500);
@@ -363,6 +382,12 @@ public class TestBase {
 		return allVisibleTexts.contains(text);
 	}
 
+	/**
+	 * Get a text
+	 * @param locator
+	 * @param opts
+	 * @return string
+	 */
 	public String getText(Object locator,int...opts) {
 		WebElement element = null;
 		int display = opts.length > 0 ? opts[0] : 1;
@@ -378,6 +403,11 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * Get a list elements
+	 * @param xpath
+	 * @return list
+	 */
 	public List<WebElement> getElements(String xpath) {
 		try {
 			return driver.findElements(By.xpath(xpath));
@@ -390,10 +420,20 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * check a text is not present
+	 * @param text
+	 * @return true or false
+	 */
 	public boolean isTextNotPresent(String text) {
 		return !isTextPresent(text);
 	}
 
+	/**
+	 * Drag and drop a object
+	 * @param sourceLocator
+	 * @param targetLocator
+	 */
 	public void dragAndDropToObject(Object sourceLocator, Object targetLocator) {
 		info("--Drag and drop to object--");
 		Actions action = new Actions(driver);
@@ -422,8 +462,12 @@ public class TestBase {
 		Utils.pause(1000);
 	}
 
+	/**
+	 * Click action
+	 * @param locator
+	 * @param opParams
+	 */
 	public void click(Object locator, Object... opParams) {
-		//Actions actions = new Actions(driver);
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);		
 		Actions actions = new Actions(driver);
 		try {
@@ -460,6 +504,9 @@ public class TestBase {
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", e);
 	}
 
+	/**
+	 * Clear cache
+	 */
 	public void clearCache(){
 		Actions actionObject = new Actions(driver);
 		try{
@@ -495,6 +542,11 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * Get value of a locator
+	 * @param locator
+	 * @return string
+	 */
 	public String getValue(Object locator) {
 		try {
 			return waitForAndGetElement(locator).getAttribute("value");
@@ -507,6 +559,12 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * MouseOver action
+	 * @param locator
+	 * @param safeToSERE
+	 * @param opParams
+	 */
 	public void mouseOver(Object locator, boolean safeToSERE, Object...opParams) {
 		WebElement element;
 		Actions actions = new Actions(driver);
@@ -535,6 +593,10 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * MouseOver and click action
+	 * @param locator
+	 */
 	public void mouseOverAndClick(Object locator) {
 		WebElement element;
 		Actions actions = new Actions(driver);
@@ -546,6 +608,11 @@ public class TestBase {
 		actions.moveToElement(element).click(element).build().perform();
 	}
 
+	/**
+	 * Wait for a text is present
+	 * @param text
+	 * @param opts
+	 */
 	public void waitForTextPresent(String text, int...opts) {
 		int waitTime = opts.length > 0 ? opts[0] : DEFAULT_TIMEOUT;
 		int display = opts.length > 1 ? opts[1] : 1;
@@ -560,6 +627,11 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * Wait for a text is not present
+	 * @param text
+	 * @param wait
+	 */
 	public void waitForTextNotPresent(String text,int...wait) {
 		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
 		for (int second = 0;; second++) {
@@ -573,14 +645,24 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * Wait a message
+	 * @param message
+	 * @param wait
+	 */
 	public void waitForMessage(String message,int...wait) {
 		int waitTime = wait.length > 0 ? wait[0] : DEFAULT_TIMEOUT;
-		//info("--Verify message: " + message);
 		Utils.pause(500);
-		//waitForTextPresent(message, waitTime);
 		waitForAndGetElement("//*[contains(text(),'"+message+"')]",waitTime);
 	}
 
+	/**
+	 * type action
+	 * @param locator
+	 * @param value
+	 * @param validate
+	 * @param opParams
+	 */
 	public void type(Object locator, String value, boolean validate, Object...opParams) {	
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);
 		try {
@@ -613,7 +695,12 @@ public class TestBase {
 		}
 	}
 
-	// Select option from combo box
+	/**
+	 * Select option from combo box
+	 * @param locator
+	 * @param option
+	 * @param display
+	 */
 	public void select(Object locator, String option, int...display) {
 		int isDisplay = display.length > 0 ? display[0] : 1;
 		try {
@@ -637,7 +724,11 @@ public class TestBase {
 		}
 	}
 
-	//un-check a checked-box
+	/**
+	 * un-check a checked-box
+	 * @param locator
+	 * @param opParams
+	 */
 	public void uncheck(Object locator, int... opParams) {
 		int notDisplayE = opParams.length > 0 ? opParams[0]: 0;
 		//		Actions actions = new Actions(driver);
@@ -657,6 +748,11 @@ public class TestBase {
 			loopCount = 0;
 		}
 	}
+	/**
+	 * Right click on a element
+	 * @param locator
+	 * @param opParams
+	 */
 	public void rightClickOnElement(Object locator, int...opParams) {
 		int display = opParams.length > 0 ? opParams[0]: 0;
 		Actions actions = new Actions(this.driver);
@@ -677,7 +773,10 @@ public class TestBase {
 		}
 	}
 
-	//doubleClickOnElement
+	/**
+	 * doubleClickOnElement
+	 * @param locator
+	 */
 	public void doubleClickOnElement(Object locator) {
 		Actions actions = new Actions(driver);
 		try {
@@ -692,6 +791,11 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * Check cycling
+	 * @param e
+	 * @param loopCountAllowed
+	 */
 	public void checkCycling(Exception e, int loopCountAllowed) {
 		info("Exception:" + e.getClass().getName());
 		if (loopCount > loopCountAllowed) {
@@ -701,7 +805,9 @@ public class TestBase {
 		loopCount++;
 	}
 
-	//function to switch to parent windows
+	/**
+	 * function to switch to parent windows
+	 */
 	public void switchToParentWindow (){
 		try
 		{
@@ -723,6 +829,11 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * Check a locator is display or not
+	 * @param locator
+	 * @return true or false
+	 */
 	public boolean isDisplay(Object locator) {
 		boolean bool = false;
 		WebElement e = getElement(locator);
@@ -837,7 +948,7 @@ public class TestBase {
 	}
 
 	/**
-	 * @author lientm
+	 * Cut, paste a file from output to TestData
 	 * @param fileName
 	 */
 	public void cutPasteFileFromOutputToTestData(String fileName){
@@ -861,10 +972,18 @@ public class TestBase {
 		deleteFile("TestOutput/" + fileName);
 	}
 
+	/**
+	 * Select a language
+	 *
+	 */
 	public enum Language{
 		en, fr, vi, lo;
 	}
 
+	/**
+	 * Get driver browser with a language
+	 * @param language
+	 */
 	public void getDriverSetLanguage(Language language){
 		String locale = language.toString();
 		FirefoxProfile profile = new FirefoxProfile();
@@ -888,22 +1007,26 @@ public class TestBase {
 		return (dateFormat.format(date));
 	}
 
-	//Get current date time
-	//	public String getCurrentDateTime(){
-	//		//MM/dd/yyyy HH:mm:ss
-	//		DateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
-	//		Date date = new Date();
-	//		return (dateFormat.format(date));
-	//	}
 
-	//Add 1 minute to current date time
+	/**
+	 * Add 1 minute to current date time
+	 * @param min
+	 * @param format
+	 * @return
+	 */
 	public String addMinuteToCurrentDateTime(int min, String...format){
 		DateFormat dateFormat = format.length > 0 ? new SimpleDateFormat(format[0]) : new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.MINUTE, min);
 		return (dateFormat.format(cal.getTime()));	
 	}
-
+    /**
+     * Add time to Current date time
+     * @param number
+     * @param typeOfTime
+     * @param format
+     * @return
+     */
 	public String addTimeToCurrentDateTime(int number, int typeOfTime, String...format){
 		DateFormat dateFormat = format.length > 0 ? new SimpleDateFormat(format[0]) : new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
@@ -963,7 +1086,9 @@ public class TestBase {
 	}
 
 
-
+   /**
+    * Set preference run time
+    */
 	public void setPreferenceRunTime(){
 		FirefoxProfile fp = new FirefoxProfile();
 
@@ -972,9 +1097,7 @@ public class TestBase {
 
 	/**
 	 * Mouse hover by Javascript
-	 * @author havtt
-	 * @date 06-Nov-2013
-	 * @param 
+	 * @param targetElement
 	 */
 	public void mouseHoverByJavaScript(WebElement targetElement)
 	{
@@ -985,11 +1108,9 @@ public class TestBase {
 		((JavascriptExecutor)driver).executeScript(javascript, targetElement);
 	}
 
-	/** change lanugage of browser
-	 * @author phuongdt
+	/**
+	 * change lanugage of browser
 	 * @param language
-	 * English: "en"
-	 * French: "fr"
 	 */
 	public void initFFBrowserWithSetLanguageBrowser(String language){
 		FirefoxProfile profile = new FirefoxProfile();
@@ -1003,7 +1124,7 @@ public class TestBase {
 	/**
 	 * get random string
 	 * @author phuongdt
-	 * @return
+	 * @return string
 	 */
 	public String getRandomString(){
 		char[] chars = "abcdefghijklmnopqrstuvwxyz".toCharArray();
@@ -1019,7 +1140,7 @@ public class TestBase {
 	/**
 	 * get a list of random numbers author quynhpt
 	 * 
-	 * @return
+	 * @return string
 	 */
 	public String getRandomNumber() {
 		char[] chars = "0123456789".toCharArray();
@@ -1034,9 +1155,9 @@ public class TestBase {
 
 	/**
 	 * Copy and paste a string from one locator to other
-	 * 
-	 * @param destination
+	 * @param origin
 	 * @param target
+	 * @param value
 	 */
 	public void copyPasteString(By origin, By target, String value) {
 		WebElement element1 = driver.findElement(origin);
@@ -1071,9 +1192,8 @@ public class TestBase {
 	}
 
 	/**
-	 * @author lientm
+	 * Check exist a scroll bar
 	 * @param object
-	 * @param classElement
 	 * @return = true: if there is not scroll bar on element
 	 *         = false: if there is scroll bar on element
 	 */
@@ -1089,7 +1209,7 @@ public class TestBase {
 	}
 
 	/**
-	 * 
+	 * Click and save a file by robot
 	 * @param element
 	 */
 	public void clickAndSaveFileIE(WebElement element) {
@@ -1142,6 +1262,12 @@ public class TestBase {
 		}
 	}
 
+	/**
+	 * Find new window handle
+	 * @param existingHandles
+	 * @param timeout
+	 * @return string
+	 */
 	public String FindNewWindowHandle(Set<String> existingHandles, int timeout)
 	{
 		Calendar calEnd = Calendar.getInstance();

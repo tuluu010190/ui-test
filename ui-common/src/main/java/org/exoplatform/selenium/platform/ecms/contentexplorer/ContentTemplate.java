@@ -59,7 +59,11 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_WEBCONTENT_ADD_CONTENT_LINK = By.xpath("//*[@title='Insert Content Link']");
 	public final By ELEMENT_ILLUSTRATION_TAB = By.xpath("//*[contains(text(),'Illustration')]");
 	public final By ELEMENT_WEBCONTENT_UPLOAD_FRAME = By.xpath("//*[contains(@name,'uploadIFrame')]");
-	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME = By.xpath("//td[contains(@id,'cke_contents_htmlData')]/iframe");
+	public final By ELEMENT_IMAGE_BUTTON_ADD = By.xpath("//*[@class='cke_button_icon cke_button__image_icon']");
+	public final By ELEMENT_ADD_SIMPLE_LINK = By.xpath(".//*[@class='cke_button_icon cke_button__link_icon']");
+	public final By ELEMENT_ADD_SPECIAL_CHAR = By.xpath(".//*[@class='cke_button_icon cke_button__specialchar_icon']");
+	public final By ELEMENT_ADD_TABLE = By.xpath(".//*[@class='cke_button_icon cke_button__table_icon']");
+    public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME = By.xpath("//td[contains(@id,'cke_contents_htmlData')]/iframe");
 	public final By ELEMENT_WEBCONTENT_SUMMARY_FRAME_41 = By.xpath("//*[@id='cke_exo:summary']//iframe");
 	public final By ELEMENT_WEBCONTENT_ADVANCE_TAB = By.xpath("//*[contains(text(),'Advanced')]");
 	public final By ELEMENT_WEBCONTENT_CSS_TEXTAREA = By.xpath("//textarea[contains(@id,'ContentCSS')]");
@@ -227,6 +231,7 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//*[text()='Create Folder']");
 	public final By ELEMENT_USE_CUSTOM_TYPE_FOLDER = By.xpath(".//*[@id='customTypeCheckBox']");
 	public final String ELEMENT_VERIFY_FILE_CONTENT = "//*[contains(text(),'${content}')]";
+
 	public final By ELEMENT_TAB_VIEW_AS_HTML =By.xpath(".//*[@id='myTab']//*[contains(@href,'#tab2')]");
 	public final String ELEMENT_FILE_CONTENT_DECORATED =".//*[@class='textContent']//pre[contains(text(),'<p><strong><em><u>${content}</u></em></strong></p>')]";
 
@@ -257,6 +262,16 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_ACCESSIBLE_MEDIA_DESC = By.id("description0");
 	public final String ELEMENT_ACCESSIBLE_MEDIA_CONTENT_UEMSTRONG=".//strong/em/u[contains(text(),'${content}')]";
 
+	// add box 
+	public final By ELEMENT_IMAGE_LINK_FORM = By.xpath(".//*[contains(text(),'URL')]/../div/div/input");
+	public final By ELEMENT_SIMPLE_LINK_FORM = By.xpath(".//*[@class='cke_dialog_ui_hbox']/td[2]/div//*[contains(text(),'URL')]/../div/div/input");
+	public final String ELEMENT_SELECT_SPECIAL_CHAR = ".//*[@class='cke_specialchar']/span[contains(text(),'${char}')]/..";
+	public final By ELEMENT_ACCEPT_ADD_IMAGE = By.xpath(".//*[@class='cke_dialog_ui_hbox']//*[contains(text(),'OK')]");
+	public final By ELEMENT_ACCEPTD_ADD_LINK = By.xpath("//*[@class='cke_dialog_ui_hbox']/td/a/span[contains(text(),'OK')]");
+	public final By ELEMENT_ACCEPT_TABLE_ADD = By.xpath("//*[@class='cke_dialog_ui_hbox']/td[@class='cke_dialog_ui_hbox_first']/a[@class='cke_dialog_ui_button cke_dialog_ui_button_ok']");
+	// check content image
+	public final String ELEMENT_IMAGE_CHECK_ON_DOCUMENT_VIEW = "//*[@class='rightContainer']//*[@id='UIDocumentContainer']//img[@src='{$image}']";
+	public final By ELEMENT_CHECK_TABLE_EXIST = By.xpath("//*[@id='UIDocumentWorkspace']//*[@id='UITabContent']/table");
 	/*
 	 * =================== Create a new document/article/file
 	 * ===================

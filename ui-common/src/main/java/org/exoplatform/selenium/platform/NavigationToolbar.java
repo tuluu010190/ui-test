@@ -24,8 +24,8 @@ public class NavigationToolbar extends PlatformBase {
 	Notification noti;
 	
 	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
-	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[@class='quickEditChecked']");
-	public final By ELEMENT_MENU_EDIT_CONTENT_UNCHECK = By.xpath("//i[@class='quickEditUnchecked']");
+	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//*[@class='quickEditChecked']");
+	public final By ELEMENT_MENU_EDIT_CONTENT_UNCHECK = By.xpath("//*[@class='quickEditUnchecked']");
 	public final By ELEMENT_EDIT_MENU_ID = By.xpath("//*[@id='UIAdminToolbarPortlet']/../..");
 	public final By ELEMENT_SEO_MENU = By.xpath("//span[contains(text(),'SEO')]");
 	public final By ELEMENT_PAGE_ID = By.xpath("//*[contains(@id, 'UIPage-')]");
@@ -40,7 +40,9 @@ public class NavigationToolbar extends PlatformBase {
 		
 	} 
 
-	//Go to portal sites
+	/**
+	 * Go to portal sites
+	 */
 	public void goToPortalBranding() {
 		info("--Go to Portal Branding Management--");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -69,7 +71,9 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(button.ELEMENT_SAVE_BUTTON);
 	}
 
-	//Go to portal sites
+	/**
+	 * Go to portal sites
+	 */
 	public void goToPortalSites() {
 		info("--Go to Portal Site Management--");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -94,7 +98,9 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_MANAGE_SITE_TITLE);
 	}
 
-	//Go to Portal Manage Pages	
+	/**
+	 * Go to Portal Manage Pages	
+	 */
 	public void goToManagePages() {
 		info("--Go to Page Management--");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -120,7 +126,9 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
 	}
 
-	//Go to Dashboard
+	/**
+	 * Go to Dashboard
+	 */
 	public void goToDashboard(){
 		info("--Go to Dashboard page--");
 		for(int repeat=0;; repeat ++){
@@ -141,7 +149,9 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(1000);
 	}
 
-	//Go to User management page
+	/**
+	 * Go to User management page
+	 */
 	public void goToNewStaff() {
 		info("Go to New Staff");
 		//goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADD_USERS);
@@ -164,7 +174,9 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 
-	//Function go to My Setting
+	/**
+	 * Function go to My Setting
+	 */
 	public void goToMySetting(){
 		info("---Go to My Setting ---");
 		mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
@@ -176,7 +188,9 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(1000);
 	}
 
-	//Go to Portal/Group Sites
+	/**
+	 * Go to Portal/Group Sites
+	 */
 	public void goToGroupSites(){
 		info("--Go to Group Site Management--");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -202,7 +216,9 @@ public class NavigationToolbar extends PlatformBase {
 		}
 	}
 
-	//Go to Portal/Sites
+	/**
+	 * Go to Portal/Sites
+	 */
 	public void goToSites(){
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
 		info("Base url is " + baseUrl);
@@ -229,13 +245,9 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 
-	//Go to add page locator with Editor
-	//	public void goToAddPageEditor(){
-	//		info("Go to add page editor");
-	//		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'PageCreationWizard', true));");
-	//		waitForTextPresent("Page Creation Wizard");
-	//	}
-
+    /**
+     * Go to User and Group Management
+     */
 	public void goToUsersAndGroupsManagement() {
 		info("--Go to Users and groups management--");
 		mouseOver(ELEMENT_LINK_SETUP, true);
@@ -244,7 +256,9 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(500);
 	}
 
-	//Go to Portal Application Registry
+	/**
+	 * Go to Portal Application Registry
+	 */
 	public void goToApplicationRegistry() {
 		info("--Go to Portal Application Registry--");
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -267,7 +281,10 @@ public class NavigationToolbar extends PlatformBase {
 		}
 		driver.navigate().refresh();
 	}
-
+    /**
+     * 
+     * Go to Edit Page editor
+     */
 	public void goToEditPageEditor () {
 		info("----Go to Edit page editor----");
 		String id = waitForAndGetElement(By.xpath("//*[@class='UIPage']")).getAttribute("id").replace("UIPage-", "");
@@ -275,7 +292,9 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(500);
 	}
 
-	//Go to change language for user interface
+	/**
+	 * Go to change language for user interface
+	 */
 	public void goToChangeLanguageForUserInterface(){
 		Actions actions = new Actions(driver);
 		info("--Go to change language for user interface--");
@@ -285,14 +304,19 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(500);
 	}
 
-	//Go to register page in public mode
+	/**
+	 * Go to register page in public mode
+	 * @param driverTest
+	 */
 	public void goToRegisterPageInPublicMode(WebDriver driverTest){
 		String registerPageLink = baseUrl.concat("/portal/intranet/Register");
 		driverTest.get(registerPageLink);
 		waitForTextPresent("Create a New Account");
 	}
 
-	// Go to content administration
+	/**
+	 * Go to content administration
+	 */
 	public void goToContentAdministration()
 	{
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -319,7 +343,9 @@ public class NavigationToolbar extends PlatformBase {
 			Utils.pause(1000);
 	}
 
-	//Enter Sites Management Form 
+	/**
+	 * Go to site explorer
+	 */
 	public void goToSiteExplorer(){
 		Utils.pause(500);
 		for(int repeat=0;; repeat ++){
@@ -341,7 +367,9 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(2000);
 	}
 
-	//Enter Search Form  (Administration > Content > Search menu)
+	/**
+	 * Enter Search Form  (Administration > Content > Search menu)
+	 */
 	public void goToSearch()
 	{
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -368,38 +396,28 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	/**
-	 * @author lientm
+	 * Go to Personal documents
 	 */
 	public void goToPersonalDocuments(){
 		info("Go to Intranet/Documents");
 		Utils.pause(500);
 		click(ELEMENT_PERSONAL_DOCUMENTS);
 		waitForAndGetElement(By.id("UIFileViewCheckBox"), 3000, 1, 2);
-		//waitForTextPresent("Personal Documents");
 	}
 
-	//Go to Page Creation Wizard
+	/**
+	 * Go to Page Creation Wizard
+	 */
 	public void goToPageCreationWizard(){
 		info("Go to add page wizard");
-//		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
-//		mouseOver(ELEMENT_MENU_PAGE_LINK, true);
-//		click(ELEMENT_ADD_PAGE_MENU);
 		((JavascriptExecutor)driver).executeScript("javascript:ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'PageCreationWizard', true));");
-
-		//waitForTextPresent("Page Creation Wizard");
 		Utils.pause(500);
 	}
 
-	//Go To Content Administration / Advanced Configuration / Manage Lock Tab
-	/*public void goToLockTabInContentAdmin(){
-		goToContentAdministration();
-		click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
-		click(ELEMENT_MANAGE_LOCKS);
-		click(ELEMENT_MANAGE_LOCK_TAB);
-		Utils.pause(1000);
-	}*/
 
-	//Function to go to SEO management
+	/**
+	 * Function to go to SEO management
+	 */
 	public void goToSeoManagement(){
 		SEO seo;
 		seo = new SEO(driver);
@@ -436,6 +454,7 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(1000);
 	}
 
+	
 	/** Go to Edit/Page/Add Page
 	 * @author phuongdt
 	 */
@@ -466,7 +485,9 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(1000);
 	}
 
-	//Function go to Home Page
+	/**
+	 * Function go to Home Page
+	 */
 	public void goToHomePage(){
 		info("-- Go to home page --");
 		waitForAndGetElement(ELEMENT_HOME_PAGE, 40000);
@@ -493,13 +514,27 @@ public class NavigationToolbar extends PlatformBase {
 		}
 	}
 
+	/**
+	 * Enable edit mode
+	 */
 	public void changeEditMode()
 	{
-		mouseOver(ELEMENT_MENU_EDIT_LINK,true);
+		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
 		mouseOverAndClick(ELEMENT_MENU_EDIT_CONTENT);
 	}
 
-	// Go to My Profile
+	/**
+	 * Disable edit mode
+	 */
+	public void changeEditModeEnable()
+	{
+		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+		mouseOverAndClick(ELEMENT_MENU_EDIT_CONTENT_UNCHECK);
+	}
+	
+	/**
+	 * Go to My Profile
+	 */
 	public void goToMyProfile(){
 		info("--Go to My Profile--");		
 		for(int repeat=0;; repeat ++){
@@ -540,10 +575,8 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(2000);
 	}
 
-	/** Go to Event/Task
-	 * Mouse over on the button "Create" (+)
-	 * Select the item "Event/Task"
-	 * @author phuongdt
+	/**
+	 * Go to Event task
 	 */
 	public void goToEventTask(){
 		info("--Go to Add Event/Task--");		
