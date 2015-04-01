@@ -70,7 +70,9 @@ public class Forum_Forum_Post_Move extends ForumBase{
 		*Expected Outcome: 
 			- Categories, forums, topics are created*/
 		mngFru.addCategoryForum(titleCat, titleForum);
+		click(mngTopic.ELEMENT_START_TOPIC_BUTTON);
 		mngTopic.startTopic(titleTop1, titleTop1, "", 0, null, true, true);
+		click(mngTopic.ELEMENT_START_TOPIC_BUTTON);
 		mngTopic.startTopic(titleTop2, titleTop2, "", 0, null, true, true);
 
 		/*Step number: 2
