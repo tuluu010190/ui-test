@@ -470,7 +470,11 @@ public class TestBase {
 		}
 	}
 
-	//Use this function to verify if a check-box is checked (using when creating a portal/publicMode)
+	/**
+	 * Use this function to verify if a check-box is checked (using when creating a portal/publicMode)
+	 * @param locator
+	 * @param opParams
+	 */
 	public void check(Object locator, int... opParams) {
 		int notDisplayE = opParams.length > 0 ? opParams[0]: 0;
 		//		Actions actions = new Actions(driver);

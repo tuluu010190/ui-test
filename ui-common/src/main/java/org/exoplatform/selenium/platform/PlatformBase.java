@@ -32,11 +32,11 @@ public class PlatformBase extends TestBase {
 
 	public final String USER_ROOT = "root";//"root@acme.com";
 	public final String PASS_ROOT = "gtngtn";
-//	public final String DATA_USER1 = "john.smith@acme.com";
-//	public final String DATA_USER2 = "mary.williams@acme.com";
+	//	public final String DATA_USER1 = "john.smith@acme.com";
+	//	public final String DATA_USER2 = "mary.williams@acme.com";
 	public final String DATA_USER3 = "james";//"james.davis@acme.com";
 	public final String DATA_USER4 = "demo";//"jack.demo@acme.com";
-//	public final String DATA_PASS = "gtngtn";
+	//	public final String DATA_PASS = "gtngtn";
 
 	public ManageAlert alert = new ManageAlert(driver);
 	public Button button = new Button(driver);
@@ -83,7 +83,7 @@ public class PlatformBase extends TestBase {
 	public By ELEMENT_CALENDAR_PANEL = By.xpath("//div[@class='uiBox uiCalendars']");
 	public final By ELEMENT_TITLE_WIKI_HOME_LINK = By.xpath("//*[@class='titleWikiBox']/*[contains(text(), 'Wiki Home')]");
 
-	
+
 	/*
 	 * Navigation Bar
 	 */
@@ -160,10 +160,10 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_CONTENT_ADMIN_COLLABORATION_EDIT =".//*[@class='uiGrid table table-hover table-striped']//tr[1]//i[@class='uiIconEditInfo uiIconLightGray']";
 	public final String ELEMENT_CONTENT_ADMIN_COLLABORATION_PERMISSION =".//*[@id='permissions' and @value='*:/platform/web-contributors,*:/platform/administrators']";
 	public final String ELEMENT_CONTENT_ADMIN_CANCEL =".//*[@class='btn' and text()='Cancel']";
-	
+
 	public final String ELEMENT_CONTENT_GROUPS_EDIT =".//*[@class='uiGrid table table-hover table-striped']//tr[2]//i[@class='uiIconEditInfo uiIconLightGray']";
 	public final String ELEMENT_CONTENT_ADMIN_GROUPS_PERMISSION =".//*[@id='permissions' and @value='*:${groupId}']";
-	
+
 	public final String ELEMENT_CONTENT_PERSONAL_DOCUMENTS_EDIT =".//*[@class='uiGrid table table-hover table-striped']//tr[4]//i[@class='uiIconEditInfo uiIconLightGray']";
 	public final String ELEMENT_CONTENT_ADMIN_PERSONAL_DOCUMENTS_PERMISSION =".//*[@id='permissions' and @value='*:/platform/users']";
 	//Search form (Administration > Content > Search menu)
@@ -199,7 +199,7 @@ public class PlatformBase extends TestBase {
 
 	/*--------------- User account Management (Click from user name) ---------------------*/
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.cssSelector("div[id=UIUserPlatformToolBarPortlet] a");
-//			By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
+	//			By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_NAVIGATION_ACCOUNT_AVATAR = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a/img[@alt='avatar']");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK_ACME = By.className("LanguageIcon");
@@ -250,7 +250,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_NOTIFICATION_LINK = By.linkText("Notifications");
 	public final By ELEMENT_MY_CONNECTIONS_LINK = By.linkText("My Connections");
 	public final String ELEMENT_PROFILE_PAGE = "//div[@id='UIProfile']//h3[contains(.,'${user}')]";
-	
+
 	//User-> Setting
 	public final By ELEMENT_CHANGE_PASSWORD_TAB = By.linkText("Change Password");
 	public final By ELEMENT_ACCOUNT_PROFILE_TAB = By.linkText("Account Profiles");
@@ -426,7 +426,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_BROWSE_GROUP = By.xpath("//h6[text()='Browse and select a group']");
 	public final By ELEMENT_PERMISSION_GRID = By.id("PermissionGrid");
 	public final By ELEMENT_PERMISSION_GRID_DELETE_ICON = By.xpath("//*[@id='PermissionGrid']//*[@data-original-title='Delete']");
-	
+
 	//Portal Template TAB
 	public final By ELEMENT_PORTAL_TEMPLATE_TAB= By.linkText("Portal Templates");
 
@@ -721,7 +721,7 @@ public class PlatformBase extends TestBase {
 
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//*[@class='Cp']//*[@tabindex='0']");
 	public final By ELEMENT_FIRST_NEW_MAIL = By.xpath("//*[@class='Cp']//*[@tabindex='-1']");
-	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";//*[contains(text(),'${content}')]";
+	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
 	//get url
@@ -842,7 +842,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_JUSTIFY=".//*[@class='postContent']//..[contains(text(),'${descripTopic}')][@style='text-align: justify;']";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_NUM_LIST=".//*[@class='postContent']//ol/li[contains(text(),'${nameItem}')]";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_BULLET_LIST=".//*[@class='postContent']//ul/li[contains(text(),'${nameItem}')]";
-    public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_INCREASE=".//*[@class='postContent']//p[@style='margin-left: 40px;'][contains(text(),'${nameItem}')]";
+	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_INCREASE=".//*[@class='postContent']//p[@style='margin-left: 40px;'][contains(text(),'${nameItem}')]";
 	public final By ELEMENT_RESULT_FLOATING_RESULTS_DISCUSSION_ICON= By.xpath("//*[@class='uiQuickSearchResult']/descendant::tr[th[contains(text(),'Discussion')]]//a/i[contains(@class,'uiIconPLFDiscussion')]");
 	public final String ELEMENT_RESULT_FLOATING_RESULTS_NAME= "//*[@class='uiQuickSearchResult']/descendant::tr[th[contains(text(),'${type_Search}')]]//a[contains(.,'${detail_Name}')]";
 
@@ -855,16 +855,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_SEARCH_APPLICATION = By.xpath("//a[@title='Search']");
 	public final String ELEMENT_GADGET_SEARCH_APPLICATION_PAGE_EDITOR = "//div[@id='UIApplicationList17']//div[contains(text(),'${gadget}')]";
 	public final By ELEMENT_QUICK_SEARCH_PORTLET = By.id("Search/local._unified-search.QuicksearchPortlet");
-	
-	
-	
-	//Administration Menu for admin acc
 
-	//public final By ELEMENT_MENU_ADMIN_DROPDOWN = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']/a[@class='dropdown-toggle']");
-	//public final By ELEMENT_MENU_USERS = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/newStaff' and text()='Users']");
-	//public final By ELEMENT_MENU_APPLICATONS = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/registry']");
-	//public final By ELEMENT_MENU_CONTENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:web-contributors/siteExplorer' and text()='Content']");
-	//	public final By ELEMENT_MENU_PORTAL = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/administration/pageManagement' and text()='Portal']");
+
 	public final By ELEMENT_MENU_PORTAL = By.linkText("Portal");
 	public final By ELEMENT_MENU_PORTAL_PAGES_MANAGEMENT = By.linkText("Pages");
 	public final By ELEMENT_MENU_ADMININISTRATION = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/servicesManagement' and text()='Administration']");
@@ -881,7 +873,7 @@ public class PlatformBase extends TestBase {
 	public By PRODUCTS_LABEL_ENGLISH = By.xpath("//*[text()='Products']");
 	public By PRODUCTS_LABEL_FRENCH = By.xpath("//*[text()='Produits']");
 	public By PRODUCTS_LABEL_GERMAN = By.xpath("//*[text()='Produkte']");
-	
+
 	public PlatformBase(WebDriver dr){
 		driver = dr;
 	}
@@ -891,17 +883,19 @@ public class PlatformBase extends TestBase {
 	}
 
 	///////////////////
-	//Set view permissions for portal
+	/**
+	 * Set view permissions for portal
+	 * @param groupId
+	 * @param membership
+	 */
 	public void setViewPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_ACCESS_MEMBERSHIP_ITEM.replace("${membership}", membership);
-		//String selectedGroup = ELEMENT_SELECTED_ACCESS_PERM_GROUP.replace("${groupId}", groupId.replace(" ", "-").toLowerCase());
 		String selectedMembership = ELEMENT_SELECTED_ACCESS_PERMISSION_MEMBERSHIP.replace("${membership}", membership);
 
 		info("--Setting view permission to " + groupId + ", " + membership + "--");
 		String[] groups = groupId.split("/");
 		Utils.pause(500);
 		click(ELEMENT_ADD_PERMISSION_BUTTON);
-//		waitForAndGetElement(ELEMENT_BROWSE_GROUP);
 		for (String group : groups) {
 			String groupToSelect = ELEMENT_SELECT_ACCESS_GROUP_ITEM.replace("${group}", group);
 			click(groupToSelect);
@@ -909,15 +903,16 @@ public class PlatformBase extends TestBase {
 		Utils.pause(500);
 		click(membershipToSelect);
 		Utils.pause(500);
-		//waitForTextNotPresent("Permission Selector");
-		//waitForAndGetElement(selectedGroup);
 		waitForAndGetElement(selectedMembership);
 	}
 
-	//Set edit permissions for portal
+	/**
+	 * Set edit permissions for portal
+	 * @param groupId
+	 * @param membership
+	 */
 	public void setEditPermissions(String groupId, String membership) {
 		String membershipToSelect = ELEMENT_SELECT_EDIT_MEMBERSHIP_ITEM.replace("${membership}", membership);
-		//String selectedGroup = ELEMENT_SELECTED_EDIT_PERM_GROUP.replace("${groupId}", groupId.replace(" ", "-").toLowerCase());
 		String selectedMembership = ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP.replace("${membership}", membership);
 
 		info("--Setting edit permission to " + groupId + ", " + membership + "--");
@@ -931,24 +926,33 @@ public class PlatformBase extends TestBase {
 		}
 		click(membershipToSelect);
 		waitForTextNotPresent("Permission Selector");
-		//waitForAndGetElement(selectedGroup);
 		waitForAndGetElement(selectedMembership, DEFAULT_TIMEOUT, 1, 2);
 	}
 
-	//Define a type of page
+	/**
+	 * Define a type of page
+	 *
+	 */
 	public enum PageType {
 		PORTAL, GROUP;
 	}
 
-	//Link to Edit a navigation
+	/**
+	 * Link to Edit a navigation
+	 * @param currentNavigation
+	 */
 	public void editNavigation(String currentNavigation) {
 		String navigation = ELEMENT_EDIT_NAVIGATION.replace("${navigation}", currentNavigation);
 		click(navigation);
-		//waitForTextPresent("Navigation Management");
 		waitForAndGetElement(ELEMENT_TITLE_NAVIGATION_MANAGEMENT);
 	}
 
-	//Copy value from Source and paste to Target
+	/**
+	 * Copy value from Source and paste to Target
+	 * @param Source
+	 * @param value
+	 * @param Target
+	 */
 	public void copyPaste(Object Source, String value, Object Target){ 	
 		Actions actions = new Actions(driver);
 		WebElement element = waitForAndGetElement(Source);
@@ -961,7 +965,11 @@ public class PlatformBase extends TestBase {
 		b.sendKeys(Keys.LEFT_CONTROL + "v");
 	}
 
-	//Go to the desired locator
+	/**
+	 * Go to the desired locator
+	 * @param verification
+	 * @param navigation
+	 */
 	public void goToPage(String verification, String... navigation) {
 		Actions actions = new Actions(driver);
 		String page = makeLink(navigation[navigation.length - 1]);
@@ -998,7 +1006,11 @@ public class PlatformBase extends TestBase {
 			verifyLocation(verification, navigationList, page);
 		}
 	}
-
+    /**
+     * Make link
+     * @param node
+     * @return node
+     */
 	private String makeLink(String node) {
 		if (!node.contains("//")) {
 			String label = node;
@@ -1006,7 +1018,12 @@ public class PlatformBase extends TestBase {
 		}
 		return node;
 	}
-
+    /**
+     * Verify location
+     * @param locator
+     * @param navigation
+     * @param page
+     */
 	private void verifyLocation(String locator, List<String> navigation, String page) {
 		Actions actions = new Actions(driver);
 		info("verifyLocation, element: " + locator);
@@ -1040,7 +1057,11 @@ public class PlatformBase extends TestBase {
 		seconds = 0;
 	}
 
-	//Verify that element [locator] is displayed...
+	/**
+	 * Verify that element [locator] is displayed...
+	 * @param locator
+	 * @param exceptionMessage
+	 */
 	public void usePaginator(Object locator, String exceptionMessage) {
 		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
 		String page1Namespace = ELEMENT_PAGINATOR_PAGE_NAMESPACE_LINK.replace("${number}", "1"); 
@@ -1061,7 +1082,6 @@ public class PlatformBase extends TestBase {
 		int i = 1;
 		while (isElementNotPresent(locator)) {
 			if (i == totalPages) {
-				//Assert.fail(exceptionMessage);
 				info(exceptionMessage);
 				break;
 			}
@@ -1078,24 +1098,10 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	/*public void usePaginator(By locator, String exceptionMessage) {
-		String page1 = ELEMENT_PAGINATOR_PAGE_LINK.replace("${number}", "1");
-
-		click(page1);
-		Utils.pause(500);
-		int totalPages = isElementPresent(ELEMENT_PAGINATOR_TOTAL_NUMBER) ? Integer.valueOf(getText(ELEMENT_PAGINATOR_TOTAL_NUMBER)) : 1;
-		int i = 1;
-		while (isElementNotPresent(locator)) {
-			if (i == totalPages) {
-				Assert.fail(exceptionMessage);
-			}
-			click(ELEMENT_PAGINATOR_NEXT_ICON);
-			waitForAndGetElement(ELEMENT_PAGINATOR_SELECTED_PAGE.replace("${number}", String.valueOf((++i))));
-			Utils.pause(500);
-		}
-	}*/
-
-	// Check UnexpectedError
+	/**
+	 * Check UnexpectedError
+	 * @return true or false
+	 */
 	public boolean checkUnexpectedError() {
 		try {
 			driver.findElement(ELEMENT_ERROR_ICON);
@@ -1107,8 +1113,8 @@ public class PlatformBase extends TestBase {
 	}
 
 	/**
-	 * @author thuntn
-	 * @return 
+	 * Check unhandle alert
+	 * @return true or false
 	 */
 	public boolean checkUnhandleAlert() {
 		try {
@@ -1119,7 +1125,10 @@ public class PlatformBase extends TestBase {
 			return true;
 		}
 	}
-
+    /**
+     * Clone a node
+     * @param locator
+     */
 	public void cloneNode(Object locator)	{
 		for (int i =0;; i++){
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
@@ -1136,7 +1145,10 @@ public class PlatformBase extends TestBase {
 			Utils.pause(WAIT_INTERVAL);
 		}
 	}
-
+    /**
+     * Cut a node
+     * @param locator
+     */
 	public void cutNode(Object locator)	{
 		info("Cut Node");
 		for (int i =0;; i++){
@@ -1155,11 +1167,13 @@ public class PlatformBase extends TestBase {
 				click(ELEMENT_CUT_NODE);
 				return;
 			}
-			//Utils.pause(WAIT_INTERVAL);
 			Utils.pause(2000);
 		}
 	}
-
+    /**
+     * Copy a node
+     * @param locator
+     */
 	public void copyNode(Object locator){
 		for (int i =0;; i++){
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
@@ -1179,7 +1193,10 @@ public class PlatformBase extends TestBase {
 			Utils.pause(WAIT_INTERVAL);
 		}
 	}
-
+    /**
+     * Paste a  node
+     * @param locator
+     */
 	public void pasteNode(Object locator) {
 		info("Paste Node");
 		for (int i =0;; i++){
@@ -1201,12 +1218,15 @@ public class PlatformBase extends TestBase {
 				click(ELEMENT_ECMS_PASTE_NODE);
 				return;
 			}
-			//Utils.pause(WAIT_INTERVAL);
 			Utils.pause(1000);
 		}
 	}
 
-	//Set to use captcha when registry a new account in public mode
+	/**
+	 * Set to use captcha when registry a new account in public mode
+	 * @param useCaptcha
+	 * @param useFrench
+	 */
 	public void setUseCaptcha(boolean useCaptcha, boolean useFrench){
 		button=new Button(driver);
 		mouseOver(ELEMENT_REGISTER_ACCOUNT_PORTLET, true);
@@ -1344,31 +1364,34 @@ public class PlatformBase extends TestBase {
 		}
 	}
 
-	/*
-	 *Function to add data to CKEditor 
+	/**
+	 * Function to add data to CKEditor 
+	 * @param framelocator
+	 * @param data
+	 * @param validate
 	 */
 	public void inputDataToCKEditor(By framelocator, String data, boolean...validate){
 		try {
 			WebElement inputsummary = null;
 
-				WebElement e = waitForAndGetElement(framelocator,DEFAULT_TIMEOUT,1,2);
-				driver.switchTo().frame(e);
-				inputsummary = driver.switchTo().activeElement();
-				inputsummary.click();
-				inputsummary.clear();
+			WebElement e = waitForAndGetElement(framelocator,DEFAULT_TIMEOUT,1,2);
+			driver.switchTo().frame(e);
+			inputsummary = driver.switchTo().activeElement();
+			inputsummary.click();
+			inputsummary.clear();
 
-				if (validate.length >0)
-					if (validate[0]){
-						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
-					}
-					else{
-						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
-					}
-				else {
+			if (validate.length >0)
+				if (validate[0]){
+					((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
+				}
+				else{
 					((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
 				}
+			else {
+				((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "' + document.body.innerHTML;");
+			}
 
-				switchToParentWindow();
+			switchToParentWindow();
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
@@ -1386,7 +1409,11 @@ public class PlatformBase extends TestBase {
 			inputDataToFrame (framelocator,data,validate);
 		}
 	}
-	// Select option from combo box
+	/**
+	 *  Select option from combo box
+	 * @param locator
+	 * @param option
+	 */
 	public void selectOption(Object locator, String option) {
 		try {
 			for (int second = 0;; second++) {
@@ -1428,17 +1455,6 @@ public class PlatformBase extends TestBase {
 
 
 	/**
-	 * Add by @author vuna2
-	 * @param previousWindowHandle: handle the previous (current) browser (String)
-	 */
-	/*public void backToPreviousBrowser(String previousWindowHandle){
-		// Close the popup window
-		driver.close(); 
-		// Switch back to previous window.
-		driver.switchTo().window(previousWindowHandle);
-	}*/	  
-
-	/**
 	 * @author lientm
 	 * @param cke_frame
 	 * @param content
@@ -1458,9 +1474,6 @@ public class PlatformBase extends TestBase {
 			for (int i = 0; i < lines.length; i++){
 				if(this.plfVersion.equalsIgnoreCase("4.0")){
 					info("type multi line 4.0");
-					//					inputsummary.sendKeys(lines[i]);
-					//					inputsummary.sendKeys(Keys.ENTER);
-					//					Utils.pause(500);
 					String newStr = "<p>" + lines[i]+"</p>";;
 					if(i==0)
 						newStr = "<p>" + lines[i]+"</p>";
@@ -1488,7 +1501,11 @@ public class PlatformBase extends TestBase {
 		Utils.pause(1000);
 	}
 
-	//function open and go to mail
+	/**
+	 * function open and go to mail
+	 * @param email
+	 * @param pass
+	 */
 	public void goToMail(String email, String pass){	
 		magAlt = new ManageAlert(driver);
 		((JavascriptExecutor) driver).executeScript("window.open()");
@@ -1497,20 +1514,20 @@ public class PlatformBase extends TestBase {
 		}
 		info("Go to gmail");
 		driver.navigate().to(GMAIL_URL);
+		Utils.pause(5000);
 		driver.manage().window().maximize();
-
+		Utils.pause(5000);
 		//login to mail
-		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 5000,0) == null){
-			if (waitForAndGetElement(ELEMENT_GMAIL_SIGN_IN_LINK,3000,0) != null)
+		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 10000,0) == null){
+			if (waitForAndGetElement(ELEMENT_GMAIL_SIGN_IN_LINK,10000,0) != null)
 				click(ELEMENT_GMAIL_SIGN_IN_LINK); 
 			else{
 				click(ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC);
 				click(ELEMENT_GMAIL_ADD_ACCOUNT);
 			}
-			
+
 		}
 
-//		waitForAndGetElement(ELEMENT_GMAIL_USERNAME,60000);
 		type(ELEMENT_GMAIL_USERNAME, email, true);
 		type(ELEMENT_GMAIL_PASS, pass, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
@@ -1573,7 +1590,8 @@ public class PlatformBase extends TestBase {
             Utils.pause(1000);
     }
 	
-	
+
+
 
 	public void uploadFileFromTopNavigation(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
@@ -1666,24 +1684,5 @@ public class PlatformBase extends TestBase {
 			return web;
 		}
 	}
-
-	/*	*//**
-	 * function to restart browser
-	 * @param 
-	 * @return
-	 *//*
-	public void restartBrowser(){
-
-		String handlesBefore = driver.getWindowHandle();
-		Set<org.openqa.selenium.Cookie> cookieBefore = driver.manage().getCookies();
-//		((JavascriptExecutor) driver).executeScript("window.open();");
-		backToPreviousBrowser(cookieBefore, handlesBefore);
-		driver.close();
-		initSeleniumTest();
-//		for(String winHandle : driver.getWindowHandles()){
-//			driver.switchTo().window(winHandle);
-//		}
-		driver.navigate().to(baseUrl);
-	}*/
 
 }
