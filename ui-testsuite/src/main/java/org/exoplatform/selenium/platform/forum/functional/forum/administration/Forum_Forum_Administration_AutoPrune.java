@@ -112,7 +112,7 @@ public class Forum_Forum_Administration_AutoPrune extends ForumBase {
 		pruneSetting(category, forum, "prune", "days", "", "");
 		waitForMessage(MSG_PRUNE_INVALID_INACTIVE_DAY);
 		click(ELEMENT_PRUNE_INVALID_INACTIVE_DAY_OK);
-		assert waitForAndGetElement(ELEMENT_PRUNE_ACTIVE_DAY).getAttribute("value").equals("0"):"Not reset the inactive day field";
+		waitForAndGetElement(ELEMENT_PRUNE_ACTIVE_DAY).getAttribute("value").equals("0");
 		click(ELEMENT_PRUNE_CLOSE_BUTTON);
 
 		//Delete data
@@ -193,7 +193,7 @@ public class Forum_Forum_Administration_AutoPrune extends ForumBase {
 
 		waitForMessage(MSG_PRUNE_INVALID_JOB_DAY);
 		click(ELEMENT_PRUNE_INVALID_RUN_JOB_OK);
-		assert waitForAndGetElement(ELEMENT_PRUNE_JOB_DAY).getAttribute("value").equals("0"):"Not reset the run prune field";
+		waitForAndGetElement(ELEMENT_PRUNE_JOB_DAY).getAttribute("value").equals("0");
 		click(ELEMENT_PRUNE_CLOSE_BUTTON);
 
 		//Delete data

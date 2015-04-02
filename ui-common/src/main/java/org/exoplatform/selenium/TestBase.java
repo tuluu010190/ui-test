@@ -1228,4 +1228,25 @@ public class TestBase {
 		WebElement e = (WebElement)((JavascriptExecutor) driver).executeScript("return document.getElementsByClassName('"+className+"')["+i+"];");
 		return e;
 	}
+	
+	/**
+	 *This function will try to get an element. if after timeout, the element is not found.
+	 *The function will refresh the page and find the element again.
+	 * @param element
+	 */
+	public void waitElementAndTryGetElement(Object element, Object... opParams){
+		info("-- Starting finding element --");
+		int timeout = (Integer) (opParams.length>0 ? opParams[0] : DEFAULT_TIMEOUT);
+		Utils.pause(500);
+		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++){
+			if (waitForAndGetElement(element, 5000, 0) != null){
+				info("Element "+element+" is displayed");
+				break;
+			}
+			info("Retry...[" + tick + "]");
+			driver.navigate().refresh();
+		}
+		Utils.pause(2000);
+		info("The elemnt is shown successfully");
+	}
 }

@@ -258,7 +258,7 @@ public class ForumManageCategory extends ForumBase {
 			click(ELEMENT_DELETE_CATEGORY);
 			
 		}		
-		alert.waitForMessage("Are you sure you want to delete this category?");
+		alert.waitForMessage("Are you sure you want to delete this category ?");
 		click(ELEMENT_OK_DELETE_CATEGORY);
 		if(check){
 			//waitForTextNotPresent(title);

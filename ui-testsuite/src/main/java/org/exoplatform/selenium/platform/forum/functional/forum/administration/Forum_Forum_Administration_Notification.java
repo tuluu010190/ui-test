@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.forum.functional.forum.administration;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.AWTException;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.ManageAccount;
@@ -50,10 +52,11 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 	 * Step 1: Open Notifications form
 	 * Step 2: Change content of notification
 	 * Step 3: Check notification mail after making changes in Notification table
+	 * @throws AWTException 
 	 */
 
 	@Test
-	public void test01_ChangeContentOfNotification() {
+	public void test01_ChangeContentOfNotification() throws AWTException {
 		/*Declare variables*/
 		String subject = "Change category Notification 001";
 		String content = "Content of Notification 001";
@@ -108,12 +111,12 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 		alert.acceptAlert();
 		topic.quickStartTopic(title, message);			
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS); 
-		checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0]).replace("${topic}", title)), content);
-
+		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0]).replace("${topic}", title)), content);
 		// Clean data test
 		switchToParentWindow();
 		click(By.linkText(catName));
 		cat.deleteCategoryInForum(catName, true);	
+		
 	}
 
 	/** Set notification when Content moved notification field is blank
@@ -181,9 +184,10 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 	 * Step 1: Open Notifications form
 	 * Step 2: Change content of notification
 	 * Step 3: Check notification mail with adding prefix to subject
+	 * @throws AWTException 
 	 */
 	@Test
-	public void test04_SetNotificationWithAddingAPrefixToNotificationSubject() {
+	public void test04_SetNotificationWithAddingAPrefixToNotificationSubject() throws AWTException {
 		/*Declare variables*/ 
 		String subject = "Case106994[$CATEGORY][$FORUM] $TOPIC";
 		String content = "Content of notification 004";
@@ -239,8 +243,7 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 
 		// - Or Add watch on specific forum/topic and then add 		
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS); 
-		checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL_PREFIX.replace("${prefix}", "Case106994").replace("${category}",catName).replace("${forum}", addForum[0]).replace("${topic}", title).replace("${subject}", subject)), content);
-
+		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0]).replace("${topic}", title)), content);
 		// Clean data test
 		switchToParentWindow();
 		click(By.linkText(catName));
@@ -252,9 +255,10 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 	 * Step 1: Open Notifications form
 	 * Step 2: Change content of notification
 	 * Step 3: Check notification mail without adding prefix to subject
+	 * @throws AWTException 
 	 */
 	@Test
-	public void test05_SetNotificationWithoutAddingAPrefixToNotificationSubject() {
+	public void test05_SetNotificationWithoutAddingAPrefixToNotificationSubject() throws AWTException {
 		/*Declare variables*/ 
 		String subject = "Change Notification 106995";
 		String content = "Content 106995"; 
@@ -310,7 +314,7 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 
 		//Check email
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS); 
-		checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0]).replace("${topic}", title)), content);
+		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0]).replace("${topic}", title)), content);
 
 		// Clean data test
 		switchToParentWindow();

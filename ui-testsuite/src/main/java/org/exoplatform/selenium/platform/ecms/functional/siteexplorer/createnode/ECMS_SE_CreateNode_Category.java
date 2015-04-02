@@ -81,7 +81,7 @@ public class ECMS_SE_CreateNode_Category extends PlatformBase{
 		By bNode1= By.xpath(sitesExp.ELEMENT_SE_NODE.replace("{$node}","definition"));
 		By bNode2= By.xpath(sitesExp.ELEMENT_SE_NODE.replace("{$node}","intranet"));
 		By bNode3= By.xpath(sitesExp.ELEMENT_SE_NODE.replace("{$node}",categoryName));
-
+		navToolBar.goToSiteExplorer();
 		info("Add a new drive [DMS Administration]");
 		navToolBar.goToSiteExplorer();
 		actBar.showDrives();	

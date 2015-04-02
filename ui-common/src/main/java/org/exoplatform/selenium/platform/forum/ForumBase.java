@@ -74,13 +74,13 @@ public class ForumBase extends PlatformBase {
 	// public final By ELEMENT_IMPORT = By.linkText("Import");
 	// public final By ELEMENT_EXPORT = By.linkText("Export");
 
-	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray']");
+	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray ']");
 	public final By ELEMENT_SORT_SETTING = By.xpath("//span[text()='Sort Settings']");
-	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumCensor']");
-	public final By ELEMENT_BAN_IP = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBanIp']");
-	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBBCode']");
-	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumPrune']");
-	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport']");
+	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumCensor uiIconForumLightGray ']");
+	public final By ELEMENT_BAN_IP = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBanIp uiIconForumLightGray ']");
+	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBBCode uiIconForumLightGray ']");
+	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumPrune uiIconForumLightGray ']");
+	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport uiIconLightGray ']");
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public final String MESSAGE_WATCH = "You are now watching this item.";
@@ -246,7 +246,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_MY_SUBSCRIPTION_TOTAL_PAGE = By.xpath("//div[@id='ForumUserWatches-tab']//span[@class='pagesTotalNumber']");
 
 	//---------------------Notifications------------------
-	public final By ELEMENT_NOTIFICATION_LINK = By.xpath("//*[@id='Administrations']//*[@class='uiIconNotification']");
+	public final By ELEMENT_NOTIFICATION_LINK = By.xpath("//*[@id='Administrations']//*[@class='uiIconNotification uiIconLightGray ']");
 	public final By ELEMENT_NOTIFY_FRAME=By.xpath("//*[@id='xEditingArea']/iframe");
 	public final By ELEMENT_NOTIFY_FRAME_PLF41=By.xpath("//*[@class='cke_editable cke_editable_themed cke_contents_ltr cke_show_borders']");
 	public final String ELEMENT_NOTIFY_TEXT= "New Posts Notification";
@@ -339,7 +339,7 @@ public class ForumBase extends PlatformBase {
 	public final String ELEMENT_PRIVATE_MESSAGE_NAME_SENT=".//*[@id='PermissionInfo']//td/span[contains(text(),'${nameReceiver}')]//..//..//../a/strong[contains(text(),'${nameMess}')]";
 
 	//Gmail
-	public String ELEMENT_GMAIL_EMAIL = ".//*/b[contains(text(),'[${category}][${forum}] ${topic}')]";
+	public String ELEMENT_GMAIL_EMAIL = ".//*/b[contains(text(),'[${category}][${forum}]')]";
 	public String ELEMENT_GMAIL_EMAIL2 = "//span/b[text()='[${category}][${forum}]${topic}']";
 	public String ELEMENT_GMAIL_EMAIL_PREFIX = "//span/b[text()='${prefix}[${category}][${forum}] ${topic}']";
 

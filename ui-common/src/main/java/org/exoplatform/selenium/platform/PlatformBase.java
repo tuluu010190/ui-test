@@ -11,6 +11,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -716,7 +719,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC = By.cssSelector("a[id='account-chooser-link']");
 	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.cssSelector("a[id='account-chooser-add-account']");
 
-	public final By ELEMENT_FIRST_MAIL = By.xpath("//div[@class='iA g6' and contains(text(),'Hi')]/../../../../../table[@class='cf iB']");
+	public final By ELEMENT_FIRST_MAIL = By.xpath("//*[@class='Cp']//*[@tabindex='0']");
+	public final By ELEMENT_FIRST_NEW_MAIL = By.xpath("//*[@class='Cp']//*[@tabindex='-1']");
 	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";//*[contains(text(),'${content}')]";
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
@@ -1543,6 +1547,33 @@ public class PlatformBase extends TestBase {
 		waitForElementNotPresent(mail);
 		Utils.pause(1000);
 	}
+	
+    /**
+     * function: check content of mail then delete mail
+     * @param mail: element title of mail
+     * @param content: mail content
+     * @throws AWTException 
+     */
+    public void checkAndDeleteMailUsingRobot(By mail, String content) throws AWTException{
+            info("Check and delete mail");
+	                waitElementAndTryGetElement(mail,30000);
+                    Robot robot = new Robot();
+	 
+	                if(driver.findElement(ELEMENT_FIRST_NEW_MAIL) != null) {
+	                        click(ELEMENT_FIRST_NEW_MAIL);}
+	                else {
+	                        click(ELEMENT_FIRST_MAIL);
+	                }
+ 
+	                info("Found notify mail");
+            Utils.pause(10000);
+            info("delete mail");
+            robot.keyPress(KeyEvent.VK_OPEN_BRACKET);
+            robot.keyRelease(KeyEvent.VK_OPEN_BRACKET);
+            Utils.pause(1000);
+    }
+	
+	
 
 	public void uploadFileFromTopNavigation(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
