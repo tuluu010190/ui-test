@@ -107,15 +107,6 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
 	//Content
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[contains(@class,'quickEdit')]"); 
-	//By.className("quickEditUnchecked");
-	//By.xpath("//a[@class='ItemIcon QuickEditUnchecked']");
-
-	//Page
-	//	public final By ELEMENT_MENU_PAGE_LINK = By.xpath("//li[@class='dropdown-submenu']/a[contains(text(),'Page')]");
-	//	public final By ELEMENT_MENU_EDIT_LAYOUT = By.xpath("//a[contains(text(),'Edit Layout')]");
-	//	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[text()='SEO']");
-	//	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.xpath("//a[contains(text(),'Add Page')]");
-	//	
 	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
 	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
 	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[contains(text(), 'SEO')]");
@@ -199,7 +190,6 @@ public class PlatformBase extends TestBase {
 
 	/*--------------- User account Management (Click from user name) ---------------------*/
 	public final By ELEMENT_ACCOUNT_NAME_LINK = By.cssSelector("div[id=UIUserPlatformToolBarPortlet] a");
-	//			By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a");
 	public final By ELEMENT_NAVIGATION_ACCOUNT_AVATAR = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']/a/img[@alt='avatar']");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
 	public final By ELEMENT_CHANGE_LANGUAGE_LINK_ACME = By.className("LanguageIcon");
@@ -722,6 +712,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//*[@class='Cp']//*[@tabindex='0']");
 	public final By ELEMENT_FIRST_NEW_MAIL = By.xpath("//*[@class='Cp']//*[@tabindex='-1']");
 	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";
+	//public final By ELEMENT_FIRST_MAIL = By.xpath("//div[@class='iA g6' and contains(text(),'Hi')]/../../../../../table[@class='cf iB']");
+
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
 	//get url
@@ -1590,9 +1582,6 @@ public class PlatformBase extends TestBase {
             Utils.pause(1000);
     }
 	
-
-
-
 	public void uploadFileFromTopNavigation(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
 		alert = new ManageAlert(driver);

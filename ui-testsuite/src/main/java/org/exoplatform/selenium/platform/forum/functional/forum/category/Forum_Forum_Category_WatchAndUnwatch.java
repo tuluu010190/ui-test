@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.forum.functional.forum.category;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.AWTException;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
@@ -56,10 +58,11 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 	 * Step 1: Create category, forum
 	 * Step 2: Watch forum
 	 * Step 3: Add topic into forum/category that is being watched
+	 * @throws AWTException 
 	 */
 
 	@Test
-	public void test01_CheckSendNotify_AddNewTopic_WatchForum() {
+	public void test01_CheckSendNotify_AddNewTopic_WatchForum() throws AWTException {
 		/*Declare variables*/ 
 		String catName = "Category 109103"; 
 		String order = "1";
@@ -88,7 +91,7 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 
 		//Check email
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", forumName).replace("${topic}", title)), REGISTER_MAIL_CONTENT);
+		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", forumName).replace("${topic}", title)), REGISTER_MAIL_CONTENT);
 
 		// Clean data test
 		switchToParentWindow();
@@ -99,10 +102,11 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 
 	/** Check send notify after adding new topic into forum/category which is watching  and it's required for approval
 	 * Test caseID 109104
+	 * @throws AWTException 
 	 */
 
 	@Test
-	public void test02_CheckSendNotify_AddTopic_WatchCategory_RequiredApproval() {
+	public void test02_CheckSendNotify_AddTopic_WatchCategory_RequiredApproval() throws AWTException {
 		/*Declare variables*/ 
 		String catName = "Category 109104"; 
 		String order = "1";
@@ -136,6 +140,7 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		/*Step 3: Add topic into forum/category that is being watched*/
 		// - Add new topic into above forum -> user does not receive any notify
 		click(By.linkText(addForum[0]));
+		click(topic.ELEMENT_START_TOPIC_BUTTON);
 		topic.startTopic(title, message, null, 0, null, true, true);
 		waitForAndGetElement(dialog.ELEMENT_POPUP_WARNING.replace("${message}", topic.MSG_ADD_MODERATE_TOPIC));
 		button.ok();
@@ -155,7 +160,7 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 
 		//Check email
 		switchToNewWindow();
-		checkAndDeleteMail(mail, message);
+		checkAndDeleteMailUsingRobot(mail, message);
 
 		//Clean data test
 		switchToParentWindow();
@@ -168,9 +173,10 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 
 	/** Check send notify after adding new topic and it's in pending for censor
 	 * Test caseID 109105
+	 * @throws AWTException 
 	 */	
 	@Test
-	public void test03_CheckSendNotify_AddNewTopic_PendingForCensor() {
+	public void test03_CheckSendNotify_AddNewTopic_PendingForCensor() throws AWTException {
 		/*Declare variables*/ 
 		String catName = "Category 109105"; 
 		String order = "1";  
@@ -181,7 +187,7 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		String forumName = "Forum 109105"; 	
 		String message = "Topic 109105"; 
 		String key = "Censor Topic 109105"; 
-		By mail = By.xpath(ELEMENT_GMAIL_EMAIL2.replace("${category}",catName).replace("${forum}", forumName).replace("${topic}", key));
+		By mail = By.xpath(ELEMENT_GMAIL_EMAIL2.replace("${category}",catName).replace("${forum}", forumName));
 		/* Step 1: Create category, forum */
 		//- Login by the administrator to create new category, forum
 		//- Define Censored word from Administration form	
@@ -204,6 +210,7 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		//		 Step 3: Add topic into forum/category that is being watched
 		// - Add new topic with censor content into above forum -> not having mail
 		click(By.linkText(forumName));
+		click(topic.ELEMENT_START_TOPIC_BUTTON);
 		topic.startTopic(key, message, null, 0, null, true, true);
 		waitForAndGetElement(dialog.ELEMENT_POPUP_WARNING.replace("${message}", topic.MSG_ADD_CENSOR_TOPIC));
 		button.ok();
@@ -222,7 +229,7 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 
 		//Check email
 		switchToNewWindow();
-		checkAndDeleteMail(mail, message);
+		checkAndDeleteMailUsingRobot(mail, message);
 
 		//Clean data test
 		switchToParentWindow();
@@ -236,10 +243,11 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 
 	/** Check send notify after move topic in forum/category that is being watched
 	 * Test caseID 109106
+	 * @throws AWTException 
 	 */
 
 	@Test
-	public void test04_CheckSendNotify_MoveTopic_WatchCategory() {
+	public void test04_CheckSendNotify_MoveTopic_WatchCategory() throws AWTException {
 		/*Declare variables*/ 
 
 		String catName1 = "Category 109106 1"; 
@@ -273,7 +281,7 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		click(By.linkText(title));
 		topic.moveTopic(title, forum2); 
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName2).replace("${forum}", forum2).replace("${topic}", title)), title);
+		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName2).replace("${forum}", forum2)), title);
 
 		//Clean data test
 		switchToParentWindow();

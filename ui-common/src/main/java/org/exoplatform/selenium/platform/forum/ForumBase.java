@@ -46,7 +46,7 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_WATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'AddWatching')]");
 	public final By ELEMENT_UNWATCH = By.xpath("//*[@class='actionIcon' and contains(@href, 'UnWatch')]");
 	public final By ELEMENT_BOOKMARKS = By.xpath("//a[@class='actionIcon']//i[@class='uiIconBookmark uiIconLightGray']");
-	public final By ELEMENT_EXPORT_CATEGORY = By.xpath("//*[@id='Administrations']//*[@class='uiIconExport']");
+	public final By ELEMENT_EXPORT_CATEGORY = By.xpath("//*[@id='Administrations']//*[contains(@class, 'uiIconExport')]");
 	public final By ELEMENT_EXPORT_FORUM = By.linkText("Export Forum");
 	public final By ELEMENT_LEGEN_PANEL = By.id("UIForumIconState");
 	public final By ELEMENT_MODERATOR_PANEL = By.id("uicomponent.id");
@@ -68,6 +68,8 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconForumBBCode')]");
 	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconForumPrune')]");
 	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconImport')]");
+
+	public final By ELEMENT_ADMINISTRATION2 = By.xpath("//*[@id='Administrations']//*[@class='uiIconArrowDown uiIconLightGray']");
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public final String MESSAGE_WATCH = "You are now watching this item.";
@@ -591,8 +593,7 @@ public class ForumBase extends PlatformBase {
 	public void setCensorKeywords(String key){
 		button = new Button(driver);
 		info("Set censor keywords " + key);
-		waitForAndGetElement(ELEMENT_ADMINISTRATION);
-		click(ELEMENT_ADMINISTRATION);
+		click(ELEMENT_ADMINISTRATION2);
 		waitForAndGetElement(ELEMENT_CENSOR_KEYWORDS);
 		click(ELEMENT_CENSOR_KEYWORDS);
 		if(this.plfVersion.equalsIgnoreCase("4.0"))
@@ -613,7 +614,7 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void goToBanIp(){
 		info("Go to BanIP Management");
-		click(ELEMENT_ADMINISTRATION);
+		click(ELEMENT_ADMINISTRATION2);
 		click(ELEMENT_BAN_IP);
 		waitForAndGetElement(ELEMENT_BAN_IP_POPUP);
 	}
@@ -668,9 +669,9 @@ public class ForumBase extends PlatformBase {
 	 */
 	public void goToBBCodeManagement(){
 		info("Go to BB code management");
-		if(waitForAndGetElement(ELEMENT_ADMINISTRATION,10000,0) == null)
-			click(ELEMENT_MORE_BUTTON);
-		click(ELEMENT_ADMINISTRATION);
+		if(waitForAndGetElement(ELEMENT_ADMINISTRATION2,10000,0) == null)
+			click(ELEMENT_ADMINISTRATION);
+		click(ELEMENT_ADMINISTRATION2);
 		click(ELEMENT_BBCODE);
 		waitForAndGetElement(ELEMENT_BBCODE_POPUP);
 	}
@@ -860,7 +861,7 @@ public class ForumBase extends PlatformBase {
 			click(ELEMENT_CANCEL_DELETE);
 			waitForElementNotPresent(ELEMENT_CANCEL_DELETE);
 		}
-		button.close();
+		click(By.xpath("//*[@class='uiBBCodeManagerForm']//*[text()='Close']"));
 	}
 
 	/** function: go to Prune Management

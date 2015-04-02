@@ -79,7 +79,7 @@ public class ForumManageCategory extends ForumBase {
 	public final String ELEMENT_EXPORT_CATEGORY_CHECKBOX = "//*[contains(text(), '${catName}')]/..//input[@type='checkbox']";
 	public final String ELEMENT_EXPORT_CATEGORY_CHECKBOX_LIST = "//*[contains(@id, 'forumCategory')]";
 	public final String ELEMENT_EXPORT_CATEGORY_NO = "//*[@id='UIExportForm']//tbody/tr[${No}]//input";
-	public final By ELEMENT_EXPORT_CATEGORY = By.xpath("//*[@id='Administrations']//*[@class='uiIconExport']");	
+	public final By ELEMENT_EXPORT_CATEGORY = By.xpath("//*[@id='Administrations']//*[contains(@class, 'uiIconExport')]");	
 	public final By ELEMENT_EXPORT_CATEGORY_FILE_NAME = By.id("FileName");
 	public final By ELEMENT_EXPORT_CATEGORY_ALL = By.xpath("//*[@value='ExportAll']");
 	public final By ELEMENT_EXPORT_CATEGORY_ONLY = By.xpath("//*[@value='ExportCategories']");
@@ -275,7 +275,7 @@ public class ForumManageCategory extends ForumBase {
 	 * @param file: file import
 	 */
 	public void importCategoryInForum(String file){
-		click(ELEMENT_ADMINISTRATION);
+		click(ELEMENT_ADMINISTRATION2);
 		click(ELEMENT_IMPORT);
 		waitForAndGetElement(ELEMENT_IMPORT_POPUP);
 		info("Import category");
@@ -310,9 +310,9 @@ public class ForumManageCategory extends ForumBase {
 	public void exportCategoryInForum(String fileName, boolean mode, String...cat){
 
 		button = new Button(driver);
-		if(waitForAndGetElement(ELEMENT_ADMINISTRATION,10000,0) == null)
+		if(waitForAndGetElement(ELEMENT_ADMINISTRATION2,10000,0) == null)
 			click(ELEMENT_MORE_BUTTON);
-		click(ELEMENT_ADMINISTRATION);
+		click(ELEMENT_ADMINISTRATION2);
 		click(ELEMENT_EXPORT_CATEGORY);
 		waitForAndGetElement(ELEMENT_EXPORT_CATEGORY_POPUP);
 
