@@ -53,10 +53,8 @@ public class Forum_Forum_UserSettings extends ForumBase {
 	 * Remove watches from user setting
 	 * Case ID: 72782
 	 * Get feed URL from watch RSS list
-	 * https://jira.exoplatform.org/browse/FORUM-767
-	 * This bug happens in PLF 4.1.0
 	 */
-	@Test(groups="error")
+	@Test
 	public  void test01_02_03_CheckMySubscriptions() {
 
 		String category = "category 72363";

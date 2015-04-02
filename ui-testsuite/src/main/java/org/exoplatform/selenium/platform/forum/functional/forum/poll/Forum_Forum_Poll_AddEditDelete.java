@@ -24,7 +24,7 @@ import org.testng.annotations.*;
  * 
  * @author havtt
  * @date 21-Jan-2014
- *
+ * ISSUE Pending because https://jira.exoplatform.org/browse/FORUM-998
  */
 
 public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
@@ -57,8 +57,8 @@ public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
 
 	@AfterMethod
 	public void afterTest() {
-//		driver.manage().deleteAllCookies();
-//		driver.quit();
+		driver.manage().deleteAllCookies();
+		driver.quit();
 	}
 	
 	/**
@@ -81,6 +81,7 @@ public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
 		fmForum.addCategoryForum(categoryName, forumName);
 		
 		info("Creat a new topic");
+		click(fmTopic.ELEMENT_START_TOPIC_BUTTON);
 		fmTopic.startTopic(topicName, topicName, "", 0, null, true, true);
 		waitForAndGetElement(By.linkText(topicName)).click();
 		
@@ -118,6 +119,7 @@ public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
 		fmForum.addCategoryForum(categoryName, forumName);
 		
 		info("Creat a new topic");
+		click(fmTopic.ELEMENT_START_TOPIC_BUTTON);
 		fmTopic.startTopic(topicName, topicName, "", 0, null, true, true);
 		waitForAndGetElement(By.linkText(topicName)).click();
 		
@@ -159,6 +161,7 @@ public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
 		fmForum.addCategoryForum(categoryName, forumName);
 		
 		info("Creat a new topic");
+		click(fmTopic.ELEMENT_START_TOPIC_BUTTON);
 		fmTopic.startTopic(topicName, topicName, "", 0, null, true, true);
 		waitForAndGetElement(By.linkText(topicName)).click();
 		
@@ -197,6 +200,7 @@ public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
 		fmForum.addCategoryForum(categoryName, forumName);
 		
 		info("Creat a new topic");
+		click(fmTopic.ELEMENT_START_TOPIC_BUTTON);
 		fmTopic.startTopic(topicName, topicName, "", 0, null, true, true);
 		waitForAndGetElement(By.linkText(topicName)).click();
 		
@@ -242,6 +246,7 @@ public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
 		fmForum.addCategoryForum(categoryName, forumName);
 		
 		info("Creat a new topic");
+		click(fmTopic.ELEMENT_START_TOPIC_BUTTON);
 		fmTopic.startTopic(topicName, topicName, "", 0, null, true, true);
 		waitForAndGetElement(By.linkText(topicName)).click();
 		
@@ -286,6 +291,7 @@ public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
 		fmForum.addCategoryForum(categoryName, forumName);
 		
 		info("Creat a new topic");
+		click(fmTopic.ELEMENT_START_TOPIC_BUTTON);
 		fmTopic.startTopic(topicName, topicName, "", 0, null, true, true);
 		waitForAndGetElement(By.linkText(topicName)).click();
 		
@@ -342,6 +348,7 @@ public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
 		fmForum.addCategoryForum(categoryName, forumName);
 		
 		info("Creat a new topic");
+		click(fmTopic.ELEMENT_START_TOPIC_BUTTON);
 		fmTopic.startTopic(topicName, topicName, "", 0, null, true, true);
 		waitForAndGetElement(By.linkText(topicName)).click();
 		
@@ -383,6 +390,7 @@ public class Forum_Forum_Poll_AddEditDelete extends ForumBase {
 		fmForum.addCategoryForum(categoryName, forumName);
 		
 		info("Creat a new topic");
+		click(fmTopic.ELEMENT_START_TOPIC_BUTTON);
 		fmTopic.startTopic(topicName, topicName, "", 0, null, true, true);
 		waitForAndGetElement(By.linkText(topicName)).click();
 		

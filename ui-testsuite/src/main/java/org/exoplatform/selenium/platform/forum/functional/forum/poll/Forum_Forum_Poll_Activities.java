@@ -28,6 +28,8 @@ import org.testng.annotations.*;
 /**
  * @author chinhdtt
  * @date 20 Jan 2014
+ * 
+ * ISSUE Pending because https://jira.exoplatform.org/browse/FORUM-998
  */
 public class Forum_Forum_Poll_Activities extends ForumBase{
 	ForumManageCategory cat;

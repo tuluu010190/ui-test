@@ -41,9 +41,9 @@ public class ForumManagePoll extends ForumBase {
 	//Poll Manage
 	public By ELEMENT_POLL = By.id("UITopicPoll");
 	public By ELEMENT_ADD_POLL = By.linkText("Add Poll"); 
-	public final By ELEMENT_POLL_MORE_ACTION = By.xpath("//i[@class='uiIconSettings uiIconLightGray']");
-	public final By ELEMENT_POLL_EDIT_LINK = By.xpath("//i[@class='uiIconEdit uiIconLightGray']");
-	public final By ELEMENT_POLL_DELETE_LINK = By.xpath("//i[@class='uiIconDelete uiIconLightGray']");
+	public final By ELEMENT_POLL_MORE_ACTION = By.xpath("//*[contains(@class,'UITopicPoll')]//*[contains(@class,'uiIconSettings')]");
+	public final By ELEMENT_POLL_EDIT_LINK = By.xpath("//*[contains(@class,'UITopicPoll')]//*[contains(@class,'uiIconEdit')]");
+	public final By ELEMENT_POLL_DELETE_LINK = By.xpath("//*[contains(@class,'UITopicPoll')]//*[contains(@class,'uiIconDelete')]");
 	public final By ELEMENT_POLL_CATEGORY = By.xpath("//a[@title='poll']");
 	public final By ELEMENT_POLL_PORTLET = By.id("poll/local._poll.PollPortlet");
 	public final By ELEMENT_ADDMORE_ITEMS = By.xpath("//a[@data-original-title='Add Item']");
