@@ -192,7 +192,7 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 	@Test
 	public void test03_CheckSendNotifyAfterMoveTopicInForumcategoryThatIsBeingWatched() {
 		info("Test 3: Check send notify after move topic in forum/category that is being watched");
-		String catName = "Category 106015";
+		String catName = "Category 106015" + getRandomNumber();
 		String fmName = "Test 3 new forum";
 		String fmDes = "Test 3 Destination";
 		String tpName = "Test 3 new topic";

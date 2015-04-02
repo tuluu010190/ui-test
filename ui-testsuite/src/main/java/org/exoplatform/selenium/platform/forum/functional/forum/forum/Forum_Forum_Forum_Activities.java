@@ -64,9 +64,9 @@ public class Forum_Forum_Forum_Activities extends ForumBase{
 	public void test01_AddAForumsActivityAfterCreateATopicOfIntranetsPortal() {
 		info("Test 1: Add a Forum's activity after create a Topic of intranet's portal");
 
-		String catName = "Category 106238";
-		String fmName = "Test 1 new forum";
-		String tpName = "Test 1 new topic";	
+		String catName = "Category 106238" + getRandomNumber();
+		String fmName = "Test 1 new forum" + getRandomNumber();
+		String tpName = "Test 1 new topic" + getRandomNumber();	
 
 		/*
 		- Connect to Intranet
@@ -80,7 +80,9 @@ public class Forum_Forum_Forum_Activities extends ForumBase{
 		fmForum.addCategoryForum(catName, fmName);
 		fmTopic.startTopic(tpName, tpName, "", 0, null, true, true);
 		click(ELEMENT_HOME_PAGE);
-		homePage.checkNumberOfLineOfContent(tpName, tpName);
+		driver.navigate().refresh();
+		homePage.checkNumberOfLineOfContent(tpName, tpName);	
+		waitForAndGetElement(By.linkText(tpName));
 
 		//Delete data test
 		goToForums();
@@ -98,9 +100,9 @@ public class Forum_Forum_Forum_Activities extends ForumBase{
 	public void test02_AddAForumsActivityAfterCreateATopicOfSpace() {
 		info("Test 2: Add a Forum's activity after create a Topic of space");
 
-		String spaceName = "Space106281";
-		String tpName = "Test 2 new topic";
-		String tpContent = "Test 2 new content";
+		String spaceName = "Space106281" + getRandomNumber();
+		String tpName = "Test 2 new topic" + getRandomNumber();
+		String tpContent = "Test 2 new content" + getRandomNumber();
 
 		/*
 		- Connect to Intranet
@@ -121,6 +123,7 @@ public class Forum_Forum_Forum_Activities extends ForumBase{
 		fmTopic.quickStartTopic(tpName, tpContent);
 
 		click(ELEMENT_HOME_PAGE);
+		driver.navigate().refresh();
 		waitForAndGetElement(By.linkText(spaceName));
 		waitForAndGetElement(By.linkText(tpName));
 
@@ -138,9 +141,9 @@ public class Forum_Forum_Forum_Activities extends ForumBase{
 	public void test03_DeleteAForumActivityFromActivityStreamByOwner() {
 		info("Test 3: Delete a Forum activity from activity stream by owner");
 
-		String catName = "Category 106277";
-		String fmName = "Test 3 new forum";
-		String tpName = "Test 3 new topic";
+		String catName = "Category 106277" + getRandomNumber();
+		String fmName = "Test 3 new forum" + getRandomNumber();
+		String tpName = "Test 3 new topic" + getRandomNumber();
 
 		/*
 		- Connect to Intranet
@@ -157,7 +160,9 @@ public class Forum_Forum_Forum_Activities extends ForumBase{
 		 *Input Data: 
 		 *Expected Outcome: A (X) icon is displayed in the top right panel of the activity		*/
 		click(ELEMENT_HOME_PAGE);
+		driver.navigate().refresh();
 		homePage.checkNumberOfLineOfContent(tpName, tpName);
+		waitForAndGetElement(By.linkText(tpName));
 
 		/*
 		- Click on the (X) icon
@@ -349,9 +354,9 @@ public class Forum_Forum_Forum_Activities extends ForumBase{
 	public void test07_UpdateForumsActivityAfterApprovingACensoredPostInTopic() {
 		info("Test 7: Update Forum's activity after approving a censored post in topic");
 
-		String catName = "Category 106279";
-		String fmName = "Test 7 new forum";
-		String tpName = "Test 7 new topic";
+		String catName = "Category 106279" + getRandomNumber();
+		String fmName = "Test 7 new forum" + getRandomNumber();
+		String tpName = "Test 7 new topic" + getRandomNumber();
 		String post = "censor post";
 		String censorText = "censor";
 

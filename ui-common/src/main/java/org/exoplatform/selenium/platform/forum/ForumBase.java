@@ -18,8 +18,6 @@ import org.testng.Assert;
 
 /**
  * Migrate from plf3.5
- * @author lientm
- * @date 19 Aug 2013
  */
 
 public class ForumBase extends PlatformBase {
@@ -63,24 +61,14 @@ public class ForumBase extends PlatformBase {
 	public String ELEMENT_LATEST_TOPIC = "//a[contains(text(),'${forum}')]/ancestor::tr[@class='oncontextmenu']//a[contains(text(),'${topic}')]";
 	public String ELEMENT_FORUM_ON_HOMEPAGE = "//a[contains(text(),'${category}')]/ancestor::div[@id='UICategories']//tr[@class='oncontextmenu']//a[contains(text(),'${forum}')]";
 
-	//Administration menu
-	// public final By ELEMENT_ADMINISTRATION = By.className("uiIconForumAdmin");
-	// public final By ELEMENT_SORT_SETTING = By.linkText("Sort Settings");
-	// public final By ELEMENT_CENSOR_KEYWORDS = By.linkText("Censor Keywords");
-	// public final By ELEMENT_NOTIFICATIONS= By.linkText("Notifications");
-	// public final By ELEMENT_BAN_IP = By.linkText("Banned IPs");
-	// public final By ELEMENT_BBCODE = By.linkText("BBCodes");
-	// public final By ELEMENT_PRUNE = By.linkText("Pruning");
-	// public final By ELEMENT_IMPORT = By.linkText("Import");
-	// public final By ELEMENT_EXPORT = By.linkText("Export");
-
-	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumAdmin uiIconForumLightGray ']");
+	public final By ELEMENT_ADMINISTRATION = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconForumAdmin')]");
 	public final By ELEMENT_SORT_SETTING = By.xpath("//span[text()='Sort Settings']");
-	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumCensor uiIconForumLightGray ']");
-	public final By ELEMENT_BAN_IP = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBanIp uiIconForumLightGray ']");
-	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumBBCode uiIconForumLightGray ']");
-	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[@class='uiIconForumPrune uiIconForumLightGray ']");
-	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[@class='uiIconImport uiIconLightGray ']");
+	public final By ELEMENT_CENSOR_KEYWORDS = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconForumCensor')]");
+	public final By ELEMENT_BAN_IP = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconForumBanIp')]");
+	public final By ELEMENT_BBCODE = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconForumBBCode')]");
+	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconForumPrune')]");
+	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconImport')]");
+
 
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public final String MESSAGE_WATCH = "You are now watching this item.";

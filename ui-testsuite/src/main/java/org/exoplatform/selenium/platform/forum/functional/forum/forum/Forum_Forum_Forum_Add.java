@@ -52,8 +52,9 @@ public class Forum_Forum_Forum_Add extends ForumBase {
 	@Test
 	public  void test01_AddNewForumWhenDontSelectAutoFillEmailModeratorsOption() {
 		info("Test 1: Add new forum when dont select auto fill email moderators option"); 
-		String catName = "Category 106076";
+		String catName = "Category 106076" + getRandomNumber();
 		String[] fmName={"Test 1 new forum",null,null,null,null};
+		String[] userGroups = {"mary,demo"};
 
 		/*Step 1: Add category
 		 *Expected Outcome: 
@@ -75,8 +76,14 @@ public class Forum_Forum_Forum_Add extends ForumBase {
 		 *Expected Outcome: 
 		- The email addresses of selected user(s)/membership(s)/group(s) will not be added automatically into 'Email addresses to notify...' field in Moderation tab. These fields can be manually input.
 		-Forum is created successfully.		*/ 		
-		fmForum.addForum(catName, fmName, false,EMAIL_ADDRESS1 ,EMAIL_ADDRESS2, false, 0, null);
-
+		//fmForum.addForum(catName, fmName, false,EMAIL_ADDRESS1 ,EMAIL_ADDRESS2, false, 0, null);
+		fmForum.goToAddForum();
+		info("Create new forum");
+		fmForum.inputDataForum(catName, fmName, false,null ,null, false, 1, userGroups);
+		click(fmForum.ELEMENT_MODERATOR_TAB);
+		waitForTextNotPresent("mary.williams@acme.exoplatform.com, jack.miller@acme.exoplatform.com");
+		button.save();
+		
 		//Delete data test
 		fmForum.deleteForum(fmName[0]);
 		fmCat.deleteCategoryInForum(catName);
@@ -90,7 +97,7 @@ public class Forum_Forum_Forum_Add extends ForumBase {
 	@Test
 	public  void test02_AddNewForumWhenSelectAutoFillEmailModeratorsOption() {
 		info("Test 2: Add new forum When select auto fill email moderators option"); 
-		String catName = "Category 106056";
+		String catName = "Category 106056" + getRandomNumber();
 		String[] fmName={"Test 2 new forum",null,null,null,null};
 		String[] userGroups = {"mary,demo"};
 
@@ -232,7 +239,7 @@ public class Forum_Forum_Forum_Add extends ForumBase {
 		fmPost.deletePost(post);
 		goToForumHome();
 		click(By.linkText(catName));
-		fmCat.deleteCategoryInForum(catName, true);
+		fmCat.deleteCategoryInForum(catName, false);
 	}
 
 	/**

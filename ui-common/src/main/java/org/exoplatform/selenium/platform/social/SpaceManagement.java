@@ -52,6 +52,7 @@ public class SpaceManagement extends SocialBase {
 	public final By     ELEMENT_SPACE_NAME_INPUT        = By.xpath("//input[contains(@name,'displayName')]");
 	public final By     ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
 	public final By     ELEMENT_ACCESS_TAB              = By.xpath("//*[text()='Access & Edit']");
+	public final String ELEMENT_ADDED_SPACE 			= "//span[contains(text(),'More')]";
 	//("//div[contains(@class,'MiddleTab') and text()='Access & Edit']");
 	public final By     ELEMENT_USER_GROUP_TAB          = By.xpath("//*[text()='Invite users from group']");
 	//("//div[contains(@class,'MiddleTab') and text()='Invite users from group']");
@@ -160,7 +161,6 @@ public class SpaceManagement extends SocialBase {
 	 * 
 	 */
 	public void addNewSpace(String name, String desc, int... params) {
-		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT; 
 		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
 			click(ELEMENT_ADDNEWSPACE_BUTTON);
 		}else {
@@ -170,12 +170,7 @@ public class SpaceManagement extends SocialBase {
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
 		clickButton("Create");
-		waitForAndGetElement(By.linkText(name), iTimeout);
-		if(waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0) == null){
-			click(By.linkText(name));
-			waitForAndGetElement("//span[contains(text(),'More')]",iTimeout,0);
-		}
-
+		waitForAndGetElement(ELEMENT_ADDED_SPACE, 4000, 0);
 	}
 
 	/**

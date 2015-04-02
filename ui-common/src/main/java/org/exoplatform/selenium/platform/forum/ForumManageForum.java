@@ -36,7 +36,9 @@ public class ForumManageForum extends ForumBase {
 	public String ELEMENT_FORUM_LINK = "//span[@class='NameForum' and text()='${forumName}']";
 	public By ELEMENT_DELETE_FORUM = By.xpath("//*[contains(@data-action, 'RemoveForum')]");
 	public By ELEMENT_DELETE_FORUM41 = By.xpath("//*[contains(@href, 'RemoveForum')]");
-	public By ELEMENT_DELETE_FORUM411 = By.xpath("//i[@class='uiIconDelete']");
+	//public By ELEMENT_DELETE_FORUM41 = By.xpath(".//*[@class='dropdown-menu']//*[contains(@class,'uiIconDelete uiIconLightGray')]");
+	//public By ELEMENT_DELETE_FORUM411 = By.xpath("//i[@class='uiIconDelete']");
+	public By ELEMENT_DELETE_FORUM411 = By.xpath(".//*[@class='dropdown-menu']//*[contains(@class,'uiIconDelete uiIconLightGray')]");
 	public By ELEMENT_EDIT_FORUM = By.xpath("//*[contains(@href, 'EditForum')]");
 	public By ELEMENT_MOVE_FORUM = By.xpath("//*[contains(@href, 'MoveForum')]");
 	public By ELEMENT_START_TOPIC = By.xpath("//button[contains(@onclick,'AddTopic')][1]");

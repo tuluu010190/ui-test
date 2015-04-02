@@ -46,8 +46,10 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_DELETE_TOPIC = By.id("UITopicDetailConfirm0");
 	public By ELEMENT_EDIT_TOPIC = By
 			.xpath("//*[contains(@href, 'EditTopic')]");
+	/*public By ELEMENT_MOVE_TOPIC = By
+			.xpath("//div[@class='dropdown uiDropdownWithIcon actionIcon open']//i[@class='uiIconMove']");*/
 	public By ELEMENT_MOVE_TOPIC = By
-			.xpath("//div[@class='dropdown uiDropdownWithIcon actionIcon open']//i[@class='uiIconMove']");
+			.xpath("//div[@class='dropdown uiDropdownWithIcon actionIcon open']//*[@class='uiIconMove uiIconLightGray']");
 	public By ELEMENT_APPROVE_TOPIC = By.xpath("//*[text()='Approve']");
 	public By ELEMENT_CHECK_ALL = By
 			.xpath("//*[@id='UITopicContent']//input[@title='Check All']");
@@ -424,6 +426,8 @@ public class ForumManageTopic extends ForumBase {
 			String[] userGroup, boolean canview, boolean canpost,
 			boolean... options) {
 		info("Start a topic");
+		waitForAndGetElement(ELEMENT_START_TOPIC_BUTTON, 4000,0);
+		click(ELEMENT_START_TOPIC_BUTTON);
 		// goToStartTopic();
 		inputDataStartTopic(title, message, file, type, userGroup, canview,
 				canpost, options);
