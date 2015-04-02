@@ -104,8 +104,6 @@ public class PortalManagement extends PlatformBase {
 		info("--Delete portal (" + portalName + ")--");		
 		click(portalDeleteIcon);
 		alt.waitForConfirmation("Are you sure you want to delete this portal?");
-		//info("--Verify portal is deleted--");
-		//		pause(30000);
 		waitForElementNotPresent(ELEMENT_PORTAL_DELETE_ICON.replace("${portalName}", portalName), 180000);
 	}
 

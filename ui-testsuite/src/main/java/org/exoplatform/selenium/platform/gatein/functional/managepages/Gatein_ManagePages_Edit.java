@@ -149,9 +149,9 @@ public class Gatein_ManagePages_Edit extends DashBoard{
 	@Test
 	public  void test02_CheckChangesAfterEditPagePropertiesWithFinish() {
 		info("Test 2: Check changes after edit page properties with  Finish");
-		String pageName = "FuncManagePageName12";
-		String pageTitle = "FuncManagePageTitle12";
-		String pageTitleEdited = "PageTitleEdited";
+		String pageName = "FuncManagePageName12" + getRandomNumber();
+		String pageTitle = "FuncManagePageTitle12" + getRandomNumber();
+		String pageTitleEdited = "PageTitleEdited" + getRandomNumber();
 		String groupPath = "Platform /Content Management ";
 		String membership = "*";
 		/*Step Number: 1
@@ -183,8 +183,13 @@ public class Gatein_ManagePages_Edit extends DashBoard{
 		click(ELEMENT_PAGE_FINISH_BUTTON);
 
 		info("Check if page title is changed");
-		pageMag.searchPageInManagementPage(PageType.PORTAL, pageTitleEdited, false);
-		waitForAndGetElement(ELEMENT_NO_RESULT_FOUND_MSG);
+		//pageMag.searchPageInManagementPage(PageType.PORTAL, pageTitleEdited, false);
+		type(pageMag.ELEMENT_INPUT_SEARCH_TITLE, pageTitleEdited, true);
+		select(pageMag.ELEMENT_SELECT_SEARCH_OPTION, "portal");
+		click(pageMag.ELEMENT_PAGE_MANAGEMENT_SEARCH_BUTTON);
+		Utils.pause(1000);
+		waitForElementNotPresent(pageMag.ELEMENT_PAGE_DELETE_ICON.replace("${page}", pageTitleEdited));
+		waitForAndGetElement(pageMag.ELEMENT_NO_RESULT_FOUND_MSG);
 		button.ok();
 
 		info("Restore data");

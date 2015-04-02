@@ -37,11 +37,14 @@ public class ManageApplications extends PlatformBase {
 	}
 
 	/* Manage Application Page */
-	public By ELEMENT_IMPORT_APPLICATION = By.linkText("Import Applications");
+	//public By ELEMENT_IMPORT_APPLICATION = By.linkText("Import Applications");
+	//public By ELEMENT_IMPORT_APPLICATION = By.className("uiIconImport uiIconLightGray");
+	public By ELEMENT_IMPORT_APPLICATION = By.xpath(".//*[@id='UIApplicationOrganizer']//*[contains(normalize-space(),'Import Applications') and @class='actionIcon pull-right']");
 	public By ELEMENT_CATEGORIES_AREA_TITLE = By.xpath("//div[text()='Categories']");
 	public By ELEMENT_SHOW_PORTLET_ICON = By.linkText("Portlet");
 	public By ELEMENT_SHOW_GADGET_ICON = By.linkText("Gadget");
-	public By ELEMENT_MANAGE_APPLICATION = By.linkText("Manage Applications");
+	//public By ELEMENT_MANAGE_APPLICATION = By.linkText("Manage Applications");
+	public By ELEMENT_MANAGE_APPLICATION = By.xpath(".//*[@id='UIApplicationRegistryPortlet']//*[@class='uiIconManageApplication uiIconLightGray']");
 
 	//Manage portlet
 	public String ELEMENT_PORTLET_IN_CATEGORY = "//*[text()='${group}']/../following-sibling::li/a[contains(text(), '${portletName}')]";
@@ -366,6 +369,7 @@ public class ManageApplications extends PlatformBase {
 	}
 
 	public void importApplication () {
+		info("Import Applications");
 		alt = new ManageAlert(driver);
 		showImportApplication(true);
 		if(waitForAndGetElement(ELEMENT_IMPORT_APPLICATION,DEFAULT_TIMEOUT,0)==null)

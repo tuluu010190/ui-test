@@ -51,7 +51,7 @@ public class Gatein_PortalNavigation_ManagePortal extends PortalManagement{
 	 */
 	@Test
 	public void test01_AddDeletePortal(){
-		String portalName = "gateinfunctportal73501";
+		String portalName = "gateinfunctportal73501" + getRandomNumber();
 
 		info("Add new portal");
 		Map<String, String> permissions = null;

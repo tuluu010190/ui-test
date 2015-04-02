@@ -333,8 +333,7 @@ public class NavigationToolbar extends PlatformBase {
 					driver.get(url);
 					break;
 			}
-			//mouseOverAndClick(ELEMENT_LINK_SETUP);
-			mouseOver(ELEMENT_LINK_SETUP, true);
+			click(ELEMENT_LINK_SETUP);
 			if (waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK, 5000, 0)!= null) {
 				mouseOver(ELEMENT_MENU_CONTENT_LINK, true);
 				if (waitForAndGetElement(ELEMENT_LINK_CONTENT_ADMIN, 5000, 0)!= null){
@@ -344,7 +343,6 @@ public class NavigationToolbar extends PlatformBase {
 			}
 			info("Retry...[" + repeat + "]");
 			}
-			//waitForTextPresent("Manage ECM Main Functions");
 			Utils.pause(1000);
 	}
 
@@ -352,23 +350,22 @@ public class NavigationToolbar extends PlatformBase {
 	 * Go to site explorer
 	 */
 	public void goToSiteExplorer(){
-		Utils.pause(500);
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		info("Base url is " + baseUrl);
+		String url = baseUrl + "/g/:platform:web-contributors/siteExplorer";
 		for(int repeat=0;; repeat ++){
 			if (repeat > 1){
-				mouseOverAndClick(ELEMENT_LINK_SETUP);
+				driver.get(url);
 				break;
 			}
-			mouseOver(ELEMENT_LINK_SETUP, true);
+			click(ELEMENT_LINK_SETUP);
 			if (waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK, 5000, 0) != null){
 				info("Element " + ELEMENT_MENU_CONTENT_LINK + "... is displayed");
 				break;
 			}
 			info("Retry...[" + repeat + "]");
 		}
-		//mouseOverAndClick(ELEMENT_LINK_SETUP);
-		//mouseOver(ELEMENT_LINK_SETUP, true);
-		mouseOverAndClick(ELEMENT_MENU_CONTENT_LINK);
-		//click(ELEMENT_MENU_SITE_EXPLORER);
+		click(ELEMENT_MENU_CONTENT_LINK);
 		Utils.pause(2000);
 	}
 

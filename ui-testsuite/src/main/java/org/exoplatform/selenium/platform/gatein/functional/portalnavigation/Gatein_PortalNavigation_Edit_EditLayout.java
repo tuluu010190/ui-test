@@ -121,6 +121,7 @@ public class Gatein_PortalNavigation_Edit_EditLayout extends PortalManagement{
 		/*Clear data*/
 		goToPortalEditLayout(portalName);
 		click(ELEMENT_CONTAINER_TAB);
+		mouseOver(ELEMENT_DROP_TARGET_HAS_LAYOUT_CENTER_PAGE, true);
 		WebElement containerDelete = waitForAndGetElement(ELEMENT_DELETE_CENTER_CONTAINER_NEW_LAYOUT,5000,1,2);
 		pageEditor.goToDeleteContainerByJavaScript(containerDelete);
 		pageEditor.finishEditLayout();

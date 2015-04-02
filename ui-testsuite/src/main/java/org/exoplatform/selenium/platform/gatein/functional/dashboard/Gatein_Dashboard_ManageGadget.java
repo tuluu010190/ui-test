@@ -51,7 +51,7 @@ public class Gatein_Dashboard_ManageGadget extends DashBoard{
 	 */
 	@Test
 	public void test01_AddnewGadgetToDashboardByDragDrop(){ 
-		String gadgetName = "Calendar";
+		String gadgetName = "Calculator";
 
 		info("--Import all applications to category--");
 		navTool.goToApplicationRegistry();

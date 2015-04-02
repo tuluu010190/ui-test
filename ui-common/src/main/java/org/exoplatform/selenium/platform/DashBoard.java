@@ -21,6 +21,8 @@ public class DashBoard extends PlatformBase {
 	Dialog dialog = new Dialog(driver);
 
 	/* Dashboard Page*/
+	public final By ELEMENT_DASHBOARD_WORKSPACE_POPUP_TITLE=By.xpath(".//*[@class='PopupTitle popupTitle'][contains(text(),'Dashboard Workspace')]");
+ 	// Gadget Directory form
 	public  final String MESSAGE_DRAG_GADGETS_HERE = "Drag your gadgets here.";
 	public  final By ELEMENT_ADD_GADGETS_LINK = By.xpath("//a[text()='Add Gadgets']");
 	public 	final By ELEMENT_DASHBOARD_FRAME = By.xpath("//iframe[contains(@id,'remote_iframe_')]");
@@ -155,14 +157,13 @@ public class DashBoard extends PlatformBase {
 	//	}
 
 	public void dragDropGadget(String gadget){
-		info("Drag drop " + gadget + " gadget to dashboard");
-		click(ELEMENT_ADD_GADGETS_LINK);
-		Utils.pause(1000);
-		dragAndDropToObject(By.xpath(ELEMENT_GADGET_NAME.replace("${name}", gadget)), ELEMENT_GADGET_CONTAINER);
-		Utils.pause(1000);
-		waitForAndGetElement(ELEMENT_GADGET_ON_CONTAINER.replace("${name}", gadget));
+ 		info("Drag drop " + gadget + " gadget to dashboard");
+ 		click(ELEMENT_ADD_GADGETS_LINK);
+		waitForAndGetElement(ELEMENT_DASHBOARD_WORKSPACE_POPUP_TITLE,2000,1);
+		dragAndDropToObject(By.xpath(ELEMENT_GADGET_NAME.replace("${name}", gadget)), By.xpath("//*[@class='UIColumn'][3]"));
+ 		Utils.pause(1000);
+ 		waitForAndGetElement(ELEMENT_GADGET_ON_CONTAINER.replace("${name}", gadget));
 	}
-
 	public void addNewGadget(String url, String name){
 		info("Add new gadget to dashboard");
 		click(ELEMENT_ADD_GADGETS_LINK);

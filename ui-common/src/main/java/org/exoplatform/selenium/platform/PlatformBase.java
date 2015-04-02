@@ -1127,7 +1127,7 @@ public class PlatformBase extends TestBase {
 				Assert.fail("Timeout");
 			}
 			rightClickOnElement(locator);
-			if (waitForAndGetElement(ELEMENT_CLONE_NODE,30000,0)!=null){
+			if (waitForAndGetElement(ELEMENT_CLONE_NODE,5000,0)!=null){
 				click((ELEMENT_CLONE_NODE));
 				return;
 			}else if (waitForAndGetElement(ELEMENT_NAVIGATION_CLONE_NODE, 5000, 0) != null){
@@ -1220,6 +1220,7 @@ public class PlatformBase extends TestBase {
 	 * @param useFrench
 	 */
 	public void setUseCaptcha(boolean useCaptcha, boolean useFrench){
+		info("Set use captcha");
 		button=new Button(driver);
 		mouseOver(ELEMENT_REGISTER_ACCOUNT_PORTLET, true);
 		if (useFrench){
@@ -1237,10 +1238,8 @@ public class PlatformBase extends TestBase {
 		click(By.id("Close"));
 		if (useFrench){
 			click(ELEMENT_PAGE_FINISH_BUTTON_INFRENCH);
-			waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON_INFRENCH);
 		}else{
 			click(ELEMENT_PAGE_FINISH_BUTTON);
-			waitForElementNotPresent(ELEMENT_PAGE_FINISH_BUTTON);
 		}
 	}
 

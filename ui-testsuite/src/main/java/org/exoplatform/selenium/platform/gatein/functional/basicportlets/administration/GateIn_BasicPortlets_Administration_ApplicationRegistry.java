@@ -125,6 +125,7 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 		Expected outcome: This gadget is displayed in the left panel in the chosen categories*/
 		
 		magApp.addGadgetToCategory(category);
+		navTool.goToApplicationRegistry();
 		click(magApp.ELEMENT_MANAGE_APPLICATION);
 		click(magApp.ELEMENT_CATEGORY_NAME.replace("${categoryName}",category));
 		waitForAndGetElement(magApp.ELEMENT_CATEGORY_GADGET.replace("${gadget}", title));
@@ -293,6 +294,7 @@ public class GateIn_BasicPortlets_Administration_ApplicationRegistry extends Das
 		//- Create category & assign group A with membership B to access
 		info("Add new category");
 		//navTool.goToApplicationRegistry();
+		navTool.goToApplicationRegistry();
 		magApp.addNewCategoryAtManageApplications(categoryName, displayName, categoryDescription, true, permissions, true);
 
 		//- Add application into category

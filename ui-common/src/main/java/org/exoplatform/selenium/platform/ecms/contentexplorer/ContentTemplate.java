@@ -236,6 +236,7 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//*[text()='Create Folder']");
 	public final By ELEMENT_USE_CUSTOM_TYPE_FOLDER = By.xpath(".//*[@id='customTypeCheckBox']");
 	public final String ELEMENT_VERIFY_FILE_CONTENT = "//*[contains(text(),'${content}')]";
+	public final String ELEMENT_FOLDER_CONTENT="//*[@title='${content}']";
 
 	public final By ELEMENT_TAB_VIEW_AS_HTML =By.xpath(".//*[@id='myTab']//*[contains(@href,'#tab2')]");
 	public final String ELEMENT_FILE_CONTENT_DECORATED =".//*[@class='textContent']//pre[contains(text(),'<p><strong><em><u>${content}</u></em></strong></p>')]";
@@ -814,11 +815,7 @@ public class ContentTemplate extends EcmsBase {
 
 		info("-- Creating a new folder --");
 		actBar.goToAddNewFolder();
-		WebElement fType = waitForAndGetElement(ELEMENT_USE_CUSTOM_TYPE_FOLDER,
-				5000, 0);
-		if (fType != null && !fType.isSelected()) {
-			click(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
-		}
+		check(ELEMENT_USE_CUSTOM_TYPE_FOLDER, 2);
 		switch (type) {
 		case Content:
 			type(ELEMENT_FOLDER_TITLE_TEXTBOX, title, true);
@@ -844,7 +841,7 @@ public class ContentTemplate extends EcmsBase {
 		}
 		click(ELEMENT_CREATE_FOLDER_BUTTON);
 		if (checkFolder) {
-			waitForAndGetElement(By.xpath(ELEMENT_VERIFY_FILE_CONTENT.replace(
+			waitForAndGetElement(By.xpath(ELEMENT_FOLDER_CONTENT.replace(
 					"${content}", title)));
 		}
 
