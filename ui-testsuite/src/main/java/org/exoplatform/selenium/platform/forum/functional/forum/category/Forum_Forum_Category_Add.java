@@ -20,6 +20,7 @@ import org.testng.annotations.*;
 /**
  * @author khanhnt
  * Update chinhdtt
+ * Update 4.2 : 04/2015
  */
 public class Forum_Forum_Category_Add extends ForumBase {
 
@@ -48,7 +49,7 @@ public class Forum_Forum_Category_Add extends ForumBase {
 		uGroup = new UserGroupManagement(driver, this.plfVersion);
 	}
 
-	@AfterTest
+	@AfterMethod
 	public void afterTest() {
 		driver.manage().deleteAllCookies();
 		driver.quit();
