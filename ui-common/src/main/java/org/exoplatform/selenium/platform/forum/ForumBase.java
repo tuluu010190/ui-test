@@ -69,7 +69,6 @@ public class ForumBase extends PlatformBase {
 	public final By ELEMENT_PRUNE = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconForumPrune')]");
 	public final By ELEMENT_IMPORT = By.xpath("//*[@id='Administrations']//*[contains(@class,'uiIconImport')]");
 
-
 	//-----------------Watch/Unwatch screen-------------------------------------------
 	public final String MESSAGE_WATCH = "You are now watching this item.";
 

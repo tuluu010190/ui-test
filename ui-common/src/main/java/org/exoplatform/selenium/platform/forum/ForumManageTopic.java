@@ -38,6 +38,7 @@ public class ForumManageTopic extends ForumBase {
 		alert = new ManageAlert(driver, this.plfVersion);
 		naviToolbar = new NavigationToolbar(driver, this.plfVersion);
 		navTool = new NavigationToolbar(driver, this.plfVersion);
+		//mngPost = new ForumManagePost(driver, this.plfVersion);
 	}
 
 	// ----------------topic home
@@ -46,10 +47,8 @@ public class ForumManageTopic extends ForumBase {
 	public By ELEMENT_DELETE_TOPIC = By.id("UITopicDetailConfirm0");
 	public By ELEMENT_EDIT_TOPIC = By
 			.xpath("//*[contains(@href, 'EditTopic')]");
-	/*public By ELEMENT_MOVE_TOPIC = By
-			.xpath("//div[@class='dropdown uiDropdownWithIcon actionIcon open']//i[@class='uiIconMove']");*/
-	public By ELEMENT_MOVE_TOPIC = By
-			.xpath("//div[@class='dropdown uiDropdownWithIcon actionIcon open']//*[@class='uiIconMove uiIconLightGray']");
+	public By ELEMENT_MOVE_TOPIC = By.xpath("//div[@class='dropdown uiDropdownWithIcon actionIcon open']//*[contains(@class,'uiIconMove')]");
+
 	public By ELEMENT_APPROVE_TOPIC = By.xpath("//*[text()='Approve']");
 	public By ELEMENT_CHECK_ALL = By
 			.xpath("//*[@id='UITopicContent']//input[@title='Check All']");
@@ -67,8 +66,6 @@ public class ForumManageTopic extends ForumBase {
 			.xpath("//form[@id='UITopicDetail']//*[@data-toggle='dropdown']/*[@class='uiIconSettings uiIconLightGray']");
 
 	public String ELEMENT_CATEGORY_BREAD = "//a[@data-original-title='${category}']";
-	// public By ELEMENT_TOPIC_ON_FORUM_HOMEPAGE =
-	// By.xpath("//*[contains(@data-original-title,'${topic}')]");
 
 	// ----------------start topic
 	// screen--------------------------------------------------
@@ -203,7 +200,14 @@ public class ForumManageTopic extends ForumBase {
 	// ------------Watch/Unwatch Topic---------------
 	public By ELEMENT_WATCH_TOPIC = By.linkText(" Watch");
 	public String ELEMENT_CLASS_WATCH_TOPIC = "AddWatchingIcon StatusIcon";
-
+	
+	//Last read Post
+	public final String ELEMENT_GO_TO_LAST_READ_POST = "//*[contains(text(),'${topic}')]/../..//*[@data-original-title='Go to the last read post']";
+	public final String ELEMENT_GO_TO_LAST_READ_POST_MESSAGE = "Go to the last read post";
+	public final String ELEMENT_GO_TO_LAST_POST = "//*[contains(text(),'${topic}')]/../..//*[@data-original-title='Go to last post']";
+	public final String ELEMENT_GO_TO_LAST_POST_MESSAGE = "Go to last post";
+	public final String ELEMENT_ADDED_POST = "//*[text()='${post}']";
+	
 	/*------------------------------Common function-----------------------------------*/
 
 	/**
@@ -1130,5 +1134,29 @@ public class ForumManageTopic extends ForumBase {
 				false);
 		click(ELEMENT_SUBMIT_BUTTON);
 		waitForAndGetElement(By.linkText(topic));
+	}
+	
+	/**
+	 * 
+	 * @param 
+	 * @param descTopic
+	 */
+	public void goToLastReadPost(String topic, String lastPost, boolean lastRead){
+		info("Go to last read post");
+		mngPost = new ForumManagePost(driver, this.plfVersion);
+		if (lastRead){
+			mouseOver(By.xpath(ELEMENT_GO_TO_LAST_READ_POST.replace("${topic}", topic)), true);
+			waitForTextPresent(ELEMENT_GO_TO_LAST_READ_POST_MESSAGE, 2000);
+			click(ELEMENT_GO_TO_LAST_READ_POST.replace("${topic}", topic));
+			waitForAndGetElement(ELEMENT_ADDED_POST.replace("${post}", lastPost), 3000);
+			waitForAndGetElement(mngPost.ELEMENT_POST_QUICK_BUTTON, 3000);
+		} else{
+			mouseOver(By.xpath(ELEMENT_GO_TO_LAST_POST.replace("${topic}", topic)), true);
+			waitForTextPresent(ELEMENT_GO_TO_LAST_POST_MESSAGE, 2000);
+			click(ELEMENT_GO_TO_LAST_POST.replace("${topic}", topic));
+			waitForAndGetElement(ELEMENT_ADDED_POST.replace("${post}", lastPost), 3000);
+			waitForAndGetElement(mngPost.ELEMENT_POST_QUICK_BUTTON, 3000);
+		}
+		info("Go to last read post success");
 	}
 }

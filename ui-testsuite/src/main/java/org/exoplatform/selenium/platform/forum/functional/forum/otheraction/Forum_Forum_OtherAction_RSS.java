@@ -59,7 +59,7 @@ public class Forum_Forum_OtherAction_RSS extends ForumBase{
 	public  void test01_GetRSSOfASpecificCategory() {
 		info("Test 1: Get RSS of a specific Category");
 
-		String category = "Test 1 new category";
+		String category = "Test 1 new category" + getRandomNumber();
 		String descTopic = "Test 1 description";
 		String forum = "Test 1 new forum";
 		String topic=  "Test 1 new topic";
@@ -384,7 +384,7 @@ public class Forum_Forum_OtherAction_RSS extends ForumBase{
 	@Test
 	public  void test07_GetRSSOfACensoredPost() {
 		info("Test 7: Get RSS of a Censored post");
-		String catName = "Category 73015";
+		String catName = "Category 73015" + getRandomNumber();
 		String fmName = "Test 7 new forum";
 		String tpName = "Test 7 new topic";
 		String censorPost = "censor post";
@@ -537,7 +537,7 @@ public class Forum_Forum_OtherAction_RSS extends ForumBase{
 	public  void test09_GetRSSOfAForumAfterMoveTopic() {
 		info("Test 09: Get RSS of a Forum after move topic");
 		String catDes = "Destination";
-		String fmDes = "Forum1";
+		String fmDes = "Forum111";
 		String catName = "Test 09 new category";
 		String fmName = "Test 09 new forum";
 		String tpName = "Test 09 new topic";
