@@ -274,10 +274,9 @@ public class ForumManageTopic extends ForumBase {
 				inputDataToFrame(ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR, message,
 						false);
 			else
-				// (this.plfVersion.equalsIgnoreCase("4.0"))
 				inputDataToFrameInFrame(ELEMENT_TOPIC_MESSAGE_FRAME_1,
 						ELEMENT_TOPIC_MESSAGE_FRAME_2, message, true, false);
-			switchToParentWindow();
+			driver.switchTo().defaultContent();
 		}
 		if (file.length > 0 && file[0] != "" && file[0] != null) {
 			click(ELEMENT_ATTACH_FILE);

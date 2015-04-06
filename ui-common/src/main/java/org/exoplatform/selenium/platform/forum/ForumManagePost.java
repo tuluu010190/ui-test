@@ -36,7 +36,8 @@ public class ForumManagePost extends ForumBase {
 			.xpath("//*[@class='clearfix topContainer']//div[@class='uiLockIcon btn disabled' and text()='Post Reply']");
 
 	public By ELEMENT_POST_REPLY_BUTTON = By.linkText("Post Reply");
-	public String ELEMENT_POST_EDIT_BUTTON = "//*[text()='${postContent}']/../../../..//a[text()='Edit' and @class='btn']";
+	//public String ELEMENT_POST_EDIT_BUTTON = "//*[text()='${postContent}']/../../../..//a[text()='Edit' and @class='btn']";
+	public String ELEMENT_POST_EDIT_BUTTON = "//p[contains(text(),'${postContent}')]/../../../..//a[text()='Edit']";
 	public String ELEMENT_POST_EDIT_BUTTON_1 = "//*[text()='${postContent}']/../../../..//a[text()='Edit' and @class='btn']";
 	public String ELEMENT_POST_CHECKBOX = "//*[contains(text(),'${postContent}')]/../../../../*//input[@type='checkbox']";
 	// public By ELEMENT_MOVE_POST =
@@ -67,7 +68,8 @@ public class ForumManagePost extends ForumBase {
 	public String ELEMENT_PRIVATE_POST_MESSAGE = "//div[@class='uiForumPortlet forumBoxNotification']//div[@class='content' and contains(text(),'${post}')]";
 	public By ELEMENT_PRIVATE_POST_CLOSE_NOTIFICATION = By
 			.xpath("//div[@class='uiForumPortlet forumBoxNotification']//i[@class='uiIconClose']");
-	public String ELEMENT_POST_QUOTE_TEXT = "//div[@class='contentQuote']/div[@class='textContent']/p[contains(text(),'${post}')]";
+	//public String ELEMENT_POST_QUOTE_TEXT = "//div[@class='contentQuote']/div[@class='textContent']/*[contains(text(),'${post}')]";
+	public String ELEMENT_POST_QUOTE_TEXT = "//div[@class='contentQuote']/div[@class='textContent' and contains(text(),'${post}')]";
 
 	// CKEditor
 	public final String ELEMENT_CKEDITOR_DECORATE = ".//*[@title='${name}']";
@@ -735,7 +737,7 @@ public class ForumManagePost extends ForumBase {
 
 		waitForElementNotPresent(magTopic.ELEMENT_SUBMIT_BUTTON);
 		waitForAndGetElement(ELEMENT_POST_CONTENT_TEXT.replace("${post}",
-				content));
+				post));
 		waitForAndGetElement(ELEMENT_POST_QUOTE_TEXT.replace("${post}", post));
 	}
 

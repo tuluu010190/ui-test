@@ -824,16 +824,18 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_TOPIC_POST_DESCRIPTION=".//*[@class='postContent']//..[contains(text(),'${descripTopic}')]";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTION_NORMAL=".//*[@class='postContent']//../p[contains(text(),'${nameItem}')]";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_BLOCKQUOTE=".//*[@class='postContent']//blockquote/p[contains(text(),'${nameDes}')]";
-	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_RIGHT=".//*[@class='postContent']//..[contains(text(),'${descripTopic}')][@style='text-align: right;']";
-	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_LEFT=".//*[@class='postContent']//..[contains(text(),'${descripTopic}')]";
-	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_CENTER=".//*[@class='postContent']//..[contains(text(),'${descripTopic}')][@style='text-align: center;']";
+	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_RIGHT=".//*[@class='postContent']//*[contains(text(),'${descripTopic}')][@style='text-align: right;']";
+	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_LEFT=".//*[@class='postContent']//*[contains(text(),'${descripTopic}')]";
+	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_CENTER=".//*[@class='postContent']//*[contains(text(),'${descripTopic}')][@style='text-align: center;']";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_BOLD=".//*[@class='postContent']//p/strong[contains(text(),'${descripTopic}')]";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_ITALIC=".//*[@class='postContent']//em[contains(text(),'${descripTopic}')]";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_UNDERLINE=".//*[@class='postContent']//u[contains(text(),'${descripTopic}')]";
-	public final String ELEMENT_QUOTE_DESCRIPTION_DECORATED_RIGHT=".//*[@class='postContent']//..[contains(text(),'${nameDescQuote}')][@style='text-align: right;']//../div[@class='contentQuote']//.[contains(text(),'${nameDescPost}')]";
-	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_JUSTIFY=".//*[@class='postContent']//..[contains(text(),'${descripTopic}')][@style='text-align: justify;']";
+	//public final String ELEMENT_QUOTE_DESCRIPTION_DECORATED_RIGHT=".//*[@class='postContent']//..[contains(text(),'${nameDescQuote}')][@style='text-align: right;']//../div[@class='contentQuote']//.[contains(text(),'${nameDescPost}')]";
+	public final String ELEMENT_QUOTE_DESCRIPTION_DECORATED_RIGHT="//*[@class='containerQuote']/p[@style='text-align: right;']/..//div[contains(text(),'${post}')]";
+	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_JUSTIFY=".//*[@class='postContent']//*[contains(text(),'${descripTopic}')][@style='text-align: justify;']";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_NUM_LIST=".//*[@class='postContent']//ol/li[contains(text(),'${nameItem}')]";
-	public final String ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_BULLET_LIST=".//*[@class='postContent']//ul/li[contains(text(),'${nameItem}')]";
+	//public final String ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_BULLET_LIST=".//*[@class='postContent']//ul/li[contains(text(),'${nameItem}')]";
+	public final String ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_BULLET_LIST=".//*[@class='postContent']//li[contains(text(),'${nameItem}')]";
 	public final String ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_INCREASE=".//*[@class='postContent']//p[@style='margin-left: 40px;'][contains(text(),'${nameItem}')]";
 	public final By ELEMENT_RESULT_FLOATING_RESULTS_DISCUSSION_ICON= By.xpath("//*[@class='uiQuickSearchResult']/descendant::tr[th[contains(text(),'Discussion')]]//a/i[contains(@class,'uiIconPLFDiscussion')]");
 	public final String ELEMENT_RESULT_FLOATING_RESULTS_NAME= "//*[@class='uiQuickSearchResult']/descendant::tr[th[contains(text(),'${type_Search}')]]//a[contains(.,'${detail_Name}')]";
@@ -1305,7 +1307,7 @@ public class PlatformBase extends TestBase {
 	public void inputDataToFrame(By framelocator, String data, boolean...validate){
 		try {
 			WebElement inputsummary = null;
-
+			boolean clear = (boolean) (validate.length > 1 ? validate[1]: true); 
 			for (int repeat = 0;; repeat++) {
 				if (repeat >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 					Assert.fail("Fail to input data to frame " + framelocator);
@@ -1314,8 +1316,9 @@ public class PlatformBase extends TestBase {
 				driver.switchTo().frame(e);
 				inputsummary = driver.switchTo().activeElement();
 				inputsummary.click();
-				inputsummary.clear();
-
+				if (clear)
+					inputsummary.clear();
+				
 				if (validate.length >0)
 					if (validate[0]){
 						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
@@ -1331,7 +1334,6 @@ public class PlatformBase extends TestBase {
 					if (inputsummary.getText().contains(data)) 
 						break;
 				}
-
 				switchToParentWindow();
 			}
 		} catch (StaleElementReferenceException e) {
@@ -1347,12 +1349,30 @@ public class PlatformBase extends TestBase {
 		}catch (WebDriverException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			driver.switchTo().defaultContent();
 			inputDataToFrame (framelocator,data,validate);
 		}
 		finally {
 			loopCount = 0;
 		}
+	}
+	
+	/**
+	 * Type a text to a Frame using for CKEDITOR
+	 * @param frameLocator
+	 * @param content
+	 */
+	public void inputFrame(By frameLocator,String content){
+		info("Finding the frameLocator:"+frameLocator);
+		WebElement e = waitForAndGetElement(frameLocator,DEFAULT_TIMEOUT,1,2);
+		info("Switch to the frame:"+frameLocator);
+		driver.switchTo().frame(e);
+		WebElement inputsummary = driver.switchTo().activeElement();
+		info("focus on the text area");
+		inputsummary.click();
+		info("Input the content:"+content);
+		inputsummary.sendKeys(content);
+		info("Back to parent window");
+		switchToParentWindow();
 	}
 
 	/**

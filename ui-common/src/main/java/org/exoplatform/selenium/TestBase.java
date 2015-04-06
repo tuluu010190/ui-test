@@ -1398,4 +1398,18 @@ public class TestBase {
 		Utils.pause(2000);
 		info("The elemnt is shown successfully");
 	}
+	
+	/**
+	 * typeUsingRobot
+	 * @param robot
+	 * @param keycodes
+	 */
+	public void typeUsingRobot(Robot robot, int... keycodes){
+		for(int keycode:keycodes){
+			robot.keyPress(keycode);
+		}
+		for(int keycode:keycodes){
+			robot.keyRelease(keycode);
+		}
+	}
 }

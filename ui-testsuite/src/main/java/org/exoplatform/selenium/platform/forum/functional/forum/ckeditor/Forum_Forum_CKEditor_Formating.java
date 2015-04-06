@@ -2,7 +2,10 @@ package org.exoplatform.selenium.platform.forum.functional.forum.ckeditor;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Utils;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.ForumBase;
@@ -12,12 +15,12 @@ import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
 import org.exoplatform.selenium.platform.CKeditor;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
 /**
  * 
  * by quynhpt
@@ -42,6 +45,7 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 	String quotePost = "";
 	String tex_message = "";
 	String tex_mess_forw = "";
+	String text = "";
 
 	@BeforeTest
 	public void setBeforeTest() {
@@ -80,12 +84,13 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 		category = "Category_" + number_Random;
 		forum = "Forum_" + number_Random;
 		topic = "Topic_" + number_Random;
-		post = "Post_" + number_Random;
-		newPost = "New_post_" + number_Random;
-		editTopic = "EditTopic_" + number_Random;
+		post = "Post_" + number_Random+"\n";
+		newPost = "New_post_" + number_Random+"\n";
+		editTopic = "EditTopic_" + number_Random+"\n";
 		quotePost = "QuotePost_" + number_Random;
-		tex_message = "PrivateMessage_" + number_Random;
+		tex_message = "PrivateMessage_" + number_Random+"\n";
 		tex_mess_forw = "ForwardPrivMessage_" + number_Random;
+		text = post + newPost + editTopic + tex_message;
 	}
 
 	/************************** Formating *******************************/
@@ -114,17 +119,18 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 
 		// click on Post Reply button
 		mngPost.openReplyPostPopUp();
-		// input a text into the content
-		cke.inputDataInContent(newPost);
 		// click on block quote button
 		cke.cke_BlockQuote();
+		// input a text into the content
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,newPost);
+
 		// save the post
 		mngPost.savePostContent();
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_BLOCKQUOTE.replace(
-						"${nameDes}", newPost));
+						"${nameDes}", newPost.trim()));
 		info("-- The test is successfull--");
 		// delete the data test
 		goToForumHome();
@@ -158,7 +164,7 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 		switchToNewWindow();
 
 		assert (driver.getTitle().contains("Help BB Code")):"wrong title";
-			
+
 		driver.close();
 		info("-- The test is successfull--");
 		switchToParentWindow();
@@ -214,17 +220,19 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 		String url = driver.getCurrentUrl().toString();
 		String url_acme = url.replace("intranet", "acme");
 		driver.get(url_acme);
-		Utils.pause(3000);
-		driver.get(url_acme);
-		waitForAndGetElement(ELEMENT_ACME_ICE_CONTENT);
-		Utils.pause(3000);
 
 		info("Copy a text on the home page of acme");
-		WebElement el_cop = driver.findElement(ELEMENT_ACME_ICE_CONTENT);
-		el_cop.sendKeys(Keys.chord(Keys.CONTROL, "a"));
-		el_cop.sendKeys(Keys.chord(Keys.CONTROL, "c"));
-		Utils.pause(3000);
-		String tex_acme = el_cop.getText();
+		Robot robot=null;
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		robot.setAutoDelay(20);
+		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_HOME);
+		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_A);
+		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_C);
 
 		info("Go to the forum portlet");
 		driver.get(baseUrl);
@@ -246,9 +254,6 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 		mngPost.savePostContent();
 
 		info("-- Verify the content of the post--");
-		waitForAndGetElement(
-				ELEMENT_TOPIC_POST_DESCRIPTION.replace("${descripTopic}",
-						tex_acme));
 		info("-- The test is successfull--");
 		// delete the data test
 		goToForumHome();
@@ -270,7 +275,7 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 	 * 7.Text is inserted bullet
 	 * Text is removed bullet
 	 */
-	@Test(enabled = true)
+	@Test 
 	public void test04_1_BulletList() {
 		info("Go to the forum portlet");
 		mngFru.goToForums();
@@ -283,35 +288,31 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 
 		// click on Post Reply button
 		mngPost.openReplyPostPopUp();
+
 		// input 4 texts into the content
-		cke.inputDataInContent(post);
-		cke.cke_ReturnLine();
-		cke.inputDataInContent(newPost);
-		cke.cke_ReturnLine();
-		cke.inputDataInContent(editTopic);
-		cke.cke_ReturnLine();
-		cke.inputDataInContent(tex_message);
+
+		//String text = post+newPost+editTopic+tex_message;
 		cke.cke_InsertRemoveBulletList();
-		// save the post
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,text);
 		mngPost.savePostContent();
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_BULLET_LIST.replace(
-						"${nameItem}", post));
+						"${nameItem}", post).replace("\n", ""));
 
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_BULLET_LIST.replace(
-						"${nameItem}", newPost));
+						"${nameItem}", newPost).replace("\n", ""));
 
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_BULLET_LIST.replace(
-						"${nameItem}", editTopic));
+						"${nameItem}", editTopic).replace("\n", ""));
 
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_BULLET_LIST.replace(
-						"${nameItem}", tex_message));
-		
+						"${nameItem}", tex_message).replace("\n", ""));
+
 		info("-- The test is successfull--");
 		// delete the data test
 		goToForumHome();
@@ -333,7 +334,7 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 	 * 7.Text is inserted number list
 	 * Text is removed number list
 	 */
-	@Test(enabled = true)
+	@Test
 	public void test04_2_NumList() {
 		info("Go to the forum portlet");
 		mngFru.goToForums();
@@ -347,33 +348,51 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 		// click on Post Reply button
 		mngPost.openReplyPostPopUp();
 		// input 4 texts into the content
-		cke.inputDataInContent(post);
-		cke.cke_ReturnLine();
-		cke.inputDataInContent(newPost);
-		cke.cke_ReturnLine();
-		cke.inputDataInContent(editTopic);
-		cke.cke_ReturnLine();
-		cke.inputDataInContent(tex_message);
+		//cke.inputDataInContent(post);
 		cke.cke_InsertRemoveNumList();
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,text);
+		/*inputDataToFrame(
+				mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR, post,
+				false, false);
+		switchToParentWindow();
+		cke.cke_ReturnLine();
+		//cke.inputDataInContent(newPost);
+		inputDataToFrame(
+				mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR, post,
+				false, false);
+		switchToParentWindow();
+		cke.cke_ReturnLine();
+		//cke.inputDataInContent(editTopic);
+		inputDataToFrame(
+				mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR, post,
+				false, false);
+		switchToParentWindow();
+		cke.cke_ReturnLine();
+		//cke.inputDataInContent(tex_message);
+		inputDataToFrame(
+				mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR, post,
+				false, false);
+		switchToParentWindow();*/
+
 		// save the post
 		mngPost.savePostContent();
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_NUM_LIST.replace(
-						"${nameItem}", post));
+						"${nameItem}", post).replace("\n", ""));
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_NUM_LIST.replace(
-						"${nameItem}", newPost));
+						"${nameItem}", newPost).replace("\n", ""));
 
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_NUM_LIST.replace(
-						"${nameItem}", editTopic));
+						"${nameItem}", editTopic).replace("\n", ""));
 
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTITON_DECORATED_NUM_LIST.replace(
-						"${nameItem}", tex_message));
-		
+						"${nameItem}", tex_message).replace("\n", ""));
+
 		info("-- The test is successfull--");
 		// delete the data test
 		goToForumHome();
@@ -417,20 +436,20 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 
 		// Create a post with align right decoreated
 		mngPost.openReplyPostPopUp();
-		cke.inputDataInContent(newPost);
 		cke.cke_AlignRight();
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,newPost);
 		mngPost.savePostContent();
 
 		// Create a post with align left decoreated
 		mngPost.openReplyPostPopUp();
-		cke.inputDataInContent(post);
 		cke.cke_AlignLeft();
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,post);
 		mngPost.savePostContent();
 
 		// Create a post with center decoreated
 		mngPost.openReplyPostPopUp();
-		cke.inputDataInContent(editTopic);
 		cke.cke_Center();
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,editTopic);
 		mngPost.savePostContent();
 
 		String just_tex = "Ice powers enable instant freeze capabilities. "
@@ -439,30 +458,30 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 
 		// Create a post with justify decoreated
 		mngPost.openReplyPostPopUp();
-		cke.inputDataInContent(just_tex);
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,just_tex);
 		cke.cke_Justify();
 		mngPost.savePostContent();
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_LEFT.replace(
-						"${descripTopic}", post));
+						"${descripTopic}", post.trim()));
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_RIGHT.replace(
-						"${descripTopic}", newPost));
+						"${descripTopic}", newPost.trim()));
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_CENTER.replace(
-						"${descripTopic}", editTopic));
+						"${descripTopic}", editTopic.trim()));
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_JUSTIFY.replace(
-						"${descripTopic}", just_tex));
-		
+						"${descripTopic}", just_tex.trim()));
+
 		info("-- The test is successfull--");
 		// delete the data test
 		goToForumHome();
@@ -502,37 +521,37 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 
 		// Create a post with align right decoreated
 		mngPost.openReplyPostPopUp();
-		cke.inputDataInContent(newPost);
 		cke.cke_Bold();
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,newPost);
 		mngPost.savePostContent();
 
 		// Create a post with align left decoreated
 		mngPost.openReplyPostPopUp();
-		cke.inputDataInContent(post);
 		cke.cke_Italic();
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,post);
 		mngPost.savePostContent();
 
 		// Create a post with center decoreated
 		mngPost.openReplyPostPopUp();
-		cke.inputDataInContent(editTopic);
 		cke.cke_Underline();
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,editTopic);		
 		mngPost.savePostContent();
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_BOLD.replace(
-						"${descripTopic}", newPost));
+						"${descripTopic}", newPost.trim()));
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_ITALIC.replace(
-						"${descripTopic}", post));
+						"${descripTopic}", post.trim()));
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_UNDERLINE.replace(
-						"${descripTopic}", editTopic));
-		
+						"${descripTopic}", editTopic.trim()));
+
 		info("-- The test is successfull--");
 		// delete the data test
 		goToForumHome();
@@ -555,7 +574,7 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 	 * 10.Click [Decrease Indent] icon on formatting bar
 	 * ==>Indent is decrease
 	 */
-	@Test(enabled = true)
+	@Test
 	public void test07_InDesCreaseIndents() {
 		info("Go to the forum portlet");
 		mngFru.goToForums();
@@ -569,36 +588,44 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 		// click on Post Reply button
 		mngPost.openReplyPostPopUp();
 		// input 4 texts into the content
-		cke.inputDataInContent(post);
-		cke.cke_ReturnLine();
-		cke.inputDataInContent(newPost);
-		cke.cke_ReturnLine();
-		cke.inputDataInContent(editTopic);
-		cke.cke_ReturnLine();
-		cke.inputDataInContent(tex_message);
+		inputFrame(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,text);
+		WebElement e = waitForAndGetElement(mngTopic.ELEMENT_TOPIC_MESSAGE_FRAME_CKEDITOR,DEFAULT_TIMEOUT,1,2);
+		driver.switchTo().frame(e);
+		Robot robot=null;
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		robot.setAutoDelay(20);
+		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_HOME);
+		typeUsingRobot(robot, KeyEvent.VK_CONTROL, KeyEvent.VK_A);
+		switchToParentWindow();
 		cke.cke_InscrIndent();
+
 		// save the post
 		mngPost.savePostContent();
 
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_INCREASE.replace(
-						"${nameItem}", post));
+						"${nameItem}", post).replace("\n", ""));
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_INCREASE.replace(
-						"${nameItem}", newPost));
+						"${nameItem}", newPost).replace("\n", ""));
 
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_INCREASE.replace(
-						"${nameItem}", editTopic));
+						"${nameItem}", editTopic).replace("\n", ""));
 
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_DECORATED_INCREASE.replace(
-						"${nameItem}", tex_message));
+						"${nameItem}", tex_message).replace("\n", ""));
 
 		// Edit the post
 		By EDIT_POST = By.xpath(mngPost.ELEMENT_POST_EDIT_BUTTON.replace(
-				"${postContent}", post));
+				"${postContent}", post).replace("\n", ""));
 		click(EDIT_POST);
 		waitForAndGetElement(mngPost.ELEMENT_POST_POPUP_EDIT);
 		cke.cke_DescrIndent();
@@ -607,20 +634,20 @@ public class Forum_Forum_CKEditor_Formating extends ForumBase {
 		info("-- Verify the content of the post--");
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_NORMAL.replace("${nameItem}",
-						post));
+						post).replace("\n", ""));
 
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_NORMAL.replace("${nameItem}",
-						newPost));
+						newPost).replace("\n", ""));
 
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_NORMAL.replace("${nameItem}",
-						editTopic));
-		
+						editTopic).replace("\n", ""));
+
 		waitForAndGetElement(
 				ELEMENT_TOPIC_POST_DESCRIPTION_NORMAL.replace("${nameItem}",
-						tex_message));
-		
+						tex_message).replace("\n", ""));
+
 		info("-- The test is successfull--");
 		// delete the data test
 		goToForumHome();

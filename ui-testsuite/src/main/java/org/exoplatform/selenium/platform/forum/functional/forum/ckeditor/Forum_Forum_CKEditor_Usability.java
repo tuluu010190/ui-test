@@ -254,15 +254,22 @@ public class Forum_Forum_CKEditor_Usability extends ForumBase {
 	 */
 	@Test(enabled = true)
 	public void test04_ActionUndoRedo() {
-	
+		String tex_content = "ChangeContentNotificaiton_" + getRandomNumber();
 		info("Go to the forum portlet");
 		mngFru.goToForums();
 		goToNotifications();
-
+		changeNotifications(false, "", tex_content);
+		
+		goToNotifications();
 		cke.cke_Cut();
 		Utils.pause(1000);
+		isTextNotPresent(tex_content);
 		cke.cke_Undo();
 		Utils.pause(1000);
+		isTextPresent(tex_content, 500);
+		cke.cke_Redo();
+		Utils.pause(1000);
+		isTextNotPresent(tex_content);
 		WebElement e = waitForAndGetElement(cke.ELEMENT_CKEDITOR_TEXT_CONTENT,
 				DEFAULT_TIMEOUT, 1, 2);
 		driver.switchTo().frame(e);
@@ -272,10 +279,11 @@ public class Forum_Forum_CKEditor_Usability extends ForumBase {
 		WebElement el = driver.findElement(By.xpath("html/body"));
 		System.out.print("text: " + el.getText() + "\n");
 		
-		assert el
+		
+		/*assert el
 				.getText()
 				.contains(
-						"you received this email because you registered for the Forum and Topic Watching notification"):"Cannot Undo/Redo";
+						"you received this email because you registered for the Forum and Topic Watching notification"):"Cannot Undo/Redo";*/
 	  
 		info("-- The test is successfull--");
 	   switchToParentWindow();

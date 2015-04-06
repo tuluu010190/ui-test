@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.forum.functional.forum.ckeditor;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.ManageAccount;
@@ -33,6 +34,7 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 	NavigationToolbar navToolBar;
 	HomePageActivity homeActi;
 	CKeditor cke;
+	Button button;
 
 	String category = "";
 	String forum = "";
@@ -57,6 +59,7 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 		navToolBar = new NavigationToolbar(driver);
 		homeActi = new HomePageActivity(driver, this.plfVersion);
 		cke = new CKeditor(driver, this.plfVersion);
+		button = new Button(driver, this.plfVersion);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 
 	}
@@ -83,9 +86,10 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 		forum = "Forum_" + number_Random;
 		topic = "Topic_" + number_Random;
 		post = "Post_" + number_Random;
+		quotePost = "[QUOTE=john]" + post + "[/QUOTE]";
 		newPost = "New_post_" + number_Random;
 		editTopic = "EditTopic_" + number_Random;
-		quotePost = "QuotePost_" + number_Random;
+		//quotePost = "QuotePost_" + number_Random;
 		tex_message = "PrivateMessage_" + number_Random;
 		tex_mess_forw = "ForwardPrivMessage_" + number_Random;
 	}
@@ -212,7 +216,7 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 		// go to intranet activity stream
 		info("-- Go to activity stream of the intranet page --");
 		navToolBar.goToHomePage();
-
+		driver.navigate().refresh();
 		info("-- Verify the name of the topic --");
 		waitForAndGetElement(
 				By.xpath(homeActi.ELEMENT_TOPIC_TITLE.replace("${nameTopic}",topic)));
@@ -392,17 +396,16 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 						"${descripTopic}", post));
 
 		// Quote a post and decorate the text in align right
-		mngPost.quotePostWithDecorate(post, quotePost, quotePost, "Align Right");
+		mngPost.quotePostWithDecorate(post, post, quotePost, "Align Right");
 
 		info("-- Verify the name of the quote a post--");
 		waitForAndGetElement(
-				ELEMENT_TOPIC_POST_TITLE.replace("${titleTopic}", quotePost));
+				ELEMENT_TOPIC_POST_TITLE.replace("${titleTopic}", post));
 
 		info("-- Verify the description of the quote is decorated in right position--");
 		waitForAndGetElement(
 				ELEMENT_QUOTE_DESCRIPTION_DECORATED_RIGHT.replace(
-						"${nameDescQuote}", quotePost).replace(
-						"${nameDescPost}", post));
+						"${post}", post));
 		
 		info("-- The test is successfull--");
 		// delete the data test
@@ -437,7 +440,9 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 	public void test08_PrivatePost() {
 		// Create a category, a forum, a topic on Foum application
 		info("Add a topic");
+		magAcc.signIn(DATA_USER1, DATA_PASS);
 		mngFru.goToForums();
+		
 		mngTopic.addCategoryForumTopic(category, forum, topic, topic);
 
 		// open the created topic
@@ -539,6 +544,7 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 		mngFru.goToForums();
 		goToPrivateMessage();
 		deletePrivateMessage(tex_mess_forw);
+		button.cancel();
 	}
 
 	/**
@@ -588,7 +594,7 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 		checkAndDeleteMail(
 				By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}", category)
 						.replace("${forum}", forum).replace("${topic}", post)),
-				post);
+						tex_content);
 		info("-- The test is successfull--");
 		// Delete data test
 		switchToParentWindow();
@@ -632,7 +638,7 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 		// go to intranet activity stream
 		info("-- Go to activity stream of the intranet page --");
 		navToolBar.goToHomePage();
-        Utils.pause(1000);
+		driver.navigate().refresh();
 		
 		// Click on Reply link of the topic
 		click(By.xpath(homeActi.ELEMENT_TOPIC_REPLY.replace("${title}", topic)));
