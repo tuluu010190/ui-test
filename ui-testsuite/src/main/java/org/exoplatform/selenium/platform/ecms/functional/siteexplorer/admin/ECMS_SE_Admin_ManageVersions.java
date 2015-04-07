@@ -184,7 +184,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			/*Step 1: Create node*/
 			info("Create Create  HTML File document");
 			actBar.goToAddNewContent();
-			cTemplate.createNewHtmlFile(node1,"en",node1);
+			cTemplate.createNewHtmlFile(node1,false,"en",node1);
 			cTemplate.goToNode(bNode);
 			
 			/*Step 2: Check node before active*/
@@ -203,7 +203,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			/*Step 3:Active version*/
 			//Click [Check In] from the Right-click menu for a node 
 			cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_EDIT);
-			cTemplate.inputHtmlFile("","fr",newContent);
+			cTemplate.inputHtmlFile("",false,"fr",newContent);
 			cMenu.contextMenuAction(bNode, cMenu.ELEMENT_MENU_CHECKIN);
 			
 			//Verify: Version info form appears and node is activated version

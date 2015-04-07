@@ -335,7 +335,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 
 		//Create a HTML File Document -destination
 		actBar.goToAddNewContent();
-		cTemplate.createNewHtmlFile(titlePaste, "");
+		cTemplate.createNewHtmlFile(titlePaste,false,"");
 
 		//Cut and paste the Document Folder into HTML File Document
 		cMenu.cutNode(bDoc);
@@ -577,7 +577,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		
 		//Create a HTML File document - source
 		actBar.goToAddNewContent();
-		cTemplate.createNewHtmlFile(titleCut, "");
+		cTemplate.createNewHtmlFile(titleCut,false, "");
 
 		//Cut and paste the HTML File Document into Content Folder
 		cMenu.cutAndPasteNode(bDoc, bDocDes);

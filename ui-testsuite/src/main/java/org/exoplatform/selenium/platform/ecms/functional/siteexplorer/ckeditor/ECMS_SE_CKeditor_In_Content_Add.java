@@ -393,7 +393,7 @@ import org.testng.annotations.Test;
 		actBar.goToAddNewContent();
 		info("Create new HTML file");
 		
-		cTemplate.createNewHtmlFile(HTMLFILE_NAME,"",HTMLFILE_CONTENT,true);
+		cTemplate.createNewHtmlFile(HTMLFILE_NAME,true,"",HTMLFILE_CONTENT);
 		//waitForAndGetElement(By.xpath("//*[@id='UIDocumentContainer']//u/em/strong[contains(text(),HTMLFILE_CONTENT)]"));
 		
 		info("Restore data");
@@ -429,7 +429,7 @@ import org.testng.annotations.Test;
 		navToolBar.goToSiteExplorer();
 		actBar.goToAddNewContent();
 		info("Create new Product");
-		cTemplate.createNewProductForCK(PRODUCT_NAME,PRODUCT_SUM,true, PRODUCT_BENEFIT,true, PRODUCT_FEATURE,true);
+		cTemplate.createNewProductForCK(PRODUCT_NAME,PRODUCT_SUM,PRODUCT_BENEFIT,PRODUCT_FEATURE,true);
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");

@@ -715,13 +715,10 @@ public class ContentTemplate extends EcmsBase {
 	 * @param name
 	 * @param params
 	 */
-	public void createNewProductForCK(String name,Object... params) {
-	    String sum = (String)(params.length>0 ? params[0]:"");
-	    boolean isDecoredSum = (boolean)(params.length>1 ? params[1]:false);
-	    String benefits =(String)(params.length>2 ? params[2]:"");
-	    boolean isDecoredBenefits = (boolean)(params.length>3 ? params[3]:false);
-	    String feature =(String)(params.length>4 ? params[4]:"");
-	    boolean isDecoredFeature = (boolean)(params.length>5 ? params[5]:false);
+	public void createNewProductForCK(String name,String sum,String benefits ,String feature,boolean... params) {
+	    boolean isDecoredSum = (boolean)(params.length>0 ? params[0]:false);
+	    boolean isDecoredBenefits = (boolean)(params.length>1 ? params[1]:false);
+	    boolean isDecoredFeature = (boolean)(params.length>2 ? params[2]:false);
 	    
 		click(ELEMENT_PRODUCT_LINK);
 		type(ELEMENT_PRODUCT_NAME_TEXTBOX, name, false);
@@ -889,19 +886,18 @@ public class ContentTemplate extends EcmsBase {
 	 * @param name
 	 * @param params
 	 */
-	public void createNewHtmlFile(String name, Object... params) {
+	public void createNewHtmlFile(String name,boolean isDecorate,Object... params) {
 		click(ELEMENT_NEW_HTML_FILE_LINK);
-		inputHtmlFile(name, params);
+		inputHtmlFile(name,isDecorate, params);
 	}
 	/**
 	 * Input Html file
 	 * @param name
 	 * @param params
 	 */
-	public void inputHtmlFile(String name, Object... params) {
+	public void inputHtmlFile(String name,boolean isDecorate, Object... params) {
 		String lang = (String) (params.length > 0 ? params[0] : "");
 		String content = (String) (params.length > 1 ? params[1] : "");
-		boolean isDecorate = (boolean) (params.length > 2 ? params[2] : false);
 		info("-- Creating a new HTML File --");
 		if (name != "")
 			type(ELEMENT_HTML_FILE_NAME, name, true);

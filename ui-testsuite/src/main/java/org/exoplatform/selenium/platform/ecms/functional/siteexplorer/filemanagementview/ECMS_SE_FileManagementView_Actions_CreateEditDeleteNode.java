@@ -205,7 +205,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 
 		info("Add new HTML File document");
 		actBar.goToAddNewContent();
-		conTemp.createNewHtmlFile(Html_File_Name,"", Html_content); 
+		conTemp.createNewHtmlFile(Html_File_Name,false,"", Html_content); 
 
 		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
