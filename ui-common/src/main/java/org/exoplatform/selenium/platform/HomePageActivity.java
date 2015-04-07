@@ -15,11 +15,6 @@ import org.testng.Assert;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.internal.Locatable;
 
-/**
- * Update: vuna2
- * @author lienTM
- *
- */
 public class HomePageActivity extends PlatformBase{
 
 	Dialog dialog;
@@ -104,7 +99,7 @@ public class HomePageActivity extends PlatformBase{
 	public final By ELEMENT_CONTENT_WIKI_VIEW_CHANGE = By.xpath("//*[@class='uiIconViewChange uiIconLightGray']");
 
 	//File activity
-	public final String ELEMENT_FILE_SIZE = "//a[@title='@{fileName}']/..//*[@class='versionFile' and contains(text(), '${size}')]";
+	public final String ELEMENT_FILE_SIZE = "//a[@data-original-title='@{fileName}']/..//*[@class='versionFile' and contains(text(), '${size}')]";
 	public final String ELEMENT_FILE_SIZE_41 = "//a[@data-original-title='@{fileName}']/..//*[@class='versionFile' and contains(text(), '${size}')]";
 	public final String ELEMENT_FILE_COMMENT_ADD_CATEGORY = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Category: ${category} has been added.']";
 	public final String ELEMENT_FILE_COMMENT_ADD_CATEGORY_41 = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='Category: ${category} has been added.']";
@@ -117,6 +112,10 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_FILE_VIEW = "//*[contains(text(),'${title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_FILE_CHECKCOMMENTRIGHT = "//*[contains(text(),'${title}')]/../../../..//*[@style='text-align: right;']";
 	
+	public final String ELEMENT_FILE_PREVIEW = ".//a[@data-original-title='{$file}']/img";
+	public final By ELEMENT_FILE_CHECK_TOOLBAR_VIEW =By.xpath(".//*[@id='DocViewer_PDF_']//*[@class='PDFViewerBar clearfix']");
+	public final By ELEMENT_FILE_DOMWLOAD_TOOLBAR_VIEW = By.xpath(".//*[@id='UISocialPopupWindow']//*[@class='uiIconDownload']");
+	public final By ELEMENT_FILE_VIEW_CLOSE = By.xpath(".//*[@id='UISocialPopupWindow']//*[@class='uiIconClose pull-right']");
 	
 	//Attach file
 	public final String ELEMENT_FILE_COMMENT_ADD_ATTACH_FILE = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File(s) has been attached.']";
@@ -194,6 +193,10 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_EVENT_ACTIVITY_DATE_TIME_INFO = "//div[${index}][contains(@id,'activityContainer')]//*[contains(@id,'ActivityContextBox')]//*[@class='text']/*[@class='dateTime']";
 	public final String ELEMENT_TASK_COMPLETED_ICON = "//*[contains(text(),'${title}')]/../../..//i[@class='uiIconStatus-completed']";
 
+	public final By ELEMENT_DELETE_ICON = By.xpath(".//*[@class='uiIconDelete uiIconLightGray']");
+	public final By ELEMENT_SELECT_FILE = By.xpath("//*[@class='btn' and contains(text(),'Select File')]");
+	public final By ELEMENT_UPLOAD_LINK = By.id("MultiUploadInputFiles");
+	
 	public HomePageActivity(WebDriver dr, String...plfVersion){
 		driver = dr;
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
@@ -431,6 +434,39 @@ public class HomePageActivity extends PlatformBase{
 		waitForAndGetElement(button.ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 
+	/**
+	 * Delete and replace the old content by a new one
+	 * @param newContentName
+	 */
+
+	public void editContent(String newContentName, Object...params){
+		click(ELEMENT_DELETE_ICON);
+		//click(ELEMENT_SELECT_FILE);
+		
+		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
+		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; " +
+				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", waitForAndGetElement(ELEMENT_UPLOAD_LINK, DEFAULT_TIMEOUT, 1, 2));
+		
+		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(newContentName));
+		info("Upload file " + Utils.getAbsoluteFilePath(newContentName));
+		Utils.pause(5000);
+		//waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR,120000,0);
+		/*type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(newContentName), false,2);
+		info("Upload file " + Utils.getAbsoluteFilePath(newContentName));
+		switchToParentWindow();*/
+		if (verify){
+			String links[] = newContentName.split("/");
+			int length = links.length;
+			Utils.pause(2000);
+			waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
+		}
+
+		info("Upload file successfully");
+		Utils.pause(2000);
+		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
+	}
+	
+	
 	/** function back homepage from edit screen
 	 * @author lientm
 	 */

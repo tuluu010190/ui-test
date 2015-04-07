@@ -156,6 +156,11 @@ public class ContentTemplate extends EcmsBase {
 	public final By ELEMENT_NEWFILE_TEXTAREA_ID = By.id("contentHtml");
 	public final By ELEMENT_NEWFILE_TEXTPLAIN = By.id("contentPlain");
 	public final String ELEMENT_NEWFILE_PRE_CSS = ".content>pre";
+	public final By ELEMENT_DOWNLOAD_FILE = By.xpath(".//*[@id='UIDocumentContainer']//*[@class='uiIconDownload']");
+	public final By ELEMENT_DOWLOAD_AS_PDF = By.xpath(".//*[@id='UIDocumentInfo_PDF_']//*[@class='DownLoadIcon']");
+	public final By ELEMENT_ZOOM_IN_ICON = By.xpath(".//*[@id='UIDocumentInfo_PDF_']//*[@class='ZoomIn']");
+	public final By ELEMENT_ROTATE_LEFT_ICON = By.xpath(".//*[@id='UIDocumentInfo_PDF_']//*[@class='RotateLeft']");
+	public final By ELEMENT_INFO_ICON = By.xpath(".//*[@id='UIDocumentInfo_PDF_']//*[@class='InfoIcon']");
 
 	// Picture on Head Layout
 	// exo:pictureOnHeadWebContent is changed to Illustrated Web Content
@@ -272,6 +277,15 @@ public class ContentTemplate extends EcmsBase {
 	// check content image
 	public final String ELEMENT_IMAGE_CHECK_ON_DOCUMENT_VIEW = "//*[@class='rightContainer']//*[@id='UIDocumentContainer']//img[@src='{$image}']";
 	public final By ELEMENT_CHECK_TABLE_EXIST = By.xpath("//*[@id='UIDocumentWorkspace']//*[@id='UITabContent']/table");
+	
+	// right panel
+	public final By ELEMENT_RIGHT_PANEL = By.xpath(".//*[@class='uiListGrid']");
+	public final By ELEMENT_RIGHT_CLICK_UPLOAD_FILES = By.xpath(".//*[@id='JCRContextMenu']/div[@class='uiRightClickPopupMenu']/ul/li[3]/a/i[@class='uiIconEcmsUpload']");
+	
+
+	public final By ELEMENT_SEARCH_INPUT = By.xpath(".//*[@id='simpleSearch']");
+	public final By ELEMENT_SEARCH_BUTTON = By.xpath(".//*[@id='SimpleSearch']/i");
+	public final String ELEMENT_RESULT_OF_SEARCH_BY_TITLE = ".//*[@id='SimpleSearchResult']//*[@class='title' and contains(text(),'{$title}')]";
 	/*
 	 * =================== Create a new document/article/file
 	 * ===================
@@ -903,6 +917,19 @@ public class ContentTemplate extends EcmsBase {
 		click(ELEMENT_NEW_HTML_FILE_LINK);
 		inputHtmlFile(name,isDecorate, params);
 	}
+	
+	/**
+	 * Search a content 
+	 * @param keyWordToSearch
+	 * @param nameOfContent
+	 */
+	public void searchContent(String keyWordToSearch,String nameOfContent){
+		info("Type a text to simple search filed");
+		type(ELEMENT_SEARCH_INPUT,keyWordToSearch,true);
+		click(ELEMENT_SEARCH_BUTTON);
+		waitForAndGetElement(By.xpath(ELEMENT_RESULT_OF_SEARCH_BY_TITLE.replace("{$title}",nameOfContent)));
+	}
+
 	/**
 	 * Input Html file
 	 * @param name
@@ -1631,7 +1658,42 @@ public class ContentTemplate extends EcmsBase {
 	}
 
 	/**
-	 * Create Accessible Media
+	 * Upload by right click 
+	 * @param link
+	 * @param params
+	 */
+	public void uploadByRightClickOnTheRightPanel(String link, Object...params){
+
+		rightClickOnElement(ELEMENT_RIGHT_PANEL);
+		click(ELEMENT_RIGHT_CLICK_UPLOAD_FILES);
+		
+		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
+		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; " +
+				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", waitForAndGetElement(ELEMENT_UPLOAD_LINK, DEFAULT_TIMEOUT, 1, 2));
+
+		Utils.pause(10000);
+		info(link);
+		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(link));
+		info("Upload file " + Utils.getAbsoluteFilePath(link));
+		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
+		/*type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false,2);
+		info("Upload file " + Utils.getAbsoluteFilePath(link));
+		switchToParentWindow();*/
+		if (verify){
+			String links[] = link.split("/");
+			int length = links.length;
+			Utils.pause(2000);
+			waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
+		}
+
+		info("Upload file successfully");
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Create an accessible media document
+	 * 
+	 * @author thuntn
 	 * @param name
 	 * @param lang
 	 * @param title
@@ -1662,4 +1724,6 @@ public class ContentTemplate extends EcmsBase {
 		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);
 	}
+	
+	
 }

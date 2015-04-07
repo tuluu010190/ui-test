@@ -31,6 +31,11 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_PAGE_ID = By.xpath("//*[contains(@id, 'UIPage-')]");
 	public final By ELEMENT_ADD_PAGE_MENU = By.xpath("//a[contains(text(),'Add Page')]");
 
+	//search bar
+	public final By ELEMENT_SEARCH_LOGO = By.xpath(".//*[@class='uiIconPLF24x24Search']");
+	public final By ELEMENT_SEARCH_BAR = By.xpath(".//*[contains(@id,'adminkeyword')]");
+	public final String ELEMENT_RESULT_SEARCH = ".//*[@id='result']//*[contains(text(),'{$text}')]";
+	
 	public NavigationToolbar(WebDriver dr, String...plfVersion){
 		driver = dr;
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
@@ -393,6 +398,23 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_SEARCH_FORM_CONTENT_TYPE_COLUMN);
 		waitForAndGetElement(ELEMENT_SEARCH_FORM_DESCRIPTION_COLUMN);
 		waitForAndGetElement(ELEMENT_SEARCH_FORM_ACTION_COLUMN);
+	}
+	
+
+	/**
+	 * Search a content with the search bar
+	 * @param keyWord
+	 * @param title
+	 * @param searchOrNo
+	 */
+	public void goToSearchInToolbar(String keyWord,boolean searchOrNo){
+		click(ELEMENT_SEARCH_LOGO);
+		type(ELEMENT_SEARCH_BAR,keyWord,true);
+		click(ELEMENT_SEARCH_LOGO);
+		if(searchOrNo==true)
+			waitForAndGetElement(By.xpath(ELEMENT_RESULT_SEARCH.replace("{$text}",keyWord)));
+		else
+			waitForElementNotPresent(By.xpath(ELEMENT_RESULT_SEARCH.replace("{$text}",keyWord)));
 	}
 
 	/**

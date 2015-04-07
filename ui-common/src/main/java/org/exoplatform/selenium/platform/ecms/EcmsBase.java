@@ -5,7 +5,6 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -13,11 +12,6 @@ import org.openqa.selenium.WebElement;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-/**
- * 
- * @author vuna2
- *
- */
 public class EcmsBase extends ManageAccount {
 
 	public EcmsBase(WebDriver dr, String...plfVersion) {
@@ -28,7 +22,6 @@ public class EcmsBase extends ManageAccount {
 	protected UserGroupManagement userGroup = new UserGroupManagement(driver);
 	protected SitesExplorer se ;
 	Button button;
-	//Dialog dialog = new Dialog(driver);
 
 	/*
 	 * Portal Acme - http://localhost:8080/portal/acme
@@ -46,22 +39,26 @@ public class EcmsBase extends ManageAccount {
 
 	//Sign-in form
 	public final By ELEMENT_LOGIN_BUTTON = By.name("signIn");
-	//By.xpath("//*[@id='UIPortalLoginFormAction']");
 
 	//Side bar
 	public final By ELEMENT_THUMBNAIL_HIDDEN_NODE = By.xpath("//span[text()='exo:thumbnails']");
 	public final By ELEMENT_DMS_STRUCTURE = By.xpath("//span[text()='jcr:content']");
+	public final By ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON = By.xpath(".//*[@id='UISideBar']//i[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
+	public final String ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME = "//*[@class='nodeName' and text()='${title}']";
+	public final By ELEMENT_SITEEXPLORER_ACTION_DELETE = By.xpath("//*[@class='uiIconEcmsDelete']");
 
+	//Confirm delete box
+	public final By ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE= By.xpath("//*[@class='uiAction uiActionBorder']//*[text()='Delete']");
+
+		
 	//UI address bar
 	public final String ELEMENT_VIEW_MODE_LINK = "//*[ @data-original-title='${viewName}']";
 	public final String ELEMENT_ADMIN_VIEW_MODE_LINK = "//i[@class='uiIconEcmsViewDefault uiIconEcmsViewAdmin uiIconEcmsLightGray']";
-	//public final String ELEMENT_VIEW_MODE_LINK = "//i[contains(@class,'uiIconEcmsViewDefault')]/../..//*[@data-original-title='${viewName}']";
 	public final By ELEMENT_BACK_PREVIOUS_NODE = By.className("uiIconEcmsGoBack uiIconEcmsLightGray");
 	public final By ELEMENT_BACK_PREVIOUS = By.xpath("//i[@class='uiIconEcmsGoBack uiIconEcmsLightGray']");
 	public final By ELEMENT_ADDRESS_BAR = By.id("address");
 
 	//New Folder
-	//public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder']");
 	public final By ELEMENT_NEW_FOLDER_LINK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
 	public final By ELEMENT_FOLDER_POPUP_TITLE = By.xpath("//*[contains(@class, 'popupTitle') and text()='New Folder']");
 	public final By ELEMENT_FOLDER_TITLE_TEXTBOX = By.id("titleTextBox");
@@ -296,7 +293,8 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_HREF_NODE_LINK = "//*[contains(@href, '${nodeName}')]"; 
 	public final String ELEMENT_FILE_CLONE = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]";
 	public final String ELEMENT_FILE_CREATED_DATE = ELEMENT_DATA_TITLE.replace("${dataTitle}", "${nodeTitle}") + "/../../*[contains(@class, 'columnDatetime')]";
-
+	public final By ELEMENT_UPLOAD_PROGRESS_BAR = By.xpath(".//*[contains(@class,'progress progress-striped pull-right')]");
+	
 	//Edit Tag Form
 	public final By ELEMENT_TAG_CLOUD = By.className("uiIconEcmsTagExplorerMini");
 	public final By ELEMENT_EDIT_TAGS = By.xpath("//*[@title='Edit Tags']");
@@ -376,52 +374,9 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_CLV_TITLE = "//*[@class='Title' and contains(text(), '${title}')]";
 	public final String ELEMENT_CLV_PUBLISH_DATE = ELEMENT_CLV_TITLE + "/../div[contains(text(), '${date}')]";
 
-
-
-	////////////////////////////////
-	//Log-in ECMS
-	/*public void loginEcms(String username, String password) {
-		driver.manage().window().maximize();
-		if (isElementNotPresent(ELEMENT_LOGIN_LINK)){
-			click(ELEMENT_GO_TO_ACME);
-		}
-		//click(ELEMENT_LOGIN_LINK);
-		while (isTextNotPresent("Remember My Login")){
-			info("-- Reloading page --");
-			driver.navigate().refresh();
-			Utils.pause(500);
-			click(ELEMENT_LOGIN_LINK);
-		}
-		Utils.pause(500);
-		type(By.name("username"),username, false);
-		type(By.name("password"),password, false);
-		click(ELEMENT_LOGIN_BUTTON);	
-		Utils.pause(500);
-	}*/
-
-	//Log-out ECMS
-	/*public void logoutEcms (){
-		//	mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-		//	mouseOver(ELEMENT_SIGN_OUT_LINK, true);
-		//click(ELEMENT_SIGN_OUT_LINK);
-		signOut();
-		driver.get(baseUrl);
-	}*/
-
-	//Open a Node
-	//Intranet > Documents
-	/*public void openNode(String nodeName){
-    	String[] nodes = ((String) nodeName).split("/");
-		for (String node: nodes)
-		{
-			info("-- Opening the node... --" + node);
-			rightClickOnElement(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node));
-			//(By.xpath(ELEMENT_NODE_ICON_ARROW_RIGHT.replace("${nodeName}", node)));
-		}
-		Utils.pause(500);
-    }*/
-
-	//Acme sites > Go to Overview page
+	/**
+	 * Acme sites > Go to Overview page
+	 */
 	public void goToOverviewPage(){
 		info("-- Go to Overview page--");
 		Utils.pause(500);
@@ -433,17 +388,21 @@ public class EcmsBase extends ManageAccount {
 		Utils.pause(1000);
 	}
 
-	//go to a node
-	//input: path: path of a node, split by  "/" character 
+	/**
+	 * go to a node
+	 * input: path: path of a node, split by  "/" character 
+	 * @param locator
+	 * @param params
+	 */
 	public void goToNode(Object locator, Object...params)
 	{
+		info("Go to Node");
 		se = new SitesExplorer(driver, plfVersion);
 		Boolean nodeAdminView = (Boolean) (params.length > 0 ? params[0]: false);
 		if (nodeAdminView && (locator instanceof String)){
 			String[] nodes = ((String) locator).split("/");
 			for (String node: nodes)
 			{
-				//click(By.xpath(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node)));
 				rightClickOnElement(ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", node));
 			}
 		}else{
@@ -453,7 +412,6 @@ public class EcmsBase extends ManageAccount {
 				String[] nodes = ((String) locator).split("/");
 				for (String node: nodes)
 				{
-					//click(ELEMENT_PERSONAL_DOCUMENT_NODE.replace("${content}", node));
 					if (waitForAndGetElement(By.xpath("//*[@title='" + node + "']"), 3000, 0) != null)
 						click(By.xpath("//*[@title='" + node + "']"));
 					else
@@ -465,7 +423,10 @@ public class EcmsBase extends ManageAccount {
 		Utils.pause(1000);
 	}
 
-	//function enable edit mode
+	/**
+	 * function enable edit mode
+	 * @param enable
+	 */
 	public void enableEditMode(boolean enable){
 		Utils.pause(1000);
 		mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
@@ -473,7 +434,6 @@ public class EcmsBase extends ManageAccount {
 			mouseOver(ELEMENT_MENU_EDIT_LINK, true);
 			Utils.pause(1000);
 		}
-		//waitForAndGetElement(ELEMENT_MENU_CONTENT_LINK);
 		if ((enable == true && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == true) || 
 				(enable == false && isElementPresent(ELEMENT_MENU_EDIT_CONTENT) == true)){
 			info("Change edit mode");
@@ -482,7 +442,9 @@ public class EcmsBase extends ManageAccount {
 		Utils.pause(1000);
 	}
 
-	//Up one level
+	/**
+	 * Up one level
+	 */
 	public void clickUpLevel(){
 		By ELEMENT_UP_LEVEL_ICON = By.className("uiIconUpLevel");
 		By ELEMENT_UP_LEVEL_ICON_0 = By.xpath("//*[contains(@class, 'uiIconUpLevel')]");
@@ -490,13 +452,14 @@ public class EcmsBase extends ManageAccount {
 			click(ELEMENT_UP_LEVEL_ICON);
 		}else {
 			click(ELEMENT_UP_LEVEL_ICON_0);
-			//WebElement upLevel = waitForAndGetElement(ELEMENT_UP_LEVEL_ICON_0, DEFAULT_TIMEOUT, 0);
-			//((JavascriptExecutor)driver).executeScript("arguments[0].click();", upLevel);
 		}
 		Utils.pause(500);
 	}
 
-	//Function to select user to set permission on permission management popup
+	/**
+	 * Function to select user to set permission on permission management popup
+	 * @param user
+	 */
 	public void selectUser(String user){
 		By ELEMENT_USER = By.xpath("//*[text() = '"+user+"']/../../td//*[@class='uiIconPlus uiIconLightGray']"); 
 		info("Set permission for user "+ user);
@@ -555,13 +518,7 @@ public class EcmsBase extends ManageAccount {
 		}
 		click(ELEMENT_OVERLOAD_THUMBNAIL);
 		Utils.pause(1000);
-		//click(ELEMENT_CHOOSE_THUMBNAIL_IMAGE);
-		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_IMG_FRAME_XPATH));
-		/*WebElement element = waitForAndGetElement(By.xpath("//*[@name='file']"), DEFAULT_TIMEOUT, 1, 2);		
-		((JavascriptExecutor)driver).executeScript("arguments[0].setAttribute('id', 'MultiUploadInputFiles');", element);
-		 */	
-		//((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible';", waitForAndGetElement(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), DEFAULT_TIMEOUT, 1, 2));
-		//type(By.xpath("//*[@class = 'uiUploadInput']/div/div/input[@name='file']"), Utils.getAbsoluteFilePath(link), false);
+		
 		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
@@ -571,14 +528,16 @@ public class EcmsBase extends ManageAccount {
 		waitForAndGetElement(ELEMENT_CHOOSE_THUMBNAIL_IMAGE);
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();
-		//String links[] = link.split("/");
-		//int length = links.length;
 		click(button.ELEMENT_SAVE_BUTTON);
 		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		Utils.pause(1000);
 	}
 
-	//upload file
+	/**
+	 * upload file
+	 * @param link
+	 * @param params
+	 */
 	public void uploadFile(String link, Object...params){
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
 		if (waitForAndGetElement(By.xpath("//a[@class='actionIcon' and contains(text(),'Upload')]"),DEFAULT_TIMEOUT,0)==null){
@@ -589,9 +548,13 @@ public class EcmsBase extends ManageAccount {
 
 		Utils.pause(10000);
 		info(link);
-		type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false,2);
+		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(link));
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
-		switchToParentWindow();
+		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
+		
+		/*type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false,2);
+		info("Upload file " + Utils.getAbsoluteFilePath(link));
+		switchToParentWindow();*/
 		if (verify){
 			String links[] = link.split("/");
 			int length = links.length;
@@ -603,7 +566,15 @@ public class EcmsBase extends ManageAccount {
 		Utils.pause(2000);
 	}
 
-	//Edit an uploaded file
+	/**
+	 * Edit an uploaded file
+	 * @param name
+	 * @param uploadFile
+	 * @param title
+	 * @param desc
+	 * @param creator
+	 * @param source
+	 */
 	public void editUploadedFile(String name, String uploadFile, String title, String desc, String creator, String source)
 	{
 		button = new Button(driver);
@@ -631,11 +602,9 @@ public class EcmsBase extends ManageAccount {
 	}
 
 	/**
-	 * @author phuongdt
-	 * @param file
 	 * upload many file
+	 * @param file
 	 */
-	//upload many file
 	public void uploadMultiFileSerial(String...file){
 
 		if (file.length > 0){
@@ -656,7 +625,10 @@ public class EcmsBase extends ManageAccount {
 	}
 
 
-	//Function to select home path
+	/**
+	 * Function to select home path
+	 * @param homePath
+	 */
 	public void selectHomePathForCategoryTree(String homePath){
 		String[] temp;
 		/* delimiter */
@@ -670,8 +642,6 @@ public class EcmsBase extends ManageAccount {
 		}
 		By element_select1 = By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']");
 		By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
-//		By element_select2 = By.xpath(ELEMENT_SELECT_NODE);
-//		By element_select1 = By.xpath(ELEMENT_SELECT_NODE_1);
 		if (waitForAndGetElement(element_select1, 5000, 0) != null){
 			click(element_select1);
 		}else if (waitForAndGetElement(element_select2, 5000, 0) != null){
@@ -681,7 +651,11 @@ public class EcmsBase extends ManageAccount {
 		}
 		Utils.pause(500);
 	}
-	
+	/**
+	 * Select multiHome path for category tree
+	 * @param homePath
+	 * @param index
+	 */
 	public void selectMultiHomePathForCategoryTree(String homePath, String index){
 		String[] temp;
 		/* delimiter */
@@ -698,11 +672,8 @@ public class EcmsBase extends ManageAccount {
 			Utils.pause(100);
 		}
 		}
-		///By element_select1 = By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']");
 		By element_select1 = By.xpath(ELEMENT_TARGET_REFERENCE.replace("${index}", index));
 		By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
-//		By element_select2 = By.xpath(ELEMENT_SELECT_NODE);
-//		By element_select1 = By.xpath(ELEMENT_SELECT_NODE_1);
 		if (waitForAndGetElement(element_select1, 5000, 0) != null){
 			click(element_select1);
 		}else if (waitForAndGetElement(element_select2, 5000, 0) != null){
@@ -711,7 +682,10 @@ public class EcmsBase extends ManageAccount {
 		Utils.pause(500);
 	}
 
-	//Function to select check-box list using id of check-box
+	/**
+	 * Function to select check-box list using id of check-box
+	 * @param viewList
+	 */
 	public void selectCheckBoxList(String viewList){
 		String[] temp = viewList.split("/");
 		if (temp.length != 0){
@@ -768,5 +742,24 @@ public class EcmsBase extends ManageAccount {
 			}
 			
 		}
+	}
+	
+	/**
+	 * Delete data by title
+	 * @param title
+	 */
+	public void deleteData(String title) {
+		info("Click on File Explorer icon");
+		click(ELEMENT_SIDE_BAR_FILE_EXPLORER_ICON);
+		Utils.pause(2000);
+		info("Right click on nodename");
+		rightClickOnElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
+		info("Click on Delete link");
+		click(ELEMENT_SITEEXPLORER_ACTION_DELETE);
+		info("Click on Delete button on Confirm popup");
+		click(ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE);
+		info("Verify that the node is deleted");
+		waitForElementNotPresent(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
+		info("the node is deleted successfully");
 	}
 }
