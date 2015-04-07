@@ -227,7 +227,7 @@ public class Social_HomePage_Activity extends Activity {
 		actBar.goToNodeByAddressPath("/");
 		navToolBar.goToSiteExplorer();
 		actBar.goToAddNewContent();
-		conTemp.createNewAccessibleMedia(node1);
+		conTemp.createNewAccessibleMedia(node1,false);
 
 		info("-- 10. Update user profile --");
 		navToolBar.goToMyProfile();

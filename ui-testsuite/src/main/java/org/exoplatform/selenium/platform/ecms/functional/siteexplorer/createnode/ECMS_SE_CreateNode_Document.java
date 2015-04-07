@@ -152,7 +152,7 @@ public class ECMS_SE_CreateNode_Document extends PlatformBase{
 		info("Create child node 2 is not nt:file");
 		ecms.goToNode(By.linkText(FILE_TITLE));
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(SUB_FILE_TITLE_2, SUB_FILE_TITLE_2);
+		cTemplate.createNewAnnouncement(SUB_FILE_TITLE_2, SUB_FILE_TITLE_2,false);
 
 		//Check in parent node
 		info("Check in " + FILE_TITLE);

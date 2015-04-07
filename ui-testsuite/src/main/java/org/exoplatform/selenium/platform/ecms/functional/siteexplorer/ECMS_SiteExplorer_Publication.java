@@ -235,7 +235,7 @@ public class ECMS_SiteExplorer_Publication extends PlatformBase {
 
 		// Add child content
 		actBar.goToAddNewContent();
-		conTemp.createNewAnnouncement(child_Name, child_Sum);
+		conTemp.createNewAnnouncement(child_Name,child_Sum,false);
 		info("Data created");
 		// Publish parent content
 		ecms.goToNode(file_locator);

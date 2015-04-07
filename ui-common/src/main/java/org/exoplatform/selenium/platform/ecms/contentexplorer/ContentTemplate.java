@@ -284,12 +284,11 @@ public class ContentTemplate extends EcmsBase {
 	 * @param sum
 	 * @param params
 	 */
-	public void createNewAnnouncement(String name, String sum,Object... params) {
-		boolean isDecorated= (Boolean) (params.length > 0 ? params[0] : false);
+	public void createNewAnnouncement(String name, String sum,boolean isDecorated,Object... params) {
 		click(ELEMENT_ANNOUNCEMENT_LINK);
 		type(ELEMENT_ANNOUNCEMENT_NAME_TEXTBOX, name, true);
 		
-		if(isDecorated){
+		if(isDecorated==true){
 			//decorate
 			ck.cke_Bold();
 			ck.cke_Italic();
@@ -300,7 +299,7 @@ public class ContentTemplate extends EcmsBase {
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		Utils.pause(1000);
 		
-		if (isDecorated)
+		if (isDecorated==true)
 			waitForAndGetElement(ELEMENT_ACCESSIBLE_MEDIA_CONTENT_UEMSTRONG.replace("${content}",sum),2000, 1);
 		else
 			waitForAndGetElement(ELEMENT_UITAB_CONTENT.replace("${content}",sum), 2000, 1);
@@ -460,16 +459,15 @@ public class ContentTemplate extends EcmsBase {
      * @param cont
      * @param params
      */
-	public void createNewFileForCK(CKeditor ck,String name, String cont, Object... params) {
+	public void createNewFileForCK(CKeditor ck,String name, String cont,boolean isDecorated, Object... params) {
 		String mimeType = (String) (params.length > 1 ? params[1] : "text/html");
-		Boolean isDecorated = (Boolean) (params.length > 0 ? params[0]: false);
 		
 		click(ELEMENT_NEWFILE_LINK);
 		type(ELEMENT_NEWFILE_NAME_TEXTBOX, name, false);
 		selectOption(ELEMENT_NEWFILE_MIME_COMBOX_ID, mimeType);
 		Utils.pause(300);
 		
-		if(isDecorated){
+		if(isDecorated==true){
 			//decorate text
 			ck.cke_Bold();
 			ck.cke_Italic();
@@ -484,7 +482,7 @@ public class ContentTemplate extends EcmsBase {
 			type(ELEMENT_NEWFILE_TEXTPLAIN, cont, true);
 			
 		button.saveAndClose();
-		if (isDecorated){
+		if (isDecorated==true){
 			click(ELEMENT_TAB_VIEW_AS_HTML);
 			waitForAndGetElement(ELEMENT_FILE_CONTENT_DECORATED.replace("${content}",cont),2000, 1);
 		}
@@ -993,13 +991,11 @@ public class ContentTemplate extends EcmsBase {
 	 * @param name
 	 * @param params
 	 */
-	public void createNewAccessibleMedia(String name, Object... params) {
-		CKeditor ck=new CKeditor(driver);
+	public void createNewAccessibleMedia(String name,boolean isDecorated, Object... params) {
 		click(ELEMENT_ACCESSIBLEMEDIA_LINK);
 		String title = (String) (params.length > 0 ? params[0] : "");
 		String content = (String) (params.length > 1 ? params[1] : "");
 		String lang = (String) (params.length > 2 ? params[2] : "");
-        boolean isDecorated = (boolean) (params.length>3 ? params[3]:false);
 		
         info("-- new file --");
 		type(ELEMENT_MAIN_TAB_NAME, name, true);
@@ -1012,7 +1008,7 @@ public class ContentTemplate extends EcmsBase {
 			type(ELEMENT_ACCESSIBLE_MEDIA_MAIN_TAB_TITLE, title, true);
 		}
 		
-		if(isDecorated){
+		if(isDecorated==true){
 			ck.cke_Bold();
 			ck.cke_Italic();
 			ck.cke_Underline();
@@ -1022,7 +1018,7 @@ public class ContentTemplate extends EcmsBase {
 			inputFrame(ELEMENT_ACCESSIBLE_MEDIA_CKEDITOR_FRAME, content);
 		
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		if (isDecorated)
+		if (isDecorated==true)
 			waitForAndGetElement(ELEMENT_UITAB_CONTENT_UEMSTRONG.replace("${content}",content),2000, 1);
 		else
 			waitForAndGetElement(ELEMENT_UITAB_CONTENT.replace("${content}", content), 2000, 1);
@@ -1034,13 +1030,12 @@ public class ContentTemplate extends EcmsBase {
 	 * @param name
 	 * @param params
 	 */
-	public void createNewAccessibleDocument(String name, Object... params) {
+	public void createNewAccessibleDocument(String name,boolean decorate, Object... params) {
 		waitForAndGetElement(ELEMENT_MAIN_TAB);
 		click(ELEMENT_MAIN_TAB);
 		String title = (String) (params.length > 0 ? params[0] : "");
 		String lang = (String) (params.length > 1 ? params[1] : "");
 		String content = (String) (params.length > 2 ? params[2] : "");
-		boolean decorate = (boolean) (params.length > 3 ? params[3] : "");
 
 		info("-- new Accessible Breadcrumb document	 --");
 		type(ELEMENT_MAIN_TAB_NAME, name, true);
@@ -1058,9 +1053,10 @@ public class ContentTemplate extends EcmsBase {
 			switchToParentWindow();
 		}
 		
-		if (decorate) {
-			inputDataToFrame(ELEMENT_HTML_FILE_CKEDITOR_FRAME, content, true);
-			switchToParentWindow();
+		if (decorate==true) {
+			ck.cke_Bold();
+			ck.cke_Italic();
+			ck.cke_Underline();
 		}
 
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
@@ -1097,8 +1093,8 @@ public class ContentTemplate extends EcmsBase {
      * @param sum
      * @param params
      */
-	public void createNewContentForCK(String fileName, String name,String title, String cont, String sum, Object... params) {
-		Boolean isDecorated = (Boolean) (params.length > 0 ? params[0] : false);
+	public void createNewContentForCK(String fileName, String name,String title, String cont, String sum, boolean... params) {
+		boolean isDecorated = (boolean) (params.length > 0 ? params[0] : false);
 	
 			click(ELEMENT_FILES_LINK.replace("${fileName}",fileName));
 			Utils.pause(500);
@@ -1144,13 +1140,12 @@ public class ContentTemplate extends EcmsBase {
 	 * @param name
 	 * @param params
 	 */
-	public void createNewWebContentForCK(String fileName, String name, Object... params) {
-		Boolean isDecorated = (Boolean) (params.length > 0 ? params[0] : false);
-		String title = (String)(params.length>1? params[1]:"");
-		String cont= (String)(params.length>2? params[2]:"");
-		String sum= (String)(params.length>3? params[3]:"");
-		String tab1 =(String)(params.length>4? params[4]:"");
-		String tab2 =(String)(params.length>5? params[5]:"");
+	public void createNewWebContentForCK(String fileName, String name,boolean isDecorated, Object... params) {
+		String title = (String)(params.length>0? params[0]:"");
+		String cont= (String)(params.length>1? params[1]:"");
+		String sum= (String)(params.length>2? params[2]:"");
+		String tab1 =(String)(params.length>3? params[3]:"");
+		String tab2 =(String)(params.length>4? params[4]:"");
 		
 		click(ELEMENT_FILES_LINK.replace("${fileName}", fileName));
 		Utils.pause(500);
@@ -1161,7 +1156,7 @@ public class ContentTemplate extends EcmsBase {
 		type(ELEMENT_MAIN_TAB_TITLE, title, true);
 
 		if (!cont.isEmpty()) {
-			if (isDecorated) {
+			if (isDecorated==true) {
 				// decorate text
 				ck.cke_Bold(tab1);
 				ck.cke_Italic(tab1);
@@ -1180,7 +1175,7 @@ public class ContentTemplate extends EcmsBase {
 		// Illustration tab
 		if (!sum.isEmpty()) {
 			click(ELEMENT_ILLUSTRATION_TAB);
-			if (isDecorated) {
+			if (isDecorated==true) {
 				// decorate text
 				ck.cke_Bold(tab2);
 				ck.cke_Italic(tab2);
@@ -1191,7 +1186,7 @@ public class ContentTemplate extends EcmsBase {
 		}
 		
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		if (isDecorated)
+		if (isDecorated==true)
 			waitForAndGetElement(
 					ELEMENT_UITAB_CONTENT_UEMSTRONG.replace("${content}", cont),
 					2000, 1);
@@ -1207,13 +1202,12 @@ public class ContentTemplate extends EcmsBase {
 	 * @param name
 	 * @param params
 	 */
-	public void createNewIllWebContentForCK(String fileName, String name, Object... params) {
-		Boolean isDecorated = (Boolean) (params.length > 0 ? params[0] : false);
-		String title = (String)(params.length>1? params[1]:"");
-		String cont= (String)(params.length>2? params[2]:"");
-		String sum= (String)(params.length>3? params[3]:"");
-		String tab1 =(String)(params.length>4? params[4]:"");
-		String tab2 =(String)(params.length>5? params[5]:"");
+	public void createNewIllWebContentForCK(String fileName, String name,boolean isDecorated, Object... params) {
+		String title = (String)(params.length>0? params[0]:"");
+		String cont= (String)(params.length>1? params[1]:"");
+		String sum= (String)(params.length>2? params[2]:"");
+		String tab1 =(String)(params.length>3? params[3]:"");
+		String tab2 =(String)(params.length>4? params[4]:"");
 		
 		click(ELEMENT_FILES_LINK.replace("${fileName}", fileName));
 		Utils.pause(500);
@@ -1224,7 +1218,7 @@ public class ContentTemplate extends EcmsBase {
 		type(ELEMENT_MAIN_TAB_TITLE, title, true);
 
 		if (!cont.isEmpty()) {
-			if (isDecorated) {
+			if (isDecorated==true) {
 				// decorate text
 				ck.cke_Bold(tab1);
 				ck.cke_Italic(tab1);
@@ -1236,7 +1230,7 @@ public class ContentTemplate extends EcmsBase {
 		// Illustration tab
 		if (!sum.isEmpty()) {
 			click(ELEMENT_ILLUSTRATION_TAB);
-			if (isDecorated) {
+			if (isDecorated=true) {
 				// decorate text
 				ck.cke_Bold(tab2);
 				ck.cke_Italic(tab2);
@@ -1247,7 +1241,7 @@ public class ContentTemplate extends EcmsBase {
 		}
 		
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		if (isDecorated)
+		if (isDecorated==true)
 			waitForAndGetElement(
 					ELEMENT_UITAB_CONTENT_UEMSTRONG.replace("${content}", cont),
 					2000, 1);

@@ -789,7 +789,7 @@ public class ECMS_SE_CreateNode_Folder extends PlatformBase{
 		actBar.goToAddNewContent();
 		cTemplate.createNewWebContent(CONTENT_FOLDER_TITLE, CONTENT_FOLDER_TITLE, "", "", "", "");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(ANNOUNCE_NAME, ANNOUNCE_SUM);
+		cTemplate.createNewAnnouncement(ANNOUNCE_NAME, ANNOUNCE_SUM,false);
 
 		info("Check In Parent Node: " + CONTENT_FOLDER_TITLE);
 		ecms.goToNode(By.linkText(CONTENT_FOLDER_TITLE));

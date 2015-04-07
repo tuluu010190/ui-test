@@ -280,7 +280,7 @@ import org.testng.annotations.Test;
 		navToolBar.goToSiteExplorer();
 		actBar.goToAddNewContent();
 		info("Create new Accessible media");
-		cTemplate.createNewAccessibleMedia(ACCESSIBLE_MEDIA_NAME,ACCESSIBLE_MEDIA_NAME,ACCESSIBLE_MEDIA_ALTER,"",true);
+		cTemplate.createNewAccessibleMedia(ACCESSIBLE_MEDIA_NAME,true,ACCESSIBLE_MEDIA_NAME,ACCESSIBLE_MEDIA_ALTER,"",true);
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");

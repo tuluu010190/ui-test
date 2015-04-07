@@ -203,7 +203,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 
 		info("Create new announcement document");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(DATA_ANNOUN_TITLE, DATA_ANNOUN_TITLE);
+		cTemplate.createNewAnnouncement(DATA_ANNOUN_TITLE, DATA_ANNOUN_TITLE,false);
 
 		info("Add new File document");
 		actBar.goToAddNewContent();
@@ -245,7 +245,7 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 
 		info("Create new announcement document");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(DATA_ANNOUN_TITLE, DATA_ANNOUN_TITLE);
+		cTemplate.createNewAnnouncement(DATA_ANNOUN_TITLE, DATA_ANNOUN_TITLE,false);
 
 		info("Add new file document");
 		actBar.goToAddNewContent();

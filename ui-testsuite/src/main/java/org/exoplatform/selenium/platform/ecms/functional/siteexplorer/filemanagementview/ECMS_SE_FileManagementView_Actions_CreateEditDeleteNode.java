@@ -165,7 +165,7 @@ public class ECMS_SE_FileManagementView_Actions_CreateEditDeleteNode extends Pla
 		String Announcement_Summary ="Accounceent_summary_case_78922";
 		info("Create an Announcement");
 		actBar.goToAddNewContent();
-		conTemp.createNewAnnouncement(Announcement_Name, Announcement_Summary);
+		conTemp.createNewAnnouncement(Announcement_Name, Announcement_Summary,false);
 
 		info("Restore data");
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);

@@ -142,12 +142,12 @@ public class ECMS_WCM_Others extends PlatformBase{
 		
 		actBar.goToNode("acme");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(node3, node3);
+		cTemplate.createNewAnnouncement(node3, node3,false);
 		actBar.publishDocument();
 		
 		actBar.goToNode("acme");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(node4, node4);
+		cTemplate.createNewAnnouncement(node4, node4,false);
 		
 		//Go to overview page, add a SCV page
 		click(ecms.ELEMENT_OVERVIEW_LINK);

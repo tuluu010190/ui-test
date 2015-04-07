@@ -561,7 +561,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			info("Create Accessible Breadcrumb document");
 			actBar.goToAddNewContent();
 			click(cTemplate.ELEMENT_FILES_LINK.replace("${fileName}","Accessible Breadcrumb"));
-			cTemplate.createNewAccessibleDocument(node1, node1);
+			cTemplate.createNewAccessibleDocument(node1,false, node1);
 			cTemplate.goToNode(bNode);
 			
 			/*Step 2: Check node before active*/
@@ -613,7 +613,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			info("Create Accessible Navigation document");
 			actBar.goToAddNewContent();
 			click(cTemplate.ELEMENT_FILES_LINK.replace("${fileName}","Accessible Navigation"));
-			cTemplate.createNewAccessibleDocument(node1, node1);
+			cTemplate.createNewAccessibleDocument(node1,false, node1);
 			cTemplate.goToNode(bNode);
 			
 			/*Step 2: Check node before active*/
@@ -666,7 +666,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			info("Create Accessible Site Search Box document");
 			actBar.goToAddNewContent();
 			click(cTemplate.ELEMENT_FILES_LINK.replace("${fileName}","Accessible Site Search Box"));
-			cTemplate.createNewAccessibleDocument(node1, node1);
+			cTemplate.createNewAccessibleDocument(node1,false, node1);
 			cTemplate.goToNode(bNode);
 			
 			/*Step 2: Check node before active*/
@@ -718,7 +718,7 @@ public class ECMS_SE_Admin_ManageVersions  extends PlatformBase {
 			//Create Announcement document
 			info("Create Announcement document");
 			actBar.goToAddNewContent();
-			cTemplate.createNewAnnouncement(node1, node1);
+			cTemplate.createNewAnnouncement(node1,node1,false);
 			cTemplate.goToNode(bNode);
 			
 			/*Step 2: Check node before active*/

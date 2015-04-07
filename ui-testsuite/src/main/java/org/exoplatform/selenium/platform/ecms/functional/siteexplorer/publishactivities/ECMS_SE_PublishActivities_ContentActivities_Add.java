@@ -101,7 +101,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Add extends PlatformBas
 	     
 	     //Add a new content: Accessible Media
 	     actBar.goToAddNewContent();
-	     cTemplate.createNewAccessibleMedia(node);
+	     cTemplate.createNewAccessibleMedia(node,false);
 	     
 	     /*Step 2: Check content activity after add Accessible Media*/
 	     //Back to the Home page
@@ -365,7 +365,7 @@ public class ECMS_SE_PublishActivities_ContentActivities_Add extends PlatformBas
 		 
 	     //Add a new content: Accessible Media
 	     actBar.goToAddNewContent();
-	     cTemplate.createNewAccessibleMedia(node);
+	     cTemplate.createNewAccessibleMedia(node,false);
 	     
 	     /*Step 3: Check content activity after add Accessible Media*/
 	     //Back to the Home page

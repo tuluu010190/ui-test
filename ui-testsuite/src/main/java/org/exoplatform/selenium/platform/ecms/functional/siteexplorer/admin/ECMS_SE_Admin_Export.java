@@ -117,7 +117,7 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 
 		info("Create a content");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(title, title);
+		cTemplate.createNewAnnouncement(title, title,false);
 		
 		//Check in this node
 		cMenu.contextMenuAction(bNode,cMenu.ELEMENT_MENU_CHECKIN);
@@ -145,7 +145,7 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 
 		info("Create a content");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(title, title);
+		cTemplate.createNewAnnouncement(title, title,false);
 		
 		info("Export this node");
 		actBar.exportNode(true, true, false);
@@ -203,7 +203,7 @@ public class ECMS_SE_Admin_Export extends PlatformBase{
 
 		info("Create a content");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(title, title);
+		cTemplate.createNewAnnouncement(title, title,false);
 		
 		//Check in this node
 		cMenu.contextMenuAction(bNode,cMenu.ELEMENT_MENU_CHECKIN);

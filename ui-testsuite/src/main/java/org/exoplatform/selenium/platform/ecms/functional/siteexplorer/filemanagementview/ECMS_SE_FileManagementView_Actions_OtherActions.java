@@ -95,7 +95,7 @@ public class ECMS_SE_FileManagementView_Actions_OtherActions extends PlatformBas
 		//Create a document which is not nt:file (parent node)
 		info("-- Create parent node --");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(parentDocument, parentDocument);
+		cTemplate.createNewAnnouncement(parentDocument, parentDocument,false);
 
 		//Create a document in the parent node (child node)
 		info("-- Create child node --");

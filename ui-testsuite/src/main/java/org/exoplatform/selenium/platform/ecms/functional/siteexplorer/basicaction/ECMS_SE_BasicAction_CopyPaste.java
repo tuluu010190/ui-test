@@ -531,7 +531,7 @@ public class ECMS_SE_BasicAction_CopyPaste extends PlatformBase {
 
 		info("Create a new Announcement");
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(ANNOUN_NAME, ANNOUN_SUMMARY);
+		cTemplate.createNewAnnouncement(ANNOUN_NAME, ANNOUN_SUMMARY,false);
 
 		info("Copy-paste");
 		click(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);

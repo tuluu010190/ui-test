@@ -159,7 +159,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		//Create an Announcement document
 		info(titlePaste);
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(titlePaste, titlePaste);
+		cTemplate.createNewAnnouncement(titlePaste, titlePaste,false);
 		
 		//Cut and paste a Content Folder into an Announcement document
 		cMenu.cutNode(bCont);
@@ -610,7 +610,7 @@ public class ECMS_SE_BasicAction_CutPaste extends PlatformBase {
 		
 		//Create a File document
 		actBar.goToAddNewContent();
-		cTemplate.createNewAnnouncement(titleCut, titleCut);
+		cTemplate.createNewAnnouncement(titleCut, titleCut,false);
 		cMenu.contextMenuAction(bDoc, cMenu.ELEMENT_MENU_CHECKIN);
 		
 
