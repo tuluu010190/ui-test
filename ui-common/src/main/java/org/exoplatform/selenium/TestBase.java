@@ -1490,51 +1490,8 @@ public class TestBase {
 			e.printStackTrace();
 		}
 	}
-	/**
-	 * setClipboardData
-	 * @param string
-	 */
-	public static void setClipboardData(String string) {
-		//StringSelection is a class that can be used for copy and paste operations.
-		StringSelection stringSelection = new StringSelection(string);
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
-	}
-	/**
-	 * uploadFileUsingRobot
-	 * @param fileLocation
-	 */
-	public void uploadFileUsingRobot(String fileLocation) {
-		info("Upload file using Robot");
-		String fs = File.separator;
-		String path=Utils.getAbsoluteFilePath(fileLocation.replace("/", fs).replace("\\", fs));
-		info("path in uploadRobot:"+path);
-		try {
-			Robot robot = new Robot();
-			robot.delay(1000);
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_A);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			robot.keyRelease(KeyEvent.VK_A);
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_X);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			robot.keyRelease(KeyEvent.VK_X);
-			//Setting clipboard with file location
-			setClipboardData(path);
-			//native key strokes for CTRL, V and ENTER keys
+	
 
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_V);
-			robot.keyRelease(KeyEvent.VK_V);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			robot.delay(1000);
-			robot.keyPress(KeyEvent.VK_ENTER);
-			robot.keyRelease(KeyEvent.VK_ENTER);
-			robot.delay(1000);
-		} catch (Exception exp) {
-			exp.printStackTrace();
-		}
-	}
 	/**
 	 * Click and save a file by robot
 	 * @param element
@@ -1651,5 +1608,64 @@ public class TestBase {
 		}
 		info("result is "+result);
 		return result;
+	}
+	
+	/**
+	 * uploadFileUsingRobot
+	 * @param fileLocation
+	 */
+	public void uploadFileUsingRobot(String fileLocation) {
+		info("Upload file using Robot");
+		String fs = File.separator;
+		String path=getAbsoluteFilePath(fileLocation.replace("/", fs));
+		info("path in uploadRobot:"+path);
+		try {
+			Robot robot = new Robot();
+			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_A);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_A);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_X);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_X);
+			//Setting clipboard with file location
+			setClipboardData(path);
+			//native key strokes for CTRL, V and ENTER keys
+
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			robot.delay(1000);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+	}
+	
+	/**
+	 * setClipboardData
+	 * @param string
+	 */
+	public static void setClipboardData(String string) {
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+	}
+	
+	/**
+	 * This function returns a absolute path from a relative path
+	 * @param relativeFilePath
+	 * @return - FQA-2092: Run and check calendar sniff on IE and FF
+	 */
+	public String getAbsoluteFilePath(String relativeFilePath){
+		String fs = File.separator;
+		String curDir = System.getProperty("user.dir");
+		String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
+		absolutePath=absolutePath.replace("/", fs);
+		return absolutePath;
 	}
 }

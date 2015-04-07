@@ -111,16 +111,18 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_FILE_EDIT = "//*[contains(text(),'${title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public final String ELEMENT_FILE_VIEW = "//*[contains(text(),'${title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_FILE_CHECKCOMMENTRIGHT = "//*[contains(text(),'${title}')]/../../../..//*[@style='text-align: right;']";
-	
-	public final String ELEMENT_FILE_PREVIEW = ".//a[@data-original-title='{$file}']/img";
+	public final String ELEMENT_FILE_PREVIEW = ".//*[@data-original-title='{$file}']/img";
 	public final By ELEMENT_FILE_CHECK_TOOLBAR_VIEW =By.xpath(".//*[@id='DocViewer_PDF_']//*[@class='PDFViewerBar clearfix']");
 	public final By ELEMENT_FILE_DOMWLOAD_TOOLBAR_VIEW = By.xpath(".//*[@id='UISocialPopupWindow']//*[@class='uiIconDownload']");
 	public final By ELEMENT_FILE_VIEW_CLOSE = By.xpath(".//*[@id='UISocialPopupWindow']//*[@class='uiIconClose pull-right']");
+	public final String ELEMENT_FILE_DOWNLOAD_BTN="//*[contains(@data-original-title,'${file}')]/../../../..//*[contains(@class,'uiIconDownload')]";
+	public final String ELEMENT_FILE_COMMENT_ICON="//*[@data-original-title='${file}']/../../../..//*[contains(@class,'uiIconComment')]";
+	public final String ELEMENT_FILE_LIKE_ICON="//*[@data-original-title='${file}']/../../../..//*[contains(@class,'uiIconThumbUp')]";
 	
 	//Attach file
 	public final String ELEMENT_FILE_COMMENT_ADD_ATTACH_FILE = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File(s) has been attached.']";
 	public final String ELEMENT_FILE_COMMENT_REMOVE_ATTACH_FILE = "//*[@title='@{fileName}']/../../../..//*[@class='commentBox']//*[text()='File(s) has been removed.']";
-
+	public final By ELEMENT_UPLOAD_PROGRESS_BAR = By.xpath(".//*[contains(@class,'progress-striped')]");
 	//Edit screen from click Edit in activity
 	public final By ELEMENT_CONTENT_EDIT_SCREEN_FROM_ACTIVITY = By.id("UIJCRExplorerPortlet");
 	public final By ELEMENT_CONTENT_EDIT_SCREEN_BACK = By.xpath("//a[@data-original-title='Back']");
@@ -428,7 +430,7 @@ public class HomePageActivity extends PlatformBase{
 		button = new Button(driver);
 		if(waitForAndGetElement(ELEMENT_CONTENT_EDIT_LINK.replace("@{fileName}", name), 5000,0,2)!=null)
 			click(ELEMENT_CONTENT_EDIT_LINK.replace("@{fileName}", name));
-		else //(waitForAndGetElement(ELEMENT_CONTENT_EDIT_LINK_41.replace("@{fileName}", name), 5000,0,2)!=null)
+		else 
 			click(ELEMENT_CONTENT_EDIT_LINK_41.replace("@{fileName}", name));
 		waitForAndGetElement(ELEMENT_CONTENT_EDIT_SCREEN_FROM_ACTIVITY);
 		waitForAndGetElement(button.ELEMENT_SAVE_CLOSE_BUTTON);
@@ -440,6 +442,7 @@ public class HomePageActivity extends PlatformBase{
 	 */
 
 	public void editContent(String newContentName, Object...params){
+		
 		click(ELEMENT_DELETE_ICON);
 		//click(ELEMENT_SELECT_FILE);
 		
@@ -449,11 +452,10 @@ public class HomePageActivity extends PlatformBase{
 		
 		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(newContentName));
 		info("Upload file " + Utils.getAbsoluteFilePath(newContentName));
+		switchToParentWindow();
+		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR,3000,1);
+		
 		Utils.pause(5000);
-		//waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR,120000,0);
-		/*type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(newContentName), false,2);
-		info("Upload file " + Utils.getAbsoluteFilePath(newContentName));
-		switchToParentWindow();*/
 		if (verify){
 			String links[] = newContentName.split("/");
 			int length = links.length;

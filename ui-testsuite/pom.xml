@@ -60,6 +60,18 @@
 				<testSuite>ecms-se.xml</testSuite>
 			</properties>
 		</profile>
+		<profile>
+			<id>ecms-se-officetest-part1</id>
+			<properties>
+				<testSuite>ecms-se-officetest-part1.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>ecms-se-officetest-part2</id>
+			<properties>
+				<testSuite>ecms-se-officetest-part2.xml</testSuite>
+			</properties>
+		</profile>
 
 		<profile>
 			<id>ecms-se-activities</id>

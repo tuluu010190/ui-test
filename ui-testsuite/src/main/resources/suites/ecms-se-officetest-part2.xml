@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="ECMS Functional Test" verbose="1" preserve-order="true">
+	<test name="ecms-func-se-ckeditor" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+		    <class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.officetest.OfficeTest_pdf" />
+		    <class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.officetest.OfficeTest_ppt" />
+		    <class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.officetest.OfficeTest_pptx" />
+		    <class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.officetest.OfficeTest_rtf" />
+		    <class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.officetest.OfficeTest_xls" />
+		    <class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.officetest.OfficeTest_xlsx" />
+		</classes>
+	</test>
+	<listeners>
+		<listener class-name="org.exoplatform.selenium.TestReportListener" />
+	</listeners>
+</suite>

@@ -205,7 +205,8 @@ public class EcmsBase extends ManageAccount {
 	//View Area
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
 	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
-
+    public final By ELEMENT_ACTION_BAR_UPLOAD_BTN=By.xpath("//*[@class='actionIcon' and contains(text(),'Upload')]");
+	
 	//Collaboration TAB
 	public final By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
 	public final By ELEMENT_TAG = By.linkText("Tag");
@@ -227,16 +228,18 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_UPLOAD_FRAME_EDIT = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_UPLOAD_REMOVE = By.xpath("//i[@class='uiIconDelete uiIconLightGray']");
 	public final By ELEMENT_PIC_FILE_REMOVE = By.xpath("//img[@class='ActionIcon Remove16x16Icon']");
+	public final By ELEMENT_SELECT_FILE = By.xpath("//*[@class='btn' and contains(text(),'Select File')]");
 
 	//Explorer
 	/* Manage View Page */
 	public final By ELEMENT_MANAGE_VIEW = By.xpath("//a[contains(text(),'Manage View')]");
 	public final By ELEMENT_MANAGEMENT_VIEW = By.className("uiIconEcmsViewManager");
-
+	public final String ELEMENT_NODE_RIGHT_PANEL ="//*[@class='nodeName' and contains(text(),'${nodeName}')]";
 
 	public final String ELEMENT_EDIT_VIEW = "//*[@data-original-title='${viewName}']/../..//*[@data-original-title='Edit']"; //*[@id='UIViewList']
 	public final String ELEMENT_DELETE_VIEW = "//*[@data-original-title='${viewName}']/../..//*[@data-original-title='Delete']";
-
+	public final By ELEMENT_OPEN_IN_MS_OFFICE = By.xpath(".//*[@id='ECMContextMenu']//*[@class='uiIconDownload uiIconLightGray']");
+	public final By ELEMENT_CHECK_PDF_NEW_WINDOW = By.xpath(".//*[@id='pageContainer1']//*[@class='textLayer']");
 
 	//Edit View Form 
 	public final By ELEMENT_CHECKBOX_VERSION=By.id("manageVersions");
@@ -297,7 +300,10 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_FILE_CLONE = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]";
 	public final String ELEMENT_FILE_CREATED_DATE = ELEMENT_DATA_TITLE.replace("${dataTitle}", "${nodeTitle}") + "/../../*[contains(@class, 'columnDatetime')]";
 	public final By ELEMENT_UPLOAD_PROGRESS_BAR = By.xpath(".//*[contains(@class,'progress progress-striped pull-right')]");
-
+	
+	//Site Explorer-->Pdf viewer
+	public final String ELEMENT_FILE_CONTENT_FIRST_PAGE=".//*[@id='pageContainer1']//*[contains(text(),'${text}')]";
+	public final By ELEMENT_FILE_CONTENT_PAGE =By.xpath(".//*[@id='pdf_viewer_image']/a/img");
 	//Edit Tag Form
 	public final By ELEMENT_TAG_CLOUD = By.className("uiIconEcmsTagExplorerMini");
 	public final By ELEMENT_EDIT_TAGS = By.xpath("//*[@title='Edit Tags']");
@@ -562,7 +568,8 @@ public class EcmsBase extends ManageAccount {
 	 */
 	public void uploadFile(String link, Object...params){
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
-		if (waitForAndGetElement(By.xpath("//a[@class='actionIcon' and contains(text(),'Upload')]"),DEFAULT_TIMEOUT,0)==null){
+		if (waitForAndGetElement(ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+			info("click on More link");
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; " +
@@ -572,16 +579,15 @@ public class EcmsBase extends ManageAccount {
 		info(link);
 		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(link));
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
+		//switchToParentWindow();
+		info("upload progress bar is hideded");
 		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
-
-		/*type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false,2);
-		info("Upload file " + Utils.getAbsoluteFilePath(link));
-		switchToParentWindow();*/
+		
 		if (verify){
 			String links[] = link.split("/");
 			int length = links.length;
 			Utils.pause(2000);
-			waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"));
+			waitForAndGetElement(By.xpath("//*[contains(text(),'" + links[length-1]+ "')]"),2000,1);
 		}
 
 		info("Upload file successfully");
@@ -603,9 +609,11 @@ public class EcmsBase extends ManageAccount {
 		//goToEditDocument(name);
 		if (uploadFile != ""){
 			click(ELEMENT_UPLOAD_REMOVE);
-			driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FRAME_EDIT));
+			click(ELEMENT_SELECT_FILE);
+			uploadFileUsingRobot(uploadFile);			
+			/*driver.switchTo().frame(waitForAndGetElement(ELEMENT_UPLOAD_FRAME_EDIT));
 			type(ELEMENT_UPLOAD_NAME, Utils.getAbsoluteFilePath(uploadFile), false);
-			switchToParentWindow();
+			switchToParentWindow();*/
 		}
 		if (title != ""){
 			type(ELEMENT_UPLOAD_TITLE,title, true);
@@ -620,7 +628,7 @@ public class EcmsBase extends ManageAccount {
 			type(ELEMENT_UPLOAD_SOURCE, source, true);
 		}
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
+		Utils.pause(2000);
 	}
 
 	/**
@@ -744,6 +752,21 @@ public class EcmsBase extends ManageAccount {
 		}
 	}
 
+
+	/**
+	 * View a file in ms Office
+	 * @param node
+	 */
+	public void viewInMsOffice(String node){
+		rightClickOnElement(ELEMENT_NODE_RIGHT_PANEL.replace("${nodeName}", node));
+		click(ELEMENT_OPEN_IN_MS_OFFICE);
+		Utils.pause(50000);
+		switchToNewWindow();
+		waitForAndGetElement(ELEMENT_CHECK_PDF_NEW_WINDOW);
+		switchToParentWindow();
+	}
+	
+	
 	/**
 	 *  Goto upload in Content/Site Explorer
 	 *  Mouse over on the button "More"
@@ -781,7 +804,8 @@ public class EcmsBase extends ManageAccount {
 		info("Click on Delete button on Confirm popup");
 		click(ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE);
 		info("Verify that the node is deleted");
-		waitForElementNotPresent(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
+		Utils.pause(2000);
+		waitForElementNotPresent(ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", title));
 		info("the node is deleted successfully");
 	}
 }
