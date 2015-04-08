@@ -282,6 +282,6 @@ import org.testng.annotations.*;
         waitForAndGetElement(hp.ELEMENT_INVITATIONS_PEOPLE_AVATAR .replace("${name}","James"));
 		
 		hp.goToConnections();
-		waitForAndGetElement(connMg.ELEMENT_CONNECTION_EVERYONE_CONNECT_BTN.replace("${user}","Jack Miller"),2000,0);
+		waitForAndGetElement(connMg.ELEMENT_CONNECTION_CONNECT_BTN.replace("${user}","Jack Miller"),2000,0);
 	}
 }

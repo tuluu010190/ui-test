@@ -14,6 +14,7 @@
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Manage_Navigation" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Space_List_Invitation" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Space_List_Pending" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People" />
 		</classes>
 	</test>
 	<listeners>

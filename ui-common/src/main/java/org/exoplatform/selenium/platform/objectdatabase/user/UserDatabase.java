@@ -53,5 +53,14 @@ public class UserDatabase {
 			fullName.add(testData[i][3]);
 		}
 	}
+	
+	/**
+	 * Get Full name By Index
+	 * @param index
+	 * @return fullName.get(index)
+	 */
+	public String getFullNameByIndex(int index){
+		return fullName.get(index);
+	}
 
 }
