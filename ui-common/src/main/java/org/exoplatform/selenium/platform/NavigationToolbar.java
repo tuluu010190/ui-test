@@ -29,7 +29,8 @@ public class NavigationToolbar extends PlatformBase {
 	// users 
 	public final By ELEMENT_ADMINISTRATION_USERS =By.xpath("//*[text()='Users']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS = By.xpath("//*[text()='Add Users']");
-	public final By ELEMENT_GROUP_AND_ROLE_LINK = By.xpath("//*[text()='Groups and Roles']");
+	//public final By ELEMENT_GROUP_AND_ROLE_LINK = By.xpath("//*[text()='Groups and Roles']");
+	public final By ELEMENT_GROUP_AND_ROLE_LINK = By.xpath(".//*[@id='UISetupPlatformToolBarPortlet']//a[contains(@href,'management')]");
 	
 	//Administration Menu
 	//Administration-->Portal
@@ -72,6 +73,7 @@ public class NavigationToolbar extends PlatformBase {
 	//User Menu
 	public final By ELEMENT_MY_PROFILE_LINK = By.xpath("//i[@class='uiIconPLFProfile']/..");
 	public final By ELEMENT_MY_DASHBOARD_LINK = By.xpath("//i[@class='uiIconPLFDashboard']/..");
+	public final By ELEMENT_MY_SETTINGS_LINK = By.className("uiIconSetting");
 	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
 	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
 
@@ -240,6 +242,7 @@ public class NavigationToolbar extends PlatformBase {
 		case MY_NOTIFICATION:
 			break;
 		case SETTINGS:
+			click(ELEMENT_MY_SETTINGS_LINK);
 			break;
 		case CHANGE_LANGUAGE:
 			break;
@@ -569,5 +572,11 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(2000);
 	}
 	
-	
+	/**
+	 * Open My dashboard
+	 */
+	public void goToMySettings(){
+		selectALinkOfUserMenu(specifUserToolBar.SETTINGS);
+		Utils.pause(2000);
+	}
 }

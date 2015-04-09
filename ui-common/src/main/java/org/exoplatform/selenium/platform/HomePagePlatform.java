@@ -25,7 +25,8 @@ public class HomePagePlatform extends TestBase{
 	public final By ELEMENT_HOME_LINK_PLF=By.xpath("//*[@data-original-title='Home']");
 	public final By ELEMENT_CALENDAR_LINK_PLF=By.xpath("//*[@data-original-title='Calendar']");
 	public final By ELEMENT_CONNECTION_LINK_PLF =By.xpath("//*[@data-original-title='Connections']");
-
+	public final By ELEMENT_HOME_LINK_PLF_IN_FRENCH = By.xpath("//*[@data-original-title='Accueil']");
+	
 	public final By ELEMENT_CONNECTIONS_LINK_PLF=By.xpath("//*[@data-original-title='Connections']");
 	public final By ELEMENT_SEARCH_SPACE = By.xpath(".//*[@id='UISpaceNavigationPortlet']//input[contains(@placeholder,'Search Spaces')]");
 	public final String ELEMENT_RESULT_SEARCH_SPACE = "//*[@id='UISpaceNavigationPortlet']//*[@class='spaceNavigation']//*[contains(text(),'{$space}')]";

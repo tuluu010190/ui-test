@@ -1,10 +1,9 @@
 package org.exoplatform.selenium.platform.gatein;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
 import junit.framework.Assert;
-import org.exoplatform.selenium.Dialog;
 
+import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -12,7 +11,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.ManageAlert;
 
 public class UserAndGroupManagement extends PlatformBase {
-	
+
 	public final String ELEMENT_LINK_SETUP = ".//*[@id='UISetupPlatformToolBarPortlet']/a";
 	public final String ELEMENT_MANAGE_USER = ".//*[@id='UISetupPlatformToolBarPortlet']//a[text()='Users']";	
 	public final String ELEMENT_GROUP_AND_ROLE_LINK = ".//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Groups and Roles')]";
@@ -51,10 +50,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_MEMBERSHIHP = "//*[@id='UIGrid']//span[text()='${membershipName}']";
 	public final String ELEMENT_MEMBERSHIP_INPUT = "//input[@value='${membershipName}']";
 	public final String ELEMENT_USER_EDIT_ICON = ".//*[contains(text(),'${username}')]/../..//*[@data-original-title='Edit User Info']/i";
-	public By ELEMENT_EMAIL = By.id("email");
-	public By ELEMENT_FIRSTNAME = By.id("firstName");
-	public By ELEMENT_LASTNAME = By.id("lastName");
-	public By ELEMENT_DISPLAY_NAME = By.id("displayName");
+
 	public final String ELEMENT_CLOSE_MESSAGE = "//*[contains(@title,'Close Window')]";
 	public final By ELEMENT_INPUT_SEARCH_USER_NAME = By.id("searchTerm");
 	public final String ELEMENT_SELECT_SEARCH_OPTION = "//*[contains(@name,'searchOption')]";
@@ -68,7 +64,31 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
 	public final String ELEMENT_MSG_CONFIRM_DELETE = "Are you sure you want to delete ${userName} user?";
 	public final String ELEMENT_MSG_RESULT = "No result found.";
+	public final String ELEMENT_MSG_UPDATE_USER_PROFILE = "The user profile has been updated.";
 	
+	//Account tab
+	public final By ELEMENT_USER_ACCOUNT_INFO_TAB = By.xpath("//*[@data-target='#UIAccountEditInputSet-tab']");
+	public By ELEMENT_EMAIL = By.id("email");
+	public By ELEMENT_FIRSTNAME = By.id("firstName");
+	public By ELEMENT_LASTNAME = By.id("lastName");
+	public By ELEMENT_DISPLAY_NAME = By.id("displayName");
+
+	//Edit user profile Tab
+	public final By ELEMENT_USER_PROFILE_TAB = By.xpath("//*[@data-target='#UIUserProfileInputSet-tab']");
+	public final By ELEMENT_GIVEN_NAME = By.id("user.name.given");
+	public final By ELEMENT_FAMILY_NAME = By.id("user.name.family");
+	public final By ELEMENT_NICK_NAME = By.id("user.name.nickName");
+	public final By ELEMENT_BIRTHDAY = By.id("user.bdate");
+	public final By ELEMENT_GENDER = By.xpath("//*[@name='user.gender']");
+	public final By ELEMENT_EMPLOYER = By.id("user.employer");
+	public final By ELEMENT_DEPARTMENT = By.id("user.department");
+	public final By ELEMENT_JOB_TITLE = By.id("user.jobtitle");
+	public final By ELEMENT_LANGUAGE = By.name("user.language");
+	
+	//User membership tab
+	public final By ELEMENT_USER_MEMBERSHIP_TAB = By.xpath("//*[@data-target='#UIUserMembershipSelector-tab']");
+
+
 
 	ManageAlert alert;
 	Dialog dialog;
@@ -80,19 +100,6 @@ public class UserAndGroupManagement extends PlatformBase {
 	}
 
 	/**
-	 * Go to Administrator-->Users-->Users and Groups management
-	 */
-	public void goToUsersAndGroupsManagement() {
-		info("--Go to Users and groups management--");
-		click(ELEMENT_LINK_SETUP);
-		info("Hover over on the user manage");
-		mouseOver(ELEMENT_MANAGE_USER, true);
-		waitForAndGetElement(By.xpath(ELEMENT_GROUP_AND_ROLE_LINK), DEFAULT_TIMEOUT, 1, 2);		
-		info("Click on group and role link");
-		click(ELEMENT_GROUP_AND_ROLE_LINK);
-		Utils.pause(1000);
-	}
-	/**
 	 * Select group management tab
 	 * function: Choose Group Tab
 	 */
@@ -102,8 +109,8 @@ public class UserAndGroupManagement extends PlatformBase {
 		waitForAndGetElement(ELEMENT_GROUP_MANAGEMENT_INFO);
 		Utils.pause(2000);
 	}
-    /**
-     * Select membership management tab
+	/**
+	 * Select membership management tab
 	 * function: Choose MemberShip Tab
 	 */
 	public void chooseMembershipTab() {
@@ -409,16 +416,19 @@ public class UserAndGroupManagement extends PlatformBase {
 	 */
 	public void editUserInfo_AccountTab(String first, String last,
 			String displayName, String email) {
-		if (first != null) {
+		waitForAndGetElement(ELEMENT_USER_ACCOUNT_INFO_TAB, 2000, 1);
+		click(ELEMENT_USER_ACCOUNT_INFO_TAB);
+		info("--editUserInfo_AccountTab--");
+		if (first != null && first!="") {
 			type(ELEMENT_FIRSTNAME, first, true);
 		}
-		if (last != null) {
+		if (last != null && last!="") {
 			type(ELEMENT_LASTNAME, last, true);
 		}
-		if (displayName != null) {
+		if (displayName != null && displayName!="") {
 			type(ELEMENT_DISPLAY_NAME, displayName, true);
 		}
-		if (email != null) {
+		if (email != null && email!="") {
 			type(ELEMENT_EMAIL, email, true);
 		}
 		click(ELEMENT_SAVE_BUTTON);
@@ -426,6 +436,67 @@ public class UserAndGroupManagement extends PlatformBase {
 		waitForMessage("The user profile has been updated.");
 		click(ELEMENT_CLOSE_MESSAGE);
 	}
+
+	/**
+	 * function: Edit user's information in User Profile Tab
+	 * 
+	 * @param givenName
+	 *            given name of user
+	 * @param familyName
+	 *            family name of user
+	 * @param nickName
+	 *            nick name of user
+	 * @param birthday
+	 *            birthday of user
+	 * @param Gender
+	 *            Gender of user
+	 * @param Employer
+	 *            Employer of user
+	 * @param Department
+	 *            Department of user
+	 * @param jobTitle
+	 *            jobTitle of user
+	 * @param language
+	 *            language of user           
+	 */
+	public void editUserInfo_UserProfileTab(String givenName, String familyName, String nickName, String birthday, String Gender, String Employer, String Department, String jobTitle, String language) {
+		waitForAndGetElement(ELEMENT_USER_PROFILE_TAB, 2000, 1);
+		click(ELEMENT_USER_PROFILE_TAB);
+		info("--editUserInfo_UserProfileTab--");
+		if (givenName != null && givenName!="") {
+			type(ELEMENT_GIVEN_NAME, givenName, true);
+		}
+		if (familyName != null && familyName!="") {
+			type(ELEMENT_FAMILY_NAME, familyName, true);
+		}
+		if (nickName != null && nickName!="") {
+			type(ELEMENT_NICK_NAME, nickName, true);
+		}
+		if (birthday != null && birthday!="") {
+			type(ELEMENT_BIRTHDAY, birthday, true);
+		}
+		if (Gender != null && Gender!="") {
+			select(ELEMENT_GENDER, Gender);
+		}
+		if (Employer != null && Employer!="") {
+			type(ELEMENT_EMPLOYER, Employer, true);
+		}
+		if (Department != null && Department!="") {
+			type(ELEMENT_DEPARTMENT, Department, true);
+		}
+		if (jobTitle != null && jobTitle!="") {
+			type(ELEMENT_JOB_TITLE, jobTitle, true);
+		}
+		if (language != null && language!="") {
+			select(ELEMENT_LANGUAGE, language);
+		}
+		click(ELEMENT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON);
+		waitForMessage(ELEMENT_MSG_UPDATE_USER_PROFILE);
+		click(ELEMENT_CLOSE_MESSAGE);
+		waitForElementNotPresent(ELEMENT_CLOSE_MESSAGE);
+	}
+
 
 	/**
 	 * function: Search user

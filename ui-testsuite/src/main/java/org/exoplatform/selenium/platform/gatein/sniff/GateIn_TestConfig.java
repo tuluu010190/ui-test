@@ -8,6 +8,7 @@ import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.administration.ChangeLanguages;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.GadgetManagement;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
@@ -39,6 +40,7 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.PagesManagementLi
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GroupNameDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.UserSearchOptionDatabase;
+import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -58,6 +60,8 @@ public class GateIn_TestConfig extends PlatformBase {
 	PortalManageSites portSite;
 	NavigationManagement navMag;
 
+	MyProfilePage myProf;
+	ChangeLanguages changeLang;
 	Button but;
 	PortalGroupNavigation groupManage;
 	ManageAlert magAlert;
@@ -118,6 +122,8 @@ public class GateIn_TestConfig extends PlatformBase {
 		magAlert = new ManageAlert(driver, this.plfVersion);
 		navMag = new NavigationManagement(driver);
 		
+		myProf = new MyProfilePage(driver);
+		changeLang = new ChangeLanguages(driver);
 		but = new Button(driver, this.plfVersion);
 		addUserPage = new UserAddManagement(driver);
 		

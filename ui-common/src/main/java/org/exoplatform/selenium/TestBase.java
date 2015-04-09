@@ -63,7 +63,6 @@ public class TestBase {
 	public Actions action;
 
 	//Driver path
-	//public static String ieDriver="D:\\java\\eXoProjects\\IEDriverServer\\IEDriverServer.exe";
 	public String uploadfile= getAbsoluteFilePath("TestData\\attachFile.exe");
 	public String downloadfile=getAbsoluteFilePath("TestData\\downloadIE9.exe");
 	public String ieDriver=getAbsoluteFilePath("TestData\\IEDriverServer.exe");
