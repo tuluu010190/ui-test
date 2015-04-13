@@ -14,7 +14,15 @@
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Manage_Navigation" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Space_List_Invitation" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Space_List_Pending" />
+<<<<<<< HEAD
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People" />
+=======
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_AboutMe" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_Activities" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_ConnectionStatus" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_Connection" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_ContactInformation" />
+>>>>>>> FQA-2250:PLF 4.2 - Write Sniff/Social (People/About me, Activities, Connection, Connection status, Contact information)
 		</classes>
 	</test>
 	<listeners>

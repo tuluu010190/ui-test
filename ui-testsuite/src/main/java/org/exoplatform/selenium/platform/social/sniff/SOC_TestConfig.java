@@ -12,6 +12,10 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.ConnectStatusDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactIMDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactPhoneDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.ActivityMessageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
@@ -33,7 +37,6 @@ import org.testng.annotations.BeforeClass;
 
 public class SOC_TestConfig extends PlatformBase {
 	HomePagePlatform hp;
-
 	MailSuffixDatabase mailSuffixData;
 	WikiHomePage wHome;
 	WikiManagement wikiMg;
@@ -50,6 +53,7 @@ public class SOC_TestConfig extends PlatformBase {
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
 
+	AttachmentFileDatabase atData;
 	CreateNewDocument CreNewDoc;
 	TextBoxDatabase txData;
 	AttachmentFileDatabase fData;
@@ -62,10 +66,14 @@ public class SOC_TestConfig extends PlatformBase {
 	Button button;
 	ConnectionsManagement connMag;
 	SpaceSettingManagement setSpaceMg;
-	MyProfilePage myProfilPage;
 	UserAddManagement addUserPage;
 	UserAndGroupManagement userAndGroup;
-
+	
+	ProfileContactIMDatabase contactIM;
+	ProfileContactPhoneDatabase contactPhone;
+	ActivityMessageDatabase activityMes;
+	ConnectStatusDatabase conStatus;
+	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
 		info("Start setUpBeforeClass");
@@ -74,19 +82,18 @@ public class SOC_TestConfig extends PlatformBase {
 		magAc = new ManageLogInOut(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		myProfile = new MyProfilePage(driver);
-
 		navTool = new NavigationToolbar(driver);
 		SEHome = new SiteExplorerHome(driver);
 		CreNewDoc = new CreateNewDocument(driver);
 		connMag = new ConnectionsManagement(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
-		myProfilPage = new MyProfilePage(driver);
-
 		hp = new HomePagePlatform(driver);
 
 		wHome = new WikiHomePage(driver);
 		wikiMg = new WikiManagement(driver);
-
+		
+		atData = new AttachmentFileDatabase();
+		atData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
@@ -116,9 +123,19 @@ public class SOC_TestConfig extends PlatformBase {
 
 		addUserPage = new UserAddManagement(driver);
 		userAndGroup = new UserAndGroupManagement(driver);
-		
+
 		mailSuffixData = new MailSuffixDatabase();
 		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		contactIM = new ProfileContactIMDatabase();
+		contactPhone = new ProfileContactPhoneDatabase();
+		contactIM.setProfileIMData(contactIMFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		contactPhone.setContactPhoneData(contactPhoneFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		activityMes = new ActivityMessageDatabase();
+		activityMes.setActivityMessageData(activityMesFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		conStatus = new ConnectStatusDatabase();
+		conStatus.setConStatusData(conStatusFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		button = new Button(driver);
 
 		info("End setUpBeforeClass");

@@ -22,7 +22,7 @@ public class Gatein_Global_Settings extends GateIn_TestConfig{
 	 */
 	@Test
 	public void test01_ChangePassword(){
-		String username = txData.getContentByIndex(14) + getRandomString();
+		String username = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();	
 		String newpass = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
@@ -62,12 +62,12 @@ public class Gatein_Global_Settings extends GateIn_TestConfig{
 	 */
 	@Test
 	public void test02_ChangeUserProfile(){	
-		String username = txData.getContentByIndex(14) + getRandomString();
+		String username = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();	
 
-		String newFirstName = txData.getContentByIndex(14) + getRandomString();
-		String newLastName = txData.getContentByIndex(14) + getRandomString();
+		String newFirstName = txData.getContentByArrayTypeRandom(4) + getRandomString();
+		String newLastName = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String newEmail = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 
 		info("Add new User");
@@ -92,6 +92,7 @@ public class Gatein_Global_Settings extends GateIn_TestConfig{
 		navToolBar.goToMyProfile();
 		myProf.goToEditProfile();
 		myProf.updateBasicInformation(newFirstName, newLastName, newEmail);
+		myProf.saveCancelUpdateInfo(true);
 		info("Verify after change User Profile");
 		magAc.signIn(username, password);
 		waitForAndGetElement(myProf.ELEMENT_NAME_OF_USER_TOP_RIGHT.replace("${firstName}", newFirstName).replace("${lastName}", newLastName));
@@ -108,7 +109,7 @@ public class Gatein_Global_Settings extends GateIn_TestConfig{
 	 */
 	@Test
 	public void test03_ChangeLanguageForAnotherUser(){
-		String username = txData.getContentByIndex(14) + getRandomString();
+		String username = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();	
 		String language = langData.getLanguageByIndex(0);

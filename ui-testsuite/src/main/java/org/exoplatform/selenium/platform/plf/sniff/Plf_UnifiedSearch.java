@@ -696,8 +696,9 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 		String phone= getRandomNumber();
 		
 		navToolBar.goToMyProfile();
-		myProfile.updateContact("",phone,"","","");
-		
+		myProfile.goToEditProfile();
+		myProfile.updatePhone("",phone);
+		myProfile.saveCancelUpdateInfo(true);
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,"John Smith",true);
 		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);

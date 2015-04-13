@@ -208,6 +208,7 @@ public class PlatformBase extends TestBase {
 		driver.navigate().to(baseUrl);
 	}
 	
+	
 	/**
 	 * Go to gmail and login
 	 * @param email

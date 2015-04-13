@@ -16,11 +16,11 @@ public class SOC_People extends SOC_TestConfig{
 	public void test01_06_AcceptDenyRecievedInvitation(){
 		info("test01_06_AcceptDenyRecievedInvitation");
 		/*Create data test*/
-		String username1 = txData.getContentByIndex(14) + getRandomString();
+		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 		
-		String username2 = txData.getContentByIndex(14) + getRandomString();
+		String username2 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 
@@ -84,7 +84,7 @@ public class SOC_People extends SOC_TestConfig{
 	public void test02_Network(){
 		info("test02_Network");
 		/*Create data test*/
-		String username1 = txData.getContentByIndex(14) + getRandomString();
+		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 		
@@ -145,11 +145,11 @@ public class SOC_People extends SOC_TestConfig{
 	public void test03_ViewConnectionsListOfOtherUser(){
 		info("test03_ViewConnectionsListOfOtherUser");
 		/*Create data test*/
-		String username1 = txData.getContentByIndex(14) + getRandomString();
+		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 		
-		String username2 = txData.getContentByIndex(14) + getRandomString();
+		String username2 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 
@@ -210,19 +210,19 @@ public class SOC_People extends SOC_TestConfig{
 	@Test
 	public void test04_CheckPeopleListing(){
 		info("test04_CheckPeopleListing");
-		String username1 = txData.getContentByIndex(14) + getRandomString();
+		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 		
-		String username2 = txData.getContentByIndex(14) + getRandomString();
+		String username2 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 
-		String username3 = txData.getContentByIndex(14) + getRandomString();
+		String username3 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password3 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email3 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 		
-		String username4 = txData.getContentByIndex(14) + getRandomString();
+		String username4 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password4 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email4 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 
@@ -266,7 +266,7 @@ public class SOC_People extends SOC_TestConfig{
 	public void test05_PendingRequestsList(){	
 		info("test05_PendingRequestsList");
 		/*Create data test*/
-		String username1 = txData.getContentByIndex(14) + getRandomString();
+		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 		

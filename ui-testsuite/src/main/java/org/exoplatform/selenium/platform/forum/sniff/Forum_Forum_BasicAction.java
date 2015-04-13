@@ -183,7 +183,7 @@ public class Forum_Forum_BasicAction extends Forum_TestConfig {
 		navTool.selectALinkOfUserMenu(specifUserToolBar.MY_PROFILE);
 		info("Change email address");
 		myPro.updateBasicInformation("","",EMAIL_ADDRESS1);
-		
+		myPro.saveCancelUpdateInfo(true);
 		info("go to Forum home page");
 		hp.goToForum();
 		info("Verify that the forum home page is shown full");

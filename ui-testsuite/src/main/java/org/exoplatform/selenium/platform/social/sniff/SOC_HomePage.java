@@ -901,6 +901,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 			- A comment is added: 	Basic informations has been updated.*/ 
 		navTool.goToMyProfile();
 		myProfile.updateBasicInformation("","","fqa@acme.exoplatform.com");
+		myProfile.saveCancelUpdateInfo(true);
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_COMMENT_TEXT.replace("${activityText}","John Smith").replace("${commentText}","Basic information has been updated."));
 	}

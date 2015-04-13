@@ -9,11 +9,13 @@ import static org.exoplatform.selenium.TestLogger.info;
 public class ConnectionsManagement extends PlatformBase {
 
 	public final By ELEMENT_CONNECTION_EVERYONE_TITLE=By.xpath(".//*[@id='UIAllPeople']//*[contains(text(),'Contacts Directory')]");
-    public final String ELEMENT_CONNECTION_CONNECT_BTN = ".//a[contains(text(),'${user}')]/../../..//*[text()='Connect']";
-	public final String ELEMENT_CONNECTION_CANCEL_BTN = ".//a[contains(text(),'${user}')]/../../..//*[text()='Cancel Request']";
-	public final String ELEMENT_CONNECTION_REVOVE_BTN = ".//a[contains(text(),'${user}')]/../../..//*[text()='Remove Connection']";
-    public final String ELEMENT_CONNECTION_IGNORE_BTN =" .//a[contains(text(),'${user}')]/../../..//*[text()='Ignore']";
-    public final String ELEMENT_CONNECTION_CONFIRM_BTN =" .//a[contains(text(),'${user}')]/../../..//*[text()='Confirm']";
+    public final String ELEMENT_CONNECTION_CONNECT_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Connect']";
+	public final String ELEMENT_CONNECTION_CANCEL_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Cancel Request']";
+	public final String ELEMENT_CONNECTION_REVOVE_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Remove Connection']";
+    public final String ELEMENT_CONNECTION_IGNORE_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Ignore']";
+    public final String ELEMENT_CONNECTION_CONFIRM_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Confirm']";
+    public final String ELEMENT_CONNECTION_USER_AVARTAR="//a[contains(@href,'${user}')]/img";
+    public final String ELEMENT_CONNECTION_USER_NAME="//a[contains(@href,'${user}') and @data-key='title']";
     
     public final By ELEMENT_ALL_CONNECTIONS_TAB=By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet']//*[contains(@href,'all-people')]");
     public final By ELEMENT_MY_CONNECTIONS_TAB = By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet']//*[contains(@href,'network')]");
@@ -77,7 +79,7 @@ public class ConnectionsManagement extends PlatformBase {
     	searchPeople(username,null,null,null);
     	click(ELEMENT_CONNECTION_IGNORE_BTN.replace("${user}",username));
     	waitForAndGetElement(ELEMENT_CONNECTION_CONNECT_BTN.replace("${user}",username),2000,0);
-    	info("Canceled to the user");
+    	info("Connected to the user");
     }
     /**
      * Reset all connections to default status
@@ -102,7 +104,7 @@ public class ConnectionsManagement extends PlatformBase {
     	searchPeople(username,null,null,null);
     	click(ELEMENT_CONNECTION_CONFIRM_BTN.replace("${user}",username));
     	waitForAndGetElement(ELEMENT_CONNECTION_REVOVE_BTN.replace("${user}",username),2000,0);
-    	info("Canceled to the user");
+    	info("Accepted to the user");
     }
   
     /**

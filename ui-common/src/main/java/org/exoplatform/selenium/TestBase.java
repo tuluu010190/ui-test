@@ -109,6 +109,10 @@ public class TestBase {
 	protected String spaceVisibleFilePath;
 	protected String spaceRegistrationFilePath;
 	protected String spaceappFilePath;
+	protected String contactIMFilePath;
+	protected String contactPhoneFilePath;
+	protected String activityMesFilePath;
+	protected String conStatusFilePath;
 	protected String groupsCalenderFilePath;
 	protected String remoteGadgetDataFilePath;
 	protected String languageFilePath;
@@ -132,7 +136,6 @@ public class TestBase {
 	protected String gateinDefaultGroupsFilePath;
 	protected String gateinNodesFilePath;
 	
-
 	/*========Default System Property=============*/
 	public final String DEFAULT_NATIVE_EVENT = "true";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
@@ -160,12 +163,18 @@ public class TestBase {
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
+
 	public final String DEFAULT_PERMISSIONURL="DataDriven/"+"permission.xls";
 	public final String DEFAULT_SITEEXPLORERDRIVE="DataDriven/" + "se_drive.xls";
 	public final String DEFAULT_SITEEXPLORERPATH="DataDriven/" + "se_path.xls";
 	public final String DEFAULT_DATATESTPATH="DataDriven/" + "dataTest_folder_fath.xls";
 	public final String DEFAULT_SITE_EXPLORER_CONTENT_TYPE_PATH="DataDriven/"+"se_content_types.xls";
 	public final String DEFAULT_VIDEO_EMBBED_LINKS_PATH = "DataDriven/"+"video_embbed_links.xls";
+
+	public final String DEFAULT_CONTACTIMURL="DataDriven/"+"contact_im.xls";
+	public final String DEFAULT_CONTACTPHONEURL="DataDriven/"+"contact_phone.xls";
+	public final String DEFAULT_ACTIVITYMESSAGEURL ="DataDriven/"+"activity_message.xls";
+	public final String DEFAULT_CONNECTSTATUSURL ="DataDriven/"+"connect_status.xls";
 
 	public final String DEFAULT_WIKIRICHTEXTFILEURL="DataDriven/" + "wiki_richtext.xls";
 	public final String DEFAULT_CHANGELANGUADATAURL="DataDriven/" + "ChangeLanguage.xls";
@@ -286,13 +295,9 @@ public class TestBase {
 		gadgetFilePath = System.getProperty("gadgetFilePath");
 		containerFilePath = System.getProperty("containerFilePath");
 		appLayoutFilePath = System.getProperty("appLayoutFilePath");
-		
 		groupNameDataFilePath = System.getProperty("groupNameDataFilePath");
-
-		
 		appListGateinFilePath = System.getProperty("appListGateinFilePath");
 		appAddGateinFilePath = System.getProperty("appAddGateinFilePath");
-		
 		createNewGateinFilePath =System.getProperty("createNewGateinFilePath");
 		categoriesGateinFilePath = System.getProperty("categoriesGateinFilePath");
 		pageMagListFilePath = System.getProperty("pageMagListFilePath");
@@ -300,7 +305,11 @@ public class TestBase {
 		portalPermisGroupFilePath = System.getProperty("portalPermisGroupFilePath");
 		portalPermisMemFilePath = System.getProperty("portalPermisMemFilePath");
 		videoLinksFilePath = System.getProperty("videoLinksFilePath");
-
+		conStatusFilePath = System.getProperty("conStatusFilePath");
+		contactIMFilePath = System.getProperty("contactIMFilePath");
+		contactPhoneFilePath = System.getProperty("contactPhoneFilePath");
+		activityMesFilePath = System.getProperty("activityMesFilePath");
+		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -339,6 +348,10 @@ public class TestBase {
 		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
 		if (spaceappFilePath==null) spaceappFilePath= DEFAULT_SPACEAPPLICATIONURL;
+		if (contactIMFilePath==null) contactIMFilePath= DEFAULT_CONTACTIMURL;
+		if (contactPhoneFilePath==null) contactPhoneFilePath= DEFAULT_CONTACTPHONEURL;
+		if (activityMesFilePath==null) activityMesFilePath= DEFAULT_ACTIVITYMESSAGEURL;
+		if (conStatusFilePath==null) conStatusFilePath= DEFAULT_CONNECTSTATUSURL;
 		if (changLangDataPath==null) changLangDataPath = DEFAULT_CHANGELANGUADATAURL;
 		if (remoteGadgetDataFilePath==null) remoteGadgetDataFilePath = DEFAULT_REMOTEGADGETURL;
 		if (appGateinDataFilePath==null) appGateinDataFilePath = DEFAULT_APPGATEINURL;
@@ -383,7 +396,12 @@ public class TestBase {
 		getStartFilePath = getAbsoluteFilePath(getStartFilePath);
 		wikiMessageFilePath = getAbsoluteFilePath(wikiMessageFilePath);
 		spaceappFilePath = getAbsoluteFilePath(spaceappFilePath);
-
+		
+		contactIMFilePath = getAbsoluteFilePath(contactIMFilePath);
+		contactPhoneFilePath = getAbsoluteFilePath(contactPhoneFilePath);
+		activityMesFilePath =getAbsoluteFilePath(activityMesFilePath);
+		conStatusFilePath = getAbsoluteFilePath(conStatusFilePath);
+		
 		siteExpDrivePath = getAbsoluteFilePath(siteExpDrivePath);
 		siteExpPathPath = getAbsoluteFilePath(siteExpPathPath);
 		siteExpContentTypeFilePath = getAbsoluteFilePath(siteExpContentTypeFilePath);
