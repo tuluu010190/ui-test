@@ -279,6 +279,39 @@ public class ManageAccount extends PlatformBase {
 		}
 	}
 
+	/** function edit information of user profile
+	 * @param pos
+	 * @param first
+	 * @param last
+	 * @param email
+	 */
+	public void updateUserProfile(String pos, String first, String last, String email){
+		navTool = new NavigationToolbar(driver);
+		navTool.goToMyProfile();
+		button = new Button(driver, this.plfVersion);
+		if (pos != null){
+			mouseOverAndClick(ELEMENT_EDIT_POSITION);
+			type(ELEMENT_POSITION_TEXTBOX_EDIT, pos, true);
+			click(ELEMENT_EDIT_POSITION_SAVE_BUTTON);
+		}
+		if (first != null || last != null || email != null){
+			//click(ELEMENT_EDIT_BASIC_INFORMATION);
+			click(ELEMENT_EDIT_MY_PROFILE);
+			if (first != null){
+				type(ELEMENT_FIRST_NAME_TEXTBOX_EDIT, first, true);
+			}
+			if (last != null){
+				type(ELEMENT_LAST_NAME_TEXTBOX_EDIT, last, true);
+			}
+			if (email != null){
+				type(ELEMENT_EMAIL_TEXTBOX_EDIT, email, true);
+			}
+			//click(ELEMENT_EDIT_BASIC_INFO_SAVE_BUTTON);
+			button.save();
+		}
+		info("User profile updated successfully");
+	}
+
 	/**
 	 * Define a type of user 
 	 * Root

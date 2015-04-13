@@ -70,16 +70,16 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 	@Test
 	public  void test01_CheckSendNotifyWhenAddPostInTopicOrForumOrCategoryThatIsBeingWatched() throws AWTException {
 		info("Test 1: Check send notify when add post in topic or forum or category that is being watched");
-		String catName = "Category 72677";
+		String catName = "Category" + getRandomNumber();
 		String order = "1";
 		int chooseRestricted = 1;
 		String []restricted = {DATA_USER1};
-		String description = "Description Category 72677";
+		String description = "Description Category 72677" + getRandomString();
 		int setPermission = 2;
 		String []userGroup = {DATA_USER1};
-		String []addForum = {"Forum 72677", "1", "Open", "Unlocked", "Description of forum 001"};
-		String title = "Topic 72677";
-		String message = "Topic 72677";
+		String []addForum = {"Forum 72677" + getRandomNumber(), "1", "Open", "Unlocked", "Description of forum 001"};
+		String title = "Topic 72677" + getRandomNumber();
+		String message = "Topic 72677" + getRandomNumber();
 		String[] permission = {""};
 		
 		/*Step 1: Create category, forum, topic
@@ -232,16 +232,16 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 	@Test
 	public  void test03_CheckSendNotifyAfterAddingNewPostAndItsRequiredForApproval() throws AWTException {
 		info("Test 3: Check send notify after adding new post and it's required for approval");
-		String catName = "Category 72824";
+		String catName = "Category" + getRandomNumber();
 		String order = "1";
 		int chooseRestricted = 1;
 		String []restricted = {""};
-		String description = "Description Category 72824";
+		String description = "Description Category" + getRandomNumber();
 		int setPermission = 0;
 		String []userGroup = {""};
-		String []addForum = {"Forum 72824", "1", "Open", "Unlocked", "Description of forum 001"};
-		String title = "Topic 72824";
-		String message = "Topic 72824";
+		String []addForum = {"Forum" + getRandomNumber(), "1", "Open", "Unlocked", "Description of forum 001" + getRandomNumber()};
+		String title = "Topic" + getRandomNumber();
+		String message = title;
 
 		/*Step 1: Create category, forum, topic
 		 *Input Data: 
@@ -304,13 +304,16 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 
 		//Check email
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
+		//checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), title);
+		//checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), title);
 		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), title);
-
 		// Clean data test
 		switchToParentWindow();
-		goToForums();
+		//goToForums();
+		goToForumHome();
 		click(By.linkText(catName));
-		cat.deleteCategoryInForum(catName, true);	
+		cat.deleteCategoryInForum(catName, true);
+		acc.updateUserProfile(null, null, null,"john.smith@acme.exoplatform.com");
 	}
 
 	/**
@@ -325,17 +328,17 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 	@Test
 	public  void test04_CheckSendNotifyAfterAddingNewPostAndItsPendingForBeingCensored() throws AWTException {
 		info("Test 4: Check send notify after adding new post and it's pending for being censored");
-		String catName = "Category 72879";
+		String catName = "Category" + getRandomNumber();
 		String order = "1";
 		int chooseRestricted = 1;
 		String []restricted = {""};
-		String description = "Description Category 72879";
+		String description = "Description Category" + getRandomNumber();
 		int setPermission = 0;
 		String []userGroup = {""};
-		String []addForum = {"Forum 72879", "1", "Open", "Unlocked", "Description of forum 001"};
-		String title = "Topic 72879";
-		String message = "Topic 72879";
-		String key = "Test"; 
+		String []addForum = {"Forum" + getRandomNumber(), "1", "Open", "Unlocked", "Description of forum 001"};
+		String title = "Topic" + getRandomNumber();
+		String message = title;
+		String key = getRandomNumber(); 
 
 		/*Step 1: Define censored keyword
 		 *Input Data: 
@@ -402,13 +405,16 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 
 		//Check email
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL2.replace("${category}",catName).replace("${forum}", addForum[0])), key);
-
+		//checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), key);
+		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), title);
+		
 		// Clean data test
 		switchToParentWindow();
-		goToForums();
+		//goToForums();
+		goToForumHome();
 		click(By.linkText(catName));
 		cat.deleteCategoryInForum(catName, true);	
+		acc.updateUserProfile(null, null, null,"john.smith@acme.exoplatform.com");
 	}
 
 	/**
@@ -423,20 +429,20 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 	@Test
 	public  void test05_CheckSendNotifyInCaseTheUserNoLongerHaveViewPermissionOnTheCategoryOrForumOrTopicHeAddedWatch() throws AWTException {
 		info("Test 5: Check send notify in case the user no longer have view permission on the category or forum or topic he added watch");
-		String catName = "Category 72929";
+		String catName = "Category" + getRandomNumber();
 		String order = "1";
 		int chooseRestricted = 1;
 		String []restricted = {""};
-		String description = "Description Category 72929";
+		String description = "Description Category" + getRandomNumber();
 		int setPermission = 0;
 		String []userGroup = {""};
-		String []addForum = {"Forum 72929", "1", "Open", "Unlocked", "Description of forum 001"};
-		String title = "Topic 72929";
-		String message = "Topic 72929";
+		String []addForum = {"Forum" + getRandomNumber(), "1", "Open", "Unlocked", "Description of forum 001"};
+		String title = "Topic" + getRandomNumber();
+		String message = title;
 		String []userGroupEdit = {DATA_USER1};
-		String titleEdit = "Edit Topic 72929";
-		String messageEdit = "Edit 72929";
-		String catNameEdit = "Update 72929";
+		String titleEdit = "Edit Topic" + getRandomNumber();
+		String messageEdit = "Edit" + getRandomNumber();
+		String catNameEdit = "Update" + getRandomNumber();
 		int setPermissionEdit = 1;
 
 		/*Step 1: Create category, forum, topic
@@ -496,8 +502,9 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 		info("User 2 check email.");
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		String hadleMail = driver.getWindowHandle();
-		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), message);
-
+		//checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), message);
+		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), title);
+		
 		/*Step 4: Do set view permission for the user on the category/forum/topic he added watch
 		 *Input Data: 
 		- Login as root to restrict view permission on the category which the being watched forum/topic belong to
@@ -544,18 +551,18 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 	@Test
 	public  void test06_CheckSendNotifyWhenMovePostInTopicOrForumOrCategoryThatIsBeingWatched() throws AWTException {
 		info("Test 6: Check send notify when move post in topic or forum or category that is being watched");
-		String catName = "Category 73014";
+		String catName = "Category" + getRandomNumber();
 		String order = "1";
 		int chooseRestricted = 1;
 		String []restricted = {""};
-		String description = "Description Category 73014";
+		String description = "Description Category" + getRandomNumber();
 		int setPermission = 0;
 		String []userGroup = {""};
-		String []addForum = {"Forum 73014", "1", "Open", "Unlocked", "Description of forum 001"};
+		String []addForum = {"Forum" + getRandomNumber(), "1", "Open", "Unlocked", "Description of forum 001"};
 		String title1 = "Topic1";
 		String title2 = "Topic2";
-		String titlePost = "Post 73014";
-		String message = "Message 73014";
+		String titlePost = "Post" + getRandomNumber();
+		String message = "Message" + getRandomNumber();
 
 		/*Step 1: Create categories, forums, topics and posts into
 		 *Input Data: 
@@ -603,11 +610,11 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 
 		//Check email
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		checkAndDeleteMailUsingRobot(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), titlePost);
+		checkAndDeleteMail(By.xpath(ELEMENT_GMAIL_EMAIL.replace("${category}",catName).replace("${forum}", addForum[0])), titlePost);
 
 		// Clean data test
 		switchToParentWindow();
-		goToForums();
+		goToForumHome();
 		click(By.linkText(catName));
 		cat.deleteCategoryInForum(catName, true);	
 	}
@@ -724,5 +731,6 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 		// Clean data test
 		click(By.linkText(catName));
 		cat.deleteCategoryInForum(catName, true);	
+		acc.updateUserProfile(null, null, null,"john.smith@acme.exoplatform.com");
 	}	
 }

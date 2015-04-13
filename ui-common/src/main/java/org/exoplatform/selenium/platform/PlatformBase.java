@@ -234,6 +234,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_POSITION_TEXTBOX_EDIT = By.id("position");
 	public final By ELEMENT_EDIT_POSITION_SAVE_BUTTON = By.id("savePosition");
 	public final By ELEMENT_EDIT_BASIC_INFORMATION = By.xpath("//*[@id='UIBasicInfoSection']//*[@class='uiIconEdit']");
+	public final By ELEMENT_EDIT_MY_PROFILE = By.xpath("//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_FIRST_NAME_TEXTBOX_EDIT = By.id("firstName");
 	public final By ELEMENT_LAST_NAME_TEXTBOX_EDIT = By.id("lastName");
 	public final By ELEMENT_EMAIL_TEXTBOX_EDIT = By.id("email");
@@ -276,7 +277,6 @@ public class PlatformBase extends TestBase {
 	//Setting -> user -> Groups and roles
 	//public final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles') or contains(text(),'Ajouter un Utilisateur')]";
 	public final String ELEMENT_GROUP_AND_ROLE_LINK = ".//*[@id='UISetupPlatformToolBarPortlet']//*[contains(@href,'administration/management')]";
-	
 	/* Username link - END*/
 
 	/*
@@ -706,6 +706,7 @@ public class PlatformBase extends TestBase {
 	//public final By ELEMENT_GMAIL_PASS = By.id("Passwd");
 	public final By ELEMENT_GMAIL_PASS = By.xpath(".//*[@name='Passwd']");
 	//public final String ELEMENT_GMAIL_PASS = ".//input[@type='password']";
+	public final By ELEMENT_NEXT_TO_ENTER_PASS_BTN = By.id("next");
 	public final By ELEMENT_GMAIL_SIGN_IN = By.id("signIn");
 	public final String ELEMENT_GMAIL_TITLE = "//td/div[@class='xS']//div[@class='xT']//span/b[contains(text(),'{$title}')]";
 	public final By ELEMENT_GMAIL_COMPOSE = By.xpath("//div[contains(text(),'COMPOSE')]");
@@ -717,6 +718,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//*[@class='Cp']//*[@tabindex='0']");
 	public final By ELEMENT_FIRST_NEW_MAIL = By.xpath("//*[@class='Cp']//*[@tabindex='-1']");
 	public final String ELEMENT_GMAIL_CONTENT = "//*[@class='adn ads']";
+	public final By ELEMENT_DELETE_MAIL_BUTTON = By.xpath(".//*[@id=':5']//*[@class='ar9 T-I-J3 J-J5-Ji']");
 	//public final By ELEMENT_FIRST_MAIL = By.xpath("//div[@class='iA g6' and contains(text(),'Hi')]/../../../../../table[@class='cf iB']");
 
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
@@ -1541,8 +1543,8 @@ public class PlatformBase extends TestBase {
 			}
 		}
 		type(ELEMENT_GMAIL_USERNAME, email, true);
-		click(ELEMENT_GMAIL_NEXT_BTN);
-		Utils.pause(1000);
+		if (waitForAndGetElement(ELEMENT_NEXT_TO_ENTER_PASS_BTN, 3000, 0) != null)
+			click(ELEMENT_NEXT_TO_ENTER_PASS_BTN);
 		type(ELEMENT_GMAIL_PASS, pass, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
 		clearCache();
@@ -1608,33 +1610,40 @@ public class PlatformBase extends TestBase {
 		}
 		waitForElementNotPresent(mail);
 		Utils.pause(1000);
+		info("Check and delete mail successfully");
 	}
-
-	/**
-	 * function: check content of mail then delete mail
-	 * @param mail: element title of mail
-	 * @param content: mail content
-	 * @throws AWTException 
-	 */
-	public void checkAndDeleteMailUsingRobot(By mail, String content) throws AWTException{
-		info("Check and delete mail");
-		waitElementAndTryGetElement(mail,30000);
-		Robot robot = new Robot();
-
-		if(driver.findElement(ELEMENT_FIRST_NEW_MAIL) != null) {
-			click(ELEMENT_FIRST_NEW_MAIL);}
-		else {
-			click(ELEMENT_FIRST_MAIL);
-		}
-
-		info("Found notify mail");
-		Utils.pause(10000);
-		info("delete mail");
-		robot.keyPress(KeyEvent.VK_OPEN_BRACKET);
-		robot.keyRelease(KeyEvent.VK_OPEN_BRACKET);
-		Utils.pause(1000);
-	}
-
+	
+    /**
+     * function: check content of mail then delete mail
+     * @param mail: element title of mail
+     * @param content: mail content
+     * @throws AWTException 
+     */
+    public void checkAndDeleteMailUsingRobot(By mail, String content) throws AWTException{
+            info("Check and delete mail");
+	                waitElementAndTryGetElement(mail,30000);
+                    Robot robot = new Robot();
+	 
+	                if(driver.findElement(ELEMENT_FIRST_NEW_MAIL) != null) {
+	                        click(ELEMENT_FIRST_NEW_MAIL);}
+	                else {
+	                        click(ELEMENT_FIRST_MAIL);
+	                }
+ 
+	                info("Found notify mail");
+            Utils.pause(10000);
+            info("delete mail");
+            info("Check the mail want to delete");
+            robot.keyPress(KeyEvent.VK_OPEN_BRACKET);
+            robot.keyRelease(KeyEvent.VK_OPEN_BRACKET);
+            info("Click delete mail button");
+            waitForAndGetElement(ELEMENT_DELETE_MAIL_BUTTON, 3000,0);
+            click(ELEMENT_DELETE_MAIL_BUTTON);
+            Utils.pause(1000);
+            info("Check and delete mail successfully");
+            
+    }
+	
 	public void uploadFileFromTopNavigation(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
 		alert = new ManageAlert(driver);
