@@ -479,12 +479,15 @@ public class EcmsBase extends ManageAccount {
 	 * @param membership: Membership 
 	 * @param anchor: link icon to open select memebership form
 	 */
-	public void selectMembership(String groupPath, String membership, String anchor){
-		if (isElementPresent(By.xpath("//*[contains(@data-original-title,'" + anchor + "')]"))){
+	public void selectMembership(String groupPath, String membership, String anchor){	
+		if (waitForAndGetElement(By.xpath("//*[contains(@data-original-title,'" + anchor + "')]"),5000,0)!=null){
 			click(By.xpath("//*[contains(@data-original-title,'" + anchor + "')]"));
-		}else if (isElementPresent(By.xpath("//*[contains(@title,'" + anchor + "')]"))){
-			click(By.xpath("//*[contains(@title,'" + anchor + "')]"));
+		}else if (waitForAndGetElement(By.xpath("//*[contains(@title,'" + anchor + "')]"),5000,0)!=null){
+			click(By.xpath("//*[contains(@title,'" + anchor + "')]")); 
+		}else if (waitForAndGetElement(By.xpath("//*[@class='uiIconAddPermission uiIconLightGray']"),5000,0)!=null){
+			click(By.xpath("//*[@class='uiIconAddPermission uiIconLightGray']"));
 		}
+		
 		userGroup.selectGroup(groupPath, true);
 		click(By.linkText(membership));
 		Utils.pause(1000);

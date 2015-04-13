@@ -12,6 +12,8 @@
 				name="org.exoplatform.selenium.platform.ecms.functional.admin.repository.ECMS_Admin_ManageLock" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.admin.repository.ECMS_Admin_ManageNodeType_Search" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.admin.repository.ECMS_Admin_ManageNodeType_Add" />
 		</classes>
 	</test>
 	<test name="ecms-func-advanced" enabled="true">
@@ -46,6 +48,11 @@
 				name="org.exoplatform.selenium.platform.ecms.functional.admin.template.ECMS_Admin_Template_List_Add" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.admin.template.ECMS_Admin_Template_List_Delete" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.admin.template.ECMS_Admin_Template_List_Edit" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.admin.template.ECMS_Admin_Template_Metadata" />
+
 		</classes>
 	</test>
 	<test name="ecms-func-explorer" enabled="true">

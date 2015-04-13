@@ -44,6 +44,13 @@ public class ManageNodeType extends EcmsBase{
 	//Popup > Super Type tab
 	public final By ELEMENT_ADD_TYPE_BUTTON = By.xpath("//button[text()='Add Type']");
 	public final String ELEMENT_SELECT_NODE_TYPE_NAME = "//*[@class='uiCheckbox']/input[@name='{nodeName}']";
+	//Popup -> Child node tab
+	public final By ELEMENT_CHILD_NODE_TAB=By.xpath("//*[@data-target='#childNodeDefinition-tab']");
+	public final By ELEMENT_NAMESPACE_OPTION=By.name("childNamespace");
+	public final By ELEMENT_NODE_NAME_TEXTBOX=By.name("childNodename");
+	public final By ELEMENT_PRIMARY_TYPE_TEXTBOX=By.name("defaultPrimaryType");
+	public final By ELEMENT_REQUITED_PRIMARY_TYPE_TEXTBOX=By.name("requiredPrimaryType");
+	public final By ELEMENET_ADD_CHILD_BUTTON=By.xpath("//*[text()='Add Child']");
 	
 	//Message
 	public final String MESSAGE_FOR_NO_INPUT_KEYWORD = "The value of the field is empty.";
@@ -131,5 +138,70 @@ public class ManageNodeType extends EcmsBase{
 			button.close();
 		}
 		Utils.pause(500);
+	}
+	
+	/**
+	 * Add child node
+	 * @param namespace
+	 * @param nodeName
+	 * @param primaryType
+	 */
+	public void addChildNode(String namespace, String nodeName, String primaryType, String requirePrimary){
+		info("Add child node");
+		click(ELEMENT_CHILD_NODE_TAB);
+		if(namespace!=null && namespace!=""){
+			select(ELEMENT_NAMESPACE_OPTION, namespace, 2);
+		}
+		if(nodeName!=null && nodeName!=""){
+			type(ELEMENT_NODE_NAME_TEXTBOX,nodeName,true);
+		}
+		if(primaryType!=null && primaryType!=""){
+			type(ELEMENT_PRIMARY_TYPE_TEXTBOX,primaryType,true);
+		}
+		if(requirePrimary!=null && requirePrimary!=""){
+			type(ELEMENT_REQUITED_PRIMARY_TYPE_TEXTBOX,requirePrimary,true);
+		}
+		click(ELEMENET_ADD_CHILD_BUTTON);
+	}
+	
+	public void addNodeType(String nodeTypeName, String nodeSuperType, Object...params){
+		String namespace = (String) (params.length > 0 ? params[0] : "");
+		Boolean isMixinType = (Boolean) (params.length > 1 ? params[1]: false) ;
+		Boolean orderChildNode = (Boolean) (params.length > 2 ? params[2]: false) ;
+		String prItemName = (String) (params.length > 3 ? params[3] : "");
+		
+		info("-- Creating a new node type --");
+		//Select a namespace
+		if (!namespace.isEmpty()){
+			select(magNamespace.ELEMENT_INPUT_NAMESPACE_PREFIX, namespace);
+		}
+		
+		//Input node type name
+		type(ELEMENT_NODE_TYPE_NAME, nodeTypeName, true);
+		
+		//Options
+		if (isMixinType){
+			select(ELEMENT_MIXIN_TYPE, "true");
+		}
+		if (orderChildNode){
+			select(ELEMENT_ORDERABLE_CHILD_NODE, "true");
+		}
+		if (!prItemName.isEmpty()){
+			type(ELEMENT_PRIMARY_ITEM_NAME, prItemName, true);
+		}
+		
+		//Select Super Types
+		click(ELEMENT_ADD_SUPER_TYPE_ICON);
+		String[] temp;			 
+		String delimiter = "/";
+		temp = nodeSuperType.split(delimiter);
+		for(int i =0; i < temp.length ; i++){
+			info("Selecting Node... " + temp[i]);
+		    click(ELEMENT_SELECT_NODE_TYPE_NAME.replace("{nodeName}", temp[i]), 2);
+		    Utils.pause(200);
+		}	
+		click(ELEMENT_ADD_TYPE_BUTTON);
+		button.save();
+		alt.verifyAlertMessage(MESSAGE_NODE_REGISTERED_SUCCESSFULLY.replace("${nodeName}", nodeTypeName));
 	}
 }

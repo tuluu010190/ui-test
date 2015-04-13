@@ -353,6 +353,7 @@ public class ManageTemplate extends EcmsBase{
 		boolean content = (Boolean) (params.length > 0 ? params[0]: false);
 		String templateContent = (String) (params.length > 1 ? params[1]: "");
 		boolean getFile = (Boolean) (params.length > 2 ? params[2]: false);
+		String newTemplateType=(String) (params.length > 3 ? params[3]: "");
 
 		info("-- Edit List Template --" + templateTitle);
 		if (templateType.equals("Content")){
@@ -382,20 +383,35 @@ public class ManageTemplate extends EcmsBase{
 			type(ELEMENT_LIST_TEMPLATE_TITLE, editTemplateTitle, true);
 		}
 
-		//Select Template Type
-		select(ELEMENT_LIST_TEMPLATE_TYPE, templateType);
-		button.save();
-		if ( ExpectedConditions.alertIsPresent() != null ){
-			alt.acceptAlert();
-		}
-		if (templateType.equals("Content") && !editTemplateTitle.isEmpty()){
-			waitForTextPresent(editTemplateTitle);
-		}else if (templateType.equals("Navigation") && !editTemplateTitle.isEmpty()){
-			click(ELEMENT_LIST_TEMPLATE_NAVIGATION_TAB);
-			waitForTextPresent(editTemplateTitle);
-		}else if (templateType.equals("Paginator") && !editTemplateTitle.isEmpty()){
-			click(ELEMENT_LIST_TEMPLATE_PAGINATOR_TAB);
-			waitForTextPresent(editTemplateTitle);
+		if(newTemplateType!="" && newTemplateType!=null){
+			select(ELEMENT_LIST_TEMPLATE_TYPE, newTemplateType);
+			button.save();
+			if ( ExpectedConditions.alertIsPresent() != null ){
+				alt.acceptAlert();
+			}
+			if (newTemplateType.equals("Content") && !editTemplateTitle.isEmpty()){
+				waitForTextPresent(editTemplateTitle);
+			}else if (newTemplateType.equals("Navigation") && !editTemplateTitle.isEmpty()){
+				click(ELEMENT_LIST_TEMPLATE_NAVIGATION_TAB);
+				waitForTextPresent(editTemplateTitle);
+			}else if (newTemplateType.equals("Paginator") && !editTemplateTitle.isEmpty()){
+				click(ELEMENT_LIST_TEMPLATE_PAGINATOR_TAB);
+				waitForTextPresent(editTemplateTitle);
+			}
+		}else{
+			button.save();
+			if ( ExpectedConditions.alertIsPresent() != null ){
+				alt.acceptAlert();
+			}
+			if (templateType.equals("Content") && !editTemplateTitle.isEmpty()){
+				waitForTextPresent(editTemplateTitle);
+			}else if (templateType.equals("Navigation") && !editTemplateTitle.isEmpty()){
+				click(ELEMENT_LIST_TEMPLATE_NAVIGATION_TAB);
+				waitForTextPresent(editTemplateTitle);
+			}else if (templateType.equals("Paginator") && !editTemplateTitle.isEmpty()){
+				click(ELEMENT_LIST_TEMPLATE_PAGINATOR_TAB);
+				waitForTextPresent(editTemplateTitle);
+			}
 		}
 		Utils.pause(500);
 	}

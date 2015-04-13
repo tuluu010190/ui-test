@@ -75,7 +75,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 	/*-- Case ID 001
 	 *-- Unlock node when administrator has permission to view node
 	 * --*/
-	@Test
+	@Test 
 	public void test01_UnlockNodeWhenAdminHasPermissionToViewNode(){
 		String titleArticle = "test01";
 		String nameArticle = "test01";
@@ -375,7 +375,7 @@ public class ECMS_Admin_ManageLock extends PlatformBase{
 	/*-- Case ID 007
 	 *-- Delete permission of group
 	 *--*/
-	@Test
+	@Test 
 	public void test07_DeletePermissionOfGroup(){
 		String titleArticle = "test07";
 		String nameArticle = "test07";

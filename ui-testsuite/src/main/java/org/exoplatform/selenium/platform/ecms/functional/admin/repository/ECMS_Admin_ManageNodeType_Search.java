@@ -52,28 +52,19 @@ public class ECMS_Admin_ManageNodeType_Search extends PlatformBase {
 	@AfterMethod
 	public void afterMethods() {
 		info("Logout ECMS");
-		//logoutEcms();
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
 
 	@Test
-	public void test01_SearchNodeTypeNotInputKeyword(){
-		info("Search Node Type when don't input keyword");
-		magNode.doNodeTypeSearch("");	
-		waitForTextPresent(magNode.MESSAGE_FOR_NO_INPUT_KEYWORD);
-		alert.verifyAlertMessage(magNode.MESSAGE_FOR_NO_INPUT_KEYWORD);
-	}
-
-	@Test
-	public void test02_SearchNodeTypeWithSpecialChars(){
+	public void test01_SearchNodeTypeWithSpecialChars(){
 		info("Search node type with a set of special characters");
 		magNode.doNodeTypeSearch("!@#$%^&()_{}[]|\"/?><,~`");
 		alert.verifyAlertMessage(magNode.MESSAGE_FOR_SPECIAL_KEYWORD);
 	}
 
 	@Test
-	public void test03_SearchNodeTypeNotMatch(){
+	public void test02_SearchNodeTypeNotMatch(){
 		String keyword = RandomStringUtils.randomAlphabetic(20);
 		info("Search Node Type when no Node type match with keyword");
 		magNode.doNodeTypeSearch(keyword);
@@ -81,7 +72,7 @@ public class ECMS_Admin_ManageNodeType_Search extends PlatformBase {
 	}
 
 	@Test
-	public void test04_SearchNodeTypeMatch(){
+	public void test03_SearchNodeTypeMatch(){
 		String keyword = "application";
 		info("Search Node type when there are some corresponding node types with keyword");
 		magNode.doNodeTypeSearch(keyword);
@@ -95,7 +86,7 @@ public class ECMS_Admin_ManageNodeType_Search extends PlatformBase {
 	}
 
 	@Test
-	public void test05_SearchNodeTypeAll(){
+	public void test04_SearchNodeTypeAll(){
 		String keyword = "*";
 		info("Search all node types");
 		magNode.doNodeTypeSearch(keyword);
