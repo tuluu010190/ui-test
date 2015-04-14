@@ -10,6 +10,8 @@ public class PageEditor extends PlatformBase {
 	public final By ELEMENT_EDIT_PORTLET_ICON = By.xpath("//*[@data-original-title='Edit Portlet']");
 	public final By ELEMENT_DELETE_PORTLET_ICON = By.xpath("//*[@data-original-title='Delete Portlet']");
 	public final String ELEMENT_EDITOR_PAGE_APPLICATION_PORTLET =".//*[@class='portletLayoutDecorator'][contains(text(),'${name}')]";
+	public final By ELEMENT_CONTAINER_TAB=By.xpath(".//*[@id='UIPortalComposerTab']//*[@data-target='#contList']");
+	public final By ELEMENT_APPLICATION_TAB=By.xpath(".//*[@id='UIPortalComposerTab']//*[@data-target='#appList']");
 	
 	//Edit portlet form
 	public final By ELEMENT_EDIT_PORTLET_FORM=By.id("tab-UIPortletForm");
@@ -43,6 +45,8 @@ public class PageEditor extends PlatformBase {
 	public final By ELEMENT_EDIT_SAVE_BUTTON=By.xpath("//*[text()='Save']");
 	public final By ELEMENT_PAGE_OK_BUTTON=By.xpath("//*[contains(@class,'UIPopupWindow')]//a[text()='OK']");
 	
+	//Container
+	public final String ELEMENT_CONTAINER_ID=".//*[@id='${id}']/div/div[1]/div/div";
 	
 	
 	public PageEditor(WebDriver dr){

@@ -25,6 +25,7 @@ import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
+import org.exoplatform.selenium.platform.gatein.PageEditor;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
@@ -74,6 +75,8 @@ public class SOC_TestConfig extends PlatformBase {
 	ActivityMessageDatabase activityMes;
 	ConnectStatusDatabase conStatus;
 	
+	PageEditor pagEditor;
+	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
 		info("Start setUpBeforeClass");
@@ -87,6 +90,7 @@ public class SOC_TestConfig extends PlatformBase {
 		CreNewDoc = new CreateNewDocument(driver);
 		connMag = new ConnectionsManagement(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
+		pagEditor = new PageEditor(driver);
 		hp = new HomePagePlatform(driver);
 
 		wHome = new WikiHomePage(driver);

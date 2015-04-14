@@ -1392,6 +1392,7 @@ public class TestBase {
 		DateFormat dateFormat = new SimpleDateFormat(format);
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.DAY_OF_MONTH, gap);
+		info(dateFormat.format(cal.getTime()));
 		return (dateFormat.format(cal.getTime()));	
 	}
 

@@ -40,6 +40,10 @@ public class MyProfilePage extends PlatformBase {
 	//Middle experience information
 	public final String ELEMENT_COMPANY_INFO="//*[@class='company clearfix']//*[@data-original-title='${company}']";
 	public final String ELEMENT_POSITION_INFO="//*[@class='position clearfix']//*[@data-original-title='${position}']";
+	public final String ELEMENT_JOB_DETAIL_INFO="//*[@class='description clearfix']//*[@data-original-title='${description}']";
+	public final String ELEMENT_SKILL_INFO="//*[@class='skills clearfix']//*[@data-original-title='${skill}']";
+	public final String ELEMENT_STARTDATE_INFO="//*[@class='startDate clearfix']//*[@data-original-title='${date}']";
+	public final String ELEMENT_ENDDATE_INFO="//*[@class='endDate clearfix']//*[@data-original-title='${date}']";
 	
 	//Navigation tabs
 	public final By ELEMENT_MY_PROFILE_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppprofile uiIconDefaultApp']");
@@ -215,9 +219,6 @@ public class MyProfilePage extends PlatformBase {
 	/**
 	 * Update information of contact of a user
 	 * @param gender
-	 * @param phone
-	 * @param ims
-	 * @param url
 	 * @param job
 	 */
 	public void updateGenderJob(String gender, String job) {
@@ -322,16 +323,16 @@ public class MyProfilePage extends PlatformBase {
 			type(ELEMENT_EXPERIENCE_POSITION_INPUT.replace("${index}", index),jobTitle, true);
 		}
 		if(jobDetail!=null && jobDetail != ""){
-			type(ELEMENT_EXPERIENCE_DESCRIPTION_INPUT.replace("${index}", index),organization, true);
+			type(ELEMENT_EXPERIENCE_DESCRIPTION_INPUT.replace("${index}", index),jobDetail, true);
 		}
 		if(skill!=null && skill != ""){
-			type(ELEMENT_EXPERIENCE_SKILL_INPUT.replace("${index}", index),jobTitle, true);
+			type(ELEMENT_EXPERIENCE_SKILL_INPUT.replace("${index}", index),skill, true);
 		}
 		if(startDate!=null && startDate != ""){
-			type(ELEMENT_EXPERIENCE_START_DATE_INPUT.replace("${index}", index),organization, true);
+			type(ELEMENT_EXPERIENCE_START_DATE_INPUT.replace("${index}", index),startDate, true);
 		}
 		if(endDate!=null && endDate != ""){
-			type(ELEMENT_EXPERIENCE_END_DATE_INPUT.replace("${index}", index),jobTitle, true);
+			type(ELEMENT_EXPERIENCE_END_DATE_INPUT.replace("${index}", index),endDate, true);
 		}
 		if(curPos!=null && curPos){
 			check(ELEMENT_EXPERIENCE_CURRENT_CHECKBOX.replace("${index}", index),2);

@@ -98,8 +98,6 @@ public class DocumentPreview extends ActivityStream {
 	
 	/**
 	 * Close Preview mode and Back to Activity stream by pressing ECS
-	 * @return
-	 * @param driver
 	 */
 	public void closeByPressECS(){
 		info("press ESC key");

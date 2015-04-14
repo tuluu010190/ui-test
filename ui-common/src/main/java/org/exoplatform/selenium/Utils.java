@@ -188,7 +188,7 @@ public class Utils {
 	/**
 	 *  This function returns a absolute path from a relative path that get from excel file
 	 * @param relativeFilePath
-	 * @return
+	 * @return absolutePath
 	 */
 	public static String getAbsoluteFilePathFromFile(String relativeFilePath) {
 		String curDir = System.getProperty("user.home");

@@ -93,6 +93,7 @@ public class SOC_People_Profile_Connection extends SOC_TestConfig {
 	 *<li> Test Case Name: Check the Connections section of another user.</li>
 	 *<li> Pre-Condition: User A has 3 connections</li>
 	 *<li> Post-Condition: </li>
+	 * Issue: https://jira.exoplatform.org/browse/SOC-4789
 	 */
 	@Test
 	public  void test03_04_CheckMyConnectionsSection() {

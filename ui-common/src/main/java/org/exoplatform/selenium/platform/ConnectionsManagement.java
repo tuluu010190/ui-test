@@ -34,7 +34,7 @@ public class ConnectionsManagement extends PlatformBase {
 
     /**
      * Connect to a user
-     * @param fullname
+     * @param username
      */
     public void connectToAUser(String username){
     	info("--Connect to a user--");
@@ -47,7 +47,7 @@ public class ConnectionsManagement extends PlatformBase {
     
     /**
      * Remove a connection of user
-     * @param fullname
+     * @param username
      */
     public void removeConnection(String username){
     	info("--Remove a connection of a user--");
@@ -59,7 +59,7 @@ public class ConnectionsManagement extends PlatformBase {
     }
     /**
      * Cancel a connection to a user
-     * @param fullname
+     * @param username
      */
     public void cancelConnection(String username){
     	info("--Cancel a connection of a user--");
@@ -71,7 +71,7 @@ public class ConnectionsManagement extends PlatformBase {
     }
     /**
      * Ignore a connection that is sent from a user
-     * @param fullname
+     * @param username
      */
     public void ignoreConnection(String username){
     	info("--Ignore a connection of a user--");
@@ -83,7 +83,7 @@ public class ConnectionsManagement extends PlatformBase {
     }
     /**
      * Reset all connections to default status
-     * @param fullname
+     * @param username
      */
     public void resetConnection(String username){
     	searchPeople(username,null,null,null);
@@ -96,7 +96,7 @@ public class ConnectionsManagement extends PlatformBase {
 	}
     /**
      * Accept a connection from a user in Connection page
-     * @param fullname
+     * @param username
      */
     public void acceptAConnection(String username){
     	info("--Accept a connection of a user--");
@@ -123,9 +123,12 @@ public class ConnectionsManagement extends PlatformBase {
     }
     
     /**
-	 * Function search people
-	 * @param params: peopleName, position, skills, directory
-	 */
+     * Function search people
+     * @param peopleName
+     * @param position
+     * @param skills
+     * @param directory
+     */
 	public void searchPeople(String peopleName, String position, String skills, String directory){
 		info("-- Searching people ... --");
 		if (directory!="" && directory!=null)

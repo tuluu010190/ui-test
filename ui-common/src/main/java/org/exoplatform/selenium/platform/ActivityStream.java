@@ -383,14 +383,13 @@ public class ActivityStream extends PlatformBase {
 	}
 	
 	/**
-	 * Add an activity stream with a text and a attached file
+	 *  Add an activity stream with a text and a attached file
 	 * @param nameDrive
-	 * @param pathFolder where put upload file
-	 * @param pathData   where put Test Data folder
+	 * @param pathFolder
+	 * @param pathData
 	 * @param nameFile
-	 * @param addtext
+	 * @param addText
 	 * @param text
-	 * @return ActivityStream page
 	 */
 	public void addActivity(String nameDrive,String pathFolder,String pathData,String nameFile,boolean addText,String text) {
 		info("-- Adding an activity--");
@@ -513,7 +512,6 @@ public class ActivityStream extends PlatformBase {
 	 * Upload a file from Upload Popup
 	 * @param path     where put TestData folder
 	 * @param nameFile
-	 * @return ActivityStream page
 	 */
 	public void uploadFileFromAS(String path,String nameFile){
 		info("-- Upload file --");
