@@ -531,8 +531,7 @@ public class UserAndGroupManagement extends PlatformBase {
 		searchUser(username, ELEMENT_MSG_SEARCH_USER_NAME);
 		Utils.pause(3000);
 		click(userDeleteIcon);
-		alert.waitForConfirmation(ELEMENT_MSG_CONFIRM_DELETE.replace(
-				"${userName}", username));
+		alert.waitForConfirmation(ELEMENT_MSG_CONFIRM_DELETE.replace("${userName}", username));
 		Utils.pause(1000);
 		type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
 		select(ELEMENT_SELECT_SEARCH_OPTION, ELEMENT_MSG_SEARCH_USER_NAME);
@@ -540,6 +539,6 @@ public class UserAndGroupManagement extends PlatformBase {
 		waitForMessage(ELEMENT_MSG_RESULT);
 		dialog.closeMessageDialog();
 		searchUser("", ELEMENT_MSG_SEARCH_USER_NAME);
-		waitForTextNotPresent(username);
+		waitForElementNotPresent(userDeleteIcon);
 	}
 }

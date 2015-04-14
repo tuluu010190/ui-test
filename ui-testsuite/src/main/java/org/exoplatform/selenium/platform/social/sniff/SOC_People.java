@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.platform.ConnectionsManagement.selectTabOption;
 import org.testng.annotations.*;
 
 public class SOC_People extends SOC_TestConfig{
@@ -261,9 +262,11 @@ public class SOC_People extends SOC_TestConfig{
 	/**
 	 *<li> Case ID:121900.</li>
 	 *<li> Test Case Name: Pending Requests list.</li>
+	 *<li> Case ID:121901.</li>
+	 *<li> Test Case Name: Received Invitations</li>
 	 */
 	@Test
-	public void test05_PendingRequestsList(){	
+	public void test05_06_PendingRequestsList(){	
 		info("test05_PendingRequestsList");
 		/*Create data test*/
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
@@ -274,15 +277,6 @@ public class SOC_People extends SOC_TestConfig{
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-
-		info("Click on Connections on the left panel");
-		hp.goToConnections();
-
-		info("Click on Connect button to invite an user");
-		connMag.connectToAUser(username1);
-		waitForAndGetElement(connMag.ELEMENT_REQUEST_PENDING_CONNECTIONS_TAB);
-		click(connMag.ELEMENT_REQUEST_PENDING_CONNECTIONS_TAB);
-		waitForAndGetElement(connMag.ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}", username1));
 		
 		/*Step Number: 1
 		 *Step Name: Step 1:  Open Pending Requests list
@@ -295,11 +289,31 @@ public class SOC_People extends SOC_TestConfig{
 		 *Expected Outcome: 
 			- Display all user's requests
 			- Requested user is removed from list*/
+		info("Click on Connections on the left panel");
+		hp.goToConnections();
+		info("Click on Connect button to invite an user");
+		connMag.connectToAUser(username1);
+		waitForAndGetElement(connMag.ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}", username1));
+		connMag.goToConnectionTab(selectTabOption.PENDING);
+		waitForAndGetElement(connMag.ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}", username1));
+
 		info("Cancel request");
-		connMag.cancelConnection(username1);
-		waitForElementNotPresent(connMag.ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}", username1));	
+		connMag.cancelConnection(username1);	
+		
+		info("test06_ReceivedInvitations");
+		hp.goToConnections();
+		connMag.goToConnectionTab(selectTabOption.ALL);
+		connMag.connectToAUser(username1);
+		waitForAndGetElement(connMag.ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}", username1));
+		
+		magAc.signIn(username1, password1);
+		hp.goToConnections();	
+		connMag.goToConnectionTab(selectTabOption.RECEIVE);
+		waitForAndGetElement(connMag.ELEMENT_CONNECTION_CONFIRM_BTN.replace("${user}",DATA_USER1));
+		waitForAndGetElement(connMag.ELEMENT_CONNECTION_IGNORE_BTN.replace("${user}",DATA_USER1));
 		
 		info("Clear Data");
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 	}

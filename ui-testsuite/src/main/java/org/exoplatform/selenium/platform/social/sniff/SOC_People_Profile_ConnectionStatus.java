@@ -20,7 +20,7 @@ public class SOC_People_Profile_ConnectionStatus extends SOC_TestConfig{
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String email1 = username1 + mailSuffixData.getMailSuffixRandom();
 		String username2 = txData.getContentByArrayTypeRandom(4) + getRandomString();
-		String email2 = username1 + mailSuffixData.getMailSuffixRandom();
+		String email2 = username2 + mailSuffixData.getMailSuffixRandom();
 		info("Add new user");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToAddUser();

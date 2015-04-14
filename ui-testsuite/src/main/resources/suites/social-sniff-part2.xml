@@ -17,7 +17,7 @@
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_DynContainers" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_EditProfile" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_Experience" />
-			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Search" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Search" />
 		</classes>
 	</test>
 	<listeners>
