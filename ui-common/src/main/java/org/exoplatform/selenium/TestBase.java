@@ -1348,7 +1348,51 @@ public class TestBase {
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * setClipboardData
+	 * @param string
+	 */
+	public static void setClipboardData(String string) {
+		//StringSelection is a class that can be used for copy and paste operations.
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+	}
+	/**
+	 * uploadFileUsingRobot
+	 * @param fileLocation
+	 */
+	public void uploadFileUsingRobot(String fileLocation) {
+		info("Upload file using Robot");
+		String fs = File.separator;
+		String path=Utils.getAbsoluteFilePath(fileLocation.replace("/", fs));
+		info("path in uploadRobot:"+path);
+		try {
+			Robot robot = new Robot();
+			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_A);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_A);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_X);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_X);
+			//Setting clipboard with file location
+			setClipboardData(path);
+			//native key strokes for CTRL, V and ENTER keys
 
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			robot.delay(1000);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+	}
 	/**
 	 * Download fileon IE
 	 * @param file
@@ -1434,7 +1478,7 @@ public class TestBase {
 	public void clearClipboard(){
 		StringSelection stringSelection = new StringSelection("");
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
-		            stringSelection, null);  
+				stringSelection, null);  
 	}
 
 	/**

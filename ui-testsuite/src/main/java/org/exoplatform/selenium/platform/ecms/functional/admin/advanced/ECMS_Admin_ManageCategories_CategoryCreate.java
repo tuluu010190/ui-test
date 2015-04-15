@@ -81,7 +81,7 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 	 *-- Add category in Category tree when put valid data into name field
 	 * --*/
 	@Test
-	public void test01_AddCategoryInCategoryTreeWhenPutValidDataIntoNameField(){
+	public void test01_05_AddCategoryInCategoryTreeWhenPutValidDataIntoAllField(){
 		info("-- Step 1: Create new Category tree --");
 
 		String categoryTreeName = "testCase01";
@@ -141,8 +141,6 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 
 		magCa.deleteCategory(categoryTreeName);
 
-		info("-- Sign Out --");
-		//signOut();		
 	}
 
 	/*-- Case No 026 / ID 007
@@ -198,9 +196,6 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 
 		magCa.deleteCategory(categoryTreeName);
 
-		info("-- Sign Out --");
-
-		//magAcc.signOut();
 	}
 
 	/*-- Case No 027 / ID 008
@@ -258,10 +253,6 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		ecMain.goToCategoriesTabInContentAdmin();
 
 		magCa.deleteCategory(categoryTreeName);
-
-		info("-- Sign Out --");
-
-		//magAcc.signOut();
 	}
 
 	/*-- Case No 028 / ID 009
@@ -314,12 +305,12 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 	public void test10_EditPermissionOfUserOrGroup(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase10";
+		String categoryTreeName = "testCase"+getRandomNumber();
 
 		nav.goToContentAdministration();
 
 		//Add category tree
-		String[] form1 = {"testCase10", categoryWorkspace, nodeHomePath};
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
@@ -346,9 +337,6 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		button.close();
 		click(button.ELEMENT_CLOSE_WINDOW);		
 		magCa.deleteCategory(categoryTreeName);
-
-		info("-- Sign Out --");
-		//magAcc.signOut();	
 	}
 
 	/*-- Case No 030 / ID 011
@@ -358,12 +346,11 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 	public void test11_EditPermissionOfSystem(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase11";
-
+		String categoryTreeName = "testCase"+getRandomNumber();
 		nav.goToContentAdministration();
 
 		//Add category tree
-		String[] form1 = {"testCase11", categoryWorkspace, nodeHomePath};
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
 		String[] form2 = {groupID, "manager"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
@@ -373,25 +360,20 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		info("-- Step 2: Open form to add permission --");
 		magCa.addChildCategory(categoryTreeName, categoryName);
 		click(adminPer.ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-		adminPer.setPermissionForUserOnManageCategory(true, DATA_USER2, false, "", "", true, false, true);
+		adminPer.setPermissionForUserOnManageCategory(true, DATA_USER2, false, "", "", true, false, false);
 
 		info("-- Step 3: Edit permission of Category --");
 		button.close();
 		magCa.clickUpLevel();
 		magCa.expandNode(categoryTreeName, true);
 		click(adminPer.ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-		waitForTextPresent("Permission Management");
-		//adminPer.editPermissionUserOrGroup("__system", false, false, false);
-		//waitForElementNotPresent(adminPer.ELEMENT_SELECT_USER_IN_PERMISSION_MANAGEMENT);
+		adminPer.editPermissionUserOrGroup("__system", false, false, false);
 		waitForAndGetElement(ecmsPer.ELEMENT_SYSTEM_PERMISSION_READ_DISABLED, 3000, 1, 2);
 	
 		info("-- Restore original data --");
 		button.close();
 		click(button.ELEMENT_CLOSE_WINDOW);		
 		magCa.deleteCategory(categoryTreeName);
-
-		info("-- Sign Out --");
-		//magAcc.signOut();
 	}
 
 	/*-- Case No 031 / ID 012
@@ -402,7 +384,6 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		info("-- Step 1: Create a Category --");
 
 		String categoryTreeName = "testCase12";
-
 		nav.goToContentAdministration();
 
 		//Add category tree
@@ -429,9 +410,6 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		button.close();
 		click(button.ELEMENT_CLOSE_WINDOW);
 		magCa.deleteCategory(categoryTreeName);
-
-		info("-- Sign Out --");
-		//	magAcc.signOut();	
 	}
 
 	/*-- Case No 032 / ID 013
@@ -479,13 +457,13 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 	}
 
 	/*@LienTM
-	 * case01+11+12: Add new Category Tree when input valid data in all fields
+	 * case2+3+4: Add new Category Tree when input valid data in all fields
 	 * create new category tree with 4 steps
 	 * edit category
 	 * delete category
 	 */
 	@Test
-	public void test01_11_12_AddEditDeleteCategoryTree(){
+	public void test02_03_04_AddEditDeleteCategoryTree(){
 		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Create_tree_01";
 		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Create_action_01";
 		String DATA_CATEGORY_TREE_CHILD_01 = "ECMS_Admin_ManageCategories_Create_tree_child_01";
@@ -512,92 +490,38 @@ public class ECMS_Admin_ManageCategories_CategoryCreate extends PlatformBase{
 		//waitForElementNotPresent(magCa.ELEMENT_ALERT_VISIBLE);
 		info("Delete category is successful");
 	}
-
+	
 	/*-- Case No 033 / ID 014
 	 *-- Delete permission of Category in case there is only one permission of this Category (except system)
 	 *-- Status: N/A (test case does not correspond to PLF 4.0)
 	 *--*/
-	/*@Test
+	@Test
 	public void test14_DeletePermissionOfCategory(){
 		info("-- Step 1: Create a Category --");
 
-		String categoryTreeName = "testCase14";
-
+		String categoryTreeName = "testCase14"+getRandomNumber();
 		nav.goToContentAdministration();
 
-		click(ELEMENT_ADD_CATEGORY_TREE_BUTTON);
-		magCa.addNewCategoryTree_Step1(categoryTreeName, categoryWorkspace, nodeHomePath);
-
-		next();
-
-		magCa.addNewCategoryTree_Step2(true, false, groupID, "manager", username, true, false, true, true);
-
-		next();
-
-		magCa.addNewCategoryTree_Step3(actionName, optionLifeCycle, nodeTargetPath);
-
+		//Add category tree
+		String[] form1 = {categoryTreeName, categoryWorkspace, nodeHomePath};
+		String[] form2 = {groupID, "manager"};
+		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
+		boolean[] setPermission = {true, false, false};
+		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER1, setPermission, form3);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Open form to add permission --");
-
 		magCa.addChildCategory(categoryTreeName, categoryName);
-
 		click(adminPer.ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
-		adminPer.setPermissionForUserOnManageCategory(false, "", true, "platform/users", "*", true, false, false, true);
-
-		info("-- Step 3: Delete permission of Category --");
-
-		button.close();
-
-		click(adminPer.ELEMENT_PERMISSION_MANAGEMENT_ICON.replace("${categoryName}", categoryName));
-
-		String[] userGroupToDeletes = {"*:/platform/administrators", "*:/platform/web-contributors", "any", DATA_USER1};
-
-		for (String userGroupToDelete: userGroupToDeletes){
-			ecmsPer.deletePermission(userGroupToDelete, false);
-		}
-
-		button.close();
-
-		button.close();
-
-		info("-- Verify that user at step 2 (in the added group) cannot delete permission of this user/group --");
-
-		//magAcc.signOut();
-
-		//driver.get(baseUrl);
-
-		//ecms.loginEcms(DATA_USER3, DATA_PASS);
-
-		nav.goToSiteExplorer();
-
-		ecms.goToNode("intranet/"+ categoryTreeName +"/"+ categoryName +"");
-
-		click(By.linkText("System"));
-
-		click(By.linkText("Permissions"));
-
-		waitForTextPresent("Permission Management");
-
-		By verifyRemoveIconNotPresent = By.xpath("//img[@class = 'DeleteIcon' and @title = 'Remove Permission']");
-
-		waitForElementNotPresent(verifyRemoveIconNotPresent);
-
-		//magAcc.signOut();
-
+		ecmsPer.deletePermission("any", true);
+		ecmsPer.deletePermission("*:/platform/administrators", true);
+		ecmsPer.deletePermission("*:/platform/web-contributors", true);
+		ecmsPer.deletePermission("*:/platform/users", true);
+		ecmsPer.deletePermission(DATA_USER1, true);
+		
 		info("-- Restore original data --");
-
-		//driver.get(baseUrl);
-
-		//ecms.loginEcms(DATA_USER1, DATA_PASS);
-
-		nav.goToContentAdministration();
-
+		button.close();
+		click(button.ELEMENT_CLOSE_WINDOW);
 		magCa.deleteCategory(categoryTreeName);
-
-		info("-- Sign Out --");
-
-		//magAcc.signOut();	
-	}*/	 
+	}
 }

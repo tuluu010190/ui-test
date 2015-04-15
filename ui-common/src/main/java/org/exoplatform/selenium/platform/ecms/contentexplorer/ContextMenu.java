@@ -1,7 +1,6 @@
 package org.exoplatform.selenium.platform.ecms.contentexplorer;
 
 import static org.exoplatform.selenium.TestLogger.info;
-
 import junit.framework.Assert;
 
 import org.exoplatform.selenium.Button;
@@ -187,7 +186,10 @@ public class ContextMenu extends EcmsBase{
 
 	//Delete a node at level 1
 	public void deleteDocument(Object locator, int...timeout){
-		int iTimeout = timeout.length > 0 ? timeout[0] : DEFAULT_TIMEOUT;
+		String nodePath1="//*[@id='UITreeExplorer']//*[@class='nodeName' and text()='${name}']";
+		String nodePath2="//*[@id='UITreeExplorer']//*[contains(@data-original-title,'${name}')]";
+		String nodePath3="//*[@title='${name}']";
+		String nodePath4="//span[contains(text(),'${name}')]";
 		for(int repeat=1;; repeat ++)
 		{
 			if (repeat > ACTION_REPEAT) {
@@ -199,35 +201,33 @@ public class ContextMenu extends EcmsBase{
 				if(isElementPresent(By.xpath("//*[@data-original-title = 'File Explorer']")))
 					click(By.xpath("//*[@data-original-title = 'File Explorer']"));
 			}
-			rightClickOnElement(locator);
+			if (locator instanceof By)
+				rightClickOnElement(locator);
+			if (locator instanceof String){
+				if (waitForAndGetElement(nodePath1.replace("${name}",(String) locator), 3000, 0) != null)
+					rightClickOnElement(nodePath1.replace("${name}", (String) locator));
+				else if (waitForAndGetElement(nodePath2.replace("${name}", (String) locator), 3000, 0) != null)
+					rightClickOnElement(nodePath2.replace("${name}", (String) locator));
+				else if (waitForAndGetElement(nodePath3.replace("${name}", (String) locator), 3000, 0) != null)
+					rightClickOnElement(nodePath3.replace("${name}", (String) locator));
+				else
+					rightClickOnElement(nodePath4.replace("${name}", (String) locator));
+			}
 			if (waitForAndGetElement(ELEMENT_MENU_DELETE, 10000, 0)!=null) 
 			{	
 				click(ELEMENT_MENU_DELETE);
-				//waitForTextPresent("Delete");
-				//click(By.linkText("OK"));
 				dialog.deleteInDialog();
 				break;
 			}
 			info("Retry...[" + repeat + "]");
 
-		}
-		Utils.pause(1000);
-		//waitForElementNotPresent(By.linkText("OK"));
-		//waitForTextNotPresent("Delete");
-		if (isElementPresent(locator)){
-			driver.navigate().refresh();
-			Utils.pause(2000);
-		}
-		waitForElementNotPresent(locator, iTimeout);
+		}	
 		info(locator.toString() + " is deleted successfully");		
-		Utils.pause(1000);
 	}
 
 	//Delete data
 	public void deleteData(By data){
 		goToNode(data);
 		deleteDocument(data);
-		/*Utils.pause(1000);
-		waitForElementNotPresent(data);*/
 	}
 }

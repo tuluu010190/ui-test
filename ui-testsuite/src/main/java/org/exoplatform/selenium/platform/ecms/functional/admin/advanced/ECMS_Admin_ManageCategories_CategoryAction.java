@@ -219,9 +219,6 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 
 		info("-- Step 4: Paste deleted Category --"); 
 		click(magCa.ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", categoryName));
-		waitForMessage(magCa.MESSAGE_INFO_PASTE_TO_CATEGORY);
-		//dialog.closeMessageDialog();
-		click(button.ELEMENT_OK_BUTTON);
 
 		info("-- Restore original data --");
 		button.close();
@@ -377,9 +374,6 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 
 		info("-- Step 4: Paste deleted Category --");
 		click(magCa.ELEMENT_PASTE_TO_CATEGORY_ICON.replace("${categoryName}", categoryName));
-		waitForMessage(magCa.MESSAGE_INFO_PASTE_TO_CATEGORY);
-		//dialog.closeMessageDialog();
-		click(button.ELEMENT_OK_BUTTON);
 
 		info("-- Restore original data --");
 		button.close();
@@ -437,7 +431,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 	 * Delete Category Tree
 	 */
 	@Test
-	public void test11_DeleteCategoryTree(){
+	public void test10_DeleteCategoryTree(){
 		info("-- Step 1: Create a Category --");
 
 		String categoryTreeName = "categoryAction11";
@@ -460,7 +454,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 	 * Edit Category Tree
 	 */
 	@Test
-	public void test12_EditCategoryTree(){
+	public void test11_EditCategoryTree(){
 		info("-- Step 1: Create a Category --");
 
 		String categoryTreeName = "categoryAction12";

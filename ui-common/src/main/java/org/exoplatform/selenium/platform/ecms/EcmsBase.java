@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.ecms;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.openqa.selenium.By;
@@ -22,7 +23,7 @@ public class EcmsBase extends ManageAccount {
 	protected UserGroupManagement userGroup = new UserGroupManagement(driver);
 	protected SitesExplorer se ;
 	Button button;
-
+	protected PlatformPermission pPer= new PlatformPermission(driver);
 	/*
 	 * Portal Acme - http://localhost:8080/portal/acme
 	 * */
@@ -174,7 +175,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_CONTEXT_MENU_ADD_SYMLINK = By.xpath("//*[@class='uiContextMenuContainer']//*[@class='uiIconEcmsAddSymLink']");
 	public final String ELEMENT_DATA_TITLE = "//*[@data-original-title = '${dataTitle}']";
 	public final String ELEMENT_SYMLINK_TITLE = "//*[@data-original-title = '${symlinkTitle}']";
-	public final String ELEMENT_TARGET_NODE = "//*[contains(text(),'${node}')]/../../td/a[@data-original-title='select']";
+	public final String ELEMENT_TARGET_NODE = ".//*[@id='UISelectPathPanel']//*[@class='Text' and contains(.,'${node}')]/../..//*[@data-original-title='Select']";
 	public final String ELEMENT_TARGET_REFERENCE = ".//*[@class='uiGrid table table-hover table-striped']//tr[${index}]//*[@class='uiIconValidate uiIconLightGray']";
 	public final String ELEMENT_SELECT_NODE = "//*[@id='UISelectPathPanel']//tr[2]//i[contains(@class,'uiIconValidate uiIconLightGray')]";
 	public final String ELEMENT_SELECT_NODE_1 = "//*[@id='UISelectPathPanel']//tr[1]//i[contains(@class,'uiIconValidate uiIconLightGray')]";
@@ -183,6 +184,8 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_SYMLINK_PATH_NODE_TITLE = "//*[@id='UIOneNodePathSelector']//a/i[@title='${node}']";
 	public final String ELEMENT_DOCUMENT_NODE_LIST = "//*[@id='UIDocumentNodeList']//*[@data-original-title='${node}']";
 
+	public final By ELEMENT_NO_CATEGORIES_POP_UP = By.xpath(".//*[@class='infoIcon' and contains(.,'There are no categories')]");
+	public final By ELEMENT_ACCEPT_NO_CATEGORIES = By.xpath(".//*[@class='infoIcon' and contains(.,'There are no categories')]/../../..//*[contains(text(),'OK')]");
 	//Rename Form in Sites Explorer (Right-click -> Rename)
 	public final By ELEMENT_INPUT_TITLE_NODE = By.xpath("//input[@id = 'titleField']");
 	public final By ELEMENT_INPUT_NAME_NODE = By.xpath("//input[@id = 'nameField']");
@@ -397,8 +400,12 @@ public class EcmsBase extends ManageAccount {
 	 */
 	public void goToNode(Object locator, Object...params)
 	{
+		String nodePath1="//*[@id='UITreeExplorer']//*[@class='nodeName' and text()='${name}']";
+		String nodePath2="//*[@id='UITreeExplorer']//*[contains(@data-original-title,'${name}')]";
+		String nodePath3="//*[@title='${name}']";
+		String nodePath4="//span[contains(text(),'${name}')]";
+
 		info("Go to Node");
-		se = new SitesExplorer(driver, plfVersion);
 		Boolean nodeAdminView = (Boolean) (params.length > 0 ? params[0]: false);
 		if (nodeAdminView && (locator instanceof String)){
 			String[] nodes = ((String) locator).split("/");
@@ -413,13 +420,14 @@ public class EcmsBase extends ManageAccount {
 				String[] nodes = ((String) locator).split("/");
 				for (String node: nodes)
 				{
-					String node1="//*[@id='UITreeExplorer']//*[contains(@data-original-title,'${name}')]";
-					if (waitForAndGetElement(By.xpath("//*[@title='" + node + "']"), 3000, 0) != null)
-						click(By.xpath("//*[@title='" + node + "']"));
-					else if (waitForAndGetElement(node1.replace("${name}", node), 3000, 1) != null)
-						click(node1.replace("${name}", node));
+					if (waitForAndGetElement(nodePath1.replace("${name}", node), 3000, 0) != null)
+						click(nodePath1.replace("${name}", node));
+					else if (waitForAndGetElement(nodePath2.replace("${name}", node), 3000, 0) != null)
+						click(nodePath2.replace("${name}", node));
+					else if (waitForAndGetElement(nodePath3.replace("${name}", node), 3000, 0) != null)
+						click(nodePath3.replace("${name}", node));
 					else
-						click(By.xpath("//span[contains(text(),'"+ node +"')]"));
+						click(nodePath4.replace("${name}", node));
 					Utils.pause(500);
 				}
 			}
@@ -465,15 +473,22 @@ public class EcmsBase extends ManageAccount {
 	 * @param user
 	 */
 	public void selectUser(String user){
-		By ELEMENT_USER = By.xpath("//*[text() = '"+user+"']/../../td//*[@class='uiIconPlus uiIconLightGray']"); 
+		By ELEMENT_USER = By.xpath("//*[text() = '"+user+"']/../../td//*[@class='uiIconPlus uiIconLightGray']");
+		String selectUser1=".//*[@id='UIPermissionForm']//*[@class='uiIconSelectUser uiIconLightGray']";
+		String selectUser2=".//*[@title = 'Select User']";
+		String selectUser3=".//*[@data-original-title = 'Select User']";
 		info("Set permission for user "+ user);
-		if (isElementPresent(By.xpath("//*[@title = 'Select User']"))){
-			click(By.xpath("//*[@title = 'Select User']"));
-		}else if (isElementPresent(By.xpath("//*[@data-original-title = 'Select User']"))){
-			click(By.xpath("//*[@data-original-title = 'Select User']"));
+		if (waitForAndGetElement(selectUser1, 3000,0)!=null){
+			click(selectUser1);
+		}else if (waitForAndGetElement(selectUser2, 3000,0)!=null){
+			click(selectUser2);
 		}
+		else if (waitForAndGetElement(selectUser3, 3000,0)!=null){
+			click(selectUser3);
+		}
+		type(pPer.ELEMENT_SEARCH_USER_INPUT, user, true);
+		click(pPer.ELEMENT_QUICK_SEARCH_BUTTON);
 		click(ELEMENT_USER);
-
 		Utils.pause(1000);
 	}
 
@@ -645,14 +660,14 @@ public class EcmsBase extends ManageAccount {
 		for(int i =0; i < temp.length - 1 ; i++){
 			info("Go to "+temp[i]);
 			click(By.xpath("//*[@id='UIOneNodePathSelector']//a/i[@title='" + temp[i] + "']"));
-			Utils.pause(100);
+			Utils.pause(1000);
 		}
 		By element_select1 = By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']");
 		By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
-		if (waitForAndGetElement(element_select1, 5000, 0) != null){
-			click(element_select1);
-		}else if (waitForAndGetElement(element_select2, 5000, 0) != null){
+		if (waitForAndGetElement(element_select2, 5000, 0) != null){
 			click(element_select2);
+		}else if (waitForAndGetElement(element_select1, 5000, 0) != null){
+			click(element_select1);
 		}else if (waitForAndGetElement(element_select1, 5000, 0) != null){
 			click(element_select1);
 		}

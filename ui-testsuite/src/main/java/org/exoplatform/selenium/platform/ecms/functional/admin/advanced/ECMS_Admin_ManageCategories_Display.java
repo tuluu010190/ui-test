@@ -20,7 +20,6 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContentTemplate;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -208,13 +207,13 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 
 		//check can not read node by user not having read permission
 		ecms.goToNode(ELEMENT_ARTICLE);
-		actBar.goToManageCategories();
-		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
-		click(actBar.ELEMENT_CATEGORY_TREE_BOX);
-		waitForElementNotPresent(actBar.ELEMENT_CATEGORY_OPTION.replace("${CATEGORY_TREE_NAME}", DATA_CATEGORY_TREE_NAME));
-		info("category tree is not diplaying");
+		actBar.goToNode(actBar.ELEMENT_CATEGORIES_LINK);
+		click(By.xpath("//*[@href='#tab-UIOneTaxonomySelector']"));
+		waitForAndGetElement(By.xpath("//*[contains(text(),'Child not found!')]"));
 		button.close();
+		info("category tree is not diplaying");
 
+		
 		//delete data
 		cMenu.deleteData(ELEMENT_ARTICLE);
 		magAcc.signOut();
@@ -229,7 +228,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 	 * upload file, check can see new category when upload file
 	 */
 	@Test
-	public void test04_CheckDisplayOfCategoryWhileUploadFile(){
+	public void test04_02_CheckDisplayOfCategoryWhileUploadFile(){
 		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_04";
 		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_04";
 		//String DATA_UPLOAD_FILE_NAME = "ECMS_Admin_ManageCategories_Display_UploadFile_04";
@@ -245,15 +244,13 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 
 		//upload new file
 		nav.goToSiteExplorer();
-		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
-				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", waitForAndGetElement(ecms.ELEMENT_UPLOAD_LINK, DEFAULT_TIMEOUT, 0, 2));
-		type(ecms.ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(DATA_UPLOAD_FILE_LINK), false);
+		actBar.goToUpload();
+		uploadFileUsingRobot(DATA_UPLOAD_FILE_LINK);
 		
 		info("Upload file "+ Utils.getAbsoluteFilePath(DATA_UPLOAD_FILE_LINK));
-		//waitForTextPresent("ECMS_Admin_ManageCategories_Display.jpg");
-		waitForAndGetElement(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", "ECMS_Admin_ManageCategories_Display.jpg"));
+		Utils.pause(1000);
+		driver.navigate().refresh();
 		ecms.goToNode("ECMS_Admin_ManageCategories_Display.jpg");
-		//click(actBar.ELEMENT_CATEGORIES_LINK);
 		actBar.goToManageCategories();
 		click(actBar.ELEMENT_SELECT_CATEGORY_TAB);
 		
@@ -267,7 +264,6 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		cMenu.deleteData(By.linkText("ECMS_Admin_ManageCategories_Display.jpg"));
 		ecMain.goToCategoriesTabInContentAdmin();
 		magCa.deleteCategory(DATA_CATEGORY_TREE_NAME);
-		//waitForElementNotPresent(ELEMENT_ALERT_VISIBLE);
 	}
 
 	/*case04: Check the displaying of Category in Sites Explorer while creating document or uploading file
@@ -275,7 +271,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 	 * create document: kofax document, check that user can see new category when creating document
 	 */
 	@Test
-	public void test04_CheckDisplayOfCategoryWhileCreatingDocument(){
+	public void test04_01_CheckDisplayOfCategoryWhileCreatingDocument(){
 		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_04_2";
 		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_04_2";
 		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites/intranet"};
@@ -302,7 +298,6 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		//delete data
 		ecMain.goToCategoriesTabInContentAdmin();
 		magCa.deleteCategory(DATA_CATEGORY_TREE_NAME);
-		//waitForElementNotPresent(ELEMENT_ALERT_VISIBLE);
 	}
 
 	/*case05: Check the displaying of Category when do advanced search using category
@@ -452,6 +447,5 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 		ecMain.goToCategoriesTabInContentAdmin();
 		magCa.deleteCategory(DATA_CATEGORY_TREE_NAME);
-		//waitForElementNotPresent(ELEMENT_ALERT_VISIBLE);
 	}
 }

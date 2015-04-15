@@ -38,7 +38,7 @@ public class ManageCategory extends EcmsPermission{
 	public final By ELEMENT_CATEGORIES_WORKSPACE = By.name("TaxoTreeWorkspace");
 	public final By ELEMENT_ADD_PATH_LINK = By.xpath("//*[@title='Add Path']");
 	public final By ELEMENT_POPUP_HOME_PATH = By.id("PopupTaxonomyJCRBrowser");
-	public final String ELEMENT_EDIT_CATEGORY_TREE = "//*[text()='${categoryTreeName}']/../..//*[@class='uiIconEditInfo']";
+	public final String ELEMENT_EDIT_CATEGORY_TREE = "//*[text()='${categoryTreeName}']/../..//*[@class='uiIconEditInfo uiIconLightGray']";
 	public final By ELEMENT_ADD_PATH_LINK_ICON = By.xpath("//*[@data-original-title='Add Path']");
 	
 	// Add Category tree form -screen2
@@ -58,9 +58,9 @@ public class ManageCategory extends EcmsPermission{
 	public final By ELEMENT_UP_LEVEL = By.xpath("//*[@id='UITaxonomyTreeCreateChild']//..//a[@title='Up Level']");
 	public final By ELEMENT_ALERT_VISIBLE = By.xpath("//div[@class='UIPopupWindow UIDragObject ExoMessageDecorator' and contains(@style,'visible')]");	
 
-	public final String ELEMENT_COPY_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsCopy']";
-	public final String ELEMENT_PASTE_TO_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsPatse']";
-	public final String ELEMENT_CUT_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsCut']";
+	public final String ELEMENT_COPY_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsCopy uiIconEcmsLightGray']";
+	public final String ELEMENT_PASTE_TO_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsPatse uiIconEcmsLightGray']";
+	public final String ELEMENT_CUT_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@class='uiIconEcmsCut uiIconEcmsLightGray']";
 	public final String MESSAGE_INFO_CUT_TO_CATEGORY =  "You cannot paste here. The category node '${pathCategory}' might be cut.";
 	public final String MESSAGE_INFO_PASTE_TO_CATEGORY = "Cannot read from the source file, or the destination category is a sub-category.";
 	public final String ELEMENT_LIFE_CYCLE_LIST_OPTIONS = ".//*[@name='lifecycle']/option[contains(text(), '${option}')]";
@@ -93,7 +93,6 @@ public class ManageCategory extends EcmsPermission{
 		}
 		waitForAndGetElement(ELEMENT_POPUP_HOME_PATH);
 		selectHomePathForCategoryTree(homePath);
-		waitForTextNotPresent("Select Home Path");
 	}
 
 	//Add new category tree: step 2 - Set permission for the category tree.
@@ -125,7 +124,7 @@ public class ManageCategory extends EcmsPermission{
 			if(selectUserOrGroup){
 				selectUser(user_Per);
 			}
-			if(selectMembership){
+			if(selectMembership==true){
 				if (waitForAndGetElement(ELEMENT_SELECT_MEMBERSHIP_ICON, 3000, 0) != null){
 					click(ELEMENT_SELECT_MEMBERSHIP_ICON);
 				}else{
@@ -251,12 +250,7 @@ public class ManageCategory extends EcmsPermission{
 		info("Add new category tree - step 2: Set permission for the category tree.");
 		addNewCategoryTree_Step2(selectUserOrGroup, selectMembership, groupIDAndMembership[0], groupIDAndMembership[1], 
 				user_Per, optionPermission[0], optionPermission[1], optionPermission[2]);	
-		//click(button.ELEMENT_NEXT_BUTTON);
-		if (isElementPresent(ELEMENT_NEXT_BUTTON_STEP_2)){
-			click(ELEMENT_NEXT_BUTTON_STEP_2);
-		}else if (isElementPresent(By.xpath("//*[text()='Add permissions to this node']/..//*[text()='Next']"))){
-			click("//*[text()='Add permissions to this node']/..//*[text()='Next']");
-		}
+		click(By.xpath(".//*[@id='UIPermissionTreeForm']//*[text()='Next']"));
 		
 		//step 3: Add an action to the category tree to complete the creation or update
 		info("Add new category tree - step 3: Add an action to the category tree to complete the creation or update");
@@ -344,8 +338,8 @@ public class ManageCategory extends EcmsPermission{
 
 	//Delete a category
 	public void deleteCategory(String categoryName){
-		By ELEMENT_DELETE = By.xpath("//*[@title = '" + categoryName + "']/../..//*[@class = 'uiIconDelete']");
-		By ELEMENT_DELETE_1 = By.xpath("//*[@data-original-title = '" + categoryName + "']/../..//*[@class='uiIconDelete']");
+		By ELEMENT_DELETE = By.xpath("//*[@title = '" + categoryName + "']/../..//*[@class = 'uiIconDelete uiIconLightGray']");
+		By ELEMENT_DELETE_1 = By.xpath("//*[@data-original-title = '" + categoryName + "']/../..//*[@class='uiIconDelete uiIconLightGray']");
 		Utils.pause(500);
 		if (isElementPresent(ELEMENT_DELETE)){
 			click(ELEMENT_DELETE); 
@@ -360,7 +354,7 @@ public class ManageCategory extends EcmsPermission{
 		}else{
 			info("Do not find element to delete");
 		}
-		Utils.pause(1000);
+		Utils.pause(5000);
 	}
 	/// End of Manage categories
 }

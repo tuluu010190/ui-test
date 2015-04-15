@@ -57,7 +57,7 @@ public class ManageDrive extends EcmsBase{
 	public final By ELEMENT_ADD_PATH = By.xpath("//*[@title='Add Path']");
 	public final By ELEMENT_ADD_PATH_AUX = By.xpath("//*[@data-original-title='Add Path']");
 	public final By ELEMENT_ADD_ROOT_NODE = By.xpath("//*[@title='AddRootNode']");
-	public final By ELEMENT_ADD_ROOT_NODE_AUX = By.xpath("//*[@data-original-title='AddRootNode']");
+	public final By ELEMENT_ADD_ROOT_NODE_AUX = By.xpath("//*[@class='uiIconAddRootNode uiIconLightGray']");
 	public final By ELEMENT_ADD_PATH_POPUP = By.id("JCRBrowser");
 	public final By ELEMENT_JCR_SYSTEM = By.xpath("//*[contains(text(),'jcr:system')]/../..//*[@title='select']");
 	public final String ELEMENT_SELECT_PATH_ITEM = "//*[contains(text(),'${node}')]/../..//*[@title='select']";
