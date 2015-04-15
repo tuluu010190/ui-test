@@ -1446,18 +1446,14 @@ public class TestBase {
 		Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
 		//odd: the Object param of getContents is not currently used
 		Transferable contents = clipboard.getContents(null);
-		boolean hasTransferableText =
-				(contents != null) &&
-				contents.isDataFlavorSupported(DataFlavor.stringFlavor)
-				;
-		if (hasTransferableText) {
-			try {
-				result = (String)contents.getTransferData(DataFlavor.stringFlavor);
-			}
-			catch (UnsupportedFlavorException | IOException ex){
-				System.out.println(ex);
-				ex.printStackTrace();
-			}
+		try {
+			result = (String)contents.getTransferData(DataFlavor.stringFlavor);
+		} catch (UnsupportedFlavorException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		info("result is "+result);
 		return result;
