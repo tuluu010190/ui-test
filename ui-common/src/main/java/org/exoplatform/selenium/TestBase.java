@@ -113,6 +113,7 @@ public class TestBase {
 	protected String contactPhoneFilePath;
 	protected String activityMesFilePath;
 	protected String conStatusFilePath;
+	protected String chatStatusFilePath;
 	protected String groupsCalenderFilePath;
 	protected String remoteGadgetDataFilePath;
 	protected String languageFilePath;
@@ -209,7 +210,8 @@ public class TestBase {
     
 	public final String DEFAULT_LINKSURL="DataDriven/"+"links.xls";
 	public final String DEFAULT_GROUPNAMEURL="DataDriven/"+"gatein_group_name.xls";
-
+	
+	public final String DEFAULT_CHATSTATUS_URL = "DataDriven/"+"chat_status.xls";
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -309,6 +311,7 @@ public class TestBase {
 		contactIMFilePath = System.getProperty("contactIMFilePath");
 		contactPhoneFilePath = System.getProperty("contactPhoneFilePath");
 		activityMesFilePath = System.getProperty("activityMesFilePath");
+		chatStatusFilePath = System.getProperty("chatStatusFilePath");
 		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -377,7 +380,8 @@ public class TestBase {
 		if (portalPermisGroupFilePath==null) portalPermisGroupFilePath = DEFAULT_PORTAL_PERMISSION_GROUP_URL;
         if (portalPermisMemFilePath==null) portalPermisMemFilePath = DEFAULT_PORTAL_PERMISSION_MEMBERSHIPS_URL;
         if (videoLinksFilePath==null) videoLinksFilePath = DEFAULT_VIDEO_EMBBED_LINKS_PATH;
-		
+        if (chatStatusFilePath==null) chatStatusFilePath = DEFAULT_CHATSTATUS_URL;
+        
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
 		mailSuffixFilePath = getAbsoluteFilePath(mailSuffixFilePath);
@@ -401,6 +405,7 @@ public class TestBase {
 		contactPhoneFilePath = getAbsoluteFilePath(contactPhoneFilePath);
 		activityMesFilePath =getAbsoluteFilePath(activityMesFilePath);
 		conStatusFilePath = getAbsoluteFilePath(conStatusFilePath);
+		chatStatusFilePath = getAbsoluteFilePath(chatStatusFilePath);
 		
 		siteExpDrivePath = getAbsoluteFilePath(siteExpDrivePath);
 		siteExpPathPath = getAbsoluteFilePath(siteExpPathPath);

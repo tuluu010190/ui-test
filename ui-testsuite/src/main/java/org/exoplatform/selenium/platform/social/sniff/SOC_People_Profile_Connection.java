@@ -25,8 +25,8 @@ public class SOC_People_Profile_Connection extends SOC_TestConfig {
 	public  void test01_02_CheckMyConnectionsSectionWhenNoConnection() {
 		/*Create data test*/
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
-		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
+		String password1 = username1;
+		String email1 = username1 + mailSuffixData.getMailSuffixRandom();
 
 		info("Add new user");
 		magAc.signIn(DATA_USER1, DATA_PASS);

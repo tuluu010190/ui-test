@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.objectdatabase.chat.ChatStatusDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
@@ -33,6 +34,8 @@ import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDa
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
+import org.exoplatform.selenium.platform.chat.ChatStatus;
+
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -60,10 +63,11 @@ public class SOC_TestConfig extends PlatformBase {
 	AttachmentFileDatabase fData;
 	LinksDatabase lnkData;
 	UserDatabase userData;
-
+	ChatStatusDatabase chatStatus;
+	
 	SiteExplorerDriveDatabase siteExDrive;
 	SiteExplorerPathDatabase siteExPath;
-
+	
 	Button button;
 	ConnectionsManagement connMag;
 	SpaceSettingManagement setSpaceMg;
@@ -74,7 +78,7 @@ public class SOC_TestConfig extends PlatformBase {
 	ProfileContactPhoneDatabase contactPhone;
 	ActivityMessageDatabase activityMes;
 	ConnectStatusDatabase conStatus;
-	
+	ChatStatus chat;
 	PageEditor pagEditor;
 	
 	@BeforeClass
@@ -89,10 +93,12 @@ public class SOC_TestConfig extends PlatformBase {
 		SEHome = new SiteExplorerHome(driver);
 		CreNewDoc = new CreateNewDocument(driver);
 		connMag = new ConnectionsManagement(driver);
+		chat = new ChatStatus(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
 		pagEditor = new PageEditor(driver);
 		hp = new HomePagePlatform(driver);
-
+		pagEditor = new PageEditor(driver);
+		
 		wHome = new WikiHomePage(driver);
 		wikiMg = new WikiManagement(driver);
 		
@@ -140,6 +146,10 @@ public class SOC_TestConfig extends PlatformBase {
 		
 		conStatus = new ConnectStatusDatabase();
 		conStatus.setConStatusData(conStatusFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		chatStatus = new ChatStatusDatabase();
+		chatStatus.setChatStatusData(chatStatusFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
 		button = new Button(driver);
 
 		info("End setUpBeforeClass");

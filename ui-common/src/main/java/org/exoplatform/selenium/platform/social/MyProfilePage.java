@@ -28,6 +28,7 @@ public class MyProfilePage extends PlatformBase {
 	public final By ELEMENT_HORIZONTAL_TOOLBAR_FIFTH_APP_DASHBOARD = By.xpath("//*[@id='UIUserNavigationPortlet']/ul/li[5]//*[@class='uiIconAppdashboard uiIconDefaultApp']");
 
 	//Left contact information
+	public final By ELEMENT_UIBASICPROFILEPORTLET = By.xpath(".//*[@id='UIBasicProfilePortlet']/h4[contains(text(),'Contact Information')]");
 	public final String ELEMENT_FULLNAME_INFO=".//*[@id='UIStatusProfilePortlet']//span[text()='${fullname}']";
 	public final String ELEMENT_EMAIL_INFO=".//*[@class='uiEmail ellipsis' and @data-original-title='${email}']";
 	public final String ELEMENT_JOB_TITLE_INFO=".//*[@class='uiPosition ellipsis' and @data-original-title='${job}']";
@@ -94,7 +95,7 @@ public class MyProfilePage extends PlatformBase {
 
 	//Experience
 	public final By ELEMENT_NO_EXPERIENCE=By.id("infoExperien");
-	public final By ELEMENT_ADD_MORE_EXP_ICON = By.xpath("//*[@data-original-title='Add more experience']");
+	public final By ELEMENT_ADD_MORE_EXP_ICON = By.xpath("//*[@title='Add more experience']");
 	public final String ELEMENT_EXPERIENCE_LIST=".//*[starts-with(@id,'ExperienceSection')]";
 	public final String ELEMENT_EXPERIENCE_COMPANY_INPUT="//*[@id='companyExperienceSection${index}']";
 	public final String ELEMENT_EXPERIENCE_POSITION_INPUT = "//*[@id='positionExperienceSection${index}']";
@@ -113,7 +114,9 @@ public class MyProfilePage extends PlatformBase {
 	
 	//Recent activity
 	public final String ELEMENT_RECENT_ACTIVITY_CONTENT="//*[@id='UIRecentActivitiesPortlet']//*[@class='activityCont']/div[${index}]//*[@class='status' and contains(text(),'${content}')]";
-	
+	public final String ELEMENT_RECENT_ACTIVITY_NO_CONTENT = "//*[@id='UIRecentActivitiesPortlet']//*[contains(text(),'${content}')]";
+	public final String ELEMENT_RECENT_ACTIVITY_ALL_CONTENT = "//*[@id='UIRecentActivitiesPortlet']//*[@class='activityCont']//*[@class='content']/*[contains(normalize-space(),'${content}')]";
+	public final By ELEMENT_RECENT_ACTIVITY_VIEWALL_BTN = By.xpath(".//*[@id='UIRecentActivitiesPortlet']//button[contains(text(),'View All')]");
 	//Connection part
 	public final String ELEMENT_UIMINICONNECTIONS_PORTLET_TEXT = "//*[@id='UIMiniConnectionsPortlet']/*[contains(text(),'${content}')]";
 	public final By ELEMENT_UIMINICONNECTIONS_PORTLET_FIND = By.xpath("//*[@id='UIMiniConnectionsPortlet']/..//*[contains(text(),'Find connections')]");
@@ -130,6 +133,7 @@ public class MyProfilePage extends PlatformBase {
 	public final By ELEMENT_UIMINICONNECTIONS_PORLET_CONNECTED_STATUS=By.xpath(".//*[@id='UIActionProfilePortlet']//*[@class='btn show-default']/*[@class='uiIconStatusConnected']");
 	public final By ELEMENT_UIMINICONNECTIONS_PORLET_DISCONNECTED_STATUS=By.xpath(".//*[@id='UIActionProfilePortlet']//*[@class='btn hide-default']/*[@class='uiIconStatusDisconnect']");
 	public final By ELEMENT_UIMINICONNECTIONS_PORTLET_DENY_STATUS=By.xpath(".//*[@id='UIRelationshipAction']//*[@class='uiIconStatusDeny']/..");
+	public final By ELEMENT_UIMINICONNECTIONS_PORTLET_TITLE = By.xpath(".//*[@id='UIMiniConnectionsPortlet']/h4[contains(text(),'Connections')]");
 	/**
 	 * constructor
 	 * @param dr
@@ -232,6 +236,7 @@ public class MyProfilePage extends PlatformBase {
 			info("update job");
 			type(ELEMENT_CONTACT_JOB_TITLE,job,true);
 		}
+		
 	}
 
 	/**

@@ -42,7 +42,7 @@ public class ActivityStream extends PlatformBase {
 	public final By ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='placeholder']");
 	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON = By.xpath(".//input[@type='file']");	
-	public final String ELEMENT_PUBLICATION_SUGGEST_USER = ".//*[@id='UIComposer']//*[contains(@data-display,'${name}')]";	
+	public final String ELEMENT_PUBLICATION_SUGGEST_USER = ".//*[@id='UIComposer']//*[contains(@data-ref-id,'${name}')]";	
 	public final String ELEMENT_PUBLICATION_USER_SHARED = ".//*[@class='description']//*[contains(text(),'${name}')]";
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_PROGRESS_UPLOAD = By.xpath(".//*[@id='UIDocumentSelector']//*[@class='pull-left percent']");
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE_BTN =By.xpath(".//*[@id='UIPopupComposer']//*[contains(@title,'Close Window')]");
@@ -78,7 +78,8 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_WIKI_CONTENT = "//*[@class='linkTitle' and text()='${title}']/../../..//*[@class='contentWiki theContent']/*[@class='text']";
 	public final String ELEMENT_ACTIVITY_WIKI_VERSION = "//*[@class='linkTitle' and text()='${title}']/../..//*[@class = 'pull-right versionLabel' and contains(text(), 'Version: ${version}')]";
 	public final String ELEMENT_ACTIVITY_MOVE_WIKI_PAGE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'Page has been moved to: ${path}')]";
-
+	public final String ELEMENT_ACTIVITY_WIKI_LINK = "//*[@class='titleWiki']/a[@href='/portal/intranet/wiki/${title}']";
+	
 	//Question activity
 	public final String ELEMENT_QUESTION_ACTIVITY_TITLE="//*[@class='author']/*[contains(@href,'$user')]/../../..//*[@class='titleAnswer']/*[@class='linkTitle' and text()='$question']";
 	public final String ELEMENT_QUESTION_ACTIVITY_RATING="//*[@class='author']/*[contains(@href,'$user')]/../../..//*[@class='titleAnswer']/*[@class='linkTitle' and text()='$question']/../..//*[@class='avgRatingImages sumaryRate']";
@@ -97,7 +98,9 @@ public class ActivityStream extends PlatformBase {
 	public String ELEMENT_ACTIVITY_FILE_CHECK_ICON_FILE = "//*[@data-original-title='{$title}']//*[@class='uiIcon64x64FileHtml uiIcon64x64nt_file']";
 	public String ELEMENT_ACTIVITY_FILE_TITLE_CHECK_FILE_SIZE = "//*[@class='fileTypeContent']/..//*[@class='linkTitle' and contains(text(),'{$title}')]/..//*[@class='versionFile' and contains(text(),'File Size:')]";
 	public String ELEMENT_ACTIVITY_FILE_EDIT_FILE_FROM_ACTIVITY = "//*[@class='fileTypeContent']/..//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
-
+	public String ELEMENT_ACTIVITY_FILE_USER_ICON = "//*[@class='activityAvatar avatarCircle']/*[contains(@href,'${user}')]/../..//*[@class='uiIconSocFileSharing uiIconSocWhite']";
+	public String ELEMENT_ACTIVITY_FILE = "//*[contains(text(),'${title}')]/..//*[@class='linkTitle' and contains(text(),'${file}')]";
+	
 	// Activity of web content
 	//public String ELEMENT_ACTIVITY_WEBCONTENT_TITLE = "//*[@class='uiIcon64x64Templateexo_webContent']/../..//*[@class='linkTitle' and contains(text(),'{$title}')]";
 	public String ELEMENT_ACTIVITY_WEBCONTENT_CHECK_VERSION ="//*[@class='uiIcon64x64Templateexo_webContent']/../..//*[@class='linkTitle' and contains(text(),'{$title}')]/..//*[@class='versionFile' and contains(text(),'Version: {$version}')]";
@@ -117,7 +120,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[contains(text(),'${title}')]/../../../../..//*[contains(text(),\"${comment}\")]";
 	public final String ELEMENT_ACTIVITY_VIEW_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
-	public final String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'{$name}')]";
+	public final String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'${title}')]";
     public final String ELEMENT_ACTIVITY_VERSION = ".//*[contains(text(),'${name}')]/../../..//*[.//*[@class='pull-right versionLabel'][text()='${version}']";
 	public final String ELEMENT_ACTIVITY_TITLE="//*[@id='boxContainer']//*[contains(text(),'${text}')]/../..//*[contains(text(),'${file}')]";
 	public final String ELEMENT_PUBLICATION_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentItem commentItemLast']";
@@ -125,7 +128,9 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_PUBLICATION_FIRSTPOST_AUTHOR = "//div[1]/form//*[@class='heading']//*[@class='author']//*[contains(text(),'${name}')]";
 	public final By ELEMENT_PUBLICATION_FIRSTPOST_AUTHORAVATAR = By.xpath("//div[1]/form//*[@class='activityAvatar avatarCircle']");
 	public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIVITYTEXT = By.xpath("//div[1]/form//*[@class='description']");
-	
+	public final String ELEMENT_ACTIVITY_LINK = "//*[@id='boxContainer']//*[contains(text(),'${title}')]/../..//*[contains(text(),'${link}')]";
+	public final String ELEMENT_ACTIVITY_LINK_USER_ICON = "//*[@class='activityAvatar avatarCircle']/*[contains(@href,'${user}')]/../..//*[@class='uiIconSocLinkMini uiIconSocWhite']";
+	public final String ELEMENT_ACTIVITY_MENTION_USER = "//*[@id='boxContainer']//*[contains(text(),'${content}')]/a[contains(@href,'${user}')]";
 	//Document preview activity
 	public final String ELEMENT_ACTIVITY_DOCUMENT_MEDIA_TITLE = ".//*[@class='linkTitle'][@data-original-title='${title}']";
 	public final String ELEMENT_ACTIVITY_WEBCONTENT_TITLE =".//a[@title='${title}']";
@@ -561,7 +566,6 @@ public class ActivityStream extends PlatformBase {
 			type(ELEMENT_COMPOSER_INPUT_FILED,text,false);
 		click(ELEMENT_COMPOSER_SHARE_BUTTON);
 		Utils.pause(2000);
-		waitForAndGetElement(ELEMENT_PUBLICATION_USER_SHARED.replace("${name}",username));
 	}
 	
 	/**

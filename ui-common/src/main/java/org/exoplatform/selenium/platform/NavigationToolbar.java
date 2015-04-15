@@ -77,7 +77,8 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_MY_CONNECTION_LINK = By.className("uiIconPLFMyConnection");
 	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
 	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
-
+	public final By ELEMENT_MY_WIKI_LINK = By.xpath("//i[@class='uiIconWikiMyWiki']/..");
+	
 	//Administration-->Application
 	public final By ELEMENT_ADMINISTRATION_APPLICATION = By.xpath(".//*[text()='Applications']");
 	public final By ELEMENT_ADD_TOOTLBAR = By.xpath("//*[@id='UICreatePlatformToolBarPortlet']//*[@class='uiIconPLF24x24Add']");
@@ -237,6 +238,7 @@ public class NavigationToolbar extends PlatformBase {
 			click(ELEMENT_MY_CONNECTION_LINK);
 			break;
 		case MY_WIKI:
+			click(ELEMENT_MY_WIKI_LINK);
 			break;
 		case MY_DASHBOARD:
 			click(ELEMENT_MY_DASHBOARD_LINK);
@@ -585,6 +587,10 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void goToMyConnection(){
 		selectALinkOfUserMenu(specifUserToolBar.MY_CONNECTIONS);
+		Utils.pause(2000);
+	}
+	public void goToMyWiki(){
+		selectALinkOfUserMenu(specifUserToolBar.MY_WIKI);
 		Utils.pause(2000);
 	}
 }
