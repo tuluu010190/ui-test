@@ -215,10 +215,11 @@ public class EcmsBase extends ManageAccount {
 	//System TAB  
 	public final By ELEMENT_SYSTEM_TAB = By.xpath("//a[contains(@title,'System')]");
 
-
+    //Action bar
 	public final By ELEMENT_PERMISSION_LINK = By.xpath("//*[@class='actionIcon']//*[contains(@class,'uiIconEcmsViewPermissions')]");
 	public final By ELEMENT_EXPORT_LINK = By.xpath("//i[contains(@class,'uiIconEcmsExportNode')]");
 	public final By ELEMENT_IMPORT_LINK = By.className("uiIconEcmsImportNode");
+	public final By ELEMENT_MANAGE_ACTIONS_LINK=By.xpath("//i[contains(@class,'uiIconEcmsManageActions')]");
 
 	//Content template
 	public final By ELEMENT_EDIT_NODE_CHECKBOX = By.id("set_property");
@@ -384,6 +385,68 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_CLV_TITLE = "//*[@class='Title' and contains(text(), '${title}')]";
 	public final String ELEMENT_CLV_PUBLISH_DATE = ELEMENT_CLV_TITLE + "/../div[contains(text(), '${date}')]";
 
+	//Content Administration
+	//Advanced tab
+	public final By ELEMENT_ADVANCED_FUNCTION = By.xpath(".//*[text()='Advanced']//*[@class='uiIconSelected uiIconLightGray pull-right']");
+	public final By ELEMENT_ACTIONS_FUNCTION = By.xpath(".//*[@class='uiIconEcmsActionManager uiIconEcmsLightGray']");
+	public final By ELEMENT_ACTIONS_TAB=By.xpath(".//*[contains(@href,'#tab-UIActionsTemplateContainer')]");
+	public final By ELEMENT_ACTIONS_TEMPLATE_LIST=By.xpath(".//*[@id='UIActionTypeList']");
+	public final By ELEMENT_ACTIONS_TEMPLATE_DOCUMENT_ACTIONS_LIST=By.xpath(".//*[@id='UIActionsTemplateList']");
+	public final By ELEMENT_ACTIONS_LIST_ADD_METADATA=By.xpath(".//*[@id='UIActionTypeList']//*[contains(@data-original-title,'Add Metadata')]");
+	
+	//Content explorer
+	public final By ELEMENT_TEMPLATE = By.xpath(".//*[text()='Templates']//*[@class='uiIconSelected uiIconLightGray pull-right']");
+	public final By ELEMENT_TEMPLATE_DOCUMENT = By.xpath(".//*[@class='uiIconEcmsTemplatesManager uiIconEcmsLightGray']");
+	public final By ELEMENT_TEMPLATE_DOCUMENT_DOC = By.xpath("//*[@id='myTab']//*[text()='Documents']");
+	public final By ELEMENT_TEMPLATE_DOCUMENT_ACTIONS = By.xpath("//*[text()='Actions']");
+	
+	
+	public final By ELEMENT_TEMPLATE_ACTIONS_ADDMETADATA = By.xpath("//*[text()='Add Metadata Action']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_AUTOVERSIONING = By.xpath("//*[text()='Automatic Versioning']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_ENABLEVERSIONING = By.xpath("//*[text()='Enable Versioning']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_POPTOMENU = By.xpath("//*[text()='Populate to Menu']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_ADDCATACTION = By.xpath("//*[text()='Add Category Action']");
+	
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ADDMETADATA = By.xpath("//*[text()='Add Metadata Action']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_AUTOVERSIONING = By.xpath("//*[text()='Automatic Versioning']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ENABLEVERSIONING = By.xpath("//*[text()='Enable Versioning']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_POPTOMENU = By.xpath("//*[text()='Populate to Menu']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ADDCATACTION = By.xpath("//*[text()='Add Category Action']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_DIAL = By.xpath("//*[text()='Dialog']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_DIALTEXT = By.xpath("//*[text()='dialog1']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_DIAL_PERMISSION=By.xpath("//*[text()='dialog1']/../..//*[contains(text(),'[*]')]");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_VIEW = By.xpath("//*[text()='View']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_VIEWTEXT = By.xpath("//*[text()='view1']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_VIEW_PERMISSION=By.xpath("//*[text()='view1']/../..//*[contains(text(),'[*]')]");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CSS = By.xpath("//*[text()='CSS']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CSSTEXT = By.xpath(".//*[@id='SkinList']//*[contains(@class,'empty center')]");
+	
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CANCEL = By.xpath("//*[@class='uiForm SkinForm']//*[@class='uiAction uiActionBorder']//*[text()='Cancel']");
+	
+	public final By ELEMENT_ACTIONS_ADDMETADATA = By.xpath(".//*[@id='UIActionTypeList']//*[text()='Add Metadata']");
+	public final By ELEMENT_ACTIONS_ADDTOFAVORITES = By.xpath(".//*[@id='UIActionTypeList']//*[text()='Add To Favorites']");
+	public final By ELEMENT_ACTIONS_AUTOVERSIONING = By.xpath(".//*[@id='UIActionTypeList']//*[text()='Auto Versioning']");
+	public final By ELEMENT_ACTIONS_ENABLEVERSIONING = By.xpath(".//*[@id='UIActionTypeList']//*[text()='Enable Versioning']");
+	public final By ELEMENT_ACTIONS_POPULATETOMENU = By.xpath(".//*[@id='UIActionTypeList']//*[text()='Populate To Menu']");
+	public final By ELEMENT_ACTIONS_TRASHDOC = By.xpath(".//*[@id='UIActionTypeList']//*[text()='Trash Document']");
+	public final By ELEMENT_ACTIONS_ADDTOCAT = By.xpath(".//*[@id='UIActionTypeList']//*[text()='Add To Category']");
+	
+	public final By ELEMENT_ACTIONS_DRIVE = By.xpath(".//*[@id='driveAction']");
+	public final By ELEMENT_ACTIONS_DRIVE_SITEXPLORER = By.xpath(".//*[@class='uiIconEcms24x24DriveGeneral uiIconEcms24x24DriveManagedSites uiIconEcms24x24LightGray driveIcon']");
+	public final By ELEMENT_ACTIONS_DRIVE_COLLABORATION=By.xpath(".//*[contains(@class,'uiIconEcms24x24DriveCollaboration')]");
+	public final By ELEMENT_ACTIONS_DRIVE_TRASH=By.xpath(".//*[contains(@class,'uiIconEcms24x24DriveTrash')]");
+	public final By ELEMENT_ACTIONS_MORE = By.xpath(".//*[@id='uiActionsBarContainer']//*[text()='More ']//*[@class='uiIconMiniArrowDown uiIconLightGray']");
+	public final By ELEMENT_ACTIONS_MORE_ACTIONS = By.xpath(".//*[contains(@class,'uiIconEcmsManageActions')]");
+	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION = By.xpath(".//*[text()='Add Action']");
+	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION_METADATA = By.xpath("//*[@selected='selected' and text()='exo:addMetadataAction']/..");
+	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION_FAVORITES = By.xpath(".//*[@id='UIActionList']//*[contains(text(),'[exo:addToFavoriteAction]')]");
+	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION_AUTOVERSIONING = By.xpath("//*[contains(@value,'exo:autoVersioning')]/..");
+	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION_VERSIONING = By.xpath("//*[contains(@value,'exo:enableVersioning')]/..");
+	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION_POPULATETOMENU= By.xpath("//*[contains(@value,'exo:populateToMenu')]/..");
+	public final By ELEMENT_ACTIONS_MORE_ACTIONS_TRASHDOCUMENT = By.xpath(".//*[@id='UIActionList']//*[contains(text(),'[exo:trashFolderAction]')]");
+	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION_TAXONOMYACTION = By.xpath("//*[contains(@value,'exo:taxonomyAction')]/..");
+	
 	/**
 	 * Acme sites > Go to Overview page
 	 */
@@ -672,9 +735,14 @@ public class EcmsBase extends ManageAccount {
 		}
 		By element_select1 = By.xpath("//*[contains(text(),'"+ temp[temp.length - 1] +"')]/../../td/a[@title='select']");
 		By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
-		if (waitForAndGetElement(element_select2, 5000, 0) != null){
+		if (waitForAndGetElement(element_select1, 5000, 0) != null){
+			info("youy : "+element_select1);
+			click(element_select1);
+		}else if (waitForAndGetElement(element_select2, 5000, 0) != null){
+			info("youy 2: "+element_select2);
 			click(element_select2);
 		}else if (waitForAndGetElement(element_select1, 5000, 0) != null){
+			info("youy 3: "+element_select1);
 			click(element_select1);
 		}else if (waitForAndGetElement(element_select1, 5000, 0) != null){
 			click(element_select1);

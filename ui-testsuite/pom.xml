@@ -135,9 +135,9 @@
 		</profile>
 
 		<profile>
-			<id>ecms-admin</id>
+			<id>ecms-fnc-admin</id>
 			<properties>
-				<testSuite>ecms-admin.xml</testSuite>
+				<testSuite>ecms-fnc-admin.xml</testSuite>
 			</properties>
 		</profile>
 
