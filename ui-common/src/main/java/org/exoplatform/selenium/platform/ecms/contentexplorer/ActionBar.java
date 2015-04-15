@@ -4,20 +4,20 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.CKeditor;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PageEditor;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.admin.ECMainFunction;
 import org.exoplatform.selenium.platform.ecms.admin.ManageView;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
 import org.testng.Assert;
 
+import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
 import static org.exoplatform.selenium.TestLogger.info;
@@ -30,7 +30,7 @@ public class ActionBar extends EcmsBase{
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.1";
 		// TODO Auto-generated constructor stub
 	}
-
+	CKeditor ck = new CKeditor(driver);
 	Button button = new Button(driver);
 	Dialog dialog = new Dialog(driver);
 	ManageAlert alt = new ManageAlert(driver);
@@ -167,7 +167,7 @@ public class ActionBar extends EcmsBase{
 	public final By ELEMENT_PUBLISH_ICON = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsPublicationPublish uiIconEcmsLightGray']");
 	public final By ELEMENT_PUBLICATION_ICON = By.className("uiIconEcmsManagePublications");
 	public final By ELEMENT_VIEW_PROPERTIES = By.xpath("//*[@class='actionIcon']//*[@class='uiIconEcmsViewProperties uiIconEcmsLightGray']");
-	
+
 	public final By ELEMENT_PUBLICATION_NODE_ICON=By.xpath("//*[contains(@class,'uiIconEcmsManagePublications uiIconEcmsLightGray')]");
 	public final By ELEMENT_CONTENT_NAVIGATION_ICON = By.xpath("//*[@class='actionIcon']//*[contains(@class,'uiIconEcmsContentNavigation')]");
 	/*
@@ -232,7 +232,7 @@ public class ActionBar extends EcmsBase{
 	// site management link
 	public final By ELEMENT_SITES_MANAGEMENT_ICON=By.xpath("//*[@class='uiIconEcmsHome uiIconEcmsLightGray']");	
 	public final By ELEMENT_RESTORE_FROM_TRASH=By.xpath("//*[@class='uiIconEcmsRestoreFromTrash']");
-	
+
 	//List View
 	String ELEMENT_LOCKED_NODE_LIST_VIEW = "//*[contains(@data-original-title, 'Locked by')]//*[contains(text(),'${name}')]";
 	/*==================================================================================*/
@@ -326,23 +326,15 @@ public class ActionBar extends EcmsBase{
 	public void goToEditDocument(String title)
 	{	
 		if (title != null){
-
 			goToNode(title);
 		}
-		for(int loop = 1;;loop ++)
-		{
-			if (loop >= ACTION_REPEAT) {
-				Assert.fail("Cannot go to the edit page: " + title );
-			}
-			if (waitForAndGetElement(ELEMENT_EDIT_LINK, 3000, 0) != null){
-				click(ELEMENT_EDIT_LINK);
-			}else{
-				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
-				click(ELEMENT_EDIT_LINK);
-			}
-			if (waitForAndGetElement(button.ELEMENT_SAVE_CLOSE_BUTTON, 50000).isDisplayed()) 
-				break;
+		if (waitForAndGetElement(ELEMENT_EDIT_LINK, 3000, 0) != null){
+			click(ELEMENT_EDIT_LINK);
+		}else{
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			click(ELEMENT_EDIT_LINK);
 		}
+		waitForAndGetElement(button.ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 
 	/**
@@ -356,7 +348,7 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(1000);
 	}
 
-	
+
 	/**
 	 * Go to 1 node by path in Intranet/document
 	 * @param path
@@ -370,7 +362,7 @@ public class ActionBar extends EcmsBase{
 		String[] temp = path.split("/");
 		if(temp.length>0)
 			waitForAndGetElement(By.xpath("//*[@id='FileViewBreadcrumb']//a[@data-original-title='" + temp[temp.length - 1] + "']"));
-        Utils.pause(2000);
+		Utils.pause(2000);
 	}
 
 	/**
@@ -428,7 +420,7 @@ public class ActionBar extends EcmsBase{
 		{
 			click(ELEMENT_EXPORT);
 		}
-		
+
 		Utils.pause(20000);
 		waitForElementNotPresent(ELEMENT_EXPORT);
 	}
@@ -526,7 +518,7 @@ public class ActionBar extends EcmsBase{
 		}
 		info ("------Category " + categoryName + " is added succesfully");
 	}
-	
+
 	/**
 	 * Add multi categories for node
 	 * @param categoryTree
@@ -568,8 +560,8 @@ public class ActionBar extends EcmsBase{
 			click(button.ELEMENT_CLOSE_BUTTON);
 		}
 	}
-	
-	
+
+
 	/**
 	 * Add version for a node
 	 * @param locator
@@ -958,40 +950,53 @@ public class ActionBar extends EcmsBase{
 	 * @param params
 	 */
 	public void addComment(String comment,Object...params){
+		Boolean isDecoredSum = (Boolean)(params.length>0 ? params[0]:false);
 		info("Add a comment to the file");
 		goToAddComment();
-		if(this.plfVersion.equalsIgnoreCase("4.1"))
-			inputDataToFrame(ELEMENT_ADD_COMMENT_FRAME_41, comment, true);
-		else
-			inputDataToFrame(ELEMENT_ADD_COMMENT_FRAME, comment, true);
-		switchToParentWindow();
+		inputFrame(ELEMENT_ADD_COMMENT_FRAME_41, comment);
+		if(isDecoredSum){
+			pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL, KeyEvent.VK_A);
+			ck.cke_Bold();
+			ck.cke_Italic();
+			ck.cke_Underline();
+		}
 		button.save();
 		waitForElementNotPresent(ELEMENT_ADD_COMMENT_POPUP);
 		click(ELEMENT_SHOW_COMMENT_LINK);
 		waitForAndGetElement(ELEMENT_HIDE_COMMENT_LINK);
 		info("Verify that the comment is added successfully");
-		waitForAndGetElement(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}",comment),2000,1);
-		
+		if(isDecoredSum)
+			waitForAndGetElement(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT_DECORADE.replace("${comment}", comment)));
+		else
+			waitForAndGetElement(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", comment)));
 	}
 
 	/**
 	 * Edit a comment
 	 * @param oldComment
 	 * @param newComment
+	 * @param params
 	 */
-	public void editComment(String oldComment, String newComment){
-		click(ELEMENT_SHOW_COMMENT_LINK);
-		click(By.xpath(ELEMENT_EDIT_COMMENT_ICON.replace("${comment}", oldComment)));
+	public void editComment(String oldComment, String newComment,Object...params){
+		Boolean isDecoredSum = (Boolean)(params.length>0 ? params[0]:false);
+		if(waitForAndGetElement(ELEMENT_SHOW_COMMENT_LINK, 5000,0)!=null)
+			click(ELEMENT_SHOW_COMMENT_LINK);
+		click(By.xpath(ELEMENT_EDIT_COMMENT_ICON.replace("${comment}", oldComment)),2);
 		waitForAndGetElement(ELEMENT_ADD_COMMENT_POPUP);
-		if(this.plfVersion.equalsIgnoreCase("4.1"))
-			inputDataToFrame(ELEMENT_ADD_COMMENT_FRAME_41, newComment, false);
-		else if(this.plfVersion.equalsIgnoreCase("4.0"))
-			inputDataToFrame(ELEMENT_ADD_COMMENT_FRAME, newComment, false);
-		switchToParentWindow();
+		inputFrame(ELEMENT_ADD_COMMENT_FRAME_41, newComment);
+		if(isDecoredSum){
+			pressGroupKeysUsingRobot(KeyEvent.VK_CONTROL, KeyEvent.VK_A);
+			ck.cke_Bold();
+			ck.cke_Italic();
+			ck.cke_Underline();
+		}
 		button.save();
 		waitForElementNotPresent(ELEMENT_ADD_COMMENT_POPUP);
 		click(ELEMENT_SHOW_COMMENT_LINK);
-		waitForAndGetElement(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", newComment)));
+		if(isDecoredSum)
+			waitForAndGetElement(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT_DECORADE.replace("${comment}", newComment)));
+		else
+			waitForAndGetElement(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", newComment)));
 	}
 
 	/**
@@ -999,7 +1004,8 @@ public class ActionBar extends EcmsBase{
 	 * @param comment
 	 */
 	public void deleteComment(String comment){
-		click(ELEMENT_SHOW_COMMENT_LINK);
+		if(waitForAndGetElement(ELEMENT_SHOW_COMMENT_LINK, 5000,0)!=null)
+			click(ELEMENT_SHOW_COMMENT_LINK);
 		click(By.xpath(ELEMENT_DELETE_COMMENT_ICON.replace("${comment}", comment)));
 		alert.acceptAlert();
 		waitForElementNotPresent(By.xpath(ELEMENT_SHOW_COMMENT_CONTENT.replace("${comment}", comment)));
@@ -1320,7 +1326,7 @@ public class ActionBar extends EcmsBase{
 		click(ELEMENT_ACTION_ICON);
 		Utils.pause(1000);
 	}
- 
+
 	/**
 	 * Add a new action
 	 * @param actionName
@@ -1344,11 +1350,11 @@ public class ActionBar extends EcmsBase{
 		Utils.pause(2000);
 		button.close();
 	}
-    /**
-     * Action Present is availabled
-     * @param actionName
-     * @return
-     */
+	/**
+	 * Action Present is availabled
+	 * @param actionName
+	 * @return
+	 */
 	public Boolean isActionPresent(String actionName){
 		goToAction();
 		click(ELEMENT_AVAILABLE_ACTIONS);

@@ -335,7 +335,7 @@ import org.testng.annotations.Test;
 		navToolBar.goToSiteExplorer();
 		actBar.goToAddNewContent();
 		info("Create new File with text/HTML");
-		cTemplate.createNewFileForCK(ck,FILE_NAME,FILE_CONTENT,true);
+		cTemplate.createNewFileForCK(FILE_NAME,FILE_CONTENT,true);
 		
 		info("Restore data");
         actBar.goToNodeByAddressPath("/");
@@ -347,7 +347,7 @@ import org.testng.annotations.Test;
 	* Test Case Name: Add new File with application/x-groovy+html.
 	* https://jira.exoplatform.org/browse/ECMS-6644
 	*/
-	@Test (groups = "pending")
+	@Test
 	public  void test10_AddNewFileWithApplicationGroovyHtml() {
 		info("Test 10 Add new File with application/x-groovy+html");
 		String FILE_GROOVYHTML_NAME = "groovyhtml"+getRandomNumber();
@@ -364,7 +364,7 @@ import org.testng.annotations.Test;
 		actBar.goToAddNewContent();
 		info("Create new File with application/x-groovy+html");
 		
-		cTemplate.createNewFileForCK(ck,FILE_GROOVYHTML_NAME,FILE_GROOVYHTML_CONTENT,true,"application/x-groovy+html");
+		cTemplate.createNewFileForCK(FILE_GROOVYHTML_NAME,FILE_GROOVYHTML_CONTENT,true,"application/x-groovy+html");
 		//waitForAndGetElement(By.xpath("//*[@id='UIDocumentContainer']//u/em/strong[contains(text(),FILE_GROOVYHTML_CONTENT)]"));
 		
 		info("Restore data");

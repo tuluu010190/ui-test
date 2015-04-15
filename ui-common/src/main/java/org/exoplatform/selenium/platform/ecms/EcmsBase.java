@@ -50,7 +50,7 @@ public class EcmsBase extends ManageAccount {
 	//Confirm delete box
 	public final By ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE= By.xpath("//*[@class='uiAction uiActionBorder']//*[text()='Delete']");
 
-		
+
 	//UI address bar
 	public final String ELEMENT_VIEW_MODE_LINK = "//*[ @data-original-title='${viewName}']";
 	public final String ELEMENT_ADMIN_VIEW_MODE_LINK = "//i[@class='uiIconEcmsViewDefault uiIconEcmsViewAdmin uiIconEcmsLightGray']";
@@ -294,7 +294,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_FILE_CLONE = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]";
 	public final String ELEMENT_FILE_CREATED_DATE = ELEMENT_DATA_TITLE.replace("${dataTitle}", "${nodeTitle}") + "/../../*[contains(@class, 'columnDatetime')]";
 	public final By ELEMENT_UPLOAD_PROGRESS_BAR = By.xpath(".//*[contains(@class,'progress progress-striped pull-right')]");
-	
+
 	//Edit Tag Form
 	public final By ELEMENT_TAG_CLOUD = By.className("uiIconEcmsTagExplorerMini");
 	public final By ELEMENT_EDIT_TAGS = By.xpath("//*[@title='Edit Tags']");
@@ -344,9 +344,10 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_ADD_COMMENT_POPUP = By.xpath("//*[@id='UIPopupWindow']//span[text()='Comment']");
 	public final By ELEMENT_ADD_COMMENT_FRAME = By.xpath("//*[@id='cke_contents_comment']/iframe");
 	public final By ELEMENT_ADD_COMMENT_FRAME_41 = By.xpath("//*[@id='cke_comment']//iframe"); 
-	public final By ELEMENT_SHOW_COMMENT_LINK = By.linkText("Show comments");
+	public final By ELEMENT_SHOW_COMMENT_LINK = By.xpath("//*[text()='Show comments']");
 	public final String ELEMENT_HIDE_COMMENT_LINK = "//*[@onclick='eXo.ecm.WCMUtils.showHideComponent(this)']//a[contains(text(),'Hide comments')]";
 	public final String ELEMENT_SHOW_COMMENT_CONTENT = "//*[@class='commentBox uiBox']//p[contains(text(), '${comment}')]";
+	public final String ELEMENT_SHOW_COMMENT_CONTENT_DECORADE = "//*[@class='commentBox uiBox']//p/u/em/strong[contains(text(), '${comment}')]";
 	public final String ELEMENT_EDIT_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Edit this comment']";
 	public final String ELEMENT_DELETE_COMMENT_ICON = "//*[contains(text(), '${comment}')]/..//a[@data-original-title='Remove this comment']";
 
@@ -412,8 +413,11 @@ public class EcmsBase extends ManageAccount {
 				String[] nodes = ((String) locator).split("/");
 				for (String node: nodes)
 				{
+					String node1="//*[@id='UITreeExplorer']//*[contains(@data-original-title,'${name}')]";
 					if (waitForAndGetElement(By.xpath("//*[@title='" + node + "']"), 3000, 0) != null)
 						click(By.xpath("//*[@title='" + node + "']"));
+					else if (waitForAndGetElement(node1.replace("${name}", node), 3000, 1) != null)
+						click(node1.replace("${name}", node));
 					else
 						click(By.xpath("//span[contains(text(),'"+ node +"')]"));
 					Utils.pause(500);
@@ -487,7 +491,7 @@ public class EcmsBase extends ManageAccount {
 		}else if (waitForAndGetElement(By.xpath("//*[@class='uiIconAddPermission uiIconLightGray']"),5000,0)!=null){
 			click(By.xpath("//*[@class='uiIconAddPermission uiIconLightGray']"));
 		}
-		
+
 		userGroup.selectGroup(groupPath, true);
 		click(By.linkText(membership));
 		Utils.pause(1000);
@@ -521,7 +525,7 @@ public class EcmsBase extends ManageAccount {
 		}
 		click(ELEMENT_OVERLOAD_THUMBNAIL);
 		Utils.pause(1000);
-		
+
 		WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, DEFAULT_TIMEOUT, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
 				"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
@@ -554,7 +558,7 @@ public class EcmsBase extends ManageAccount {
 		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(link));
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
-		
+
 		/*type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath(link), false,2);
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
 		switchToParentWindow();*/
@@ -667,13 +671,13 @@ public class EcmsBase extends ManageAccount {
 		temp = homePath.split(delimiter);
 		info(temp[0]);
 		System.out.println("Temp[0] is: " + temp[0]);
-		
+
 		if(temp[0] != ""){
-		for(int i =0; i < temp.length - 1 ; i++){
-			info("Go to "+temp[i]);
-			click(By.xpath("//*[@id='UIOneNodePathSelector']//a/i[@title='" + temp[i] + "']"));
-			Utils.pause(100);
-		}
+			for(int i =0; i < temp.length - 1 ; i++){
+				info("Go to "+temp[i]);
+				click(By.xpath("//*[@id='UIOneNodePathSelector']//a/i[@title='" + temp[i] + "']"));
+				Utils.pause(100);
+			}
 		}
 		By element_select1 = By.xpath(ELEMENT_TARGET_REFERENCE.replace("${index}", index));
 		By element_select2 = By.xpath(ELEMENT_TARGET_NODE.replace("${node}", temp[temp.length - 1]));
@@ -724,7 +728,7 @@ public class EcmsBase extends ManageAccount {
 			info("Input checkbox list wrong");
 		}
 	}
-	
+
 	/**
 	 *  Goto upload in Content/Site Explorer
 	 *  Mouse over on the button "More"
@@ -743,10 +747,10 @@ public class EcmsBase extends ManageAccount {
 			else{
 				mouseOverAndClick(ELEMENT_UPLOAD_LINK_XPATH);
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * Delete data by title
 	 * @param title

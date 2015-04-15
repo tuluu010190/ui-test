@@ -15,6 +15,7 @@
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.ECMS_SE_CKeditor_In_Content_Add" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.ECMS_SE_CKEditor_PublishActivity" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.ECMS_SE_CKeditor_Usability" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.ckeditor.ECMS_SE_CKeditor_In_Content_Edit" />
 		</classes>
 	</test>
 	<listeners>
