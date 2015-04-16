@@ -95,6 +95,12 @@ public class SitesExplorer extends EcmsBase{
 	public final String ELEMENT_CONTENT_ALIGNRIGHT_INFRAME = "//*[@class='textContent']/..//*[text()='<p style=\"text-align: right;\">${name}</p>']";
 	public final By ELEMENT_CONTENT_INDENT = By.xpath("//*[@style='margin-left: 40px;']");
 	
+	public final By ELEMENT_WRONG_TAG_NAME_SENTENCE = By.xpath("//*[@class='warningIcon' and contains(.,'The tag name is empty or contains some invalid characters.')]");
+	public final By ELEMENT_WRONG_TAG_NAME_ACCEPT = By.xpath(".//*[@class='warningIcon' and contains(.,'The tag name is empty or contains some invalid characters.')]/../../..//*[contains(text(),'OK')]");
+	
+	public final By ELEMENT_EMPTY_TAG_NAME_SENTENCE = By.xpath("//*[@class='warningIcon' and contains(.,'Your tag name is empty')]");
+	public final By ELEMENT_EMPTY_TAG_NAME_ACCEPT = By.xpath(".//*[@class='warningIcon' and contains(.,'Your tag name is empty')]/../../..//*[contains(text(),'OK')]");
+	
 	/*================***==================*/
 
 	//Verify if Driver is present

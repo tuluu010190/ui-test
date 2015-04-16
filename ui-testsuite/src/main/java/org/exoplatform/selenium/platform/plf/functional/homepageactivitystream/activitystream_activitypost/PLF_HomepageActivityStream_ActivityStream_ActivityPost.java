@@ -30,7 +30,7 @@ public class PLF_HomepageActivityStream_ActivityStream_ActivityPost extends Acti
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+		initSeleniumTest();
 		magAc = new ManageAccount(driver, this.plfVersion);
 		naviToolbar = new NavigationToolbar(driver);
 		hpActivity = new HomePageActivity(driver);

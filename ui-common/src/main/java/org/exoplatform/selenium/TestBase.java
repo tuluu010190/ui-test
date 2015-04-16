@@ -19,6 +19,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -37,14 +38,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
-
 
 public class TestBase {
 
@@ -52,6 +54,10 @@ public class TestBase {
 	public WebDriver newDriver;
 
 	public static String baseUrl;
+	public static String browser;
+	public static String server;
+	protected String nativeEvent;
+
 	protected int DEFAULT_TIMEOUT = 40000; //milliseconds = 30 seconds
 	protected int WAIT_INTERVAL = 50; //milliseconds  
 
@@ -70,7 +76,6 @@ public class TestBase {
 	public static boolean firstTimeLogin = false;
 	public Actions action;
 
-	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -102,10 +107,32 @@ public class TestBase {
 	public final By ELEMENT_GOOGLE_PAGE_LOGO = By.id("hplogo");
 
 	//Driver path
-	public static String uploadfile= Utils.getAbsoluteFilePath("TestData\\uploadFile.exe");
-	public static String downloadfile=Utils.getAbsoluteFilePath("TestData\\downloadIE9.exe");
-	public static String ieDriver=Utils.getAbsoluteFilePath("TestData\\IEDriverServer.exe");
-	public static String chromeDriver= Utils.getAbsoluteFilePath("TestData\\chromedriver.exe");
+	public String uploadfile= Utils.getAbsoluteFilePath("TestData\\attachFile.exe");
+	public String downloadfile=Utils.getAbsoluteFilePath("TestData\\downloadIE9.exe");
+	public String ieDriver=Utils.getAbsoluteFilePath("TestData\\IEDriverServer.exe");
+	public String chromeDriver= Utils.getAbsoluteFilePath("TestData\\chromedriver.exe");
+	public String chromeDriverUbuntu= Utils.getAbsoluteFilePath("TestData\\chromedriver");
+
+	/*========Default System Property=============*/
+	public final String DEFAULT_NATIVE_EVENT = "true";
+	public final String DEFAULT_BROWSER="firefox";//iexplorer, firefox, chrome
+	public final String DEFAULT_SERVER="ubuntu"; //win, ubuntu
+	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
+
+	/**
+	 * Get System Property
+	 */
+	public void getSystemProperty(){
+		nativeEvent = System.getProperty("nativeEvent");
+		browser = System.getProperty("browser");
+		server = System.getProperty("server");
+		baseUrl = System.getProperty("baseUrl");
+
+		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
+		if (browser==null) browser = DEFAULT_BROWSER;
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		if (server==null) server = DEFAULT_SERVER;
+	}
 
 	public TestBase(){
 	}
@@ -117,6 +144,44 @@ public class TestBase {
 	}
 
 	/**
+	 * Init Chrome driver
+	 */
+	public ChromeDriver initChromeDriver(){
+		info("Init chrome driver");
+		getSystemProperty();
+		String pathFile="";
+		String fs = File.separator;
+		String temp=System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";;
+		pathFile=temp.replace("/", fs).replace("\\", fs);
+
+		switch (server)
+		{
+		case "ubuntu":
+			System.setProperty("webdriver.chrome.driver",chromeDriverUbuntu) ;
+			break;
+		case "win":
+			System.setProperty("webdriver.chrome.driver",chromeDriver) ;
+			break;
+		default:
+			System.setProperty("webdriver.chrome.driver",chromeDriverUbuntu) ;
+			break;
+		}
+		// Add the WebDriver proxy capability.
+		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		String[] switches = {"start-maximized","remote-debugging-port=9222"};
+		capabilities.setCapability("chrome.switches", switches);
+		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+		chromePrefs.put("profile.default_content_settings.popups", 0);
+		chromePrefs.put("download.default_directory", pathFile);
+		ChromeOptions options = new ChromeOptions();
+		options.setExperimentalOption("prefs", chromePrefs);
+		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		//capabilities.setCapability("nativeEvents", true);
+		return new ChromeDriver(capabilities);
+	}
+
+	/**
 	 * Init IE driver
 	 */
 	public WebDriver initIEDriver(){
@@ -124,57 +189,121 @@ public class TestBase {
 		System.setProperty("webdriver.ie.driver",ieDriver) ;
 		DesiredCapabilities  capabilitiesIE = DesiredCapabilities.internetExplorer();
 		capabilitiesIE.setCapability("ignoreProtectedModeSettings", true);
-		capabilitiesIE.setCapability("nativeEvents", false);
+		if ("true".equals(nativeEvent)){
+			info("Set nativeEvent is TRUE");
+			capabilitiesIE.setCapability("nativeEvents", true);
+		}
+		else{
+			info("Set nativeEvent is FALSE");
+			capabilitiesIE.setCapability("nativeEvents", false);
+		}
+		capabilitiesIE.setCapability("javascriptEnabled", true);
+		capabilitiesIE.setCapability("requireWindowFocus", true);
+		capabilitiesIE.setCapability("enablePersistentHover", false);
 		capabilitiesIE.setCapability("ignoreZoomSetting", true);
 		capabilitiesIE.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION, true);
+		capabilitiesIE.setCapability("initialBrowserUrl", baseUrl);
 		return new InternetExplorerDriver(capabilitiesIE);
 	}
 
+	/**
+	 * Init FF driver
+	 */
+	public FirefoxDriver initFFDriver(){
+		String pathFile="";
+		String fs = File.separator;
+		String temp=System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";;
+		pathFile=temp.replace("/", fs).replace("\\", fs);
+		info("Init FF driver");
+		FirefoxProfile profile = new FirefoxProfile();
+		profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
+		profile.setPreference("dom.max_script_run_time", 0);
+		DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+		capabilities.setCapability(FirefoxDriver.PROFILE, profile);
+		info("Save file to " + pathFile);
+		profile.setPreference("browser.download.manager.showWhenStarting", false);
+		profile.setPreference("browser.download.dir", pathFile);
+		profile.setPreference("browser.download.folderList", 2);
+		profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
+				"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
+				"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
+				"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
+				"application/octet-stream" +
+				";application/pdf;application/msword;text/plain;" +
+				"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
+				"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
+				"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
+
+		profile.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
+		profile.setPreference("pref.downloads.disable_button.edit_actions", true);
+		profile.setPreference("pdfjs.disabled", true); 
+		profile.setPreference("browser.helperApps.alwaysAsk.force", false);
+		return new FirefoxDriver(profile);
+	}
+	/**
+	 * typeUsingRobot
+	 * @param robot
+	 * @param keycodes
+	 */
+	public void pressGroupKeysUsingRobot(int... keycodes){
+		info("Copy a text on the home page of acme");
+		Robot robot=null;
+		try {
+			robot = new Robot();
+		} catch (AWTException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		robot.setAutoDelay(20);
+		for(int keycode:keycodes){
+			robot.keyPress(keycode);
+		}
+		for(int keycode:keycodes){
+			robot.keyRelease(keycode);
+		}
+	}
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
-		String browser = System.getProperty("browser");
-		baseUrl = System.getProperty("baseUrl");
-		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
-		if("chrome".equals(browser)){
-			driver = new ChromeDriver();
+		info("init selenium test");
+		getSystemProperty();
+		switch (browser)
+		{
+		case "chrome":
+			driver = initChromeDriver();
 			chromeFlag = true;
-		} else if ("iexplorer".equals(browser)){
+			break;
+		case "firefox":
+			driver = initFFDriver();
+			break;
+		case "iexplorer":
 			driver = initIEDriver();
 			ieFlag = true;
-		} else {
-			FirefoxProfile profile = new FirefoxProfile();
-			profile.setPreference("plugins.hide_infobar_for_missing_plugin", true);
-			profile.setPreference("dom.max_script_run_time", 0);
-			profile.setEnableNativeEvents(false);
-			info("Save file to " + pathFile);
-			profile.setPreference("browser.download.manager.showWhenStarting", false);
-			profile.setPreference("browser.download.dir", pathFile);
-			profile.setPreference("browser.download.folderList", 2);
-			profile.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
-					"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
-					"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-					"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
-					"application/octet-stream" +
-					";application/pdf;application/msword;text/plain;" +
-					"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
-					"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
-					"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
-
-			profile.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
-			profile.setPreference("pref.downloads.disable_button.edit_actions", true);
-			profile.setPreference("pdfjs.disabled", true); 
-			profile.setPreference("browser.helperApps.alwaysAsk.force", false);
-			DesiredCapabilities capabilities = DesiredCapabilities.firefox();
-			capabilities.setCapability(FirefoxDriver.PROFILE, profile);
-			driver = new FirefoxDriver();
+			break;
+		default:
+			driver = initFFDriver();
+			break;
 		}
 		action = new Actions(driver);
 	}
 
+	/**
+	 * init newDriver
+	 */
+	public void initNewDriver(){
+		getSystemProperty();
+		if("chrome".equals(browser)){
+			newDriver = new ChromeDriver();
+			chromeFlag = true;
+		} else if ("iexplorer".equals(browser)){
+			newDriver = initIEDriver();
+			ieFlag = true;
+		} else {
+			newDriver = initFFDriver();
+		}
+	}
 	public void initSeleniumTest(Object... opParams){
 		initSeleniumTestWithOutTermAndCondition();
 		driver.manage().window().maximize();
-		driver.navigate().refresh();
+		driver.get(baseUrl);
 		checkPLFVersion();
 		termsAndConditions(opParams);
 	}
@@ -213,7 +342,7 @@ public class TestBase {
 	public void checkPLFVersion(){
 		try{
 			info("Verify platform version");
-			String des = driver.findElement(ELEMENT_PLF_INFORMATION).getText();
+			String des = waitForAndGetElement(ELEMENT_PLF_INFORMATION).getText();
 			if(des.contains("v4.0")){
 				this.plfVersion = "4.0";
 				info("Platform version 4.0.x");
@@ -223,7 +352,7 @@ public class TestBase {
 				info("Platform version 4.1.x or 4.2");
 			}
 		}catch(Exception e){
-			info("Unknown platform version. Set to default version 4.1.x.");
+			info("Unknown platform version. Set to default platform version 4.1.x or 4.2");
 			this.plfVersion="4.1";
 		}
 
@@ -352,7 +481,6 @@ public class TestBase {
 		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
 			if (notDisplayE == 2){
 				elem = getElement(locator,wDriver);
-				//elem = getDisplayedElement(locator);
 			}else{
 				elem = getDisplayedElement(locator,wDriver);
 			}
@@ -362,6 +490,7 @@ public class TestBase {
 		if (isAssert == 1)
 			assert false: ("Timeout after " + timeout + "ms waiting for element present: " + locator);
 		info("cannot find element after " + timeout/1000 + "s.");
+		Utils.pause(1000);
 		return null;
 	}
 
@@ -497,10 +626,17 @@ public class TestBase {
 		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);
+			if (browser.contains("chrome")) {
+				try {
+					((JavascriptExecutor) driver).executeScript(
+							"arguments[0].scrollIntoView(true);", element);
+				} catch (Exception e) {
+
+				}
+			}
 			if(element.isEnabled())
 				actions.click(element).perform();
 			else {
-
 				debug("Element is not enabled");
 				click(locator, notDisplay);
 			}
@@ -525,8 +661,16 @@ public class TestBase {
 	 */
 	public void clickByJavascript(Object locator, Object... opParams){
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);	
-		WebElement e = waitForAndGetElement(locator,DEFAULT_TIMEOUT, 1, notDisplay);
-		((JavascriptExecutor)driver).executeScript("arguments[0].click();", e);
+		WebElement element = waitForAndGetElement(locator,DEFAULT_TIMEOUT, 1, notDisplay);
+		if (browser.contains("chrome")) {
+			try {
+				((JavascriptExecutor) driver).executeScript(
+						"arguments[0].scrollIntoView(true);", element);
+			} catch (Exception e) {
+
+			}
+		}
+		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 	}
 
 	/**
@@ -552,7 +696,14 @@ public class TestBase {
 		//		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
+			if (browser.contains("chrome")) {
+				try {
+					((JavascriptExecutor) driver).executeScript(
+							"arguments[0].scrollIntoView(true);", element);
+				} catch (Exception e) {
 
+				}
+			}
 			if (!element.isSelected()) {
 				click(locator,notDisplayE);
 			} else {
@@ -598,6 +749,14 @@ public class TestBase {
 			if (safeToSERE) {
 				for (int i = 1; i < ACTION_REPEAT; i++){
 					element = waitForAndGetElement(locator, 5000, 0, notDisplay);
+					if (browser.contains("chrome")) {
+						try {
+							((JavascriptExecutor) driver).executeScript(
+									"arguments[0].scrollIntoView(true);", element);
+						} catch (Exception e) {
+
+						}
+					}
 					if (element == null){
 						Utils.pause(WAIT_INTERVAL);
 					} else {
@@ -607,6 +766,14 @@ public class TestBase {
 				}
 			} else {
 				element = waitForAndGetElement(locator);
+				if (browser.contains("chrome")) {
+					try {
+						((JavascriptExecutor) driver).executeScript(
+								"arguments[0].scrollIntoView(true);", element);
+					} catch (Exception e) {
+
+					}
+				}
 				actions.moveToElement(element).perform();
 			}
 		} catch (StaleElementReferenceException e) {
@@ -629,6 +796,14 @@ public class TestBase {
 			element = getDisplayedElement(locator);
 		} else {
 			element = waitForAndGetElement(locator);
+			if (browser.contains("chrome")) {
+				try {
+					((JavascriptExecutor) driver).executeScript(
+							"arguments[0].scrollIntoView(true);", element);
+				} catch (Exception e) {
+
+				}
+			}
 		}
 		actions.moveToElement(element).click(element).build().perform();
 	}
@@ -695,7 +870,15 @@ public class TestBase {
 				if (loop >= ACTION_REPEAT) {
 					Assert.fail("Timeout at type: " + value + " into " + locator);
 				}
-				WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);	
+				WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);
+				if (browser.contains("chrome")) {
+					try {
+						((JavascriptExecutor) driver).executeScript(
+								"arguments[0].scrollIntoView(true);", element);
+					} catch (Exception e) {
+
+					}
+				}
 				if (element != null){
 					if (validate)element.clear();
 					element.click();
@@ -733,7 +916,16 @@ public class TestBase {
 				if (second >= DEFAULT_TIMEOUT/WAIT_INTERVAL) {
 					Assert.fail("Timeout at select: " + option + " into " + locator);
 				}
-				Select select = new Select(waitForAndGetElement(locator,DEFAULT_TIMEOUT,1,isDisplay));
+				WebElement element=waitForAndGetElement(locator,DEFAULT_TIMEOUT,1,isDisplay);
+				if (browser.contains("chrome")) {
+					try {
+						((JavascriptExecutor) driver).executeScript(
+								"arguments[0].scrollIntoView(true);", element);
+					} catch (Exception e) {
+
+					}
+				}
+				Select select = new Select(element);
 				select.selectByVisibleText(option);
 				if (option.equals(select.getFirstSelectedOption().getText())) {
 					break;
@@ -759,7 +951,14 @@ public class TestBase {
 		//		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
+			if (browser.contains("chrome")) {
+				try {
+					((JavascriptExecutor) driver).executeScript(
+							"arguments[0].scrollIntoView(true);", element);
+				} catch (Exception e) {
 
+				}
+			}
 			if (element.isSelected()) {
 				click(locator,notDisplayE);
 			} else {
@@ -784,6 +983,14 @@ public class TestBase {
 		Utils.pause(500);
 		try {
 			WebElement element = waitForAndGetElement(locator,DEFAULT_TIMEOUT,1,display);
+			if (browser.contains("chrome")) {
+				try {
+					((JavascriptExecutor) driver).executeScript(
+							"arguments[0].scrollIntoView(true);", element);
+				} catch (Exception e) {
+
+				}
+			}
 			actions.contextClick(element).perform();
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
@@ -806,6 +1013,14 @@ public class TestBase {
 		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator);
+			if (browser.contains("chrome")) {
+				try {
+					((JavascriptExecutor) driver).executeScript(
+							"arguments[0].scrollIntoView(true);", element);
+				} catch (Exception e) {
+
+				}
+			}
 			actions.doubleClick(element).perform();
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, 5);
@@ -877,52 +1092,6 @@ public class TestBase {
 		return bool;
 	}
 
-	/** function: set driver to auto save file to TestData/TestOutput
-	 * @author lientm
-	 */
-	public void getDriverAutoSave(){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";
-		String browser = System.getProperty("browser");
-		baseUrl = System.getProperty("baseUrl");
-		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
-		if("chrome".equals(browser)){
-			info("Init chrome");
-			driver = new ChromeDriver();
-			chromeFlag = true;
-		} else if ("iexplorer".equals(browser)){
-			info("Init IE");
-			driver = initIEDriver();
-			this.ieFlag = true;
-		} else {
-			info("Init firefox");
-			FirefoxProfile fp = new FirefoxProfile();	
-			info("Save file to " + pathFile);
-			fp.setPreference("browser.download.manager.showWhenStarting", false);
-			fp.setPreference("browser.download.dir", pathFile);
-			fp.setPreference("browser.download.folderList", 2);
-			fp.setPreference("browser.helperApps.neverAsk.saveToDisk", "application/x-xpinstall;" +
-					"application/x-zip;application/x-zip-compressed;application/x-winzip;application/zip;" +
-					"gzip/document;multipart/x-zip;application/x-gunzip;application/x-gzip;application/x-gzip-compressed;" +
-					"application/x-bzip;application/gzipped;application/gzip-compressed;application/gzip" +
-					"application/octet-stream" +
-					";application/pdf;application/msword;text/plain;" +
-					"application/octet;text/calendar;text/x-vcalendar;text/Calendar;" +
-					"text/x-vCalendar;image/jpeg;image/jpg;image/jp_;application/jpg;" +
-					"application/x-jpg;image/pjpeg;image/pipeg;image/vnd.swiftview-jpeg;image/x-xbitmap;image/png;application/xml;text/xml;text/icalendar;");
-
-			fp.setPreference("plugin.disable_full_page_plugin_for_types", "application/pdf");
-			fp.setPreference("pref.downloads.disable_button.edit_actions", true);
-			fp.setPreference("pdfjs.disabled", true); 
-			fp.setPreference("browser.helperApps.alwaysAsk.force", false);
-			driver = new FirefoxDriver(fp);
-		}
-		action = new Actions(driver);
-		driver.manage().window().maximize();
-		driver.navigate().refresh();
-		checkPLFVersion();
-		termsAndConditions();
-	}
-
 	/**function set driver to auto open new window when click link
 	 * @author lientm
 	 */
@@ -945,14 +1114,19 @@ public class TestBase {
 	 * false-> file is not exist
 	 */
 	public boolean checkFileExisted(String file){
-		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/" + file;
-		boolean found = false;
-
-		if (new File(pathFile).isFile()){
-			found = true;
+		boolean fileExists=false;
+		String pathFile = System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput/";
+		File folder = new File(pathFile);
+		File[] listOfFiles = folder.listFiles();
+		for (File file1 : listOfFiles) {
+		    if (file1.isFile()) {
+		        if(file1.getName().contains(file)){
+		        	fileExists=true;
+		        	break;
+		        }
+		    }
 		}
-		info("File exists: " + file + " is " + found);
-		return found;
+		return fileExists;
 	}
 
 	/**
@@ -1233,12 +1407,144 @@ public class TestBase {
 		return scroll == offset;
 	}
 
+
+
+	/**
+	 * Find new window handle
+	 * @param existingHandles
+	 * @param timeout
+	 * @return string
+	 */
+	public String FindNewWindowHandle(Set<String> existingHandles, int timeout)
+	{
+		Calendar calEnd = Calendar.getInstance();
+		String foundHandle = new String();
+		calEnd.add(Calendar.SECOND, timeout);
+		Date endTime = calEnd.getTime();
+		Calendar calNow = Calendar.getInstance();
+		while (foundHandle.isEmpty() && calNow.getTime().before(endTime))
+		{
+			Set<String> currentHandles = driver.getWindowHandles();
+			if (currentHandles.size() != existingHandles.size())
+			{
+				for (String currentHandle : currentHandles)
+				{
+					if (!existingHandles.contains(currentHandle))
+					{
+						foundHandle = currentHandle;
+						break;
+					}
+				}
+			}
+
+			if (foundHandle.isEmpty())
+			{
+				Utils.pause(250);
+			}
+		}
+
+		// Note: could optionally check for handle found here and throw
+		// an exception if no window was found.
+		return foundHandle;
+	}
+
+	/**
+	 * Upload file using autoit
+	 * @param file: name of file
+	 */
+	protected void uploadFileUsingAutoIt(String file){
+		info("Upload file using autoit");
+		String fs = File.separator;
+		try {
+			Process proc=Runtime.getRuntime().exec(Utils.getAbsoluteFilePath("TestData\\uploadFile.exe") + " " + Utils.getAbsoluteFilePath(file.replace("/", fs)));
+			InputStream is = proc.getInputStream();
+			int retCode = 0;
+			while(retCode != -1)
+			{
+				retCode = is.read();
+				if(retCode == -1)
+					info("Now Exiting");
+			} 
+			info("done upload");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * Download file using autoit
+	 * @param file
+	 */
+	public void downloadFileUsingAutoIt(String file){
+		info("Download file using autoit");
+		String download = "TestData\\downloadIE9.exe";
+		String fs = File.separator;
+		String pathDownload = Utils.getAbsoluteFilePath(download);
+		try {
+			Process proc=Runtime.getRuntime().exec(pathDownload + " " + Utils.getAbsoluteFilePath("TestData" +fs + "TestOutput" + fs + file));
+			InputStream is = proc.getInputStream();
+			int retCode = 0;
+			while(retCode != -1)
+			{
+				retCode = is.read();
+				info("Now Exiting");
+			} 
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * setClipboardData
+	 * @param string
+	 */
+	public static void setClipboardData(String string) {
+		//StringSelection is a class that can be used for copy and paste operations.
+		StringSelection stringSelection = new StringSelection(string);
+		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
+	}
+	/**
+	 * uploadFileUsingRobot
+	 * @param fileLocation
+	 */
+	public void uploadFileUsingRobot(String fileLocation) {
+		info("Upload file using Robot");
+		String fs = File.separator;
+		String path=Utils.getAbsoluteFilePath(fileLocation.replace("/", fs).replace("\\", fs));
+		info("path in uploadRobot:"+path);
+		try {
+			Robot robot = new Robot();
+			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_A);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_A);
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_X);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.keyRelease(KeyEvent.VK_X);
+			//Setting clipboard with file location
+			setClipboardData(path);
+			//native key strokes for CTRL, V and ENTER keys
+
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_ENTER);
+			robot.keyRelease(KeyEvent.VK_ENTER);
+			robot.delay(1000);
+		} catch (Exception exp) {
+			exp.printStackTrace();
+		}
+	}
 	/**
 	 * Click and save a file by robot
 	 * @param element
 	 */
-	public void clickAndSaveFileIE(WebElement element) {
-
+	public void downloadFileUsingRobot(WebElement element) {
+		info("Download file using Robot");
 		try {
 			Robot robot = new Robot();
 
@@ -1288,135 +1594,6 @@ public class TestBase {
 	}
 
 	/**
-	 * Find new window handle
-	 * @param existingHandles
-	 * @param timeout
-	 * @return string
-	 */
-	public String FindNewWindowHandle(Set<String> existingHandles, int timeout)
-	{
-		Calendar calEnd = Calendar.getInstance();
-		String foundHandle = new String();
-		calEnd.add(Calendar.SECOND, timeout);
-		Date endTime = calEnd.getTime();
-		Calendar calNow = Calendar.getInstance();
-		while (foundHandle.isEmpty() && calNow.getTime().before(endTime))
-		{
-			Set<String> currentHandles = driver.getWindowHandles();
-			if (currentHandles.size() != existingHandles.size())
-			{
-				for (String currentHandle : currentHandles)
-				{
-					if (!existingHandles.contains(currentHandle))
-					{
-						foundHandle = currentHandle;
-						break;
-					}
-				}
-			}
-
-			if (foundHandle.isEmpty())
-			{
-				Utils.pause(250);
-			}
-		}
-
-		// Note: could optionally check for handle found here and throw
-		// an exception if no window was found.
-		return foundHandle;
-	}
-
-	/**
-	 * Upload file on IE
-	 * @param file: name of file
-	 */
-	protected void uploadFile(String file){
-		String fs = File.separator;
-		try {
-			Process proc=Runtime.getRuntime().exec(Utils.getAbsoluteFilePath("TestData\\uploadFile.exe") + " " + Utils.getAbsoluteFilePath(file.replace("/", fs)));
-			InputStream is = proc.getInputStream();
-			int retCode = 0;
-			while(retCode != -1)
-			{
-				retCode = is.read();
-				if(retCode == -1)
-					info("Now Exiting");
-			} 
-			info("done upload");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	/**
-	 * setClipboardData
-	 * @param string
-	 */
-	public static void setClipboardData(String string) {
-		//StringSelection is a class that can be used for copy and paste operations.
-		StringSelection stringSelection = new StringSelection(string);
-		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
-	}
-	/**
-	 * uploadFileUsingRobot
-	 * @param fileLocation
-	 */
-	public void uploadFileUsingRobot(String fileLocation) {
-		info("Upload file using Robot");
-		String fs = File.separator;
-		String path=Utils.getAbsoluteFilePath(fileLocation.replace("/", fs));
-		info("path in uploadRobot:"+path);
-		try {
-			Robot robot = new Robot();
-			robot.delay(1000);
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_A);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			robot.keyRelease(KeyEvent.VK_A);
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_X);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			robot.keyRelease(KeyEvent.VK_X);
-			//Setting clipboard with file location
-			setClipboardData(path);
-			//native key strokes for CTRL, V and ENTER keys
-
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_V);
-			robot.keyRelease(KeyEvent.VK_V);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-			robot.delay(1000);
-			robot.keyPress(KeyEvent.VK_ENTER);
-			robot.keyRelease(KeyEvent.VK_ENTER);
-			robot.delay(1000);
-		} catch (Exception exp) {
-			exp.printStackTrace();
-		}
-	}
-	/**
-	 * Download fileon IE
-	 * @param file
-	 */
-	public void downloadFile(String file){
-		String download = "TestData\\downloadIE9.exe";
-		String fs = File.separator;
-		String pathDownload = Utils.getAbsoluteFilePath(download);
-		try {
-			Process proc=Runtime.getRuntime().exec(pathDownload + " " + Utils.getAbsoluteFilePath("TestData" +fs + "TestOutput" + fs + file));
-			InputStream is = proc.getInputStream();
-			int retCode = 0;
-			while(retCode != -1)
-			{
-				retCode = is.read();
-				info("Now Exiting");
-			} 
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
-	/**
 	 * Get element by class name via Javascript
 	 * @param className
 	 * @param index
@@ -1447,29 +1624,6 @@ public class TestBase {
 		}
 		Utils.pause(2000);
 		info("The elemnt is shown successfully");
-	}
-
-	/**
-	 * typeUsingRobot
-	 * @param robot
-	 * @param keycodes
-	 */
-	public void pressGroupKeysUsingRobot(int... keycodes){
-		info("Copy a text on the home page of acme");
-		Robot robot=null;
-		try {
-			robot = new Robot();
-		} catch (AWTException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		robot.setAutoDelay(20);
-		for(int keycode:keycodes){
-			robot.keyPress(keycode);
-		}
-		for(int keycode:keycodes){
-			robot.keyRelease(keycode);
-		}
 	}
 
 	/**

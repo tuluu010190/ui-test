@@ -152,7 +152,7 @@ public class Utils {
 	public static String getAbsoluteFilePath(String relativeFilePath){
 		String curDir = System.getProperty("user.dir");
 		String fs = File.separator;
-		String absolutePath = curDir + fs + "src" + fs + "main" + fs + "resources" + fs + relativeFilePath;
+		String absolutePath = curDir + fs + "src" + fs + "main" + fs + "resources" + fs + relativeFilePath.replace("\\", fs).replace("/", fs);
 		return absolutePath;
 	}
 

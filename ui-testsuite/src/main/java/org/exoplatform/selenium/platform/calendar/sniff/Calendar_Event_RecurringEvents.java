@@ -25,7 +25,7 @@ public class Calendar_Event_RecurringEvents extends CalendarBase {
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+		initSeleniumTest();
 		acc = new ManageAccount(driver, this.plfVersion);
 		evt = new Event(driver, this.plfVersion);
 		button = new Button(driver, this.plfVersion);

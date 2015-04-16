@@ -35,7 +35,7 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+		initSeleniumTest();
 		acc = new ManageAccount(driver, this.plfVersion);
 		hg = new HomePageGadget(driver, this.plfVersion);
 		pConnect = new PeopleConnection(driver, this.plfVersion);

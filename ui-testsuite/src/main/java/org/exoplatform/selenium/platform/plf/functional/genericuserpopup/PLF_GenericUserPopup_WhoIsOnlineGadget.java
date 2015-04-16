@@ -37,7 +37,7 @@ public class PLF_GenericUserPopup_WhoIsOnlineGadget extends Activity{
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+		initSeleniumTest();
 		acc = new ManageAccount(driver, this.plfVersion);
 		hg = new HomePageGadget(driver, this.plfVersion);
 		pConnect = new PeopleConnection(driver, this.plfVersion);
@@ -410,7 +410,7 @@ public class PLF_GenericUserPopup_WhoIsOnlineGadget extends Activity{
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/		
-		getDriverAutoSave();
+		initSeleniumTest();
 		setUpBeforeTest();
 		nav.goToHomePage();
 		addActivity(true, activity, false, "");

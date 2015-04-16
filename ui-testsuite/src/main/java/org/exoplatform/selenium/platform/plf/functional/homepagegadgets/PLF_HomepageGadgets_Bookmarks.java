@@ -37,7 +37,7 @@ public class PLF_HomepageGadgets_Bookmarks extends WikiBase{
 	ManageApplications magApp;
 	@BeforeMethod
 	public void beforeMethods() {
-		getDriverAutoSave();
+		initSeleniumTest();
 		naviToolbar = new NavigationToolbar(driver, this.plfVersion);
 		magForum = new ForumManageForum(driver, this.plfVersion);
 		conn = new PeopleConnection(driver, this.plfVersion);

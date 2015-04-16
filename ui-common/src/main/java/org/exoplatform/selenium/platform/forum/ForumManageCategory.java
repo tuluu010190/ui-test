@@ -337,7 +337,8 @@ public class ForumManageCategory extends ForumBase {
 			check(ELEMENT_EXPORT_CATEGORY_ONLY, 2);
 		}
 		button.save();
-		waitForElementNotPresent(ELEMENT_EXPORT_CATEGORY_POPUP, 50000);
+		waitForElementNotPresent(ELEMENT_EXPORT_CATEGORY_POPUP);
+		Utils.pause(5000);
 	}
 
 	/**

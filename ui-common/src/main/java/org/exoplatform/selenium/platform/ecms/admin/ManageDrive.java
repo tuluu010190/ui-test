@@ -62,7 +62,7 @@ public class ManageDrive extends EcmsBase{
 	public final By ELEMENT_JCR_SYSTEM = By.xpath("//*[contains(text(),'jcr:system')]/../..//*[@title='select']");
 	public final String ELEMENT_SELECT_PATH_ITEM = "//*[contains(text(),'${node}')]/../..//*[@title='select']";
 	//public final String ELEMENT_SELECT_PATH_ITEM = ".//i[contains(@title,'sites')]";
-	public final String ELEMENT_SELECT_PATH_ITEM_AUX = "//*[contains(text(),'${node}')]/../..//*[@data-original-title='select']";
+	public final String ELEMENT_SELECT_PATH_ITEM_AUX = ".//*[@id='UISelectPathPanel']//*[@class='Text' and contains(.,'${node}')]/../..//*[@data-original-title='Select']";
 	public final By ELEMENT_HOME_PATH = By.id("homePath");
 	public final By ELEMENT_ADD_PERMISSION = By.xpath("//*[@title='Add Permission']");
 	public final By ELEMENT_ADD_PERMISSION_AUX = By.xpath("//*[@data-original-title='Add Permission']");
@@ -248,7 +248,7 @@ public class ManageDrive extends EcmsBase{
 			Utils.pause(500);
 		}
 	}
-	
+
 	/**
 	 * remove a view from drive
 	 * @param view

@@ -26,7 +26,7 @@ public class Calendar_Calendar extends CalendarBase{
 	Task tsk;
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+		initSeleniumTest();
 		acc = new ManageAccount(driver);
 		evt = new Event(driver, this.plfVersion);
 		tsk = new Task(driver);

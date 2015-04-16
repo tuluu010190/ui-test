@@ -73,7 +73,7 @@ public class Wiki_Attachment extends BasicAction {
 		click(ELEMENT_ATTACHMENT_ICON);
 		
 		if(System.getProperty("browser").equalsIgnoreCase("iexplorer"))
-			clickAndSaveFileIE(waitForAndGetElement(By.linkText(newLink)));
+			downloadFileUsingRobot(waitForAndGetElement(By.linkText(newLink)));
 		else
 			click(By.linkText(newLink));
 		String newhandle = FindNewWindowHandle(existingHandles,12000);
@@ -84,7 +84,7 @@ public class Wiki_Attachment extends BasicAction {
 		switchToParentWindow();
 
 		if(ieFlag)
-			clickAndSaveFileIE(waitForAndGetElement(By.linkText(link)));
+			downloadFileUsingRobot(waitForAndGetElement(By.linkText(link)));
 		else
 			click(By.linkText(link));
 		Utils.pause(3000);

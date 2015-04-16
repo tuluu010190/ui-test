@@ -26,7 +26,7 @@ public class Wiki_Attachment_Add extends BasicAction{
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+		initSeleniumTest();
 		driver.get(baseUrl);
 		magAcc = new ManageAccount(driver);
 		button = new Button(driver);

@@ -34,13 +34,13 @@ public class Forum_Answers_PublishActivities_Display extends AnswerBase{
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-		getDriverAutoSave();
+		initSeleniumTest();
 		driver.get(baseUrl);
 		acc = new ManageAccount(driver);
 		mCat = new AnswerManageCategory(driver);
 		mQuest = new AnswerManageQuestion(driver);
 		acc.signIn(DATA_USER1, DATA_PASS);
-		
+
 		button = new Button(driver);
 		hpAct = new HomePageActivity(driver);
 		mAns = new AnswerManageAnwser(driver);
@@ -267,7 +267,7 @@ public class Forum_Answers_PublishActivities_Display extends AnswerBase{
 		hpAct.checkAnswerOfQuestion(questName, answerContent);
 		waitForAndGetElement(hpAct.ELEMENT_QUESTION_CONTENT.replace("${title}", questName));
 		waitForAndGetElement(hpAct.ELEMENT_COMMENT_LAST.replace("${title}", questName).replace("${comment}", commentAnswer));
-		
+
 		//Vote down answer
 		goToAnswer();
 		mAns.rateAnswer(answerContent,false); 

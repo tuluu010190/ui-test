@@ -66,18 +66,18 @@ public class ECMS_Admin_ManageView extends PlatformBase{
 		//actions = null;
 	}
 
-	/*case 01+15
+	/*
 	 * add new view
 	 * delete not used view
 	 */
 	@Test
-	public void test01_AddNewView(){
+	public void test01_02_AddNewView(){
 		info("Add New View");
 		//Open Add New View Form
 		magView.openAddViewForm("Add View", "Add View");
 		//Fill data for Add New View Form
 		magView.fillAddNewViewForm("Test Template", "List", "Test", "addCategory", true, true, "Organization/Management", "*");
-		info("Delete a view that isn't used"); //Test case 15
+		info("Delete a view that isn't used"); //Test case 2
 		//magView.deleteView("Test Template", "Are you sure you want to delete this view?", true);
 		magView.actionOnSelectedView("Test Template", "Delete", true);
 	}
@@ -86,7 +86,7 @@ public class ECMS_Admin_ManageView extends PlatformBase{
 	 * Delete in-use view
 	 */
 	@Test
-	public void test16_DeleteUsedView(){
+	public void test03_DeleteUsedView(){
 		info("Delete a view that is in-use");
 		//magView.deleteView("Web", "Are you sure you want to delete this view?", false);
 		magView.actionOnSelectedView("Web", "Delete", false);
@@ -100,7 +100,7 @@ public class ECMS_Admin_ManageView extends PlatformBase{
 	 * Delete ECM template
 	 */
 	@Test
-	public void test17_AddEcmTemplate(){
+	public void test04_05_AddEcmTemplate(){
 		info("Add Ecm Template");
 		ecMain.goToExplorerTemplates();
 		magView.openAddViewForm("Add", "Add Explorer Template");
@@ -114,7 +114,7 @@ public class ECMS_Admin_ManageView extends PlatformBase{
 	 * Restore a view at a specific version
 	 */
 	@Test
-	public void test08_RestoreVersion(){
+	public void test06_RestoreVersion(){
 		info("Restore Version");
 		String viewName = "Content";
 		ecMain.goToExplorerTemplates();

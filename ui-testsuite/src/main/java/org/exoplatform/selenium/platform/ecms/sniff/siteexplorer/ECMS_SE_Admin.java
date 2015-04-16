@@ -282,7 +282,7 @@ public class ECMS_SE_Admin extends PlatformBase {
 	
 	@BeforeMethod
 	public void beforeMethods() {
-		getDriverAutoSave();
+		initSeleniumTest();
 		driver.get(baseUrl);
 		magAcc = new ManageAccount(driver);
 		navToolBar = new NavigationToolbar(driver);

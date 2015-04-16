@@ -80,7 +80,6 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 	@Test
 	public void test01_02_03_AddEditDeleteDrive(){
 		String DATA_DRIVE_NAME = "ECMS_Admin_Explorer_ManageDriver_Action_01";
-		//By ELEMENT_DRIVE = By.xpath(ecms.ELEMENT_DATA_TITLE.replace("${dataTitle}", DATA_DRIVE_NAME));
 
 		//go to add drive
 		info("Go to add new drive");
@@ -97,21 +96,5 @@ public class ECMS_Admin_ManageDriver_Action extends PlatformBase{
 		info("Delete drive");
 		magDrv.deleteDrive(DATA_DRIVE_NAME);
 		info("Delete driver successfully");
-	}
-	
-	/**
-	 * Step 1: Open [Manage Drive] form
-	 * Step 2: Open [Add drive] form
-	 * Step 3: Input data in [Drive] form
-	 */
-	@Test
-	public void test04_AddDriveWithNoAppliedView(){
-		String DATA_DRIVE_NAME = "Add_Drive_Without_View";
-
-		info("-- Open Manage Drive Form --");
-		ecMain.goToManageDrive();
-
-		magDrv.addNewDrive(DATA_DRIVE_NAME, "dms-system", "exo:ecm", "Organization/Management/Executive Board","member",
-				"Non-document Nodes/Sidebar", "", false, false);	
 	}
 }

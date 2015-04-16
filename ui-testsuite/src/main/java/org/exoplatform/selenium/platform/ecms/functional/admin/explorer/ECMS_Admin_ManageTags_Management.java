@@ -98,7 +98,7 @@ public class ECMS_Admin_ManageTags_Management extends PlatformBase {
 	 * Check Tag Permission in the Content Explorer
 	 */
 	@Test
-	public void test06_CheckRightGroupContentExplorer() {
+	public void test01_02_CheckRightGroupContentExplorer() {
 		//Go to tag permission
 		ecMain.goToTagPermissionManager();
 
@@ -118,12 +118,11 @@ public class ECMS_Admin_ManageTags_Management extends PlatformBase {
 	}
 
 	/**
-	 * Step 1: Create node in CE
-	 * Step 2: Add tag for document
-	 * Step 3: View the displaying of tag's style
+	 * Add a tag for a document in content explorer
+	 * Remove a tag for a document in content explorer
 	 */
 	@Test
-	public void test07_AddTagForDocumentInContentExplorer(){
+	public void test03_04_AddTagForDocumentInContentExplorer(){
 		info("-- Create a new File in Content Explorer --");
 		nav.goToSiteExplorer();
 		actBar.goToAddNewContent();
@@ -142,5 +141,44 @@ public class ECMS_Admin_ManageTags_Management extends PlatformBase {
 		sitesExp.goToEditTag();
 
 		sitesExp.deleteTag(tagName);
+	}
+	
+	/**
+	 * Add a tag for a document in Content Explorer with name includes special chars
+	 * 
+	 */
+	@Test
+	public void test05_06_AddTagWithSpecialsChars(){
+		info("-- Create a new File in Content Explorer --");
+		String tagName = "TagName07_#@*&^%";
+		String tagName2 = "";
+		
+		nav.goToSiteExplorer();
+		actBar.goToAddNewContent();
+		contentTemp.createNewFile("Add tag for document", "Add tag for document", "Add tag for document");
+
+		info("-- Adding a tag for File.. --");
+
+		if (waitForAndGetElement(sitesExp.ELEMENT_TAG_LINK, 5000, 0) != null){
+			click(sitesExp.ELEMENT_TAG_LINK);
+		}else {
+			click(sitesExp.ELEMENT_MORE_LINK_WITHOUT_BLOCK);
+			click(sitesExp.ELEMENT_TAG_LINK);
+		}
+		type(sitesExp.ELEMENT_TAG_NAME, tagName, false);
+		click(button.ELEMENT_ADD_BUTTON);
+		
+		waitForAndGetElement(sitesExp.ELEMENT_WRONG_TAG_NAME_SENTENCE);
+		click(sitesExp.ELEMENT_WRONG_TAG_NAME_ACCEPT);
+		
+		info("Test 06 : try to add a tag name empty ");
+		type(sitesExp.ELEMENT_TAG_NAME, tagName2, false);
+		click(button.ELEMENT_ADD_BUTTON);
+		
+		waitForAndGetElement(sitesExp.ELEMENT_EMPTY_TAG_NAME_SENTENCE);
+		click(sitesExp.ELEMENT_EMPTY_TAG_NAME_ACCEPT);
+		
+		click(sitesExp.ELEMENT_SIDEBAR_FILE_EXPLORER);
+		contextMenu.deleteDocument(By.linkText("Add tag for document"));
 	}
 }

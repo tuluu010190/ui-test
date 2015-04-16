@@ -36,8 +36,7 @@ public class ECMS_SE_PublicActivity extends PlatformBase {
 
 	@BeforeMethod
 	public void beforeMethods(){
-//		initSeleniumTest();
-		getDriverAutoSave();
+		initSeleniumTest();
 		driver.get(baseUrl);
 		magAcc = new ManageAccount(driver,this.plfVersion);
 		navTool = new NavigationToolbar(driver,this.plfVersion);

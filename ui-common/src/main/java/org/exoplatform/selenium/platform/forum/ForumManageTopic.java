@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.openqa.selenium.By;
@@ -26,7 +27,7 @@ public class ForumManageTopic extends ForumBase {
 	UserGroupManagement userGroup;
 	ForumManagePost mngPost;
 	NavigationToolbar naviToolbar;
-
+	public String ELEMENT_TOPIC="//*[@id='UIContextPopupMenu1' and contains(text(),'${topic}')]";
 	public ForumManageTopic(WebDriver dr, String... plfVersion) {
 		this.plfVersion = plfVersion.length > 0 ? plfVersion[0] : "4.0";
 		driver = dr;
@@ -284,6 +285,7 @@ public class ForumManageTopic extends ForumBase {
 			attachFile(file[0]);
 			waitForElementNotPresent(ELEMENT_POPUP_UPLOAD_FILE);
 		}
+		Utils.pause(1000);
 	}
 
 	/**
