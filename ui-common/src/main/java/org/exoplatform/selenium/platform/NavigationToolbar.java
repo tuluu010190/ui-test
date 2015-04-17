@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.social.AllNotificationPage;
+import org.exoplatform.selenium.platform.social.IntranetNotification;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -38,7 +39,33 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_NOTIFICATION_REMOVE_ICON = By.xpath(".//*[@id='NotificationPopup']//i[contains(@class,'uiIconClose uiIconLightGray')]");
 	public final By ELEMENT_INTRANET_NOTIFICATION_BELL = By.className("uiIconPLF24x24Bell");
 	
+	public final By ELEMENT_POSITION_OF_INTRANET_NOTIFICATION = By.xpath("//*[@class='UITableColumnContainer']//*[@class='UserInfoPortletTDContainer pull-left']/../*[@class='NotificationPopoverPortletTDContainer pull-left']");
 	public final By ELEMENT_DOC_EXO_OF_HOME_GETTING_STARTED = By.xpath(".//*[@id='newBreadcrumbs']//*[contains(text(),'Getting Started')]");
+	
+	// Intranet notification 
+	public final String ELEMENT_BADGE_NUMBER_DISPLAY = "//*[@class='badgeDefault badgePrimary mini badgeNotification' and @style='display: inline;' and text()='${number}']";
+	public final String ELEMENT_BADGE_NUMBER_NOT_DISPLAY = "//*[@class='badgeDefault badgePrimary mini badgeNotification' and @style='display: none;' and text()='${number}']";
+	public final String ELEMENT_BADGE_NUMBER = "//*[@class='badgeDefault badgePrimary mini badgeNotification' and @style='display: inline;']";
+	public final By ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION = By.xpath(".//*[@id='NotificationPopup']//*[contains(text(),'Mark all as read')]");
+	public final By ELEMENT_VIEW_ALL_BUTTON = By.xpath(".//*[@id='NotificationPopup']//a[text()='View All']");
+	public final By ELEMENT_NO_NOTIFICATIONS= By.xpath(".//*[@id='NotificationPopup']//*[@class='no-items' and text()='No notifications']");
+	public final String ELEMENT_CONNECT_NOTIFICATION_POSITION = "//li[${position}]//*[contains(@alt,'${fullName}')]/../..//*[contains(text(),'${fullName}')]/../..//*[contains(.,'wants to connect with you')]";
+	public final String ELEMENT_COMMENT_JUST_NOW_READ = "//*[@class='read clearfix']//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
+	public final String ELEMENT_COMMENT_POSITION_ONE_MINUTE_READ = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
+	public final String ELEMENT_COMMENT_MARK_ALL_AS_READ = "//*[@class='clearfix']//*[contains(@alt,'${userName}')]/../..//*[@class='status' and contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]";
+	public final String ELEMENT_COMMENT_JUST_NOW_UNREAD = "//*[@class='unread clearfix']//[contains(@alt,'${userName}')]/../..//*[@class='status' and contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
+	public final String ELEMENT_COMMENT_POSITION_ONE_MINUTE_UNREAD = "//*[@class='unread clearfix']//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
+	public final String ELEMENT_LIKE_NOTIFICATION_JUST_NOW_READ = "//*[@class='read clearfix']//*[contains(@alt,'${userName}')]/../..//*[.contains(.,'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
+	public final String ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_READ = "//*[@class='read clearfix']//*[contains(@alt,'${userName}')]/../..//*[contains(.,'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
+	public final String ELEMENT_LIKE_NOTIFICATION_MARK_ALL_AS_READ = "//*[@class='clearfix']//*[contains(@alt,'${userName}')]/../..//*[contains(.,'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]";
+	public final String ELEMENT_LIKE_NOTIFICATION_JUST_NOW_UNREAD = "//*[@class='unread clearfix']//*[contains(@alt,'${userName}')]/../..//*[contains(.,'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
+	public final String ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_UNREAD = "//*[@class='unread clearfix']//*[contains(@alt,'${userName}')]/../..//*[contains(.,'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
+	public final String ELEMENT_COMMENT_ONE_MINUTE_DELETE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]/../../../..//*[@class='uiIconClose uiIconLightGray']";
+	public final String ELEMENT_COMMENT_JUST_NOW_DELETE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]/../../../..//*[@class='uiIconClose uiIconLightGray']";
+	public final String ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_DELETE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]/../../../..//*[@class='uiIconClose uiIconLightGray']";
+	public final String ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'likes your activity.')]//[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]/../../../..//*[@class='uiIconClose uiIconLightGray']";
+	public final String ELEMENT_CONNECT_NOTIFICATION_DELETE = "//*[contains(@alt,'${fullName}')]/../..//*[ contains(text(),'${fullName}')]/../..//*[contains(.,'wants to connect with you')]/../../../..//*[@class='uiIconClose uiIconLightGray']";
+	public final String ELEMENT_NEW_USER_NOTIFICATION_DELETE = "//*[contains(@alt,'${userName}')]/../..//*[contains(text(),'${userName}')]/../..//*[contains(.,'has joined eXo')]/../../../..//*[@class='uiIconClose uiIconLightGray']";
 	// toolbar--> upload file
 	public By ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS = By.xpath("//*[@id='ListRecords']//*[contains(text(),'Personal Documents')]");
 	public By ELEMENT_UPLOAD_FILE_GO_TO_UPLOAD = By.xpath("//*[@id='UIDocumentSelector']//*[@class='UIDSUploadInput']");
@@ -94,10 +121,10 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_MY_DASHBOARD_LINK = By.xpath("//i[@class='uiIconPLFDashboard']/..");
 	public final By ELEMENT_MY_SETTINGS_LINK = By.className("uiIconSetting");
 	public final By ELEMENT_MY_CONNECTION_LINK = By.className("uiIconPLFMyConnection");
-	public final By ELEMENT_MY_NOTIFICATIONS_LINK = By.xpath("//i[@class='uiIconPLFNotifications']/..");
 	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
 	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
 	public final By ELEMENT_MY_WIKI_LINK = By.xpath("//i[@class='uiIconWikiMyWiki']/..");
+	public final By ELEMENT_MY_NOTIFICATIONS_LINK = By.className("uiIconPLFNotifications");
 
 	//Administration-->Application
 	public final By ELEMENT_ADMINISTRATION_APPLICATION = By.xpath(".//*[text()='Applications']");
@@ -141,14 +168,16 @@ public class NavigationToolbar extends PlatformBase {
 	PageCreationWizard paWin;
 	MyProfilePage myPro;
 	PortalManageSites magSites;
-	AllNotificationPage intraNot;
+	AllNotificationPage allIntraNot;
+	IntranetNotification intraNot;
 	
 	public NavigationToolbar(WebDriver dr){
 		this.driver = dr;
 		paWin = new PageCreationWizard(dr);
 		myPro = new MyProfilePage(dr);
 		magSites = new PortalManageSites(dr);		
-		intraNot = new AllNotificationPage(dr);
+		allIntraNot = new AllNotificationPage(dr);
+		intraNot = new IntranetNotification(dr);
 	} 
 
 	/**
@@ -580,11 +609,6 @@ public class NavigationToolbar extends PlatformBase {
 	 * Open My profile page
 	 */
 	public void goToMyProfile(){
-		/*info("Click on Avatar");
-		click(ELEMENT_TOPBAR_AVATAR);
-		info("Click on My profile link");
-		click(ELEMENT_MY_PROFILE_LINK);
-		Utils.pause(2000);*/
 		selectALinkOfUserMenu(specifUserToolBar.MY_PROFILE);
 		Utils.pause(2000);
 	}
@@ -601,10 +625,6 @@ public class NavigationToolbar extends PlatformBase {
 	 * Go to My activities
 	 */
 	public void goToMyActivities(){
-		/*info("Go to Activities of User");
-		waitForAndGetElement(ELEMENT_ACTIVITIES_LINK);
-		click(ELEMENT_ACTIVITIES_LINK);
-		waitForAndGetElement(ELEMENT_ACTIVITIES_PORTLET, 2000);*/
 		selectALinkOfUserMenu(specifUserToolBar.MY_ACTIVITY);
 		Utils.pause(2000);
 	}
@@ -665,12 +685,12 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_NOTIFICATION_DROPDOWN,3000,1);
 
 	}
-	 /** Open My Connection
+	
+	/** Open My Notifications
 	 */
 	public void goToMyNotifications(){
 		selectALinkOfUserMenu(specifUserToolBar.MY_NOTIFICATION);
 		Utils.pause(2000);
-
 	}
 	
 	/** Open Intranet Notification
@@ -679,7 +699,151 @@ public class NavigationToolbar extends PlatformBase {
 		info("Go to Intranet Notification");
 		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_BELL, 2000);
 		click(ELEMENT_INTRANET_NOTIFICATION_BELL);
-		waitForAndGetElement(intraNot.ELEMENT_NOTIFICATION_POP_UP);
+		info("-- Starting finding element --");
+		Utils.pause(500);
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				if(waitForAndGetElement(ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION,3000,0)!=null);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION, 5000, 0) != null){
+				info("Element "+ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION+" is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			this.driver.navigate().refresh();
+			click(ELEMENT_INTRANET_NOTIFICATION_BELL);
+		}
+		Utils.pause(2000);
+		info("The elemnt is shown successfully");
+	}
+	/**
+	 * Go to Activities of user
+	 */
+	public void goToActivities(){
+		info("Go to Activities of User");
+		waitForAndGetElement(ELEMENT_ACTIVITIES_LINK);
+		click(ELEMENT_ACTIVITIES_LINK);
+		waitForAndGetElement(ELEMENT_ACTIVITIES_PORTLET, 2000);
 	}
 	
+	/**
+	 * function: go to notifications settings
+	 * @param number
+	 */
+	public void checkNUmberOfNotificationsInBadge(boolean display, String number){
+		info("check number of notifications in badge");
+		Utils.pause(1000);
+		if (display)
+			waitForAndGetElement(ELEMENT_BADGE_NUMBER_DISPLAY.replace("${number}", number));
+		else
+			waitForElementNotPresent(ELEMENT_BADGE_NUMBER_DISPLAY.replace("${number}", number));
+	}
+	
+	/**
+	 * function: check Comment notification read or unread
+	 * @param read
+	 * @param userName
+	 * @param activity
+	 * @param time
+	 */
+	public void checkCommentNotificationReadOrUnread(boolean read, boolean markAllRead, String userName, String activity, String time){
+		info("Check comment notification read or unread");
+		if (read){
+			if (markAllRead){
+				waitForAndGetElement(ELEMENT_COMMENT_MARK_ALL_AS_READ.replace("${userName}", userName).replace("${activity}", activity));
+			}
+			else if (waitForAndGetElement(ELEMENT_COMMENT_JUST_NOW_READ.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null)
+				waitForAndGetElement(ELEMENT_COMMENT_POSITION_ONE_MINUTE_READ.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
+		}
+		else{
+			if (waitForAndGetElement(ELEMENT_COMMENT_JUST_NOW_UNREAD.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null)
+				waitForAndGetElement(ELEMENT_COMMENT_POSITION_ONE_MINUTE_UNREAD.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
+		}
+	}
+	
+	/**
+	 * function: check Like notification read or unread
+	 * @param read
+	 * @param userName
+	 * @param activity
+	 * @param time
+	 */
+	public void checkLikeNotificationReadOrUnread(boolean read, boolean markAllAsRead, String userName, String activity, String time){
+		info("Check like notification read or unread");
+		if (read){
+			if (markAllAsRead){
+				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_MARK_ALL_AS_READ.replace("${userName}", userName).replace("${activity}", activity));
+			}
+			else if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_READ.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null)
+				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_READ.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
+		}
+		else{
+			if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_UNREAD.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null)
+				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_UNREAD.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
+		}
+	}
+
+	/**
+	 * function: clear comment notification
+	 * @param userName
+	 * @param activity
+	 * @param time
+	 */
+	public void clearCommentNotification(String userName, String activity, String time){
+		info("Clear comment notification");
+		goToIntranetNotification();
+		if (waitForAndGetElement(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity)) != null){
+			click(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
+			waitForElementNotPresent(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
+		}
+		else if (waitForAndGetElement(ELEMENT_COMMENT_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time)) != null){
+			click(ELEMENT_COMMENT_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
+			waitForElementNotPresent(ELEMENT_COMMENT_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
+		}
+	}
+	
+	/**
+	 * function: clear like notification
+	 * @param userName
+	 * @param activity
+	 * @param time
+	 */
+	public void clearLikeNotification(String userName, String activity, String time){
+		info("Clear like notification");
+		if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity)) != null){
+			click(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
+			waitForElementNotPresent(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
+		}
+		else if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time)) != null){
+			click(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
+			waitForElementNotPresent(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
+		}
+	}
+	
+	/**
+	 * function: clear connection request notification
+	 * @param userName
+	 * @param activity
+	 * @param time
+	 */
+	public void clearConnectionRequestNotification(String fullName){
+		info("Clear like notification");
+		if (waitForAndGetElement(ELEMENT_CONNECT_NOTIFICATION_DELETE.replace("${fullName}", fullName)) != null){
+			click(ELEMENT_CONNECT_NOTIFICATION_DELETE.replace("${fullName}", fullName));
+			waitForElementNotPresent(ELEMENT_CONNECT_NOTIFICATION_DELETE.replace("${fullName}", fullName));
+		}
+	}
+
+	/**
+	 * function: clear new user notification
+	 * @param userName
+	 */
+	public void clearNewUserNotification(String userName){
+		info("clear new user notification");
+		Utils.pause(1000);
+		waitForAndGetElement(ELEMENT_NEW_USER_NOTIFICATION_DELETE.replace("${userName}", userName));
+		click(ELEMENT_NEW_USER_NOTIFICATION_DELETE.replace("${userName}", userName));	
+	}
+
 }

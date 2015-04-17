@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ActivityStream;
@@ -12,21 +13,23 @@ import org.exoplatform.selenium.platform.objectdatabase.chat.ChatStatusDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ConnectStatusDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDescriptionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactIMDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactPhoneDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityMessageDatabase;
 import org.exoplatform.selenium.platform.social.SendEmailNotifications;
+import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
+import org.exoplatform.selenium.platform.social.IntranetNotification;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.exoplatform.selenium.platform.chat.ChatStatus;
-
-
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -37,15 +40,19 @@ public class SOC_TestConfig_2 extends PlatformBase {
 	ActivityStream hpAct;
 	ManageLogInOut magAc;
 	MyProfilePage myProfile;
+	IntranetNotification intraNot;
 
 	NavigationToolbar navTool;
 	AttachmentFileDatabase atData;
 	TextBoxDatabase txData;
 	LinksDatabase lnkData;
 	ChatStatusDatabase chatStatus;
+	UserDatabase userData;
+	UserInfoDatabase userInfData;
 
 	SiteExplorerPathDatabase siteExPath;
 	NotificationDescriptionDatabase notiDes;
+	SiteExplorerDriveDatabase siteExDrive;
 
 	ConnectionsManagement connMag;
 	UserAddManagement addUserPage;
@@ -59,6 +66,7 @@ public class SOC_TestConfig_2 extends PlatformBase {
 
 	ChatStatus chat;
 	PageEditor pagEditor;
+	Button button;
 
 	SendEmailNotifications notiEmail;
 	
@@ -75,7 +83,8 @@ public class SOC_TestConfig_2 extends PlatformBase {
 		chat = new ChatStatus(driver);
 		pagEditor = new PageEditor(driver);
 		hp = new HomePagePlatform(driver);
-
+		intraNot = new IntranetNotification(driver);
+		button = new Button(driver);
 		pagEditor = new PageEditor(driver);
 
 		notiEmail = new SendEmailNotifications(driver);
@@ -90,6 +99,13 @@ public class SOC_TestConfig_2 extends PlatformBase {
 		lnkData = new LinksDatabase();
 		lnkData.setLinkData(linkPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 
+		userData = new UserDatabase();
+		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+
+		userInfData = new UserInfoDatabase();
+		userInfData.setUserInfoData(userInfoFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		siteExDrive = new SiteExplorerDriveDatabase();
 		siteExPath = new SiteExplorerPathDatabase();
 		siteExPath.setSiteExpPathData(siteExpPathPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
@@ -114,6 +130,12 @@ public class SOC_TestConfig_2 extends PlatformBase {
 		
 		notiDes = new NotificationDescriptionDatabase();
 		notiDes.setData(notiDesFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		
+		info("Enable like and new user notifications");
+		navTool.goToMyNotifications();
+		intraNot.enableOptionNewUserNotification();
+		intraNot.enableOptionLikeNotification();
 		
 		info("End setUpBeforeClass");
 	}

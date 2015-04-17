@@ -5,7 +5,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.awt.AWTException;
 
 import org.testng.annotations.*;
-
 public class SOC_Notifications_IntranetNotifications_NotificationTypes extends SOC_TestConfig_3{
 
 	/**
@@ -899,6 +898,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 	/**
 	 *<li> Case ID:122995.</li>
 	 *<li> Test Case Name: Mention Intranet notifications (in activity message).</li>
+<<<<<<< HEAD
 	 * @throws AWTException 
 	 */
 	@Test 

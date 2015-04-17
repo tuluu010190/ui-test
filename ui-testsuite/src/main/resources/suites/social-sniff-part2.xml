@@ -17,10 +17,17 @@
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_DynContainers" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_EditProfile" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_Experience" />
+<<<<<<< HEAD
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Search" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_RecentActivities" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_ViewProfile" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_UserStatus" />
+=======
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Search" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_IntranetNotifications_NotificationTypes" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_IntranetNotification_View_All" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_IntranetNotifications_NotificationIcon_List" />
+>>>>>>> FQA-2245: PLF 4.2 - Write Sniff/Social (Notifications/Intranet notifications/View All and Notification icon list)
 		</classes>
 	</test>
 	<listeners>

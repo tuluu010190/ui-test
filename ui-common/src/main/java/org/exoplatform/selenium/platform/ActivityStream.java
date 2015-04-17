@@ -332,6 +332,11 @@ public class ActivityStream extends PlatformBase {
 	    Utils.pause(2000);
 	}
 
+	/**
+	 * Add a new comment on activity stream using javascript
+	 * @param activityText
+	 * @param contentOfComment
+	 */
 	public void addCommentUsingJavascript(String activityText, String contentOfComment){
 		info("add comment using javascript");
 		click (ELEMENT_ICON_COMMENT.replace("${title}", activityText));
@@ -713,6 +718,5 @@ public void addCommentWithMentionUser(String activity, String username, String t
 			assert (newNumLike==(numLike-1)):"Number of like is not updated";
 		}
 		Utils.pause(2000);
-
 	}
 }

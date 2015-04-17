@@ -14,33 +14,34 @@ public class ConnectionsManagement extends PlatformBase {
 	public final String ELEMENT_CONNECTION_CANCEL_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Cancel Request']";
 	public final String ELEMENT_CONNECTION_REVOVE_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Remove Connection']";
 
-	public final String ELEMENT_CONNECTION_IGNORE_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Ignore']";
-	public final String ELEMENT_CONNECTION_CONFIRM_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Confirm']";
-	public final String ELEMENT_CONNECTION_USER_AVARTAR="//a[contains(@href,'${user}')]/img";
-	public final String ELEMENT_CONNECTION_USER_NAME="//a[contains(@href,'${user}') and @data-key='title']";
-
-	public final By ELEMENT_ALL_CONNECTIONS_TAB=By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet' or @id='UIRequestsPortlet']//*[contains(@href,'all-people')]");
-	public final By ELEMENT_MY_CONNECTIONS_TAB = By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet' or @id='UIRequestsPortlet']//*[contains(@href,'network')]");
-	public final By ELEMENT_REQUEST_RECEIVE_CONNECTIONS_TAB = By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet' or @id='UIRequestsPortlet']//*[contains(@href,'receivedInvitations')]");
-	public final By ELEMENT_REQUEST_PENDING_CONNECTIONS_TAB = By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet' or @id='UIRequestsPortlet']//*[contains(@href,'pendingRequests')]");
-
-	public final By ELEMENT_ALL_RESULTS = By.id("searchAll");
-	public final By ELEMENT_NAME_OF_PEOPLE = By.id("name");
-	public final By ELEMENT_POSITIONS_OF_PEOPLE = By.id("position");
-	public final By ELEMENT_SKILL_OF_PEOPLE = By.id("skills");
-	public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
-
-	MyProfilePage myProf;
-	public ConnectionsManagement(WebDriver dr){
+	 public final String ELEMENT_CONNECTION_IGNORE_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Ignore']";
+    public final String ELEMENT_CONNECTION_CONFIRM_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Confirm']";
+    public final String ELEMENT_CONNECTION_USER_AVARTAR="//a[contains(@href,'${user}')]/img";
+    public final String ELEMENT_CONNECTION_USER_NAME="//a[contains(@href,'${user}') and @data-key='title']";
+    
+    public final By ELEMENT_ALL_CONNECTIONS_TAB=By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet']//*[contains(@href,'all-people')]");
+    public final By ELEMENT_MY_CONNECTIONS_TAB = By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet']//*[contains(@href,'network')]");
+    public final By ELEMENT_REQUEST_RECEIVE_CONNECTIONS_TAB = By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet']//*[contains(@href,'receivedInvitations')]");
+    public final By ELEMENT_REQUEST_PENDING_CONNECTIONS_TAB = By.xpath("//*[@id='UIConnectionsPortlet' or @id='UIAllPeoplePortlet']//*[contains(@href,'pendingRequests')]");
+    
+    public final By ELEMENT_ALL_RESULTS = By.id("searchAll");
+    public final By ELEMENT_NAME_OF_PEOPLE = By.id("name");
+    public final By ELEMENT_POSITIONS_OF_PEOPLE = By.id("position");
+    public final By ELEMENT_SKILL_OF_PEOPLE = By.id("skills");
+    public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
+    public final String ELEMENT_USER_LINK = "//a[contains(text(),'${userName}')]";
+    
+    MyProfilePage myProf;
+    
+    public ConnectionsManagement(WebDriver dr){
 		this.driver = dr;
-		myProf = new MyProfilePage(driver);
-	}
-
-	/**
+		myProf = new MyProfilePage(dr);
+    }
+		/**
 	 * Tab list
 	 */
 	public enum selectTabOption{
-		ALL, MYCONNECTION, RECEIVE, PENDING
+		ALL, MYCONNECTION, RECEIVE, PENDING;
 	}
 
 	/**
@@ -72,6 +73,7 @@ public class ConnectionsManagement extends PlatformBase {
 			break;
 		}
 		Utils.pause(1000);
+   
 	}
 
 	/**

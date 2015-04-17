@@ -13,6 +13,7 @@ import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDescriptionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
+import org.exoplatform.selenium.platform.social.IntranetNotification;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting;
@@ -33,7 +34,9 @@ public class SOC_TestConfig_3 extends PlatformBase {
 	ActivityStream hpAct;
 	ManageLogInOut magAc;
 	MyProfilePage myProfile;
-	AllNotificationPage intraNot;
+	AllNotificationPage AllInTraNot;
+	IntranetNotification intraNot;
+	
 
 	NavigationToolbar navTool;
 
@@ -69,8 +72,8 @@ public class SOC_TestConfig_3 extends PlatformBase {
 		setSpaceMg = new SpaceSettingManagement(driver);
 		emailNotif = new NotificationsAdminSeting(driver);
 		hp = new HomePagePlatform(driver);
-		intraNot = new AllNotificationPage(driver);
-
+		AllInTraNot = new AllNotificationPage(driver);
+		intraNot = new IntranetNotification(driver);
 		notiEmail = new SendEmailNotifications(driver);
 		
 		txData = new TextBoxDatabase();

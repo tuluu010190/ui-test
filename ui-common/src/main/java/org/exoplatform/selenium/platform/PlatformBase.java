@@ -211,6 +211,19 @@ public class PlatformBase extends TestBase {
 		driver.navigate().to(baseUrl);
 	}
 	
+	/**
+	 * function: switch between windows using title windows
+	 * @param windowTitle
+	 */
+	 public void switchBetweenWindowsUsingTitle(String windowTitle) {
+         Set<String> windows = driver.getWindowHandles();
+         for (String window : windows) {
+             driver.switchTo().window(window);
+             if (driver.getTitle().contains(windowTitle)) {
+                 return;
+             }
+         }
+     }
 	
 	/**
 	 * Go to gmail and login

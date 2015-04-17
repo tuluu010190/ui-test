@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social;
 
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
+
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.openqa.selenium.By;
@@ -17,6 +18,11 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public String ELEMENT_SPACE_SELECT_USER_IN_FORM = "//*[@id='UIListUsers']//*[contains(text(),'{$name}')]/../..//*[@class='uiCheckbox']//input";
 	public By ELEMENT_ADD = By.xpath("//*[@id='UIUserSelector']//*[contains(text(),'Add')]");
 	public By ELEMENT_SPACE_MEMBERS_INVITE = By.xpath("//*[@id='UISpaceMember']//*[contains(text(),'Invite')]");
+	public final By ELEMENT_SEARCH_INPUT_USER_NAME = By.xpath(".//*[@id='Quick Search']");
+	public final String ELEMENT_SELECT_SEARCH_OPTION = "//*[contains(@name,'searchOption')]";
+	public final String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
+	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//*[contains(@title,'Quick Search')]";
+	public final By ELEMENT_SEARCH_USERS_ICON=By.xpath(".//*[@id='UIUserSelector']//*[contains(@class,'uiIconSearch')]");
 	
 	//Application tab
 	public By ELEMENT_SETTINGS_APP_TAB = By.xpath("//*[@id='UITabPane']//*[@class='nav nav-tabs']//*[contains(text(),'Applications')]");
@@ -97,6 +103,10 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
 		info("Click on select user button");
 		click(ELEMENT_SPACE_MEMBERS_SELECT_USER);
+		info("--Search user " + user + "--");
+		type(ELEMENT_SEARCH_INPUT_USER_NAME,userName, true);
+		click(ELEMENT_SEARCH_USERS_ICON);
+		Utils.pause(2000);
 		info("Select a user");
 		check(ELEMENT_SPACE_SELECT_USER_IN_FORM.replace("{$name}",userName),2);
 		info("click on Add button");
