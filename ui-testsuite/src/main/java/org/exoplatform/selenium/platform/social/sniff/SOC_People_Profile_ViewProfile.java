@@ -6,7 +6,7 @@ import org.exoplatform.selenium.platform.ConnectionsManagement.selectTabOption;
 import org.testng.annotations.*;
 
 
-public class SOC_People_Profile_ViewProfile extends SOC_TestConfig{
+public class SOC_People_Profile_ViewProfile extends SOC_TestConfig_2{
 	/**
 	 *<li> Case ID:122923.</li>
 	 *<li> Test Case Name: Check My Profile page with default value.</li>

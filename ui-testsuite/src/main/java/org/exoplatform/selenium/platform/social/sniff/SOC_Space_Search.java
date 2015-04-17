@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.testng.annotations.*;
 
 
-public class SOC_Search extends SOC_TestConfig {
+public class SOC_Space_Search extends SOC_TestConfig_1 {
 	/**
 	 *<li> Case ID:121905.</li>
 	 *<li> Test Case Name: Search Space.</li>

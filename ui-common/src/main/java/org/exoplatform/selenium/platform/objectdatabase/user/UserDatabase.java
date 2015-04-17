@@ -63,4 +63,12 @@ public class UserDatabase {
 		return fullName.get(index);
 	}
 
+	/**
+	 * Get User name By Index
+	 * @param index
+	 * @return userName.get(index);
+	 */
+	public String getUserNameByIndex(int index){
+		return userName.get(index);
+	}
 }

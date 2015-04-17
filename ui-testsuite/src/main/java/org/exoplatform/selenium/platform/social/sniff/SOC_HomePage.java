@@ -2,13 +2,15 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.AWTException;
+
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
 import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.*;
 
 
-public class SOC_HomePage extends SOC_TestConfig {
+public class SOC_HomePage extends SOC_TestConfig_1 {
 
 	@AfterMethod
 	public void setAfterMethod(){
@@ -162,9 +164,10 @@ public class SOC_HomePage extends SOC_TestConfig {
 	 *<li> Test Case Name: Mention a user in activity composer.</li>
 	 *<li> Pre-Condition: </li>
 	 *<li> Post-Condition: </li>
+	 * @throws AWTException 
 	 */
 	@Test
-	public  void test04_MentionAUserInActivityComposer() {
+	public  void test04_MentionAUserInActivityComposer() throws AWTException {
 		info("Test 4: Mention a user in activity composer");
 		String text = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		/*Step Number: 1
@@ -182,7 +185,7 @@ public class SOC_HomePage extends SOC_TestConfig {
 			- The suggestion list is hidden
 			- In the activity stream, mentions are displayed as a link on "Firstname Lastname" to the user's activities page*/ 
 		hp.goToHomePage();
-		hpAct.addActivity("Mary",text);
+		hpAct.addActivity(DATA_USER2,text);
 		
 	}
 

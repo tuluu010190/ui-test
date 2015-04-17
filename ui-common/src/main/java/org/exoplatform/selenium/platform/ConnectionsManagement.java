@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform;
 
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -12,6 +13,7 @@ public class ConnectionsManagement extends PlatformBase {
 	public final String ELEMENT_CONNECTION_CONNECT_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Connect']";
 	public final String ELEMENT_CONNECTION_CANCEL_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Cancel Request']";
 	public final String ELEMENT_CONNECTION_REVOVE_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Remove Connection']";
+
 	public final String ELEMENT_CONNECTION_IGNORE_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Ignore']";
 	public final String ELEMENT_CONNECTION_CONFIRM_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Confirm']";
 	public final String ELEMENT_CONNECTION_USER_AVARTAR="//a[contains(@href,'${user}')]/img";
@@ -28,8 +30,10 @@ public class ConnectionsManagement extends PlatformBase {
 	public final By ELEMENT_SKILL_OF_PEOPLE = By.id("skills");
 	public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
 
+	MyProfilePage myProf;
 	public ConnectionsManagement(WebDriver dr){
-		driver = dr;
+		this.driver = dr;
+		myProf = new MyProfilePage(driver);
 	}
 
 	/**
@@ -201,5 +205,15 @@ public class ConnectionsManagement extends PlatformBase {
 		if (directory!="" && directory!=null)
 			click(By.linkText(directory));
 		Utils.pause(1000);
+	}
+	/**
+	 * Go to User
+	 * @param userName
+	 */
+	public void goToUser(String userName){
+		info("Go to User profile page");
+		searchPeople(userName, "", "", "");
+		click(By.linkText(userName));
+		waitForAndGetElement(myProf.ELEMENT_NAME_OF_PROFILE_TOP_LEFT.replace("${name}", userName));
 	}
 }

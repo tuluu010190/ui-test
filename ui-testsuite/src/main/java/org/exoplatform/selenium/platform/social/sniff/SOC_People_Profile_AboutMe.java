@@ -8,7 +8,7 @@ import org.testng.annotations.*;
  * @author anhpp
  * 26/3/2015
  */
-public class SOC_People_Profile_AboutMe extends SOC_TestConfig{
+public class SOC_People_Profile_AboutMe extends SOC_TestConfig_2{
 
 	/**
 	 *<li> Case ID:122949.</li>

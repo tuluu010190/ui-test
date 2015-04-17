@@ -4,7 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.testng.annotations.Test;
 
-public class SOC_People_Search extends SOC_TestConfig{
+public class SOC_People_Search extends SOC_TestConfig_2{
 	/**
 	 *<li> Case ID:121904.</li>
 	 *<li> Test Case Name: Search people by name.</li>

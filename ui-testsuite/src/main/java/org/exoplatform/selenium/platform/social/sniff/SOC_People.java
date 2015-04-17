@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.ConnectionsManagement.selectTabOption;
 import org.testng.annotations.*;
 
-public class SOC_People extends SOC_TestConfig{
+public class SOC_People extends SOC_TestConfig_2{
 	
 	/**
 	 *<li> Case ID:121886.</li>

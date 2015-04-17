@@ -75,7 +75,9 @@ public class SpaceManagement extends SpaceHomePage {
 	public String ELEMENT_SPACE_NAME_BREADCUMB ="//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name' and contains(text(),'{$name}')]";
 	
 	//Invitations received tab
-	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//*[@id='UIManageMySpaces']//*[contains(text(),'Invitations Received')]");
+	//public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//*[@id='UIManageMySpaces']//*[contains(text(),'Invitations Received')]");
+	//public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//*[@id='UIManageInvitationSpaces']//*[contains(text(),'Invitations Received')]");
+	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//*[@id='UIManageAllSpaces']//a[text()='Invitations Received']");
 	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Accept']";
 	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Ignore']";
 	
@@ -98,7 +100,11 @@ public class SpaceManagement extends SpaceHomePage {
 	
 	public final By ELEMENT_SPACE_BTN_ACCEPT_INVITE = By.xpath("//*[text()='Accept']");
 	public final By ELEMENT_SPACE_ALLSPACES = By.xpath("//*[text()='All Spaces']");
-		
+	
+	//Request to join a space
+	public final String ELEMENT_REQUEST_TO_JOIN_SPACE_BTN = "//*[contains(text(),'${space}')]/../../..//button[text()='Request to Join']";
+	public final String ELEMENT_REQUEST_PENDING = "//*[contains(text(),'${space}')]/../../..//*[text()='Request Pending']";
+	
 	ManageAlert alert;
 	
 	 /** 
@@ -253,8 +259,12 @@ public class SpaceManagement extends SpaceHomePage {
 		info("Open Invitation Received tab");
 		waitForAndGetElement(ELEMENT_MY_SPACE_INVITATION_RECEIVED,3000,0);
 		click(ELEMENT_MY_SPACE_INVITATION_RECEIVED);
+		//clickByJavascript(ELEMENT_MY_SPACE_INVITATION_RECEIVED);
+		//mouseOverAndClick(ELEMENT_MY_SPACE_INVITATION_RECEIVED);
 		Utils.pause(2000);
+			
 	}
+	
 	/**
 	 * Open All Spaces tab
 	 */
@@ -307,4 +317,13 @@ public class SpaceManagement extends SpaceHomePage {
 		info("Verify that the user didn't join to the space");
 		waitForElementNotPresent(ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN.replace("${space}",space));
 	}
+	
+	public void requestToJoinSpace(String space){
+		info("Request to join a space");
+		searchSpace(space, "");
+		click(ELEMENT_REQUEST_TO_JOIN_SPACE_BTN.replace("${space}", space));
+		waitForAndGetElement(ELEMENT_REQUEST_PENDING.replace("${space}", space));
+		info("Request successfully");
+	}
+	
 }

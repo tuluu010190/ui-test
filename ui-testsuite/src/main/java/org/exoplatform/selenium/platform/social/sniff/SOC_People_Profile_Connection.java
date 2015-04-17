@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import org.testng.annotations.*;
 
 
-public class SOC_People_Profile_Connection extends SOC_TestConfig {
+public class SOC_People_Profile_Connection extends SOC_TestConfig_2 {
 
 	/**
 	 *<li> Case ID:122970.</li>

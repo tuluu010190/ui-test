@@ -11,7 +11,7 @@ import org.testng.annotations.*;
 	* @author eXo
 	*
 	*/
-	public class SOC_Administration extends SOC_TestConfig{
+	public class SOC_Notifications_Administration extends SOC_TestConfig_3{
 
 	/**
 	*<li> Case ID:121951.</li>

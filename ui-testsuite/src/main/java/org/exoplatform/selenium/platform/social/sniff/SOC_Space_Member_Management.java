@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.testng.annotations.*;
 
 
-public class SOC_Member_Management extends SOC_TestConfig {
+public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 	
 	@AfterMethod
 	public void setAfterMethod(){

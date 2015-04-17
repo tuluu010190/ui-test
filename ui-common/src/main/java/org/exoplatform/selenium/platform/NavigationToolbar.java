@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
+import org.exoplatform.selenium.platform.social.AllNotificationPage;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -35,6 +36,8 @@ public class NavigationToolbar extends PlatformBase {
 	public final String ELEMENT_NOTIFICATION_LIST_INVITATION_SPACE_STATUS=".//*[@id='NotificationPopup']//*[contains(@class,'text-bold')][contains(text(),'${space}')]/..";
 	public final String ELEMENT_NOTIFICATION_LIST_USER = "//*[@id='NotificationPopup']/../..//*[contains(@class,'user-name text-bold')][contains(text(),'${user}')]/..";
 	public final By ELEMENT_NOTIFICATION_REMOVE_ICON = By.xpath(".//*[@id='NotificationPopup']//i[contains(@class,'uiIconClose uiIconLightGray')]");
+	public final By ELEMENT_INTRANET_NOTIFICATION_BELL = By.className("uiIconPLF24x24Bell");
+	
 	public final By ELEMENT_DOC_EXO_OF_HOME_GETTING_STARTED = By.xpath(".//*[@id='newBreadcrumbs']//*[contains(text(),'Getting Started')]");
 	// toolbar--> upload file
 	public By ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS = By.xpath("//*[@id='ListRecords']//*[contains(text(),'Personal Documents')]");
@@ -132,15 +135,20 @@ public class NavigationToolbar extends PlatformBase {
 	public final String ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41 = ELEMENT_NODE_NAVIGATION_LEFT_PANEL.replace("${groupName}", "${groupName}") + "/..//*[contains(@class, 'uiIconMiniArrowDown uiIconLightGray')]";
 	public final String ELEMENT_SUB_NODE_NAVIGATION_LEFT_PANEL = ".//*[@id='UIGroupsNavigationPortlet']//*[@data-original-title='${groupName}']";
 	
+	public final String ELEMENT_ACTIVITIES_LINK = ".//*[@id='UIUserNavigationPortlet']//*[@class='uiIconAppactivities uiIconDefaultApp']";
+	public final By ELEMENT_ACTIVITIES_PORTLET = By.id("UIUserActivityStreamPortlet");
+	
 	PageCreationWizard paWin;
 	MyProfilePage myPro;
 	PortalManageSites magSites;
+	AllNotificationPage intraNot;
 	
 	public NavigationToolbar(WebDriver dr){
 		this.driver = dr;
 		paWin = new PageCreationWizard(dr);
 		myPro = new MyProfilePage(dr);
-		magSites = new PortalManageSites(dr);
+		magSites = new PortalManageSites(dr);		
+		intraNot = new AllNotificationPage(dr);
 	} 
 
 	/**
@@ -250,6 +258,10 @@ public class NavigationToolbar extends PlatformBase {
 			waitForAndGetElement(myPro.ELEMENT_MY_PROFILE_TAB,3000,0);
 			break;
 		case MY_ACTIVITY:
+			info("Go to Activities of User");
+			waitForAndGetElement(ELEMENT_ACTIVITIES_LINK);
+			click(ELEMENT_ACTIVITIES_LINK);
+			waitForAndGetElement(ELEMENT_ACTIVITIES_PORTLET, 2000);
 			break;
 		case MY_CONNECTIONS:
 			click(ELEMENT_MY_CONNECTION_LINK);
@@ -568,10 +580,12 @@ public class NavigationToolbar extends PlatformBase {
 	 * Open My profile page
 	 */
 	public void goToMyProfile(){
-		info("Click on Avatar");
+		/*info("Click on Avatar");
 		click(ELEMENT_TOPBAR_AVATAR);
 		info("Click on My profile link");
 		click(ELEMENT_MY_PROFILE_LINK);
+		Utils.pause(2000);*/
+		selectALinkOfUserMenu(specifUserToolBar.MY_PROFILE);
 		Utils.pause(2000);
 	}
 
@@ -583,6 +597,18 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(2000);
 	}
 	
+	/** 
+	 * Go to My activities
+	 */
+	public void goToMyActivities(){
+		/*info("Go to Activities of User");
+		waitForAndGetElement(ELEMENT_ACTIVITIES_LINK);
+		click(ELEMENT_ACTIVITIES_LINK);
+		waitForAndGetElement(ELEMENT_ACTIVITIES_PORTLET, 2000);*/
+		selectALinkOfUserMenu(specifUserToolBar.MY_ACTIVITY);
+		Utils.pause(2000);
+	}
+	 
 	/**
 	 * Open My dashboard
 	 */
@@ -626,7 +652,7 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);
 		mouseOver(ELEMENT_ADMINISTRATION_USERS,true);
-		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS,3000,0);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS,3000,1);
 		click(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS);
 	}
 	/**
@@ -645,6 +671,15 @@ public class NavigationToolbar extends PlatformBase {
 		selectALinkOfUserMenu(specifUserToolBar.MY_NOTIFICATION);
 		Utils.pause(2000);
 
+	}
+	
+	/** Open Intranet Notification
+	 */
+	public void goToIntranetNotification(){
+		info("Go to Intranet Notification");
+		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_BELL, 2000);
+		click(ELEMENT_INTRANET_NOTIFICATION_BELL);
+		waitForAndGetElement(intraNot.ELEMENT_NOTIFICATION_POP_UP);
 	}
 	
 }

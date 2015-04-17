@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.testng.annotations.*;
 
 
-public class SOC_People_Profile_Activities extends SOC_TestConfig{
+public class SOC_People_Profile_Activities extends SOC_TestConfig_2{
 
 	/**
 	 *<li> Case ID:122972.</li>

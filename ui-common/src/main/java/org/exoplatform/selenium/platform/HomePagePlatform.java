@@ -45,7 +45,7 @@ public class HomePagePlatform extends TestBase{
 	public final String ELEMENT_ACTIVITY_WIKI_VERSION = "//*[@class='linkTitle' and text()='${title}']/../..//*[@class = 'pull-right versionLabel' and contains(text(), 'Version: ${version}')]";
 	public final String ELEMENT_ACTIVITY_MOVE_WIKI_PAGE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'Page has been moved to: ${path}')]";
 	public final By ELEMENT_MY_SPACE_LINK_PLF=By.xpath("//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'My Spaces')]");
-	public final By ELEMENT_ALL_SPACE_JOIN_LINK = By.xpath("//*[@id='UISpaceNavigationPortlet']//a[contains(.,'Join a space')]");
+	public final By ELEMENT_ALL_SPACE_JOIN_LINK = By.cssSelector("#UISpaceNavigationPortlet .uiIconPLFMan");
 	public final String ELEMENT_SPECIFIC_SPACE_LINK_PLF ="//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'{$space}')]";
 	public final String ELEMENT_NUMBER_OF_SPACE_IN_LIST_LINK = "//*[@class='spaceNavigation']/li[{$number}]/a";
 			

@@ -7,7 +7,7 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_TestConfig" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_TestConfig_2" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_AboutMe" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_Activities" />

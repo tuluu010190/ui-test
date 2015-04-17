@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.testng.annotations.*;
 
 
-public class SOC_Manage_Navigation extends SOC_TestConfig {
+public class SOC_Space_Manage_Navigation extends SOC_TestConfig_1 {
 	/**
 	 *<li> Case ID:121898.</li>
 	 *<li> Test Case Name: Add new node.</li>

@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.testng.annotations.*;
 
 
-public class SOC_Space_List_Pending extends SOC_TestConfig {
+public class SOC_Space_List_Pending extends SOC_TestConfig_1 {
 	/**
 	 *<li> Case ID:121893.</li>
 	 *<li> Test Case Name: Check Pending space list.</li>

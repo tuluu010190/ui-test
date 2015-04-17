@@ -2,6 +2,10 @@ package org.exoplatform.selenium.platform;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -144,6 +148,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_COMMENTBOX="//*[contains(text(),'${title}')]/../../../..//div[@class='replaceTextArea editable']";
 	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
 	public final String ELEMENT_ICON_LIKE = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconThumbUp uiIconLightGray']";
+	public final String ELEMENT_ICON_UNLIKE = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconThumbUp uiIconBlue']";
 	public final String ELEMENT_LIKE_NUMBER = "//*[contains(text(),'${title}')]/../../../..//*[contains(@class,'uiIconThumbUp')]/..";
 	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/../../../..//button[contains(@id,'CommentButton')]";
 	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(),'${activityText}')]/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
@@ -153,6 +158,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_COMMENT_VIEW_HOVEROVER = ".//*[contains(text(),'${comment}')]/../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_PUBLICATION_COMMENTPOSTED = "//*[@class='commentList']//*[contains(text(),'${content}')]";
 	public final String ELEMENT_PUBLICATION_SEEALLCOMMENTBTN = "//*[contains(text(),'${activity}')]/../..//*[contains(@class,'commentListInfo')]//a[@href]";
+	public final String ELEMENT_SUGGEST_USER_IN_COMMENT = ".//*[contains(@data-display, '${userName}')]";
 	
 	//Activity for Forum
 	public final String ELEMENT_ACTIVITY_POLL_VOTE_FOR_POLL = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconSocVote uiIconSocLightGray']";
@@ -170,6 +176,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_SPACE_CHANGE_NAME=".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Name has been updated to: ${space}.')]";
 	public final String ELEMENT_ACTIVITY_SPACE_SPACE_LAST_COMMENT=".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[@class='commentItem commentItemLast']//*[@class='contentComment']";
 	
+
 	
 	Button button;
 	/**
@@ -324,6 +331,25 @@ public class ActivityStream extends PlatformBase {
 	    add_button.click();
 	    Utils.pause(2000);
 	}
+
+	public void addCommentUsingJavascript(String activityText, String contentOfComment){
+		info("add comment using javascript");
+		click (ELEMENT_ICON_COMMENT.replace("${title}", activityText));
+		WebElement commentText = waitForAndGetElement(ELEMENT_COMMENTBOX.replace("${title}", activityText));
+		WebElement commentButton = waitForAndGetElement(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
+		WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL.replace("${activityText}", activityText));
+
+		((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '';", workingLabel);
+		((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '"+contentOfComment+"';", commentText);
+		((JavascriptExecutor)driver).executeScript("arguments[0].disabled = false;", commentButton);
+		((JavascriptExecutor)driver).executeScript("arguments[0].className = 'btn pull-right btn-primary';", commentButton);
+		click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activityText));
+		info("Verify comment successfully");
+		waitForAndGetElement(ELEMENT_DELETE_COMMENT_BUTTON.replace("${activityText}", activityText).replace("${commentText}", contentOfComment), DEFAULT_TIMEOUT,1,2);
+		info("Add comment successfully");
+	}
+	
+	
 	/**
 	 * Delete a comment of an activity
 	 * @param name
@@ -557,10 +583,14 @@ public class ActivityStream extends PlatformBase {
 	 * Post a activity with mention a user and description text
 	 * @param username
 	 * @param text
+	 * @throws AWTException 
 	 */
-	public void addActivity(String username, String text){
+	public void addActivity(String username, String text) throws AWTException{
 		type(ELEMENT_COMPOSER_INPUT_FILED, "@"+username,false);
-		click(ELEMENT_PUBLICATION_SUGGEST_USER.replace("${name}",username));
+		Robot robot = new Robot();
+		robot.delay(1000);
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
 		Utils.pause(2000);
 		if(!text.isEmpty())
 			type(ELEMENT_COMPOSER_INPUT_FILED,text,false);
@@ -568,6 +598,24 @@ public class ActivityStream extends PlatformBase {
 		Utils.pause(2000);
 	}
 	
+
+/**
+ * Post a comment with mention a user and description text
+ * @param username
+ * @param textContent
+ * @param activity
+ */
+public void addCommentWithMentionUser(String activity, String username, String textContent){
+	info("Add comment with mention user");
+	click(ELEMENT_ICON_COMMENT.replace("${title}", activity));
+	type(ELEMENT_COMMENTBOX.replace("${title}",activity), "@"+username, false);
+	click(ELEMENT_SUGGEST_USER_IN_COMMENT.replace("${userName}", username));
+	Utils.pause(2000);
+	if (!textContent.isEmpty())
+		type(ELEMENT_COMMENTBOX.replace("${title}",activity), textContent, false);
+	click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activity));
+}
+
 	/**
 	 * Open Preview mode by clicking on View link
 	 * 
@@ -638,4 +686,33 @@ public class ActivityStream extends PlatformBase {
 		Utils.pause(2000);
 	}
 	
+	/**
+	 * Like/Unlike an activity
+	 * @param activityText: input a text (String) 
+	 */
+	public void likeOrUnlikeActivity(String activityText){
+		info("-- Action: Like or Unlike an activity --");
+		if (waitForAndGetElement(ELEMENT_ICON_LIKE.replace("${title}", activityText), DEFAULT_TIMEOUT, 0) != null){
+			info("-- Like activity --");
+			int numLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
+			click(ELEMENT_ICON_LIKE.replace("${title}", activityText));
+			info("-- Verify Like button is highlighted --");
+			waitForAndGetElement(ELEMENT_ICON_UNLIKE.replace("${title}", activityText));
+			info("-- Like successfully and Verify number of like is updated --");
+			int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
+			assert (newNumLike==(numLike+1)):"Number of like is not updated";
+
+		}else{
+			info("-- Unlike activity --");
+			int numLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
+			click(ELEMENT_ICON_UNLIKE.replace("${title}", activityText));
+			info("-- Verify UnLike button is gray --");
+			waitForAndGetElement(ELEMENT_ICON_LIKE.replace("${title}", activityText));
+			info("-- Unlike successfully and Verify number of like is updated --");
+			int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
+			assert (newNumLike==(numLike-1)):"Number of like is not updated";
+		}
+		Utils.pause(2000);
+
+	}
 }

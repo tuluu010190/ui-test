@@ -2,12 +2,14 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.awt.AWTException;
+
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
 import org.testng.annotations.*;
 
 
-	public class SOC_Notifications_UserSettings extends SOC_TestConfig{
+	public class SOC_Notifications_UserSettings extends SOC_TestConfig_3{
 		
 	// configure mail send every 2' in exo.properties: 
     // exo.notification.NotificationDailyJob.expression=*/2 * * * *
@@ -295,9 +297,10 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Update an Intranet notification option.</li>
 	*<li> Pre-Condition: PLF server has mail configured</li>
 	*<li> Post-Condition: </li>
+	 * @throws AWTException 
 	*/
 	@Test
-	public  void test02_UpdateAnIntranetNotificationOption() {
+	public  void test02_UpdateAnIntranetNotificationOption() throws AWTException {
 		info("Test 02: Update an Intranet notification option");
 		String mention = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String mention2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();

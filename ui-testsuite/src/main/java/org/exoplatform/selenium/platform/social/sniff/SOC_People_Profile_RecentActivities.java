@@ -2,12 +2,13 @@ package org.exoplatform.selenium.platform.social.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Utils;
+import java.awt.AWTException;
 
+import org.exoplatform.selenium.Utils;
 import org.testng.annotations.*;
 
 
-public class SOC_People_Profile_RecentActivities extends SOC_TestConfig{
+public class SOC_People_Profile_RecentActivities extends SOC_TestConfig_2{
 
 	/**
 	 *<li> Case ID:122953.</li>
@@ -21,13 +22,14 @@ public class SOC_People_Profile_RecentActivities extends SOC_TestConfig{
 	 *<li> Pre-Condition: - User A and User B are created
 	- User B has over 5 activities in his stream (wiki,forum,poll,document...with title,post activity)</li>
 	 *<li> Post-Condition: </li>
+	 * @throws AWTException 
 	 */
 	@Test
-	public  void test01_02_CheckMyRecentActivitiesSection() {
+	public  void test01_02_CheckMyRecentActivitiesSection() throws AWTException {
 		info("Test 1: Check my Recent Activities section");
 		String textDes = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String link = lnkData.getLinkByArrayTypeRandom(1);
-		String uploadFileName = fData.getAttachFileByArrayTypeRandom(9);
+		String uploadFileName = atData.getAttachFileByArrayTypeRandom(9);
 		String textDes1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String textDes2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String folderPath=siteExPath.getSiteExpPathByIndex(6);
