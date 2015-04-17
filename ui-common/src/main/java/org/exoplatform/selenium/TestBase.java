@@ -47,6 +47,7 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
+import org.exoplatform.selenium.Utils;
 
 public class TestBase {
 
@@ -154,18 +155,16 @@ public class TestBase {
 		String temp=System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";;
 		pathFile=temp.replace("/", fs).replace("\\", fs);
 
-		switch (server)
-		{
-		case "ubuntu":
+		if(server.contains("ubuntu")){
 			System.setProperty("webdriver.chrome.driver",chromeDriverUbuntu) ;
-			break;
-		case "win":
-			System.setProperty("webdriver.chrome.driver",chromeDriver) ;
-			break;
-		default:
-			System.setProperty("webdriver.chrome.driver",chromeDriverUbuntu) ;
-			break;
 		}
+		else if(server.contains("win")){
+			System.setProperty("webdriver.chrome.driver",chromeDriver) ;
+		}
+		else{
+			System.setProperty("webdriver.chrome.driver",chromeDriverUbuntu) ;
+		}
+
 		// Add the WebDriver proxy capability.
 		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
 		String[] switches = {"start-maximized","remote-debugging-port=9222"};
@@ -265,22 +264,19 @@ public class TestBase {
 	public void initSeleniumTestWithOutTermAndCondition(Object... opParams){
 		info("init selenium test");
 		getSystemProperty();
-		switch (browser)
-		{
-		case "chrome":
+		if(browser.contains("chrome")){
 			driver = initChromeDriver();
 			chromeFlag = true;
-			break;
-		case "firefox":
+		}
+		else if(server.contains("firefox")){
 			driver = initFFDriver();
-			break;
-		case "iexplorer":
+		}
+		else if(server.contains("iexplorer")){
 			driver = initIEDriver();
 			ieFlag = true;
-			break;
-		default:
+		}
+		else{
 			driver = initFFDriver();
-			break;
 		}
 		action = new Actions(driver);
 	}
