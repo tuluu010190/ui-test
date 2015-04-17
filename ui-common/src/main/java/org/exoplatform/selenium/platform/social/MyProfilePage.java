@@ -55,7 +55,7 @@ public class MyProfilePage extends PlatformBase {
 	public final String ELEMENT_UIEXPERIENCE_PROFILE_PORTLET = "//*[@id='UIExperienceProfilePortlet']//*[contains(text(),'${content}')]";
 	
 	//Basic information
-	public final By ELEMENT_MY_PROFILE_EDIT_BTN=By.xpath(".//*[@id='UIExperienceProfilePortlet']/div/button");
+	public final By ELEMENT_EDIT_BASIC_INFORMATION = By.xpath("//*[@id='UIBasicInfoSection']//*[@class='uiIconEdit']");
 	public final By ELEMENT_FIRST_NAME_TEXTBOX_EDIT = By.id("firstName");
 	public final By ELEMENT_LAST_NAME_TEXTBOX_EDIT = By.id("lastName");
 	public final By ELEMENT_EMAIL_TEXTBOX_EDIT = By.id("email");
@@ -92,7 +92,7 @@ public class MyProfilePage extends PlatformBase {
 
 	//Experience
 	public final By ELEMENT_NO_EXPERIENCE=By.id("infoExperien");
-	public final By ELEMENT_ADD_MORE_EXP_ICON = By.xpath("//*[@title='Add more experience']");
+	public final By ELEMENT_ADD_MORE_EXP_ICON = By.xpath("//*[@data-original-title='Add more experience']");
 	public final String ELEMENT_EXPERIENCE_LIST=".//*[starts-with(@id,'ExperienceSection')]";
 	public final String ELEMENT_EXPERIENCE_COMPANY_INPUT="//*[@id='companyExperienceSection${index}']";
 	public final String ELEMENT_EXPERIENCE_POSITION_INPUT = "//*[@id='positionExperienceSection${index}']";
@@ -114,6 +114,7 @@ public class MyProfilePage extends PlatformBase {
 	public final String ELEMENT_RECENT_ACTIVITY_NO_CONTENT = "//*[@id='UIRecentActivitiesPortlet']//*[contains(text(),'${content}')]";
 	public final String ELEMENT_RECENT_ACTIVITY_ALL_CONTENT = "//*[@id='UIRecentActivitiesPortlet']//*[@class='activityCont']//*[@class='content']/*[contains(normalize-space(),'${content}')]";
 	public final By ELEMENT_RECENT_ACTIVITY_VIEWALL_BTN = By.xpath(".//*[@id='UIRecentActivitiesPortlet']//button[contains(text(),'View All')]");
+	
 	//Connection part
 	public final String ELEMENT_UIMINICONNECTIONS_PORTLET_TEXT = "//*[@id='UIMiniConnectionsPortlet']/*[contains(text(),'${content}')]";
 	public final By ELEMENT_UIMINICONNECTIONS_PORTLET_FIND = By.xpath("//*[@id='UIMiniConnectionsPortlet']/..//*[contains(text(),'Find connections')]");
@@ -185,18 +186,20 @@ public class MyProfilePage extends PlatformBase {
 	 */
 	public void updateBasicInformation(String firstName,String lastName,String email){
 		info("Update basic information");
-		if(firstName !="" || lastName !="" || email !=""){
-			waitForAndGetElement(ELEMENT_MY_PROFILE_EDIT_BTN,2000,1);
-			click(ELEMENT_MY_PROFILE_EDIT_BTN);
-			Utils.pause(2000);
-			if (firstName !="")
-				type(ELEMENT_FIRST_NAME_TEXTBOX_EDIT, firstName, true);
-			if (lastName !="")
-				type(ELEMENT_LAST_NAME_TEXTBOX_EDIT, lastName, true);
-			if (email !="")
-				type(ELEMENT_EMAIL_TEXTBOX_EDIT, email, true);
-			click(ELEMENT_EDIT_BASIC_INFO_SAVE_BUTTON);
-			Utils.pause(2000);
+		if(waitForAndGetElement(ELEMENT_EDIT_BASIC_INFORMATION,5000,0)!=null){
+			click(ELEMENT_EDIT_BASIC_INFORMATION);
+		}
+		if (firstName !="" && firstName!=null){
+			info("update firstname");
+			type(ELEMENT_FIRST_NAME_TEXTBOX_EDIT, firstName, true);
+		}
+		if (lastName !="" && lastName!=null){
+			info("update lastName");
+			type(ELEMENT_LAST_NAME_TEXTBOX_EDIT, lastName, true);
+		}
+		if (email !="" && email!=null){
+			info("update email");
+			type(ELEMENT_EMAIL_TEXTBOX_EDIT, email, true);
 		}
 	} 
 
@@ -218,6 +221,9 @@ public class MyProfilePage extends PlatformBase {
 	/**
 	 * Update information of contact of a user
 	 * @param gender
+	 * @param phone
+	 * @param ims
+	 * @param url
 	 * @param job
 	 */
 	public void updateGenderJob(String gender, String job) {
@@ -323,16 +329,16 @@ public class MyProfilePage extends PlatformBase {
 			type(ELEMENT_EXPERIENCE_POSITION_INPUT.replace("${index}", index),jobTitle, true);
 		}
 		if(jobDetail!=null && jobDetail != ""){
-			type(ELEMENT_EXPERIENCE_DESCRIPTION_INPUT.replace("${index}", index),jobDetail, true);
+			type(ELEMENT_EXPERIENCE_DESCRIPTION_INPUT.replace("${index}", index),organization, true);
 		}
 		if(skill!=null && skill != ""){
-			type(ELEMENT_EXPERIENCE_SKILL_INPUT.replace("${index}", index),skill, true);
+			type(ELEMENT_EXPERIENCE_SKILL_INPUT.replace("${index}", index),jobTitle, true);
 		}
 		if(startDate!=null && startDate != ""){
-			type(ELEMENT_EXPERIENCE_START_DATE_INPUT.replace("${index}", index),startDate, true);
+			type(ELEMENT_EXPERIENCE_START_DATE_INPUT.replace("${index}", index),organization, true);
 		}
 		if(endDate!=null && endDate != ""){
-			type(ELEMENT_EXPERIENCE_END_DATE_INPUT.replace("${index}", index),endDate, true);
+			type(ELEMENT_EXPERIENCE_END_DATE_INPUT.replace("${index}", index),jobTitle, true);
 		}
 		if(curPos!=null && curPos){
 			check(ELEMENT_EXPERIENCE_CURRENT_CHECKBOX.replace("${index}", index),2);

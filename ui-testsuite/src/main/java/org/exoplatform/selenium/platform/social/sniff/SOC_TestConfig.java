@@ -21,8 +21,9 @@ import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactPho
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityMessageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
-import org.exoplatform.selenium.platform.social.EmailNotificationsAdministration;
-import org.exoplatform.selenium.platform.social.MyNotificationsPage;
+import org.exoplatform.selenium.platform.social.NotificationsAdminSeting;
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting;
+import org.exoplatform.selenium.platform.social.SendEmailNotifications;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -38,7 +39,9 @@ import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDa
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
 import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.exoplatform.selenium.platform.wiki.RichTextEditor;
+
 import org.exoplatform.selenium.platform.chat.ChatStatus;
+
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -53,7 +56,7 @@ public class SOC_TestConfig extends PlatformBase {
 	ActivityStream hpAct;
 	ManageLogInOut magAc;
 	MyProfilePage myProfile;
-
+	
 	NavigationToolbar navTool;
 	SiteExplorerHome SEHome;
 	RichTextEditor rtMode;
@@ -84,12 +87,15 @@ public class SOC_TestConfig extends PlatformBase {
 	ProfileContactPhoneDatabase contactPhone;
 	ActivityMessageDatabase activityMes;
 	ConnectStatusDatabase conStatus;
+
 	ChatStatus chat;
-	EmailNotificationsAdministration emailNotif;
-	MyNotificationsPage myNotifPage;
+	NotificationsAdminSeting emailNotif;
+	MyNotificationsSetting myNotifPage;
 	MyProfilePage myProfil;
 	
 	PageEditor pagEditor;
+
+	SendEmailNotifications notiEmail;
 	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -105,10 +111,13 @@ public class SOC_TestConfig extends PlatformBase {
 		connMag = new ConnectionsManagement(driver);
 		chat = new ChatStatus(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
-		emailNotif = new EmailNotificationsAdministration(driver);
+		emailNotif = new NotificationsAdminSeting(driver);
 		pagEditor = new PageEditor(driver);
 		hp = new HomePagePlatform(driver);
+
 		pagEditor = new PageEditor(driver);
+
+		notiEmail = new SendEmailNotifications(driver);
 		
 		wHome = new WikiHomePage(driver);
 		wikiMg = new WikiManagement(driver);
@@ -145,7 +154,7 @@ public class SOC_TestConfig extends PlatformBase {
 		addUserPage = new UserAddManagement(driver);
 		userAndGroup = new UserAndGroupManagement(driver);
 		myProfil = new MyProfilePage(driver);
-		myNotifPage= new MyNotificationsPage(driver);
+		myNotifPage= new MyNotificationsSetting(driver);
 
 		mailSuffixData = new MailSuffixDatabase();
 		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);

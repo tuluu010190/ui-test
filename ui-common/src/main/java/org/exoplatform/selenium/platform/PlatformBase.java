@@ -51,6 +51,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.cssSelector("a[id='account-chooser-add-account']");
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//tr[1]//span[contains(text(),'Hi')]");
 	public final String ELEMENT_GMAIL_CONTENT = ".//span[contains(.,'\"${title}\" page was modified')]";
+	public final String ELEMENT_GMAIL_NEWUSER = ".//span[contains(.,'${title} ${title} has joined eXo')]";
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
 	public ManageAlert alert = new ManageAlert(driver);
@@ -282,11 +283,14 @@ public class PlatformBase extends TestBase {
 			     driver.switchTo().window(windowHandle);
 			     info("driver.title:"+driver.getTitle());
 		}
-		if(checkOrNo==true){
-			waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,1);
-		}else{
-			waitForElementNotPresent(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,1);
-		}		
+		if (opParams.length > 0) {
+			if (checkOrNo == true)
+				waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,1);
+            else 
+            	waitForElementNotPresent(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,1);
+		}
+		if (opParams.length > 1)
+			driver.close();
 	}
 	
 	

@@ -94,9 +94,9 @@ public class UserAddManagement extends PlatformBase {
 			     info("driver.title:"+driver.getTitle());
 		}
 		if(checkOrNo==true){
-			waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,0);
+			waitForAndGetElement(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,1);
 		}else{
-			waitForElementNotPresent(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,0);
+			waitForElementNotPresent(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,1);
 		}		
 	}
 	

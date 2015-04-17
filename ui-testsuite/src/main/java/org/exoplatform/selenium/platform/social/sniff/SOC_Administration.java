@@ -3,7 +3,7 @@ package org.exoplatform.selenium.platform.social.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.social.EmailNotificationsAdministration.notificationType;
+import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
 import org.testng.annotations.*;
 
 
@@ -99,14 +99,17 @@ import org.testng.annotations.*;
 		
 		navTool.goToAddUser();
 		addUserPage.addUser(username, password, email,firstname,lastname);
-		addUserPage.goToMail("fqaexovn@gmail.com", "exoadmin");
+		addUserPage.goToMail(EMAIL_ADDRESS2, EMAIL_PASS);
 		Utils.pause(20000);
-		checkEmailNotification(firstname+" "+lastname+" has joined eXo",false);
+		checkEmailNotification(firstname+" "+lastname+" has joined eXo",false,true);
         switchToParentWindow();
         
         info("Reset changed data");
 		navTool.goToEmailNotifications();
 		emailNotif.enableNotification(notificationType.NewUser_email);
+		info("restore data");
+		navTool.goToUsersAndGroupsManagement();
+		userAndGroup.deleteUser(username);
  	}
 
 	/**
@@ -172,6 +175,7 @@ import org.testng.annotations.*;
 		info("Verify that the notification is listed in the list");
 		String actualText=waitForAndGetElement(navTool.ELEMENT_NOTIFICATION_LIST_CONNECT_USER_STATUS).getText().trim();
 		String expectedText = DATA_NAME_USER2+" "+des;
+		click(navTool.ELEMENT_NOTIFICATION_REMOVE_ICON);
 		info("Reset connections");
 		hp.goToConnections();
 		connMag.resetConnection(DATA_USER2);
@@ -251,6 +255,7 @@ import org.testng.annotations.*;
 		navTool.goToNotificationList();
 		info("Verify that the notification is listed in the list");
 		String text=waitForAndGetElement(navTool.ELEMENT_NOTIFICATION_LIST_INVITATION_SPACE_STATUS.replace("${space}",spaceName)).getText();
+		click(navTool.ELEMENT_NOTIFICATION_REMOVE_ICON);
 		info("text:"+text);
 		assert text.contains(des+" "+spaceName+" space.");
 		
@@ -342,6 +347,10 @@ import org.testng.annotations.*;
 		info("Reset connections");
 		hp.goToConnections();
 		connMag.resetConnection(DATA_USER2);
+		
+		 info("Reset changed data");
+		navTool.goToEmailNotifications();
+		emailNotif.enableNotification(notificationType.Comment_intranet);
 
  	}
 	

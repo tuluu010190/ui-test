@@ -7,7 +7,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class EmailNotificationsAdministration extends PlatformBase {
+public class NotificationsAdminSeting extends PlatformBase {
 	
 	
 	public final By ELEMENT_TITLE_EMAIL_NOTIFICATIONS = By.xpath("//*[@id='notificationAdmin']/h3");
@@ -58,7 +58,7 @@ public class EmailNotificationsAdministration extends PlatformBase {
 	 * constructor
 	 * @param dr
 	 */
-	public EmailNotificationsAdministration(WebDriver dr){
+	public NotificationsAdminSeting(WebDriver dr){
 		this.driver=dr;
 	}
 	

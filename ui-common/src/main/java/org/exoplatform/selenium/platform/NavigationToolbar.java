@@ -33,7 +33,8 @@ public class NavigationToolbar extends PlatformBase {
 	public final String ELEMENT_NOTIFICATION_LIST_CONNECT_USER=".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'${user}')]/../..//*[contains(.,' ${des}')]";
 	public final By ELEMENT_NOTIFICATION_LIST_CONNECT_USER_STATUS= By.xpath(".//*[@id='NotificationPopup']//*[contains(text(),'Accept')]/../../..//*[contains(@class,'status')]");
 	public final String ELEMENT_NOTIFICATION_LIST_INVITATION_SPACE_STATUS=".//*[@id='NotificationPopup']//*[contains(@class,'text-bold')][contains(text(),'${space}')]/..";
-	
+	public final String ELEMENT_NOTIFICATION_LIST_USER = "//*[@id='NotificationPopup']/../..//*[contains(@class,'user-name text-bold')][contains(text(),'${user}')]/..";
+	public final By ELEMENT_NOTIFICATION_REMOVE_ICON = By.xpath(".//*[@id='NotificationPopup']//i[contains(@class,'uiIconClose uiIconLightGray')]");
 	public final By ELEMENT_DOC_EXO_OF_HOME_GETTING_STARTED = By.xpath(".//*[@id='newBreadcrumbs']//*[contains(text(),'Getting Started')]");
 	// toolbar--> upload file
 	public By ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS = By.xpath("//*[@id='ListRecords']//*[contains(text(),'Personal Documents')]");
@@ -94,7 +95,7 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
 	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
 	public final By ELEMENT_MY_WIKI_LINK = By.xpath("//i[@class='uiIconWikiMyWiki']/..");
-	
+
 	//Administration-->Application
 	public final By ELEMENT_ADMINISTRATION_APPLICATION = By.xpath(".//*[text()='Applications']");
 	public final By ELEMENT_ADD_TOOTLBAR = By.xpath("//*[@id='UICreatePlatformToolBarPortlet']//*[@class='uiIconPLF24x24Add']");
@@ -260,6 +261,7 @@ public class NavigationToolbar extends PlatformBase {
 			click(ELEMENT_MY_DASHBOARD_LINK);
 			break;
 		case MY_NOTIFICATION:
+			click(ELEMENT_MY_NOTIFICATIONS_LINK);
 			break;
 		case SETTINGS:
 			click(ELEMENT_MY_SETTINGS_LINK);
@@ -594,6 +596,7 @@ public class NavigationToolbar extends PlatformBase {
 		selectALinkOfUserMenu(specifUserToolBar.MY_CONNECTIONS);
 		Utils.pause(2000);
 	}
+
 	/**
 	 * Go to My wiki page
 	 */
@@ -616,17 +619,6 @@ public class NavigationToolbar extends PlatformBase {
 	}
 	
 	/**
-	 * Go to the notifications of the user
-	 */
-	public void goToMyNotifications(){
-		info("Go to notifications");
-		info("Click on Avatar");
-		click(ELEMENT_TOPBAR_AVATAR);
-		info("Click on My profile link");
-		click(ELEMENT_MY_NOTIFICATIONS_LINK);
-	}
-	
-	/**
 	 * Go to add an user
 	 */
 	public void goToAddUser(){
@@ -645,6 +637,14 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_TOOLBAR_NOTIFICATION_LIST);
 		info("Notification list is shown");
 		waitForAndGetElement(ELEMENT_NOTIFICATION_DROPDOWN,3000,1);
+
+	}
+	 /** Open My Connection
+	 */
+	public void goToMyNotifications(){
+		selectALinkOfUserMenu(specifUserToolBar.MY_NOTIFICATION);
+		Utils.pause(2000);
+
 	}
 	
 }
