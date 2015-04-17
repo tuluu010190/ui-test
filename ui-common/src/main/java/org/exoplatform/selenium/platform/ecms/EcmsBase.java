@@ -15,6 +15,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 public class EcmsBase extends ManageAccount {
 
+
 	public EcmsBase(WebDriver dr, String...plfVersion) {
 		super(dr);
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
@@ -529,6 +530,13 @@ public class EcmsBase extends ManageAccount {
 	
 	//Document tab
 	public final By ELEMENT_ACTIONS_TEMPLATE_DOCUMENT_DOCUMENT_LIST=By.xpath(".//*[@id='UITemplateList']");
+	
+	//List tab
+	public final By ELEMENT_ACTIONS_TEMPLATE_LIST_LIST=By.xpath(".//*[@id='UICLVTemplateList']");
+	
+	//Explorer tab-->Drives
+	public final By ELEMENT_EXPLORER_DRIVER_WORKSPACE_DMS_SYSTEM = By.xpath("//*[@value='dms-system']");
+	
 	//Content explorer
 	public final By ELEMENT_TEMPLATE = By.xpath(".//*[text()='Templates']//*[@class='uiIconSelected uiIconLightGray pull-right']");
 	public final By ELEMENT_TEMPLATE_DOCUMENT = By.xpath(".//*[@class='uiIconEcmsTemplatesManager uiIconEcmsLightGray']");
@@ -565,6 +573,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION_POPULATETOMENU= By.xpath("//*[contains(@value,'exo:populateToMenu')]/..");
 	public final By ELEMENT_ACTIONS_MORE_ACTIONS_TRASHDOCUMENT = By.xpath(".//*[@id='UIActionList']//*[contains(text(),'[exo:trashFolderAction]')]");
 	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION_TAXONOMYACTION = By.xpath("//*[contains(@value,'exo:taxonomyAction')]/..");
+
 	
 	/**
 	 * Acme sites > Go to Overview page
