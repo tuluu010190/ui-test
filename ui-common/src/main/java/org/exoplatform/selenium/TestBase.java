@@ -18,6 +18,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -38,10 +39,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
@@ -67,6 +70,7 @@ public class TestBase {
 	public String downloadfile=getAbsoluteFilePath("TestData\\downloadIE9.exe");
 	public String ieDriver=getAbsoluteFilePath("TestData\\IEDriverServer.exe");
 	public String chromeDriver= getAbsoluteFilePath("TestData\\chromedriver.exe");
+	public String chromeDriverUbuntu= getAbsoluteFilePath("TestData\\chromedriver");
 
 	/*========System Property====================*/
 	public static String baseUrl;
@@ -439,7 +443,42 @@ public class TestBase {
 		notiDesFilePath = getAbsoluteFilePath(notiDesFilePath);
 	}
 
+	/**
+	 * Init Chrome driver
+	 */
+	public ChromeDriver initChromeDriver(){
+		info("Init chrome driver");
+		getSystemProperty();
+		String pathFile="";
+		String fs = File.separator;
+		String temp=System.getProperty("user.dir") + "/src/main/resources/TestData/TestOutput";;
+		pathFile=temp.replace("/", fs).replace("\\", fs);
 
+		if(server.contains("ubuntu")){
+			System.setProperty("webdriver.chrome.driver",chromeDriverUbuntu) ;
+		}
+		else if(server.contains("win")){
+			System.setProperty("webdriver.chrome.driver",chromeDriver) ;
+		}
+		else{
+			System.setProperty("webdriver.chrome.driver",chromeDriverUbuntu) ;
+		}
+
+		// Add the WebDriver proxy capability.
+		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		String[] switches = {"start-maximized","remote-debugging-port=9222"};
+		capabilities.setCapability("chrome.switches", switches);
+		HashMap<String, Object> chromePrefs = new HashMap<String, Object>();
+		chromePrefs.put("profile.default_content_settings.popups", 0);
+		chromePrefs.put("download.default_directory", pathFile);
+		ChromeOptions options = new ChromeOptions();
+		options.setExperimentalOption("prefs", chromePrefs);
+		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		//capabilities.setCapability("nativeEvents", true);
+		return new ChromeDriver(capabilities);
+	}
+	
 	/**
 	 * Init IE driver
 	 */
@@ -1656,7 +1695,7 @@ public class TestBase {
 		String fs = File.separator;
 		String curDir = System.getProperty("user.dir");
 		String absolutePath = curDir + "/src/main/resources/" + relativeFilePath;
-		absolutePath=absolutePath.replace("/", fs);
+		absolutePath=absolutePath.replace("/", fs).replace("\\", fs);;
 		return absolutePath;
 	}
 
