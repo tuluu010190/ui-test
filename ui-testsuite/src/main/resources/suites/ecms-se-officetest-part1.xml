@@ -8,6 +8,7 @@
 			</run>
 		</groups>
 		<classes>
+		    <class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.OfficeTest_ShareFileViaAS" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.officetest.OfficeTest_doc" />
 		    <class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.officetest.OfficeTest_docx" />
 		    <class name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.officetest.OfficeTest_odp" />

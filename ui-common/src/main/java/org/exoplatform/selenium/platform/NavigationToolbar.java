@@ -557,10 +557,32 @@ public class NavigationToolbar extends PlatformBase {
 	}
 	
 	/**
+	 * Go to My activity
+	 */
+	public void goToMyActivity(){
+		info("--Go to My Activity--");			
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
+				break;
+			}
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			if (waitForAndGetElement(ELEMENT_MY_ACTIVITY_LINK, 5000, 0) != null){
+				info("Element " + ELEMENT_MY_ACTIVITY_LINK + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		click(ELEMENT_MY_ACTIVITY_LINK);
+		waitForAndGetElement(ELEMENT_MY_ACTIVITY_STREAM_TAB);
+	}	
+	
+	/**
 	 * Go to My Profile
 	 */
 	public void goToMyProfile(){
-		info("--Go to My Profile--");		
+		info("--Go to My Activity--");		
 		for(int repeat=0;; repeat ++){
 			if (repeat > 1){
 				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
@@ -577,6 +599,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_MY_PROFILE_LINK);
 		waitForAndGetElement(ELEMENT_MY_PROFILE_TAB);
 	}	
+	
 
 	/** Go to IDE Page
 	 * @author phuongdt

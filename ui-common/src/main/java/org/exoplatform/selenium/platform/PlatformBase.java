@@ -204,6 +204,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GERMANY_LANGUAGE_FRENCH = By.linkText("Allemand");
 
 	public final By ELEMENT_MY_PROFILE_LINK = By.xpath("//i[@class='uiIconPLFProfile']/..");
+	public final By ELEMENT_MY_ACTIVITY_LINK=By.xpath("//*[@class='uiIconPLFActivityStream']/..");
 	public final By ELEMENT_DASHBROARD_LINK = By.className("uiIconPLFDashboard");
 	public final By ELEMENT_MY_SETTING = By.className("uiIconSetting");
 	public final By ELEMENT_MY_ACTIVITY_STREAM = By.className("uiIconPLFActivityStream");
@@ -219,7 +220,7 @@ public class PlatformBase extends TestBase {
 
 	//User -> My profile
 	public final By ELEMENT_MY_PROFILE_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppprofile uiIconDefaultApp']");
-	public final By ELEMENT_MY_ACTIVITY_STREAM_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppactivities uiIconDefaultApp']");
+	public final By ELEMENT_MY_ACTIVITY_STREAM_TAB = By.xpath(".//*[contains(@class,'uiIconAppactivities')]");
 	public final By ELEMENT_MY_CONNECTIONS_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppconnections uiIconDefaultApp']");
 	public final By ELEMENT_MY_WIKI_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppwiki uiIconDefaultApp']");
 	public final By ELEMENT_MY_DASHBOARD_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppdashboard uiIconDefaultApp']");

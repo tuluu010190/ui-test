@@ -300,8 +300,8 @@ public class TestBase {
 		initSeleniumTestWithOutTermAndCondition();
 		driver.manage().window().maximize();
 		driver.get(baseUrl);
-		checkPLFVersion();
 		termsAndConditions(opParams);
+		checkPLFVersion();
 	}
 
 	/**
