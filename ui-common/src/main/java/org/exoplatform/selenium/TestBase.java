@@ -547,7 +547,7 @@ public class TestBase {
 
 		getSystemProperty();
 		if("chrome".equals(browser)){
-			driver = new ChromeDriver();
+			driver = initChromeDriver();
 			chromeFlag = true;
 		} else if ("iexplorer".equals(browser)){
 			driver = initIEDriver();
