@@ -70,7 +70,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 
 	@AfterClass
 	public void afterTest(){
-		deleteDataTest();
+		//deleteDataTest();
 		magAc.signOut();
 		driver.manage().deleteAllCookies();
 		driver.quit();

@@ -23,7 +23,7 @@ import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.forum.ForumCategoryManagement;
 import org.exoplatform.selenium.platform.forum.ForumHomePage;
-import org.exoplatform.selenium.platform.forum.ForumManagement;
+import org.exoplatform.selenium.platform.forum.ForumForumManagement;
 import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
 import org.exoplatform.selenium.platform.gatein.AnswerPage;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
@@ -33,7 +33,10 @@ import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
 import org.exoplatform.selenium.platform.gatein.PortalManagePages;
+import org.exoplatform.selenium.platform.gatein.UserAddManagement;
+import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
@@ -71,7 +74,7 @@ public class Plf_TestConfig extends PlatformBase {
 	
 	ForumHomePage forumHP;
 	ForumTopicManagement foTopic;
-	ForumManagement forumMg;
+	ForumForumManagement forumMg;
 	ForumCategoryManagement forumCatMag;
 	
 	PortalManageSites magSite;
@@ -110,7 +113,9 @@ public class Plf_TestConfig extends PlatformBase {
 	GettingStartedDatabase getStartData;
 	AttachmentFileDatabase fData;
 	SpaceApplicationDatabase spAppData;
-
+	MailSuffixDatabase mailSuffixData;
+	UserAddManagement addUserPage;
+	UserAndGroupManagement userAndGroup;
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
 		info("Start setUpBeforeClass");
@@ -151,7 +156,7 @@ public class Plf_TestConfig extends PlatformBase {
 		setMag = new SpaceSettingManagement(driver);
 		
 		forumHP = new ForumHomePage(driver);
-		forumMg = new ForumManagement(driver);
+		forumMg = new ForumForumManagement(driver);
 		forumCatMag = new ForumCategoryManagement(driver);
 		foTopic=new ForumTopicManagement(driver);
 		
@@ -167,10 +172,15 @@ public class Plf_TestConfig extends PlatformBase {
 		eventMag = new EventManagement(driver);
 		taskMag = new TaskManagement(driver);
 		
+		addUserPage = new UserAddManagement(driver);
+		userAndGroup = new UserAndGroupManagement(driver);
+
 		txData = new TextBoxDatabase();
 		userData = new UserDatabase();
 		fData = new AttachmentFileDatabase();
 		remoteGadData = new RemoteGadgetDatabase();
+		mailSuffixData = new MailSuffixDatabase();
+		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		appGateData = new ApplicationGateinDatabase();
 		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);

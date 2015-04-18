@@ -30,6 +30,8 @@ import org.testng.annotations.*;
 			All existing portlets are imported successfully and displayed on left list 
 			( there are someones added categories: Integration,Navigation, System, etc)*/
 		navToolBar.goToApplication();
+		appRegistry.displayImportApplicaions();
+		navToolBar.goToApplication();
 		appRegistry.importAllApplications();
 		
 		info("Verify that all applications are imported successfully");

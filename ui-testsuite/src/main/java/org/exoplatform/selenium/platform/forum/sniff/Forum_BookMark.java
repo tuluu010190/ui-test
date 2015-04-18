@@ -1,6 +1,7 @@
 package org.exoplatform.selenium.platform.forum.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.testng.annotations.*;
 
 
@@ -42,11 +43,9 @@ public class Forum_BookMark extends Forum_TestConfig {
 		 *Expected Outcome: 
 			- Bookmark Category is successfully
 			- BookmarkedCategory is displayed in Bookmark list*/ 
-		click(forumHP.ELEMENT_CATEGORY_BREADCUMB_HOME);
 		info("Bookmark the topic");
 		forumHP.bookmark(nameCat);
 		info("Delete the category");
-		forumHP.goToHomeCategory();
 		forumCatMag.deleteCategory(nameCat);
 	}
 
@@ -94,7 +93,7 @@ public class Forum_BookMark extends Forum_TestConfig {
 			- Bookmarkedforum is displayed in Bookmark list*/ 
 
 		info("Bookmark the topic");
-		click(forumHP.ELEMENT_CATEGORY_BREADCUMB_HOME);
+		forumHP.goToForum(nameForum);
 		forumHP.bookmark(nameForum);
 		info("Delete the category");
 		forumHP.goToHomeCategory();
@@ -149,11 +148,10 @@ public class Forum_BookMark extends Forum_TestConfig {
 			- Bookmark topic is successfully
 			- Bookmarkedtopic is displayed in Bookmark list*/ 
         info("Bookmark the topic");
+        forumHP.goToTopic(topic1);
 		forumHP.bookmark(topic1);
 		info("Delete the category");
 		forumHP.goToHomeCategory();
 		forumCatMag.deleteCategory(nameCat);
-
 	}
-	
 }

@@ -78,8 +78,8 @@ public class Calendar_Event extends PlatformBase {
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+"115621";
 		String content = txData.getContentByArrayTypeRandom(1)+"115621";
 		String link = fData.getAttachFileByArrayTypeRandom(2);
-		if ("iexplorer".equals(browser)){
-			info("Test 1: Add attachment to event on IE manually");
+		if ("iexplorer".equals(browser) || "chrome".equals(browser)){
+			info("Test 1: Add attachment to event on IE and chrome manually");
 		}else{
 			info("Test 1: Add attachment to event");
 

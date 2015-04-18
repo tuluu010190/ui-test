@@ -155,7 +155,7 @@ public class Forum_Category extends Forum_TestConfig{
 	@Test
 	public  void test05_ExportImportACategory() {
 		info("Test 5: Export/Import a category");
-
+		String fileName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String nameCat = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String description = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
@@ -186,7 +186,7 @@ public class Forum_Category extends Forum_TestConfig{
 			Category is exported successfully*/
         info("Export category");
         forumHP.goToHomeCategory();
-		forumHP.exportCategory(nameCat);
+		forumHP.exportCategory(nameCat,fileName);
 
 		/*Step number: 3
 		 *Step Name: Import a category
@@ -204,7 +204,11 @@ public class Forum_Category extends Forum_TestConfig{
 		
         info("Import category");
         forumHP.goToHomeCategory();
-        forumHP.importCategory("Downloads/","ks-export.zip");
+        forumHP.importCategory("TestData/TestOutput",fileName+".zip");
+        
+		info("delete category");
+		forumHP.goToHomeCategory();
+		forumCatMag.deleteCategory(nameCat);
 	}
 
 	/**
@@ -216,7 +220,7 @@ public class Forum_Category extends Forum_TestConfig{
 	@Test
 	public  void test06_ExportImportAForum() {
 		info("Test 6: Export / Import a forum");
-		
+		String fileName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String nameCat = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String nameForum = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -252,7 +256,7 @@ public class Forum_Category extends Forum_TestConfig{
 			Forums are exported successfully*/
 		info("Export the forum");
 		forumHP.goToCategory(nameCat);
-		forumCatMag.exportForum(nameForum);
+		forumCatMag.exportForum(nameForum,fileName);
 		
 		/*Step number: 3
 		 *Step Name: Import forums
@@ -265,13 +269,13 @@ public class Forum_Category extends Forum_TestConfig{
 
 		 *Expected Outcome: 
 			Forums are imported successfully*/
+		info("Delete forum");
+		forumHP.goToForum(nameForum);
+		forumMag.deleteForum(nameForum);
         info("Import forum");
-		forumCatMag.importForum("Downloads/", "ks-export.zip");
-		magAc.signOut();
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		info("Delete category");
-		hp.goToForum();
-		forumHP.goToHomeCategory();
+		forumCatMag.importForum("TestData/TestOutput", fileName+".zip");
+		
+		info("delete category");
 		forumCatMag.deleteCategory(nameCat);
 	  }
 	}

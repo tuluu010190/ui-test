@@ -121,8 +121,8 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Login successfully and new user display with username or display name*/ 
-		String pass=txData.getContentByArrayTypeRandom(5);
 		String nom =txData.getContentByArrayTypeRandom(4)+getRandomNumber();
+		String pass=nom;
 		String firstname= txData.getContentByArrayTypeRandom(4);
 		String lastname = txData.getContentByArrayTypeRandom(4);
 		String email = getRandomString()+"@gmail.com";

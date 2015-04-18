@@ -166,8 +166,8 @@ public class Calendar_Task extends PlatformBase {
 	 */
 	@Test
 	public  void test03_04_AddRemoveAttachmentOfTask() {
-		if ("iexplorer".equals(browser)){
-			info("Test 4: Add attachment to task on IE manually");
+		if ("iexplorer".equals(browser) || "chrome".equals(browser)){
+			info("Test 4: Add attachment to task on IE and chrome manually");
 		}else{
 			info("Test 4: Add attachment to task");
 			String titleTask = txData.getContentByArrayTypeRandom(1)+"115610";

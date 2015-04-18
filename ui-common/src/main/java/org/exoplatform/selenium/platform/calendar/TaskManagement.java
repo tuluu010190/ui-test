@@ -9,9 +9,7 @@ import java.text.ParseException;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 
 public class TaskManagement extends PlatformBase {
 
@@ -54,12 +52,14 @@ public class TaskManagement extends PlatformBase {
 	public By ELEMENT_ADD_EDIT_TASK_STATUS = By.xpath("//*[@id='UITaskForm']//*[@name='status']");
 
 	//Attach file form
+	public By ELEENT_SELECT_FILE=By.xpath("//*[@class='uploadButton']/*[@class='btn']");
 	public By ELEMENT_ATTACH_SAVE_BUTTON = By.xpath("//form[@id='UIAttachFileForm']//*[text()='Save']");
 	public By ELEMENT_TASK_ADD_ATTACHMENT = By.xpath("//button[contains(@onclick,'AddAttachment')]");
 	public String ELEMENT_TASK_ATTACHMENT = "//*[@id='UITaskForm']/..//a[@data-original-title='${file}']";
 	public By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachFileForm']//*[text()='Save']");
 	public String ELEMENT_ATTACHMENT_FORM_FILE_NAME = "//*[text()='$fileName']";
-
+	public By ELEMENT_UPLOAD_PROGRESS_BAR = By.xpath(".//*[contains(@class,'progressBarFrame clearfix')]");
+	
 	CalendarHomePage cHome;
 	public TaskManagement(WebDriver dr){
 		driver = dr;
@@ -310,13 +310,11 @@ public class TaskManagement extends PlatformBase {
 	public void attachFileToTask(String path){
 		String[] links = path.split("/");
 		click(ELEMENT_TASK_ADD_ATTACHMENT);
-		WebElement eFile = waitForAndGetElement(ELEMENT_TASK_FILE_INPUT,DEFAULT_TIMEOUT,1,2);
-		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';",eFile);
-		eFile.sendKeys(getAbsoluteFilePath(path));
+		click(ELEENT_SELECT_FILE);
+		uploadFileUsingRobot(path);
 		waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", links[links.length-1]));
 		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
 		waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", links[links.length-1]));
-		switchToParentWindow();
 
 	}	
 

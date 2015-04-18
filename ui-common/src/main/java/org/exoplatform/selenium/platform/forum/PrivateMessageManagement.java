@@ -77,6 +77,7 @@ public class PrivateMessageManagement extends PlatformBase{
 		type(ELEMENT_TITLE_MESSAGE,title,true);
 		inputFrame(ELEMENT_MESSAGE_CONTENT, content);
 		click(ELEMENT_SEND_BUTTON);
+		button.ok();
 		Utils.pause(2000);
 	}
 	
@@ -104,6 +105,7 @@ public class PrivateMessageManagement extends PlatformBase{
 		type(ELEMENT_TITLE_MESSAGE,newTitle,true);
 		inputFrame(ELEMENT_MESSAGE_CONTENT, content);
 		click(ELEMENT_SEND_BUTTON);
+		button.ok();
 	}
 	
 	/**
@@ -124,6 +126,7 @@ public class PrivateMessageManagement extends PlatformBase{
 		if(newContent!="")
 			inputFrame(ELEMENT_MESSAGE_CONTENT, newContent);
 		click(ELEMENT_SEND_BUTTON);
+		button.ok();
 	}
 	
 	/**

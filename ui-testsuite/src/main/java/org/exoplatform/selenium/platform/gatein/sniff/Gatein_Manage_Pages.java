@@ -128,13 +128,13 @@ import org.testng.annotations.*;
 			- New page is created successfully*/
 		navToolBar.goToMyDashboard();
 		navToolBar.goToAddPage();
-		pagCW.inputPageInfoStep1(title, true, "English",title, true,false);
+		pagCW.inputPageInfoStep1(title, true, "English",title, null,null);
 		click(pagCW.ELEMENT_ADDNEWPAGE_BTNNEXT);
 		click(pagCW.ELEMENT_ADDNEWPAGE_BTNNEXT);
 		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_PAGEEDITOR_VIEWPAGE);
 		info("Verify that the page is added successfully");
-		portMg.searchPage(title, "","",true);
-		portMg.deletePage(title,"");
+		waitForAndGetElement(myDash.ELEMENT_MYDASH_TAB_NAME.replace("${name}",title),2000,0);
+		myDash.deleteTab(title);
 	}
 
 	/**
@@ -183,7 +183,7 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		navToolBar.goToAddPage();
 		info("Create a new page");
-		pagCW.inputPageInfoStep1(title, true, "English",title, true,false);
+		pagCW.inputPageInfoStep1(title, true, "English",title, null,null);
 		click(pagCW.ELEMENT_ADDNEWPAGE_BTNNEXT);
 		click(pagCW.ELEMENT_ADDNEWPAGE_BTNNEXT);
 		pagCW.saveChangesPageEditor();

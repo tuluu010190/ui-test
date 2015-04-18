@@ -43,7 +43,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- In tab Inbox, mary seemessage of john*/ 
-		String contact = "mary";
+		String contact = DATA_USER2;
 		String title =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content =  txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -51,8 +51,7 @@ import org.testng.annotations.*;
 		forumHP.goToPrivateMessage();
 		msgManage.goComposeMessage();
 		msgManage.writeMessage(contact, title, content);
-		
-		magAc.signOut();
+		button.cancel();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		
 		hp.goToForum();
@@ -63,7 +62,7 @@ import org.testng.annotations.*;
 		String newTitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		msgManage.replyMessage("john", title, newTitle, content);
-		magAc.signOut();
+		button.cancel();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		
 		hp.goToForum();
@@ -102,7 +101,6 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- In tab Sent Message, message of mary is shown
 			-Forward message is sent to receivers. In tab Sent message, this message is listed.*/ 
-		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		
 		String contact = "john";
@@ -115,11 +113,11 @@ import org.testng.annotations.*;
 		msgManage.goComposeMessage();
 		msgManage.writeMessage(contact, title, content);
 		msgManage.goSendMessages();
-		
+		button.cancel();
+		forumHP.goToPrivateMessage();
 		msgManage.goSendMessages();
 		msgManage.forwardMessage(contact, title,contactForward, "", "");
-		
-		magAc.signOut();
+		button.cancel();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToForum();
 		forumHP.goToPrivateMessage();

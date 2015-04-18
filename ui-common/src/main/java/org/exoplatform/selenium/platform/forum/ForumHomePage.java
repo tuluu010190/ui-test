@@ -1,6 +1,8 @@
 package org.exoplatform.selenium.platform.forum;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
@@ -10,30 +12,31 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ForumHomePage extends PlatformBase {
-	
+
 	//Action bar
 	public final By ELEMENT_ACTIONBAR_USER = By.xpath("//*[@class='uiIconUser uiIconLightGray']");
 	public final By ELEMENT_ACTIONBAR_SETTINGS = By.xpath("//*[@class='uiIconSetting uiIconLightGray']");
 
 	public final By ELEMENT_ACTIONBAR_ADMINISTRATION = By.xpath(".//*[@id='Administrations']//div[@data-toggle='dropdown']");
-	public final By ELEMENT_ACTIONBAR_BOOKMARK = By.xpath("//*[@class='actionIcon']//*[@class='uiIconBookmark uiIconLightGray']");
-	
+	public final By ELEMENT_ACTIONBAR_BOOKMARK_MANAGER = By.xpath(".//*[@id='OpenBookMark']//*[@class='uiIconBookmark uiIconLightGray']");
+	public final By ELEMENT_ACTIONBAR_BOOKMARK_ICON=By.xpath(".//*[@id='UITopicDetail' or @id='UITopicContent' or @id='UICategory']//*[@class='actionIcon']/*[@class='uiIconBookmark uiIconLightGray']");
+
 	public final By ELEMENT_ACTIONBAR_MANAGECAT = By.xpath("//*[@class='uiIconForumManageCategory uiIconForumLightGray']");
 	public final By ELEMENT_ACTIONBAR_PRIVATE_MESSAGE = By.xpath(".//*[@id='uiRightActionBar']//a[contains(.,'Private Messages')]");
 	public final String ELEMENT_ACTIONBAR_TOPIC_TAGDELETE = ".//*[@id='UITopicDetail']//a[@data-original-title='${tag}']/..//*[@class='uiIconClose uiIconLightGray']";
-	
+
 	public final By ELEMENT_FORUM_TOPIC_LOCK = By.xpath("//*[@class='uiIconLockMedium']");
 	public final By ELEMENT_FORUM_TOPIC_UNLOCK = By.xpath("//*[@class='uiIconUnlockMedium']");
 	public final By ELEMENT_FORUM_TOPIC_POSTLOCKED = By.xpath("//*[@class='uiLockIcon btn disabled']/../../../div[2]//*[@class='pull-left actionContainer']");
 	public final By ELEMENT_FORUM_TOPIC_POSTLOCKEDMESSAGE = By.xpath("//*[text()='You cannot reply to this topic.']");
-	
+
 	public final String ELEMENT_FORUM_TOPIC_MARKAVERAGE = "//*[@data-original-title='${rate}']";
 	public final String ELEMENT_FORUM_NAVIGATION_BREADCRUMB = "//*[@class='breadcrumb']//*[text()='${name}']";
 
 	//Add Category popup
 	public final By ELEMENT_ADDCATEGORY_POPUP_CATEGORY_TAB= By.xpath(".//*[@id='UICategoryForm']//a[text()='Category']");
 	public final By ELEMENT_ADDCATEGORY_POPUP_PERMISSION_TAB= By.xpath(".//*[@id='UICategoryForm']//a[text()='Permissions']");
-	
+
 	//Add forum popup
 	public final By ELEMENT_ADDFORUM_POPUP_ADDFORUM_TAB= By.xpath(".//*[@id='UIForumForm']//a[text()='Add Forum']");
 
@@ -42,17 +45,18 @@ public class ForumHomePage extends PlatformBase {
 
 	//Forum content
 	public final String ELEMENT_DETAIL_FORUM_CATEGORY_TITLE= ".//*[@id='UIForumDescription']//strong[text()='${title}']";
-	public final String ELEMENT_FORUM_TITLE_LINK = ".//*[text()='${name}']";
+	public final String ELEMENT_FORUM_TITLE_LINK = ".//*[contains(@id,'UIContextPopupMenu') and contains(text(),'${name}')]";
+	public final String ELEMENT_TOPIC_TITLE_LINK=".//*[contains(@id,'UIContextPopupMenu') and contains(text(),'${name}')]/i";
 	public final String ELEMENT_FORUM_DETAIL_FORUM_NAME_LINK=".//*[text()='${name}']";
 	public final By ELEMENT_FORUM_WHAT_GOING_ON = By.xpath("//div[contains(text(),'Going on?')]");
 	public final String ELEMENT_SELECT_FORUM_TOPIC = "//*[contains(text(),'${link}')]";
-	
+
 	public final By ELEMENT_FORUM_MOREACTIONS_MOVE = By.xpath("//*[@class='uiIconMove']");
 	public final By ELEMENT_FORUM_MOREACTIONS_ADDPOLL = By.xpath("//*[text()='Add Poll']");
 	public final String ELEMENT_FORUM_MOVE_CATEGORYCOLLAPSE = "//*[@class='uiIconNode collapseIcon' and contains(.,'${forum}')]";
 	public final String ELEMENT_FORUM_MOVE_CATEGORYEXPAND = "//*[@class='uiIconNode expandIcon' and contains(.,'${forum}')]";
 	public final String ELEMENT_FORUM_MOVE_FORUM = "//*[@class='uiIconUIForms uiIconLightGray' ]/../..//*[contains(text(),'${forum}')]";
-	
+
 	//Form add poll
 	public final By ELEMENT_FORUM_ADDPOLL_QUESTION = By.xpath("//*[@id='Question']");
 	public final By ELEMENT_FORUM_ADDPOLL_OPTION0 = By.xpath("//*[@id='Option0']");
@@ -64,18 +68,18 @@ public class ForumHomePage extends PlatformBase {
 	public final By ELEMENT_FORUM_POLL_DELETECONFIRM = By.xpath("//*[contains(text(),'Are you sure you want to delete this poll ?')]/../../..//*[@class='btn actionOK']");
 	public final String ELEMENT_SELECT_TOPIC = "//*[contains(text(),'{$topic}')]";
 
-	
+
 	//reply on topic
 	public final By ELEMENT_TOPIC_REPLY = By.xpath("//*[@class='pull-left actionContainer']//*[@class='uiPostReplyIcon btn btn-primary']");
 	public final By ELEMENT_TOPIC_REPLY_TITLE = By.xpath("//*[@id='PostTitle']");
-	
+
 
 	//administration
 	public final By ELEMENT_ACTIONBAR_ADMIN_BANIP = By.xpath(".//*[@id='Administrations']//a[contains(.,'Banned IPs')]");
 	public final By ELEMENT_ACTIONBAR_ADMIN_BBCODE = By.xpath(".//*[@id='Administrations']//a[contains(.,'BBCodes')]");
 	public final By ELEMENT_ACTIONBAR_ADMIN_IMPORT = By.xpath(".//*[@id='Administrations']//a[contains(.,'Import')]");
 	public final By ELEMENT_ACTIONBAR_ADMIN_EXPORT = By.xpath(".//*[@id='Administrations']//a[contains(.,'Export')]");
-	
+
 	//export category popup
 	public final By ELEMENT_EXPORTCAT_EXPORTALL = By.xpath("//*[@id='checkAll']");
 	public final String ELEMENT_EXPORTCAT_EXPORT = "//*[contains(text(),'${title}')]/..//*[@class='uiCheckbox']//*[@class='checkbox']";
@@ -92,7 +96,7 @@ public class ForumHomePage extends PlatformBase {
 	//Breadcumb
 	public By ELEMENT_CATEGORY_BREADCUMB_HOME=By.xpath("//*[@id='UIBreadcumbs']//*[text()='Home']");
 	public String ELEMENT_CATEGORY_FORUM_BREAD = "//*[text()='${category}']/../..//*[text()='${forum}']";
-	
+
 	//Contextmenu by right clicking
 	public final By ELEMENT_WATCH = By.xpath("//*[contains(text(),' Watch')]/../..//*[@class='uiIconWatch uiIconLightGray']");
 	public final By ELEMENT_UNWATCH = By.xpath("//*[contains(text(),' Unwatch')]/../..//*[@class='uiIconWatch uiIconLightGray']");
@@ -105,23 +109,23 @@ public class ForumHomePage extends PlatformBase {
 	public final String ELEMENT_FORUM_BOOKMARK_NAME = "//*[@class='uiShowBookMarkForm resizable']//*[text()='${name}']";
 	public final String ELEMENT_FORUM_BOOKMARK_DELETE="//*[@class='uiShowBookMarkForm resizable']//*[text()='${name}']/../..//*[@class='uiIconDelete uiIconLightGray']";
 	public final By ELEMENT_FORUM_BOOKMARK_CLOSE_ICON = By.xpath(".//*[@id='UIForumPopupWindow']//div[@class='ClosePopup']");
-	
+
 	//Category right click option
 	public final String ELEMENT_FORUM_CONTEXT_MENU_BOOKMARK=".//a[contains(text(),'${name}')]/..//a[contains(.,'Bookmarks')]";
-	
+
 	//Forum/Category portlets
 	public By ELEMENT_FORUM_PORTLET = By.id("UIForumPortlet");
 	public final String ELEMENT_PORTLET_CONTENT_LINK=".//*[contains(text(),'${topic}')]";
-	
+
 	//Topic 
 	public final String ELEMENT_TOPIC_LAST_REPLY = ".//*[contains(text(),'${reply}')]/../../../../following::div[7][@class='uiBox forumQuickReply uiCollapExpand']";
-    
-    //Button
+
+	//Button
 	public final By ELEMENT_OK_BTN = By.xpath("//*[@class='btn actionOK']");
 	public final String ELEMENT_BBCODE_TAG_VERIFY = "//*[contains(text(),'${tag}')]";
 	public final By ELEMENT_BBCODE_USE_OPTION =By.xpath("//*[@id='UseOption']");
 	public final By ELEMENT_BBCODE_CONFIRM_DELETETAG = By.xpath("//*[text()='Are you sure you want to delete this BB Code ?']/../../..//*[@class='btn actionOK']");
-	
+
 
 	//Settings 
 	public final By ELEMENT_FORUM_SETTINGS_FORUMSETTINGS = By.xpath("//*[text()='Forum Settings']");
@@ -138,19 +142,19 @@ public class ForumHomePage extends PlatformBase {
 	public final By ELEMENT_FORUM_USERS_POSTS = By.xpath("//*[text()='Posts']");
 	public final By ELEMENT_FORUM_CLOSEBTN = By.xpath("//*[@class='btn' and text()='Close']");
 	public final String ELEMENT_FORUM_VERIFY_USER = "//*[text()='${user}']";
-	
+
 	//forum & category
 	public final String ELEMENT_FORUM_TITLECAT = "//*[text()='${title}']";
-	
+
 	//add forum
 	public final By ELEMENT_FORUM_FORUM_NAME = By.xpath("//*[@id='ForumTitle']");
-	
+
 	//users
 	public final String ELEMENT_FORUM_USERS_EDIT = "//*[text()='${name}']/..//*[@class='uiIconEdit uiIconLightGray']";
 	public final By ELEMENT_FORUM_USERS_POPUP_SEARCH_FIELD=By.xpath(".//*[@id='SearchUser']");
-	
+
 	public final By ELEMENT_FORUM_MESSAGE = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
-	
+
 	//search
 	public final By ELEMENT_SEARCH_TEXTBOX = By.xpath("//*[@id='inputValue']");
 	public final By ELEMENT_SEARCH__ADVANCEDSEARCH_TEXTBOX = By.xpath("//*[@id='SearchValue']");
@@ -162,16 +166,18 @@ public class ForumHomePage extends PlatformBase {
 	public final By ELEMENT_SEARCH_FORUM_ADVANCEDSEARCH_SEARCHLOCATION = By.xpath("//*[@name='SearchType']");
 	public final By ELEMENT_SEARCH_FORUM_ADVANCEDSEARCH_SEARCH = By.xpath("//*[@class='btn' and text()='Search']");
 
+	public final By ELEMENT_FILENAME_INPUT=By.id("FileName");
 	public final By ELEMENT_DELETE_ICON = By.xpath("//*[@class='uiIconDelete uiIconLightGray']");
 	public final By ELEMENT_SAVE_BTN = By.xpath("//*[text()='Save']");
 	public final By ELEMENT_SUBMIT_BUTTON = By.xpath("//*[text()='Submit']");
-	
+
 	//BBcode popup
 	public final By ELEMENT_EDITSITE_SAVEBTN = By.xpath("//*[@class='btn' and text()='Save']");
 	public final By ELEMENT_BBCODE_POPUP_CLOSEBTN= By.xpath(".//*[@id='BBCodeManagerForm']//button[text()='Close']");
-	
+
 	ManageAlert alert;
-	
+	Button button;
+
 	/**
 	 * constructor
 	 * @param dr
@@ -179,6 +185,7 @@ public class ForumHomePage extends PlatformBase {
 	public ForumHomePage(WebDriver dr){
 		this.driver=dr;
 		alert = new ManageAlert(driver);
+		button = new Button(driver);
 	}
 	/**
 	 * Go to home category
@@ -237,17 +244,19 @@ public class ForumHomePage extends PlatformBase {
 			break;
 		}
 	}
-   
-   /**
-    * Import a category from Administration menu
-    * @param folderDowloadFile
-    * @param nameFile
-    */
-   public void importCategory(String folderDowloadFile,String nameFile){
-	    selectItemAdministrationMenu(specifAdministrationMenu.IMPORT);
-		importCat(folderDowloadFile,nameFile);
-		
-   }
+
+	/**
+	 * Import a category from Administration menu
+	 * @param folderDowloadFile
+	 * @param nameFile
+	 */
+	public void importCategory(String folderDowloadFile,String nameFile){
+		selectItemAdministrationMenu(specifAdministrationMenu.IMPORT);
+		importFile(folderDowloadFile,nameFile);
+		button.ok();
+
+
+	}
 	/**
 	 * Go to a detail category in list
 	 * By QuynhPT
@@ -290,7 +299,7 @@ public class ForumHomePage extends PlatformBase {
 			}
 		}
 	}
-	
+
 	/**
 	 * Open a forum
 	 * @param name
@@ -300,7 +309,7 @@ public class ForumHomePage extends PlatformBase {
 		click(ELEMENT_SELECT_FORUM_TOPIC.replace("${link}",name));
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Attach file in attach popup
 	 * @param pathFile
@@ -319,7 +328,7 @@ public class ForumHomePage extends PlatformBase {
 		click(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_SAVE_BUTTON);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Add a BBcode
 	 * Update QuynhPT
@@ -395,18 +404,17 @@ public class ForumHomePage extends PlatformBase {
 		info("Close the popup");
 		click(ELEMENT_BBCODE_POPUP_CLOSEBTN);
 	}
-	
-    /**
-     * Bookmark a topic, a category and a forum
-     * @param name
-     */
+
+	/**
+	 * Bookmark a topic, a category and a forum
+	 * @param name
+	 */
 	public void bookmark(String name){
-		info("Right click on the topic");
-		rightClickOnElement(ELEMENT_FORUM_TITLE_LINK.replace("${name}", name));
-		info("Click on Bookmark link of context menu");
-		click(ELEMENT_FORUM_CONTEXT_MENU_BOOKMARK.replace("${name}", name));
+		info("Click on Bookmark link on Action bar");
+		click(ELEMENT_ACTIONBAR_BOOKMARK_ICON);
+		Utils.pause(3000);
 		info("Click on Bookmark link on Action bar to open Bookmark popup");
-		click(ELEMENT_ACTIONBAR_BOOKMARK);
+		click(ELEMENT_ACTIONBAR_BOOKMARK_MANAGER);
 		info("Verify that the topic is bookmarked");
 		waitForAndGetElement(ELEMENT_FORUM_BOOKMARK_NAME.replace("${name}", name));
 		info("Delete the bookmark of the topic");
@@ -416,38 +424,40 @@ public class ForumHomePage extends PlatformBase {
 		info("Close the popup");
 		click(ELEMENT_FORUM_BOOKMARK_CLOSE_ICON);
 	}
-	
+
 	/**
 	 * Export a category from Action bar
 	 * @param name
 	 */
-	public void exportCategory(String name){
+	public void exportCategory(String catName, String fileName) {
 		selectItemAdministrationMenu(specifAdministrationMenu.EXPORT);
 		info("Uncheck all category");
 		uncheck(ELEMENT_EXPORTCAT_EXPORTALL, 2);
-		info("Select the category:"+name);
-		check(ELEMENT_EXPORTCAT_EXPORT.replace("${title}", name), 2);
+		info("Select the category:"+catName);
+		check(ELEMENT_EXPORTCAT_EXPORT.replace("${title}", catName), 2);
+		info("input name");
+		type(ELEMENT_FILENAME_INPUT,fileName,true);
 		info("Save all changes");
 		click(ELEMENT_SAVE_BTN);
 	}
-	
+
 	/**
 	 * Open a topic
 	 * @param name
 	 */
 	public void goToTopic(String name){
 		info("Click on the topic with the name:"+name);
-		click(ELEMENT_SELECT_FORUM_TOPIC.replace("${link}", name));
+		click(ELEMENT_SELECT_FORUM_TOPIC.replace("${link}", name),0,true);
 		Utils.pause(2000);
 	}
-   /**
-    * Go to Private Message
-    */
+	/**
+	 * Go to Private Message
+	 */
 	public void goToPrivateMessage() {
 		// TODO Auto-generated method stub
 		info("Click on Private Message button");
 		click(ELEMENT_ACTIONBAR_PRIVATE_MESSAGE);
 		Utils.pause(2000);
 	}
-	
+
 }

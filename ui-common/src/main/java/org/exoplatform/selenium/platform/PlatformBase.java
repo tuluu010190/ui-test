@@ -126,6 +126,7 @@ public class PlatformBase extends TestBase {
 		info("focus on the text area");
 		inputsummary.click();
 		info("Input the content:"+content);
+		inputsummary.clear();
 		inputsummary.sendKeys(content);
 		info("Back to parent window");
 		switchToParentWindow();

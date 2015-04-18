@@ -113,10 +113,10 @@ public class Forum_Settings extends Forum_TestConfig {
 		User information is updated successfully*/
 		hp.goToForum();
 		click(forumHP.ELEMENT_ACTIONBAR_USER);
-		type(forumHP.ELEMENT_FORUM_USERS_POPUP_SEARCH_FIELD,"mary",true);
+		type(forumHP.ELEMENT_FORUM_USERS_POPUP_SEARCH_FIELD,DATA_USER2,true);
 		pressEnterKey();
-		click((forumHP.ELEMENT_FORUM_USERS_EDIT).replace("${name}", "mary"));
-		type(forumHP.ELEMENT_FORUM_SETTINGS_SCREENNAME, "Mary", true);
+		click((forumHP.ELEMENT_FORUM_USERS_EDIT).replace("${name}", DATA_USER2));
+		type(forumHP.ELEMENT_FORUM_SETTINGS_SCREENNAME, DATA_USER2, true);
 		click(forumHP.ELEMENT_FORUM_USERS_FORUMSETTINGS);
 		select(forumHP.ELEMENT_FORUM_SETTINGS_MAXTHREADS, "5", 2);
 		click(forumHP.ELEMENT_FORUM_USERS_BAN);
@@ -125,9 +125,8 @@ public class Forum_Settings extends Forum_TestConfig {
 		click(forumHP.ELEMENT_FORUM_SETTINGS_SAVE);
 		click(forumHP.ELEMENT_FORUM_CLOSEBTN);
 		
-		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToForum();
-		waitForAndGetElement(By.xpath((forumHP.ELEMENT_FORUM_VERIFY_USER).replace("${user}", "Mary")));
+		waitForAndGetElement(By.xpath((forumHP.ELEMENT_FORUM_VERIFY_USER).replace("${user}", DATA_USER2)));
 	}
 }

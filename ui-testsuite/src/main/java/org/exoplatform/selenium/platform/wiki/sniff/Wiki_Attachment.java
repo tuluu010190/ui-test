@@ -55,7 +55,6 @@ public class Wiki_Attachment extends Wiki_TestConfig {
 		click(wHome.ELEMENT_PAGE_DELETEATTACHFILE);
 		waitForElementNotPresent(wHome.ELEMENT_PAGE_DOWNLOADATTACHFILE);
 		
-		
 		info("Delete the page");
 		hp.goToWiki();
 		wHome.deleteWiki(title);

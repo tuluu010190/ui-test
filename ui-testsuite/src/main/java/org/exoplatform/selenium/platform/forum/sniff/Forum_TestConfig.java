@@ -13,7 +13,7 @@ import org.exoplatform.selenium.platform.answer.AnswerCategoryManagement;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.forum.ForumCategoryManagement;
 import org.exoplatform.selenium.platform.forum.ForumHomePage;
-import org.exoplatform.selenium.platform.forum.ForumManagement;
+import org.exoplatform.selenium.platform.forum.ForumForumManagement;
 import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
 import org.exoplatform.selenium.platform.forum.PrivateMessageManagement;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
@@ -33,7 +33,7 @@ public class Forum_TestConfig extends PlatformBase{
 	NavigationToolbar navTool;
 	ForumCategoryManagement forumCatMag;
 	ForumHomePage forumHP;
-	ForumManagement forumMag;
+	ForumForumManagement forumMag;
 	ManageLogInOut magAc;
 	MyProfilePage myPro;
 
@@ -70,7 +70,7 @@ public class Forum_TestConfig extends PlatformBase{
 		pagCW = new PageCreationWizard(driver);
 		msgManage = new PrivateMessageManagement(driver);
 		forumCatMag = new ForumCategoryManagement(driver);
-		forumMag = new ForumManagement(driver);
+		forumMag = new ForumForumManagement(driver);
 
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

@@ -142,7 +142,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		
 		info("Click on the title of wiki page");
 		hp.goToHomePage();
-		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",title),2000,0).click();
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("${title}",title),2000,1).click();
 		info("Verify that The wiki application is opened in the correspond page ");
 		waitForAndGetElement(wHome.ELEMENT_PAGE_TITLE.replace("${title}",title),2000,0);
 		
@@ -201,7 +201,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 			- The wiki activity is updated
 			- A comment is added in the activity: Page's title has been updated to: $value.
           */
-		String comment = wMessage.getWikiMessage(0)+" "+newTitle;
+		String comment = wMessage.getWikiMessage(0)+ " "+newTitle;
 		info("Go to Wiki porlet and select the wiki page created");
 		hp.goToWiki();
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",title),2000,0).click();
@@ -215,7 +215,7 @@ public class Wiki_Publish_Activity extends Wiki_TestConfig {
 		hp.goToHomePage();
 		hpAct.checkActivity(newTitle);
 		info("Verify that  A comment is added in the activity: Page's title has been updated to: "+newTitle);
-		hpAct.checkCommentOfActivity(title, comment);
+		hpAct.checkCommentOfActivity(newTitle, comment);
 		
 		info("Delete the page");
 		hp.goToWiki();

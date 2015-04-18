@@ -1,10 +1,12 @@
 package org.exoplatform.selenium.platform.forum;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import static org.exoplatform.selenium.TestLogger.info;
 
 public class ForumCategoryManagement extends PlatformBase {
@@ -35,11 +37,13 @@ public class ForumCategoryManagement extends PlatformBase {
 	public final String ELEMENT_CATEGORY_DELETE_CONFIRM_MSG="Are you sure you want to delete this category ?";
 	
 	//Export forum popup
-	public final By ELEMENT_EXPORT_FORUM_EXPORTALL = By.xpath("//*[@id='checkAll']");
+	public final By ELEMENT_FILENAME_INPUT=By.id("FileName");
+	public final By ELEMENT_EXPORT_FORUM_EXPORTALL = By.id("checkAll");
 	public final String ELEMENT_EXPORT_FORUM_EXPORT = "//*[contains(text(),'${title}')]/..//*[@class='uiCheckbox']//*[@class='checkbox']";
 	public final By ELEMENT_SAVE_BTN = By.xpath("//*[text()='Save']");
 	
 	ManageAlert alert;
+	Button button;
 	/**
 	 * constructor
 	 * @param dr
@@ -47,6 +51,7 @@ public class ForumCategoryManagement extends PlatformBase {
 	public ForumCategoryManagement(WebDriver dr){
 		this.driver=dr;
 		alert = new ManageAlert(dr);
+		button = new Button(driver);
 	}
 	
 	
@@ -195,12 +200,14 @@ public class ForumCategoryManagement extends PlatformBase {
 	 * Export a forum
 	 * @param name
 	 */
-	public void exportForum(String name) {
+	public void exportForum(String forumName, String fileName) {
 		selectItemManageCategoryMenu(specifManageCategoryMenu.EXPORT_FORUM);
 		info("Uncheck All check boxes");
 		uncheck(ELEMENT_EXPORT_FORUM_EXPORTALL, 2);
 		info("Select check box of the forum");
-		check((ELEMENT_EXPORT_FORUM_EXPORT).replace("${title}", name), 2);
+		check((ELEMENT_EXPORT_FORUM_EXPORT).replace("${title}", forumName), 2);
+		info("input name");
+		type(ELEMENT_FILENAME_INPUT,fileName,true);
 		info("Save all changes");
 		click(ELEMENT_SAVE_BTN);
 	}
@@ -213,6 +220,7 @@ public class ForumCategoryManagement extends PlatformBase {
 	 */
 	public void importForum(String folderDowloadFile, String nameFile) {
 		selectItemManageCategoryMenu(specifManageCategoryMenu.IMPORT_FORUM);
-		importCat(folderDowloadFile, nameFile);
+		importFile(folderDowloadFile, nameFile);
+		button.ok();
 	}
 }

@@ -8,7 +8,7 @@ import org.openqa.selenium.WebDriver;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-public class ForumManagement extends PlatformBase {
+public class ForumForumManagement extends PlatformBase {
 	
 	//Home page of forum
 	public final String ELEMENT_FORUM_FORUM_NAME_LINK=".//*[text()='${name}']";
@@ -53,7 +53,7 @@ public class ForumManagement extends PlatformBase {
 	 * constructor
 	 * @param dr
 	 */
-	public ForumManagement(WebDriver dr){
+	public ForumForumManagement(WebDriver dr){
 		this.driver=dr;
 		alert = new ManageAlert(dr);
 		forumHP = new ForumHomePage(dr);

@@ -145,7 +145,7 @@ public class TestBase {
 	
 	/*========Default System Property=============*/
 	public final String DEFAULT_NATIVE_EVENT = "true";
-	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
+	public final String DEFAULT_BASEURL="localhost:8080/portal";
 	public final String DEFAULT_BROWSER="firefox";//iexplorer, firefox, chrome
 	public final String DEFAULT_SERVER="ubuntu"; //win, ubuntu
 
@@ -248,6 +248,7 @@ public class TestBase {
 	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
 
 	//Upload file popup
+	public final By ELEMENT_UPLOAD_SELECT_BUTTON = By.xpath("//*[@class='uploadButton']/*[@class='btn']");
 	public final By ELEMENT_UPLOAD_POPUP_FILE = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Attach File']");
 	public final By ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT = By.name("file");
 	public final By ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_SAVE_BUTTON = By.xpath(".//*[@id='UIAttachFileForm']//button[text()='Save']");
@@ -472,10 +473,12 @@ public class TestBase {
 		chromePrefs.put("profile.default_content_settings.popups", 0);
 		chromePrefs.put("download.default_directory", pathFile);
 		ChromeOptions options = new ChromeOptions();
+		HashMap<String, Object> chromeOptionsMap = new HashMap<String, Object>();
 		options.setExperimentalOption("prefs", chromePrefs);
+		options.addArguments("--test-type");
+		capabilities.setCapability(ChromeOptions.CAPABILITY, chromeOptionsMap);
 		capabilities.setCapability(CapabilityType.ACCEPT_SSL_CERTS, true);
 		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
-		//capabilities.setCapability("nativeEvents", true);
 		return new ChromeDriver(capabilities);
 	}
 	
@@ -910,26 +913,34 @@ public class TestBase {
 		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);
+			if (browser.contains("chrome")) {
+				scrollToElement(element, driver);
+			}
 			if(element.isEnabled()){
 				if(isUseJavascript){
 					info("use javasript to click");
-					((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
+					clickByJavascript(locator, notDisplay);
 				}
-				else
+				else{
+					info("click element");
 					actions.click(element).perform();
+				}
 			}
 			else {
-				debug("Element is not enabled");
-				click(locator, notDisplay);
+				info("Element is not enabled");
+				info("click element by javascript");
+				clickByJavascript(locator, notDisplay);
 			}
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			click(locator, notDisplay);
+			info("click element by javascript");
+			clickByJavascript(locator, notDisplay);
 		} catch (ElementNotVisibleException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
-			click(locator, notDisplay);
+			info("click element by javascript");
+			clickByJavascript(locator, notDisplay);
 		} finally {
 			loopCount = 0;
 		}
@@ -959,6 +970,9 @@ public class TestBase {
 		Actions actions = new Actions(driver);
 		try {
 			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
+			if (browser.contains("chrome")) {
+				scrollToElement(element, driver);
+			}
 			if (!element.isSelected()) {
 				actions.click(element).perform();
 				if(waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE).getAttribute("type")!=null && waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE).getAttribute("type")!="checkbox"){
@@ -966,8 +980,7 @@ public class TestBase {
 					if (!element.isSelected()) {
 						info("check by javascript");
 						waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplayE);
-						JavascriptExecutor js = (JavascriptExecutor)driver; 
-						js.executeScript("arguments[0].click();", element);  
+						clickByJavascript(locator, notDisplayE);
 					}
 				}
 			} else {
@@ -1230,7 +1243,7 @@ public class TestBase {
 			loopCount = 0;
 		}
 	}
-
+	
 	/**
 	 * doubleClickOnElement
 	 * @param locator
@@ -1474,7 +1487,7 @@ public class TestBase {
 	 * Change attribute "display" of HTML tag from "none" to "block" 
 	 * @param locator
 	 */
-	public void changeDisplayAttributeHTML(String locator){
+	public void changeDisplayAttributeHTML(Object locator){
 		WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';",element);	
 	}
@@ -1676,11 +1689,10 @@ public class TestBase {
 	 * @param pathFile
 	 * @param fileName
 	 */
-	public void importCat(String pathFile, String fileName) {
+	public void importFile(String pathFile, String fileName) {
 		info("Attach a file");
-		WebElement element = waitForAndGetElement(ELEMENT_UPLOAD_POPUP_ATTACHMENT_FILE_INPUT, DEFAULT_TIMEOUT, 1,2);
-		((JavascriptExecutor) driver).executeScript("arguments[0].style.display = 'block';", element);
-		element.sendKeys(getAbsoluteFilePath(pathFile + fileName));
+		click(ELEMENT_UPLOAD_SELECT_BUTTON);
+		uploadFileUsingRobot(pathFile +"/"+ fileName);
 		waitForAndGetElement(ELEMENT_UPLOAD_POPUP_NAMEFILE.replace("${fileName}", fileName));
 		click(ELEMENT_SAVE_BTN);
 		Utils.pause(2000);
@@ -1878,6 +1890,8 @@ public class TestBase {
 		try {
 			Robot robot = new Robot();
 			robot.delay(1000);
+			robot.keyPress(KeyEvent.VK_DOWN);
+			robot.keyRelease(KeyEvent.VK_DOWN);
 			robot.keyPress(KeyEvent.VK_CONTROL);
 			robot.keyPress(KeyEvent.VK_A);
 			robot.keyRelease(KeyEvent.VK_CONTROL);
@@ -1897,7 +1911,7 @@ public class TestBase {
 			robot.delay(1000);
 			robot.keyPress(KeyEvent.VK_ENTER);
 			robot.keyRelease(KeyEvent.VK_ENTER);
-			robot.delay(1000);
+			Utils.pause(1000);
 		} catch (Exception exp) {
 			exp.printStackTrace();
 		}

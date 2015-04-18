@@ -24,6 +24,13 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//*[contains(@title,'Quick Search')]";
 	public final By ELEMENT_SEARCH_USERS_ICON=By.xpath(".//*[@id='UIUserSelector']//*[contains(@class,'uiIconSearch')]");
 	
+	//Search user
+	public final String ELEMENT_CLOSE_MESSAGE = "//*[contains(@title,'Close Window')]";
+	public final By ELEMENT_INPUT_SEARCH_USER_NAME = By.id("searchTerm");
+	public final String ELEMENT_SELECT_SEARCH_OPTION = "//*[contains(@name,'searchOption')]";
+	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//*[contains(@class,'uiIconSearch uiIconLightGray')]";
+	public String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
+	
 	//Application tab
 	public By ELEMENT_SETTINGS_APP_TAB = By.xpath("//*[@id='UITabPane']//*[@class='nav nav-tabs']//*[contains(text(),'Applications')]");
 	public String ELEMENT_DELETE_APP_FROM_TOPBAR = ".//*[@id='UISpaceApplication']//*[contains(text(),'{$application}')]/../..//*[@class='uiIconClose pull-right']";
@@ -95,6 +102,26 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	}
 	
 	/**
+	 * function: Search user
+	 * 
+	 * @param user
+	 *            (Can be: User name, Last name, First name or Email of the user
+	 *            you want to search)
+	 * @param searchOption
+	 *            (Can be: User name, Last name, First name or Email option
+	 *            corresponding with information you input in "Search")
+	 */
+	public void searchUser(String user, String searchOption) {
+		info("--Search user " + user + "--");
+		if (isTextPresent("Search")) {
+			type(ELEMENT_INPUT_SEARCH_USER_NAME, user, true);
+			select(ELEMENT_SELECT_SEARCH_OPTION, searchOption);
+		}
+		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
+		waitForTextPresent(user);
+	}
+	
+	/**
 	 * Invite a user in the space
 	 * @param userName as John or Mary. Without family name
 	 */
@@ -108,6 +135,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		click(ELEMENT_SEARCH_USERS_ICON);
 		Utils.pause(2000);
 		info("Select a user");
+		searchUser(userName, ELEMENT_MSG_SEARCH_USER_NAME);
 		check(ELEMENT_SPACE_SELECT_USER_IN_FORM.replace("{$name}",userName),2);
 		info("click on Add button");
 		click(ELEMENT_ADD);

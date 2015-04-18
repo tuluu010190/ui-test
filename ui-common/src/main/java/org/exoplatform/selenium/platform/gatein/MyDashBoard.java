@@ -109,10 +109,8 @@ public class MyDashBoard extends PlatformBase {
 	public void addTab(String name){
 		info("Click on add button");
 		click(ELEMENT_MYDASH_BTN_ADDTAB);
-		//type(ELEMENT_MYDASH_BTN_NAMETAB,name,true);
-		waitForAndGetElement(ELEMENT_MYDASH_BTN_NAMETAB,2000,0).clear();
-		waitForAndGetElement(ELEMENT_MYDASH_BTN_NAMETAB,2000,0).sendKeys(name);
-		waitForAndGetElement(ELEMENT_MYDASH_BTN_NAMETAB,2000,0).sendKeys(Keys.ENTER);
+		type(ELEMENT_MYDASH_BTN_NAMETAB,name,true);
+		type(ELEMENT_MYDASH_BTN_NAMETAB,"\n",false);
 		info("Verify that the new tab is added");
 		waitForAndGetElement(ELEMENT_MYDASH_TAB_NAME.replace("${name}",name),2000,0);
 		

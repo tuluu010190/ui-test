@@ -58,7 +58,6 @@ public class WikiSettingManagement extends PlatformBase{
 		info("Delete template "+template);
 		click(By.xpath(ELEMENT_DELETE_TEMPLATE.replace("{$template}", template)));
 		alert.acceptAlert();
-		driver.navigate().refresh();
 		waitForElementNotPresent(By.xpath(ELEMENT_DELETE_TEMPLATE.replace("{$template}", template)));
 	}
 	

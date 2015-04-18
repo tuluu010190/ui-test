@@ -2,19 +2,19 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.io.File;
+
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class WikiManagement extends WikiHomePage{
-	
+
 	public final String ELEMENT_PAGE_INFOR_RECENT_CHANES = ".//*[contains(text(),'v.1')]/../..//*[contains(text(),'John Smith')]";
 	public final String ELEMENT_PAGE_INFOR_HIERARCHY_CHILD_PAGES = ".//*[contains(text(),'Child Pages')]/..//*[contains(text(),'${child}')]";
 	//Source editor
@@ -34,6 +34,7 @@ public class WikiManagement extends WikiHomePage{
 	public final By ELEMENT_SOURCE_EDITOR_BUTTON= By.xpath("//*[contains(text(),'Source Editor')]");
 	public final By ELEMENT_RICHTEXT_BUTTON = By.xpath("//*[contains(text(),'Rich Text')]");
 
+	public final By ELEMENT_UPLOAD_FILE_BUTTON=By.xpath("//*[contains(@id,'file')]");
 	public final By ELEMENT_UPLOAD_NAME = By.name("file");
 	public final By ELEMENT_BODY_CONTAINER = By.xpath("//*[@class='uiRightContainerArea']");
 
@@ -43,35 +44,35 @@ public class WikiManagement extends WikiHomePage{
 	//Comfirmation popup
 	public By ELEMENT_CONFIRMATION_POPUP_YES_BTN = By.xpath(".//*[@id='UIPortalApplication']//button[text()='Yes']");
 	public String ELEMENT_POPUP_MESSAGE_CONTENT = ".//*[contains(text(),'${message}')]";
-	
+
 	//Add page from template
 	public final String ELEMENT_SELECT_TEMPLATE_LINK = ".//*[contains(text(),'${template}')]/../..//input";
-    public final String ELEMENT_TEMPLATE_PREVIEW_BTN = ".//*[contains(text(),'${template}')]/../..//*[@class='uiIconPreview uiIconLightGray']";
+	public final String ELEMENT_TEMPLATE_PREVIEW_BTN = ".//*[contains(text(),'${template}')]/../..//*[@class='uiIconPreview uiIconLightGray']";
 	public final By ELEMENT_TEMPLATE_SELECT_FORM = By.id("UIWikiSelectTemplateForm");
 	public final By ELEMENT_TEMPLATE_SELECT_BTN = By.xpath(".//*[@id='UIWikiSelectTemplateForm']//*[text()='Select']");
 	public final By ELEMENT_TEMPLATE_CANCEL_BTN = By.xpath(".//*[@id='UIWikiSelectTemplateForm']//*[text()='Cancel']");
 	//Preview page
 	public final String ELEMENT_PREVIEW_TEMPLATE_CONTENT = "//*[@class='uiWikiPageTitlePreview' and contains(text(), '${template}')]";
 	public By ELEMENT_CLOSE_PREVIEW_WINDOW=By.xpath("//div[text()='Preview']/..//*[contains(@class,'uiIconClose')]");
-    public By ELEMENT_TEMPLATE_PREVIEW_PAGE_CLOSE_BTN = By.xpath(".//*[@id='UIWikiMaskWorkspace']//*[@class='uiIconClose uiIconLightGray']");
-	
-    //comment field
+	public By ELEMENT_TEMPLATE_PREVIEW_PAGE_CLOSE_BTN = By.xpath(".//*[@id='UIWikiMaskWorkspace']//*[@class='uiIconClose uiIconLightGray']");
+
+	//comment field
 	public final By ELEMENT_WIKI_PAGE_INPUT_COMMENT = By.id("Comment");
-	
+
 	//Move page popup
 	public final By ELEMENT_WIKI_PAGE_MOVE_POPUP_SAVE = By.xpath(".//*[@id='UIWikiMovePageForm']//button[contains(text(),'Move')]");
 	public final String ELEMENT_WIKI_PAGE_MOVE_POPUP_NODE =".//*[@id='UIMoveTree']//*[contains(text(),'${name}')]";
-	
+
 	//Information table
 	public final String ELEMENT_WIKI_PAGE_INFOMATION_VERSION= ".//*[@id='UIWikiPageInfoArea']//*[text()='${version}']";
 	public final By ELEMENT_WIKI_PAGE_INFORMATION_TABLE_TITLE = By.xpath(".//*[@id='UIWikiPageVersionsList2']//*[text()='Page History']");
-    public final String ELEMENT_WIKI_PAGE_INFORMATION_TABLE_CONTENT =".//a[text()='reversion']/../../..//td[contains(text(),'${text}')]";
-	
-    //Information area
-    public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_EDIT_INFOR = ".//*[@id='UIWikiPageInfoArea']//*[contains(.,'${info}')]";
+	public final String ELEMENT_WIKI_PAGE_INFORMATION_TABLE_CONTENT =".//a[text()='reversion']/../../..//td[contains(text(),'${text}')]";
+
+	//Information area
+	public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_EDIT_INFOR = ".//*[@id='UIWikiPageInfoArea']//*[contains(.,'${info}')]";
 	public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_TOTAL_ATTACHEDFILES=".//*[@id='UIWikiPageInfoArea']//*[contains(text(),'${number}')]";
 	public final String ELEMENT_WIKI_PAGE_INFORMATION_AREA_RESTRICTED_STATUS=".//*[@id='UIWikiPageInfoArea']//*[contains(text(),'${status}')]";
-	
+
 	//Page info
 	public final String ELEMENT_WIKI_PAGE_PAGE_INFO_TITLE = ".//*[@id='UIWikiPageContainer']/h4[text()='Page Info']";
 	public final By ELEMENT_PAGE_INFO_VIEW_PAGE_INFO_BTN = By.xpath(".//button[text()='View Page History']");
@@ -82,20 +83,20 @@ public class WikiManagement extends WikiHomePage{
 	public final By ELEMENT_PAGE_INFO_ADD_MORE_RELATIONS = By.xpath(".//*[@id='UIWikiPageInfo']//button[text()='Add More Relations']");
 	public final String ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT = ".//*[@id='UIWikiPageInfo']//*[contains(text(),'${col1}')]/..//*[contains(text(),'${col2}')]";
 	public final String ELEMENT_PAGE_INFO_RELATED_TABLE_DELETE_BTN =".//*[contains(text(),'${name}')]/../../../../..//*[@class='uiIconDelete uiIconLightGray']";
-	
+
 	public final By ELEMENT_PAGE_INFOR_HIERARCHY_PARENT_PAGES = By.xpath(".//*[contains(text(),'Parent Page')]/..//*[contains(text(),'Wiki Home')]");
-	
+
 	//Page History
 	public final By ELEMENT_WIKI_PAGE_PAGE_HISTORY_TITLE =By.xpath(".//h4[text()='Page History']");
 	public final String ELEMENT_WIKI_PAGE_PAGE_HISTORY_CHECKBOX = ".//a[contains(text(),'${reversion}')]/../../..//input";
 	public final By ELEMENT_WIKI_PAGE_PAGE_HISTORY_COMPARE_BTN = By.xpath(".//button[text()='Compare the selected versions']");
-	
+
 	//Compare reversion
 	public final By ELEMENT_WIKI_PAGE_COMPARE_REVERSION_TITLE = By.xpath(".//h4[text()='Compare Revisions']");
 	public final String ELEMENT_PAGE_HISTORY_COMPARE_CONTENT =".//*[@id='UIWikiPageVersionsCompare']//*[contains(text(),'${text}')]";
-	
-	
-	
+
+
+
 	//Add more relations
 	public final By ELEMENT_ADD_RELATED_PAGE_POPUP_TITLE = By.xpath(".//*[contains(text(),'Add Related Page')]");
 	public final By ELEMENT_ADD_RELATED_PAGE_POPUP_DROPDOWN=By.xpath(".//*[contains(text(),'Add Related Page')]/../..//*[@data-toggle='dropdown']");
@@ -103,21 +104,21 @@ public class WikiManagement extends WikiHomePage{
 	public final String ELEMENT_ADD_RELATED_POPUP_CONTENT = ".//*[contains(text(),'Add Related Page')]/../..//*[contains(text(),'${page}')]";
 	public final By ELEMENT_ADD_RELATED_POPUP_SELECT_BTN = By.xpath(".//button[text()='Select']");
 	public final By ELEMENT_ADD_RELATED_POPUP_CLOSE_BTN = By.xpath(".//*[contains(text(),'Add Related Page')]/..//*[@class='uiIconClose pull-right']");
-	
+
 	//Space swithcher drop down
 	public final By ELEMENT_SPACE_SWITHCHER_DROPDOWN_CLOSE=By.xpath(".//*[@id='uiSpaceSwitcher_UIWikiSelectPageForm']/.//*[@title='Close']");
 	public final By ELEMENT_ADD_RELATED_POPUP_DROPDOWN_NOSPACE = By.xpath(".//*[@id='UISpaceSwitcher_nospace'][text()='No Spaces']");
-	
-	
+
+
 	//Content page
 	public final String ELEMENT_WIKI_PAGE_CONTENT = ".//*[@id='UIViewContentDisplay']//*[contains(text(),'${text}')]";
 	public final String ELEMENT_WIKI_PAGE_EDIT_PARAGRAPH_BTN= ".//*[@id='UIViewContentDisplay']//*[contains(text(),'${text}')]/../..//*[@class='uiIconEdit uiIconLightGray wikimodel-freestanding']";
-	
+
 	//Email notification
 	public final By ELEMENT_GMAIL_PREVIOUS_EMAIL = By.xpath(".//*[@class='gE hI']");
 	public final String ELEMENT_GMAIL_CONTENT_LINK_WIKI = ".//a[contains(@href,'${page}')]";
 	public final String ELEMENT_GMAIL_CONTENT_WIKI = ".//span[contains(.,'\"${title}\" page was modified')]";
-	
+
 	ManageAlert alert;
 	/**
 	 * constructor
@@ -161,7 +162,7 @@ public class WikiManagement extends WikiHomePage{
 		}
 		waitForAndGetElement(ELEMENT_CONTENT_WIKI_FRAME);
 	}
-	
+
 	/**
 	 * Modify Wiki content with Source editor
 	 * 
@@ -201,7 +202,7 @@ public class WikiManagement extends WikiHomePage{
 		}
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Modify Wiki content with rich text
 	 * 
@@ -249,15 +250,15 @@ public class WikiManagement extends WikiHomePage{
 		if(!title.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		info("Input a content for the page");
-	    if(!content.isEmpty()){
-	    	//inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
-	    	inputFrame(ELEMENT_CONTENT_WIKI_FRAME, content);
-	    }
-	    info("Save all changes");
-	    saveAddPage();
+		if(!content.isEmpty()){
+			//inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
+			inputFrame(ELEMENT_CONTENT_WIKI_FRAME, content);
+		}
+		info("Save all changes");
+		saveAddPage();
 		info("Wiki page simple is created successfully");
 	}
-	
+
 	/**
 	 * Edit a simple wiki page with rich editor
 	 * 
@@ -278,9 +279,9 @@ public class WikiManagement extends WikiHomePage{
 			/*Utils.pause(1000);
 			driver.switchTo().defaultContent();*/
 		}
-		 info("Save all changes");
-		 saveAddPage();
-		 info("Wiki page simple is edited successfully");
+		info("Save all changes");
+		saveAddPage();
+		info("Wiki page simple is edited successfully");
 	}
 	/**
 	 * Edit a wiki page with auto save status
@@ -294,15 +295,15 @@ public class WikiManagement extends WikiHomePage{
 		if(!newTitle.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, newTitle,true);
 		info("Input a content for the page");
-	    if(!newContent.isEmpty()){
-	    	text = newContent.split("</br>");
-	    	for(int i=0; i < text.length; i++){
+		if(!newContent.isEmpty()){
+			text = newContent.split("</br>");
+			for(int i=0; i < text.length; i++){
 				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
 				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
 			}
-	    }
-		 info("Waiting 30s before saved all changes");
-		 waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
+		}
+		info("Waiting 30s before saved all changes");
+		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
 	}
 
 	/**
@@ -317,18 +318,18 @@ public class WikiManagement extends WikiHomePage{
 		if(!title.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, title,true);
 		info("Input a content for the page");
-	    if(!content.isEmpty()){
-	    	text = content.split("</br>");
-	    	for(int i=0; i < text.length; i++){
+		if(!content.isEmpty()){
+			text = content.split("</br>");
+			for(int i=0; i < text.length; i++){
 				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
 				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
 			}
-	    }
-	    info("Save all changes");
-	    saveAddPage();
+		}
+		info("Save all changes");
+		saveAddPage();
 		info("Wiki page simple is created successfully");
 	}
-	
+
 	/**
 	 * Add a simple wiki page with rich text
 	 * 
@@ -343,12 +344,12 @@ public class WikiManagement extends WikiHomePage{
 		if(!title.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, title, true);
 		info("Input a content for the page");
-	    if(!content.isEmpty()){
-	    	inputFrame(ELEMENT_CONTENT_WIKI_FRAME, content);
-	    	/*inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
+		if(!content.isEmpty()){
+			inputFrame(ELEMENT_CONTENT_WIKI_FRAME, content);
+			/*inputDataToCKEditor(ELEMENT_CONTENT_WIKI_FRAME, content);
 	    	Utils.pause(1000);
 			driver.switchTo().defaultContent();*/
-	    }
+		}
 	}
 	/**
 	 * Add a page with checking auto save after 30s
@@ -362,21 +363,21 @@ public class WikiManagement extends WikiHomePage{
 		if(!title.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, title,true);
 		info("Input a content for the page");
-	    if(!content.isEmpty()){
-	    	text = content.split("</br>");
-	    	for(int i=0; i < text.length; i++){
+		if(!content.isEmpty()){
+			text = content.split("</br>");
+			for(int i=0; i < text.length; i++){
 				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
 				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
 			}
-	    }
-	    info("Waiting 30s before saved all changes");
+		}
+		info("Waiting 30s before saved all changes");
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
-	    info("Save all changes");
-	    saveAddPage();
+		info("Save all changes");
+		saveAddPage();
 		info("Wiki page simple is created successfully");
-		
+
 	}
-	
+
 	/**
 	 * Add a new page that has auto save without save
 	 * @param title
@@ -389,22 +390,22 @@ public class WikiManagement extends WikiHomePage{
 		if(!title.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, title,true);
 		info("Input a content for the page");
-	    if(!content.isEmpty()){
-	    	text = content.split("</br>");
-	    	for(int i=0; i < text.length; i++){
+		if(!content.isEmpty()){
+			text = content.split("</br>");
+			for(int i=0; i < text.length; i++){
 				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
 				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
 			}
-	    }
-	    info("Waiting 30s before saved all changes");
+		}
+		info("Waiting 30s before saved all changes");
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
 		info("Cancel adding page");
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE,0,true);
 		waitForAndGetElement(ELEMENT_CONFIRMATION_POPUP_YES_BTN,2000,0).click();
 		Utils.pause(2000);
 	}
-	
-	
+
+
 	/**
 	 * Edit a simple wiki page with source editor
 	 * @param newTitle
@@ -417,22 +418,22 @@ public class WikiManagement extends WikiHomePage{
 		if(!newTitle.isEmpty())
 			type(ELEMENT_TITLE_WIKI_INPUT, newTitle, true);
 		info("Input a content for the page");
-	    if(!newContent.isEmpty()){
-	    	waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).clear();
-	    	text = newContent.split("</br>");
-	    	for(int i=0; i < text.length; i++){
+		if(!newContent.isEmpty()){
+			waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).clear();
+			text = newContent.split("</br>");
+			for(int i=0; i < text.length; i++){
 				type(ELEMENT_CONTENT_WIKI_INPUT,text[i],false);
 				waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).sendKeys(Keys.ENTER);
 			}
-	    }
-		
+		}
+
 	}
-	
+
 	/**
 	 * Save add page
 	 */
 	public void saveAddPage(){
-		 info("Save all changes");
+		info("Save all changes");
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE,0,true);
 		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		info("Wiki page simple is created successfully");
@@ -484,50 +485,13 @@ public class WikiManagement extends WikiHomePage{
 	 * 			optional parameter of this method.
 	 */
 	public void attachFileInWiki(String link, Integer...type ){
-		int notDisplay = 0;
-		if (type.length > 0){
-			if (!(type[0] instanceof Integer)) {
-				throw new IllegalArgumentException("-- Argument should be an Integer --");
-			}
-			notDisplay = (Integer)type[0];
-		}
-
-		String path = getAbsoluteFilePath(link);
-		info("Attach a file: " + path);
-		try{
-			for(int i =0; i<=4; i++){
-				if(waitForAndGetElement(ELEMENT_UPLOAD_NAME, 5000, 0, notDisplay)!=null)
-					break;
-				else{
-					((JavascriptExecutor) driver).executeScript("arguments[0].scrollTop = arguments[0].scrollHeight;", 
-							waitForAndGetElement(ELEMENT_BODY_CONTAINER));
-				}
-			}
-			WebElement upload = waitForAndGetElement(ELEMENT_UPLOAD_NAME, 5000, 1, notDisplay);
-			((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
-					"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", upload);
-			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload);
-			upload.sendKeys(path);
-
-		} catch (StaleElementReferenceException e) {
-			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			Utils.pause(WAIT_INTERVAL);
-			attachFileInWiki(link);
-
-		}  catch (ElementNotVisibleException e) {
-
-			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
-			Utils.pause(WAIT_INTERVAL);
-			attachFileInWiki(link);
-
-		} finally {
-			loopCount = 0;
-		}
-		switchToParentWindow();
-		waitForAndGetElement(By.linkText(link.replace("TestData/", "")));
+		String fs = File.separator;
+		click(ELEMENT_UPLOAD_FILE_BUTTON,2);
+		uploadFileUsingRobot(link);
+		waitForAndGetElement(By.linkText(link.substring(link.lastIndexOf(fs)+1)));
 	}
-	
-	
+
+
 	/**
 	 * Attach many files to a wiki page
 	 */
@@ -611,11 +575,11 @@ public class WikiManagement extends WikiHomePage{
 		waitForAndGetElement(ELEMENT_MOVE_SPACESWITCHER,2000,0).click();
 		info("Select a location");
 		click(ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR.replace("${locator}",locator));
-	    info("Select a page in the list");
-	    waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR.replace("${locator}",page2),2000,0).click();
-	    info("Save all changes");
-	    waitForAndGetElement(ELEMENT_MOVE_BTNMOVE,2000,0).click();
-		
+		info("Select a page in the list");
+		waitForAndGetElement(ELEMENT_MOVE_PAGE_POPUP_DROP_DOWN_LOCATOR.replace("${locator}",page2),2000,0).click();
+		info("Save all changes");
+		waitForAndGetElement(ELEMENT_MOVE_BTNMOVE,2000,0).click();
+
 	}
 	/**
 	 * Open information table
@@ -671,7 +635,7 @@ public class WikiManagement extends WikiHomePage{
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_PAGE_HISTORY_COMPARE_BTN,2000,0).click();
 		info("Compare reversion page is shown");
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_COMPARE_REVERSION_TITLE,2000,0);
-		
+
 	}
 	/**
 	 * Delete an attachment file
@@ -710,7 +674,7 @@ public class WikiManagement extends WikiHomePage{
 						ELEMENT_ADD_RELATED_POPUP_DROPDOWN_LOCATION.replace(
 								"${location}",space), 2000, 0);
 			}
-		
+
 		}
 		waitForAndGetElement(ELEMENT_SPACE_SWITHCHER_DROPDOWN_CLOSE,2000,0).click();
 		info("All options are checked");
@@ -725,13 +689,13 @@ public class WikiManagement extends WikiHomePage{
 		waitForAndGetElement(ELEMENT_ADD_RELATED_PAGE_POPUP_DROPDOWN,2000,0).click();
 		info("Select a location");
 		click(ELEMENT_ADD_RELATED_POPUP_DROPDOWN_LOCATION.replace("${location}",location));
-	    info("Select a page in the list");
-	    waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_CONTENT.replace("${page}",page),2000,0).click();
-	    info("Save all changes");
-	    waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_SELECT_BTN,2000,0).click();
+		info("Select a page in the list");
+		waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_CONTENT.replace("${page}",page),2000,0).click();
+		info("Save all changes");
+		waitForAndGetElement(ELEMENT_ADD_RELATED_POPUP_SELECT_BTN,2000,0).click();
 	}
-	
-	
+
+
 	/**
 	 * Delete a relation of a page
 	 * @param relation
@@ -758,7 +722,7 @@ public class WikiManagement extends WikiHomePage{
 		info("Save all changes");
 		saveAddPage();
 	}
-	
+
 	/**
 	 * Add a simple wiki page with template with auto save status
 	 * @param template
@@ -814,11 +778,11 @@ public class WikiManagement extends WikiHomePage{
 		info("Click on watch link");
 		click(ELEMENT_WATCH_LINK);
 		info("Show message :'You started watching this page now.'");
-        waitForAndGetElement(ELEMENT_POPUP_MESSAGE_CONTENT.replace("${message}",mess),2000,0);
+		waitForAndGetElement(ELEMENT_POPUP_MESSAGE_CONTENT.replace("${message}",mess),2000,0);
 		click(ELEMENT_BTN_OK);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * un-Watch a page
 	 */
@@ -828,59 +792,59 @@ public class WikiManagement extends WikiHomePage{
 		info("Click on watch link");
 		click(ELEMENT_UNWATCH_LINK);
 		info("Show message : 'You stopped watching this page now.'");
-        waitForAndGetElement(ELEMENT_POPUP_MESSAGE_CONTENT.replace("${message}",mess),2000,0);
+		waitForAndGetElement(ELEMENT_POPUP_MESSAGE_CONTENT.replace("${message}",mess),2000,0);
 		click(ELEMENT_BTN_OK);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * function: check content of mail then delete mail
 	 * @param title title of the page
 	 */
 	public void checkEmailNotification(String title){
 		info("Check and delete mail");
-		
+
 		for(String windowHandle  : driver.getWindowHandles()){
-			     driver.switchTo().window(windowHandle);
-			     info("driver.title:"+driver.getTitle());
+			driver.switchTo().window(windowHandle);
+			info("driver.title:"+driver.getTitle());
 		}
 		waitForAndGetElement(ELEMENT_GMAIL_CONTENT_WIKI.replace("${title}",title),30000,0);
 		info("Found notify mail");
 
 		info("ELEMENT_GMAIL_CONTENT:"+ELEMENT_GMAIL_CONTENT_WIKI.replace("${title}",title));
 		info("Open email");
-		 waitForAndGetElement(ELEMENT_GMAIL_CONTENT_WIKI.replace("${title}",title)).click();
-		 String defaultLink = baseUrl+"/intranet/wiki/"+title;
-		 //Store childs and parent windows
-		 Object[] allWindows =driver.getWindowHandles().toArray();
-		 //Get parent window
-		 String paWindow=allWindows[0].toString();
-		 //Get child window 1. Here is gmail browser
-		 String chilwindow1=allWindows[1].toString();
-		 //Get child window 2. Here is last child window when click on subtitle of email notification
-		 String chilwindow2=allWindows[2].toString();
-		 //Focus on Child window2
-		 driver.switchTo().window(chilwindow2);
-		 info("Verify that the link is shown as correct format:");
-		 click(ELEMENT_GMAIL_PREVIOUS_EMAIL);
-		 info("Check the link's format");
-		 String link = waitForAndGetElement(ELEMENT_GMAIL_CONTENT_LINK_WIKI.replace("${page}",title),3000,0).getAttribute("href").toString();
-		 //close child window 2
-		 driver.close();
-		 //Focus on child window 1
-		 driver.switchTo().window(chilwindow1);
-		 //close child window 1
-		 driver.close();
-		 //Focus on parent window
-		 driver.switchTo().window(paWindow);
-	 
-	    info("link:"+link);
-	    info("default:"+defaultLink);
+		waitForAndGetElement(ELEMENT_GMAIL_CONTENT_WIKI.replace("${title}",title)).click();
+		String defaultLink = baseUrl+"/intranet/wiki/"+title;
+		//Store childs and parent windows
+		Object[] allWindows =driver.getWindowHandles().toArray();
+		//Get parent window
+		String paWindow=allWindows[0].toString();
+		//Get child window 1. Here is gmail browser
+		String chilwindow1=allWindows[1].toString();
+		//Get child window 2. Here is last child window when click on subtitle of email notification
+		String chilwindow2=allWindows[2].toString();
+		//Focus on Child window2
+		driver.switchTo().window(chilwindow2);
+		info("Verify that the link is shown as correct format:");
+		click(ELEMENT_GMAIL_PREVIOUS_EMAIL);
+		info("Check the link's format");
+		String link = waitForAndGetElement(ELEMENT_GMAIL_CONTENT_LINK_WIKI.replace("${page}",title),3000,0).getAttribute("href").toString();
+		//close child window 2
+		driver.close();
+		//Focus on child window 1
+		driver.switchTo().window(chilwindow1);
+		//close child window 1
+		driver.close();
+		//Focus on parent window
+		driver.switchTo().window(paWindow);
+
+		info("link:"+link);
+		info("default:"+defaultLink);
 		if(link.contentEquals(defaultLink)==true)
 			assert true;
 		else assert false:"the link's format is incorrect";
 		Utils.pause(2000);
-		
+
 	}
 	/**
 	 * Get a permalink of the page
@@ -908,7 +872,7 @@ public class WikiManagement extends WikiHomePage{
 		info("Click on save button");
 		click(ELEMENT_PERMISSION_BUTTON_SAVE);
 	}
-	
+
 	/**
 	 * Add more permission for a user
 	 * @param namegroup

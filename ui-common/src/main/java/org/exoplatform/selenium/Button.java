@@ -84,7 +84,7 @@ public class Button extends TestBase{
 	public void ok() {
 		if (waitForAndGetElement(ELEMENT_OK_BUTTON, 5000, 0) != null){
 			click(ELEMENT_OK_BUTTON);
-		}else {
+		}else if (waitForAndGetElement(ELEMENT_OK_BUTTON_LINK, 5000, 0) != null){
 			click(ELEMENT_OK_BUTTON_LINK);
 		}
 		Utils.pause(500);
@@ -126,7 +126,7 @@ public class Button extends TestBase{
 	public void cancel(){
 		if (waitForAndGetElement(ELEMENT_CANCEL_BUTTON, 3000, 0) != null){
 			click(ELEMENT_CANCEL_BUTTON);
-		}else {
+		}else if (waitForAndGetElement(ELEMENT_CANCEL_BUTTON_AUX, 3000, 0) != null){
 			click(ELEMENT_CANCEL_BUTTON_AUX);
 		}
 	}

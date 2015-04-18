@@ -9,7 +9,6 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 	/**
 	 *<li> Case ID:122806.</li>
 	 *<li> Test Case Name: Create page using Source Editor.</li>
-	 *<li> Pre-Condition: </li>
 	 *<li> Post-Condition: </li>
 	 */
 	/**

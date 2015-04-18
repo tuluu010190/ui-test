@@ -211,8 +211,8 @@ public class Wiki_Basic_Action_Manage_Page_Edit extends Wiki_TestConfig {
 		info("Test 06: Edit page when publish activity is checked");
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String newTitle = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		String comment = wMessage.getWikiMessage(1)+ newTitle;
-		String comment1 = wMessage.getWikiMessage(2);
+		String comment = wMessage.getWikiMessage(0)+ " "+newTitle;
+		String comment1 = wMessage.getWikiMessage(1);
 		
 		/*Step Number: 1
 		 *Step Name: Step 1: Add new page

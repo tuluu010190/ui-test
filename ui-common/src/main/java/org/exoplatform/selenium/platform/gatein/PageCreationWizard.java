@@ -57,8 +57,7 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_APPLICATION_CONTENT_LIST = By.xpath("//*[@id='Content/ContentListViewerPortlet']");
 	public final String ELEMENT_APPLICATION_APPLICATION = ".//*[@id='${name}']";
 	public final String ELEMENT_APPLICATION_REMOTE_GADGET = ".//*[@id='UIApplicationList']//*[contains(text(),'${name}')]";
-	public final By ELEMENT_APPLICATION_TAB_INACTIVE = By.xpath(".//*[@id='UIPortalComposerTab']//*[@name='UIApplicationList']/../../li[@class='']");
-	public final By ELEMENT_APPLICATION_TAB_ACTIVE = By.xpath(".//*[@id='UIPortalComposerTab']//*[@name='UIApplicationList']/../../li[@class='active']");
+	public final By ELEMENT_APPLICATION_TAB_ACTIVE = By.xpath("//*[@data-target='#appList']");
 	public final String ELEMENT_APPLICATION_CATEGORY = "//*[@title='${applicationCategor}']/i";
 	public final String ELEMENT_APPLICATION_ID = ".//*[@id='${applicationId}']";
 	public final String ELEMENT_NAME_PORTLET = "//*[@class='portletName' and contains(text(), '${portletName}')]";
@@ -244,10 +243,7 @@ public class PageCreationWizard extends PlatformBase {
 	 * @param element
 	 */
 	public void addApplication(Object tab, Object element) {
-		if (waitForAndGetElement(ELEMENT_APPLICATION_TAB_INACTIVE, 4000, 0)  != null){
-			click(ELEMENT_APPLICATION_TAB_INACTIVE);
-			waitForAndGetElement(ELEMENT_APPLICATION_TAB_ACTIVE);
-		}	
+		click(ELEMENT_APPLICATION_TAB_ACTIVE);
 		click(tab);
 		Utils.pause(1000);
 		dragAndDropToObject(element,ELEMENT_PAGEEDITOR_VIEWPAGE);
@@ -283,6 +279,7 @@ public class PageCreationWizard extends PlatformBase {
 	 */
 	public void addContentlistByFolder(String path,String folder){
 		addApplication(ELEMENT_APPLICATION_CONTENT_TAB,ELEMENT_APPLICATION_CONTENT_LIST);
+		mouseOver(ELEMENT_PAGEEDITOR_VIEWPAGE,true);
 		click(contList.ELEMENT_CONTENT_LIST_EDIT_BTN);
 		contList.selectFolderContent(path,folder);
 		click(contList.ELEMENT_CONTENT_LIST_SAVE_BTN);

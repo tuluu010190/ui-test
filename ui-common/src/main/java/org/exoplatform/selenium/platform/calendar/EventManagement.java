@@ -59,7 +59,7 @@ public class EventManagement extends PlatformBase {
 	public By ELEMENT_BUTTON_EVENT_SAVE_DETAILS = By.xpath("//*[@id='UIEventForm']//*[text()='Save']");
 	public String ELEMENT_ATTACH_FILE_NAME = "//*[@data-original-title='$fileName']";
 	public By ELEMENT_EVENT_FILE_INPUT = By.xpath("//*[@id='upload']//*[@name='file']");
-	public By ELEMENT_SELECT_FILE_BUTTUN=By.xpath("//*[@class='btn' and text()='Select File']");
+	public By ELEMENT_SELECT_FILE_BUTTON=By.xpath("//*[@class='uploadButton']/*[@class='btn']");
 
 	public By ELEMENT_EVENT_REMINDER_TAB = By.xpath("//*[text()='Reminders']");
 	public By ELEMENT_EVENT_PARTICIPANTS_TAB = By.xpath("//*[text()='Participants']");
@@ -448,7 +448,7 @@ public class EventManagement extends PlatformBase {
 			fullPath="TestData/" + path;
 		}
 		click(ELEMENT_EVENT_ADD_ATTACHMENT);
-		waitForAndGetElement(ELEMENT_SELECT_FILE_BUTTUN).click();
+		click(ELEMENT_SELECT_FILE_BUTTON);
 		uploadFileUsingRobot(fullPath);
 		waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", path));
 		click(ELEMENT_ATTACHMENT_SAVE_BUTTON,0,true);
