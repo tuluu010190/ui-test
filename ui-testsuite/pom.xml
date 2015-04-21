@@ -59,6 +59,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>social-sniff-part3</id>
+			<properties>
+				<testSuite>social-sniff-part3.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>gatein-sniff-part1</id>
 			<properties>
 				<testSuite>gatein-sniff-part1.xml</testSuite>
