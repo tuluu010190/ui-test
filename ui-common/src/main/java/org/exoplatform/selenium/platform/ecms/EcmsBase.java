@@ -205,8 +205,8 @@ public class EcmsBase extends ManageAccount {
 	//View Area
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
 	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
-    public final By ELEMENT_ACTION_BAR_UPLOAD_BTN=By.xpath("//*[@class='actionIcon' and contains(text(),'Upload')]");
-	
+	public final By ELEMENT_ACTION_BAR_UPLOAD_BTN=By.xpath("//*[@class='actionIcon' and contains(text(),'Upload')]");
+
 	//Collaboration TAB
 	public final By ELEMENT_COLLABORATION_TAB = By.linkText("Collaboration");
 	public final By ELEMENT_TAG = By.linkText("Tag");
@@ -301,7 +301,7 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_FILE_CLONE = ELEMENT_HREF_NODE_LINK.replace("${nodeName}", "${node}") + "/ancestor::div[contains(@class, 'rowView')]";
 	public final String ELEMENT_FILE_CREATED_DATE = ELEMENT_DATA_TITLE.replace("${dataTitle}", "${nodeTitle}") + "/../../*[contains(@class, 'columnDatetime')]";
 	public final By ELEMENT_UPLOAD_PROGRESS_BAR = By.xpath(".//*[contains(@class,'progress progress-striped pull-right')]");
-	
+
 	//Site Explorer-->Pdf viewer
 	public final String ELEMENT_FILE_CONTENT_FIRST_PAGE=".//*[@id='pageContainer1']//*[contains(text(),'${text}')]";
 	public final By ELEMENT_FILE_CONTENT_PAGE =By.xpath(".//*[@id='pdf_viewer_image']/a/img");
@@ -375,6 +375,139 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_PARENT_DRIVER = By.xpath("//*[@id='BreadcumbsContainer']/li[2]/a");
 	public final String ELEMENT_BREADCUMBSCONTAINER = "//*[@id='BreadcumbsContainer']//a[text()='${fileName}']";
 
+	//Content explorer
+	public final By ELEMENT_TEMPLATE_LIST_NAVIGATION = By.xpath(".//*[text()='Navigation']");
+	public final By ELEMENT_TEMPLATE_LIST_PAGINATION = By.xpath(".//*[text()='Paginator']");
+
+//	template documents
+	public final By ELEMENT_TEMPLATE_DOC_ACCMEDIA = By.xpath("//*[text()='Accessible Media']");
+	public final By ELEMENT_TEMPLATE_DOC_ACCMEDIA_NAME = By.xpath("//*[text()='exo:accessibleMedia']");
+	public final By ELEMENT_TEMPLATE_DOC_ACCBREAD = By.xpath("//*[text()='Accessible Breadcrumb']");
+	public final By ELEMENT_TEMPLATE_DOC_ACCBREAD_NAME = By.xpath("//*[text()='wai:siteBreadcrumb']");
+	public final By ELEMENT_TEMPLATE_DOC_ACCNAV = By.xpath("//*[text()='Accessible Navigation']");
+	public final By ELEMENT_TEMPLATE_DOC_ACCNAV_NAME = By.xpath("//*[text()='wai:siteNavigationWebContent']");
+	public final By ELEMENT_TEMPLATE_DOC_ACCSITESB = By.xpath("//*[text()='Accessible Site Search Box']");
+	public final By ELEMENT_TEMPLATE_DOC_ACCSITESB_NAME = By.xpath("//*[text()='wai:siteSearchBox']");
+	public final By ELEMENT_TEMPLATE_DOC_ANNOUNC = By.xpath("//*[text()='Announcement']");
+	public final By ELEMENT_TEMPLATE_DOC_ANNOUNC_NAME = By.xpath("//*[text()='exo:announcement']");
+	public final By ELEMENT_TEMPLATE_DOC_CSSFILE = By.xpath("//*[text()='CSS File']");
+	public final By ELEMENT_TEMPLATE_DOC_CSSFILE_NAME = By.xpath("//*[text()='exo:cssFile']");
+	public final By ELEMENT_TEMPLATE_DOC_CONTACTUS = By.xpath("//*[text()='Contact Us']");
+	public final By ELEMENT_TEMPLATE_DOC_CONTACTUS_NAME = By.xpath("//*[text()='acme:contact_us']");
+	public final By ELEMENT_TEMPLATE_DOC_FILE = By.xpath("//*[text()='File']");	
+	public final By ELEMENT_TEMPLATE_DOC_FILE_NAME = By.xpath("//*[text()='nt:file']");
+	public final By ELEMENT_TEMPLATE_DOC_HTMLFILE = By.xpath("//*[text()='HTML File']");
+	public final By ELEMENT_TEMPLATE_DOC_HTMLFILE_NAME = By.xpath("//*[text()='exo:htmlFile']");
+	public final By ELEMENT_TEMPLATE_DOC_ILLUSTRATEDWC = By.xpath("//*[text()='Illustrated Web Content']");
+	public final By ELEMENT_TEMPLATE_DOC_ILLUSTRATEDWC_NAME = By.xpath("//*[text()='exo:pictureOnHeadWebcontent']");
+	public final By ELEMENT_TEMPLATE_DOC_JS = By.xpath("//*[text()='Javascript File']");
+	public final By ELEMENT_TEMPLATE_DOC_JS_NAME = By.xpath("//*[text()='exo:jsFile']");
+	public final By ELEMENT_TEMPLATE_DOC_PRODUCT = By.xpath("//*[text()='Product']");
+	public final By ELEMENT_TEMPLATE_DOC_PRODUCT_NAME = By.xpath("//*[text()='acme:product']");
+	public final By ELEMENT_TEMPLATE_DOC_WEBCONTENT = By.xpath("//*[text()='Web Content']");
+	public final By ELEMENT_TEMPLATE_DOC_WEBCONTENT_NAME = By.xpath("//*[text()='exo:webContent']");
+	public final By ELEMENT_TEMPLATE_DOC_WEBLINK = By.xpath("//*[text()='Web Link']");
+	public final By ELEMENT_TEMPLATE_DOC_WEBLINK_NAME = By.xpath("//*[text()='exo:link']");
+	
+	public final By ELEMENT_TEMPLATE_DOCS_RESULTSPERPAGE = By.xpath(".//*[@class='selectbox pull-left']");
+	
+	//template edit
+	public final By ELEMENT_TEMPLATE_ACTIONS_ADDMETADATA = By.xpath("//*[text()='Add Metadata Action']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_AUTOVERSIONING = By.xpath("//*[text()='Automatic Versioning']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_ENABLEVERSIONING = By.xpath("//*[text()='Enable Versioning']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_ENABLEVERSIONING_NAME = By.xpath("//*[text()='Enable Versioning']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_POPTOMENU = By.xpath("//*[text()='Populate to Menu']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_POPTOMENU_NAME = By.xpath("//*[text()='Populate to Menu']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_ADDCATACTION = By.xpath("//*[text()='Add Category Action']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_ADDCATACTION_NAME = By.xpath("//*[text()='Add Category Action']");
+	
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ACCMED = By.xpath("//*[text()='Accessible Media']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ACCBREAD = By.xpath("//*[text()='Accessible Breadcrumb']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ACCNAV = By.xpath("//*[text()='Accessible Navigation']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ACCSITESB = By.xpath("//*[text()='Accessible Site Search Box']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ANNOUNC = By.xpath("//*[text()='Announcement']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CSSFILE = By.xpath("//*[text()='CSS File']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CONTACTUS = By.xpath("//*[text()='Contact Us']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_FILE = By.xpath("//*[text()='File']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_HTMLFILE = By.xpath("//*[text()='HTML File']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ILLUSTRATEDWC = By.xpath("//*[text()='Illustrated Web Content']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_JS = By.xpath("//*[text()='Javascript File']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_PRODUCT = By.xpath("//*[text()='Product']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_WEBCONTENT = By.xpath("//*[text()='Web Content']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_WEBLINK = By.xpath("//*[text()='Web Link']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	
+	
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ADDMETADATA = By.xpath("//*[text()='Add Metadata Action']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_AUTOVERSIONING = By.xpath("//*[text()='Automatic Versioning']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ENABLEVERSIONING = By.xpath("//*[text()='Enable Versioning']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_POPTOMENU = By.xpath("//*[text()='Populate to Menu']/../..//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ADDCATACTION = By.xpath("//*[text()='Add Category Action']/../..//*[@class='uiIconEdit uiIconLightGray']");
+
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_DIAL = By.xpath("//*[text()='Dialog']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_DIALTEXT = By.xpath("//*[text()='dialog1']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_VIEW = By.xpath("//*[text()='View']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_VIEWTEXT = By.xpath("//*[text()='view1']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CSS = By.xpath("//*[text()='CSS']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CSSTEXT = By.xpath("//*[contains(text(), 'Empty data')]");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CSSTEXT_ACCMED2 = By.xpath("//*[text()='Stylesheet-rt']/../..//*[contains(text(),'[*]')]");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CSSTEXT_ACCMED1 = By.xpath("//*[text()='Stylesheet-lt']/../..//*[contains(text(),'[*]')]");
+
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CANCEL = By.xpath("//*[@class='uiForm SkinForm']//*[@class='uiAction uiActionBorder']//*[text()='Cancel']");
+
+	//template list
+	public final By ELEMENT_TEMPLATE_LIST = By.xpath(".//*[@class='uiIconEcmsCLVTemplatesManager uiIconEcmsLightGray']");
+	public final By ELEMENT_TEMPLATE_LIST_ACMEBHN = By.xpath("//*[text()='Acme Big Hot News']");
+	public final By ELEMENT_TEMPLATE_LIST_ACMEBHN_NAME = By.xpath("//*[text()='AcmeBigHotNews.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_ACMEPOWER = By.xpath("//*[text()='Acme Powers']");
+	public final By ELEMENT_TEMPLATE_LIST_ACMEPOWER_NAME = By.xpath("//*[text()='AcmePowers.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_BANNER = By.xpath("//*[text()='Accessible Banner']");
+	public final By ELEMENT_TEMPLATE_LIST_BANNER_NAME = By.xpath("//*[text()='AccessibleBanner.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_BREADCRUMB = By.xpath("//*[text()='Accessible Breadcrumb']");
+	public final By ELEMENT_TEMPLATE_LIST_BREADCRUMB_NAME = By.xpath("//*[text()='AccessibleBreadcrumb.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_SITEMAP = By.xpath("//*[text()='Accessible Sitemap']");
+	public final By ELEMENT_TEMPLATE_LIST_SITEMAP_NAME = By.xpath("//*[text()='AccessibleSitemap.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_TOOLBAR = By.xpath("//*[text()='Accessible Toolbar']");
+	public final By ELEMENT_TEMPLATE_LIST_TOOLBAR_NAME = By.xpath("//*[text()='AccessibleToolbar.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_NAVIG = By.xpath("//*[text()='Accessible Navigation']");
+	public final By ELEMENT_TEMPLATE_LIST_NAVIG_NAME = By.xpath("//*[text()='AccessibleNavigation.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_CATTREE = By.xpath("//*[text()='Acme Powers Category Tree']");
+	public final By ELEMENT_TEMPLATE_LIST_CATTREE_NAME = By.xpath("//*[text()='AcmePowersCategoryTree.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_CATLIST = By.xpath("//*[text()='Category List']");
+	public final By ELEMENT_TEMPLATE_LIST_CATLIST_NAME = By.xpath("//*[text()='CategoryList.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_NOPAG = By.xpath("//*[text()='No Pagination']");
+	public final By ELEMENT_TEMPLATE_LIST_NOPAG_NAME = By.xpath("//*[text()='EmptyPaginator.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_DEFPAG = By.xpath("//*[text()='Default Paginator']");
+	public final By ELEMENT_TEMPLATE_LIST_DEFPAG_NAME = By.xpath("//*[text()='DefaultPaginator.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_ANNOUNCMENT = By.xpath("//*[text()='Announcement']");
+	public final By ELEMENT_TEMPLATE_LIST_ANNOUNCMENT_NAME = By.xpath("//*[text()='Announcement.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_DOCUMENT = By.xpath("//*[text()='Documents']");
+	public final By ELEMENT_TEMPLATE_LIST_DOCUMENT_NAME = By.xpath("//*[text()='Documents.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_ONECOL = By.xpath("//*[text()='One Column']");
+	public final By ELEMENT_TEMPLATE_LIST_ONECOL_NAME = By.xpath("//*[text()='OneColumn.gtmpl']");
+	public final By ELEMENT_TEMPLATE_LIST_TWOCOL = By.xpath("//*[text()='Two Columns']");
+	public final By ELEMENT_TEMPLATE_LIST_TWOCOL_NAME = By.xpath("//*[text()='TwoColumns.gtmpl']");
+
+	public final By ELEMENT_EXPLORER = By.xpath("//*[contains(text(),'Explorer')]//*[@class='uiIconSelected uiIconLightGray pull-right']");
+	public final By ELEMENT_EXPLORER_DRIVES = By.xpath(".//*[@class='uiIconEcmsDriveManager uiIconEcmsLightGray']");
+	public final By ELEMENT_EXPLORER_DRIVES_ADDDRIVE = By.xpath(".//*[text()='Add Drive']");
+
+	public final By ELEMENT_EXPLORER_DRIVES_ADDDRIVE_NAME = By.xpath(".//*[@id='name']");
+	public final By ELEMENT_EXPLORER_DRIVES_ADDDRIVE_WORKSPACE = By.xpath(".//*[@class='uiSelectbox']");
+	public final By ELEMENT_EXPLORER_DRIVES_ADDDRIVE_PERMISSION = By.xpath(".//*[@id='permissions']");
+	public final By ELEMENT_EXPLORER_DRIVES_ADDDRIVE_TABAPPLYVIEW = By.xpath(".//*[text()='Apply Views']");
+	public final By ELEMENT_EXPLORER_DRIVES_ADDDRIVE_TABAPPLYVIEW_ADMINBOX = By.xpath(".//*[@id='Admin' and @class='checkbox']");
+	public final By ELEMENT_EXPLORER_DRIVES_ADDDRIVE_SAVE = By.xpath("//*[text()='Save']");
+
+	public final By ELEMENT_SE_SHOWDRIVES = By.xpath(".//*[@class='uiIconEcmsGeneralDrive uiIconEcms16x16DriveManagedSites']");
+	public final String ELEMENT_SE_SHOWDRIVES_DRIVE = ".//*[@data-original-title='${name}']";
+
+	public final By ELEMENT_SE_DRIVES_RIGHTARROW = By.xpath("//*[text()='exo:ecm']/../../..//*[@class='uiIconArrowRight']");
+	public final By ELEMENT_SE_DRIVES_RIGHTARROW_VIEWS = By.xpath("//*[text()='views']/../../..//*[@class='uiIconArrowRight uiIconLightGray']");
+	public final By ELEMENT_SE_DRIVES_RIGHTARROW_TEMPLATES = By.xpath("//*[@style='padding-left:80px']/..//*[text()='templates']");
+	public final By ELEMENT_SE_DRIVES_RIGHTARROW_CONTENTLISTVIEWERS = By.xpath("//*[text()='content-list-viewer']/../../..//*[@class='uiIconArrowRight']");
+	public final By ELEMENT_SE_DRIVES_RIGHTARROW_LIST = By.xpath("//*[text()='list']/../../..//*[@class='uiIconArrowRight']");
+	public final By ELEMENT_SE_DRIVES_PATH = By.xpath(".//*[@id='address']");
+
 	public final By ELEMENT_SELECT_DOCUMENT_POPUP = By.xpath("//*[@id='UIPopupSymLink']//span[text()='Select Document']");
 	public final String ELEMENT_TRANSLATION_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='fr (${fileName})']";
 	public final String ELEMENT_REF_IN_RELATION_TAB = "//*[@class='uiViewRelationList']//a[text()='${fileName}']";
@@ -394,6 +527,8 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_ACTIONS_TEMPLATE_DOCUMENT_ACTIONS_LIST=By.xpath(".//*[@id='UIActionsTemplateList']");
 	public final By ELEMENT_ACTIONS_LIST_ADD_METADATA=By.xpath(".//*[@id='UIActionTypeList']//*[contains(@data-original-title,'Add Metadata')]");
 	
+	//Document tab
+	public final By ELEMENT_ACTIONS_TEMPLATE_DOCUMENT_DOCUMENT_LIST=By.xpath(".//*[@id='UITemplateList']");
 	//Content explorer
 	public final By ELEMENT_TEMPLATE = By.xpath(".//*[text()='Templates']//*[@class='uiIconSelected uiIconLightGray pull-right']");
 	public final By ELEMENT_TEMPLATE_DOCUMENT = By.xpath(".//*[@class='uiIconEcmsTemplatesManager uiIconEcmsLightGray']");
@@ -401,28 +536,12 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_TEMPLATE_DOCUMENT_ACTIONS = By.xpath("//*[text()='Actions']");
 	
 	
-	public final By ELEMENT_TEMPLATE_ACTIONS_ADDMETADATA = By.xpath("//*[text()='Add Metadata Action']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_AUTOVERSIONING = By.xpath("//*[text()='Automatic Versioning']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_ENABLEVERSIONING = By.xpath("//*[text()='Enable Versioning']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_POPTOMENU = By.xpath("//*[text()='Populate to Menu']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_ADDCATACTION = By.xpath("//*[text()='Add Category Action']");
-	
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ADDMETADATA = By.xpath("//*[text()='Add Metadata Action']/../..//*[@class='uiIconEdit uiIconLightGray']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_AUTOVERSIONING = By.xpath("//*[text()='Automatic Versioning']/../..//*[@class='uiIconEdit uiIconLightGray']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ENABLEVERSIONING = By.xpath("//*[text()='Enable Versioning']/../..//*[@class='uiIconEdit uiIconLightGray']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_POPTOMENU = By.xpath("//*[text()='Populate to Menu']/../..//*[@class='uiIconEdit uiIconLightGray']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ADDCATACTION = By.xpath("//*[text()='Add Category Action']/../..//*[@class='uiIconEdit uiIconLightGray']");
-	
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_DIAL = By.xpath("//*[text()='Dialog']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_DIALTEXT = By.xpath("//*[text()='dialog1']");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_DIAL_PERMISSION_2=By.xpath("//*[text()='admin_dialog']/../..//*[contains(text(),'[*:/platform/administrators]')]");
 	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_DIAL_PERMISSION=By.xpath("//*[text()='dialog1']/../..//*[contains(text(),'[*]')]");
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_VIEW = By.xpath("//*[text()='View']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_VIEWTEXT = By.xpath("//*[text()='view1']");
 	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_VIEW_PERMISSION=By.xpath("//*[text()='view1']/../..//*[contains(text(),'[*]')]");
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CSS = By.xpath("//*[text()='CSS']");
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CSSTEXT = By.xpath(".//*[@id='SkinList']//*[contains(@class,'empty center')]");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ACC_DIAL_PERMISSION=By.xpath("//*[text()='dialog1']/../..//*[contains(text(),'[webdesigner:/platform/web-contributors]')]");
+	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_ANNOUN_DIAL_PERMISSION=By.xpath("//*[text()='dialog1']/../..//*[contains(text(),'[*:/platform/web-contributors]')]");
 	
-	public final By ELEMENT_TEMPLATE_ACTIONS_EDIT_CANCEL = By.xpath("//*[@class='uiForm SkinForm']//*[@class='uiAction uiActionBorder']//*[text()='Cancel']");
 	
 	public final By ELEMENT_ACTIONS_ADDMETADATA = By.xpath(".//*[@id='UIActionTypeList']//*[text()='Add Metadata']");
 	public final By ELEMENT_ACTIONS_ADDTOFAVORITES = By.xpath(".//*[@id='UIActionTypeList']//*[text()='Add To Favorites']");
@@ -645,7 +764,7 @@ public class EcmsBase extends ManageAccount {
 		//switchToParentWindow();
 		info("upload progress bar is hideded");
 		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
-		
+
 		if (verify){
 			String links[] = link.split("/");
 			int length = links.length;
@@ -833,8 +952,8 @@ public class EcmsBase extends ManageAccount {
 		waitForAndGetElement(ELEMENT_CHECK_PDF_NEW_WINDOW);
 		switchToParentWindow();
 	}
-	
-	
+
+
 	/**
 	 *  Goto upload in Content/Site Explorer
 	 *  Mouse over on the button "More"

@@ -10,6 +10,7 @@
 		<classes>
 		    <class name="org.exoplatform.selenium.platform.ecms.functional.admin.admin.config.ECMS_Admin_Config_Action_Template" />
 		    <class name="org.exoplatform.selenium.platform.ecms.functional.admin.admin.config.ECMS_Admin_Config_Action_Type" />
+		     <class name="org.exoplatform.selenium.platform.ecms.functional.admin.admin.config.ECMS_Admin_Config_Document_Template" />
 		</classes>
 	</test>
 	<test name="ecms-func-repository" enabled="true">
