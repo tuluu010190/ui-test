@@ -234,7 +234,7 @@ public class Ecms_SE_Create extends ECMS_TestConfig_Part2{
         info("Upload a file");
 		navTool.goToSiteExplorer();
 		SEHome.goToPath("acme/documents", "Sites Management");
-		SEHome.uploadFile("TestData/"+file);
+		SEHome.uploadFile("TestData/"+file,true);
 
 		/*Step number: 2
 		 *Step Name: 
