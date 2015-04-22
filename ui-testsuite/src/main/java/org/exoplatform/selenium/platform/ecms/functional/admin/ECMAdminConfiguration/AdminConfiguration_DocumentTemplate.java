@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.ecms.functional.admin.admin.config;
+package org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -17,7 +17,7 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu;
 import org.testng.annotations.*;
 
 
-public class ECMS_Admin_Config_Document_Template extends PlatformBase {
+public class AdminConfiguration_DocumentTemplate extends PlatformBase {
 
 	//Platform
 	NavigationToolbar nav;

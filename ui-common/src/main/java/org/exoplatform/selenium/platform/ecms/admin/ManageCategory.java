@@ -38,17 +38,21 @@ public class ManageCategory extends EcmsPermission{
 	public final By ELEMENT_CATEGORIES_WORKSPACE = By.name("TaxoTreeWorkspace");
 	public final By ELEMENT_ADD_PATH_LINK = By.xpath("//*[@title='Add Path']");
 	public final By ELEMENT_POPUP_HOME_PATH = By.id("PopupTaxonomyJCRBrowser");
-	public final String ELEMENT_EDIT_CATEGORY_TREE = "//*[text()='${categoryTreeName}']/../..//*[@class='uiIconEditInfo uiIconLightGray']";
 	public final By ELEMENT_ADD_PATH_LINK_ICON = By.xpath("//*[@data-original-title='Add Path']");
-	
+	public final String ELEMENT_EDIT_CATEGORY_TREE = "//*[@data-original-title='${categoryTreeName}']/../..//*[@class='uiIconEditInfo uiIconLightGray']";
+	public final String ELEMENT_CATEGORY_TREE = "//div[@data-original-title='${name}']";
+	public final String ELEMENT_CATEGORY_TREE_WORKSPACE = "//*[@data-original-title='${name}']/../..//*[@data-original-title='${workspace}']";
+	public final String ELEMENT_CATEGORY_TREE_PATH = "//*[@data-original-title='${name}']/../..//*[@data-original-title='${path}']";
+
 	// Add Category tree form -screen2
-	//public final By ELEMENT_PREVIOUS_BUTTON = By.linkText("Previous");
+	public final By ELEMENT_PREVIOUS_BUTTON_3SCREEN = By.xpath(".//*[@id='UITaxonomyTreeCreateChild']//*[@class='btn' and contains(.,'Previous')]");
+	public final By ELEMENT_PREVIOUS_BUTTON_2SCREEN = By.xpath(".//*[@id='UIActionTaxonomyManager']//*[@class='btn' and contains(.,'Previous')]");
 	public final By ELEMENT_SELECT_EVERYONE_ICON = By.xpath("//*[@data-original-title='Select Everyone']");
 	public final By ELEMENT_SELECT_EVERYONE_ICON_1 = By.xpath("//*[@title='Select Everyone']");
 	public final By ELEMENT_SELECT_EVERYONE_ICON_2 = By.xpath("//*[@data-original-title='Everyone']");
 	public final By ELEMENT_SELECT_MEMBERSHIP_ICON = By.xpath("//*[@data-original-title='Select Membership']");
-    public final By ELEMENT_NEXT_BUTTON_STEP_2 = By.xpath("//*[text()='Add a permission to that node']/../..//*[text()='Next']");
-    
+	public final By ELEMENT_NEXT_BUTTON_STEP_2 = By.xpath("//*[text()='Add a permission to that node']/../..//*[text()='Next']");
+
 	// Add Category tree form -screen3
 	public final String MSG_ADD_CATEGORY_STEP3="Edit the taxonomy tree by adding, copying, cutting and selecting permissions.";
 	public final By ELEMENT_ACTION_TYPE = By.id("actionType");
@@ -64,22 +68,18 @@ public class ManageCategory extends EcmsPermission{
 	public final String MESSAGE_INFO_CUT_TO_CATEGORY =  "You cannot paste here. The category node '${pathCategory}' might be cut.";
 	public final String MESSAGE_INFO_PASTE_TO_CATEGORY = "Cannot read from the source file, or the destination category is a sub-category.";
 	public final String ELEMENT_LIFE_CYCLE_LIST_OPTIONS = ".//*[@name='lifecycle']/option[contains(text(), '${option}')]";
-	
+
 	public final By ELEMENT_TARGET_PATH_SEARCH_ICON = By.xpath("//input[@id='targetPath']/..//*[contains(@class, 'uiIconSearch')]");
 	public final By ELEMENT_SAVE_BUTTON_IN_STEP_3 = By.xpath("//*[text()='Add an action to the category tree']/..//*[text()='Save']");
-	
-	// Screen 4
-    public final String ELEMENT_ADD_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@title='Add']";
-	public final String ELEMENT_ADD_CATEGORY_ICON_1 = "//*[@data-original-title='${categoryName}']/../..//*[@data-original-title='Add']";
-    
-	/*==========================================================*/
 
-	/*-- Update common functions for Manage ECM Main Functions
-	 *-- Manage categories 
-	 *-- The category management includes adding, editing and deleting a category tree
-	 *-- @author: VuNA
-	 *-- @date: 15/10/2012
-	 *--*/	
+	// Screen 4
+	public final String ELEMENT_ADD_CATEGORY_ICON = "//*[@title='${categoryName}']/../..//*[@title='Add']";
+	public final String ELEMENT_ADD_CATEGORY_ICON_1 = "//*[@data-original-title='${categoryName}']/../..//*[@data-original-title='Add']";
+
+	public final String ELEMENT_IN_CATEGORY_TREE = ".//*[@class='node']//*[contains(.,'${item}')]";
+	public final String ELEMENT_CHECK_PERMISSION = ".//*[@id='PermissionInfo']//*[contains(text(),'${permission}')]";
+	
+	/*==========================================================*/
 
 	//Add new category tree: step 1 - Specify the category name, workspace and home path.
 	public void addNewCategoryTree_Step1(String categoryTreeName, String workspace, String homePath){
@@ -150,20 +150,20 @@ public class ManageCategory extends EcmsPermission{
 			waitForAndGetElement("//*[text()='User or Group']/../../..//*[contains(text(), '"+ user_Per +"')]");
 		}
 		else if (selectMembership){
-		    if (groupID.contains("Administration")){
-		    	//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/administrators']"));
-		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/administrators')]");
-		    }else if (groupID.contains("Guests")){
-		    	//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/guests']"));
-		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/guests')]");
-		    }else if (groupID.contains("Users")){
-		    	//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/users']"));
-		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/users')]");
-		    }else if (groupID.contains("Content Management")){
-		    	//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/web-contributors']"));
-		    	waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/web-contributors')]");
-		    }
-		    /*else{	
+			if (groupID.contains("Administration")){
+				//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/administrators']"));
+				waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/administrators')]");
+			}else if (groupID.contains("Guests")){
+				//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/guests']"));
+				waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/guests')]");
+			}else if (groupID.contains("Users")){
+				//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/users']"));
+				waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/users')]");
+			}else if (groupID.contains("Content Management")){
+				//waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/platform/web-contributors']"));
+				waitForAndGetElement("//*[contains(text(), '"+ membership +":/platform/web-contributors')]");
+			}
+			/*else{	
 		    	waitForAndGetElement(By.xpath("//*[@data-original-title = '"+ membership +":/"+ groupID +"']"));
 		    }*/
 		}
@@ -174,7 +174,7 @@ public class ManageCategory extends EcmsPermission{
 	public void addNewCategoryTree_Step3(String actionName, String optionsLifeCycle, String nodeTargetPath){
 		Actions actions = new Actions(driver);
 		info("-- Add an action to the category tree --");
-		  
+
 		type(ELEMENT_ACTION_NAME,actionName,false);		
 		String[] optionsLC = optionsLifeCycle.split("/");
 		select(ELEMENT_LIFE_CYCLE, optionsLC[0]);
@@ -188,7 +188,7 @@ public class ManageCategory extends EcmsPermission{
 		}else if (isElementPresent(ELEMENT_TARGET_PATH_SEARCH_ICON)){
 			click(ELEMENT_TARGET_PATH_SEARCH_ICON);
 		}
-		
+
 		selectHomePathForCategoryTree(nodeTargetPath);
 
 		//click(button.ELEMENT_SAVE_BUTTON);
@@ -197,7 +197,7 @@ public class ManageCategory extends EcmsPermission{
 		}else {
 			click("//*[text()='Add an action to the category tree']/../..//*[text()='Save']");
 		}
-		
+
 		Utils.pause(500);
 	}
 
@@ -223,7 +223,7 @@ public class ManageCategory extends EcmsPermission{
 		permission.setPermissionForUserOnManageCategory(true, user_Per, false, "", "", read, modify, remove);
 		click(button.ELEMENT_CLOSE_BUTTON);
 		//deleteCategory(childname2);
-		
+
 		click(button.ELEMENT_CLOSE_WINDOW);
 		Utils.pause(500);
 	}
@@ -232,10 +232,9 @@ public class ManageCategory extends EcmsPermission{
 	//boolean[] optionPermission: read / add / set property / remove
 	public void addNewCategoryTree(String[] nameWorkspaceHomePath, boolean selectUserOrGroup, boolean selectMembership, String[] groupIDAndMembership, 
 			String user_Per, boolean[] optionPermission, String[] actions, Object...params){
-		
-		Boolean notCloseAddCategoryForm = (Boolean) (params.length > 0 ? params[0]: false);	
-		By ELEMENT_CATEGORY_TREE = By.xpath("//div[@title='" + nameWorkspaceHomePath[0] + "']");
 
+		Boolean notCloseAddCategoryForm = (Boolean) (params.length > 0 ? params[0]: false);	
+		
 		info("Add new category tree with name: " + nameWorkspaceHomePath[0]);
 		click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
 		click(ecMain.ELEMENT_MANAGE_CATEGORIES_LINK);
@@ -251,7 +250,7 @@ public class ManageCategory extends EcmsPermission{
 		addNewCategoryTree_Step2(selectUserOrGroup, selectMembership, groupIDAndMembership[0], groupIDAndMembership[1], 
 				user_Per, optionPermission[0], optionPermission[1], optionPermission[2]);	
 		click(By.xpath(".//*[@id='UIPermissionTreeForm']//*[text()='Next']"));
-		
+
 		//step 3: Add an action to the category tree to complete the creation or update
 		info("Add new category tree - step 3: Add an action to the category tree to complete the creation or update");
 		//actions[0]: actionName, actions[1]: optionsLifeCycle, actions[2]: nodeTargetPath
@@ -266,7 +265,7 @@ public class ManageCategory extends EcmsPermission{
 			waitForTextPresent(MSG_ADD_CATEGORY_STEP3);
 			click(button.ELEMENT_CLOSE_BUTTON);
 			//check add new category tree successfully
-			waitForAndGetElement(ELEMENT_CATEGORY_TREE);
+			waitForAndGetElement(ELEMENT_CATEGORY_TREE.replace("${name}", nameWorkspaceHomePath[0]));
 			assert isElementPresent(ELEMENT_CATEGORY_TREE):"Add new category tree is not successful";
 			info("Add new category is successful");
 		}
@@ -297,13 +296,13 @@ public class ManageCategory extends EcmsPermission{
 			click(ELEMENT_EDIT_CATEGORY_TREE.replace("${categoryTreeName}", cat_name));
 		}
 		info("Add child category " + child_name + " for category " + cat_name);
-			
+
 		if (waitForAndGetElement(ELEMENT_ADD_CATEGORY_ICON_1.replace("${categoryName}", cat_name), 3000, 0) != null){
 			click(By.xpath(ELEMENT_ADD_CATEGORY_ICON_1.replace("${categoryName}", cat_name)));
 		}else if (waitForAndGetElement(ELEMENT_ADD_CATEGORY_ICON.replace("${categoryName}", cat_name), 3000, 0) != null) {
 			click(By.xpath(ELEMENT_ADD_CATEGORY_ICON.replace("${categoryName}", cat_name)));
 		}
-		
+
 		type(By.id("taxonomyName"), child_name, false);
 		//click(button.ELEMENT_SAVE_BUTTON);
 		click("//*[@id='taxonomyName']/../../../..//*[text()='Save']");

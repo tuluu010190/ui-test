@@ -462,8 +462,7 @@ public class TestBase {
 		return !isElementPresent(locator);
 	}
 
-	/**
-	 * @opPram[0]: timeout
+	/* @opPram[0]: timeout
 	 * @opPram[1]: 0,1
 	 * 0: No Assert
 	 * 1: Assert

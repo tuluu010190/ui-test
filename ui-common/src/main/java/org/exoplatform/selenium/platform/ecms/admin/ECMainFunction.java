@@ -26,12 +26,9 @@ public class ECMainFunction extends EcmsBase{
 
 	//Template tab
 	public final By ELEMENT_TEMPLATE_TAB = By.xpath("//*[text()='Templates']");
-	/*
-	 * @Added by: PhuongDT
-	 * @date: 27/08/2013
-	 */
+
 	public final By ELEMENT_DOCUMENT_LINK_XPATH = By.xpath("//*[@class='title' and contains(text(), 'Documents')]");
-	/*End Add*/
+
 	public final By ELEMENT_DOCUMENT_LINK = By.className("uiIconEcmsTemplatesManager");
 	public final By ELEMENT_MANAGE_TEMPLATE_SCREEN = By.xpath("//*[@class='title' and contains(text(),'Documents')]");
 	public final By ELEMENT_LIST_LINK = By.className("uiIconEcmsCLVTemplatesManager");
@@ -41,7 +38,7 @@ public class ECMainFunction extends EcmsBase{
 	//public final By ELEMENT_EXPLORER_TAB = By.xpath("//*[@id='accordion']/..//a[contains(text(),'Explorer')]");
 	public final By ELEMENT_EXPLORER_TAB = By.xpath("//*[text()='Explorer']");
 	public final By ELEMENT_DRIVES_TAB = By.className("uiIconEcmsDriveManager");
-
+	public final By ELEMENT_VIEWS_TAB = By.className("uiIconEcmsViewManager");
 	//Explorer Tags
 	public final By ELEMENT_WCM_CATEGORY_TAG = By.xpath("//div[contains(text(),'Categories & Tags')]");
 
@@ -69,22 +66,15 @@ public class ECMainFunction extends EcmsBase{
 	/*=============================================================*/
 	//Template
 	//Open Manage Template Screen
-	/*
-	 * @Modify by: PhuongDT
-	 * @date: 27/08/2013
-	 * @Content: Change condition to verify element Document
-	 */
 	public void goToTemplateTab(){	    
 		navToolbar.goToContentAdministration();
 		if (waitForAndGetElement(ELEMENT_DOCUMENT_LINK, 5000, 0) == null){
-	//	if (isTextNotPresent("Documents")){
-    //		if(isElementNotPresent(ELEMENT_DOCUMENT_LINK_XPATH)){
 			click(ELEMENT_TEMPLATE_TAB);
 		}
 		click(ELEMENT_DOCUMENT_LINK);
 		waitForAndGetElement(ELEMENT_MANAGE_TEMPLATE_SCREEN);	    
 	}
-	/*End Modify*/
+	
 	//Open [List Template] Screen
 	public void goToListTemplateTab(){
 		navToolbar.goToContentAdministration();
@@ -104,7 +94,6 @@ public class ECMainFunction extends EcmsBase{
 		click(ELEMENT_METADATA_LINK);
 	}
 
-	/////////////////
 	//Go To Content Administration / Repository / Manage Lock Tab
 	public void goToLockedTab(){
 		navToolbar.goToContentAdministration();
@@ -140,9 +129,6 @@ public class ECMainFunction extends EcmsBase{
 		click(ELEMENT_MANAGE_NAME_SPACE_LINK);
 	}
 
-	//Explorer: Driver/Views/Tags
-	/////////
-
 	//Function to go to Manage Driver from main screen
 	public void goToManageDrive(){
 		info("Go to manage driver form");
@@ -158,12 +144,6 @@ public class ECMainFunction extends EcmsBase{
 	//Go to Manage View Screen
 	public void goToManageViews(){
 		navToolbar.goToContentAdministration();
-		/*if (isTextNotPresent("Explorer Templates")){
-			if (isTextNotPresent("Drives")){
-				click(ELEMENT_EXPLORER_TAB);
-			}
-			click(ELEMENT_MANAGEMENT_VIEW);
-		}*/
 		if (waitForAndGetElement(ELEMENT_MANAGEMENT_VIEW, 5000, 0) != null){
 			click(ELEMENT_MANAGEMENT_VIEW);
 		}else {
@@ -201,18 +181,11 @@ public class ECMainFunction extends EcmsBase{
 		//waitForTextPresent("Memberships");
 		Utils.pause(1000);
 	}
-	/////////////
 
 	//Advanced: Categories/Queries/Scripts/Actions
 	//Go to Category Tab in Content Admin
 	public void goToCategoriesTabInContentAdmin(){
 		navToolbar.goToContentAdministration();
-		/*if (isTextNotPresent("Category Tree")){
-			if (isTextNotPresent("Queries")){
-				click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
-			}
-			click(ELEMENT_MANAGE_CATEGORIES_LINK);
-		}*/
 		if (waitForAndGetElement(ELEMENT_MANAGE_CATEGORIES_LINK, 5000, 0) != null){
 			click(ELEMENT_MANAGE_CATEGORIES_LINK);
 		}else {
@@ -258,5 +231,4 @@ public class ECMainFunction extends EcmsBase{
 		Utils.pause(500);
 	}
 
-	////////
 }

@@ -306,17 +306,8 @@ public class ActionBar extends EcmsBase{
 	 * Collaboration Tab
 	 */
 	public void goToCollaboration(){
-		for (int repeat = 0;; repeat++)	{	
-			if (repeat >= ACTION_REPEAT) {
-				Assert.fail("Cannot perform the action after " + ACTION_REPEAT + "tries");
-			}
 			mouseOver(ELEMENT_COLLABORATION_TAB, true);
 			click(ELEMENT_COLLABORATION_TAB);
-
-			if (waitForAndGetElement(ELEMENT_TAG, 30000, 0) != null) return;
-			Utils.pause(WAIT_INTERVAL);
-			info("retry...[" + repeat + "]");
-		}
 	}
 
 	/**
@@ -354,14 +345,9 @@ public class ActionBar extends EcmsBase{
 	 * @param path
 	 */
 	public void goToNodeByAddressPath(String path){
-		WebElement address = waitForAndGetElement(ELEMENT_ADDRESS_BAR);
-		address.clear();
-		address.sendKeys(path);
+		type(ELEMENT_ADDRESS_BAR,path,true);
 		String pageId = waitForAndGetElement(By.xpath("//*[@id='UIPage']/div/div")).getAttribute("id");
 		((JavascriptExecutor) driver).executeScript("javascript:eXo.webui.UIForm.submitForm('" + pageId + "#UIAddressBar','ChangeNode',true)");
-		String[] temp = path.split("/");
-		if(temp.length>0)
-			waitForAndGetElement(By.xpath("//*[@id='FileViewBreadcrumb']//a[@data-original-title='" + temp[temp.length - 1] + "']"));
 		Utils.pause(2000);
 	}
 

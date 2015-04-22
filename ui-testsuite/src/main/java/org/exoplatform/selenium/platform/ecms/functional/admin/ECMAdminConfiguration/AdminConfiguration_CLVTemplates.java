@@ -1,4 +1,4 @@
-package org.exoplatform.selenium.platform.ecms.functional.admin.admin.config;
+package org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
@@ -18,7 +18,7 @@ import org.openqa.selenium.Keys;
 import org.testng.annotations.*;
 
 
-public class ECMS_Admin_Config_CLV_Templates extends PlatformBase {
+public class AdminConfiguration_CLVTemplates extends PlatformBase {
 
 	//Platform
 	NavigationToolbar nav;

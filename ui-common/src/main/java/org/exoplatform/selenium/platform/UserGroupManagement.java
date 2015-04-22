@@ -42,6 +42,7 @@ public class UserGroupManagement extends PlatformBase {
 	//User Management -> Edit User form
 	public  final By ELEMENT_USER_MEMBERSHIP_TAB = By.xpath("//*[text()='User Membership']");
 	public final String ELEMENT_GROUP_PERMISSION = "//a[@title='${groupName}']";
+	public final By ELEMENT_ANY_PERMISSION = By.xpath(".//*[@class='uiIconAddAnyPermission uiIconLightGray']");
 
 	/**
 	 *  Choose TAB actions
@@ -271,31 +272,36 @@ public class UserGroupManagement extends PlatformBase {
 		Boolean isInPermissionTab = (Boolean) (params.length > 0? params[0]: false);
 
 		temp = groupPath.split(delimiter);
-		/* Go to group */
-		for(int i =0; i < temp.length ; i++){
-			info("Go to " + temp[i]);
-			if (isInPermissionTab){
-				if (waitForAndGetElement(By.xpath(groupName_5.replace("${groupName}", temp[i])),10000,0) != null){
-					click(By.xpath(groupName_5.replace("${groupName}", temp[i])));
-				}else if (isElementPresent(By.xpath(groupName.replace("${groupName}", temp[i])))){
-					click(By.xpath(groupName.replace("${groupName}", temp[i])));
-				}else if (isElementPresent(By.xpath(groupName_2.replace("${groupName}", temp[i])))){
-					click(By.xpath(groupName_2.replace("${groupName}", temp[i])));
-				}else if (isElementPresent(By.xpath(groupName_3.replace("${groupName}", temp[i])))){
-					click(By.xpath(groupName_3.replace("${groupName}", temp[i])));
-				}
-			}else{
-				if (!temp[i].matches("Administration")){
-					click(By.linkText(temp[i]));
-				}else{
-					if (waitForAndGetElement(groupName_4.replace("${groupName}", temp[i]), 5000, 0) != null){
-						click(groupName_4.replace("${groupName}", temp[i]));
-					}else{
+		
+		if(groupPath==""){
+			click(ELEMENT_ANY_PERMISSION);
+		}else{	
+			/* Go to group */
+			for(int i =0; i < temp.length ; i++){
+				info("Go to " + temp[i]);
+				if (isInPermissionTab){
+					if (waitForAndGetElement(By.xpath(groupName_5.replace("${groupName}", temp[i])),10000,0) != null){
+						click(By.xpath(groupName_5.replace("${groupName}", temp[i])));
+					}else if (isElementPresent(By.xpath(groupName.replace("${groupName}", temp[i])))){
 						click(By.xpath(groupName.replace("${groupName}", temp[i])));
-					}		
+					}else if (isElementPresent(By.xpath(groupName_2.replace("${groupName}", temp[i])))){
+						click(By.xpath(groupName_2.replace("${groupName}", temp[i])));
+					}else if (isElementPresent(By.xpath(groupName_3.replace("${groupName}", temp[i])))){
+						click(By.xpath(groupName_3.replace("${groupName}", temp[i])));
+					}
+				}else{
+					if (!temp[i].matches("Administration")){
+						click(By.linkText(temp[i]));
+					}else{
+						if (waitForAndGetElement(groupName_4.replace("${groupName}", temp[i]), 5000, 0) != null){
+							click(groupName_4.replace("${groupName}", temp[i]));
+						}else{
+							click(By.xpath(groupName.replace("${groupName}", temp[i])));
+						}		
+					}
 				}
+				Utils.pause(500);
 			}
-			Utils.pause(500);
 		}
 	}
 

@@ -36,10 +36,12 @@ public class ManageView extends EcmsBase{
 	//Action tab
 	public final By ELEMENT_ACTION_TAB = By.xpath("//*[contains(@class, 'popup')]//*[text()='Action']");
 	public final String ELEMENT_ACTION_TAB_NAME = "//*[contains(@class, 'popup')]//*[text()='${tabName}']";
+	public final String ELEMENT_ACTION_NOT_PRESENT = ".//*[@id='UITabList']//*[@class='Text' and not(contains(.,'${action}')) ]";
 	
 	public final String ELEMENT_EDIT_ACTION_ICON = "//*[contains(@class, 'popup')]//*[text()='${tabName}']/../..//*[@data-original-title='Edit']";
 //	public final String ELEMENT_EDIT_ACTION_ICON = "//*[contains(@class, 'popup')]//*[text()='${tabName}']/../..//i[contains(@class,'uiIconEdit')]";
-
+	public final String ELEMENT_EDIT_A_DRIVE = ".//*[@id='UIViewList']//*[contains(text(),'${name}')]/../..//*[@class='uiIconEditInfo uiIconLightGray']";
+	
 	public final By ELEMENT_SAVE_BUTTON_EDIT_VIEW_TAB = By.xpath("//*[text()='Add/Edit Tab']/.. /..//*[text()='Save']");
 	//*[contains(@class, 'popupTitle')]/../..//*[text()='Admin']/../..//*[@class='uiIconEdit']
 
@@ -53,7 +55,8 @@ public class ManageView extends EcmsBase{
 	
 	//Views > Explorer Template
 	public final By ELEMENT_EDIT_EXPLORER_TEMPLATE_TAB = By.xpath("//*[contains(@class, 'popupTitle') and text()='Edit Explorer Template']");
-	
+	public final By ELEMENT_EXPLORER_TEMPLATE = By.xpath(".//*[@id='myTab']//*[contains(text(),'Explorer Templates')]");
+	public final String ELEMENT_TEMPLATE = ".//*[@id='UIECMTemplateList']//*[contains(text(),'${template}')]";
 	/*================================================================================*/
 
 	/**

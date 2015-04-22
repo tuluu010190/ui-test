@@ -68,6 +68,22 @@
 			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.explorer.ECMS_Admin_ManageView" />
 		</classes>
 	</test>
+		<test name="ecms-func-admin-config" enabled="true">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_ActionTemplate" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_ActionType" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_Categories" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_CLVTemplates" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_ContentExplorerTemplates" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_DocumentTemplate" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_Drives" />
+		</classes>
+	</test>
 	<listeners>
 		<listener class-name="org.exoplatform.selenium.TestReportListener" />
 	</listeners>

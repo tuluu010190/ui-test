@@ -44,7 +44,7 @@ public class ManageDrive extends EcmsBase{
 	public final By ELEMENT_DRIVE_EDIT_POPUP = By.id("EditDriveManagerPopup");
 	public final String ELEMENT_DRIVE_EDIT = "//*[@title='${DATA_DRIVE_NAME}']/../..//*[@title='Edit']";
 	public final String ELEMENT_DRIVE_EDIT_AUX = "//*[@data-original-title='${driveName}']/../..//*[@data-original-title='Edit']";
-
+	public final String ELEMENT_EDIT_A_DRIVE = ".//*[@id='UIDriveList']//*[contains(text(),'${name}')]/../..//*[@class='uiIconEditInfo uiIconLightGray']";
 	//Delete a drive
 	public final String ELEMENT_DRIVE_DELETE = "//*[@title='${DATA_DRIVE_NAME}']/../..//*[@title='Delete']";
 	public final String ELEMENT_DRIVE_DELETE_AUX = "//*[@data-original-title='${DATA_DRIVE_NAME}']/../..//*[@data-original-title='Delete']";
@@ -74,6 +74,16 @@ public class ManageDrive extends EcmsBase{
 	public final String ELEMENT_VERIFY_DRIVE = "//div[@data-original-title='${driveName}']";
 	public final String ELEMENT_VERIFY_WORKSPACE_NAME = ELEMENT_VERIFY_DRIVE + "/../../td[2]/div"; 
 
+	// element check or no
+	public final By ELEMENT_REFERENCED_DOCUMENT_CHECKBOX = By.id("viewPreferences");
+	public final By ELEMENT_NON_DOCUMENT_CHECKBOX = By.id("viewNonDocument");
+	public final By ELEMENT_SHOW_SIDEBAR_CHECKBOX = By.id("viewSideBar");
+	public final By ELEMENT_HIDDEN_NODES_CHECKBOX = By.id("showHiddenNode");
+	
+	public final String ELEMENT_ALLOWANCE_TYPE =".//*[@id='allowNodeTypesOnTree' and @value='${value}']";
+	
+	public final By ELEMENT_CANCEL_BUTTON = By.xpath(".//*[@id='UIDriveForm']//*[contains(text(),'Cancel')]");
+	public final String ELEMENT_DRIVE_CHECK_NAME_PATH_WORKSPACE_PERMISSIONS_VIEWS = ".//*[@id='UIDriveList']//*[contains(text(),'${name}')]/../..//*[contains(text(),'${workspace}')]/../..//*[contains(text(),'${path}')]/../..//*[contains(.,'${permission}')]/../..//*[contains(.,'${view}')]";
 	//------------Manage driver------------------//
 
 	//Function to add new drive in [Manage drive] form
@@ -153,7 +163,9 @@ public class ManageDrive extends EcmsBase{
 		}
 		userGroup.selectGroup(group, false);
 		Utils.pause(1000);
+		if(group!=""){
 		click(By.linkText(member));
+		}
 		Utils.pause(1000);
 		assert getValue(ELEMENT_PERMISSION_TEXTBOX).contains(member):"Set permission is not true";
 

@@ -213,6 +213,8 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_TAG = By.linkText("Tag");
 	public final By ELEMENT_TAG_LINK = By.className("uiIconEcmsTaggingDocument");
 
+	public final By ELEMENT_CHANGE_DRIVE = By.id("driveAction");
+	public final String ELEMENT_SELECT_DRIVER = ".//*[@id='UIDrivesArea']//*[@data-original-title='${drive}']";
 	//System TAB  
 	public final By ELEMENT_SYSTEM_TAB = By.xpath("//a[contains(@title,'System')]");
 
@@ -574,7 +576,12 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_ACTIONS_MORE_ACTIONS_TRASHDOCUMENT = By.xpath(".//*[@id='UIActionList']//*[contains(text(),'[exo:trashFolderAction]')]");
 	public final By ELEMENT_ACTIONS_MORE_ACTIONS_ADDACTION_TAXONOMYACTION = By.xpath("//*[contains(@value,'exo:taxonomyAction')]/..");
 
-	
+	public final String ELEMENT_SITE_EXPLORER_NODE_PATH1="//*[@id='UITreeExplorer']//*[@class='nodeName' and text()='${name}']";
+	public final String ELEMENT_SITE_EXPLORER_NODE_PATH2="//*[@id='UITreeExplorer']//*[contains(@data-original-title,'${name}')]";
+	public final String ELEMENT_SITE_EXPLORER_NODE_PATH3="//*[@title='${name}']";
+	public final String ELEMENT_SITE_EXPLORER_NODE_PATH4="//span[contains(text(),'${name}')]";
+	public final String ELEMENT_SITE_EXPLORER_RIGHT_PANEL_NODE_PATH1="//*[@id='UIDocumentNodeList']//*[@class='nodeName' and text()='${name}']";
+
 	/**
 	 * Acme sites > Go to Overview page
 	 */
@@ -597,11 +604,6 @@ public class EcmsBase extends ManageAccount {
 	 */
 	public void goToNode(Object locator, Object...params)
 	{
-		String nodePath1="//*[@id='UITreeExplorer']//*[@class='nodeName' and text()='${name}']";
-		String nodePath2="//*[@id='UITreeExplorer']//*[contains(@data-original-title,'${name}')]";
-		String nodePath3="//*[@title='${name}']";
-		String nodePath4="//span[contains(text(),'${name}')]";
-
 		info("Go to Node");
 		Boolean nodeAdminView = (Boolean) (params.length > 0 ? params[0]: false);
 		if (nodeAdminView && (locator instanceof String)){
@@ -617,14 +619,14 @@ public class EcmsBase extends ManageAccount {
 				String[] nodes = ((String) locator).split("/");
 				for (String node: nodes)
 				{
-					if (waitForAndGetElement(nodePath1.replace("${name}", node), 3000, 0) != null)
-						click(nodePath1.replace("${name}", node));
-					else if (waitForAndGetElement(nodePath2.replace("${name}", node), 3000, 0) != null)
-						click(nodePath2.replace("${name}", node));
-					else if (waitForAndGetElement(nodePath3.replace("${name}", node), 3000, 0) != null)
-						click(nodePath3.replace("${name}", node));
+					if (waitForAndGetElement(ELEMENT_SITE_EXPLORER_NODE_PATH1.replace("${name}", node), 3000, 0) != null)
+						click(ELEMENT_SITE_EXPLORER_NODE_PATH1.replace("${name}", node));
+					else if (waitForAndGetElement(ELEMENT_SITE_EXPLORER_NODE_PATH2.replace("${name}", node), 3000, 0) != null)
+						click(ELEMENT_SITE_EXPLORER_NODE_PATH2.replace("${name}", node));
+					else if (waitForAndGetElement(ELEMENT_SITE_EXPLORER_NODE_PATH3.replace("${name}", node), 3000, 0) != null)
+						click(ELEMENT_SITE_EXPLORER_NODE_PATH3.replace("${name}", node));
 					else
-						click(nodePath4.replace("${name}", node));
+						click(ELEMENT_SITE_EXPLORER_NODE_PATH4.replace("${name}", node));
 					Utils.pause(500);
 				}
 			}
