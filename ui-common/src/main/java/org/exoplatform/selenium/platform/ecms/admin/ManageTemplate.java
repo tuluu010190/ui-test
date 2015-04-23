@@ -46,6 +46,7 @@ public class ManageTemplate extends EcmsBase{
 	public final By ELEMENT_DIALOG_TAB = By.xpath("//*[text()='Dialog']");
 	public final By ELEMENT_VIEW_TAB = By.xpath("//*[text()='View']");
 	public final By ELEMENT_CSS_TAB = By.xpath("//*[text()='CSS']");
+	public final By ELEMENT_EMPTY_SPACE=By.xpath("//*[@class='empty center']");
 	public final By ELEMENT_TEMPLATE_FORM = By.xpath("//span[contains(text(),'Template Form')]");
 	public final By ELEMENT_ADD_TEMPLATE_BUTTON = By.xpath("//*[text()='Add Template']");
 	public final By ELEMENT_NAVIGATION_ADD_TEMPLATE_BUTTON = By.xpath("//*[@class='CateTemplateList']//*[text()='Add Template']");
@@ -55,22 +56,21 @@ public class ManageTemplate extends EcmsBase{
 	public final By ELEMENT_ACTION_TAB_ACTIVE = By.xpath("//li[@class='active']/a[text()='Actions']");
 	public final By ELEMENT_OTHER_TAB = By.xpath(ELEMENT_TAB.replace("${typeTemplate}", "Documents").replace("${tab}", "Others"));
 
-	public final String ELEMENT_VIEW_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/..//*[@data-original-title='View']";
-	public final String ELEMENT_EDIT_METADATA_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/..//*[@data-original-title='Edit']";
+	//Template-Document-Other tab
+	public final String ELEMENT_TEMPLATE_DOCUMENT_EDIT="//*[@data-original-title='${template}']/../..//*[@data-original-title='Edit']";
+	public final String ELEMENT_TEMPLATE_DOCUMENT_PERMISSION="//*[text()='${view}']/../..//*[contains(text(),'${permission}')]";
+	public final String ELEMENT_VIEW_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/../..//*[@data-original-title='View']";
+	public final String ELEMENT_VIEW_TEMPLATE_TYPE = "//*[contains(text(),'${templateName}')]/../..//*[contains(text(),'${type}')]";
+	public final String ELEMENT_EDIT_METADATA_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/../..//*[@data-original-title='Edit']";
 	public final String ELEMENT_EDIT_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/../..//*[contains(@class,'uiIconEdit')]";
 	public final String ELEMENT_DELETE_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/../..//*[contains(@class,'uiIconDelete')]";
-	public final String ELEMENT_DELETE_METADATA_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/..//*[contains(@class,'uiIconDelete')]";
+	public final String ELEMENT_DELETE_METADATA_TEMPLATE_ICON = "//*[contains(text(),'${templateName}')]/../..//*[contains(@class,'uiIconDelete')]";
 
-	/*Added by PhuongDT
-	 *Date: 28/08/2013 
-	 */
 	public final By ELEMENT_ADD_TEMPLATE_DOCUMENT_BUTTON = By.xpath("//*[@id = 'tab-UITemplateContainer']//*[text()='Add Template']");
 	public final By ELEMENT_ADD_TEMPLATE_ACTION_BUTTON = By.xpath("//*[@id = 'tab-UIActionsTemplateContainer']//*[text()='Add Template']");
 	public final By ELEMENT_ADD_TEMPLATE_OTHER_BUTTON = By.xpath("//*[@id = 'tab-UIOthersTemplateContainer']//*[text()='Add Template']");
 	public final By ELEMENT_TEMPLATE_ACTION_DIALOG_CONTENT = By.id("dialog");
 
-
-	/*End Add*/
 	//Edit template
 	public final String ELEMENT_CONTENT = "//*[@id='${tab}']//*[@name='content']";
 	public final String ELEMENT_INPUT_NAME = "//*[@id='${tab}']//*[@name='name']";
@@ -114,7 +114,8 @@ public class ManageTemplate extends EcmsBase{
 	public final By ELEMENT_METADATA_ADD_PERMISSION_ICON = By.xpath("//*[contains(@class, 'uiIconAddPermission')]");
 	public final By ELEMENT_INPUT_DIALOG_TEMPLATE = By.name("dialogTemplate");
 	public final By ELEMENT_INPUT_VIEW_TEMPLATE = By.name("viewTemplate");
-
+	public final By ELEMENT_METADATA_PERMISSION_VALUE=By.id("viewPermission");
+	public final By ELEMENT_TEMPLATE_CLOSE_WINDOW=By.xpath("//*[@id='TemplateContainerPopup']//*[@class='uiIconClose pull-right']");
 	/*==================================================================*/
 
 	/* 

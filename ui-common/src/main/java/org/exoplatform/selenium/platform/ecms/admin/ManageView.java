@@ -50,6 +50,8 @@ public class ManageView extends EcmsBase{
 	public final By ELEMENT_ADDVIEW_PERMISSION_BUTTON = By.xpath("//*[@id='UIViewPermissionForm']//*[text()='Add']");
 	public final String ELEMENT_VERIFY_PERMISSION = "//*[contains(@class, 'popup')]//*[@id='UIViewPermissionList']//*[text()='${permission}']";
 	
+	public final String ELEMENT_VIEW_ACTION_LIST="//*[@data-original-title='${viewName}']/../..//*[contains(@data-original-title,'${action}')]";
+	public final String ELEMENT_VIEW_PERMISSION = "//*[text() = '${viewName}']/../..//*[contains(text(), '${permission}')]";
 	public final String ELEMENT_VIEW_ICON = "//*[text() = '${viewName}']/../..//*[contains(@class, 'uiIconView')]";
 	public final String ELEMENT_DISPLAY_VIEW_ITEM = "//*[@class='Text' and contains(text(),'${viewName}')]"; 
 	

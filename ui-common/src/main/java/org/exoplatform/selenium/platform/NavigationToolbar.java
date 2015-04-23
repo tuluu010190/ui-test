@@ -251,7 +251,13 @@ public class NavigationToolbar extends PlatformBase {
 		}
 	}
 
-
+	/**
+	 * Go to community
+	 */
+	public void goToCommunity() {
+		String url = baseUrl + "/g/:platform:administrators/administration/management";
+		driver.get(url);
+	}
     /**
      * Go to User and Group Management
      */

@@ -82,6 +82,11 @@
 			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_ContentExplorerTemplates" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_DocumentTemplate" />
 			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_Drives" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_Metadata" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_Namespaces" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_OtherTemplates" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_Queries" />
+			<class name="org.exoplatform.selenium.platform.ecms.functional.admin.ECMAdminConfiguration.AdminConfiguration_Views" />
 		</classes>
 	</test>
 	<listeners>

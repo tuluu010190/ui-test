@@ -412,8 +412,6 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_TEMPLATE_DOC_WEBLINK = By.xpath("//*[text()='Web Link']");
 	public final By ELEMENT_TEMPLATE_DOC_WEBLINK_NAME = By.xpath("//*[text()='exo:link']");
 	
-	public final By ELEMENT_TEMPLATE_DOCS_RESULTSPERPAGE = By.xpath(".//*[@class='selectbox pull-left']");
-	
 	//template edit
 	public final By ELEMENT_TEMPLATE_ACTIONS_ADDMETADATA = By.xpath("//*[text()='Add Metadata Action']");
 	public final By ELEMENT_TEMPLATE_ACTIONS_AUTOVERSIONING = By.xpath("//*[text()='Automatic Versioning']");
@@ -582,6 +580,41 @@ public class EcmsBase extends ManageAccount {
 	public final String ELEMENT_SITE_EXPLORER_NODE_PATH4="//span[contains(text(),'${name}')]";
 	public final String ELEMENT_SITE_EXPLORER_RIGHT_PANEL_NODE_PATH1="//*[@id='UIDocumentNodeList']//*[@class='nodeName' and text()='${name}']";
 
+	public final By ELEMENT_SE_SEARCH = By.xpath(".//*[@class='uiIconEcmsSavedSearchesMini uiIconEcmsLightGray']");
+	public final By ELEMENT_SE_SEARCH_MYDOC = By.xpath("//*[text()='My Documents']");
+	public final By ELEMENT_SE_ADVANCEDSEARCH = By.xpath("//*[@data-original-title='Advanced Search']//*[@class='uiIconSearch uiIconLightGray']");
+	public final By ELEMENT_SE_SAVEDSEARCH = By.xpath("//*[text()='Saved Query']");
+	public final By ELEMENT_SE_SAVEDSEARCH_TYPEXPATH = By.xpath("//*[text()='xpath']");
+	public final String ELEMENT_SE_SAVEDSEARCH_USER = "//*[text()='${user}']";
+	
+	//content admin
+	public final By ELEMENT_TEMPLATE_DOCS_RESULTSPERPAGE = By.xpath(".//*[@class='selectbox pull-left']");
+	
+	public final By ELEMENT_CA_REPOSITORY = By.xpath("//*[text()='Repository']");
+	public final By ELEMENT_CA_EXPLORER = By.xpath("//*[text()='Explorer']");
+	public final By ELEMENT_CA_EXPLORER_DRIVES = By.xpath(".//*[@class='uiIconEcmsDriveManager uiIconEcmsLightGray']");
+	public final By ELEMENT_CA_EXPLORER_VIEW = By.xpath(".//*[@class='uiIconEcmsViewManager uiIconEcmsLightGray']");
+	public final By ELEMENT_CA_EXPLORER_VIEW_EDIT_ADMIN = By.xpath(".//*[text()='Admin']/../..//*[@class='uiIconEditInfo uiIconLightGray']");
+	public final By ELEMENT_CA_EXPLORER_VIEW_EDIT_ADMIN_ACTION = By.xpath("//*[@id='myTab']//*[text()='Action']");
+	public final By ELEMENT_CA_EXPLORER_VIEW_EDIT_ADMIN_ACTION_EDIT = By.xpath(".//*[@class='uiIconEdit uiIconLightGray']");
+	public final By ELEMENT_CA_EXPLORER_VIEW_EDIT_ADMIN_ACTION_EDIT_COMMENT = By.xpath(".//*[@id='comment']");
+	public final By ELEMENT_CA_EXPLORER_DRIVES_EDIT_MGDSITES = By.xpath(".//*[text()='Managed Sites']/../..//*[@class='uiIconEditInfo uiIconLightGray']");
+	public final By ELEMENT_CA_EXPLORER_DRIVES_EDIT_MGDSITES_APPLYVIEWS = By.xpath("//*[text()='Apply Views']");
+	public final By ELEMENT_CA_EXPLORER_DRIVES_EDIT_MGDSITES_APPLYVIEWS_ADMIN = By.xpath(".//*[@id='Admin']");
+	public final By ELEMENT_SE_MORE_PROPERTIES = By.xpath(".//*[@class='uiIconEcmsViewProperties uiIconEcmsLightGray']");
+	public final By ELEMENT_SE_MORE_PROPERTIES_ADDPROPERTY = By.xpath(".//*[text()='Add New Property']");
+	public final By ELEMENT_SE_MORE_PROPERTIES_ADDPROPERTY_NAMESPACE = By.xpath(".//*[@id='UIPropertyForm']//*[@for='namespace']/..//*[@class='uiSelectbox']");
+	public final By ELEMENT_CA_REPOSITORY_NAMESPACES = By.xpath(".//*[@class='uiIconEcmsNamespaceManager uiIconEcmsLightGray']");
+	public final By ELEMENT_CA_REPOSITORY_NAMESPACES_EXO = By.xpath("//*[text()='exo']");
+	public final By ELEMENT_CA_REPOSITORY_NAMESPACES_WAI = By.xpath("//*[text()='wai']");
+	public final By ELEMENT_CA_REPOSITORY_NAMESPACES_ACME = By.xpath("//*[text()='acme']");
+	public final By ELEMENT_CA_REPOSITORY_NAMESPACES_EXO_URL = By.xpath("//*[text()='http://www.exoplatform.com/jcr/exo/1.0']");
+	public final By ELEMENT_CA_REPOSITORY_NAMESPACES_WAI_URL = By.xpath("//*[text()='http://www.exoplatform.com/ecm/accessibility/1.0']");
+	public final By ELEMENT_CA_REPOSITORY_NAMESPACES_ACME_URL = By.xpath("//*[text()='http://www.exoplatform.com/plf/acme/4.0/']");
+	
+	public final By ELEMENT_SE_MORE_PROPERTIES_ADDPROPERTY_NAMESPACE_EXO = By.xpath("//*[@value='exo']");
+	public final By ELEMENT_SE_MORE_PROPERTIES_ADDPROPERTY_NAMESPACE_WAI = By.xpath("//*[@value='wai']");
+	public final By ELEMENT_SE_MORE_PROPERTIES_ADDPROPERTY_NAMESPACE_ACME = By.xpath("//*[@value='acme']");	
 	/**
 	 * Acme sites > Go to Overview page
 	 */

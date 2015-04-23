@@ -24,6 +24,7 @@ public class AdvancedSearch extends EcmsBase{
 	}
 
 	//Advanced search form
+	public final String ELEMENT_SAVED_SEARCH_LIST = "//*[@data-original-title='Execute' and text()='${name}']";
 	public final By ELEMENT_SAVED_SEARCH_ICON = By.className("uiIconEcmsSavedSearchesMini"); 
 	public final By ELEMENT_ADVANCED_SEARCH_ICON = By.xpath("//*[@data-original-title='Advanced Search']");
 	public final By ELEMENT_ADVANCED_SEARCH_TAB = By.xpath("//*[@id='UIECMSearch']//*[contains(text(),'Advanced Search')]");
@@ -55,6 +56,7 @@ public class AdvancedSearch extends EcmsBase{
 	//Saved query
 	public final String ELEMENT_SAVED_QUERY_TEXT = "//div[text()='${query}']/../..//div[text()='${type}']";
 	public final By ELEMENT_SAVED_QUERY_TAB = By.linkText("Saved Query");
+	public final String ELEMENT_SAVE_QUERY_PERMISSION="//*[text()='${query}']/../..//*[text()='${user}']";
 	
 	public final String ELEMENT_EXECUTE_QUERY_ICON = "//div[text()='${query}']/../..//a[@data-original-title='Execute']";
 	public final String ELEMENT_DELETE_QUERY_ICON = "//div[text()='${query}']/../..//a[@data-original-title='Delete']";
@@ -171,6 +173,16 @@ public class AdvancedSearch extends EcmsBase{
 		click(ELEMENT_SAVED_SEARCH_ICON);
 		click(ELEMENT_ADVANCED_SEARCH_ICON);
 		click(ELEMENT_NEW_QUERY_TAB);
+	}
+	
+	/** Open New query form in advanced search
+	 * @author thuntn
+	 */
+	public void goToSavedSearch(){
+		info("--Open new query tab--");
+		click(ELEMENT_SAVED_SEARCH_ICON);
+		click(ELEMENT_ADVANCED_SEARCH_ICON);
+		click(ELEMENT_SAVED_QUERY_TAB);
 	}
 	/** Input data into Add query form in advanced search
 	 * @author thuntn
