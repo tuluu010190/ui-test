@@ -53,5 +53,12 @@ public class ApplicationGateinDatabase {
 		return index;
 	}
 	
-	
+	/**
+	 * Get name by index
+	 * @param index
+	 * @return name.get(index);
+	 */
+	public String getnameByIndex(int index){
+		return name.get(index);
+	}
 }

@@ -65,6 +65,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>social-high-functional</id>
+			<properties>
+				<testSuite>social-high-functional.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>gatein-sniff-part1</id>
 			<properties>
 				<testSuite>gatein-sniff-part1.xml</testSuite>

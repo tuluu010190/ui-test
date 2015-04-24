@@ -474,6 +474,7 @@ public class NavigationManagement extends PlatformBase {
 
     /**
      * Select a page in pages list after searching the page
+     * @param title
      */
 	public void selectPage(String title){
 		info("Searching the page");

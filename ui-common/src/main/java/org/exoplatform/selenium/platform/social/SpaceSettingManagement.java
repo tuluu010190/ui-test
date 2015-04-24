@@ -1,8 +1,9 @@
 package org.exoplatform.selenium.platform.social;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-
+import org.exoplatform.selenium.platform.gatein.NavigationManagement;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.openqa.selenium.By;
@@ -66,15 +67,37 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_SPACE_SETTING_NAVIGATION_TAB = By.xpath(".//*[@id='UITabPane']//*[contains(text(),'Navigations')]");
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON = By.xpath(".//*[@id='UISpaceNavigationManagement']//button[text()='Add Node']");
 	public final String ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST =".//*[@id='UISpaceNavigationNodeSelector']//*[contains(text(),'${name}')]";
+	public final String ELEMENT_SPACE_NAVIGAION_ADD_NODE_CHILDREN_UNDER_PARENT = ".//*[@id='UISpaceNavigationNodeSelector']//*[contains(text(),'${childrenNode}')]/../../..//*[contains(text(),'${parentNode}')]";
+	public final By ELEMENT_SPACE_NAVIGATION_UP_LEVEL_BUTTON = By.xpath(".//*[@id='UISpaceNavigationNodeSelector']//*[@class='uiIconUpLevel uiIconLightGray']");
 	
 	//Add/Edit page node popup
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_NODE_TITLE = By.xpath(".//*[@id='AddNode']//*[contains(.,'Add/ Edit Page Node')]");
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_NAME = By.xpath(".//*[@id='name']");
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_SAVE = By.xpath(".//*[@id='UIPageNodeForm']//button[text()='Save']");
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_LABEL = By.xpath(".//*[@id='UIPageNodeForm']//*[contains(text(),'Label')]/..//input");
+	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_LANGUAGE = By.xpath(".//*[@id='PageNodeSetting-tab']//*[@class='selectbox' and @name='languages']");
+	public final By ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE = By.id("switchmode");
+	public final By ELEMENT_INPUT_LABEL = By.id("i18nizedLabel");
+	public final By ELEMENT_PAGE_SELECTOR_TAB = By.xpath(".//*[@id='AddNode']//a[text()='Page Selector']");
+	public final By ELEMENT_INPUT_PAGE_NAME = By.id("pageName");
+	public final By ELEMENT_INPUT_PAGE_TITLE = By.id("pageTitle");
+	public final By ELEMENT_CREATE_PAGE_LINK = By.xpath(".//*[@id='UIPageSelector']//*[@class='uiIconAddPage uiIconWhite']");
+	public final By ELEMENT_SEARCH_SELECTOR_PAGE_LINK = By.xpath(".//*[@id='UIPageSelector']//*[@class='uiIconSelectPage']");
+	
 	//Context menu
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Edit this Node')]");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_DELETE= By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Delete Node')]");
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_ADD_NEW_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Add new Node')]");
+	//public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT_NODE_PAGE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Edit Node's Page')]");
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT_NODE_PAGE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//*[@class='uiIconEditPageNode']");
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_COPY_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Copy Node')]");
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_PASTE_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Paste Node')]");
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_CLONE_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Clone Node')]");
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_CUT_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Cut Node')]");
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_UP = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Move Up')]");
+	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_DOWN = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Move Down')]");
+	
+	public final String ELEMENT_SPACE_NAVIGATION_NODE_POSITION = "//*[@class='childrenContainer nodeGroup']/li[${position}]//a[contains(text(),'${nodeName}')]";
 	
 	//Access space information
 	public final By ELEMENT_SPACE_ACCESS_RESTRICED_AREA_TITLE=By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Restricted Area']");
@@ -88,7 +111,13 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_SPACE_ACCESS_SPACE_DENIED = By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Access Denied']");
 	public final By ELEMENT_SPACE_ACCESS_SPACE_DENIED_INFO=By.xpath(".//*[@class='spaceAccessInfo']");
 	
+	//message
+	public final String ELEMENT_SPACE_NAVIGATION_COPY_AT_SAME_LEVEL = "This node name already exists.";
+
+	
 	ManageAlert alert;
+	NavigationManagement naviManage;
+	Button button;
 	/**
 	 * constructor
 	 * @param dr
@@ -96,7 +125,9 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public SpaceSettingManagement(WebDriver dr){
 		super(dr);
 		this.driver=dr;
-		alert = new ManageAlert(dr);
+		alert = new ManageAlert(dr); 
+		naviManage = new NavigationManagement(driver);
+		button = new Button(driver, this.plfVersion);
 	}
 	
 	/**
@@ -238,7 +269,9 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Select Navigation tab");
 		waitForAndGetElement(ELEMENT_SPACE_SETTING_NAVIGATION_TAB,3000,0).click();
 		info("The tab is opened succcessfully");
-		waitForAndGetElement(ELEMENT_APPLICATION_TAB_ADD_APPLICATION_BTN,3000,0);
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON);
+		//waitForAndGetElement(ELEMENT_APPLICATION_TAB_ADD_APPLICATION_BTN,3000,0);
+		Utils.pause(1000);
 	}
 	/**
 	 * Open Application tab
@@ -273,7 +306,32 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_SAVE,2000,0).click();
 		info("Verify that the node is added successfully");
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", name),3000,0);
+		Utils.pause(1000);
 	}
+
+	/**
+	 * add a new simple child node
+	 * @param parentNode
+	 * @param childNode
+	 */
+	public void addChildrenNodeSimple(String parentNode, String childNode){
+		info("Right click on parent node");
+		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", parentNode));
+		info("Click on add new node");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_ADD_NEW_NODE);
+		click(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_ADD_NEW_NODE);
+		info("The popup is shown");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_NODE_TITLE,2000,0);
+		info("Input a new name for the node");
+		type(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_NAME,childNode,true);
+		info("Save all changes");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_SAVE,2000,0).click();
+		info("Verify that the children node is added successfully under parent node");
+		click(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", parentNode));
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGAION_ADD_NODE_CHILDREN_UNDER_PARENT.replace("${childrenNode}", childNode).replace("${parentNode}", parentNode),3000,0);		
+		Utils.pause(1000);
+	}
+	
 	/**
 	 * Add an application 
 	 * @param category
@@ -337,4 +395,178 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Verify that the node is deleted successfully");
 		waitForElementNotPresent(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}",nodeName));
 	}
+	
+	/**
+	 * copy a node
+	 * @param nodeName
+	 */
+	public void copyANode(String nodeName){
+		info ("Copy node ");
+		info("Right click on the node");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		info("Select copy link");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_COPY_NODE,2000,0).click();
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * cut a node
+	 * @param nodeName
+	 */
+	public void cutANode(String nodeName){
+		info ("Copy node ");
+		info("Right click on the node");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		info("Select copy link");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_CUT_NODE,2000,0).click();
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * paste a node
+	 * @param nodeName
+	 */
+	public void pasteANode(boolean canPaste, String nodeName){
+		info("paste node");
+		info("Right click on the node");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		if(canPaste){
+			info("Select paste link");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_PASTE_NODE,2000,0).click();
+		}
+		else{
+			info("can not find paste button");
+			waitForElementNotPresent(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_PASTE_NODE,2000,0);
+		}
+		Utils.pause(1000);
+	}
+	
+	/**
+	 * Move up a node
+	 * @param nodeName
+	 */
+	public void moveUpANode(boolean firstNode, String nodeName, String nodeAboveName, String nodePosition, String abovePosition){
+		info ("move up a node ");
+		if(firstNode){
+		info("Right click on the node");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		info("Select move up link");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_UP,2000,0).click();	
+		info("There is nothing happen with the first node");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", nodePosition));
+		}
+		else{
+			info("Check position before move up");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", nodePosition));
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeAboveName).replace("${position}", abovePosition));
+			info("Right click on the node");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+			rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+			info("Select move up link");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_UP,2000,0).click();	
+			info("Check position after move up");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", abovePosition));
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeAboveName).replace("${position}", nodePosition));
+		}
+	}
+
+	/**
+	 * Move down a node
+	 * @param nodeName
+	 */
+	public void moveDownANode(boolean lastNode, String nodeName, String nodeUnderName, String nodePosition, String underPosition){
+		info ("move up a node ");
+		if(lastNode){
+		info("Right click on the node");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		info("Select move up link");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_DOWN,2000,0).click();
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", nodePosition));
+		}
+		else{
+			info("Check position before move down");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", nodePosition));
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeUnderName).replace("${position}", underPosition));
+			info("Right click on the node");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+			rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+			info("Select move up link");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_DOWN,2000,0).click();
+			info("Check position after move down");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", underPosition));
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeUnderName).replace("${position}", nodePosition));
+		}
+	}
+	
+	
+	/**
+	 * go to Edit Node'sPage
+	 * @param nodeName
+	 */	
+	public void goToEditNodePage(String nodeName){
+		Utils.pause(1000);
+		info("Go to Edit Node's Page");
+		info("Right click on the node");
+		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+		info("Select edit node's page link");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT_NODE_PAGE,2000,0);
+		click(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT_NODE_PAGE);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * add node with page selector
+	 * @param nodeName
+	 * @param extendedLabelMode
+	 * @param languages
+	 * @param nodeLabel
+	 * @param pageTitle
+	 * @param pageTitleSearch
+	 * @param verifyPage
+	 * @param verifyNode
+	 */
+	public void addANodeWithPageSelector(String nodeName, boolean extendedLabelMode, 
+			String languages, String nodeLabel, String pageName, String pageTitle, String pageTitleSearch, String type, boolean verifyPage, boolean verifyNode){
+		info("Click on Add node button");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON,3000,0).click();
+		info("The popup is shown");
+		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_NODE_TITLE,2000,0);
+		type(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_NAME,nodeName,true);
+		if (extendedLabelMode) {
+				select(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_LANGUAGE, languages);
+				Utils.pause(500);
+		} else {
+			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
+		}
+		type(ELEMENT_INPUT_LABEL, nodeLabel, true);
+
+		click(ELEMENT_PAGE_SELECTOR_TAB);
+
+		if (pageName != "" && pageTitle != "") {
+			info("--Create new page");
+			type(ELEMENT_INPUT_PAGE_NAME, pageName, true);
+			type(ELEMENT_INPUT_PAGE_TITLE, pageTitle, true);
+			click(ELEMENT_CREATE_PAGE_LINK);
+			if (verifyPage) {
+				waitForElementNotPresent(ELEMENT_CREATE_PAGE_LINK);
+			} else {
+				return;
+			}
+		} else {
+			info("Select Page");
+			Utils.pause(500);
+			click(ELEMENT_SEARCH_SELECTOR_PAGE_LINK);
+			naviManage.selectPage(pageTitleSearch);
+		}
+		info("Save to add node");
+		Utils.pause(2000);
+		click(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_SAVE);
+		Utils.pause(2000);
+	}
+
 }

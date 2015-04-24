@@ -62,7 +62,13 @@ public class PageCreationWizard extends PlatformBase {
 	public final String ELEMENT_APPLICATION_ID = ".//*[@id='${applicationId}']";
 	public final String ELEMENT_NAME_PORTLET = "//*[@class='portletName' and contains(text(), '${portletName}')]";
 	public final String ELEMENT_PORTLET_FRAGMENT = "//*[@id='${portletName}']/ancestor::div[contains(@class, 'UIApplication')]";
+	//final public By ELEMENT_UIWINDOW_DEFAULT_THEME = By.className("UIWindow DefaultTheme UIDragObject UIResizeObject");
+	//final public By ELEMENT_PORTLET_FRAGMENT_2 = By.className("PORTLET-FRAGMENT UIResizableBlock UIApplication");
+	final public By ELEMENT_PORTLET_FRAGMENT_2 = By.xpath("//*[contains(@class,'PORTLET-FRAGMENT UIResizableBlock UIApplication')]");
+	final public By ELEMENT_UIWINDOW_DEFAULT_THEME = By.xpath("//*[contains(@class,'UIWindow DefaultTheme UIDragObject UIResizeObject')]");
 	public final String ELEMENT_FORUM_PORTLET_IN_VIEW_PAGE = "//*[@class='portletName' and contains(text(),'Forum')]";
+	
+	public final String ELEMENT_PORTLET_VIEW_PAGE = "//*[@class='VIEW-PAGE']";
 	
 	//Container panel
 	public final By ELEMENT_CONTAINER_TAB = By.linkText("Containers");
@@ -116,6 +122,7 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_DELETE_CONTAINER_ICON = By.xpath(".//*[@data-original-title='Edit Container']/..//*[contains(@class,'uiIconTrash')]");
 	public final String ELEMENT_EDIT_CONTAINER_ICON_BY_NAME = "//span[contains(text(),'${name}')]/..//*[contains(@class,'uiIconEdit')]";
 	public final String ELEMENT_DELETE_CONTAINER_ICON_BY_NAME = "//span[contains(text(),'${name}')]/..//*[contains(@class,'uiIconTrash')]";
+	public final String ELEMENT_EDITED_COTAINER = "//*[contains(@class, 'UIContainer EdittingContainer')]";
 	
 	public final By ELEMENT_CONTAINER_PRECEDING_PORTLET = By.xpath("//*[contains(@class,'UIPortlet')]/preceding-sibling::*[contains(@class,'UIContainer')]");
 	public final By ELEMENT_CONTAINER_FOLLOWING_PORTLET= By.xpath("//*[contains(@class,'UIPortlet')]/following-sibling::*[contains(@class,'UIContainer')]");
@@ -139,7 +146,9 @@ public class PageCreationWizard extends PlatformBase {
 	
 	final public By ELEMENT_ADDNEWPAGE_NODENAME = By.xpath("//*[@id='pageName']");
 	final public By ELEMENT_ADDNEWPAGE_DISPLAYNAME = By.xpath("//*[@id='i18nizedLabel']");
-
+	
+	
+	
 	//page editor
 	final public By ELEMENT_PAGEEDITOR_CONTENTTAB = By.xpath("//*[@title='Content']");
 	final public By ELEMENT_PAGEEDITOR_CONTENTLIST = By.xpath("//*[@id='Content/ContentListViewerPortlet']");
@@ -332,9 +341,10 @@ public class PageCreationWizard extends PlatformBase {
 	/**
 	 * Add a Container
 	 * @param numRow  this name of containers as: oneRow,twoRow...
-	 * @param targetPosition
+	 * @param verify
 	 */
-	public void addContainer(String numRow){
+	public void addContainer(String numRow, boolean... verify){
+		boolean isVerify = (verify.length > 0 ? verify[0]: true);
 		info("Add container");
 		info("Add new container: " + numRow);
 		try{
@@ -346,8 +356,10 @@ public class PageCreationWizard extends PlatformBase {
 		click(By.linkText("Rows Layout"));
 		dragAndDropToObject(By.id(numRow), By.className("UIRowContainer"));
 		Utils.pause(2000);
-		mouseOver(ELEMENT_DROP_SOURCE_HAS_LAYOUT, true);
-		waitForAndGetElement(ELEMENT_CONTAINER_TITLE.replace("${title}","Container"));
+		if (isVerify){
+			mouseOver(ELEMENT_DROP_SOURCE_HAS_LAYOUT, true);
+			waitForAndGetElement(ELEMENT_CONTAINER_TITLE.replace("${title}","Container"));
+		}
 		saveChangesPageEditor();
 		info("the container is added");
 	}

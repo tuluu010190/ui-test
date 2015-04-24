@@ -32,6 +32,7 @@ public class SpaceHomePage extends PlatformBase{
 	public String ELEMENT_SPACE_MENU_TAB=".//*[@id='spaceMenuTab']//*[@id='${tab}']";
 	public By ELEMENT_SPACE_MENU_MORE = By.xpath(".//*[@id='spaceMenuTab']//*[contains(text(),'More')]");
 	public By ELEMENT_SPACE_MENU_DASHBOARD = By.xpath(".//*[@id='spaceMenuTab']//*[@id='DashboardPortlet']");
+	public By ELEMENT_SPACE_SPACE_SETTINGS_TITLE = By.xpath(".//*[@id='UISpaceSettingPortlet']/h3[text()='Space Configuration']");
 	
 	//left menu
 	public String ELEMENT_SPACE_LEFT_MENU_SPACE_NAME = ".//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'${name}')]";
@@ -56,6 +57,7 @@ public class SpaceHomePage extends PlatformBase{
 		Utils.pause(2000);
 		click(ELEMENT_SPACE_SPACE_SETTINGS);
 		Utils.pause(3000);
+		waitForAndGetElement(ELEMENT_SPACE_SPACE_SETTINGS_TITLE);
 		info("Space setting page is shown");
 	}
 	/**

@@ -10,14 +10,22 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceGUIDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.SpaceNavigationDefaultNodesDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
+import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
+import org.exoplatform.selenium.platform.gatein.PortalManagePages;
+import org.exoplatform.selenium.platform.gatein.UserAddManagement;
+import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
+import org.exoplatform.selenium.platform.objectdatabase.common.LanguageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationLayoutDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.ContainersDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -27,6 +35,8 @@ public class SOC_TestConfig extends PlatformBase {
 	ActivityStream hpAct;
 	ManageLogInOut magAc;
 	Button button;
+	PortalManagePages portManagePage;
+	PageCreationWizard pgCreateWiz;
 
 	MyDashBoard myDash;
 	NavigationToolbar navTool;
@@ -34,16 +44,23 @@ public class SOC_TestConfig extends PlatformBase {
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
 	SpaceSettingManagement setSpaceMg;
+	UserAddManagement userManage;
+	UserAndGroupManagement userGroupManage;
 	
 	ApplicationRegistry appReg;
 	ApplicationLayoutDatabase appLayData;
+	ApplicationGateinDatabase appGateData;
 	
 	SpaceGUIDatabase spaceUI;
 	SpaceApplicationDatabase spAppData;
+	SpaceNavigationDefaultNodesDatabase spaceDefaultNodesData;
 	
 	RemoteGadgetDatabase remoteGadData;
 	TextBoxDatabase txData;
 	LinksDatabase lnkData;
+	
+	ContainersDatabase containerData;
+	LanguageDatabase langData;
 	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -63,6 +80,11 @@ public class SOC_TestConfig extends PlatformBase {
 		spaMg = new SpaceManagement(driver);
 		spaHome = new SpaceHomePage(driver);
 		appReg = new ApplicationRegistry(driver);
+		portManagePage = new PortalManagePages(driver);
+		pgCreateWiz = new PageCreationWizard(driver);
+		
+		userManage = new UserAddManagement(driver);
+		userGroupManage = new UserAndGroupManagement(driver);
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -81,15 +103,27 @@ public class SOC_TestConfig extends PlatformBase {
 		lnkData = new LinksDatabase();
 		lnkData.setLinkData(linkPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
+		containerData = new ContainersDatabase();
+		containerData.setContainersData(containerFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		langData = new LanguageDatabase();
+		langData.setLanguageData(languageFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		appGateData = new ApplicationGateinDatabase();
+		appGateData.setApplicationGateinData(appGateinDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		spaceDefaultNodesData = new SpaceNavigationDefaultNodesDatabase();
+		spaceDefaultNodesData.setSpaceNavigationDefaultNodes(spaceNavigationDefaultNodesFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);	
+		
 		info("End setUpBeforeClass");
 	}
 
 	@AfterClass
-	public void afterTest(){
-		info("Start setUpBeforeClass");
+	public void afterClass(){
+		info("Start afterClass");
 		driver.manage().deleteAllCookies();
 		driver.quit();
-		info("End setUpBeforeClass");
+		info("End afterClass");
 	}
 
 }

@@ -143,6 +143,7 @@ public class TestBase {
 	protected String spaceVisibleFilePath;
 	protected String spaceRegistrationFilePath;
 	protected String spaceappFilePath;
+	protected String spaceNavigationDefaultNodesFilePath;
 	
 	protected String notiDesFilePath;
 	
@@ -226,6 +227,7 @@ public class TestBase {
 	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
 	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
 	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
+	public final String DEFAULT_SPACE_NAVIGATION_DEFAULT_NODES_URL = "DataDriven/"+"space_navigation_default_nodes.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -327,6 +329,7 @@ public class TestBase {
 		activityMesFilePath = System.getProperty("activityMesFilePath");
 		chatStatusFilePath = System.getProperty("chatStatusFilePath");
 		notiDesFilePath = System.getProperty("notiDesFilePath");
+		spaceNavigationDefaultNodesFilePath = System.getProperty("spaceNavigationDefaultNodesFilePath");
 		
 		//Social
 		spaceUIFilePath = System.getProperty("spaceUIFilePath");
@@ -407,7 +410,8 @@ public class TestBase {
         if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
 		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
 		if (spaceappFilePath==null) spaceappFilePath= DEFAULT_SPACEAPPLICATIONURL;
-		
+		if (spaceNavigationDefaultNodesFilePath == null) spaceNavigationDefaultNodesFilePath = DEFAULT_SPACE_NAVIGATION_DEFAULT_NODES_URL;
+
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
 		mailSuffixFilePath = getAbsoluteFilePath(mailSuffixFilePath);
@@ -462,6 +466,7 @@ public class TestBase {
 		spaceappFilePath = getAbsoluteFilePath(spaceappFilePath);
 		spaceVisibleFilePath = getAbsoluteFilePath(spaceVisibleFilePath);
 		spaceRegistrationFilePath = getAbsoluteFilePath(spaceRegistrationFilePath);
+		spaceNavigationDefaultNodesFilePath = getAbsoluteFilePath(spaceNavigationDefaultNodesFilePath);
 	}
 
 	/**
