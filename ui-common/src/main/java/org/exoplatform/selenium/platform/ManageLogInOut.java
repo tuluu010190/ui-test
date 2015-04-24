@@ -26,7 +26,7 @@ public class ManageLogInOut extends PlatformBase {
 	 * @param opParams
 	 */
 	public void signIn(String username, String password,Boolean...opParams) {
-		Boolean verify = (Boolean) (opParams.length > 0 ? opParams[0]: true);
+		Boolean verify = (Boolean) (opParams.length > 0 ? opParams[0]: false);
 		if(waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK,5000,0)!=null){
 			signOut();
 		}

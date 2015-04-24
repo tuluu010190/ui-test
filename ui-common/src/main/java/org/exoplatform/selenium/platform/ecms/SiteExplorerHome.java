@@ -138,7 +138,8 @@ public class SiteExplorerHome extends PlatformBase{
 	// upload
 	public final By ELEMENT_ACTIONBAR_UPLOAD = By.xpath("//*[@class='uiIconEcmsUpload uiIconEcmsLightGray']");
 	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
-	public final By ELEMENT_UPLOAD_LINK = By.id("MultiUploadInputFiles");
+//	public final By ELEMENT_UPLOAD_LINK = By.id("MultiUploadInputFiles");
+	public final By ELEMENT_UPLOAD_LINK =By.xpath(".//*[@id='UploadButtonDiv']//*[contains(@class,'uiIconEcmsUpload')]");
 	public final By ELEMENT_ACTIONBAR_EDIT = By.xpath("//*[@class='uiIconEcmsEditDocument uiIconEcmsLightGray']");
 	public final By ELEMENT_FILE_FORM_TITLE = By.xpath("//*[@id='title0']");
 	//Drive selection
@@ -509,7 +510,7 @@ public class SiteExplorerHome extends PlatformBase{
 		if (waitForAndGetElement(ELEMENT_UPLOAD_BUTTON, DEFAULT_TIMEOUT, 0) == null) {
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
-		((JavascriptExecutor) driver)
+		/*((JavascriptExecutor) driver)
 				.executeScript(
 						"arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; "
 								+ "arguments[0].style.width = '1px'; arguments[0].style.opacity = 1",
@@ -518,16 +519,18 @@ public class SiteExplorerHome extends PlatformBase{
 		
 		Utils.pause(10000);
 		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePathFromFile(link));
-		info("Upload file " + Utils.getAbsoluteFilePathFromFile(link));
-		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR,120000,0);
+		info("Upload file " + Utils.getAbsoluteFilePathFromFile(link));*/
+		Utils.pause(2000);
+		click(ELEMENT_UPLOAD_LINK);
+		uploadFileUsingRobot(link);
+		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
 				  
 		info("verify:"+verify);
 		if (verify) {
 			String links[] = link.split("/");
 			int length = links.length;
 			Utils.pause(2000);
-			waitForAndGetElement(By.xpath("//*[contains(text(),'"
-					+ links[length - 1] + "')]"));
+			waitForAndGetElement(By.xpath("//*[contains(text(),'"+ links[length - 1] + "')]"));
 		}
 
 		info("Upload file successfully");
@@ -1153,7 +1156,7 @@ public class SiteExplorerHome extends PlatformBase{
 	 */
 	public void addEditComment(String content, boolean isAdd){
 		info("Add/Edit a comment");
-		if(isAdd){
+		if(isAdd==true){
 			info("Click on Add comment on action bar");
 			click(ELEMENT_ACTIONBAR_ADDCOMMENT);
 		}else {

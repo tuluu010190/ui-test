@@ -207,8 +207,8 @@ import org.testng.annotations.*;
 		info("Upload file");
 		navTool.goToSiteExplorer();
 		SEHome.goToPath("acme/documents", "Sites Management");
-		
 		SEHome.uploadFile("TestData/"+fileName);
+		
 		click(SEHome.ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME.replace("${title}", fileName));
 		click(SEHome.ELEMENT_ACTIONBAR_MORE);
 		click(SEHome.ELEMENT_ACTIONBAR_VOTE,0,true);
