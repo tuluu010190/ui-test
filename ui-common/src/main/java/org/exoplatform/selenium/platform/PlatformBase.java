@@ -286,7 +286,7 @@ public class PlatformBase extends TestBase {
 	/**
 	 * function: check content of mail then delete mail
 	 * @param title title of the page
-	 * @object if true check it's present, false check if it's not present
+	 * @param  opParams if true check it's present, false check if it's not present
 	 */
 	public void checkEmailNotification(String title,Object... opParams){
 		info("Check and delete mail");

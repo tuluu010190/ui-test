@@ -8,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 
 
 /**
- * @date Apr 16, 2015
  * @author anhpp
  */
 
@@ -23,8 +22,8 @@ public class SendEmailNotifications extends PlatformBase{
 	}
 	/**
 	 * function: check content of new user notification mail then delete mail
-	 * @param title:title of the page
-	 * @object if true check it's present, false check if it's not present
+	 * @param title title of the page
+	 * @param opParams if true check it's present, false check if it's not present
 	 */
 	public void checkNewUserNotiEmail(String title,Object... opParams){
 		info("Check and delete mail");

@@ -221,9 +221,6 @@ public class MyProfilePage extends PlatformBase {
 	/**
 	 * Update information of contact of a user
 	 * @param gender
-	 * @param phone
-	 * @param ims
-	 * @param url
 	 * @param job
 	 */
 	public void updateGenderJob(String gender, String job) {

@@ -823,9 +823,7 @@ public class NavigationToolbar extends PlatformBase {
 	
 	/**
 	 * function: clear connection request notification
-	 * @param userName
-	 * @param activity
-	 * @param time
+	 * @param fullName
 	 */
 	public void clearConnectionRequestNotification(String fullName){
 		info("Clear like notification");

@@ -427,7 +427,8 @@ public class ForumHomePage extends PlatformBase {
 
 	/**
 	 * Export a category from Action bar
-	 * @param name
+	 * @param catName
+	 * @param fileName
 	 */
 	public void exportCategory(String catName, String fileName) {
 		selectItemAdministrationMenu(specifAdministrationMenu.EXPORT);

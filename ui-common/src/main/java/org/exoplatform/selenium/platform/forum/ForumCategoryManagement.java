@@ -198,7 +198,8 @@ public class ForumCategoryManagement extends PlatformBase {
 	
 	/**
 	 * Export a forum
-	 * @param name
+	 * @param forumName
+	 * @param fileName
 	 */
 	public void exportForum(String forumName, String fileName) {
 		selectItemManageCategoryMenu(specifManageCategoryMenu.EXPORT_FORUM);
