@@ -75,19 +75,17 @@ public class SpaceManagement extends SpaceHomePage {
 	public String ELEMENT_SPACE_NAME_BREADCUMB ="//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name' and contains(text(),'{$name}')]";
 	
 	//Invitations received tab
-	//public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//*[@id='UIManageMySpaces']//*[contains(text(),'Invitations Received')]");
-	//public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//*[@id='UIManageInvitationSpaces']//*[contains(text(),'Invitations Received')]");
-	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//*[@id='UIManageAllSpaces']//a[text()='Invitations Received']");
+	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath("//*[contains(@href,'invitationSpace')]");
 	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Accept']";
 	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Ignore']";
 	
 	//All Spaces tab
-	public final By ELEMENT_MY_SPACE_ALL_SPACES_TAB = By.xpath(".//*[@id='UIManageMySpaces']//*[contains(text(),'All Spaces')]");
+	public final By ELEMENT_MY_SPACE_ALL_SPACES_TAB = By.xpath(".//*[@id='UIPage']//*[contains(@href,'all-spaces')]");
 	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Request to Join']";
 	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING = ".//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Request Pending')]";
 	
 	//Request pending tab
-	public final By ELEMENT_MY_SPACE_REQUEST_PENDING_TAB = By.xpath(".//*[contains(text(),'Requests Pending')]");
+	public final By ELEMENT_MY_SPACE_REQUEST_PENDING_TAB = By.xpath("//*[contains(@href,'pendingSpace')]");
 	
 	//Members
 	public final By ELEMENT_SPACE_GOWIKI = By.xpath("//*[@class='uiIconAppWikiPortlet uiIconDefaultApp']/..//*[@id='wiki']");

@@ -199,7 +199,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		info("Test 05:Edit a space");
 		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String newName = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		String filename = fData.getAttachFileByArrayTypeRandom(3);
+		String filename = fData.getAttachFileByArrayTypeRandom(26);
 		/*Step Number: 1
 		 *Step Name: Step 1: Edit a space
 		 *Step Description: 
@@ -555,7 +555,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser("mary");
+		setSpaceMg.inviteUser(DATA_USER2);
 		
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();

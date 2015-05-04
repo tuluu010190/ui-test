@@ -416,7 +416,7 @@ import org.testng.annotations.*;
 	public  void test05_AcceptAPeopleSuggestion() {
 		info("Test 05: Accept a people suggestion");
 		String userFQA="FQA VN";
-		String userJames="James Davis";
+		String userJames=DATA_NAME_USER3;
 		/*Step Number: 1
 		*Step Name: Show people suggestion
 		*Step Description: 
@@ -458,8 +458,8 @@ import org.testng.annotations.*;
 	@Test
 	public void test06_CancelAPeopleSuggestion(){
         info("Test 06: Cancel a people suggestion");
-		String userJack="Jack Miller";
-		String userMary="Mary Williams";
+		String userJack=DATA_NAME_USER4;
+		String userMary="DATA_NAME_USER2";
 
         /*Step Number: 1
 		*Step Name: Show people suggestion
@@ -494,7 +494,4 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hp.ELEMENT_SUGGESTION_NAME.replace("${name}",userMary),5000,1,2);
 		
 	}
-	
-	
-
 }

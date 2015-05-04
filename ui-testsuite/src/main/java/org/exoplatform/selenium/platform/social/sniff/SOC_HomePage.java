@@ -17,7 +17,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToConnections();
-		connMag.resetConnection("Mary Williams");
+		connMag.resetConnection(DATA_USER2);
 	}
 	/**
 	 *<li> Case ID:121888.</li>
@@ -445,7 +445,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		jse.executeScript("window.scrollBy(0,5500)", "");
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",textDesfirst));
 		Utils.pause(5000);
-		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",textDesfirst));
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("${title}",textDesfirst));
 	}
 
 	/**

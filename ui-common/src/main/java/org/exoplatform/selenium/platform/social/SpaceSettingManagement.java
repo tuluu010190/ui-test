@@ -23,8 +23,8 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	
 	//Search user
 	public final String ELEMENT_CLOSE_MESSAGE = "//*[contains(@title,'Close Window')]";
-	public final By ELEMENT_INPUT_SEARCH_USER_NAME = By.id("searchTerm");
-	public final String ELEMENT_SELECT_SEARCH_OPTION = "//*[contains(@name,'searchOption')]";
+	public final By ELEMENT_INPUT_SEARCH_USER_NAME = By.id("Quick Search");
+	public final String ELEMENT_SELECT_SEARCH_OPTION = "//*[contains(@name,'filter')]";
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//*[contains(@class,'uiIconSearch uiIconLightGray')]";
 	public String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
 	
