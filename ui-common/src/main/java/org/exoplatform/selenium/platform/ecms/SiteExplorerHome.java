@@ -483,8 +483,8 @@ public class SiteExplorerHome extends PlatformBase{
 								DEFAULT_TIMEOUT, 1, 2));
 		
 		Utils.pause(10000);
-		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePathFromFile(link));
-		info("Upload file " + Utils.getAbsoluteFilePathFromFile(link));
+		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(getAbsoluteFilePath(link));
+		info("Upload file " + getAbsoluteFilePath(link));
 		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR,120000,0);
 				  
 		info("verify:"+verify);

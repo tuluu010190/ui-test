@@ -556,7 +556,7 @@ public class ActivityStream extends PlatformBase {
 		Utils.pause(2000);
 		((JavascriptExecutor)driver).executeScript("document.getElementsByTagName('input')[0].style.display = 'block';");
 		Utils.pause(2000);
-		driver.findElement(ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON).sendKeys(Utils.getAbsoluteFilePathFromFile(path+nameFile));
+		driver.findElement(ELEMENT_ACTIVITY_UPLOAD_POPUP_UPLOAD_BUTTON).sendKeys(getAbsoluteFilePath(path+nameFile));
 		switchToParentWindow();
 		waitForElementNotPresent(ELEMENT_ACTIVITY_UPLOAD_POPUP_PROGRESS_UPLOAD,3000,0);
 		click(ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE_BTN);
