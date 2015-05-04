@@ -15,17 +15,17 @@ import org.openqa.selenium.WebElement;
 
 public class NavigationToolbar extends PlatformBase {
 
-	
+
 	//Tool bar
 	public final By ELEMENT_TOOLBAR_ADMINISTRATION = By.xpath("//*[@class='uiIconPLF24x24Setup']");
 	public final By ELEMENT_TOOLBAR_THEMELIGHT = By.xpath("//*[@class='UIContainer UIToolbarContainer UIToolbarContainerLight']");
 	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_HELP_TOOLBAR = By.className("uiIconPLF24x24Help");
 	public final By ELEMENT_TOOLBAR_NOTIFICATION_LIST = By.xpath(".//*[@id='UINotificationPopoverToolbarPortlet']//*[contains(@class,'uiIconPLF24x24Bell')]");
-    public final String ELEMENT_TOOLBAR_NOTIFICATION_NUMEBER=".//*[contains(@class,'badgeNotification')][contains(text(),'${num}')]";
-	
-    //Notificaiton list
-    public final By ELEMENT_NOTIFICATION_DROPDOWN=By.cssSelector("#NotificationPopup");
+	public final String ELEMENT_TOOLBAR_NOTIFICATION_NUMEBER=".//*[contains(@class,'badgeNotification')][contains(text(),'${num}')]";
+
+	//Notificaiton list
+	public final By ELEMENT_NOTIFICATION_DROPDOWN=By.cssSelector("#NotificationPopup");
 	/**
 	 * user: fullname of the user that comments on the activity
 	 * des: description of the notification as: "has commented on your activity."
@@ -38,10 +38,10 @@ public class NavigationToolbar extends PlatformBase {
 	public final String ELEMENT_NOTIFICATION_LIST_USER = "//*[@id='NotificationPopup']/../..//*[contains(@class,'user-name text-bold')][contains(text(),'${user}')]/..";
 	public final By ELEMENT_NOTIFICATION_REMOVE_ICON = By.xpath(".//*[@id='NotificationPopup']//i[contains(@class,'uiIconClose uiIconLightGray')]");
 	public final By ELEMENT_INTRANET_NOTIFICATION_BELL = By.className("uiIconPLF24x24Bell");
-	
+
 	public final By ELEMENT_POSITION_OF_INTRANET_NOTIFICATION = By.xpath("//*[@class='UITableColumnContainer']//*[@class='UserInfoPortletTDContainer pull-left']/../*[@class='NotificationPopoverPortletTDContainer pull-left']");
 	public final By ELEMENT_DOC_EXO_OF_HOME_GETTING_STARTED = By.xpath(".//*[@id='newBreadcrumbs']//*[contains(text(),'Getting Started')]");
-	
+
 	// Intranet notification 
 	public final String ELEMENT_BADGE_NUMBER_DISPLAY = "//*[@class='badgeDefault badgePrimary mini badgeNotification' and @style='display: inline;' and text()='${number}']";
 	public final String ELEMENT_BADGE_NUMBER_NOT_DISPLAY = "//*[@class='badgeDefault badgePrimary mini badgeNotification' and @style='display: none;' and text()='${number}']";
@@ -73,8 +73,8 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Administration Menu
 	// users 
-	public final By ELEMENT_ADMINISTRATION_USERS =By.xpath("//*[text()='Users']");
-	public final By ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS = By.xpath("//*[text()='Add Users']");
+	public final By ELEMENT_ADMINISTRATION_USERS =By.xpath("//*[contains(@href,'g/:platform:administrators/administration/newStaff') and text()='Users']");
+	public final By ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS = By.xpath("//*[contains(@href,'g/:platform:administrators/administration/newStaff') and text()='Add Users']");
 	public final By ELEMENT_GROUP_AND_ROLE_LINK = By.xpath(".//*[@id='UISetupPlatformToolBarPortlet']//a[contains(@href,'management')]");
 
 	//Administration-->Portal
@@ -85,8 +85,8 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_ADMINISTRATION_PORTAL_BRANDING=By.xpath("//*[text()='Branding']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_IDE=By.xpath("//*[text()='IDE']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_GROUP_SITES = By.xpath("//*[text()='Group Sites']");
-	
-	
+
+
 	//Administation-->Content
 	public final By ELEMENT_LINK_CONTENT_ADMIN = By.xpath("//*[text()='Content Administration']");
 	public final By ELEMENT_MENU_CONTENT_LINK = By.xpath("//li[@class='dropdown-submenu']/a[text()='Content']");
@@ -161,16 +161,16 @@ public class NavigationToolbar extends PlatformBase {
 	public final String ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL = ELEMENT_NODE_NAVIGATION_LEFT_PANEL.replace("${groupName}", "${groupName}") + "/../*[contains(@class, 'arrowIcon')]";
 	public final String ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41 = ELEMENT_NODE_NAVIGATION_LEFT_PANEL.replace("${groupName}", "${groupName}") + "/..//*[contains(@class, 'uiIconMiniArrowDown uiIconLightGray')]";
 	public final String ELEMENT_SUB_NODE_NAVIGATION_LEFT_PANEL = ".//*[@id='UIGroupsNavigationPortlet']//*[@data-original-title='${groupName}']";
-	
+
 	public final String ELEMENT_ACTIVITIES_LINK = ".//*[@id='UIUserNavigationPortlet']//*[@class='uiIconAppactivities uiIconDefaultApp']";
 	public final By ELEMENT_ACTIVITIES_PORTLET = By.id("UIUserActivityStreamPortlet");
-	
+
 	PageCreationWizard paWin;
 	MyProfilePage myPro;
 	PortalManageSites magSites;
 	AllNotificationPage allIntraNot;
 	IntranetNotification intraNot;
-	
+
 	public NavigationToolbar(WebDriver dr){
 		this.driver = dr;
 		paWin = new PageCreationWizard(dr);
@@ -217,7 +217,7 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(3000);
 		waitForAndGetElement(magSites.ELEMENT_MANAGESITES_TITLE,3000,0);
 	}
-	
+
 	/**
 	 * Go to Manage Group Sites page: Administration-->Portal->Group Sites
 	 */
@@ -231,7 +231,7 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(3000);
 		waitForAndGetElement(magSites.ELEMENT_ADD_NAVIGATION_BUTTON,3000,0);
 	}
-	
+
 	/**
 	 * Go to Manage Sites page: Administration-->Portal->Pages
 	 */
@@ -254,7 +254,7 @@ public class NavigationToolbar extends PlatformBase {
 		Utils.pause(2000);
 		info("Page Managements is shown successfully");
 	}
-	
+
 
 	/**
 	 * function: Go to Users and Group management (Administration --> Users --> Groups and Roles)
@@ -266,7 +266,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_GROUP_AND_ROLE_LINK);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * List sublink in user menu
 	 * @author quynhpt
@@ -620,7 +620,7 @@ public class NavigationToolbar extends PlatformBase {
 		selectALinkOfUserMenu(specifUserToolBar.MY_DASHBOARD);
 		Utils.pause(2000);
 	}
-	
+
 	/** 
 	 * Go to My activities
 	 */
@@ -628,7 +628,7 @@ public class NavigationToolbar extends PlatformBase {
 		selectALinkOfUserMenu(specifUserToolBar.MY_ACTIVITY);
 		Utils.pause(2000);
 	}
-	 
+
 	/**
 	 * Open My dashboard
 	 */
@@ -636,7 +636,7 @@ public class NavigationToolbar extends PlatformBase {
 		selectALinkOfUserMenu(specifUserToolBar.SETTINGS);
 	}
 
-	 /** Open My Connection
+	/** Open My Connection
 	 */
 	public void goToMyConnection(){
 		selectALinkOfUserMenu(specifUserToolBar.MY_CONNECTIONS);
@@ -650,7 +650,7 @@ public class NavigationToolbar extends PlatformBase {
 		selectALinkOfUserMenu(specifUserToolBar.MY_WIKI);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Go to email notification
 	 */
@@ -663,7 +663,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_ADMINISTRATION_PORTAL_EMAIL_NOTIFICATIONS);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Go to add an user
 	 */
@@ -672,8 +672,10 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);
 		mouseOver(ELEMENT_ADMINISTRATION_USERS,true);
-		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS,3000,1);
-		click(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS);
+		if(waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS,3000,0)!=null)
+			click(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS);
+		else
+			driver.get(baseUrl+"/g/:platform:administrators/administration/newStaff");
 	}
 	/**
 	 * Open Notification list
@@ -685,14 +687,14 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_NOTIFICATION_DROPDOWN,3000,1);
 
 	}
-	
+
 	/** Open My Notifications
 	 */
 	public void goToMyNotifications(){
 		selectALinkOfUserMenu(specifUserToolBar.MY_NOTIFICATION);
 		Utils.pause(2000);
 	}
-	
+
 	/** Open Intranet Notification
 	 */
 	public void goToIntranetNotification(){
@@ -726,7 +728,7 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_ACTIVITIES_LINK);
 		waitForAndGetElement(ELEMENT_ACTIVITIES_PORTLET, 2000);
 	}
-	
+
 	/**
 	 * function: go to notifications settings
 	 * @param number
@@ -739,7 +741,7 @@ public class NavigationToolbar extends PlatformBase {
 		else
 			waitForElementNotPresent(ELEMENT_BADGE_NUMBER_DISPLAY.replace("${number}", number));
 	}
-	
+
 	/**
 	 * function: check Comment notification read or unread
 	 * @param read
@@ -761,7 +763,7 @@ public class NavigationToolbar extends PlatformBase {
 				waitForAndGetElement(ELEMENT_COMMENT_POSITION_ONE_MINUTE_UNREAD.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
 		}
 	}
-	
+
 	/**
 	 * function: check Like notification read or unread
 	 * @param read
@@ -802,7 +804,7 @@ public class NavigationToolbar extends PlatformBase {
 			waitForElementNotPresent(ELEMENT_COMMENT_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
 		}
 	}
-	
+
 	/**
 	 * function: clear like notification
 	 * @param userName
@@ -820,7 +822,7 @@ public class NavigationToolbar extends PlatformBase {
 			waitForElementNotPresent(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
 		}
 	}
-	
+
 	/**
 	 * function: clear connection request notification
 	 * @param fullName
