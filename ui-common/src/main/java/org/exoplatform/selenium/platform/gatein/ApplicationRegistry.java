@@ -8,6 +8,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -18,7 +19,7 @@ public class ApplicationRegistry extends PlatformBase {
 	public final By ELEMENT_MANAGE_APPLICATION_BUTTON=By.xpath("//*[@class='uiIconManageApplication uiIconLightGray']");
     public final By ELEMENT_APPLICATION_REGISTRY_ADD_CATEGORY_BTN=By.xpath(".//*[contains(@class,'uiIconManageCategory uiIconLightGray')]");
     
-	
+    public final String ELEMENT_SELECT_RIGHT_PARENT_GROUP = "//*[@title='$group']";
     //Add category page
     public final By ELEMENT_ADD_CATEGORY_NAME=By.id("name");
     public final By ELEMENT_ADD_CATEGORY_DISPLAY_NAME=By.id("displayName");
@@ -27,6 +28,7 @@ public class ApplicationRegistry extends PlatformBase {
     public final By ELEMENT_ADD_CATEGORY_CANCEL_BTN=By.xpath(".//*[@id='UICategoryForm']//button[text()='Cancel']");
     public final By ELEMENT_ADD_CATEGORY_PERMISSION_TAB = By.xpath(".//*[contains(@data-target,'#categoryPermission-tab')]");
     public final By ELEMENT_ADD_CATEGORY_PERMISSION_PUBLIC_CHECKBOX= By.xpath(".//*[@id='publicMode']");
+    public final By ELEMENT_ADD_CATEGORY_ADD_PERMISSION_BTN = By.xpath("//*[contains(text(),'Add Permission')]");
     
     //Application registry page
 	public final By ELEMENT_SHOW_IMPORT_APPLICATION = By.id("showImport");
@@ -264,7 +266,9 @@ public class ApplicationRegistry extends PlatformBase {
 	 * @param newDisplayName
 	 * @param newDes
 	 */
-	public void editCategory(String name,String newDisplayName,String newDes){
+	public void editCategory(String name,String newDisplayName,String newDes, Object... opParams){
+		String group = (String) (opParams.length > 0 ? opParams[0]: "");	
+		String member = (String) (opParams.length > 1 ? opParams[1]: "");	
 		info("Click on Edit button");
 		click(ELEMENT_LEFT_PANEL_APPLICATION_CATEGORY_EDIT_BTN.replace("${category}",name));
 		if(!newDisplayName.isEmpty()){
@@ -275,7 +279,14 @@ public class ApplicationRegistry extends PlatformBase {
 			info("Input description");
 			type(ELEMENT_ADD_CATEGORY_DESCRIPTION, newDes, true);
 		}
+		if(!group.isEmpty() && !member.isEmpty()){
+			info("input permission");
+			click(ELEMENT_ADD_CATEGORY_PERMISSION_TAB);
+			click(ELEMENT_ADD_CATEGORY_ADD_PERMISSION_BTN);
+			selectGroupMembership(group,member);
+		}
 		click(ELEMENT_ADD_CATEGORY_SAVE_BTN);
+		Utils.pause(2000);
 		info("Verify that the new category is edit successfully");
 		waitForAndGetElement( ELEMENT_LEFT_PANEL_APPLICATION_CATEGORY_TAB.replace("${category}", newDisplayName),2000,0);
 	}
@@ -322,4 +333,34 @@ public class ApplicationRegistry extends PlatformBase {
     	info("Check title of Permission table");
     	waitForAndGetElement(ELEMENT_PERMISSION_FORM,2000,0);
     }
+    
+    /**
+	 * Select group membership
+	 * @param groupPath
+	 * 					path group: (Ex: Organization/Employees)
+	 * @param membership
+	 * 					membership: (Ex:  author)
+	 */
+	public void selectGroupMembership(String groupPath, String membership){
+		String[] temp;	
+		temp = groupPath.split("/");
+		for (int i = 0; i < temp.length; i ++){
+			click(ELEMENT_SELECT_RIGHT_PARENT_GROUP.replace("$group", temp[i]));
+		}
+		click(ELEMENT_SELECT_RIGHT_PARENT_GROUP.replace("$group", membership));
+	}
+	/**
+	 * Edit portlet permission
+	 * @param category
+	 * @param portlet
+	 * 
+	 */
+	public void editPortletPermission(String category,String portlet,String group,String member){
+		selectAPortlet(category, portlet, false);
+		info("Input permission");
+		click(ELEMENT_ADD_CATEGORY_ADD_PERMISSION_BTN);
+		selectGroupMembership(group,member);
+		Utils.pause(2000);
+		assert isTextPresent(group.toLowerCase());
+	}
 }

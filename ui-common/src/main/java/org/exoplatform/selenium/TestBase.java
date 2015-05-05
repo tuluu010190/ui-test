@@ -110,9 +110,7 @@ public class TestBase {
 	protected String changLangDataPath;
 	protected String wikiTemplateFilePath;
 	protected String wikiMessageFilePath;
-	protected String spaceVisibleFilePath;
-	protected String spaceRegistrationFilePath;
-	protected String spaceappFilePath;
+	
 	protected String contactIMFilePath;
 	protected String contactPhoneFilePath;
 	protected String activityMesFilePath;
@@ -140,6 +138,11 @@ public class TestBase {
 	protected String portalPermisMemFilePath;
 	protected String gateinDefaultGroupsFilePath;
 	protected String gateinNodesFilePath;
+	//Social
+	protected String spaceUIFilePath;
+	protected String spaceVisibleFilePath;
+	protected String spaceRegistrationFilePath;
+	protected String spaceappFilePath;
 	
 	protected String notiDesFilePath;
 	
@@ -167,9 +170,7 @@ public class TestBase {
 	public final String DEFAULT_ATTACHMENTFILEURL="DataDriven/" + "attachment_file.xls";
 	public final String DEFAULT_TEXTBOXFILEURL="DataDriven/" + "textbox.xls";
 	public final String DEFAULT_WIKITEMPLATEFILEURL="DataDriven/" + "wiki_template.xls";
-	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
-	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
-	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
+	
 
 	public final String DEFAULT_PERMISSIONURL="DataDriven/"+"permission.xls";
 	public final String DEFAULT_SITEEXPLORERDRIVE="DataDriven/" + "se_drive.xls";
@@ -219,6 +220,12 @@ public class TestBase {
 	
 	public final String DEFAULT_CHATSTATUS_URL = "DataDriven/"+"chat_status.xls";
 	public final String DEFAULT_NOTIFICATION_DESCRIPTION_URL = "DataDriven/"+"soc_notification_description.xls";
+	
+	//Social
+	public final String DEFAULT_SPACE_UI_URL ="DataDriven/"+"space_GUI.xls";
+	public final String DEFAULT_SPACEVISIBLEFILEURL="DataDriven/" + "space_visibility.xls";
+	public final String DEFAULT_SPACEREGISTRATIONFILEURL="DataDriven/" + "space_registration.xls";
+	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -285,9 +292,7 @@ public class TestBase {
 		languageFilePath = System.getProperty("languageFilePath");
 		permissionPath = System.getProperty("permissionPath");
 		wikiTemplateFilePath = System.getProperty("wikiTemplateFilePath");
-		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
-		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
-		spaceappFilePath=System.getProperty("spaceappFilePath");
+		
 		changLangDataPath = System.getProperty("changLangDataPath");
 		remoteGadgetDataFilePath = System.getProperty("remoteGadgetDataFilePath");
 		appGateinDataFilePath = System.getProperty("appGateinDataFilePath");
@@ -322,6 +327,12 @@ public class TestBase {
 		activityMesFilePath = System.getProperty("activityMesFilePath");
 		chatStatusFilePath = System.getProperty("chatStatusFilePath");
 		notiDesFilePath = System.getProperty("notiDesFilePath");
+		
+		//Social
+		spaceUIFilePath = System.getProperty("spaceUIFilePath");
+		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
+		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
+		spaceappFilePath=System.getProperty("spaceappFilePath");
 		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -358,9 +369,7 @@ public class TestBase {
 		if (texboxFilePath==null) texboxFilePath = DEFAULT_TEXTBOXFILEURL;
 		if (languageFilePath==null) languageFilePath = DEFAULT_LANGUAGEURL;
 		if (permissionPath==null) permissionPath = DEFAULT_PERMISSIONURL;
-		if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
-		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
-		if (spaceappFilePath==null) spaceappFilePath= DEFAULT_SPACEAPPLICATIONURL;
+		
 		if (contactIMFilePath==null) contactIMFilePath= DEFAULT_CONTACTIMURL;
 		if (contactPhoneFilePath==null) contactPhoneFilePath= DEFAULT_CONTACTPHONEURL;
 		if (activityMesFilePath==null) activityMesFilePath= DEFAULT_ACTIVITYMESSAGEURL;
@@ -392,6 +401,12 @@ public class TestBase {
         if (videoLinksFilePath==null) videoLinksFilePath = DEFAULT_VIDEO_EMBBED_LINKS_PATH;
         if (chatStatusFilePath==null) chatStatusFilePath = DEFAULT_CHATSTATUS_URL;
         if (notiDesFilePath==null) notiDesFilePath = DEFAULT_NOTIFICATION_DESCRIPTION_URL;
+        
+        //Social
+        if (spaceUIFilePath==null) spaceUIFilePath = DEFAULT_SPACE_UI_URL;
+        if (spaceVisibleFilePath==null) spaceVisibleFilePath = DEFAULT_SPACEVISIBLEFILEURL;
+		if (spaceRegistrationFilePath==null) spaceRegistrationFilePath = DEFAULT_SPACEREGISTRATIONFILEURL;
+		if (spaceappFilePath==null) spaceappFilePath= DEFAULT_SPACEAPPLICATIONURL;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -403,14 +418,13 @@ public class TestBase {
 		languageFilePath = getAbsoluteFilePath(languageFilePath);
 		permissionPath = getAbsoluteFilePath(permissionPath);
 		wikiTemplateFilePath = getAbsoluteFilePath(wikiTemplateFilePath);
-		spaceVisibleFilePath = getAbsoluteFilePath(spaceVisibleFilePath);
-		spaceRegistrationFilePath = getAbsoluteFilePath(spaceRegistrationFilePath);
+		
 		changLangDataPath = getAbsoluteFilePath(changLangDataPath);
 		remoteGadgetDataFilePath = getAbsoluteFilePath(remoteGadgetDataFilePath);
 		appGateinDataFilePath = getAbsoluteFilePath(appGateinDataFilePath);
 		getStartFilePath = getAbsoluteFilePath(getStartFilePath);
 		wikiMessageFilePath = getAbsoluteFilePath(wikiMessageFilePath);
-		spaceappFilePath = getAbsoluteFilePath(spaceappFilePath);
+		
 		
 		contactIMFilePath = getAbsoluteFilePath(contactIMFilePath);
 		contactPhoneFilePath = getAbsoluteFilePath(contactPhoneFilePath);
@@ -442,6 +456,12 @@ public class TestBase {
 		groupNameDataFilePath = getAbsoluteFilePath(groupNameDataFilePath);
 		videoLinksFilePath = getAbsoluteFilePath(videoLinksFilePath);
 		notiDesFilePath = getAbsoluteFilePath(notiDesFilePath);
+		
+		//Space
+		spaceUIFilePath = getAbsoluteFilePath(spaceUIFilePath);
+		spaceappFilePath = getAbsoluteFilePath(spaceappFilePath);
+		spaceVisibleFilePath = getAbsoluteFilePath(spaceVisibleFilePath);
+		spaceRegistrationFilePath = getAbsoluteFilePath(spaceRegistrationFilePath);
 	}
 
 	/**

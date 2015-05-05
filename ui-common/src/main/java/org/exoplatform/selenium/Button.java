@@ -26,7 +26,8 @@ public class Button extends TestBase{
 	public final By ELEMENT_APPLY_FRENCH_BUTTON = By.linkText("Appliquer");
 	public final By ELEMENT_APPLY_GERMAN_BUTTON = By.linkText("Anwenden");
 	public final By ELEMENT_APPLY_BUTTON = By.xpath("//*[text()='Apply']");
-
+	public final By ELEMENT_DELETE_BUTTON = By.xpath("//*[text()='Delete']");
+	
 	public final By ELEMENT_SAVE_BUTTON = By.xpath("//*[text()='Save']"); 
 	public final By ELEMENT_SAVE_BUTTON_POPUP_WINDOWS = By.xpath("//*[contains(@class, 'popup')]//*[text()='Save']");
 	public final By ELEMENT_CANCEL_BUTTON = By.xpath("//*[contains(text(),'Cancel')]");
