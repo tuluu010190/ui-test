@@ -22,8 +22,6 @@ import org.testng.annotations.*;
 			info("Delete created space");
 			hp.goToMySpaces();
 			spaMg.deleteSpace(space,false);
-			/*click(button.ELEMENT_DELETE_BUTTON);
-			click(spaMg.ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON);*/
 		}
 	/**
 	*<li> Case ID:122281.</li>

@@ -2,7 +2,9 @@ package org.exoplatform.selenium.platform.objectdatabase.social;
 
 import java.util.ArrayList;
 import java.util.Random;
+
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
 
 public class NotificationDescriptionDatabase {
@@ -54,5 +56,13 @@ public class NotificationDescriptionDatabase {
 		}
 		Integer index = randomGenerator.nextInt(newContent.size());
 		return index;
+	}
+	/**
+	 * Get a message from file by index
+	 * @param index
+	 * @return message 
+	 */
+	public String getNotiMessage(int index){
+		return content.get(index);
 	}
 }

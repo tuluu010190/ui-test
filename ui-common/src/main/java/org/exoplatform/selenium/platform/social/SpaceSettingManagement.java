@@ -41,6 +41,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_ACCESS_PERMISSION_RADIO=".//*[@id='UISpacePermission']//input[@value='${right}']";
 	public final By ELEMENT_ACCESS_PERMISSION_SAVE_BTN=By.xpath(".//*[@id='UISpacePermission']//button[text()='Save']");
 	public final By ELEMENT_ACCESS_ALERTS_POPUP_OK_BTN= By.xpath(".//*[@class='PopupTitle popupTitle'][contains(text(),'Alerts')]/../..//*[@class='btn']");
+	public final By ELEMENT_ACCESS_INFO_OK_BTN = By.xpath("//*[@class='PopupContent popupContent']//*[contains(text(),'OK')]");
 	
 	//Add application popup
 	public final By ELEMENT_ADD_APPLICATION_POPUP_TITLE=By.xpath("//*[contains(text(),'Space Application Installer')]");
@@ -132,7 +133,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		click(ELEMENT_SEARCH_USERS_ICON);
 		Utils.pause(2000);
 		info("Select a user");
-		searchUser(userName, ELEMENT_MSG_SEARCH_USER_NAME);
+		//searchUser(userName, ELEMENT_MSG_SEARCH_USER_NAME);
 		check(ELEMENT_SPACE_SELECT_USER_IN_FORM.replace("{$name}",userName),2);
 		info("click on Add button");
 		click(ELEMENT_ADD);
@@ -182,10 +183,23 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public void acceptRequest(String user){
 		info("OPen members tab");
 		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
-		info("Click on Delete button to remove user");
+		info("Click on join button to remove user");
 		click(ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT.replace("${user}",user));
 		info("Verify that the member is shown in member list");
 		waitForAndGetElement(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user),2000,0);
+	}
+	
+	/**
+	 * Delete member of space
+	 * @param user
+	 */
+	public void deleteMember(String user){
+		info("OPen members tab");
+		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
+		info("Click on delete button to remove user");
+		click(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user));
+		info("Verify that the member is not shown in member list");
+		waitForElementNotPresent(ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}", user));
 	}
 	
 	/**
@@ -307,7 +321,8 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		}
 		info("Save all changes");
 		click(ELEMENT_ACCESS_PERMISSION_SAVE_BTN);
-		//click(ELEMENT_ACCESS_ALERTS_POPUP_OK_BTN);
+		click(ELEMENT_ACCESS_INFO_OK_BTN);
+		Utils.pause(2000);
 	}
 	/**
 	 * Delete a node

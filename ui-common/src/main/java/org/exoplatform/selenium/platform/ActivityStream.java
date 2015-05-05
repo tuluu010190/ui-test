@@ -154,12 +154,14 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(),'${activityText}')]/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
 	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
 	public final String ELEMENT_COMMENT_TEXT = "//*[contains(text(),'${activityText}')]/../../../..//p[@class='contentComment'  and contains(.,'${commentText}')]";
-	public final String ELEMENT_ACTIVITY_LIKE_ICON_BLUE = ".//*[@data-original-title='${nameFile}']/../../../..//i[@class='uiIconThumbUp uiIconBlue']";
+	public final String ELEMENT_ACTIVITY_LIKE_ICON_BLUE = ".//*[contains(text(),'${nameFile}')]/../../../..//*[@class='uiIconThumbUp uiIconBlue']";
 	public final String ELEMENT_ACTIVITY_COMMENT_VIEW_HOVEROVER = ".//*[contains(text(),'${comment}')]/../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_PUBLICATION_COMMENTPOSTED = "//*[@class='commentList']//*[contains(text(),'${content}')]";
 	public final String ELEMENT_PUBLICATION_SEEALLCOMMENTBTN = "//*[contains(text(),'${activity}')]/../..//*[contains(@class,'commentListInfo')]//a[@href]";
 	public final String ELEMENT_SUGGEST_USER_IN_COMMENT = ".//*[contains(@data-display, '${userName}')]";
-	
+	public final String ELEMENT_PUBLICATION_COMMENT_NAMEAUTHOR = "//*[contains(text(),'${comment}')]/../..//*[@class='author']/*[contains(text(),'${name}')]";
+	public final String ELEMENT_PUBLICATION_COMMENT_TIMESTAMP = "//*[contains(text(),'${comment}')]/../..//*[@class='author']/*[contains(@class,'dateTime')]";
+	public final String ELEMENT_PUBLICATION_COMMENT_AVATAR = "//*[contains(text(),'${comment}')]/../..//*[@class='avatarXSmall']/*[@alt='${name}']";
 	//Activity for Forum
 	public final String ELEMENT_ACTIVITY_POLL_VOTE_FOR_POLL = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconSocVote uiIconSocLightGray']";
 	public final String ELEMENT_ACTIVITY_TOPIC_REPLY = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconReply uiIconLightGray']";
@@ -175,8 +177,11 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_USERJOIN_SPACE = "//*[text()='${user}']/../..//*[contains(text(),'Has joined the space.')]";
 	public final String ELEMENT_ACTIVITY_SPACE_CHANGE_NAME=".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Name has been updated to: ${space}.')]";
 	public final String ELEMENT_ACTIVITY_SPACE_SPACE_LAST_COMMENT=".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[@class='commentItem commentItemLast']//*[@class='contentComment']";
-	
-
+	public final String ELEMENT_ACTIVITY_SPACE_SPACE_LAST_COMMENT_JOINSPACE="//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[@class='commentItem commentItemLast']//*[contains(text(),'Has joined the space')]";
+	public final String ELEMENT_ACTIVITY_SPACE_ACTIVITY_DELETE_BTN = "//*[contains(text(),'${space}')]/../../../..//*[@class='heading']/..//*[@class='uiIconClose uiIconLightGray controllDelete']";
+	public final String ELEMENT_ACTIVITY_SPACE_HEADING = "//*[@class='heading']//*[contains(text(),'${space}')]";
+	public final String ELEMENT_ACTIVITY_SPACE_AUTHOR = "//*[contains(text(),'${title}')]/../*[contains(@class,'heading')]/*[contains(@class,'author')]";
+	public final String ELEMENT_ACTIVITY_USER_ACTIVITY_DELETE_BTN = "//*[contains(text(),'${title}')]/../*[contains(@class,'heading')]/*[contains(@class,'uiIconClose uiIconLightGray controllDelete')]";
 	
 	Button button;
 	/**
@@ -318,17 +323,15 @@ public class ActivityStream extends PlatformBase {
 	 * @param textContent
 	 */
 	public void addComment(String filename, String textContent){
-		WebElement input_icon= this.driver.findElement(By.xpath(ELEMENT_ICON_COMMENT.replace("${title}", filename)));
-		input_icon.click();
+		waitForAndGetElement(By.xpath(ELEMENT_ICON_COMMENT.replace("${title}", filename))).click();
 		switchToParentWindow();
 		
-		WebElement input= this.driver.findElement(By.xpath(ELEMENT_COMMENTBOX.replace("${title}",filename)));
+		WebElement input= waitForAndGetElement(By.xpath(ELEMENT_COMMENTBOX.replace("${title}",filename)));
 		Actions action =new Actions(driver);
 		action.moveToElement(input).sendKeys(textContent).build().perform();
 		
 		
-	    WebElement add_button= this.driver.findElement(By.xpath(ELEMENT_COMMENT_BUTTON.replace("${activityText}", filename)));
-	    add_button.click();
+	    waitForAndGetElement(By.xpath(ELEMENT_COMMENT_BUTTON.replace("${activityText}", filename))).click();
 	    Utils.pause(2000);
 	}
 

@@ -177,7 +177,7 @@ import org.testng.annotations.*;
 	*<li> Pre-Condition: A space is created</li>
 	*<li> Post-Condition: </li>
 	*/
-	@Test
+	@Test(groups="pending")
 	public  void test04_CheckApplicationListOnSpaceWhenUserHasAccessPermission() {
 		info("Test 4: Check application list on space when user has access permission");
         int index = appLayData.getRandomIndexByType(1);
@@ -235,7 +235,7 @@ import org.testng.annotations.*;
 	*<li> Post-Condition: </li>
 	* cannot automate
 	*/
-	@Test
+	@Test(groups="pending")
 	public  void test06_DisplayAStyleOfSpacesApplicationsInToolBar() {
 		info("Test 6: Display a style of space's applications in tool bar");
 		/*Step Number: 1

@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.social.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -14,6 +15,7 @@ import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
+import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationLayoutDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
@@ -22,6 +24,7 @@ import org.testng.annotations.BeforeClass;
 
 public class SOC_TestConfig extends PlatformBase {
 	HomePagePlatform hp;
+	ActivityStream hpAct;
 	ManageLogInOut magAc;
 	Button button;
 
@@ -40,6 +43,7 @@ public class SOC_TestConfig extends PlatformBase {
 	
 	RemoteGadgetDatabase remoteGadData;
 	TextBoxDatabase txData;
+	LinksDatabase lnkData;
 	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -53,7 +57,7 @@ public class SOC_TestConfig extends PlatformBase {
 		navTool = new NavigationToolbar(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
 		hp = new HomePagePlatform(driver);
-		
+		hpAct = new ActivityStream(driver);
 		myDash = new MyDashBoard(driver);
 
 		spaMg = new SpaceManagement(driver);
@@ -74,6 +78,8 @@ public class SOC_TestConfig extends PlatformBase {
 		
 		spaceUI = new SpaceGUIDatabase();
 		spaceUI.setData(spaceUIFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		lnkData = new LinksDatabase();
+		lnkData.setLinkData(linkPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
 		info("End setUpBeforeClass");
 	}

@@ -46,12 +46,12 @@ public class SpaceManagement extends SpaceHomePage {
 	public final By ELEMENT_SPACE_UPLOAD_SAVE_BTN=By.xpath(".//*[@id='UIAvatarUploadContent']//button[text()='Save']");
 
 	//Access and Edit tab form
-	public By ELEMENT_SPACE_ACCESS_EDIT_TAB=By.xpath("//*[@data-target='#UISpaceVisibility-tab']");
+	public By ELEMENT_SPACE_ACCESS_EDIT_TAB=By.xpath("//*[@data-target='#UISpacePermission-tab']");
 	public By ELEMENT_SPACE_VISIBILITY_VISIBLE_CHECKBOX=By.xpath("//*[@value='private']");
 	public By ELEMENT_SPACE_VISIBILITY_HIDDEN_CHECKBOX=By.xpath("//*[@value='hidden']");
 	public By ELEMENT_SPACE_REGISTRATION_OPEN_CHECKBOX=By.xpath("//*[@value='open']");
 	public By ELEMENT_SPACE_REGISTRATION_CLOSED_CHECKBOX=By.xpath("//*[@value='close']");
-	public By ELEMENT_SPACE_RESGISTRATION_VALIDATION_CHECKBOX=By.xpath("//*[@value='validation']");
+	public By ELEMENT_SPACE_REGISTRATION_VALIDATION_CHECKBOX=By.xpath("//*[@value='validation']");
 
 
 	//Access and Edit tab form
@@ -75,7 +75,7 @@ public class SpaceManagement extends SpaceHomePage {
 	public String ELEMENT_SPACE_NAME_BREADCUMB ="//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name' and contains(text(),'{$name}')]";
 
 	//Invitations received tab
-	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath("//*[contains(@href,'invitationSpace')]");
+	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//a[text()='Invitations Received']");
 	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Accept']";
 	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Ignore']";
 
@@ -208,6 +208,7 @@ public class SpaceManagement extends SpaceHomePage {
 		}
 
 	}
+	
 	/**
 	 * Save change all when edit a space
 	 */
