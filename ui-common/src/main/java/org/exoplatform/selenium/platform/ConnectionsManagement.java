@@ -215,7 +215,7 @@ public class ConnectionsManagement extends PlatformBase {
 	public void goToUser(String userName){
 		info("Go to User profile page");
 		searchPeople(userName, "", "", "");
-		click(By.linkText(userName));
+		click(ELEMENT_USER_LINK.replace("${userName}", userName));
 		waitForAndGetElement(myProf.ELEMENT_NAME_OF_PROFILE_TOP_LEFT.replace("${name}", userName));
 	}
 }

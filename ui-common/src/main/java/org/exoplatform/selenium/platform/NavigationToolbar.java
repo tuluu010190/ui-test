@@ -794,8 +794,7 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void clearCommentNotification(String userName, String activity, String time){
 		info("Clear comment notification");
-		goToIntranetNotification();
-		if (waitForAndGetElement(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity)) != null){
+		if (waitForAndGetElement(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) != null){
 			click(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
 			waitForElementNotPresent(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
 		}
@@ -813,7 +812,7 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void clearLikeNotification(String userName, String activity, String time){
 		info("Clear like notification");
-		if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity)) != null){
+		if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) != null){
 			click(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
 			waitForElementNotPresent(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
 		}

@@ -51,7 +51,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationIcon_List exten
 		/*Precondition:
 		 	- User A has received 3 notifications*/
 		info("Check number of notifications in badge before ccreate more notifications");
-		int numNotification = Integer.parseInt(waitForAndGetElement(navTool.ELEMENT_BADGE_NUMBER).getText().trim());
+		int numNotification = Integer.parseInt(waitForAndGetElement(navTool.ELEMENT_BADGE_NUMBER_NOT_DISPLAY.replace("${number}", "0")).getText().trim());
 		info("Create 3 notifications for add new user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);

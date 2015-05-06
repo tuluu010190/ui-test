@@ -107,7 +107,7 @@ import org.testng.annotations.*;
 			hp.goToMySpaces();
 			spaceMg.addNewSpaceSimple(space4,space4);
 			spaceHome.goToSettingTab();
-			setMag.inviteUser("John");
+			setMag.inviteUser("john");
 			
 			info("--Log in with james account--");
 			info("Sign out");
@@ -118,7 +118,7 @@ import org.testng.annotations.*;
 			hp.goToMySpaces();
 			spaceMg.addNewSpaceSimple(space5,space5);
 			spaceHome.goToSettingTab();
-			setMag.inviteUser("John");
+			setMag.inviteUser("john");
 			
 			info("--Login back to John");
 			info("Sign out");

@@ -607,6 +607,7 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		info("Add a comment to the topic's activity");
 		aHome.addCommentUsingJavascript(topic,comment);
+		aHome.addCommentUsingJavascript(topic, comment);
 		info("Mouse over on the comment");
 		mouseOver(aHome.ELEMENT_COMMENT_TEXT.replace("${activityText}",topic).replace("${commentText}",comment),true);
 		info("Verifyt that View is shown");
