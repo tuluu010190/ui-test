@@ -103,7 +103,8 @@ public class TestBase {
 	public final By ELEMENT_SKIP_BUTTON = By.xpath("//button[text()='Skip']");
 	public final By ELEMENT_YOUR_ACCOUNT_LABEL = By.xpath("//h5[contains(text(), 'Create your account')]");
 	public final By ELEMENT_ADMIN_PASS_LABEL = By.xpath("//h5[contains(text(), 'Admin Password')]");
-	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
+	public final By ELEMENT_ACCOUNT_ERROR2 = By.xpath("//div[2][@class='createAccountError']/*[@class='accountSetupError']");
+	public final By ELEMENT_ACCOUNT_ERROR1 = By.xpath("//div[1][@class='createAccountError']/*[@class='accountSetupError']");
 
 	public final By ELEMENT_GOOGLE_PAGE_LOGO = By.id("hplogo");
 	public final By ELEMENT_SIGN_OUT_LINK = By.className("uiIconPLFLogout");
@@ -279,6 +280,8 @@ public class TestBase {
 			driver = initFFDriver();
 		}
 		action = new Actions(driver);
+		driver.manage().window().maximize();
+		driver.get(baseUrl);
 	}
 
 	/**
@@ -298,8 +301,6 @@ public class TestBase {
 	}
 	public void initSeleniumTest(Object... opParams){
 		initSeleniumTestWithOutTermAndCondition();
-		driver.manage().window().maximize();
-		driver.get(baseUrl);
 		termsAndConditions(opParams);
 		checkPLFVersion();
 	}
