@@ -7,7 +7,6 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 
 public class AnswerHomePage extends PlatformBase {
@@ -28,6 +27,7 @@ public class AnswerHomePage extends PlatformBase {
 	
 	//Quick Search
 	public By ELEMENT_QUICK_SEARCH_INPUT=By.id("inputValue");
+	public By ELEMENT_QUICK_SEARCH_BUTTON=By.xpath("//*[@class='uiIconSearch uiIconLightGray']");
 	public By ELEENT_QUICK_SEARCH_POPUP=By.id("UIResultQuickSearchs");
 	public String ELEMENT_QUICK_SEARCH_RESULT_ITEM="//*[@id='UIResultQuickSearchs']//*[contains(text(),'$name')]";
 	public String ELEMENT_QUICK_SEARCH_CLOSE="//*[@id='UIResultQuickSearchs']//*[text()='Close']";
@@ -72,7 +72,7 @@ public class AnswerHomePage extends PlatformBase {
 	public void doQuickSearch(String key){
 		info("Do quick search");
 		type(ELEMENT_QUICK_SEARCH_INPUT,key,true);
-		waitForAndGetElement(ELEMENT_QUICK_SEARCH_INPUT).sendKeys(Keys.RETURN);
+		click(ELEMENT_QUICK_SEARCH_BUTTON);
 		waitForAndGetElement(ELEENT_QUICK_SEARCH_POPUP);
 	}
 	
@@ -82,7 +82,7 @@ public class AnswerHomePage extends PlatformBase {
 	public void goToAdvanceSearch(){
 		info("Go to advance search");
 		type(ELEMENT_QUICK_SEARCH_INPUT,"search",true);
-		waitForAndGetElement(ELEMENT_QUICK_SEARCH_INPUT).sendKeys(Keys.RETURN);
+		click(ELEMENT_QUICK_SEARCH_BUTTON);
 		waitForAndGetElement(ELEENT_QUICK_SEARCH_POPUP);
 		click(ELEMENT_QUICK_SEARCH_ADVANCE_SEARCH_BUTTON);
 		waitForAndGetElement(ELEMENT_ADVANCE_SEARCH_POPUP);

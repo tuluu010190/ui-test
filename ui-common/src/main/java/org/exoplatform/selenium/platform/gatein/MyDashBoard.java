@@ -17,7 +17,7 @@ public class MyDashBoard extends PlatformBase {
 	//tab
 	public final By ELEMENT_MYDASH_BTN_ADDTAB = By.xpath("//*[@class='uiIconSimplePlusMini uiIconLightGray']");
 	public final String ELEMENT_MYDASH_TAB_NAME = "//*[@id='${name}']";
-	public final By ELEMENT_MYDASH_BTN_NAMETAB = By.xpath("//*[@value='Tab_2']");
+	public final String ELEMENT_MYDASH_BTN_NAMETAB = "//*[@value='${name}']";
 	public final String ELEMENT_MYDASH_BTN_DELETETAB = "//*[@id='${name}']/../../..//*[contains(@class,'uiIconClose')]";
 
 	public final By ELEMENT_MYDASH_BTN_ADDGADGET = By.xpath("//*[text()='Add Gadgets']");
@@ -109,8 +109,9 @@ public class MyDashBoard extends PlatformBase {
 	public void addTab(String name){
 		info("Click on add button");
 		click(ELEMENT_MYDASH_BTN_ADDTAB);
-		type(ELEMENT_MYDASH_BTN_NAMETAB,name,true);
-		type(ELEMENT_MYDASH_BTN_NAMETAB,"\n",false);
+		waitForAndGetElement(ELEMENT_MYDASH_BTN_NAMETAB.replace("${name}", "Tab_2")).clear();
+		type(ELEMENT_MYDASH_BTN_NAMETAB.replace("${name}", "Tab_2"),name,false);
+		type(ELEMENT_MYDASH_BTN_NAMETAB.replace("${name}", "Tab_2"),"\n",false);
 		info("Verify that the new tab is added");
 		waitForAndGetElement(ELEMENT_MYDASH_TAB_NAME.replace("${name}",name),2000,0);
 		

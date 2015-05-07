@@ -18,11 +18,11 @@ public class SOC_People extends SOC_TestConfig_2{
 		info("test01_06_AcceptDenyRecievedInvitation");
 		/*Create data test*/
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
-		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
+		String password1 = username1;
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 		
 		String username2 = txData.getContentByArrayTypeRandom(4) + getRandomString();
-		String password2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
+		String password2 = username2;
 		String email2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
 
 		info("Add new user");

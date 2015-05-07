@@ -92,7 +92,7 @@ public class MyProfilePage extends PlatformBase {
 
 	//Experience
 	public final By ELEMENT_NO_EXPERIENCE=By.id("infoExperien");
-	public final By ELEMENT_ADD_MORE_EXP_ICON = By.xpath("//*[@data-original-title='Add more experience']");
+	public final By ELEMENT_ADD_MORE_EXP_ICON = By.xpath("//*[@data-original-title='Add more experience' or @title='Add more experience']");
 	public final String ELEMENT_EXPERIENCE_LIST=".//*[starts-with(@id,'ExperienceSection')]";
 	public final String ELEMENT_EXPERIENCE_COMPANY_INPUT="//*[@id='companyExperienceSection${index}']";
 	public final String ELEMENT_EXPERIENCE_POSITION_INPUT = "//*[@id='positionExperienceSection${index}']";
@@ -316,7 +316,7 @@ public class MyProfilePage extends PlatformBase {
 		String index = (String) (opParams.length > 0 ? opParams[0]: "0");	
 		Integer xpathCount= getElements(ELEMENT_EXPERIENCE_LIST).size();
 		if(Integer.valueOf(index)>=xpathCount){
-			click(ELEMENT_ADD_MORE_EXP_ICON);
+			click(ELEMENT_ADD_MORE_EXP_ICON,0,true);
 		}
 		info("-- update experience --");
 		if(organization!=null && organization != ""){
@@ -326,16 +326,16 @@ public class MyProfilePage extends PlatformBase {
 			type(ELEMENT_EXPERIENCE_POSITION_INPUT.replace("${index}", index),jobTitle, true);
 		}
 		if(jobDetail!=null && jobDetail != ""){
-			type(ELEMENT_EXPERIENCE_DESCRIPTION_INPUT.replace("${index}", index),organization, true);
+			type(ELEMENT_EXPERIENCE_DESCRIPTION_INPUT.replace("${index}", index),jobDetail, true);
 		}
 		if(skill!=null && skill != ""){
-			type(ELEMENT_EXPERIENCE_SKILL_INPUT.replace("${index}", index),jobTitle, true);
+			type(ELEMENT_EXPERIENCE_SKILL_INPUT.replace("${index}", index),skill, true);
 		}
 		if(startDate!=null && startDate != ""){
-			type(ELEMENT_EXPERIENCE_START_DATE_INPUT.replace("${index}", index),organization, true);
+			type(ELEMENT_EXPERIENCE_START_DATE_INPUT.replace("${index}", index),startDate, true);
 		}
 		if(endDate!=null && endDate != ""){
-			type(ELEMENT_EXPERIENCE_END_DATE_INPUT.replace("${index}", index),jobTitle, true);
+			type(ELEMENT_EXPERIENCE_END_DATE_INPUT.replace("${index}", index),endDate, true);
 		}
 		if(curPos!=null && curPos){
 			check(ELEMENT_EXPERIENCE_CURRENT_CHECKBOX.replace("${index}", index),2);

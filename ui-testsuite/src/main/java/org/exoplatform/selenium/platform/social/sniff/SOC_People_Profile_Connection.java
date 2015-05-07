@@ -199,7 +199,7 @@ public class SOC_People_Profile_Connection extends SOC_TestConfig_2 {
 
 		 *Expected Outcome: 
 			- The user is redirected to User A's connections page*/
-		click(myProfile.ELEMENT_UIMINICONNECTIONS_PORTLET_VIEWALL.replace("${num}","14"));
+		click(myProfile.ELEMENT_UIMINICONNECTIONS_PORTLET_VIEWALL.replace("${num}","13"));
 		waitForAndGetElement(connMag.ELEMENT_MY_CONNECTIONS_TAB);
 		
 		info("Test 4: Check the Connections section of another user.");

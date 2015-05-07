@@ -16,8 +16,6 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 	/**
 	 *<li> Case ID:116665.</li>
 	 *<li> Test Case Name: Check intranet homepage after adding a File content.</li>
-	 *<li> Case ID:116683.</li>
-	 *<li> Test Case Name: Edit a file from the File activity.</li>
 	 */
 	@Test
 	public  void test01_02_CheckIntranetHomepageAfterAddingAFileContent_EditFileFromTheFileActivity() {
@@ -49,23 +47,6 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 		CreNewDoc.saveAndClose();
 		hp.goToHomePage();
 		aHome.checkActivityAddFile(title);
-
-		info("Test 2 Edit a file from the File activity");
-		/*Step Number: 1
-		 *Step Name: 
-		 *Step Description: 
-			- Connect to Intranet
-			- From the file activity, click on the link "Edit"
-		 *Input Data: 
-
-		 *Expected Outcome: 
-			- The Content explorer is opened in the file to edit*/ 
-		click(By.xpath(aHome.ELEMENT_ACTIVITY_FILE_EDIT_FILE_FROM_ACTIVITY.replace("{$title}", title)));
-		CreNewDoc.saveAndClose();
-
-		// delete data
-		navTool.goToSiteExplorer();
-		SEHome.deleteData(title);
 	}
 
 	/**

@@ -99,7 +99,7 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		groupManage.editNavigation(groupAdmin);
 		waitForAndGetElement(navMag.ELEMENT_NAVIGATION_MANAGEMENT_NODE_NAME.replace(
 				"${name}", nodeName));
-		navMag.saveNode();
+		//navMag.saveNode();
 		info("A new node has been added...successful");
 		
 		/*Step Number: 2

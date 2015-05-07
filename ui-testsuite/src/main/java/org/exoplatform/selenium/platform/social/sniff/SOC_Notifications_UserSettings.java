@@ -151,7 +151,7 @@ import org.testng.annotations.*;
 		addUserPage.addUser(username2, password2, email2, username2, username2);
 		
 		info("Check email notification");
-		//goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
+		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		notiEmail.checkNewUserNotiEmail(username2,false);
 		
 		info("restore data");
@@ -215,6 +215,7 @@ import org.testng.annotations.*;
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		
 		info("Check email notification");
+		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		notiEmail.checkNewUserNotiEmail(username1,false,true);
 		
 		info("restore data");
@@ -332,14 +333,12 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			An intranet notification is displayed in the list*/
 		info("login by another user");
-		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		
 		info("add mention");
 		hpAct.addActivity(DATA_USER1,mention);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_MENTION_USER.replace("${content}", mention).replace("${user}",DATA_USER1));
 		
-		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		info("Check intranet notification");
 		navTool.goToNotificationList();

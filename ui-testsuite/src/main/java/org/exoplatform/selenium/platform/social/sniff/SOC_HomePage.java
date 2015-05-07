@@ -785,7 +785,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		 *Expected Outcome: 
 			- Request is sent to the user B*/
 		hp.goToConnections();
-		connMag.connectToAUser("Mary Williams");
+		connMag.connectToAUser(DATA_USER2);
 
 		/*Step number: 2
 		 *Step Name: - Accept request
@@ -797,10 +797,9 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		 *Expected Outcome: 
 			- A Relation activity is displayed to the activity stream*/ 
 		
-		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToConnections();
-		connMag.acceptAConnection("John Smith");
+		connMag.acceptAConnection(DATA_USER1);
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_PUBLICATION_ACTIVITYTEXT_CONNECTED.replace("${user}","John Smith"));
 	    
@@ -858,7 +857,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 	public  void test24_UpdateProfileChangeOfAvatar() {
 		info("Test 24: Update Profile - change of avatar");
 
-		String newAvatar = fData.getAttachFileByArrayTypeRandom(3);
+		String newAvatar = fData.getAttachFileByArrayTypeRandom(26);
 
 		/*Step Number: 1
 		 *Step Name: - Change Avatar
@@ -874,6 +873,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 			- A user profile activity is updated in the activity stream
 			- A comment is added: Avatar has been updated.*/ 
 		navTool.goToMyProfile();
+		myProfile.goToEditProfile();
 		myProfile.changeAvatar("TestData/"+newAvatar);
 		
 		hp.goToHomePage();
@@ -903,10 +903,11 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 			- A user profile activity is updated in the activity stream
 			- A comment is added: 	Basic informations has been updated.*/ 
 		navTool.goToMyProfile();
+		myProfile.goToEditProfile();
 		myProfile.updateBasicInformation("","","fqa@acme.exoplatform.com");
 		myProfile.saveCancelUpdateInfo(true);
 		hp.goToHomePage();
-		waitForAndGetElement(hpAct.ELEMENT_COMMENT_TEXT.replace("${activityText}","John Smith").replace("${commentText}","Basic information has been updated."));
+		waitForAndGetElement(hpAct.ELEMENT_COMMENT_TEXT.replace("${activityText}","John Smith").replace("${commentText}","Contact information has been updated"));
 	}
 
 	/**
@@ -1206,6 +1207,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 	
 		spaHome.goToSettingTab();
 		spaMg.editSpaceSimple(space, newSpace, "",false,"");
+		spaMg.saveChangesSpace();
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_SPACE_CHANGE_NAME.replace("${space}",newSpace));
 	

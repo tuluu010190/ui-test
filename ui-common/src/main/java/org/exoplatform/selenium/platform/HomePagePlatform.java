@@ -225,7 +225,7 @@ public class HomePagePlatform extends TestBase{
 
 	public final String ELEMENT_PUBLICATION_DISPLAYORDER = "//div[${number}]/form//*[contains(text(), '${title}')]";
 	public final String ELEMENT_PUBLICATION_DISPLAYORDER_WEBCONTENT = "//div[${number}]/form//*[@class='uiIcon64x64Templateexo_webContent']";
-	public final String ELEMENT_PUBLICATION_DISPLAYORDER_FILE = "//div[${number}]/form//*[@class='uiIcon64x64FileHtml uiIcon64x64nt_file']";
+	public final String ELEMENT_PUBLICATION_DISPLAYORDER_FILE = "//div[${number}]/form//*[@class='uiIcon64x64FileDefault uiIcon64x64nt_file uiIcon64x64texthtml']";
 	public final String ELEMENT_PUBLICATION_DISPLAYORDER_PRODUCT = "//div[${number}]/form//*[@class='uiIcon64x64Templateacme_product']";
 	public final String ELEMENT_PUBLICATION_DISPLAYORDER_PDF = "//div[${number}]/form//*[@data-original-title='ECMS_DMS_SE_Upload_pdffile.pdf']//*[@class='pdfImageBorder']";
 	

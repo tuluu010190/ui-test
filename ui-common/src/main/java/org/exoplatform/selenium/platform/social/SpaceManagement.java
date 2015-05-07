@@ -12,20 +12,20 @@ import static org.exoplatform.selenium.TestLogger.info;
  *
  */
 public class SpaceManagement extends SpaceHomePage {
-	
+
 	// Add form space
 	public final By ELEMENT_ADDNEWSPACE_BUTTON = By.xpath("//button[contains(.,'Add New Space')]");
 	public final By ELEMENT_ADDNEWSPACE_FORM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add New Space']");
-	
+
 	//Search panel
 	public final By ELEMENT_MY_SPACE_SEARCH_TEXT_BOX = By.xpath(".//*[@id='SpaceSearch']");
 	public final By ELEMENT_MY_SPACE_SEARCH_BTN = By.xpath(".//*[@id='UISpaceSearch']//i[@class='uiIconSearch uiIconLightGray']");
 	public final String ELEMENT_MY_SPACE_SEARCH_RESULT = ".//*[@id='UIManageMySpaces']//*[contains(text(),'${name}')]";
 	public final String ELEMENT_MY_SPACE_SEARCH_RESULT_NUMBER = ".//*[@id='UIManageMySpaces']//*[@class='number'][text()='${number}']";
-	
+
 	//Letter list 
 	public final String ELEMENT_MY_SPACE_LETTER_LIST= ".//*[@class='letterList']//*[text()='${alpha}']";
-	
+
 	//Space portlets
 	public By ELEMENT_SPACE_MY_SPACE_PORTLET = By.id("UIMySpacesPortlet");
 	public By ELEMENT_SPACE_ALL_SPACE_PORTLET = By.id("UIAllSpacesPortlet");
@@ -44,7 +44,7 @@ public class SpaceManagement extends SpaceHomePage {
 	public final By ELEMENT_SPACE_SAVE_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Save']");
 	public final By ELEMENT_SPACE_UPLOAD_CONFIRM_BTN=By.xpath(".//*[@id='UIAvatarUploader']//button[text()='Confirm']");
 	public final By ELEMENT_SPACE_UPLOAD_SAVE_BTN=By.xpath(".//*[@id='UIAvatarUploadContent']//button[text()='Save']");
-	
+
 	//Access and Edit tab form
 	public By ELEMENT_SPACE_ACCESS_EDIT_TAB=By.xpath("//*[@data-target='#UISpaceVisibility-tab']");
 	public By ELEMENT_SPACE_VISIBILITY_VISIBLE_CHECKBOX=By.xpath("//*[@value='private']");
@@ -53,14 +53,14 @@ public class SpaceManagement extends SpaceHomePage {
 	public By ELEMENT_SPACE_REGISTRATION_CLOSED_CHECKBOX=By.xpath("//*[@value='close']");
 	public By ELEMENT_SPACE_RESGISTRATION_VALIDATION_CHECKBOX=By.xpath("//*[@value='validation']");
 
-	
+
 	//Access and Edit tab form
 	public By ELEMENT_SPACE_INVITE_GROUP_USER_TAB=By.xpath("//*[@data-target='#UISpaceGroupBound-tab']");
 	public By ELEMENT_SPACE_SELECT_EXIST_GROUP_CHECKBOX=By.id("UseExistingGroupCheckBox");
 
 	//Button create
 	public By ELEMENET_SPACE_CREATE_BUTTON=By.xpath("//*[@class='uiAction']/*[text()='Create']");
-	
+
 	//My space
 	public String ELEMENT_SPACE_TITLE="//*[@class='spaceTitle']//*[text()='${space}']";
 	public final String ELEMENT_SPACE_DESCRIPTION=".//*[@id='UIManageMySpaces']//*[@class='content limitText'][text()='${des}']";
@@ -73,20 +73,20 @@ public class SpaceManagement extends SpaceHomePage {
 	public By ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON=By.xpath("//*[text()='OK']");
 
 	public String ELEMENT_SPACE_NAME_BREADCUMB ="//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name' and contains(text(),'{$name}')]";
-	
+
 	//Invitations received tab
 	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath("//*[contains(@href,'invitationSpace')]");
 	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Accept']";
 	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Ignore']";
-	
+
 	//All Spaces tab
 	public final By ELEMENT_MY_SPACE_ALL_SPACES_TAB = By.xpath(".//*[@id='UIPage']//*[contains(@href,'all-spaces')]");
 	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Request to Join']";
 	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING = ".//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Request Pending')]";
-	
+
 	//Request pending tab
 	public final By ELEMENT_MY_SPACE_REQUEST_PENDING_TAB = By.xpath("//*[contains(@href,'pendingSpace')]");
-	
+
 	//Members
 	public final By ELEMENT_SPACE_GOWIKI = By.xpath("//*[@class='uiIconAppWikiPortlet uiIconDefaultApp']/..//*[@id='wiki']");
 	public final By ELEMENT_SPACE_MEMBERS = By.xpath("//*[@data-toggle='tab' and text()='Members']");
@@ -95,18 +95,18 @@ public class SpaceManagement extends SpaceHomePage {
 	public final By ELEMENT_SPACE_TEXTBOX_USER_SUGGEST = By.xpath("//*[@class='text' and text()='Mary Williams']");
 	public final By ELEMENT_SPACE_BTN_INVITE = By.xpath("//*[text()='Invite']");
 	public final String ELEMENT_SPACE_BTN_MANAGER = "//*[text()='${name}']/..//*[@class='switchBtnLabelOff']";
-	
+
 	public final By ELEMENT_SPACE_BTN_ACCEPT_INVITE = By.xpath("//*[text()='Accept']");
 	public final By ELEMENT_SPACE_ALLSPACES = By.xpath("//*[text()='All Spaces']");
-	
+
 	//Request to join a space
 	public final String ELEMENT_REQUEST_TO_JOIN_SPACE_BTN = "//*[contains(text(),'${space}')]/../../..//button[text()='Request to Join']";
 	public final String ELEMENT_REQUEST_PENDING = "//*[contains(text(),'${space}')]/../../..//*[text()='Request Pending']";
-	
+
 	ManageAlert alert;
-	
-	 /** 
-	  * constructor
+
+	/** 
+	 * constructor
 	 * @param dr
 	 */
 	public SpaceManagement(WebDriver dr){
@@ -123,15 +123,15 @@ public class SpaceManagement extends SpaceHomePage {
 		click(ELEMENT_ADD_NEW_SPACE_BUTTON);
 		waitForAndGetElement(ELEMENT_ADD_SPACE_FORM);
 	}
-	
-/**
- * delete Space
- * @param spaceName
- * 					name of space
- * @param isVerify
- * 					true: verify content of confirm msg
- * 					false: not verify content of confirm msg
- */
+
+	/**
+	 * delete Space
+	 * @param spaceName
+	 * 					name of space
+	 * @param isVerify
+	 * 					true: verify content of confirm msg
+	 * 					false: not verify content of confirm msg
+	 */
 	public void deleteSpace(String spaceName, Boolean isVerify){
 		info("Do delete space");
 		click(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName));
@@ -139,7 +139,7 @@ public class SpaceManagement extends SpaceHomePage {
 			alert.verifyAlertMessage(ELEMENT_SPACE_CONFIRM_DELETE);
 		click(ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON);
 		waitForElementNotPresent(ELEMENT_SPACE_DELETE_BUTTON.replace("${space}", spaceName),60000);
-		
+
 	}
 	/**
 	 * Leave a space
@@ -183,7 +183,8 @@ public class SpaceManagement extends SpaceHomePage {
 	 */
 	public void editSpaceSimple(String space,String newName,String newDes,boolean isChangeAvatar,String filepath){
 		info("Click on Edit button of the space");
-		click(ELEMENT_SPACE_EDIT_BTN.replace("${space}",space));
+		if(waitForAndGetElement(ELEMENT_SPACE_EDIT_BTN.replace("${space}",space), 3000,0)!=null)
+			click(ELEMENT_SPACE_EDIT_BTN.replace("${space}",space));
 		if(!newName.isEmpty()){
 			info("Input new name");
 			type(ELEMENT_SPACE_NAME_INPUT,newName,true);
@@ -193,19 +194,19 @@ public class SpaceManagement extends SpaceHomePage {
 			type(ELEMENT_SPACE_DESCRIPTION_INPUT,newDes,true);
 		}
 		if(isChangeAvatar==true){
-		   info("click on change picture button");
-		   click(ELEMENT_SPACE_CHANGE_AVATAR_BTN);
-		   info("click on upload button");
-		   click(ELEMENT_UPLOAD_POPUP_SELECT_FILE_BTN);
-		   Utils.pause(2000);
-		   info("filepath:"+filepath);
-		   uploadFileUsingRobot(filepath);
-		   Utils.pause(2000);
-		   click(ELEMENT_SPACE_UPLOAD_CONFIRM_BTN);
-		   click(ELEMENT_SPACE_UPLOAD_SAVE_BTN);
-		   Utils.pause(2000);
+			info("click on change picture button");
+			click(ELEMENT_SPACE_CHANGE_AVATAR_BTN);
+			info("click on upload button");
+			click(ELEMENT_UPLOAD_POPUP_SELECT_FILE_BTN);
+			Utils.pause(2000);
+			info("filepath:"+filepath);
+			uploadFileUsingRobot(filepath);
+			Utils.pause(2000);
+			click(ELEMENT_SPACE_UPLOAD_CONFIRM_BTN);
+			click(ELEMENT_SPACE_UPLOAD_SAVE_BTN);
+			Utils.pause(2000);
 		}
-			
+
 	}
 	/**
 	 * Save change all when edit a space
@@ -237,11 +238,11 @@ public class SpaceManagement extends SpaceHomePage {
 			waitForAndGetElement(ELEMENT_MY_SPACE_SEARCH_RESULT_NUMBER.replace("${number}", number),3000,0);
 		}
 	}
-    /**
-     * Click on an alpha in the list
-     * @param alpha
-     * @param name
-     */
+	/**
+	 * Click on an alpha in the list
+	 * @param alpha
+	 * @param name
+	 */
 	public void searchByLetterList(String alpha,String name){
 		info("Waiting my space is shown");
 		waitForAndGetElement(ELEMENT_MY_SPACE_LETTER_LIST.replace("${alpha}", alpha),3000,0);
@@ -260,9 +261,9 @@ public class SpaceManagement extends SpaceHomePage {
 		//clickByJavascript(ELEMENT_MY_SPACE_INVITATION_RECEIVED);
 		//mouseOverAndClick(ELEMENT_MY_SPACE_INVITATION_RECEIVED);
 		Utils.pause(2000);
-			
+
 	}
-	
+
 	/**
 	 * Open All Spaces tab
 	 */
@@ -272,7 +273,7 @@ public class SpaceManagement extends SpaceHomePage {
 		click(ELEMENT_MY_SPACE_ALL_SPACES_TAB);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Send a request to a space
 	 * @param space
@@ -315,7 +316,7 @@ public class SpaceManagement extends SpaceHomePage {
 		info("Verify that the user didn't join to the space");
 		waitForElementNotPresent(ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN.replace("${space}",space));
 	}
-	
+
 	public void requestToJoinSpace(String space){
 		info("Request to join a space");
 		searchSpace(space, "");
@@ -323,5 +324,5 @@ public class SpaceManagement extends SpaceHomePage {
 		waitForAndGetElement(ELEMENT_REQUEST_PENDING.replace("${space}", space));
 		info("Request successfully");
 	}
-	
+
 }

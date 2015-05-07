@@ -14,21 +14,21 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_GENERAL_SEND_CONNECTION_GRID = By.xpath("//*[@id='uiNotificationSetting']//*[contains(text(),'Someone sends me a connection request')]");  
 	public final By ELEMENT_RESET_BTN = By.xpath(".//button[@id='Reset']");
 	public final By ELEMENT_RESET_CONFIRM = By.xpath(".//*[@id='UISocialPopupConfirmation']/..//a[contains(text(),'Confirm')]");
-	
+
 	//Someones join the social intranet
 	public final By ELEMENT_NEWUSER_ICON_EMAIL_NOTIFICATION=By.xpath(".//*[contains(@for,'NewUserPlugin')]/../..//*[contains(@class,'uiIconPLFMail')]");
 	public final By ELEMENT_NEWUSER_ICON_INTRANET_NOTIFICATION=By.xpath(".//*[contains(@for,'NewUserPlugin')]/../..//*[contains(@class,'uiIconPLFWeb')]");
-	
+
 	//Connection request
 	public final By ELEMENT_CONNECTION_REQUEST_ICON_EMAIL_NOTIFICATION=By.xpath(".//*[contains(@for,'RelationshipReceivedRequestPlugin')]/../..//*[contains(@class,'uiIconPLFMail')]");
 	public final By ELEMENT_CONNECTION_REQUEST_ICON_INTRANET_NOTIFICATION=By.xpath(".//*[contains(@for,'RelationshipReceivedRequestPlugin')]/../..//*[contains(@class,'uiIconPLFWeb')]");
-	
+
 	//Space invitation
 	public final By ELEMENT_SPACE_INVITATION_EMAIL_NOTIFICATION_ICON = By.xpath(".//*[contains(@for,'SpaceInvitationPlugin')]/../..//*[contains(@class,'uiIconPLFMail')]");
 	public final By ELEMENT_SPACE_INVITATION_INTRANET_NOTIFICATION_ICON = By.xpath(".//*[contains(@for,'SpaceInvitationPlugin')]/../..//*[contains(@class,'uiIconPLFWeb')]");
 	//Activity comment
 	public final By ELEMENT_ACTIVITY_COMMENT_ICON_INTRANET_NOTIFICATION = By.xpath(".//*[contains(@for,'ActivityCommentPlugin')]/../..//*[contains(@class,'uiIconPLFWeb')]");
-	
+
 	public final By ELEMENT_SWITCH_ONOFF_MAIL_BTN = By.xpath("//*[@class='uiSwitchBtn']/*[@name='channelMAIL_CHANNEL']/..");
 	public final By ELEMENT_SWITCH_ONOFF_WEB_BTN = By.xpath("//*[@class='uiSwitchBtn']/*[@name='channelWEB_CHANNEL']/..");
 	public final By ELEMENT_SWITCH_ONOFF_MAIL_ON = By.xpath("//*[@class='uiSwitchBtn']/*[@name='channelMAIL_CHANNEL'][contains(@checked,'checked')]");
@@ -37,10 +37,10 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_SWITCH_ONOFF_WEB_OFF = By.xpath("//*[@class='uiSwitchBtn']/*[@name='channelWEB_CHANNEL']");
 	public final By ELEMENT_MAIL_VIEWMODE_FALSE = By.xpath("//*[@class='view-mode status-false']/*[contains(.,'mail')]");
 	public final By ELEMENT_WEB_VIEWMODE_FALSE = By.xpath("//*[@class='view-mode status-false']/*[contains(.,'Intranet')]");
-	
+
 	public final By ELEMENT_COLUMN_NOTIFYME = By.xpath("//*[@id='uiNotificationSetting']//table/thead/tr/th[contains(text(),'Notify me when')]");
 	public final By ELEMENT_COLUMN_HOWTO = By.xpath("//*[@id='uiNotificationSetting']//table/thead/tr/th[contains(text(),'How to get notifications')]");
-	
+
 	//New user
 	public final By ELEMENT_EDIT_NEWUSER_ICON = By.xpath("//*[@id='NewUserPlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_NEWUSER_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELNewUserPlugin']");
@@ -54,7 +54,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_NEWUSER_LIST_NEVER = By.xpath("//*[@id='MAIL_CHANNELNewUserPluginSelectBox']/*[contains(text(),'Never')]");
 	public final By ELEMENT_EDIT_NEWUSER_WEB_ICON = By.xpath("//*[@id='NewUserPlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_NEWUSER_MAIL_ICON = By.xpath("//*[@id='NewUserPlugin']/../..//*[@class='the-checkbox']");
-	
+
 	//Connections
 	public final By ELEMENT_EDIT_RECREQ_ICON = By.xpath("//*[@id='RelationshipReceivedRequestPlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELRelationshipReceivedRequestPlugin']");
@@ -65,7 +65,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_RECREQ_SAVE_BTN = By.xpath("//button[@id='RelationshipReceivedRequestPlugin']");
 	public final By ELEMENT_EDIT_RECREQ_WEB_ICON = By.xpath("//*[@id='RelationshipReceivedRequestPlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_RECREQ_MAIL_ICON = By.xpath("//*[@id='RelationshipReceivedRequestPlugin']/../..//*[@class='the-checkbox']");
-	
+
 	//Spaces
 	public final By ELEMENT_EDIT_REQJOIN_SPACE_ICON = By.xpath("//*[@id='RequestJoinSpacePlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_REQJOIN_SPACE_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELRequestJoinSpacePlugin']");
@@ -76,7 +76,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN = By.xpath("//button[@id='RequestJoinSpacePlugin']");
 	public final By ELEMENT_EDIT_REQJOIN_SPACE_WEB_ICON = By.xpath("//*[@id='RequestJoinSpacePlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_REQJOIN_SPACE_MAIL_ICON = By.xpath("//*[@id='RequestJoinSpacePlugin']/../..//*[@class='the-checkbox']");
-	
+
 	public final By ELEMENT_EDIT_INVI_SPACE_ICON = By.xpath("//*[@id='SpaceInvitationPlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELSpaceInvitationPlugin']");
 	public final By ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX_CHECKED = By.xpath("//*[@id='MAIL_CHANNELSpaceInvitationPlugin'][contains(@checked,'checked')]");
@@ -86,7 +86,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_INVI_SPACE_SAVE_BTN = By.xpath("//button[@id='SpaceInvitationPlugin']");
 	public final By ELEMENT_EDIT_INVI_SPACE_WEB_ICON = By.xpath("//*[@id='SpaceInvitationPlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_INVI_SPACE_MAIL_ICON = By.xpath("//*[@id='SpaceInvitationPlugin']/../..//*[@class='the-checkbox']");
-	
+
 	public final By ELEMENT_EDIT_POST_SPACE_ICON = By.xpath("//*[@id='PostActivitySpaceStreamPlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELPostActivitySpaceStreamPlugin']");
 	public final By ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX_CHECKED = By.xpath("//*[@id='MAIL_CHANNELPostActivitySpaceStreamPlugin'][contains(@checked,'checked')]");
@@ -96,7 +96,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_POST_SPACE_SAVE_BTN = By.xpath("//button[@id='PostActivitySpaceStreamPlugin']");
 	public final By ELEMENT_EDIT_POST_SPACE_WEB_ICON = By.xpath("//*[@id='PostActivitySpaceStreamPlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_POST_SPACE_MAIL_ICON = By.xpath("//*[@id='PostActivitySpaceStreamPlugin']/../..//*[@class='the-checkbox']");
-	
+
 	//Activity Stream
 	public final By ELEMENT_EDIT_LIKE_ICON = By.xpath("//*[@id='LikePlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_LIKE_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELLikePlugin']");
@@ -107,7 +107,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_LIKE_SAVE_BTN = By.xpath("//button[@id='LikePlugin']");
 	public final By ELEMENT_EDIT_LIKE_WEB_ICON = By.xpath("//*[@id='LikePlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_LIKE_MAIL_ICON = By.xpath("//*[@id='LikePlugin']/../..//*[@class='the-checkbox']");
-	
+
 	public final By ELEMENT_EDIT_POST_ICON = By.xpath("//*[@id='PostActivityPlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_POST_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELPostActivityPlugin']");
 	public final By ELEMENT_EDIT_POST_MAIL_CHECKBOX_CHECKED = By.xpath("//*[@id='MAIL_CHANNELPostActivityPlugin'][contains(@checked,'checked')]");
@@ -117,7 +117,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_POST_SAVE_BTN = By.xpath("//button[@id='PostActivityPlugin']");
 	public final By ELEMENT_EDIT_POST_WEB_ICON = By.xpath("//*[@id='PostActivityPlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_POST_MAIL_ICON = By.xpath("//*[@id='PostActivityPlugin']/../..//*[@class='the-checkbox']");
-	
+
 	public final By ELEMENT_EDIT_COMMENT_ICON = By.xpath("//*[@id='ActivityCommentPlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELActivityCommentPlugin']");
 	public final By ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX_CHECKED = By.xpath("//*[@id='MAIL_CHANNELActivityCommentPlugin'][contains(@checked,'checked')]");
@@ -127,7 +127,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_COMMENT_SAVE_BTN =  By.xpath("//button[@id='ActivityCommentPlugin']");
 	public final By ELEMENT_EDIT_COMMENT_WEB_ICON = By.xpath("//*[@id='ActivityCommentPlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_COMMENT_MAIL_ICON = By.xpath("//*[@id='ActivityCommentPlugin']/../..//*[@class='the-checkbox']");
-	
+
 	public final By ELEMENT_EDIT_MENTION_ICON = By.xpath("//*[@id='ActivityMentionPlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_MENTION_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELActivityMentionPlugin']");
 	public final By ELEMENT_EDIT_MENTION_MAIL_CHECKBOX_CHECKED = By.xpath("//*[@id='MAIL_CHANNELActivityMentionPlugin'][contains(@checked,'checked')]");
@@ -137,7 +137,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_MENTION_SAVE_BTN =  By.xpath("//button[@id='ActivityMentionPlugin']");
 	public final By ELEMENT_EDIT_MENTION_WEB_ICON = By.xpath("//*[@id='ActivityMentionPlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_MENTION_MAIL_ICON = By.xpath("//*[@id='ActivityMentionPlugin']/../..//*[@class='the-checkbox']");
-	
+
 	/**
 	 * constructor
 	 * @param dr
@@ -146,7 +146,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		this.driver=dr;
 
 	}
-	
+
 	public enum myNotiType{
 		NewUser_email,NewUser_intranet,ConnectionRequest_email,ConnectionRequest_intranet,Comment_email,Comment_intranet,Like_email,Like_intranet,Post_email,Post_intranet,Mention_email,Mention_intranet,
 		PostSpace_email,PostSpace_intranet,ReqJoin_email,ReqJoin_intranet,InvJoin_email,InvJoin_intranet;
@@ -159,9 +159,9 @@ public class MyNotificationsSetting extends PlatformBase{
 		switch(notifToDisable){
 		case NewUser_email:
 			info("Click on Edit button");
-			click(ELEMENT_EDIT_NEWUSER_ICON);
+			click(ELEMENT_EDIT_NEWUSER_ICON,0,true);
 			if(isElementPresent(ELEMENT_EDIT_NEWUSER_MAIL_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_NEWUSER_MAIL_CHECKBOX);
+				click(ELEMENT_EDIT_NEWUSER_MAIL_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -169,9 +169,9 @@ public class MyNotificationsSetting extends PlatformBase{
 			break;
 		case NewUser_intranet:
 			info("Click on Edit button");
-			click(ELEMENT_EDIT_NEWUSER_ICON);
+			click(ELEMENT_EDIT_NEWUSER_ICON,0,true);
 			if(isElementPresent(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX);
+				click(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
 			info("Verify that intranet notification is hidded");
@@ -180,7 +180,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case ConnectionRequest_email:
 			click(ELEMENT_EDIT_RECREQ_ICON);
 			if(isElementPresent(ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX);
+				click(ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_RECREQ_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -189,7 +189,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case ConnectionRequest_intranet:
 			click(ELEMENT_EDIT_RECREQ_ICON);
 			if(isElementPresent(ELEMENT_EDIT_RECREQ_WEB_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_RECREQ_WEB_CHECKBOX);
+				click(ELEMENT_EDIT_RECREQ_WEB_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_RECREQ_SAVE_BTN);
 			info("Verify that Intranet notification is hidded");
@@ -198,7 +198,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Comment_email:
 			click(ELEMENT_EDIT_COMMENT_ICON);
 			if(isElementPresent(ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX);
+				click(ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_COMMENT_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -207,7 +207,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Comment_intranet:
 			click(ELEMENT_EDIT_COMMENT_ICON);
 			if(isElementPresent(ELEMENT_EDIT_COMMENT_WEB_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_COMMENT_WEB_CHECKBOX);
+				click(ELEMENT_EDIT_COMMENT_WEB_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_COMMENT_SAVE_BTN);
 			info("Verify that Intranet notification is hidded");
@@ -216,7 +216,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Like_email:
 			click(ELEMENT_EDIT_LIKE_ICON);
 			if(isElementPresent(ELEMENT_EDIT_LIKE_MAIL_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_LIKE_MAIL_CHECKBOX);
+				click(ELEMENT_EDIT_LIKE_MAIL_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_LIKE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -225,7 +225,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Like_intranet:
 			click(ELEMENT_EDIT_LIKE_ICON);
 			if(isElementPresent(ELEMENT_EDIT_LIKE_WEB_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_LIKE_WEB_CHECKBOX);
+				click(ELEMENT_EDIT_LIKE_WEB_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_LIKE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -234,7 +234,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Post_email:
 			click(ELEMENT_EDIT_POST_ICON);
 			if(isElementPresent(ELEMENT_EDIT_POST_MAIL_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_POST_MAIL_CHECKBOX);
+				click(ELEMENT_EDIT_POST_MAIL_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -243,7 +243,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Post_intranet:
 			click(ELEMENT_EDIT_POST_ICON);
 			if(isElementPresent(ELEMENT_EDIT_POST_WEB_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_POST_WEB_CHECKBOX);
+				click(ELEMENT_EDIT_POST_WEB_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -252,7 +252,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Mention_email:
 			click(ELEMENT_EDIT_MENTION_ICON);
 			if(isElementPresent(ELEMENT_EDIT_MENTION_MAIL_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_MENTION_MAIL_CHECKBOX);
+				click(ELEMENT_EDIT_MENTION_MAIL_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_MENTION_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -261,7 +261,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Mention_intranet:
 			click(ELEMENT_EDIT_MENTION_ICON);
 			if(isElementPresent(ELEMENT_EDIT_MENTION_WEB_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_MENTION_WEB_CHECKBOX);
+				click(ELEMENT_EDIT_MENTION_WEB_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_MENTION_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -270,7 +270,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case PostSpace_email:
 			click(ELEMENT_EDIT_POST_SPACE_ICON);
 			if(isElementPresent(ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX);
+				click(ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -279,7 +279,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case PostSpace_intranet:
 			click(ELEMENT_EDIT_POST_SPACE_ICON);
 			if(isElementPresent(ELEMENT_EDIT_POST_SPACE_WEB_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_POST_SPACE_WEB_CHECKBOX);
+				click(ELEMENT_EDIT_POST_SPACE_WEB_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -288,7 +288,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case ReqJoin_email:
 			click(ELEMENT_EDIT_REQJOIN_SPACE_ICON);
 			if(isElementPresent(ELEMENT_EDIT_REQJOIN_SPACE_MAIL_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_REQJOIN_SPACE_MAIL_CHECKBOX);
+				click(ELEMENT_EDIT_REQJOIN_SPACE_MAIL_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -297,7 +297,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case ReqJoin_intranet:
 			click(ELEMENT_EDIT_REQJOIN_SPACE_ICON);
 			if(isElementPresent(ELEMENT_EDIT_REQJOIN_SPACE_WEB_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_REQJOIN_SPACE_WEB_CHECKBOX);
+				click(ELEMENT_EDIT_REQJOIN_SPACE_WEB_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -306,7 +306,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case InvJoin_email:
 			click(ELEMENT_EDIT_INVI_SPACE_ICON);
 			if(isElementPresent(ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX);
+				click(ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_INVI_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -315,7 +315,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case InvJoin_intranet:
 			click(ELEMENT_EDIT_INVI_SPACE_ICON);
 			if(isElementPresent(ELEMENT_EDIT_INVI_SPACE_WEB_CHECKBOX_CHECKED))
-			click(ELEMENT_EDIT_INVI_SPACE_WEB_CHECKBOX);
+				click(ELEMENT_EDIT_INVI_SPACE_WEB_CHECKBOX);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_INVI_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -329,13 +329,13 @@ public class MyNotificationsSetting extends PlatformBase{
 	 */
 	public void enableNotification(myNotiType notifToEnable, Object... opParams){
 		String opt = (String) (opParams.length > 0 ? opParams[0]:"");
-		
+
 		switch(notifToEnable){
 		case NewUser_email:
 			info("Click on Edit button");
 			click(ELEMENT_EDIT_NEWUSER_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_NEWUSER_MAIL_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_NEWUSER_MAIL_CHECKBOX,2);
+				check(ELEMENT_EDIT_NEWUSER_MAIL_CHECKBOX,2);
 			select(ELEMENT_EDIT_NEWUSER_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
@@ -346,7 +346,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			info("Click on Edit button");
 			click(ELEMENT_EDIT_NEWUSER_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX,2);
+				check(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
 			info("Verify that intranet notification is hidded");
@@ -355,7 +355,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case ConnectionRequest_email:
 			click(ELEMENT_EDIT_RECREQ_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX,2);
+				check(ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX,2);
 			select(ELEMENT_EDIT_RECREQ_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_RECREQ_SAVE_BTN);
@@ -365,7 +365,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case ConnectionRequest_intranet:
 			click(ELEMENT_EDIT_RECREQ_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_RECREQ_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_RECREQ_WEB_CHECKBOX,2);
+				check(ELEMENT_EDIT_RECREQ_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_RECREQ_SAVE_BTN);
 			info("Verify that Intranet notification is hidded");
@@ -374,7 +374,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Comment_email:
 			click(ELEMENT_EDIT_COMMENT_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX,2);
+				check(ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX,2);
 			select(ELEMENT_EDIT_COMMENT_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_COMMENT_SAVE_BTN);
@@ -384,7 +384,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Comment_intranet:
 			click(ELEMENT_EDIT_COMMENT_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_COMMENT_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_COMMENT_WEB_CHECKBOX,2);
+				check(ELEMENT_EDIT_COMMENT_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_COMMENT_SAVE_BTN);
 			info("Verify that Intranet notification is hidded");
@@ -393,7 +393,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Like_email:
 			click(ELEMENT_EDIT_LIKE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_LIKE_MAIL_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_LIKE_MAIL_CHECKBOX,2);
+				check(ELEMENT_EDIT_LIKE_MAIL_CHECKBOX,2);
 			select(ELEMENT_EDIT_LIKE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_LIKE_SAVE_BTN);
@@ -403,7 +403,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Like_intranet:
 			click(ELEMENT_EDIT_LIKE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_LIKE_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_LIKE_WEB_CHECKBOX,2);
+				check(ELEMENT_EDIT_LIKE_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_LIKE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -412,7 +412,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Post_email:
 			click(ELEMENT_EDIT_POST_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_POST_MAIL_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_POST_MAIL_CHECKBOX,2);
+				check(ELEMENT_EDIT_POST_MAIL_CHECKBOX,2);
 			select(ELEMENT_EDIT_POST_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SAVE_BTN);
@@ -422,7 +422,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Post_intranet:
 			click(ELEMENT_EDIT_POST_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_POST_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_POST_WEB_CHECKBOX,2);
+				check(ELEMENT_EDIT_POST_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -431,7 +431,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Mention_email:
 			click(ELEMENT_EDIT_MENTION_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_MENTION_MAIL_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_MENTION_MAIL_CHECKBOX,2);
+				check(ELEMENT_EDIT_MENTION_MAIL_CHECKBOX,2);
 			select(ELEMENT_EDIT_MENTION_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_MENTION_SAVE_BTN);
@@ -441,7 +441,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case Mention_intranet:
 			click(ELEMENT_EDIT_MENTION_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_MENTION_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_MENTION_WEB_CHECKBOX,2);
+				check(ELEMENT_EDIT_MENTION_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_MENTION_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -450,7 +450,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case PostSpace_email:
 			click(ELEMENT_EDIT_POST_SPACE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX,2);
+				check(ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX,2);
 			select(ELEMENT_EDIT_POST_SPACE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SPACE_SAVE_BTN);
@@ -460,7 +460,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case PostSpace_intranet:
 			click(ELEMENT_EDIT_POST_SPACE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_POST_SPACE_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_POST_SPACE_WEB_CHECKBOX,2);
+				check(ELEMENT_EDIT_POST_SPACE_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -469,7 +469,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case ReqJoin_email:
 			click(ELEMENT_EDIT_REQJOIN_SPACE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_REQJOIN_SPACE_MAIL_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_REQJOIN_SPACE_MAIL_CHECKBOX,2);
+				check(ELEMENT_EDIT_REQJOIN_SPACE_MAIL_CHECKBOX,2);
 			select(ELEMENT_EDIT_REQJOIN_SPACE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN);
@@ -479,7 +479,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case ReqJoin_intranet:
 			click(ELEMENT_EDIT_REQJOIN_SPACE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_REQJOIN_SPACE_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_REQJOIN_SPACE_WEB_CHECKBOX,2);
+				check(ELEMENT_EDIT_REQJOIN_SPACE_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -488,7 +488,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case InvJoin_email:
 			click(ELEMENT_EDIT_INVI_SPACE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX,2);
+				check(ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX,2);
 			select(ELEMENT_EDIT_INVI_SPACE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_INVI_SPACE_SAVE_BTN);
@@ -498,7 +498,7 @@ public class MyNotificationsSetting extends PlatformBase{
 		case InvJoin_intranet:
 			click(ELEMENT_EDIT_INVI_SPACE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_INVI_SPACE_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_INVI_SPACE_WEB_CHECKBOX,2);
+				check(ELEMENT_EDIT_INVI_SPACE_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_INVI_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
@@ -523,7 +523,7 @@ public class MyNotificationsSetting extends PlatformBase{
 				info("Email notification is already OFF");
 		}
 	}
-	
+
 	/**
 	 * turn on/off intranet notification
 	 * true for on, false for off
@@ -541,7 +541,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			}
 			else
 				info("Intranet notification is already OFF");
-			
+
 		}
 	}
 	/**

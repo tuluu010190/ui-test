@@ -11,6 +11,9 @@
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_IntranetNotifications_NotificationTypes" />
 		    <class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_UserSettings" />
 		    <class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_Administration" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_IntranetNotification_View_All" />
+			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_IntranetNotifications_NotificationIcon_List" />
+		    
 		</classes>
 	</test>
 	<listeners>

@@ -21,9 +21,6 @@
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_RecentActivities" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_ViewProfile" />
 			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_People_Profile_UserStatus" />
-			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_IntranetNotifications_NotificationTypes" />
-			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_IntranetNotification_View_All" />
-			<class name="org.exoplatform.selenium.platform.social.sniff.SOC_Notifications_IntranetNotifications_NotificationIcon_List" />
 		</classes>
 	</test>
 	<listeners>

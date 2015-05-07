@@ -523,7 +523,7 @@ public class SiteExplorerHome extends PlatformBase{
 		Utils.pause(2000);
 		click(ELEMENT_UPLOAD_LINK);
 		uploadFileUsingRobot(link);
-		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
+		//waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
 				  
 		info("verify:"+verify);
 		if (verify) {
