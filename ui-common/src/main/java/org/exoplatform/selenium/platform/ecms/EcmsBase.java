@@ -210,7 +210,7 @@ public class EcmsBase extends ManageAccount {
 
 	//View Area
 	public final By ELEMENT_MORE_LINK = By.xpath("//*[@id='uiActionsBarContainer']//*[@style='display: block; ']//*[contains(text(), 'More')]");
-	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
+	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]/*[@class='uiIconMiniArrowDown uiIconLightGray']");
 	public final By ELEMENT_ACTION_BAR_UPLOAD_BTN=By.xpath("//*[@class='actionIcon' and contains(text(),'Upload')]");
 
 	//Collaboration TAB

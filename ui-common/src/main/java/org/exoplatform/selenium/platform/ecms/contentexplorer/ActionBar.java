@@ -216,15 +216,16 @@ public class ActionBar extends EcmsBase{
 	public String ELEMENT_STATUS_FILE = "//span[@class='nodeName' and text()='${title}']/../../../..//div[@data-original-title= 'status' and text() = '${status}']";
 	public final By ELEMENT_MORE_LINK = By.linkText("More");
 	public final By ELEMENT_NAVIGATION_LINK = By.linkText("Content Navigation");
+	public final By ELEMENT_NAVIGATION_FROM=By.xpath("//*[@class='uiForm UINavigationForm']");
 	public final By ELEMENT_MANAGE_ACTION_LINK = By.linkText("Actions");
 	public final By ELEMENT_VISIBLE_CHECKBOX = By.id("Visible");
 	public final By ELEMENT_NAVIGATION_NODE = By.id("NavigationNode");
 	public final By ELEMENT_CLICKABLE_CHECKBOX = By.id("Clickable");
 	public final By ELEMENT_NAVIGATION_SELECT_NODE = By.xpath("//i[@class= 'uiIconSelectNavigationNode uiIconLightGray']");
-	public final String ELEMENT_NAVIGATION_PATH = "//td[contains(text(),'${path}')]/..//i[@class='uiIconSelectPage']";
+	public final String ELEMENT_NAVIGATION_PATH = "//*[contains(@title,'${path}')]/../..//*[contains(@class,'uiIconSelectPage')]";
 	public final By ELEMENT_NAVIGATION_SELECT_LIST = By.xpath("//i[@class='uiIconSelectListTargetPage uiIconLightGray']");
 	public final By ELEMENT_NAVIGATION_SELECT_DETAIL = By.xpath("//i[@class='uiIconSelectDetailTargetPage uiIconLightGray']");
-	public final String ELEMENT_NAVIGATION_LIST_PATH = "//div[contains(text(),'${path}')]/../..//div[@class='Select16x16Icon']";
+	public final String ELEMENT_NAVIGATION_LIST_PATH = "//*[@title='${path}']/*[@class='uiIconFileMini uiIconLightGray']";
 	public final By ELEMENT_NAVIGATION_DISPLAY_ORDER = By.id("Index");
 
 	public final By ELEMENT_REFRESH_BUTTON = By.xpath("//*[contains(@class,'uiIconRefresh')]");
@@ -247,6 +248,17 @@ public class ActionBar extends EcmsBase{
 			click(By.xpath("//*[@title = 'Show Drives']"));
 		}
 		Utils.pause(1000);
+	}
+
+	/**
+	 * Go to content navigation
+	 */
+	public void goToContentNavigation(){
+		info("Go to content navigation");
+		if(waitForAndGetElement(ELEMENT_NAVIGATION_LINK, 5000,0)==null){
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK,0,true);
+		}
+		click(ELEMENT_NAVIGATION_LINK,0,true);
 	}
 
 	/**
@@ -306,8 +318,8 @@ public class ActionBar extends EcmsBase{
 	 * Collaboration Tab
 	 */
 	public void goToCollaboration(){
-			mouseOver(ELEMENT_COLLABORATION_TAB, true);
-			click(ELEMENT_COLLABORATION_TAB);
+		mouseOver(ELEMENT_COLLABORATION_TAB, true);
+		click(ELEMENT_COLLABORATION_TAB);
 	}
 
 	/**
@@ -1503,21 +1515,21 @@ public class ActionBar extends EcmsBase{
 		info("Add Content Navigation");
 		if (!visible) check(ELEMENT_VISIBLE_CHECKBOX, 2);
 		else uncheck(ELEMENT_VISIBLE_CHECKBOX, 2);
-		if(path!=null){
+		if(path!=null && path!=""){
 			click(ELEMENT_NAVIGATION_SELECT_NODE);
 			check(By.xpath(ELEMENT_NAVIGATION_PATH.replace("${path}", path)),2);			
 		}
-		if(displayOrder!=null){
+		if(displayOrder!=null && displayOrder!=""){
 			WebElement order = waitForAndGetElement(ELEMENT_NAVIGATION_DISPLAY_ORDER);
 			order.sendKeys(displayOrder);
 		}
 		if (clickable) check(ELEMENT_CLICKABLE_CHECKBOX, 2);
 		else uncheck(ELEMENT_CLICKABLE_CHECKBOX, 2);
-		if(forList!=null){
+		if(forList!=null && forList!=""){
 			click(ELEMENT_NAVIGATION_SELECT_LIST);
 			check(By.xpath(ELEMENT_NAVIGATION_LIST_PATH.replace("${path}", forList)),2);	
 		}
-		if(forDetail!=null){
+		if(forDetail!=null && forDetail!=""){
 			click(ELEMENT_NAVIGATION_SELECT_DETAIL);
 			check(By.xpath(ELEMENT_NAVIGATION_LIST_PATH.replace("${path}", forDetail)),2);	
 		}

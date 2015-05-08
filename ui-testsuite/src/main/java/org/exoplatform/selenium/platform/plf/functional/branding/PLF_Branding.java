@@ -47,7 +47,7 @@ public class PLF_Branding extends PlatformBase{
 	 */
 
 	@Test
-	public void test01_CheckDisplayOfBrandingPortlet() {
+	public void test01_14_CheckDisplayOfBrandingPortlet() {
 		naviToolbar.goToPortalBranding();
 	}
 
@@ -235,7 +235,7 @@ public class PLF_Branding extends PlatformBase{
 	 * Bug: https://jira.exoplatform.org/browse/PLF-5923
 	 */
 
-	@Test(groups="error")
+	@Test
 	public void test13_CheckLogoSizeAfterSavedOnFinalNavBar() {
 		String urlFile = "FNC_ECMS_FEX_ACTION_09_1.png";
 		String size = "34px";
