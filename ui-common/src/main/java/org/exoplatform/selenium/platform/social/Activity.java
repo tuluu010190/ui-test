@@ -132,14 +132,14 @@ public class Activity extends SocialBase {
 	public final By ELEMENT_WELCOME_SPACES_LINK = By.linkText("Spaces");
 	public final By ELEMENT_WELCOME_APPSTORE_LINK = By.linkText("iOS App Store");
 	public final By ELEMENT_WELCOME_GOOGLE_LINK = By.linkText("Google Play"); 
-	
+
 	public Activity(WebDriver dr,String...plfVersion){
 		driver = dr;
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
-		
+
 	}
 	public Activity(){
-		
+
 	}
 	/**
 	 * Select filter activity
@@ -248,11 +248,22 @@ public class Activity extends SocialBase {
 			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);
 			upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
 			info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
-			switchToParentWindow();
-			waitForAndGetElement(By.linkText(uploadFileName));
 			Utils.pause(1000);
+			driver.switchTo().parentFrame();
+			Utils.pause(1000);
+			driver.navigate().refresh();
+			info("----Select drive----");
+			if(waitForAndGetElement(ELEMENT_DRIVER_CURRENT.replace("${driveName}", driveName), DEFAULT_TIMEOUT, 0)==null){
+				click(ELEMENT_DRIVER_BOX,2);
+				click(ELEMENT_DRIVER_OPTION.replace("${driveName}", driveName));
+			}
+			info("---Select folder path----");
+			paths = folderPath.split("/");
+			for (String path : paths)
+				click(By.linkText(path));
+			click(By.linkText(newFolder));
 			click(By.linkText(uploadFileName));
-//			waitForAndGetElement(ecms.ELEMENT_BREADCUMBSCONTAINER.replace("${fileName}", uploadFileName));
+			waitForAndGetElement(ecms.ELEMENT_BREADCUMBSCONTAINER.replace("${fileName}", uploadFileName));
 		}
 		else 
 		{
@@ -264,21 +275,12 @@ public class Activity extends SocialBase {
 		}
 		if(shareActivity){
 			click(ELEMENT_SELECT_BUTTON);
-			Utils.pause(1000);
-			if(upload && uploadFileName!="")
-				if (plfVersion.equalsIgnoreCase("4.0")) assert waitForAndGetElement(ELEMENT_FILE_INPUT_DOC).getText().contains(uploadFileName);
-			if(plfVersion.equalsIgnoreCase("4.1")) waitForAndGetElement(ELEMENT_FILE_INPUT_DOC);
-			else{
-				if(selectFileName!=""){
-					assert waitForAndGetElement(ELEMENT_FILE_INPUT_DOC).getText().contains(selectFileName);
-				}
-			}
 			waitForElementNotPresent(ELEMENT_SELECT_BUTTON);
 			click(ELEMENT_SHARE_BUTTON);
 			if(upload)
-				waitForAndGetElement(By.linkText(uploadFileName));
+				waitForAndGetElement(By.xpath("//*[@data-original-title='"+uploadFileName+"']"));
 			else
-				waitForAndGetElement(By.linkText(selectFileName));
+				waitForAndGetElement(By.xpath("//*[@data-original-title='"+selectFileName+"']"));
 		}
 	}
 
@@ -315,7 +317,6 @@ public class Activity extends SocialBase {
 			waitForAndGetElement(ELEMENT_ATTACH_BUTTON);
 			info("----Click attach button-----");
 			click(ELEMENT_ATTACH_BUTTON);
-			waitForAndGetElement(By.id("LinkTitle"));
 		}
 		waitForAndGetElement(ELEMENT_SHARE_BUTTON);
 		info("----Click share button----");
