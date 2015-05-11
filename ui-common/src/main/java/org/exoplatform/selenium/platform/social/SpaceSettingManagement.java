@@ -12,7 +12,7 @@ import org.openqa.selenium.WebDriver;
 public class SpaceSettingManagement extends SpaceHomePage{
 
 	public By ELEMENT_SPACE_SPACE_SETTINGS_TITLE=By.xpath(".//*[text()='Space Configuration']");
-	
+
 	// Members tab
 	public By ELEMENT_SPACE_SETTINGS_MEMBERS_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceMember-tab')]");
 	public By ELEMENT_SPACE_MEMBERS_SELECT_USER = By.xpath("//*[@id='UISpaceMember']//*[@class='uiIconUser uiIconLightGray']");
@@ -26,14 +26,14 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_ACCESS_ONLY_ONE_MANAGER_NUMBER = By.xpath("(.//*[@id='existingUsersTable']//*[contains(@class,'uiSwitchBtn')]//input[@checked='checked'])[1]");
 	public final By ELEMENT_ACCESS_MORE_ONE_MANAGER_NUMBER = By.xpath("(.//*[@id='existingUsersTable']//*[contains(@class,'uiSwitchBtn')]//input[@checked='checked'])[2]");
 	public final By ELEMENT_MEMBER_TABLE = By.xpath("(.//*[@id='existingUsersTable']");
-	
+
 	//Search user
 	public final String ELEMENT_CLOSE_MESSAGE = "//*[contains(@title,'Close Window')]";
 	public final By ELEMENT_INPUT_SEARCH_USER_NAME = By.id("Quick Search");
 	public final String ELEMENT_SELECT_SEARCH_OPTION = "//*[contains(@name,'filter')]";
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//*[contains(@class,'uiIconSearch uiIconLightGray')]";
 	public String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
-	
+
 	//Application tab
 	public By ELEMENT_SETTINGS_APP_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceApplication-tab')]");
 	public String ELEMENT_DELETE_APP_FROM_TOPBAR = ".//*[@id='UISpaceApplication']//*[contains(text(),'{$application}')]/../..//*[@class='uiIconClose pull-right']";
@@ -41,7 +41,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT=".//*[@id='UISpaceApplication']//strong[contains(text(),'${app}')]";
 	public final String ELEMENT_APPLICATION_TAB_APPLICATION_DELETE_BTN=".//*[@id='UISpaceApplication']//strong[contains(text(),'${app}')]/../..//*[@class='uiIconClose pull-right']";
 	public final By ELEMENT_APPLICATION_TAB_LIST_APPLICATIONS=By.xpath(".//*[@id='UISpaceApplication']");
-	
+
 	//Access and Edit tab
 	public final By ELEMENT_ACCESS_AND_EDIT_TAB = By.xpath(".//*[contains(@data-target,'#UISpacePermission-tab')]"); 
 	public final By ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP=By.xpath(".//*[contains(@data-target,'#UISpaceVisibility-tab')]");
@@ -53,15 +53,15 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_ACCESS_INFO_OK_BTN = By.xpath("//*[@class='PopupContent popupContent']//*[contains(text(),'OK')]");
 	public final By ELEMENT_ACCESS_VISIBILITY_RADIO_CHECKED=By.xpath(".//*[@id='UISpacePermission']//input[@value='private' and @checked='checked']");
 	public final By ELEMENT_ACCESS_VALIDATION_RADIO_CHECKED=By.xpath(".//*[@id='UISpacePermission']//input[@value='validation' and @checked='checked']']");
-	
-	
+
+
 	//Add application popup
 	public final By ELEMENT_ADD_APPLICATION_POPUP_TITLE=By.xpath("//*[contains(text(),'Space Application Installer')]");
 	public final String ELEMENT_ADD_APPLICATION_POPUP_CATEGOGY=".//*[@id='${category}']";
 	public final String ELEMENT_ADD_APPLICATION_POPUP_APPLICATION_ADD_BTN =".//*[@id='UIApplicationListSelector']//*[contains(text(),'${app}')]/../..//*[contains(text(),'Add')]";
 	public final By ELEMENT_ADD_APPLICATION_POPUP_CLOSE_BTN=By.xpath(".//*[@id='UIAddApplication']//*[@class='uiIconClose pull-right']");
-	
-	
+
+
 	//Settings tab
 	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
 	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
@@ -72,7 +72,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_SPACE_MEMBERS_TAB_DECLINE_REQUEST_jOINT =".//*[contains(text(),'${user}')]/..//*[contains(@class,'uiIconRemove')]";
 	public final By ELEMENT_SPACE_SETTING_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceInfo-tab')]");
 	public final By ELEMENT_SPACE_CHANGE_AVATAR_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Change Picture']");
-	
+
 	//invitation member
 	public final String ELEMENT_SPACE_INVITED_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Invited')]/../../..//*[contains(text(),'${user}')]";
 	public final String ELEMENT_SPACE_MEMBERS_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Members')]/../../..//*[contains(text(),'${user}')]";
@@ -84,10 +84,10 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECT_GROUP=".//*[@id='UISocialGroupSelector']//*[contains(@title,'${name}')]";
 	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECTED_LINK=By.xpath(".//*[@id='UISocialGroupSelector']//*[contains(@data-placement,'bottom')]");
 	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROU_SELECTED_GROUP_INFO=By.xpath(".//*[@id='groupId']");
-	
+
 	//Button create
 	public By ELEMENET_SPACE_CREATE_BUTTON=By.xpath("//*[@class='uiAction']/*[text()='Create']");
-	
+
 	//Navigation tab
 	public final By ELEMENT_SPACE_SETTING_NAVIGATION_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceNavigationManagement-tab')]");
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON = By.xpath(".//*[@id='UISpaceNavigationManagement']//button[text()='Add Node']");
@@ -95,7 +95,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_SPACE_NAVIGAION_ADD_NODE_CHILDREN_UNDER_PARENT = ".//*[@id='UISpaceNavigationNodeSelector']//*[contains(text(),'${childrenNode}')]/../../..//*[contains(text(),'${parentNode}')]";
 	public final By ELEMENT_SPACE_NAVIGATION_UP_LEVEL_BUTTON = By.xpath(".//*[@id='UISpaceNavigationNodeSelector']//*[@class='uiIconUpLevel uiIconLightGray']");
 	public final By ELEMENT_SPACE_NAVIGATION_NODE_LIST =By.xpath(".//*[@id='UISpaceNavigationNodeSelector']");
-	
+
 	//Add/Edit page node popup
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_NODE_TITLE = By.xpath(".//*[@id='AddNode']//*[contains(.,'Add/ Edit Page Node')]");
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_NAME = By.xpath(".//*[@id='name']");
@@ -109,7 +109,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_INPUT_PAGE_TITLE = By.id("pageTitle");
 	public final By ELEMENT_CREATE_PAGE_LINK = By.xpath(".//*[@id='UIPageSelector']//*[@class='uiIconAddPage uiIconWhite']");
 	public final By ELEMENT_SEARCH_SELECTOR_PAGE_LINK = By.xpath(".//*[@id='UIPageSelector']//*[@class='uiIconSelectPage']");
-	
+
 	//Context menu
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Edit this Node')]");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_DELETE= By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Delete Node')]");
@@ -121,21 +121,21 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_CUT_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Cut Node')]");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_UP = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Move Up')]");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_DOWN = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Move Down')]");
-	
+
 	public final String ELEMENT_SPACE_NAVIGATION_NODE_POSITION = "//*[@class='childrenContainer nodeGroup']/li[${position}]//a[contains(text(),'${nodeName}')]";
-	
+
 	//Access space information
 	public final By ELEMENT_SPACE_ACCESS_RESTRICED_AREA_TITLE=By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Restricted Area']");
 	public final By ELEMENT_SPACE_ACCESS_INFO=By.xpath(".//*[@class='spaceAccessInfo']");
 	public final By ELEMENT_SPACE_ACCESS_JOIN_BTN=By.xpath(".//*[@title='Join']");
 	public final By ELEMENT_SPACE_ACCESS_REQUEST_JOIN_BTN=By.xpath(".//*[@title='Request to Join']");
-	
+
 	public final By ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_TITLE=By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Space not found']");
 	public final By ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_INFO=By.xpath(".//*[@id='UISpaceAccessPortlet']//*[contains(text(),'No space is available at this URL.')]");
 	public final By ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_FIND_BTN=By.xpath(".//*[@id='UISpaceAccessPortlet']//a[text()='Find Spaces']");
 	public final By ELEMENT_SPACE_ACCESS_SPACE_DENIED = By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Access Denied']");
 	public final By ELEMENT_SPACE_ACCESS_SPACE_DENIED_INFO=By.xpath(".//*[@class='spaceAccessInfo']");
-	
+
 	//message
 	public final String ELEMENT_SPACE_NAVIGATION_COPY_AT_SAME_LEVEL = "This node name already exists.";
 
@@ -156,7 +156,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		naviManage = new NavigationManagement(driver);
 		button = new Button(driver, this.plfVersion);
 	}
-	
+
 	/**
 	 * function: Search user
 	 * 
@@ -206,8 +206,9 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		click(ELEMENT_SPACE_MEMBERS_INVITE);
 		if (verify) {
 			info("Verify that user is shown in invitation table");
-			waitForAndGetElement(ELEMENT_SPACE_INVITED_USER_TABLE.replace(
-					"${user}", fullName), 2000, 1);
+			if(fullName!="" && fullName!=null)
+				waitForAndGetElement(ELEMENT_SPACE_INVITED_USER_TABLE.replace(
+						"${user}", fullName), 2000, 1);
 		}
 	}
 	/**
@@ -221,7 +222,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Click on change role button of manager column");
 		click(ELEMENT_SPACE_CHANGE_ROLE_USER_MEMBER.replace("${user}",user));
 		Utils.pause(2000);
-		
+
 	}
 	/**
 	 * Remove a user in the invited list
@@ -281,7 +282,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Verify that the member is shown in member list");
 		waitForElementNotPresent(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user),2000,1);
 	}
-	
+
 	/**
 	 * Delete member of space
 	 * @param user
@@ -294,7 +295,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Verify that the member is not shown in member list");
 		waitForElementNotPresent(ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}", user));
 	}
-	
+
 	/**
 	 * Delete an app from the top menu of space
 	 * @param app
@@ -305,7 +306,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Click on Delete button");
 		click(ELEMENT_DELETE_APP_FROM_TOPBAR.replace("{$application}",app));
 	}
-	
+
 	/**
 	 * input name, des into setting tab
 	 * @param name
@@ -350,7 +351,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public void goToAccessEditTab(){
 		info("Select Application tab");
 		if(waitForAndGetElement(ELEMENT_ACCESS_AND_EDIT_TAB,3000,0)!=null)
-		click(ELEMENT_ACCESS_AND_EDIT_TAB);
+			click(ELEMENT_ACCESS_AND_EDIT_TAB);
 		else click(ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP);
 		info("The tab is opened succcessfully");
 		waitForAndGetElement(ELEMENT_ACCESS_HIDDEN_RADIO,3000,0);
@@ -395,7 +396,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGAION_ADD_NODE_CHILDREN_UNDER_PARENT.replace("${childrenNode}", childNode).replace("${parentNode}", parentNode),3000,0);		
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Add an application 
 	 * @param category
@@ -472,7 +473,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Verify that the node is deleted successfully");
 		waitForElementNotPresent(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}",nodeName));
 	}
-	
+
 	/**
 	 * copy a node
 	 * @param nodeName
@@ -486,7 +487,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_COPY_NODE,2000,0).click();
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * cut a node
 	 * @param nodeName
@@ -500,7 +501,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_CUT_NODE,2000,0).click();
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * paste a node
 	 * @param nodeName
@@ -520,7 +521,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		}
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Move up a node
 	 * @param nodeName
@@ -528,13 +529,13 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public void moveUpANode(boolean firstNode, String nodeName, String nodeAboveName, String nodePosition, String abovePosition){
 		info ("move up a node ");
 		if(firstNode){
-		info("Right click on the node");
-		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
-		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
-		info("Select move up link");
-		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_UP,2000,0).click();	
-		info("There is nothing happen with the first node");
-		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", nodePosition));
+			info("Right click on the node");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+			rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+			info("Select move up link");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_UP,2000,0).click();	
+			info("There is nothing happen with the first node");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", nodePosition));
 		}
 		else{
 			info("Check position before move up");
@@ -558,12 +559,12 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public void moveDownANode(boolean lastNode, String nodeName, String nodeUnderName, String nodePosition, String underPosition){
 		info ("move up a node ");
 		if(lastNode){
-		info("Right click on the node");
-		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
-		rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
-		info("Select move up link");
-		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_DOWN,2000,0).click();
-		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", nodePosition));
+			info("Right click on the node");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+			rightClickOnElement(ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", nodeName));
+			info("Select move up link");
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_DOWN,2000,0).click();
+			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeName).replace("${position}", nodePosition));
 		}
 		else{
 			info("Check position before move down");
@@ -579,8 +580,8 @@ public class SpaceSettingManagement extends SpaceHomePage{
 			waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_NODE_POSITION.replace("${nodeName}", nodeUnderName).replace("${position}", nodePosition));
 		}
 	}
-	
-	
+
+
 	/**
 	 * go to Edit Node'sPage
 	 * @param nodeName
@@ -595,7 +596,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		click(ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT_NODE_PAGE);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * add node with page selector
 	 * @param nodeName
@@ -615,8 +616,8 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		waitForAndGetElement(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_NODE_TITLE,2000,0);
 		type(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_NAME,nodeName,true);
 		if (extendedLabelMode) {
-				select(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_LANGUAGE, languages);
-				Utils.pause(500);
+			select(ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_LANGUAGE, languages);
+			Utils.pause(500);
 		} else {
 			uncheck(ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE);
 		}
@@ -649,30 +650,30 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	/**
 	 * Open Invite users from group tab
 	 */
-   public void goToInviteUserFromGroupTab(){
-	   info("click on the Invite users from group tab");
-	   click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_TAB);
-	   waitForAndGetElement(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_CHECKBOX,2000,2);
-	   info("The tab is shown");
-   }
-   /**
-    * Select a group
-    * @param arrayGroupPath
-    */
-   public void selectGroup(String[] arrayGroupPath){
-	   info("Select a group in the list");
-	   for(String group: arrayGroupPath){
+	public void goToInviteUserFromGroupTab(){
+		info("click on the Invite users from group tab");
+		click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_TAB);
+		waitForAndGetElement(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_CHECKBOX,2000,2);
+		info("The tab is shown");
+	}
+	/**
+	 * Select a group
+	 * @param arrayGroupPath
+	 */
+	public void selectGroup(String[] arrayGroupPath){
+		info("Select a group in the list");
+		for(String group: arrayGroupPath){
 			info("Select a group:"+group);
 			click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECT_GROUP.replace("${name}",group));
 		}
-	   info("Select the group");
-	   click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECTED_LINK);
-	   waitForAndGetElement(ELEMENT_SPACE_INVITE_USERS_FROM_GROU_SELECTED_GROUP_INFO,2000,1);
-   }
-   /**
-    * Save all changes
-    */
-   public void saveChanges(){
+		info("Select the group");
+		click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECTED_LINK);
+		waitForAndGetElement(ELEMENT_SPACE_INVITE_USERS_FROM_GROU_SELECTED_GROUP_INFO,2000,1);
+	}
+	/**
+	 * Save all changes
+	 */
+	public void saveChanges(){
 		if(waitForAndGetElement(ELEMENT_ACCESS_PERMISSION_SAVE_BTN,3000,0)!=null){
 			info("Save all changes by click on Save button");
 			click(ELEMENT_ACCESS_PERMISSION_SAVE_BTN);
@@ -683,5 +684,5 @@ public class SpaceSettingManagement extends SpaceHomePage{
 			click(ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP_CREATE_BTN);
 		}
 		Utils.pause(2000);
-   }
+	}
 }

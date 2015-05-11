@@ -18,15 +18,15 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class SiteExplorerHome extends PlatformBase{
-	
+
 
 	public final By ELEMENT_SITEEXPLORER_WORKING_PANEL = By.xpath("//*[@class='navItemSelected' and text()='Content Explorer']");
 	public final By ELEMENT_DOCUMENT_LIST_ROW_CONTENT = By.xpath(".//*[@id='UIDocumentNodeList']//*[contains(@class,'rowView')]");
-	
+
 	//Address Bar
 	public final By ELEMENT_ADDRESS_BAR_ICON_VIEW = By.xpath(".//*[@id='UIAddressBar']//*[@class='uiIconEcmsViewDefault uiIconEcmsViewIcons uiIconEcmsLightGray']");
 	public final By ELEMENT_SITE_PATH= By.cssSelector("#address");
-	
+
 	//Action Bar
 	public final By ELEMENT_ACTIONBAR_ADDDOCUMENT = By.xpath("//*[@class='uiIconEcmsAddDocument uiIconEcmsLightGray']");
 	public final By ELEMENT_ACTIONBAR_ADDFOLDER = By.xpath("//*[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
@@ -51,7 +51,7 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_ACTIONBAR_DELETE=By.xpath(".//*[@id='ECMContextMenu']//*[@class='uiIconEcmsDelete']");
 	public final By ELEMENT_SITE_EXPLORER_ALL_CHECKBOX= By.xpath("//input[@type='checkbox' and @name= 'UIFileViewCheckBox']");
 	public final By ELEMENT_DELETE_ALL_BUTTON = By.xpath(".//*[@id='JCRContextMenu']//i[@class='uiIconEcmsDelete']");
-	
+
 	//Add Category popup
 	public final By ELEMENT_ADD_CATEGORY_POPUP_SELECT_CATEGORY_TAB = By.xpath(".//*[@id='UICategoryManager']//a[text()='Select Category']");
 	public final By ELEMENT_ADD_CATEGORY_POPUP_MENU = By.name("taxonomyTree");
@@ -92,9 +92,9 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_METADATA_POPUP= By.xpath("//*[@id='UIViewMetadataManager']");
 
 	// go to Show drives
-     public final By ELEMENT_SHOW_DRIVES = By.cssSelector("#driveAction");
-     public final String ELEMENT_SELECTED_DRIVE= ".//*[@data-original-title='${nameDrive}']";
-		
+	public final By ELEMENT_SHOW_DRIVES = By.cssSelector("#driveAction");
+	public final String ELEMENT_SELECTED_DRIVE= ".//*[@data-original-title='${nameDrive}']";
+
 	//Drive area
 	public final String ELEMENT_ACTIONBAR_SELECTED_DRIVE= ".//*[@id='UIDrivesArea']//*[@data-original-title='${drive}']";
 
@@ -138,7 +138,7 @@ public class SiteExplorerHome extends PlatformBase{
 	// upload
 	public final By ELEMENT_ACTIONBAR_UPLOAD = By.xpath("//*[@class='uiIconEcmsUpload uiIconEcmsLightGray']");
 	public final By ELEMENT_MORE_LINK_WITHOUT_BLOCK = By.xpath("//*[@id='uiActionsBarContainer']//*[contains(text(), 'More')]");
-//	public final By ELEMENT_UPLOAD_LINK = By.id("MultiUploadInputFiles");
+	//	public final By ELEMENT_UPLOAD_LINK = By.id("MultiUploadInputFiles");
 	public final By ELEMENT_UPLOAD_LINK =By.xpath(".//*[@id='UploadButtonDiv']//*[contains(@class,'uiIconEcmsUpload')]");
 	public final By ELEMENT_ACTIONBAR_EDIT = By.xpath("//*[@class='uiIconEcmsEditDocument uiIconEcmsLightGray']");
 	public final By ELEMENT_FILE_FORM_TITLE = By.xpath("//*[@id='title0']");
@@ -150,6 +150,7 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_THUMBNAIL_VIEW_ADMIN_VIEW = By.xpath(".//*[contains(@class,'uiThumbnailsView ')]");
 	public final By ELEMENT_CONTEXT_MENU_ADD_DOCUMENT =By.xpath(".//*[contains(@id,'JCRContextMenu')]//*[contains(@class,'uiIconEcmsAddDocument')]");
 	public final By ELEMENT_WORKING_AREA_TEMPLATE_DOCUMENTS=By.xpath(".//*[@id='UIWorkingArea']");
+
 	//Add folder
 	public final By ELEMENT_ADDFOLDERBOX = By.xpath("//*[@class='PopupTitle popupTitle']");
 	public final By ELEMENT_ADDFOLDER_NAME = By.xpath("//*[@id='titleTextBox']");
@@ -176,16 +177,16 @@ public class SiteExplorerHome extends PlatformBase{
 	public final By ELEMENT_FILE_EXPLORER = By.xpath("//*[@data-original-title = 'File Explorer']");
 	public final By ELEMENT_FILE_EXPLORER_ICON = By.xpath(".//i[@class='uiIconEcmsExplorerMini uiIconEcmsLightGray']");
 	public String ELEMENT_FILE_TITLE_RIGHT_PANEL=".//*[@class='nodeGroup']//span[text()='${fileName}']";
-	
-	 //View detail a content in SE
-    public By ELEMENT_CONTENT_THUMBNAIL = By.xpath(".//*[@class='iconContainer']/i");
-    public String ELEMENT_WEBCONTENT_NAME = ".//*[@id='UIDocumentContainer']//h6[text()='${nameFile}']";
-    public By ELEMENT_CONTENT_MESSAGE_NOT_AVAILABLE = By.xpath(".//h4[text()='The preview of this document is not available.']");
-    public By ELEMENT_CONTENT_MESSAGE_TOO_MANY_PAGES = By.xpath(".//h4[text()='The preview is not available for content with over 99 pages.']");
-    public By ELEMENT_CONTENT_MESSAGE_OVER_SIZE= By.xpath(".//h4[text()='The preview is not available for content larger than 5 MB.']");
-    public By ELEMENT_CONTENT_DOWNLOAD_BUTTON= By.xpath(".//*[@class='btn btn-primary']");
-    public By ELEMENT_CONTENT_OPEN_DESKTOP=By.xpath(".//*[@class='btn'][text()='Open on Desktop']");
-	
+
+	//View detail a content in SE
+	public By ELEMENT_CONTENT_THUMBNAIL = By.xpath(".//*[@class='iconContainer']/i");
+	public String ELEMENT_WEBCONTENT_NAME = ".//*[@id='UIDocumentContainer']//h6[text()='${nameFile}']";
+	public By ELEMENT_CONTENT_MESSAGE_NOT_AVAILABLE = By.xpath(".//h4[text()='The preview of this document is not available.']");
+	public By ELEMENT_CONTENT_MESSAGE_TOO_MANY_PAGES = By.xpath(".//h4[text()='The preview is not available for content with over 99 pages.']");
+	public By ELEMENT_CONTENT_MESSAGE_OVER_SIZE= By.xpath(".//h4[text()='The preview is not available for content larger than 5 MB.']");
+	public By ELEMENT_CONTENT_DOWNLOAD_BUTTON= By.xpath(".//*[@class='btn btn-primary']");
+	public By ELEMENT_CONTENT_OPEN_DESKTOP=By.xpath(".//*[@class='btn'][text()='Open on Desktop']");
+
 	//advanced search 
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_NAME = By.xpath("//*[@id='keyword']");
 	public final By ELEMENT_SITEEXPLORER_ADVANCEDSEARCH_SEARCHBTN = By.xpath("//*[@id='tab-UIContentNameSearch']//*[@class='btn' and text()='Search']");
@@ -210,7 +211,7 @@ public class SiteExplorerHome extends PlatformBase{
 	public String ELEMENT_ATTACH_FILE_NAME = "//*[@data-original-title='$fileName']";
 	public final By ELEMENT_UPLOAD_PROGRESS_BAR = By.xpath(".//*[contains(@class,'progress progress-striped pull-right')]");
 	public final By ELEMENT_UPLOAD_BUTTON = By.xpath("//a[@class='actionIcon' and contains(text(),'Upload')]");
-	
+
 	//Permission
 	public final By ELEMENT_PERMISSION_USER = By.xpath("//*[@class='uiIconSelectUser uiIconLightGray']");
 	public final By ELEMENT_PERMISSION_GROUP = By.xpath("//*[@class='uiIconSelectMember uiIconLightGray']");
@@ -310,18 +311,18 @@ public class SiteExplorerHome extends PlatformBase{
 	public final String ELEMENT_SITE_EXPLORER_RIGHT_COLUMN_CONTENT=".//*[@id='UITabContent']//a[contains(text(),'${title}')]";
 
 	//View detail a content
-	 public String ELEMENT_CONTENT_NAME = ".//*[@id='UIDocumentContainer']//span[text()='${nameFile}']";
-	 
+	public String ELEMENT_CONTENT_NAME = ".//*[@id='UIDocumentContainer']//span[text()='${nameFile}']";
+
 	// View icons
 	public final By ELEMENT_LIST_VIEW_ICON = By.xpath("//*[@data-original-title = 'List']");
 	public final By ELEMENT_ADMIN_VIEW_ICON = By.xpath("//*[@data-original-title = 'Admin']");
 	public final By ELEMENT_ICONS_VIEW = By.xpath("//*[@data-original-title = 'Icons']");
 	public final By ELEMENT_WEB_VIEW = By.xpath("//*[@data-original-title = 'Web']");
 	public final By ELEMENT_CATEGORIES_VIEW = By.xpath("//*[@data-original-title = 'Categories']");
-	
+
 	//Add new content
-    public String ELEMENT_SITE_EXPLORER_CONTENT_NAME= ".//*[@id='UISelectDocumentForm']//i[@data-original-title='${nameContent}']";
-	
+	public String ELEMENT_SITE_EXPLORER_CONTENT_NAME= ".//*[@id='UISelectDocumentForm']//i[@data-original-title='${nameContent}']";
+
 	ManageAlert alert;
 	Button button;
 	CreateNewDocument CreNewDoc;
@@ -477,7 +478,7 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 
 	}
-	
+
 	/**
 	 * Upload a file
 	 * @param link
@@ -488,18 +489,11 @@ public class SiteExplorerHome extends PlatformBase{
 		if (waitForAndGetElement(ELEMENT_UPLOAD_BUTTON, DEFAULT_TIMEOUT, 0) == null) {
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
-		((JavascriptExecutor) driver)
-				.executeScript(
-						"arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; "
-								+ "arguments[0].style.width = '1px'; arguments[0].style.opacity = 1",
-						waitForAndGetElement(ELEMENT_UPLOAD_LINK,
-								DEFAULT_TIMEOUT, 1, 2));
-		
-		Utils.pause(10000);
-		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(getAbsoluteFilePath(link));
+		click(ELEMENT_UPLOAD_LINK);
+		uploadFileUsingRobot(link);
 		info("Upload file " + getAbsoluteFilePath(link));
 		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR,120000,0);
-				  
+
 		info("verify:"+verify);
 		if (verify) {
 			String links[] = link.split("/");
@@ -529,7 +523,7 @@ public class SiteExplorerHome extends PlatformBase{
 								+ "arguments[0].style.width = '1px'; arguments[0].style.opacity = 1",
 						waitForAndGetElement(ELEMENT_UPLOAD_LINK,
 								DEFAULT_TIMEOUT, 1, 2));
-		
+
 		Utils.pause(10000);
 		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePathFromFile(link));
 		info("Upload file " + Utils.getAbsoluteFilePathFromFile(link));*/
@@ -537,7 +531,7 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_UPLOAD_LINK);
 		uploadFileUsingRobot(link);
 		//waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
-				  
+
 		info("verify:"+verify);
 		if (verify) {
 			String links[] = link.split("/");
@@ -1076,10 +1070,20 @@ public class SiteExplorerHome extends PlatformBase{
 	 */
 	public void addTranslation() {
 		info("Click on Add Tranlation button");
+		if(waitForAndGetElement(ELEMENT_ACTIONBAR_ADDTRANSLATION, 5000, 0)==null)
+			click(ELEMENT_ACTIONBAR_MORE);
 		click(ELEMENT_ACTIONBAR_ADDTRANSLATION);
 	}
 
-
+	/**
+	 * Vote document
+	 */
+	public void voteDocument() {
+		info("Click to vote document");
+		if(waitForAndGetElement(ELEMENT_ACTIONBAR_VOTE, 5000, 0)==null)
+			click(ELEMENT_ACTIONBAR_MORE);
+		click(ELEMENT_ACTIONBAR_VOTE);
+	}
 
 	/**
 	 * Add a document translation
@@ -1198,7 +1202,7 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_SITEEXPLORER_CONFIRMBOX_DELETE);
 		waitForElementNotPresent(ELEMENT_PERSONAL_DOCUMENT_FILE_CHECKBOX.replace("${file}",file));
 	}
-	
+
 	/**
 	 * Open drive area
 	 */
@@ -1206,11 +1210,11 @@ public class SiteExplorerHome extends PlatformBase{
 		Utils.pause(500);
 		if (waitForAndGetElement(ELEMENT_SHOW_DRIVES, 3000, 0) != null)
 			click(ELEMENT_SHOW_DRIVES);
-	    else
+		else
 			click(By.xpath("//*[@title = 'Show Drives']"));
 		Utils.pause(1000);
 	}
-	
+
 	/**
 	 * Go to a drive
 	 * @param nameDrive
@@ -1221,7 +1225,7 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_SELECTED_DRIVE.replace("${nameDrive}", nameDrive));
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Go to a folder
 	 * @param path
@@ -1232,13 +1236,13 @@ public class SiteExplorerHome extends PlatformBase{
 		WebElement pathInput = waitForAndGetElement(ELEMENT_SITE_PATH,2000,1,2);
 		pathInput.clear();
 		pathInput.sendKeys(path);
-		
+
 		Actions action = new Actions(this.driver);
 		action.moveToElement(pathInput).sendKeys(Keys.ENTER).build().perform();
 		action.moveToElement(pathInput).release();
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Go to a folder in Admin view
 	 * @param name
@@ -1259,7 +1263,7 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_WEB_VIEW);
 		Utils.pause(3000);
 	}
-	
+
 	/**
 	 * Open Admin view type
 	 */
@@ -1269,18 +1273,18 @@ public class SiteExplorerHome extends PlatformBase{
 		click(ELEMENT_ADMIN_VIEW_ICON);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Select File Explorer tree on left panel
 	 */
 	public void selectFileExplorer(){
 		info("Select File Explorer");
 		WebElement el = (new WebDriverWait(driver, 30))
-				  .until(ExpectedConditions.presenceOfElementLocated(ELEMENT_FILE_EXPLORER_ICON));
+				.until(ExpectedConditions.presenceOfElementLocated(ELEMENT_FILE_EXPLORER_ICON));
 		el.click();
 		Utils.pause(3000);
 	}
-	
+
 	/**
 	 * Click on Delete button
 	 */
@@ -1294,7 +1298,7 @@ public class SiteExplorerHome extends PlatformBase{
 		dialog.deleteInDialog();
 		Utils.pause(3000);
 	}
-	
+
 	/**
 	 * Open a file from right panel
 	 * @param filename
@@ -1307,14 +1311,14 @@ public class SiteExplorerHome extends PlatformBase{
 		Utils.pause(3000);
 		info("The document is opened");
 	}
-	
+
 	/**
 	 * Select all files in folder under admin view
 	 */
 	public void selectAllFiles() {
 		info("Select all file");
 		WebElement el = (new WebDriverWait(driver, 30))
-				  .until(ExpectedConditions.presenceOfElementLocated(ELEMENT_SITE_EXPLORER_ALL_CHECKBOX));
+				.until(ExpectedConditions.presenceOfElementLocated(ELEMENT_SITE_EXPLORER_ALL_CHECKBOX));
 		if (waitForAndGetElement(ELEMENT_DOCUMENT_LIST_ROW_CONTENT, 5000, 0) != null) {
 			info("check on the checkbox");
 			el.click();
@@ -1322,9 +1326,9 @@ public class SiteExplorerHome extends PlatformBase{
 			info("Click on Delete button");
 			clickDeleteButton();
 		}
-		
+
 	}
-	
+
 	/**
 	 * Select a new content in list
 	 * @param nameContent
@@ -1332,7 +1336,7 @@ public class SiteExplorerHome extends PlatformBase{
 	public void selectAContentType(String nameContent){
 		info("Select a content");
 		WebElement el = (new WebDriverWait(driver, 30))
-				  .until(ExpectedConditions.presenceOfElementLocated(By.xpath(ELEMENT_SITE_EXPLORER_CONTENT_NAME.replace("${nameContent}", nameContent))));
+				.until(ExpectedConditions.presenceOfElementLocated(By.xpath(ELEMENT_SITE_EXPLORER_CONTENT_NAME.replace("${nameContent}", nameContent))));
 		el.click();
 		Utils.pause(3000);
 	}
@@ -1345,5 +1349,4 @@ public class SiteExplorerHome extends PlatformBase{
 		info("Select All checkbox");
 		selectAllFiles();
 	}
-
 }
