@@ -14,13 +14,19 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public By ELEMENT_SPACE_SPACE_SETTINGS_TITLE=By.xpath(".//*[text()='Space Configuration']");
 	
 	// Members tab
-	public By ELEMENT_SPACE_SETTINGS_MEMBERS_TAB = By.xpath("//*[@id='UISpaceSetting']//a[contains(text(),'Members')]");
+	public By ELEMENT_SPACE_SETTINGS_MEMBERS_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceMember-tab')]");
 	public By ELEMENT_SPACE_MEMBERS_SELECT_USER = By.xpath("//*[@id='UISpaceMember']//*[@class='uiIconUser uiIconLightGray']");
 	public String ELEMENT_SPACE_SELECT_USER_IN_FORM = "//*[@id='UIListUsers']//*[contains(text(),'{$name}')]/../..//*[@class='uiCheckbox']//input";
 	public By ELEMENT_ADD = By.xpath("//*[@id='UIUserSelector']//*[contains(text(),'Add')]");
 	public By ELEMENT_SPACE_MEMBERS_INVITE = By.xpath("//*[@id='UISpaceMember']//*[contains(text(),'Invite')]");
 	public final By ELEMENT_SEARCH_INPUT_USER_NAME = By.xpath(".//*[@id='Quick Search']");
 	public final By ELEMENT_SEARCH_USERS_ICON=By.xpath(".//*[@id='UIUserSelector']//*[contains(@class,'uiIconSearch')]");
+	public final By ELEMENT_INPUT_USER=By.xpath(".//*[@id='user']");
+	public final By ELEMENT_SELECT_USER_FROM_GROUP=By.xpath(".//*[@id='UISpaceMember']//*[contains(@class,'uiIconGroup')]");
+	public final By ELEMENT_ACCESS_ONLY_ONE_MANAGER_NUMBER = By.xpath("(.//*[@id='existingUsersTable']//*[contains(@class,'uiSwitchBtn')]//input[@checked='checked'])[1]");
+	public final By ELEMENT_ACCESS_MORE_ONE_MANAGER_NUMBER = By.xpath("(.//*[@id='existingUsersTable']//*[contains(@class,'uiSwitchBtn')]//input[@checked='checked'])[2]");
+	public final By ELEMENT_MEMBER_TABLE = By.xpath("(.//*[@id='existingUsersTable']");
+	public final String ELEMENT_USER_IN_MEMBER_TABLE =".//*[@id='existingUsersTable']//*[contains(text(),'${fullName}')]";
 	
 	//Search user
 	public final String ELEMENT_CLOSE_MESSAGE = "//*[contains(@title,'Close Window')]";
@@ -30,19 +36,25 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
 	
 	//Application tab
-	public By ELEMENT_SETTINGS_APP_TAB = By.xpath("//*[@id='UITabPane']//*[@class='nav nav-tabs']//*[contains(text(),'Applications')]");
+	public By ELEMENT_SETTINGS_APP_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceApplication-tab')]");
 	public String ELEMENT_DELETE_APP_FROM_TOPBAR = ".//*[@id='UISpaceApplication']//*[contains(text(),'{$application}')]/../..//*[@class='uiIconClose pull-right']";
 	public final By ELEMENT_APPLICATION_TAB_ADD_APPLICATION_BTN=By.xpath(".//*[@id='UISpaceApplication-tab']//button[text()='Add Application']");
 	public final String ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT=".//*[@id='UISpaceApplication']//strong[contains(text(),'${app}')]";
 	public final String ELEMENT_APPLICATION_TAB_APPLICATION_DELETE_BTN=".//*[@id='UISpaceApplication']//strong[contains(text(),'${app}')]/../..//*[@class='uiIconClose pull-right']";
+	public final By ELEMENT_APPLICATION_TAB_LIST_APPLICATIONS=By.xpath(".//*[@id='UISpaceApplication']");
 	
 	//Access and Edit tab
-	public final By ELEMENT_ACCESS_AND_EDIT_TAB = By.xpath("//*[@id='UITabPane']//*[@class='nav nav-tabs']//*[contains(text(),'Access & Edit')]"); 
-	public final By ELEMENT_ACCESS_HIDDEN_RADIO=By.xpath(".//*[@id='UISpacePermission']//input[@value='hidden']");
-	public final String ELEMENT_ACCESS_PERMISSION_RADIO=".//*[@id='UISpacePermission']//input[@value='${right}']";
+	public final By ELEMENT_ACCESS_AND_EDIT_TAB = By.xpath(".//*[contains(@data-target,'#UISpacePermission-tab')]"); 
+	public final By ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP=By.xpath(".//*[contains(@data-target,'#UISpaceVisibility-tab')]");
+	public final By ELEMENT_ACCESS_HIDDEN_RADIO=By.xpath("//input[@value='hidden']");
+	public final String ELEMENT_ACCESS_PERMISSION_RADIO="//input[@value='${right}']";
 	public final By ELEMENT_ACCESS_PERMISSION_SAVE_BTN=By.xpath(".//*[@id='UISpacePermission']//button[text()='Save']");
+	public final By ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP_CREATE_BTN=By.xpath(".//button[text()='Create']");
 	public final By ELEMENT_ACCESS_ALERTS_POPUP_OK_BTN= By.xpath(".//*[@class='PopupTitle popupTitle'][contains(text(),'Alerts')]/../..//*[@class='btn']");
 	public final By ELEMENT_ACCESS_INFO_OK_BTN = By.xpath("//*[@class='PopupContent popupContent']//*[contains(text(),'OK')]");
+	public final By ELEMENT_ACCESS_VISIBILITY_RADIO_CHECKED=By.xpath(".//*[@id='UISpacePermission']//input[@value='private' and @checked='checked']");
+	public final By ELEMENT_ACCESS_VALIDATION_RADIO_CHECKED=By.xpath(".//*[@id='UISpacePermission']//input[@value='validation' and @checked='checked']']");
+	
 	
 	//Add application popup
 	public final By ELEMENT_ADD_APPLICATION_POPUP_TITLE=By.xpath("//*[contains(text(),'Space Application Installer')]");
@@ -57,18 +69,30 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_SPACE_CHANGE_ROLE_USER_MEMBER= ".//*[contains(text(),'${user}')]/..//*[@class='uiSwitchBtn']";
 	public final String ELEMENT_SPACE_DELETE_USER_BTN = "//*[contains(@onclick,'${user}')]/..//*[@class='uiIconDelete uiIconLightGray']";
 	public final String ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT=".//*[contains(text(),'${user}')]/..//*[@class='uiIconValidate uiIconLightGray']";
-	
+	public final By ELEMENT_SPACE_SETTING_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceInfo-tab')]");
+	public final By ELEMENT_SPACE_CHANGE_AVATAR_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Change Picture']");
 	
 	//invitation member
 	public final String ELEMENT_SPACE_INVITED_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Invited')]/../../..//*[contains(text(),'${user}')]";
 	public final String ELEMENT_SPACE_MEMBERS_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Members')]/../../..//*[contains(text(),'${user}')]";
 
+	//Invitation a group
+	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_TAB=By.xpath(".//*[contains(@data-target,'#UISpaceGroupBound-tab')]");
+	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_CHECKBOX=By.xpath(".//*[@id='UseExistingGroupCheckBox']");
+	public final String ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECT_GROUP=".//*[@id='UISocialGroupSelector']//*[contains(@title,'${name}')]";
+	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECTED_LINK=By.xpath(".//*[@id='UISocialGroupSelector']//*[contains(@data-placement,'bottom')]");
+	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROU_SELECTED_GROUP_INFO=By.xpath(".//*[@id='groupId']");
+	
+	//Button create
+	public By ELEMENET_SPACE_CREATE_BUTTON=By.xpath("//*[@class='uiAction']/*[text()='Create']");
+	
 	//Navigation tab
-	public final By ELEMENT_SPACE_SETTING_NAVIGATION_TAB = By.xpath(".//*[@id='UITabPane']//*[contains(text(),'Navigations')]");
+	public final By ELEMENT_SPACE_SETTING_NAVIGATION_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceNavigationManagement-tab')]");
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON = By.xpath(".//*[@id='UISpaceNavigationManagement']//button[text()='Add Node']");
 	public final String ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST =".//*[@id='UISpaceNavigationNodeSelector']//*[contains(text(),'${name}')]";
 	public final String ELEMENT_SPACE_NAVIGAION_ADD_NODE_CHILDREN_UNDER_PARENT = ".//*[@id='UISpaceNavigationNodeSelector']//*[contains(text(),'${childrenNode}')]/../../..//*[contains(text(),'${parentNode}')]";
 	public final By ELEMENT_SPACE_NAVIGATION_UP_LEVEL_BUTTON = By.xpath(".//*[@id='UISpaceNavigationNodeSelector']//*[@class='uiIconUpLevel uiIconLightGray']");
+	public final By ELEMENT_SPACE_NAVIGATION_NODE_LIST =By.xpath(".//*[@id='UISpaceNavigationNodeSelector']");
 	
 	//Add/Edit page node popup
 	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_NODE_TITLE = By.xpath(".//*[@id='AddNode']//*[contains(.,'Add/ Edit Page Node')]");
@@ -149,14 +173,21 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
 		waitForTextPresent(user);
 	}
-	
 	/**
-	 * Invite a user in the space
-	 * @param userName as John or Mary. Without family name
+	 * Open member tab
 	 */
-	public void inviteUser(String userName){
+	public void goToMemberTab(){
 		info("Open members tab");
 		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
+		waitForAndGetElement(ELEMENT_SPACE_MEMBERS_SELECT_USER,2000);
+	}
+	/**
+	 * Invite a user in the space
+	 * @param userName
+	 * @param verify is true if want to verify user in invited table. False if don't want.
+	 * @param fullName
+	 */
+	public void inviteUser(String userName,boolean verify,String fullName){
 		info("Click on select user button");
 		click(ELEMENT_SPACE_MEMBERS_SELECT_USER);
 		info("--Search user " + user + "--");
@@ -164,14 +195,16 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		click(ELEMENT_SEARCH_USERS_ICON);
 		Utils.pause(2000);
 		info("Select a user");
-		//searchUser(userName, ELEMENT_MSG_SEARCH_USER_NAME);
 		check(ELEMENT_SPACE_SELECT_USER_IN_FORM.replace("{$name}",userName),2);
 		info("click on Add button");
 		click(ELEMENT_ADD);
 		info("click on Invite button");
 		click(ELEMENT_SPACE_MEMBERS_INVITE);
-		info("Verify that user is shown in invitation table");
-		waitForAndGetElement(ELEMENT_SPACE_INVITED_USER_TABLE.replace("${user}",userName),2000,0);
+		if (verify) {
+			info("Verify that user is shown in invitation table");
+			waitForAndGetElement(ELEMENT_SPACE_INVITED_USER_TABLE.replace(
+					"${user}", fullName), 2000, 1);
+		}
 	}
 	/**
 	 * Change role of a user in the list
@@ -287,7 +320,9 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	 */
 	public void goToAccessEditTab(){
 		info("Select Application tab");
-		waitForAndGetElement(ELEMENT_ACCESS_AND_EDIT_TAB,3000,0).click();
+		if(waitForAndGetElement(ELEMENT_ACCESS_AND_EDIT_TAB,3000,0)!=null)
+		click(ELEMENT_ACCESS_AND_EDIT_TAB);
+		else click(ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP);
 		info("The tab is opened succcessfully");
 		waitForAndGetElement(ELEMENT_ACCESS_HIDDEN_RADIO,3000,0);
 	}
@@ -378,9 +413,22 @@ public class SpaceSettingManagement extends SpaceHomePage{
 			check(ELEMENT_ACCESS_PERMISSION_RADIO.replace("${right}", right),2);
 		}
 		info("Save all changes");
-		click(ELEMENT_ACCESS_PERMISSION_SAVE_BTN);
-		click(ELEMENT_ACCESS_INFO_OK_BTN);
+		if(waitForAndGetElement(ELEMENT_ACCESS_PERMISSION_SAVE_BTN,3000,0)!=null){
+			click(ELEMENT_ACCESS_PERMISSION_SAVE_BTN);
+			click(ELEMENT_ACCESS_INFO_OK_BTN);
+		}
+		else click(ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP_CREATE_BTN);
 		Utils.pause(2000);
+	}
+	/**
+	 * Set permissions for a space
+	 * @param arrayRight
+	 */
+	public void setPermissionForSpaceFromPopup(String[] arrayRight){
+		for(String right: arrayRight){
+			info("Select a permission for space:"+right);
+			check(ELEMENT_ACCESS_PERMISSION_RADIO.replace("${right}", right),2);
+		}
 	}
 	/**
 	 * Delete a node
@@ -569,4 +617,42 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		Utils.pause(2000);
 	}
 
+	/**
+	 * Open Invite users from group tab
+	 */
+   public void goToInviteUserFromGroupTab(){
+	   info("click on the Invite users from group tab");
+	   click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_TAB);
+	   waitForAndGetElement(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_CHECKBOX,2000,2);
+	   info("The tab is shown");
+   }
+   /**
+    * Select a group
+    * @param arrayGroupPath
+    */
+   public void selectGroup(String[] arrayGroupPath){
+	   info("Select a group in the list");
+	   for(String group: arrayGroupPath){
+			info("Select a group:"+group);
+			click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECT_GROUP.replace("${name}",group));
+		}
+	   info("Select the group");
+	   click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECTED_LINK);
+	   waitForAndGetElement(ELEMENT_SPACE_INVITE_USERS_FROM_GROU_SELECTED_GROUP_INFO,2000,1);
+   }
+   /**
+    * Save all changes
+    */
+   public void saveChanges(){
+		if(waitForAndGetElement(ELEMENT_ACCESS_PERMISSION_SAVE_BTN,3000,0)!=null){
+			info("Save all changes by click on Save button");
+			click(ELEMENT_ACCESS_PERMISSION_SAVE_BTN);
+			click(ELEMENT_ACCESS_INFO_OK_BTN);
+		}
+		else {
+			info("Save all changes by click on Create button");
+			click(ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP_CREATE_BTN);
+		}
+		Utils.pause(2000);
+   }
 }

@@ -9,25 +9,6 @@ import org.testng.annotations.*;
 
 
 	public class SOC_Space_ApplicationManagement extends SOC_TestConfig{
-		String space;
-		String contentSpace;
-		String urlSpace;
-		@BeforeMethod
-		public void setBeforeMethod(){
-			space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-			contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-			urlSpace =baseUrl+"/g/:spaces:"+space.toLowerCase()+"/"+space.toLowerCase();
-	        hp.goToHomePage();
-			hp.goToMySpaces();
-			info("create new space");
-			spaMg.addNewSpaceSimple(space,contentSpace);
-		}
-		@AfterMethod
-		public void setAfterMethod(){
-			info("Delete created space");
-			hp.goToMySpaces();
-			spaMg.deleteSpace(space,false);
-		}
 	/**
 	*<li> Case ID:122428.</li>
 	*<li> Test Case Name: Remove space settings portlet.</li>
@@ -35,8 +16,13 @@ import org.testng.annotations.*;
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test01_RemoveSpaceSettingsPortlet() {
-		info("Test 1: Remove space settings portlet");
+	public  void test02_RemoveSpaceSettingsPortlet() {
+		info("Test 2: Remove space settings portlet");
+		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		hp.goToMySpaces();
+		info("create new space");
+		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		/*Step Number: 1
 		*Step Name: Step 1: Remove space settings portlet from the space
 		*Step Description: 
@@ -48,7 +34,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			There isn't [Remove] button of Space Settings portlet. User can't remove this portlet*/ 
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToApplicationTab();
 		waitForElementNotPresent(setSpaceMg.ELEMENT_DELETE_APP_FROM_TOPBAR.replace("{$application}","Space Settings"));
  	}
@@ -61,8 +47,13 @@ import org.testng.annotations.*;
 	* FQA is disable because of not installed Answer add-on
 	*/
 	@Test
-	public  void test02_DisplayOrderOfSpacesApplicationsOnToolBar() {
-		info("Test 2: Display order of space's applications on tool bar");
+	public  void test01_DisplayOrderOfSpacesApplicationsOnToolBar() {
+		info("Test 1: Display order of space's applications on tool bar");
+		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		hp.goToMySpaces();
+		info("create new space");
+		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		/*Step Number: 1
 		*Step Name: Step 1: Check order of space application on tool bar
 		*Step Description: 
@@ -74,6 +65,7 @@ import org.testng.annotations.*;
 			- The Horizontal toolbar is displayed
 			- The list of applications of space are displayed in the following order:* Activity Stream* Forum* Wiki* Documents* Agenda* Space Settings* FAQ* Member*/ 
 		info("Get list of applications");
+		
 		ArrayList<String> listApp = spaceUI.getArrayAppNameByType(1);
 		String activity_Stream = listApp.get(0);
 		String forum = listApp.get(1);
@@ -82,6 +74,7 @@ import org.testng.annotations.*;
 		String agenda = listApp.get(4);
 		String space_setting = listApp.get(5);
 		String member = listApp.get(6);
+		spaHome.goToSpace(space);
 		info("Verify that list of applications of the space is shown with correct order");
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","1").replace("${tab}",activity_Stream),3000,1);
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","2").replace("${tab}",forum));
@@ -90,7 +83,10 @@ import org.testng.annotations.*;
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","5").replace("${tab}",agenda));
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","6").replace("${tab}",space_setting));
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","7").replace("${tab}",member));
-	 }
+		/*info("Delete created space");
+		hp.goToMySpaces();
+		spaMg.deleteSpace(space,false);*/
+	}
 
 	/**
 	*<li> Case ID:122430.</li>
@@ -118,6 +114,11 @@ import org.testng.annotations.*;
 		String category = spAppData.newCategory.get(index);
 		String tab = spAppData.newTab.get(index);
 		
+		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		hp.goToMySpaces();
+		info("create new space");
+		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		/*Step Number: 1
 		*Step Name: Step 1: Access Space Application management
 		*Step Description: 
@@ -129,7 +130,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- All default applications are displayed*/
 		info("goto Space Setting>Application");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToApplicationTab();
 		
 		/*Step number: 2
@@ -169,7 +170,10 @@ import org.testng.annotations.*;
 		setSpaceMg.deleteApplications(app);
 		waitForElementNotPresent(spaHome.ELEMENT_SPACE_MENU_TAB.replace("${tab}", tab));
 		waitForElementNotPresent(setSpaceMg.ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT.replace("${app}", app));
- 	}
+		/*info("Delete created space");
+		hp.goToMySpaces();
+		spaMg.deleteSpace(space,false);*/
+	}
 
 	/**
 	*<li> Case ID:122431.</li>
@@ -183,6 +187,13 @@ import org.testng.annotations.*;
         int index = appLayData.getRandomIndexByType(1);
 		String portlet = appLayData.newTitle.get(index);
 		String category = appLayData.newCategory.get(index);
+		
+		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String urlSpace=baseUrl+"/g/:spaces:"+space.toLowerCase()+"/"+space.toLowerCase();
+		hp.goToMySpaces();
+		info("create new space");
+		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
 		/*Step Number: 1
 		*Step Name: Step 1: Add permission for category and its gadgets to space group
@@ -214,7 +225,7 @@ import org.testng.annotations.*;
 			- Show all category which user belongs to space group has right to access*/ 
 		info("goto Space Setting>Application");
 		driver.get(urlSpace);
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToApplicationTab();
 		
 		info("click on add application");
@@ -226,7 +237,10 @@ import org.testng.annotations.*;
 		info("click on new added category");
 		click(setSpaceMg.ELEMENT_ADD_APPLICATION_POPUP_CATEGOGY.replace("${category}",category));
 		waitForAndGetElement(setSpaceMg.ELEMENT_ADD_APPLICATION_POPUP_APPLICATION_ADD_BTN.replace("${app}",portlet));
- 	}
+		/*info("Delete created space");
+		hp.goToMySpaces();
+		spaMg.deleteSpace(space,false);*/
+	}
 
 	/**
 	*<li> Case ID:122458.</li>
@@ -267,6 +281,11 @@ import org.testng.annotations.*;
 	@Test
 	public  void test08_09_DisplayAStyleOfSelectedItemInSpacesToolBar() {
 		info("Test 8: Display a style of selected item in space's tool bar");
+		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		hp.goToMySpaces();
+		info("create new space");
+		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		/*Step Number: 1
 		*Step Name: Step 1: Open a space
 		*Step Description: 
@@ -289,7 +308,7 @@ import org.testng.annotations.*;
 			- The icon of application is displayed with another style*/ 
 		info("select wiki application");
 		spaHome.goToWikiTab();
-		waitForAndGetElement(spaHome.ELEMENT_SPACE_WIKI_TAB_ACTIVE);
+		waitForAndGetElement(spaHome.ELEMENT_SPACE_WIKI_TAB_ACTIVE,2000,1);
 		
 		/*Step number: 3
 		*Step Name: Step 3: Mouse over item
@@ -299,8 +318,11 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- An UI hover is displayed under the item*/ 
-		waitForAndGetElement(spaHome.ELEMENT_SPACE_WIKI_TAB_CONTENT);
- 	}
+		waitForAndGetElement(spaHome.ELEMENT_SPACE_WIKI_TAB_CONTENT,2000,1);
+		/*info("Delete created space");
+		hp.goToMySpaces();
+		spaMg.deleteSpace(space,false);*/
+	}
 
 	/**
 	*<li> Case ID:122465.</li>
@@ -320,6 +342,11 @@ import org.testng.annotations.*;
 		String category2 = spAppData.newCategory.get(index2);
 		String tab2 = spAppData.newTab.get(index2);
 		
+		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		hp.goToMySpaces();
+		info("create new space");
+		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		/*Step Number: 1
 		*Step Name: Step1: Open a space
 		*Step Description: 
@@ -333,7 +360,7 @@ import org.testng.annotations.*;
 			-1 applications are displayed
 			- The menu "More is displayed*/
 		info("goto Space Setting>Application");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToApplicationTab();
 		
 		info("add more application");
@@ -368,5 +395,7 @@ import org.testng.annotations.*;
 		click(spaHome.ELEMENT_SPACE_MENU_TAB.replace("${tab}", tab1));
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","6").replace("${tab}",tab1));
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER.replace("${number}","7").replace("${tab}","More"));
-	 
+		/*info("Delete created space");
+		hp.goToMySpaces();
+		spaMg.deleteSpace(space,false);*/
  	}}

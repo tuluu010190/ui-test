@@ -31,7 +31,7 @@ public class SOC_Space_Manage_Navigation extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		setSpaceMg.addANodeSimple(node);
 		
@@ -70,7 +70,7 @@ public class SOC_Space_Manage_Navigation extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		setSpaceMg.addANodeSimple(node1);
 		info("Edit node 1");

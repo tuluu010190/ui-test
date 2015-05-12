@@ -45,7 +45,8 @@ public class CreateNewDocument extends PlatformBase{
 	public final By ELEMENT_WEBCONTENTFORM_BUTTON_LINK = By.xpath("//*[@class='cke_button_icon cke_button__link_icon']");
 	public final By ELEMENT_WEBCONTENTFORM_LINK_ADRESS = By.xpath("//*[text()='URL']/../..//*[contains(@id,'textInput')]");
 	public final By ELEMENT_WEBCONTENTFORM_LINK_OK = By.xpath("//*[@class='cke_dialog_body']//*[text()='OK']");
-
+    public final By ELEMENT_DOCUMENT_VIEW_TAB = By.xpath(".//*[@id='UIDocumentContainer']//*[contains(@data-original-title,'Document View')]");
+	
 	//New folder popup
 	public final By ELEMENT_ADD_NEW_FOLDER_POPUP_TITLE= By.xpath(".//*[@id='UIPopupWindow']//span[text()='New Folder']");
 	public final By ELEMENT_USE_CUSTOM_TYPE_FOLDER = By.id("customTypeCheckBox");

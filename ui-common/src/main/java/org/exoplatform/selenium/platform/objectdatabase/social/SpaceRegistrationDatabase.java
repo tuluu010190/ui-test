@@ -18,7 +18,7 @@ public class SpaceRegistrationDatabase {
 
 	public void setSpaceRegistrationData(String userDataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
-		for(int i = 0; i<testData.length-1; i++)
+		for(int i = 0; i<testData.length; i++)
 		{	
 			spaceReg.add(testData[i][0]);
 		}

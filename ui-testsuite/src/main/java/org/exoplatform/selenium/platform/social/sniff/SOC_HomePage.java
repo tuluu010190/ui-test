@@ -1082,8 +1082,9 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		spaMg.addNewSpaceSimple(space,contentSpace);
 		
 		
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser("mary");
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
@@ -1093,8 +1094,8 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToSpecificSpace(space);
-		spaHome.goToSettingTab();
-		setSpaceMg.changeRole("Mary Williams");
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.changeRole(DATA_NAME_USER2);
 		
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_SPACE_DESCRIPTION.replace("${space}",space).replace("${des}",contentSpace));
@@ -1149,8 +1150,9 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		 *Expected Outcome: 
 			- User is added into the table below and status in [Actions] column is [Cancel request]*/ 
 		
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser("mary");
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		/*Step Number: 3
 		 *Step Name: - User B join space
@@ -1205,7 +1207,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,contentSpace);
 	
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		spaMg.editSpaceSimple(space, newSpace, "",false,"");
 		spaMg.saveChangesSpace();
 		hp.goToHomePage();

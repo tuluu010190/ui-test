@@ -97,8 +97,9 @@ public class SOC_Notifications_IntranetNotification_View_All extends SOC_TestCon
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space1, space1);
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser(username2);
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(username2,false,"");
 		
 		info("User 2 comments to user1's activity");
 		magAc.signIn(username2, password2);
@@ -138,8 +139,9 @@ public class SOC_Notifications_IntranetNotification_View_All extends SOC_TestCon
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space2, space2);
 		info("User3 invites user1 to join space");
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser(username1);
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(username1,false,"");
 		info("user3 connects to user 1");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);

@@ -47,8 +47,9 @@ public class ForumTopicManagement extends PlatformBase {
 	public final By ELEMENT_FORUM_POST_TITLE = By.xpath("//*[@id='PostTitle']");
 	public final By ELEMENT_FORUM_MESSAGE = By.xpath("//iframe[@class='cke_wysiwyg_frame cke_reset']");
 	public final By ELEMENT_FORUM_SETTINGS_SUBMIT = By.xpath("//*[text()='Submit']");
-	public final By ELEMENT_FORUM_ADDTOPIC = By.xpath("//*[@id='UITopicContainer']/div[2]//*[@class='uiIconForumCreateTopic uiIconForumWhite']");
+	public final By ELEMENT_FORUM_ADDTOPIC = By.xpath("(.//*[@id='UITopicContainer']//*[contains(@class,'uiIconForumCreateTopic ')])[1]");
 	public final By ELEMENT_FORUM_TOPIC_TITLE = By.xpath("//*[@id='ThreadTitle']");
+	public final String ELEMENT_FORUM_TOPIC_LINK = ".//*[contains(@data-original-title,'${name}')]";
 	
 	//Start Topic popup
 	public final By ELEMENT_START_TOPIC_POPUP_TITLE = By.xpath(".//*[@id='UIForumPopupWindow']//span[@class='PopupTitle popupTitle']");
@@ -460,6 +461,8 @@ public class ForumTopicManagement extends PlatformBase {
 		inputFrame(ELEMENT_FORUM_MESSAGE , message);
 		switchToParentWindow();
 		click(ELEMENT_FORUM_SETTINGS_SUBMIT);
+		waitForAndGetElement(ELEMENT_FORUM_TOPIC_LINK.replace("${name}",name),2000,1);
+		info("The topic is created successfully");
 	}
 	
 	/**

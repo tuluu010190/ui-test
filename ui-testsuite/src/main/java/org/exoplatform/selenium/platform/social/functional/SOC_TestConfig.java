@@ -11,9 +11,18 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceGUIDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceNavigationDefaultNodesDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.SpaceGroupsDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.SpaceRegistrationDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.SpaceVisibilityDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
+import org.exoplatform.selenium.platform.wiki.WikiHomePage;
+import org.exoplatform.selenium.platform.wiki.WikiManagement;
+import org.exoplatform.selenium.platform.calendar.EventManagement;
+import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
+import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
+import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.MyDashBoard;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
@@ -27,8 +36,8 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGatein
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationLayoutDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ContainersDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 
 public class SOC_TestConfig extends PlatformBase {
 	HomePagePlatform hp;
@@ -47,6 +56,16 @@ public class SOC_TestConfig extends PlatformBase {
 	UserAddManagement userManage;
 	UserAndGroupManagement userGroupManage;
 	
+	ForumTopicManagement topicMg;
+	
+	WikiHomePage wHome;
+	WikiManagement wikiMg;
+	
+	SiteExplorerHome SEHome;
+	CreateNewDocument creatDoc;
+	
+	EventManagement evMg;
+	
 	ApplicationRegistry appReg;
 	ApplicationLayoutDatabase appLayData;
 	ApplicationGateinDatabase appGateData;
@@ -54,6 +73,9 @@ public class SOC_TestConfig extends PlatformBase {
 	SpaceGUIDatabase spaceUI;
 	SpaceApplicationDatabase spAppData;
 	SpaceNavigationDefaultNodesDatabase spaceDefaultNodesData;
+	SpaceVisibilityDatabase spVisiData;
+	SpaceRegistrationDatabase spRegisData;
+	SpaceGroupsDatabase spGroupsData;
 	
 	RemoteGadgetDatabase remoteGadData;
 	TextBoxDatabase txData;
@@ -62,9 +84,9 @@ public class SOC_TestConfig extends PlatformBase {
 	ContainersDatabase containerData;
 	LanguageDatabase langData;
 	
-	@BeforeClass
-	public void setUpBeforeClass() throws Exception{
-		info("Start setUpBeforeClass");
+	@BeforeMethod
+	public void setUpBeforeMethod() throws Exception{
+		info("Start setUpBeforeMethod");
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		magAc = new ManageLogInOut(driver);
@@ -85,6 +107,15 @@ public class SOC_TestConfig extends PlatformBase {
 		
 		userManage = new UserAddManagement(driver);
 		userGroupManage = new UserAndGroupManagement(driver);
+		topicMg = new ForumTopicManagement(driver);
+		
+		wikiMg = new WikiManagement(driver);
+		wHome = new WikiHomePage(driver);
+		
+		SEHome = new SiteExplorerHome(driver);
+		creatDoc = new CreateNewDocument(driver);
+		
+		evMg = new EventManagement(driver);
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -115,15 +146,25 @@ public class SOC_TestConfig extends PlatformBase {
 		spaceDefaultNodesData = new SpaceNavigationDefaultNodesDatabase();
 		spaceDefaultNodesData.setSpaceNavigationDefaultNodes(spaceNavigationDefaultNodesFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);	
 		
+		spVisiData = new SpaceVisibilityDatabase();
+		spVisiData.setSpaceVisibleData(spaceVisibleFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		spRegisData = new SpaceRegistrationDatabase();
+		spRegisData.setSpaceRegistrationData(spaceRegistrationFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		spGroupsData = new SpaceGroupsDatabase();
+		spGroupsData.setData(spaceGroupsFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
 		info("End setUpBeforeClass");
 	}
 
-	@AfterClass
-	public void afterClass(){
-		info("Start afterClass");
+
+	@AfterMethod
+	public void afterMethod(){
+		info("Start afterMethod");
 		driver.manage().deleteAllCookies();
 		driver.quit();
-		info("End afterClass");
+		info("End afterMethod");
 	}
 
 }

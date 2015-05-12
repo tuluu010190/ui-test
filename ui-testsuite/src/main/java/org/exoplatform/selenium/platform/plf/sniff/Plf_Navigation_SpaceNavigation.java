@@ -75,7 +75,7 @@ import org.testng.annotations.*;
 			- The application is removed from the space's toolbar*/ 
 		
 		info(" Click on Add Application, select application and click add button");
-		spaceMg.goToSettingTab();
+		spaceHome.goToSpaceSettingTab();
 		setMag.goToApplicationTab();
 		setMag.addApplication(category,app);
 		

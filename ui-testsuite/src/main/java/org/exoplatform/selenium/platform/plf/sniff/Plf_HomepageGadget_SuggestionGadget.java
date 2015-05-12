@@ -106,8 +106,9 @@ import org.testng.annotations.*;
 			space4=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 			hp.goToMySpaces();
 			spaceMg.addNewSpaceSimple(space4,space4);
-			spaceHome.goToSettingTab();
-			setMag.inviteUser("john");
+			spaceHome.goToSpaceSettingTab();
+			setMag.goToMemberTab();
+			setMag.inviteUser(DATA_USER1,false,"");
 			
 			info("--Log in with james account--");
 			info("Sign out");
@@ -117,8 +118,9 @@ import org.testng.annotations.*;
 			space5=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 			hp.goToMySpaces();
 			spaceMg.addNewSpaceSimple(space5,space5);
-			spaceHome.goToSettingTab();
-			setMag.inviteUser("john");
+			spaceHome.goToSpaceSettingTab();
+			setMag.goToMemberTab();
+			setMag.inviteUser(DATA_USER1,false,"");
 			
 			info("--Login back to John");
 			info("Sign out");

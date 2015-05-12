@@ -38,8 +38,9 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser("mary");
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
@@ -49,13 +50,13 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		spaHome.goToSpace(space);
-		spaHome.goToSettingTab();
-		setSpaceMg.changeRole("Mary Williams");
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.changeRole(DATA_NAME_USER2);
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		spaHome.goToSpace(space);
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		
 		/*magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);*/
@@ -100,9 +101,10 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		info(" After invited user accept invitation, invited  space will move from invitation space list to my space list of user");
-		spaMg.goToSettingTab();
-		setSpaceMg.inviteUser(DATA_USER2);
-		setSpaceMg.inviteUser(DATA_USER4);
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
+		setSpaceMg.inviteUser(DATA_USER4,false,"");
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
@@ -118,7 +120,7 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		spaHome.goToSpace(space);
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		info("Accepted user is displayed on Member List");
 		click(setSpaceMg.ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}","Mary Williams"),2000,0);
@@ -154,8 +156,9 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		spaMg.goToSettingTab();
-		setSpaceMg.inviteUser(DATA_USER2);
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
@@ -167,7 +170,7 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		spaHome.goToSpace(space);
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		info(" Space is disappeared from list and moved to All spaces list, user is not member of space");
 		click(setSpaceMg.ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
 		waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}","Mary Williams"),2000,0);
@@ -203,8 +206,9 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		spaMg.goToSettingTab();
-		setSpaceMg.inviteUser(DATA_USER2);
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
@@ -214,7 +218,8 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		spaHome.goToSpace(space);
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
 		setSpaceMg.removeUser(DATA_USER2);
 		
 		/*info("Delete a Space");
@@ -264,8 +269,9 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		spaHome.goToSpace(space);
-		spaHome.goToSettingTab();
-		setSpaceMg.acceptRequest("Mary");
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.acceptRequest(DATA_USER2);
 		
 		/*info("Delete a Space");
 		hp.goToMySpaces();

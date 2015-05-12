@@ -325,12 +325,9 @@ public class ActivityStream extends PlatformBase {
 	public void addComment(String filename, String textContent){
 		waitForAndGetElement(By.xpath(ELEMENT_ICON_COMMENT.replace("${title}", filename))).click();
 		switchToParentWindow();
-		
 		WebElement input= waitForAndGetElement(By.xpath(ELEMENT_COMMENTBOX.replace("${title}",filename)));
 		Actions action =new Actions(driver);
 		action.moveToElement(input).sendKeys(textContent).build().perform();
-		
-		
 	    waitForAndGetElement(By.xpath(ELEMENT_COMMENT_BUTTON.replace("${activityText}", filename))).click();
 	    Utils.pause(2000);
 	}
@@ -368,6 +365,7 @@ public class ActivityStream extends PlatformBase {
 		mouseOver(ELEMENT_PUBLICATION_LASTCOMMENT.replace("${title}", name), true);
 		click(ELEMENT_PUBLICATION_DELETE_LASTCOMMENT.replace("${title}", comment));
 		click(button.ELEMENT_OK_BUTTON);
+		Utils.pause(2000);
 	}
 	
 	/**

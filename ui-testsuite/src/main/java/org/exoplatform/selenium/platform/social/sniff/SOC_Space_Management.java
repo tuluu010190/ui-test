@@ -87,7 +87,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		spaMg.addNewSpaceSimple(space,space);
 		
 		info(" Click on Add Application, select application and click add button");
-		spaMg.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToApplicationTab();
 		setSpaceMg.addApplication(category,app);
 		info("Verify that Application is added to space");
@@ -306,7 +306,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		spaMg.addNewSpaceSimple(space,space);
 		
 		info(" Click on Add Application, select application and click add button");
-		spaMg.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToApplicationTab();
 		setSpaceMg.addApplication(category,app);
 		info("Verify that Application is added to space");
@@ -355,7 +355,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		info("Set permission for the space");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToAccessEditTab();
 		setSpaceMg.setPermissionForSpace(arrayRight);
 		
@@ -408,7 +408,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		spaMg.addNewSpaceSimple(space,space);
 		
 		info("Set permission for the space");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToAccessEditTab();
 		setSpaceMg.setPermissionForSpace(arrayRight);
 		
@@ -460,7 +460,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		info("Set permission for the space");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToAccessEditTab();
 		setSpaceMg.setPermissionForSpace(arrayRight);
 		
@@ -554,8 +554,9 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		info("Create space 1 and wiki page 1");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser(DATA_USER2);
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();

@@ -243,8 +243,9 @@ import org.testng.annotations.*;
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(spaceName,"");
 		
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser(DATA_USER1);
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);

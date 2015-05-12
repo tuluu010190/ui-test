@@ -18,7 +18,7 @@ public class SpaceVisibilityDatabase {
 
 	public void setSpaceVisibleData(String userDataFile, String userSheet, Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
-		for(int i = 0; i<testData.length-1; i++)
+		for(int i = 0; i<testData.length; i++)
 		{	
 			spaceVis.add(testData[i][0]);
 		}

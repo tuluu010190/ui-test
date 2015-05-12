@@ -364,6 +364,7 @@ public class HomePagePlatform extends TestBase{
 	public void goToSpecificSpace(String space){
 		info("Go to space "+space);
 		click(By.xpath(ELEMENT_SPECIFIC_PANEL.replace("{$space}",space)));
+		Utils.pause(2000);
 	}
 	
 	

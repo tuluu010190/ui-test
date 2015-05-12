@@ -147,7 +147,9 @@ public class SiteExplorerHome extends PlatformBase{
 
 	//Add document
 	public final By ELEMENT_ADDDOCUMENT_CHOICETYPE = By.xpath("//*[@class='templateTitle']");
-	
+	public final By ELEMENT_THUMBNAIL_VIEW_ADMIN_VIEW = By.xpath(".//*[contains(@class,'uiThumbnailsView ')]");
+	public final By ELEMENT_CONTEXT_MENU_ADD_DOCUMENT =By.xpath(".//*[contains(@id,'JCRContextMenu')]//*[contains(@class,'uiIconEcmsAddDocument')]");
+	public final By ELEMENT_WORKING_AREA_TEMPLATE_DOCUMENTS=By.xpath(".//*[@id='UIWorkingArea']");
 	//Add folder
 	public final By ELEMENT_ADDFOLDERBOX = By.xpath("//*[@class='PopupTitle popupTitle']");
 	public final By ELEMENT_ADDFOLDER_NAME = By.xpath("//*[@id='titleTextBox']");
@@ -371,14 +373,17 @@ public class SiteExplorerHome extends PlatformBase{
 	 * @param folderType
 	 */
 	public void createFolder(String title, String folderType) {
-		info("Type a title:"+title+" for the folder");
+		info("Type a title:" + title + " for the folder");
 		type(ELEMENT_ADDFOLDER_NAME, title, true);
-		info("Select folder type:"+folderType);
-		select(ELEMENT_ADDFOLDER_FOLDERTYPE, folderType );
+		if (!folderType.isEmpty()) {
+			info("Select folder type:" + folderType);
+			select(ELEMENT_ADDFOLDER_FOLDERTYPE, folderType);
+		}
 		info("Click on Create folder button");
 		click(ELEMENT_ADDFOLDER_CREATEFOLDERBUTTON);
 		info("Verify that the folder is created");
-		waitForAndGetElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME).replace("${title}", title)));
+		waitForAndGetElement(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME)
+				.replace("${title}", title)));
 		info("The folder is created successfully");
 	}
 
@@ -434,6 +439,14 @@ public class SiteExplorerHome extends PlatformBase{
 		driver.navigate().refresh();
 		click(ELEMENT_SIDEBAR_SITES_MANAGEMENT);
 		Utils.pause(2000);
+	}
+	/**
+	 * Open list document's templates
+	 */
+	public void openListDocumentTemplateByRightClick(){
+		rightClickOnElement(ELEMENT_THUMBNAIL_VIEW_ADMIN_VIEW);
+		click(ELEMENT_CONTEXT_MENU_ADD_DOCUMENT);
+		waitForAndGetElement(ELEMENT_WORKING_AREA_TEMPLATE_DOCUMENTS,2000,0);
 	}
 
 	/**
@@ -1223,6 +1236,17 @@ public class SiteExplorerHome extends PlatformBase{
 		Actions action = new Actions(this.driver);
 		action.moveToElement(pathInput).sendKeys(Keys.ENTER).build().perform();
 		action.moveToElement(pathInput).release();
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Go to a folder in Admin view
+	 * @param name
+	 */
+	public void openAFolder(String name){
+		info("Click on the folder");
+		click(By.xpath((ELEMENT_SITEEXPLORER_LEFTBOX_NODENAME)
+				.replace("${title}",name)));
 		Utils.pause(2000);
 	}
 	

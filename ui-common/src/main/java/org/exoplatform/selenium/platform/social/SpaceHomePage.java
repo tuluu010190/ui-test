@@ -51,7 +51,7 @@ public class SpaceHomePage extends PlatformBase{
 	/**
 	 * Open Space setting page
 	 */
-	public void goToSettingTab(){
+	public void goToSpaceSettingTab(){
 		info("--Open Setting tab of the space");
 		info("Click on the tab");
 		Utils.pause(2000);

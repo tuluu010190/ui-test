@@ -16,7 +16,8 @@ public class SpaceManagement extends SpaceHomePage {
 	// Add form space
 	public final By ELEMENT_ADDNEWSPACE_BUTTON = By.xpath("//button[contains(.,'Add New Space')]");
 	public final By ELEMENT_ADDNEWSPACE_FORM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add New Space']");
-
+	public final By ELEMENT_ADDNEWSPACE_ICON = By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]");
+	
 	//Search panel
 	public final By ELEMENT_MY_SPACE_SEARCH_TEXT_BOX = By.xpath(".//*[@id='SpaceSearch']");
 	public final By ELEMENT_MY_SPACE_SEARCH_BTN = By.xpath(".//*[@id='UISpaceSearch']//i[@class='uiIconSearch uiIconLightGray']");
@@ -62,13 +63,17 @@ public class SpaceManagement extends SpaceHomePage {
 	public By ELEMENET_SPACE_CREATE_BUTTON=By.xpath("//*[@class='uiAction']/*[text()='Create']");
 
 	//My space
+	public final By ELEMENT_SPACE_MY_SPACE_TAB=By.xpath(".//*[@id='UIManageAllSpaces']//*[contains(text(),'My Spaces')]");
 	public String ELEMENT_SPACE_TITLE="//*[@class='spaceTitle']//*[text()='${space}']";
 	public final String ELEMENT_SPACE_DESCRIPTION=".//*[@id='UIManageMySpaces']//*[@class='content limitText'][text()='${des}']";
 	public final By ELEMENT_SPACE_AVATAR_DEFAULT=By.xpath(".//*[@id='UISpaceInfo']//*[contains(@src,'SpaceAvtDefault.png')]");
 	public final String ELEMENT_SPACE_DELETE_BUTTON="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Delete']";
 	public final String ELEMENT_SPACE_LEAVE_BTN = "//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Leave']";
 	public final String ELEMENT_SPACE_EDIT_BTN = "	//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Edit']";
-
+    public final By ELEMENT_SPACE_EDIT_SETTING_TAB =By.xpath(".//*[contains(@data-target,'#UISpaceInfo-tab')]");
+	public final String ELEMENT_SPACE_MEMBER_INFOR="//*[@class='spaceTitle']//*[text()='${space}']/../..//*[contains(@class,'membersCount')]";
+	public final String ELEMENT_SPACE_DESC_INFOR="//*[@class='spaceTitle']//*[text()='${space}']/../..//*[contains(@class,'content')]";
+	public final String ELEMENT_SPACE_MANAGER_STATUS="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[contains(@class,'statusLabel') and text()='Manager']";
 	public String ELEMENT_SPACE_CONFIRM_DELETE="Are you sure you want to delete this space? This cannot be undone. All page navigations and this group will also be deleted";
 	public By ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON=By.xpath("//*[text()='OK']");
 
@@ -82,8 +87,9 @@ public class SpaceManagement extends SpaceHomePage {
 	//All Spaces tab
 	public final By ELEMENT_MY_SPACE_ALL_SPACES_TAB = By.xpath(".//*[@id='UIPage']//*[contains(@href,'all-spaces')]");
 	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Request to Join']";
+	public final String ELEMENT_MY_SPACE_ALL_SPACES_JOIN_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Join']";
 	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING = ".//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Request Pending')]";
-
+    public final By ELEMENT_ALL_SPACE_ACTIVE_TAB=By.xpath(".//*[@id='UIManageAllSpaces']//*[contains(@class,'active')]//*[contains(@href,'all-spaces')]");
 	//Request pending tab
 	public final By ELEMENT_MY_SPACE_REQUEST_PENDING_TAB = By.xpath("//*[contains(@href,'pendingSpace')]");
 
@@ -102,7 +108,29 @@ public class SpaceManagement extends SpaceHomePage {
 	//Request to join a space
 	public final String ELEMENT_REQUEST_TO_JOIN_SPACE_BTN = "//*[contains(text(),'${space}')]/../../..//button[text()='Request to Join']";
 	public final String ELEMENT_REQUEST_PENDING = "//*[contains(text(),'${space}')]/../../..//*[text()='Request Pending']";
+	
+	//Forum tab
+	public final By ELEMENT_FORUM_TAB = By.xpath(".//*[contains(@class,'uiIconAppForumPortlet')]");
+	public final By ELEMENT_FORUM_START_BUTTON_UP = By.xpath("(.//*[@id='UITopicContainer']//*[contains(@class,'uiIconForumCreateTopic ')])[1]");
 
+	//Wiki tab
+	public final By ELEMENT_WIKI_TAB = By.xpath(".//*[contains(@class,'uiIconAppWikiPortlet')]");
+	public final By ELEMENT_WIKI_HOME_TITLE =By.xpath(".//*[@id='titleInfo']");
+	//Document tab
+	public final By ELEMENT_DOCUMENT_TAB = By.xpath(".//*[contains(@class,'uiIconAppFileExplorerPortlet')]");
+	public final By ELEMENT_DOCUMENT_FOLDER_ADD_BTN = By.xpath(".//*[contains(@class,'uiIconEcmsAddFolder ')]");	
+	
+	//Agenda tab
+	public final By ELEMENT_AGENDA_TAB = By.xpath(".//*[contains(@class,'uiIconAppCalendarPortlet')]");
+    public final By ELEMENT_AGENDA_EVENT_ADD_BTN =By.xpath(".//*[@id='UIActionBarQuickAddEvent']");
+	
+    //Member tab
+	public final By ELEMENT_MEMBER_TAB = By.xpath(".//*[contains(@class,'uiIconAppMembersPortlet')]");
+	public final By ELEMENT_MEMBER_USER_INFOR = By.xpath(".//*[@id='spaceManagerListBox']");
+	public final By ELEMENT_MEMBER_USER_SEARCH= By.xpath(".//*[@id='UIProfileUserSearch']");
+	public final By ELEMENT_MEMBER_USER_CONTACT_LIST=By.xpath(".//*[@id='spaceMemberListBox']");
+	public final String ELEMENT_MEMBER_USER_NAME = ".//*[@id='spaceMemberListBox']//*[contains(@data-text,'${fullName}')]";
+	
 	ManageAlert alert;
 
 	/** 
@@ -173,6 +201,29 @@ public class SpaceManagement extends SpaceHomePage {
 		click(ELEMENET_SPACE_CREATE_BUTTON);
 		waitForAndGetElement(By.linkText(name), iTimeout);
 	}
+	
+	/**
+	 * Create quickly a new space
+	 * 
+	 * @param name : Space name
+	 * @param desc : Space description
+	 * 
+	 */
+	public void addNewSpace(String name, String desc, int... params) {
+		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT; 
+		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
+			click(ELEMENT_ADDNEWSPACE_BUTTON);
+		}else {
+			click(By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]"));
+		}
+		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM,3000,0);
+		type(ELEMENT_SPACE_NAME_INPUT, name, true);
+		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
+		info("Save all changes");
+		click(ELEMENET_SPACE_CREATE_BUTTON);
+		waitForAndGetElement(By.linkText(name), iTimeout);
+	}
+	
 	/**
 	 * Edit a Space
 	 * @param space
@@ -183,23 +234,26 @@ public class SpaceManagement extends SpaceHomePage {
 	 */
 	public void editSpaceSimple(String space,String newName,String newDes,boolean isChangeAvatar,String filepath){
 		info("Click on Edit button of the space");
-		if(waitForAndGetElement(ELEMENT_SPACE_EDIT_BTN.replace("${space}",space), 3000,0)!=null)
-			click(ELEMENT_SPACE_EDIT_BTN.replace("${space}",space));
-		if(!newName.isEmpty()){
+		if (waitForAndGetElement(
+				ELEMENT_SPACE_EDIT_BTN.replace("${space}", space), 3000, 0) != null)
+			click(ELEMENT_SPACE_EDIT_BTN.replace("${space}", space));
+		if (waitForAndGetElement(ELEMENT_SPACE_NAME_INPUT, 3000, 0) == null)
+			click(ELEMENT_SPACE_EDIT_SETTING_TAB);
+		if (!newName.isEmpty()) {
 			info("Input new name");
-			type(ELEMENT_SPACE_NAME_INPUT,newName,true);
+			type(ELEMENT_SPACE_NAME_INPUT, newName, true);
 		}
-		if(!newDes.isEmpty()){
+		if (!newDes.isEmpty()) {
 			info("Input new description");
-			type(ELEMENT_SPACE_DESCRIPTION_INPUT,newDes,true);
+			type(ELEMENT_SPACE_DESCRIPTION_INPUT, newDes, true);
 		}
-		if(isChangeAvatar==true){
+		if (isChangeAvatar == true) {
 			info("click on change picture button");
 			click(ELEMENT_SPACE_CHANGE_AVATAR_BTN);
 			info("click on upload button");
 			click(ELEMENT_UPLOAD_POPUP_SELECT_FILE_BTN);
 			Utils.pause(2000);
-			info("filepath:"+filepath);
+			info("filepath:" + filepath);
 			uploadFileUsingRobot(filepath);
 			Utils.pause(2000);
 			click(ELEMENT_SPACE_UPLOAD_CONFIRM_BTN);
@@ -259,8 +313,6 @@ public class SpaceManagement extends SpaceHomePage {
 		info("Open Invitation Received tab");
 		waitForAndGetElement(ELEMENT_MY_SPACE_INVITATION_RECEIVED,3000,0);
 		click(ELEMENT_MY_SPACE_INVITATION_RECEIVED);
-		//clickByJavascript(ELEMENT_MY_SPACE_INVITATION_RECEIVED);
-		//mouseOverAndClick(ELEMENT_MY_SPACE_INVITATION_RECEIVED);
 		Utils.pause(2000);
 
 	}
@@ -285,6 +337,18 @@ public class SpaceManagement extends SpaceHomePage {
 		info("Verify that request to join button is hidden and request pending status is shown");
 		waitForAndGetElement(ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING.replace("${space}", space),3000,0);
 	}
+	
+	/**
+	 * Join to a space
+	 * @param space
+	 */
+	public void joinToASpace(String space){
+		info("Join to a space");
+		waitForAndGetElement(ELEMENT_MY_SPACE_ALL_SPACES_JOIN_BTN.replace("${space}", space),2000,0).click();
+		info("Verify that join button is hidden and leave button is shown");
+		waitForAndGetElement(ELEMENT_SPACE_LEAVE_BTN.replace("${space}", space),3000,1);
+	}
+	
 	/**
 	 * Open request pending tab
 	 */
@@ -317,7 +381,10 @@ public class SpaceManagement extends SpaceHomePage {
 		info("Verify that the user didn't join to the space");
 		waitForElementNotPresent(ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN.replace("${space}",space));
 	}
-
+    /**
+     * Request to join a Space
+     * @param space
+     */
 	public void requestToJoinSpace(String space){
 		info("Request to join a space");
 		searchSpace(space, "");
@@ -325,5 +392,52 @@ public class SpaceManagement extends SpaceHomePage {
 		waitForAndGetElement(ELEMENT_REQUEST_PENDING.replace("${space}", space));
 		info("Request successfully");
 	}
+	/**
+	 * Open Forum portlet
+	 */
+	public void goToForumTab(){
+		info("Open forum Tab");
+		click(ELEMENT_FORUM_TAB);
+		waitForAndGetElement(ELEMENT_FORUM_START_BUTTON_UP,2000,0);
+		info("Forum portlet is shown");
+	}
+	/**
+	 * Open Wiki tab
+	 */
+	public void goToWikiTab(){
+		info("Open Wiki Tab");
+		click(ELEMENT_WIKI_TAB);
+		waitForAndGetElement(ELEMENT_WIKI_HOME_TITLE,2000,0);
+		info("Wiki portlet is shown");
+	}
+	
+	/**
+	 * Open Document tab
+	 */
+	public void goToDocumentTab(){
+		info("Open Document Tab");
+		click(ELEMENT_DOCUMENT_TAB);
+		waitForAndGetElement(ELEMENT_DOCUMENT_FOLDER_ADD_BTN,2000,0);
+		info("Document portlet is shown");
+	}
 
+	/**
+	 * Open Agenda tab
+	 */
+	public void goToAgendaTab(){
+		info("Open Agenda Tab");
+		click(ELEMENT_AGENDA_TAB);
+		waitForAndGetElement(ELEMENT_AGENDA_EVENT_ADD_BTN,2000,0);
+		info("Agenda portlet is shown");
+	}
+	
+	/**
+	 * Open Member tab
+	 */
+	public void goToMemberTab(){
+		info("Open Member Tab");
+		click(ELEMENT_MEMBER_TAB);
+		waitForAndGetElement(ELEMENT_MEMBER_USER_INFOR,2000,0);
+		info("Member portlet is shown");
+	}
 }

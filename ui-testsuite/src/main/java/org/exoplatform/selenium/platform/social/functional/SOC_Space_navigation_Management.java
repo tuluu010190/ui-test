@@ -36,7 +36,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", space));
 		
@@ -95,7 +95,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		
 		/*Step Number: 2
@@ -158,7 +158,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space1,space1);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		info("Add node1 for space1");
 		setSpaceMg.addANodeSimple(node1);
@@ -181,7 +181,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space2,space2);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		info("add node2 for space2");
 		setSpaceMg.addANodeSimple(node2);
@@ -221,7 +221,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space1,space1);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		
 		/*Step Number: 2
@@ -276,7 +276,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", space));
 		
@@ -338,7 +338,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space1,space1);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		info("Add node1 for space1");
 		setSpaceMg.addANodeSimple(node1);
@@ -361,7 +361,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space2,space2);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		info("add node2 for space2");
 		setSpaceMg.addANodeSimple(node2);
@@ -398,7 +398,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space1,space1);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", space1));
 		
@@ -452,7 +452,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space1,space1);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST.replace("${name}", space1));
 		
@@ -553,7 +553,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space1,space1);
 		info("Access space and select Space settings portlet or Click on Space setting icon");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		info("Select Space navigation tab");
 		setSpaceMg.goToNavigationTab();
 		info("Create new node and select existed page for that  node");
@@ -633,7 +633,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space1,space1);
 		info("Access space and select Space settings portlet or Click on Space setting icon");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		info("Select Space navigation tab");
 		setSpaceMg.goToNavigationTab();
 		info("Create new node and select existed page for that  node");
@@ -713,7 +713,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space1,space1);
 		info("Access space and select Space settings portlet or Click on Space setting icon");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		info("Select Space navigation tab");
 		setSpaceMg.goToNavigationTab();
 		info("Create new node and select existed page for that  node");
@@ -816,7 +816,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space1,space1);
 		info("Access space and select Space settings portlet or Click on Space setting icon");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		info("Select Space navigation tab");
 		setSpaceMg.goToNavigationTab();
 		info("Create new node and select existed page for that  node");
@@ -884,7 +884,7 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		info("Open Setting tab");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToNavigationTab();
 		
 		/*Step Number: 2

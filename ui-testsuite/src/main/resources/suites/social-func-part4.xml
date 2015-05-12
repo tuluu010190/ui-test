@@ -8,8 +8,7 @@
 		</groups>
 		<classes>
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_ApplicationManagement" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Dashboard" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_SpacesManagement" />
 		</classes>
 	</test>
 	<listeners>

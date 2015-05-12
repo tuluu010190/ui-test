@@ -6,23 +6,6 @@ import org.testng.annotations.*;
 
 
 	public class SOC_Dashboard extends SOC_TestConfig{
-		String space;
-		
-		@BeforeMethod
-		public void setBeforeMethod(){
-			space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-	        String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-	        hp.goToHomePage();
-			hp.goToMySpaces();
-			info("create new space");
-			spaMg.addNewSpaceSimple(space,contentSpace);
-		}
-		@AfterMethod
-		public void setAfterMethod(){
-			info("Delete created space");
-			hp.goToMySpaces();
-			spaMg.deleteSpace(space,false);
-		}
 	/**
 	*<li> Case ID:122281.</li>
 	*<li> Test Case Name: Add new gadget into dashboard with valid value.</li>
@@ -36,8 +19,14 @@ import org.testng.annotations.*;
 		String url = remoteGadData.newLinks.get(index);//"http://www.labpixies.com/campaigns/finance/finance.xml";
         String name = remoteGadData.newTitle.get(index);
     
+        String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+        String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		hp.goToMySpaces();
+		info("create new space");
+		spaMg.addNewSpaceSimple(space,contentSpace);
+		
 		info("goto Space Setting>Application");
-		spaHome.goToSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToApplicationTab();
 		info("add dashboard to space");
 		setSpaceMg.addApplication("Tools","Dashboard");
@@ -84,6 +73,9 @@ import org.testng.annotations.*;
 			- New gadget is added successfully into dashboard*/ 
 		info("add gadget");
 		myDash.addRemoteGadget(url, name);
+		/*info("Delete created space");
+		hp.goToMySpaces();
+		spaMg.deleteSpace(space,false);*/
 		
  	}
 }

@@ -305,8 +305,9 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Create space 1 and wiki page 1");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser("mary");
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
@@ -1264,8 +1265,9 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		info("Create space 1 and wiki page 1");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser("mary");
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		
 		info("Add new wiki page 1 for space 1");
@@ -1273,7 +1275,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		wHome.goToAddBlankPage();
 		wikiMg.addWikiPageSimpleWithSourceEditor(wiki1,wiki1);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki1),2000,0);
-		wikiMg.addAUserToPermission("mary","");
+		wikiMg.addAUserToPermission(DATA_USER2,"");
 		
 		info("Add new wiki page 2 for space 2");
 		wHome.goToHomeWikiPage();
@@ -1281,7 +1283,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		wikiMg.addWikiPageSimpleWithSourceEditor(wiki2,wiki2);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki2),2000,0);
 		
-		wikiMg.addAUserToPermission("mary",wHome.ELEMENT_PERMISSION_EDIT_USER.replace("${user}", "mary"));
+		wikiMg.addAUserToPermission(DATA_USER2,wHome.ELEMENT_PERMISSION_EDIT_USER.replace("${user}",DATA_USER2));
 		
 		/*Step number: 4
 		 *Step Name: Step 4: Go to Move Page
@@ -1351,8 +1353,9 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
         info("Create space 1 and wiki page 1");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		spaHome.goToSettingTab();
-		setSpaceMg.inviteUser("mary");
+		spaHome.goToSpaceSettingTab();
+		setSpaceMg.goToMemberTab();
+		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();

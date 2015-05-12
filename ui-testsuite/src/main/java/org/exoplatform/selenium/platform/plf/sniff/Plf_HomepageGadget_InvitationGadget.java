@@ -87,8 +87,9 @@ public class Plf_HomepageGadget_InvitationGadget extends Plf_TestConfig{
 		connMg.connectToAUser(DATA_USER1);
 		hp.goToMySpaces();
 		spaceMg.addNewSpaceSimple(space1,space1);
-		spaceHome.goToSettingTab();
-		setMag.inviteUser(DATA_USER1);
+		spaceHome.goToSpaceSettingTab();
+		setMag.goToMemberTab();
+		setMag.inviteUser(DATA_USER1,false,"");
 
 		info("Sign in with username2 account");
 		magAc.signIn(username2, password2);
@@ -96,8 +97,9 @@ public class Plf_HomepageGadget_InvitationGadget extends Plf_TestConfig{
 		connMg.connectToAUser(DATA_USER1);
 		hp.goToMySpaces();
 		spaceMg.addNewSpaceSimple(space2,space2);
-		spaceHome.goToSettingTab();
-		setMag.inviteUser(DATA_USER1);
+		spaceHome.goToSpaceSettingTab();
+		setMag.goToMemberTab();
+		setMag.inviteUser(DATA_USER1,false,"");
 
 		info("Sign in with username3 account");
 		magAc.signIn(username3, password3);
@@ -105,8 +107,9 @@ public class Plf_HomepageGadget_InvitationGadget extends Plf_TestConfig{
 		connMg.connectToAUser(DATA_USER1);
 		hp.goToMySpaces();
 		spaceMg.addNewSpaceSimple(space3,space3);
-		spaceHome.goToSettingTab();
-		setMag.inviteUser(DATA_USER1);
+		spaceHome.goToSpaceSettingTab();
+		setMag.goToMemberTab();
+		setMag.inviteUser(DATA_USER1,false,"");
 
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		info("Verify that the maximum number of displayed requests is 4");
