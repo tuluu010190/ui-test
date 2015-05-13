@@ -1207,7 +1207,6 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space, space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(username1,false,"");
 			
 		info("User accepts Request notification and mention John in activity");
@@ -1312,7 +1311,6 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space, space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(username1,false,"");
 		
 		/*Step Number: 1
@@ -1398,13 +1396,11 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space1, space1);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(username1,false,"");
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space2, space2);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(username1,false,"");
 		
 		/*Step Number: 1

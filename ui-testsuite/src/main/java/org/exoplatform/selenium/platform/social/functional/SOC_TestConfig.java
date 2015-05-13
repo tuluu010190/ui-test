@@ -17,6 +17,7 @@ import org.exoplatform.selenium.platform.objectdatabase.social.SpaceVisibilityDa
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
@@ -35,6 +36,7 @@ import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationLayoutDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ContainersDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.GateinPortalMemberShipsPermissionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -54,7 +56,8 @@ public class SOC_TestConfig extends PlatformBase {
 	SpaceHomePage spaHome;
 	SpaceSettingManagement setSpaceMg;
 	UserAddManagement userManage;
-	UserAndGroupManagement userGroupManage;
+	UserAndGroupManagement userGroupMg;
+	UserProfilePage userProPg;
 	
 	ForumTopicManagement topicMg;
 	
@@ -76,6 +79,7 @@ public class SOC_TestConfig extends PlatformBase {
 	SpaceVisibilityDatabase spVisiData;
 	SpaceRegistrationDatabase spRegisData;
 	SpaceGroupsDatabase spGroupsData;
+	GateinPortalMemberShipsPermissionDatabase membershipData;
 	
 	RemoteGadgetDatabase remoteGadData;
 	TextBoxDatabase txData;
@@ -106,7 +110,7 @@ public class SOC_TestConfig extends PlatformBase {
 		pgCreateWiz = new PageCreationWizard(driver);
 		
 		userManage = new UserAddManagement(driver);
-		userGroupManage = new UserAndGroupManagement(driver);
+		
 		topicMg = new ForumTopicManagement(driver);
 		
 		wikiMg = new WikiManagement(driver);
@@ -114,6 +118,8 @@ public class SOC_TestConfig extends PlatformBase {
 		
 		SEHome = new SiteExplorerHome(driver);
 		creatDoc = new CreateNewDocument(driver);
+		userGroupMg = new UserAndGroupManagement(driver);
+		userProPg = new UserProfilePage(driver);
 		
 		evMg = new EventManagement(driver);
 		
@@ -155,9 +161,11 @@ public class SOC_TestConfig extends PlatformBase {
 		spGroupsData = new SpaceGroupsDatabase();
 		spGroupsData.setData(spaceGroupsFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
-		info("End setUpBeforeClass");
+		membershipData = new GateinPortalMemberShipsPermissionDatabase();
+		membershipData.setData(portalPermisMemFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		info("End setUpBeforeMethod");
 	}
-
 
 	@AfterMethod
 	public void afterMethod(){

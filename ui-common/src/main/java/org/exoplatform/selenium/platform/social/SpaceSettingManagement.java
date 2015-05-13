@@ -26,7 +26,6 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_ACCESS_ONLY_ONE_MANAGER_NUMBER = By.xpath("(.//*[@id='existingUsersTable']//*[contains(@class,'uiSwitchBtn')]//input[@checked='checked'])[1]");
 	public final By ELEMENT_ACCESS_MORE_ONE_MANAGER_NUMBER = By.xpath("(.//*[@id='existingUsersTable']//*[contains(@class,'uiSwitchBtn')]//input[@checked='checked'])[2]");
 	public final By ELEMENT_MEMBER_TABLE = By.xpath("(.//*[@id='existingUsersTable']");
-	public final String ELEMENT_USER_IN_MEMBER_TABLE =".//*[@id='existingUsersTable']//*[contains(text(),'${fullName}')]";
 	
 	//Search user
 	public final String ELEMENT_CLOSE_MESSAGE = "//*[contains(@title,'Close Window')]";
@@ -68,14 +67,17 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
 	public final String ELEMENT_SPACE_CHANGE_ROLE_USER_MEMBER= ".//*[contains(text(),'${user}')]/..//*[@class='uiSwitchBtn']";
 	public final String ELEMENT_SPACE_DELETE_USER_BTN = "//*[contains(@onclick,'${user}')]/..//*[@class='uiIconDelete uiIconLightGray']";
+	public final String ELEMENT_SPACE_REMOVE_USER_BTN_MEMBER_TABLE = ".//*[contains(text(),'${fullName}')]/..//*[contains(@class,'uiIconDelete')]";
 	public final String ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT=".//*[contains(text(),'${user}')]/..//*[@class='uiIconValidate uiIconLightGray']";
+	public final String ELEMENT_SPACE_MEMBERS_TAB_DECLINE_REQUEST_jOINT =".//*[contains(text(),'${user}')]/..//*[contains(@class,'uiIconRemove')]";
 	public final By ELEMENT_SPACE_SETTING_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceInfo-tab')]");
 	public final By ELEMENT_SPACE_CHANGE_AVATAR_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Change Picture']");
 	
 	//invitation member
 	public final String ELEMENT_SPACE_INVITED_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Invited')]/../../..//*[contains(text(),'${user}')]";
 	public final String ELEMENT_SPACE_MEMBERS_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Members')]/../../..//*[contains(text(),'${user}')]";
-
+	public final String ELEMENT_USER_IN_MEMBER_TABLE =".//*[@id='existingUsersTable']//*[contains(text(),'${fullName}')]";
+	
 	//Invitation a group
 	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_TAB=By.xpath(".//*[contains(@data-target,'#UISpaceGroupBound-tab')]");
 	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_CHECKBOX=By.xpath(".//*[@id='UseExistingGroupCheckBox']");
@@ -112,7 +114,6 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Edit this Node')]");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_DELETE= By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Delete Node')]");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_ADD_NEW_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Add new Node')]");
-	//public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT_NODE_PAGE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Edit Node's Page')]");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT_NODE_PAGE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//*[@class='uiIconEditPageNode']");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_COPY_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Copy Node')]");
 	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_PASTE_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Paste Node')]");
@@ -138,6 +139,8 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	//message
 	public final String ELEMENT_SPACE_NAVIGATION_COPY_AT_SAME_LEVEL = "This node name already exists.";
 
+	//Warining popup
+	public final String ELEMENT_SPACE_INVITE_EXISTING_MEMBER=".//*[contains(@class,'UIPopupWindow')]//*[contains(text(),'Some users already exist in the invitation list, including: ${username}')]";
 	
 	ManageAlert alert;
 	NavigationManagement naviManage;
@@ -188,6 +191,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	 * @param fullName
 	 */
 	public void inviteUser(String userName,boolean verify,String fullName){
+		goToMemberTab();
 		info("Click on select user button");
 		click(ELEMENT_SPACE_MEMBERS_SELECT_USER);
 		info("--Search user " + user + "--");
@@ -220,7 +224,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		
 	}
 	/**
-	 * Remove a user in the list
+	 * Remove a user in the invited list
 	 * @param user
 	 */
 	public void removeUser(String user){
@@ -229,6 +233,18 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Click on Delete button to remove user");
 		click(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user));
 		waitForElementNotPresent(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user));
+	}
+	
+	/**
+	 * Remove a user in the member list
+	 * @param fullName
+	 */
+	public void removeUserFromMemberlist(String fullName){
+		info("OPen members tab");
+		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
+		info("Click on Delete button to remove user");
+		click(ELEMENT_SPACE_REMOVE_USER_BTN_MEMBER_TABLE.replace("${fullName}",fullName));
+		waitForElementNotPresent(ELEMENT_SPACE_REMOVE_USER_BTN_MEMBER_TABLE.replace("${fullName}",fullName),2000,1);
 	}
 	/**
 	 * Remove an application
@@ -250,7 +266,20 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Click on join button to remove user");
 		click(ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT.replace("${user}",user));
 		info("Verify that the member is shown in member list");
-		waitForAndGetElement(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user),2000,0);
+		waitForAndGetElement(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user),2000,1);
+	}
+	
+	/**
+	 * Decline a pending request to a space
+	 * @param user
+	 */
+	public void declineRequest(String user){
+		info("OPen members tab");
+		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
+		info("Click on join button to remove user");
+		click(ELEMENT_SPACE_MEMBERS_TAB_DECLINE_REQUEST_jOINT.replace("${user}",user));
+		info("Verify that the member is shown in member list");
+		waitForElementNotPresent(ELEMENT_SPACE_DELETE_USER_BTN.replace("${user}",user),2000,1);
 	}
 	
 	/**

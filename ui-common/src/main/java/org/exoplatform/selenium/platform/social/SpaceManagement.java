@@ -90,9 +90,11 @@ public class SpaceManagement extends SpaceHomePage {
 	public final String ELEMENT_MY_SPACE_ALL_SPACES_JOIN_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Join']";
 	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING = ".//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Request Pending')]";
     public final By ELEMENT_ALL_SPACE_ACTIVE_TAB=By.xpath(".//*[@id='UIManageAllSpaces']//*[contains(@class,'active')]//*[contains(@href,'all-spaces')]");
-	//Request pending tab
+	
+    //Request pending tab
 	public final By ELEMENT_MY_SPACE_REQUEST_PENDING_TAB = By.xpath("//*[contains(@href,'pendingSpace')]");
-
+	public final String ELEMENT_SPACE_CANCEL_BUTTON="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Cancel']";
+	
 	//Members
 	public final By ELEMENT_SPACE_GOWIKI = By.xpath("//*[@class='uiIconAppWikiPortlet uiIconDefaultApp']/..//*[@id='wiki']");
 	public final By ELEMENT_SPACE_MEMBERS = By.xpath("//*[@data-toggle='tab' and text()='Members']");
@@ -101,7 +103,9 @@ public class SpaceManagement extends SpaceHomePage {
 	public final By ELEMENT_SPACE_TEXTBOX_USER_SUGGEST = By.xpath("//*[@class='text' and text()='Mary Williams']");
 	public final By ELEMENT_SPACE_BTN_INVITE = By.xpath("//*[text()='Invite']");
 	public final String ELEMENT_SPACE_BTN_MANAGER = "//*[text()='${name}']/..//*[@class='switchBtnLabelOff']";
-
+	public final String ELEMENT_SPACE_MEMBER_USER_MANAGER=".//*[@id='existingUsersTable']//*[contains(text(),'${fullName}')]/..//*[@class='switchBtnHandle' and contains(@style,'left: 41px;')]";
+	public final String ELEMENT_SPACE_MEMBER_USER_MEMBER=".//*[@id='existingUsersTable']//*[contains(text(),'${fullName}')]/..//*[@class='switchBtnHandle' and not(contains(@style,'left: 41px;'))]";
+	
 	public final By ELEMENT_SPACE_BTN_ACCEPT_INVITE = By.xpath("//*[text()='Accept']");
 	public final By ELEMENT_SPACE_ALLSPACES = By.xpath("//*[text()='All Spaces']");
 
@@ -331,11 +335,13 @@ public class SpaceManagement extends SpaceHomePage {
 	 * Send a request to a space
 	 * @param space
 	 */
-	public void sendARequestToASpace(String space){
+	public void sendARequestToASpace(String space,boolean... isVerify){
 		info("Send a request to a space");
 		waitForAndGetElement(ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN.replace("${space}", space),2000,0).click();
-		info("Verify that request to join button is hidden and request pending status is shown");
-		waitForAndGetElement(ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING.replace("${space}", space),3000,0);
+		if (isVerify.length > 0) {
+			info("Verify that request to join button is hidden and request pending status is shown");
+			waitForAndGetElement(ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING.replace("${space}", space), 3000, 1);
+		}
 	}
 	
 	/**
@@ -385,14 +391,43 @@ public class SpaceManagement extends SpaceHomePage {
      * Request to join a Space
      * @param space
      */
-	public void requestToJoinSpace(String space){
+	public void requestToJoinSpace(String space,boolean... isVerify){
 		info("Request to join a space");
 		searchSpace(space, "");
 		click(ELEMENT_REQUEST_TO_JOIN_SPACE_BTN.replace("${space}", space));
-		waitForAndGetElement(ELEMENT_REQUEST_PENDING.replace("${space}", space));
+		if (isVerify.length > 0) {
+			waitForAndGetElement(
+					ELEMENT_REQUEST_PENDING.replace("${space}", space), 2000, 1);
+		}
 		info("Request successfully");
 	}
 	/**
+	 * Join to space
+	 * @param space
+	 * @param isVerify
+	 */
+	public void joinToSpace(String space,boolean... isVerify){
+		info("Request to join a space");
+		searchSpace(space, "");
+		click(ELEMENT_MY_SPACE_ALL_SPACES_JOIN_BTN.replace("${space}", space));
+		if (isVerify.length > 0) {
+			waitForAndGetElement(
+					ELEMENT_SPACE_LEAVE_BTN.replace("${space}", space), 2000, 1);
+		}
+		info("Request successfully");
+	}
+	/**
+	 * Cancel a pending request
+	 * @param space
+	 */
+	public void cancelPendingRequest(String space){
+		info("Click on Cancel button");
+		click(ELEMENT_SPACE_CANCEL_BUTTON.replace("${space}",space));
+		waitForElementNotPresent(ELEMENT_SPACE_TITLE.replace("${space}",space),2000,1);
+		info("Cancelling pending request is success");
+	}
+	/**
+>>>>>>> FQA-2381:PLF 4.2 - Write High Fnc/Social/space/Member Management/Invite
 	 * Open Forum portlet
 	 */
 	public void goToForumTab(){
@@ -440,4 +475,14 @@ public class SpaceManagement extends SpaceHomePage {
 		waitForAndGetElement(ELEMENT_MEMBER_USER_INFOR,2000,0);
 		info("Member portlet is shown");
 	}
+	/**
+	 * Open user profile portlet of a user
+	 * @param fullName
+	 */
+	public void goToUserProfilePage(String fullName){
+		info("Open User profile page");
+		click(ELEMENT_MEMBER_USER_NAME.replace("${fullName}",fullName));
+		Utils.pause(2000);
+	}
+	
 }

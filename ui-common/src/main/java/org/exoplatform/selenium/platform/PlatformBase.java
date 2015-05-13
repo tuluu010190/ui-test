@@ -29,6 +29,7 @@ public class PlatformBase extends TestBase {
 	public static String DATA_NAME_USER2 = "Mary Williams";
 	public static String DATA_NAME_USER3 = "Jame Davis";
 	public static String DATA_NAME_USER4 = "Jack Miller";
+	public static String DATA_NAME_ROOT = "Root Root";
 	
 	//Gmail
 	public final String GMAIL_URL = "https://mail.google.com";

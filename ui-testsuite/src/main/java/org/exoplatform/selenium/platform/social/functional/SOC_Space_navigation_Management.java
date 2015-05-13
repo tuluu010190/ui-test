@@ -733,8 +733,8 @@ public class SOC_Space_navigation_Management extends SOC_TestConfig{
 			- Navigation management is closed
 			- Changes on Portlet layout was saved*/
 		pgCreateWiz.switchViewMode(false);
-		waitForAndGetElement(userGroupManage.ELEMENT_GROUP_MANAGEMENT_TAB);
-		waitForAndGetElement(userGroupManage.ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
+		waitForAndGetElement(userGroupMg.ELEMENT_GROUP_MANAGEMENT_TAB);
+		waitForAndGetElement(userGroupMg.ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
 		pgCreateWiz.saveChangesPageEditor();
 		
 		info("Reset data");

@@ -1083,7 +1083,6 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		
 		
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();
@@ -1151,8 +1150,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 			- User is added into the table below and status in [Actions] column is [Cancel request]*/ 
 		
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
-		setSpaceMg.inviteUser(DATA_USER2,false,"");
+		setSpaceMg.inviteUser(DATA_USER2,true,DATA_NAME_USER2);
 		
 		/*Step Number: 3
 		 *Step Name: - User B join space

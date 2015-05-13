@@ -10,6 +10,8 @@
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_ApplicationManagement" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Dashboard" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_SpacesActivities" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_navigation_Management" />
 		</classes>
 	</test>
 	<listeners>

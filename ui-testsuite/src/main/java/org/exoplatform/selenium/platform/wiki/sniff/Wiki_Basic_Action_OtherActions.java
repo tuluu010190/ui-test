@@ -306,7 +306,6 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		info("Add new wiki page 1 for space 1");
@@ -1266,7 +1265,6 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		
@@ -1354,7 +1352,6 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		info("Add new wiki page 1 for space 1");

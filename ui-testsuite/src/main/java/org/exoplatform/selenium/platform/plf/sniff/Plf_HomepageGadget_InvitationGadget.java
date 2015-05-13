@@ -88,7 +88,6 @@ public class Plf_HomepageGadget_InvitationGadget extends Plf_TestConfig{
 		hp.goToMySpaces();
 		spaceMg.addNewSpaceSimple(space1,space1);
 		spaceHome.goToSpaceSettingTab();
-		setMag.goToMemberTab();
 		setMag.inviteUser(DATA_USER1,false,"");
 
 		info("Sign in with username2 account");
@@ -98,7 +97,6 @@ public class Plf_HomepageGadget_InvitationGadget extends Plf_TestConfig{
 		hp.goToMySpaces();
 		spaceMg.addNewSpaceSimple(space2,space2);
 		spaceHome.goToSpaceSettingTab();
-		setMag.goToMemberTab();
 		setMag.inviteUser(DATA_USER1,false,"");
 
 		info("Sign in with username3 account");
@@ -108,7 +106,6 @@ public class Plf_HomepageGadget_InvitationGadget extends Plf_TestConfig{
 		hp.goToMySpaces();
 		spaceMg.addNewSpaceSimple(space3,space3);
 		spaceHome.goToSpaceSettingTab();
-		setMag.goToMemberTab();
 		setMag.inviteUser(DATA_USER1,false,"");
 
 		magAc.signIn(DATA_USER1, DATA_PASS);

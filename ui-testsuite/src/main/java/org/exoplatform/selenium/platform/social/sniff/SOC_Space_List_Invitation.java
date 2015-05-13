@@ -34,7 +34,6 @@ public class SOC_Space_List_Invitation extends SOC_TestConfig_1 {
 		spaMg.addNewSpaceSimple(space,space);
 		
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();

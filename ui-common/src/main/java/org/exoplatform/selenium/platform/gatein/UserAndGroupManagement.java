@@ -20,6 +20,8 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_LINK_USERS = ".//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Add Users')]";
 	public final String ELEMENT_GROUP_MANAGEMENT_TAB = "//a[contains(@class,'actionIcon groupButton')]/i";
 	public final String ELEMENT_GROUP_MANAGEMENT_INFO = ".//*[contains(text(),'Group Info')]";
+	public final String ELEMENT_GROUP_MANAGEMENT_SELECT_GROUP=".//*[@class='groupNavigationContainer']//*[contains(@title,'${name}')]";
+	
 	public final String ELEMENT_TAB_MEMBERSHIP_MANAGEMENT = "//a[contains(@class,'actionIcon membershipButton')]/i";
 	public final String ELEMENT_MEMBERSHIP_MANAGEMENT_GRID = "//*[contains(text(), 'Add/Edit Membership')]";
 	public final String ELEMENT_GROUP_ADD_NEW_ICON = "//*[@data-original-title='Add New Group']/i";
@@ -120,7 +122,20 @@ public class UserAndGroupManagement extends PlatformBase {
 		waitForAndGetElement(ELEMENT_MEMBERSHIP_MANAGEMENT_GRID);
 		Utils.pause(2000);
 	}
-
+	
+	/**
+	 * Select a group
+	 * 
+	 * @param arrayGroupPath
+	 */
+	public void selectGroup(String[] arrayGroupPath) {
+		info("Select a group in the list");
+		for (String group : arrayGroupPath) {
+			info("Select a group:" + group);
+			click(ELEMENT_GROUP_MANAGEMENT_SELECT_GROUP.replace("${name}", group));
+		}
+		Utils.pause(2000);
+	}
 	/**
 	 * function: Add new group
 	 * 

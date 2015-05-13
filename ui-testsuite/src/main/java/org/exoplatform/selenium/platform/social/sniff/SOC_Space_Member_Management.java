@@ -39,7 +39,6 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();
@@ -102,7 +101,6 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		spaMg.addNewSpaceSimple(space,space);
 		info(" After invited user accept invitation, invited  space will move from invitation space list to my space list of user");
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		setSpaceMg.inviteUser(DATA_USER4,false,"");
 		
@@ -123,8 +121,8 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		spaHome.goToSpaceSettingTab();
 		info("Accepted user is displayed on Member List");
 		click(setSpaceMg.ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
-		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}","Mary Williams"),2000,0);
-		waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}","Jack Miller"));
+		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}",DATA_NAME_USER2),2000,0);
+		waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}",DATA_NAME_USER4));
 		
 		/*info("Delete a Space");
 		hp.goToMySpaces();
@@ -157,7 +155,6 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();
@@ -173,7 +170,7 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		spaHome.goToSpaceSettingTab();
 		info(" Space is disappeared from list and moved to All spaces list, user is not member of space");
 		click(setSpaceMg.ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
-		waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}","Mary Williams"),2000,0);
+		waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_MEMBERS_USER_TABLE.replace("${user}",DATA_NAME_USER2),2000,1);
 		
 		/*info("Delete a Space");
 		hp.goToMySpaces();
@@ -207,7 +204,6 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		magAc.signOut();
@@ -219,7 +215,6 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		spaHome.goToSpace(space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.removeUser(DATA_USER2);
 		
 		/*info("Delete a Space");
@@ -270,7 +265,6 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		spaHome.goToSpace(space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.acceptRequest(DATA_USER2);
 		
 		/*info("Delete a Space");

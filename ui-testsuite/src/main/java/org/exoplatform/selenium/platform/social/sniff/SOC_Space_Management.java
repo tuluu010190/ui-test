@@ -555,7 +555,6 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
 		
 		info("Add new wiki page 1 for space 1");
