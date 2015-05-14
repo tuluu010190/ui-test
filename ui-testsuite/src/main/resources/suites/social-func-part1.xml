@@ -12,6 +12,9 @@
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Dashboard" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_SpacesActivities" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_navigation_Management" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_MemberManagement_Leave" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_MemberManagement_Remove" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_Space_Information" />
 		</classes>
 	</test>
 	<listeners>

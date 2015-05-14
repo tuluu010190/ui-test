@@ -146,6 +146,8 @@ public class TestBase {
 	protected String spaceappFilePath;
 	protected String spaceNavigationDefaultNodesFilePath;
 	protected String spaceGroupsFilePath;
+	protected String spaceWarnMessageFilePath;
+	
 	protected String notiDesFilePath;
 
 	/*========Default System Property=============*/
@@ -230,6 +232,7 @@ public class TestBase {
 	public final String DEFAULT_SPACEAPPLICATIONURL="DataDriven/"+"space_application.xls";
 	public final String DEFAULT_SPACE_NAVIGATION_DEFAULT_NODES_URL = "DataDriven/"+"space_navigation_default_nodes.xls";
 	public final String DEFAULT_SPACE_GROUPS_URL="DataDriven/"+"space_groups.xls";
+	public final String DEFAULT_SPACE_WARNING_MESSAGE_URL="DataDriven/"+"space_warning_message.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -338,7 +341,8 @@ public class TestBase {
 		spaceRegistrationFilePath = System.getProperty("spaceRegistrationFilePath");
 		spaceappFilePath=System.getProperty("spaceappFilePath");
 		spaceGroupsFilePath = System.getProperty("spaceGroupsFilePath");
-
+		spaceWarnMessageFilePath = System.getProperty("spaceWarnMessageFilePath");
+		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -414,6 +418,7 @@ public class TestBase {
 		if (spaceappFilePath==null) spaceappFilePath= DEFAULT_SPACEAPPLICATIONURL;
 		if (spaceNavigationDefaultNodesFilePath == null) spaceNavigationDefaultNodesFilePath = DEFAULT_SPACE_NAVIGATION_DEFAULT_NODES_URL;
 		if (spaceGroupsFilePath==null) spaceGroupsFilePath=DEFAULT_SPACE_GROUPS_URL;
+		if (spaceWarnMessageFilePath==null) spaceWarnMessageFilePath=DEFAULT_SPACE_WARNING_MESSAGE_URL;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -471,6 +476,7 @@ public class TestBase {
 		spaceRegistrationFilePath = getAbsoluteFilePath(spaceRegistrationFilePath);
 		spaceNavigationDefaultNodesFilePath = getAbsoluteFilePath(spaceNavigationDefaultNodesFilePath);
 		spaceGroupsFilePath = getAbsoluteFilePath(spaceGroupsFilePath);
+		spaceWarnMessageFilePath = getAbsoluteFilePath(spaceWarnMessageFilePath);
 	}
 
 	/**

@@ -14,6 +14,7 @@ import org.exoplatform.selenium.platform.objectdatabase.social.SpaceNavigationDe
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceGroupsDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceRegistrationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceVisibilityDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.SpaceWarningMessageDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -79,6 +80,7 @@ public class SOC_TestConfig extends PlatformBase {
 	SpaceVisibilityDatabase spVisiData;
 	SpaceRegistrationDatabase spRegisData;
 	SpaceGroupsDatabase spGroupsData;
+	SpaceWarningMessageDatabase  spWarnMessg;
 	GateinPortalMemberShipsPermissionDatabase membershipData;
 	
 	RemoteGadgetDatabase remoteGadData;
@@ -87,6 +89,8 @@ public class SOC_TestConfig extends PlatformBase {
 	
 	ContainersDatabase containerData;
 	LanguageDatabase langData;
+	
+
 	
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
@@ -163,6 +167,9 @@ public class SOC_TestConfig extends PlatformBase {
 		
 		membershipData = new GateinPortalMemberShipsPermissionDatabase();
 		membershipData.setData(portalPermisMemFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		spWarnMessg = new SpaceWarningMessageDatabase();
+		spWarnMessg.setData(spaceWarnMessageFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
 		info("End setUpBeforeMethod");
 	}

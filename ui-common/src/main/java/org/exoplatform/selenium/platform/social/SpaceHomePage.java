@@ -25,6 +25,16 @@ public class SpaceHomePage extends PlatformBase{
 	public final String ELEMENT_SPACE_MENU_DISPLAYORDER = ".//*[@id='spaceMenuTab']/li[${number}]//*[contains(text(),'${tab}')]";
 	
 	//Navigation menu
+	public final By ELEMENT_HORIZOLTAL_MENU_BAR = By.xpath(".//*[@id='spaceMenuTab']");
+	public final String ELEMENT_SPACE_TAB_NAME=".//*[@id='spaceMenuTab']//*[contains(text(),'${name}')]";
+	public final By ELEMENT_ACTIVITY_STREAM_TAB = By.xpath(".//*[contains(@class,'uiIconAppSpaceActivityStreamPortlet')]");
+	public final By ELEMENT_FORUM_TAB = By.xpath(".//*[contains(@class,'uiIconAppForumPortlet')]");
+	public final By ELEMENT_WIKI_TAB = By.xpath(".//*[contains(@class,'uiIconAppWikiPortlet')]");
+	public final By ELEMENT_DOCUMENT_TAB = By.xpath(".//*[contains(@class,'uiIconAppFileExplorerPortlet')]");
+	public final By ELEMENT_AGENDA_TAB = By.xpath(".//*[contains(@class,'uiIconAppCalendarPortlet')]");
+	public final By ELEMENT_MEMBER_TAB = By.xpath(".//*[contains(@class,'uiIconAppMembersPortlet')]");
+	public final By ELEMENT_SPACE_SETTING_TAB = By.xpath(".//*[contains(@class,'uiIconAppSpaceSettingPortlet')]");
+	
 	public By ELEMENT_SPACE_SPACE_SETTINGS=By.xpath("//*[@class='uiIconAppSpaceSettingPortlet uiIconDefaultApp']/..");
 	public By ELEMENT_SPACE_WIKI_TAB=By.xpath(".//*[@id='spaceMenuTab']//*[contains(text(),'Wiki')]");
 	public By ELEMENT_SPACE_WIKI_TAB_CONTENT=By.xpath("//*[@id='UIWikiPortlet']");

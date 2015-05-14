@@ -12,6 +12,7 @@ import org.exoplatform.selenium.ManageAlert;
 
 public class UserAndGroupManagement extends PlatformBase {
 
+	
 	public final String ELEMENT_LINK_SETUP = ".//*[@id='UISetupPlatformToolBarPortlet']/a";
 	public final String ELEMENT_MANAGE_USER = ".//*[@id='UISetupPlatformToolBarPortlet']//a[text()='Users']";	
 	public final String ELEMENT_GROUP_AND_ROLE_LINK = ".//*[@id='UISetupPlatformToolBarPortlet']//a[contains(text(),'Groups and Roles')]";
@@ -90,6 +91,8 @@ public class UserAndGroupManagement extends PlatformBase {
 	//User membership tab
 	public final By ELEMENT_USER_MEMBERSHIP_TAB = By.xpath("//*[@data-target='#UIUserMembershipSelector-tab']");
 
+	//Group management
+	public final String ELEMENT_USER_REMOVE_MEMBER_ICON = ".//*[contains(text(),'${userName}')]/../..//*[contains(@class,'uiIconDeleteUser')]";
 
 
 	ManageAlert alert;
@@ -555,5 +558,16 @@ public class UserAndGroupManagement extends PlatformBase {
 		dialog.closeMessageDialog();
 		searchUser("", ELEMENT_MSG_SEARCH_USER_NAME);
 		waitForElementNotPresent(userDeleteIcon);
+	}
+	/**
+	 * Remove a user from a group
+	 * @param username
+	 */
+	public void removeUser(String username){
+		info("Click on Delete button");
+		click(ELEMENT_USER_REMOVE_MEMBER_ICON.replace("${userName}",username));
+		alert.acceptAlert();
+		waitForElementNotPresent(ELEMENT_USER_REMOVE_MEMBER_ICON.replace("${userName}",username));
+		info("User is removed from the group successfully");
 	}
 }

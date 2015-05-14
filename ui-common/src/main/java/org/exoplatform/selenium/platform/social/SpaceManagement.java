@@ -114,27 +114,23 @@ public class SpaceManagement extends SpaceHomePage {
 	public final String ELEMENT_REQUEST_PENDING = "//*[contains(text(),'${space}')]/../../..//*[text()='Request Pending']";
 	
 	//Forum tab
-	public final By ELEMENT_FORUM_TAB = By.xpath(".//*[contains(@class,'uiIconAppForumPortlet')]");
 	public final By ELEMENT_FORUM_START_BUTTON_UP = By.xpath("(.//*[@id='UITopicContainer']//*[contains(@class,'uiIconForumCreateTopic ')])[1]");
 
 	//Wiki tab
-	public final By ELEMENT_WIKI_TAB = By.xpath(".//*[contains(@class,'uiIconAppWikiPortlet')]");
 	public final By ELEMENT_WIKI_HOME_TITLE =By.xpath(".//*[@id='titleInfo']");
 	//Document tab
-	public final By ELEMENT_DOCUMENT_TAB = By.xpath(".//*[contains(@class,'uiIconAppFileExplorerPortlet')]");
 	public final By ELEMENT_DOCUMENT_FOLDER_ADD_BTN = By.xpath(".//*[contains(@class,'uiIconEcmsAddFolder ')]");	
 	
 	//Agenda tab
-	public final By ELEMENT_AGENDA_TAB = By.xpath(".//*[contains(@class,'uiIconAppCalendarPortlet')]");
     public final By ELEMENT_AGENDA_EVENT_ADD_BTN =By.xpath(".//*[@id='UIActionBarQuickAddEvent']");
 	
     //Member tab
-	public final By ELEMENT_MEMBER_TAB = By.xpath(".//*[contains(@class,'uiIconAppMembersPortlet')]");
 	public final By ELEMENT_MEMBER_USER_INFOR = By.xpath(".//*[@id='spaceManagerListBox']");
 	public final By ELEMENT_MEMBER_USER_SEARCH= By.xpath(".//*[@id='UIProfileUserSearch']");
 	public final By ELEMENT_MEMBER_USER_CONTACT_LIST=By.xpath(".//*[@id='spaceMemberListBox']");
 	public final String ELEMENT_MEMBER_USER_NAME = ".//*[@id='spaceMemberListBox']//*[contains(@data-text,'${fullName}')]";
 	
+
 	ManageAlert alert;
 
 	/** 
@@ -373,7 +369,7 @@ public class SpaceManagement extends SpaceHomePage {
 		info("Click on Accept button of the space");
 		click(ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN.replace("${space}",space));
 		info("Verify that the user joijed to the space");
-		waitForAndGetElement( ELEMENT_SPACE_NAME.replace("${name}",space),3000,0);
+		waitForAndGetElement( ELEMENT_SPACE_NAME.replace("${name}",space),3000,1);
 	}
 	/**
 	 * Ignore an invitation of the space
@@ -426,8 +422,18 @@ public class SpaceManagement extends SpaceHomePage {
 		waitForElementNotPresent(ELEMENT_SPACE_TITLE.replace("${space}",space),2000,1);
 		info("Cancelling pending request is success");
 	}
+	
 	/**
->>>>>>> FQA-2381:PLF 4.2 - Write High Fnc/Social/space/Member Management/Invite
+	 * Open Activity Stream portlet
+	 */
+	public void goToActivityStreamTab(){
+		info("Open Activity STream Tab");
+		click(ELEMENT_ACTIVITY_STREAM_TAB);
+		Utils.pause(2000);
+		info("Activity STream portlet is shown");
+	}
+	
+	/**
 	 * Open Forum portlet
 	 */
 	public void goToForumTab(){

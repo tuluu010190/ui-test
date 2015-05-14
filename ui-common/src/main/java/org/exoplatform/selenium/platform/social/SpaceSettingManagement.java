@@ -66,7 +66,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
 	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
 	public final String ELEMENT_SPACE_CHANGE_ROLE_USER_MEMBER= ".//*[contains(text(),'${user}')]/..//*[@class='uiSwitchBtn']";
-	public final String ELEMENT_SPACE_DELETE_USER_BTN = "//*[contains(@onclick,'${user}')]/..//*[@class='uiIconDelete uiIconLightGray']";
+	public final String ELEMENT_SPACE_DELETE_USER_BTN = ".//*[contains(text(),'${user}')]/..//*[@class='uiIconDelete uiIconLightGray']";
 	public final String ELEMENT_SPACE_REMOVE_USER_BTN_MEMBER_TABLE = ".//*[contains(text(),'${fullName}')]/..//*[contains(@class,'uiIconDelete')]";
 	public final String ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT=".//*[contains(text(),'${user}')]/..//*[@class='uiIconValidate uiIconLightGray']";
 	public final String ELEMENT_SPACE_MEMBERS_TAB_DECLINE_REQUEST_jOINT =".//*[contains(text(),'${user}')]/..//*[contains(@class,'uiIconRemove')]";
@@ -140,9 +140,10 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_SPACE_NAVIGATION_COPY_AT_SAME_LEVEL = "This node name already exists.";
 
 	//Warining popup
-	public final String ELEMENT_SPACE_INVITE_EXISTING_MEMBER=".//*[contains(@class,'UIPopupWindow')]//*[contains(text(),'Some users already exist in the invitation list, including: ${username}')]";
+	//public final String ELEMENT_SPACE_INVITE_EXISTING_MEMBER=".//*[contains(@class,'UIPopupWindow')]//*[contains(text(),'Some users already exist in the invitation list, including: ${username}')]";
+    public final String ELEMENT_SPACE_WARNING_MESSAGE=".//*[contains(@class,'UIPopupWindow')]//*[contains(text(),'${warningText}')]";	
 	
-	ManageAlert alert;
+    ManageAlert alert;
 	NavigationManagement naviManage;
 	Button button;
 	/**
@@ -182,7 +183,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public void goToMemberTab(){
 		info("Open members tab");
 		click(ELEMENT_SPACE_SETTINGS_MEMBERS_TAB);
-		waitForAndGetElement(ELEMENT_SPACE_MEMBERS_SELECT_USER,2000);
+		waitForAndGetElement(ELEMENT_SPACE_MEMBERS_SELECT_USER,2000,1);
 	}
 	/**
 	 * Invite a user in the space
@@ -259,7 +260,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	}
 	/**
 	 * Accept a pending request to a space
-	 * @param user
+	 * @param user is fullName
 	 */
 	public void acceptRequest(String user){
 		info("OPen members tab");

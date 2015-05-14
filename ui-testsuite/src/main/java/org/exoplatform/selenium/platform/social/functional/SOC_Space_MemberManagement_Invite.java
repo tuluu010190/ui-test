@@ -287,8 +287,10 @@ import org.testng.annotations.*;
 				- Enter user name or select users who are existing in invitation list joining to the Space
 			*Expected Outcome: 
 				Show warning message: â€ Some users have already existed in the inviting list, including: usernameâ€*/ 
+			ArrayList<String> warningTextArray=spWarnMessg.getArrayContentByType(1);
+			String warningText=warningTextArray.get(0);
 			setSpaceMg.inviteUser(DATA_USER2,false,"");
-			waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_INVITE_EXISTING_MEMBER.replace("${username}",DATA_USER2),2000,1);
+			waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_WARNING_MESSAGE.replace("${warningText}",warningText).replace("${username}",DATA_USER2),2000,1);
 			button.ok();
 			
 			/*info("Delete created space");
@@ -1162,12 +1164,13 @@ import org.testng.annotations.*;
 			- Click [invite]
 		*Expected Outcome: 
 			Sending the invitation Failed.Show warning message: â€ Some users have already existed in the space, including: usernameâ€*/ 
-
+		 ArrayList<String> warningTextArray=spWarnMessg.getArrayContentByType(1);
+		 String warningText=warningTextArray.get(0);
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(DATA_USER1,false,"");
-        waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_INVITE_EXISTING_MEMBER.replace("${username}",DATA_USER1),2000,1);
-		
+		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_WARNING_MESSAGE.replace("${warningText}",warningText).replace("${username}",DATA_USER1),2000,1);
+		button.ok();
 		/*info("Delete created space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);
@@ -1290,7 +1293,6 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			Sending the invitation successfully. Root automatic become a member of space*/
 		spaHome.goToSpaceSettingTab();
-		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(USER_ROOT,false,"");
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_WIKI,2000,1);
 
