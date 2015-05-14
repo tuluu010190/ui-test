@@ -127,7 +127,7 @@ public class PLF_HomePageActivityStream_Activity_Likes extends Activity {
 	 * Step 1: Check message after 1 like
 	 */
 	@Test
-	public void test03_DisplayMessageAfter1Like(){
+	public void test03_04_05_06_07_DisplayMessageAfter1Like(){
 		//Declare variable
 		String activity = "activity 78625";
 
@@ -194,7 +194,7 @@ public class PLF_HomePageActivityStream_Activity_Likes extends Activity {
 	 * ERROR: Refer: https://jira.exoplatform.org/browse/SOC-4291
 	 */
 	@Test 
-	public void test04_DisplayMessageAfterMoreThan2UserLikeActivity(){
+	public void test08_DisplayMessageAfterMoreThan2UserLikeActivity(){
 		//Declare variable
 		String activity = "activity 78627";
 
@@ -255,7 +255,7 @@ public class PLF_HomePageActivityStream_Activity_Likes extends Activity {
 	 * - Avatar of the user A is displayed at the right
 	 */
 	@Test
-	public void test07_CheckLikesPart(){
+	public void test09_10_11_CheckLikesPart(){
 		//Declare variable
 		String activity1 = "activity 67659";
 
@@ -318,8 +318,8 @@ public class PLF_HomePageActivityStream_Activity_Likes extends Activity {
 	 * Note: not finish test case because this function is fail -> can't locate element to complete test case
 	 * ERROR: Refer https://jira.exoplatform.org/browse/UI-2031
 	 */
-	@Test(groups= "error")
-	public void test05_ExpandTheListOfAvatars(){
+	@Test
+	public void test12_ExpandTheListOfAvatars(){
 		//Declare variable
 		String activity = "activity 78623";
 		String[] username = new String[15];
@@ -341,11 +341,11 @@ public class PLF_HomePageActivityStream_Activity_Likes extends Activity {
 
 		//Connect people
 		navToolBar.goToConnectionPage();
-		for(int i=0; i<15; i++){
+		for(int i=0; i<14; i++){
 			peoConn.connectPeople(username[i]+" "+username[i]);
 		}
 
-		for(int i=0; i<15; i++){
+		for(int i=0; i<14; i++){
 			magAcc.signOut();
 			magAcc.signIn(username[i], username[i]);
 			peoConn.acceptInvitation(user);
@@ -372,7 +372,7 @@ public class PLF_HomePageActivityStream_Activity_Likes extends Activity {
 			waitForAndGetElement(avatarName.contains(username[i]+" "+username[i]));
 			j++;
 		}
-		for(int i=14;i>=11;i--){
+		for(int i=13;i>=11;i--){
 			waitForElementNotPresent(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", String.valueOf(j)));
 			j++;
 		}

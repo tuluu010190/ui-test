@@ -290,7 +290,7 @@ public class PLF_HomePageActivityStream_Activity_General extends Activity{
 		- The activity is displayed in the activity stream
 		- The icon type of the activity is displayed in the timeline		*/ 
 
-		selectFile(driverName,true,folderPath,"",uploadFileName,folder);
+		selectFile(driverName,true,folderPath,"",uploadFileName,folder,true);
 		waitForAndGetElement(By.xpath(home.ELEMENT_ACTIVITY.replace("${activityText}", uploadFileName)));
 		//Activity type 
 		waitForAndGetElement(home.ELEMENT_CONTENT_TYPE_PLF41.replace("${activityText}", uploadFileName));
@@ -500,12 +500,12 @@ public class PLF_HomePageActivityStream_Activity_General extends Activity{
 		if(plfVersion.equalsIgnoreCase("4.0")){
 			waitForAndGetElement(By.xpath(home.ELEMENT_CONTENT_VIEW_LINK.replace("@{fileName}", file)));
 			waitForAndGetElement(By.xpath(home.ELEMENT_DOWNLOAD_ICON.replace("${activityText}", file)));
-			waitForAndGetElement(By.xpath(home.ELEMENT_CONTENT_EDIT_LINK.replace("@{fileName}", file))); 
+			//waitForAndGetElement(By.xpath(home.ELEMENT_CONTENT_EDIT_LINK.replace("@{fileName}", file))); 
 		}
 		if(plfVersion.equalsIgnoreCase("4.1")){
 			waitForAndGetElement(By.xpath(home.ELEMENT_CONTENT_VIEW_LINK_PLF41.replace("${activityText}", file)));
 			waitForAndGetElement(By.xpath(home.ELEMENT_DOWNLOAD_ICON.replace("${activityText}", file)));
-			waitForAndGetElement(By.xpath(home.ELEMENT_CONTENT_EDIT_LINK_PLF41.replace("${activityText}", file)));
+			//waitForAndGetElement(By.xpath(home.ELEMENT_CONTENT_EDIT_LINK_PLF41.replace("${activityText}", file)));
 		}
 		//delete data
 		nav.goToSiteExplorer();

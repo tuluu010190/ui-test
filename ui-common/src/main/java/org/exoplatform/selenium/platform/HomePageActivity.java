@@ -985,7 +985,7 @@ public class HomePageActivity extends PlatformBase{
 			waitForAndGetElement(ELEMENT_MESSAGE_CONFIRM_DELETE_ACTIVITY);
 			button.ok();
 			if(verifyElement)
-				waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), DEFAULT_TIMEOUT,1,2);
+				waitForElementNotPresent(By.xpath(ELEMENT_ACTIVITY_DELETE.replace("${activityText}", activityText)), 5000,1,2);
 		}
 		Utils.pause(2000);
 

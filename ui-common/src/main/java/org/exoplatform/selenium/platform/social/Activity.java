@@ -60,8 +60,8 @@ public class Activity extends SocialBase {
 	public final By ELEMENT_LINK = By.xpath("//i[@class='uiIconSocUILinkActivityComposer uiIconSocLightGray']");
 	public final By ELEMENT_INPUT_LINK_BOX = By.id("InputLink");
 	public final By ELEMENT_SELECT_FILE_BUTTON = By.linkText("Select File"); 
-	public final By ELEMENT_SELECT_BUTTON = By.xpath("//button[text()='Select']");
-	public final By ELEMENT_UPLOAD_BUTTON = By.xpath("//*[@data-original-title='Upload file.']");
+	public final By ELEMENT_SELECT_BUTTON = By.xpath(".//*[@id='UIDocActivitySelector']//*[text()='Select']");
+	public final By ELEMENT_UPLOAD_BUTTON = By.xpath("//*[@class='uiIconUpload uiIconLightGray']");
 	public final By ELEMENT_ATTACH_BUTTON = By.id("AttachButton");
 	public final By ELEMENT_SHARE_BUTTON = By.id("ShareButton");
 	public final By ELEMENT_NEXT_THUMBNAIL = By.cssSelector("div#NextThumbnail i.uiIconArrowRight.uiIconLightGray");
@@ -242,16 +242,16 @@ public class Activity extends SocialBase {
 		if (upload && uploadFileName!="")
 		{
 			info("-- Upload file --");
-			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
+			WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH,3000,0);
 			driver.switchTo().frame(frame);
-			WebElement upload2 = waitForAndGetElement(ELEMENT_UPLOAD_IMG_ID, DEFAULT_TIMEOUT,1,2);
-			((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block';", upload2);
-			upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
-			info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
-			Utils.pause(1000);
-			driver.switchTo().parentFrame();
-			Utils.pause(1000);
-			driver.navigate().refresh();
+			clickByJavascript(ELEMENT_UPLOAD_BUTTON);
+			uploadFileUsingRobot("TestData/"+uploadFileName);
+			switchToParentWindow();
+			Utils.pause(2000);
+			info("Upload finished");
+			button = new Button(driver);
+			button.closeWindow();
+			click(ELEMENT_FILE_LINK);
 			info("----Select drive----");
 			if(waitForAndGetElement(ELEMENT_DRIVER_CURRENT.replace("${driveName}", driveName), DEFAULT_TIMEOUT, 0)==null){
 				click(ELEMENT_DRIVER_BOX,2);
@@ -267,20 +267,19 @@ public class Activity extends SocialBase {
 		}
 		else 
 		{
-			if(selectFileName!=""){
+			if(selectFileName!="" && selectFileName!=null){
 				click(By.linkText(selectFileName));
 				waitForAndGetElement(ecms.ELEMENT_BREADCUMBSCONTAINER.replace("${fileName}", selectFileName));
-				Utils.pause(500);
 			}
 		}
 		if(shareActivity){
+			info("Upload activity");
 			click(ELEMENT_SELECT_BUTTON);
-			waitForElementNotPresent(ELEMENT_SELECT_BUTTON);
 			click(ELEMENT_SHARE_BUTTON);
 			if(upload)
-				waitForAndGetElement(By.xpath("//*[@data-original-title='"+uploadFileName+"']"));
+				waitForAndGetElement(By.xpath(".//*[@data-original-title='"+uploadFileName+"' and @class='linkTitle']"));
 			else
-				waitForAndGetElement(By.xpath("//*[@data-original-title='"+selectFileName+"']"));
+				waitForAndGetElement(By.xpath(".//*[@data-original-title='"+selectFileName+"' and @class='linkTitle']"));
 		}
 	}
 
