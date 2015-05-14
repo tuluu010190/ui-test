@@ -150,7 +150,7 @@ public class BasicAction extends Permission{
 	 * 
 	 */
 	public void addWikiPageRichText(String title, String content){
-
+		goToAddBlankPage();
 		if(this.plfVersion=="4.0"){
 			if(title != null)
 				type(ELEMENT_TITLE_WIKI_INPUT, title, true);
@@ -178,8 +178,10 @@ public class BasicAction extends Permission{
 				Utils.pause(1000);
 				driver.switchTo().defaultContent();
 			}
-			//waitForAndGetElement(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+			
 			Utils.pause(1000);
+			click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+			waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE,100000);
 		}		
 
 	}

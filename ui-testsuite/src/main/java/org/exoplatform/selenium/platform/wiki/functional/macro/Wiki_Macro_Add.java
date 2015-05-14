@@ -599,44 +599,11 @@ public class Wiki_Macro_Add extends ManageDraft{
 		Time series step
 		Custom color
 	 */
-	@Test
-	public void test15_InsertPieChartMacro(){
-		String params = "range:B2-D5;series:columns";
-		String source = "inline";
-		String title = "Chart Test";
-		String type = "pie";
-		String[] content = {"|=|=X|=Y|=Z","|Q1|1.2|3.4|1.3", "|Q2|4.5|3.4|2.3", "|Q3|1.2|4.5|9.0", "|Q4|3.4|1.2|1.2"};
-		String cont = "";
-		String source_code = "{{chart params=${params} source=${inline} title=${title} type=${type}}} |=|=X|=Y|=Z |Q1|1.2|3.4|1.3 |Q2|4.5|3.4|2.3 |Q3|1.2|4.5|9.0 |Q4|3.4|1.2|1.2 {{/chart}}";
-		String content_source = source_code.replace("${params}", "\"" + params + "\"")
-				.replace("${inline}", "\"" + source + "\"")
-				.replace("${title}", "\"" + title +"\"")
-				.replace("${type}", "\"" + type + "\"");
-		//Add source macro in SourceEditor
-		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
-		addWikiPageRichText(title, cont);
-		typeEnterInRichText();
-
-		//Save wiki page
-		createChartMacro(null, params, source, title, type, content,null );
-		click(ELEMENT_SOURCE_EDITOR_BUTTON);
-		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(content_source);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
-
-		//Check the availability of Pie chart macro
-		waitForAndGetElement(ELEMENT_MACRO_CHART.replace("${title}", title));
-
-		//Delete wiki page before exit test case
-		deleteCurrentWikiPage();
-	}
-
 	/**
 	 * CaseID: 78577 - Insert HTML macro
 	 */
 	@Test
-	public void test16_InsertHTMLmacro(){
+	public void test15_InsertHTMLmacro(){
 		String title = "InsertHTML macro";
 		String clean = "true";
 		String wiki = "true";
@@ -668,7 +635,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 	 * CaseID: 78578 - Insert Footnote macro
 	 */
 	@Test
-	public void test17_InsertFootNoteMacro(){
+	public void test16_InsertFootNoteMacro(){
 		String title = "Insert Footnote";
 		String type = "Footnote";
 		String content = "test";
@@ -700,7 +667,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 	 * CaseID 78579: Insert Put Footnote macro
 	 */
 	@Test
-	public void test18_InsertPutFootnotemacro(){
+	public void test17_InsertPutFootnotemacro(){
 		String title = "Insert Footnote";
 		String boxContent = "Box Content 78579";
 		String sourceContent = "= A title = </br>"
@@ -741,42 +708,10 @@ public class Wiki_Macro_Add extends ManageDraft{
 	}
 
 	/**
-	 * This test case is related to an issue on Jira which has status = "Open": Wiki-965: "Formula" macro doesn't work
-	 */
-	@Test (groups="pending")
-	public void test19_InsertFormulaMacro(){
-		String title = "Insert Formula";
-		String fontsize = "NORMAL";
-		String imagetype = "PNG";
-		String content = "\\sum_{n=1}^\\infty\\frac{1}{n^2}=\\frac{\\pi^2}{6}";
-		String cont = "";
-		String sourceContent = "{{formula}} \\sum_{n=1}^\\infty\\frac{1}{n^2}=\\frac{\\pi^2}{6} {{/formula}}";
-
-		//Add source macro in SourceEditor
-		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
-		addWikiPageRichText(title, cont);
-		typeEnterInRichText();
-
-		//Check the availability of Code macro
-		createformulaMacro(fontsize, imagetype, content);
-		click(ELEMENT_SOURCE_EDITOR_BUTTON);
-		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(sourceContent);
-		//Save wiki page
-
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
-		waitForAndGetElement("//img[@alt='${content}']".replace("${content}", content));
-
-		//Delete wiki page before exit test case
-		deleteCurrentWikiPage();
-	}
-
-	/**
 	 * CaseID 78580 - Insert RSS macro (1)
 	 */
 	@Test
-	public void test20_InsertRSSmacro1(){
+	public void test18_InsertRSSmacro1(){
 		String title = "Insert_RSS_macro1";
 		String content = "true";
 		String count = "2";
@@ -816,7 +751,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 	 * CaseID 78582 - Insert RSS macro (2)
 	 */
 	@Test
-	public void test21_InsertRSSMacro2(){
+	public void test19_InsertRSSMacro2(){
 
 		String title = "Insert_RSS_macro2";
 		String cont = "{{rss feed='http://feeds.feedburner.com/massol' image='true' content='true' width='90%' count='3'/}}";
@@ -840,137 +775,8 @@ public class Wiki_Macro_Add extends ManageDraft{
 		deleteCurrentWikiPage();
 	}
 
-	/** Have a bug about display chart
-	 * 
-	 */
 	@Test
-	public void test22_InsertLineChartMacro(){
-		String height = "150";
-		String params = "range:A1-A5;series:columns";
-		String source = "inline";
-		String title = "Line Chart";
-		String type = "line";
-		//String[] content = {"|0.1 |0.2 |0.2 |0.3 |0.4 "};
-		String[] content = {"|0.1","|0.2","|0.2","|0.3","|0.4"};
-		String cont = "";
-		String width = "750";
-		String source_code = "{{chart height=${height} params=${params} source=${inline} title=${title} type=${type} width=${width}}} |0.1 |0.2 |0.2 |0.3 |0.4 {{/chart}}";
-		String content_source = source_code.replace("${height}", "\"" + height + "\"")
-				.replace("${params}", "\"" + params + "\"")
-				.replace("${inline}", "\"" + source + "\"")
-				.replace("${title}", "\"" + title +"\"")
-				.replace("${type}", "\"" + type + "\"")
-				.replace("${width}", "\"" + width + "\"");
-
-		//Add source macro in SourceEditor
-		info("Add new wiki page at Rich Text mode:");
-		goToWiki();
-		goToAddBlankPage();
-		addWikiPageRichText(title, cont);
-		typeEnterInRichText();
-
-		//Save wiki page
-		createChartMacro(height, params, source, title, type, content, width);
-		/*click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	*/
-		info("-- Check in Source editor --");
-		click(ELEMENT_SOURCE_EDITOR_BUTTON);
-		waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(content_source);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-
-		//Check the availability of Code macro
-		waitForAndGetElement(ELEMENT_MACRO_CHART.replace("${title}", title));
-
-		//Delete wiki page before exit test case
-		deleteCurrentWikiPage();
-
-	}
-
-	@Test
-	public void test23_InsertBarChartMacro(){
-		String height = " 320";
-		String params = "range:B2-D5;series:columns;";
-		String source = "inline";
-		String title = "Bar Chart";
-		String type = "bar";
-		String[] content = {"|=|=X|=Y|=Z","|Q1|1.2|3.4|1.3","|Q2|4.5|3.4|2.3","|Q3|1.2|4.5|9.0","|Q4|3.4|1.2|1.2"};
-		String cont = "";
-		String width = "240";
-		String source_code = "{{chart height=${height} params=${params} source=${inline} title=${title} type=${type} width=${width}}} |=|=X|=Y|=Z |Q1|1.2|3.4|1.3 |Q2|4.5|3.4|2.3 |Q3|1.2|4.5|9.0 |Q4|3.4|1.2|1.2 {{/chart}}";
-		String content_source = source_code.replace("${height}", "\"" + height + "\"")
-				.replace("${params}", "\"" + params + "\"")
-				.replace("${inline}", "\"" + source + "\"")
-				.replace("${title}", "\"" + title +"\"")
-				.replace("${type}", "\"" + type + "\"")
-				.replace("${width}", "\"" + width + "\"");
-		//Add source macro in SourceEditor
-		info("Add new wiki page at Rich Text mode:");
-		goToWiki();
-		goToAddBlankPage();
-		addWikiPageRichText(title, cont);
-		typeEnterInRichText();
-
-		//Save wiki page
-		createChartMacro(height, params, source, title, type, content, width);
-		/*click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	*/
-		info("-- Check in Source editor --");
-		click(ELEMENT_SOURCE_EDITOR_BUTTON);
-		waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(content_source);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-
-		//Check the availability of Code macro
-		waitForAndGetElement(ELEMENT_MACRO_CHART.replace("${title}", title));
-
-		//Delete wiki page before exit test case
-		deleteCurrentWikiPage();
-	}
-
-	@Test
-	public void test24_InsertBar3DChartMacro(){
-		String height = "300";
-		String params = "range:B2-B9;series:columns";
-		String source = "inline";
-		String title = "Bar3DChart";
-		String type = "bar3D";
-		String[] content = {"|=Date|=Value","|2012-02-21|1.97","|2012-02-26|2.96","|2012-03-04|3.93","|2012-03-11|4.84","|2012-03-18|5.83","|2012-03-25|4.5","|2012-04-01|3.85","|2012-04-08|4.87"};
-		String cont = "";
-		String width = "400";
-		String source_code = "{{chart params=${params} source=${inline} title=${title} type=${type}}} |=Date|=Value |2012-02-21|1.97 |2012-02-26|2.96 |2012-03-04|3.93 |2012-03-11|4.84 |2012-03-18|5.83 |2012-03-25|4.5 |2012-04-01|3.85 |2012-04-08|4.87 {{/chart}}";
-		String content_source = source_code.replace("${params}", "\"" + params + "\"")
-				.replace("${inline}", "\"" + source + "\"")
-				.replace("${title}", "\"" + title +"\"")
-				.replace("${type}", "\"" + type + "\"");
-
-		//Add source macro in SourceEditor
-		info("Add new wiki page at Rich Text mode:");
-		goToWiki();
-		goToAddBlankPage();
-		addWikiPageRichText(title, cont);
-		typeEnterInRichText();
-
-
-		//Save wiki page
-		createChartMacro(height, params, source, title, type, content, width);
-		/*click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	*/
-		info("-- Check in Source editor --");
-		click(ELEMENT_SOURCE_EDITOR_BUTTON);
-		waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(content_source);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-
-		//Check the availability of Code macro
-		waitForAndGetElement(ELEMENT_MACRO_CHART.replace("${title}", title));
-
-		//Delete wiki page before exit test case
-		deleteCurrentWikiPage();
-	}
-
-	@Test
-	public void test25_InsertTimeSerialChartUsingXYlineAndShapemacro(){
+	public void test20_InsertTimeSerialChartUsingXYlineAndShapemacro(){
 		String height = "300";
 		String params = "range:B2-C19;dataset:timetable_xy;domain_axis_type:date;domain_axis_date_format:MMM-yyyy;date_format:yyyy-MM;time_period:month;range_axis_lower:100;range_axis_upper:190";
 		String source = "inline";
@@ -1014,126 +820,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 	}
 
 	@Test
-	public void test26_InsertTimeSerialchartUsingXYline3Dmacro(){
-		String height = "300";
-		String params = "range:B2-C19;dataset:timetable_xy;domain_axis_type:date;domain_axis_date_format:MMM-yyyy;date_format:yyyy-MM;time_period:month;range_axis_lower:100;range_axis_upper:190";
-		String source = "inline";
-		String title = "xy_line3D";
-		String type = "xy_line3D";
-		String[] content = {"|=|=Series1|=Series2","|2001-2|181.8|129.6","|2001-3|167.3|123.2","|2001-4|153.8|117.2","|2001-5|167.6|124.1","|2001-6|158.8|122.6","|2001-7|148.3|119.2","|2001-8|153.9|116.5","|2001-9|142.7|112.7","|2001-10|123.2|101.5","|2001-11|131.8|106.1","|2001-12|139.6|110.3","|2002-1|142.9|111.7","|2002-2|138.7|111.0","|2002-3|137.3|109.6","|2002-4|143.9|113.2","|2002-5|139.8|111.6","|2002-6|137.0|108.8","|2002-7|132.8|101.6"};
-		String cont = "";
-		String width = "400";
-		String source_code = "{{chart params=${params} source=${inline} title=${title} type=${type}}} |=|=Series1|=Series2 |2001-2|181.8|129.6 |2001-3|167.3|123.2 |2001-4|153.8|117.2 |2001-5|167.6|124.1 |2001-6|158.8|122.6 |2001-7|148.3|119.2 |2001-8|153.9|116.5 |2001-9|142.7|112.7 |2001-10|123.2|101.5 |2001-11|131.8|106.1 |2001-12|139.6|110.3 |2002-1|142.9|111.7 |2002-2|138.7|111.0 |2002-3|137.3|109.6 |2002-4|143.9|113.2 |2002-5|139.8|111.6 |2002-6|137.0|108.8 |2002-7|132.8|101.6 {{/chart}}";
-		String content_source = source_code.replace("${params}", "\"" + params + "\"")
-				.replace("${inline}", "\"" + source + "\"")
-				.replace("${title}", "\"" + title +"\"")
-				.replace("${type}", "\"" + type + "\"");
-
-		//Add source macro in SourceEditor
-		info("Add new wiki page at Rich Text mode:");
-		goToWiki();
-		goToAddBlankPage();
-		addWikiPageRichText(title, cont);
-		typeEnterInRichText();
-
-		//Save wiki page
-		createChartMacro(height, params, source, title, type, content, width);
-		/*click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	*/
-		info("-- Check in Source editor --");
-		click(ELEMENT_SOURCE_EDITOR_BUTTON);
-		waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(content_source);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-
-		//Check the availability of Code macro
-		waitForAndGetElement(ELEMENT_MACRO_CHART.replace("${title}", title));
-
-		//Delete wiki page before exit test case
-		deleteCurrentWikiPage();
-	}
-
-	@Test
-	public void test27_InsertTimeSerialChartUsingXYStepMacro(){
-		String height = "300";
-		String params = "range:B2-C19;dataset:timetable_xy;domain_axis_type:date;domain_axis_date_format:MMM-yyyy;date_format:yyyy-MM;time_period:month;range_axis_lower:100;range_axis_upper:190";
-		String source = "inline";
-		String title = "xy_step";
-		String type = "xy_step";
-		String[] content = {"|=|=Series1|=Series2","|2001-2|181.8|129.6","|2001-3|167.3|123.2","|2001-4|153.8|117.2","|2001-5|167.6|124.1","|2001-6|158.8|122.6","|2001-7|148.3|119.2","|2001-8|153.9|116.5","|2001-9|142.7|112.7","|2001-10|123.2|101.5","|2001-11|131.8|106.1","|2001-12|139.6|110.3","|2002-1|142.9|111.7","|2002-2|138.7|111.0","|2002-3|137.3|109.6","|2002-4|143.9|113.2","|2002-5|139.8|111.6","|2002-6|137.0|108.8","|2002-7|132.8|101.6"};
-		String cont = "";
-		String width = "400";
-		String source_code = "{{chart params=${params} source=${inline} title=${title} type=${type}}} |=|=Series1|=Series2 |2001-2|181.8|129.6 |2001-3|167.3|123.2 |2001-4|153.8|117.2 |2001-5|167.6|124.1 |2001-6|158.8|122.6 |2001-7|148.3|119.2 |2001-8|153.9|116.5 |2001-9|142.7|112.7 |2001-10|123.2|101.5 |2001-11|131.8|106.1 |2001-12|139.6|110.3 |2002-1|142.9|111.7 |2002-2|138.7|111.0 |2002-3|137.3|109.6 |2002-4|143.9|113.2 |2002-5|139.8|111.6 |2002-6|137.0|108.8 |2002-7|132.8|101.6 {{/chart}}";
-		String content_source = source_code.replace("${params}", "\"" + params + "\"")
-				.replace("${inline}", "\"" + source + "\"")
-				.replace("${title}", "\"" + title +"\"")
-				.replace("${type}", "\"" + type + "\"");
-
-
-		//Add source macro in SourceEditor
-		info("Add new wiki page at Rich Text mode:");
-		goToWiki();
-		goToAddBlankPage();
-		addWikiPageRichText(title, cont);
-		typeEnterInRichText();
-
-		//Save wiki page
-		createChartMacro(height, params, source, title, type, content, width);
-		/*click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	*/
-		info("-- Check in Source editor --");
-		click(ELEMENT_SOURCE_EDITOR_BUTTON);
-		waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(content_source);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-
-		//Check the availability of Code macro
-		waitForAndGetElement(ELEMENT_MACRO_CHART.replace("${title}", title));
-
-
-		//Delete wiki page before exit test case
-		deleteCurrentWikiPage();
-	}
-
-	@Test
-	public void test28_InsertCustomColorChartMacro(){
-		String params = "range:B2-D5;series:columns;colors:C3E3F7,1D9FF5,015891,012A45";
-		String source = "inline";
-		String title = "Chart Test";
-		String type = "pie";
-		String[] content = {"|=|=X|=Y|=Z","|Q1|1.2|3.4|1.3","|Q2|4.5|3.4|2.3","|Q3|1.2|4.5|9.0","|Q4|3.4|1.2|1.2"};
-		String cont = "";
-		String source_code = "{{chart params=${params} source=${inline} title=${title} type=${type}}} |=|=X|=Y|=Z |Q1|1.2|3.4|1.3 |Q2|4.5|3.4|2.3 |Q3|1.2|4.5|9.0 |Q4|3.4|1.2|1.2 {{/chart}}";
-		String content_source = source_code.replace("${params}", "\"" + params + "\"")
-				.replace("${inline}", "\"" + source + "\"")
-				.replace("${title}", "\"" + title +"\"")
-				.replace("${type}", "\"" + type + "\"");
-
-		//Add source macro in SourceEditor
-		info("Add new wiki page at Rich Text mode:");
-		goToWiki();
-		goToAddBlankPage();
-		addWikiPageRichText(title, cont);
-		typeEnterInRichText();
-
-		//Save wiki page
-		createChartMacro(null, params, source, title, type, content,null);
-		/*click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	*/
-		info("-- Check in Source editor --");
-		click(ELEMENT_SOURCE_EDITOR_BUTTON);
-		waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(content_source);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-
-		//Check the availability of Code macro
-		waitForAndGetElement(ELEMENT_MACRO_CHART.replace("${title}", title));
-
-		//Delete wiki page before exit test case
-		deleteCurrentWikiPage();
-	}
-	@Test
-	public void test29_InsertIFrameMacro(){
+	public void test21_InsertIFrameMacro(){
 		String title = "Page IFrame";
 		String content = "Page IFram Content";
 		String height = "400";	
@@ -1159,5 +846,4 @@ public class Wiki_Macro_Add extends ManageDraft{
 		//Delete wiki page before exit test case
 		deleteCurrentWikiPage();
 	}
-
 }

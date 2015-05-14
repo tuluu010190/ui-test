@@ -84,6 +84,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_SEARCH_RESULT = By.className("resultNumber");
 	//public final String ELEMENT_PAGE_RESULT = "//*[@id='UIWikiAdvanceSearchResult']//*[contains(text(), '${title}')]";
 	public final String ELEMENT_PAGE_RESULT = "//*[@href='/portal/intranet/wiki/${title}']";
+	public final String ELEMENT_PAGE_RESULT_1 = ".//*[@id='UIWikiAdvanceSearchResult']//*[contains(text(),'${title}')]";
 	public final String ELEMENT_PAGE_RESULT_AUX = "//*[contains(@href, '${title}')]";
 	//public final String ELEMENT_PAGE_SPACE_RESULT="";
 

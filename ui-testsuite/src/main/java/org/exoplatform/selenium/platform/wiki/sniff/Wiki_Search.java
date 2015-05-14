@@ -42,23 +42,38 @@ public class Wiki_Search extends Template {
 		driver.quit();
 	}
 	
-	/**CaseId: 68844
-	 * Quick search
+	/**CaseId: 99398
+	 * Title: Quick search
 	 */
 	@Test
 	public void test01_QuickSearch(){
-		String title = "Wiki_search_title_01";
-		String content = "line1/line2/line3/line4/line5";
-		String result = ELEMENT_PAGE_RESULT.replace("${title}", title);
+		String title01 = "Wiki Page 01 "+getRandomNumber();
+		String content01 = "line1/cluster/line2/line3/line4";
 		
-		info("Add new wiki page");		
-		addWikiPageWithContentMultiLine(title, content);
+		String title02 = "Wiki Page 02 With Cluster "+getRandomNumber();
+		String content02 = "Content Of Wiki Page 01";
 		
-		quickSearch("Wiki_search_title_01");
+		String result1 = ELEMENT_PAGE_RESULT_1.replace("${title}", title01);
+		String result2 = ELEMENT_PAGE_RESULT_1.replace("${title}", title02);
+		
+		info("Add new wiki page include Cluster keyword in Content");		
+		addWikiPageWithContentMultiLine(title01, content01);
+		
+		goToWikiHome();
+		info("Add new wiki page include Cluster keyword in Title");		
+		addWikiPageRichText(title02, content02);
+		
+		quickSearch("Cluster");
 		assert getText(ELEMENT_SEARCH_RESULT) != "0";
-		waitForAndGetElement(result);
+		waitForAndGetElement(result1);
+		click(result1);
+		waitForAndGetElement(ELEMENT_ADD_PAGE_LINK);
+		deleteCurrentWikiPage();
 		
-		click(result);
+		quickSearch("Cluster");
+		assert getText(ELEMENT_SEARCH_RESULT) != "0";
+		waitForAndGetElement(result2);
+		click(result2);
 		waitForAndGetElement(ELEMENT_ADD_PAGE_LINK);
 		deleteCurrentWikiPage();
 	}

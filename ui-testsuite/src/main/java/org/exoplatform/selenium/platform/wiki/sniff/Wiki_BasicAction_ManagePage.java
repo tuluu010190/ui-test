@@ -217,7 +217,7 @@ public class Wiki_BasicAction_ManagePage extends ManageDraft{
 		deleteCurrentWikiPage();
 	}
 
-	/**CaseId: 68838 -> Edit paragraph in page
+	/**CaseId: 99392 -> Edit paragraph in page
 	 * 
 	 */
 	@Test
