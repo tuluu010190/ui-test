@@ -51,7 +51,7 @@ public class PLF_HomepageActivityStream_ActivityStream_ActivityPost extends Acti
 	 * CaseId 77701: Comment from "All Activities"
 	 */
 	@Test	
-	public void test01_ActivityComment_AllActivitiesFilter(){
+	public void test01_02_ActivityComment_AllActivitiesFilter(){
 		String activity = "All Activities filter: Post an activity.";
 		String comment = "All Activities filter: Comment for an activity.";
 		naviToolbar.goToHomePage();
@@ -75,7 +75,7 @@ public class PLF_HomepageActivityStream_ActivityStream_ActivityPost extends Acti
 	 * Precondition: Space1 is already exist.
 	 */
 	@Test	
-	public void test02_ActivityComment_MySpacesFilter(){
+	public void test03_04_ActivityComment_MySpacesFilter(){
 		String activity = "My Spaces filter: Post an activity.";
 		String spaceName = "Space77702";
 		String comment = "My Spaces filter: Comment for an activity.";
@@ -115,7 +115,7 @@ public class PLF_HomepageActivityStream_ActivityStream_ActivityPost extends Acti
 	 * CaseId 77707: Comment from "My Activities"
 	 */
 	@Test	
-	public void test03_ActivityComment_MyActivitiesFilter(){
+	public void test05_06_ActivityComment_MyActivitiesFilter(){
 		String activity = "My Activities filter: Post an activity.";
 		String comment = "My Activities filter: Comment for an activity.";
 		naviToolbar.goToHomePage();
@@ -142,7 +142,7 @@ public class PLF_HomepageActivityStream_ActivityStream_ActivityPost extends Acti
 	 * Pre-Condition: john and demo must be connected each other before tests started
 	 */	  
 	@Test	
-	public void test04_ActivityComment_ConnectionsFilter(){
+	public void test07_08_ActivityComment_ConnectionsFilter(){
 		String activity = "Connections filter: Post an activity by demo.";
 		String comment = "Connections filter: Comment for an activity by john.";
 
