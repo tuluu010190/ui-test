@@ -672,8 +672,8 @@ public class CalendarBase extends PlatformBase {
 			break;
 		}
 		click(ELEMENT_EVENT_TASK_DELETE_MENU);
-//		alert.verifyAlertMessage(MSG_EVENT_TASK_DELETE);
 		button.yes();
+		Utils.pause(1000);
 		driver.navigate().refresh();
 		Utils.pause(1000);
 		if (optDay.equals(selectDayOption.ALLDAY)){

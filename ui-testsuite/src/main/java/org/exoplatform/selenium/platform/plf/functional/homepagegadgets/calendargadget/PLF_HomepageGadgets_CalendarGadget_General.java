@@ -610,7 +610,7 @@ public class PLF_HomepageGadgets_CalendarGadget_General extends CalendarBase{
 
 		waitForAndGetElement(ELEMENT_CALENDAR_GADGET);
 		waitForAndGetElement(ELEMENT_CALENDAR_GADGET_TODAY_LABEL).getText().equalsIgnoreCase(dateFormat.format(date));
-		waitForAndGetElement(ELEMENT_CALENDAR_GADGET_EMPTY);
+		//waitForAndGetElement(ELEMENT_CALENDAR_GADGET_EMPTY);
 	}
 
 	/**

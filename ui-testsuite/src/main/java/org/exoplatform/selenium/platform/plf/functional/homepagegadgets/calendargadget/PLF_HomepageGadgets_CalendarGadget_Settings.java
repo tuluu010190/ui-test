@@ -60,7 +60,7 @@ public class PLF_HomepageGadgets_CalendarGadget_Settings extends CalendarBase{
 	   *  CaseId 69176: Display all calendars in SETTINGS view
 	   */
 	  @Test  
-	  public void test01_DisplaySettingsCalendarGadget(){	
+	  public void test01_02_03_DisplaySettingsCalendarGadget(){	
 		String Calendar1 = "Calendar_69133_1";
 		String Calendar2 = "Calendar_69138_2";
 		String Calendar3 = "Calendar_69176_3";
@@ -119,7 +119,7 @@ public class PLF_HomepageGadgets_CalendarGadget_Settings extends CalendarBase{
 	   *  CaseId 69136: Save settings changes in the Calendar Gadget
 	   */
 	  @Test  
-	  public void test02_ModifySettingsCalendarGadget(){	
+	  public void test04_05_06_07_08_ModifySettingsCalendarGadget(){	
 		String spaceName = "space69137";
 		String Calendar1 = "Calendar_69137_1";
 		String Calendar2 = "Calendar_69177_2";

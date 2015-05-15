@@ -216,7 +216,7 @@ public class PLF_HomepageGadgets_CalendarGadget_Events extends CalendarBase{
 	public void test08_DisplayAnEventWithSameStartTimeAndWithDifferentDuration(){
 
 		String Event = "Display events with same start time and with different duration";
-		String Event_1 = "Display events with same start time and with different duration";
+		String Event_1 = "1Display events with same start time and with different duration";
 		
 		info("Go to Calendar page");
 		goToCalendarPage();
@@ -274,13 +274,13 @@ public class PLF_HomepageGadgets_CalendarGadget_Events extends CalendarBase{
 		assert (oldSize!=newSize);
 		Utils.pause(5000);
 		goToCalendarPage();
-		event.deleteEventTask(Event,selectDayOption.ALLDAY);
 		event.deleteEventTask(Event_1,selectDayOption.ALLDAY);
 		event.deleteEventTask(Event_2,selectDayOption.ALLDAY);
 		event.deleteEventTask(Event_3,selectDayOption.ALLDAY);
 		event.deleteEventTask(Event_4,selectDayOption.ALLDAY);
 		event.deleteEventTask(Event_5,selectDayOption.ALLDAY);
 		event.deleteEventTask(Event_6,selectDayOption.ALLDAY);
+		event.deleteEventTask(Event,selectDayOption.ALLDAY);
 }
 	/**
 	 * == Open the Calendar application on event's details from Calendar Gadget ==
