@@ -19,6 +19,8 @@ public class ActivityStream extends PlatformBase {
 
 	//Author of activity
 	public final String ELEMENT_ACTIVITY_AUTHOR_SPACE="//*[@class='author']//*[contains(@href,'$user')]/../..//*[@data-original-title='$space']";
+	public final String ELEMENT_ACTIVITY_BOX="//*[@id='boxContainer']//*[contains(text(),'${name}')]/../../../..";
+	public final String ELEMENT_ACTIVITY_BOX_DELETE_BUTTON="//*[@id='boxContainer']//*[contains(text(),'${name}')]/../../../..//*[contains(@class,'uiIconClose')]";
 
 	//Home page space menu
 	public final By ELEMENT_SPACE_MENU_ACTIVITY_PORTLET=By.xpath(".//*[@class='uiIconAppSpaceActivityStreamPortlet uiIconDefaultApp']");
@@ -65,6 +67,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_DESCRIPTION = "//*[@class='linkTitle' and text()='$name']/../..//*[text()='$description ']";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_DATE = "//*[@class='linkTitle' and text()='$name']/../..//*[@class='dateTime' and contains(text(),'$date')]";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_LOCATION = "//*[@class='linkTitle' and text()='$name']/../..//*[@class='location']";
+	public final String ELEMENT_ACTIVITY_TASK_EVENT_TOTAL_COMMENT_NUMBER="//*[@class='linkTitle' and text()='${name}']/../../../..//*[contains(@class,'actionBar')][contains(.,'${number}')]";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_COMMENT = "//*[@class='linkTitle' and text()='$name']/../../../..//*[@class='commentList']//*[contains(text(),'$comment')]";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_COMMENT_RECURRING_CANCEL="//*[@class='linkTitle' and text()='$name']/../../../..//*[@class='commentList']//*[contains(text(),'Event cancelled for $date')]";
 	public final String ELEMENT_ACTIVITY_EVENT_COMMENT_REPEAT_DAY="Event will be repeated every day, $number times";
@@ -695,28 +698,45 @@ public void addCommentWithMentionUser(String activity, String username, String t
 	 * Like/Unlike an activity
 	 * @param activityText input a text (String) 
 	 */
-	public void likeOrUnlikeActivity(String activityText){
+	public void likeActivity(String activityText){
 		info("-- Action: Like or Unlike an activity --");
-		if (waitForAndGetElement(ELEMENT_ICON_LIKE.replace("${title}", activityText), DEFAULT_TIMEOUT, 0) != null){
-			info("-- Like activity --");
-			int numLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
-			click(ELEMENT_ICON_LIKE.replace("${title}", activityText));
-			info("-- Verify Like button is highlighted --");
-			waitForAndGetElement(ELEMENT_ICON_UNLIKE.replace("${title}", activityText));
-			info("-- Like successfully and Verify number of like is updated --");
-			int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
-			assert (newNumLike==(numLike+1)):"Number of like is not updated";
-
-		}else{
-			info("-- Unlike activity --");
-			int numLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
-			click(ELEMENT_ICON_UNLIKE.replace("${title}", activityText));
-			info("-- Verify UnLike button is gray --");
-			waitForAndGetElement(ELEMENT_ICON_LIKE.replace("${title}", activityText));
-			info("-- Unlike successfully and Verify number of like is updated --");
-			int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
-			assert (newNumLike==(numLike-1)):"Number of like is not updated";
-		}
+		info("-- Like activity --");
+		int numLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
+		click(ELEMENT_ICON_LIKE.replace("${title}", activityText));
+		info("-- Verify Like button is highlighted --");
+		waitForAndGetElement(ELEMENT_ICON_UNLIKE.replace("${title}", activityText));
+		info("-- Like successfully and Verify number of like is updated --");
+		int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
+		assert (newNumLike==(numLike+1)):"Number of like is updated";
 		Utils.pause(2000);
+	}
+	
+	/**
+	 * Like/Unlike an activity
+	 * @param activityText input a text (String) 
+	 */
+	public void unlikeActivity(String activityText){
+		info("-- Action: Like or Unlike an activity --");
+		info("-- Unlike activity --");
+		int numLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
+		click(ELEMENT_ICON_UNLIKE.replace("${title}", activityText));
+		info("-- Verify UnLike button is gray --");
+		waitForAndGetElement(ELEMENT_ICON_LIKE.replace("${title}", activityText));
+		info("-- Unlike successfully and Verify number of like is updated --");
+		int newNumLike = Integer.parseInt(waitForAndGetElement(ELEMENT_LIKE_NUMBER.replace("${title}", activityText)).getText().trim());
+		assert (newNumLike==(numLike-1)):"Number of like is updated";
+		Utils.pause(2000);
+	}
+	/**
+	 * Remove an activity
+	 * @param name
+	 */
+	public void deleteActivity(String name){
+		info("remove activity");
+		mouseOver(ELEMENT_ACTIVITY_BOX.replace("${name}", name), true);
+		click(ELEMENT_ACTIVITY_BOX_DELETE_BUTTON.replace("${name}", name),2);
+		click(button.ELEMENT_OK_BUTTON);
+		waitForElementNotPresent(ELEMENT_ACTIVITY_TITLE.replace("${text}", name).replace("${file}", name));
+		info("the activity is removed successfully");
 	}
 }

@@ -109,7 +109,7 @@ public class SOC_Notifications_IntranetNotification_View_All extends SOC_TestCon
 		
 		info("user 2 likes user1's activity");
 		hp.goToHomePage();
-		hpAct.likeOrUnlikeActivity(activity1);
+		hpAct.likeActivity(activity1);
 		
 		info("user2 mentions user1 in activity stream");
 		hp.goToHomePage();

@@ -588,7 +588,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
-		hpAct.likeOrUnlikeActivity(activity);
+		hpAct.likeActivity(activity);
 		
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notifications list
@@ -709,28 +709,28 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
-		hpAct.likeOrUnlikeActivity(activity);
+		hpAct.likeActivity(activity);
 		
 		info("user 2 likes John's activity");
 		magAc.signIn(username2, password2);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
-		hpAct.likeOrUnlikeActivity(activity);
+		hpAct.likeActivity(activity);
 		
 		info("user 3 likes John's activity");
 		magAc.signIn(username3, password3);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
-		hpAct.likeOrUnlikeActivity(activity);
+		hpAct.likeActivity(activity);
 		
 		info("user 4 likes John's activity");
 		magAc.signIn(username4, password4);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
-		hpAct.likeOrUnlikeActivity(activity);
+		hpAct.likeActivity(activity);
 		
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notifications list
@@ -840,7 +840,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
-		hpAct.likeOrUnlikeActivity(activity);
+		hpAct.likeActivity(activity);
 		
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notifications list
@@ -870,7 +870,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
-		hpAct.likeOrUnlikeActivity(activity);
+		hpAct.likeActivity(activity);
 		
 		info("Check Like notification in intranet notification");
 		magAc.signIn(DATA_USER1, DATA_PASS);

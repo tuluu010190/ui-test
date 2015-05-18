@@ -18,6 +18,8 @@ import org.openqa.selenium.WebDriver;
 
 public class EventManagement extends PlatformBase {
 
+	//public String ELEMENT_EVENT_TASK_TITLE=".//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')]";
+	
 	//------------------------------------Add Quick EVENT Form--------------------------------------\\
 	public By ELEMENT_QUICK_ADD_EVENT_POPUP = By.id("UIQuickAddEventPopupWindow");
 	public By ELEMENT_QUICK_INPUT_EVENT_NAME = By.xpath("//*[@id='UIQuickAddEvent']//*[@id='eventName']");
@@ -138,15 +140,16 @@ public class EventManagement extends PlatformBase {
 	public By ELEMENT_RECURRING_TEXT_RECURRING_EVENT = By.xpath("//*[@class='popover-content']/*[@class='time clearfix']//*[@class='uiIconCalRecurring']/../../*[@class='text']");
 	public By ELEMENT_EDITED_RECURRING_TEXT_RECURRING_EVENT = By.xpath("//*[@class='popover-content']/*[@class='time clearfix']//*[@class='uiIconCalEditRecurring']/../../*[@class='text']");
 	public By ELEMENT_DESCRIPTION_EVENT = By.xpath("//*[@class='popover-content']/*[@class='description']");
-
+	
+	
 	PlatformPermission pPer;
 	CalendarHomePage cHome;
 	ManageAlert alert;
 	public EventManagement(WebDriver dr){
-		driver = dr;
-		pPer = new PlatformPermission(driver);
-		cHome = new CalendarHomePage(driver);
-		alert = new ManageAlert(driver);
+		this.driver = dr;
+		pPer = new PlatformPermission(dr);
+		cHome = new CalendarHomePage(dr);
+		alert = new ManageAlert(dr);
 	}
 
 
@@ -306,7 +309,7 @@ public class EventManagement extends PlatformBase {
 			type(ELEMENT_ADD_EDIT_EVENT_NOTE, note, true);
 		}
 		if (opt.length > 0 && opt[0] != null){
-			select(ELEMENT_ADD_EDIT_EVENT_CALENDAR, opt[0]);
+			select(ELEMENT_ADD_EDIT_EVENT_CALENDAR, opt[0],2);
 		}
 		if (opt.length > 1 && opt[1] != null){
 			select(ELEMENT_ADD_EDIT_EVENT_CATEGORY, opt[1]);
@@ -708,6 +711,9 @@ public class EventManagement extends PlatformBase {
 			check(ELEMENT_PRIVACY_PRIVATE_CHECKBOX,2);
 		}
 	}
+	
+	
+	
 	/**
 	 * Available option
 	 */
@@ -1017,5 +1023,7 @@ public class EventManagement extends PlatformBase {
 		click(ELEMENT_CONFIRM_EDIT_BUTTON);
 		waitForElementNotPresent(ELEMENT_CONFIRM_EDIT_RECURRING_FORM);
 	}
+	
+	
 }
 

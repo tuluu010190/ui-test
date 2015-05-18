@@ -148,6 +148,10 @@ public class TestBase {
 	protected String spaceGroupsFilePath;
 	protected String spaceWarnMessageFilePath;
 	
+	//Calendar
+	protected String calGroupNameFilePath;
+	
+	
 	protected String notiDesFilePath;
 
 	/*========Default System Property=============*/
@@ -233,6 +237,9 @@ public class TestBase {
 	public final String DEFAULT_SPACE_NAVIGATION_DEFAULT_NODES_URL = "DataDriven/"+"space_navigation_default_nodes.xls";
 	public final String DEFAULT_SPACE_GROUPS_URL="DataDriven/"+"space_groups.xls";
 	public final String DEFAULT_SPACE_WARNING_MESSAGE_URL="DataDriven/"+"space_warning_message.xls";
+	
+	//Calendar
+	public final String DEFAULT_CALENDAR_GROUP_NAME_URL="DataDriven/"+"cal_group.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -343,6 +350,9 @@ public class TestBase {
 		spaceGroupsFilePath = System.getProperty("spaceGroupsFilePath");
 		spaceWarnMessageFilePath = System.getProperty("spaceWarnMessageFilePath");
 		
+		//Calendar
+		calGroupNameFilePath = System.getProperty("calGroupNameFilePath");
+		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -419,6 +429,8 @@ public class TestBase {
 		if (spaceNavigationDefaultNodesFilePath == null) spaceNavigationDefaultNodesFilePath = DEFAULT_SPACE_NAVIGATION_DEFAULT_NODES_URL;
 		if (spaceGroupsFilePath==null) spaceGroupsFilePath=DEFAULT_SPACE_GROUPS_URL;
 		if (spaceWarnMessageFilePath==null) spaceWarnMessageFilePath=DEFAULT_SPACE_WARNING_MESSAGE_URL;
+		//Calendar
+		if (calGroupNameFilePath==null) calGroupNameFilePath=DEFAULT_CALENDAR_GROUP_NAME_URL;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -477,6 +489,9 @@ public class TestBase {
 		spaceNavigationDefaultNodesFilePath = getAbsoluteFilePath(spaceNavigationDefaultNodesFilePath);
 		spaceGroupsFilePath = getAbsoluteFilePath(spaceGroupsFilePath);
 		spaceWarnMessageFilePath = getAbsoluteFilePath(spaceWarnMessageFilePath);
+		
+		//Calendar
+		calGroupNameFilePath = getAbsoluteFilePath(calGroupNameFilePath);
 	}
 
 	/**

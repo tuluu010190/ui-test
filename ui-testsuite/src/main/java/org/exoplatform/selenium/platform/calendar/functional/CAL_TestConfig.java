@@ -1,0 +1,68 @@
+package org.exoplatform.selenium.platform.calendar.functional;
+
+import static org.exoplatform.selenium.TestLogger.info;
+
+import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.platform.ActivityStream;
+import org.exoplatform.selenium.platform.HomePagePlatform;
+import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement;
+import org.exoplatform.selenium.platform.calendar.EventManagement;
+import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarGroupDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.social.SpaceManagement;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+
+public class CAL_TestConfig extends PlatformBase {
+	HomePagePlatform hp;
+	ActivityStream hpAct;
+	ManageLogInOut magAc;
+	Button button;
+
+	NavigationToolbar navTool;
+	EventManagement evMg;
+	CalendarManagement cMang;
+	SpaceManagement spaMg;
+	
+	TextBoxDatabase txData;
+	CalendarGroupDatabase cGroupData;
+	
+	
+	@BeforeMethod
+	public void setUpBeforeMethod() throws Exception{
+		info("Start setUpBeforeMethod");
+		initSeleniumTest();
+		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		magAc = new ManageLogInOut(driver);
+		button = new Button(driver);
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		
+		navTool = new NavigationToolbar(driver);
+		hp = new HomePagePlatform(driver);
+		hpAct = new ActivityStream(driver);
+		spaMg = new SpaceManagement(driver);
+		
+		evMg = new EventManagement(driver);
+		cMang = new CalendarManagement(driver);
+		
+		txData = new TextBoxDatabase();
+		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+
+		cGroupData = new CalendarGroupDatabase();
+		cGroupData.setData(calGroupNameFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+
+		info("End setUpBeforeMethod");
+	}
+
+	@AfterMethod
+	public void afterMethod(){
+		info("Start afterMethod");
+		driver.manage().deleteAllCookies();
+		driver.quit();
+		info("End afterMethod");
+	}
+
+}

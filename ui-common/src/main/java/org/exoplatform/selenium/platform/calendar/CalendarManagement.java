@@ -11,11 +11,15 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.interactions.Actions;
 public class CalendarManagement extends PlatformBase{
 
 	PlatformPermission pPer;
 	ManageAlert alert;
 
+	public String ELEMENT_EVENT_TASK_TITLE=".//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')]";
+	public By ELEMENT_ADD_EDIT_EVENT_NAME = By.xpath("//*[@id='UIEventForm']//*[@name='eventName']");
+	
 	//Common calendar action menu (icon +)
 	public By ELEMENT_CALENDAR_MENU = By.id("tmpMenuElement");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_ICON = By.xpath("//*[@class='uiIconCalSimplePlus uiIconLightGray']");
@@ -157,6 +161,14 @@ public class CalendarManagement extends PlatformBase{
 
 	//Preview popup
 	public final String ELEMENT_CALENDAR_PREVIEW_TASK_EVENT=".//*[@id='UIPreviewPopup']//strong[contains(text(),'${name}')]";
+	
+	//Context Menu when right click on an event
+	public By ELEMENT_CONTEXT_MENU_VIEW=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'iIconPreview')]");
+	public By ELEMENT_CONTEXT_MENU_EDIT=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconEdit')]");
+	public By ELEMENT_CONTEXT_MENU_DELETE=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconDelete')]");
+	public By ELEMENT_CONTEXT_MENU_EXPORT=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconCalExportCalendar')]");
+		
+
 	/**
 	 * constructor
 	 * @param dr
@@ -795,4 +807,66 @@ public class CalendarManagement extends PlatformBase{
 		else
 			click(button.ELEMENT_YES_BUTTON);
 	}
+	
+	/**
+	 * 
+	 * right click on an even to show context menu
+	 */
+	public enum contextMenuEditEvenOption{
+		VIEW,EDIT,DELETE,EXPORT;
+	}
+	/**
+	 * Select an option in context menu
+	 * @param option
+	 */
+	public void selectOptionByRightclickOnEvent(contextMenuEditEvenOption option){
+		switch(option){
+		case VIEW:
+			info("Select View option");
+			click(ELEMENT_CONTEXT_MENU_VIEW);
+			break;
+		case EDIT:
+			info("Select Edit option");
+			click(ELEMENT_CONTEXT_MENU_EDIT);
+			break;
+		case DELETE:
+			info("Select Delete option");
+			click(ELEMENT_CONTEXT_MENU_DELETE);
+			break;
+		case EXPORT:
+			info("Select Export option");
+			click(ELEMENT_CONTEXT_MENU_EXPORT);
+			break;
+		default:
+			info("No option to select");
+			break;
+		}
+	}
+	/**
+	 * Open edit event form by right click on the event
+	 * @param name
+	 */
+	public void openEditPopupEventByRightClick(String name){
+		info("Right click on an Event");
+		rightClickOnElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+		selectOptionByRightclickOnEvent(contextMenuEditEvenOption.EDIT);
+		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_NAME,2000,1);
+		info("Edit form is shown");
+	}
+	
+	/**
+	 * Open add/edit event popup
+	 * @param name
+	 * @param newName
+	 */
+	public void openEditEventPopup(String name){
+		info("Edit an event");
+		info("Double click on the event");
+		Actions action = new Actions(this.driver);
+		action.moveToElement(waitForAndGetElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))).
+		doubleClick().perform();
+		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_NAME,2000,1);
+		info("The edit form is shown");
+	}
+	
 }

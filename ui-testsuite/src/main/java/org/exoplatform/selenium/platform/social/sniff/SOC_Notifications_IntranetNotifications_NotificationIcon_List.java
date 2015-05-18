@@ -173,7 +173,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationIcon_List exten
 		hpAct.addCommentUsingJavascript(activity, comment);
 		
 		info("user 2 likes user1's activity");
-		hpAct.likeOrUnlikeActivity(activity);
+		hpAct.likeActivity(activity);
 		
 		info("Login with user 3 and connect to user 1");
 		magAc.signOut();
@@ -387,7 +387,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationIcon_List exten
 		hpAct.addCommentUsingJavascript(activity, comment);
 		
 		info("user 2 likes user1's activity");
-		hpAct.likeOrUnlikeActivity(activity);
+		hpAct.likeActivity(activity);
 		
 		info("Log in user 1 and check 2 notifications above is unread");
 		magAc.signIn(username1, password1);
