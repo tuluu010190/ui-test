@@ -150,6 +150,7 @@ public class TestBase {
 	
 	//Calendar
 	protected String calGroupNameFilePath;
+	protected String calTabNameFilePath;
 	
 	
 	protected String notiDesFilePath;
@@ -240,6 +241,7 @@ public class TestBase {
 	
 	//Calendar
 	public final String DEFAULT_CALENDAR_GROUP_NAME_URL="DataDriven/"+"cal_group.xls";
+	public final String DEFAULT_CALENDAR_TAB_NAME_URL="DataDriven/"+"cal_tabs.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -352,6 +354,7 @@ public class TestBase {
 		
 		//Calendar
 		calGroupNameFilePath = System.getProperty("calGroupNameFilePath");
+		calTabNameFilePath =System.getProperty("calTabNameFilePath");
 		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -431,6 +434,7 @@ public class TestBase {
 		if (spaceWarnMessageFilePath==null) spaceWarnMessageFilePath=DEFAULT_SPACE_WARNING_MESSAGE_URL;
 		//Calendar
 		if (calGroupNameFilePath==null) calGroupNameFilePath=DEFAULT_CALENDAR_GROUP_NAME_URL;
+		if (calTabNameFilePath==null) calTabNameFilePath=DEFAULT_CALENDAR_TAB_NAME_URL;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -492,6 +496,7 @@ public class TestBase {
 		
 		//Calendar
 		calGroupNameFilePath = getAbsoluteFilePath(calGroupNameFilePath);
+		calTabNameFilePath =getAbsoluteFilePath(calTabNameFilePath);
 	}
 
 	/**

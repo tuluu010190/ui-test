@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfCalendarOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
+import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
@@ -30,12 +31,23 @@ import org.testng.annotations.*;
 			No activity has been posted for that event*/ 
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
+		String tabWeek=cTabData.getTabNameByIndex(1);
+		cMang.goToTab(tabWeek);
 		cMang.executeActionCalendar(DATA_NAME_USER1,menuOfCalendarOption.ADDEVENT);
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
 		evMg.saveQuickAddEvent();
 		
+		info("Add successfully");
+		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent))));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));
+		
 		hp.goToHomePage();
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
+		
+		info("Delete Data");
+		String tabList=cTabData.getTabNameByIndex(3);
+		hp.goToCalendarPage();
+		cMang.deleteAllTaskEvent(tabList);
  	}
 
 	/**
@@ -60,9 +72,23 @@ import org.testng.annotations.*;
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String groupCal = cGroupData.getGroupNameByIndex(0);
 		hp.goToCalendarPage();
+		String tabWeek=cTabData.getTabNameByIndex(1);
+		cMang.goToTab(tabWeek);
 		cMang.executeActionCalendar(groupCal,menuOfCalendarOption.ADDEVENT);
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
 		evMg.saveQuickAddEvent();
+		
+		info("Add successfully");
+		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent))));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));
+		
+		hp.goToHomePage();
+		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
+		
+		info("Delete Data");
+		String tabList=cTabData.getTabNameByIndex(3);
+		hp.goToCalendarPage();
+		cMang.deleteAllTaskEvent(tabList);
  	}
 
 	/**
@@ -96,6 +122,10 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
 		evMg.saveQuickAddEvent();
 		
+		info("Add successfully");
+		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent))));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));
+		
 		/*Step number: 2
 		*Step Name: Check activity
 		*Step Description: 
@@ -106,6 +136,11 @@ import org.testng.annotations.*;
 			- An activity is displayed with the created event*/ 
 		spaMg.goToActivityStreamTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
+		
+		info("Delete Data");
+		String tabList=cTabData.getTabNameByIndex(3);
+		hp.goToCalendarPage();
+		cMang.deleteAllTaskEvent(tabList);
  	}
 
 	/**
@@ -137,7 +172,11 @@ import org.testng.annotations.*;
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
 		evMg.saveQuickAddEvent();
-         
+        
+		info("Add successfully");
+		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent))));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));
+		
 		/*Step number: 2
 		*Step Name: Delete the activity
 		*Step Description: 
@@ -165,14 +204,22 @@ import org.testng.annotations.*;
         String newEditEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToSpecificSpace(space);
         spaMg.goToAgendaTab();
-        cMang.openEditEventPopup(newEvent);
+        cMang.openEditEventTaskPopup(newEvent);
         evMg.inputBasicDetailEvent(null, newEditEvent);
         evMg.saveAddEventDetails();
-        
+        info("Add successfully");
+		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent))));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));
+		
         hp.goToHomePage();
         waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent),2000,1);
         waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TOTAL_COMMENT_NUMBER.replace("${name}",newEvent).replace("${number}","1"));
         waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT.replace("$name",newEvent).replace("$comment",newEditEvent));
+        
+        info("Delete Data");
+		String tabList=cTabData.getTabNameByIndex(3);
+		hp.goToCalendarPage();
+		cMang.deleteAllTaskEvent(tabList);
  	}
 
 	/**
@@ -204,7 +251,9 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
 		evMg.saveQuickAddEvent();
 		
-		
+		info("Add successfully");
+		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent))));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));
 		/*Step number: 2
 		*Step Name: Share a calendar
 		*Step Description: 
@@ -248,9 +297,15 @@ import org.testng.annotations.*;
  		 
  	    String newEvent1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
+		String tabWeek=cTabData.getTabNameByIndex(1);
+		cMang.goToTab(tabWeek);
 		cMang.executeActionCalendar(DATA_NAME_USER1,menuOfCalendarOption.ADDEVENT);
 		evMg.inputBasicQuickEvent(newEvent1,newEvent1);
 		evMg.saveQuickAddEvent();
+		
+		info("Add successfully");
+		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1))));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1));
 		
 		hp.goToHomePage();
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
@@ -258,6 +313,10 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
  		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
 
+ 		info("Delete Data");
+		String tabList=cTabData.getTabNameByIndex(3);
+		hp.goToCalendarPage();
+		cMang.deleteAllTaskEvent(tabList);
  	}
 
 	/**
@@ -290,9 +349,15 @@ import org.testng.annotations.*;
 		
 		String newEvent1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
+		String tabWeek=cTabData.getTabNameByIndex(1);
+		cMang.goToTab(tabWeek);
 		cMang.executeActionCalendar(DATA_NAME_USER1,menuOfCalendarOption.ADDEVENT);
 		evMg.inputBasicQuickEvent(newEvent1,newEvent1);
 		evMg.saveQuickAddEvent();
+		
+		info("Add successfully");
+		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1))));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1));
 		
 		cMang.openEditPopupEventByRightClick(newEvent1);
 		evMg.inputBasicDetailEvent(null,null,space);
@@ -305,6 +370,10 @@ import org.testng.annotations.*;
 		spaMg.goToActivityStreamTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
 		
+		info("Delete Data");
+		String tabList=cTabData.getTabNameByIndex(3);
+		hp.goToCalendarPage();
+		cMang.deleteAllTaskEvent(tabList);
  	}
 
 	/**
@@ -341,9 +410,12 @@ import org.testng.annotations.*;
 		boolean[] canEdit={true};
 		String calendar = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
+        String tabWeek=cTabData.getTabNameByIndex(1);
+		cMang.goToTab(tabWeek);
         cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
         cMang.inputDataInDetailTabCalendarForm(calendar, calendar,null);
         cMang.saveAddCalendar();
+		
         info("Share the calendar");
 		cMang.shareCalendar(calendar, userGroup,canEdit);
 		
@@ -353,9 +425,12 @@ import org.testng.annotations.*;
 		cMang.executeActionCalendar(calendar,menuOfCalendarOption.ADDEVENT);
 		evMg.inputBasicQuickEvent(newEvent1,newEvent1);
 		evMg.saveQuickAddEvent();
+		info("Add successfully");
+		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1))));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1));
 		
 		info("Change to space calendar");
-		cMang.openEditEventPopup(newEvent1);
+		cMang.openEditEventTaskPopup(newEvent1);
 		evMg.inputBasicDetailEvent(null,null,space);
 		evMg.saveAddEventDetails();
 		 
@@ -366,4 +441,8 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
 
+		info("Delete Data");
+		String tabList=cTabData.getTabNameByIndex(3);
+		hp.goToCalendarPage();
+		cMang.deleteAllTaskEvent(tabList);
  	}}

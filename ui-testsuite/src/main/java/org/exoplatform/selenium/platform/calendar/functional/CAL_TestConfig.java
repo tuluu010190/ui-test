@@ -10,9 +10,13 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
+import org.exoplatform.selenium.platform.calendar.TaskManagement;
 import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarGroupDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarTabsDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
+import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -24,11 +28,15 @@ public class CAL_TestConfig extends PlatformBase {
 
 	NavigationToolbar navTool;
 	EventManagement evMg;
+	TaskManagement tasMg;
 	CalendarManagement cMang;
 	SpaceManagement spaMg;
+	SpaceHomePage spaHome;
+	SpaceSettingManagement setSpaceMg;
 	
 	TextBoxDatabase txData;
 	CalendarGroupDatabase cGroupData;
+	CalendarTabsDatabase cTabData;
 	
 	
 	@BeforeMethod
@@ -44,15 +52,21 @@ public class CAL_TestConfig extends PlatformBase {
 		hp = new HomePagePlatform(driver);
 		hpAct = new ActivityStream(driver);
 		spaMg = new SpaceManagement(driver);
+		spaHome = new SpaceHomePage(driver);
+		setSpaceMg = new SpaceSettingManagement(driver);
 		
 		evMg = new EventManagement(driver);
 		cMang = new CalendarManagement(driver);
+		tasMg = new TaskManagement(driver);
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
 		cGroupData = new CalendarGroupDatabase();
 		cGroupData.setData(calGroupNameFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		cTabData = new CalendarTabsDatabase();
+		cTabData.setData(calTabNameFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
 		info("End setUpBeforeMethod");
 	}

@@ -14,11 +14,15 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 public class CalendarManagement extends PlatformBase{
 
-	PlatformPermission pPer;
-	ManageAlert alert;
 
 	public String ELEMENT_EVENT_TASK_TITLE=".//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')]";
-	public By ELEMENT_ADD_EDIT_EVENT_NAME = By.xpath("//*[@id='UIEventForm']//*[@name='eventName']");
+	public By ELEMENT_ADD_EDIT_EVENT_POPUP = By.xpath(".//*[@id='UICalendarPopupWindow']");
+	//Grid-->List tab
+	public String ELEMENT_CALENDAR_TAB=".//*[@id='UIActionBar']//*[contains(text(),'${name}')]";
+	public By ELEMENT_CALENDAR_LIST_TAB_SELECT_ALL_CHECKBOX=By.xpath(".//*[@id='UIListUsers']//*[contains(@data-original-title,'Select All')]//input");
+	public By ELEMENT_CALENDAR_LIST_TAB_DELETE_BUTTON =By.xpath(".//*[contains(@data-original-title,'Delete')]//*[contains(@class,'uiIconDelete')]");
+	public By ELEMENT_CALENDAR_ROW_TAB_LIST=By.xpath(".//*[@id='UIListUsers']//td[1]");
+	public By ELMENT_CALENDAR_TAB_LIST_EMPTY=By.xpath(".//*[@id='UIListUsers']//*[contains(@class,'empty')]");
 	
 	//Common calendar action menu (icon +)
 	public By ELEMENT_CALENDAR_MENU = By.id("tmpMenuElement");
@@ -167,16 +171,23 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CONTEXT_MENU_EDIT=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconEdit')]");
 	public By ELEMENT_CONTEXT_MENU_DELETE=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconDelete')]");
 	public By ELEMENT_CONTEXT_MENU_EXPORT=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconCalExportCalendar')]");
-		
 
+	//Confirm popup
+	public By ELEMENT_CONFIRM_POPUP_OK=By.xpath(".//*[@id='UIConfirmation']//*[contains(text(),'Yes')]");
+	public By ELEMENT_CONFIRM_POPUP_DELETE=By.xpath(".//*[@id='UIConfirmFormTasks']//button[text()='Delete']");
+	
+	PlatformPermission pPer;
+	ManageAlert alert;
+    Button button;
 	/**
 	 * constructor
 	 * @param dr
 	 */
 	public CalendarManagement(WebDriver dr){
 		this.driver=dr;
-		pPer = new PlatformPermission(driver);
-		alert = new ManageAlert(driver);
+		pPer = new PlatformPermission(dr);
+		alert = new ManageAlert(dr);
+		button = new Button(dr);
 	};
 
 	/**
@@ -832,6 +843,7 @@ public class CalendarManagement extends PlatformBase{
 		case DELETE:
 			info("Select Delete option");
 			click(ELEMENT_CONTEXT_MENU_DELETE);
+			click(ELEMENT_CONFIRM_POPUP_OK);
 			break;
 		case EXPORT:
 			info("Select Export option");
@@ -847,11 +859,11 @@ public class CalendarManagement extends PlatformBase{
 	 * @param name
 	 */
 	public void openEditPopupEventByRightClick(String name){
-		info("Right click on an Event");
+		info("Right click on an Event/Task");
 		rightClickOnElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
 		selectOptionByRightclickOnEvent(contextMenuEditEvenOption.EDIT);
-		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_NAME,2000,1);
-		info("Edit form is shown");
+		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_POPUP,2000,1);
+		info("Edit/Task form is shown");
 	}
 	
 	/**
@@ -859,14 +871,62 @@ public class CalendarManagement extends PlatformBase{
 	 * @param name
 	 * @param newName
 	 */
-	public void openEditEventPopup(String name){
+	public void openEditEventTaskPopup(String name){
 		info("Edit an event");
 		info("Double click on the event");
 		Actions action = new Actions(this.driver);
+		scrollElementIntoView(this.driver.findElement(By.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))));
 		action.moveToElement(waitForAndGetElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))).
 		doubleClick().perform();
-		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_NAME,2000,1);
+		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_POPUP,2000,1);
 		info("The edit form is shown");
+	}
+	/**
+	 * Remove an event or a task on Week tab
+	 * @param name
+	 */
+	public void deleteTaskEvent(String name){
+		info("Right click on an Event/Task");
+		scrollElementIntoView(this.driver.findElement(By.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))));
+		rightClickOnElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+		selectOptionByRightclickOnEvent(contextMenuEditEvenOption.DELETE);
+		waitForElementNotPresent(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+	}
+	
+	/**
+	 * Remove an event or a task on List tab
+	 * @param name
+	 */
+	public void deleteAllTaskEvent(String listTab) {
+		goToTab(listTab);
+		if (waitForAndGetElement(ELMENT_CALENDAR_TAB_LIST_EMPTY, 3000,0) == null) {
+			info("Select all task/events in the list tab");
+			check(ELEMENT_CALENDAR_LIST_TAB_SELECT_ALL_CHECKBOX, 2);
+			click(ELEMENT_CALENDAR_LIST_TAB_DELETE_BUTTON);
+			if(waitForAndGetElement(ELEMENT_CONFIRM_POPUP_OK,2000,0)!=null)
+			click(ELEMENT_CONFIRM_POPUP_OK);
+			else
+			click(ELEMENT_CONFIRM_POPUP_DELETE);
+			Utils.pause(2000);
+		}
+
+	}
+	/**
+	 * Go to a tab in action bar
+	 * @param tab
+	 */
+	public void goToTab(String tab){
+		info("Select a tab");
+		click(ELEMENT_CALENDAR_TAB.replace("${name}",tab));
+		Utils.pause(2000);
+	}
+	/**
+	 * Scroll to element to view
+	 * @param element
+	 */
+	public void scrollElementIntoView(WebElement element) {
+		info("Scroll to the element to view");
+	    ((JavascriptExecutor) this.driver).executeScript("arguments[0].scrollIntoView(true);", element);
 	}
 	
 }

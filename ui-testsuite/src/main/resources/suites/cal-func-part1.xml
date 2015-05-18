@@ -10,6 +10,8 @@
 			<class name="org.org.exoplatform.selenium.platform.calendar.functional.CAL_TestConfig" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_Event_Activity_Actions" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_Event_Activity_Add" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_General" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_Task_Details" />
 		</classes>
 	</test>
 	<listeners>
