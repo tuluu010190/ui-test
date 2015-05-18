@@ -28,6 +28,7 @@ public class PeopleProfile extends PlatformBase {
 
 	// Go to Account Name link > My Profile	
 	// Edit user in My Profile
+	public final By ELEMENT_EDIT_PROFILE_BUTTON=By.xpath("//*[@class='uiIconEdit uiIconLightGray']");
 	// Basic information
 	public final By ELEMENT_EDIT_HEADER_BUTTON = By.xpath("//*[@id='UIHeaderSection']//../*[@class='uiIconEdit']");
 	public final By ELEMENT_EDIT_INFORMATION_BUTTON = By.xpath("//*[@id='UIBasicInfoSection']//../*[@class='uiIconEdit']");
@@ -63,11 +64,12 @@ public class PeopleProfile extends PlatformBase {
 	public final By ELEMENT_REMOVE_EXPERIENCE_BUTTON = By.xpath("//*[@id='UIExperienceSection']//../*[@class='uiIconClose uiIconLightGray']");
 	
 	//Avatar
-	public final By	ELEMENT_CHANGE_AVATAR_LINK = By.className("changeAvatar");
+	public final By	ELEMENT_CHANGE_AVATAR_LINK = By.xpath("//*[@class='btn btn-mini changeAvatar']");
 	public final By ELEMENT_CHOOSE_AVATAR_IMAGE = By.className("fileNameLabel");
 	public final By ELEMENT_UPLOAD_NAME = By.name("file");
 
 	//Confirm
+	public final By ELEMENT_SAVE_AVATAR=By.xpath("//*[@id='UIAvatarUploadContent']//*[text()='Save']");
 	public final By ELEMENT_CONFIRM = By.xpath("//*[text()='Confirm']");
 	public final By ELEMENT_CANCEL = By.xpath("//*[text()='Cancel']");
 	public final By ELEMENT_SAVE_UPDATE_INFO = By.xpath("//*[@id='UIProfile']//../*[contains(text(), 'Save')]");
@@ -80,6 +82,10 @@ public class PeopleProfile extends PlatformBase {
 		peoSearch = new PeopleSearch(driver);
 	}
 
+	public void goToEditProfile(){
+		info("Edit profile");
+		click(ELEMENT_EDIT_PROFILE_BUTTON);
+	}
 	/**
 	 * Edit Basic Information
 	 * @param firstName: edit the user's first name
@@ -230,7 +236,7 @@ public class PeopleProfile extends PlatformBase {
 		switchToParentWindow();
 		click(ELEMENT_CONFIRM);
 		waitForElementNotPresent(ELEMENT_CONFIRM);
-		button.save();
+		click(ELEMENT_SAVE_AVATAR);
 		Utils.pause(1000);
 	}
 

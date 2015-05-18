@@ -799,7 +799,7 @@ public class EcmsBase extends ManageAccount {
 	 */
 	public void uploadFile(String link, Object...params){
 		Boolean verify = (Boolean) (params.length > 0 ? params[0] : true);
-		if (waitForAndGetElement(ELEMENT_ACTION_BAR_UPLOAD_BTN,DEFAULT_TIMEOUT,2000,0)==null){
+		if (waitForAndGetElement(ELEMENT_ACTION_BAR_UPLOAD_BTN,500,2,0)==null){
 			info("click on More link");
 			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
@@ -869,11 +869,13 @@ public class EcmsBase extends ManageAccount {
 	public void uploadMultiFileSerial(String...file){
 
 		if (file.length > 0){
-			if (waitForAndGetElement(By.xpath("//a[@class='actionIcon' and contains(text(),'Upload')]"),DEFAULT_TIMEOUT,0)==null){
+			if (waitForAndGetElement(ELEMENT_ACTION_BAR_UPLOAD_BTN,5000,0,2)==null){
+				info("click on More link");
 				click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 			}
-			((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'visible'; arguments[0].style.height = '1px'; " +
+			((JavascriptExecutor)driver).executeScript("arguments[0].style.visibility = 'block'; arguments[0].style.height = '1px'; " +
 					"arguments[0].style.width = '1px'; arguments[0].style.opacity = 1", waitForAndGetElement(ELEMENT_UPLOAD_LINK, DEFAULT_TIMEOUT, 1, 2));
+
 			for (int i = 0; i < file.length; i ++){
 				type(ELEMENT_UPLOAD_LINK, Utils.getAbsoluteFilePath("TestData/" + file[i]), false);
 			}

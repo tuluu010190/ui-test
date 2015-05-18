@@ -23,7 +23,7 @@ import static org.exoplatform.selenium.TestLogger.debug;
 import static org.exoplatform.selenium.TestLogger.info;
 
 public class PlatformBase extends TestBase {
-	
+
 	ManageAlert magAlt;
 
 	public final String DATA_USER1 = "john";
@@ -529,8 +529,8 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT_CENTER_PAGE_VIEW_MODE =By.xpath("//*[@class='UIComponentBlock NormalContainerBlock']/div[1]/div/div//*[@class='UIContainer EdittingContainer']//*[@class='UIComponentBlock NormalContainerBlock']//*[@class='UIRowContainer EmptyContainer']");
 	public final By ELEMENT_EDIT_CENTER_CONTAINER_NEW_LAYOUT = By.xpath("//*[@id='RightBody']//*[@class='UIRowContainer ']//*[@class='uiIconEdit uiIconWhite']");
 	public final By ELEMENT_DELETE_CENTER_CONTAINER_NEW_LAYOUT = By.xpath("//*[@id='RightBody']//*[@class='UIRowContainer ']//*[@class='uiIconTrash uiIconWhite']");
-	
-	
+
+
 	public final By ELEMENT_DROP_TARGET_HAS_LAYOUT_NEW = By.xpath("//div[@class='UIRowContainer EmptyContainer' and not(div)]");
 	public final By ELEMENT_NAVIGATION_BODY_LEFT = By.xpath("//*[@id='NavigationBody']//*[@id='LeftNavigation']");
 	public final By ELEMENT_NAVIGATION_BODY_RIGHT = By.xpath("//*[@id='NavigationBody']//*[@id='RightBody']");
@@ -803,8 +803,7 @@ public class PlatformBase extends TestBase {
 	//Upload file
 	public final By ELEMENT_FILE_LINK = By.xpath("//i[@class='uiIconSocUIDocActivityComposer uiIconSocLightGray']");
 	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
-	public final By ELEMENT_CREATE_FOLDER_BUTTON = By.xpath("//i[@class='uiIconPlus uiIconLightGray']");
-	public final By ELEMENT_CREATE_FOLDER_BUTTON_PLF41 = By.xpath("//i[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
+	public final By ELEMENT_CREATE_FOLDER_BUTTON_PLF = By.xpath("//i[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
 	public final String ELEMENT_DRIVER_CURRENT = "//div[@class='btn dropdown-toggle']/span[contains(text(),'${driveName}')]";
 	public final By ELEMENT_DRIVER_BOX = By.xpath("//div[@class='btn dropdown-toggle']");
 	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
@@ -1002,11 +1001,11 @@ public class PlatformBase extends TestBase {
 			verifyLocation(verification, navigationList, page);
 		}
 	}
-    /**
-     * Make link
-     * @param node
-     * @return node
-     */
+	/**
+	 * Make link
+	 * @param node
+	 * @return node
+	 */
 	private String makeLink(String node) {
 		if (!node.contains("//")) {
 			String label = node;
@@ -1014,12 +1013,12 @@ public class PlatformBase extends TestBase {
 		}
 		return node;
 	}
-    /**
-     * Verify location
-     * @param locator
-     * @param navigation
-     * @param page
-     */
+	/**
+	 * Verify location
+	 * @param locator
+	 * @param navigation
+	 * @param page
+	 */
 	private void verifyLocation(String locator, List<String> navigation, String page) {
 		Actions actions = new Actions(driver);
 		info("verifyLocation, element: " + locator);
@@ -1121,10 +1120,10 @@ public class PlatformBase extends TestBase {
 			return true;
 		}
 	}
-    /**
-     * Clone a node
-     * @param locator
-     */
+	/**
+	 * Clone a node
+	 * @param locator
+	 */
 	public void cloneNode(Object locator)	{
 		for (int i =0;; i++){
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
@@ -1141,10 +1140,10 @@ public class PlatformBase extends TestBase {
 			Utils.pause(WAIT_INTERVAL);
 		}
 	}
-    /**
-     * Cut a node
-     * @param locator
-     */
+	/**
+	 * Cut a node
+	 * @param locator
+	 */
 	public void cutNode(Object locator)	{
 		info("Cut Node");
 		for (int i =0;; i++){
@@ -1166,10 +1165,10 @@ public class PlatformBase extends TestBase {
 			Utils.pause(2000);
 		}
 	}
-    /**
-     * Copy a node
-     * @param locator
-     */
+	/**
+	 * Copy a node
+	 * @param locator
+	 */
 	public void copyNode(Object locator){
 		for (int i =0;; i++){
 			if (i > DEFAULT_TIMEOUT/WAIT_INTERVAL) {
@@ -1189,10 +1188,10 @@ public class PlatformBase extends TestBase {
 			Utils.pause(WAIT_INTERVAL);
 		}
 	}
-    /**
-     * Paste a  node
-     * @param locator
-     */
+	/**
+	 * Paste a  node
+	 * @param locator
+	 */
 	public void pasteNode(Object locator) {
 		info("Paste Node");
 		for (int i =0;; i++){
@@ -1320,7 +1319,7 @@ public class PlatformBase extends TestBase {
 				inputsummary.click();
 				if (clear)
 					inputsummary.clear();
-				
+
 				if (validate.length >0)
 					if (validate[0]){
 						((JavascriptExecutor) driver).executeScript("document.body.innerHTML='" + data + "'");
@@ -1357,7 +1356,7 @@ public class PlatformBase extends TestBase {
 			loopCount = 0;
 		}
 	}
-	
+
 	/**
 	 * Type a text to a Frame using for CKEDITOR
 	 * @param frameLocator
@@ -1578,32 +1577,32 @@ public class PlatformBase extends TestBase {
 		waitForElementNotPresent(mail);
 		Utils.pause(1000);
 	}
-	
-    /**
-     * function: check content of mail then delete mail
-     * @param mail: element title of mail
-     * @param content: mail content
-     * @throws AWTException 
-     */
-    public void checkAndDeleteMailUsingRobot(By mail, String content) throws AWTException{
-            info("Check and delete mail");
-	                waitElementAndTryGetElement(mail,30000);
-                    Robot robot = new Robot();
-	 
-	                if(driver.findElement(ELEMENT_FIRST_NEW_MAIL) != null) {
-	                        click(ELEMENT_FIRST_NEW_MAIL);}
-	                else {
-	                        click(ELEMENT_FIRST_MAIL);
-	                }
- 
-	                info("Found notify mail");
-            Utils.pause(10000);
-            info("delete mail");
-            robot.keyPress(KeyEvent.VK_OPEN_BRACKET);
-            robot.keyRelease(KeyEvent.VK_OPEN_BRACKET);
-            Utils.pause(1000);
-    }
-	
+
+	/**
+	 * function: check content of mail then delete mail
+	 * @param mail: element title of mail
+	 * @param content: mail content
+	 * @throws AWTException 
+	 */
+	public void checkAndDeleteMailUsingRobot(By mail, String content) throws AWTException{
+		info("Check and delete mail");
+		waitElementAndTryGetElement(mail,30000);
+		Robot robot = new Robot();
+
+		if(driver.findElement(ELEMENT_FIRST_NEW_MAIL) != null) {
+			click(ELEMENT_FIRST_NEW_MAIL);}
+		else {
+			click(ELEMENT_FIRST_MAIL);
+		}
+
+		info("Found notify mail");
+		Utils.pause(10000);
+		info("delete mail");
+		robot.keyPress(KeyEvent.VK_OPEN_BRACKET);
+		robot.keyRelease(KeyEvent.VK_OPEN_BRACKET);
+		Utils.pause(1000);
+	}
+
 	public void uploadFileFromTopNavigation(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
 		alert = new ManageAlert(driver);
@@ -1613,18 +1612,15 @@ public class PlatformBase extends TestBase {
 			click(ELEMENT_DRIVER_BOX,2);
 			click(ELEMENT_DRIVER_OPTION.replace("${driveName}", driveName));
 		}
-		info("---Select folder path----");
-		String [] paths = folderPath.split("/");
-		for (String path : paths)
-			click(By.linkText(path));
-		if(newFolder!=""){
 
-			if(plfVersion =="4.1"){
-				click(ELEMENT_CREATE_FOLDER_BUTTON_PLF41);
-			}
-			else{
-				click(ELEMENT_CREATE_FOLDER_BUTTON);
-			}
+		if(folderPath!=null&&folderPath!=""){
+			info("---Select folder path----");
+			String [] paths = folderPath.split("/");
+			for (String path : paths)
+				click(By.linkText(path));
+		}
+		if(newFolder!="" && newFolder!=null){
+			click(ELEMENT_CREATE_FOLDER_BUTTON_PLF);
 			alert.inputAlertText(newFolder);
 			click(By.linkText(newFolder));
 		}

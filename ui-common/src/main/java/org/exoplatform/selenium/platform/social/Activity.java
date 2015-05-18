@@ -207,36 +207,25 @@ public class Activity extends SocialBase {
 		Boolean shareActivity = (Boolean)(params.length > 1 ? params[1] : true);
 		alert = new ManageAlert(driver);
 		info("-- Selecting a file to post on activity --");
-		for(int repeat=0;; repeat ++){
-			if (repeat > 3){
-				waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);
-				break;
-			}
-			click(ELEMENT_FILE_LINK);
-			if(waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP,5000,0)!=null)
-				break;
-			info("Retry...[" + repeat + "]");
-		}
+		click(ELEMENT_FILE_LINK);
+		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);
+
 		info("----Select drive----");
 		if(waitForAndGetElement(ELEMENT_DRIVER_CURRENT.replace("${driveName}", driveName), DEFAULT_TIMEOUT, 0)==null){
 			click(ELEMENT_DRIVER_BOX,2);
 			click(ELEMENT_DRIVER_OPTION.replace("${driveName}", driveName));
 		}
+
 		info("---Select folder path----");
-		String [] paths = folderPath.split("/");
-		for (String path : paths)
-			click(By.linkText(path));
-		if(newFolder!=""){
-			if(plfVersion.equalsIgnoreCase("4.0")){
-				click(ELEMENT_CREATE_FOLDER_BUTTON);
-				alert.inputAlertText(newFolder);
-				click(By.linkText(newFolder));
-			}
-			if(plfVersion.equalsIgnoreCase("4.1")){
-				click(ELEMENT_CREATE_FOLDER_BUTTON_PLF41);
-				alert.inputAlertText(newFolder);
-				click(By.linkText(newFolder));
-			}
+		if(folderPath!=""&&folderPath!=null){
+			String [] paths = folderPath.split("/");
+			for (String path : paths)
+				click(By.linkText(path));
+		}
+		if(newFolder!="" && newFolder!=null){
+			click(ELEMENT_CREATE_FOLDER_BUTTON_PLF);
+			alert.inputAlertText(newFolder);
+			click(By.linkText(newFolder));
 		}
 
 		if (upload && uploadFileName!="")
@@ -257,11 +246,16 @@ public class Activity extends SocialBase {
 				click(ELEMENT_DRIVER_BOX,2);
 				click(ELEMENT_DRIVER_OPTION.replace("${driveName}", driveName));
 			}
-			info("---Select folder path----");
-			paths = folderPath.split("/");
-			for (String path : paths)
-				click(By.linkText(path));
-			click(By.linkText(newFolder));
+
+			if(folderPath!=""&&folderPath!=null){
+				info("---Select folder path----");
+				String []paths = folderPath.split("/");
+				for (String path : paths)
+					click(By.linkText(path));
+			}
+			if(newFolder!="" && newFolder!=null){
+				click(By.linkText(newFolder));
+			}
 			click(By.linkText(uploadFileName));
 			waitForAndGetElement(ecms.ELEMENT_BREADCUMBSCONTAINER.replace("${fileName}", uploadFileName));
 		}

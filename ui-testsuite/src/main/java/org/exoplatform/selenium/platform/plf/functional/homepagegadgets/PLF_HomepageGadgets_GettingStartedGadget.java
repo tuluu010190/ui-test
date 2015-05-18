@@ -65,15 +65,15 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 	} 
 	
 	/**
-	 * CaseID 79575
+	 * CaseID 121271
 	 * Display Getting started gadget
 	 * 
-	 * CaseID 79578
+	 * CaseID 121761
 	 * Show default task of Getting started gadget
 	 * 
 	 */
 	@Test(priority=0)
-	public void test01_CheckDisplayOfGettingStartedGadget() { 
+	public void test01_02_CheckDisplayOfGettingStartedGadget() { 
 		
 		driver.navigate().refresh();
 		
@@ -90,23 +90,23 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 	
 
 	/**
-	 * CaseID 79579
+	 * CaseID 121319
 	 * Display Profile page from Getting started gadget
 	 * 
-	 * CaseID 79580
+	 * CaseID 121248
 	 * Display Connections page from Getting started gadget
 	 * 
-	 * CaseID 79581
+	 * CaseID 121223
 	 * Display All Spaces page from Getting started gadget
 	 * 
-	 * CaseID 79582
+	 * CaseID 121274
 	 * Display Home page from Getting started gadget
 	 * 
-	 * CaseID 79583
+	 * CaseID 121259
 	 * Display Documents page from Getting started gadget
 	 */
 	@Test(priority=1)
-	public void test02_CheckRedirectionOfGettingStartedGadget() { 
+	public void test03_04_05_06_07_CheckRedirectionOfGettingStartedGadget() { 
 		
 		driver.navigate().refresh();
 		waitForAndGetElement(homeGad.ELEMENT_GETTING_STARTED_GADGET_FORM);
@@ -114,7 +114,7 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 		info("79579: Display Profile page from Getting started gadget");
 		waitForAndGetElement(homeGad.ELEMENT_PROFILE_PICTURE);
 		click(homeGad.ELEMENT_PROFILE_PICTURE);
-		waitForAndGetElement(peoPro.ELEMENT_CHANGE_AVATAR_LINK);
+		waitForAndGetElement(peoPro.ELEMENT_EDIT_PROFILE_BUTTON);
 		
 		info("79580: Display Connections page from Getting started gadget");
 		navToolBar.goToHomePage();
@@ -145,27 +145,27 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 	}
 	
 	/**
-	 * CaseID 79584
+	 * CaseID 121656, 121657
 	 * Perform "Add a profile picture" action from Gadget
 	 * 
-	 * CaseID 79585
+	 * CaseID 121658, 121659
 	 * Perform "Connect to coworkers" action from Gadget
 	 * 
-	 * CaseID 79586
+	 * CaseID 121661, 121660
 	 * Perform "Join a space" action from Gadget
 	 * 
-	 * CaseID 79587
+	 * CaseID 121663,121662
 	 * Perform "Post an activity" action from Gadget
 	 * 
-	 * CaseID 79588
+	 * CaseID 121665, 121664
 	 * Perform "Upload a document" action from Gadget
 	 * 
-	 * CaseID 79589
+	 * CaseID 121689
 	 * Remove the Getting started gadget by performing all actions
 	 * 
 	 */
 	@Test(priority=3)
-	public void test03_CheckTaskDoneOnGettingStartedGadget() { 
+	public void test08_09_10_11_12_13_CheckTaskDoneOnGettingStartedGadget() { 
 		
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
@@ -180,12 +180,12 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 		acc.signOut();
 		acc.signIn(DATA_USER2, DATA_PASS);
 		
-		info("79588: Upload a document");
+		info("121665: Upload a document");
 		selectFile(driverName,true,folderPath,"",uploadFileName);
 		driver.navigate().refresh();
 		waitForAndGetElement(homeGad.ELEMENT_FINISH_UPLOAD_FILE.replace("${status}", "done"));
 		
-		info("79586: Join a space");
+		info("121661: Join a space");
 		magMember.goToAllSpaces();
 		magMember.joinOpenSpace(spaceName);
 		magMember.goToMySpacePage();
@@ -194,16 +194,17 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 		navToolBar.goToHomePage();
 		waitForAndGetElement(homeGad.ELEMENT_FINISH_JOIN_TO_SPACE.replace("${status}", "done"));
 		
-		info("79587: Post an activity");
+		info("121663: Post an activity");
 		addActivity(true, activity1, false,"");
 		driver.navigate().refresh();
 		
-		info("79584: Add a profile picture");
+		info("121657: Add a profile picture");
 		click(homeGad.ELEMENT_PROFILE_PICTURE);
+		peoPro.goToEditProfile();
 		peoPro.changeAvatar("TestData/"+file);
 		navToolBar.goToHomePage();
 		
-		info("79585: Connect to co-workers");
+		info("121659: Connect to co-workers");
 		click(homeGad.ELEMENT_CONNECT_TO_COWORKERS);
 		click(peoConn.ELEMENT_EVERYONE_TAB);
 		peoConn.connectPeople("John Smith"); 
@@ -213,13 +214,13 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 		acc.signOut();
 		acc.signIn(DATA_USER2, DATA_PASS); 
 		
-		info("79589: Remove gadget after all actions are done");
+		info("121689: Remove gadget after all actions are done");
 		//confirm progress bar
 		navToolBar.goToHomePage();
 		waitForAndGetElement(homeGad.ELEMENT_CLOSE_GADGET_GETTING_STARTED);
 		waitForAndGetElement(homeGad.ELEMENT_INPROGRESS_COMPLETE);
 		//Close the gadget
-		click(homeGad.ELEMENT_CLOSE_GADGET_GETTING_STARTED);
+		mouseOverAndClick(homeGad.ELEMENT_CLOSE_GADGET_GETTING_STARTED);
 		driver.navigate().refresh();
 		waitForElementNotPresent(homeGad.ELEMENT_GETTING_STARTED_GADGET_FORM);
 		
@@ -237,56 +238,56 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 	}
 	
 	/**
-	 * CaseID 79576
+	 * CaseID 121690
 	 * Remove the Getting started gadget by the close button
 	 * 
-	 * CaseID 79577
+	 * CaseID 121359
 	 * Display the close icon
 	 * 
-	 * CaseID 79595
+	 * CaseID 121875
 	 * Verify the remove of Getting started gadget
 	 * 
-	 * CaseID 79597
+	 * CaseID 121272
 	 * Display Getting started gadget for other users in case admin deletes his started gadget
 	 * 
-	 * CaseID 79596
+	 * CaseID 121835
 	 * Upload a document from a drive other than "Personal Documents"
 	 * 
 	 */
 	@Test(priority=2)
-	public void test04_RemoveGettingStartedGadget() { 
+	public void test14_15_16_17_18_RemoveGettingStartedGadget() { 
 		String file1 = "ECMS_Admin_ManageCategories_Display.jpg";
-		String file2 = "ECMS_Admin_SendMailScript_Template.txt";
 		
-		info("79577: confirm display [x] close button");
+		info("121835: Upload a document from a drive other than [Personal Documents]");
+		navToolBar.goToSiteExplorer();
+		ecms.uploadMultiFileSerial(file1);
+		navToolBar.goToHomePage();
+		waitForAndGetElement(homeGad.ELEMENT_GETTING_STARTED_GADGET_FORM);
+		waitForAndGetElement(homeGad.ELEMENT_FINISH_UPLOAD_FILE.replace("${status}", "done"));
+		
+		info("121359: confirm display [x] close button");
 		driver.navigate().refresh();
-		mouseOver(By.xpath("//*[@class='gadgetTitle title center']"),true);
-//		waitForAndGetElement(homeGad.ELEMENT_X_CLOSE_BUTTON_GADGET_GETTING_STARTED);
+		click(By.xpath("//*[@class='gadgetTitle title center']"));
+		waitForAndGetElement(homeGad.ELEMENT_X_CLOSE_BUTTON_GADGET_GETTING_STARTED);
 		
-		info("79576: remove gadget by clicking [x] close button");
+		info("121690: remove gadget by clicking [x] close button");
 		mouseOverAndClick(homeGad.ELEMENT_X_CLOSE_BUTTON_GADGET_GETTING_STARTED);
 		
-		info("79595: verify gadget is removed");
+		info("121875: verify gadget is removed");
 		driver.navigate().refresh();
 		waitForElementNotPresent(homeGad.ELEMENT_GETTING_STARTED_GADGET_FORM);
 		
-		info("79597: display Getting started gadget for other users in case admin deletes his started gadget");
+		info("121272: display Getting started gadget for other users in case admin deletes his started gadget");
 		acc.signOut();
 		acc.signIn(DATA_USER2, DATA_PASS);
 		driver.navigate().refresh();
 		waitForAndGetElement(homeGad.ELEMENT_GETTING_STARTED_GADGET_FORM);
 		
-		info("79596: Upload a document from a drive other than [Personal Documents]");
-		navToolBar.goToSiteExplorer();
-		ecms.uploadMultiFileSerial(file1, file2);
-		navToolBar.goToHomePage();
-		waitForAndGetElement(homeGad.ELEMENT_GETTING_STARTED_GADGET_FORM);
-		waitForAndGetElement(homeGad.ELEMENT_FINISH_UPLOAD_FILE.replace("${status}", ""));
-		
 		info("Restore data");
+		acc.signOut();
+		acc.signIn(DATA_USER1, DATA_PASS);
 		navToolBar.goToSiteExplorer();
 		cMenu.deleteData(By.linkText(file1));
-		cMenu.deleteData(By.linkText(file2));
 		acc.signOut();		
 	}
 
