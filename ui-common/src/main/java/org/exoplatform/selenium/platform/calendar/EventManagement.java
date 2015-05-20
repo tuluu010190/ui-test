@@ -109,6 +109,7 @@ public class EventManagement extends PlatformBase {
 	public final By ELEMENT_REMINDER_BY_MAIL=By.id("mailReminder");
 
 	/*Recurring event form*/
+	public By ELEMENT_RECURRING_FORM=By.id("UIRepeatEventForm");
 	public By ELEMENT_RECURRING_TYPE_SELECT_BOX = By.xpath("//*[@name='repeatType']");
 	public By ELEMENT_INTERVAL_SELECT_BOX = By.xpath("//*[@name='interval']");
 	public By ELEMENT_END_AFTER_NUMBER = By.id("endAfterNumber");
@@ -118,7 +119,9 @@ public class EventManagement extends PlatformBase {
 	public By ELEMENT_DATE_TIME_PICKER = By.xpath("//*[contains(@id, 'DateTimePicker')]");
 	public By ELEMENT_IS_REPEAT_CHECKBOX = By.id("isRepeat");
 	public By ELEMENT_SAVE_EVENT_OCCURRING = By.xpath("//*[@id='UIRepeatEventForm']//*[contains(text(),'Save')]");
-
+    public By ELEMENT_RECURRING_SAVE_BTN=By.xpath(".//*[@id='UIRepeatEventForm']//button[1]");
+    public By ELEMENT_EDIT_RECURRING_EVENT_FORM_SAVE_BTN=By.xpath(".//*[@id='UIConfirmFormUpdate']//button[1]");
+	
 	/*Delete recurring event form*/
 	public By ELEMENT_DELETE_RECURRING_EVENT_FORM = By.id("UICalendarPopupWindow");
 	public By ELEMENT_EDIT_DELETE_ONE_EVENT = By.xpath("//*[@value='save_one']");
@@ -807,7 +810,7 @@ public class EventManagement extends PlatformBase {
 	 */
 	public void saveAddEventDetails(){
 		click(ELEMENT_BUTTON_EVENT_SAVE_DETAILS);
-		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_SAVE_DETAILS);
+		//waitForElementNotPresent(ELEMENT_BUTTON_EVENT_SAVE_DETAILS);
 		Utils.pause(500);
 	}
 
@@ -1023,7 +1026,30 @@ public class EventManagement extends PlatformBase {
 		click(ELEMENT_CONFIRM_EDIT_BUTTON);
 		waitForElementNotPresent(ELEMENT_CONFIRM_EDIT_RECURRING_FORM);
 	}
-	
+	/**
+	 * Open Recurring form
+	 */
+	public void openRecurringForm(){
+		info("Click on Repeat checkbox");
+		check(ELEMENT_IS_REPEAT_CHECKBOX,2);
+		waitForAndGetElement(ELEMENT_RECURRING_FORM,2000,1);
+	}
+	/**
+	 * Save recurring form
+	 */
+	public void saveRecurringForm(){
+		info("Click on Save button");
+		click(ELEMENT_RECURRING_SAVE_BTN);
+		waitForElementNotPresent(ELEMENT_RECURRING_SAVE_BTN);
+	}
+	/**
+	 * Save Edit Recurring Event Confirm popup
+	 */
+	public void saveEditRecurringEventConfirmPopup(){
+		info("Click on Save button");
+		click(ELEMENT_EDIT_RECURRING_EVENT_FORM_SAVE_BTN);
+		waitForElementNotPresent(ELEMENT_EDIT_RECURRING_EVENT_FORM_SAVE_BTN);
+	}
 	
 }
 

@@ -12,6 +12,8 @@
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_Event_Activity_Add" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_General" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_Task_Details" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_Event_Activity_Delete" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_Event_Activity_Display" />
 		</classes>
 	</test>
 	<listeners>

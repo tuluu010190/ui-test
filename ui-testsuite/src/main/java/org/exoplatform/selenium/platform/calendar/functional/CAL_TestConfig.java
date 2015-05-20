@@ -8,6 +8,7 @@ import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
 import org.exoplatform.selenium.platform.calendar.TaskManagement;
@@ -30,6 +31,7 @@ public class CAL_TestConfig extends PlatformBase {
 	EventManagement evMg;
 	TaskManagement tasMg;
 	CalendarManagement cMang;
+	CalendarHomePage cHome;
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
 	SpaceSettingManagement setSpaceMg;
@@ -57,6 +59,7 @@ public class CAL_TestConfig extends PlatformBase {
 		
 		evMg = new EventManagement(driver);
 		cMang = new CalendarManagement(driver);
+		cHome = new CalendarHomePage(driver);
 		tasMg = new TaskManagement(driver);
 		
 		txData = new TextBoxDatabase();

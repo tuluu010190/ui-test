@@ -64,9 +64,12 @@ public class ActivityStream extends PlatformBase {
 	
 	//Task/Event activity
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TITLE = "//*[@class='linkTitle' and text()='$name']";
+	public final String ELEMENT_ACTIVITY_TASK_EVENT_TITLE_SPACE_AS_LINK=".//*[contains(@href,'${space}')][contains(text(),'${event}')]";
+	public final String ELEMENT_ACTIVITY_TASK_EVENT_START_DATE_MONTH=".//*[contains(text(),'${name}')]/../..//*[contains(@class,'heading')][contains(text(),'${month}')]";
+	public final String ELEMENT_ACTIVITY_TASK_EVENT_START_DATE_DAY=".//*[contains(text(),'${name}')]/../..//*[contains(@class,'content')][contains(text(),'${day}')]";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_DESCRIPTION = "//*[@class='linkTitle' and text()='$name']/../..//*[text()='$description ']";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_DATE = "//*[@class='linkTitle' and text()='$name']/../..//*[@class='dateTime' and contains(text(),'$date')]";
-	public final String ELEMENT_ACTIVITY_TASK_EVENT_LOCATION = "//*[@class='linkTitle' and text()='$name']/../..//*[@class='location']";
+	public final String ELEMENT_ACTIVITY_TASK_EVENT_LOCATION = "//*[@class='linkTitle' and text()='$name']/../..//*[@class='location']/text()";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TOTAL_COMMENT_NUMBER="//*[@class='linkTitle' and text()='${name}']/../../../..//*[contains(@class,'actionBar')][contains(.,'${number}')]";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_COMMENT = "//*[@class='linkTitle' and text()='$name']/../../../..//*[@class='commentList']//*[contains(text(),'$comment')]";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_COMMENT_RECURRING_CANCEL="//*[@class='linkTitle' and text()='$name']/../../../..//*[@class='commentList']//*[contains(text(),'Event cancelled for $date')]";

@@ -1536,7 +1536,16 @@ public class TestBase {
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		return cal.get(Calendar.DAY_OF_WEEK);
 	}
-
+	/**
+	 * Get current month/day/year
+	 * @param format as MMM for month, dd for day, or yyyy for year
+	 * @return dateFormat.format(now.getTime())
+	 */
+	public String getCurrentMonthDayYear(String format){
+		DateFormat dateFormat = new SimpleDateFormat (format);
+		Calendar now = Calendar.getInstance();
+		return dateFormat.format(now.getTime());
+	}
 	/**
 	 * Get minute in format "mm" from current date
 	 * @return minute

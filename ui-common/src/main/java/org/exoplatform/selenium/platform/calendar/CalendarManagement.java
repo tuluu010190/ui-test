@@ -17,6 +17,8 @@ public class CalendarManagement extends PlatformBase{
 
 	public String ELEMENT_EVENT_TASK_TITLE=".//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')]";
 	public By ELEMENT_ADD_EDIT_EVENT_POPUP = By.xpath(".//*[@id='UICalendarPopupWindow']");
+	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING="(.//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')])[${number}]";
+	
 	//Grid-->List tab
 	public String ELEMENT_CALENDAR_TAB=".//*[@id='UIActionBar']//*[contains(text(),'${name}')]";
 	public By ELEMENT_CALENDAR_LIST_TAB_SELECT_ALL_CHECKBOX=By.xpath(".//*[@id='UIListUsers']//*[contains(@data-original-title,'Select All')]//input");
@@ -174,7 +176,7 @@ public class CalendarManagement extends PlatformBase{
 
 	//Confirm popup
 	public By ELEMENT_CONFIRM_POPUP_OK=By.xpath(".//*[@id='UIConfirmation']//*[contains(text(),'Yes')]");
-	public By ELEMENT_CONFIRM_POPUP_DELETE=By.xpath(".//*[@id='UIConfirmFormTasks']//button[text()='Delete']");
+	public By ELEMENT_CONFIRM_POPUP_DELETE=By.xpath(".//*[contains(@class,'uiConfirmForm')]//button[1]");
 	
 	PlatformPermission pPer;
 	ManageAlert alert;
@@ -824,7 +826,7 @@ public class CalendarManagement extends PlatformBase{
 	 * right click on an even to show context menu
 	 */
 	public enum contextMenuEditEvenOption{
-		VIEW,EDIT,DELETE,EXPORT;
+		VIEW,EDIT,DELETE,DELETE_RECURRING,EXPORT;
 	}
 	/**
 	 * Select an option in context menu
@@ -844,6 +846,10 @@ public class CalendarManagement extends PlatformBase{
 			info("Select Delete option");
 			click(ELEMENT_CONTEXT_MENU_DELETE);
 			click(ELEMENT_CONFIRM_POPUP_OK);
+			break;
+		case DELETE_RECURRING:
+			info("Select Delete option");
+			click(ELEMENT_CONTEXT_MENU_DELETE);
 			break;
 		case EXPORT:
 			info("Select Export option");
@@ -867,18 +873,28 @@ public class CalendarManagement extends PlatformBase{
 	}
 	
 	/**
-	 * Open add/edit event popup
+	 * Open add/edit event popup by double clicking
 	 * @param name
-	 * @param newName
+	 * @param opt is an instance of a repeated event as 1,2,3,4....
 	 */
-	public void openEditEventTaskPopup(String name){
+	public void openEditEventTaskPopup(String name, String... opt) {
 		info("Edit an event");
-		info("Double click on the event");
 		Actions action = new Actions(this.driver);
-		scrollElementIntoView(this.driver.findElement(By.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))));
-		action.moveToElement(waitForAndGetElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))).
-		doubleClick().perform();
-		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_POPUP,2000,1);
+		if (opt.length > 0 && opt[0] != null) {
+			info("Double click on the event");
+			scrollElementIntoView(this.driver.findElement(By
+					.xpath(ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",name).replace("${number}",opt[0]))));
+			action.moveToElement(
+					waitForAndGetElement(ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",name).replace("${number}",opt[0]))).doubleClick().perform();
+		}else{
+			info("Double click on the event");
+			scrollElementIntoView(this.driver.findElement(By
+					.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}", name))));
+			action.moveToElement(
+					waitForAndGetElement(ELEMENT_EVENT_TASK_TITLE.replace(
+							"${name}", name))).doubleClick().perform();
+		}
+		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_POPUP, 2000, 1);
 		info("The edit form is shown");
 	}
 	/**
@@ -886,13 +902,12 @@ public class CalendarManagement extends PlatformBase{
 	 * @param name
 	 */
 	public void deleteTaskEvent(String name){
-		info("Right click on an Event/Task");
-		scrollElementIntoView(this.driver.findElement(By.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))));
-		rightClickOnElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
-		selectOptionByRightclickOnEvent(contextMenuEditEvenOption.DELETE);
-		waitForElementNotPresent(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+			info("Right click on an Event/Task");
+			scrollElementIntoView(this.driver.findElement(By.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))));
+			rightClickOnElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+			selectOptionByRightclickOnEvent(contextMenuEditEvenOption.DELETE);
+			waitForElementNotPresent(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
 	}
-	
 	/**
 	 * Remove an event or a task on List tab
 	 * @param name
