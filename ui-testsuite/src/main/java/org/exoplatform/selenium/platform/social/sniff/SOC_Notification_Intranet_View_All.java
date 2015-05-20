@@ -65,7 +65,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 				- Connection request
 				- Post on My stream
 				- Post on My Space
-				- Connection request (read)
+				- Connect	ion request (read)
 				- Post in My stream (read)*/
 		info("Create user1 and enable new user and like notifications for user1");
 		navTool.goToAddUser();

@@ -41,6 +41,7 @@ public class Wiki_TestConfig extends PlatformBase {
 	RichTextEditor rtMode;
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
+	
 	SpaceSettingManagement setSpaceMg;
 	
 	TextBoxDatabase txData;
@@ -60,6 +61,7 @@ public class Wiki_TestConfig extends PlatformBase {
 		
 		hp = new HomePagePlatform(driver);
 		hpAct = new ActivityStream(driver);
+		spaHome = new SpaceHomePage(driver);
 		
 		PlfPerm = new PlatformPermission(driver);
 		
@@ -71,7 +73,6 @@ public class Wiki_TestConfig extends PlatformBase {
 		
 		rtMode = new RichTextEditor(driver);
 		spaMg = new SpaceManagement(driver);
-		spaHome = new SpaceHomePage(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
 		
 		txData = new TextBoxDatabase();

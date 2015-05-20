@@ -122,7 +122,7 @@ public class PortalManagePages extends PlatformBase {
 		searchPage(titlePage,"",type);
 		click(ELEMENT_MAGEPAGES_CONTENT_ACTION_COLUMN_DELETE);
 		alert.acceptAlert();
-		waitForAndGetElement(ELEMENT_MANGEPAGES_INFORM_POPUP_OK);
+		waitForAndGetElement(ELEMENT_MANGEPAGES_INFORM_POPUP_OK, 4000, 0);
 		click(ELEMENT_MANGEPAGES_INFORM_POPUP_OK);
 		waitForElementNotPresent(ELEMENT_MANAGEPAGES_CONTENT_TITLE_COLUMN.replace("${tilte}",titlePage));
 	    Utils.pause(2000);
