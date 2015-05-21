@@ -7,6 +7,7 @@ import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
+import org.exoplatform.selenium.platform.calendar.EventManagement.recurringType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -179,6 +180,7 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CONFIRM_POPUP_DELETE=By.xpath(".//*[contains(@class,'uiConfirmForm')]//button[1]");
 	
 	PlatformPermission pPer;
+	EventManagement evMg;
 	ManageAlert alert;
     Button button;
 	/**
@@ -190,6 +192,7 @@ public class CalendarManagement extends PlatformBase{
 		pPer = new PlatformPermission(dr);
 		alert = new ManageAlert(dr);
 		button = new Button(dr);
+		evMg = new EventManagement(dr);
 	};
 
 	/**
@@ -894,7 +897,7 @@ public class CalendarManagement extends PlatformBase{
 					waitForAndGetElement(ELEMENT_EVENT_TASK_TITLE.replace(
 							"${name}", name))).doubleClick().perform();
 		}
-		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_POPUP, 2000, 1);
+		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_POPUP,4000,0);
 		info("The edit form is shown");
 	}
 	/**
@@ -908,22 +911,27 @@ public class CalendarManagement extends PlatformBase{
 			selectOptionByRightclickOnEvent(contextMenuEditEvenOption.DELETE);
 			waitForElementNotPresent(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
 	}
+	
+	
 	/**
 	 * Remove an event or a task on List tab
 	 * @param name
 	 */
 	public void deleteAllTaskEvent(String listTab) {
 		goToTab(listTab);
-		if (waitForAndGetElement(ELMENT_CALENDAR_TAB_LIST_EMPTY, 3000,0) == null) {
+		if (waitForAndGetElement(ELMENT_CALENDAR_TAB_LIST_EMPTY, 3000, 0) == null) {
 			info("Select all task/events in the list tab");
 			check(ELEMENT_CALENDAR_LIST_TAB_SELECT_ALL_CHECKBOX, 2);
 			click(ELEMENT_CALENDAR_LIST_TAB_DELETE_BUTTON);
-			if(waitForAndGetElement(ELEMENT_CONFIRM_POPUP_OK,2000,0)!=null)
-			click(ELEMENT_CONFIRM_POPUP_OK);
-			else
-			click(ELEMENT_CONFIRM_POPUP_DELETE);
-			Utils.pause(2000);
+			if (waitForAndGetElement(ELEMENT_CONFIRM_POPUP_OK, 2000, 0) != null)
+				click(ELEMENT_CONFIRM_POPUP_OK);
+			if (waitForAndGetElement(evMg.ELEMENT_EDIT_DELETE_ONE_EVENT,2000, 0) != null){
+				evMg.deleteRecurringConfirm(recurringType.ALL_EVENT);
+			}
+			if (waitForAndGetElement(ELEMENT_CONFIRM_POPUP_DELETE, 2000, 0) != null)
+				click(ELEMENT_CONFIRM_POPUP_DELETE);
 		}
+		Utils.pause(2000);
 
 	}
 	/**

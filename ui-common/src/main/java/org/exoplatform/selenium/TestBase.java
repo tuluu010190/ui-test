@@ -151,6 +151,7 @@ public class TestBase {
 	//Calendar
 	protected String calGroupNameFilePath;
 	protected String calTabNameFilePath;
+	protected String calCommentsFilePath;
 	
 	
 	protected String notiDesFilePath;
@@ -242,6 +243,7 @@ public class TestBase {
 	//Calendar
 	public final String DEFAULT_CALENDAR_GROUP_NAME_URL="DataDriven/"+"cal_group.xls";
 	public final String DEFAULT_CALENDAR_TAB_NAME_URL="DataDriven/"+"cal_tabs.xls";
+	public final String DEFAULT_CALENDAR_COMMENTS_URL="DataDriven/"+"cal_comments.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -355,6 +357,7 @@ public class TestBase {
 		//Calendar
 		calGroupNameFilePath = System.getProperty("calGroupNameFilePath");
 		calTabNameFilePath =System.getProperty("calTabNameFilePath");
+		calCommentsFilePath =System.getProperty("calCommentsFilePath");
 		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -435,6 +438,7 @@ public class TestBase {
 		//Calendar
 		if (calGroupNameFilePath==null) calGroupNameFilePath=DEFAULT_CALENDAR_GROUP_NAME_URL;
 		if (calTabNameFilePath==null) calTabNameFilePath=DEFAULT_CALENDAR_TAB_NAME_URL;
+		if (calCommentsFilePath==null) calCommentsFilePath=DEFAULT_CALENDAR_COMMENTS_URL;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -497,6 +501,7 @@ public class TestBase {
 		//Calendar
 		calGroupNameFilePath = getAbsoluteFilePath(calGroupNameFilePath);
 		calTabNameFilePath =getAbsoluteFilePath(calTabNameFilePath);
+		calCommentsFilePath=getAbsoluteFilePath(calCommentsFilePath);
 	}
 
 	/**
@@ -1208,7 +1213,7 @@ public class TestBase {
 				WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);		
 				if (element != null){
 					if (validate) element.clear();
-					element.click();
+					//element.click();
 					element.sendKeys(value);
 					if (!validate || value.equals(getValue(locator))) {
 						break;
@@ -1536,6 +1541,7 @@ public class TestBase {
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		return cal.get(Calendar.DAY_OF_WEEK);
 	}
+	
 	/**
 	 * Get current month/day/year
 	 * @param format as MMM for month, dd for day, or yyyy for year
@@ -2004,6 +2010,22 @@ public class TestBase {
 		info(date);
 		return date;
 	}
+	/**
+	 * Get first day of week
+	 * @param format
+	 * @return firstDayOfWeek
+	 */
+	public String getFirstDayOfWeek(String format) {
+		   DateFormat dateFormat = new SimpleDateFormat(format);
+		   Date date = new Date();
+		   Calendar calendar = Calendar.getInstance();
+		   calendar.clear();
+		   calendar.setTime(date);
+		   calendar.set(Calendar.DAY_OF_WEEK, 2);
+		   String firstDayOfWeek = dateFormat.format(calendar.getTime());
+		   info("firstDayOfWeek:"+firstDayOfWeek);
+		   return firstDayOfWeek;
+		}
 	/**
 	 * Scroll to a element on the website
 	 * @param element

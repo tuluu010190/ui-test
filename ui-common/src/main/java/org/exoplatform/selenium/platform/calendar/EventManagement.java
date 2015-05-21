@@ -15,6 +15,9 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOpti
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 
 public class EventManagement extends PlatformBase {
 
@@ -121,20 +124,21 @@ public class EventManagement extends PlatformBase {
 	public By ELEMENT_SAVE_EVENT_OCCURRING = By.xpath("//*[@id='UIRepeatEventForm']//*[contains(text(),'Save')]");
     public By ELEMENT_RECURRING_SAVE_BTN=By.xpath(".//*[@id='UIRepeatEventForm']//button[1]");
     public By ELEMENT_EDIT_RECURRING_EVENT_FORM_SAVE_BTN=By.xpath(".//*[@id='UIConfirmFormUpdate']//button[1]");
+    public By ELEMENT_RECURRING_REPEAT_BTN=By.xpath(".//*[@id='eventDetail']//*[contains(@class,'uiIconEdit')]");
 	
 	/*Delete recurring event form*/
-	public By ELEMENT_DELETE_RECURRING_EVENT_FORM = By.id("UICalendarPopupWindow");
+	public By ELEMENT_DELETE_RECURRING_EVENT_FORM = By.xpath("//*[@class='uiConfirmForm']");
 	public By ELEMENT_EDIT_DELETE_ONE_EVENT = By.xpath("//*[@value='save_one']");
 	public By ELEMENT_EDIT_DELETE_FOLLOWING_EVENT = By.xpath("//*[@value='save_follow']");
 	public By ELEMENT_EDIT_DELETE_ALL_EVENT = By.xpath("//*[@value='save_all']");
-	public By ELEMENT_CONFIRM_DELETE_BUTTON = By.xpath("//*[@id='UIConfirmFormDelete']//*[text()='Delete']");
-	public By ELEMENT_CONFIRM_CANCEL_BUTTON = By.xpath("//*[@id='UIConfirmFormDelete']//*[text()='Cancel']");
+	public By ELEMENT_CONFIRM_DELETE_BUTTON = By.xpath("//*[@class='uiConfirmForm']//button[1]");
+	public By ELEMENT_CONFIRM_CANCEL_BUTTON = By.xpath("//*[@class='uiConfirmForm']//button[2]");
 	public String ELEMENT_CONFIRM_DELETE_MESSAGE = "Would you like to delete only this event, all events in the series, or this and all following events in the series?";
 	public By ELEMENT_CONFIRM_EDIT_DELETE_RECURRING_EVENT = By.xpath("//*[@class='media-body']");
 
 	/*Delete recurring event*/
 	public By ELEMENT_CONFIRM_EDIT_BUTTON = By.xpath("//*[@id='UIConfirmFormUpdate']//*[text()='Save']");
-	public By ELEMENT_CONFIRM_EDIT_RECURRING_FORM = By.id("UICalendarChildPopupWindow");
+	public By ELEMENT_CONFIRM_EDIT_RECURRING_FORM = By.xpath(".//*[@class='confirmRadio']");
 	public String ELEMENT_CONFIRM_EDIT_MESSAGE = "Would you like to change only this event, all events in the series, or this and all following events in the series?";
 
 	/*Content recurring*/
@@ -1026,12 +1030,43 @@ public class EventManagement extends PlatformBase {
 		click(ELEMENT_CONFIRM_EDIT_BUTTON);
 		waitForElementNotPresent(ELEMENT_CONFIRM_EDIT_RECURRING_FORM);
 	}
+	
+	/**
+	 * Delete recurring Confirm selection
+	 * @param optEditType
+	 */
+	public void deleteRecurringConfirm(recurringType optEditType){
+		waitForAndGetElement(ELEMENT_CONFIRM_EDIT_RECURRING_FORM);
+		switch (optEditType) {
+		case ONLY_EVENT:
+			info("Edit only event recurring");
+			check(ELEMENT_EDIT_DELETE_ONE_EVENT,2);
+			break;
+		case FOLLOW_EVENT:
+			info("Edit following event recurring");
+			check(ELEMENT_EDIT_DELETE_FOLLOWING_EVENT,2);
+			break;
+		case ALL_EVENT:
+			info("Edit all event recurring");
+			check(By.xpath("(.//*[@id='UIConfirmFormDelete']//*[contains(@class,'radio')])[3]"),2);
+			//click(ELEMENT_EDIT_DELETE_ALL_EVENT,2);
+			break;
+		}
+		Utils.pause(2000);
+		click(ELEMENT_CONFIRM_DELETE_BUTTON);
+		waitForElementNotPresent(ELEMENT_CONFIRM_DELETE_BUTTON);
+	}
 	/**
 	 * Open Recurring form
 	 */
 	public void openRecurringForm(){
-		info("Click on Repeat checkbox");
-		check(ELEMENT_IS_REPEAT_CHECKBOX,2);
+		if (waitForAndGetElement(ELEMENT_RECURRING_REPEAT_BTN, 3000, 0) == null) {
+			info("Click on Repeat checkbox");
+			check(ELEMENT_IS_REPEAT_CHECKBOX, 2);
+		}else{
+			info("Click on Edit button");
+			click(ELEMENT_RECURRING_REPEAT_BTN);
+		}
 		waitForAndGetElement(ELEMENT_RECURRING_FORM,2000,1);
 	}
 	/**

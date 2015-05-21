@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
 import org.exoplatform.selenium.platform.calendar.TaskManagement;
+import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarCommentsDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarGroupDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarTabsDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
@@ -39,6 +40,7 @@ public class CAL_TestConfig extends PlatformBase {
 	TextBoxDatabase txData;
 	CalendarGroupDatabase cGroupData;
 	CalendarTabsDatabase cTabData;
+	CalendarCommentsDatabase cCommentData;
 	
 	
 	@BeforeMethod
@@ -70,6 +72,9 @@ public class CAL_TestConfig extends PlatformBase {
 		
 		cTabData = new CalendarTabsDatabase();
 		cTabData.setData(calTabNameFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		cCommentData = new CalendarCommentsDatabase();
+		cCommentData.setData(calCommentsFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
 		info("End setUpBeforeMethod");
 	}
