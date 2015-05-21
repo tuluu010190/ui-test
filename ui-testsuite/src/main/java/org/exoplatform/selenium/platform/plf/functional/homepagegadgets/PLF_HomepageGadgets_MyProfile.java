@@ -181,7 +181,8 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		 *Expected Outcome: 
 			First name is updated*/
 		naviToolbar.goToMyProfile();
-		peoPro.editUserBasicInformation(newFirstName, "", "");
+		peoPro.goToEditProfile();
+		peoPro.updateBasicInformation(newFirstName, "", "");
 
 		/*Step number: 2
 		 *Step Name: -
@@ -206,7 +207,8 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
 		pageEditor.removePortlet(hpGadget.ELEMENT_EDIT_PAGE_IN_MIDDLE_PORTLET.replace("${portlet}", "My Profile"), hpGadget.ELEMENT_EDIT_PAGE_PORTLET_DELETE_ICON.replace("${portlet}", "My Profile"));
 		naviToolbar.goToMyProfile();
-		peoPro.editUserBasicInformation(firstName, "", "");
+		peoPro.goToEditProfile();
+		peoPro.updateBasicInformation(firstName, "", "");
 	}
 
 	/**
@@ -259,7 +261,8 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		 *Expected Outcome: 
 			Last name is updated*/
 		naviToolbar.goToMyProfile();
-		peoPro.editUserBasicInformation("", newLastName, "");
+		peoPro.goToEditProfile();
+		peoPro.updateBasicInformation("", newLastName, "");
 
 		/*Step number: 2
 		 *Step Name: -
@@ -284,7 +287,8 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
 		pageEditor.removePortlet(hpGadget.ELEMENT_GADGET_PORLET_IN_MIDDLE_HOME_PAGE, hpGadget.ELEMENT_DELETE_ICON_GADGET_PORLET_IN_MIDDLE_HOME_PAGE);
 		naviToolbar.goToMyProfile();
-		peoPro.editUserBasicInformation("", lastName, "");
+		peoPro.goToEditProfile();
+		peoPro.updateBasicInformation("", lastName, "");
 	}
 }
 

@@ -238,17 +238,22 @@ public class Social_People extends SocialBase {
 		String nameOfOrganization ="exoplatform company";
 		String nameOfPosition="sale";
 		String nameOfSkill="Testing";
-
+		String dStart = getDate(-7, "MM/dd/yyyy");
+		String dEnd = getDate(-1, "MM/dd/yyyy");
 		//Edit information of user
 		//Login by user1
 		magAcc.userSignIn(userType.PUBLISHER);
 
 		//Hover the mouse over the name of user, click on My profile
 		navToolBar.goToMyProfile();
-
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		peoPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
 		//Click on Edit button to change user's information
-		peoPro.editUserExperience(nameOfOrganization, nameOfPosition, nameOfSkill);
-
+		peoPro.updateExperience(nameOfOrganization,nameOfPosition,nameOfPosition,nameOfSkill,dStart,dEnd,false);
+		peoPro.saveCancelUpdateInfo(true);
+		
 		//Login by DATA_USER1
 		magAcc.userSignIn(userType.ADMIN);
 
@@ -301,9 +306,11 @@ public class Social_People extends SocialBase {
 		/*Step 1: View and edit user's profile*/ 
 		//Hover the mouse over the name of user, click on My profile
 		navToolBar.goToMyProfile();
-
-		//Click on Edit button to change user's information
-		peoPro.editUserBasicInformation(firstName, lastName, email);
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		peoPro.updateBasicInformation(firstName, firstName, email);
+		peoPro.saveCancelUpdateInfo(true);
 
 		//Get old avatar
 		WebElement element = waitForAndGetElement(By.xpath(ELEMENT_GET_URL_IMAGE.replace("${name}", firstName+" "+lastName)));
@@ -325,7 +332,11 @@ public class Social_People extends SocialBase {
 
 		//Clear data
 		navToolBar.goToMyProfile();
-		peoPro.editUserBasicInformation(oldFirstnName, oldLastName, oldEmail);
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		peoPro.updateBasicInformation(oldFirstnName, oldLastName, oldEmail);
+		peoPro.saveCancelUpdateInfo(true);
 	}
 
 	/**
@@ -349,7 +360,7 @@ public class Social_People extends SocialBase {
 
 		//Click on Connections on the left panel
 		navToolBar.goToConnectionPage();
-		peoPro.goToUserProfile(user);
+		peoConn.goToUserProfile(user);
 
 		//Click on My network tab
 		click(peoConn.ELEMENT_CONNECTION_OF_USER);
@@ -409,19 +420,28 @@ public class Social_People extends SocialBase {
 		String nameOfSkill="Analysis";
 		String oldFirstnName = "Mary";
 		String oldLastName = "Williams";
-
+		String dStart = getDate(-7, "MM/dd/yyyy");
+		String dEnd = getDate(-1, "MM/dd/yyyy");
+		String im1 = "test";
+		String phone1 = "090000";
+		
 		//Edit information of user
 		//Login by user1
 		magAcc.userSignIn(userType.PUBLISHER);
 
 		//Hover the mouse over the name of user, click on My profile
 		navToolBar.goToMyProfile();
-
-		//Click on Edit button to change user's information
-		peoPro.editUserBasicInformation(firstName, lastName, email);
-		peoPro.editUserContact(typeOfGender,true,typeOfAddPhone,numberOfPhone,true,typeOfIMS,nameOfIMS,true,nameOfURLS);
-		peoPro.editUserExperience(nameOfOrganization, nameOfPosition, nameOfSkill);
-
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		peoPro.updateBasicInformation(firstName, lastName, email);
+		peoPro.updateGenderJob(typeOfGender, nameOfPosition);
+		peoPro.updateIms(typeOfIMS, im1,"1");
+		peoPro.updatePhone(typeOfAddPhone, phone1,"1");
+		peoPro.updateUrl(nameOfURLS,"1");
+		peoPro.updateExperience(nameOfOrganization,nameOfPosition,nameOfPosition,nameOfSkill,dStart,dEnd,false);
+		peoPro.saveCancelUpdateInfo(true);
+		
 		/*Step 1: View profile*/ 
 		magAcc.userSignIn(userType.ADMIN);
 		//magAcc.signIn(DATA_USER1, DATA_PASS);
@@ -430,7 +450,7 @@ public class Social_People extends SocialBase {
 		navToolBar.goToConnectionPage();
 
 		//Click on name or avatar of other user
-		peoPro.goToUserProfile(firstName+" "+lastName);
+		peoConn.goToUserProfile(firstName+" "+lastName);
 
 		//Show all information of friend, default tab is My profile
 		waitForAndGetElement("//*[contains(text(),'"+firstName+"')]");
@@ -449,10 +469,11 @@ public class Social_People extends SocialBase {
 		//Clear data
 		//Login by user1
 		magAcc.userSignIn(userType.PUBLISHER);
-		//magAcc.signIn(user_login1, DATA_PASS);
 		navToolBar.goToMyProfile();
-		peoPro.editUserBasicInformation(oldFirstnName, oldLastName);
-		peoPro.removeUserExperience();
-		peoPro.removeUserContact(true, true, true);
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		peoPro.updateBasicInformation(oldFirstnName, oldLastName,null);
+		peoPro.saveCancelUpdateInfo(true);
 	}
 }

@@ -231,7 +231,11 @@ public class Social_HomePage_Activity extends Activity {
 
 		info("-- 10. Update user profile --");
 		navToolBar.goToMyProfile();
-		peoPro.editUserBasicInformation("", "", email);
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		peoPro.updateBasicInformation(null, null, email);
+		peoPro.saveCancelUpdateInfo(true);
 
 		//- The activities should be displayed in the good order (newest at the top)
 		//- We have only 1 activity per kind (no duplication)
@@ -274,7 +278,11 @@ public class Social_HomePage_Activity extends Activity {
 		magMember.goToAllSpaces();
 		magMember.deleteSpace(spaceName,300000);
 		navToolBar.goToMyProfile();
-		peoPro.editUserBasicInformation("", "", oldEmail);
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		peoPro.updateBasicInformation(null, null, oldEmail);
+		peoPro.saveCancelUpdateInfo(true);
 		navToolBar.goToSiteExplorer();
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.actionsOnElement(folder, actionType.DELETE,true,true);
@@ -796,9 +804,11 @@ public class Social_HomePage_Activity extends Activity {
 		//- Connect to Intranet
 		//- Click username on Top Navitgation -> My Profile
 		navToolBar.goToMyProfile();
-
-		//- Click Edit to edit basic information
-		peoPro.editUserBasicInformation(firstName, lastName, email);
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		peoPro.updateBasicInformation(firstName, lastName, email);
+		peoPro.saveCancelUpdateInfo(true);
 
 		//- Check homepage
 		navToolBar.goToHomePage();
@@ -813,6 +823,10 @@ public class Social_HomePage_Activity extends Activity {
 		//Clear data
 		info("clear data");
 		navToolBar.goToMyProfile();
-		peoPro.editUserBasicInformation(oldFirstnName, oldLastName, oldEmail);
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		peoPro.updateBasicInformation(oldFirstnName, oldLastName, oldEmail);
+		peoPro.saveCancelUpdateInfo(true);
 	}
 }

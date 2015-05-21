@@ -114,7 +114,7 @@ public class PLF_HomepageGadgets_GettingStartedGadget extends Activity{
 		info("79579: Display Profile page from Getting started gadget");
 		waitForAndGetElement(homeGad.ELEMENT_PROFILE_PICTURE);
 		click(homeGad.ELEMENT_PROFILE_PICTURE);
-		waitForAndGetElement(peoPro.ELEMENT_EDIT_PROFILE_BUTTON);
+		waitForAndGetElement(peoPro.ELEMENT_EDIT_MY_PROFILE_BUTTON);
 		
 		info("79580: Display Connections page from Getting started gadget");
 		navToolBar.goToHomePage();

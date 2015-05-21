@@ -4,12 +4,14 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
 import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -24,7 +26,8 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 	ForumManageForum fmForum;
 	ForumManageTopic fmTopic;
 	ForumManagePost fmPost;
-
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 	@BeforeMethod
 	public void setUpBeforeTest() {
 		initSeleniumTest();
@@ -37,6 +40,8 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 		acc.signIn(DATA_USER1, DATA_PASS);
 		button = new Button(driver);
 		fmForum = new ForumManageForum(driver);
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 	}
 
 	@AfterMethod
@@ -74,7 +79,12 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 		- Alert message is shown to inform watching successfully.
 		- Forum/category is being watched		*/
 		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();		
 		click(By.linkText(fmName));		
 		watchItem(true);
@@ -114,7 +124,12 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 		info("Nomal user delete infor");
 		acc.signOut();
 		acc.signIn(DATA_USER2, DATA_PASS);
-		acc.updateUserProfile(null,null, null, "mary.williams@acme.exoplatform.com");
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, "mary.williams@acme.exoplatform.com");
+		pepPro.saveCancelUpdateInfo(true);
 	}
 
 	/**
@@ -144,8 +159,14 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 		 *Expected Outcome: 
 		- Alert message is shown to inform watching successfully.
 		- Forum/category is being watched		*/
-		acc.userSignIn(userType.PUBLISHER);;
-		acc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
+		
 		goToForums();		
 		click(By.linkText(fmName[0]));
 		fmForum.watchItem(true);
@@ -181,7 +202,12 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 		fmCat.deleteCategoryInForum(catName, true);		
 
 		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile(null,null, null, "mary.williams@acme.exoplatform.com");
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, "mary.williams@acme.exoplatform.com");
+		pepPro.saveCancelUpdateInfo(true);
 	}
 
 	/**
@@ -200,7 +226,13 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 		/*Step 1: Create categories, forums, topics
 		 *Expected Outcome: 
 		- Categories, forums, topics are created successfully		*/
-		acc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
+
 		goToForums();
 		fmForum.addCategoryForum(catName, fmName);
 		fmTopic.startTopic(tpName, tpName, "", 0, null, true, true);
@@ -238,8 +270,13 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 		goToForumHome();
 		click(By.linkText(catName));
 		fmCat.deleteCategoryInForum(catName, true);		
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, "john.smith@acme.exoplatform.com");
+		pepPro.saveCancelUpdateInfo(true);
 
-		acc.updateUserProfile(null,null, null, "john.smith@acme.exoplatform.com");		
 	}
 
 	/**
@@ -257,7 +294,13 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 		/*Step 1: Create category, forum
 		 *Expected Outcome: 
 		- Category, forum are created successfully		*/
-		acc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
+
 		goToForums();
 		fmForum.addCategoryForum(catName, fmName);		
 
@@ -288,6 +331,11 @@ public class Forum_Forum_Forum_WatchUnWatch extends ForumBase {
 		click(By.linkText(catName));
 		fmCat.deleteCategoryInForum(catName, true);		
 
-		acc.updateUserProfile(null,null, null, "john.smith@acme.exoplatform.com");
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, "john.smith@acme.exoplatform.com");
+		pepPro.saveCancelUpdateInfo(true);
 	}
 }

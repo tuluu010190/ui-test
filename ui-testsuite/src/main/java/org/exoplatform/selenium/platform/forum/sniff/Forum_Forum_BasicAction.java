@@ -4,10 +4,12 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -23,7 +25,8 @@ public class Forum_Forum_BasicAction extends ForumBase{
 	ForumManageCategory mngCat;
 	ForumManageForum mngFru;
 	ForumManageTopic mngTopic;
-
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
@@ -31,7 +34,8 @@ public class Forum_Forum_BasicAction extends ForumBase{
 		mngCat = new ForumManageCategory(driver, this.plfVersion);
 		mngFru = new ForumManageForum(driver, this.plfVersion);
 		mngTopic = new ForumManageTopic(driver);
-
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		goToForums();
 	}
@@ -114,8 +118,14 @@ public class Forum_Forum_BasicAction extends ForumBase{
 
 		info("Watch&Unwatch forum");
 		waitForAndGetElement(ELEMENT_WHAT_GOING_ON);
-		magAc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();
+		
 		//Add forum
 		mngFru.addCategoryForum(category, forum);
 		

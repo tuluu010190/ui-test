@@ -4,6 +4,8 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
@@ -16,14 +18,16 @@ import org.testng.annotations.Test;
  */
 public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 	ManageAccount magAc;
-	
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 	String mail = "//b[text()='\"${title}\" page was modified']";
 	
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
 		magAc = new ManageAccount(driver);
-		
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS); 
 	}
 
@@ -43,8 +47,12 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 		String content = "content of parent page";
 		String childTitle = "Child page 78298" + getRandomNumber();
 		String childContent = "content of child page";
-		
-		magAc.updateUserProfile(null, null, null, "exomailtest01@gmail.com");
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, "exomailtest01@gmail.com");
+		pepPro.saveCancelUpdateInfo(true);
 		
 		info("Add new wiki page then watch its");
 		goToWiki();
@@ -81,8 +89,12 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 		String newContent2 = "Page 78299 content update 2" + getRandomNumber();
 		String newTitle3 = "Page 78299 update 3";
 		String newContent3 = "Page 78299 content update 3" + getRandomNumber();
-			
-		magAc.updateUserProfile(null, null, null, "exomailtest01@gmail.com");
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, "exomailtest01@gmail.com");
+		pepPro.saveCancelUpdateInfo(true);
 		
 		goToWiki();
 		addBlankWikiPage(title, content, 0);	

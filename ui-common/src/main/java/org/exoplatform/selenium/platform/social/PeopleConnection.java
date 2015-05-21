@@ -48,17 +48,13 @@ public class PeopleConnection extends SocialBase {
 	public String ELEMENT_INVITATION_RECEIVED_MSG = "//h4[@class='spaceTitle']/a[contains(text(),'${acc}')]/ancestor::div[@class='spaceBox pull-left']/div[@class='connectionBtn clearfix']/span[contains(text(),'Invitation Received')]";
 	//---------------------------Generic user popup - Connection Application------------
 	public final String ELEMENT_CONNECTION_MEMBER = "//a[text()='${peopleName}']";
-	
+
 	/**
 	 * Connect to people
 	 * @param peopleName: name of selected people (String)
 	 */
 	public void connectPeople (String peopleName) {
 		info("-- Connect to: " + peopleName);
-		//By ELEMENT_CONNECT_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Connect']");
-		//By ELEMENT_CONNECT_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li/a[@title='Connect']");
-		//By ELEMENT_CANCEL_REQUEST_BUTTON = By.xpath("//div/a[text()='"+peopleName+"']/following::ul/li/a[@title='Cancel Request']");
-		//By ELEMENT_CANCEL_REQUEST_BUTTON = By.xpath(ELEMENT_CONNECTION.replace("${peopleName}", peopleName) + "/../../ul/li[2]/a[@title='Cancel Request']");
 		info("-- Connect the user: " + peopleName);
 		if(waitForAndGetElement(ELEMENT_EVERYONE_TAB,5000, 0)==null){
 			info("----Go to My connections----");
@@ -70,7 +66,6 @@ public class PeopleConnection extends SocialBase {
 			click(ELEMENT_EVERYONE_TAB);
 		resetConnection(peopleName);
 		info("-----Click connect to people-----");
-		//	waitForAndGetElement(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 		click(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 		info("---Verify Connect button is disappeared----");
 		waitForElementNotPresent(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
@@ -92,6 +87,8 @@ public class PeopleConnection extends SocialBase {
 		}
 		else
 			click(ELEMENT_REQUESTS_RECEIVED_TAB);
+		peoSearch.searchPeople(true,peopleName);
+		waitForAndGetElement(By.linkText(peopleName));
 		info("----Confirm the invitation from user '"+peopleName+"' ");
 		click(ELEMENT_CONFIRM_BUTTON.replace("${peopleName}", peopleName));
 		waitForElementNotPresent(ELEMENT_CONFIRM_BUTTON.replace("${peopleName}", peopleName));
@@ -216,6 +213,16 @@ public class PeopleConnection extends SocialBase {
 		if (waitForAndGetElement(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user), 5000, 0) != null) {
 			click(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user));
 		}
+	}
+	
+	/**
+	 * Go to user profile
+	 * @param user
+	 */
+	public void goToUserProfile(String user){
+		info("Go to user profile of an user");
+		click(ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user));
+		Utils.pause(1000);
 	}
 
 }

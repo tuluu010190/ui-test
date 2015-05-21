@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.social.PeopleConnection;
 import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -21,12 +22,13 @@ public class PLF_UserNavigation extends PlatformBase {
 	ManageAccount magAcc;
 	NavigationToolbar navTool;
 	PeopleProfile peoPro;
-
+	PeopleConnection peoConn;
 	@BeforeMethod
 	public void beforeMethods() {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		info("Login with " + DATA_USER1);
+		peoConn = new PeopleConnection(driver);
 		magAcc = new ManageAccount(driver, this.plfVersion);
 		navTool = new NavigationToolbar(driver, this.plfVersion);
 		peoPro = new PeopleProfile(driver, this.plfVersion);
@@ -136,7 +138,7 @@ public class PLF_UserNavigation extends PlatformBase {
 		
 		info("76890: Open the personal page of another user");
 		navTool.goToConnectionPage();
-		peoPro.goToUserProfile(user);
+		peoConn.goToUserProfile(user);
 		
 		info("76881: Check the display of apps on page");
 		waitForAndGetElement(ELEMENT_MY_PROFILE_TAB);

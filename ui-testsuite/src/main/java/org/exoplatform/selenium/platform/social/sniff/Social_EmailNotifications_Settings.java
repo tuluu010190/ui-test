@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.social.Notification;
 import org.exoplatform.selenium.platform.social.PeopleConnection;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -25,7 +26,7 @@ public class Social_EmailNotifications_Settings extends Notification {
 	NavigationToolbar navToolBar;
 	UserGroupManagement userGroup;
 	PeopleConnection peo;
-
+	PeopleProfile pepPro;
 	String user = "John Smith";
 	String user1="Mary Williams";
 	String user2="Jack Miller";
@@ -40,6 +41,7 @@ public class Social_EmailNotifications_Settings extends Notification {
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 		userGroup = new UserGroupManagement(driver);
 		peo = new PeopleConnection(driver);
+		pepPro = new PeopleProfile(driver);
 	}
 
 	@AfterMethod
@@ -126,7 +128,11 @@ public class Social_EmailNotifications_Settings extends Notification {
 		- As admin, Create new user successfully
 		 *Expected Outcome: An notification email is sent.		*/
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 
 		navToolBar.goToNotificationSettings();
 		enableSendNotificationRight(MSG_ACTIVITY_JOIN_INTRANET, true);
@@ -173,7 +179,11 @@ public class Social_EmailNotifications_Settings extends Notification {
 		info("Test 3: Check the box Never Notify me");
 		By eEmail = By.xpath(ELEMENT_GMAIL_TITLE.replace("${title}", "Mary Williams wants to connect with you on eXo')]"));
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		navToolBar.goToNotificationSettings();
 		check(ELEMENT_NEVER_NOTIFY_ME,2);
 		waitForElementNotPresent(ELEMENT_NOTIFY_COLUMN.replace("${column}", MSG_SETTINGS_COLUMN_NOFITY_WHEN));

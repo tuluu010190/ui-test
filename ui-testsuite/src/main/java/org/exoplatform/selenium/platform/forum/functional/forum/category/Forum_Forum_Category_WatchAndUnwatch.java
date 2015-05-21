@@ -9,10 +9,12 @@ import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -33,7 +35,8 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 	ManageAlert alert; 
 	Button button;
 	Dialog dialog;
-
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
@@ -45,6 +48,8 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		alert = new ManageAlert(driver); 
 		dialog = new Dialog(driver);
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 	}
 
 	@AfterMethod
@@ -75,7 +80,12 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		String[] userGroup = {DATA_USER1}; 
 		/* Step 1: Create category, forum*/
 		//- Login by the administrator to create new category, forum
-		magAc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();
 		cat.addNewCategoryInForum(catName, order, 1, restricted, description, setPermission, userGroup, true);
 		forum.quickAddForum(forumName);
@@ -97,7 +107,6 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		switchToParentWindow();
 		click(By.linkText(catName));
 		cat.deleteCategoryInForum(catName, true);
-		magAc.updateUserProfile(null,null, null, "john.smith@acme.exoplatform.com");
 	} 
 
 	/** Check send notify after adding new topic into forum/category which is watching  and it's required for approval
@@ -132,7 +141,12 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		// - On created category and select [Watch]
 		info("Login by the normal user");
 		magAc.signIn(DATA_USER4, DATA_PASS);
-		magAc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums(); 
 		click(By.linkText(catName));
 		watchItem(true);
@@ -167,8 +181,6 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		click(By.linkText(catName));
 		cat.deleteCategoryInForum(catName, true);
 		magAc.signOut();
-		magAc.signIn(DATA_USER2, DATA_PASS);
-		magAc.updateUserProfile(null,null, null, "mary@acme.exoplatform.com");
 	} 
 
 	/** Check send notify after adding new topic and it's in pending for censor
@@ -202,7 +214,12 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		//- On created category select [Watch]
 		info("Login by the normal user");
 		magAc.signIn(DATA_USER2, DATA_PASS);
-		magAc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();
 		click(By.linkText(catName));
 		watchItem(true);
@@ -237,8 +254,6 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		cat.deleteCategoryInForum(catName, true);
 		topic.setCensorKeywords("");
 		magAc.signOut();
-		magAc.signIn(DATA_USER2, DATA_PASS);
-		magAc.updateUserProfile(null,null, null, "mary@acme.exoplatform.com");
 	}
 
 	/** Check send notify after move topic in forum/category that is being watched
@@ -260,7 +275,12 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		String message = "Topic 109106"; 
 		/* Step 1: Create category, forum*/
 		//- Login by the administrator to create new category, forum, topics
-		magAc.updateUserProfile(null,null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums(); 
 		cat.addNewCategoryInForum(catName1, order, 0, null, description, 0, null, true);		
 		forum.quickAddForum(forum1);	
@@ -289,6 +309,5 @@ public class Forum_Forum_Category_WatchAndUnwatch extends ForumBase{
 		cat.deleteCategoryInForum(catName2, true);
 		click(By.linkText(catName1));
 		cat.deleteCategoryInForum(catName1, true);
-		magAc.updateUserProfile(null,null, null, "john.smith@acme.exoplatform.com");
 	} 
 }

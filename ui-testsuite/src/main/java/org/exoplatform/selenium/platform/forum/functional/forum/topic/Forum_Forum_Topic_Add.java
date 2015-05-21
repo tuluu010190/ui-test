@@ -7,12 +7,14 @@ import java.awt.AWTException;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
 import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -27,7 +29,8 @@ public class Forum_Forum_Topic_Add extends ForumBase{
 	ForumManageTopic topic;
 	ForumManagePost post; 
 	Button button; 
-
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
@@ -39,6 +42,8 @@ public class Forum_Forum_Topic_Add extends ForumBase{
 		topic = new ForumManageTopic(driver, this.plfVersion); 
 		post = new ForumManagePost(driver, this.plfVersion);
 		button = new Button(driver, this.plfVersion);
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 	}
 
 	@AfterMethod
@@ -76,7 +81,12 @@ public class Forum_Forum_Topic_Add extends ForumBase{
 		- Login by the administrator to create new category & forum
 		 *Expected Outcome: 
 		- Category & forum are created		*/
-		acc.updateUserProfile(null, null, null,EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();
 		info("Step 1: Create forum");
 		cat.goToAddCategory();
@@ -163,7 +173,12 @@ public class Forum_Forum_Topic_Add extends ForumBase{
 		- Login by the administrator to create new category & forum
 		 *Expected Outcome: 
 		- Category & forum are created		*/
-		acc.updateUserProfile(null, null, null,EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();
 		info("Step 1: Create forum");
 		cat.goToAddCategory();

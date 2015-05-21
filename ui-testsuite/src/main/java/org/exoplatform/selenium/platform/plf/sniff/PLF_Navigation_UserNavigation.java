@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.social.PeopleConnection;
 import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -20,7 +21,7 @@ public class PLF_Navigation_UserNavigation extends PlatformBase {
 	ManageAccount magAcc;
 	NavigationToolbar naviToolbar;
 	PeopleProfile peoPro;
-
+	PeopleConnection peoConn;
 	@BeforeMethod
 	public void beforeMethods() {
 		initSeleniumTest();
@@ -29,6 +30,7 @@ public class PLF_Navigation_UserNavigation extends PlatformBase {
 		magAcc = new ManageAccount(driver, this.plfVersion);
 		naviToolbar = new NavigationToolbar(driver, this.plfVersion);
 		peoPro = new PeopleProfile(driver, this.plfVersion);
+		peoConn = new PeopleConnection(driver);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 	}
 
@@ -53,7 +55,7 @@ public class PLF_Navigation_UserNavigation extends PlatformBase {
 		//- Connect to Intranet
 		//- Open  personal page of another user, by click on the link of his profile's name  from activity stream, or connection
 		naviToolbar.goToConnectionPage();
-		peoPro.goToUserProfile(user);
+		peoConn.goToUserProfile(user);
 
 		//- The personal page of user is displayed
 		//- The Horizontal toolbar is displayed

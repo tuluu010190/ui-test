@@ -8,6 +8,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.SettingSearchPage;
 import org.exoplatform.selenium.platform.forum.ForumBase;
@@ -15,6 +16,7 @@ import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
 import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -32,7 +34,8 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 	Button button; 
 	ManageAlert alert; 
 	SettingSearchPage ssPage; 
-
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
@@ -46,6 +49,8 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 		button = new Button(driver, this.plfVersion);
 		alert = new ManageAlert(driver, this.plfVersion);
 		ssPage = new SettingSearchPage(driver);
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 	}
 
 	@AfterMethod
@@ -82,7 +87,12 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 		- Login as root to create new category, forum, topic
 		 *Expected Outcome: 
 		- Category, forum, topic are created successfully		*/
-		acc.updateUserProfile(null, null, null,EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();
 		info("Step 1: Create forum");
 		cat.goToAddCategory();
@@ -153,7 +163,12 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Category, forum, topic are created successfully		*/
-		acc.updateUserProfile(null, null, null,EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();
 		info("Step 1: Create forum");
 		cat.goToAddCategory();
@@ -234,7 +249,12 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 		- Create new topic with checked 'Moderation post' option
 		 *Expected Outcome: 
 		- Category, forum, topic are created successfully		*/
-		acc.updateUserProfile(null, null, null,EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();
 		info("Step 1: Create forum");
 		cat.goToAddCategory();
@@ -322,7 +342,12 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 		- Login by the administrator to define word(s) that need to be approved
 		 *Expected Outcome: 
 		- Censored keyword(s) is defined		*/
-		acc.updateUserProfile(null, null, null,EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums(); 
 		setCensorKeywords(key);
 
@@ -439,7 +464,12 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 		 *Expected Outcome: 
 		- Category/forum/topic is being watched		*/
 		acc.userSignIn(userType.DEVELOPER);
-		acc.updateUserProfile(null, null, null,EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		info("Step 2: Watch topic/forum/category");
 		goToForums();
 		click(By.linkText(catName));
@@ -532,7 +562,12 @@ public class Forum_Forum_Topic_ActiveSortWatchAndUnwatch extends ForumBase{
 		- Login by the administrator to create new categories, forums, topics and posts into
 		 *Expected Outcome: 
 		- Categories, forums, topics and posts are created successfully		*/
-		acc.updateUserProfile(null, null, null,EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		goToForums();
 		info("Step 1: Create forum");
 		cat.goToAddCategory();

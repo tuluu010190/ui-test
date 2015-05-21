@@ -707,8 +707,12 @@ public class PLF_UnifiedSearch extends Template {
 
 		//Create data
 		naviToolbar.goToMyProfile();
-		peoPro.editUserContact(typeOfGender,true,typeOfAddPhone,numberOfPhone,false,"","",false,"");
-
+		info("edit profile");
+		click(peoPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		peoPro.updateGenderJob(typeOfGender, null);
+		peoPro.updatePhone(typeOfAddPhone, numberOfPhone,"1");
+		peoPro.saveCancelUpdateInfo(true);
+		
 		/*Step 1: Search people*/
 		//- Login and connect to intranet home page
 		//- Type some text into search box, Click on Search
@@ -731,11 +735,6 @@ public class PLF_UnifiedSearch extends Template {
 
 		//- Item in search result is clickable and open it when user click
 		waitForAndGetElement(qsPage.ELEMENT_RESULT_TITLE).click();
-		waitForAndGetElement(peoPro.ELEMENT_EDIT_INFORMATION_BUTTON);
-
-		/*Clear data*/
-		info("-- Clear data --");
-		peoPro.removeUserContact(true, false, false);
 	}
 
 	/**

@@ -55,6 +55,9 @@ public class ManageMember extends SpaceManagement {
 	public final String ELEMENT_SELECTED_USER_BOX = "//span[text()='${username}']/../..//input[@class='checkbox']";
 	public final By ELEMENT_ADD_USER_BUTTON = By.xpath("//*[@id='UIUserSelector']//*[text()='Add']");
 
+	public final By ELEMENT_SEARCH_USER_TEXTBOX=By.id("Quick Search");
+	public final By ELEMENT_SEARCH_USER_BUTTON=By.xpath("//*[@class='uiIconSearch uiIconLightGray']");
+	
 	//Adapt to plf4.1.0
 	public final String ELEMENT_SELECTED_USER_BOX_PLF4_1 = "//span[@class='text' and contains(text(),'${username}')]/../..//input[@class='checkbox']";	
 	public final String ELEMENT_GRAND_MANAGER_BUTTON = ELEMENT_MEMBERS_TABLE + "/..//td[contains(text(),'${username}')]/..//*[@class='iPhoneCheckHandle']";
@@ -273,10 +276,6 @@ public class ManageMember extends SpaceManagement {
 		verifyUserJoinedSpace(user);
 	}
 
-	//////
-	// Common code
-	// Social/Space/Manage member
-
 	/*------------------------ Common code for Manager of Space ------------------------------*/
 	/**
 	 * @author vuna2
@@ -290,19 +289,19 @@ public class ManageMember extends SpaceManagement {
 		waitForAndGetElement(ELEMENT_SELECT_MEMBER_FORM);
 		switch (userName) {
 		case ROOT:
-			addUserToSpace(true, "Root");
+			addUserToSpace(true, USER_ROOT);
 			break;
 		case ADMIN:
-			addUserToSpace(false, "John");
+			addUserToSpace(false, DATA_USER1);
 			break;
 		case AUTHOR:
-			addUserToSpace(false, "James");
+			addUserToSpace(false, DATA_USER3);
 			break;	
 		case DEVELOPER:
-			addUserToSpace(false, "Jack");
+			addUserToSpace(false, DATA_USER4);
 			break;	
 		case PUBLISHER:
-			addUserToSpace(false, "Mary");
+			addUserToSpace(false, DATA_USER2);
 			break;	
 		case NEW_USER:
 			addUserToSpace(false, user);
@@ -313,6 +312,12 @@ public class ManageMember extends SpaceManagement {
 		Utils.pause(1000);
 	}
 
+	public void searchUser(String username){
+		type(ELEMENT_SEARCH_USER_TEXTBOX,username,true);
+		click(ELEMENT_SEARCH_USER_BUTTON);
+		waitForAndGetElement(ELEMENT_SELECTED_USER_BOX_PLF4_1.replace("${username}", username),5000,1,2);
+	}
+	
 	/**
 	 * @author vuna2
 	 * Action: add an user (used in the method: inviteSingleUser)
@@ -321,6 +326,7 @@ public class ManageMember extends SpaceManagement {
 	 */
 	public void addUserToSpace(boolean userRoot, String userName){
 		info("-- Action: adding the user: " + userName);
+		searchUser(userName);
 		if (userRoot){
 			if(this.plfVersion.equals("4.0"))
 				check(By.xpath(ELEMENT_SELECTED_USER_BOX.replace("${username}", userName)),2);
@@ -336,8 +342,7 @@ public class ManageMember extends SpaceManagement {
 				check(By.xpath(ELEMENT_SELECTED_USER_BOX_PLF4_1.replace("${username}", userName)),2);
 			button.add();
 			click(ELEMENT_INVITE_MEMBER_BUTTON);
-			//click(ELEMENT_INVITE_MEMBER_BUTTON_AUX);
-			waitForAndGetElement(By.xpath(ELEMENT_INVITED_TABLE + "//td[contains(text(),'"+ userName +"')]"));
+			Utils.pause(1000);
 		}
 	}
 

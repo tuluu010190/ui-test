@@ -32,18 +32,16 @@ public class ManageAccount extends PlatformBase {
 	public final String MESSAGE_LOGIN_FAILED = "//*[contains(text(),'Sign in failed. Wrong username or password.')]";
 	public final String ELEMENT_REMEMBER_MY_LOGIN_YES = "//label[@class='iPhoneCheckLabelOn']//span[text()='Yes']";
 
+	Dialog dialog;
+	Button button;
+	ManageAlert magAlert;
+	NavigationToolbar navTool;
 
 	public ManageAccount(WebDriver dr,String...plfVersion){
 		super();
 		driver = dr;
 		this.plfVersion = plfVersion.length>0?plfVersion[0]:"4.0";
 	}
-
-	Dialog dialog;
-	Button button;
-	ManageAlert magAlert;
-	NavigationToolbar navTool;
-
 	//Sign-in function for eXoGTN
 	public void signIn(String username, String password,Boolean...opParams) {
 		Boolean verify = (Boolean) (opParams.length > 0 ? opParams[0]: true);
@@ -278,36 +276,6 @@ public class ManageAccount extends PlatformBase {
 				click(button.ELEMENT_APPLY_BUTTON);
 			}
 			waitForAndGetElement(PRODUCTS_LABEL_GERMAN);
-		}
-	}
-
-	/** function edit information of user profile
-	 * @param pos
-	 * @param first
-	 * @param last
-	 * @param email
-	 */
-	public void updateUserProfile(String pos, String first, String last, String email){
-		navTool = new NavigationToolbar(driver);
-
-		navTool.goToMyProfile();
-		if (pos != null){
-			mouseOverAndClick(ELEMENT_EDIT_POSITION);
-			type(ELEMENT_POSITION_TEXTBOX_EDIT, pos, true);
-			click(ELEMENT_EDIT_POSITION_SAVE_BUTTON);
-		}
-		if (first != null || last != null || email != null){
-			click(ELEMENT_EDIT_BASIC_INFORMATION);
-			if (first != null){
-				type(ELEMENT_FIRST_NAME_TEXTBOX_EDIT, first, true);
-			}
-			if (last != null){
-				type(ELEMENT_LAST_NAME_TEXTBOX_EDIT, last, true);
-			}
-			if (email != null){
-				type(ELEMENT_EMAIL_TEXTBOX_EDIT, email, true);
-			}
-			click(ELEMENT_EDIT_BASIC_INFO_SAVE_BUTTON);
 		}
 	}
 

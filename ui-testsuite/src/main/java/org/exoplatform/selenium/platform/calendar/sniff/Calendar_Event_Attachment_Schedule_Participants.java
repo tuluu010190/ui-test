@@ -28,10 +28,12 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.calendar.CalendarBase;
 import org.exoplatform.selenium.platform.calendar.Event;
 import org.exoplatform.selenium.platform.calendar.Task;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -44,6 +46,8 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 	ManageAccount acc;
 	Event event;
 	Task task;
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
@@ -53,6 +57,8 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		task = new Task(driver, this.plfVersion);
 		acc.signIn(DATA_USER1, DATA_PASS);
 		button = new Button(driver, plfVersion);
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 		goToCalendarPage();
 		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
 	}
@@ -139,7 +145,13 @@ public class Calendar_Event_Attachment_Schedule_Participants extends CalendarBas
 		String name = "Event109868";
 		String mainHandle = driver.getWindowHandle();
 		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
+	
 		acc.userSignIn(userType.ADMIN); 
 		goToCalendarPage();
 		/*Step Number: 12

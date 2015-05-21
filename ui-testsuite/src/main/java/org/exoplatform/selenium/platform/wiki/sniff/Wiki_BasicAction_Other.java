@@ -6,9 +6,11 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.social.ManageMember;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.exoplatform.selenium.platform.social.SocialBase;
 import org.exoplatform.selenium.platform.wiki.Permalink;
 import org.openqa.selenium.By;
@@ -29,10 +31,10 @@ public class Wiki_BasicAction_Other extends Permalink {
 	ManageMember magMem;
 	PlatformPermission per;
 	SocialBase socBase;
-	
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 	@BeforeMethod
 	public void setUpBeforeTest(){
-//		getDriverAutoSave();
 		initSeleniumTest();
 		driver.get(baseUrl);
 		magAc = new ManageAccount(driver);
@@ -41,7 +43,8 @@ public class Wiki_BasicAction_Other extends Permalink {
 		magMem = new ManageMember(driver,this.plfVersion);
 		per = new PlatformPermission(driver,this.plfVersion);
 		socBase = new SocialBase(driver,this.plfVersion);
-
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS); 
 		goToWiki();
 	}
@@ -535,7 +538,12 @@ public class Wiki_BasicAction_Other extends Permalink {
 		String newTitle = "Wiki_watch_title_15_update";
 		String newContent = "Wiki_watch_content_15_update";
 			
-		magAc.updateUserProfile(null, null, null, "exomailtest01@gmail.com");
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		
 		goToWiki();
 		addBlankWikiPage(title, content, 0);	

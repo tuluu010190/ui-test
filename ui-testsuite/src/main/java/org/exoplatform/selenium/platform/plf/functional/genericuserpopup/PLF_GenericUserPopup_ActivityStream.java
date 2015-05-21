@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.plf.functional.genericuserpopup;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePageActivity;
 import org.exoplatform.selenium.platform.HomePageGadget;
@@ -14,12 +15,12 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.action
 import org.exoplatform.selenium.platform.social.Activity;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.social.PeopleConnection;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.exoplatform.selenium.platform.social.PeopleSearch;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.*;
 
 /**
@@ -39,10 +40,14 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	EcmsBase ecms; 
 	String user1 = "John Smith";
 	String user2 = "Mary Williams";
+	PeopleProfile pepPro;
+	Button but;
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
+		but = new Button(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 		acc = new ManageAccount(driver, this.plfVersion);
 		hg = new HomePageGadget(driver, this.plfVersion);
 		pConnect = new PeopleConnection(driver, this.plfVersion);
@@ -209,11 +214,23 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test05_UsersInformationsShouldBeDisplayedOnGenericPopUpOfActivityStreamsLikes() {
 		info("Test 5: User's informations should be displayed on generic pop up of activity stream's likes");
-		String post = "Case 108034";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
 		String activity = "Activity 108034";
+		String name = getRandomString();
+		String usertest = name+" "+name;
 
 		info("User update profile");
-		acc.updateUserProfile(post, null, null, null);
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(name, name, null);
+		pepPro.saveCancelUpdateInfo(true);
 
 		//Pre-Condition
 		info("UserA connect userB");
@@ -221,7 +238,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		pConnect.connectPeople(user2);
 		acc.userSignIn(userType.PUBLISHER);
 		nav.goToConnectionPage();
-		pConnect.acceptInvitation(user1);
+		pConnect.acceptInvitation(usertest);
 
 		/*
 		- Connect to Intranet with the User A
@@ -230,12 +247,12 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		- The avatar of the User A is displayed in the likers list		*/
 		nav.goToHomePage();
 		addActivity(true, activity, false, "");
-		acc.userSignIn(userType.ADMIN);
+		acc.signIn(username1, password1);
 		home.likeOrUnlikeActivity(activity);
 		acc.userSignIn(userType.PUBLISHER);
 		Utils.pause(1000);
 		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", "1")).getAttribute("alt");
-		assert(avatarName.contains(user1));
+		assert(avatarName.contains(usertest));
 		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", "1"),true);
 
 		/*
@@ -243,21 +260,14 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/ 
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 
 		//Detele data test
 		home.deleteActivity(activity, true);
-		nav.goToConnectionPage();
-		pConnect.removeConnection(user1);
-
-		acc.userSignIn(userType.ADMIN);
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -271,37 +281,46 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test06_UsersInformationsShouldBeDisplayedOnGenericPopUpOfActivityStreamsMentions() {
 		info("Test 6: User's informations should be displayed on generic pop up of activity stream's mentions");
-		String post = "Case 108035";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String name = getRandomString();
+		String usertest = name+" "+name;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(name, name, null);
+		pepPro.saveCancelUpdateInfo(true);
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity and mention the user B
 		 *Expected Outcome: 
 		- The username of the User B is displayed in the activity		*/
-		mentionActivity(true,"",user2);
+		acc.userSignIn(userType.PUBLISHER);
+		mentionActivity(true,"",usertest);
 
 		/*
 		- Move the mouse over the username link
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/ 
-		acc.userSignIn(userType.PUBLISHER);
-		info("User Mary update profile");
-		acc.updateUserProfile(post,null, null, null);
-		nav.goToHomePage();
-		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",user2), true);	
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
+		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",usertest), true);	
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 
 		//Detele data test
-		acc.updateUserProfile("mary",null, null, null);
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(user2, true);
+		acc.signIn(username1, password1);
+		home.deleteActivity(usertest, true);
 	}
 
 	/**
@@ -315,35 +334,42 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test07_UsersInformationsShouldBeDisplayedOnGenericPopUpOfActivityStreamsAvatars() {
 		info("Test 7: User's informations should be displayed on generic pop up of activity stream's avatars");
-		String post = "Case 108036";
-		String activity = "Activity 108036";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String name = getRandomString();
+		String usertest = name+" "+name;
+		String activity = "activity" + getRandomNumber();
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(name, name, null);
+		pepPro.saveCancelUpdateInfo(true);
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity		
 		- Move the mouse over the user's avatar
 		 *Expected Outcome: 
-		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/ 
-		acc.updateUserProfile(post, null, null, null);
-		nav.goToHomePage();
+		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/
+		acc.signIn(username1, password1);
 		addActivity(true, activity, false, "");
 		Utils.pause(1000);
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", usertest), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",post));
-		info("Last activity of user displayes true");
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 
 		//Delete date test
 		nav.goToHomePage();
 		home.deleteActivity(activity, true);
-		acc.updateUserProfile("john", null, null, null);
 	}
 
 	/**
@@ -357,36 +383,51 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test08_UsersInformationsShouldBeDisplayedOnGenericPopUpOfActivityStreamsUserNames() {
 		info("Test 8: User's informations should be displayed on generic pop up of activity stream's user names");
-		String activity = "Activity 108037";
-		String position = "Case 108037";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String name = getRandomString();
+		String usertest = name+" "+name;
+		String activity = "activity" + getRandomNumber();
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(name, name, null);
+		pepPro.saveCancelUpdateInfo(true);
 
+		//Pre-Condition
+		info("UserA send a request to userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity
 		- Move the mouse over the username link
 		 *Expected Outcome: 
-		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/ 
-		acc.updateUserProfile(position, null, null, null);
+		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/
+		acc.signIn(username1, password1);
 		nav.goToHomePage();
 		addActivity(true, activity, false, "");
-		Utils.pause(1000);
-		waitForAndGetElement(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user1));
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
-		info("Last activity of user displayes true");
 
-		//Delete data test
-		nav.goToHomePage();
-		home.deleteActivity(activity);
-		acc.updateUserProfile("john", null, null, null);
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", usertest));
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", usertest), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
+		info("Confirm user avatar");
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
+		info("Confirm user name");
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
+		info("Last activity of user displayes true");
 	}
 
 	/**
@@ -400,15 +441,34 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test09_GenericPopupShouldBeDisplayedAsStatusTypeForActivityStreamsLikes() {
 		info("Test 9: Generic popup should be displayed as status type for activity stream's likes");
-		String activity = "Activity 108042";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String activity = "Activity"+getRandomString();
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
 
 		/*
 		- Connect to Intranet
 		- Share an activity: input a text in the sharebox
 		 *Expected Outcome: 
 		- Activity: Status is shared		*/
+		acc.signIn(username1, password1);
+		nav.goToHomePage();
 		addActivity(true, activity, false, "");
-		Utils.pause(1000);		
 
 		/*
 		- Like the activity by the current user
@@ -417,21 +477,17 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Expected Outcome: 
 		- The Generic popup is displayed with the last activity posted: Status		*/ 
 		home.likeOrUnlikeActivity(activity);
-		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", "1")).getAttribute("alt");
-		assert(avatarName.contains(user1));
+
+		acc.userSignIn(userType.PUBLISHER);
 		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", "1"),true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
 		info("Last activity of user displayes true");
 
-		//Delete data test
-		nav.goToHomePage();
-		home.deleteActivity(activity);
 	}
 
 	/**
@@ -445,17 +501,33 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test10_GenericPopupShouldBeDisplayedAsStatusTypeForActivityStreamsMentions() {
 		info("Test 10 Generic popup should be displayed as status type for activity stream's mentions");
-		String activity = "Activity 108043";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String activity = "Activity"+getRandomString();
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		nav.goToHomePage();
+		addActivity(true, activity, false, "");
 
 		/*
 		- Connect to Intranet
 		- Share an activity: add a mention (current user) with the shared text
 		 *Expected Outcome: 
 		- Activity with mention is shared		*/
-		acc.userSignIn(userType.PUBLISHER);
-		addActivity(true, activity, false, "");
-		Utils.pause(1000);
-		acc.userSignIn(userType.ADMIN);
+		acc.signIn(username1, password1);
 		mentionActivity(true,"",user2);
 		Utils.pause(1000);
 
@@ -470,14 +542,13 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
 		info("Last activity of user displayes true");
 
 		//Detele data test
 		home.deleteActivity(user2, true);
 		acc.userSignIn(userType.PUBLISHER);
-		home.deleteActivity(activity);
+		home.deleteActivity(activity,true);
 	}
 
 	/**
@@ -491,13 +562,31 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test11_GenericPopupShouldBeDisplayedAsStatusTypeForActivityStreamsAvatar() {
 		info("Test 11 Generic popup should be displayed as status type for activity stream's avatar");
-		String activity = "Activity 108044";
+		String activity = "Activity"+getRandomString();
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		
 		/*
 		- Connect to Intranet
 		- Share an activity
 		 *Expected Outcome: 
 		- Activity with status is shared		*/
+		acc.signIn(username1, password1);
 		addActivity(true, activity, false, "");
 		Utils.pause(1000);
 
@@ -506,15 +595,12 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The Generic popup is displayed with the last activity posted: Status		*/ 
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", usertest), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
 		info("Last activity of user displayes true");
-
-		//Delete date test
-		nav.goToHomePage();
-		home.deleteActivity(activity, true);
 	}
 
 	/**
@@ -529,12 +615,30 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	public  void test12_GenericPopupShouldBeDisplayedAsStatusTypeForActivityStreamsUsername() {
 		info("Test 12 Generic popup should be displayed as status type for activity stream's username");
 		String activity = "Activity 108045";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		
 		/*
 		- Connect to Intranet
 		- Share an activity
 		 *Expected Outcome: 
 		- Activity with status is shared		*/
+		acc.signIn(username1, password1);
 		addActivity(true, activity, false, "");
 		Utils.pause(1000);
 
@@ -543,16 +647,13 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The Generic popup is displayed with the last activity posted: Status		*/ 
-		waitForAndGetElement(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user1));
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", usertest));
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", usertest), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
 		info("Last activity of user displayes true");
-
-		//Delete data test
-		nav.goToHomePage();
-		home.deleteActivity(activity);
 	}
 
 	/**
@@ -562,7 +663,6 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	 * Post-Condition: 
 	 * Done with OSs and browsers : 
 	 * Generated by chinhdtt at 2014/06/19 11:19:30
-	 * Bug: https://jira.exoplatform.org/browse/COMMONS-278
 	 */
 	@Test 
 	public  void test13_GenericPopupShouldBeDisplayedAsFileSharingTypeForActivityStreamsAvatar() {
@@ -571,7 +671,24 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		String folder = "folder108048";
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		
 		/*
 		- Connect to Intranet
 		- Input a text in the shared box
@@ -579,6 +696,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		- Click on button "Share"
 		 *Expected Outcome: 
 		- The File is shared in the activity stream		*/
+		acc.signIn(username1, password1);
 		nav.goToHomePage();
 		selectFile(driverName,true,folderPath,"",uploadFileName,folder);
 
@@ -587,18 +705,12 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The Generic popup is displayed with the last activity posted: FileName		*/ 
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", usertest), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(uploadFileName);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",uploadFileName));
-
-		//Delete date test
-		nav.goToHomePage();
-		home.deleteActivity(uploadFileName, true);
-		nav.goToSiteExplorer();
-		act.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-		act.actionsOnElement(folder, actionType.DELETE,true,true);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",uploadFileName));
 	}	
 
 	/**
@@ -608,7 +720,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	 * Post-Condition: 
 	 * Done with OSs and browsers : 
 	 * Generated by chinhdtt at 2014/06/19 11:19:30
-	 * Bug: https://jira.exoplatform.org/browse/COMMONS-278
+	 * Bug: https://jira.exoplatform.org/browse/PLF-6024
 	 */
 	@Test 
 	public  void test14_GenericPopupShouldBeDisplayedAsFileSharingTypeForActivityStreamsLikes() {
@@ -617,13 +729,31 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		String folder = "folder108049";
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		
 		/*
 		- Connect to Intranet
 		- Attach a file
 		- Click on the button "Share"
 		 *Expected Outcome: 
 		- Activity: File is shared		*/
+		acc.signIn(username1, password1);
 		nav.goToHomePage();
 		selectFile(driverName,true,folderPath,"",uploadFileName,folder);
 
@@ -634,14 +764,14 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Expected Outcome: 
 		- The Generic popup is displayed with the last activity posted: File		*/ 
 		home.likeOrUnlikeActivity(uploadFileName);
-		//		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", uploadFileName).replace("${index}", "1")).getAttribute("alt");
-		//		assert(avatarName.contains(user1));
-		String elem = "//*[@href='/portal/intranet/profile/john']//*[@alt='John Smith']";
+		
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		String elem = "//*[@href='/portal/intranet/profile/"+username1+"']//*[@alt='"+usertest+"']";
 		mouseOver(elem, true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(uploadFileName);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",uploadFileName));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",uploadFileName));
 
 		//Delete date test
 		nav.goToHomePage();
@@ -667,20 +797,38 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		String folder = "folder108050";
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		
 		/*
 		- Connect to Intranet
 		- Attach a file + mention
 		- Click "Share"
 		 *Expected Outcome: 
 		- Activity with File is shared		*/
+		acc.signIn(username1, password1);
 		info ("-- Adding a mention activity --");	
 		WebElement inputText = waitForAndGetElement(home.ELEMENT_ACTIVITY_TEXTBOX, DEFAULT_TIMEOUT, 1, 2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].style.display = 'block'; arguments[0].style.visibility = 'visible'", inputText);
 		Utils.pause(1000);
 		click(ELEMENT_MENTION_USER_BUTTON);
-		inputText.sendKeys(user1);
-		click(ELEMENT_MENTION_USER_AVATAR.replace("${userName}", user1));
+		inputText.sendKeys(usertest);
+		click(ELEMENT_MENTION_USER_AVATAR.replace("${userName}", usertest));
 		Utils.pause(1000);
 		click(home.ELEMENT_ACTIVITY_TEXTBOX);
 		Utils.pause(1000);	
@@ -691,14 +839,12 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The Generic popup is displayed with the last activity posted: File sharing+mention		*/ 
-		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",user1), true);		
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",usertest), true);		
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(user1);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",user1));
-
-		//Detele data test
-		home.deleteActivity(user1, true);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",usertest));
 	}
 
 	/**
@@ -717,12 +863,30 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		String folder = "folder108051";
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		
 		/*
 		- Connect to Intranet
 		- Share a File
 		 *Expected Outcome: 
 		- Activity with File is shared		*/
+		acc.signIn(username1, password1);
 		nav.goToHomePage();
 		selectFile(driverName,true,folderPath,"",uploadFileName,folder);
 
@@ -731,19 +895,13 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The Generic popup is displayed with the last activity posted: File		*/ 
-		String elem = "//*[@href='/portal/intranet/profile/john']//*[@alt='John Smith']";
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		String elem = "//*[@href='/portal/intranet/profile/"+username1+"']//*[@alt='"+usertest+"']";
 		mouseOver(elem, true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(uploadFileName);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",uploadFileName));
-
-		//Delete date test
-		nav.goToHomePage();
-		home.deleteActivity(uploadFileName, true);
-		nav.goToSiteExplorer();
-		act.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
-		act.actionsOnElement(folder, actionType.DELETE,true,true);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",uploadFileName));
 	}
 
 	/**
@@ -758,7 +916,23 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	public  void test17_GenericPopupShouldBeDisplayedAsLinkSharingTypeForActivityStreamsAvatar() {
 		info("Test 17 Generic popup should be displayed as Link Sharing type for activity stream's avatar");
 		String link = "http://yahoo.com";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
 		/*
 		- Connect to Intranet
 		- Input a text in the shared box
@@ -766,22 +940,20 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		- Click on button "Share"
 		 *Expected Outcome: 
 		- The link is shared in the activity stream		*/
+		acc.signIn(username1, password1);
 		addActivity(false, "", true, link);		
 
 		/*
 		- Hover on the current user's avatar in the timeline
 		 *Input Data: 
 		 *Expected Outcome: 
-		- The Generic popup is displayed with the last activity posted: Link		*/ 
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
+		- The Generic popup is displayed with the last activity posted: Link		*/
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", usertest), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase("Yahoo");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
-
-		//Delete data test
-		nav.goToHomePage();
-		home.deleteActivity(link, true);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
 	}
 
 	/**
@@ -796,13 +968,31 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	public  void test18_GenericPopupShouldBeDisplayedAsLinkSharingTypeForActivityStreamsLikes() {
 		info("Test 18 Generic popup should be displayed as Link sharing type for activity stream's likes");
 		String link = "http://yahoo.com";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		
 		/*
 		- Connect to Intranet
 		- Add a Link and click "Attach"
 		- Click on the button "Share"
 		 *Expected Outcome: 
 		- Activity: Link is shared		*/
+		acc.signIn(username1, password1);
 		addActivity(false, "", true, link);	
 
 		/*
@@ -812,18 +1002,14 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Expected Outcome: 
 		- The Generic popup is displayed with the last activity posted: Link		*/ 
 		home.likeOrUnlikeActivity(link);
-		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", "Yahoo").replace("${index}", "1")).getAttribute("alt");
-		assert(avatarName.contains(user1));
-		String elem = "//*[@href='/portal/intranet/profile/john']//*[@alt='John Smith']";
+		
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		String elem = "//*[@href='/portal/intranet/profile/"+username1+"']//*[@alt='"+usertest+"']";
 		mouseOver(elem, true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase("Yahoo");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
-
-		//Delete data test
-		nav.goToHomePage();
-		home.deleteActivity(link, true);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
 	}
 
 	/**
@@ -838,7 +1024,24 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	public  void test19_GenericPopupShouldBeDisplayedAsLinkSharingTypeForActivityStreamsMentions() {
 		info("Test 19 Generic popup should be displayed as Link sharing type for activity stream's mentions");
 		String link = "http://yahoo.com";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		
 		/*
 		- Connect to Intranet
 		- Attach a Link + mention
@@ -865,13 +1068,8 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",user2), true);
 		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
 		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase("Yahoo");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
 		Utils.pause(1000);
-
-		//Delete data test
-		nav.goToHomePage();
-		home.deleteActivity(user2, true);
 	}
 
 	/**
@@ -886,11 +1084,30 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	public  void test20_GenericPopupShouldBeDisplayedAsLinkSharingTypeForActivityStreamsUsername() {
 		info("Test 20 Generic popup should be displayed as Link sharing type for activity stream's username");
 		String link = "http://yahoo.com";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
+
+		//Pre-Condition
+		info("UserA connect userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+		
 		/*
 		- Connect to Intranet
 		- Share a Link
 		 *Expected Outcome: 
 		- Activity with Link is shared		*/
+		acc.signIn(username1, password1);
 		addActivity(false, "", true, link);	
 
 		/*
@@ -898,16 +1115,13 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The Generic popup is displayed with the last activity posted: Link		*/ 
-		String elem = "//*[@href='/portal/intranet/profile/john']//*[@alt='John Smith']";
+		acc.userSignIn(userType.PUBLISHER);
+		selectFileter("Connections");
+		String elem = "//*[@href='/portal/intranet/profile/"+username1+"']//*[@alt='"+usertest+"']";
 		mouseOver(elem, true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase("Yahoo");	
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
-
-		//Delete data test
-		nav.goToHomePage();
-		home.deleteActivity(link, true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
+		info("Last activity of user displayes true");	
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
 	}
 
 	/**
@@ -921,19 +1135,21 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test21_GenericPopUpShouldBeDisplayWithConnectButtonInTheActivityStreamsMention() {
 		info("Test 21 Generic pop up should be display with Connect button in the activity stream's mention");
-		String position = "Case 108060";
-		String activity = "Activity 108060";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
 
 		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		nav.goToHomePage();
-		addActivity(true, activity, false, "");
 
 		/*
 		- Connect to Intranet with the User B
@@ -942,26 +1158,21 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Expected Outcome: 
 		- The activity is shared with Username A link		*/
 		acc.userSignIn(userType.PUBLISHER);
-		mentionActivity(true, "", user1);
+		mentionActivity(true, "", usertest);
 
 		/*
 		- Move the mouse over the username link
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Connect" is displayed		*/
-		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
+		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",usertest), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 		info("Button [Connect] is displayed");
-		waitForAndGetElement(By.xpath("//*[@class='uiAction connectAction']//*[contains(., 'Connect')]"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
 		Utils.pause(1000);
 
 		/*
@@ -969,24 +1180,12 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: Button is changed to Cancel Request		*/ 
 		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
-		waitForAndGetElement(hg.ELEMENT_WHOISONLINE_GADGET,5000,1,2);
-		Utils.pause(3000);
-		WebElement myElement = this.driver.findElement(By.xpath(".//*[@class='avatarXSmall' and @href='/portal/intranet/profile/john']"));
-		Actions builder = new Actions(this.driver);
-		builder.moveToElement(myElement).build().perform();
-		Utils.pause(5000);
-		WebElement myElement2 =this.driver.findElement(By.xpath("//*[@class='uiAction connectAction']//*[contains(., 'Cancel Request')]"));
-		builder.click(myElement2).build().perform();
+		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",usertest), true);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
 
 		//Delete data test
-
 		nav.goToHomePage();
-		home.deleteActivity(user1, true);	
-
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(position, true);
-		home.deleteActivity(activity, true);
-		acc.updateUserProfile("john",null, null, null);
+		home.deleteActivity(usertest, true);
 	}
 
 	/**
@@ -1000,10 +1199,18 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test22_GenericPopUpShouldBeDisplayWithConnectButtonInTheActivityStreamsLike() {
 		info("Test 22 Generic pop up should be display with Connect button in the activity stream's Like");
-		String position = "Case 108061";
-		String activity1 = "Activity 108061A";
-		String activity2 = "Activity 108061B";
-		String spaceName = "Space108061";
+		String activity1 = "Activity 1080611A";
+		String activity2 = "Activity 1080611B";
+		String spaceName = "Space1080614";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
 		info("User A & B is member of Space1");
@@ -1012,9 +1219,6 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		addActivity(true, activity1, false, "");
 		goToMembers(spaceName);
 		mMember.inviteSingleUser(userType.PUBLISHER);
-
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);		
 
 		/*
 		- Connect to Intranet with the User A
@@ -1033,7 +1237,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Activity is shared and Liked		*/
-		acc.userSignIn(userType.ADMIN);
+		acc.signIn(username1, password1);
 		nav.goToHomePage();
 		selectFileter("My Spaces");
 		home.likeOrUnlikeActivity(activity2);
@@ -1045,48 +1249,26 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Connect" is displayed		*/
 		acc.userSignIn(userType.PUBLISHER);
-		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity2).replace("${index}", "1")).getAttribute("alt");
-		assert(avatarName.contains(user1));
 		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity2).replace("${index}", "1"),true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity1);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
-		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_WHOISONLINE_GADGET,5000,1,2,newDriver);
-		Utils.pause(3000);
-		WebElement myElement =this.driver.findElement(By.xpath(".//*[@class='avatarXSmall' and @href='/portal/intranet/profile/john']"));
-		Actions builder = new Actions(this.driver);
-		builder.moveToElement(myElement).build().perform();
-		Utils.pause(5000);
-		WebElement myElement2 =this.driver.findElement(By.xpath("//*[@class='uiAction connectAction']//*[@class='connect btn btn-primary' and contains(., 'Connect')]"));
-		builder.click(myElement2).build().perform();
-		Utils.pause(1000);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
 
 		/*
 		- Click on the button "Connect"
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The State of the button changes to show a connection request was sent.		*/ 
-		//		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
+		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
 		Utils.pause(1000);
 		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity2).replace("${index}", "1"),true);
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
 
 		//Delete data test
-		nav.goToConnectionPage();
-		pConnect.cancelRequest(user1);
-		nav.goToHomePage();
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(position, true);
-		acc.updateUserProfile("john",null, null, null);
-		Utils.pause(1000);
+		acc.signIn(username1, password1);
 		goToAllSpaces();
 		mSpace.deleteSpace(spaceName, 300000);
 	}
@@ -1102,30 +1284,34 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test23_GenericPopUpShouldBeDisplayWithConnectButtonInTheActivityStreamsAvatar() {
 		info("Test 23 Generic pop up should be display with Connect button in the activity stream's avatar");
-		String position = "Case 108062";
+
 		String spaceName = "Space108062";
 		String activity = "Activity 108062";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-
 		info("User A & B is member of Space1");
 		mSpace.goToAllSpaces();
 		mSpace.addNewSpace(spaceName,"");
 		goToMembers(spaceName);
 		mMember.inviteSingleUser(userType.PUBLISHER);
-		acc.userSignIn(userType.PUBLISHER);		
-		mMember.acceptInvitation(spaceName);
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		acc.userSignIn(userType.ADMIN);	
+		acc.userSignIn(userType.PUBLISHER);
+		mMember.acceptInvitation(spaceName);
 		mSpace.accessSpace(spaceName);
-		addActivity(true, activity, false, "");		
+		addActivity(true, activity, false, "");	
 
 		/*
 		- Connect to Intranet with the User B
@@ -1133,21 +1319,16 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Connect" is displayed		*/
-		acc.userSignIn(userType.PUBLISHER);
+		acc.signIn(username1, password1);
 		mSpace.accessSpace(spaceName);
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user2), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
 		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
 
 		/*
@@ -1155,19 +1336,12 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The State of the button changes to show a connection request was sent.		*/ 
-		//		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
+		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user1), true);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user2), true);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
 
-		//Delete data test
-		//		nav.goToConnectionPage();
-		//		pConnect.cancelRequest(user1);
-
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(position, true);
-		acc.updateUserProfile("john",null, null, null);
-		Utils.pause(1000);
+		acc.signIn(username1, password1);
 		goToAllSpaces();
 		mSpace.deleteSpace(spaceName, 300000);
 	}
@@ -1183,28 +1357,31 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test24_GenericPopUpShouldBeDisplayWithConnectButtonInTheActivityStreamsUsername() {
 		info("Test 24 Generic pop up should be display with Connect button in the activity stream's username");
-		String position = "Case 108063";
 		String activity = "Activity 108063";
 		String spaceName = "Space108063";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-
 		info("User A & B is member of Space1");
 		mSpace.goToAllSpaces();
 		mSpace.addNewSpace(spaceName,"");
 		goToMembers(spaceName);
 		mMember.inviteSingleUser(userType.PUBLISHER);
-		acc.userSignIn(userType.PUBLISHER);		
-		mMember.acceptInvitation(spaceName);
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		acc.userSignIn(userType.ADMIN);	
+		acc.userSignIn(userType.PUBLISHER);
+		mMember.acceptInvitation(spaceName);
 		mSpace.accessSpace(spaceName);
 		addActivity(true, activity, false, "");	
 
@@ -1214,21 +1391,14 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Connect" is displayed		*/
-		acc.userSignIn(userType.PUBLISHER);
+		acc.signIn(username1, password1);
 		mSpace.accessSpace(spaceName);
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user2), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
 		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);	
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
 
 		/*
@@ -1236,19 +1406,12 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The State of the button changes to show a connection request was sent.		*/ 
-		//		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
+		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
 		Utils.pause(1000);
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user1), true);
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user2), true);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
 
-		// Delete data test
-		//		nav.goToConnectionPage();
-		//		pConnect.cancelRequest(user1);
-
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(activity, true);
-		acc.updateUserProfile("john",null, null, null);
-		Utils.pause(1000);
+		acc.signIn(username1, password1);
 		goToAllSpaces();
 		mSpace.deleteSpace(spaceName, 300000);
 	}
@@ -1264,67 +1427,41 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test25_GenericPopUpShouldBeDisplayWithConfirmButtonInTheActivityStreamsAvatar() {
 		info("Test 25 Generic pop up should be display with Confirm button in the activity stream's avatar");
-		String position = "Case 108066";
-		String spaceName = "Space108066";
-		String activity = "Activity 108066";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-
 		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
-
-		info("User A & B is member of Space1");
-		mSpace.goToAllSpaces();
-		mSpace.addNewSpace(spaceName,"");
-		goToMembers(spaceName);
-		mMember.inviteSingleUser(userType.PUBLISHER);
-		acc.userSignIn(userType.PUBLISHER);		
-		mMember.acceptInvitation(spaceName);
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		acc.userSignIn(userType.ADMIN);	
-		mSpace.accessSpace(spaceName);
-		addActivity(true, activity, false, "");	
+		nav.goToHomePage();
+		mentionActivity(true, "", user2);	
 
 		/*
 		- Connect to Intranet with the User B 
 		- Move the mouse over the Avatar (User A)
 		 *Input Data: 
 		 *Expected Outcome: 
-		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Confirm" is displayed		*/ 
+		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Confirm" is displayed		*/
 		acc.userSignIn(userType.PUBLISHER);
-		mSpace.accessSpace(spaceName);
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", usertest), true);
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
-
-		//Delete data test
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(activity, true);
-		acc.updateUserProfile("john",null, null, null);
-		nav.goToConnectionPage();
-		pConnect.cancelRequest(user2);
-		Utils.pause(1000);
-		goToAllSpaces();
-		mSpace.deleteSpace(spaceName, 300000);
 	}
 
 	/**
@@ -1338,35 +1475,29 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test26_GenericPopUpShouldBeDisplayWithConfirmButtonInTheActivityStreamsLike() {
 		info("Test 26 Generic pop up should be display with Confirm button in the activity stream's Like");
-		String position = "Case 108067";
-		String spaceName = "Space108067";
-		String activity1 = "Activity 108067A";
-		String activity2 = "Activity 108067B";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-
 		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
-
-		info("User A & B is member of Space1");
-		mSpace.goToAllSpaces();
-		mSpace.addNewSpace(spaceName,"");
-		addActivity(true, activity1, false, "");	
-		goToMembers(spaceName);
-		mMember.inviteSingleUser(userType.PUBLISHER);
-		acc.userSignIn(userType.PUBLISHER);		
-		mMember.acceptInvitation(spaceName);
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		mSpace.accessSpace(spaceName);
-		addActivity(true, activity2, false, "");	
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToHomePage();
+		mentionActivity(true, "", usertest);	
 
 		/*
 		- Connect to Intranet with the User B
@@ -1375,10 +1506,9 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Activity is shared and Liked		*/
-		acc.userSignIn(userType.ADMIN);
+		acc.signIn(username1, password1);
 		nav.goToHomePage();
-		selectFileter("My Spaces");
-		home.likeOrUnlikeActivity(activity2);
+		home.likeOrUnlikeActivity(usertest);
 
 		/*
 		- Open the User A's session
@@ -1387,37 +1517,11 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Confirm" is displayed		*/ 
 		acc.userSignIn(userType.PUBLISHER);
-		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity2).replace("${index}", "1")).getAttribute("alt");
-		assert(avatarName.contains(user1));
-		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity2).replace("${index}", "1"),true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity1);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", username1).replace("${index}", "1"));
+		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", username1).replace("${index}", "1"),true);
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
-
-		//Delete data test
-		info("UserB delete data");
-		driver.navigate().refresh();
-		home.deleteActivity(activity2, true);
-
-		info("UserA delete data");
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(activity1, true);
-		acc.updateUserProfile("john",null, null, null);
-		//		nav.goToConnectionPage();
-		//		pConnect.cancelRequest(user2);
-		Utils.pause(1000);
-		goToAllSpaces();
-		mSpace.deleteSpace(spaceName, 300000);
 	}
 
 	/**
@@ -1431,14 +1535,17 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test27_GenericPopUpShouldBeDisplayWithConfirmButtonInTheActivityStreamsMention() {
 		info("Test 27 Generic pop up should be display with Confirm button in the activity stream's mention");
-		String position = "Case 108068";
-		String spaceName = "Space108068";
-		String activity = "Activity 108068";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-
 		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
@@ -1448,12 +1555,6 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		info("User A & B is member of Space1");
-		mSpace.goToAllSpaces();
-		mSpace.addNewSpace(spaceName,"");
-		addActivity(true, activity, false, "");	
-		goToMembers(spaceName);
-		mMember.inviteSingleUser(userType.PUBLISHER);
 
 		/*
 		- Connect to Intranet with the User B 
@@ -1461,41 +1562,20 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The activity is shared with Username A link		*/
-		acc.userSignIn(userType.PUBLISHER);		
-		mMember.acceptInvitation(spaceName);
-		Utils.pause(2000);
-		mSpace.accessSpace(spaceName);
-		mentionActivity(true,"",user1);
+		info("User A & B is member of Space1");
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToHomePage();
+		mentionActivity(true, "", usertest);	
 
 		/*
 		- Move the mouse over the username link
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Confirm" is displayed		*/ 
-		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",user1), true);		
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",usertest), true);		
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
-
-		//Delete data test
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(activity, true);
-		acc.updateUserProfile("john",null, null, null);
-		//		nav.goToConnectionPage();
-		//		pConnect.cancelRequest(user2);
-		Utils.pause(1000);
-		goToAllSpaces();
-		mSpace.deleteSpace(spaceName, 300000);
 	}
 
 	/**
@@ -1509,34 +1589,28 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test28_GenericPopUpShouldBeDisplayWithConfirmButtonInTheActivityStreamsUsername() {
 		info("Test 28 Generic pop up should be display with Confirm button in the activity stream's username");
-		String position = "Case 108069";
-		String spaceName = "Space108069";
-		String activity = "Activity 108069";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-
 		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
-
-		info("User A & B is member of Space1");
-		mSpace.goToAllSpaces();
-		mSpace.addNewSpace(spaceName,"");
-		goToMembers(spaceName);
-		mMember.inviteSingleUser(userType.PUBLISHER);
-		acc.userSignIn(userType.PUBLISHER);		
-		mMember.acceptInvitation(spaceName);
+		nav.goToHomePage();
+		mentionActivity(true, "", user2);	
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		acc.userSignIn(userType.ADMIN);	
-		mSpace.accessSpace(spaceName);
-		addActivity(true, activity, false, "");	
 
 		/*
 		- Connect to Intranet with the User B 
@@ -1545,31 +1619,10 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Confirm" is displayed		*/ 
 		acc.userSignIn(userType.PUBLISHER);
-		mSpace.accessSpace(spaceName);
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user1), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", usertest), true);
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
-
-		//Delete data test
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(activity, true);
-		acc.updateUserProfile("john",null, null, null);
-		nav.goToConnectionPage();
-		pConnect.cancelRequest(user2);
-		Utils.pause(1000);
-		goToAllSpaces();
-		mSpace.deleteSpace(spaceName, 300000);
 	}
 
 	/**
@@ -1583,33 +1636,30 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test29_GenericPopUpShouldBeDisplayWithCancelRequestButtonInTheActivityStreamsAvatar() {
 		info("Test 29 Generic pop up should be display with Cancel Request button in the activity stream's avatar");
-		String position = "Case 108069";
-		String spaceName = "Space108069";
-		String activity = "Activity 108069";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
 		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
 
-		info("User A & B is member of Space1");
-		mSpace.goToAllSpaces();
-		mSpace.addNewSpace(spaceName,"");
-		goToMembers(spaceName);
-		mMember.inviteSingleUser(userType.PUBLISHER);
-
-		acc.userSignIn(userType.PUBLISHER);		
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-		mMember.acceptInvitation(spaceName);
-
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		mSpace.accessSpace(spaceName);
-		addActivity(true, activity, false, "");
+		info("User A & B is member of Space1");
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToHomePage();
+		mentionActivity(true, "", usertest);	
 
 		/*
 		- Connect to Intranet with the User B
@@ -1617,32 +1667,11 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Cancel Request" is displayed		*/ 
-		acc.userSignIn(userType.ADMIN);	
-		mSpace.accessSpace(spaceName);
+		acc.signIn(username1, password1);
 		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user2), true);	
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);	
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
-
-		//Delete data test
-		nav.goToConnectionPage();
-		pConnect.cancelRequest(user2);
-		Utils.pause(1000);
-		goToAllSpaces();
-		mSpace.deleteSpace(spaceName, 300000);
-
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);
 	}
 
 	/**
@@ -1656,35 +1685,27 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test30_GenericPopUpShouldBeDisplayWithCancelRequestButtonInTheActivityStreamsLike() {
 		info("Test 30 Generic pop up should be display with Cancel Request button in the activity stream's Like");
-		String position = "Case 108073";
-		String spaceName = "Space108073";
-		String activity1 = "Activity 108073A";
-		String activity2 = "Activity 108073B";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("UserB send a request to userA");
+		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
-
-		info("User A & B is member of Space1");
-		mSpace.goToAllSpaces();
-		mSpace.addNewSpace(spaceName,"");
-		addActivity(true, activity1, false, "");	
-		goToMembers(spaceName);
-		mMember.inviteSingleUser(userType.PUBLISHER);
-
-		acc.userSignIn(userType.PUBLISHER);	
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-		mMember.acceptInvitation(spaceName);
+		nav.goToHomePage();
+		mentionActivity(true, "", user2);
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		mSpace.accessSpace(spaceName);
-		addActivity(true, activity2, false, "");	
 
 		/*
 		- Connect to Intranet with the User B 
@@ -1693,45 +1714,20 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Activity is shared and Liked		*/	
-		home.likeOrUnlikeActivity(activity1);
+		acc.userSignIn(userType.PUBLISHER);
+		home.likeOrUnlikeActivity(user2);
 
 		/*
 		- Open the User A's session
 		- Move the mouse over the Liker Avatar (User B)
 		 *Input Data: 
 		 *Expected Outcome: 
-		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Cancel Request" is displayed		*/ 
-		acc.userSignIn(userType.ADMIN);
-		nav.goToHomePage();
-		selectFileter("My Spaces");
-		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity1).replace("${index}", "1")).getAttribute("alt");
-		assert(avatarName.contains(user2));
-		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity1).replace("${index}", "1"),true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity2);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Cancel Request" is displayed		*/
+		acc.signIn(username1, password1);
+		waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", user2.substring(user2.indexOf(" ")+1)).replace("${index}", "1"));
+		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", user2.substring(user2.indexOf(" ")+1)).replace("${index}", "1"),true);
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
-		Utils.pause(1000);
-
-		//Delete data test
-		info("UserB delete data");
-		nav.goToConnectionPage();
-		pConnect.cancelRequest(user2);
-		Utils.pause(1000);
-		goToAllSpaces();
-		mSpace.deleteSpace(spaceName, 300000);	
-
-		info("UserA delete data");
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
 	}
 
 	/**
@@ -1745,32 +1741,25 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test31_GenericPopUpShouldBeDisplayWithCancelRequestButtonInTheActivityStreamsMention() {
 		info("Test 31 Generic pop up should be display with Cancel Request button in the activity stream's mention");
-		String position = "Case 108074";
-		String spaceName = "Space108074";
-		String activity = "Activity 108074";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("UserB send a request to userA");
+		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
-		info("User A & B is member of Space1");
-		mSpace.goToAllSpaces();
-		mSpace.addNewSpace(spaceName,"");		
-		goToMembers(spaceName);
-		mMember.inviteSingleUser(userType.PUBLISHER);	
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		acc.userSignIn(userType.PUBLISHER);		
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-
-		mMember.acceptInvitation(spaceName);
-		mSpace.accessSpace(spaceName);
-		addActivity(true, activity, false, "");	
 
 		/*
 		- Connect to Intranet with the User B
@@ -1778,42 +1767,18 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The activity is shared with Username A link		*/
-		acc.userSignIn(userType.ADMIN);
-		mSpace.accessSpace(spaceName);
-		mentionActivity(true,"",user2);
+		nav.goToHomePage();
+		mentionActivity(true, "", user2);
 
 		/*
 		- Move the mouse over the username link
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Cancel Request" is displayed		*/ 
-		nav.goToHomePage();
-		selectFileter("My Spaces");
 		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",user2), true);		
 		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);	
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
-		Utils.pause(1000);
-
-		//Delete data test
-		//		nav.goToConnectionPage();
-		//		pConnect.cancelRequest(user2);
-		Utils.pause(1000);
-		goToAllSpaces();
-		mSpace.deleteSpace(spaceName, 300000);
-
-		info("UserA delete data");
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
 	}
 
 	/**
@@ -1827,33 +1792,29 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test32_GenericPopUpShouldBeDisplayWithCancelRequestButtonInTheActivityStreamsUsername() {
 		info("Test 32 Generic pop up should be display with Cancel Request button in the activity stream's username");
-		String position = "Case 108075";
-		String spaceName = "Space108075";
-		String activity = "Activity 108075";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
 		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
 
-		info("User A & B is member of Space1");
-		mSpace.goToAllSpaces();
-		mSpace.addNewSpace(spaceName,"");
-		goToMembers(spaceName);
-		mMember.inviteSingleUser(userType.PUBLISHER);
-
-		acc.userSignIn(userType.PUBLISHER);		
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-		mMember.acceptInvitation(spaceName);
-
 
 		/*- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared	*/	
-		mSpace.accessSpace(spaceName);
-		addActivity(true, activity, false, "");
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToHomePage();
+		mentionActivity(true, "", usertest);
 
 
 		/*	- Connect to Intranet with the User B 
@@ -1861,32 +1822,11 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Cancel Request" is displayed	*/	 
-		acc.userSignIn(userType.ADMIN);	
-		mSpace.accessSpace(spaceName);
-		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user2), true);	
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		acc.signIn(username1, password1);
+		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user2), true);
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
-
-		//Delete data test
-		nav.goToConnectionPage();
-		pConnect.cancelRequest(user2);
-		Utils.pause(1000);
-		goToAllSpaces();
-		mSpace.deleteSpace(spaceName, 300000);
-
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);
 	}
 
 	/**
@@ -1900,26 +1840,31 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test33_GenericPopUpShouldBeDisplayWithRemoveConnectionButtonInTheActivityStreamsAvatar() {
 		info("Test 33 Generic pop up should be display with Remove Connection button in the activity stream's avatar");
-		String position = "Case 108078";
-		String activity = "Activity 108078";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
 		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
-		acc.userSignIn(userType.PUBLISHER);
-		pConnect.acceptInvitation(user1);
-
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
 		nav.goToHomePage();
-		addActivity(true, activity, false, "");
+		mentionActivity(true, "", usertest);
 
 		/*
 		- Connect to Intranet with the User B
@@ -1927,32 +1872,10 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Remove Connection" is displayed		*/ 
-		acc.userSignIn(userType.ADMIN);
-		nav.goToHomePage();
-		selectFileter("Connections");
+		acc.signIn(username1, password1);
 		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user2), true);	
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"), DEFAULT_TIMEOUT,1,2);
-		Utils.pause(1000);
-
-		//Delete data test
-		//		nav.goToConnectionPage();
-		//		pConnect.removeConnection(user2);
-
-		acc.userSignIn(userType.PUBLISHER);
-		home.deleteActivity(activity);
-		Utils.pause(1000);
-		acc.updateUserProfile("mary",null, null, null);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"), DEFAULT_TIMEOUT,1,2);
 	}
 
 	/**
@@ -1966,27 +1889,34 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test34_GenericPopUpShouldBeDisplayWithRemoveConnectionButtonInTheActivityStreamsLike() {
 		info("Test 34 Generic pop up should be display with Remove Connection button in the activity stream's Like");
-		String position = "Case 108079";
-		String activity1 = "Activity 108079A";
-		String activity2 = "Acvitity 108079B";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		but.ok();
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
-
 		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
+
 		acc.userSignIn(userType.PUBLISHER);
-		pConnect.acceptInvitation(user1);		
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
+
+		acc.signIn(username1, password1);
+		nav.goToHomePage();
+		mentionActivity(true, "", user2);	
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		nav.goToHomePage();
-		addActivity(true, activity1, false, "");
 
 		/*
 		- Connect to Intranet with the User B 
@@ -1995,10 +1925,9 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Activity is shared and Liked		*/
-		acc.userSignIn(userType.ADMIN);
-		addActivity(true, activity2, false, "");
-		selectFileter("Connections");
-		home.likeOrUnlikeActivity(activity1);
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToHomePage();
+		home.likeOrUnlikeActivity(user2);
 
 		/*
 		- Open the User A's session
@@ -2006,35 +1935,12 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Remove Connection" is displayed		*/ 
-		acc.userSignIn(userType.PUBLISHER);
-		selectFileter("My Activities");
-		Utils.pause(1000);
-		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity1).replace("${index}", "1")).getAttribute("alt");
-		assert(avatarName.contains(user1));
-		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity1).replace("${index}", "1"),true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity2);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		acc.signIn(username1, password1);
+		waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", user2.substring(user2.indexOf(" ")+1)).replace("${index}", "1"));
+		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", user2.substring(user2.indexOf(" ")+1)).replace("${index}", "1"),true);
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"), DEFAULT_TIMEOUT,1,2);
-		Utils.pause(1000);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"), DEFAULT_TIMEOUT,1,2);
 
-		//Delete data test
-		nav.goToHomePage();		
-		home.deleteActivity(activity1);
-		acc.updateUserProfile("mary",null, null, null);
-		//		nav.goToConnectionPage();
-		//		pConnect.removeConnection(user1);	
-
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(activity2);
 	}
 
 	/**
@@ -2048,24 +1954,28 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test35_GenericPopUpShouldBeDisplayWithRemoveConnectionButtonInTheActivityStreamsMention() {
 		info("Test 35 Generic pop up should be display with Remove Connection button in the activity stream's mention");
-		String position = "Case 108080";
-		String activity = "Activity 108080";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
+		info("UserA send a request to userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
 
 		/*
 		- Connect to Intranet with the User A
 		- Share an activity 
 		 *Expected Outcome: 
 		- The activity is shared		*/
-		info("UserA send a request to userB");
+		acc.userSignIn(userType.PUBLISHER);
 		nav.goToConnectionPage();
-		pConnect.connectPeople(user2);
-
-		nav.goToHomePage();
-		addActivity(true, activity, false, "");
+		pConnect.acceptInvitation(usertest);
 
 		/*
 		- Connect to Intranet with the User B
@@ -2073,41 +1983,18 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The activity is shared with Username A link		*/
-		acc.userSignIn(userType.PUBLISHER);
-		pConnect.acceptInvitation(user1);	
 		nav.goToHomePage();
-		mentionActivity(true, "", user1);
+		mentionActivity(true, "", usertest);
 
 		/*
 		- Move the mouse over the username link
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Remove Connection" is displayed		*/ 
-		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",user1), true);		
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user1));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);	
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
+		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",usertest), true);		
 		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
-
-		//Delete data test
-		nav.goToHomePage();
-		home.deleteActivity(user1, true);
-		//		nav.goToConnectionPage();
-		//		pConnect.removeConnection(user1);
-
-		info("UserA delete data");
-		acc.userSignIn(userType.ADMIN);
-		home.deleteActivity(activity, true);
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -2121,18 +2008,23 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test36_GenericPopUpShouldBeDisplayWithRemoveConnectionButtonInTheActivityStreamsUsername() {
 		info("Test 36 Generic pop up should be display with Remove Connection button in the activity stream's username");
-		String position = "Case 108081";
-		String activity = "Activity 108081";
+		String username1 = getRandomString();
+		String password1 = username1;
+		String email1 = username1+"@gmail.com";
+		String usertest = username1+" "+username1;
+		info("User update profile");
+		nav.goToNewStaff();
+		acc.addNewUserAccount(username1, password1, password1, username1, username1, null, email1, null, null,false);
+		acc.signIn(username1, password1);
 
 		//Pre-Condition
 		info("UserA send a request to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
-		acc.userSignIn(userType.PUBLISHER);
-		pConnect.acceptInvitation(user1);
 
-		info("User update profile");
-		acc.updateUserProfile(position,null, null, null);	
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(usertest);
 
 		/*
 		- Connect to Intranet with the User A
@@ -2140,7 +2032,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Expected Outcome: 
 		- The activity is shared		*/
 		nav.goToHomePage();
-		addActivity(true, activity, false, "");
+		mentionActivity(true, "", usertest);
 
 		/*
 		- Connect to Intranet with the User B in other browser
@@ -2148,32 +2040,10 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity title* The boutton "Remove Connection" is displayed		*/ 
-		acc.userSignIn(userType.ADMIN);
-		nav.goToHomePage();
-		selectFileter("Connections");
+		acc.signIn(username1, password1);
 		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_NAME.replace("${index}","1").replace("${author}", user2), true);	
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", user2));
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(position);	
-		info("Confirm user avatar");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user name");
-		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
-		info("Last activity of user displayes true");
-		//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY_41.replace("${post}",position));
-		info("Button [Connect] is displayed");
-		//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"), DEFAULT_TIMEOUT,1,2);
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
-
-		//Delete data test
-		nav.goToConnectionPage();
-		pConnect.removeConnection(user2);
-
-		acc.userSignIn(userType.PUBLISHER);
-		home.deleteActivity(activity);
-		Utils.pause(1000);
-		acc.updateUserProfile("mary",null, null, null);
 	}
 
 	/**
@@ -2194,6 +2064,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
 		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
 		pConnect.acceptInvitation(user1);
 
 		/*
@@ -2252,6 +2123,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
 		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
 		pConnect.acceptInvitation(user1);	
 
 		/*
@@ -2340,6 +2212,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		- The activity is shared
 		- The mentionned user is displayed as a link		*/
 		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
 		pConnect.acceptInvitation(user1);	
 		nav.goToHomePage();
 		mentionActivity(true, "", user1);
@@ -2389,6 +2262,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
 		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
 		pConnect.acceptInvitation(user1);
 
 		/*
@@ -2443,15 +2317,16 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test41_UsersActivityShouldBeDisplayedAfterClickOnUsersAvatarOnGenericPopUpOfActivityStreamsLikes() {
 		info("Test 41 User's activity should be displayed after click on User's avatar on generic pop up of activity stream's likes");
-		String activity1 = "Activity 108092A";
-		String activity2 = "Acvitity 108092B";
+		String activity1 = "Activity 108092A1";
+		String activity2 = "Acvitity 108092B1";
 
-		//		//Pre-Condition
-		//		info("UserA send a request to userB");
-		//		nav.goToConnectionPage();
-		//		pConnect.connectPeople(user2);
+		//Pre-Condition
+		info("UserA send a request to userB");
+		nav.goToConnectionPage();
+		pConnect.connectPeople(user2);
 		acc.userSignIn(userType.PUBLISHER);
-		//		pConnect.acceptInvitation(user1);	
+		nav.goToConnectionPage();
+		pConnect.acceptInvitation(user1);
 
 		/*
 		- Connect to Intranet with the User A
@@ -2524,6 +2399,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
 		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
 		pConnect.acceptInvitation(user1);
 
 		/*
@@ -2574,7 +2450,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test43_UsersActivityShouldBeDisplayedAfterClickOnUsersAvatarOnGenericPopUpOfActivityStreamsMentions() {
 		info("Test 43 User's activity should be displayed after click on User's avatar on generic pop up of activity stream's mentions");
-		String activity = "Activity 108094";
+		String activity = "Activity 1080941";
 
 		/*
 		- Connect to Intranet with the User A
@@ -2596,6 +2472,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		- The activity is shared
 		- The mentionned user is displayed as a link		*/
 		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
 		pConnect.acceptInvitation(user1);	
 		nav.goToHomePage();
 		mentionActivity(true, "", user1);
@@ -2618,6 +2495,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		waitForAndGetElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",DATA_USER1)), DEFAULT_TIMEOUT,1,2);
 
 		//Delete data test
+		nav.goToHomePage();
 		home.deleteActivity(user1, true);
 		nav.goToConnectionPage();
 		pConnect.removeConnection(user1);
@@ -2644,6 +2522,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
 		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
 		pConnect.acceptInvitation(user1);
 
 		/*

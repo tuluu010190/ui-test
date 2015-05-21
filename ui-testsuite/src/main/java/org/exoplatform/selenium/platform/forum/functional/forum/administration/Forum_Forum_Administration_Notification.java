@@ -7,10 +7,12 @@ import java.awt.AWTException;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.forum.ForumBase;
 import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,7 +29,8 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 	ForumManageForum forum; 
 	ForumManageTopic topic;
 	ManageAccount acc;
-
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 	@BeforeMethod
 	public void setUpBeforeTest(){
 		initSeleniumTest();
@@ -39,6 +42,8 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 		button = new Button(driver);
 		topic = new ForumManageTopic(driver, this.plfVersion); 
 		alert = new ManageAlert(driver, this.plfVersion);
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 	}
 
 	@AfterMethod
@@ -76,7 +81,12 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 		- Go to Forum porlet
 		- Click on [Administration] and select [Notifications] in drop down menu
 		 *Expected Outcome: Notification form is shown properly		*/
-		acc.updateUserProfile(null, null, null,EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		info("Open Notifications form");
 		goToForums(); 
 
@@ -207,7 +217,12 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 		- Go to Forum porlet
 		- Click on [Administration] and select [Notifications] in drop down menu
 		 *Expected Outcome: Notification form is shown properly		*/
-		acc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		info("Open Notifications form");
 		goToForums(); 
 
@@ -278,7 +293,12 @@ public class Forum_Forum_Administration_Notification extends ForumBase{
 		- Go to Forum porlet
 		- Click on [Administration] and select [Notifications] in drop down menu
 		 *Expected Outcome: Notification form is shown properly		*/
-		acc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		info("Open Notifications form");
 		goToForums(); 
 

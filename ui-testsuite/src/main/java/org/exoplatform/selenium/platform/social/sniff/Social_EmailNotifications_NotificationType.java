@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.social.Activity;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.social.Notification;
 import org.exoplatform.selenium.platform.social.PeopleConnection;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -30,6 +31,7 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 	NavigationToolbar navToolBar;
 	UserGroupManagement userGroup;
 	PeopleConnection peo;
+	PeopleProfile pepPro;
 	Activity act;
 	HomePageActivity hpact;
 	SpaceManagement sp;
@@ -53,6 +55,7 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		hpact = new HomePageActivity(driver,this.plfVersion);
 		sp = new SpaceManagement(driver, plfVersion);
 		mgMem = new ManageMember(driver, plfVersion);
+		pepPro = new PeopleProfile(driver);
 	}
 
 	@AfterMethod
@@ -82,7 +85,11 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		By eEmail2 = By.xpath(ELEMENT_GMAIL_TITLE.replace("{$title}", MSG_TITLE_EMAIL_NEW_USER.replace("${user}", user2)));
 		//Update email
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 
 		//Send connection request to John
 		magAcc.userSignIn(userType.PUBLISHER);
@@ -160,7 +167,11 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		
 		//Update email
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 
 		navToolBar.goToConnectionPage();
 		peo.connectPeople(user1);
@@ -270,7 +281,11 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		
 		//Update email
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 
 		//Send connection request
 		navToolBar.goToConnectionPage();
@@ -378,7 +393,11 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		
 		//Update email
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 
 		navToolBar.goToConnectionPage();
 		peo.connectPeople(user1);
@@ -473,7 +492,11 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		String comment3 = "comment 03";
 
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 
 		goToAllSpaces();
 		sp.addNewSpace(space, "");
@@ -557,7 +580,11 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		By eEmail3 = By.xpath(ELEMENT_GMAIL_TITLE.replace("{$title}", MSG_TITLE_EMAIL_JOIN_SPACE.replace("${user}", user3).replace("${space}", space)));
 
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 
 		/*- Login as user 1
 		- Create a space "Space1"
@@ -665,7 +692,11 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		By eEmail2 = By.xpath(ELEMENT_GMAIL_TITLE.replace("{$title}", MSG_TITLE_EMAIL_INVITATION_SPACE.replace("${space}", space1)));
 
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 
 		/*- Login as user1
 		- Create a space "Space1"
@@ -773,7 +804,11 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		String comment5 = "comment 05";
 
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		
 		/*- Login as userA
 		- Mention userB in activity or comment in any activity stream ("Test mention" for example)
@@ -886,7 +921,11 @@ public class Social_EmailNotifications_NotificationType extends Notification {
 		By eEmail = By.xpath(ELEMENT_GMAIL_TITLE.replace("{$title}", fullName+" has joined eXo"));
 		
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		
 		navToolBar.goToNotificationSettings();
 		enableSendNotificationRight(MSG_ACTIVITY_JOIN_INTRANET, true);

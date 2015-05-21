@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
 import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.exoplatform.selenium.platform.CKeditor;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterTest;
@@ -35,7 +36,8 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 	HomePageActivity homeActi;
 	CKeditor cke;
 	Button button;
-
+	NavigationToolbar nav;
+	PeopleProfile pepPro;
 	String category = "";
 	String forum = "";
 	String topic = "";
@@ -61,7 +63,8 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 		cke = new CKeditor(driver, this.plfVersion);
 		button = new Button(driver, this.plfVersion);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
-
+		nav = new NavigationToolbar(driver, this.plfVersion);
+		pepPro = new PeopleProfile(driver);
 	}
 
 	@BeforeMethod
@@ -572,7 +575,12 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 	public void test09_CheckNotificaiton() {
 		String tex_content = "ChangeContentNotificaiton_" + getRandomNumber();
 		// update address email
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 		// Change content of notification
 		info("Go to Administration->Notification");
 		mngFru.goToForums();
@@ -601,9 +609,12 @@ public class Forum_Forum_CKEditor_CKEditor extends ForumBase {
 		goToForumHome();
 		click(By.linkText(category));
 		mngCat.deleteCategoryInForum(category, true);
-
-		magAcc.updateUserProfile(null, null, null,
-				"john.smith@acme.exoplatform.com");
+		nav.goToMyProfile();
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, "john.smith@acme.exoplatform.com");
+		pepPro.saveCancelUpdateInfo(true);
 	}
 
 	/**

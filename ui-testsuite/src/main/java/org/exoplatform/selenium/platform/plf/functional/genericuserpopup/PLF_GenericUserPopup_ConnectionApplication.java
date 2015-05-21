@@ -233,11 +233,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test05_UsersInformationsShouldBeDisplayedOnGenericPopUpOfConnectionEveryoneTab() {
 		info("Test 5: User's informations should be displayed on generic pop up of connection Everyone tab");
-		String post = "Case 108038";
-
-		info("User Mary update profile");
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile(post,null, null, null);
 
 		/*
 		- Connect to Intranet with the User A
@@ -248,16 +243,10 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		acc.userSignIn(userType.ADMIN);
 		nav.goToConnectionPage();
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user2), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);		
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);	
-
-		//Delete date test 
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);
 	}
 
 	/**
@@ -271,11 +260,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test06_UsersInformationsShouldBeDisplayedOnGenericPopUpOfConnectionMyConnectionsTab() {
 		info("Test 6: User's informations should be displayed on generic pop up of connection My connections tab");
-		String post = "Case 108039";
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(post,null, null, null);
 		info("UserA connect userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
@@ -290,8 +276,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		 *Expected Outcome: 
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/ 
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user1), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -303,10 +287,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		Utils.pause(3000);
 		waitForElementNotPresent(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
 		Utils.pause(1000);
-
-		//Delete date test 
-		acc.userSignIn(userType.ADMIN);
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -320,12 +300,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test07_UsersInformationsShouldBeDisplayedOnGenericPopUpOfConnectionRequestsPendingTab() {
 		info("Test 7: User's informations should be displayed on generic pop up of connection Requests Pending tab");
-		String post = "Case 108040";
-
-		//Pre-Condition
-		info("User Mary update profile");
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile(post,null, null, null);
 
 		info("UserA connect userB");
 		acc.userSignIn(userType.ADMIN);
@@ -340,8 +314,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		- A pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/ 
 		click(pConnect.ELEMENT_REQUEST_PENDING_TAB);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user2), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -355,9 +327,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		info("---Go to Everyone tab----");
 		click(pConnect.ELEMENT_EVERYONE_TAB);
 		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user2));
-
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);		
 	}
 
 	/**
@@ -371,11 +340,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test08_UsersInformationsShouldBeDisplayedOnGenericPopUpOfConnectionRequestsReceivedTab() {
 		info("Test 8: User's informations should be displayed on generic pop up of connection Requests Received tab");
-		String post = "Case 108041";
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(post,null, null, null);
 		info("UserA connect userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);		
@@ -402,9 +368,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		info("---Go to Everyone tab----");
 		click(pConnect.ELEMENT_EVERYONE_TAB);
 		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user1));	
-
-		acc.userSignIn(userType.ADMIN);
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -558,7 +521,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	public  void test12_GenericPopUpShouldBeDisplayWithConnectButtonInTheConnectionApp() {
 		info("Test 12 Generic pop up should be display with Connect button in the Connection app");
 		String activity = "Activity 108064";
-		String post = "Case 108064";
 
 		/*
 		- Connect to Intranet with the User A
@@ -567,8 +529,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		- The activity is shared		*/
 		addActivity(true, activity, false, "");
 		Utils.pause(1000);
-		info("User update profile");
-		acc.updateUserProfile(post,null, null, null);
 
 		/*
 		- Connect to Intranet with the User B
@@ -580,16 +540,11 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		acc.userSignIn(userType.PUBLISHER);
 		nav.goToConnectionPage();
 		Utils.pause(1000);
-		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user1), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);				
+		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user1), true);		
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user activity");
-//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
 
 		/*
@@ -605,7 +560,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
 		acc.userSignIn(userType.ADMIN);
 		home.deleteActivity(activity, true);
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -620,11 +574,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	public  void test13_GenericPopUpShouldBeDisplayWithConfirmButtonInTheConnectionApp() {
 		info("Test 13 Generic pop up should be display with Confirm button in the Connection app");
 		String activity = "Activity 108070";
-		String post = "Case 108070";
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(post,null, null, null);
 		info("UserA connect userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);	
@@ -648,15 +599,10 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		nav.goToConnectionPage();
 		Utils.pause(1000);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user1), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user activity");
-//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"));
 
 		//Delete data test
@@ -667,7 +613,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 
 		acc.userSignIn(userType.ADMIN);
 		home.deleteActivity(activity, true);
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -682,7 +627,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	public  void test14_GenericPopUpShouldBeDisplayWithCancelRequestButtonInTheConnectionApp() {
 		info("Test 14 Generic pop up should be display with Cancel Request button in the Connection app");
 		String activity = "Activity 108076";
-		String post = "Case 108076";
 
 		//Pre-Condition
 		info("User A send request");
@@ -697,8 +641,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		acc.userSignIn(userType.PUBLISHER);
 		nav.goToHomePage();
 		addActivity(true, activity, false, "");
-		info("User Mary update profile");
-		acc.updateUserProfile(post,null, null, null);
 
 		/*
 		- Connect to Intranet with the User B
@@ -711,15 +653,11 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		nav.goToConnectionPage();
 		Utils.pause(1000);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user2), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user activity");
-//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-//		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
 
 		//Delete data test
@@ -730,7 +668,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 
 		acc.userSignIn(userType.PUBLISHER);
 		home.deleteActivity(activity, true);	
-		acc.updateUserProfile("mary",null, null, null);
 	}
 
 	/**
@@ -745,11 +682,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	public  void test15_GenericPopUpShouldBeDisplayWithRemoveConnectionButtonInTheConnectionApp() {
 		info("Test 15 Generic pop up should be display with Remove Connection button in the Connection app");
 		String activity = "Activity 108082";
-		String post = "Case 108082";
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(post,null, null, null);
 		info("User A send request");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
@@ -774,15 +708,10 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		pConnect.acceptInvitation(user1);
 		Utils.pause(1000);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user1), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
-		info("Confirm user activity");
-//		assert getText(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY).equalsIgnoreCase(activity);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}",activity));
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"));
 
 		//Delete data test
@@ -793,7 +722,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 
 		acc.userSignIn(userType.ADMIN);
 		home.deleteActivity(activity, true);		
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -807,11 +735,9 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test16_UsersActivityShouldBeDisplayedAfterClickOnTheUsernameOnGenericPopUpOfConnectionEveryoneTab() {
 		info("Test 16 User's activity should be displayed after click on the username on generic pop up of connection Everyone tab");
-		String post = "Case 108088";
 
 		info("User Mary update profile");
 		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile(post,null, null, null);
 
 		/*
 		- Connect to Intranet with the User A
@@ -822,8 +748,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		acc.userSignIn(userType.ADMIN);
 		nav.goToConnectionPage();
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user2), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -838,10 +762,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		click(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2));
 		waitForAndGetElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",DATA_USER2)));
 		Utils.pause(1000);
-
-		//Delete data test
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);
 	}
 
 	/**
@@ -855,11 +775,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test17_UsersActivityShouldBeDisplayedAfterClickOnTheUsernameOnGenericPopUpOfConnectionMyConnectionsTab() {
 		info("Test 17 User's activity should be displayed after click on the username on generic pop up of connection My Connections tab");
-		String post = "Case 108089";
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(post,null, null, null);
 		info("UserA connect userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);	
@@ -874,8 +791,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		nav.goToConnectionPage();
 		pConnect.acceptInvitation(user1);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user1), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -893,9 +808,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		//Delete data test
 		nav.goToConnectionPage();
 		pConnect.removeConnection(user1);
-
-		acc.userSignIn(userType.ADMIN);
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -909,11 +821,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test18_UsersActivityShouldBeDisplayedAfterClickOnTheUsernameOnGenericPopUpOfConnectionRequestPendingTab() {
 		info("Test 18 User's activity should be displayed after click on the username on generic pop up of connection Request Pending tab");
-		String post = "Case 108090";
-
-		info("User Mary update profile");
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile(post,null, null, null);
 
 		//Pre-Condition
 		acc.userSignIn(userType.ADMIN);
@@ -929,8 +836,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		- A generic pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/
 		click(pConnect.ELEMENT_REQUEST_PENDING_TAB);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user2), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -947,9 +852,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		//Delete data test
 		nav.goToConnectionPage();
 		pConnect.cancelRequest(user2);		
-
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);
 	}
 
 	/**
@@ -963,11 +865,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test19_UsersActivityShouldBeDisplayedAfterClickOnTheUsernameOnGenericPopUpOfConnectionRequestsReceivedTab() {
 		info("Test 19 User's activity should be displayed after click on the username on generic pop up of connection Requests Received tab");
-		String post = "Case 108091";
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(post,null, null, null);
 		info("UserA connect userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
@@ -982,8 +881,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		nav.goToConnectionPage();
 		click(pConnect.ELEMENT_REQUESTS_RECEIVED_TAB);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user1), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -1000,9 +897,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		//Delete data test
 		nav.goToConnectionPage();
 		pConnect.ignoreInvitation(user1);	
-
-		acc.userSignIn(userType.ADMIN);
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -1016,11 +910,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test20_UsersActivityShouldBeDisplayedAfterClickOnUsersAvatarOnGenericPopUpOfConnectionEveryoneTab() {
 		info("Test 20 User's activity should be displayed after click on User's avatar on generic pop up of connection Everyone tab");
-		String post = "Case 108096";
-
-		info("User Mary update profile");
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile(post,null, null, null);
 
 		/*
 		- Connect to Intranet with the User A
@@ -1031,8 +920,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		acc.userSignIn(userType.ADMIN);
 		nav.goToConnectionPage();
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user2), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -1046,10 +933,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		click(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER2));
 		Utils.pause(1000);		
 		waitForAndGetElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",DATA_USER2)));	
-
-		//Delete data test
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);
 	}
 
 	/**
@@ -1063,11 +946,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test21_UsersActivityShouldBeDisplayedAfterClickOnUsersAvatarOnGenericPopUpOfConnectionMyConnectionsTab() {
 		info("Test 21 User's activity should be displayed after click on User's avatar on generic pop up of connection My Connections tab");
-		String post = "Case 108097";
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(post,null, null, null);
 		info("UserA connetion to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
@@ -1082,8 +962,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		nav.goToHomePage();
 		pConnect.acceptInvitation(user1);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user1), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -1097,10 +975,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		click(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER1));
 		Utils.pause(1000);		
 		waitForAndGetElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",DATA_USER1)));		
-
-		//Delete date test
-		acc.userSignIn(userType.ADMIN);
-		acc.updateUserProfile("john",null, null, null);
 	}
 
 	/**
@@ -1114,13 +988,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test22_UsersActivityShouldBeDisplayedAfterClickOnUsersAvatarOnGenericPopUpOfConnectionRequestPendingTab() {
 		info("Test 22 User's activity should be displayed after click on User's avatar on generic pop up of connection Request Pending tab");
-		String post = "Case 108098";
 
 		//Pre-Condition
-		info("User Mary update profile");
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile(post,null, null, null);
-
 		info("UserA connetion to userB");
 		acc.userSignIn(userType.ADMIN);
 		nav.goToConnectionPage();
@@ -1134,8 +1003,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		- A generic pop up information is displayed* avatar* name* title (or position in the company) if defined* last activity message		*/
 		click(pConnect.ELEMENT_REQUEST_PENDING_TAB);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user2), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER2), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -1152,9 +1019,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		//Delete data test
 		nav.goToConnectionPage();
 		pConnect.cancelRequest(user2);	
-
-		acc.userSignIn(userType.PUBLISHER);
-		acc.updateUserProfile("mary",null, null, null);
 	}
 
 	/**
@@ -1168,11 +1032,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	@Test
 	public  void test23_UsersActivityShouldBeDisplayedAfterClickOnUsersAvatarGenericPopUpOfConnectionRequestsReceivedTab() {
 		info("Test 23 User's activity should be displayed after click on User's avatar generic pop up of connection Requests Received tab");
-		String post = "Case 108099";
 
 		//Pre-Condition
-		info("User update profile");
-		acc.updateUserProfile(post,null, null, null);
 		info("UserA connetion to userB");
 		nav.goToConnectionPage();
 		pConnect.connectPeople(user2);
@@ -1186,8 +1047,6 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		nav.goToConnectionPage();
 		click(pConnect.ELEMENT_REQUESTS_RECEIVED_TAB);
 		mouseOver(pConnect.ELEMENT_CONNECTION_MEMBER.replace("${peopleName}", user1), true);
-		info("Position of user displays true");
-		assert getText(hg.ELEMENT_USER_POPUP_POSITION).equalsIgnoreCase(post);	
 		info("Confirm user avatar");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}", DATA_USER1), DEFAULT_TIMEOUT,1,2);
 		info("Confirm user name");
@@ -1204,8 +1063,5 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		//Delete data test
 		nav.goToConnectionPage();
 		pConnect.ignoreInvitation(user1);	
-
-		acc.userSignIn(userType.ADMIN);
-		acc.updateUserProfile("john",null, null, null);
 	}
 }

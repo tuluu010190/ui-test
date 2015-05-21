@@ -6,6 +6,7 @@ import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.UserGroupManagement;
 import org.exoplatform.selenium.platform.social.Notification;
+import org.exoplatform.selenium.platform.social.PeopleProfile;
 import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -21,7 +22,7 @@ public class Social_EmailNotifications_Administration extends Notification {
 	ManageAccount magAcc;
 	NavigationToolbar navToolBar;
 	UserGroupManagement userGroup;
-
+	PeopleProfile pepPro;
 	String user = "John Smith";
 	String user1="Mary Williams";
 	String user2="Jack Miller";
@@ -114,7 +115,11 @@ public class Social_EmailNotifications_Administration extends Notification {
 		info("CaseID-109865:Disable a Notification");
 		//Setup email
 		navToolBar.goToMyProfile();
-		magAcc.updateUserProfile(null, null, null, EMAIL_ADDRESS1);
+		info("edit profile");
+		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
+		info("edit info");
+		pepPro.updateBasicInformation(null, null, EMAIL_ADDRESS1);
+		pepPro.saveCancelUpdateInfo(true);
 
 		navToolBar.goToNotificationAdministration();
 
