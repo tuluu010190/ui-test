@@ -3,6 +3,8 @@ package org.exoplatform.selenium.platform.calendar.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
+import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.exoplatform.selenium.platform.calendar.EventManagement.recurringType;
 import org.exoplatform.selenium.platform.calendar.EventManagement.repeatEndType;
 import org.exoplatform.selenium.platform.calendar.EventManagement.repeatType;
@@ -39,6 +41,8 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,des);
@@ -89,9 +93,9 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_DATE.replace("$name",newEvent).replace("$date",dateText));
 		waitForAndGetElement(hpAct. ELEMENT_ACTIVITY_TASK_EVENT_LOCATION.replace("$name",newEvent));
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+	    hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		cMang.deleteTaskEvent(newEvent);
 	}
 
 	/**
@@ -127,6 +131,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputDataEventInQuickForm(newEvent, des, "","",true);
@@ -138,9 +143,9 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+	    hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		cMang.deleteTaskEvent(newEvent);
  	}
 
 	/**
@@ -173,6 +178,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,des);
@@ -321,24 +327,31 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- A new activity is created in the activity stream 
 			- A content of event is displayed in the activity*/ 
-
 		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String firstDay=getFirstDayOfWeek("MM/dd/yyyy");
 		hp.goToMySpaces();
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
+		evMg.inputFromToQuickEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,"5");
 		evMg.saveRecurringForm();
 		evMg.saveAddEventDetails();
+		
+		info("A repeat event is created successfully");
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
 		
 		info("Verify results");
 		hp.goToSpecificSpace(space);
@@ -346,10 +359,11 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
+		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
  	}
 
 	/**
@@ -379,29 +393,29 @@ import org.testng.annotations.*;
 			- A activity is shown activity stream of intranet, space*/
 		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String firstDay=getFirstDayOfWeek("MM/dd/yyyy");
 		hp.goToMySpaces();
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
+		evMg.inputFromToQuickEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,"5");
 		evMg.saveRecurringForm();
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","1"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","2"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","3"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","4"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","5"));
-		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","6"));
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
 		
 		info("A activity is shown activity stream of intranet, space");
 		hp.goToSpecificSpace(space);
@@ -432,9 +446,10 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent2));
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Tue");
+	    cMang.deleteTaskEvent(newEvent2);
 	}
 
 	/**
@@ -469,6 +484,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,des);
@@ -489,9 +505,9 @@ import org.testng.annotations.*;
 		
 		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+	    cMang.deleteTaskEvent(newEvent);
  	}
 
 	/**
@@ -522,6 +538,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,des);
@@ -603,7 +620,7 @@ import org.testng.annotations.*;
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_LOCATION.replace("$name",newEvent));
 		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+	    cMang.deleteTaskEvent(newEvent);
  	}}

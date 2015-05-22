@@ -2,8 +2,6 @@ package org.exoplatform.selenium.platform.calendar.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfCalendarOption;
-import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
@@ -37,17 +35,11 @@ import org.testng.annotations.*;
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
 		String newEvent1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		String groupCal = cGroupData.getGroupNameByIndex(6);
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
-		cMang.executeActionCalendar(DATA_NAME_USER1,menuOfCalendarOption.ADDEVENT);
-		evMg.inputBasicQuickEvent(newEvent1,newEvent1,groupCal);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		evMg.goToAddEventFromActionBar();
+		evMg.inputBasicQuickEvent(newEvent1,newEvent1);
 		evMg.saveQuickAddEvent();
-		
-		info("Add successfully");
-		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1))));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1));
 		
 		hp.goToHomePage();
 		hpAct.likeActivity(newEvent1);
@@ -64,7 +56,7 @@ import org.testng.annotations.*;
 		hpAct.unlikeActivity(newEvent1);
 		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		cMang.deleteTaskEvent(newEvent1);
  	}}

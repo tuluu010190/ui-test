@@ -37,17 +37,12 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
 		evMg.saveQuickAddEvent();
 		
-		info("Add successfully");
-		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent))));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));
-		
 		hp.goToHomePage();
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
 		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		cMang.deleteTaskEvent(newEvent);
  	}
 
 	/**
@@ -78,17 +73,12 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
 		evMg.saveQuickAddEvent();
 		
-		info("Add successfully");
-		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent))));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));
-		
 		hp.goToHomePage();
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
 		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		cMang.deleteTaskEvent(newEvent);
  	}
 
 	/**
@@ -117,6 +107,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
@@ -134,13 +125,17 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- An activity is displayed with the created event*/ 
+		hp.goToSpecificSpace(space);
 		spaMg.goToActivityStreamTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
+		hp.goToHomePage();
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
+		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		cMang.deleteTaskEvent(newEvent);
  	}
 
 	/**
@@ -168,9 +163,11 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
-		evMg.inputBasicQuickEvent(newEvent,newEvent);
+		evMg.inputBasicQuickEvent(newEvent,newEvent,space);
 		evMg.saveQuickAddEvent();
         
 		info("Add successfully");
@@ -210,16 +207,21 @@ import org.testng.annotations.*;
         info("Add successfully");
 		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent))));
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));
-		
+		hp.goToSpecificSpace(space);
+		spaMg.goToActivityStreamTab();
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent),2000,1);
+	    waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TOTAL_COMMENT_NUMBER.replace("${name}",newEvent).replace("${number}","1"));
+	    waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT.replace("$name",newEvent).replace("$comment",newEditEvent));
+	        
         hp.goToHomePage();
         waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent),2000,1);
         waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TOTAL_COMMENT_NUMBER.replace("${name}",newEvent).replace("${number}","1"));
         waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT.replace("$name",newEvent).replace("$comment",newEditEvent));
         
         info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		cMang.deleteTaskEvent(newEvent);
  	}
 
 	/**
@@ -246,6 +248,8 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
@@ -311,6 +315,7 @@ import org.testng.annotations.*;
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
 		
 		hp.goToSpecificSpace(space);
+		spaMg.goToActivityStreamTab();
  		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
 
  		info("Delete Data");
@@ -371,9 +376,9 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
 		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		cMang.deleteTaskEvent(newEvent1);
  	}
 
 	/**
@@ -442,7 +447,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
 
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		cMang.deleteTaskEvent(newEvent1);
  	}}

@@ -57,8 +57,10 @@ public class CalendarHomePage extends PlatformBase{
 	public final String ELEMENT_EVENT_TASK_LIST_VIEW="//*[@id='UIListView']//*[@class='uiListViewRow']//*[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW="//*[@id='UIListView']//*[contains(text(),'$name')]/../..//td[5][contains(text(),'$date')]";
 	public final String ELEMENT_EVENT_TASK_END_DETAIL_DATE_LIST_VIEW="//*[@id='UIListView']//*[contains(text(),'$name')]/../..//td[6][contains(text(),'$date')]";
-
-	//Work Week View
+    public final String ELEMENT_EVENT_TASK_ATTACHMENT_LIST_VIEW =".//*[@id='UIPreview']//*[contains(@data-original-title,'${file}')]";
+    public final String ELEMENT_EVENT_TASK_PARTICIPANTS_LIST_VIEW=".//*[@id='RowContainerDay']//*[contains(text(),'${username}')]";
+	
+    //Work Week View
 	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY="//*[@id='UIWeekView']//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]//div[contains(text(),'$name')]";

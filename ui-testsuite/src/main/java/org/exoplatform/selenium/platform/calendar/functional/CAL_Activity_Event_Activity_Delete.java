@@ -36,32 +36,33 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			A repeat event is created*/
-		
 		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToMySpaces();
+		String firstDay=getFirstDayOfWeek("MM/dd/yyyy");
+		String numberRepeat="5";
 		info("create new space");
+		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 
+		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
+		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
-		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,"5");
+		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
 		evMg.saveRecurringForm();
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","1"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","2"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","3"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","4"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","5"));
-		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","6"));
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
 		
 		/*Step number: 2
 		*Step Name: Create an exception event
@@ -79,6 +80,14 @@ import org.testng.annotations.*;
 		evMg.inputBasicDetailEvent(newEvent2,newEvent2);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ONLY_EVENT);
+		info("A repeat event is created successfully");
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent2,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		
 		info("Verify that an activity for the exception event is created");
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent2));
@@ -94,17 +103,29 @@ import org.testng.annotations.*;
 			- The activity is deleted from the activity stream
 			There is no impact for activity created for exception event.*/ 
 		
-		String dateText =getDate(1,"MMM dd yyyy");
-        hp.goToCalendarPage();
-        evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT, dateText);
-        info("Verify that The event is deleted from the activity stream.There is no impact for activity created for exception event.");
+        hp.goToSpecificSpace(space);
+        spaMg.goToAgendaTab();
+        evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Tue");
+        cHome.verifyIsPresentEventTaskWithDateTime(newEvent2,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        
+        info("Verify that The event is deleted from the activity stream."
+        		+ "There is no impact for activity created for exception event.");
+        
+        hp.goToSpecificSpace(space);
+        spaMg.goToActivityStreamTab();
+        waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
+      
 	    hp.goToHomePage();
 	    waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
  
 	    info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		cMang.deleteTaskEvent(newEvent2);
 	}
 
 	/**
@@ -134,29 +155,31 @@ import org.testng.annotations.*;
 
 		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String contentSpace=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToMySpaces();
+		String firstDay=getFirstDayOfWeek("MM/dd/yyyy");
+		String numberRepeat="5";
 		info("create new space");
+		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 
+		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
+		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
-		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,"5");
+		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
 		evMg.saveRecurringForm();
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","1"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","2"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","3"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","4"));
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","5"));
-		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",newEvent).replace("${number}","6"));
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
 		
 		/*Step number: 2
 		*Step Name: Delete all instances
@@ -166,16 +189,24 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The activity related to the event is deleted*/ 
-		String dateText =getCurrentDate("MMM dd yyyy");
-        hp.goToCalendarPage();
-        evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT, dateText);
-	    info("Verify that The activity related to the event is deleted");
-		hp.goToHomePage();
-		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
-		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+	    hp.goToSpecificSpace(space);
+        spaMg.goToAgendaTab();
+        evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        
+        info("The activity related to the event is deleted");
+        
+        hp.goToSpecificSpace(space);
+        spaMg.goToActivityStreamTab();
+        waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
+      
+	    hp.goToHomePage();
+	    waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
+	 
 	}
 
 	/**
@@ -203,6 +234,8 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
@@ -234,10 +267,11 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
-		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		
+	    info("Delete Data");
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+		cMang.deleteTaskEvent(newEvent);
  	}
 
 	/**
@@ -267,6 +301,8 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
@@ -280,9 +316,4 @@ import org.testng.annotations.*;
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		hp.goToHomePage();
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
-
-		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
  	}}

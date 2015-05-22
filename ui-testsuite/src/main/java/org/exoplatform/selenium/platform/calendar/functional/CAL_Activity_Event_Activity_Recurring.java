@@ -43,6 +43,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,des);
@@ -140,12 +141,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -180,7 +180,6 @@ import org.testng.annotations.*;
 		evMg.saveRecurringForm();
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ALL_EVENT);
-		//evMg.saveEditRecurring();
 
 		info("A repeat event is created successfully");
 		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
@@ -213,10 +212,6 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
-		/*info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}
 
 	/**
@@ -249,12 +244,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -322,10 +316,6 @@ import org.testng.annotations.*;
 		spaMg.goToAgendaTab();
 		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
 		cMang.deleteTaskEvent(newEvent2);
-		/*info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}
 
 	/**
@@ -358,12 +348,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -425,10 +414,6 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
-		/*info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}
 
 	/**
@@ -474,12 +459,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -513,10 +497,6 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
-		/*info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}
 
 	/**
@@ -562,12 +542,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -643,10 +622,6 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.deleteRecurringEvent(newEvent2, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
-		/*info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}
 
 	/**
@@ -691,12 +666,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -786,10 +760,6 @@ import org.testng.annotations.*;
 		spaMg.goToAgendaTab();
 		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
 		evMg.deleteRecurringEvent(newEvent2, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Wed");
-		/*info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}
 
 	/**
@@ -825,12 +795,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -901,10 +870,6 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
-		/*info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}
 
 	/**
@@ -940,12 +905,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -1014,10 +978,6 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
-		/*info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}
 
 	/**
@@ -1053,12 +1013,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -1116,11 +1075,6 @@ import org.testng.annotations.*;
 		
 		hp.goToHomePage();
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name", newEvent));
-/*
-		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}
 
 	/**
@@ -1156,12 +1110,11 @@ import org.testng.annotations.*;
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
-		evMg.inputBasicDetailEvent(newEvent,newEvent,space);
+		evMg.inputBasicDetailEvent(newEvent,newEvent);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
@@ -1226,8 +1179,4 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
-		/*info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);*/
  	}}

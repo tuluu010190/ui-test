@@ -72,6 +72,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_LOCATION = "//*[@class='linkTitle' and text()='$name']/../..//*[@class='location']/text()";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TOTAL_COMMENT_NUMBER="//*[@class='linkTitle' and text()='${name}']/../../../..//*[contains(@class,'actionBar')][contains(.,'${number}')]";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_COMMENT = "//*[@class='linkTitle' and text()='$name']/../../../..//*[@class='commentList']//*[contains(text(),'$comment')]";
+	public final String ELEMENT_ACTIVITY_TASK_EVENT_COMMENT_ITEM="//*[@class='linkTitle' and text()='$name']/../../../..//*[@class='commentList']//*[contains(@class,'commentItem')]";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_COMMENT_RECURRING_CANCEL="//*[@class='linkTitle' and text()='$name']/../../../..//*[@class='commentList']//*[contains(text(),'Event cancelled for $date')]";
 	public final String ELEMENT_ACTIVITY_EVENT_COMMENT_REPEAT_DAY="Event will be repeated every day, $number times";
 	public final String ELEMENT_ACTIVITY_EVENT_COMMENT_CHECK_ALL_DAY="Event is now an all-day event";

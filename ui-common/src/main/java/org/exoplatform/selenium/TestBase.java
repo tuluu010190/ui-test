@@ -2026,6 +2026,29 @@ public class TestBase {
 		   info("firstDayOfWeek:"+firstDayOfWeek);
 		   return firstDayOfWeek;
 		}
+	
+	/**
+	 * Get last day of week
+	 * @param format
+	 * @return firstDayOfWeek
+	 */
+	public String getLastDayOfWeek(String format) {
+		DateFormat dateFormat = new SimpleDateFormat(format);
+		Calendar currentDate = Calendar.getInstance();
+	    int firstDayOfWeek = currentDate.getFirstDayOfWeek();
+
+	    Calendar startDate = Calendar.getInstance();
+	    startDate.setTime(currentDate.getTime());
+	    int days = (startDate.get(Calendar.DAY_OF_WEEK) + 7 - firstDayOfWeek) % 7;
+	    startDate.add(Calendar.DATE, -days);
+
+	    Calendar endDate = Calendar.getInstance();
+	    endDate.setTime(startDate.getTime());
+	    endDate.add(Calendar.DATE, 5);
+		String lastDayOfWeek = dateFormat.format(endDate.getTime());
+		info("lastDayOfWeek:"+lastDayOfWeek);
+		return lastDayOfWeek;
+		}
 	/**
 	 * Scroll to a element on the website
 	 * @param element

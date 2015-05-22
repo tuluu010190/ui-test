@@ -16,7 +16,7 @@ import org.openqa.selenium.interactions.Actions;
 public class CalendarManagement extends PlatformBase{
 
 
-	public String ELEMENT_EVENT_TASK_TITLE=".//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')]";
+	public String ELEMENT_EVENT_TASK_TITLE="//*[contains(text(),'${name}')]";
 	public By ELEMENT_ADD_EDIT_EVENT_POPUP = By.xpath(".//*[@id='UICalendarPopupWindow']");
 	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING="(.//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')])[${number}]";
 	

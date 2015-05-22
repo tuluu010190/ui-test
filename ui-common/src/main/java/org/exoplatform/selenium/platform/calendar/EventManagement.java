@@ -15,9 +15,6 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOpti
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
-import org.openqa.selenium.interactions.Actions;
 
 public class EventManagement extends PlatformBase {
 
@@ -108,8 +105,10 @@ public class EventManagement extends PlatformBase {
 	public final By ELEMETN_INVITATION_CANCEL_BUTTON=By.xpath("//*[@id='UIInvitationContainer']//*[text()='Cancel']");
 
 	//Reminder tab
+	public final By ELEMENT_REMINDER_TAB=By.xpath(".//*[contains(@data-target,'#eventReminder-tab')]");
 	public final By ELEMENT_REMINDER_BY_POPUP=By.id("popupReminder");
 	public final By ELEMENT_REMINDER_BY_MAIL=By.id("mailReminder");
+	public final By ELEMENT_REMINDER_DROP_BOX=By.xpath(".//*[contains(@name,'mailReminderTime')]");
 
 	/*Recurring event form*/
 	public By ELEMENT_RECURRING_FORM=By.id("UIRepeatEventForm");
@@ -324,8 +323,21 @@ public class EventManagement extends PlatformBase {
 		if (opt.length > 2 && opt[2] != null){
 			type(ELEMENT_ADD_EDIT_EVENT_LOCATION, opt[2], true);
 		}
+		if (opt.length>3 && opt[3]!=null){
+			select(ELEMENT_ADD_EDIT_EVENT_PRIORITY,opt[3]);
+		}
 	}
 
+	/**
+	 * Define a type of priority
+	 * none
+	 * normal
+	 * high
+	 * low
+	 */
+	public enum priorityType {
+		None, Normal, High, Low;
+	}
 	/**
 	 * Input into "From, To" and check/uncheck allday checkbox fields of a EVENT in quick form
 	 * 
@@ -1084,6 +1096,16 @@ public class EventManagement extends PlatformBase {
 		info("Click on Save button");
 		click(ELEMENT_EDIT_RECURRING_EVENT_FORM_SAVE_BTN);
 		waitForElementNotPresent(ELEMENT_EDIT_RECURRING_EVENT_FORM_SAVE_BTN);
+	}
+	
+    /**
+     * Select an option as 5,10,15,20,...60 for reminder Email box
+     * @param option
+     */
+	public void selectReminderEmailBox(String option){
+		info("Select an option");
+		select(ELEMENT_REMINDER_DROP_BOX,option);
+		Utils.pause(2000);
 	}
 	
 }

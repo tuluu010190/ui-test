@@ -35,6 +35,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
@@ -49,6 +50,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		/*Step number: 2
@@ -64,9 +66,10 @@ import org.testng.annotations.*;
 			- Activity is updated on activity stream on intranet and space, comments are added*/ 
 		String newEvent1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Change to space calendar");
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		cMang.openEditEventTaskPopup(newEvent);
-		evMg.inputBasicDetailEvent(newEvent1,newEvent1);
+		evMg.inputBasicDetailEvent(newEvent1,null);
 		evMg.saveAddEventDetails();
 		
 		info("Add successfully");
@@ -74,16 +77,24 @@ import org.testng.annotations.*;
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1));
 		
 		info("Verify that A new event activity is created in the activity stream of intranet and space");
+		String comment = cCommentData.getContentByIndex(6);
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT
+				.replace("$name", newEvent1).replace("$comment", comment)
+				.replace("${editText}", newEvent1));
 		
 		hp.goToSpecificSpace(space);
+		spaMg.goToActivityStreamTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT
+				.replace("$name", newEvent1).replace("$comment", comment)
+				.replace("${editText}",newEvent1));
 		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+	    cMang.deleteTaskEvent(newEvent1);
  	}
 
 	/**
@@ -112,6 +123,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
 		
+		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
@@ -126,6 +138,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		/*Step number: 2
@@ -143,8 +156,11 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
+		magAc.signOut();
+		magAc.signIn(DATA_USER1,DATA_PASS);
+		
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
-		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		hp.goToSpecificSpace(space);
+		spaMg.goToAgendaTab();
+	    cMang.deleteTaskEvent(newEvent);
  	}}
