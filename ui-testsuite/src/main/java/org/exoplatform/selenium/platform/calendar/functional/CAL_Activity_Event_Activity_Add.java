@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.calendar.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfCalendarOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.openqa.selenium.By;
@@ -31,8 +32,7 @@ import org.testng.annotations.*;
 			No activity has been posted for that event*/ 
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		cHome.goToView(selectViewOption.WEEK);
 		cMang.executeActionCalendar(DATA_NAME_USER1,menuOfCalendarOption.ADDEVENT);
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
 		evMg.saveQuickAddEvent();
@@ -67,8 +67,7 @@ import org.testng.annotations.*;
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String groupCal = cGroupData.getGroupNameByIndex(0);
 		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		cHome.goToView(selectViewOption.WEEK);
 		cMang.executeActionCalendar(groupCal,menuOfCalendarOption.ADDEVENT);
 		evMg.inputBasicQuickEvent(newEvent,newEvent);
 		evMg.saveQuickAddEvent();
@@ -301,8 +300,7 @@ import org.testng.annotations.*;
  		 
  	    String newEvent1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		cHome.goToView(selectViewOption.WEEK);
 		cMang.executeActionCalendar(DATA_NAME_USER1,menuOfCalendarOption.ADDEVENT);
 		evMg.inputBasicQuickEvent(newEvent1,newEvent1);
 		evMg.saveQuickAddEvent();
@@ -319,9 +317,9 @@ import org.testng.annotations.*;
  		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent1));
 
  		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
 		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		cHome.goToView(selectViewOption.LIST);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -354,8 +352,7 @@ import org.testng.annotations.*;
 		
 		String newEvent1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		cHome.goToView(selectViewOption.WEEK);
 		cMang.executeActionCalendar(DATA_NAME_USER1,menuOfCalendarOption.ADDEVENT);
 		evMg.inputBasicQuickEvent(newEvent1,newEvent1);
 		evMg.saveQuickAddEvent();
@@ -415,8 +412,7 @@ import org.testng.annotations.*;
 		boolean[] canEdit={true};
 		String calendar = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
-        String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+        cHome.goToView(selectViewOption.WEEK);
         cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
         cMang.inputDataInDetailTabCalendarForm(calendar, calendar,null);
         cMang.saveAddCalendar();

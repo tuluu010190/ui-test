@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.calendar.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
@@ -14,7 +15,6 @@ import org.exoplatform.selenium.platform.calendar.EventManagement;
 import org.exoplatform.selenium.platform.calendar.TaskManagement;
 import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarCommentsDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarGroupDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarTabsDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
@@ -28,6 +28,7 @@ public class CAL_TestConfig extends PlatformBase {
 	ActivityStream hpAct;
 	ManageLogInOut magAc;
 	Button button;
+	ManageAlert alert;
 
 	NavigationToolbar navTool;
 	EventManagement evMg;
@@ -40,7 +41,6 @@ public class CAL_TestConfig extends PlatformBase {
 	
 	TextBoxDatabase txData;
 	CalendarGroupDatabase cGroupData;
-	CalendarTabsDatabase cTabData;
 	CalendarCommentsDatabase cCommentData;
 	AttachmentFileDatabase fData;
 	
@@ -52,6 +52,7 @@ public class CAL_TestConfig extends PlatformBase {
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		magAc = new ManageLogInOut(driver);
 		button = new Button(driver);
+		alert = new ManageAlert(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		
 		navTool = new NavigationToolbar(driver);
@@ -71,9 +72,6 @@ public class CAL_TestConfig extends PlatformBase {
 
 		cGroupData = new CalendarGroupDatabase();
 		cGroupData.setData(calGroupNameFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		
-		cTabData = new CalendarTabsDatabase();
-		cTabData.setData(calTabNameFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		cCommentData = new CalendarCommentsDatabase();
 		cCommentData.setData(calCommentsFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

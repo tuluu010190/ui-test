@@ -226,9 +226,9 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The date is displayed in the activity content with the following format:"Day of the week""Month of the year"",""Year" For example: Monday, February 22, 2013*/ 
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
 		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		cHome.goToView(selectViewOption.LIST);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -289,9 +289,9 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The time of activity is displayed in this format: HH:MM PM for both activity content and activity comments*/ 
 		info("Delete Data");
-		String tabList=cTabData.getTabNameByIndex(3);
 		hp.goToCalendarPage();
-		cMang.deleteAllTaskEvent(tabList);
+		cHome.goToView(selectViewOption.LIST);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**

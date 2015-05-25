@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.calendar.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfCalendarOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.openqa.selenium.By;
@@ -222,8 +223,7 @@ import org.testng.annotations.*;
 		info("Create a new calendar");
 		String calendar = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
-        String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+        cHome.goToView(selectViewOption.WEEK);
         cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
         cMang.inputDataInDetailTabCalendarForm(calendar, calendar,null);
         cMang.saveAddCalendar();
@@ -297,8 +297,7 @@ import org.testng.annotations.*;
 		
 		String newTask= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
-		String tabWeek=cTabData.getTabNameByIndex(1);
-		cMang.goToTab(tabWeek);
+		cHome.goToView(selectViewOption.WEEK);
 		cMang.executeActionCalendar(DATA_NAME_USER1,menuOfCalendarOption.ADDTASK);
 		tasMg.inputBasicQuickTask(newTask,newTask,space);
 		tasMg.saveQuickAddTask();
