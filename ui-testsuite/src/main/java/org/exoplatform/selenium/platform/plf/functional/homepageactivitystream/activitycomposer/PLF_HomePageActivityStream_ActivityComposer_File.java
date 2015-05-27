@@ -96,7 +96,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 2: Add a folder
 	 */
 	@Test
-	public void test02_OpenSelectFilePopup(){
+	public void test02_03_04_OpenSelectFilePopup(){
 		/*Declare variables*/
 		String folder = "folder77783";
 		String driverName = "Personal Drives";
@@ -128,7 +128,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 2: Add a folder with a long name
 	 */
 	@Test
-	public void test03_DisplayTheBreadcrumbOfAVeryLongPath(){
+	public void test05_DisplayTheBreadcrumbOfAVeryLongPath(){
 		/*Declare variables*/
 		String folder = "this is a long sub-folder 77783";
 		String driverName = "Personal Drives";
@@ -163,23 +163,23 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * REFER: https://jira.exoplatform.org/browse/COMMONS-259
 	 */
 	@Test
-	public void test04_DisplayTheBreadcrumbOfThePath(){
+	public void test06_DisplayTheBreadcrumbOfThePath(){
 		/*Declare variables*/
 		String folder1 = "folder777881";
 		String folder2 = "folder777882";
 		String folder3 = "folder777883";
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
-//
-//		/* Step 1: Open popup "Select File" */
-//		//- Connect to Intranet
-//		//- From [Activity Composer] box, click on [File]
-//		//- The pop up [Select File] is displayed
-//		/* Step 2: Browse folders */
-//		//- Select a drive from the list [Select Drive]
-//		//- Click on a folder (called "folder 1"), then click on the sub-folder (call "sub folder 2"], then click on its sub-folder (ex sub-folder 3)
-//		//- The current position in the browsed drive is displayed in breadcrumb
-//		//-  Only the folder of the path's root level, plus sub-folder 2, sub-folder 3. the folder 1 is not shown
+
+		/* Step 1: Open popup "Select File" */
+		//- Connect to Intranet
+		//- From [Activity Composer] box, click on [File]
+		//- The pop up [Select File] is displayed
+		/* Step 2: Browse folders */
+		//- Select a drive from the list [Select Drive]
+		//- Click on a folder (called "folder 1"), then click on the sub-folder (call "sub folder 2"], then click on its sub-folder (ex sub-folder 3)
+		//- The current position in the browsed drive is displayed in breadcrumb
+		//-  Only the folder of the path's root level, plus sub-folder 2, sub-folder 3. the folder 1 is not shown
 		selectFile(driverName,false,folderPath,"","",folder1,false);
 		button.closeWindow();
 		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);
@@ -205,7 +205,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 2: Close [Select File] popup
 	 */
 	@Test
-	public void test05_HideThePopUpSelectFileFromTheIconX(){
+	public void test07_HideThePopUpSelectFileFromTheIconX(){
 		/*Declare variables*/
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
@@ -230,7 +230,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 2: Cancel [Select File] popup
 	 */
 	@Test
-	public void test06_HideThePopUpSelectFileFromTheButtonCancel(){
+	public void test08_HideThePopUpSelectFileFromTheButtonCancel(){
 		/*Declare variables*/
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
@@ -256,7 +256,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 3: Open a folder from the breadcrumb
 	 */
 	@Test
-	public void test07_OpenAFolderFromTheBreadcrumb(){
+	public void test09_OpenAFolderFromTheBreadcrumb(){
 		/*Declare variables*/
 		String folder1 = "folder777941";
 		String folder2 = "folder777942";
@@ -298,8 +298,8 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 2: Select a file by double-clicking
 	 * ERROR: Refer https://jira.exoplatform.org/browse/COMMONS-278
 	 */
-//	@Test (groups="error")
-	public void test08_OpenSelectFilePopup(){
+	@Test
+	public void test10_OpenSelectFilePopup(){
 		/*Declare variables*/
 		String uploadFileName = "upload77802.pdf";
 		String folder = "folder77783";
@@ -319,7 +319,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 		doubleClickOnElement(By.linkText(uploadFileName));
 
 		//The file is selected and the pop up is closed
-		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);
+		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP,5000);
 		//Clear data
 		navToolBar.goToSiteExplorer();
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
@@ -334,7 +334,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Bug: https://jira.exoplatform.org/browse/COMMONS-278
 	 */
 	@Test
-	public void test09_SelectAFileByASimpleClick(){
+	public void test11_SelectAFileByASimpleClick(){
 		/*Declare variables*/
 		String uploadFileName = "upload77802.pdf";
 		String folder = "folder77802";
@@ -360,7 +360,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);
 
 		//Clear data
-		activity.deleteActivity(uploadFileName);
+		activity.deleteActivity(uploadFileName,true,false);
 		navToolBar.goToSiteExplorer();
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.actionsOnElement(folder, actionType.DELETE,true,true);
@@ -373,7 +373,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Bug: https://jira.exoplatform.org/browse/COMMONS-278
 	 */
 	@Test
-	public void test10_ShareAnAttachedFile(){
+	public void test12_ShareAnAttachedFile(){
 		/*Declare variables*/
 		String uploadFileName = "upload77802.pdf";
 		String folder = "folder77811";
@@ -382,7 +382,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 
 		/*Create data*/
 		selectFile(driverName,true,folderPath,"",uploadFileName,folder);
-		activity.deleteActivity(uploadFileName);
+		activity.deleteActivity(uploadFileName,true,false);
 
 		/* Step 1: Share an attached file */
 		//- Connect to Intranet
@@ -405,7 +405,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 		waitForAndGetElement(By.linkText(uploadFileName));
 
 		//Clear data
-		activity.deleteActivity(uploadFileName);
+		activity.deleteActivity(uploadFileName,true,false);
 		navToolBar.goToSiteExplorer();
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.actionsOnElement(folder, actionType.DELETE,true,true);
@@ -421,8 +421,8 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 4: Share an uploaded file
 	 * Bug: https://jira.exoplatform.org/browse/COMMONS-278
 	 */
-	@Test(groups="error")
-	public void test11_ShareAnUploadedFile(){
+	@Test
+	public void test13_14_15_ShareAnUploadedFile(){
 		/*Declare variables*/
 		String uploadFileName = "upload77811.pdf";
 		String folder = "folder77812";
@@ -448,7 +448,7 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 		selectFile(driverName,true,folderPath,"",uploadFileName,folder);
 
 		//Clear data
-		activity.deleteActivity(uploadFileName);
+		activity.deleteActivity(uploadFileName,true,false);
 		navToolBar.goToSiteExplorer();
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.actionsOnElement(folder, actionType.DELETE,true,true);
@@ -463,12 +463,18 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 	 * Step 4: Add folders
 	 */
 	@Test
-	public void test12_ShowTheVerticalScrollBarForListOfFiles(){
+	public void test16_ShowTheVerticalScrollBarForListOfFiles(){
 		/*Declare variables*/
 		String uploadFileName1 = "upload77811.pdf";
 		String uploadFileName2 = "upload78611.jpg";
+		String uploadFileName3 = "upload77157.pdf";
+		String uploadFileName4 = "upload77802.pdf";
+		String uploadFileName5 = "upload78611.pdf";
 		String folder1 = "778151";
 		String folder2 = "778152";
+		String folder3 = "778153";
+		String folder4 = "778154";
+		String folder5 = "778155";
 		String driverName = "Personal Drives";
 		String folderPath = "Personal Documents";
 		/* Step 1: Open [Select File] popup */
@@ -489,6 +495,9 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 		button.closeWindow();
 		waitForElementNotPresent(ELEMENT_SELECT_FILE_POPUP);
 		selectFile(driverName,true,folderPath,"",uploadFileName2,"", false);
+		selectFile(driverName,true,folderPath,"",uploadFileName3,"", false);
+		selectFile(driverName,true,folderPath,"",uploadFileName4,"", false);
+		selectFile(driverName,true,folderPath,"",uploadFileName5,"", false);
 
 		//- The vertical scroll bar is displayed
 		WebElement element = waitForAndGetElement(By.id("ListRecords"));
@@ -505,6 +514,9 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.actionsOnElement(uploadFileName1, actionType.DELETE,true,true);
 		actBar.actionsOnElement(uploadFileName2, actionType.DELETE,true,true);
+		actBar.actionsOnElement(uploadFileName3, actionType.DELETE,true,true);
+		actBar.actionsOnElement(uploadFileName4, actionType.DELETE,true,true);
+		actBar.actionsOnElement(uploadFileName5, actionType.DELETE,true,true);
 		navToolBar.goToHomePage();
 		
 		/* Step 4: Add folders */
@@ -517,6 +529,9 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 		
 		//- Do this step many times so that many folders are added in the current folder
 		selectFile(driverName,false,folderPath,"","",folder2,false);
+		selectFile(driverName,false,folderPath,"","",folder3,false);
+		selectFile(driverName,false,folderPath,"","",folder4,false);
+		selectFile(driverName,false,folderPath,"","",folder5,false);
 		click(By.linkText(folderPath));
 		Utils.pause(500);
 		//- Folders are added
@@ -537,5 +552,8 @@ public class PLF_HomePageActivityStream_ActivityComposer_File extends Activity {
 		actBar.chooseDrive(ecms.ELEMENT_PERSONAL_DRIVE);
 		actBar.actionsOnElement(folder1, actionType.DELETE,true,true);
 		actBar.actionsOnElement(folder2, actionType.DELETE,true,true);
+		actBar.actionsOnElement(folder3, actionType.DELETE,true,true);
+		actBar.actionsOnElement(folder4, actionType.DELETE,true,true);
+		actBar.actionsOnElement(folder5, actionType.DELETE,true,true);
 	}
 }
