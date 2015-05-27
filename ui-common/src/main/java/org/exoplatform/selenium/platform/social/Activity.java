@@ -211,7 +211,7 @@ public class Activity extends SocialBase {
 		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP);
 
 		info("----Select drive----");
-		if(waitForAndGetElement(ELEMENT_DRIVER_CURRENT.replace("${driveName}", driveName), DEFAULT_TIMEOUT, 0)==null){
+		if(waitForAndGetElement(ELEMENT_DRIVER_CURRENT.replace("${driveName}", driveName), 5000, 0)==null){
 			click(ELEMENT_DRIVER_BOX,2);
 			click(ELEMENT_DRIVER_OPTION.replace("${driveName}", driveName));
 		}

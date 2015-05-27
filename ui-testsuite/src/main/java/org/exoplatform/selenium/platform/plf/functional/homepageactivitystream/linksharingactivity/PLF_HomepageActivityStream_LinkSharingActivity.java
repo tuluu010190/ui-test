@@ -51,11 +51,9 @@ public class PLF_HomepageActivityStream_LinkSharingActivity extends Activity{
 	 */
 
 	@Test	
-	public void test01_LinkSharing_Intranet(){
-		String link = "http://gadgets.com";
-		//		  int height = 75;
+	public void test01_02_03_04_LinkSharing_Intranet(){
+		String link = "http://skype.com";
 		int width = 75;
-		String title = "Gadgets.com";
 
 		// Add a link shared in intranet
 		naviToolbar.goToHomePage();
@@ -68,14 +66,10 @@ public class PLF_HomepageActivityStream_LinkSharingActivity extends Activity{
 		hpActivity.likeOrUnlikeActivity(link);
 
 		// Verify the size of the content's image
-		String ELEMENT_LINKSHARE_THUMBNAIL = ELEMENT_DATA_ORIGINAL_TITLE.replace("${title}", title);
-		//		  int imageHeight = waitForAndGetElement(ELEMENT_LINKSHARE_THUMBNAIL).getSize().getHeight();
+		String ELEMENT_LINKSHARE_THUMBNAIL = "//*[contains(@alt,'Skype')]";
 		int imageWidth = waitForAndGetElement(ELEMENT_LINKSHARE_THUMBNAIL).getSize().getWidth();
-		//		  info("Height = " + String.valueOf(imageHeight));
 		info("Width = " + String.valueOf(imageWidth));
 		Assert.assertEquals(width,imageWidth);
-		//		  Assert.assertEquals(height,imageHeight);
-
 		// Delete a link shared
 		hpActivity.deleteActivity(link);
 	}
@@ -88,7 +82,7 @@ public class PLF_HomepageActivityStream_LinkSharingActivity extends Activity{
 	 */
 
 	@Test	
-	public void test02_LinkSharing_Space(){
+	public void test05_06_07_LinkSharing_Space(){
 		String link = "http://www.google.com";
 		String spaceName = "Space77623";
 
