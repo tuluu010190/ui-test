@@ -33,15 +33,7 @@ public class ManageLogInOut extends PlatformBase {
 			signOut();
 		}
 		info("--Sign in as " + username + "--");
-		if(ssoType == "" || ssoType == null){
-			info("login normally if not use SSO");
-			type(ELEMENT_INPUT_USERNAME, username, true);
-			type(ELEMENT_INPUT_PASSWORD, password, true);
-			click(ELEMENT_SIGN_IN_BUTTON);
-			if(verify)
-				waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON);
-		}
-		else{
+		if(ssoType != "" || ssoType != null){
 			SSO sso = SSO.valueOf(ssoType.toUpperCase());
 			switch(sso){
 			case OPENAM:
@@ -53,6 +45,14 @@ public class ManageLogInOut extends PlatformBase {
 			    signInCas(username,password);
 			    break;
 			}
+		}
+		else{
+			info("login normally if not use SSO");
+			type(ELEMENT_INPUT_USERNAME, username, true);
+			type(ELEMENT_INPUT_PASSWORD, password, true);
+			click(ELEMENT_SIGN_IN_BUTTON);
+			if(verify)
+				waitForElementNotPresent(ELEMENT_SIGN_IN_BUTTON);
 		}
 		Utils.pause(3000);
 		driver.navigate().refresh();

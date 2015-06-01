@@ -2,8 +2,6 @@ package org.exoplatform.selenium.platform.calendar.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import java.util.ArrayList;
-
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.testng.annotations.*;
 
