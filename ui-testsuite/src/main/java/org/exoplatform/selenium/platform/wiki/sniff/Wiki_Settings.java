@@ -11,11 +11,6 @@ import org.testng.annotations.*;
  *
  */
 public class Wiki_Settings extends Wiki_TestConfig{
-	@AfterTest()
-	public void setAfterTest(){
-		magAc.signOut();
-		magAc.signIn(DATA_USER1, DATA_PASS);
-	}
 
 	/**
 	 *<li> Case ID:122830.</li>

@@ -225,7 +225,7 @@ public class Ecms_SE_Admin extends ECMS_TestConfig_Part2{
 		
 		info("Delete all data test");
 		navTool.goToSiteExplorer();
-		SEHome.goToPath("intranet/documents", "Sites Management");
+		SEHome.goToPath("acme/documents", "Sites Management");
 		SEHome.deleteData(node1);
 		SEHome.deleteData(node2);
 	}

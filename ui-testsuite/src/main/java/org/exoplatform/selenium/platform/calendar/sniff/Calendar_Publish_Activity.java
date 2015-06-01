@@ -161,7 +161,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 			<p>
 			- In the activity stream: </p><p>Activity of the edited recurring event is</p><p>A comment is added to the main activity (of series):&nbsp;<em>Event cancelled for $CANCEL_DATE</em></p><p><em>where&nbsp;<span>$CANCEL_DATE : the date of the event removed</span></em></p>*/
 		hp.goToHomePage();
-		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT_RECURRING_CANCEL.replace("$name", titleEvent).replace("$date", getDate(1,"EEEE, MMMM dd, yyyy")));
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT_RECURRING_CANCEL.replace("$name", titleEvent).replace("$date", getDate(1,"EEEE, MMMM d, yyyy")));
 		
 		info("Clear data");
 		hp.goToCalendarPage();
@@ -230,7 +230,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 			<p>
 			- A new activity is created for the recurring event</p>*/ 
 		hp.goToHomePage();
-		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_DATE.replace("$name", titleEvent).replace("$date", getDate(-1,"EEEE, MMMM dd, yyyy")));
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_DATE.replace("$name", titleEvent).replace("$date", getDate(-1,"EEEE, MMMM d, yyyy")));
 		
 		info("Clear data");
 		hp.goToCalendarPage();

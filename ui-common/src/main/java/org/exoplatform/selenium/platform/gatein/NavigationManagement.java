@@ -212,10 +212,12 @@ public class NavigationManagement extends PlatformBase {
 	 */
 	public void addNode(String title, String subTitle) {
 		if (subTitle.isEmpty()) {
+			info("Add parent node");
 			click(ELEMENT_UP_LEVEL_PATH_NODE);
 			click(ELEMENT_ADD_NODE);
 			type(ELEMENT_NODE_NAME, title, true);
 		} else {
+			info("Add sub node");
 			waitForAndGetElement(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace(
 					"${name}", title));
 			click(ELEMENT_NAVIGATION_SPECIFIC_NODE.replace("${name}", title));

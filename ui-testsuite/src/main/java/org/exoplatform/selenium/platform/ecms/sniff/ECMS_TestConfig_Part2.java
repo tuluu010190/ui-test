@@ -47,12 +47,12 @@ public class ECMS_TestConfig_Part2 extends PlatformBase{
 		magAc = new ManageLogInOut(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		addActions();
-		afterClass();
+		afterMethod();
 		info("End setUpBeforeSuite");
 	}
 	
-	@BeforeClass
-	public void setUpBeforeClass() throws Exception{
+	@BeforeMethod
+	public void setUpBeforeMethod() throws Exception{
 		info("Start setUpBeforeClass");
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
@@ -78,8 +78,8 @@ public class ECMS_TestConfig_Part2 extends PlatformBase{
 		info("End setUpBeforeClass");
 	}
 
-	@AfterClass
-	public void afterClass(){
+	@AfterMethod
+	public void afterMethod(){
 		info("Start afterClass");
 		driver.manage().deleteAllCookies();
 		driver.quit();

@@ -570,8 +570,9 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 	 *<li> Case ID:116682.</li>
 	 *<li> Test Case Name: View a file from the File activity.</li>
 	 *<li> Test Case Name: Edit a file from the File activity.</li>
+	 *THE REQUIRMENT IS CHANGED. THIS CASE SHOULD BE REMOVED
 	 */
-	@Test
+	@Test(groups="pending")
 	public  void test15_ViewAndEditAFileFromTheFileActivity() {
 		info("Test 15: View a file from the File activity");
 		info("Create data test");

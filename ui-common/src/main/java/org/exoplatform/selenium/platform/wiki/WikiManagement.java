@@ -42,7 +42,7 @@ public class WikiManagement extends WikiHomePage{
 	public By ELEMENT_DRAFT_NOTIFY = By.xpath("//*[contains(@class, 'uiWikiPageEditForm') and contains(text(), 'Draft saved at')]");
 
 	//Comfirmation popup
-	public By ELEMENT_CONFIRMATION_POPUP_YES_BTN = By.xpath(".//*[@id='UIPortalApplication']//button[text()='Yes']");
+	public By ELEMENT_CONFIRMATION_POPUP_YES_BTN = By.xpath(".//*[@id='UIPortalApplication']//button[text()='OK']");
 	public String ELEMENT_POPUP_MESSAGE_CONTENT = ".//*[contains(text(),'${message}')]";
 
 	//Add page from template
