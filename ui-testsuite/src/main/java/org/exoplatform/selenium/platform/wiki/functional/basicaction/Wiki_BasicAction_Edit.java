@@ -26,7 +26,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	public String pass = DATA_PASS;
 
 	@BeforeMethod
-	public void setUpBeforeTest(){
+	public void setUpBeforeMethod(){
 		initSeleniumTest();
 		driver.get(baseUrl);
 		acc = new ManageAccount(driver);
@@ -36,7 +36,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	}
 
 	@AfterMethod
-	public void afterTest(){
+	public void afterMethod(){
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
@@ -90,40 +90,38 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		goToWiki();
 
 		addBlankWikiPage(DATA_WIKI_TITLE1, DATA_WIKI_CONTENT1, 0);
+		waitForAndGetElement(By.linkText(DATA_WIKI_TITLE1));
+		waitForAndGetElement(ELEMENT_CHECK_CONTENT.replace("${title}", DATA_WIKI_CONTENT1));
 
-		goToWikiPage("Wiki Home");
-
+		//goToWikiPage("Wiki Home");
+		goToWiki();
 		addBlankWikiPage(DATA_WIKI_TITLE2, DATA_WIKI_CONTENT2, 0);
+		waitForAndGetElement(By.linkText(DATA_WIKI_TITLE2));
+		waitForAndGetElement(ELEMENT_CHECK_CONTENT.replace("${title}", DATA_WIKI_CONTENT2));
+		Utils.pause(2000);
 		click(By.linkText(DATA_WIKI_TITLE2));
 		
 		info("--Edit a wiki page 2--");
 		click(ELEMENT_EDIT_PAGE_LINK);
-
 		Utils.pause(500);
 		driver.navigate().refresh();
 		Utils.pause(2000);
-		
 		type(ELEMENT_TITLE_WIKI_INPUT,DATA_WIKI_TITLE1,true);
-		//save();
 		switchToParentWindow();
 		Utils.pause(500);
+		savePage();
 		
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForTextPresent(MESSAGE_PAGE_ALREADY_EXISTS);
-
-		//click(ELEMENT_OK_BUTTON);
+		waitForAndGetElement(MESSAGE_PAGE_ALREADY_EXISTS,2000,2);
 		click(ELEMENT_OK_BUTTON_WIKI_PAGE);
 
 		//Clear data
 		goToWiki();
 
-		goToWikiPage(DATA_WIKI_TITLE1);
+		click(By.linkText(DATA_WIKI_TITLE1));
 		deleteCurrentWikiPage();
-		waitForTextNotPresent(DATA_WIKI_TITLE1);
 		
-		goToWikiPage(DATA_WIKI_TITLE2);
+		click(By.linkText(DATA_WIKI_TITLE2));
 		deleteCurrentWikiPage();
-		waitForTextNotPresent(DATA_WIKI_TITLE1);
 	}
 	
 	/**
@@ -288,10 +286,10 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	 */
 	@Test
 	public  void test06_EditAPageWithAnExistingDraft() {
-		info("Test 2: Edit a page with an existing draft");
-		String title = "Case 70785";
-		String content = "Content 70785";
-		String contentUpdate = "Update 70785";
+		info("Test 06: Edit a page with an existing draft");
+		String title = "Case"+getRandomNumber();
+		String content = "Content"+getRandomNumber();
+		String contentUpdate = "Update"+getRandomNumber();
 
 		/*
 		- Add a wiki page and save
@@ -301,10 +299,11 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		 *Expected Outcome: The draft is saved after 30s		*/
 		goToWiki();
 		addBlankWikiPage(title, content, 0);
+		click(By.linkText(title));
 		info("Edit the page");
-		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
-		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
+		click(ELEMENT_EDIT_PAGE_LINK);
 		addWikiPageSourceEditor(title, contentUpdate);
+		//savePage();
 		Utils.pause(30000);
 		waitForAndGetElement(ELEMENT_DRAFT_NOTIFY);
 
@@ -313,11 +312,11 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		- Edit the page
 		 *Input Data: 
 		 *Expected Outcome: A warning message is displayed under the title: "A draft of this page was saved on Month Day, Year HH:MM. You can view your changes and decide to resume the draft or delete it.		*/
-		goToWikiPage("Wiki Home/"+title);
+		goToWiki();
 		Utils.pause(1000);
 		info("Show warning message");
-		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
-		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
+		click(By.linkText(title));
+		click(ELEMENT_EDIT_PAGE_LINK);
 		waitForAndGetElement(ELEMENT_DRAFT_MESSAGE);	
 
 		/*From the message click on the link [View your changes]
@@ -345,7 +344,8 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		goToWikiPage("Wiki Home/"+title);
 		Utils.pause(1000);
 		info("Detele draft");
-		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
+		goToWiki();
+		//mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
 		click(ELEMENT_DELETE_DRAFT_LINK);
 		goToManageDraft();
 		waitForElementNotPresent(ELEMENT_DELETE_DRAFT.replace("${title}", title));
@@ -356,7 +356,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		goToWikiPage("Wiki Home/"+title);
 		Utils.pause(1000);
 		info("Not show warning message");
-		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
+		//mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
 		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
 		waitForElementNotPresent(ELEMENT_DRAFT_MESSAGE);	
 
@@ -396,7 +396,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		/*Open the page againGo to "My drafts"
 		 *Input Data: 
 		 *Expected Outcome: The draft version appears in the list		*/ 
-		setUpBeforeTest();
+		setUpBeforeMethod();
 		goToWiki();
 		goToManageDraft();
 		waitForAndGetElement(ELEMENT_DELETE_DRAFT.replace("${title}", title));
@@ -438,7 +438,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		driver.quit();
 		Utils.pause(500);
 		info("Open and go to Draft");
-		setUpBeforeTest();
+		setUpBeforeMethod();
 		goToWiki();
 		goToManageDraft();
 		waitForAndGetElement(ELEMENT_DELETE_DRAFT.replace("${title}", title));
@@ -521,9 +521,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	public  void test10_EditAttachedFile() {
 		info("Test 6: Edit attached file");
 		String file1 = "Wiki_Sniff_Attachment_01.doc";
-		String title = "Case 71141";
-		String label = "Label 71141";
-		String tooltip = "Tooltip 71141";
+		String title = "Case"+getRandomNumber();
 
 		/*
 		- Add new page or edit a page
@@ -535,9 +533,9 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		- Attached File form appear		*/
 		goToWiki();
 		Utils.pause(500);
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertAttachNewFile(file1,"","",true);
+		savePage();
 		Utils.pause(500);		
 
 		/*
@@ -549,10 +547,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		 *Input Data: 
 		 *Expected Outcome: Add attach file is changed successfully in content of page
 		- Page is add/edited successfully		*/
-		info("Edit attach link");
-		editLink(file1,label, tooltip, "", "",true);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		click(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
 
@@ -567,7 +562,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	@Test
 	public  void test11_AddWebPage() {
 		info("Test 07 Add web page");
-		String title = "Case 71144";
+		String title = "Case"+getRandomNumber();
 		String webpage = "google.com";
 		String label = "Webpage";
 		String tooltip = "Webpage link";
@@ -589,14 +584,15 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		 *Expected Outcome: 
 		- Web page link is changed succesfully		*/
 		goToWiki();
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertwebpageLink2WikiPage(webpage, label, tooltip,true);
+		savePage();
 		Utils.pause(500);
 		info("Edit webpage");
+		click(ELEMENT_EDIT_PAGE_LINK);
 		editLink("",labelUpdate, tooltipUpdate, webpageUpdate,"", true);	
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
+		click(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
 
@@ -611,10 +607,10 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	@Test
 	public  void test12_EditWikiPageLink() {
 		info("Test 08 Edit wiki page link");
-		String pageLink1 = "Page Link1";
-		String pageLink2 = "Page Link2";
-		String title = "Case 71155";
-		String content = "Content case 71155";
+		String pageLink1 = "Page Link1"+getRandomNumber();
+		String pageLink2 = "Page Link2"+getRandomNumber();
+		String title = "Case"+getRandomNumber();
+		String content = "Content case"+getRandomNumber();
 		/*
 		- Add new page or edit a page
 		- Click on Rich TextEditor icon in toolbar
@@ -628,9 +624,9 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		Utils.pause(500);
 		addBlankWikiPage(pageLink2, content, 0);
 		Utils.pause(500);
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertPageLink2WikiPage(true, pageLink1, "Link to pageLink", "Go to pageLink",true);
+		savePage();
 		Utils.pause(500);
 
 		/*
@@ -643,8 +639,9 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		 *Expected Outcome: Add attach file is changed successfully in content of page
 		- Page is add/edited successfully		*/
 		info("Edit page");
+		click(ELEMENT_EDIT_PAGE_LINK);
 		editPageLink2WikiPage(true, pageLink2, "Update link to pageLink", "Go to pageLink",true);
-
+		savePage();
 		//Delete data test
 		click(By.linkText(pageLink1));
 		deleteCurrentWikiPage();		
@@ -661,7 +658,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	@Test
 	public  void test13_EditEmailAddress() {
 		info("Test 9 Edit email address");
-		String title = "Case 71159";
+		String title = "Case"+getRandomNumber();
 		String email = "test01@exoplatform.com";
 		String label = "EmailAddress";
 		String tooltip = "Email Address link";
@@ -677,9 +674,9 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		 *Expected Outcome: 
 		- Attached File form appear 		*/
 		goToWiki();
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertEmailLink2WikiPage(email, label, tooltip, true);
+		savePage();
 		Utils.pause(500);
 
 		/*
@@ -692,9 +689,10 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		 *Expected Outcome: Add attach file is changed successfully in content of page
 		- Page is add/edited successfully		*/
 		info("Edit email address");
+		click(ELEMENT_EDIT_PAGE_LINK);
 		editLink("",labelUpdate, tooltipUpdate, "",emailUpdate, true);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
+		click(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
 
@@ -709,7 +707,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	@Test
 	public  void test14_EditImage() {
 		info("Test 10 Edit image");
-		String title = "Case 71186";
+		String title = "Case"+getRandomNumber();
 		String file = "Wiki_Sniff_Attachment_01.jpg";
 
 		/*
@@ -721,10 +719,10 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		 *Expected Outcome: 
 		- Attached File form appear		*/
 		goToWiki();
-		goToAddBlankPage();
 		Utils.pause(500);
 		addWikiPageRichText(title, "");
 		insertImageFile(file,true);
+		savePage();
 		Utils.pause(500);
 
 		/*
@@ -739,15 +737,14 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		 *Expected Outcome: Add attach file is added successfully in content of page
 		- Page is add/edited successfully		*/ 
 		info("Edit attach image");
-		mouseOverAndClick(ELEMENT_IMAGE_LINK);
-		mouseOverAndClick(ELEMENT_IMAGE_EDIT_LINK);
+		click(ELEMENT_EDIT_PAGE_LINK);
 		editImage(file, "400", "400", "image71186", alignmentType.LEFT,true);
 		Utils.pause(500);		
 		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 
 		//Delete data test
-		goToWikiPage("Wiki Home/"+title);
+		click(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
 
@@ -762,9 +759,9 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 	@Test
 	public  void test15_CheckShowMessageIfThereAre2UsersEditingInTheSamePage() {
 		info("Test 11 Check show message if there are 2 users editing in the same page.");
-		String title = "Case 107030";
-		String content = "Content 107030";
-		String titleUpdate = "Update case 107030";
+		String title = "Case"+getRandomNumber();
+		String content = "Content"+getRandomNumber();
+		String titleUpdate = "Update case"+getRandomNumber();
 		String user = DATA_USER4;
 		String fullName = "John Smith";
 		String userGroup[] = {user};
@@ -789,8 +786,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		 *Expected Outcome: Page is save to my draft		*/
 
 		info("Edit the page");
-		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
-		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
+		click(ELEMENT_EDIT_PAGE_LINK);
 		addWikiPageSourceEditor(titleUpdate, content);
 		Utils.pause(30000);
 		waitForAndGetElement(ELEMENT_DRAFT_NOTIFY);
@@ -835,11 +831,7 @@ public class Wiki_BasicAction_Edit extends ManageDraft {
 		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 
 		//Delete data test
-		goToWikiPage("Wiki Home/"+titleUpdate);
+		click(By.linkText(title));
 		deleteCurrentWikiPage();
-		info("--Close the 2nd browser window--");
-		Utils.pause(500);
-		newDriver.manage().deleteAllCookies();
-		newDriver.quit();
 	}
 }

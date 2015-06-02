@@ -62,6 +62,7 @@ public class Wiki_Search extends Template {
 		goToWikiHome();
 		info("Add new wiki page include Cluster keyword in Title");		
 		addWikiPageRichText(title02, content02);
+		savePage();
 		
 		quickSearch("Cluster");
 		assert getText(ELEMENT_SEARCH_RESULT) != "0";

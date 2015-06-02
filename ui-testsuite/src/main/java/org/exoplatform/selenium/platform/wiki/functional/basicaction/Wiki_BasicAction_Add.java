@@ -581,9 +581,9 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test19_AddADraftToWikiSpace() {
 		info("Test 2: Add a Draft to Wiki space");
-		String spaceName = "Space74595";
-		String title = "Case 74595";
-		String content = "Content 74595";
+		String spaceName = "Space"+getRandomNumber();
+		String title = "Case"+getRandomNumber();
+		String content = "Content"+getRandomNumber();
 
 		/*
 		- Connect to a space and choose the tab wiki
@@ -626,10 +626,10 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test20_AddAPageWithAddNewLink() {
 		info("Test 3: Add a page with add new link");
-		String pageLink = "Page Link 71100";
-		String title = "Case 71100";
+		String pageLink = "Page Link"+getRandomNumber();
+		String title = "Case"+getRandomNumber();
 		String label = "Link to New Link";
-		String content = "Update content 71100";
+		String content = "Update content"+getRandomNumber();
 
 		/*Add page
 		- Go to Wiki
@@ -650,13 +650,11 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		- A new page is added successful and displayed with properties 
 		- This page is listed with page containing the link		*/
 		goToWiki();
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		info("Input new page link");
 		insertnewPageLink2WikiPage(pageLink,label, "Go to pageLink", true);
+		savePage();
 		Utils.pause(500);		
-		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForAndGetElement(By.linkText(title));
 		goToWikiPage("Wiki Home/"+title);
 
@@ -673,8 +671,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		}		
 		type(ELEMENT_CONTENT_WIKI_INPUT,content,true);
 		info("-- Saving Wiki Page... --");
-		Utils.pause(1000);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 		waitForAndGetElement(By.linkText(pageLink));
 		Utils.pause(500);	
 
@@ -694,9 +691,9 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test 
 	public void test21_AddAPageWithLinkWikiPageExisted() {
 		info("Test 4: Add a page with link wiki page existed");
-		String pageLink = "Page Link 71097";
-		String title = "Case 71097";
-		String content = "Content case 71097";
+		String pageLink = "Page Link"+getRandomNumber();
+		String title = "Case"+getRandomNumber();
+		String content = "Content case"+getRandomNumber();
 		String label = "Link to pageLink";
 
 		/*Add page
@@ -719,12 +716,12 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		goToWiki();
 		addBlankWikiPage(pageLink, content, 0);
 		Utils.pause(500);
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertPageLink2WikiPage(true, pageLink, label, "Go to pageLink", true);
+		
 		Utils.pause(500);		
 		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 
 		/*
 		- Click on name of link
@@ -733,8 +730,9 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		- Show page successfully		*/ 
 		Utils.pause(500);
 		goToWiki();
-		click(ELEMENT_PAGE_TREE_ITEM.replace("${title}", pageLink));
-		waitForAndGetElement(ELEMENT_PAGE_TREE_ITEM.replace("${title}", title));
+	    click(ELEMENT_PAGE_TREE_ITEM.replace("${title}", pageLink));
+	    Utils.pause(2000);
+	//	waitForAndGetElement(ELEMENT_PAGE_TREE_ITEM.replace("${title}", title));
 		click(ELEMENT_PAGE_TREE_ITEM.replace("${title}", title));
 		//goToWikiPage("Wiki Home/"+title);
 		waitForAndGetElement(By.linkText(label));
@@ -760,7 +758,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	public  void test22_AddAttachedFileWhenExits() {
 		info("Test 5: Add attached file when exits");
 		String attachFile = "AttachFile";
-		String title = "Case 71103";
+		String title = "Case"+getRandomNumber();
 		String content = "Add attached file when exits";
 		String link = "Wiki_Sniff_Attachment_01.doc";
 
@@ -784,13 +782,12 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		 *Expected Outcome: Add attach file is added successfully in content of page
 		- Page is add/edited successfully		*/
 		goToWiki();
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertAttachFileExits(attachFile, link, "Attach File", true);
+		
 		Utils.pause(500);		
 		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForAndGetElement(By.linkText(title));
+		savePage();
 
 		/*
 		- Click on name of attach file
@@ -817,9 +814,9 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	public  void test23_AddAttachedFileWithNewFile() {
 		info("Test 6: Add attached file with new file");
 		String file1 = "Wiki_Sniff_Attachment_01.doc";
-		String title = "Case 71108";
-		String label = "Label 71108";
-		String tooltip = "Tooltip 71108";
+		String title = "Case"+getRandomNumber();
+		String label = "Label"+getRandomNumber();
+		String tooltip = "Tooltip"+getRandomNumber();
 
 		/*
 		- Add new page or edit a page
@@ -830,7 +827,6 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		- Attached File form appear		*/
 		goToWiki();
 		Utils.pause(500);
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 
 		/*
@@ -846,10 +842,8 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		- Page is add/edited successfully		*/
 		info("Attach new file");
 		insertAttachNewFile(file1, label, tooltip, true);
+		savePage();
 		Utils.pause(500);
-		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForAndGetElement(By.linkText(title));
 
 		/*
@@ -874,7 +868,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test24_AddEmailAddress() {
 		info("Test 7: Add email address");
-		String title = "Case 71104";
+		String title = "Case"+getRandomNumber();
 		String email = "test01@exoplatform.com";
 		String label = "EmailAddress";
 		String tooltip = "Email Address link";
@@ -887,7 +881,6 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		 *Expected Outcome: 
 		- Attached File form appear		*/
 		goToWiki();
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 
 		/*
@@ -901,9 +894,8 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		 *Expected Outcome: Email address is added successfully in content of page
 		- Page is add/edited successfully		*/		
 		insertEmailLink2WikiPage(email, label, tooltip, true);
+		savePage();
 		Utils.pause(500);
-		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForAndGetElement(By.linkText(title));
 
 		/*
@@ -930,7 +922,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test25_AddWebPage() {
 		info("Test 8 Add web page");
-		String title = "Case 71102";
+		String title = "Case"+getRandomNumber();
 		String webpage = "google.com";
 		String label = "Webpage";
 		String tooltip = "Webpage link";
@@ -952,12 +944,9 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		- A new page is added successful and displayed with properties 
 		- This page is listed with page containing the link		*/
 		goToWiki();
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertwebpageLink2WikiPage(webpage, label, tooltip, true);
-		Utils.pause(500);
-		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 		Utils.pause(500);
 		waitForAndGetElement(By.linkText(title));
 
@@ -1000,10 +989,10 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		 *Expected Outcome: 
 		- Attached File form appear		*/
 		goToWiki();
-		goToAddBlankPage();
 		Utils.pause(500);
 		addWikiPageRichText(title, "");
 		insertImageFile(file,true);
+	
 		Utils.pause(500);
 
 		/*
@@ -1022,9 +1011,10 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		mouseOverAndClick(ELEMENT_IMAGE_LINK);
 		mouseOverAndClick(ELEMENT_IMAGE_EDIT_LINK);
 		editImage(file, "300", "300", "image71110", alignmentType.LEFT,true);
+		
 		Utils.pause(500);		
 		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 		waitForAndGetElement(By.linkText(title));
 
 		//Delete data test
@@ -1043,7 +1033,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test27_AutosaveAPageWithoutTitle() {
 		info("Test 10 Autosave a page without Title");
-		String content = "Content 70778";
+		String content = "Content"+getRandomNumber();
 		String time = ""; 
 		String title = "";
 
@@ -1080,11 +1070,11 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test28_CreateNewPageUsingExistingTemplate() {
 		info("Test 11 Create new page using existing template");
-		String title1 = "Case 69720 Two Column layout";
-		String title2 = "Case 69720 Three Column layout";
-		String title3 = "Case 69720 Status Meeting";
-		String title4 = "Case 69720 HOW-TO Guide";
-		String title5 = "Case 69720 Leave Planning";
+		String title1 = "Case "+getRandomNumber()+" Two Column layout";
+		String title2 = "Case "+getRandomNumber()+" Three Column layout";
+		String title3 = "Case "+getRandomNumber()+" Status Meeting";
+		String title4 = "Case "+getRandomNumber()+" HOW-TO Guide";
+		String title5 = "Case "+getRandomNumber()+" Leave Planning";
 
 		/*
 		- Choose path to add new page
@@ -1200,8 +1190,8 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	/*@Test*/
 	public  void test29_CreatePageUsingRichTextEditor() {
 		info("Test 12 Create Page using Rich Text Editor");
-		String title = "Case 71096"; 
-		String content = "Content case 71096";
+		String title = "Case"+getRandomNumber(); 
+		String content = "Content case"+getRandomNumber();
 
 		/*Add page
 		- Go to Wiki
@@ -1234,7 +1224,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test30_ExternalImage() {
 		info("Test 13 External image");
-		String title = "Case 71113";		
+		String title = "Case"+getRandomNumber();		
 		String imageLocation = "http://www.menucool.com/slider/prod/image-slider-4.jpg";		
 
 		/*Add page
@@ -1255,14 +1245,11 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		 *Expected Outcome: Add attach file is added successfully in content of page
 		- Page is add/edited successfully		*/ 
 		goToWiki();
-		goToAddBlankPage();
 		Utils.pause(500);
 		addWikiPageRichText(title, "");
 		insertExternalImage(imageLocation, "300", "300", "image71113", alignmentType.LEFT,true);
+		savePage();
 		Utils.pause(500);		
-		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForAndGetElement(By.linkText(title));
 
 		//Delete data test
 		goToWikiPage("Wiki Home/"+title);
@@ -1321,7 +1308,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test32_PreviewAPageWithImageByAnotherUser() {
 		info("Test 31 Preview a page with image by another user");
-		String title = "Case 106576"; 		
+		String title = "Case"+getRandomNumber(); 		
 		//String file = "Winter.jpg";
 		String imageLocation = "http://www.menucool.com/slider/prod/image-slider-4.jpg";		
 		/*
@@ -1333,15 +1320,12 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		 *Input Data: 
 		 *Expected Outcome: Page is created successfully		*/
 		goToWiki();
-		goToAddBlankPage();
 		Utils.pause(500);
 		addWikiPageRichText(title, "");
 		insertExternalImage(imageLocation, "300", "300", "image71113", alignmentType.LEFT,true);
+		savePage();
 		//insertImageFile(file, true);
 		Utils.pause(2000);
-		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForAndGetElement(By.linkText(title));
 		/*
 		- Connect with normal user
 		- Go to Intranet/Wiki
@@ -1408,8 +1392,8 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test34_SearchPageToAddLink() {
 		info("Test 17 Search page to add link");
-		String pageLink = "Page link 71101"; 
-		String title = "Case 71101";
+		String pageLink = "Page link"+getRandomNumber(); 
+		String title = "Case"+getRandomNumber();
 		String content = "Search page to add link";
 
 		/*Add page
@@ -1433,10 +1417,10 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		goToWiki();
 		addBlankWikiPage(pageLink, content, 0);
 		Utils.pause(500);
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertPageLink2WikiPage(true, pageLink, "Link to pageLink", "Go to pageLink", true);
 		typeEnterInRichText();
+		savePage();
 		Utils.pause(500);
 
 		//Delete data test
@@ -1466,7 +1450,6 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		 *Expected Outcome: 
 		- Attached File form appear		*/
 		goToWiki();
-		goToAddBlankPage();
 		Utils.pause(500);
 		addWikiPageRichText(title, "");
 
@@ -1483,12 +1466,14 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 		 *Expected Outcome: Add attach file is added successfully in content of page
 		- Page is add/edited successfully		*/ 
 		insertImageFile(file,true);
+		savePage();
 		Utils.pause(500);
 		info("Upload a image");
 		editImage(file, "200", "200", "image71111", alignmentType.LEFT,true);
+		
 		Utils.pause(500);		
 		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 		waitForAndGetElement(By.linkText(title));
 
 		//Delete data test
@@ -1507,7 +1492,7 @@ public class Wiki_BasicAction_Add extends ManageDraft{
 	@Test
 	public  void test36_ViewADraftForAnotherUser() {
 		info("Test 19 View a draft for another user");
-		String title = "Case 74597";
+		String title = "Case"+getRandomNumber();
 		String content = "View a draft for another user";
 
 		/*

@@ -55,8 +55,12 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 		String[][] pageInfo = {{"relatedPage01_1", "relatedPage01_2"}, {"content of page1", "content of page2"}};
 		String[][] wikiPath = {{"Wiki Home", "Wiki Home"}, {"Wiki Home/relatedPage01_1", "Wiki Home/relatedPage01_2"}};
 		addBlankWikiPageAndRelatePage(2, wikiPath[0], pageInfo, 0, wikiPath[1][0], pageInfo[0][1]);
-		deleteWikiPage(wikiPath[1]);
-		magAc.signOut();
+		//deleteWikiPage(wikiPath[1]);
+		info("Delete");
+		click(By.linkText(pageInfo[0][1]));
+		deleteCurrentWikiPage();
+		click(By.linkText(pageInfo[1][1]));
+		deleteCurrentWikiPage();
 	}
 
 	/**
@@ -77,6 +81,10 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 		goToPageInfo(ManageAccount.userType.PUBLISHER, "Wiki Home/relatedPage02");
 		Utils.captureScreen("FNC_KS_WIKI_INFO_CASE_02");
 		waitForElementNotPresent(ELEMENT_ADD_MORE_RELATION_BUTTON);
+		
+		/*info("Delete");
+		click(By.linkText(pageInfo[0][0]));
+		deleteCurrentWikiPage();*/
 		resetDataByDeleteWikiPage(ManageAccount.userType.ADMIN, wikiPath[1]);
 	}
 
@@ -128,30 +136,33 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 	@Test
 	public  void test04_Add2RelationsFrom2DifferentSpaces() {
 		info("Test 11: Add 2 relations from 2 different spaces");
-		String space1 = "Space118196A";
-		String space2 = "Space118196B";
-		String space3 = "Space118196C";
-		String title1 = "Page 1";
-		String title2 = "Page A";
-		String title3 = "Page a";
+		String space1 = "Space"+getRandomNumber();
+		String space2 = "Space"+getRandomNumber();
+		String space3 = "Space"+getRandomNumber();
+		String title1 = "Page"+getRandomNumber();;
+		String title2 = "Page"+getRandomNumber();;
+		String title3 = "Page"+getRandomNumber();;
 		String wikiPath = "Wiki Home";	
 
 		//Pre-Condition: 
 		info("Create all space and page");
 		mMember.goToAllSpaces();
 		mMember.addNewSpace(space2, "");
+		mMember.accessSpace(space2);
 		mMember.goToSpaceMenu("Wiki");
 		addBlankWikiPage(title2, title2, 0);
 		Utils.pause(1000);
 
 		mMember.goToAllSpaces();
 		mMember.addNewSpace(space3, "");
+		mMember.accessSpace(space3);
 		mMember.goToSpaceMenu("Wiki");
 		addBlankWikiPage(title3, title3, 0);
 		Utils.pause(1000);
 
 		mMember.goToAllSpaces();
 		mMember.addNewSpace(space1, "");
+		mMember.accessSpace(space1);
 		mMember.goToSpaceMenu("Wiki");
 		addBlankWikiPage(title1, title1, 0);
 		Utils.pause(1000);
@@ -185,6 +196,9 @@ public class Wiki_PageInformation_RelatedPage_Add extends BasicAction{
 		 - Popup is closed
 		 - "Page A" is added as a related pages on page info layout	*/ 
 		info("Add Relations with pageA");
+		mMember.accessSpace(space1);
+		mMember.goToSpaceMenu("Wiki");
+		click(By.linkText(title1));
 		addRelatedPage(wikiPath, title2, space2, true);
 		Utils.pause(1000);
 

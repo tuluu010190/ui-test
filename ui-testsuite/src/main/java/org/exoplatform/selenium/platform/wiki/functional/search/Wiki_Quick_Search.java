@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.wiki.BasicAction;
 
@@ -53,7 +54,6 @@ public class Wiki_Quick_Search extends BasicAction {
 
 		String PAGE_NAME1 = "Wiki_Quick_Search_02";
 
-		By ELEMENT_PAGE1 = By.linkText(PAGE_NAME1);
 
 		goToWiki();
 
@@ -64,8 +64,9 @@ public class Wiki_Quick_Search extends BasicAction {
 		//waitForTextPresent(ELEMENT_VERIFY_MESSAGE);
 		waitForAndGetElement(ELEMENT_VERIFY_RESULT_SEARCH.replace("${pageName}", "bbb"), DEFAULT_TIMEOUT, 1, 2);
 
-		click(ELEMENT_PAGE1);
-
+		//Delete data test
+		click(By.linkText(PAGE_NAME1));
+		Utils.pause(2000);
 		deleteCurrentWikiPage();
 	}
 	

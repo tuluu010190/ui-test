@@ -79,7 +79,7 @@ public class Wiki_Activity_Update extends Permalink{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Title of page is updated with new title		*/
-		editPageWithCheckPublicActivity(titleUpdate, content);
+		editPageWithCheckPublicActivity(titleUpdate,null);
 
 		/*
 		- Go to the Homepage
@@ -88,7 +88,6 @@ public class Wiki_Activity_Update extends Permalink{
 		- The wiki activity is updated
 		- A comment is added in the activity: Page's title has been updated to: $value.		*/
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(titleUpdate, content, "2");
 		waitForAndGetElement(home.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", titleUpdate));
 
 		//Delete data test
@@ -128,7 +127,7 @@ public class Wiki_Activity_Update extends Permalink{
 		 *Expected Outcome: 
 		- Title's page is updated with new value		*/
 		click(By.linkText(title));
-		editWikiPage(titleUpdate, content, 0);
+		editWikiPage(titleUpdate,null,0);
 
 		/*
 		- Go to the Homepage
@@ -136,8 +135,8 @@ public class Wiki_Activity_Update extends Permalink{
 		 *Expected Outcome: 
 		- The wiki activity content is updated with the new page title		*/ 
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(titleUpdate, content, "2");
 		waitForElementNotPresent(home.ELEMENT_WIKI_COMMENT_EDIT_TITLE.replace("${title}", titleUpdate));
+	
 		//Delete data test
 		click(By.linkText(titleUpdate));
 		Utils.pause(2000);
@@ -174,7 +173,7 @@ public class Wiki_Activity_Update extends Permalink{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Content of page is updated		*/
-		editPageWithCheckPublicActivity(title, contentUpdate);
+		editPageWithCheckPublicActivity(null, contentUpdate);
 
 		/*
 		- Go to the Homepage
@@ -183,8 +182,8 @@ public class Wiki_Activity_Update extends Permalink{
 		- The wiki activity is updated
 		- A comment is added in the activity: Page's content has been edited.		*/ 
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(title, contentUpdate, "2");
-		waitForAndGetElement(home.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", title));
+		String textComment="Page's content has been edited.";
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_COMMENT.replace("$title", title).replace("$comment",textComment));
 
 		//Delete data test
 		click(By.linkText(title));
@@ -223,7 +222,7 @@ public class Wiki_Activity_Update extends Permalink{
 		- Click [Save]
 		 *Input Data: 
 		 *Expected Outcome: Content of page is updated		*/
-		editPageWithCheckPublicActivity(title, contentUpdate, comment);
+		editPageWithCheckPublicActivity(null, contentUpdate, comment);
 
 		/*
 		- Go to the Homepage
@@ -232,8 +231,7 @@ public class Wiki_Activity_Update extends Permalink{
 		- The wiki activity is updated
 		- A comment is added to the activity, containing the associated comment value		*/ 
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(title, contentUpdate,"2");
-		waitForAndGetElement(home.ELEMENT_ACTIVITY_COMMENT_CONTENT.replace("${title}",title).replace("${comment}", comment));
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_COMMENT.replace("$title", title).replace("$comment",comment));
 
 		//Delete data test
 		click(By.linkText(title));
@@ -283,7 +281,8 @@ public class Wiki_Activity_Update extends Permalink{
 		- The wiki activity isn't updated
 		- A comment is added in the activity: Page has been moved to : $value. where $value is :SpaceName>WikiRootPage>WikiRootPage2>..		*/ 
 		nav.goToHomePage();
-		home.checkCommentAfterMoveWikiPage(title2, "Wiki Home > " + title1 + " > " + title2);
+		String textComment="Page has been moved to: intranet > Wiki Home > $page1 > $page2";
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_COMMENT.replace("$title", title2).replace("$comment",textComment).replace("$page2",title2).replace("$page1",title1));
 
 		//Delete data test
 		click(By.linkText(title2));
@@ -324,7 +323,7 @@ public class Wiki_Activity_Update extends Permalink{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Content of page is updated with new title		*/
-		editPageWithCheckPublicActivity(title, contentUpdate);
+		editPageWithCheckPublicActivity(null, contentUpdate);
 
 		/*
 		- Go to the Homepage
@@ -333,8 +332,8 @@ public class Wiki_Activity_Update extends Permalink{
 		- The wiki activity is updated
 		- A comment is added in the activity: Page's content has been edited. 		*/
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(title, contentUpdate, "2");
-		waitForAndGetElement(home.ELEMENT_WIKI_COMMENT_EDIT_CONTENT.replace("${title}", title));
+		String textComment="Page's content has been edited.";
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_COMMENT.replace("$title", title).replace("$comment",textComment));
 
 		//Delete data test
 		click(By.linkText(title));
@@ -374,7 +373,7 @@ public class Wiki_Activity_Update extends Permalink{
 		 *Expected Outcome: 
 		- Content of page is updated		*/
 		click(By.linkText(title));
-		editWikiPage(title, contentUpdate,0,true);
+		editWikiPage(null, contentUpdate,0,true);
 
 		/*
 		- Go to the Homepage
@@ -424,7 +423,7 @@ public class Wiki_Activity_Update extends Permalink{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- Content page is updated with new value		*/
-		editWikiPage(title, contentUpdate,0);
+		editWikiPage(null, contentUpdate,0);
 
 		/*
 		- Go to the Homepage
@@ -433,8 +432,7 @@ public class Wiki_Activity_Update extends Permalink{
 		- The wiki activity content is updated with the new content
 		- No comment is added into activity		*/ 
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(title, contentUpdate, "2");
-		waitForAndGetElement(home.ELEMENT_ICON_COMMENT.replace("${title}",title)).getText().contains("0");
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_CONTENT_TEXT.replace("$title",title).replace("$content",contentUpdate));
 		
 		//Delete data test
 		click(By.linkText(title));

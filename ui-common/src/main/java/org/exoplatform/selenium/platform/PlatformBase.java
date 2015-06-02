@@ -698,6 +698,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_INBOX = By.xpath("//a[contains(@title,'Inbox') and contains(@title, 'Inbox')]");
 	public final By ELEMENT_MAIL_CONTENT = By.xpath("//*[contains(@class, 'adP adO')]/div");
 	public final By ELEMENT_GMAIL_USERNAME = By.id("Email");
+	public final By ELEMENT_GMAIL_NEXT_BTN=By.id("next");
 	//public final By ELEMENT_GMAIL_PASS = By.id("Passwd");
 	public final By ELEMENT_GMAIL_PASS = By.xpath(".//*[@name='Passwd']");
 	//public final String ELEMENT_GMAIL_PASS = ".//input[@type='password']";
@@ -1513,42 +1514,71 @@ public class PlatformBase extends TestBase {
 	}
 
 	/**
-	 * function open and go to mail
+	 * Go to gmail and login
 	 * @param email
 	 * @param pass
 	 */
 	public void goToMail(String email, String pass){	
-		magAlt = new ManageAlert(driver);
 		((JavascriptExecutor) driver).executeScript("window.open()");
 		for(String winHandle : driver.getWindowHandles()){
 			driver.switchTo().window(winHandle);
 		}
 		info("Go to gmail");
 		driver.navigate().to(GMAIL_URL);
-		Utils.pause(5000);
 		driver.manage().window().maximize();
-		Utils.pause(5000);
+
 		//login to mail
-		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 10000,0) == null){
-			if (waitForAndGetElement(ELEMENT_GMAIL_SIGN_IN_LINK,10000,0) != null)
+		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 5000,0) == null){
+			if (waitForAndGetElement(ELEMENT_GMAIL_SIGN_IN_LINK,3000,0) != null)
 				click(ELEMENT_GMAIL_SIGN_IN_LINK); 
 			else{
 				click(ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC);
 				click(ELEMENT_GMAIL_ADD_ACCOUNT);
 			}
-
 		}
-
 		type(ELEMENT_GMAIL_USERNAME, email, true);
+		click(ELEMENT_GMAIL_NEXT_BTN);
+		Utils.pause(1000);
 		type(ELEMENT_GMAIL_PASS, pass, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
-		//clearCache();
-		magAlt.acceptAlert();
-		Utils.pause(5000);
-		click(ELEMENT_GMAIL_INBOX, 4000);
-		Utils.pause(1000);
+		clearCache();
+		Utils.pause(2000);
+		click(ELEMENT_GMAIL_INBOX);
+		Utils.pause(2000);
 	}
 
+	/**
+	 * Check email notification
+	 * @param titleEmail
+	 * @param locator
+	 * @param opParams
+	 */
+	public void checkEmailNotification(String titleEmail,Object locator,Object... opParams){
+		info("Check email notification");
+		Boolean checkOrNo = (Boolean)(opParams.length > 0 ? opParams[0]: true);
+		String parentWindow = driver.getWindowHandle();
+		info("parentWindow:"+parentWindow);
+		  for(String windowHandle  : driver.getWindowHandles()){
+			     driver.switchTo().window(windowHandle);
+			     info("driver.title:"+driver.getTitle());
+		}
+		if (opParams.length > 0) {
+			info("Verify the email notification");
+			if (checkOrNo == true)
+				waitForAndGetElement(locator,30000,1);
+            else 
+            	waitForElementNotPresent(locator,30000,1);
+		}
+		if(opParams.length>1){
+			info("Click on the email");
+			click(locator);
+			Utils.pause(2000);
+			for(String windowHandle  : driver.getWindowHandles()){
+			     driver.switchTo().window(windowHandle);
+			     info("driver.title:"+driver.getTitle());
+		    }			
+		}
+	}
 	/**
 	 * function: check content of mail then delete mail
 	 * @param mail: element title of mail

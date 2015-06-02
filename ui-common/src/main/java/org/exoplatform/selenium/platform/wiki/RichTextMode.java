@@ -2,7 +2,6 @@ package org.exoplatform.selenium.platform.wiki;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.ElementNotVisibleException;
@@ -18,8 +17,8 @@ import org.openqa.selenium.WebElement;
  * 
  */
 public class RichTextMode extends Template {
-	Button but = new Button(driver);
-
+	
+	
 	//Link menu
 	public By ELEMENT_LINK = By.xpath("//*[text()='Link']");
 	public By ELEMENT_WIKI_PAGE_LINK = By.xpath("//*[text()='Wiki Page...']");
@@ -571,8 +570,8 @@ public class RichTextMode extends Template {
 	 */
 	public void editLink(String file, String label, String tooltip, String webpage, String email, Object...opParam){
 		Boolean verify =(Boolean)(opParam.length>0?opParam[0]:false);
-		mouseOverAndClick(ELEMENT_LINK);
-		mouseOverAndClick(ELEMENT_EDIT_LINK);
+		click(ELEMENT_LINK);
+		click(ELEMENT_EDIT_LINK);
 		if(file!=null && file!=""){
 			click(By.xpath("//*[text()='"+file+"']"));
 			Utils.pause(500);
@@ -617,7 +616,7 @@ public class RichTextMode extends Template {
 		String path = Utils.getAbsoluteFilePath("TestData/"+file);
 		mouseOverAndClick(ELEMENT_IMAGE_LINK);
 		mouseOverAndClick(ELEMENT_IMAGE_LINK_ATTACH);
-		Utils.pause(500);
+		Utils.pause(2000);
 		click(but.ELEMENT_SELECT_BUTTON);
 		waitForElementNotPresent(but.ELEMENT_SELECT_BUTTON);
 		//click(ELEMENT_ATTACH_FILE_PATH);
@@ -651,8 +650,8 @@ public class RichTextMode extends Template {
 	 */
 	public void editPageLink2WikiPage(boolean search, String page, String label, String tooltip,Object...opParam){
 		Boolean verify =(Boolean)(opParam.length>0?opParam[0]:false);
-		mouseOverAndClick(ELEMENT_LINK);
-		mouseOverAndClick(ELEMENT_EDIT_LINK);
+		click(ELEMENT_LINK);
+	    click(ELEMENT_EDIT_LINK);
 		Utils.pause(500);
 		info("Create link to the page " + page);
 		if (search){
@@ -696,8 +695,8 @@ public class RichTextMode extends Template {
 	 */
 	public void editImage(String file, String width, String height, String text, alignmentType alignment, Object...opParam){
 		Boolean verify =(Boolean)(opParam.length>0?opParam[0]:false);
-		mouseOverAndClick(ELEMENT_IMAGE_LINK);
-		mouseOverAndClick(ELEMENT_IMAGE_EDIT_LINK);
+		click(ELEMENT_IMAGE_LINK);
+		click(ELEMENT_IMAGE_EDIT_LINK);
 		click(By.xpath("//*[@title='"+file+"']"));
 		Utils.pause(500);
 		click(but.ELEMENT_SELECT_BUTTON);
@@ -852,7 +851,7 @@ public class RichTextMode extends Template {
 		String path = Utils.getAbsoluteFilePath("TestData/"+file);
 		mouseOverAndClick(ELEMENT_LINK);
 		mouseOverAndClick(ELEMENT_ATTACH_FILE_LINK);
-		Utils.pause(500);
+		Utils.pause(2000);
 		click(but.ELEMENT_SELECT_BUTTON);
 		waitForElementNotPresent(but.ELEMENT_SELECT_BUTTON);
 		//click(ELEMENT_ATTACH_FILE_PATH);

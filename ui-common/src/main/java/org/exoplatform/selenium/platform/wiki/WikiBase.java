@@ -130,7 +130,7 @@ public class WikiBase extends PlatformBase{
 	public final By ELEMENT_CANCEL_BUTTON_ADD_PAGE = By.id("UISubmitToolBarBottom_Cancel_");
 	public final By ELEMENT_CONFIRM_BUTTON_ADD_PAGE = By.xpath("//button[text()='Confirm']");
 	public final By ELEMENT_CANCEL_BUTTON_ADD_PAGE_NULL_TITLE = By.xpath("//button[text()='Cancel']");
-	public final String MESSAGE_PAGE_ALREADY_EXISTS = "The page title already exists. Please select another one.";
+	public final By MESSAGE_PAGE_ALREADY_EXISTS = By.xpath("//*[contains(@class,'warningIcon')][contains(text(),'The page title already exists. Please select another one.')]");
 	public final String MESSAGE_CANCEL_CREATE_PAGE = "to leave this page?";
 	public final By ELEMENT_UPLOAD_NAME = By.name("file");
 	public final By ELEMENT_UPLOAD_NEW_FILE_BUTTON = By.xpath("//*[text()='Upload New File' or text()='Upload new file']");
@@ -140,7 +140,7 @@ public class WikiBase extends PlatformBase{
 	public final String ELEMENT_EDIT_PARAGRAPH_BUTTON = ".//*[contains(@id, '${paragraph}')]/span/../..//*[@class='uiIconEdit uiIconLightGray wikimodel-freestanding']";
 	
 	//"Are you sure to leave this page?";
-	public final By ELEMENT_OK_BUTTON_WIKI_PAGE = By.xpath("//div[contains(@class, 'uiAction')]/a[text()='OK']");
+	public final By ELEMENT_OK_BUTTON_WIKI_PAGE = By.xpath("//*[contains(@class, 'uiAction')]//*[text()='OK']");
 	public final String ELEMENT_SPACE_NAVIGATION_NAME = ("//div[@class='name' and contains(text(),'${spaceName}')]");
 
 	//Richtext mode
@@ -647,8 +647,8 @@ public class WikiBase extends PlatformBase{
 	 * 				Name of space that user is standing on
 	 */
 	public void goToWikiFromSpace(String spaceName){
-		magMember = new ManageMember(driver);
-		By element_space = By.linkText(spaceName);
+		//magMember = new ManageMember(driver);
+		/*By element_space = By.linkText(spaceName);
 		//By element_wiki = By.xpath(ELEMENT_SPACE_WIKI.replace("${spaceName}", spaceName));
 
 		info("Go to wiki page of space " + spaceName);
@@ -660,7 +660,7 @@ public class WikiBase extends PlatformBase{
 			magMember.goToMySpacePage();
 			click(element_space);
 			Utils.pause(2000);
-		}
+		}*/
 		click(ELEMENT_WIKI_LINK_IN_SPACE);
 		waitForAndGetElement(ELEMENT_WIKI_HOME);
 	}

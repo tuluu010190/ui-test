@@ -25,7 +25,7 @@ public class BasicAction extends Permission{
 	Dialog dialog = new Dialog(driver);
 	ManageAlert magAlert = new ManageAlert(driver);
 	ManageMember mMember = new ManageMember(driver, this.plfVersion);
-
+	Button but = new Button(driver);
 	public final String ELEMENT_RESTRICTED_WIKI = "//*[@id='UIWikiPageInfoArea']//a[@data-original-title='This page is restricted. Click to share.']";
 	public final String ELEMENT_MAKE_PUBLIC_BUTTON = "//*[@id='UIWikiPermalinkForm']//button[contains(text(),'Make Public')]";
 	public final String ELEMENT_PERMISSION_WINDOW_CLOSE_BUTTON = "//*[@id='UIWikiPopupWindowL1']//a[@title='Close Window']";
@@ -179,13 +179,17 @@ public class BasicAction extends Permission{
 				driver.switchTo().defaultContent();
 			}
 			
-			Utils.pause(1000);
-			click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-			waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE,100000);
 		}		
 
 	}
-
+    /**
+     * Save alll changes of wiki page
+   */
+	public void savePage(){
+		Utils.pause(1000);
+		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE,100000);
+	}
 	/**
 	 * Add a blank Wiki page with Advance options
 	 * 
@@ -234,8 +238,7 @@ public class BasicAction extends Permission{
 
 		info("--Edit a wiki page--");
 		Utils.pause(1000);
-		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
-		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
+		click(ELEMENT_EDIT_PAGE_LINK);
 		driver.navigate().refresh();
 		Utils.pause(2000);
 		if(mode == 0){

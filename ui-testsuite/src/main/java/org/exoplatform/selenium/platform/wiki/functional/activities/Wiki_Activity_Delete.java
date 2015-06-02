@@ -80,18 +80,18 @@ public class Wiki_Activity_Delete extends Permalink{
 		
 		//Create a wiki page for space
 		info("Create a wiki page for space");
+		home.goToSpecificSpace(spaceName);
 		goToWikiFromSpace(spaceName);
 		addBlankWikiPage(ParentTitle, ParentContent, 0);
 		makePublicPage();
 		editPageWithCheckPublicActivity(ParentTitle, ParentNewContent);
-		
 		info("Check the display of wiki activity");
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(ParentTitle, ParentNewContent, "2");
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_TITLE.replace("${title}",ParentTitle));
 		
 		//Create some sub wiki pages for space
 		info("Create a sub wiki page 1 for space");
-		click(By.linkText(spaceName));
+		home.goToSpecificSpace(spaceName);
 		Utils.pause(2000);
 		goToWikiFromSpace(spaceName);
 		click(By.linkText(ParentTitle));
@@ -99,10 +99,10 @@ public class Wiki_Activity_Delete extends Permalink{
 		addBlankWikiPage(ChildTitle1, ChildContent1, 0);
 		info("Check the display of wiki activity");
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(ChildTitle1, ChildContent1, "1");
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_TITLE.replace("${title}",ChildTitle1));
 		
 		info("Create a sub wiki page 2 for space");
-		click(By.linkText(spaceName));
+		home.goToSpecificSpace(spaceName);
 		Utils.pause(2000);
 		goToWikiFromSpace(spaceName);
 		click(By.linkText(ParentTitle));
@@ -110,7 +110,7 @@ public class Wiki_Activity_Delete extends Permalink{
 		addBlankWikiPage(ChildTitle2, ChildContent2, 0);
 		info("Check the display of wiki activity");
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(ChildTitle2, ChildContent2, "1");
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_TITLE.replace("${title}",ChildTitle2));
 		
 		//Delete sub wiki page
 		info ("Delete sub wiki page");
@@ -187,8 +187,9 @@ public class Wiki_Activity_Delete extends Permalink{
 		- Move the mouse over the Wiki activity for space 
 		 *Input Data: 
 		 *Expected Outcome: A (X) icon is displayed in the top right panel of the activity		*/
+		info("Check the display of wiki activity");
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(title, newcontent, "2");
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_TITLE.replace("${title}",title));
 
 		/*
 		- Click on the (X) icon
@@ -240,8 +241,9 @@ public class Wiki_Activity_Delete extends Permalink{
 		editPageWithCheckPublicActivity(title, newcontent);
 		
 		info("Check homepage");
+		info("Check the display of wiki activity");
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(title, newcontent, "2");
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_TITLE.replace("${title}",title));
 
 
 		/*

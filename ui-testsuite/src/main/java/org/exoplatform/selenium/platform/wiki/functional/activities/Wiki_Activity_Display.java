@@ -83,8 +83,8 @@ public class Wiki_Activity_Display extends Permalink{
 		click(By.linkText(title));
 		editWikiPage(titleUpdate, contentUpdate, 0);
 		nav.goToHomePage();
-		home.checkActivityInfoOfWiki(titleUpdate, contentUpdate, "2");
-		waitForAndGetElement(home.ELEMENT_CONTENT_WIKI_VIEW_CHANGE);
+		waitForAndGetElement(home.ELEMENT_ACTIVITY_WIKI_TITLE.replace("${title}", titleUpdate));
+		waitForAndGetElement(home.ELEMENT_CONTENT_WIKI_VIEW_CHANGE.replace("$title",titleUpdate));
 
 		/*
 		- Click on the link "View changes"
@@ -92,8 +92,7 @@ public class Wiki_Activity_Display extends Permalink{
 		 *Expected Outcome: 
 		- The wiki application is opened in the view to compare Version N
 		- 1 and Version N		*/ 
-		click(home.ELEMENT_CONTENT_WIKI_VIEW_CHANGE);
-		waitForAndGetElement(ELEMENT_EDIT_COMPARE_CHANGE);
+		click(home.ELEMENT_CONTENT_WIKI_VIEW_CHANGE.replace("$title",titleUpdate));
 		waitForAndGetElement(ELEMENT_EDIT_COMPARE_VERSION.replace("${version}","Version 1"));
 		waitForAndGetElement(ELEMENT_EDIT_COMPARE_VERSION.replace("${version}","Current version"));
 

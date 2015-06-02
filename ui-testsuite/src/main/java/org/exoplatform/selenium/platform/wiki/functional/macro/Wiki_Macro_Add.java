@@ -54,7 +54,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 		String content = "";
 
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
 
@@ -75,9 +74,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains("{{/box}}");
 
 
-		//Save wiki page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 		Utils.pause(1000);
 
 		//Delete wiki page before exit test case
@@ -101,32 +98,27 @@ public class Wiki_Macro_Add extends ManageDraft{
 
 		//Data Test: Create Page1 > Page2 > Page3; Page1 > Page4
 		info("Add new wiki pages:");
-		goToAddBlankPage();
 		addWikiPageRichText(title1, content1);
 		typeEnterInRichText();
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 
-		goToAddBlankPage();
 		addWikiPageRichText(title2, content2);
 		typeEnterInRichText();
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 
-		goToAddBlankPage();
 		addWikiPageRichText(title3, content3);
 		typeEnterInRichText();
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 
 		goToWikiPage(title1);
-		goToAddBlankPage();
 		addWikiPageRichText(title4, content4);
 		typeEnterInRichText();
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 
 		//Insert Children macro in Page1
 		goToWikiPage(title1);
 		mouseOverAndClick(ELEMENT_EDIT_PAGE_LINK);
 		waitForElementNotPresent(ELEMENT_EDIT_PAGE_LINK);
-		addWikiPageRichText(title1, content1);
 		typeEnterInRichText();
 		info("Insert Children macro:");
 		createChildrenMacro(descendant);	
@@ -145,8 +137,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 
 
 		//Save wiki Page with Children macro
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 		waitForAndGetElement(ELEMENT_MACRO_CHILDREN.replace("${name}", title2));
 		waitForAndGetElement(ELEMENT_MACRO_CHILDREN.replace("${name}", title3));
 		waitForAndGetElement(ELEMENT_MACRO_CHILDREN.replace("${name}", title4));
@@ -169,7 +160,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 		String macro_content = "<html><head>Cool!</head></html>";
 
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
 
@@ -178,8 +168,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		createCodeMacro(language,macro_title,macro_content);
 
 		//Save wiki Page with Code macro
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 
 		//Check the availability of Code macro
 		waitForAndGetElement(ELEMENT_MACRO_TEXT.replace("${color}", "#8B008B;").replace("${text}", "<html><head>"));
@@ -202,7 +191,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 		String macro_content = "Test Excerpt macro.";
 
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
 
@@ -221,8 +209,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains("{{excerpt}}");
 
 		//Save wiki Page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 		waitForAndGetElement(ELEMENT_MACRO_CHECK_MESSAGE.replace("${message}", macro_content));
 
 		//Delete wiki page before exit test case
@@ -240,7 +227,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 		String macro_content = "This is Info Message macro.";
 
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
 
@@ -261,8 +247,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 
 
 		//Save wiki Page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 		waitForAndGetElement(ELEMENT_MACRO_CHECK_MESSAGE.replace("${message}", macro_content));	
 
 		//Delete wiki page before exit test case
@@ -274,7 +259,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 	 */
 	@Test	
 	public void test06_InsertTableOfContentMacro(){
-		String title = "Page 69780";
+		String title = "Page"+getRandomNumber();
 		String content = "=Heading1=</br>== Heading2 ==</br>=== Heading3 ===";
 
 		info("Add new wiki page at Rich Text mode:");
@@ -313,7 +298,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 		String macro_content = "This is Tip Message macro.";
 
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
 
@@ -332,8 +316,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(macro_content);		
 
 		//Save wiki Page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 		waitForAndGetElement(ELEMENT_MACRO_CHECK_MESSAGE.replace("${message}", macro_content));	
 
 
@@ -352,7 +335,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 		String macro_content = "This is Warning Message macro.";
 
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
 
@@ -371,8 +353,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(macro_content);		
 
 		//Save wiki Page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 		waitForAndGetElement(ELEMENT_MACRO_CHECK_MESSAGE.replace("${message}", macro_content));	
 
 		//Delete wiki page before exit test case
@@ -390,7 +371,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 		String macro_content = "This is Success Message macro.";
 
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
 
@@ -409,8 +389,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(macro_content);		
 
 		//Save wiki page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 		waitForAndGetElement(ELEMENT_MACRO_CHECK_MESSAGE.replace("${message}", macro_content));	
 
 		//Delete wiki page before exit test case
@@ -547,7 +526,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 	 */
 	@Test
 	public void test14_InsertMacroInMacro3(){
-		String title = "Page macro3 78591";
+		String title = "Page macro3"+getRandomNumber();
 		String text = "{{color name = 'red'}} This is tip message {{/color}}";
 		String content = "";
 		String box_content = "Box content";
@@ -556,7 +535,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 
 		//Add source macro in SourceEditor
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
 
@@ -567,11 +545,9 @@ public class Wiki_Macro_Add extends ManageDraft{
 		click(ELEMENT_SOURCE_EDITOR_BUTTON);
 		info(waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText());
 		info(sourceContent.replace("${title}", "\"" + box_title + "\""));
-		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(sourceContent.replace("${title}", "\"" + box_title + "\""));
 
 		//Save wiki page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 
 		//Check the availability of Code macro
 		waitForAndGetElement("//div[@class='box tipmessage']/span[contains(@style,'color:red;') and contains(text(),'This is tip message')]");
@@ -609,22 +585,18 @@ public class Wiki_Macro_Add extends ManageDraft{
 		String wiki = "true";
 		String content = "<table><tr><td>* listitem</td></tr></table>";
 		String cont = "";
-		String sourceContent = "{{html wiki=${wiki}}} <table><tr><td>* listitem</td></tr></table> {{/html}}";
 
 		//Add source macro in SourceEditor
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, cont);
 		typeEnterInRichText();
 
 		//Check the availability of Code macro
 		createHTMLMacro(clean, wiki, content);
 		click(ELEMENT_SOURCE_EDITOR_BUTTON);
-		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(sourceContent.replace("${wiki}", "\"true\""));
 		//Save wiki page
 
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 		waitForAndGetElement("//*[@id='UIViewContentDisplay']/table//tr/td[contains(text(),'listitem')]");
 
 		//Delete wiki page before exit test case
@@ -644,7 +616,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 
 		//Add source macro in SourceEditor
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, cont);
 		typeEnterInRichText();
 
@@ -654,8 +625,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(sourceContent.replace("${wiki}", "\"true\""));
 
 		//Save wiki page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 		waitForAndGetElement(By.linkText("1"));
 		waitForAndGetElement(ELEMENT_MACRO_FOOTNOTE.replace("${macro}", content));
 
@@ -724,7 +694,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 
 		//Add source macro in SourceEditor
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, cont);
 		typeEnterInRichText();
 
@@ -734,8 +703,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(sourceContent.replace("\\", ""));
 
 		//Save wiki page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 
 		//Check if count of RSS item is 2
 		waitForAndGetElement("//div[@class='box rssfeed']");
@@ -797,7 +765,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 		//Add source macro in SourceEditor
 		info("Add new wiki page at Rich Text mode:");
 		goToWiki();
-		goToAddBlankPage();
 		addWikiPageRichText(title, cont);
 		typeEnterInRichText();
 
@@ -809,8 +776,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		info("-- Check in Source editor --");
 		click(ELEMENT_SOURCE_EDITOR_BUTTON);
 		waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(content_source);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 
 		//Check the availability of Code macro
 		waitForAndGetElement(ELEMENT_MACRO_CHART.replace("${title}", title));
@@ -830,7 +796,6 @@ public class Wiki_Macro_Add extends ManageDraft{
 
 		//Add new Rich Editor Wiki page
 		info("Add new wiki page at Rich Text mode:");
-		goToAddBlankPage();
 		addWikiPageRichText(title, content);
 		typeEnterInRichText();
 
@@ -840,8 +805,7 @@ public class Wiki_Macro_Add extends ManageDraft{
 		assert waitForAndGetElement(ELEMENT_CONTENT_WIKI_INPUT).getText().contains(source_content.replace("\\", ""));
 
 		//Save wiki page
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 
 		//Delete wiki page before exit test case
 		deleteCurrentWikiPage();

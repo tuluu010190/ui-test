@@ -43,9 +43,9 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 	 */
 	@Test
 	public void test01_CheckNotificationEmail_WhenAddNewChildPage(){
-		String title = "Parent page 78298" + getRandomNumber();
+		String title = "Parent page" + getRandomNumber();
 		String content = "content of parent page";
-		String childTitle = "Child page 78298" + getRandomNumber();
+		String childTitle = "Child page" + getRandomNumber();
 		String childContent = "content of child page";
 		nav.goToMyProfile();
 		info("edit profile");
@@ -64,11 +64,13 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 		String handlesBefore = driver.getWindowHandle();
 		goToMail(EMAIL_ADDRESS1,EMAIL_PASS);
 		Utils.pause(300000);
-		waitForElementNotPresent(By.xpath(mail.replace("${title}", title)));
-		info("Wait sucess");
+		checkEmailNotification(title,By.xpath(mail.replace("${title}", title)),false);
+		
+		//waitForElementNotPresent(By.xpath(mail.replace("${title}", title)));
+		//info("Wait sucess");
 		
 		driver.switchTo().window(handlesBefore);
-		info("switch sucess");
+		info("Delete data");
 		click(By.linkText(title));
 		deleteCurrentWikiPage();
 	}
@@ -81,28 +83,31 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 	 */
 	@Test
 	public void test02_CheckNotificationEmail_WhenWatchUnwatchPage(){
-		String title = "Page 78299" + getRandomNumber();
-		String content = "page 78299 content";
-		String newTitle = "Page 78299 update 1" + getRandomNumber();
-		String newContent = "Page 78299 content update 1";
-		String newTitle2 = "Page 78299 update 2";
-		String newContent2 = "Page 78299 content update 2" + getRandomNumber();
-		String newTitle3 = "Page 78299 update 3";
-		String newContent3 = "Page 78299 content update 3" + getRandomNumber();
+		String title = "Page" + getRandomNumber();
+		String content = "content"+getRandomNumber();
+		String newTitle = "Page update" + getRandomNumber();
+		String newContent = "content update"+getRandomNumber();
+		String newTitle2 = "Page update" + getRandomNumber();
+		String newContent2 = "content update"+getRandomNumber();
+		String newTitle3 = "Page update" + getRandomNumber();
+		String newContent3 = "content update"+getRandomNumber();
 		nav.goToMyProfile();
 		info("edit profile");
 		click(pepPro.ELEMENT_EDIT_MY_PROFILE_LINK);
 		info("edit info");
 		pepPro.updateBasicInformation(null, null, "exomailtest01@gmail.com");
 		pepPro.saveCancelUpdateInfo(true);
-		
+		info("Open Wiki portlet");
 		goToWiki();
 		addBlankWikiPage(title, content, 0);	
+		info("Watch the page");
 		watchWikiPage();
 		editPageWithCheckPublicActivity(newTitle, newContent);
 		String handlesBefore = driver.getWindowHandle();
 		goToMail(EMAIL_ADDRESS1,EMAIL_PASS);
-		checkAndDeleteMail(By.xpath(mail.replace("${title}", newTitle)), newContent);
+		Utils.pause(300000);
+		checkEmailNotification(title,By.xpath(mail.replace("${title}", newTitle)),true);
+		//checkAndDeleteMail(By.xpath(mail.replace("${title}", newTitle)), newContent);
 		String handlesAfter = driver.getWindowHandle();
 		
 		info("Edit page and not select publish activity -> there is not notification mail");
@@ -110,7 +115,8 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 		editWikiPage(newTitle2, newContent2, 0);
 		driver.switchTo().window(handlesAfter);
 		Utils.pause(300000);
-		waitForElementNotPresent(By.xpath(mail.replace("${title}", newTitle2)));
+		checkEmailNotification(title,By.xpath(mail.replace("${title}", newTitle2)),false);
+		//waitForElementNotPresent(By.xpath(mail.replace("${title}", newTitle2)));
 		
 		info("Unwatch page then edit having select publish activity -> there is not notification mail");
 		driver.switchTo().window(handlesBefore);
@@ -118,7 +124,8 @@ public class Wiki_BasicAction_Watch_Unwatch extends BasicAction {
 		editPageWithCheckPublicActivity(newTitle3, newContent3);
 		driver.switchTo().window(handlesAfter);
 		Utils.pause(300000);
-		waitForElementNotPresent(By.xpath(mail.replace("${title}", newTitle3)));
+		checkEmailNotification(title,By.xpath(mail.replace("${title}", newTitle3)),false);
+		//waitForElementNotPresent(By.xpath(mail.replace("${title}", newTitle3)));
 		
 		driver.switchTo().window(handlesBefore);
 		deleteCurrentWikiPage();

@@ -62,7 +62,6 @@ public class Wiki_Macro_Othercheck extends ManageDraft{
 		//Add Jira macro in SourceEditor; Can not add from RichTextMode
 		info("Add new wiki page at Rich Text mode:");
 		goToWiki();
-		goToAddBlankPage();
 		addWikiPageRichText(title, cont);
 		typeEnterInRichText();
 
@@ -96,8 +95,7 @@ public class Wiki_Macro_Othercheck extends ManageDraft{
 		switchToParentWindow();
 
 		//Save wiki Page with Code macro
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);	
+		savePage();
 
 		//Delete wiki page before exit test case
 		deleteCurrentWikiPage();

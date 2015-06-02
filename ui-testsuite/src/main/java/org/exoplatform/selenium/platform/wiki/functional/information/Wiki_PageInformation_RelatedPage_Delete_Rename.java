@@ -69,8 +69,8 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 	@Test
 	public  void test01_RenamingAPageFromAnotherSpaceShouldCorrectlyBeUpdatedInPageInfoLayoutOfARelatedPage() {
 		info("Test 1: Renaming a page from another space should correctly be updated in Page Info Layout of a related page");
-		String space1 = "Space01118194";		
-		String space2 = "Space02118194";
+		String space1 = "Space"+getRandomNumber();		
+		String space2 = "Space"+getRandomNumber();	
 		String title1 = "Page 1";
 		String title2 = "Page A";
 		String title3 = "Page B";
@@ -81,6 +81,7 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 		info("Create all space and page");
 		mMember.goToAllSpaces();
 		mMember.addNewSpace(space2, "");
+		mMember.accessSpace(space2);
 		mMember.goToSpaceMenu("Wiki");
 		addBlankWikiPage(title2, title2, 0);
 		Utils.pause(1000);
@@ -90,11 +91,15 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 
 		mMember.goToAllSpaces();
 		mMember.addNewSpace(space1, "");
+		mMember.accessSpace(space1);
 		mMember.goToSpaceMenu("Wiki");
 		addBlankWikiPage(title1, title1, 0);
 		Utils.pause(1000);
 
 		info("Add Relations of page1");
+		mMember.accessSpace(space1);
+		mMember.goToSpaceMenu("Wiki");
+		click(By.linkText(title1));
 		addRelatedPage(wikiPath, title2, space2, true);
 		Utils.pause(500);
 
@@ -164,8 +169,8 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 	@Test
 	public  void test02_RenamingASpaceShouldBeCorrectlyUpdatedInPageInfoLayoutOfARelatedPage() {
 		info("Test 2: Renaming a Space should be correctly updated in Page Info Layout of a related page");
-		String space1 = "Space99194A";
-		String space2 = "Space99194B";
+		String space1 = "Space"+getRandomNumber();		
+		String space2 = "Space"+getRandomNumber();		
 		String title1 = "Page 1";
 		String title2 = "Page A";
 		String wikiPath = "Wiki Home";
@@ -175,17 +180,22 @@ public class Wiki_PageInformation_RelatedPage_Delete_Rename extends BasicAction{
 		info("Create all space and page");
 		mMember.goToAllSpaces();
 		mMember.addNewSpace(space2, "");
+		mMember.accessSpace(space2);
 		mMember.goToSpaceMenu("Wiki");
 		addBlankWikiPage(title2, title2, 0);
 		Utils.pause(1000);
 
 		mMember.goToAllSpaces();
 		mMember.addNewSpace(space1, "");
+		mMember.accessSpace(space1);
 		mMember.goToSpaceMenu("Wiki");
 		addBlankWikiPage(title1, title1, 0);
 		Utils.pause(1000);
 
 		info("Add Relations of page1");
+		mMember.accessSpace(space1);
+		mMember.goToSpaceMenu("Wiki");
+		click(By.linkText(title1));
 		addRelatedPage(wikiPath, title2, space2, true);
 		Utils.pause(500);
 

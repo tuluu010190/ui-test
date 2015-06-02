@@ -210,9 +210,9 @@ public class Wiki_BasicAction_MoveAPage extends ManageDraft {
 	@Test
 	public  void test05_PagesAttachmentsShouldBeMoveWithThePage() {
 
-		String PAGE_NAME1 = "pagetomove79568";
-		String spacemove = "movespace79568";
-		String spacedest = "destspace79568";
+		String PAGE_NAME1 = "pagetomove"+getRandomNumber();
+		String spacemove = "movespace"+getRandomNumber();
+		String spacedest = "destspace"+getRandomNumber();
 		String fileImage1 = "landscape08.jpg";
 		String fileImage2 = "portrait08.jpg";
 		
@@ -221,11 +221,9 @@ public class Wiki_BasicAction_MoveAPage extends ManageDraft {
 
 		spaceMag.goToMySpacePage();
 		spaceMag.addNewSpace(spacemove, "");
-		waitForAndGetElement(By.linkText(spacemove));
+		spaceMag.goToSpaceFromMySpaceNavigation(spacemove);
 		goToWikiFromSpace(spacemove);
 		info("Create Page with attachments (with two images in its content)");
-		goToAddBlankPage();
-		Utils.pause(500);
 		addWikiPageRichText(PAGE_NAME1, PAGE_NAME1);
 		Utils.pause(1000);
 	 	info("Insert image1");
@@ -233,7 +231,7 @@ public class Wiki_BasicAction_MoveAPage extends ManageDraft {
 		Utils.pause(1000);
 		info("Insert image2");
 		insertAttachNewFile(fileImage2, "", "",true);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 		Utils.pause(500);
 		
 		info("Move page");
@@ -270,8 +268,8 @@ public class Wiki_BasicAction_MoveAPage extends ManageDraft {
 	 */
 	@Test
 	public  void test06_PagesSubpagesAndAttachmentsShouldBeMovedWithThePage() {
-		String spaceMove = "SpaceMove79569";
-		String spaceDest = "SpaceDestination79569";
+		String spaceMove = "SpaceMove"+getRandomNumber();
+		String spaceDest = "SpaceDestination"+getRandomNumber();
 		String title1 = "Page A";
 		String title2 = "Page B";
 		String title3 = "Page with Sub-Pages";
@@ -291,14 +289,13 @@ public class Wiki_BasicAction_MoveAPage extends ManageDraft {
 		spaceMag.addNewSpace(spaceDest, "");
 		goToWikiFromSpace(spaceDest);
 		info("Create Page with attachments (with two images in its content)");
-		goToAddBlankPage();
 		Utils.pause(500);
 		addWikiPageRichText(title4, "");
 		insertImageFile(fileImage41,false);
 		Utils.pause(1000);
 		info("Insert image2");
 		insertAttachNewFile(fileImage42, "", "",true);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 		Utils.pause(500);
 		
 		spaceMag.goToMySpacePage();
@@ -314,29 +311,25 @@ public class Wiki_BasicAction_MoveAPage extends ManageDraft {
 		addBlankWikiPage(title3, title3, 0);
 		
 		info("Add Sub-Page with attachments 1 (two images in its content)");
-		goToAddBlankPage();
 		Utils.pause(500);
 		addWikiPageRichText(subpage1, "");
 		insertImageFile(fileImage1,true);
 		Utils.pause(1000);
 		info("Insert image2");
 		insertAttachNewFile(fileImage2, "", "",true);
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
+		savePage();
 		Utils.pause(500);	
 		waitForAndGetElement(By.linkText(subpage1));
 		
 		info("Add Sub-Page with attachments 2 (two files as attachments)");
 		click(By.linkText(title3));
-		goToAddBlankPage();
 		addWikiPageRichText(subpage2, "");
 		insertAttachNewFile(linkAttach1, "", "", true);
 		waitForAndGetElement(ELEMENT_CONTENT_WIKI_FRAME).sendKeys(Keys.chord(Keys.CONTROL, Keys.END));
 		waitForAndGetElement(ELEMENT_CONTENT_WIKI_FRAME).sendKeys(Keys.RETURN);
 		insertAttachNewFile(linkAttach2, "", "", true);
+		savePage();
 		Utils.pause(500);
-		info("-- Saving Wiki Page... --");
-		click(ELEMENT_SAVE_BUTTON_ADD_PAGE);
-		waitForElementNotPresent(ELEMENT_SAVE_BUTTON_ADD_PAGE);
 		waitForAndGetElement(By.linkText(subpage2));
 		
 		click(By.linkText(title3));

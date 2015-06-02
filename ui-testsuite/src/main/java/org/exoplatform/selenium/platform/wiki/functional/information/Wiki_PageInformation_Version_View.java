@@ -195,6 +195,7 @@ public class Wiki_PageInformation_Version_View extends Version{
 		Utils.captureScreen("FNC_KS_WIKI_VERSION_VIEW_CHANGE_01_2");
 		viewPageHistory();
 		waitForAndGetElement(ELEMENT_RESTORE_LINK.replace("{$version}","2"));
+		
 		goToWikiPage(dataInfo[4]);
 		deleteCurrentWikiPage();
 	}

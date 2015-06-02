@@ -24,7 +24,7 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
 	public final String ELEMENT_ACTIVITY_DELETE = "//*[contains(text(),'${activityText}')]/../../../../..//a[contains(@id, 'DeleteActivityButton')]";
 	public final By ELEMENT_LOADMORE = By.xpath("//div[@class='boxLoadMore']");
-	
+	public final String ELEMENT_SPECIFIC_PANEL = "//*[@id='UISpaceNavigationPortlet']//*[contains(text(),'{$space}')]";
 	
 	// Composer
 	public final By ELEMENT_COMPOSER_INPUT_FILED = By.xpath(".//*[@id='DisplaycomposerInput']");
@@ -124,7 +124,7 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_CONTENT_COMMENT_USER_JOIN_SPACE="//div[@class='author']/a[contains(text(), '${spacename}')]//ancestor::div[contains(@id,'ContextBox')]/div[contains(@id,'CommentBlockBound')]//div[@class='author']/a[text()='${username}']/../../p[contains(text(),'Has joined the space')]";
 	public final String ELEMENT_CONTENT_COMMENT_USER_CHANGE_AVATAR="//div[@class='author']/a[contains(text(), '${username}')]//ancestor::div[contains(@id,'ContextBox')]/div[contains(@id,'CommentBlockBound')]//div[@class='author']/a[text()='${username}']/../../p[contains(text(),'Avatar has been updated.')]";
 	public final String ELEMENT_CONTENT_COMMENT_USER_EDIT_BASIC_INFO="//div[@class='author']/a[contains(text(), '${username}')]//ancestor::div[contains(@id,'ContextBox')]/div[contains(@id,'CommentBlockBound')]//div[@class='author']/a[text()='${username}']/../../p[contains(text(),'Basic information has been updated.')]";
-	public final By ELEMENT_CONTENT_WIKI_VIEW_CHANGE = By.xpath("//*[@class='uiIconViewChange uiIconLightGray']");
+	
 
 	//File activity
 	public final String ELEMENT_FILE_SIZE = "//a[@data-original-title='@{fileName}']/..//*[@class='versionFile' and contains(text(), '${size}')]";
@@ -160,9 +160,12 @@ public class HomePageActivity extends PlatformBase{
 	public final String ELEMENT_WIKI_COMMENT_EDIT_CONTENT = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'content has been edited')]";
 	public final String ELEMENT_ACTIVITY_WIKI_TITLE = "//*[@class='linkTitle' and text()='${title}']";
 	public final String ELEMENT_ACTIVITY_WIKI_CONTENT = "//*[@class='linkTitle' and text()='${title}']/../../..//*[@class='contentWiki theContent']/*[@class='text']";
+	public final String ELEMENT_ACTIVITY_WIKI_CONTENT_TEXT="//*[@class='linkTitle' and text()='$title']/../../..//*[contains(text(),'$content')]";
 	public final String ELEMENT_ACTIVITY_WIKI_VERSION = "//*[@class='linkTitle' and text()='${title}']/../..//*[@class = 'pull-right versionLabel' and contains(text(), 'Version: ${version}')]";
 	public final String ELEMENT_ACTIVITY_MOVE_WIKI_PAGE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'Page has been moved to: ${path}')]";
-
+    public final String ELEMENT_ACTIVITY_WIKI_COMMENT=".//*[contains(@class,'linkTitle')][contains(text(),'$title')]/../../../..//*[contains(text(),\"$comment\")]";
+    public final String ELEMENT_CONTENT_WIKI_VIEW_CHANGE ="//*[@class='linkTitle' and text()='$title']/../../../..//*[@class='uiIconViewChange uiIconLightGray']";
+    
 	//Answer activity
 	public final String ELEMENT_QUESTION_CONTENT = "//a[text()='${title}']/../../..//div[@class='contentAnswer theContent']//p";
 	public final String ELEMENT_QUESTION_NUM_ANSWER = "//a[contains(text(),'${title}')]/../../../..//div[@class='contentAnswer theContent']//span[contains(text(),'${number} Answer')]";
@@ -1242,5 +1245,15 @@ public class HomePageActivity extends PlatformBase{
 		click(ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE_BTN);
 		Utils.pause(2000);
 		info("Upload finished");
+	}
+	
+	
+	 /**
+    * Go to a space
+    * @param space
+    */
+	public void goToSpecificSpace(String space){
+		info("Go to space "+space);
+		click(By.xpath(ELEMENT_SPECIFIC_PANEL.replace("{$space}",space)));
 	}
 }

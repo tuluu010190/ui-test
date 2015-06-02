@@ -238,7 +238,7 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 	@Test
 	public  void test07_DeleteImage() {
 		info("Test 5: Delete image");
-		String title = "Case 71244";
+		String title = "Case"+getRandomNumber();
 		String file = "Wiki_Sniff_Attachment_01.jpg";
 
 		/*
@@ -250,10 +250,10 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 		 *Expected Outcome: 
 		- Image is removed successfully		*/ 
 		goToWiki();
-		goToAddBlankPage();
 		Utils.pause(500);
 		addWikiPageRichText(title, "");
 		insertImageFile(file);
+		//savePage();
 		Utils.pause(500);
 		info("Remove attach image");
 		mouseOverAndClick(ELEMENT_IMAGE_LINK);
@@ -278,7 +278,7 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 	public  void test08_RemoveAttachedFile() {
 		info("Test 6: Remove attached file");
 		String file = "Wiki_Sniff_Attachment_01.doc";
-		String title = "Case 71245";
+		String title = "Case"+getRandomNumber();
 
 		/*
 		- Select a page have attach file
@@ -290,7 +290,6 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 		- Link remove successful in page		*/ 
 		goToWiki();
 		Utils.pause(500);
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertAttachNewFile(file,"","",true);
 		Utils.pause(500);
@@ -314,7 +313,7 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 	@Test
 	public  void test09_RemoveEmailAddress() {
 		info("Test 7: Remove email address");
-		String title = "Case 71246";
+		String title = "Case"+getRandomNumber();
 		String email = "test01@exoplatform.com";
 		String label = "EmailAddress";
 		String tooltip = "Email Address link";
@@ -327,7 +326,6 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 		 *Input Data: 
 		 *Expected Outcome: Link is removed successfully in page		*/ 
 		goToWiki();
-		goToAddBlankPage();
 
 		addWikiPageRichText(title, "");
 		insertEmailLink2WikiPage(email, label, tooltip);
@@ -370,7 +368,6 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 		 *Expected Outcome: 
 		- Web page link is removed successfully		*/
 		goToWiki();
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertwebpageLink2WikiPage(webpage, label, tooltip);
 		Utils.pause(500);
@@ -413,7 +410,6 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 		goToWiki();
 		addBlankWikiPage(pageLink, content, 0);
 		Utils.pause(500);
-		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertPageLink2WikiPage(true, pageLink, "Link to pageLink", "Go to pageLink");
 		Utils.pause(500);
@@ -428,9 +424,5 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 		Utils.pause(500);
 		mouseOverAndClick(ELEMENT_LINK);
 		waitForElementNotPresent(ELEMENT_REMOVE_LINK);
-
-		//Delete data test
-		click(By.linkText(pageLink));
-		deleteCurrentWikiPage();
 	}
 }
