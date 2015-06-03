@@ -34,7 +34,6 @@ public class PLF_HomePageGadget_InvitationGadget extends Activity{
 
 	@BeforeMethod
 	public void setUpBeforeTest(){
-//		getDriverAutoSave();
 		initSeleniumTest();
 		acc = new ManageAccount(driver);
 		evt = new Event(driver);

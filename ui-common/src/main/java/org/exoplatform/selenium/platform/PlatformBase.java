@@ -32,9 +32,12 @@ public class PlatformBase extends TestBase {
 
 	public final String USER_ROOT = "root";
 	public final String PASS_ROOT = "gtngtn";
+
 	public final String DATA_USER3 = "james";
 	public final String DATA_USER4 = "demo";
-	//	public final String DATA_PASS = "gtngtn";
+	
+	public final String DATA_USER5 = "fqa";
+	public final String DATA_PASS5 = "gtngtn";
 
 	public ManageAlert alert = new ManageAlert(driver);
 	public Button button = new Button(driver);

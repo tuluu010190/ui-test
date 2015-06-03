@@ -134,16 +134,11 @@ public class HomePageGadget extends PlatformBase{
 	 */
 	public void acceptInvitationGadget(String peopleName) {
 		info("-- Accept an invitation --");
-		String elementAccept = "";
-		if(this.plfVersion.equalsIgnoreCase("4.0"))
-			elementAccept = ELEMENT_SHOW_ACCEPTS_BUTTON;
-		else
-			elementAccept = ELEMENT_INVITATION_GADGET_USER_ACCEPT_41;
-		mouseOver(elementAccept.replace("${peopleName}", peopleName),true);
-		WebElement element = waitForAndGetElement(elementAccept.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT,1,2);
+		mouseOver(ELEMENT_INVITATION_GADGET_USER_ACCEPT_41.replace("${peopleName}", peopleName),true);
+		WebElement element = waitForAndGetElement(ELEMENT_INVITATION_GADGET_USER_ACCEPT_41.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", element);
 		//click(SHOW_ACCETPS_BUTTON.replace("${peopleName}", peopleName));
-		waitForElementNotPresent(elementAccept.replace("${peopleName}", peopleName));
+		waitForElementNotPresent(ELEMENT_INVITATION_GADGET_USER_ACCEPT_41.replace("${peopleName}", peopleName));
 		//waitForAndGetElement(REMOVE_INVITATION_BUTTON.replace("${peopleName}", peopleName));
 	}
 
@@ -273,7 +268,7 @@ public class HomePageGadget extends PlatformBase{
 		waitForAndGetElement(ELEMENT_WHOISONLINE_GADGET);
 
 		mouseOver(ELEMENT_ONLINE_USER_AVATAR.replace("${acc}",userName),true);
-
+        Utils.pause(2000);
 		info("Confirm user avatar");
 
 		waitForAndGetElement(ELEMENT_ONLINE_USER_ACC_IMG.replace("${acc}",userName), DEFAULT_TIMEOUT,1,2);
