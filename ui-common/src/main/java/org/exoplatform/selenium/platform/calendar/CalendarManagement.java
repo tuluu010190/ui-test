@@ -175,7 +175,9 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_SHARE_ADD_BUTTON = By.xpath("//form[@id='UISharedForm']//*[text()='Add']");
 	public By ELEMENT_CALENDAR_SHARE_SAVE_BUTTON = By.xpath("//form[@id='UISharedForm']//*[text()='Save']");
 	public String ELEMENT_DELETE_SHARE_USER = "//*[@id='UISharedForm']//*[contains(text(),'{$user}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
-
+    public By ELEMENT_CALENDAR_SHARE_PERMISSION_WARINING_POPUP=By.xpath(".//*[contains(@class,'warningIcon')]");
+    public By ELEMENT_CALENDAR_SHARE_PEMISSION_OK_BTN_WARNING_POPUP=By.xpath(".//*[contains(@class,'warningIcon')]/../../..//*[contains(@class,'btn')]");
+	
 	//Remove calendar
 	public final By ELEMENT_YES_BUTTON = By.xpath("//*[contains(@class, 'popup')]//*[contains(text(),'Yes')]");
 	public final String ELEMENT_CONFIRM_REMOVE_CALENDAR_MSG="Are you sure you want to delete this calendar and all its events?";
@@ -536,28 +538,34 @@ public class CalendarManagement extends PlatformBase{
 	public void shareCalendar(String calendar, String[] userGroup, boolean[] canEdit, int...mode){
 		info("Share calendar");
 		executeActionCalendar(calendar, menuOfCalendarOption.SHARE);
-		for(int i = 0; i < userGroup.length; i++){
-			int modeUser = mode.length > i ? mode[i] : 0;
-			switch (modeUser){
-			case 0: 
-				info("userGroup[i]"+userGroup[i]);
-				type(ELEMENT_CALENDAR_SHARE_INPUT,userGroup[i],true);
-				break;
-			case 1:
-				click(ELEMENT_CALENDAR_SELECT_USER_ICON); 
-				pPer.selectUserPermission(userGroup[i],1); break;
-			case 2: 
-				String[] group = userGroup[i].split(":");
-				click(ELEMENT_CALENDAR_SELECT_GROUP_ICON);
-				pPer.selectGroupPermission(group[0]); break;
-			case 3: 
-				String[] groupMem = userGroup[i].split(":");
-				String[] membership = groupMem[1].split(".");
-				click(ELEMENT_CALENDAR_SELECT_MEMBERSHIP_ICON);
-				pPer.selectGroupMembership(groupMem[0],membership[1]); break;
+		if (userGroup.length>0 && !userGroup[0].isEmpty()) {
+			for (int i = 0; i < userGroup.length; i++) {
+				int modeUser = mode.length > i ? mode[i] : 0;
+				switch (modeUser) {
+				case 0:
+					info("userGroup[i]" + userGroup[i]);
+					type(ELEMENT_CALENDAR_SHARE_INPUT, userGroup[i], true);
+					break;
+				case 1:
+					click(ELEMENT_CALENDAR_SELECT_USER_ICON);
+					pPer.selectUserPermission(userGroup[i], 1);
+					break;
+				case 2:
+					String[] group = userGroup[i].split(":");
+					click(ELEMENT_CALENDAR_SELECT_GROUP_ICON);
+					pPer.selectGroupPermission(group[0]);
+					break;
+				case 3:
+					String[] groupMem = userGroup[i].split(":");
+					String[] membership = groupMem[1].split(".");
+					click(ELEMENT_CALENDAR_SELECT_MEMBERSHIP_ICON);
+					pPer.selectGroupMembership(groupMem[0], membership[1]);
+					break;
+				}
 			}
+			click(ELEMENT_CALENDAR_SHARE_ADD_BUTTON);
 		}
-		click(ELEMENT_CALENDAR_SHARE_ADD_BUTTON);
+		
 		for(int j=0; j < canEdit.length; j++){
 			if(canEdit[j]==true){
 				check(ELEMENT_CALENDAR_SHARE_EDIT_PERMISSION.replace("${user}", userGroup[j]),2);
@@ -640,6 +648,21 @@ public class CalendarManagement extends PlatformBase{
 		button.ok();
 	}
 
+	/**
+	 * Import event/task to an calendar
+	 * @param calendar
+	 *         name of calendar will be imported
+	 * @param path
+	 *         path of a file which is for upload
+	 */      
+	public void importTaskEvent(String calendar,String path){
+		executeActionCalendar(calendar, menuOfCalendarOption.IMPORT);
+		uploadCalendar(path);
+		click(ELEMENT_CALENDAR_IMPORT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_CALENDAR_IMPORT_POPUP_FORM);
+		this.driver.navigate().refresh();
+	}
+
 
 	/**
 	 * Export calendar
@@ -652,6 +675,22 @@ public class CalendarManagement extends PlatformBase{
 	public void exportCalendar(String calendar, String name){
 		info("Export calendar");
 		executeActionCalendar(calendar, menuOfCalendarOption.EXPORT);
+		waitForAndGetElement(ELEMENT_CALENDAR_EXPORT_POPUP_FORM);
+		type(ELEMENT_CALENDAR_EXPORT_FILE_NAME,name,true);
+		click(ELEMENT_CALENDAR_EXPORT_SAVE_BUTTON);
+		waitForElementNotPresent(ELEMENT_CALENDAR_EXPORT_POPUP_FORM);
+	}
+	/**
+	 * Export Task/Event
+	 * @param taskEvent
+	 *                name of task or event
+	 * @param name
+	 *                filenam of exported task/event
+	 */
+	public void exportTaskEvent(String taskEvent, String name){
+		info("Export calendar");
+		rightClickOnElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",taskEvent));
+		selectOptionByRightclickOnEvent(contextMenuEditEvenOption.EXPORT);
 		waitForAndGetElement(ELEMENT_CALENDAR_EXPORT_POPUP_FORM);
 		type(ELEMENT_CALENDAR_EXPORT_FILE_NAME,name,true);
 		click(ELEMENT_CALENDAR_EXPORT_SAVE_BUTTON);
