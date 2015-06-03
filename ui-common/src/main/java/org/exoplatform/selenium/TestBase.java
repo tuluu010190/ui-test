@@ -1949,6 +1949,55 @@ public class TestBase {
 		robot.keyPress(KeyEvent.VK_ENTER);
 		robot.keyRelease(KeyEvent.VK_ENTER);
 	}
+	
+	/**
+	 * Download file using Robot class via URL download link
+	 * @param element
+	 * @throws AWTException
+	 * @throws InterruptedException
+	 */
+	public void downloadFileUsingRobotViaURL() throws AWTException, InterruptedException {
+		info("Upload file using Robot");
+		Robot robot = new Robot();
+
+		//simulate pressing enter           
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+
+		// Wait for the download manager to open           
+		Utils.pause(2000);
+		// Switch to download manager tray via Alt+N
+		robot.keyPress(KeyEvent.VK_ALT);
+		robot.keyPress(KeyEvent.VK_N);
+		robot.keyRelease(KeyEvent.VK_N);
+		robot.keyRelease(KeyEvent.VK_ALT);
+
+		// Press S key to save           
+		robot.keyPress(KeyEvent.VK_S);
+		robot.keyRelease(KeyEvent.VK_S);
+		Thread.sleep(2000);
+
+		// Switch back to download manager tray via Alt+N
+		robot.keyPress(KeyEvent.VK_ALT);
+		robot.keyPress(KeyEvent.VK_N);
+		robot.keyRelease(KeyEvent.VK_N);
+		robot.keyRelease(KeyEvent.VK_ALT);
+
+		// Tab to X exit key
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_TAB);
+
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_TAB);
+
+		robot.keyPress(KeyEvent.VK_TAB);
+		robot.keyRelease(KeyEvent.VK_TAB);
+
+		// Press Enter to close the Download Manager
+		robot.keyPress(KeyEvent.VK_ENTER);
+		robot.keyRelease(KeyEvent.VK_ENTER);
+	}
+
 
 	/**
 	 * setClipboardData

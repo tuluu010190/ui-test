@@ -118,13 +118,22 @@ public class CalendarManagement extends PlatformBase{
 	public String ELEMENT_CALENDAR_GROUP_ITEM = "//*[@id='UICalendarChildPopupWindow']//*[@data-original-title='$group']";
 	public By ELEMENT_CALENDAR_ADD_GROUP_BUTTON = By.xpath("//*[@class='addGroup']//*[text()='Add']");
 	public By ELEMENT_CALENDAR_ADD_SAVE_BUTTON = By.xpath("//*[@id='UICalendarForm']//*[text()='Save']");
+	public By ELEMENT_CALENDAR_ADD_CANCEL_BUTTON = By.xpath("//*[@id='UICalendarForm']//*[text()='Cancel']");
 	public String ELEMENT_CALENDAR_COLOR_SELECT = "//*[@id='UICalendarForm']//a[contains(@class,'${color}')]";
-
+	
+	//Edit calendar form
+	public By ELEMENT_CALENDAR_EDIT_ENABLE_PUBLIC_LINK = By.xpath(".//*[@id='calendarDetail']//*[contains(text(),'Enable Public Access')]");
+	public By ELEMENT_CALENDAR_EDIT_DISNABLE_PUBLIC_LINK = By.xpath(".//*[@id='calendarDetail']//*[contains(text(),'Disable Public Access')]");
+	public By ELEMENT_CALENDAR_EDIT_PUBLIC_LINK_BTN=By.xpath(".//*[@id='calendarDetail']//*[contains(@title,'Open')]//*[contains(@class,'uiIconCalICal')]");
+	public By ELEMENT_CALENDAR_EDIT_FEED_LINK=By.xpath(".//*[@id='UIFeed']//*[contains(@class,'feedLink')]");
+	public By ELEMENT_CALENDAR_EDIT_FEED_CLOSED_BTN=By.xpath(".//*[@id='UIFeed']//button");
+	
 	//Calendar list
 	public String ELEMENT_SHARED_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Shared Calendars']/..//*[text()='$calendar']";
 	public String ELEMENT_GROUP_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Group Calendars']/..//*[text()='$calendar']";
 	public String ELEMENT_PERSONAL_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Personal Calendars']/..//*[text()='$calendar']";
 	public String ELEMENT_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='$calendar']";
+	public String ELEMENT_CALENDAR_LIST_ITEM_COLOR="//*[@id='UICalendars']//*[text()='$calendar']/..//*[contains(@class,'$color')]";
 	public String ELEMENT_CALENDAR_LIST_UNCHECKED=".//*[contains(@data-original-title,'$calendar')]/..//*[contains(@class,'iconUnCheckBox')]";
 	public String ELEMENT_CALENDAR_LIST_CHECKED=".//*[contains(@data-original-title,'$calendar')]/..//*[contains(@class,'iconCheckBox')]";
 	
@@ -175,8 +184,8 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_SHARE_ADD_BUTTON = By.xpath("//form[@id='UISharedForm']//*[text()='Add']");
 	public By ELEMENT_CALENDAR_SHARE_SAVE_BUTTON = By.xpath("//form[@id='UISharedForm']//*[text()='Save']");
 	public String ELEMENT_DELETE_SHARE_USER = "//*[@id='UISharedForm']//*[contains(text(),'{$user}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
-    public By ELEMENT_CALENDAR_SHARE_PERMISSION_WARINING_POPUP=By.xpath(".//*[contains(@class,'warningIcon')]");
-    public By ELEMENT_CALENDAR_SHARE_PEMISSION_OK_BTN_WARNING_POPUP=By.xpath(".//*[contains(@class,'warningIcon')]/../../..//*[contains(@class,'btn')]");
+    public By ELEMENT_CALENDAR_WARINING_POPUP=By.xpath(".//*[contains(@class,'warningIcon')]");
+    public By ELEMENT_CALENDAR_OK_BTN_WARNING_POPUP=By.xpath(".//*[contains(@class,'warningIcon')]/../../..//*[contains(@class,'btn')]");
 	
 	//Remove calendar
 	public final By ELEMENT_YES_BUTTON = By.xpath("//*[contains(@class, 'popup')]//*[contains(text(),'Yes')]");
@@ -404,7 +413,15 @@ public class CalendarManagement extends PlatformBase{
 	public void saveAddCalendar(){
 		info("Save add calendar");
 		click(ELEMENT_CALENDAR_ADD_SAVE_BUTTON);
-		waitForElementNotPresent(ELEMENT_CALENDAR_ADD_FORM);
+		Utils.pause(2000);
+	}
+	/**
+	 * Cancel add calendar
+	 */
+	public void cancelAddCalendar(){
+		info("Click on Cancel button");
+		click(ELEMENT_CALENDAR_ADD_CANCEL_BUTTON);
+		Utils.pause(2000);
 	}
 
 	/** 
@@ -1148,5 +1165,37 @@ public class CalendarManagement extends PlatformBase{
 		info("Click on the Display calendar tab");
 		click(ELEMENT_CALENDAR_SETTING_FEED_TAB);
 		Utils.pause(2000);
+	}
+	
+	/**
+	 * Enabled or disabled public access for an calendar
+	 * @param calendar
+	 */
+	public void enabledPublicAccess(String calendar){
+		info("Click on Edit link");
+		executeActionCalendar(calendar, menuOfCalendarOption.EDIT);
+		info("Click on the link");
+		if (waitForAndGetElement(ELEMENT_CALENDAR_EDIT_ENABLE_PUBLIC_LINK,3000, 0) != null){
+			click(ELEMENT_CALENDAR_EDIT_ENABLE_PUBLIC_LINK);
+			waitForAndGetElement(ELEMENT_CALENDAR_EDIT_DISNABLE_PUBLIC_LINK);
+		}else{
+			click(ELEMENT_CALENDAR_EDIT_DISNABLE_PUBLIC_LINK);
+			waitForAndGetElement(ELEMENT_CALENDAR_EDIT_ENABLE_PUBLIC_LINK);
+		}
+		
+	}
+	/**
+	 * Get public access link of public calendar
+	 * @return returnText
+	 */
+	public String getPublicAccessLink(String calendar){
+		info("Click on Edit link");
+		if (waitForAndGetElement(ELEMENT_CALENDAR_EDIT_DISNABLE_PUBLIC_LINK,3000, 0) != null){
+			click(ELEMENT_CALENDAR_EDIT_PUBLIC_LINK_BTN);
+		}
+		String returnText= waitForAndGetElement(ELEMENT_CALENDAR_EDIT_FEED_LINK).getText();
+		click(ELEMENT_CALENDAR_EDIT_FEED_CLOSED_BTN);
+		return returnText;
+		
 	}
 }

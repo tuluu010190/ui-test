@@ -1123,8 +1123,8 @@ import org.testng.annotations.*;
     	info("type invalid user");
 		type(cMang.ELEMENT_CALENDAR_SHARE_INPUT,userGroup[0],true);
 		click(cMang.ELEMENT_CALENDAR_SHARE_ADD_BUTTON);
-		waitForAndGetElement(cMang.ELEMENT_CALENDAR_SHARE_PERMISSION_WARINING_POPUP);
-		click(cMang.ELEMENT_CALENDAR_SHARE_PEMISSION_OK_BTN_WARNING_POPUP);
+		waitForAndGetElement(cMang.ELEMENT_CALENDAR_WARINING_POPUP);
+		click(cMang.ELEMENT_CALENDAR_OK_BTN_WARNING_POPUP);
   		
  	}
 
