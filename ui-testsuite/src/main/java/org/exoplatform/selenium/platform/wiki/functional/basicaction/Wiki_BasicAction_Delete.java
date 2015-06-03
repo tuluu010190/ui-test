@@ -313,10 +313,10 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 	@Test
 	public  void test09_RemoveEmailAddress() {
 		info("Test 7: Remove email address");
-		String title = "Case"+getRandomNumber();
+		String title = "Case 09" + getRandomNumber();
 		String email = "test01@exoplatform.com";
-		String label = "EmailAddress";
-		String tooltip = "Email Address link";
+		String label = "EmailAddress" + getRandomString();
+		String tooltip = "Email Address link" + getRandomString();
 
 		/*
 		- Select a page have email address
@@ -326,7 +326,7 @@ public class Wiki_BasicAction_Delete extends ManageDraft {
 		 *Input Data: 
 		 *Expected Outcome: Link is removed successfully in page		*/ 
 		goToWiki();
-
+		goToAddBlankPage();
 		addWikiPageRichText(title, "");
 		insertEmailLink2WikiPage(email, label, tooltip);
 		Utils.pause(500);

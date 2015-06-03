@@ -87,7 +87,7 @@ public class ECMS_SE_BasicAction_Edit extends PlatformBase {
 	 */
 	@Test
 	public void test01_EditCssFile(){	
-		String DATA_CSS_TITLE_39 = "FNC_ECMS_FEX_ACTION_09_01";
+		String DATA_CSS_TITLE_39 = "file101874";
 		By bDocument = By.linkText(DATA_CSS_TITLE_39);
 		String filePath1 = "TestData/ECMS_CSS_File_After.txt";
 		String filePath0 = "TestData/ECMS_CSS_File_Before.txt";

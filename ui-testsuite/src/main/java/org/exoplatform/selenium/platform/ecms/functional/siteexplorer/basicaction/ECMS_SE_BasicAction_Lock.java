@@ -437,11 +437,11 @@ public class ECMS_SE_BasicAction_Lock extends PlatformBase {
 	 */
 	@Test
 	public void test10_LockChildIsNotntFileWhileItsParentIsBeingInCheckinStatus() {
-		String WEB_CONTENT = "Lock_Case10";
+		String WEB_CONTENT = "Lock_Case1018891";
 		String WEB_CONTENT_CONTENT = "Lock_Case10_Content";
 		By WEB_CONTENT_PATH = By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", WEB_CONTENT));
 
-		String WEB_CONTENT2 = "case10.1";
+		String WEB_CONTENT2 = "Lock_Case1018892";
 		String WEB_CONTENT_CONTENT2 = "case10.1_Content";
 		
 		info("Go to site explorer");

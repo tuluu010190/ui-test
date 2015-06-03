@@ -9,8 +9,6 @@
 		</groups>
 		<classes>
 			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_JSFile" />
-			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Category" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_CSSFile" />
@@ -22,8 +20,6 @@
 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Folder" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_IllustratedWebContent" />
-			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_JSFile" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_WebContent" />
 			<class
@@ -38,6 +34,8 @@
 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Upload_FileTypes" />
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_Upload_UploadByUploadButton" />
+			<class
+				name="org.exoplatform.selenium.platform.ecms.functional.siteexplorer.createnode.ECMS_SE_CreateNode_JSFile" />
 		</classes>
 	</test>
 	<listeners>

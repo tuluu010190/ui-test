@@ -271,8 +271,9 @@ public class PlatformBase extends TestBase {
 	//End User Profile
 	//End - Add User Form
 	//Setting -> user -> Groups and roles
-	public final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles') or contains(text(),'Ajouter un Utilisateur')]";
-
+	//public final String ELEMENT_GROUP_AND_ROLE_LINK = "//a[contains(text(),'Groups and Roles') or contains(text(),'Ajouter un Utilisateur')]";
+	public final String ELEMENT_GROUP_AND_ROLE_LINK = ".//*[@id='UISetupPlatformToolBarPortlet']//*[contains(@href,'administration/management')]";
+	
 	/* Username link - END*/
 
 	/*

@@ -39,8 +39,11 @@ public class ManageCategory extends EcmsPermission{
 	public final By ELEMENT_ADD_PATH_LINK = By.xpath("//*[@title='Add Path']");
 	public final By ELEMENT_POPUP_HOME_PATH = By.id("PopupTaxonomyJCRBrowser");
 	public final By ELEMENT_ADD_PATH_LINK_ICON = By.xpath("//*[@data-original-title='Add Path']");
-	public final String ELEMENT_EDIT_CATEGORY_TREE = "//*[@data-original-title='${categoryTreeName}']/../..//*[@class='uiIconEditInfo uiIconLightGray']";
-	public final String ELEMENT_CATEGORY_TREE = "//div[@data-original-title='${name}']";
+	//public final String ELEMENT_EDIT_CATEGORY_TREE = "//*[@data-original-title='${categoryTreeName}']/../..//*[@class='uiIconEditInfo uiIconLightGray']";
+	public final String ELEMENT_EDIT_CATEGORY_TREE = ".//*[@id='UITaxonomyTreeList']//*[@title='${categoryTreeName}']/../..//*[@class='uiIconEditInfo uiIconLightGray']";
+	//public final String ELEMENT_CATEGORY_TREE = "//div[@data-original-title='${name}']";
+	public final String ELEMENT_CATEGORY_TREE = ".//*[@id='UITaxonomyTreeList']//div[@data-original-title='${name}']";
+	
 	public final String ELEMENT_CATEGORY_TREE_WORKSPACE = "//*[@data-original-title='${name}']/../..//*[@data-original-title='${workspace}']";
 	public final String ELEMENT_CATEGORY_TREE_PATH = "//*[@data-original-title='${name}']/../..//*[@data-original-title='${path}']";
 
@@ -234,6 +237,7 @@ public class ManageCategory extends EcmsPermission{
 			String user_Per, boolean[] optionPermission, String[] actions, Object...params){
 
 		Boolean notCloseAddCategoryForm = (Boolean) (params.length > 0 ? params[0]: false);	
+		Boolean verify = (Boolean) (params.length > 1 ? params[1]: true);
 		
 		info("Add new category tree with name: " + nameWorkspaceHomePath[0]);
 		click(ELEMENT_ADVANCED_CONFIGURATION_TAB);
@@ -265,8 +269,10 @@ public class ManageCategory extends EcmsPermission{
 			waitForTextPresent(MSG_ADD_CATEGORY_STEP3);
 			click(button.ELEMENT_CLOSE_BUTTON);
 			//check add new category tree successfully
-			waitForAndGetElement(ELEMENT_CATEGORY_TREE.replace("${name}", nameWorkspaceHomePath[0]));
-			assert isElementPresent(ELEMENT_CATEGORY_TREE):"Add new category tree is not successful";
+			if (verify) {
+				waitForAndGetElement(ELEMENT_CATEGORY_TREE.replace("${name}", nameWorkspaceHomePath[0]));
+				assert isElementPresent(ELEMENT_CATEGORY_TREE):"Add new category tree is not successful";
+			}
 			info("Add new category is successful");
 		}
 	}

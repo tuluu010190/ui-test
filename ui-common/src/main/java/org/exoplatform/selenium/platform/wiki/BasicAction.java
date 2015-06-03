@@ -150,7 +150,7 @@ public class BasicAction extends Permission{
 	 * 
 	 */
 	public void addWikiPageRichText(String title, String content){
-		goToAddBlankPage();
+		//goToAddBlankPage();
 		if(this.plfVersion=="4.0"){
 			if(title != null)
 				type(ELEMENT_TITLE_WIKI_INPUT, title, true);

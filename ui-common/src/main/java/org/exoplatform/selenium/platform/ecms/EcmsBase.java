@@ -810,9 +810,10 @@ public class EcmsBase extends ManageAccount {
 		info(link);
 		driver.findElement(ELEMENT_UPLOAD_LINK).sendKeys(Utils.getAbsoluteFilePath(link));
 		info("Upload file " + Utils.getAbsoluteFilePath(link));
+
 		//switchToParentWindow();
-		info("upload progress bar is hideded");
-		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);
+		/*info("upload progress bar is hideded");
+		waitForElementNotPresent(ELEMENT_UPLOAD_PROGRESS_BAR);*/
 
 		if (verify){
 			String links[] = link.split("/");

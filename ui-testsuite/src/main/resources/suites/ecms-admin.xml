@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="ECMS Functional Test" verbose="1" preserve-order="true">
-	<test name="ecms-func-repository" enabled="true">
+	<!-- <test name="ecms-func-repository" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
@@ -15,7 +15,7 @@
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.admin.repository.ECMS_Admin_ManageNodeType_Add" />
 		</classes>
-	</test>
+	</test> -->
 	<test name="ecms-func-advanced" enabled="true">
 		<groups>
 			<run>
@@ -23,19 +23,19 @@
 			</run>
 		</groups>
 		<classes>
-			<class
+			<!-- <class
 				name="org.exoplatform.selenium.platform.ecms.functional.admin.advanced.ECMS_Admin_ManageCategories_CategoryAction" />
 			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.admin.advanced.ECMS_Admin_ManageCategories_CategoryCreate" />
+				name="org.exoplatform.selenium.platform.ecms.functional.admin.advanced.ECMS_Admin_ManageCategories_CategoryCreate" /> -->
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.admin.advanced.ECMS_Admin_ManageCategories_Display" />
-			<class
+			<!-- <class
 				name="org.exoplatform.selenium.platform.ecms.functional.admin.advanced.ECMS_Admin_ManageQueries" />
 			<class
-				name="org.exoplatform.selenium.platform.ecms.functional.admin.advanced.ECMS_Admin_ManageScripts" />
+				name="org.exoplatform.selenium.platform.ecms.functional.admin.advanced.ECMS_Admin_ManageScripts" /> -->
 		</classes>
 	</test>
-	<test name="ecms-func-template" enabled="true">
+	<!-- <test name="ecms-func-template" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
@@ -70,7 +70,7 @@
 			<class
 				name="org.exoplatform.selenium.platform.ecms.functional.admin.explorer.ECMS_Admin_ManageView" />
 		</classes>
-	</test>
+	</test> -->
 	<listeners>
 		<listener class-name="org.exoplatform.selenium.TestReportListener" />
 	</listeners>

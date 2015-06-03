@@ -157,11 +157,13 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 		cMenu.contextMenuAction(UPLOAD_FILE_NAME, cMenu.ELEMENT_MENU_CHECKIN);
 
 		//Verify item Delete item not exist
+		Utils.pause(1000);
 		rightClickOnElement(UPLOAD_FILE_NAME);
 		waitForElementNotPresent(cMenu.ELEMENT_MENU_DELETE);
 		info("Cannot delete node being in check in status");
 
 		//Delete data
+		Utils.pause(1000);
 		ecms.goToNode(UPLOAD_FILE_NAME);
 		cMenu.contextMenuAction(UPLOAD_FILE_NAME, cMenu.ELEMENT_MENU_CHECKOUT);
 		cMenu.deleteDocument(UPLOAD_FILE_NAME);
@@ -179,7 +181,8 @@ public class ECMS_SE_BasicAction_Delete extends PlatformBase {
 
 		info("-- Upload a file --");
 		navToolBar.goToPersonalDocuments();
-		ecms.uploadFile(DATA_UPLOAD_FILE_PATH_1);
+		//ecms.uploadFile(DATA_UPLOAD_FILE_PATH_1);
+		ecms.uploadFileUsingRobot(DATA_UPLOAD_FILE_PATH_1);
 
 		info("-- Delete a file --");
 		actBar.actionsOnElement(data1, actionType.DELETE);

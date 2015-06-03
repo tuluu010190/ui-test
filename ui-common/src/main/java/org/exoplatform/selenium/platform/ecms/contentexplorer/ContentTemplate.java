@@ -265,7 +265,7 @@ public class ContentTemplate extends EcmsBase {
 	public final String ELEMENT_VERIFY_FILE_CONTENT = "//*[contains(text(),'${content}')]";
 
 	public final String ELEMENT_FOLDER_CONTENT = "//*[@title='${content}']";
-
+	public final String ELEMENT_FOLDER_CONTENT_2 = ".//*[@id='UIDocumentNodeList']//*[contains(text(),'${content}')]";
 
 	//public final String ELEMENT_FOLDER_CONTENT="//*[@title='${content}']";
 
@@ -965,8 +965,8 @@ public class ContentTemplate extends EcmsBase {
 			}
 			click(ELEMENT_CREATE_FOLDER_BUTTON);
 			if (checkFolder) {
-				waitForAndGetElement(By.xpath(ELEMENT_FOLDER_CONTENT.replace(
-						"${content}", title)));
+				if (waitForAndGetElement(By.xpath(ELEMENT_FOLDER_CONTENT.replace("${content}", title)), 3000, 0) == null)
+					waitForAndGetElement(By.xpath(ELEMENT_FOLDER_CONTENT_2.replace("${content}", title)));
 			}
 			Utils.pause(1000);
 			info("A new folder was created");
@@ -1556,7 +1556,6 @@ public class ContentTemplate extends EcmsBase {
 		}
 		type(ELEMENT_CSS_DATA, data, true);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
-		waitForElementNotPresent(button.ELEMENT_SAVE_CLOSE_BUTTON);
 	}
 
 	/**

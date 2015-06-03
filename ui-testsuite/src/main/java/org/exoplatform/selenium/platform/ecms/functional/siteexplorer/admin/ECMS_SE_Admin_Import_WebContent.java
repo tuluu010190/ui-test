@@ -59,7 +59,7 @@ public class ECMS_SE_Admin_Import_WebContent extends PlatformBase {
 	 * Import a Web Content into Web Content
 	 * ERROR: This case related to issue ECMS-5119: Can import a web content into another web content
 	 */
-	@Test
+	@Test (groups = "pending")
 	public void test01_ImportWebContentToWebContent(){
 		String title = "test01_ImportWebContentToWebContent";
 		String css="p{color:red;}";

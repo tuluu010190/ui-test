@@ -120,6 +120,7 @@ public class TestBase {
 	public final String DEFAULT_BROWSER="firefox";//iexplorer, firefox, chrome
 	public final String DEFAULT_SERVER="ubuntu"; //win, ubuntu
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
+	//public final String DEFAULT_BASEURL="http://192.168.3.28:8080/portal";
 
 	/**
 	 * Get System Property

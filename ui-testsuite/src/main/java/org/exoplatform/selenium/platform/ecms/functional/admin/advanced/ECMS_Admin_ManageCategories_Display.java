@@ -78,11 +78,11 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 	 * go to DMS Administration Drive
 	 * check can see category tree just added in /exo:ecm/exo:taxonomyTrees/definition
 	 */
-	@Test
+	@Test (groups = "pending")
 	public void test01_CheckDisplayOfCategoryInSystemDrive(){
-		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_01";
+		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_01" + getRandomNumber();
 		By ELEMENT_CATEGORY_TREE = By.xpath("//*[@data-original-title = '" + DATA_CATEGORY_TREE_NAME + "']");
-		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_01";
+		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_01" + getRandomNumber();
 
 		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites/intranet"};
 		String[] DATA2 = {"",""};
@@ -91,7 +91,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//add new category tree
 		nav.goToContentAdministration();
-		magCa.addNewCategoryTree(DATA1, true, false, DATA2, DATA_USER2, setPermission, DATA3);
+		magCa.addNewCategoryTree(DATA1, true, false, DATA2, DATA_USER2, setPermission, DATA3, false, false);
 
 		//go to DMS Administration Drive
 		nav.goToSiteExplorer();
@@ -133,7 +133,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//add new category tree
 		nav.goToContentAdministration();
-		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3);
+		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3, false, false);
 
 		info("--complete--");
 		//create new document: article document
@@ -169,9 +169,9 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 	 */
 	@Test
 	public void test03_CheckDisplayOfCategoryWhenUserNotHaveReadPermission(){
-		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_03";
-		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_03";
-		String DATA_ARTICLE = "ECMS_Admin_ManageCategories_Display_article_03";
+		String DATA_CATEGORY_TREE_NAME = "ECMS_Tree3" + getRandomNumber();
+		String DATA_ACTION_NAME = "ECMS_Action3" + getRandomNumber();
+		String DATA_ARTICLE = "ECMS_Arti3" + getRandomNumber();
 		By ELEMENT_ARTICLE = By.linkText(DATA_ARTICLE);
 		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites/intranet"};
 		String[] DATA2 = {"",""};
@@ -180,7 +180,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//add new category tree
 		nav.goToContentAdministration();
-		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3);
+		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3, false, false);
 
 		//delete permission default
 		info("Edit category tree");
@@ -229,8 +229,8 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 	 */
 	@Test
 	public void test04_02_CheckDisplayOfCategoryWhileUploadFile(){
-		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_04";
-		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_04";
+		String DATA_CATEGORY_TREE_NAME = "ECMS_Tree1" + getRandomNumber();
+		String DATA_ACTION_NAME = "ECMS_Action1" + getRandomNumber();
 		//String DATA_UPLOAD_FILE_NAME = "ECMS_Admin_ManageCategories_Display_UploadFile_04";
 		String DATA_UPLOAD_FILE_LINK = "TestData/ECMS_Admin_ManageCategories_Display.jpg";
 		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites/intranet"};
@@ -240,7 +240,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//add new category tree
 		nav.goToContentAdministration();
-		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3);
+		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3, false, false);
 
 		//upload new file
 		nav.goToSiteExplorer();
@@ -281,7 +281,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//add new category tree
 		nav.goToContentAdministration();
-		magCa.addNewCategoryTree(DATA1, true, false, DATA2, DATA_USER2, setPermission, DATA3);
+		magCa.addNewCategoryTree(DATA1, true, false, DATA2, DATA_USER2, setPermission, DATA3, false, false);
 
 		//create a new document
 		nav.goToSiteExplorer();
@@ -315,7 +315,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//add new category tree
 		nav.goToContentAdministration();
-		magCa.addNewCategoryTree(DATA1, true, false, DATA2, DATA_USER2, setPermission, DATA3);
+		magCa.addNewCategoryTree(DATA1, true, false, DATA2, DATA_USER2, setPermission, DATA3, false, false);
 
 		//check user can see category when do advanced search using category
 		info("Go to Saved Search/Advanced Search/Constraint Form");
@@ -349,7 +349,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//add new category tree
 		nav.goToContentAdministration();
-		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3);
+		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3, false, false);
 
 		//delete permission default
 		info("Edit category tree");
@@ -389,9 +389,9 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 	 */
 	@Test
 	public void test07_CheckDisplayOfSomeCategoryWhenAdvancedSearchInCaseUserNotHavePermission(){
-		String DATA_CATEGORY_TREE_NAME = "ECMS_Admin_ManageCategories_Display_tree_07";
-		String DATA_ACTION_NAME = "ECMS_Admin_ManageCategories_Display_action_07";
-		String DATA_CATEGORY_TREE_CHILD_01 = "ECMS_Admin_ManageCategories_Create_tree_child_01";
+		String DATA_CATEGORY_TREE_NAME = "ECMS_Tre7" + getRandomNumber();
+		String DATA_ACTION_NAME = "ECMS_Action7";
+		String DATA_CATEGORY_TREE_CHILD_01 = "ECMS_TreeChild1" + getRandomNumber();
 		String[] DATA1 = {DATA_CATEGORY_TREE_NAME, "collaboration","sites/intranet"};
 		String[] DATA2 = {"",""};
 		String[] DATA3 = {DATA_ACTION_NAME,"Content Addition","jcr:system/exo:namespaces"};
@@ -399,7 +399,7 @@ public class ECMS_Admin_ManageCategories_Display extends PlatformBase {
 		
 		//add new category tree
 		nav.goToContentAdministration();
-		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3);
+		magCa.addNewCategoryTree(DATA1, true, false, DATA2,DATA_USER2, setPermission, DATA3, false, false);
 
 		//create 2 new categories
 		click(magCa.ELEMENT_EDIT_CATEGORY_TREE.replace("${categoryTreeName}", DATA_CATEGORY_TREE_NAME));

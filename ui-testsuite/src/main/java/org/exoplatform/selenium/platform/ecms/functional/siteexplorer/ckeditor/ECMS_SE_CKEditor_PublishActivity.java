@@ -760,8 +760,8 @@ public class ECMS_SE_CKEditor_PublishActivity extends PlatformBase {
 		click(ckEdit.ELEMENT_CKEDITOR_ALIGNLEFT);
 		click(button.ELEMENT_SAVE_CLOSE_BUTTON);
 		driver.navigate().back();
-		click(hpActivity.ELEMENT_FILE_VIEW.replace("${title}", name));
-		//		waitForAndGetElement(siteExp.ELEMENT_TEXT.replace("{$node}", name));
+		//click(hpActivity.ELEMENT_FILE_VIEW.replace("${title}", name));
+		waitForAndGetElement(siteExp.ELEMENT_TEXT.replace("{$node}", name));
 	}
 
 	/**

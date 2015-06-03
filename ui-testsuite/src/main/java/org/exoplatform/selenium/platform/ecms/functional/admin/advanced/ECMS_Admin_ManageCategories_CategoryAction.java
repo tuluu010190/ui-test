@@ -89,7 +89,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
@@ -127,7 +127,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath};
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
@@ -168,7 +168,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {"", ""};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, true, false, form2, DATA_USER1, setPermission, form3, false, false);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
@@ -195,7 +195,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 	@Test
 	public void test04_CopyPasteADeletedCategory(){
 		info("-- Step 1: Create a Category --");
-		String categoryTreeName = "categoryAction04";
+		String categoryTreeName = "categoryAction04" + getRandomNumber();
 
 		nav.goToContentAdministration();
 
@@ -204,7 +204,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
@@ -246,7 +246,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Copy a Category --");
@@ -284,7 +284,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Cut a Category --");
@@ -325,7 +325,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Cut a Category --");
@@ -360,7 +360,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 		waitForTextPresent(categoryTreeName);
 
 		info("-- Step 2: Cut a Category --");
@@ -400,7 +400,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 		waitForTextPresent(categoryTreeName);
 		magCa.addChildCategory(categoryTreeName, categoryName);
 
@@ -443,7 +443,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, false, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 
 		info("-- Step 2: Delete a Category --");
 		magCa.deleteCategory(categoryTreeName);
@@ -466,7 +466,7 @@ public class ECMS_Admin_ManageCategories_CategoryAction extends PlatformBase{
 		String[] form2 = {groupID, "*"};
 		String[] form3 = {actionName, optionLifeCycle, nodeTargetPath}; 
 		boolean[] setPermission = {true, true, false};
-		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3);
+		magCa.addNewCategoryTree(form1, false, true, form2, DATA_USER1, setPermission, form3, false, false);
 
 		info("-- Step 2: Edit a Category --");
 		magCa.addNewCategoryTree_Step4(categoryTreeName, categoryName, newCategoryName, DATA_USER2, true, true, true);

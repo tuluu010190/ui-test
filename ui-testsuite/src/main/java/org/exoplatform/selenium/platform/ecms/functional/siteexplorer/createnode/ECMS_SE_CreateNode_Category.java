@@ -132,7 +132,7 @@ public class ECMS_SE_CreateNode_Category extends PlatformBase{
 		info("Add a new drive [DMS Administration]");
 		navToolBar.goToSiteExplorer();
 		actBar.showDrives();	
-		sitesExp.createDriverInSitesExplorer("DMS Administration", "dms-system", "exo:ecm/exo:taxonomyTrees", "Platform/Administration", 
+		sitesExp.createDriverInSitesExplorer("DMS Administration 1", "dms-system", "exo:ecm/exo:taxonomyTrees", "Platform/Administration", 
 				"*", "Non-document Nodes/Sidebar", "Web");
 
 		info("Go to [DMS Administration] drive");
