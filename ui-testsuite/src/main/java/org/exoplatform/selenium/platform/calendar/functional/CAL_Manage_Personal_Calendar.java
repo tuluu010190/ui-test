@@ -304,6 +304,7 @@ import org.testng.annotations.*;
    			this.driver.get(removeCharacter);
    			//downloadFileUsingRobotViaURL();
    		    checkFileExisted("TestOutput/" + nameCalendar);
+   		    magAc.signIn(DATA_USER1, DATA_PASS);
    		}
 		
 		/*Step number: 2
@@ -315,7 +316,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			Display alert message to open or save file.ics*/ 
-   		magAc.signIn(DATA_USER1, DATA_PASS);
+   		
    		hp.goToCalendarPage();
    		cMang.deleteCalendar(calendar, true);
  	}

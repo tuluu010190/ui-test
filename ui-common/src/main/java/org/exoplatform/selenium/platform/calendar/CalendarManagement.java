@@ -114,7 +114,12 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_GROUP_INPUT = By.id("AddGroupInput");
 	public By ELEMENT_CALENDAR_GROUP_INPUT_USER=By.xpath(".//*[contains(@class,'inputLarge')]//input");
 	public By ELEMENT_CALENDAR_GROUP_SELECT_USER_BTN=By.xpath(".//*[@id='public']//*[contains(@class,'uiIconUser')]");
+	public String ELEMENT_CALENDAR_GROUP_USER_IN_SELECT_FORM=".//*[@id='UIGroupSelector']//*[contains(text(),'$user')]";
 	public By ELEMENT_CALENDAR_GROUP_SELECT_ROLE_BTN=By.xpath(".//*[@id='public']//*[contains(@class,'uiIconMembership')]");
+	public String ELEMENT_CALENDAR_GROUP_REMOVE_BTN=".//*[contains(text(),'$group')]/..//*[contains(@class,'uiIconDelete')]";
+	public String ELEMENT_CALENDAR_GROUP_TOOLTIP_ONLY_PERMISSION=".//*[contains(text(),'$group')]/..//*[contains(@title,'Only 1 permission, cannot delete')]";
+	public String ELEMENT_CALENDAR_GROUP_REMOVE_DISABLE_BTN=".//*[contains(text(),'$group')]/..//*[contains(@class,'disableIcon')]";
+	public String ELEMENT_CALENDAR_GROUP_USER_PERMISSION=".//*[@id='UICalendarPopupWindow']//*[contains(@value,'$user')]";
 	public String ELEMENT_CALENDAR_GROUP_ITEM = "//*[@id='UICalendarChildPopupWindow']//*[@data-original-title='$group']";
 	public By ELEMENT_CALENDAR_ADD_GROUP_BUTTON = By.xpath("//*[@class='addGroup']//*[text()='Add']");
 	public By ELEMENT_CALENDAR_ADD_SAVE_BUTTON = By.xpath("//*[@id='UICalendarForm']//*[text()='Save']");
@@ -148,7 +153,7 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_IMPORT_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconCalImportCalendar uiIconLightGray']");
 	public By ELEMENT_CALENDAR_EXPORT_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconCalExportCalendar uiIconLightGray']");
 	public By ELEMENT_CALENDAR_REFRESH_MENU = By.xpath("//*[@id='tmpMenuElement']//*[@class='uiIconRefresh uiIconLightGray']");
-
+    
 	//Forms after click common calendar action menu (icon *)
 	public String ELEMENT_CALENDAR_SETTING_ICON="//*[text()='$calendar']/../..//*[contains(@class,'uiIconCalSettingMini')]";
 	public By ELEMENT_CALENDAR_QUICK_ADD_EVENT_FORM = By.id("UIQuickAddEventPopupWindow");
@@ -379,6 +384,16 @@ public class CalendarManagement extends PlatformBase{
 		click(ELEMENT_CALENDAR_ADD_GROUP_BUTTON);
 	}
 	/**
+	 * Remove a group in group table of Calendar form
+	 * @param groupName
+	 */
+	public void removeGroupInGroupTabCalendarForm(String groupName){
+		info("Input into tab Show in Group of Add calendar form");
+		click(ELEMENT_CALENDAR_GROUP_TAB);
+		click(ELEMENT_CALENDAR_GROUP_REMOVE_BTN.replace("$group",groupName));
+		waitForElementNotPresent(ELEMENT_CALENDAR_GROUP_REMOVE_BTN.replace("$group",groupName));
+	}
+	/**
 	 * Select a user/role who has edit permission in a group
 	 * @param user
 	 * @param mode
@@ -397,7 +412,7 @@ public class CalendarManagement extends PlatformBase{
 				break;
 			case 1:
 				click(ELEMENT_CALENDAR_GROUP_SELECT_USER_BTN); 
-				pPer.selectUserPermission(user[i],1); break;
+				click(ELEMENT_CALENDAR_GROUP_USER_IN_SELECT_FORM.replace("$user",user[i])); break;
 			case 2: 
 				String[] groupMem = user[i].split(":");
 				String[] membership = groupMem[1].split(".");
@@ -481,6 +496,7 @@ public class CalendarManagement extends PlatformBase{
 	 */
 	public void openMenuOfCalendar(String calendar){
 		info("Open menu of a calendar");
+		Utils.pause(2000);
 		mouseHoverByJavaScript(ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendar),2);
 		clickByJavascript(ELEMENT_CALENDAR_SETTING_ICON.replace("$calendar", calendar),2);
 		waitForAndGetElement(ELEMENT_CALENDAR_RIGHT_MENU);
