@@ -858,7 +858,6 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		acc.userSignIn(userType.DEVELOPER);
 		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET);
 		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET_USER_41.replace("${nameinvitation}", user), 5000, 1, 2);
-//		mouseOver(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user), true);
 		Utils.pause(1000);
 		waitForAndGetElement(hGadget.ELEMENT_INVITATION_GADGET_USER_ACCEPT_41.replace("${peopleName}", user), 5000, 1, 2);
 		waitForAndGetElement(hGadget.ELEMENT_REMOVE_INVITATION_BUTTON_41.replace("${peopleName}", user), 5000, 1, 2);
