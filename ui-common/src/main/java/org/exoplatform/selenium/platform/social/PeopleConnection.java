@@ -56,7 +56,7 @@ public class PeopleConnection extends SocialBase {
 	public void connectPeople (String peopleName) {
 		info("-- Connect to: " + peopleName);
 		info("-- Connect the user: " + peopleName);
-		if(waitForAndGetElement(ELEMENT_EVERYONE_TAB,5000, 0)==null){
+		if(waitForAndGetElement(ELEMENT_EVERYONE_TAB,5000,0)==null){
 			info("----Go to My connections----");
 			goToMyConnections();
 			info("---Click  every one tab-----");
@@ -130,13 +130,9 @@ public class PeopleConnection extends SocialBase {
 
 		if(waitForAndGetElement(ELEMENT_MY_CONNECTIONS_TAB,5000,0)==null){
 			info("----Go to My connections----");
-
 			goToMyConnections();
-
 			waitForAndGetElement(ELEMENT_MY_CONNECTIONS_TAB);
-
 			info("---Click Requests Received tab-----");
-
 			click(ELEMENT_MY_CONNECTIONS_TAB);
 		}
 		else

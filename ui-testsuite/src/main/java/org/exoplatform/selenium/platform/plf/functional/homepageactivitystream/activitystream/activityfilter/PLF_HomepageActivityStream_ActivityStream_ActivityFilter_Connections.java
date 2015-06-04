@@ -183,6 +183,7 @@ public class PLF_HomepageActivityStream_ActivityStream_ActivityFilter_Connection
 		nav.goToConnectionPage();
 		pConn.connectPeople(user1);
 		acc.userSignIn(userType.DEVELOPER);
+		nav.goToConnectionPage();
 		pConn.acceptInvitation(user);
 		// Step 1: Check show dropdown list of stream in Connection's activity stream
 		// - Connect to Intranet

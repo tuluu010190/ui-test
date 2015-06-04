@@ -358,7 +358,7 @@ import org.testng.annotations.*;
 	@Test(priority=9)
 	public  void test07_MentionFromCommentInUserActivityStreamShouldPushTheActivityInMyActivitiesOfMentionedUser() {
 		info("Test 7: Mention from comment in user activity stream should push the activity in My Activities of mentioned user");
-		String text = "New activity";
+		String text = "New activity99";
 		/*
 		- Connect to Intranet/Homepage with User A
 		- Go to [My Profile] and choose [Activity stream] tab
@@ -459,8 +459,8 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 		- The comment is added to the activity		*/
 		acc.userSignIn(userType.DEVELOPER);
-		pConn.acceptInvitation(user);
 		nav.goToConnectionPage();
+		pConn.acceptInvitation(user);
 		click(By.linkText(user));
 		waitForAndGetElement(ELEMENT_MY_PROFILE_TAB);
 		click(ELEMENT_MY_ACTIVITY_STREAM_TAB);
@@ -537,7 +537,7 @@ import org.testng.annotations.*;
 	@Test(priority=11)
 	public  void test11_ActivityLikedFromMyActivityStreamShouldBeVisibleInMyActivities() {
 		info("Test 11 Activity liked from my activity stream should be visible in My Activities");
-		String text="New Activity";
+		String text="New Activity88";
 		/*
 		- Connect to intranet/Homepage
 		- Choose [My Activity Stream] filter
@@ -574,7 +574,7 @@ import org.testng.annotations.*;
 	@Test(priority=12)
 	public  void test12_ActivityPostedFromMyActivityStreamShouldBeVisibleInMyActivities() {
 		info("Test 12 Activity posted from my activity stream  should be visible in My Activities");
-		String text="New Activity";
+		String text="New Activity66";
 		/*
 		- Connect to Intranet
 		- Go to [My Profile]
@@ -701,6 +701,7 @@ import org.testng.annotations.*;
 		- The comment is added to the activity of the user B		*/ 
 
 		acc.userSignIn(userType.DEVELOPER);
+		nav.goToConnectionPage();
 		pConn.acceptInvitation(user);
 		nav.goToConnectionPage();
 		click(By.linkText(user));

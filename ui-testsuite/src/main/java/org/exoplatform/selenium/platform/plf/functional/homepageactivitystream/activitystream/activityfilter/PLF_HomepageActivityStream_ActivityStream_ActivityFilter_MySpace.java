@@ -202,7 +202,7 @@ import org.testng.annotations.*;
 	@Test
 	public  void test04_ActivityPostedFromASpaceShouldNotBeVisibleInUserActivityStreamByUserIsNotMemberOfSpace() {
 		info("Test 4: Activity posted from a space should not be visible in user activity stream by user is not member of space");
-		String spaceName = "Space77685";
+		String spaceName = "Space776852";
 		String text = "Test 4 new activity";
 		/*
 		- Connect to Intranet with User A
@@ -345,7 +345,7 @@ import org.testng.annotations.*;
 	@Test
 	public  void test07_ShowSpacesActivityOnActivityStreamOfUser() {
 		info("Test 7: Show space's activity on activity stream of user");
-		String spaceName = "space77698";
+		String spaceName = "space776983";
 		String text = "Test 7 activity";
 		/*
 		- Connect to Intranet with user A
@@ -379,7 +379,7 @@ import org.testng.annotations.*;
 	@Test
 	public  void test08_NotDisplaySpacesActivityOnUsersActivityStreamForOtherUser() {
 		info("Test 8: Not display space's activity on user's activity stream for other user");
-		String spaceName = "space77699";
+		String spaceName = "space776999";
 		String text1 = "Test 8 activity 1";
 		String text2 = "Test 8 activity 2";
 		String text3 = "Test 8 activity 3";

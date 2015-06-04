@@ -115,12 +115,11 @@ public class PLF_HomepageActivityStream_ActivityStream_ActivityFilter_AllActivit
 
 		//delete data
 		acc.userSignIn(userType.ADMIN);
+		nav.goToConnectionPage();
 		pConn.removeConnection(user1);
 		nav.goToHomePage();
 		home.deleteActivity(text);
 	}
-
-
 
 	/** Activity posted from a space is visible in "All activities" of members even if they are not connections of the poster
 	 *  Test caseID: 77665

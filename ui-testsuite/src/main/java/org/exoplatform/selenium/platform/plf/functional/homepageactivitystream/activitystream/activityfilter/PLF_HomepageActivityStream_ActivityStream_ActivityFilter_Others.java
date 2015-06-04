@@ -256,8 +256,8 @@ public class PLF_HomepageActivityStream_ActivityStream_ActivityFilter_Others ext
 	@Test
 	public  void test06_ActivityPostedFromASpaceShouldBeVisibleInMySpacesMyActivitiesAndAllActivities() {
 		info("Test 6: Activity posted from a space should be visible in My Spaces, My Activities and All Activities");
-		String spaceName = "Space77687";
-		String text = "Activitity 77687";
+		String spaceName = "Space776877";
+		String text = "Activitity 776877";
 		/*
 		- Connect to Intranet
 		- Open a space

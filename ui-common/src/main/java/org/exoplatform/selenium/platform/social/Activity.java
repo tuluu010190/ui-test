@@ -150,8 +150,8 @@ public class Activity extends SocialBase {
 	public void selectFileter(String filterOption){
 		info("-- Select filter activity --");
 		//if(waitForAndGetElement(ELEMENT_ACTIVITY_FILTER_CURRENT.replace("${filterOption}", filterOption), DEFAULT_TIMEOUT, 0)==null){
-		if(isElementPresent(ELEMENT_ACTIVITY_DROPDOWN)){
-			if(isElementNotPresent(ELEMENT_ACTIVITY_FILTER_CURRENT.replace("${filterOption}", filterOption))){
+		if(waitForAndGetElement(ELEMENT_ACTIVITY_DROPDOWN,3000,0)!=null){
+			if(waitForAndGetElement(ELEMENT_ACTIVITY_FILTER_CURRENT.replace("${filterOption}", filterOption),3000,0)==null){
 				click(ELEMENT_ACTIVITY_DROPDOWN,2);
 				click(ELEMENT_ACTIVITY_FILTER_OPTION.replace("${filterOption}", filterOption));
 				waitForAndGetElement(ELEMENT_ACTIVITY_FILTER_CURRENT.replace("${filterOption}", filterOption));

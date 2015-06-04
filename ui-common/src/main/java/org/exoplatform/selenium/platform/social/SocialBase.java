@@ -266,19 +266,7 @@ public class SocialBase extends PlatformBase {
 	// Go to Activity stream
 	public void goToActivityStream(){
 		info("--Go to Activity Stream--");
-		for(int repeat=0;; repeat ++){
-			if (repeat > 1){
-				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
-				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
-				break;
-			}
-			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
-			if (waitForAndGetElement(ELEMENT_TOOLBAR_ACTIVITY_ICON, 5000, 0) != null){
-				info("Element " + ELEMENT_TOOLBAR_ACTIVITY_ICON + "... is displayed");
-				break;
-			}
-			info("Retry...[" + repeat + "]");
-		}
+		click(ELEMENT_ACCOUNT_NAME_LINK);
 		click(ELEMENT_TOOLBAR_ACTIVITY_ICON);
 		waitForAndGetElement("//*[contains(text(),'What are you working on?')]");
 	}	
