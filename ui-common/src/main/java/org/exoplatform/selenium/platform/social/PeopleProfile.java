@@ -81,7 +81,7 @@ public class PeopleProfile extends PlatformBase {
 	public final String ELEMENT_CONTACT_URL_REMOVE_ICON = "/*[@class='multiValueContainer']/div[${index}]//*[@data-original-title='Remove Item']";
 
 	//Avatar
-	public final By	ELEMENT_CHANGE_AVATAR_LINK = By.className("changeAvatar");
+	public final By	ELEMENT_CHANGE_AVATAR_LINK = By.xpath("//*[contains(@class,'changeAvatar')]");
 	public final By ELEMENT_CHOOSE_AVATAR_IMAGE = By.className("fileNameLabel");
 	public final By ELEMENT_SELECT_AVATAR = By.xpath(".//*[@id='Uploader']//*[text()='Select File']");
 	public final By ELEMENT_UPLOAD_NAME = By.name("file");

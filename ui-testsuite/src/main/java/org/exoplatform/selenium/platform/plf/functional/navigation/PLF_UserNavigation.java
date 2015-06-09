@@ -61,16 +61,13 @@ public class PLF_UserNavigation extends PlatformBase {
 	 * CaseID: 76885
 	 * Display a style of selected item in another user's toolbar
 	 * 
-	 * CaseID: 76892
-	 * Verify the size of the user's avatar icon
-	 * 
 	 * CaseID: 76893
 	 * Verify the size of the user's informations toolbar
 	 * 
 	 * PENDING: Can't check CSS style: Refer https://jira.exoplatform.org/browse/FQA-1740
 	 */
 	@Test(groups="pending")
-	public void test01_DisplayAHover(){
+	public void test01_To_07_DisplayAHover(){
 	}
 	
 	/**
@@ -79,8 +76,8 @@ public class PLF_UserNavigation extends PlatformBase {
 	 * PENDING: Can't check truncated
 	 */
 	@Test(groups="pending")
-	public void test01_DisplayLongUsername(){
-		String username = "longlonglongusernameabcdef";
+	public void test08_DisplayLongUsername(){
+		String username = "longlonglongusernameabcdefuuq";
 		String password = username;
 		String firstName = username;
 		String lastName = username;
@@ -110,7 +107,7 @@ public class PLF_UserNavigation extends PlatformBase {
 	 * 
 	 */
 	@Test
-	public void test02_DisplayAppOnUserProfile(){
+	public void test09_10_DisplayAppOnUserProfile(){
 		
 		info("76887: Go to My profile page");
 		navTool.goToMyProfile();
@@ -133,7 +130,7 @@ public class PLF_UserNavigation extends PlatformBase {
 	 * Open the personal page of another user
 	 */
 	@Test
-	public void test03_DisplayAppOnUserProfileofAnotherUser(){
+	public void test11_12_DisplayAppOnUserProfileofAnotherUser(){
 		String user = "Mary Williams";
 		
 		info("76890: Open the personal page of another user");
@@ -153,7 +150,7 @@ public class PLF_UserNavigation extends PlatformBase {
 	 * 
 	 */
 	@Test
-	public void test04_CheckAvatar(){
+	public void test13_CheckAvatar(){
 		String file = "ECMS_DMS_SE_Upload_imgfile.jpg";
 		
 		info("Go to My profile page");
@@ -161,6 +158,7 @@ public class PLF_UserNavigation extends PlatformBase {
 		Utils.pause(2000);
 		
 		info("76886: Edit the user's avatar from the toolbar");
+		peoPro.goToEditProfile();
 		peoPro.changeAvatar("TestData/"+file);
 	}
 }
