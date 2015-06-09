@@ -1411,4 +1411,5 @@ public class CalendarManagement extends PlatformBase{
 		click(ELEMENT_EVENT_TASK_CLOSE_SEARCH_BTN);
 		Utils.pause(2000);
 	}
+
 }
