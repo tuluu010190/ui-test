@@ -152,6 +152,7 @@ public class TestBase {
 	protected String calGroupNameFilePath;
 	protected String calTabNameFilePath;
 	protected String calCommentsFilePath;
+	protected String calRemoteFilePath;
 	
 	
 	protected String notiDesFilePath;
@@ -244,6 +245,7 @@ public class TestBase {
 	public final String DEFAULT_CALENDAR_GROUP_NAME_URL="DataDriven/"+"cal_group.xls";
 	public final String DEFAULT_CALENDAR_TAB_NAME_URL="DataDriven/"+"cal_tabs.xls";
 	public final String DEFAULT_CALENDAR_COMMENTS_URL="DataDriven/"+"cal_comments.xls";
+	public final String DEFAULT_CALENDAR_REMOTE_URL="DataDriven/"+"cal_remote.xls";
 	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
@@ -358,6 +360,8 @@ public class TestBase {
 		calGroupNameFilePath = System.getProperty("calGroupNameFilePath");
 		calTabNameFilePath =System.getProperty("calTabNameFilePath");
 		calCommentsFilePath =System.getProperty("calCommentsFilePath");
+		calRemoteFilePath = System.getProperty("calRemoteFilePath");
+		
 		
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
@@ -439,6 +443,7 @@ public class TestBase {
 		if (calGroupNameFilePath==null) calGroupNameFilePath=DEFAULT_CALENDAR_GROUP_NAME_URL;
 		if (calTabNameFilePath==null) calTabNameFilePath=DEFAULT_CALENDAR_TAB_NAME_URL;
 		if (calCommentsFilePath==null) calCommentsFilePath=DEFAULT_CALENDAR_COMMENTS_URL;
+		if (calRemoteFilePath==null) calRemoteFilePath=DEFAULT_CALENDAR_REMOTE_URL;
 		
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -502,6 +507,7 @@ public class TestBase {
 		calGroupNameFilePath = getAbsoluteFilePath(calGroupNameFilePath);
 		calTabNameFilePath =getAbsoluteFilePath(calTabNameFilePath);
 		calCommentsFilePath=getAbsoluteFilePath(calCommentsFilePath);
+		calRemoteFilePath = getAbsoluteFilePath(calRemoteFilePath);
 	}
 
 	/**

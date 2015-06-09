@@ -15,6 +15,7 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.interactions.Actions;
 public class CalendarManagement extends PlatformBase{
 
+	
 
 	public String ELEMENT_EVENT_TASK_TITLE="//*[contains(text(),'${name}')]";
 	public String ELEMENT_EVENT_TASK_TITLE_WEEK_COUNT="(.//*[contains(@class,'eventContainer')]//*[contains(text(),'${name}')])[$number]";
@@ -90,7 +91,28 @@ public class CalendarManagement extends PlatformBase{
 
 	//Remote calendar form
 	public By ELEMENT_REMOTE_CALENDAR_FORM=By.id("UICalendarPopupWindow");
-
+	public By ELEMENT_REMOTE_CALENDAR_URL=By.id("url");
+	public By ELEMENT_REMOTE_CALENDAR_ICALENDAR_RADIO= By.xpath(".//*[@id='UISubscribeForm']//input[contains(@value,'ICalendar(.ics)')]");
+	public By ELEMENT_REMOTE_CALENDAR_CALDAV_RADIO= By.xpath(".//*[@id='UISubscribeForm']//input[contains(@value,'CalDAV')]");
+	public final By ELMENT_REMOTE_CALENDAR_NEXT_BTN =By.xpath(".//*[@id='UISubscribeForm']//button[1]");
+	public final By ELMENT_REMOTE_CALENDAR_SUBCRIBE_CANCEL_BTN =By.xpath(".//*[@id='UISubscribeForm']//button[2]");
+	public final By ELEMENT_REMOTE_CALENDAR_NAME = By.xpath(".//.//*[@id='UIRemoteCalendar']//*[@id='name']");
+	public final By ELEMENT_REMOTE_CALENDAR_DES = By.xpath(".//*[@id='UIRemoteCalendar']//*[@id='description']");
+	public final By ELEMENT_REMOTE_CALENDAR_SAVE_BTN = By.xpath(".//*[@id='UIRemoteCalendar']//button[2]");
+	public final By ELEMENT_REMOTE_CALENDAR_CANCEL_BTN =By.xpath(".//*[@id='UIRemoteCalendar']//button[3]");
+	public By ELEMENT_REMOTE_CALENDAR_AUTHENTICATION_CHECKBOX = By.xpath(".//*[@name='useAuthentication']");
+	public By ELEMENT_REMOTE_CALENDAR_USERNAME_FIELD_DISABLED = By.xpath(".//*[@id='username'][contains(@disabled,\"\")]");
+	public By ELEMENT_REMOTE_CALENDAR_USERNAME_FIELD_ENABLED = By.id("username");
+	public By ELEMENT_REMOTE_CALENDAR_PASSWORD_FIELD_ENABLED = By.id("password");
+	public By ELEMENT_REMOTE_CALENDAR_WARNING_AUTHENTICATION=By.xpath(".//*[contains(text(),'The remote URL is invalid or the authentication failed.')]");
+	public By ELEMENT_REMOTE_CALENDAR_WARNING_INVALID_URL=By.xpath(".//*[contains(text(),'The \"URL\" field does not contain a valid URL.')]");
+	public By ELEMENT_REMOTE_CALENDAR_WARNING_EMPTY_DISPLAY_NAME=By.xpath(".//*[contains(text(),'The field \"Display Name\" is required.')]");
+	public By ELEMENT_REMOTE_CALENDAR_WARNING_EMPTY_USERNAME=By.xpath(".//*[contains(text(),'Username required to authenticate.')]");
+	
+	public By ELEMENT_REMOTE_CALENDAR_BACK_BTN = By.xpath(".//*[@id='UIRemoteCalendar']//button[1]");
+	public By ELEMENT_REMOTE_CALENDAR_COLOR_FIELD = By.xpath("//*[contains(@class,'displayValue')]");
+	public String ELEMENT_REMOTE_CALENDAR_COLOR_SELECT = ".//*[@id='UIRemoteCalendar']//*[contains(@class,'${color}')]";
+	
 	//Add event category form
 	public By ELEMENT_ADD_EVENT_CATEGORY_FORM = By.id("UICalendarPopupAction");
 	public By ELEMENT_ADD_EVENT_CATEGORY_INPUT = By.id("eventCategoryName");
@@ -1213,5 +1235,115 @@ public class CalendarManagement extends PlatformBase{
 		click(ELEMENT_CALENDAR_EDIT_FEED_CLOSED_BTN);
 		return returnText;
 		
+	}
+	
+    /**
+     * Add Remote Calendar
+     * @param url
+     *             url of the remote calendar
+     * @param isChangeType
+     *             true: if want to change type of remote calendar
+     *             false: if want to keep default type of remote calendar
+     * @param name
+     *             the display name of remote calendar
+     * @param des  
+     *             the description of remote calendar
+     * @param type
+     *             the mode radio of remote calendar
+     */
+	
+	public void addRemoteCalender(String url,boolean isChangeType,String name, String des,int... type){
+		goToMenuFromMainCalendar(menuOfMainCalendar.REMOTECAL);
+		if(isChangeType){
+			info("Select a type");
+			if(type.length>0)
+				check(ELEMENT_REMOTE_CALENDAR_ICALENDAR_RADIO,2);
+			else
+				check(ELEMENT_REMOTE_CALENDAR_CALDAV_RADIO,2);
+		}
+		info("input url link to the field");
+		if(!url.isEmpty())
+			type(ELEMENT_REMOTE_CALENDAR_URL,url,true);
+		
+		info("Click on Next button");
+		click(ELMENT_REMOTE_CALENDAR_NEXT_BTN);
+		
+		if(!name.isEmpty()){
+			info("Type a name");
+			type(ELEMENT_REMOTE_CALENDAR_NAME,name,true);
+		}
+		
+		if(!des.isEmpty()){
+			info("Type a description");
+			type(ELEMENT_REMOTE_CALENDAR_DES,des,true);
+		}
+		Utils.pause(2000);
+	}
+	
+	public void changeColorRemoteCalendar(String color){
+		if (!color.isEmpty()){
+			info("Click on color field");
+			click(ELEMENT_REMOTE_CALENDAR_COLOR_FIELD);
+			click(ELEMENT_REMOTE_CALENDAR_COLOR_SELECT.replace("${color}", color));
+		}
+	}
+	/**
+	 * UnCheck user authentication checkbox
+	 */
+	public void unCheckUserAuthentication(){
+		info("UnCheck user Authentication checkbox");
+		uncheck(ELEMENT_REMOTE_CALENDAR_AUTHENTICATION_CHECKBOX);
+		waitForAndGetElement(ELEMENT_REMOTE_CALENDAR_USERNAME_FIELD_DISABLED);
+	}
+	/**
+	 * Check user authentication checkbox
+	 */
+	public void checkUserAuthentication(){
+		info("Check user Authentication checkbox");
+		check(ELEMENT_REMOTE_CALENDAR_AUTHENTICATION_CHECKBOX);
+		waitForElementNotPresent(ELEMENT_REMOTE_CALENDAR_USERNAME_FIELD_DISABLED);
+	}
+	/**
+	 * Input username and password of user authentication in remote calendar
+	 * @param username
+	 * @param password
+	 */
+	public void addUserAuthentication(String username,String password){
+		if(!username.isEmpty()){
+			info("Input username");
+			type(ELEMENT_REMOTE_CALENDAR_USERNAME_FIELD_ENABLED,username,true);
+		}
+		if(!password.isEmpty()){
+			info("Input password");
+			type(ELEMENT_REMOTE_CALENDAR_PASSWORD_FIELD_ENABLED,password,true);
+		}
+		
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Save all changes of Remote calendar
+	 */
+	public void saveRemoteCalendar(){
+		info("Click on Save button");
+		click(ELEMENT_REMOTE_CALENDAR_SAVE_BTN);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Cancel all changes of remote calendar
+	 */
+	public void cancelRemoteCalendar(){
+		info("Click on Cancel button");
+		click(ELEMENT_REMOTE_CALENDAR_CANCEL_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * Click on Back button of remote calendar
+	 */
+	public void backRemoteCalendar(){
+		info("Click on Back button");
+		click(ELEMENT_REMOTE_CALENDAR_BACK_BTN);
+		Utils.pause(2000);
 	}
 }

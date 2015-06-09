@@ -17,6 +17,7 @@ import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarCommentsDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarGroupDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarRemoteDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
@@ -53,6 +54,7 @@ public class CAL_TestConfig_2 extends PlatformBase {
 	CalendarCommentsDatabase cCommentData;
 	AttachmentFileDatabase fData;
 	UserInfoDatabase userInfoData;
+	CalendarRemoteDatabase calRemoteData;
 	String username;
 	String firstname;
 	
@@ -98,6 +100,10 @@ public class CAL_TestConfig_2 extends PlatformBase {
 		
 		fData = new AttachmentFileDatabase();
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		calRemoteData = new CalendarRemoteDatabase();
+		calRemoteData.setData(calRemoteFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
 		username="test";
 		info("End setUpBeforeMethod");
 	}
