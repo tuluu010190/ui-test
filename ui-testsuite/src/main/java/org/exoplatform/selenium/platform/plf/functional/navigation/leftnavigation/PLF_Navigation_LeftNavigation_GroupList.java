@@ -248,7 +248,7 @@ public class PLF_Navigation_LeftNavigation_GroupList extends GroupNavigation{
 		 *Expected Outcome: With user in group administration, In the Left Navigation, the Group Navigation is displayed above "MY SPACES" 
 		- In the Group Navigation panel, panel a small button is displayed to fold/unfold sub node		*/ 
 		nav.goToHomePage();
-		waitForAndGetElement(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}","Administration"));
+		waitForAndGetElement(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}",nodePortalAdministration));
 		click(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}", nodePortalAdministration));
 		waitForAndGetElement(ELEMENT_NAVIGATION_NODE.replace("${nodeName}", nodeName));
 
@@ -309,7 +309,7 @@ public class PLF_Navigation_LeftNavigation_GroupList extends GroupNavigation{
 		 *Expected Outcome: With user in group administration, In the Left Navigation, the Group Navigation is displayed above "MY SPACES" panel
 		- 2 levels are displayed: Navigations and sub-navigation,i.e Site Management and sub-navigation1		*/
 		nav.goToHomePage();
-		waitForAndGetElement(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}","Administration"));
+		waitForAndGetElement(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}",nodePortalAdministration));
 		click(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}", nodePortalAdministration));
 		waitForAndGetElement(ELEMENT_NAVIGATION_NODE.replace("${nodeName}", nodeName));
 
@@ -327,7 +327,7 @@ public class PLF_Navigation_LeftNavigation_GroupList extends GroupNavigation{
 		waitForElementNotPresent(button.ELEMENT_SAVE_BUTTON);
 		
 		nav.goToHomePage();
-		waitForAndGetElement(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}","Administration"));
+		waitForAndGetElement(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}",nodePortalAdministration));
 		click(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}", nodePortalAdministration));
 		waitForAndGetElement(ELEMENT_NAVIGATION_NODE.replace("${nodeName}", nodeName));
 		waitForElementNotPresent(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL.replace("${groupName}", nodeName));
@@ -461,7 +461,7 @@ public class PLF_Navigation_LeftNavigation_GroupList extends GroupNavigation{
 		 *Expected Outcome: With user in group administration, In the Left Navigation, the Group Navigation is displayed above "MY SPACES" panel
 		- Navigation nodes are displayed as Administration Group, then node		*/
 		nav.goToHomePage();
-		waitForAndGetElement(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}","Administration"));
+		waitForAndGetElement(ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41.replace("${groupName}",nodePortalAdministration));
 		waitForElementNotPresent(ELEMENT_NAVIGATION_NODE.replace("${nodeName}", nodeName));
 		
 		/*
