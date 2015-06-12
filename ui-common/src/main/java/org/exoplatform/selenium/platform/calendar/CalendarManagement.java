@@ -22,8 +22,14 @@ public class CalendarManagement extends PlatformBase{
 	public String ELEMENT_EVENT_TASK_TITLE_WEEK_COUNT="(.//*[contains(@class,'eventContainer')]//*[contains(text(),'${name}')])[$number]";
 	public By ELEMENT_ADD_EDIT_EVENT_POPUP = By.xpath(".//*[@id='UICalendarPopupWindow']");
 	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING="(.//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')])[${number}]";
-	
-	//Grid-->List tab
+    public String ELEMENT_EVENT_TASK_DETAIL_LIST_VIEW=".//*[@id='UIPreview']//*[contains(text(),'$name')]";
+	public String ELEMENT_EVENT_TASK_CHECKBOX_LIST_VIEW=".//*[contains(text(),'$name')]/../..//input";
+    //Search
+    public By ELEMENT_EVENT_TASK_QUICK_SEARCH=By.xpath(".//*[@id='value']");
+    public By ELEMENT_EVENT_TASK_CLOSE_SEARCH_BTN=By.xpath(".//*[@id='UIListView']//button[contains(text(),'Close Search')]");
+    public By ELEMENT_EVENT_TASK_SEARCH_BTN=By.xpath(".//*[@id='UISearchForm']//*[contains(@class,'uiIconSearch')]");
+    
+    //Grid-->List tab
 	public String ELEMENT_CALENDAR_TAB=".//*[@id='UIActionBar']//*[contains(text(),'${name}')]";
 	public By ELEMENT_CALENDAR_LIST_TAB_SELECT_ALL_CHECKBOX=By.xpath(".//*[@id='UIListUsers']//*[contains(@data-original-title,'Select All')]//input");
 	public By ELEMENT_CALENDAR_LIST_TAB_DELETE_BUTTON =By.xpath(".//*[contains(@data-original-title,'Delete')]//*[contains(@class,'uiIconDelete')]");
@@ -1112,6 +1118,25 @@ public class CalendarManagement extends PlatformBase{
 			selectOptionByRightclickOnEvent(contextMenuEditEvenOption.DELETE);
 			waitForElementNotPresent(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
 	}
+	/**
+	 * Delete task/event by selecting task/event's checkbox
+	 * @param name
+	 */
+	public void deleteTaskEventByCheckbox(String name){
+		if(!name.isEmpty()){
+			info("Select the event/task");
+			check(ELEMENT_EVENT_TASK_CHECKBOX_LIST_VIEW.replace("$name",name),2);
+			click(ELEMENT_CALENDAR_LIST_TAB_DELETE_BUTTON);
+			if (waitForAndGetElement(ELEMENT_CONFIRM_POPUP_OK, 2000, 0) != null)
+				click(ELEMENT_CONFIRM_POPUP_OK);
+			if (waitForAndGetElement(evMg.ELEMENT_EDIT_DELETE_ONE_EVENT,2000, 0) != null){
+				evMg.deleteRecurringConfirm(recurringType.ALL_EVENT);
+			}
+			if (waitForAndGetElement(ELEMENT_CONFIRM_POPUP_DELETE, 2000, 0) != null)
+				click(ELEMENT_CONFIRM_POPUP_DELETE);
+			waitForElementNotPresent(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+		}
+	}
 	
 	
 	/**
@@ -1362,6 +1387,28 @@ public class CalendarManagement extends PlatformBase{
 	public void backRemoteCalendar(){
 		info("Click on Back button");
 		click(ELEMENT_REMOTE_CALENDAR_BACK_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * quick search an event/task
+	 * @param name
+	 */
+	public void searchQuickEventTask(String name){
+		info("Search an event/task");
+		if(!name.isEmpty()){
+			info("Input key search");
+			type(ELEMENT_EVENT_TASK_QUICK_SEARCH,name,true);
+			click(ELEMENT_EVENT_TASK_SEARCH_BTN);
+			Utils.pause(2000);
+			waitForAndGetElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+		}
+	}
+	/**
+	 * Close search function
+	 */
+	public void closeSearch(){
+		info("click on Close search button");
+		click(ELEMENT_EVENT_TASK_CLOSE_SEARCH_BTN);
 		Utils.pause(2000);
 	}
 }

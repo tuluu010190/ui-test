@@ -12,6 +12,7 @@
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Manage_Shared_Calendar" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Manage_Color" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Manage_Common_Actions" />
+	     	<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Delete" />
 		</classes>
 	</test>
 	<listeners>
