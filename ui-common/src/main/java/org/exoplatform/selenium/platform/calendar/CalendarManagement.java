@@ -18,6 +18,7 @@ public class CalendarManagement extends PlatformBase{
 	
 
 	public String ELEMENT_EVENT_TASK_TITLE="//*[contains(text(),'${name}')]";
+	public String ELEMENT_EVENT_TASK_COLOR=".//*[contains(text(),'$name')]/..//*[contains(@class,'$color')]";
 	public String ELEMENT_EVENT_TASK_TITLE_WEEK_COUNT="(.//*[contains(@class,'eventContainer')]//*[contains(text(),'${name}')])[$number]";
 	public By ELEMENT_ADD_EDIT_EVENT_POPUP = By.xpath(".//*[@id='UICalendarPopupWindow']");
 	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING="(.//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')])[${number}]";
@@ -37,6 +38,7 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_ADD_EVENT_CATEGORY = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'AddEventCategory')]");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_IMPORT = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'ImportCalendar')]");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_CALENDAR_SETTING = By.xpath("//*[@id='tmpMenuElement']//a[contains(@href,'CalendarSetting')]");
+	public String ELEMENT_CALENDAR_MENU_ACTIONS_COLOR=".//*[@id='tmpMenuElement']//a[contains(@class,'${color}')]";
 
 	//Calendar setting form
 	public By ELEMENT_CALENDAR_SETTING_FORM=By.id("UICalendarSettingForm");
@@ -130,6 +132,7 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_ADD_FORM = By.id("UICalendarPopupWindow");
 	public By ELEMENT_CALENDAR_DISPLAY_NAME_INPUT = By.id("displayName");
 	public By ELEMENT_CALENDAR_DESC_INPUT = By.xpath("//*[@id='UICalendarForm']//*[@id='description']");
+	public By ELEMENT_CALENDAR_TIMEZONE=By.id("timeZone");
 	public By ELEMENT_CALENDAR_COLOR = By.xpath("//*[contains(@class,'displayValue')]");
 	public By ELEMENT_CALENDAR_GROUP_TAB = By.xpath(".//*[@id='uiPopupAddCalendarContainer']//*[contains(@data-target,'#public-tab')]");
 	public By ELEMENT_CALENDAR_DETAIL_TAB = By.xpath("//*[text()='Details']");
@@ -146,7 +149,16 @@ public class CalendarManagement extends PlatformBase{
 	public By ELEMENT_CALENDAR_ADD_GROUP_BUTTON = By.xpath("//*[@class='addGroup']//*[text()='Add']");
 	public By ELEMENT_CALENDAR_ADD_SAVE_BUTTON = By.xpath("//*[@id='UICalendarForm']//*[text()='Save']");
 	public By ELEMENT_CALENDAR_ADD_CANCEL_BUTTON = By.xpath("//*[@id='UICalendarForm']//*[text()='Cancel']");
+	public By ELEMENT_CALENDAR_ADD_RESET_BUTTON = By.xpath("//*[@id='UICalendarForm']//*[text()='Reset']");
 	public String ELEMENT_CALENDAR_COLOR_SELECT = "//*[@id='UICalendarForm']//a[contains(@class,'${color}')]";
+	public By ELEMENT_CALENDAR_GROUP_TAB_TOOLTIP_GROUP_BTN=By.xpath(".//*[@rel='tooltip' and @data-original-title='Group']");
+	public By ELEMENT_CALENDAR_GROUP_TAB_TOOLTIP_ACTIONS_SELECT_USER_BTN=By.xpath(".//*[@rel='tooltip' and @title='Select User']");
+	public By ELEMENT_CALENDAR_GROUP_TAB_TOOLTIP_ACTIONS_SELECT_ROLE_BTN=By.xpath(".//*[@rel='tooltip' and @title='Select Role']");
+	public By ELEMENT_CALENDAR_GROUP_TAB_TOOLTIP_ACTIONS_DELETE_PERMISSION_BTN=By.xpath(".//*[@rel='tooltip' and @title='Delete Permission']");
+	public By ELEMENT_CALENDAR_GROUP_TAB_TABLE_GROUPS_COLUMN=By.xpath(".//*[@id='public']//th[text()='Groups']");
+	public By ELEMENT_CALENDAR_GROUP_TAB_TABLE_USERS_COLUMN=By.xpath(".//*[@id='public']//th[text()='User able to edit calendar']");
+	public By ELEMENT_CALENDAR_GROUP_TAB_TABLE_ACTIONS_COLUMN=By.xpath(".//*[@id='public']//th[text()='Actions']");
+	public By ELEMENT_CALENDAR_GROUP_TAB_TABLE_EMPTY=By.xpath(".//*[@id='public']//td[text()='No Group Selected']");
 	
 	//Edit calendar form
 	public By ELEMENT_CALENDAR_EDIT_ENABLE_PUBLIC_LINK = By.xpath(".//*[@id='calendarDetail']//*[contains(text(),'Enable Public Access')]");
@@ -269,7 +281,7 @@ public class CalendarManagement extends PlatformBase{
 	 * View list in calendar (click on an calendar - Click icon *)
 	 */
 	public enum menuOfCalendarOption{
-		ADDTASK, ADDEVENT, EDIT, REMOVE, SHARE, IMPORT, EXPORT, REFRESH
+		ADDTASK, ADDEVENT, EDIT, REMOVE, SHARE, IMPORT, EXPORT, REFRESH,COLOR
 	}
 
 	/**
@@ -531,8 +543,10 @@ public class CalendarManagement extends PlatformBase{
 	 * 				name of calendar
 	 * @param action
 	 * 				action that needs to be done, e.g.: "ShareCalendar"
+	 * @param color
+	 *              color that is selected for calendar
 	 */
-	public void executeActionCalendar(String calendar, menuOfCalendarOption action){
+	public void executeActionCalendar(String calendar, menuOfCalendarOption action,String... color){
 		info("Select action from menu");
 		openMenuOfCalendar(calendar);
 		switch(action){
@@ -566,6 +580,10 @@ public class CalendarManagement extends PlatformBase{
 			break;
 		case REFRESH:
 			clickByJavascript(ELEMENT_CALENDAR_REFRESH_MENU,2);
+			break;
+		case COLOR:
+			info("Select a color");
+			click(ELEMENT_CALENDAR_MENU_ACTIONS_COLOR.replace("${color}",color[0]));
 			break;
 		default:
 			click(ELEMENT_CALENDAR_ADD_TASK_MENU,2);
