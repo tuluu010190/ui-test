@@ -92,8 +92,6 @@ public class PLF_Navigation_TopNavigation_Create_WikiPage extends Permission{
 		- The space switcher is displayed
 		- The menu "Create" is dismissed		*/ 
 		click(ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		info("Spaces field is shown");
-		waitForAndGetElement(ELEMENT_LOCATION_WIKI);
 		info("Close space switcher");
 		click(ELEMENT_SPACE_SWITCHER_CLOSE);
 		info("Cancel wiki form");

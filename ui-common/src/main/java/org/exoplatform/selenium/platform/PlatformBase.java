@@ -180,7 +180,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_MENU_ADD_ICON = By.className("uiIconPLF24x24Add");
 	public final By ELEMENT_MENU_SEARCH_ICON = By.className("uiIconPLF24x24Search");
 	public final By ELEMENT_MENU_HELP_ICON = By.className("uiIconPLF24x24Help");
-	public final By ELEMENT_MENU_EMAIL_NOTIFICATION = By.xpath("//a[text()='Email Notifications']");
+	public final By ELEMENT_MENU_EMAIL_NOTIFICATION = By.xpath("//*[@class='uiIconPLFNotifications']");
 
 	//IDE
 	public final By ELEMENT_LINK_IDE = By.linkText("IDE");
@@ -1675,7 +1675,6 @@ public class PlatformBase extends TestBase {
 			upload2.sendKeys(Utils.getAbsoluteFilePath("TestData/" +uploadFileName));	
 			info("Upload file " + Utils.getAbsoluteFilePath("TestData/" +uploadFileName));
 			switchToParentWindow();
-			waitForAndGetElement(By.linkText(uploadFileName));
 		}
 		button.close();
 		Utils.pause(1000);
