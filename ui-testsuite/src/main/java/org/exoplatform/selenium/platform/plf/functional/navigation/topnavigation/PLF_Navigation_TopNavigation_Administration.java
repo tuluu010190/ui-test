@@ -9,10 +9,6 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
-/**
- * @author chinhdtt
- * @date 19 Mar 2014
- */
 public class PLF_Navigation_TopNavigation_Administration extends PlatformBase{
 	ManageAccount acc;
 	NavigationToolbar nav;

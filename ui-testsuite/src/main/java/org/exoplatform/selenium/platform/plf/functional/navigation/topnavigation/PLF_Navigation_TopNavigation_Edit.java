@@ -18,10 +18,6 @@ import org.testng.annotations.*;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 
-/**
- * @author chinhdtt
- * @date 19 Mar 2014
- */
 public class PLF_Navigation_TopNavigation_Edit extends PlatformBase{
 	ManageAccount acc;
 	NavigationToolbar nav;
