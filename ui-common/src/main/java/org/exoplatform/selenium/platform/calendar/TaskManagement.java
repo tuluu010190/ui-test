@@ -7,59 +7,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class TaskManagement extends PlatformBase {
+public class TaskManagement extends CalendarLocatorObject {
 
-	//------------------------------------Add Quick Task Form--------------------------------------\\
-	public By ELEMENT_QUICK_ADD_TASK_POPUP = By.id("UIQuickAddTaskPopupWindow");
-	public By ELEMENT_QUICK_INPUT_TASK_NAME = By.xpath("//*[@id='UIQuickAddTask']//*[@id='eventName']");
-	public By ELEMENT_QUICK_INPUT_TASK_NOTE = By.xpath("//*[@id='UIQuickAddTask']//*[@id='description']");
-	public By ELEMENT_QUICK_INPUT_TASK_CALENDAR = By.xpath("//*[@id='UIQuickAddTask']//*[@name='calendar']");
-	public By ELEMENT_QUICK_INPUT_TASK_CATEGORY = By.xpath("//*[@id='UIQuickAddTask']//*[@name='category']");
-	public By ELEMENT_QUICK_CHECKBOX_TASK_ALLDAY = By.xpath("//*[@id='UIQuickAddTask']//*[@name='allDay']");
-	public By ELEMENT_QUICK_INPUT_TASK_FROM_DATE = By.xpath("//*[@id='UIQuickAddTask']//*[@name='from']");
-	public By ELEMENT_QUICK_INPUT_TASK_TO_DATE = By.xpath("//*[@id='UIQuickAddTask']//*[@name='to']");
-	public By ELEMENT_QUICK_INPUT_TASK_FROM_TIME = By.xpath("//*[@id='UIQuickAddTask']//*[@name='fromTime']");
-	public By ELEMENT_QUICK_INPUT_TASK_TO_TIME = By.xpath("//*[@id='UIQuickAddTask']//*[@name='toTime']");
-	public By ELEMENT_QUICK_INPUT_TASK_FROM_TIME_INPUT = By.xpath("//*[@id='UIQuickAddTask']//*[@id='fromTime']/..//*[@class='UIComboboxInput']");
-	public By ELEMENT_QUICK_INPUT_TASK_TO_TIME_INPUT = By.xpath("//*[@id='UIQuickAddTask']//*[@id='toTime']/..//*[@class='UIComboboxInput']");
-	public String ELEMENT_QUICK_TASK_SELECT_TO_TIME = "//*[@id='UIQuickAddTask']//*[@id='toTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
-	public String ELEMENT_QUICK_TASK_SELECT_FROM_TIME = "//*[@id='UIQuickAddTask']//*[@id='fromTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
-	public By ELEMENT_BUTTON_TASK_SAVE = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='Save']");
-	public String ELEMENT_ATTACH_FILE_NAME = "//*[@data-original-title='$fileName']";
-	public By ELEMENT_BUTTON_TASK_QUICK_CANCEL = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='Cancel']");
-	//----------------------------------Add Task Form (more details )------------------------------------\\
-	public By ELEMENT_ADD_EDIT_TASK_NAME = By.xpath("//*[@id='UITaskForm']//*[@name='eventName']");
-	public By ELEMENT_ADD_EDIT_TASK_NOTE = By.xpath("//*[@id='UITaskForm']//*[@id='description']");
-	public By ELEMENT_ADD_EDIT_TASK_CALENDAR = By.xpath("//*[@id='UITaskForm']//*[@name='calendar']");
-	public By ELEMENT_ADD_EDIT_TASK_CATEGORY = By.xpath("//*[@id='UITaskForm']//*[@name='category']");
-	public By ELEMENT_ADD_EDIT_TASK_ALLDAY = By.xpath("//*[@id='UITaskForm']//*[@name='allDay']");
-	public By ELEMENT_ADD_EDIT_TASK_FROM_DATE = By.xpath("//*[@id='UITaskForm']//*[@name='from']");
-	public By ELEMENT_ADD_EDIT_TASK_TO_DATE = By.xpath("//*[@id='UITaskForm']//*[@name='to']");
-	public By ELEMENT_ADD_EDIT_INPUT_TASK_FROM_TIME = By.xpath("//*[@id='UITaskForm']//*[@name='fromTime']");
-	public By ELEMENT_ADD_EDIT_INPUT_TASK_TO_TIME = By.xpath("//*[@id='UITaskForm']//*[@name='toTime']");
-	public By ELEMENT_ADD_EDIT_TASK_FROM_TIME_INPUT = By.xpath("//*[@id='UITaskForm']//*[@id='fromTime']/..//*[@class='UIComboboxInput']");
-	public By ELEMENT_ADD_EDIT_TASK_TO_TIME_INPUT = By.xpath("//*[@id='UITaskForm']//*[@id='toTime']/..//*[@class='UIComboboxInput']");
-	public String ELEMENT_ADD_EDIT_TASK_SELECT_FROM_TIME = "//*[@id='UITaskForm']//*[@id='fromTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
-	public String ELEMENT_ADD_EDIT_TASK_SELECT_TO_TIME = "//*[@id='UITaskForm']//*[@id='toTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
-	public By ELEMENT_BUTTON_TASK_MORE_DETAILS = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='More Details']");
-	public By ELEMENT_BUTTON_TASK_SAVE_DETAILS = By.xpath("//*[@id='UITaskForm']//*[text()='Save']");
-	public By ELEMENT_TASK_FILE_INPUT = By.xpath("//*[@id='upload']//*[@name='file']");
-	public By ELEMENT_BUTTON_EVENT_CANCEL_DETAILS = By.xpath("//*[@id='UITaskForm']//*[text()='Cancel']");
-	public By ELEMENT_ADD_EDIT_TASK_STATUS = By.xpath("//*[@id='UITaskForm']//*[@name='status']");
-
-	//Attach file form
-	public By ELEENT_SELECT_FILE=By.xpath("//*[@class='uploadButton']/*[@class='btn']");
-	public By ELEMENT_ATTACH_SAVE_BUTTON = By.xpath("//form[@id='UIAttachFileForm']//*[text()='Save']");
-	public By ELEMENT_TASK_ADD_ATTACHMENT = By.xpath("//button[contains(@onclick,'AddAttachment')]");
-	public String ELEMENT_TASK_ATTACHMENT = "//*[@id='UITaskForm']/..//a[@data-original-title='${file}']";
-	public By ELEMENT_ATTACHMENT_SAVE_BUTTON = By.xpath("//*[@id='UIAttachFileForm']//*[text()='Save']");
-	public String ELEMENT_ATTACHMENT_FORM_FILE_NAME = "//*[text()='$fileName']";
-	public By ELEMENT_UPLOAD_PROGRESS_BAR = By.xpath(".//*[contains(@class,'progressBarFrame clearfix')]");
-	
 	CalendarHomePage cHome;
 	public TaskManagement(WebDriver dr){
 		driver = dr;
@@ -111,7 +62,7 @@ public class TaskManagement extends PlatformBase {
 
 		String cell = cHome.ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", tempDate2).replace("$time", tempTime);
 		rightClickOnElement(cell);
-		click(cHome.ELEMENT_RIGHT_CLICK_ADD_TASK);
+		click(ELEMENT_CONTEXT_MENU_ADD_TASK);
 		waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP);
 	}
 

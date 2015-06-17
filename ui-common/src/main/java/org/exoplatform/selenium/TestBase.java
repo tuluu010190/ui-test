@@ -659,6 +659,23 @@ public class TestBase {
 		}
 		newDriver.manage().window().maximize();
 	}
+	/**
+	 * Start new driver without cache
+	 */
+	public void startNewDriver(){
+		getSystemProperty();
+		if("chrome".equals(browser)){
+			newDriver = new ChromeDriver();
+		} else if ("iexplorer".equals(browser)){
+			newDriver = new InternetExplorerDriver();
+			ieFlag = true;
+		} else {
+			newDriver = new FirefoxDriver();
+		}
+		newDriver.manage().window().maximize();
+		newDriver.navigate().refresh();
+		newDriver.navigate().to(baseUrl);
+	}
 
 	/**
 	 * Check term and conditions
@@ -966,7 +983,6 @@ public class TestBase {
 			WebElement target = waitForAndGetElement(targetLocator);
 
 			action.dragAndDrop(source, target).build().perform();
-
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
 			Utils.pause(WAIT_INTERVAL);
@@ -985,7 +1001,37 @@ public class TestBase {
 		}
 		Utils.pause(1000);
 	}
+	/**
+	 * Drag an object
+	 * @param sourceLocator
+	 * @param targetLocator
+	 */
+    public void dragObject(String sourceLocator, String targetLocator){
+    	info("--Drag an object--");
+    	Actions action = new Actions(this.driver);
+        WebElement source = waitForAndGetElement(sourceLocator);
+		WebElement target = waitForAndGetElement(targetLocator);
 
+		try {
+			action.clickAndHold(source).moveToElement(target).release().build().perform();
+		} catch (StaleElementReferenceException e) {
+			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
+			Utils.pause(WAIT_INTERVAL);
+			action.clickAndHold(source).moveToElement(target).release().build().perform();
+		}catch (UnhandledAlertException e) {
+			try {
+				Alert alert = driver.switchTo().alert();
+				alert.accept();
+				switchToParentWindow();
+			} catch (NoAlertPresentException eNoAlert) {
+			}
+		}
+
+		finally {
+			loopCount = 0;
+		}
+		Utils.pause(1000);
+    }
 	/**
 	 * Click by using javascript
 	 * @param locator

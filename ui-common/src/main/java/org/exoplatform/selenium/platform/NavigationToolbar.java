@@ -264,7 +264,11 @@ public class NavigationToolbar extends PlatformBase {
 		info("--Go to Users and groups management--");
 		click(ELEMENT_LINK_SETUP);
 		mouseOver(ELEMENT_ADMINISTRATION_USERS, true);
-		click(ELEMENT_GROUP_AND_ROLE_LINK);
+		if(waitForAndGetElement(ELEMENT_GROUP_AND_ROLE_LINK,2000,0)!=null)
+			click(ELEMENT_GROUP_AND_ROLE_LINK);
+		else {
+			driver.get(baseUrl+"/g/:platform:administrators/administration/management");
+		}
 		Utils.pause(2000);
 	}
 

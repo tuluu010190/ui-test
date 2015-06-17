@@ -227,7 +227,19 @@ public class PlatformBase extends TestBase {
              }
          }
      }
-	
+	/**
+	 * switch between browsers using window handle
+	 * @param windowHandle
+	 */
+	 public void switchBetweenBrowsers(String windowHandle){
+		 Set<String> windows = driver.getWindowHandles();
+		 for (String window : windows) {
+             driver.switchTo().window(window);
+             if (driver.getWindowHandle().contains(windowHandle)) {
+                 return;
+             }
+         }
+	 }
 	/**
 	 * Go to gmail and login
 	 * @param email

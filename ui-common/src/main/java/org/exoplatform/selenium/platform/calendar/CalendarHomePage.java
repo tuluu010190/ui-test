@@ -5,116 +5,15 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.interactions.Actions;
 
-public class CalendarHomePage extends PlatformBase{
+public class CalendarHomePage extends CalendarLocatorObject{
 
 	
-	//Calendar panel
-	public final By ELEMENT_CALENDAR_WORKING_PANEL = By.id("UICalendarWorkingContainer");
-	public final String ELEMENT_CELL_TO_WORKING_PANEL = "//td[contains(@startfull,'$date $time:00')]";
-	public final String ELEMENT_CELL_TO_MONTH_WORKING_PANEL = "//td[contains(@starttimefull,'$date')]";
-	public String ELEMENT_ANY_TARGET_DATE = "//*[contains(@startfull, '${targetDate}') or contains(@starttimefull, '${targetDate}')]";
-	public By ELEMENT_CALENDAR_PANEL = By.xpath("//div[@class='uiBox uiCalendars']");
-	public By ELEMENT_SHOW_HIDE_LEFT_PANEL = By.xpath("//div[@id='ShowHideAll']/i");
-	public final By ELEMENT_TOOLBAR_MINI_CALENDAR = By.xpath("//*[@class='weekDays']");
-
-	//View button
-	public final String ELEMENT_CALENDAR_VIEW_BUTTON = "//*[text()='$view']";
-	public final String ELEMENT_CALENDAR_ACTIVE_VIEW = "//*[@class='btn active']//*[text()='$view']";
-
-	//bar
-	public final By ELEMENT_TODAY_ACTION_BAR=By.xpath("//*[@class='todayActionBar']");
-	public final By ELEMENT_NEXT_BUTTON_ANY_VIEW=By.xpath("//*[@class='title']//*[@class='uiIconMiniArrowRight uiIconLightGray']");
-	public final By ELEMENT_PREVIOUS_BUTTON_ANY_VIEW=By.xpath("//*[@class='title']//*[@class='uiIconMiniArrowLeft uiIconLightGray']");
-	public final By ELEMENT_CATEGORY_OPTION=By.xpath("//*[@name='eventCategories']");
-	public final String ELEMENT_CATEGORY_OPTION_SELECTED="//*[@name='eventCategories']//*[@selected='selected' and text()='$name']";
-
-	//Day View
-	public final String ELEMENT_EVENT_TASK_DAY_VIEW_ALL_DAY="//*[@id='UIDayView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(.,'$name')]";
-	public final String ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY="//*[@id='UIDayViewGrid']//div[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_DAY_ONE_DAY=".//*[contains(@class,'tdLine')][contains(@startfull,'$date')]";
-
-	//Week View
-	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer') and contains(@style,'display: block')]//div[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY="//*[@id='UIWeekViewGrid']//div[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]//div[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//*[contains(@starttimefull,'$date')]//div[contains(text(),'$name')]";
-	public final String ELEMENT_WEEK_VIEW_BAR_TIME="//*[@class='eventWeekBar']//td['$index']/a";
-	public final String ELEMENT_EVENT_TASK_DETAIL_TIME_WEEK="//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]//div[contains(text(),'$name')]/..//*[contains(.,'$time')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ONE_DAY = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//*[contains(@starttimefull,'$date')]";
-	
-	//Context Menu when right click on a datetime
-	public By ELEMENT_CONTEXT_MENU_ADD_EVENT=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconCalCreateEvent')]");
-	public By ELEMENT_CONTEXT_MENU_ADD_TASK=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconCalCreateTask')]");
-	
-	//Month View
-	public final String ELEMENT_EVENT_TASK_MONTH_VIEW="//*[@id='UIMonthView']//span[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_MONTH_DATE="//*[@id='UIMonthViewGrid']//*[contains(@starttimefull,'$date')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW="//*[@id='UIMonthView']//*[@class='eventMonthContent']//*[@class='rowContainerDay']/*[contains(@starttimefull,'$date')]//span[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE="//*[@id='UIMonthView']//*[@class='eventMonthContent']//*[@class='moreEventContainer']//*[contains(@starttimefull,'$date')]//span[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_ICON="//*[@id='UIMonthView']//*[contains(@starttimefull,'$date')]/..//*[@class='moreEvent' and not(contains(@style, 'display'))]/*[@class='moreEventLabel']";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL=".//*[contains(@starttimefull,'$date')]/../../..//*[contains(@class,'moreEventLabel')]";
-	
-	
-	//List View
-	public final String ELEMENT_EVENT_TASK_LIST_VIEW="//*[@id='UIListView']//*[@class='uiListViewRow']//*[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_START_DETAIL_DATE_LIST_VIEW="//*[@id='UIListView']//*[contains(text(),'$name')]/../..//td[5][contains(text(),'$date')]";
-	public final String ELEMENT_EVENT_TASK_END_DETAIL_DATE_LIST_VIEW="//*[@id='UIListView']//*[contains(text(),'$name')]/../..//td[6][contains(text(),'$date')]";
-    public final String ELEMENT_EVENT_TASK_ATTACHMENT_LIST_VIEW =".//*[@id='UIPreview']//*[contains(@data-original-title,'${file}')]";
-    public final String ELEMENT_EVENT_TASK_PARTICIPANTS_LIST_VIEW=".//*[@id='RowContainerDay']//*[contains(text(),'${username}')]";
-	
-    //Work Week View
-	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY="//*[@id='UIWeekView']//div[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]//div[contains(text(),'$name')]";
-	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//*[contains(@starttimefull,'$date')]//div[contains(text(),'$name')]";
-
-	//Menu to create task or event
-	public By ELEMENT_RIGHT_CLICK_ADD_TASK = By.xpath("//*[@id='tmpMenuElement']//*[@class='createTask']");
-	public By ELEMENT_RIGHT_CLICK_ADD_EVENT = By.xpath("//*[@id='tmpMenuElement']//*[@class='createEvent']");
-
-	//Action menu of task/event
-	public By ELEMENT_EVENT_TASK_DELETE_MENU = By.xpath("//div[@id='tmpMenuElement']//a[@class='eventAction' and contains(@href,'Delete')]");
-	public By ELEMENT_EVENT_TASK_EDIT_MENU = By.xpath("//div[@id='tmpMenuElement']//a[@class='eventAction' and contains(@href,'Edit')]");
-	public By ELEMENT_EVENT_TASK_VIEW_MENU = By.xpath("//div[@id='tmpMenuElement']//a[@class='eventAction' and contains(@href,'View')]");
-	public By ELEMENT_EVENT_TASK_EXPORT_MENU = By.xpath("//div[@id='tmpMenuElement']//a[@class='eventAction' and contains(@href,'Export')]");
-
-	//Button add task/event
-	public By ELEMENT_BUTTON_TASK = By.id("UIActionBarQuickAddTask");
-	public By ELEMENT_BUTTON_EVENT = By.id("UIActionBarQuickAddEvent");
-
-	//Popup to add/edit task/event
-	public By ELEMENT_QUICK_ADD_TASK_POPUP = By.id("UIQuickAddTaskPopupWindow");
-	public By ELEMENT_ADD_EDIT_TASK_POPUP = By.xpath("//span[@class='PopupTitle popupTitle' and (text()='Add/Edit Tasks' or text()='Add/Edit Event')]");
-	public By ELEMENT_QUICK_ADD_EVENT_POPUP = By.id("UIQuickAddEventPopupWindow");
-
-	//Resize task or event
-	public String ELEMENT_RESIZE_CONTAINER = "//*[contains(text(),'$name')]/../..//*[@class='resizeEventContainer']";
-
-	//Delete task/event
-	public String ELEMENT_CONFIRM_DELETE_TASK_MSG = "Are you sure you want to delete this task?";
-	public String ELEMENT_CONFIRM_DELETE_EVENT_MSG = "Are you sure you want to delete this event?";
-
-	//quick search
-	public By ELEMENT_QUICK_SEARCH_INPUT=By.id("value");
-	public String ELEMENT_QUICK_SEARCH_FORM = "//div[@class='uiSearchForm uiSearchInput pull-right']";
-	public String ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT = "//*[@id='UIListView']//button[contains(text(),'Close Search')]";
-	public String ELEMENT_BUTTON_OPEN_ADVANCE_SEARCH_FORM = "//*[@id='UIListView']//button[contains(text(),'Advanced Search')]";
-	public String ELEMENT_INPUT_TEXT_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//*[@id='text']";
-	public String ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//button[contains(text(),'Search')]";
-
-	//Preview
-	public By ELEMENT_PREVIEW_TASK_EVENT_FORM=By.id("UIEventPreview");
-	public String ELEMENT_PREVIEW_TASK_EVENT_NAME="//*[@id='UIEventPreview']//*[text()='$name']";
-	public By ELEMENT_CLOSE_PREVIEW_TASK_EVENT_FORM=By.xpath("//*[@id='UIEventPreview']//*[text()='Close']");
-
 	PlatformPermission per;
 	ManageAlert alert;
 	/**
@@ -401,7 +300,7 @@ public class CalendarHomePage extends PlatformBase{
 			goToRightMenuTaskEventFromDayView(name,optionDay);
 			break;
 		}
-		click(ELEMENT_EVENT_TASK_EDIT_MENU);
+		click(ELEMENT_CONTEXT_MENU_EDIT);
 		waitForAndGetElement(ELEMENT_ADD_EDIT_TASK_POPUP);
 	}
 
@@ -976,7 +875,7 @@ public class CalendarHomePage extends PlatformBase{
 		info("Delete event/tak: " + name);
 		Button button = new Button(driver);
 		goToRightMenuTaskEventFromAnyView(name,view,optionDay,date);
-		click(ELEMENT_EVENT_TASK_DELETE_MENU);
+		click(ELEMENT_CONTEXT_MENU_DELETE);
 		if(isVerify){
 			if(isEvent)
 				alert.verifyAlertMessage(ELEMENT_CONFIRM_DELETE_EVENT_MSG);
@@ -1054,5 +953,44 @@ public class CalendarHomePage extends PlatformBase{
 		info("----Confirm search result displayed----");
 		Utils.pause(3000);
 		waitForAndGetElement(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
+	}
+	/**
+	 * check on checkboxs of events/tasks in Month view
+	 * @param names
+	 */
+	public void checkBoxEventTaskInMonthView(String[] names){
+		for(int i=0;i< names.length;i++){
+			info("Select the events/tasks:"+names[i]);
+			check(ELEMENT_EVENT_TASK_CHECKBOX.replace("$name",names[i]),2);
+		}
+		Utils.pause(2000);
+	}
+	/**
+	 * Click on Next arrow of header panel to jump to next days/weeks/months
+	 * @param number
+	 */
+	public void nextDate(int number){
+		if(number!=0){
+			info("Jump to next:"+number+" days/weeks/months");
+			for(int i=0;i<number;i++){
+				info("Click on Next arrow");
+				click(ELEMENT_NEXT_BUTTON_ANY_VIEW);
+				Utils.pause(2000);
+			}
+		}
+	}
+	/**
+	 * Click on Previous arrow of header panel to back previous days/weeks/months
+	 * @param number
+	 */
+	public void previousDate(int number){
+		if(number!=0){
+			info("Jump to previous:"+number+" days/weeks/months");
+			for(int i=0;i<number;i++){
+				info("Click on Previous arrow");
+				click(ELEMENT_PREVIOUS_BUTTON_ANY_VIEW);
+				Utils.pause(2000);
+			}
+		}
 	}
 }

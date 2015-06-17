@@ -198,7 +198,7 @@ import org.testng.annotations.*;
 		cMang.shareCalendar(calendar, userGroup,canEdit);
 		
 		String[] userGroup1={DATA_USER4};
-		boolean[] canEdit1={true};
+		boolean[] canEdit1={false};
         hp.goToCalendarPage();
 		cMang.shareCalendar(calendar, userGroup1,canEdit1);
 		
