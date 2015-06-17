@@ -170,7 +170,7 @@ import org.testng.annotations.*;
 			- The Previous time is not reset, Back to Details tab, the Start time, 
 			end time is updated following the tab Schedule*/
 		info("Edit an recurring event");
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.goToScheduleTab();
 		evMg.changeTimeEventFromScheduleTab(selectArrowOption.NOW,"09:00","09:00");
 		evMg.goToDetailsTab();

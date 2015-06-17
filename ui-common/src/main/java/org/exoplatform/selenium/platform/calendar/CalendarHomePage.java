@@ -955,14 +955,53 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		waitForAndGetElement(ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 	}
 	/**
-	 * check on checkboxs of events/tasks in Month view
+	 * check on checkboxes of events/tasks that has different name in Month view
 	 * @param names
 	 */
 	public void checkBoxEventTaskInMonthView(String[] names){
+		//goToView(selectViewOption.MONTH);
 		for(int i=0;i< names.length;i++){
 			info("Select the events/tasks:"+names[i]);
 			check(ELEMENT_EVENT_TASK_CHECKBOX.replace("$name",names[i]),2);
 		}
+		Utils.pause(2000);
+	}
+	/**
+	 * check on check boxes of recurring event that have same name in Monthview
+	 * @param name
+	 *              the name of recurring event
+	 * @param number
+	 *              the event's number of recurring event as first event =1, second event =2,..
+	 *              Example: number="2". This means that second recurring event will be checked
+	 * @param opt
+	 *              the summary of recurring event instances of the same series that will be checked.
+	 *              Example:opt=3. This means that 3 recurring events will be checked
+	 */            
+	public void checkBoxEventTaskInMonthView(String name,String number, int... opt){
+		//goToView(selectViewOption.MONTH);
+		if(opt.length>0){
+			int event_Start=Integer.parseInt(number); // from the event that will be checked
+			int number_event=opt[0]+event_Start;      // sum event's number will be checked
+			for(int i=event_Start;i<number_event;i++){
+				info("Click on check box of event's number:"+i);
+				check(ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW_CHECKBOX.replace("$name",name).
+						replace("$number",Integer.toString(i)),2);
+			}
+		}else{
+			info("Click on check box of event's number:"+number);
+			check(ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW_CHECKBOX.replace("$name",name).
+				replace("$number",number),2);
+		}
+		Utils.pause(2000);
+	}
+	/**
+	 * Check box on Event/task by date of Month and Week view
+	 * @param name
+	 * @param date
+	 */
+	public void checkBoxEventTaskInMonthView(String name,String date){
+		info("Select the event/task");
+		check(ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW_CHECKBOX_DATE.replace("$date",date).replace("$name",name),2);
 		Utils.pause(2000);
 	}
 	/**

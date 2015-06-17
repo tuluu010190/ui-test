@@ -12,7 +12,6 @@ public class CalendarLocatorObject extends PlatformBase{
 	public String ELEMENT_EVENT_TASK_COLOR=".//*[contains(text(),'$name')]/..//*[contains(@class,'$color')]";
 	public String ELEMENT_EVENT_TASK_TITLE_WEEK_COUNT="(.//*[contains(@class,'eventContainer')]//*[contains(text(),'${name}')])[$number]";
 	public By ELEMENT_ADD_EDIT_EVENT_POPUP = By.xpath(".//*[@id='UICalendarPopupWindow']");
-	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING="(.//*[@id='UIWeekViewGrid']//*[contains(text(),'${name}')])[${number}]";
 	public final By ELEMENT_CALENDAR_WORKING_PANEL = By.id("UICalendarWorkingContainer");
 	public final String ELEMENT_CELL_TO_WORKING_PANEL = "//td[contains(@startfull,'$date $time:00')]";
 	public String ELEMENT_ANY_TARGET_DATE = "//*[contains(@startfull, '${targetDate}') or contains(@starttimefull, '${targetDate}')]";
@@ -47,7 +46,7 @@ public class CalendarLocatorObject extends PlatformBase{
 	public String ELEMENT_SHARED_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Shared Calendars']/..//*[text()='$calendar']";
 	public String ELEMENT_GROUP_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Group Calendars']/..//*[text()='$calendar']";
 	public String ELEMENT_PERSONAL_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Personal Calendars']/..//*[text()='$calendar']";
-	public String ELEMENT_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='$calendar']";
+	public String ELEMENT_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[contains(text(),'$calendar')]";
 	public String ELEMENT_CALENDAR_LIST_ITEM_COLOR="//*[@id='UICalendars']//*[text()='$calendar']/..//*[contains(@class,'$color')]";
 	public String ELEMENT_CALENDAR_LIST_UNCHECKED=".//*[contains(@data-original-title,'$calendar')]/..//*[contains(@class,'iconUnCheckBox')]";
 	public String ELEMENT_CALENDAR_LIST_CHECKED=".//*[contains(@data-original-title,'$calendar')]/..//*[contains(@class,'iconCheckBox')]";
@@ -58,10 +57,14 @@ public class CalendarLocatorObject extends PlatformBase{
 	public final By ELEMENT_PREVIOUS_BUTTON_ANY_VIEW=By.xpath("//*[@class='title']//*[contains(@class,'uiIconMiniArrowLeft')]");
 	public final By ELEMENT_CATEGORY_OPTION=By.xpath("//*[@name='eventCategories']");
 	public final String ELEMENT_CATEGORY_OPTION_SELECTED="//*[@name='eventCategories']//*[@selected='selected' and text()='$name']";
-	
+ 	public By ELEMENT_EVENT_TASK_DELETE_BUTTON =By.xpath(".//*[contains(@data-original-title,'Delete')]//*[contains(@class,'uiIconDelete')]");
+ 	public final String ELEMENT_TASK_EVENT_RECURRING_ICON="(.//*[contains(text(),'$name')]/..//*[contains(@class,'uiIconCalRecurring')])[$number]";
+ 	public final String ELEMENT_TASK_EVENT_RECURRING_ICON_ONLY_EVENT=".//*[contains(@class,'eventContainerBorder ')]//*[contains(text(),'$name')]/..//*[contains(@class,'uiIconCalEditRecurring')]";
+ 	public final By ELEMENT_TASK_EVENT_RECURRING_POPOVER_CONTENT=By.xpath(".//*[@class='popover-content']//*[contains(text(),'Recurring event')]");
+ 	public final By ELEMENT_TASK_EVENT_RECURRING_POPOVER_CONTENT_EDIT=By.xpath(".//*[@class='popover-content']//*[contains(text(),'Edited Recurring event')]");
 	//LIST VIEW-->Header bar
 	public By ELEMENT_CALENDAR_LIST_TAB_SELECT_ALL_CHECKBOX=By.xpath(".//*[@id='UIListUsers']//*[contains(@data-original-title,'Select All')]//input");
-   	public By ELEMENT_CALENDAR_LIST_TAB_DELETE_BUTTON =By.xpath(".//*[contains(@data-original-title,'Delete')]//*[contains(@class,'uiIconDelete')]");
+  
 	
    	
     //LIST VIEW-->Grid
@@ -92,8 +95,8 @@ public class CalendarLocatorObject extends PlatformBase{
   	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ONE_DAY = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]";
   	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//*[contains(@starttimefull,'$date')]";
   	public final String ELEMENT_EVENT_TASK_DETAIL_TIME_WEEK_ONE_DAY="//*[@id='UIWeekViewGrid']//*[contains(text(),'$name')]/..//*[contains(.,'$time')]";
-  	
-  	
+  	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING_WEEK_VIEW="(.//*[@id='UIWeekViewGrid']//*[contains(text(),'$name')])[$number]";
+  	public final String ELEMENT_EVENT_TASK_WEEK_TIME=".//*[@id='UIWeekViewGrid']//*[contains(text(),'$name')]/..//*[contains(.,'$time')]";
     //MONTH VIEW-->Grid
   	public final String ELEMENT_EVENT_TASK_MONTH_VIEW="//*[@id='UIMonthView']//span[contains(text(),'$name')]";
   	public final String ELEMENT_EVENT_TASK_MONTH_DATE="//*[@id='UIMonthViewGrid']//*[contains(@starttimefull,'$date')]";
@@ -102,7 +105,11 @@ public class CalendarLocatorObject extends PlatformBase{
   	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_ICON="//*[@id='UIMonthView']//*[contains(@starttimefull,'$date')]/..//*[@class='moreEvent' and not(contains(@style, 'display'))]/*[@class='moreEventLabel']";
   	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL=".//*[contains(@starttimefull,'$date')]/../../..//*[contains(@class,'moreEventLabel')]";
   	public final String ELEMENT_EVENT_TASK_CHECKBOX=".//*[contains(text(),'$name')]/../..//input[@type='checkbox']";
+  	public final String ELEMENT_EVENT_TASK_CHECKBOX_CHECKED=".//*[contains(text(),'$name')]/../..//input[@checked='checked']";
   	public final String ELEMENT_CELL_TO_MONTH_WORKING_PANEL = "//td[contains(@starttimefull,'$date')]";
+  	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW_CHECKBOX="(.//*[@id='UIMonthView']//*[contains(text(),'$name')])[$number]/../..//input[@type='checkbox']";
+  	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW_CHECKBOX_DATE="//*[@id='UIMonthView']//*[@class='eventMonthContent']//*[@class='rowContainerDay']/*[contains(@starttimefull,'$date')]//span[contains(text(),'$name')]/../..//input[@type='checkbox']";
+  	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW="(.//*[@id='UIMonthView']//*[contains(text(),'$name')])[$number]";
       
     //WORK WEEK VIEW-->Grid
   	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(text(),'$name')]";
@@ -302,6 +309,7 @@ public class CalendarLocatorObject extends PlatformBase{
 	//*-------------------------------------------------------EVENT/TASK MANAGEMENT GENERAL--------------------------------------------------------------------------------*\\
 	
 	//CONTEXT MENU-->Right Click on Task/Event in Grid
+	public By ELEMENT_CONTEXT_MENU= By.xpath(".//*[@id='tmpMenuElement']");
 	public By ELEMENT_CONTEXT_MENU_VIEW=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'iIconPreview')]");
 	public By ELEMENT_CONTEXT_MENU_EDIT=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconEdit')]");
 	public By ELEMENT_CONTEXT_MENU_DELETE=By.xpath(".//*[@id='tmpMenuElement']//*[contains(@class,'uiIconDelete')]");
@@ -321,7 +329,7 @@ public class CalendarLocatorObject extends PlatformBase{
    //Confirm popup Task/Event
   	public By ELEMENT_CONFIRM_POPUP_OK=By.xpath(".//*[@id='UIConfirmation']//*[contains(text(),'Yes')]");
   	public By ELEMENT_CONFIRM_POPUP_DELETE=By.xpath(".//*[contains(@class,'uiConfirmForm')]//button[1]");
-	
+	public By ELEMENT_CONFIRM_POPUP_NO=By.xpath(".//*[@id='UIConfirmation']//*[contains(text(),'No')]");
 	
 	
 	//ADD QUICK TASK FORM
@@ -373,6 +381,7 @@ public class CalendarLocatorObject extends PlatformBase{
     public String ELEMENT_EVENT_INPUT_EVENT_TIME_COMBOBOX=".//*[@id='eventDetail']//input[@class='UIComboboxInput' and @value='${time}']";
 	
     //Add EVENT Form (more details )
+    public By ELEMENT_ADD_EDIT_EVENT_POPUP_FORM=By.xpath("//*[@id='UIEventForm']");
   	public By ELEMENT_ADD_EDIT_EVENT_NAME = By.xpath("//*[@id='UIEventForm']//*[@name='eventName']");
   	public By ELEMENT_ADD_EDIT_EVENT_NOTE = By.xpath("//*[@id='UIEventForm']//*[@id='description']");
   	public By ELEMENT_ADD_EDIT_EVENT_LOCATION=By.xpath("//*[@id='UIEventForm']//*[@id='place']");
@@ -475,11 +484,16 @@ public class CalendarLocatorObject extends PlatformBase{
   	public By ELEMENT_BY_THIS_DATE_END_RECURRING_EVENT = By.id("endByDate");
   	public By ELEMENT_DATE_TIME_PICKER = By.xpath("//*[contains(@id, 'DateTimePicker')]");
   	public By ELEMENT_IS_REPEAT_CHECKBOX = By.id("isRepeat");
+	public By ELEMENT_IS_REPEAT_CHECKBOX_CHECKED = By.xpath(".//*[@class='repeatSummary'][contains(text(),' Daily, 5 times')]");
   	public By ELEMENT_SAVE_EVENT_OCCURRING = By.xpath("//*[@id='UIRepeatEventForm']//*[contains(text(),'Save')]");
     public By ELEMENT_RECURRING_SAVE_BTN=By.xpath(".//*[@id='UIRepeatEventForm']//button[1]");
+    public By ELEMENT_RECURRING_CANCEL_BTN=By.xpath(".//*[@id='UIRepeatEventForm']//button[2]");
     public By ELEMENT_EDIT_RECURRING_EVENT_FORM_SAVE_BTN=By.xpath(".//*[@id='UIConfirmFormUpdate']//button[1]");
     public By ELEMENT_RECURRING_REPEAT_BTN=By.xpath(".//*[@id='eventDetail']//*[contains(@class,'uiIconEdit')]");
-  	
+    public String ELEMENT_REPEAT_ON = ".//*[@id='$day'][@checked='']";
+    public String ELEMENT_SELECT_BOX_VALUE_SELECTED=".//*[@id='UIRepeatEventForm']//option[@value='$name' and @selected='selected']";
+  	public By ELEMENT_NEVER_END_RECURRING_CHECKED=By.xpath(".//*[@id='endNever'][@checked='']");
+    
   	/*Delete recurring event form*/
   	public By ELEMENT_DELETE_RECURRING_EVENT_FORM = By.xpath("//*[@class='uiConfirmForm']");
   	public By ELEMENT_EDIT_DELETE_ONE_EVENT = By.xpath("//*[@value='save_one']");
@@ -489,12 +503,13 @@ public class CalendarLocatorObject extends PlatformBase{
   	public By ELEMENT_CONFIRM_CANCEL_BUTTON = By.xpath("//*[@class='uiConfirmForm']//button[2]");
   	public String ELEMENT_CONFIRM_DELETE_MESSAGE = "Would you like to delete only this event, all events in the series, or this and all following events in the series?";
   	public By ELEMENT_CONFIRM_EDIT_DELETE_RECURRING_EVENT = By.xpath("//*[@class='media-body']");
+  	public By ELEMENT_CONFIRM_EDIT_RECURRING_EVENT_CANCEL_BTN=By.xpath("//*[@id='UIConfirmFormUpdate']//button[2]");
 
   	/*Delete recurring event*/
-  	public By ELEMENT_CONFIRM_EDIT_BUTTON = By.xpath("//*[@id='UIConfirmFormUpdate']//*[text()='Save']");
+  	public By ELEMENT_CONFIRM_EDIT_BUTTON = By.xpath("//*[@id='UIConfirmFormUpdate']//button[1]");
   	public By ELEMENT_CONFIRM_EDIT_RECURRING_FORM = By.xpath(".//*[@class='confirmRadio']");
   	public String ELEMENT_CONFIRM_EDIT_MESSAGE = "Would you like to change only this event, all events in the series, or this and all following events in the series?";
-
+  	
   	/*Content recurring*/
   	public By ELEMENT_TITLE_RECURRING_EVENT = By.xpath("//*[@class='popover-content']/*[@class='title clearfix']/*[@class='text']");
   	public By ELEMENT_DATE_TIME_RECURRING_EVENT = By.xpath("//*[@class='popover-content']/*[@class='time clearfix']//*[@class='uiIconCalClockMini']/../../*[@class='text']");

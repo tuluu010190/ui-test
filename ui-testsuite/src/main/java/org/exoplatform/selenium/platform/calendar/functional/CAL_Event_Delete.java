@@ -347,7 +347,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			Checked event are removed from list/search result*/ 
 		hp.goToCalendarPage();
-		cMang.deleteTaskEventByCheckbox(titleEvent);
+		cMang.deleteTaskEventInListView(titleEvent);
 
  	}
 

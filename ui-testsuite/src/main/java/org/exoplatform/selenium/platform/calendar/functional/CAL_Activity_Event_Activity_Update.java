@@ -169,7 +169,7 @@ import org.testng.annotations.*;
 		String newEvent2= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,"3");//edit 3th recurring event
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Wed");
 		evMg.inputBasicDetailEvent(newEvent2,null);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ONLY_EVENT);
@@ -208,7 +208,7 @@ import org.testng.annotations.*;
 		String newEvent3= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,"1");//edit 3th recurring event
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Mon");
 		evMg.inputBasicDetailEvent(newEvent3,null);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ALL_EVENT);
@@ -310,7 +310,7 @@ import org.testng.annotations.*;
 		String newEvent2= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,"1");//edit 3th recurring event
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Mon");
 		evMg.inputBasicDetailEvent(newEvent2,null);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ALL_EVENT);
@@ -383,7 +383,7 @@ import org.testng.annotations.*;
 		String link = fData.getAttachFileByArrayTypeRandom(2);
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);//edit 3th recurring event
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		
 		/*Step number: 2
 		*Step Name: Add attachment
@@ -457,7 +457,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		check(evMg.ELEMENT_ADD_EDIT_EVENT_ALLDAY,2);
 		evMg.saveAddEventDetails();
 		
@@ -525,7 +525,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
 		evMg.saveRecurringForm();
@@ -592,7 +592,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		
 		/*Step number: 2
 		*Step Name: Add participants to events
@@ -671,7 +671,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(null,newdes);
 		evMg.saveAddEventDetails();
 		
@@ -740,7 +740,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.inputFromToDetailEvent(null,lastDay,false);
 		evMg.saveAddEventDetails();
 		
@@ -802,7 +802,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(null,null,null,null,"Hanoi");
 		evMg.saveAddEventDetails();
 		
@@ -865,7 +865,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(null,null,null,null,null,String.valueOf(priorityType.Low));
 		evMg.saveAddEventDetails();
 
@@ -928,7 +928,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		/*Step number: 2
 		*Step Name: Change option "Privacy"
 		*Step Description: 
@@ -993,7 +993,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		/*Step number: 2
 		*Step Name: Update reminders
 		*Step Description: 
@@ -1064,7 +1064,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.saveAddEventDetails();
 
@@ -1147,7 +1147,7 @@ import org.testng.annotations.*;
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
 		Utils.pause(2000);
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		/*Step number: 2
 		*Step Name: Update availabity during event
 		*Step Description: 

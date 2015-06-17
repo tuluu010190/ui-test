@@ -891,7 +891,7 @@ public class EventManagement extends CalendarLocatorObject {
 		boolean isVerify = (Boolean) (opParams.length > 0 ? opParams[0]: false);
 		info("Delete event/tak: " + name);
 		cHome.goToRightMenuTaskEventFromAnyView(name,view,optionDay,date);
-		click(ELEMENT_CONTEXT_MENU_VIEW);
+		click(ELEMENT_CONTEXT_MENU_DELETE);
 		waitForAndGetElement(ELEMENT_DELETE_RECURRING_EVENT_FORM);
 		if(isVerify){
 			waitForAndGetElement(ELEMENT_CONFIRM_EDIT_DELETE_RECURRING_EVENT);
@@ -1006,6 +1006,22 @@ public class EventManagement extends CalendarLocatorObject {
 		waitForElementNotPresent(ELEMENT_RECURRING_SAVE_BTN);
 	}
 	/**
+	 * Cancel recurring form
+	 */
+	public void cancelRecurringForm(){
+		info("Click on Cancel Button");
+		click(ELEMENT_RECURRING_CANCEL_BTN);
+		waitForElementNotPresent(ELEMENT_RECURRING_CANCEL_BTN);
+	}
+	/**
+	 * Cancel confirming editing recurring form
+	 */
+	public void cancelEditRecurringForm(){
+		info("Click on Cancel button");
+		click(ELEMENT_CONFIRM_EDIT_RECURRING_EVENT_CANCEL_BTN);
+		waitForElementNotPresent(ELEMENT_CONFIRM_EDIT_RECURRING_EVENT_CANCEL_BTN);
+	}
+	/**
 	 * Save Edit Recurring Event Confirm popup
 	 */
 	public void saveEditRecurringEventConfirmPopup(){
@@ -1013,7 +1029,14 @@ public class EventManagement extends CalendarLocatorObject {
 		click(ELEMENT_EDIT_RECURRING_EVENT_FORM_SAVE_BTN);
 		waitForElementNotPresent(ELEMENT_EDIT_RECURRING_EVENT_FORM_SAVE_BTN);
 	}
-	
+	/**
+	 * Cancel confirming deleting recurring form
+	 */
+	public void cancelDeletingRecurringForm(){
+		info("Click on Cancel Button");
+		click(ELEMENT_CONFIRM_CANCEL_BUTTON);
+		waitForElementNotPresent(ELEMENT_CONFIRM_CANCEL_BUTTON);
+	}
     /**
      * Select an option as 5,10,15,20,...60 for reminder Email box
      * @param option

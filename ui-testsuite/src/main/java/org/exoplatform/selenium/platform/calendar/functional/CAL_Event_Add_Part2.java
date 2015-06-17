@@ -888,7 +888,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Demo has new status : No*/ 
 		hp.goToCalendarPage();
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
  		evMg.goToParticipantsTab();
  		waitForAndGetElement(evMg.ELEMENT_INVITATION_PARTICIPANTS_REFUSED.replace("$fullName",firstname));
  		evMg.saveAddEventDetails();
@@ -962,7 +962,7 @@ import org.testng.annotations.*;
 			- Demo has new status : Maybe*/ 
 		 
 		hp.goToCalendarPage();
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
  		evMg.goToParticipantsTab();
  		waitForAndGetElement(evMg.ELEMENT_INVITATION_PARTICIPANTS_MAYBE.replace("$fullName",firstname));
  		evMg.saveAddEventDetails();

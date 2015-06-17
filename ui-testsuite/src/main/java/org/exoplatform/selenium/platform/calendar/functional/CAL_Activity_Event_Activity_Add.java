@@ -200,7 +200,7 @@ import org.testng.annotations.*;
         String newEditEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToSpecificSpace(space);
         spaMg.goToAgendaTab();
-        cMang.openEditEventTaskPopup(newEvent);
+        cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
         evMg.inputBasicDetailEvent(null, newEditEvent);
         evMg.saveAddEventDetails();
         info("Add successfully");
@@ -431,7 +431,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1));
 		
 		info("Change to space calendar");
-		cMang.openEditEventTaskPopup(newEvent1);
+		cMang.openEditEventTaskPopup(newEvent1,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(null,null,space);
 		evMg.saveAddEventDetails();
 		 

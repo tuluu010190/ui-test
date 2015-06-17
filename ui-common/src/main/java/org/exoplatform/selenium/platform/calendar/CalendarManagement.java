@@ -6,6 +6,7 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformPermission;
+import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.exoplatform.selenium.platform.calendar.EventManagement.recurringType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -18,6 +19,7 @@ public class CalendarManagement extends CalendarLocatorObject{
 	EventManagement evMg;
 	ManageAlert alert;
     Button button;
+    CalendarHomePage cHome;
 	/**
 	 * constructor
 	 * @param dr
@@ -28,6 +30,7 @@ public class CalendarManagement extends CalendarLocatorObject{
 		alert = new ManageAlert(dr);
 		button = new Button(dr);
 		evMg = new EventManagement(dr);
+		cHome = new CalendarHomePage(dr);
 	};
 
 	/**
@@ -99,15 +102,18 @@ public class CalendarManagement extends CalendarLocatorObject{
 	 * 				= false: not verify that calendar is deleted, 
 	 */
 	public void deleteCalendar(String name, boolean...verify){
-		boolean isVerify = (verify.length > 0 ? verify[0]: false);
-		info("Remove calendar");
-		driver.navigate().refresh();
-		executeActionCalendar(name, menuOfCalendarOption.REMOVE);
-		if(isVerify)
-			alert.verifyAlertMessage(ELEMENT_CONFIRM_REMOVE_CALENDAR_MSG);
-		else
-			click(ELEMENT_YES_BUTTON);
-		waitForElementNotPresent(ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", name));
+		if(waitForAndGetElement(ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar",name),2000,0)!=null){
+			boolean isVerify = (verify.length > 0 ? verify[0]: false);
+			info("Remove calendar");
+			driver.navigate().refresh();
+			executeActionCalendar(name, menuOfCalendarOption.REMOVE);
+			if(isVerify)
+				alert.verifyAlertMessage(ELEMENT_CONFIRM_REMOVE_CALENDAR_MSG);
+			else
+				click(ELEMENT_YES_BUTTON);
+			waitForElementNotPresent(ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", name));
+		}
+		
 	}
 
 	/** 
@@ -785,7 +791,7 @@ public class CalendarManagement extends CalendarLocatorObject{
 		case DELETE:
 			info("Select Delete option");
 			click(ELEMENT_CONTEXT_MENU_DELETE);
-			click(ELEMENT_CONFIRM_POPUP_OK);
+			//click(ELEMENT_CONFIRM_POPUP_OK);
 			break;
 		case DELETE_RECURRING:
 			info("Select Delete option");
@@ -817,19 +823,49 @@ public class CalendarManagement extends CalendarLocatorObject{
 	 * @param name
 	 * @param opt is an instance of a repeated event as 1,2,3,4....
 	 */
-	public void openEditEventTaskPopup(String name, String... opt) {
+	public void openEditEventTaskPopup(String name,selectViewOption view, String... opt) {
 		info("Edit an event");
 		Actions action = new Actions(this.driver);
+		cHome.goToView(view);
 		if (opt.length > 0 && opt[0] != null) {
+			switch(view){
+			case WEEK:
+				/*WebElement el_week = waitForAndGetElement(ELEMENT_EVENT_TASK_NUMBER_RECURRING_WEEK_VIEW
+								.replace("$name", name).replace("$number",
+										opt[0]));*/
+				WebElement el_week = waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY
+						.replace("$date", opt[0]).replace("$name",name));
+				scrollElementIntoView(el_week);
+				action.moveToElement(el_week).doubleClick().perform();
+				break;
+			case MONTH:
+				/*WebElement el_month = waitForAndGetElement(ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW
+								.replace("$name", name).replace("$number",
+										opt[0]));*/
+				WebElement el_month = waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.
+						replace("$date",opt[0]).replace("$name",name));
+				scrollElementIntoView(el_month);
+				action.moveToElement(el_month).doubleClick().perform();
+				break;
+			case WORKWEEK:
+				/*WebElement el_workweek = waitForAndGetElement(ELEMENT_EVENT_TASK_NUMBER_RECURRING_WEEK_VIEW
+						.replace("$name", name).replace("$number",
+								opt[0]));*/
+				WebElement el_workweek = waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY
+						.replace("$date", opt[0]).replace("$name",name));
+				scrollElementIntoView(el_workweek);
+				action.moveToElement(el_workweek).doubleClick().perform();
+				break;
+			default:
+				info("Please input only Month, Week and WorkWeek view");
+				break;
+			}
 			info("Double click on the event");
-			scrollElementIntoView(this.driver.findElement(By
-					.xpath(ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",name).replace("${number}",opt[0]))));
-			action.moveToElement(
-					waitForAndGetElement(ELEMENT_EVENT_TASK_NUMBER_RECURRING.replace("${name}",name).replace("${number}",opt[0]))).doubleClick().perform();
+			
 		}else{
 			info("Double click on the event");
-			/*scrollElementIntoView(this.driver.findElement(By
-					.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}", name))));*/
+			scrollElementIntoView(this.driver.findElement(By
+					.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}", name))));
 			action.moveToElement(
 					waitForAndGetElement(ELEMENT_EVENT_TASK_TITLE.replace(
 							"${name}", name))).doubleClick().perform();
@@ -838,11 +874,8 @@ public class CalendarManagement extends CalendarLocatorObject{
 		info("The edit form is shown");
 	}
 	
-	public void editEventTask(){
-		
-	}
 	/**
-	 * Remove an event or a task on Week tab
+	 * Remove an event or a task in any views by right Click
 	 * @param name
 	 */
 	public void deleteTaskEvent(String name){
@@ -853,25 +886,47 @@ public class CalendarManagement extends CalendarLocatorObject{
 			waitForElementNotPresent(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
 	}
 	/**
-	 * Delete task/event by selecting task/event's checkbox
+	 * Delete task/event by selecting an task/event's checkbox in List View
 	 * @param name
 	 */
-	public void deleteTaskEventByCheckbox(String name){
+	public void deleteTaskEventInListView(String name){
 		if(!name.isEmpty()){
+			cHome.goToView(selectViewOption.LIST);
 			info("Select the event/task");
 			check(ELEMENT_EVENT_TASK_CHECKBOX_LIST_VIEW.replace("$name",name),2);
-			click(ELEMENT_CALENDAR_LIST_TAB_DELETE_BUTTON);
-			if (waitForAndGetElement(ELEMENT_CONFIRM_POPUP_OK, 2000, 0) != null)
-				click(ELEMENT_CONFIRM_POPUP_OK);
-			if (waitForAndGetElement(evMg.ELEMENT_EDIT_DELETE_ONE_EVENT,2000, 0) != null){
-				evMg.deleteRecurringConfirm(recurringType.ALL_EVENT);
-			}
-			if (waitForAndGetElement(ELEMENT_CONFIRM_POPUP_DELETE, 2000, 0) != null)
-				click(ELEMENT_CONFIRM_POPUP_DELETE);
+			deleteTaskEvent();
 			waitForElementNotPresent(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
 		}
+		
 	}
 	
+	/**
+	 * Delete task/events by click on Delete button on header bar of Month or List View
+	 */
+	public void deleteTaskEvent(recurringType... type){
+		info("Click on Delete button");
+		click(ELEMENT_EVENT_TASK_DELETE_BUTTON);
+		confirmDeleteEventTask();
+		Utils.pause(2000);
+	}
+	/**
+	 * Confirm deleting Events/Tasks
+	 */
+	public void confirmDeleteEventTask(recurringType... type){
+		if (waitForAndGetElement(ELEMENT_CONFIRM_POPUP_OK, 2000, 0) != null)
+			click(ELEMENT_CONFIRM_POPUP_OK);
+		if (waitForAndGetElement(evMg.ELEMENT_EDIT_DELETE_ONE_EVENT,2000, 0) != null){
+			if(type.length>0)
+				evMg.deleteRecurringConfirm(type[0]);
+			else
+				evMg.deleteRecurringConfirm(recurringType.ALL_EVENT);
+		}
+		if (waitForAndGetElement(ELEMENT_CONFIRM_POPUP_DELETE, 2000, 0) != null){
+			click(ELEMENT_CONFIRM_POPUP_DELETE);
+			waitForElementNotPresent(ELEMENT_CONFIRM_POPUP_DELETE);
+		}
+			
+	}
 	
 	/**
 	 * Remove an event or a task on List tab
@@ -881,7 +936,7 @@ public class CalendarManagement extends CalendarLocatorObject{
 		if (waitForAndGetElement(ELMENT_CALENDAR_TAB_LIST_EMPTY, 3000, 0) == null) {
 			info("Select all task/events in the list tab");
 			check(ELEMENT_CALENDAR_LIST_TAB_SELECT_ALL_CHECKBOX, 2);
-			click(ELEMENT_CALENDAR_LIST_TAB_DELETE_BUTTON);
+			click(ELEMENT_EVENT_TASK_DELETE_BUTTON);
 			if (waitForAndGetElement(ELEMENT_CONFIRM_POPUP_OK, 2000, 0) != null)
 				click(ELEMENT_CONFIRM_POPUP_OK);
 			if (waitForAndGetElement(evMg.ELEMENT_EDIT_DELETE_ONE_EVENT,2000, 0) != null){
@@ -1135,6 +1190,29 @@ public class CalendarManagement extends CalendarLocatorObject{
 	public void closeSearch(){
 		info("click on Close search button");
 		click(ELEMENT_EVENT_TASK_CLOSE_SEARCH_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * Right click on Event/Tasks
+	 * @param name
+	 * @param date
+	 */
+	public void rightClickEventTaskInMonth(String name, String date){
+		info("Right click on Event/Task");
+		rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$date",
+        		getLastDayOfWeek("MMM dd yyyy")).replace("$name",name));
+		waitForAndGetElement(ELEMENT_CONTEXT_MENU);
+	}
+	/**
+	 * Delete event/tasks in Month view by right click
+	 * @param name
+	 * @param date
+	 */
+	public void deleteEventTaskInMonthView(String name, String date){
+		info("Delete event/tasks in Month view by right click");
+		rightClickEventTaskInMonth(name, date);
+		selectOptionByRightclickOnEvent(contextMenuEditEvenOption.DELETE);
+		confirmDeleteEventTask();
 		Utils.pause(2000);
 	}
 

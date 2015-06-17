@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.calendar.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -68,7 +69,7 @@ import org.testng.annotations.*;
 		info("Change to space calendar");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(newEvent1,null);
 		evMg.saveAddEventDetails();
 		

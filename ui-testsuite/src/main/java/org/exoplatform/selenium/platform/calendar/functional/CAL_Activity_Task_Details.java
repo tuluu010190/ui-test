@@ -240,7 +240,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newTask));
 		
 		Utils.pause(2000);
-		cMang.openEditEventTaskPopup(newTask);
+		cMang.openEditEventTaskPopup(newTask,selectViewOption.LIST);
 		tasMg.inputBasicDetailTask(newTask1,newTask1,space);
 		tasMg.saveAddTaskDetails();
 		

@@ -438,7 +438,7 @@ import org.testng.annotations.*;
 			- A content of event is displayed in the activity*/ 
 		String newEvent2= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
-		cMang.openEditEventTaskPopup(newEvent,"1");
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Mon");
 		evMg.inputBasicDetailEvent(newEvent2,newEvent2);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ONLY_EVENT);
@@ -559,7 +559,7 @@ import org.testng.annotations.*;
 			- The activity in the stream is updated. Description is not displayed*/
 
 		Utils.pause(2000);
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(null,"");
 		evMg.saveAddEventDetails();
 		
@@ -602,7 +602,7 @@ import org.testng.annotations.*;
 		String des1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(null,des1);
 		evMg.saveAddEventDetails();
 		info("Add task successfully");

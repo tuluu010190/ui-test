@@ -76,7 +76,7 @@ import org.testng.annotations.*;
 			- That instance become an exception event
 			- An activity for this exception event is created*/
 		String newEvent2= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cMang.openEditEventTaskPopup(newEvent,"1");
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Mon");
 		evMg.inputBasicDetailEvent(newEvent2,newEvent2);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ONLY_EVENT);

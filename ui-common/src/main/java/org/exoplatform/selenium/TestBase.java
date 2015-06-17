@@ -160,7 +160,7 @@ public class TestBase {
 	protected static String ssoType;
 
 	/*========Default System Property=============*/
-	public final String DEFAULT_SSOTYPE="openam";
+	public final String DEFAULT_SSOTYPE="";
 	public final String DEFAULT_NATIVE_EVENT = "true";
 	public final String DEFAULT_BASEURL="http://localhost:8080/portal";
 	public final String DEFAULT_BROWSER="firefox";//iexplorer, firefox, chrome
@@ -1599,6 +1599,24 @@ public class TestBase {
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		info(dateFormat.format(cal.getTime()));
 		return (dateFormat.format(cal.getTime()));	
+	}
+	/**
+	 * Get date from firstDayOf Week
+	 * @param gap
+	 * @param format
+	 * @return date in format
+	 */
+	public String getDateFromFirstDayOfWeek(int gap, String format){
+	   DateFormat dateFormat = new SimpleDateFormat(format);
+	   Date date = new Date();
+	   Calendar calendar = Calendar.getInstance();
+	   calendar.clear();
+	   calendar.setTime(date);
+	   calendar.set(Calendar.DAY_OF_WEEK, 2);
+	   calendar.add(Calendar.DAY_OF_MONTH, gap);
+	   String getDateFromFirstDayOfWeek = dateFormat.format(calendar.getTime());
+	   info("getDateFromFirstDayOfWeek:"+getDateFromFirstDayOfWeek);
+	   return getDateFromFirstDayOfWeek;
 	}
 
 	/** Get day of week

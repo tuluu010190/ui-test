@@ -635,7 +635,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Participant(s) don't have status.*/ 
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.goToParticipantsTab();
 		waitForElementNotPresent(evMg.ELEMENT_INVITATION_PARTICIPANTS_REFUSED.replace("$fullName",DATA_NAME_USER1));
 		waitForElementNotPresent(evMg.ELEMENT_INVITATION_PARTICIPANTS_MAYBE.replace("$fullName",DATA_NAME_USER1));
@@ -703,7 +703,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Participant(s)have status :Pending*/ 
 		 hp.goToCalendarPage();
-		 cMang.openEditEventTaskPopup(titleEvent);
+		 cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
  		 evMg.goToParticipantsTab();
  		 waitForAndGetElement(evMg.ELEMENT_INVITATION_PARTICIPANTS_MAYBE.replace("$fullName",firstname));
  		 evMg.saveAddEventDetails();
@@ -788,7 +788,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Demo has new status : Yes*/ 
 		 hp.goToCalendarPage();
-		 cMang.openEditEventTaskPopup(titleEvent);
+		 cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
  		 evMg.goToParticipantsTab();
  		 waitForAndGetElement(evMg.ELEMENT_INVITATION_PARTICIPANTS_YES.replace("$fullName",firstname));
  		 evMg.saveAddEventDetails();
@@ -889,7 +889,7 @@ import org.testng.annotations.*;
 			- Demo has new status : Yes*/ 
 		 hp.goToCalendarPage();
 		 cHome.goToView(selectViewOption.LIST);
-		 cMang.openEditEventTaskPopup(titleEvent);
+		 cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		 evMg.goToParticipantsTab();
  		 waitForAndGetElement(evMg.ELEMENT_INVITATION_PARTICIPANTS_YES.replace("$fullName",firstname));
  		 evMg.saveAddEventDetails();

@@ -91,7 +91,7 @@ import org.testng.annotations.*;
 			The event is edited successfully*/ 
 		hp.goToCalendarPage();
 		String titleEvent1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(titleEvent1,titleEvent1);
 		evMg.saveAddEventDetails();
 		cHome.goToView(selectViewOption.LIST);
@@ -182,7 +182,7 @@ import org.testng.annotations.*;
 		info("Edit the Event");
 		hp.goToCalendarPage();
 		String titleEvent1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(titleEvent1,null);
 		evMg.saveAddEventDetails();
 		cHome.goToView(selectViewOption.LIST);
@@ -261,7 +261,7 @@ import org.testng.annotations.*;
 		info("Edit the Event");
 		hp.goToCalendarPage();
 		String titleEvent1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(titleEvent1,null);
 		evMg.saveAddEventDetails();
 		cHome.goToView(selectViewOption.LIST);
@@ -337,7 +337,7 @@ import org.testng.annotations.*;
 			- The event is updated
 			- The Search form is still kept*/ 
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(titleEvent2,null);
 		evMg.saveAddEventDetails();
 		waitForElementNotPresent(evMg.ELEMENT_BUTTON_EVENT_SAVE_DETAILS);
@@ -411,8 +411,7 @@ import org.testng.annotations.*;
 			- Edited event disappears from current day
 			- This event appears again in working pane after click Next/Previous day 'till the new selected date of event*/
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cHome.goToView(selectViewOption.LIST);
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		int currentDay = Integer.parseInt(getCurrentDate("dd")); 
 		int firstDay= Integer.parseInt( getFirstDayOfWeek("dd"));
 		int lastDay= Integer.parseInt( getLastDayOfWeek("dd"));
@@ -661,8 +660,7 @@ import org.testng.annotations.*;
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		int targetTime=Integer.parseInt(getCurrentDate("HH"))+2;
 		String newTargetTime=String.valueOf(targetTime)+":00";
-		cHome.goToView(selectViewOption.LIST);
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputDataEventInDetailForm(titleEvent2,null,getCurrentDate("MM/dd/yyyy HH")+":00",getCurrentDate("MM/dd/yyyy ")+newTargetTime,false);
 		evMg.saveAddEventDetails();
 		cHome.goToView(selectViewOption.DAY);
@@ -741,7 +739,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The edited event is updated and moved to new selected date*/
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.WEEK);
 		int currentDay = Integer.parseInt(getCurrentDate("dd")); 
 		int firstDay= Integer.parseInt( getFirstDayOfWeek("dd"));
 		int lastDay= Integer.parseInt( getLastDayOfWeek("dd"));
@@ -1604,8 +1602,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			Event is changed and updated in list/working pane*/ 
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cHome.goToView(selectViewOption.LIST);
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputDataEventInDetailForm(titleEvent2,titleEvent2,null,null,false,null,categoryName);
 		evMg.saveAddEventDetails();
 		cHome.goToView(selectViewOption.LIST);
@@ -1676,8 +1673,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			Event is changed and updated in list and details pane*/
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cHome.goToView(selectViewOption.LIST);
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputDataEventInDetailForm(titleEvent2,titleEvent2,null,null,false,null,categoryName);
 		evMg.saveAddEventDetails();
 		cHome.goToView(selectViewOption.LIST);
@@ -1756,7 +1752,7 @@ import org.testng.annotations.*;
 			The event is changed properly*/ 
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String titleEvent ="calendar export";
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputDataEventInDetailForm(titleEvent2,titleEvent2,null,null,false,calendarName);
 		evMg.saveAddEventDetails();
 		cHome.goToView(selectViewOption.MONTH);
@@ -1828,7 +1824,7 @@ import org.testng.annotations.*;
 			- Event disappears from list of selecting day
 			- Edited event will be displayed in list after click Next/Previous icon 'till the new selected date of event*/
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputDataEventInDetailForm(titleEvent2,titleEvent2,getFirstDayOfWeek("MM/dd/yyyy"),getLastDayOfWeek("MM/dd/yyyy"),false,null,categoryName);
 		evMg.saveAddEventDetails();
 		cHome.goToView(selectViewOption.LIST);
@@ -1954,7 +1950,7 @@ import org.testng.annotations.*;
   		switchBetweenBrowsers(titleWindowParent);
 		hp.goToCalendarPage();
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cMang.openEditEventTaskPopup(titleEvent);
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputDataEventInDetailForm(titleEvent2,titleEvent2,null,null,false,calendar2);
 		evMg.saveAddEventDetails();
 		cHome.goToView(selectViewOption.LIST);
@@ -1972,7 +1968,7 @@ import org.testng.annotations.*;
 			- The shared event will disappear*/ 
 		switchBetweenBrowsers(titleWindowChild);
     	String titleEvent3 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		cMang2.openEditEventTaskPopup(titleEvent);
+    	cMang2.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg2.inputDataEventInDetailForm(titleEvent3,titleEvent3,null,null,false);
 		evMg2.saveAddEventDetails();
 		

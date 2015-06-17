@@ -68,7 +68,7 @@ import org.testng.annotations.*;
         String numberRepeat="5";
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
 		evMg.saveRecurringForm();
@@ -174,7 +174,7 @@ import org.testng.annotations.*;
 
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,"1");
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Mon");
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeatEdit);
 		evMg.saveRecurringForm();
@@ -278,7 +278,7 @@ import org.testng.annotations.*;
 		String newEvent2= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,"3");//edit 3th recurring event
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Wed");
 		evMg.inputBasicDetailEvent(newEvent2,null);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ONLY_EVENT);
@@ -577,7 +577,7 @@ import org.testng.annotations.*;
 		String newEvent2= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,"3");//edit 3th recurring event
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Wed");
 		evMg.inputBasicDetailEvent(newEvent2,null);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ALL_EVENT);
@@ -703,7 +703,7 @@ import org.testng.annotations.*;
 		String newEvent2= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,"3");//edit 3th recurring event
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Wed");
 		evMg.inputBasicDetailEvent(newEvent2,null);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.FOLLOW_EVENT);
@@ -817,7 +817,7 @@ import org.testng.annotations.*;
 		String newEvent2= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,"3");//edit 3th recurring event
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK,"Wed");
 		evMg.inputBasicDetailEvent(newEvent2,null);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ONLY_EVENT);
