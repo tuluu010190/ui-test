@@ -2050,7 +2050,6 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll2 extends CalendarBase
 		/*Clear data*/		
 		magMember.goToAllSpaces();
 		magMember.deleteSpace(spaceName1,300000);
-		magMember.deleteSpace(spaceName2,300000);
 
 	}
 }

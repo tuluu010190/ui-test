@@ -888,7 +888,7 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll3 extends CalendarBase
 	public  void test57_NotDisplayForumAddedByAnAdminUserInCategorySpaceInCreateANewPollMenu() {
 		info("Test 57 Not Display Forum added by an admin user in category space in Create a new Poll menu");
 		//Declare variable
-		String spaceName = "space104115";
+		String spaceName = "space1041153";
 
 		//- Create new space
 		magMember.goToMySpacePage();
@@ -926,7 +926,6 @@ public class PLF_Navigation_TopNavigation_Create_TopicPoll3 extends CalendarBase
 		acc.userSignIn(userType.AUTHOR);
 		nav.goToCreateMenu();
 		click(ELEMENT_ADD_POLL_ICON);
-		click(ELEMENT_ADD_POLL_TOPIC_LOCATION);
 		waitForElementNotPresent(ELEMENT_LOCATION_OPTION.replace("${itemName}", spaceName));
 		
 		//clear data

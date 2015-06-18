@@ -797,7 +797,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_LOCATION_OPTION = "//*[@id='ScrollSelectlocation']//a[contains(text(),'${itemName}')]";
 	public final By ELEMENT_FILTER_FORUM = By.xpath("//*[@class='filterInput']");
 	public final By ELEMENT_NO_FORUM = By.xpath("//*[@class='noforum']");
-	public final By ELEMENT_LOCATION_CARET = By.xpath("//*[@class='caret']");
+	public final By ELEMENT_LOCATION_CARET = By.xpath("//*[@class='uiIconMiniArrowDown uiIconLightGray']");
 	public final By ELEMENT_FORUM_FILTER_AREA = By.xpath("//*[contains(@class,'filterMenu')]/ul");
 	public final String ELEMENT_NO_FORUM_MESSAGE = "Sorry, no forum is available yet to create a poll. Start by creating your own space";
 	public final String ELEMENT_NO_FORUM_MESSAGE_TO_CREATE_TOPIC = "Sorry, no forum is available yet to create a topic. Start by creating your own space";
