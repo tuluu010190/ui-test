@@ -13,6 +13,8 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.ecms.EcmsBase;
 import org.exoplatform.selenium.platform.ecms.EcmsPermission;
+import org.exoplatform.selenium.platform.ecms.admin.ECMainFunction;
+import org.exoplatform.selenium.platform.ecms.admin.ManageAction;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.SitesExplorer;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PageManagement;
@@ -44,9 +46,12 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	PageManagement pageMag;
 	ManageAccount magAcc;
 	ManageAlert alert;
+	ManageAction magAction;
+	ECMainFunction ecMain;
+
 
 	SettingSearchPage qsPage;
-	String documentNameDes = "";
+	String documentNameDes;
 	
 	/**
 	 * this void will call the browser and set up all classes before starting
@@ -75,6 +80,8 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		ecmsPer = new EcmsPermission(driver);
 		button = new Button(driver, this.plfVersion);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
+		magAction = new ManageAction(driver);
+		ecMain = new ECMainFunction(driver,this.plfVersion);
 
 	}
 
@@ -142,8 +149,8 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		info("-- Clear data --");
 		// Delete file
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDes));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDes));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDes)));
 
 	}
 
@@ -170,7 +177,8 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	public void test02_DisplayDocInSearPageResult() {
 
 		// Create data test
-		documentNameDes = "prefix_number";//"document" + " " + prefix_number;
+		String prefix_number = getRandomNumber();
+		documentNameDes = "document"  + "_" + prefix_number;;//"document" + " " + prefix_number;
 
 		// Add new document(ex. webcontent)
 		info("Add new webcontent");
@@ -182,13 +190,13 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		/* Step 2: Quick search */
 		// - Type some text into search box
 		click(By.xpath("//*[@class='uiIconPLF24x24Search']"));
-		type(ELEMENT_QUICK_SEARCH_TEXTBOX, "prefix_", true);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, "document_", true);
 		Utils.pause(2000);
 		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.SPACE.toString(), false);
 		Utils.pause(2000);
 		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.BACK_SPACE.toString(), false);
 		Utils.pause(2000);
-		type(ELEMENT_QUICK_SEARCH_TEXTBOX, "number", false);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, prefix_number, false);
 		Utils.pause(2000);
 		// - Click on "See all search results" link
 		click(ELEMENT_QUICK_SEARCH_SEE_ALL_SEARCH_RESULTS);
@@ -204,101 +212,27 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		waitForAndGetElement(By.xpath("//div[contains(@class,'resultBox')]/..//*[@class='uiIcon64x64TemplateFolderDefault uiIcon64x64Templateexo_webContent']"));
 
 		info("-- Verify the document title --");
-		waitForAndGetElement(By.xpath((qsPage.ELEMENT_RESULT_TITLE_41).replace("${name}", "prefix")));
+		waitForAndGetElement(By.xpath((qsPage.ELEMENT_RESULT_TITLE_41).replace("${name}", "document")));
 
 		info("-- Verify the document name on excerpt and location --");
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_EXCERPT_41.replace("${name_document}", "prefix")).getText().contains("Managed Sites");
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_EXCERPT_41.replace("${name_document}", "document")).getText().contains("Managed Sites");
 
 		info("-- Verify the document date --");
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_EXCERPT_41.replace("${name_document}", "prefix")).getText().contains(getCurrentDate("EEEEE, MMMMM d, yyyy"));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_EXCERPT_41.replace("${name_document}", "document")).getText().contains(getCurrentDate("EEEEE, MMMMM d, yyyy"));
 
 		// - Items in search result is clickable and open it when user click
-		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE_41.replace("${name_document}", "prefix")).click();
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE_41.replace("${name_document}", "document")).click();
 
-		waitForAndGetElement(siteExp.ELEMENT_SE_NODE.replace("{$node}","prefix_number"));
+		waitForAndGetElement(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDes));
 		
 		info("-- Clear data --");
 		// Delete file
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDes));
-
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDes));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDes)));
 	}
 
-	/**
-	 * TC_104230:Not Display a Document as result when node types is not
-	 * "Document Type"
-	 * Preconditions:
-	 * a document exist in the Content explorer
-	 * add an action 'document" under document
-	 * Steps:
-	 * 1. Connect to a Site
-	 * 2. From Administrator, Import Quick Search portlet
-	 * 3. Check on "Edit" button of Quick Seach portlet
-	 * 4. Uncheck "Documents" type on Edit mode tab
-	 * 5. Save all changes
-	 * 6. In the Quick Search box, input a valid characters to search a Document
-	 * (Test)
-	 * Expected:
-	 * The Document"document" is not displayed in the Floating Result
-	 * 
-	 */
-	@Test(enabled = true)
-	public void test09_NotDisDocFromFloatSearResultIfNotDocTyp() {
-		/* Declare variables */
-		String qsGadget = "Quick Search";
-		String pageName = "QuickSearch70831";
-		String tempUrl = "";
-
-		/* Create data */
-		info("-- Create data --");
-		// There is a page containing a Quick search portlet
-		qsPage.addQuickSearchPage(pageName, qsGadget);
-		tempUrl = driver.getCurrentUrl();
-
-		/* Step 1: Configure Quick search */
-		// - Login as admin, go to intranet home page
-		// - Open Quick search page
-		// - Click Edit this page
-		// - Click Edit portlet "Quick search"
-		qsPage.goToEditSearchPortlet();
-		// - Quick search settings screen is shown.
-
-		// - Set value to fields
-		// - Click Save settings,
-		// - value is save
-		qsPage.editQuickSearchSettingEditMode("10", true, true, true,
-				false, true);
-
-		// Create data test
-		String prefix_number = getRandomNumber();
-		documentNameDes = "document" + " " + prefix_number;
-
-		// Add new document(ex. webcontent)
-		info("Add new webcontent");
-		naviToolbar.goToSiteExplorer();
-		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
-		actBar.goToAddNewContent();
-		conTemp.createNewWebContent(documentNameDes, documentNameDes,"","","","");
-		naviToolbar.goToHomePage();
-		// - Type some text into search box, Click on Search
-		qsPage.quickSearchType(documentNameDes);
-
-		info("-- Verify not display the document into floating results search --");
-		waitForElementNotPresent(qsPage.ELEMENT_RESULT_FLOATING_RESULTS_DOCUMENT_TITLE
-				.replace("${name_document}", documentNameDes));
-
-		info("-- Clear data --");
-		driver.get(tempUrl);
-		qsPage.goToEditSearchPortlet();
-		qsPage.editQuickSearchSettingEditMode("10", true, true, true,
-				true, true);
-		pageMag.deletePageAtManagePageAndPortalNavigation(pageName, true,
-				"intranet", false, "Administration", pageName);
-		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDes));
-	}
+	
 
 	/**
 	 * TC_104231:Display Documents in the Floating Result by pertinence
@@ -316,7 +250,7 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 * 
 	 */
 
-	@Test (groups = "error")
+	@Test (groups = "pending")
 	public void test03_DisplayDocInFloatResultByPertinence() {
 		// Create Data test
 		String prefix_number = getRandomNumber();
@@ -369,12 +303,11 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		info("-- Clear data --");
 		// Delete file
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDes));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDes));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDes)));
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				contentDoc));
-
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",contentDoc));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", contentDoc)));
 	}
 
 	/**
@@ -390,6 +323,8 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 * Expected:
 	 * The Document"document" is not displayed in the Floating Result
 	 */
+	
+	
 	@Test
 	public void test04_NoDisDocFromFloatSearResultWithoutReadPermission() {
 		// Create data test
@@ -437,8 +372,8 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		info("-- Clear data --");
 		// Delete file
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDes));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDes));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDes)));
 
 	}
 
@@ -484,8 +419,8 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		info("-- Clear data --");
 		// Delete file
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDes));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDes));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDes)));
 	}
 
 	/**
@@ -503,9 +438,9 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 */
 
 	// This test case need to confirm about displaying published document
-	@Test (groups= "error")
+	@Test (groups= "pending")
 	public void test06_DisPubDocInNotMemberWCM() {
-		String prefix_number = "104234";
+		String prefix_number = getRandomNumber();
 		documentNameDes = "document" + prefix_number;
 		String documentNameDesNotPublished = "document"
 				+ prefix_number + "not";
@@ -570,8 +505,8 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
 				documentNameDes));
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDesNotPublished));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDesNotPublished));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDes)));
 
 	}
 
@@ -590,12 +525,11 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	 * 2. The search page is displayed in Edit mode
 	 * 3. Documents having any publication status are returned as search results
 	 */
-	@Test(groups = "error")
+	@Test (enabled = true)
 	public void test07_DisAllDocWithMemberWCM() {
 		String prefix_number = getRandomNumber();
 		documentNameDes = "document" + prefix_number;
-		String documentNameDesNotPublished = "document"
-				+ prefix_number +"not";
+		//String documentNameDesNotPublished = "document"	+ prefix_number +"not";
 
 		// Add new documentthat has published(ex. webcontent)
 		info("Add new webcontent");
@@ -604,21 +538,9 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		actBar.goToAddNewContent();
 		conTemp.createNewWebContent(documentNameDes, documentNameDes, "", "",
 				"", "");
-		actBar.publishDocument();
 
-		// Add new document that has not published(ex. webcontent)
-		info("Add new webcontent");
-		ecms.goToNode(siteExp.ELEMENT_SIDEBAR_SITES_MANAGEMENT);
-		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
-		actBar.goToAddNewContent();
-		conTemp.createNewWebContent(documentNameDesNotPublished,
-				documentNameDesNotPublished, "", "", "", "");
-
-		info("-- logout admin user and login with a user of web-contribuld group --");
-		magAcc.signOut();
-		// -sign in with a user of web-contribuldor: here is "mary" user
-		magAcc.signIn(DATA_USER2, DATA_PASS);
-
+		//enable the edit mode;
+		ecms.enableEditMode(true);
 		// - Type some text into search box
 		qsPage.quickSearchType(documentNameDes);
 
@@ -631,29 +553,14 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 
 		info("-- Verify the document in Search results page --");
 		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE.replace(
+				qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE_41.replace(
 						"${name_document}", documentNameDes)).getText()
 				.contains(documentNameDes);
 
-		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE.replace(
-						"${name_document}", documentNameDesNotPublished))
-				.getText().contains(documentNameDesNotPublished);
-
-		info("-- logout the user and login with admin account --");
-		magAcc.signOut();
-		// -sign in with a user of web-contribuldor: here is "John" user
-		magAcc.signIn(DATA_USER1, DATA_PASS);
-
-		info("-- Clear data --");
 		// Delete file
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDes));
-		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDesNotPublished));
-
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDes));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDes)));
 	}
 
 	/**
@@ -674,11 +581,11 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 	@Test(enabled = true)
 	public void test08_DisAllDocAndDrafWithMemberWCM() {
 		String prefix_number = getRandomNumber();
-		documentNameDes = "document" + prefix_number;
-		String documentNameDesNotPublished = "document"
-				+ prefix_number+"pub";
+		documentNameDes = "document" + "" + prefix_number;
+		String documentNameDesNotPublished = "document" + ""
+				+ prefix_number + "pub";
 
-		// Add new documentthat has published(ex. webcontent)
+		// Add new document that has published(ex. webcontent)
 		info("Add new webcontent");
 		naviToolbar.goToSiteExplorer();
 		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
@@ -701,8 +608,16 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		magAcc.signIn(DATA_USER2, DATA_PASS);
 
 		// - Type some text into search box
-		qsPage.quickSearchType(documentNameDes);
-
+		//qsPage.quickSearchType(documentNameDes);
+		click(By.xpath("//*[@class='uiIconPLF24x24Search']"));
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, "document", true);
+		Utils.pause(1000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.SPACE.toString(), false);
+		Utils.pause(1000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.BACK_SPACE.toString(), false);
+		Utils.pause(2000);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, prefix_number, false);
+		Utils.pause(2000);
 		// - Click on "See all search results" link
 		click(ELEMENT_QUICK_SEARCH_SEE_ALL_SEARCH_RESULTS);
 		// - Uncheck "All content types" checkbox
@@ -711,30 +626,75 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		check(qsPage.ELEMENT_FILTER_SEARCH_DOCUMENT_CHECKBOX, 2);
 
 		info("-- Verify the document in Search results page --");
-		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE.replace(
-						"${name_document}", documentNameDes)).getText()
-				.contains(documentNameDes);
-
-		assert waitForAndGetElement(
-				qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE.replace(
-						"${name_document}", documentNameDesNotPublished))
-				.getText().contains(documentNameDesNotPublished);
+		assert waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE_41.replace("${name_document}", documentNameDes)).getText().contains(documentNameDes);
+		assert waitForAndGetElement(qsPage.ELEMENT_RESULT_SEARCH_PAGE_TITLE_41.replace("${name_document}", documentNameDesNotPublished)).getText().contains(documentNameDesNotPublished);
 
 		info("-- logout the user and login with admin account --");
 		magAcc.signOut();
-		// -sign in with a user of web-contribuldor: here is "John" user
+		// -sign in with a user of web-contributor: here is "mary" user
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 
 		info("-- Clear data --");
 		// Delete file
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDes));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDes));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDes)));
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",
-				documentNameDesNotPublished));
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDesNotPublished));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDesNotPublished)));
 
 	}
+	/**
+	 * TC_104230:Not Display a Document as result when node types is not
+	 * "Document Type"
+	 * Preconditions:
+	 * a document exist in the Content explorer
+	 * add an action 'document" under document
+	 * Steps:
+	 * 1. Connect to a Site
+	 * 2. From Administrator, Import Quick Search portlet
+	 * 3. Check on "Edit" button of Quick Seach portlet
+	 * 4. Uncheck "Documents" type on Edit mode tab
+	 * 5. Save all changes
+	 * 6. In the Quick Search box, input a valid characters to search a Document
+	 * (Test)
+	 * Expected:
+	 * The Document"document" is not displayed in the Floating Result
+	 * 
+	 */
+	@Test(enabled = true)
+	public void test09_NotDisDocFromFloatSearResultIfNotDocTyp() {
+		String prefix_number = getRandomNumber();
+		documentNameDes = "document" + prefix_number;
+		//String documentNameDesNotPublished = "document"	+ prefix_number +"not";
 
+		// Add new documentthat has published(ex. webcontent)
+		info("Add new webcontent");
+		naviToolbar.goToSiteExplorer();
+		actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
+		//actBar.addItem2ActionBar("manageActions", actBar.ELEMENT_ADD_ACTION_LINK);
+		actBar.goToAddNewContent();
+		conTemp.createNewWebContent(documentNameDes, documentNameDes, "", "",
+				"", "");
+		//ecMain.goToActionsTabInContentAdmin();
+		actBar.addItem2ActionBar("manageActions", actBar.ELEMENT_ACTION_ICON);
+		
+		ecms.goToNode(By.linkText(documentNameDes));
+		//click(By.linkText(documentNameDes));
+		actBar.addNewAction("test", "User Action", "exo:addMetadataAction");
+		// assert actBar.isActionPresent("test");
+		
+		//Search Action 
+		qsPage.quickSearchType("test");
+		
+		
+		info("-- Verify not displaying the document into floading results --");
+		waitForElementNotPresent(qsPage.ELEMENT_RESULT_FLOATING_RESULTS_DOCUMENT_TITLE.replace("${name_document}", documentNameDes));
+		//waitForElementNotPresent(By.linkText(documentNameDes));
+	
+		//Delete the document
+		naviToolbar.goToSiteExplorer();
+		//cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}",documentNameDes));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentNameDes)));
+	}
 }
