@@ -240,7 +240,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_EMAIL_TEXTBOX_EDIT = By.id("email");
 	public final By ELEMENT_EDIT_BASIC_INFO_SAVE_BUTTON = By.xpath("//*[@id='UIBasicInfoSection']//button[contains(text(), 'Save')]");
 	public final By ELEMENT_MY_WIKI_LINK = By.linkText("My Wiki");
-	public final By ELEMENT_NOTIFICATION_LINK = By.linkText("Notifications");
+	public final By ELEMENT_NOTIFICATION_LINK = By.xpath("//*[@class='uiIconPLFNotifications']");
 	public final By ELEMENT_MY_CONNECTIONS_LINK = By.linkText("My Connections");
 	public final String ELEMENT_PROFILE_PAGE = "//div[@id='UIProfile']//h3[contains(.,'${user}')]";
 

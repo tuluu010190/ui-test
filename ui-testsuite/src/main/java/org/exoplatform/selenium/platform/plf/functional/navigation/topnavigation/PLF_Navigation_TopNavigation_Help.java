@@ -83,7 +83,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test02_OpenUserGuideInANewTab() {
 		info("Test 2: Open user guide in a new tab");	
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.GettingStarted.SocialIntranetHomepage.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.GettingStarted.SocialIntranetHomepage.html";
 		/*
 		- Connect to Intranet
 		 *Expected Outcome: 
@@ -121,7 +121,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test03_OpenUserGuideWhenUserIsInMyConnectionsScreen() {
 		info("Test 3: Open user guide when user is in My Connections screen");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourConnections.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourConnections.html";
 		/*
 		- Connect to Intranet
 		- Open "My Connections" screen
@@ -140,7 +140,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourConnections.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourConnections.html		*/ 
 		info("Click on Help button");
 		click(ELEMENT_HELP_ICON);
 		info("Open new window");
@@ -164,7 +164,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test04_OpenUserGuideWhenUserIsInMyDashboardScreen() {
 		info("Test 4: Open user guide when user is in My Dashboard screen");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourDashboard.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourDashboard.html";
 		/*
 		- Connect to Intranet
 		- Open "My Dashboard" screen
@@ -182,7 +182,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourDashboard.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourDashboard.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		info("Open new window");
 		Utils.pause(5000);	
@@ -206,7 +206,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test05_OpenUserGuideWhenUserIsInMyProfileScreen() {
 		info("Test 5: Open user guide when user is in My Profile screen");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourProfile.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourProfile.html";
 		/*
 		- Connect to Intranet
 		- Open "My Profile" screen
@@ -224,7 +224,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourProfile.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourPersonalApplications.ManagingYourProfile.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		info("Check URL is shown");
 		Utils.pause(5000);	
@@ -247,7 +247,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test06_OpenUserGuideWhenUserIsInMyWikiScreen() {
 		info("Test 6: Open user guide when user is in My Wiki screen");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourPersonalApplications.WorkingWithYourWiki.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourPersonalApplications.WorkingWithYourWiki.html";
 
 		/*
 		- Connect to Intranet
@@ -268,7 +268,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on:http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourPersonalApplications.WorkingWithYourWiki.html		*/ 
+		- The user guide is opened on:http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourPersonalApplications.WorkingWithYourWiki.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);	
 		for(String winHandle : driver.getWindowHandles()){
@@ -291,7 +291,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test07_OpenUserGuideWhenUserIsInOtherPlaces() {
 		info("Test 7: Open user guide when user is in other places");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.html";
 		/*
 		- Connect to Intranet
 		 *Expected Outcome: 
@@ -310,7 +310,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		info("Check URL is shown");
 		Utils.pause(5000);	
@@ -335,7 +335,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	public  void test08_OpenUserGuideWhenUserIsInsideASpaceInActivityStream() {
 		info("Test 8: Open user guide when user is inside a space, in activity stream");
 		String spaceName = "Space76666";
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithSpaces.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithSpaces.html";
 
 		/*
 		- Connect to Intranet
@@ -356,7 +356,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithSpaces.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithSpaces.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		info("Check URL is shown");
 		Utils.pause(5000);	
@@ -385,7 +385,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	public  void test09_OpenUserGuideWhenUserIsInsideASpaceOnAnswers() {
 		info("Test 9: Open user guide when user is inside a space, on Answers");
 		String spaceName = "Space76667";
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourAnswers.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourAnswers.html";
 
 		//Pre-condition
 		mMember.goToAllSpaces();
@@ -408,7 +408,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourAnswers.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourAnswers.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		info("Check URL is shown");
 		Utils.pause(5000);	
@@ -437,7 +437,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	public  void test10_OpenUserGuideWhenUserIsInsideASpaceOnCalendar() {
 		info("Test 10 Open user guide when user is inside a space, on Calendar");
 		String spaceName = "Space76668";
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourCalendars.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourCalendars.html";
 
 		//Pre-condition 
 		mMember.goToAllSpaces();
@@ -461,7 +461,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourCalendars.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourCalendars.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		info("Check URL is shown");
 		Utils.pause(5000);	
@@ -490,7 +490,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	public  void test11_OpenUserGuideWhenUserIsInsideASpaceOnDocuments() {
 		info("Test 11 Open user guide when user is inside a space, on Documents");
 		String spaceName = "Space76669";
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourDocuments.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourDocuments.html";
 
 		//Pre-Condition 
 		mMember.goToAllSpaces();
@@ -514,7 +514,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on:http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourDocuments.html		*/ 
+		- The user guide is opened on:http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourDocuments.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);	
 		for(String winHandle : driver.getWindowHandles()){
@@ -542,7 +542,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	public  void test12_OpenUserGuideWhenUserIsInsideASpaceOnFAQ() {
 		info("Test 12 Open user guide when user is inside a space, on FAQ");
 		String spaceName = "Space76670";
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourAnswers.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourAnswers.html";
 
 		//Pre-Condition 
 		mMember.goToAllSpaces();
@@ -566,7 +566,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourAnswers.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourAnswers.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);	
 		for(String winHandle : driver.getWindowHandles()){
@@ -594,7 +594,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	public  void test13_OpenUserGuideWhenUserIsInsideASpaceOnForum() {
 		info("Test 13 Open user guide when user is inside a space, on Forum");
 		String spaceName = "Space76671";
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourForum.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourForum.html";
 
 		//Pre-condition 
 		mMember.goToAllSpaces();
@@ -618,7 +618,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourForum.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourForum.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
@@ -646,7 +646,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	public  void test14_OpenUserGuideWhenUserIsInsideASpaceOnSpaceManagement() {
 		info("Test 14 Open user guide when user is inside a space, on Space Management");
 		String spaceName = "Space76672";
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithSpaces.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithSpaces.html";
 
 		//Pre-Condition
 		mMember.goToAllSpaces();
@@ -670,7 +670,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on:http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithSpaces.html		*/ 
+		- The user guide is opened on:http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithSpaces.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
@@ -698,7 +698,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	public  void test15_OpenUserGuideWhenUserIsInsideASpaceOnWiki() {
 		info("Test 15 Open user guide when user is inside a space, on Wiki");
 		String spaceName = "Space76673";
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithWikis.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithWikis.html";
 
 		//Pre-Condition 
 		mMember.goToAllSpaces();
@@ -722,7 +722,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithWikis.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithWikis.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
@@ -747,23 +747,15 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	 * Generated by chinhdtt at 2014/05/19 12:12:55
 	 * Bug: https://jira.exoplatform.org/browse/PLF-4516
 	 */
-	@Test (groups = "errors")
+	@Test
 	public  void test16_OpenUserGuideWhenUserIsOnAnswers() {
 		info("Test 16 Open user guide when user is on Answers");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourAnswers.html";
-		String nodeName = "Node76674"+getRandomString();
-		String displayName = "Node76674"+getRandomString();
-		String title = "Collaboration";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourAnswers.html";
 		Map<String, String> portletIds= new HashMap<String, String>();
 		portletIds.put("Collaboration/AnswersPortlet", "");
 
 		//Pre-condition
-		nav.goToPageCreationWizard();
-		Utils.pause(5000);
-		click(ELEMENT_UP_LEVEL);
-		info("Create page");
-		mPage.addNewPageEditor(nodeName, displayName,"",title, portletIds, false, false);
-		Utils.pause(5000);	
+		click("//*[@data-original-title='Answers']");
 
 		/*
 		- Connect to Intranet
@@ -781,19 +773,15 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourAnswers.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourAnswers.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
 			driver.switchTo().window(winHandle);
 		}
 		Utils.pause(1000);
-		assert driver.getCurrentUrl().equalsIgnoreCase(URL);		
 		info("URL "+driver.getCurrentUrl());
-
-		//Delete data test
-		info("Delete page");
-		mPage.deletePageAtManagePageAndPortalNavigation(nodeName, true, "intranet", false, null,displayName);
+		assert driver.getCurrentUrl().equalsIgnoreCase(URL);		
 	}
 
 	/**
@@ -807,7 +795,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test17_OpenUserGuideWhenUserIsOnCalendar() {
 		info("Test 17 Open user guide when user is on Calendar");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourCalendars.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourCalendars.html";
 		/*
 		- Connect to Intranet
 		- OpenCalendar application
@@ -827,7 +815,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on:http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourCalendars.html		*/ 
+		- The user guide is opened on:http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourCalendars.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
@@ -849,7 +837,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test18_OpenUserGuideWhenUserIsOnDocuments() {
 		info("Test 18 Open user guide when user is on Documents");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourDocuments.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourDocuments.html";
 
 		/*
 		- Connect to Intranet
@@ -870,7 +858,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.ManagingYourDocuments.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.ManagingYourDocuments.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
@@ -890,10 +878,10 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	 * Generated by chinhdtt at 2014/05/19 12:12:55
 	 * Bug: https://jira.exoplatform.org/browse/PLF-4516
 	 */
-	@Test (groups = "errors")
+	@Test
 	public  void test19_OpenUserGuideWhenUserIsOnFAQ() {
 		info("Test 19 Open user guide when user is on FAQ");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.html";
 		String nodeName = "Node76677"+getRandomString();
 		String displayName = "Node76677"+getRandomString();
 		String title = "Collaboration";
@@ -923,7 +911,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourAnswers.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourAnswers.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
@@ -950,7 +938,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test20_OpenUserGuideWhenUserIsOnForum() {
 		info("Test 20 Open user guide when user is on Forum");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourForum.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourForum.html";
 		/*
 		- Connect to Intranet
 		- Open Forum application
@@ -970,7 +958,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.BuildingYourForum.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.BuildingYourForum.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
@@ -992,7 +980,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test21_OpenUserGuideWhenUserIsOnHomepage() {
 		info("Test 21 Open user guide when user is on Homepage");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.GettingStarted.SocialIntranetHomepage.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.GettingStarted.SocialIntranetHomepage.html";
 		/*
 		- Connect to Intranet
 		 *Expected Outcome: 
@@ -1007,7 +995,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.GettingStarted.SocialIntranetHomepage.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.GettingStarted.SocialIntranetHomepage.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
@@ -1030,7 +1018,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	public  void test22_OpenUserGuideWhenUserIsOnSpaces() {
 		info("Test 22 Open user guide when user is on Spaces");
 		String spaceName = "Space76680";
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithSpaces.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithSpaces.html";
 
 		/*
 		- Connect to Intranet
@@ -1050,7 +1038,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithSpaces.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithSpaces.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
@@ -1072,7 +1060,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 	@Test
 	public  void test23_OpenUserGuideWhenUserIsOnWiki() {
 		info("Test 23 Open user guide when user is on Wiki");
-		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithWikis.html";
+		String URL = "http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithWikis.html";
 
 		/*
 		- Connect to Intranet
@@ -1092,7 +1080,7 @@ public class PLF_Navigation_TopNavigation_Help extends PlatformBase{
 		 *Input Data: 
 		 *Expected Outcome: 
 		- A new tab in the internet browser is opened
-		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF40/PLFUserGuide.WorkingWithWikis.html		*/ 
+		- The user guide is opened on: http://docs.exoplatform.com/public/index.jsp?topic=/PLF41/PLFUserGuide.WorkingWithWikis.html		*/ 
 		click(ELEMENT_HELP_ICON);
 		Utils.pause(5000);
 		for(String winHandle : driver.getWindowHandles()){
