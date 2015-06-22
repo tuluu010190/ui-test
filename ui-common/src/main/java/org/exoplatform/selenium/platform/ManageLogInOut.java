@@ -33,8 +33,7 @@ public class ManageLogInOut extends PlatformBase {
 			signOut();
 		}
 		info("--Sign in as " + username + "--");
-		info("ssoType:"+ssoType);
-		if(!ssoType.isEmpty()){
+		if(ssoType != "" && ssoType != null){
 			SSO sso = SSO.valueOf(ssoType.toUpperCase());
 			switch(sso){
 			case OPENAM:
