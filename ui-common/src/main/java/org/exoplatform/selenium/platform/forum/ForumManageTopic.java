@@ -1116,7 +1116,7 @@ public class ForumManageTopic extends ForumBase {
 		// magCat.addNewCategoryInForum(category, "1",0,permission, category,
 		// 0,permission);
 		magCat.addNewCategoryInForum(category, "1", 0, permissionName,
-				category, 2, permissionName, false, false, true, true);
+				category, 2, permissionName, false, true, true, false);
 		magFor.addForum(category, addForum, true, "", "", false, 0,
 				permissionName);
 		click(ELEMENT_START_TOPIC_BUTTON);

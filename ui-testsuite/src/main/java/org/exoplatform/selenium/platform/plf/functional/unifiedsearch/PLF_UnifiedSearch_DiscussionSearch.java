@@ -3,10 +3,11 @@ package org.exoplatform.selenium.platform.plf.functional.unifiedsearch;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.openqa.selenium.By;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.ManageAccount;
 import org.exoplatform.selenium.platform.NavigationManagement;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -17,6 +18,7 @@ import org.exoplatform.selenium.platform.forum.ForumManageCategory;
 import org.exoplatform.selenium.platform.forum.ForumManageForum;
 import org.exoplatform.selenium.platform.forum.ForumManagePost;
 import org.exoplatform.selenium.platform.forum.ForumManageTopic;
+import org.exoplatform.selenium.platform.forum.ForumPermission;
 
 /**
  * 
@@ -28,6 +30,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 
 	// General
 	Button button;
+	ManageAlert mgAlert;
 
 	// Platform
 	NavigationToolbar naviToolbar;
@@ -42,6 +45,8 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	ForumManagePost mngPost;
 	ForumManageCategory mngCat;
 
+	ForumPermission frumPer;
+	
 	String searchText = "topic";
 	String category1 = "";
 	String forum1 = "";
@@ -58,12 +63,12 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * @throws Exception
 	 */
 
-	@BeforeTest
+	@BeforeMethod
 	public void setBeforeTest() throws Exception {
 		initSeleniumTest();
 		driver.get(baseUrl);
 		info("Login with " + DATA_USER1);
-
+		frumPer = new ForumPermission(driver,this.plfVersion);
 		magAcc = new ManageAccount(driver, this.plfVersion);
 		naviToolbar = new NavigationToolbar(driver, this.plfVersion);
 		button = new Button(driver, this.plfVersion);
@@ -73,6 +78,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 		mngCat = new ForumManageCategory(driver, this.plfVersion);
 		navMag = new NavigationManagement(driver, this.plfVersion);
 		qsPage = new SettingSearchPage(driver);
+		mgAlert = new ManageAlert(driver);
 		magAcc.signIn(DATA_USER1, DATA_PASS);
 
 	}
@@ -83,7 +89,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * @throws Exception
 	 */
 
-	@AfterTest
+	@AfterMethod
 	public void setAfterTest() throws Exception {
 		info("Logout portal");
 		driver.manage().deleteAllCookies();
@@ -109,7 +115,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * @throws Exception
 	 */
 
-	@Test(enabled = true)
+	@Test
 	public void test01_DisplayDisInFloatingResult() {
 		isPermission = false;
 		// Create data test
@@ -154,16 +160,17 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * icon such as displayed in the forum application 2.The post title 3.An
 	 * excerpt 4.The Forum name 5.The post date 6.The rating 7.The number of
 	 * replies in the topic
+	 * related issue: FORUM-1146
 	 */
 
-	@Test(enabled = true)
+	@Test(groups = "error")
 	public void test02_DisplayDisInSearPageResult() throws Exception {
 		isPermission = false;
 		// Create data test
 		AddCategoryForumTopicByViewedAnyOne();
 
 		// - Type some text into search box, Click on Search
-		qsPage.quickSearchType(searchText);
+		qsPage.quickSearchType(topic1);
 
 		// - Click on "See all search results" link
 		click(ELEMENT_SEE_ALL_SEARCH_RESULTS);
@@ -222,7 +229,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * 1.Login with root account
 	 * 2. Go to the home page by the
 	 * link:http://localhost:8080/portal/intranet/home
-	 * 3. Create a ategory,forum and topic without permission
+	 * 3. Create a category,forum and topic without permission
 	 * 4. In the Quick Search box, input a valid characters (Ex. forum) to
 	 * search a Discussion
 	 * 5. Delete the category
@@ -230,7 +237,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * following order: Post 1, Post 2
 	 */
 
-	@Test(enabled = true)
+	@Test
 	public void test03_DisplayDisInFloatResultByPertinence() throws Exception {
 		isPermission = false;
 		// Create preconditions
@@ -257,7 +264,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 				qsPage.ELEMENT_RESULT_FLOATING_RESULTS_NAME.replace(
 						"${type_Search}", text_Search).replace(
 						"${detail_Name}", topic2)).getText().contains(topic2);
-		
+
 		DeleteData();
 
 	}
@@ -276,7 +283,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * Expected: The post is opened in the forum app
 	 */
 
-	@Test(enabled = true)
+	@Test
 	public void test04_OpenPostFromSearResult() throws Exception {
 		isPermission = false;
 		// Create data test
@@ -301,6 +308,9 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * to view
 	 * Preconditions: a Discussion exist in a forum Discussion containing search
 	 * characters is available on a forum where user is not allowed to view
+	 * - Select this forum > select topic > More actions > Edit 
+	 * - Permission tab > Add the Administration group for all right 
+	 * - Check this case with demo user
 	 * Steps:
 	 * 1. Login with John user (root account)
 	 * 2. Go to the home page by the
@@ -313,18 +323,23 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * this issue releated to FORUM-978
 	 */
 
-	@Test(groups = "error")
+	@Test
 	public void test05_NoDisplayForumForUserNotAllowView() {
-		String category1 = "cat104223";
-		String forum1 = "for104223";
-		String topic1 = "top104223";
-		String[] permisionName = { "demo" };
+		String category1 = "cat1042231";
+		String forum1 = "for1042231";
+		String topic1 = "top1042231";
+		String[] permisionName1 = {DATA_USER1};
 		
 		// Create data test
 		mngFru.goToForums();
-		mngTopic.addCategoryForumForUserWithoutViewPermision(category1, forum1,
-				topic1, topic1, permisionName);
-
+		mngCat.goToAddCategory();
+		mngCat.inputTitleOrderDescriptionCategory(category1, "1", category1);
+		mngCat.selectRestricted(1, permisionName1);
+		button.save();
+		mngFru.quickAddForum(forum1);
+		click(mngTopic.ELEMENT_START_TOPIC_BUTTON);
+		mngTopic.startTopic(topic1, topic1, "", 0, permisionName1, false, false, false);
+		
 		// -logout
 		magAcc.signOut();
 		// -sign in with normal user: here is "demo" user
@@ -332,13 +347,13 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 		isPermission = true;
 		
 		// - Type some text into search box, Click on Search
-		qsPage.quickSearchType(searchText);
+		qsPage.quickSearchType(forum1);
 
-		info("-- Verify not display topic --");
-		waitForElementNotPresent(qsPage.ELEMENT_RESULT_FLOATING_RESULTS_NAME.replace("${type_Search}", text_Search).replace("${detail_Name}", topic1));
-		waitForElementNotPresent(By.linkText(topic1));
+		info("-- Verify not display forum1 --");
+		waitForElementNotPresent(qsPage.ELEMENT_RESULT_FLOATING_RESULTS_NAME.replace("${type_Search}", text_Search).replace("${detail_Name}", forum1));
+		waitForElementNotPresent(By.linkText(forum1));
 
-		info("-- Verify not display topic --");
+		info("-- Verify not display forum1 --");
 		waitForElementNotPresent("//strong[text()='" + forum1 + "']");
 		waitForElementNotPresent(By.linkText(forum1));
 		magAcc.signOut();
@@ -368,52 +383,43 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * this issue releated to FORUM-978
 	 */
 
-	@Test(groups = "error")
+	@Test
 	public void test06_NoDisplayTopicForUserNotAllowRead() {
+		String category1 = "cat104225";
+		String forum1 = "for104225";
+		String topic1 = "top104225";
+		String[] permisionName1 = {DATA_USER1};
+		
 		// Create data test
-		AddTopicForUserWithoutReadPermission();
-
+		mngFru.goToForums();
+		mngCat.goToAddCategory();
+		mngCat.inputTitleOrderDescriptionCategory(category1, "1", category1);
+		frumPer.configPermission4ForumCategory(2, permisionName1, true, true, true, true);
+		button.save();
+		mngFru.quickAddForum(forum1);
+		click(mngTopic.ELEMENT_START_TOPIC_BUTTON);
+		mngTopic.startTopic(topic1, topic1, "", 0, permisionName1, false, false, false);
+		
 		// -logout
 		magAcc.signOut();
 		// -sign in with normal user: here is "demo" user
 		magAcc.signIn(DATA_USER4, DATA_PASS);
 		isPermission = true;
+		
 		// - Type some text into search box, Click on Search
-		qsPage.quickSearchType(searchText);
+		qsPage.quickSearchType(topic1);
 
 		info("-- Verify not display topic --");
-		waitForElementNotPresent(qsPage.ELEMENT_RESULT_FLOATING_RESULTS_NAME
-				.replace("${type_Search}", text_Search).replace(
-						"${detail_Name}", topic1));
-		waitForElementNotPresent(By.linkText(topic1));
-
-		info("-- Verify not display topic --");
-		waitForElementNotPresent("//strong[text()='" + forum1 + "']");
-		waitForElementNotPresent(By.linkText(forum1));
-		DeleteData();
-
-	}
-
-	/**
-	 * Create a category, a forum and a topic for a user. The user cannot read a
-	 * topic
-	 * 
-	 * @param permissionName
-	 *            a array of the names of a user or a group or a role
-	 */
-
-	private void AddTopicForUserWithoutReadPermission() {
-
-		createNameCategoryForumTopic();
-
-		String[] permisionName = { "demo" };
-		// Create data
-		// Forums, topics, posts are existed on Forum application.
-		info("Add a post");
+		click(qsPage.ELEMENT_RESULT_FLOATING_RESULTS_NAME.replace("${type_Search}", text_Search).replace("${detail_Name}", topic1));
+		mgAlert.verifyAlertMessage("You are not allowed to view this topic");
+		button.ok();
+		
+		magAcc.signOut();
+		// -sign in with admin user: here is "john" user
+		magAcc.signIn(DATA_USER1, DATA_PASS);
 		mngFru.goToForums();
-		mngTopic.addForumTopicForUserWithoutReadPermision(category1, forum1,
-				topic1, topic1, permisionName);
-
+		click(By.linkText(category1));
+		mngCat.deleteCategoryInForum(category1, true);
 	}
 
 	/**
