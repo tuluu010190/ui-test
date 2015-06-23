@@ -171,6 +171,7 @@ public class SpaceManagement extends SocialBase {
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
 		clickButton("Create");
 		waitForAndGetElement(ELEMENT_ADDED_SPACE, 4000, 0);
+		Utils.pause(3000);
 	}
 
 	/**

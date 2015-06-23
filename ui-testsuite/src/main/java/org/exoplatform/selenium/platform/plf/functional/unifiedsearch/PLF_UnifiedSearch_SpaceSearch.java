@@ -51,13 +51,13 @@ public class PLF_UnifiedSearch_SpaceSearch extends Template {
 
 	/**
 	 * == Display a Space in the Search Result page ==
-	 * Test case ID: 104357
+	 * Test case ID: 121204
 	 * Step 1: Connect to Site / In the Quick Search box, input a valid characters to search a Space (Test) 
 	 * Step 2: Click on "See All Search Results"
 	 */
 	@Test(priority=0)
 	public void test01_DisplayASpaceInTheSearchResultPage() {
-		String name = "test104357";
+		String name = "test121204";
 
 		//Pre-condition
 		//Add space
@@ -75,7 +75,8 @@ public class PLF_UnifiedSearch_SpaceSearch extends Template {
 		waitForAndGetElement(qsPage.ELEMENT_RESULT_TITLE);
 		waitForAndGetElement(By.xpath(qsPage.ELEMENT_RESULT_PEOPLE_ICON));
 		waitForAndGetElement(qsPage.ELEMENT_RESULT_CONTENT_DETAIL);
-		waitForAndGetElement(By.xpath((qsPage.ELEMENT_RESULT_SEARCH_ITEM).replace("${item}", name)));
+		//waitForAndGetElement(By.xpath((qsPage.ELEMENT_RESULT_SEARCH_ITEM).replace("${item}", name)));
+		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", name));
 		waitForAndGetElement(By.xpath("//*[@class='detail' and contains(text(), '1 Member')]"));
 		waitForAndGetElement(By.xpath("//*[@class='detail' and contains(text(), 'Register')]"));
 
@@ -89,13 +90,13 @@ public class PLF_UnifiedSearch_SpaceSearch extends Template {
 
 	/**
 	 * == Not Display a Hidden Space in the Search Result ==
-	 * Test case ID: 104358
+	 * Test case ID: 121544
 	 * Step 1: Connect to Intranet / Create a Hidden space (Test)
 	 * Step 2: Log in as another user who isn't member of the space "Test" and is not Root acc. / In the Search box, input a valid characters to search the Hidden Space (Test)
 	 */
 	@Test(priority=1)
 	public void test02_NotDisplayAHiddenSpaceInTheSearchResult() {
-		String name = "test104358";
+		String name = "test121544";
 
 		/*Step 1: Connect to Intranet / Create a Hidden space (Test)*/
 		info("-- Create space --");
@@ -107,11 +108,11 @@ public class PLF_UnifiedSearch_SpaceSearch extends Template {
 		magAcc.signOut();
 		magAcc.userSignIn(userType.PUBLISHER);
 
-		qsPage.quickSearch(name);
+		qsPage.quickSearchType(name);
+		click(ELEMENT_QUICK_SEARCH_ICON);
 		info("searching");
-		waitForAndGetElement(ELEMENT_RESULT_SEARCH_PAGE);
 		//check the result
-		waitForElementNotPresent(By.xpath((qsPage.ELEMENT_RESULT_SEARCH_ITEM).replace("${item}", name)));
+		waitForElementNotPresent(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", name));
 		info("test succeed");
 
 		//clean the data
@@ -128,8 +129,9 @@ public class PLF_UnifiedSearch_SpaceSearch extends Template {
 	 * == Display Spaces in the Floating Result by weight ==
 	 * Test case ID: 104359
 	 * Step 1:  Connect to Site / In the Quick Search box, input a valid characters to search a space (Test)
+	 * https://jira.exoplatform.org/browse/SOC-4890
 	 */
-	@Test(groups ="pending")
+	@Test
 	public void test03_DisplaySpacesInTheFloatingResultByWeight() {
 		String content = "test";
 		String content2 = "content";
@@ -161,13 +163,13 @@ public class PLF_UnifiedSearch_SpaceSearch extends Template {
 
 	/**
 	 * == Open a Space from the Search Results ==
-	 * Test case ID: 104360
+	 * Test case ID: 121598
 	 * Step 1: Connect to Intranet / In the Quick Search box, input a valid characters to search a Document (Test)
 	 * Step 2: Click on the Space's name
 	 */
 	@Test(priority=3)
 	public void test04_OpenASpaceFromTheSearchResults() {
-		String name = "test104360";
+		String name = "test121598";
 
 		//Pre-condition
 		//Add space

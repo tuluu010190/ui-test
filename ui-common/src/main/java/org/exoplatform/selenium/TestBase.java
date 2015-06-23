@@ -442,10 +442,11 @@ public class TestBase {
 			}
 
 		try {
-			if(by != null)
-				e = wDriver.findElement(by);
-			if (e != null){
-				if (isDisplay(by)) return e;
+			if(by != null){
+				if(wDriver.findElements(by).size()>0){
+					e = wDriver.findElement(by);
+					if (isDisplay(by)) return e;
+				}
 			}
 		} catch (NoSuchElementException ex) {
 			//			info("NoSuchElementException");
@@ -1121,12 +1122,12 @@ public class TestBase {
 		File folder = new File(pathFile);
 		File[] listOfFiles = folder.listFiles();
 		for (File file1 : listOfFiles) {
-		    if (file1.isFile()) {
-		        if(file1.getName().contains(file)){
-		        	fileExists=true;
-		        	break;
-		        }
-		    }
+			if (file1.isFile()) {
+				if(file1.getName().contains(file)){
+					fileExists=true;
+					break;
+				}
+			}
 		}
 		return fileExists;
 	}
@@ -1496,7 +1497,7 @@ public class TestBase {
 			e.printStackTrace();
 		}
 	}
-	
+
 
 	/**
 	 * Click and save a file by robot
@@ -1615,7 +1616,7 @@ public class TestBase {
 		info("result is "+result);
 		return result;
 	}
-	
+
 	/**
 	 * uploadFileUsingRobot
 	 * @param fileLocation
@@ -1652,7 +1653,7 @@ public class TestBase {
 			exp.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * setClipboardData
 	 * @param string
@@ -1661,7 +1662,7 @@ public class TestBase {
 		StringSelection stringSelection = new StringSelection(string);
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
-	
+
 	/**
 	 * This function returns a absolute path from a relative path
 	 * @param relativeFilePath

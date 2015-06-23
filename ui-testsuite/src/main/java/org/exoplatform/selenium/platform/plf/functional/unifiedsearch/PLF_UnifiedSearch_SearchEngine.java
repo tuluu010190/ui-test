@@ -85,7 +85,7 @@ public class PLF_UnifiedSearch_SearchEngine extends Template {
 
 	/**
 	 * == Fuzzy search by default ==
-	 * Test case ID: 104311
+	 * Test case ID: 121441
 	 * Step 1: search for "cluste"
 	 * Step 2: search for "clustter"
 	 */
@@ -119,13 +119,13 @@ public class PLF_UnifiedSearch_SearchEngine extends Template {
 
 		//clear the data
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument("//*[@class='nodeName' and contains(text(), '{$node}')]".replace("{$node}", name));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", name)));
 		info("data cleaned");
 	}
 
 	/**
 	 * == All words should match ==
-	 * Test case ID: 104312
+	 * Test case ID: 121053
 	 * Step 1: search for the terms : "cluster availability"
 	 */
 	@Test(priority=1)
@@ -163,20 +163,18 @@ public class PLF_UnifiedSearch_SearchEngine extends Template {
 		waitForElementNotPresent(By.xpath((qsPage.ELEMENT_RESULT_SEARCH_ITEM).replace("${item}", name1)));
 		waitForElementNotPresent(By.xpath((qsPage.ELEMENT_RESULT_SEARCH_ITEM).replace("${item}", name2)));
 
-
 		info("test succeed");
-
 		//clear the data
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument("//*[@class='nodeName' and text()='{$node}']".replace("{$node}", name));
-		cMenu.deleteDocument("//*[@class='nodeName' and text()= '{$node}']".replace("{$node}", name1));
-		cMenu.deleteDocument("//*[@class='nodeName' and text()= '{$node}']".replace("{$node}", name2));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", name)));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", name1)));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", name2)));
 		info("data cleaned");
 	}
 
 	/**
 	 * == Search should be case insensitive ==
-	 * Test case ID: 104313
+	 * Test case ID: 121718
 	 * Step 1: search for "cluster availability" 
 	 */
 	@Test(priority=2)
@@ -202,16 +200,17 @@ public class PLF_UnifiedSearch_SearchEngine extends Template {
 		
 		//clear the data
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument("//*[@class='nodeName' and text()='{$node}']".replace("{$node}", name));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", name)));
 		info("data cleaned");
 	}
 
 	/**
 	 * == Search sentence ==
-	 * Test case ID: 104314
+	 * Test case ID: 121717
 	 * Step 1: Search for "High Availability" (surround the terms by the double quotes)
+	 * https://jira.exoplatform.org/browse/PLF-6342
 	 */
-	@Test(priority=3)
+	@Test
 	public void test04_SearchSentence() {
 		String title = "Cluster1";
 		String title1 = "Cluster2";

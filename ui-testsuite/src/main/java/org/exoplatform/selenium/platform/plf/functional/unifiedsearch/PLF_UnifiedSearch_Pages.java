@@ -43,7 +43,7 @@ public class PLF_UnifiedSearch_Pages extends Activity {
 	}
 	/*
 	 * == Display a page in the Floating Result ==
-	 * Test ID : 104251
+	 * Test ID : 121191
 	 */
 	@Test
 	public void test01_DisplayAPageInTheFloatingResult(){
