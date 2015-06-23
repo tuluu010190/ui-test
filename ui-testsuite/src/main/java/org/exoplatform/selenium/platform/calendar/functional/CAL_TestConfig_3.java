@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
 import org.exoplatform.selenium.platform.calendar.TaskManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
+import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -27,6 +28,7 @@ public class CAL_TestConfig_3 extends PlatformBase {
 	CalendarHomePage cHome;
 	
 	TextBoxDatabase txData;
+	AttachmentFileDatabase fData;
 	String calendar;
 	
 	
@@ -48,6 +50,9 @@ public class CAL_TestConfig_3 extends PlatformBase {
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		fData = new AttachmentFileDatabase();
+		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		calendar="no calendar";
 		

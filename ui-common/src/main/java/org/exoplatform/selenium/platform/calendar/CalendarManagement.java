@@ -1215,5 +1215,16 @@ public class CalendarManagement extends CalendarLocatorObject{
 		confirmDeleteEventTask();
 		Utils.pause(2000);
 	}
+	/***
+	 * View detail of an event/task in List View
+	 * @param name
+	 */
+	public void viewDetailsEventTaskInList(String name){
+		info("Open list View");
+		cHome.goToView(selectViewOption.LIST);
+		info("Click on the event/task");
+		click(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+		waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_LIST_VIEW.replace("$name",name));
+	}
 
 }

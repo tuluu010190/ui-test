@@ -65,6 +65,12 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>calendar-func-5</id>
+			<properties>
+				<testSuite>cal-func-part5.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>wiki-sniff</id>
 			<properties>
 				<testSuite>wiki-sniff.xml</testSuite>

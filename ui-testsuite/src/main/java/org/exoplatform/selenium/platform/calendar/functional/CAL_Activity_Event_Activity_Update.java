@@ -379,7 +379,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(newEvent,des);
 		evMg.saveQuickAddEvent();
 
-		info("Edit an recurring event");
+		info("Edit an event");
 		String link = fData.getAttachFileByArrayTypeRandom(2);
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();

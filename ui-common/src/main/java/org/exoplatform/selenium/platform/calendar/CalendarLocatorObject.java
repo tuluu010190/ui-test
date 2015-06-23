@@ -77,8 +77,10 @@ public class CalendarLocatorObject extends PlatformBase{
   	public String ELEMENT_EVENT_TASK_CHECKBOX_LIST_VIEW=".//*[contains(text(),'$name')]/../..//input";
   	public By ELEMENT_CALENDAR_ROW_TAB_LIST=By.xpath(".//*[@id='UIListUsers']//td[1]");
    	public By ELMENT_CALENDAR_TAB_LIST_EMPTY=By.xpath(".//*[@id='UIListUsers']//*[contains(@class,'empty')]");
-	
-
+	public By ELEMENT_EVENT_TASK_DETAIL_IMAGE_VIEW=By.xpath(".//*[@id='UIPreview']//*[contains(@class,'columnLeft')]//*[@class='view']");
+    public By ELEMENT_EVENT_TASK_DETAIL_IMAGE_THUMBNAIL=By.xpath(".//*[@id='UIPreview']//*[contains(@class,'columnLeft')]//*[@class='thumbnailContainer']");
+	public By ELEMENT_EVENT_TASK_DETAIL_ATTACHMENT_ICON=By.xpath(".//*[@id='UIPreview']//*[contains(@class,'columnLeft')]//*[contains(@class,'uiIcon16x16nt_file')]");
+    
     //DAY VIEW-->Grid
   	public final String ELEMENT_EVENT_TASK_DAY_VIEW_ALL_DAY="//*[@id='UIDayView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(.,'$name')]";
   	public final String ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY="//*[@id='UIDayViewGrid']//div[contains(text(),'$name')]";
