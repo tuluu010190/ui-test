@@ -114,7 +114,7 @@ public class SettingSearchPage extends PlatformBase {
 	public final By ELEMENT_SEARCH_PORTLET = By.xpath("//div[contains(@class,'portletLayoutDecorator') and contains(text(),'Search')]");
 
 	// Quick Search elements for the new layout
-	public final By ELEMENT_QUICKSEARCH_NEW_PAGE=By.xpath("//*[@class='UIRowContainer']//*[@class='uiIconPLF24x24Search']");
+	public final By ELEMENT_QUICKSEARCH_NEW_PAGE=By.xpath("//*[@class='uiIconPLF24x24Search']");
 	public final By ELEMENT_QUICKSEARCH_TEXTBOX_NEW_PAGE=By.xpath("//*[@class='UIRowContainer']//*[@name='adminkeyword']");
 	public final By ELEMENT_ALL_SEARCH_RESULT_NEW_PAGE=By.xpath(".//*[text()='See All Search Results']");
 	public final String ELEMENT_TYPE_RESULTS_FLOATING_BOX_NEW_PAGE="//*[@class='uiQuickSearchResult']/descendant::tr[th[contains(text(),'${type}')]]";

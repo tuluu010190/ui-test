@@ -148,7 +148,7 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 
 		//clean the data
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName1));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", fileName1)));
 
 	}
 
@@ -190,7 +190,7 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		driver.navigate().back();
 		//clean the data
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName1));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", fileName1)));
 	}
 
 	@Test
@@ -202,7 +202,6 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 	public void test03_NotDisplayAFileAsResultWhenUserHasNotReadPermission() {
 		String searchText = "TestUnseen";
 		String fileName1 = "TestUnseen";
-		String user = "any";
 
 		/*Step 1: Connect to a Site, input a valid characters in the quich search box to have the file 'Test' as result*/
 		//Create data
@@ -219,13 +218,14 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 
 		//Define the rigths for the file 
 		actBar.goToNodePermissionManagement();
-		ePerm.deletePermission(user, true);
+		ePerm.removeDefaultPermissionOfNode();
 
 		//Change user 
 		magAcc.signOut();
 		magAcc.userSignIn(userType.PUBLISHER);
-		qsPage.quickSearch(searchText);
-
+		qsPage.quickSearchType(searchText);
+		click(qsPage.ELEMENT_QUICKSEARCH_NEW_PAGE);
+		
 		//Check the result
 		waitForElementNotPresent(qsPage.ELEMENT_RESULT_ITEM.replace("${item}", fileName1).replace("${keySearch}", searchText));
 		
@@ -233,25 +233,9 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		magAcc.signOut();
 		magAcc.userSignIn(userType.ADMIN);
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName1));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", fileName1)));
 	}
 
-	@Test
-	/** 
-	 * == Download the File from the Search Results ==
-	 * Test case ID: 104248
-	 * Step 1: Connect to Site, in the Quick Search box, input a valid characters to search a File (Test)
-	 * Step 2: Click on the File 
-=======
-		
-		//Check the result
-		Assert.assertFalse(driver.findElement(By.xpath(qsPage.ELEMENT_RESULT_ITEM.replace("${eventname}", fileName1))).isDisplayed(), "test fail");
-		//Back to homepage
-		click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
-		info("Back to homepage");
-		
-	}
-	
 	@Test
 	 /** 
 	  * == Download the File from the Search Results ==
@@ -288,26 +272,17 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		driver.navigate().back();
 
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName1));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", fileName1)));
 	}
-
-	@Test(groups="pending")
+	
 	/** 
 	 * == Display Files in the Floating Result by pertinence ==
 	 * Test case ID: 104250
 	 * Step 1: Connect to iIntranet in the Quick Search box, input a valid characters to search a File (Test)
 	 * Step 2: Open new tab (tab 2) Input into the address bar of new tab on browser: {host}:{port}/rest/search?q={keysearch}&types=all / Then Enter
 	 * Step 3: Back to tab at step 1, check order of items of search result
-=======
-	}
-
+	 **/
 	@Test
-	 /** 
-	  * == Display Files in the Floating Result by pertinence ==
-	  * Test case ID: 104250
-	  * Step 1: - Connect to iIntranet in the Quick Search box, input a valid characters to search a File (Test)
->>>>>>> FQA-1967: 4.1.x/FNC/PLF/Unified Search/File Search and Page
-	 */
 	public void test05_DisplayFilesInTheFloatingResultByPertinence() {
 		String searchText = "Test104250";
 		String fileName1 = "Test104250";
@@ -321,13 +296,10 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 		String desc2= "Test104250";
 		String creator = "creator";
 		String source = "source";
-		String adress= "rest/search?q={keysearch}&types=all";
-		int i;
-
-
+		
 		/*Step 1: - Connect to iIntranet in the Quick Search box, input a valid characters to search a File (Test) */
 		//Create files 
-		for(i=0; i <=2; i++) {
+		for(int i=0; i <=2; i++) {
 			//Create data
 			//Some files are existed
 			//Some documents are existed on Site explorer
@@ -352,56 +324,19 @@ public class PLF_UnifiedSearch_FileSearch extends Template {
 			click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
 			info("Back to homepage"); 
 		}	
+		
 		//search files
 		qsPage.quickSearch(searchText);
 
-		//open new window
-		click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
-		String theURL = driver.getCurrentUrl();
-		driver.get((theURL).replace("portal/intranet/", adress).replace("{keysearch}", searchText));
-
 		//check the result
 		waitForAndGetElement(qsPage.ELEMENT_QUICKSEARCH_RESULT.replace("${name}", fileName1).replace("${number}","1"));
-		waitForAndGetElement(qsPage.ELEMENT_QUICKSEARCH_RESULT.replace("${name}", fileName2).replace("${number}","2"));
 		waitForAndGetElement(qsPage.ELEMENT_QUICKSEARCH_RESULT.replace("${name}", fileName2).replace("${number}","3"));
+		waitForAndGetElement(qsPage.ELEMENT_QUICKSEARCH_RESULT.replace("${name}", fileName2).replace("${number}","2"));
 
 		//clean the data
 		naviToolbar.goToSiteExplorer();
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName1));
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName2));
 		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", fileName3));
-
-		
-		
-		/*Step 1: - Connect to iIntranet in the Quick Search box, input a valid characters to search a File (Test) */
-		//Create files 
-//		for(i=0; i <=1; i++) {
-		//Create data
-				//Some files are existed
-				//Some documents are existed on Site explorer
-//				info("Add new webcontent");
-//				naviToolbar.goToSiteExplorer();
-//				info("Open the site explorer page");
-//				actBar.addItem2ActionBar("addDocument", actBar.ELEMENT_NEW_CONTENT_LINK);
-//				actBar.goToAddNewContent();
-//				info("Open document creation form");
-//				if(i==0) {
-//					conTemp. createNewFullFile(fileName1, content2, fileTitle, desc, creator, source);
-//					info("Document created");
-//				}
-//				else if(i==1) {
-//					conTemp. createNewFullFile(fileName2, content, fileTitle, desc, creator, source);
-//					info("Document created");
-//				}
-//				click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
-//				info("Back to homepage"); 
-//		}	
-				//search files
-				qsPage.quickSearch(searchText);
-				//check the result
-				waitForAndGetElement(By.xpath(qsPage.ELEMENT_QUICKSEARCH_RESULT_FIRSTRESULT.replace("${name}", fileName1)));
-				waitForAndGetElement(By.xpath(qsPage.ELEMENT_QUICKSEARCH_RESULT_SECONDRESULT.replace("${name}", fileName2)));
-				//back to homepage
-				click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
 	}
 }
