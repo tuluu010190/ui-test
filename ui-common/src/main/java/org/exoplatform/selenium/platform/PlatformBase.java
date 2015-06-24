@@ -168,7 +168,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_LINK_PORTAL = "//a[text()='Portal']";
 	public final String ELEMENT_LINK_PAGES   = "//a[text()='Pages']";
 	public final String ELEMENT_LINK_SITES   = "//a[text()='Sites']";
-	public final String ELEMENT_LINK_GROUP = "//a[text()='Group Sites']";
+	public final String ELEMENT_LINK_GROUP = "//a[text()='Community']";
 	public final String ELEMENT_LINK_BRANDING = "//a[text()='Branding']";
 
 	//Administration

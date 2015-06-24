@@ -187,6 +187,7 @@ public class ManageAccount extends PlatformBase {
 		button.save();
 
 		if (verify) {
+			Utils.pause(3000);
 			waitForMessage("You have registered a new account.");
 			dialog.closeMessageDialog();
 		}

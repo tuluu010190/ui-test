@@ -89,7 +89,7 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 
 	/*
 	 * ==Display "Quick Search Settings" screen==
-	 * Test ID : 104281
+	 * Test ID : 121147
 	 */
 	@Test
 	public void test01_DisplayQuickSearchSettings(){
@@ -121,7 +121,7 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 	}
 	/*
 	 * Display floating result after uncheck the box "Search in current site only"
-	 * Id Test : 104287
+	 * Id Test : 121270
 	 */
 	@Test
 	public void test02_DisplayFloatingResultAfterUncheckTheBoxSearchInCurrentSiteOnly(){
@@ -161,23 +161,23 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 	}
 	/*
 	 * == Display results after edit of "Search in" in Search Settings ==
-	 * Test ID : 104286
+	 * Test ID : 121321
 	 */
 	@Test
 	public void test03_DisplayResultsAfterEditOfSearchinInSearchSettings(){
 		// the two kind of elements we will search are : wiki and files
-		String pageSearch="searchPage3";
+		String pageSearch="searchPage3" + getRandomNumber();
 		String qsGadget = "Quick Search";
-		String discussionName="cloud";
-		String eventName= "cloud event";
-		String taskName= "cloud task";
-		String wikiName= "Wiki cloud";
-		String spaceName= "cloud space";
-		String fileName= "cloud file";
-		String documentName = "cloud web";
-		String peopleName="herve";
-		String pageName="cloud";
-		String surname="cloud";
+		String discussionName="cloud" + getRandomNumber();
+		String eventName= "cloud event" + getRandomNumber();
+		String taskName= "cloud task" + getRandomNumber();
+		String wikiName= "Wiki cloud" + getRandomNumber();
+		String spaceName= "cloud space" + getRandomNumber();
+		String fileName= "cloud file" + getRandomNumber();
+		String documentName = "cloud web" + getRandomNumber();
+		String peopleName="herveee";
+		String pageName="cloud12" + getRandomNumber();
+		String surname="clouddd";
 		String searchWord="cloud";
 
 		addAllData(eventName, taskName, wikiName, spaceName, fileName, documentName, peopleName, surname, pageName, discussionName);
@@ -186,7 +186,7 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 		 */
 		qsPage.addQuickSearchPage(pageSearch,qsGadget);
 		/*
-		 * Step 2
+		 * step 2
 		 */
 		qsPage.goToEditSearchPortlet();
 		/*
@@ -220,7 +220,7 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 		waitForElementNotPresent(By.xpath(qsPage.ELEMENT_TYPE_RESULTS_FLOATING_BOX_NEW_PAGE.replace("${type}","Documents")));
 		waitForElementNotPresent(By.xpath(qsPage.ELEMENT_TYPE_RESULTS_FLOATING_BOX_NEW_PAGE.replace("${type}","Tasks")));
 		/*
-		 * Step 5
+		 * step 5
 		 */
 		// check if File and Wiki radio button are checked
 		click(qsPage.ELEMENT_ALL_SEARCH_RESULT_NEW_PAGE);
@@ -229,26 +229,27 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 		waitForAndGetElement(qsPage.ELEMENT_FILTER_SEARCH_FILE_CHECKBOX, 5000,1,2).getAttribute("checked").equalsIgnoreCase("checked");
 		info("Test successfully");
 		/*
-		 * Delete data
+		 * delete data
 		 */
 		pageMag.deletePageAtManagePageAndPortalNavigation(pageSearch, true, "intranet", false, "Administration");
 		deleteDataOfEachElement(eventName, taskName, wikiName, spaceName, fileName, documentName, peopleName, pageName, discussionName);
 	}
 	/*
 	 * == Display the Floating result after edit of "Result per type" ==
-	 * Test ID : 104285
+	 * Test ID : 121378
 	 */
 	@Test
 	public void test04_DisplayTheFloatingResultAfterEditOfResultPerType(){
-		String event1="event 104285";String event1Name="cloud";
-		String event2="event 104285 6";String event2Name="fav cloud";
-		String event3="event 104285 4";String event3Name="av cloud";
-		String pageSearch="searchPage";
+		String event1="event1" + getRandomNumber();String event1Name="cloud" + getRandomNumber();
+		String event2="event2" +  getRandomNumber();String event2Name="fav cloud" + getRandomNumber();
+		String event3="event3" + getRandomNumber();String event3Name="av cloud" + getRandomNumber();
+		String pageSearch="searchPage" + getRandomNumber();
 		String qsGadget = "Quick Search";
 		String searchWord="cloud";
 		/*
 		 * pre conditions
 		 */
+		
 		evt.goToCalendarPage();
 		// add event
 		evt.addQuickEvent(event1Name,event1,getDate(0,"MM/dd/yyyy"),getDate(1,"MM/dd/yyyy"),false);
@@ -266,9 +267,9 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 		waitForAndGetElement(ELEMENT_EDIT_MODE_TAB).click();
 		uncheck(qsPage.ELEMENT_SEARCH_ALL_CHECKBOX,2);
 		Utils.pause(2000);
-		click(qsPage.ELEMENT_RESULTS_PER_PAGE_DROPDOWN,2);
 		click(qsPage.ELEMENT_RESULT_PER_PAGE_OPTION.replace("${resultsPerPage}", "2"));
 		check(qsPage.ELEMENT_SEARCH_EVENTS_CHECKBOX,2);
+		click(qsPage.ELEMENT_RESULTS_PER_PAGE_DROPDOWN,2);
 		click(qsPage.ELEMENT_SAVE_SETTING);
 		Utils.pause(2000);
 		alert.acceptAlert();
@@ -294,17 +295,17 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 		 * delete all data
 		 */
 		evt.goToCalendarPage();
-		evt.deleteEventTask(event1Name);
 		evt.deleteEventTask(event2Name);
 		evt.deleteEventTask(event3Name);
+		evt.deleteEventTask(event1Name);
 	}
 	/*
 	 * == Display the list "Result per type" of quick search setting ==
-	 * Test ID : 104282
+	 * Test ID : 121387
 	 */
 	@Test
 	public void test05_DisplayTheListResultPerTypeOfQuickSearchSetting(){
-		String pageSearch="searchPageTest5";
+		String pageSearch="searchPageTest6";
 		String qsGadget = "Quick Search";
 
 		/*
@@ -318,14 +319,13 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 		waitForAndGetElement(ELEMENT_EDIT_MODE_TAB).click();
 		Utils.pause(2000);
 
-		click(qsPage.ELEMENT_RESULTS_PER_PAGE_DROPDOWN,2);
 		// check if all the 10 values are presents
 		for(int i=1;i<11;i++){
 			waitForAndGetElement(By.xpath(qsPage.ELEMENT_RESULT_PER_PAGE_OPTION.replace("${resultsPerPage}", ""+i)));
 		}
 		// check it for the next tests
 		check(qsPage.ELEMENT_SEARCH_ALL_CHECKBOX,2);
-
+		click(qsPage.ELEMENT_RESULTS_PER_PAGE_DROPDOWN,2);
 		click(qsPage.ELEMENT_SAVE_SETTING);
 		info("Test successfully");
 		Utils.pause(2000);
@@ -343,7 +343,7 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 
 	/*
 	 * == Save changes in " Search Settings" screen ==
-	 * Test ID : 104288
+	 * Test ID : 121700
 	 */
 	@Test
 	public void test06_SaveChangesInSearchSettingsScreen(){
@@ -419,7 +419,7 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 		// add file
 		conTemp.createNewFile(fileName, "cloud", "cloud");
 		click(naviToolbar.ELEMENT_SITE_EXPLORER_HOME);
-		//add people
+		//add people  
 	}
 
 	public void deleteDataOfEachElement(String eventName,String taskName,String wikiName,String spaceName,String fileName,String documentName,String peopleName,String pageName,String discussionName){
@@ -435,14 +435,14 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 		magMember.goToAllSpaces();
 		magMember.deleteSpace(spaceName,300000);
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", documentName));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", documentName)));
 		mngTopic.goToForums();
 		click(By.linkText(discussionName));
 		mngCat.deleteCategoryInForum(discussionName);
 		naviToolbar.goToUsersAndGroupsManagement();
 		userGroup.deleteUser(peopleName);
 		naviToolbar.goToApplicationRegistry();
-		pageMag.deletePageAtManagePageAndPortalNavigation(pageName, false, "intranet", true, "Administration");
+		pageMag.deletePageAtManagePageAndPortalNavigation(pageName, true, "intranet", false, "Administration");
 		info("data cleared");
 	}
 

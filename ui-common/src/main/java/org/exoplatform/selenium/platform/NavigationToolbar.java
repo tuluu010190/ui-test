@@ -161,23 +161,25 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void goToNewStaff() {
 		info("Go to New Staff");
-		//goToPage(ELEMENT_SEARCH_ICON_REGISTER, ELEMENT_LINK_SETUP, ELEMENT_LINK_USERS, ELEMENT_LINK_ADD_USERS);
-		//mouseOverAndClick(ELEMENT_LINK_SETUP);
-		//mouseOver(ELEMENT_LINK_SETUP, true);
+		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
+		info("Base url is " + baseUrl);
+		String url = baseUrl + "/g/:platform:administrators/administration/newStaff";
 		for(int repeat=0;; repeat ++){
 			if (repeat > 1){
-				mouseOverAndClick(ELEMENT_LINK_SETUP);
+				driver.get(url);
 				break;
 			}
 			mouseOver(ELEMENT_LINK_SETUP, true);
-			if (waitForAndGetElement(ELEMENT_LINK_USERS, 5000, 0) != null){
-				info("Element " + ELEMENT_LINK_USERS + "... is displayed");
-				break;
+			if (waitForAndGetElement(ELEMENT_LINK_GROUP, 5000, 0)!= null) {	
+				mouseOver(ELEMENT_LINK_GROUP, false);
+				if (waitForAndGetElement(ELEMENT_LINK_ADD_USERS, 5000, 0)!= null){
+					click(ELEMENT_LINK_ADD_USERS);
+					break;
+				}
 			}
 			info("Retry...[" + repeat + "]");
 		}
-		click(ELEMENT_LINK_USERS);
-		Utils.pause(1000);
+		
 	}
 
 
