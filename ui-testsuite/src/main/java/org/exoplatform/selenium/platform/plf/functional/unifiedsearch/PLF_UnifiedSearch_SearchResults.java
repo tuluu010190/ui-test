@@ -77,22 +77,24 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		driver.quit();
 	}
 
-/*	@Test
-	*//**
+
+	@Test
+	/**
 	 * == Check uri of search results page ==
 	 * Test case ID: 121095
 	 * Step 1: From quick search field, type anything / From keyboard, hit "Enter"
 	 * Step 2: Go to homepage / In browser location bar, type : /portal/intranet/search after the host:port (ex: http://localhost:8080/portal/intranet/search)
-	 *//*
+	 */
 	public void test01_CheckUriOfSearchResultsPage(){
 		String search = "test121095";
 
-		Step 1: From quick search field, type anything / From keyboard, hit "Enter"
+		//Step 1: From quick search field, type anything / From keyboard, hit "Enter"
 		qsPage.quickSearchType(search);
 		driver.findElement(ELEMENT_QUICK_SEARCH_TEXTBOX).sendKeys(Keys.ENTER);
 		info("Search by typing 'enter'");
 
-		Step 2: Go to homepage / In browser location bar, type : /portal/intranet/search after the host:port (ex: http://localhost:8080/portal/intranet/search)
+
+		//Step 2: Go to homepage / In browser location bar, type : /portal/intranet/search after the host:port (ex: http://localhost:8080/portal/intranet/search)
 		click(ELEMENT_HOME_PAGE);
 		Utils.pause(1000);
 		driver.get(DEFAULT_BASEURL+"/intranet/search");
@@ -105,11 +107,11 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 	}
 
 	@Test
-	*//**
+	/**
 	 * == Check search results page ui ==
 	 * Test case ID: 121073
 	 * Step 1:  Enter 'sample' in quicksearch field, then hit Enter key
-	 *//*
+	 */
 	public void test02_CheckSearchResultsPageUi(){
 		String search = "121073";
 		String titleCat = "cat 121073";
@@ -122,7 +124,7 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		//create category, forum, topic
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,titleTop); 
 
-		Step 1:  Enter 'sample' in quicksearch field, then hit Enter key
+		//Step 1:  Enter 'sample' in quicksearch field, then hit Enter key
 		qsPage.quickSearchType(search);
 		waitForAndGetElement(ELEMENT_QUICK_SEARCH_TEXTBOX).sendKeys(Keys.ENTER);
 		info("Search by typing 'enter'");
@@ -144,11 +146,11 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 	}
 
 	@Test
-	*//**
+	/**
 	 * == Display of file results sizes ==
 	 * Test case ID: 121311
 	 * Step 1: Search for 'search_results_06'
-	 *//*
+	 */
 	public void test03_DisplayOfFileResultsSizes(){
 		String search = "ECMS_DMS_SE_BasicAction_cutPaste";
 		String file1 = "ECMS_DMS_SE_BasicAction_CutPaste_03_des.png";
@@ -161,7 +163,7 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		actBar.uploadFile("TestData/" + file3);
 		info("items upload");
 
-		 Step 1: Search for 'search_results_06'
+		//Step 1: Search for 'search_results_06'
 		qsPage.quickSearch(search);
 		info("searching");
 		Utils.pause(4000);
@@ -179,8 +181,8 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", file3)));
 		info("data cleared");
 
-	}*/
-
+	}
+	
 	@Test(groups="pending")
 	/**
 	 * == Search results are sorted by pertinence ==
