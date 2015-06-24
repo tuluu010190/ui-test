@@ -374,6 +374,7 @@ public class SpaceManagement extends SocialBase {
 		if(waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem),5000,0) != null)
 			click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem)));
 		else{
+			info("more menu");
 			click(ELEMENT_SPACE_MORE_ITEM);
 			Utils.pause(2000);
 			String []items = menuItem.split(" ");

@@ -67,6 +67,7 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		mngTopic = new ForumManageTopic(driver, this.plfVersion);
 		mngCat = new ForumManageCategory(driver, this.plfVersion);
 		pEditor = new PageEditor(driver, this.plfVersion);
+		
 	}
 
 	@AfterMethod
@@ -76,22 +77,22 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		driver.quit();
 	}
 
-	@Test(priority = 0)
-	/**
+/*	@Test
+	*//**
 	 * == Check uri of search results page ==
-	 * Test case ID: 104315
+	 * Test case ID: 121095
 	 * Step 1: From quick search field, type anything / From keyboard, hit "Enter"
 	 * Step 2: Go to homepage / In browser location bar, type : /portal/intranet/search after the host:port (ex: http://localhost:8080/portal/intranet/search)
-	 */
+	 *//*
 	public void test01_CheckUriOfSearchResultsPage(){
-		String search = "test104315";
+		String search = "test121095";
 
-		/*Step 1: From quick search field, type anything / From keyboard, hit "Enter"*/
+		Step 1: From quick search field, type anything / From keyboard, hit "Enter"
 		qsPage.quickSearchType(search);
 		driver.findElement(ELEMENT_QUICK_SEARCH_TEXTBOX).sendKeys(Keys.ENTER);
 		info("Search by typing 'enter'");
 
-		/*Step 2: Go to homepage / In browser location bar, type : /portal/intranet/search after the host:port (ex: http://localhost:8080/portal/intranet/search)*/
+		Step 2: Go to homepage / In browser location bar, type : /portal/intranet/search after the host:port (ex: http://localhost:8080/portal/intranet/search)
 		click(ELEMENT_HOME_PAGE);
 		Utils.pause(1000);
 		driver.get(DEFAULT_BASEURL+"/intranet/search");
@@ -103,17 +104,17 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 
 	}
 
-	@Test(priority = 10)
-	/**
+	@Test
+	*//**
 	 * == Check search results page ui ==
-	 * Test case ID: 104316
+	 * Test case ID: 121073
 	 * Step 1:  Enter 'sample' in quicksearch field, then hit Enter key
-	 */
+	 *//*
 	public void test02_CheckSearchResultsPageUi(){
-		String search = "sample 104316";
-		String titleCat = "sample 104316";
-		String titleForum = "sample 104316";
-		String titleTop = "Topic sample 104316";
+		String search = "121073";
+		String titleCat = "cat 121073";
+		String titleForum = "forum 121073";
+		String titleTop = "topic 121073";
 
 		//Create data
 		mngTopic.goToForums();
@@ -121,7 +122,7 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		//create category, forum, topic
 		mngTopic.addCategoryForumTopic(titleCat, titleForum, titleTop,titleTop); 
 
-		/*Step 1:  Enter 'sample' in quicksearch field, then hit Enter key*/
+		Step 1:  Enter 'sample' in quicksearch field, then hit Enter key
 		qsPage.quickSearchType(search);
 		waitForAndGetElement(ELEMENT_QUICK_SEARCH_TEXTBOX).sendKeys(Keys.ENTER);
 		info("Search by typing 'enter'");
@@ -137,16 +138,17 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 
 		//clear the data
 		mngTopic.goToForums();
+		click(mngTopic.ELEMENT_CATEGORY_BREADCUMB.replace("${category}",titleCat));
 		mngCat.deleteCategoryInForum(titleCat);
 
 	}
 
-	@Test(priority = 20)
-	/**
+	@Test
+	*//**
 	 * == Display of file results sizes ==
-	 * Test case ID: 104317
+	 * Test case ID: 121311
 	 * Step 1: Search for 'search_results_06'
-	 */
+	 *//*
 	public void test03_DisplayOfFileResultsSizes(){
 		String search = "ECMS_DMS_SE_BasicAction_cutPaste";
 		String file1 = "ECMS_DMS_SE_BasicAction_CutPaste_03_des.png";
@@ -159,7 +161,7 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		actBar.uploadFile("TestData/" + file3);
 		info("items upload");
 
-		/* Step 1: Search for 'search_results_06'*/
+		 Step 1: Search for 'search_results_06'
 		qsPage.quickSearch(search);
 		info("searching");
 		Utils.pause(4000);
@@ -172,17 +174,17 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 
 		//clear data
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", file1));
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", file2));
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", file3));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", file1)));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", file2)));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", file3)));
 		info("data cleared");
 
-	}
+	}*/
 
 	@Test(groups="pending")
 	/**
 	 * == Search results are sorted by pertinence ==
-	 * Test case ID: 104318
+	 * Test case ID: 121716
 	 * Step 1: Connect to Intranet / from navigation bar, input "cloud", in the Quick search box
 	 */
 	public void test04_SearchResultsAreSortedByPertinence(){
@@ -204,14 +206,26 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		deleteData();
 	}
 
-	@Test(priority = 40)
+	@Test
 	/**
 	 * == Display the button "Show More Results" ==
-	 * Test case ID: 104319
+	 * Test case ID: 121349
 	 * Step 1: Connect to Intranet / From navigation bar, input 'cloud' in the quick search box / Click on "See All  Search Result "
 	 * Step 2: Click on "Show More Results"
 	 */
-	public void test05_DisplayTheButtonShowMoreResults(){
+	/**
+	 * == Sort by relevancy by default ==
+	 * Test case ID: 121789
+	 * Step 1: Connect to Intranet / From Navigation bar, input "cloud" in the Quick Search box / Hit the key "Enter"
+	 */
+	/**
+	 * == Hide the button "Show More Results" ==
+	 * Test case ID: 121498
+	 * Step 1: Connect to Intranet / From navigation bar, input 'cloud' in the quick search box / Click on "See All  Search Result 
+	 * Step 2: Click on "Show More Results"
+	 * Step 3: Click again on the button "Show More Results"	
+	 */
+	public void test05_06_09_DisplayTheButtonShowMoreResults(){
 		String search = "cloud";
 
 		createData();
@@ -228,23 +242,8 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		waitForAndGetElement(By.xpath("//div[@id='result']/div[5]"));
 		waitForAndGetElement(By.xpath("//div[@id='result']/div[10]"));
 		waitForAndGetElement(By.xpath("//div[@id='result']/div[11]"));
-
 		info("test succeed");
-
-		deleteData();
-	}
-
-	@Test(priority = 50)
-	/**
-	 * == Sort by relevancy by default ==
-	 * Test case ID: 104320
-	 * Step 1: Connect to Intranet / From Navigation bar, input "cloud" in the Quick Search box / Hit the key "Enter"
-	 */
-	public void test06_SortByRelevancyByDefault(){
-		String search = "cloud";
-
-		createData();
-
+		
 		/*Step 1: Connect to Intranet / From Navigation bar, input "cloud" in the Quick Search box / Hit the key "Enter"*/
 		qsPage.quickSearch(search);
 		info("Search by typing 'enter'");
@@ -253,14 +252,26 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		//check the result
 		waitForAndGetElement(By.xpath("//*[@id='sortField' and @sort='relevancy']"));
 		info("test succeed");
+		
+		/* Step 2: Click on "Show More Results" */
+		click(qsPage.ELEMENT_SHOW_MORE_RESULT);
+		info("display more results");
+		Utils.pause(2000);
 
+		/* Step 3: Click again on the button "Show More Results" */
+		click(qsPage.ELEMENT_SHOW_MORE_RESULT);
+		// Check the result
+		//		waitForAndGetElement(By.xpath("//*[@id='btnShowMore']"));
+		info("test succeed");
+		waitForElementNotPresent(qsPage.ELEMENT_SHOW_MORE_RESULT);
+		
 		deleteData();
 	}
 
 	@Test(groups="pending")
 	/**
 	 * == Display searching during search ==
-	 * Test case ID: 104321
+	 * Test case ID: 121150
 	 * PENDING: Can't locate element "Searching...."
 	 */
 	public void test07_DisplaySearchingDuringSearch(){
@@ -275,10 +286,10 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 
 	}
 
-	@Test(priority = 70)
+	@Test
 	/**
 	 * == Check Search results page URL ==
-	 * Test case ID: 104322
+	 * Test case ID: 121074
 	 * Step 1: Connect to Intranet / From Navigation bar, Enter 'clo' in quicksearch field, then hit Enter key
 
 	 */
@@ -303,43 +314,10 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		Utils.pause(2000);
 	}
 
-	@Test(priority = 80)
-	/**
-	 * == Hide the button "Show More Results" ==
-	 * Test case ID: 104324
-	 * Step 1: Connect to Intranet / From navigation bar, input 'cloud' in the quick search box / Click on "See All  Search Result 
-	 * Step 2: Click on "Show More Results"
-	 * Step 3: Click again on the button "Show More Results"	
-	 */
-	public void test09_HideTheButtonShowMoreResults(){
-		String search = "cloud";
-
-		createData();
-
-		/* Step 1: From navigation bar, input 'cloud' in the quick search box / Click on "See All  Search Result */
-		qsPage.quickSearchType(search);
-		waitForAndGetElement(ELEMENT_QUICK_SEARCH_TEXTBOX).sendKeys(Keys.ENTER);
-		info("searching");
-		Utils.pause(2000);
-
-		/* Step 2: Click on "Show More Results" */
-		click(qsPage.ELEMENT_SHOW_MORE_RESULT);
-		info("display more results");
-		Utils.pause(2000);
-
-		/* Step 3: Click again on the button "Show More Results" */
-		click(qsPage.ELEMENT_SHOW_MORE_RESULT);
-		// Check the result
-		//		waitForAndGetElement(By.xpath("//*[@id='btnShowMore']"));
-		info("test succeed");
-		waitForElementNotPresent(qsPage.ELEMENT_SHOW_MORE_RESULT);
-		deleteData();
-	}
-
-	@Test(priority = 90)
+	@Test
 	/**
 	 * == Display the list sort by ==
-	 * Test case ID: 104327
+	 * Test case ID: 121388
 	 * Step 1: Connect to Intranet / From Navigation bar, input "cloud" in the Quick Search box / Hit the key "Enter"
 	 * Step 2: Click on the arrow beside "$order"
 	 */
@@ -375,10 +353,10 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 
 	}
 
-	@Test(priority = 100)
+	@Test
 	/**
 	 * == Display search results settings screen ==
-	 * Test case ID: 104347
+	 * Test case ID: 121149
 	 * Step 1: Connect to Intranet / From Navigation bar, input data in the Quick Search box
 	 * Step 2: Select the result item with the mouse
 	 * Step 3: From Navigation bar, choose "Edit/Page/Edit Layout"
@@ -404,10 +382,10 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		info("test succeed");
 	}
 
-	@Test(priority = 110)
+	@Test
 	/**
 	 * == Display the list result per page ==
-	 * Test case ID: 104348
+	 * Test case ID: 121386
 	 * Step 1: Connect to Intranet / From Navigation bar, input data in the Quick Search box / Select the result item with the mouse
 	 * Step 2: From Navigation bar, choose "Edit/Page/Edit Layout"
 	 * Step 3: Edit the portlet "Search"
@@ -443,23 +421,24 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		info("test succeed");
 	}
 
-	@Test(priority = 120)
+	@Test
 	/**
 	 * == Return all types in search result ==
-	 * Test case ID: 104377
+	 * Test case ID: 121698
 	 * Step 1: Connect to Intranet / In the search box, input "Clo"
+	 * can search with seperate word, cannot search with contain word
 	 */
 	public void test13_ReturnAllTypesInSearchResult(){
 		String search = "clo";
-		String spaceName = "clo";
-		String wikiName = "clo";
-		String contentName = "clo";
-		String eventName = "clo";
-		String taskName = "clo";
+		String spaceName = "clo space";
+		String wikiName = "clo wiki";
+		String contentName = "clo content";
+		String eventName = "clo event";
+		String taskName = "clo task";
 		String timeZone = "(GMT +07:00) Asia/Saigon";
-		String titleCat = "clo";
-		String titleForum = "clo";
-		String titleTop = "clo";
+		String titleCat = "clo cat";
+		String titleForum = "clo forum";
+		String titleTop = "clo topic";
 
 		//Add new topic
 		//Create data
@@ -495,7 +474,7 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		info("new event created");
 		info("new task created");
 
-		/*Step 1: Connect to Intranet / In the search box, input "Clo"*/
+		//Step 1: Connect to Intranet / In the search box, input "Clo"
 		qsPage.quickSearch(search);
 		info("searching");
 		Utils.pause(1000);
@@ -506,11 +485,10 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		waitForAndGetElement(By.xpath(("//*[@class='resultBox clearfix wiki']/..//*[ contains(text(), '${type}')]").replace("${type}", search)));
 		waitForAndGetElement(By.xpath(("//*[@class='resultBox clearfix document']/..//*[ contains(text(), '${type}')]").replace("${type}", search)));
 		waitForAndGetElement(By.xpath(("//*[@class='resultBox clearfix post']/..//*[ contains(text(), '${type}')]").replace("${type}", search)));
-		info("test succeed");
-
+		info("test succeed"); 
 		//clear data 
 		goToWiki();
-		click(ELEMENT_NODE_WIKI_PAGE.replace("{$node}",wikiName));
+		click(ELEMENT_NODE_WIKI_PAGE.replace("${node}",wikiName));
 		deleteCurrentWikiPage();
 		evt.goToCalendarPage();
 		Utils.pause(3000);
@@ -519,7 +497,7 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 		magMember.goToAllSpaces();
 		magMember.deleteSpace(spaceName,300000);
 		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", contentName));
+		cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", contentName)));
 		mngTopic.goToForums();
 		click(By.linkText(titleCat));
 		mngCat.deleteCategoryInForum(titleCat);
@@ -545,12 +523,12 @@ public class PLF_UnifiedSearch_SearchResults extends Template {
 
 	/*delete all the data created by createData*/
 	public void deleteData(){
-		int j=2;
+		int j=0;
 		String fileName1 ="cloud";
 
 		naviToolbar.goToSiteExplorer();
-		for(j= 0; j <= 24; j++) {
-			cMenu.deleteDocument("//*[@class='nodeName' and contains(text(), '{$node}')]".replace("{$node}", ""+fileName1+""+j));
+		for(j= 0; j <= 19; j++) {
+			cMenu.deleteDocument(By.xpath(cMenu.ELEMENT_FILE_TITLE.replace("${titleOfFile}", ""+fileName1+""+j)));
 			Utils.pause(3000);
 		}
 		info("all data cleared");
