@@ -54,13 +54,13 @@ public class CAL_TestConfig_3 extends PlatformBase {
 		fData = new AttachmentFileDatabase();
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
-		calendar="no calendar";
+		
 		
 		hp.goToCalendarPage();		
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
-		
+		calendar="no calendar";
 		info("End setUpBeforeMethod");
 	}
 

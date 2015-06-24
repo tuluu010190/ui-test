@@ -1226,5 +1226,41 @@ public class CalendarManagement extends CalendarLocatorObject{
 		click(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
 		waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_LIST_VIEW.replace("$name",name));
 	}
+	/**
+	 * Open Quick Add Event/Tasks by drag and drop row's time in Day view
+	 * @param sourceTimeHour
+	 * @param targetTimeHour
+	 */
+	public void openQuickAddEventTaskInDayView(String sourceTimeHour,String targetTimeHour){
+		info("Click on Day view");
+		cHome.goToView(selectViewOption.DAY);
+		if(sourceTimeHour!=null || sourceTimeHour!=""){
+			info("Drag and drop time row");
+			dragAndDropToObject(ELEMENT_EVENT_TASK_DATE_TIME_VALUE.replace("$time",sourceTimeHour+":00"),
+	        		ELEMENT_EVENT_TASK_DATE_TIME_VALUE.replace("$time",targetTimeHour+":00"));
+			waitForAndGetElement(ELEMENT_CALENDAR_QUICK_ADD_EVENT_FORM,3000,0);
+			info("The quick add form is shown");
+		}
+		
+	}
+	/**
+	 * Open Quick Add Event/Tasks by drag and drop the time in Week view
+	 * @param sourceDateTime 
+	 *                          has the format:Tue Jun 23 2015 15:30
+	 * @param targetDateTime
+	 *                          has the format:Tue Jun 23 2015 15:30
+	 */
+	public void openQuickAddEventTaskInWeekView(String sourceDateTime,String targetDateTime){
+		info("Click on Day view");
+		cHome.goToView(selectViewOption.WEEK);
+		if(sourceDateTime!=null || targetDateTime!=""){
+			info("Drag and drop time row");
+			dragAndDropToObject(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ONE_DAY.replace("$date",sourceDateTime+":00"),
+					ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ONE_DAY.replace("$date",targetDateTime+":00"));
+			waitForAndGetElement(ELEMENT_CALENDAR_QUICK_ADD_EVENT_FORM,3000,0);
+			info("The quick add form is shown");
+		}
+		
+	}
 
 }

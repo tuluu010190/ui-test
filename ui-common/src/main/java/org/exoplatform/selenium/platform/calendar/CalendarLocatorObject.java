@@ -86,7 +86,8 @@ public class CalendarLocatorObject extends PlatformBase{
   	public final String ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY="//*[@id='UIDayViewGrid']//div[contains(text(),'$name')]";
   	public final String ELEMENT_EVENT_TASK_DAY_ONE_DAY=".//*[contains(@class,'tdLine')][contains(@startfull,'$date')]";
   	public final String ELEMENT_EVENT_TASK_DAY_TIME=".//*[@id='UIDayViewGrid']//*[contains(text(),'$name')]/..//*[contains(text(),'$time')]";
-     
+    public final String ELEMENT_EVENT_TASK_DATE_TIME_VALUE=".//*[@id='UIDayViewGrid']//td[contains(@startfull,'$time')]"; 
+  	
     //WEEK VIEW-->Grid
   	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer') and contains(@style,'display: block')]//div[contains(text(),'$name')]";
   	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY="//*[@id='UIWeekViewGrid']//div[contains(text(),'$name')]";
@@ -99,7 +100,10 @@ public class CalendarLocatorObject extends PlatformBase{
   	public final String ELEMENT_EVENT_TASK_DETAIL_TIME_WEEK_ONE_DAY="//*[@id='UIWeekViewGrid']//*[contains(text(),'$name')]/..//*[contains(.,'$time')]";
   	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING_WEEK_VIEW="(.//*[@id='UIWeekViewGrid']//*[contains(text(),'$name')])[$number]";
   	public final String ELEMENT_EVENT_TASK_WEEK_TIME=".//*[@id='UIWeekViewGrid']//*[contains(text(),'$name')]/..//*[contains(.,'$time')]";
-    //MONTH VIEW-->Grid
+    
+  	
+  	
+  	//MONTH VIEW-->Grid
   	public final String ELEMENT_EVENT_TASK_MONTH_VIEW="//*[@id='UIMonthView']//span[contains(text(),'$name')]";
   	public final String ELEMENT_EVENT_TASK_MONTH_DATE="//*[@id='UIMonthViewGrid']//*[contains(@starttimefull,'$date')]";
   	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW="//*[@id='UIMonthView']//*[@class='eventMonthContent']//*[@class='rowContainerDay']/*[contains(@starttimefull,'$date')]//span[contains(text(),'$name')]";
@@ -381,7 +385,22 @@ public class CalendarLocatorObject extends PlatformBase{
 	public String ELEMENT_ITEM_QUICK_EVENT_CATEGORY_OPTION="//*[@id='UIQuickAddEventPopupWindow']//*[@name='category']/*[text()='$category']";
     public String ELEMENT_EVENT_TITLE =".//*[@id='UIWeekViewGrid']//*[contains(@class,'eventContainer') and text()='${name}']";
     public String ELEMENT_EVENT_INPUT_EVENT_TIME_COMBOBOX=".//*[@id='eventDetail']//input[@class='UIComboboxInput' and @value='${time}']";
-	
+	public By ELEMENT_EVENT_TASK_LIST_HOUR_FROM_DATE_VALUE = By
+			.xpath("(.//*[@id='UIQuickAddEvent']//*[contains(@options,\"['00:00','00:30','01:00','01:30','02:00',"
+					+ "'02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00',"
+					+ "'07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00',"
+					+ "'12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00',"
+					+ "'17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00',"
+					+ "'22:30','23:00','23:30','23:59']\")])[1]");
+	public By ELEMENT_EVENT_TASK_LIST_HOUR_TO_DATE_VALUE = By
+			.xpath("(.//*[@id='UIQuickAddEvent']//*[contains(@options,\"['00:00','00:30','01:00','01:30','02:00',"
+					+ "'02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00',"
+					+ "'07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00',"
+					+ "'12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00',"
+					+ "'17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00',"
+					+ "'22:30','23:00','23:30','23:59']\")])[2]");
+    
+    
     //Add EVENT Form (more details )
     public By ELEMENT_ADD_EDIT_EVENT_POPUP_FORM=By.xpath("//*[@id='UIEventForm']");
   	public By ELEMENT_ADD_EDIT_EVENT_NAME = By.xpath("//*[@id='UIEventForm']//*[@name='eventName']");
@@ -393,8 +412,12 @@ public class CalendarLocatorObject extends PlatformBase{
   	public By ELEMENT_ADD_EDIT_EVENT_ALLDAY = By.xpath("//*[@id='UIEventForm']//*[@name='allDay']");
   	public By ELEMENT_ADD_EDIT_EVENT_FROM_DATE = By.xpath("//*[@id='UIEventForm']//*[@name='from']");
   	public By ELEMENT_ADD_EDIT_EVENT_TO_DATE = By.xpath("//*[@id='UIEventForm']//*[@name='to']");
+  	public String ELEMENT_ADD_EDIT_EVENT_FROM_DATE_VALUE = "//*[@id='UIEventForm']//*[@name='from'][contains(@value,'$value')]";
+	public String ELEMENT_ADD_EDIT_EVENT_TO_DATE_VALUE = "//*[@id='UIEventForm']//*[@name='to'][contains(@value,'$value')]";
   	public By ELEMENT_ADD_EDIT_INPUT_EVENT_FROM_TIME = By.xpath("//*[@id='UIEventForm']//*[@name='fromTime']");
   	public By ELEMENT_ADD_EDIT_INPUT_EVENT_TO_TIME = By.xpath("//*[@id='UIEventForm']//*[@name='toTime']");
+  	public String ELEMENT_ADD_EDIT_INPUT_EVENT_FROM_TIME_VALUE="//*[@id='UIEventForm']//input[@id='fromTime'][contains(@value,'$time')]";
+  	public String ELEMENT_ADD_EDIT_INPUT_EVENT_TO_TIME_VALUE="//*[@id='UIEventForm']//input[@id='fromTime'][contains(@value,'$time')]";
   	public By ELEMENT_ADD_EDIT_EVENT_FROM_TIME_INPUT = By.xpath("//*[@id='UIEventForm']//*[@id='fromTime']/..//*[@class='UIComboboxInput']");
   	public By ELEMENT_ADD_EDIT_EVENT_TO_TIME_INPUT = By.xpath("//*[@id='UIEventForm']//*[@id='toTime']/..//*[@class='UIComboboxInput']");
   	public String ELEMENT_ADD_EDIT_EVENT_SELECT_FROM_TIME = "//*[@id='UIEventForm']//*[@id='fromTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";

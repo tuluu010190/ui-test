@@ -10,6 +10,7 @@
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_TestConfig_3" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Recurring" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Event_Details" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_End_Date_Suggestion" />
 		</classes>
 	</test>
 	<listeners>
