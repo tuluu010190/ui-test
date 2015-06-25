@@ -1628,6 +1628,77 @@ public class TestBase {
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		return cal.get(Calendar.DAY_OF_WEEK);
 	}
+	/**
+	 * Get day of the next month
+	 * @param format
+	 * @return date
+	 */
+	public String getDayOfNextMonth(String format,int dayNum,int weekNum){
+	   DateFormat dateFormat = new SimpleDateFormat(format);
+	   Calendar calendar = Calendar.getInstance();
+	   
+	   Calendar nextMonth = Calendar.getInstance();
+	   nextMonth.setTime(calendar.getTime());
+	   nextMonth.add(Calendar.DAY_OF_WEEK_IN_MONTH,weekNum);
+	   nextMonth.add(Calendar.DAY_OF_MONTH,dayNum);
+	   String dayOfNextMonth= dateFormat.format( nextMonth.getTime());
+	   System.out.println("dayOfNextMonth:"+dayOfNextMonth);
+	   return dayOfNextMonth;
+	 
+	}
+	/**
+	 * Get the day of next year
+	 * @param format
+	 * @param year
+	 * @return dayOfYear
+	 */
+	public String getDayOfNextYear(String format,int year){
+	   DateFormat dateFormat = new SimpleDateFormat(format);
+	   Calendar calendar = Calendar.getInstance();
+	   
+	   Calendar nextYear = Calendar.getInstance();
+	   nextYear.setTime(calendar.getTime());
+	   nextYear.add(Calendar.YEAR,year);
+	   nextYear.add(Calendar.MONTH,12);
+	   String dayOfYear= dateFormat.format(nextYear.getTime());
+	   System.out.println("dayOfYear:"+dayOfYear);
+	   return dayOfYear;
+	}
+	/**
+	 * Get the day of next week
+	 * @param format
+	 * @return
+	 */
+	public String getDayOfNextWeek(String format){
+	   DateFormat dateFormat = new SimpleDateFormat(format);
+	   Calendar calendar = Calendar.getInstance();
+	   String dayOfNextMonth1= dateFormat.format(  calendar.getTime());
+	   System.out.println("dayOfNextMonth1:"+dayOfNextMonth1);
+	   
+	   Calendar nextWeek = Calendar.getInstance();
+	   nextWeek.setTime(calendar.getTime());
+	   nextWeek.add(Calendar.DATE,7);
+	   String dayOfNextWeek= dateFormat.format(nextWeek.getTime());
+	   return dayOfNextWeek;
+		 
+		}
+	/**
+	 * Get the number of current week
+	 * @return weekNum
+	 */
+	public int getWeekNumber(){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		return calendar.get(Calendar.DAY_OF_WEEK);
+	}
+	
+	
+	public int getDayNumber(){
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(new Date());
+		return calendar.get(Calendar.DATE);
+	}
+	
 	
 	/**
 	 * Get current month/day/year

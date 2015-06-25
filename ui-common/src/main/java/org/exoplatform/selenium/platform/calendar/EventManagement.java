@@ -868,6 +868,18 @@ public class EventManagement extends CalendarLocatorObject {
 			}
 		}
 	}
+	
+	/**
+	 * Add more Repeat By option
+	 * @param isMonthByMonth
+	 */
+	public void selectRepeatByOption(boolean isMonthByMonth){
+		if(isMonthByMonth)
+			check(ELEMENT_REPEAT_BY_DAY_OF_MONTH,2);
+		else
+			check(ELEMENT_REPEAT_BY_DAY_OF_WEEK,2);
+		Utils.pause(2000);
+	}
 
 	/**
 	 * Delete an event

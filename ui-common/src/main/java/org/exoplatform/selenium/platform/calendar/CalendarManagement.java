@@ -830,27 +830,18 @@ public class CalendarManagement extends CalendarLocatorObject{
 		if (opt.length > 0 && opt[0] != null) {
 			switch(view){
 			case WEEK:
-				/*WebElement el_week = waitForAndGetElement(ELEMENT_EVENT_TASK_NUMBER_RECURRING_WEEK_VIEW
-								.replace("$name", name).replace("$number",
-										opt[0]));*/
 				WebElement el_week = waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY
 						.replace("$date", opt[0]).replace("$name",name));
 				scrollElementIntoView(el_week);
 				action.moveToElement(el_week).doubleClick().perform();
 				break;
 			case MONTH:
-				/*WebElement el_month = waitForAndGetElement(ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW
-								.replace("$name", name).replace("$number",
-										opt[0]));*/
 				WebElement el_month = waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.
 						replace("$date",opt[0]).replace("$name",name));
 				scrollElementIntoView(el_month);
 				action.moveToElement(el_month).doubleClick().perform();
 				break;
 			case WORKWEEK:
-				/*WebElement el_workweek = waitForAndGetElement(ELEMENT_EVENT_TASK_NUMBER_RECURRING_WEEK_VIEW
-						.replace("$name", name).replace("$number",
-								opt[0]));*/
 				WebElement el_workweek = waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY
 						.replace("$date", opt[0]).replace("$name",name));
 				scrollElementIntoView(el_workweek);
@@ -872,6 +863,19 @@ public class CalendarManagement extends CalendarLocatorObject{
 		}
 		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_POPUP,4000,0);
 		info("The edit form is shown");
+	}
+	
+	/**
+	 * Open quick Add Event/Task popup by index in Month View
+	 * @param col
+	 * @param row
+	 */
+	public void openQuickAddByClickOnIndexInMonthView(String col,String row){
+		info("Go to Month view");
+		cHome.goToView(selectViewOption.MONTH);
+		click(ELEMENT_EVENT_TASK_DAY_BY_INDEX_MONTH_VIEW.replace("$col",col).replace("$row",row));
+		waitForAndGetElement(ELEMENT_CALENDAR_QUICK_ADD_EVENT_FORM);
+		info("Quick Add Event task is shown");
 	}
 	
 	/**
