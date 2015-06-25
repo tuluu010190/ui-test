@@ -81,7 +81,7 @@ import org.testng.annotations.*;
 			- Calendar is removed from personal calendar list
 			- All tasks/events of this deleted calendar arealso removed.*/ 
 		cMang.deleteCalendar(calendar, true);
-		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
  	}
 

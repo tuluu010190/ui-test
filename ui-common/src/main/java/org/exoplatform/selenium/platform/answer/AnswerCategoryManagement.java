@@ -31,6 +31,7 @@ public class AnswerCategoryManagement extends PlatformBase {
 	public By ELEMENT_CATEGORY_RIGHT_DELETE_BUTTON=By.xpath("//*[contains(@class,'faqCategory oncontextmenu') and contains(@style,'display: block')]//*[@class='uiIconLightGray uiIconDeleteCategory']");
 	public By ELEMENT_CATEGORY_RIGHT_MOVE_BUTTON=By.xpath("//*[contains(@class,'faqCategory oncontextmenu') and contains(@style,'display: block')]//*[@class='uiIconLightGray uiIconMoveCategory']");
 	public By ELEMENT_CATEGORY_RIGHT_WATCH_BUTTON=By.xpath("//*[contains(@class,'faqCategory oncontextmenu') and contains(@style,'display: block')]//*[@class='uiIconLightGray uiIconWatch']");
+	public By ELEMENT_CATEGORY_WATCH_OK_BUTTON=By.xpath("//*[contains(text(),'OK') and contains(@onclick,'answers')]");
 	public By ELEMENT_CATEGORY_RIGHT_UNWATCH_BUTTON=By.xpath("//*[contains(@class,'faqCategory oncontextmenu') and contains(@style,'display: block')]//*[@class='uiIconLightGray uiIconUnWatch']");
 	public By ELEMENT_CATEGORY_RIGHT_RSS_BUTTON=By.xpath("//*[contains(@class,'faqCategory oncontextmenu') and contains(@style,'display: block')]//*[@class='uiIconRss uiIconLightGray']");
 	public By ELEMENT_CATEGORY_RIGHT_SUBMIT_QUESTION_BUTTON=By.xpath("//*[contains(@class,'faqCategory oncontextmenu') and contains(@style,'display: block')]//*[@class='uiIconAnsLightGray uiIconAnsAddNewQuestion']");
@@ -180,6 +181,7 @@ public class AnswerCategoryManagement extends PlatformBase {
 		case WATCH:
 			info("WATCH category");
 			click(ELEMENT_CATEGORY_RIGHT_WATCH_BUTTON);
+			click(ELEMENT_CATEGORY_WATCH_OK_BUTTON);
 			break;
 		case UNWATCH:
 			info("UNWATCH category");

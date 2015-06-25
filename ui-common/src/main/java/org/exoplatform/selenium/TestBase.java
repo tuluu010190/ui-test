@@ -148,16 +148,16 @@ public class TestBase {
 	protected String spaceNavigationDefaultNodesFilePath;
 	protected String spaceGroupsFilePath;
 	protected String spaceWarnMessageFilePath;
-	
+
 	//Calendar
 	protected String calGroupNameFilePath;
 	protected String calTabNameFilePath;
 	protected String calCommentsFilePath;
 	protected String calRemoteFilePath;
-	
-	
+
+
 	protected String notiDesFilePath;
-	
+
 	protected static String ssoType;
 
 	/*========Default System Property=============*/
@@ -244,13 +244,13 @@ public class TestBase {
 	public final String DEFAULT_SPACE_NAVIGATION_DEFAULT_NODES_URL = "DataDriven/"+"space_navigation_default_nodes.xls";
 	public final String DEFAULT_SPACE_GROUPS_URL="DataDriven/"+"space_groups.xls";
 	public final String DEFAULT_SPACE_WARNING_MESSAGE_URL="DataDriven/"+"space_warning_message.xls";
-	
+
 	//Calendar
 	public final String DEFAULT_CALENDAR_GROUP_NAME_URL="DataDriven/"+"cal_group.xls";
 	public final String DEFAULT_CALENDAR_TAB_NAME_URL="DataDriven/"+"cal_tabs.xls";
 	public final String DEFAULT_CALENDAR_COMMENTS_URL="DataDriven/"+"cal_comments.xls";
 	public final String DEFAULT_CALENDAR_REMOTE_URL="DataDriven/"+"cal_remote.xls";
-	
+
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -277,17 +277,17 @@ public class TestBase {
 	public final By ELEMENT_YOUR_ACCOUNT_LABEL = By.xpath("//h5[contains(text(), 'Create your account')]");
 	public final By ELEMENT_ADMIN_PASS_LABEL = By.xpath("//h5[contains(text(), 'Admin Password')]");
 	public final By ELEMENT_ACCOUNT_ERROR = By.xpath("//*[@class='accountSetupError']");
-    	
+
 	//SSO Login with OpenAM
 	public final By ELEMENT_INPUT_PASSWORD_OPENAM = By.name("IDToken2");
 	public final By ELEMENT_INPUT_USERNAME_OPENAM = By.name("IDToken1");
 	public final By ELEMENT_SIGN_IN_BUTTON_OPENAM = By.xpath("//*[@class='button primary' and @value='Log In']");
-	
+
 	//SSO Login with CAS
 	public final By ELEMENT_INPUT_PASSWORD_CAS = By.id("password");
 	public final By ELEMENT_INPUT_USERNAME_CAS = By.id("username");
 	public final By ELEMENT_SIGN_IN_BUTTON_CAS = By.xpath(".//*[contains(@class,'btn-submit')]");
-	
+
 	//Upload file popup
 	public final By ELEMENT_UPLOAD_SELECT_BUTTON = By.xpath("//*[@class='uploadButton']/*[@class='btn']");
 	public final By ELEMENT_UPLOAD_POPUP_FILE = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Attach File']");
@@ -305,7 +305,7 @@ public class TestBase {
 		browser = System.getProperty("browser");
 		server = System.getProperty("server");
 		baseUrl = System.getProperty("baseUrl");
-		
+
 		ssoType = System.getProperty("ssoType");
 
 		jdbcDriver = System.getProperty("jdbcDriver");
@@ -371,16 +371,16 @@ public class TestBase {
 		spaceappFilePath=System.getProperty("spaceappFilePath");
 		spaceGroupsFilePath = System.getProperty("spaceGroupsFilePath");
 		spaceWarnMessageFilePath = System.getProperty("spaceWarnMessageFilePath");
-		
+
 		//Calendar
 		calGroupNameFilePath = System.getProperty("calGroupNameFilePath");
 		calTabNameFilePath =System.getProperty("calTabNameFilePath");
 		calCommentsFilePath =System.getProperty("calCommentsFilePath");
 		calRemoteFilePath = System.getProperty("calRemoteFilePath");
-		
-		
+
+
 		if (ssoType==null) ssoType = DEFAULT_SSOTYPE;
-		
+
 		if (nativeEvent==null) nativeEvent = DEFAULT_NATIVE_EVENT;
 		if (browser==null) browser = DEFAULT_BROWSER;
 		if (baseUrl==null) baseUrl = DEFAULT_BASEURL;
@@ -462,7 +462,7 @@ public class TestBase {
 		if (calTabNameFilePath==null) calTabNameFilePath=DEFAULT_CALENDAR_TAB_NAME_URL;
 		if (calCommentsFilePath==null) calCommentsFilePath=DEFAULT_CALENDAR_COMMENTS_URL;
 		if (calRemoteFilePath==null) calRemoteFilePath=DEFAULT_CALENDAR_REMOTE_URL;
-		
+
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
 		mailSuffixFilePath = getAbsoluteFilePath(mailSuffixFilePath);
@@ -520,7 +520,7 @@ public class TestBase {
 		spaceNavigationDefaultNodesFilePath = getAbsoluteFilePath(spaceNavigationDefaultNodesFilePath);
 		spaceGroupsFilePath = getAbsoluteFilePath(spaceGroupsFilePath);
 		spaceWarnMessageFilePath = getAbsoluteFilePath(spaceWarnMessageFilePath);
-		
+
 		//Calendar
 		calGroupNameFilePath = getAbsoluteFilePath(calGroupNameFilePath);
 		calTabNameFilePath =getAbsoluteFilePath(calTabNameFilePath);
@@ -862,7 +862,6 @@ public class TestBase {
 		for (int tick = 0; tick < timeout/WAIT_INTERVAL; tick++) {
 			if (notDisplayE == 2){
 				elem = getElement(locator,wDriver);
-				//elem = getDisplayedElement(locator);
 			}else{
 				elem = getDisplayedElement(locator,wDriver);
 			}
@@ -1007,10 +1006,10 @@ public class TestBase {
 	 * @param sourceLocator
 	 * @param targetLocator
 	 */
-    public void dragObject(String sourceLocator, String targetLocator){
-    	info("--Drag an object--");
-    	Actions action = new Actions(this.driver);
-        WebElement source = waitForAndGetElement(sourceLocator);
+	public void dragObject(String sourceLocator, String targetLocator){
+		info("--Drag an object--");
+		Actions action = new Actions(this.driver);
+		WebElement source = waitForAndGetElement(sourceLocator);
 		WebElement target = waitForAndGetElement(targetLocator);
 
 		try {
@@ -1032,7 +1031,7 @@ public class TestBase {
 			loopCount = 0;
 		}
 		Utils.pause(1000);
-    }
+	}
 	/**
 	 * Click by using javascript
 	 * @param locator
@@ -1040,7 +1039,14 @@ public class TestBase {
 	 */
 	public void clickByJavascript(Object locator, Object... opParams){
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);	
-		WebElement e = waitForAndGetElement(locator,DEFAULT_TIMEOUT, 1, notDisplay);
+		WebElement e = null;
+		if(locator instanceof WebElement){
+			e=(WebElement) locator;
+		}
+		else{
+			info("wait and get element");
+			e = waitForAndGetElement(locator,DEFAULT_TIMEOUT, 1, notDisplay);
+		}
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", e);
 	}
 
@@ -1052,26 +1058,33 @@ public class TestBase {
 	public void click(Object locator, Object... opParams) {
 		int notDisplay = (Integer) (opParams.length > 0 ? opParams[0]: 0);	
 		Boolean isUseJavascript =  (Boolean) (opParams.length > 1 ? opParams[1]: false);	
+		WebElement element = null;
 		Actions actions = new Actions(driver);
 		try {
-			WebElement element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);
-			if (browser.contains("chrome")) {
-				scrollToElement(element, driver);
+			if(isUseJavascript){
+				info("use javasript to click");
+				clickByJavascript(locator, notDisplay);
 			}
-			if(element.isEnabled()){
-				if(isUseJavascript){
-					info("use javasript to click");
-					clickByJavascript(locator, notDisplay);
-				}
 			else{
+				if (!locator.getClass().getName().contains("WebElement")) {
+					info("wait and get elements");
+					element = waitForAndGetElement(locator, DEFAULT_TIMEOUT, 1, notDisplay);
+				}
+				else{
+					element=(WebElement) locator;
+				}
+				if (browser.contains("chrome")) {
+					scrollToElement(element, driver);
+				}
+				if(element.isEnabled()){
 					info("click element");
 					actions.click(element).perform();
 				}
-			}
-			else {
-				info("Element is not enabled");
-				info("click element by javascript");
-				clickByJavascript(locator, notDisplay);
+				else {
+					info("Element is not enabled");
+					info("click element by javascript");
+					clickByJavascript(locator, notDisplay);
+				}
 			}
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, DEFAULT_TIMEOUT/WAIT_INTERVAL);
@@ -1182,7 +1195,12 @@ public class TestBase {
 		try {
 			if (safeToSERE) {
 				for (int i = 1; i < ACTION_REPEAT; i++){
-					element = waitForAndGetElement(locator, 5000, 0, notDisplay);
+					if (!locator.getClass().getName().contains("WebElement")) {
+						element = waitForAndGetElement(locator, 5000, 0, notDisplay);
+					}
+					else{
+						element=(WebElement) locator;
+					}
 					if (element == null){
 						Utils.pause(WAIT_INTERVAL);
 					} else {
@@ -1191,7 +1209,12 @@ public class TestBase {
 					}
 				}
 			} else {
-				element = waitForAndGetElement(locator);
+				if (!locator.getClass().getName().contains("WebElement")) {
+					element = waitForAndGetElement(locator);
+				}
+				else{
+					element=(WebElement) locator;
+				}
 				actions.moveToElement(element).perform();
 			}
 		} catch (StaleElementReferenceException e) {
@@ -1392,8 +1415,14 @@ public class TestBase {
 	 */
 	public void doubleClickOnElement(Object locator) {
 		Actions actions = new Actions(driver);
+		WebElement element;
 		try {
-			WebElement element = waitForAndGetElement(locator);
+			if (!locator.getClass().getName().contains("WebElement")) {
+				element = waitForAndGetElement(locator);
+			}
+			else{
+				element=(WebElement) locator;
+			}
 			actions.doubleClick(element).perform();
 		} catch (StaleElementReferenceException e) {
 			checkCycling(e, 5);
@@ -1621,16 +1650,16 @@ public class TestBase {
 	 * @return date in format
 	 */
 	public String getDateFromFirstDayOfWeek(int gap, String format){
-	   DateFormat dateFormat = new SimpleDateFormat(format);
-	   Date date = new Date();
-	   Calendar calendar = Calendar.getInstance();
-	   calendar.clear();
-	   calendar.setTime(date);
-	   calendar.set(Calendar.DAY_OF_WEEK, 2);
-	   calendar.add(Calendar.DAY_OF_MONTH, gap);
-	   String getDateFromFirstDayOfWeek = dateFormat.format(calendar.getTime());
-	   info("getDateFromFirstDayOfWeek:"+getDateFromFirstDayOfWeek);
-	   return getDateFromFirstDayOfWeek;
+		DateFormat dateFormat = new SimpleDateFormat(format);
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.clear();
+		calendar.setTime(date);
+		calendar.set(Calendar.DAY_OF_WEEK, 2);
+		calendar.add(Calendar.DAY_OF_MONTH, gap);
+		String getDateFromFirstDayOfWeek = dateFormat.format(calendar.getTime());
+		info("getDateFromFirstDayOfWeek:"+getDateFromFirstDayOfWeek);
+		return getDateFromFirstDayOfWeek;
 	}
 
 	/** Get day of week
@@ -1642,6 +1671,7 @@ public class TestBase {
 		cal.add(Calendar.DAY_OF_MONTH, gap);
 		return cal.get(Calendar.DAY_OF_WEEK);
 	}
+
 	/**
 	 * Get day of the next month
 	 * @param format
@@ -1712,8 +1742,6 @@ public class TestBase {
 		calendar.setTime(new Date());
 		return calendar.get(Calendar.DATE);
 	}
-	
-	
 	/**
 	 * Get current month/day/year
 	 * @param format as MMM for month, dd for day, or yyyy for year
@@ -2121,7 +2149,7 @@ public class TestBase {
 		robot.keyPress(KeyEvent.VK_ENTER);
 		robot.keyRelease(KeyEvent.VK_ENTER);
 	}
-	
+
 	/**
 	 * Download file using Robot class via URL download link
 	 * @param element
@@ -2237,17 +2265,17 @@ public class TestBase {
 	 * @return firstDayOfWeek
 	 */
 	public String getFirstDayOfWeek(String format) {
-		   DateFormat dateFormat = new SimpleDateFormat(format);
-		   Date date = new Date();
-		   Calendar calendar = Calendar.getInstance();
-		   calendar.clear();
-		   calendar.setTime(date);
-		   calendar.set(Calendar.DAY_OF_WEEK, 2);
-		   String firstDayOfWeek = dateFormat.format(calendar.getTime());
-		   info("firstDayOfWeek:"+firstDayOfWeek);
-		   return firstDayOfWeek;
-		}
-	
+		DateFormat dateFormat = new SimpleDateFormat(format);
+		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.clear();
+		calendar.setTime(date);
+		calendar.set(Calendar.DAY_OF_WEEK, 2);
+		String firstDayOfWeek = dateFormat.format(calendar.getTime());
+		info("firstDayOfWeek:"+firstDayOfWeek);
+		return firstDayOfWeek;
+	}
+
 	/**
 	 * Get last day of week
 	 * @param format
@@ -2256,20 +2284,20 @@ public class TestBase {
 	public String getLastDayOfWeek(String format) {
 		DateFormat dateFormat = new SimpleDateFormat(format);
 		Calendar currentDate = Calendar.getInstance();
-	    int firstDayOfWeek = currentDate.getFirstDayOfWeek();
+		int firstDayOfWeek = currentDate.getFirstDayOfWeek();
 
-	    Calendar startDate = Calendar.getInstance();
-	    startDate.setTime(currentDate.getTime());
-	    int days = (startDate.get(Calendar.DAY_OF_WEEK) + 7 - firstDayOfWeek) % 7;
-	    startDate.add(Calendar.DATE, -days);
+		Calendar startDate = Calendar.getInstance();
+		startDate.setTime(currentDate.getTime());
+		int days = (startDate.get(Calendar.DAY_OF_WEEK) + 7 - firstDayOfWeek) % 7;
+		startDate.add(Calendar.DATE, -days);
 
-	    Calendar endDate = Calendar.getInstance();
-	    endDate.setTime(startDate.getTime());
-	    endDate.add(Calendar.DATE, 5);
+		Calendar endDate = Calendar.getInstance();
+		endDate.setTime(startDate.getTime());
+		endDate.add(Calendar.DATE, 5);
 		String lastDayOfWeek = dateFormat.format(endDate.getTime());
 		info("lastDayOfWeek:"+lastDayOfWeek);
 		return lastDayOfWeek;
-		}
+	}
 	/**
 	 * Scroll to a element on the website
 	 * @param element

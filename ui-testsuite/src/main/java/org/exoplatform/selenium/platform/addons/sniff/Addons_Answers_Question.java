@@ -472,8 +472,7 @@ public class Addons_Answers_Question extends PlatformBase {
 	public  void test10_SendToFriend() {
 		String title = txData.getContentByArrayTypeRandom(1)+"116813";
 		String content = txData.getContentByArrayTypeRandom(1)+"116813";
-		String contentMail = "Hi,/You may be interested in this question:/Question "+title+"/Details/Content of "+title+"/Click here for more details.";
-		By mail = By.xpath("//b[text()= '"+title+"']");
+		String contentMail= "Hi, You may be interested in this question: Question "+title+" Details ";
 		
 		info("Create question");
 		hp.goToAnswer();
@@ -495,14 +494,14 @@ public class Addons_Answers_Question extends PlatformBase {
 			- Mail is sent successful to email address
 			- Content of mail includes Question content & Question link*/ 
 		qMang.goToActionOfQuestionByRightClick(title, actionQuestionOption.SEND);
-		type(qMang.ELEMENT_QUESTION_SEND_TO_INPUT,EMAIL_ADDRESS1,true);
+		type(qMang.ELEMENT_QUESTION_SEND_TO_INPUT,EMAIL_ADDRESS2,true);
 		click(qMang.ELEMENT_QUESTION_SEND_SEND_BUTTON);
 		click(qMang.ELEMENT_QUESTION_OK_BUTTON);
 		
 		//Check email
-		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		checkAndDeleteMail(mail, contentMail);
-		switchToParentWindow();
+		goToMail(EMAIL_ADDRESS2, EMAIL_PASS);
+		checkEmailNotification(contentMail,true,false);
+        switchToParentWindow();
 		
 		info("clear data");
 		qMang.goToActionOfQuestionByRightClick(title,actionQuestionOption.DELETE);

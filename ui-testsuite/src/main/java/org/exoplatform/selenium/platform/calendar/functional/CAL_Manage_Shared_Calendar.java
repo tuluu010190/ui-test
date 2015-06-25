@@ -429,12 +429,12 @@ import org.testng.annotations.*;
 			Event is deletedEvent is imported successfully and displayed on shared calendar*/ 
         cMang.deleteTaskEvent(newEvent1);
         info("Check the task is not present");
-		cHome.verifyIsNotPresentEventTask(newEvent1, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(newEvent1, selectViewOption.LIST, selectDayOption.DETAILTIME);
 		
 		cMang.importTaskEvent(calendar,"TestData/TestOutput/" + attachment);
 
 		info("Check the task is present ");
-		cHome.verifyIsPresentEventTask(newEvent1, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(newEvent1, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		cMang.deleteTaskEvent(newEvent1);
  	}

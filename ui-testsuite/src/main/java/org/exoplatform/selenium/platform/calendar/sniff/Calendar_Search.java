@@ -76,12 +76,12 @@ public class Calendar_Search extends PlatformBase {
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Test 1: Quick search");
 		/*Step Number: 1
@@ -104,8 +104,8 @@ public class Calendar_Search extends PlatformBase {
 		click(cHome.ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
 	}
 
 	/**
@@ -128,12 +128,12 @@ public class Calendar_Search extends PlatformBase {
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Test 2: Advanced search");
 		/*Step Number: 1
@@ -161,8 +161,8 @@ public class Calendar_Search extends PlatformBase {
 		click(cHome.ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
 
 	}
 }

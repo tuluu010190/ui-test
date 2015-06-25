@@ -14,6 +14,14 @@
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Popover" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_View" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Repeat" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Task_Popover" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Task_Add" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_BasicActions_Export" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Category" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Search" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Settings" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Task_Add" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Task_Popover" />
 		</classes>
 	</test>
 	<listeners>

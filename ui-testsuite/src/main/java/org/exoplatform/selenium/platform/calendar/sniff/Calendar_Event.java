@@ -119,7 +119,7 @@ public class Calendar_Event extends PlatformBase {
 			event.inputDataEventInDetailForm(titleEvent, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
 			event.attachFileToEvent(link);
 			event.saveAddEventDetails();
-			cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY);
+			cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 			info("Test 2: Remove attachment of event");
 			/*Step Number: 1
@@ -142,12 +142,12 @@ public class Calendar_Event extends PlatformBase {
 			 *Expected Outcome: 
 			- Attachment is deleted*/ 
 			info("Remove the attachment");
-			cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+			cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 			event.removeAttachment(link);
 			event.saveAddEventDetails();
 
 			info("Delete data");
-			cHome.deleteEventTask(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+			cHome.deleteEventTask(titleEvent, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 		}
 	}
 
@@ -185,7 +185,7 @@ public class Calendar_Event extends PlatformBase {
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		 *Step Name: Step 2: Add participant to event
@@ -213,7 +213,7 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,getDate(0,"MM/dd/yyyy"));
 	}
 
 	/**
@@ -356,11 +356,11 @@ public class Calendar_Event extends PlatformBase {
 		click(event.ELEMENT_EVENT_PARTICIPANTS_TAB);
 		event.selectPrivacyParticipant(true);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Clear data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,getDate(0,"MM/dd/yyyy"));
 	}
 
 	/**
@@ -497,10 +497,10 @@ public class Calendar_Event extends PlatformBase {
 		click(event.ELEMETN_INVITATION_SAVE_BUTTON);
 		event.selectSendInvitation(selectInvitationOption.ALWAYS);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		info("Clear data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 	}
 
 	/**
@@ -561,10 +561,10 @@ public class Calendar_Event extends PlatformBase {
 		click(event.ELEMETN_INVITATION_SAVE_BUTTON);
 		event.selectSendInvitation(selectInvitationOption.NEVER);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Clear data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,getDate(0,"MM/dd/yyyy"));
 	}
 
 	/**
@@ -787,7 +787,7 @@ public class Calendar_Event extends PlatformBase {
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Test 14 Edit an Event in personal calendar");
 		/*Step Number: 1
@@ -810,11 +810,11 @@ public class Calendar_Event extends PlatformBase {
 			- Save
 		 *Expected Outcome: 
 			Event is saved successfully in personal calendar*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		event.checkSuggestionEventTimeInDetailForm(null,null, 60);
 		event.inputDataEventInDetailForm(titleEvent2, contentEvent2, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Test 15 Delete an Event in personal calendar");
 		/*Step Number: 1
@@ -827,7 +827,7 @@ public class Calendar_Event extends PlatformBase {
 			- Click OK at confirmation message
 		 *Expected Outcome: 
 			- The event is removed normally.*/ 
-		cHome.deleteEventTask(titleEvent2, selectViewOption.LIST, selectDayOption.ONEDAY,getDate(0,"MM/dd/yyyy"));
+		cHome.deleteEventTask(titleEvent2, selectViewOption.LIST, selectDayOption.DETAILTIME,getDate(0,"MM/dd/yyyy"));
 	}
 
 	/**
@@ -850,7 +850,7 @@ public class Calendar_Event extends PlatformBase {
 		String fromTime = waitForAndGetElement(event.ELEMENT_QUICK_INPUT_EVENT_FROM_TIME_INPUT, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
 		String toTime = waitForAndGetElement(event.ELEMENT_QUICK_INPUT_EVENT_TO_TIME_INPUT, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Test 16 Drag-drop event");
 		/*Step Number: 1
@@ -865,11 +865,11 @@ public class Calendar_Event extends PlatformBase {
 			- time of event is updated according to new place in main pane*/ 
 		cHome.goToView(selectViewOption.MONTH);
 		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", titleEvent).replace("$date", getDate(0, "MMM dd yyyy"))),By.xpath(cHome.ELEMENT_ANY_TARGET_DATE.replace("${targetDate}", getDate(1, "MMM dd yyyy"))));
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME,getDate(1,"MMM dd yyyy"));
 		event.checkSuggestionEventTimeInDetailForm(dateTime+" "+fromTime, dateTime+" "+toTime, 60);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"));	
+		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(1,"MMM dd yyyy"));	
 	}
 
 
@@ -922,7 +922,7 @@ public class Calendar_Event extends PlatformBase {
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
@@ -930,7 +930,7 @@ public class Calendar_Event extends PlatformBase {
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
@@ -938,7 +938,7 @@ public class Calendar_Event extends PlatformBase {
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
-		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		info("Test 18 Edit an event in group calendar");
 		/*Step Number: 1
@@ -966,21 +966,21 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.DAY, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		event.checkSuggestionEventTimeInDetailForm(null,null, 60);
 		event.inputDataEventInDetailForm(titleEvent2, contentEvent2, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.verifyIsNotPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		info("Test 19 Delete an event in group calendar");
 		/*Step Number: 1
@@ -998,17 +998,17 @@ public class Calendar_Event extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.verifyIsNotPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.verifyIsNotPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 	}
@@ -1083,7 +1083,7 @@ public class Calendar_Event extends PlatformBase {
 		event.checkSuggestionEventTimeInQuickForm(null,null, 60);
 		event.inputDataEventInQuickForm(titleEvent, contentEvent, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		info("Test 21 Edit an event in shared calendar");
 		/*Step number: 3
@@ -1106,11 +1106,11 @@ public class Calendar_Event extends PlatformBase {
 		 *Expected Outcome: 
 			- Event in shared calendar is edited
 			- Sharing user can see updated event*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		event.checkSuggestionEventTimeInDetailForm(null, null,60);
 		event.inputDataEventInDetailForm(titleEvent2, contentEvent2, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		info("Test 22 Delete an event in shared calendar");
 		/*Step Number: 1
@@ -1145,7 +1145,7 @@ public class Calendar_Event extends PlatformBase {
 		 *Expected Outcome: 
 			- Event is deleted
 			- The sharing user cannot see this event*/ 
-		cHome.deleteEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"),true,true);
+		cHome.deleteEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"),true,true);
 
 		info("Delete data");
 		magAc.signOut();

@@ -111,20 +111,20 @@ public class Calendar_Event_Recurring extends PlatformBase {
 
 		 *Expected Outcome: 
 			- Changes are appliyed for current & following events*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY, getDate(1,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME, getDate(1,"MMM dd yyyy"));
 		event.inputDataEventInDetailForm(titleEvent2, contentEvent2, null,null, false);
 		click(event.ELEMENT_BUTTON_EVENT_SAVE_DETAILS);
 		event.editRecurringEvent(recurringType.FOLLOW_EVENT, true);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		info("Test 02 Delete Following events in recurring event");
 		/*Step number: 2
@@ -152,16 +152,16 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		 *Expected Outcome: 
 			<p>
 			- Selected and following event are deleted</p>*/ 
-		event.deleteRecurringEvent(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY, recurringType.FOLLOW_EVENT,getDate(2,"MMM dd yyyy"),true);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		event.deleteRecurringEvent(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME, recurringType.FOLLOW_EVENT,getDate(2,"MMM dd yyyy"),true);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		info("Clear data");
-		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.FOLLOW_EVENT,getDate(0,"MMM dd yyyy"),true);
-		event.deleteRecurringEvent(titleEvent2, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.FOLLOW_EVENT,getDate(1,"MMM dd yyyy"),true);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME, recurringType.FOLLOW_EVENT,getDate(0,"MMM dd yyyy"),true);
+		event.deleteRecurringEvent(titleEvent2, selectViewOption.MONTH, selectDayOption.DETAILTIME, recurringType.FOLLOW_EVENT,getDate(1,"MMM dd yyyy"),true);
 	}
 
 	/**
@@ -217,16 +217,16 @@ public class Calendar_Event_Recurring extends PlatformBase {
 
 		 *Expected Outcome: 
 			- Changes are restricted to the edited recurring event*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY, getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME, getDate(0,"MMM dd yyyy"));
 		event.inputDataEventInDetailForm(titleEvent2, contentEvent2, null,null, false);
 		click(event.ELEMENT_BUTTON_EVENT_SAVE_DETAILS);
 		event.editRecurringEvent(recurringType.ONLY_EVENT, true);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		info("Test 04 Delete only a current recurring event");
 		/*Step Number: 1
@@ -264,17 +264,17 @@ public class Calendar_Event_Recurring extends PlatformBase {
 
 		 *Expected Outcome: 
 			- Only current event is deleted from the series*/ 
-		event.deleteRecurringEvent(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY, recurringType.ONLY_EVENT, getDate(1,"MMM dd yyyy"),true);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME, recurringType.ONLY_EVENT, getDate(1,"MMM dd yyyy"),true);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		info("Clear data");
-		cHome.deleteEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.ONEDAY, getDate(0,"MMM dd yyyy"),true, true);
-		event.deleteRecurringEvent(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(2,"MMM dd yyyy"),true);
+		cHome.deleteEventTask(titleEvent2, selectViewOption.WEEK, selectDayOption.DETAILTIME, getDate(0,"MMM dd yyyy"),true, true);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME, recurringType.ALL_EVENT, getDate(2,"MMM dd yyyy"),true);
 	}
 	
 	/**
@@ -337,11 +337,11 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		event.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,"5");
 		click(event.ELEMENT_SAVE_EVENT_OCCURRING);
 		event.saveAddEventDetails();
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		info("Test 06 Edit a recurring event with All events option");
 		/*Step Number: 1
@@ -386,21 +386,21 @@ public class Calendar_Event_Recurring extends PlatformBase {
 
 		 *Expected Outcome: 
 			- Changes are appliyed for all events*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.DAY, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		event.inputDataEventInDetailForm(titleEvent2, contentEvent2, null,null, false);
 		click(event.ELEMENT_BUTTON_EVENT_SAVE_DETAILS);
 		event.editRecurringEvent(recurringType.ALL_EVENT, true);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		info("Test 07 Delete all events");
 		/*Step number: 3
@@ -417,12 +417,12 @@ public class Calendar_Event_Recurring extends PlatformBase {
 			<p>
 			- All events are deletes</p><p>
 			- Series no longer exists</p>*/ 
-		event.deleteRecurringEvent(titleEvent2, selectViewOption.DAY, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(0,"MMM dd yyyy"),true);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		event.deleteRecurringEvent(titleEvent2, selectViewOption.DAY, selectDayOption.DETAILTIME, recurringType.ALL_EVENT, getDate(0,"MMM dd yyyy"),true);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(0,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(1,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(2,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(3,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2, getDate(4,"MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 	}
 	
@@ -485,8 +485,8 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		assert waitForAndGetElement(event.ELEMENT_EDITED_RECURRING_TEXT_RECURRING_EVENT).getText().contains("Edited Recurring event");
 
 		info("Clear data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(-1,"MMM dd yyyy"));
-		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),false);
+		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(-1,"MMM dd yyyy"));
+		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),false);
 	}
 	
 	/**
@@ -544,7 +544,7 @@ public class Calendar_Event_Recurring extends PlatformBase {
 		waitForAndGetElement(event.ELEMENT_RECURRING_TEXT_RECURRING_EVENT);
 		
 		info("Clear data");
-		event.deleteRecurringEvent(titleEvent, selectViewOption.DAY, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(0,"MMM dd yyyy"),false);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.DAY, selectDayOption.DETAILTIME, recurringType.ALL_EVENT, getDate(0,"MMM dd yyyy"),false);
 	}
 }
 

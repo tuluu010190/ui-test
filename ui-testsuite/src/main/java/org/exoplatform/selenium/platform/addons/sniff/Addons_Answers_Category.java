@@ -4,8 +4,10 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.ManageAlert;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.answer.AnswerHomePage;
 import org.exoplatform.selenium.platform.answer.AnswerManagement;
@@ -15,6 +17,7 @@ import org.exoplatform.selenium.platform.answer.AnswerCategoryManagement.actionC
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
+import org.exoplatform.selenium.platform.social.MyProfilePage;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -31,11 +34,15 @@ public class Addons_Answers_Category  extends PlatformBase {
 	ManageAlert alert;
 	Button button;
 	AnswerManagement aMang;
+	MyProfilePage myProfile;
+	NavigationToolbar navTool;
 	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
 		initSeleniumTest();
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
+		navTool = new NavigationToolbar(driver);
+		myProfile = new MyProfilePage(driver);
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);
 		cMang = new AnswerCategoryManagement(driver);
@@ -211,9 +218,18 @@ public class Addons_Answers_Category  extends PlatformBase {
 		String content1 = txData.getContentByArrayTypeRandom(1)+"qc1116811";
 		String answer1 = txData.getContentByArrayTypeRandom(1)+"a1116811";
 		String answer2 = txData.getContentByArrayTypeRandom(1)+"a2116811";
-		String contentMail = "Hi,/You may be interested in this question:/Question "+paCat1+"/Details/Content of "+paCat1+"/Click here for more details.";
-		By mail = By.xpath("//b[text()= '"+paCat1+"']");
+		String contentMail = "A new question has been posted "+paCat1+" "+question1;
 		
+		//update email
+		info("edit contact info");
+		info("edit info");
+		navTool.goToMyProfile();
+		info("goto edit profile page");
+		click(myProfile.ELEMENT_EDIT_MY_PROFILE_LINK);
+		myProfile.updateBasicInformation(null, null, EMAIL_ADDRESS2);
+		myProfile.saveCancelUpdateInfo(true);
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		info("Test 3: Watch/Unwatch category");
 		/*Step Number: 1
 		 *Step Name: Create category, question
@@ -236,30 +252,6 @@ public class Addons_Answers_Category  extends PlatformBase {
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
 		click(button.ELEMENT_OK_BUTTON_LINK);
 		
-		/*Step number: 3
-		 *Step Name: Watch
-		 *Step Description: 
-			- Right click on 1 category and select Watch
-		 *Input Data: 
-
-		 *Expected Outcome: 
-			Category is watched/unwatched successfully*/ 
-		aHome.goToHomeCategory();
-		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.WATCH);
-		click(cMang.ELEMENT_CATEGORY_OK_BUTTON);
-		magAc.signOut();
-		magAc.signIn(DATA_USER2, DATA_PASS);
-		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		aMang.goToAnswerQuestion(question1);
-		aMang.inputDataToAnswer(answer1, null, null, null);
-		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
-
-		//Check email
-		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		checkAndDeleteMail(mail, contentMail);
-		switchToParentWindow();
 		/*Step number: 2
 		 *Step Name: Unwatch
 		 *Step Description: 
@@ -268,11 +260,10 @@ public class Addons_Answers_Category  extends PlatformBase {
 
 		 *Expected Outcome: 
 			Category is watched/unwatched successfully*/
-		magAc.signOut();
-		magAc.signIn(DATA_USER1, DATA_PASS);
-		hp.goToAnswer();
 		aHome.goToHomeCategory();
+		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.WATCH);
 		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.UNWATCH);
+		Utils.pause(3000);
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToAnswer();
@@ -283,9 +274,37 @@ public class Addons_Answers_Category  extends PlatformBase {
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		
 		//Check email
-		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		checkAndDeleteMail(mail, contentMail);
+		goToMail(EMAIL_ADDRESS2, EMAIL_PASS);
+		checkEmailNotification(contentMail,false,false);
 		switchToParentWindow();
+		
+		/*Step number: 3
+		 *Step Name: UnWatch
+		 *Step Description: 
+			- Right click on 1 category and select Watch
+		 *Input Data: 
+
+		 *Expected Outcome: 
+			Category is watched/unwatched successfully*/ 
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		hp.goToAnswer();
+		aHome.goToHomeCategory();
+		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.WATCH);
+		magAc.signOut();
+		magAc.signIn(DATA_USER2, DATA_PASS);
+		hp.goToAnswer();
+		aHome.goToHomeCategory();
+		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
+		aMang.goToAnswerQuestion(question1);
+		aMang.inputDataToAnswer(answer1, null, null, null);
+		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
+
+		//Check email
+		goToMail(EMAIL_ADDRESS2, EMAIL_PASS);
+		checkEmailNotification(contentMail,true,false);
+		switchToParentWindow();
+		
 		info("Clear data");
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);

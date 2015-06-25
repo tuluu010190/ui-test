@@ -96,7 +96,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent,newContent,calendar);
 		evMg.saveQuickAddEvent();
 		
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST,selectDayOption.DETAILTIME);
 		
 		info("Create a new calendar");
 		String calendar2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -113,7 +113,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent1,newContent1,calendar2);
 		evMg.saveQuickAddEvent();
         
-		cHome.verifyIsPresentEventTask(titleEvent1, selectViewOption.LIST,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent1, selectViewOption.LIST,selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: -
@@ -293,7 +293,7 @@ import org.testng.annotations.*;
 		evMg.inputDataEventInQuickForm(titleEvent3, newContent3,getLastDayOfWeek("MM/dd/yyyy"),null,false,calendar);
 		evMg.saveQuickAddEvent();
 		
-		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.DETAILTIME);
 		cHome.verifyIsPresentEventTask(titleEvent1,selectViewOption.DAY ,selectDayOption.ALLDAY);
 		
 		/*Step number: 2
@@ -307,22 +307,22 @@ import org.testng.annotations.*;
 			- All corresponding tasks/events are shown*/
 		int currDayNum=getDayOfWeek(-2);
 		cHome.nextDate(4-currDayNum);
-		cHome.verifyIsPresentEventTask(titleEvent3,selectViewOption.DAY ,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent3,selectViewOption.DAY ,selectDayOption.DETAILTIME);
 		if(currDay==lastDay){
-			cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.ONEDAY);
+			cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.DETAILTIME);
 			cHome.verifyIsPresentEventTask(titleEvent1,selectViewOption.DAY ,selectDayOption.ALLDAY);
 		}else{
-			cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.ONEDAY);
+			cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.DETAILTIME);
 			cHome.verifyIsNotPresentEventTask(titleEvent1,selectViewOption.DAY ,selectDayOption.ALLDAY);
 		}
 		
 		cHome.previousDate(4);
-		cHome.verifyIsPresentEventTask(titleEvent2,selectViewOption.DAY ,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent2,selectViewOption.DAY ,selectDayOption.DETAILTIME);
 		if(currDay==firstDay){
-			cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.ONEDAY);
+			cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.DETAILTIME);
 			cHome.verifyIsPresentEventTask(titleEvent1,selectViewOption.DAY ,selectDayOption.ALLDAY);
 		}else{
-			cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.ONEDAY);
+			cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.DAY ,selectDayOption.DETAILTIME);
 			cHome.verifyIsNotPresentEventTask(titleEvent1,selectViewOption.DAY ,selectDayOption.ALLDAY);
 		}
 		
@@ -334,10 +334,10 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			All events/tasks in this month are displayed in Month View*/ 
-		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.MONTH,selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTask(titleEvent1,selectViewOption.MONTH,selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTask(titleEvent2,selectViewOption.MONTH,selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTask(titleEvent3,selectViewOption.MONTH,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.MONTH,selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTask(titleEvent1,selectViewOption.MONTH,selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTask(titleEvent2,selectViewOption.MONTH,selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTask(titleEvent3,selectViewOption.MONTH,selectDayOption.DETAILTIME);
 		cMang.deleteCalendar(calendar);
  	}
 
@@ -375,7 +375,7 @@ import org.testng.annotations.*;
 		
 		click(cHome.ELEMENT_TODAY_ACTION_BAR);
 		Utils.pause(2000);
-		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY,selectDayOption.DETAILTIME);
 		cMang.deleteCalendar(calendar);
 
  	}
@@ -424,7 +424,7 @@ import org.testng.annotations.*;
 			- Type view whichis shown on tool bar , is corresponding to working panel*/ 
 		click(cHome.ELEMENT_TODAY_ACTION_BAR);
 		Utils.pause(2000);
-		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.DAY,selectDayOption.DETAILTIME);
 		cMang.deleteCalendar(calendar);
 
  	}
@@ -471,7 +471,7 @@ import org.testng.annotations.*;
 		evMg.inputDataEventInQuickForm(titleEvent1, newContent1,null,null,true,calendar);
 		evMg.saveQuickAddEvent();
 		
-		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.WEEK,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.WEEK,selectDayOption.DETAILTIME);
 		cHome.verifyIsPresentEventTask(titleEvent1,selectViewOption.WEEK,selectDayOption.ALLDAY);
 		
 		/*Step number: 2
@@ -485,11 +485,11 @@ import org.testng.annotations.*;
 			- All corresponding tasks/events are shown*/
 		
 		cHome.nextDate(1);
-		cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.WEEK,selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.WEEK,selectDayOption.DETAILTIME);
 		cHome.verifyIsNotPresentEventTask(titleEvent1,selectViewOption.WEEK,selectDayOption.ALLDAY);
 		
 		cHome.previousDate(2);
-		cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.WEEK,selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.WEEK,selectDayOption.DETAILTIME);
 		cHome.verifyIsNotPresentEventTask(titleEvent1,selectViewOption.WEEK,selectDayOption.ALLDAY);
 		
 		/*Step number: 3
@@ -500,7 +500,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			All events/tasks in this month are displayed in Month View*/ 
-		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.MONTH,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent,selectViewOption.MONTH,selectDayOption.DETAILTIME);
 		cHome.verifyIsPresentEventTask(titleEvent1,selectViewOption.MONTH,selectDayOption.ALLDAY);
 		cMang.deleteCalendar(calendar);
 
@@ -648,7 +648,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent,titleEvent,calendar);
 		evMg.saveQuickAddEvent();
 		
-        cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH,selectDayOption.ONEDAY);
+        cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH,selectDayOption.DETAILTIME);
         
         info("Add an event");
 		evMg.goToAddEventFromActionBar();
@@ -680,10 +680,10 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			Show events/tasks of next/previous month of selecting month*/
         cHome.nextDate(1);
-		cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.MONTH,selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.MONTH,selectDayOption.DETAILTIME);
 		
 		cHome.previousDate(2);
-		cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.MONTH,selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent,selectViewOption.MONTH,selectDayOption.DETAILTIME);
 
 		/*Step number: 3
 		*Step Name: Step 3: Check month view when there are more than 4 tasks/event a day
@@ -752,8 +752,8 @@ import org.testng.annotations.*;
 		tasMg.inputBasicQuickTask(titleTask,newTask);
 		tasMg.saveQuickAddTask();
 		
-        cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST,selectDayOption.ONEDAY);
-        cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST,selectDayOption.ONEDAY);
+        cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST,selectDayOption.DETAILTIME);
+        cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST,selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: -

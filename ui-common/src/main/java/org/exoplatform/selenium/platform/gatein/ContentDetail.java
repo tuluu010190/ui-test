@@ -23,7 +23,7 @@ public class ContentDetail extends PlatformBase {
 	final public String ELEMENT_CONTENT_DETAIL_VIEW_CONTENT=".//h4[text()='${title}']";
 	final public String ELEMENT_CONTENT_DETAIL_CONTENT_BOX_CONTENT_TITLE = "//*[@class='title']//*[text()='${title}']";
 	final public By ELEMENT_CONTENT_DETAIL_CONTENT_BOX = By.xpath("//*[@class='uiContentBox']"); 
-	final public String ELEMENT_CONTENT_DETAIL_CONTENT_BOX_PREFERENCES_BTN = ".//*[@class='webContentContainer']//*[contains(text(),'${title}')]/../../..//*[@data-original-title='Preferences']";
+	final public String ELEMENT_CONTENT_DETAIL_CONTENT_BOX_PREFERENCES_BTN = "//*[contains(text(),'${title}')]/../../..//*[@data-original-title='Preferences']";
 	
 	public ContentDetail(WebDriver driver) {
 		this.driver=driver;

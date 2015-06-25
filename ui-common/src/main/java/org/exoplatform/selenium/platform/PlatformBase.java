@@ -49,10 +49,10 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_COMPOSE = By.xpath("//div[contains(text(),'COMPOSE')]");
 	public final By ELEMENT_GMAIL_SHOW_DETAIL = By.xpath("//img[@aria-label='Show details']");
 	public final String ELEMENT_GMAIL_TO_FIELD = "//td/span[text()='to:']/../..//span[text()='${to}']";
-	public final By ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC = By.cssSelector("a[id='account-chooser-link']");
-	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.cssSelector("a[id='account-chooser-add-account']");
+	public final By ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC = By.cssSelector(".gb_d.gbii");
+	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.linkText("Add account");
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//tr[1]//span[contains(text(),'Hi')]");
-	public final String ELEMENT_GMAIL_CONTENT = ".//span[contains(.,'\"${title}\" page was modified')]";
+	public final String ELEMENT_GMAIL_CONTENT = ".//span[contains(.,'\"${title}\" page was modified') or contains(.,'${title}')]";
 	public final String ELEMENT_GMAIL_NEWUSER = ".//span[contains(.,'${title} ${title} has joined eXo')]";
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
@@ -308,6 +308,7 @@ public class PlatformBase extends TestBase {
 	public void checkEmailNotification(String title,Object... opParams){
 		info("Check and delete mail");
 		Boolean checkOrNo = (Boolean)(opParams.length > 0 ? opParams[0]: true);
+	
 		String parentWindow = driver.getWindowHandle();
 		info("parentWindow:"+parentWindow);
 		  for(String windowHandle  : driver.getWindowHandles()){
@@ -320,6 +321,8 @@ public class PlatformBase extends TestBase {
             else 
             	waitForElementNotPresent(ELEMENT_GMAIL_CONTENT.replace("${title}",title),30000,1);
 		}
+		
+		//close windows mail
 		if (opParams.length > 1)
 			driver.close();
 	}

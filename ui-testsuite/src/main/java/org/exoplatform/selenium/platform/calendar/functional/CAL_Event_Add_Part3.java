@@ -60,7 +60,7 @@ import org.testng.annotations.*;
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
 		driver.navigate().refresh();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 		
 		info("Export the calendar");
 		cMang.exportCalendar(calendar,exportedCalendar);
@@ -72,7 +72,7 @@ import org.testng.annotations.*;
 		cMang.importCalendar("TestData/TestOutput/" +exportedCalendar,calendar,null,null);
 		info("Check the event is present ");
 		driver.navigate().refresh();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 		/*Step number: 2
 		*Step Name: -
 		*Step Description: 
@@ -92,7 +92,7 @@ import org.testng.annotations.*;
 		 evMg.inputBasicQuickEvent(titleEvent1,content1,calendar);
 		 evMg.saveQuickAddEvent();
 		 info("Add successfully");
-		 cHome.verifyIsPresentEventTask(titleEvent1, selectViewOption.LIST, selectDayOption.ONEDAY);
+		 cHome.verifyIsPresentEventTask(titleEvent1, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Delete file and task");
 		deleteFile("TestOutput/" + exportedCalendar);
@@ -134,7 +134,7 @@ import org.testng.annotations.*;
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
 		driver.navigate().refresh();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: -
@@ -208,7 +208,7 @@ import org.testng.annotations.*;
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
 		driver.navigate().refresh();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: -
@@ -323,7 +323,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent,content);
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy"),selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy"),selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		
 		info("Create event2");
@@ -334,7 +334,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent1,content1);
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,getDate(0,"MM/dd/yyyy"),selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,getDate(0,"MM/dd/yyyy"),selectViewOption.LIST, selectDayOption.DETAILTIME);
 		
 		info("Create event3");
         String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -344,7 +344,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent2,content2);
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,getDate(0,"MMM dd yyyy"),selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,getDate(0,"MMM dd yyyy"),selectViewOption.LIST, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: - Step 2: Add event
@@ -363,7 +363,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent3,content3);
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getDate(0,"MMM dd yyyy"),selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getDate(0,"MMM dd yyyy"),selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL.replace("$date",getDate(0,"MMM dd yyyy")));
 		click(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL.replace("$date",getDate(0,"MMM dd yyyy")));
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
@@ -1172,7 +1172,7 @@ import org.testng.annotations.*;
 		 evMg.goToAddEventFromActionBar();
 		 evMg.inputBasicQuickEvent(titleEvent, content);
 		 evMg.saveQuickAddEvent();
-		 cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy"),selectViewOption.LIST, selectDayOption.ONEDAY);
+		 cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy"),selectViewOption.LIST, selectDayOption.DETAILTIME);
 		 
 		 info("Delete Event");
  		 hp.goToCalendarPage();
@@ -1224,7 +1224,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent,content);
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy"),selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy"),selectViewOption.LIST, selectDayOption.DETAILTIME);
 		 
 		
 		cHome.goToView(selectViewOption.LIST);
@@ -1276,11 +1276,11 @@ import org.testng.annotations.*;
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
-        cHome.openAddEditEventTaskByLeftClick(getDate(0,"MMM dd yyyy HH")+":00",selectViewOption.WEEK,selectDayOption.ONEDAY);
+        cHome.openAddEditEventTaskByLeftClick(getDate(0,"MMM dd yyyy HH")+":00",selectViewOption.WEEK,selectDayOption.DETAILTIME);
     	evMg.inputBasicQuickEvent(titleEvent,content,calendar);
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy HH")+":00",selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy HH")+":00",selectViewOption.LIST, selectDayOption.DETAILTIME);
 		 
 		cHome.goToView(selectViewOption.LIST);
 		cMang.showHideEventTask(calendar);
@@ -1330,7 +1330,7 @@ import org.testng.annotations.*;
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
 		cHome.openAddEditEventTaskByRightClick(getDate(0, "MMM dd yyyy HH")
-				+ ":00", selectViewOption.WEEK, selectDayOption.ONEDAY,
+				+ ":00", selectViewOption.WEEK, selectDayOption.DETAILTIME,
 				contextMenuAddEditEvenTaskOption.ADD_EVENT);
 		evMg.inputBasicQuickEvent(titleEvent, content, calendar);
 		evMg.saveQuickAddEvent();

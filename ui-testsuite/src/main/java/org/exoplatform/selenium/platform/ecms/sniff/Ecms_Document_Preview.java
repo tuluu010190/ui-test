@@ -450,10 +450,9 @@ import org.testng.annotations.*;
 			* if applicable, a "Open..." button
 			*/ 
 		 acStream.openPreviewMode(file,1,"");
-		 waitForAndGetElement(docPrev.ELEMENT_PEVIEW_MODE_NOT_AVAIABLE_ICON,3000,1);
-		 waitForAndGetElement(docPrev.ElEMENT_PREVIEW_MODE_NOT_AVAIABLE_MESSAGE_MANY_PAGES,3000,1);
-		 waitForAndGetElement(docPrev.ELEMENT_PREVIEW_MODE_NOT_AVAIABLE_DOWNLOAD_BUTTON,3000,1);
-		 waitForAndGetElement(docPrev.ELEMENT_PREVIEW_MODE_NOT_AVAIABLE_OPEN_IN_DESKTOP,3000,1);
+		 waitForAndGetElement(docPrev.ELEMENT_PEVIEW_MODE_NOT_AVAIABLE_ICON);
+		 waitForAndGetElement(docPrev.ElEMENT_PREVIEW_MODE_NOT_AVAIABLE_MESSAGE_MANY_PAGES);
+		 waitForAndGetElement(docPrev.ELEMENT_PREVIEW_MODE_NOT_AVAIABLE_DOWNLOAD_BUTTON);
 		 docPrev.closeByClickCrossIcon();
  	}
 	
@@ -514,11 +513,10 @@ import org.testng.annotations.*;
 		SEHome.selectAFile(file);
 		
 		info("Vefiry that no preview avaible for the content");
-		waitForAndGetElement(SEHome.ELEMENT_CONTENT_THUMBNAIL,3000,1);
-		waitForAndGetElement(SEHome.ELEMENT_CONTENT_NAME.replace("${nameFile}",file),3000,1);
-		waitForAndGetElement(SEHome.ELEMENT_CONTENT_MESSAGE_TOO_MANY_PAGES,3000,1);
-		waitForAndGetElement(SEHome.ELEMENT_CONTENT_DOWNLOAD_BUTTON,3000,1);
-		waitForAndGetElement(SEHome.ELEMENT_CONTENT_OPEN_DESKTOP,3000,1);
+		waitForAndGetElement(SEHome.ELEMENT_CONTENT_THUMBNAIL);
+		waitForAndGetElement(SEHome.ELEMENT_CONTENT_NAME.replace("${nameFile}",file));
+		waitForAndGetElement(SEHome.ELEMENT_CONTENT_MESSAGE_TOO_MANY_PAGES);
+		waitForAndGetElement(SEHome.ELEMENT_CONTENT_DOWNLOAD_BUTTON);
  	}
 	
 	/**
@@ -674,7 +672,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(docPrev.ELEMENT_READER_FILE_CONTENT_PAGE_1,3000,1);
 		
 		info("Actions are displayed on the top bar of the reader");
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SIDERBAR_TOGGLE_BTN,1000,1);
+		
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SEARCH_BTN,1000,1);
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_UP_BTN,1000,1);
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_DOWN_BTN,1000,1);

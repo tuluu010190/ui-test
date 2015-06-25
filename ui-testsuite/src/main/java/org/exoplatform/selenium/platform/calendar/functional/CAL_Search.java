@@ -38,12 +38,12 @@ public class CAL_Search extends CAL_TestConfig_3{
 		evMg.goToAddEventFromActionBar();
 		evMg.inputDataEventInQuickForm(titleEvent, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		evMg.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		tasMg.goToAddTaskFromActionBar();
 		tasMg.inputDataTaskInQuickForm(titleTask, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		tasMg.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		 *Step Name: -
@@ -66,8 +66,8 @@ public class CAL_Search extends CAL_TestConfig_3{
 		click(cHome.ELEMENT_BUTTON_CLOSE_QUICK_SEARCH_RESULT);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
 
 	}
 }

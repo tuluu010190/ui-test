@@ -267,7 +267,7 @@ import org.testng.annotations.*;
 		
 		info("turn off intranet notifications");
 		myNotifPage.turnOnOffNotiIntranet(false);
-		waitForAndGetElement(myNotifPage.ELEMENT_WEB_VIEWMODE_FALSE);
+		waitForAndGetElement(myNotifPage.ELEMENT_WEB_VIEWMODE_FALSE,3000,1,2);
 		
 		/*Step number: 3
 		*Step Name: Step 3 : Check Intranet Notification disabled

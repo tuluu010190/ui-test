@@ -57,11 +57,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 
 		/*Step number: 2
@@ -93,9 +93,9 @@ import org.testng.annotations.*;
         hp.goToCalendarPage();
         info("A repeat event is created successfully");
 		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getFirstDayOfWeek("MMM dd yyyy"), 
-				selectViewOption.MONTH, selectDayOption.ONEDAY);
+				selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getLastDayOfWeek("MMM dd yyyy"), 
-				selectViewOption.MONTH, selectDayOption.ONEDAY);
+				selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		cMang.deleteCalendar(calendar);
 	}
 
@@ -140,11 +140,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: 
@@ -175,9 +175,9 @@ import org.testng.annotations.*;
         hp.goToCalendarPage();
 		info("A repeat event is created successfully");
 		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getFirstDayOfWeek("MMM dd yyyy"), 
-				selectViewOption.MONTH, selectDayOption.ONEDAY);
+				selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getLastDayOfWeek("MMM dd yyyy"), 
-				selectViewOption.MONTH, selectDayOption.ONEDAY);
+				selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		cMang.deleteCalendar(calendar);
  	}
 
@@ -275,12 +275,12 @@ import org.testng.annotations.*;
 			<p>Selected edited recurring events and normal events are deleted.</p>*/ 
          cMang.deleteTaskEvent();
          info("A repeat event is deleted successfully");
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(normalEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(normalEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
  		 cMang.deleteCalendar(calendar);
  	}
 
@@ -325,11 +325,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		info("Create recurring event 2");
         String titleEvent1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -344,11 +344,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: 
@@ -405,17 +405,17 @@ import org.testng.annotations.*;
 		 cMang.deleteTaskEvent();
 		 hp.goToCalendarPage();
          info("A repeat event is deleted successfully");
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
  		 
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
  		 cMang.deleteCalendar(calendar);
 
  	}
@@ -498,8 +498,8 @@ import org.testng.annotations.*;
 		 cMang.deleteTaskEvent();
 		 hp.goToCalendarPage();
          info("A repeat event is deleted successfully");
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(normalEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(normalEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
  		 cMang.deleteCalendar(calendar);
 
  	}
@@ -574,7 +574,7 @@ import org.testng.annotations.*;
 		 cMang.deleteTaskEvent(recurringType.ONLY_EVENT);
 		 hp.goToCalendarPage();
 		 info("A repeat event is deleted successfully");
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
  		 cMang.deleteCalendar(calendar);
  	}
 
@@ -613,7 +613,7 @@ import org.testng.annotations.*;
 		tasMg.inputBasicQuickTask(titleTask,contentTask,calendar);
 		tasMg.saveQuickAddTask();
 		info("A task is displayed");
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: 
@@ -646,7 +646,7 @@ import org.testng.annotations.*;
 		 cMang.deleteTaskEvent();
 		 hp.goToCalendarPage();
 		 info("A repeat event is deleted successfully");
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleTask,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleTask,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
          cMang.deleteCalendar(calendar);
  	}
 
@@ -686,7 +686,7 @@ import org.testng.annotations.*;
 		tasMg.inputBasicQuickTask(titleTask,contentTask,calendar);
 		tasMg.saveQuickAddTask();
 		info("A task is displayed");
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		info("Add an Event");
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -696,7 +696,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent,contentEvent,calendar);
 		evMg.saveQuickAddEvent();
 		info("An Event is displayed");
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: 
@@ -725,8 +725,8 @@ import org.testng.annotations.*;
 		 cMang.deleteTaskEvent();
 		 hp.goToCalendarPage();
 		 info("Task and Event are deleted");
-		 cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		 cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		 cMang.deleteCalendar(calendar);
 
  	}
@@ -766,7 +766,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicQuickEvent(titleEvent,contentEvent,calendar);
 		evMg.saveQuickAddEvent();
 		info("An Event is displayed");
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: 
@@ -925,18 +925,18 @@ import org.testng.annotations.*;
 		 cMang.deleteTaskEvent();
 		 hp.goToCalendarPage();
          info("A repeat event is deleted successfully");
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
  		 
- 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		 cHome.verifyIsNotPresentEventTaskWithDateTime(normalEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.ONEDAY);
+ 		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent3,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		 cHome.verifyIsNotPresentEventTaskWithDateTime(normalEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.MONTH, selectDayOption.DETAILTIME);
  		 cMang.deleteCalendar(calendar);
 
  	}
@@ -1107,11 +1107,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 3
 		*Step Name: 
@@ -1184,11 +1184,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 3
 		*Step Name: 
@@ -1258,11 +1258,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -1342,11 +1342,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		/*Step number: 3
 		*Step Name: 
 		*Step Description: 
@@ -1376,11 +1376,11 @@ import org.testng.annotations.*;
 		evMg.editRecurringEvent(recurringType.ALL_EVENT);
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
 
@@ -1426,11 +1426,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: 
@@ -1471,17 +1471,17 @@ import org.testng.annotations.*;
 			- The pop up is closed
 			- Changes are not performed*/ 
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
  	}
@@ -1527,11 +1527,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -1561,17 +1561,17 @@ import org.testng.annotations.*;
 		evMg.editRecurringEvent(recurringType.ONLY_EVENT);
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
  	}
@@ -1616,11 +1616,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -1741,11 +1741,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 
 		/*Step number: 2
@@ -1848,11 +1848,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -1895,11 +1895,11 @@ import org.testng.annotations.*;
 			- Only the edited instance (event) remains*/ 
 		 hp.goToCalendarPage();
 		info("Verify that Only the edited instance (event) remains");
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, "Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, "Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, "Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent, "Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		cMang.deleteCalendar(calendar);
  	}
 
@@ -1945,11 +1945,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -1995,16 +1995,16 @@ import org.testng.annotations.*;
 			- Changes are restricted to the edited recurring event*/
 		info("A repeat event is created successfully");
 		 hp.goToCalendarPage();
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent1,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent1,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent1,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent1,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent1,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent1,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent1,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent1,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		/*Step number: 5
 		*Step Name: 
 		*Step Description: 
@@ -2029,12 +2029,12 @@ import org.testng.annotations.*;
 		evMg.editRecurringEvent(recurringType.ONLY_EVENT);
 		 hp.goToCalendarPage();
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
 
@@ -2080,11 +2080,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -2125,14 +2125,14 @@ import org.testng.annotations.*;
 		 hp.goToCalendarPage();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		cMang.deleteCalendar(calendar);
 
  	}
@@ -2176,11 +2176,11 @@ import org.testng.annotations.*;
 		evMg.saveRecurringForm();
 		evMg.saveAddEventDetails();
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -2221,14 +2221,14 @@ import org.testng.annotations.*;
 		evMg.editRecurringEvent(recurringType.FOLLOW_EVENT);
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 	
 		/*Step number: 5
 		*Step Name: 
@@ -2254,17 +2254,17 @@ import org.testng.annotations.*;
 		
 		info("A repeat event is created successfully");
 		 hp.goToCalendarPage();
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
 
@@ -2311,11 +2311,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -2357,17 +2357,17 @@ import org.testng.annotations.*;
 		evMg.editRecurringEvent(recurringType.ALL_EVENT);
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent3,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
 
@@ -2413,8 +2413,8 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -2518,14 +2518,14 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Only current event is deleted from the series*/ 
-		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ONLY_EVENT,"Mon");
+		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.DETAILTIME,recurringType.ONLY_EVENT,"Mon");
 		 hp.goToCalendarPage();
 		info("Verify the events");
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
 
@@ -2593,14 +2593,14 @@ import org.testng.annotations.*;
 			- All following events are deleted from the series</p><p>
 			- Previous events still displayed</p>*/ 
 		
-		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.FOLLOW_EVENT,"Wed");
+		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.DETAILTIME,recurringType.FOLLOW_EVENT,"Wed");
 		info("Verify the events");
 		 hp.goToCalendarPage();
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
 
@@ -2667,14 +2667,14 @@ import org.testng.annotations.*;
 			<p>
 			- All events are deletes</p><p>
 			- Series no longer exists</p>*/ 
-		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Wed");
+		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.DETAILTIME,recurringType.ALL_EVENT,"Wed");
 		info("A repeat event is deleted successfully");
 		 hp.goToCalendarPage();
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
 
@@ -2746,11 +2746,11 @@ import org.testng.annotations.*;
 		
 		info("Verify the events");
 		 hp.goToCalendarPage();
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		cMang.deleteCalendar(calendar);
 		

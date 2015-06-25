@@ -42,7 +42,7 @@ public class CAL_BasicActions_Export extends CAL_TestConfig_2{
 		cMang.executeActionCalendar(calendarName, menuOfCalendarOption.ADDTASK);
 		tasMg.inputDataTaskInQuickForm(taskName, taskName, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		tasMg.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		cMang.exportCalendar(calendarName,attachment);
 		cMang.deleteCalendar(calendarName,true);

@@ -147,7 +147,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			<p>
 			- The edited recurring event is deleted</p>*/
-		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.ONLY_EVENT, getDate(1,"MMM dd yyyy"),true);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME, recurringType.ONLY_EVENT, getDate(1,"MMM dd yyyy"),true);
 
 		/*Step number: 3
 		 *Step Name: <p>Step 3: Check activity<br data
@@ -165,7 +165,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(0,"MMM dd yyyy"),true);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME, recurringType.ALL_EVENT, getDate(0,"MMM dd yyyy"),true);
 	}
 
 	/**
@@ -234,8 +234,8 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(-1,"MMM dd yyyy"),false);
-		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),false);
+		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(-1,"MMM dd yyyy"),false);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),false);
 	}
 
 	/**
@@ -319,7 +319,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name", titleEvent));
 		
 		hp.goToCalendarPage();
-		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),true);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),true);
 		hp.goToHomePage();
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name", titleEvent));
 
@@ -354,7 +354,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDEVENT);
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		 *Step Name: <p>Step 2: Chang event to recurring event<br data
@@ -370,7 +370,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			<p>
 			- A recurring event is added</p>*/
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		check(event.ELEMENT_ADD_EDIT_EVENT_REPEAT_CHECKBOX,2);
 		event.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,"5");
 		click(event.ELEMENT_SAVE_EVENT_OCCURRING);
@@ -392,7 +392,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),true);
+		event.deleteRecurringEvent(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME, recurringType.ALL_EVENT, getDate(1,"MMM dd yyyy"),true);
 	}
 
 	/**
@@ -423,7 +423,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDEVENT);
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		 *Step Name: - Update Event
@@ -434,7 +434,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The event in the activity stream is updated
 			- A comment is added to the activity with the following message Event is now an all day event.*/
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		check(event.ELEMENT_ADD_EDIT_EVENT_ALLDAY,2);
 		event.saveAddEventDetails();
 		
@@ -475,7 +475,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDEVENT);
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		 *Step Name: - Update Event
@@ -486,7 +486,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The title of event in the activity stream is updated 
 			- A comment is added with the following message: "Title has been updated to: $value."*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		event.inputBasicDetailEvent(newTitleEvent, null);
 		event.saveAddEventDetails();
 		
@@ -495,7 +495,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(newTitleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(newTitleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 	}
 
 	/**
@@ -527,7 +527,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDEVENT);
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		 *Step Name: - Update an event
@@ -538,7 +538,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The description of event in the activity stream is updated
 			- A comment is added to the activity with the following message: Description has been updated to: $value.*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		event.inputBasicDetailEvent(null, newContent);
 		event.saveAddEventDetails();
 		
@@ -547,7 +547,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 	}
 
 	/**
@@ -579,7 +579,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDEVENT);
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		 *Step Name: - Update Event
@@ -590,7 +590,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The location of event in the activity stream is updated
 			- A comment is added to the activity with the following message: Location has been updated to: $value.*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		event.inputBasicDetailEvent(null,null,null,null,location);
 		event.saveAddEventDetails();
 		
@@ -599,7 +599,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleEvent, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 	}
 
 	/**
@@ -631,7 +631,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDTASK);
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		 *Step Name: - Edit the task
@@ -643,7 +643,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- A comment is added with the following message: Attachment(s) has been added to the task.
 			- The content of activity isn't updated*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		task.attachFileToTask("TestData/" + link);
 		task.saveAddTaskDetails();
 		
@@ -652,7 +652,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 	}
 
 	/**
@@ -685,7 +685,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDTASK);
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		 *Step Name: - Edit task
@@ -696,17 +696,17 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The content of task's activity is updated
 			- A comment is added: 'Note has been updated to: $value.*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		task.inputBasicDetailTask(null, newContent);
 		task.saveAddTaskDetails();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT.replace("$name", titleTask).replace("$comment", comment));
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 	}
 
 	/**
@@ -738,7 +738,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.executeActionCalendar(spaceName, menuOfCalendarOption.ADDTASK);
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		 *Step Name: - Edit task
@@ -750,17 +750,17 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		 *Expected Outcome: 
 			- The content of activity of the task is updated with the Finished icon.
 			- A comment is added with the following message: Task has been completed.*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 		task.selectStatus(statusTask.CANCELLED);
 		task.saveAddTaskDetails();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 		
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT.replace("$name", titleTask).replace("$comment", comment));
 		
 		info("Clear data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"));
+		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
 	}
 	
 	/**
@@ -944,7 +944,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		waitForAndGetElement(cHome.ELEMENT_PREVIEW_TASK_EVENT_NAME.replace("$name", titleEventSpace));
 		click(cHome.ELEMENT_CLOSE_PREVIEW_TASK_EVENT_FORM);
 		waitForElementNotPresent(cHome.ELEMENT_PREVIEW_TASK_EVENT_NAME.replace("$name", titleEventSpace));
-		cHome.deleteEventTask(titleEventSpace, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"),false,false);
+		cHome.deleteEventTask(titleEventSpace, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(1,"MMM dd yyyy"),false,false);
 
 		hp.goToHomePage();
 		info("Event activit of space calendar is removed from homepage activity");
@@ -965,7 +965,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		waitForAndGetElement(cHome.ELEMENT_PREVIEW_TASK_EVENT_NAME.replace("$name", titleTaskSpace));
 		click(cHome.ELEMENT_CLOSE_PREVIEW_TASK_EVENT_FORM);
 		waitForElementNotPresent(cHome.ELEMENT_PREVIEW_TASK_EVENT_NAME.replace("$name", titleTaskSpace));
-		cHome.deleteEventTask(titleTaskSpace, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"),false,false);
+		cHome.deleteEventTask(titleTaskSpace, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"),false,false);
 
 		hp.goToHomePage();
 		info("Event activit of space calendar is removed from homepage activity");
@@ -976,11 +976,11 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 		cMang.deleteCalendar(shareCalendar,false);
 		
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEventPersonal, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"),true,true);
-		cHome.deleteEventTask(titleEventGroup, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"),true,true);
+		cHome.deleteEventTask(titleEventPersonal, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(1,"MMM dd yyyy"),true,true);
+		cHome.deleteEventTask(titleEventGroup, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(1,"MMM dd yyyy"),true,true);
 
-		cHome.deleteEventTask(titleTaskPersonal, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"),false,false);
-		cHome.deleteEventTask(titleTaskGroup, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(0,"MMM dd yyyy"),false,false);
+		cHome.deleteEventTask(titleTaskPersonal, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"),false,false);
+		cHome.deleteEventTask(titleTaskGroup, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"),false,false);
 	}
 
 }

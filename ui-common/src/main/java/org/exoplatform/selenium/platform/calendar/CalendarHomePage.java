@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
 public class CalendarHomePage extends CalendarLocatorObject{
@@ -43,7 +44,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 	 * Select an option when creating an Event/Task: ONE DAY or ALL DAY  
 	 */
 	public enum selectDayOption{
-		ONEDAY, ALLDAY;
+		DETAILTIME, ALLDAY;
 	}
 	/**
 	 * Go to a view from calendar panel
@@ -94,7 +95,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		click(ELEMENT_CALENDAR_VIEW_BUTTON.replace("$view", "Day"));
 		waitForAndGetElement(ELEMENT_CALENDAR_ACTIVE_VIEW.replace("$view", "Day"));
 		switch(optionDay){
-		case ONEDAY:
+		case DETAILTIME:
 			scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name)));
 			rightClickOnElement(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name));
 			break;
@@ -122,7 +123,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		goToView(selectViewOption.WEEK);
 		if(date!=null && date!=""){
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date)));
 				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;
@@ -137,7 +138,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		}
 		else{
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name)));
 				rightClickOnElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
@@ -236,7 +237,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		goToView(selectViewOption.WORKWEEK);
 		if(date!=null && date!=""){
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date)));
 				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;
@@ -251,7 +252,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		}
 		else{
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				scrollBarToGetElement(By.xpath(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name)));
 				rightClickOnElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
@@ -267,7 +268,24 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		}
 	}
 	/**
-	 * Open "Edit task" form
+	 * Open "Edit task" form popup
+	 * 
+	 * 
+	 * @param name
+	 * 				name of event or task
+	 * @param view
+	 * 				view: DAY, WEEK, LIST, MONTH, WORKWEEK;
+	 * @param optionDay
+	 * 				select ONEDAY or ALLDAY
+	 */
+	public void goToEditTaskFromPopover(String name, selectViewOption view, selectDayOption optionDay){
+		info("Verify task and event is not displayed on calendar panel");
+		doubleClickOnElement(getEventTaskElement(name, view, optionDay));
+		waitForAndGetElement(ELEMENT_ADD_EDIT_TASK_POPUP);
+	}
+	
+	/**
+	 * Open "Edit task" form by right click
 	 * 
 	 * @param name
 	 * 				name of event or task
@@ -321,7 +339,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		switch(view){
 		case DAY:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForElementNotPresent(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -334,7 +352,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WEEK:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForElementNotPresent(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -362,7 +380,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WORKWEEK:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForElementNotPresent(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -375,7 +393,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		default:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForElementNotPresent(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -406,7 +424,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		switch(view){
 		case DAY:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForAndGetElement(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -419,7 +437,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WEEK:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForAndGetElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -448,7 +466,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WORKWEEK:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForAndGetElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -461,7 +479,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		default:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForAndGetElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -473,6 +491,94 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			}
 			break;
 		}
+	}
+	
+	/**
+	 * Open "Edit task" form popup
+	 * 
+	 * 
+	 * @param name
+	 * 				name of event or task
+	 * @param view
+	 * 				view: DAY, WEEK, LIST, MONTH, WORKWEEK;
+	 * @param optionDay
+	 * 				select ONEDAY or ALLDAY
+	 */
+	public WebElement getEventTaskElement(String name, selectViewOption view, selectDayOption optionDay){
+		info("Verify task and event is not displayed on calendar panel");
+		WebElement element=null;
+		goToView(view);
+		switch(view){
+		case DAY:
+			switch(optionDay){
+			case DETAILTIME:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name));
+				break;
+			case ALLDAY:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_DAY_VIEW_ALL_DAY.replace("$name", name));
+				break;
+			default:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name));
+				break;
+			}
+			break;
+		case WEEK:
+			switch(optionDay){
+			case DETAILTIME:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name));
+				break;
+			case ALLDAY:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ALL_DAY.replace("$name", name));
+				break;
+			default:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY.replace("$name", name));
+				break;
+			}
+			break;
+		case LIST:
+			if(waitForAndGetElement(ELEMENT_TOTAL_PAGE,5000,0)!=null){
+				element = waitForAndGetElement(ELEMENT_ANY_PAGE.replace("$page", "1"));
+				while((waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name),5000,0)==null)
+						&& !(waitForAndGetElement(ELEMENT_TOTAL_PAGE).getText().equals(waitForAndGetElement(ELEMENT_CURRENT_PAGE).getText())))
+					click(ELEMENT_NEXT_PAGE);
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+				element = waitForAndGetElement(ELEMENT_ANY_PAGE.replace("$page", "1"));
+			}
+			else{
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name", name));
+			}
+			break;
+		case MONTH:
+			element = waitForAndGetElement(ELEMENT_EVENT_TASK_MONTH_VIEW.replace("$name", name));
+			break;
+		case WORKWEEK:
+			switch(optionDay){
+			case DETAILTIME:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
+				break;
+			case ALLDAY:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY.replace("$name", name));
+				break;
+			default:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
+				break;
+			}
+			break;
+		default:
+			switch(optionDay){
+			case DETAILTIME:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
+				break;
+			case ALLDAY:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY.replace("$name", name));
+				break;
+			default:
+				element = waitForAndGetElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
+				break;
+			}
+			break;
+		}
+		return element;
 	}
 
 	/**
@@ -492,7 +598,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		switch(view){
 		case DAY:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForAndGetElement(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -505,7 +611,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WEEK:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;
 			case ALLDAY:
@@ -540,7 +646,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WORKWEEK:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;
 			case ALLDAY:
@@ -553,7 +659,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		default:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForAndGetElement(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -586,7 +692,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WEEK:
 			switch (optionDay) {
-			case ONEDAY:
+			case DETAILTIME:
 				click(ELEMENT_EVENT_TASK_DAY_ONE_DAY.replace("$date", date));
 				break;
 			case ALLDAY:
@@ -603,7 +709,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WORKWEEK:
 			switch (optionDay) {
-			case ONEDAY:
+			case DETAILTIME:
 				click(ELEMENT_EVENT_TASK_DAY_ONE_DAY.replace("$date", date));
 				break;
 			case ALLDAY:
@@ -643,7 +749,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WEEK:
 			switch (optionDay) {
-			case ONEDAY:
+			case DETAILTIME:
 				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ONE_DAY.replace(
 						"$date", date));
 				Utils.pause(2000);
@@ -670,7 +776,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WORKWEEK:
 			switch (optionDay) {
-			case ONEDAY:
+			case DETAILTIME:
 				rightClickOnElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ONE_DAY.replace(
 						"$date", date));
 				Utils.pause(2000);
@@ -741,7 +847,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		switch(view){
 		case DAY:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForElementNotPresent(ELEMENT_EVENT_TASK_DAY_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:
@@ -754,7 +860,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WEEK:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForElementNotPresent(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;
 			case ALLDAY:
@@ -788,7 +894,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		case WORKWEEK:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForElementNotPresent(ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name).replace("$date", date));
 				break;
 			case ALLDAY:
@@ -801,7 +907,7 @@ public class CalendarHomePage extends CalendarLocatorObject{
 			break;
 		default:
 			switch(optionDay){
-			case ONEDAY:
+			case DETAILTIME:
 				waitForElementNotPresent(ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY.replace("$name", name));
 				break;
 			case ALLDAY:

@@ -143,11 +143,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		cMang.deleteCalendar(calendar);
 
  	}
@@ -201,11 +201,11 @@ import org.testng.annotations.*;
 		
 		info("A repeat event is created successfully");
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), 
-				selectViewOption.WEEK, selectDayOption.ONEDAY);
+				selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		info("Go to next week");
 		cHome.nextDate(1);
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDayOfNextWeek("MMM dd yyyy"), 
-				selectViewOption.WEEK,selectDayOption.ONEDAY);
+				selectViewOption.WEEK,selectDayOption.DETAILTIME);
         cMang.deleteCalendar(calendar);
  	}
 
@@ -387,11 +387,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 
 		/*Step number: 2
@@ -403,10 +403,10 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The added event is repeated daily with correct information*/ 
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.DAY,selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.DAY,selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST,selectDayOption.DETAILTIME);
 		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH,selectDayOption.ALLDAY);
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WORKWEEK,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WORKWEEK,selectDayOption.DETAILTIME);
 		cMang.deleteCalendar(calendar);
 
  	}}

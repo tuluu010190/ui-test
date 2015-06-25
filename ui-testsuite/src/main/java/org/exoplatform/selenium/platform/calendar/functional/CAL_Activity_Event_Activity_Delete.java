@@ -58,11 +58,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: Create an exception event
@@ -81,12 +81,12 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.ONLY_EVENT);
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent2,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent2,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		info("Verify that an activity for the exception event is created");
 		hp.goToHomePage();
@@ -105,12 +105,12 @@ import org.testng.annotations.*;
 		
         hp.goToSpecificSpace(space);
         spaMg.goToAgendaTab();
-        evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Tue");
-        cHome.verifyIsPresentEventTaskWithDateTime(newEvent2,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.DETAILTIME,recurringType.ALL_EVENT,"Tue");
+        cHome.verifyIsPresentEventTaskWithDateTime(newEvent2,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
         
         info("Verify that The event is deleted from the activity stream."
         		+ "There is no impact for activity created for exception event.");
@@ -175,11 +175,11 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: Delete all instances
@@ -191,12 +191,12 @@ import org.testng.annotations.*;
 			- The activity related to the event is deleted*/ 
 	    hp.goToSpecificSpace(space);
         spaMg.goToAgendaTab();
-        evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
-        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.ONEDAY);
-        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.ONEDAY);
-        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.ONEDAY);
-        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.ONEDAY);
-        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.ONEDAY);
+        evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.DETAILTIME,recurringType.ALL_EVENT,"Mon");
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+        cHome.verifyIsNotPresentEventTaskWithDateTime(newEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);
         
         info("The activity related to the event is deleted");
         

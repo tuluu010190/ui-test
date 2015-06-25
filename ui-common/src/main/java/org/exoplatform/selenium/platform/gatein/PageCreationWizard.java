@@ -530,9 +530,9 @@ public class PageCreationWizard extends PlatformBase {
 	 */
 	public void saveChangesPageEditor(){
 		info("Save change Page Editor");
+		waitForAndGetElement(ELEMENT_PAGEEDITOR_FINISHBTN);
 		click(ELEMENT_PAGEEDITOR_FINISHBTN);
-		waitForElementNotPresent(ELEMENT_PAGEEDITOR_FINISHBTN, 60000);
-		Utils.pause(2000);
+		Utils.pause(3000);
 	}
 	
 	/**

@@ -130,7 +130,7 @@ import org.testng.annotations.*;
  	
 		info("Delete data");
 		hp.goToCalendarPage();
-		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
+		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.DETAILTIME,recurringType.ALL_EVENT,"Mon");
 	}
 
 	/**
@@ -190,7 +190,7 @@ import org.testng.annotations.*;
  	
 		info("Delete data");
 		hp.goToCalendarPage();
-		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
+		evMg.deleteRecurringEvent(titleEvent, selectViewOption.WEEK,selectDayOption.DETAILTIME,recurringType.ALL_EVENT,"Mon");
  	}
 
 	/**

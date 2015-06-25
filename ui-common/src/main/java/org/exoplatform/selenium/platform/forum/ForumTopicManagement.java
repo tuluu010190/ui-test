@@ -49,7 +49,7 @@ public class ForumTopicManagement extends PlatformBase {
 	public final By ELEMENT_FORUM_SETTINGS_SUBMIT = By.xpath("//*[text()='Submit']");
 	public final By ELEMENT_FORUM_ADDTOPIC = By.xpath("(.//*[@id='UITopicContainer']//*[contains(@class,'uiIconForumCreateTopic ')])[1]");
 	public final By ELEMENT_FORUM_TOPIC_TITLE = By.xpath("//*[@id='ThreadTitle']");
-	public final String ELEMENT_FORUM_TOPIC_LINK = ".//*[contains(@data-original-title,'${name}')]";
+	public final String ELEMENT_FORUM_TOPIC_LINK = ".//*[contains(text(),'${name}')]";
 	
 	//Start Topic popup
 	public final By ELEMENT_START_TOPIC_POPUP_TITLE = By.xpath(".//*[@id='UIForumPopupWindow']//span[@class='PopupTitle popupTitle']");

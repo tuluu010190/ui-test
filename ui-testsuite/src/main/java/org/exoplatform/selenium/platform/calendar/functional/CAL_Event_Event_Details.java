@@ -51,7 +51,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: Download image attachment
@@ -111,7 +111,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -169,7 +169,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Check thumbnails of events/ tasks' attachment as an image
@@ -223,7 +223,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Search task/ event
@@ -287,7 +287,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Check displaying of attachment
@@ -340,7 +340,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Search task/ event
@@ -408,7 +408,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: View size of image attachment
@@ -467,7 +467,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -525,7 +525,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Check larger image
@@ -581,7 +581,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Mouse over image attachment
@@ -637,7 +637,7 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		
 		/*Step number: 2

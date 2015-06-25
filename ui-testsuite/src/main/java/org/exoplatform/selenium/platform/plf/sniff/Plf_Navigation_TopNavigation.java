@@ -205,7 +205,7 @@ import org.testng.annotations.*;
 			- A message is displayed: "The event was added to $calendar_name"
 			- The message disappears with a fadeout effect*/ 
 		hp.goToCalendarPage();
-		calHome.verifyIsPresentEventTask(name,selectViewOption.WEEK,selectDayOption.ONEDAY);
+		calHome.verifyIsPresentEventTask(name,selectViewOption.WEEK,selectDayOption.DETAILTIME);
 
  	}
 
@@ -251,7 +251,7 @@ import org.testng.annotations.*;
 			- A message is displayed: "The task was added to $calendar_name"
 			- The message disappears with a fadeout effect*/ 
 		hp.goToCalendarPage();
-		calHome.verifyIsPresentEventTask(name,selectViewOption.WEEK,selectDayOption.ONEDAY);
+		calHome.verifyIsPresentEventTask(name,selectViewOption.WEEK,selectDayOption.DETAILTIME);
 
  	}
 

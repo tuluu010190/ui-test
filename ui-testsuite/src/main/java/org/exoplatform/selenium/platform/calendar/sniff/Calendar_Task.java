@@ -105,10 +105,10 @@ public class Calendar_Task extends PlatformBase {
 			Task is created in personal calendar*/ 
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 	}
 
 	/**
@@ -150,10 +150,10 @@ public class Calendar_Task extends PlatformBase {
 			Task is created in personal calendar*/ 
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 	}
 
 	/**
@@ -202,7 +202,7 @@ public class Calendar_Task extends PlatformBase {
 			task.inputDataTaskInDetailForm(titleTask, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
 			task.attachFileToTask("TestData/" + link);
 			task.saveAddTaskDetails();
-			cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+			cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 			info("Test 3: Remove attachment of task");
 			/*Step Number: 1
@@ -225,12 +225,12 @@ public class Calendar_Task extends PlatformBase {
 			 *Expected Outcome: 
 			- Attachment is deleted*/ 
 			info("Remove the attachment");
-			cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+			cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 			task.removeAttachment(link);
 			task.saveAddTaskDetails();
 
 			info("Delete data");
-			cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+			cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 		}
 	}
 
@@ -294,7 +294,7 @@ public class Calendar_Task extends PlatformBase {
 		task.checkSuggestionTaskTimeInQuickForm(null,null, 30);
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		/*Step number: 3
 		 *Step Name: Step 3: Edit a task to a shared calendar
@@ -317,11 +317,11 @@ public class Calendar_Task extends PlatformBase {
 			- Task in shared calendar is edited
 			- Sharing user can see updated task*/ 
 		info("Test 6: Edit a task in shared calendar");
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 		task.checkSuggestionTaskTimeInDetailForm(null, null,30);
 		task.inputDataTaskInDetailForm(titleTask2, contentTask2, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
 		task.saveAddTaskDetails();
-		cHome.verifyIsPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		/*Step number: 5
 		 *Step Name: Step 5: Delete a task to a shared calendar
@@ -335,7 +335,7 @@ public class Calendar_Task extends PlatformBase {
 			- Task is deleted
 			- The sharing user cannot see this task*/ 
 		info("Test 7: Delete a task in shared calendar");
-		cHome.deleteEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY,null,true,false);
+		cHome.deleteEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME,null,true,false);
 
 		info("Delete data");
 		magAc.signOut();
@@ -389,7 +389,7 @@ public class Calendar_Task extends PlatformBase {
 		task.checkSuggestionTaskTimeInQuickForm(null,null, 30);
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		info("Test 9: Edit a task in personal calendar");
 		/*Step Number: 1
@@ -413,11 +413,11 @@ public class Calendar_Task extends PlatformBase {
 
 		 *Expected Outcome: 
 			Event is saved successfully in personal calendar*/ 
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 		task.checkSuggestionTaskTimeInDetailForm(null,null, 30);
 		task.inputDataTaskInDetailForm(titleTask2, contentTask2, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
 		task.saveAddTaskDetails();
-		cHome.verifyIsPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 
 		info("Test 10 Delete a task in personal calendar");
@@ -431,7 +431,7 @@ public class Calendar_Task extends PlatformBase {
 
 		 *Expected Outcome: 
 			- The task is removed normally.*/ 
-		cHome.deleteEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 
 	}
 
@@ -484,7 +484,7 @@ public class Calendar_Task extends PlatformBase {
 		task.checkSuggestionTaskTimeInQuickForm(null,null, 30);
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
@@ -492,7 +492,7 @@ public class Calendar_Task extends PlatformBase {
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
@@ -500,7 +500,7 @@ public class Calendar_Task extends PlatformBase {
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
 		cMang.saveSetting();
-		cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		info("Test 12 Edit a task in group calendar");
 		/*Step Number: 1
@@ -528,21 +528,21 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 		task.checkSuggestionTaskTimeInDetailForm(null,null, 30);
 		task.inputDataTaskInDetailForm(titleTask2, contentTask2, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
 		task.saveAddTaskDetails();
-		cHome.verifyIsPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.verifyIsPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.verifyIsNotPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		info("Test 13 Delete a task in group calendar");
 		/*Step Number: 1
@@ -560,17 +560,17 @@ public class Calendar_Task extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.verifyIsNotPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		magAc.signOut();
 		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
-		cHome.verifyIsNotPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleTask2, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 	}
 
@@ -615,10 +615,10 @@ public class Calendar_Task extends PlatformBase {
 				Task is created in personal calendar*/ 
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 
 		info("Add a task in personal calendar by [Add task] in a calendar");
 		String titleTask1 = txData.getContentByArrayTypeRandom(1)+"1115631";
@@ -653,10 +653,10 @@ public class Calendar_Task extends PlatformBase {
 				Task is created in personal calendar*/ 
 		task.inputDataTaskInQuickForm(titleTask1, content1, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask1, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask1, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleTask1, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask1, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 
 	}
 
@@ -681,7 +681,7 @@ public class Calendar_Task extends PlatformBase {
 		String fromTime = waitForAndGetElement(task.ELEMENT_QUICK_INPUT_TASK_FROM_TIME_INPUT, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
 		String toTime = waitForAndGetElement(task.ELEMENT_QUICK_INPUT_TASK_TO_TIME_INPUT, DEFAULT_TIMEOUT, 1, 2).getAttribute("value");
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		/*Step Number: 1
 		 *Step Name: -
@@ -695,11 +695,11 @@ public class Calendar_Task extends PlatformBase {
 				- time of event is updated according to new place in main pane*/ 
 		cHome.goToView(selectViewOption.MONTH);
 		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name", titleTask).replace("$date", getDate(0, "MMM dd yyyy"))),By.xpath(cHome.ELEMENT_ANY_TARGET_DATE.replace("${targetDate}", getDate(1, "MMM dd yyyy"))));
-		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.WEEK, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"));
+		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.WEEK, selectDayOption.DETAILTIME,getDate(1,"MMM dd yyyy"));
 		task.checkSuggestionTaskTimeInDetailForm(dateTime+" "+fromTime, dateTime+" "+toTime, 30);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,getDate(1,"MMM dd yyyy"));	
+		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(1,"MMM dd yyyy"));	
 
 	}
 
@@ -773,10 +773,10 @@ public class Calendar_Task extends PlatformBase {
 				Task is created successfully*/ 
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 
 		info("Delete data");
-		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME,null);
 
 	}
 

@@ -35,8 +35,8 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_SWITCH_ONOFF_MAIL_OFF = By.xpath("//*[@class='uiSwitchBtn']/*[@name='channelMAIL_CHANNEL']");
 	public final By ELEMENT_SWITCH_ONOFF_WEB_ON = By.xpath("//*[@class='uiSwitchBtn']/*[@name='channelWEB_CHANNEL'][contains(@checked,'checked')]");
 	public final By ELEMENT_SWITCH_ONOFF_WEB_OFF = By.xpath("//*[@class='uiSwitchBtn']/*[@name='channelWEB_CHANNEL']");
-	public final By ELEMENT_MAIL_VIEWMODE_FALSE = By.xpath("//*[@class='view-mode status-false']/*[contains(.,'mail')]");
-	public final By ELEMENT_WEB_VIEWMODE_FALSE = By.xpath("//*[@class='view-mode status-false']/*[contains(.,'Intranet')]");
+	public final By ELEMENT_MAIL_VIEWMODE_FALSE = By.xpath("//*[text()='Notify me by email']/..//*[@class='iphoneStyle yesno staus-false']");
+	public final By ELEMENT_WEB_VIEWMODE_FALSE = By.xpath("//*[text()='Notify me on-site']/..//*[@class='iphoneStyle yesno staus-false']");
 
 	public final By ELEMENT_COLUMN_NOTIFYME = By.xpath("//*[@id='uiNotificationSetting']//table/thead/tr/th[contains(text(),'Notify me when')]");
 	public final By ELEMENT_COLUMN_HOWTO = By.xpath("//*[@id='uiNotificationSetting']//table/thead/tr/th[contains(text(),'How to get notifications')]");

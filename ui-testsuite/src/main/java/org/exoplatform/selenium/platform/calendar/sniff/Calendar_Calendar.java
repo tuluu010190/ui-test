@@ -408,7 +408,7 @@ public class Calendar_Calendar extends PlatformBase {
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, contentTask, getDate(1,"MM/dd/yyyy"), getDate(1,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		 *Step Name: Step 2:Check highlight in the mini calendar
@@ -427,7 +427,7 @@ public class Calendar_Calendar extends PlatformBase {
 		}
 
 		info("clear data");
-		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME,null);
 	}
 
 	/**
@@ -453,7 +453,7 @@ public class Calendar_Calendar extends PlatformBase {
 		cMang.executeActionCalendar(calendarName, menuOfCalendarOption.ADDTASK);
 		task.inputDataTaskInQuickForm(taskName, taskName, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Test 12 Export calendar");
 		/*Step Number: 1
@@ -469,7 +469,7 @@ public class Calendar_Calendar extends PlatformBase {
 		cMang.deleteCalendar(calendarName,true);
 
 		info("Check the task is not present");
-		cHome.verifyIsNotPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Test 13: Import calendar");
 		/*Step Number: 1
@@ -490,10 +490,10 @@ public class Calendar_Calendar extends PlatformBase {
 
 		info("Check the task is present ");
 		driver.navigate().refresh();
-		cHome.verifyIsPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(taskName, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Delete file and task");
 		deleteFile("TestOutput/" + attachment);
-		cHome.deleteEventTask(taskName, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(taskName, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
 	}
 }

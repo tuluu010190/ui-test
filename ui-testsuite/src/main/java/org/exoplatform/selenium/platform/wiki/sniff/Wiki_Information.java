@@ -842,7 +842,7 @@ public class Wiki_Information extends Wiki_TestConfig {
 		wikiMg.openAddRelationsPopup();
 		info("Add Relations with portal");
 		wikiMg.addRelations("Intranet","Wiki Home");
-		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}","Intranet").replace("${col2}","Wiki Home"),5000,1);
+		waitForAndGetElement(wikiMg.ELEMENT_PAGE_INFO_RELATED_TABLE_CONTENT.replace("${col1}","portal").replace("${col2}","Wiki Home"),5000,1);
 		
 		
 		/*Step Number: 8

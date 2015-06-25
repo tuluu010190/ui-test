@@ -327,8 +327,8 @@ public class EventManagement extends CalendarLocatorObject {
 					if(opt.length> 0){
 						type(ELEMENT_ADD_EDIT_EVENT_TO_TIME_INPUT,dateTimeTo[1],true);
 					}else{
-					  click(ELEMENT_ADD_EDIT_EVENT_TO_TIME_INPUT, 2);
-					  click(ELEMENT_ADD_EDIT_EVENT_SELECT_TO_TIME.replace("${time}", dateTimeTo[1]));
+						click(ELEMENT_ADD_EDIT_EVENT_TO_TIME_INPUT, 2);
+						click(ELEMENT_ADD_EDIT_EVENT_SELECT_TO_TIME.replace("${time}", dateTimeTo[1]));
 					}
 				}
 			}
@@ -386,12 +386,12 @@ public class EventManagement extends CalendarLocatorObject {
 		info("opt.length:"+opt.length);
 		if(opt.length==0)
 		{
-		waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", path));
-		click(ELEMENT_ATTACHMENT_SAVE_BUTTON,0,true);
-		waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", path));
+			waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", path));
+			click(ELEMENT_ATTACHMENT_SAVE_BUTTON,0,true);
+			waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", path));
 		}
 	}	
-	
+
 
 	/**
 	 * Check default suggestion EVENT time in detail add form
@@ -645,9 +645,9 @@ public class EventManagement extends CalendarLocatorObject {
 			check(ELEMENT_PRIVACY_PRIVATE_CHECKBOX,2);
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Available option
 	 */
@@ -971,7 +971,7 @@ public class EventManagement extends CalendarLocatorObject {
 		click(ELEMENT_CONFIRM_EDIT_BUTTON);
 		waitForElementNotPresent(ELEMENT_CONFIRM_EDIT_RECURRING_FORM);
 	}
-	
+
 	/**
 	 * Delete recurring Confirm selection
 	 * @param optEditType
@@ -1049,10 +1049,10 @@ public class EventManagement extends CalendarLocatorObject {
 		click(ELEMENT_CONFIRM_CANCEL_BUTTON);
 		waitForElementNotPresent(ELEMENT_CONFIRM_CANCEL_BUTTON);
 	}
-    /**
-     * Select an option as 5,10,15,20,...60 for reminder Email box
-     * @param option
-     */
+	/**
+	 * Select an option as 5,10,15,20,...60 for reminder Email box
+	 * @param option
+	 */
 	public void selectReminderEmailBox(String option){
 		info("Select an option");
 		select(ELEMENT_REMINDER_DROP_BOX,option);

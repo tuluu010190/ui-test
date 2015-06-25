@@ -8,8 +8,6 @@ import java.util.Calendar;
 
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.interactions.Actions;
 import org.testng.annotations.*;
 
 
@@ -323,8 +321,6 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,"cloud",true);
 		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
-		/*action.sendKeys(Keys.ENTER);
-		action.perform();*/
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_DOCTYPECHECK, 2);
 		
@@ -377,9 +373,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 		
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,topic,true);
-		Actions action = new Actions(this.driver);
-		action.sendKeys(Keys.ENTER);
-		action.perform();
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_DISCTYPECHECK, 2);
 		
@@ -436,9 +430,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 			- Item in search result is clickable and open it when user click*/ 
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,name,true);
-		Actions action = new Actions(this.driver);
-		action.sendKeys(Keys.ENTER);
-		action.perform();
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_TASKTYPECHECK, 2);
 		
@@ -494,9 +486,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 			- Item in search result is clickable and open it when user click*/ 
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,name,true);
-		Actions action = new Actions(this.driver);
-		action.sendKeys(Keys.ENTER);
-		action.perform();
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_EVENTSTYPECHECK, 2);
 		
@@ -542,9 +532,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 			-Item in search result is clickable and open it when user click*/ 
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,name,true);
-		Actions action = new Actions(this.driver);
-		action.sendKeys(Keys.ENTER);
-		action.perform();
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_PAGETYPECHECK, 2);
 		
@@ -600,9 +588,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 			- Item in search result is clickable and open it when user click*/ 
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,title,true);
-		Actions action = new Actions(this.driver);
-		action.sendKeys(Keys.ENTER);
-		action.perform();
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_WIKITYPECHECK, 2);
 		
@@ -650,9 +636,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 			- Item in search result is clickable and open it when user click*/ 
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,title,true);
-		Actions action = new Actions(this.driver);
-		action.sendKeys(Keys.ENTER);
-		action.perform();
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_SPACETYPECHECK, 2);
 		
@@ -752,9 +736,7 @@ public class Plf_UnifiedSearch extends Plf_TestConfig{
 			- Search results should display in the Search page: the answers icon, the question title, an excerpt of the matching content, the number of replies, the number of comments, the average rating of the question*/ 
 		navToolBar.goToQuickSearch();
 		type(quickSearch.ELEMENT_TOOLBAR_QUICKSEARCH_TEXTBOX,question,true);
-		Actions action = new Actions(this.driver);
-		action.sendKeys(Keys.ENTER);
-		action.perform();
+		click(quickSearch.ELEMENT_QUICKSEARCHRESULT_SEE_ALL_SEARCH);
 		uncheck(quickSearch.ELEMENT_SEARCHRESULT_ALLTYPECHECK, 2);
 		check(quickSearch.ELEMENT_SEARCHRESULT_ANSWERTYPECHECK, 2);
 		

@@ -90,7 +90,7 @@ import org.testng.annotations.*;
 		evMg.goToAddEventFromActionBar();
 		evMg.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy HH")+":00", getDate(0,"MM/dd/yyyy HH")+":30",false);
 		evMg.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 		/*Step number: 2
 		*Step Name: Check busy time in schedule tab
 		*Step Description: 
@@ -156,7 +156,7 @@ import org.testng.annotations.*;
 		evMg.goToAddEventFromActionBar();
 		evMg.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy")+" 02:00", getDate(0,"MM/dd/yyyy")+" 03:30",false);
 		evMg.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: Check click on participants row
@@ -268,7 +268,7 @@ import org.testng.annotations.*;
 		evMg.goToAddEventFromActionBar();
 		evMg.inputDataEventInQuickForm(titleEvent, content, getDate(0,"MM/dd/yyyy")+" 10:00", getDate(0,"MM/dd/yyyy")+" 12:00",false);
 		evMg.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: Check user availability of current event

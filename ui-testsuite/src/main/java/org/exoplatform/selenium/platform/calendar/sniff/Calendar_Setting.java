@@ -320,8 +320,8 @@ public class Calendar_Setting extends PlatformBase {
 		assert (timeTask.contains("AM")||timeTo.contains("PM"));
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
 		cMang.changeSettingCalendar("Week",null,defaultFormatDate.toLowerCase(),defaultFormatTime,null,null,null);
 		cMang.saveSetting();
@@ -387,8 +387,8 @@ public class Calendar_Setting extends PlatformBase {
 		task.saveQuickAddTask();
 
 		info("Delete data");
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
 
 	}
 
@@ -601,12 +601,12 @@ public class Calendar_Setting extends PlatformBase {
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Test 9: Displayed calendar");
 		/*Step Number: 1
@@ -651,8 +651,8 @@ public class Calendar_Setting extends PlatformBase {
 		cMang.saveSetting();
 		waitForElementNotPresent(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", fullName));
 		waitForElementNotPresent(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", group));
-		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
-		cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsNotPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
+		cHome.verifyIsNotPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Reset data");
 		hp.goToCalendarPage();
@@ -661,8 +661,8 @@ public class Calendar_Setting extends PlatformBase {
 		cMang.showHideCalendar(fullName, false);
 		cMang.showHideCalendar(group, false);
 		cMang.saveSetting();
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", fullName));
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", group));
 	}
@@ -690,12 +690,12 @@ public class Calendar_Setting extends PlatformBase {
 		event.goToAddEventFromActionBar();
 		event.inputDataEventInQuickForm(titleEvent, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		event.saveQuickAddEvent();
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		task.goToAddTaskFromActionBar();
 		task.inputDataTaskInQuickForm(titleTask, content, getDate(0,defaultFormatDate), getDate(0,defaultFormatDate),false);
 		task.saveQuickAddTask();
-		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME);
 
 		info("Test 10 Add new feed");
 		/*Step Number: 1
@@ -774,8 +774,8 @@ public class Calendar_Setting extends PlatformBase {
 		
 		info("Reset data");
 		hp.goToCalendarPage();
-		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.ONEDAY,null);
-		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.ONEDAY,null);
+		cHome.deleteEventTask(titleEvent, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
+		cHome.deleteEventTask(titleTask, selectViewOption.LIST, selectDayOption.DETAILTIME,null);
 	}
 
 }

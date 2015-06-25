@@ -49,7 +49,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Check thumbnails of events/ tasks' attachment as an image
@@ -104,7 +104,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Search task/ event
@@ -168,7 +168,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Check displaying of attachment
@@ -222,7 +222,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A Task is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Search task/ event
@@ -291,7 +291,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A task is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: View size of image attachment
@@ -350,7 +350,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A task is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 
@@ -409,7 +409,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A task is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Check larger image
@@ -463,7 +463,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A task is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Mouse over image attachment
@@ -518,7 +518,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A task is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Check close large format preview of thumbnails when mouse over
@@ -575,7 +575,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A task is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: Download image attachment
@@ -635,7 +635,7 @@ import org.testng.annotations.*;
 		tasMg.saveAddTaskDetails();
 		
 		info("A event is created successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(title,getCurrentDate("MMM dd yyyy"), selectViewOption.WEEK, selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: 

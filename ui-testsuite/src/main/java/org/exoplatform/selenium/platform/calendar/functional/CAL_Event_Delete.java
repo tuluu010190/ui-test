@@ -481,7 +481,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			After deleting event, reminders of the event are not allowed to show*/ 
 		info("Delete Data");
-		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.ONEDAY,recurringType.ALL_EVENT,"Mon");
+		evMg.deleteRecurringEvent(newEvent, selectViewOption.WEEK,selectDayOption.DETAILTIME,recurringType.ALL_EVENT,"Mon");
 		
 		cHome.goToView(selectViewOption.LIST);
 		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent));

@@ -8,8 +8,8 @@ public class FaqHomePage  extends PlatformBase {
 	
 	public final By ELEMENT_FAQ_QUESTION_LIST=By.xpath("//*[@class='questionList']");
 	public final String ELEMENT_FAQ_CATEGORY = "//*[@class='questionList']//*[@data-original-title='$category']";
-	public final String ELEMENT_FAQ_QUESTION = "//*[@id='viewerQuestion']//a[text()='$question']";
-	public final String ELEMENT_FAQ_ANSWER = "//*[@id='viewerAnswer']//*[text()='$answer']";
+	public final String ELEMENT_FAQ_QUESTION = "//*[@class='viewerQuestion']//a[text()='$question']";
+	public final String ELEMENT_FAQ_ANSWER = "//*[@class='viewerAnswer']//*[text()='$answer']";
 	
 	/**
 	 * constructor

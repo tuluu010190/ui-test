@@ -31,7 +31,7 @@ public class DocumentPreview extends ActivityStream {
 	public final By ELEMENT_ACTIONS_TOOLS_BTN =By.cssSelector(".uiIconMoreAction");
 	
 	//New File Reader form --> file content
-	public final By ELEMENT_READER_FILE_CONTENT_PAGE_1 = By.cssSelector("#pageContainer1");
+	public final By ELEMENT_READER_FILE_CONTENT_PAGE_1 = By.xpath("//*[@class='uiPreviewWebContent']");
 	
 	//New File Reader form--> Right panel
 	public final By ELEMENT_RIGHT_PANEL_HEADER = By.xpath(".//*[@id='UIPreviewCommentArea']//*[@class='title']");

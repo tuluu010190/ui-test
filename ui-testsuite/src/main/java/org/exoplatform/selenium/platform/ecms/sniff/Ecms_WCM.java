@@ -819,7 +819,7 @@ public class Ecms_WCM extends ECMS_TestConfig_Part1 {
 		Utils.pause(2000);
 		navTool.goToSEO();
 		
-		click(seoMang.ELEMENT_SEO_LANGUAGE_SHOW);
+		click(seoMang.ELEMENT_SEO_LANGUAGE_SHOW,0,true);
 		select(seoMang.ELEMENT_SEO_LANGUAGE_SELECTBOX, language1);
 		type(seoMang.ELEMENT_SEO_TITLEBOX, title, true);
 		click(seoMang.ELEMENT_SEO_SAVE);

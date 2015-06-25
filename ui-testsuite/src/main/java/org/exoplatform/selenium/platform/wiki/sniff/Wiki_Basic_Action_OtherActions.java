@@ -131,7 +131,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 			- The wiki page is opened with the link format: http://Server_IP_address:8080/portal/intranet/wiki/[wiki_page_name] (For example: http://localhost:8080/portal/intranet/wiki/Page_1)
 			- The browser navigates to the corresponding wiki page in wiki portlet*/ 
 		info("Check email notification and link's format of the page");
-		goToMail("fqaexovn@gmail.com", "exoadmin");
+		goToMail(EMAIL_ADDRESS2, EMAIL_PASS);
 		wikiMg.checkEmailNotification(title);
         
         info("Delete page");

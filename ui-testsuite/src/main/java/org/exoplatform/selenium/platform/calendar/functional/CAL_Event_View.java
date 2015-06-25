@@ -122,9 +122,9 @@ import org.testng.annotations.*;
 		evMg.inputBasicDetailEvent(titleEvent,newContent,calendar,nameCategory);
 		evMg.saveAddEventDetails();
 		
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.DAY,selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH,selectDayOption.ONEDAY);
-		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK,selectDayOption.ONEDAY);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.DAY,selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.MONTH,selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTask(titleEvent, selectViewOption.WEEK,selectDayOption.DETAILTIME);
 
 		/*Step number: 2
 		*Step Name: -

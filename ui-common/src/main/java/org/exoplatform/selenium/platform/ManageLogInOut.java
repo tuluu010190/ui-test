@@ -32,22 +32,21 @@ public class ManageLogInOut extends PlatformBase {
 		if(waitForAndGetElement(ELEMENT_ACCOUNT_NAME_LINK,5000,0)!=null){
 			signOut();
 		}
-		info("--Sign in as " + username + "--");
 		if(ssoType != "" && ssoType != null){
 			SSO sso = SSO.valueOf(ssoType.toUpperCase());
 			switch(sso){
 			case OPENAM:
-				info("login by openam");
+				info("login by openam with user " + username + " and pass " + password);
 				signInOpenam(username, password);
 				break;
 			case CAS:
-			    info("Login by cas");
+			    info("Login by cas with user " + username + " and pass " + password);
 			    signInCas(username,password);
 			    break;
 			}
 		}
 		else{
-			info("login normally if not use SSO");
+			info("login normally if not use SSO with user " + username + " and pass " + password);
 			type(ELEMENT_INPUT_USERNAME, username, true);
 			type(ELEMENT_INPUT_PASSWORD, password, true);
 			click(ELEMENT_SIGN_IN_BUTTON);

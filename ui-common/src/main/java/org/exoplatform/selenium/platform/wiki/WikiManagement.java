@@ -34,7 +34,7 @@ public class WikiManagement extends WikiHomePage{
 	public final By ELEMENT_SOURCE_EDITOR_BUTTON= By.xpath("//*[contains(text(),'Source Editor')]");
 	public final By ELEMENT_RICHTEXT_BUTTON = By.xpath("//*[contains(text(),'Rich Text')]");
 
-	public final By ELEMENT_UPLOAD_FILE_BUTTON=By.xpath("//*[contains(@id,'file')]");
+	public final By ELEMENT_UPLOAD_FILE_BUTTON=By.xpath("//*[text()='Upload New File']");
 	public final By ELEMENT_UPLOAD_NAME = By.name("file");
 	public final By ELEMENT_BODY_CONTAINER = By.xpath("//*[@class='uiRightContainerArea']");
 
@@ -42,7 +42,7 @@ public class WikiManagement extends WikiHomePage{
 	public By ELEMENT_DRAFT_NOTIFY = By.xpath("//*[contains(@class, 'uiWikiPageEditForm') and contains(text(), 'Draft saved at')]");
 
 	//Comfirmation popup
-	public By ELEMENT_CONFIRMATION_POPUP_YES_BTN = By.xpath(".//*[@id='UIPortalApplication']//button[text()='OK']");
+	public By ELEMENT_CONFIRMATION_POPUP_YES_BTN = By.xpath(".//*[@id='UIPortalApplication']//button[text()='Yes']");
 	public String ELEMENT_POPUP_MESSAGE_CONTENT = ".//*[contains(text(),'${message}')]";
 
 	//Add page from template
@@ -401,7 +401,7 @@ public class WikiManagement extends WikiHomePage{
 		waitForAndGetElement(ELEMENT_WIKI_PAGE_TOOL_BAR_AUTO_SAVE_TEXT,31000,0);
 		info("Cancel adding page");
 		click(ELEMENT_CANCEL_BUTTON_ADD_PAGE,0,true);
-		waitForAndGetElement(ELEMENT_CONFIRMATION_POPUP_YES_BTN,2000,0).click();
+		click(ELEMENT_CONFIRMATION_POPUP_YES_BTN);
 		Utils.pause(2000);
 	}
 
@@ -486,7 +486,9 @@ public class WikiManagement extends WikiHomePage{
 	 */
 	public void attachFileInWiki(String link, Integer...type ){
 		String fs = File.separator;
-		click(ELEMENT_UPLOAD_FILE_BUTTON,2);
+		WebElement elem = waitForAndGetElement(ELEMENT_UPLOAD_NAME,5000,1,2);
+		scrollToElement(elem, driver);
+		click(elem,2,true);
 		uploadFileUsingRobot(link);
 		waitForAndGetElement(By.linkText(link.substring(link.lastIndexOf(fs)+1)));
 	}

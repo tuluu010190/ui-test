@@ -285,7 +285,7 @@ public class MyProfilePage extends PlatformBase {
 	 */
 	public void updatePhone(String type,String phone, Object... opParams){
 		info("Update phone");
-		String index = (String) (opParams.length > 0 ? opParams[0]: "0");
+		String index = (String) (opParams.length > 0 ? opParams[0]: "1");
 		Integer xpathCount= getElements(ELEMENT_CONTACT_PHONE_INPUT_LIST).size();
 		if(Integer.valueOf(index)>=xpathCount){
 			click(ELEMENT_CONTACT_PHONE_ADD_ICON);

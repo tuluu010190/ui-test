@@ -121,7 +121,7 @@ public class TaskManagement extends CalendarLocatorObject {
 	 * 			opt[1]: category
 	 */
 	public void inputBasicDetailTask(String name, String note, String...opt){
-		info("Input into basic fields of Quick task form");
+		info("Input into basic fields of detail task form");
 		if (name != null){
 			type(ELEMENT_ADD_EDIT_TASK_NAME, name, true);
 		}
@@ -133,6 +133,9 @@ public class TaskManagement extends CalendarLocatorObject {
 		}
 		if (opt.length > 1 && opt[1] != null){
 			select(ELEMENT_ADD_EDIT_TASK_CATEGORY, opt[1]);
+		}
+		if (opt.length > 2 && opt[2] != null){
+			type(ELEMENT_ADD_EDIT_TASK_LOCATION, opt[2], true);
 		}
 	}
 
@@ -270,7 +273,7 @@ public class TaskManagement extends CalendarLocatorObject {
 		}
 		info("fullPath:"+fullPath);
 		click(ELEMENT_TASK_ADD_ATTACHMENT);
-		click(ELEENT_SELECT_FILE);
+		click(ELEMENT_SELECT_FILE_BUTTON);
 		uploadFileUsingRobot(fullPath);
 		info("opt.length:" + opt.length);
 		if (opt.length == 0) {
