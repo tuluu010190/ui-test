@@ -18,6 +18,7 @@ import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.UserSearchOptionDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -37,6 +38,7 @@ public class CAL_TestConfig_4 extends PlatformBase {
 	
 	TextBoxDatabase txData;
 	AttachmentFileDatabase fData;
+	UserSearchOptionDatabase userSearchOptionData;
 	String calendar;
 	UserDatabase userData;
 	UserInfoDatabase userInfoData;
@@ -73,6 +75,8 @@ public class CAL_TestConfig_4 extends PlatformBase {
 		userInfoData = new UserInfoDatabase();
 		userInfoData.setUserInfoData(userInfoFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
+		userSearchOptionData = new UserSearchOptionDatabase();
+		userSearchOptionData.setUserSearchOptionData(userSearchOptionFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		navTool = new NavigationToolbar(driver);
 		userAndGroup = new UserAndGroupManagement(driver);

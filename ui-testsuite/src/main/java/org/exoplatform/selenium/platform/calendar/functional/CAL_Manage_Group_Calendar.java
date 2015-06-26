@@ -1074,6 +1074,7 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Edit group calendar by adding more membership with edit permission.</li>
 	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
+	* if groups > 2, the notification is fade out
 	*/
 	@Test
 	public  void test22_EditGroupCalendarByAddingMoreMembershipWithEditPermission() {
@@ -1114,6 +1115,7 @@ import org.testng.annotations.*;
 	 	hp.goToCalendarPage();
 	 	cMang.editCalendar(calendar, null,null,null,userGroup1);
 	 	cMang.selectUserEditPermissionInGroup(user,1);
+	 	cMang.removeGroupInGroupTabCalendarForm("Administrators");
 	 	cMang.saveAddCalendar();
 	 	waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar",calendar));
 

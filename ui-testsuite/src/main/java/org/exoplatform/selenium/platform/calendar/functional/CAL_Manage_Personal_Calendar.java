@@ -30,10 +30,8 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			Default User's Calendar Name is displayed as the user's full name, eg Root Root*/
-		magAc.signOut();
-		magAc.signIn(USER_ROOT,DATA_PASS);
 		hp.goToCalendarPage();
-		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar",DATA_NAME_ROOT));
+		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar",DATA_NAME_USER1));
 
  	}
 

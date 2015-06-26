@@ -484,6 +484,8 @@ import org.testng.annotations.*;
 		info("Edit the event");
 		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.WEEK);
 		evMg.inputDataEventInDetailForm(titleEvent,content,null,getLastDayOfWeek("MM/dd/yyyy"),false,calendar);
+		evMg.saveAddEventDetails();
+		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.WEEK);
 		waitForAndGetElement(cMang.ELEMENT_ADD_EDIT_EVENT_TO_DATE_VALUE.
 				replace("$value",getLastDayOfWeek("MM/dd/yyyy")));
         evMg.cancelAddEditDetailEvent();

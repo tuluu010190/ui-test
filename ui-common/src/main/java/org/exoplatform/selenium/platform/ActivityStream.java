@@ -806,6 +806,7 @@ public class ActivityStream extends PlatformBase {
 		info("remove activity");
 		mouseOver(ELEMENT_ACTIVITY_BOX.replace("${name}", name), true);
 		click(ELEMENT_ACTIVITY_BOX_DELETE_BUTTON.replace("${name}", name),2);
+		Utils.pause(500);
 		click(button.ELEMENT_OK_BUTTON);
 		waitForElementNotPresent(ELEMENT_ACTIVITY_BOX.replace("${name}", name));
 		info("the activity is removed successfully");

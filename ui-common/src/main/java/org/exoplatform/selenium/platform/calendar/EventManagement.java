@@ -372,25 +372,27 @@ public class EventManagement extends CalendarLocatorObject {
 	 * @param path
 	 * 				path of attachment of a EVENT
 	 */
-	public void attachFileToEvent(String path,Boolean... opt){
-		String fullPath="";
-		if ("win".equals(server)){
-			fullPath="TestData\\" + path;
-		}
-		else{
-			fullPath="TestData/" + path;
+	public void attachFileToEvent(String path, Boolean... opt) {
+		String fullPath = "";
+		if ("win".equals(server)) {
+			fullPath = "TestData\\" + path;
+		} else {
+			fullPath = "TestData/" + path;
 		}
 		click(ELEMENT_EVENT_ADD_ATTACHMENT);
 		click(ELEMENT_SELECT_FILE_BUTTON);
 		uploadFileUsingRobot(fullPath);
-		info("opt.length:"+opt.length);
-		if(opt.length==0)
-		{
-			waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", path));
-			click(ELEMENT_ATTACHMENT_SAVE_BUTTON,0,true);
-			waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", path));
+		info("opt.length:" + opt.length);
+		Utils.pause(1000);
+		if (opt.length == 0) {
+			waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME
+					.replace("$fileName", path));
+			click(ELEMENT_ATTACHMENT_SAVE_BUTTON, 0, true);
+			Utils.pause(500);
+			waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME
+					.replace("$fileName",path));
 		}
-	}	
+	}
 
 
 	/**
@@ -1105,6 +1107,7 @@ public class EventManagement extends CalendarLocatorObject {
 	public void removeUser(String fullName){
 		info("Click on Delete button");
 		click(ELEMENT_INVITATION_PARTICIPANTS_REMOVE_BTN.replace("$fullName",fullName));
+		click(ELEMENT_YES_BUTTON);
 		waitForElementNotPresent(ELEMENT_INVITATION_PARTICIPANTS_REMOVE_BTN.replace("$fullName",fullName));
 	}
 }

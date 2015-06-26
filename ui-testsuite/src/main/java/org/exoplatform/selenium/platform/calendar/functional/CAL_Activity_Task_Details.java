@@ -60,7 +60,7 @@ public class CAL_Activity_Task_Details extends CAL_TestConfig{
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newTask));
 
 		hp.goToSpecificSpace(space);
-		spaMg.goToAgendaTab();
+		spaMg.goToActivityStreamTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newTask));
 
 		/*Step number: 3
@@ -159,7 +159,7 @@ public class CAL_Activity_Task_Details extends CAL_TestConfig{
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newTask));
 
 		hp.goToSpecificSpace(space);
-		spaMg.goToAgendaTab();
+		spaMg.goToActivityStreamTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newTask));
 
 		/*Step number: 3
@@ -223,18 +223,17 @@ public class CAL_Activity_Task_Details extends CAL_TestConfig{
 		info("Create a new calendar");
 		String calendar = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
-		cHome.goToView(selectViewOption.WEEK);
+		cHome.goToView(selectViewOption.LIST);
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
 		cMang.inputDataInDetailTabCalendarForm(calendar, calendar,null);
 		cMang.saveAddCalendar();
 
 		String newTask= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String newTask1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hp.goToCalendarPage();
-		cMang.executeActionCalendar(calendar,menuOfCalendarOption.ADDTASK);
-		tasMg.inputBasicQuickTask(newTask,newTask);
+		
+		tasMg.goToAddTaskFromActionBar();
+		tasMg.inputBasicQuickTask(newTask,newTask,calendar);
 		tasMg.saveQuickAddTask();
-
 		info("Add task successfully");
 		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newTask))));
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newTask));

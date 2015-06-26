@@ -68,7 +68,7 @@ import org.testng.annotations.*;
         String numberRepeat="5";
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.MONTH);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
 		evMg.saveRecurringForm();
@@ -345,6 +345,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
+		Utils.pause(3000);
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -358,6 +359,7 @@ import org.testng.annotations.*;
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
 		evMg.saveRecurringForm();
 		evMg.saveAddEventDetails();
+		Utils.pause(3000);
 		
 		info("A repeat event is created successfully");
 		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
@@ -379,9 +381,10 @@ import org.testng.annotations.*;
 			- Starts and End time are edited</p>*/
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cHome.goToView(selectViewOption.WEEK);
+		cHome.goToView(selectViewOption.MONTH);
+		Utils.pause(3000);
 		dragAndDropToObject(By.xpath(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.replace("$name",newEvent).replace("$date","Wed")),By.xpath(cHome.ELEMENT_ANY_TARGET_DATE.replace("${targetDate}","Tue")));
-
+		Utils.pause(3000);
 		/*Step number: 3
 		*Step Name: 
 		*Step Description: 
@@ -394,20 +397,21 @@ import org.testng.annotations.*;
 		String firstDayFormat=getFirstDayOfWeek("MMM/dd/yyyy");
 		String[] date= firstDayFormat.split("/");
 		String month=date[0];
-		String day = Integer.toString(Integer.parseInt(date[1]+1));
+		String day = Integer.toString(Integer.parseInt(date[1])+1);
 		info("day:"+day);
 		info("month:"+month);
 		
 		hp.goToSpecificSpace(space);
 		spaMg.goToActivityStreamTab();
+		Utils.pause(3000);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_START_DATE_MONTH.replace("${name}", newEvent).replace("${month}",month));
-		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_START_DATE_DAY.replace("${name}", newEvent).replace("${day}",day));
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_DATE.replace("$name", newEvent).replace("$date","Tuesday"));
 		
 		hp.goToHomePage();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_START_DATE_MONTH.replace("${name}", newEvent).replace("${month}",month));
-		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_START_DATE_DAY.replace("${name}", newEvent).replace("${day}",day));
+		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_DATE.replace("$name", newEvent).replace("$date","Tuesday"));
 		
 
 		info("Delete Data");
@@ -663,6 +667,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,contentSpace,60000);
+		Utils.pause(3000);
 
 		info("Create a recurring event");
 		String newEvent= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -676,6 +681,7 @@ import org.testng.annotations.*;
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
 		evMg.saveRecurringForm();
 		evMg.saveAddEventDetails();
+		Utils.pause(3000);
 		
 		info("A repeat event is created successfully");
 		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
@@ -707,7 +713,7 @@ import org.testng.annotations.*;
 		evMg.inputBasicDetailEvent(newEvent2,null);
 		evMg.saveAddEventDetails();
 		evMg.editRecurringEvent(recurringType.FOLLOW_EVENT);
-		
+		Utils.pause(3000);
 		info("A repeat event is created successfully");
 		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		cHome.verifyIsPresentEventTaskWithDateTime(newEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
@@ -738,6 +744,7 @@ import org.testng.annotations.*;
 		String dateText="Tuesday";
 		hp.goToSpecificSpace(space);
 		spaMg.goToActivityStreamTab();
+		Utils.pause(3000);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name", newEvent));
 		waitForElementNotPresent(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_COMMENT
 				.replace("$name", newEvent2).replace("$comment", comment)

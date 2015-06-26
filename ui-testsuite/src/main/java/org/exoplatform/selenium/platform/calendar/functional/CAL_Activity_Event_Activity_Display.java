@@ -8,7 +8,9 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOpt
 import org.exoplatform.selenium.platform.calendar.EventManagement.recurringType;
 import org.exoplatform.selenium.platform.calendar.EventManagement.repeatEndType;
 import org.exoplatform.selenium.platform.calendar.EventManagement.repeatType;
+
 import org.openqa.selenium.By;
+
 import org.testng.annotations.*;
 
 
@@ -69,7 +71,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE_SPACE_AS_LINK.replace("${space}",space.toLowerCase()).replace("${event}",newEvent));
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_DESCRIPTION.replace("$name",newEvent).replace("$description", des));
-		String dateText=getCurrentDate("EEEE, MMM dd, yyyy");
+		String dateText=getCurrentDate("EEEE, MMMM dd, yyyy");
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_DATE.replace("$name",newEvent).replace("$date",dateText));
 		waitForAndGetElement(hpAct. ELEMENT_ACTIVITY_TASK_EVENT_LOCATION.replace("$name",newEvent));
 		
@@ -340,7 +342,7 @@ import org.testng.annotations.*;
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
 		evMg.inputBasicDetailEvent(newEvent,newEvent);
-		evMg.inputFromToQuickEvent(firstDay, firstDay,false);
+		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,"5");
 		evMg.saveRecurringForm();
@@ -404,7 +406,7 @@ import org.testng.annotations.*;
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
 		evMg.inputBasicDetailEvent(newEvent,newEvent);
-		evMg.inputFromToQuickEvent(firstDay, firstDay,false);
+		evMg.inputFromToDetailEvent(firstDay, firstDay,false);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,"5");
 		evMg.saveRecurringForm();

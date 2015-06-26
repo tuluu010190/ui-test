@@ -7,12 +7,20 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOpti
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.exoplatform.selenium.platform.calendar.EventManagement.selectAvailableOption;
+
 import org.testng.annotations.*;
 
 
 	public class CAL_Event_Add_Part1 extends CAL_TestConfig_4{
 		String password;
 		public void createNewUser(){
+			String searchEmail = userSearchOptionData.getUserSearchOptionByIndex(3);
+			info("remove existed user with EMAIL_ADDRESS1");
+			navTool.goToUsersAndGroupsManagement();
+			userAndGroup.searchUser(EMAIL_ADDRESS1, searchEmail);
+			if(isTextPresent(EMAIL_ADDRESS1))
+			userAndGroup.deleteUser();
+			
 			info("Add new a user");
 			int index = userInfoData.getRandomIndexByType(3);
 			username = userInfoData.newUserName.get(index)+getRandomNumber();
@@ -589,8 +597,8 @@ import org.testng.annotations.*;
         waitForAndGetElement(evMg.ELEMENT_ATTACH_FILE_NAME.replace("$fileName",link9));
 		
 		info("Delete Data");
-		cHome.goToView(selectViewOption.WEEK);
-		cMang.deleteTaskEvent(titleEvent);
+		cHome.goToView(selectViewOption.LIST);
+		cMang.deleteAllTaskEvent();
 		
  	}
 
@@ -696,7 +704,9 @@ import org.testng.annotations.*;
 	@Test
 	public  void test17_CheckSendInvitationMailWhenUseCalendarSettingToBeAskSendingInvitationButConfirmNo() {
 		info("Test 17 Check Send invitation mail when use calendar setting to be Ask  sending invitation but  confirm No");
-		
+		String defaultFormatTime = "24 Hours";
+		String defaultFormatDate = "MM/dd/yyyy";
+		String defaultTimeZone = "(GMT +07:00) Asia/Ho_Chi_Minh";
 		/*Step Number: 1
 		*Step Name: Step 1: Setting calendar
 		*Step Description: 
@@ -714,7 +724,7 @@ import org.testng.annotations.*;
 		info("Change setting");
 		hp.goToCalendarPage();		
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
-		cMang.changeSettingCalendar(null,null,null,null,null,null,selectInvitationOption.ASK);
+		cMang.changeSettingCalendar("Week",defaultTimeZone,defaultFormatDate.toLowerCase(),defaultFormatTime,null,null,selectInvitationOption.ASK);
 		cMang.saveSetting();
 		
 		/*Step number: 2
@@ -782,17 +792,18 @@ import org.testng.annotations.*;
 			- New event is created 
 			- And NoInvitation mailis sent to email address of selected participant(s) and selected email(s).*/ 
 		click(evMg. ELMEMENT_CONFIRM_SEND_INVITATION_NO_BTN);
-		cHome.goToView(selectViewOption.WEEK);
+		cHome.goToView(selectViewOption.LIST);
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(20000);
-		cMang.checkEmailNotificationCalendar(titleEvent,"","","",false,false);
+		cMang.checkEmailNotificationCalendar(titleEvent,"","","",false);
         switchToParentWindow();
         
 		info("restore data");
 		hp.goToCalendarPage();
-		cMang.deleteTaskEvent(titleEvent);
+		cHome.goToView(selectViewOption.LIST);
+		cMang.deleteAllTaskEvent();
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username);
  	}
@@ -806,6 +817,9 @@ import org.testng.annotations.*;
 	@Test
 	public  void test18_CheckSendInvitationMailWhenChooseNeverSendInvitationMailWhileCreatingEvent() {
 		info("Test 18 Check Send invitation mail when Choose Never send invitation mail while creating event");
+		String defaultFormatTime = "24 Hours";
+		String defaultFormatDate = "MM/dd/yyyy";
+		String defaultTimeZone = "(GMT +07:00) Asia/Ho_Chi_Minh";
 		/*Step Number: 1
 		*Step Name: Step 1: Open Add/Edit Event form
 		*Step Description: 
@@ -841,6 +855,12 @@ import org.testng.annotations.*;
 			- The event is created successfully.
 			- The participants do not receive the invitation emails.*/ 
 		createNewUser();
+		info("Change setting");
+		hp.goToCalendarPage();		
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
+		cMang.changeSettingCalendar("Week",defaultTimeZone,defaultFormatDate.toLowerCase(),defaultFormatTime,null,null,selectInvitationOption.ASK);
+		cMang.saveSetting();
+		
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String titleEvent=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content1=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -856,17 +876,18 @@ import org.testng.annotations.*;
 		evMg.selectSendInvitation(selectInvitationOption.NEVER);
 		evMg.saveAddEventDetails();
 		waitForElementNotPresent(evMg.ELEMENT_CONFIRM_SEND_INVITATION_MESSAGE);
-		cHome.goToView(selectViewOption.WEEK);
+		cHome.goToView(selectViewOption.LIST);
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(20000);
-		cMang.checkEmailNotificationCalendar(titleEvent,"","","",false,false);
+		cMang.checkEmailNotificationCalendar(titleEvent,"","","",false);
         switchToParentWindow();
         
 		info("restore data");
 		hp.goToCalendarPage();
-		cMang.deleteTaskEvent(titleEvent);
+		cHome.goToView(selectViewOption.LIST);
+		cMang.deleteAllTaskEvent();
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username);
 		
@@ -949,7 +970,7 @@ import org.testng.annotations.*;
 		evMg.selectSendInvitation(selectInvitationOption.ALWAYS);
 		evMg.saveAddEventDetails();
 		waitForElementNotPresent(evMg.ELEMENT_CONFIRM_SEND_INVITATION_MESSAGE);
-		cHome.goToView(selectViewOption.WEEK);
+		cHome.goToView(selectViewOption.LIST);
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
@@ -959,7 +980,8 @@ import org.testng.annotations.*;
         
 		info("restore data");
 		hp.goToCalendarPage();
-		cMang.deleteTaskEvent(titleEvent);
+		cHome.goToView(selectViewOption.LIST);
+		cMang.deleteAllTaskEvent();
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username);
 

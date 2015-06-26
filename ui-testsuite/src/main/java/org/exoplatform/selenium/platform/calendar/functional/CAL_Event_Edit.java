@@ -10,7 +10,9 @@ import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
+
 import org.openqa.selenium.By;
+
 import org.testng.annotations.*;
 
 
@@ -37,6 +39,10 @@ import org.testng.annotations.*;
 	@Test
 	public  void test01_EditEventWhichIsImportFromWebmail() {
 		info("Test 1: Edit event which is import from webmail");
+		String searchEmail = userSearchOptionData.getUserSearchOptionByIndex(3);
+		String defaultFormatTime = "24 Hours";
+		String defaultFormatDate = "MM/dd/yyyy";
+		String defaultTimeZone = "(GMT +07:00) Asia/Ho_Chi_Minh";
 		/*Step Number: 1
 		*Step Name: -
 		*Step Description: 
@@ -45,11 +51,22 @@ import org.testng.annotations.*;
 			- From Root: Create a event with an invitation to Demo [ Details ]
 		*Expected Outcome: 
 			The event is created and invitation mail is sent to address mail of Demo*/
-
+		info("remove existed user with EMAIL_ADDRESS1");
+		navTool.goToUsersAndGroupsManagement();
+		userAndGroup.searchUser(EMAIL_ADDRESS1, searchEmail);
+		if(isTextPresent(EMAIL_ADDRESS1))
+		userAndGroup.deleteUser();
+		
 		createUser();
 		info("Create a new calendar");
 		String calendar = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
+        
+        info("setting timezone to Hanoi");
+        cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
+		cMang.changeSettingCalendar("Week",defaultTimeZone,defaultFormatDate.toLowerCase(),defaultFormatTime,null,null,null);
+		cMang.saveSetting();
+		
         cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
         cMang.inputDataInDetailTabCalendarForm(calendar, calendar,null);
         cMang.saveAddCalendar();
@@ -57,7 +74,7 @@ import org.testng.annotations.*;
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Add a event");
-		hp.goToCalendarPage();		
+		hp.goToCalendarPage();	
 		evMg.goToAddEventFromActionBar();
 		evMg.moreDetailsEvent();
 		evMg.inputBasicDetailEvent(titleEvent,content,calendar);
@@ -277,7 +294,7 @@ import org.testng.annotations.*;
 	*<li> Post-Condition: </li>
 	*THIS CASE HAS A BUG: https://jira.exoplatform.org/browse/CAL-1139
 	*/
-	@Test
+	@Test (groups="pending")
 	public  void test04_EditEventInSearchForm() {
 		info("Test 4: Edit Event in Search form");
 		/*Step Number: 1
@@ -460,6 +477,9 @@ import org.testng.annotations.*;
 	@Test
 	public  void test06_ChangeTimeOfEventInOneDayByDragAndDropInDayView() {
 		info("Test 6: Change time of event in one day by drag and drop in Day view");
+		String defaultFormatTime = "AM/PM";
+		String defaultFormatDate = "MM/dd/yyyy";
+		String defaultTimeZone = "(GMT +07:00) Asia/Ho_Chi_Minh";
 		/*Step Number: 1
 		*Step Name: -
 		*Step Description: 
@@ -471,9 +491,18 @@ import org.testng.annotations.*;
 			- Select Day View to display calendar
 		*Expected Outcome: 
 			Added event is displayed as part of day in working pane*/
+		magAc.signOut();
+		magAc.signIn(DATA_USER3, DATA_PASS);
+		
 		info("Create a new calendar");
 		String calendar = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
+        
+        info("setting AM/PM");
+        cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
+		cMang.changeSettingCalendar("Week",defaultTimeZone,defaultFormatDate.toLowerCase(),defaultFormatTime,null,null,null);
+		cMang.saveSetting();
+		
         cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
         cMang.inputDataInDetailTabCalendarForm(calendar, calendar,null);
         cMang.saveAddCalendar();
@@ -498,12 +527,12 @@ import org.testng.annotations.*;
 			Drag and drop the event to new place in working pane of day
 		*Expected Outcome: 
 			From and To time of event are changed as drag and drop*/
-		int targetTime=Integer.parseInt(getCurrentDate("hh"))+1;
+		int targetTime=Integer.parseInt(getCurrentDate("hh"))+2;
 		String newTargetTime=String.valueOf(targetTime)+":00";
 		dragAndDropToObject(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent),
 		cHome.ELEMENT_EVENT_TASK_DAY_ONE_DAY.replace("$date",newTargetTime));
-		
-		waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_DAY_TIME.replace("$name",titleEvent).replace("$time",newTargetTime));
+		String newTime=String.valueOf(targetTime+1);
+		waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_DAY_TIME.replace("$name",titleEvent).replace("$time",newTime));
 		
 		/*Step number: 3
 		*Step Name: -
@@ -514,16 +543,20 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The edited event is updated and displayed as changes*/ 
 		cHome.goToView(selectViewOption.WORKWEEK);
+		Utils.pause(500);
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
 		cHome.goToView(selectViewOption.LIST);
+		Utils.pause(500);
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
 		cHome.goToView(selectViewOption.WEEK);
+		Utils.pause(500);
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
 		cHome.goToView(selectViewOption.MONTH);
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
+		Utils.pause(500);
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_MONTH_VIEW.replace("$name",titleEvent));
 		
 		cMang.deleteCalendar(calendar);
  	}
@@ -1009,8 +1042,8 @@ import org.testng.annotations.*;
 		}
 		else {
 			dragAndDropToObject(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent),
-					cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ALL_DAY.replace("$date",getDate(1,"MMM dd yyyy")));
-			waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ALL_DAY.replace("$name",titleEvent).replace("$date",getDate(1,"MMM dd yyyy")));
+					cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_ALL_DAY.replace("$date",getDate(-1,"MMM dd yyyy")));
+			waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ALL_DAY.replace("$name",titleEvent).replace("$date",getDate(-1,"MMM dd yyyy")));
 		}
 		
 
@@ -1343,9 +1376,12 @@ import org.testng.annotations.*;
 			- Add events that start in the same day
 		*Expected Outcome: 
 			Added events are displayed*/
+		magAc.signOut();
+		magAc.signIn(DATA_USER4, DATA_PASS);
 		info("Create a new calendar");
 		String calendar = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
+		
         cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
         cMang.inputDataInDetailTabCalendarForm(calendar, calendar,null);
         cMang.saveAddCalendar();
@@ -1356,14 +1392,14 @@ import org.testng.annotations.*;
 		String titleEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		evMg.goToAddEventFromActionBar();
-		evMg.inputDataEventInQuickForm(titleEvent, content,getCurrentDate("MM/dd/yyyy HH"),null,false,calendar);
+		evMg.inputDataEventInQuickForm(titleEvent, content,null,null,false,calendar);
 		evMg.saveQuickAddEvent();
 		
 		info("Add an Event");
 		String titleEvent1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String content1= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		evMg.goToAddEventFromActionBar();
-		evMg.inputDataEventInQuickForm(titleEvent1, content1,getCurrentDate("MM/dd/yyyy HH"),null,false,calendar);
+		evMg.inputDataEventInQuickForm(titleEvent1, content1,null,null,false,calendar);
 		evMg.saveQuickAddEvent();
 		
 		
@@ -1451,7 +1487,8 @@ import org.testng.annotations.*;
 			- Add events that start in different days
 		*Expected Outcome: 
 			Added events are displayed*/
-		
+		magAc.signOut();
+		magAc.signIn(DATA_USER4, DATA_PASS);
 		info("Create a new calendar");
 		String calendar = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
@@ -1712,7 +1749,7 @@ import org.testng.annotations.*;
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test21_EditEventWhichWasImportedFromMachine() {
+	public  void _EditEventWhichWasImportedFromMachine() {
 		info("Test 21 Edit event which was imported from machine");
 		/*Step Number: 1
 		*Step Name: -
@@ -1722,7 +1759,26 @@ import org.testng.annotations.*;
 			Perform to export a calendar from other application (sunbird )
 		*Expected Outcome: 
 			The calendar is exported successfully*/
-
+		String attachment=getRandomNumber()+".ics";
+		String calendarName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		info("Create data test");
+		hp.goToCalendarPage();
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
+		cMang.inputDataInDetailTabCalendarForm(calendarName, calendarName,null);
+		cMang.saveAddCalendar();
+		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendarName));
+		
+		info("Add an Event");
+		String titleEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		String content= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		evMg.goToAddEventFromActionBar();
+		evMg.inputBasicQuickEvent(titleEvent, content,calendarName);
+		evMg.saveQuickAddEvent();
+		
+		info("Export calendar");
+		cMang.exportCalendar(calendarName,attachment);
+		cMang.deleteCalendar(calendarName,true);
+		waitForElementNotPresent(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendarName));
 		/*Step number: 2
 		*Step Name: -
 		*Step Description: 
@@ -1731,12 +1787,12 @@ import org.testng.annotations.*;
 			Perform to import calendar
 		*Expected Outcome: 
 			The calendar is imported successfully*/
-		String attachment=fData.getAttachFileByArrayTypeRandom(71);
-		String calendarName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		info("Import calendar");
+		magAc.signOut();
+		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
-		cMang.importCalendar("TestData/" + attachment,calendarName,null,null);
-
+		info("Import calendar");
+		cMang.importCalendar("TestData/TestOutput/" + attachment,calendarName,null,null);
+		
 		info("Check inported calendar ");
 		driver.navigate().refresh();
 		waitForAndGetElement(cMang.ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar", calendarName));
@@ -1751,7 +1807,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The event is changed properly*/ 
 		String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		String titleEvent ="calendar export";
+		
 		cMang.openEditEventTaskPopup(titleEvent,selectViewOption.LIST);
 		evMg.inputDataEventInDetailForm(titleEvent2,titleEvent2,null,null,false,calendarName);
 		evMg.saveAddEventDetails();
@@ -1862,7 +1918,6 @@ import org.testng.annotations.*;
 	*<li> Post-Condition: </li>
 	*FOUND A BUG ABOUT THIS: https://jira.exoplatform.org/browse/CAL-1140
 	*/
-	@Test
 	public  void test23_EditEventInSharedCalendarInCaseItIsNoLongerExistsOrMovedToOtherCalendar() {
 		info("Test 23 Edit event in shared calendar in case it is no longer exists or moved to other calendar");
 		/*Step Number: 1

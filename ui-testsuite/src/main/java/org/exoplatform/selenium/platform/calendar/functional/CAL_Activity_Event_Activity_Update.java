@@ -525,7 +525,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK);
 		evMg.openRecurringForm();
 		evMg.inputRecurringInfoEvent(repeatType.Daily,"1",null,repeatEndType.After,numberRepeat);
 		evMg.saveRecurringForm();
@@ -740,7 +740,7 @@ import org.testng.annotations.*;
 		info("Edit an recurring event");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
-		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
+		cMang.openEditEventTaskPopup(newEvent,selectViewOption.WEEK);
 		evMg.inputFromToDetailEvent(null,lastDay,false);
 		evMg.saveAddEventDetails();
 		
@@ -1081,6 +1081,7 @@ import org.testng.annotations.*;
 		info("Delete Data");
 		hp.goToSpecificSpace(space);
 		spaMg.goToAgendaTab();
+		cHome.goToView(selectViewOption.MONTH);
 		cMang.deleteTaskEvent(newEvent);
 	}
 

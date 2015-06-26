@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.calendar.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
@@ -51,7 +52,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		hp.goToSpecificSpace(space);
-		spaMg.goToAgendaTab();
+		spaMg.goToActivityStreamTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		/*Step number: 2
@@ -72,6 +73,7 @@ import org.testng.annotations.*;
 		cMang.openEditEventTaskPopup(newEvent,selectViewOption.LIST);
 		evMg.inputBasicDetailEvent(newEvent1,null);
 		evMg.saveAddEventDetails();
+		Utils.pause(3000);
 		
 		info("Add successfully");
 		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1))));
@@ -139,7 +141,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		hp.goToSpecificSpace(space);
-		spaMg.goToAgendaTab();
+		spaMg.goToActivityStreamTab();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TASK_EVENT_TITLE.replace("$name",newEvent));
 		
 		/*Step number: 2

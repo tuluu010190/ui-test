@@ -84,7 +84,7 @@ import org.testng.annotations.*;
 			The added event is repeated every month on the second Tuesday, with correct information and display*/ 
 		info("Go to next month");
 		cHome.nextDate(1);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDayOfNextMonth("MMM dd yyyy",7,4), 
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDayOfNextMonth("MMM dd yyyy",0,4), 
 				selectViewOption.MONTH,selectDayOption.ALLDAY);
         cMang.deleteCalendar(calendar);
  	}
@@ -143,6 +143,12 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
+		/*cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);*/
+		cHome.goToView(selectViewOption.WEEK);
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
@@ -281,8 +287,10 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The added event is repeated every 2 month on the 2, with correct information and display*/
 		info("Go to next month");
+		cHome.goToView(selectViewOption.MONTH);
 		cHome.nextDate(2);
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDayOfNextMonth("MMM dd yyyy",getDayOfWeek(0),8), 
+		info(getDayOfNextMonth("MMM dd yyyy",getDayOfWeek(0)+2,8));
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDayOfNextMonth("MMM dd yyyy",getDayOfWeek(0)+2,8), 
 				selectViewOption.MONTH,selectDayOption.ALLDAY);
         cMang.deleteCalendar(calendar);
 
@@ -387,6 +395,12 @@ import org.testng.annotations.*;
 		evMg.saveAddEventDetails();
 		
 		info("A repeat event is created successfully");
+		/*cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Thu", selectViewOption.WEEK, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Fri", selectViewOption.WEEK, selectDayOption.DETAILTIME);*/
+		cHome.goToView(selectViewOption.WEEK);
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Mon", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Tue", selectViewOption.WEEK, selectDayOption.DETAILTIME);
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,"Wed", selectViewOption.WEEK, selectDayOption.DETAILTIME);

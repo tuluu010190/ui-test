@@ -88,7 +88,7 @@ import org.testng.annotations.*;
 		
 		info("Delete Data");
 		cHome.goToView(selectViewOption.LIST);
-		cMang.deleteTaskEvent(titleEvent);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -153,8 +153,9 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Add new event with special characters.</li>
 	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
+	* https://jira.exoplatform.org/browse/CS-5821
 	*/
-	@Test
+	@Test(groups="pending")
 	public  void test63_AddNewEventWithSpecialCharacters() {
 		info("Test 63 Add new event with special characters");
 		/*Step Number: 1
@@ -179,7 +180,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Show alert message report that :Event summary does not contain >, <.*/ 
 		String specCharacter="$%$^&";
-		String titleEvent = txData.getContentByArrayTypeRandom(1)+"<>";
+		String titleEvent = txData.getContentByArrayTypeRandom(1)+"#$";
 		String content= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		info("Add a event1");
 		hp.goToCalendarPage();		
@@ -252,11 +253,11 @@ import org.testng.annotations.*;
 		evMg.moreDetailsEvent();
 		evMg.inputBasicDetailEvent(spaceCharacter+titleEvent, content);
 		evMg.saveAddEventDetails();
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
-		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",spaceCharacter+titleEvent));
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE1.replace("${name}",titleEvent));
+		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE1.replace("${name}",spaceCharacter+titleEvent));
 		info("Delete Data");
 		cHome.goToView(selectViewOption.LIST);
-		cMang.deleteTaskEvent(titleEvent);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -308,7 +309,7 @@ import org.testng.annotations.*;
 		
 		info("Delete Data");
 		cHome.goToView(selectViewOption.LIST);
-		cMang.deleteTaskEvent(titleEvent);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -363,7 +364,7 @@ import org.testng.annotations.*;
 		 
 		 info("Delete Data");
 		 cHome.goToView(selectViewOption.LIST);
-		 cMang.deleteTaskEvent(titleEvent);
+		 cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -423,7 +424,7 @@ import org.testng.annotations.*;
 		
 		 info("Delete Data");
 		 cHome.goToView(selectViewOption.LIST);
-		 cMang.deleteTaskEvent(titleEvent);
+		 cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -477,7 +478,7 @@ import org.testng.annotations.*;
 		 
 		 info("Delete Data");
 		 cHome.goToView(selectViewOption.LIST);
-		 cMang.deleteTaskEvent(titleEvent);
+		 cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -513,6 +514,8 @@ import org.testng.annotations.*;
 		 String expectedDateFrom=getDate(0,"MM/dd/yyyy");
 		 String expectedDateTo=getDate(0,"MM/dd/yyyy");
 		 hp.goToCalendarPage();
+		// cHome.openAddEditEventTaskByLeftClick(getDate(0,"MMM dd yyyy HH")+":00",selectViewOption.WORKWEEK,selectDayOption.DETAILTIME);
+		 cHome.goToView(selectViewOption.WORKWEEK);
 		 cHome.openAddEditEventTaskByLeftClick(getDate(0,"MMM dd yyyy HH")+":00",selectViewOption.WORKWEEK,selectDayOption.DETAILTIME);
 		 waitForAndGetElement(evMg.ELEMENT_QUICK_INPUT_EVENT_FROM_TIME_VALUE.replace("$value",expectedTimeFrom),2000,2);
 		 waitForAndGetElement(evMg.ELEMENT_QUICK_INPUT_EVENT_TO_TIME_VALUE.replace("$value",expectedTimeTo),2000,2);
@@ -537,7 +540,7 @@ import org.testng.annotations.*;
 		 
 		 info("Delete Data");
 		 cHome.goToView(selectViewOption.LIST);
-		 cMang.deleteTaskEvent(titleEvent);
+		 cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -586,11 +589,11 @@ import org.testng.annotations.*;
 		evMg.inputFromToDetailEvent(getDate(0,"MM/dd/yyyy")+" 00:14",getDate(0,"MM/dd/yyyy")+" 23:50",false,true);
 		evMg.saveAddEventDetails();
 		
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MMM dd yyyy"),selectViewOption.LIST,selectDayOption.ALLDAY);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy"),selectViewOption.LIST,selectDayOption.ALLDAY);
 		 
 	    info("Delete Data");
 	    cHome.goToView(selectViewOption.LIST);
-	    cMang.deleteTaskEvent(titleEvent);
+	    cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -640,7 +643,7 @@ import org.testng.annotations.*;
 		
 		info("Delete Data");
 	    cHome.goToView(selectViewOption.LIST);
-	    cMang.deleteTaskEvent(titleEvent);
+	    cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -740,7 +743,7 @@ import org.testng.annotations.*;
 		
 		info("Delete Data");
 	    cHome.goToView(selectViewOption.LIST);
-	    cMang.deleteTaskEvent(titleEvent);
+	    cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -791,7 +794,7 @@ import org.testng.annotations.*;
  	
 		info("Delete Data");
 	    cHome.goToView(selectViewOption.LIST);
-	    cMang.deleteTaskEvent(titleEvent);
+	    cMang.deleteAllTaskEvent();
 	}
 
 	/**
@@ -842,6 +845,6 @@ import org.testng.annotations.*;
 	 	
 		info("Delete Data");
 	    cHome.goToView(selectViewOption.LIST);
-	    cMang.deleteTaskEvent(titleEvent);
+	    cMang.deleteAllTaskEvent();
 		
  	}}

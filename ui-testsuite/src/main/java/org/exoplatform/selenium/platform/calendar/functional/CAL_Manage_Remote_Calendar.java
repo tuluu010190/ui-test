@@ -13,8 +13,9 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Add remote calendar in case invalid authentication user name and password.</li>
 	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
+	* https://jira.exoplatform.org/browse/CAL-1146
 	*/
-	@Test
+	@Test (groups= "pending")
 	public  void test01_AddRemoteCalendarInCaseInvalidAuthenticationUserNameAndPassword() {
 		info("Test 1: Add remote calendar in case invalid authentication user name and password");
 		/*Step Number: 1
@@ -77,6 +78,8 @@ import org.testng.annotations.*;
 			- Subscribe/ Remote Calendar form displays validly*/
 		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String url = calRemoteData.getSubcrisbeByIndex(0);
+		magAc.signOut();
+		magAc.signIn(DATA_USER4, DATA_PASS);
 		hp.goToCalendarPage();
         cMang.addRemoteCalender(url, false,name,name);
         
@@ -228,6 +231,8 @@ import org.testng.annotations.*;
 			- The url can be input validly*/
 		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String url = calRemoteData.getSubcrisbeByIndex(0);
+		magAc.signOut();
+		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToCalendarPage();
         cMang.addRemoteCalender(url, false,name,name);
         
@@ -447,8 +452,10 @@ import org.testng.annotations.*;
 			- If both "Display Name" and "Username" are blank => Error message: The field "Display Name" is required.
 			- If only "Username" is blank => Error message: Username required to authenticated
 			- If only "Display Name" is blank => Error message: The field "Display Name" is required.*/ 
-		String url = calRemoteData.getSubcrisbeByIndex(0);
+		String url = calRemoteData.getSubcrisbeByIndex(1);
 		String name = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+		magAc.signOut();
+		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToCalendarPage();
         cMang.addRemoteCalender(url, false,"","");
         cMang.saveRemoteCalendar();

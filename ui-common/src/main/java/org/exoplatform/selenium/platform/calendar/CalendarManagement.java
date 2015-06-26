@@ -812,7 +812,7 @@ public class CalendarManagement extends CalendarLocatorObject{
 		info("Right click on an Event/Task");
 		rightClickOnElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
 		selectOptionByRightclickOnEvent(contextMenuEditEvenOption.EDIT);
-		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_POPUP,2000,1);
+		waitForAndGetElement(ELEMENT_ADD_EDIT_EVENT_POPUP,3000,1);
 		info("Edit/Task form is shown");
 	}
 	
@@ -830,18 +830,21 @@ public class CalendarManagement extends CalendarLocatorObject{
 			case WEEK:
 				WebElement el_week = waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY
 						.replace("$date", opt[0]).replace("$name",name));
+				Utils.pause(1000);
 				scrollElementIntoView(el_week);
 				action.moveToElement(el_week).doubleClick().perform();
 				break;
 			case MONTH:
 				WebElement el_month = waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW.
 						replace("$date",opt[0]).replace("$name",name));
+				Utils.pause(1000);
 				scrollElementIntoView(el_month);
 				action.moveToElement(el_month).doubleClick().perform();
 				break;
 			case WORKWEEK:
 				WebElement el_workweek = waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_DATE_WEEK_VIEW_ONE_DAY
 						.replace("$date", opt[0]).replace("$name",name));
+				Utils.pause(1000);
 				scrollElementIntoView(el_workweek);
 				action.moveToElement(el_workweek).doubleClick().perform();
 				break;
@@ -882,9 +885,10 @@ public class CalendarManagement extends CalendarLocatorObject{
 	 */
 	public void deleteTaskEvent(String name){
 			info("Right click on an Event/Task");
-			scrollElementIntoView(this.driver.findElement(By.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))));
-			rightClickOnElement(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+			//scrollElementIntoView(this.driver.findElement(By.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name))));
+			rightClickOnElement(By.xpath(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name)));
 			selectOptionByRightclickOnEvent(contextMenuEditEvenOption.DELETE);
+			click(ELEMENT_YES_BUTTON);
 			waitForElementNotPresent(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
 	}
 	/**

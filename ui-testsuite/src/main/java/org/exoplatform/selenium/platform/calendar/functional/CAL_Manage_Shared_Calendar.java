@@ -391,16 +391,6 @@ import org.testng.annotations.*;
 		cMang.scrollElementIntoView(this.driver.findElement(By.xpath(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1))));
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",newEvent1));
 		
-		/*Step number: 5
-		*Step Name: Check shared user can delete event/ task
-		*Step Description: 
-			- Right click event/ task above, click Delete
-		*Input Data: 
-			
-		*Expected Outcome: 
-			Event/ task is deleted*/
-        cMang.deleteTaskEvent(newEvent1);
-        
 		/*Step number: 6
 		*Step Name: Check shared user can export event
 		*Step Description: 
@@ -415,6 +405,15 @@ import org.testng.annotations.*;
         String attachment=getRandomNumber()+".ics";
         cMang.exportTaskEvent(newEvent1, attachment);
         
+        /*Step number: 5
+		*Step Name: Check shared user can delete event/ task
+		*Step Description: 
+			- Right click event/ task above, click Delete
+		*Input Data: 
+			
+		*Expected Outcome: 
+			Event/ task is deleted*/
+        cMang.deleteTaskEvent(newEvent1);
         
 		/*Step number: 7
 		*Step Name: Check shared user can import event
@@ -428,15 +427,21 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			Event is deletedEvent is imported successfully and displayed on shared calendar*/ 
         cMang.deleteTaskEvent(newEvent1);
-        info("Check the task is not present");
+        /*info("Check the task is not present");
 		cHome.verifyIsNotPresentEventTask(newEvent1, selectViewOption.LIST, selectDayOption.DETAILTIME);
 		
 		cMang.importTaskEvent(calendar,"TestData/TestOutput/" + attachment);
 
 		info("Check the task is present ");
-		cHome.verifyIsPresentEventTask(newEvent1, selectViewOption.LIST, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTask(newEvent1, selectViewOption.LIST, selectDayOption.DETAILTIME);*/
 
 		cMang.deleteTaskEvent(newEvent1);
+		cMang.importTaskEvent(calendar,"TestData/TestOutput/" + attachment);
+
+		info("Check the task is present ");
+		cHome.verifyIsPresentEventTask(newEvent1, selectViewOption.LIST, selectDayOption.DETAILTIME);
+		cHome.goToView(selectViewOption.LIST);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**

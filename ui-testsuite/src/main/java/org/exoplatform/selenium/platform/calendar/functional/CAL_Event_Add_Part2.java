@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.calendar.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOption;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
@@ -11,13 +12,22 @@ import org.exoplatform.selenium.platform.calendar.EventManagement.priorityType;
 import org.exoplatform.selenium.platform.calendar.EventManagement.recurringType;
 import org.exoplatform.selenium.platform.calendar.EventManagement.repeatEndType;
 import org.exoplatform.selenium.platform.calendar.EventManagement.repeatType;
+
 import org.openqa.selenium.By;
+
 import org.testng.annotations.*;
 
 
 	public class CAL_Event_Add_Part2 extends CAL_TestConfig_4{
 	
 	public void createUser() {
+		String searchEmail = userSearchOptionData.getUserSearchOptionByIndex(3);
+		info("remove existed user with EMAIL_ADDRESS1");
+		navTool.goToUsersAndGroupsManagement();
+		userAndGroup.searchUser(EMAIL_ADDRESS1, searchEmail);
+		if(isTextPresent(EMAIL_ADDRESS1))
+		userAndGroup.deleteUser();
+		
 		int index = userInfoData.getRandomIndexByType(3);
 		username = userInfoData.newUserName.get(index) + getRandomNumber();
 		firstname = userInfoData.newFirstName.get(index);
@@ -238,6 +248,7 @@ import org.testng.annotations.*;
 		String link = fData.getAttachFileByArrayTypeRandom(70);
 		info("link:"+link);
 		info("Add attachment");
+		alert = new ManageAlert(driver);
 		evMg.attachFileToEvent(link,true);
 		String warningMess=alert.getTextFromAlert();
 		info("warningMess:"+warningMess);
@@ -835,8 +846,6 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			The event is created successfully and has an invitation mail is sent to demo@gmail.com*/
-         magAc.signOut();
-         magAc.signIn(USER_ROOT,DATA_PASS);
          createUser();
          String titleEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
  		 String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -875,7 +884,7 @@ import org.testng.annotations.*;
 			A new tab is opened "You have refused invitation from Root"*/
  		 goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		 Utils.pause(20000);
-		 cMang.checkEmailNotificationCalendar(titleEvent,"icalendar.ics","No",USER_ROOT,true,true);
+		 cMang.checkEmailNotificationCalendar(titleEvent,"icalendar.ics","No",DATA_USER1,true,true);
 		 switchToParentWindow();
 		/*Step number: 4
 		*Step Name: - Step 4: Check status of Demo when open above event again

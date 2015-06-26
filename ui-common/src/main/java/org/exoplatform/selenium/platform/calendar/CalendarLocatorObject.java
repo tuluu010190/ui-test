@@ -9,6 +9,7 @@ public class CalendarLocatorObject extends PlatformBase{
 
 	//GRID
 	public String ELEMENT_EVENT_TASK_TITLE="//*[contains(text(),'${name}')]";
+	public String ELEMENT_EVENT_TASK_TITLE1="//*[@deschtml='${name}']";
 	public String ELEMENT_EVENT_TASK_COLOR=".//*[contains(text(),'$name')]/..//*[contains(@class,'$color')]";
 	public String ELEMENT_EVENT_TASK_TITLE_WEEK_COUNT="(.//*[contains(@class,'eventContainer')]//*[contains(text(),'${name}')])[$number]";
 	public By ELEMENT_ADD_EDIT_EVENT_POPUP = By.xpath(".//*[@id='UICalendarPopupWindow']");
@@ -148,13 +149,15 @@ public class CalendarLocatorObject extends PlatformBase{
 	public String ELEMENT_EVENT_TASK_DAY_BY_INDEX_MONTH_VIEW=".//*[@cindex='$col' and @rindex='$row']";  
 	public final String ELEMENT_MONTH_VIEW_HEADER_BAR=".//*[@id='UIMonthView']//div[contains(text(),'$monthYear')]";
 	public final String ELEMENT_MONTH_VIEW_ORDER_DAY="(.//*[@id='UIMonthView']//*[contains(@class,'uiCellBlock')])[$number][contains(text(),'$day')]";
-
+	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL1="//*[@class='moreEventLabel' and contains(.,'${text}')]";
+	
 	//WORK WEEK VIEW-->Grid
 	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY="//*[@id='UIWeekView']//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]//div[contains(text(),'$name')]";
 	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//*[contains(@starttimefull,'$date')]//div[contains(text(),'$name')]";
 	public final String ELEMENT_WORK_WEEK_VIEW_ORDER_DAY="(.//*[@id='UIWeekView']//td[contains(@class,'uiCellBlock')])[$number][contains(@starttimeFull,'$day')]";
+   
 
 	/*-------------------------------------------------------CATEGORY MANAGEMENT--------------------------------------------------------------------------------*/
 

@@ -262,7 +262,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			The Calendar activity is removed from the activity stream*/ 
-		spaMg.goToActivityStreamTab();
+		hp.goToHomePage();
 		hpAct.deleteActivity(newEvent);
 		
 		hp.goToHomePage();

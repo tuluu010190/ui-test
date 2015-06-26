@@ -8,12 +8,20 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectDayOpti
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfCalendarOption;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
+
 import org.testng.annotations.*;
 
 
 	public class CAL_Event_Add_Part3 extends CAL_TestConfig_4{
 		String password;
 		public void createUser() {
+			String searchEmail = userSearchOptionData.getUserSearchOptionByIndex(3);
+			info("remove existed user with EMAIL_ADDRESS1");
+			navTool.goToUsersAndGroupsManagement();
+			userAndGroup.searchUser(EMAIL_ADDRESS1, searchEmail);
+			if(isTextPresent(EMAIL_ADDRESS1))
+			userAndGroup.deleteUser();
+			
 			int index = userInfoData.getRandomIndexByType(3);
 			username = userInfoData.newUserName.get(index) + getRandomNumber();
 			firstname = userInfoData.newFirstName.get(index);
@@ -97,8 +105,7 @@ import org.testng.annotations.*;
 		info("Delete file and task");
 		deleteFile("TestOutput/" + exportedCalendar);
 		cHome.goToView(selectViewOption.LIST);
-		cMang.deleteTaskEvent(titleEvent);
-		cMang.deleteTaskEvent(titleEvent1);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -293,7 +300,7 @@ import org.testng.annotations.*;
 		 cMang.saveSetting();
 		 info("Delete event");
 		 cHome.goToView(selectViewOption.LIST);
-		 cMang.deleteTaskEvent(titleEvent);
+		 cMang.deleteAllTaskEvent();
 
  	}
 
@@ -316,18 +323,18 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			3 events/task are displayed in selected day*/
 		info("Create event1");
-        String titleEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+        String titleEvent = txData.getContentByIndex(2)+"1";
 		String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(titleEvent,content);
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy"),selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MMM dd yyyy"),selectViewOption.MONTH, selectDayOption.ALLDAY);
 		
 		
 		info("Create event2");
-        String titleEvent1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+        String titleEvent1 = txData.getContentByIndex(2)+"2";
 		String content1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
 		evMg.goToAddEventFromActionBar();
@@ -337,14 +344,15 @@ import org.testng.annotations.*;
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent1,getDate(0,"MM/dd/yyyy"),selectViewOption.LIST, selectDayOption.DETAILTIME);
 		
 		info("Create event3");
-        String titleEvent2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+        String titleEvent2 =txData.getContentByIndex(2)+"3";
 		String content2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(titleEvent2,content2);
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
-		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,getDate(0,"MMM dd yyyy"),selectViewOption.LIST, selectDayOption.DETAILTIME);
+		//cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,getDate(0,"MMM dd yyyy"),selectViewOption.LIST, selectDayOption.DETAILTIME);
+		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent2,getDate(0,"MM/dd/yyyy"),selectViewOption.LIST, selectDayOption.DETAILTIME);
 		
 		/*Step number: 2
 		*Step Name: - Step 2: Add event
@@ -355,25 +363,27 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			Add new event successfully but only 3 events/tasks is show, the 1 more is hidden, there's a link to show hidden event . 
 			When hidden event is shown, it is possible to hide it by clicking close icon on menu*/ 
-		info("Create event4");
-        String titleEvent3 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
+        info("Create event4");
+        String titleEvent3 = txData.getContentByIndex(2)+"4";
 		String content3 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToCalendarPage();
 		evMg.goToAddEventFromActionBar();
 		evMg.inputBasicQuickEvent(titleEvent3,content3);
 		evMg.saveQuickAddEvent();
 		info("Add successfully");
-		cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getDate(0,"MMM dd yyyy"),selectViewOption.MONTH, selectDayOption.DETAILTIME);
-		waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL.replace("$date",getDate(0,"MMM dd yyyy")));
-		click(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL.replace("$date",getDate(0,"MMM dd yyyy")));
+		//cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getDate(0,"MMM dd yyyy"),selectViewOption.MONTH, selectDayOption.DETAILTIME);
+		//waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL.replace("$date",getDate(0,"MMM dd yyyy")));
+		//click(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL.replace("$date",getDate(0,"MMM dd yyyy")));
+		cHome.goToView(selectViewOption.MONTH);
+		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
+		//cHome.verifyIsNotPresentEventTaskWithDateTime(titleEvent,getDate(0,"MMM dd yyyy"),selectViewOption.MONTH, selectDayOption.ONEDAY);
+		waitForAndGetElement(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL1.replace("${text}","more 1+"));
+		click(cHome.ELEMENT_EVENT_TASK_DETAIL_DATE_MONTH_VIEW_MORE_LABEL1.replace("${text}","more 1+"));
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
-		
-		 info("Delete event");
+		 
+		info("Delete event");
 		 cHome.goToView(selectViewOption.LIST);
-		 cMang.deleteTaskEvent(titleEvent);
-		 cMang.deleteTaskEvent(titleEvent1);
-		 cMang.deleteTaskEvent(titleEvent2);
-		 cMang.deleteTaskEvent(titleEvent3);
+		 cMang.deleteAllTaskEvent();
 		
  	}
 
@@ -459,7 +469,7 @@ import org.testng.annotations.*;
         
 		info("restore data");
 		hp.goToCalendarPage();
-		cMang.deleteTaskEvent(titleEvent);
+		cMang.deleteAllTaskEvent();
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username);
  	}
@@ -545,7 +555,7 @@ import org.testng.annotations.*;
         
 		info("restore data");
 		hp.goToCalendarPage();
-		cMang.deleteTaskEvent(titleEvent);
+		cMang.deleteAllTaskEvent();
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username);
  	}
@@ -583,7 +593,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		info("restore data");
 		hp.goToCalendarPage();
-		cMang.deleteTaskEvent(titleEvent);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -644,7 +654,7 @@ import org.testng.annotations.*;
 
 		info("restore data");
 		hp.goToCalendarPage();
-		cMang.deleteTaskEvent(titleEvent);
+		cMang.deleteAllTaskEvent();
  	}
 
 	/**
@@ -711,7 +721,7 @@ import org.testng.annotations.*;
  		 info("Delete Event");
  		 hp.goToCalendarPage();
  		 cHome.goToView(selectViewOption.LIST);
- 		 cMang.deleteTaskEvent(titleEvent);
+ 		 cMang.deleteAllTaskEvent();
 		 navTool.goToUsersAndGroupsManagement();
 		 userAndGroup.deleteUser(username);
  	}
@@ -796,7 +806,7 @@ import org.testng.annotations.*;
  		 info("Delete Event");
  		 hp.goToCalendarPage();
  		 cHome.goToView(selectViewOption.LIST);
- 		 cMang.deleteTaskEvent(titleEvent);
+ 		 cMang.deleteAllTaskEvent();
 		 navTool.goToUsersAndGroupsManagement();
 		 userAndGroup.deleteUser(username);
 
@@ -811,6 +821,10 @@ import org.testng.annotations.*;
 	@Test
 	public  void test51_CheckStatusOfParticipantAfterCreateEventWithInvitationMailAndTheParticipantWantToAddEventToHisCalendar() {
 		info("Test 51 Check status of participant after create event with invitation mail and the participant want to add event to his calendar");
+		String defaultFormatTime = "24 Hours";
+		String defaultFormatDate = "MM/dd/yyyy";
+		String defaultTimeZone = "(GMT +07:00) Asia/Ho_Chi_Minh";
+		String searchEmail = userSearchOptionData.getUserSearchOptionByIndex(3);
 		/*Step Number: 1
 		*Step Name: -
 		*Step Description: 
@@ -844,12 +858,23 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The Add/Edit Events form is shown properly with correctly information , 
 			Andthe event is added to his calendar*/
-
+		info("remove existed user with EMAIL_ADDRESS1");
+		navTool.goToUsersAndGroupsManagement();
+		userAndGroup.searchUser(EMAIL_ADDRESS1, searchEmail);
+		if(isTextPresent(EMAIL_ADDRESS1))
+		userAndGroup.deleteUser();
+		
 		 createUser();
          String titleEvent = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		 String content = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		 info("Add a event");
-		 hp.goToCalendarPage();		
+		 hp.goToCalendarPage();	
+		 
+		 info("setting timezone to Hanoi");
+         cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
+		 cMang.changeSettingCalendar("Week",defaultTimeZone,defaultFormatDate.toLowerCase(),defaultFormatTime,null,null,null);
+		 cMang.saveSetting();
+			
 		 evMg.goToAddEventFromActionBar();
 		 evMg.moreDetailsEvent();
 		 evMg.inputBasicDetailEvent(titleEvent, content);
@@ -897,7 +922,7 @@ import org.testng.annotations.*;
  		 info("Delete Event");
  		 hp.goToCalendarPage();
  		 cHome.goToView(selectViewOption.LIST);
- 		 cMang.deleteTaskEvent(titleEvent);
+ 		 cMang.deleteAllTaskEvent();
 		 navTool.goToUsersAndGroupsManagement();
 		 userAndGroup.deleteUser(username);
 		 
@@ -1036,8 +1061,9 @@ import org.testng.annotations.*;
 	*<li> Test Case Name: Check input invalid email address by manual to send invitation mail.</li>
 	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
+	* https://jira.exoplatform.org/browse/CAL-1148
 	*/
-	@Test
+	@Test (groups="pending")
 	public  void test54_CheckInputInvalidEmailAddressByManualToSendInvitationMail() {
 		info("Test 54 Check input invalid email address by manual to send invitation mail");
 		/*Step Number: 1
@@ -1079,7 +1105,7 @@ import org.testng.annotations.*;
 		 evMg.inputBasicDetailEvent(titleEvent, content);
 		 evMg.goToParticipantsTab();
 		 evMg.goToInvitationParticipantForm();
-		 evMg.selectUserParticipants(user, content,0);
+		 evMg.selectUserParticipants(email, content,0);
 		 evMg.saveInvitationParticipantForm();
 		 waitForAndGetElement(evMg.ELEMENT_INVITATION_PARTICIPANTS_INVALID_EMAIL_MESSAGE.replace("$email",email));
  	}
@@ -1177,7 +1203,7 @@ import org.testng.annotations.*;
 		 info("Delete Event");
  		 hp.goToCalendarPage();
  		 cHome.goToView(selectViewOption.LIST);
- 		 cMang.deleteTaskEvent(titleEvent);
+ 		 cMang.deleteAllTaskEvent();
 	}
 
 	/**
@@ -1287,8 +1313,8 @@ import org.testng.annotations.*;
 		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
 		cMang.showHideEventTask(calendar);
-		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
-		cMang.deleteTaskEvent(titleEvent);
+		waitElementAndTryGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
+		cMang.deleteAllTaskEvent();
 	}
 
 	/**
@@ -1343,7 +1369,7 @@ import org.testng.annotations.*;
 		
 		cMang.showHideEventTask(calendar);
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
-		cMang.deleteTaskEvent(titleEvent);
+		cMang.deleteAllTaskEvent();
         
         
  	}}

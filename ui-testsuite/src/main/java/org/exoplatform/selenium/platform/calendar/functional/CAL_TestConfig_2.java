@@ -22,10 +22,12 @@ import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDat
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
+import org.exoplatform.selenium.platform.objectdatabase.gatein.UserSearchOptionDatabase;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -57,6 +59,7 @@ public class CAL_TestConfig_2 extends PlatformBase {
 	CalendarRemoteDatabase calRemoteData;
 	String username;
 	String firstname;
+	UserSearchOptionDatabase userSearchOptionData;
 	
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
@@ -103,6 +106,9 @@ public class CAL_TestConfig_2 extends PlatformBase {
 		
 		calRemoteData = new CalendarRemoteDatabase();
 		calRemoteData.setData(calRemoteFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		userSearchOptionData = new UserSearchOptionDatabase();
+		userSearchOptionData.setUserSearchOptionData(userSearchOptionFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
 		username="test";
 		info("End setUpBeforeMethod");

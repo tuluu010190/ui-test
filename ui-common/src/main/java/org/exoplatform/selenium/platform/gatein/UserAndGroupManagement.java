@@ -5,8 +5,10 @@ import junit.framework.Assert;
 
 import org.exoplatform.selenium.Dialog;
 import org.exoplatform.selenium.platform.PlatformBase;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.ManageAlert;
 
@@ -59,16 +61,18 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_SELECT_SEARCH_OPTION = "//*[contains(@name,'searchOption')]";
 	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//*[contains(@title,'Quick Search')]";
 	public final String ELEMENT_USER_DELETE_ICON = ".//*[contains(text(),'${username}')]/../..//*[@data-original-title='Delete User']/i";
+	public final String ELEMENT_USER_DELETE_ICON1 = "//*[@data-original-title='Delete User']/i";
 	//message
 	public final String ELEMENT_MSG_SELECT_USER = "Select User";
 	public final String ELEMENT_MSG_TOTAL_PAGES = "Total pages";
 	public final String ELEMENT_MSG_CONFIRM_DELETE_GROUP = "Are you sure you want to delete this group?";
 	public final String ELEMENT_MSG_CONFIRM_DELETE_MEMBERSHIP = "Are you sure you want to delete this membership?";
 	public final String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
-	public final String ELEMENT_MSG_CONFIRM_DELETE = "Are you sure you want to delete ${userName} user account?";
+	public final String ELEMENT_MSG_CONFIRM_DELETE = "Are you sure you want to delete ${userName} user?";
+	public final String ELEMENT_MSG_CONFIRM_DELETE1 = "Are you sure you want to delete";
 	public final String ELEMENT_MSG_RESULT = "No result found.";
 	public final String ELEMENT_MSG_UPDATE_USER_PROFILE = "The user profile has been updated.";
-	
+	public final By ELEMENT_OK_BUTTON = By.xpath("//*[contains(text(),'OK')]");
 	//Account tab
 	public final By ELEMENT_USER_ACCOUNT_INFO_TAB = By.xpath("//*[@data-target='#UIAccountEditInputSet-tab']");
 	public By ELEMENT_EMAIL = By.id("email");
@@ -555,7 +559,8 @@ public class UserAndGroupManagement extends PlatformBase {
 			select(ELEMENT_SELECT_SEARCH_OPTION, searchOption);
 		}
 		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
-		waitForTextPresent(user);
+		if (isTextNotPresent(user))
+			click(ELEMENT_OK_BUTTON);
 	}
 
 	/**
@@ -571,6 +576,7 @@ public class UserAndGroupManagement extends PlatformBase {
 			type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
 			select(ELEMENT_SELECT_SEARCH_OPTION, ELEMENT_MSG_SEARCH_USER_NAME);
 		}
+	
 		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
 		if (waitForAndGetElement( ELEMENT_USER_DELETE_ICON.replace("${username}",
 				username), 2000, 0) != null) {
@@ -589,6 +595,20 @@ public class UserAndGroupManagement extends PlatformBase {
 			dialog.closeMessageDialog();
 			searchUser("", ELEMENT_MSG_SEARCH_USER_NAME);
 			Utils.pause(2000);
+		}
+	}
+	
+	/**
+	 * function: Delete user
+	 */
+	public void deleteUser() {
+		info("--Deleting user ");
+		if (waitForAndGetElement( ELEMENT_USER_DELETE_ICON1, 2000, 0) != null) {
+			Utils.pause(2000);
+			click( ELEMENT_USER_DELETE_ICON1);
+			alert.waitForConfirmation(ELEMENT_MSG_CONFIRM_DELETE1);
+			Utils.pause(1000);
+			waitForElementNotPresent(ELEMENT_USER_DELETE_ICON1);
 		}
 	}
 	/**
