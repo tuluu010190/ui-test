@@ -8,10 +8,10 @@
 		</groups>
 		<classes>
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_TestConfig_2" />
-			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Add_Part3" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Add_Part4" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Manage_Personal_Calendar" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Manage_Group_Calendar" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_BasicActions_Export" />
 		</classes>
 	</test>
 	<listeners>

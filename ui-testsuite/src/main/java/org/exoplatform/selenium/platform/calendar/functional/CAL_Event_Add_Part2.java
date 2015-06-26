@@ -15,7 +15,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
 
-	public class CAL_Event_Add_Part2 extends CAL_TestConfig_2{
+	public class CAL_Event_Add_Part2 extends CAL_TestConfig_4{
 	
 	public void createUser() {
 		int index = userInfoData.getRandomIndexByType(3);

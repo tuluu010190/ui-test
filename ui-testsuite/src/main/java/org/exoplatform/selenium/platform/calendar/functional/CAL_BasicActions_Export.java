@@ -8,7 +8,7 @@ import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfCalen
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
 import org.testng.annotations.Test;
 
-public class CAL_BasicActions_Export extends CAL_TestConfig{
+public class CAL_BasicActions_Export extends CAL_TestConfig_2{
 	/**
 	 *<li> Case ID:116324.</li>
 	 *<li> Test Case Name: Check export format</li>

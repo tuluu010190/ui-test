@@ -12,13 +12,17 @@ import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
 import org.exoplatform.selenium.platform.calendar.TaskManagement;
+import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
+import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-public class CAL_TestConfig_3 extends PlatformBase {
+public class CAL_TestConfig_4 extends PlatformBase {
 	HomePagePlatform hp;
 	ManageLogInOut magAc;
 	Button button;
@@ -34,7 +38,11 @@ public class CAL_TestConfig_3 extends PlatformBase {
 	TextBoxDatabase txData;
 	AttachmentFileDatabase fData;
 	String calendar;
-	
+	UserDatabase userData;
+	UserInfoDatabase userInfoData;
+	UserAddManagement addUserPage;
+	String username;
+	String firstname;
 	
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
@@ -51,6 +59,7 @@ public class CAL_TestConfig_3 extends PlatformBase {
 		cMang = new CalendarManagement(driver);
 		cHome = new CalendarHomePage(driver);
 		tasMg = new TaskManagement(driver);
+		addUserPage = new UserAddManagement(driver);
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -58,8 +67,20 @@ public class CAL_TestConfig_3 extends PlatformBase {
 		fData = new AttachmentFileDatabase();
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
+		userData = new UserDatabase();
+		userData.setUserData(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		
+		userInfoData = new UserInfoDatabase();
+		userInfoData.setUserInfoData(userInfoFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		
 		navTool = new NavigationToolbar(driver);
 		userAndGroup = new UserAndGroupManagement(driver);
+		
+		hp.goToCalendarPage();		
+		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,"Monday",null,null);
+		cMang.saveSetting();
 		
 		calendar="no calendar";
 		info("End setUpBeforeMethod");

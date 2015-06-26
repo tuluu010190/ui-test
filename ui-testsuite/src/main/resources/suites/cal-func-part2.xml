@@ -7,11 +7,13 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_TestConfig" />
-			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Activity_Event_Activity_Update" />
-			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_TestConfig_2" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_TestConfig_4" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Add_Part1" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Add_Part2" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Add_Part3" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_View" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Settings" />
+			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Category" />
 		</classes>
 	</test>
 	<listeners>

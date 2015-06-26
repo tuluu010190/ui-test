@@ -6,7 +6,7 @@ import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainC
 import org.testng.annotations.*;
 
 
-public class CAL_Settings extends CAL_TestConfig{
+public class CAL_Settings extends CAL_TestConfig_4{
 
 	/**
 	 *<li> Case ID:116314.</li>

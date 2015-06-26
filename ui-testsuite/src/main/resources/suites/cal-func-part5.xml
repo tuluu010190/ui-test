@@ -14,7 +14,6 @@
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Popover" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_View" />
 			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_Event_Repeat" />
-			<class name="org.exoplatform.selenium.platform.calendar.functional.CAL_View" />
 		</classes>
 	</test>
 	<listeners>

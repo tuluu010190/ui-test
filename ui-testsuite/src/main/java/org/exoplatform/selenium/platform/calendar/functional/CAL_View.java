@@ -9,7 +9,7 @@ import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainC
 import org.testng.annotations.*;
 
 
-	public class CAL_View extends CAL_TestConfig_3{
+	public class CAL_View extends CAL_TestConfig_4{
 
 	/**
 	*<li> Case ID:116291.</li>

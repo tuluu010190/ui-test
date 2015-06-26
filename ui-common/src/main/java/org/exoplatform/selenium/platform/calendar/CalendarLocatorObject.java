@@ -587,7 +587,24 @@ public class CalendarLocatorObject extends PlatformBase{
   	public String ELEMENT_QUICK_TASK_SELECT_FROM_TIME = "//*[@id='UIQuickAddTask']//*[@id='fromTime']/..//*[@class='UIComboboxLabel' and text()='${time}']";
   	public By ELEMENT_BUTTON_TASK_SAVE = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='Save']");
   	public By ELEMENT_BUTTON_TASK_QUICK_CANCEL = By.xpath("//*[@id='UIQuickAddTaskPopupWindow']//*[text()='Cancel']");
-  	
+  	public String ELEMENT_QUICK_INPUT_TASK_FROM_DATE_VALUE = "//*[@id='UIQuickAddTask']//*[@name='from'][contains(@value,'$value')]";
+  	public String ELEMENT_QUICK_INPUT_TASK_FROM_TIME_VALUE = "//*[@id='UIQuickAddTask']//input[@id='fromTime'][contains(@value,'$value')]";
+  	public String ELEMENT_QUICK_INPUT_TASK_TO_DATE_VALUE = "//*[@id='UIQuickAddEvent']//*[@name='to'][contains(@value,'$value')]";
+  	public By ELEMENT_TASK_LIST_HOUR_FROM_DATE_VALUE = By
+			.xpath("(.//*[@id='UIQuickAddTask']//*[contains(@options,\"['00:00','00:30','01:00','01:30','02:00',"
+					+ "'02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00',"
+					+ "'07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00',"
+					+ "'12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00',"
+					+ "'17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00',"
+					+ "'22:30','23:00','23:30','23:59']\")])[1]");
+	public By ELEMENT_TASK_LIST_HOUR_TO_DATE_VALUE = By
+			.xpath("(.//*[@id='UIQuickAddTask']//*[contains(@options,\"['00:00','00:30','01:00','01:30','02:00',"
+					+ "'02:30','03:00','03:30','04:00','04:30','05:00','05:30','06:00','06:30','07:00',"
+					+ "'07:30','08:00','08:30','09:00','09:30','10:00','10:30','11:00','11:30','12:00',"
+					+ "'12:30','13:00','13:30','14:00','14:30','15:00','15:30','16:00','16:30','17:00',"
+					+ "'17:30','18:00','18:30','19:00','19:30','20:00','20:30','21:00','21:30','22:00',"
+					+ "'22:30','23:00','23:30','23:59']\")])[2]");
+	
   	//Add Task Form (more details )
   	public By ELEMENT_ADD_EDIT_TASK_NAME = By.xpath("//*[@id='UITaskForm']//*[@name='eventName']");
   	public By ELEMENT_ADD_EDIT_TASK_NOTE = By.xpath("//*[@id='UITaskForm']//*[@id='description']");
@@ -606,7 +623,10 @@ public class CalendarLocatorObject extends PlatformBase{
   	public By ELEMENT_BUTTON_TASK_SAVE_DETAILS = By.xpath("//*[@id='UITaskForm']//*[text()='Save']");
   	public By ELEMENT_TASK_FILE_INPUT = By.xpath("//*[@id='upload']//*[@name='file']");
   	public By ELEMENT_ADD_EDIT_TASK_STATUS = By.xpath("//*[@id='UITaskForm']//*[@name='status']");
-
+  	public String ELEMENT_ADD_EDIT_TASK_TO_DATE_VALUE = "//*[@id='UITaskForm']//*[@name='to'][contains(@value,'$value')]";
+  	public String ELEMENT_ADD_EDIT_INPUT_TASK_FROM_TIME_VALUE="//*[@id='UITaskForm']//input[@id='fromTime'][contains(@value,'$time')]";
+  	public String ELEMENT_ADD_EDIT_INPUT_TASK_TO_TIME_VALUE="//*[@id='UITaskForm']//input[@id='fromTime'][contains(@value,'$time')]";
+  	public By ELEMENT_BUTTON_TASK_CANCEL_DETAILS = By.xpath("//*[ @id='UITaskForm']//*[text()='Cancel']");
   	//Attach file form
   	public By ELEENT_SELECT_FILE=By.xpath("//*[@class='uploadButton']/*[@class='btn']");
   	public By ELEMENT_TASK_ADD_ATTACHMENT = By.xpath("//button[contains(@onclick,'AddAttachment')]");

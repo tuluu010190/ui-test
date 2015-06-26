@@ -443,9 +443,12 @@ public class TaskManagement extends CalendarLocatorObject {
 		waitForElementNotPresent(ELEMENT_BUTTON_TASK_QUICK_CANCEL);
 	}
 
+	/**
+	 * Click on cancel button of detail add/edit task
+	 */
 	public void cancelAddEditDetailTask(){
-		click(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);
-		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_CANCEL_DETAILS);
+		click(ELEMENT_BUTTON_TASK_CANCEL_DETAILS);
+		waitForElementNotPresent(ELEMENT_BUTTON_TASK_CANCEL_DETAILS);
 	}
 
 

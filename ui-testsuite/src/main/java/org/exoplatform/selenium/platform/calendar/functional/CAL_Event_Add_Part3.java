@@ -11,7 +11,7 @@ import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainC
 import org.testng.annotations.*;
 
 
-	public class CAL_Event_Add_Part3 extends CAL_TestConfig_2{
+	public class CAL_Event_Add_Part3 extends CAL_TestConfig_4{
 		String password;
 		public void createUser() {
 			int index = userInfoData.getRandomIndexByType(3);

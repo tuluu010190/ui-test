@@ -32,8 +32,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The pop up "Quick Add Event" is displayed
-			- All
-			-day event is created*/
+			- All day event is created*/
 		info("Create a new calendar");
 		calendar = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         hp.goToCalendarPage();
@@ -172,7 +171,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- the list of options is displayed, times values proposed are half hour*/ 
-		info("Add a event");
+		info("the list of options is displayed, times values proposed are half hour");
 		hp.goToCalendarPage();		
 		evMg.goToAddEventFromActionBar();
         waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_LIST_HOUR_TO_DATE_VALUE);
@@ -242,7 +241,7 @@ import org.testng.annotations.*;
         cMang.goToMenuFromMainCalendar(menuOfMainCalendar.ADDCAL);
         cMang.inputDataInDetailTabCalendarForm(calendar, calendar,null);
         cMang.saveAddCalendar();
-        
+		
 		info("Add a event");
 		hp.goToCalendarPage();		
 		cMang.executeActionCalendar(calendar, menuOfCalendarOption.ADDEVENT);
@@ -259,7 +258,6 @@ import org.testng.annotations.*;
 					replace("$value",String.valueOf(timeFromHour)+":00"),2000,2);
 		}
 		evMg.cancelQuickAddEditEvent();
-		cMang.deleteCalendar(calendar);
  	}
 
 	/**
@@ -337,8 +335,8 @@ import org.testng.annotations.*;
 		hp.goToCalendarPage();		
 		evMg.goToAddEventFromActionBar();
 		if(currDay==lastDay){
-			evMg.inputDataEventInQuickForm(titleEvent,content,getDate(-1,"MM/dd/yyyy"),
-					getDate(-2,"MM/dd/yyyy"),false,calendar);
+			evMg.inputDataEventInQuickForm(titleEvent,content,getDate(-2,"MM/dd/yyyy"),
+					getDate(-1,"MM/dd/yyyy"),false,calendar);
 		}else{
 			evMg.inputDataEventInQuickForm(titleEvent,content,getDate(1,"MM/dd/yyyy"),
 					getDate(2,"MM/dd/yyyy"),false,calendar);
@@ -408,8 +406,8 @@ import org.testng.annotations.*;
 		hp.goToCalendarPage();		
 		evMg.goToAddEventFromActionBar();
 		if(currDay==lastDay){
-			evMg.inputDataEventInQuickForm(titleEvent,content,getDate(-1,"MM/dd/yyyy"),
-					getDate(-2,"MM/dd/yyyy"),false,calendar);
+			evMg.inputDataEventInQuickForm(titleEvent,content,getDate(-2,"MM/dd/yyyy"),
+					getDate(-1,"MM/dd/yyyy"),false,calendar);
 		}else{
 			evMg.inputDataEventInQuickForm(titleEvent,content,getDate(1,"MM/dd/yyyy"),
 					getDate(2,"MM/dd/yyyy"),false,calendar);
@@ -475,8 +473,8 @@ import org.testng.annotations.*;
 		hp.goToCalendarPage();		
 		evMg.goToAddEventFromActionBar();
 		if(currDay==lastDay){
-			evMg.inputDataEventInQuickForm(titleEvent,content,getDate(-1,"MM/dd/yyyy"),
-					getDate(-2,"MM/dd/yyyy"),false,calendar);
+			evMg.inputDataEventInQuickForm(titleEvent,content,getDate(-2,"MM/dd/yyyy"),
+					getDate(-1,"MM/dd/yyyy"),false,calendar);
 		}else{
 			evMg.inputDataEventInQuickForm(titleEvent,content,getDate(1,"MM/dd/yyyy"),
 					getDate(2,"MM/dd/yyyy"),false,calendar);
@@ -533,7 +531,6 @@ import org.testng.annotations.*;
         	waitForAndGetElement(cMang.ELEMENT_QUICK_INPUT_EVENT_FROM_TIME_VALUE.
             		replace("$value",String.valueOf(sourceTimeHour+1)+":00"),2000,2);
         evMg.cancelQuickAddEditEvent();
-        cMang.deleteCalendar(calendar);
 
  	}
 

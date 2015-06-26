@@ -10,7 +10,7 @@ import org.exoplatform.selenium.platform.calendar.EventManagement.selectAvailabl
 import org.testng.annotations.*;
 
 
-	public class CAL_Event_Add_Part1 extends CAL_TestConfig_2{
+	public class CAL_Event_Add_Part1 extends CAL_TestConfig_4{
 		String password;
 		public void createNewUser(){
 			info("Add new a user");
