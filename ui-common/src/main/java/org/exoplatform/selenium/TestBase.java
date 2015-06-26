@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TimeZone;
 
 import org.apache.commons.io.FileUtils;
 import org.exoplatform.selenium.platform.ManageLogInOut;
@@ -1574,6 +1575,19 @@ public class TestBase {
 		DateFormat dateFormat = new SimpleDateFormat(format);
 		Date date = new Date();
 		return (dateFormat.format(date)); 
+	}
+	/**
+	 * Get current date with time zone
+	 * @param format
+	 * @param local
+	 * @return current Date with correct time zone
+	 */
+	public String getCurrentDate(String format,String local){
+		DateFormat df = new SimpleDateFormat(format);
+		Date date = new Date();
+		df.setTimeZone(TimeZone.getTimeZone(local));
+		System.out.println("Date and time in"+local+": " + df.format(date));
+		return df.format(date);
 	}
 
 	/**

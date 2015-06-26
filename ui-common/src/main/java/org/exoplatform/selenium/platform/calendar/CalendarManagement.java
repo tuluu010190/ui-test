@@ -89,6 +89,15 @@ public class CalendarManagement extends CalendarLocatorObject{
 			break;
 		}
 	}
+	/**
+	 * Open Calendar setting form from Setting button on Actions Bar
+	 */
+	public void openSettingCalendar(){
+		info("Click on Settings icon");
+		click(ELEMENT_ACTION_BAR_SETTING_ICON);
+		waitForAndGetElement(ELEMENT_CALENDAR_SETTING_FORM);
+		info("Settings Calendar form is shown");
+	}
 	
 
 	/** 
@@ -668,23 +677,11 @@ public class CalendarManagement extends CalendarLocatorObject{
 	/**
 	 * Show/Hide event/task from Calendar list
 	 * @param calendar
-	 * @param isShow
-	 *                      true: check show calendar
-	 * 						false: uncheck calendar
 	 */
-	public void showHideEventTask(String calendar,Boolean isShow){
-		info("Show/Hide an calendar");
-		if(isShow){
-			if(waitForAndGetElement(ELEMENT_CALENDAR_LIST_UNCHECKED.replace("$calendar",calendar),3000,0)!=null){
-				click(ELEMENT_CALENDAR_LIST_UNCHECKED.replace("$calendar",calendar));
-				waitForElementNotPresent(ELEMENT_CALENDAR_LIST_UNCHECKED.replace("$calendar",calendar));
-			}
-		}else {
-			if(waitForAndGetElement(ELEMENT_CALENDAR_LIST_CHECKED.replace("$calendar",calendar),3000,0)!=null){
-				click(ELEMENT_CALENDAR_LIST_CHECKED.replace("$calendar",calendar));
-				waitForElementNotPresent(ELEMENT_CALENDAR_LIST_CHECKED.replace("$calendar",calendar));
-			}
-		}
+	public void showHideEventTask(String calendar){
+		info("Show/Hide event/task");
+		click(ELEMENT_CALENDAR_LIST_ITEM.replace("$calendar",calendar));
+		Utils.pause(2000);
 	}
 
 	/**
@@ -1266,5 +1263,8 @@ public class CalendarManagement extends CalendarLocatorObject{
 		}
 		
 	}
+	
+	
+	
 
 }

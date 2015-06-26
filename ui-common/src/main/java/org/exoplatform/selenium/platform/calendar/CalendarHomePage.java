@@ -1019,6 +1019,21 @@ public class CalendarHomePage extends CalendarLocatorObject{
 		}
 	}
 	/**
+	 * Click on Next arrow to jump to next month in Calendar mini
+	 * @param number
+	 */
+    public void nextMonth(int number){
+    	if(number!=0){
+			info("Jump to next:"+number+" months");
+			for(int i=0;i<number;i++){
+				info("Click on Next arrow");
+				click(ELEMENT_CALENDAR_MINI_NEXT_MONTH);
+				Utils.pause(2000);
+			}
+		}
+	}
+
+	/**
 	 * Click on Previous arrow of header panel to back previous days/weeks/months
 	 * @param number
 	 */
@@ -1030,6 +1045,35 @@ public class CalendarHomePage extends CalendarLocatorObject{
 				click(ELEMENT_PREVIOUS_BUTTON_ANY_VIEW);
 				Utils.pause(2000);
 			}
+		}
+	}
+	/**
+	 * Click on previous arrow to jump to previous month in Calendar mini
+	 * @param number
+	 */
+	public void previousMonth(int number){
+		if(number!=0){
+			info("Jump to previous:"+number+" months");
+			for(int i=0;i<number;i++){
+				info("Click on Previous arrow");
+				click(ELEMENT_CALENDAR_MINI_PREVIOUS_MONTH);
+				Utils.pause(2000);
+			}
+		}
+	}
+	/**
+	 * Show/Hide left panel
+	 */
+	public void showHideLefPanel(){
+		info("Click on the show/hide button");
+		if(waitForAndGetElement(ELEMENT_CALENDAR_MINI,2000,0)!=null){
+			click(ELEMENT_SHOW_HIDE_LEFT_PANEL);
+			waitForElementNotPresent(ELEMENT_CALENDAR_MINI);
+			info("The left panel is hidded");
+		}else{
+			click(ELEMENT_SHOW_HIDE_LEFT_PANEL);
+			waitForAndGetElement(ELEMENT_CALENDAR_MINI);
+			info("The left panel is shown");
 		}
 	}
 }

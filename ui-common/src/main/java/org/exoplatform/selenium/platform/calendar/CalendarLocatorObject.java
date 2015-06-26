@@ -39,13 +39,21 @@ public class CalendarLocatorObject extends PlatformBase{
     public By ELEMENT_SHOW_HIDE_LEFT_PANEL = By.xpath("//div[@id='ShowHideAll']/i");
     
     //Calendar left panel-->Mini calendar
-  	
+    public By ELEMENT_CALENDAR_MINI=By.id("UIMiniCalendar");
+    public final By ELEMENT_CALENDAR_MINI_NEXT_MONTH=By.xpath(".//*[@id='UIMiniCalendar']//*[contains(@class,'uiIconMiniArrowRight')]");
+    public final By ELEMENT_CALENDAR_MINI_PREVIOUS_MONTH=By.xpath(".//*[@id='UIMiniCalendar']//*[contains(@class,'uiIconMiniArrowLeft')]");
+    public final String ELEMENT_CALENDAR_MINI_HEADER_BAR=".//*[@id='UIMiniCalendar']//*[contains(text(),'$month')]";
+    public final String ELEMENT_CALENDAR_MINI_DAY=".//*[@id='UIMiniCalendar']//td[contains(text(),'$day')]";
+    public final String ELEMENT_CALENDAR_MINI_ORDER_DAY="(.//*[@id='UIMiniCalendar']//td)[$number][contains(text(),'$shortDay')]";
+    
   	//Calendar left panel-->Calendar list
   	public By ELEMENT_CALENDAR_PANEL = By.xpath("//div[@class='uiBox uiCalendars']");
 	public By ELEMENT_CALENDAR_MENU_ACTIONS_ICON = By.xpath("//*[@class='uiIconCalSimplePlus uiIconLightGray']");
 	public String ELEMENT_SHARED_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Shared Calendars']/..//*[text()='$calendar']";
 	public String ELEMENT_GROUP_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Group Calendars']/..//*[text()='$calendar']";
 	public String ELEMENT_PERSONAL_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[text()='Personal Calendars']/..//*[text()='$calendar']";
+	public By ELEMENT_PERSONAL_CALENDAR_LIST=By.xpath("//*[@id='UICalendars']//*[text()='Personal Calendars']");
+	public By ELEMENT_GROUP_CALENDAR_LIST=By.xpath("//*[@id='UICalendars']//*[text()='Group Calendars']");
 	public String ELEMENT_CALENDAR_LIST_ITEM="//*[@id='UICalendars']//*[contains(text(),'$calendar')]";
 	public String ELEMENT_CALENDAR_LIST_ITEM_COLOR="//*[@id='UICalendars']//*[text()='$calendar']/..//*[contains(@class,'$color')]";
 	public String ELEMENT_CALENDAR_LIST_UNCHECKED=".//*[contains(@data-original-title,'$calendar')]/..//*[contains(@class,'iconUnCheckBox')]";
@@ -73,8 +81,9 @@ public class CalendarLocatorObject extends PlatformBase{
  	
  	//LIST VIEW-->Header bar
 	public By ELEMENT_CALENDAR_LIST_TAB_SELECT_ALL_CHECKBOX=By.xpath(".//*[@id='UIListUsers']//*[contains(@data-original-title,'Select All')]//input");
-  
-	
+    public By ELEMENT_CALENDAR_LIST_VIEW_SHOW_ALL_ARROW=By.xpath(".//*[contains(@class,'uiIconMiniArrowDown')]");
+	public By ELEMENT_CALENDAR_LIST_VIEW_SHOW_ALL_ITEM_EVENT_ONLY=By.xpath("//*[contains(@onclick,'objectId=Event')]");
+	public By ELEMENT_CALENDAR_LIST_VIEW_SHOW_ALL_ITEM_TASK_ONLY=By.xpath("//*[contains(@onclick,'objectId=Task')]");
    	
     //LIST VIEW-->Grid
   	public final String ELEMENT_EVENT_TASK_LIST_VIEW="//*[@id='UIListView']//*[@class='uiListViewRow']//*[contains(text(),'$name')]";
@@ -96,7 +105,9 @@ public class CalendarLocatorObject extends PlatformBase{
   	public final String ELEMENT_EVENT_TASK_DAY_ONE_DAY=".//*[contains(@class,'tdLine')][contains(@startfull,'$date')]";
   	public final String ELEMENT_EVENT_TASK_DAY_TIME=".//*[@id='UIDayViewGrid']//*[contains(text(),'$name')]/..//*[contains(text(),'$time')]";
     public final String ELEMENT_EVENT_TASK_DATE_TIME_VALUE=".//*[@id='UIDayViewGrid']//td[contains(@startfull,'$time')]"; 
-  	
+    public final String ELEMENT_DAY_VIEW_HEADER_BAR=".//*[@id='UIDayView']//*[contains(@class,'titleHeader')]//*[contains(text(),'$month')]/..[contains(.,'/ $day / $year')]";
+    
+    
     //WEEK VIEW-->Grid
   	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer') and contains(@style,'display: block')]//div[contains(text(),'$name')]";
   	public final String ELEMENT_EVENT_TASK_WEEK_VIEW_ONE_DAY="//*[@id='UIWeekViewGrid']//div[contains(text(),'$name')]";
@@ -109,7 +120,7 @@ public class CalendarLocatorObject extends PlatformBase{
   	public final String ELEMENT_EVENT_TASK_DETAIL_TIME_WEEK_ONE_DAY="//*[@id='UIWeekViewGrid']//*[contains(text(),'$name')]/..//*[contains(.,'$time')]";
   	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING_WEEK_VIEW="(.//*[@id='UIWeekViewGrid']//*[contains(text(),'$name')])[$number]";
   	public final String ELEMENT_EVENT_TASK_WEEK_TIME=".//*[@id='UIWeekViewGrid']//*[contains(text(),'$name')]/..//*[contains(.,'$time')]";
-    
+    public final String ELEMENT_WEEK_VIEW_ORDER_DAY="(.//*[@id='UIWeekView']//td[contains(@class,'uiCellBlock')])[$number][contains(@starttimeFull,'$day')]";
   	
   	
   	//MONTH VIEW-->Grid
@@ -126,15 +137,15 @@ public class CalendarLocatorObject extends PlatformBase{
   	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW_CHECKBOX_DATE="//*[@id='UIMonthView']//*[@class='eventMonthContent']//*[@class='rowContainerDay']/*[contains(@starttimefull,'$date')]//span[contains(text(),'$name')]/../..//input[@type='checkbox']";
   	public String ELEMENT_EVENT_TASK_NUMBER_RECURRING_MONTH_VIEW="(.//*[@id='UIMonthView']//*[contains(text(),'$name')])[$number]";
     public String ELEMENT_EVENT_TASK_DAY_BY_INDEX_MONTH_VIEW=".//*[@cindex='$col' and @rindex='$row']";  
-  	
-  	
+    public final String ELEMENT_MONTH_VIEW_HEADER_BAR=".//*[@id='UIMonthView']//div[contains(text(),'$monthYear')]";
+  	public final String ELEMENT_MONTH_VIEW_ORDER_DAY="(.//*[@id='UIMonthView']//*[contains(@class,'uiCellBlock')])[$number][contains(text(),'$day')]";
   	
     //WORK WEEK VIEW-->Grid
   	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ALL_DAY="//*[@id='UIWeekView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(text(),'$name')]";
   	public final String ELEMENT_EVENT_TASK_WORK_WEEK_VIEW_ONE_DAY="//*[@id='UIWeekView']//div[contains(text(),'$name')]";
   	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ONE_DAY = "//*[@id='UIWeekViewGrid']//*[contains(@startfull,'$date')]//div[contains(text(),'$name')]";
   	public final String ELEMENT_EVENT_TASK_DETAIL_DATE_WORK_WEEK_VIEW_ALL_DAY = "//*[@id='UIWeekViewGridAllDay']//*[contains(@starttimefull,'$date')]//div[contains(text(),'$name')]";
-
+  	public final String ELEMENT_WORK_WEEK_VIEW_ORDER_DAY="(.//*[@id='UIWeekView']//td[contains(@class,'uiCellBlock')])[$number][contains(@starttimeFull,'$day')]";
 	
 	/*-------------------------------------------------------CATEGORY MANAGEMENT--------------------------------------------------------------------------------*/
 	

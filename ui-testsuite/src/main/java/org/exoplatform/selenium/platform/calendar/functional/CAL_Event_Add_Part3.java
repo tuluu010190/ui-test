@@ -147,7 +147,7 @@ import org.testng.annotations.*;
 			All events of this calendar are hidden from working pane*/
 		info("Hide the calendar's event");
 		cHome.goToView(selectViewOption.LIST);
-		cMang.showHideEventTask(calendar, false);
+		cMang.showHideEventTask(calendar);
 		info("All events of this calendar are hidden from working pane");
 		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
@@ -220,7 +220,7 @@ import org.testng.annotations.*;
 			All events of this category are hidden from working pane or list*/
 		info("Hide the calendar's event");
 		cHome.goToView(selectViewOption.LIST);
-		cMang.showHideEventTask(calendar, false);
+		cMang.showHideEventTask(calendar);
 		info("All events of this calendar are hidden from working pane");
 		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		/*Step number: 3
@@ -1228,10 +1228,10 @@ import org.testng.annotations.*;
 		 
 		
 		cHome.goToView(selectViewOption.LIST);
-		cMang.showHideEventTask(calendar, false);
+		cMang.showHideEventTask(calendar);
 		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
-		cMang.showHideEventTask(calendar,true);
+		cMang.showHideEventTask(calendar);
 		waitElementAndTryGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		cMang.deleteTaskEvent(titleEvent);
 		
@@ -1283,11 +1283,11 @@ import org.testng.annotations.*;
 		cHome.verifyIsPresentEventTaskWithDateTime(titleEvent,getDate(0,"MM/dd/yyyy HH")+":00",selectViewOption.LIST, selectDayOption.ONEDAY);
 		 
 		cHome.goToView(selectViewOption.LIST);
-		cMang.showHideEventTask(calendar, false);
+		cMang.showHideEventTask(calendar);
 		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
-		cMang.showHideEventTask(calendar,true);
-		waitElementAndTryGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
+		cMang.showHideEventTask(calendar);
+		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		cMang.deleteTaskEvent(titleEvent);
 	}
 
@@ -1338,10 +1338,10 @@ import org.testng.annotations.*;
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 
 		cHome.goToView(selectViewOption.LIST);
-		cMang.showHideEventTask(calendar, false);
+		cMang.showHideEventTask(calendar);
 		waitForElementNotPresent(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		
-		cMang.showHideEventTask(calendar,true);
+		cMang.showHideEventTask(calendar);
 		waitForAndGetElement(cMang.ELEMENT_EVENT_TASK_TITLE.replace("${name}",titleEvent));
 		cMang.deleteTaskEvent(titleEvent);
         

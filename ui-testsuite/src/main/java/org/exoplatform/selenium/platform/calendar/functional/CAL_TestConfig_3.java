@@ -6,12 +6,14 @@ import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
 import org.exoplatform.selenium.platform.calendar.TaskManagement;
 import org.exoplatform.selenium.platform.calendar.CalendarManagement.menuOfMainCalendar;
+import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.testng.annotations.AfterMethod;
@@ -26,6 +28,9 @@ public class CAL_TestConfig_3 extends PlatformBase {
 	TaskManagement tasMg;
 	CalendarManagement cMang;
 	CalendarHomePage cHome;
+	
+	NavigationToolbar navTool;
+	UserAndGroupManagement userAndGroup;
 	
 	TextBoxDatabase txData;
 	AttachmentFileDatabase fData;
@@ -54,11 +59,12 @@ public class CAL_TestConfig_3 extends PlatformBase {
 		fData = new AttachmentFileDatabase();
 		fData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
-		
+		navTool = new NavigationToolbar(driver);
+		userAndGroup = new UserAndGroupManagement(driver);
 		
 		hp.goToCalendarPage();		
 		cMang.goToMenuFromMainCalendar(menuOfMainCalendar.CALSETTING);
-		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,null,null,null);
+		cMang.changeSettingCalendar(null,"(GMT +07:00) Asia/Ho_Chi_Minh",null,null,"Monday",null,null);
 		cMang.saveSetting();
 		calendar="no calendar";
 		info("End setUpBeforeMethod");
