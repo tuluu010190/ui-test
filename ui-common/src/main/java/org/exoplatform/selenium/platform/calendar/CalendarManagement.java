@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.PlatformPermission;
 import org.exoplatform.selenium.platform.calendar.CalendarHomePage.selectViewOption;
 import org.exoplatform.selenium.platform.calendar.EventManagement.recurringType;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.JavascriptExecutor;
@@ -1224,8 +1225,58 @@ public class CalendarManagement extends CalendarLocatorObject{
 		info("Open list View");
 		cHome.goToView(selectViewOption.LIST);
 		info("Click on the event/task");
-		click(ELEMENT_EVENT_TASK_TITLE.replace("${name}",name));
+		click(ELEMENT_EVENT_TASK_LIST_VIEW.replace("$name",name));
 		waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_LIST_VIEW.replace("$name",name));
+	}
+	/**
+	 * View large image of Task/Event in List View
+	 * @param number
+	 *             the number of images as: =1 is first image;=2 is second image;...
+	 */
+	public void viewLargeImageInList(String number,boolean verify){
+		info("Click on image");
+		Dimension size_img=waitForAndGetElement(ELEMENT_EVENT_TASK_DETAIL_IMAGE_THUMBNAIL.
+				replace("$number",number)).getSize();
+		mouseOver(ELEMENT_EVENT_TASK_DETAIL_IMAGE_THUMBNAIL_CONTAINER.replace("$number",number),true);
+		click(ELEMENT_EVENT_TASK_DETAIL_IMAGE_THUMBNAIL_VIEW.replace("$number",number));
+		
+		if(verify==true){
+			Dimension size_large_img=waitForAndGetElement(ELEMENT_EVENT_TASK_LARGE_IMAGE).getSize();
+			if(size_large_img.width>size_img.width && size_large_img.height>size_img.height){
+				if(size_large_img.width==170 || size_large_img.height==170)
+					assert true;
+				else assert false:"Large image is incorrect size";
+			}else assert false:"Large image is not shown";
+		}
+		Utils.pause(2000);
+		info("Large image is shown");
+	}
+	/**
+	 * Close large image of task/event in list view
+	 * @param verify
+	 */
+	public void closeViewLargeImageInList(boolean verify){
+		info("Click on Close button");
+		click(ELMEENT_EVENT_TASK_LARGE_IMAGE_CLOSE);
+		if(verify==true){
+			Dimension size_large_img=driver.findElement(ELEMENT_EVENT_TASK_LARGE_IMAGE).getSize();
+			info("size_large_img.width:"+size_large_img.width);
+			info("size_large_img.height:"+size_large_img.height);
+			if(size_large_img.width==0 && size_large_img.height==0)
+				assert true;
+			else assert false:"Large image can not closed";
+		}
+		Utils.pause(2000);
+	}
+	/**
+	 * Click on large image of task/event in List view to download the image
+	 */
+	public void downloadImageInList(){
+		if(waitForAndGetElement(ELEMENT_EVENT_TASK_LARGE_IMAGE).getSize().width>0){
+			info("Click on large image");
+			click(ELEMENT_EVENT_TASK_LARGE_IMAGE_DOWNLOAD);
+		}
+		Utils.pause(2000);
 	}
 	/**
 	 * Open Quick Add Event/Tasks by drag and drop row's time in Day view

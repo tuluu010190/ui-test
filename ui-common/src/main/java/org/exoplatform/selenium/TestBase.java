@@ -1063,7 +1063,7 @@ public class TestBase {
 					info("use javasript to click");
 					clickByJavascript(locator, notDisplay);
 				}
-				else{
+			else{
 					info("click element");
 					actions.click(element).perform();
 				}

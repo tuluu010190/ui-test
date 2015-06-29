@@ -6,15 +6,18 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.text.ParseException;
+
 import org.exoplatform.selenium.Utils;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class TaskManagement extends CalendarLocatorObject {
 
-	CalendarHomePage cHome;
+	//CalendarHomePage cHome;
 	public TaskManagement(WebDriver dr){
 		driver = dr;
-		cHome = new CalendarHomePage(driver);
+		//cHome = new CalendarHomePage(driver);
 	}
 
 
@@ -60,7 +63,7 @@ public class TaskManagement extends CalendarLocatorObject {
 			info("Selected date is current date" + tempTime);
 		}
 
-		String cell = cHome.ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", tempDate2).replace("$time", tempTime);
+		String cell = ELEMENT_CELL_TO_WORKING_PANEL.replace("$date", tempDate2).replace("$time", tempTime);
 		rightClickOnElement(cell);
 		click(ELEMENT_CONTEXT_MENU_ADD_TASK);
 		waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP);
@@ -72,7 +75,7 @@ public class TaskManagement extends CalendarLocatorObject {
 	 */
 	public void goToAddTaskFromActionBar(){
 		info("Go to Add Task page from action bar"); 
-		click(cHome.ELEMENT_BUTTON_TASK);
+		click(ELEMENT_BUTTON_TASK);
 		waitForAndGetElement(ELEMENT_QUICK_ADD_TASK_POPUP);
 	}
 
@@ -254,20 +257,30 @@ public class TaskManagement extends CalendarLocatorObject {
 
 	/**
 	 * Attach file in "Add new task" form
-	 * 
 	 * @param path
-	 * 				path of attachment of a task
+	 * @param opt
 	 */
-	public void attachFileToTask(String path){
-		String[] links = path.split("/");
+	public void attachFileToTask(String path, Boolean... opt) {
+		String fullPath = "";
+		if ("win".equals(server)) {
+			fullPath = "TestData\\" + path;
+		} else {
+			
+			fullPath = "TestData/" + path;
+		}
+		info("fullPath:"+fullPath);
 		click(ELEMENT_TASK_ADD_ATTACHMENT);
 		click(ELEENT_SELECT_FILE);
-		uploadFileUsingRobot(path);
-		waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace("$fileName", links[links.length-1]));
-		click(ELEMENT_ATTACHMENT_SAVE_BUTTON);
-		waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName", links[links.length-1]));
-
-	}	
+		uploadFileUsingRobot(fullPath);
+		info("opt.length:" + opt.length);
+		if (opt.length == 0) {
+			waitForAndGetElement(ELEMENT_ATTACHMENT_FORM_FILE_NAME.replace(
+					"$fileName", path));
+			click(ELEMENT_ATTACHMENT_SAVE_BUTTON, 0, true);
+			waitForAndGetElement(ELEMENT_ATTACH_FILE_NAME.replace("$fileName",
+					path));
+		}
+	}
 
 	/**
 	 * Check default suggestion task time in detail add form
@@ -477,6 +490,26 @@ public class TaskManagement extends CalendarLocatorObject {
 	public void removeAttachment(String file){
 		click(ELEMENT_TASK_ATTACHMENT.replace("${file}", "Remove"));
 		waitForElementNotPresent(ELEMENT_TASK_ATTACHMENT.replace("${file}", file));
+	}
+	
+	
+	/**
+	 * Attach file without robot framework
+	 * @param pathFile
+	 *              as:"TestData/filename"
+	 */
+	public void attachFilebDetailsTask(String pathFile){
+		click(ELEMENT_TASK_ADD_ATTACHMENT);
+		WebElement upload = waitForAndGetElement(ELEMENT_ADD_EVENT_UPLOAD_FILE,DEFAULT_TIMEOUT,1,2);
+		String path = Utils.getAbsoluteFilePathFromFile(pathFile);
+		((JavascriptExecutor)driver).executeScript("arguments[0].style.display='block';",upload);
+		upload.sendKeys(path);
+		waitForAndGetElement(ELEMENT_ADD_EVENT_TASK_UPLOAD_FINISH);
+		String[] links = pathFile.split("/");
+		waitForAndGetElement(ELEMENT_ATTACH_FILE_LABEL.replace("${file}", links[links.length - 1]),60000);
+		click(ELEMENT_ATTACH_FILE_SAVE_BUTTON);
+		waitForAndGetElement(ELEMENT_ADD_EVENT_FILE_ATTACHED.replace("${file}", links[links.length - 1]));
+
 	}
 
 }

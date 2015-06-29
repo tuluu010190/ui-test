@@ -96,8 +96,15 @@ public class CalendarLocatorObject extends PlatformBase{
   	public By ELEMENT_CALENDAR_ROW_TAB_LIST=By.xpath(".//*[@id='UIListUsers']//td[1]");
    	public By ELMENT_CALENDAR_TAB_LIST_EMPTY=By.xpath(".//*[@id='UIListUsers']//*[contains(@class,'empty')]");
 	public By ELEMENT_EVENT_TASK_DETAIL_IMAGE_VIEW=By.xpath(".//*[@id='UIPreview']//*[contains(@class,'columnLeft')]//*[@class='view']");
-    public By ELEMENT_EVENT_TASK_DETAIL_IMAGE_THUMBNAIL=By.xpath(".//*[@id='UIPreview']//*[contains(@class,'columnLeft')]//*[@class='thumbnailContainer']");
-	public By ELEMENT_EVENT_TASK_DETAIL_ATTACHMENT_ICON=By.xpath(".//*[@id='UIPreview']//*[contains(@class,'columnLeft')]//*[contains(@class,'uiIcon16x16nt_file')]");
+    public String ELEMENT_EVENT_TASK_DETAIL_IMAGE_THUMBNAIL="(.//*[@id='UIPreview']//*[contains(@class,'columnLeft')]//*[@class='thumbnail'])[$number]";
+    public String ELEMENT_EVENT_TASK_DETAIL_IMAGE_THUMBNAIL_CONTAINER=".//*[@class='thumbnailContainer'][$number]";
+    public String ELEMENT_EVENT_TASK_DETAIL_IMAGE_THUMBNAIL_VIEW=".//*[@class='thumbnailContainer'][1]//*[@class='view']";
+    public By ELEMENT_EVENT_TASK_DETAIL_ATTACHMENT_ICON=By.xpath(".//*[@id='UIPreview']//*[contains(@class,'columnLeft')]//*[contains(@class,'uiIcon16x16nt_file')]");
+    public By ELEMENT_EVENT_TASK_LARGE_IMAGE=By.xpath(".//*[@id='imagePreviewContainer']");
+    public By ELEMENT_EVENT_TASK_LARGE_IMAGE_DOWNLOAD=By.xpath(".//*[@id='imagePreviewContainer']//*[@id='downloadImage']");
+    public By ELMEENT_EVENT_TASK_LARGE_IMAGE_CLOSE=By.xpath(".//*[@id='closeButton']//*[contains(@class,'uiIconClose')]");
+    
+    
     
     //DAY VIEW-->Grid
   	public final String ELEMENT_EVENT_TASK_DAY_VIEW_ALL_DAY="//*[@id='UIDayView']//*[@class='eventAllDay']//*[contains(@class,'eventContainer')]//div[contains(.,'$name')]";
@@ -384,6 +391,13 @@ public class CalendarLocatorObject extends PlatformBase{
 	public String ELEMENT_BUTTON_SEARCH_ADVANCE_SEARCH = "//*[@id='UIAdvancedSearchForm']//button[contains(text(),'Search')]";
 
 	//*----------------------------------------------------EVENT MANAGEMANT------------------------------------------------------------------------*\\
+	//Upload form
+	public By ELEMENT_ADD_EVENT_UPLOAD_FILE = By.xpath("//*[@name='file']");
+	public String ELEMENT_ATTACH_FILE_LABEL = "//div[@class='fileNameLabel' and contains(text(),'${file}')]";
+	public By ELEMENT_ATTACH_FILE_SAVE_BUTTON = By.xpath("//form[@id='UIAttachFileForm']//button[text()='Save']");
+	public String ELEMENT_ADD_EVENT_FILE_ATTACHED = "//a[@data-original-title='${file}']";
+	public By ELEMENT_ADD_EVENT_TASK_UPLOAD_FINISH=By.xpath(".//*[contains(@class,'pull-left percent')][text()='100%']");
+	
 	//ADD QUICK EVENT FORM
 	public By ELEMENT_CALENDAR_QUICK_ADD_EVENT_FORM = By.id("UIQuickAddEventPopupWindow");
 	public By ELEMENT_QUICK_ADD_EVENT_POPUP = By.id("UIQuickAddEventPopupWindow");
