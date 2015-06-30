@@ -154,6 +154,9 @@ public class TestBase {
 	protected String calTabNameFilePath;
 	protected String calCommentsFilePath;
 	protected String calRemoteFilePath;
+	
+	//Task Management
+	protected String colorNamefilePath;
 
 
 	protected String notiDesFilePath;
@@ -251,6 +254,9 @@ public class TestBase {
 	public final String DEFAULT_CALENDAR_COMMENTS_URL="DataDriven/"+"cal_comments.xls";
 	public final String DEFAULT_CALENDAR_REMOTE_URL="DataDriven/"+"cal_remote.xls";
 
+	//Task Management
+	public final String DEFAULT_COLOR_FILE_URL="DataDriven/"+"color.xls";
+	
 	/*======= Welcome Screen (Term and Conditions) =====*/
 	public final By ELEMENT_FIRSTNAME_ACCOUNT = By.name("firstNameAccount");
 	public final By ELEMENT_LASTNAME_ACCOUNT = By.name("lastNameAccount");
@@ -377,6 +383,9 @@ public class TestBase {
 		calTabNameFilePath =System.getProperty("calTabNameFilePath");
 		calCommentsFilePath =System.getProperty("calCommentsFilePath");
 		calRemoteFilePath = System.getProperty("calRemoteFilePath");
+		
+		//Task Management
+		colorNamefilePath =System.getProperty("colorNamefilePath");
 
 
 		if (ssoType==null) ssoType = DEFAULT_SSOTYPE;
@@ -462,6 +471,9 @@ public class TestBase {
 		if (calTabNameFilePath==null) calTabNameFilePath=DEFAULT_CALENDAR_TAB_NAME_URL;
 		if (calCommentsFilePath==null) calCommentsFilePath=DEFAULT_CALENDAR_COMMENTS_URL;
 		if (calRemoteFilePath==null) calRemoteFilePath=DEFAULT_CALENDAR_REMOTE_URL;
+		
+		//Task Management
+		if (colorNamefilePath==null) colorNamefilePath=DEFAULT_COLOR_FILE_URL;
 
 		userDataFilePath = getAbsoluteFilePath(userDataFilePath);
 		userInfoFilePath = getAbsoluteFilePath(userInfoFilePath);
@@ -526,6 +538,9 @@ public class TestBase {
 		calTabNameFilePath =getAbsoluteFilePath(calTabNameFilePath);
 		calCommentsFilePath=getAbsoluteFilePath(calCommentsFilePath);
 		calRemoteFilePath = getAbsoluteFilePath(calRemoteFilePath);
+		
+		//Task Management
+		colorNamefilePath = getAbsoluteFilePath(colorNamefilePath);
 	}
 
 	/**
