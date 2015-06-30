@@ -761,4 +761,27 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_ACCOUNT_NAME_LINK);
 		click(ELEMENT_NOTIFICATION_SETTING_MENU);
 	}
+	
+	/** Go to My Wiki
+	 * @author anhpp
+	 */
+	public void goToMyWiki(){
+		info("--Go to My Wiki--");		
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				info("--Error mouse over and click: can't mouseover, need to use mouse over and click --");
+				break;
+			}
+			mouseOver(ELEMENT_ACCOUNT_NAME_LINK, true);
+			if (waitForAndGetElement(ELEMENT_MY_WIKI, 5000, 0) != null){
+				info("Element " + ELEMENT_MY_WIKI + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		click(ELEMENT_MY_WIKI);
+		waitForAndGetElement(ELEMENT_MY_WIKI_TAB);
+	}
+    
 }

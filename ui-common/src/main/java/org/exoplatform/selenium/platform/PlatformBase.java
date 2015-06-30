@@ -35,7 +35,7 @@ public class PlatformBase extends TestBase {
 
 	public final String DATA_USER3 = "james";
 	public final String DATA_USER4 = "demo";
-	
+
 	public final String DATA_USER5 = "fqa";
 	public final String DATA_PASS5 = "gtngtn";
 
@@ -210,7 +210,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_MY_SETTING = By.className("uiIconSetting");
 	public final By ELEMENT_MY_ACTIVITY_STREAM = By.className("uiIconPLFActivityStream");
 	public final By ELEMENT_MY_CONNECTIONS = By.className("uiIconPLFMyConnection");
-	public final By ELEMENT_MY_WIKI = By.xpath("//a[contains(.,'My Wiki')]");
+	public final By ELEMENT_MY_WIKI = By.xpath("//i[@class='uiIconWikiMyWiki']/..");
 	public final String ELEMENT_LINE_BETWEEN_MENU = "//*[@class='divider'][${index}]";
 	public final By ELEMENT_NOTIFICATION_SETTING_MENU = By.xpath("//*[@id='UIUserPlatformToolBarPortlet']//a[contains(.,'Notifications')]");
 
@@ -822,7 +822,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_QUICK_SEARCH_BOX_RESULTS=".//*[@id='quickSearchResult{$position}']/*[contains(.,'{$result}')]";
 	public final By ELEMENT_SEE_ALL_SEARCH_RESULTS = By.xpath("//*[@class='uiQuickSearchResult']//*[contains(@id,'seeAll')]");
 	public final By ELEMENT_RESULT_SEARCH_PAGE = By.id("resultPage");
-	public final String ELEMENT_RESULT_CONTENT_DETAIL = "//*[text()='${text}']/../../..//*[@class='content']/*[@class='detail']";
+	public final String ELEMENT_RESULT_CONTENT_DETAIL = "//*[contains(.,'${text}')]/../../..//*[@class='content']/*[@class='detail']";
 	public final By ELEMENT_TOOLBAR_SEARCH = By.id("ToolBarSearch");
 
 	public final String ELEMENT_TOPIC_POST_TITLE= "//*[@class='postViewTitle'][contains(text(),'${titleTopic}')]";
@@ -1564,25 +1564,25 @@ public class PlatformBase extends TestBase {
 		Boolean checkOrNo = (Boolean)(opParams.length > 0 ? opParams[0]: true);
 		String parentWindow = driver.getWindowHandle();
 		info("parentWindow:"+parentWindow);
-		  for(String windowHandle  : driver.getWindowHandles()){
-			     driver.switchTo().window(windowHandle);
-			     info("driver.title:"+driver.getTitle());
+		for(String windowHandle  : driver.getWindowHandles()){
+			driver.switchTo().window(windowHandle);
+			info("driver.title:"+driver.getTitle());
 		}
 		if (opParams.length > 0) {
 			info("Verify the email notification");
 			if (checkOrNo == true)
 				waitForAndGetElement(locator,30000,1);
-            else 
-            	waitForElementNotPresent(locator,30000,1);
+			else 
+				waitForElementNotPresent(locator,30000,1);
 		}
 		if(opParams.length>1){
 			info("Click on the email");
 			click(locator);
 			Utils.pause(2000);
 			for(String windowHandle  : driver.getWindowHandles()){
-			     driver.switchTo().window(windowHandle);
-			     info("driver.title:"+driver.getTitle());
-		    }			
+				driver.switchTo().window(windowHandle);
+				info("driver.title:"+driver.getTitle());
+			}			
 		}
 	}
 	/**
@@ -1612,38 +1612,38 @@ public class PlatformBase extends TestBase {
 		Utils.pause(1000);
 		info("Check and delete mail successfully");
 	}
-	
-    /**
-     * function: check content of mail then delete mail
-     * @param mail: element title of mail
-     * @param content: mail content
-     * @throws AWTException 
-     */
-    public void checkAndDeleteMailUsingRobot(By mail, String content) throws AWTException{
-            info("Check and delete mail");
-	                waitElementAndTryGetElement(mail,30000);
-                    Robot robot = new Robot();
-	 
-	                if(driver.findElement(ELEMENT_FIRST_NEW_MAIL) != null) {
-	                        click(ELEMENT_FIRST_NEW_MAIL);}
-	                else {
-	                        click(ELEMENT_FIRST_MAIL);
-	                }
- 
-	                info("Found notify mail");
-            Utils.pause(10000);
-            info("delete mail");
-            info("Check the mail want to delete");
-            robot.keyPress(KeyEvent.VK_OPEN_BRACKET);
-            robot.keyRelease(KeyEvent.VK_OPEN_BRACKET);
-            info("Click delete mail button");
-            waitForAndGetElement(ELEMENT_DELETE_MAIL_BUTTON, 3000,0);
-            click(ELEMENT_DELETE_MAIL_BUTTON);
-            Utils.pause(1000);
-            info("Check and delete mail successfully");
-            
-    }
-	
+
+	/**
+	 * function: check content of mail then delete mail
+	 * @param mail: element title of mail
+	 * @param content: mail content
+	 * @throws AWTException 
+	 */
+	public void checkAndDeleteMailUsingRobot(By mail, String content) throws AWTException{
+		info("Check and delete mail");
+		waitElementAndTryGetElement(mail,30000);
+		Robot robot = new Robot();
+
+		if(driver.findElement(ELEMENT_FIRST_NEW_MAIL) != null) {
+			click(ELEMENT_FIRST_NEW_MAIL);}
+		else {
+			click(ELEMENT_FIRST_MAIL);
+		}
+
+		info("Found notify mail");
+		Utils.pause(10000);
+		info("delete mail");
+		info("Check the mail want to delete");
+		robot.keyPress(KeyEvent.VK_OPEN_BRACKET);
+		robot.keyRelease(KeyEvent.VK_OPEN_BRACKET);
+		info("Click delete mail button");
+		waitForAndGetElement(ELEMENT_DELETE_MAIL_BUTTON, 3000,0);
+		click(ELEMENT_DELETE_MAIL_BUTTON);
+		Utils.pause(1000);
+		info("Check and delete mail successfully");
+
+	}
+
 	public void uploadFileFromTopNavigation(String driveName, boolean upload, String folderPath, String selectFileName, String uploadFileName, Object...params) {
 		String newFolder = (String) (params.length > 0 ? params[0] : "");
 		alert = new ManageAlert(driver);

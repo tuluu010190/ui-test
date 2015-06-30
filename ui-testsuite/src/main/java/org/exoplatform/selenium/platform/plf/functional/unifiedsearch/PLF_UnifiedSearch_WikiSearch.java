@@ -47,15 +47,15 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 	
 	/*
 	 * ==look for wiki in spaces were user has access to==
-	 * Test ID : 104371
+	 * Test ID : 121522
 	 * Step 1 : search for Cloud
 	 * Step 2 : set view permission to the page in marketing, search for "cloud"
 	 */
 	@Test
 	public void test01_LookForWikiInSpacesWereUserHasAccessTo(){
 		String texteWiki="Qu est ce que le Cloud ? Demandons a steve job et Amazon";
-		String spaceName1="Engineering104371";
-		String spaceName2="Marketing104371";
+		String spaceName1="Engineering121522";
+		String spaceName2="Marketing121522";
 		String wikiMary="Wiki page of mary";
 		String wikiEngi="Wiki in engi";
 		String wikiIntra="Intranet Wiki";
@@ -78,7 +78,6 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		magMember.goToSpaceMenu("Wiki");
 		ba.addBlankWikiPage(wikiEngi, texteWiki, 0);
 		
-		
 		magMember.goToMySpacePage();
 		magMember.addNewSpace(spaceName2, "");
 		info("New space added : "+spaceName2);
@@ -97,9 +96,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		info("Connect with mary ");
 		magAcc.signIn(DATA_USER2, DATA_PASS);
 		
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		info("Add a personal page by mary williams and give permission to James");
 		ba.addBlankWikiPage(wikiMary, texteWiki, 0);
 		ba.addSpacePermission(1, userGroupToAddPermission);
@@ -111,9 +108,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		info("Connect with James ");
 		magAcc.signIn(DATA_USER3, DATA_PASS);
 		
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		info("James add a personnal page in wiki");
 		ba.addBlankWikiPage(wikiJame, texteWiki, 0);
 		
@@ -161,9 +156,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		/*
 		 *  delete data
 		 */
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		String[] deleteWikiPage2 = {"Wiki Home/wiki page of james"};
 		ba.deleteWikiPage(deleteWikiPage2);
 		info("Wiki page of James deleted");
@@ -188,13 +181,9 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		
 		info("Connect with Mary ");
 		magAcc.signIn(DATA_USER2, DATA_PASS);
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		ba.deleteSpacePermission("james");
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		String[] deleteWikiPage1 = {"Wiki Home/Wiki page of mary"};
 		ba.deleteWikiPage(deleteWikiPage1);
 		info("Wiki page of Mary deleted");
@@ -203,7 +192,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 	
 	/*
 	 * ==user must have permission to view wiki page results==
-	 * Test ID : 104373
+	 * Test ID : 121842
 	 * Step 1 : search for "WIKI_SEARCH_05"
 	 */
 	@Test
@@ -217,9 +206,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		/*
 		 * Pre conditions
 		 */
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		info("Add a personal page john : WIKI_SEARCH_05 KO");
 		ba.addBlankWikiPage(wikiPageNotVisible, texteWiki, 0);
 		info("Disconnect John");
@@ -228,9 +215,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		
 		info("Connect with Mary ");
 		magAcc.signIn(DATA_USER2, DATA_PASS);
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		info("Add a personal page by mary williams and give permission to James. page : WIKI_SEARCH_05 OK");
 		ba.addBlankWikiPage(wikiPageVisible, texteWiki, 0);
 		ba.addSpacePermission(1, userGroupToAddPermission);
@@ -257,13 +242,9 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		 */
 		info("Connect with mary ");
 		magAcc.signIn(DATA_USER2, DATA_PASS);
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		ba.deleteSpacePermission("james");
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		String[] deleteWikiPage1 = {"Wiki Home/WIKI_SEARCH_05 OK"};
 		ba.deleteWikiPage(deleteWikiPage1);
 		info("Wiki page of Mary deleted");
@@ -273,9 +254,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		
 		info("Connect with John ");
 		magAcc.signIn(DATA_USER1, DATA_PASS);
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		String[] deleteWikiPage2 = {"Wiki Home/WIKI_SEARCH_05 KO"};
 		ba.deleteWikiPage(deleteWikiPage2);
 		info("Wiki page of john deleted");
@@ -284,7 +263,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 	
 	/*
 	 * ==wiki quick search results display==
-	 * Test ID : 104369
+	 * Test ID : 121883
 	 * Step 1 : in quick search field type 3.5
 	 */
 	@Test
@@ -294,9 +273,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		/*
 		 *Pre condition 
 		 */
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		info("Add a personal page john : Gatein 3.5 Release Notes");
 		ba.addBlankWikiPage(titleWikiPage, contentWikiPage, 0);
 		
@@ -311,9 +288,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		/*
 		 * Delete data
 		 */
-		ba.goToWiki();
-		click(ba.ELEMENT_SPACE_SWITCHER_BREADCRUMB);
-		click(ba.ELEMENT_SPACE_SWITCHER_AVATAR_MYWIKI);
+		navTool.goToMyWiki();
 		String[] deleteWikiPage2 = {"Wiki Home/Gatein 3.5 Release Notes"};
 		ba.deleteWikiPage(deleteWikiPage2);
 		
@@ -321,7 +296,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 	
 	/*
 	 * ==wiki result opens with permalink==
-	 * Test ID : 104374
+	 * Test ID : 121884
 	 * Step 1 : - search for "Gatein"
 	 * 			- click on the result link
 	 */
@@ -360,14 +335,15 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 	
 	/*
 	 * ==wiki results display==
-	 * Test ID : 104370
-	 * Step 1 : - search for 3.5
+	 * Test ID : 121885
+	 * Step 1 : - search for gatein
 	 */
 	@Test
 	public void test05_WikiResultDisplay(){
 		String wikiTitle="Gatein 3.5 Release Notes";
 		String wikiContent="Gatein 3.5 has been released on jboss.org - New features are awesome";
-		String spaceName="Engineering104370";
+		String spaceName="Engineering1043701";
+		String wikiTitleWithoutKeyword = "3.5 Release Notes";
 		
 		String dateCreation=null;
 		String moisCreation=null;
@@ -383,12 +359,12 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		dateCreation=getDate(0,"d, yyyy h:");
 
 		
-		qsPage.quickSearch("3");
-		qsPage.searchInSearchPage("3");
+		qsPage.quickSearch("gatein");
+		qsPage.searchInSearchPage("gatein");
 		info("Search result for : gatein ");
 		// Check the title
 		waitForAndGetElement(qsPage.ELEMENT_RESULT_ITEM.replace("${keySearch}", wikiTitle));
-		String contentDetail = waitForAndGetElement(ELEMENT_RESULT_CONTENT_DETAIL.replace("${text}", wikiTitle)).getText();
+		String contentDetail = waitForAndGetElement(ELEMENT_RESULT_CONTENT_DETAIL.replace("${text}", wikiTitleWithoutKeyword)).getText();
 		// check space name
 		assert contentDetail.contains(spaceName);
 		// check date creation
@@ -396,7 +372,7 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		assert contentDetail.contains(dateCreation);
 		String contentMain= waitForAndGetElement(ELEMENT_RESULT_SEARCH_PAGE).getText();
 		assert contentMain.contains(wikiContent);
-		waitForAndGetElement(qsPage.ELEMENT_SEARCH_RESULT_EMPHASIZE.replace("${text}", "3"));
+		waitForAndGetElement(qsPage.ELEMENT_SEARCH_RESULT_EMPHASIZE.replace("${text}", "Gatein"));
 		
 		/*
 		 * Delete data

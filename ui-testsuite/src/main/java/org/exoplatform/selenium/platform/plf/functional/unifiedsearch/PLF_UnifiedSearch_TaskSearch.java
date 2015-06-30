@@ -219,8 +219,9 @@ public class PLF_UnifiedSearch_TaskSearch extends CalendarBase {
 	 * ==task fields weight order==
 	 * ID Test : 104364
 	 * Step 1 : search for diner
+	 * https://jira.exoplatform.org/browse/CAL-1007
 	 */
-	@Test(groups ="pending")
+	@Test
 	public void test06_TaskFieldsWeightOrder(){
 		String diner="Diner";
 		String taskname2="task 2";
@@ -244,9 +245,9 @@ public class PLF_UnifiedSearch_TaskSearch extends CalendarBase {
 		qsPage.quickSearch(diner);
 		info("Search for Diner");
 		// Look of the task one named " Diner " is the first element
-		waitForAndGetElement((qsPage.ELEMENT_RESULT_ITEM_ORDER_BY.replace("${keySearch}", diner).replace("{$index}","1")));
+		waitForAndGetElement((qsPage.ELEMENT_RESULT_ITEM_ORDER_BY.replace("${keySearch}", diner).replace("{$index}","2")));
 		// Look of the task two is the second element
-		waitForAndGetElement((qsPage.ELEMENT_RESULT_ITEM_ORDER_BY.replace("${keySearch}", taskname2).replace("{$index}","2")));
+		waitForAndGetElement((qsPage.ELEMENT_RESULT_ITEM_ORDER_BY.replace("${keySearch}", taskname2).replace("{$index}","1")));
 
 		goToCalendarPage();
 
