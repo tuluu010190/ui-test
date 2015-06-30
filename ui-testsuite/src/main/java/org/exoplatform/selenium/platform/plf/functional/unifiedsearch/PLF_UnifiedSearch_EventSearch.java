@@ -138,14 +138,14 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 		/*
 		 * Pre conditions
 		 */
-//		magMember.goToMySpacePage();
-//		magMember.addNewSpace(spaceName, "");
-//		info("New space added : "+spaceName);
-//		click(spaceMag.ELEMENT_SPACE_CALENDAR_PORTLET);
-//		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
-//		evt.addQuickEvent(eventName,eventDescription,getDate(1,"MM/dd/yyyy 20:00"),getDate(1,"MM/dd/yyyy 23:00"),false);
-//		evt.editEvent(eventName,eventName, eventDescription,eventLocation,getDate(1,"MM/dd/yyyy 20:00"), getDate(1,"MM/dd/yyyy 23:00"), false);
-//		info("New event "+eventName+" create");
+		magMember.goToMySpacePage();
+		magMember.addNewSpace(spaceName, "");
+		info("New space added : "+spaceName);
+		click(spaceMag.ELEMENT_SPACE_CALENDAR_PORTLET);
+		setTimezoneForCalendar("(GMT +07:00) Asia/Ho_Chi_Minh");
+		evt.addQuickEvent(eventName,eventDescription,getDate(1,"MM/dd/yyyy 20:00"),getDate(1,"MM/dd/yyyy 23:00"),false);
+		evt.editEvent(eventName,eventName, eventDescription,eventLocation,getDate(1,"MM/dd/yyyy 20:00"), getDate(1,"MM/dd/yyyy 23:00"), false);
+		info("New event "+eventName+" create");
 		
 		/*
 		 * Step 1 : In quick search input 3.5
@@ -183,7 +183,7 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 	 * ID : 104240
 	 * step 1 : search diner in quick search
 	 */
-	@Test(groups="pending")
+	@Test
 	public void test04_DisplayEventsInQuickSearchByPertinence(){
 
 		String eventName2="eventName2";
@@ -226,7 +226,7 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 	}
 	
 	/*
-	 * ISSUE CAL-1006 ! 
+	 * https://jira.exoplatform.org/browse/CAL-1117
 	 * Id test :104241
 	 * Name: Private events should only be searchable by their owner
 	 * Step 1 : User James search "SEARCH_EVENT_05".
