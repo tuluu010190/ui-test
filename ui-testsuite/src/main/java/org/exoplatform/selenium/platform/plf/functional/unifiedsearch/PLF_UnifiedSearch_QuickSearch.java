@@ -352,9 +352,9 @@ public class PLF_UnifiedSearch_QuickSearch extends Activity {
 		/*
 		 * pre conditions
 		 */
-				addAllData( eventName1, taskName1, wikiName1, spaceName1, fileName1, documentName1, peopleName1, surname1, pageName1, discussionName1);
-				naviToolbar.goToHomePage();
-				addAllData( eventName2, taskName2, wikiName2, spaceName2, fileName2, documentName2, peopleName2, surname2, pageName2, discussionName2);
+		addAllData( eventName1, taskName1, wikiName1, spaceName1, fileName1, documentName1, peopleName1, surname1, pageName1, discussionName1);
+		naviToolbar.goToHomePage();
+		addAllData( eventName2, taskName2, wikiName2, spaceName2, fileName2, documentName2, peopleName2, surname2, pageName2, discussionName2);
 
 		click(ELEMENT_QUICK_SEARCH_ICON);
 		Utils.pause(2000);
@@ -388,12 +388,6 @@ public class PLF_UnifiedSearch_QuickSearch extends Activity {
 		relevancy1=qsPage.getRelevancy(tabVar1,1);
 		relevancy2=qsPage.getRelevancy(tabVar2,1);
 
-		for(final String e: relevancy1) 
-			System.out.println(e);
-
-		for(final String r: relevancy2) 
-			System.out.println(r);
-
 		info("Disconnect user");
 		magAcc1.signOut();
 		Utils.pause(800);
@@ -410,12 +404,11 @@ public class PLF_UnifiedSearch_QuickSearch extends Activity {
 			}
 		}
 
-
 		/*
 		 * delete data 
 		 */
-				deleteDataOfEachElement( eventName1, taskName1, wikiName1, spaceName1, fileName1, documentName1, peopleName1, pageName1, discussionName1);
-				deleteDataOfEachElement( eventName2, taskName2, wikiName2, spaceName2, fileName2, documentName2, peopleName2, pageName2, discussionName2);
+		deleteDataOfEachElement( eventName1, taskName1, wikiName1, spaceName1, fileName1, documentName1, peopleName1, pageName1, discussionName1);
+		deleteDataOfEachElement( eventName2, taskName2, wikiName2, spaceName2, fileName2, documentName2, peopleName2, pageName2, discussionName2);
 	}
 
 	/*
@@ -508,7 +501,8 @@ public class PLF_UnifiedSearch_QuickSearch extends Activity {
 		click(ELEMENT_QUICK_SEARCH_TEXTBOX);
 		searchBox.sendKeys("cloud");
 		Utils.pause(2000);
-		waitForAndGetElement(ELEMENT_SEE_ALL_SEARCH_RESULTS).click();
+		click(ELEMENT_SEE_ALL_SEARCH_RESULTS);
+
 		/*
 		 * step 3
 		 */
@@ -585,8 +579,6 @@ public class PLF_UnifiedSearch_QuickSearch extends Activity {
 		evt.deleteEventTask(eventName);
 		magMember.goToAllSpaces();
 		magMember.deleteSpace(spaceName,300000);
-		naviToolbar.goToSiteExplorer();
-		cMenu.deleteDocument(siteExp.ELEMENT_SE_NODE.replace("{$node}", documentName));
 		mngTopic.goToForums();
 		click(By.linkText(discussionName));
 		mngCat.deleteCategoryInForum(discussionName);

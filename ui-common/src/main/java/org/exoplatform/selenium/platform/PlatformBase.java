@@ -130,7 +130,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_LINK_SETUP = "//*[@id='UISetupPlatformToolBarPortlet']/a"; 
 	//"//img[@alt='Setup']";
 	//Users
-	public final String ELEMENT_LINK_USERS ="//a[text()='Users']";
+	public final String ELEMENT_LINK_USERS ="//a[@href='/portal/g/:platform:administrators/administration/newStaff']";
 	public final String ELEMENT_LINK_ADD_USERS="//a[text()='Add Users']";
 	//Application
 	public By ELEMENT_APPLICATIONS_LINK = By.linkText("Applications");
@@ -820,7 +820,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_QUICK_SEARCH_ICON = By.xpath("//i[@class='uiIconPLF24x24Search']");
 	public final By ELEMENT_QUICK_SEARCH_TEXTBOX = By.name("adminkeyword");
 	public final String ELEMENT_QUICK_SEARCH_BOX_RESULTS=".//*[@id='quickSearchResult{$position}']/*[contains(.,'{$result}')]";
-	public final By ELEMENT_SEE_ALL_SEARCH_RESULTS = By.xpath("//*[contains(text(),'See All Search Results')]");
+	public final By ELEMENT_SEE_ALL_SEARCH_RESULTS = By.xpath("//*[@class='uiQuickSearchResult']//*[contains(@id,'seeAll')]");
 	public final By ELEMENT_RESULT_SEARCH_PAGE = By.id("resultPage");
 	public final String ELEMENT_RESULT_CONTENT_DETAIL = "//*[text()='${text}']/../../..//*[@class='content']/*[@class='detail']";
 	public final By ELEMENT_TOOLBAR_SEARCH = By.id("ToolBarSearch");
