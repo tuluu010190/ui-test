@@ -166,7 +166,8 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_LIKE_ICON_BLUE = ".//*[contains(text(),'${nameFile}')]/../../../..//*[@class='uiIconThumbUp uiIconBlue']";
 	public final String ELEMENT_ACTIVITY_COMMENT_VIEW_HOVEROVER = ".//*[contains(text(),'${comment}')]/../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_PUBLICATION_COMMENTPOSTED = "//*[@class='commentList']//*[contains(text(),'${content}')]";
-	public final String ELEMENT_PUBLICATION_SEEALLCOMMENTBTN = "//*[contains(text(),'${activity}')]/../..//*[contains(@class,'commentListInfo')]//a[@href]";
+	public final String ELEMENT_PUBLICATION_SEEALLCOMMENTBTN = "//*[contains(text(),'${activity}')]/../..//*[contains(@class,'commentListInfo')]//a[@href and contains(text(),'View')]";
+	public final String ELEMENT_PUBLICATION_HIDEALLCOMMENTBTN = "//*[contains(text(),'${activity}')]/../..//*[contains(@class,'commentListInfo')]//a[@href and contains(text(),'Hide')]";
 	public final String ELEMENT_SUGGEST_USER_IN_COMMENT = ".//*[contains(@data-display, '${userName}')]";
 	public final String ELEMENT_PUBLICATION_COMMENT_NAMEAUTHOR = "//*[contains(text(),'${comment}')]/../..//*[@class='author']/*[contains(text(),'${name}')]";
 	public final String ELEMENT_PUBLICATION_COMMENT_TIMESTAMP = "//*[contains(text(),'${comment}')]/../..//*[@class='author']/*[contains(@class,'dateTime')]";
@@ -363,6 +364,25 @@ public class ActivityStream extends PlatformBase {
 		info("Add comment successfully");
 	}
 
+	/**
+	 * Show all comment of activities
+	 * @param name
+	 */
+	public void showComment(String name){
+		info("Show all comment");
+		click(ELEMENT_PUBLICATION_SEEALLCOMMENTBTN.replace("${activity}",name));
+		waitForAndGetElement(ELEMENT_PUBLICATION_HIDEALLCOMMENTBTN.replace("${activity}",name));
+	}
+	
+	/**
+	 * Hide all comment of activities
+	 * @param name
+	 */
+	public void hideComment(String name){
+		info("Show all comment");
+		click(ELEMENT_PUBLICATION_HIDEALLCOMMENTBTN.replace("${activity}",name));
+		waitForAndGetElement(ELEMENT_PUBLICATION_SEEALLCOMMENTBTN.replace("${activity}",name));
+	}
 
 	/**
 	 * Delete a comment of an activity

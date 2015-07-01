@@ -366,17 +366,5 @@ public class HomePagePlatform extends TestBase{
 		click(By.xpath(ELEMENT_SPECIFIC_PANEL.replace("{$space}",space)));
 		Utils.pause(2000);
 	}
-	
-	
-	/**
-	 * Go to connexion
-	 */
-	public void goToConnection() {
-		info("-- Go to connexion page --");
-		info("Click on connexion link");
-		click(ELEMENT_CONNECTION_LINK_PLF);
-	}
-	
-
 }
 
