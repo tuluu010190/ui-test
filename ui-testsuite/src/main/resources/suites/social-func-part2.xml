@@ -1,6 +1,7 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Platform Sniff Test" verbose="1" preserve-order="true">
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<test name="social-func-part2" enabled="true">
 		<groups>
 			<run>
