@@ -12,6 +12,7 @@
 		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Intranet_Notification_Administration" />
 		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_NotificationSettings" />
 		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Mention" />
+
 		</classes>
 	</test>
 	<listeners>
