@@ -17,7 +17,7 @@ import org.exoplatform.selenium.platform.answer.AnswerCategoryManagement.actionC
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -34,7 +34,7 @@ public class Addons_Answers_Category  extends PlatformBase {
 	ManageAlert alert;
 	Button button;
 	AnswerManagement aMang;
-	MyProfilePage myProfile;
+	UserProfilePage myProfile;
 	NavigationToolbar navTool;
 	@BeforeClass
 	public void setUpBeforeTest() throws Exception{
@@ -42,7 +42,7 @@ public class Addons_Answers_Category  extends PlatformBase {
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		driver.get(baseUrl);
 		navTool = new NavigationToolbar(driver);
-		myProfile = new MyProfilePage(driver);
+		myProfile = new UserProfilePage(driver);
 		magAc = new ManageLogInOut(driver);
 		hp = new HomePagePlatform(driver);
 		cMang = new AnswerCategoryManagement(driver);

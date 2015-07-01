@@ -23,7 +23,7 @@ import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -35,7 +35,7 @@ public class SOC_TestConfig_1 extends PlatformBase {
 	SpaceApplicationDatabase spAppData;
 	ActivityStream hpAct;
 	ManageLogInOut magAc;
-	MyProfilePage myProfile;
+	UserProfilePage myProfile;
 
 	NavigationToolbar navTool;
 	SiteExplorerHome SEHome;
@@ -64,7 +64,7 @@ public class SOC_TestConfig_1 extends PlatformBase {
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		magAc = new ManageLogInOut(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		myProfile = new MyProfilePage(driver);
+		myProfile = new UserProfilePage(driver);
 		navTool = new NavigationToolbar(driver);
 		SEHome = new SiteExplorerHome(driver);
 		CreNewDoc = new CreateNewDocument(driver);

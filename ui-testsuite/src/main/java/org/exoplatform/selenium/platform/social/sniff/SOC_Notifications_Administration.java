@@ -331,7 +331,7 @@ import org.testng.annotations.*;
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		
 		hp.goToHomePage();
-		hpAct.addActivity(true, text,false,"");
+		hpAct.addActivity(text,"");
 		
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);

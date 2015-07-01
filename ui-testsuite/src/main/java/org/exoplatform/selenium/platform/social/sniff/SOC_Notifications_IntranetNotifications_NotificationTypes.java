@@ -48,7 +48,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		
 		info("Add a activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		
 		info("user comments in John's activity");
@@ -162,7 +162,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		
 		info("Add a activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		
 		info("user1 comments in John's activity");
@@ -284,7 +284,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		
 		info("Add a activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		
 		info("user1 comments in John's activity");
@@ -580,7 +580,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		
 		info("Add a activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		
 		info("user likes John's activity");
@@ -701,7 +701,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		
 		info("Add a activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		
 		info("user 1 likes John's activity");
@@ -832,7 +832,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		
 		info("Add a activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 	
 		info("user 1 likes John's activity");
@@ -935,7 +935,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
-		hpAct.addActivity(firstName, activity);
+		hpAct.mentionUserActivity(firstName, activity);
 		hpAct.checkActivity(activity);
 		
 		/*Step Number: 1
@@ -1030,7 +1030,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		hpAct.addCommentWithMentionUser(activity, firstName, comment);
 		
@@ -1123,7 +1123,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		connMag.acceptAConnection(userName);
 		connMag.goToUser(fullName);
 		navTool.goToMyActivities();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		
 		/*Step Number: 1
@@ -1225,7 +1225,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		spaMg.acceptAInvitation(space);
 		
 		info("user posted an activity inspace");
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		
 		/*Step Number: 1

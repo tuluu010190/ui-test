@@ -90,7 +90,7 @@ public class SOC_Notifications_IntranetNotification_View_All extends SOC_TestCon
 		
 		info("Add activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity1, false, "");
+		hpAct.addActivity(activity1,"");
 		hpAct.checkActivity(activity1);
 		
 		info("Add a new space and ivite user 2");
@@ -113,14 +113,14 @@ public class SOC_Notifications_IntranetNotification_View_All extends SOC_TestCon
 		
 		info("user2 mentions user1 in activity stream");
 		hp.goToHomePage();
-		hpAct.addActivity(username1, activity4);
+		hpAct.mentionUserActivity(username1, activity4);
 		hpAct.checkActivity(activity4);
 		
 		info("user 2 posts activity in user1's activity stream");
 		hp.goToConnections();
 		connMag.goToUser(username1);
-		navTool.goToActivities();
-		hpAct.addActivity(true, activity2, false, "");
+		navTool.goToMyActivities();
+		hpAct.addActivity(activity2,"");
 		hpAct.checkActivity(activity2);
 		
 		info("User 2 posts activity in activity stream of user1's space");
@@ -128,7 +128,7 @@ public class SOC_Notifications_IntranetNotification_View_All extends SOC_TestCon
 		spaMg.acceptAInvitation(space1);
 		
 		info("user posted an activity in space");
-		hpAct.addActivity(true, activity3, false, "");
+		hpAct.addActivity(activity3,"");
 		hpAct.checkActivity(activity3);
 		
 		info("Sign in as user 3 and create a space, invite user1 to join space and connect to user1");

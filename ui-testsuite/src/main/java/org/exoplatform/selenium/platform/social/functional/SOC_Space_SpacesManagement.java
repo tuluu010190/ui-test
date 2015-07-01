@@ -869,7 +869,7 @@ import org.testng.annotations.*;
 			- New shared activities are displayed correctly.*/
        
 		String activity = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hpAct.addActivity(true, activity,false,"");
+		hpAct.addActivity(activity,"");
 		info("Verify that list of applications of the space is shown with correct order");
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","1").replace("${tab}",activity_Stream),3000,1);
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","2").replace("${tab}",forum));
@@ -1243,7 +1243,7 @@ import org.testng.annotations.*;
 			-condition are displayed correctly.
 			- New shared activities are displayed correctly.*/
 		String activity = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hpAct.addActivity(true, activity,false,"");
+		hpAct.addActivity(activity,"");
 		info("Verify that list of applications of the space is shown with correct order");
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","1").replace("${tab}",activity_Stream),3000,1);
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","2").replace("${tab}",forum));
@@ -1617,7 +1617,7 @@ import org.testng.annotations.*;
 			-condition are displayed correctly.
 			- New shared activities are displayed correctly.*/
 		String activity = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hpAct.addActivity(true, activity,false,"");
+		hpAct.addActivity(activity,"");
 		info("Verify that list of applications of the space is shown with correct order");
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","1").replace("${tab}",activity_Stream),3000,1);
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","2").replace("${tab}",forum));
@@ -1992,7 +1992,7 @@ import org.testng.annotations.*;
 			-condition are displayed correctly.
 			- New shared activities are displayed correctly.*/
 		String activity = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hpAct.addActivity(true, activity,false,"");
+		hpAct.addActivity(activity,"");
 		info("Verify that list of applications of the space is shown with correct order");
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","1").replace("${tab}",activity_Stream),3000,1);
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","2").replace("${tab}",forum));
@@ -2366,7 +2366,7 @@ import org.testng.annotations.*;
 			-condition are displayed correctly.
 			- New shared activities are displayed correctly.*/
 		String activity = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hpAct.addActivity(true, activity,false,"");
+		hpAct.addActivity(activity,"");
 		info("Verify that list of applications of the space is shown with correct order");
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","1").replace("${tab}",activity_Stream),3000,1);
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","2").replace("${tab}",forum));
@@ -2739,7 +2739,7 @@ import org.testng.annotations.*;
 			- The URL to access to space activity stream is http://IP_Server_Address:8080/portal/g/:spaces:GroupSite/Space_Name_Edit
 			- New shared activities are displayed correctly.*/
 		String activity = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hpAct.addActivity(true, activity,false,"");
+		hpAct.addActivity(activity,"");
 		info("Verify that list of applications of the space is shown with correct order");
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","1").replace("${tab}",activity_Stream),3000,1);
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_DISPLAYORDER_ID.replace("${number}","2").replace("${tab}",forum));

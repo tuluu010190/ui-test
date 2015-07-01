@@ -32,11 +32,11 @@ import org.testng.annotations.*;
 			- Click on each applications, the application will show up in the main page*/ 
 		click(hp.ELEMENT_SUGGESTIONS_USER.replace("{$user}","FQA VN"));
 		waitForAndGetElement(myProfile.ELEMENT_NAME_OF_USER_TOP_LEFT.replace("{$name}","FQA VN"));
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIRST_APP_PROFILE);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_THIRD_APP_CONNECTIONS);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FORTH_APP_WIKI);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_FIRST_APP_PROFILE);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_THIRD_APP_CONNECTIONS);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_FORTH_APP_WIKI);
 	}
 
 	/**
@@ -61,11 +61,11 @@ import org.testng.annotations.*;
 		click(navToolBar.ELEMENT_TOPBAR_AVATAR);
 		click(navToolBar.ELEMENT_MY_PROFILE_LINK);
 		waitForAndGetElement(myProfile.ELEMENT_NAME_OF_USER_TOP_LEFT.replace("{$name}","John Smith"));
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIRST_APP_PROFILE);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_THIRD_APP_CONNECTIONS);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FORTH_APP_WIKI);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_FIFTH_APP_DASHBOARD);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_FIRST_APP_PROFILE);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_THIRD_APP_CONNECTIONS);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_FORTH_APP_WIKI);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_FIFTH_APP_DASHBOARD);
  	}
 }

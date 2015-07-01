@@ -42,7 +42,7 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.PagesManagementLi
 import org.exoplatform.selenium.platform.objectdatabase.gatein.GroupNameDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.UserSearchOptionDatabase;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -62,7 +62,7 @@ public class GateIn_TestConfig extends PlatformBase {
 	PortalManageSites portSite;
 	NavigationManagement navMag;
 
-	MyProfilePage myProf;
+	UserProfilePage myProf;
 	ChangeLanguages changeLang;
 	Button but;
 	PortalGroupNavigation groupManage;
@@ -138,7 +138,7 @@ public class GateIn_TestConfig extends PlatformBase {
 		magAlert = new ManageAlert(driver, this.plfVersion);
 		navMag = new NavigationManagement(driver);
 		
-		myProf = new MyProfilePage(driver);
+		myProf = new UserProfilePage(driver);
 		changeLang = new ChangeLanguages(driver);
 		but = new Button(driver, this.plfVersion);
 		addUserPage = new UserAddManagement(driver);

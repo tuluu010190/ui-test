@@ -4,6 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.ActivityStream;
+import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
@@ -15,10 +16,11 @@ import org.exoplatform.selenium.platform.objectdatabase.social.SpaceGroupsDataba
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceRegistrationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceVisibilityDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceWarningMessageDatabase;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
-import org.exoplatform.selenium.platform.social.UserProfilePage;
+import org.exoplatform.selenium.platform.social.UserPageBase;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
@@ -33,6 +35,7 @@ import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.LanguageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationLayoutDatabase;
@@ -58,7 +61,6 @@ public class SOC_TestConfig extends PlatformBase {
 	SpaceSettingManagement setSpaceMg;
 	UserAddManagement userManage;
 	UserAndGroupManagement userGroupMg;
-	UserProfilePage userProPg;
 	
 	ForumTopicManagement topicMg;
 	
@@ -90,8 +92,13 @@ public class SOC_TestConfig extends PlatformBase {
 	ContainersDatabase containerData;
 	LanguageDatabase langData;
 	
-
+	ConnectionsManagement connMag;
+	UserAddManagement addUserPage;
 	
+	MailSuffixDatabase mailSuffixData;
+	
+	UserPageBase uBase;
+	UserProfilePage myProfile;
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		info("Start setUpBeforeMethod");
@@ -100,7 +107,8 @@ public class SOC_TestConfig extends PlatformBase {
 		magAc = new ManageLogInOut(driver);
 		button = new Button(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		
+		myProfile = new UserProfilePage(driver);
+		uBase = new UserPageBase(driver);
 		navTool = new NavigationToolbar(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
 		hp = new HomePagePlatform(driver);
@@ -123,7 +131,6 @@ public class SOC_TestConfig extends PlatformBase {
 		SEHome = new SiteExplorerHome(driver);
 		creatDoc = new CreateNewDocument(driver);
 		userGroupMg = new UserAndGroupManagement(driver);
-		userProPg = new UserProfilePage(driver);
 		
 		evMg = new EventManagement(driver);
 		
@@ -171,6 +178,11 @@ public class SOC_TestConfig extends PlatformBase {
 		spWarnMessg = new SpaceWarningMessageDatabase();
 		spWarnMessg.setData(spaceWarnMessageFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		
+		addUserPage = new UserAddManagement(driver);
+		connMag = new ConnectionsManagement(driver);
+		
+		mailSuffixData = new MailSuffixDatabase();
+		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		info("End setUpBeforeMethod");
 	}
 

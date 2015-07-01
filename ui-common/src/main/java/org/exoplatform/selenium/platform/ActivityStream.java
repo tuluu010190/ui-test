@@ -32,18 +32,19 @@ public class ActivityStream extends PlatformBase {
 	public final By ELEMENT_SPACE_MENU_MEMBER_PORTLET=By.xpath(".//*[@class='class='uiIconAppMembersPortlet uiIconDefaultApp']");
 	public final By ELEMENT_SPACE_MENU_MORE_BTN =By.xpath(".//*[@class='uiIconAppMoreButton']");
 	public final String ELEMENT_SPACE_MENU_APPLICATION_PORTLET=".//*[@id='spaceMenuTab']//*[contains(text(),'${app}')]";
-	
+
 	// Composer
 	public final By ELEMENT_COMPOSER_INPUT_FILED = By.xpath(".//*[@id='DisplaycomposerInput']");
 	public final By ELEMENT_COMPOSER_FILE_BUTTON = By.cssSelector(".uiIconSocUIDocActivityComposer.uiIconSocLightGray");
 	public final By ELEMENT_SELECT_BUTTON= By.cssSelector("#UIPopupComposer .uiAction .btn:first-child");
 	public final By ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY=By.cssSelector(".uiActivityFileAttachment");
 	public final By ELEMENT_SELECT_FILE_POPUP = By.xpath("//span[text()='Select File']");
-	
+
 	public final By ELEMENT_COMPOSER_MENTION_BUTTON = By.xpath(".//i[@class='uiIconSocMention uiIconSocLightGray']");
 	public final By ELEMENT_COMPOSER_LINK_BUTTON = By.xpath(".//i[@class='uiIconSocUILinkActivityComposer uiIconSocLightGray']");
 	public final By ELEMENT_COMPOSER_INPUT_LINK_FIELD = By.xpath(".//*[@id='InputLink']");
 	public final By ELEMENT_COMPOSER_ATTACH_LINK_BUTTON = By.xpath(".//*[@id='AttachButton']");
+	public final By ELEMENT_COMPOSER_CLOSE_SHARE_LINK_BUTTON=By.xpath("//*[@id='UIActivityComposerContainer']//*[@class='uiIconClose uiIconLightGray']");
 	public final By ELEMENT_COMPOSER_SHARE_BUTTON = By.xpath(".//*[@id='ShareButton']");
 	public final By ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL = By.xpath("//div[@id='DisplaycomposerInput']/../div[@class='placeholder']");
 	public final String ELEMENT_ACTIVITY_AUTHOR_ACTIVITY = "//*[contains(text(), '${activityText}')]/../../../../..//*[@class='author']";
@@ -54,14 +55,14 @@ public class ActivityStream extends PlatformBase {
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE_BTN =By.xpath(".//*[@id='UIPopupComposer']//*[contains(@title,'Close Window')]");
 	public final By ELEMENT_UPLOAD_FILE_FRAME_XPATH = By.xpath("//iframe[contains(@id,'uploadFrame')]");
 	public final By ELEMENT_UPLOAD_BUTTON=By.xpath("//*[@class='uiIconUpload uiIconLightGray']");
-	
+
 	//Upload popup
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP=By.xpath(".//*[@id='DriveTypeDropDown']/div[@class='btn dropdown-toggle']");
 	public final String ELEMENT_ACTIVITY_UPLOAD_POPUP_NODE=".//*[@id='ListRecords']//a[@data-original-title='${nameNode}']";
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE=By.xpath(".//*[@id='UIPopupComposer']//*[@class='uiIconClose pull-right']");
 	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
-	
-	
+
+
 	//Task/Event activity
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TITLE = "//*[@class='linkTitle' and text()='$name']";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TITLE_SPACE_AS_LINK=".//*[contains(@href,'${space}')][contains(text(),'${event}')]";
@@ -91,7 +92,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_WIKI_VERSION = "//*[@class='linkTitle' and text()='${title}']/../..//*[@class = 'pull-right versionLabel' and contains(text(), 'Version: ${version}')]";
 	public final String ELEMENT_ACTIVITY_MOVE_WIKI_PAGE = "//*[text()='${title}']/../../../..//*[@class='contentComment' and contains(text(), 'Page has been moved to: ${path}')]";
 	public final String ELEMENT_ACTIVITY_WIKI_LINK = "//*[@class='titleWiki']/a[@href='/portal/intranet/wiki/${title}']";
-	
+
 	//Question activity
 	public final String ELEMENT_QUESTION_ACTIVITY_TITLE="//*[@class='author']/*[contains(@href,'$user')]/../../..//*[@class='titleAnswer']/*[@class='linkTitle' and text()='$question']";
 	public final String ELEMENT_QUESTION_ACTIVITY_RATING="//*[@class='author']/*[contains(@href,'$user')]/../../..//*[@class='titleAnswer']/*[@class='linkTitle' and text()='$question']/../..//*[@class='avgRatingImages sumaryRate']";
@@ -104,7 +105,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_QUESTION_ACTIVITY_UNACTIVATE_COMMENT="Question has been unactivated";
 	public final String ELEMENT_QUESTION_ACTIVITY_ACTIVATE_COMMENT="Question has been activated";
 	public final String ELEMENT_QUESTION_ACTIVITY_UPDAT_TITLE_COMMENT="Title has been updated to: $value";
-	
+
 	// Activity of file
 	public String ELEMENT_ACTIVITY_FILE_TITLE = "//*[@class='fileTypeContent']/..//*[@class='linkTitle' and contains(text(),'{$title}')]";
 	public String ELEMENT_ACTIVITY_FILE_CHECK_ICON_FILE = "//*[@data-original-title='{$title}']//*[@class='uiIcon64x64FileDefault uiIcon64x64nt_file uiIcon64x64texthtml']";
@@ -112,7 +113,7 @@ public class ActivityStream extends PlatformBase {
 	public String ELEMENT_ACTIVITY_FILE_EDIT_FILE_FROM_ACTIVITY = "//*[@class='fileTypeContent']/..//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public String ELEMENT_ACTIVITY_FILE_USER_ICON = "//*[@class='activityAvatar avatarCircle']/*[contains(@href,'${user}')]/../..//*[@class='uiIconSocFileSharing uiIconSocWhite']";
 	public String ELEMENT_ACTIVITY_FILE = "//*[contains(text(),'${title}')]/..//*[@class='linkTitle' and contains(text(),'${file}')]";
-	
+
 	// Activity of web content
 	//public String ELEMENT_ACTIVITY_WEBCONTENT_TITLE = "//*[@class='uiIcon64x64Templateexo_webContent']/../..//*[@class='linkTitle' and contains(text(),'{$title}')]";
 	public String ELEMENT_ACTIVITY_WEBCONTENT_CHECK_VERSION ="//*[@class='uiIcon64x64Templateexo_webContent']/../..//*[@class='linkTitle' and contains(text(),'${title}')]/..//*[@class='versionFile' and contains(text(),'Version: {$version}')]";
@@ -127,13 +128,13 @@ public class ActivityStream extends PlatformBase {
 	public String ELEMENT_ACTIVITY_FILE_UPLOAD_TITLE ="//*[contains(text(),'{$title}')]";
 	public String ELEMENT_ACTIVITY_PREVIEW_FILE_WINDOW_NAME_OF_FILE = "//*[@id='UISocialPopupWindow']//*[contains(text(),'{$title}')]";
 	public String ELEMENT_ACTIVITY_EDIT_FROM_HOMEPAGE ="//*[@id='UIDocumentForm']//*[contains(text(),'{$title}')]";
-	
+
 	// Common activity
 	public final String ELEMENT_ACTIVITY_COMMOM_CHECK_COMMENT_OF_ACTIVITY = ".//*[contains(text(),'${title}')]/../../../../..//*[contains(text(),\"${comment}\")]";
 	public final String ELEMENT_ACTIVITY_VIEW_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'${title}')]";
-    public final String ELEMENT_ACTIVITY_VERSION = ".//*[contains(text(),'${name}')]/../../..//*[.//*[@class='pull-right versionLabel'][text()='${version}']";
+	public final String ELEMENT_ACTIVITY_VERSION = ".//*[contains(text(),'${name}')]/../../..//*[.//*[@class='pull-right versionLabel'][text()='${version}']";
 	public final String ELEMENT_ACTIVITY_TITLE="//*[@id='boxContainer']//*[contains(text(),'${text}')]/../..//*[contains(text(),'${file}')]";
 	public final String ELEMENT_PUBLICATION_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentItem commentItemLast']";
 	public final String ELEMENT_PUBLICATION_DELETE_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentRight']/..//*[@class='uiIconClose uiIconLightGray controllDelete']";
@@ -151,7 +152,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_EMBBED_MEDIA_VIEW_LINK =".//*[contains(@href,'${linkFile}')]/../../../..//i[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_WEBCONTENT_VIEW_LINK=".//a[@title='${nameContent}']/../../../..//i[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_DOCUMENT_MEDIA_DOWNLOAD_BTN=".//*[contains(@data-original-title,'${nameFile}')]/../../../..//*[contains(@class,'uiIconDownload')]/..";
-	
+
 	//Comment box
 	public final String ELEMENT_COMMENTBOX="//*[contains(text(),'${title}')]/../../../..//div[@class='replaceTextArea editable']";
 	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
@@ -174,10 +175,10 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_POLL_VOTE_FOR_POLL = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconSocVote uiIconSocLightGray']";
 	public final String ELEMENT_ACTIVITY_TOPIC_REPLY = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconReply uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_TOPIC_VIEW_LAST_REPLY = ".//*[contains(text(),'${topic}')]/../../..//*[@class='uiIconSocLastestReply uiIconSocLightGray']";
-	
+
 	//Activity for connection
 	public final String ELEMENT_PUBLICATION_ACTIVITYTEXT_CONNECTED = "//*[contains(text(),\"I'm now connected with 1 user(s)\")]/../../../..//p[@class='contentComment'  and contains(text(),\"I'm now connected with ${user}\")]";
-	
+
 	//Activity for Space
 	public final String ELEMENT_ACTIVITY_SPACE_AVATAR = ".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(@src,'SpaceAvtDefault.png')]";
 	public final String ELEMENT_ACTIVITY_SPACE_DESCRIPTION = ".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(text(),'${des}')]";
@@ -190,7 +191,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_SPACE_HEADING = "//*[@class='heading']//*[contains(text(),'${space}')]";
 	public final String ELEMENT_ACTIVITY_SPACE_AUTHOR = "//*[contains(text(),'${title}')]/../*[contains(@class,'heading')]/*[contains(@class,'author')]";
 	public final String ELEMENT_ACTIVITY_USER_ACTIVITY_DELETE_BTN = "//*[contains(text(),'${title}')]/../*[contains(@class,'heading')]/*[contains(@class,'uiIconClose uiIconLightGray controllDelete')]";
-	
+
 	Button button;
 	/**
 	 * constructor
@@ -209,7 +210,7 @@ public class ActivityStream extends PlatformBase {
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_FILE_CHECK_ICON_FILE.replace("{$title}", title)));
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_FILE_TITLE_CHECK_FILE_SIZE.replace("{$title}", title)));
 	}
-	
+
 	/**
 	 * Check if there is an activity in the stream
 	 * @param name
@@ -252,7 +253,7 @@ public class ActivityStream extends PlatformBase {
 		info("Check line 5 of the wiki page is not shown");
 		waitForElementNotPresent(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",arrayline[4]));
 	}
-	
+
 	/**
 	 * Check activity after add a web content
 	 * @param title
@@ -269,7 +270,7 @@ public class ActivityStream extends PlatformBase {
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_WEBCONTENT_CHECK_VERSION.replace("${title}", title).replace("{$version}", version)));
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_WEBCONTENT_CHECK_STATUS.replace("${title}", title).replace("{$status}", status)));
 	}
-	
+
 	/**
 	 * Check activity after add a product
 	 * @param title
@@ -286,7 +287,7 @@ public class ActivityStream extends PlatformBase {
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_PRODUCT_CHECK_VERSION.replace("{$title}", title).replace("{$version}", version)));
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_PRODUCT_CHECK_STATUS.replace("{$title}", title).replace("{$status}", status)));
 	}
-	
+
 	/**
 	 * Check content and number of lines of content on activity
 	 * @param activityContent
@@ -309,7 +310,7 @@ public class ActivityStream extends PlatformBase {
 		sum = summaryTemp.split("\n");
 		cont = contentTemp.split("<br>");
 		String []sumTemp= activityContent.split("\n");
-		
+
 		if(cont.length<=4){
 			for(int i = 0; i<sum.length; i++){
 				info("sum[i]: "+sum[i]);
@@ -324,7 +325,7 @@ public class ActivityStream extends PlatformBase {
 			assert sumTemp[3].contains(cont[3]+"...");
 		}
 	}
-	
+
 	/**
 	 * Add a new comment on activity stream
 	 * @param filename
@@ -336,8 +337,8 @@ public class ActivityStream extends PlatformBase {
 		WebElement input= waitForAndGetElement(By.xpath(ELEMENT_COMMENTBOX.replace("${title}",filename)));
 		Actions action =new Actions(driver);
 		action.moveToElement(input).sendKeys(textContent).build().perform();
-	    waitForAndGetElement(By.xpath(ELEMENT_COMMENT_BUTTON.replace("${activityText}", filename))).click();
-	    Utils.pause(2000);
+		waitForAndGetElement(By.xpath(ELEMENT_COMMENT_BUTTON.replace("${activityText}", filename))).click();
+		Utils.pause(2000);
 	}
 
 	/**
@@ -361,8 +362,8 @@ public class ActivityStream extends PlatformBase {
 		waitForAndGetElement(ELEMENT_DELETE_COMMENT_BUTTON.replace("${activityText}", activityText).replace("${commentText}", contentOfComment), DEFAULT_TIMEOUT,1,2);
 		info("Add comment successfully");
 	}
-	
-	
+
+
 	/**
 	 * Delete a comment of an activity
 	 * @param name
@@ -375,7 +376,52 @@ public class ActivityStream extends PlatformBase {
 		click(button.ELEMENT_OK_BUTTON);
 		Utils.pause(2000);
 	}
-	
+
+	/**
+	 * Add text into activity text box
+	 * @param text
+	 */
+	public void addText(String text){
+		info("----Add text into activity text box-----");
+		WebElement inputText = waitForAndGetElement(ELEMENT_COMPOSER_INPUT_FILED,100000);
+		WebElement shareButton = waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
+		WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL);
+		((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '';", workingLabel);
+		((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '"+text+"';", inputText);
+		((JavascriptExecutor)driver).executeScript("arguments[0].disabled = false;", shareButton);
+		((JavascriptExecutor)driver).executeScript("arguments[0].className = 'pull-right btn btn-primary';", shareButton);
+	}
+
+	/**
+	 * Add link activity
+	 * @param link
+	 */
+	public void addLink(String link){
+		info("----Click on Link----");
+		waitForAndGetElement( ELEMENT_COMPOSER_LINK_BUTTON).click();
+		info("----Input link into link box-----");
+		waitForAndGetElement(ELEMENT_COMPOSER_INPUT_LINK_FIELD);
+		type(ELEMENT_COMPOSER_INPUT_LINK_FIELD, link, true);
+		waitForAndGetElement(ELEMENT_COMPOSER_ATTACH_LINK_BUTTON);
+		info("----Click attach button-----");
+		click(ELEMENT_COMPOSER_ATTACH_LINK_BUTTON);
+		waitForAndGetElement(By.id("LinkTitle"));
+	}
+
+	public void closeShareLink(){
+		info("close share link");
+		click(ELEMENT_COMPOSER_CLOSE_SHARE_LINK_BUTTON);
+	}
+
+	/**
+	 * Share activity
+	 */
+	public void shareActivity(){
+		waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
+		info("----Click share button----");
+		click(ELEMENT_COMPOSER_SHARE_BUTTON);
+		Utils.pause(1000);
+	}
 	/**
 	 * Add new activity for space 
 	 * @param addText
@@ -383,38 +429,23 @@ public class ActivityStream extends PlatformBase {
 	 * @param addLink
 	 * @param link
 	 */
-	public void addActivity (boolean addText, String text, boolean addLink, String link) {
+	public void addActivity (String text, String link) {
 		info("-- Adding an activity--");
 		Utils.pause(3000);
-		if (addText) 
+		if (text!="" && text!=null) 
 		{
 			info("----Add text into activity text box-----");
-			WebElement inputText = waitForAndGetElement(ELEMENT_COMPOSER_INPUT_FILED,100000);
-			WebElement shareButton = waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
-			WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL);
-			((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '';", workingLabel);
-			((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '"+text+"';", inputText);
-			((JavascriptExecutor)driver).executeScript("arguments[0].disabled = false;", shareButton);
-			((JavascriptExecutor)driver).executeScript("arguments[0].className = 'pull-right btn btn-primary';", shareButton);
+			addText(text);
 		}
-		if (addLink)
+		if (link!="" && link!=null) 
 		{
-			info("----Click on Link----");
-			waitForAndGetElement( ELEMENT_COMPOSER_LINK_BUTTON).click();
-			info("----Input link into link box-----");
-			waitForAndGetElement(ELEMENT_COMPOSER_INPUT_LINK_FIELD);
-			type(ELEMENT_COMPOSER_INPUT_LINK_FIELD, link, true);
-			waitForAndGetElement(ELEMENT_COMPOSER_ATTACH_LINK_BUTTON);
-			info("----Click attach button-----");
-			click(ELEMENT_COMPOSER_ATTACH_LINK_BUTTON);
-			waitForAndGetElement(By.id("LinkTitle"));
+			info("----Add link into activity text box-----");
+			addLink(link);
 		}
-		waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
-		info("----Click share button----");
-		click(ELEMENT_COMPOSER_SHARE_BUTTON);
+		shareActivity();
 		Utils.pause(1000);
 		info("-- Verify that an activity has been added --");
-		if (addText) {
+		if (text!="" && text!=null){
 			waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_AUTHOR_ACTIVITY.replace("${activityText}", text)));
 		}
 	}
@@ -426,7 +457,7 @@ public class ActivityStream extends PlatformBase {
 		click(ELEMENT_SPACE_MENU_MORE_BTN);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 *  Add an activity stream with a text and a attached file
 	 * @param nameDrive
@@ -436,40 +467,14 @@ public class ActivityStream extends PlatformBase {
 	 * @param addText
 	 * @param text
 	 */
-	public void addActivity(String nameDrive,String pathFolder,String pathData,String nameFile,boolean addText,String text) {
+	public void uploadAndShareFileActivity(String nameDrive,String pathFolder,String pathData,String nameFile,String text) {
 		info("-- Adding an activity--");
 		Utils.pause(3000);
 		openUploadPopup(nameDrive,pathFolder);
 		uploadFileFromAS(pathData,nameFile);
-		
-		for(int repeat=0;; repeat ++){
-			if (repeat > 1) {
-				if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY, 3000, 0) != null)
-						break;
-			}
-			if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY, 5000, 0) != null) {
-				info("Element " + ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY
-						+ " is displayed");
-					break;
-			}
-			info("Retry...[" + repeat + "]");
-			this.driver.navigate().refresh();
-			openUploadPopup(nameDrive,pathFolder);
-			waitForAndGetElement(By.linkText(nameFile)).click();
-			Utils.pause(2000);
-			info("click on Select button");
-			click(ELEMENT_SELECT_BUTTON);
-		}
-		
-		info("add a text to composer box of AS");
-		if(addText)
-		addText(text);
-		info("----Click share button----");
-		waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON,2000,0);
-		click(ELEMENT_COMPOSER_SHARE_BUTTON);
-		Utils.pause(2000);
+		shareFileActivity(nameDrive,pathFolder,nameFile,text);
 	}
-	
+
 	/**
 	 * Add an activity stream with selecting a document that
 	 * existed in SE
@@ -478,18 +483,18 @@ public class ActivityStream extends PlatformBase {
 	 * @param nameFile
 	 * @param textDes
 	 */
-	public void addActivity(String nameDrive,String pathFolder,String nameFile,String textDes){
+	public void shareFileActivity(String nameDrive,String pathFolder,String nameFile,String textDes){
 		info("-- Adding an activity--");
 		Utils.pause(3000);
 		for(int repeat=0;; repeat ++){
 			if (repeat > 1) {
 				if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY, 3000, 0) != null)
-						break;
+					break;
 			}
 			if (waitForAndGetElement(ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY, 5000, 0) != null) {
 				info("Element " + ELEMENT_COMPOSER_FILE_ATTACHMENT_ACTIVITY
 						+ " is displayed");
-					break;
+				break;
 			}
 			info("Retry...[" + repeat + "]");
 			this.driver.navigate().refresh();
@@ -499,16 +504,14 @@ public class ActivityStream extends PlatformBase {
 			info("click on Select button");
 			click(ELEMENT_SELECT_BUTTON);
 		}
-		
-	    info("add a text to composer box of AS");
-		if(!textDes.isEmpty())
-		addText(textDes);
+
+		info("add a text to composer box of AS");
+		if(textDes!=null && textDes!="")
+			addText(textDes);
 		info("----Click share button----");
-		waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
-		click(ELEMENT_COMPOSER_SHARE_BUTTON);
-		Utils.pause(2000);
+		shareActivity();
 	}
-	
+
 	/**
 	 * Open Upload Popup from Activity Stream
 	 * @param nameDrive 
@@ -544,7 +547,7 @@ public class ActivityStream extends PlatformBase {
 		click(ELEMENT_ACTIVITY_UPLOAD_POPUP);
 		info("select a driver:"+nameDrive);
 		if(!nameDrive.isEmpty())
-		click(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive));
+			click(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive));
 		info("go to the folder by path:"+path);
 		String[] arrayPath = path.split("/");
 		for(String arrayElement:arrayPath){
@@ -552,7 +555,7 @@ public class ActivityStream extends PlatformBase {
 			Utils.pause(2000);
 		}
 	}
-	
+
 	/**
 	 * Upload a file from Upload Popup
 	 * @param path     where put TestData folder
@@ -570,34 +573,15 @@ public class ActivityStream extends PlatformBase {
 		Utils.pause(2000);
 		info("Upload finished");
 	}
-	
-	/**
-	 * Add a Text to Composer box of AS
-	 * @param contentText
-	 */
-	public void addText(String contentText) {
-		info("----Add text into activity text box-----");
-		WebElement inputText = waitForAndGetElement(ELEMENT_COMPOSER_INPUT_FILED, 100000);
-		WebElement shareButton = waitForAndGetElement(ELEMENT_COMPOSER_SHARE_BUTTON);
-		WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL);
-		((JavascriptExecutor) driver).executeScript(
-				"arguments[0].textContent = '';", workingLabel);
-		((JavascriptExecutor) driver).executeScript(
-				"arguments[0].textContent = '" + contentText + "';", inputText);
-		((JavascriptExecutor) driver).executeScript(
-				"arguments[0].disabled = false;", shareButton);
-		((JavascriptExecutor) driver).executeScript(
-				"arguments[0].className = 'pull-right btn btn-primary';",
-				shareButton);
-		Utils.pause(1000);
-	}
+
+
 	/**
 	 * Post a activity with mention a user and description text
 	 * @param username
 	 * @param text
 	 * @throws AWTException 
 	 */
-	public void addActivity(String username, String text) throws AWTException{
+	public void mentionUserActivity(String username, String text) throws AWTException{
 		type(ELEMENT_COMPOSER_INPUT_FILED, "@"+username,false);
 		Robot robot = new Robot();
 		robot.delay(1000);
@@ -609,24 +593,23 @@ public class ActivityStream extends PlatformBase {
 		click(ELEMENT_COMPOSER_SHARE_BUTTON);
 		Utils.pause(2000);
 	}
-	
 
-/**
- * Post a comment with mention a user and description text
- * @param username
- * @param textContent
- * @param activity
- */
-public void addCommentWithMentionUser(String activity, String username, String textContent){
-	info("Add comment with mention user");
-	click(ELEMENT_ICON_COMMENT.replace("${title}", activity));
-	type(ELEMENT_COMMENTBOX.replace("${title}",activity), "@"+username, false);
-	click(ELEMENT_SUGGEST_USER_IN_COMMENT.replace("${userName}", username));
-	Utils.pause(2000);
-	if (!textContent.isEmpty())
-		type(ELEMENT_COMMENTBOX.replace("${title}",activity), textContent, false);
-	click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activity));
-}
+	/**
+	 * Post a comment with mention a user and description text
+	 * @param username
+	 * @param textContent
+	 * @param activity
+	 */
+	public void addCommentWithMentionUser(String activity, String username, String textContent){
+		info("Add comment with mention user");
+		click(ELEMENT_ICON_COMMENT.replace("${title}", activity));
+		type(ELEMENT_COMMENTBOX.replace("${title}",activity), "@"+username, false);
+		click(ELEMENT_SUGGEST_USER_IN_COMMENT.replace("${userName}", username));
+		Utils.pause(2000);
+		if (!textContent.isEmpty())
+			type(ELEMENT_COMMENTBOX.replace("${title}",activity), textContent, false);
+		click(ELEMENT_COMMENT_BUTTON.replace("${activityText}", activity));
+	}
 
 	/**
 	 * Open Preview mode by clicking on View link
@@ -638,23 +621,23 @@ public void addCommentWithMentionUser(String activity, String username, String t
 	 *            embedded medias as: youtube, vimeo, slideshared...
 	 * @param link
 	 */
-	public void openPreviewMode(String nameDocument,int type,String link){
+	public void openPreviewModeOnViewLink(String nameDocument,int type,String link){
 		info("Open Preview mode");
 		switch(type){
 		case 1:
 			info("this is a documents or medias");
 			waitElementAndTryGetElement(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_VIEW_LINK.replace("${nameFile}", nameDocument));
-		    click(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_VIEW_LINK.replace("${nameFile}", nameDocument));
+			click(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_VIEW_LINK.replace("${nameFile}", nameDocument));
 			break;
 		case 2:
 			info("this is a content");
 			waitElementAndTryGetElement(ELEMENT_ACTIVITY_WEBCONTENT_VIEW_LINK.replace("${nameContent}", nameDocument));
-		    click(ELEMENT_ACTIVITY_WEBCONTENT_VIEW_LINK.replace("${nameContent}", nameDocument));
+			click(ELEMENT_ACTIVITY_WEBCONTENT_VIEW_LINK.replace("${nameContent}", nameDocument));
 			break;
 		case 3: 
 			info("this is a embedded media");
 			waitElementAndTryGetElement(ELEMENT_ACTIVITY_EMBBED_MEDIA_VIEW_LINK.replace("${linkFile}",link));
-		    click(ELEMENT_ACTIVITY_EMBBED_MEDIA_VIEW_LINK.replace("${linkFile}",link));
+			click(ELEMENT_ACTIVITY_EMBBED_MEDIA_VIEW_LINK.replace("${linkFile}",link));
 			break;
 		default:
 			info("Not type for your format.Please check your type");
@@ -662,7 +645,7 @@ public void addCommentWithMentionUser(String activity, String username, String t
 		}
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Open Preview mode by clicking on file's name
 	 * 
@@ -673,23 +656,23 @@ public void addCommentWithMentionUser(String activity, String username, String t
 	 *            if type=2, this is for webcontent files if type=3, this is for
 	 *            embedded medias as: youtube, vimeo, slideshared...
 	 */
-	public void openPreviewMode(String fileName,String link,int type){
+	public void openPreviewModeOnFileName(String fileName,String link,int type){
 		info("Open Preview mode");
 		switch(type){
 		case 1:
 			info("this is a documents or medias");
 			waitElementAndTryGetElement(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_TITLE.replace("${title}", fileName));
-		    click(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_TITLE.replace("${title}", fileName));
+			click(ELEMENT_ACTIVITY_DOCUMENT_MEDIA_TITLE.replace("${title}", fileName));
 			break;
 		case 2:
 			info("this is a content");
 			waitElementAndTryGetElement(ELEMENT_ACTIVITY_WEBCONTENT_TITLE.replace("${title}",fileName));
-		    click(ELEMENT_ACTIVITY_WEBCONTENT_TITLE.replace("${title}",fileName));
+			click(ELEMENT_ACTIVITY_WEBCONTENT_TITLE.replace("${title}",fileName));
 			break;
 		case 3: 
 			info("this is a embedded media");
 			waitElementAndTryGetElement(ELEMENT_ACTIVITY_AUDIO_VIDEO_TITLE.replace("${link}",link));
-		    click(ELEMENT_ACTIVITY_AUDIO_VIDEO_TITLE.replace("${link}",link));
+			click(ELEMENT_ACTIVITY_AUDIO_VIDEO_TITLE.replace("${link}",link));
 			break;
 		default:
 			info("Not type for your format.Please check your type");
@@ -697,7 +680,7 @@ public void addCommentWithMentionUser(String activity, String username, String t
 		}
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Like/Unlike an activity
 	 * @param activityText input a text (String) 
@@ -714,7 +697,7 @@ public void addCommentWithMentionUser(String activity, String username, String t
 		assert (newNumLike==(numLike+1)):"Number of like is updated";
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Like/Unlike an activity
 	 * @param activityText input a text (String) 

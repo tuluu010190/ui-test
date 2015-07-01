@@ -154,7 +154,7 @@ import org.testng.annotations.*;
 		    spaMg.goToMemberTab();
 		    waitForAndGetElement(spaMg.ELEMENT_MEMBER_USER_NAME.replace("${fullName}",DATA_NAME_USER2),2000,1);
 		    spaMg.goToUserProfilePage(DATA_NAME_USER2);
-		    waitForAndGetElement(userProPg.ELEMENT_PROFILE_TITLE.replace("${fullName}",DATA_NAME_USER2),2000,1);
+		    waitForAndGetElement(myProfile.ELEMENT_PROFILE_TITLE.replace("${fullName}",DATA_NAME_USER2),2000,1);
 		    
 		   /* info("Delete created space");
 			hp.goToMySpaces();

@@ -161,7 +161,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationIcon_List exten
 		
 		info("User 1 add a activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		
 		info("user 2 comments in user 1's activity");
@@ -376,7 +376,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationIcon_List exten
 		
 		info("User 1 add a activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true, activity, false, "");
+		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		
 		info("user 2 comments in user 1's activity");
@@ -503,7 +503,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationIcon_List exten
 		isDriver = false;
 		ActivityStream newhpAct = new ActivityStream(newDriver);
 		newhp.goToHomePage();
-		newhpAct.addActivity(username1, activity);
+		newhpAct.mentionUserActivity(username1, activity);
 		newhpAct.checkActivity(activity);
 		newDriver.close();
 		

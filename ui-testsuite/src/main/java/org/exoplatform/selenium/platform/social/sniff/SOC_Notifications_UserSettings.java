@@ -336,7 +336,7 @@ import org.testng.annotations.*;
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		
 		info("add mention");
-		hpAct.addActivity(DATA_USER1,mention);
+		hpAct.mentionUserActivity(DATA_USER1,mention);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_MENTION_USER.replace("${content}", mention).replace("${user}",DATA_USER1));
 		
 		magAc.signIn(DATA_USER1, DATA_PASS);
@@ -367,7 +367,7 @@ import org.testng.annotations.*;
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		
 		info("add mention");
-		hpAct.addActivity(DATA_USER1,mention2);
+		hpAct.mentionUserActivity(DATA_USER1,mention2);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_MENTION_USER.replace("${content}", mention2).replace("${user}",DATA_USER1));
 		
 		magAc.signOut();

@@ -24,7 +24,7 @@ import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -33,7 +33,7 @@ public class SOC_TestConfig_3 extends PlatformBase {
 	MailSuffixDatabase mailSuffixData;
 	ActivityStream hpAct;
 	ManageLogInOut magAc;
-	MyProfilePage myProfile;
+	UserProfilePage myProfile;
 	AllNotificationPage AllInTraNot;
 	IntranetNotification intraNot;
 	
@@ -54,7 +54,7 @@ public class SOC_TestConfig_3 extends PlatformBase {
 	UserAndGroupManagement userAndGroup;
 	NotificationsAdminSeting emailNotif;
 	MyNotificationsSetting myNotifPage;
-	MyProfilePage myProfil;
+	UserProfilePage myProfil;
 	
 
 	SendEmailNotifications notiEmail;
@@ -66,7 +66,7 @@ public class SOC_TestConfig_3 extends PlatformBase {
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		magAc = new ManageLogInOut(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		myProfile = new MyProfilePage(driver);
+		myProfile = new UserProfilePage(driver);
 		navTool = new NavigationToolbar(driver);
 		connMag = new ConnectionsManagement(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
@@ -88,7 +88,7 @@ public class SOC_TestConfig_3 extends PlatformBase {
 
 		addUserPage = new UserAddManagement(driver);
 		userAndGroup = new UserAndGroupManagement(driver);
-		myProfil = new MyProfilePage(driver);
+		myProfil = new UserProfilePage(driver);
 		myNotifPage= new MyNotificationsSetting(driver);
 
 		mailSuffixData = new MailSuffixDatabase();

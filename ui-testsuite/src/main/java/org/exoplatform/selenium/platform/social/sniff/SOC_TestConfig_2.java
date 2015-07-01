@@ -20,6 +20,7 @@ import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactIMD
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactPhoneDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityMessageDatabase;
 import org.exoplatform.selenium.platform.social.SendEmailNotifications;
+import org.exoplatform.selenium.platform.social.UserPageBase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.exoplatform.selenium.platform.social.IntranetNotification;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
@@ -28,7 +29,7 @@ import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.chat.ChatStatus;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -39,7 +40,8 @@ public class SOC_TestConfig_2 extends PlatformBase {
 
 	ActivityStream hpAct;
 	ManageLogInOut magAc;
-	MyProfilePage myProfile;
+	UserProfilePage myProfile;
+	UserPageBase uBase;
 	IntranetNotification intraNot;
 
 	NavigationToolbar navTool;
@@ -77,7 +79,8 @@ public class SOC_TestConfig_2 extends PlatformBase {
 		getDefaultUserPass(userDataFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 		magAc = new ManageLogInOut(driver);
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		myProfile = new MyProfilePage(driver);
+		myProfile = new UserProfilePage(driver);
+		uBase = new UserPageBase(driver);
 		navTool = new NavigationToolbar(driver);
 		connMag = new ConnectionsManagement(driver);
 		chat = new ChatStatus(driver);

@@ -59,28 +59,28 @@ public class SOC_People_Profile_RecentActivities extends SOC_TestConfig_2{
 			-column
 			- Button "View All" at the bottom to redirect to My activities*/
 		info("add mention");
-		hpAct.addActivity(DATA_USER1,mention);
+		hpAct.mentionUserActivity(DATA_USER1,mention);
 
 		info("share a document and comment");
 		driver.navigate().refresh();
 		hpAct.openUploadPopup("",folderPath);
 		hpAct.uploadFileFromAS("TestData/",uploadFileName);
-		hpAct.addActivity("",folderPath, uploadFileName, textDes);
+		hpAct.shareFileActivity("",folderPath, uploadFileName, textDes);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TITLE.replace("${text}",textDes).replace("${file}",uploadFileName));
 		hpAct.addComment(textDes, comment);
 
 		info("add activity");
 		driver.navigate().refresh();
-		hpAct.addActivity(true, textDes1, true, link);
+		hpAct.addActivity(textDes1, link);
 		Utils.pause(3000);
 		driver.navigate().refresh();
-		hpAct.addActivity(true, textDes2, false, "");
+		hpAct.addActivity(textDes2, "");
 
 		info("goto my profile");
 		navTool.goToMyProfile();
 		waitForAndGetElement(myProfile.ELEMENT_RECENT_ACTIVITY_VIEWALL_BTN);
 		click(myProfile.ELEMENT_RECENT_ACTIVITY_VIEWALL_BTN);
-		waitForAndGetElement(myProfile.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
+		waitForAndGetElement(uBase.ELEMENT_HORIZONTAL_TOOLBAR_SECOND_APP_ACTIVITIES);
 
 		/*Step number: 2
 		 *Step Name: Step 2: Check Activity

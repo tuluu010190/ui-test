@@ -21,7 +21,7 @@ import org.exoplatform.selenium.platform.objectdatabase.calendar.CalendarRemoteD
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
@@ -47,7 +47,7 @@ public class CAL_TestConfig_2 extends PlatformBase {
 	UserAddManagement addUserPage;
 	UserAndGroupManagement userAndGroup;
 	NotificationsAdminSeting emailNotif;
-	MyProfilePage myProPg;
+	UserProfilePage myProPg;
 	
 	TextBoxDatabase txData;
 	CalendarGroupDatabase cGroupData;
@@ -74,7 +74,7 @@ public class CAL_TestConfig_2 extends PlatformBase {
 		spaMg = new SpaceManagement(driver);
 		spaHome = new SpaceHomePage(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
-		myProPg = new MyProfilePage(driver);
+		myProPg = new UserProfilePage(driver);
 		
 		addUserPage = new UserAddManagement(driver);
 		userAndGroup = new UserAndGroupManagement(driver);

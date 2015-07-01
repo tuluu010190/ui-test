@@ -7,7 +7,7 @@ import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
 import org.exoplatform.selenium.platform.social.AllNotificationPage;
 import org.exoplatform.selenium.platform.social.IntranetNotification;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -67,6 +67,7 @@ public class NavigationToolbar extends PlatformBase {
 	public final String ELEMENT_LIKE_NOTIFICATION_DELETE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime']/../../../..//*[@class='uiIconClose uiIconLightGray']";
 	public final String ELEMENT_CONNECT_NOTIFICATION_DELETE = "//*[contains(@alt,'${fullName}')]/../..//*[ contains(text(),'${fullName}')]/../..//*[contains(.,'wants to connect with you')]/../../../..//*[@class='uiIconClose uiIconLightGray']";
 	public final String ELEMENT_NEW_USER_NOTIFICATION_DELETE = "//*[contains(@alt,'${userName}')]/../..//*[contains(text(),'${userName}')]/../..//*[contains(.,'has joined eXo')]/../../../..//*[@class='uiIconClose uiIconLightGray']";
+	
 	// toolbar--> upload file
 	public By ELEMENT_UPLOAD_FILE_TOOLBAR_PERSONNAL_DOCUMENTS = By.xpath("//*[@id='ListRecords']//*[contains(text(),'Personal Documents')]");
 	public By ELEMENT_UPLOAD_FILE_GO_TO_UPLOAD = By.xpath("//*[@id='UIDocumentSelector']//*[@class='UIDSUploadInput']");
@@ -122,10 +123,12 @@ public class NavigationToolbar extends PlatformBase {
 	public final By ELEMENT_MY_DASHBOARD_LINK = By.xpath("//i[@class='uiIconPLFDashboard']/..");
 	public final By ELEMENT_MY_SETTINGS_LINK = By.className("uiIconSetting");
 	public final By ELEMENT_MY_CONNECTION_LINK = By.className("uiIconPLFMyConnection");
+	public final By ELEMENT_ACTIVITIES_LINK = By.className("uiIconPLFActivityStream");
 	public final By ELEMENT_TOPBAR_AVATAR = By.xpath("//*[@alt='avatar']");
 	public final By ELEMENT_AVATAR_CHANGELANGUAGE = By.xpath("//*[@class='uiIconFlags']");
 	public final By ELEMENT_MY_WIKI_LINK = By.xpath("//i[@class='uiIconWikiMyWiki']/..");
 	public final By ELEMENT_MY_NOTIFICATIONS_LINK = By.className("uiIconPLFNotifications");
+	public final By ELEMENT_ACTIVITIES_PORTLET = By.id("UIUserActivityStreamPortlet");
 
 	//Administration-->Application
 	public final By ELEMENT_ADMINISTRATION_APPLICATION = By.xpath(".//*[text()='Applications']");
@@ -157,17 +160,8 @@ public class NavigationToolbar extends PlatformBase {
 	//Quick search
 	public final By ELEMENT_TOOLBAR_QUICKSEARCH = By.xpath("//*[@class='uiIconPLF24x24Search']");
 
-	//Left Panel
-	public final String ELEMENT_NODE_NAVIGATION_LEFT_PANEL = "//*[@class='groupNavigation']/..//*[contains(text(), '${groupName}')]";
-	public final String ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL = ELEMENT_NODE_NAVIGATION_LEFT_PANEL.replace("${groupName}", "${groupName}") + "/../*[contains(@class, 'arrowIcon')]";
-	public final String ELEMENT_GROUP_NAVIGATION_ICON_LEFT_PANEL_PLF41 = ELEMENT_NODE_NAVIGATION_LEFT_PANEL.replace("${groupName}", "${groupName}") + "/..//*[contains(@class, 'uiIconMiniArrowDown uiIconLightGray')]";
-	public final String ELEMENT_SUB_NODE_NAVIGATION_LEFT_PANEL = ".//*[@id='UIGroupsNavigationPortlet']//*[@data-original-title='${groupName}']";
-
-	public final String ELEMENT_ACTIVITIES_LINK = ".//*[@id='UIUserNavigationPortlet']//*[@class='uiIconAppactivities uiIconDefaultApp']";
-	public final By ELEMENT_ACTIVITIES_PORTLET = By.id("UIUserActivityStreamPortlet");
-
 	PageCreationWizard paWin;
-	MyProfilePage myPro;
+	UserProfilePage myPro;
 	PortalManageSites magSites;
 	AllNotificationPage allIntraNot;
 	IntranetNotification intraNot;
@@ -175,7 +169,7 @@ public class NavigationToolbar extends PlatformBase {
 	public NavigationToolbar(WebDriver dr){
 		this.driver = dr;
 		paWin = new PageCreationWizard(dr);
-		myPro = new MyProfilePage(dr);
+		myPro = new UserProfilePage(dr);
 		magSites = new PortalManageSites(dr);		
 		allIntraNot = new AllNotificationPage(dr);
 		intraNot = new IntranetNotification(dr);
@@ -709,15 +703,6 @@ public class NavigationToolbar extends PlatformBase {
 		click(ELEMENT_INTRANET_NOTIFICATION_BELL);
 		waitForAndGetElement(ELEMENT_NOTIFICATION_DROPDOWN);
 		info("The elemnt is shown successfully");
-	}
-	/**
-	 * Go to Activities of user
-	 */
-	public void goToActivities(){
-		info("Go to Activities of User");
-		waitForAndGetElement(ELEMENT_ACTIVITIES_LINK);
-		click(ELEMENT_ACTIVITIES_LINK);
-		waitForAndGetElement(ELEMENT_ACTIVITIES_PORTLET, 2000);
 	}
 
 	/**

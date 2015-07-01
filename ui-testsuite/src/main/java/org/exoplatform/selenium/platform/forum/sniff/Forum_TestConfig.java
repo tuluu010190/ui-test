@@ -19,7 +19,7 @@ import org.exoplatform.selenium.platform.forum.PrivateMessageManagement;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.testng.annotations.*;
 /**
  * 
@@ -35,7 +35,7 @@ public class Forum_TestConfig extends PlatformBase{
 	ForumHomePage forumHP;
 	ForumForumManagement forumMag;
 	ManageLogInOut magAc;
-	MyProfilePage myPro;
+	UserProfilePage myPro;
 
 	AttachmentFileDatabase fData;
 	TextBoxDatabase txData;
@@ -59,7 +59,7 @@ public class Forum_TestConfig extends PlatformBase{
 		navTool = new NavigationToolbar(driver);
 		forumHP = new ForumHomePage(driver);
 		magAc = new ManageLogInOut(driver);
-		myPro = new MyProfilePage(driver);
+		myPro = new UserProfilePage(driver);
 		SEHome = new SiteExplorerHome(driver);
 		magAlert = new ManageAlert(driver);
 		cMang = new AnswerCategoryManagement(driver);

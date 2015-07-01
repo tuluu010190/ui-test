@@ -347,7 +347,7 @@ import org.testng.annotations.*;
 		spaMg.addNewSpaceSimple(space,space,60000);
 		
 		info("add activity");
-		hpAct.addActivity(true,name,false,"");
+		hpAct.addActivity(name,"");
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TITLE.replace("${text}", name).replace("${file}", name),2000,1);
 		
 		/*Step number: 2
@@ -400,7 +400,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,space,60000);
 		Utils.pause(2000);
-		hpAct.addActivity(true,name,false,"");
+		hpAct.addActivity(name,"");
 		Utils.pause(2000);
 		info("change access to open");
 		spaHome.goToSpaceSettingTab();
@@ -488,7 +488,7 @@ import org.testng.annotations.*;
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_USERJOIN_SPACE.replace("${user}",DATA_NAME_USER2),2000,1);
 		
 		info("user 2 add activity");
-		hpAct.addActivity(true,name,false,"");
+		hpAct.addActivity(name,"");
 		
 		/*Step Number: 1
 		*Step Name: Step 1: Remove space activity of other space member
@@ -552,7 +552,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,space,60000);
 		Utils.pause(2000);
-		hpAct.addActivity(true,name,false,"");
+		hpAct.addActivity(name,"");
 		Utils.pause(2000);
 		info("change access to open");
 		spaHome.goToSpaceSettingTab();
@@ -637,7 +637,7 @@ import org.testng.annotations.*;
 		info("create new space");
 		spaMg.addNewSpaceSimple(space,space,60000);
 		Utils.pause(2000);
-		hpAct.addActivity(true,name,false,"");
+		hpAct.addActivity(name,"");
 		Utils.pause(2000);
 		info("change access to open");
 		spaHome.goToSpaceSettingTab();
@@ -764,7 +764,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			A link is shared with some text on activity.*/ 
 		info("user 2 add link");
-		hpAct.addActivity(true, textDes, true, link);
+		hpAct.addActivity(textDes, link);
 		Utils.pause(2000);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_LINK.replace("${title}",textDes).replace("${link}",link),2000,1);
 		

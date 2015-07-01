@@ -225,7 +225,7 @@ public class Plf_GettintStartedGadget extends Plf_TestConfig {
 		SEHome.uploadFile("TestData/"+path);
 		info("Post an activity");
 		hp.goToHomePage();
-		hpAct.addActivity(true,text,false,"");
+		hpAct.addActivity(text,"");
 		this.driver.navigate().refresh();
 		info("Joint a space");
 		hp.goToMySpaces();

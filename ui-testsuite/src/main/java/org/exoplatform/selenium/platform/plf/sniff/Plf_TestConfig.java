@@ -43,7 +43,8 @@ import org.exoplatform.selenium.platform.objectdatabase.gatein.RemoteGadgetDatab
 import org.exoplatform.selenium.platform.objectdatabase.plf.GettingStartedDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserPageBase;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
@@ -80,7 +81,8 @@ public class Plf_TestConfig extends PlatformBase {
 	PortalManageSites magSite;
 	NavigationManagement navMag;
 	ManageLogInOut magAc;
-	MyProfilePage myProfile;
+	UserProfilePage myProfile;
+	UserPageBase uBase;
 	ManageAlert alert;
 	
 	NavigationToolbar navToolBar;
@@ -146,8 +148,8 @@ public class Plf_TestConfig extends PlatformBase {
 		pagEditor = new PageEditor(driver);
 		
 		hpAct = new ActivityStream(driver);
-		myProfile = new MyProfilePage(driver);
-		
+		myProfile = new UserProfilePage(driver);
+		uBase = new UserPageBase(driver);
 		
 		SEHome = new SiteExplorerHome(driver);
 		spaceHome = new SpaceHomePage(driver);

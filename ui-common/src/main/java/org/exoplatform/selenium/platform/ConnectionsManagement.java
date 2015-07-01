@@ -1,7 +1,7 @@
 package org.exoplatform.selenium.platform;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.social.MyProfilePage;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
@@ -31,11 +31,11 @@ public class ConnectionsManagement extends PlatformBase {
     public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
     public final String ELEMENT_USER_LINK = "//a[contains(text(),'${userName}')]";
     
-    MyProfilePage myProf;
+    UserProfilePage myProf;
     
     public ConnectionsManagement(WebDriver dr){
 		this.driver = dr;
-		myProf = new MyProfilePage(dr);
+		myProf = new UserProfilePage(dr);
     }
 		/**
 	 * Tab list

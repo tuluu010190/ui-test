@@ -6,7 +6,7 @@ import org.testng.annotations.*;
 
 
 public class SOC_Space_Management extends SOC_TestConfig_1 {
-	
+
 	@AfterMethod
 	public void setAfterMethod(){
 		magAc.signOut();
@@ -35,11 +35,11 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- Show content of space with:
 			+ Focus on home space page
 			+ All default portlet display: Home space, Discussion, Members, Wiki, Documents Space settings.
-        */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		
+
 		info("Focus on home space page");
 		waitForAndGetElement(hpAct.ELEMENT_COMPOSER_INPUT_FILED,3000,0);
 		info("All default portlet is displayed");
@@ -50,7 +50,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_MEMBER_PORTLET,2000,0);
 		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_SPACE_SETTING_PORTLET,2000,0);
 		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_WIKI_PORTLET,2000,0);
-		
+
 		/*info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -77,15 +77,15 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- Access Space, select Setting tab/Application
 			- Click on Add Application, select application and click on "Install" icon to add
 		 *Input Data: 
-	
+
 		 *Expected Outcome: 
 			- Application is added on space. 
 			- Name of application is display on right of space menu portlet
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		
+
 		info(" Click on Add Application, select application and click add button");
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToApplicationTab();
@@ -94,12 +94,12 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		waitForAndGetElement(setSpaceMg.ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT.replace("${app}",app),3000,0);
 		info("name of application is shown on right of space menu portlet");
 		if(waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0)==null){
-		  hpAct.openMorelist();
-		  waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
+			hpAct.openMorelist();
+			waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
 		}else
-		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
-		
-		
+			waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
+
+
 		/*info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -123,20 +123,20 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- Access Space/All spaces
 
 		 *Input Data: 
-	
+
 		 *Expected Outcome: 
 			- Show created space. User can send request to join space.
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		
+
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToAllSpace();
 		spaMg.searchSpace(space,"");
 		spaMg.sendARequestToASpace(space);
-		
+
 		/*magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		info("Delete a Space");
@@ -163,10 +163,10 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- Click on Create button
 
 		 *Input Data: 
-	
+
 		 *Expected Outcome: 
 			- New space is displayed on My space list of user and Publics space list of other user..
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
@@ -176,13 +176,13 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		hp.goToAllSpace();
 		spaMg.searchSpace(space,"");
 		waitForAndGetElement(spaMg.ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN.replace("${space}", space),2000,0);
-		
+
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToMySpaces();
 		spaMg.searchSpace(space,"");
 		waitForAndGetElement(spaMg.ELEMENT_SPACE_TITLE.replace("${space}",space),2000,0);
-		
+
 		/*info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -208,11 +208,11 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- Click Add new space
 			- On My spaces list, click Edit: Edit information, visibility, edit avatar and click save
 		 *Input Data: 
-	
+
 		 *Expected Outcome: 
 			- Add new space successfully
 			- All changed of space is saved. User see it when access space
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
@@ -222,14 +222,14 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		spaMg.editSpaceSimple(space, newName, newName, true, "TestData/"+filename);
 		spaMg.saveChangesSpace();
 		waitForAndGetElement(hpAct.ELEMENT_SPACE_MENU_ACTIVITY_PORTLET,2000,0);
- 
+
 		info("All changes are saved");
 		hp.goToMySpaces();
 		spaMg.searchSpace(newName,"");
 		waitForAndGetElement(spaMg.ELEMENT_SPACE_TITLE.replace("${space}", newName),2000,0);
 		waitForAndGetElement(spaMg.ELEMENT_SPACE_DESCRIPTION.replace("${space}", newName),2000,0);
 		waitForElementNotPresent(spaMg.ELEMENT_SPACE_AVATAR_DEFAULT);
-		
+
 		/*info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -254,25 +254,25 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- Click on Delete Space icon
 			- Click on OK button to confirm
 		 *Input Data: 
-	
+
 		 *Expected Outcome: 
 			- Space is removed. It doesn't display on My space list of user and all spaces list of other user.
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		
+
 		info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.searchSpace(space,"");
 		spaMg.deleteSpace(space,false);
-		
+
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToAllSpace();
 		spaMg.searchSpace(space,"");
 		waitForElementNotPresent(spaMg.ELEMENT_SPACE_TITLE.replace("${space}",space),2000,0);
-		
+
 	}
 	/**
 	 *<li> Case ID:121916.</li>
@@ -300,11 +300,11 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		 *Input Data: 
 		 *Expected Outcome: 
 			- Application is move out space, name of one is not display on left menu
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		
+
 		info(" Click on Add Application, select application and click add button");
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToApplicationTab();
@@ -314,7 +314,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		setSpaceMg.removeApplication(app);
 		waitForElementNotPresent(hpAct.ELEMENT_SPACE_MENU_MORE_BTN,3000,0);
 		waitForElementNotPresent(hpAct.ELEMENT_SPACE_MENU_APPLICATION_PORTLET.replace("${app}",app),3000,0);
-		
+
 		/*info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -342,15 +342,15 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- Login by mary
 			- Access the url of an open space that she is not member of via url :
 			/portal/g/:spaces:open/open/forum/
-			 * Click on Join link
-	
+		 * Click on Join link
+
 		 *Input Data: 
 		 *Expected Outcome: 
 			- New space is added successfully
 			- A page with Restricted Area title is displayed
 			Message is :  You must be a member of the space Open to access this page. [Join
 			- Mary joins the space and is redirected to the initially  requested page.
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
@@ -358,7 +358,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToAccessEditTab();
 		setSpaceMg.setPermissionForSpace(arrayRight);
-		
+
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		driver.get(urlSpace);
@@ -366,10 +366,10 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_ACCESS_INFO,2000,0).getText().contains(mess);
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_ACCESS_JOIN_BTN,2000,0).click();
 		waitForAndGetElement(spaHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM,3000,0);
-		
+
 		/*magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		
+
 		info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -395,23 +395,23 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- Login as user2
 			- access the url of an hidden space that she is not member of via url :
 			/portal/g/:spaces:hidden/hidden/forum/
-			 * - Click on [Find Spaces] link
+		 * - Click on [Find Spaces] link
 		 *Input Data: 
 		 *Expected Outcome: 
 			- Add new space successfully
 			- A page with 'Space not Found' title is displayed
 			Message is :  No space is available at this URL. [Find Spaces]
 			- User2 is redirected to Spaces directory page
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		
+
 		info("Set permission for the space");
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToAccessEditTab();
 		setSpaceMg.setPermissionForSpace(arrayRight);
-		
+
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		driver.get(urlSpace);
@@ -419,10 +419,10 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_INFO,2000,0);
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_FIND_BTN,2000,0).click();
 		waitForAndGetElement(spaMg.ELEMENT_MY_SPACE_ALL_SPACES_TAB,3000,0);
-		
+
 		/*magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		
+
 		info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -455,7 +455,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- A page with 'Access Denied' title is displayed
 			Message is :  You must be invited by an administrator to the Closed space to access this page.
 
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
@@ -463,16 +463,16 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToAccessEditTab();
 		setSpaceMg.setPermissionForSpace(arrayRight);
-		
+
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		driver.get(urlSpace);
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_ACCESS_SPACE_DENIED,2000,0);
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_ACCESS_SPACE_DENIED_INFO,2000,0).getText().contains(mess);
-		
+
 		/*magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		
+
 		info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -505,11 +505,11 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 			- A page with Restricted Area title is displayed
 			Message is :   You must be a member of the space Validation to access this page. [Request to Join]
 			- Restricted Area page remains
-	    */ 
+		 */ 
 		info("Create a space");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
-		
+
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		driver.get(urlSpace);
@@ -518,10 +518,10 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_ACCESS_REQUEST_JOIN_BTN,2000,0).click();
 		waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_ACCESS_RESTRICED_AREA_TITLE,2000,0);
 		waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_ACCESS_INFO,2000,0);
-		
+
 		/*magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		
+
 		info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -550,19 +550,19 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		 *Expected Outcome: 
 			- Add space and wiki of space successfully
 			- The member of space can view the page created by the manager
-	    */ 
+		 */ 
 		info("Create space 1 and wiki page 1");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.inviteUser(DATA_USER2,false,"");
-		
+
 		info("Add new wiki page 1 for space 1");
 		spaHome.goToWikiTab();
 		wHome.goToAddBlankPage();
 		wikiMg.addWikiPageSimpleWithSourceEditor(wiki,wiki);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
-		
+
 		String perLink=wikiMg.permalinkAPage();
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
@@ -571,10 +571,10 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		spaMg.acceptAInvitation(space);
 		driver.get(perLink);
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LEFTBOX.replace("${title}",wiki));
-		
+
 		/*magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		
+
 		info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
@@ -603,7 +603,7 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		 *Expected Outcome: 
 			- Add space and wiki of space successfully
 			- The "Page Not found" is displayed, the user B cannot view the page
-	    */ 
+		 */ 
 		info("Create space 1 and wiki page 1");
 		hp.goToMySpaces();
 		spaMg.addNewSpaceSimple(space,space);
@@ -612,19 +612,19 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		wHome.goToAddBlankPage();
 		wikiMg.addWikiPageSimpleWithSourceEditor(wiki,wiki);
 		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
-		
+
 		String perLink=wikiMg.permalinkAPage();
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		driver.get(perLink);
 		waitForAndGetElement(wHome.ELEMENT_WIKI_HOME_PAGENOTFOUND);
-		
+
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		
+
 		/*info("Delete a Space");
 		hp.goToMySpaces();
 		spaMg.deleteSpace(space,false);*/
 	}
-	
+
 }

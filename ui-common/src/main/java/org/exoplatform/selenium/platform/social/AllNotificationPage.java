@@ -112,7 +112,7 @@ public class AllNotificationPage extends PlatformBase{
 	public final By ELEMENT_EDIT_LIKE_SAVE_BTN = By.xpath("//button[@id='LikePlugin']");
 	public final By ELEMENT_EDIT_LIKE_WEB_ICON = By.xpath("//*[@id='LikePlugin']/../..//i[@class='uiIconPLFWeb']");
 	
-	MyProfilePage myProf;
+	UserProfilePage myProf;
 	NavigationToolbar navTool;
 	HomePagePlatform hp;
 	ConnectionsManagement connMag;
@@ -350,7 +350,7 @@ public class AllNotificationPage extends PlatformBase{
 		navTool = new NavigationToolbar(driver);
 		hp = new HomePagePlatform(driver);
 		connMag = new ConnectionsManagement(driver);
-		myProf = new MyProfilePage(driver);
+		myProf = new UserProfilePage(driver);
 		info("Click on notification");
 		waitForAndGetElement(ELEMENT_CONNECT_NOTIFICATION.replace("${fullName}", fullName));
 		click(ELEMENT_CONNECT_NOTIFICATION.replace("${fullName}", fullName));
@@ -395,7 +395,7 @@ public class AllNotificationPage extends PlatformBase{
 	 */
 	public void goToUserProfileFromIntranetNotificationWithNewUserJoined(String userName1, String time){
 		info("Go to User profile from Intranet Notification after new User has joined Intrane");
-		myProf = new MyProfilePage(driver);
+		myProf = new UserProfilePage(driver);
 		if(waitForAndGetElement(ELEMENT_NEW_USER_NOTIFICATION_JUST_NOW.replace("${userName}", userName1)) != null){
 			info("click on new notification");
 			click(ELEMENT_NEW_USER_NOTIFICATION_JUST_NOW.replace("${userName}", userName1));
@@ -420,7 +420,7 @@ public class AllNotificationPage extends PlatformBase{
 			info("Go to Homepage of Space from Intranet Notification after invited");
 			navTool = new NavigationToolbar(driver);
 			hp = new HomePagePlatform(driver);
-			myProf = new MyProfilePage(driver);
+			myProf = new UserProfilePage(driver);
 			spaceManage = new SpaceManagement(driver);
 			info("Click on notification in notification list");
 			waitForAndGetElement(ELEMENT_SPACE_INVITATION.replace("${space}", space));
@@ -485,7 +485,7 @@ public class AllNotificationPage extends PlatformBase{
 			info("Go to Homepage of Space from Intranet Notification after requested");
 			navTool = new NavigationToolbar(driver);
 			hp = new HomePagePlatform(driver);
-			myProf = new MyProfilePage(driver);
+			myProf = new UserProfilePage(driver);
 			spaceManage = new SpaceManagement(driver);
 			magAc = new ManageLogInOut(driver);
 			info("Click on notification in notification list");

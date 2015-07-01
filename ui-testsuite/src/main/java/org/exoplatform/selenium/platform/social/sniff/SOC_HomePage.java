@@ -185,7 +185,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 			- The suggestion list is hidden
 			- In the activity stream, mentions are displayed as a link on "Firstname Lastname" to the user's activities page*/ 
 		hp.goToHomePage();
-		hpAct.addActivity(DATA_USER2,text);
+		hpAct.mentionUserActivity(DATA_USER2,text);
 		
 	}
 
@@ -212,7 +212,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		 *Expected Outcome: 
 			- The message will show in Activity Stream*/ 
 		hp.goToHomePage();
-		hpAct.addActivity(true,name,false,"");
+		hpAct.addActivity(name,"");
 		waitForElementNotPresent(hp.ELEMENT_PUBLICATION_TITLE.replace("${title}", name));
 	}
 
@@ -270,7 +270,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 
 		 *Expected Outcome: 
 			- Activity is added into activity stream*/ 
-		hpAct.addActivity(nameDrive, path, name, content);
+		hpAct.shareFileActivity(nameDrive, path, name, content);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TITLE.replace("${text}",content).replace("${file}",name));
 		
 	}
@@ -340,7 +340,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		hpAct.uploadFileFromAS("TestData/",uploadFileName);
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
-		hpAct.addActivity("",folderPath, uploadFileName, textDes);
+		hpAct.shareFileActivity("",folderPath, uploadFileName, textDes);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TITLE.replace("${text}",textDes).replace("${file}",uploadFileName));
 
 	}
@@ -383,7 +383,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 		 *Expected Outcome: 
 			- Activity is added into activity stream*/ 
 		hp.goToHomePage();
-		hpAct.addActivity(true, textDes, true, link);
+		hpAct.addActivity(textDes, link);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TITLE.replace("${text}",textDes).replace("${file}",link));
 
 	}
@@ -423,7 +423,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 			else
 			textDesMedi = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 			hp.goToHomePage();
-			hpAct.addActivity(true,textDesMedi, false, "");
+			hpAct.addActivity(textDesMedi,"");
 			Utils.pause(2000);
 		}
 
@@ -619,9 +619,9 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 			2. The date of the last comment posted*/ 
 		hp.goToHomePage();
 		String activity1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hpAct.addActivity(true,activity1, false, "");
+		hpAct.addActivity(activity1, "");
 		String activity2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		hpAct.addActivity(true,activity2, false, "");
+		hpAct.addActivity(activity2, "");
 		String comment = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
 		waitForAndGetElement(hp.ELEMENT_PUBLICATION_DISPLAYORDER.replace("${number}", "1").replace("${title}", activity2));
@@ -667,7 +667,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 			8.the like section (optional)
 			9.the comment section (optional)*/ 
 		hp.goToHomePage();
-		hpAct.addActivity(true, name, false, "");
+		hpAct.addActivity(name, "");
 
 		waitForAndGetElement(hpAct.ELEMENT_PUBLICATION_FIRSTPOST_AUTHOR.replace("${name}", "John Smith"));
 		waitForAndGetElement(hpAct.ELEMENT_PUBLICATION_FIRSTPOST_AUTHORAVATAR);
@@ -701,7 +701,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 			- "View all 10 comments" message is shown 
 			- all comments is displayed, in the time order (oldest at the top)*/ 
 		hp.goToHomePage();
-		hpAct.addActivity(true, name, false, "");
+		hpAct.addActivity(name, "");
 		String commentfirst=null;
 		String comment=null;
 		String commentSecondlast=null;
@@ -760,7 +760,7 @@ public class SOC_HomePage extends SOC_TestConfig_1 {
 			- Input text field is displayed in activity, click comment button to show comment textbox
 			- Comment will be added into comment section of activity*/ 
 		hp.goToHomePage();
-		hpAct.addActivity(true, name, false, "");
+		hpAct.addActivity(name, "");
 		hpAct.addComment(name, content);
 		waitForAndGetElement(hpAct.ELEMENT_COMMENT_TEXT.replace("${activityText}",name).replace("${commentText}","Mary"));
 	}
