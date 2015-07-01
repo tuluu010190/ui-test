@@ -265,6 +265,7 @@ public class NavigationToolbar extends PlatformBase {
 		}
 		Utils.pause(2000);
 	}
+	
 
 	/**
 	 * List sublink in user menu
@@ -653,7 +654,7 @@ public class NavigationToolbar extends PlatformBase {
 	/**
 	 * Go to email notification
 	 */
-	public void goToEmailNotifications(){
+	public void goToAdminNotifications(){
 		info("Go to email notifications");
 		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);

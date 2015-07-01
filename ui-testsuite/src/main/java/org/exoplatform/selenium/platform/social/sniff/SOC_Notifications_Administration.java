@@ -33,7 +33,7 @@ import org.testng.annotations.*;
 			   + [Notifications] list all activities which support notification email 
 			   + [Title] Title of activities which is shown in [Notification setting] table 
 			   + [Enable] let users enable/disable notification option*/ 
-		navTool.goToEmailNotifications();
+		navTool.goToAdminNotifications();
 		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
 		waitForAndGetElement(emailNotif.ELEMENT_NOTIFICATION_GRID_TITLE,2000,1);
 		waitForAndGetElement(emailNotif.ELEMENT_TITLE_NOTIFICATION_GRID,2000,1);
@@ -59,7 +59,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notifications Administration page is displayed*/
-		navTool.goToEmailNotifications();
+		navTool.goToAdminNotifications();
 		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
 		/*Step number: 2
 		*Step Name: Step 2: Disable one option
@@ -105,7 +105,7 @@ import org.testng.annotations.*;
         switchToParentWindow();
         
         info("Reset changed data");
-		navTool.goToEmailNotifications();
+        navTool.goToAdminNotifications();
 		emailNotif.enableNotification(notificationType.NewUser_email);
 		info("restore data");
 		navTool.goToUsersAndGroupsManagement();
@@ -130,7 +130,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notifications Administration page is displayed*/
-		navTool.goToEmailNotifications();
+		navTool.goToAdminNotifications();
 		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
 		/*Step number: 2
 		*Step Name: Step 3: Enable option again
@@ -208,7 +208,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notifications Administration page is displayed*/
-		navTool.goToEmailNotifications();
+		navTool.goToAdminNotifications();
 		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
 		
 		/*Step number: 2
@@ -223,7 +223,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			The option is shown in the user settings page.
 			"I receive a Space invitation" with intranet nofication option is shown*/
-		emailNotif.enableNotification(notificationType.Space_intranet);
+		emailNotif.enableNotification(notificationType.Space_Invitation_intranet);
 		navTool.goToMyNotifications();
 		waitForAndGetElement(myNotifPage.ELEMENT_SPACE_INVITATION_INTRANET_NOTIFICATION_ICON,2000,1);
 		
@@ -283,7 +283,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notifications Administration page is displayed*/
-		navTool.goToEmailNotifications();
+		navTool.goToAdminNotifications();
 		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
 
 		/*Step number: 2
@@ -299,7 +299,7 @@ import org.testng.annotations.*;
 			The option is not shown in Notification Setting anymore. 
 			("Someone comments on one of my activity" is not listed)*/
 
-		emailNotif.disableNotification(notificationType.Comment_intranet);
+		emailNotif.disableNotification(notificationType.AS_Comment_intranet);
 		navTool.goToMyNotifications();
 		waitForElementNotPresent(myNotifPage.ELEMENT_ACTIVITY_COMMENT_ICON_INTRANET_NOTIFICATION,2000,1);
 		
@@ -349,8 +349,8 @@ import org.testng.annotations.*;
 		connMag.resetConnection(DATA_USER2);
 		
 		 info("Reset changed data");
-		navTool.goToEmailNotifications();
-		emailNotif.enableNotification(notificationType.Comment_intranet);
+		 navTool.goToAdminNotifications();
+		emailNotif.enableNotification(notificationType.AS_Comment_intranet);
 
  	}
 	
