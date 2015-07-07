@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.platform.ConnectionsManagement.selectTabOption;
 import org.testng.annotations.*;
 
 
@@ -146,9 +147,8 @@ public class SOC_People_Activity_Comment extends SOC_TestConfig{
 			Show comment successfully*/ 
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
-		click(connMag.ELEMENT_ALL_CONNECTIONS_TAB);
-		connMag.searchPeople(DATA_USER1,null,null,null);
-		click(connMag.ELEMENT_CONNECTION_USER_NAME.replace("${user}", DATA_USER1));
+		connMag.goToConnectionTab(selectTabOption.ALL);
+		connMag.goToUser(DATA_NAME_USER1);
 		uBase.goToActivityTab();
 		String comment=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hpAct.addComment(activity1, comment);

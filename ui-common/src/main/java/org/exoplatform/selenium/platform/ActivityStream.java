@@ -19,8 +19,8 @@ public class ActivityStream extends PlatformBase {
 
 	//Author of activity
 	public final String ELEMENT_ACTIVITY_AUTHOR_SPACE="//*[@class='author']//*[contains(@href,'$user')]/../..//*[@data-original-title='$space']";
-	public final String ELEMENT_ACTIVITY_BOX="//*[@id='boxContainer']//*[contains(text(),'${name}')]/../../../..";
-	public final String ELEMENT_ACTIVITY_BOX_DELETE_BUTTON="//*[@id='boxContainer']//*[contains(text(),'${name}')]/../../../..//*[contains(@class,'uiIconClose')]";
+	public final String ELEMENT_ACTIVITY_BOX="//*[@id='boxContainer']//*[contains(text(),\"${name}\")]/../../../..";
+	public final String ELEMENT_ACTIVITY_BOX_DELETE_BUTTON="//*[@id='boxContainer']//*[contains(text(),\"${name}\")]/../../../..//*[contains(@class,'uiIconClose')]";
 
 	//Home page space menu
 	public final By ELEMENT_SPACE_MENU_ACTIVITY_PORTLET=By.xpath(".//*[@class='uiIconAppSpaceActivityStreamPortlet uiIconDefaultApp']");
@@ -135,7 +135,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_EDIT_A_NODE = "//*[@class='linkTitle' and contains(text(),'{$title}')]/../../../..//*[@class='uiIconEdit uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM ="//*[@id='boxContainer']//*[contains(text(),'${title}')]";
 	public final String ELEMENT_ACTIVITY_VERSION = ".//*[contains(text(),'${name}')]/../../..//*[.//*[@class='pull-right versionLabel'][text()='${version}']";
-	public final String ELEMENT_ACTIVITY_TITLE="//*[@id='boxContainer']//*[contains(text(),'${text}')]/../..//*[contains(text(),'${file}')]";
+	public final String ELEMENT_ACTIVITY_TITLE="//*[@id='boxContainer']//*[contains(text(),\"${text}\")]/../..//*[contains(text(),\"${file}\")]";
 	public final String ELEMENT_PUBLICATION_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentItem commentItemLast']";
 	public final String ELEMENT_PUBLICATION_DELETE_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentRight']/..//*[@class='uiIconClose uiIconLightGray controllDelete']";
 	public final String ELEMENT_PUBLICATION_FIRSTPOST_AUTHOR = "//div[1]/form//*[@class='heading']//*[@class='author']//*[contains(text(),'${name}')]";
@@ -154,15 +154,16 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_DOCUMENT_MEDIA_DOWNLOAD_BTN=".//*[contains(@data-original-title,'${nameFile}')]/../../../..//*[contains(@class,'uiIconDownload')]/..";
 
 	//Comment box
-	public final String ELEMENT_COMMENTBOX="//*[contains(text(),'${title}')]/../../../..//div[@class='replaceTextArea editable']";
-	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconComment uiIconLightGray']";
-	public final String ELEMENT_ICON_LIKE = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconThumbUp uiIconLightGray']";
-	public final String ELEMENT_ICON_UNLIKE = "//*[contains(text(),'${title}')]/../../../..//i[@class='uiIconThumbUp uiIconBlue']";
-	public final String ELEMENT_LIKE_NUMBER = "//*[contains(text(),'${title}')]/../../../..//*[contains(@class,'uiIconThumbUp')]/..";
-	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), '${activityText}')]/../../../..//button[contains(@id,'CommentButton')]";
-	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(),'${activityText}')]/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
-	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),'${commentText}')]/../../a[contains(@id,'DeleteCommentButton')]";
-	public final String ELEMENT_COMMENT_TEXT = "//*[contains(text(),'${activityText}')]/../../../..//p[@class='contentComment'  and contains(.,'${commentText}')]";
+	public final String ELEMENT_COMMENTBOX="//*[contains(text(),\"${title}\")]/../../../..//div[@class='replaceTextArea editable']";
+	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),\"${title}\")]/../../../..//i[@class='uiIconComment uiIconLightGray']";
+	public final String ELEMENT_ICON_LIKE = "//*[contains(text(),\"${title}\")]/../../../..//i[@class='uiIconThumbUp uiIconLightGray']";
+	public final String ELEMENT_ICON_UNLIKE = "//*[contains(text(),\"${title}\")]/../../../..//i[@class='uiIconThumbUp uiIconBlue']";
+	public final String ELEMENT_LIKE_NUMBER = "//*[contains(text(),\"${title}\")]/../../../..//*[contains(@class,'uiIconThumbUp')]/..";
+	public final String ELEMENT_COMMENT_BUTTON = "//*[contains(text(), \"${activityText}\")]/../../../..//button[contains(@id,'CommentButton')]";
+	public final String ELEMENT_ACTIVITY_ADD_YOUR_COMMENTLABEL = "//*[contains(text(),\"${activityText}\")]/../../../..//*[contains(@id,'DisplayCommentTextarea')]/../div[@class='placeholder']";
+	public final String ELEMENT_DELETE_COMMENT_BUTTON = "//*[contains(text(),'${activityText}')]/../../../..//div[@class='commentList']/div[contains(@id,'commentContainer')]//p[@class='contentComment'  and contains(text(),\"${commentText}\")]/../../a[contains(@id,'DeleteCommentButton')]";
+	public final String ELEMENT_COMMENT_TEXT = "//*[contains(text(),\"${activityText}\")]/../../../..//p[@class='contentComment'  and contains(.,\"${commentText}\")]";
+	public final String ELEMENT_COMMENT_TEXT_QUOTES = "//*[contains(text(),\"${activityText}\")]/../../../..//p[@class='contentComment'  and contains(.,'${commentText}')]";
 	public final String ELEMENT_ACTIVITY_LIKE_ICON_BLUE = ".//*[contains(text(),'${nameFile}')]/../../../..//*[@class='uiIconThumbUp uiIconBlue']";
 	public final String ELEMENT_ACTIVITY_COMMENT_VIEW_HOVEROVER = ".//*[contains(text(),'${comment}')]/../..//*[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_PUBLICATION_COMMENTPOSTED = "//*[@class='commentList']//*[contains(text(),'${content}')]";
@@ -743,7 +744,7 @@ public class ActivityStream extends PlatformBase {
 		mouseOver(ELEMENT_ACTIVITY_BOX.replace("${name}", name), true);
 		click(ELEMENT_ACTIVITY_BOX_DELETE_BUTTON.replace("${name}", name),2);
 		click(button.ELEMENT_OK_BUTTON);
-		waitForElementNotPresent(ELEMENT_ACTIVITY_TITLE.replace("${text}", name).replace("${file}", name));
+		waitForElementNotPresent(ELEMENT_ACTIVITY_BOX.replace("${name}", name));
 		info("the activity is removed successfully");
 	}
 }

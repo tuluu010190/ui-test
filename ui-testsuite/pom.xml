@@ -112,6 +112,18 @@
 				<testSuite>social-func-part2.xml</testSuite>
 			</properties>
 		</profile>
+				<profile>
+			<id>social-func-part3</id>
+			<properties>
+				<testSuite>social-func-part3.xml</testSuite>
+			</properties>
+		</profile>
+				<profile>
+			<id>social-func-part4</id>
+			<properties>
+				<testSuite>social-func-part4.xml</testSuite>
+			</properties>
+		</profile>
 		<profile>
 			<id>gatein-sniff-part1</id>
 			<properties>

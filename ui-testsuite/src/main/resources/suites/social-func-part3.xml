@@ -1,7 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 <suite name="Platform Sniff Test" verbose="1" preserve-order="true">
-<<<<<<< HEAD
-<<<<<<< HEAD
 	<test name="social-func-part3" enabled="true">
 		<groups>
 			<run>
@@ -9,8 +7,6 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_Add" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig1" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Administration" />
 		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Intranet_Notification_Administration" />

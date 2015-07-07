@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.platform.ConnectionsManagement.selectTabOption;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -173,9 +174,8 @@ public class SOC_People_Activity_Add extends SOC_TestConfig{
 			User can see the text box to add new activity for user AAA and add activity for this user successfully*/
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToConnections();
-		click(connMag.ELEMENT_ALL_CONNECTIONS_TAB);
-		connMag.searchPeople(username1,null,null,null);
-		click(connMag.ELEMENT_CONNECTION_USER_NAME.replace("${user}", username1));
+		connMag.goToConnectionTab(selectTabOption.ALL);
+		connMag.goToUser(username1);
 		uBase.goToActivityTab();
 		String activity1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hpAct.addActivity(activity1, "");
