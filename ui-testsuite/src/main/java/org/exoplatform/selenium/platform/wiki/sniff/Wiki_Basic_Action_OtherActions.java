@@ -7,11 +7,6 @@ import org.exoplatform.selenium.Utils;
 
 public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
     
-	@AfterMethod
-	public void setAfterMedthod(){
-		magAc.signOut();
-		magAc.signIn(DATA_USER1, DATA_PASS);
-	}
 	/**
 	 *<li> Case ID:122810.</li>
 	 *<li> Test Case Name: Move Page.</li>
@@ -22,7 +17,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test01_MovePage() {
 		info("Test 1: Move Page");
-
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String title1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String title2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 
@@ -67,7 +62,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test17_WatchAWikiPageOfIntranet() {
 		info("Test 17: Watch a wiki page of intranet");
-
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String update = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         String mess = wMessage.getWikiMessage(3);
@@ -148,7 +143,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test(groups="pending")
 	public  void test03_ExportPageAsPDF() {
 		info("Test 3: Export page as PDF");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		/*Step Number: 1
@@ -182,7 +177,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test04_CheckPermalinkWhenUserIsMemberOfPage() {
 		info("Test 4: Check permalink when user is member of page");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		/*Step Number: 1
@@ -228,7 +223,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test05_CheckPermalinkWhenUserIsNotMemberOfPage() {
 		info("Test 5: Check permalink when user is not member of page");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		/*Step Number: 1
@@ -288,7 +283,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test06_CheckPermalinkWhenUserIsMemberOfSpace() {
 		info("Test 6: Check permalink when user is member of space");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String wiki = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -351,7 +346,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test07_CheckPermalinkWhenUserIsNotMemberOfSpace() {
 		info("Test 7: Check permalink when user is not member of space");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String wiki = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -416,7 +411,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test08_UnwatchPage() {
 		info("Test 8: Unwatch Page");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String wiki = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String mess1 = wMessage.getWikiMessage(3);
 	    info("mess1:"+mess1);
@@ -463,7 +458,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test09_CheckWhenChangeLinkIsRestricted() {
 		info("Test 9: Check when change link is restricted");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		/*Step Number: 1
@@ -544,7 +539,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test10_CheckWhenChangeLinkIsPublic() {
 		info("Test 10 Check when change link is public");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		/*Step Number: 1
@@ -617,7 +612,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test11_ChangePermissionForPageInPermalinkPage() {
 		info("Test 11 Change permission for page in Permalink page");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String title = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		/*Step Number: 1
@@ -673,7 +668,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		String wiki1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String wiki2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		/*Step Number: 1
 		 *Step Name: Step 1: Add new space
 		 *Step Description: 
@@ -806,7 +801,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 		
 		String wiki1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String wiki2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		/*Step Number: 1
 		 *Step Name: Step 1: Add new space
 		 *Step Description: 
@@ -911,7 +906,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 			
 		String wiki1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String wiki2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		/*Step Number: 1
 		 *Step Name: Step 1: Add new space
 		 *Step Description: 
@@ -1003,7 +998,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test15_MoveWikisPageOfPortalToSpace() {
 		info("Test 15 Move wiki's page of Portal to Space");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
         String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		String wiki1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -1110,7 +1105,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test
 	public  void test16_MovePageHasTheSameNameWithPageInTargetSpace() {
 		info("Test 16 Move page has the same name with page in target space");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
         String space1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         String space2 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
@@ -1224,7 +1219,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
 	@Test(groups="pending")
 	public  void test02_MovePageWhenUserHasNoEditPermissionAtDestinationPage() {
 		info("Test 02: Move page when user has no edit permission at destination page");
-		
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		String space = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		
 		String wiki1 = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -1336,7 +1331,7 @@ public class Wiki_Basic_Action_OtherActions extends Wiki_TestConfig {
         String mess = wMessage.getWikiMessage(3);
         info("mess:"+mess);
 
-		
+        magAc.signIn(DATA_USER1, DATA_PASS);
 		/*Step Number: 1
 		 *Step Name: Step 1: Watch Page
 		 *Step Description: 

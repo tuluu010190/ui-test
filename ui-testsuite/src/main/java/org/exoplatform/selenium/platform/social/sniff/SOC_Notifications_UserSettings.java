@@ -151,7 +151,11 @@ import org.testng.annotations.*;
 		addUserPage.addUser(username2, password2, email2, username2, username2);
 		
 		info("Check email notification");
-		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
+		for(String winHandle : driver.getWindowHandles()){
+			driver.switchTo().window(winHandle);
+		}
+		info("Go to gmail");
+		driver.navigate().to(GMAIL_URL);
 		notiEmail.checkNewUserNotiEmail(username2,false);
 		
 		info("restore data");

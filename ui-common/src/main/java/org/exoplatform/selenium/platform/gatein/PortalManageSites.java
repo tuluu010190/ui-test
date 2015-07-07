@@ -57,10 +57,10 @@ public class PortalManageSites extends PlatformBase {
 	public final String ELEMENT_PROPERTIES_TAB = "//a[contains(text(),'Properties')]";
 	public final String ELEMENT_SELECT_SESSION_ALIVE = "//*[@class='selectbox' and contains(@name,'sessionAlive')]";
 	
-	public final String ELEMENT_PERMISSION_SETTING_TAB = "//a[contains(text(),'Permission Settings')]";
+	public final String ELEMENT_PERMISSION_SETTING_TAB = "//a[@data-target='#PermissionSetting-tab']";
 	public final By ELEMENT_CHECKBOX_PUBLIC_MODE = By.id("publicMode");
 	public final By ELEMENT_ADD_PERMISSION_BUTTON = By.className("uiIconAddUser uiIconWhite");
-	public final String ELEMENT_EDIT_PERMISSION_SETTING = "//a[contains(text(),'Edit Permission Settings')]";
+	public final String ELEMENT_EDIT_PERMISSION_SETTING = "//*[@href='#TabContentUIPermissionSelector']";
 	public final String ELEMENT_PORTAL_TEMPLATE_TAB = "//a[contains(text(),'Portal Templates')]";
 	
 	public final String ELEMENT_SAVE_BUTTON = "//button[contains(text(),'Save')]";

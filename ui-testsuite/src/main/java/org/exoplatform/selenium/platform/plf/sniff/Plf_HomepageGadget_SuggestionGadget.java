@@ -401,7 +401,7 @@ import org.testng.annotations.*;
 		hp.goToMySpaces();
 		spaceMg.deleteSpace(space1, false);
 		
-		info("Delete space 1");
+		info("Delete space 2");
 		magAc.signOut();
 		magAc.signIn(DATA_USER3, DATA_PASS);
 		hp.goToMySpaces();
@@ -420,7 +420,7 @@ import org.testng.annotations.*;
 	public  void test05_AcceptAPeopleSuggestion() {
 		info("Test 05: Accept a people suggestion");
 		String userFQA="FQA VN";
-		String userJames=DATA_NAME_USER3;
+	
 		/*Step Number: 1
 		*Step Name: Show people suggestion
 		*Step Description: 
@@ -453,10 +453,7 @@ import org.testng.annotations.*;
 		info("Connection request is sent to user. The suggestion fades out and is never suggested again.");
 		WebElement elementToClick=waitForAndGetElement(hp.ELEMENT_SUGGESTION_PEOPLE_CONNECT_BTN.replace("${name}",userFQA),5000,1,2);
 		((JavascriptExecutor)driver).executeScript("arguments[0].click();", elementToClick);
-		waitForElementNotPresent(hp.ELEMENT_SUGGESTION_NAME.replace("${name}",userFQA));
-		info("Suggestion of other is moved up.");
-		waitForAndGetElement(hp.ELEMENT_SUGGESTION_NAME.replace("${name}",userJames),5000,1,2);
-		
+		waitForElementNotPresent(hp.ELEMENT_SUGGESTION_NAME.replace("${name}",userFQA));		
  	}
 	
 	@Test

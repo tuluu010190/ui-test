@@ -14,7 +14,6 @@ import org.exoplatform.selenium.platform.answer.CommentManagement;
 import org.exoplatform.selenium.platform.answer.QuestionManagement;
 import org.exoplatform.selenium.platform.answer.AnswerManagement.actionAnswerOption;
 import org.exoplatform.selenium.platform.answer.CommentManagement.actionCommentOption;
-import org.exoplatform.selenium.platform.answer.AnswerCategoryManagement.actionCategoryOption;
 import org.exoplatform.selenium.platform.gatein.AnswerPage;
 import org.exoplatform.selenium.platform.gatein.ApplicationRegistry;
 import org.exoplatform.selenium.platform.gatein.PageEditor;
@@ -43,8 +42,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 	Button button;
 	String question1;
 	String content1;
-	String paCat1;
-	String paDes1;
 	String fullName;
 	String question2;
 	String content2;
@@ -77,8 +74,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		content1 = txData.getContentByArrayTypeRandom(1)+"1116814";
 		question2 = txData.getContentByArrayTypeRandom(1)+"2116814";
 		content2 = txData.getContentByArrayTypeRandom(1)+"2116814";
-		paCat1 = txData.getContentByArrayTypeRandom(1)+"p116814";
-		paDes1 = txData.getContentByArrayTypeRandom(1)+"p116814";
 		fullName = userData.fullName.get(0);
 		createDataTest();
 	}
@@ -109,21 +104,15 @@ public class Addons_Answers_Answers  extends PlatformBase {
 			click(pagEditor.ELEMENT_PAGE_EDITOR_SAVE_AND_CLOSE_BUTTON);
 			pagEditor.finishEditLayout();
 		}
-		info("Create category");
 		hp.goToAnswer();
-		cMang.goToActionOfCategoryFromActionBar(actionCategoryOption.ADD);
-		cMang.inputDataToSettingTab(paCat1, null, paDes1, null, null, null);
-		click(cMang.ELEMENT_CATEGORY_ADD_FORM_SAVE_BUTTON);
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-
 		info("Create question");
-		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
+		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(question1, content1, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
 		click(button.ELEMENT_OK_BUTTON_LINK);
 		
 		info("Create question");
-		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
+		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(question2, content2, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
 		click(button.ELEMENT_OK_BUTTON_LINK);
@@ -133,9 +122,8 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		info("Delete data test");
 		info("Create category");
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		cMang.deleteCategory(paCat1);
+		qMang.deleteQuestion(question1);
+		qMang.deleteQuestion(question2);
 	}
 	/**
 	 * Case ID:116814.
@@ -151,9 +139,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 
 		info("Create answer");
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer1, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -192,8 +177,9 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_POSITION_IN_LIST.replace("${answer}", answer2).replace("${no}", "3"));
 
 		info("Clear data");
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		hp.goToAnswer();
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.deleteAnswer(answer1);
 		aMang.deleteAnswer(answer2);
@@ -223,9 +209,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 			- Question is created successfully
 			- Answer successfully*/
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -247,8 +230,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForElementNotPresent(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
@@ -265,8 +246,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.goToActionOfAnswerFromMoreAction(answer,actionAnswerOption.EDIT);
 		aMang.inputDataToAnswer(null, null, true, null);
@@ -274,8 +253,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
@@ -283,8 +260,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.deleteAnswer(answer);
 	}
@@ -315,9 +290,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 			- Question is created successfully
 			- Answer successfully, but this answer is at Disapprove status and invisible with normal users*/
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, false, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -325,8 +297,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForElementNotPresent(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
@@ -344,8 +314,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.goToActionOfAnswerFromMoreAction(answer,actionAnswerOption.EDIT);
 		aMang.inputDataToAnswer(null, true, null, null);
@@ -353,8 +321,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
@@ -372,8 +338,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.goToActionOfAnswerFromMoreAction(answer,actionAnswerOption.EDIT);
 		aMang.inputDataToAnswer(null, false, null, null);
@@ -381,8 +345,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		waitForElementNotPresent(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
@@ -391,8 +353,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question1)));
 		aMang.deleteAnswer(answer);
 	}
@@ -440,9 +400,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 			- Answer a question successfully,
 			- Show the answer below this question*/ 
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -511,9 +468,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 			- Question is created successfully
 			- Answer successfully*/
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -530,9 +484,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 
 		 *Expected Outcome: 
 			- Comment successfully*/ 
-		aHome.goToHomeCategory();
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		comMang.goToCommentQuestion(question1);
 		comMang.inputDataToComment(comment);
 		click(comMang.ELEMENT_COMMENT_FORM_SAVE_BUTTON);
@@ -598,9 +549,6 @@ public class Addons_Answers_Answers  extends PlatformBase {
 			- Question is created successfully
 			- Answer successfully*/
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		aMang.goToAnswerQuestion(question1);
 		aMang.inputDataToAnswer(answer, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -675,13 +623,10 @@ public class Addons_Answers_Answers  extends PlatformBase {
 			- Answer is added to selected question
 			- Question is not show at tab "Open Question"*/ 
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		qMang.goToManageQuestionForm();
 		click(qMang.ELEMENT_MANAGE_QUESTION_FORM_OPEN_QUESTION_TAB);
 		click(qMang.ELEMENT_MANAGE_QUESTION_ANSWER_QUESTION.replace("$question", question2));
-		aMang.inputDataToAnswer(answer, null, null, null);
+		aMang.inputDataToAnswer(answer, true, true, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForElementNotPresent(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
 		waitForAndGetElement(qMang.ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON).click();
@@ -689,6 +634,10 @@ public class Addons_Answers_Answers  extends PlatformBase {
 		waitForAndGetElement(aMang.ELEMENT_ANSWER_AUTHOR.replace("$answer", answer).replace("$fullname", fullName));
 
 		info("Clear data");
+		magAc.signOut();
+		magAc.signIn(DATA_USER1, DATA_PASS);
+		hp.goToAnswer();
+		click(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question2)));
 		aMang.deleteAnswer(answer);
 	}
 }

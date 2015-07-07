@@ -470,6 +470,7 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 	 *<li> Case ID:116675.</li>
 	 *<li> Test Case Name: Check intranet homepage after deleting an uploaded file.</li>
 	 */
+	@Test
 	public void test12_CheckIntranetHomepageAfterDeletingAFile(){
 		info("Test 12:Check intranet homepage after deleting an uploaded file");
 		info("Create data test");
@@ -539,6 +540,7 @@ public class Ecms_SE_PublishActivities extends ECMS_TestConfig_Part2 {
 	 *<li> Case ID:116681.</li>
 	 *<li> Test Case Name: View a content from the Content activity.</li>
 	 */
+	@Test
 	public  void test14_ViewAContentFromTheContentActivity(){
 		info("Test 14: View a content from the Content activity");
 		info("Create data test");

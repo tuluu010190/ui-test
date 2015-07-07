@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.social.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
@@ -108,6 +109,8 @@ public class SOC_TestConfig extends PlatformBase {
 	ProfileContactIMDatabase contactIM;
 	ProfileContactPhoneDatabase contactPhone;
 	ActivityMessageDatabase activityMes;
+	
+	ManageAlert alert;
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		info("Start setUpBeforeMethod");
@@ -204,6 +207,7 @@ public class SOC_TestConfig extends PlatformBase {
 		contactIM.setProfileIMData(contactIMFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		contactPhone.setContactPhoneData(contactPhoneFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
+		alert = new ManageAlert(driver, plfVersion);
 		info("End setUpBeforeMethod");
 	}
 

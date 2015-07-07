@@ -200,7 +200,7 @@ public class Calendar_Task extends PlatformBase {
 			- Attachment is added to event*/ 
 			info("Add attachment");
 			task.inputDataTaskInDetailForm(titleTask, content, getDate(0,"MM/dd/yyyy"), getDate(0,"MM/dd/yyyy"), false);
-			task.attachFileToTask("TestData/" + link);
+			task.attachFileToTask(link);
 			task.saveAddTaskDetails();
 			cHome.verifyIsPresentEventTask(titleTask, selectViewOption.DAY, selectDayOption.DETAILTIME);
 

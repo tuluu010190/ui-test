@@ -578,6 +578,7 @@ public class NavigationToolbar extends PlatformBase {
 
 		WebElement frame = waitForAndGetElement(ELEMENT_UPLOAD_FILE_FRAME_XPATH);
 		driver.switchTo().frame(frame);
+		info(getAbsoluteFilePath(linkFile));
 		Utils.pause(2000);
 		((JavascriptExecutor)driver).executeScript("document.getElementsByTagName('input')[0].style.display = 'block';");
 		Utils.pause(2000);

@@ -284,7 +284,7 @@ import org.testng.annotations.*;
 			- The "Select File" pop up is displayed
 			- File is uploaded successfully*/ 
 		info("upload the file");
-		String filePath = fData.getAttachFileByArrayTypeRandom(11);
+		String filePath = fData.getAttachFileByArrayTypeRandom(1);
 		navToolBar.goToUploadFile("","","TestData/"+filePath);
 		waitForAndGetElement(By.xpath(navToolBar.ELEMENT_CHECK_NAME_UPLOADED_FILE.replace("{$name}",filePath)));
 		

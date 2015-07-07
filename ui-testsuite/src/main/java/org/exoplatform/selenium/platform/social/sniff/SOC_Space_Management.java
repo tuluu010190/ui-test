@@ -229,10 +229,6 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		waitForAndGetElement(spaMg.ELEMENT_SPACE_TITLE.replace("${space}", newName),2000,0);
 		waitForAndGetElement(spaMg.ELEMENT_SPACE_DESCRIPTION.replace("${space}", newName),2000,0);
 		waitForElementNotPresent(spaMg.ELEMENT_SPACE_AVATAR_DEFAULT);
-
-		/*info("Delete a Space");
-		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);*/
 	}
 	/**
 	 *<li> Case ID:121912.</li>
@@ -518,13 +514,6 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		waitForAndGetElement(setSpaceMg.ELEMENT_SPACE_ACCESS_REQUEST_JOIN_BTN,2000,0).click();
 		waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_ACCESS_RESTRICED_AREA_TITLE,2000,0);
 		waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_ACCESS_INFO,2000,0);
-
-		/*magAc.signOut();
-		magAc.signIn(DATA_USER1, DATA_PASS);
-
-		info("Delete a Space");
-		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);*/
 	}
 	/**
 	 *<li> Case ID:121921.</li>
@@ -571,13 +560,6 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		spaMg.acceptAInvitation(space);
 		driver.get(perLink);
 		waitForAndGetElement(wHome.ELEMENT_WIKI_PAGE_LEFTBOX.replace("${title}",wiki));
-
-		/*magAc.signOut();
-		magAc.signIn(DATA_USER1, DATA_PASS);
-
-		info("Delete a Space");
-		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);*/
 	}
 	/**
 	 *<li> Case ID:121922.</li>
@@ -618,13 +600,6 @@ public class SOC_Space_Management extends SOC_TestConfig_1 {
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		driver.get(perLink);
 		waitForAndGetElement(wHome.ELEMENT_WIKI_HOME_PAGENOTFOUND);
-
-		magAc.signOut();
-		magAc.signIn(DATA_USER1, DATA_PASS);
-
-		/*info("Delete a Space");
-		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);*/
 	}
 
 }

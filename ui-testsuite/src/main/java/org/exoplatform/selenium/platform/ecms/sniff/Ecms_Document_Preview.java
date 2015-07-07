@@ -25,7 +25,7 @@ import org.testng.annotations.*;
 		    nameDrive=siteExDrive.getSiteExpDriveByIndex(0);//Collaboration
 		    if(waitForAndGetElement(docPrev.ELEMENT_PREVIEW_MODE, 5000,0)!=null)
 				docPrev.closeByClickCrossIcon();
-		    
+		    this.driver.navigate().refresh();
 			deleteAllDataTest(nameDrive,folderPath);
 			magAc.signOut();
 			magAc.signIn(DATA_USER1, DATA_PASS);
@@ -98,29 +98,27 @@ import org.testng.annotations.*;
 		waitForAndGetElement(docPrev.ELEMENT_PREVIEW_MODE, 3000,1);
 		info("The preview is shown successfully");
 		
-		info("The reader is displayed with a file content");
-		waitForAndGetElement(docPrev.ELEMENT_READER_FILE_CONTENT_PAGE_1,3000,1);
-		
+		Utils.pause(3000);
 		info("Actions are displayed on the top bar of the reader");
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SIDERBAR_TOGGLE_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SEARCH_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_UP_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_DOWN_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_PAGE_INPUT_NUMBER_BOX,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ZOOM_OUT_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ZOOM_IN_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SCALE_SELECT_BOX,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_DOWNLOAD_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_FULLSCREEN_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_TOOLS_BTN,1000,1);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SIDERBAR_TOGGLE_BTN);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SEARCH_BTN);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_UP_BTN);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_DOWN_BTN);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_PAGE_INPUT_NUMBER_BOX);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ZOOM_OUT_BTN);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ZOOM_IN_BTN);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SCALE_SELECT_BOX);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_DOWNLOAD_BTN);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_FULLSCREEN_BTN);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_TOOLS_BTN);
 		
 		info("On the right panel, the title of the file,the username and the comment box are displayed");
-		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_HEADER,3000,1);
-		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_PROFILE_AVATAR.replace("${fullName}",DATA_NAME_USER1),1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_PROFILE_NAME_LINK.replace("${firstName}",DATA_USER1),1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_PROFILE_DATE_TIME,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_COMMENT_INPUT_BOX,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_COMMENT_AREA_BOX_WITH_NO_COMMENT,1000,1);
+		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_HEADER);
+		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_PROFILE_AVATAR.replace("${fullName}",DATA_NAME_USER1));
+		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_PROFILE_NAME_LINK.replace("${firstName}",DATA_USER1));
+		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_PROFILE_DATE_TIME);
+		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_COMMENT_INPUT_BOX);
+		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_COMMENT_AREA_BOX_WITH_NO_COMMENT);
 		docPrev.closeByClickCrossIcon();
  	}
 	
@@ -169,19 +167,14 @@ import org.testng.annotations.*;
 			- The reader is displayed with a file content
 			- Actions are displayed on the top bar of the reader
 			*/ 
-		info("Go to Activity stream of Intranet Home page");
-		hp.goToHomePage();
-		acStream.openPreviewModeOnFileName(file, "",1);
 		
-		info("Verify that the preview mode is shown");
-		waitForAndGetElement(docPrev.ELEMENT_PREVIEW_MODE, 3000,1);
-		info("The preview is shown successfully");
+		SEHome.clickWebView();
+		SEHome.selectFileExplorer();
+		SEHome.selectAFile(file);
 		
-		info("The reader is displayed with a file content");
-		waitForAndGetElement(docPrev.ELEMENT_READER_FILE_CONTENT_PAGE_1,3000,1);
-		
+		Utils.pause(3000);
 		info("Actions are displayed on the top bar of the reader");
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SIDERBAR_TOGGLE_BTN,1000,1);
+		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SIDERBAR_TOGGLE_BTN);
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SEARCH_BTN,1000,1);
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_UP_BTN,1000,1);
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_DOWN_BTN,1000,1);
@@ -192,7 +185,6 @@ import org.testng.annotations.*;
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_DOWNLOAD_BTN,1000,1);
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_FULLSCREEN_BTN,1000,1);
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_TOOLS_BTN,1000,1);
-		docPrev.closeByClickCrossIcon();
 		/*Step Number: 3
 		*Step Name: Step 3. Upload an office file.
 		*Step Description: 
@@ -204,10 +196,7 @@ import org.testng.annotations.*;
 			- The Office file is uploaded
 			*/ 
 		
-		info("Go to Sites Explorer");
-		navTool.goToSiteExplorer();
-		info("Go to the drive:"+nameDrive);
-		SEHome.openDrives();
+		
 		SEHome.selectADrive(nameDrive);
 
 		info("Go to the folder:"+folderPath);
@@ -228,16 +217,12 @@ import org.testng.annotations.*;
 			- Actions are displayed on the top bar of the reader
 			*/ 
 		
-		info("Go to Activity stream of Intranet Home page");
-		hp.goToHomePage();
-		acStream.openPreviewModeOnFileName(officefile, "",1);
+
+		SEHome.clickWebView();
+		SEHome.selectFileExplorer();
+		SEHome.selectAFile(officefile);
 		
-		info("Verify that the preview mode is shown");
-		waitForAndGetElement(docPrev.ELEMENT_PREVIEW_MODE, 3000,1);
-		info("The preview is shown successfully");
-		
-		info("The reader is displayed with a file content");
-		waitForAndGetElement(docPrev.ELEMENT_READER_FILE_CONTENT_PAGE_1,3000,1);
+		Utils.pause(3000);
 		
 		info("Actions are displayed on the top bar of the reader");
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SIDERBAR_TOGGLE_BTN,1000,1);
@@ -251,7 +236,6 @@ import org.testng.annotations.*;
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_DOWNLOAD_BTN,1000,1);
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_FULLSCREEN_BTN,1000,1);
 		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_TOOLS_BTN,1000,1);
-		docPrev.closeByClickCrossIcon();
 		
  	}
 	
@@ -327,6 +311,7 @@ import org.testng.annotations.*;
 			*/ 
 		
 		info("Go to Activity stream of Intranet Home page");
+		this.driver.navigate().refresh();
 		hp.goToHomePage();
 		info("Get dowload link");
 		String url = waitForAndGetElement(acStream.ELEMENT_ACTIVITY_DOCUMENT_MEDIA_DOWNLOAD_BTN.replace("${nameFile}",file)).getAttribute("href").toString();
@@ -397,6 +382,7 @@ import org.testng.annotations.*;
 			- The download popup is displayed.
 			*/ 
 		info("Go to Activity stream of Intranet Home page");
+		this.driver.navigate().refresh();
 		hp.goToHomePage();
 		info("Get dowload link");
 		String url = waitForAndGetElement(acStream.ELEMENT_ACTIVITY_DOCUMENT_MEDIA_DOWNLOAD_BTN.replace("${nameFile}",file)).getAttribute("href").toString();
@@ -589,9 +575,11 @@ import org.testng.annotations.*;
 		info("Close Preview mode by pressing Esc key");
 		docPrev.closeByPressECS();
 		info("Close Preview mode by clicking on X cross");
+		this.driver.navigate().refresh();
 		acStream.openPreviewModeOnViewLink(file,1,"");
 		docPrev.closeByClickCrossIcon();
 		info("Close Preview mode by clicking on background");
+		this.driver.navigate().refresh();
 		acStream.openPreviewModeOnViewLink(file,1,"");
 		docPrev.closeByClickBackground();
  	}
@@ -650,6 +638,7 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		info("Verify that the activity is shown on AS");
 		waitForAndGetElement(acStream.ELEMENT_ACTIVITY_WEBCONTENT_TITLE.replace("${title}",file),3000,1);
+		
 		/*Step Number: 3
 		*Step Name: Step 3. Open the file from the activity stream.
 		*Step Description: 
@@ -663,50 +652,14 @@ import org.testng.annotations.*;
 			*/
 		
 		acStream.openPreviewModeOnFileName(file, "",2);
-		
 		info("Verify that the preview mode is shown");
 		waitForAndGetElement(docPrev.ELEMENT_PREVIEW_MODE, 3000,1);
 		info("The preview is shown successfully");
 		
-		info("The reader is displayed with a file content");
-		waitForAndGetElement(docPrev.ELEMENT_READER_FILE_CONTENT_PAGE_1,3000,1);
-		
-		info("Actions are displayed on the top bar of the reader");
-		
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SEARCH_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_UP_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_DOWN_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_PAGE_INPUT_NUMBER_BOX,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ZOOM_OUT_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ZOOM_IN_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SCALE_SELECT_BOX,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_DOWNLOAD_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_FULLSCREEN_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_TOOLS_BTN,1000,1);
-		
-		info("Verify that the preview mode is shown");
-		waitForAndGetElement(docPrev.ELEMENT_PREVIEW_MODE, 3000,1);
-		info("The preview is shown successfully");
-		
-		info("The reader is displayed with a file content");
-		waitForAndGetElement(docPrev.ELEMENT_READER_FILE_CONTENT_PAGE_1,3000,1);
-		
-		info("Actions are displayed on the top bar of the reader");
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SIDERBAR_TOGGLE_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SEARCH_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_UP_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ARROW_DOWN_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_PAGE_INPUT_NUMBER_BOX,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ZOOM_OUT_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_ZOOM_IN_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_SCALE_SELECT_BOX,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_DOWNLOAD_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_FULLSCREEN_BTN,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_ACTIONS_TOOLS_BTN,1000,1);
-		
+		Utils.pause(3000);
 		info("On the right panel, the comment box are displayed");
-		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_COMMENT_INPUT_BOX,1000,1);
-		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_COMMENT_AREA_BOX_WITH_NO_COMMENT,1000,1);
+		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_COMMENT_INPUT_BOX);
+		waitForAndGetElement(docPrev.ELEMENT_RIGHT_PANEL_COMMENT_AREA_BOX_WITH_NO_COMMENT);
 		docPrev.closeByClickCrossIcon();
 		
  	}

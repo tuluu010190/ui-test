@@ -24,7 +24,7 @@ public class PortalManagePages extends PlatformBase {
 	public final String ELEMENT_MANAGEPAGES_SELECT_TYPE=".//*[@name='searchOption']//*[contains(@value,'${type}')]";
 	public final By ELEMENT_MANAGEPAGES_SEARCH_BUTTON = By.xpath(".//*[@class='uiIconSearch uiIconLightGray']");
 	public final By ELEMENT_MANGEPAGES_INFORM_POPUP_OK= By.xpath(".//*[text()='OK']");
-	public final By ELEMENT_MANAGEPAGES_ADD_NEW_PAGE_BTN = By.cssSelector("#UIPageManagementPortlet .btn");
+	public final By ELEMENT_MANAGEPAGES_ADD_NEW_PAGE_BTN = By.xpath(".//*[@id='UIPageBrowser']//*[text()='Add New Page']");
 	
 	//Results search
 	public final String ELEMENT_MANAGEPAGES_CONTENT_TITLE_COLUMN=".//*[contains(text(),'${title}')]";
@@ -151,6 +151,7 @@ public class PortalManagePages extends PlatformBase {
 	public void addPage(String pageName,String title,String type,boolean... isMaxWindow){
 		info("Click on Add new Page button");
 		click(ELEMENT_MANAGEPAGES_ADD_NEW_PAGE_BTN);
+		driver.navigate().refresh();
 		if (!pageName.isEmpty()) {
 			info("Input page name");
 			type(ELEMENT_MANAGEPAGES_ADD_NEW_PAGE_POPUP_PAGE_NAME,pageName,true);

@@ -16,8 +16,8 @@ public class SOC_People_Profile_Activities extends SOC_TestConfig_2{
 	@Test
 	public  void test01_UpdateUserProfileActivity() {
 		info("Test 1: Update user profile activity");
-		String firstName = txData.getContentByArrayTypeRandom(4) + getRandomString();
-		String lastName =txData.getContentByArrayTypeRandom(4) + getRandomString();
+		String firstName = txData.getContentByArrayTypeRandom(4) + getRandomString()+"first";
+		String lastName =txData.getContentByArrayTypeRandom(4) + getRandomString()+"last";
 		String email = txData.getContentByArrayTypeRandom(4) + getRandomString()+"@gmail.com";
 		String link = atData.getAttachFileByArrayTypeRandom(26);
 		String aboutMe = txData.getContentByArrayTypeRandom(4)+getRandomNumber();

@@ -26,12 +26,12 @@ public class DocumentPreview extends ActivityStream {
 	public final By ELEMENT_ACTIONS_ZOOM_OUT_BTN =By.cssSelector(".uiIconMinimize");
 	public final By ELEMENT_ACTIONS_ZOOM_IN_BTN =By.cssSelector(".uiIconSimplePlusMini");
 	public final By ELEMENT_ACTIONS_SCALE_SELECT_BOX =By.cssSelector("#scaleSelect");
-	public final By ELEMENT_ACTIONS_DOWNLOAD_BTN =By.cssSelector("#UIDocumentPreview .uiIconDownload");
-	public final By ELEMENT_ACTIONS_FULLSCREEN_BTN =By.cssSelector(".uiIconEcmsExpand");
-	public final By ELEMENT_ACTIONS_TOOLS_BTN =By.cssSelector(".uiIconMoreAction");
+	public final By ELEMENT_ACTIONS_DOWNLOAD_BTN =By.cssSelector("#toolbarViewerRight .uiIconDownload.uiIconLightGray");
+	public final By ELEMENT_ACTIONS_FULLSCREEN_BTN =By.cssSelector("#presentationMode .uiIconEcmsExpand.uiIconLightGray");
+	public final By ELEMENT_ACTIONS_TOOLS_BTN =By.cssSelector("#secondaryToolbarToggle .uiIconMoreAction.uiIconLightGray");
 	
 	//New File Reader form --> file content
-	public final By ELEMENT_READER_FILE_CONTENT_PAGE_1 = By.xpath("//*[@class='uiPreviewWebContent']");
+	public final By ELEMENT_READER_FILE_CONTENT_PAGE_1 = By.xpath("//*[@id='viewerContainer']");
 	
 	//New File Reader form--> Right panel
 	public final By ELEMENT_RIGHT_PANEL_HEADER = By.xpath(".//*[@id='UIPreviewCommentArea']//*[@class='title']");

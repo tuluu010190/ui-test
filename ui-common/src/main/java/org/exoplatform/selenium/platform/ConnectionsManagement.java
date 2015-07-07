@@ -98,7 +98,7 @@ public class ConnectionsManagement extends PlatformBase {
 		info("Click on remove button");
 		searchPeople(username,null,null,null);
 		click(ELEMENT_CONNECTION_REVOVE_BTN.replace("${user}",username));
-		waitForElementNotPresent(ELEMENT_CONNECTION_REVOVE_BTN.replace("${user}",username),2000,1);
+		waitForElementNotPresent(ELEMENT_CONNECTION_REVOVE_BTN.replace("${user}",username));
 		info("Removed to the user");
 	}
 	/**
@@ -110,7 +110,7 @@ public class ConnectionsManagement extends PlatformBase {
 		info("Click on Cancel button");
 		searchPeople(username,null,null,null);
 		click(ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}",username));
-		waitForElementNotPresent(ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}",username),2000,1);
+		waitForElementNotPresent(ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}",username));
 		info("Canceled to the user");
 	}
 	/**
@@ -122,7 +122,7 @@ public class ConnectionsManagement extends PlatformBase {
 		info("Click on Ignore button");
 		searchPeople(username,null,null,null);
 		click(ELEMENT_CONNECTION_IGNORE_BTN.replace("${user}",username));
-		waitForElementNotPresent(ELEMENT_CONNECTION_IGNORE_BTN.replace("${user}",username),2000,1);
+		waitForElementNotPresent(ELEMENT_CONNECTION_IGNORE_BTN.replace("${user}",username));
 		info("Connected to the user");
 	}
 	/**
@@ -146,8 +146,9 @@ public class ConnectionsManagement extends PlatformBase {
 		info("--Accept a connection of a user--");
 		info("Click on Confirm button");
 		searchPeople(username,null,null,null);
+		waitForAndGetElement(ELEMENT_CONNECTION_CONFIRM_BTN.replace("${user}",username));
 		click(ELEMENT_CONNECTION_CONFIRM_BTN.replace("${user}",username));
-		waitForAndGetElement(ELEMENT_CONNECTION_REVOVE_BTN.replace("${user}",username));
+		waitForElementNotPresent(ELEMENT_CONNECTION_CONFIRM_BTN.replace("${user}",username));
 		info("Accepted to the user");
 	}
 

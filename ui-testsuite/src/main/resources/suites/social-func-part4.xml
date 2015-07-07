@@ -16,6 +16,7 @@
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_RelationActivity" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_View" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_UserProfileActivities" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_MyConnections" />
 		</classes>
 	</test>
 	<listeners>

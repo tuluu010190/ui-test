@@ -21,8 +21,8 @@ public class QuestionManagement extends PlatformBase {
 	public By ELEMENT_MANAGE_QUESTION_FORM=By.id("FAQQuestionManagerment");
 	public By ELEMENT_MANAGE_QUESTION_FORM_ALL_QUESTION_TAB=By.xpath("//*[@data-toggle='tab' and text()='All Questions']");
 	public By ELEMENT_MANAGE_QUESTION_FORM_OPEN_QUESTION_TAB=By.xpath("//*[@data-toggle='tab' and text()='Open Questions']");
-	public String ELEMENT_MANAGE_QUESTION_ANSWER_QUESTION="//*[text()='$question']/../..//*[@data-original-title='Answer']";
-	public String ELEMENT_MANAGE_QUESTION_EDIT_QUESTION="//*[text()='$question']/../..//*[@data-original-title='Edit']";
+	public String ELEMENT_MANAGE_QUESTION_ANSWER_QUESTION="//*[text()='$question']/..//*[@data-original-title='Answer']";
+	public String ELEMENT_MANAGE_QUESTION_EDIT_QUESTION="//*[text()='$question']/..//*[@data-original-title='Edit']";
 	public String ELEMENT_MANAGE_QUESTION_DELETE_QUESTION="//*[text()='$question']/../..//*[@data-original-title='Delete']";
 	public String ELEMENT_MANAGE_QUESTION_APPROVE_QUESTION_CHECKBOX="//*[text()='$question']/..//*[@data-original-title='Approve' or @data-original-title='Disapprove']//*[@id='allDay']";
 	public String ELEMENT_MANAGE_QUESTION_ACTIVE_QUESTION_CHECKBOX="//*[text()='$question']/..//*[@data-original-title='Deactivate' or @data-original-title='Activate']//*[@id='allDay']";

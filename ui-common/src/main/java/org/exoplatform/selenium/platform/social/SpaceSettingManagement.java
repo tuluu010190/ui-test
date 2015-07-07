@@ -68,7 +68,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_SPACE_CHANGE_ROLE_USER_MEMBER= ".//*[contains(text(),'${user}')]/..//*[@class='uiSwitchBtn']";
 	public final String ELEMENT_SPACE_DELETE_USER_BTN = ".//*[contains(@onclick,'${user}')]/..//*[@class='uiIconDelete uiIconLightGray']";
 	public final String ELEMENT_SPACE_REMOVE_USER_BTN_MEMBER_TABLE = ".//*[contains(text(),'${fullName}')]/..//*[contains(@class,'uiIconDelete')]";
-	public final String ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT=".//*[contains(text(),'${user}')]/..//*[@class='uiIconValidate uiIconLightGray']";
+	public final String ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT=".//*[contains(@onclick,'${user}')]/..//*[@class='uiIconValidate uiIconLightGray']";
 	public final String ELEMENT_SPACE_MEMBERS_TAB_DECLINE_REQUEST_jOINT =".//*[contains(text(),'${user}')]/..//*[contains(@class,'uiIconRemove')]";
 	public final By ELEMENT_SPACE_SETTING_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceInfo-tab')]");
 	public final By ELEMENT_SPACE_CHANGE_AVATAR_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Change Picture']");
@@ -255,7 +255,7 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public void removeApplication(String app){
 		info("Click on Remove icon");
 		click(ELEMENT_APPLICATION_TAB_APPLICATION_DELETE_BTN.replace("${app}",app));
-		waitForAndGetElement(ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT.replace("${app}", app));
+		waitForElementNotPresent(ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT.replace("${app}", app));
 		info("the application is removed");
 	}
 	/**

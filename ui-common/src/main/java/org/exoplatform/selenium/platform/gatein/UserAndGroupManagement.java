@@ -28,7 +28,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_GROUP_ADD_NEW_ICON = "//*[@data-original-title='Add New Group']/i";
 	public final By ELEMENT_INPUT_GROUP_NAME = By.id("groupName");
 	public final By ELEMENT_INPUT_LABEL = By.id("label");
-	public final By ELEMENT_TEXTAREA_DESCRIPTION = By.id("description");
+	public final By ELEMENT_TEXTAREA_DESCRIPTION = By.name("description");
 	public final String ELEMENT_GROUP_EDIT_ICON = "//*[@data-original-title='Edit Selected Group']/i";
 	public final By ELEMENT_GROUP_SEARCH_USER_ICON = By.className("uiIconSelectUser uiIconLightGray");
 	public final String ELEMENT_GROUP_SEARCH_USER_ICON_2 = "//*[contains(@class, 'uiIconSelectUser')]";
@@ -42,7 +42,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_GROUP_REMOVE_ICON = "//*[@data-original-title='Delete Selected Group']/i";
 	public final String ELEMENT_SAVE_BUTTON = "//button[contains(text(),'Save')]";
 	public final String ELEMENT_SAVE_BUTTON_2 = "//a[contains(@class,'btn') and contains(text(),'Save')]";
-	public final By ELEMENT_INPUT_NAME = By.id("name");
+	public final By ELEMENT_INPUT_NAME = By.name("name");
 	public final String ELEMENT_MEMBERSHIP_EDIT_ICON = "//span[contains(text(),'${membership}')]/../..//*[contains(@data-original-title,'Edit Membership')]/i";
 	public final String ELEMENT_MEMBERSHIP_DELETE_ICON = "//span[contains(text(),'${membership}')]/../..//*[contains(@data-original-title,'Delete Membership')]/i";
 	public final String ELEMENT_GROUP_ADDED = "//a[@title='${groupLabel}']";
@@ -415,6 +415,12 @@ public class UserAndGroupManagement extends PlatformBase {
 	public void goToEditUserInfo(String username) {
 		String userEditIcon = ELEMENT_USER_EDIT_ICON.replace("${username}",
 				username);
+		info("--Search user " + username + "--");
+		if (isTextPresent("Search")) {
+			type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
+			select(ELEMENT_SELECT_SEARCH_OPTION, ELEMENT_MSG_SEARCH_USER_NAME);
+		}
+		click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
 		info("--Editing user " + username + "--");
 		click(userEditIcon);
 		Utils.pause(1000);

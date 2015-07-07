@@ -168,9 +168,7 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 
 		info("Clear data test");
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		cMang.deleteCategory(paCat1);
+		qMang.deleteQuestion(question);
 	}
 
 	/**
@@ -187,21 +185,15 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 	public  void test02_05_06_CheckNumberOfCommentsAndAnswers() {
 		String question = txData.getContentByArrayTypeRandom(1)+"q116839";
 		String content = txData.getContentByArrayTypeRandom(1)+"con116839";
-		String paCat1 = txData.getContentByArrayTypeRandom(1)+"p116839";
-		String paDes1 = txData.getContentByArrayTypeRandom(1)+"p116839";
+
 		String answer1 = "line1<br>line2<br>line3<br>line4<br>line5<br>";
 		String answer2 = txData.getContentByArrayTypeRandom(1)+"a2116839";
 		String comment = txData.getContentByArrayTypeRandom(1)+"c116839";
 		info("Create data test");
 		hp.goToAnswer();
-		info("Create category");
-		cMang.goToActionOfCategoryFromActionBar(actionCategoryOption.ADD);
-		cMang.inputDataToSettingTab(paCat1, null, paDes1, null, null, null);
-		click(cMang.ELEMENT_CATEGORY_ADD_FORM_SAVE_BUTTON);
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 
 		info("Create question");
-		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
+		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(question, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
 		click(button.ELEMENT_OK_BUTTON_LINK);
@@ -221,7 +213,6 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 			- The activity content is updated in the activity stream: the number of answers is updated
 			- A comment is added: Answer has been submitted: $value. where $value, is first 4 lines of the answer.*/
 		info("Create answer");
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		aMang.goToAnswerQuestion(question);
 		aMang.inputDataToAnswer(answer1, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -249,8 +240,6 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 			- Corresponding activity's comment is added*/ 
 		info("Create comment");
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		comMang.goToCommentQuestion(question);
 		comMang.inputDataToComment(comment);
 		click(comMang.ELEMENT_COMMENT_FORM_SAVE_BUTTON);
@@ -275,8 +264,6 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 			The number of comments attached to the activity is equal to the number of comments + the number of answers to the question.For example, if there are 2 comments and 4 answers, it will display 6 comments for the activity.*/
 		info("Create answer");
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		aMang.goToAnswerQuestion(question);
 		aMang.inputDataToAnswer(answer2, null, null, null);
 		click(aMang.ELEMENT_ANSWER_FORM_SAVE_BUTTON);
@@ -289,10 +276,9 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 		assert numberComment.contains("3");
 
 		info("Clear data test");
+		magAc.signIn(DATA_USER1, DATA_PASS);
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		cMang.deleteCategory(paCat1);
+		qMang.deleteQuestion(question);
 	}
 
 	/**
@@ -307,18 +293,12 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 	public  void test03_04_UnactivateActiveAQuestion() {
 		String question = txData.getContentByArrayTypeRandom(1)+"q116840";
 		String content = txData.getContentByArrayTypeRandom(1)+"con116840";
-		String paCat1 = txData.getContentByArrayTypeRandom(1)+"p116840";
-		String paDes1 = txData.getContentByArrayTypeRandom(1)+"p116840";
+	
 		info("Create data test");
 		hp.goToAnswer();
-		info("Create category");
-		cMang.goToActionOfCategoryFromActionBar(actionCategoryOption.ADD);
-		cMang.inputDataToSettingTab(paCat1, null, paDes1, null, null, null);
-		click(cMang.ELEMENT_CATEGORY_ADD_FORM_SAVE_BUTTON);
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 
 		info("Create question");
-		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
+		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(question, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
 		click(button.ELEMENT_OK_BUTTON_LINK);
@@ -363,8 +343,6 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 			- The activity content isn't updated in the activity stream
 			- A comment is added: Question has been activated.*/ 
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		qMang.goToManageQuestionForm();
 		qMang.activeQuestionFromManageQuestionForm(question, true);
 		waitForAndGetElement(qMang.ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON).click();
@@ -377,9 +355,7 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 
 		info("Clear data test");
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		cMang.deleteCategory(paCat1);
+		qMang.deleteQuestion(question);
 	}
 
 	/**
@@ -393,18 +369,12 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 		String question = txData.getContentByArrayTypeRandom(1)+"q116845";
 		String newquestion = txData.getContentByArrayTypeRandom(1)+"qn116845";
 		String content = txData.getContentByArrayTypeRandom(1)+"con116845";
-		String paCat1 = txData.getContentByArrayTypeRandom(1)+"p116845";
-		String paDes1 = txData.getContentByArrayTypeRandom(1)+"p116845";
+
 		info("Create data test");
 		hp.goToAnswer();
-		info("Create category");
-		cMang.goToActionOfCategoryFromActionBar(actionCategoryOption.ADD);
-		cMang.inputDataToSettingTab(paCat1, null, paDes1, null, null, null);
-		click(cMang.ELEMENT_CATEGORY_ADD_FORM_SAVE_BUTTON);
-		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 
 		info("Create question");
-		cMang.goToActionOfCategoryFromRightClick(paCat1, actionCategoryOption.SUBMITQUESTION);
+		qMang.goToSubmitQuestion();
 		qMang.inputDataToQuestionForm(question, content, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
 		click(button.ELEMENT_OK_BUTTON_LINK);
@@ -425,7 +395,6 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 		 *Expected Outcome: 
 			- The activity content is updated with the new title
 			- A comment is added: Title has been updated to: $value.*/ 
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
 		qMang.goToActionOfQuestionByRightClick(question, actionQuestionOption.EDIT);
 		qMang.inputDataToQuestionForm(newquestion, null, null, null);
 		click(qMang.ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
@@ -440,9 +409,7 @@ public class Addons_Answers_PublishActivity   extends PlatformBase {
 		
 		info("Clear data test");
 		hp.goToAnswer();
-		aHome.goToHomeCategory();
-		click(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat1));
-		cMang.deleteCategory(paCat1);
+		qMang.deleteQuestion(newquestion);
 	}
 
 	/**

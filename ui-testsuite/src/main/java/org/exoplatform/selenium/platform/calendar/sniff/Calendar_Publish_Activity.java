@@ -644,7 +644,7 @@ public class Calendar_Publish_Activity  extends PlatformBase {
 			- A comment is added with the following message: Attachment(s) has been added to the task.
 			- The content of activity isn't updated*/ 
 		cHome.goToEditEventTaskFormByRightClick(titleTask, selectViewOption.MONTH, selectDayOption.DETAILTIME,getDate(0,"MMM dd yyyy"));
-		task.attachFileToTask("TestData/" + link);
+		task.attachFileToTask(link);
 		task.saveAddTaskDetails();
 		
 		hp.goToHomePage();

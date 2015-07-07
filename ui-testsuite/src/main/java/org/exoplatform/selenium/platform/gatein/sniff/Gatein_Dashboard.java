@@ -75,7 +75,7 @@ public class Gatein_Dashboard extends GateIn_TestConfig {
 		info("Add a new container");
 		navToolBar.goToMyDashboard();
 		navToolBar.goToEditLayout();
-		pagCW.addContainer("oneRow");
+		pagCW.addContainer("oneRow",false);
 		info("Edit a container");
 		
 		navToolBar.goToEditLayout();
@@ -172,7 +172,7 @@ public class Gatein_Dashboard extends GateIn_TestConfig {
 		info("Add an application into the container");
 		navToolBar.goToMyDashboard();
 		navToolBar.goToEditLayout();
-		pagCW.addContainer("oneRow");
+		pagCW.addContainer("oneRow",false);
 		navToolBar.goToEditLayout();
 		pagCW.addApp("",name,pagCW.ELEMENT_APPLICATION_APPLICATION.replace("${name}",idName),pagCW.ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}","Container"));
 		info("Delete container");

@@ -17,8 +17,8 @@ import org.openqa.selenium.interactions.Actions;
  * Path: Edit-->Page-->Add Pages
  */
 public class PageCreationWizard extends PlatformBase {
-	
-	
+
+
 	//Common
 	public final By ELEMENT_PAGE_CREATION_WIZARD = By.id("UIPageCreationWizard");
 	public final By ELEMENT_PAGE_NEXT_BUTTON=By.xpath("//*[@id='UIPageCreationWizard']//*[text()='Next']");
@@ -37,17 +37,17 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_PAGE_PUBLICATION_DATE_CHECKBOX=By.id("showPublicationDate");
 	public final By ELEMENT_PAGE_UP_LEVEL=By.xpath("//*[@class='uiIconUpLevel uiIconLightGray']");
 	public final String ELEENT_NODE_NAME="//*[@title='$name']";
-	
+
 	//Step 2
 	public final By ELEMENT_PAGE_SELECT_LAYOUT_FORM = By.id("UIWizardPageSelectLayoutForm");
-	
+
 	//Step 3
 	public final By ELEMENT_PAGE_PORTAL_EDITOR=By.id("UIPortalApplication");
-	
+
 	//Page Editor left side bar header
 	public final By ELEMENT_PAGE_FINISH_BTN = By.xpath("//*[@class='uiIconSave uiIconDarkGray pull-right']");
 	public final By ELEMENT_PAGE_ABORT_BTN = By.xpath(".//*[@id='UIPageEditor']//*[@data-original-title='Abort']");
-	
+
 	//Application panel
 	public final By ELEMENT_APPLICATION_TAB = By.linkText("Applications");
 	public final By ELEMENT_APPLICATION_CONTENT_TAB = By.xpath("//*[@title='Content']");
@@ -67,9 +67,9 @@ public class PageCreationWizard extends PlatformBase {
 	final public By ELEMENT_PORTLET_FRAGMENT_2 = By.xpath("//*[contains(@class,'PORTLET-FRAGMENT UIResizableBlock UIApplication')]");
 	final public By ELEMENT_UIWINDOW_DEFAULT_THEME = By.xpath("//*[contains(@class,'UIWindow DefaultTheme UIDragObject UIResizeObject')]");
 	public final String ELEMENT_FORUM_PORTLET_IN_VIEW_PAGE = "//*[@class='portletName' and contains(text(),'Forum')]";
-	
+
 	public final String ELEMENT_PORTLET_VIEW_PAGE = "//*[@class='VIEW-PAGE']";
-	
+
 	//Container panel
 	public final By ELEMENT_CONTAINER_TAB = By.linkText("Containers");
 	public final By ELEMENT_SWITCH_VIEW_MODE = By.linkText("Switch View mode");
@@ -83,18 +83,18 @@ public class PageCreationWizard extends PlatformBase {
 	public final String ELEMENT_LIST_CONTAINER = "//*[@class='UIRowContainer']/div[${number}]//*[contains(text(), '${nameContainer}')]";
 	public final String ELEMENT_DRAG_CURRENT_CONTAINER = "//*[text()='${nameContainer}']/../*[@data-original-title='Hold this area to drag this container']";
 	public final By ELEMENT_PORTLET_LAYOUT_DECORATOR = By.className("portletLayoutDecorator");
-	
+
 	//Container popup editor
-	public final By ELEMENT_CONTAINER_POPUP_TITLE = By.id("title");
+	public final By ELEMENT_CONTAINER_POPUP_TITLE = By.name("title");
 	public final String ELEMENT_CONTAINER_TITLE="//*[@class='UIRowContainer']//span[text()='${title}']";
-	public final By ELEMENT_CONTAINER_POPUP_WIDTH = By.id("width");
-	public final By ELEMENT_CONTAINER_POPUP_HEIGHT = By.id("height");
+	public final By ELEMENT_CONTAINER_POPUP_WIDTH = By.name("width");
+	public final By ELEMENT_CONTAINER_POPUP_HEIGHT = By.name("height");
 
 	//View properties popup
 	public final By ELEMENT_VIEW_PROPERTIES_POPUP = By.cssSelector(".MaskContainer");
 	public final By ELEMENT_VIEW_PROPERTIES_TITLE = By.id("title");
 	public final String ELEMENT_PERMISSION_SELECTOR_POPUP_GROUP = ".//*[contains(@class,'uiIconNode')][contains(@title,'${group}')]";
-	public final String ELEMENT_PERMISSION_SELECTOR_POPUP_MEMEBRSHIP = ".//*[@id='ListPermissionSelector']//*[contains(@title,'${member}')]";
+	public final String ELEMENT_PERMISSION_SELECTOR_POPUP_MEMEBRSHIP = ".//*[contains(@id,'ListPermissionSelector')]//*[contains(@title,'${member}')]";
 	public final By ELEMENT_VIEW_PROPERTIES_SHOW_MAX_WINDOW = By.cssSelector("#showMaxWindow");
 	public final By ELEMENT_VIEW_PROPERTIES_SAVE_BTN = By.xpath(".//*[@id='UIPageForm']//button[text()='Save']");
 	public final String ELEMENT_VIEW_PROPERTIES_ACCESS_PERMISSTION_VALUE=".//*[@id='PermissionGrid']//*[contains(text(),'${group}')]";
@@ -104,18 +104,18 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_VIEW_PROPERTIES_EDIT_PERMISSITION_SETTINGS= By.xpath(".//*[contains(text(),'Edit Permission Settings')]");
 	public final By ELEMENT_VIEW_PROPERTIES_SELECT_PERMISSION_BTN= By.xpath(".//*[contains(text(),'Select Permission')]");
 	public final By ELEMENT_VIEW_PROPERTIES_ADD_PERMISSION_BTN= By.cssSelector(".uiIconAddUser");
-	
+
 	//Layout
 	public  final By ELEMENT_PAGEEDITOR_VIEWPAGE = By.xpath("//*[@class='VIEW-PAGE']");
 	public final String ELEMENT_PAGEEDITOR_CONTENT=".//*[@class='UIComponentBlock']//*[contains(text(),'${name}')]";
 	public final By ELEMENT_PAGEEDITOR_FINISHBTN = By.xpath("//*[contains(@class,'uiIconSave')]");
 	public final By ELEMENT_SWITCH_VIEW_MODE_NAME_APPLICATION_CLASS = By.xpath(".//*[contains(@class,'portletName')]");
-	
-	
+
+
 	public final String ELEMENT_APPLICATION_IN_LAYOUT_PAGE = "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${name}')]";
 	public final String ELEMENT_APPLICATION_EDIT_ICON = "//span[contains(text(),'${name}')]/../../../..//*[contains(@class,'uiIconEdit')]";
 	public final String ELEMENT_APPLICATION_DELETE_ICON = "//span[contains(text(),'${name}')]/../../../..//*[contains(@class,'uiIconTrash')]";
-	
+
 	public final By ELEMENT_DROP_SOURCE_HAS_LAYOUT = By.xpath("//div[@class='UIRowContainer EmptyContainer']");
 	public final String ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME ="//span[contains(text(),'${name}')]/../../../..//*[contains(@class,'UIRowContainer')]";
 	public final By ELEMENT_EDIT_CONTAINER_ICON = By.xpath(".//*[@data-original-title='Edit Container']//*[contains(@class,'uiIconEdit')]");
@@ -123,7 +123,8 @@ public class PageCreationWizard extends PlatformBase {
 	public final String ELEMENT_EDIT_CONTAINER_ICON_BY_NAME = "//span[contains(text(),'${name}')]/..//*[contains(@class,'uiIconEdit')]";
 	public final String ELEMENT_DELETE_CONTAINER_ICON_BY_NAME = "//span[contains(text(),'${name}')]/..//*[contains(@class,'uiIconTrash')]";
 	public final String ELEMENT_EDITED_COTAINER = "//*[contains(@class, 'UIContainer EdittingContainer')]";
-	
+
+	public final String ELEMENT_CONTAINER_PORTLET_APPLICATION="//*[contains(@class,'UIPortlet')]//div[contains(text(),'${name}')]";
 	public final By ELEMENT_CONTAINER_PRECEDING_PORTLET = By.xpath("//*[contains(@class,'UIPortlet')]/preceding-sibling::*[contains(@class,'UIContainer')]");
 	public final By ELEMENT_CONTAINER_FOLLOWING_PORTLET= By.xpath("//*[contains(@class,'UIPortlet')]/following-sibling::*[contains(@class,'UIContainer')]");
 	public final By ELEMENT_CONTAINER_HOLDER_MOVE = By.xpath(".//*[@class='UIRowContainer EmptyContainer']/../../../..//*[contains(@class,'uiIconDragDrop')]");
@@ -131,7 +132,7 @@ public class PageCreationWizard extends PlatformBase {
 	public final String ELEMENT_APPLICATION_HOLDER_MOVE="//span[contains(text(),'${name}')]/..//*[contains(@class,'uiIconDragDrop')]";
 	public final String ELEMENT_APPLICATION_PRECEDING_PORTLET = "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app1}')]/../../../preceding-sibling::*//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app2}')]";
 	public final String ELEMENT_APPLICATION_FOLLOWING_PORTLET= "//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app1}')]/../../../following-sibling::*//*[contains(@class,'LAYOUT-PORTLET')]//*[contains(text(),'${app2}')]";
-	
+
 	//Application popup
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_TAB = By.xpath(".//*[@id='tab-UIPortletForm']//*[contains(@data-target,'PortletSetting')]");
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_TITLE = By.id("title");
@@ -143,12 +144,12 @@ public class PageCreationWizard extends PlatformBase {
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_DESCRIPTION = By.id("description");
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_SAVE = By.id("Save");
 	public final By ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_CANCEL = By.id("Close");
-	
+
 	final public By ELEMENT_ADDNEWPAGE_NODENAME = By.xpath("//*[@id='pageName']");
 	final public By ELEMENT_ADDNEWPAGE_DISPLAYNAME = By.xpath("//*[@id='i18nizedLabel']");
-	
-	
-	
+
+
+
 	//page editor
 	final public By ELEMENT_PAGEEDITOR_CONTENTTAB = By.xpath("//*[@title='Content']");
 	final public By ELEMENT_PAGEEDITOR_CONTENTLIST = By.xpath("//*[@id='Content/ContentListViewerPortlet']");
@@ -167,7 +168,7 @@ public class PageCreationWizard extends PlatformBase {
 	final public String ELEMENT_FOLDERSELECTOR_PATH = "//*[@class='nodeName' and text()=' ${path}' ]";
 	final public String ELEMENT_FOLDERSELECTOR_CONTENTLIST_FINALPATH = "//*[@class='Item' and text()='${name}']";
 	final public String ELEMENT_FOLDERSELECTOR_CONTENTDETAIL_FINALPATH = "//*[@class='OddItem']//*[text()='${name}']";
-	
+
 	//Content Detail Preference
 	final public By ELEMENT_CONTENTDETAILPREF_TABCONTENTDISPLAY = By.xpath("//*[@class='uiContentBox']");
 	final public By ELEMENT_CONTENTDETAILPREF_TABCONTENTPREFERENCES = By.xpath("//*[@data-original-title='Preferences']");
@@ -185,13 +186,13 @@ public class PageCreationWizard extends PlatformBase {
 	public final String ELEMENT_SELECT_EDIT_GROUP_ITEM = ".//*[@id='PermissionSelector']//*[@title='${group}']/i";
 	public final String ELEMENT_SELECT_EDIT_MEMBERSHIP_ITEM = ".//*[@id='PermissionSelector']//*[@title='${membership}']";
 	public final String ELEMENT_SELECTED_EDIT_PERMISSION_MEMBERSHIP = ".//*[@id='UIPermissionSelector']//*[contains(text(),'Membership')]/../*[contains(text(),'${membership}')]";
-	
-	
+
+
 	ContentList contList;
 	ContentDetail contDetail;
 	ManageAlert magAlert;
 	Button but;
-	
+
 	public PageCreationWizard(WebDriver dr){
 		this.driver = dr;
 		contList = new ContentList(dr);
@@ -199,7 +200,7 @@ public class PageCreationWizard extends PlatformBase {
 		magAlert = new ManageAlert(dr);
 		but = new Button(dr);
 	}
-	
+
 	/**
 	 * Input data in page info page at step 1
 	 * @param name
@@ -245,7 +246,7 @@ public class PageCreationWizard extends PlatformBase {
 				uncheck(ELEMENT_PAGE_PUBLICATION_DATE_CHECKBOX,2);
 		}
 	}
-	
+
 	/**
 	 * Add content in page editor
 	 * @param tab
@@ -276,8 +277,8 @@ public class PageCreationWizard extends PlatformBase {
 		Utils.pause(2000);
 		saveChangesPageEditor();
 	}
-	
-	
+
+
 	/**
 	 * Add a Content list to a Page by folder
 	 * @param titlePage
@@ -346,6 +347,7 @@ public class PageCreationWizard extends PlatformBase {
 	 * @param verify
 	 */
 	public void addContainer(String numRow, boolean... verify){
+		click(ELEMENT_CONTAINER_TAB);
 		boolean isVerify = (verify.length > 0 ? verify[0]: true);
 		info("Add container");
 		info("Add new container: " + numRow);
@@ -374,17 +376,18 @@ public class PageCreationWizard extends PlatformBase {
 	public void editContainer(String oldTitle,String newTitle,String width, String height){
 		info("Edit container");
 		click(ELEMENT_SWITCH_VIEW_MODE);
+		click(ELEMENT_CONTAINER_TAB);
 		if(!oldTitle.isEmpty())
 			mouseOver(ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}",oldTitle),true);
 		else
-		mouseOver(ELEMENT_DROP_SOURCE_HAS_LAYOUT, true);
+			mouseOver(ELEMENT_DROP_SOURCE_HAS_LAYOUT, true);
 		Utils.pause(3000);
 		if(!oldTitle.isEmpty())
-		click(ELEMENT_EDIT_CONTAINER_ICON_BY_NAME.replace("${name}", oldTitle));
+			click(ELEMENT_EDIT_CONTAINER_ICON_BY_NAME.replace("${name}", oldTitle));
 		else
 			click(ELEMENT_EDIT_CONTAINER_ICON);
 		if(!newTitle.isEmpty())
-		    type(ELEMENT_CONTAINER_POPUP_TITLE, newTitle, true);
+			type(ELEMENT_CONTAINER_POPUP_TITLE, newTitle, true);
 		if(!width.isEmpty())
 			type(ELEMENT_CONTAINER_POPUP_WIDTH, width, true);
 		if(!height.isEmpty())
@@ -425,18 +428,18 @@ public class PageCreationWizard extends PlatformBase {
 			mouseOver(ELEMENT_DROP_SOURCE_HAS_LAYOUT_BY_NAME.replace("${name}",
 					title), true);
 			Utils.pause(3000);
-			
+
 		} else {
 			mouseOver(ELEMENT_DROP_SOURCE_HAS_LAYOUT, true);
 			Utils.pause(3000);
 		}
-		
+
 		WebElement elSource = waitForAndGetElement(sourceLocator,2000,0);
 		WebElement elTarget = waitForAndGetElement(targetLocator,2000,0);
-		
+
 		info("Get the size of target");
 		Dimension size = elTarget.getSize();
-		
+
 		Actions builder = new Actions(this.driver);
 		info("Hold the source");
 		builder.clickAndHold(elSource).build().perform();
@@ -451,11 +454,11 @@ public class PageCreationWizard extends PlatformBase {
 		Action actiondrop = builder.release().build();
 		actiondrop.perform();
 		Utils.pause(2000);
-		
+
 		saveChangesPageEditor();
 		info("the container is moved succefully");
 	}
-	
+
 	/**
 	 * Check the positions of containers or portlets before and after changed their position in the layout
 	 * @param positionFirst is the position before changed
@@ -467,7 +470,7 @@ public class PageCreationWizard extends PlatformBase {
 		waitForAndGetElement(positionEnd,2000,1);
 		saveChangesPageEditor();
 	}
-	
+
 	/**
 	 * Delete a contain in the layout
 	 * @param name
@@ -492,14 +495,14 @@ public class PageCreationWizard extends PlatformBase {
 		saveChangesPageEditor();
 		info("the container is deleted");
 	}
-	
-    /**
-     * Edit an application with changes about title, width and height
-     * @param oldTitle
-     * @param newTitle
-     * @param width
-     * @param height
-     */
+
+	/**
+	 * Edit an application with changes about title, width and height
+	 * @param oldTitle
+	 * @param newTitle
+	 * @param width
+	 * @param height
+	 */
 	public void editApplication(String oldTitle,String newTitle,String width,String height) {
 		// TODO Auto-generated method stub
 		info("Edit application");
@@ -514,7 +517,7 @@ public class PageCreationWizard extends PlatformBase {
 			type(ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_HEIGHT,height,true);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Save and close application popup after finishing editing
 	 * Save and close page editor
@@ -524,7 +527,7 @@ public class PageCreationWizard extends PlatformBase {
 		click(ELEMENT_APPLICATION_EDIT_POPUP_PORTLET_SAVE);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Save all changes of page editor
 	 */
@@ -534,7 +537,7 @@ public class PageCreationWizard extends PlatformBase {
 		click(ELEMENT_PAGEEDITOR_FINISHBTN);
 		Utils.pause(3000);
 	}
-	
+
 	/**
 	 * Move an application to new place
 	 * @param titleSource is the title of applicattion source that will be moved to new place
@@ -543,19 +546,21 @@ public class PageCreationWizard extends PlatformBase {
 	 */
 	public void moveApplication(String titleSource,String titleTarget,int heightTarget){
 		info("Move an application to new place");
-			click(ELEMENT_APPLICATION_TAB);
+		click(ELEMENT_APPLICATION_TAB);
 		if (!titleSource.isEmpty()) {
 			info("titleSource:"+titleSource);
 			info("titleTarget:"+titleTarget);
 			mouseOver(ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",titleSource),true);
 			Utils.pause(3000);
 		} 
-		WebElement elSource = waitForAndGetElement(ELEMENT_APPLICATION_HOLDER_MOVE.replace("${name}",titleSource),2000,0);
+		WebElement elSource = waitForAndGetElement(ELEMENT_APPLICATION_HOLDER_MOVE.replace("${name}",titleSource),2000,1);
 		WebElement elTarget = waitForAndGetElement(ELEMENT_APPLICATION_IN_LAYOUT_PAGE.replace("${name}",titleTarget),2000,0);
-		
+		if(elTarget==null)
+			elTarget=waitForAndGetElement(ELEMENT_DROP_SOURCE_HAS_LAYOUT,2000,1);
+
 		info("Get the size of target");
 		Dimension size = elTarget.getSize();
-		
+
 		Actions builder = new Actions(this.driver);
 		info("Hold the source:");
 		builder.clickAndHold(elSource).build().perform();
@@ -570,11 +575,11 @@ public class PageCreationWizard extends PlatformBase {
 		Action actiondrop = builder.release().build();
 		actiondrop.perform();
 		Utils.pause(2000);
-		
+
 		saveChangesPageEditor();
 		info("the application is moved succefully");
 	}
-	
+
 	/**
 	 * Delete an application
 	 * @param name
@@ -593,7 +598,7 @@ public class PageCreationWizard extends PlatformBase {
 		saveChangesPageEditor();
 		info("the container is deleted");
 	}
-	
+
 	/**
 	 * Change to Switch view mode
 	 * @param verify
@@ -602,7 +607,7 @@ public class PageCreationWizard extends PlatformBase {
 		info("Click on Switch view mode button");
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		if(verify.length>0)
-		waitForAndGetElement(ELEMENT_SWITCH_VIEW_MODE_NAME_APPLICATION_CLASS,2000,0);
+			waitForAndGetElement(ELEMENT_SWITCH_VIEW_MODE_NAME_APPLICATION_CLASS,2000,0);
 	}
 	/**
 	 * View properties
@@ -670,7 +675,7 @@ public class PageCreationWizard extends PlatformBase {
 		click(ELEMENT_VIEW_PROPERTIES_SAVE_BTN);
 		Utils.pause(2000);
 	}
-	
+
 	/**
 	 * Select a group in permission selector popup
 	 * @param groupsPath is path of groups as:Platform/Content Manangement
@@ -738,7 +743,7 @@ public class PageCreationWizard extends PlatformBase {
 		click(ELEMENT_VIEW_PROPERTIES_DELETE_EDIT_PERMISSION_BTN);
 		Utils.pause(2000);
 	}
-	
+
 	/**function: Edit view properties when edit layout
 	 * @param pageName name of page you want to edit
 	 * @param newtitle new Name of page you want to edit
@@ -754,7 +759,7 @@ public class PageCreationWizard extends PlatformBase {
 		click(ELEMENT_EDIT_PERMISSION_SETTING);
 		setEditPermissions(groupId, membership);
 	}
-	
+
 	/**function: Edit permission when view properties
 	 * @param groupId Group Id when select permission
 	 * @param membership membership when select permission

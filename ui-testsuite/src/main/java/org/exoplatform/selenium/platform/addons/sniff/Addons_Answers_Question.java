@@ -123,7 +123,7 @@ public class Addons_Answers_Question extends PlatformBase {
 		String newcontent = txData.getContentByArrayTypeRandom(1)+"n116828";
 		String link = fData.getAttachFileByArrayTypeRandom(1);
 
-		info("Test 3: Add a question");
+		info("Test 2: Add a question");
 		/*Step Number: 1
 		 *Step Name: Add a question
 		 *Step Description: 
@@ -141,7 +141,7 @@ public class Addons_Answers_Question extends PlatformBase {
 		click(button.ELEMENT_OK_BUTTON_LINK);
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 
-		info("Test 4: Edit a question");
+		info("Test 3: Edit a question");
 		/*Step number: 2
 		 *Step Name: Edit a question
 		 *Step Description: 
@@ -159,7 +159,7 @@ public class Addons_Answers_Question extends PlatformBase {
 		waitForElementNotPresent(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", newtitle)));
 
-		info("Test 5: Delete a question");
+		info("Test 4: Delete a question");
 		/*Step number: 2
 		 *Step Name: Delete a question
 		 *Step Description: 
@@ -178,7 +178,7 @@ public class Addons_Answers_Question extends PlatformBase {
 	 * Post-Condition: 
 	 */
 	@Test(priority=3)
-	public  void test06_MoveAQuestion() {
+	public  void test07_MoveAQuestion() {
 		String title = txData.getContentByArrayTypeRandom(1)+"116831";
 		String content = txData.getContentByArrayTypeRandom(1)+"116831";
 		String paCat1 = txData.getContentByArrayTypeRandom(1)+"p1116831";
@@ -199,7 +199,7 @@ public class Addons_Answers_Question extends PlatformBase {
 		click(cMang.ELEMENT_CATEGORY_ADD_FORM_SAVE_BUTTON);
 		waitForAndGetElement(cMang.ELEMENT_CATEGORY_LIST_ITEM.replace("$category", paCat2));
 
-		info("Test 6: Move a question");
+		info("Test 7: Move a question");
 		/*Step Number: 1
 		 *Step Name: Add a question
 		 *Step Description: 
@@ -267,7 +267,7 @@ public class Addons_Answers_Question extends PlatformBase {
 		click(button.ELEMENT_OK_BUTTON_LINK);
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 
-		info("Test 7: Edit a question in Manage Answer form");
+		info("Test 5: Edit a question in Manage Answer form");
 		/*Step Number: 1
 		 *Step Name: Add a question
 		 *Step Description: 
@@ -298,7 +298,7 @@ public class Addons_Answers_Question extends PlatformBase {
 		waitForElementNotPresent(By.xpath(qMang.ELEMENT_MANAGE_QUESTION_EDIT_QUESTION.replace("$question", title)));
 		waitForAndGetElement(By.xpath(qMang.ELEMENT_MANAGE_QUESTION_EDIT_QUESTION.replace("$question", newtitle)));
 
-		info("Test 8: Delete a question in Manage Question form");
+		info("Test 6: Delete a question in Manage Question form");
 		/*Step number: 2
 		 *Step Name: Delete a question
 		 *Step Description: 
@@ -326,7 +326,7 @@ public class Addons_Answers_Question extends PlatformBase {
 	public  void test08_ActivateDeactivateAQuestion() {
 		String title = txData.getContentByArrayTypeRandom(1)+"116835";
 		String content = txData.getContentByArrayTypeRandom(1)+"116835";
-		info("Test 9: Activate / Deactivate a question");
+		info("Test 8: Activate / Deactivate a question");
 		/*Step Number: 1
 		 *Step Name: Add a question
 		 *Step Description: 
@@ -400,7 +400,7 @@ public class Addons_Answers_Question extends PlatformBase {
 		String title = txData.getContentByArrayTypeRandom(1)+"116836";
 		String content = txData.getContentByArrayTypeRandom(1)+"116836";
 		
-		info("Test 10 Approve / Disapprove a question");
+		info("Test 9 Approve / Disapprove a question");
 		/*Step Number: 1
 		 *Step Name: Add a question
 		 *Step Description: 
@@ -482,7 +482,7 @@ public class Addons_Answers_Question extends PlatformBase {
 		click(button.ELEMENT_OK_BUTTON_LINK);
 		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", title)));
 
-		info("Test 2: Send to friend");
+		info("Test 10: Send to friend");
 		/*Step Number: 1
 		 *Step Name: Send Question
 		 *Step Description: 

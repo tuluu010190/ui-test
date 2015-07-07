@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.gatein.sniff;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 /**
@@ -147,7 +148,7 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 			- The node is removed from the list*/
 		info("Test Case 04: Delete a node");
 		groupManage.editNavigation(groupAdmin);
-		navMag.deleteNode(nodeName);
+		navMag.deleteNode(newNodeName);
 	}
 	
 	
@@ -555,7 +556,7 @@ public class Gatein_Group_Navigation_Edit_Navigation extends GateIn_TestConfig{
 		info("Verify that the application is moved successfully");
 		groupManage.editNavigation(groupAdmin);
 		navMag.editNodePage(nodeName);
-		pagCW.checkPositions(pagCW.ELEMENT_CONTAINER_FOLLOWING_PORTLET,pagCW.ELEMENT_CONTAINER_PRECEDING_PORTLET);
+		pagCW.checkPositions(pagCW.ELEMENT_CONTAINER_FOLLOWING_PORTLET,By.xpath(pagCW.ELEMENT_CONTAINER_PORTLET_APPLICATION.replace("${name}",newTitle)));
 		navMag.closeNavigationManagementPopup();
 	
 		info("Test Case 17: Delete an application when edit page...");

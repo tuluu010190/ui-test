@@ -1148,7 +1148,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		info ("Check Notification in notification list");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkPostActivityNotification(username1, activity, "1");
+		intraNot.checkPostActivityNotification(username1, activity, "1",false);
 		
 		/*Step Number: 2
 		 *Step Name: Step 2: Click notification message
@@ -1181,7 +1181,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		info("Check notification in view all");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkPostActivityNotification(username1, activity, "1");
+		intraNot.checkPostActivityNotification(username1, activity, "1",false);
 		
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();

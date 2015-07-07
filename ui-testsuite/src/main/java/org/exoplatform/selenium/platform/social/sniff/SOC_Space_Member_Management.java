@@ -266,10 +266,6 @@ public class SOC_Space_Member_Management extends SOC_TestConfig_1 {
 		spaHome.goToSpace(space);
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.acceptRequest(DATA_USER2);
-		
-		/*info("Delete a Space");
-		hp.goToMySpaces();
-		spaMg.deleteSpace(space,false);*/
 	}
 	
 }

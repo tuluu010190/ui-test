@@ -28,8 +28,8 @@ public class AnswerManagement  extends PlatformBase {
 	public String ELEMENT_ANSWER_DELETE_BUTTON="//*[@class='responseContainer']//*[contains(@id,'Answer')]//*[text()='$answer']/../../../../..//*[@class='uiIconLightGray uiIconTrash']";
 	
 	//Answer container
-	public String ELEMENT_ANSWER_AUTHOR="//*[@class='responseContainer']//*[contains(@id,'Answer')]//*[text()='$answer']/../..//*[@class='userName' and contains(text(),'$fullname')]";
-	public String ELEMENT_ANSWER_CONTENT="//*[@class='responseContainer']//*[contains(@id,'Answer')]//*[text()='$answer']";
+	public String ELEMENT_ANSWER_AUTHOR="//*[contains(@id,'Answer')]//*[text()='$answer']/../..//*[@class='userName' and contains(text(),'$fullname')]";
+	public String ELEMENT_ANSWER_CONTENT="//*[contains(@id,'Answer')]//*[text()='$answer']";
 
 	//Delete 
 	public By ELEMENT_ANSWER_DELETE_CONFIRM_POPUP=By.id("UIForumPopupConfirmation");

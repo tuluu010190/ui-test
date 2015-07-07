@@ -232,7 +232,7 @@ public class Ecms_SE_BasicAction extends ECMS_TestConfig_Part2{
 	 *<li> Test Case Name: Paste Clipboard.</li>
 	 */
 	@Test
-	public  void test09_010_DeleteClipboard_PasteClipboard() {
+	public  void test09_10_DeleteClipboard_PasteClipboard() {
 		/*Step Number: 1
 		 *Step Name: -
 		 *Step Description: 

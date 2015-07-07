@@ -129,7 +129,6 @@ public class ECMS_TestConfig_Part1 extends PlatformBase{
 	@AfterClass
 	public void afterClass(){
 		info("Start afterClass");
-		driver.manage().deleteAllCookies();
 		driver.quit();
 		info("End afterClass");
 	}

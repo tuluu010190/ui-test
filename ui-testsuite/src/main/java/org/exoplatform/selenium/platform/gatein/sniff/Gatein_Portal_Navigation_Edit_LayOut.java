@@ -134,7 +134,7 @@ import org.testng.annotations.*;
  
 		info("Move an application to new place");
 		navToolBar.goToEditLayout();
-		pagCW.moveApplication(name,"Announcement",87);
+		pagCW.moveApplication(name,"Products",87);
 		navToolBar.goToEditLayout();
 		pagCW.checkPositions(pagCW.ELEMENT_APPLICATION_PRECEDING_PORTLET.replace("${app1}","Announcement").replace("${app2}",name),pagCW.ELEMENT_APPLICATION_FOLLOWING_PORTLET.replace("${app1}","Announcement").replace("${app2}",name));
 
