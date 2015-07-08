@@ -62,7 +62,9 @@ public class ActivityStream extends PlatformBase {
 	public final By ELEMENT_ACTIVITY_UPLOAD_POPUP_CLOSE=By.xpath(".//*[@id='UIPopupComposer']//*[@class='uiIconClose pull-right']");
 	public final String ELEMENT_DRIVER_OPTION = "//a[@class='OptionItem' and contains(text(),'${driveName}')]";
 
-
+	public final String ELEMENT_DRIVER_OPTION_2 = ".//*[@id='DriveTypeDropDown']//li[$num]";
+	public final By ELEMENT_DRIVES_LIST=By.xpath(".//*[@id='DriveTypeDropDown']");
+	
 	//Task/Event activity
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TITLE = "//*[@class='linkTitle' and text()='$name']";
 	public final String ELEMENT_ACTIVITY_TASK_EVENT_TITLE_SPACE_AS_LINK=".//*[contains(@href,'${space}')][contains(text(),'${event}')]";
@@ -208,8 +210,11 @@ public class ActivityStream extends PlatformBase {
 	 * @param title
 	 */
 	public void checkActivityAddFile(String title){
+		info("Verify that the file's title is shown");
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_FILE_TITLE.replace("{$title}", title)));
+		info("Verify that file's icon is shown");
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_FILE_CHECK_ICON_FILE.replace("{$title}", title)));
+		info("Verify that file's size is shown");
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_FILE_TITLE_CHECK_FILE_SIZE.replace("{$title}", title)));
 	}
 
@@ -219,7 +224,7 @@ public class ActivityStream extends PlatformBase {
 	 */
 	public void checkActivity(String name){
 		info("Verify that the activity of the name:"+name+" is shown");
-		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("{$name}",name)),3000,0);
+		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("${title}",name)),3000,1);
 		info("The activity of the name:"+name+" is shown successfully");
 	}
 	/**
@@ -564,11 +569,27 @@ public class ActivityStream extends PlatformBase {
 		}
 		info("----Upload a file-----");
 		waitForAndGetElement(ELEMENT_SELECT_FILE_POPUP,2000,1);
-		info("Click on drop down list");
+		/*info("Click on drop down list");
 		click(ELEMENT_ACTIVITY_UPLOAD_POPUP);
 		info("select a driver:"+nameDrive);
 		if(!nameDrive.isEmpty())
+			click(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive));*/
+		
+		if(!nameDrive.isEmpty()){
+			info("Click on drop down list");
+			click(ELEMENT_ACTIVITY_UPLOAD_POPUP);
+			info("Drop list is shown");
+			waitForAndGetElement(ELEMENT_DRIVES_LIST);
+			info("Drive item is shown in the list");
+			if(waitForAndGetElement(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive),3000,0)==null){
+				info("select a driver:"+1);
+				click("(.//*[@id='DriveTypeDropDown']//*[@class='OptionItem'])[1]");
+			}else{
+			info("select a driver:"+nameDrive);
 			click(ELEMENT_DRIVER_OPTION.replace("${driveName}",nameDrive));
+			}
+		}
+			
 		info("go to the folder by path:"+path);
 		String[] arrayPath = path.split("/");
 		for(String arrayElement:arrayPath){

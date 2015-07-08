@@ -65,4 +65,26 @@ public class NotificationDescriptionDatabase {
 	public String getNotiMessage(int index){
 		return content.get(index);
 	}
+	
+	/**
+	 * Get message from file by random type
+	 * @param type
+	 * @return
+	 */
+	public String getMessageByArrayTypeRandom(int...type){
+		ArrayList<String> arrayMessage = new ArrayList<String>();
+		Random randomGenerator = new Random();
+		for (int j = 0; j<type.length; j++){
+			for(int i = 0; i<this.type.size(); i++)
+			{	
+				if(this.type.get(i) == type[j]) {
+					arrayMessage.add(this.content.get(i));
+				}
+			}
+		}
+		int index = randomGenerator.nextInt(arrayMessage.size());
+		String message = arrayMessage.get(index);
+		info("Message is: "+message);
+		return message;
+	}
 }

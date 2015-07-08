@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.social;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.util.ArrayList;
+
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
@@ -16,14 +18,24 @@ public class IntranetNotification extends PlatformBase{
 
 	public final By ELEMENT_NOTIFICATION_POP_UP = By.id("NotificationPopup");
 	public final String ELEMENT_USER_AVATAR = "//*[contains(@alt,'${userName}')]";
-
+	
+	//Notificaiton list popup
+	public final String ELEMENT_INTRANET_NOTIFICATION_AVATAR=".//*[@id='NotificationPopup']//*[contains(@class,'avatarXSmall')]//*[contains(@alt,'$lastUser')]";
+    public final String ELEMENT_INTRANET_NOTIFICATION_USER=".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'$user')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER=".//*[@id='NotificationPopup']//*[contains(@class,'badgeNotification')][contains(text(),'$num')]";
 	public final By ELEMENT_VIEW_ALL = By.linkText("View All");
-	public final By ELEMENT_ALL_NOTIFICATIONS = By.xpath(".//*[@id='UIIntranetNotificationsPortlet']//*[text()='All Notifications']");
+	
 
 	public final By ELEMENT_NOTIFICATION_SETTINGS_LINK = By.linkText("Notifications Settings");
 	public final String ELEMENT_NOTIFICATION_SETTINGS_TITLE = ".//*[@id='uiNotificationSetting']//h3[text()='Notification Settings']";
 
 	//comment
+	public final String ELEMENT_INTRANET_NOTIFICATION_COMMENTS_CONTENT=".//*[@id='NotificationPopup']//*[contains(@class,'status')][contains(.,'$comment')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE=".//*[@id='NotificationPopup']//*[@class='content'][contains(.,'$title')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_DETAIL=".//*[@class='description'][contains(text(),'$activity')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_HIGHLIGHT=".//*[contains(text(),'$comment')]/../../..[contains(@style,'rgb(240, 240, 240)')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_CONTENT=".//*[contains(text(),'$comment')]";
+	public final By     ELEMENT_INTRANET_NOTIFICATION_PAGE_FIRST_NOTIFICATION=By.xpath("(.//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'uiIcon')])[1]");
 	public final String ELEMENT_COMMENT_ONE_MINUTE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
 	public final String ELEMENT_COMMENT_JUST_NOW = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
 	public final String ELEMENT_COMMENT_NO_TIME = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]";
@@ -49,7 +61,7 @@ public class IntranetNotification extends PlatformBase{
 
 	//Connection
 	public final String ELEMENT_CONNECT_NOTIFICATION = "//*[contains(text(),'${fullName}')]/../..//*[contains(.,'wants to connect with you')]";
-	public final String ELEMENT_CONNECT_ACCEPT_BUTTON = ELEMENT_CONNECT_NOTIFICATION + "/..//*[contains(text(),'Accept')]";
+	public final String ELEMENT_CONNECT_ACCEPT_BUTTON = ".//*[contains(text(),'$fullName')]/../..//*[contains(@class,'action-item')]";
 	public final String ELEMENT_CONNECT_REFUSE_BUTTON = ELEMENT_CONNECT_NOTIFICATION + "/..//*[contains(text(),'Refuse')]";
 	public final String ELEMENT_CONNECTED_SUCCESS_ONE_MINUTE = "//*[contains(@alt,'${fullName}')]/../..//*[contains(.,'You are connected with')]//*[contains(text(),'${fullName}')]/../..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
 	public final String ELEMENT_CONNECTED_SUCCESS_JUST_NOW = "//*[contains(@alt,'${fullName}')]/../..//*[contains(.,'You are connected with')]//*[contains(text(),'${fullName}')]/../..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
@@ -125,6 +137,14 @@ public class IntranetNotification extends PlatformBase{
 	public final By ELEMENT_EDIT_LIKE_WEB_ICON = By.xpath("//*[@id='LikePlugin']/../..//i[@class='uiIconPLFWeb']");
 
 	UserProfilePage myProf;
+	//All notification list
+	public final By ELEMENT_ALL_NOTIFICATIONS = By.xpath(".//*[@id='UIIntranetNotificationsPortlet']//*[text()='All Notifications']");
+	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_AVATAR=".//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'avatarXSmall')]//*[contains(@alt,'$lastUser')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_USER=".//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'user-name')][contains(text(),'$user')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_COMMENTS_CONTENT=".//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'status')][contains(.,'$comment')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_ACTIVITY_TITLE=".//*[@id='NotificationPopup']//*[@class='content'][contains(.,'$title')]";
+	
+	//MyProfilePage myProf;
 	NavigationToolbar navTool;
 	HomePagePlatform hp;
 	ConnectionsManagement connMag;
@@ -744,6 +764,223 @@ public class IntranetNotification extends PlatformBase{
 		click(ELEMENT_NOTIFICATION_SETTINGS_LINK);
 		waitForAndGetElement(ELEMENT_NOTIFICATION_SETTINGS_TITLE);
 	}	
+	/**
+	 * Check notification's comment type in notification list popup
+	 * @param users
+	 * @param comment
+	 * @param actTitle
+	 */
+	public void checkCommentActivityNotificationFormat(ArrayList<String> users,String comment,String actTitle){
+		int lastIndex=users.size()-1;
+		info("users.size():"+users.size());
+		info("Verify that last user's avatar is shown in list");
+		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_AVATAR.
+				replace("$lastUser",users.get(lastIndex)));
+		
+		info("Verify that last user is shown in list");
+		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_USER.replace("$user",users.get(lastIndex)));
+		info("users.size():"+users.size());
+		if(users.size()>0){
+			info("Verify that second last user is shown in list");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_USER.replace("$user",users.get(lastIndex-1)),2000,2);
+			if(users.size()>2){
+				info("Verify the activity message for more 2 users comments");
+				waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_COMMENTS_CONTENT.
+						replace("$comment",comment).replace("$number",users.get(lastIndex-1)),2000,2);
+			}
+			else{
+				info("Verify the activity message for 2 or 1 comment(s)");
+				waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_COMMENTS_CONTENT.
+						replace("$comment",comment),2000,2);
+			}
+		}
+		
+		if(!actTitle.isEmpty()){
+			info("Verify the activity's title is shown in the list");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE.replace("$title",actTitle),2000,2);
+		}
+		
+	}
+	/**
+	 * View detail of the activity when click on activity in notification list
+	 * @param actTitle
+	 *              is the activity's title
+	 * @param comment
+	 *              is of the comment of other user
+	 */
+	public void checkDetailActivityNotifications(String actTitle,ArrayList<String> comments,boolean isHighlight){
+		if(waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE.replace("$title",actTitle),3000,0)!=null){
+			info("Click on the activity title on the list");
+	        click(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE.replace("$title",actTitle));
+	
+		}
+		else {
+			goToAllNotification();
+			goToDetailFirstNotificationInAllpage();
+		}
+		
+		if(comments.size()>0){
+			for(int i=0;i<comments.size();i++){
+				info("Verify that all comments are expanded");
+				waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_CONTENT.
+						replace("$comment",comments.get(i)));
+				
+				if(isHighlight){
+					 info("Verify that the last comment is highlighted");
+						waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_HIGHLIGHT.
+								replace("$comment",comments.get(comments.size()-1)));
+				}
+			}
+		}
+	}
+	/**
+	 * Open detail of first notification in All notification page
+	 */
+	public void goToDetailFirstNotificationInAllpage(){
+		info("click on First notification in All notification page");
+		click( ELEMENT_INTRANET_NOTIFICATION_PAGE_FIRST_NOTIFICATION);
+		Utils.pause(2000);
+	}
+	/**
+	 * Accept an connection request in notification list
+	 * @param fullName
+	 *                 is fullName of user that want to connect
+	 */
+	public void acceptRqConnection(String fullName){
+		info("Click on Accept button");
+		click(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
+		waitForElementNotPresent(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
+	}
+
+	/**
+	 * Check format of Activity's comment in Notification list
+	 * @param users
+	 *            is array of users
+	 * @param status
+	 *            is as: has commented on your activity,...
+	 * @param actTitle
+	 *            is the title of the activity that is commented
+	 * @param isPopUp
+	 *             =true, if the notification list is shown in Notification list popup
+	 *             =false, if the notification list is shown in All notification list
+	 */
+	public void checkFormatACNotification(ArrayList<String> users,String status,
+			String actTitle,boolean isPopUp){
+		info("users.size():"+users.size());
+		checkAvatar(users,isPopUp);
+		checkUsers(users,isPopUp);
+		checkStatusAC(users,status,isPopUp);
+		checkActivityTitle(actTitle,isPopUp);
+	}
+	
+	/**
+	 * Check avatar of notification list
+	 * @param users
+	 *             is array of users
+	 * @param isPopUp
+	 *             =true, if the notification list is shown in Notification list popup
+	 *             =false, if the notification list is shown in All notification list
+	 */
+	public void checkAvatar(ArrayList<String> users, boolean isPopUp){
+		int lastIndex=users.size()-1;
+		info("users.size():"+users.size());
+		info("Verify that last user's avatar is shown in list");
+		if(isPopUp)
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_AVATAR.
+				replace("$lastUser",users.get(lastIndex)),2000,2);
+		else
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_AVATAR.
+					replace("$lastUser",users.get(lastIndex)),2000,2);
+	}
+	
+	/**
+	 * Check users that are shown their names in notification list
+	 * @param users
+	 *             is array of users
+	 * @param isPopUp
+	 *             =true, if the notification list is shown in Notification list popup
+	 *             =false, if the notification list is shown in All notification list
+	 */
+	public void checkUsers(ArrayList<String> users, boolean isPopUp){
+		int lastIndex=users.size()-1;
+		info("users.size:"+users.size());
+		if(isPopUp){
+			info("Verify that last user is shown in the popup");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_USER.
+					replace("$user",users.get(lastIndex)),2000,2);
+		}else{
+			info("Verify that last user is shown in the page");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_USER.
+					replace("$user",users.get(lastIndex)),2000,2);
+		}
+		
+		if(users.size()>2 && isPopUp==true){
+			info("Verify that second last user is shown in the popup");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_USER.
+					replace("$user",users.get(lastIndex-1)),2000,2);
+		}
+		
+		if(users.size()>2 && isPopUp==false){
+			info("Verify that second last user is shown in the page");
+		    waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_USER.
+				replace("$user",users.get(lastIndex-1)),2000,2);
+		}
+	}
+	/**
+	 * Check status of Activity Comment in notification list
+	 * @param users
+	 *              is array of users
+	 * @param status
+	 *              is activity's status as: has commented on your activity,...
+	 * @param isPopUp
+	 *              =true if want to check on notification list popup
+	 *              =false if want to check on notification list page
+	 */
+	public void checkStatusAC(ArrayList<String> users,String status,boolean isPopUp){
+		int lastIndex=users.size()-1;
+		if(users.size()>3 && isPopUp==true){
+			info("Verify the activity message for more "+(lastIndex-2)+" users comments");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_COMMENTS_CONTENT.
+					replace("$comment",status).replace("$number",users.get(lastIndex-1)),2000,2);
+		}
+		
+		if(users.size()>3 && isPopUp==false){
+			info("Verify the activity message for more "+(lastIndex-2)+" users comments");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_COMMENTS_CONTENT.
+					replace("$comment",status).replace("$number",users.get(lastIndex-1)),2000,2);
+		}
+		
+		if(users.size()<3 && isPopUp==true){
+			info("Verify the activity message for 2 or 1 comment(s)");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_COMMENTS_CONTENT.
+					replace("$comment",status),2000,2);
+		}
+		
+		if(users.size()<3 && isPopUp==false){
+			info("Verify the activity message for 2 or 1 comment(s)");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_COMMENTS_CONTENT.
+					replace("$comment",status),2000,2);
+		}
+	}
+	/**
+	 * Check Activity's title is shown in notification list
+	 * @param actTitle
+	 *  @param isPopUp
+	 *              =true if want to check on notification list popup
+	 *              =false if want to check on notification list page
+	 */
+	public void checkActivityTitle(String actTitle,boolean isPopUp){
+		if(!actTitle.isEmpty() && isPopUp==true){
+			info("Verify the activity's title is shown in the popup");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE.
+					replace("$title",actTitle),2000,2);
+		}else{
+			info("Verify the activity's title is shown in the page");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_ACTIVITY_TITLE.
+					replace("$title",actTitle),2000,2);
+		}
+	}
+	
 
 
 }

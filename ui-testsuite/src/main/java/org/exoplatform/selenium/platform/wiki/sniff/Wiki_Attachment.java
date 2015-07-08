@@ -46,7 +46,7 @@ public class Wiki_Attachment extends Wiki_TestConfig {
 		wikiMg.attachFileInWiki("TestData/"+link, 2);
 		wikiMg.saveAddPage();
 		
-		waitForAndGetElement(wHome.ELEMENT_PAGE_ATTACHFILE,3000,0);
+		waitForAndGetElement(wHome.ELEMENT_PAGE_ATTACHFILE,3000,1);
 		
 		click(wHome.ELEMENT_PAGE_ATTACHFILE);
 		driver.navigate().refresh();

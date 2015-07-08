@@ -37,7 +37,7 @@ public class Wiki_Basic_Action_Manage_Page_Add_Delete extends Wiki_TestConfig {
 		hp.goToWiki();
 		wHome.goToAddBlankPage();
 		wikiMg.addWikiPageSimpleWithSourceEditor(wiki, wiki);
-		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,0);
+		waitForAndGetElement(wHome.ELEMENT_TREE_WIKI_NAME.replace("${name}",wiki),2000,1);
 		
 		info("Test 08: Delete the page that is created by using source editor");
 		/*Step Number: 1

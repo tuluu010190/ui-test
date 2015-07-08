@@ -366,5 +366,6 @@ public class HomePagePlatform extends TestBase{
 		click(By.xpath(ELEMENT_SPECIFIC_PANEL.replace("{$space}",space)));
 		Utils.pause(2000);
 	}
+
 }
 
