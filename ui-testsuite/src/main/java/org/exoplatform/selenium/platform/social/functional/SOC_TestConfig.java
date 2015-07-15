@@ -11,6 +11,7 @@ import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityMessageDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.ConnectStatusDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactIMDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactPhoneDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
@@ -28,6 +29,7 @@ import org.exoplatform.selenium.platform.social.UserPageBase;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
+import org.exoplatform.selenium.platform.chat.ChatStatus;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument;
 import org.exoplatform.selenium.platform.ecms.SiteExplorerHome;
 import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
@@ -37,11 +39,14 @@ import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManagePages;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
+import org.exoplatform.selenium.platform.objectdatabase.chat.ChatStatusDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.LanguageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationGateinDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ApplicationLayoutDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.gatein.ContainersDatabase;
@@ -110,7 +115,14 @@ public class SOC_TestConfig extends PlatformBase {
 	ProfileContactPhoneDatabase contactPhone;
 	ActivityMessageDatabase activityMes;
 	
+	ConnectStatusDatabase conStatus;
+	SiteExplorerPathDatabase siteExPath;
+	SiteExplorerDriveDatabase siteExDrive;
+	
+	ChatStatusDatabase chatStatus;
+	ChatStatus chat;
 	ManageAlert alert;
+	
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		info("Start setUpBeforeMethod");
@@ -208,6 +220,19 @@ public class SOC_TestConfig extends PlatformBase {
 		contactPhone.setContactPhoneData(contactPhoneFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
 		alert = new ManageAlert(driver, plfVersion);
+		
+		siteExDrive = new SiteExplorerDriveDatabase();
+		siteExPath = new SiteExplorerPathDatabase();
+
+		siteExDrive.setSiteExpDriveData(siteExpDrivePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		siteExPath.setSiteExpPathData(siteExpPathPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+
+		conStatus = new ConnectStatusDatabase();
+		conStatus.setConStatusData(conStatusFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+
+		chatStatus = new ChatStatusDatabase();
+		chatStatus.setChatStatusData(chatStatusFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		chat = new ChatStatus(driver);
 		info("End setUpBeforeMethod");
 	}
 

@@ -29,7 +29,7 @@ public class ConnectionsManagement extends PlatformBase {
     public final By ELEMENT_POSITIONS_OF_PEOPLE = By.id("position");
     public final By ELEMENT_SKILL_OF_PEOPLE = By.id("skills");
     public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
-    public final String ELEMENT_USER_LINK = "//a[contains(text(),'${userName}')]";
+    public final String ELEMENT_USER_LINK = "//*[@class='spaceTitle']//*[contains(@href,'${userName}')]";
     
     UserProfilePage myProf;
     

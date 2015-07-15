@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Platform Sniff Test" verbose="1" preserve-order="true">
+<suite name="Platform Func Test" verbose="1" preserve-order="true">
 	<test name="social-func-part4" enabled="true">
 		<groups>
 			<run>
@@ -18,6 +18,13 @@
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_UserProfileActivities" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_MyConnections" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_FindConnections" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_AboutMe" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_Connections" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_ConnectionStatus" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_EditProfile" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_Experience" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_RecentActivities" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_ViewProfile" />
 		</classes>
 	</test>
 	<listeners>

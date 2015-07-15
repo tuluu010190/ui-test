@@ -141,7 +141,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_PUBLICATION_FIRSTPOST_AUTHOR = "//div[1]/form//*[@class='heading']//*[@class='author']//*[contains(text(),'${name}')]";
 	public final By ELEMENT_PUBLICATION_FIRSTPOST_AUTHORAVATAR = By.xpath("//div[1]/form//*[@class='activityAvatar avatarCircle']");
 	public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIVITYTEXT = By.xpath("//div[1]/form//*[@class='description']");
-	public final String ELEMENT_ACTIVITY_LINK = "//*[@id='boxContainer']//*[contains(text(),'${title}')]/../..//*[contains(text(),'${link}')]";
+	public final String ELEMENT_ACTIVITY_LINK = "//*[@id='boxContainer']//*[contains(text(),'${title}')]/../..//*[contains(@onclick,'${link}')]";
 	public final String ELEMENT_ACTIVITY_LINK_USER_ICON = "//*[@class='activityAvatar avatarCircle']/*[contains(@href,'${user}')]/../..//*[@class='uiIconSocLinkMini uiIconSocWhite']";
 	public final String ELEMENT_ACTIVITY_MENTION_USER = "//*[@id='boxContainer']//*[contains(text(),'${content}')]/a[contains(@href,'${user}')]";
 	//Document preview activity

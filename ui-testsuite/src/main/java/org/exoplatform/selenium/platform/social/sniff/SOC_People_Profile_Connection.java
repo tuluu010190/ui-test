@@ -188,9 +188,6 @@ public class SOC_People_Profile_Connection extends SOC_TestConfig_2 {
 		mouseOver(myProfile.ELEMENT_UIMINICONNECTIONS_PORLET_AVATAR.replace("${username}", userList.get(11)),true);
 		waitForAndGetElement(myProfile.ELEMENT_UIMINICONNECTIONS_PORLET_HOVER_POPUP_AVATAR.replace("${username}", userList.get(11)));
 		
-		click(myProfile.ELEMENT_UIMINICONNECTIONS_PORTLET_VIEWALL.replace("${num}",numberAllConnection));
-		waitForAndGetElement(connMag.ELEMENT_MY_CONNECTIONS_TAB);
-		
 		/*Step number: 2
 		 *Step Name: Step 2 : CheckView All link
 		 *Step Description: 
@@ -199,7 +196,7 @@ public class SOC_People_Profile_Connection extends SOC_TestConfig_2 {
 
 		 *Expected Outcome: 
 			- The user is redirected to User A's connections page*/
-		click(myProfile.ELEMENT_UIMINICONNECTIONS_PORTLET_VIEWALL.replace("${num}","13"));
+		click(myProfile.ELEMENT_UIMINICONNECTIONS_PORTLET_VIEWALL.replace("${num}",numberAllConnection));
 		waitForAndGetElement(connMag.ELEMENT_MY_CONNECTIONS_TAB);
 		
 		info("Test 4: Check the Connections section of another user.");

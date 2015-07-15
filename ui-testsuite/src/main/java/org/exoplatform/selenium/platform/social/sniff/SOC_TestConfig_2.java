@@ -134,6 +134,8 @@ public class SOC_TestConfig_2 extends PlatformBase {
 		notiDes = new NotificationDescriptionDatabase();
 		notiDes.setData(notiDesFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
+		siteExPath = new SiteExplorerPathDatabase();
+		siteExPath.setSiteExpPathData(siteExpPathPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		info("Enable like and new user notifications");
 		navTool.goToMyNotifications();

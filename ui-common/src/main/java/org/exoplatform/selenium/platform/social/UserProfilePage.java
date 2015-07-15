@@ -40,12 +40,14 @@ public class UserProfilePage extends PlatformBase {
 
 	//Current position
 	public final By ELEMENT_EDIT_POSITION = By.xpath("//*[@id='UIHeaderSection']//*[@class='uiIconEdit']");
+	
 	public final By ELEMENT_POSITION_TEXTBOX_EDIT = By.id("position");
 	public final By ELEMENT_EDIT_POSITION_SAVE_BUTTON = By.id("savePosition");
 
 	//About me
 	public final By ELEMENT_ABOUTME_TEXTAREA_EDIT = By.id("aboutMe");
 	public final String ELEMENT_UIEXPERIENCE_PROFILE_PORTLET = "//*[@id='UIExperienceProfilePortlet']//*[contains(text(),'${content}')]";
+	public final By ELEMENT_UIEXPERIENCE_PORLET=By.xpath("//*[@id='UIExperienceProfilePortlet']/*[text()='About me']");
 	
 	//Basic information
 	public final By ELEMENT_EDIT_BASIC_INFORMATION = By.xpath("//*[@id='UIBasicInfoSection']//*[@class='uiIconEdit']");
@@ -98,6 +100,7 @@ public class UserProfilePage extends PlatformBase {
 
 	//Save - Cancel button
 	public final By ELEMENT_CONTACT_SAVE_BUTTON = By.xpath(".//*[@id='UIEditUserProfileForm']//button[text()='Save']");
+	public final By ELEMENT_CONTACT_SAVE_BUTTON_DISABLE = By.xpath(".//*[@id='UIEditUserProfileForm']//button[text()='Save' and @disabled='disabled']");
 	public final By ELEMENT_CONTACT_CANCEL_BUTTON = By.xpath(".//*[@id='UIEditUserProfileForm']//button[text()='Cancel']");
 	public final By ELEMENT_SAVE_UPDATE_INFO = By.xpath("//*[@id='UIProfile']//../*[contains(text(), 'Save')]");
 	public final By ELEMENT_CANCEL_UPDATE_INFO = By.xpath("//*[@id='UIProfile']//../*[contains(text(), 'Cancel')]");
