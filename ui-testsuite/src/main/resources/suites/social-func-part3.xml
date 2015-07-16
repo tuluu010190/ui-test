@@ -10,6 +10,7 @@
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig1" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Administration" />
 		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Intranet_Notification_Administration" />
+		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_NotificationSettings" />
 		</classes>
 	</test>
 	<listeners>

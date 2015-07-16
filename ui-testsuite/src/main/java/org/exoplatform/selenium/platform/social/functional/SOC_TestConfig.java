@@ -21,6 +21,11 @@ import org.exoplatform.selenium.platform.objectdatabase.social.SpaceGroupsDataba
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceRegistrationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceVisibilityDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceWarningMessageDatabase;
+import org.exoplatform.selenium.platform.social.AllNotificationPage;
+import org.exoplatform.selenium.platform.social.IntranetNotification;
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting;
+import org.exoplatform.selenium.platform.social.NotificationsAdminSeting;
+import org.exoplatform.selenium.platform.social.SendEmailNotifications;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
@@ -123,6 +128,11 @@ public class SOC_TestConfig extends PlatformBase {
 	ChatStatus chat;
 	ManageAlert alert;
 	
+	NotificationsAdminSeting emailNotif;
+	MyNotificationsSetting myNotifPage;
+	SendEmailNotifications notiEmail;
+	AllNotificationPage AllInTraNot;
+	IntranetNotification intraNot;
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		info("Start setUpBeforeMethod");
@@ -233,6 +243,12 @@ public class SOC_TestConfig extends PlatformBase {
 		chatStatus = new ChatStatusDatabase();
 		chatStatus.setChatStatusData(chatStatusFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		chat = new ChatStatus(driver);
+		
+		emailNotif = new NotificationsAdminSeting(driver);
+		myNotifPage= new MyNotificationsSetting(driver);
+		AllInTraNot = new AllNotificationPage(driver);
+		intraNot = new IntranetNotification(driver);
+		notiEmail = new SendEmailNotifications(driver);
 		info("End setUpBeforeMethod");
 	}
 

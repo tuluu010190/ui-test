@@ -10,10 +10,16 @@ import org.openqa.selenium.WebDriver;
 
 public class MyNotificationsSetting extends PlatformBase{
 
+	//Form my notification setting
+	public final By ELEMENT_MY_NOTIFICATION_SETTING_FORM=By.id("uiNotificationSetting");
+
 	public final By ELEMENT_GENERAL_JOIN_INTRANET_GRID = By.xpath("//*[@id='uiNotificationSetting']//*[contains(text(),'Someone joins the social intranet')]");
 	public final By ELEMENT_GENERAL_SEND_CONNECTION_GRID = By.xpath("//*[@id='uiNotificationSetting']//*[contains(text(),'Someone sends me a connection request')]");  
 	public final By ELEMENT_RESET_BTN = By.xpath(".//button[@id='Reset']");
 	public final By ELEMENT_RESET_CONFIRM = By.xpath(".//*[@id='UISocialPopupConfirmation']/..//a[contains(text(),'Confirm')]");
+	public final By ELEMENT_RESET_CANCEL = By.xpath(".//*[@id='UISocialPopupConfirmation']/..//a[contains(text(),'Cancel')]");
+	public final By ELEMENT_RESET_CONFIRM_MSG_ELEMENT=By.xpath("//*[@id='UISocialPopupConfirmation']//*[@class='confirmationIcon contentMessage']");
+	public final String ELEMENT_RESET_CONFIRM_MSG="All your notification settings will be reset to default values. Your previous settings will be lost.";
 
 	//Someones join the social intranet
 	public final By ELEMENT_MY_NOTIFICATION_NEW_USER_PLUGIN=By.xpath(".//*[@for='NewUserPlugin']");
@@ -29,7 +35,7 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_MY_NOTIFICATION_SPACE_INVITATION_PLUGIN=By.xpath(".//*[@for='SpaceInvitationPlugin']");
 	public final By ELEMENT_SPACE_INVITATION_EMAIL_NOTIFICATION_ICON = By.xpath(".//*[contains(@for,'SpaceInvitationPlugin')]/../..//*[contains(@class,'uiIconPLFMail')]");
 	public final By ELEMENT_SPACE_INVITATION_INTRANET_NOTIFICATION_ICON = By.xpath(".//*[contains(@for,'SpaceInvitationPlugin')]/../..//*[contains(@class,'uiIconPLFWeb')]");
-	
+
 	//Activity comment
 	public final By ELEMENT_MY_NOTIFICATION_ACTIVITY_COMMENT_PLUGIN=By.xpath(".//*[@for='ActivityCommentPlugin']");
 	public final By ELEMENT_ACTIVITY_COMMENT_ICON_INTRANET_NOTIFICATION = By.xpath(".//*[contains(@for,'ActivityCommentPlugin')]/../..//*[contains(@class,'uiIconPLFWeb')]");
@@ -147,6 +153,10 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_MENTION_SAVE_BTN =  By.xpath("//button[@id='ActivityMentionPlugin']");
 	public final By ELEMENT_EDIT_MENTION_WEB_ICON = By.xpath("//*[@id='ActivityMentionPlugin']/../..//i[@class='uiIconPLFWeb']");
 	public final By ELEMENT_EDIT_MENTION_MAIL_ICON = By.xpath("//*[@id='ActivityMentionPlugin']/../..//*[@class='the-checkbox']");
+
+	//Categories
+	public final String ELEMENT_MYNOTIFICATION_SETTING_GROUP = "(//*[@class='left'])[$number]//*[contains(text(),'$groupName')]";
+	public final String ELEMENT_MYNOTIFICATION_SETTING_TYPE = "(//*[@class='left'])[$number]//*[@for='$id']";
 
 	/**
 	 * constructor

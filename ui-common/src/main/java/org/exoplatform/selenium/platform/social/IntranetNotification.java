@@ -107,16 +107,14 @@ public class IntranetNotification extends PlatformBase{
 
 	//enable new user notification
 	public final By ELEMENT_EDIT_NEWUSER_ICON = By.xpath("//*[@id='NewUserPlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
-	public final By ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX_CHECKED = By.xpath("//*[@id='WEB_CHANNELNewUserPlugin'][contains(@checked,'checked')]");
-	public final By ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX = By.xpath("//*[@for='WEB_CHANNELNewUserPlugin']");
-	public final By ELEMENT_EDIT_NEWUSER_SAVE_BTN = By.xpath("//button[@id='NewUserPlugin']");
+	public final By ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX = By.id("WEB_CHANNELNewUserPlugin");
+	public final By ELEMENT_EDIT_NEWUSER_SAVE_BTN = By.id("NewUserPlugin");
 	public final By ELEMENT_EDIT_NEWUSER_WEB_ICON = By.xpath("//*[@id='NewUserPlugin']/../..//i[@class='uiIconPLFWeb']");
 
 	// enable like notification
 	public final By ELEMENT_EDIT_LIKE_ICON = By.xpath("//*[@id='LikePlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
-	public final By ELEMENT_EDIT_LIKE_WEB_CHECKBOX_CHECKED = By.xpath("//*[@id='WEB_CHANNELLikePlugin'][contains(@checked,'checked')]");
 	public final By ELEMENT_EDIT_LIKE_WEB_CHECKBOX = By.id("WEB_CHANNELLikePlugin");
-	public final By ELEMENT_EDIT_LIKE_SAVE_BTN = By.xpath("//button[@id='LikePlugin']");
+	public final By ELEMENT_EDIT_LIKE_SAVE_BTN = By.id("LikePlugin");
 	public final By ELEMENT_EDIT_LIKE_WEB_ICON = By.xpath("//*[@id='LikePlugin']/../..//i[@class='uiIconPLFWeb']");
 
 	UserProfilePage myProf;
@@ -698,8 +696,7 @@ public class IntranetNotification extends PlatformBase{
 	public void enableOptionNewUserNotification(){
 		info("Click on Edit button");
 		click(ELEMENT_EDIT_NEWUSER_ICON);
-		if(isElementNotPresent(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX,2);
+		check(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX,2);
 		info("Click on Save button");
 		click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
 		info("Verify that intranet notification is hidded");
@@ -711,8 +708,7 @@ public class IntranetNotification extends PlatformBase{
 	 */
 	public void enableOptionLikeNotification(){
 		click(ELEMENT_EDIT_LIKE_ICON);
-		if(isElementNotPresent(ELEMENT_EDIT_LIKE_WEB_CHECKBOX_CHECKED))
-			check(ELEMENT_EDIT_LIKE_WEB_CHECKBOX,2);
+		check(ELEMENT_EDIT_LIKE_WEB_CHECKBOX,2);
 		info("Click on Save button");
 		click(ELEMENT_EDIT_LIKE_SAVE_BTN);
 		info("Verify that email notification is hidded");
