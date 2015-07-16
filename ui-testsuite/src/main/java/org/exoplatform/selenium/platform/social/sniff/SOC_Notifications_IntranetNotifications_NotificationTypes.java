@@ -958,7 +958,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		info ("Check Mention Intranet Notification in notification list");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkMentionNotification(username1, "1", activity);
+		intraNot.checkMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
 		
 		/*Step Number: 2
 		 *Step Name: Step 2: 
@@ -989,7 +989,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		info("Check notification in view all");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkMentionNotification(username1, "1", activity);
+		intraNot.checkMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
 		
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
@@ -1054,7 +1054,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		info ("Check Mention Intranet Notification in notification list");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkMentionNotification(username1, "1", activity);
+		intraNot.checkMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
 		
 		/*Step Number: 2
 		 *Step Name: Step 2: 
@@ -1083,7 +1083,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 				- $DATE is the date of the notification.*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkMentionNotification(username1, "1", activity);
+		intraNot.checkMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
 		
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();

@@ -9,6 +9,7 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.exoplatform.selenium.Utils;
 
 public class IntranetNotification extends PlatformBase{
@@ -41,6 +42,11 @@ public class IntranetNotification extends PlatformBase{
 	public final String ELEMENT_COMMENT_HIGHLIGHTED = "//*[@style = 'background-color: rgb(240, 240, 240);']//*[contains(text(),'${comment}')]";
 	public final String ELEMENT_COMMENT_ACTIVITY_VIEWER = "//*[contains(text(),'${comment}')]/../..//*[@class='author']/*[contains(@href,'${userName}')]";
 
+	//Time Date intranet
+	public final String ELEMET_JUST_NOW_STRING="Just Now";
+	public final String ELEMET_MINUTE_STRING="${number} minutes ago";
+	public final String ELEMET_HOUR_STRING="${number} hours ago";
+
 	//Connection
 	public final String ELEMENT_CONNECT_NOTIFICATION = "//*[contains(text(),'${fullName}')]/../..//*[contains(.,'wants to connect with you')]";
 	public final String ELEMENT_CONNECT_ACCEPT_BUTTON = ELEMENT_CONNECT_NOTIFICATION + "/..//*[contains(text(),'Accept')]";
@@ -49,9 +55,10 @@ public class IntranetNotification extends PlatformBase{
 	public final String ELEMENT_CONNECTED_SUCCESS_JUST_NOW = "//*[contains(@alt,'${fullName}')]/../..//*[contains(.,'You are connected with')]//*[contains(text(),'${fullName}')]/../..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
 
 	//mention
-	public final String ELEMENT_MENTION_ONE_MINUTE = "//*[contains(@alt,'${userName1}')]/../..//*[contains(.,'has mentioned you.')]/../..//*[contains(text(),'${activity}')]/../..//*[@class='lastUpdatedTime' and text()='${time} minute ago']";
-	public final String ELEMENT_MENTION_JUST_NOW = "//*[contains(@alt,'${userName1}')]/../..//*[contains(.,'has mentioned you.')]/../..//*[contains(text(),'${activity}')]/../..//*[@class='lastUpdatedTime' and text()='Just Now']";
-	public final String ELEMENT_MENTION_NO_TIME = "//*[contains(@alt,'${userName1}')]/../..//*[contains(.,'has mentioned you.')]/../..//*[contains(text(),'${activity}')]";
+	public final String ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY = "//*[contains(text(),'has mentioned you')]/*[contains(@class,'user-name') and text()='${name}']/parent::div/following-sibling::div[@class='content' and contains(text(),'${activity}')]/following-sibling::div[@class='lastUpdatedTime' and text()='${time}']";
+	public final String ELEMENT_MENTION_HAS_TIME_NO_ACTIVITY="//*[contains(text(),'has mentioned you')]/*[contains(@class,'user-name') and text()='${name}']/parent::div/following-sibling::div[@class='lastUpdatedTime' and text()='${time}']";
+	public final String ELEMENT_MENTION_NO_TIME_HAS_ACTIVITY="//*[contains(text(),'has mentioned you')]/*[contains(@class,'user-name') and text()='${name}']/parent::div/following-sibling::div[@class='content' and contains(text(),'${activity}')]";
+	public final String ELEMENT_MENTION_NO_TIME_NO_ACTIVITY = "//*[contains(text(),'has mentioned you')]/*[contains(@class,'user-name') and text()='${name}']";
 
 	//Post in Activity Stream
 	public final String ELEMENT_POST_ACTIVITY_ONE_MINUTE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has posted on your activity stream.')]/..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
@@ -300,18 +307,36 @@ public class IntranetNotification extends PlatformBase{
 
 	/**
 	 * function: check notification when another people mentions you in activity
-	 * @param userName1 the people mentioned you
-	 * @param activity 
-	 * @param time 
+	 * @param userName1
+	 * @param activity
+	 * @param time
+	 * @return
 	 */
-	public void checkMentionNotification(String userName1, String time, String activity, boolean...params){
+	public WebElement checkMentionNotification(String userName1, String activity, String time){
 		info("Check mention notification");
-		Utils.pause(1000);
-		boolean noTime = params.length > 0 ? params[0] : false;
-		if(noTime)
-			waitForAndGetElement(ELEMENT_MENTION_NO_TIME.replace("${userName1}", userName1).replace("${activity}", activity));
-		if(waitForAndGetElement(ELEMENT_MENTION_JUST_NOW.replace("${userName1}", userName1).replace("${activity}", activity), 5000, 0) == null)
-			waitForAndGetElement(ELEMENT_MENTION_ONE_MINUTE.replace("${userName1}", userName1).replace("${time}", time).replace("${activity}", activity));
+		WebElement elem;
+		if(activity!="" && activity!=null){
+			if(time!="" && time!=null){
+				info("Verify with user, time and activity");
+				elem=waitForAndGetElement(ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY.replace("${name}", userName1).replace("${activity}", activity).replace("${time}", time));
+			}
+			else{
+				info("Verify with user and activity");
+				elem=waitForAndGetElement(ELEMENT_MENTION_NO_TIME_HAS_ACTIVITY.replace("${name}", userName1).replace("${activity}", activity));
+			}
+		}
+		else{
+			if(time!="" && time!=null){
+				info("Verify with user, time");
+				elem=waitForAndGetElement(ELEMENT_MENTION_HAS_TIME_NO_ACTIVITY.replace("${name}", userName1).replace("${time}", time));
+			}
+			else{
+				info("Verify with user");
+				elem=waitForAndGetElement(ELEMENT_MENTION_NO_TIME_NO_ACTIVITY.replace("${name}", userName1));
+			}
+		}
+		return elem;
+
 	}
 
 	/**
@@ -590,12 +615,7 @@ public class IntranetNotification extends PlatformBase{
 			}
 			if (mentionNotification) {
 				info("go To Activity viewer from mention notification");
-				if (noTime)
-					click(ELEMENT_MENTION_NO_TIME.replace("${userName1}", userName).replace("${activity}", activity));
-				else if (waitForAndGetElement(ELEMENT_MENTION_JUST_NOW.replace("${userName1}", userName).replace("${activity}", activity)) != null)
-					click(ELEMENT_MENTION_JUST_NOW.replace("${userName1}", userName).replace("${activity}", activity));
-				else if (waitForAndGetElement(ELEMENT_MENTION_ONE_MINUTE.replace("${userName1}", userName).replace("${time}", time).replace("${activity}", activity)) != null)
-					click(ELEMENT_MENTION_ONE_MINUTE.replace("${userName1}", userName).replace("${time}", time).replace("${activity}", activity));
+				checkMentionNotification(userName, activity, time);
 			}
 			if (activityPostNotification){
 				info("go To Activity viewer from intranet activity post notification");

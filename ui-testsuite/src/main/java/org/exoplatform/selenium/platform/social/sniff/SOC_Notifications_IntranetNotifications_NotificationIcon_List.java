@@ -514,7 +514,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationIcon_List exten
 		int newNumNotification = Integer.parseInt(waitForAndGetElement(navTool.ELEMENT_BADGE_NUMBER).getText().trim());
 		assert (newNumNotification==(numNotification+1)):"Number of notification is not updated";
 		navTool.goToIntranetNotification();
-		intraNot.checkMentionNotification(username2, "1", activity.substring(0,2));
+		intraNot.checkMentionNotification(username2, activity, intraNot.ELEMET_MINUTE_STRING.replace("${number}", "1"));
 		
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
