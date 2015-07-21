@@ -155,6 +155,9 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_WEBCONTENT_VIEW_LINK=".//a[@title='${nameContent}']/../../../..//i[@class='uiIconWatch uiIconLightGray']";
 	public final String ELEMENT_ACTIVITY_DOCUMENT_MEDIA_DOWNLOAD_BTN=".//*[contains(@data-original-title,'${nameFile}')]/../../../..//*[contains(@class,'uiIconDownload')]/..";
 
+	//Title box
+	public final String ELEMENT_TITLE_BOX="//*[@id='boxContainer']//*[contains(text(),\"${title}\")]/../..//*[@class='linkTitle']";
+	
 	//Comment box
 	public final String ELEMENT_COMMENTBOX="//*[contains(text(),\"${title}\")]/../../../..//div[@class='replaceTextArea editable']";
 	public final String ELEMENT_ICON_COMMENT = "//*[contains(text(),\"${title}\")]/../../../..//i[@class='uiIconComment uiIconLightGray']";

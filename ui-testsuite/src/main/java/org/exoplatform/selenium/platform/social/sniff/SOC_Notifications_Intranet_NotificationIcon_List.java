@@ -219,7 +219,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		waitForAndGetElement(navTool.ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION,3000,1);
 		info("The notifications are displayed in the good order : from the newest at the top to the latest at the bottom.");
 		intraNot.checkCommentNotification(username2, activity, "1", true, "3", 1, "");
-		intraNot.checkLikeNotification(username2, activity, "1", true, "2", 1, "", "");
+		intraNot.checkUnreadLikeNotification(username2, activity, null);
 		waitForAndGetElement(navTool.ELEMENT_CONNECT_NOTIFICATION_POSITION.replace("${position}", "1").replace("${fullName}", username3),3000,1);
 		info("Unread notifications should look differently to read notifications.");
 		navTool.checkCommentNotificationReadOrUnread(true, false, username2, activity, "1");
@@ -514,7 +514,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		int newNumNotification = Integer.parseInt(waitForAndGetElement(navTool.ELEMENT_BADGE_NUMBER).getText().trim());
 		assert (newNumNotification==(numNotification+1)):"Number of notification is not updated";
 		navTool.goToIntranetNotification();
-		intraNot.checkMentionNotification(username2, activity, intraNot.ELEMET_MINUTE_STRING.replace("${number}", "1"));
+		intraNot.checkUnreadMentionNotification(username2, activity, intraNot.ELEMET_MINUTE_STRING.replace("${number}", "1"));
 		
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);

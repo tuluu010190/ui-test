@@ -11,13 +11,13 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 	 * @author tult
 	 * date 17/04/2015
 	 */
-	
+
 	@BeforeMethod
 	public void setUpBeforeMethod(){
 		magAc.signOut();
 		magAc.signIn(DATA_USER1,DATA_PASS);
 	}
-	
+
 	/**
 	 *<li> Case ID:122997.</li>
 	 *<li> Test Case Name: Comment Intranet Notification.</li>
@@ -28,10 +28,10 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String comment1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-	
+
 		String userName = userData.getUserNameByIndex(0);
 		/*Precondition:
 		 	- User A and User B are connected
@@ -41,23 +41,23 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add new user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info ("Connect with user");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
-		
+
 		info("Add a activity");
 		hp.goToHomePage();
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
-		
+
 		info("user comments in John's activity");
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.addCommentUsingJavascript(activity, comment1);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check comment notification in the notification list
 		 *Step Description: 
@@ -82,7 +82,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		intraNot.checkCommentNotification(username1, activity, "1", false, "", 1, "");
-		
+
 		/*Step Number: 2
 		 *Step Name: Step 2: Check comment notification in activity Viewer
 		 *Step Description: 
@@ -94,7 +94,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check comment notification in activity Viewer");
 		intraNot.gotoActivityViewer(username1, activity, "1", "", false, "", true);
 		intraNot.checkCommentInActivityViewer(comment1, "", true);
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Check comment notification in the View All
 		 *Step Description: 
@@ -117,12 +117,12 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.checkCommentNotification(username1, activity, "1", false, "", 1, "");
-		
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 	}
-	
+
 	/**
 	 *<li> Case ID:122999.</li>
 	 *<li> Test Case Name: Comment notification when a new comment is pushed.</li>
@@ -134,17 +134,17 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String username2 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String comment1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String comment2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-	
+
 		String userName = userData.getUserNameByIndex(0);
-		
+
 		/*Precondition:
 		 	- User A, User B and User B are connected
 			- User A has posted an activity
@@ -154,24 +154,24 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		addUserPage.addUser(username2, password2, email2, username2, username2);
-		
+
 		info ("Connect with 2 users");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
 		connMag.connectToAUser(username2);
-		
+
 		info("Add a activity");
 		hp.goToHomePage();
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
-		
+
 		info("user1 comments in John's activity");
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.addCommentUsingJavascript(activity, comment1);
-			
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check comment notification of user 1
 		 *Step Description: 
@@ -185,7 +185,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		intraNot.checkCommentNotification(username1, activity, "1", true, "1", 1, "");
-		
+
 		/*Step Number: 2
 		 *Step Name: Step 2: Check comment notification of user 2
 		 *Step Description: 
@@ -201,12 +201,12 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.addCommentUsingJavascript(activity, comment2);
-		
+
 		info("Check comment notification in the notification list");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		intraNot.checkCommentNotification(username1, activity, "1", true, "1", 2, username2);
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Check comment notification in View All
 		 *Step Description: 
@@ -226,13 +226,13 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check comment notification in the View All");
 		intraNot.goToAllNotification();
 		intraNot.checkCommentNotification(username1, activity, "1", true, "2", 2, username2);
-		
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 		userAndGroup.deleteUser(username2);
 	}
-	
+
 	/**
 	 *<li> Case ID:122998.</li>
 	 *<li> Test Case Name: Comments Intranet Notification merged.</li>
@@ -244,24 +244,24 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String username2 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String username3 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password3 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email3 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
-		
+
+
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String comment1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String comment2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String comment3 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String comment4 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-	
+
 		String userName = userData.getUserNameByIndex(0);
-		
+
 		/*Precondition:
 		 	- User A is connected with User B, User C and User D
 			- User A has posted an activity
@@ -275,43 +275,43 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		addUserPage.addUser(username2, password2, email2, username2, username2);
 		addUserPage.addUser(username3, password3, email3, username3, username3);
-		
+
 		info ("Connect with 3 users");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
 		connMag.connectToAUser(username2);
 		connMag.connectToAUser(username3);
-		
+
 		info("Add a activity");
 		hp.goToHomePage();
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
-		
+
 		info("user1 comments in John's activity");
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.addCommentUsingJavascript(activity, comment1);
-		
+
 		info("user2 comments in John's activity");
 		magAc.signIn(username2, password2);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.addCommentUsingJavascript(activity, comment2);
-		
+
 		info("user3 comments in John's activity");
 		magAc.signIn(username3, password3);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.addCommentUsingJavascript(activity, comment3);
-		
+
 		info("user1 comments in John's activity");
 		magAc.signIn(username1, password1);
 		hpAct.addCommentUsingJavascript(activity, comment4);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check comment notification in notification list
 		 *Step Description: 
@@ -335,7 +335,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		intraNot.checkCommentNotification(username3, activity, "1", true, "1", 3, username1);
-		
+
 		/*Step Number: 2
 		 *Step Name: Step 2: Check comment notification of in activity viewer
 		 *Step Description: 
@@ -349,7 +349,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		intraNot.checkCommentInActivityViewer(comment2, username2, false);
 		intraNot.checkCommentInActivityViewer(comment3, username3, false);
 		intraNot.checkCommentInActivityViewer(comment4, username1, false);
-		
+
 
 		/*Step Number: 3
 		 *Step Name: Step 3: Check comment notification of in View All
@@ -372,14 +372,14 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.checkCommentNotification(username3, activity, "1", true, "2", 3, username1);
-		
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 		userAndGroup.deleteUser(username2);
 		userAndGroup.deleteUser(username3);
 	}
-	
+
 	/**
 	 *<li> Case ID:122982.</li>
 	 *<li> Test Case Name: Connection Request Intranet notification (Accept).</li>
@@ -391,21 +391,21 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-	
+
 		String userName = userData.getUserNameByIndex(0);
 		String fullName = userData.getFullNameByIndex(0);
-		
+
 		/*Precondition:
 		 	- The notification "Someone sends me a connection request" is activated in User Settings
 			- User A sent a connection request to User B*/
 		info("Add a user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-	
+
 		info ("Connect with user");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notification list
 		 *Step Description: 
@@ -454,13 +454,13 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 				You are connected with $USER
 				$DATE*/
 		intraNot.goToUserProfileFromIntranetNotificationWithConnection(fullName, userName, true, "1");
-		
+
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 	}
-	
+
 	/**
 	 *<li> Case ID:122983.</li>
 	 *<li> Test Case Name: Connection Request Intranet notification (Refuse).</li>
@@ -472,7 +472,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-	
+
 		String userName = userData.getUserNameByIndex(0);
 		String fullName = userData.getFullNameByIndex(0);
 		/*Precondition:
@@ -481,17 +481,17 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-	
+
 		magAc.signIn(DATA_USER2, DATA_PASS);
 		info ("Connect with user");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
-		
+
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		info ("Connect with user");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notification list
 		 *Step Description: 
@@ -543,13 +543,13 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The notification message is not available in the View All page..*/
 		navTool.goToIntranetNotification();
 		intraNot.goToUserProfileFromIntranetNotificationWithConnection(fullName, userName, false, "1");
-		
+
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 	}
-	
+
 	/**
 	 *<li> Case ID:123000.</li>
 	 *<li> Test Case Name: Like Intranet Notification.</li>
@@ -561,9 +561,9 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		
+
 		String userName = userData.getUserNameByIndex(0);
 		/*Precondition:
 		 	- User A and User B are connected
@@ -573,23 +573,23 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add User");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info ("Connect with user");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
-		
+
 		info("Add a activity");
 		hp.goToHomePage();
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
-		
+
 		info("user likes John's activity");
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.likeActivity(activity);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notifications list
 		 *Step Description: 
@@ -612,8 +612,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check Like notification in intranet notification");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkLikeNotification(username1, activity, "1", false, "", 1, "", "");
-		
+		intraNot.checkUnreadLikeNotification(username1, activity, null);
+
 		/*Step Number: 2
 		 *Step Name: Step 2: Read the notification
 		 *Step Description: 
@@ -623,8 +623,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The activity is displayed in the activity viewer with all comment expanded.*/
 		info("Check comment notification in activity Viewer");
 		intraNot.gotoActivityViewer(username1, activity, "1", "", false, "", false, false, false, false, true);
-		intraNot.checkLikeInActivityViewr("1");
-		
+		intraNot.checkLikeInActivityViewer("1");
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Check notification message
 		 *Step Description: 
@@ -644,13 +644,13 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 				- $DATE is the date of the activity*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkLikeNotification(username1, activity, "1", false, "", 1, "", "");
-		
+		intraNot.checkUnreadLikeNotification(username1, activity, null);
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 	}
-	
+
 	/**
 	 *<li> Case ID:123001.</li>
 	 *<li> Test Case Name: Like Intranet Notification merged.</li>
@@ -661,21 +661,21 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String username2 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String username3 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password3 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email3 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String username4 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password4 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email4 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		
+
 		String userName = userData.getUserNameByIndex(0);
 		/*Precondition:
 		 	- User A is connected with User B, User C, User D and User E
@@ -691,47 +691,47 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		addUserPage.addUser(username2, password2, email2, username2, username2);
 		addUserPage.addUser(username3, password3, email3, username3, username3);
 		addUserPage.addUser(username4, password4, email4, username4, username4);
-		
+
 		info ("Connect with 4 users");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
 		connMag.connectToAUser(username2);
 		connMag.connectToAUser(username3);
 		connMag.connectToAUser(username4);
-		
+
 		info("Add a activity");
 		hp.goToHomePage();
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
-		
+
 		info("user 1 likes John's activity");
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.likeActivity(activity);
-		
+
 		info("user 2 likes John's activity");
 		magAc.signIn(username2, password2);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.likeActivity(activity);
-		
+
 		info("user 3 likes John's activity");
 		magAc.signIn(username3, password3);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.likeActivity(activity);
-		
+
 		info("user 4 likes John's activity");
 		magAc.signIn(username4, password4);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.likeActivity(activity);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notifications list
 		 *Step Description: 
@@ -754,8 +754,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check Like notification in intranet notification");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkLikeNotification(username3, activity, "1", true, "1", 3, username4, "2");
-		
+		intraNot.checkUnreadLikeNotification(username4+","+username3+","+username2+","+username1, activity, null);
+
 		/*Step Number: 2
 		 *Step Name: Step 2: Read the notification
 		 *Step Description: 
@@ -764,9 +764,9 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		 *Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.*/
 		info("Check comment notification in activity Viewer");
-		intraNot.gotoActivityViewer(username3, activity, "1", "", false, username4, false, false, false, false, false, true);
-		intraNot.checkLikeInActivityViewr("4");
-		
+		click (intraNot.checkUnreadLikeNotification(username4+","+username3+","+username2+","+username1, activity, null));
+		intraNot.checkLikeInActivityViewer("4");
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Check notification message
 		 *Step Description: 
@@ -786,8 +786,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 				- $DATE is the date of the activity.*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkLikeNotification(username3, activity, "1", true, "2", 3, username4, "2");
-			
+		intraNot.checkUnreadLikeNotification(username4+","+username3+","+username2+","+username1, activity, null);
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
@@ -795,7 +795,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		userAndGroup.deleteUser(username3);
 		userAndGroup.deleteUser(username4);
 	}
-	
+
 	/**
 	 *<li> Case ID:123002.</li>
 	 *<li> Test Case Name: Like Notification when a new like is pushed.</li>
@@ -807,13 +807,13 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String username2 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-	
+
 		String userName = userData.getUserNameByIndex(0);
 		/*Precondition:
 		 	- User A, User B, User C are connected
@@ -824,24 +824,24 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		addUserPage.addUser(username2, password2, email2, username2, username2);
-		
+
 		info ("Connect with 2 users");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
 		connMag.connectToAUser(username2);
-		
+
 		info("Add a activity");
 		hp.goToHomePage();
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
-	
+
 		info("user 1 likes John's activity");
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.likeActivity(activity);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notifications list
 		 *Step Description: 
@@ -854,8 +854,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check Like notification in intranet notification");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkLikeNotification(username1, activity, "1", true, "1", 1, "", "");
-		
+		intraNot.checkUnreadLikeNotification(username1, activity, null);
+
 		/*Step Number: 2
 		 *Step Name: Step 2: Push a new like notification
 		 *Step Description: 
@@ -871,11 +871,11 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		connMag.acceptAConnection(userName);
 		hp.goToHomePage();
 		hpAct.likeActivity(activity);
-		
+
 		info("Check Like notification in intranet notification");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkLikeNotification(username1, activity, "1", true, "1", 2, username2, "");
+		intraNot.checkUnreadLikeNotification(username2+","+username1, activity, null);
 
 		/*Step Number: 3
 		 *Step Name: Step 3: check the message of the Like notification
@@ -894,14 +894,14 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 				- $ACTIVITY is the activity message/title
 				- $DATE is the date of the last notification of User C*/
 		intraNot.goToAllNotification();
-		intraNot.checkLikeNotification(username1, activity, "1", true, "2", 2, username2, "");
-			
+		intraNot.checkUnreadLikeNotification(username2+","+username1, activity, null);
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 		userAndGroup.deleteUser(username2);
 	}
-	
+
 	/**
 	 *<li> Case ID:122995.</li>
 	 *<li> Test Case Name: Mention Intranet notifications (in activity message).</li>
@@ -914,9 +914,9 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String activity = txData.getContentByArrayTypeRandom(1)  + getRandomNumber();
-	
+
 		String userName = userData.getUserNameByIndex(0);
 		String firstName = userInfoData.getFirstNameByIndex(3);
 		String fullName = userData.getFullNameByIndex(0);
@@ -925,11 +925,11 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info ("Connect with user");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
-		
+
 		info("User accepts Request notification and mention John in activity");
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
@@ -937,7 +937,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		hp.goToHomePage();
 		hpAct.mentionUserActivity(firstName, activity);
 		hpAct.checkActivity(activity);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: 
 		 *Step Description: 
@@ -958,8 +958,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info ("Check Mention Intranet Notification in notification list");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
-		
+		intraNot.checkUnreadMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
+
 		/*Step Number: 2
 		 *Step Name: Step 2: 
 		 *Step Description: 
@@ -970,7 +970,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("check notification in activity viewer");
 		intraNot.gotoActivityViewer(username1, "", "1", "", false, fullName, false, true);
 		intraNot.checkMentionInActivityViewer(activity);
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: 
 		 *Step Description: 
@@ -989,13 +989,13 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check notification in view all");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
-		
+		intraNot.checkUnreadMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 	}
-	
+
 	/**
 	 *<li> Case ID:122996.</li>
 	 *<li> Test Case Name: Mention Intranet notifications (in comment).</li>
@@ -1007,10 +1007,10 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String comment = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-	
+
 		String userName = userData.getUserNameByIndex(0);
 		String firstName = userInfoData.getFirstNameByIndex(3);
 		String fullName = userData.getFullNameByIndex(0);
@@ -1020,11 +1020,11 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info ("Connect with user");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
-		
+
 		info("User accepts Request notification and mention John in comment");
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
@@ -1033,7 +1033,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 		hpAct.addCommentWithMentionUser(activity, firstName, comment);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: 
 		 *Step Description: 
@@ -1054,8 +1054,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info ("Check Mention Intranet Notification in notification list");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
-		
+		intraNot.checkUnreadMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
+
 		/*Step Number: 2
 		 *Step Name: Step 2: 
 		 *Step Description: 
@@ -1065,7 +1065,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The activity is displayed in the activity viewer with all comments expanded. As the mention is made in a comment, this comment is highlighted.*/
 		intraNot.gotoActivityViewer(username1, "", "1", "", false, fullName, false, true);
 		intraNot.checkMentionInActivityViewer(activity);
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: 
 		 *Step Description: 
@@ -1083,13 +1083,13 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 				- $DATE is the date of the notification.*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
-		
+		intraNot.checkUnreadMentionNotification(username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 	}
-	
+
 	/**
 	 *<li> Case ID:123003.</li>
 	 *<li> Test Case Name: Post on my Stream Intranet notification.</li>
@@ -1101,9 +1101,9 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-	
+
 		String userName = userData.getUserNameByIndex(0);
 		String fullName = userData.getFullNameByIndex(0);
 		/*Precondition:
@@ -1112,11 +1112,11 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info ("Connect with user");
 		hp.goToConnections();
 		connMag.connectToAUser(username1);
-		
+
 		info("User accepts Request notification and post an activity in John's activity stream");
 		magAc.signIn(username1, password1);
 		hp.goToConnections();
@@ -1125,7 +1125,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToMyActivities();
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notification list
 		 *Step Description: 
@@ -1149,7 +1149,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		intraNot.checkPostActivityNotification(username1, activity, "1",false);
-		
+
 		/*Step Number: 2
 		 *Step Name: Step 2: Click notification message
 		 *Step Description: 
@@ -1160,7 +1160,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check in activity viewer");
 		intraNot.gotoActivityViewer(username1, activity, "1", "", false, "", false, false, true);
 		intraNot.checkMentionInActivityViewer(activity);
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Check View All
 		 *Step Description: 
@@ -1182,12 +1182,12 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.checkPostActivityNotification(username1, activity, "1",false);
-		
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 	}
-	
+
 	/**
 	 *<li> Case ID:123004.</li>
 	 *<li> Test Case Name: Post on my Space Intranet notification.</li>
@@ -1199,11 +1199,11 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String space = txData.getContentByArrayTypeRandom(1) + getRandomNumber();  
-		
+
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-	
+
 		/*Precondition:
 		 	- User A and User B are members of Space 1
 			- User B has posted in Space 1
@@ -1211,23 +1211,23 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info("Add new space and ivite user");
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space, space);
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.inviteUser(username1,false,"");
-			
+
 		info("User accepts Request notification and mention John in activity");
 		magAc.signIn(username1, password1);
 		hp.goToAllSpace();
 		spaMg.acceptAInvitation(space);
-		
+
 		info("user posted an activity inspace");
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notification list
 		 *Step Description: 
@@ -1252,7 +1252,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		intraNot.checkPostActivityInSpaceNotification(username1, space, activity, "1");
-		
+
 		/*Step Number: 2
 		 *Step Name: Step 2: Check notification message
 		 *Step Description: 
@@ -1263,7 +1263,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("check notification in activity viewer");
 		intraNot.gotoActivityViewer(username1, activity, "1", space, false, "", false, false, false, true);
 		intraNot.checkMentionInActivityViewer(activity);
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Check View All
 		 *Step Description: 
@@ -1286,7 +1286,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.gotoActivityViewer(username1, activity, "1", space, false, "", false, false, false, true);
-		
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
@@ -1294,7 +1294,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		spaMg.searchSpace(space, "");
 		spaMg.deleteSpace(space, false);
 	}
-	
+
 	/**
 	 *<li> Case ID:122984.</li>
 	 *<li> Test Case Name: Space Invitation Intranet notification (Accept).</li>
@@ -1306,9 +1306,9 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String space = txData.getContentByArrayTypeRandom(1) + getRandomNumber();  
-	
+
 		/*Precondition:
 		 	- User A is manager of the space 1
 			- User A invite User B to join the space 1
@@ -1316,14 +1316,14 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info("Add new space and ivite an user");
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space, space);
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.inviteUser(username1,false,"");
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notification list
 		 *Step Description: 
@@ -1344,7 +1344,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
 		intraNot.checkSpaceInvitationNotification(space);
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Check View all
 		 *Step Description: 
@@ -1355,7 +1355,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The notification is displayed in the View All page*/
 		intraNot.goToAllNotification();
 		intraNot.checkSpaceInvitationNotification(space);
-		
+
 		/*Step Number: 4
 		 *Step Name: Step 4: Accept
 		 *Step Description: 
@@ -1370,7 +1370,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		hp.goToAllSpace();
 		navTool.goToIntranetNotification();
 		intraNot.goToHomepageOfSpaceFromIntranetNotification(space, true, "1");
-		
+
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToUsersAndGroupsManagement();
@@ -1379,8 +1379,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		spaMg.searchSpace(space, "");
 		spaMg.deleteSpace(space, false);
 	}
-	
-	
+
+
 	/**
 	 *<li> Case ID:122985.</li>
 	 *<li> Test Case Name: Space Invitation Intranet notification (Refuse).</li>
@@ -1392,7 +1392,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String space1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();  
 		String space2 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		/*Precondition:
@@ -1402,7 +1402,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info("Add a new space and ivite user");
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
@@ -1414,7 +1414,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		spaMg.addNewSpaceSimple(space2, space2);
 		spaHome.goToSpaceSettingTab();
 		setSpaceMg.inviteUser(username1,false,"");
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notification list
 		 *Step Description: 
@@ -1443,7 +1443,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
 		intraNot.checkSpaceInvitationNotification(space1);
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Click the notification 
 		 *Step Description: 
@@ -1460,7 +1460,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The notification message is automatically hidden from the list 
 			- The notification message is not available in the View All page.*/
 		intraNot.goToHomepageOfSpaceFromIntranetNotification(space1, false, "1");
-		
+
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToUsersAndGroupsManagement();
@@ -1471,7 +1471,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		spaMg.searchSpace(space2, "");
 		spaMg.deleteSpace(space2, false);
 	}
-	
+
 	/**
 	 *<li> Case ID:122986.</li>
 	 *<li> Test Case Name: Space Join Request Intranet notification (Accept).</li>
@@ -1483,9 +1483,9 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String space = txData.getContentByArrayTypeRandom(1) + getRandomNumber();  
-	
+
 		/*Precondition:
 		 	- User A requested to join Space 1
 			- User B is manager of Space 1
@@ -1493,17 +1493,17 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info("Add a new space");
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space, space);
-			
+
 		info("user requests to join space");
 		magAc.signIn(username1, password1);
 		hp.goToAllSpace();
 		spaMg.requestToJoinSpace(space);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: check notification list
 		 *Step Description: 
@@ -1522,7 +1522,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		intraNot.checkRequestToJoinSpaceNotification(username1, space, "1");
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Accept from View all
 		 *Step Description: 
@@ -1539,7 +1539,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		hp.goToAllSpace();
 		navTool.goToIntranetNotification();
 		intraNot.goToHomepageOfSpaceFromIntranetNotificationWithRequest(space, true, "1", username1, password1);
-		
+
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToUsersAndGroupsManagement();
@@ -1548,7 +1548,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		spaMg.searchSpace(space, "");
 		spaMg.deleteSpace(space, false);
 	}
-	
+
 	/**
 	 *<li> Case ID:122987.</li>
 	 *<li> Test Case Name: Space Join Request Intranet notification (Refuse).</li>
@@ -1560,9 +1560,9 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-		
+
 		String space = txData.getContentByArrayTypeRandom(1) + getRandomNumber();  
-	
+
 		/*Precondition:
 		 	- User A requested to join Space 1
 			- User B is manager of Space 1
@@ -1570,17 +1570,17 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Go to add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		info("go to add new space");
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
 		spaMg.addNewSpaceSimple(space, space);
-			
+
 		info("user requests to join space");
 		magAc.signIn(username1, password1);
 		hp.goToAllSpace();
 		spaMg.requestToJoinSpace(space);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: check notification list
 		 *Step Description: 
@@ -1607,7 +1607,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		intraNot.checkRequestToJoinSpaceNotification(username1, space, "1");
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: Click the notification area
 		 *Step Description: 
@@ -1627,7 +1627,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		hp.goToAllSpace();
 		navTool.goToIntranetNotification();
 		intraNot.goToHomepageOfSpaceFromIntranetNotificationWithRequest(space, false, "1", username1, password1);
-		
+
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToUsersAndGroupsManagement();
@@ -1636,7 +1636,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		spaMg.searchSpace(space, "");
 		spaMg.deleteSpace(space, false);
 	}
-	
+
 	/**
 	 *<li> Case ID:122981.</li>
 	 *<li> Test Case Name: New User Intranet notification.</li>
@@ -1648,7 +1648,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		String username1 = txData.getContentByArrayTypeRandom(4) + getRandomString();
 		String password1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		String email1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber() + mailSuffixData.getMailSuffixRandom();
-	
+
 
 		/*Precondition:
 		 	- The settings "Someone joins the social intranet" is activated in User Settings for User A
@@ -1656,7 +1656,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Add user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
-		
+
 		/*Step Number: 1
 		 *Step Name: Step 1: Check notification list
 		 *Step Description: 
@@ -1682,7 +1682,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 				- $DATE is the date of the notification.*/
 		navTool.goToIntranetNotification();
 		intraNot.checkNewUserNotification(username1, "1");
-		
+
 		/*Step Number: 3
 		 *Step Name: Step 3: click notification area
 		 *Step Description: 
@@ -1691,7 +1691,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		 *Expected Outcome: 
 			- The user is redirected to the $USER profile*/
 		intraNot.goToUserProfileFromIntranetNotificationWithNewUserJoined(username1, "1");
-		
+
 		/*Step Number: 4
 		 *Step Name: Step 4: View All
 		 *Step Description: 
@@ -1702,10 +1702,10 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.checkNewUserNotification(username1, "1");
-		
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
-	
+
 	}
 }

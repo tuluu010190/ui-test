@@ -141,7 +141,8 @@ public class SOC_TestConfig extends PlatformBase {
 	
 	ChatStatusDatabase chatStatus;
 	ChatStatus chat;
-	
+
+	CreateNewDocument CreNewDoc;
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		info("Start setUpBeforeMethod");
@@ -157,7 +158,7 @@ public class SOC_TestConfig extends PlatformBase {
 		hp = new HomePagePlatform(driver);
 		hpAct = new ActivityStream(driver);
 		myDash = new MyDashBoard(driver);
-
+		CreNewDoc = new CreateNewDocument(driver);
 		spaMg = new SpaceManagement(driver);
 		spaHome = new SpaceHomePage(driver);
 		appReg = new ApplicationRegistry(driver);

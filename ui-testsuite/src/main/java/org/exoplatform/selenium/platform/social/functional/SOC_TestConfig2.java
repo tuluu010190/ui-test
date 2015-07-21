@@ -121,11 +121,10 @@ public class SOC_TestConfig2 extends PlatformBase {
 		
 		siteExPath = new SiteExplorerPathDatabase();
 		siteExPath.setSiteExpPathData(siteExpPathPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-		
+
 		mailSuffixData = new MailSuffixDatabase();
 		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 
-		
 		comments = new ArrayList<String>();
 		
 		txData = new TextBoxDatabase();

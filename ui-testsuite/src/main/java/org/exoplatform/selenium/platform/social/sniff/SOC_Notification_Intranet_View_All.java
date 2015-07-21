@@ -238,7 +238,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.gotoActivityViewer(username2, activity1, "1", "", false, "", false, false, false, false, true, false, false, true);
-		intraNot.checkLikeInActivityViewr("1");
+		intraNot.checkLikeInActivityViewer("1");
 		
 		/*Step Number: 8
 		 *Step Name: Step 8: Check Mention notification

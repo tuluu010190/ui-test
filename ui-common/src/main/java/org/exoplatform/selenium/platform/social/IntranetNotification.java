@@ -18,16 +18,16 @@ public class IntranetNotification extends PlatformBase{
 
 	public final By ELEMENT_NOTIFICATION_POP_UP = By.id("NotificationPopup");
 	public final String ELEMENT_USER_AVATAR = "//*[contains(@alt,'${userName}')]";
-	
+
 	//Notificaiton list popup
 	public final String ELEMENT_INTRANET_NOTIFICATION_AVATAR=".//*[@id='NotificationPopup']//*[contains(@class,'avatarXSmall')]//*[contains(@alt,'$lastUser')]";
-    public final String ELEMENT_INTRANET_NOTIFICATION_USER=".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'$user')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_USER=".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'$user')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER=".//*[@id='NotificationPopup']//*[contains(@class,'badgeNotification')][contains(text(),'$num')]";
 	public final By ELEMENT_VIEW_ALL = By.linkText("View All");
+
 	public final By ELEMENT_INTRANET_NOTIFICATION_POPUP_STATUS=By.xpath(".//*[@id='NotificationPopup']//*[@class='status']");
 	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_ACCEPT_CONNECTION=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_SEND_CONNECTION=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
- 
 	public final By ELEMENT_NOTIFICATION_SETTINGS_LINK = By.linkText("Notifications Settings");
 	public final String ELEMENT_NOTIFICATION_SETTINGS_TITLE = ".//*[@id='uiNotificationSetting']//h3[text()='Notification Settings']";
 
@@ -61,18 +61,45 @@ public class IntranetNotification extends PlatformBase{
 	public final String ELEMET_MINUTE_STRING="${number} minutes ago";
 	public final String ELEMET_HOUR_STRING="${number} hours ago";
 
+	//Time locator
+	public final String ELEMENT_TIME_NOTIFICATION_LOCATOR="/parent::div/descendant::div[@class='lastUpdatedTime' and text()='${time}']";
+
+	//Activity locator
+	public final String ELEMENT_ACTIVITY_NOTIFICATION_LOCATOR="/parent::div/descendant::*[contains(text(),'${activity}')]";
+
+	//Username locator
+	public final String ELEMENT_NAME_LOCATOR="/a[${index}][contains(@class,'user-name')  and contains(text(),'${name}')]/parent::div";
+
+	//notification message
+	public final String ELEMENT_NOTIFICATION_TYPE="//*[contains(.,'${message}')]";
+
+	//Type of notification
+	public final String ELEMENT_NOTIFICATION_LIKE="likes your activity";
+	public final String ELEMENT_NOTIFICATION_MANY_LIKE="like your activity";
+	public final String ELEMENT_NOTIFICATION_MENTION="has mentioned you";
+	public final String ELEMENT_NOTIFICATION_NUMBER_MORE_USER="${number} more ";
+
+	public final String ELEMENT_READ_LOCATOR="//*[@class='displayItems']/li[contains(@class,'read')]";
+	public final String ELEMENT_UNREAD_LOCATOR="//*[@class='displayItems']/li[contains(@class,'unread')]";
+
+	//mention
+	public final String ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY=ELEMENT_NOTIFICATION_TYPE+ELEMENT_NAME_LOCATOR+ELEMENT_ACTIVITY_NOTIFICATION_LOCATOR+ELEMENT_TIME_NOTIFICATION_LOCATOR;
+	public final String ELEMENT_MENTION_HAS_TIME_NO_ACTIVITY=ELEMENT_NOTIFICATION_TYPE+ELEMENT_NAME_LOCATOR+ELEMENT_TIME_NOTIFICATION_LOCATOR;
+	public final String ELEMENT_MENTION_NO_TIME_HAS_ACTIVITY=ELEMENT_NOTIFICATION_TYPE+ELEMENT_NAME_LOCATOR+ELEMENT_ACTIVITY_NOTIFICATION_LOCATOR;
+	public final String ELEMENT_MENTION_NO_TIME_NO_ACTIVITY=ELEMENT_NOTIFICATION_TYPE+ELEMENT_NAME_LOCATOR;
+
+	//Like notification
+	public final String ELEMENT_LIKE_NOTIFICATION_HAS_TIME_USER_INDEX=ELEMENT_NOTIFICATION_TYPE+ELEMENT_NAME_LOCATOR+ELEMENT_ACTIVITY_NOTIFICATION_LOCATOR+ELEMENT_TIME_NOTIFICATION_LOCATOR;
+	public final String ELEMENT_LIKE_NOTIFICATION_NO_TIME_USER_INDEX=ELEMENT_NOTIFICATION_TYPE+ELEMENT_NAME_LOCATOR+ELEMENT_ACTIVITY_NOTIFICATION_LOCATOR;
+	public final String ELEMENT_LIKE_NOTIFICATION_NO_TIME_NUMBERUSER=ELEMENT_NOTIFICATION_TYPE+ELEMENT_ACTIVITY_NOTIFICATION_LOCATOR;
+	public final String ELEMENT_LIKE_NOTIFICATION_HAS_TIME_NUMBERUSER=ELEMENT_NOTIFICATION_TYPE+ELEMENT_ACTIVITY_NOTIFICATION_LOCATOR+ELEMENT_TIME_NOTIFICATION_LOCATOR;
+
 	//Connection
 	public final String ELEMENT_CONNECT_NOTIFICATION = "//*[contains(text(),'${fullName}')]/../..//*[contains(.,'wants to connect with you')]";
 	public final String ELEMENT_CONNECT_ACCEPT_BUTTON = ".//*[contains(text(),'$fullName')]/../..//*[contains(@class,'action-item')]";
 	public final String ELEMENT_CONNECT_REFUSE_BUTTON = ".//*[contains(text(),'$fullName')]/../..//*[contains(@class,'cancel-item')]";
 	public final String ELEMENT_CONNECTED_SUCCESS_ONE_MINUTE = "//*[contains(@alt,'${fullName}')]/../..//*[contains(.,'You are connected with')]//*[contains(text(),'${fullName}')]/../..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
 	public final String ELEMENT_CONNECTED_SUCCESS_JUST_NOW = "//*[contains(@alt,'${fullName}')]/../..//*[contains(.,'You are connected with')]//*[contains(text(),'${fullName}')]/../..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
-
-	//mention
-	public final String ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY = "//*[contains(text(),'has mentioned you')]/*[contains(@class,'user-name') and text()='${name}']/parent::div/following-sibling::div[@class='content' and contains(text(),'${activity}')]/following-sibling::div[@class='lastUpdatedTime' and text()='${time}']";
-	public final String ELEMENT_MENTION_HAS_TIME_NO_ACTIVITY="//*[contains(text(),'has mentioned you')]/*[contains(@class,'user-name') and text()='${name}']/parent::div/following-sibling::div[@class='lastUpdatedTime' and text()='${time}']";
-	public final String ELEMENT_MENTION_NO_TIME_HAS_ACTIVITY="//*[contains(text(),'has mentioned you')]/*[contains(@class,'user-name') and text()='${name}']/parent::div/following-sibling::div[@class='content' and contains(text(),'${activity}')]";
-	public final String ELEMENT_MENTION_NO_TIME_NO_ACTIVITY = "//*[contains(text(),'has mentioned you')]/*[contains(@class,'user-name') and text()='${name}']";
 
 	//Post in Activity Stream
 	public final String ELEMENT_POST_ACTIVITY_ONE_MINUTE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has posted on your activity stream.')]/..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
@@ -103,7 +130,6 @@ public class IntranetNotification extends PlatformBase{
 	public final String ELEMENT_REQUEST_TO_JOIN_SPACE_SUCCESS_ONE_MINUTE = "//*[contains(@alt,'${userName}')]/../..//*[contains(text(),'joined')]//*[contains(text(),'${userName}')]/..//*[contains(text(),'${space}')]/../..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
 	public final String ELEMENT_REQUEST_TO_JOIN_SPACE_SUCCESS_JUST_NOW = "//*[contains(@alt,'${userName}')]/../..//*[contains(text(),'joined')]//*[contains(text(),'${userName}')]/..//*[contains(text(),'${space}')]/../..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
 
-	//Like notification
 	public final String ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE = "//*[contains(@alt,'${userName}')]/../..//*[contains(text(),'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
 	public final String ELEMENT_LIKE_NOTIFICATION_JUST_NOW = "//*[contains(@alt,'${userName}')]/../..//*[contains(text(),'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
 	public final String ELEMENT_LIKE_NOTIFICATION_NO_TIME = "//*[contains(@alt,'${userName}')]/../..//*[contains(text(),'likes your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]";
@@ -145,7 +171,7 @@ public class IntranetNotification extends PlatformBase{
 	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_USER=".//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'user-name')][contains(text(),'$user')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_COMMENTS_CONTENT=".//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'status')][contains(.,'$comment')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_ACTIVITY_TITLE=".//*[@id='NotificationPopup']//*[@class='content'][contains(.,'$title')]";
-	
+
 	//MyProfilePage myProf;
 	NavigationToolbar navTool;
 	HomePagePlatform hp;
@@ -219,64 +245,121 @@ public class IntranetNotification extends PlatformBase{
 	}
 
 	/**
-	 * function: check notification when users like
-	 * @param userName user comment before the last comment
+	 * check unread notification when users like
+	 * @param userName
 	 * @param activity
-	 * @param time time when user comments
-	 * @param checkPosition (true if need to check position of notification)
-	 * @param position position of notification you want to check
-	 * @param userNumber number of users comment in the same activity
-	 * @param userName2 the last user comments in activity
-	 * @param moreUser 
+	 * @param time
+	 * @return
 	 */
-	public void checkLikeNotification(String userName, String activity, String time, boolean checkPosition, String position, int userNumber, String userName2, String moreUser, boolean...params){
+	public WebElement checkUnreadLikeNotification(String userNames, String activity, String time){
 		info("Check Like Notification");		
 		Utils.pause(1000);
-		boolean noTime = params.length > 0 ? params[0] : false;
-		switch (userNumber){
-		case 1:
-			info("1 user like");
-			if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_JUST_NOW.replace("${userName}", userName).replace("${activity}", activity),5000,0) == null){
-				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
-			}
-			if(checkPosition){
-				if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_POSITION_JUST_NOW.replace("${userName}", userName).replace("${activity}", activity).replace("${position}", position), 5000, 0) == null)
-					waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_POSITION_ONE_MINUTE.replace("${userName}", userName).replace("${activity}", activity).replace("${position}", position).replace("${time}", time));
-			}
-			if(noTime)
-				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_NO_TIME.replace("${userName}", userName).replace("${activity}", activity));
-			break;
-		case 2:
-			info("2 users like");
-			if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_2_USERS_JUST_NOW.replace("${userName2}", userName2).replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null){
-				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_2_USERS_ONE_MINUTE.replace("${userName2}", userName2).replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));					
-				waitForTextPresent(ELEMENT_LIKE_NOTIFICATION_MANY_USERS);
-			}
-			else 
-				waitForTextPresent(ELEMENT_LIKE_NOTIFICATION_MANY_USERS);
-			if (checkPosition){
-				if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_2_USERS_POSITION_JUST_NOW.replace("${userName2}", userName2).replace("${userName}", userName).replace("${activity}", activity).replace("${position}", position), 5000, 0) == null)
-					waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_2_USERS_POSITION_ONE_MINUTE.replace("${userName2}", userName2).replace("${userName}", userName).replace("${activity}", activity).replace("${position}", position).replace("${time}", time));
-			}
-			break;
-		case 3:
-			info("3 users like");
-			if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_MORE_THAN_2_USERS_JUST_NOW.replace("${userName2}", userName2).replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null){
-				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_MORE_THAN_2_USERS_ONE_MINUTE.replace("${userName2}", userName2).replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));					
-				waitForTextPresent(ELEMENT_MSG_LIKE_NOTIFICATION_MORE_THAN_2_USERS.replace("${moreUser}", moreUser));
-			}
-			else 
-				waitForTextPresent(ELEMENT_MSG_LIKE_NOTIFICATION_MORE_THAN_2_USERS.replace("${moreUser}", moreUser));
-			if (checkPosition){
-				if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_MORE_THAN_2_USERS_JUST_NOW_POSITION.replace("${userName2}", userName2).replace("${userName}", userName).replace("${activity}", activity).replace("${position}", position), 5000, 0) == null)
-					waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_MORE_THAN_2_USERS_ONE_MINUTE_POSITION.replace("${userName2}", userName2).replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time).replace("${position}", position));					
-			}
-			break;
+		String[] userName=userNames.split(",");
+		WebElement elem = null;
+		info("Verify that last user's avatar is shown in list");
+		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_AVATAR.
+				replace("$lastUser",userName[0]));
+		if(userName.length==1){
+			info("One user likes activity");
+			if(time!=null && time!="")
+				elem=waitForAndGetElement(
+						ELEMENT_UNREAD_LOCATOR+ELEMENT_LIKE_NOTIFICATION_HAS_TIME_USER_INDEX
+						.replace("${message}", ELEMENT_NOTIFICATION_LIKE)
+						.replace("${index}", "1").replace("${name}", userName[0].trim())
+						.replace("${activity}", activity)
+						.replace("${time}", time));
+			else
+				elem=waitForAndGetElement(
+						ELEMENT_UNREAD_LOCATOR+ELEMENT_LIKE_NOTIFICATION_NO_TIME_USER_INDEX
+						.replace("${message}", ELEMENT_NOTIFICATION_LIKE)
+						.replace("${index}", "1").replace("${name}", userName[0].trim())
+						.replace("${activity}", activity));
 		}
-		info("Notification was verified successfully");	
+		else{
+			for(int i = 0; i<2; i++){
+				info("Many users like activity");
+				if(time!=null && time!="")
+					elem=waitForAndGetElement(
+							ELEMENT_UNREAD_LOCATOR+ELEMENT_LIKE_NOTIFICATION_HAS_TIME_USER_INDEX
+							.replace("${message}", ELEMENT_NOTIFICATION_MANY_LIKE)
+							.replace("${index}", String.valueOf(i+1)).replace("${name}", userName[i].trim())
+							.replace("${activity}", activity)
+							.replace("${time}", time));
+				else
+					elem=waitForAndGetElement(
+							ELEMENT_UNREAD_LOCATOR+ELEMENT_LIKE_NOTIFICATION_NO_TIME_USER_INDEX
+							.replace("${message}", ELEMENT_NOTIFICATION_MANY_LIKE)
+							.replace("${index}", String.valueOf(i+1)).replace("${name}", userName[i].trim())
+							.replace("${activity}", activity));
+
+			}
+			if(userName.length>2){
+				info("Verify more user like activity");
+				Integer remainUser=userName.length-2;
+				if(time!=null && time!="")
+					elem=waitForAndGetElement(
+							ELEMENT_UNREAD_LOCATOR+ELEMENT_LIKE_NOTIFICATION_HAS_TIME_NUMBERUSER
+							.replace("${message}", ELEMENT_NOTIFICATION_NUMBER_MORE_USER.replace("${number}", String.valueOf(remainUser))+ELEMENT_NOTIFICATION_MANY_LIKE)
+							.replace("${activity}", activity)
+							.replace("${time}", time));
+				else
+					elem=waitForAndGetElement(
+							ELEMENT_UNREAD_LOCATOR+ELEMENT_LIKE_NOTIFICATION_NO_TIME_NUMBERUSER
+							.replace("${message}", ELEMENT_NOTIFICATION_NUMBER_MORE_USER.replace("$number}", String.valueOf(remainUser))+ELEMENT_NOTIFICATION_MANY_LIKE)
+							.replace("${activity}", activity));
+			}
+		}
+		return elem;
 	}
 
+	/**
+	 * check readed notification when users like
+	 * @param userName
+	 * @param activity
+	 * @param time
+	 * @return
+	 */
+	public WebElement checkReadLikeNotification(String userNames, String activity, String time){
+		info("Check Like Notification");		
+		Utils.pause(1000);
+		String[] userName=userNames.split(",");
+		WebElement elem = null;
+		info("Verify that last user's avatar is shown in list");
+		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_AVATAR.
+				replace("$lastUser",userName[0]));
+		if(userName.length==1){
+			info("One user likes activity");
+			if(time!=null && time!="")
+				elem=waitForAndGetElement(
+						ELEMENT_READ_LOCATOR+ELEMENT_LIKE_NOTIFICATION_HAS_TIME_USER_INDEX.replace("${message}", ELEMENT_NOTIFICATION_LIKE)
+						.replace("${index}", "1").replace("${name}", userName[0].trim())
+						.replace("${activity}", activity)
+						.replace("${time}", time));
+			else
+				elem=waitForAndGetElement(
+						ELEMENT_READ_LOCATOR+ELEMENT_LIKE_NOTIFICATION_NO_TIME_USER_INDEX.replace("${message}", ELEMENT_NOTIFICATION_LIKE)
+						.replace("${index}", "1").replace("${name}", userName[0].trim())
+						.replace("${activity}", activity));
+		}
+		else{
+			for(int i = 0; i<2; i++){
+				info("Many users like activity");
+				if(time!=null && time!="")
+					elem=waitForAndGetElement(
+							ELEMENT_READ_LOCATOR+ELEMENT_LIKE_NOTIFICATION_HAS_TIME_USER_INDEX.replace("${message}", ELEMENT_NOTIFICATION_MANY_LIKE)
+							.replace("${index}", String.valueOf(i+1)).replace("${name}", userName[i].trim())
+							.replace("${activity}", activity)
+							.replace("${time}", time));
+				else
+					elem=waitForAndGetElement(
+							ELEMENT_READ_LOCATOR+ELEMENT_LIKE_NOTIFICATION_NO_TIME_USER_INDEX.replace("${message}", ELEMENT_NOTIFICATION_MANY_LIKE)
+							.replace("${index}", String.valueOf(i+1)).replace("${name}", userName[i].trim())
+							.replace("${activity}", activity));
 
+			}
+		}
+		return elem;
+	}
 	/**
 	 * function: check notification when there is a connection request
 	 * @param fullName user sent connection request
@@ -330,33 +413,102 @@ public class IntranetNotification extends PlatformBase{
 	}
 
 	/**
-	 * function: check notification when another people mentions you in activity
+	 * function: check unread notification when another people mentions you in activity
 	 * @param userName1
 	 * @param activity
 	 * @param time
 	 * @return
 	 */
-	public WebElement checkMentionNotification(String userName1, String activity, String time){
+	public WebElement checkUnreadMentionNotification(String userName1, String activity, String time){
 		info("Check mention notification");
 		WebElement elem;
+		info("Verify that last user's avatar is shown in list");
+		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_AVATAR.
+				replace("$lastUser",userName1));
 		if(activity!="" && activity!=null){
 			if(time!="" && time!=null){
 				info("Verify with user, time and activity");
-				elem=waitForAndGetElement(ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY.replace("${name}", userName1).replace("${activity}", activity).replace("${time}", time));
+				elem=waitForAndGetElement(
+						ELEMENT_UNREAD_LOCATOR+ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY
+						.replace("${message}", ELEMENT_NOTIFICATION_MENTION)
+						.replace("${index}", "1").replace("${name}", userName1)
+						.replace("${activity}", activity)
+						.replace("${time}", time));
 			}
 			else{
 				info("Verify with user and activity");
-				elem=waitForAndGetElement(ELEMENT_MENTION_NO_TIME_HAS_ACTIVITY.replace("${name}", userName1).replace("${activity}", activity));
+				elem=waitForAndGetElement(
+						ELEMENT_UNREAD_LOCATOR+ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY
+						.replace("${message}", ELEMENT_NOTIFICATION_MENTION)
+						.replace("${index}", "1").replace("${name}", userName1)
+						.replace("${activity}", activity));
 			}
 		}
 		else{
 			if(time!="" && time!=null){
 				info("Verify with user, time");
-				elem=waitForAndGetElement(ELEMENT_MENTION_HAS_TIME_NO_ACTIVITY.replace("${name}", userName1).replace("${time}", time));
+				elem=waitForAndGetElement(
+						ELEMENT_UNREAD_LOCATOR+ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY
+						.replace("${message}", ELEMENT_NOTIFICATION_MENTION)
+						.replace("${index}", "1").replace("${name}", userName1)
+						.replace("${time}", time));
 			}
 			else{
 				info("Verify with user");
-				elem=waitForAndGetElement(ELEMENT_MENTION_NO_TIME_NO_ACTIVITY.replace("${name}", userName1));
+				elem=waitForAndGetElement(
+						ELEMENT_UNREAD_LOCATOR+ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY
+						.replace("${message}", ELEMENT_NOTIFICATION_MENTION)
+						.replace("${index}", "1").replace("${name}", userName1));
+			}
+		}
+		return elem;
+
+	}
+
+	/**
+	 * function: check read notification when another people mentions you in activity
+	 * @param userName1
+	 * @param activity
+	 * @param time
+	 * @return
+	 */
+	public WebElement checReadMentionNotification(String userName1, String activity, String time){
+		info("Check mention notification");
+		WebElement elem;
+		if(activity!="" && activity!=null){
+			if(time!="" && time!=null){
+				info("Verify with user, time and activity");
+				elem=waitForAndGetElement(
+						ELEMENT_READ_LOCATOR+ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY
+						.replace("${message}", ELEMENT_NOTIFICATION_MENTION)
+						.replace("${index}", "1").replace("${name}", userName1)
+						.replace("${activity}", activity)
+						.replace("${time}", time));
+			}
+			else{
+				info("Verify with user and activity");
+				elem=waitForAndGetElement(
+						ELEMENT_READ_LOCATOR+ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY
+						.replace("${message}", ELEMENT_NOTIFICATION_MENTION)
+						.replace("${index}", "1").replace("${name}", userName1)
+						.replace("${activity}", activity));
+			}
+		}
+		else{
+			if(time!="" && time!=null){
+				info("Verify with user, time");
+				elem=waitForAndGetElement(
+						ELEMENT_READ_LOCATOR+ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY
+						.replace("${message}", ELEMENT_NOTIFICATION_MENTION)
+						.replace("${index}", "1").replace("${name}", userName1)
+						.replace("${time}", time));
+			}
+			else{
+				info("Verify with user");
+				elem=waitForAndGetElement(
+						ELEMENT_READ_LOCATOR+ELEMENT_MENTION_HAS_TIME_HAS_ACTIVTY
+						.replace("${message}", ELEMENT_NOTIFICATION_MENTION)
+						.replace("${index}", "1").replace("${name}", userName1));
 			}
 		}
 		return elem;
@@ -639,7 +791,7 @@ public class IntranetNotification extends PlatformBase{
 			}
 			if (mentionNotification) {
 				info("go To Activity viewer from mention notification");
-				checkMentionNotification(userName, activity, time);
+				checkUnreadMentionNotification(userName, activity, time);
 			}
 			if (activityPostNotification){
 				info("go To Activity viewer from intranet activity post notification");
@@ -708,7 +860,7 @@ public class IntranetNotification extends PlatformBase{
 	 * function: check like in activity viewer
 	 * @param number number of like
 	 */
-	public void checkLikeInActivityViewr(String number){
+	public void checkLikeInActivityViewer(String number){
 		info ("Check like in Activity viewer");
 		Utils.pause(1000);
 		assert(waitForAndGetElement(ELEMENT_LIKE_IN_ACTIVITY_VIEWER).getText().contains(number));
@@ -783,7 +935,7 @@ public class IntranetNotification extends PlatformBase{
 		info("Verify that last user's avatar is shown in list");
 		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_AVATAR.
 				replace("$lastUser",users.get(lastIndex)));
-		
+
 		info("Verify that last user is shown in list");
 		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_USER.replace("$user",users.get(lastIndex)));
 		info("users.size():"+users.size());
@@ -801,12 +953,12 @@ public class IntranetNotification extends PlatformBase{
 						replace("$comment",comment),2000,2);
 			}
 		}
-		
+
 		if(!actTitle.isEmpty()){
 			info("Verify the activity's title is shown in the list");
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE.replace("$title",actTitle),2000,2);
 		}
-		
+
 	}
 	/**
 	 * View detail of the activity when click on activity in notification list
@@ -818,24 +970,24 @@ public class IntranetNotification extends PlatformBase{
 	public void checkDetailActivityNotifications(String actTitle,ArrayList<String> comments,boolean isHighlight){
 		if(waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE.replace("$title",actTitle),3000,0)!=null){
 			info("Click on the activity title on the list");
-	        click(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE.replace("$title",actTitle));
-	
+			click(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE.replace("$title",actTitle));
+
 		}
 		else {
 			goToAllNotification();
 			goToDetailFirstNotificationInAllpage();
 		}
-		
+
 		if(comments.size()>0){
 			for(int i=0;i<comments.size();i++){
 				info("Verify that all comments are expanded");
 				waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_CONTENT.
 						replace("$comment",comments.get(i)));
-				
+
 				if(isHighlight){
-					 info("Verify that the last comment is highlighted");
-						waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_HIGHLIGHT.
-								replace("$comment",comments.get(comments.size()-1)));
+					info("Verify that the last comment is highlighted");
+					waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_HIGHLIGHT.
+							replace("$comment",comments.get(comments.size()-1)));
 				}
 			}
 		}
@@ -888,6 +1040,7 @@ public class IntranetNotification extends PlatformBase{
 		checkStatusAC(users,status,isPopUp);
 		checkActivityTitle(actTitle,isPopUp);
 	}
+
 	/**
 	 * Check Accept and Refuse buttons are shown in Notification popup and page
 	 * @param fullName
@@ -898,7 +1051,6 @@ public class IntranetNotification extends PlatformBase{
 		info("Verify that Refuse button are shown on the popup");
 		waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName));
 	}
-	
 	
 	/**
 	 * Check avatar of notification list
@@ -914,12 +1066,12 @@ public class IntranetNotification extends PlatformBase{
 		info("Verify that last user's avatar is shown in list");
 		if(isPopUp)
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_AVATAR.
-				replace("$lastUser",users.get(lastIndex)),2000,2);
+					replace("$lastUser",users.get(lastIndex)),2000,2);
 		else
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_AVATAR.
 					replace("$lastUser",users.get(lastIndex)),2000,2);
 	}
-	
+
 	/**
 	 * Check users that are shown their names in notification list
 	 * @param users
@@ -940,17 +1092,17 @@ public class IntranetNotification extends PlatformBase{
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_USER.
 					replace("$user",users.get(lastIndex)),2000,2);
 		}
-		
+
 		if(users.size()>2 && isPopUp==true){
 			info("Verify that second last user is shown in the popup");
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_USER.
 					replace("$user",users.get(lastIndex-1)),2000,2);
 		}
-		
+
 		if(users.size()>2 && isPopUp==false){
 			info("Verify that second last user is shown in the page");
-		    waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_USER.
-				replace("$user",users.get(lastIndex-1)),2000,2);
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_USER.
+					replace("$user",users.get(lastIndex-1)),2000,2);
 		}
 	}
 	/**
@@ -970,19 +1122,19 @@ public class IntranetNotification extends PlatformBase{
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_COMMENTS_CONTENT.
 					replace("$comment",status).replace("$number",users.get(lastIndex-1)),2000,2);
 		}
-		
+
 		if(users.size()>3 && isPopUp==false){
 			info("Verify the activity message for more "+(lastIndex-2)+" users comments");
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_COMMENTS_CONTENT.
 					replace("$comment",status).replace("$number",users.get(lastIndex-1)),2000,2);
 		}
-		
+
 		if(users.size()<3 && isPopUp==true){
 			info("Verify the activity message for 2 or 1 comment(s)");
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_COMMENTS_CONTENT.
 					replace("$comment",status),2000,2);
 		}
-		
+
 		if(users.size()<3 && isPopUp==false){
 			info("Verify the activity message for 2 or 1 comment(s)");
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_COMMENTS_CONTENT.
@@ -1007,6 +1159,7 @@ public class IntranetNotification extends PlatformBase{
 					replace("$title",actTitle),2000,2);
 		}
 	}
+
 	/**
 	 * Go to detail a notification on Notification popup
 	 */
@@ -1050,5 +1203,4 @@ public class IntranetNotification extends PlatformBase{
 			break;
 		}
 	}
-
 }
