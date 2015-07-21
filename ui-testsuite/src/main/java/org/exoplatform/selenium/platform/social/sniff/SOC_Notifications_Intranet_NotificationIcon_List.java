@@ -11,7 +11,7 @@ import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.testng.annotations.*;
 
-public class SOC_Notifications_IntranetNotifications_NotificationIcon_List extends SOC_TestConfig_3{
+public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestConfig_3{
 	
 	/**
 	 * @author tult
@@ -330,7 +330,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationIcon_List exten
 		info("The link [Mark as read] is displayed");
 		waitForAndGetElement(navTool.ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION);
 		info("The notification generated (Connection request) is displayed in the list");
-		intraNot.checkConnectionRequestNotification(fullName);
+		intraNot.checkBtnConnectRequest(fullName);
 		
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
@@ -488,7 +488,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationIcon_List exten
 			- The connection request notifications is displayed*/
 		info("User 1 check notification in notification list");
 		navTool.goToIntranetNotification();
-		intraNot.checkConnectionRequestNotification(username2);
+		intraNot.checkBtnConnectRequest(username2);
 		/*Step Number: 4
 		 *Step Name: Step 4: 
 		 *Step Description: 

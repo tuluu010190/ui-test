@@ -24,8 +24,10 @@ public class IntranetNotification extends PlatformBase{
     public final String ELEMENT_INTRANET_NOTIFICATION_USER=".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'$user')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER=".//*[@id='NotificationPopup']//*[contains(@class,'badgeNotification')][contains(text(),'$num')]";
 	public final By ELEMENT_VIEW_ALL = By.linkText("View All");
-	
-
+	public final By ELEMENT_INTRANET_NOTIFICATION_POPUP_STATUS=By.xpath(".//*[@id='NotificationPopup']//*[@class='status']");
+	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_ACCEPT_CONNECTION=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_SEND_CONNECTION=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
+ 
 	public final By ELEMENT_NOTIFICATION_SETTINGS_LINK = By.linkText("Notifications Settings");
 	public final String ELEMENT_NOTIFICATION_SETTINGS_TITLE = ".//*[@id='uiNotificationSetting']//h3[text()='Notification Settings']";
 
@@ -62,7 +64,7 @@ public class IntranetNotification extends PlatformBase{
 	//Connection
 	public final String ELEMENT_CONNECT_NOTIFICATION = "//*[contains(text(),'${fullName}')]/../..//*[contains(.,'wants to connect with you')]";
 	public final String ELEMENT_CONNECT_ACCEPT_BUTTON = ".//*[contains(text(),'$fullName')]/../..//*[contains(@class,'action-item')]";
-	public final String ELEMENT_CONNECT_REFUSE_BUTTON = ELEMENT_CONNECT_NOTIFICATION + "/..//*[contains(text(),'Refuse')]";
+	public final String ELEMENT_CONNECT_REFUSE_BUTTON = ".//*[contains(text(),'$fullName')]/../..//*[contains(@class,'cancel-item')]";
 	public final String ELEMENT_CONNECTED_SUCCESS_ONE_MINUTE = "//*[contains(@alt,'${fullName}')]/../..//*[contains(.,'You are connected with')]//*[contains(text(),'${fullName}')]/../..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
 	public final String ELEMENT_CONNECTED_SUCCESS_JUST_NOW = "//*[contains(@alt,'${fullName}')]/../..//*[contains(.,'You are connected with')]//*[contains(text(),'${fullName}')]/../..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
 
@@ -278,17 +280,19 @@ public class IntranetNotification extends PlatformBase{
 	/**
 	 * function: check notification when there is a connection request
 	 * @param fullName user sent connection request
-	 */
+	 *//*
 	public void checkConnectionRequestNotification(String fullName){
 		info("Check Connection Request Notification");
 		Utils.pause(1000);
 		info("wait for notification");
-		waitForAndGetElement(ELEMENT_CONNECT_NOTIFICATION.replace("${fullName}", fullName));
+		driver.findElement(By.xpath(ELEMENT_CONNECT_NOTIFICATION.replace("${fullName}", fullName)));
+		Utils.pause(1000);
 		info("wait for accept button");
-		waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("${fullName}", fullName));
+		driver.findElement(By.xpath(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("${fullName}", fullName)));
+		Utils.pause(1000);
 		info("wait for refuse button");
-		waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("${fullName}", fullName));	
-	}
+		driver.findElement(By.xpath(ELEMENT_CONNECT_REFUSE_BUTTON.replace("${fullName}", fullName)));	
+	}*/
 
 	/**
 	 * function: check notification when there is a space invitation
@@ -725,8 +729,11 @@ public class IntranetNotification extends PlatformBase{
 	 */
 	public void goToAllNotification(){
 		info("Go to all notification");
-		waitForAndGetElement(ELEMENT_VIEW_ALL);
-		click(ELEMENT_VIEW_ALL);
+		if(waitForAndGetElement(ELEMENT_VIEW_ALL,3000,0)!=null){
+			click(ELEMENT_VIEW_ALL);
+		}else{
+			driver.get(baseUrl+"/intranet/allNotifications/");
+		}
 		waitForAndGetElement(ELEMENT_ALL_NOTIFICATIONS);
 	}
 
@@ -851,6 +858,15 @@ public class IntranetNotification extends PlatformBase{
 		click(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
 		waitForElementNotPresent(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
 	}
+	/**
+	 * Refuse an connection request in notificaiton list
+	 * @param fullName
+	 */
+	public void refuseRqConnection(String fullName){
+		info("Click on Refuse button");
+		click(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName));
+		waitForElementNotPresent(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName));
+	}
 
 	/**
 	 * Check format of Activity's comment in Notification list
@@ -872,6 +888,17 @@ public class IntranetNotification extends PlatformBase{
 		checkStatusAC(users,status,isPopUp);
 		checkActivityTitle(actTitle,isPopUp);
 	}
+	/**
+	 * Check Accept and Refuse buttons are shown in Notification popup and page
+	 * @param fullName
+	 */
+	public void checkBtnConnectRequest(String fullName){
+		info("Verify that Accept button are shown on the popup");
+		waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
+		info("Verify that Refuse button are shown on the popup");
+		waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName));
+	}
+	
 	
 	/**
 	 * Check avatar of notification list
@@ -980,7 +1007,48 @@ public class IntranetNotification extends PlatformBase{
 					replace("$title",actTitle),2000,2);
 		}
 	}
-	
-
+	/**
+	 * Go to detail a notification on Notification popup
+	 */
+	public void goToDetailNotificationOnPopup(){
+		info("Click on Status area of Notification popup");
+		click(ELEMENT_INTRANET_NOTIFICATION_POPUP_STATUS);
+		Utils.pause(3000);
+	}
+    /**
+     * Define types of Notification status
+     *
+     */
+	public enum statusType{
+		send_connection,accept_connection,refuse_connection;
+	}
+	/**
+	 * Check status of Notifications
+	 * @param status
+	 *             is a status's content of Notifications
+	 * @param user
+	 *             is full name or name of the user
+	 * @param type
+	 *             is a status's type of Notifications
+	 */
+	public void checkStatus(String status,String user,statusType type){
+		switch(type){
+		case accept_connection:
+			info("Verify that accept connections status is shown");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS_ACCEPT_CONNECTION.
+					replace("$status",status).replace("$fullName",user));
+			break;
+		case send_connection:
+			info("Verify that sending connections status is shown");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS_SEND_CONNECTION.
+					replace("$status",status).replace("$fullName",user));
+			break;
+		case refuse_connection:
+			info("Verify that sending connections status is shown");
+			waitForElementNotPresent(ELEMENT_INTRANET_NOTIFICATION_STATUS_SEND_CONNECTION.
+					replace("$status",status).replace("$fullName",user));
+			break;
+		}
+	}
 
 }

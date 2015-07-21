@@ -61,36 +61,32 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
 public class SOC_TestConfig extends PlatformBase {
-	HomePagePlatform hp;
-	ActivityStream hpAct;
+	
+	//Platform
 	ManageLogInOut magAc;
 	Button button;
+	ManageAlert alert;
+	
+	//Activity
+	HomePagePlatform hp;
+	ActivityStream hpAct;
+	
+	//Navigation 
+	NavigationToolbar navTool;
+	MyDashBoard myDash;
+	
+	//PLF
+	SiteExplorerHome SEHome;
+	CreateNewDocument creatDoc;
+	
+	//Page managements
 	PortalManagePages portManagePage;
 	PageCreationWizard pgCreateWiz;
 
-	MyDashBoard myDash;
-	NavigationToolbar navTool;
-
+	//Social
 	SpaceManagement spaMg;
 	SpaceHomePage spaHome;
 	SpaceSettingManagement setSpaceMg;
-	UserAddManagement userManage;
-	UserAndGroupManagement userGroupMg;
-
-	ForumTopicManagement topicMg;
-
-	WikiHomePage wHome;
-	WikiManagement wikiMg;
-
-	SiteExplorerHome SEHome;
-	CreateNewDocument creatDoc;
-
-	EventManagement evMg;
-
-	ApplicationRegistry appReg;
-	ApplicationLayoutDatabase appLayData;
-	ApplicationGateinDatabase appGateData;
-
 	SpaceGUIDatabase spaceUI;
 	SpaceApplicationDatabase spAppData;
 	SpaceNavigationDefaultNodesDatabase spaceDefaultNodesData;
@@ -98,41 +94,54 @@ public class SOC_TestConfig extends PlatformBase {
 	SpaceRegistrationDatabase spRegisData;
 	SpaceGroupsDatabase spGroupsData;
 	SpaceWarningMessageDatabase  spWarnMessg;
+	ForumTopicManagement topicMg;
+	
+	//Notifications
+	NotificationsAdminSeting emailNotif;
+	MyNotificationsSetting myNotifPage;
+	SendEmailNotifications notiEmail;
+	AllNotificationPage allInTraNot;
+	IntranetNotification intraNot;
+	
+	//User management
+	UserAddManagement userManage;
+	UserAndGroupManagement userGroupMg;
+	ConnectionsManagement connMag;
+	UserAddManagement addUserPage;
+	UserPageBase uBase;
+	UserProfilePage myProfile;
+
+	//Wiki 
+	WikiHomePage wHome;
+	WikiManagement wikiMg;
+
+	//Calendar
+	EventManagement evMg;
+
+	//Gatein
+	ApplicationRegistry appReg;
+	ApplicationLayoutDatabase appLayData;
+	ApplicationGateinDatabase appGateData;
 	GateinPortalMemberShipsPermissionDatabase membershipData;
 
+	//ObjectDatabase
 	RemoteGadgetDatabase remoteGadData;
 	TextBoxDatabase txData;
 	LinksDatabase lnkData;
 	AttachmentFileDatabase atData;
-
 	ContainersDatabase containerData;
 	LanguageDatabase langData;
-
-	ConnectionsManagement connMag;
-	UserAddManagement addUserPage;
-
 	MailSuffixDatabase mailSuffixData;
-
-	UserPageBase uBase;
-	UserProfilePage myProfile;
-	
 	ProfileContactIMDatabase contactIM;
 	ProfileContactPhoneDatabase contactPhone;
 	ActivityMessageDatabase activityMes;
-	
 	ConnectStatusDatabase conStatus;
 	SiteExplorerPathDatabase siteExPath;
 	SiteExplorerDriveDatabase siteExDrive;
 	
 	ChatStatusDatabase chatStatus;
 	ChatStatus chat;
-	ManageAlert alert;
 	
-	NotificationsAdminSeting emailNotif;
-	MyNotificationsSetting myNotifPage;
-	SendEmailNotifications notiEmail;
-	AllNotificationPage AllInTraNot;
-	IntranetNotification intraNot;
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		info("Start setUpBeforeMethod");
@@ -246,9 +255,10 @@ public class SOC_TestConfig extends PlatformBase {
 		
 		emailNotif = new NotificationsAdminSeting(driver);
 		myNotifPage= new MyNotificationsSetting(driver);
-		AllInTraNot = new AllNotificationPage(driver);
+		allInTraNot = new AllNotificationPage(driver);
 		intraNot = new IntranetNotification(driver);
 		notiEmail = new SendEmailNotifications(driver);
+	
 		info("End setUpBeforeMethod");
 	}
 

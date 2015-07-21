@@ -7,7 +7,7 @@ import java.awt.AWTException;
 import org.exoplatform.selenium.Utils;
 import org.testng.annotations.*;
 
-public class SOC_Notifications_IntranetNotification_View_All extends SOC_TestConfig_3{
+public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 
 	/**
 	 * @author tult

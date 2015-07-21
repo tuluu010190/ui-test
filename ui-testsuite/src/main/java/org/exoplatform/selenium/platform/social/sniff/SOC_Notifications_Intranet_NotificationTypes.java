@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.awt.AWTException;
 
 import org.testng.annotations.*;
-public class SOC_Notifications_IntranetNotifications_NotificationTypes extends SOC_TestConfig_3{
+public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig_3{
 
 	/**
 	 * @author tult
@@ -433,7 +433,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		info("Check connection request notification in notification list");
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
-		intraNot.checkConnectionRequestNotification(fullName);
+		intraNot.checkBtnConnectRequest(fullName);
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: Check notification area
@@ -520,7 +520,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		info("check connection request in intranet notification list");
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
-		intraNot.checkConnectionRequestNotification(fullName);
+		intraNot.checkBtnConnectRequest(fullName);
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: Check View All
@@ -530,7 +530,7 @@ public class SOC_Notifications_IntranetNotifications_NotificationTypes extends S
 		 *Expected Outcome: 
 			- The notification is displayed in the page View All*/
 		intraNot.goToAllNotification();
-		intraNot.checkConnectionRequestNotification(fullName);
+		intraNot.checkBtnConnectRequest(fullName);
 		
 		/*Step Number: 4
 		 *Step Name: Step 4: Refuse

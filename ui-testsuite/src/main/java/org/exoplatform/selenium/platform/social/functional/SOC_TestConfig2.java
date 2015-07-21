@@ -16,17 +16,20 @@ import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDescriptionDatabase;
+import org.exoplatform.selenium.platform.social.AllNotificationPage;
 import org.exoplatform.selenium.platform.social.IntranetNotification;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
+import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.testng.annotations.AfterMethod;
@@ -40,6 +43,7 @@ public class SOC_TestConfig2 extends PlatformBase {
 	NavigationToolbar navTool;
 	NotificationsAdminSeting notiAdmin;
 	MyNotificationsSetting myNoti;
+	AllNotificationPage allNotiPag;
 	HomePagePlatform hp;
 	ActivityStream hpAct;
 	IntranetNotification intraNot;
@@ -56,12 +60,14 @@ public class SOC_TestConfig2 extends PlatformBase {
 	UserInfoDatabase userInfoData;
 	UserAddManagement addUserPage;
 	UserAndGroupManagement userAndGroup;
+	UserProfilePage userProPage;
 	ConnectionsManagement connMag;
 	NotificationDescriptionDatabase notiDesData;
 	LinksDatabase linkData;
 	AttachmentFileDatabase attFileData;
 	SiteExplorerDriveDatabase siteExDrive;
 	SiteExplorerPathDatabase siteExPath;
+	MailSuffixDatabase mailSuffixData;
 	
 	
 	String password;
@@ -83,6 +89,9 @@ public class SOC_TestConfig2 extends PlatformBase {
 		myNoti = new MyNotificationsSetting(driver);
 		addUserPage = new UserAddManagement(driver);
 		userAndGroup = new UserAndGroupManagement(driver);
+		userProPage = new UserProfilePage(driver);
+		
+		
 		hp = new HomePagePlatform(driver);
 		connMag = new ConnectionsManagement(driver);
 		hpAct = new ActivityStream(driver);
@@ -113,7 +122,11 @@ public class SOC_TestConfig2 extends PlatformBase {
 		siteExPath = new SiteExplorerPathDatabase();
 		siteExPath.setSiteExpPathData(siteExpPathPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
-		comments = new ArrayList<>();
+		mailSuffixData = new MailSuffixDatabase();
+		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+
+		
+		comments = new ArrayList<String>();
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -139,7 +152,7 @@ public class SOC_TestConfig2 extends PlatformBase {
 		for(int i=0;i<number;i++){
 			info("Add new a user");
 			String user=txData.getContentByArrayTypeRandom(7)+getRandomString();
-			password =DATA_PASS ;
+			password ="123456" ;
 			String email=user+"@gmail.com";
 			addUserPage.addUser(user,password, email,user,user);
 			info("Add users to user's array");

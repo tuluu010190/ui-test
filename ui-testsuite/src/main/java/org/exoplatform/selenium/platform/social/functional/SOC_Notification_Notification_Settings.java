@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 
 
-public class SOC_Notification_NotificationSettings extends SOC_TestConfig{
+public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 
 	/**
 	 *<li> Case ID:117388.</li>

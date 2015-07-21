@@ -6,7 +6,7 @@ import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notific
 import org.testng.annotations.*;
 
 
-	public class SOC_Intranet_Notification_Administration extends SOC_TestConfig1{
+	public class SOC_Notification_intranet_Administration extends SOC_TestConfig1{
 
 	/**
 	*<li> Case ID:125059.</li>

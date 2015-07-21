@@ -7,7 +7,7 @@ import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiTyp
 import org.testng.annotations.*;
 
 
-	public class SOC_Intranet_Notification_Comment_Activity extends SOC_TestConfig2{
+	public class SOC_Notification_Intranet_Comment_Activity extends SOC_TestConfig2{
 
 	/**
 	*<li> Case ID:125064.</li>

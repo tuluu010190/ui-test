@@ -7,7 +7,7 @@ import java.awt.AWTException;
 import org.testng.annotations.*;
 
 
-public class SOC_Notification_Intranet_Mention extends SOC_TestConfig{
+public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 
 	/**
 	 *<li> Case ID:125102.</li>

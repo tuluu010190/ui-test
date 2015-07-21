@@ -1,5 +1,5 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
-<suite name="Platform Sniff Test" verbose="1" preserve-order="true">
+<suite name="Platform Func Test" verbose="1" preserve-order="true">
 	<test name="social-func-part3" enabled="true">
 		<groups>
 			<run>
@@ -7,11 +7,13 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig1" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Administration" />
-		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Intranet_Notification_Administration" />
-		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_NotificationSettings" />
-		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Mention" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_intranet_Administration" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig2" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Comment_Activity" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Extensibility" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Mention" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Connection_Request" />
 		</classes>
 	</test>
 	<listeners>

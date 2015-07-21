@@ -14,7 +14,7 @@ public class ConnectionsManagement extends PlatformBase {
 	public final String ELEMENT_CONNECTION_CANCEL_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Cancel Request']";
 	public final String ELEMENT_CONNECTION_REVOVE_BTN = "//a[contains(@href,'${user}')]/../..//*[text()='Remove Connection']";
 
-	 public final String ELEMENT_CONNECTION_IGNORE_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Ignore']";
+	public final String ELEMENT_CONNECTION_IGNORE_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Ignore']";
     public final String ELEMENT_CONNECTION_CONFIRM_BTN =" //a[contains(@href,'${user}')]/../..//*[text()='Confirm']";
     public final String ELEMENT_CONNECTION_USER_AVARTAR="//a[contains(@href,'${user}')]/img";
     public final String ELEMENT_CONNECTION_USER_NAME="//a[contains(@href,'${user}') and @data-key='title']";

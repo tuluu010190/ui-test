@@ -5,7 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.testng.annotations.*;
 
 
-public class SOC_Notification_Intranet_Extensibility extends SOC_TestConfig{
+public class SOC_Notification_Intranet_Extensibility extends SOC_TestConfig2{
 
 	/**
 	 *<li> Case ID:125086.</li>
