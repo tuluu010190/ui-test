@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Cloud test">
+	<test name="cloud-data">
+		<groups>
+			<run>
+				<exclude name="pending" />
+			</run>
+		</groups>
+		<classes>
+			<class
+				name="org.exoplatform.selenium.platform.cloud.Cloud_Config" />
+			<class
+				name="org.exoplatform.selenium.platform.cloud.Cloud_CreateUsers" />
+			<class
+				name="org.exoplatform.selenium.platform.cloud.Cloud_CreateData" />
+		</classes>
+	</test>
+	<listeners>
+		<listener class-name="org.exoplatform.selenium.TestReportListener" />
+	</listeners>
+</suite>

@@ -184,7 +184,7 @@ public class TestBase {
 	public final  String DEFAULT_SQLCONTENT = "select * from textbox order by id asc";
 
 	public final String DEFAULT_SHEET="sheet1";
-	public final String DEFAULT_USERFILEURL="DataDriven/" + "user.xls";
+	public final String DEFAULT_USERFILEURL="DataDriven/" + "usercloud.xls";
 	public final String DEFAULT_ATTACHMENTFILEURL="DataDriven/" + "attachment_file.xls";
 	public final String DEFAULT_TEXTBOXFILEURL="DataDriven/" + "textbox.xls";
 	public final String DEFAULT_WIKITEMPLATEFILEURL="DataDriven/" + "wiki_template.xls";
@@ -717,10 +717,12 @@ public class TestBase {
 			}
 		}else if (waitForAndGetElement(ELEMENT_ROOT_PASS_ACCOUNT, 3000, 0, 2) != null){
 			info("-- Creating an Admin account: FQA... --");
-			accountSetup();
-			info("-- Administrator account (FQA) has been created successfully... --");
-			driver.navigate().refresh();
-			acc.signOut();
+			if(isCreateAccount==true){
+				accountSetup();
+				info("-- Administrator account (FQA) has been created successfully... --");
+				driver.navigate().refresh();
+				acc.signOut();
+			}
 		} 
 		Utils.pause(3000);   
 		info("End of term and conditions");

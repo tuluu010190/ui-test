@@ -163,7 +163,6 @@ import org.testng.annotations.*;
 			The Category is created successfully*/ 
 		navTool.goToContentAdministration();
 		caPage.goToSpecificMainFunctions(mainEcmFunctions.ADVANCED);
-		this.driver.navigate().refresh();
 		caPage.goToSpecificFunctions(specificEcmFunctions.CATEGORIES);
 		caPage.addCategories(name, nameAction, lifeCycle, targetPath);
 		info("Test 08: Edit Categories");

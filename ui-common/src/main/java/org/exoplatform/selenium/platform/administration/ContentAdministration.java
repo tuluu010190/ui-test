@@ -78,6 +78,11 @@ public class ContentAdministration extends PlatformBase{
 	public String ELEMENT_ECM_ADVANCED_CATEGORIES_WORKSPACE_LIST = ".//*[contains(text(),'{$name}')]/../../td[2]//*[contains(text(),'{$workspace}')]";
 	public String ELEMENT_ECM_ADVANCED_CATEGORIES_DELETE =".//*[contains(text(),'{$name}')]/../..//*[@class='uiIconDelete uiIconLightGray']";
 
+	public final String ELEMENT_SELECT_CATEGORY=".//*[@class='explorerTree']//*[contains(@title,'${name}')]";
+	public By ELEMENT_ADD_SUB_CAT_BUTTON=By.xpath("//*[@data-original-title='Add' or @title='Add']");
+	public By ELEMENT_NAME_CAT_TEXTBOX=By.id("taxonomyName");
+	public By ELEMENT_ADD_CAT_SAVE_BUTTON=By.xpath("//*[@id='UITaxonomyTreeCreateChildForm']//*[@class='btn' and text()='Save']");
+	
 	public By ELEMENT_ECMS_FUNCTIONS_VIEWS =By.xpath("//*[@class='uiIconEcmsViewManager uiIconEcmsLightGray']");
 	public By ELEMENT_ECMS_FUNCTIONS_TAGS =By.xpath("//*[@class='uiIconEcmsFolksonomyManager uiIconEcmsLightGray']");
 
@@ -646,6 +651,29 @@ public class ContentAdministration extends PlatformBase{
 		info("Close the form");
 		click(ELEMENT_ECM_ADVANCED_CATEGORIES_CLOSE_FORM);
 		info("Finished editing the category");
+	}
+	/**
+	 * Select a group in permission selector popup by string
+	 * @param groupsPath is path of groups as:Platform/Content Manangement
+	 */
+	public void selectGroup(String groupsPath){
+		info("Select a group with the path:"+groupsPath);
+		String[] groups = groupsPath.split("/");
+		for(int i =0; i<groups.length-1; i++){
+			info("Select group:"+groups[i]);
+			click(ELEMENT_SELECT_CATEGORY.replace("${name}", groups[i]));
+		}
+		Utils.pause(2000);
+	}
+	/**
+	 * Add sub category
+	 * @param name
+	 */
+	public void addSubCategory(String name){
+		info("Add sub category "+name);
+		click(ELEMENT_ADD_SUB_CAT_BUTTON);
+		type(ELEMENT_NAME_CAT_TEXTBOX,name,true);
+		click(ELEMENT_ADD_CAT_SAVE_BUTTON);
 	}
 	/**
 	 * Add a new action type

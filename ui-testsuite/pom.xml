@@ -29,6 +29,12 @@
 
 	<profiles>
 		<profile>
+			<id>cloud-user</id>
+			<properties>
+				<testSuite>cloud-data.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>answer-sniff</id>
 			<properties>
 				<testSuite>answer-sniff.xml</testSuite>
@@ -112,13 +118,13 @@
 				<testSuite>social-func-part2.xml</testSuite>
 			</properties>
 		</profile>
-				<profile>
+		<profile>
 			<id>social-func-part3</id>
 			<properties>
 				<testSuite>social-func-part3.xml</testSuite>
 			</properties>
 		</profile>
-				<profile>
+		<profile>
 			<id>social-func-part4</id>
 			<properties>
 				<testSuite>social-func-part4.xml</testSuite>

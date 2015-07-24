@@ -94,6 +94,8 @@ public class UserAndGroupManagement extends PlatformBase {
 	//Group management
 	public final String ELEMENT_USER_REMOVE_MEMBER_ICON = ".//*[contains(text(),'${userName}')]/../..//*[contains(@class,'uiIconDeleteUser')]";
 
+	//Up level
+	public final By ELEMENT_UP_LEVEL=By.xpath("//*[@data-original-title='Up Level']");
 
 	ManageAlert alert;
 	Dialog dialog;
@@ -127,7 +129,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	}
 	
 	/**
-	 * Select a group
+	 * Select a group by array
 	 * 
 	 * @param arrayGroupPath
 	 */
@@ -136,6 +138,20 @@ public class UserAndGroupManagement extends PlatformBase {
 		for (String group : arrayGroupPath) {
 			info("Select a group:" + group);
 			click(ELEMENT_GROUP_MANAGEMENT_SELECT_GROUP.replace("${name}", group));
+		}
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Select a group in permission selector popup by string
+	 * @param groupsPath is path of groups as:Platform/Content Manangement
+	 */
+	public void selectGroup(String groupsPath){
+		info("Select a group with the path:"+groupsPath);
+		String[] groups = groupsPath.split("/");
+		for(String groupSelect: groups){
+			info("Select group:"+groupSelect);
+			click(ELEMENT_GROUP_MANAGEMENT_SELECT_GROUP.replace("${name}", groupSelect));
 		}
 		Utils.pause(2000);
 	}
