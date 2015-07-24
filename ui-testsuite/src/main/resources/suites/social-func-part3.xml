@@ -14,6 +14,7 @@
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Extensibility" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Mention" />
 			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Connection_Request" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Notification_List" />
             <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Like_Activities" />
 		</classes>
 	</test>

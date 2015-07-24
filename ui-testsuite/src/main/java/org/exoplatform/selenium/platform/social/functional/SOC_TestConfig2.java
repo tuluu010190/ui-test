@@ -150,7 +150,7 @@ public class SOC_TestConfig2 extends PlatformBase {
 		navTool.goToAddUser();
 		for(int i=0;i<number;i++){
 			info("Add new a user");
-			String user=txData.getContentByArrayTypeRandom(7)+getRandomString();
+			String user=getRandomString()+getRandomString();
 			password ="123456" ;
 			String email=user+"@gmail.com";
 			addUserPage.addUser(user,password, email,user,user);

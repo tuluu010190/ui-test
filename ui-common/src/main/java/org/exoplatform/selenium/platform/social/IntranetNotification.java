@@ -20,24 +20,30 @@ public class IntranetNotification extends PlatformBase{
 	public final String ELEMENT_USER_AVATAR = "//*[contains(@alt,'${userName}')]";
 
 	//Notificaiton list popup
-	public final String ELEMENT_INTRANET_NOTIFICATION_AVATAR=".//*[@id='NotificationPopup']//*[contains(@class,'avatarXSmall')]//*[contains(@alt,'$lastUser')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_USER=".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'$user')]";
-	public final String ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER=".//*[@id='NotificationPopup']//*[contains(@class,'badgeNotification')][contains(text(),'$num')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER=".//*[contains(@class,'badgeNotification')][contains(text(),'$num')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_AVATAR=".//*[@id='NotificationPopup']//*[contains(@class,'avatarXSmall')]//*[contains(@alt,'$lastUser')]";
 	public final By ELEMENT_VIEW_ALL = By.linkText("View All");
-
 	public final By ELEMENT_INTRANET_NOTIFICATION_POPUP_STATUS=By.xpath(".//*[@id='NotificationPopup']//*[@class='status']");
 	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_ACCEPT_CONNECTION=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_SEND_CONNECTION=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_ORDER="(.//*[@class='status'])[$num][contains(.,'$status')]//*[contains(text(),'$fullName')]";
+	public final By     ELEMENT_INTRANET_NOTIFICATION_PAGE_FIRST_NOTIFICATION=By.xpath("(.//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'uiIcon')])[1]");
+	public final String ELEMENT_INTRANET_NOTIFICATION_ORDER_NOTIFICATION="(.//*[@id='NotificationPopup']//*[contains(@class,'status')])[$num]";
 	public final By ELEMENT_NOTIFICATION_SETTINGS_LINK = By.linkText("Notifications Settings");
 	public final String ELEMENT_NOTIFICATION_SETTINGS_TITLE = ".//*[@id='uiNotificationSetting']//h3[text()='Notification Settings']";
-
+    public final String ELEMENT_INTRANET_NOTIFICATION_UNREAD=".//*[contains(@class,'unread')][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
+	public final By ELEMENT_INTRANET_NOTIFICATION_MARK_ALL_AS_READ=By.xpath(".//*[@id='NotificationPopup']//*[contains(@class,'markAll')]/a");
+	public final String ELEMENT_INTRANET_NOTIFICATION_REMOVE_ICON="(.//*[@id='NotificationPopup']//*[contains(@class,'uiIconClose')])[$num]";
+	public final By ELEMENT_INTRANET_NOTIFICATION_EMPTY_LIST=By.xpath(".//*[@id='NotificationPopup']//*[contains(@class,'no-items')][contains(text(),'No notifications')]");
 	//comment
 	public final String ELEMENT_INTRANET_NOTIFICATION_COMMENTS_CONTENT=".//*[@id='NotificationPopup']//*[contains(@class,'status')][contains(.,'$comment')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE=".//*[@id='NotificationPopup']//*[@class='content'][contains(.,'$title')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_DETAIL=".//*[@class='description'][contains(text(),'$activity')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_HIGHLIGHT=".//*[contains(text(),'$comment')]/../../..[contains(@style,'rgb(240, 240, 240)')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_CONTENT=".//*[contains(text(),'$comment')]";
-	public final By     ELEMENT_INTRANET_NOTIFICATION_PAGE_FIRST_NOTIFICATION=By.xpath("(.//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'uiIcon')])[1]");
+	
 	public final String ELEMENT_COMMENT_ONE_MINUTE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
 	public final String ELEMENT_COMMENT_JUST_NOW = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
 	public final String ELEMENT_COMMENT_NO_TIME = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]";
@@ -172,6 +178,10 @@ public class IntranetNotification extends PlatformBase{
 	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_COMMENTS_CONTENT=".//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'status')][contains(.,'$comment')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_ACTIVITY_TITLE=".//*[@id='NotificationPopup']//*[@class='content'][contains(.,'$title')]";
 
+	
+	//Detail an activity 
+	public final String ELEMENT_INTRANET_NOTIFICATION_DETAIL_ACTIVITY_DES=".//*[@class='description'][contains(text(),'$des')]";
+	
 	//MyProfilePage myProf;
 	NavigationToolbar navTool;
 	HomePagePlatform hp;
@@ -1168,39 +1178,115 @@ public class IntranetNotification extends PlatformBase{
 		click(ELEMENT_INTRANET_NOTIFICATION_POPUP_STATUS);
 		Utils.pause(3000);
 	}
-    /**
+   /* *//**
      * Define types of Notification status
      *
-     */
+     *//*
 	public enum statusType{
-		send_connection,accept_connection,refuse_connection;
-	}
+		send_connection,accept_connection,refuse_connection,like;
+	}*/
 	/**
 	 * Check status of Notifications
 	 * @param status
 	 *             is a status's content of Notifications
 	 * @param user
 	 *             is full name or name of the user
-	 * @param type
-	 *             is a status's type of Notifications
 	 */
-	public void checkStatus(String status,String user,statusType type){
-		switch(type){
-		case accept_connection:
-			info("Verify that accept connections status is shown");
-			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS_ACCEPT_CONNECTION.
-					replace("$status",status).replace("$fullName",user));
-			break;
-		case send_connection:
-			info("Verify that sending connections status is shown");
-			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS_SEND_CONNECTION.
-					replace("$status",status).replace("$fullName",user));
-			break;
-		case refuse_connection:
-			info("Verify that sending connections status is shown");
-			waitForElementNotPresent(ELEMENT_INTRANET_NOTIFICATION_STATUS_SEND_CONNECTION.
-					replace("$status",status).replace("$fullName",user));
-			break;
-		}
+	public void checkStatus(String status,String user){
+	info("Verify that the status is shown");
+	waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS.
+			replace("$status",status).replace("$fullName",user));
+		
+	}
+	/**
+	 * Check not available notification in notifcation list
+	 * @param status
+	 *               is a status's content of Notifications
+	 * @param user
+	 *               is full name or name of the user
+	 */
+	public void checkNotPresentStatus(String status,String user){
+		info("Verify that the status is not shown");
+		waitForElementNotPresent(ELEMENT_INTRANET_NOTIFICATION_STATUS.
+				replace("$status",status).replace("$fullName",user));
+	}
+	/**
+	 * View detail of a notification by index
+	 * @param num
+	 *            is a notification's index
+	 */
+	public void goToDetailANotificaitonByIndex(int num){
+		info("Click on the notificaiton has index as:"+num);
+		click(ELEMENT_INTRANET_NOTIFICATION_ORDER_NOTIFICATION.replace("$num",String.valueOf(num)));
+		Utils.pause(3000);
+	}
+	
+	/**
+	 * Check order of Notifications in the list
+	 * @param num
+	 *           is order's number in the list
+	 * @param status
+	 *           is the status of Notification
+	 * @param fullName 
+	 *           is the full name of the user that send the notification
+	 */
+	public void checkOrderNotifications(int num,String status,String fullName){
+		info("Check on the notificaiton has index as:"+num);
+		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS_ORDER.replace("$num",String.valueOf(num)).
+				replace("$status",status).
+				replace("$fullName",fullName));
+		Utils.pause(3000);
+	}
+	/**
+	 * Check unread notification
+	 * @param status
+	 *               is a status of the notification
+	 * @param fullName
+	 *               is a full name of the user that send the notification
+	 */
+	public void checkUnreadNotification(String status,String fullName){
+		info("Check:"+status+" of the user:"+fullName);
+		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_UNREAD.
+				replace("$status",status).replace("$fullName",fullName));
+	}
+	/**
+	 * Check read notification
+	 * @param status
+	 *              is a status of the notification
+	 * @param fullName
+	 *              is a full name of the user that send the notification
+	 */
+	public void checkReadNotification(String status,String fullName){
+		info("Check:"+status+" of the user:"+fullName);
+		waitForElementNotPresent(ELEMENT_INTRANET_NOTIFICATION_UNREAD.
+				replace("$status",status).replace("$fullName",fullName));
+	}
+	/**
+	 * Mark all as Read Notifications
+	 */
+	public void markAllAsRead(){
+		info("Click on Mark all as Read link");
+		click(ELEMENT_INTRANET_NOTIFICATION_MARK_ALL_AS_READ);
+		Utils.pause(2000);
+	}
+	/**
+	 * Remove an notification by index
+	 * @param num
+	 *            is order's number in notification list
+	 */
+	public void removeNotificationByIndex(int num){
+		info("click on remove icon of the notification with an index:"+num);
+		click(ELEMENT_INTRANET_NOTIFICATION_REMOVE_ICON.replace("$num",String.valueOf(num)));
+		Utils.pause(3000);
+	}
+	/**
+	 * Check the number of badge notification
+	 * @param num
+	 *             is the number that is shown
+	 */
+	public void checkBadgeNotifications(int num){
+		info("Check number of badge notification");
+		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER.
+				replace("$num",String.valueOf(num)));
 	}
 }

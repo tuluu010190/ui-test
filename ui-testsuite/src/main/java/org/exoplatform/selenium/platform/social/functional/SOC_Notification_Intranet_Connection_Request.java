@@ -2,9 +2,8 @@ package org.exoplatform.selenium.platform.social.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.social.IntranetNotification.statusType;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
 public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig2 {
 
@@ -59,7 +58,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		intraNot.checkAvatar(arrayUser,true);
 		intraNot.checkUsers(arrayUser,true);
-		intraNot.checkStatus(status, arrayUser.get(0),statusType.send_connection);
+		intraNot.checkStatus(status, arrayUser.get(0));
 		intraNot.checkBtnConnectRequest(arrayUser.get(0));
 		
 		
@@ -124,7 +123,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		String status=notiDesData.getMessageByArrayTypeRandom(5);
 		navTool.goToIntranetNotification();
 		intraNot.acceptRqConnection(arrayUser.get(0));
-		intraNot.checkStatus(status, arrayUser.get(0),statusType.accept_connection);
+		intraNot.checkStatus(status, arrayUser.get(0));
 		
 		info("Verify that User A and User B are friend");
 		hp.goToConnections();
@@ -182,7 +181,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		String status=notiDesData.getMessageByArrayTypeRandom(5);
 		navTool.goToIntranetNotification();
 		intraNot.refuseRqConnection(arrayUser.get(0));
-		intraNot.checkStatus(status, arrayUser.get(0),statusType.refuse_connection);
+		intraNot.checkStatus(status, arrayUser.get(0));
 		
 		info("Verify that User A and User B are not friend");
 		hp.goToConnections();
@@ -191,7 +190,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		info("The notification is not available / displayed in the View All page");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkStatus(status, arrayUser.get(0),statusType.refuse_connection);
+		intraNot.checkStatus(status, arrayUser.get(0));
 	}
 	
 	
@@ -233,7 +232,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		String status=notiDesData.getMessageByArrayTypeRandom(5);
 		navTool.goToIntranetNotification();
 		intraNot.acceptRqConnection(arrayUser.get(0));
-		intraNot.checkStatus(status, arrayUser.get(0),statusType.accept_connection);
+		intraNot.checkStatus(status, arrayUser.get(0));
 		
 	    /*
 	     * Step 2:
@@ -243,7 +242,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 	     */
 		info("The notification is not available / displayed in the View All page");
 		intraNot.goToAllNotification();
-		intraNot.checkStatus(status, arrayUser.get(0),statusType.accept_connection);
+		intraNot.checkStatus(status, arrayUser.get(0));
 	}
 	
 	@Test 
@@ -286,7 +285,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		intraNot.refuseRqConnection(arrayUser.get(0));
 		
 		info("The notification is not available / displayed in the View All page");
-		intraNot.checkStatus(status, arrayUser.get(0),statusType.refuse_connection);
+		intraNot.checkStatus(status, arrayUser.get(0));
 	}
 	
 	

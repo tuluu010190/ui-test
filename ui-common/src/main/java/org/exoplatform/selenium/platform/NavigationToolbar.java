@@ -826,5 +826,6 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_NEW_USER_NOTIFICATION_DELETE.replace("${userName}", userName));
 		click(ELEMENT_NEW_USER_NOTIFICATION_DELETE.replace("${userName}", userName));	
 	}
+	
 
 }
