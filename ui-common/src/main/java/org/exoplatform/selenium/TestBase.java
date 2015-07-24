@@ -184,7 +184,7 @@ public class TestBase {
 	public final  String DEFAULT_SQLCONTENT = "select * from textbox order by id asc";
 
 	public final String DEFAULT_SHEET="sheet1";
-	public final String DEFAULT_USERFILEURL="DataDriven/" + "usercloud.xls";
+	public final String DEFAULT_USERFILEURL="DataDriven/" + "user.xls";
 	public final String DEFAULT_ATTACHMENTFILEURL="DataDriven/" + "attachment_file.xls";
 	public final String DEFAULT_TEXTBOXFILEURL="DataDriven/" + "textbox.xls";
 	public final String DEFAULT_WIKITEMPLATEFILEURL="DataDriven/" + "wiki_template.xls";
