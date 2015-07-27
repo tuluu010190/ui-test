@@ -66,6 +66,8 @@ public class UserAddManagement extends PlatformBase {
 	 */
 	public void addUser(String userName, String Password, String email, String Firstname, String lastName){
 		info("Add an user");
+		Utils.pause(3000);
+		waitForAndGetElement(ELEMENT_USERNAME, 60000, 0);
 		type(ELEMENT_USERNAME,userName,true);
 		type(ELEMENT_PASSWORD,Password,true);
 		type(ELEMENT_CONFIRM_PASSWORD,Password,true);

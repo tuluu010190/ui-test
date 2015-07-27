@@ -46,8 +46,7 @@ public class IntranetNotification extends NotificationLocator{
 		info("Verify that Notification setting page is shown");
 		waitForAndGetElement(ELEMENT_NOTIFICATION_SETTINGS_TITLE);
 	}	
-	
-	
+
 	/**
 	 * Open detail a Comment notification
 	 * @param activity

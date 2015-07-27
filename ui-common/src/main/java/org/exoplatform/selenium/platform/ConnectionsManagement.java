@@ -30,7 +30,6 @@ public class ConnectionsManagement extends PlatformBase {
     public final By ELEMENT_SKILL_OF_PEOPLE = By.id("skills");
     public final By ELEMENT_SEARCH_BUTTON = By.id("SearchButton");
     public final String ELEMENT_USER_LINK = "//*[@class='spaceTitle']//*[contains(@href,'${userName}')]";
-   // public final String ELEMENT_USER_LINK = "//a[contains(text(),'${userName}')]";
     public final String ELEMENT_USER_AVATAR =".//*[@alt='${fullname}']";
     
     UserProfilePage myProf;
@@ -235,7 +234,6 @@ public class ConnectionsManagement extends PlatformBase {
 	public void goToUser(String fullName){
 		info("Go to User profile page");
 		searchPeople(fullName, "", "", "");
-		//click(By.xpath(ELEMENT_USER_LINK.replace("${userName}", userName)));
 		click(ELEMENT_USER_AVATAR.replace("${fullname}", fullName));
 		waitForAndGetElement(myProf.ELEMENT_NAME_OF_PROFILE_TOP_LEFT.replace("${name}", fullName));
 	}

@@ -201,8 +201,9 @@ public class NavigationToolbar extends PlatformBase {
 		info("--Go to Portal-->Sites--");
 		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL, 6000, 0);
 		mouseOver(ELEMENT_ADMINISTRATION_PORTAL,true);
-		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_SITES,3000,0);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_SITES,DEFAULT_TIMEOUT,0);
 		click(ELEMENT_ADMINISTRATION_PORTAL_SITES);
 		Utils.pause(3000);
 		waitForAndGetElement(magSites.ELEMENT_MANAGESITES_TITLE,3000,0);
@@ -652,7 +653,7 @@ public class NavigationToolbar extends PlatformBase {
 	 */
 	public void goToAdminNotifications(){
 		info("Go to email notifications");
-		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
+		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION, DEFAULT_TIMEOUT, 0);
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);
 		mouseOver(ELEMENT_ADMINISTRATION_PORTAL,true);
 		waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_EMAIL_NOTIFICATIONS,3000,0);

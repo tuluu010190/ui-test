@@ -97,7 +97,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The comment that this notification is about is highlighted.*/
 		info("Check comment notification in activity Viewer");
 		intraNot.goToDetailCommentNotification(activity, false);
-		notActivity.checkCommentInActivityViewer(comment1, "", true);
+		notAct.checkCommentInActivityViewer(comment1, "", true);
 
 		/*Step Number: 3
 		 *Step Name: Step 3: Check comment notification in the View All
@@ -360,10 +360,10 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The activity is displayed in the activity viewer with all comment expanded.*/
 		info("Check comment notification in activity Viewer");
 		intraNot.goToDetailCommentNotification(activity, false);
-		notActivity.checkCommentInActivityViewer(comment1, username1, false);
-		notActivity.checkCommentInActivityViewer(comment2, username2, false);
-		notActivity.checkCommentInActivityViewer(comment3, username3, false);
-		notActivity.checkCommentInActivityViewer(comment4, username1, false);
+		notAct.checkCommentInActivityViewer(comment1, username1, false);
+		notAct.checkCommentInActivityViewer(comment2, username2, false);
+		notAct.checkCommentInActivityViewer(comment3, username3, false);
+		notAct.checkCommentInActivityViewer(comment4, username1, false);
 
 
 		/*Step Number: 3
@@ -648,7 +648,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The activity is displayed in the activity viewer with all comment expanded.*/
 		info("Check comment notification in activity Viewer");
 		intraNot.goToDetailLikeNotification(username1, true);
-		notActivity.checkLikeInActivityViewer("1");
+		notAct.checkLikeInActivityViewer("1");
 
 		/*Step Number: 3
 		 *Step Name: Step 3: Check notification message
@@ -672,6 +672,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		intraNot.checkAvatarInStatus(users,false);
 		intraNot.checkStatus(status, username1);
 		intraNot.checkActivityTitleInStatus(activity,false);
+
 		info("Reset Data");
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
@@ -800,7 +801,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The activity is displayed in the activity viewer with all comment expanded.*/
 		info("Check comment notification in activity Viewer");
 		intraNot.goToDetailLikeNotification(username4, true);
-		notActivity.checkLikeInActivityViewer("4");
+		notAct.checkLikeInActivityViewer("4");
 
 		/*Step Number: 3
 		 *Step Name: Step 3: Check notification message
@@ -1017,7 +1018,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The activity is displayed in the activity viewer with all comments expanded.*/
 		info("check notification in activity viewer");
 		intraNot.goToDetailMentionNotification(username1, true);
-		notActivity.checkMentionInActivityViewer(activity);
+		notAct.checkMentionInActivityViewer(activity);
 
 		/*Step Number: 3
 		 *Step Name: Step 3: 
@@ -1118,7 +1119,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The activity is displayed in the activity viewer with all comments expanded. As the mention is made in a comment, this comment is highlighted.*/
 		//intraNot.gotoActivityViewer(username1, "", "1", "", false, fullName, false, true);
 		intraNot.goToDetailMentionNotification(username1, true);
-		notActivity.checkMentionInActivityViewer(activity);
+		notAct.checkMentionInActivityViewer(activity);
 
 		/*Step Number: 3
 		 *Step Name: Step 3: 
@@ -1176,7 +1177,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		hp.goToConnections();
 		connMag.acceptAConnection(userName);
 		connMag.goToUser(fullName);
-		navTool.goToMyActivities();
+		//navTool.goToMyActivities();
+		userPage.goToActivityTab();
 		hpAct.addActivity(activity, "");
 		hpAct.checkActivity(activity);
 
@@ -1214,7 +1216,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check in activity viewer");
 		intraNot.goToDetailMentionNotification(username1, true);
 		//intraNot.gotoActivityViewer(username1, activity, "1", "", false, "", false, false, true);
-		notActivity.checkMentionInActivityViewer(activity);
+		notAct.checkMentionInActivityViewer(activity);
 
 		/*Step Number: 3
 		 *Step Name: Step 3: Check View All
@@ -1327,7 +1329,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The activity is displayed in the activity viewer with all comments expanded.*/
 		info("check notification in activity viewer");
 	    intraNot.goToDetailMentionNotification(username1, true);
-	    notActivity.checkMentionInActivityViewer(activity);
+	    notAct.checkMentionInActivityViewer(activity);
 
 		/*Step Number: 3
 		 *Step Name: Step 3: Check View All

@@ -69,8 +69,8 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_MSG_CONFIRM_DELETE_GROUP = "Are you sure you want to delete this group?";
 	public final String ELEMENT_MSG_CONFIRM_DELETE_MEMBERSHIP = "Are you sure you want to delete this membership?";
 	public final String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
-	public final String ELEMENT_MSG_CONFIRM_DELETE = "Are you sure you want to delete ${userName} user?";
 	public final String ELEMENT_MSG_CONFIRM_DELETE1 = "Are you sure you want to delete";
+	public final String ELEMENT_MSG_CONFIRM_DELETE = "Are you sure you want to delete ${userName} user account?";
 	public final String ELEMENT_MSG_RESULT = "No result found.";
 	public final String ELEMENT_MSG_UPDATE_USER_PROFILE = "The user profile has been updated.";
 	public final By ELEMENT_OK_BUTTON = By.xpath("//*[contains(text(),'OK')]");
@@ -592,6 +592,7 @@ public class UserAndGroupManagement extends PlatformBase {
 			type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
 			select(ELEMENT_SELECT_SEARCH_OPTION, ELEMENT_MSG_SEARCH_USER_NAME);
 			click(ELEMENT_SEARCH_ICON_USERS_MANAGEMENT);
+			Utils.pause(3000);
 			waitForMessage(ELEMENT_MSG_RESULT);
 			dialog.closeMessageDialog();
 			searchUser("", ELEMENT_MSG_SEARCH_USER_NAME);

@@ -228,8 +228,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.goToDetailCommentNotification(activity1,false);
-		//intraNot.gotoActivityViewer(username2, activity1, "1", "", false, "", true, false, false, false, false, false, false, true);
-		notActivity.checkCommentInActivityViewer(comment, "", true);
+		notAct.checkCommentInActivityViewer(comment, "", true);
 		
 		/*Step Number: 7
 		 *Step Name: Step 7: Check Like notification
@@ -241,8 +240,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.goToDetailLikeNotification(username2, false);
-		//intraNot.gotoActivityViewer(username2, activity1, "1", "", false, "", false, false, false, false, true, false, false, true);
-		notActivity.checkLikeInActivityViewer("1");
+		notAct.checkLikeInActivityViewer("1");
 		
 		/*Step Number: 8
 		 *Step Name: Step 8: Check Mention notification
@@ -254,8 +252,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.goToDetailMentionNotification(username2, false);
-		//intraNot.gotoActivityViewer(username2, activity4, "1", "", false, "", false, true, false, false, false, false, false, true);
-		notActivity.checkMentionInActivityViewer(activity4);
+		notAct.checkMentionInActivityViewer(activity4);
 		
 		/*Step Number: 9
 		 *Step Name: Step 9: Check Post on My Space notification
@@ -267,8 +264,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.goToDetailPostInSpace(space1, false);
-		//intraNot.gotoActivityViewer(username2, activity3, "1", space1, false, "", false, false, false, true, false, false, false, true);
-		notActivity.checkMentionInActivityViewer(activity3);
+		notAct.checkMentionInActivityViewer(activity3);
 		
 		/*Step Number: 10
 		 *Step Name: Step 10: Check Post on My Stream notification
@@ -280,8 +276,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.goToDetailPostInMyActivity(username2, false);
-		//intraNot.gotoActivityViewer(username2, activity2, "1", "", false, "", false, false, true, false, false, false, false, true);
-		notActivity.checkMentionInActivityViewer(activity2);
+		notAct.checkMentionInActivityViewer(activity2);
 		
 		/*Step Number: 11
 		 *Step Name: Step 11: Check Notification Settings link

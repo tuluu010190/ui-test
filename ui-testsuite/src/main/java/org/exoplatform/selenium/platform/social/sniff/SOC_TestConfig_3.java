@@ -22,6 +22,7 @@ import org.exoplatform.selenium.platform.social.EmailNotifications;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
+import org.exoplatform.selenium.platform.social.UserPageBase;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
@@ -35,7 +36,7 @@ public class SOC_TestConfig_3 extends PlatformBase {
 	ManageLogInOut magAc;
 	UserProfilePage myProfile;
 	IntranetNotification intraNot;
-	NotificationActivity notActivity;
+	UserPageBase userPage;
 
 	NavigationToolbar navTool;
 
@@ -75,6 +76,8 @@ public class SOC_TestConfig_3 extends PlatformBase {
 		intraNot = new IntranetNotification(driver);
 		emailNot = new EmailNotifications(driver);
 		notAct = new NotificationActivity(driver);
+		userPage = new UserPageBase(driver);
+		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
@@ -92,7 +95,6 @@ public class SOC_TestConfig_3 extends PlatformBase {
 		userAndGroup = new UserAndGroupManagement(driver);
 		myProfil = new UserProfilePage(driver);
 		myNotifPage= new MyNotificationsSetting(driver);
-		notActivity = new NotificationActivity(driver);
 
 		mailSuffixData = new MailSuffixDatabase();
 		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
