@@ -20,7 +20,7 @@ public class AddUsers extends PlatformBase{
 	public By ELEMENT_LASTNAME = By.id("lastName");
 
 	public By ELEMENT_SAVE = By.xpath("//*[@id='UIAccountForm']//*[contains(text(),'Save')]");
-	
+	public By ELEMENT_CONFIRM_INFORMATION = By.xpath(".//*[text() = 'OK']");
 	/**
 	 * Add en user on the plf
 	 * @param userName
@@ -39,6 +39,7 @@ public class AddUsers extends PlatformBase{
 		type(ELEMENT_LASTNAME,lastName,true);
 		click(ELEMENT_SAVE);
 		Utils.pause(2500);
+		click(ELEMENT_CONFIRM_INFORMATION);
 	}
 	
 	/**

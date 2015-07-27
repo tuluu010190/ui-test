@@ -149,6 +149,7 @@ public class SOC_TestConfig extends PlatformBase {
 	AddUsers addUser;
 
 	CreateNewDocument CreNewDoc;
+	
 	@BeforeMethod
 	public void setUpBeforeMethod() throws Exception{
 		info("Start setUpBeforeMethod");
@@ -271,6 +272,9 @@ public class SOC_TestConfig extends PlatformBase {
 		notiEmail = new EmailNotifications(driver);
 		addUser = new AddUsers(driver);
 		
+		intranetNoti = new IntranetNotification(driver);
+		addUser = new AddUsers(driver);
+		conManagement = new ConnectionsManagement(driver);
 		info("End setUpBeforeMethod");
 	}
 

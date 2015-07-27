@@ -5,7 +5,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
-import org.exoplatform.selenium.platform.social.IntranetNotification;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -37,13 +36,14 @@ public class NavigationToolbar extends PlatformBase {
 	public final String ELEMENT_NOTIFICATION_LIST_USER = "//*[@id='NotificationPopup']/../..//*[contains(@class,'user-name text-bold')][contains(text(),'${user}')]/..";
 	public final By ELEMENT_NOTIFICATION_REMOVE_ICON = By.xpath(".//*[@id='NotificationPopup']//i[contains(@class,'uiIconClose uiIconLightGray')]");
 	public final By ELEMENT_INTRANET_NOTIFICATION_BELL = By.xpath("//*[@class='uiIconPLF24x24Bell']");
+	public final By ELEMENT_INTRANET_NOTIFICATION_NEAR_USER_AVATAR=By.xpath(".//*[contains(@class,'NotificationPopoverPortletTDContainer')]/..//following-sibling::*//img[@alt='avatar']");
 
 	public final By ELEMENT_POSITION_OF_INTRANET_NOTIFICATION = By.xpath("//*[@class='UITableColumnContainer']//*[@class='UserInfoPortletTDContainer pull-left']/../*[@class='NotificationPopoverPortletTDContainer pull-left']");
 	public final By ELEMENT_DOC_EXO_OF_HOME_GETTING_STARTED = By.xpath(".//*[@id='newBreadcrumbs']//*[contains(text(),'Getting Started')]");
 
 	// Intranet notification 
-	public final String ELEMENT_BADGE_NUMBER_DISPLAY = "//*[@class='badgeDefault badgePrimary mini badgeNotification' and @style='display: inline;' and text()='${number}']";
-	public final String ELEMENT_BADGE_NUMBER_NOT_DISPLAY = "//*[@class='badgeDefault badgePrimary mini badgeNotification' and @style='display: none;' and text()='${number}']";
+	public final String ELEMENT_BADGE_NUMBER_DISPLAY = "//*[contains(@class,'badgeDefault') and @style='display: inline;' and text()='${number}']";
+	public final By ELEMENT_BADGE_NUMBER_NOT_DISPLAY = By.xpath("//*[contains(@class,'badgeDefault') and text()='0']");
 	public final By ELEMENT_BADGE_NUMBER=By.xpath("//*[@class='badgeDefault badgePrimary mini badgeNotification']");
 	public final By ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION = By.xpath(".//*[@id='NotificationPopup']//*[contains(text(),'Mark all as read')]");
 	public final By ELEMENT_VIEW_ALL_BUTTON = By.xpath(".//*[@id='NotificationPopup']//a[text()='View All']");
@@ -74,7 +74,7 @@ public class NavigationToolbar extends PlatformBase {
 
 	//Administration Menu
 	// users 
-	public final By ELEMENT_ADMINISTRATION_USERS =By.xpath("//*[contains(@href,'g/:platform:administrators/administration/newStaff') and text()='Users']");
+	public final By ELEMENT_ADMINISTRATION_USERS =By.xpath("//*[contains(@href,'g/:platform:administrators/administration/newStaff') and text()='Community']");
 	public final By ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS = By.xpath("//*[contains(@href,'g/:platform:administrators/administration/newStaff') and text()='Add Users']");
 	public final By ELEMENT_GROUP_AND_ROLE_LINK = By.xpath(".//*[@id='UISetupPlatformToolBarPortlet']//a[contains(@href,'management')]");
 
@@ -162,14 +162,12 @@ public class NavigationToolbar extends PlatformBase {
 	PageCreationWizard paWin;
 	UserProfilePage myPro;
 	PortalManageSites magSites;
-	IntranetNotification intraNot;
 
 	public NavigationToolbar(WebDriver dr){
 		this.driver = dr;
 		paWin = new PageCreationWizard(dr);
 		myPro = new UserProfilePage(dr);
 		magSites = new PortalManageSites(dr);		
-		intraNot = new IntranetNotification(dr);
 	} 
 
 	/**

@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.WebDriver;
 
+
 public class IntranetNotification extends NotificationLocator{
 	
-	SpaceManagement spaceManage;
 	SpaceHomePage spaceHome;
 	UserProfilePage userPro;
 
@@ -758,6 +758,4 @@ public class IntranetNotification extends NotificationLocator{
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_AVATAR.
 					replace("$lastUser",user),2000,2);
 	}
-	
-	
 }

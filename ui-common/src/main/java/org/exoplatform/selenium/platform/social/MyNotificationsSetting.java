@@ -28,6 +28,9 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_RESET_CONFIRM_MSG_ELEMENT=By.xpath("//*[@id='UISocialPopupConfirmation']//*[@class='confirmationIcon contentMessage']");
 	public final String ELEMENT_RESET_CONFIRM_MSG="All your notification settings will be reset to default values. Your previous settings will be lost.";
 
+	//public final By ELEMENT_MY_NOTIFICATION_LINK = By.xpath("//*[@class='uiIconPLFNotifications']");
+	//public final By ELEMENT_MYNOTIFICATIONS_ICON_IN_MYDASHBOARD = By.xpath("//*[@class='active item']/*[contains(@href, 'notifications')]");
+	
 	//Someones join the social intranet
 	public final By ELEMENT_MY_NOTIFICATION_NEW_USER_PLUGIN=By.xpath(".//*[@for='NewUserPlugin']");
 	public final By ELEMENT_NEWUSER_ICON_EMAIL_NOTIFICATION=By.xpath(".//*[contains(@for,'NewUserPlugin')]/../..//*[contains(@class,'uiIconPLFMail')]");
