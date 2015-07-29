@@ -84,6 +84,9 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	public final String ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECT_GROUP=".//*[@id='UISocialGroupSelector']//*[contains(@title,'${name}')]";
 	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECTED_LINK=By.xpath(".//*[@id='UISocialGroupSelector']//*[contains(@data-placement,'bottom')]");
 	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROU_SELECTED_GROUP_INFO=By.xpath(".//*[@id='groupId']");
+	public final By ELEMENT_SPACE_INVITED_GROUP_BTN=By.xpath(".//*[@id='UISpaceMember']//*[contains(@class,'uiIconGroup')]");
+	public final String ELEMENT_SPACE_INVITED_GROUP_NAME="//*[contains(@title,'$name')]";
+	public final By ELEMENT_SPACE_INVITED_SELECT_GROUP=By.xpath(".//*[@id='UIUsersInGroupSelector']//*[contains(@data-placement,'bottom')]");
 
 	//Button create
 	public By ELEMENET_SPACE_CREATE_BUTTON=By.xpath("//*[@class='uiAction']/*[text()='Create']");
@@ -670,6 +673,24 @@ public class SpaceSettingManagement extends SpaceHomePage{
 		info("Select the group");
 		click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECTED_LINK);
 		waitForAndGetElement(ELEMENT_SPACE_INVITE_USERS_FROM_GROU_SELECTED_GROUP_INFO,2000,1);
+	}
+	/**
+	 * Invite users from a group
+	 * @param arrayGroupPath
+	 */
+	public void inviteGroup(String[] arrayGroupPath){
+		goToMemberTab();
+		info("Click on select group button");
+		click(ELEMENT_SPACE_INVITED_GROUP_BTN);
+		for(String group: arrayGroupPath){
+			info("Select a group:"+group);
+			click(ELEMENT_SPACE_INVITED_GROUP_NAME.replace("$name",group));
+		}
+		info("Select the group");
+		click(ELEMENT_SPACE_INVITED_SELECT_GROUP);
+		info("click on Invite button");
+		click(ELEMENT_SPACE_MEMBERS_INVITE);
+		Utils.pause(2000);
 	}
 	/**
 	 * Save all changes

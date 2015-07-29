@@ -4,14 +4,12 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.ArrayList;
 
-import org.exoplatform.selenium.Utils;
 import org.openqa.selenium.WebDriver;
-
+import org.exoplatform.selenium.Utils;
 
 public class IntranetNotification extends NotificationLocator{
 	SpaceHomePage spaceHome;
 	UserProfilePage userPro;
-
 
 	/**
 	 * constructor
@@ -298,12 +296,12 @@ public class IntranetNotification extends NotificationLocator{
 	/**
 	 * Open a detail Invitation to join a new space Notification 
 	 * @param fullName
-	 *                is user's full name
+	 *                is space's name
 	 * @param isPopup
 	 *                =true if open from the pop up
 	 *                =false if open from all notification page
 	 */
-	public void goToDetailInvitationSpace(String fullName,boolean isPopup){
+	public void goToDetailInvitationSpace(String space,boolean isPopup){
 		Utils.pause(500);
 		for (int repeat = 0;; repeat++) {
 			if (repeat > 1) {
@@ -317,10 +315,10 @@ public class IntranetNotification extends NotificationLocator{
 			info("Retry...[" + repeat + "]");
 			if (isPopup) {
 				info("View detail notification when invited to join a space from the popup");
-				click(ELEMENT_NOTIFICATION_POPUP_INVITE_SPACE.replace("$name",fullName));
+				click(ELEMENT_NOTIFICATION_POPUP_INVITE_SPACE.replace("$name",space));
 			} else {
 				info("View detail notification when invited to join a space from all notification page");
-				click(ELEMENT_NOTIFICATION_ALL_PAGE_INVITE_SPACE.replace("$name",fullName));
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_INVITE_SPACE.replace("$name",space));
 			}
 			Utils.pause(2000);
 		}
@@ -717,9 +715,8 @@ public class IntranetNotification extends NotificationLocator{
 			info("Verify the activity's title is shown in the page");
 			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_ACTIVITY_TITLE.
 					replace("$title",actTitle),2000,2);
-		}
 	}
-	
+	}
 	/**
 	 * Check avatar of notification list
 	 * @param users
@@ -758,4 +755,5 @@ public class IntranetNotification extends NotificationLocator{
 					replace("$lastUser",user),2000,2);
 	}
 
+	
 }

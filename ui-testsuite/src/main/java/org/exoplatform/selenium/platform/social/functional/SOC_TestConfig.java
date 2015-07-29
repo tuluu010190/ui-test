@@ -144,8 +144,6 @@ public class SOC_TestConfig extends PlatformBase {
 	
 	ChatStatusDatabase chatStatus;
 	ChatStatus chat;
-	IntranetNotification intranetNoti;
-	ConnectionsManagement conManagement;
 	AddUsers addUser;
 
 	
@@ -270,9 +268,6 @@ public class SOC_TestConfig extends PlatformBase {
 		notiEmail = new EmailNotifications(driver);
 		addUser = new AddUsers(driver);
 		
-		intranetNoti = new IntranetNotification(driver);
-		addUser = new AddUsers(driver);
-		conManagement = new ConnectionsManagement(driver);
 		info("End setUpBeforeMethod");
 	}
 
