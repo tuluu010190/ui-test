@@ -1,5 +1,4 @@
 package org.exoplatform.selenium.platform.acme;
-import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.gatein.ContentList;

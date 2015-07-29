@@ -28,6 +28,7 @@ import org.exoplatform.selenium.platform.social.NotificationActivity;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting;
 import org.exoplatform.selenium.platform.social.EmailNotifications;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
+import org.exoplatform.selenium.platform.social.AddUsers;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -143,6 +144,9 @@ public class SOC_TestConfig extends PlatformBase {
 	
 	ChatStatusDatabase chatStatus;
 	ChatStatus chat;
+	IntranetNotification intranetNoti;
+	ConnectionsManagement conManagement;
+	AddUsers addUser;
 
 	CreateNewDocument CreNewDoc;
 	@BeforeMethod
@@ -265,7 +269,8 @@ public class SOC_TestConfig extends PlatformBase {
 		myNotifPage= new MyNotificationsSetting(driver);
 		intraNot = new IntranetNotification(driver);
 		notiEmail = new EmailNotifications(driver);
-	
+		addUser = new AddUsers(driver);
+		
 		info("End setUpBeforeMethod");
 	}
 

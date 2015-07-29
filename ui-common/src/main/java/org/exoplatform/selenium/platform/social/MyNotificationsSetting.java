@@ -5,7 +5,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notiMode;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;

@@ -130,6 +130,7 @@ public class SOC_TestConfig2 extends PlatformBase {
 		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
 
 		comments = new ArrayList<String>();
+		arrayUser  = new ArrayList<String>();
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -150,7 +151,6 @@ public class SOC_TestConfig2 extends PlatformBase {
 	 *               is the number of users that want to create
 	 */
 	public void createNewUser(int number){
-		arrayUser  = new ArrayList<String>();
 		navTool.goToAddUser();
 		for(int i=0;i<number;i++){
 			info("Add new a user");

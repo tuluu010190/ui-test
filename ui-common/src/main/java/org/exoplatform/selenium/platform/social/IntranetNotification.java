@@ -385,6 +385,7 @@ public class IntranetNotification extends NotificationLocator{
 			}
 			Utils.pause(2000);
 		}
+
 	}
 	
 	/**
@@ -740,6 +741,23 @@ public class IntranetNotification extends NotificationLocator{
 					replace("$lastUser",users.get(lastIndex)),2000,2);
 	}
 	
+	/**
+	 * Check avatar of notification list
+	 * @param user
+	 *             is the username
+	 * @param isPopUp
+	 *             =true, if the notification list is shown in Notification list popup
+	 *             =false, if the notification list is shown in All notification list
+	 */
+	public void checkAvatarInStatus(String user, boolean isPopUp){
+		info("Verify that last user's avatar is shown in list");
+		if(isPopUp)
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_AVATAR.
+					replace("$lastUser",user),2000,2);
+		else
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ALL_AVATAR.
+					replace("$lastUser",user),2000,2);
+	}
 	
 	
 }

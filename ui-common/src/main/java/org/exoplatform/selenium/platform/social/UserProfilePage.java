@@ -129,6 +129,7 @@ public class UserProfilePage extends PlatformBase {
 	public final By ELEMENT_UIMINICONNECTIONS_PORLET_DISCONNECTED_STATUS=By.xpath(".//*[@id='UIActionProfilePortlet']//*[@class='btn hide-default']/*[@class='uiIconStatusDisconnect']");
 	public final By ELEMENT_UIMINICONNECTIONS_PORTLET_DENY_STATUS=By.xpath(".//*[@id='UIRelationshipAction']//*[@class='uiIconStatusDeny']/..");
 	public final By ELEMENT_UIMINICONNECTIONS_PORTLET_TITLE = By.xpath(".//*[@id='UIMiniConnectionsPortlet']/h4[contains(text(),'Connections')]");
+	//public final String ELEMENT_ACTIVITIES_TAB =".//*[text() = 'Activities']";
 	/**
 	 * constructor
 	 * @param dr
@@ -367,5 +368,5 @@ public class UserProfilePage extends PlatformBase {
 		info("Click on Activity tab");
 		click(ELEMETN_ACTIVITY_TAB);
 		Utils.pause(3000);
-	}
+    }
 }
