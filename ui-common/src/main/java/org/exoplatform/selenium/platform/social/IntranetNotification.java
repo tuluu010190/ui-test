@@ -425,15 +425,15 @@ public class IntranetNotification extends NotificationLocator{
 		Utils.pause(500);
 		for (int repeat = 0;; repeat++) {
 				if (repeat > 1) {
-					if (waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName),3000,0) == null);
+					if (waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$name",fullName),3000,0) == null);
 					break;
 				}
-				if (waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName),5000,0) == null) {
+				if (waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$name",fullName),5000,0) == null) {
 					break;
 			}
 			info("Retry...[" + repeat + "]");
 			info("Click on Accept button");
-			click(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
+			click(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$name",fullName));
 			Utils.pause(5000);
 		}
 	}
@@ -445,16 +445,16 @@ public class IntranetNotification extends NotificationLocator{
 		Utils.pause(500);
 		for (int repeat = 0;; repeat++) {
 			if (repeat > 1) {
-				if (waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName),3000,0) == null);
+				if (waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$name",fullName),3000,0) == null);
 				break;
 			}
-			if (waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName),5000,0) == null) {
-				info("Element " + ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName)+ " isnot displayed");
+			if (waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$name",fullName),5000,0) == null) {
+				info("Element " + ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$name",fullName)+ " isnot displayed");
 				break;
 			}
 			info("Retry...[" + repeat + "]");
 			info("Click on Refuse button");
-			click(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName));
+			click(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$name",fullName));
 			Utils.pause(2000);
 		}
 	}
@@ -462,13 +462,14 @@ public class IntranetNotification extends NotificationLocator{
 
 	/**
 	 * Check Accept and Refuse buttons are shown in Notification popup and page
-	 * @param fullName
+	 * @param name
+	 *            is here maybe as fullName of a user, space's name
 	 */
-	public void checkBtnConnectRequest(String fullName){
+	public void checkBtnConnectJoinRequest(String name){
 		info("Verify that Accept button are shown on the popup");
-		waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
+		waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$name",name));
 		info("Verify that Refuse button are shown on the popup");
-		waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName));
+		waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$name",name));
 	}
 	
 

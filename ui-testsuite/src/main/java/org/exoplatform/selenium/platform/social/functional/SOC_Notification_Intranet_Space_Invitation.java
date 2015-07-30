@@ -87,7 +87,7 @@ import org.testng.annotations.*;
 		navTool.goToIntranetNotification();
 		intraNot.checkAvatarInStatus(spaceName, true);
 		intraNot.checkStatusSpace(status,spaceName);
-		intraNot.checkBtnConnectRequest(spaceName);
+		intraNot.checkBtnConnectJoinRequest(spaceName);
 
 		/*Step number: 3
 		*Step Name: Step 3 : Click Notification
@@ -521,7 +521,7 @@ import org.testng.annotations.*;
 		navTool.goToIntranetNotification();
 		intraNot.checkAvatarInStatus(spaceName, true);
 		intraNot.checkStatusSpace(status,spaceName);
-		intraNot.checkBtnConnectRequest(spaceName);
+		intraNot.checkBtnConnectJoinRequest(spaceName);
 
 		/*Step number: 3
 		*Step Name: Step 3 : Click Notification

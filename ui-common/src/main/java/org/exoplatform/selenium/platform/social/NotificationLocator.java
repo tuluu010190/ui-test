@@ -150,8 +150,8 @@ public class NotificationLocator extends PlatformBase{
 
 	//Connection
 	public final String ELEMENT_CONNECT_NOTIFICATION = "//*[contains(text(),'${fullName}')]/../..//*[contains(.,'wants to connect with you')]";
-	public final String ELEMENT_CONNECT_ACCEPT_BUTTON = ".//*[contains(text(),'$fullName')]/../..//*[contains(@class,'action-item')]";
-	public final String ELEMENT_CONNECT_REFUSE_BUTTON = ".//*[contains(text(),'$fullName')]/../..//*[contains(@class,'cancel-item')]";
+	public final String ELEMENT_CONNECT_ACCEPT_BUTTON = ".//*[contains(text(),'$name')]/../..//*[contains(@class,'action-item')]";
+	public final String ELEMENT_CONNECT_REFUSE_BUTTON = ".//*[contains(text(),'$name')]/../..//*[contains(@class,'cancel-item')]";
 
 	
 	//Space Notification

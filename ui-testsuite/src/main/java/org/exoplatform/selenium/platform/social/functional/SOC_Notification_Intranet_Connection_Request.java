@@ -59,7 +59,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		intraNot.checkAvatarInStatus(arrayUser,true);
 		intraNot.checkUsers(arrayUser,true);
 		intraNot.checkStatus(status, arrayUser.get(0));
-		intraNot.checkBtnConnectRequest(arrayUser.get(0));
+		intraNot.checkBtnConnectJoinRequest(arrayUser.get(0));
 		
 		
 		/*

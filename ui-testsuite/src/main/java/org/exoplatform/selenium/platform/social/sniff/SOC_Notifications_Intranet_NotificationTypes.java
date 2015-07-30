@@ -448,7 +448,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check connection request notification in notification list");
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
-		intraNot.checkBtnConnectRequest(fullName);
+		intraNot.checkBtnConnectJoinRequest(fullName);
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: Check notification area
@@ -536,7 +536,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("check connection request in intranet notification list");
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
-		intraNot.checkBtnConnectRequest(fullName);
+		intraNot.checkBtnConnectJoinRequest(fullName);
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: Check View All
@@ -546,7 +546,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		 *Expected Outcome: 
 			- The notification is displayed in the page View All*/
 		intraNot.goToAllNotification();
-		intraNot.checkBtnConnectRequest(fullName);
+		intraNot.checkBtnConnectJoinRequest(fullName);
 		
 		/*Step Number: 4
 		 *Step Name: Step 4: Refuse

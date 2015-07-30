@@ -262,6 +262,7 @@ public class SOC_TestConfig extends PlatformBase {
 		chatStatus.setChatStatusData(chatStatusFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		chat = new ChatStatus(driver);
 		
+		
 		emailNotif = new NotificationsAdminSeting(driver);
 		myNotifPage= new MyNotificationsSetting(driver);
 		intraNot = new IntranetNotification(driver);

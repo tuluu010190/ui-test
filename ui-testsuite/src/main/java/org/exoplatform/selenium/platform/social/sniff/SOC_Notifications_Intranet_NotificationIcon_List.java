@@ -325,7 +325,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		info("The link [Mark as read] is displayed");
 		waitForAndGetElement(navTool.ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION);
 		info("The notification generated (Connection request) is displayed in the list");
-		intraNot.checkBtnConnectRequest(fullName);
+		intraNot.checkBtnConnectJoinRequest(fullName);
 		
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
@@ -486,7 +486,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 			- The connection request notifications is displayed*/
 		info("User 1 check notification in notification list");
 		navTool.goToIntranetNotification();
-		intraNot.checkBtnConnectRequest(username2);
+		intraNot.checkBtnConnectJoinRequest(username2);
 		/*Step Number: 4
 		 *Step Name: Step 4: 
 		 *Step Description: 
