@@ -105,7 +105,7 @@ public class SOC_TestConfig_3 extends PlatformBase {
 		info("Enable like and new user notifications");
 		navTool.goToMyNotifications();
 		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("End setUpBeforeClass");
 	}

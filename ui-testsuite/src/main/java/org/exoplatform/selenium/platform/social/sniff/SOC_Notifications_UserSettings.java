@@ -349,7 +349,7 @@ import org.testng.annotations.*;
 			The settings is saved*/
 		info("goto My notification page");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Mention_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Mention_intranet);
 		
 		/*Step number: 2
 		*Step Name: Step 2 : Check settings
@@ -388,7 +388,7 @@ import org.testng.annotations.*;
 			No intranet notification is displayed in the notifications list.*/ 
 		info("goto My notification page");
 		navTool.goToMyNotifications();
-		myNotifPage.disableNotification(myNotiType.Mention_intranet);
+		myNotifPage.disableNotification(myNotiType.AS_Mention_intranet);
 		
 		info("login by another user");
 		magAc.signOut();

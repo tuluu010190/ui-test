@@ -66,8 +66,8 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_intranet);
-		myNoti.enableNotification(myNotiType.Like_intranet);
+		myNoti.enableNotification(myNotiType.AS_Comment_intranet);
+		myNoti.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("User A sent a connection request to User B");
 		Utils.pause(3000);
@@ -264,8 +264,8 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_intranet);
-		myNoti.enableNotification(myNotiType.Like_intranet);
+		myNoti.enableNotification(myNotiType.AS_Comment_intranet);
+		myNoti.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("User A sent a connection request to User B");
 		Utils.pause(3000);
@@ -411,8 +411,8 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_intranet);
-		myNoti.enableNotification(myNotiType.Like_intranet);
+		myNoti.enableNotification(myNotiType.AS_Comment_intranet);
+		myNoti.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("User A sent a connection request to User B");
 		Utils.pause(3000);
@@ -624,8 +624,8 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_intranet);
-		myNoti.enableNotification(myNotiType.Like_intranet);
+		myNoti.enableNotification(myNotiType.AS_Comment_intranet);
+		myNoti.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("User A sent a connection request to User B");
 		Utils.pause(3000);
@@ -771,8 +771,8 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_intranet);
-		myNoti.enableNotification(myNotiType.Like_intranet);
+		myNoti.enableNotification(myNotiType.AS_Comment_intranet);
+		myNoti.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("User A sent a connection request to User B");
 		Utils.pause(3000);
@@ -930,8 +930,8 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_intranet);
-		myNoti.enableNotification(myNotiType.Like_intranet);
+		myNoti.enableNotification(myNotiType.AS_Comment_intranet);
+		myNoti.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("User A sent a connection request to User B");
 		Utils.pause(3000);
@@ -1114,8 +1114,8 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_intranet);
-		myNoti.enableNotification(myNotiType.Like_intranet);
+		myNoti.enableNotification(myNotiType.AS_Comment_intranet);
+		myNoti.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("User A sent a connection request to User B");
 		Utils.pause(3000);

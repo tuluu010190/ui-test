@@ -38,7 +38,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Post_intranet);
+		myNoti.enableNotification(myNotiType.AS_Post_intranet);
 		
 		
 		info("User A sent a connection request to User B");
@@ -122,7 +122,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Post_intranet);
+		myNoti.enableNotification(myNotiType.AS_Post_intranet);
 		
 		
 		info("User A sent a connection request to User B");
@@ -201,7 +201,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Post_intranet);
+		myNoti.enableNotification(myNotiType.AS_Post_intranet);
 		
 		
 		info("User A sent a connection request to User B");

@@ -40,7 +40,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.ReqJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Join_Req_intranet);
 		
 		info("User A create a new space");
 		String spaceName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -129,7 +129,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.ReqJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Join_Req_intranet);
 		
 		info("User A create a new space");
 		String spaceName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -234,7 +234,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.ReqJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Join_Req_intranet);
 		
 		info("User A create a new space");
 		String spaceName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -316,7 +316,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.ReqJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Join_Req_intranet);
 		
 		info("User A create a new space");
 		String spaceName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -392,7 +392,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.ReqJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Join_Req_intranet);
 		
 		info("User A create a new space");
 		String spaceName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();

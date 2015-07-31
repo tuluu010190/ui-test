@@ -41,7 +41,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.PostSpace_intranet);
+		myNoti.enableNotification(myNotiType.Space_Post_intranet);
 		
 		info("User A create a new space");
 		String spaceName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -129,7 +129,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.PostSpace_intranet);
+		myNoti.enableNotification(myNotiType.Space_Post_intranet);
 		
 		info("User A create a new space");
 		String spaceName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
@@ -210,7 +210,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.PostSpace_intranet);
+		myNoti.enableNotification(myNotiType.Space_Post_intranet);
 		
 		info("User A create a new space");
 		String spaceName= txData.getContentByArrayTypeRandom(1)+getRandomNumber();

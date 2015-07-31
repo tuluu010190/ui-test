@@ -40,7 +40,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.InvJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Invitation_Intranet);
 		
 		
 		info("User B login");
@@ -133,7 +133,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.InvJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Invitation_Intranet);
 		
 		
 		info("User B login");
@@ -227,7 +227,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.InvJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Invitation_Intranet);
 		
 		
 		info("User B login");
@@ -311,7 +311,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.InvJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Invitation_Intranet);
 		
 		
 		info("User B login");
@@ -387,7 +387,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.InvJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Invitation_Intranet);
 		
 		
 		info("User B login");
@@ -476,7 +476,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.InvJoin_intranet);
+		myNoti.enableNotification(myNotiType.Space_Invitation_Intranet);
 		
 		
 		info("User B login");

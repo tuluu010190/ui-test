@@ -86,7 +86,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_email);
+		myNoti.enableNotification(myNotiType.AS_Comment_email);
 		
 		info("Change email address");
 		navTool.goToMyProfile();
@@ -156,7 +156,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_email);
+		myNoti.enableNotification(myNotiType.AS_Comment_email);
 		
 		info("Change email address");
 		navTool.goToMyProfile();
@@ -379,7 +379,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_email);
+		myNoti.enableNotification(myNotiType.AS_Comment_email);
 		
 		info("Change email address");
 		navTool.goToMyProfile();
@@ -587,7 +587,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_email);
+		myNoti.enableNotification(myNotiType.AS_Comment_email);
 		
 		info("Change email address");
 		navTool.goToMyProfile();
@@ -704,7 +704,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.Comment_email);
+		myNoti.enableNotification(myNotiType.AS_Comment_email);
 		
 		info("Change email address");
 		navTool.goToMyProfile();

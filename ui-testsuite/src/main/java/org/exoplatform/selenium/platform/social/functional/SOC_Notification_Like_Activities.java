@@ -37,7 +37,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with user");
 		hp.goToConnections();
@@ -130,7 +130,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username2, password2, email2, username2, username2);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with 2 users");
 		hp.goToConnections();
@@ -249,7 +249,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		
 		info ("Connect with 4 users");
@@ -368,7 +368,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with user");
 		hp.goToConnections();
@@ -456,7 +456,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with user");
 		hp.goToConnections();
@@ -541,7 +541,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with user");
 		hp.goToConnections();
@@ -625,7 +625,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with user");
 		hp.goToConnections();
@@ -713,7 +713,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username2, password2, email2, username2, username2);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with user");
 		hp.goToConnections();
@@ -831,7 +831,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with user");
 		hp.goToConnections();
@@ -966,7 +966,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username2, password2, email2, username2, username2);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with 2 users");
 		hp.goToConnections();
@@ -1052,7 +1052,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		addUserPage.addUser(username2, password2, email2, username2, username2);
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		Utils.pause(3000);
 		info ("Connect with user");
 		hp.goToConnections();

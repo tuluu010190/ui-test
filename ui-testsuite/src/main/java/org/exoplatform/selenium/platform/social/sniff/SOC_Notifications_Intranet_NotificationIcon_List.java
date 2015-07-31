@@ -150,7 +150,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		magAc.signIn(username1, password1);
 		navTool.goToMyNotifications();
 		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("Connect to user 2");
 		hp.goToConnections();
@@ -363,7 +363,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		magAc.signIn(username1, password1);
 		navTool.goToMyNotifications();
 		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("Connect to user 2");
 		hp.goToConnections();

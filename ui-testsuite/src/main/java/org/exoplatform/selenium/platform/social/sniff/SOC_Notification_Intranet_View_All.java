@@ -75,7 +75,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		magAc.signIn(username1, password1);
 		navTool.goToMyNotifications();
 		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 		
 		info("Create notifications for user 1");
 		magAc.signIn(DATA_USER1, DATA_PASS);

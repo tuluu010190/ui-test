@@ -124,7 +124,7 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		 *Expected Outcome: 
 			- The change is saved*/
 		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 
 		/*Step number: 3
 		 *Step Name: Step 3: Check notification settings by other user
@@ -139,7 +139,7 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		navTool.goToMyNotifications();
 		waitForAndGetElement(myNotifPage.ELEMENT_MY_NOTIFICATION_SETTING_FORM);
 		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_NEWUSER_WEB_ICON);
-		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_LIKE_WEB_ICON);
+		waitForElementNotPresent(myNotifPage.ELEMENT_LIKE_WEB_ICON);
 	}
 
 	/**
@@ -174,7 +174,7 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		navTool.goToMyNotifications();
 		waitForAndGetElement(myNotifPage.ELEMENT_MY_NOTIFICATION_SETTING_FORM);
 		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
-		myNotifPage.enableNotification(myNotiType.Like_intranet);
+		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 
 		/*Step number: 3
 		 *Step Name: Step 3: Check [Reset] button when Cancel
@@ -192,7 +192,7 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		assert elem.getText().contains(myNotifPage.ELEMENT_RESET_CONFIRM_MSG);
 		click(myNotifPage.ELEMENT_RESET_CANCEL);
 		waitForAndGetElement(myNotifPage.ELEMENT_EDIT_NEWUSER_WEB_ICON);
-		waitForAndGetElement(myNotifPage.ELEMENT_EDIT_LIKE_WEB_ICON);
+		waitForAndGetElement(myNotifPage.ELEMENT_LIKE_WEB_ICON);
 
 
 		/*Step number: 2
@@ -211,6 +211,6 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		assert elem.getText().contains(myNotifPage.ELEMENT_RESET_CONFIRM_MSG);
 		click(myNotifPage.ELEMENT_RESET_CONFIRM);
 		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_NEWUSER_WEB_ICON);
-		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_LIKE_WEB_ICON);
+		waitForElementNotPresent(myNotifPage.ELEMENT_LIKE_WEB_ICON);
 	}
 }
