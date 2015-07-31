@@ -184,7 +184,8 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 			- The user is redirected to the profile of User B*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.goToUserProfileFromIntranetNotificationWithNewUserJoined(username2, "1", true);
+		intraNot.goToDetailNewUserJoinIntranet(username2, true);
+		//intraNot.goToUserProfileFromIntranetNotificationWithNewUserJoined(username2, "1", true);
 		
 		/*Step Number: 4
 		 *Step Name: Step 4: Check Space Invitation notification
@@ -225,7 +226,8 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 			- The activity is displayed in the activity viewer with all comment expanded.*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.gotoActivityViewer(username2, activity1, "1", "", false, "", true, false, false, false, false, false, false, true);
+		intraNot.goToDetailCommentNotification(activity1,false);
+		//intraNot.gotoActivityViewer(username2, activity1, "1", "", false, "", true, false, false, false, false, false, false, true);
 		intraNot.checkCommentInActivityViewer(comment, "", true);
 		
 		/*Step Number: 7
@@ -237,7 +239,8 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 			- The activity is displayed in the activity viewer with all comment expanded..*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.gotoActivityViewer(username2, activity1, "1", "", false, "", false, false, false, false, true, false, false, true);
+		intraNot.goToDetailLikeNotification(username2, false);
+		//intraNot.gotoActivityViewer(username2, activity1, "1", "", false, "", false, false, false, false, true, false, false, true);
 		intraNot.checkLikeInActivityViewer("1");
 		
 		/*Step Number: 8
@@ -249,7 +252,8 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 			- The user is redirected to the activity in the activity viewer with all comments expanded*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.gotoActivityViewer(username2, activity4, "1", "", false, "", false, true, false, false, false, false, false, true);
+		intraNot.goToDetailMentionNotification(username2, false);
+		//intraNot.gotoActivityViewer(username2, activity4, "1", "", false, "", false, true, false, false, false, false, false, true);
 		intraNot.checkMentionInActivityViewer(activity4);
 		
 		/*Step Number: 9
@@ -261,7 +265,8 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 			- The activity is displayed  in the activity viewer with all comments expanded*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.gotoActivityViewer(username2, activity3, "1", space1, false, "", false, false, false, true, false, false, false, true);
+		intraNot.goToDetailPostInSpace(space1, false);
+		//intraNot.gotoActivityViewer(username2, activity3, "1", space1, false, "", false, false, false, true, false, false, false, true);
 		intraNot.checkMentionInActivityViewer(activity3);
 		
 		/*Step Number: 10
@@ -273,7 +278,8 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 			- The activity is displayed  in the activity viewer with all comments expanded*/
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.gotoActivityViewer(username2, activity2, "1", "", false, "", false, false, true, false, false, false, false, true);
+		intraNot.goToDetailPostInMyActivity(username2, false);
+		//intraNot.gotoActivityViewer(username2, activity2, "1", "", false, "", false, false, true, false, false, false, false, true);
 		intraNot.checkMentionInActivityViewer(activity2);
 		
 		/*Step Number: 11

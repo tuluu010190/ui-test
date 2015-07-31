@@ -2324,6 +2324,15 @@ public class TestBase {
 		JavascriptExecutor jse = (JavascriptExecutor) driver;
 		jse.executeScript("arguments[0].scrollIntoView(true);", element);
 	}
+	/**
+	 * Scroll to bottom of the page of website
+	 * @param driver
+	 */
+	public static void scrollToBottomPage(WebDriver driver){
+		info("Scroll to the bottom of the page");
+		JavascriptExecutor jse = (JavascriptExecutor) driver;
+		jse.executeScript("window.scrollTo(0, document.body.scrollHeight)");
+	}
 
 	/**
 	 *This function will try to get an element. if after timeout, the element is not found.

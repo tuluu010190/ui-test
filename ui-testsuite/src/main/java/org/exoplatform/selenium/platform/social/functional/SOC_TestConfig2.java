@@ -156,6 +156,7 @@ public class SOC_TestConfig2 extends PlatformBase {
 			addUserPage.addUser(user,password, email,user,user);
 			info("Add users to user's array");
 			arrayUser.add(user);
+			info("User"+i+": "+user);
 		}
 	}
 	

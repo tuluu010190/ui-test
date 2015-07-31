@@ -274,8 +274,6 @@ public class HomePagePlatform extends TestBase{
 		info("--Go to Home page--");
 		info("Click on Home link of intranet page");
 		click(ELEMENT_HOME_LINK_PLF);
-//		info("Verify that the home page of intranet is shown");
-//		waitForAndGetElement(ELEMENT_HOMPAGE_MIDDLE_PANEL);
 		info("the intranet is shown sucessfully"); 
 		Utils.pause(2000);
 	}
@@ -363,7 +361,16 @@ public class HomePagePlatform extends TestBase{
      */
 	public void goToSpecificSpace(String space){
 		info("Go to space "+space);
-		click(By.xpath(ELEMENT_SPECIFIC_PANEL.replace("{$space}",space)));
+		click(ELEMENT_SPECIFIC_PANEL.replace("{$space}",space));
+		Utils.pause(3000);
+	}
+	/**
+	 * Open friend profile page
+	 * @param username
+	 */
+	public void goToFriendProfilePage(String username){
+		info("Go to Friend profile page");
+		this.driver.get(baseUrl+"/intranet/profile/"+username);
 		Utils.pause(2000);
 	}
 

@@ -135,7 +135,7 @@ import org.testng.annotations.*;
 		navTool.goToIntranetNotification();
 		
 		info("Click 1 notification area of a like notification");
-		intraNot.goToDetailANotificaitonByIndex(3);
+		intraNot.goToDetailLikeNotification(arrayUser.get(1), true);
 		waitForAndGetElement(intraNot.ELEMENT_INTRANET_NOTIFICATION_DETAIL_ACTIVITY_DES.replace("$des",activity));
 		
 		/*Step number: 3
@@ -323,7 +323,7 @@ import org.testng.annotations.*;
 		
 		Utils.pause(3000);
 		info("Click 1 notification area of a like notification");
-		intraNot.goToDetailANotificaitonByIndex(3);
+		intraNot.goToDetailLikeNotification(arrayUser.get(1),true);
 		waitForAndGetElement(intraNot.ELEMENT_INTRANET_NOTIFICATION_DETAIL_ACTIVITY_DES.replace("$des",activity));
 
 		/*Step number: 2
@@ -813,7 +813,7 @@ import org.testng.annotations.*;
 		
 		info("View comment notification of User A");
 		navTool.goToIntranetNotification();
-		intraNot.goToDetailANotificaitonByIndex(1);
+		intraNot.goToDetailCommentNotification(activity, true);
 		
 		info("User B login");
 		magAc.signOut();

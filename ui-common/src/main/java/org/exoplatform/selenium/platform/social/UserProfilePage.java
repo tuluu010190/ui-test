@@ -37,7 +37,7 @@ public class UserProfilePage extends PlatformBase {
 	
 	//Navigation tabs
 	public final By ELEMENT_MY_PROFILE_TAB = By.xpath("//*[@class='nav nav-tabs userNavigation']//*[@class='uiIconAppprofile uiIconDefaultApp']");
-
+    public final By ELEMETN_ACTIVITY_TAB=By.xpath(".//*[contains(@class,'uiIconAppactivities')]");
 	//Current position
 	public final By ELEMENT_EDIT_POSITION = By.xpath("//*[@id='UIHeaderSection']//*[@class='uiIconEdit']");
 	
@@ -358,5 +358,13 @@ public class UserProfilePage extends PlatformBase {
 			click(ELEMENT_CONTACT_CANCEL_BUTTON);
 			Utils.pause(2000);	
 		}	
+	}
+	/**
+	 * Open Activity tab
+	 */
+	public void goToActivity(){
+		info("Click on Activity tab");
+		click(ELEMETN_ACTIVITY_TAB);
+		Utils.pause(3000);
 	}
 }

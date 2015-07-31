@@ -4,45 +4,74 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import java.util.ArrayList;
 
-import org.exoplatform.selenium.platform.ConnectionsManagement;
-import org.exoplatform.selenium.platform.HomePagePlatform;
-import org.exoplatform.selenium.platform.ManageLogInOut;
-import org.exoplatform.selenium.platform.NavigationToolbar;
+import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.exoplatform.selenium.Utils;
 
 public class IntranetNotification extends PlatformBase{
 
 	public final By ELEMENT_NOTIFICATION_POP_UP = By.id("NotificationPopup");
 	public final String ELEMENT_USER_AVATAR = "//*[contains(@alt,'${userName}')]";
-
-	//Notificaiton list popup
+	
+	//Notification popup list. Here, $name parameter is fullName or space's name
+	public final String ELEMENT_NOTIFICATION_POPUP_MENTION=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'mentioned')]//*[contains(@class,'user-name')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_REQUEST_CONNECT=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'connect')]//*[contains(@class,'user-name')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_COMMENT=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'commented')]/../..//*[@class='content'][contains(.,'$activity')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_NEW_USER_JOIN_INTRANET=".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_LIKE=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'likes')]//*[contains(@class,'user-name')][contains(text(),'$user')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_ACCEPT_REQUEST_CONNECT=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'connected')]//*[contains(@class,'user-name')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_ACCEPT_INVITE_SPACE=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'joined space')]//*[contains(@class,'text-bold')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_INVITE_SPACE=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'invited')]//*[contains(@class,'text-bold')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_JOIN_SPACE=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'joined space')]//*[contains(@href,'javascript:void(0)')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_POST_IN_SPACE=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'posted')]/.//*[contains(text(),'$space')]/..//*[contains(@href,'javascript:void(0)')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_POST_IN_MY_ACTIVITY=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'posted')][contains(text(),'activity stream')]//*[contains(@href,'javascript:void(0)')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_POPUP_REQUEST_JOIN_SPACE=".//*[@id='NotificationPopup']//*[@class='status'][contains(.,'requested')]//*[contains(@href,'javascript:void(0)')][contains(text(),'$name')]";
+	
 	public final String ELEMENT_INTRANET_NOTIFICATION_USER=".//*[@id='NotificationPopup']//*[contains(@class,'user-name')][contains(text(),'$user')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER=".//*[contains(@class,'badgeNotification')][contains(text(),'$num')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_AVATAR=".//*[@id='NotificationPopup']//*[contains(@class,'avatarXSmall')]//*[contains(@alt,'$lastUser')]";
 	public final By ELEMENT_VIEW_ALL = By.linkText("View All");
-	public final By ELEMENT_INTRANET_NOTIFICATION_POPUP_STATUS=By.xpath(".//*[@id='NotificationPopup']//*[@class='status']");
-	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_ACCEPT_CONNECTION=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
-	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_SEND_CONNECTION=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS=".//*[@class='status'][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_SPACE=".//*[@class='status'][contains(.,\"$status\")]//*[contains(@class,'text-bold')][contains(text(),'$space')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_STATUS_ORDER="(.//*[@class='status'])[$num][contains(.,'$status')]//*[contains(text(),'$fullName')]";
-	public final By     ELEMENT_INTRANET_NOTIFICATION_PAGE_FIRST_NOTIFICATION=By.xpath("(.//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'uiIcon')])[1]");
-	public final String ELEMENT_INTRANET_NOTIFICATION_ORDER_NOTIFICATION="(.//*[@id='NotificationPopup']//*[contains(@class,'status')])[$num]";
-	public final By ELEMENT_NOTIFICATION_SETTINGS_LINK = By.linkText("Notifications Settings");
+	
 	public final String ELEMENT_NOTIFICATION_SETTINGS_TITLE = ".//*[@id='uiNotificationSetting']//h3[text()='Notification Settings']";
     public final String ELEMENT_INTRANET_NOTIFICATION_UNREAD=".//*[contains(@class,'unread')][contains(.,'$status')]//*[contains(@class,'user-name')][contains(text(),'$fullName')]";
 	public final By ELEMENT_INTRANET_NOTIFICATION_MARK_ALL_AS_READ=By.xpath(".//*[@id='NotificationPopup']//*[contains(@class,'markAll')]/a");
 	public final String ELEMENT_INTRANET_NOTIFICATION_REMOVE_ICON="(.//*[@id='NotificationPopup']//*[contains(@class,'uiIconClose')])[$num]";
 	public final By ELEMENT_INTRANET_NOTIFICATION_EMPTY_LIST=By.xpath(".//*[@id='NotificationPopup']//*[contains(@class,'no-items')][contains(text(),'No notifications')]");
+	
+	
+	//All notification page list
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_MENTION=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'mentioned')]//*[contains(@class,'user-name')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_REQUEST_CONNECT=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'connect')]//*[contains(@class,'user-name')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_COMMENT=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'commented')]/../..//*[@class='content'][contains(.,'$activity')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_NEW_USER_JOIN_INTRANET=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'has joined')]//*[contains(@class,'user-name')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_LIKE=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'likes')]//*[contains(@class,'user-name')][contains(text(),'$user')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_ACCEPT_REQUEST_CONNECT=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'connected')]//*[contains(@class,'user-name')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_ACCEPT_INVITE_SPACE=".//*[@id='UIIntranetNotificationsPortlet']//*[contains(.,'joined')]//*[contains(text(),'$space')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_INVITE_SPACE=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'invited')]//*[contains(@class,'text-bold')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_JOIN_SPACE=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'joined space')]//*[contains(@href,'javascript:void(0)')][contains(text(),'$name')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_POST_IN_SPACE=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'posted')]/.//*[contains(text(),'$space')]/..//*[contains(@href,'javascript:void(0)')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_POST_IN_MY_ACTIVITY=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'posted')][contains(text(),'activity stream')]//*[contains(@href,'javascript:void(0)')]";
+	public final String ELEMENT_NOTIFICATION_ALL_PAGE_REQUEST_JOIN_SPACE=".//*[@id='UIIntranetNotificationsPortlet']//*[@class='status'][contains(.,'requested')]//*[contains(@href,'javascript:void(0)')][contains(text(),'$name')]";
+	
+	
+	
+	//Activity detail
+	public final By ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER=By.xpath(".//*[@id='UIActivitiesLoader']");
+	public final By ELEMENT_NOTIFICATION_UI_SPACE_ACCESS_PORTLET=By.xpath(".//*[@id='UISpaceAccessPortlet']");
+	public final String ELEMENT_NOTIFICATION_ACTIVITY_TITLE_CONTENT=".//*[@id='boxContainer']//*[contains(text(),'$text')]";
+	
+	
 	//comment
 	public final String ELEMENT_INTRANET_NOTIFICATION_COMMENTS_CONTENT=".//*[@id='NotificationPopup']//*[contains(@class,'status')][contains(.,'$comment')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE=".//*[@id='NotificationPopup']//*[@class='content'][contains(.,'$title')]";
-	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_DETAIL=".//*[@class='description'][contains(text(),'$activity')]";
-	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_HIGHLIGHT=".//*[contains(text(),'$comment')]/../../..[contains(@style,'rgb(240, 240, 240)')]";
-	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_CONTENT=".//*[contains(text(),'$comment')]";
+	//public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_DETAIL=".//*[@class='description'][contains(text(),'$activity')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_HIGHLIGHT=".//*[@class='contentComment'][contains(.,'$comment')]/../../..[contains(@style,'rgb(240, 240, 240)')]";
+	public final String ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_CONTENT=".//*[@class='contentComment'][contains(.,'$comment')]";
 	
 	public final String ELEMENT_COMMENT_ONE_MINUTE = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'${time} minute ago')]";
 	public final String ELEMENT_COMMENT_JUST_NOW = "//*[contains(@alt,'${userName}')]/../..//*[contains(.,'has commented on your activity.')]//*[contains(text(), '${userName}')]/../..//*[contains(text(),'${activity}')]/..//*[@class='lastUpdatedTime' and contains(text(),'Just Now')]";
@@ -65,7 +94,7 @@ public class IntranetNotification extends PlatformBase{
 	//Time Date intranet
 	public final String ELEMET_JUST_NOW_STRING="Just Now";
 	public final String ELEMET_MINUTE_STRING="${number} minutes ago";
-	public final String ELEMET_HOUR_STRING="${number} hours ago";
+	//public final String ELEMET_HOUR_STRING="${number} hours ago";
 
 	//Time locator
 	public final String ELEMENT_TIME_NOTIFICATION_LOCATOR="/parent::div/descendant::div[@class='lastUpdatedTime' and text()='${time}']";
@@ -177,17 +206,14 @@ public class IntranetNotification extends PlatformBase{
 	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_USER=".//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'user-name')][contains(text(),'$user')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_COMMENTS_CONTENT=".//*[@id='UIIntranetNotificationsPortlet']//*[contains(@class,'status')][contains(.,'$comment')]";
 	public final String ELEMENT_INTRANET_NOTIFICATION_ALL_ACTIVITY_TITLE=".//*[@id='NotificationPopup']//*[@class='content'][contains(.,'$title')]";
-
+	public final By ELEMENT_NOTIFICATION_SETTINGS_LINK = By.linkText("Notifications Settings");
 	
 	//Detail an activity 
 	public final String ELEMENT_INTRANET_NOTIFICATION_DETAIL_ACTIVITY_DES=".//*[@class='description'][contains(text(),'$des')]";
 	
-	//MyProfilePage myProf;
-	NavigationToolbar navTool;
-	HomePagePlatform hp;
-	ConnectionsManagement connMag;
 	SpaceManagement spaceManage;
-	ManageLogInOut magAc;
+	SpaceHomePage spaceHome;
+	UserProfilePage userPro;
 
 
 	/**
@@ -196,6 +222,402 @@ public class IntranetNotification extends PlatformBase{
 	 */
 	public IntranetNotification(WebDriver dr){
 		this.driver=dr;
+		userPro = new UserProfilePage(dr);
+		spaceHome= new SpaceHomePage(dr);
+	}
+	
+	/**
+	 * function: go to all notification
+	 */
+	public void goToAllNotification(){
+		info("Go to all notification");
+		if(waitForAndGetElement(ELEMENT_VIEW_ALL,3000,0)!=null){
+			info("Click on View All button");
+			click(ELEMENT_VIEW_ALL);
+		}else{
+			info("Open All page by link");
+			driver.get(baseUrl+"/intranet/allNotifications/");
+		}
+		waitForAndGetElement(ELEMENT_ALL_NOTIFICATIONS);
+	}
+	
+	/**
+	 * function: go to notifications settings
+	 */
+	public void goToNotificationSettings(){
+		info("go to notification settings");
+		Utils.pause(1000);
+		click(ELEMENT_NOTIFICATION_SETTINGS_LINK);
+		info("Verify that Notification setting page is shown");
+		waitForAndGetElement(ELEMENT_NOTIFICATION_SETTINGS_TITLE);
+	}	
+	
+	
+	/**
+	 * Open detail a Comment notification
+	 * @param activity
+	 *               is activity's name
+	 * @param isPopup
+	 *               =true if open from the popup
+	 *               =false if open from All Notification page
+	 */
+	public void goToDetailCommentNotification(String activity,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,5000, 0) != null) {
+				info("Element " + ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail notification when comments an activity from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_COMMENT.replace("$activity",activity));
+			} else {
+				info("View detail notification when comments an activity from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_COMMENT.replace("$activity",activity));
+			}
+			Utils.pause(2000);
+		}
+	}
+	/**
+	 * Open a detail Request Connection to a new user
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailRequestConnectionUser(String fullName,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(userPro.ELEMENT_UIBASICPROFILEPORTLET,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(userPro.ELEMENT_UIBASICPROFILEPORTLET,5000, 0) != null) {
+				info("Element " + userPro.ELEMENT_UIBASICPROFILEPORTLET+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail of request connection to new user from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_REQUEST_CONNECT.replace("$name",fullName));
+			} else {
+				info("View detail of request connection to new user from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_REQUEST_CONNECT.replace("$name",fullName));
+			}
+			Utils.pause(2000);
+		}
+	}
+	/**
+	 * Open a detail Accept Request Connection to a new user
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailAcceptRequestConnectionUser(String fullName,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(userPro.ELEMENT_UIBASICPROFILEPORTLET,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(userPro.ELEMENT_UIBASICPROFILEPORTLET,5000, 0) != null) {
+				info("Element " + userPro.ELEMENT_UIBASICPROFILEPORTLET+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail of accept connection to new user from the pop up");
+				click(ELEMENT_NOTIFICATION_POPUP_ACCEPT_REQUEST_CONNECT.replace("$name",fullName));
+			} else {
+				info("View detail of accept connection to new user from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_ACCEPT_REQUEST_CONNECT.replace("$name",fullName));
+			}
+			Utils.pause(2000);
+		}
+	}
+	/**
+	 * Open a detail Accept Request Invitation to a new space
+	 * @param space
+	 *                is space's name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailAcceptInvitationSpace(String space,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM,5000, 0) != null) {
+				info("Element " + spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail of accept invitation to new space from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_ACCEPT_INVITE_SPACE.replace("$space",space));
+			} else {
+				info("View detail of accept invitation to new space from all notification page"); 
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_ACCEPT_INVITE_SPACE.replace("$space",space));
+			}
+			Utils.pause(2000);
+		}
+	}
+	
+	/**
+	 * Open a detail Like Notification 
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailLikeNotification(String fullName,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,5000, 0) != null) {
+				info("Element " + ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail notification when like an activity from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_LIKE.replace("$user",fullName));
+			} else {
+				info("View detail notification when like an activity from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_LIKE.replace("$user",fullName));
+			}
+			Utils.pause(2000);
+		}
+	}
+	
+	/**
+	 * Open a detail Mention Notification 
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailMentionNotification(String fullName,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,5000, 0) != null) {
+				info("Element " + ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail notification when mention a user in an activity from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_MENTION.replace("$name",fullName));
+			} else {
+				info("View detail notification when mention a user in an activity from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_MENTION.replace("$name",fullName));
+			}
+			Utils.pause(2000);
+		}
+	}
+	
+	/**
+	 * Open a detail Post in My activity Notification 
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailPostInMyActivity(String fullName,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,5000, 0) != null) {
+				info("Element " + ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail notification when post an activity in friend's activity stream from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_POST_IN_MY_ACTIVITY.replace("$name",fullName));
+			} else {
+				info("View detail notification when post an activity in friend's activity stream from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_POST_IN_MY_ACTIVITY.replace("$name",fullName));
+			}
+			Utils.pause(2000);
+		}
+	}
+	
+	/**
+	 * Open a detail Post in Space activity Notification 
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailPostInSpace(String space,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER,5000, 0) != null) {
+				info("Element " + ELEMENT_NOTIFICATION_UI_ACTIVITY_LOADER+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail notification when post an activity in space's activity stream from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_POST_IN_SPACE.replace("$space",space));
+			} else {
+				info("View detail notification when post an activity in space's activity stream from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_POST_IN_SPACE.replace("$space",space));
+			}
+			Utils.pause(2000);
+		}
+	}
+	
+	/**
+	 * Open a detail Invitation to join a new space Notification 
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailInvitationSpace(String fullName,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_SPACE_ACCESS_PORTLET,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_NOTIFICATION_UI_SPACE_ACCESS_PORTLET,5000, 0) != null) {
+				info("Element " + ELEMENT_NOTIFICATION_UI_SPACE_ACCESS_PORTLET+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail notification when invited to join a space from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_INVITE_SPACE.replace("$name",fullName));
+			} else {
+				info("View detail notification when invited to join a space from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_INVITE_SPACE.replace("$name",fullName));
+			}
+			Utils.pause(2000);
+		}
+	}
+	/**
+	 * Open a detail Join a new space Notification 
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailJoinSpace(String fullName,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM,5000, 0) != null) {
+				info("Element " + spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail notification when joined new space from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_JOIN_SPACE.replace("$name",fullName));
+			} else {
+				info("View detail notification when joined new space from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_JOIN_SPACE.replace("$name",fullName));
+			}
+			Utils.pause(2000);
+		}
+	}
+	/**
+	 * Open a detail request to join a new space Notification 
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailRequestJoinSpace(String fullName,boolean isPopup){
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM,5000, 0) != null) {
+				info("Element " + spaceHome.ELEMENT_SPACE_MENU_ACTIVITY_STREAM+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail of asking to join new space from the popup");
+				click(ELEMENT_NOTIFICATION_POPUP_REQUEST_JOIN_SPACE.replace("$name",fullName));
+			} else {
+				info("View detail of asking to join new space from all notification page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_REQUEST_JOIN_SPACE.replace("$name",fullName));
+			}
+			Utils.pause(2000);
+		}
+	}
+	
+	/**
+	 * Open a detail new user to join Intranet Notification 
+	 * @param fullName
+	 *                is user's full name
+	 * @param isPopup
+	 *                =true if open from the pop up
+	 *                =false if open from all notification page
+	 */
+	public void goToDetailNewUserJoinIntranet(String fullName, boolean isPopup) {
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(userPro.ELEMENT_UIBASICPROFILEPORTLET,3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(userPro.ELEMENT_UIBASICPROFILEPORTLET,5000, 0) != null) {
+				info("Element " + userPro.ELEMENT_UIBASICPROFILEPORTLET+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			if (isPopup) {
+				info("View detail notification when new user joined to intranet from all notificaiton page");
+				click(ELEMENT_NOTIFICATION_POPUP_NEW_USER_JOIN_INTRANET.replace("$name", fullName));
+			} else {
+				info("View detail notification when new user joined to intranet from all notificaiton page");
+				click(ELEMENT_NOTIFICATION_ALL_PAGE_NEW_USER_JOIN_INTRANET.replace("$name", fullName));
+			}
+			Utils.pause(2000);
+		}
 	}
 
 	/**
@@ -323,7 +745,7 @@ public class IntranetNotification extends PlatformBase{
 	}
 
 	/**
-	 * check readed notification when users like
+	 * check reading notification when users like
 	 * @param userName
 	 * @param activity
 	 * @param time
@@ -373,7 +795,7 @@ public class IntranetNotification extends PlatformBase{
 	/**
 	 * function: check notification when there is a connection request
 	 * @param fullName user sent connection request
-	 *//*
+	 */
 	public void checkConnectionRequestNotification(String fullName){
 		info("Check Connection Request Notification");
 		Utils.pause(1000);
@@ -385,7 +807,7 @@ public class IntranetNotification extends PlatformBase{
 		Utils.pause(1000);
 		info("wait for refuse button");
 		driver.findElement(By.xpath(ELEMENT_CONNECT_REFUSE_BUTTON.replace("${fullName}", fullName)));	
-	}*/
+	}
 
 	/**
 	 * function: check notification when there is a space invitation
@@ -404,12 +826,12 @@ public class IntranetNotification extends PlatformBase{
 		info ("Notification was checked");
 	}
 
-	/**
+/*	*//**
 	 * function: check notification when there is a request to join space
 	 * @param userName 
 	 * @param space 
 	 * @param time 
-	 */
+	 *//*
 	public void checkRequestToJoinSpaceNotification(String userName, String space, String time){
 		info("Check notification after recive a request to join a space");
 		Utils.pause(1000);
@@ -420,7 +842,7 @@ public class IntranetNotification extends PlatformBase{
 		waitForAndGetElement(ELEMENT_REQUEST_TO_JOIN_ACCEPT_BTN.replace("${userName}", userName).replace("${space}", space));
 		info("wait for refuse button");
 		waitForAndGetElement(ELEMENT_REQUEST_TO_JOIN_REFUSE_BTN.replace("${userName}", userName).replace("${space}", space));
-	}
+	}*/
 
 	/**
 	 * function: check unread notification when another people mentions you in activity
@@ -481,7 +903,7 @@ public class IntranetNotification extends PlatformBase{
 	 * @param activity
 	 * @param time
 	 * @return
-	 */
+	 *//*
 	public WebElement checReadMentionNotification(String userName1, String activity, String time){
 		info("Check mention notification");
 		WebElement elem;
@@ -524,7 +946,7 @@ public class IntranetNotification extends PlatformBase{
 		return elem;
 
 	}
-
+*/
 	/**
 	 * function: check notification when another people has joined intranet
 	 * @param userName1 the people has joined the intranet
@@ -573,7 +995,7 @@ public class IntranetNotification extends PlatformBase{
 	 * @param userName 
 	 * @param accept (true if you accept the connection request)
 	 * @param time 
-	 */
+	 *//*
 	public void goToUserProfileFromIntranetNotificationWithConnection(String fullName, String userName, boolean accept, String time){
 		info("Go to User profile from Intranet Notification");
 		navTool = new NavigationToolbar(driver);
@@ -615,13 +1037,13 @@ public class IntranetNotification extends PlatformBase{
 			hp.goToConnections();
 			connMag.verifyConnection(userName, false);
 		}
-	}
+	}*/
 
-	/**
+/*	*//**
 	 * function: Go to user profile from new user intranet notification
 	 * @param userName1 
 	 * @param time 
-	 */
+	 *//*
 	public void goToUserProfileFromIntranetNotificationWithNewUserJoined(String userName1, String time, boolean...params){
 		info("Go to User profile from Intranet Notification after new User has joined Intrane");
 		myProf = new UserProfilePage(driver);
@@ -645,14 +1067,14 @@ public class IntranetNotification extends PlatformBase{
 			info("Verify that user was redidected to user profile");
 			waitForAndGetElement(myProf.ELEMENT_NAME_OF_PROFILE_TOP_LEFT.replace("${name}", userName1));
 		}
-	}
+	}*/
 
 	/**
 	 * function: Go to home page of space from intranet notification after another one invite you
 	 * @param space 
 	 * @param time 
 	 * @param accept (true if you accept the request)
-	 */
+	 *//*
 	public void goToHomepageOfSpaceFromIntranetNotification(String space, boolean accept, String time){
 		info("Go to Homepage of Space from Intranet Notification after invited");
 		navTool = new NavigationToolbar(driver);
@@ -708,7 +1130,7 @@ public class IntranetNotification extends PlatformBase{
 			hp.goToMySpaces();
 			waitForElementNotPresent(spaceManage.ELEMENT_MY_SPACE_SEARCH_RESULT.replace("${name}", space));
 		}	
-	}
+	}*/
 
 	/**
 	 * function: Go to home page of space from intranet notification after you request to join a space
@@ -717,7 +1139,7 @@ public class IntranetNotification extends PlatformBase{
 	 * @param accept (true if you accept the request)
 	 * @param userName 
 	 * @param password 
-	 */
+	 *//*
 	public void goToHomepageOfSpaceFromIntranetNotificationWithRequest(String space, boolean accept, String time, String userName, String password){
 		info("Go to Homepage of Space from Intranet Notification after requested");
 		navTool = new NavigationToolbar(driver);
@@ -761,7 +1183,7 @@ public class IntranetNotification extends PlatformBase{
 			hp.goToMySpaces();
 			waitForElementNotPresent(spaceManage.ELEMENT_MY_SPACE_SEARCH_RESULT.replace("${name}", space));
 		}	
-	}
+	}*/
 
 	/**
 	 * function: Go to activity viewer from notification list
@@ -772,7 +1194,7 @@ public class IntranetNotification extends PlatformBase{
 	 * @param twoUser 
 	 * @param userName2 
 	 * @param params 
-	 */
+	 *//*
 	public void gotoActivityViewer(String userName, String activity, String time, String space, boolean twoUser, String userName2, boolean ...params){
 		info("Go to activity viewer");
 		boolean commentNotification = params.length > 0 ? params[0] : false;
@@ -845,7 +1267,7 @@ public class IntranetNotification extends PlatformBase{
 					click(ELEMENT_COMMENT_3_USERS_ONE_MINUTE.replace("${userName2}", userName2).replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
 			}
 		}
-	}
+	}*/
 
 	/**
 	 * function: check comment in activity viewer
@@ -886,18 +1308,7 @@ public class IntranetNotification extends PlatformBase{
 		waitForTextPresent(Activity);
 	}
 
-	/**
-	 * function: go to all notification
-	 */
-	public void goToAllNotification(){
-		info("Go to all notification");
-		if(waitForAndGetElement(ELEMENT_VIEW_ALL,3000,0)!=null){
-			click(ELEMENT_VIEW_ALL);
-		}else{
-			driver.get(baseUrl+"/intranet/allNotifications/");
-		}
-		waitForAndGetElement(ELEMENT_ALL_NOTIFICATIONS);
-	}
+	
 
 	/**
 	 * function: enable option new user notification
@@ -924,15 +1335,7 @@ public class IntranetNotification extends PlatformBase{
 		waitForAndGetElement(ELEMENT_EDIT_LIKE_WEB_ICON,3000,1);
 	}
 
-	/**
-	 * function: go to notifications settings
-	 */
-	public void goToNotificationSettings(){
-		info("go to notification settings");
-		Utils.pause(1000);
-		click(ELEMENT_NOTIFICATION_SETTINGS_LINK);
-		waitForAndGetElement(ELEMENT_NOTIFICATION_SETTINGS_TITLE);
-	}	
+	
 	/**
 	 * Check notification's comment type in notification list popup
 	 * @param users
@@ -976,7 +1379,7 @@ public class IntranetNotification extends PlatformBase{
 	 *              is the activity's title
 	 * @param comment
 	 *              is of the comment of other user
-	 */
+	 *//*
 	public void checkDetailActivityNotifications(String actTitle,ArrayList<String> comments,boolean isHighlight){
 		if(waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_TITLE.replace("$title",actTitle),3000,0)!=null){
 			info("Click on the activity title on the list");
@@ -988,46 +1391,115 @@ public class IntranetNotification extends PlatformBase{
 			goToDetailFirstNotificationInAllpage();
 		}
 
+		checkCommentsAC(comments,isHighlight);
+	}*/
+	/**
+	 * Verify that many comments are expanded and the last comment is highlighted or not highlighted
+	 * @param comments
+	 *               is an array of comments
+	 * @param isHighlight
+	 *               = true to check last comment that is highlighted 
+	 *               = false to check last comment is not highlighted or ignore this case
+	 */
+	public void checkCommentsExpand(ArrayList<String> comments,boolean isHighlight){
 		if(comments.size()>0){
 			for(int i=0;i<comments.size();i++){
 				info("Verify that all comments are expanded");
 				waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_CONTENT.
-						replace("$comment",comments.get(i)));
+						replace("$comment",comments.get(i)),2000,1);
 
 				if(isHighlight){
 					info("Verify that the last comment is highlighted");
 					waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_HIGHLIGHT.
-							replace("$comment",comments.get(comments.size()-1)));
+							replace("$comment",comments.get(comments.size()-1)),2000,1);
 				}
 			}
 		}
 	}
+	
+	/**
+	 * Verify that the comment is expanded and highlight or not highlight
+	 * @param comment
+	 *               is comment's content
+	 * @param isHighlight
+	 *              = true if wants to check the comment is highlighted
+	 *              = false if wants to check the comment is not highlighted or ignore this case
+	 */
+	public void checkCommentExpand(String comment, boolean isHighlight){
+		if(!comment.isEmpty()){
+			info("Verify that all comments are expanded");
+			waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_CONTENT.
+					replace("$comment",comment),2000,1);
+
+			if(isHighlight){
+				info("Verify that the last comment is highlighted");
+				waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_ACTIVITY_COMMENT_HIGHLIGHT.
+						replace("$comment",comment),2000,1);
+			}
+		}
+	}
+	/**
+	 * Verify that the activity is shown with correct content
+	 * @param text
+	 *            is the title of the activity
+	 */
+	public void checkTitleActivityExpand(String text){
+		if(!text.isEmpty()){
+			info("Verifyt that the Activity is shown with correct it's content");
+			waitForAndGetElement(ELEMENT_NOTIFICATION_ACTIVITY_TITLE_CONTENT.replace("$text",text));
+		}
+	}
+	
 	/**
 	 * Open detail of first notification in All notification page
-	 */
+	 *//*
 	public void goToDetailFirstNotificationInAllpage(){
 		info("click on First notification in All notification page");
 		click( ELEMENT_INTRANET_NOTIFICATION_PAGE_FIRST_NOTIFICATION);
 		Utils.pause(2000);
-	}
+	}*/
+	
 	/**
-	 * Accept an connection request in notification list
+	 * Accept an connection request in  notification list
 	 * @param fullName
 	 *                 is fullName of user that want to connect
-	 */
+	 */	
 	public void acceptRqConnection(String fullName){
-		info("Click on Accept button");
-		click(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
-		waitForElementNotPresent(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+				if (repeat > 1) {
+					if (waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName),3000,0) == null);
+					break;
+				}
+				if (waitForAndGetElement(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName),5000,0) == null) {
+					break;
+			}
+			info("Retry...[" + repeat + "]");
+			info("Click on Accept button");
+			click(ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName));
+			Utils.pause(5000);
+		}
 	}
 	/**
 	 * Refuse an connection request in notificaiton list
 	 * @param fullName
 	 */
 	public void refuseRqConnection(String fullName){
-		info("Click on Refuse button");
-		click(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName));
-		waitForElementNotPresent(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName));
+		Utils.pause(500);
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName),3000,0) == null);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName),5000,0) == null) {
+				info("Element " + ELEMENT_CONNECT_ACCEPT_BUTTON.replace("$fullName",fullName)+ " isnot displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			info("Click on Refuse button");
+			click(ELEMENT_CONNECT_REFUSE_BUTTON.replace("$fullName",fullName));
+			Utils.pause(2000);
+		}
 	}
 
 	/**
@@ -1170,33 +1642,54 @@ public class IntranetNotification extends PlatformBase{
 		}
 	}
 
-	/**
-	 * Go to detail a notification on Notification popup
-	 */
+/*	*//**
+	 * Go to detail a notification on Notification pop-up
+	 * Using this function when notification list has only one notification
+	 *//*
 	public void goToDetailNotificationOnPopup(){
 		info("Click on Status area of Notification popup");
 		click(ELEMENT_INTRANET_NOTIFICATION_POPUP_STATUS);
 		Utils.pause(3000);
 	}
-   /* *//**
-     * Define types of Notification status
-     *
-     *//*
-	public enum statusType{
-		send_connection,accept_connection,refuse_connection,like;
-	}*/
+  */
 	/**
 	 * Check status of Notifications
 	 * @param status
-	 *             is a status's content of Notifications
+	 *             is a status's content of Notifications as: Like, comment, connection,mention...
 	 * @param user
 	 *             is full name or name of the user
 	 */
 	public void checkStatus(String status,String user){
-	info("Verify that the status is shown");
-	waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS.
-			replace("$status",status).replace("$fullName",user));
-		
+		Utils.pause(500);
+		info("Verify that the status is shown");
+		for (int repeat = 0;; repeat++) {
+			if (repeat > 1) {
+				if (waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS.
+						replace("$status",status).replace("$fullName",user),3000, 0) != null);
+				break;
+			}
+			if (waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS.
+					replace("$status",status).replace("$fullName",user),5000, 0) != null) {
+				info("Element " + ELEMENT_INTRANET_NOTIFICATION_STATUS.
+						replace("$status",status).replace("$fullName",user)+ " is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+			this.driver.navigate().refresh();
+			Utils.pause(2000);
+		}
+	}
+	/**
+	 * Check status of space notifications
+	 * @param status
+	 *            is a status's content of Notifications
+	 * @param space
+	 *            is space's name
+	 */
+	public void checkStatusSpace(String status, String space){
+      info("Verify that the status is shown");
+      waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_STATUS_SPACE.
+    		  replace("$status",status).replace("$space",space));
 	}
 	/**
 	 * Check not available notification in notifcation list
@@ -1210,16 +1703,28 @@ public class IntranetNotification extends PlatformBase{
 		waitForElementNotPresent(ELEMENT_INTRANET_NOTIFICATION_STATUS.
 				replace("$status",status).replace("$fullName",user));
 	}
+	
+	public void checkNotStatusSpace(String status, String space){
+	      info("Verify that the status isnot shown");
+	      waitForElementNotPresent(ELEMENT_INTRANET_NOTIFICATION_STATUS_SPACE.
+	    		  replace("$status",status).replace("$space",space));
+		}
 	/**
 	 * View detail of a notification by index
 	 * @param num
 	 *            is a notification's index
-	 */
-	public void goToDetailANotificaitonByIndex(int num){
-		info("Click on the notificaiton has index as:"+num);
-		click(ELEMENT_INTRANET_NOTIFICATION_ORDER_NOTIFICATION.replace("$num",String.valueOf(num)));
+	 *//*
+	public void goToDetailANotificaitonByIndex(int num,boolean... isPopup){
+		if(isPopup.length>0){
+			info("Click on the notificaiton in all page has index as:"+num);
+			click(ELEMENT_INTRANET_NOTIFICATION_ORDER_NOTIFICATION_ALL_PAGE.replace("$num",String.valueOf(num)));
+		}else{
+			info("Click on the notificaiton popup has index as:"+num);
+			click(ELEMENT_INTRANET_NOTIFICATION_ORDER_NOTIFICATION.replace("$num",String.valueOf(num)));
+		}
+		
 		Utils.pause(3000);
-	}
+	}*/
 	
 	/**
 	 * Check order of Notifications in the list
@@ -1289,4 +1794,7 @@ public class IntranetNotification extends PlatformBase{
 		waitForAndGetElement(ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER.
 				replace("$num",String.valueOf(num)));
 	}
+	
+	
+	
 }

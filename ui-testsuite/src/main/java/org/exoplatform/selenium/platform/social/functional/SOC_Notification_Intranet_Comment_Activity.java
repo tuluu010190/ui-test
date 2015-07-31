@@ -63,8 +63,6 @@ import org.testng.annotations.*;
 		Utils.pause(3000);
 		hpAct.addCommentUsingJavascript(activity, comment);
 		
-		info("Add comment to Comment list");
-		comments.add(comment);
 		
 		/*Step number: 2
 		*Step Name: 
@@ -97,7 +95,8 @@ import org.testng.annotations.*;
 			- The activity is displayed in the activity viewer with all comment expanded.
 			- The comment that this notification is about is highlighted.*/
 		info("Check detail of Activity Comment");
-		intraNot.checkDetailActivityNotifications(activity,comments,true);
+		intraNot.goToDetailCommentNotification(activity,true);
+		intraNot.checkCommentExpand(comment, true);
  	}
 	
 	
@@ -206,7 +205,9 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.*/ 
 		info("Check detail of Activity comment");
-		intraNot.checkDetailActivityNotifications(activity,comments,false);
+		intraNot.goToDetailCommentNotification(activity,true);
+		intraNot.checkCommentsExpand(comments, true);
+		//intraNot.checkDetailActivityNotifications(activity,comments,false);
  	}
 
 	/**
@@ -335,7 +336,9 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.*/ 
 		info("Check detail of activity comment");
-		intraNot.checkDetailActivityNotifications(activity,comments,false);
+		intraNot.goToDetailCommentNotification(activity,true);
+		intraNot.checkCommentsExpand(comments, true);
+		//intraNot.checkDetailActivityNotifications(activity,comments,false);
 
  	}
 
@@ -536,8 +539,6 @@ import org.testng.annotations.*;
 		Utils.pause(3000);
 		hpAct.addCommentUsingJavascript(activity, comment);
 	  
-		info("Add all comment to the list");
-		comments.add(comment);
 		/*Step number: 2
 		*Step Name: 
 		*Step Description: 
@@ -558,7 +559,9 @@ import org.testng.annotations.*;
 	    info("Open Notification list");
 	    navTool.goToIntranetNotification();
 	    info("Read detail notification");
-		intraNot.checkDetailActivityNotifications(activity,comments,true);
+	    intraNot.goToDetailCommentNotification(activity,true);
+		intraNot.checkCommentExpand(comment, true);
+		//intraNot.checkDetailActivityNotifications(activity,comments,true);
 		info("Verify that badge notification is not shown. The notification is read.");
 		waitForAndGetElement(intraNot.ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER.replace("$num","0"),2000,2);
 
@@ -1137,7 +1140,6 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		Utils.pause(3000);
 		hpAct.addCommentUsingJavascript(activity, comment);
-		comments.add(comment);
 		/*Step number: 2
 		*Step Name: 
 		*Step Description: 
@@ -1159,7 +1161,9 @@ import org.testng.annotations.*;
 	    info("Open Notification list");
 	    navTool.goToIntranetNotification();
 	    info("Read detail notification");
-		intraNot.checkDetailActivityNotifications(activity,comments,true);
+	    intraNot.goToDetailCommentNotification(activity,true);
+		intraNot.checkCommentExpand(comment, true);
+		//intraNot.checkDetailActivityNotifications(activity,comments,true);
 		info("Verify that badge notification is not shown. The notification is read.");
 		waitForAndGetElement(intraNot.ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER.replace("$num","0"),2000,2);
 
@@ -1299,7 +1303,6 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		Utils.pause(3000);
 		hpAct.addCommentUsingJavascript(activity, comment);
-		comments.add(comment);
 
 		/*Step number: 2
 		*Step Name: 
@@ -1331,7 +1334,9 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.
 			- The comment that this notification is about is highlighted.*/ 
-		intraNot.checkDetailActivityNotifications(activity, comments,true);
+		intraNot.goToDetailCommentNotification(activity,true);
+		intraNot.checkCommentExpand(comment, true);
+		//intraNot.checkDetailActivityNotifications(activity, comments,true);
 
  	}
 
@@ -1399,7 +1404,6 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		Utils.pause(3000);
 		hpAct.addCommentUsingJavascript(activity, comment);
-		comments.add(comment);
 
 		/*Step number: 2
 		*Step Name: 
@@ -1432,7 +1436,9 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.
 			- The comment that this notification is about is highlighted.*/ 
-		intraNot.checkDetailActivityNotifications(activity, comments,true);
+		//intraNot.checkDetailActivityNotifications(activity, comments,true);
+		intraNot.goToDetailCommentNotification(activity,true);
+		intraNot.checkCommentExpand(comment, true);
 
  	}
 
@@ -1493,7 +1499,6 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		Utils.pause(3000);
 		hpAct.addCommentUsingJavascript(wiki, comment);
-		comments.add(comment);
 		
 		/*Step number: 2
 		*Step Name: 
@@ -1526,7 +1531,9 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.
 			- The comment that this notification is about is highlighted.*/ 
-		intraNot.checkDetailActivityNotifications(wiki, comments,true);
+		//intraNot.checkDetailActivityNotifications(wiki, comments,true);
+		intraNot.goToDetailCommentNotification(wiki,true);
+		intraNot.checkCommentExpand(comment, true);
 
  	}
 
@@ -1611,7 +1618,6 @@ import org.testng.annotations.*;
 		hp.goToHomePage();
 		Utils.pause(3000);
 		hpAct.addCommentUsingJavascript(newEvent, comment);
-		comments.add(comment);
 		
 
 		/*Step number: 2
@@ -1644,5 +1650,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.
 			- The comment that this notification is about is highlighted.*/ 
-		intraNot.checkDetailActivityNotifications(newEvent, comments,true);
+		//intraNot.checkDetailActivityNotifications(newEvent, comments,true);
+		intraNot.goToDetailCommentNotification(newEvent,true);
+		intraNot.checkCommentExpand(comment, true);
  	}}

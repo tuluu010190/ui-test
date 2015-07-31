@@ -55,6 +55,7 @@ public class SOC_TestConfig_3 extends PlatformBase {
 	NotificationsAdminSeting emailNotif;
 	MyNotificationsSetting myNotifPage;
 	UserProfilePage myProfil;
+	NotificationDescriptionDatabase notiDesData;
 	
 
 	SendEmailNotifications notiEmail;
@@ -97,6 +98,9 @@ public class SOC_TestConfig_3 extends PlatformBase {
 		notiDes.setData(notiDesFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		userInfoData = new UserInfoDatabase();
 		userInfoData.setUserInfoData(userInfoFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		notiDesData = new NotificationDescriptionDatabase();
+		notiDesData.setData(notiDesFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		info("Enable like and new user notifications");
 		navTool.goToMyNotifications();

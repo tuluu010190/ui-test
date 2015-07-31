@@ -89,4 +89,14 @@ public class SpaceHomePage extends PlatformBase{
 		waitForAndGetElement(ELEMENT_SPACE_NAME.replace("${name}",name),2000,0);
 		info("The space is shown");
 	}
+	/**
+	 * Verify that the space is shown 
+	 * @param name
+	 *             is the name of space
+	 */
+	public void verifyTitleSpace(String name){
+		info("Verify that the space is shown");
+		waitForAndGetElement(ELEMENT_SPACE_NAME.replace("${name}",name));
+		
+	}
 }

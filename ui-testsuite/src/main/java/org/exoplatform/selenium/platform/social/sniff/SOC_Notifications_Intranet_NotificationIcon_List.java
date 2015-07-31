@@ -187,7 +187,8 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
 		intraNot.checkCommentNotification(username2, activity, "1", false, "", 1, "");
-		intraNot.gotoActivityViewer(username2, activity, "1", "", false, "", true);
+		intraNot.goToDetailCommentNotification(activity, false);
+		//intraNot.gotoActivityViewer(username2, activity, "1", "", false, "", true);
 		
 		info("Read connection request notification");
 		Utils.pause(2000);

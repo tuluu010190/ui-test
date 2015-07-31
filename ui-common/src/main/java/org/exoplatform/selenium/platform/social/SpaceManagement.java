@@ -491,5 +491,24 @@ public class SpaceManagement extends SpaceHomePage {
 		click(ELEMENT_MEMBER_USER_NAME.replace("${fullName}",fullName));
 		Utils.pause(2000);
 	}
+	/**
+	 * Verify that a user is a member of the space or not
+	 * @param fullName
+	 *              is full name of the user
+	 * @param isDisplay
+	 *               =true if user is a member of the space
+	 *               =false if user is not a memebr of the space
+	 */
+    public void verifyMember(String fullName,Boolean isDisplay){
+    	goToMemberTab();
+    	if(isDisplay){
+    		info("Verify that member is shown in list");
+        	waitForAndGetElement(ELEMENT_MEMBER_USER_NAME.replace("${fullName}",fullName));
+    	}else{
+    		info("Verify that member isnot shown in list");
+    		waitForElementNotPresent(ELEMENT_MEMBER_USER_NAME.replace("${fullName}",fullName));
+    	}
+    	
+	}
 	
 }

@@ -67,7 +67,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		- Click the notification area
 		--> Expected: User B is redirected to the profile of User A
 		 */
-		intraNot.goToDetailNotificationOnPopup();
+		intraNot.goToDetailRequestConnectionUser(arrayUser.get(0),true);
 		info("Verify that User B is redirected to the profile of User A");
 		waitForAndGetElement(userProPage.ELEMENT_PROFILE_TITLE.replace("${fullName}",arrayUser.get(0)));
 		
@@ -135,7 +135,8 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 			--> Expected:- User B is redirected to the profile of User A
 		 */
 		navTool.goToIntranetNotification();
-		intraNot.goToDetailNotificationOnPopup();
+		intraNot.goToDetailAcceptRequestConnectionUser(arrayUser.get(0),true);
+		//intraNot.goToDetailNotificationOnPopup();
 		info("Verify that User B is redirected to the profile of User A");
 		waitForAndGetElement(userProPage.ELEMENT_PROFILE_TITLE.replace("${fullName}",arrayUser.get(0)));
 	}
