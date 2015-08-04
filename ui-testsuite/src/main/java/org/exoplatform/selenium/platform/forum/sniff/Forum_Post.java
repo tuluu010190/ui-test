@@ -89,8 +89,6 @@ public  void test01_02_03_04_05_Add_Edit_Quote_Delete_AddPrivate_Post() {
 		prepareData();
 		info("Reply a topic");
 		foTopic.postReply(title, content);
-		info("Verify that the post is created");
-		waitForAndGetElement(foTopic.ELEMENT_POST_IN_TOPIC.replace("{$title}",title).replace("{$content}",content));
 		
 		info("Test 2: Edit a post");
 		foTopic.editPost(title, newTitle, "");

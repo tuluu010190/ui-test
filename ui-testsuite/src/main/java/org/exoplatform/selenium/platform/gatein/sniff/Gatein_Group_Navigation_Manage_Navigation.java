@@ -32,7 +32,7 @@ public class Gatein_Group_Navigation_Manage_Navigation extends GateIn_TestConfig
 		
 		info("Create new group with John");
 		navToolBar.goToUsersAndGroupsManagement();
-		userAndGroup.chooseGroupTab();
+		userAndGroup.goToGroupTab();
 		userAndGroup.addGroup(groupName, groupName, groupName, true);
 		
 		/*Step Number: 1
@@ -83,7 +83,7 @@ public class Gatein_Group_Navigation_Manage_Navigation extends GateIn_TestConfig
 		
 		info("Delete group");
 		navToolBar.goToUsersAndGroupsManagement();
-		userAndGroup.chooseGroupTab();
+		userAndGroup.goToGroupTab();
 		click(By.linkText(groupName));
 		userAndGroup.deleteGroup(groupName, true, 60000);
 	}

@@ -5,7 +5,6 @@ import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.gatein.PageCreationWizard;
 import org.exoplatform.selenium.platform.gatein.PortalManageSites;
-import org.exoplatform.selenium.platform.social.AllNotificationPage;
 import org.exoplatform.selenium.platform.social.IntranetNotification;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.openqa.selenium.By;
@@ -163,7 +162,6 @@ public class NavigationToolbar extends PlatformBase {
 	PageCreationWizard paWin;
 	UserProfilePage myPro;
 	PortalManageSites magSites;
-	AllNotificationPage allIntraNot;
 	IntranetNotification intraNot;
 
 	public NavigationToolbar(WebDriver dr){
@@ -171,7 +169,6 @@ public class NavigationToolbar extends PlatformBase {
 		paWin = new PageCreationWizard(dr);
 		myPro = new UserProfilePage(dr);
 		magSites = new PortalManageSites(dr);		
-		allIntraNot = new AllNotificationPage(dr);
 		intraNot = new IntranetNotification(dr);
 	} 
 
@@ -706,126 +703,5 @@ public class NavigationToolbar extends PlatformBase {
 		waitForAndGetElement(ELEMENT_NOTIFICATION_DROPDOWN);
 		info("The elemnt is shown successfully");
 	}
-
-	/**
-	 * function: go to notifications settings
-	 * @param number
-	 */
-	public void checkNUmberOfNotificationsInBadge(boolean display, String number){
-		info("check number of notifications in badge");
-		Utils.pause(1000);
-		if (display)
-			waitForAndGetElement(ELEMENT_BADGE_NUMBER_DISPLAY.replace("${number}", number));
-		else
-			waitForElementNotPresent(ELEMENT_BADGE_NUMBER_DISPLAY.replace("${number}", number));
-	}
-
-	/**
-	 * function: check Comment notification read or unread
-	 * @param read
-	 * @param userName
-	 * @param activity
-	 * @param time
-	 */
-	public void checkCommentNotificationReadOrUnread(boolean read, boolean markAllRead, String userName, String activity, String time){
-		info("Check comment notification read or unread");
-		if (read){
-			if (markAllRead){
-				waitForAndGetElement(ELEMENT_COMMENT_MARK_ALL_AS_READ.replace("${userName}", userName).replace("${activity}", activity));
-			}
-			else if (waitForAndGetElement(ELEMENT_COMMENT_JUST_NOW_READ.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null)
-				waitForAndGetElement(ELEMENT_COMMENT_POSITION_ONE_MINUTE_READ.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
-		}
-		else{
-			if (waitForAndGetElement(ELEMENT_COMMENT_JUST_NOW_UNREAD.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null)
-				waitForAndGetElement(ELEMENT_COMMENT_POSITION_ONE_MINUTE_UNREAD.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
-		}
-	}
-
-	/**
-	 * function: check Like notification read or unread
-	 * @param read
-	 * @param userName
-	 * @param activity
-	 * @param time
-	 */
-	public void checkLikeNotificationReadOrUnread(boolean read, boolean markAllAsRead, String userName, String activity, String time){
-		info("Check like notification read or unread");
-		if (read){
-			if (markAllAsRead){
-				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_MARK_ALL_AS_READ.replace("${userName}", userName).replace("${activity}", activity));
-			}
-			else if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_READ.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null)
-				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_READ.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
-		}
-		else{
-			if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_UNREAD.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) == null)
-				waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_UNREAD.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
-		}
-	}
-
-	/**
-	 * function: clear comment notification
-	 * @param userName
-	 * @param activity
-	 * @param time
-	 */
-	public void clearCommentNotification(String userName, String activity, String time){
-		info("Clear comment notification");
-		if (waitForAndGetElement(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) != null){
-			click(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
-			waitForElementNotPresent(ELEMENT_COMMENT_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
-		}
-		else if (waitForAndGetElement(ELEMENT_COMMENT_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time)) != null){
-			click(ELEMENT_COMMENT_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
-			waitForElementNotPresent(ELEMENT_COMMENT_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
-		}
-	}
-
-	/**
-	 * function: clear like notification
-	 * @param userName
-	 * @param activity
-	 * @param time
-	 */
-	public void clearLikeNotification(String userName, String activity, String time){
-		info("Clear like notification");
-		if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity), 5000, 0) != null){
-			click(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
-			waitForElementNotPresent(ELEMENT_LIKE_NOTIFICATION_JUST_NOW_DELETE.replace("${userName}", userName).replace("${activity}", activity));
-		}
-		else if (waitForAndGetElement(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time),5000,0) != null){
-			click(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
-			waitForElementNotPresent(ELEMENT_LIKE_NOTIFICATION_ONE_MINUTE_DELETE.replace("${userName}", userName).replace("${activity}", activity).replace("${time}", time));
-		}
-		else{
-			click(ELEMENT_LIKE_NOTIFICATION_DELETE.replace("${userName}", userName).replace("${activity}", activity));
-			waitForElementNotPresent(ELEMENT_LIKE_NOTIFICATION_DELETE.replace("${userName}", userName).replace("${activity}", activity));
-		}
-	}
-
-	/**
-	 * function: clear connection request notification
-	 * @param fullName
-	 */
-	public void clearConnectionRequestNotification(String fullName){
-		info("Clear like notification");
-		if (waitForAndGetElement(ELEMENT_CONNECT_NOTIFICATION_DELETE.replace("${fullName}", fullName)) != null){
-			click(ELEMENT_CONNECT_NOTIFICATION_DELETE.replace("${fullName}", fullName));
-			waitForElementNotPresent(ELEMENT_CONNECT_NOTIFICATION_DELETE.replace("${fullName}", fullName));
-		}
-	}
-
-	/**
-	 * function: clear new user notification
-	 * @param userName
-	 */
-	public void clearNewUserNotification(String userName){
-		info("clear new user notification");
-		Utils.pause(1000);
-		waitForAndGetElement(ELEMENT_NEW_USER_NOTIFICATION_DELETE.replace("${userName}", userName));
-		click(ELEMENT_NEW_USER_NOTIFICATION_DELETE.replace("${userName}", userName));	
-	}
-	
 
 }

@@ -157,7 +157,7 @@ import org.testng.annotations.*;
 	     magAc.signOut();
 	     magAc.signIn(DATA_USER1, DATA_PASS);
 	     navTool.goToUsersAndGroupsManagement();
-         userGroupMg.chooseGroupTab();
+         userGroupMg.goToGroupTab();
          ArrayList<String> groups=spGroupsData.getArrayGroupByType(4);
  		 String[] arrayGroupPath ={groups.get(0),space};
  		 userGroupMg.selectGroup(arrayGroupPath);
@@ -211,7 +211,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- User Root has been removed from list member of the space and space group but Root has all right like manager of space.*/ 
 		 navTool.goToUsersAndGroupsManagement();
-         userGroupMg.chooseGroupTab();
+         userGroupMg.goToGroupTab();
          ArrayList<String> groups=spGroupsData.getArrayGroupByType(4);
  		 String[] arrayGroupPath ={groups.get(0),space};
  		 userGroupMg.selectGroup(arrayGroupPath);

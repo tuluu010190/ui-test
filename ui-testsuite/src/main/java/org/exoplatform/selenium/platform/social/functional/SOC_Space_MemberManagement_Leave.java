@@ -193,7 +193,7 @@ import org.testng.annotations.*;
 	     waitForElementNotPresent(setSpaceMg.ELEMENT_USER_IN_MEMBER_TABLE.replace("${fullName}",DATA_NAME_USER2));
 	     
 	     navTool.goToUsersAndGroupsManagement();
-         userGroupMg.chooseGroupTab();
+         userGroupMg.goToGroupTab();
          ArrayList<String> groups=spGroupsData.getArrayGroupByType(4);
  		 String[] arrayGroupPath ={groups.get(0),space};
  		 userGroupMg.selectGroup(arrayGroupPath);
@@ -638,7 +638,7 @@ import org.testng.annotations.*;
 		 waitForElementNotPresent(setSpaceMg.ELEMENT_USER_IN_MEMBER_TABLE.replace("${fullName}",DATA_NAME_USER2));
 		 
 		 navTool.goToUsersAndGroupsManagement();
-         userGroupMg.chooseGroupTab();
+         userGroupMg.goToGroupTab();
          ArrayList<String> groups=spGroupsData.getArrayGroupByType(4);
  		 String[] arrayGroupPath ={groups.get(0),space};
  		 userGroupMg.selectGroup(arrayGroupPath);

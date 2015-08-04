@@ -63,7 +63,7 @@ public class Cloud_CreateUsers extends Cloud_Config {
 
 		//Group Management
 		navTool.goToUsersAndGroupsManagement();
-		userAndGroup.chooseGroupTab();
+		userAndGroup.goToGroupTab();
 
 		//Admin
 		groupPath = portGroupPermisData.getContentByIndex(0);

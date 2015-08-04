@@ -1,106 +1,23 @@
 package org.exoplatform.selenium.platform.answer;
 
 import org.exoplatform.selenium.Button;
-import org.exoplatform.selenium.ManageAlert;
 import org.exoplatform.selenium.Utils;
-import org.exoplatform.selenium.platform.PlatformBase;
-import org.exoplatform.selenium.platform.PlatformPermission;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import static org.exoplatform.selenium.TestLogger.info;
-public class QuestionManagement extends PlatformBase {
-	PlatformPermission per;
-	ManageAlert alert;
+public class QuestionManagement extends AnswerLocator {
+
 	Button button;
-	AnswerHomePage aHome;
-
-	//Manage question form
-	public By ELEMENT_MANAGE_QUESTION_FORM=By.id("FAQQuestionManagerment");
-	public By ELEMENT_MANAGE_QUESTION_FORM_ALL_QUESTION_TAB=By.xpath("//*[@data-toggle='tab' and text()='All Questions']");
-	public By ELEMENT_MANAGE_QUESTION_FORM_OPEN_QUESTION_TAB=By.xpath("//*[@data-toggle='tab' and text()='Open Questions']");
-	public String ELEMENT_MANAGE_QUESTION_ANSWER_QUESTION="//*[text()='$question']/..//*[@data-original-title='Answer']";
-	public String ELEMENT_MANAGE_QUESTION_EDIT_QUESTION="//*[text()='$question']/..//*[@data-original-title='Edit']";
-	public String ELEMENT_MANAGE_QUESTION_DELETE_QUESTION="//*[text()='$question']/../..//*[@data-original-title='Delete']";
-	public String ELEMENT_MANAGE_QUESTION_APPROVE_QUESTION_CHECKBOX="//*[text()='$question']/..//*[@data-original-title='Approve' or @data-original-title='Disapprove']//*[@id='allDay']";
-	public String ELEMENT_MANAGE_QUESTION_ACTIVE_QUESTION_CHECKBOX="//*[text()='$question']/..//*[@data-original-title='Deactivate' or @data-original-title='Activate']//*[@id='allDay']";
-	public By ELEMENT_MANAGE_QUESTION_CLOSE_BUTTON=By.xpath("//*[@id='UIAnswersPopupAction']//*[text()='Close']");
-
-	//Submit Question form
-	public By ELEMENT_SUBMIT_QUESTION_FORM = By.id("UIQuestionForm");
-	public By ELEMENT_SUBMIT_QUESTION_FORM_TITLE_INPUT=By.id("QuestionTitle");
-	public By ELEMENT_SUBMIT_QUESTION_FORM_DATA_FRAME_INPUT=By.xpath("//*[@class='cke_wysiwyg_frame cke_reset']");
-	public By ELEMENT_SUBMIT_QUESTION_FORM_LANGUAGE_SELECT_BOX=By.name("AllLanguages");
-	public By ELEMENT_SUBMIT_QUESTION_FORM_DELETE_LANG_BUTTON=By.xpath("//*[@name='AllLanguages']/../..//*[@data-original-title='Remove']");
-	public By ELEMENT_SUBMIT_QUESTION_FORM_AUTHOR=By.id("Author");
-	public By ELEMENT_SUBMIT_QUESTION_FORM_EMAIL=By.id("EmailAddress");
-	public By ELEMENT_SUBMIT_QUESTION_FORM_ATTACHMENT_BUTTON=By.xpath("//*[@class='uiIconAttach uiIconLightGray']");
-	public String ELEMENT_SUBMIT_QUESTION_FORM_DELETE_ATTACHMENT_BUTTON="//*[@data-original-title='$file']/../..//*[@data-original-title='Remove']";
-	public By ELEMENT_SUBMIET_QUESTION_APPROVE_CHECKBOX=By.id("IsApproved");
-	public By ELEMENT_SUBMIET_QUESTION_ACTIVE_CHECKBOX=By.id("IsActivated");
-	public By ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON=By.xpath("//*[@id='UIQuestionForm']//*[text()='Save']");
-	public By ELEMENT_SUBMIT_QUESTION_FORM_CANCEL_BUTTON=By.xpath("//*[@id='UIQuestionForm']//*[text()='Cancel']");
-	public By ELEMENT_QUESTION_FILE_INPUT = By.xpath("//*[@name='file']");
-
-	//Attach file form
-	public By ELEMENT_ATTACH_SAVE_BUTTON = By.xpath("//form[@id='UIAttachmentForm']//*[text()='Save']");
-	public String ELEMENT_ATTACHMENT_FORM_FILE_NAME = "//*[text()='$fileName']";
-	public String ELEMENT_ATTACH_FILE_NAME = "//*[@data-original-title='$fileName']";
-
-	//More actions
-	public By ELEMENT_QUESTION_MORE_ACTION_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconSettings')]");
-	public By ELEMENT_QUESTION_PRINT_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconPrint')]");
-	public By ELEMENT_QUESTION_EDIT_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconEdit')]");
-	public By ELEMENT_QUESTION_MOVE_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconMove')]");
-	public By ELEMENT_QUESTION_SEND_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconAnsSentMail')]");
-	public By ELEMENT_QUESTION_DELETE_BUTTON=By.xpath("//*[contains(@class,'answersContainer')]//*[contains(@class,'actionBar')]//*[contains(@class,'uiIconTrash')]");
-
-	//Question menu action
-	public String ELEMENT_QUESTION_COMMENT="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconComment uiIconLightGray']";
-	public String ELEMENT_QUESTION_ANSWER="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconAnsAnswer uiIconLightGray']";
-	public String ELEMENT_QUESTION_EDIT="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconEdit uiIconLightGray']";
-	public String ELEMENT_QUESTION_DELETE="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconTrash uiIconLightGray']";
-	public String ELEMENT_QUESTION_MOVE="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconMove uiIconLightGray']";
-	public String ELEMENT_QUESTION_SEND="//*[@class='rightContent']//*[text()='$question']//ancestor::*[@class='rightContent']//*[@class='uiIconAnsSentMail uiIconLightGray']";
-
-	//Comment question form
-	public By ELEMENT_QUESTION_COMMENT_FORM=By.id("UICommentForm");
-
-	//Answer question form
-	public By ELEMENT_QUESTION_ANSWER_FORM=By.id("UIAnswersPopupWindow");
-
-	//Edit question form
-	public By ELEMENT_QUESTION_EDIT_FORM=By.id("UIQuestionForm");
-
-	//Delete question form
-	public By ELEMENT_QUESTION_DELETE_FORM=By.id("UIDeleteQuestion");
-	public By ELEMENT_QUESTION_CONFIRM_DELETE=By.xpath("//*[@id='UIDeleteQuestion']//*[contains(text(),'Are you sure you want to delete this question and its answers?')]");
-	public By ELEMENT_QUESTION_DELETE_FORM_OK_BUTTON=By.xpath("//*[@id='UIDeleteQuestion']//*[text()='OK']");
-	public By ELEMENT_QUESTION_DELETE_FORM_CANCEL_BUTTON=By.xpath("//*[@id='UIDeleteQuestion']//*[text()='Cancel']");
-
-	//Move question form
-	public By ELEMENT_QUESTION_MOVE_FORM=By.id("FAQMoveQuestion");
-
-	//Send question form
-	public By ELEMENT_QUESTION_SEND_FORM=By.id("FAQSendMailForm");
-	public By ELEMENT_QUESTION_SEND_TO_INPUT=By.id("To");
-	public By ELEMENT_QUESTION_SEND_SEND_BUTTON=By.xpath("//*[@id='FAQSendMailForm']//*[text()='Send']");
-	public By ELEMENT_QUESTION_OK_BUTTON=By.xpath("//*[contains(@class,'UIPopupWindow')]//a[text()='OK']");
-
-	//Vote question
-	public String ELEMENT_QUESTION_RATE_ITEM="//*[@data-original-title='Rate Question']/*[@data-index='$index']";
-	public String ELEMENT_QUESTION_RATE_NUMBER="//*[contains(@class,'voteResult')]//*[contains(text(),'$index')]";
 	/**
 	 * constructor
 	 * @param dr
 	 */
 	public QuestionManagement(WebDriver dr){
 		this.driver=dr;
-		alert = new ManageAlert(driver);
 		button = new Button(driver);
-		aHome = new AnswerHomePage(dr);
 	}
 
 	/**
@@ -108,7 +25,7 @@ public class QuestionManagement extends PlatformBase {
 	 */
 	public void goToManageQuestionForm(){
 		info("Go to mange question");
-		click(aHome.ELEMENT_MANAGE_QUESTION_BUTTON);
+		click(ELEMENT_MANAGE_QUESTION_BUTTON);
 		waitForAndGetElement(ELEMENT_MANAGE_QUESTION_FORM);
 	}
 
@@ -117,7 +34,7 @@ public class QuestionManagement extends PlatformBase {
 	 */
 	public void goToSubmitQuestion(){
 		info("Open submin question form");
-		click(aHome.ELEMENT_SUBMIT_QUESTION);
+		click(ELEMENT_SUBMIT_QUESTION);
 		waitForAndGetElement(ELEMENT_SUBMIT_QUESTION_FORM);
 	}
 
@@ -174,7 +91,7 @@ public class QuestionManagement extends PlatformBase {
 	 */
 	public void goToActionOfQuestionByRightClick(String question, actionQuestionOption action){
 		info("Select action from menu");
-		rightClickOnElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		rightClickOnElement(ELEMENT_QUESTION_LIST_ITEM.replace("$question", question));
 		switch(action){
 		case COMMENT:
 			info("Comment question");
@@ -260,7 +177,7 @@ public class QuestionManagement extends PlatformBase {
 		goToActionOfQuestionByRightClick(question, actionQuestionOption.DELETE);
 		waitForAndGetElement(ELEMENT_QUESTION_CONFIRM_DELETE);
 		click(ELEMENT_QUESTION_DELETE_FORM_OK_BUTTON);
-		waitForElementNotPresent(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		waitForElementNotPresent(ELEMENT_QUESTION_LIST_ITEM.replace("$question", question));
 	}
 
 	/**
@@ -272,7 +189,7 @@ public class QuestionManagement extends PlatformBase {
 		goToActionOfQuestionByRightClick(question, actionQuestionOption.DELETE);
 		waitForAndGetElement(ELEMENT_QUESTION_CONFIRM_DELETE);
 		click(ELEMENT_QUESTION_DELETE_FORM_CANCEL_BUTTON);
-		waitForAndGetElement(By.xpath(aHome.ELEMENT_QUESTION_LIST_ITEM.replace("$question", question)));
+		waitForAndGetElement(ELEMENT_QUESTION_LIST_ITEM.replace("$question", question));
 	}
 
 	/**
@@ -414,5 +331,37 @@ public class QuestionManagement extends PlatformBase {
 			((JavascriptExecutor)driver).executeScript("arguments[0].click();", e1);
 			waitForAndGetElement(ELEMENT_QUESTION_RATE_NUMBER.replace("$index", st));
 		}
+	}
+	/**
+	 * Save or cancel all change of submit question form
+	 * @param isSave
+	 *               = true if want to save all changes
+	 *               = false if want to cancel all changes
+	 */
+	public void saveCancelSubmitQuestion(Boolean isSave){
+		if(isSave){
+			info("Click on Save button");
+			click(ELEMENT_SUBMIT_QUESTION_FORM_SAVE_BUTTON);
+			button.ok();
+		}else{
+			info("Click on Cancel button");
+			click(ELEMENT_SUBMIT_QUESTION_FORM_CANCEL_BUTTON);
+		}
+		waitForElementNotPresent(ELEMENT_SUBMIT_QUESTION_FORM);
+		info("Submint question form is closed");
+	}
+	/**
+	 * Open Answer form
+	 * @param question
+	 *                is the question that want to answer
+	 */
+	public void goToAnswerForm(String question){
+	    if(question!="" || question!=null){
+	    	info("Click on Answer link");
+	    	click(ELEMENT_QUESTION_ANSWER_LINK.replace("$question",question));
+	    	info("Respone form is shown");
+	    	waitForAndGetElement(ELEMENT_QUESTION_RESPONE_FORM);
+	    	info("Answer form is shown successfully");
+	    }
 	}
 }

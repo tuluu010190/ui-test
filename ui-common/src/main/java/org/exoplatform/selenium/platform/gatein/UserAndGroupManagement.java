@@ -65,7 +65,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	public final String ELEMENT_MSG_CONFIRM_DELETE_GROUP = "Are you sure you want to delete this group?";
 	public final String ELEMENT_MSG_CONFIRM_DELETE_MEMBERSHIP = "Are you sure you want to delete this membership?";
 	public final String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
-	public final String ELEMENT_MSG_CONFIRM_DELETE = "Are you sure you want to delete ${userName} user?";
+	public final String ELEMENT_MSG_CONFIRM_DELETE = "Are you sure you want to delete ${userName} user account?";
 	public final String ELEMENT_MSG_RESULT = "No result found.";
 	public final String ELEMENT_MSG_UPDATE_USER_PROFILE = "The user profile has been updated.";
 	
@@ -110,7 +110,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	 * Select group management tab
 	 * function: Choose Group Tab
 	 */
-	public void chooseGroupTab() {
+	public void goToGroupTab() {
 		info("-- Choose Group Management tab--");
 		click(ELEMENT_GROUP_MANAGEMENT_TAB);
 		waitForAndGetElement(ELEMENT_GROUP_MANAGEMENT_INFO);
@@ -120,7 +120,7 @@ public class UserAndGroupManagement extends PlatformBase {
 	 * Select membership management tab
 	 * function: Choose MemberShip Tab
 	 */
-	public void chooseMembershipTab() {
+	public void goToMembershipTab() {
 		info("-- Choose Membership Management tab--");
 		Utils.pause(500);
 		click(ELEMENT_TAB_MEMBERSHIP_MANAGEMENT);
@@ -577,8 +577,10 @@ public class UserAndGroupManagement extends PlatformBase {
 			Utils.pause(2000);
 			click( ELEMENT_USER_DELETE_ICON.replace("${username}",
 					username));
-			alert.waitForConfirmation(ELEMENT_MSG_CONFIRM_DELETE.replace(
-					"${userName}", username));
+			Utils.pause(3000);
+			//alert.waitForConfirmation(ELEMENT_MSG_CONFIRM_DELETE.replace(
+			//		"${userName}", username));
+			alert.acceptAlert();
 			Utils.pause(1000);
 			type(ELEMENT_INPUT_SEARCH_USER_NAME, username, true);
 			select(ELEMENT_SELECT_SEARCH_OPTION, ELEMENT_MSG_SEARCH_USER_NAME);

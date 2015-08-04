@@ -15,11 +15,12 @@ import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabas
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ConnectStatusDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDescriptionDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactIMDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactPhoneDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityMessageDatabase;
-import org.exoplatform.selenium.platform.social.SendEmailNotifications;
+import org.exoplatform.selenium.platform.social.EmailNotifications;
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting;
 import org.exoplatform.selenium.platform.social.UserPageBase;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.exoplatform.selenium.platform.social.IntranetNotification;
@@ -30,6 +31,7 @@ import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
 import org.exoplatform.selenium.platform.chat.ChatStatus;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -43,6 +45,7 @@ public class SOC_TestConfig_2 extends PlatformBase {
 	UserProfilePage myProfile;
 	UserPageBase uBase;
 	IntranetNotification intraNot;
+	MyNotificationsSetting myNotifPage;
 
 	NavigationToolbar navTool;
 	AttachmentFileDatabase atData;
@@ -53,7 +56,7 @@ public class SOC_TestConfig_2 extends PlatformBase {
 	UserInfoDatabase userInfData;
 
 	SiteExplorerPathDatabase siteExPath;
-	NotificationDescriptionDatabase notiDes;
+	NotificationDatabase notiIntranetData;
 	SiteExplorerDriveDatabase siteExDrive;
 
 	ConnectionsManagement connMag;
@@ -70,7 +73,7 @@ public class SOC_TestConfig_2 extends PlatformBase {
 	PageEditor pagEditor;
 	Button button;
 
-	SendEmailNotifications notiEmail;
+	EmailNotifications notiEmail;
 	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -89,8 +92,8 @@ public class SOC_TestConfig_2 extends PlatformBase {
 		intraNot = new IntranetNotification(driver);
 		button = new Button(driver);
 		pagEditor = new PageEditor(driver);
-
-		notiEmail = new SendEmailNotifications(driver);
+		myNotifPage = new MyNotificationsSetting(driver);
+		notiEmail = new EmailNotifications(driver);
 		
 		atData = new AttachmentFileDatabase();
 		atData.setAttachFileData(attachmentFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -131,16 +134,16 @@ public class SOC_TestConfig_2 extends PlatformBase {
 		chatStatus = new ChatStatusDatabase();
 		chatStatus.setChatStatusData(chatStatusFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
-		notiDes = new NotificationDescriptionDatabase();
-		notiDes.setData(notiDesFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		notiIntranetData = new NotificationDatabase();
+		notiIntranetData.setData(notiIntranetFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		siteExPath = new SiteExplorerPathDatabase();
 		siteExPath.setSiteExpPathData(siteExpPathPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		info("Enable like and new user notifications");
 		navTool.goToMyNotifications();
-		intraNot.enableOptionNewUserNotification();
-		intraNot.enableOptionLikeNotification();
+		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
+		myNotifPage.enableNotification(myNotiType.Like_intranet);
 		
 		info("End setUpBeforeClass");
 	}

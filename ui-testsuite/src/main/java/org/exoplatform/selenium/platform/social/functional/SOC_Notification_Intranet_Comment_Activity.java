@@ -76,14 +76,14 @@ import org.testng.annotations.*;
 			- $USER is User B
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the activity*/
-		String status=notiDesData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiMessage(0);
 		info("Log in with User A");
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list");
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,true);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,true);
 		
 		/*Step number: 3
 		*Step Name: 
@@ -96,7 +96,7 @@ import org.testng.annotations.*;
 			- The comment that this notification is about is highlighted.*/
 		info("Check detail of Activity Comment");
 		intraNot.goToDetailCommentNotification(activity,true);
-		intraNot.checkCommentExpand(comment, true);
+		notiAct.checkCommentExpand(comment, true);
  	}
 	
 	
@@ -188,14 +188,14 @@ import org.testng.annotations.*;
 			- $USER_LISTis User B, User C
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the activity*/
-		String status=notiDesData.getNotiMessage(1);
+		String status=notiIntranetData.getNotiMessage(1);
 		info("Log in with User A");
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list");
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,true);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,true);
 		/*Step number: 3
 		*Step Name: 
 		*Step Description: 
@@ -206,8 +206,7 @@ import org.testng.annotations.*;
 			- The activity is displayed in the activity viewer with all comment expanded.*/ 
 		info("Check detail of Activity comment");
 		intraNot.goToDetailCommentNotification(activity,true);
-		intraNot.checkCommentsExpand(comments, true);
-		//intraNot.checkDetailActivityNotifications(activity,comments,false);
+		notiAct.checkCommentsExpand(comments, true);
  	}
 
 	/**
@@ -319,14 +318,14 @@ import org.testng.annotations.*;
 			- $COUNT is 1
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the activity*/
-		String status=notiDesData.getNotiMessage(2);
+		String status=notiIntranetData.getNotiMessage(2);
 		info("Log in with User A");
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list");
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,true);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,true);
 		/*Step number: 3
 		*Step Name: 
 		*Step Description: 
@@ -337,8 +336,7 @@ import org.testng.annotations.*;
 			- The activity is displayed in the activity viewer with all comment expanded.*/ 
 		info("Check detail of activity comment");
 		intraNot.goToDetailCommentNotification(activity,true);
-		intraNot.checkCommentsExpand(comments, true);
-		//intraNot.checkDetailActivityNotifications(activity,comments,false);
+		notiAct.checkCommentsExpand(comments, true);
 
  	}
 
@@ -471,14 +469,14 @@ import org.testng.annotations.*;
 			- $ACTIVITY is the activity message/title
 			- $DATE is the date of the last notification of User C*/
 
-		String status=notiDesData.getNotiMessage(1);
+		String status=notiIntranetData.getNotiMessage(1);
 		info("Log in with user A");
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		Utils.pause(3000);
 		info("Check format notification in the notification list");
 		navTool.goToIntranetNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,true);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,true);
 
  	}
 
@@ -560,7 +558,7 @@ import org.testng.annotations.*;
 	    navTool.goToIntranetNotification();
 	    info("Read detail notification");
 	    intraNot.goToDetailCommentNotification(activity,true);
-		intraNot.checkCommentExpand(comment, true);
+		notiAct.checkCommentExpand(comment, true);
 		//intraNot.checkDetailActivityNotifications(activity,comments,true);
 		info("Verify that badge notification is not shown. The notification is read.");
 		waitForAndGetElement(intraNot.ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER.replace("$num","0"),2000,2);
@@ -636,10 +634,10 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list");
-		String status=notiDesData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiMessage(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,true);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,true);
 
  	}
 
@@ -716,11 +714,11 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 	    info("Check format notification in the notification list page");
-		String status=notiDesData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiMessage(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,false);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,false);
  	}
 
 	/**
@@ -818,11 +816,11 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 	    info("Check format notification in the notification list page");
-		String status=notiDesData.getNotiMessage(1);
+		String status=notiIntranetData.getNotiMessage(1);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,false);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,false);
 
  	}
 
@@ -938,11 +936,11 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 	    info("Check format notification in the notification list page");
-		String status=notiDesData.getNotiMessage(2);
+		String status=notiIntranetData.getNotiMessage(2);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,false);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,false);
 
  	}
 
@@ -1074,11 +1072,11 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiDesData.getNotiMessage(1);
+		String status=notiIntranetData.getNotiMessage(1);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,false);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,false);
 
  	}
 
@@ -1162,8 +1160,7 @@ import org.testng.annotations.*;
 	    navTool.goToIntranetNotification();
 	    info("Read detail notification");
 	    intraNot.goToDetailCommentNotification(activity,true);
-		intraNot.checkCommentExpand(comment, true);
-		//intraNot.checkDetailActivityNotifications(activity,comments,true);
+	    notiAct.checkCommentExpand(comment, true);
 		info("Verify that badge notification is not shown. The notification is read.");
 		waitForAndGetElement(intraNot.ELEMENT_INTRANET_NOTIFICATION_BADGE_NUMBER.replace("$num","0"),2000,2);
 
@@ -1236,11 +1233,11 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiDesData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiMessage(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,activity,false);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,false);
 
  	}
 
@@ -1320,10 +1317,10 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiDesData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiMessage(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,link,true);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,link,true);
 
 		/*Step number: 3
 		*Step Name: 
@@ -1335,8 +1332,7 @@ import org.testng.annotations.*;
 			- The activity is displayed in the activity viewer with all comment expanded.
 			- The comment that this notification is about is highlighted.*/ 
 		intraNot.goToDetailCommentNotification(activity,true);
-		intraNot.checkCommentExpand(comment, true);
-		//intraNot.checkDetailActivityNotifications(activity, comments,true);
+		notiAct.checkCommentExpand(comment, true);
 
  	}
 
@@ -1422,10 +1418,10 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiDesData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiMessage(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,attachedFile,true);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,attachedFile,true);
 
 		/*Step number: 3
 		*Step Name: 
@@ -1438,7 +1434,7 @@ import org.testng.annotations.*;
 			- The comment that this notification is about is highlighted.*/ 
 		//intraNot.checkDetailActivityNotifications(activity, comments,true);
 		intraNot.goToDetailCommentNotification(activity,true);
-		intraNot.checkCommentExpand(comment, true);
+		notiAct.checkCommentExpand(comment, true);
 
  	}
 
@@ -1517,10 +1513,10 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(DATA_USER1,DATA_PASS);
 		info("Check format notification in the notification list page");
-		String status=notiDesData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiMessage(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,wiki,true);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,wiki,true);
 
 		/*Step number: 3
 		*Step Name: 
@@ -1533,7 +1529,7 @@ import org.testng.annotations.*;
 			- The comment that this notification is about is highlighted.*/ 
 		//intraNot.checkDetailActivityNotifications(wiki, comments,true);
 		intraNot.goToDetailCommentNotification(wiki,true);
-		intraNot.checkCommentExpand(comment, true);
+		notiAct.checkCommentExpand(comment, true);
 
  	}
 
@@ -1636,10 +1632,10 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiDesData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiMessage(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
-		intraNot.checkFormatACNotification(arrayUser,status,newEvent,true);
+		intraNot.checkFormatStatusCommentNotification(arrayUser,status,newEvent,true);
 
 		/*Step number: 3
 		*Step Name: 
@@ -1652,5 +1648,5 @@ import org.testng.annotations.*;
 			- The comment that this notification is about is highlighted.*/ 
 		//intraNot.checkDetailActivityNotifications(newEvent, comments,true);
 		intraNot.goToDetailCommentNotification(newEvent,true);
-		intraNot.checkCommentExpand(comment, true);
+		notiAct.checkCommentExpand(comment, true);
  	}}

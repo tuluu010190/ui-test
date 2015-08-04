@@ -1,5 +1,6 @@
 package org.exoplatform.selenium.platform;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.objectdatabase.user.UserDatabase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -53,7 +55,7 @@ public class PlatformBase extends TestBase {
 	public final By ELEMENT_GMAIL_ADD_ACCOUNT = By.linkText("Add account");
 	public final By ELEMENT_FIRST_MAIL = By.xpath("//tr[1]//span[contains(text(),'Hi')]");
 	public final String ELEMENT_GMAIL_CONTENT = ".//span[contains(.,'\"${title}\" page was modified') or contains(.,'${title}')]";
-	public final String ELEMENT_GMAIL_NEWUSER = ".//span[contains(.,'${title} ${title} has joined eXo')]";
+	
 	public final By ELEMENT_GMAIL_SIGN_IN_LINK = By.xpath("//a[@id='gmail-sign-in' and contains(text(),'Sign in')]");
 
 	public ManageAlert alert = new ManageAlert(driver);
@@ -241,12 +243,13 @@ public class PlatformBase extends TestBase {
          }
 	 }
 	/**
-	 * Go to gmail and login
+	 * Go to gmail and login by new browser
 	 * @param email
 	 * @param pass
 	 */
 	public void goToMail(String email, String pass){	
-		((JavascriptExecutor) driver).executeScript("window.open()");
+		//((JavascriptExecutor) driver).executeScript("window.open()");
+		driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"n");
 		for(String winHandle : driver.getWindowHandles()){
 			driver.switchTo().window(winHandle);
 		}
@@ -268,10 +271,43 @@ public class PlatformBase extends TestBase {
 		Utils.pause(1000);
 		type(ELEMENT_GMAIL_PASS, pass, true);
 		click(ELEMENT_GMAIL_SIGN_IN);
+		//clearCache();
+		Utils.pause(2000);
+		click(ELEMENT_GMAIL_INBOX);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Open mail by opening new tab
+	 * @param email
+	 * @param pass
+	 */
+	public void goToMailByTab(String email, String pass){
+	    driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"t");
+	    ArrayList<String> tabs = new ArrayList<String> (driver.getWindowHandles());
+	    driver.switchTo().window(tabs.get(0));
+	    info("Go to gmail");
+		driver.navigate().to(GMAIL_URL);
+		
+		//login to mail
+		if(waitForAndGetElement(ELEMENT_GMAIL_USERNAME, 5000,0) == null){
+			if (waitForAndGetElement(ELEMENT_GMAIL_SIGN_IN_LINK,3000,0) != null)
+				click(ELEMENT_GMAIL_SIGN_IN_LINK); 
+			else{
+				click(ELEMENT_GMAIL_SIGNIN_DIFFERENT_ACC);
+				click(ELEMENT_GMAIL_ADD_ACCOUNT);
+			}
+		}
+		type(ELEMENT_GMAIL_USERNAME, email, true);
+		click(ELEMENT_GMAIL_NEXT_BTN);
+		Utils.pause(1000);
+		type(ELEMENT_GMAIL_PASS, pass, true);
+		click(ELEMENT_GMAIL_SIGN_IN);
 		clearCache();
 		Utils.pause(2000);
 		click(ELEMENT_GMAIL_INBOX);
 		Utils.pause(2000);
+
 	}
 	
 	/**

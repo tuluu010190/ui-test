@@ -159,7 +159,9 @@ public class TestBase {
 	protected String colorNamefilePath;
 
 
-	protected String notiDesFilePath;
+	protected String notiIntranetFilePath;
+	protected String notiEmailFilePath;
+	protected String actCommentFilePath;
 
 	protected static String ssoType;
 
@@ -237,7 +239,7 @@ public class TestBase {
 	public final String DEFAULT_GROUPNAMEURL="DataDriven/"+"gatein_group_name.xls";
 
 	public final String DEFAULT_CHATSTATUS_URL = "DataDriven/"+"chat_status.xls";
-	public final String DEFAULT_NOTIFICATION_DESCRIPTION_URL = "DataDriven/"+"soc_notification_description.xls";
+	
 
 	//Social
 	public final String DEFAULT_SPACE_UI_URL ="DataDriven/"+"space_GUI.xls";
@@ -247,6 +249,9 @@ public class TestBase {
 	public final String DEFAULT_SPACE_NAVIGATION_DEFAULT_NODES_URL = "DataDriven/"+"space_navigation_default_nodes.xls";
 	public final String DEFAULT_SPACE_GROUPS_URL="DataDriven/"+"space_groups.xls";
 	public final String DEFAULT_SPACE_WARNING_MESSAGE_URL="DataDriven/"+"space_warning_message.xls";
+	public final String DEFAULT_NOTIFICATION_INTRANET_URL = "DataDriven/"+"soc_notification_intranet.xls";
+	public final String DEFAULT_NOTIFICATION_EMAIL_URL = "DataDriven/"+"soc_notification_email.xls";
+	public final String DEFAULT_ACTIVITY_COMMENT_URL="DataDriven/"+"activity_comment.xls";
 
 	//Calendar
 	public final String DEFAULT_CALENDAR_GROUP_NAME_URL="DataDriven/"+"cal_group.xls";
@@ -368,8 +373,7 @@ public class TestBase {
 		contactPhoneFilePath = System.getProperty("contactPhoneFilePath");
 		activityMesFilePath = System.getProperty("activityMesFilePath");
 		chatStatusFilePath = System.getProperty("chatStatusFilePath");
-		notiDesFilePath = System.getProperty("notiDesFilePath");
-		spaceNavigationDefaultNodesFilePath = System.getProperty("spaceNavigationDefaultNodesFilePath");
+		
 		//Social
 		spaceUIFilePath = System.getProperty("spaceUIFilePath");
 		spaceVisibleFilePath = System.getProperty("spaceVisibleFilePath");
@@ -377,7 +381,11 @@ public class TestBase {
 		spaceappFilePath=System.getProperty("spaceappFilePath");
 		spaceGroupsFilePath = System.getProperty("spaceGroupsFilePath");
 		spaceWarnMessageFilePath = System.getProperty("spaceWarnMessageFilePath");
-
+		notiEmailFilePath = System.getProperty("notiEmailFilePath");
+		notiIntranetFilePath = System.getProperty("notiIntranetFilePath");
+		spaceNavigationDefaultNodesFilePath = System.getProperty("spaceNavigationDefaultNodesFilePath");
+		actCommentFilePath = System.getProperty("actCommentFilePath");
+		
 		//Calendar
 		calGroupNameFilePath = System.getProperty("calGroupNameFilePath");
 		calTabNameFilePath =System.getProperty("calTabNameFilePath");
@@ -456,7 +464,7 @@ public class TestBase {
 		if (portalPermisMemFilePath==null) portalPermisMemFilePath = DEFAULT_PORTAL_PERMISSION_MEMBERSHIPS_URL;
 		if (videoLinksFilePath==null) videoLinksFilePath = DEFAULT_VIDEO_EMBBED_LINKS_PATH;
 		if (chatStatusFilePath==null) chatStatusFilePath = DEFAULT_CHATSTATUS_URL;
-		if (notiDesFilePath==null) notiDesFilePath = DEFAULT_NOTIFICATION_DESCRIPTION_URL;
+		
 
 		//Social
 		if (spaceUIFilePath==null) spaceUIFilePath = DEFAULT_SPACE_UI_URL;
@@ -466,6 +474,10 @@ public class TestBase {
 		if (spaceNavigationDefaultNodesFilePath == null) spaceNavigationDefaultNodesFilePath = DEFAULT_SPACE_NAVIGATION_DEFAULT_NODES_URL;
 		if (spaceGroupsFilePath==null) spaceGroupsFilePath=DEFAULT_SPACE_GROUPS_URL;
 		if (spaceWarnMessageFilePath==null) spaceWarnMessageFilePath=DEFAULT_SPACE_WARNING_MESSAGE_URL;
+		if (notiEmailFilePath==null) notiEmailFilePath=DEFAULT_NOTIFICATION_EMAIL_URL;
+		if (notiIntranetFilePath==null) notiIntranetFilePath = DEFAULT_NOTIFICATION_INTRANET_URL;
+		if (actCommentFilePath==null) actCommentFilePath = DEFAULT_ACTIVITY_COMMENT_URL;
+			
 		//Calendar
 		if (calGroupNameFilePath==null) calGroupNameFilePath=DEFAULT_CALENDAR_GROUP_NAME_URL;
 		if (calTabNameFilePath==null) calTabNameFilePath=DEFAULT_CALENDAR_TAB_NAME_URL;
@@ -522,7 +534,7 @@ public class TestBase {
 		portalPermisMemFilePath = getAbsoluteFilePath(portalPermisMemFilePath);
 		groupNameDataFilePath = getAbsoluteFilePath(groupNameDataFilePath);
 		videoLinksFilePath = getAbsoluteFilePath(videoLinksFilePath);
-		notiDesFilePath = getAbsoluteFilePath(notiDesFilePath);
+		
 
 		//Space
 		spaceUIFilePath = getAbsoluteFilePath(spaceUIFilePath);
@@ -532,7 +544,10 @@ public class TestBase {
 		spaceNavigationDefaultNodesFilePath = getAbsoluteFilePath(spaceNavigationDefaultNodesFilePath);
 		spaceGroupsFilePath = getAbsoluteFilePath(spaceGroupsFilePath);
 		spaceWarnMessageFilePath = getAbsoluteFilePath(spaceWarnMessageFilePath);
-
+		notiEmailFilePath = getAbsoluteFilePath(notiEmailFilePath);
+		notiIntranetFilePath = getAbsoluteFilePath(notiIntranetFilePath);
+		actCommentFilePath = getAbsoluteFilePath(actCommentFilePath);
+		
 		//Calendar
 		calGroupNameFilePath = getAbsoluteFilePath(calGroupNameFilePath);
 		calTabNameFilePath =getAbsoluteFilePath(calTabNameFilePath);

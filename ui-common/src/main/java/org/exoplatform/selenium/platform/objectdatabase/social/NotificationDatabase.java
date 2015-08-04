@@ -7,13 +7,13 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.objectdatabase.common.DatabaseResource;
 
-public class NotificationDescriptionDatabase {
+public class NotificationDatabase {
 	public ArrayList<Integer> type;
 	public ArrayList<String> mode;
 	public ArrayList<String> content;
 	public ArrayList<String> newContent;
 	
-	public NotificationDescriptionDatabase(ArrayList<Integer> type, ArrayList<String> mode,
+	public NotificationDatabase(ArrayList<Integer> type, ArrayList<String> mode,
 			ArrayList<String> content){
 		this.type = type;
 		this.mode = mode;
@@ -21,7 +21,7 @@ public class NotificationDescriptionDatabase {
 		
 	}
 
-	public NotificationDescriptionDatabase() {
+	public NotificationDatabase() {
 		type  = new ArrayList<Integer>();
 		mode  = new ArrayList<String>();
 		content  = new ArrayList<String>();

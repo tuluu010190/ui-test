@@ -12,7 +12,7 @@ import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
-import org.exoplatform.selenium.platform.social.SendEmailNotifications;
+import org.exoplatform.selenium.platform.social.EmailNotifications;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
@@ -55,7 +55,7 @@ public class SOC_TestConfig_1 extends PlatformBase {
 	ConnectionsManagement connMag;
 	SpaceSettingManagement setSpaceMg;
 	
-	SendEmailNotifications notiEmail;
+	EmailNotifications notiEmail;
 	
 	@BeforeClass
 	public void setUpBeforeClass() throws Exception{
@@ -72,7 +72,7 @@ public class SOC_TestConfig_1 extends PlatformBase {
 		setSpaceMg = new SpaceSettingManagement(driver);
 		hp = new HomePagePlatform(driver);
 
-		notiEmail = new SendEmailNotifications(driver);
+		notiEmail = new EmailNotifications(driver);
 		
 		wHome = new WikiHomePage(driver);
 		wikiMg = new WikiManagement(driver);

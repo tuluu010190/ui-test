@@ -3,12 +3,14 @@ package org.exoplatform.selenium.platform.social.sniff;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import java.awt.AWTException;
+import java.util.ArrayList;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
 import org.testng.annotations.*;
 
 public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestConfig_3{
@@ -49,7 +51,6 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		/*Precondition:
 		 	- User A has received 3 notifications*/
 		info("Check number of notifications in badge before ccreate more notifications");
-		int numNotification = Integer.parseInt(waitForAndGetElement(navTool.ELEMENT_BADGE_NUMBER).getText().trim());
 		info("Create 3 notifications for add new user");
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
@@ -75,8 +76,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		 *Expected Outcome: 
 			- The number displayed in the badge is 3*/
 		info("Check number of notifications after add more notifications");
-		int  newNumNotification = Integer.parseInt(waitForAndGetElement(navTool.ELEMENT_BADGE_NUMBER).getText().trim());
-		assert (newNumNotification==(numNotification+3)):"Number of notification is not updated";
+		intraNot.checkBadgeNoti(3);
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: 
@@ -88,11 +88,8 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 - 			- The number displayed in the badge is reset and not displayed anymore*/
 		info("Check notification list");
 		navTool.goToIntranetNotification();
-		intraNot.checkNewUserNotification(username1, "1");
-		intraNot.checkNewUserNotification(username2, "1");
-		intraNot.checkNewUserNotification(username3, "1");
-		info("Make sure there is no number of notifications left");
-		navTool.checkNUmberOfNotificationsInBadge(false, "3");
+		driver.navigate().refresh();
+		intraNot.checkNotBadgeNoti(3);
 		
 		/*Step Number: 4
 		 *Step Name: Step 4: 
@@ -103,7 +100,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 			- The badge is update with the number 1*/
 		navTool.goToAddUser();
 		addUserPage.addUser(username4, password4, email4, username4, username4);
-		navTool.checkNUmberOfNotificationsInBadge(true, "1");
+		intraNot.checkBadgeNoti(1);
 		
 		
 		info("Delete users");
@@ -152,8 +149,8 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		magAc.signOut();
 		magAc.signIn(username1, password1);
 		navTool.goToMyNotifications();
-		intraNot.enableOptionNewUserNotification();
-		intraNot.enableOptionLikeNotification();
+		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
+		myNotifPage.enableNotification(myNotiType.Like_intranet);
 		
 		info("Connect to user 2");
 		hp.goToConnections();
@@ -186,9 +183,11 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		magAc.signOut();
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
-		intraNot.checkCommentNotification(username2, activity, "1", false, "", 1, "");
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username2);
+		String status = notiIntranetData.getNotiMessage(0);
+		intraNot.checkStatusAC(users, status,true);
 		intraNot.goToDetailCommentNotification(activity, false);
-		//intraNot.gotoActivityViewer(username2, activity, "1", "", false, "", true);
 		
 		info("Read connection request notification");
 		Utils.pause(2000);
@@ -210,7 +209,8 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		 *Input Data: 
 		 *Expected Outcome: 
 			- A link [Mark as read] is displayed at the top of the notification popover
-			- The notifications are displayed in the good order : from the newest at the top to the latest at the bottom.
+			- The notifications are displayed in the good order : 
+			from the newest at the top to the latest at the bottom.
 			- Unread notifications should look differently to read notifications.
 			- A button [View All] is displayed at the bottom of the page*/
 		info("Check notification icon");
@@ -219,12 +219,10 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		info("A link [Mark as read] is displayed at the top of the notification popover");
 		waitForAndGetElement(navTool.ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION,3000,1);
 		info("The notifications are displayed in the good order : from the newest at the top to the latest at the bottom.");
-		intraNot.checkCommentNotification(username2, activity, "1", true, "3", 1, "");
-		intraNot.checkUnreadLikeNotification(username2, activity, null);
+		intraNot.checkStatusAC(users, status,true);
+		String statusLike = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkUnreadNotification(statusLike, username2);
 		waitForAndGetElement(navTool.ELEMENT_CONNECT_NOTIFICATION_POSITION.replace("${position}", "1").replace("${fullName}", username3),3000,1);
-		info("Unread notifications should look differently to read notifications.");
-		navTool.checkCommentNotificationReadOrUnread(true, false, username2, activity, "1");
-		navTool.checkLikeNotificationReadOrUnread(false, false, username2, activity, "1");
 		info("A button [View All] is displayed at the bottom of the page");
 		waitForAndGetElement(navTool.ELEMENT_VIEW_ALL_BUTTON,3000,1);
 		
@@ -239,12 +237,8 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 			- The UI of the list must indicate there is no notification to display
 			- The button [View All] is displayed at the bottom of the list*/
 		info("Clean the notification list");
-		navTool.clearCommentNotification(username2, activity, "1");
-		Utils.pause(2000);
-		navTool.clearLikeNotification(username2, activity, "1");
-		Utils.pause(2000);
-		navTool.clearConnectionRequestNotification(username3);
-		Utils.pause(2000);
+		for(int i=0;i<3;i++)
+		intraNot.removeNotificationByIndex(0);
 		info("Check the UI of the list");
 		info("The link Mark as read is hidden");
 		waitForElementNotPresent(navTool.ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION,3000,1);
@@ -368,8 +362,8 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		info("Log in user 1 and enable new user and like notifications");
 		magAc.signIn(username1, password1);
 		navTool.goToMyNotifications();
-		intraNot.enableOptionNewUserNotification();
-		intraNot.enableOptionLikeNotification();
+		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
+		myNotifPage.enableNotification(myNotiType.Like_intranet);
 		
 		info("Connect to user 2");
 		hp.goToConnections();
@@ -395,8 +389,10 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		Utils.pause(50000);
 		driver.navigate().refresh();
 		navTool.goToIntranetNotification();
-		navTool.checkCommentNotificationReadOrUnread(false, false, username2, activity, "1");
-		navTool.checkLikeNotificationReadOrUnread(false, false, username2, activity, "1");
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status2 = notiIntranetData.getNotiMessage(0);
+		intraNot.checkUnreadNotification(status,username2);
+		intraNot.checkUnreadNotification(status2,username2);
 		/*Step Number: 1
 		 *Step Name: Step 1: Mark notificitions as read
 		 *Step Description: 
@@ -407,9 +403,9 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		 *Expected Outcome: 
 			- All unread notifications are changed to read.*/
 		info("Click [Mark all as read] button and verify result");
-		click(navTool.ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION);
-		navTool.checkCommentNotificationReadOrUnread(true, true, username2, activity, "1");
-		navTool.checkLikeNotificationReadOrUnread(true, true, username2, activity, "1");
+		intraNot.markAllAsRead();
+		intraNot.checkReadNotification(status,username2);
+		intraNot.checkReadNotification(status2,username2);
 		
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);
@@ -453,7 +449,8 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 			- User A is doing some actions on wiki*/
 		info("log in as user1 and go to wiki");
 		magAc.signIn(username1, password1);
-		navTool.checkNUmberOfNotificationsInBadge(false, "1");
+		intraNot.checkBadgeNoti(1);
+		//navTool.checkNUmberOfNotificationsInBadge(false, "1");
 		driver.navigate().refresh();
 		/*Step Number: 2
 		 *Step Name: Step 2: 
@@ -477,7 +474,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		info("Switch to user1 and check intranet notification");
 		isDriver = true;
 		driver.navigate().refresh();
-		navTool.checkNUmberOfNotificationsInBadge(true, "1");
+		intraNot.checkBadgeNoti(1);
 		
 		/*Step Number: 3
 		 *Step Name: Step 3: 
@@ -497,7 +494,10 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 			- Go to the actiivty stream and mention User A
 		 *Input Data: 
 		 *Expected Outcome: 
-			- While User A is browsing the notification list, the number of notification and the content of the list is updated as soon as a new notifications is received. The new notification is displayed at the top of the list.*/
+			- While User A is browsing the notification list, 
+			the number of notification and 
+			the content of the list is updated as soon as a new notifications is received. 
+			The new notification is displayed at the top of the list.*/
 		info("User2 mentions user1 in an activity");
 		info("Check number of notifications in badge before ccreate more notifications");
 		int numNotification = 0;
@@ -515,7 +515,8 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		int newNumNotification = Integer.parseInt(waitForAndGetElement(navTool.ELEMENT_BADGE_NUMBER).getText().trim());
 		assert (newNumNotification==(numNotification+1)):"Number of notification is not updated";
 		navTool.goToIntranetNotification();
-		intraNot.checkUnreadMentionNotification(username2, activity, intraNot.ELEMET_MINUTE_STRING.replace("${number}", "1"));
+		String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		intraNot.checkStatus(status, username2);
 		
 		info("Reset Data");
 		magAc.signIn(DATA_USER1, DATA_PASS);

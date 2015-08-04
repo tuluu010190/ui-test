@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.social.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import java.awt.AWTException;
+import java.util.ArrayList;
 
 import org.testng.annotations.*;
 
@@ -59,7 +60,12 @@ public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 			- $USER is User A
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the notification*/ 
-		intraNot.checkUnreadMentionNotification(DATA_NAME_USER1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+		 ArrayList<String> users = new ArrayList<String>();
+		 users.add(DATA_USER1);
+		 String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		 intraNot.checkAvatarInStatus(users,true);
+		 intraNot.checkStatus(status,DATA_USER1);
+		 intraNot.checkActivityTitleInStatus(activity1, true);
 		
 		info("Test 4: Click the Mention notifications (in activity message)");
 		/*Step Number: 1
@@ -81,7 +87,9 @@ public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 
 		 *Expected Outcome: 
 			- The user is redirected to the activity viewer with all comment expanded.*/ 
-		click(intraNot.checkUnreadMentionNotification(DATA_NAME_USER1, activity1, intraNot.ELEMET_JUST_NOW_STRING));
+		 intraNot.checkAvatarInStatus(users,true);
+		 intraNot.checkStatus(status,DATA_USER1);
+		 intraNot.checkActivityTitleInStatus(activity1, true);
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_MENTION_USER.replace("${content}", activity1).replace("${user}",username1));
 	}
 
@@ -139,7 +147,13 @@ public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 			- $USER is User A
 			- $ACTIVITY is the name of the wiki page
 			- $DATE is the date of the notification*/ 
-		intraNot.checkUnreadMentionNotification(DATA_NAME_USER1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+		 ArrayList<String> users = new ArrayList<String>();
+		 users.add(DATA_USER1);
+		 String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		 intraNot.checkAvatarInStatus(users,true);
+		 intraNot.checkStatus(status,DATA_USER1);
+		 intraNot.checkActivityTitleInStatus(activity1, true);
+		//intraNot.checkUnreadMentionNotification(DATA_NAME_USER1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
 		
 		info("Test 5: Click the Mention notifications (in comment)");
 		/*Step Number: 1
@@ -162,8 +176,8 @@ public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 		 *Expected Outcome: 
 			- The user is redirected to the activity viewer with all comment expanded. 
 			- The comment where the mention has been done is highlighted*/ 
-		click(intraNot.checkUnreadMentionNotification(DATA_NAME_USER1, activity1, intraNot.ELEMET_JUST_NOW_STRING));
-		waitForAndGetElement(hpAct.ELEMENT_COMMENT_TEXT.replace("${activityText}", activity1).replace("${commentText}",username1));
+		 intraNot.goToDetailMentionNotification(DATA_NAME_USER1, true);
+		 notiAct.checkCommentExpand(comment,true);
 
 	}
 
@@ -202,6 +216,8 @@ public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 			- The Mention notification is displayed in the list*/
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
+		String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		intraNot.checkStatus(status,DATA_NAME_USER1);
 		
 		/*Step number: 2
 		 *Step Name: 
@@ -212,6 +228,6 @@ public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 		 *Expected Outcome: 
 			- The Mention notification is displayed / available in the page*/ 
 		intraNot.goToAllNotification();
-		intraNot.checkUnreadMentionNotification(DATA_NAME_USER1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+		intraNot.checkStatus(status,DATA_NAME_USER1);
 	}
 }

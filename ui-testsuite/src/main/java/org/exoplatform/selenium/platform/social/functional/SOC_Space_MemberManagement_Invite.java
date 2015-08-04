@@ -50,7 +50,7 @@ import org.testng.annotations.*;
 				- Group management form is shown
 				- User becomes member or manage of space create at step 1*/ 
 	         navTool.goToUsersAndGroupsManagement();
-	         userGroupMg.chooseGroupTab();
+	         userGroupMg.goToGroupTab();
 	         ArrayList<String> groups=spGroupsData.getArrayGroupByType(4);
 	 		 String[] arrayGroupPath ={groups.get(0),space};
 	 		 String membership = membershipData.getContentByIndex(4);
@@ -599,7 +599,7 @@ import org.testng.annotations.*;
 				- Group management form is shown
 				- User becomes member or manage of space create at step 1*/ 
 			 navTool.goToUsersAndGroupsManagement();
-	         userGroupMg.chooseGroupTab();
+	         userGroupMg.goToGroupTab();
 	         ArrayList<String> groups=spGroupsData.getArrayGroupByType(4);
 			 String[] arrayGroupPath ={groups.get(0),space};
 			 String membership = membershipData.getContentByIndex(4);

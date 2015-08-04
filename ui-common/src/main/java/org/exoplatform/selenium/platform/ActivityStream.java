@@ -107,7 +107,9 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_QUESTION_ACTIVITY_UNACTIVATE_COMMENT="Question has been unactivated";
 	public final String ELEMENT_QUESTION_ACTIVITY_ACTIVATE_COMMENT="Question has been activated";
 	public final String ELEMENT_QUESTION_ACTIVITY_UPDAT_TITLE_COMMENT="Title has been updated to: $value";
-
+	public final String ELEMENT_QUESTION_ACTIVITY_ANSWER_ICON="//*[contains(text(),'$question')]/../../../..//*[contains(@class,'uiIconReply')]";
+	public By ELEMENT_ANSWER_FORM=By.id("UIResponseForm");
+	
 	// Activity of file
 	public String ELEMENT_ACTIVITY_FILE_TITLE = "//*[@class='fileTypeContent']/..//*[@class='linkTitle' and contains(text(),'{$title}')]";
 	public String ELEMENT_ACTIVITY_FILE_CHECK_ICON_FILE = "//*[@data-original-title='{$title}']//*[@class='uiIcon64x64FileDefault uiIcon64x64nt_file uiIcon64x64texthtml']";
@@ -146,6 +148,8 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_LINK = "//*[@id='boxContainer']//*[contains(text(),'${title}')]/../..//*[contains(@onclick,'${link}')]";
 	public final String ELEMENT_ACTIVITY_LINK_USER_ICON = "//*[@class='activityAvatar avatarCircle']/*[contains(@href,'${user}')]/../..//*[@class='uiIconSocLinkMini uiIconSocWhite']";
 	public final String ELEMENT_ACTIVITY_MENTION_USER = "//*[@id='boxContainer']//*[contains(text(),'${content}')]/a[contains(@href,'${user}')]";
+	public final String ELEMENT_ACTIVITY_PUBLICATION_VIEW_LASTCOMMENT="//*[contains(text(),'$comment')]/../../../..//*[@class='viewComment']/..//*[contains(@class,'uiIconWatch')]";
+	
 	//Document preview activity
 	public final String ELEMENT_ACTIVITY_DOCUMENT_MEDIA_TITLE = ".//*[@class='linkTitle'][@data-original-title='${title}']";
 	public final String ELEMENT_ACTIVITY_WEBCONTENT_TITLE =".//a[@title='${title}']";
@@ -178,6 +182,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_PUBLICATION_COMMENT_NAMEAUTHOR = "//*[contains(text(),'${comment}')]/../..//*[@class='author']/*[contains(text(),'${name}')]";
 	public final String ELEMENT_PUBLICATION_COMMENT_TIMESTAMP = "//*[contains(text(),'${comment}')]/../..//*[@class='author']/*[contains(@class,'dateTime')]";
 	public final String ELEMENT_PUBLICATION_COMMENT_AVATAR = "//*[contains(text(),'${comment}')]/../..//*[@class='avatarXSmall']/*[@alt='${name}']";
+	
 	//Activity for Forum
 	public final String ELEMENT_ACTIVITY_POLL_VOTE_FOR_POLL = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconSocVote uiIconSocLightGray']";
 	public final String ELEMENT_ACTIVITY_TOPIC_REPLY = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconReply uiIconLightGray']";
@@ -199,6 +204,8 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_SPACE_AUTHOR = "//*[contains(text(),'${title}')]/../*[contains(@class,'heading')]/*[contains(@class,'author')]";
 	public final String ELEMENT_ACTIVITY_USER_ACTIVITY_DELETE_BTN = "//*[contains(text(),'${title}')]/../*[contains(@class,'heading')]/*[contains(@class,'uiIconClose uiIconLightGray controllDelete')]";
 
+	
+	
 	Button button;
 	/**
 	 * constructor
@@ -404,6 +411,22 @@ public class ActivityStream extends PlatformBase {
 		click(ELEMENT_PUBLICATION_DELETE_LASTCOMMENT.replace("${title}", comment));
 		click(button.ELEMENT_OK_BUTTON);
 		Utils.pause(2000);
+	}
+	/**
+	 * View a comment
+	 * @param activity
+	 *                  is the activity's name
+	 * @param comment
+	 *                  is comment's content
+	 */
+	public void viewComment(String activity,String comment,String value){
+		info("Hover over on the comment");
+		mouseOver(ELEMENT_PUBLICATION_LASTCOMMENT.replace("${title}",activity), true);
+		if(value!="" || value!=null)
+			click(ELEMENT_ACTIVITY_PUBLICATION_VIEW_LASTCOMMENT.replace("$comment", comment).replace("$comment",value));
+		else
+			click(ELEMENT_ACTIVITY_PUBLICATION_VIEW_LASTCOMMENT.replace("$comment", comment));
+		Utils.pause(3000);
 	}
 
 	/**
@@ -770,5 +793,15 @@ public class ActivityStream extends PlatformBase {
 		click(button.ELEMENT_OK_BUTTON);
 		waitForElementNotPresent(ELEMENT_ACTIVITY_BOX.replace("${name}", name));
 		info("the activity is removed successfully");
+	}
+	/**
+	 * Open answer form from Activity Stream
+	 * @param question
+	 */
+	public void goToReplyAnswerQuestion(String question){
+		info("Click on Answer link");
+		click(ELEMENT_QUESTION_ACTIVITY_ANSWER_ICON.replace("$question",question));
+		waitForAndGetElement(ELEMENT_ANSWER_FORM);
+		info("Answer form is shown successfully");
 	}
 }

@@ -2,6 +2,7 @@ package org.exoplatform.selenium.platform.social.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.*;
 
@@ -122,8 +123,8 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 
 		 *Expected Outcome: 
 			- The change is saved*/
-		intraNot.enableOptionNewUserNotification();
-		intraNot.enableOptionLikeNotification();
+		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
+		myNotifPage.enableNotification(myNotiType.Like_intranet);
 
 		/*Step number: 3
 		 *Step Name: Step 3: Check notification settings by other user
@@ -137,8 +138,8 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToMyNotifications();
 		waitForAndGetElement(myNotifPage.ELEMENT_MY_NOTIFICATION_SETTING_FORM);
-		waitForElementNotPresent(intraNot.ELEMENT_EDIT_NEWUSER_WEB_ICON);
-		waitForElementNotPresent(intraNot.ELEMENT_EDIT_LIKE_WEB_ICON);
+		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_NEWUSER_WEB_ICON);
+		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_LIKE_WEB_ICON);
 	}
 
 	/**
@@ -172,8 +173,8 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		magAc.signIn(username1, password1);
 		navTool.goToMyNotifications();
 		waitForAndGetElement(myNotifPage.ELEMENT_MY_NOTIFICATION_SETTING_FORM);
-		intraNot.enableOptionNewUserNotification();
-		intraNot.enableOptionLikeNotification();
+		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
+		myNotifPage.enableNotification(myNotiType.Like_intranet);
 
 		/*Step number: 3
 		 *Step Name: Step 3: Check [Reset] button when Cancel
@@ -190,8 +191,8 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		WebElement elem = waitForAndGetElement(myNotifPage.ELEMENT_RESET_CONFIRM_MSG_ELEMENT);
 		assert elem.getText().contains(myNotifPage.ELEMENT_RESET_CONFIRM_MSG);
 		click(myNotifPage.ELEMENT_RESET_CANCEL);
-		waitForAndGetElement(intraNot.ELEMENT_EDIT_NEWUSER_WEB_ICON);
-		waitForAndGetElement(intraNot.ELEMENT_EDIT_LIKE_WEB_ICON);
+		waitForAndGetElement(myNotifPage.ELEMENT_EDIT_NEWUSER_WEB_ICON);
+		waitForAndGetElement(myNotifPage.ELEMENT_EDIT_LIKE_WEB_ICON);
 
 
 		/*Step number: 2
@@ -209,7 +210,7 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		elem = waitForAndGetElement(myNotifPage.ELEMENT_RESET_CONFIRM_MSG_ELEMENT);
 		assert elem.getText().contains(myNotifPage.ELEMENT_RESET_CONFIRM_MSG);
 		click(myNotifPage.ELEMENT_RESET_CONFIRM);
-		waitForElementNotPresent(intraNot.ELEMENT_EDIT_NEWUSER_WEB_ICON);
-		waitForElementNotPresent(intraNot.ELEMENT_EDIT_LIKE_WEB_ICON);
+		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_NEWUSER_WEB_ICON);
+		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_LIKE_WEB_ICON);
 	}
 }

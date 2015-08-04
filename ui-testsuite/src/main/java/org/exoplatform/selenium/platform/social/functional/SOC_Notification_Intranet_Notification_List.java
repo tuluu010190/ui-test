@@ -110,9 +110,9 @@ import org.testng.annotations.*;
 		hp.goToConnections();
 		connMag.connectToAUser(arrayUser.get(0));
 		
-		String statusSendRq=notiDesData.getMessageByArrayTypeRandom(2);
-		String statusLikeAc=notiDesData.getMessageByArrayTypeRandom(6);
-		String statusCommAc=notiDesData.getNotiMessage(0);
+		String statusSendRq=notiIntranetData.getMessageByArrayTypeRandom(2);
+		String statusLikeAc=notiIntranetData.getMessageByArrayTypeRandom(6);
+		String statusCommAc=notiIntranetData.getNotiMessage(0);
 		
 		info("Log in with User A");
 		magAc.signOut();
@@ -214,7 +214,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- All unread notifications are changed to read*/
-		String statusSendRq=notiDesData.getMessageByArrayTypeRandom(2);
+		String statusSendRq=notiIntranetData.getMessageByArrayTypeRandom(2);
         intraNot.markAllAsRead();
        
         info("All unread notifications are changed to read");
@@ -308,9 +308,9 @@ import org.testng.annotations.*;
 		hp.goToConnections();
 		connMag.connectToAUser(arrayUser.get(0));
 		
-		String statusSendRq=notiDesData.getMessageByArrayTypeRandom(2);
-		String statusLikeAc=notiDesData.getMessageByArrayTypeRandom(6);
-		String statusCommAc=notiDesData.getNotiMessage(0);
+		String statusSendRq=notiIntranetData.getMessageByArrayTypeRandom(2);
+		String statusLikeAc=notiIntranetData.getMessageByArrayTypeRandom(6);
+		String statusCommAc=notiIntranetData.getNotiMessage(0);
 		
 		info("Log in with User A");
 		magAc.signOut();
@@ -455,9 +455,9 @@ import org.testng.annotations.*;
 		hp.goToConnections();
 		connMag.connectToAUser(arrayUser.get(0));
 		
-		String statusSendRq=notiDesData.getMessageByArrayTypeRandom(2);
-		String statusLikeAc=notiDesData.getMessageByArrayTypeRandom(6);
-		String statusCommAc=notiDesData.getNotiMessage(0);
+		String statusSendRq=notiIntranetData.getMessageByArrayTypeRandom(2);
+		String statusLikeAc=notiIntranetData.getMessageByArrayTypeRandom(6);
+		String statusCommAc=notiIntranetData.getNotiMessage(0);
 		
 		info("Log in with User A");
 		magAc.signOut();
@@ -499,7 +499,7 @@ import org.testng.annotations.*;
 		info("Set User A to admin");
 		String[] arrayGroupPath={"Platform","Administration"};
 		navTool.goToUsersAndGroupsManagement();
-		userAndGroup.chooseGroupTab();
+		userAndGroup.goToGroupTab();
 		userAndGroup.selectGroup(arrayGroupPath);
 		userAndGroup.addUsersToGroup(arrayUser.get(0),"*", false,true);
 		
@@ -547,7 +547,7 @@ import org.testng.annotations.*;
 		info("Switch to user1 and check intranet notification");
 		isDriver = true;
 		info("The number of notifications of User A is updated as soon as the connection request notification is received");
-		intraNot.checkBadgeNotifications(1);
+		intraNot.checkBadgeNoti(1);
         
 		/*Step number: 3
 		*Step Name: 
@@ -559,7 +559,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The connection request notifications is displayed*/
 		info("The connection request notifications is displayed");
-		String statusSendRq=notiDesData.getMessageByArrayTypeRandom(2);
+		String statusSendRq=notiIntranetData.getMessageByArrayTypeRandom(2);
 		navTool.goToIntranetNotification();
 		intraNot.checkStatus(statusSendRq,arrayUser.get(1));
 		
@@ -576,7 +576,7 @@ import org.testng.annotations.*;
 			as soon as a new notifications is received. The new notification is 
 			displayed at the top of the list.*/ 
         String text = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-        String statusMention=notiDesData.getMessageByArrayTypeRandom(7);
+        String statusMention=notiIntranetData.getMessageByArrayTypeRandom(7);
 		info("Go to the actiivty stream and mention User A");
 		isDriver = false;
         hp2.goToHomePage();
@@ -585,7 +585,7 @@ import org.testng.annotations.*;
         
         info("Check badge and content notification of User A");
         isDriver = true;
-        intraNot.checkBadgeNotifications(1);
+        intraNot.checkBadgeNoti(1);
         navTool.goToIntranetNotification();
 		intraNot.checkStatus(statusMention,arrayUser.get(1));
 		
@@ -663,9 +663,9 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		
-		String statusLikeAc=notiDesData.getMessageByArrayTypeRandom(6);
-		String statusCommAc=notiDesData.getNotiMessage(0);
-		String statusMention=notiDesData.getMessageByArrayTypeRandom(7);
+		String statusLikeAc=notiIntranetData.getMessageByArrayTypeRandom(6);
+		String statusCommAc=notiIntranetData.getNotiMessage(0);
+		String statusMention=notiIntranetData.getMessageByArrayTypeRandom(7);
 		String textMention=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		Utils.pause(3000);
 		
@@ -691,7 +691,7 @@ import org.testng.annotations.*;
 		Utils.pause(3000);
 		
 		info("The number in the badge is still 2");
-		intraNot.checkBadgeNotifications(2);
+		intraNot.checkBadgeNoti(2);
 
 		/*Step number: 2
 		*Step Name: 
@@ -727,10 +727,10 @@ import org.testng.annotations.*;
         Utils.pause(3000);
 		
 		info("The number in the badge is still 4");
-		intraNot.checkBadgeNotifications(4);
+		intraNot.checkBadgeNoti(4);
 		
 		info("User A has still 5 unread notifications");
-		String statusSendRq=notiDesData.getMessageByArrayTypeRandom(2);
+		String statusSendRq=notiIntranetData.getMessageByArrayTypeRandom(2);
         navTool.goToIntranetNotification();
         intraNot.checkUnreadNotification(statusLikeAc,arrayUser.get(1));
 		intraNot.checkUnreadNotification(statusMention,arrayUser.get(1));
@@ -980,8 +980,8 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- There is no new notification to read, [Mark as read] is hidden*/
-		String statusLikeAc=notiDesData.getMessageByArrayTypeRandom(6);
-		String statusCommAc=notiDesData.getNotiMessage(0);
+		String statusLikeAc=notiIntranetData.getMessageByArrayTypeRandom(6);
+		String statusCommAc=notiIntranetData.getNotiMessage(0);
 		navTool.goToIntranetNotification();
 		info("Click [Mark as read]");
 		intraNot.markAllAsRead();

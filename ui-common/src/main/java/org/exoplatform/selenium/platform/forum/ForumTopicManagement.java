@@ -281,10 +281,20 @@ public class ForumTopicManagement extends PlatformBase {
      */
     public void postReply(String title, String content){
     	click(ELEMENT_POST_REPLY);
-		if (!title.isEmpty())
+    	replyTopic(title,content);
+    }
+    /**
+     * Input information for Reply form
+     * @param title
+     * @param content
+     */
+    public void replyTopic(String title, String content){
+    	if (!title.isEmpty())
 			type(ELEMENT_TITLE_POST,title,true);
 		inputFrame(ELEMENT_POST_CONTENT, content);
 		click(ELEMENT_POST_FORM_SUBMIT);
+		info("Verify that the post is created");
+		waitForAndGetElement(ELEMENT_POST_IN_TOPIC.replace("{$title}",title).replace("{$content}",content));
     }
     
     /**

@@ -2,6 +2,8 @@ package org.exoplatform.selenium.platform.social.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
+import java.util.ArrayList;
+
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.ecms.CreateNewDocument.selectDocumentType;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
@@ -75,7 +77,12 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $USER is User B
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the activity*/
-		intraNot.checkUnreadLikeNotification(username1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,true);
+		intraNot.checkStatus(status, username1);
+		intraNot.checkActivityTitleInStatus(activity1, true);
 		
 		info("Test 4: Check Like Notification after reading the notification");
 		/*Step number: 3
@@ -85,11 +92,9 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		 *Input Data: 
 
 		 *Expected Outcome: 
-			- The activity is displayed in the activity viewer with all comment expanded.*/ 
-		click(intraNot.checkUnreadLikeNotification(username1, activity1, intraNot.ELEMET_JUST_NOW_STRING));
-		intraNot.checkLikeInActivityViewer("1");
-		navTool.goToIntranetNotification();
-		intraNot.checkReadLikeNotification(username1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+			- The activity is displayed in the activity viewer with all comment expanded.*/
+		intraNot.goToDetailLikeNotification(username1, true);
+		notActivity.checkLikeInActivityViewer("1");
 	}
 
 	/**
@@ -175,7 +180,13 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $DATE is the date of the activity*/
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkUnreadLikeNotification(username2+","+username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		users.add(username2);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,true);
+		intraNot.checkStatus(status, username2);
+		intraNot.checkActivityTitleInStatus(activity, true);
 
 		/*Step number: 3
 		 *Step Name: Step 3 : Read the notification
@@ -184,9 +195,9 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		 *Input Data: 
 
 		 *Expected Outcome: 
-			- The activity is displayed in the activity viewer with all comment expanded.*/ 
-		click(intraNot.checkUnreadLikeNotification(username2+","+username1, activity, intraNot.ELEMET_JUST_NOW_STRING));
-		intraNot.checkLikeInActivityViewer("2");
+			- The activity is displayed in the activity viewer with all comment expanded.*/
+		intraNot.goToDetailLikeNotification(username2, true);
+		notActivity.checkLikeInActivityViewer("2");
 	}
 
 	/**
@@ -308,7 +319,15 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		info("Check Like notification in intranet notification");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkUnreadLikeNotification(username4+","+username3+","+username2+","+username1, activity,intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		users.add(username2);
+		users.add(username3);
+		users.add(username4);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,true);
+		intraNot.checkStatus(status, username4);
+		intraNot.checkActivityTitleInStatus(activity, true);
 
 		/*Step number: 3
 		 *Step Name: Step 3 : Read the notification
@@ -319,8 +338,8 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		 *Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.*/ 
 		info("Check comment notification in activity Viewer");
-		click (intraNot.checkUnreadLikeNotification(username4+","+username3+","+username2+","+username1, activity, intraNot.ELEMET_JUST_NOW_STRING));
-		intraNot.checkLikeInActivityViewer("4");
+		intraNot.goToDetailLikeNotification(username4, true);
+		notActivity.checkLikeInActivityViewer("4");
 
 	}
 
@@ -394,7 +413,14 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $USER is User B
 			- $ACTIVITY is the activity title/message : the name of the content is displayed
 			- $DATE is the date of the activity*/
-		intraNot.checkUnreadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,true);
+		intraNot.checkStatus(status, username1);
+		intraNot.checkActivityTitleInStatus(name, true);
+		
+		//intraNot.checkUnreadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING);
 		/*Step number: 3
 		 *Step Name: Step 3 : Read the notification
 		 *Step Description: 
@@ -403,10 +429,8 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 
 		 *Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.*/ 
-		click(intraNot.checkUnreadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING));
-		intraNot.checkLikeInActivityViewer("1");
-		navTool.goToIntranetNotification();
-		intraNot.checkReadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING);
+		intraNot.goToDetailLikeNotification(username1, true);
+		notActivity.checkLikeInActivityViewer("1");
 
 	}
 
@@ -475,7 +499,12 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $DATE is the date of the activity*/
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkUnreadLikeNotification(username1, title, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,true);
+		intraNot.checkStatus(status, username1);
+		intraNot.checkActivityTitleInStatus(title, true);
 		/*Step number: 3
 		 *Step Name: Step 3 : Read the notification
 		 *Step Description: 
@@ -484,10 +513,8 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 
 		 *Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.*/ 
-		click(intraNot.checkUnreadLikeNotification(username1, title, intraNot.ELEMET_JUST_NOW_STRING));
-		intraNot.checkLikeInActivityViewer("1");
-		navTool.goToIntranetNotification();
-		intraNot.checkReadLikeNotification(username1, title, intraNot.ELEMET_JUST_NOW_STRING);
+		intraNot.goToDetailLikeNotification(username1, true);
+		notActivity.checkLikeInActivityViewer("1");
 
 	}
 
@@ -555,7 +582,12 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $DATE is the date of the activity*/
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkUnreadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,true);
+		intraNot.checkStatus(status, username1);
+		intraNot.checkActivityTitleInStatus(name, true);
 
 		/*Step number: 3
 		 *Step Name: Step 3 : Read the notification
@@ -564,11 +596,9 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		 *Input Data: 
 
 		 *Expected Outcome: 
-			- The activity is displayed in the activity viewer with all comment expanded.*/ 
-		click(intraNot.checkUnreadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING));
-		intraNot.checkLikeInActivityViewer("1");
-		navTool.goToIntranetNotification();
-		intraNot.checkReadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING);
+			- The activity is displayed in the activity viewer with all comment expanded.*/
+		intraNot.goToDetailLikeNotification(username1, true);
+		notActivity.checkLikeInActivityViewer("1");
 	}
 
 	/**
@@ -637,7 +667,12 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $DATE is the date of the activity*/
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkUnreadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,true);
+		intraNot.checkStatus(status, username1);
+		intraNot.checkActivityTitleInStatus(name, true);
 
 		/*Step number: 3
 		 *Step Name: Step 3 : Read the notification
@@ -647,10 +682,8 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 
 		 *Expected Outcome: 
 			- The activity is displayed in the activity viewer with all comment expanded.*/ 
-		click(intraNot.checkUnreadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING));
-		intraNot.checkLikeInActivityViewer("1");
-		navTool.goToIntranetNotification();
-		intraNot.checkReadLikeNotification(username1, name, intraNot.ELEMET_JUST_NOW_STRING);
+		intraNot.goToDetailLikeNotification(username1, true);
+		notActivity.checkLikeInActivityViewer("1");
 
 	}
 
@@ -708,7 +741,12 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- A Like notification is displayed in the list*/
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkUnreadLikeNotification(username1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,true);
+		intraNot.checkStatus(status, username1);
+		intraNot.checkActivityTitleInStatus(activity1, true);
 		
 		/*Step number: 2
 		 *Step Name: Step 2 : push a new notification
@@ -761,7 +799,13 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $DATE is the date of the last notification of User C*/ 
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		intraNot.checkUnreadLikeNotification(username2+","+username1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users1 = new ArrayList<String>();
+		users1.add(username1);
+		users1.add(username2);
+		String status1 = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users1,true);
+		intraNot.checkStatus(status1, username2);
+		intraNot.checkActivityTitleInStatus(activity1, true);
 	}
 
 	/**
@@ -828,14 +872,23 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the activity*/ 
 		intraNot.goToAllNotification();
-		intraNot.checkUnreadLikeNotification(username1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,false);
+		intraNot.checkStatus(status, username1);
+		intraNot.checkActivityTitleInStatus(activity1, false);
 
 		info("Test 11 Check View All page after reading a Like notification");
 		navTool.goToIntranetNotification();
-		click(intraNot.checkUnreadLikeNotification(username1, activity1, intraNot.ELEMET_JUST_NOW_STRING));
+		intraNot.checkAvatarInStatus(users,true);
+		intraNot.checkStatus(status, username1);
+		intraNot.checkActivityTitleInStatus(activity1, true);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkReadLikeNotification(username1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+		intraNot.checkAvatarInStatus(users,false);
+		intraNot.checkStatus(status, username1);
+		intraNot.checkActivityTitleInStatus(activity1,false);
 	}
 
 	/**
@@ -964,7 +1017,13 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the activity*/ 
 		intraNot.goToAllNotification();
-		intraNot.checkUnreadLikeNotification(username2+","+username1, activity, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		users.add(username2);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,false);
+		intraNot.checkStatus(status, username2);
+		intraNot.checkActivityTitleInStatus(activity,false);
 	}
 
 	/**
@@ -1074,6 +1133,12 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		intraNot.checkUnreadLikeNotification(username2+","+username1, activity1, intraNot.ELEMET_JUST_NOW_STRING);
+		ArrayList<String> users = new ArrayList<String>();
+		users.add(username1);
+		users.add(username2);
+		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		intraNot.checkAvatarInStatus(users,false);
+		intraNot.checkStatus(status, username2);
+		intraNot.checkActivityTitleInStatus(activity1, false);
 
 	}}

@@ -5,6 +5,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.awt.AWTException;
 
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
 import org.testng.annotations.*;
 
 public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
@@ -73,8 +74,8 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		info("sign in user1 and enable new user and like notifications");
 		magAc.signIn(username1, password1);
 		navTool.goToMyNotifications();
-		intraNot.enableOptionNewUserNotification();
-		intraNot.enableOptionLikeNotification();
+		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
+		myNotifPage.enableNotification(myNotiType.Like_intranet);
 		
 		info("Create notifications for user 1");
 		magAc.signIn(DATA_USER1, DATA_PASS);
@@ -228,7 +229,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		intraNot.goToAllNotification();
 		intraNot.goToDetailCommentNotification(activity1,false);
 		//intraNot.gotoActivityViewer(username2, activity1, "1", "", false, "", true, false, false, false, false, false, false, true);
-		intraNot.checkCommentInActivityViewer(comment, "", true);
+		notActivity.checkCommentInActivityViewer(comment, "", true);
 		
 		/*Step Number: 7
 		 *Step Name: Step 7: Check Like notification
@@ -241,7 +242,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		intraNot.goToAllNotification();
 		intraNot.goToDetailLikeNotification(username2, false);
 		//intraNot.gotoActivityViewer(username2, activity1, "1", "", false, "", false, false, false, false, true, false, false, true);
-		intraNot.checkLikeInActivityViewer("1");
+		notActivity.checkLikeInActivityViewer("1");
 		
 		/*Step Number: 8
 		 *Step Name: Step 8: Check Mention notification
@@ -254,7 +255,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		intraNot.goToAllNotification();
 		intraNot.goToDetailMentionNotification(username2, false);
 		//intraNot.gotoActivityViewer(username2, activity4, "1", "", false, "", false, true, false, false, false, false, false, true);
-		intraNot.checkMentionInActivityViewer(activity4);
+		notActivity.checkMentionInActivityViewer(activity4);
 		
 		/*Step Number: 9
 		 *Step Name: Step 9: Check Post on My Space notification
@@ -267,7 +268,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		intraNot.goToAllNotification();
 		intraNot.goToDetailPostInSpace(space1, false);
 		//intraNot.gotoActivityViewer(username2, activity3, "1", space1, false, "", false, false, false, true, false, false, false, true);
-		intraNot.checkMentionInActivityViewer(activity3);
+		notActivity.checkMentionInActivityViewer(activity3);
 		
 		/*Step Number: 10
 		 *Step Name: Step 10: Check Post on My Stream notification
@@ -280,7 +281,7 @@ public class SOC_Notification_Intranet_View_All extends SOC_TestConfig_3{
 		intraNot.goToAllNotification();
 		intraNot.goToDetailPostInMyActivity(username2, false);
 		//intraNot.gotoActivityViewer(username2, activity2, "1", "", false, "", false, false, true, false, false, false, false, true);
-		intraNot.checkMentionInActivityViewer(activity2);
+		notActivity.checkMentionInActivityViewer(activity2);
 		
 		/*Step Number: 11
 		 *Step Name: Step 11: Check Notification Settings link

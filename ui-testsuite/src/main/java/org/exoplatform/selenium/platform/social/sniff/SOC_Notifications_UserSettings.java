@@ -85,7 +85,7 @@ import org.testng.annotations.*;
 		
 		info("Go to My Profile");
 		navTool.goToMyProfile();
-		click(myProfile.ELEMENT_EDIT_MY_PROFILE_LINK);
+		myProfile.goToEditProfile();
 		
 		info("Change email address");
 		Utils.pause(2000);
@@ -124,10 +124,20 @@ import org.testng.annotations.*;
 		navTool.goToAddUser();
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		
-		info("Check email notification");
-		//Utils.pause(150000);
+		
+		String parentWindow = driver.getWindowHandle();
+		info("parentWindow:"+parentWindow);
+		
+		String fullName=username1+" "+username1;
+		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(4);
+	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		notiEmail.checkNewUserNotiEmail(username1,true);
+		Utils.pause(10000);
+		emailNot.getAllChildWindows();
+		emailNot.verifyPresentEmailActivityNotifications(titleEmail,fullName,"","1");
+		emailNot.goToDetailEmailNoti(titleEmail, fullName,"");
+		emailNot.getAllChildWindows();
+        emailNot.closeChildBrowsers(parentWindow);
 		
 		/*Step number: 3
 		*Step Name: Step 2: Email is not sent when option is not ticked
@@ -150,13 +160,15 @@ import org.testng.annotations.*;
 		navTool.goToAddUser();
 		addUserPage.addUser(username2, password2, email2, username2, username2);
 		
-		info("Check email notification");
-		for(String winHandle : driver.getWindowHandles()){
-			driver.switchTo().window(winHandle);
-		}
-		info("Go to gmail");
-		driver.navigate().to(GMAIL_URL);
-		notiEmail.checkNewUserNotiEmail(username2,false);
+		String fullName2=username2+" "+username2;
+	    
+		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
+		Utils.pause(10000);
+		emailNot.getAllChildWindows();
+		emailNot.verifyNOTPresentTitleASEmailNoti(titleEmail,fullName2,"","1");
+		emailNot.goToDetailEmailNoti(titleEmail, fullName,"");
+		emailNot.getAllChildWindows();
+        emailNot.closeChildBrowsers(parentWindow);
 		
 		info("restore data");
 		switchToParentWindow();
@@ -219,8 +231,20 @@ import org.testng.annotations.*;
 		addUserPage.addUser(username1, password1, email1, username1, username1);
 		
 		info("Check email notification");
+
+		String parentWindow = driver.getWindowHandle();
+		info("parentWindow:"+parentWindow);
+		
+		String fullName=username1+" "+username1;
+		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(4);
+	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		notiEmail.checkNewUserNotiEmail(username1,false,true);
+		Utils.pause(10000);
+		emailNot.getAllChildWindows();
+		emailNot.verifyNOTPresentTitleASEmailNoti(titleEmail,fullName,"","1");
+		emailNot.goToDetailEmailNoti(titleEmail, fullName,"");
+		emailNot.getAllChildWindows();
+        emailNot.closeChildBrowsers(parentWindow);
 		
 		info("restore data");
 		switchToParentWindow();

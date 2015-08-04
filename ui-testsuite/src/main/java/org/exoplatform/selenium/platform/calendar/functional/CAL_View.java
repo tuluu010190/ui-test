@@ -77,7 +77,7 @@ import org.testng.annotations.*;
 		String groupName=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String groupLabel=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
         navTool.goToUsersAndGroupsManagement();
-        userAndGroup.chooseGroupTab();
+        userAndGroup.goToGroupTab();
         userAndGroup.addGroup(groupName, groupLabel,groupLabel,false);
         
         info("Create a new calendar");

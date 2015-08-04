@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityMessageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ConnectStatusDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactIMDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ProfileContactPhoneDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceApplicationDatabase;
@@ -21,11 +22,11 @@ import org.exoplatform.selenium.platform.objectdatabase.social.SpaceGroupsDataba
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceRegistrationDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceVisibilityDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.SpaceWarningMessageDatabase;
-import org.exoplatform.selenium.platform.social.AllNotificationPage;
 import org.exoplatform.selenium.platform.social.IntranetNotification;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting;
+import org.exoplatform.selenium.platform.social.NotificationActivity;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting;
-import org.exoplatform.selenium.platform.social.SendEmailNotifications;
+import org.exoplatform.selenium.platform.social.EmailNotifications;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
@@ -99,9 +100,9 @@ public class SOC_TestConfig extends PlatformBase {
 	//Notifications
 	NotificationsAdminSeting emailNotif;
 	MyNotificationsSetting myNotifPage;
-	SendEmailNotifications notiEmail;
-	AllNotificationPage allInTraNot;
+	EmailNotifications notiEmail;
 	IntranetNotification intraNot;
+	NotificationActivity notActivity;
 	
 	//User management
 	UserAddManagement userManage;
@@ -138,6 +139,7 @@ public class SOC_TestConfig extends PlatformBase {
 	ConnectStatusDatabase conStatus;
 	SiteExplorerPathDatabase siteExPath;
 	SiteExplorerDriveDatabase siteExDrive;
+	NotificationDatabase notiIntranetData;
 	
 	ChatStatusDatabase chatStatus;
 	ChatStatus chat;
@@ -175,6 +177,7 @@ public class SOC_TestConfig extends PlatformBase {
 		SEHome = new SiteExplorerHome(driver);
 		creatDoc = new CreateNewDocument(driver);
 		userGroupMg = new UserAndGroupManagement(driver);
+		notActivity = new NotificationActivity(driver);
 
 		evMg = new EventManagement(driver);
 
@@ -193,6 +196,10 @@ public class SOC_TestConfig extends PlatformBase {
 		appLayData = new ApplicationLayoutDatabase();
 		appLayData.setApplicationLayoutData(appLayoutFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
+		notiIntranetData = new NotificationDatabase();
+		notiIntranetData.setData(notiIntranetFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		
 		spaceUI = new SpaceGUIDatabase();
 		spaceUI.setData(spaceUIFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		lnkData = new LinksDatabase();
@@ -256,9 +263,8 @@ public class SOC_TestConfig extends PlatformBase {
 		
 		emailNotif = new NotificationsAdminSeting(driver);
 		myNotifPage= new MyNotificationsSetting(driver);
-		allInTraNot = new AllNotificationPage(driver);
 		intraNot = new IntranetNotification(driver);
-		notiEmail = new SendEmailNotifications(driver);
+		notiEmail = new EmailNotifications(driver);
 	
 		info("End setUpBeforeMethod");
 	}

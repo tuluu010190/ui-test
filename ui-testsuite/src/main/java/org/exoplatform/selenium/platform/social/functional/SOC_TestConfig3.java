@@ -5,22 +5,34 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.util.ArrayList;
 
 import org.exoplatform.selenium.Button;
+import org.exoplatform.selenium.DownloadFileControl;
 import org.exoplatform.selenium.platform.ActivityStream;
 import org.exoplatform.selenium.platform.ConnectionsManagement;
 import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.answer.AnswerHomePage;
+import org.exoplatform.selenium.platform.answer.AnswerManagement;
+import org.exoplatform.selenium.platform.answer.QuestionManagement;
 import org.exoplatform.selenium.platform.calendar.EventManagement;
+import org.exoplatform.selenium.platform.ecms.DocumentPreview;
+import org.exoplatform.selenium.platform.forum.ForumCategoryManagement;
+import org.exoplatform.selenium.platform.forum.ForumForumManagement;
+import org.exoplatform.selenium.platform.forum.ForumHomePage;
+import org.exoplatform.selenium.platform.forum.ForumTopicManagement;
+import org.exoplatform.selenium.platform.gatein.EditorPortlet;
+import org.exoplatform.selenium.platform.gatein.PageEditor;
 import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.DataTestPathDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
-import org.exoplatform.selenium.platform.objectdatabase.common.MailSuffixDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.ActivityCommentDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDatabase;
 import org.exoplatform.selenium.platform.social.EmailNotifications;
 import org.exoplatform.selenium.platform.social.IntranetNotification;
@@ -36,7 +48,7 @@ import org.exoplatform.selenium.platform.wiki.WikiManagement;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
-public class SOC_TestConfig2 extends PlatformBase {
+public class SOC_TestConfig3 extends PlatformBase {
 	
 	ManageLogInOut magAc;
 	Button button;
@@ -48,7 +60,7 @@ public class SOC_TestConfig2 extends PlatformBase {
 	ActivityStream hpAct;
 	IntranetNotification intraNot;
 	EmailNotifications emailNot;
-	NotificationActivity notiAct;
+	NotificationActivity notAct;
 	
 	WikiHomePage wHome;
 	WikiManagement wikiMg;
@@ -65,12 +77,25 @@ public class SOC_TestConfig2 extends PlatformBase {
 	UserProfilePage userProPage;
 	ConnectionsManagement connMag;
 	NotificationDatabase notiIntranetData;
+	NotificationDatabase notiEmailData;
+	ActivityCommentDatabase actCommentData;
+	
 	LinksDatabase linkData;
 	AttachmentFileDatabase attFileData;
 	SiteExplorerDriveDatabase siteExDrive;
 	SiteExplorerPathDatabase siteExPath;
-	MailSuffixDatabase mailSuffixData;
-	
+	DataTestPathDatabase dataTestForlderPath;
+	PageEditor pgEditor;
+	EditorPortlet edPortlet;
+	QuestionManagement questionMg;
+	AnswerManagement answerMg;
+	AnswerHomePage ansHome;
+	DocumentPreview docPreview;
+	DownloadFileControl downloadControl;
+	ForumCategoryManagement forumCatMag;
+	ForumHomePage forumHP;
+	ForumForumManagement forumMag;
+	ForumTopicManagement foTopic;
 	
 	String password;
 	ArrayList<String> arrayUser;
@@ -106,13 +131,30 @@ public class SOC_TestConfig2 extends PlatformBase {
 		spaMg = new SpaceManagement(driver);
 		setSpaceMg = new SpaceSettingManagement(driver);
 		evMg = new EventManagement(driver);
-		notiAct = new NotificationActivity(driver);
+		pgEditor = new PageEditor(driver);
+		edPortlet = new EditorPortlet(driver);
+		questionMg = new QuestionManagement(driver);
+		answerMg = new AnswerManagement(driver);
+		ansHome = new AnswerHomePage(driver);
+		docPreview = new DocumentPreview(driver);
+		downloadControl = new DownloadFileControl(driver);
+		forumCatMag = new ForumCategoryManagement(driver);
+		forumMag = new ForumForumManagement(driver);
+		forumHP= new ForumHomePage(driver);
+		foTopic = new ForumTopicManagement(driver);
+		notAct = new NotificationActivity(driver);
 		
 		userInfoData = new UserInfoDatabase();
 		userInfoData.setUserInfoData(userInfoFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		notiIntranetData = new NotificationDatabase();
 		notiIntranetData.setData(notiIntranetFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		notiEmailData = new NotificationDatabase();
+		notiEmailData.setData(notiEmailFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		actCommentData = new ActivityCommentDatabase();
+		actCommentData.setData(actCommentFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		linkData = new LinksDatabase();
 		linkData.setLinkData(linkPath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -126,8 +168,8 @@ public class SOC_TestConfig2 extends PlatformBase {
 		siteExPath = new SiteExplorerPathDatabase();
 		siteExPath.setSiteExpPathData(siteExpPathPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
-		mailSuffixData = new MailSuffixDatabase();
-		mailSuffixData.setMailSuffixData(mailSuffixFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+		dataTestForlderPath = new DataTestPathDatabase();
+		dataTestForlderPath.setDataTestPathData(dataTestFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
 		comments = new ArrayList<String>();
 		
@@ -139,6 +181,8 @@ public class SOC_TestConfig2 extends PlatformBase {
 	@AfterMethod
 	public void afterMethod(){
 		info("Start afterMethod");
+		if(arrayUser.size()>0)
+			deleteUsers(arrayUser);
 		driver.manage().deleteAllCookies();
 		driver.quit();
 		info("End afterMethod");
@@ -154,7 +198,7 @@ public class SOC_TestConfig2 extends PlatformBase {
 		navTool.goToAddUser();
 		for(int i=0;i<number;i++){
 			info("Add new a user");
-			String user=getRandomString()+getRandomString();
+			String user=getRandomString();
 			password ="123456" ;
 			String email=user+"@gmail.com";
 			addUserPage.addUser(user,password, email,user,user);

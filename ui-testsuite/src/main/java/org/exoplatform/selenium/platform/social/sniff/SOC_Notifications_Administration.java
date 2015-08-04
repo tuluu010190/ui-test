@@ -167,8 +167,8 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		
-		int index= notiDes.getRandomIndexByType(2);
-		String des= notiDes.newContent.get(index);
+		int index= notiIntranetData.getRandomIndexByType(2);
+		String des= notiIntranetData.newContent.get(index);
 		
 		
 		navTool.goToNotificationList();
@@ -249,8 +249,8 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		
-		int index= notiDes.getRandomIndexByType(3);
-		String des= notiDes.newContent.get(index);
+		int index= notiIntranetData.getRandomIndexByType(3);
+		String des= notiIntranetData.newContent.get(index);
 		
 		navTool.goToNotificationList();
 		info("Verify that the notification is listed in the list");
@@ -315,8 +315,8 @@ import org.testng.annotations.*;
 			- No intranet notifications is displayed*/ 
 		String text = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		String comment = txData.getContentByArrayTypeRandom(1)+getRandomNumber();
-		int index= notiDes.getRandomIndexByType(1);
-		String des= notiDes.newContent.get(index);
+		int index= notiIntranetData.getRandomIndexByType(1);
+		String des= notiIntranetData.newContent.get(index);
 		
 		hp.goToConnections();
 		connMag.connectToAUser(DATA_USER2);

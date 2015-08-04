@@ -53,10 +53,10 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		info("Log in with User B");
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(1), password);
-		String status=notiDesData.getMessageByArrayTypeRandom(2);
+		String status=notiIntranetData.getMessageByArrayTypeRandom(2);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
-		intraNot.checkAvatar(arrayUser,true);
+		intraNot.checkAvatarInStatus(arrayUser,true);
 		intraNot.checkUsers(arrayUser,true);
 		intraNot.checkStatus(status, arrayUser.get(0));
 		intraNot.checkBtnConnectRequest(arrayUser.get(0));
@@ -120,7 +120,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(1), password);
 		Utils.pause(3000);
-		String status=notiDesData.getMessageByArrayTypeRandom(5);
+		String status=notiIntranetData.getMessageByArrayTypeRandom(5);
 		navTool.goToIntranetNotification();
 		intraNot.acceptRqConnection(arrayUser.get(0));
 		intraNot.checkStatus(status, arrayUser.get(0));
@@ -179,7 +179,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(1), password);
 		Utils.pause(3000);
-		String status=notiDesData.getMessageByArrayTypeRandom(5);
+		String status=notiIntranetData.getMessageByArrayTypeRandom(5);
 		navTool.goToIntranetNotification();
 		intraNot.refuseRqConnection(arrayUser.get(0));
 		intraNot.checkStatus(status, arrayUser.get(0));
@@ -230,7 +230,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(1), password);
 		Utils.pause(3000);
-		String status=notiDesData.getMessageByArrayTypeRandom(5);
+		String status=notiIntranetData.getMessageByArrayTypeRandom(5);
 		navTool.goToIntranetNotification();
 		intraNot.acceptRqConnection(arrayUser.get(0));
 		intraNot.checkStatus(status, arrayUser.get(0));
@@ -281,7 +281,7 @@ public class SOC_Notification_Intranet_Connection_Request extends SOC_TestConfig
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(1), password);
 		Utils.pause(3000);
-		String status=notiDesData.getMessageByArrayTypeRandom(5);
+		String status=notiIntranetData.getMessageByArrayTypeRandom(5);
 		navTool.goToIntranetNotification();
 		intraNot.refuseRqConnection(arrayUser.get(0));
 		

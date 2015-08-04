@@ -356,6 +356,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			click(ELEMENT_EDIT_NEWUSER_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_NEWUSER_MAIL_CHECKBOX_CHECKED))
 				check(ELEMENT_EDIT_NEWUSER_MAIL_CHECKBOX,2);
+			if(!opt.isEmpty())
 			select(ELEMENT_EDIT_NEWUSER_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
@@ -376,6 +377,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			click(ELEMENT_EDIT_RECREQ_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX_CHECKED))
 				check(ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX,2);
+			if(!opt.isEmpty())
 			select(ELEMENT_EDIT_RECREQ_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_RECREQ_SAVE_BTN);
@@ -395,6 +397,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			click(ELEMENT_EDIT_COMMENT_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX_CHECKED))
 				check(ELEMENT_EDIT_COMMENT_MAIL_CHECKBOX,2);
+			if(!opt.isEmpty())
 			select(ELEMENT_EDIT_COMMENT_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_COMMENT_SAVE_BTN);
@@ -414,6 +417,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			click(ELEMENT_EDIT_LIKE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_LIKE_MAIL_CHECKBOX_CHECKED))
 				check(ELEMENT_EDIT_LIKE_MAIL_CHECKBOX,2);
+			if(!opt.isEmpty())
 			select(ELEMENT_EDIT_LIKE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_LIKE_SAVE_BTN);
@@ -433,6 +437,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			click(ELEMENT_EDIT_POST_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_POST_MAIL_CHECKBOX_CHECKED))
 				check(ELEMENT_EDIT_POST_MAIL_CHECKBOX,2);
+			if(!opt.isEmpty())
 			select(ELEMENT_EDIT_POST_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SAVE_BTN);
@@ -452,6 +457,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			click(ELEMENT_EDIT_MENTION_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_MENTION_MAIL_CHECKBOX_CHECKED))
 				check(ELEMENT_EDIT_MENTION_MAIL_CHECKBOX,2);
+			if(!opt.isEmpty())
 			select(ELEMENT_EDIT_MENTION_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_MENTION_SAVE_BTN);
@@ -471,6 +477,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			click(ELEMENT_EDIT_POST_SPACE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX_CHECKED))
 				check(ELEMENT_EDIT_POST_SPACE_MAIL_CHECKBOX,2);
+			if(!opt.isEmpty())
 			select(ELEMENT_EDIT_POST_SPACE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SPACE_SAVE_BTN);
@@ -490,6 +497,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			click(ELEMENT_EDIT_REQJOIN_SPACE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_REQJOIN_SPACE_MAIL_CHECKBOX_CHECKED))
 				check(ELEMENT_EDIT_REQJOIN_SPACE_MAIL_CHECKBOX,2);
+			if(!opt.isEmpty())
 			select(ELEMENT_EDIT_REQJOIN_SPACE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN);
@@ -509,6 +517,7 @@ public class MyNotificationsSetting extends PlatformBase{
 			click(ELEMENT_EDIT_INVI_SPACE_ICON);
 			if(isElementNotPresent(ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX_CHECKED))
 				check(ELEMENT_EDIT_INVI_SPACE_MAIL_CHECKBOX,2);
+			if(!opt.isEmpty())
 			select(ELEMENT_EDIT_INVI_SPACE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_INVI_SPACE_SAVE_BTN);

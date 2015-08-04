@@ -50,7 +50,7 @@ public class Gatein_User_And_Group_Management extends GateIn_TestConfig{
 			- Add group successfully*/
 		info("Test Case 01: Add new group");
 		navToolBar.goToUsersAndGroupsManagement();
-		userAndGroup.chooseGroupTab();
+		userAndGroup.goToGroupTab();
 		userAndGroup.addGroup(groupName, groupLabel, groupDesc, true);
 		
 		/*Step Number: 2
