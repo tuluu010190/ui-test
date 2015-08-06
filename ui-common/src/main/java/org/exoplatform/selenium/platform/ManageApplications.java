@@ -333,7 +333,7 @@ public class ManageApplications extends PlatformBase {
 		nav.goToApplicationRegistry();
 
 		//Verify Categories display as default
-		waitForAndGetElement(ELEMENT_CATEGORIES_FORM);
+		waitForAndGetElement(ELEMENT_CATEGORIES_FORM, DEFAULT_TIMEOUT, 1);
 		
 		boolean importNotPresent = (waitForAndGetElement(ELEMENT_IMPORT_APPLICATION,3000,0) == null);
 
@@ -345,15 +345,15 @@ public class ManageApplications extends PlatformBase {
 			for (int i = 0; i < 3; i ++){
 				mouseOver(ELEMENT_APPS_REG_PORTLET, true);
 				Utils.pause(500);
-				if (waitForAndGetElement(ELEMENT_EDIT_PORTLET_ICON, 5000, 0) != null){
+				if (waitForAndGetElement(ELEMENT_EDIT_PORTLET_ICON, DEFAULT_TIMEOUT, 0) != null){
 					break;
 				}
 			}
 			click(ELEMENT_EDIT_PORTLET_ICON);
 			if (checkShowImport){
-				if (waitForAndGetElement(SHOW_IMPORT_CHECKED, 7000, 0, 2) == null) check(ELEMENT_SHOW_IMPORT_CHECKBOX, 2);    				
+				if (waitForAndGetElement(SHOW_IMPORT_CHECKED, DEFAULT_TIMEOUT, 0, 2) == null) check(ELEMENT_SHOW_IMPORT_CHECKBOX, 2);    				
 			} else {
-				if (waitForAndGetElement(SHOW_IMPORT_CHECKED, 7000, 0, 2) != null) uncheck(ELEMENT_SHOW_IMPORT_CHECKBOX, 2);
+				if (waitForAndGetElement(SHOW_IMPORT_CHECKED, DEFAULT_TIMEOUT, 0, 2) != null) uncheck(ELEMENT_SHOW_IMPORT_CHECKBOX, 2);
 			}
 			button.save();
 			button.close();

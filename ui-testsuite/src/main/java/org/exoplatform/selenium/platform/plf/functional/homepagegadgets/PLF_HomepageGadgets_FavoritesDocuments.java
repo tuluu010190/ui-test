@@ -52,6 +52,12 @@ public class PLF_HomepageGadgets_FavoritesDocuments extends PlatformBase {
 
 	@AfterMethod
 	public void afterMethods() {
+		info("Remove portlet");
+		magAcc.signIn(DATA_USER1, DATA_PASS);
+		navToolBar.goToEditPageEditor();
+		click(ELEMENT_SWITCH_VIEW_MODE);
+		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
+		pageEditor.removePortlet(hpGadget.ELEMENT_GADGET_PORLET_IN_MIDDLE_HOME_PAGE, hpGadget.ELEMENT_DELETE_ICON_GADGET_PORLET_IN_MIDDLE_HOME_PAGE);
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
@@ -66,10 +72,10 @@ public class PLF_HomepageGadgets_FavoritesDocuments extends PlatformBase {
 	 */
 	@Test
 	public  void test01_CheckAllTheFavoriteDocuments() {
-		String name1 = "webname174341";
-		String content1= "webcontent174341";
-		String name2 = "webname274341";
-		String content2= "webcontent274341";
+		String name1 = "webname1" + getRandomNumber();
+		String content1= "webcontent1" + getRandomNumber();
+		String name2 = "webname2" + getRandomNumber();
+		String content2= "webcontent2" + getRandomNumber();
 		String namelink1 = name1+".lnk";
 		String namelink2 = name2+".lnk";
 
@@ -101,7 +107,7 @@ public class PLF_HomepageGadgets_FavoritesDocuments extends PlatformBase {
 		info("-- Go to favorite --");
 		actBar.goToNodeByAddressPath("/Favorites");
 		actBar.goToAddNewContent();
-		cTemp.createNewWebContent(name1, content1, "", "", "", "");
+		cTemp.createNewWebContent(name1, content1, "", "", "", "", false);
 		actBar.goToNodeByAddressPath("/Favorites");
 		waitForAndGetElement(ecms.ELEMENT_NODE_ADMIN_VIEW.replace("${nodeName}", namelink1));
 		actBar.goToNodeByAddressPath("/");
@@ -138,7 +144,7 @@ public class PLF_HomepageGadgets_FavoritesDocuments extends PlatformBase {
 		navToolBar.goToPersonalDocuments();
 		actBar.goToNodeByAddressPath("/");
 		actBar.goToAddNewContent();
-		cTemp.createNewWebContent(name2, content2, "", "", "", "");
+		cTemp.createNewWebContent(name2, content2, "", "", "", "", false);
 		actBar.goToNodeByAddressPath("/");
 		click(By.xpath(siteExp.ELEMENT_SELECT_CHECKBOX.replace("${name}", name2)), 2);
 		actBar.goToAddToFavorite();

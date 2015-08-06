@@ -145,8 +145,8 @@ public class PLF_HomePageActivityStream_Activity_General extends Activity{
 	@Test
 	public  void test03_DeleteASpaceActivityFromActivityStreamBySpacesAdministrator() {
 		info("Test 3: Delete a space activity from activity stream by space's administrator");
-		String text = "Activity 78608";
-		String spaceName = "Space78608";
+		String text = "Activity 78608" + getRandomNumber();
+		String spaceName = "Space78608" + getRandomNumber();
 		// Pre-Condition
 		mMember.goToMySpacePage();
 		mMember.addNewSpace(spaceName,"");

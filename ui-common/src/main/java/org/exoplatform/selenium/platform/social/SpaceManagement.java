@@ -371,10 +371,11 @@ public class SpaceManagement extends SocialBase {
 	 */
 	public void goToSpaceMenu(String menuItem){
 		info("-- Go To " + menuItem + " --");
-		if(waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem),5000,0) != null)
+		if(waitForAndGetElement(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem),DEFAULT_TIMEOUT,0) != null)
 			click(By.xpath(ELEMENT_SPACE_MENU_ITEM.replace("${menuItem}", menuItem)));
 		else{
 			info("more menu");
+			waitForAndGetElement(ELEMENT_SPACE_MORE_ITEM, DEFAULT_TIMEOUT, 0);
 			click(ELEMENT_SPACE_MORE_ITEM);
 			Utils.pause(2000);
 			String []items = menuItem.split(" ");

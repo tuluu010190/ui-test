@@ -437,6 +437,7 @@ public class WikiBase extends PlatformBase{
 	{
 		info("Deleting a wiki page...");
 		//mouseOver(ELEMENT_MORE_LINK,true);
+		waitForAndGetElement(ELEMENT_MORE_LINK, DEFAULT_TIMEOUT, 0);
 		click(ELEMENT_MORE_LINK);
 		if (waitForAndGetElement(ELEMENT_DELETE_LINK_2, 5000, 0) == null){
 			click(ELEMENT_DELETE_LINK);

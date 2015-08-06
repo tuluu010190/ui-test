@@ -55,7 +55,8 @@ public class ManageMember extends SpaceManagement {
 	public final String ELEMENT_SELECTED_USER_BOX = "//span[text()='${username}']/../..//input[@class='checkbox']";
 	public final By ELEMENT_ADD_USER_BUTTON = By.xpath("//*[@id='UIUserSelector']//*[text()='Add']");
 
-	public final By ELEMENT_SEARCH_USER_TEXTBOX=By.id("Quick Search");
+	//public final By ELEMENT_SEARCH_USER_TEXTBOX=By.id("Quick Search");
+	public final By ELEMENT_SEARCH_USER_TEXTBOX=By.xpath("//input[@name='Quick Search']");
 	public final By ELEMENT_SEARCH_USER_BUTTON=By.xpath("//*[@class='uiIconSearch uiIconLightGray']");
 	
 	//Adapt to plf4.1.0
@@ -313,6 +314,8 @@ public class ManageMember extends SpaceManagement {
 	}
 
 	public void searchUser(String username){
+		info("Search user");
+		waitForAndGetElement(ELEMENT_SEARCH_USER_TEXTBOX, DEFAULT_TIMEOUT, 0);
 		type(ELEMENT_SEARCH_USER_TEXTBOX,username,true);
 		click(ELEMENT_SEARCH_USER_BUTTON);
 		waitForAndGetElement(ELEMENT_SELECTED_USER_BOX_PLF4_1.replace("${username}", username),5000,1,2);

@@ -204,6 +204,30 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>plf-fnc-part6</id>
+			<properties>
+				<testSuite>plf-fnc-part6.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>plf-fnc-part7</id>
+			<properties>
+				<testSuite>plf-fnc-part7.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>plf-fnc-part8</id>
+			<properties>
+				<testSuite>plf-fnc-part8.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>plf-fnc-part9</id>
+			<properties>
+				<testSuite>plf-fnc-part9.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>social</id>
 			<properties>
 				<testSuite>social.xml</testSuite>

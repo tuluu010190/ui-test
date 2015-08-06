@@ -11,6 +11,7 @@ import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.social.Activity;
 import org.exoplatform.selenium.platform.social.ManageMember;
 import org.exoplatform.selenium.platform.social.PeopleConnection;
+import org.exoplatform.selenium.platform.social.PeopleSearch;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.testng.annotations.*;
 
@@ -23,6 +24,7 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 	ManageAccount acc; 
 	NavigationToolbar nav; 
 	PeopleConnection pConn; 
+	PeopleSearch peoSearch;
 	String user = "John Smith";
 	String user1= "Jack Miller";	
 	String user2= "Mary Williams";
@@ -42,11 +44,76 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		hGadget = new HomePageGadget(driver, this.plfVersion);
 		uGroup = new UserGroupManagement(driver, this.plfVersion);
 		mSpace = new SpaceManagement(driver, this.plfVersion);
+		peoSearch = new PeopleSearch(driver);
 		acc.signIn(DATA_USER1, DATA_PASS);		
 	}
 
-	@AfterMethod
+	/*@AfterMethod
 	public void afterMethods() {
+		info("Logout portal");
+		driver.manage().deleteAllCookies();
+		driver.quit();
+	}*/
+	
+	@AfterMethod
+	public void afterMethods(){
+		info("clear connections");
+		acc.userSignIn(userType.ADMIN);
+		nav.goToConnectionPage();
+		peoSearch.searchPeople(true,user1);
+		info("---Cancel the request to user '"+user1+"'-----");
+		if(waitForAndGetElement(pConn.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user1), 7000, 0) != null){
+			click(pConn.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user1));
+			waitForElementNotPresent(pConn.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user1));
+			info("---Go to Everyone tab----");
+			click(pConn.ELEMENT_EVERYONE_TAB);
+			waitForAndGetElement(pConn.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user1));
+		}
+		info("---Remove the invitation from user '"+user1+"'-----");
+		if(waitForAndGetElement(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1), 7000, 0) != null){
+			click(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
+			Utils.pause(3000);
+			waitForElementNotPresent(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
+			Utils.pause(1000);
+		}
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		peoSearch.searchPeople(true,user1);
+		info("---Cancel the request to user '"+user1+"'-----");
+		if(waitForAndGetElement(pConn.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user1), 7000, 0) != null){
+			click(pConn.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user1));
+			waitForElementNotPresent(pConn.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user1));
+			info("---Go to Everyone tab----");
+			click(pConn.ELEMENT_EVERYONE_TAB);
+			waitForAndGetElement(pConn.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user1));
+		}
+		acc.userSignIn(userType.DEVELOPER);
+		nav.goToConnectionPage();
+		peoSearch.searchPeople(true,user);
+		info("---Remove the invitation from user '"+user+"'-----");
+		if(waitForAndGetElement(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user), 7000, 0) != null){
+			click(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user));
+			Utils.pause(3000);
+			waitForElementNotPresent(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user));
+			Utils.pause(1000);
+		}
+		info("---Ignore the invitation from user '"+user+"'-----");
+		if(waitForAndGetElement(pConn.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user), 7000, 0) != null){
+			click(pConn.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user));
+			waitForElementNotPresent(pConn.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user));
+			info("---Go to Everyone tab----");
+			click(pConn.ELEMENT_EVERYONE_TAB);
+			waitForAndGetElement(pConn.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user));			
+		}
+		peoSearch.searchPeople(true,user2);
+		info("---Ignore the invitation from user '"+user2+"'-----");
+		if(waitForAndGetElement(pConn.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user2), 7000, 0) != null){
+			click(pConn.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user2));
+			waitForElementNotPresent(pConn.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user2));
+			info("---Go to Everyone tab----");
+			click(pConn.ELEMENT_EVERYONE_TAB);
+			waitForAndGetElement(pConn.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user2));			
+		}
 		info("Logout portal");
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -82,8 +149,8 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		waitForAndGetElement(hGadget.ELEMENT_SHOW_CONNECTIONS_REQUEST_USER.replace("${nameinvitation}", user));
 
 		//Delete data
-		nav.goToConnectionPage();
-		pConn.ignoreInvitation(user);
+		/*nav.goToConnectionPage();
+		pConn.ignoreInvitation(user);*/
 	}
 
 	/**
@@ -97,7 +164,7 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 	@Test(priority=3)
 	public  void test02_DisplayARequestToJoinASpace() {
 		info("Test 2: Display a request to join a space");
-		String spaceName = "Space79661";
+		String spaceName = "Space79661" + getRandomNumber();
 
 		/*
 		- Connect to Intranet with User A
@@ -177,9 +244,9 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 
 		//Delete data
 		acc.userSignIn(userType.ADMIN);
-		info("Delete request");
+		/*info("Delete request");
 		nav.goToConnectionPage();
-		pConn.cancelRequest(user1);
+		pConn.cancelRequest(user1);*/
 		info("Delete spaces");
 		nav.goToHomePage();
 		mMember.goToAllSpaces();
@@ -254,9 +321,9 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 
 		//Delete data test
 		acc.userSignIn(userType.ADMIN);
-		info("Remove request");
+		/*info("Remove request");
 		nav.goToConnectionPage();
-		pConn.cancelRequest(user1);
+		pConn.cancelRequest(user1);*/
 		info("Clean data test");
 		mMember.goToAllSpaces();
 		mMember.deleteSpace(spaceName1,300000);
@@ -301,8 +368,8 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		waitForAndGetElement(hGadget.ELEMENT_PROFILE_PICTURE_GADGET);
 
 		//Delete data
-		nav.goToConnectionPage();
-		pConn.ignoreInvitation(user);
+		/*nav.goToConnectionPage();
+		pConn.ignoreInvitation(user);*/
 	}
 
 	/**
@@ -484,8 +551,8 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		waitForAndGetElement(hGadget.ELEMENT_REMOVE_INVITATION_BUTTON_41.replace("${peopleName}", user), 5000, 1,2);
 
 		//Delete data
-		nav.goToConnectionPage();
-		pConn.ignoreInvitation(user);
+		/*nav.goToConnectionPage();
+		pConn.ignoreInvitation(user);*/
 	}
 
 	/**
@@ -725,9 +792,9 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 		mMember.deleteSpace(spaceNameA, 300000);
 		driver.navigate().refresh();				
 		mMember.deleteSpace(spaceNameB, 300000);
-		info("Delete connection");
+		/*info("Delete connection");
 		nav.goToConnectionPage();
-		pConn.cancelRequest(user1);		
+		pConn.cancelRequest(user1);*/		
 	}
 
 	/**
@@ -776,9 +843,9 @@ public class PLF_HomepageGadgets_InvitationGadget extends Activity{
 
 		//Delete data test
 		info("Delete connection");
-		click(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user));
+		/*click(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user));
 		Utils.pause(3000);
-		waitForElementNotPresent(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user));
+		waitForElementNotPresent(pConn.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user));*/
 	}
 
 	/**

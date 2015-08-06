@@ -210,7 +210,7 @@ public class PLF_UnifiedSearch_SearchEngine extends Template {
 	 * Step 1: Search for "High Availability" (surround the terms by the double quotes)
 	 * https://jira.exoplatform.org/browse/PLF-6342
 	 */
-	@Test
+	@Test (groups="pending")
 	public void test04_SearchSentence() {
 		String title = "Cluster1";
 		String title1 = "Cluster2";

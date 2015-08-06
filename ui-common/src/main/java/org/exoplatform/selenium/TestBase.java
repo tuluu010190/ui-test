@@ -49,6 +49,8 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.exoplatform.selenium.Utils;
 
+import com.thoughtworks.selenium.webdriven.commands.Click;
+
 public class TestBase {
 
 	public WebDriver driver;

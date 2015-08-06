@@ -66,6 +66,9 @@ public class PeopleConnection extends SocialBase {
 			click(ELEMENT_EVERYONE_TAB);
 		//resetConnection(peopleName);
 		info("-----Click connect to people-----");
+		Utils.pause(2000);
+		peoSearch.searchPeople(true,peopleName);
+		waitForAndGetElement(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName), DEFAULT_TIMEOUT, 0);
 		click(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 		info("---Verify Connect button is disappeared----");
 		waitForElementNotPresent(ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
@@ -112,6 +115,8 @@ public class PeopleConnection extends SocialBase {
 		}
 		else
 			click(ELEMENT_REQUESTS_RECEIVED_TAB);
+		peoSearch.searchPeople(true,peopleName);
+		waitForAndGetElement(By.linkText(peopleName));
 		waitForAndGetElement(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", peopleName));
 		info("---Ignore the invitation from user '"+peopleName+"'-----");
 		click(ELEMENT_IGNORE_BUTTON.replace("${peopleName}", peopleName));
@@ -137,6 +142,7 @@ public class PeopleConnection extends SocialBase {
 		}
 		else
 			click(ELEMENT_MY_CONNECTIONS_TAB);
+		peoSearch.searchPeople(true,peopleName);
 		waitForAndGetElement(ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 		click(ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", peopleName));
 		Utils.pause(3000);
@@ -168,6 +174,7 @@ public class PeopleConnection extends SocialBase {
 		}
 		else
 			click(ELEMENT_REQUEST_PENDING_TAB);
+		peoSearch.searchPeople(true,peopleName);
 		waitForAndGetElement(ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", peopleName));
 		info("---Cancel the invitation to user '"+peopleName+"'-----");
 		click(ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", peopleName));

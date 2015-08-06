@@ -81,7 +81,8 @@ public class PeopleProfile extends PlatformBase {
 	public final String ELEMENT_CONTACT_URL_REMOVE_ICON = "/*[@class='multiValueContainer']/div[${index}]//*[@data-original-title='Remove Item']";
 
 	//Avatar
-	public final By	ELEMENT_CHANGE_AVATAR_LINK = By.xpath("//*[contains(@class,'changeAvatar')]");
+	//public final By	ELEMENT_CHANGE_AVATAR_LINK = By.xpath("//*[contains(@class,'changeAvatar')]");
+	public final By	ELEMENT_CHANGE_AVATAR_LINK = By.xpath(".//*[@id='Avatar']//*[contains(@class,'changeAvatar')]");
 	public final By ELEMENT_CHOOSE_AVATAR_IMAGE = By.className("fileNameLabel");
 	public final By ELEMENT_SELECT_AVATAR = By.xpath(".//*[@id='Uploader']//*[text()='Select File']");
 	public final By ELEMENT_UPLOAD_NAME = By.name("file");
@@ -210,13 +211,16 @@ public class PeopleProfile extends PlatformBase {
 	 */
 	public void changeAvatar(String linkfile){
 		info("-- changeAvatar --");
+		waitForAndGetElement(ELEMENT_CHANGE_AVATAR_LINK, DEFAULT_TIMEOUT, 0);
 		click(ELEMENT_CHANGE_AVATAR_LINK);
+		waitForAndGetElement(ELEMENT_SELECT_AVATAR, DEFAULT_TIMEOUT, 0);
 		click(ELEMENT_SELECT_AVATAR);
 		uploadFileUsingRobot(linkfile);
 		click(ELEMENT_CONFIRM);
 		waitForElementNotPresent(ELEMENT_CONFIRM);
 		click(ELEMENT_SAVE_AVATAR);
-		Utils.pause(1000);
+		waitForElementNotPresent(ELEMENT_SAVE_AVATAR);
+		Utils.pause(3000);
 	}
 
 	/**
@@ -355,12 +359,14 @@ public class PeopleProfile extends PlatformBase {
 	public void saveCancelUpdateInfo(Boolean isSave){
 		if(isSave==null || isSave){
 			info("Save updating information");
-			click(ELEMENT_CONTACT_SAVE_BUTTON);
+			click(ELEMENT_CONTACT_SAVE_BUTTON);		
+			waitForElementNotPresent(ELEMENT_CONTACT_SAVE_BUTTON);
 			Utils.pause(2000);	
 		}
 		else{
 			info("Cancel updating information");
 			click(ELEMENT_CONTACT_CANCEL_BUTTON);
+			waitForElementNotPresent(ELEMENT_CONTACT_CANCEL_BUTTON);
 			Utils.pause(2000);	
 		}	
 	}

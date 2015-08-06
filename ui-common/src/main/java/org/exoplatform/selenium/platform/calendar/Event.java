@@ -176,7 +176,7 @@ public class Event extends CalendarBase{
 	public void goToAddEventFromActionBar(){
 		info("Go to Add Event page");
 		click(ELEMENT_BUTTON_EVENT);
-		waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP);
+		waitForAndGetElement(ELEMENT_ADD_EVENT_POPUP, DEFAULT_TIMEOUT,1);
 	}
 
 	/**

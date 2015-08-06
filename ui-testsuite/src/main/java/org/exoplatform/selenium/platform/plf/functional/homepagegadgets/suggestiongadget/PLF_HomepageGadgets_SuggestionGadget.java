@@ -1140,7 +1140,7 @@ public class PLF_HomepageGadgets_SuggestionGadget extends Activity{
 	 * 
 	 * BugID: https://jira.exoplatform.org/browse/PLF-5354
 	 */
-	@Test 
+	@Test (groups="pending")
 	public  void test18_ShouldSuggestLastCreatedSpaceOrLastRegisteredUserWhenThereIsNoSggestionBasedOnNetwork() {
 		info("Test 18: Should suggest last created space or last registered user when there is no sggestion based on network");
 		String username1 = getRandomString();

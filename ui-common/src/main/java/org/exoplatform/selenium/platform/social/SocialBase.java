@@ -121,7 +121,7 @@ public class SocialBase extends PlatformBase {
 	public void goToMySpacePage(){
 		info("--Go to My Space Page--");
 		goToAllSpaces();
-		waitForAndGetElement(ELEMENT_MY_SPACES_LINK);
+		waitForAndGetElement(ELEMENT_MY_SPACES_LINK, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_MY_SPACES_LINK);
 		Utils.pause(500);
 	}
@@ -129,6 +129,7 @@ public class SocialBase extends PlatformBase {
 	// Go to All Spaces
 	public void goToAllSpaces(){
 		info("Go to All Spaces");
+		waitForAndGetElement(ELEMENT_JOIN_SPACE_LINK, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_JOIN_SPACE_LINK);
 		if(waitForAndGetElement("//button[contains(.,'Add New Space')]",DEFAULT_TIMEOUT,0)== null){
 			//clearCache();
@@ -177,6 +178,7 @@ public class SocialBase extends PlatformBase {
 
 	// Go to Member tab
 	public void goToMembers(){
+		waitForAndGetElement(ELEMENT_MEMBERS_TAB, DEFAULT_TIMEOUT,1);
 		click(ELEMENT_MEMBERS_TAB);
 		waitForAndGetElement(By.id("user"));
 	}
@@ -233,6 +235,7 @@ public class SocialBase extends PlatformBase {
 		goToMySpacePage();
 		click(By.xpath("//*[@id='UIManageMySpaces']//*[text()= '"+ spaceName +"']"));
 		waitForElementNotPresent("//*[contains(text(),'Add New Space')]");
+		Utils.pause(4000);
 	}
 
 	// Go to Find Connections

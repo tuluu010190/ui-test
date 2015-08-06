@@ -150,10 +150,14 @@ public class PLF_ContentNavigation extends PlatformBase{
 	@Test
 	public  void test02_EditTheNavigationForm() {
 		info("Test 2: Edit The Navigation Form");
-
 		nav.goToSiteExplorer();
+		act.addItem2ActionBar("contentNavigation", act.ELEMENT_CONTENT_NAVIGATION_LINK);
+		//nav.goToSiteExplorer();
+		waitForAndGetElement(By.linkText("acme"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("acme"));
+		waitForAndGetElement(By.linkText("events"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("events"));
+		waitForAndGetElement(By.linkText("All"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("All"));
 		/*
 		- Go to Setup menu/Content/Site explorer
@@ -231,9 +235,14 @@ public class PLF_ContentNavigation extends PlatformBase{
 		- Page for details: empty		*/
 		info("Check Visibility of a sub menu Restriction");
 		nav.goToSiteExplorer();
+		act.addItem2ActionBar("contentNavigation", act.ELEMENT_CONTENT_NAVIGATION_LINK);
+		waitForAndGetElement(By.linkText("acme"), DEFAULT_TIMEOUT, 1);
 		click(By.linkText("acme"));
+		waitForAndGetElement(By.linkText("events"), DEFAULT_TIMEOUT, 1);
 		click(By.linkText("events"));
+		waitForAndGetElement(By.linkText("All"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("All"));
+		waitForAndGetElement(By.linkText("Fire"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("Fire"));
 	
 		act.goToContentNavigation();
@@ -272,10 +281,16 @@ public class PLF_ContentNavigation extends PlatformBase{
 		- The field  Display order: 1000
 		- The window  Navigation Form  disappears		*/
 		nav.goToSiteExplorer();
+		act.addItem2ActionBar("contentNavigation", act.ELEMENT_CONTENT_NAVIGATION_LINK);
+		waitForAndGetElement(By.linkText("acme"), DEFAULT_TIMEOUT, 1);
 		click(By.linkText("acme"));
+		waitForAndGetElement(By.linkText("events"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("events"));
+		waitForAndGetElement(By.linkText("All"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("All"));
+		waitForAndGetElement(By.linkText("Earth"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("Earth"));
+		
 		act.goToContentNavigation();
 		waitForAndGetElement(act.ELEMENT_NAVIGATION_FROM);
 		info("waitForAndGetElement " + waitForAndGetElement(By.id("Node")).getAttribute("value"));
@@ -373,10 +388,16 @@ public class PLF_ContentNavigation extends PlatformBase{
 		- The window  Navigation Form  disappears		*/
 		info("Get back a node");
 		nav.goToSiteExplorer();
+		act.addItem2ActionBar("contentNavigation", act.ELEMENT_CONTENT_NAVIGATION_LINK);
+		waitForAndGetElement(By.linkText("acme"), DEFAULT_TIMEOUT, 1);
 		click(By.linkText("acme"));
+		waitForAndGetElement(By.linkText("events"), DEFAULT_TIMEOUT, 1);
 		click(By.linkText("events"));
+		waitForAndGetElement(By.linkText("All"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("All"));
+		waitForAndGetElement(By.linkText("Fire"), DEFAULT_TIMEOUT,1);
 		click(By.linkText("Fire"));
+		
 		
 		act.goToContentNavigation();
 		waitForAndGetElement(act.ELEMENT_NAVIGATION_FROM);
@@ -430,9 +451,13 @@ public class PLF_ContentNavigation extends PlatformBase{
 	
 		acme.goToOverviewPage();
 		nav.goToSiteExplorer();
+		waitForAndGetElement(By.linkText("acme"), DEFAULT_TIMEOUT, 1);
 		click(By.linkText("acme"));
+		waitForAndGetElement(By.linkText("events"), DEFAULT_TIMEOUT, 1);
 		click(By.linkText("events"));
+		waitForAndGetElement(By.linkText("All"), DEFAULT_TIMEOUT, 1);
 		click(By.linkText("All"));
+		waitForAndGetElement(By.linkText("Fire"), DEFAULT_TIMEOUT, 1);
 		click(By.linkText("Fire"));
 		
 		act.goToAction();

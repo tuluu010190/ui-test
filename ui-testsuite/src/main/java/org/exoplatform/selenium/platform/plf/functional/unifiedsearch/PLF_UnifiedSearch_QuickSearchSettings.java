@@ -110,6 +110,7 @@ public class PLF_UnifiedSearch_QuickSearchSettings extends Activity {
 		/*
 		 * step 3
 		 */
+		waitForAndGetElement(ELEMENT_EDIT_PORTLET_ICON, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_EDIT_PORTLET_ICON);
 		// check if the edit mode is display
 		waitForAndGetElement(qsPage.ELEMENT_PORTLET_SETTING_TAB);

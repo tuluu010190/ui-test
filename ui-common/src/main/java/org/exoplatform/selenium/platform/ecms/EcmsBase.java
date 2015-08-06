@@ -228,6 +228,7 @@ public class EcmsBase extends ManageAccount {
 	public final By ELEMENT_EXPORT_LINK = By.xpath("//i[contains(@class,'uiIconEcmsExportNode')]");
 	public final By ELEMENT_IMPORT_LINK = By.className("uiIconEcmsImportNode");
 	public final By ELEMENT_MANAGE_ACTIONS_LINK=By.xpath("//i[contains(@class,'uiIconEcmsManageActions')]");
+	public final By ELEMENT_CONTENT_NAVIGATION_LINK=By.xpath(".//*[@id='ListHideContainer']//i[@class='uiIconEcmsContentNavigation uiIconEcmsLightGray']");
 
 	//Content template
 	public final By ELEMENT_EDIT_NODE_CHECKBOX = By.id("set_property");

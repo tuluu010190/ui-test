@@ -196,7 +196,7 @@ public class PLF_UnifiedSearch_DocumentSearch extends PlatformBase {
 		Utils.pause(2000);
 		type(ELEMENT_QUICK_SEARCH_TEXTBOX, Keys.BACK_SPACE.toString(), false);
 		Utils.pause(2000);
-		type(ELEMENT_QUICK_SEARCH_TEXTBOX, prefix_number, false);
+		type(ELEMENT_QUICK_SEARCH_TEXTBOX, documentNameDes, true);
 		Utils.pause(2000);
 		// - Click on "See all search results" link
 		click(ELEMENT_QUICK_SEARCH_SEE_ALL_SEARCH_RESULTS);

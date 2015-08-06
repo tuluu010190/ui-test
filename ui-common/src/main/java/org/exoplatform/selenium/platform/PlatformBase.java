@@ -109,8 +109,10 @@ public class PlatformBase extends TestBase {
 	
 	//Content
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[contains(@class,'quickEdit')]"); 
-	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
-	public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
+	//public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
+	public final By ELEMENT_MENU_PAGE_LINK = By.xpath(".//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Page')]");
+	//public final By ELEMENT_MENU_EDIT_LAYOUT = By.linkText("Edit Layout");
+	public final By ELEMENT_MENU_EDIT_LAYOUT = By.xpath(".//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Edit Layout')]");
 	public final By ELEMENT_MENU_SEO_LINK = By.xpath("//span[contains(text(), 'SEO')]");
 	public final By ELEMENT_MENU_ADD_PAGE_LINK = By.linkText("Add Page");
 
@@ -171,6 +173,7 @@ public class PlatformBase extends TestBase {
 	public final String ELEMENT_LINK_SITES   = "//a[text()='Sites']";
 	public final String ELEMENT_LINK_GROUP = "//a[text()='Community']";
 	public final String ELEMENT_LINK_BRANDING = "//a[text()='Branding']";
+	public final By ELEMENT_LINK_GROUP_SITES = By.xpath(".//*[@id='UISetupPlatformToolBarPortlet']//a[text()='Group Sites']");
 
 	//Administration
 	public final By ELEMENT_TOP_NAVIGATION_MANAGEMENT = By.xpath("//*[@id='UISetupPlatformToolBarPortlet']//a[@href='/portal/g/:platform:administrators/servicesManagement' and text()='Management']");
@@ -726,6 +729,8 @@ public class PlatformBase extends TestBase {
 
 	//get url
 	public final String ELEMENT_GET_URL_IMAGE = "//img[@alt='${name}']";
+	public final By ELEMENT_GET_URL_IMAGE_2= By.xpath(".//*[@id='UIUserPlatformToolBarPortlet']//img[@alt='avatar']");
+	public final By ELEMENT_FULL_NAME_AVATAR = By.xpath(".//*[@id='UIUserPlatformToolBarPortlet']//img[@alt='avatar']/..");
 
 	//Default gadget on homepage
 	public final By ELEMENT_CALENDAR_GADGET = By.xpath("//div[@id='OfficeRight']//div[@class='CalendarPortletContainer']");

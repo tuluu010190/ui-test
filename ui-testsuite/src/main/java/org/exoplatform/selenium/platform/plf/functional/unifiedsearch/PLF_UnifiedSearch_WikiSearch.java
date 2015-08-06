@@ -1,9 +1,11 @@
 package org.exoplatform.selenium.platform.plf.functional.unifiedsearch;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.exoplatform.selenium.Button;
 import org.exoplatform.selenium.platform.HomePageGadget;
 import org.exoplatform.selenium.platform.ManageAccount;
+import org.exoplatform.selenium.platform.ManageAccount.userType;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.SettingSearchPage;
 import org.exoplatform.selenium.platform.calendar.CalendarBase;
@@ -54,9 +56,9 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 	@Test
 	public void test01_LookForWikiInSpacesWereUserHasAccessTo(){
 		String texteWiki="Qu est ce que le Cloud ? Demandons a steve job et Amazon";
-		String spaceName1="Engineering121522";
-		String spaceName2="Marketing121522";
-		String wikiMary="Wiki page of mary";
+		String spaceName1="Engineering" + getRandomNumber();
+		String spaceName2="Marketing" + getRandomNumber();
+		String wikiMary="Wiki page of mary" + getRandomNumber();
 		String wikiEngi="Wiki in engi";
 		String wikiIntra="Intranet Wiki";
 		String wikiJame="wiki page of james";
@@ -73,7 +75,8 @@ public class PLF_UnifiedSearch_WikiSearch extends CalendarBase{
 		info("Invit user James in space "+spaceName1);
 		click(magMember.ELEMENT_SPACE_SETTING_PORTLET);
 		click(magMember.ELEMENT_MEMBER_TAB);
-		magMember.inviteSingleUser("James");
+		//magMember.inviteSingleUser("James");
+		magMember.inviteSingleUser(userType.AUTHOR);
 		info("Add wiki page in engineering space ");
 		magMember.goToSpaceMenu("Wiki");
 		ba.addBlankWikiPage(wikiEngi, texteWiki, 0);

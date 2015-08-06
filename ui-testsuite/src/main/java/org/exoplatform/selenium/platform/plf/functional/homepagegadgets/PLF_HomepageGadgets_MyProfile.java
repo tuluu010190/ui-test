@@ -45,6 +45,12 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 
 	@AfterMethod
 	public void afterMethods() {
+		info("Remove portlet");
+		acc.signIn(DATA_USER1, DATA_PASS);
+		naviToolbar.goToEditPageEditor();
+		click(ELEMENT_SWITCH_VIEW_MODE);
+		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
+		pageEditor.removePortlet(hpGadget.ELEMENT_GADGET_PORLET_IN_MIDDLE_HOME_PAGE, hpGadget.ELEMENT_DELETE_ICON_GADGET_PORLET_IN_MIDDLE_HOME_PAGE);
 		info("Logout portal");
 		driver.manage().deleteAllCookies();
 		driver.quit();
@@ -78,10 +84,12 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 
 		//Get old avatar
 		naviToolbar.goToHomePage();
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
+		/*driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
 		WebElement element = waitForAndGetElement(hpGadget.ELEMENT_PROFILE_PICTURE_IN_MY_PROFILE_GADGET);
-		String oldpic = element.getAttribute("src"); 
-		driver.switchTo().defaultContent();
+		String oldpic = element.getAttribute("src"); */
+		WebElement element = waitForAndGetElement(ELEMENT_GET_URL_IMAGE_2, DEFAULT_TIMEOUT, 0);
+		String oldpic = element.getAttribute("src");
+		//driver.switchTo().defaultContent();
 
 		info("Test 1: Check the displaying of information in My Profile gadget after updating avatar");
 		/*Step Number: 1
@@ -99,13 +107,16 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		naviToolbar.goToMyProfile();
 
 		//Get old avatar
-		element = waitForAndGetElement(By.xpath(ELEMENT_GET_URL_IMAGE.replace("${name}", firstName+" "+lastName)));
+		peoPro.goToEditProfile();
+		/*element = waitForAndGetElement(By.xpath(ELEMENT_GET_URL_IMAGE.replace("${name}", firstName+" "+lastName)));
 		String oldsrc = element.getAttribute("src"); 
+		System.out.println("Old source = " + oldsrc);*/
 		peoPro.changeAvatar("TestData/"+file);
 		//User has new avatar
-		element = waitForAndGetElement(By.xpath(ELEMENT_GET_URL_IMAGE.replace("${name}", firstName+" "+lastName)));
+		/*element = waitForAndGetElement(By.xpath(ELEMENT_GET_URL_IMAGE.replace("${name}", firstName+" "+lastName)));
 		String newsrc = element.getAttribute("src");
-		assert (!oldsrc.contentEquals(newsrc));
+		System.out.println("New source = " + newsrc);
+		assert (!oldsrc.equals(newsrc));*/
 
 		/*Step number: 2
 		 *Step Name: -
@@ -116,18 +127,20 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		 *Expected Outcome: 
 			New avatar is added in My Profile gadget*/ 
 		naviToolbar.goToHomePage();
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
+		/*driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
 		element = waitForAndGetElement(hpGadget.ELEMENT_PROFILE_PICTURE_IN_MY_PROFILE_GADGET);
-		String newpic = element.getAttribute("src"); 
+		String newpic = element.getAttribute("src"); */
+		element = waitForAndGetElement(ELEMENT_GET_URL_IMAGE_2, DEFAULT_TIMEOUT, 0);
+		String newpic = element.getAttribute("src");
 		assert (!oldpic.contentEquals(newpic));
-		driver.switchTo().defaultContent();
+		//driver.switchTo().defaultContent();
 
 		/*Clear data*/
-		info("Clear data");
+		/*info("Clear data");
 		naviToolbar.goToEditPageEditor();
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
-		pageEditor.removePortlet(hpGadget.ELEMENT_GADGET_PORLET_IN_MIDDLE_HOME_PAGE, hpGadget.ELEMENT_DELETE_ICON_GADGET_PORLET_IN_MIDDLE_HOME_PAGE);
+		pageEditor.removePortlet(hpGadget.ELEMENT_GADGET_PORLET_IN_MIDDLE_HOME_PAGE, hpGadget.ELEMENT_DELETE_ICON_GADGET_PORLET_IN_MIDDLE_HOME_PAGE);*/
 	}
 
 	/**
@@ -161,11 +174,11 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 
 		//Get old first name
 		naviToolbar.goToHomePage();
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
-		WebElement element = waitForAndGetElement(hpGadget.ELEMENT_PROFILE_INFO_IN_MY_PROFILE_GADGET);
+		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
+		WebElement element = waitForAndGetElement(ELEMENT_FULL_NAME_AVATAR, DEFAULT_TIMEOUT, 0);
 		String oldName = element.getText().trim();
 		assert oldName.contains(fullName);
-		driver.switchTo().defaultContent();
+		//driver.switchTo().defaultContent();
 
 		info("Test 2: Check the displaying of information in My Profile gadget after updating first name");
 		/*Step Number: 1
@@ -183,6 +196,7 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		naviToolbar.goToMyProfile();
 		peoPro.goToEditProfile();
 		peoPro.updateBasicInformation(newFirstName, "", "");
+		peoPro.saveCancelUpdateInfo(null);
 
 		/*Step number: 2
 		 *Step Name: -
@@ -193,12 +207,12 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		 *Expected Outcome: 
 			First name is updated*/ 
 		naviToolbar.goToHomePage();
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
-		element = waitForAndGetElement(hpGadget.ELEMENT_PROFILE_INFO_IN_MY_PROFILE_GADGET);
+		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
+		element = waitForAndGetElement(ELEMENT_FULL_NAME_AVATAR, DEFAULT_TIMEOUT, 0);
 		String newName = element.getText().trim();
 		assert newName.contains(newFullName);
-		assert !newName.contains(fullName);
-		driver.switchTo().defaultContent();
+		assert !newName.equals(oldName);
+		//driver.switchTo().defaultContent();
 		waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TEXTBOX);
 		Utils.pause(5000);
 		/*Clear data*/
@@ -209,6 +223,7 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		naviToolbar.goToMyProfile();
 		peoPro.goToEditProfile();
 		peoPro.updateBasicInformation(firstName, "", "");
+		peoPro.saveCancelUpdateInfo(null);
 	}
 
 	/**
@@ -241,11 +256,11 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 
 		//Get old first name
 		naviToolbar.goToHomePage();
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
-		WebElement element = waitForAndGetElement(hpGadget.ELEMENT_PROFILE_INFO_IN_MY_PROFILE_GADGET);
+		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
+		WebElement element = waitForAndGetElement(ELEMENT_FULL_NAME_AVATAR, DEFAULT_TIMEOUT, 0);
 		String oldName = element.getText().trim();
 		assert oldName.contains(fullName);
-		driver.switchTo().defaultContent();
+		//driver.switchTo().defaultContent();
 
 		info("Test 3: Check the displaying of information in My Profile gadget after updating last name");
 		/*Step Number: 1
@@ -263,6 +278,7 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		naviToolbar.goToMyProfile();
 		peoPro.goToEditProfile();
 		peoPro.updateBasicInformation("", newLastName, "");
+		peoPro.saveCancelUpdateInfo(null);
 
 		/*Step number: 2
 		 *Step Name: -
@@ -273,22 +289,23 @@ public class PLF_HomepageGadgets_MyProfile extends Activity{
 		 *Expected Outcome: 
 			Last name is updated*/ 
 		naviToolbar.goToHomePage();
-		driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
-		element = waitForAndGetElement(hpGadget.ELEMENT_PROFILE_INFO_IN_MY_PROFILE_GADGET);
+		//driver.switchTo().frame(waitForAndGetElement(ELEMENT_GADGET_WORKSPACE_FRAME));
+		element = waitForAndGetElement(ELEMENT_FULL_NAME_AVATAR, DEFAULT_TIMEOUT, 0);
 		String newName = element.getText().trim();
 		assert newName.contains(newFullName);
-		assert !newName.contains(fullName);
-		driver.switchTo().defaultContent();
+		assert !newName.equals(oldName);
+		//driver.switchTo().defaultContent();
 
 		/*Clear data*/
 		info("Clear data");
-		naviToolbar.goToEditPageEditor();
+		/*naviToolbar.goToEditPageEditor();
 		click(ELEMENT_SWITCH_VIEW_MODE);
 		waitForAndGetElement(pageEditor.ELEMENT_VIEW_PAGE_PROPERTIES);
-		pageEditor.removePortlet(hpGadget.ELEMENT_GADGET_PORLET_IN_MIDDLE_HOME_PAGE, hpGadget.ELEMENT_DELETE_ICON_GADGET_PORLET_IN_MIDDLE_HOME_PAGE);
+		pageEditor.removePortlet(hpGadget.ELEMENT_GADGET_PORLET_IN_MIDDLE_HOME_PAGE, hpGadget.ELEMENT_DELETE_ICON_GADGET_PORLET_IN_MIDDLE_HOME_PAGE);*/
 		naviToolbar.goToMyProfile();
 		peoPro.goToEditProfile();
 		peoPro.updateBasicInformation("", lastName, "");
+		peoPro.saveCancelUpdateInfo(null);
 	}
 }
 

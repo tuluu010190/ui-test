@@ -1,22 +1,24 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
 <suite name="Platform Functional Test" verbose="1" preserve-order="true">
-	<test name="plf-fnc-part4" enabled="true">
+	<test name="plf-fnc-part3" enabled="true">
 		<groups>
 			<run>
 				<exclude name="pending" />
 			</run>
 		</groups>
 		<classes>
-			<class name = "org.exoplatform.selenium.platform.plf.functional.homepagegadgets.suggestiongadget.PLF_HomepageGadgets_SuggestionGadget" />
-			<class name = "org.exoplatform.selenium.platform.plf.functional.homepagegadgets.invitationgadget.PLF_HomepageGadgets_InvitationGadget" />
-			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.create.PLF_Navigation_TopNavigation_Create_EventTask" />
-			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.create.PLF_Navigation_TopNavigation_Create_General" />
-			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.create.PLF_Navigation_TopNavigation_Create_UploadFile" />
-			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.create.PLF_Navigation_TopNavigation_Create_WikiPage" />
-			<class name = "org.exoplatform.selenium.platform.plf.functional.genericuserpopup.PLF_GenericUserPopup_WhoIsOnlineGadget" />
-			<class name = "org.exoplatform.selenium.platform.plf.functional.genericuserpopup.PLF_GenericUserPopup_ActivityStream" />
-			<class name = "org.exoplatform.selenium.platform.plf.functional.genericuserpopup.PLF_GenericUserPopup_ConnectionApplication" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.PLF_UserNavigation" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.leftnavigation.PLF_Navigation_LeftNavigation_CompanyList" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.leftnavigation.PLF_Navigation_LeftNavigation_General" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.leftnavigation.PLF_Navigation_LeftNavigation_GroupList" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.leftnavigation.PLF_Navigation_LeftNavigation_SpaceList" />			
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.PLF_Navigation_TopNavigation_Administration" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.PLF_Navigation_TopNavigation_Edit" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.PLF_Navigation_TopNavigation_General" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.PLF_Navigation_TopNavigation_Logo" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.PLF_Navigation_TopNavigation_Profile" />
+			<class name = "org.exoplatform.selenium.platform.plf.functional.navigation.topnavigation.PLF_Navigation_TopNavigation_Search" />	
 		</classes>
 	</test>
 	<listeners>

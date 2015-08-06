@@ -163,7 +163,7 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * related issue: FORUM-1146
 	 */
 
-	@Test(groups = "error")
+	@Test (groups="pending")
 	public void test02_DisplayDisInSearPageResult() throws Exception {
 		isPermission = false;
 		// Create data test
@@ -320,7 +320,9 @@ public class PLF_UnifiedSearch_DiscussionSearch extends PlatformBase {
 	 * 5. In the Quick Search box, input a valid characters (Ex. forum) to
 	 * search a Discussion
 	 * Expected: The Discussion "Test" is not displayed in the Floating Result
-	 * this issue releated to FORUM-978
+	 * this issue releated to FORUM-978 --> This issue was resolved because steps and expected
+	 * result in this issue is normal behavior as Tu's comment in this issue.
+	 * This case was passed
 	 */
 
 	@Test

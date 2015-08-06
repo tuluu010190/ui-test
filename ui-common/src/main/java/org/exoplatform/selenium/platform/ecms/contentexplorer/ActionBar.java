@@ -215,7 +215,8 @@ public class ActionBar extends EcmsBase{
 	public By ELEMENT_PUBLISH_FILE = By.linkText("Publish");
 	public String ELEMENT_STATUS_FILE = "//span[@class='nodeName' and text()='${title}']/../../../..//div[@data-original-title= 'status' and text() = '${status}']";
 	public final By ELEMENT_MORE_LINK = By.linkText("More");
-	public final By ELEMENT_NAVIGATION_LINK = By.linkText("Content Navigation");
+	//public final By ELEMENT_NAVIGATION_LINK = By.linkText("Content Navigation");
+	public final By ELEMENT_NAVIGATION_LINK = By.xpath(".//*[@id='ListHideContainer']//*[@class='uiIconEcmsContentNavigation uiIconEcmsLightGray']");
 	public final By ELEMENT_NAVIGATION_FROM=By.xpath("//*[@class='uiForm UINavigationForm']");
 	public final By ELEMENT_MANAGE_ACTION_LINK = By.linkText("Actions");
 	public final By ELEMENT_VISIBLE_CHECKBOX = By.id("Visible");
@@ -256,9 +257,10 @@ public class ActionBar extends EcmsBase{
 	public void goToContentNavigation(){
 		info("Go to content navigation");
 		if(waitForAndGetElement(ELEMENT_NAVIGATION_LINK, 5000,0)==null){
-			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK,0,true);
+			click(ELEMENT_MORE_LINK_WITHOUT_BLOCK);
 		}
-		click(ELEMENT_NAVIGATION_LINK,0,true);
+		waitForAndGetElement(ELEMENT_NAVIGATION_LINK, DEFAULT_TIMEOUT, 0);
+		click(ELEMENT_NAVIGATION_LINK);
 	}
 
 	/**

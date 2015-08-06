@@ -88,9 +88,11 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		addActivity(true, activity, false, "");
 		Utils.pause(1000);
 		home.likeOrUnlikeActivity(activity);
-		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", "1")).getAttribute("alt");
+		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.
+				replace("${activityText}", activity).replace("${index}", "1")).getAttribute("alt");
 		assert(avatarName.contains(user1));
-		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", "1"),true);
+		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.
+				replace("${activityText}", activity).replace("${index}", "1"),true);
 		/*
 		- Hover on the avatar of the user
 		 *Input Data: 
@@ -251,9 +253,13 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		home.likeOrUnlikeActivity(activity);
 		acc.userSignIn(userType.PUBLISHER);
 		Utils.pause(1000);
-		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", "1")).getAttribute("alt");
+		String avatarName = waitForAndGetElement(ELEMENT_AVATAR_LIST_LIKER_INDEX
+				.replace("${activityText}", activity)
+				.replace("${index}", "1")).getAttribute("alt");
 		assert(avatarName.contains(usertest));
-		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity).replace("${index}", "1"),true);
+		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX
+				.replace("${activityText}", activity)
+				.replace("${index}", "1"),true);
 
 		/*
 		- Move the mouse over the user's avatar
@@ -915,7 +921,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test17_GenericPopupShouldBeDisplayedAsLinkSharingTypeForActivityStreamsAvatar() {
 		info("Test 17 Generic popup should be displayed as Link Sharing type for activity stream's avatar");
-		String link = "http://yahoo.com";
+		String link = "http://youtube.com";
 		String username1 = getRandomString();
 		String password1 = username1;
 		String email1 = username1+"@gmail.com";
@@ -951,9 +957,9 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		acc.userSignIn(userType.PUBLISHER);
 		selectFileter("Connections");
 		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", usertest), true);
-		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
+		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest), 4000);
 		info("Last activity of user displayes true");
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","youtube"), 4000);
 	}
 
 	/**
@@ -967,7 +973,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test18_GenericPopupShouldBeDisplayedAsLinkSharingTypeForActivityStreamsLikes() {
 		info("Test 18 Generic popup should be displayed as Link sharing type for activity stream's likes");
-		String link = "http://yahoo.com";
+		String link = "http://youtube.com";
 		String username1 = getRandomString();
 		String password1 = username1;
 		String email1 = username1+"@gmail.com";
@@ -1009,7 +1015,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		mouseOver(elem, true);
 		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Last activity of user displayes true");
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","youtube"));
 	}
 
 	/**
@@ -1083,7 +1089,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 	@Test
 	public  void test20_GenericPopupShouldBeDisplayedAsLinkSharingTypeForActivityStreamsUsername() {
 		info("Test 20 Generic popup should be displayed as Link sharing type for activity stream's username");
-		String link = "http://yahoo.com";
+		String link = "http://youtube.com";
 		String username1 = getRandomString();
 		String password1 = username1;
 		String email1 = username1+"@gmail.com";
@@ -1121,7 +1127,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		mouseOver(elem, true);
 		waitForAndGetElement(ELEMENT_USER_PROFILE_POPUP.replace("${userName}", usertest));
 		info("Last activity of user displayes true");	
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","Yahoo"));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_LAST_ACTIVITY.replace("${activity}","youtube"));
 	}
 
 	/**
@@ -1172,7 +1178,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		info("Confirm user name");
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",username1), DEFAULT_TIMEOUT,1,2);
 		info("Button [Connect] is displayed");
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"), 2000);
 		Utils.pause(1000);
 
 		/*
@@ -1180,8 +1186,10 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		 *Input Data: 
 		 *Expected Outcome: Button is changed to Cancel Request		*/ 
 		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
+		//mouseOverAndClick(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
+		driver.navigate().refresh();
 		mouseOver(home.ELEMENT_ACTIVITY.replace("${activityText}",usertest), true);
-		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
+		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), 4000, 1);
 
 		//Delete data test
 		nav.goToHomePage();
@@ -1265,6 +1273,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"));
 		Utils.pause(1000);
 		mouseOver(ELEMENT_AVATAR_LIST_LIKER_INDEX.replace("${activityText}", activity2).replace("${index}", "1"),true);
+		driver.navigate().refresh();
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
 
 		//Delete data test
@@ -1339,6 +1348,7 @@ public class PLF_GenericUserPopup_ActivityStream extends Activity{
 		click(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Connect"), DEFAULT_TIMEOUT,1,2);
 		Utils.pause(1000);
 		mouseOver(home.ELEMENT_ACTIVITY_AUTHOR_AVATAR.replace("${index}","1").replace("${author}", user2), true);
+		driver.navigate().refresh();
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"), DEFAULT_TIMEOUT,1,2);
 
 		acc.signIn(username1, password1);

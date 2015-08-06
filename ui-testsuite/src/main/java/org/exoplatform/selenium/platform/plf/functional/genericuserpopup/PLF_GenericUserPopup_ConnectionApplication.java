@@ -13,6 +13,7 @@ import org.exoplatform.selenium.platform.ecms.contentexplorer.ActionBar;
 import org.exoplatform.selenium.platform.ecms.contentexplorer.ContextMenu.actionType;
 import org.exoplatform.selenium.platform.social.Activity;
 import org.exoplatform.selenium.platform.social.PeopleConnection;
+import org.exoplatform.selenium.platform.social.PeopleSearch;
 import org.openqa.selenium.By;
 import org.testng.annotations.*;
 
@@ -28,6 +29,7 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	HomePageActivity home; 
 	ActionBar act; 
 	EcmsBase ecms; 
+	PeopleSearch peoSearch;
 	String user1 = "John Smith";
 	String user2 = "Mary Williams";
 	String user3 = "Jack Miller"; 
@@ -44,10 +46,48 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		acc.signIn(DATA_USER1, DATA_PASS);
 		act = new ActionBar(driver, this.plfVersion);
 		ecms = new EcmsBase(driver, this.plfVersion);
+		peoSearch = new PeopleSearch(driver);
 	}
 
 	@AfterMethod
 	public void afterTest(){
+		info("clear connections");
+		acc.userSignIn(userType.ADMIN);
+		nav.goToConnectionPage();
+		peoSearch.searchPeople(true,user2);
+		info("---Cancel the request to user '"+user2+"'-----");
+		if(waitForAndGetElement(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2), 7000, 0) != null){
+			click(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
+			waitForElementNotPresent(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
+			info("---Go to Everyone tab----");
+			click(pConnect.ELEMENT_EVERYONE_TAB);
+			waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user2));
+		}
+		info("---Remove the invitation from user '"+user2+"'-----");
+		if(waitForAndGetElement(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user2), 7000, 0) != null){
+			click(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user2));
+			Utils.pause(3000);
+			waitForElementNotPresent(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user2));
+			Utils.pause(1000);
+		}
+		acc.userSignIn(userType.PUBLISHER);
+		nav.goToConnectionPage();
+		peoSearch.searchPeople(true,user1);
+		info("---Remove the invitation from user '"+user1+"'-----");
+		if(waitForAndGetElement(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1), 7000, 0) != null){
+			click(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
+			Utils.pause(3000);
+			waitForElementNotPresent(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
+			Utils.pause(1000);
+		}
+		info("---Ignore the invitation from user '"+user1+"'-----");
+		if(waitForAndGetElement(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1), 7000, 0) != null){
+			click(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
+			waitForElementNotPresent(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
+			info("---Go to Everyone tab----");
+			click(pConnect.ELEMENT_EVERYONE_TAB);
+			waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user1));			
+		}
 		driver.manage().deleteAllCookies();
 		driver.quit();
 	}
@@ -123,11 +163,11 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
 
 		//Delete data test 
-		waitForAndGetElement(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
+		/*waitForAndGetElement(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
 		click(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
 		Utils.pause(3000);
 		waitForElementNotPresent(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
-		Utils.pause(1000);
+		Utils.pause(1000);*/
 	}
 
 	/**
@@ -168,13 +208,13 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
 
 		//Delete data test 
-		waitForAndGetElement(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
+		/*waitForAndGetElement(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
 		info("---Ignore the invitation from user '"+user1+"'-----");
 		click(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
 		waitForElementNotPresent(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
 		info("---Go to Everyone tab----");
 		click(pConnect.ELEMENT_EVERYONE_TAB);
-		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user1));			
+		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user1));			*/
 	}
 
 	/**
@@ -213,13 +253,13 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
 
 		//Delete data test
-		waitForAndGetElement(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
+		/*waitForAndGetElement(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
 		info("---Cancel the invitation to user '"+user2+"'-----");
 		click(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
 		waitForElementNotPresent(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
 		info("---Go to Everyone tab----");
 		click(pConnect.ELEMENT_EVERYONE_TAB);
-		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user2));
+		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user2));*/
 	}
 
 	/**
@@ -282,11 +322,11 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
 
 		//Delete data test 
-		waitForAndGetElement(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
+		/*waitForAndGetElement(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
 		click(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
 		Utils.pause(3000);
 		waitForElementNotPresent(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
-		Utils.pause(1000);
+		Utils.pause(1000);*/
 	}
 
 	/**
@@ -320,13 +360,13 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER2), DEFAULT_TIMEOUT,1,2);
 
 		//Delete data test
-		waitForAndGetElement(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
+		/*waitForAndGetElement(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
 		info("---Cancel the invitation to user '"+user2+"'-----");
 		click(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
 		waitForElementNotPresent(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
 		info("---Go to Everyone tab----");
 		click(pConnect.ELEMENT_EVERYONE_TAB);
-		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user2));
+		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user2));*/
 	}
 
 	/**
@@ -361,13 +401,13 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(hg.ELEMENT_ONLINE_USER_TITLE.replace("${acc}",DATA_USER1), DEFAULT_TIMEOUT,1,2);
 
 		//Delete data test 
-		waitForAndGetElement(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
+		/*waitForAndGetElement(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
 		info("---Ignore the invitation from user '"+user1+"'-----");
 		click(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
 		waitForElementNotPresent(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
 		info("---Go to Everyone tab----");
 		click(pConnect.ELEMENT_EVERYONE_TAB);
-		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user1));	
+		waitForAndGetElement(pConnect.ELEMENT_CONNECTION_BUTTON.replace("${peopleName}", user1));*/	
 	}
 
 	/**
@@ -423,7 +463,7 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 	 * Generated by chinhdtt at 2014/06/17 16:17:41
 	 * Bug: https://jira.exoplatform.org/browse/COMMONS-278
 	 */
-	@Test
+	@Test (groups="pending")
 	public  void test10_GenericPopupShouldBeDisplayedAsFileSharingTypeInConnectionsApp() {
 		info("Test 10 Generic popup should be displayed as File Sharing type in connections app");
 		String uploadFileName = "French.docx";
@@ -606,10 +646,10 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Confirm"));
 
 		//Delete data test
-		waitForAndGetElement(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
+		/*waitForAndGetElement(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
 		info("---Ignore the invitation from user '"+user1+"'-----");
 		click(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
-		waitForElementNotPresent(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));
+		waitForElementNotPresent(pConnect.ELEMENT_IGNORE_BUTTON.replace("${peopleName}", user1));*/
 
 		acc.userSignIn(userType.ADMIN);
 		home.deleteActivity(activity, true);
@@ -661,10 +701,10 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Cancel Request"));
 
 		//Delete data test
-		waitForAndGetElement(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
+		/*waitForAndGetElement(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
 		info("---Cancel the invitation to user '"+user2+"'-----");
 		click(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
-		waitForElementNotPresent(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));
+		waitForElementNotPresent(pConnect.ELEMENT_CANCEL_REQUEST_BUTTON.replace("${peopleName}", user2));*/
 
 		acc.userSignIn(userType.PUBLISHER);
 		home.deleteActivity(activity, true);	
@@ -715,10 +755,10 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(hg.ELEMENT_USER_POPUP_STATUS_CONNECT.replace("${status}", "Remove Connection"));
 
 		//Delete data test
-		waitForAndGetElement(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
+		/*waitForAndGetElement(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
 		info("---Remove connection to user '"+user1+"'-----");
 		click(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
-		waitForElementNotPresent(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));
+		waitForElementNotPresent(pConnect.ELEMENT_REMOVE_CONNECTION_BUTTON.replace("${peopleName}", user1));*/
 
 		acc.userSignIn(userType.ADMIN);
 		home.deleteActivity(activity, true);		
@@ -806,8 +846,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",DATA_USER1)));
 
 		//Delete data test
-		nav.goToConnectionPage();
-		pConnect.removeConnection(user1);
+		/*nav.goToConnectionPage();
+		pConnect.removeConnection(user1);*/
 	}
 
 	/**
@@ -850,8 +890,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",DATA_USER2)));
 
 		//Delete data test
-		nav.goToConnectionPage();
-		pConnect.cancelRequest(user2);		
+		/*nav.goToConnectionPage();
+		pConnect.cancelRequest(user2);	*/	
 	}
 
 	/**
@@ -895,8 +935,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",DATA_USER1)));
 
 		//Delete data test
-		nav.goToConnectionPage();
-		pConnect.ignoreInvitation(user1);	
+		/*nav.goToConnectionPage();
+		pConnect.ignoreInvitation(user1);*/	
 	}
 
 	/**
@@ -1017,8 +1057,8 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",DATA_USER2)));
 
 		//Delete data test
-		nav.goToConnectionPage();
-		pConnect.cancelRequest(user2);	
+		/*nav.goToConnectionPage();
+		pConnect.cancelRequest(user2);*/	
 	}
 
 	/**
@@ -1061,7 +1101,7 @@ public class PLF_GenericUserPopup_ConnectionApplication extends Activity{
 		waitForAndGetElement(By.xpath(hg.ELEMENT_MY_AS_TAB.replace("${acc}",DATA_USER1)));
 
 		//Delete data test
-		nav.goToConnectionPage();
-		pConnect.ignoreInvitation(user1);	
+		/*nav.goToConnectionPage();
+		pConnect.ignoreInvitation(user1);*/	
 	}
 }

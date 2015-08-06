@@ -231,7 +231,7 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 	 * Name: Private events should only be searchable by their owner
 	 * Step 1 : User James search "SEARCH_EVENT_05".
 	 */
-	@Test
+	@Test (groups="pending")
 	public void test05_PrivateEventsShouldOnlyBeSearchableByTheirOwner(){
 		String eventDescription="SEARCH_EVENT_05";
 		String eventName1="Private shared";
@@ -260,7 +260,9 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 		evt.goToEditEventForm(eventName1);
 		click(evt.ELEMENT_PARTICIPANTS_TAB);
 		check(evt.ELEMENT_PARTICIPANT_PRIVATE_RADIO,2);
+		waitForAndGetElement(ELEMENT_BUTTON_EVENT_SAVE_EDIT, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_BUTTON_EVENT_SAVE_EDIT);
+		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_SAVE_EDIT, DEFAULT_TIMEOUT, 1);
 		
 		
 		info("Add event2 with public shared");
@@ -268,7 +270,9 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 		evt.goToEditEventForm(eventName2);
 		click(evt.ELEMENT_PARTICIPANTS_TAB);
 		check(evt.ELEMENT_PARTICIPANT_PUBLIC_RADIO,2);
+		waitForAndGetElement(ELEMENT_BUTTON_EVENT_SAVE_EDIT, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_BUTTON_EVENT_SAVE_EDIT);
+		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_SAVE_EDIT, DEFAULT_TIMEOUT, 1);
 		
 		
 		info("add event3 with unset privacy");
@@ -286,14 +290,18 @@ public class PLF_UnifiedSearch_EventSearch extends CalendarBase {
 		evt.goToEditEventForm(eventName4);
 		click(evt.ELEMENT_PARTICIPANTS_TAB);
 		check(evt.ELEMENT_PARTICIPANT_PRIVATE_RADIO,2);	
+		waitForAndGetElement(ELEMENT_BUTTON_EVENT_SAVE_EDIT, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_BUTTON_EVENT_SAVE_EDIT);
+		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_SAVE_EDIT, DEFAULT_TIMEOUT, 1);
 		
 		info("Add event4 with public privacy");
 		evt.addQuickEvent(eventName5,eventDescription,getDate(1,"MM/dd/yyyy 12:00"),getDate(1,"MM/dd/yyyy 13:00"),false);
 		evt.goToEditEventForm(eventName5);
 		click(evt.ELEMENT_PARTICIPANTS_TAB);
 		check(evt.ELEMENT_PARTICIPANT_PUBLIC_RADIO,2);	
+		waitForAndGetElement(ELEMENT_BUTTON_EVENT_SAVE_EDIT, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_BUTTON_EVENT_SAVE_EDIT);
+		waitForElementNotPresent(ELEMENT_BUTTON_EVENT_SAVE_EDIT, DEFAULT_TIMEOUT, 1);
 		
 		driver.navigate().refresh();
 		Utils.pause(2000);

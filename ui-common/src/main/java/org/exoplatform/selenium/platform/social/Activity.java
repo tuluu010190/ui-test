@@ -292,7 +292,7 @@ public class Activity extends SocialBase {
 		if (addText) 
 		{
 			info("----Add text into activity text box-----");
-			WebElement inputText = waitForAndGetElement(hpActivity.ELEMENT_ACTIVITY_TEXTBOX,100000);
+			WebElement inputText = waitForAndGetElement(hpActivity.ELEMENT_ACTIVITY_TEXTBOX,100000, 0);
 			WebElement shareButton = waitForAndGetElement(ELEMENT_SHARE_BUTTON);
 			WebElement workingLabel = waitForAndGetElement(ELEMENT_ACTIVITY_WHAT_ARE_YOU_WORKING_LABEL);
 			((JavascriptExecutor)driver).executeScript("arguments[0].textContent = '';", workingLabel);

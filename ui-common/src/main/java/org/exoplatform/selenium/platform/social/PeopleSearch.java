@@ -71,7 +71,7 @@ public class PeopleSearch extends SocialBase{
 		if (directory!=""){
 			click(By.linkText(directory));
 		}
-		Utils.pause(1000);
+		Utils.pause(2000);
 	}
 //	/**
 //	 * 

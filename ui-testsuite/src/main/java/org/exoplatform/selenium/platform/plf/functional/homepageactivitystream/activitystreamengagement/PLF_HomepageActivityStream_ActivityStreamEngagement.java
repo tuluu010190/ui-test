@@ -147,7 +147,9 @@ public class PLF_HomepageActivityStream_ActivityStreamEngagement extends Activit
 
 		/* - Date time field displayed is always : less than a minute ago		*/ 
 		info("Display the Date in the Welcome activity.");
-		waitForAndGetElement(ELEMENT_COMMENT_DATETIME.replace("${activityText}", "Welcome to your new Social Intranet!").replace("${DATETIME}", "less than a minute ago"));
+		waitForAndGetElement(ELEMENT_COMMENT_DATETIME
+				.replace("${activityText}", "Welcome to your new Social Intranet!")
+				.replace("${DATETIME}", "less than a minute ago"));
 		
 		info("Display the content of the Welcome activity");
 		String description = "This is your activity stream. It will help you to keep an eye on important things happening in your social intranet."
@@ -187,6 +189,7 @@ public class PLF_HomepageActivityStream_ActivityStreamEngagement extends Activit
 		currentURL = driver.getCurrentUrl();
 		assert currentURL.contains("/portal/intranet/connexions");
 		nav.goToHomePage();
+		Utils.pause(2000);
 		
 		info("Open Wiki page from the Welcome activity");
 		/*
@@ -194,11 +197,13 @@ public class PLF_HomepageActivityStream_ActivityStreamEngagement extends Activit
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The page "Wiki" is displayed:/portal/intranet/wiki		*/
+		waitForAndGetElement(ELEMENT_WELCOME_WIKIS_LINK, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_WELCOME_WIKIS_LINK);
 		waitForAndGetElement(wikiBase.ELEMENT_WIKI_HOME_PAGE);
 		currentURL = driver.getCurrentUrl();
 		assert currentURL.contains("/portal/intranet/wiki");
 		nav.goToHomePage();
+		Utils.pause(2000);
 		
 		info("Open Forum page from the Welcome activity");
 		/*
@@ -206,11 +211,13 @@ public class PLF_HomepageActivityStream_ActivityStreamEngagement extends Activit
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The page "Forum" is displayed:/portal/intranet/forum		*/ 
+		waitForAndGetElement(ELEMENT_WELCOME_FORUMS_LINK, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_WELCOME_FORUMS_LINK);
 		waitForAndGetElement(forumBase.ELEMENT_FORUM_STATE);
 		currentURL = driver.getCurrentUrl();
 		assert currentURL.contains("/portal/intranet/forum");
 		nav.goToHomePage();
+		Utils.pause(2000);
 		
 		info("Open Calendar page from the Welcome activity");
 		/*
@@ -218,11 +225,13 @@ public class PLF_HomepageActivityStream_ActivityStreamEngagement extends Activit
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The page "Calendar" is displayed: /portal/intranet/calendar		*/ 
+		waitForAndGetElement(ELEMENT_WELCOME_CALENDAR_LINK, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_WELCOME_CALENDAR_LINK);
 		waitForAndGetElement(calBase.ELEMENT_CALENDAR_PANEL);
 		currentURL = driver.getCurrentUrl();
 		assert currentURL.contains("/portal/intranet/calendar");
 		nav.goToHomePage();
+		Utils.pause(2000);
 		
 		info("Open Documents page from the Welcome activity");
 		/*
@@ -230,10 +239,12 @@ public class PLF_HomepageActivityStream_ActivityStreamEngagement extends Activit
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The page "Documents" is displayed: /portal/intranet/documents		*/ 
+		waitForAndGetElement(ELEMENT_WELCOME_DOCUMENTS_LINK, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_WELCOME_DOCUMENTS_LINK);		
 		currentURL = driver.getCurrentUrl();
 		assert currentURL.contains("/portal/intranet/documents");
 		nav.goToHomePage();
+		Utils.pause(2000);
 		
 		info("Spaces page from the Welcome activity");
 		/*
@@ -241,10 +252,12 @@ public class PLF_HomepageActivityStream_ActivityStreamEngagement extends Activit
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The page "Spaces" is displayed: /portal/intranet/all-spaces		*/ 
+		waitForAndGetElement(ELEMENT_WELCOME_SPACES_LINK, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_WELCOME_SPACES_LINK);		
 		currentURL = driver.getCurrentUrl();
 		assert currentURL.contains("/portal/intranet/all-spaces");
 		nav.goToHomePage();
+		Utils.pause(2000);
 		
 		info("Open Google Play page from the Welcome activity");
 		/*
@@ -252,6 +265,7 @@ public class PLF_HomepageActivityStream_ActivityStreamEngagement extends Activit
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The page "Google Play" is displayed: https://play.google.com/store/apps/details?id=org.exoplatform		*/ 
+		waitForAndGetElement(ELEMENT_WELCOME_GOOGLE_LINK, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_WELCOME_GOOGLE_LINK);
 		currentURL = driver.getCurrentUrl();
 		assert currentURL.contains("https://play.google.com/store/apps/details?id=org.exoplatform");
@@ -263,6 +277,7 @@ public class PLF_HomepageActivityStream_ActivityStreamEngagement extends Activit
 		 *Input Data: 
 		 *Expected Outcome: 
 		- The page "iOS App Store" is displayed: https://itunes.apple.com/fr/app/exo-platform-3.5/id410476273?mt=8		*/ 
+		waitForAndGetElement(ELEMENT_WELCOME_APPSTORE_LINK, DEFAULT_TIMEOUT, 1);
 		click(ELEMENT_WELCOME_APPSTORE_LINK);
 		currentURL = driver.getCurrentUrl();
 		assert currentURL.contains("https://itunes.apple.com/fr/app/exo-platform-3.5/id410476273?mt=8");

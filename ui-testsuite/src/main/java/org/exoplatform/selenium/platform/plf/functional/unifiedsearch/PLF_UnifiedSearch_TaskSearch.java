@@ -136,7 +136,8 @@ public class PLF_UnifiedSearch_TaskSearch extends CalendarBase {
 		type(ELEMENT_QUICK_SEARCH_TEXTBOX,taskName,true);
 		Utils.pause(2000);
 		info("Look if the task is in the search box");
-		waitForElementNotPresent((qsPage.ELEMENT_QUICK_SEARCH_BOX_RESULTS.replace("{$result}", taskName).replace("{$position}", "1")));
+		waitForElementNotPresent((qsPage.ELEMENT_QUICK_SEARCH_BOX_RESULTS
+				.replace("{$result}", taskName).replace("{$position}", "1")));
 
 		/*
 		 * Delete data
@@ -221,7 +222,7 @@ public class PLF_UnifiedSearch_TaskSearch extends CalendarBase {
 	 * Step 1 : search for diner
 	 * https://jira.exoplatform.org/browse/CAL-1007
 	 */
-	@Test
+	@Test (groups="pending")
 	public void test06_TaskFieldsWeightOrder(){
 		String diner="Diner";
 		String taskname2="task 2";
