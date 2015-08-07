@@ -79,7 +79,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $DATE is the date of the activity*/
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username1);
 		intraNot.checkActivityTitleInStatus(activity1, true);
@@ -183,7 +183,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
 		users.add(username2);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username2);
 		intraNot.checkActivityTitleInStatus(activity, true);
@@ -324,7 +324,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		users.add(username2);
 		users.add(username3);
 		users.add(username4);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username4);
 		intraNot.checkActivityTitleInStatus(activity, true);
@@ -415,7 +415,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 			- $DATE is the date of the activity*/
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username1);
 		intraNot.checkActivityTitleInStatus(name, true);
@@ -501,7 +501,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username1);
 		intraNot.checkActivityTitleInStatus(title, true);
@@ -584,7 +584,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username1);
 		intraNot.checkActivityTitleInStatus(name, true);
@@ -669,7 +669,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username1);
 		intraNot.checkActivityTitleInStatus(name, true);
@@ -743,7 +743,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username1);
 		intraNot.checkActivityTitleInStatus(activity1, true);
@@ -802,7 +802,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		ArrayList<String> users1 = new ArrayList<String>();
 		users1.add(username1);
 		users1.add(username2);
-		String status1 = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status1 = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users1,true);
 		intraNot.checkStatus(status1, username2);
 		intraNot.checkActivityTitleInStatus(activity1, true);
@@ -874,7 +874,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		intraNot.goToAllNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,false);
 		intraNot.checkStatus(status, username1);
 		intraNot.checkActivityTitleInStatus(activity1, false);
@@ -1020,7 +1020,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
 		users.add(username2);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,false);
 		intraNot.checkStatus(status, username2);
 		intraNot.checkActivityTitleInStatus(activity,false);
@@ -1136,7 +1136,7 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
 		users.add(username2);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkAvatarInStatus(users,false);
 		intraNot.checkStatus(status, username2);
 		intraNot.checkActivityTitleInStatus(activity1, false);

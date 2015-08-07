@@ -134,10 +134,10 @@ import org.testng.annotations.Test;
 			- Comment
 			- Connection request
 			- Post in My stream*/
-		String likeStatus=notiIntranetData.getMessageByArrayTypeRandom(6);
-		String commentStatus=notiIntranetData.getNotiMessage(0);
-		String postStatus=notiIntranetData.getMessageByArrayTypeRandom(8);
-		String connectStatus=notiIntranetData.getMessageByArrayTypeRandom(2);
+		String likeStatus=notiIntranetData.getContentByArrayTypeRandom(6);
+		String commentStatus=notiIntranetData.getNotiContent(0);
+		String postStatus=notiIntranetData.getContentByArrayTypeRandom(8);
+		String connectStatus=notiIntranetData.getContentByArrayTypeRandom(2);
 		intraNot.checkStatus(likeStatus,arrayUser.get(1));
 		intraNot.checkStatus(commentStatus,arrayUser.get(1));
 		intraNot.checkStatus(postStatus,arrayUser.get(1));
@@ -200,7 +200,7 @@ import org.testng.annotations.Test;
 		info("The user is redirected to the View All page");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String connectStatus=notiIntranetData.getMessageByArrayTypeRandom(11);
+		String connectStatus=notiIntranetData.getContentByArrayTypeRandom(11);
 		intraNot.checkStatus(connectStatus,arrayUser.get(0));
 
 		/*Step number: 2
@@ -258,7 +258,7 @@ import org.testng.annotations.Test;
 		intraNot.goToAllNotification();
 		
 		info("A connection request notification is displayed in the page");
-		String connectStatus=notiIntranetData.getMessageByArrayTypeRandom(2);
+		String connectStatus=notiIntranetData.getContentByArrayTypeRandom(2);
 		intraNot.checkStatus(connectStatus,arrayUser.get(0));
 
 		/*Step number: 2
@@ -290,7 +290,7 @@ import org.testng.annotations.Test;
 		info("Check format of the notification after accepted");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String connectAcceptStatus=notiIntranetData.getMessageByArrayTypeRandom(5);
+		String connectAcceptStatus=notiIntranetData.getContentByArrayTypeRandom(5);
 		intraNot.checkStatus(connectAcceptStatus, arrayUser.get(0));
 		intraNot.checkAvatarInStatus(arrayUser,true);
 		intraNot.checkUsers(arrayUser,true);
@@ -353,7 +353,7 @@ import org.testng.annotations.Test;
 		intraNot.goToAllNotification();
 		
 		info("A connection request notification is displayed in the page");
-		String connectStatus=notiIntranetData.getMessageByArrayTypeRandom(2);
+		String connectStatus=notiIntranetData.getContentByArrayTypeRandom(2);
 		intraNot.checkStatus(connectStatus,arrayUser.get(0));
 
 		/*Step number: 2
@@ -366,7 +366,7 @@ import org.testng.annotations.Test;
 			- The connection is not approved, the 2 users are not connected
 			- The notification message is automatically hidden from the list*/ 
 		info("Click [Refuse]");
-		String acceptStatus=notiIntranetData.getMessageByArrayTypeRandom(5);
+		String acceptStatus=notiIntranetData.getContentByArrayTypeRandom(5);
 		intraNot.refuseRqConnection(arrayUser.get(0));
 		intraNot.checkNotPresentStatus(connectStatus,arrayUser.get(0));
 		intraNot.checkNotPresentStatus(acceptStatus,arrayUser.get(0));
@@ -424,7 +424,7 @@ import org.testng.annotations.Test;
 		intraNot.goToAllNotification();
 		
 		info("A Space Invitation notifications is displayed in the page");
-		String inviteSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(3);
+		String inviteSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(3);
 		intraNot.checkStatusSpace(inviteSpaceStatus,space);
 
 		/*Step number: 2
@@ -467,7 +467,7 @@ import org.testng.annotations.Test;
 		Utils.pause(3000);
 		
 		info("Check format of the notification after accepted");
-		String acceptSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(9);
+		String acceptSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(9);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.checkAvatarInStatus(arrayUser,true);
@@ -521,7 +521,7 @@ import org.testng.annotations.Test;
 		intraNot.goToAllNotification();
 		
 		info("A Space Invitation notifications is displayed in the page");
-		String inviteSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(3);
+		String inviteSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(3);
 		intraNot.checkStatusSpace(inviteSpaceStatus,space);
 
 		/*Step number: 2
@@ -545,7 +545,7 @@ import org.testng.annotations.Test;
 			- The notifications message is hidden from the list*/ 
 		
 		info("Check format of the notification after accepted");
-		String acceptSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(9);
+		String acceptSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(9);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.checkNotStatusSpace(acceptSpaceStatus,space);
@@ -608,7 +608,7 @@ import org.testng.annotations.Test;
 		intraNot.goToAllNotification();
 		
 		info("A Space Invitation notifications is displayed in the page");
-		String inviteSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(3);
+		String inviteSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(3);
 		intraNot.checkStatusSpace(inviteSpaceStatus,space);
 
 		/*Step number: 2
@@ -642,7 +642,7 @@ import org.testng.annotations.Test;
 			- $DATE is the date of the notification*/
 		
 		info("Check format of the notification after accepted");
-		String acceptSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(9);
+		String acceptSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(9);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.checkAvatarInStatus(arrayUser,true);
@@ -708,7 +708,7 @@ import org.testng.annotations.Test;
 		intraNot.goToAllNotification();
 		
 		info("A Space Invitation notifications is displayed in the page");
-		String inviteSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(3);
+		String inviteSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(3);
 		intraNot.checkStatusSpace(inviteSpaceStatus,space);
 
 		/*Step number: 2
@@ -731,7 +731,7 @@ import org.testng.annotations.Test;
 		*Expected Outcome: 
 			- The notification message is automatically hidden from the list*/ 
 		info("Check format of the notification after accepted");
-		String acceptSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(9);
+		String acceptSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(9);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.checkNotStatusSpace(acceptSpaceStatus,space);
@@ -797,7 +797,7 @@ import org.testng.annotations.Test;
 		
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String status =notiIntranetData.getMessageByArrayTypeRandom(7);
+		String status =notiIntranetData.getContentByArrayTypeRandom(7);
 		intraNot.checkStatus(status,DATA_NAME_USER1);
 
 		/*Step number: 2
@@ -856,7 +856,7 @@ import org.testng.annotations.Test;
 		
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String status =notiIntranetData.getMessageByArrayTypeRandom(7);
+		String status =notiIntranetData.getContentByArrayTypeRandom(7);
 		intraNot.checkStatus(status,arrayUser.get(0));
 
 		/*Step number: 2
@@ -943,7 +943,7 @@ import org.testng.annotations.Test;
 		info(" Go to View All Notification");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String status=notiIntranetData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiContent(0);
 		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,false);
 
 		/*Step number: 2
@@ -1050,7 +1050,7 @@ import org.testng.annotations.Test;
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String status=notiIntranetData.getNotiMessage(1);
+		String status=notiIntranetData.getNotiContent(1);
 		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,false);
 
 		/*Step number: 2
@@ -1137,7 +1137,7 @@ import org.testng.annotations.Test;
 		info(" Go to View All Notification");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String status=notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status=notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkStatus(status, arrayUser.get(1));
 
 		/*Step number: 2
@@ -1217,7 +1217,7 @@ import org.testng.annotations.Test;
 		info(" Go to View All Notification");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String status=notiIntranetData.getMessageByArrayTypeRandom(8);
+		String status=notiIntranetData.getContentByArrayTypeRandom(8);
 		intraNot.checkStatus(status, arrayUser.get(1));
 
 		/*Step number: 2
@@ -1301,7 +1301,7 @@ import org.testng.annotations.Test;
 		info(" Go to View All Notification");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String status=notiIntranetData.getMessageByArrayTypeRandom(10);
+		String status=notiIntranetData.getContentByArrayTypeRandom(10);
 		intraNot.checkStatus(status, arrayUser.get(1));
 
 		/*Step number: 2
@@ -1395,9 +1395,9 @@ import org.testng.annotations.Test;
 		hp.goToConnections();
 		connMag.connectToAUser(arrayUser.get(0));
 		
-		String statusSendRq=notiIntranetData.getMessageByArrayTypeRandom(2);
-		String statusLikeAc=notiIntranetData.getMessageByArrayTypeRandom(6);
-		String statusCommAc=notiIntranetData.getNotiMessage(0);
+		String statusSendRq=notiIntranetData.getContentByArrayTypeRandom(2);
+		String statusLikeAc=notiIntranetData.getContentByArrayTypeRandom(6);
+		String statusCommAc=notiIntranetData.getNotiContent(0);
 		
 		info("Log in with User A");
 		magAc.signOut();
@@ -1694,13 +1694,13 @@ import org.testng.annotations.Test;
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		
-		String statusSendRq=notiIntranetData.getMessageByArrayTypeRandom(2);
-		String statusMention=notiIntranetData.getMessageByArrayTypeRandom(7);
-		String statusJoinSpace=notiIntranetData.getMessageByArrayTypeRandom(4);
-		String statusInviteSpace=notiIntranetData.getMessageByArrayTypeRandom(3);
-		String statusLikeAc=notiIntranetData.getMessageByArrayTypeRandom(6);
-		String statusPostFriendAct=notiIntranetData.getMessageByArrayTypeRandom(8);
-		String statusCommAc=notiIntranetData.getNotiMessage(0);
+		String statusSendRq=notiIntranetData.getContentByArrayTypeRandom(2);
+		String statusMention=notiIntranetData.getContentByArrayTypeRandom(7);
+		String statusJoinSpace=notiIntranetData.getContentByArrayTypeRandom(4);
+		String statusInviteSpace=notiIntranetData.getContentByArrayTypeRandom(3);
+		String statusLikeAc=notiIntranetData.getContentByArrayTypeRandom(6);
+		String statusPostFriendAct=notiIntranetData.getContentByArrayTypeRandom(8);
+		String statusCommAc=notiIntranetData.getNotiContent(0);
 		
 		info("Check status send connection request from User 6 and User 7");
 		intraNot.checkStatus(statusSendRq, arrayUser.get(6));        //Notification 24

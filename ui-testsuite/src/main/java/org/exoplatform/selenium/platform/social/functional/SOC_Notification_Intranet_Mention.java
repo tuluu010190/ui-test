@@ -62,7 +62,7 @@ public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 			- $DATE is the date of the notification*/ 
 		 ArrayList<String> users = new ArrayList<String>();
 		 users.add(DATA_USER1);
-		 String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		 String status = notiIntranetData.getContentByArrayTypeRandom(7);
 		 intraNot.checkAvatarInStatus(users,true);
 		 intraNot.checkStatus(status,DATA_USER1);
 		 intraNot.checkActivityTitleInStatus(activity1, true);
@@ -149,7 +149,7 @@ public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 			- $DATE is the date of the notification*/ 
 		 ArrayList<String> users = new ArrayList<String>();
 		 users.add(DATA_USER1);
-		 String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		 String status = notiIntranetData.getContentByArrayTypeRandom(7);
 		 intraNot.checkAvatarInStatus(users,true);
 		 intraNot.checkStatus(status,DATA_USER1);
 		 intraNot.checkActivityTitleInStatus(activity1, true);
@@ -216,7 +216,7 @@ public class SOC_Notification_Intranet_Mention extends SOC_TestConfig2{
 			- The Mention notification is displayed in the list*/
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
-		String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		String status = notiIntranetData.getContentByArrayTypeRandom(7);
 		intraNot.checkStatus(status,DATA_NAME_USER1);
 		
 		/*Step number: 2

@@ -151,6 +151,8 @@ public class NotificationActivity extends NotificationLocator{
 	 * @param isCommentBox
 	 *                     =true if wants to check comment's box
 	 *                     =false if don't want
+	 * @param content 
+	 *                     is activity's title
 	 */
 	public void checkFormatDetailActivity(Boolean isCommentBox,String content){
 		info("Verify that author's avatar is shown");

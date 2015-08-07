@@ -76,7 +76,7 @@ import org.testng.annotations.*;
 			- $USER is User B
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the activity*/
-		String status=notiIntranetData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiContent(0);
 		info("Log in with User A");
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
@@ -188,7 +188,7 @@ import org.testng.annotations.*;
 			- $USER_LISTis User B, User C
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the activity*/
-		String status=notiIntranetData.getNotiMessage(1);
+		String status=notiIntranetData.getNotiContent(1);
 		info("Log in with User A");
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
@@ -318,7 +318,7 @@ import org.testng.annotations.*;
 			- $COUNT is 1
 			- $ACTIVITY is the activity title/message
 			- $DATE is the date of the activity*/
-		String status=notiIntranetData.getNotiMessage(2);
+		String status=notiIntranetData.getNotiContent(2);
 		info("Log in with User A");
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
@@ -469,7 +469,7 @@ import org.testng.annotations.*;
 			- $ACTIVITY is the activity message/title
 			- $DATE is the date of the last notification of User C*/
 
-		String status=notiIntranetData.getNotiMessage(1);
+		String status=notiIntranetData.getNotiContent(1);
 		info("Log in with user A");
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
@@ -634,7 +634,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list");
-		String status=notiIntranetData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiContent(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.checkFormatStatusCommentNotification(arrayUser,status,activity,true);
@@ -714,7 +714,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 	    info("Check format notification in the notification list page");
-		String status=notiIntranetData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiContent(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
@@ -816,7 +816,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 	    info("Check format notification in the notification list page");
-		String status=notiIntranetData.getNotiMessage(1);
+		String status=notiIntranetData.getNotiContent(1);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
@@ -936,7 +936,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 	    info("Check format notification in the notification list page");
-		String status=notiIntranetData.getNotiMessage(2);
+		String status=notiIntranetData.getNotiContent(2);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
@@ -1072,7 +1072,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiIntranetData.getNotiMessage(1);
+		String status=notiIntranetData.getNotiContent(1);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
@@ -1233,7 +1233,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiIntranetData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiContent(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
@@ -1317,7 +1317,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiIntranetData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiContent(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.checkFormatStatusCommentNotification(arrayUser,status,link,true);
@@ -1418,7 +1418,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiIntranetData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiContent(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.checkFormatStatusCommentNotification(arrayUser,status,attachedFile,true);
@@ -1513,7 +1513,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(DATA_USER1,DATA_PASS);
 		info("Check format notification in the notification list page");
-		String status=notiIntranetData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiContent(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.checkFormatStatusCommentNotification(arrayUser,status,wiki,true);
@@ -1632,7 +1632,7 @@ import org.testng.annotations.*;
 		magAc.signOut();
 		magAc.signIn(arrayUser.get(0), password);
 		info("Check format notification in the notification list page");
-		String status=notiIntranetData.getNotiMessage(0);
+		String status=notiIntranetData.getNotiContent(0);
 		Utils.pause(3000);
 		navTool.goToIntranetNotification();
 		intraNot.checkFormatStatusCommentNotification(arrayUser,status,newEvent,true);

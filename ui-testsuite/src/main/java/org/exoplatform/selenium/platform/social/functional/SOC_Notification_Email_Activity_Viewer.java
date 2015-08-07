@@ -104,7 +104,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(2);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(2);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -216,7 +216,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(2);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(2);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -317,7 +317,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(1);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(1);
 
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -499,7 +499,7 @@ import org.testng.annotations.*;
 		//emailNot.checkLikeOfAnActivityEmailNoti(parentWindow,titleNoti,fullName,activity,true,true,false,true);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 		String expectTitle ="Activity: "+activity;
 		info("expect Title as:"+expectTitle);
 
@@ -600,7 +600,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(2);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(2);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -721,7 +721,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(2);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(2);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -832,7 +832,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(2);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(2);
 		String inputComment=txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
@@ -948,7 +948,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(1);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(1);
 		String actComment=actCommentData.getMessageByArrayTypeRandom(1);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
@@ -1085,7 +1085,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -1231,7 +1231,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -1368,7 +1368,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -1513,7 +1513,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -1643,7 +1643,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -1778,7 +1778,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -1932,7 +1932,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -2077,7 +2077,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -2214,7 +2214,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -2333,7 +2333,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(3);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -2434,7 +2434,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(1);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(1);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);

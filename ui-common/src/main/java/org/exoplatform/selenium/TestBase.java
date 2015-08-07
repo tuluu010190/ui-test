@@ -162,6 +162,9 @@ public class TestBase {
 	protected String notiIntranetFilePath;
 	protected String notiEmailFilePath;
 	protected String actCommentFilePath;
+	protected String notiCatFilePath;
+	protected String notiFormatEmailFilePath;
+	protected String notiLabelFilePath;
 
 	protected static String ssoType;
 
@@ -252,6 +255,9 @@ public class TestBase {
 	public final String DEFAULT_NOTIFICATION_INTRANET_URL = "DataDriven/"+"soc_notification_intranet.xls";
 	public final String DEFAULT_NOTIFICATION_EMAIL_URL = "DataDriven/"+"soc_notification_email.xls";
 	public final String DEFAULT_ACTIVITY_COMMENT_URL="DataDriven/"+"activity_comment.xls";
+	public final String DEFAULT_NOTIFICATION_CATEGORY_URL="DataDriven/"+"soc_notification_category.xls";
+	public final String DEFAULT_NOTIFICATION_FORMAT_EMAIL_URL="DataDriven/"+"soc_notification_format_email.xls";
+	public final String DEFAULT_NOTIFICATION_LABLE_URL="DataDriven/"+"soc_notification_label.xls";
 
 	//Calendar
 	public final String DEFAULT_CALENDAR_GROUP_NAME_URL="DataDriven/"+"cal_group.xls";
@@ -385,6 +391,9 @@ public class TestBase {
 		notiIntranetFilePath = System.getProperty("notiIntranetFilePath");
 		spaceNavigationDefaultNodesFilePath = System.getProperty("spaceNavigationDefaultNodesFilePath");
 		actCommentFilePath = System.getProperty("actCommentFilePath");
+		notiCatFilePath = System.getProperty("notiCatFilePath");
+		notiFormatEmailFilePath = System.getProperty("notiFormatEmailFilePath");
+		notiLabelFilePath = System.getProperty("notiLabelFilePath");
 		
 		//Calendar
 		calGroupNameFilePath = System.getProperty("calGroupNameFilePath");
@@ -477,6 +486,9 @@ public class TestBase {
 		if (notiEmailFilePath==null) notiEmailFilePath=DEFAULT_NOTIFICATION_EMAIL_URL;
 		if (notiIntranetFilePath==null) notiIntranetFilePath = DEFAULT_NOTIFICATION_INTRANET_URL;
 		if (actCommentFilePath==null) actCommentFilePath = DEFAULT_ACTIVITY_COMMENT_URL;
+		if (notiCatFilePath==null) notiCatFilePath = DEFAULT_NOTIFICATION_CATEGORY_URL;
+		if (notiFormatEmailFilePath==null) notiFormatEmailFilePath = DEFAULT_NOTIFICATION_FORMAT_EMAIL_URL;
+		if (notiLabelFilePath==null) notiLabelFilePath= DEFAULT_NOTIFICATION_LABLE_URL;
 			
 		//Calendar
 		if (calGroupNameFilePath==null) calGroupNameFilePath=DEFAULT_CALENDAR_GROUP_NAME_URL;
@@ -536,7 +548,7 @@ public class TestBase {
 		videoLinksFilePath = getAbsoluteFilePath(videoLinksFilePath);
 		
 
-		//Space
+		//social
 		spaceUIFilePath = getAbsoluteFilePath(spaceUIFilePath);
 		spaceappFilePath = getAbsoluteFilePath(spaceappFilePath);
 		spaceVisibleFilePath = getAbsoluteFilePath(spaceVisibleFilePath);
@@ -547,6 +559,9 @@ public class TestBase {
 		notiEmailFilePath = getAbsoluteFilePath(notiEmailFilePath);
 		notiIntranetFilePath = getAbsoluteFilePath(notiIntranetFilePath);
 		actCommentFilePath = getAbsoluteFilePath(actCommentFilePath);
+		notiCatFilePath = getAbsoluteFilePath(notiCatFilePath);
+		notiFormatEmailFilePath = getAbsoluteFilePath(notiFormatEmailFilePath);
+		notiLabelFilePath = getAbsoluteFilePath(notiLabelFilePath);
 		
 		//Calendar
 		calGroupNameFilePath = getAbsoluteFilePath(calGroupNameFilePath);

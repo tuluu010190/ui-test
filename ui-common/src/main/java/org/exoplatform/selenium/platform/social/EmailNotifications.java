@@ -203,6 +203,44 @@ public class EmailNotifications extends NotificationLocator{
 		driver.navigate().back();
 		Utils.pause(2000);
 	}
+	/**
+	 * Verify email notificaiton's format
+	 * @param emailTitle
+	 * @param firstName
+	 * @param fullName
+	 * @param emailContent
+	 * @param actTitle
+	 */
+	public void verifyFormatEmailNotifcation(String emailTitle,String firstName,
+			String fullName,String emailContent,String actTitle){
+		if(!emailTitle.isEmpty()){
+			info("Verify Email notificaiton's title");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_TITLE.
+					replace("$title",emailTitle));
+		}
+		
+		if(!firstName.isEmpty()){
+			info("Verify Openning email");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_OPENNING_SUB
+					.replace("$firstName",firstName));
+		}
+		
+		if(!emailContent.isEmpty() && !fullName.isEmpty()){
+			info("Verify the email's content as: activity's content");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT
+					.replace("$fullName",fullName).replace("$content",emailContent));
+		}
+		
+		if(!actTitle.isEmpty()){
+			info("Verify the activity's title");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE
+					.replace("$title",actTitle));
+		}
+		info("Verify Reply button");
+		waitForAndGetElement(ELEMENT_GMAIL_REPLY_BTN);
+		info("Verify View last Disscussion button");
+		waitForAndGetElement(ELEMENT_GMAIL_VIEW_FULL_BTN);
+	}
 	
 }
 

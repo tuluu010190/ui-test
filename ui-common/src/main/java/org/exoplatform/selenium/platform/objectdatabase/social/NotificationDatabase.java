@@ -30,10 +30,11 @@ public class NotificationDatabase {
 
 	public void setData(String userDataFile, String userSheet,Object... opParams) throws Exception{
 		String[][] testData = DatabaseResource.getDataFromSource(userDataFile,userSheet,opParams);
+		info("testData.length-1:"+testData.length);
 		for(int i = 0; i<testData.length-1; i++)
 		{	
 			if (!testData[i][1].isEmpty()) {
-				info("mode:" + i + " " + testData[i][1]);
+				info("i:" + i + " " + testData[i][1]);
 				type.add(Integer.valueOf(testData[i][0]));
 				mode.add(testData[i][1]);
 				content.add(testData[i][2]);
@@ -62,7 +63,7 @@ public class NotificationDatabase {
 	 * @param index
 	 * @return message 
 	 */
-	public String getNotiMessage(int index){
+	public String getNotiContent(int index){
 		return content.get(index);
 	}
 	
@@ -71,7 +72,7 @@ public class NotificationDatabase {
 	 * @param type
 	 * @return
 	 */
-	public String getMessageByArrayTypeRandom(int...type){
+	public String getContentByArrayTypeRandom(int...type){
 		ArrayList<String> arrayMessage = new ArrayList<String>();
 		Random randomGenerator = new Random();
 		for (int j = 0; j<type.length; j++){
@@ -86,5 +87,27 @@ public class NotificationDatabase {
 		String message = arrayMessage.get(index);
 		info("Message is: "+message);
 		return message;
+	}
+	
+	/**
+	 * Get mode from file by random type
+	 * @param type
+	 * @return mode
+	 */
+	public String getModeByArrayTypeRandom(int...type){
+		ArrayList<String> array = new ArrayList<String>();
+		Random randomGenerator = new Random();
+		for (int j = 0; j<type.length; j++){
+			for(int i = 0; i<this.type.size(); i++)
+			{	
+				if(this.type.get(i) == type[j]) {
+					array.add(this.mode.get(i));
+				}
+			}
+		}
+		int index = randomGenerator.nextInt(array.size());
+		String mode = array.get(index);
+		info("Mode is: "+mode);
+		return mode;
 	}
 }

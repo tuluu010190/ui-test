@@ -129,7 +129,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=username1+" "+username1;
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(4);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(4);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
@@ -236,7 +236,7 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=username1+" "+username1;
-		String titleEmail=notiEmailData.getMessageByArrayTypeRandom(4);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(4);
 	    
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);

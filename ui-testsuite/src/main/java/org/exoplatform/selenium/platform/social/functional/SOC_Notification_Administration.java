@@ -2,7 +2,7 @@ package org.exoplatform.selenium.platform.social.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationDisbale;
+import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notiMode;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
 import org.testng.annotations.*;
 
@@ -31,7 +31,7 @@ import org.testng.annotations.*;
 		info("Go to Notification Administration");
 		navTool.goToAdminNotifications();
 		info("Notifications Administration page is displayed");
-        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_EMAIL_NOTIFICATIONS);
+        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
         
 		/*Step number: 2
 		*Step Name: Step 2: Change settings
@@ -111,7 +111,7 @@ import org.testng.annotations.*;
 		info("Go to Notification Administration");
 		navTool.goToAdminNotifications();
 		info("Notifications Administration page is displayed");
-        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_EMAIL_NOTIFICATIONS);
+        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
 
 		/*Step number: 2
 		*Step Name: Step 2: Check Notification Types table
@@ -155,7 +155,7 @@ import org.testng.annotations.*;
 		info("Go to Notification Administration");
 		navTool.goToAdminNotifications();
 		info("Notifications Administration page is displayed");
-        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_EMAIL_NOTIFICATIONS);
+        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
 
 		/*Step number: 2
 		*Step Name: Step 2: Check [Address] field
@@ -195,7 +195,7 @@ import org.testng.annotations.*;
 		info("Go to Notification Administration");
 		navTool.goToAdminNotifications();
 		info("Notifications Administration page is displayed");
-        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_EMAIL_NOTIFICATIONS);
+        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
 
 		/*Step number: 2
 		*Step Name: Step 2: Uncheck one notification type.
@@ -217,8 +217,8 @@ import org.testng.annotations.*;
         notiAdmin.disableNotification(notificationType.Space_Join_email);
         notiAdmin.disableNotification(notificationType.Space_Join_intranet);
         
-        notiAdmin.veriftyNotificationTypeDisable(notificationDisbale.AS_Comment);
-        notiAdmin.veriftyNotificationTypeDisable(notificationDisbale.Space_Join);
+        notiAdmin.veriftyNotificationTypeDisable(notiMode.AS_Comment);
+        notiAdmin.veriftyNotificationTypeDisable(notiMode.Space_Join);
 
 		/*Step number: 3
 		*Step Name: Step 3: Check the Notification Settings
@@ -281,7 +281,7 @@ import org.testng.annotations.*;
 		info("Go to Notification Administration");
 		navTool.goToAdminNotifications();
 		info("Notifications Administration page is displayed");
-        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_EMAIL_NOTIFICATIONS);
+        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
         
 		/*Step number: 2
 		*Step Name: Step 2: Check [Save] button

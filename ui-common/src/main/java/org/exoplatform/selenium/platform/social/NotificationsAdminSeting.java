@@ -1,128 +1,12 @@
 package org.exoplatform.selenium.platform.social;
 
-import org.exoplatform.selenium.platform.PlatformBase;
-
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class NotificationsAdminSeting extends PlatformBase {
+public class NotificationsAdminSeting extends NotificationLocator {
 	
-	//Disable notification's type
-	public final By ELEMENT_ADMIN_NOTIFICATION_NEW_USER_DISBALE = By.xpath(".//*[@id='NewUserPlugin']//*[contains(text(),'No notifications')]");
-	public final By ELEMENT_ADMIN_NOTIFICATION_CONNECTION_REQUEST_DISBALE = By.xpath(".//*[@id='RelationshipReceivedRequestPlugin']//*[contains(text(),'No notifications')]");
-	public final By ELEMENT_ADMIN_NOTIFICATION_ACTIVITY_COMMENT_DISBALE = By.xpath(".//*[@id='ActivityCommentPlugin']//*[contains(text(),'No notifications')]");
-	public final By ELEMENT_ADMIN_NOTIFICATION_ACTIVITY_LIKE_DISBALE = By.xpath(".//*[@id='LikePlugin']//*[contains(text(),'No notifications')]");
-	public final By ELEMENT_ADMIN_NOTIFICATION_ACTIVITY_MENTION_DISBALE = By.xpath(".//*[@id='ActivityMentionPlugin']//*[contains(text(),'No notifications')]");
-	public final By ELEMENT_ADMIN_NOTIFICATION_ACTIVITY_POST_DISBALE = By.xpath(".//*[@id='PostActivityPlugin']//*[contains(text(),'No notifications')]");
-	public final By ELEMENT_ADMIN_NOTIFICATION_SPACE_INVITATION_DISBALE = By.xpath(".//*[@id='SpaceInvitationPlugin']//*[contains(text(),'No notifications')]");
-	public final By ELEMENT_ADMIN_NOTIFICATION_SPACE_JOIN_DISBALE = By.xpath(".//*[@id='RequestJoinSpacePlugin']//*[contains(text(),'No notifications')]");
-	public final By ELEMENT_ADMIN_NOTIFICATION_SPACE_POST_DISBALE = By.xpath(".//*[@id='PostActivitySpaceStreamPlugin']//*[contains(text(),'No notifications')]");
-	
-	public final By ELEMENT_TITLE_EMAIL_NOTIFICATIONS = By.xpath("//*[@id='notificationAdmin']/h3");
-	public final By ELEMENT_NOTIFICATION_GRID_TITLE = By.xpath("//*[@id='notificationAdmin']//th[contains(text(),'Notification')]");
-	public final By ELEMENT_TITLE_NOTIFICATION_GRID = By.xpath("//*[@id='notificationAdmin']//th[contains(text(),'Title')]");
-	public final By ELEMENT_ENABLE_NOTIFICATION_GRID = By.xpath("//*[@id='notificationAdmin']//th[contains(text(),'Enable')]");
-	
-	//Notification sender area
-	public final By ELEMENT_ADMIN_NOTIFICATION_SENDER_NAME = By.xpath(".//*[@id='senderName']");
-	public final By ELEMENT_ADMIN_NOTIFICATION_SENDER_ADDRESS = By.xpath(".//*[@id='senderEmail']");
-	public final By ELEMENT_ADMIN_NOTIFICATION_SENDER_SAVE_BTN = By.xpath(".//*[@id='btSetSender']");
-	public final By ELEMENT_NOTIFICATION_SENDER_ERROR_MESSAGE_INVALID_EMAIL =By.xpath(".//*[@id='confirmMessage']//*[contains(text(),'Cannot update the sender information: empty value or the format is not correct.')]");
-	public final String ELEMENT_NOTIFICATION_SENDER_SUCCESS_MESSAGE=".//*[@id='confirmMessage']//*[contains(text(),'Notifications will now be sent to your users from \"$name\"<$email>')]";
-	
-	// Notifications
-	//New User
-	public final By ELEMENT_CHECK_BUTTON_CONNECT_NOTIFICATION = By.xpath("//*[@name='RelationshipReceivedRequestPlugin']");
-	public final By ELEMENT_NEW_USER_NOTIFICATION_EDIT_BTN =By.xpath(".//*[@id='NewUserPlugin']//*[contains(@class,'uiIconEdit')]");
-	public final By ELEMENT_NEW_USER_EMAIL_NOTIFICATION_CHECKBOX=By.xpath(".//*[@id='MAIL_CHANNELNewUserPlugin']");
-	public final By ELEMENT_NEW_USER_INTRANET_NOTIFICATION_CHECKBOX=By.xpath(".//*[@id='WEB_CHANNELNewUserPlugin']");
-	public final By ELEMENT_NEW_USER_EMAIL_NOTIFICATION_CHECKBOX_CHECKED=By.xpath(".//*[@id='MAIL_CHANNELNewUserPlugin'][contains(@checked,'checked')]");
-	public final By ELEMENT_NEW_USER_INTRANET_NOTIFICATION_CHECKBOX_CHECKED=By.xpath(".//*[@id='WEB_CHANNELNewUserPlugin'][contains(@checked,'checked')]");
-	public final By ELEMENT_NEW_USER_EMAIL_NOTIFICATION_TITLE=By.xpath(".//*[@id='NewUserPlugin']//*[contains(@class,'MAIL_CHANNEL')]");
-	public final By ELEMENT_NEW_USER_INTRANET_NOTIFICATION_TITLE=By.xpath(".//*[@id='NewUserPlugin']//*[contains(@class,'WEB_CHANNEL')]");
-	
-	//Connection request
-	public final By ELEMENT_NEW_USER_NOTIFICATION_SAVE_BTN=By.xpath(".//*[@id='btActionNewUserPlugin']");
-	public final By ELEMENT_CONNECTION_REQUEST_EDIT_BTN =By.xpath(".//*[@id='RelationshipReceivedRequestPlugin']//*[contains(@class,'uiIconEdit')]");
-	public final By ELEMENT_CONNECTION_REQUEST_EMAIL_NOTIFICATION_CHECKBOX=By.xpath(".//*[@id='MAIL_CHANNELRelationshipReceivedRequestPlugin']");
-	public final By ELEMENT_CONNECTION_REQUEST_EMAIL_NOTIFICATION_CHECKBOX_CHECKED=By.xpath(".//*[@id='MAIL_CHANNELRelationshipReceivedRequestPlugin'][contains(@checked,'checked')]");
-	public final By ELEMENT_CONNECTION_REQUEST_INTRANET_NOTIFICATION_CHECKBOX=By.xpath(".//*[@id='WEB_CHANNELRelationshipReceivedRequestPlugin'][contains(@checked,'checked')]");
-	public final By ELEMENT_CONNECTION_REQUEST_INTRANET_NOTIFICATION_CHECKBOX_CHECKED=By.xpath(".//*[@id='WEB_CHANNELRelationshipReceivedRequestPlugin']");
-	public final By ELEMENT_CONNECTION_REQUEST_EMAIL_NOTIFICATION_TITLE=By.xpath(".//*[@id='RelationshipReceivedRequestPlugin']//*[contains(@class,'MAIL_CHANNEL')]");
-	public final By ELEMENT_CONNECTION_REQUEST_INTRANET_NOTIFICATION_TITLE=By.xpath(".//*[@id='RelationshipReceivedRequestPlugin']//*[contains(@class,'WEB_CHANNEL')]");
-	public final By ELEMENT_CONNECTION_REQUEST_SAVE_BTN=By.xpath(".//*[@id='btActionRelationshipReceivedRequestPlugin']");
-	
-	//Activity comment
-	public final By ELEMENT_ACTIVITY_COMMENT_EDIT_BTN = By.xpath(".//*[@id='ActivityCommentPlugin']//*[contains(@class,'uiIconEdit')]");
-	public final By ELEMENT_ACTIVITY_COMMENT_EMAIL_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='MAIL_CHANNELActivityCommentPlugin']");
-	public final By ELEMENT_ACTIVITY_COMMENT_EMAIL_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='MAIL_CHANNELActivityCommentPlugin'][contains(@checked,'checked')]");
-	public final By ELEMENT_ACTIVITY_COMMENT_SAVE_BTN = By.xpath(".//*[@id='btActionActivityCommentPlugin']");
-	public final By ELEMENT_ACTIVITY_COMMENT_EMAIL_NOTIFICATION_TITLE = By.xpath(".//*[@id='ActivityCommentPlugin']//*[contains(@class,'MAIL_CHANNEL')]");
-	public final By ELEMENT_ACTIVITY_COMMENT_INTRANET_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='WEB_CHANNELActivityCommentPlugin']");
-	public final By ELEMENT_ACTIVITY_COMMENT_INTRANET_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='WEB_CHANNELActivityCommentPlugin'][contains(@checked,'checked')]");
-	public final By ELEMENT_ACTIVITY_COMMENT_INTRANET_NOTIFICATION_TITLE =  By.xpath(".//*[@id='ActivityCommentPlugin']//*[contains(@class,'WEB_CHANNEL')]");
-	
-	//Space invitation
-	public final By ELEMENT_SPACE_NOTIFICATION_INVITATION_EDIT_BTN = By.xpath(".//*[@id='SpaceInvitationPlugin']//*[contains(@class,'uiIconEdit')]");
-	public final By ELEMENT_SPACE_INVITATION_EMAIL_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='MAIL_CHANNELSpaceInvitationPlugin'][contains(@checked,'checked')]");
-	public final By ELEMENT_SPACE_INVITATION_EMAIL_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='MAIL_CHANNELSpaceInvitationPlugin']");
-	public final By ELEMENT_SPACE_INVITATION_NOTIFICATION_SAVE_BTN = By.xpath(".//*[@id='btActionSpaceInvitationPlugin']");
-	public final By ELEMENT_SPACE_INVITATION_EMAIL_NOTIFICATION_TITLE = By.xpath(".//*[@id='SpaceInvitationPlugin']//*[contains(@class,'MAIL_CHANNEL')]");
-	public final By ELEMENT_SPACE_INVITATION_INTRANET_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='WEB_CHANNELSpaceInvitationPlugin'][contains(@checked,'checked')]");
-	public final By ELEMENT_SPACE_INVITATION_INTRANET_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='WEB_CHANNELSpaceInvitationPlugin']");
-	public final By ELEMENT_SPACE_INVITATION_INTRANET_NOTIFICATION_TITLE = By.xpath(".//*[@id='SpaceInvitationPlugin']//*[contains(@class,'WEB_CHANNEL')]");
-	
-	//Activity like
-	public  final By ELEMENT_ACTIVITY_LIKE_EDIT_BTN = By.xpath(".//*[@id='LikePlugin']//*[contains(@class,'uiIconEdit')]");
-	public  final By ELEMENT_ACTIVITY_LIKE_EMAIL_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='MAIL_CHANNELLikePlugin']");
-	public  final By ELEMENT_ACTIVITY_LIKE_SAVE_BTN = By.xpath(".//*[@id='btActionLikePlugin']");
-	public  final By ELEMENT_ACTIVITY_LIKE_EMAIL_NOTIFICATION_TITLE = By.xpath(".//*[@id='LikePlugin']//*[contains(@class,'MAIL_CHANNEL')]");
-	public  final By ELEMENT_ACTIVITY_LIKE_INTRANET_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='WEB_CHANNELLikePlugin']");
-	public  final By ELEMENT_ACTIVITY_LIKE_INTRANET_NOTIFICATION_TITLE = By.xpath(".//*[@id='LikePlugin']//*[contains(@class,'WEB_CHANNEL')]");
-	public  final By ELEMENT_ACTIVITY_LIKE_INTRANET_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='WEB_CHANNELLikePlugin'][contains(@checked,'checked')]");
-	public  final By ELEMENT_ACTIVITY_LIKE_EMAIL_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='MAIL_CHANNELLikePlugin'][contains(@checked,'checked')]");
-	
-	//Activity mention
-	public  final By ELEMENT_ACTIVITY_MENTION_EDIT_BTN = By.xpath(".//*[@id='ActivityMentionPlugin']//*[contains(@class,'uiIconEdit')]");
-	public  final By ELEMENT_ACTIVITY_MENTION_EMAIL_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='MAIL_CHANNELActivityMentionPlugin']");
-	public  final By ELEMENT_ACTIVITY_MENTION_SAVE_BTN = By.xpath(".//*[@id='btActionActivityMentionPlugin']");
-	public  final By ELEMENT_ACTIVITY_MENTION_EMAIL_NOTIFICATION_TITLE = By.xpath(".//*[@id='ActivityMentionPlugin']//*[contains(@class,'MAIL_CHANNEL')]");
-	public  final By ELEMENT_ACTIVITY_MENTION_INTRANET_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='WEB_CHANNELActivityMentionPlugin']");
-	public  final By ELEMENT_ACTIVITY_MENTION_INTRANET_NOTIFICATION_TITLE = By.xpath(".//*[@id='ActivityMentionPlugin']//*[contains(@class,'WEB_CHANNEL')]");
-	public  final By ELEMENT_ACTIVITY_MENTION_EMAIL_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='MAIL_CHANNELActivityMentionPlugin'][contains(@checked,'checked')]");
-	public  final By ELEMENT_ACTIVITY_MENTION_INTRANET_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='WEB_CHANNELActivityMentionPlugin'][contains(@checked,'checked')]");
-	
-	//Activity Post on My Stream
-	public  final By ELEMENT_ACTIVITY_POST_EDIT_BTN = By.xpath(".//*[@id='PostActivityPlugin']//*[contains(@class,'uiIconEdit')]");
-	public  final By ELEMENT_ACTIVITY_POST_EMAIL_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='MAIL_CHANNELPostActivityPlugin']");
-	public  final By ELEMENT_ACTIVITY_POST_SAVE_BTN = By.xpath(".//*[@id='btActionPostActivityPlugin']");
-	public  final By ELEMENT_ACTIVITY_POST_EMAIL_NOTIFICATION_TITLE = By.xpath(".//*[@id='PostActivityPlugin']//*[contains(@class,'MAIL_CHANNEL')]");
-	public  final By ELEMENT_ACTIVITY_POST_INTRANET_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='WEB_CHANNELPostActivityPlugin']");
-	public  final By ELEMENT_ACTIVITY_POST_INTRANET_NOTIFICATION_TITLE = By.xpath(".//*[@id='PostActivityPlugin']//*[contains(@class,'WEB_CHANNEL')]");
-	public  final By ELEMENT_ACTIVITY_POST_EMAIL_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='MAIL_CHANNELPostActivityPlugin'][contains(@checked,'checked')]");
-	public  final By ELEMENT_ACTIVITY_POST_INTRANET_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='WEB_CHANNELPostActivityPlugin'][contains(@checked,'checked')]");
-	
-	//Space post on My space
-	public  final By ELEMENT_SPACE_NOTIFICATION_POST_EDIT_BTN = By.xpath(".//*[@id='PostActivitySpaceStreamPlugin']//*[contains(@class,'uiIconEdit')]");
-	public  final By ELEMENT_SPACE_POST_EMAIL_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='MAIL_CHANNELPostActivitySpaceStreamPlugin']");
-	public  final By ELEMENT_SPACE_POST_NOTIFICATION_SAVE_BTN = By.xpath(".//*[@id='btActionPostActivitySpaceStreamPlugin']");
-	public  final By ELEMENT_SPACE_POST_EMAIL_NOTIFICATION_TITLE = By.xpath(".//*[@id='PostActivitySpaceStreamPlugin']//*[contains(@class,'MAIL_CHANNEL')]");
-	public  final By ELEMENT_SPACE_POST_INTRANET_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='WEB_CHANNELPostActivitySpaceStreamPlugin']");
-	public  final By ELEMENT_SPACE_POST_INTRANET_NOTIFICATION_TITLE = By.xpath(".//*[@id='PostActivitySpaceStreamPlugin']//*[contains(@class,'WEB_CHANNEL')]");
-	public  final By ELEMENT_SPACE_POST_EMAIL_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='MAIL_CHANNELPostActivitySpaceStreamPlugin'][contains(@checked,'checked')]");
-	public  final By ELEMENT_SPACE_POST_INTRANET_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='WEB_CHANNELPostActivitySpaceStreamPlugin'][contains(@checked,'checked')]");
-	
-	//Space join request
-	public  final By ELEMENT_SPACE_NOTIFICATION_JOIN_EDIT_BTN = By.xpath(".//*[@id='RequestJoinSpacePlugin']//*[contains(@class,'uiIconEdit')]");
-	public  final By ELEMENT_SPACE_JOIN_EMAIL_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='MAIL_CHANNELRequestJoinSpacePlugin'][contains(@checked,'checked')]");
-	public  final By ELEMENT_SPACE_JOIN_INTRANET_NOTIFICATION_CHECKBOX_CHECKED = By.xpath(".//*[@id='WEB_CHANNELRequestJoinSpacePlugin'][contains(@checked,'checked')]");
-	public  final By ELEMENT_SPACE_JOIN_NOTIFICATION_SAVE_BTN = By.xpath(".//*[@id='btActionRequestJoinSpacePlugin']");
-	public  final By ELEMENT_SPACE_JOIN_EMAIL_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='MAIL_CHANNELRequestJoinSpacePlugin']");
-	public  final By ELEMENT_SPACE_JOIN_INTRANET_NOTIFICATION_CHECKBOX = By.xpath(".//*[@id='WEB_CHANNELRequestJoinSpacePlugin']");
-	public  final By ELEMENT_SPACE_JOIN_EMAIL_NOTIFICATION_TITLE = By.xpath(".//*[@id='RequestJoinSpacePlugin']//*[contains(@class,'MAIL_CHANNEL')]");
-	public  final By ELEMENT_SPACE_JOIN_INTRANET_NOTIFICATION_TITLE=By.xpath(".//*[@id='RequestJoinSpacePlugin']//*[contains(@class,'WEB_CHANNEL')]"); 
 	/**
 	 * constructor
 	 * @param dr
@@ -130,8 +14,85 @@ public class NotificationsAdminSeting extends PlatformBase {
 	public NotificationsAdminSeting(WebDriver dr){
 		this.driver=dr;
 	}
+	
+	/**
+	 * Check the title of Admin notification page
+	 */
+	public void verifyTilePage(){
+		info("Verify the title of Notification Admin page");
+		waitForAndGetElement(ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
+		info("The page is shown");
+	}
+	
+	/**
+	 * Verify that a notification belongs to a category
+	 * @param category
+	 *                 is the category's name
+	 * @param type
+	 *                 is notification's type
+	 */
+	public void verifyNotiBelongToCategory(String category,notiMode type){
+		switch(type){
+		case NewUser:
+			info("Verify that New user notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","NewUserPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case ConnectionRequest:
+			info("Verify that Connection Request notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","RelationshipReceivedRequestPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case Space_Join:
+			info("Verify that Space Join Request notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","RequestJoinSpacePlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case Space_Invitation:
+			info("Verify that Space invitation notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","SpaceInvitationPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case Space_Post:
+			info("Verify that Post on My Spaces notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","PostActivitySpaceStreamPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case AS_Post:
+			info("Verify that Post on My Stream notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","PostActivityPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case AS_Like:
+			info("Verify that Like notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","LikePlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case AS_Mention:
+			info("Verify that Mention notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","ActivityMentionPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case AS_Comment:
+			info("Verify that Comment notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","ActivityCommentPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		}
+		
+	}
 	/**
 	 * Define notification's type
+	 * as: New User for email, New User for intranet, Connection Request for email.....
 	 */
 	public enum notificationType{
 		NewUser_email,NewUser_intranet,ConnectionRequest_email,ConnectionRequest_intranet,
@@ -472,7 +433,7 @@ public class NotificationsAdminSeting extends PlatformBase {
 	/**
 	 * Define notification plugin is disable all
 	 */
-	public enum notificationDisbale{
+	public enum notiMode{
 		NewUser,ConnectionRequest,AS_Comment,AS_Like,
 		AS_Mention,AS_Post,Space_Invitation,Space_Join,Space_Post;
 	}
@@ -481,7 +442,7 @@ public class NotificationsAdminSeting extends PlatformBase {
 	 * Verify that notification's type is disabled all
 	 * @param op
 	 */
-	public void veriftyNotificationTypeDisable(notificationDisbale op){
+	public void veriftyNotificationTypeDisable(notiMode op){
 		switch(op){
 		case NewUser:
 			info("Verify that New user is disabled");
@@ -759,4 +720,77 @@ public class NotificationsAdminSeting extends PlatformBase {
 			waitForAndGetElement(as_comment_intranet);
 		}
 	}
+    /**
+     * Verify that a notification is enabled
+     * @param type
+     *           as NewUser_email, NewUser_intranet,...
+     */
+    public void verifyNotificationTypeEnable(notificationType type){
+    	switch(type){
+    	case NewUser_email:
+    		break;
+    	case NewUser_intranet:
+    		break;
+    	case AS_Comment_email:
+    		info("Verify that email for comment notification is shown");
+    		waitForAndGetElement(ELEMENT_ADMIN_NOTIFICATION_ACTIVITY_COMMENT_ENABLE_EMAIL);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Comment_intranet:
+    		info("Verify that intranet for comment notification is shown");
+    		waitForAndGetElement(ELEMENT_ADMIN_NOTIFICATION_ACTIVITY_COMMENT_ENABLE_INTRANET);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Like_email:
+    		break;
+    	case AS_Like_intranet:
+    		break;
+    	case AS_Mention_email:
+    		break;
+    	case AS_Mention_intranet:
+    		break;
+    	case AS_Post_email:
+    		break;
+    	case AS_Post_intranet:
+    		break;
+    	case ConnectionRequest_email:
+    		break;
+    	case ConnectionRequest_intranet:
+    		break;
+    	case Space_Invitation_email:
+    		break;
+    	case Space_Invitation_intranet:
+    		break;
+    	case Space_Join_email:
+    		break;
+    	case Space_Join_intranet:
+    		break;
+    	case Space_Post_email:
+    		break;
+    	case Space_Post_intranet:
+    		break;
+    	}
+    }
+    /**
+     * Verify the label of notification's types
+     * @param label
+     *               as: Someone comments on one of my activities,...
+     */
+    public void verifyLabelNotificationType(String label){
+    	info("Verify that the label of Comment notification is correct");
+		waitForAndGetElement(ELEMENT_NOTIFICATION_LABEL_NAME.replace("$label", label));
+		info("the label is correct");
+    	
+    }
+    /**
+     * Verify the name of notification's types
+     * @param name
+     *              as: Comment, Like on Activity
+     */
+    public void verifyNameNotificationType(String name){
+    	info("Verify that the label of Comment notification is correct");
+		waitForAndGetElement(ELEMENT_NOTIFICATION_LABEL_NAME.replace("$label",name));
+		info("the label is correct");
+    }
+   
 }

@@ -34,7 +34,7 @@ import org.testng.annotations.*;
 			   + [Title] Title of activities which is shown in [Notification setting] table 
 			   + [Enable] let users enable/disable notification option*/ 
 		navTool.goToAdminNotifications();
-		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
+		waitForAndGetElement(emailNotif.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE,2000,1);
 		waitForAndGetElement(emailNotif.ELEMENT_NOTIFICATION_GRID_TITLE,2000,1);
 		waitForAndGetElement(emailNotif.ELEMENT_TITLE_NOTIFICATION_GRID,2000,1);
 		waitForAndGetElement(emailNotif.ELEMENT_ENABLE_NOTIFICATION_GRID,2000,1);
@@ -60,7 +60,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Notifications Administration page is displayed*/
 		navTool.goToAdminNotifications();
-		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
+		waitForAndGetElement(emailNotif.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE,2000,1);
 		/*Step number: 2
 		*Step Name: Step 2: Disable one option
 		*Step Description: 
@@ -131,7 +131,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Notifications Administration page is displayed*/
 		navTool.goToAdminNotifications();
-		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
+		waitForAndGetElement(emailNotif.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE,2000,1);
 		/*Step number: 2
 		*Step Name: Step 3: Enable option again
 		*Step Description: 
@@ -209,7 +209,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Notifications Administration page is displayed*/
 		navTool.goToAdminNotifications();
-		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
+		waitForAndGetElement(emailNotif.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE,2000,1);
 		
 		/*Step number: 2
 		*Step Name: Step 3: Enable option again
@@ -284,7 +284,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Notifications Administration page is displayed*/
 		navTool.goToAdminNotifications();
-		waitForAndGetElement(emailNotif.ELEMENT_TITLE_EMAIL_NOTIFICATIONS,2000,1);
+		waitForAndGetElement(emailNotif.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE,2000,1);
 
 		/*Step number: 2
 		*Step Name: Step 2: Disable one option

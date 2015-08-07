@@ -84,7 +84,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getNotiMessage(0);
+		String status = notiIntranetData.getNotiContent(0);
 		intraNot.checkStatusAC(users, status,true);
 
 		/*Step Number: 2
@@ -190,7 +190,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getNotiMessage(0);
+		String status = notiIntranetData.getNotiContent(0);
 		intraNot.checkStatusAC(users, status,true);
 
 		/*Step Number: 2
@@ -213,7 +213,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
 		users.add(username2);
-		String status1 = notiIntranetData.getNotiMessage(1);
+		String status1 = notiIntranetData.getNotiContent(1);
 		intraNot.checkStatusAC(users, status1,true);
 
 		/*Step Number: 3
@@ -348,7 +348,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		users.add(username2);
 		users.add(username3);
 		users.add(username1);
-		String status = notiIntranetData.getNotiMessage(2);
+		String status = notiIntranetData.getNotiContent(2);
 		intraNot.checkStatusAC(users, status,true);
 
 		/*Step Number: 2
@@ -559,8 +559,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 			- The notification message is not available in the View All page..*/
 		navTool.goToIntranetNotification();
 		intraNot.refuseRqConnection(fullName);
-		String connectStatus=notiIntranetData.getMessageByArrayTypeRandom(2);
-		String acceptStatus=notiIntranetData.getMessageByArrayTypeRandom(5);
+		String connectStatus=notiIntranetData.getContentByArrayTypeRandom(2);
+		String acceptStatus=notiIntranetData.getContentByArrayTypeRandom(5);
 		intraNot.checkNotPresentStatus(connectStatus,fullName);
 		intraNot.checkNotPresentStatus(acceptStatus,fullName);
 
@@ -633,7 +633,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		navTool.goToIntranetNotification();
 		intraNot.checkAvatarInStatus(users, true);
 		intraNot.checkStatus(status, username1);
@@ -785,7 +785,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		users.add(username2);
 		users.add(username3);
 		users.add(username4);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		navTool.goToIntranetNotification();
 		intraNot.checkAvatarInStatus(users, true);
 		intraNot.checkStatus(status, username4);
@@ -891,7 +891,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check Like notification in intranet notification");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkStatus(status, username1);
 
 		/*Step Number: 2
@@ -1004,7 +1004,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		String status = notiIntranetData.getContentByArrayTypeRandom(7);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username1);
 
@@ -1105,7 +1105,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		String status = notiIntranetData.getContentByArrayTypeRandom(7);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username1);
 
@@ -1236,7 +1236,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("Check notification in view all");
 		ArrayList<String> users= new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(8);
+		String status = notiIntranetData.getContentByArrayTypeRandom(8);
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
 		intraNot.checkAvatarInStatus(users, true);
@@ -1312,7 +1312,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		ArrayList<String> users= new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(10);
+		String status = notiIntranetData.getContentByArrayTypeRandom(10);
 		navTool.goToIntranetNotification();
 		intraNot.checkAvatarInStatus(users, true);
 		intraNot.checkStatus(status, username1);
@@ -1407,7 +1407,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		 *Expected Outcome: 
 			The notification message is :  <br />- $AVATAR<br />- You're invited to join $SPACE space<br />- [Accept] | [Refuse]<br />- $DATE<br /><br />Where : <br />- $AVATAR is the thumbnail of the space<br />- $SPACE is space 1<br />- $DATE is the date of the notification*/
 		info("Check in notification list");
-		String status = notiIntranetData.getMessageByArrayTypeRandom(3);
+		String status = notiIntranetData.getContentByArrayTypeRandom(3);
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
 		intraNot.checkStatusSpace(status, space);
@@ -1437,7 +1437,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		hp.goToAllSpace();
 		navTool.goToIntranetNotification();
 		intraNot.acceptRqConnection(space);
-		String statusAccept=notiIntranetData.getMessageByArrayTypeRandom(9);
+		String statusAccept=notiIntranetData.getContentByArrayTypeRandom(9);
 		intraNot.checkStatusSpace(statusAccept, space);
 
 		info("Reset Data");
@@ -1511,7 +1511,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("user2 comments in John's activity");
 		magAc.signIn(username1, password1);
 		navTool.goToIntranetNotification();
-		String status = notiIntranetData.getMessageByArrayTypeRandom(3);
+		String status = notiIntranetData.getContentByArrayTypeRandom(3);
 		intraNot.checkStatusSpace(status, space1);
 
 		/*Step Number: 3
@@ -1533,8 +1533,8 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		//intraNot.goToHomepageOfSpaceFromIntranetNotification(space1, false, "1");
 		navTool.goToIntranetNotification();
 		intraNot.goToAllNotification();
-		String acceptSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(9);
-		String inviteSpaceStatus=notiIntranetData.getMessageByArrayTypeRandom(3);
+		String acceptSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(9);
+		String inviteSpaceStatus=notiIntranetData.getContentByArrayTypeRandom(3);
 		intraNot.refuseRqConnection(space1);
 		intraNot.checkNotStatusSpace(acceptSpaceStatus,space1);
 		intraNot.checkNotStatusSpace(inviteSpaceStatus,space1);
@@ -1599,7 +1599,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("check notification in notification list");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		String status = notiIntranetData.getMessageByArrayTypeRandom(12);
+		String status = notiIntranetData.getContentByArrayTypeRandom(12);
 		intraNot.checkStatusSpace(status, space);
 		//intraNot.checkRequestToJoinSpaceNotification(username1, space, "1");
 
@@ -1619,7 +1619,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		//intraNot.checkRequestToJoinSpaceNotification(username1, space, "1");
 		hp.goToAllSpace();
 		navTool.goToIntranetNotification();
-		String statusJoinSpace = notiIntranetData.getMessageByArrayTypeRandom(4);
+		String statusJoinSpace = notiIntranetData.getContentByArrayTypeRandom(4);
 		intraNot.checkStatusSpace(statusJoinSpace, space);
 		//intraNot.goToHomepageOfSpaceFromIntranetNotificationWithRequest(space, true, "1", username1, password1);
 
@@ -1689,7 +1689,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		info("check notification");
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToIntranetNotification();
-		String statusReqSpace=notiIntranetData.getMessageByArrayTypeRandom(12);
+		String statusReqSpace=notiIntranetData.getContentByArrayTypeRandom(12);
 		intraNot.checkStatusSpace(statusReqSpace, space);
 	//	intraNot.checkRequestToJoinSpaceNotification(username1, space, "1");
 
@@ -1773,7 +1773,7 @@ public class SOC_Notifications_Intranet_NotificationTypes extends SOC_TestConfig
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username1);
-		String status = notiIntranetData.getMessageByArrayTypeRandom(11);
+		String status = notiIntranetData.getContentByArrayTypeRandom(11);
 		intraNot.checkAvatarInStatus(users,true);
 		intraNot.checkStatus(status, username1);
 

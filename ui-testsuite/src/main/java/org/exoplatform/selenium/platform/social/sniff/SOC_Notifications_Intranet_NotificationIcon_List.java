@@ -185,7 +185,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		navTool.goToIntranetNotification();
 		ArrayList<String> users = new ArrayList<String>();
 		users.add(username2);
-		String status = notiIntranetData.getNotiMessage(0);
+		String status = notiIntranetData.getNotiContent(0);
 		intraNot.checkStatusAC(users, status,true);
 		intraNot.goToDetailCommentNotification(activity, false);
 		
@@ -220,7 +220,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		waitForAndGetElement(navTool.ELEMENT_NOTIFICATION_MARK_ALL_AS_READ_WITH_POSITION,3000,1);
 		info("The notifications are displayed in the good order : from the newest at the top to the latest at the bottom.");
 		intraNot.checkStatusAC(users, status,true);
-		String statusLike = notiIntranetData.getMessageByArrayTypeRandom(6);
+		String statusLike = notiIntranetData.getContentByArrayTypeRandom(6);
 		intraNot.checkUnreadNotification(statusLike, username2);
 		waitForAndGetElement(navTool.ELEMENT_CONNECT_NOTIFICATION_POSITION.replace("${position}", "1").replace("${fullName}", username3),3000,1);
 		info("A button [View All] is displayed at the bottom of the page");
@@ -389,8 +389,8 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		Utils.pause(50000);
 		driver.navigate().refresh();
 		navTool.goToIntranetNotification();
-		String status = notiIntranetData.getMessageByArrayTypeRandom(6);
-		String status2 = notiIntranetData.getNotiMessage(0);
+		String status = notiIntranetData.getContentByArrayTypeRandom(6);
+		String status2 = notiIntranetData.getNotiContent(0);
 		intraNot.checkUnreadNotification(status,username2);
 		intraNot.checkUnreadNotification(status2,username2);
 		/*Step Number: 1
@@ -515,7 +515,7 @@ public class SOC_Notifications_Intranet_NotificationIcon_List extends SOC_TestCo
 		int newNumNotification = Integer.parseInt(waitForAndGetElement(navTool.ELEMENT_BADGE_NUMBER).getText().trim());
 		assert (newNumNotification==(numNotification+1)):"Number of notification is not updated";
 		navTool.goToIntranetNotification();
-		String status = notiIntranetData.getMessageByArrayTypeRandom(7);
+		String status = notiIntranetData.getContentByArrayTypeRandom(7);
 		intraNot.checkStatus(status, username2);
 		
 		info("Reset Data");

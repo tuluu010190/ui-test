@@ -33,6 +33,7 @@ import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerDriveDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityCommentDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.NotificationCategoryDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDatabase;
 import org.exoplatform.selenium.platform.social.EmailNotifications;
 import org.exoplatform.selenium.platform.social.IntranetNotification;
@@ -78,7 +79,10 @@ public class SOC_TestConfig3 extends PlatformBase {
 	ConnectionsManagement connMag;
 	NotificationDatabase notiIntranetData;
 	NotificationDatabase notiEmailData;
+	NotificationDatabase notiFormatEmailData;
+	NotificationDatabase notiLabelData;
 	ActivityCommentDatabase actCommentData;
+	NotificationCategoryDatabase notiCatData;
 	
 	LinksDatabase linkData;
 	AttachmentFileDatabase attFileData;
@@ -153,8 +157,17 @@ public class SOC_TestConfig3 extends PlatformBase {
 		notiEmailData = new NotificationDatabase();
 		notiEmailData.setData(notiEmailFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
+		notiFormatEmailData = new NotificationDatabase();
+		notiFormatEmailData.setData(notiFormatEmailFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
 		actCommentData = new ActivityCommentDatabase();
 		actCommentData.setData(actCommentFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		notiCatData = new NotificationCategoryDatabase();
+		notiCatData.setData(notiCatFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		notiLabelData = new NotificationDatabase();
+		notiLabelData.setData(notiLabelFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		linkData = new LinksDatabase();
 		linkData.setLinkData(linkPath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -172,6 +185,7 @@ public class SOC_TestConfig3 extends PlatformBase {
 		dataTestForlderPath.setDataTestPathData(dataTestFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 
 		comments = new ArrayList<String>();
+		arrayUser  = new ArrayList<String>();
 		
 		txData = new TextBoxDatabase();
 		txData.setContentData(texboxFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -194,7 +208,6 @@ public class SOC_TestConfig3 extends PlatformBase {
 	 *               is the number of users that want to create
 	 */
 	public void createNewUser(int number){
-		arrayUser  = new ArrayList<String>();
 		navTool.goToAddUser();
 		for(int i=0;i<number;i++){
 			info("Add new a user");

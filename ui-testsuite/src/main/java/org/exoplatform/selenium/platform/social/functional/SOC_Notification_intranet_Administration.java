@@ -29,7 +29,7 @@ import org.testng.annotations.*;
 		info("Go to Notification Administration");
 		navTool.goToAdminNotifications();
 		info("Notifications Administration page is displayed");
-        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_EMAIL_NOTIFICATIONS);
+        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
 
 		/*Step number: 2
 		*Step Name: Step 2: Check the 2nd section
@@ -65,7 +65,7 @@ import org.testng.annotations.*;
 		info("Go to Notification Administration");
 		navTool.goToAdminNotifications();
 		info("Notifications Administration page is displayed");
-        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_EMAIL_NOTIFICATIONS);
+        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
 
 		/*Step number: 2
 		*Step Name: Step 2: Check the first section
@@ -102,7 +102,7 @@ import org.testng.annotations.*;
 		info("Go to Notification Administration");
 		navTool.goToAdminNotifications();
 		info("Notifications Administration page is displayed");
-        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_EMAIL_NOTIFICATIONS);
+        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
 
  	}
 
@@ -132,7 +132,7 @@ import org.testng.annotations.*;
 		info("Go to Notification Administration");
 		navTool.goToAdminNotifications();
 		info("Notifications Administration page is displayed");
-        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_EMAIL_NOTIFICATIONS);
+        waitForAndGetElement(notiAdmin.ELEMENT_TITLE_ADMIN_NOTIFICATIONS_PAGE);
         
         notiAdmin.disableNotification(notificationType.NewUser_intranet);
 
