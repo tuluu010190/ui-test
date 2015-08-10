@@ -251,8 +251,8 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Default settings of Comment notification are: Email and Intranet notification are enabled*/ 
-		notiAdmin.verifyNotificationTypeEnable(notificationType.ConnectionRequest_email);
-		notiAdmin.verifyNotificationTypeEnable(notificationType.ConnectionRequest_intranet);
+		notiAdmin.verifyNotificationTypeEnable(notificationType.AS_Comment_email);
+		notiAdmin.verifyNotificationTypeEnable(notificationType.AS_Comment_intranet);
 
  	}
 
