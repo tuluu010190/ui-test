@@ -203,8 +203,9 @@ public class EmailNotifications extends NotificationLocator{
 		driver.navigate().back();
 		Utils.pause(2000);
 	}
+		
 	/**
-	 * Verify email notificaiton's format
+	 * Verify email notificaiton's format for Activity
 	 * @param emailTitle
 	 * @param firstName
 	 * @param fullName
@@ -228,7 +229,7 @@ public class EmailNotifications extends NotificationLocator{
 		if(!emailContent.isEmpty() && !fullName.isEmpty()){
 			info("Verify the email's content as: activity's content");
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT
-					.replace("$fullName",fullName).replace("$content",emailContent));
+					.replace("$fullName",fullName).replace("$content",emailContent),3000,1);
 		}
 		
 		if(!actTitle.isEmpty()){
@@ -242,6 +243,67 @@ public class EmailNotifications extends NotificationLocator{
 		waitForAndGetElement(ELEMENT_GMAIL_VIEW_FULL_BTN);
 	}
 	
+	/**
+	 * Verify format of email notification for connection request
+	 * @param emailTitle
+	 * @param firstName
+	 *                 
+	 * @param emailContent
+	 * 
+	 * @param userName
+	 */
+	public void verifyFormatEmailNotifcation(String emailTitle,String firstName,
+			String userName,String emailContent){
+		if(!emailTitle.isEmpty()){
+			info("Verify Email notificaiton's title");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_TITLE.
+					replace("$title",emailTitle),3000,1);
+		}
+		
+		if(!firstName.isEmpty()){
+			info("Verify Openning email");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_OPENNING_SUB
+					.replace("$firstName",firstName));
+		}
+		
+		if(!emailContent.isEmpty() && !firstName.isEmpty()){
+			info("Verify the email's content as: connection request's content");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT_CONNECTION_REQUEST
+					.replace("$username",userName).replace("$content",emailContent),3000,1);
+		}
+		info("Verify user's avatar");
+		waitForAndGetElement(ELEMENT_GMAIL_USER_AVARTAR);
+		info("Verify Accept button");
+		waitForAndGetElement(ELEMENT_GMAIL_ACCEPT_BTN);
+		info("Verify Refuse button");
+		waitForAndGetElement(ELEMENT_GMAIL_REFUSE_BTN);
+	}
+	/**
+	 * Click on Accept button
+	 */
+	public void clickAcceptBtn(){
+		info("Click on Accept button");
+		click(ELEMENT_GMAIL_ACCEPT_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * Click on Refuse button
+	 */
+	public void clickRefuseBtn(){
+		info("Click on Refuse button");
+		click(ELEMENT_GMAIL_REFUSE_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * Verify the feedback message refuse connection request
+	 * @param message
+	 * @param fullName
+	 */
+	public void verifyFeedBackMessageRefuseConnection(String message,String fullName){
+		info("Verify the feedback message refuse connection request");
+		waitForAndGetElement(ELEMENT_NOTIFICATION_EMAIL_REFUSE_CONNECTION_MESSAGE
+				.replace("$mess",message).replace("$fullName",fullName));
+	}
 }
 
 

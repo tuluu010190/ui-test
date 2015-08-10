@@ -165,6 +165,7 @@ public class TestBase {
 	protected String notiCatFilePath;
 	protected String notiFormatEmailFilePath;
 	protected String notiLabelFilePath;
+	protected String notiMessageFilePath;
 
 	protected static String ssoType;
 
@@ -258,6 +259,7 @@ public class TestBase {
 	public final String DEFAULT_NOTIFICATION_CATEGORY_URL="DataDriven/"+"soc_notification_category.xls";
 	public final String DEFAULT_NOTIFICATION_FORMAT_EMAIL_URL="DataDriven/"+"soc_notification_format_email.xls";
 	public final String DEFAULT_NOTIFICATION_LABLE_URL="DataDriven/"+"soc_notification_label.xls";
+	public final String DEFAULT_NOTIFICATION_MESSAGE_URL="DataDriven/"+"soc_notification_message.xls";
 
 	//Calendar
 	public final String DEFAULT_CALENDAR_GROUP_NAME_URL="DataDriven/"+"cal_group.xls";
@@ -394,6 +396,7 @@ public class TestBase {
 		notiCatFilePath = System.getProperty("notiCatFilePath");
 		notiFormatEmailFilePath = System.getProperty("notiFormatEmailFilePath");
 		notiLabelFilePath = System.getProperty("notiLabelFilePath");
+		notiMessageFilePath = System.getProperty("notiMessageFilePath");
 		
 		//Calendar
 		calGroupNameFilePath = System.getProperty("calGroupNameFilePath");
@@ -489,6 +492,7 @@ public class TestBase {
 		if (notiCatFilePath==null) notiCatFilePath = DEFAULT_NOTIFICATION_CATEGORY_URL;
 		if (notiFormatEmailFilePath==null) notiFormatEmailFilePath = DEFAULT_NOTIFICATION_FORMAT_EMAIL_URL;
 		if (notiLabelFilePath==null) notiLabelFilePath= DEFAULT_NOTIFICATION_LABLE_URL;
+		if (notiMessageFilePath==null) notiMessageFilePath = DEFAULT_NOTIFICATION_MESSAGE_URL;
 			
 		//Calendar
 		if (calGroupNameFilePath==null) calGroupNameFilePath=DEFAULT_CALENDAR_GROUP_NAME_URL;
@@ -562,6 +566,7 @@ public class TestBase {
 		notiCatFilePath = getAbsoluteFilePath(notiCatFilePath);
 		notiFormatEmailFilePath = getAbsoluteFilePath(notiFormatEmailFilePath);
 		notiLabelFilePath = getAbsoluteFilePath(notiLabelFilePath);
+		notiMessageFilePath = getAbsoluteFilePath(notiMessageFilePath);
 		
 		//Calendar
 		calGroupNameFilePath = getAbsoluteFilePath(calGroupNameFilePath);

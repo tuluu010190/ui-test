@@ -10,7 +10,14 @@ public class NotificationLocator extends PlatformBase{
 	public final String ELEMENT_GMAIL_FORMAT_TITLE=".//*[@valign='middle']//*[contains(text(),'$title')]";
 	public final String ELEMENT_GMAIL_FORMAT_OPENNING_SUB=".//*[text()='Hi $firstName,']";
 	public final String ELEMENT_GMAIL_FORMAT_CONTENT=".//strong//*[contains(text(),'$fullName')]/../../..//*[contains(.,'$content')]";
+	public final String ELEMENT_GMAIL_FORMAT_CONTENT_CONNECTION_REQUEST="//*[contains(@href,'$username')]/../..//*[contains(.,'$content')]";
 	public final String ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE=".//*[text()='$title']";
+	public By ELEMENT_GMAIL_USER_AVARTAR = By.xpath("//img[contains(@src,'UserAvtDefault.png')]");
+	public By ELEMENT_GMAIL_ACCEPT_BTN=By.xpath("//*[contains(@href,'confirmInvitationToConnect')]");
+	public By ELEMENT_GMAIL_REFUSE_BTN = By.xpath("//*[contains(@href,'ignoreInvitationToConnect')]");
+	
+	//CONNECTION REQUEST
+	public String ELEMENT_NOTIFICATION_EMAIL_REFUSE_CONNECTION_MESSAGE=".//*[@id='feedbackMessageInline']//*[contains(@class,'message')][contains(text(),\"$mess\")]";
 	
 	//New User notification
 	public final String ELEMENT_GMAIL_NEWUSER = ".//span[contains(.,'${title} ${title} has joined eXo')]";

@@ -81,6 +81,7 @@ public class SOC_TestConfig3 extends PlatformBase {
 	NotificationDatabase notiEmailData;
 	NotificationDatabase notiFormatEmailData;
 	NotificationDatabase notiLabelData;
+	NotificationDatabase notiMessData;
 	ActivityCommentDatabase actCommentData;
 	NotificationCategoryDatabase notiCatData;
 	
@@ -168,6 +169,9 @@ public class SOC_TestConfig3 extends PlatformBase {
 		
 		notiLabelData = new NotificationDatabase();
 		notiLabelData.setData(notiLabelFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
+		
+		notiMessData = new NotificationDatabase();
+		notiMessData.setData(notiMessageFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 		
 		linkData = new LinksDatabase();
 		linkData.setLinkData(linkPath, defaultSheet, isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);

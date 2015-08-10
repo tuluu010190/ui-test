@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 public class UserProfilePage extends PlatformBase {
 
+	public final String ELEMENT_USER_NAME_PAGE=".//*[@id='UIBreadCrumbsNavigationPortlet']//*[contains(text(),'$fullName')]";
 	public final By ELEMENT_EDIT_MY_PROFILE_LINK = By.xpath(".//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_MY_PROFILE_BUTTON = By.xpath("//*[@id='UIExperienceProfilePortlet']//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_PROFILE_FORM = By.id("UIEditUserProfileForm");

@@ -250,9 +250,9 @@ import org.testng.annotations.*;
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- Default settings of Comment notification are: Instantly and Daily*/ 
-		notiAdmin.verifyNotificationTypeEnable(notificationType.AS_Comment_email);
-		notiAdmin.verifyNotificationTypeEnable(notificationType.AS_Comment_intranet);
+			- Default settings of Comment notification are: Email and Intranet notification are enabled*/ 
+		notiAdmin.verifyNotificationTypeEnable(notificationType.ConnectionRequest_email);
+		notiAdmin.verifyNotificationTypeEnable(notificationType.ConnectionRequest_intranet);
 
  	}
 

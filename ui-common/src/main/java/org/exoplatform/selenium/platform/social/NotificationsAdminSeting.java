@@ -754,8 +754,14 @@ public class NotificationsAdminSeting extends NotificationLocator {
     	case AS_Post_intranet:
     		break;
     	case ConnectionRequest_email:
+    		info("Verify that email for connection request notification is shown");
+    		waitForAndGetElement(ELEMENT_ADMIN_NOTIFICATION_CONNECTION_REQUEST_ENABLE_EMAIL);
+    		info("The notification is shown successfully");
     		break;
     	case ConnectionRequest_intranet:
+    		info("Verify that intranet for connection request notification is shown");
+    		waitForAndGetElement(ELEMENT_ADMIN_NOTIFICATION_CONNECTION_REQUEST_ENABLE_INTRANET);
+    		info("The notification is shown successfully");
     		break;
     	case Space_Invitation_email:
     		break;
