@@ -65,7 +65,6 @@ public class ActivityCommentDatabase {
 	public String getNotiMessage(int index){
 		return content.get(index);
 	}
-	
 	/**
 	 * Get message from file by random type
 	 * @param type

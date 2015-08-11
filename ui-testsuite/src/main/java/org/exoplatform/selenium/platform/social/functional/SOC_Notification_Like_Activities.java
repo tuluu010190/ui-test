@@ -377,9 +377,9 @@ public class SOC_Notification_Like_Activities extends SOC_TestConfig{
 		SEHome.goToPath("intranet/documents", "Sites Management");
 		SEHome.goToAddNewContent();
 		info("Create new file document");
-		CreNewDoc.createNewDoc(selectDocumentType.WEBCONTENT);
-		CreNewDoc.addNewWebContent(name, content);
-		CreNewDoc.saveAndClose();
+		creatDoc.createNewDoc(selectDocumentType.WEBCONTENT);
+		creatDoc.addNewWebContent(name, content);
+		creatDoc.saveAndClose();
 		Utils.pause(5000);
 		
 		magAc.signIn(username1, password1);
