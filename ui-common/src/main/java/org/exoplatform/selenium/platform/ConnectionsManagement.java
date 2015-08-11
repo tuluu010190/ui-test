@@ -166,6 +166,23 @@ public class ConnectionsManagement extends PlatformBase {
 		else
 			waitForElementNotPresent(ELEMENT_CONNECTION_REVOVE_BTN.replace("${user}", username));
 	}
+	/**
+	 * Verify that a request pending is sent to the user
+	 * @param userName
+	 * @param isSent
+	 */
+	public void verifyRequestPending(String userName, Boolean isSent){
+		searchPeople(userName,null,null,null);
+		if(isSent){
+			info("Verify that connection request is sent to the user");
+			waitForAndGetElement(ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}",userName));
+			info("The request is sent successfully");
+		}else{
+			info("Verify that connection request isnot sent to the user");
+			waitForElementNotPresent(ELEMENT_CONNECTION_CANCEL_BTN.replace("${user}",userName));
+			info("The request isnot sent successfully");
+		}
+	}
 
 	/**
 	 * Clear search textbox

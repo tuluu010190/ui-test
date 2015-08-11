@@ -4,7 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
-import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notiMode;
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting.notiMode;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
 import org.testng.annotations.*;
 
@@ -29,8 +29,17 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notification Settings page is appeared*/
-		navTool.goToAdminNotifications();
-		notiAdmin.verifyTilePage();
+		info("Create 1 users for testing");
+		createNewUser(1);
+		
+		info("User A login");
+		magAc.signOut();
+		magAc.signIn(arrayUser.get(0), password);
+		Utils.pause(3000);
+		
+		navTool.goToMyNotifications();
+		myNoti.verifyTilePage();
+
 
 		/*Step number: 2
 		*Step Name: Step 2: Check category which Comment notification belongs to
@@ -41,7 +50,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Comment notification belongs to "Activity Stream" category*/ 
 		String category = notiCatData.getCategoryByArrayTypeRandom(3);
-		notiAdmin.verifyNotiBelongToCategory(category, notiMode.AS_Comment);
+		myNoti.verifyNotiBelongToCategory(category,notiMode.AS_Comment);
 
  	}
 
@@ -240,8 +249,16 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notification Settings page is appeared*/
-		navTool.goToAdminNotifications();
-		notiAdmin.verifyTilePage();
+		info("Create 1 users for testing");
+		createNewUser(1);
+		
+		info("User A login");
+		magAc.signOut();
+		magAc.signIn(arrayUser.get(0), password);
+		Utils.pause(3000);
+		
+		navTool.goToMyNotifications();
+		myNoti.verifyTilePage();
 
 		/*Step number: 2
 		*Step Name: Step 2: Check default settings of Comment notification
@@ -251,8 +268,8 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Default settings of Comment notification are: Email and Intranet notification are enabled*/ 
-		notiAdmin.verifyNotificationTypeEnable(notificationType.AS_Comment_email);
-		notiAdmin.verifyNotificationTypeEnable(notificationType.AS_Comment_intranet);
+		myNoti.verifyNotificationTypeEnable(notificationType.AS_Comment_email);
+		myNoti.verifyNotificationTypeEnable(notificationType.AS_Comment_intranet);
 
  	}
 

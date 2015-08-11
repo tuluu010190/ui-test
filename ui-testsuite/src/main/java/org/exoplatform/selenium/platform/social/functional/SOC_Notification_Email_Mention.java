@@ -6,7 +6,7 @@ import java.awt.AWTException;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
-import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notiMode;
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting.notiMode;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
 import org.testng.annotations.*;
 
@@ -31,8 +31,16 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notification Settings page is appeared*/
-		navTool.goToAdminNotifications();
-		notiAdmin.verifyTilePage();
+		info("Create 1 users for testing");
+		createNewUser(1);
+		
+		info("User A login");
+		magAc.signOut();
+		magAc.signIn(arrayUser.get(0), password);
+		Utils.pause(3000);
+		
+		navTool.goToMyNotifications();
+		myNoti.verifyTilePage();
 		/*Step number: 2
 		*Step Name: Step 2: Check category which Mention notification belongs to
 		*Step Description: 
@@ -42,7 +50,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Mention notification belongs to "Activity Stream" category*/ 
 		String category = notiCatData.getCategoryByArrayTypeRandom(3);
-		notiAdmin.verifyNotiBelongToCategory(category, notiMode.AS_Comment);
+		myNoti.verifyNotiBelongToCategory(category,notiMode.AS_Mention);
 
  	}
 
@@ -64,8 +72,16 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notification Settings page is appeared*/
-		navTool.goToAdminNotifications();
-		notiAdmin.verifyTilePage();
+		info("Create 1 users for testing");
+		createNewUser(1);
+		
+		info("User A login");
+		magAc.signOut();
+		magAc.signIn(arrayUser.get(0), password);
+		Utils.pause(3000);
+		
+		navTool.goToMyNotifications();
+		myNoti.verifyTilePage();
 		/*Step number: 2
 		*Step Name: Step 2: Check default setting of Mention notification
 		*Step Description: 
@@ -74,8 +90,8 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Default setting is:Email and intranet notification is enabled*/ 
-		notiAdmin.verifyNotificationTypeEnable(notificationType.AS_Mention_email);
-		notiAdmin.verifyNotificationTypeEnable(notificationType.AS_Mention_intranet);
+		myNoti.veriftyNotificationTypeDisable(notificationType.AS_Mention_email);
+		myNoti.veriftyNotificationTypeDisable(notificationType.AS_Mention_intranet);
 
  	}
 
@@ -322,8 +338,16 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notification Settings page is appeared*/
-		navTool.goToAdminNotifications();
-		notiAdmin.verifyTilePage();
+		info("Create 1 users for testing");
+		createNewUser(1);
+		
+		info("User A login");
+		magAc.signOut();
+		magAc.signIn(arrayUser.get(0), password);
+		Utils.pause(3000);
+		
+		navTool.goToMyNotifications();
+		myNoti.verifyTilePage();
 		/*Step number: 2
 		*Step Name: Step 2: Check event label of Mention notification in settings page
 		*Step Description: 
@@ -333,7 +357,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The event label of Mention notification in settings page: Someone @mentions me*/ 
 		String label = notiLabelData.getContentByArrayTypeRandom(7);
-		notiAdmin.verifyLabelNotificationType(label);
+		myNoti.verifyLabelNotificationType(label);
  	}
 
 	/**

@@ -253,7 +253,7 @@ public class EmailNotifications extends NotificationLocator{
 	 * @param userName
 	 */
 	public void verifyFormatEmailNotifcation(String emailTitle,String firstName,
-			String userName,String emailContent){
+			String userName,String emailContent,Boolean... isNewUser){
 		if(!emailTitle.isEmpty()){
 			info("Verify Email notificaiton's title");
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_TITLE.
@@ -273,10 +273,16 @@ public class EmailNotifications extends NotificationLocator{
 		}
 		info("Verify user's avatar");
 		waitForAndGetElement(ELEMENT_GMAIL_USER_AVARTAR);
-		info("Verify Accept button");
-		waitForAndGetElement(ELEMENT_GMAIL_ACCEPT_BTN);
-		info("Verify Refuse button");
-		waitForAndGetElement(ELEMENT_GMAIL_REFUSE_BTN);
+		if(isNewUser.length>0 & isNewUser[0]==true){
+			info("Verify Connection now button");
+			waitForAndGetElement(ELEMENT_GMAIL_CONNECT_NOW);
+		}else{
+			info("Verify Accept button");
+			waitForAndGetElement(ELEMENT_GMAIL_ACCEPT_BTN);
+			info("Verify Refuse button");
+			waitForAndGetElement(ELEMENT_GMAIL_REFUSE_BTN);
+		}
+		
 	}
 	/**
 	 * Click on Accept button
@@ -303,6 +309,14 @@ public class EmailNotifications extends NotificationLocator{
 		info("Verify the feedback message refuse connection request");
 		waitForAndGetElement(ELEMENT_NOTIFICATION_EMAIL_REFUSE_CONNECTION_MESSAGE
 				.replace("$mess",message).replace("$fullName",fullName));
+	}
+	/**
+	 * Click on Connect Now button
+	 */
+	public void clickConnectNowBtn(){
+		info("Click on Connect Now button");
+		click(ELEMENT_GMAIL_CONNECT_NOW);
+		Utils.pause(2000);
 	}
 }
 

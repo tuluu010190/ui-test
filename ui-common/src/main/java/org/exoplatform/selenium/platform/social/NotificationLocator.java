@@ -15,6 +15,8 @@ public class NotificationLocator extends PlatformBase{
 	public By ELEMENT_GMAIL_USER_AVARTAR = By.xpath("//img[contains(@src,'UserAvtDefault.png')]");
 	public By ELEMENT_GMAIL_ACCEPT_BTN=By.xpath("//*[contains(@href,'confirmInvitationToConnect')]");
 	public By ELEMENT_GMAIL_REFUSE_BTN = By.xpath("//*[contains(@href,'ignoreInvitationToConnect')]");
+	public By ELEMENT_GMAIL_CONNECT_NOW=By.xpath("//*[contains(@href,'inviteToConnect')]");
+	
 	
 	//CONNECTION REQUEST
 	public String ELEMENT_NOTIFICATION_EMAIL_REFUSE_CONNECTION_MESSAGE=".//*[@id='feedbackMessageInline']//*[contains(@class,'message')][contains(text(),\"$mess\")]";
@@ -174,7 +176,7 @@ public class NotificationLocator extends PlatformBase{
 	
 	
 	//************************************************ADMIN NOTIFICATION****************************************************************************\\
-public final String ELEMENT_BELONGS_TO_CATEGORY="//*[@class='group-title']//*[contains(text(),'$category')]/following::*//*[@for='$notification']";
+    public final String ELEMENT_BELONGS_TO_CATEGORY="//*[@class='group-title']//*[contains(text(),'$category')]/following::*//*[@for='$notification']";
 	
 	//Disable notification's type
 	public final By ELEMENT_ADMIN_NOTIFICATION_NEW_USER_DISBALE = By.xpath(".//*[@id='NewUserPlugin']//*[@class=\"\"]//*[contains(text(),'No notifications')]");

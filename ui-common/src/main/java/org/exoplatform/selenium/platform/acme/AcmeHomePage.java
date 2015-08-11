@@ -1,5 +1,5 @@
 package org.exoplatform.selenium.platform.acme;
-
+import static org.exoplatform.selenium.TestLogger.info;
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
 import org.exoplatform.selenium.platform.gatein.ContentList;
@@ -10,7 +10,17 @@ import org.openqa.selenium.interactions.Actions;
 
 public class AcmeHomePage extends PlatformBase {
 
-	ContentList contList;
+	//Register
+	public final By ELEMENT_REGISTER_LINK=By.xpath(".//*[@class='RegisterIcon']");
+	public final By ELEMENT_REGISTER_TITLE=By.xpath("//*[@class='title'][contains(text(),'Register New Account')]");
+	public final By ELEMENT_REGISTER_USERNAME=By.xpath(".//*[@id='username']");
+	public final By ELEMENT_REGISTER_PASSWORD=By.xpath(".//*[@id='password']");
+	public final By ELEMENT_REGISTER_CONFIRM_PASSWORD=By.xpath(".//*[@id='confirmPassword']");
+	public final By ELEMENT_REGISTER_FIRSTNAME=By.xpath(".//*[@id='firstName']");
+	public final By ELEMENT_REGISTER_LASTNAME=By.xpath(".//*[@id='lastName']");
+	public final By ELEMENT_REGISTER_DISPLAYNAME=By.xpath(".//*[@id='displayName']");
+	public final By ELEMENT_REGISTER_EMAIL=By.xpath(".//*[@id='emailAddress']");
+	
 	
 	public final By ELEMENT_TOPBAR_SEARCHBOX = By.xpath("//*[@class='keyword']");
 	public final String ELEMENT_SEARCHRESULT_TITLE = "//*[@class='content']//*[text()='${title}']";
@@ -23,6 +33,8 @@ public class AcmeHomePage extends PlatformBase {
 	public final By ELEMENT_NAVIGATION_MENU_OVERVIEW_FRENCH = By.xpath(".//*[@id='navigation-generator']//a[@title='Présentation']");
 	public final By ELEMENT_NAVIGATION_MENU_OVERVIEW_ENGLISH= By.xpath(".//*[@id='navigation-generator']//a[@title='Overview']");
 	
+	
+	ContentList contList;
 	public AcmeHomePage(WebDriver driver) {
 		this.driver= driver;
 		contList = new ContentList(driver);

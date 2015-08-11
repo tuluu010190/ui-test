@@ -4,7 +4,7 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
-import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notiMode;
+import org.exoplatform.selenium.platform.social.MyNotificationsSetting.notiMode;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
 import org.testng.annotations.*;
 
@@ -29,8 +29,16 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notification Settings page is appeared*/
-		navTool.goToAdminNotifications();
-		notiAdmin.verifyTilePage();
+		info("Create 1 users for testing");
+		createNewUser(1);
+		
+		info("User A login");
+		magAc.signOut();
+		magAc.signIn(arrayUser.get(0), password);
+		Utils.pause(3000);
+		
+		navTool.goToMyNotifications();
+		myNoti.verifyTilePage();
 
 		/*Step number: 2
 		*Step Name: Step 2: Check category which Connect request notification belongs to
@@ -41,7 +49,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Connection request notification belongs to "Connections" category*/ 
 		String category = notiCatData.getCategoryByArrayTypeRandom(1);
-		notiAdmin.verifyNotiBelongToCategory(category, notiMode.ConnectionRequest);
+		myNoti.verifyNotiBelongToCategory(category, notiMode.ConnectionRequest);
 
  	}
 
@@ -210,8 +218,16 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Notification Settings page is appeared*/
-		navTool.goToAdminNotifications();
-		notiAdmin.verifyTilePage();
+		info("Create 1 users for testing");
+		createNewUser(1);
+		
+		info("User A login");
+		magAc.signOut();
+		magAc.signIn(arrayUser.get(0), password);
+		Utils.pause(3000);
+		
+		navTool.goToMyNotifications();
+		myNoti.verifyTilePage();
 		/*Step number: 2
 		*Step Name: Step 2: Check default setting of connection request notification
 		*Step Description: 
@@ -220,8 +236,8 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Default setting of connection request notification are: Instantly and Daily*/ 
-		notiAdmin.verifyNotificationTypeEnable(notificationType.ConnectionRequest_email);
-		notiAdmin.verifyNotificationTypeEnable(notificationType.ConnectionRequest_intranet);
+		myNoti.verifyNotificationTypeEnable(notificationType.ConnectionRequest_email);
+		myNoti.verifyNotificationTypeEnable(notificationType.ConnectionRequest_intranet);
 
  	}
 

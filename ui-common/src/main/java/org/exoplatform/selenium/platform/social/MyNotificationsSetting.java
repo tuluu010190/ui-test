@@ -5,14 +5,22 @@ import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notiMode;
+import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class MyNotificationsSetting extends PlatformBase{
+	
+	public final By ELEMENT_TITLE_NOTIFICATION_SETTING_PAGE=By.xpath(".//*[@id='uiNotificationSetting']//h3");
+	public final String ELEMENT_BELONGS_TO_CATEGORY="//*[contains(text(),'$category')]/following::*//*[@for='$notification']";
+	public final String ELEMENT_NOTIFICATION_LABEL_NAME=".//*[contains(text(),'$label')]";
+	
+	//disable notification's type
+		
 
 	//Form my notification setting
 	public final By ELEMENT_MY_NOTIFICATION_SETTING_FORM=By.id("uiNotificationSetting");
-
 	public final By ELEMENT_GENERAL_JOIN_INTRANET_GRID = By.xpath("//*[@id='uiNotificationSetting']//*[contains(text(),'Someone joins the social intranet')]");
 	public final By ELEMENT_GENERAL_SEND_CONNECTION_GRID = By.xpath("//*[@id='uiNotificationSetting']//*[contains(text(),'Someone sends me a connection request')]");  
 	public final By ELEMENT_RESET_BTN = By.xpath(".//button[@id='Reset']");
@@ -63,9 +71,9 @@ public class MyNotificationsSetting extends PlatformBase{
 	public final By ELEMENT_EDIT_NEWUSER_LIST_DAILY = By.xpath("//*[@id='MAIL_CHANNELNewUserPluginSelectBox']/*[contains(text(),'Daily')]");
 	public final By ELEMENT_EDIT_NEWUSER_LIST_WEEKLY = By.xpath("//*[@id='MAIL_CHANNELNewUserPluginSelectBox']/*[contains(text(),'Weekly')]");
 	public final By ELEMENT_EDIT_NEWUSER_LIST_NEVER = By.xpath("//*[@id='MAIL_CHANNELNewUserPluginSelectBox']/*[contains(text(),'Never')]");
-	public final By ELEMENT_EDIT_NEWUSER_WEB_ICON = By.xpath("//*[@id='NewUserPlugin']/../..//i[@class='uiIconPLFWeb']");
-	public final By ELEMENT_EDIT_NEWUSER_MAIL_ICON = By.xpath("//*[@id='NewUserPlugin']/../..//*[@class='the-checkbox']/*[@class='uiIconPLFMail']");
-
+	public final By ELEMENT_EDIT_NEWUSER_WEB_ICON = By.xpath("//*[@id='NewUserPlugin']/../..//*[@class='uiIconPLFWeb']");
+	public final By ELEMENT_EDIT_NEWUSER_MAIL_ICON = By.xpath("//*[@id='NewUserPlugin']/../..//*[@class='the-checkbox']//*[@class='uiIconPLFMail']");
+    public final By ELEMENT_EDIT_NEW_USER_MAIL_DAILY=By.xpath("//*[@id='NewUserPlugin']/../..//*[@class='uiIconPLFMail']/..//strong[contains(text(),'Daily')]");
 	//Connections
 	public final By ELEMENT_EDIT_RECREQ_ICON = By.xpath("//*[@id='RelationshipReceivedRequestPlugin']/..//*[@class='uiIconEdit uiIconLightGray']");
 	public final By ELEMENT_EDIT_RECREQ_MAIL_CHECKBOX = By.xpath("//*[@for='MAIL_CHANNELRelationshipReceivedRequestPlugin']");
@@ -582,4 +590,282 @@ public class MyNotificationsSetting extends PlatformBase{
 		click(ELEMENT_RESET_CONFIRM);
 		Utils.pause(2000);
 	}
+	
+	/**
+	 * Check the title of Notification settings page
+	 */
+	public void verifyTilePage(){
+		info("Verify the title of Notification settings page");
+		waitForAndGetElement(ELEMENT_TITLE_NOTIFICATION_SETTING_PAGE);
+		info("The page is shown");
+	}
+	
+	/**
+	 * Define notification plugin is disable all
+	 */
+	public enum notiMode{
+		NewUser,ConnectionRequest,AS_Comment,AS_Like,
+		AS_Mention,AS_Post,Space_Invitation,Space_Join,Space_Post;
+	}
+	
+	/**
+	 * Verify that a notification belongs to a category
+	 * @param category
+	 *                 is the category's name
+	 * @param type
+	 *                 is notification's type
+	 */
+	public void verifyNotiBelongToCategory(String category,notiMode type){
+		switch(type){
+		case NewUser:
+			info("Verify that New user notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","NewUserPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case ConnectionRequest:
+			info("Verify that Connection Request notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","RelationshipReceivedRequestPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case Space_Join:
+			info("Verify that Space Join Request notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","RequestJoinSpacePlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case Space_Invitation:
+			info("Verify that Space invitation notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","SpaceInvitationPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case Space_Post:
+			info("Verify that Post on My Spaces notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","PostActivitySpaceStreamPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case AS_Post:
+			info("Verify that Post on My Stream notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","PostActivityPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case AS_Like:
+			info("Verify that Like notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","LikePlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case AS_Mention:
+			info("Verify that Mention notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","ActivityMentionPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		case AS_Comment:
+			info("Verify that Comment notification belongs to "+category);
+			waitForAndGetElement(ELEMENT_BELONGS_TO_CATEGORY.
+					replace("$category",category).replace("$notification","ActivityCommentPlugin"));
+			info("The notification is shown with correct category");
+			break;
+		}
+		
+	}
+	
+	
+	 /**
+     * Verify that a notification is enabled
+     * @param type
+     *           as NewUser_email, NewUser_intranet,...
+     */
+    public void verifyNotificationTypeEnable(notificationType type){
+    	switch(type){
+    	case NewUser_email:
+    		info("Verify that email for new user notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_NEWUSER_MAIL_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case NewUser_intranet:
+    		info("Verify that email for new user notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_NEWUSER_WEB_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Comment_email:
+    		info("Verify that email for comment notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_COMMENT_MAIL_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Comment_intranet:
+    		info("Verify that intranet for comment notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_COMMENT_WEB_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Like_email:
+    		info("Verify that email for like notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_LIKE_MAIL_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Like_intranet:
+    		info("Verify that intranet for like notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_LIKE_WEB_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Mention_email:
+    		info("Verify that email for mention notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_MENTION_MAIL_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Mention_intranet:
+    		info("Verify that intranet for mention notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_MENTION_WEB_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Post_email:
+    		info("Verify that email for post notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_POST_MAIL_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case AS_Post_intranet:
+    		info("Verify that email for post notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_POST_WEB_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case ConnectionRequest_email:
+    		info("Verify that email for connection request notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_RECREQ_MAIL_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case ConnectionRequest_intranet:
+    		info("Verify that intranet for connection request notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_RECREQ_WEB_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case Space_Invitation_email:
+    		info("Verify that email for space invitation notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_INVI_SPACE_MAIL_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case Space_Invitation_intranet:
+    		info("Verify that intranet for space invitation notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_INVI_SPACE_WEB_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case Space_Join_email:
+    		info("Verify that email for space joint request notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_REQJOIN_SPACE_MAIL_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case Space_Join_intranet:
+    		info("Verify that intranet for space joint request notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_REQJOIN_SPACE_WEB_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case Space_Post_email:
+    		info("Verify that email for space post notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_MAIL_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	case Space_Post_intranet:
+    		info("Verify that intranet for space post notification is shown");
+    		waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+    		info("The notification is shown successfully");
+    		break;
+    	}
+    }
+    	
+	/**
+	 * Verify that notification's type is disabled all
+	 * @param type
+	 */
+	public void veriftyNotificationTypeDisable(notificationType type){
+		switch(type){
+		case NewUser_email:
+			info("Verify that New user's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_NEWUSER_WEB_ICON);
+			info("Verify that daily email is shown");
+			waitForAndGetElement(ELEMENT_EDIT_NEW_USER_MAIL_DAILY);
+			break;
+		case NewUser_intranet:
+			info("Verify that New user's notification's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_NEWUSER_WEB_ICON);
+			break;
+		case ConnectionRequest_email:
+			info("Verify that Connection request's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_RECREQ_MAIL_ICON);
+			break;
+		case ConnectionRequest_intranet:
+			info("Verify that Connection request's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_RECREQ_WEB_ICON);
+			break;
+		case AS_Comment_email:
+			info("Verify that Activity Comment's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_COMMENT_MAIL_ICON);
+			break;
+		case AS_Comment_intranet:
+			info("Verify that Activity like's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_COMMENT_WEB_ICON);
+			break;
+		case AS_Mention_email:
+			info("Verify that Activity mention's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_MENTION_MAIL_ICON);
+		case AS_Mention_intranet:
+			info("Verify that Activity mention's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_MENTION_WEB_ICON);
+			break;
+		case AS_Like_email:
+			info("Verify that Activity like's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_LIKE_MAIL_ICON);
+		case AS_Like_intranet:
+			info("Verify that Activity like's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_LIKE_WEB_ICON);
+			break;
+		case AS_Post_email:
+			info("Verify that Activity post's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_POST_MAIL_ICON);
+			break;
+		case AS_Post_intranet:
+			info("Verify that Activity post's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_POST_WEB_ICON);
+			break;
+		case Space_Invitation_email:
+			info("Verify that Space invitation's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_INVI_SPACE_MAIL_ICON);
+			break;
+		case Space_Invitation_intranet:
+			info("Verify that Space invitation's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_INVI_SPACE_WEB_ICON);
+			break;
+		case Space_Join_email:
+			info("Verify that Space join's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_MAIL_ICON);
+			break;
+		case Space_Join_intranet:
+			info("Verify that Space join's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+			break;
+		case Space_Post_email:
+			info("Verify that Space post's email is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_MAIL_ICON);
+			break;
+		case Space_Post_intranet:
+			info("Verify that Space post's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+			break;
+		}
+	}
+	
+	/**
+     * Verify the label of notification's types
+     * @param label
+     *               as: Someone comments on one of my activities,...
+     */
+    public void verifyLabelNotificationType(String label){
+    	info("Verify that the label of Comment notification is correct");
+		waitForAndGetElement(ELEMENT_NOTIFICATION_LABEL_NAME.replace("$label", label));
+		info("the label is correct");
+    	
+    }
 }
