@@ -3,6 +3,7 @@ package org.exoplatform.selenium.platform.social.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
 import org.testng.annotations.*;
 
 
@@ -60,7 +61,7 @@ import org.testng.annotations.*;
 			- All settings related to Email Notifications are disabled (instant notification and digest) 
 			and the settings of the user are remembere*/
         myNoti.turnOnOffNotiEmail(false);
-        myNoti.veriftyAllEmailNotiDisable();
+        myNoti.veriftyAllEmailNotiDefaultDisable();
         
         info("the settings of the user are remembered");
         info("User A login");
@@ -69,7 +70,7 @@ import org.testng.annotations.*;
 		Utils.pause(3000);
 		navTool.goToMyNotifications();
 		myNoti.verifyTilePage();
-		myNoti.veriftyAllEmailNotiDisable();
+		myNoti.veriftyAllEmailNotiDefaultDisable();
         
 		/*Step number: 4
 		*Step Name: Step 4 : Update Email Notifications toggle
@@ -80,7 +81,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The user finds back the same configuration*/
 		myNoti.turnOnOffNotiEmail(true);
-		myNoti.veriftyAllEmailNotiEnabled();
+		myNoti.veriftyAllEmailNotiDefaultEnabled();
 
  	}
 
@@ -134,7 +135,7 @@ import org.testng.annotations.*;
 			- All settings related to Intranet Notifications are disabled and the settings of the user are remembered.*/
 
 		 myNoti.turnOnOffNotiIntranet(false);
-         myNoti.veriftyAllIntranetNotiDisable();
+         myNoti.veriftyAllIntranetNotiDefaultDisable();
         
         info("the settings of the user are remembered");
         info("User A login");
@@ -143,7 +144,7 @@ import org.testng.annotations.*;
 		Utils.pause(3000);
 		navTool.goToMyNotifications();
 		myNoti.verifyTilePage();
-		myNoti.veriftyAllIntranetNotiDisable();
+		myNoti.veriftyAllIntranetNotiDefaultDisable();
 		/*Step number: 4
 		*Step Name: Step 4 : Update Intranet Notifications toggle
 		*Step Description: 
@@ -153,7 +154,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- The user finds back the same configuration*/ 
 		myNoti.turnOnOffNotiIntranet(true);
-		myNoti.veriftyAllIntranetNotiEnabled();
+		myNoti.veriftyAllIntranetNotiDefaultEnabled();
 
  	}
 
@@ -196,6 +197,15 @@ import org.testng.annotations.*;
 		
 		navTool.goToMyNotifications();
 		myNoti.verifyTilePage();
-		myNoti.checkDefaultIntranetNotiSettings();
+		myNoti.verifyNotificationDefault(notificationType.NewUser_intranet);
+		myNoti.verifyNotificationDefault(notificationType.ConnectionRequest_intranet);
+		myNoti.verifyNotificationDefault(notificationType.Space_Invitation_intranet);
+		myNoti.verifyNotificationDefault(notificationType.Space_Join_intranet);
+		myNoti.verifyNotificationDefault(notificationType.AS_Mention_intranet);
+		myNoti.verifyNotificationDefault(notificationType.AS_Comment_intranet);
+		myNoti.verifyNotificationDefault(notificationType.AS_Like_intranet);
+		myNoti.verifyNotificationDefault(notificationType.AS_Post_intranet);
+		myNoti.verifyNotificationDefault(notificationType.Space_Post_intranet);
+		
 
  	}}

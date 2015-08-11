@@ -91,8 +91,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Default settings of new user notification is Daily*/ 
-		myNoti.veriftyNotificationTypeDisable(notificationType.NewUser_email);
-		myNoti.veriftyNotificationTypeDisable(notificationType.NewUser_intranet);
+		myNoti.verifyNotificationDefault(notificationType.NewUser_email);
 
  	}
 

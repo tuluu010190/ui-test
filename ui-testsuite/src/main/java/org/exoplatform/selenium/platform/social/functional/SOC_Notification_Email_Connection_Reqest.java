@@ -236,8 +236,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Default setting of connection request notification are: Instantly and Daily*/ 
-		myNoti.verifyNotificationTypeEnable(notificationType.ConnectionRequest_email);
-		myNoti.verifyNotificationTypeEnable(notificationType.ConnectionRequest_intranet);
+		myNoti.verifyNotificationDefault(notificationType.ConnectionRequest_email);
 
  	}
 

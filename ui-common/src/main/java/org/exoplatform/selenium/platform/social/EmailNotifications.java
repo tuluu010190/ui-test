@@ -234,6 +234,9 @@ public class EmailNotifications extends NotificationLocator{
 		
 		if(!actTitle.isEmpty()){
 			info("Verify the activity's title");
+			if(waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE_1.replace("$title",actTitle),3000,0)!=null)
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE_1.replace("$title",actTitle));
+			else
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE
 					.replace("$title",actTitle));
 		}

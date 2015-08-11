@@ -90,8 +90,7 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- Default setting is:Email and intranet notification is enabled*/ 
-		myNoti.veriftyNotificationTypeDisable(notificationType.AS_Mention_email);
-		myNoti.veriftyNotificationTypeDisable(notificationType.AS_Mention_intranet);
+		myNoti.verifyNotificationDefault(notificationType.AS_Mention_email);
 
  	}
 

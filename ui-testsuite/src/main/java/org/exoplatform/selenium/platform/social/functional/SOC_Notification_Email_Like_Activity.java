@@ -6,20 +6,19 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.notiMode;
 import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
-import org.testng.annotations.*;
+import org.testng.annotations.Test;
 
-
-	public class SOC_Notification_Email_Comment_Activity extends SOC_TestConfig3{
+public class SOC_Notification_Email_Like_Activity extends SOC_TestConfig3{
 
 	/**
-	*<li> Case ID:117397.</li>
-	*<li> Test Case Name: Check category which Comment notification belongs to.</li>
+	*<li> Case ID:117399.</li>
+	*<li> Test Case Name: Check category which Like notification belongs to.</li>
 	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test01_CheckCategoryWhichCommentNotificationBelongsTo() {
-		info("Test 1: Check category which Comment notification belongs to");
+	public  void test01_CheckCategoryWhichLikeNotificationBelongsTo() {
+		info("Test 1: Check category which Like notification belongs to");
 		/*Step Number: 1
 		*Step Name: Step 1: Access notification settings
 		*Step Description: 
@@ -40,41 +39,28 @@ import org.testng.annotations.*;
 		navTool.goToMyNotifications();
 		myNoti.verifyTilePage();
 
-
 		/*Step number: 2
-		*Step Name: Step 2: Check category which Comment notification belongs to
+		*Step Name: Step 2: Check category which Like notification belongs to
 		*Step Description: 
-			Check category which Comment notification belongs to
+			Check category which Like notification belongs to
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- Comment notification belongs to "Activity Stream" category*/ 
-		String category = notiCatData.getCategoryByArrayTypeRandom(3);
-		myNoti.verifyNotiBelongToCategory(category,notiMode.AS_Comment);
-
+			- - Like notification belongs to "Activity Stream" category*/ 
+		String category = notiCatData.getCategoryByArrayTypeRandom(4);
+		myNoti.verifyNotiBelongToCategory(category,notiMode.AS_Like);
  	}
-
+	
 	/**
-	*<li> Case ID:117406.</li>
-	*<li> Test Case Name: Check Comment notification mail content.</li>
-	*<li> Pre-Condition: - UserB comment on activity of UserA 
-	*or comment on activity where UserA has already commented
-	- Comment notification mail is sent</li>
+	*<li> Case ID:117483.</li>
+	*<li> Test Case Name: Check Like notification mail content.</li>
+	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test02_CheckCommentNotificationMailContent() {
-		info("Test 2: Check Comment notification mail content");
-		/*Step Number: 1
-		*Step Name: Step 1: Check Comment notification mail content
-		*Step Description: 
-			- Check Comment notification mail content
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- Comment notification mail content is: 
-			New comment on your activityHi UserA,UserB has posted a comment on your activity. 
-			See the comment below:[Activity][Comment]Reply | View the full discussion*/ 
+	public  void test02_CheckLiketNotificationMailContent() {
+		info("Test 2: Check Like notification mail content");
+		info("Create data test");
 		info("Create 2 users for testing");
 		createNewUser(2);
 		
@@ -85,7 +71,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.AS_Comment_email);
+		myNoti.enableNotification(myNotiType.AS_Like_email);
 		
 		info("Change email address");
 		navTool.goToMyProfile();
@@ -98,6 +84,14 @@ import org.testng.annotations.*;
 		hp.goToConnections();
 		connMag.connectToAUser(arrayUser.get(1));
 		
+		/*Step Number: 1
+		*Step Name: Step 1: Add new activity
+		*Step Description: 
+			- Login as UserA
+			- Add new activity
+		*Input Data: 
+		*Expected Outcome: 
+			- New activity is added*/ 
 		info("User A add an activity");
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		hp.goToHomePage();
@@ -110,16 +104,24 @@ import org.testng.annotations.*;
 		magAc.signIn(arrayUser.get(1), password);
 		Utils.pause(3000);
 		
-		info("User A and User B are connected");
+		info("User B accepts connection request from User A");
 		Utils.pause(3000);
 		hp.goToConnections();
 		connMag.acceptAConnection(arrayUser.get(0));
 		
-		info("UserB comments in UserA's activity");
-		String comment = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
+		/*Step Number: 2
+		*Step Name: Step 2: Like activity
+		*Step Description: 
+			- Login as UserB
+			- Like UserA's activity at step 1
+		*Input Data: 
+		*Expected Outcome: 
+			- Like activity successfully
+			- Notification mail is sent to UserA*/ 
+		info("UserB likes UserA's activity");
 		hp.goToHomePage();
 		Utils.pause(3000);
-		hpAct.addCommentUsingJavascript(activity, comment);
+		hpAct.likeActivity(activity);
 		
 		info("Log in with User A");
 		magAc.signOut();
@@ -129,11 +131,19 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getContentByArrayTypeRandom(1);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 		String firstName=arrayUser.get(0);
-		String emailTitle=notiFormatEmailData.getContentByArrayTypeRandom(1);
-		String emailContent=notiFormatEmailData.getContentByArrayTypeRandom(6);
+		String emailTitle=notiFormatEmailData.getContentByArrayTypeRandom(2);
+		String emailContent=notiFormatEmailData.getContentByArrayTypeRandom(7);
 
+		/*Step Number: 3
+		*Step Name: Step 3: Check notification mail content
+		*Step Description: 
+			- Check notification mail content
+		*Input Data: 
+		*Expected Outcome: 
+			- Notification mail content is: New like on your activity stream
+			Hi UserA, UserB likes your activity: [Activity]Reply | View the full discussion*/ 
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
 		emailNot.getAllChildWindows();
@@ -141,29 +151,18 @@ import org.testng.annotations.*;
 		emailNot.goToDetailEmailNoti(titleEmail, fullName,"");
 		emailNot.getAllChildWindows();
 		emailNot.verifyFormatEmailNotifcation(emailTitle,firstName, fullName, emailContent,activity);
-        emailNot.closeChildBrowsers(parentWindow);
  	}
-
+	
 	/**
-	*<li> Case ID:117407.</li>
-	*<li> Test Case Name: Check Comment notification mail subject.</li>
-	*<li> Pre-Condition: - UserB comment on activity of UserA 
-	*or comment on activity where UserA has already commented
-	- Comment notification mail is sent</li>
+	*<li> Case ID:117484.</li>
+	*<li> Test Case Name: Check Like notification mail subject.</li>
+	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test03_CheckCommentNotificationMailSubject() {
+	public  void test03_CheckLikeNotificationMailSubject() {
 		info("Test 3: Check Comment notification mail subject");
-		/*Step Number: 1
-		*Step Name: Step 1: Check Comment notification mail subject
-		*Step Description: 
-			- Check Comment notification mail subject
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- Comment notification mail subject is:
-			Notification subject is :UserB has commented one of your activities*/ 
+		info("Create data test");
 		info("Create 2 users for testing");
 		createNewUser(2);
 		
@@ -174,7 +173,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.AS_Comment_email);
+		myNoti.enableNotification(myNotiType.AS_Like_email);
 		
 		info("Change email address");
 		navTool.goToMyProfile();
@@ -187,6 +186,15 @@ import org.testng.annotations.*;
 		hp.goToConnections();
 		connMag.connectToAUser(arrayUser.get(1));
 		
+		/*Step Number: 1
+		*Step Name: Step 1: Add new activity
+		*Step Description: 
+			- Login as UserA
+			- Add new activity
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- New activity is added*/ 
 		info("User A add an activity");
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		hp.goToHomePage();
@@ -199,16 +207,26 @@ import org.testng.annotations.*;
 		magAc.signIn(arrayUser.get(1), password);
 		Utils.pause(3000);
 		
-		info("User A and User B are connected");
+		info("User B accepted connection request from user A");
 		Utils.pause(3000);
 		hp.goToConnections();
 		connMag.acceptAConnection(arrayUser.get(0));
 		
-		info("UserB comments in UserA's activity");
-		String comment = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
+
+		/*Step Number: 2
+		*Step Name: Step 2: Like activity
+		*Step Description: 
+			- Login as UserB
+			- Like UserA's activity at step 1
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- Like activity successfully
+			- Notification mail is sent to UserA*/ 
+		info("UserB likes UserA's activity");
 		hp.goToHomePage();
 		Utils.pause(3000);
-		hpAct.addCommentUsingJavascript(activity, comment);
+		hpAct.likeActivity(activity);
 		
 		info("Log in with User A");
 		magAc.signOut();
@@ -218,8 +236,16 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getContentByArrayTypeRandom(1);
-
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
+		
+		/*Step Number: 3
+		*Step Name: Step 3: Check notification mail subject
+		*Step Description: 
+			- Check notification mail subject
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- Notification mail subject is: UserB likes your activity [Activity title] */ 
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
 		emailNot.getAllChildWindows();
@@ -227,18 +253,17 @@ import org.testng.annotations.*;
 		emailNot.goToDetailEmailNoti(titleEmail, fullName,"");
 		emailNot.getAllChildWindows();
         emailNot.closeChildBrowsers(parentWindow);
-
  	}
-
+	
 	/**
-	*<li> Case ID:117417.</li>
-	*<li> Test Case Name: Check default settings of Comment notification.</li>
+	*<li> Case ID:117418.</li>
+	*<li> Test Case Name: Check default settings of Like notification.</li>
 	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test
 	public  void test04_CheckDefaultSettingsOfCommentNotification() {
-		info("Test 4: Check default settings of Comment notification");
+		info("Test 4: Check default settings of like notification");
 		/*Step Number: 1
 		*Step Name: Step 1: Access notification settings
 		*Step Description: 
@@ -260,35 +285,37 @@ import org.testng.annotations.*;
 		myNoti.verifyTilePage();
 
 		/*Step number: 2
-		*Step Name: Step 2: Check default settings of Comment notification
+		*Step Name: Step 2: Check default settings of Like notification
 		*Step Description: 
-			Check default settings of Comment notification
+			Check default settings of Like notification
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- Default settings of Comment notification are: Email and Intranet notification are enabled*/
-		myNoti.verifyNotificationDefault(notificationType.AS_Comment_email);
-
+			- Default settings of like notification is Weekly*/ 
+		myNoti.verifyNotificationDefault(notificationType.AS_Like_email);
  	}
-
+	
 	/**
-	*<li> Case ID:117432.</li>
-	*<li> Test Case Name: Check digest mail when digest mail setting is Weekly.</li>
-	*<li> Pre-Condition: - UserB comment on activity of UserA 
-	*or comment on activity where UserA has already commented
-	- Digest mail settings is Weekly</li>
+	*<li> Case ID:117429.</li>
+	*<li> Test Case Name: Check digest mail when digest mail setting is Daily.</li>
+	*<li> Pre-Condition: 
+		- Login as UserA
+		- Add new activity
+		- Login as UserB
+		- Like UserA's activity
+		- Digest mail setting is: Daily</li>
 	*<li> Post-Condition: </li>
 	*CANNOT AUTOMATED
 	*/
 	@Test(groups="pending")
-	public  void test05_CheckDigestMailWhenDigestMailSettingIsWeekly() {
-		info("Test 5: Check digest mail when digest mail setting is Weekly");
+	public  void test05_CheckDigestMailWhenDigestMailSettingIsdaily() {
+		info("Test 5: Check digest mail when digest mail setting is Daily");
 		/*Step Number: 1
 		*Step Name: Step 1: Change server date/time
 		*Step Description: 
 			- Stop server
-			- Change server date/time 11:20 am of Sundy of this week
-			- Restart server
+			- Change server date/time 23:20 of this day
+			- Restart server 
 		*Input Data: 
 			
 		*Expected Outcome: 
@@ -301,29 +328,28 @@ import org.testng.annotations.*;
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- Digest mail is sent to UserA (at 11:30)*/ 
-
+			- Digest mail is sent to UserA at 23:20 of this day*/ 
  	}
-
+	
 	/**
-	*<li> Case ID:117448.</li>
-	*<li> Test Case Name: Check digest message after deleting a comment.</li>
-	*<li> Pre-Condition: User A add a comment to an activity of the User B</li>
+	*<li> Case ID:117449.</li>
+	*<li> Test Case Name: Check digest message after Unlike an activity.</li>
+	*<li> Pre-Condition: User A add a Like to an activity of the User B</li>
 	*<li> Post-Condition: </li>
 	*CANNOUT AUTOMATED
 	*/
 	@Test(groups="pending")
-	public  void test06_CheckDigestMessageAfterDeletingAComment() {
-		info("Test 6: Check digest message after deleting a comment");
+	public  void test06_CheckDigestMessageAfterUnikeAnActivity() {
+		info("Test 6: Check digest message after unlike an activity");
 		/*Step Number: 1
 		*Step Name: 
 		*Step Description: 
 			- Connect to Intranet with the User A
-			- Delete the comment added to the activity of the User B
+			- Unlike activity added to the activity of the User B
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- Thecomment is deleted*/
+			- The like number of activity decreases 1*/
 
 		/*Step number: 2
 		*Step Name: Step 1: Change date/time
@@ -343,27 +369,30 @@ import org.testng.annotations.*;
 			
 		*Expected Outcome: 
 			- The digest mail is sent
-			- The comment is not diaplayed in the digest mail*/ 
-
+			- The like is not diaplayed in the digest mail*/ 
  	}
-
+	
 	/**
-	*<li> Case ID:117455.</li>
+	*<li> Case ID:117437.</li>
 	*<li> Test Case Name: Check digest message when there are <=3 notifications.</li>
-	*<li> Pre-Condition: - UserB, UserC, UserD comment on activity of UserA or comment on activity where UserA has already commented
-	- Digest mail settings is Daily</li>
+	*<li> Pre-Condition: 
+		- Login as UserA
+		- Add new activity
+		- Login as UserB, UserC
+		- Like UserA's activity
+		- Digest mail setting is: Weekly</li>
 	*<li> Post-Condition: </li>
 	*CANNOT AUTOMATED
 	*/
 	@Test(groups="pending")
-	public  void test07_CheckDigestMessageWhenThereAreLeastAt3Notifications() {
+	public  void test07_CheckDigestMessageWhenThereAreLessThan3Notifications() {
 		info("Test 7: Check digest message when there are <=3 notifications");
 		/*Step Number: 1
 		*Step Name: Step 1: Change server date/time
 		*Step Description: 
 			- Stop server
-			- Change server date/time to 23:20 of this day
-			- Restart server
+			- Change server date/time to 23:20 of Friday
+			- Restart server 
 		*Input Data: 
 			
 		*Expected Outcome: 
@@ -372,19 +401,21 @@ import org.testng.annotations.*;
 		/*Step number: 2
 		*Step Name: Step 2: Check digest message
 		*Step Description: 
-			- Check the digest message in digest mail
+			- Check digest mail sent to UserA
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- The digest message is: UserB, UserC, UserD have commented on your activity : [Activity title]*/ 
-
+			- The digest message is: UserB, UserC have liked your activity: [Activity title]*/ 
  	}
-
+	
 	/**
-	*<li> Case ID:117460.</li>
+	*<li> Case ID:117438.</li>
 	*<li> Test Case Name: Check digest message when there are >3 notifications.</li>
-	*<li> Pre-Condition: - More than 3 users comment on activity of UserA or comment on activity where UserA has already commented (5 users for ex)
-	- Digest mail settings is Daily</li>
+	*<li> Pre-Condition: 
+		- Login as UserA
+		- Add new activity
+		- More than 3 users like UserA's activity (5 users for ex)
+		- Digest mail setting is: Weekly</li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test(groups="pending")
@@ -404,19 +435,22 @@ import org.testng.annotations.*;
 		/*Step number: 2
 		*Step Name: Step 2: Check digest message
 		*Step Description: 
-			- Check the digest message in digest mail
+			- Check digest mail sent to UserA
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- The digest message is: UserB, UserC, UserD and 2 others have commented on your activity : [Activity title]*/ 
-
+			- The digest message is: UserB, UserC, UserD and 2 others have liked your activity: [Activity title]*/ 
  	}
-
+	
 	/**
-	*<li> Case ID:117462.</li>
+	*<li> Case ID:117439.</li>
 	*<li> Test Case Name: Check digest message when there is only one notification.</li>
-	*<li> Pre-Condition: - UserB comment on activity of UserA or comment on activity where UserA has already commented
-	- Digest mail settings is Daily</li>
+	*<li> Pre-Condition: 
+		- Login as UserA
+		- Add new activity
+		- Login as UserB
+		- Like UserA's activity
+		- Digest mail setting is: Weekly</li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test(groups="pending")
@@ -436,23 +470,22 @@ import org.testng.annotations.*;
 		/*Step number: 2
 		*Step Name: Step 2: Check digest message
 		*Step Description: 
-			- Check the digest message in digest mail
+			- Check digest mail sent to UserA at 23:30
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- The digest message is: UserB has commented on your activity : [Activity title]*/ 
-
+			- The digest message is: UserB has liked your activity: [Activity title]*/ 
  	}
-
+	
 	/**
-	*<li> Case ID:117470.</li>
-	*<li> Test Case Name: Check event label of Comment notification.</li>
+	*<li> Case ID:117472.</li>
+	*<li> Test Case Name: Check event label of Like notification.</li>
 	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test10_CheckEventLabelOfCommentNotification() {
-		info("Test 10 Check event label of Comment notification");
+	public  void test10_CheckEventLabelOfLikeNotification() {
+		info("Test 10: Check event label of Like notification");
 		/*Step Number: 1
 		*Step Name: Step 1: Access notification settings
 		*Step Description: 
@@ -473,152 +506,27 @@ import org.testng.annotations.*;
 		navTool.goToMyNotifications();
 		myNoti.verifyTilePage();
 		/*Step number: 2
-		*Step Name: Step 2: Check event label of Comment notification
+		*Step Name: Step 2: Check event label of Like notification
 		*Step Description: 
-			Check event label of Comment notification
+			Check event label of Like notification
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- Event label of Comment notification is: Someone comments on one of my activities*/ 
-		String label = notiLabelData.getContentByArrayTypeRandom(9);
+			- Event label of Like notification is: Someone likes one of my activities*/ 
+		String label = notiLabelData.getContentByArrayTypeRandom(6);
 		myNoti.verifyLabelNotificationType(label);
-
  	}
-
+	
 	/**
-	*<li> Case ID:117496.</li>
-	*<li> Test Case Name: Check notification mail when someone comment on activity where user already commented.</li>
-	*<li> Pre-Condition: UserA is connected with UserB</li>
+	*<li> Case ID:117515.</li>
+	*<li> Test Case Name: Check notification when someone likes an activity for which the receiver is the author.</li>
+	*<li> Pre-Condition: The icon "send me an email right away" is checked</li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test11_CheckNotificationMailWhenSomeoneCommentOnActivityWhereUserAlreadyCommented() {
-		info("Test 11 Check notification mail when someone comment on activity where user already commented");
-		/*Step Number: 1
-		*Step Name: Step 1: Add new activity
-		*Step Description: 
-			- Login as userA
-			- Comment on an activity (not added by himself)
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- Comment is added*/
-		info("Create 3 users for testing");
-		createNewUser(3);
-		
-		info("User A login");
-		magAc.signOut();
-		magAc.signIn(arrayUser.get(0), password);
-		Utils.pause(3000);
-		
-		info("goto My notification");
-		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.AS_Comment_email);
-		
-		info("User A sent a connection request to User B");
-		Utils.pause(3000);
-		hp.goToConnections();
-		connMag.connectToAUser(arrayUser.get(1));
-		
-		info("User A sent a connection request to User C");
-		Utils.pause(3000);
-		hp.goToConnections();
-		connMag.connectToAUser(arrayUser.get(2));
-		
-		info("User A add an activity");
-		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		hp.goToHomePage();
-		Utils.pause(3000);
-		hpAct.addActivity(activity,null);
-		hpAct.checkActivity(activity);
-		
-		info("User B login");
-		magAc.signOut();
-		magAc.signIn(arrayUser.get(1), password);
-		Utils.pause(3000);
-		
-		info("Change email address");
-		navTool.goToMyProfile();
-		userProPage.goToEditProfile();
-		userProPage.updateBasicInformation("","",EMAIL_ADDRESS1);
-		userProPage.saveCancelUpdateInfo(true);
-		
-		info("User A and User B are connected");
-		Utils.pause(3000);
-		hp.goToConnections();
-		connMag.acceptAConnection(arrayUser.get(0));
-		
-		info("UserB comments in UserA's activity");
-		String comment = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		hp.goToHomePage();
-		Utils.pause(3000);
-		hpAct.addCommentUsingJavascript(activity, comment);
-
-		/*Step number: 2
-		*Step Name: Step 2: Add comment to activity
-		*Step Description: 
-			- Login as userB and add comment on activity at step 1
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- New comment is added*/
-		
-		info("Log in with User C");
-		magAc.signOut();
-		magAc.signIn(arrayUser.get(2), password);
-		
-		info("User A and User C are connected");
-		Utils.pause(3000);
-		hp.goToConnections();
-		connMag.acceptAConnection(arrayUser.get(0));
-		
-		info("UserC comments in UserA's activity");
-		String comment1 = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
-		hp.goToHomePage();
-		Utils.pause(3000);
-		hpAct.addCommentUsingJavascript(activity, comment1);
-
-		/*Step number: 3
-		*Step Name: Step 3: Check notification mail
-		*Step Description: 
-			- Check notification mail
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- Comment notification mail isn't sent to UserA*/ 
-		
-		String parentWindow = driver.getWindowHandle();
-		info("parentWindow:"+parentWindow);
-		
-		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getContentByArrayTypeRandom(1);
-
-		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
-		Utils.pause(10000);
-		emailNot.getAllChildWindows();
-		emailNot.verifyNOTPresentTitleASEmailNoti(titleEmail,fullName,"");
-        emailNot.closeChildBrowsers(parentWindow);
-
- 	}
-
-	/**
-	*<li> Case ID:117497.</li>
-	*<li> Test Case Name: Check notification mail when someone comment on user's activity.</li>
-	*<li> Pre-Condition: UserA is connected with UserB</li>
-	*<li> Post-Condition: </li>
-	*/
-	@Test
-	public  void test12_CheckNotificationMailWhenSomeoneCommentOnUsersActivity() {
-		info("Test 12 Check notification mail when someone comment on user's activity");
-		/*Step Number: 1
-		*Step Name: Step 1: Add new activity
-		*Step Description: 
-			- Login as userA
-			- Add new activity
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- New activity is added*/
+	public  void test11_CheckNotificationMailWhenSomeoneLikesAnActivityForWhichTheRecieverIsTheAuthor() {
+		info("Test 11 Check notification mail when someone likes an activity for which the receiver is the author");
+		info("Create data test");
 		info("Create 2 users for testing");
 		createNewUser(2);
 		
@@ -627,21 +535,29 @@ import org.testng.annotations.*;
 		magAc.signIn(arrayUser.get(0), password);
 		Utils.pause(3000);
 		
+		info("goto My notification");
+		navTool.goToMyNotifications();
+		myNoti.enableNotification(myNotiType.AS_Like_email);
+		
 		info("Change email address");
 		navTool.goToMyProfile();
 		userProPage.goToEditProfile();
 		userProPage.updateBasicInformation("","",EMAIL_ADDRESS1);
 		userProPage.saveCancelUpdateInfo(true);
 		
-		info("goto My notification");
-		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.AS_Comment_email);
-		
 		info("User A sent a connection request to User B");
 		Utils.pause(3000);
 		hp.goToConnections();
 		connMag.connectToAUser(arrayUser.get(1));
 		
+		/*Step Number: 1
+		*Step Name: Step 1: Add new activity
+		*Step Description: 
+			- Login as UserA
+			- Add new activity
+		*Input Data: 
+		*Expected Outcome: 
+			- New activity is added*/ 
 		info("User A add an activity");
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		hp.goToHomePage();
@@ -654,58 +570,57 @@ import org.testng.annotations.*;
 		magAc.signIn(arrayUser.get(1), password);
 		Utils.pause(3000);
 		
-		info("User A and User B are connected");
+		info("User B accepts connection request from User A");
 		Utils.pause(3000);
 		hp.goToConnections();
 		connMag.acceptAConnection(arrayUser.get(0));
 		
-		/*Step number: 2
-		*Step Name: Step 2: Add comment to activity
+		/*Step Number: 2
+		*Step Name: Step 2: Like activity
 		*Step Description: 
-			- Login as userB and add comment on UserA's activity
+			- Login as UserB
+			- Like UserA's activity at step 1
 		*Input Data: 
-			
 		*Expected Outcome: 
-			- New comment is added*/
-		
-		info("UserB comments in UserA's activity");
-		String comment = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
+			- Like activity successfully*/ 
+		info("UserB likes UserA's activity");
 		hp.goToHomePage();
 		Utils.pause(3000);
-		hpAct.addCommentUsingJavascript(activity, comment);
-
-		/*Step number: 3
-		*Step Name: Step 3: Check notification mail
-		*Step Description: 
-			- Check notification mail
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- Comment notification mail is sent to UserA*/ 
+		hpAct.likeActivity(activity);
+		
+		info("Log in with User A");
+		magAc.signOut();
+		magAc.signIn(arrayUser.get(0), password);
 		
 		String parentWindow = driver.getWindowHandle();
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getContentByArrayTypeRandom(1);
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
 
+		/*Step Number: 3
+		*Step Name: Step 3: Check notification mail content
+		*Step Description: 
+			- Check notification mail 
+		*Input Data: 
+		*Expected Outcome: 
+			- Like notification mail is sent to UserA*/ 
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
 		emailNot.getAllChildWindows();
-		emailNot.verifyNOTPresentTitleASEmailNoti(titleEmail,fullName,"");
-        emailNot.closeChildBrowsers(parentWindow);
-
+		emailNot.verifyPresentEmailActivityNotifications(titleEmail,fullName,"");
+		emailNot.closeChildBrowsers(parentWindow);
  	}
-
+	
 	/**
-	*<li> Case ID:117500.</li>
+	*<li> Case ID:117502.</li>
 	*<li> Test Case Name: Check notification name.</li>
 	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test13_CheckNotificationName() {
-		info("Test 13 Check notification name");
+	public  void test12_CheckNotificationName() {
+		info("Test 12: Check notification name");
 		/*Step Number: 1
 		*Step Name: Step 1: Access notification administration
 		*Step Description: 
@@ -726,61 +641,66 @@ import org.testng.annotations.*;
 		/*Step number: 2
 		*Step Name: Step 2: Check notification name
 		*Step Description: 
-			- Check notification name of Comment
+			- Check notification name of Like
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- Notification name is: Comment*/ 
-		String name =  notiLabelData.getModeByArrayTypeRandom(9);
+			- Notification name is: Like on Activity*/ 
+		String name =  notiLabelData.getModeByArrayTypeRandom(6);
 		notiAdmin.verifyNameNotificationType(name);
  	}
-
+	
 	/**
-	*<li> Case ID:117533.</li>
-	*<li> Test Case Name: Check the digest message is appended for each activity where the user has been commented.</li>
-	*<li> Pre-Condition: - There are 3 activities
-	- More than 3 users comment on activity1
-	- Less than or equal 3 users comment on activity2
-	- An user comments on activity3
-	- Digest mail setting is: Daily</li>
+	*<li> Case ID:117531.</li>
+	*<li> Test Case Name: Check the digest message is appended for each activity that was liked.</li>
+	*<li> Pre-Condition: 
+		- There are 3 activities of UserA
+		- More than 3 users like activity1 ( 6 users for ex)
+		- Less than or equal 3 users like activity2 
+		- An user likes activity 3
+		- Digest mail setting is: Weekly</li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test(groups="pending")
-	public  void test14_CheckTheDigestMessageIsAppendedForEachActivityWhereTheUserHasBeenCommented() {
-		info("Test 14 Check the digest message is appended for each activity where the user has been commented");
+	public  void test13_CheckTheDigestMessageIsAppendedForEachActivityThatWasLiked() {
+		info("Test 13: Check the digest message is appended for each activity that was liked");
 		/*Step Number: 1
 		*Step Name: Step 1: Change server date/time
 		*Step Description: 
 			- Stop server
-			- Change server date/time to 23:20 of this day
-			- Restart server
+			- Change server date/time to 23:20 of Friday
+			- Restart server 
 		*Input Data: 
 			
 		*Expected Outcome: 
 			- Server date/time is changed*/
 
 		/*Step number: 2
-		*Step Name: Step 2: Check digest message
+		*Step Name: Step 2: Check digest mail
 		*Step Description: 
-			Check the digest message
+			- Check digest mail sent to UserA
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- Check the digest message is appended for each activity where the user has been commented.For ex:John Smith, Mary Williams, Jack Daniels and 3 others have commented your activity : When will PLF 4.1 be releasedJohn Smith, Mary Williams have commented on your activity : Thanks for your presentationJames Davis has commented your activity : GitHub has been down all day. I can't push my work today*/ 
-
+			- The digest message is appended for each activity that was liked
+For example:
+    John Smith, Mary Williams, Jack Daniels and 3 others like your activity : When will PLF 4.1 be released
+    John Smith, Mary Williams  like your activity : Thanks for your presentation
+    James Davis likes your activity : GitHub has been down all day. I can't push my work today*/ 
  	}
-
+	
 	/**
-	*<li> Case ID:117556.</li>
-	*<li> Test Case Name: Check [Count] and [Activity Title] link in digest message.</li>
-	*<li> Pre-Condition: - More than 3 users (5 users for ex) comment on activity1: "Activity test 01" for ex
-	- Digest mail setting is: Daily
-	- The digest mail is sent with content for example:John Smith, Mary Williams, Jack Daniels and 2 others have commented your activity : Activity test 01</li>
+	*<li> Case ID:117554.</li>
+	*<li> Test Case Name: Check [Count] and [Activity title] link in digest mail.</li>
+	*<li> Pre-Condition: 
+		- UserA add new activity
+		- More than 3 users like UserA's activity ( 6 users for ex)
+		- Digest mail setting: Weekly</li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test(groups="pending")
-	public  void test15_CheckCountAndActivityTitleLinkInDigestMessage() {
-		info("Test 15 Check [Count] and [Activity Title] link in digest message");
+	public  void test14_CheckCountAndActivityTitleLinkInDigestMessage() {
+		info("Test 14: Check [Count] and [Activity Title] link in digest message");
 		/*Step Number: 1
 		*Step Name: Step 1: Change server date/time
 		*Step Description: 
@@ -795,46 +715,33 @@ import org.testng.annotations.*;
 		/*Step number: 2
 		*Step Name: Step 2: Check [Count] link
 		*Step Description: 
-			- Click [2] link in digest mail
+			- Click [3] link in digest mail
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- the user is taken directly to the activity and all comments are expanded.*/
+			- the user is taken directly to the activity and all likers are expanded..*/
 
 		/*Step number: 3
 		*Step Name: Step 3: Check [Activity title] link
 		*Step Description: 
-			- Click [Activity test 01] title
+			- Click [Activity title] link in digest mail
 		*Input Data: 
 			
 		*Expected Outcome: 
-			- the user is taken directly to the activity Viewer and activity. 
-			- all comments are expanded.*/ 
-
+			- the user is taken directly to the Activity Viewer and the activity. a
+			- All likers are expanded.*/ 
  	}
-
+	
 	/**
-	*<li> Case ID:117571.</li>
+	*<li> Case ID:117572.</li>
 	*<li> Test Case Name: Check [Reply] link in notification mail.</li>
-	*<li> Pre-Condition: - UserB comment on activity of 
-	*UserA or comment on activity where UserA has already commented
-	- Comment notification mail is sent</li>
+	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test16_CheckReplyLinkInNotificationMail() {
-		info("Test 16 Check [Reply] link in notification mail");
-		/*Step Number: 1
-		*Step Name: Step 1: Check [Reply] link in notification mail
-		*Step Description: 
-			- Click [Reply] link in notification mail
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- Replylink will take the user to the portal and display 
-			the activity in the activity viewer with all comments expanded and the comment box opened, 
-			ready for reply. 
-			- The comment in notification is highlighted.*/ 
+	public  void test15_CheckReplyLinkInNotificationMail() {
+		info("Test 15: Check [Reply] link in notification mail");
+		info("Create data Test");
 		info("Create 2 users for testing");
 		createNewUser(2);
 		
@@ -845,7 +752,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.AS_Comment_email);
+		myNoti.enableNotification(myNotiType.AS_Like_email);
 		
 		info("Change email address");
 		navTool.goToMyProfile();
@@ -858,6 +765,15 @@ import org.testng.annotations.*;
 		hp.goToConnections();
 		connMag.connectToAUser(arrayUser.get(1));
 		
+		/*Step Number: 1
+		*Step Name: Step 1: Add new activity
+		*Step Description: 
+			- Login as UserA
+			- Add new activity
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- New activity is added.*/ 
 		info("User A add an activity");
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		hp.goToHomePage();
@@ -870,16 +786,25 @@ import org.testng.annotations.*;
 		magAc.signIn(arrayUser.get(1), password);
 		Utils.pause(3000);
 		
-		info("User A and User B are connected");
+		info("User B accepted connection request from user A");
 		Utils.pause(3000);
 		hp.goToConnections();
 		connMag.acceptAConnection(arrayUser.get(0));
 		
-		info("UserB comments in UserA's activity");
-		String comment = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
+		/*Step Number: 2
+		*Step Name: Step 2: Like activity
+		*Step Description: 
+			- Login as UserB
+			- Like UserA's activity at step 1
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- Like activity successfully
+			- Notification mail is sent to UserA.*/ 
+		info("UserB likes UserA's activity");
 		hp.goToHomePage();
 		Utils.pause(3000);
-		hpAct.addCommentUsingJavascript(activity, comment);
+		hpAct.likeActivity(activity);
 		
 		info("Log in with User A");
 		magAc.signOut();
@@ -889,8 +814,18 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getContentByArrayTypeRandom(1);
-
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
+		
+		/*Step Number: 3
+		*Step Name: Step 3: Check [Reply] link in notification mail 
+		*Step Description: 
+			- Click [Reply] link in notification mail 
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- Reply link will take the user to the portal 
+			and display the activity viewer on the position of the activity 
+			with the comment box opened, ready for reply*/ 
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
 		emailNot.getAllChildWindows();
@@ -900,31 +835,20 @@ import org.testng.annotations.*;
 		emailNot.clickOnReplyBtn();
 		emailNot.getAllChildWindows();
 		notAct.checkFormatDetailActivity(true,activity);
-		notAct.checkCommentExpand(comment, true);
+		notAct.checkLikeInActivityViewer("1");
         emailNot.closeChildBrowsers(parentWindow);
-
  	}
-
+	
 	/**
-	*<li> Case ID:117582.</li>
+	*<li> Case ID:117583.</li>
 	*<li> Test Case Name: Check [View full discussion] link in notification mail.</li>
-	*<li> Pre-Condition: - UserB comment on activity of UserA or comment on activity where UserA has already commented
-	- Comment notification mail is sent</li>
+	*<li> Pre-Condition: </li>
 	*<li> Post-Condition: </li>
 	*/
 	@Test
-	public  void test17_CheckViewFullDiscussionLinkInNotificationMail() {
-		info("Test 17 Check [View full discussion] link in notification mail");
-		/*Step Number: 1
-		*Step Name: Step 1: Check [View full discussion] link in notification mail
-		*Step Description: 
-			- Click [View full discussion] link in notification mail
-		*Input Data: 
-			
-		*Expected Outcome: 
-			- [View full discussion] link will take the user to the portal and 
-			display the activity in the activity viewer with all comments expanded. 
-			- The comment in notification is highlighted.*/ 
+	public  void test16_CheckViewFullDiscussionLinkInNotificationMail() {
+		info("Test 16: Check [View full discussion] link in notification mail");
+		info("Create data test");
 		info("Create 2 users for testing");
 		createNewUser(2);
 		
@@ -935,7 +859,7 @@ import org.testng.annotations.*;
 		
 		info("goto My notification");
 		navTool.goToMyNotifications();
-		myNoti.enableNotification(myNotiType.AS_Comment_email);
+		myNoti.enableNotification(myNotiType.AS_Like_email);
 		
 		info("Change email address");
 		navTool.goToMyProfile();
@@ -948,6 +872,15 @@ import org.testng.annotations.*;
 		hp.goToConnections();
 		connMag.connectToAUser(arrayUser.get(1));
 		
+		/*Step Number: 1
+		*Step Name: Step 1: Add new activity
+		*Step Description: 
+			- Login as UserA
+			- Add new activity
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- New activity is added.*/ 
 		info("User A add an activity");
 		String activity = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
 		hp.goToHomePage();
@@ -965,11 +898,20 @@ import org.testng.annotations.*;
 		hp.goToConnections();
 		connMag.acceptAConnection(arrayUser.get(0));
 		
-		info("UserB comments in UserA's activity");
-		String comment = txData.getContentByArrayTypeRandom(1) + getRandomNumber();
+		/*Step Number: 2
+		*Step Name: Step 2: Like activity
+		*Step Description: 
+			- Login as UserB
+			- Like UserA's activity at step 1
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- Like activity successfully
+			- Notification mail is sent to UserA.*/ 
+		info("UserB likes UserA's activity");
 		hp.goToHomePage();
 		Utils.pause(3000);
-		hpAct.addCommentUsingJavascript(activity, comment);
+		hpAct.likeActivity(activity);
 		
 		info("Log in with User A");
 		magAc.signOut();
@@ -979,8 +921,18 @@ import org.testng.annotations.*;
 		info("parentWindow:"+parentWindow);
 		
 		String fullName=arrayUser.get(1)+" "+arrayUser.get(1);
-		String titleEmail=notiEmailData.getContentByArrayTypeRandom(1);
-
+		String titleEmail=notiEmailData.getContentByArrayTypeRandom(3);
+		
+		/*Step Number: 3
+		*Step Name: Step 3: Check [View full discussion] link in notification mail 
+		*Step Description: 
+			- Click [View full discussion] link in notification mail 
+		*Input Data: 
+			
+		*Expected Outcome: 
+			- View full discussion link will take the user to the portal 
+			and display the activity viewer on the position of the activity 
+			with all comments expanded..*/ 
 		goToMail(EMAIL_ADDRESS1, EMAIL_PASS);
 		Utils.pause(10000);
 		emailNot.getAllChildWindows();
@@ -989,7 +941,8 @@ import org.testng.annotations.*;
 		emailNot.getAllChildWindows();
 		emailNot.clickOnViewDiscussBtn();
 		emailNot.getAllChildWindows();
-		notAct.checkCommentExpand(comment, true);
+		notAct.checkFormatDetailActivity(false,activity);
+		notAct.checkLikeInActivityViewer("1");
         emailNot.closeChildBrowsers(parentWindow);
-
- 	}}
+ 	}
+}

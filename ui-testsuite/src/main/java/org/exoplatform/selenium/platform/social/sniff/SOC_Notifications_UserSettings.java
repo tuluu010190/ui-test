@@ -174,7 +174,7 @@ import org.testng.annotations.*;
 		switchToParentWindow();
 		info("restore data");
 		navTool.goToMyNotifications();
-		myNotifPage.resetNotificationSetting();
+		myNotifPage.confirmResetNotificationSetting();
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
 		userAndGroup.deleteUser(username2);
@@ -250,7 +250,7 @@ import org.testng.annotations.*;
 		switchToParentWindow();
 		info("restore data");
 		navTool.goToMyNotifications();
-		myNotifPage.resetNotificationSetting();
+		myNotifPage.confirmResetNotificationSetting();
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
  	}
@@ -316,7 +316,7 @@ import org.testng.annotations.*;
 		
 		info("restore data");
 		navTool.goToMyNotifications();
-		myNotifPage.resetNotificationSetting();
+		myNotifPage.confirmResetNotificationSetting();
 		navTool.goToUsersAndGroupsManagement();
 		userAndGroup.deleteUser(username1);
  	}
@@ -405,7 +405,7 @@ import org.testng.annotations.*;
 		waitForElementNotPresent(navTool.ELEMENT_NOTIFICATION_LIST_USER.replace("${user}", DATA_NAME_USER2));
 		info("restore data");
 		navTool.goToMyNotifications();
-		myNotifPage.resetNotificationSetting();
+		myNotifPage.confirmResetNotificationSetting();
 		
  	}
     

@@ -22,6 +22,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 		NewUser_email,NewUser_intranet,ConnectionRequest_email,ConnectionRequest_intranet,AS_Comment_email,AS_Comment_intranet,AS_Like_email,AS_Like_intranet,AS_Post_email,AS_Post_intranet,AS_Mention_email,AS_Mention_intranet,
 		Space_Post_email,Space_Post_intranet,Space_Join_Req_email,Space_Join_Req_intranet,Space_Invitation_email,Space_Invitation_Intranet;
 	}
+	
 	/**
 	 * Disable notification
 	 * @param notifToDisable
@@ -36,7 +37,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_EDIT_NEWUSER_MAIL_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_NEW_USER_MAIL_ICON,3000,1);
 			break;
 		case NewUser_intranet:
 			info("Click on Edit button");
@@ -46,7 +47,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
 			info("Verify that intranet notification is hidded");
-			waitForElementNotPresent(ELEMENT_EDIT_NEWUSER_WEB_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_NEW_USER_INTRANET_ICON,3000,1);
 			break;
 		case ConnectionRequest_email:
 			click(ELEMENT_EDIT_RECREQ_ICON);
@@ -55,7 +56,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_RECREQ_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_RECREQ_MAIL_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_CONNECTION_REQ_MAIL_ICON,3000,1);
 			break;
 		case ConnectionRequest_intranet:
 			click(ELEMENT_EDIT_RECREQ_ICON);
@@ -64,7 +65,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_RECREQ_SAVE_BTN);
 			info("Verify that Intranet notification is hidded");
-			waitForElementNotPresent(ELEMENT_RECREQ_WEB_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_CONNECTION_REQ_INTRANET_ICON,3000,1);
 			break;
 		case AS_Comment_email:
 			click(ELEMENT_EDIT_COMMENT_ICON);
@@ -82,7 +83,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_COMMENT_SAVE_BTN);
 			info("Verify that Intranet notification is hidded");
-			waitForElementNotPresent(ELEMENT_COMMENT_WEB_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_COMMENT_INTRANET_ICON,3000,1);
 			break;
 		case AS_Like_email:
 			click(ELEMENT_EDIT_LIKE_ICON);
@@ -100,7 +101,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_LIKE_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_LIKE_WEB_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_LIKE_INTRANET_ICON,3000,1);
 			break;
 		case AS_Post_email:
 			click(ELEMENT_EDIT_POST_ICON);
@@ -118,7 +119,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_POST_WEB_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_POST_INTRANET_ICON,3000,1);
 			break;
 		case AS_Mention_email:
 			click(ELEMENT_EDIT_MENTION_ICON);
@@ -136,7 +137,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_MENTION_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_MENTION_WEB_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_MENTION_INTRANET_ICON,3000,1);
 			break;
 		case Space_Post_email:
 			click(ELEMENT_EDIT_POST_SPACE_ICON);
@@ -145,7 +146,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_MAIL_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_POST_SPACE_MAIL_ICON,3000,1);
 			break;
 		case Space_Post_intranet:
 			click(ELEMENT_EDIT_POST_SPACE_ICON);
@@ -154,7 +155,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_WEB_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_POST_SPACE_INTRANET_ICON,3000,1);
 			break;
 		case Space_Join_Req_email:
 			click(ELEMENT_EDIT_REQJOIN_SPACE_ICON);
@@ -163,7 +164,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_REQJOIN_SPACE_MAIL_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_JOIN_REQ_SPACE_MAIL_ICON,3000,1);
 			break;
 		case Space_Join_Req_intranet:
 			click(ELEMENT_EDIT_REQJOIN_SPACE_ICON);
@@ -172,7 +173,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_REQJOIN_SPACE_WEB_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_JOIN_REQ_SPACE_INTRANET_ICON,3000,1);
 			break;
 		case Space_Invitation_email:
 			click(ELEMENT_EDIT_INVI_SPACE_ICON);
@@ -181,7 +182,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_INVI_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_EDIT_INVI_SPACE_MAIL_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_INVITATION_SPACE_MAIL_ICON,3000,1);
 			break;
 		case Space_Invitation_Intranet:
 			click(ELEMENT_EDIT_INVI_SPACE_ICON);
@@ -190,7 +191,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			info("Click on Save button");
 			click(ELEMENT_EDIT_INVI_SPACE_SAVE_BTN);
 			info("Verify that email notification is hidded");
-			waitForElementNotPresent(ELEMENT_EDIT_INVI_SPACE_WEB_ICON,3000,1);
+			waitForElementNotPresent(ELEMENT_INVITATION_SPACE_INTRANET_ICON,3000,1);
 			break;
 		}
 	}
@@ -211,8 +212,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 			select(ELEMENT_EDIT_NEWUSER_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_EDIT_NEWUSER_MAIL_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_NEW_USER_MAIL_ICON,3000,1);
 			break;
 		case NewUser_intranet:
 			info("Click on Edit button");
@@ -221,8 +222,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 				check(ELEMENT_EDIT_NEWUSER_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_NEWUSER_SAVE_BTN);
-			info("Verify that intranet notification is hidded");
-			waitForAndGetElement(ELEMENT_EDIT_NEWUSER_WEB_ICON,3000,1);
+			info("Verify that intranet notification is shown");
+			waitForAndGetElement(ELEMENT_NEW_USER_INTRANET_ICON,3000,1);
 			break;
 		case ConnectionRequest_email:
 			click(ELEMENT_EDIT_RECREQ_ICON);
@@ -232,8 +233,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 			select(ELEMENT_EDIT_RECREQ_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_RECREQ_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_RECREQ_MAIL_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_CONNECTION_REQ_MAIL_ICON,3000,1);
 			break;
 		case ConnectionRequest_intranet:
 			click(ELEMENT_EDIT_RECREQ_ICON);
@@ -241,8 +242,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 				check(ELEMENT_EDIT_RECREQ_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_RECREQ_SAVE_BTN);
-			info("Verify that Intranet notification is hidded");
-			waitForAndGetElement(ELEMENT_RECREQ_WEB_ICON,3000,1);
+			info("Verify that Intranet notification is shown");
+			waitForAndGetElement(ELEMENT_CONNECTION_REQ_INTRANET_ICON,3000,1);
 			break;
 		case AS_Comment_email:
 			click(ELEMENT_EDIT_COMMENT_ICON);
@@ -252,7 +253,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			select(ELEMENT_EDIT_COMMENT_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_COMMENT_SAVE_BTN);
-			info("Verify that email notification is hidded");
+			info("Verify that email notification is shown");
 			waitForAndGetElement(ELEMENT_COMMENT_MAIL_ICON,3000,1);
 			break;
 		case AS_Comment_intranet:
@@ -261,8 +262,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 				check(ELEMENT_EDIT_COMMENT_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_COMMENT_SAVE_BTN);
-			info("Verify that Intranet notification is hidded");
-			waitForAndGetElement(ELEMENT_COMMENT_WEB_ICON,3000,1);
+			info("Verify that Intranet notification is shown");
+			waitForAndGetElement(ELEMENT_COMMENT_INTRANET_ICON,3000,1);
 			break;
 		case AS_Like_email:
 			click(ELEMENT_EDIT_LIKE_ICON);
@@ -272,7 +273,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			select(ELEMENT_EDIT_LIKE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_LIKE_SAVE_BTN);
-			info("Verify that email notification is hidded");
+			info("Verify that email notification is shown");
 			waitForAndGetElement(ELEMENT_LIKE_MAIL_ICON,3000,1);
 			break;
 		case AS_Like_intranet:
@@ -281,8 +282,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 				check(ELEMENT_EDIT_LIKE_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_LIKE_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_LIKE_WEB_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_LIKE_INTRANET_ICON,3000,1);
 			break;
 		case AS_Post_email:
 			click(ELEMENT_EDIT_POST_ICON);
@@ -292,7 +293,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			select(ELEMENT_EDIT_POST_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SAVE_BTN);
-			info("Verify that email notification is hidded");
+			info("Verify that email notification is shown");
 			waitForAndGetElement(ELEMENT_POST_MAIL_ICON,3000,1);
 			break;
 		case AS_Post_intranet:
@@ -301,8 +302,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 				check(ELEMENT_EDIT_POST_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_POST_WEB_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_POST_INTRANET_ICON,3000,1);
 			break;
 		case AS_Mention_email:
 			click(ELEMENT_EDIT_MENTION_ICON);
@@ -312,7 +313,7 @@ public class MyNotificationsSetting extends NotificationLocator{
 			select(ELEMENT_EDIT_MENTION_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_MENTION_SAVE_BTN);
-			info("Verify that email notification is hidded");
+			info("Verify that email notification is shown");
 			waitForAndGetElement(ELEMENT_MENTION_MAIL_ICON,3000,1);
 			break;
 		case AS_Mention_intranet:
@@ -321,8 +322,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 				check(ELEMENT_EDIT_MENTION_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_MENTION_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_MENTION_WEB_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_MENTION_INTRANET_ICON,3000,1);
 			break;
 		case Space_Post_email:
 			click(ELEMENT_EDIT_POST_SPACE_ICON);
@@ -332,8 +333,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 			select(ELEMENT_EDIT_POST_SPACE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SPACE_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_MAIL_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_POST_SPACE_MAIL_ICON,3000,1);
 			break;
 		case Space_Post_intranet:
 			click(ELEMENT_EDIT_POST_SPACE_ICON);
@@ -341,8 +342,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 				check(ELEMENT_EDIT_POST_SPACE_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_POST_SPACE_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_WEB_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_POST_SPACE_INTRANET_ICON,3000,1);
 			break;
 		case Space_Join_Req_email:
 			click(ELEMENT_EDIT_REQJOIN_SPACE_ICON);
@@ -352,8 +353,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 			select(ELEMENT_EDIT_REQJOIN_SPACE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_REQJOIN_SPACE_MAIL_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_JOIN_REQ_SPACE_MAIL_ICON,3000,1);
 			break;
 		case Space_Join_Req_intranet:
 			click(ELEMENT_EDIT_REQJOIN_SPACE_ICON);
@@ -361,8 +362,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 				check(ELEMENT_EDIT_REQJOIN_SPACE_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_REQJOIN_SPACE_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_REQJOIN_SPACE_WEB_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_JOIN_REQ_SPACE_INTRANET_ICON,3000,1);
 			break;
 		case Space_Invitation_email:
 			click(ELEMENT_EDIT_INVI_SPACE_ICON);
@@ -372,8 +373,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 			select(ELEMENT_EDIT_INVI_SPACE_LIST,opt);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_INVI_SPACE_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_EDIT_INVI_SPACE_MAIL_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_INVITATION_SPACE_MAIL_ICON,3000,1);
 			break;
 		case Space_Invitation_Intranet:
 			click(ELEMENT_EDIT_INVI_SPACE_ICON);
@@ -381,8 +382,8 @@ public class MyNotificationsSetting extends NotificationLocator{
 				check(ELEMENT_EDIT_INVI_SPACE_WEB_CHECKBOX,2);
 			info("Click on Save button");
 			click(ELEMENT_EDIT_INVI_SPACE_SAVE_BTN);
-			info("Verify that email notification is hidded");
-			waitForAndGetElement(ELEMENT_EDIT_INVI_SPACE_WEB_ICON,3000,1);
+			info("Verify that email notification is shown");
+			waitForAndGetElement(ELEMENT_INVITATION_SPACE_INTRANET_ICON,3000,1);
 			break;
 		}
 	}
@@ -425,12 +426,23 @@ public class MyNotificationsSetting extends NotificationLocator{
 		}
 	}
 	/**
-	 * Reset all notificaiton setting
+	 * confirm Reset all notification setting
 	 */
-	public void resetNotificationSetting(){
-		info("Reset all notification setting");
+	public void confirmResetNotificationSetting(){
+		info("Click on Reset button");
 		click(ELEMENT_RESET_BTN);
+		info("Click on Confirm button");
 		click(ELEMENT_RESET_CONFIRM);
+		Utils.pause(2000);
+	}
+	/**
+	 * Cancel reseting all notification settng
+	 */
+	public void cancelResetNotiSetting(){
+		info("click on reset button");
+		click(ELEMENT_RESET_BTN);
+		info("click on cancel button");
+		click(ELEMENT_RESET_CANCEL);
 		Utils.pause(2000);
 	}
 	
@@ -528,12 +540,12 @@ public class MyNotificationsSetting extends NotificationLocator{
     	switch(type){
     	case NewUser_email:
     		info("Verify that email for new user notification is shown");
-    		waitForAndGetElement(ELEMENT_EDIT_NEWUSER_MAIL_ICON);
+    		waitForAndGetElement(ELEMENT_NEW_USER_MAIL_ICON);
     		info("The notification is shown successfully");
     		break;
     	case NewUser_intranet:
     		info("Verify that email for new user notification is shown");
-    		waitForAndGetElement(ELEMENT_EDIT_NEWUSER_WEB_ICON);
+    		waitForAndGetElement(ELEMENT_NEW_USER_INTRANET_ICON);
     		info("The notification is shown successfully");
     		break;
     	case AS_Comment_email:
@@ -543,7 +555,7 @@ public class MyNotificationsSetting extends NotificationLocator{
     		break;
     	case AS_Comment_intranet:
     		info("Verify that intranet for comment notification is shown");
-    		waitForAndGetElement(ELEMENT_COMMENT_WEB_ICON);
+    		waitForAndGetElement(ELEMENT_COMMENT_INTRANET_ICON);
     		info("The notification is shown successfully");
     		break;
     	case AS_Like_email:
@@ -553,7 +565,7 @@ public class MyNotificationsSetting extends NotificationLocator{
     		break;
     	case AS_Like_intranet:
     		info("Verify that intranet for like notification is shown");
-    		waitForAndGetElement(ELEMENT_LIKE_WEB_ICON);
+    		waitForAndGetElement(ELEMENT_LIKE_INTRANET_ICON);
     		info("The notification is shown successfully");
     		break;
     	case AS_Mention_email:
@@ -563,7 +575,7 @@ public class MyNotificationsSetting extends NotificationLocator{
     		break;
     	case AS_Mention_intranet:
     		info("Verify that intranet for mention notification is shown");
-    		waitForAndGetElement(ELEMENT_MENTION_WEB_ICON);
+    		waitForAndGetElement(ELEMENT_MENTION_INTRANET_ICON);
     		info("The notification is shown successfully");
     		break;
     	case AS_Post_email:
@@ -573,47 +585,47 @@ public class MyNotificationsSetting extends NotificationLocator{
     		break;
     	case AS_Post_intranet:
     		info("Verify that email for post notification is shown");
-    		waitForAndGetElement(ELEMENT_POST_WEB_ICON);
+    		waitForAndGetElement(ELEMENT_POST_INTRANET_ICON);
     		info("The notification is shown successfully");
     		break;
     	case ConnectionRequest_email:
     		info("Verify that email for connection request notification is shown");
-    		waitForAndGetElement(ELEMENT_RECREQ_MAIL_ICON);
+    		waitForAndGetElement(ELEMENT_CONNECTION_REQ_MAIL_ICON);
     		info("The notification is shown successfully");
     		break;
     	case ConnectionRequest_intranet:
     		info("Verify that intranet for connection request notification is shown");
-    		waitForAndGetElement(ELEMENT_RECREQ_WEB_ICON);
+    		waitForAndGetElement(ELEMENT_CONNECTION_REQ_INTRANET_ICON);
     		info("The notification is shown successfully");
     		break;
     	case Space_Invitation_email:
     		info("Verify that email for space invitation notification is shown");
-    		waitForAndGetElement(ELEMENT_EDIT_INVI_SPACE_MAIL_ICON);
+    		waitForAndGetElement(ELEMENT_INVITATION_SPACE_MAIL_ICON);
     		info("The notification is shown successfully");
     		break;
     	case Space_Invitation_intranet:
     		info("Verify that intranet for space invitation notification is shown");
-    		waitForAndGetElement(ELEMENT_EDIT_INVI_SPACE_WEB_ICON);
+    		waitForAndGetElement(ELEMENT_INVITATION_SPACE_INTRANET_ICON);
     		info("The notification is shown successfully");
     		break;
     	case Space_Join_email:
     		info("Verify that email for space joint request notification is shown");
-    		waitForAndGetElement(ELEMENT_REQJOIN_SPACE_MAIL_ICON);
+    		waitForAndGetElement(ELEMENT_JOIN_REQ_SPACE_MAIL_ICON);
     		info("The notification is shown successfully");
     		break;
     	case Space_Join_intranet:
     		info("Verify that intranet for space joint request notification is shown");
-    		waitForAndGetElement(ELEMENT_REQJOIN_SPACE_WEB_ICON);
+    		waitForAndGetElement(ELEMENT_JOIN_REQ_SPACE_INTRANET_ICON);
     		info("The notification is shown successfully");
     		break;
     	case Space_Post_email:
     		info("Verify that email for space post notification is shown");
-    		waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_MAIL_ICON);
+    		waitForAndGetElement(ELEMENT_POST_SPACE_MAIL_ICON);
     		info("The notification is shown successfully");
     		break;
     	case Space_Post_intranet:
     		info("Verify that intranet for space post notification is shown");
-    		waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+    		waitForAndGetElement(ELEMENT_POST_SPACE_INTRANET_ICON);
     		info("The notification is shown successfully");
     		break;
     	}
@@ -623,25 +635,26 @@ public class MyNotificationsSetting extends NotificationLocator{
 	 * Verify that notification's type is disabled all
 	 * @param type
 	 */
-	public void veriftyNotificationTypeDisable(notificationType type){
+	public void verifyNotificationTypeDisable(notificationType type){
 		switch(type){
 		case NewUser_email:
 			info("Verify that New user's email is disabled");
-			waitForElementNotPresent(ELEMENT_EDIT_NEWUSER_MAIL_ICON);
+			waitForElementNotPresent(ELEMENT_NEW_USER_MAIL_ICON);
 			info("Verify that daily email is shown");
-			waitForAndGetElement(ELEMENT_EDIT_NEW_USER_MAIL_DAILY);
+			waitForAndGetElement(ELEMENT_NEW_USER_SELECTED_BOX_MAIL_ICON.
+					replace("$option",selectBoxMailType.Daily.name().toString()));
 			break;
 		case NewUser_intranet:
 			info("Verify that New user's notification's intranet is disabled");
-			waitForElementNotPresent(ELEMENT_EDIT_NEWUSER_WEB_ICON);
+			waitForElementNotPresent(ELEMENT_NEW_USER_INTRANET_ICON);
 			break;
 		case ConnectionRequest_email:
 			info("Verify that Connection request's email is disabled");
-			waitForElementNotPresent(ELEMENT_RECREQ_MAIL_ICON);
+			waitForElementNotPresent(ELEMENT_CONNECTION_REQ_MAIL_ICON);
 			break;
 		case ConnectionRequest_intranet:
 			info("Verify that Connection request's email is disabled");
-			waitForElementNotPresent(ELEMENT_RECREQ_WEB_ICON);
+			waitForElementNotPresent(ELEMENT_CONNECTION_REQ_INTRANET_ICON);
 			break;
 		case AS_Comment_email:
 			info("Verify that Activity Comment's email is disabled");
@@ -649,21 +662,21 @@ public class MyNotificationsSetting extends NotificationLocator{
 			break;
 		case AS_Comment_intranet:
 			info("Verify that Activity like's intranet is disabled");
-			waitForElementNotPresent(ELEMENT_COMMENT_WEB_ICON);
+			waitForElementNotPresent(ELEMENT_COMMENT_INTRANET_ICON);
 			break;
 		case AS_Mention_email:
 			info("Verify that Activity mention's email is disabled");
 			waitForElementNotPresent(ELEMENT_MENTION_MAIL_ICON);
 		case AS_Mention_intranet:
 			info("Verify that Activity mention's intranet is disabled");
-			waitForElementNotPresent(ELEMENT_MENTION_WEB_ICON);
+			waitForElementNotPresent(ELEMENT_MENTION_INTRANET_ICON);
 			break;
 		case AS_Like_email:
 			info("Verify that Activity like's email is disabled");
 			waitForElementNotPresent(ELEMENT_LIKE_MAIL_ICON);
 		case AS_Like_intranet:
 			info("Verify that Activity like's intranet is disabled");
-			waitForElementNotPresent(ELEMENT_LIKE_WEB_ICON);
+			waitForElementNotPresent(ELEMENT_LIKE_INTRANET_ICON);
 			break;
 		case AS_Post_email:
 			info("Verify that Activity post's email is disabled");
@@ -671,31 +684,140 @@ public class MyNotificationsSetting extends NotificationLocator{
 			break;
 		case AS_Post_intranet:
 			info("Verify that Activity post's intranet is disabled");
-			waitForElementNotPresent(ELEMENT_POST_WEB_ICON);
+			waitForElementNotPresent(ELEMENT_POST_INTRANET_ICON);
 			break;
 		case Space_Invitation_email:
 			info("Verify that Space invitation's email is disabled");
-			waitForElementNotPresent(ELEMENT_EDIT_INVI_SPACE_MAIL_ICON);
+			waitForElementNotPresent(ELEMENT_INVITATION_SPACE_MAIL_ICON);
 			break;
 		case Space_Invitation_intranet:
 			info("Verify that Space invitation's intranet is disabled");
-			waitForElementNotPresent(ELEMENT_EDIT_INVI_SPACE_WEB_ICON);
+			waitForElementNotPresent(ELEMENT_INVITATION_SPACE_INTRANET_ICON);
 			break;
 		case Space_Join_email:
 			info("Verify that Space join's email is disabled");
-			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_MAIL_ICON);
+			waitForElementNotPresent(ELEMENT_JOIN_REQ_SPACE_MAIL_ICON);
 			break;
 		case Space_Join_intranet:
 			info("Verify that Space join's intranet is disabled");
-			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+			waitForElementNotPresent(ELEMENT_JOIN_REQ_SPACE_INTRANET_ICON);
 			break;
 		case Space_Post_email:
 			info("Verify that Space post's email is disabled");
-			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_MAIL_ICON);
+			waitForElementNotPresent(ELEMENT_POST_SPACE_MAIL_ICON);
 			break;
 		case Space_Post_intranet:
 			info("Verify that Space post's intranet is disabled");
-			waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+			waitForElementNotPresent(ELEMENT_POST_SPACE_INTRANET_ICON);
+			break;
+		}
+	}
+	/**
+	 * Define email's type in selected box
+	 * as Never, Daily or Weekly
+	 */
+	public enum selectBoxMailType{
+		Never,Daily,Weekly;
+	}
+	/**
+	 * Verify that notification by default
+	 * @param type
+	 */
+	public void verifyNotificationDefault(notificationType type){
+		switch(type){
+		case NewUser_email:
+			info("Verify that New user's email is disabled");
+			waitForElementNotPresent(ELEMENT_NEW_USER_MAIL_ICON);
+			info("Verify that daily email is shown");
+			waitForAndGetElement(ELEMENT_NEW_USER_SELECTED_BOX_MAIL_ICON.
+					replace("$option",selectBoxMailType.Daily.name().toString()));
+			break;
+		case NewUser_intranet:
+			info("Verify that New user's notification's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_NEW_USER_INTRANET_ICON);
+			break;
+		case ConnectionRequest_email:
+			info("Verify that Connection request's email is shown");
+			waitForAndGetElement(ELEMENT_CONNECTION_REQ_MAIL_ICON);
+			info("Verify that daily email is shown");
+			waitForAndGetElement(ELEMENT_CONNECTION_REQ_SELECTED_BOX_MAIL_ICON.
+					replace("$option",selectBoxMailType.Daily.name().toString()));
+			break;
+		case ConnectionRequest_intranet:
+			info("Verify that Connection request's email is shown");
+			waitForAndGetElement(ELEMENT_CONNECTION_REQ_INTRANET_ICON);
+			break;
+		case AS_Comment_email:
+			info("Verify that Activity Comment's email is shown");
+			waitForAndGetElement(ELEMENT_COMMENT_MAIL_ICON);
+			info("Verify that daily email is shown");
+			waitForAndGetElement(ELEMENT_COMMENT_SELECTED_BOX_MAIL_ICON.
+					replace("$option",selectBoxMailType.Daily.name().toString()));
+			break;
+		case AS_Comment_intranet:
+			info("Verify that Activity like's intranet is shown");
+			waitForAndGetElement(ELEMENT_COMMENT_INTRANET_ICON);
+			break;
+		case AS_Mention_email:
+			info("Verify that Activity mention's email is shown");
+			waitForAndGetElement(ELEMENT_MENTION_MAIL_ICON);
+			info("Verify that any selected box email is disabled");
+			waitForElementNotPresent(ELEMENT_MENTION_SELECTED_BOX_MAIL_ICON_ANY);
+		case AS_Mention_intranet:
+			info("Verify that Activity mention's intranet is disabled");
+			waitForAndGetElement(ELEMENT_MENTION_INTRANET_ICON);
+			break;
+		case AS_Like_email:
+			info("Verify that Activity like's email is disabled");
+			waitForElementNotPresent(ELEMENT_LIKE_MAIL_ICON);
+			info("Verify that weekly email is shown");
+			waitForAndGetElement(ELEMENT_LIKE_SELECTED_BOX_MAIL_ICON.
+					replace("$option",selectBoxMailType.Weekly.name().toString()));
+		case AS_Like_intranet:
+			info("Verify that Activity like's intranet is disabled");
+			waitForElementNotPresent(ELEMENT_LIKE_INTRANET_ICON);
+			break;
+		case AS_Post_email:
+			info("Verify that Activity post's email is shown");
+			waitForAndGetElement(ELEMENT_POST_MAIL_ICON);
+			info("Verify that any selected box email is disabled");
+			waitForElementNotPresent(ELEMENT_POST_SELECTED_BOX_MAIL_ICON_ANY);
+			break;
+		case AS_Post_intranet:
+			info("Verify that Activity post's intranet is shown");
+			waitForAndGetElement(ELEMENT_POST_INTRANET_ICON);
+			break;
+		case Space_Invitation_email:
+			info("Verify that Space invitation's email is shown");
+			waitForAndGetElement(ELEMENT_INVITATION_SPACE_MAIL_ICON);
+			info("Verify that weekly email is shown");
+			waitForAndGetElement(ELEMENT_INVI_SPACE_SELECTED_BOX_MAIL_ICON.
+					replace("$option",selectBoxMailType.Weekly.name().toString()));
+			break;
+		case Space_Invitation_intranet:
+			info("Verify that Space invitation's intranet is shown");
+			waitForAndGetElement(ELEMENT_INVITATION_SPACE_INTRANET_ICON);
+			break;
+		case Space_Join_email:
+			info("Verify that Space join's email is shown");
+			waitForAndGetElement(ELEMENT_JOIN_REQ_SPACE_MAIL_ICON);
+			info("Verify that weekly email is shown");
+			waitForAndGetElement(ELEMENT_JOIN_SPACE_SELECTED_BOX_MAIL_ICON.
+					replace("$option",selectBoxMailType.Weekly.name().toString()));
+			break;
+		case Space_Join_intranet:
+			info("Verify that Space join's intranet is shown");
+			waitForAndGetElement(ELEMENT_JOIN_REQ_SPACE_INTRANET_ICON);
+			break;
+		case Space_Post_email:
+			info("Verify that Space post's email is disabled");
+			waitForAndGetElement(ELEMENT_POST_SPACE_MAIL_ICON);
+			info("Verify that any selected box email is disabled");
+			waitForElementNotPresent(ELEMENT_POST_SPACE_SELECTED_BOX_MAIL_ICON_ANY);
+			break;
+		case Space_Post_intranet:
+			info("Verify that Space post's intranet is disabled");
+			waitForAndGetElement(ELEMENT_POST_SPACE_INTRANET_ICON);
 			break;
 		}
 	}
@@ -711,29 +833,6 @@ public class MyNotificationsSetting extends NotificationLocator{
 		info("the label is correct");
     	
     }
-	/**
-	 * Check Default User Settings of Intranet Notifications.
-	 */
-	public void checkDefaultIntranetNotiSettings(){
-		info("New User : No Notifications");
-		waitForElementNotPresent(ELEMENT_NEWUSER_ICON_INTRANET_NOTIFICATION);
-		info("Connection Request : Intranet Notification");
-		waitForAndGetElement(ELEMENT_CONNECTION_REQUEST_ICON_INTRANET_NOTIFICATION);
-		info("Space Invitation : Intranet Notification");
-		waitForAndGetElement(ELEMENT_SPACE_INVITATION_INTRANET_NOTIFICATION_ICON);
-		info("Space Join Request: Intranet Notification");
-		waitForAndGetElement(ELEMENT_REQJOIN_SPACE_WEB_ICON);
-		info("Mention : Intranet Notification");
-		waitForAndGetElement(ELEMENT_MENTION_WEB_ICON);
-		info("Comment : Intranet Notification");
-		waitForAndGetElement(ELEMENT_ACTIVITY_COMMENT_ICON_INTRANET_NOTIFICATION);
-		info("Like : No notifications");
-		waitForElementNotPresent(ELEMENT_LIKE_WEB_ICON);
-		info("Post on my Steam : Intranet Notification");
-		waitForAndGetElement(ELEMENT_POST_WEB_ICON);
-		info("Post on my Space : Intranet Notification");
-		waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
-	}
 	/**
 	 * Verify Email notification toggle
 	 */
@@ -762,104 +861,116 @@ public class MyNotificationsSetting extends NotificationLocator{
 	 * Verify all email notification is disabled 
 	 * when turn-off Email Notification toggle
 	 */
-	public void veriftyAllEmailNotiDisable(){
+	public void veriftyAllEmailNotiDefaultDisable(){
 		info("Verify that daily email is disabled");
-		waitForElementNotPresent(ELEMENT_EDIT_NEW_USER_MAIL_DAILY);
+		waitForElementNotPresent(ELEMENT_NEW_USER_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Daily.name().toString()));
 		info("Verify that Connection request's email is disabled");
-		waitForElementNotPresent(ELEMENT_RECREQ_MAIL_ICON);
-		waitForElementNotPresent(ELEMENT_RECREQ_MAIL_SELECT_BOX_ICON);
+		waitForElementNotPresent(ELEMENT_CONNECTION_REQ_MAIL_ICON);
+		waitForElementNotPresent(ELEMENT_CONNECTION_REQ_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Daily.name().toString()));
 		info("Verify that Activity Comment's email is disabled");
 		waitForElementNotPresent(ELEMENT_COMMENT_MAIL_ICON);
-		waitForElementNotPresent(ELEMENT_COMMENT_MAIL_SELECT_BOX_ICON);
+		waitForElementNotPresent(ELEMENT_COMMENT_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Daily.name().toString()));
 		info("Verify that Activity mention's email is disabled");
 		waitForElementNotPresent(ELEMENT_MENTION_MAIL_ICON);
 		info("Verify that Activity like's email is disabled");
-		waitForElementNotPresent(ELEMENT_LIKE_MAIL_ICON);
+		waitForElementNotPresent(ELEMENT_LIKE_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Weekly.name().toString()));
 		info("Verify that Activity post's email is disabled");
 		waitForElementNotPresent(ELEMENT_POST_MAIL_ICON);
 		info("Verify that Space invitation's email is disabled");
-		waitForElementNotPresent(ELEMENT_EDIT_INVI_SPACE_MAIL_ICON);
-		waitForElementNotPresent(ELEMENT_INVI_SPACE_MAIL_SELECT_BOX_ICON);
+		waitForElementNotPresent(ELEMENT_INVITATION_SPACE_MAIL_ICON);
+		waitForElementNotPresent(ELEMENT_INVI_SPACE_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Weekly.name().toString()));
 		info("Verify that Space join request's email is disabled");
-		waitForElementNotPresent(ELEMENT_REQJOIN_SPACE_MAIL_ICON);
-		waitForElementNotPresent(ELEMENT_REQJOIN_SPACE_MAIL_SELECT_BOX_ICON);
+		waitForElementNotPresent(ELEMENT_JOIN_REQ_SPACE_MAIL_ICON);
+		waitForElementNotPresent(ELEMENT_JOIN_SPACE_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Weekly.name().toString()));
 		info("Verify that Space post's email is disabled");
-		waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_MAIL_ICON);
+		waitForElementNotPresent(ELEMENT_POST_SPACE_MAIL_ICON);
 	}
 	
 	/**
 	 * Verify all email notification is enabled
 	 * when turn-off Email Notification toggle
 	 */
-	public void veriftyAllEmailNotiEnabled(){
+	public void veriftyAllEmailNotiDefaultEnabled(){
 		info("Verify that daily email is disabled");
-		waitForAndGetElement(ELEMENT_EDIT_NEW_USER_MAIL_DAILY);
+		waitForAndGetElement(ELEMENT_NEW_USER_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Daily.name().toString()));
 		info("Verify that Connection request's email is disabled");
-		waitForAndGetElement(ELEMENT_RECREQ_MAIL_ICON);
-		waitForAndGetElement(ELEMENT_RECREQ_MAIL_SELECT_BOX_ICON);
+		waitForAndGetElement(ELEMENT_CONNECTION_REQ_MAIL_ICON);
+		waitForAndGetElement(ELEMENT_CONNECTION_REQ_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Daily.name().toString()));
 		info("Verify that Activity Comment's email is disabled");
 		waitForAndGetElement(ELEMENT_COMMENT_MAIL_ICON);
-		waitForAndGetElement(ELEMENT_COMMENT_MAIL_SELECT_BOX_ICON);
+		waitForAndGetElement(ELEMENT_COMMENT_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Daily.name().toString()));
 		info("Verify that Activity mention's email is disabled");
 		waitForAndGetElement(ELEMENT_MENTION_MAIL_ICON);
 		info("Verify that Activity like's email is disabled");
-		waitForAndGetElement(ELEMENT_LIKE_MAIL_SELECT_BOX_ICON);
+		waitForAndGetElement(ELEMENT_LIKE_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Weekly.name().toString()));
 		info("Verify that Activity post's email is disabled");
 		waitForAndGetElement(ELEMENT_POST_MAIL_ICON);
 		info("Verify that Space invitation's email is disabled");
-		waitForAndGetElement(ELEMENT_EDIT_INVI_SPACE_MAIL_ICON);
-		waitForAndGetElement(ELEMENT_INVI_SPACE_MAIL_SELECT_BOX_ICON);
+		waitForAndGetElement(ELEMENT_INVITATION_SPACE_MAIL_ICON);
+		waitForAndGetElement(ELEMENT_INVI_SPACE_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Weekly.name().toString()));
 		info("Verify that Space join request's email is disabled");
-		waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_MAIL_ICON);
-		waitForAndGetElement(ELEMENT_REQJOIN_SPACE_MAIL_SELECT_BOX_ICON);
+		waitForAndGetElement(ELEMENT_JOIN_REQ_SPACE_MAIL_ICON);
+		waitForAndGetElement(ELEMENT_JOIN_SPACE_SELECTED_BOX_MAIL_ICON.
+				replace("$option",selectBoxMailType.Weekly.name().toString()));
 		info("Verify that Space post's email is disabled");
-		waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_MAIL_ICON);
+		waitForAndGetElement(ELEMENT_POST_SPACE_MAIL_ICON);
 	}
 	
 	/**
 	 * Verify all intranet notifications is disabled 
 	 * when turn-off intranet Notification toggle
 	 */
-	public void veriftyAllIntranetNotiDisable(){
+	public void veriftyAllIntranetNotiDefaultDisable(){
 		info("Verify that New user's intranet is disabled");
-		waitForElementNotPresent(ELEMENT_EDIT_NEWUSER_WEB_ICON);
+		waitForElementNotPresent(ELEMENT_NEW_USER_INTRANET_ICON);
 		info("Verify that Connection request's intranet is disabled");
-		waitForElementNotPresent(ELEMENT_RECREQ_WEB_ICON);
+		waitForElementNotPresent(ELEMENT_CONNECTION_REQ_INTRANET_ICON);
 		info("Verify that Activity Comment's intranet is disabled");
-		waitForElementNotPresent(ELEMENT_COMMENT_WEB_ICON);
+		waitForElementNotPresent(ELEMENT_COMMENT_INTRANET_ICON);
 		info("Verify that Activity mention's intranet is disabled");
-		waitForElementNotPresent(ELEMENT_MENTION_WEB_ICON);
+		waitForElementNotPresent(ELEMENT_MENTION_INTRANET_ICON);
 		info("Verify that Activity like's intranet is disabled");
-		waitForElementNotPresent(ELEMENT_LIKE_WEB_ICON);
+		waitForElementNotPresent(ELEMENT_LIKE_INTRANET_ICON);
 		info("Verify that Activity post's intranet is disabled");
-		waitForElementNotPresent(ELEMENT_POST_WEB_ICON);
+		waitForElementNotPresent(ELEMENT_POST_INTRANET_ICON);
 		info("Verify that Space invitation's intranet is disabled");
-		waitForElementNotPresent(ELEMENT_EDIT_INVI_SPACE_WEB_ICON);
+		waitForElementNotPresent(ELEMENT_INVITATION_SPACE_MAIL_ICON);
 		info("Verify that Space join's intranet is disabled");
-		waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+		waitForElementNotPresent(ELEMENT_JOIN_REQ_SPACE_INTRANET_ICON);
 		info("Verify that Space post's intranet is disabled");
-		waitForElementNotPresent(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+		waitForElementNotPresent(ELEMENT_POST_SPACE_INTRANET_ICON);
 	}
 	
 	/**
 	 * Verify all intranet notifications is enabled
 	 * when turn-off intranet Notification toggle
 	 */
-	public void veriftyAllIntranetNotiEnabled(){
+	public void veriftyAllIntranetNotiDefaultEnabled(){
 		info("Verify that Connection request's intranet is enabled");
-		waitForAndGetElement(ELEMENT_RECREQ_WEB_ICON);
+		waitForAndGetElement(ELEMENT_CONNECTION_REQ_INTRANET_ICON);
 		info("Verify that Activity Comment's intranet is enabled");
-		waitForAndGetElement(ELEMENT_COMMENT_WEB_ICON);
+		waitForAndGetElement(ELEMENT_COMMENT_INTRANET_ICON);
 		info("Verify that Activity mention's intranet is enabled");
-		waitForAndGetElement(ELEMENT_MENTION_WEB_ICON);
+		waitForAndGetElement(ELEMENT_MENTION_INTRANET_ICON);
 		info("Verify that Activity post's intranet is enabled");
-		waitForAndGetElement(ELEMENT_POST_WEB_ICON);
+		waitForAndGetElement(ELEMENT_POST_INTRANET_ICON);
 		info("Verify that Space invitation's intranet is enabled");
-		waitForAndGetElement(ELEMENT_EDIT_INVI_SPACE_WEB_ICON);
+		waitForAndGetElement(ELEMENT_INVITATION_SPACE_INTRANET_ICON);
 		info("Verify that Space join's intranet is enabled");
-		waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+		waitForAndGetElement(ELEMENT_JOIN_REQ_SPACE_INTRANET_ICON);
 		info("Verify that Space post's intranet is enabled");
-		waitForAndGetElement(ELEMENT_EDIT_POST_SPACE_WEB_ICON);
+		waitForAndGetElement(ELEMENT_POST_SPACE_INTRANET_ICON);
 	}
 	
 }

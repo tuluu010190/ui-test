@@ -3,7 +3,7 @@ package org.exoplatform.selenium.platform.social.functional;
 import static org.exoplatform.selenium.TestLogger.info;
 
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting.myNotiType;
-import org.openqa.selenium.WebElement;
+import org.exoplatform.selenium.platform.social.NotificationsAdminSeting.notificationType;
 import org.testng.annotations.*;
 
 
@@ -113,7 +113,7 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 
 		magAc.signIn(username1, password1);
 		navTool.goToMyNotifications();
-		waitForAndGetElement(myNotifPage.ELEMENT_MY_NOTIFICATION_SETTING_FORM);
+		myNotifPage.verifyTilePage();
 
 		/*Step number: 2
 		 *Step Name: Step 2: Change notification settings
@@ -137,9 +137,9 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 			- The change at step 2 is not saved in notification settings of user2*/ 
 		magAc.signIn(DATA_USER1, DATA_PASS);
 		navTool.goToMyNotifications();
-		waitForAndGetElement(myNotifPage.ELEMENT_MY_NOTIFICATION_SETTING_FORM);
-		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_NEWUSER_WEB_ICON);
-		waitForElementNotPresent(myNotifPage.ELEMENT_LIKE_WEB_ICON);
+		myNotifPage.verifyTilePage();
+		myNotifPage.verifyNotificationTypeDisable(notificationType.NewUser_intranet);
+		myNotifPage.verifyNotificationTypeDisable(notificationType.AS_Like_intranet);
 	}
 
 	/**
@@ -172,7 +172,7 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 			- Notification Settings page is appeared*/
 		magAc.signIn(username1, password1);
 		navTool.goToMyNotifications();
-		waitForAndGetElement(myNotifPage.ELEMENT_MY_NOTIFICATION_SETTING_FORM);
+		myNotifPage.verifyTilePage();
 		myNotifPage.enableNotification(myNotiType.NewUser_intranet);
 		myNotifPage.enableNotification(myNotiType.AS_Like_intranet);
 
@@ -187,13 +187,9 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		 *Expected Outcome: 
 			- Message "All your notification settings will be reset to default values. Your previous settings will be lost" is displayed
 			- All changes are not reset*/ 
-		click(myNotifPage.ELEMENT_RESET_BTN);
-		WebElement elem = waitForAndGetElement(myNotifPage.ELEMENT_RESET_CONFIRM_MSG_ELEMENT);
-		assert elem.getText().contains(myNotifPage.ELEMENT_RESET_CONFIRM_MSG);
-		click(myNotifPage.ELEMENT_RESET_CANCEL);
-		waitForAndGetElement(myNotifPage.ELEMENT_EDIT_NEWUSER_WEB_ICON);
-		waitForAndGetElement(myNotifPage.ELEMENT_LIKE_WEB_ICON);
-
+		myNotifPage.cancelResetNotiSetting();
+		myNotifPage.verifyNotificationTypeEnable(notificationType.NewUser_intranet);
+		myNotifPage.verifyNotificationTypeEnable(notificationType.AS_Like_intranet);
 
 		/*Step number: 2
 		 *Step Name: Step 2: Check [Reset] button when Confirm
@@ -206,11 +202,8 @@ public class SOC_Notification_Notification_Settings extends SOC_TestConfig{
 		 *Expected Outcome: 
 			- Message "All your notification settings will be reset to default values. Your previous settings will be lost" is displayed
 			- All changes are reset to default values*/
-		click(myNotifPage.ELEMENT_RESET_BTN);
-		elem = waitForAndGetElement(myNotifPage.ELEMENT_RESET_CONFIRM_MSG_ELEMENT);
-		assert elem.getText().contains(myNotifPage.ELEMENT_RESET_CONFIRM_MSG);
-		click(myNotifPage.ELEMENT_RESET_CONFIRM);
-		waitForElementNotPresent(myNotifPage.ELEMENT_EDIT_NEWUSER_WEB_ICON);
-		waitForElementNotPresent(myNotifPage.ELEMENT_LIKE_WEB_ICON);
+		myNotifPage.confirmResetNotificationSetting();
+		myNotifPage.verifyNotificationTypeDisable(notificationType.NewUser_intranet);
+		myNotifPage.verifyNotificationTypeDisable(notificationType.AS_Like_intranet);
 	}
 }

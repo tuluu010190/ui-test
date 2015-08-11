@@ -742,8 +742,14 @@ public class NotificationsAdminSeting extends NotificationLocator {
     		info("The notification is shown successfully");
     		break;
     	case AS_Like_email:
+    		info("Verify that email for like notification is shown");
+    		waitForAndGetElement(ELEMENT_ADMIN_NOTIFICATION_ACTIVITY_LIKE_ENABLE_EMAIL);
+    		info("The notification is shown successfully");
     		break;
     	case AS_Like_intranet:
+    		info("Verify that intranet for like notification is shown");
+    		waitForAndGetElement(ELEMENT_ADMIN_NOTIFICATION_ACTIVITY_LIKE_ENABLE_INTRANET);
+    		info("The notification is shown successfully");
     		break;
     	case AS_Mention_email:
     		info("Verify that email for connection request notification is shown");
