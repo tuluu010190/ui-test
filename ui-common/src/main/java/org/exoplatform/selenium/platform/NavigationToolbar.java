@@ -667,6 +667,7 @@ public class NavigationToolbar extends PlatformBase {
 		info("Go to add user page");
 		waitForAndGetElement(ELEMENT_TOOLBAR_ADMINISTRATION,3000,0);
 		click(ELEMENT_TOOLBAR_ADMINISTRATION);
+		waitForAndGetElement(ELEMENT_ADMINISTRATION_USERS, DEFAULT_TIMEOUT, 0);
 		mouseOver(ELEMENT_ADMINISTRATION_USERS,true);
 		if(waitForAndGetElement(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS,3000,0)!=null)
 			click(ELEMENT_ADMINISTRATION_PORTAL_ADD_USERS);

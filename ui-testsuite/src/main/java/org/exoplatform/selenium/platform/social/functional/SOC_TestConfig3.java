@@ -12,6 +12,7 @@ import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.exoplatform.selenium.platform.ManageLogInOut;
 import org.exoplatform.selenium.platform.NavigationToolbar;
 import org.exoplatform.selenium.platform.PlatformBase;
+import org.exoplatform.selenium.platform.administration.ChangeLanguages;
 import org.exoplatform.selenium.platform.answer.AnswerHomePage;
 import org.exoplatform.selenium.platform.answer.AnswerManagement;
 import org.exoplatform.selenium.platform.answer.QuestionManagement;
@@ -27,6 +28,7 @@ import org.exoplatform.selenium.platform.gatein.UserAddManagement;
 import org.exoplatform.selenium.platform.gatein.UserAndGroupManagement;
 import org.exoplatform.selenium.platform.objectdatabase.common.AttachmentFileDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.DataTestPathDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.common.LanguageDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.LinksDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.TextBoxDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.common.UserInfoDatabase;
@@ -43,6 +45,7 @@ import org.exoplatform.selenium.platform.social.NotificationsAdminSeting;
 import org.exoplatform.selenium.platform.social.SpaceHomePage;
 import org.exoplatform.selenium.platform.social.SpaceManagement;
 import org.exoplatform.selenium.platform.social.SpaceSettingManagement;
+import org.exoplatform.selenium.platform.social.UserPageBase;
 import org.exoplatform.selenium.platform.social.UserProfilePage;
 import org.exoplatform.selenium.platform.wiki.WikiHomePage;
 import org.exoplatform.selenium.platform.wiki.WikiManagement;
@@ -62,6 +65,7 @@ public class SOC_TestConfig3 extends PlatformBase {
 	IntranetNotification intraNot;
 	EmailNotifications emailNot;
 	NotificationActivity notAct;
+	ChangeLanguages changeLang;
 	
 	WikiHomePage wHome;
 	WikiManagement wikiMg;
@@ -84,6 +88,7 @@ public class SOC_TestConfig3 extends PlatformBase {
 	NotificationDatabase notiMessData;
 	ActivityCommentDatabase actCommentData;
 	NotificationCategoryDatabase notiCatData;
+	LanguageDatabase langData;
 	
 	LinksDatabase linkData;
 	AttachmentFileDatabase attFileData;
@@ -101,6 +106,7 @@ public class SOC_TestConfig3 extends PlatformBase {
 	ForumHomePage forumHP;
 	ForumForumManagement forumMag;
 	ForumTopicManagement foTopic;
+	UserPageBase uBase;
 	
 	String password;
 	ArrayList<String> arrayUser;
@@ -131,6 +137,7 @@ public class SOC_TestConfig3 extends PlatformBase {
 		emailNot = new EmailNotifications(driver);
 		wHome=new WikiHomePage(driver);
 		wikiMg = new WikiManagement(driver);
+		changeLang = new ChangeLanguages(driver);
 		
 		spaHome = new SpaceHomePage(driver);
 		spaMg = new SpaceManagement(driver);
@@ -148,6 +155,7 @@ public class SOC_TestConfig3 extends PlatformBase {
 		forumHP= new ForumHomePage(driver);
 		foTopic = new ForumTopicManagement(driver);
 		notAct = new NotificationActivity(driver);
+		uBase = new UserPageBase(driver);
 		
 		userInfoData = new UserInfoDatabase();
 		userInfoData.setUserInfoData(userInfoFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
@@ -184,7 +192,10 @@ public class SOC_TestConfig3 extends PlatformBase {
 		
 		siteExPath = new SiteExplorerPathDatabase();
 		siteExPath.setSiteExpPathData(siteExpPathPath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
-
+		
+		langData = new LanguageDatabase();
+		langData.setLanguageData(languageFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
+		
 		dataTestForlderPath = new DataTestPathDatabase();
 		dataTestForlderPath.setDataTestPathData(dataTestFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 

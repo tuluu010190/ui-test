@@ -497,11 +497,9 @@ public class NotificationsAdminSeting extends NotificationLocator {
 		if(!address.isEmpty()){
 			info("Input address");
 			type(ELEMENT_ADMIN_NOTIFICATION_SENDER_ADDRESS,address,true);
-		}
-		
+		}	
 		info("Click on Save button");
 		click(ELEMENT_ADMIN_NOTIFICATION_SENDER_SAVE_BTN);
-		
 	}
 	/**
 	 * Verify fail when input incorrect address in Notification Sender area

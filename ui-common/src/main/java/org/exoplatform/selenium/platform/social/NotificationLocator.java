@@ -11,12 +11,30 @@ public class NotificationLocator extends PlatformBase{
 	public final String ELEMENT_GMAIL_FORMAT_OPENNING_SUB=".//*[text()='Hi $firstName,']";
 	public final String ELEMENT_GMAIL_FORMAT_CONTENT=".//strong//*[contains(text(),'$fullName')]/../../..//*[contains(.,'$content')]";
 	public final String ELEMENT_GMAIL_FORMAT_CONTENT_CONNECTION_REQUEST="//*[contains(@href,'$username')]/../..//*[contains(.,'$content')]";
+	public final String ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_REQUEST="//*[contains(@href,'$username')]/../..//*[contains(.,'$content')]//a[contains(text(),'$space')]";
+	public final String ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_INVITATION="//p[contains(text(),\"$content\")]//a[contains(text(),'$space')]";
 	public final String ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE=".//*[contains(text(),'$title')]";
 	public final String ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE_1=".//*[text()='$title']";
+	public final String ELEMENT_GMAIL_FORMAT_ACTIVITY_LINK="//*[contains(@href,'$link') and contains(@style,'display:inline')]";
+	public final String ELEMENT_GMAIL_FORMAT_LINK_FILE= "//a[text()='$linkFile']";
+	public final String ELEMENT_GMAIL_FORMAT_SHOW_DETAIL_BTN= ".//*[contains(@data-tooltip,'Show details')]";
+	public final String ELEMENT_GMAIL_FORMAT_RECIPIENT="//*[contains(text(),'to:')]/../..//*[@email='$email' and contains(text(),'$userName')]";
+	public final String ELEMENT_GMAIL_FORMAT_SENDER="//*[contains(text(),'from:')]/../..//*[@email='$email' and contains(text(),'$userName')]";
+	public final String ELEMENT_GMAIL_FORMAT_USER_LINK="(//*[contains(@href,'$userName') and text()='$fullName'])[1]";
+	public final String ELEMENT_GMAIL_FORMAT_PORTAL_LINK="(//*[contains(@href,'eXo')])[2]";
+	public final String ELEMENT_GMAIL_FORMAT_SPACE_LINK="//*[contains(@href,'space') and contains(text(),'$space')]";
+	public final By ELEMENT_GMAIL_FORMAT_WATCH_VIDEO_LINK=By.xpath("//*[contains(@href,'view_full_activity') and contains(normalize-space(),'Watch the video')]");
 	public By ELEMENT_GMAIL_USER_AVARTAR = By.xpath("//img[contains(@src,'UserAvtDefault.png')]");
+	public By ELEMENT_GMAIL_SPACE_AVARTAR = By.xpath("//img[contains(@src,'SpaceAvtDefault.png')]");
 	public By ELEMENT_GMAIL_ACCEPT_BTN=By.xpath("//*[contains(@href,'confirmInvitationToConnect')]");
 	public By ELEMENT_GMAIL_REFUSE_BTN = By.xpath("//*[contains(@href,'ignoreInvitationToConnect')]");
 	public By ELEMENT_GMAIL_CONNECT_NOW=By.xpath("//*[contains(@href,'inviteToConnect')]");
+	public By ELEMENT_GMAIL_ACCEPT_SPACE_BTN=By.xpath("//*[contains(@href,'acceptInvitationToJoinSpace')]");
+	public By ELEMENT_GMAIL_REFUSE_SPACE_INVITATION_BTN=By.xpath("//*[contains(@href,'ignoreInvitationToJoinSpace')]");
+	public By ELEMENT_GMAIL_REFUSE_JOIN_SPACE_BTN=By.xpath("//*[contains(@href,'refuseRequestToJoinSpace')]");
+	public By ELEMENT_GMAIL_VALIDATE_SPACE_BTN=By.xpath("//*[contains(@href,'validateRequestToJoinSpace')]");
+	public String ELEMENT_GMAIL_BOTTOM_CONTENT= "//*[contains(text(),'$content1')]//*[contains(@href,'notification_settings')]/../..//*[contains(.,'$content2')]";
+	public String ELEMENT_GMAIL_BOTTOM_CLICK_HERE_LINK= "//a[contains(@href,'notification_setting') and text()='click here']";
 	
 	
 	//CONNECTION REQUEST

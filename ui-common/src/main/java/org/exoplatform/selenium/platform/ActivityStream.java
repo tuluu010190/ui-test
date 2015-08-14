@@ -234,7 +234,7 @@ public class ActivityStream extends PlatformBase {
 	 */
 	public void checkActivity(String name){
 		info("Verify that the activity of the name:"+name+" is shown");
-		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("${title}",name)),3000,1);
+		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("${title}",name)),DEFAULT_TIMEOUT,1);
 		info("The activity of the name:"+name+" is shown successfully");
 	}
 	/**

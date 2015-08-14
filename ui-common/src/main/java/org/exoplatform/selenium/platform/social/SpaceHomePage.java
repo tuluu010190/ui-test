@@ -39,6 +39,7 @@ public class SpaceHomePage extends PlatformBase{
 	public By ELEMENT_SPACE_WIKI_TAB=By.xpath(".//*[@id='spaceMenuTab']//*[contains(text(),'Wiki')]");
 	public By ELEMENT_SPACE_WIKI_TAB_CONTENT=By.xpath("//*[@id='UIWikiPortlet']");
 	public By ELEMENT_SPACE_WIKI_TAB_ACTIVE=By.xpath("//*[@class='active item']/*[@data-toggle='tab']/*[contains(text(),'Wiki')]");
+	public By ELEMENT_SPACE_ACTIVITY_TAB_ACTIVE=By.xpath("//*[@class='active item']/*[@data-toggle='tab']/*[contains(text(),'Activity')]");
 	public String ELEMENT_SPACE_MENU_TAB=".//*[@id='spaceMenuTab']//*[@id='${tab}']";
 	public By ELEMENT_SPACE_MENU_MORE = By.xpath(".//*[@id='spaceMenuTab']//*[contains(text(),'More')]");
 	public By ELEMENT_SPACE_MENU_DASHBOARD = By.xpath(".//*[@id='spaceMenuTab']//*[@id='DashboardPortlet']");

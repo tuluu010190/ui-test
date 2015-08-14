@@ -5,17 +5,31 @@ import static org.exoplatform.selenium.TestLogger.info;
 import java.util.Set;
 
 import org.exoplatform.selenium.Utils;
+import org.exoplatform.selenium.platform.ActivityStream;
+import org.exoplatform.selenium.platform.HomePagePlatform;
 import org.openqa.selenium.WebDriver;
 
 
 public class EmailNotifications extends NotificationLocator{
 	
+	UserProfilePage userProPage;
+	HomePagePlatform hpPlat;
+	SpaceHomePage spaceHome;
+	ActivityStream hpAct;
 	/**
 	 * constructor
 	 * @param dr
 	 */
 	public EmailNotifications(WebDriver dr){
 		this.driver=dr;
+		userProPage = new UserProfilePage(dr);
+		hpPlat = new HomePagePlatform(dr);
+		spaceHome = new SpaceHomePage(dr);
+		hpAct = new ActivityStream(dr);
+	}
+	
+	public enum linkEmailNotification{
+		NewUser_Link, Space_Link, Portal_Link, Click_Here_Link, Watch_This_Video;
 	}
 	
 	/**
@@ -141,7 +155,7 @@ public class EmailNotifications extends NotificationLocator{
 				info("Verify that email notificaiton is sent to user's inbox");
 				waitForAndGetElement(ELEMENT_GMAIL_TITLE_WITH_INDEX.replace("$title",title)
 						.replace("$fullName", fullName).replace("$num",isParams[0]),30000, 1);
-			}else{
+			}else {
 				info("Verify that email notificaiton is sent to user's inbox");
 				waitForAndGetElement(ELEMENT_GMAIL_TITLE.replace("$title",title)
 						.replace("$fullName", fullName),30000, 1);
@@ -213,7 +227,7 @@ public class EmailNotifications extends NotificationLocator{
 	 * @param actTitle
 	 */
 	public void verifyFormatEmailNotifcation(String emailTitle,String firstName,
-			String fullName,String emailContent,String actTitle){
+			String fullName,String emailContent,String actTitle, String...link){
 		if(!emailTitle.isEmpty()){
 			info("Verify Email notificaiton's title");
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_TITLE.
@@ -239,6 +253,11 @@ public class EmailNotifications extends NotificationLocator{
 			else
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE
 					.replace("$title",actTitle));
+		}
+		if(link.length>0 && link[0]!=null && link[0]!=""){
+			info("Verify the activity's link");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_LINK
+					.replace("$link",link[0]));
 		}
 		info("Verify Reply button");
 		waitForAndGetElement(ELEMENT_GMAIL_REPLY_BTN);
@@ -269,14 +288,15 @@ public class EmailNotifications extends NotificationLocator{
 					.replace("$firstName",firstName));
 		}
 		
-		if(!emailContent.isEmpty() && !firstName.isEmpty()){
+		if(!emailContent.isEmpty() && !userName.isEmpty()){
 			info("Verify the email's content as: connection request's content");
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT_CONNECTION_REQUEST
 					.replace("$username",userName).replace("$content",emailContent),3000,1);
 		}
+		
 		info("Verify user's avatar");
 		waitForAndGetElement(ELEMENT_GMAIL_USER_AVARTAR);
-		if(isNewUser.length>0 & isNewUser[0]==true){
+		if(isNewUser.length>0 && isNewUser[0]==true){
 			info("Verify Connection now button");
 			waitForAndGetElement(ELEMENT_GMAIL_CONNECT_NOW);
 		}else{
@@ -285,8 +305,141 @@ public class EmailNotifications extends NotificationLocator{
 			info("Verify Refuse button");
 			waitForAndGetElement(ELEMENT_GMAIL_REFUSE_BTN);
 		}
-		
 	}
+	
+	/**
+	 * Verify Bottom Content of Email notification
+	 * @param contentBottom
+	 */
+	public void verifyBottomContentOfEmailNotifcation(String content1,String content2){
+		info("Verify Bottom Content of Email notification");
+		info("Verify Bottom content");
+		waitForAndGetElement(ELEMENT_GMAIL_BOTTOM_CONTENT.replace("$content1", content1)
+				.replace("$content2", content2), DEFAULT_TIMEOUT, 0);
+		info("Verify click here link");
+		waitForAndGetElement(ELEMENT_GMAIL_BOTTOM_CLICK_HERE_LINK, DEFAULT_TIMEOUT, 0);
+	}
+	
+	/**
+	 * go To My Notification Setting By Clik Here in Bottom Cotnent of Email Notification
+	 */
+	public void checkLinkInEmailNotification(linkEmailNotification link, String userName, String fullName
+			, String space, String textDes, String linkFile,  boolean...spaceCase){
+		switch(link){
+			case Click_Here_Link:
+				info("go To My Notification Setting By Clik Here in Bottom Cotnent of Email Notification");
+				waitForAndGetElement(ELEMENT_GMAIL_BOTTOM_CLICK_HERE_LINK, DEFAULT_TIMEOUT, 0);
+				click(ELEMENT_GMAIL_BOTTOM_CLICK_HERE_LINK);
+				getAllChildWindows();
+				waitForAndGetElement(ELEMENT_NOTIFICATION_SETTINGS_TITLE, DEFAULT_TIMEOUT, 0);
+				break;
+			case NewUser_Link:
+				info("go To User Profile Page By click on User name link");
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_USER_LINK
+						.replace("$userName", userName).replace("$fullName", fullName), DEFAULT_TIMEOUT, 0);
+				click(ELEMENT_GMAIL_FORMAT_USER_LINK
+						.replace("$userName", userName).replace("$fullName", fullName));
+				getAllChildWindows();
+				waitForAndGetElement(userProPage.ELEMENT_USER_NAME_PAGE.replace("$fullName", fullName), DEFAULT_TIMEOUT, 0);
+				break;
+			case Portal_Link:
+				info("go To Intranet Home Page By click on portal link");
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_PORTAL_LINK, DEFAULT_TIMEOUT, 0);
+				click(ELEMENT_GMAIL_FORMAT_PORTAL_LINK);
+				getAllChildWindows();
+				waitForAndGetElement(hpPlat. ELEMENT_PLF_HOMEPAGE_DISPLAY, DEFAULT_TIMEOUT, 0);
+				break;
+			case Space_Link:
+				info("go To Space Home Page By click on Space link");
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_SPACE_LINK
+						.replace("$space", space), DEFAULT_TIMEOUT, 0);
+				click(ELEMENT_GMAIL_FORMAT_SPACE_LINK
+						.replace("$space", space));
+				getAllChildWindows();
+				waitForAndGetElement(spaceHome.ELEMENT_SPACE_ACTIVITY_TAB_ACTIVE, DEFAULT_TIMEOUT, 0);
+				break;	
+			case Watch_This_Video:
+				info("go To Activity By click watch the video");
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_WATCH_VIDEO_LINK, DEFAULT_TIMEOUT, 0);
+				click(ELEMENT_GMAIL_FORMAT_WATCH_VIDEO_LINK);
+				getAllChildWindows();
+				waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TITLE.replace("${text}",textDes).replace("${file}",linkFile));
+				break;	
+				
+		}
+	}
+	
+	/**
+	 * Verify Recipient and Sender Email Notification
+	 * @param recipient
+	 * @param userName              
+	 * @param email
+	 */
+	public void verifyRecipientAndSenderEmailNotifcation(Boolean recipient, String userName, String email){
+		info("Verify recipient or sender for email notification");
+		waitForAndGetElement(ELEMENT_GMAIL_FORMAT_SHOW_DETAIL_BTN, DEFAULT_TIMEOUT, 0);
+		click(ELEMENT_GMAIL_FORMAT_SHOW_DETAIL_BTN);
+		if(recipient){
+			info("Verify recipient for email notification");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_RECIPIENT
+					.replace("$email", email).replace("$userName", userName));
+		}
+		else{
+			info("Verify sender for email notification");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_SENDER
+					.replace("$email", email).replace("$userName", userName));
+		}
+	}
+	
+	/**
+	 * Verify format of email notification for connection request
+	 * @param emailTitle
+	 * @param firstName
+	 *                 
+	 * @param emailContent
+	 * 
+	 * @param userName
+	 */
+	public void verifyFormatEmailNotifcationForSpace(String emailTitle,String firstName,
+			String userName,String emailContent, String space, Boolean... isNewUser){
+		if(!emailTitle.isEmpty()){
+			info("Verify Email notificaiton's title");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_TITLE.
+					replace("$title",emailTitle),3000,1);
+		}
+		if(!firstName.isEmpty()){
+			info("Verify Openning email");
+			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_OPENNING_SUB
+					.replace("$firstName",firstName));
+		}
+		if(isNewUser.length>0 && isNewUser[0]==true){
+			info("Verify the email's content as: Join space request");
+			if(!emailContent.isEmpty() && !firstName.isEmpty()){
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_REQUEST
+						.replace("$username",userName).replace("$content",emailContent).replace("$space", space),3000,1);
+			}
+			info("Verify user's avatar");
+			waitForAndGetElement(ELEMENT_GMAIL_USER_AVARTAR);
+			info("Verify validate button");
+			waitForAndGetElement(ELEMENT_GMAIL_VALIDATE_SPACE_BTN);
+			info("Verify Refuse button");
+			waitForAndGetElement(ELEMENT_GMAIL_REFUSE_JOIN_SPACE_BTN);
+		}
+		else {
+			info("Verify the email's content as: Space Invitation");
+			if(!emailContent.isEmpty() && !space.isEmpty()){
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_INVITATION
+						.replace("$content",emailContent).replace("$space",space),3000,1);
+			}
+			info("Verify user's avatar");
+			waitForAndGetElement(ELEMENT_GMAIL_SPACE_AVARTAR);
+			info("Verify Accept button");
+			waitForAndGetElement(ELEMENT_GMAIL_ACCEPT_SPACE_BTN);
+			info("Verify Refuse button");
+			waitForAndGetElement(ELEMENT_GMAIL_REFUSE_SPACE_INVITATION_BTN);
+		}	
+	}	
+
 	/**
 	 * Click on Accept button
 	 */
