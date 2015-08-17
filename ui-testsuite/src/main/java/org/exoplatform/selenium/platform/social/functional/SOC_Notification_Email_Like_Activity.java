@@ -151,6 +151,7 @@ public class SOC_Notification_Email_Like_Activity extends SOC_TestConfig3{
 		emailNot.goToDetailEmailNoti(titleEmail, fullName,"");
 		emailNot.getAllChildWindows();
 		emailNot.verifyFormatEmailNotifcation(emailTitle,firstName, fullName, emailContent,activity);
+		emailNot.closeChildBrowsers(parentWindow);
  	}
 	
 	/**
