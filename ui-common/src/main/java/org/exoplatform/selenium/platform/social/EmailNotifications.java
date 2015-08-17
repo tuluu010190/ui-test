@@ -76,6 +76,7 @@ public class EmailNotifications extends NotificationLocator{
 				replace("$fullName", fullName).replace("$content", content),30000, 1);
 	}
 	
+	
 	/**
 	 * Verify email notification's title is not shown
 	 * @param fullName
@@ -122,7 +123,7 @@ public class EmailNotifications extends NotificationLocator{
 	/**
 	 * Click on Reply button
 	 */
-	public void clickOnReplyBtn(){
+	public void clickOnReplyBtnActivity(){
 		info("Click on Reply button");
 		click(ELEMENT_GMAIL_REPLY_BTN);
 		Utils.pause(2000);
@@ -392,13 +393,13 @@ public class EmailNotifications extends NotificationLocator{
 	}
 	
 	/**
-	 * Verify format of email notification for connection request
+	 * Verify format email notification for space
 	 * @param emailTitle
 	 * @param firstName
-	 *                 
-	 * @param emailContent
-	 * 
 	 * @param userName
+	 * @param emailContent
+	 * @param space
+	 * @param isNewUser
 	 */
 	public void verifyFormatEmailNotifcationForSpace(String emailTitle,String firstName,
 			String userName,String emailContent, String space, Boolean... isNewUser){
@@ -421,7 +422,7 @@ public class EmailNotifications extends NotificationLocator{
 			info("Verify user's avatar");
 			waitForAndGetElement(ELEMENT_GMAIL_USER_AVARTAR);
 			info("Verify validate button");
-			waitForAndGetElement(ELEMENT_GMAIL_VALIDATE_SPACE_BTN);
+			waitForAndGetElement(ELEMENT_GMAIL_ACCEPT_BTN_SPACE_JOIN_REQUEST);
 			info("Verify Refuse button");
 			waitForAndGetElement(ELEMENT_GMAIL_REFUSE_JOIN_SPACE_BTN);
 		}
@@ -439,11 +440,44 @@ public class EmailNotifications extends NotificationLocator{
 			waitForAndGetElement(ELEMENT_GMAIL_REFUSE_SPACE_INVITATION_BTN);
 		}	
 	}	
+	/**
+	 * Click on Accept on Space Invitation notification
+	 */
+	public void clickAcceptBtnSpaceInvitation(){
+		info("Click on Accept button");
+		click(ELEMENT_GMAIL_ACCEPT_SPACE_BTN);
+		Utils.pause(2000);
+	}
+	/**
+	 * Click on Refuse on Space Invitation notification
+	 */
+	public void clickRefuseBtnSpaceInvitation(){
+		info("Click on Accept button");
+		click(ELEMENT_GMAIL_REFUSE_SPACE_INVITATION_BTN);
+		Utils.pause(2000);
+	}
+	
+	/**
+	 * Click on Accept on Space Invitation notification
+	 */
+	public void clickAcceptBtnSpaceJoinReqest(){
+		info("Click on Accept button");
+		click(ELEMENT_GMAIL_ACCEPT_BTN_SPACE_JOIN_REQUEST);
+		Utils.pause(2000);
+	}
+	/**
+	 * Click on Refuse on Space Invitation notification
+	 */
+	public void clickRefuseBtnSpaceJoinRequest(){
+		info("Click on Accept button");
+		click(ELEMENT_GMAIL_REFUSE_JOIN_SPACE_BTN);
+		Utils.pause(2000);
+	}
 
 	/**
 	 * Click on Accept button
 	 */
-	public void clickAcceptBtn(){
+	public void clickAcceptBtnActivity(){
 		info("Click on Accept button");
 		click(ELEMENT_GMAIL_ACCEPT_BTN);
 		Utils.pause(2000);

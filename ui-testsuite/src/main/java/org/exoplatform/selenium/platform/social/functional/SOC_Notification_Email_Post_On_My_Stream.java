@@ -757,7 +757,7 @@ import org.testng.annotations.*;
 		emailNot.verifyPresentEmailActivityNotifications(titleEmail,fullName,activity);
 		emailNot.goToDetailEmailNoti(titleEmail, fullName,activity);
 		emailNot.getAllChildWindows();
-		emailNot.clickOnReplyBtn();
+		emailNot.clickOnReplyBtnActivity();
 		emailNot.getAllChildWindows();
 		notAct.checkFormatDetailActivity(true,activity);
         emailNot.closeChildBrowsers(parentWindow);

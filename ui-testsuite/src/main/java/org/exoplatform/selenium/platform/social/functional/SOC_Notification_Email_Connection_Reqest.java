@@ -620,7 +620,7 @@ import org.testng.annotations.*;
 		emailNot.verifyPresentEmailActivityNotifications(titleEmail,fullName,"");
 		emailNot.goToDetailEmailNoti(titleEmail, fullName,"");
 		emailNot.getAllChildWindows();
-		emailNot.clickAcceptBtn();
+		emailNot.clickAcceptBtnActivity();
 		emailNot.getAllChildWindows();
 		waitForAndGetElement(userProPage.ELEMETN_ACTIVITY_TAB);
 		waitForAndGetElement(userProPage.ELEMENT_USER_NAME_PAGE.replace("$fullName",fullName));

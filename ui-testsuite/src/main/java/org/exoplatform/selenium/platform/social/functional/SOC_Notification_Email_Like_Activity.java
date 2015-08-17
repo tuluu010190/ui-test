@@ -833,7 +833,7 @@ For example:
 		emailNot.verifyPresentEmailActivityNotifications(titleEmail,fullName,"");
 		emailNot.goToDetailEmailNoti(titleEmail, fullName,"");
 		emailNot.getAllChildWindows();
-		emailNot.clickOnReplyBtn();
+		emailNot.clickOnReplyBtnActivity();
 		emailNot.getAllChildWindows();
 		notAct.checkFormatDetailActivity(true,activity);
 		notAct.checkLikeInActivityViewer("1");

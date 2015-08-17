@@ -32,7 +32,7 @@ public class NotificationLocator extends PlatformBase{
 	public By ELEMENT_GMAIL_ACCEPT_SPACE_BTN=By.xpath("//*[contains(@href,'acceptInvitationToJoinSpace')]");
 	public By ELEMENT_GMAIL_REFUSE_SPACE_INVITATION_BTN=By.xpath("//*[contains(@href,'ignoreInvitationToJoinSpace')]");
 	public By ELEMENT_GMAIL_REFUSE_JOIN_SPACE_BTN=By.xpath("//*[contains(@href,'refuseRequestToJoinSpace')]");
-	public By ELEMENT_GMAIL_VALIDATE_SPACE_BTN=By.xpath("//*[contains(@href,'validateRequestToJoinSpace')]");
+	public By ELEMENT_GMAIL_ACCEPT_BTN_SPACE_JOIN_REQUEST=By.xpath("//*[contains(@href,'validateRequestToJoinSpace')]");
 	public String ELEMENT_GMAIL_BOTTOM_CONTENT= "//*[contains(text(),'$content1')]//*[contains(@href,'notification_settings')]/../..//*[contains(.,'$content2')]";
 	public String ELEMENT_GMAIL_BOTTOM_CLICK_HERE_LINK= "//a[contains(@href,'notification_setting') and text()='click here']";
 	
@@ -50,7 +50,7 @@ public class NotificationLocator extends PlatformBase{
 	public final By ELEMENT_GMAIL_POST_IN_AC_VIEW_FULL_BTN=By.xpath(".//*[contains(@href,'view_full_activity')]");
 	
 	//Comment an Activity Email notification
-	public final String ELEMENT_GMAIL_TITLE= ".//span[contains(.,'$title')]";
+	public final String ELEMENT_GMAIL_TITLE= ".//span[contains(.,\"$title\")]";
 	public final String ELEMENT_GMAIL_TITLE_WITH_INDEX= "(.//span[contains(.,'$title')])[$num]";
 	public final By ELEMENT_GMAIL_REPLY_BTN=By.xpath(".//*[contains(@href,'reply_activity')]");
 	public final By ELEMENT_GMAIL_VIEW_FULL_BTN=By.xpath(".//*[contains(@href,'view_full_activity')]");
