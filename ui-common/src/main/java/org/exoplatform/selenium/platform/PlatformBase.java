@@ -276,6 +276,21 @@ public class PlatformBase extends TestBase {
 		click(ELEMENT_GMAIL_INBOX);
 		Utils.pause(2000);
 	}
+	/**
+	 * Open gmail when user is logging
+	 */
+	public void openMail(){
+		driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"n");
+		for(String winHandle : driver.getWindowHandles()){
+			driver.switchTo().window(winHandle);
+		}
+		info("Go to gmail");
+		driver.navigate().to(GMAIL_URL);
+		driver.manage().window().maximize();
+		Utils.pause(2000);
+		click(ELEMENT_GMAIL_INBOX);
+		Utils.pause(2000);
+	}
 	
 	/**
 	 * Open mail by opening new tab

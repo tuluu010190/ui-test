@@ -38,7 +38,7 @@ public class NotificationLocator extends PlatformBase{
 	
 	
 	//CONNECTION REQUEST
-	public String ELEMENT_NOTIFICATION_EMAIL_REFUSE_CONNECTION_MESSAGE=".//*[@id='feedbackMessageInline']//*[contains(@class,'message')][contains(text(),\"$mess\")]";
+	public String ELEMENT_NOTIFICATION_EMAIL_FEEDBACK_MESSAGE_SPACE=".//*[@id='feedbackMessageInline']//*[contains(@class,'message')][contains(text(),\"$mess\")]";
 	
 	//New User notification
 	public final String ELEMENT_GMAIL_NEWUSER = ".//span[contains(.,'${title} ${title} has joined eXo')]";

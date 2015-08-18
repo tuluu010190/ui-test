@@ -73,7 +73,8 @@ public class EmailNotifications extends NotificationLocator{
 	public void verifyPresentTitlePostMyASEmail(String fullName,String content){
 		info("Verify that email notificaiton is sent to user's inbox");
 		waitForAndGetElement(ELEMENT_GMAIL_POST_IN_ACTIVITY_STREAM.
-				replace("$fullName", fullName).replace("$content", content),30000, 1);
+				replace("$fullName", fullName)
+				.replace("$content", content),30000, 1);
 	}
 	
 	
@@ -87,7 +88,8 @@ public class EmailNotifications extends NotificationLocator{
 	public void verifyNOTPresentTitlePostMyASEmail(String fullName,String content){
 		info("Verify that email notificaiton is sent to user's inbox");
 		waitForElementNotPresent(ELEMENT_GMAIL_POST_IN_ACTIVITY_STREAM.
-				replace("$fullName", fullName).replace("$content", content));
+				replace("$fullName", fullName)
+				.replace("$content", content));
 	}
 	
 	/**
@@ -101,7 +103,8 @@ public class EmailNotifications extends NotificationLocator{
 	 */
 	public void verifyPresentTitleCommentASEmailNoti(String title,String fullName){
 		info("Verify that email notificaiton is sent to user's inbox");
-		waitForAndGetElement(ELEMENT_GMAIL_TITLE.replace("$title",title)
+		waitForAndGetElement(ELEMENT_GMAIL_TITLE
+				.replace("$title",title)
 				.replace("$fullName", fullName),30000, 1);
 	}
 	
@@ -116,7 +119,8 @@ public class EmailNotifications extends NotificationLocator{
 	 */
 	public void verifyNOTPresentTitleCommentASEmailNoti(String title,String fullName){
 		info("Verify that email notificaiton isnot sent to user's inbox");
-		waitForElementNotPresent(ELEMENT_GMAIL_TITLE.replace("$title",title)
+		waitForElementNotPresent(ELEMENT_GMAIL_TITLE
+				.replace("$title",title)
 				.replace("$fullName", fullName),30000, 1);
 	}
 
@@ -149,16 +153,21 @@ public class EmailNotifications extends NotificationLocator{
 	public void verifyPresentEmailActivityNotifications(String title,String fullName,String content,String... isParams){
 		if(!content.isEmpty()){
 			info("Verify that email notificaiton is sent to user's inbox");
-			waitForAndGetElement(ELEMENT_GMAIL_TITLE.replace("$title",title)
-					.replace("$fullName", fullName).replace("$content",content),30000, 1);
+			waitForAndGetElement(ELEMENT_GMAIL_TITLE
+					.replace("$title",title)
+					.replace("$fullName", fullName)
+					.replace("$content",content),30000, 1);
 		}else{
 			if(isParams.length>0){
 				info("Verify that email notificaiton is sent to user's inbox");
-				waitForAndGetElement(ELEMENT_GMAIL_TITLE_WITH_INDEX.replace("$title",title)
-						.replace("$fullName", fullName).replace("$num",isParams[0]),30000, 1);
+				waitForAndGetElement(ELEMENT_GMAIL_TITLE_WITH_INDEX
+						.replace("$title",title)
+						.replace("$fullName", fullName)
+						.replace("$num",isParams[0]),30000, 1);
 			}else {
 				info("Verify that email notificaiton is sent to user's inbox");
-				waitForAndGetElement(ELEMENT_GMAIL_TITLE.replace("$title",title)
+				waitForAndGetElement(ELEMENT_GMAIL_TITLE
+						.replace("$title",title)
 						.replace("$fullName", fullName),30000, 1);
 			}
 		}
@@ -176,16 +185,21 @@ public class EmailNotifications extends NotificationLocator{
 	public void verifyNOTPresentTitleASEmailNoti(String title,String fullName,String content,String... isParams){
 		if(!content.isEmpty()){
 			info("Verify that email notificaiton is sent to user's inbox");
-			waitForElementNotPresent(ELEMENT_GMAIL_TITLE.replace("$title",title)
-					.replace("$fullName", fullName).replace("$content",content));
+			waitForElementNotPresent(ELEMENT_GMAIL_TITLE
+					.replace("$title",title)
+					.replace("$fullName", fullName)
+					.replace("$content",content));
 		}else{
 			if(isParams.length>0){
 				info("Verify that email notificaiton is sent to user's inbox");
-				waitForElementNotPresent(ELEMENT_GMAIL_TITLE_WITH_INDEX.replace("$title",title)
-						.replace("$fullName", fullName).replace("$num",isParams[0]));
+				waitForElementNotPresent(ELEMENT_GMAIL_TITLE_WITH_INDEX
+						.replace("$title",title)
+						.replace("$fullName", fullName)
+						.replace("$num",isParams[0]));
 			}else{
 				info("Verify that email notificaiton is sent to user's inbox");
-				waitForElementNotPresent(ELEMENT_GMAIL_TITLE.replace("$title",title)
+				waitForElementNotPresent(ELEMENT_GMAIL_TITLE
+						.replace("$title",title)
 						.replace("$fullName", fullName));
 			}
 		}
@@ -201,10 +215,12 @@ public class EmailNotifications extends NotificationLocator{
 		if(!content.isEmpty()){
 			info("Go to detail detail Activity via email notification");
 			click(ELEMENT_GMAIL_TITLE.replace("$title",title)
-					.replace("$fullName", fullName).replace("$content",content));
+					.replace("$fullName", fullName)
+					.replace("$content",content));
 		}else{
 			info("Go to detail detail Activity via email notification");
-			click(ELEMENT_GMAIL_TITLE.replace("$title",title)
+			click(ELEMENT_GMAIL_TITLE
+					.replace("$title",title)
 					.replace("$fullName", fullName));
 		}
 		Utils.pause(2000);
@@ -244,13 +260,15 @@ public class EmailNotifications extends NotificationLocator{
 		if(!emailContent.isEmpty() && !fullName.isEmpty()){
 			info("Verify the email's content as: activity's content");
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT
-					.replace("$fullName",fullName).replace("$content",emailContent),3000,1);
+					.replace("$fullName",fullName)
+					.replace("$content",emailContent),3000,1);
 		}
 		
 		if(!actTitle.isEmpty()){
 			info("Verify the activity's title");
 			if(waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE_1.replace("$title",actTitle),3000,0)!=null)
-				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE_1.replace("$title",actTitle));
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE_1
+						.replace("$title",actTitle));
 			else
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE
 					.replace("$title",actTitle));
@@ -292,7 +310,8 @@ public class EmailNotifications extends NotificationLocator{
 		if(!emailContent.isEmpty() && !userName.isEmpty()){
 			info("Verify the email's content as: connection request's content");
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT_CONNECTION_REQUEST
-					.replace("$username",userName).replace("$content",emailContent),3000,1);
+					.replace("$username",userName)
+					.replace("$content",emailContent),3000,1);
 		}
 		
 		info("Verify user's avatar");
@@ -315,7 +334,8 @@ public class EmailNotifications extends NotificationLocator{
 	public void verifyBottomContentOfEmailNotifcation(String content1,String content2){
 		info("Verify Bottom Content of Email notification");
 		info("Verify Bottom content");
-		waitForAndGetElement(ELEMENT_GMAIL_BOTTOM_CONTENT.replace("$content1", content1)
+		waitForAndGetElement(ELEMENT_GMAIL_BOTTOM_CONTENT
+				.replace("$content1", content1)
 				.replace("$content2", content2), DEFAULT_TIMEOUT, 0);
 		info("Verify click here link");
 		waitForAndGetElement(ELEMENT_GMAIL_BOTTOM_CLICK_HERE_LINK, DEFAULT_TIMEOUT, 0);
@@ -337,9 +357,11 @@ public class EmailNotifications extends NotificationLocator{
 			case NewUser_Link:
 				info("go To User Profile Page By click on User name link");
 				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_USER_LINK
-						.replace("$userName", userName).replace("$fullName", fullName), DEFAULT_TIMEOUT, 0);
+						.replace("$userName", userName)
+						.replace("$fullName", fullName), DEFAULT_TIMEOUT, 0);
 				click(ELEMENT_GMAIL_FORMAT_USER_LINK
-						.replace("$userName", userName).replace("$fullName", fullName));
+						.replace("$userName", userName)
+						.replace("$fullName", fullName));
 				getAllChildWindows();
 				waitForAndGetElement(userProPage.ELEMENT_USER_NAME_PAGE.replace("$fullName", fullName), DEFAULT_TIMEOUT, 0);
 				break;
@@ -364,7 +386,8 @@ public class EmailNotifications extends NotificationLocator{
 				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_WATCH_VIDEO_LINK, DEFAULT_TIMEOUT, 0);
 				click(ELEMENT_GMAIL_FORMAT_WATCH_VIDEO_LINK);
 				getAllChildWindows();
-				waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TITLE.replace("${text}",textDes).replace("${file}",linkFile));
+				waitForAndGetElement(hpAct.ELEMENT_ACTIVITY_TITLE.replace("${text}",textDes)
+						.replace("${file}",linkFile));
 				break;	
 				
 		}
@@ -383,12 +406,14 @@ public class EmailNotifications extends NotificationLocator{
 		if(recipient){
 			info("Verify recipient for email notification");
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_RECIPIENT
-					.replace("$email", email).replace("$userName", userName));
+					.replace("$email", email)
+					.replace("$userName", userName));
 		}
 		else{
 			info("Verify sender for email notification");
 			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_SENDER
-					.replace("$email", email).replace("$userName", userName));
+					.replace("$email", email)
+					.replace("$userName", userName));
 		}
 	}
 	
@@ -417,7 +442,9 @@ public class EmailNotifications extends NotificationLocator{
 			info("Verify the email's content as: Join space request");
 			if(!emailContent.isEmpty() && !firstName.isEmpty()){
 				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_REQUEST
-						.replace("$username",userName).replace("$content",emailContent).replace("$space", space),3000,1);
+						.replace("$username",userName)
+						.replace("$content",emailContent)
+						.replace("$space", space),3000,1);
 			}
 			info("Verify user's avatar");
 			waitForAndGetElement(ELEMENT_GMAIL_USER_AVARTAR);
@@ -430,7 +457,8 @@ public class EmailNotifications extends NotificationLocator{
 			info("Verify the email's content as: Space Invitation");
 			if(!emailContent.isEmpty() && !space.isEmpty()){
 				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_INVITATION
-						.replace("$content",emailContent).replace("$space",space),3000,1);
+						.replace("$content",emailContent)
+						.replace("$space",space),3000,1);
 			}
 			info("Verify user's avatar");
 			waitForAndGetElement(ELEMENT_GMAIL_SPACE_AVARTAR);
@@ -495,10 +523,17 @@ public class EmailNotifications extends NotificationLocator{
 	 * @param message
 	 * @param fullName
 	 */
-	public void verifyFeedBackMessageRefuseConnection(String message,String fullName){
+	public void verifyFeedBackMessageRefuseConnection(String message,String fullName,String... space){
 		info("Verify the feedback message refuse connection request");
-		waitForAndGetElement(ELEMENT_NOTIFICATION_EMAIL_REFUSE_CONNECTION_MESSAGE
-				.replace("$mess",message).replace("$fullName",fullName));
+		if(space.length>0){
+			waitForAndGetElement(ELEMENT_NOTIFICATION_EMAIL_FEEDBACK_MESSAGE_SPACE
+					.replace("$mess",message)
+					.replace("$fullName",fullName)
+					.replace("$space",space[0]));
+		}else
+		waitForAndGetElement(ELEMENT_NOTIFICATION_EMAIL_FEEDBACK_MESSAGE_SPACE
+				.replace("$mess",message)
+				.replace("$fullName",fullName));
 	}
 	/**
 	 * Click on Connect Now button
