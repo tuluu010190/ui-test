@@ -37,6 +37,8 @@ import org.exoplatform.selenium.platform.objectdatabase.ecms.SiteExplorerPathDat
 import org.exoplatform.selenium.platform.objectdatabase.social.ActivityCommentDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.NotificationCategoryDatabase;
 import org.exoplatform.selenium.platform.objectdatabase.social.NotificationDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.SpaceRegistrationDatabase;
+import org.exoplatform.selenium.platform.objectdatabase.social.SpaceVisibilityDatabase;
 import org.exoplatform.selenium.platform.social.EmailNotifications;
 import org.exoplatform.selenium.platform.social.IntranetNotification;
 import org.exoplatform.selenium.platform.social.MyNotificationsSetting;
@@ -95,6 +97,8 @@ public class SOC_TestConfig3 extends PlatformBase {
 	SiteExplorerDriveDatabase siteExDrive;
 	SiteExplorerPathDatabase siteExPath;
 	DataTestPathDatabase dataTestForlderPath;
+	SpaceRegistrationDatabase spRegisData;
+	SpaceVisibilityDatabase spVisiData;
 	PageEditor pgEditor;
 	EditorPortlet edPortlet;
 	QuestionManagement questionMg;
@@ -196,6 +200,12 @@ public class SOC_TestConfig3 extends PlatformBase {
 		langData = new LanguageDatabase();
 		langData.setLanguageData(languageFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlContent);
 		
+		spRegisData = new SpaceRegistrationDatabase();
+		spRegisData.setSpaceRegistrationData(spaceRegistrationFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+
+		spVisiData = new SpaceVisibilityDatabase();
+		spVisiData.setSpaceVisibleData(spaceVisibleFilePath, defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlUser);
+
 		dataTestForlderPath = new DataTestPathDatabase();
 		dataTestForlderPath.setDataTestPathData(dataTestFilePath,defaultSheet,isUseFile,jdbcDriver,dbUrl,user,pass,sqlAttach);
 

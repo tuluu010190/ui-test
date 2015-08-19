@@ -145,7 +145,7 @@ import org.testng.annotations.*;
 		    magAc.signIn(DATA_USER1, DATA_PASS);
 		    info("user name of invited user is removed from invited user list but it has been added in member list");
 		    hp.goToSpecificSpace(space);
-		    spaMg.goToSpaceSettingTab();
+		    spaHome.goToSpaceSettingTab();
 		    setSpaceMg.goToMemberTab();
 		    waitForAndGetElement(setSpaceMg.ELEMENT_USER_IN_MEMBER_TABLE.replace("${fullName}",DATA_NAME_USER2));
 		    waitForElementNotPresent(setSpaceMg.ELEMENT_SPACE_INVITED_USER_TABLE.replace("${user}",DATA_NAME_USER2));
@@ -373,7 +373,7 @@ import org.testng.annotations.*;
 		     magAc.signOut();
 		     magAc.signIn(DATA_USER1, DATA_PASS);
 		     hp.goToSpecificSpace(space);
-		     spaMg.goToSpaceSettingTab();
+		     spaHome.goToSpaceSettingTab();
 		     setSpaceMg.removeUserFromMemberlist(DATA_NAME_USER2);
 		     
 		 /*	info("Delete created space");

@@ -6,145 +6,10 @@ import org.exoplatform.selenium.Utils;
 import org.exoplatform.selenium.platform.gatein.NavigationManagement;
 import static org.exoplatform.selenium.TestLogger.info;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class SpaceSettingManagement extends SpaceHomePage{
+public class SpaceSettingManagement extends SpaceLocator{
 
-	public By ELEMENT_SPACE_SPACE_SETTINGS_TITLE=By.xpath(".//*[text()='Space Configuration']");
-
-	// Members tab
-	public By ELEMENT_SPACE_SETTINGS_MEMBERS_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceMember-tab')]");
-	public By ELEMENT_SPACE_MEMBERS_SELECT_USER = By.xpath("//*[@id='UISpaceMember']//*[@class='uiIconUser uiIconLightGray']");
-	public String ELEMENT_SPACE_SELECT_USER_IN_FORM = "//*[@id='UIListUsers']//*[contains(text(),'{$name}')]/../..//*[@class='uiCheckbox']//input";
-	public By ELEMENT_ADD = By.xpath("//*[@id='UIUserSelector']//*[contains(text(),'Add')]");
-	public By ELEMENT_SPACE_MEMBERS_INVITE = By.xpath("//*[@id='UISpaceMember']//*[contains(text(),'Invite')]");
-	public final By ELEMENT_SEARCH_INPUT_USER_NAME = By.xpath(".//*[@id='Quick Search']");
-	public final By ELEMENT_SEARCH_USERS_ICON=By.xpath(".//*[@id='UIUserSelector']//*[contains(@class,'uiIconSearch')]");
-	public final By ELEMENT_INPUT_USER=By.xpath(".//*[@id='user']");
-	public final By ELEMENT_SELECT_USER_FROM_GROUP=By.xpath(".//*[@id='UISpaceMember']//*[contains(@class,'uiIconGroup')]");
-	public final By ELEMENT_ACCESS_ONLY_ONE_MANAGER_NUMBER = By.xpath("(.//*[@id='existingUsersTable']//*[contains(@class,'uiSwitchBtn')]//input[@checked='checked'])[1]");
-	public final By ELEMENT_ACCESS_MORE_ONE_MANAGER_NUMBER = By.xpath("(.//*[@id='existingUsersTable']//*[contains(@class,'uiSwitchBtn')]//input[@checked='checked'])[2]");
-	public final By ELEMENT_MEMBER_TABLE = By.xpath("(.//*[@id='existingUsersTable']");
-
-	//Search user
-	public final String ELEMENT_CLOSE_MESSAGE = "//*[contains(@title,'Close Window')]";
-	public final By ELEMENT_INPUT_SEARCH_USER_NAME = By.id("Quick Search");
-	public final String ELEMENT_SELECT_SEARCH_OPTION = "//*[contains(@name,'filter')]";
-	public final String ELEMENT_SEARCH_ICON_USERS_MANAGEMENT = "//*[contains(@class,'uiIconSearch uiIconLightGray')]";
-	public String ELEMENT_MSG_SEARCH_USER_NAME = "User Name";
-
-	//Application tab
-	public By ELEMENT_SETTINGS_APP_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceApplication-tab')]");
-	public String ELEMENT_DELETE_APP_FROM_TOPBAR = ".//*[@id='UISpaceApplication']//*[contains(text(),'{$application}')]/../..//*[@class='uiIconClose pull-right']";
-	public final By ELEMENT_APPLICATION_TAB_ADD_APPLICATION_BTN=By.xpath(".//*[@id='UISpaceApplication-tab']//button[text()='Add Application']");
-	public final String ELEMENT_APPLICATION_TAB_APPLICATION_LIST_CONTENT=".//*[@id='UISpaceApplication']//strong[contains(text(),'${app}')]";
-	public final String ELEMENT_APPLICATION_TAB_APPLICATION_DELETE_BTN=".//*[@id='UISpaceApplication']//strong[contains(text(),'${app}')]/../..//*[@class='uiIconClose pull-right']";
-	public final By ELEMENT_APPLICATION_TAB_LIST_APPLICATIONS=By.xpath(".//*[@id='UISpaceApplication']");
-
-	//Access and Edit tab
-	public final By ELEMENT_ACCESS_AND_EDIT_TAB = By.xpath(".//*[contains(@data-target,'#UISpacePermission-tab')]"); 
-	public final By ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP=By.xpath(".//*[contains(@data-target,'#UISpaceVisibility-tab')]");
-	public final By ELEMENT_ACCESS_HIDDEN_RADIO=By.xpath("//input[@value='hidden']");
-	public final String ELEMENT_ACCESS_PERMISSION_RADIO="//input[@value='${right}']";
-	public final By ELEMENT_ACCESS_PERMISSION_SAVE_BTN=By.xpath(".//*[@id='UISpacePermission']//button[text()='Save']");
-	public final By ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP_CREATE_BTN=By.xpath(".//button[text()='Create']");
-	public final By ELEMENT_ACCESS_ALERTS_POPUP_OK_BTN= By.xpath(".//*[@class='PopupTitle popupTitle'][contains(text(),'Alerts')]/../..//*[@class='btn']");
-	public final By ELEMENT_ACCESS_INFO_OK_BTN = By.xpath("//*[@class='PopupContent popupContent']//*[contains(text(),'OK')]");
-	public final By ELEMENT_ACCESS_VISIBILITY_RADIO_CHECKED=By.xpath(".//*[@id='UISpacePermission']//input[@value='private' and @checked='checked']");
-	public final By ELEMENT_ACCESS_VALIDATION_RADIO_CHECKED=By.xpath(".//*[@id='UISpacePermission']//input[@value='validation' and @checked='checked']']");
-
-
-	//Add application popup
-	public final By ELEMENT_ADD_APPLICATION_POPUP_TITLE=By.xpath("//*[contains(text(),'Space Application Installer')]");
-	public final String ELEMENT_ADD_APPLICATION_POPUP_CATEGOGY=".//*[@id='${category}']";
-	public final String ELEMENT_ADD_APPLICATION_POPUP_APPLICATION_ADD_BTN =".//*[@id='UIApplicationListSelector']//*[contains(text(),'${app}')]/../..//*[contains(text(),'Add')]";
-	public final By ELEMENT_ADD_APPLICATION_POPUP_CLOSE_BTN=By.xpath(".//*[@id='UIAddApplication']//*[@class='uiIconClose pull-right']");
-
-
-	//Settings tab
-	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
-	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
-	public final String ELEMENT_SPACE_CHANGE_ROLE_USER_MEMBER= ".//*[contains(text(),'${user}')]/..//*[@class='uiSwitchBtn']";
-	public final String ELEMENT_SPACE_DELETE_USER_BTN = ".//*[contains(@onclick,'${user}')]/..//*[@class='uiIconDelete uiIconLightGray']";
-	public final String ELEMENT_SPACE_REMOVE_USER_BTN_MEMBER_TABLE = ".//*[contains(text(),'${fullName}')]/..//*[contains(@class,'uiIconDelete')]";
-	public final String ELEMENT_SPACE_MEMBERS_TAB_VALIDATE_REQUEST_jOINT=".//*[contains(@onclick,'${user}')]/..//*[@class='uiIconValidate uiIconLightGray']";
-	public final String ELEMENT_SPACE_MEMBERS_TAB_DECLINE_REQUEST_jOINT =".//*[contains(text(),'${user}')]/..//*[contains(@class,'uiIconRemove')]";
-	public final By ELEMENT_SPACE_SETTING_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceInfo-tab')]");
-	public final By ELEMENT_SPACE_CHANGE_AVATAR_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Change Picture']");
-
-	//invitation member
-	public final String ELEMENT_SPACE_INVITED_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Invited')]/../../..//*[contains(text(),'${user}')]";
-	public final String ELEMENT_SPACE_MEMBERS_USER_TABLE = ".//*[@id='UISpaceMember']//th[contains(text(),'Members')]/../../..//*[contains(text(),'${user}')]";
-	public final String ELEMENT_USER_IN_MEMBER_TABLE =".//*[@id='existingUsersTable']//*[contains(text(),'${fullName}')]";
-	
-	//Invitation a group
-	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_TAB=By.xpath(".//*[contains(@data-target,'#UISpaceGroupBound-tab')]");
-	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_CHECKBOX=By.xpath(".//*[@id='UseExistingGroupCheckBox']");
-	public final String ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECT_GROUP=".//*[@id='UISocialGroupSelector']//*[contains(@title,'${name}')]";
-	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECTED_LINK=By.xpath(".//*[@id='UISocialGroupSelector']//*[contains(@data-placement,'bottom')]");
-	public final By ELEMENT_SPACE_INVITE_USERS_FROM_GROU_SELECTED_GROUP_INFO=By.xpath(".//*[@id='groupId']");
-	public final By ELEMENT_SPACE_INVITED_GROUP_BTN=By.xpath(".//*[@id='UISpaceMember']//*[contains(@class,'uiIconGroup')]");
-	public final String ELEMENT_SPACE_INVITED_GROUP_NAME="//*[contains(@title,'$name')]";
-	public final By ELEMENT_SPACE_INVITED_SELECT_GROUP=By.xpath(".//*[@id='UIUsersInGroupSelector']//*[contains(@data-placement,'bottom')]");
-
-	//Button create
-	public By ELEMENET_SPACE_CREATE_BUTTON=By.xpath("//*[@class='uiAction']/*[text()='Create']");
-
-	//Navigation tab
-	public final By ELEMENT_SPACE_SETTING_NAVIGATION_TAB = By.xpath(".//*[contains(@data-target,'#UISpaceNavigationManagement-tab')]");
-	public final By ELEMENT_SPACE_NAVIGATION_ADD_NODE_BUTTON = By.xpath(".//*[@id='UISpaceNavigationManagement']//button[text()='Add Node']");
-	public final String ELEMENT_SPACE_NAVIGATION_ADD_NODE_LIST =".//*[@id='UISpaceNavigationNodeSelector']//*[contains(text(),'${name}')]";
-	public final String ELEMENT_SPACE_NAVIGAION_ADD_NODE_CHILDREN_UNDER_PARENT = ".//*[@id='UISpaceNavigationNodeSelector']//*[contains(text(),'${childrenNode}')]/../../..//*[contains(text(),'${parentNode}')]";
-	public final By ELEMENT_SPACE_NAVIGATION_UP_LEVEL_BUTTON = By.xpath(".//*[@id='UISpaceNavigationNodeSelector']//*[@class='uiIconUpLevel uiIconLightGray']");
-	public final By ELEMENT_SPACE_NAVIGATION_NODE_LIST =By.xpath(".//*[@id='UISpaceNavigationNodeSelector']");
-
-	//Add/Edit page node popup
-	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_NODE_TITLE = By.xpath(".//*[@id='AddNode']//*[contains(.,'Add/ Edit Page Node')]");
-	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_NAME = By.xpath(".//*[@id='name']");
-	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_SAVE = By.xpath(".//*[@id='UIPageNodeForm']//button[text()='Save']");
-	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_LABEL = By.xpath(".//*[@id='UIPageNodeForm']//*[contains(text(),'Label')]/..//input");
-	public final By ELEMENT_SPACE_NAVIGATION_ADD_EDIT_POPUP_LANGUAGE = By.xpath(".//*[@id='PageNodeSetting-tab']//*[@class='selectbox' and @name='languages']");
-	public final By ELEMENT_CHECKBOX_EXTENDED_LABEL_MODE = By.id("switchmode");
-	public final By ELEMENT_INPUT_LABEL = By.id("i18nizedLabel");
-	public final By ELEMENT_PAGE_SELECTOR_TAB = By.xpath(".//*[@id='AddNode']//a[text()='Page Selector']");
-	public final By ELEMENT_INPUT_PAGE_NAME = By.id("pageName");
-	public final By ELEMENT_INPUT_PAGE_TITLE = By.id("pageTitle");
-	public final By ELEMENT_CREATE_PAGE_LINK = By.xpath(".//*[@id='UIPageSelector']//*[@class='uiIconAddPage uiIconWhite']");
-	public final By ELEMENT_SEARCH_SELECTOR_PAGE_LINK = By.xpath(".//*[@id='UIPageSelector']//*[@class='uiIconSelectPage']");
-
-	//Context menu
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Edit this Node')]");
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_DELETE= By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Delete Node')]");
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_ADD_NEW_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Add new Node')]");
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_EDIT_NODE_PAGE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//*[@class='uiIconEditPageNode']");
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_COPY_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Copy Node')]");
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_PASTE_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Paste Node')]");
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_CLONE_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Clone Node')]");
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_CUT_NODE = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Cut Node')]");
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_UP = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Move Up')]");
-	public final By ELEMENT_SPACE_NAVIGATION_CONTEXT_MENU_MOVE_DOWN = By.xpath(".//*[@id='SpaceNavigationNodePopupMenu']//a[contains(.,'Move Down')]");
-
-	public final String ELEMENT_SPACE_NAVIGATION_NODE_POSITION = "//*[@class='childrenContainer nodeGroup']/li[${position}]//a[contains(text(),'${nodeName}')]";
-
-	//Access space information
-	public final By ELEMENT_SPACE_ACCESS_RESTRICED_AREA_TITLE=By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Restricted Area']");
-	public final By ELEMENT_SPACE_ACCESS_INFO=By.xpath(".//*[@class='spaceAccessInfo']");
-	public final By ELEMENT_SPACE_ACCESS_JOIN_BTN=By.xpath(".//*[@title='Join']");
-	public final By ELEMENT_SPACE_ACCESS_REQUEST_JOIN_BTN=By.xpath(".//*[@title='Request to Join']");
-
-	public final By ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_TITLE=By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Space not found']");
-	public final By ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_INFO=By.xpath(".//*[@id='UISpaceAccessPortlet']//*[contains(text(),'No space is available at this URL.')]");
-	public final By ELEMENT_SPACE_ACCESS_SPACE_NOT_FOUND_FIND_BTN=By.xpath(".//*[@id='UISpaceAccessPortlet']//a[text()='Find Spaces']");
-	public final By ELEMENT_SPACE_ACCESS_SPACE_DENIED = By.xpath(".//*[@id='UISpaceAccessPortlet']//h3[text()='Access Denied']");
-	public final By ELEMENT_SPACE_ACCESS_SPACE_DENIED_INFO=By.xpath(".//*[@class='spaceAccessInfo']");
-
-	//message
-	public final String ELEMENT_SPACE_NAVIGATION_COPY_AT_SAME_LEVEL = "This node name already exists.";
-
-	//Warining popup
-	//public final String ELEMENT_SPACE_INVITE_EXISTING_MEMBER=".//*[contains(@class,'UIPopupWindow')]//*[contains(text(),'Some users already exist in the invitation list, including: ${username}')]";
-    public final String ELEMENT_SPACE_WARNING_MESSAGE=".//*[contains(@class,'UIPopupWindow')]//*[contains(text(),'${warningText}')]";	
 	
     ManageAlert alert;
 	NavigationManagement naviManage;
@@ -154,7 +19,6 @@ public class SpaceSettingManagement extends SpaceHomePage{
 	 * @param dr
 	 */
 	public SpaceSettingManagement(WebDriver dr){
-		super(dr);
 		this.driver=dr;
 		alert = new ManageAlert(dr); 
 		naviManage = new NavigationManagement(driver);

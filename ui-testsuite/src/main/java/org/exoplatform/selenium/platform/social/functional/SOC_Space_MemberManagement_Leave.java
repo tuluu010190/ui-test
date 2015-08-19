@@ -354,7 +354,7 @@ import org.testng.annotations.*;
 		 magAc.signOut();
 		 magAc.signIn(DATA_USER2, DATA_PASS);
 		 hp.goToSpecificSpace(space);
-		 waitForAndGetElement(spaMg.ELEMENT_SPACE_SETTING_TAB,2000,1);
+		 waitForAndGetElement(spaMg.ELEMENT_NAVIGATION_SPACE_SETTING_TAB,2000,1);
 
 		/*Step number: 4
 		*Step Name: -
@@ -371,7 +371,7 @@ import org.testng.annotations.*;
 		 spaHome.goToSpaceSettingTab();
 		 setSpaceMg.changeRole(DATA_NAME_USER2);
 		 spaMg.goToActivityStreamTab();
-		 waitForElementNotPresent(spaMg.ELEMENT_SPACE_SETTING_TAB,2000,1);
+		 waitForElementNotPresent(spaMg.ELEMENT_NAVIGATION_SPACE_SETTING_TAB,2000,1);
 
  	}
 
@@ -452,7 +452,7 @@ import org.testng.annotations.*;
 		 magAc.signOut();
 		 magAc.signIn(DATA_USER2, DATA_PASS);
 		 hp.goToSpecificSpace(space);
-		 waitForAndGetElement(spaMg.ELEMENT_SPACE_SETTING_TAB,2000,1);
+		 waitForAndGetElement(spaMg.ELEMENT_NAVIGATION_SPACE_SETTING_TAB,2000,1);
 		 
  	}
 

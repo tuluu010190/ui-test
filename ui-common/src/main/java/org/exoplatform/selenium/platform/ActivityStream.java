@@ -182,6 +182,9 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_PUBLICATION_COMMENT_NAMEAUTHOR = "//*[contains(text(),'${comment}')]/../..//*[@class='author']/*[contains(text(),'${name}')]";
 	public final String ELEMENT_PUBLICATION_COMMENT_TIMESTAMP = "//*[contains(text(),'${comment}')]/../..//*[@class='author']/*[contains(@class,'dateTime')]";
 	public final String ELEMENT_PUBLICATION_COMMENT_AVATAR = "//*[contains(text(),'${comment}')]/../..//*[@class='avatarXSmall']/*[@alt='${name}']";
+	public final String ELEMENT_COMMENT_AVATAR_USER="//*[contains(text(),'$activity')]/../../../..//*[contains(text(),'$comment')]/../..//*[contains(@src,'UserAvtDefault.png')][contains(@alt,'$fullName')]";
+	public final String ELEMENT_COMMENT_AUTHOR ="//*[contains(text(),'$activity')]/../../../..//*[contains(text(),'$comment')]/../..//*[contains(@class,'author')]//*[contains(text(),'$fullName')]";
+	public final String ELMEMENT_COMMENT_TIME="//*[contains(text(),'$activity')]/../../../..//*[contains(text(),'$comment')]/../..//*[contains(text(),'less than a minute ago')]";
 	
 	//Activity for Forum
 	public final String ELEMENT_ACTIVITY_POLL_VOTE_FOR_POLL = "//*[@id='boxContainer']//*[contains(text(),'{$name}')]/../../../..//*[@class='uiIconSocVote uiIconSocLightGray']";
@@ -195,7 +198,7 @@ public class ActivityStream extends PlatformBase {
 	public final String ELEMENT_ACTIVITY_SPACE_AVATAR = ".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(@src,'SpaceAvtDefault.png')]";
 	public final String ELEMENT_ACTIVITY_SPACE_DESCRIPTION = ".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(text(),'${des}')]";
 	public final String ELEMENT_ACTIVITY_SPACE_MEMBER_NUMBER = ".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(text(),'${num}')]";
-	public final String ELEMENT_ACTIVITY_USERJOIN_SPACE = "//*[text()='${user}']/../..//*[contains(text(),'Has joined the space.')]";
+	public final String ELEMENT_ACTIVITY_USERJOIN_SPACE = "//*[contains(text(),'${user}')]/../..//*[contains(text(),'Has joined the space.')]";
 	public final String ELEMENT_ACTIVITY_SPACE_CHANGE_NAME=".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Name has been updated to: ${space}.')]";
 	public final String ELEMENT_ACTIVITY_SPACE_SPACE_LAST_COMMENT=".//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[@class='commentItem commentItemLast']//*[@class='contentComment']";
 	public final String ELEMENT_ACTIVITY_SPACE_SPACE_LAST_COMMENT_JOINSPACE="//*[@id='boxContainer']//*[contains(text(),'${space}')]/../../..//*[@class='commentItem commentItemLast']//*[contains(text(),'Has joined the space')]";
@@ -236,6 +239,15 @@ public class ActivityStream extends PlatformBase {
 		info("Verify that the activity of the name:"+name+" is shown");
 		waitForAndGetElement(By.xpath(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("${title}",name)),DEFAULT_TIMEOUT,1);
 		info("The activity of the name:"+name+" is shown successfully");
+	}
+	/**
+	 * Check if there is not an activity in the stream
+	 * @param name
+	 */
+	public void checkNotShownActivity(String name){
+		info("Verify that the activity of the name:"+name+" isnot shown");
+		waitForElementNotPresent(ELEMENT_ACTIVITY_ELEMENT_IN_ACTIVITY_STREAM.replace("${title}",name),DEFAULT_TIMEOUT,1);
+		info("The activity of the name:"+name+" isnot shown successfully");
 	}
 	/**
 	 * Check comment of an activity
@@ -356,6 +368,8 @@ public class ActivityStream extends PlatformBase {
 		action.moveToElement(input).sendKeys(textContent).build().perform();
 		waitForAndGetElement(By.xpath(ELEMENT_COMMENT_BUTTON.replace("${activityText}", filename))).click();
 		Utils.pause(2000);
+		waitForAndGetElement(ELEMENT_PUBLICATION_COMMENTPOSTED.replace("${content}",textContent),2000,1);
+		info("The comment is added successfully");
 	}
 
 	/**
@@ -411,6 +425,8 @@ public class ActivityStream extends PlatformBase {
 		click(ELEMENT_PUBLICATION_DELETE_LASTCOMMENT.replace("${title}", comment));
 		click(button.ELEMENT_OK_BUTTON);
 		Utils.pause(2000);
+		waitForElementNotPresent(ELEMENT_PUBLICATION_COMMENTPOSTED.replace("${content}", comment),2000,1);
+		info("The comment is deleted successfully");
 	}
 	/**
 	 * View a comment
@@ -804,4 +820,27 @@ public class ActivityStream extends PlatformBase {
 		waitForAndGetElement(ELEMENT_ANSWER_FORM);
 		info("Answer form is shown successfully");
 	}
+	/**
+	 * Check format of a comment 
+	 * @param activity
+	 * @param comment
+	 * @param fullName
+	 */
+	public void checkFormatComment(String activity,String comment,String fullName){
+		info("Avatar and content of user comment");
+		waitElementAndTryGetElement(ELEMENT_COMMENT_AVATAR_USER
+				.replace("$activity",activity)
+				.replace("$comment",comment)
+				.replace("$fullName",fullName));
+		info("Name of user comment");
+		waitElementAndTryGetElement(ELEMENT_COMMENT_AUTHOR
+				.replace("$activity",activity)
+				.replace("$comment",comment)
+				.replace("$fullName",fullName));
+		info("Time comment is posted");
+		waitElementAndTryGetElement(ELMEMENT_COMMENT_TIME
+				.replace("$activity",activity)
+				.replace("$comment",comment));
+	}
+	
 }

@@ -11,124 +11,8 @@ import static org.exoplatform.selenium.TestLogger.info;
  * date: 0601/2014
  *
  */
-public class SpaceManagement extends SpaceHomePage {
+public class SpaceManagement extends SpaceLocator {
 
-	// Add form space
-	public final By ELEMENT_ADDNEWSPACE_BUTTON = By.xpath("//button[contains(.,'Add New Space')]");
-	public final By ELEMENT_ADDNEWSPACE_FORM = By.xpath("//span[@class='PopupTitle popupTitle' and text()='Add New Space']");
-	public final By ELEMENT_ADDNEWSPACE_ICON = By.xpath("//*[contains(@class, 'uiIconSocSimplePlus')]");
-	
-	//Search panel
-	public final By ELEMENT_MY_SPACE_SEARCH_TEXT_BOX = By.xpath(".//*[@id='SpaceSearch']");
-	public final By ELEMENT_MY_SPACE_SEARCH_BTN = By.xpath(".//*[@id='UISpaceSearch']//i[@class='uiIconSearch uiIconLightGray']");
-	public final String ELEMENT_MY_SPACE_SEARCH_RESULT = ".//*[@id='UIManageMySpaces']//*[contains(text(),'${name}')]";
-	public final String ELEMENT_MY_SPACE_SEARCH_RESULT_NUMBER = ".//*[@id='UIManageMySpaces']//*[@class='number'][text()='${number}']";
-
-	//Letter list 
-	public final String ELEMENT_MY_SPACE_LETTER_LIST= ".//*[@class='letterList']//*[text()='${alpha}']";
-
-	//Space portlets
-	public By ELEMENT_SPACE_MY_SPACE_PORTLET = By.id("UIMySpacesPortlet");
-	public By ELEMENT_SPACE_ALL_SPACE_PORTLET = By.id("UIAllSpacesPortlet");
-	public By ELEMENT_SPACE_INVITATION_SPACE_PORTLET = By.id("UIInvitationSpacesPortlet");
-	public By ELEMENT_SPACE_PENDING_SPACE_PORTLET = By.id("UIPendingSpacesPortlet");
-
-	//Add new space buttons
-	public By ELEMENT_ADD_NEW_SPACE_BUTTON = By.xpath("//*[@class='uiIconSocSimplePlus uiIconSocWhite']");
-	public By ELEMENT_ADD_SPACE_FORM = By.id("UIPopupAddSpace");
-
-	//Add new space popup and Setting tab
-	public final By ELEMENT_SPACE_NAME_INPUT = By.xpath("//input[contains(@name,'displayName')]");
-	public final By ELEMENT_SPACE_DESCRIPTION_INPUT = By.xpath("//textarea[contains(@name,'description')]");
-	public final By ELEMENT_SPACE_CHANGE_AVATAR_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Change Picture']");
-	public final By ELEMENT_UPLOAD_POPUP_SELECT_FILE_BTN=By.xpath(".//*[@id='Uploader']//label[text()='Select File']");
-	public final By ELEMENT_SPACE_SAVE_BTN = By.xpath(".//*[@id='UISpaceInfo']//button[text()='Save']");
-	public final By ELEMENT_SPACE_UPLOAD_CONFIRM_BTN=By.xpath(".//*[@id='UIAvatarUploader']//button[text()='Confirm']");
-	public final By ELEMENT_SPACE_UPLOAD_SAVE_BTN=By.xpath(".//*[@id='UIAvatarUploadContent']//button[text()='Save']");
-
-	//Access and Edit tab form
-	public By ELEMENT_SPACE_ACCESS_EDIT_TAB=By.xpath("//*[@data-target='#UISpacePermission-tab']");
-	public By ELEMENT_SPACE_VISIBILITY_VISIBLE_CHECKBOX=By.xpath("//*[@value='private']");
-	public By ELEMENT_SPACE_VISIBILITY_HIDDEN_CHECKBOX=By.xpath("//*[@value='hidden']");
-	public By ELEMENT_SPACE_REGISTRATION_OPEN_CHECKBOX=By.xpath("//*[@value='open']");
-	public By ELEMENT_SPACE_REGISTRATION_CLOSED_CHECKBOX=By.xpath("//*[@value='close']");
-	public By ELEMENT_SPACE_REGISTRATION_VALIDATION_CHECKBOX=By.xpath("//*[@value='validation']");
-
-
-	//Access and Edit tab form
-	public By ELEMENT_SPACE_INVITE_GROUP_USER_TAB=By.xpath("//*[@data-target='#UISpaceGroupBound-tab']");
-	public By ELEMENT_SPACE_SELECT_EXIST_GROUP_CHECKBOX=By.id("UseExistingGroupCheckBox");
-
-	//Button create
-	public By ELEMENET_SPACE_CREATE_BUTTON=By.xpath("//*[@class='uiAction']/*[text()='Create']");
-
-	//My space
-	public final By ELEMENT_SPACE_MY_SPACE_TAB=By.xpath(".//*[@id='UIManageAllSpaces']//*[contains(text(),'My Spaces')]");
-	public String ELEMENT_SPACE_TITLE="//*[@class='spaceTitle']//*[text()='${space}']";
-	public final String ELEMENT_SPACE_DESCRIPTION=".//*[@id='UIManageMySpaces']//*[@class='content limitText'][text()='${des}']";
-	public final By ELEMENT_SPACE_AVATAR_DEFAULT=By.xpath(".//*[@id='UISpaceInfo']//*[contains(@src,'SpaceAvtDefault.png')]");
-	public final String ELEMENT_SPACE_DELETE_BUTTON="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Delete']";
-	public final String ELEMENT_SPACE_LEAVE_BTN = "//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Leave']";
-	public final String ELEMENT_SPACE_EDIT_BTN = "	//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Edit']";
-    public final By ELEMENT_SPACE_EDIT_SETTING_TAB =By.xpath(".//*[contains(@data-target,'#UISpaceInfo-tab')]");
-	public final String ELEMENT_SPACE_MEMBER_INFOR="//*[@class='spaceTitle']//*[text()='${space}']/../..//*[contains(@class,'membersCount')]";
-	public final String ELEMENT_SPACE_DESC_INFOR="//*[@class='spaceTitle']//*[text()='${space}']/../..//*[contains(@class,'content')]";
-	public final String ELEMENT_SPACE_MANAGER_STATUS="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[contains(@class,'statusLabel') and text()='Manager']";
-	public String ELEMENT_SPACE_CONFIRM_DELETE="Are you sure you want to delete this space? This cannot be undone. All page navigations and this group will also be deleted";
-	public By ELEMENT_SPACE_DELETE_SPACE_OK_BUTTON=By.xpath("//*[text()='OK']");
-
-	public String ELEMENT_SPACE_NAME_BREADCUMB ="//*[@id='UIBreadCrumbsNavigationPortlet']//*[@class='name' and contains(text(),'{$name}')]";
-
-	//Invitations received tab
-	public final By ELEMENT_MY_SPACE_INVITATION_RECEIVED = By.xpath(".//a[text()='Invitations Received']");
-	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_ACCEPT_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Accept']";
-	public final String ELEMENT_MY_SPACE_INVITATION_RECEIVED_CANCEL_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Ignore']";
-
-	//All Spaces tab
-	public final By ELEMENT_MY_SPACE_ALL_SPACES_TAB = By.xpath(".//*[@id='UIPage']//*[contains(@href,'all-spaces')]");
-	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_TO_JOIN_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Request to Join']";
-	public final String ELEMENT_MY_SPACE_ALL_SPACES_JOIN_BTN = ".//*[contains(text(),'${space}')]/../../..//button[text()='Join']";
-	public final String ELEMENT_MY_SPACE_ALL_SPACES_REQUEST_PENDING = ".//*[contains(text(),'${space}')]/../../..//*[contains(text(),'Request Pending')]";
-    public final By ELEMENT_ALL_SPACE_ACTIVE_TAB=By.xpath(".//*[@id='UIManageAllSpaces']//*[contains(@class,'active')]//*[contains(@href,'all-spaces')]");
-	
-    //Request pending tab
-	public final By ELEMENT_MY_SPACE_REQUEST_PENDING_TAB = By.xpath("//*[contains(@href,'pendingSpace')]");
-	public final String ELEMENT_SPACE_CANCEL_BUTTON="//*[@class='spaceTitle']//*[text()='${space}']/../../..//*[text()='Cancel']";
-	
-	//Members
-	public final By ELEMENT_SPACE_GOWIKI = By.xpath("//*[@class='uiIconAppWikiPortlet uiIconDefaultApp']/..//*[@id='wiki']");
-	public final By ELEMENT_SPACE_MEMBERS = By.xpath("//*[@data-toggle='tab' and text()='Members']");
-	public final By ELEMENT_SPACE_GOSETTINGS = By.xpath("//*[@id='settings']");
-	public final By ELEMENT_SPACE_TEXTBOX_USER = By.xpath("//*[@id='user']");
-	public final By ELEMENT_SPACE_TEXTBOX_USER_SUGGEST = By.xpath("//*[@class='text' and text()='Mary Williams']");
-	public final By ELEMENT_SPACE_BTN_INVITE = By.xpath("//*[text()='Invite']");
-	public final String ELEMENT_SPACE_BTN_MANAGER = "//*[text()='${name}']/..//*[@class='switchBtnLabelOff']";
-	public final String ELEMENT_SPACE_MEMBER_USER_MANAGER=".//*[@id='existingUsersTable']//*[contains(text(),'${fullName}')]/..//*[@class='switchBtnHandle' and contains(@style,'left: 41px;')]";
-	public final String ELEMENT_SPACE_MEMBER_USER_MEMBER=".//*[@id='existingUsersTable']//*[contains(text(),'${fullName}')]/..//*[@class='switchBtnHandle' and not(contains(@style,'left: 41px;'))]";
-	
-	public final By ELEMENT_SPACE_BTN_ACCEPT_INVITE = By.xpath("//*[text()='Accept']");
-	public final By ELEMENT_SPACE_ALLSPACES = By.xpath("//*[text()='All Spaces']");
-
-	//Request to join a space
-	public final String ELEMENT_REQUEST_TO_JOIN_SPACE_BTN = "//*[contains(text(),'${space}')]/../../..//button[text()='Request to Join']";
-	public final String ELEMENT_REQUEST_PENDING = "//*[contains(text(),'${space}')]/../../..//*[text()='Request Pending']";
-	
-	//Forum tab
-	public final By ELEMENT_FORUM_START_BUTTON_UP = By.xpath("(.//*[@id='UITopicContainer']//*[contains(@class,'uiIconForumCreateTopic ')])[1]");
-
-	//Wiki tab
-	public final By ELEMENT_WIKI_HOME_TITLE =By.xpath(".//*[@id='titleInfo']");
-	//Document tab
-	public final By ELEMENT_DOCUMENT_FOLDER_ADD_BTN = By.xpath(".//*[contains(@class,'uiIconEcmsAddFolder ')]");	
-	
-	//Agenda tab
-    public final By ELEMENT_AGENDA_EVENT_ADD_BTN =By.xpath(".//*[@id='UIActionBarQuickAddEvent']");
-	
-    //Member tab
-	public final By ELEMENT_MEMBER_USER_INFOR = By.xpath(".//*[@id='spaceManagerListBox']");
-	public final By ELEMENT_MEMBER_USER_SEARCH= By.xpath(".//*[@id='UIProfileUserSearch']");
-	public final By ELEMENT_MEMBER_USER_CONTACT_LIST=By.xpath(".//*[@id='spaceMemberListBox']");
-	public final String ELEMENT_MEMBER_USER_NAME = ".//*[@id='spaceMemberListBox']//*[contains(@data-text,'${fullName}')]";
 	
 
 	ManageAlert alert;
@@ -138,7 +22,6 @@ public class SpaceManagement extends SpaceHomePage {
 	 * @param dr
 	 */
 	public SpaceManagement(WebDriver dr){
-		super(dr);
 		this.driver=dr;
 		alert = new ManageAlert(driver);
 	}
@@ -203,13 +86,14 @@ public class SpaceManagement extends SpaceHomePage {
 	}
 	
 	/**
-	 * Create quickly a new space
-	 * 
-	 * @param name : Space name
-	 * @param desc : Space description
-	 * 
+	 * Add a new space
+	 * @param name
+	 * @param desc
+	 * @param access
+	 * @param groups
+	 * @param params
 	 */
-	public void addNewSpace(String name, String desc, int... params) {
+	public void addNewSpace(String name, String desc,String access,String groups,int... params) {
 		int iTimeout = params.length > 0 ? params[0] : DEFAULT_TIMEOUT; 
 		if (waitForAndGetElement(ELEMENT_ADDNEWSPACE_BUTTON, 3000, 0, 2) != null){
 			click(ELEMENT_ADDNEWSPACE_BUTTON);
@@ -219,9 +103,63 @@ public class SpaceManagement extends SpaceHomePage {
 		waitForAndGetElement(ELEMENT_ADDNEWSPACE_FORM,3000,0);
 		type(ELEMENT_SPACE_NAME_INPUT, name, true);
 		type(ELEMENT_SPACE_DESCRIPTION_INPUT, desc, true);
+		
+		if(!access.isEmpty()){
+			goToAccessTabFromPopUp();
+			String[] arrayRight = access.split("/");
+			if(arrayRight.length>0){
+				for(String right: arrayRight){
+					info("Select a permission for space:"+right);
+					check(ELEMENT_ACCESS_PERMISSION_RADIO.replace("${right}", right),2);
+				}
+			}else{
+				info("Select a permission for space:"+access);
+				check(ELEMENT_ACCESS_PERMISSION_RADIO.replace("${right}", access),2);
+			}
+			
+		}
+		
+		if(!groups.isEmpty()){
+			goToInviteUserFromGroupTab();
+			info("Select a group in the list");
+			String[] arrayGroup = groups.split("/");
+			if(arrayGroup.length>0){
+				for(String group: arrayGroup){
+					if(!group.isEmpty()){
+						click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_CHECKBOX);
+						Utils.pause(2000);
+						info("Select a group:"+group);
+						click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECT_GROUP.replace("${name}",group));
+					}
+				}
+			}else{
+				info("Select a group:"+groups);
+				click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_SELECT_GROUP.replace("${name}",groups));
+			}
+		}
+		
 		info("Save all changes");
 		click(ELEMENET_SPACE_CREATE_BUTTON);
 		waitForAndGetElement(By.linkText(name), iTimeout);
+	}
+	
+	/**
+	 * Open Invite users from group tab
+	 */
+	public void goToInviteUserFromGroupTab(){
+		info("click on the Invite users from group tab");
+		click(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_TAB);
+		waitForAndGetElement(ELEMENT_SPACE_INVITE_USERS_FROM_GROUP_CHECKBOX,2000,2);
+		info("The tab is shown");
+	}
+	/**
+	 * Open Access tab from add new space popup
+	 */
+	public void goToAccessTabFromPopUp(){
+		info("click on Access tab");
+		click(ELEMENT_ACCESS_AND_EDIT_TAB_OF_POPUP);
+		waitForAndGetElement(ELEMENT_ACCESS_HIDDEN_RADIO,2000,2);
+		info("The tab is shown");
 	}
 	
 	/**

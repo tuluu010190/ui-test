@@ -53,11 +53,11 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B invites UserA to the space");
 		hp.goToSpecificSpace(spaceName);
-		spaMg.goToSpaceSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(arrayUser.get(0),true,arrayUser.get(0));
 		
@@ -146,11 +146,11 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B invites UserA to the space");
 		hp.goToSpecificSpace(spaceName);
-		spaMg.goToSpaceSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(arrayUser.get(0),true,arrayUser.get(0));
 
@@ -240,11 +240,11 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B invites UserA to the space");
 		hp.goToSpecificSpace(spaceName);
-		spaMg.goToSpaceSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(arrayUser.get(0),true,arrayUser.get(0));
 
@@ -324,11 +324,11 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B invites UserA to the space");
 		hp.goToSpecificSpace(spaceName);
-		spaMg.goToSpaceSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(arrayUser.get(0),true,arrayUser.get(0));
 
@@ -400,11 +400,11 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B invites UserA to the space");
 		hp.goToSpecificSpace(spaceName);
-		spaMg.goToSpaceSettingTab();
+		spaHome.goToSpaceSettingTab();
 		setSpaceMg.goToMemberTab();
 		setSpaceMg.inviteUser(arrayUser.get(0),true,arrayUser.get(0));
 
@@ -489,11 +489,11 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B invites UserA to the space");
 		hp.goToSpecificSpace(spaceName);
-		spaMg.goToSpaceSettingTab();
+		spaHome.goToSpaceSettingTab();
 		String[] group = {groupLabel};
 		setSpaceMg.inviteGroup(group);
 

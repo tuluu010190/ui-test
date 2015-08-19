@@ -52,6 +52,11 @@ public class HomePagePlatform extends TestBase{
 	
 	//Middle homepage panel
 	public final By ELEMENT_HOMPAGE_MIDDLE_PANEL = By.id("OfficeMiddle");
+	public final By ELEMENT_HOMEPAGE_DROP_MENU_ARROW=By.xpath(".//*[@id='DisplayModesDropDown']//*[contains(@class,'uiIconMiniArrowDown')]");
+	public final By ELEMENT_HOMEPAGE_DROP_MENU_MY_ACTIVITIES=By.xpath(".//*[@id='DisplayModesDropDown']//*[contains(@class,'dropdown-menu')]//*[contains(text(),'My Activities')]");
+	public final By ELEMENT_HOMEPAGE_DROP_MENU_ALL_ACTIVITIES=By.xpath(".//*[@id='DisplayModesDropDown']//*[contains(@class,'dropdown-menu')]//*[contains(text(),'All Activities')]");
+	public final By ELEMENT_HOMEPAGE_DROP_MENU_MY_SPACES=By.xpath(".//*[@id='DisplayModesDropDown']//*[contains(@class,'dropdown-menu')]//*[contains(text(),'My Spaces')]");
+	public final By ELEMENT_HOMEPAGE_DROP_MENU_CONNECTIONS=By.xpath(".//*[@id='DisplayModesDropDown']//*[contains(@class,'dropdown-menu')]//*[contains(text(),'Connections')]");
 	
 	//Site Explorer activities
 	public final By ELEMENT_SITEMAPS_ACTIVITY = By.xpath(".//*[@data-original-title='sitemaps']/../../../..//div[@class='commentItem commentItemLast']//p[text()='File has been updated.']");
@@ -185,26 +190,11 @@ public class HomePagePlatform extends TestBase{
 	public final String ELEMENT_PUBLICATION_COMMENTTEXTBOX_STATUS = "//*[text()='${title}']/../../../..//*[@class='replaceTextArea editable']";
 	public final By ELEMENT_PUBLICATION_COMMENTBTN = By.xpath("//*[@data-original-title='Comment']");
 	public final String ELEMENT_PUBLICATION_COMMENTBTN_STATUS = "//*[text()='${title}']/..//*[text()='Comment']";
-	//public final String ELEMENT_PUBLICATION_COMMENTPOSTED = "//*[@class='commentList']//*[contains(text(),'${content}')]";
 	public final String ELEMENT_PUBLICATION_AUTHOR = "//*[@title='${title}']/../../../..//*[@class='author']";
 	public final String ELEMENT_PUBLICATION_DELETE = "//*[@title='${title}']/../../../..//*[@class='uiIconClose uiIconLightGray controllDelete']";
-	//public final String ELEMENT_PUBLICATION_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentItem commentItemLast']";
-	//public final String ELEMENT_PUBLICATION_DELETE_LASTCOMMENT = "//*[contains(text(),'${title}')]/../../../..//*[@class='commentRight']/..//*[@class='uiIconClose uiIconLightGray controllDelete']";
-	//public final String ELEMENT_PUBLICATION_COMMENT = "//*[@class='contentComment' and contains(text(),'${content}')]";
-	//public final By ELEMENT_PUBLICATION_SEEALLCOMMENTBTN = By.xpath("//*[contains(text(), 'View all 10 comments')]");
 	public final String ELEMENT_PUBLICATION_COMMENTORDER = "//div[1]/form/div[3]/div/div/div[4]/div[2]/div[${number}]/div//*[contains(text(),'${comment}')]";
-	//public final String ELEMENT_PUBLICATION_COMMENTORDER_SPACE = "//*[contains(text(),'${comment}')]";
-	//public final String ELEMENT_PUBLICATION_USERJOIN_SPACE = "//*[text()='${user}']/../..//*[contains(text(),'Has joined the space.')]";
-	//public final String ELEMENT_PUBLICATION_USERMANAGE_SPACE = "//*[@class='author']//*[contains(text(), '${author}')]/../..//*[contains(text(),'${user}')]";
-	
-	//public final String ELEMENT_PUBLICATION_FIRSTPOST_AUTHOR = "//div[1]/form//*[@class='heading']//*[@class='author']//*[contains(text(),'${name}')]";
-	//public final By ELEMENT_PUBLICATION_FIRSTPOST_AUTHORAVATAR = By.xpath("//div[1]/form//*[@class='activityAvatar avatarCircle']");
-	//public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIVITYTEXT = By.xpath("//div[1]/form//*[@class='description']");
-	//public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIVITYTEXT_CONNECTED = By.xpath("//div[1]/form//*[@class='description' and contains(text(), 'm now connected with 1 user(s)')]");
 	public final By ELEMENT_PUBLICATION_FIRSTPOST_ACTIONBAR = By.xpath("//div[1]/form//*[@class='actionBar clearfix']");
 	
-	//public final String ELEMENT_PUBLICATION_SUGGEST_USER = ".//*[@data-display='${name}']";
-	//public final String ELEMENT_PUBLICATION_USER_SHARED = "//*[@href='http://localhost:8080/portal/intranet/profile/${name}']";
 	
 	public final By ELEMENT_PUBLICATION_ADDFILE = By.xpath("//*[@class='actionIcon uidocactivitycomposer']");
 	public final By ELEMENT_PUBLICATION_ADDFILE_NEWFOLDER = By.xpath("//*[@class='uiIconEcmsAddFolder uiIconEcmsLightGray']");
@@ -373,6 +363,40 @@ public class HomePagePlatform extends TestBase{
 		this.driver.get(baseUrl+"/intranet/profile/"+username);
 		Utils.pause(2000);
 	}
-
+	/**
+	 * Define display mode's type of the AS
+	 * as My Activities,All Activities,...
+	 */
+	public enum displayModeType{
+		My_Activities,All_Activities,My_Spaces,Connections;
+	}
+    /**
+     * Select display mode for AS
+     * @param type
+     *             as My Activities, All Activities....
+     */
+	public void selectDisplayMode(displayModeType type){
+		info("Open drop menu");
+		click(ELEMENT_HOMEPAGE_DROP_MENU_ARROW);
+		switch(type){
+		case My_Activities:
+			info("Select My Activities");
+			click(ELEMENT_HOMEPAGE_DROP_MENU_MY_ACTIVITIES);
+			break;
+		case All_Activities:
+			info("Select All Activities");
+			click(ELEMENT_HOMEPAGE_DROP_MENU_ALL_ACTIVITIES);
+			break;
+		case My_Spaces:
+			info("Select My Spaces");
+			click(ELEMENT_HOMEPAGE_DROP_MENU_MY_SPACES);
+			break;
+		case Connections:
+			info("Select Connections");
+			click(ELEMENT_HOMEPAGE_DROP_MENU_CONNECTIONS);
+			break;
+		}
+		
+	}
 }
 

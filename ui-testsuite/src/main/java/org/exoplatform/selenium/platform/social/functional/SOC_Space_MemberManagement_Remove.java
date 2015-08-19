@@ -84,7 +84,7 @@ import org.testng.annotations.*;
 	     magAc.signOut();
 	     magAc.signIn(DATA_USER1, DATA_PASS);
 	     hp.goToSpecificSpace(space);
-	     spaMg.goToSpaceSettingTab();
+	     spaHome.goToSpaceSettingTab();
 	     setSpaceMg.removeUserFromMemberlist(DATA_NAME_USER2);
  	}
 

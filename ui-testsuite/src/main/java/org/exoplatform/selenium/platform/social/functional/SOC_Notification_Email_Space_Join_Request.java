@@ -376,7 +376,7 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B login");
 		magAc.signOut();
@@ -476,7 +476,7 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B login");
 		magAc.signOut();
@@ -647,7 +647,7 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B login");
 		magAc.signOut();
@@ -753,7 +753,7 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B login");
 		magAc.signOut();
@@ -836,7 +836,7 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B login");
 		magAc.signOut();
@@ -941,7 +941,7 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B login");
 		magAc.signOut();
@@ -1043,7 +1043,7 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B login");
 		magAc.signOut();
@@ -1124,7 +1124,7 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B login");
 		magAc.signOut();
@@ -1225,7 +1225,7 @@ import org.testng.annotations.*;
 		String spaceDes= txData.getContentByArrayTypeRandom(1)+getRandomNumber();
 		hp.goToAllSpace();
 		spaMg.goToCreateSpace();
-		spaMg.addNewSpace(spaceName,spaceDes);
+		spaMg.addNewSpaceSimple(spaceName,spaceDes);
 		
 		info("User B login");
 		magAc.signOut();
