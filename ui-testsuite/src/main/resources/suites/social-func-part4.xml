@@ -7,24 +7,17 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_Add" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_Comment" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_Delete" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_Edit" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_LikeUnlike" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_RelationActivity" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_View" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_Activity_UserProfileActivities" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_MyConnections" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_FindConnections" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_AboutMe" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_Connections" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_ConnectionStatus" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_EditProfile" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_Experience" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_RecentActivities" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_People_UserProfile_ViewProfile" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig2" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Comment_Activity" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Connection_Request" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Extensibility" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Mention" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_New_User" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Notification_Icon" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Notification_List" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Post_In_Space" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig1" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_intranet_Administration" />
 		</classes>
 	</test>
 	<listeners>

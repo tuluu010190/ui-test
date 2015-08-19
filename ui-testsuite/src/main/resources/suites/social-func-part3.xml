@@ -7,15 +7,11 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_intranet_Administration" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig2" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Comment_Activity" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Extensibility" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Mention" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Connection_Request" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Intranet_Notification_List" />
-            <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Like_Activities" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig3" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Email_New_User" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Email_Post_On_My_Spaces" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Email_Post_On_My_Stream" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Email_Space_Invitation" />
             <class name="org.exoplatform.selenium.platform.social.functional.SOC_notification_Email_Notification_Email" />
 		</classes>
 	</test>

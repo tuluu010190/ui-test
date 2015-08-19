@@ -7,18 +7,12 @@
 			</run>
 		</groups>
 		<classes>
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Dashboard" />
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Notification_Settings" />
-		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig1" />
-		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Administration" />
-<<<<<<< HEAD
-			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_MemberManagement_Invite" />
-		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Space_SpacesManagement" />
-		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notifications_IntranetNotifications_NotificationsIcon" />
-=======
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_TestConfig3" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Email_Activity_Viewer" />
+			<class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Email_Comment_Activity" />
+		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Email_Connection_Reqest" />
 		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Email_Like_Activity" />
->>>>>>> FQA-2492: Write High Fnc/Social/Notification/Email Notifications/Like on Activity
+		    <class name="org.exoplatform.selenium.platform.social.functional.SOC_Notification_Email_Mention" />
 		</classes>
 	</test>
 	<listeners>

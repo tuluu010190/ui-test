@@ -1,10 +1,11 @@
 package org.exoplatform.selenium.platform.social.functional;
 
 import static org.exoplatform.selenium.TestLogger.info;
+
 import org.testng.annotations.*;
 
 
-	public class SOC_Notification_Intranet_Upgrade{
+	public class SOC_Notification_Intranet_Upgrade extends SOC_TestConfig2{
 
 	/**
 	*<li> Case ID:125156.</li>

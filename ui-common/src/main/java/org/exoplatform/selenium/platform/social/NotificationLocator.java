@@ -12,6 +12,7 @@ public class NotificationLocator extends PlatformBase{
 	public final String ELEMENT_GMAIL_FORMAT_CONTENT=".//strong//*[contains(text(),'$fullName')]/../../..//*[contains(.,'$content')]";
 	public final String ELEMENT_GMAIL_FORMAT_CONTENT_CONNECTION_REQUEST="//*[contains(@href,'$username')]/../..//*[contains(.,'$content')]";
 	public final String ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_REQUEST="//*[contains(@href,'$username')]/../..//*[contains(.,'$content')]//a[contains(text(),'$space')]";
+	public final String ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_POST_IN_MYSPACE="//*[contains(@href,'$username')]/../../..//*[contains(.,'$content')]//a[contains(text(),'$space')]";
 	public final String ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_INVITATION="//p[contains(text(),\"$content\")]//a[contains(text(),'$space')]";
 	public final String ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE=".//*[contains(text(),'$title')]";
 	public final String ELEMENT_GMAIL_FORMAT_ACTIVITY_TITLE_1=".//*[text()='$title']";
@@ -49,6 +50,11 @@ public class NotificationLocator extends PlatformBase{
 	public final By ELEMENT_GMAIL_POST_IN_AC_REPLY_BTN=By.xpath(".//*[contains(@href,'reply_activity')]");
 	public final By ELEMENT_GMAIL_POST_IN_AC_VIEW_FULL_BTN=By.xpath(".//*[contains(@href,'view_full_activity')]");
 	
+	//Post in Space activity stream
+	public final String ELEMENT_GMAIL_TITLE_POST_IN_SPACE_AS = ".//h2[contains(.,'$fullName has posted an activity in the $spaceName space: $content')]";
+	public final String ELEMENT_GMAIL_HEADER_POST_IN_SPACE_AS =".//td[contains(text(),'New post in $spaceName')]";
+	public final String ELEMENT_GMAIL_CONTENT_POST_IN_SPACE_AS_1 = ".//a[contains(@href,'$userName')]/../../..//*[contains(.,'has posted an activity in the')]//*[contains(text(),'$spaceName')]/../../..//*[contains(.,'space. See the post below:')]";
+	public final String ELEMENT_GMAIL_CONTENT_POST_IN_SPACE_AS_2 = ".//*[text()='$content']";
 	//Comment an Activity Email notification
 	public final String ELEMENT_GMAIL_TITLE= ".//span[contains(.,\"$title\")]";
 	public final String ELEMENT_GMAIL_TITLE_WITH_INDEX= "(.//span[contains(.,'$title')])[$num]";

@@ -131,6 +131,36 @@
 			</properties>
 		</profile>
 		<profile>
+			<id>social-func-part5</id>
+			<properties>
+				<testSuite>social-func-part5.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>social-func-part6</id>
+			<properties>
+				<testSuite>social-func-part6.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>social-func-part7</id>
+			<properties>
+				<testSuite>social-func-part7.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>social-func-part8</id>
+			<properties>
+				<testSuite>social-func-part8.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
+			<id>social-func-part9</id>
+			<properties>
+				<testSuite>social-func-part9.xml</testSuite>
+			</properties>
+		</profile>
+		<profile>
 			<id>gatein-sniff-part1</id>
 			<properties>
 				<testSuite>gatein-sniff-part1.xml</testSuite>

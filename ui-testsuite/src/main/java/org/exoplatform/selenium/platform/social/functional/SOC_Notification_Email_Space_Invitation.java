@@ -49,7 +49,7 @@ import org.testng.annotations.*;
 		*Expected Outcome: 
 			- Space Invitation notification belongs to "Spaces" category*/ 
 		String category = notiCatData.getCategoryByArrayTypeRandom(3);
-		myNoti.verifyNotiBelongToCategory(category,notiMode.AS_Post);
+		myNoti.verifyNotiBelongToCategory(category,notiMode.Space_Invitation);
  	}
 
 	/**

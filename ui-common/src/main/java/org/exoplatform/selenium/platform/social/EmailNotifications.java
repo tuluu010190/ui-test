@@ -79,6 +79,21 @@ public class EmailNotifications extends NotificationLocator{
 	
 	
 	/**
+	 * Verify email notification's title is shown
+	 * @param fullName
+	 *                 is full name of the user
+	 * @param spaceName
+	 *                  is space 
+	 * @param content
+	 *                  is the title of email notification
+	 */
+	public void verifyPresentTitlePostSpaceASEmail(String fullName,String spaceName, String content){
+		info("Verify that email notificaiton is sent to user's inbox");
+		waitForAndGetElement(ELEMENT_GMAIL_TITLE_POST_IN_SPACE_AS.
+				replace("$fullName", fullName).replace("$spaceName", spaceName).replace("$content", content),30000, 1);
+	}
+	
+	/**
 	 * Verify email notification's title is not shown
 	 * @param fullName
 	 *                 is full name of the user
@@ -172,6 +187,32 @@ public class EmailNotifications extends NotificationLocator{
 			}
 		}
 	}
+	/**
+	 * Verify email notification's title of comment an Activity is shown
+	 * @param title 
+	 *                  is the title of email notification
+	 * @param fullName
+	 *                 is full name of the user
+	 * @param content
+	 *                  is the title of email notification
+	 */
+	public void verifyPresentEmailPostActivityInSpaceASNotifications(String title,String fullName, String spaceName, String content,String... isParams){
+		if(!content.isEmpty()){
+			info("Verify that email notificaiton is sent to user's inbox");
+			waitForAndGetElement(ELEMENT_GMAIL_TITLE.replace("$title",title)
+					.replace("$fullName", fullName).replace("$spaceName", spaceName).replace("$content",content),30000, 1);
+		}else{
+			if(isParams.length>0){
+				info("Verify that email notificaiton is sent to user's inbox");
+				waitForAndGetElement(ELEMENT_GMAIL_TITLE_WITH_INDEX.replace("$title",title)
+						.replace("$fullName", fullName).replace("$spaceName", spaceName).replace("$num",isParams[0]),30000, 1);
+			}else{
+				info("Verify that email notificaiton is sent to user's inbox");
+				waitForAndGetElement(ELEMENT_GMAIL_TITLE.replace("$title",title).replace("$spaceName", spaceName)
+						.replace("$fullName", fullName),30000, 1);
+			}
+		}
+	}
 	
 	/**
 	 * Verify email notification's title of an Activity  is not shown
@@ -225,7 +266,38 @@ public class EmailNotifications extends NotificationLocator{
 		}
 		Utils.pause(2000);
 	}
-	
+	/**
+	 * Open detail an email Notification
+	 * @param title
+	 *                   is the title of email notification
+	 * @param fullName
+	 *                   is full name of the user
+	 */
+	public void goToDetailEmailNotiOfSpacePost(String title,String fullName,String spaceName,String content){
+		if(!content.isEmpty()){
+			info("Go to detail detail Activity via email notification");
+			click(ELEMENT_GMAIL_TITLE.replace("$title",title)
+					.replace("$fullName", fullName).replace("$spaceName", spaceName).replace("$content",content));
+		}else{
+			info("Go to detail detail Activity via email notification");
+			click(ELEMENT_GMAIL_TITLE.replace("$title",title).replace("$spaceName", spaceName)
+					.replace("$fullName", fullName));
+		}
+		Utils.pause(2000);
+	}
+	/**
+	 * Ch detail an email Notification
+	 * @param title
+	 *                   is the title of email notification
+	 * @param fullName
+	 *                   is full name of the user
+	 */
+	public void checkDetailEmailNotiOfSpacePost(String userName,String spaceName,String content){
+		waitForAndGetElement(ELEMENT_GMAIL_HEADER_POST_IN_SPACE_AS.replace("$spaceName", spaceName));
+		waitForAndGetElement(ELEMENT_GMAIL_CONTENT_POST_IN_SPACE_AS_1.replace("$userName", userName).replace("$spaceName", spaceName));
+		waitForAndGetElement(ELEMENT_GMAIL_CONTENT_POST_IN_SPACE_AS_2.replace("$content", content));
+	}
+		
 	/**
 	 * Go to previous page
 	 */
@@ -430,8 +502,15 @@ public class EmailNotifications extends NotificationLocator{
 			String userName,String emailContent, String space, Boolean... isNewUser){
 		if(!emailTitle.isEmpty()){
 			info("Verify Email notificaiton's title");
-			waitForAndGetElement(ELEMENT_GMAIL_FORMAT_TITLE.
-					replace("$title",emailTitle),3000,1);
+			if(waitForAndGetElement(ELEMENT_GMAIL_FORMAT_TITLE.
+					replace("$title",emailTitle),3000,0)!=null){
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_TITLE.
+						replace("$title",emailTitle),3000,1);
+			}else{
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_TITLE
+						.replace("$title",emailTitle)
+						.replace("$space", space),3000,1);
+			}
 		}
 		if(!firstName.isEmpty()){
 			info("Verify Openning email");
@@ -452,6 +531,20 @@ public class EmailNotifications extends NotificationLocator{
 			waitForAndGetElement(ELEMENT_GMAIL_ACCEPT_BTN_SPACE_JOIN_REQUEST);
 			info("Verify Refuse button");
 			waitForAndGetElement(ELEMENT_GMAIL_REFUSE_JOIN_SPACE_BTN);
+		}
+		if(isNewUser.length>0 && isNewUser[0]==false){
+			info("Verify the email's content as: Post in my space");
+			if(!emailContent.isEmpty() && !firstName.isEmpty()){
+				waitForAndGetElement(ELEMENT_GMAIL_FORMAT_CONTENT_SPACE_POST_IN_MYSPACE
+						.replace("$username",userName)
+						.replace("$content",emailContent)
+						.replace("$space", space),3000,1);
+			}
+			
+			info("Verify validate button");
+			waitForAndGetElement(ELEMENT_GMAIL_POST_IN_AC_REPLY_BTN);
+			info("Verify Refuse button");
+			waitForAndGetElement(ELEMENT_GMAIL_POST_IN_AC_VIEW_FULL_BTN);
 		}
 		else {
 			info("Verify the email's content as: Space Invitation");
