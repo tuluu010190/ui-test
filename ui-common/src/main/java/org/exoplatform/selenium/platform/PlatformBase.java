@@ -106,6 +106,7 @@ public class PlatformBase extends TestBase {
 
 	/* Edit */
 	public final By ELEMENT_MENU_EDIT_LINK = By.linkText("Edit");
+	
 	//Content
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//i[contains(@class,'quickEdit')]"); 
 	public final By ELEMENT_MENU_PAGE_LINK = By.linkText("Page");
@@ -118,9 +119,9 @@ public class PlatformBase extends TestBase {
 
 
 	//site
-	public final By ELEMENT_MENU_EDIT_SITES = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Site')]");
+	public final By ELEMENT_MENU_EDIT_SITES = By.xpath("//*[contains(@href,'#')][contains(text(),'Site')]");
 	public final By ELEMENT_MENU_EDIT_SITES_NAV = By.xpath("//*[@id='UIAdminToolbarContainer']//a[contains(text(),'Navigation')]");
-	public final By ELEMENT_MENU_EDIT_SITE_LAYOUT = By.linkText("Layout");
+	public final By ELEMENT_MENU_EDIT_SITE_LAYOUT = By.xpath(".//*[contains(@href,'#')][contains(text(),'Site')]/..//*[contains(text(),'Layout')]");
 	public final By ELEMENT_MENU_EDIT_ADDSITE = By.linkText("Add Site");
 	public final By ELEMENT_MENU_EDIT_CONTENT_TEXT = By.linkText("Content");
 

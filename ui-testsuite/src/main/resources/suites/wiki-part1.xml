@@ -12,9 +12,11 @@
 				name="org.exoplatform.selenium.platform.wiki.functional.basicaction.Wiki_BasicAction_Add" />
 			<class
 				name="org.exoplatform.selenium.platform.wiki.functional.basicaction.Wiki_BasicAction_Delete" />
+			<class
+				name="org.exoplatform.selenium.platform.wiki.functional.basicaction.Wiki_Basic_Action_Public_Page" />
 		</classes>
 	</test>
-
+	
 	<listeners>
 		<listener class-name="org.exoplatform.selenium.TestReportListener" />
 	</listeners>

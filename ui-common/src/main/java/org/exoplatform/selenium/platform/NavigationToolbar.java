@@ -23,7 +23,7 @@ public class NavigationToolbar extends PlatformBase {
 
 	Notification noti;
 	
-	public final By ELEMENT_MENU_EDIT_LINK = By.xpath("//i[@class='uiIconPLF24x24Edit']");
+	public final By ELEMENT_MENU_EDIT_LINK = By.xpath(".//*[@id='UIAdminToolbarContainer']//*[contains(@class,'uiIconPLF24x24Edit')]");
 	public final By ELEMENT_MENU_EDIT_CONTENT = By.xpath("//*[@class='quickEditChecked']");
 	public final By ELEMENT_MENU_EDIT_CONTENT_UNCHECK = By.xpath("//*[@class='quickEditUnchecked']");
 	public final By ELEMENT_EDIT_MENU_ID = By.xpath("//*[@id='UIAdminToolbarPortlet']/../..");
@@ -487,13 +487,13 @@ public class NavigationToolbar extends PlatformBase {
 	}
 
 	
-	/** Go to Edit/Page/Add Page
+	/** Go to Edit/Page/Edit layout
 	 * @author phuongdt
 	 */
 	public void goToEditLayout(){
 		info("Go to Edit layout form");
 		for(int repeat=0;; repeat ++){
-			if (repeat > 4){
+			if (repeat > 1){
 				mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
 				break;
 			}
@@ -508,6 +508,36 @@ public class NavigationToolbar extends PlatformBase {
 			}
 			else{
 				String editPageRequest = "ajaxGet(eXo.env.server.createPortalURL('" + getPageId() + "', 'EditCurrentPage', true))";
+				((JavascriptExecutor)driver).executeScript(editPageRequest);
+				Utils.pause(1000);
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		Utils.pause(1000);
+	}
+	/**
+	 * Go to Edit/Site/Layout
+	 */
+	public void goToEditSiteLayout(){
+		info("Go to Edit layout form");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_MENU_EDIT_LINK);
+				break;
+			}
+			mouseOver(ELEMENT_MENU_EDIT_LINK, true);
+			if (waitForAndGetElement( ELEMENT_MENU_EDIT_SITES, 5000, 0)!= null) {
+				info("-- Click Site menu --");
+				mouseOver( ELEMENT_MENU_EDIT_SITES,true);
+				if (waitForAndGetElement(ELEMENT_MENU_EDIT_SITE_LAYOUT, 5000, 0)!= null){
+					click(ELEMENT_MENU_EDIT_SITE_LAYOUT);
+					break;
+				}
+			}
+			else{
+				String editPageRequest = "ajaxGet(eXo.env.server.createPortalURL('UIWorkingWorkspace', 'EditInline', true))";
+				info("editPageRequest:"+editPageRequest);
 				((JavascriptExecutor)driver).executeScript(editPageRequest);
 				Utils.pause(1000);
 				break;

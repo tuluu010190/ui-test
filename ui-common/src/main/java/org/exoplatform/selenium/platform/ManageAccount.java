@@ -73,7 +73,7 @@ public class ManageAccount extends PlatformBase {
 	}
 
 	//Sign-out for eXoGTN
-	public void signOut(){
+	public void signOutExoGTN(){
 		info("Sign out");
 		for(int repeat=0;; repeat ++){
 			if (repeat > 1){
@@ -89,6 +89,32 @@ public class ManageAccount extends PlatformBase {
 		}
 		click(ELEMENT_SIGN_OUT_LINK);
 		waitForAndGetElement(ELEMENT_INPUT_USERNAME);
+		if ( ExpectedConditions.alertIsPresent() != null ){
+			magAlert = new ManageAlert(driver);
+			magAlert.acceptAlert();
+		}
+	}
+	
+	/**
+	 * Sign out from intranet
+	 */
+	public void signOut(){
+		
+		info("Sign out");
+		for(int repeat=0;; repeat ++){
+			if (repeat > 1){
+				mouseOverAndClick(ELEMENT_ACCOUNT_NAME_LINK);
+				break;
+			}
+			click(ELEMENT_ACCOUNT_NAME_LINK);
+			if (waitForAndGetElement(ELEMENT_SIGN_OUT_LINK, 5000, 0) != null){
+				info("Element " + ELEMENT_SIGN_OUT_LINK + "... is displayed");
+				break;
+			}
+			info("Retry...[" + repeat + "]");
+		}
+		click(ELEMENT_SIGN_OUT_LINK);
+		Utils.pause(3000);
 		if ( ExpectedConditions.alertIsPresent() != null ){
 			magAlert = new ManageAlert(driver);
 			magAlert.acceptAlert();
